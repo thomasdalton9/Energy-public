@@ -36,22 +36,26 @@ except ImportError:
     sys.exit(1)
 
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ebb_platform_recon_output")
-FOLLOW_LIMIT = 8
+FOLLOW_LIMIT = 10
 
+# Second pass, from the first pass's findings: Enbridge's OA page is
+# understood (-> ENBRIDGE_OA_SCAN.py); Energy Transfer's /ipost/TGC/...
+# paths were "asset-not-found" but its error page listed the real entry
+# links (../main/index?asset=CODE - TGC Trunkline, GR Gulf Run feeding
+# Golden Pass, LCLNG Lake Charles LNG); gasnom's page is a frameset
+# (header/frameindex/body .cfm); Williams' OA page is an iframe onto an
+# Angular app route.
 PLATFORMS = {
-    "enbridge_te": [
-        "https://rtba.enbridge.com/InformationalPosting/Default.aspx?bu=TE&Type=OA",
-        "https://infopost.enbridge.com/infopost/TEHome.asp?Pipe=TE",
-    ],
-    "energytransfer_tgc": [
-        "https://tgcmessenger.energytransfer.com/ipost/TGC/capacity/operationally-available",
-        "https://tgcmessenger.energytransfer.com/ipost/TGC/customer-activities/information",
+    "energytransfer": [
+        "https://tgcmessenger.energytransfer.com/ipost/main/index?asset=TGC",
+        "https://tgcmessenger.energytransfer.com/ipost/main/index?asset=GR",
     ],
     "gasnom_cameron": [
-        "https://www.gasnom.com/ip/CAMERON/",
+        "https://www.gasnom.com/ip/CAMERON/frameindex.cfm",
+        "https://www.gasnom.com/ip/CAMERON/body.cfm",
     ],
     "williams_transco": [
-        "https://www.1line.williams.com/Transco/site-map.html",
+        "https://www.1line.williams.com/#/oac-reports/transco",
     ],
 }
 
@@ -91,7 +95,7 @@ def inspect(page, platform, url):
     log(f"\n--- {url}")
     try:
         page.goto(url, wait_until="networkidle", timeout=60000)
-        page.wait_for_timeout(3000)
+        page.wait_for_timeout(6000)  # SPA routes (Williams) render after networkidle
     except Exception as e:
         log(f"  LOAD FAILED: {type(e).__name__}: {str(e)[:200]}")
         return []

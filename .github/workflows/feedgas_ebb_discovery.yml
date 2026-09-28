@@ -17,6 +17,7 @@ on:
         options:
           - KM_OPAVAIL_SCAN.py
           - EBB_PLATFORM_RECON.py
+          - ENBRIDGE_OA_SCAN.py
           - KM_GCX_RETRIEVE_DISCOVERY.py
           - KM_CAPACITY_DISCOVERY.py
           - FEEDGAS_PIPES_DISCOVERY.py
