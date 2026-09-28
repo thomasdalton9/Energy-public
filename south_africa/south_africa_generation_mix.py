@@ -111,21 +111,37 @@ def fetch_current_window(session):
     return pd.DataFrame.from_records(rows).set_index("datetime").sort_index()
 
 
+# Eskom's CSV includes rows for hours that haven't been reported yet
+# (blank values), which the parser turns into all-zero hours. A day made
+# mostly of those averaged down to near-zero and got saved as if it were
+# real - so only hours with any generation count, and only days with a
+# near-complete set of hours are kept.
+MIN_HOURS_PER_DAY = 22
+
+
 def to_daily_mean(hourly_df):
     if hourly_df.empty:
         return pd.DataFrame()
-    daily = hourly_df.groupby(hourly_df.index.date)[CATEGORIES].mean()
+    reported = hourly_df[hourly_df[CATEGORIES].sum(axis=1) > 0]
+    grouped = reported.groupby(reported.index.date)[CATEGORIES]
+    counts = grouped.size()
+    daily = grouped.mean()[counts >= MIN_HOURS_PER_DAY]
     daily.index.name = "date"
     return daily
 
 
 def load_archive(path):
+    # Reads the date from the first column whatever its header says - an
+    # earlier version saved it without a header ("Unnamed: 0"), and
+    # looking it up by name then failed, so the whole archive was
+    # silently treated as empty and overwritten.
     try:
-        df = pd.read_excel(path, sheet_name="Data", index_col="date")
-        df.index = pd.to_datetime(df.index).date
-        return df
-    except (FileNotFoundError, ValueError):
+        df = pd.read_excel(path, sheet_name="Data", index_col=0)
+    except FileNotFoundError:
         return pd.DataFrame()
+    df.index = pd.to_datetime(df.index).date
+    df.index.name = "date"
+    return df[df[CATEGORIES].sum(axis=1) > 0]
 
 
 def upsert(existing, new):
@@ -135,7 +151,15 @@ def upsert(existing, new):
         return existing
     combined = pd.concat([existing, new])
     combined = combined[~combined.index.duplicated(keep="last")]
+    combined.index.name = "date"
     return combined.sort_index()
+
+
+# Eskom's CSV normally refreshes daily. If the newest complete day it
+# returns is older than this, the source has gone stale (moved URL, stopped
+# publishing) - fail the run so GitHub flags it, rather than quietly
+# re-saving the same week forever.
+STALE_AFTER_DAYS = 4
 
 
 NOTES_LINES = [
@@ -183,6 +207,16 @@ def main():
     xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
     print(f"Archive now has {len(combined)} days ({len(new_or_updated)} new since last run). Saved to {args.out}")
     print(combined.tail())
+
+    latest = max(new_daily.index) if not new_daily.empty else None
+    age = (date.today() - latest).days if latest else None
+    if latest is None or age > STALE_AFTER_DAYS:
+        print(
+            f"STALE SOURCE: newest complete day from Eskom is {latest} "
+            f"({age} days old) - {get_url()} may have stopped updating or moved.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
 
 if __name__ == "__main__":
