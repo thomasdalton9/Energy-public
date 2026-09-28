@@ -183,6 +183,83 @@ def bhe(context):
     ])
 
 
+def capture_page(context, tag, url, clicks=()):
+    """Load a (JS app) page, optionally click through, dump tables and
+    every JSON/XHR response - the data endpoints behind the page."""
+    page = context.new_page()
+    calls = []
+
+    def on_response(resp):
+        if resp.request.resource_type in ("xhr", "fetch") or "json" in resp.headers.get("content-type", ""):
+            try:
+                body = resp.text()[:500]
+            except Exception:
+                body = "?"
+            calls.append((resp.status, resp.request.method, resp.url, body, resp.request.post_data))
+
+    page.on("response", on_response)
+    log(f"\n--- {tag}: {url}")
+    try:
+        page.goto(url, wait_until="networkidle", timeout=90000)
+        page.wait_for_timeout(5000)
+        for sel in clicks:
+            page.locator(sel).first.click(timeout=15000)
+            page.wait_for_load_state("networkidle", timeout=60000)
+            page.wait_for_timeout(3000)
+        dump_page(page, tag)
+    except Exception as e:
+        log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+    log(f"  {len(calls)} XHR/JSON responses:")
+    for status, method, u, body, post in calls[:30]:
+        log(f"    {status} {method} {u}")
+        if post:
+            log(f"      POST {post[:300]!r}")
+        log(f"      {body[:300]!r}")
+    with open(os.path.join(OUTPUT_DIR, f"{tag}_calls.json"), "w") as f:
+        json.dump(calls, f, indent=1)
+    page.close()
+
+
+def tc_params(context):
+    """ReportViewer HTML for the OA reports - its parameter area shows the
+    parameter names needed to ask for a specific gas day/cycle (the CSV
+    export defaults to the NEXT gas day's Timely cycle). Also Columbia
+    Gulf's location file, to confirm who is behind Wilkinson Bayou and
+    'Cameron LNG'."""
+    log("\n==================== TC Energy report parameters ====================")
+    page = context.new_page()
+    page.goto(TC_BASE + "TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid=3005", wait_until="networkidle", timeout=60000)
+    for tag, report, asset in (("ANR", "OperationallyAvailableCapacityANR", "pAssetNbr=3005"),
+                               ("CGT", "OperationallyAvailableCapacity", "pAssetNbr=14")):
+        url = f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&{asset}"
+        log(f"\n--- {tag} viewer: {url}")
+        try:
+            page.goto(url, wait_until="networkidle", timeout=120000)
+            page.wait_for_timeout(3000)
+            h = page.content()
+            with open(os.path.join(OUTPUT_DIR, f"tc_{tag}_viewer.html"), "w", encoding="utf-8") as f:
+                f.write(h)
+            names = sorted(set(re.findall(r'(?:name|id)="([^"]*(?:Param|param|ctl\d+_ctl\d+_ctl\d+_txtValue|ddValue)[^"]*)"', h)))
+            log(f"  param-ish ids: {names[:40]}")
+            labels = page.evaluate("""() => [...document.querySelectorAll('td.ParamLabelCell, label, span')]
+                .map(e => e.innerText.trim()).filter(t => t && t.length < 40).slice(0, 60)""")
+            log(f"  labels: {labels}")
+            for c in page.evaluate(CONTROLS_JS):
+                log(f"  CONTROL {c}")
+        except Exception as e:
+            log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+    url = f"{TC_BASE}ReportViewer.aspx?/InfoPost/LocationDataDownload&assetNbr=14&rs:Format=CSV&rc:NoHeader=true"
+    r = context.request.get(url, timeout=120000)
+    text = r.text()
+    with open(os.path.join(OUTPUT_DIR, "tc_CGT_locations.csv"), "w", encoding="utf-8") as f:
+        f.write(text)
+    log(f"\n--- CGT locations: HTTP {r.status}, {len(text):,} chars")
+    for line in text.splitlines():
+        if re.search(r"^[^,]*,[^,]*,[^,]*,[^,]*,(4267|4246|801)\b|WILKINSON|CAMERON LNG|GATOR|PLAQUEM|VENTURE", line, re.I):
+            log(f"    {line[:400]}")
+    page.close()
+
+
 def main():
     wanted = sys.argv[1:] or ["cheniere", "tc", "bhe"]
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -195,6 +272,21 @@ def main():
             tc_csv(context)
         if "bhe" in wanted:
             bhe(context)
+        if "tc2" in wanted:
+            tc_params(context)
+        if "covepoint" in wanted:
+            capture_page(context, "covepoint_oac", "https://infopost.bhegts.com/cpl/postings/capacity-operationally-available")
+        if "big" in wanted:
+            # bu=BIG&Type=OA returned Enbridge's generic error page; try
+            # the other URL shapes, and the LINK home page's own route.
+            for i, url in enumerate([
+                "https://rtba.enbridge.com/InformationalPosting/Default.aspx?bu=BIG",
+                "https://rtba.enbridge.com/InformationalPosting/Default.aspx?bu=BIG&Type=OAC",
+                "https://infopost.enbridge.com/infopost/BIGHome.asp?Pipe=BIG",
+            ]):
+                capture_page(context, f"big_{i}", url)
+        if "gulfsouth" in wanted:
+            capture_page(context, "gulfsouth_home", "https://infopost.bwpipelines.com/")
         browser.close()
     log(f"\nDONE. Outputs in {OUTPUT_DIR}/")
 
