@@ -108,6 +108,26 @@ POINTS = [
     ("Cove Point", "bhe", "cpl", "10001", "Cove Point pipeline -> Cove Point plant"),
 ]
 
+# Approximate first-feedgas month per plant (commissioning, a little
+# before first cargo) - blanks before these are "not operating yet", not
+# missing data. Used to keep pre-start days out of the progress log's
+# "missing" list, out of the calibration (plus RAMP_MONTHS of start-up
+# after), and to stop an unmetered plant's EIA placeholder being applied
+# before it existed. Edit if you have better dates.
+PLANT_START = {
+    "Sabine Pass": date(2016, 1, 1),
+    "Cove Point": date(2018, 2, 1),
+    "Corpus Christi": date(2018, 11, 1),
+    "Cameron": date(2019, 5, 1),
+    "Freeport": date(2019, 8, 1),
+    "Elba Island": date(2019, 10, 1),
+    "Calcasieu Pass": date(2022, 1, 1),
+    "Plaquemines": date(2024, 12, 1),
+    "Golden Pass": date(2026, 1, 1),
+}
+RAMP_MONTHS = 3
+
+
 # Everything --dump pulls: all delivery points on these pipelines, to
 # find more terminal meters for POINTS.
 DUMP_PIPELINES = [
@@ -538,13 +558,20 @@ def estimated(plants_daily, check, eia=None):
             if plant not in daily.columns or daily[plant].isna().all():
                 latest = eia[plant].dropna()
                 if not latest.empty:
-                    daily[f"{plant} (EIA {latest.index[-1]}, unmetered)"] = latest.iloc[-1]
+                    start = PLANT_START.get(plant, date.min)
+                    after_start = pd.Series([d >= start for d in daily.index], index=daily.index)
+                    daily[f"{plant} (EIA {latest.index[-1]}, unmetered)"] = latest.iloc[-1] * after_start.where(after_start)
                     daily = daily.drop(columns=[plant], errors="ignore")
     share = {}
     if not check.empty:
         s = check["seen_share"].dropna()
         for (month, plant), v in s.sort_index().items():
-            if 0.05 < v < 2:  # ignore nonsense ratios (plant starting up, outages)
+            start = PLANT_START.get(plant)
+            if start is not None:
+                settled = (pd.Period(start, "M") + RAMP_MONTHS).strftime("%Y-%m")
+                if month < settled:  # before start-up, or still ramping up
+                    continue
+            if 0.05 < v < 2:  # ignore nonsense ratios (outages, turnarounds)
                 share[plant] = v
     est = pd.DataFrame({p: (daily[p] / share[p]) if p in share else daily[p] for p in daily.columns}, index=daily.index)
     est["Estimated total"] = est.sum(axis=1, min_count=1)
@@ -577,6 +604,8 @@ def notes_lines():
         "COVERAGE BY PLANT",
     ]
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
+    lines += ["", "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"]
+    lines += [f"{plant}: {start:%b %Y}" for plant, start in PLANT_START.items()]
     lines += ["", "CALIBRATION",
               f"'EIA exports (Bcfd)': EIA monthly LNG exports by terminal (point of exit), converted to Bcf/d and grossed up by "
               f"{FEEDGAS_PER_EXPORT:.2f} for liquefaction fuel and shrinkage (an assumed ~{(FEEDGAS_PER_EXPORT - 1) * 100:.0f}%) - "
@@ -648,14 +677,15 @@ def progress_line(path, i, n, day, row, started):
     be followed day by day: meters found, metered total, which pipes
     were missing, time elapsed and an estimate of time left."""
     values = row.iloc[0]
-    got = int(values.notna().sum())
-    missing = sorted({f"{p[0]} ({p[2]})" for p in POINTS if pd.isna(values.get(point_column(p)))})
+    live = [p for p in POINTS if day >= PLANT_START.get(p[0], date.min)]
+    got = int(sum(pd.notna(values.get(point_column(p))) for p in live))
+    missing = sorted({f"{p[0]} ({p[2]})" for p in live if pd.isna(values.get(point_column(p)))})
     total = values.sum(skipna=True) / DTH_PER_BCF
     elapsed = datetime.now() - started
     left = elapsed / i * (n - i)
     fmt = lambda td: f"{int(td.total_seconds() // 3600)}:{int(td.total_seconds() % 3600 // 60):02d}"
-    mark = "✓" if got == len(POINTS) else ("~" if got else "✗")
-    line = (f"[{i:>4}/{n}] {day}  {mark} {got}/{len(POINTS)} meters  metered {total:5.2f} Bcf/d"
+    mark = "✓" if got == len(live) else ("~" if got else "✗")
+    line = (f"[{i:>4}/{n}] {day}  {mark} {got}/{len(live)} meters  metered {total:5.2f} Bcf/d"
             + (f"  missing: {', '.join(missing)}" if missing else "")
             + f"  |  elapsed {fmt(elapsed)}  ~{fmt(left)} left")
     print(line, flush=True)
@@ -715,7 +745,8 @@ def save(out, new):
     if not eia.empty:
         sheets["EIA exports (Bcfd)"] = eia
     xlsx_notes.write_workbook(args.out, sheets, notes_lines(),
-                              {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE"})
+                              {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
+                               "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
     for name in ("Bcfd by plant", "Estimated (calibrated)", "Points (Dth)"):
