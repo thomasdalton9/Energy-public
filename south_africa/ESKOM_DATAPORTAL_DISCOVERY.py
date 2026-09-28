@@ -161,21 +161,28 @@ def crawl(session, seeds):
 def describe_csv(session, url):
     r = get(session, url, params={"t": int(datetime.now(timezone.utc).timestamp())})
     if r is None:
-        return
+        return None
     log(f"\n=== {url}")
     log(f"    HTTP {r.status_code}, {len(r.content):,} bytes, Last-Modified: {r.headers.get('Last-Modified')}")
     if r.status_code != 200:
-        return
-    rows = list(csv.reader(io.StringIO(r.text)))
+        return None
+    rows = [row for row in csv.reader(io.StringIO(r.text)) if row]
     if not rows:
         log("    (empty)")
-        return
+        return None
     log(f"    {len(rows) - 1} data row(s)")
     log(f"    HEADER: {rows[0]}")
     for row in rows[1:3]:
         log(f"    FIRST:  {row}")
     if len(rows) > 3:
         log(f"    LAST:   {rows[-1]}")
+    return {
+        "rows": len(rows) - 1,
+        "header": rows[0],
+        "first": rows[1][0] if len(rows) > 1 else None,
+        "last": rows[-1][0] if len(rows) > 1 else None,
+        "modified": r.headers.get("Last-Modified"),
+    }
 
 
 def main():
@@ -198,25 +205,45 @@ def main():
         all_csvs[url] = f"media API: {title}"
     for url, page in crawled.items():
         all_csvs.setdefault(url, f"referenced on {page}")
+    for url, page in crawled.items():
+        log(f"  crawl found: {url}  [on {page}]")
 
-    # Several files are re-uploaded monthly under /uploads/YYYY/MM/ - keep
-    # only the newest copy of each filename for the detailed look.
-    newest = {}
+    # WordPress keeps every re-upload: the same dataset appears as
+    # uploads/YYYY/MM/Name.csv, Name-1.csv ... Name-50.csv across many
+    # months (the first full run printed hundreds of copies of the wind
+    # load factor file alone). Group by base name with the "-N" suffix
+    # stripped, and keep the copy in the latest YYYY/MM folder, preferring
+    # the unsuffixed name there (the live file, as with Station_Build_Up).
+    groups = {}
     for url in all_csvs:
-        name = url.rsplit("/", 1)[-1].lower()
-        if name not in newest or url > newest[name]:
-            newest[name] = url
+        m = re.search(r"/uploads/(\d{4})/(\d{2})/([^/]+?)(?:-(\d+))?\.csv$", url, re.I)
+        if not m:
+            continue
+        year, month, base, suffix = m.groups()
+        key = (year, month, suffix is None, -int(suffix or 0))
+        entry = groups.setdefault(base.lower(), {"count": 0, "best": None, "best_key": None, "base": base})
+        entry["count"] += 1
+        if entry["best_key"] is None or key > entry["best_key"]:
+            entry["best"], entry["best_key"] = url, key
 
-    log(f"\nALL CSV URLS FOUND ({len(all_csvs)}; {len(newest)} distinct filename(s)):")
-    for url in sorted(all_csvs):
-        log(f"  {url}   [{all_csvs[url]}]")
+    log(f"\nSTEP 4 - {len(all_csvs)} CSV URL(s) found, {len(groups)} distinct dataset(s); newest copy of each:")
+    summaries = []
+    for name in sorted(groups):
+        g = groups[name]
+        summaries.append((g, describe_csv(session, g["best"])))
 
-    log("\nSTEP 4 - header/sample of the newest copy of each distinct file")
-    for name in sorted(newest):
-        describe_csv(session, newest[name])
+    log("\n" + "=" * 70)
+    log(f"SUMMARY - {len(groups)} distinct Eskom data portal dataset(s)")
+    log("=" * 70)
+    for g, info in summaries:
+        log(f"\n{g['base']}  ({g['count']} copies)")
+        log(f"  {g['best']}")
+        if info:
+            log(f"  {info['rows']} rows, {info['first']} -> {info['last']}, Last-Modified {info['modified']}")
+            log(f"  columns: {info['header']}")
 
     log(f"\nSaved: {OUTPUT_PATH}")
-    if not newest:
+    if not groups:
         sys.exit(1)
 
 
