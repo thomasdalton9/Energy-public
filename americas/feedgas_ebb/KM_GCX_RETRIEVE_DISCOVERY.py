@@ -17,7 +17,8 @@ Download on that empty grid went to KM's generic error page.
 So this pass tries every combination of:
   - gas day: yesterday, the day before, today (Central time)
   - location type: Delivery points, Receipt points
-and records the row count / grid text / a screenshot for each. Then, for
+  - cycle: BEST AVAILABLE, TIMELY
+reloading the page for each, and records the row count / grid text / a screenshot for each. Then, for
 the first combination that returned rows, it re-runs that query and
 tries the "Download Data" button (EXCEL is the default format in its
 dropdown) - an actual file export would be far easier to parse than
@@ -54,9 +55,14 @@ RETRIEVE_BTN = PREFIX + "HeaderBTN1_btnRetrieve"
 DOWNLOAD_BTN = PREFIX + "HeaderBTN1_btnDownload"
 GRID_CONTAINER = PREFIX + "DGOpAvail"
 LOCATION_RADIOS = {"delivery": PREFIX + "rbDelivery", "receipt": PREFIX + "rbReceipt"}
-# The "Eff Gas Day" Infragistics date editor has no stable id - it's the
-# only input with this class on the page (seen in the first run's HTML).
-GAS_DAY_INPUT = "input.igte_NautilusEditInContainer"
+# "Eff Gas Day" is an Infragistics WebDatePicker. Typing into its masked
+# input garbled the date on the second run ("7/20/2026", "2/2/2006",
+# blank -> "An invalid date was entered"), so the date is set through
+# the control's own client API ($find(id).set_value) instead.
+GAS_DAY_PICKER_ID = "WebSplitter1_tmpl1_ContentPlaceHolder1_dtePickerBegin"
+GAS_DAY_INPUT = f"#{GAS_DAY_PICKER_ID} input.igte_NautilusEditInContainer"
+CYCLE_DROPDOWN = PREFIX + "ddlCycleDD"
+CYCLES = ["BEST AVAILABLE", "TIMELY"]  # the only two items in its list
 
 
 def gas_days():
@@ -68,16 +74,31 @@ def fmt(day):
     return f"{day.month}/{day.day}/{day.year}"  # the page's own M/D/YYYY format
 
 
-def run_query(page, day, location):
-    """Set the gas day and location type, click Retrieve, return grid text."""
+SET_DATE_JS = """([id, y, m, d]) => {
+    const picker = $find(id);
+    if (!picker) return null;
+    picker.set_value(new Date(y, m - 1, d));
+    return String(picker.get_value());
+}"""
+
+
+def run_query(page, day, location, cycle):
+    """Fresh page load, then set location type, cycle and gas day, click
+    Retrieve, and return the grid text. Reloading each time keeps one
+    bad query from leaving the form broken for the next."""
+    page.goto(URL, wait_until="networkidle", timeout=30000)
+
     page.click(LOCATION_RADIOS[location])
     page.wait_for_load_state("networkidle", timeout=30000)  # the radio may post back
 
-    box = page.locator(GAS_DAY_INPUT).first
-    box.click()
-    page.keyboard.press("Control+A")
-    page.keyboard.type(fmt(day))
-    page.keyboard.press("Tab")
+    if cycle != CYCLES[0]:  # BEST AVAILABLE is already selected on load
+        page.click(CYCLE_DROPDOWN)
+        page.locator("li.igdd_NautilusListItem", has_text=cycle).first.click()
+        page.wait_for_load_state("networkidle", timeout=30000)
+
+    set_to = page.evaluate(SET_DATE_JS, [GAS_DAY_PICKER_ID, day.year, day.month, day.day])
+    if set_to is None:
+        raise RuntimeError("$find() couldn't locate the gas day picker")
     page.wait_for_timeout(500)
 
     page.click(RETRIEVE_BTN, timeout=10000)
@@ -100,40 +121,38 @@ def main():
         context = browser.new_context(ignore_https_errors=True, accept_downloads=True, viewport={"width": 1400, "height": 1000})
         page = context.new_page()
 
-        print(f"Navigating to {URL} ...", flush=True)
-        page.goto(URL, wait_until="networkidle", timeout=30000)
-
         for day in gas_days():
             for location in LOCATION_RADIOS:
-                tag = f"{day.isoformat()}_{location}"
-                print(f"\n--- gas day {fmt(day)}, {location} points ---", flush=True)
-                try:
-                    text = run_query(page, day, location)
-                except Exception as e:
-                    print(f"  FAILED: {type(e).__name__}: {e}", flush=True)
-                    page.screenshot(path=os.path.join(OUTPUT_DIR, f"{tag}_FAILED.png"), full_page=True)
-                    results.append((day, location, None))
-                    continue
-                shown_day = page.locator(GAS_DAY_INPUT).first.input_value()
-                n = row_count(text)
-                print(f"  gas day box now shows {shown_day!r}; row count: {n}", flush=True)
-                print(f"  first 600 chars of grid text:\n{text[:600]}", flush=True)
-                page.screenshot(path=os.path.join(OUTPUT_DIR, f"{tag}.png"), full_page=True)
-                with open(os.path.join(OUTPUT_DIR, f"{tag}_grid.txt"), "w", encoding="utf-8") as f:
-                    f.write(text)
-                results.append((day, location, n))
+                for cycle in CYCLES:
+                    tag = f"{day.isoformat()}_{location}_{cycle.replace(' ', '_').lower()}"
+                    print(f"\n--- gas day {fmt(day)}, {location} points, {cycle} ---", flush=True)
+                    try:
+                        text = run_query(page, day, location, cycle)
+                        shown_day = page.locator(GAS_DAY_INPUT).first.input_value()
+                    except Exception as e:
+                        print(f"  FAILED: {type(e).__name__}: {e}", flush=True)
+                        page.screenshot(path=os.path.join(OUTPUT_DIR, f"{tag}_FAILED.png"), full_page=True)
+                        results.append((day, location, cycle, None))
+                        continue
+                    n = row_count(text)
+                    print(f"  gas day box shows {shown_day!r}; row count: {n}", flush=True)
+                    print(f"  first 600 chars of grid text:\n{text[:600]}", flush=True)
+                    page.screenshot(path=os.path.join(OUTPUT_DIR, f"{tag}.png"), full_page=True)
+                    with open(os.path.join(OUTPUT_DIR, f"{tag}_grid.txt"), "w", encoding="utf-8") as f:
+                        f.write(text)
+                    results.append((day, location, cycle, n))
 
         print("\n=== SUMMARY ===", flush=True)
-        for day, location, n in results:
-            print(f"  {fmt(day):>10}  {location:<8}  rows: {n}", flush=True)
+        for day, location, cycle, n in results:
+            print(f"  {fmt(day):>10}  {location:<8}  {cycle:<15}  rows: {n}", flush=True)
 
-        hit = next(((d, loc) for d, loc, n in results if n), None)
+        hit = next(((d, loc, c) for d, loc, c, n in results if n), None)
         if hit is None:
             print("\nNo combination returned rows - skipping the download attempt.", flush=True)
         else:
-            day, location = hit
-            print(f"\nRe-running {fmt(day)} {location} and trying Download (EXCEL)...", flush=True)
-            run_query(page, day, location)
+            day, location, cycle = hit
+            print(f"\nRe-running {fmt(day)} {location} {cycle} and trying Download (EXCEL)...", flush=True)
+            run_query(page, day, location, cycle)
             with open(os.path.join(OUTPUT_DIR, "grid_with_rows.html"), "w", encoding="utf-8") as f:
                 f.write(page.inner_html(GRID_CONTAINER))
             try:
