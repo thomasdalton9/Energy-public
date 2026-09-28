@@ -65,16 +65,35 @@ def print_hits(data):
 
 def run_query(page, tag, text):
     log(f"\n==================== {tag}: {text!r} ====================")
-    # 1. the search API directly
+    # 1. the search API directly, every page; keep FERC's own issuances
+    #    (staff letters) that grant hazardous-fluid / commissioning / service
+    wanted = re.compile(r"hazardous fluid|commission|fuel gas|feed gas|in-service|in service|commence service|"
+                        r"place into service|placed into service|start-?up", re.I)
+    kept, total = [], None
     try:
-        r = page.context.request.post(API, data=api_body(text), timeout=120000)
-        log(f"  API {r.status}: {r.text()[:300]!r}")
-        if r.ok:
+        for cur in range(12):
+            body = api_body(text)
+            body["curPage"] = cur
+            r = page.context.request.post(API, data=body, timeout=120000)
+            if not r.ok:
+                log(f"  API {r.status}: {r.text()[:300]!r}")
+                break
             data = r.json()
-            with open(os.path.join(OUTPUT_DIR, f"{tag}_api.json"), "w") as f:
-                json.dump(data, f, indent=1)
-            print_hits(data)
-            return
+            hits = data.get("searchHits") or []
+            total = data.get("totalHits")
+            for h in hits:
+                if h.get("category") == "Issuance" and wanted.search(h.get("description") or ""):
+                    kept.append(h)
+            if len(hits) < 100:
+                break
+        kept.sort(key=lambda h: h["filedDate"][6:] + h["filedDate"][:5])
+        log(f"  API: {total} results, {len(kept)} FERC issuances about hazardous fluids / commissioning / service:")
+        for h in kept:
+            log(f"    {h['filedDate']} {h.get('acesssionNumber')} {sorted({d[:9] for d in h.get('docketNumbers') or []})[:3]} "
+                f"{h['description'][:400]}")
+        with open(os.path.join(OUTPUT_DIR, f"{tag}_issuances.json"), "w") as f:
+            json.dump(kept, f, indent=1)
+        return
     except Exception as e:
         log(f"  API failed: {type(e).__name__}: {str(e)[:200]}")
     # 2. the search form, capturing the call it makes
