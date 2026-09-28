@@ -9,7 +9,16 @@ name: LNG feedgas daily
 on:
   schedule:
     - cron: "40 11 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      date_from:
+        description: "One-off backfill: first gas day, YYYY-MM-DD (blank = normal daily run)"
+        required: false
+        default: ""
+      date_to:
+        description: "Backfill: last gas day, YYYY-MM-DD (blank = yesterday)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -17,7 +26,8 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # a backfill of a few months takes hours; the daily run takes minutes
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -31,9 +41,19 @@ jobs:
           python3 -m playwright install --with-deps chromium
 
       - name: Pull LNG feedgas
-        run: python3 americas/feedgas_ebb/lng_feedgas_daily.py
+        env:
+          DATE_FROM: ${{ inputs.date_from }}
+          DATE_TO: ${{ inputs.date_to }}
+        run: |
+          if [ -n "$DATE_FROM" ]; then
+            python3 americas/feedgas_ebb/lng_feedgas_daily.py --from "$DATE_FROM" ${DATE_TO:+--to "$DATE_TO"}
+          else
+            python3 americas/feedgas_ebb/lng_feedgas_daily.py
+          fi
 
       - name: Commit updated workbook
+        # always: a backfill cut off by the timeout still keeps the days it saved
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

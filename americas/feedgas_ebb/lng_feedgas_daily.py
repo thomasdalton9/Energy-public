@@ -473,10 +473,11 @@ def dump(gas_day):
         print(df.sort_values("scheduled_dth", ascending=False).head(15).to_string())
 
 
-def pull(gas_day, tc_cache=None):
+def pull(gas_day, tc_cache=None, skip=()):
     """One row of point-level scheduled Dth for the gas day. Points on a
-    pipeline that failed to load are left blank, not zero."""
-    needed = sorted({(p[1], p[2]) for p in POINTS})
+    pipeline that failed to load (or is in skip) are left blank, not zero;
+    row.attrs["failed"] lists the pipelines that were tried and failed."""
+    needed = [x for x in sorted({(p[1], p[2]) for p in POINTS}) if x not in skip]
     results = fetch_all(needed, gas_day)
     row = {}
     for point in POINTS:
@@ -496,7 +497,9 @@ def pull(gas_day, tc_cache=None):
         if col in row and pd.isna(row[col]):
             row[col] = value
             print(f"  {col}: {value:,.0f} Dth from the cached TC Timely posting", flush=True)
-    return pd.DataFrame([row], index=pd.Index([gas_day], name="gas_day"))
+    df = pd.DataFrame([row], index=pd.Index([gas_day], name="gas_day"))
+    df.attrs["failed"] = set(needed) - set(results)
+    return df
 
 
 def load_tc_cache(path):
@@ -773,10 +776,15 @@ def main():
         return
 
     if args.date_from:
+        # Newest first: pipelines keep a limited history, so once one has
+        # failed GIVE_UP_AFTER days running it won't have older days either
+        # - stop asking (a missing day can cost minutes in timeouts).
         first, last = date.fromisoformat(args.date_from), date.fromisoformat(args.date_to) if args.date_to else yesterday
-        days = [first + timedelta(days=i) for i in range((last - first).days + 1)]
+        days = [last - timedelta(days=i) for i in range((last - first).days + 1)]
     else:
         days = [gas_day]
+    GIVE_UP_AFTER = 3
+    streak, dead = {}, set()
 
     # Backfills save every SAVE_EVERY days, so an interrupted run keeps
     # what it has (re-running skips nothing - it just overwrites).
@@ -787,7 +795,12 @@ def main():
     progress_log = os.path.splitext(args.out)[0] + "_progress.log"
     for i, day in enumerate(days, 1):
         print(f"Pulling LNG feedgas points for gas day {day} ({i}/{len(days)})...", flush=True)
-        row = pull(day, tc_cache)
+        row = pull(day, tc_cache, dead)
+        for pipe in {(p[1], p[2]) for p in POINTS} - dead:
+            streak[pipe] = streak.get(pipe, 0) + 1 if pipe in row.attrs.get("failed", ()) else 0
+            if len(days) > 1 and streak[pipe] >= GIVE_UP_AFTER:
+                dead.add(pipe)
+                print(f"  {pipe[0]} {pipe[1]}: failed {GIVE_UP_AFTER} days running - not asking it for days before {day}", flush=True)
         if row.notna().sum(axis=1).iloc[0] == 0:
             print(f"  No points retrieved for {day} - skipped.", file=sys.stderr)
         else:
