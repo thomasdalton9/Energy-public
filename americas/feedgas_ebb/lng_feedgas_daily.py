@@ -126,7 +126,7 @@ PLANT_START = {
     "Elba Island": date(2019, 10, 1),
     "Calcasieu Pass": date(2022, 1, 1),
     "Plaquemines": date(2024, 12, 1),
-    "Golden Pass": date(2026, 1, 1),
+    "Golden Pass": date(2025, 11, 1),
 }
 RAMP_MONTHS = 3
 
@@ -146,7 +146,7 @@ PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, first LNG
     ("Calcasieu Pass", "18 midscale trains (9 blocks)", 18, 10.0, date(2022, 1, 1)),
     ("Plaquemines", "Phase 1", 18, 13.3, date(2024, 12, 1)),
     ("Plaquemines", "Phase 2", 18, 6.7, date(2025, 3, 1)),
-    ("Golden Pass", "Trains 1-3", 3, 18.1, date(2026, 1, 1)),
+    ("Golden Pass", "Trains 1-3", 3, 18.1, date(2025, 11, 1)),
 ]
 BCF_PER_MT_LNG = 48.0  # 1 tonne of LNG ~ 48 Mcf of gas, so 1 mtpa ~ 0.13 Bcf/d
 
