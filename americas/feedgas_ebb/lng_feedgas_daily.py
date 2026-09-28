@@ -212,12 +212,45 @@ TRAIN_STARTS = [  # plant, phase, train/block, nameplate mtpa, start, FERC acces
     ("Plaquemines", "Phase 2", "Block 17", 0.7444, date(2025, 10, 21), "20251021-3029", "hazardous fluids"),
     ("Plaquemines", "Phase 2", "Block 18", 0.7444, date(2025, 8, 27), "20250827-3055", "hazardous fluids"),
     ("Golden Pass", "Trains 1-3", "Train 1", 6.0333, date(2025, 11, 1), "", "first LNG (no FERC train letter found)"),
-    ("Golden Pass", "Trains 1-3", "Train 2", 6.0333, None, "", "not yet dated - excluded from capacity"),
-    ("Golden Pass", "Trains 1-3", "Train 3", 6.0333, None, "", "not yet dated - excluded from capacity"),
 ]
 for _plant, _, _, _, _start, _, _ in TRAIN_STARTS:
     if _start:
         PLANT_START[_plant] = min(PLANT_START.get(_plant, _start), _start)
+
+# Expected start-ups over the next two years: trains under construction,
+# dated from each developer's latest public guidance (first LNG where
+# given, else a month inside the guided window - 'basis' says which).
+# These are forecasts, not FERC letters: when a train gets its feed-gas
+# letter, move it to TRAIN_STARTS with the real date. Existing plants'
+# new trains stack in their own band; new plants share one band.
+FUTURE_HORIZON = date(2028, 9, 30)
+FUTURE_AS_OF = "Sep-2026"
+FUTURE_TRAINS = [  # plant, phase, train/block, nameplate mtpa, expected first LNG, basis
+    ("Golden Pass", "Trains 1-3", "Train 2", 6.0333, date(2026, 11, 1),
+     "ExxonMobil: start-up fall 2026; FERC cleared Train 2 commissioning Jun-2026"),
+    ("Golden Pass", "Trains 1-3", "Train 3", 6.0333, date(2027, 7, 1),
+     "mechanical completion targeted 2Q 2027; EIA has it exporting in 2027"),
+    ("Rio Grande", "Phase 1 (Trains 1-3)", "Train 1", 5.8667, date(2027, 4, 1),
+     "NextDecade: first LNG 1H 2027 (commissioning from late 2026)"),
+    ("Rio Grande", "Phase 1 (Trains 1-3)", "Train 2", 5.8667, date(2027, 10, 1),
+     "EIA: Trains 1-2 exporting in 2027 - month estimated"),
+    ("Rio Grande", "Phase 1 (Trains 1-3)", "Train 3", 5.8667, date(2028, 7, 1),
+     "estimate: ~9 months after Train 2 (tracking ahead of guaranteed dates)"),
+    ("Port Arthur", "Phase 1 (Trains 1-2)", "Train 1", 6.5, date(2027, 6, 1),
+     "Sempra: Train 1 COD 2027; EIA: Phase 1 exporting in 2027 - month estimated"),
+    ("Port Arthur", "Phase 1 (Trains 1-2)", "Train 2", 6.5, date(2028, 1, 1),
+     "Sempra: Train 2 2028 - month estimated"),
+    *[("CP2", "Phase 1 (13 blocks)", f"Block {i + 1}", round(14.4 / 13, 4),
+       (pd.Timestamp(2027, 11, 1) + pd.DateOffset(months=i)).date(),
+       "Venture Global: first LNG late 2027 (Phase 1 nameplate 14.4 mtpa); "
+       "then a block a month, as Plaquemines ramped - estimate")
+      for i in range(13)],
+    ("Corpus Christi", "Midscale Trains 8-9", "Midscale Train 8", 1.5, date(2028, 6, 1),
+     "Cheniere: substantial completion 2H 2028 (>3 mtpa for both) - month estimated"),
+    ("Corpus Christi", "Midscale Trains 8-9", "Midscale Train 9", 1.5, date(2028, 9, 1),
+     "Cheniere: substantial completion 2H 2028 - month estimated"),
+]
+FUTURE_TRAINS = [t for t in FUTURE_TRAINS if t[4] <= FUTURE_HORIZON]
 BCF_PER_MT_LNG = 48.0  # 1 tonne of LNG ~ 48 Mcf of gas, so 1 mtpa ~ 0.13 Bcf/d
 
 
@@ -911,8 +944,10 @@ CAPACITY_GROUPS = [
     ("Sabine Pass", ["Sabine Pass"]), ("Cove Point + Elba", ["Cove Point", "Elba Island"]),
     ("Corpus Christi", ["Corpus Christi"]), ("Cameron", ["Cameron"]), ("Freeport", ["Freeport"]),
     ("Calcasieu Pass", ["Calcasieu Pass"]), ("Plaquemines", ["Plaquemines"]), ("Golden Pass", ["Golden Pass"]),
+    ("New plants (Rio Grande, Port Arthur, CP2)", ["Rio Grande", "Port Arthur", "CP2"]),
 ]
-CHART_COLORS = ["2A78D6", "EB6834", "1BAF7A", "EDA100", "E87BA4", "008300", "4A3AA7", "E34948"]
+# a ninth hue wouldn't stay distinguishable - new plants get a neutral grey
+CHART_COLORS = ["2A78D6", "EB6834", "1BAF7A", "EDA100", "E87BA4", "008300", "4A3AA7", "E34948", "9A9A94"]
 CHART_LINE_COLOR = "0B0B0B"
 FEEDGAS_LINE = "Total feedgas (best estimate)"
 
@@ -924,19 +959,32 @@ def train_table():
     return df.set_index("plant")[["phase", "train", "start_up", "nameplate_mtpa", "nameplate_bcfd_feedgas", "basis", "ferc_accession"]]
 
 
+def future_table():
+    df = pd.DataFrame(FUTURE_TRAINS, columns=["plant", "phase", "train", "nameplate_mtpa", "expected_first_lng", "basis"])
+    df["nameplate_bcfd_feedgas"] = (df["nameplate_mtpa"] * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT).round(3)
+    df["expected_first_lng"] = pd.to_datetime(df["expected_first_lng"])
+    df["cumulative_added_bcfd"] = df.sort_values("expected_first_lng")["nameplate_bcfd_feedgas"].cumsum().round(2)
+    df = df.sort_values("expected_first_lng")
+    return df.set_index("plant")[["phase", "train", "expected_first_lng", "nameplate_mtpa", "nameplate_bcfd_feedgas",
+                                  "cumulative_added_bcfd", "basis"]]
+
+
 def chart_data(best):
     """Daily nameplate capacity (feedgas Bcf/d) per group, stepping up as
-    each phase's first LNG arrives, plus the best-estimate total."""
-    days = pd.Series(pd.to_datetime(list(best.index)), index=best.index)
+    each train starts - FERC-dated trains, then expected ones out to
+    FUTURE_HORIZON - plus the best-estimate total (blank in the future)."""
+    index = [d.date() for d in pd.date_range(min(best.index), max(max(best.index), FUTURE_HORIZON))]
+    days = pd.Series(pd.to_datetime(index), index=index)
+    trains = [(t[0], t[3], t[4]) for t in TRAIN_STARTS] + [(t[0], t[3], t[4]) for t in FUTURE_TRAINS]
     out = {}
     for group, plants in CAPACITY_GROUPS:
-        cap = pd.Series(0.0, index=best.index)
-        for plant, _, _, mtpa, start, _, _ in TRAIN_STARTS:
+        cap = pd.Series(0.0, index=index)
+        for plant, mtpa, start in trains:
             if plant in plants and start:
                 cap += (days >= pd.Timestamp(start)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
         out[f"{group} capacity"] = cap.round(3)
-    df = pd.DataFrame(out)
-    df[FEEDGAS_LINE] = best["Total"]
+    df = pd.DataFrame(out, index=index)
+    df[FEEDGAS_LINE] = best["Total"].reindex(index)
     df.index.name = "gas_day"
     return df
 
@@ -970,6 +1018,7 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     area.x_axis.number_format = "mmm-yy"
     area.x_axis.majorTimeUnit = "months"
     area.x_axis.majorUnit = 6
+    area.display_blanks = "gap"  # no feedgas line in the future
     area.x_axis.title = None
     area.legend.position = "b"
     area.width, area.height = 32, 16
@@ -978,7 +1027,9 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     cs["A34"] = ("Stacked areas: operator nameplate liquefaction capacity by plant, as feedgas Bcf/d, stepping up train by train "
                  "on each train's FERC feed-gas date ('Train start-ups' tab). "
                  "Line: 'Best estimate daily' total - EIA monthly spread ratably before the daily pull, metered after. "
-                 "Plants routinely run above nameplate, so the line can sit above the stack.")
+                 "Plants routinely run above nameplate, so the line can sit above the stack. "
+                 f"Beyond the line's end the stack is EXPECTED capacity to {FUTURE_HORIZON:%b-%Y}: trains under construction, "
+                 f"on developer guidance as of {FUTURE_AS_OF} ('Future capacity' tab) - forecasts, not FERC dates.")
 
 
 def load_points(path):
@@ -1030,6 +1081,10 @@ def notes_lines():
               "'Plant capacity': operator-published nameplate liquefaction capacity by phase (mtpa of LNG) and first-LNG month. "
               f"Bcf/d = mtpa x {BCF_PER_MT_LNG:.0f} Bcf per million tonnes / 365 ('lng_out'); 'feedgas' grosses that up by "
               f"{FEEDGAS_PER_EXPORT:.2f} like the EIA calibration. Plants often run above nameplate, so metered feedgas above it is normal.",
+              f"'Future capacity': trains under construction expected to start by {FUTURE_HORIZON:%b-%Y}, dated from developer "
+              f"guidance as of {FUTURE_AS_OF} ('basis' says whether the month is guided or estimated). The chart's stack "
+              "continues past today with these - they are forecasts and slip; each moves to 'Train start-ups' once FERC "
+              "letters it.",
               "", "TC ENERGY METERS (ANR, COLUMBIA GULF)",
               "TC eConnects only serves its latest posting - by each morning run, the next gas day's Timely cycle. "
               f"Each run caches it ('{TC_CACHE_SHEET}') and the next run uses it for that day, so TC's meters "
@@ -1197,7 +1252,7 @@ def save(out, new):
     best = best_estimate_daily(est, eia, points)
     sheets = {"Best estimate daily": best} if not best.empty else {}
     sheets.update({"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(),
-                   "Train start-ups": train_table(), "Points (Dth)": points})
+                   "Train start-ups": train_table(), "Future capacity": future_table(), "Points (Dth)": points})
     if not best.empty:
         sheets["Chart data"] = chart_data(best)
     cache = load_tc_cache(out)
@@ -1234,6 +1289,11 @@ def save(out, new):
     for row in ws.iter_rows(min_row=2):
         row[3].number_format = "dd-mmm-yyyy"
     for col, width in zip("ABCDEFGH", (16, 14, 20, 13, 15, 22, 44, 16)):
+        ws.column_dimensions[col].width = width
+    ws = wb["Future capacity"]
+    for row in ws.iter_rows(min_row=2):
+        row[3].number_format = "mmm-yyyy"
+    for col, width in zip("ABCDEFGH", (16, 22, 18, 18, 15, 22, 21, 90)):
         ws.column_dimensions[col].width = width
     ws = wb["Plant capacity"]
     for row in ws.iter_rows(min_row=2):
