@@ -1,0 +1,21 @@
+
+
+View Segment(s) Capacity	Loc	Loc Name	Loc Zn	Loc (Segment)	Design Capacity	Operating Capacity	Total Scheduled Quantity	Operationally Available Capacity	IT	Flow Ind	All Qty Avail	Qty Reason
+
+
+												
+
+
+View	606380	EEC/SNG WRENS SNG TO EEC JEFFERSON	01	200	606,100	606,100	0	606,100	N	R	Y	
+
+
+View	938000	SLNG/EEC CHATHAM	01	275	1,021,000	1,021,000	0	1,021,000	N	BD	Y	
+
+
+View	938510	TRNSCO/EEC Z4 HART	01	200	1,199,675	1,199,675	171,822	1,027,853	N	BD	Y	
+
+
+View	938610	TRNSCO/EEC Z5 ANDERSON	01	200	1,199,675	1,199,675	746,929	452,746	Y	BD	Y	
+
+
+ 	Row Count: 4	 	 	 	 	 	 	 	 	 	 	 
