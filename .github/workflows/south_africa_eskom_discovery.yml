@@ -4,7 +4,12 @@ name: South Africa Eskom data portal discovery
 # one's columns, to design a second archive tab from. Output is in the
 # run log and uploaded as an artifact - nothing is committed.
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      dump:
+        description: "Optional: one dataset name (e.g. Station_Build_Up) to print in full instead of the full discovery"
+        required: false
+        default: ""
 
 jobs:
   discover:
@@ -21,7 +26,9 @@ jobs:
         run: pip install requests
 
       - name: Run discovery
-        run: python3 south_africa/ESKOM_DATAPORTAL_DISCOVERY.py
+        env:
+          DUMP: ${{ inputs.dump }}
+        run: python3 south_africa/ESKOM_DATAPORTAL_DISCOVERY.py $DUMP
 
       - name: Upload output
         if: always()

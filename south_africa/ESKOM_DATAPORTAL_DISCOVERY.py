@@ -185,10 +185,27 @@ def describe_csv(session, url):
     }
 
 
+def dump(session, name):
+    """Print one dataset's current file in full (e.g. to see how a column
+    is actually filled in before building an archive tab from it)."""
+    today = datetime.now(timezone.utc)
+    url = f"{BASE}wp-content/uploads/{today:%Y}/{today:%m}/{name}.csv"
+    r = get(session, url, params={"t": int(today.timestamp())})
+    if r is None or r.status_code != 200:
+        log(f"{url}: HTTP {r.status_code if r is not None else 'n/a'}")
+        sys.exit(1)
+    log(f"=== {url}")
+    log(r.text)
+
+
 def main():
     open(OUTPUT_PATH, "w").close()
     session = requests.Session()
     session.headers.update(HEADERS)
+
+    if len(sys.argv) > 1:
+        dump(session, sys.argv[1])
+        return
 
     log("STEP 1 - WordPress media API")
     media = media_api(session)
