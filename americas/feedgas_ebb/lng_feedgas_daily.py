@@ -786,7 +786,7 @@ HISTORY_START = date(2020, 1, 1)
 NO_DATA = "no data yet (EIA runs 2-3 months behind)"
 
 
-def best_estimate_daily(est, eia):
+def best_estimate_daily(est, eia, points=None):
     """One daily series per plant from HISTORY_START: the metered and
     calibrated estimate where the daily pull has it, otherwise the plant's
     EIA monthly feedgas spread ratably across every day of that month (the
@@ -802,6 +802,16 @@ def best_estimate_daily(est, eia):
     flat = pd.DataFrame({pl: (eia[pl].reindex(months).values if pl in eia.columns else float("nan")) for pl in plants},
                         index=days.date)
     metered = est.reindex(columns=plants).reindex(flat.index)
+    if points is not None:
+        # A plant day missing some of its meters (e.g. Kinder Morgan only
+        # keeps ~90 days, TC has no history) understates the plant: where
+        # EIA has the month, use EIA's ratable figure for that plant instead.
+        pts = points.reindex(flat.index)
+        for pl in plants:
+            cols = [point_column(p) for p in POINTS if p[0] == pl and point_column(p) in pts.columns]
+            if cols:
+                partial = pts[cols].isna().any(axis=1) & metered[pl].notna() & flat[pl].notna()
+                metered.loc[partial, pl] = float("nan")
     out = metered.combine_first(flat)
     used_met, used_eia = metered.notna().any(axis=1), (metered.isna() & flat.notna()).any(axis=1)
     source = pd.Series(NO_DATA, index=out.index)
@@ -932,8 +942,8 @@ def notes_lines():
               f"'Best estimate daily': one row per gas day from {HISTORY_START:%d %b %Y}. Where the daily pipeline pull has the day, "
               "the metered/calibrated estimate ('Estimated (calibrated)'); before that - pipelines only keep about two years of "
               "daily postings - each plant's EIA monthly feedgas spread ratably across the month, so history has no day-to-day "
-              "shape. 'Source' says which was used. The last 2-3 months before the daily pull began have no data until EIA "
-              "publishes them.",
+              "shape. 'Source' says which was used. A plant missing some of its meters on a day (Kinder Morgan keeps only "
+              "~90 days of postings; TC has none) uses EIA's ratable figure for that month where EIA has it ('mixed').",
               "", "PLANT CAPACITY",
               "'Plant capacity': operator-published nameplate liquefaction capacity by phase (mtpa of LNG) and first-LNG month. "
               f"Bcf/d = mtpa x {BCF_PER_MT_LNG:.0f} Bcf per million tonnes / 365 ('lng_out'); 'feedgas' grosses that up by "
@@ -1101,7 +1111,7 @@ def save(out, new):
     if share:
         print(f"  seen shares used: {share}")
 
-    best = best_estimate_daily(est, eia)
+    best = best_estimate_daily(est, eia, points)
     sheets = {"Best estimate daily": best} if not best.empty else {}
     sheets.update({"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(),
                    "Train start-ups": train_table(), "Points (Dth)": points})
