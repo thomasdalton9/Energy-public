@@ -139,6 +139,105 @@ def to_daily_mean(hourly_df):
     return daily
 
 
+# Second and third tabs: system-level context from other files on the
+# same Eskom data portal (found by ESKOM_DATAPORTAL_DISCOVERY.py). Eskom
+# publishes nothing per power station, so these are whole-system.
+#   System     - daily mean of hourly demand and unplanned outages (MW)
+#   Weekly EAF - Eskom fleet availability breakdown (% of capacity)
+# Same rolling-window upsert as the Data tab. A failure here is only a
+# warning: it must never stop the generation mix archive updating.
+SYSTEM_SOURCES = {
+    # file name: (datetime column, {source column: our column})
+    "System_hourly_actual_and_forecasted_demand": (
+        "DateTimeKey",
+        {"Residual Demand": "residual_demand_mw", "RSA Contracted Demand": "rsa_contracted_demand_mw"},
+    ),
+    "Hourly_UCLF_and_OCLF_Trend": ("DateTimeKey", {"Hourly UCLF+OCLF": "unplanned_outages_mw"}),
+}
+SYSTEM_COLUMNS = ["residual_demand_mw", "rsa_contracted_demand_mw", "unplanned_outages_mw"]
+
+WEEKLY_EAF_SOURCE = "Weekly_Eskom_generation_capacity_breakdown"
+WEEKLY_EAF_COLUMNS = {
+    "Weekly EAF": "eaf_pct",
+    "Weekly PCLF": "planned_outages_pct",
+    "Weekly UCLF": "unplanned_outages_pct",
+    "Weekly OCLF": "other_outages_pct",
+}
+
+
+def portal_url(name):
+    today = datetime.now(timezone.utc)
+    return f"https://www.eskom.co.za/dataportal/wp-content/uploads/{today:%Y}/{today:%m}/{name}.csv"
+
+
+def fetch_portal_csv(session, name):
+    response = session.get(portal_url(name), params={"t": int(datetime.now(timezone.utc).timestamp())}, timeout=30)
+    response.raise_for_status()
+    return pd.read_csv(io.StringIO(response.text))
+
+
+def fetch_system_daily(session):
+    """Daily mean of each hourly system series. Each column is kept only
+    for days with MIN_HOURS_PER_DAY actual (non-blank) hours - the demand
+    file runs into the future with blank actuals and forecast values."""
+    columns = []
+    for name, (time_col, mapping) in SYSTEM_SOURCES.items():
+        raw = fetch_portal_csv(session, name)
+        hourly = raw[list(mapping)].apply(pd.to_numeric, errors="coerce").rename(columns=mapping)
+        hourly.index = pd.to_datetime(raw[time_col])
+        for col in hourly.columns:
+            series = hourly[col].dropna()
+            grouped = series.groupby(series.index.date)
+            daily = grouped.mean()[grouped.size() >= MIN_HOURS_PER_DAY]
+            columns.append(daily.rename(col))
+    if not columns:
+        return pd.DataFrame()
+    df = pd.concat(columns, axis=1).reindex(columns=SYSTEM_COLUMNS)
+    df.index.name = "date"
+    return df.dropna(how="all").sort_index()
+
+
+def fetch_weekly_eaf(session):
+    raw = fetch_portal_csv(session, WEEKLY_EAF_SOURCE)
+    df = raw[list(WEEKLY_EAF_COLUMNS)].apply(pd.to_numeric, errors="coerce").rename(columns=WEEKLY_EAF_COLUMNS)
+    df.index = pd.to_datetime(raw["Week Start Date"]).dt.date
+    df.index.name = "week_start"
+    return df.dropna(how="all").sort_index()
+
+
+def load_sheet(path, sheet):
+    try:
+        df = pd.read_excel(path, sheet_name=sheet, index_col=0)
+    except (FileNotFoundError, ValueError):  # ValueError: sheet not in workbook yet
+        return pd.DataFrame()
+    df.index = pd.to_datetime(df.index).date
+    return df
+
+
+def upsert_columns(existing, new, index_name):
+    """Like upsert, but cell by cell: a fresh value replaces an old one,
+    while a column the fresh window has no complete day for keeps the
+    archived value instead of being blanked."""
+    if existing.empty:
+        combined = new
+    elif new.empty:
+        combined = existing
+    else:
+        combined = new.combine_first(existing)[list(new.columns)]
+    combined.index.name = index_name
+    return combined.sort_index()
+
+
+def update_context_sheet(path, sheet, fetch, session, index_name):
+    existing = load_sheet(path, sheet)
+    try:
+        fresh = fetch(session)
+    except Exception as exc:  # network, moved file, renamed column...
+        print(f"WARNING: {sheet} tab not refreshed ({type(exc).__name__}: {exc}) - keeping archived rows.", file=sys.stderr)
+        fresh = pd.DataFrame()
+    return upsert_columns(existing, fresh, index_name)
+
+
 def load_archive(path):
     # Reads the date from the first column whatever its header says - an
     # earlier version saved it without a header ("Unnamed: 0"), and
@@ -186,22 +285,44 @@ NOTES_LINES = [
     "building up history from whenever you first started running it. Run it at least weekly "
     "so no day is skipped.",
     "",
+    "SYSTEM TAB (daily mean of hourly values, MW)",
+    "residual_demand_mw: demand met by Eskom-dispatched plant, i.e. excluding renewable IPPs.",
+    "rsa_contracted_demand_mw: residual demand plus renewable IPP output - total contracted demand.",
+    "unplanned_outages_mw: Eskom capacity out on unplanned (UCLF) plus other (OCLF) outages - "
+    "a fleet health indicator. Eskom publishes nothing per power station, so this is whole-fleet.",
+    "",
+    "WEEKLY EAF TAB (% of Eskom installed capacity, by week starting)",
+    "eaf_pct: Energy Availability Factor - share of capacity available to generate.",
+    "planned_outages_pct (PCLF), unplanned_outages_pct (UCLF), other_outages_pct (OCLF): "
+    "the losses; the four add up to ~100%.",
+    "",
     "SOURCE",
-    "Eskom's public \"Station Build Up\" CSV.",
+    "Eskom data portal CSVs: Station_Build_Up (Data), System_hourly_actual_and_forecasted_demand "
+    "and Hourly_UCLF_and_OCLF_Trend (System), Weekly_Eskom_generation_capacity_breakdown (Weekly EAF).",
 ]
-NOTES_SECTION_TITLES = {"UNITS", "CATEGORIES", "COVERAGE", "SOURCE"}
+NOTES_SECTION_TITLES = {
+    "UNITS",
+    "CATEGORIES",
+    "COVERAGE",
+    "SYSTEM TAB (daily mean of hourly values, MW)",
+    "WEEKLY EAF TAB (% of Eskom installed capacity, by week starting)",
+    "SOURCE",
+}
 
 
-def format_date_column(path):
+def format_date_column(path, sheets=("Data",)):
     # pandas' default "YYYY-MM-DD" format in a narrow column was shown by
     # some viewers (e.g. phone previews) as "26/9" - year and month only -
     # making every September row look identical. A spelled-out month is
     # unambiguous in any viewer or locale.
     wb = openpyxl.load_workbook(path)
-    ws = wb["Data"]
-    for (cell,) in ws.iter_rows(min_row=2, max_col=1):
-        cell.number_format = "dd-mmm-yyyy"
-    ws.column_dimensions["A"].width = 14
+    for sheet in sheets:
+        if sheet not in wb.sheetnames:
+            continue
+        ws = wb[sheet]
+        for (cell,) in ws.iter_rows(min_row=2, max_col=1):
+            cell.number_format = "dd-mmm-yyyy"
+        ws.column_dimensions["A"].width = 14
     wb.save(path)
 
 
@@ -226,10 +347,22 @@ def main():
     combined = upsert(existing, new_daily)
     new_or_updated = sorted(set(combined.index) - before_days)
 
-    xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
-    format_date_column(args.out)
+    system = update_context_sheet(args.out, "System", fetch_system_daily, session, "date")
+    weekly_eaf = update_context_sheet(args.out, "Weekly EAF", fetch_weekly_eaf, session, "week_start")
+
+    sheets = {"Data": combined}
+    if not system.empty:
+        sheets["System"] = system
+    if not weekly_eaf.empty:
+        sheets["Weekly EAF"] = weekly_eaf
+    xlsx_notes.write_workbook(args.out, sheets, NOTES_LINES, NOTES_SECTION_TITLES)
+    format_date_column(args.out, sheets)
     print(f"Archive now has {len(combined)} days ({len(new_or_updated)} new since last run). Saved to {args.out}")
     print(combined.tail())
+    print(f"\nSystem tab: {len(system)} days")
+    print(system.tail())
+    print(f"\nWeekly EAF tab: {len(weekly_eaf)} weeks")
+    print(weekly_eaf.tail())
 
     latest = max(new_daily.index) if not new_daily.empty else None
     age = (date.today() - latest).days if latest else None
