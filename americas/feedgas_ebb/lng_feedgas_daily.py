@@ -104,6 +104,7 @@ POINTS = [
     ("Corpus Christi", "cheniere", "400", "CC200221", "Corpus Christi Pipeline -> Corpus Christi Liquefaction"),
     ("Freeport", "enbridge", "TE", "79999", "Texas Eastern -> Stratton Ridge"),
     ("Freeport", "enbridge", "TE", "73912", "Texas Eastern -> BIG Pipeline, Angleton"),
+    ("Freeport", "gulfsouth", "GS", "24329", "Gulf South -> Stratton Ridge (to Freeport LNG)"),
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
     # Golden Pass Pipeline's delivery meter into the terminal (gasnom, like
     # Cameron Interstate) - Gulf Run's deliveries into GPP partly go elsewhere
@@ -268,7 +269,7 @@ COVERAGE_NOTES = {
     "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal plus Columbia Gulf's direct feed.",
     "Calcasieu Pass": "Mostly complete - ANR (Grand Chenier XPress) and Texas Eastern deliveries into TransCameron; Sabine Pipe Line's, if any, not yet seen.",
     "Corpus Christi": "Mostly complete - Cheniere Corpus Christi Pipeline's delivery into the plant, which includes intrastate Permian gas it receives; gas delivered straight to the plant by the intrastate ADCC pipeline is not seen.",
-    "Freeport": "Partial - Texas Eastern's deliveries at Stratton Ridge and into BIG Pipeline only; Texas intrastate supply is invisible, so use the calibrated estimate. Stratton Ridge also serves Dow's Freeport complex.",
+    "Freeport": "Mostly metered - all three interstate feeds (Gulf South's Stratton Ridge delivery to Freeport LNG, Texas Eastern at Stratton Ridge and into BIG Pipeline); Texas intrastate supply is invisible, so use the calibrated estimate. Texas Eastern's Stratton Ridge meter also serves Dow's Freeport complex.",
     "Elba Island": "Elba Liquefaction meter on Elba Express.",
     "Golden Pass": "Golden Pass Pipeline's delivery meter into the terminal; gas brought straight to the plant by Kinder Morgan's intrastate Trident line, if any, is not seen.",
     "Cove Point": "Complete - Cove Point pipeline's delivery meter into the plant.",
@@ -538,6 +539,43 @@ def fetch_quorum(page, pipe, gas_day):
     return points_frame(df["LocId"], df["LocNm"], df["TotalSchdQty"])
 
 
+GULFSOUTH_LIST = "https://reporting.prod.bwpmlp.org/infopost/infopostdetails"
+GULFSOUTH_DOC = "https://reporting.prod.bwpmlp.org/infopost/postings?postingsDocumentId={doc}"
+_GULFSOUTH_POSTINGS = []  # Operational Capacity postings, newest first, paged in as needed
+
+
+def fetch_gulfsouth(page, pipe, gas_day):
+    """Boardwalk GasQuest (Gulf South): the Operational Capacity posting
+    list is a JSON call; each posting links a CSV. Take the gas day's
+    Intraday 3 (final) posting, else its latest."""
+    req = page.context.request
+    wanted = f"{gas_day:%m/%d/%Y}"
+
+    def day_postings():
+        return [p for p in _GULFSOUTH_POSTINGS if p.get("description", "").startswith(wanted)]
+    while not day_postings():
+        oldest = _GULFSOUTH_POSTINGS[-1]["description"][:10] if _GULFSOUTH_POSTINGS else None
+        if oldest and datetime.strptime(oldest, "%m/%d/%Y").date() < gas_day:
+            break
+        r = req.post(GULFSOUTH_LIST, timeout=60000, data={
+            "infoPostID": 1, "tspId": 1, "pageNumber": len(_GULFSOUTH_POSTINGS) // 100 + 1, "pageSize": 100,
+            "sortBy": "datetimePostingEffective", "groupCode": "INFOPOST", "sortDescending": True})
+        got = (r.json() or {}).get("postings") or []
+        if not got:
+            break
+        _GULFSOUTH_POSTINGS.extend(got)
+    posts = day_postings()
+    if not posts:
+        raise RuntimeError(f"no Gulf South posting for {gas_day}")
+    post = next((p for p in posts if "Intraday 3" in p["description"]), posts[0])
+    doc = next(f["infoPostTrackerID"] for f in post["reportFiles"] if f["fileName"].lower().endswith(".csv"))
+    text = req.get(GULFSOUTH_DOC.format(doc=doc), timeout=120000).text().lstrip("\ufeff")
+    df = pd.read_csv(io.StringIO(text), dtype=str)
+    df = df[df["Loc Purp Desc"].astype(str).str.startswith("Delivery")]
+    print(f"  Gulf South: {len(df)} delivery points, {post['description']}", flush=True)
+    return points_frame(df["Loc"], df["Loc Name"], df["Total Scheduled Quantity"])
+
+
 def fetch_bhe(page, pipe, gas_day):
     """BHE GT&S OA postings: the listing page links a CSV per cycle; take
     the latest-posted one for the gas day (listing is newest first)."""
@@ -569,7 +607,8 @@ def point_column(point):
 
 
 FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et, "cheniere": fetch_cheniere,
-            "tc": fetch_tc, "bhe": fetch_bhe, "transco": fetch_transco, "quorum": fetch_quorum}
+            "tc": fetch_tc, "bhe": fetch_bhe, "transco": fetch_transco, "quorum": fetch_quorum,
+            "gulfsouth": fetch_gulfsouth}
 
 
 def fetch_all(pipelines, gas_day):
@@ -996,7 +1035,8 @@ def notes_lines():
               "", "POINTS", "Each 'Points (Dth)' column is 'Plant | meter (pipeline code, location id)'.", "",
               "SOURCE", "Kinder Morgan (pipeline2.kindermorgan.com) and Enbridge LINK (rtba.enbridge.com) "
               "Operationally Available Capacity postings, Total Scheduled Quantity column; gasnom.com (Cameron Interstate), "
-              "Energy Transfer Messenger+, Cheniere LNG Connection, TC eConnects and BHE GT&S equivalents - all operator-hosted."]
+              "Energy Transfer Messenger+, Cheniere LNG Connection, TC eConnects, BHE GT&S, Williams 1Line (Transco), "
+              "Venture Global's pipelines (Quorum) and Boardwalk GasQuest (Gulf South) equivalents - all operator-hosted."]
     return lines
 
 
