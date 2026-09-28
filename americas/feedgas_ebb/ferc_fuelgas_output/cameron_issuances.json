@@ -1,0 +1,3062 @@
+[
+ {
+  "reference": "{A6CE6BA6-2A59-CBBF-A131-6B6D02600000}-{01D07333-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "A6CE6BA6-2A59-CBBF-A131-6B6D02600000",
+  "description": "Order on Petition for Declaratory Order re Shell U.S. Gas & Power, LLC under RP14-52. Commissioner Bay is concurring in part and dissenting in part with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20140904-3046",
+  "issuedDate": "09/04/2014",
+  "filedDate": "09/04/2014",
+  "postedDate": "09/04/2014",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.0,
+  "docketNumbers": [
+   "RP14-52-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D07333-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "RP14-52-000.DOC",
+    "fileDesc": "",
+    "fileSize": 229376,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "BAY",
+    "firstInitial": "N",
+    "middleInitial": "C"
+   }
+  ]
+ },
+ {
+  "reference": "{EF6F9F3E-6BE6-C804-A913-7366B6400000}-{01FAE9F8-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "EF6F9F3E-6BE6-C804-A913-7366B6400000",
+  "description": "Letter granting Cameron LNG, LLC's 9/25/18 filing of the request re the variance request for Alternative Fuel Gas Source for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20181031-3055",
+  "issuedDate": "10/31/2018",
+  "filedDate": "10/31/2018",
+  "postedDate": "10/31/2018",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.58,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FAE9F8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2018-10-31 Cameron (CP13-25) Approval for GT.PDF",
+    "fileDesc": "",
+    "fileSize": 107630,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{108AFC70-F611-C455-BD79-7366D4000000}-{01FAFD8B-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "108AFC70-F611-C455-BD79-7366D4000000",
+  "description": "Letter order granting Cameron LNG LLC's 10/30/2018 request to introduce hazardous fluids and commission the PR Gas Turbine for the Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20181105-3030",
+  "issuedDate": "11/05/2018",
+  "filedDate": "11/05/2018",
+  "postedDate": "11/05/2018",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FAFD8B-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) Approval .PDF",
+    "fileDesc": "",
+    "fileSize": 107314,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{958311AD-AFB4-CA20-AD2F-7367FF000000}-{01FC15DF-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "958311AD-AFB4-CA20-AD2F-7367FF000000",
+  "description": "Letter order granting Cameron LNG, LLC's 12/3/18 filing of the request to Introduce Hazardous Fluids and Commission BOG Compressors for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20181219-3009",
+  "issuedDate": "12/19/2018",
+  "filedDate": "12/19/2018",
+  "postedDate": "12/19/2018",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FC15DF-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2018-12-19 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 107386,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DC2F0BA6-8C79-C66C-8D7E-73680A700000}-{01FC292E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DC2F0BA6-8C79-C66C-8D7E-73680A700000",
+  "description": "Letter order granting Cameron LNG, LLC's 12/18/18 filing of the request to Introduce Hazardous Fluids to Commission the MR Gas Turbine for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20181220-3009",
+  "issuedDate": "12/20/2018",
+  "filedDate": "12/20/2018",
+  "postedDate": "12/20/2018",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FC292E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2018-12-20 Cameron (CP13-25) Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 107358,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D68D5A2E-E8F3-C77B-B429-7364B1800000}-{01FC7C9F-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D68D5A2E-E8F3-C77B-B429-7364B1800000",
+  "description": "Letter order granting Cameron LNG, LLC's 12/20/2018 request to introduce hazardous fluids and commission the flare pilot system for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190103-3005",
+  "issuedDate": "01/03/2019",
+  "filedDate": "01/03/2019",
+  "postedDate": "01/03/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FC7C9F-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 150401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BD54E881-1776-C4B0-84C3-7364DD500000}-{01FCA4CF-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BD54E881-1776-C4B0-84C3-7364DD500000",
+  "description": "Letter order granting Cameron LNG, LLC's 01/07/2019 request to heat and circulate Therminol 59 and commission Train 1 ISBL Hot Oil System for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190110-3065",
+  "issuedDate": "01/10/2019",
+  "filedDate": "01/10/2019",
+  "postedDate": "01/10/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.61,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FCA4CF-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) Approval Letter.PDF",
+    "fileDesc": "",
+    "fileSize": 107393,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E3E70F54-DBC0-C2AA-943F-73657B800000}-{01FD5AE9-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E3E70F54-DBC0-C2AA-943F-73657B800000",
+  "description": "Letter order granting Cameron LNG, LLC's 01/25/2019 request to introduce feed gas to commission the OSBL Flare Header System for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190204-3049",
+  "issuedDate": "02/04/2019",
+  "filedDate": "02/04/2019",
+  "postedDate": "02/04/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.65,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FD5AE9-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP13-25-.PDF",
+    "fileDesc": "",
+    "fileSize": 99833,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.54,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.54,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{87ED1890-9C66-C97C-9E3C-7366B7B00000}-{01FEA556-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "87ED1890-9C66-C97C-9E3C-7366B7B00000",
+  "description": "Letter order granting Cameron LNG, LLC's 3/25/19 request to introduce hazardous fluids and commission the Train 1 ISBL Wet Flare System, and the Train 1 Feed Gas to Fuel\tGas System for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190327-3005",
+  "issuedDate": "03/27/2019",
+  "filedDate": "03/27/2019",
+  "postedDate": "03/27/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FEA556-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-03-27 Cameron (CP13-25) Approval to Intro.PDF",
+    "fileDesc": "",
+    "fileSize": 214979,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{581668B4-6EEA-CA1B-9839-7366C8D00000}-{01FEB714-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "581668B4-6EEA-CA1B-9839-7366C8D00000",
+  "description": "Letter order granting Cameron LNG, LLC's 3/25/19 filing of the request to introduce hazardous fluids and commission the OSBL Propane System for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190328-3093",
+  "issuedDate": "03/28/2019",
+  "filedDate": "03/28/2019",
+  "postedDate": "03/28/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FEB714-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-03-28 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 213798,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS ",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{049F2127-CD82-CD29-B6F9-7366FD300000}-{01FED80D-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "049F2127-CD82-CD29-B6F9-7366FD300000",
+  "description": "Letter order granting Cameron LNG, LLC's 3/29/19 request to introduce hazardous fluids and commission the Train 1 ISBL Propane System et al for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190403-3012",
+  "issuedDate": "04/03/2019",
+  "filedDate": "04/03/2019",
+  "postedDate": "04/03/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FED80D-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) Approval  4-3.PDF",
+    "fileDesc": "",
+    "fileSize": 213563,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{C8BB60C7-2554-C70C-9330-7366FCD00001}-{01FED7BE-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "C8BB60C7-2554-C70C-9330-7366FCD00001",
+  "description": "Letter order granting Cameron LNG, LLC's 03/28/2019 request to introduce hazardous fluids and commission the Train 1 ISBL Dry Flare system and Train 1 ISBL Low-Pressure Dry Flare Systems re the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190403-3007",
+  "issuedDate": "04/03/2019",
+  "filedDate": "04/03/2019",
+  "postedDate": "04/03/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "N",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FED7BE-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) Approval 4-3.PDF",
+    "fileDesc": "",
+    "fileSize": 214828,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BBE3A5EF-D156-CFF3-851F-7366FCC00000}-{01FED7B3-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BBE3A5EF-D156-CFF3-851F-7366FCC00000",
+  "description": "Letter order granting Cameron LNG LLC's 3/28/2019 request to introduce hazardous fluids and Commission the Train 1 ISBL Dry and Low - Pressure Dry Flare Systems for the Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190403-3005",
+  "issuedDate": "04/03/2019",
+  "filedDate": "04/03/2019",
+  "postedDate": "04/03/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FED7B3-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-03 Cameron (CP13-25).PDF",
+    "fileDesc": "",
+    "fileSize": 214828,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{F6B1F864-DF58-CD0C-B53D-736702500000}-{01FEDF6C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F6B1F864-DF58-CD0C-B53D-736702500000",
+  "description": "Letter order granting Cameron LNG, LLC's 4/1/19 filing of a request to introduce hazardous fluids and commission the Thermal Oxidizer System for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190404-3004",
+  "issuedDate": "04/04/2019",
+  "filedDate": "04/04/2019",
+  "postedDate": "04/04/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FEDF6C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-04 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 214759,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS ",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{49494463-3055-C18C-812A-736710D00001}-{01FEED05-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "49494463-3055-C18C-812A-736710D00001",
+  "description": "Letter order granting Cameron LNG, LLC's 3/29/19 filing of a request to introduce hazardous fluids and commission the Train 1 Feed Gas to Warm End System for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190405-3083",
+  "issuedDate": "04/05/2019",
+  "filedDate": "04/05/2019",
+  "postedDate": "04/05/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FEED05-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-05 Cameron (CP13-25) Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 226061,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS ",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{43329390-88E9-C662-9B76-73671F100000}-{01FF0873-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "43329390-88E9-C662-9B76-73671F100000",
+  "description": "Letter order granting Cameron LNG, LLC's 4/4/19 request to introduce hazardous fluids and commission the OSBL LPG System for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190409-3037",
+  "issuedDate": "04/09/2019",
+  "filedDate": "04/09/2019",
+  "postedDate": "04/09/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF0873-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-09 Cameron (CP13-25) Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 214773,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS ",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{EF877F1B-9F3B-C949-AD5E-736738300000}-{01FF3585-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "EF877F1B-9F3B-C949-AD5E-736738300000",
+  "description": "Letter order granting Cameron LNG, LLC's 4/10/19 filing of a request to Introduce Hazardous Fluids and Commission the Cold End of Train 1 and OSBL/ISBL LNG Rundown/Cooldown Systems for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190412-3059",
+  "issuedDate": "04/12/2019",
+  "filedDate": "04/12/2019",
+  "postedDate": "04/12/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF3585-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) Approval (1).PDF",
+    "fileDesc": "",
+    "fileSize": 229542,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS ",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{80B08CA7-D11A-C57E-84F5-73674E800001}-{01FF583F-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "80B08CA7-D11A-C57E-84F5-73674E800001",
+  "description": "Letter order granting Cameron LNG, LLC's 04/15/2019 filing of a request to Introduce Hazardous Fluids and Commission the Train 1 OSBL/ISBL Propane and LPG Systems for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190416-3043",
+  "issuedDate": "04/16/2019",
+  "filedDate": "04/16/2019",
+  "postedDate": "04/16/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF583F-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-16 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 215394,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{90F37486-98EB-CF0C-96DD-73674E500000}-{01FF57B8-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "90F37486-98EB-CF0C-96DD-73674E500000",
+  "description": "Letter order granting Cameron LNG, LLC's 04/10/19 request to introduce hazardous fluids and commission the Train 1 NGL and OSBL C5+ Systems for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190416-3042",
+  "issuedDate": "04/16/2019",
+  "filedDate": "04/16/2019",
+  "postedDate": "04/16/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF57B8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-16 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 215413,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E89940B6-F3F7-CBE4-9D92-736765C00000}-{01FF7627-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E89940B6-F3F7-CBE4-9D92-736765C00000",
+  "description": "Order Granting Authorization etc. re Driftwood LNG LLC et al under CP17-117 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3085",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.56,
+  "docketNumbers": [
+   "CP17-117-000",
+   "CP17-118-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7627-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-117-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 167269,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E89940B6-F3F7-CBE4-9D92-736765C00000}-{01FF7627-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E89940B6-F3F7-CBE4-9D92-736765C00000",
+  "description": "Order Granting Authorization etc. re Driftwood LNG LLC et al under CP17-117 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3085",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.56,
+  "docketNumbers": [
+   "CP17-117-000",
+   "CP17-118-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7627-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-117-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 167269,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.69,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{BBAEFC1D-37F7-C20E-81AA-73676F600001}-{01FF7F0C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BBAEFC1D-37F7-C20E-81AA-73676F600001",
+  "description": "Letter order granting Cameron LNG LLC's 4/19/2019 filing of a request to Introduce Hazardous Fluids and Commission OSBL Ethuylene System for the Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190419-3072",
+  "issuedDate": "04/19/2019",
+  "filedDate": "04/19/2019",
+  "postedDate": "04/19/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7F0C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25) .PDF",
+    "fileDesc": "",
+    "fileSize": 214733,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3C5F5398-F87B-C056-BCCE-73677B700000}-{01FF898A-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "3C5F5398-F87B-C056-BCCE-73677B700000",
+  "description": "Letter order granting Cameron LNG, LLC's 04/15/2019 filing of a request to introduce hazardous fluids and commission the MR System for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190423-3011",
+  "issuedDate": "04/23/2019",
+  "filedDate": "04/23/2019",
+  "postedDate": "04/23/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF898A-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP13-25  Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 213875,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{663CCDAC-F5AC-C62C-8C8F-73679DC00000}-{01FFABE2-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "663CCDAC-F5AC-C62C-8C8F-73679DC00000",
+  "description": "Letter order granting Cameron LNG, LLC's 4/26/19 filing of a requested approval to introduce hazardous fluids and commission the remainder of the OSBL Ethylene System for Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190426-3029",
+  "issuedDate": "04/26/2019",
+  "filedDate": "04/26/2019",
+  "postedDate": "04/26/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FFABE2-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-04-26 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 225866,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{DE4EE9A6-4A07-C137-8302-736AE6D00001}-{0203FCCA-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DE4EE9A6-4A07-C137-8302-736AE6D00001",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Venture Global Plaquemines LNG, LLC et al under CP17-66 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190930-3048",
+  "issuedDate": "09/30/2019",
+  "filedDate": "09/30/2019",
+  "postedDate": "09/30/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 72.86,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-67-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203FCCA-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-66-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 166545,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{1C2AE973-1666-C0EF-BB28-73690B600000}-{02044265-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "1C2AE973-1666-C0EF-BB28-73690B600000",
+  "description": "Letter order granting Cameron LNG, LLC's 10/09/2019 et al variance request related to the commissioning procedures for the Train 2 MR and PR gas turbine solo runs etc. for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191018-3005",
+  "issuedDate": "10/18/2019",
+  "filedDate": "10/18/2019",
+  "postedDate": "10/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.85,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02044265-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Approval to Circulate and PR Gas Turbine Commission.PDF",
+    "fileDesc": "",
+    "fileSize": 214690,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "MORRIS",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E4587676-3237-CDDE-8E86-7369A1300000}-{0204D990-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E4587676-3237-CDDE-8E86-7369A1300000",
+  "description": "Letter order granting Cameron LNG, LLC 11/08/2019 request to introduce hazardous fluids and commission the MR Gas Turbine for the Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191114-3056",
+  "issuedDate": "11/14/2019",
+  "filedDate": "11/14/2019",
+  "postedDate": "11/14/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0204D990-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-11-14 Cameron (CP13-25) Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 244250,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY ",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6DB53CEC-9BD1-C316-9C16-7369B8D00000}-{0204EE10-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6DB53CEC-9BD1-C316-9C16-7369B8D00000",
+  "description": "Letter order granting Cameron LNG, LLC's 11/13/2019 et al. requests to introduce hazardous fluids and commission the Train2 ISBL: Wet and Low-Pressure Wet Flare and Fuel Gas System; Propane System; and Dry and Low-Pressure Dry Flare System under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191119-3045",
+  "issuedDate": "11/19/2019",
+  "filedDate": "11/19/2019",
+  "postedDate": "11/19/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0204EE10-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-11-19 Cameron (CP13-25) Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 245513,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CB170628-2048-C8C9-A8CD-7369D0500000}-{0205090F-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "CB170628-2048-C8C9-A8CD-7369D0500000",
+  "description": "Order Granting Authorizations under Section 3 of the Natural Gas Act re Annova LNG Common Infrastructure, LLC et al under CP16-480. Commissioner Glick is dissenting with a separate statement attached. \"For errata see accession number 20191203-3093\". ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3047",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "parent",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.54,
+  "docketNumbers": [
+   "CP16-480-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090F-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-480-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 175694,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAIVS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F8603C0F-AD24-CF45-B053-7369D0400000}-{0205090E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F8603C0F-AD24-CF45-B053-7369D0400000",
+  "description": "Order Granting Authorizations under Sections 3 And 7 ff the Natural Gas Act re Rio Grande LNG, LLC et al under CP16-454 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3046",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.35,
+  "docketNumbers": [
+   "CP16-454-000",
+   "CP16-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-454-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 267618,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BEEA27E1-C4CF-CA8E-8395-7369D0500001}-{02050910-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BEEA27E1-C4CF-CA8E-8395-7369D0500001",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Texas LNG Brownsville LLC under CP16-116. Commissioner Glick is dissenting with a separate statement attached.   \t",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3048",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.47,
+  "docketNumbers": [
+   "CP16-116-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02050910-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-116-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 165197,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS ",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{91F98A8F-A147-C8C4-866C-7369E8100000}-{020523CC-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "91F98A8F-A147-C8C4-866C-7369E8100000",
+  "description": "Letter order granting Cameron LNG, LLC's 11/21/19 request to introduce hazardous fluids and commission the Train 2 Feed Gas to Warm End System re the Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191126-3050",
+  "issuedDate": "11/26/2019",
+  "filedDate": "11/26/2019",
+  "postedDate": "11/26/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020523CC-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-11-26 Cameron (CP13-25) Approval to.PDF",
+    "fileDesc": "",
+    "fileSize": 244849,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E6F7D093-0B88-CCB5-856A-736A22B00000}-{020544B3-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E6F7D093-0B88-CCB5-856A-736A22B00000",
+  "description": "Letter order granting Cameron LNG, LLC's 12/03/2019 request to introduce hazardous fluids and commission the Train 2 feed gas to cold end for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191206-3015",
+  "issuedDate": "12/06/2019",
+  "filedDate": "12/06/2019",
+  "postedDate": "12/06/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020544B3-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP13-25 Approval to Introduce Hazardous Fluids.PDF",
+    "fileDesc": "",
+    "fileSize": 244383,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6D6355E4-876A-C01C-B51E-736A1F700000}-{0205437D-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6D6355E4-876A-C01C-B51E-736A1F700000",
+  "description": "Letter order granting Cameron LNG, LLC's 11/27/2019 request to introduce hazardous fluids and commission the Train 2 LNG rundown line cooldown for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191206-3000",
+  "issuedDate": "12/06/2019",
+  "filedDate": "12/06/2019",
+  "postedDate": "12/06/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205437D-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-12-06 Cameron (CP13-25) Approval .PDF",
+    "fileDesc": "",
+    "fileSize": 245081,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4FBA3FDE-595C-C2A2-8D41-736A59900000}-{020579CE-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "4FBA3FDE-595C-C2A2-8D41-736A59900000",
+  "description": "Letter order granting Cameron LNG, LLC's 12/05/2019 request to introduce hazardous fluids and commission the Train 2 Hydraulic Turbine, ISBL Ethylene Make-up, and defrost gas systems for the Cameron Liquefaction Proj., CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191216-3044",
+  "issuedDate": "12/16/2019",
+  "filedDate": "12/16/2019",
+  "postedDate": "12/16/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020579CE-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-12-16  Cameron (CP13-25) Approval to.PDF",
+    "fileDesc": "",
+    "fileSize": 247920,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{807FAAC9-ED7C-CF64-8FB5-736043000000}-{0206A575-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "807FAAC9-ED7C-CF64-8FB5-736043000000",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Sabine Pass LNG, L.P. under CP19-11. Commissioner Glick is dissenting in part with a separate statement attached. Commissioner McNamee's corrected statement.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200221-3019",
+  "issuedDate": "02/21/2020",
+  "filedDate": "02/21/2020",
+  "postedDate": "02/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.87,
+  "docketNumbers": [
+   "CP19-11-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206A575-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP19-11-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 149505,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS, SR.",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{729D8EA8-BC85-CC87-BB59-7360A2200000}-{02070D10-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "729D8EA8-BC85-CC87-BB59-7360A2200000",
+  "description": "Letter order granting Cameron LNG, LLC's 02/19/2020 variance request to use vaporized LNG as fuel gas for Train 3 gas turbine solo runs etc. for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200311-3046",
+  "issuedDate": "03/11/2020",
+  "filedDate": "03/11/2020",
+  "postedDate": "03/11/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.69,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02070D10-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-03-11 Cameron (CP13-25) Approval to Variance.PDF",
+    "fileDesc": "",
+    "fileSize": 246872,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY, J",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{815553BA-9193-C8E2-AFCA-7360AB900001}-{02071C1C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "815553BA-9193-C8E2-AFCA-7360AB900001",
+  "description": "Letter order granting Cameron LNG, LLC's 03/12/2020 request to introduce hazardous fluids and commission the Train 3 PR GT Solo Run System for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200313-3021",
+  "issuedDate": "03/13/2020",
+  "filedDate": "03/13/2020",
+  "postedDate": "03/13/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02071C1C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-03-13 Cameron (CP13-25)  Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 244119,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY, J",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D3DF4BD9-4181-C042-B95E-7360C0B00000}-{02073470-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D3DF4BD9-4181-C042-B95E-7360C0B00000",
+  "description": "Order Granting Authorizations Under Sections 3 and 7 of the Natural Gas Act re Jordan Cove Energy Project L.P. et al under CP17-495 et al. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200319-3077",
+  "issuedDate": "03/19/2020",
+  "filedDate": "03/19/2020",
+  "postedDate": "03/19/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.12,
+  "docketNumbers": [
+   "CP17-494-000",
+   "CP17-495-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02073470-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-495-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 490205,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS, SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{6BB185FB-240B-C5B6-92EB-73610E200002}-{020780DA-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6BB185FB-240B-C5B6-92EB-73610E200002",
+  "description": "Letter order granting Cameron LNG, LLC's 04/03/2020 request to introduce hazardous fluids and commission the Train 3 MR Gas Turbine for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200407-3065",
+  "issuedDate": "04/07/2020",
+  "filedDate": "04/07/2020",
+  "postedDate": "04/07/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020780DA-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-04-07 Cameron (CP13-25)  Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 473781,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{90998E3A-2D8C-C353-8AA6-736116C00001}-{020787C8-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "90998E3A-2D8C-C353-8AA6-736116C00001",
+  "description": "Letter order granting Cameron LNG, LLC's 04/06/2020 request to introduce hazardous fluids and commission the Train 3 inside battery limit wet etc. for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200409-3058",
+  "issuedDate": "04/09/2020",
+  "filedDate": "04/09/2020",
+  "postedDate": "04/09/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020787C8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-04-09 Cameron (CP13-25)  Approval Letter.PDF",
+    "fileDesc": "",
+    "fileSize": 246504,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DB02A437-E885-C378-AF12-73612E800001}-{02079CA3-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DB02A437-E885-C378-AF12-73612E800001",
+  "description": "Letter order granting Cameron LNG, LLC's 04/13/2020 requests to introduce hazardous fluids and commission the Train 3 inside battery limit dry etc. for the Cameron Liquefaction Project under CP13-25.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200416-3072",
+  "issuedDate": "04/16/2020",
+  "filedDate": "04/16/2020",
+  "postedDate": "04/16/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02079CA3-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-04-16 Cameron (CP13-25)  Approval to Introduce.PDF",
+    "fileDesc": "",
+    "fileSize": 245831,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAU",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A3A01976-1D4F-C3C2-874C-736141B00002}-{0207AC07-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "A3A01976-1D4F-C3C2-874C-736141B00002",
+  "description": "Letter order granting Cameron LNG, LLC's 04/15/2020 request to introduce hazardous fluids and commission the Train 3 feed gas to warm end system for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200421-3085",
+  "issuedDate": "04/21/2020",
+  "filedDate": "04/21/2020",
+  "postedDate": "04/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.73,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0207AC07-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-04-21 Cameron (CP13-25)  Approval .PDF",
+    "fileDesc": "",
+    "fileSize": 245284,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BEF1D731-3B28-C68D-A5F8-73614A800001}-{0207C1EF-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BEF1D731-3B28-C68D-A5F8-73614A800001",
+  "description": "Letter order granting Cameron LNG, LLC's 04/21/2020 request to introduce hazardous fluids to cooldown and commission the Train 3 LNG Rundown Line for Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200423-3014",
+  "issuedDate": "04/23/2020",
+  "filedDate": "04/23/2020",
+  "postedDate": "04/23/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0207C1EF-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25)  Approval .PDF",
+    "fileDesc": "",
+    "fileSize": 245101,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BE713F2A-4DBC-C5A4-B834-736172900000}-{0207EF51-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BE713F2A-4DBC-C5A4-B834-736172900000",
+  "description": "Letter order granting Cameron LNG, LLC's 04/28/2020 request to introduce hazardous fluids to commission the Train 3 feed gas to cold end system for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200501-3016",
+  "issuedDate": "05/01/2020",
+  "filedDate": "05/01/2020",
+  "postedDate": "05/01/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0207EF51-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Cameron (CP13-25)  Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 244724,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4D7DAC0D-21C5-C4F3-9F2C-736186800001}-{02080182-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "4D7DAC0D-21C5-C4F3-9F2C-736186800001",
+  "description": "Letter order granting Cameron LNG, LLC's 04/29/2020 and 05/01/2020 requests to introduce hazardous fluids to commission the Train 3 inside battery limit ethylene make-up system etc. for the Cameron Liquefaction Project, CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200507-3025",
+  "issuedDate": "05/07/2020",
+  "filedDate": "05/07/2020",
+  "postedDate": "05/07/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.82,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02080182-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "(CP13-25)  Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 247436,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BA17FB9F-A45C-C1CD-AA37-7361B5A00000}-{02082409-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BA17FB9F-A45C-C1CD-AA37-7361B5A00000",
+  "description": "Letter order granting Cameron LNG, LLC's 05/19/2020 request to introduce hazardous fluids to commission the Train 3 C3-2501 expander/compressor for the Cameron Liquefaction Project under CP13-25. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200521-3093",
+  "issuedDate": "05/21/2020",
+  "filedDate": "05/21/2020",
+  "postedDate": "05/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02082409-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP13-25  - ExpanderCompressor.PDF",
+    "fileDesc": "",
+    "fileSize": 246686,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E20D4BE5-1996-C6E8-B281-7361E4500001}-{02086245-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E20D4BE5-1996-C6E8-B281-7361E4500001",
+  "description": "Letter order granting Cameron LNG, LLC's 05/27/2020 request to introduce hazardous fluids to commission the Train 3 Liquified Natural Gas and Mixed Refrigerant Hydraulic Turbines for the Cameron Liquefaction Project under CP13-25.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200602-3063",
+  "issuedDate": "06/02/2020",
+  "filedDate": "06/02/2020",
+  "postedDate": "06/02/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02086245-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2020-06-02 Cameron (CP13-25)  Approval .PDF",
+    "fileDesc": "",
+    "fileSize": 246019,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{54FA1F43-319A-CDAA-AA1E-772298900000}-{02087D18-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "54FA1F43-319A-CDAA-AA1E-772298900000",
+  "description": "Letter order granting Cameron LNG, LLC's 06/03/2020 request to introduce hazardous fluids to commission the Train 3 Deethanizer Overhead Compressor for the Cameron Liquefaction Project under CP13-25.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200609-3057",
+  "issuedDate": "06/09/2020",
+  "filedDate": "06/09/2020",
+  "postedDate": "06/09/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.81,
+  "docketNumbers": [
+   "CP13-25-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02087D18-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP13-25-000 Approval.PDF",
+    "fileDesc": "",
+    "fileSize": 244685,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CAMERON LNG, LLC",
+    "lastName": "GRAY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.58,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.58,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CD638E32-0C3C-CF36-84FD-86EC75200000}-{E5B7316C-30D8-C1EA-97B0-86EC75200000}",
+  "documentId": "CD638E32-0C3C-CF36-84FD-86EC75200000",
+  "description": "Order Amending Authorization Under Section 3 of the Natural Gas Act re Cameron LNG, LLC under CP22-41. Commissioner Danly is concurring in part with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230316-3095",
+  "issuedDate": "03/16/2023",
+  "filedDate": "03/16/2023",
+  "postedDate": "03/16/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.54,
+  "docketNumbers": [
+   "CP22-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E5B7316C-30D8-C1EA-97B0-86EC75200000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP22-41-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 153271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CD638E32-0C3C-CF36-84FD-86EC75200000}-{E5B7316C-30D8-C1EA-97B0-86EC75200000}",
+  "documentId": "CD638E32-0C3C-CF36-84FD-86EC75200000",
+  "description": "Order Amending Authorization Under Section 3 of the Natural Gas Act re Cameron LNG, LLC under CP22-41. Commissioner Danly is concurring in part with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230316-3095",
+  "issuedDate": "03/16/2023",
+  "filedDate": "03/16/2023",
+  "postedDate": "03/16/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.54,
+  "docketNumbers": [
+   "CP22-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E5B7316C-30D8-C1EA-97B0-86EC75200000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP22-41-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 153271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

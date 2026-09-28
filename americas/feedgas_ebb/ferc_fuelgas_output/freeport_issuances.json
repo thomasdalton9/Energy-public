@@ -1,0 +1,2847 @@
+[
+ {
+  "reference": "{A6CE6BA6-2A59-CBBF-A131-6B6D02600000}-{01D07333-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "A6CE6BA6-2A59-CBBF-A131-6B6D02600000",
+  "description": "Order on Petition for Declaratory Order re Shell U.S. Gas & Power, LLC under RP14-52. Commissioner Bay is concurring in part and dissenting in part with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20140904-3046",
+  "issuedDate": "09/04/2014",
+  "filedDate": "09/04/2014",
+  "postedDate": "09/04/2014",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.45,
+  "docketNumbers": [
+   "RP14-52-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D07333-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "RP14-52-000.DOC",
+    "fileDesc": "",
+    "fileSize": 229376,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "BAY",
+    "firstInitial": "N",
+    "middleInitial": "C"
+   }
+  ]
+ },
+ {
+  "reference": "{91F95751-E9A6-CBC6-B97A-7365CD400000}-{01FDB481-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "91F95751-E9A6-CBC6-B97A-7365CD400000",
+  "description": "Letter order granting Freeport LNG Development, L.P., et al 1/17/19 filing of to Introduce Hazardous Fluids to Commission the Pretreatment Flare Pilot System under CP12-509, et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190219-3025",
+  "issuedDate": "02/19/2019",
+  "filedDate": "02/19/2019",
+  "postedDate": "02/19/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.08,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDB481-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509etc.PDF",
+    "fileDesc": "",
+    "fileSize": 219215,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 75.85,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0D96393B-985A-C3D4-BBE1-7366C2600000}-{01FEB2BF-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "0D96393B-985A-C3D4-BBE1-7366C2600000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al 3/25/19 filing of a request to use temporary propane to commission the ground flare pilots and burner management system at the Liquefaction Facility under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190328-3020",
+  "issuedDate": "03/28/2019",
+  "filedDate": "03/28/2019",
+  "postedDate": "03/28/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.2,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FEB2BF-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509-000etc.PDF",
+    "fileDesc": "",
+    "fileSize": 213235,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK, HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DBD07FD3-DCD3-C5CB-9402-736765600001}-{01FF746D-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DBD07FD3-DCD3-C5CB-9402-736765600001",
+  "description": "Letter order granting Freeport LNG Development, LP's, et al. 07/17/2018, et al. filing of a request to introduce hazardous fluids and commission the flare pilots and heating medium system under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3077",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.75,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF746D-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509-000etc (2).PDF",
+    "fileDesc": "",
+    "fileSize": 184556,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY, L",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.2,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{E89940B6-F3F7-CBE4-9D92-736765C00000}-{01FF7627-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E89940B6-F3F7-CBE4-9D92-736765C00000",
+  "description": "Order Granting Authorization etc. re Driftwood LNG LLC et al under CP17-117 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3085",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.48,
+  "docketNumbers": [
+   "CP17-117-000",
+   "CP17-118-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7627-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-117-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 167269,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C33A07EF-8510-C05D-85F5-7367F5200000}-{02001C33-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "C33A07EF-8510-C05D-85F5-7367F5200000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al 5/8/19 filing of the request to introduce hazardous fluids in the Unit 18 pig launcher/receiver area of the Regas Terminal under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190509-3021",
+  "issuedDate": "05/09/2019",
+  "filedDate": "05/09/2019",
+  "postedDate": "05/09/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.75,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02001C33-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "(CP12-509-000etc).PDF",
+    "fileDesc": "",
+    "fileSize": 223683,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK, HERRINGTON & SUTCLIFFE, LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{18160CA6-DD9B-CFB9-9D52-73688EF00000}-{0200F404-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "18160CA6-DD9B-CFB9-9D52-73688EF00000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al. 6/06/19 filed request to introduce hazardous fluids and commission the entirety of Unit 61 and the Common Utility Areas except for the Gas Turbine Generator in Unit 65 under CP12-509 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190611-3022",
+  "issuedDate": "06/11/2019",
+  "filedDate": "06/11/2019",
+  "postedDate": "06/11/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.78,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0200F404-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-06-11 Delegated Letter (CP12-509-000etc).PDF",
+    "fileDesc": "",
+    "fileSize": 213229,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C7EF66AA-7072-CAA1-9BF7-7368B3C00000}-{02014D3A-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "C7EF66AA-7072-CAA1-9BF7-7368B3C00000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et. al. 5/13/19 request to commission the Train 3 (Unit 13) and LNG Storage Tank 3 (Unit 18) utilities at the Liquefaction Facility under CP12-509 et. al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190619-3056",
+  "issuedDate": "06/19/2019",
+  "filedDate": "06/19/2019",
+  "postedDate": "06/19/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.62,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02014D3A-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-06-19  Letter (CP12-509etc).PDF",
+    "fileDesc": "",
+    "fileSize": 215435,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK, HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EE015A23-FB53-C6A2-B055-736947300000}-{0201F82A-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "EE015A23-FB53-C6A2-B055-736947300000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s 6/21/19 filed request to introduce hazardous fluids for the commissioning of the Gas Turbine Generator at the Pretreatment Facility under CP12-509 et al.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190710-3042",
+  "issuedDate": "07/10/2019",
+  "filedDate": "07/10/2019",
+  "postedDate": "07/10/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.66,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0201F82A-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509-000etc (4).PDF",
+    "fileDesc": "",
+    "fileSize": 184558,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AD01BFBE-F0A8-CC7F-A1AF-736945300000}-{0201F79E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "AD01BFBE-F0A8-CC7F-A1AF-736945300000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al 07/08/2019 filed request to introduce hazardous fluids for the commissioning of the \"B\" Booster and Residue Gas Compressors etc., under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190710-3026",
+  "issuedDate": "07/10/2019",
+  "filedDate": "07/10/2019",
+  "postedDate": "07/10/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.66,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0201F79E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509-000etc.PDF",
+    "fileDesc": "",
+    "fileSize": 214514,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY, L",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0D0FDFE4-B215-CBCD-91B9-73696C500001}-{020235D8-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "0D0FDFE4-B215-CBCD-91B9-73696C500001",
+  "description": "Order Granting Authorization Under Section 3 of the Natural Gas Act re Gulf LNG Liquefaction Company, LLC et al under CP15-521. Commissioner LaFleur is concurring and Commissioner Glick is dissenting in a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190716-3073",
+  "issuedDate": "07/16/2019",
+  "filedDate": "07/16/2019",
+  "postedDate": "07/16/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.38,
+  "docketNumbers": [
+   "CP15-521-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020235D8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-521-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 182689,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS, SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{D7066F49-8D75-CD41-91D9-73697EF00000}-{0202441C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D7066F49-8D75-CD41-91D9-73697EF00000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s, et al 7/16/2019 request to introduce hazardous fluids for the Train 1, etc. at the Liquefaction Facility under CP12-509 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190719-3031",
+  "issuedDate": "07/19/2019",
+  "filedDate": "07/19/2019",
+  "postedDate": "07/19/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.05,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0202441C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Delegated Letter (CP12-509etc).PDF",
+    "fileDesc": "",
+    "fileSize": 230237,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6DD0E1C7-FA88-C74D-9E96-73699FA00000}-{02025F9C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6DD0E1C7-FA88-C74D-9E96-73699FA00000",
+  "description": "Letter order granting Freeport LNG Development, L.P., et al. 7/24/2019 request to introduce hazardous fluids for the commissioning of the Heating Medium Heaters D and E within Unit 65 at the Pretreatment Facility under CP12-509, et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190726-3036",
+  "issuedDate": "07/26/2019",
+  "filedDate": "07/26/2019",
+  "postedDate": "07/26/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.67,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02025F9C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "(CP12-509-000).PDF",
+    "fileDesc": "",
+    "fileSize": 214748,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, LP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3C05205A-C33F-C410-80B1-736A12B00001}-{0202D84B-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "3C05205A-C33F-C410-80B1-736A12B00001",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s, et al 8/12/2019 filed request to introduce hazardous fluids for the commissioning of Train 2 at the Pretreatment Facility under CP12-509, et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190816-3051",
+  "issuedDate": "08/16/2019",
+  "filedDate": "08/16/2019",
+  "postedDate": "08/16/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0202D84B-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509etc (2).PDF",
+    "fileDesc": "",
+    "fileSize": 226921,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6BC06324-36E5-CF44-8C50-736ABEC00000}-{0203C69D-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6BC06324-36E5-CF44-8C50-736ABEC00000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al 09/11/2019 request to introduce hazardous fluids for the commissioning of the \"C\" booster and residue gas compressors etc. under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190918-3012",
+  "issuedDate": "09/18/2019",
+  "filedDate": "09/18/2019",
+  "postedDate": "09/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.69,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203C69D-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Delegated Letter (CP12-509-000etc).PDF",
+    "fileDesc": "",
+    "fileSize": 214862,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7168A6D6-FADD-C9B4-9CF7-736AC6A00000}-{0203D117-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "7168A6D6-FADD-C9B4-9CF7-736AC6A00000",
+  "description": "Order Granting Authorization Section 3 of the Natural Gas Act re Eagle LNG Partners Jacksonville LLC under CP-41. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190919-3090",
+  "issuedDate": "09/19/2019",
+  "filedDate": "09/19/2019",
+  "postedDate": "09/19/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.01,
+  "docketNumbers": [
+   "CP17-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203D117-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-41-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 138130,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " BOSE",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{DE4EE9A6-4A07-C137-8302-736AE6D00001}-{0203FCCA-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DE4EE9A6-4A07-C137-8302-736AE6D00001",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Venture Global Plaquemines LNG, LLC et al under CP17-66 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190930-3048",
+  "issuedDate": "09/30/2019",
+  "filedDate": "09/30/2019",
+  "postedDate": "09/30/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.01,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-67-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203FCCA-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-66-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 166545,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{B7AA58BD-D558-C1DE-A60F-73697E600003}-{0204B8CB-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "B7AA58BD-D558-C1DE-A60F-73697E600003",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al. 11/01/19 request to commission and introduce hazardous fluids to Train 2, Dock 2, Loop 2, and associated utility systems at the Liquefaction Facilities under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191107-3043",
+  "issuedDate": "11/07/2019",
+  "filedDate": "11/07/2019",
+  "postedDate": "11/07/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.67,
+  "docketNumbers": [
+   "CP05-361-000",
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0204B8CB-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-11-07 Delegated Letter (CP12-509etc).PDF",
+    "fileDesc": "",
+    "fileSize": 249224,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CFCBA091-786D-C728-BB72-7369C6800000}-{0204FCF7-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "CFCBA091-786D-C728-BB72-7369C6800000",
+  "description": "Letter order granting Orrick, Herrington & Sutcliffe, LLP's 11/5/19 request for Freeport LNG Development, L.P et al to introduce hazardous fluids for the commissioning of LNG Storage Tank 3 etc. under CP12-509. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191121-3062",
+  "issuedDate": "11/21/2019",
+  "filedDate": "11/21/2019",
+  "postedDate": "11/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.92,
+  "docketNumbers": [
+   "CP05-361-000",
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0204FCF7-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-11-21 Delegated Letter (CP12-509etc.).PDF",
+    "fileDesc": "",
+    "fileSize": 249897,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F8603C0F-AD24-CF45-B053-7369D0400000}-{0205090E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F8603C0F-AD24-CF45-B053-7369D0400000",
+  "description": "Order Granting Authorizations under Sections 3 And 7 ff the Natural Gas Act re Rio Grande LNG, LLC et al under CP16-454 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3046",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.72,
+  "docketNumbers": [
+   "CP16-454-000",
+   "CP16-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-454-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 267618,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F8603C0F-AD24-CF45-B053-7369D0400000}-{0205090E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F8603C0F-AD24-CF45-B053-7369D0400000",
+  "description": "Order Granting Authorizations under Sections 3 And 7 ff the Natural Gas Act re Rio Grande LNG, LLC et al under CP16-454 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3046",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.72,
+  "docketNumbers": [
+   "CP16-454-000",
+   "CP16-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-454-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 267618,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BEEA27E1-C4CF-CA8E-8395-7369D0500001}-{02050910-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BEEA27E1-C4CF-CA8E-8395-7369D0500001",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Texas LNG Brownsville LLC under CP16-116. Commissioner Glick is dissenting with a separate statement attached.   \t",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3048",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.4,
+  "docketNumbers": [
+   "CP16-116-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02050910-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-116-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 165197,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS ",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CB170628-2048-C8C9-A8CD-7369D0500000}-{0205090F-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "CB170628-2048-C8C9-A8CD-7369D0500000",
+  "description": "Order Granting Authorizations under Section 3 of the Natural Gas Act re Annova LNG Common Infrastructure, LLC et al under CP16-480. Commissioner Glick is dissenting with a separate statement attached. \"For errata see accession number 20191203-3093\". ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3047",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "parent",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.46,
+  "docketNumbers": [
+   "CP16-480-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090F-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-480-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 175694,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAIVS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4D040632-8644-C6DC-A19C-7369CDA00000}-{02050714-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "4D040632-8644-C6DC-A19C-7369CDA00000",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Corpus Christi Liquefaction Stage III, LLC et al under CP18-512 et al. Commissioner Glick is dissenting with a separate statement attached.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3017",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 76.43,
+  "docketNumbers": [
+   "CP18-512-000",
+   "CP18-513-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02050714-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP18-512-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 156372,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{FE86BE3B-89BC-CE06-8582-7369F0B00000}-{0205280C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "FE86BE3B-89BC-CE06-8582-7369F0B00000",
+  "description": "Letter order granting Orrick, Herrington & Sutcliffe, LLP's 11/13/19 request for Freeport LNG Development, L.P. et al to introduce hazardous fluids for the commissioning of the Boil-Off Gas Compressor 18K-9E in Unit 18 etc. under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191127-3036",
+  "issuedDate": "11/27/2019",
+  "filedDate": "11/27/2019",
+  "postedDate": "11/27/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GASHydro"
+  ],
+  "score": 77.75,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205280C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP12-509-000etc.PDF",
+    "fileDesc": "",
+    "fileSize": 251822,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D35A8656-7AA3-C083-972E-736A69E00000}-{020585A3-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D35A8656-7AA3-C083-972E-736A69E00000",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al. 12/17/19 request to introduce hazardous fluids for the commissioning of the modified overhead vent system etc. under CP12-509 et al.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191218-3027",
+  "issuedDate": "12/18/2019",
+  "filedDate": "12/18/2019",
+  "postedDate": "12/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.76,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020585A3-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-12-18 Delegated Letter (CP12-509, etc) (1).PDF",
+    "fileDesc": "",
+    "fileSize": 249317,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction, LLC",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY ",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK, HERRINGTON & SUTCLIFFE, LLP",
+    "lastName": "TONERY , L",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{25910C90-3270-CD57-B8F7-736A69C00000}-{0205859B-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "25910C90-3270-CD57-B8F7-736A69C00000",
+  "description": "Letter order granting Freeport LNG Development, L.P., et al. 12/17/2019 request to introduce hazardous fluids for the commissioning of Train 3 (Unit 63) at the Pretreatment Facility under CP12-29, et al.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191218-3025",
+  "issuedDate": "12/18/2019",
+  "filedDate": "12/18/2019",
+  "postedDate": "12/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.75,
+  "docketNumbers": [
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205859B-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2019-12-18 Delegated Letter (CP12-509, etc).PDF",
+    "fileDesc": "",
+    "fileSize": 246887,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON & SUTCLIFFE LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D543650D-DB6F-CEE2-9D68-736036F00000}-{02062943-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D543650D-DB6F-CEE2-9D68-736036F00000",
+  "description": "Order Issuing Certificate and Approving Abandonment re Columbia Gas Transmission, LLC under CP18-137. Commissioner Glick is dissenting in part with a separate statement attached. Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200123-3128",
+  "issuedDate": "01/23/2020",
+  "filedDate": "01/23/2020",
+  "postedDate": "01/23/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 72.09,
+  "docketNumbers": [
+   "CP18-137-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02062943-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP18-137-000 new.DOCX",
+    "fileDesc": "",
+    "fileSize": 242057,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{807FAAC9-ED7C-CF64-8FB5-736043000000}-{0206A575-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "807FAAC9-ED7C-CF64-8FB5-736043000000",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Sabine Pass LNG, L.P. under CP19-11. Commissioner Glick is dissenting in part with a separate statement attached. Commissioner McNamee's corrected statement.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200221-3019",
+  "issuedDate": "02/21/2020",
+  "filedDate": "02/21/2020",
+  "postedDate": "02/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.69,
+  "docketNumbers": [
+   "CP19-11-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206A575-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP19-11-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 149505,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS, SR.",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{807FAAC9-ED7C-CF64-8FB5-736043000000}-{0206A575-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "807FAAC9-ED7C-CF64-8FB5-736043000000",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Sabine Pass LNG, L.P. under CP19-11. Commissioner Glick is dissenting in part with a separate statement attached. Commissioner McNamee's corrected statement.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200221-3019",
+  "issuedDate": "02/21/2020",
+  "filedDate": "02/21/2020",
+  "postedDate": "02/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.69,
+  "docketNumbers": [
+   "CP19-11-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206A575-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP19-11-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 149505,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS, SR.",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{580258C5-B820-CA89-8C92-736097800002}-{0206F74B-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "580258C5-B820-CA89-8C92-736097800002",
+  "description": "Letter order granting Freeport LNG Development, L.P.'s et al 03/05/2020 request to commission and introduce hazardous fluids to Train 3 and associated utility systems (Units 13, 17, and 18) at the Liquefaction Facility under CP12-509 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200309-3010",
+  "issuedDate": "03/09/2020",
+  "filedDate": "03/09/2020",
+  "postedDate": "03/09/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.06,
+  "docketNumbers": [
+   "CP05-361-000",
+   "CP12-29-000",
+   "CP12-509-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206F74B-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "Delegated Letter (CP12-509etc).PDF",
+    "fileDesc": "",
+    "fileSize": 250883,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 2, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG Liquefaction 3, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG LIQUEFACTION, LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT, L.P.",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK, HERRINGTON & SUTCLIFFE, LLP",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D3DF4BD9-4181-C042-B95E-7360C0B00000}-{02073470-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D3DF4BD9-4181-C042-B95E-7360C0B00000",
+  "description": "Order Granting Authorizations Under Sections 3 and 7 of the Natural Gas Act re Jordan Cove Energy Project L.P. et al under CP17-495 et al. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200319-3077",
+  "issuedDate": "03/19/2020",
+  "filedDate": "03/19/2020",
+  "postedDate": "03/19/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.45,
+  "docketNumbers": [
+   "CP17-494-000",
+   "CP17-495-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02073470-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-495-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 490205,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS, SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{9E87450C-64FC-C69B-BF87-7361B6F00002}-{0208253C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "9E87450C-64FC-C69B-BF87-7361B6F00002",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas ACT re Alaska Gasline Development Corporation under CP17-178. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200521-3111",
+  "issuedDate": "05/21/2020",
+  "filedDate": "05/21/2020",
+  "postedDate": "05/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 81.76,
+  "docketNumbers": [
+   "CP17-178-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0208253C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-178-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 310961,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": " , ",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{9E87450C-64FC-C69B-BF87-7361B6F00002}-{0208253C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "9E87450C-64FC-C69B-BF87-7361B6F00002",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas ACT re Alaska Gasline Development Corporation under CP17-178. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200521-3111",
+  "issuedDate": "05/21/2020",
+  "filedDate": "05/21/2020",
+  "postedDate": "05/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 81.76,
+  "docketNumbers": [
+   "CP17-178-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0208253C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-178-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 310961,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": " , ",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{F6140C0A-ABDF-C224-9E06-7361B8D00000}-{02082681-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F6140C0A-ABDF-C224-9E06-7361B8D00000",
+  "description": "Order on Rehearing and Stay re Jordan Cove Energy Project L.P. et al under CP17-495 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200522-3018",
+  "issuedDate": "05/22/2020",
+  "filedDate": "05/22/2020",
+  "postedDate": "05/22/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 64.59,
+  "docketNumbers": [
+   "CP17-494-001",
+   "CP17-495-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02082681-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-495-001.DOCX",
+    "fileDesc": "",
+    "fileSize": 291410,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS, SR.",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{8A628F98-9609-C90B-AB4C-7AAC4D300000}-{020DC1ED-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "8A628F98-9609-C90B-AB4C-7AAC4D300000",
+  "description": "Order Granting Authorization Under Section 3 of the Natural Gas Act re Freeport LNG Development, L.P. et al under CP20-455. Commissioner Danly and Commissioner Christie are concurring in part and dissenting in part with separate statements attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210621-3045",
+  "issuedDate": "06/21/2021",
+  "filedDate": "06/21/2021",
+  "postedDate": "06/21/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.61,
+  "docketNumbers": [
+   "CP20-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020DC1ED-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP20-455-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 99151,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "REESE ",
+    "firstInitial": "D",
+    "middleInitial": "A"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8A628F98-9609-C90B-AB4C-7AAC4D300000}-{020DC1ED-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "8A628F98-9609-C90B-AB4C-7AAC4D300000",
+  "description": "Order Granting Authorization Under Section 3 of the Natural Gas Act re Freeport LNG Development, L.P. et al under CP20-455. Commissioner Danly and Commissioner Christie are concurring in part and dissenting in part with separate statements attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210621-3045",
+  "issuedDate": "06/21/2021",
+  "filedDate": "06/21/2021",
+  "postedDate": "06/21/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.61,
+  "docketNumbers": [
+   "CP20-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020DC1ED-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP20-455-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 99151,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "REESE ",
+    "firstInitial": "D",
+    "middleInitial": "A"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.69,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.69,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CD638E32-0C3C-CF36-84FD-86EC75200000}-{E5B7316C-30D8-C1EA-97B0-86EC75200000}",
+  "documentId": "CD638E32-0C3C-CF36-84FD-86EC75200000",
+  "description": "Order Amending Authorization Under Section 3 of the Natural Gas Act re Cameron LNG, LLC under CP22-41. Commissioner Danly is concurring in part with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230316-3095",
+  "issuedDate": "03/16/2023",
+  "filedDate": "03/16/2023",
+  "postedDate": "03/16/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.49,
+  "docketNumbers": [
+   "CP22-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E5B7316C-30D8-C1EA-97B0-86EC75200000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP22-41-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 153271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CD638E32-0C3C-CF36-84FD-86EC75200000}-{E5B7316C-30D8-C1EA-97B0-86EC75200000}",
+  "documentId": "CD638E32-0C3C-CF36-84FD-86EC75200000",
+  "description": "Order Amending Authorization Under Section 3 of the Natural Gas Act re Cameron LNG, LLC under CP22-41. Commissioner Danly is concurring in part with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230316-3095",
+  "issuedDate": "03/16/2023",
+  "filedDate": "03/16/2023",
+  "postedDate": "03/16/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.49,
+  "docketNumbers": [
+   "CP22-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E5B7316C-30D8-C1EA-97B0-86EC75200000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP22-41-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 153271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{00975A7A-8E55-C03A-85BA-9625A3300000}-{5D6A7CCB-922C-CD95-967D-9625A3300000}",
+  "documentId": "00975A7A-8E55-C03A-85BA-9625A3300000",
+  "description": "Letter to Freeport LNG Development, L.P. et al. granting the 04/04/2025 request to introduce hazardous fluids and place in service at the Noble Gas Project under CP20-455. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250411-3026",
+  "issuedDate": "04/11/2025",
+  "filedDate": "04/11/2025",
+  "postedDate": "04/11/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.74,
+  "docketNumbers": [
+   "CP20-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "5D6A7CCB-922C-CD95-967D-9625A3300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-04-11 Freeport NGP CP20-455 In-Service.pdf",
+    "fileDesc": "Letter granting Freeport LNG Development, L.P.'s 04/04/2025 request to introduce hazardous fluids and place Noble Gas Project in service under CP20-455.",
+    "fileSize": 241834,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FREEPORT LNG DEVELOPMENT LP",
+    "lastName": "Tonery",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "ORRICK HERRINGTON AND SUTCLIFFE LLP",
+    "lastName": "Tonery",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG LIQUEFACTION 2 LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG LIQUEFACTION 3 LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "FLNG LIQUEFACTION LLC",
+    "lastName": "TONERY",
+    "firstInitial": "L",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

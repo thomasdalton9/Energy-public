@@ -1,0 +1,3225 @@
+[
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.38,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.55,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{D543650D-DB6F-CEE2-9D68-736036F00000}-{02062943-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D543650D-DB6F-CEE2-9D68-736036F00000",
+  "description": "Order Issuing Certificate and Approving Abandonment re Columbia Gas Transmission, LLC under CP18-137. Commissioner Glick is dissenting in part with a separate statement attached. Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200123-3128",
+  "issuedDate": "01/23/2020",
+  "filedDate": "01/23/2020",
+  "postedDate": "01/23/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 71.23,
+  "docketNumbers": [
+   "CP18-137-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02062943-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP18-137-000 new.DOCX",
+    "fileDesc": "",
+    "fileSize": 242057,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{D3DF4BD9-4181-C042-B95E-7360C0B00000}-{02073470-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D3DF4BD9-4181-C042-B95E-7360C0B00000",
+  "description": "Order Granting Authorizations Under Sections 3 and 7 of the Natural Gas Act re Jordan Cove Energy Project L.P. et al under CP17-495 et al. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200319-3077",
+  "issuedDate": "03/19/2020",
+  "filedDate": "03/19/2020",
+  "postedDate": "03/19/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 77.63,
+  "docketNumbers": [
+   "CP17-494-000",
+   "CP17-495-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02073470-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-495-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 490205,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS, SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{8E4AD4F4-72A4-CB6E-84BD-836B77000000}-{446FEA1B-07DE-C993-95A3-836B77000000}",
+  "documentId": "8E4AD4F4-72A4-CB6E-84BD-836B77000000",
+  "description": "Order Issuing Certificate re LA Storage, LLC, CP21-44. Chairman Glick is concurring with a separate statement attached. Commissioner Danly is concurring in part with a separate statement attached. Commissioner Clements is concurring etc.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220923-3045",
+  "issuedDate": "09/23/2022",
+  "filedDate": "09/23/2022",
+  "postedDate": "09/23/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 72.29,
+  "docketNumbers": [
+   "CP21-44-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "446FEA1B-07DE-C993-95A3-836B77000000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP21-44-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 158031,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": "*"
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.53,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CD638E32-0C3C-CF36-84FD-86EC75200000}-{E5B7316C-30D8-C1EA-97B0-86EC75200000}",
+  "documentId": "CD638E32-0C3C-CF36-84FD-86EC75200000",
+  "description": "Order Amending Authorization Under Section 3 of the Natural Gas Act re Cameron LNG, LLC under CP22-41. Commissioner Danly is concurring in part with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230316-3095",
+  "issuedDate": "03/16/2023",
+  "filedDate": "03/16/2023",
+  "postedDate": "03/16/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 76.59,
+  "docketNumbers": [
+   "CP22-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E5B7316C-30D8-C1EA-97B0-86EC75200000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP22-41-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 153271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1722A0B1-2C0B-C168-8770-8C5940700000}-{E7C044EF-540E-CA6D-9628-8C5940700000}",
+  "documentId": "1722A0B1-2C0B-C168-8770-8C5940700000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 09/12/2023 request to commission the liquid nitrogen system under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20231211-3008",
+  "issuedDate": "12/11/2023",
+  "filedDate": "12/11/2023",
+  "postedDate": "12/11/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.7,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E7C044EF-540E-CA6D-9628-8C5940700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP14-517 IP242 N2 Commissioning NTP.pdf",
+    "fileDesc": "Letter to Golden Pass LNG approving 09/12/2023 request to commission the liquid nitrogen system for the Golden Pass LNG Terminal LLC under CP14-517.",
+    "fileSize": 203516,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AE830A5E-F690-CB27-86A6-950526F00000}-{67E892C0-6D32-CCB4-95AC-950526F00000}",
+  "documentId": "AE830A5E-F690-CB27-86A6-950526F00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 02/13/2025 request to introduce hazardous fluids into the Liquid Nitrogen Storage and Vaporization System under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250214-3026",
+  "issuedDate": "02/14/2025",
+  "filedDate": "02/14/2025",
+  "postedDate": "02/14/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 82.05,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "67E892C0-6D32-CCB4-95AC-950526F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250214 GPLNG CP14-517 IP242 IHF LIN NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Nitrogen System",
+    "fileSize": 205945,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AE830A5E-F690-CB27-86A6-950526F00000}-{67E892C0-6D32-CCB4-95AC-950526F00000}",
+  "documentId": "AE830A5E-F690-CB27-86A6-950526F00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 02/13/2025 request to introduce hazardous fluids into the Liquid Nitrogen Storage and Vaporization System under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250214-3026",
+  "issuedDate": "02/14/2025",
+  "filedDate": "02/14/2025",
+  "postedDate": "02/14/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 82.06,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "67E892C0-6D32-CCB4-95AC-950526F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250214 GPLNG CP14-517 IP242 IHF LIN NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Nitrogen System",
+    "fileSize": 205945,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{810178E8-4BB4-CA8E-869D-9570B5900000}-{CB11CE1E-DFA6-C4E9-951B-9570B5900000}",
+  "documentId": "810178E8-4BB4-CA8E-869D-9570B5900000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 02/02/2024 request to commission the Firewater System, Monitors, Water Fog, Deluge and Foam Systems under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250307-3001",
+  "issuedDate": "03/07/2025",
+  "filedDate": "03/07/2025",
+  "postedDate": "03/07/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.67,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CB11CE1E-DFA6-C4E9-951B-9570B5900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250307 GPLNG CP14-517 IP249 Firewater Comm NTP.pdf",
+    "fileDesc": "Approval to Commission Firewater Systems",
+    "fileSize": 203772,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{ED9770B7-9864-C86F-85CB-958103E00000}-{15364FE7-2B3D-C785-96EB-958103E00000}",
+  "documentId": "ED9770B7-9864-C86F-85CB-958103E00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 01/18/2024 request to commission the essential diesel generators, the diesel storage, and the diesel distribution systems under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250310-3026",
+  "issuedDate": "03/10/2025",
+  "filedDate": "03/10/2025",
+  "postedDate": "03/10/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.68,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "15364FE7-2B3D-C785-96EB-958103E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250310 GPLNG CP14-517 IP238 Diesel Comm NTP.pdf",
+    "fileDesc": "Approval to Commission the Diesel Systems",
+    "fileSize": 203858,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BE8BAB76-09F1-C226-85E9-95AA3B800000}-{A9495824-12D7-CE08-9676-95AA3B800000}",
+  "documentId": "BE8BAB76-09F1-C226-85E9-95AA3B800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 01/18/2024 request to commission the Flare System under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250318-3048",
+  "issuedDate": "03/18/2025",
+  "filedDate": "03/18/2025",
+  "postedDate": "03/18/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.69,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A9495824-12D7-CE08-9676-95AA3B800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250318 GPLNG CP14-517 IP248 Flare Comm NTP.pdf",
+    "fileDesc": "Approval to Commission the Flare System",
+    "fileSize": 203786,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{ABEC0A2F-F364-C617-85DC-95AEBE800000}-{DDF51985-46A8-C15E-971A-95AEBE800000}",
+  "documentId": "ABEC0A2F-F364-C617-85DC-95AEBE800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/11/2024 request to commission the low pressure fuel gas system in the utility area and the inlet/metering systems under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250319-3021",
+  "issuedDate": "03/19/2025",
+  "filedDate": "03/19/2025",
+  "postedDate": "03/19/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.67,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DDF51985-46A8-C15E-971A-95AEBE800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250319 GPLNG CP14-517-000 IP250 Fuel Gas Comm NTP.pdf",
+    "fileDesc": "Approval to Commission the Fuel Gas, Inlet Facility, and Metering Systems",
+    "fileSize": 206025,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1781FEB9-2EB7-C9C4-8595-9620F6300000}-{892ED47C-6249-CCB5-97F7-9620F6300000}",
+  "documentId": "1781FEB9-2EB7-C9C4-8595-9620F6300000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 10/05/2023 request to commission the refrigeration and high pressure fuel gas systems for the Golden Pass LNG Project under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250410-3058",
+  "issuedDate": "04/10/2025",
+  "filedDate": "04/10/2025",
+  "postedDate": "04/10/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.67,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "892ED47C-6249-CCB5-97F7-9620F6300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250410 GPLNG CP14-517 IP243 Refrig and HP FG Comm NTP.pdf",
+    "fileDesc": "Letter granting Golden Pass LNG Terminal LLC's 10/05/2023 request to commission the refrigeration and high pressure fuel gas systems for the Golden Pass LNG Project under CP14-517.",
+    "fileSize": 199466,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1465DC5F-9B7A-C537-8527-963F7C000000}-{1DDAEC7F-3715-C9C2-9703-963F7C000000}",
+  "documentId": "1465DC5F-9B7A-C537-8527-963F7C000000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/08/2023 request to commission the low pressure flare system under CP14-517.                                                                                 ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250416-3025",
+  "issuedDate": "04/16/2025",
+  "filedDate": "04/16/2025",
+  "postedDate": "04/16/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.7,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "1DDAEC7F-3715-C9C2-9703-963F7C000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250416 GPLNG CP14-517 IP246 LP Flare Comm NTP.pdf",
+    "fileDesc": "Approval to Commission Low Pressure Flare System",
+    "fileSize": 198512,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D118F7F1-397C-CA48-904A-9644AEF00000}-{EB4E12F7-0491-C1E4-A03E-9644AEF00000}",
+  "documentId": "D118F7F1-397C-CA48-904A-9644AEF00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/27/2023 request to commission inlet facilities, condensate stabilization, gas dehydration system, heavy hydrocarbon removal system, acid gas removal, anti-foam injection, etc. under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250417-3052",
+  "issuedDate": "04/17/2025",
+  "filedDate": "04/17/2025",
+  "postedDate": "04/17/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.67,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "EB4E12F7-0491-C1E4-A03E-9644AEF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250417 GPLNG CP14-517 IP244 Pretreatment Comm NTP.pdf",
+    "fileDesc": "Approval to Commission Pretreatment Systems",
+    "fileSize": 197193,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AC214A88-5047-CEEB-85EE-967CF6D00000}-{2E3643BF-1BB1-C02E-9511-967CF6D00000}",
+  "documentId": "AC214A88-5047-CEEB-85EE-967CF6D00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/29/2023 request to commission the boil off gas compression system, LNG storage, liquefaction system, LNG pumps, and the end flash gas compression system under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250428-3017",
+  "issuedDate": "04/28/2025",
+  "filedDate": "04/28/2025",
+  "postedDate": "04/28/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.69,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2E3643BF-1BB1-C02E-9511-967CF6D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250428 GPLNG IP247 LNG Systems Comm NTP.pdf",
+    "fileDesc": "Approval to Commission LNG Systems",
+    "fileSize": 197699,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{177F9563-710D-C23E-86FA-968CC9900000}-{C90648B2-3436-C344-9443-968CC9900000}",
+  "documentId": "177F9563-710D-C23E-86FA-968CC9900000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/27/2023 request to commission the hydrocarbon condensate storage and the refrigerant storage systems under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250501-3062",
+  "issuedDate": "05/01/2025",
+  "filedDate": "05/01/2025",
+  "postedDate": "05/01/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.67,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C90648B2-3436-C344-9443-968CC9900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250501 GPLNG IP245 Refrig Storage Systems Comm NTP.pdf",
+    "fileDesc": "Approval to Commission Refrigerant Storage Systems",
+    "fileSize": 197307,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EE5481B3-57BB-C147-8407-978D59C00000}-{95D52041-F8AE-CB3C-9512-978D59C00000}",
+  "documentId": "EE5481B3-57BB-C147-8407-978D59C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 06/18/2025 request to introduce hazardous fluids into the Cryogenic Nitrogen Generation Package under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250620-3003",
+  "issuedDate": "06/20/2025",
+  "filedDate": "06/20/2025",
+  "postedDate": "06/20/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 82.02,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "95D52041-F8AE-CB3C-9512-978D59C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "GPLNG CP14-517-000 IP242 Nitrogen Generation IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Nitrogen System",
+    "fileSize": 200024,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EE5481B3-57BB-C147-8407-978D59C00000}-{95D52041-F8AE-CB3C-9512-978D59C00000}",
+  "documentId": "EE5481B3-57BB-C147-8407-978D59C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 06/18/2025 request to introduce hazardous fluids into the Cryogenic Nitrogen Generation Package under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250620-3003",
+  "issuedDate": "06/20/2025",
+  "filedDate": "06/20/2025",
+  "postedDate": "06/20/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 82.02,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "95D52041-F8AE-CB3C-9512-978D59C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "GPLNG CP14-517-000 IP242 Nitrogen Generation IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Nitrogen System",
+    "fileSize": 200024,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7053700D-9D6A-C031-85F6-9832C1600000}-{F7C665DE-2083-CA2B-92D8-9832C1700000}",
+  "documentId": "7053700D-9D6A-C031-85F6-9832C1600000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 07/16/2025 request to introduce hazardous fluids into the fuel gas system and ground flares Nos. 1 and 2 under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250722-3032",
+  "issuedDate": "07/22/2025",
+  "filedDate": "07/22/2025",
+  "postedDate": "07/22/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F7C665DE-2083-CA2B-92D8-9832C1700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250722 GPLNG CP14-517 Fuel Gas, Flare 1 and 2 IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Fuel Gas System and Flare Nos. 1 and 2",
+    "fileSize": 200412,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7053700D-9D6A-C031-85F6-9832C1600000}-{F7C665DE-2083-CA2B-92D8-9832C1700000}",
+  "documentId": "7053700D-9D6A-C031-85F6-9832C1600000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 07/16/2025 request to introduce hazardous fluids into the fuel gas system and ground flares Nos. 1 and 2 under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250722-3032",
+  "issuedDate": "07/22/2025",
+  "filedDate": "07/22/2025",
+  "postedDate": "07/22/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F7C665DE-2083-CA2B-92D8-9832C1700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250722 GPLNG CP14-517 Fuel Gas, Flare 1 and 2 IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Fuel Gas System and Flare Nos. 1 and 2",
+    "fileSize": 200412,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0E441BDF-0599-CCD0-8546-990B8D300000}-{AB5CF4EB-A8B7-CDCD-8B64-990B8D400000}",
+  "documentId": "0E441BDF-0599-CCD0-8546-990B8D300000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 08/26/2025 request to introduce hazardous fluids into the essential diesel generator system under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250902-3039",
+  "issuedDate": "09/02/2025",
+  "filedDate": "09/02/2025",
+  "postedDate": "09/02/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.92,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AB5CF4EB-A8B7-CDCD-8B64-990B8D400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250902 GPLNG CP14-517 IP238 EDGs IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Essential Diesel Generator System",
+    "fileSize": 199458,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0E441BDF-0599-CCD0-8546-990B8D300000}-{AB5CF4EB-A8B7-CDCD-8B64-990B8D400000}",
+  "documentId": "0E441BDF-0599-CCD0-8546-990B8D300000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 08/26/2025 request to introduce hazardous fluids into the essential diesel generator system under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250902-3039",
+  "issuedDate": "09/02/2025",
+  "filedDate": "09/02/2025",
+  "postedDate": "09/02/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AB5CF4EB-A8B7-CDCD-8B64-990B8D400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250902 GPLNG CP14-517 IP238 EDGs IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Essential Diesel Generator System",
+    "fileSize": 199458,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{330CB3DC-B25A-C2C2-8700-991521400000}-{941DE50C-0913-CC9A-9487-991521400000}",
+  "documentId": "330CB3DC-B25A-C2C2-8700-991521400000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 09/03/2025 request to introduce hazardous fluids into ground flare No. 3 under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250904-3021",
+  "issuedDate": "09/04/2025",
+  "filedDate": "09/04/2025",
+  "postedDate": "09/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "941DE50C-0913-CC9A-9487-991521400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250904 GPLNG CP14-517 IP248 Ground Flare 3 IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Ground Flare No. 3",
+    "fileSize": 198094,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{330CB3DC-B25A-C2C2-8700-991521400000}-{941DE50C-0913-CC9A-9487-991521400000}",
+  "documentId": "330CB3DC-B25A-C2C2-8700-991521400000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 09/03/2025 request to introduce hazardous fluids into ground flare No. 3 under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250904-3021",
+  "issuedDate": "09/04/2025",
+  "filedDate": "09/04/2025",
+  "postedDate": "09/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "941DE50C-0913-CC9A-9487-991521400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250904 GPLNG CP14-517 IP248 Ground Flare 3 IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Ground Flare No. 3",
+    "fileSize": 198094,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AEAED50E-ACA9-CA06-86A6-99721A600000}-{0A4AA25B-DC78-C0EA-92FE-99721A700000}",
+  "documentId": "AEAED50E-ACA9-CA06-86A6-99721A600000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 09/19/2025 request to introduce hazardous fluids into the remaining essential diesel generators under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250922-3040",
+  "issuedDate": "09/22/2025",
+  "filedDate": "09/22/2025",
+  "postedDate": "09/22/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0A4AA25B-DC78-C0EA-92FE-99721A700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250922 GPLNG CP14-517-000 IP238 EDGs IHF Part 2 NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Essential Diesel Generator System",
+    "fileSize": 206062,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AEAED50E-ACA9-CA06-86A6-99721A600000}-{0A4AA25B-DC78-C0EA-92FE-99721A700000}",
+  "documentId": "AEAED50E-ACA9-CA06-86A6-99721A600000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 09/19/2025 request to introduce hazardous fluids into the remaining essential diesel generators under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250922-3040",
+  "issuedDate": "09/22/2025",
+  "filedDate": "09/22/2025",
+  "postedDate": "09/22/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0A4AA25B-DC78-C0EA-92FE-99721A700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250922 GPLNG CP14-517-000 IP238 EDGs IHF Part 2 NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Essential Diesel Generator System",
+    "fileSize": 206062,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D88499A3-E457-CFF8-85D8-99E3B7800000}-{393A200D-7042-CBD7-972E-99E3B7800000}",
+  "documentId": "D88499A3-E457-CFF8-85D8-99E3B7800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 10/10/2025 request to introduce hazardous fluids into the thermal oxidizers under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251014-3034",
+  "issuedDate": "10/14/2025",
+  "filedDate": "10/14/2025",
+  "postedDate": "10/14/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "393A200D-7042-CBD7-972E-99E3B7800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251014 GPLNG CP14-517 IP250 Th Ox IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Thermal Oxidizers",
+    "fileSize": 243193,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D88499A3-E457-CFF8-85D8-99E3B7800000}-{393A200D-7042-CBD7-972E-99E3B7800000}",
+  "documentId": "D88499A3-E457-CFF8-85D8-99E3B7800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 10/10/2025 request to introduce hazardous fluids into the thermal oxidizers under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251014-3034",
+  "issuedDate": "10/14/2025",
+  "filedDate": "10/14/2025",
+  "postedDate": "10/14/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "393A200D-7042-CBD7-972E-99E3B7800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251014 GPLNG CP14-517 IP250 Th Ox IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Thermal Oxidizers",
+    "fileSize": 243193,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5C35776C-102F-C98C-879E-9A59D1800000}-{851DEF82-41BA-CF09-955D-9A59D1800000}",
+  "documentId": "5C35776C-102F-C98C-879E-9A59D1800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/03/2025 request to introduce hazardous fluids for low-pressure flare ignition testing under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251106-3024",
+  "issuedDate": "11/06/2025",
+  "filedDate": "11/06/2025",
+  "postedDate": "11/06/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "851DEF82-41BA-CF09-955D-9A59D1800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251106 GPLNG CP14-517 IP246 LP Flare Ig. Test IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Low Pressure Flare",
+    "fileSize": 231087,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5C35776C-102F-C98C-879E-9A59D1800000}-{851DEF82-41BA-CF09-955D-9A59D1800000}",
+  "documentId": "5C35776C-102F-C98C-879E-9A59D1800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/03/2025 request to introduce hazardous fluids for low-pressure flare ignition testing under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251106-3024",
+  "issuedDate": "11/06/2025",
+  "filedDate": "11/06/2025",
+  "postedDate": "11/06/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "851DEF82-41BA-CF09-955D-9A59D1800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251106 GPLNG CP14-517 IP246 LP Flare Ig. Test IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Low Pressure Flare",
+    "fileSize": 231087,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{72676BFD-98C7-CBC1-8584-9A792A800000}-{B9EA93E9-1D7F-C5B5-9739-9A792A800000}",
+  "documentId": "72676BFD-98C7-CBC1-8584-9A792A800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/10/2025 request to introduce fuel gas into Train 1 under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251112-3034",
+  "issuedDate": "11/12/2025",
+  "filedDate": "11/12/2025",
+  "postedDate": "11/12/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.77,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B9EA93E9-1D7F-C5B5-9739-9A792A800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251112 GPLNG CP14-517 IP243 Fuel Gas T1 IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into Train 1",
+    "fileSize": 229410,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{72676BFD-98C7-CBC1-8584-9A792A800000}-{B9EA93E9-1D7F-C5B5-9739-9A792A800000}",
+  "documentId": "72676BFD-98C7-CBC1-8584-9A792A800000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/10/2025 request to introduce fuel gas into Train 1 under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251112-3034",
+  "issuedDate": "11/12/2025",
+  "filedDate": "11/12/2025",
+  "postedDate": "11/12/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.76,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B9EA93E9-1D7F-C5B5-9739-9A792A800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251112 GPLNG CP14-517 IP243 Fuel Gas T1 IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into Train 1",
+    "fileSize": 229410,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DB3CC798-72F8-C467-8712-9A9C34C00000}-{8161741C-D87B-C985-958E-9A9C34C00000}",
+  "documentId": "DB3CC798-72F8-C467-8712-9A9C34C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/18/2025 request to introduce fuel gas into the low pressure flare system under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251119-3014",
+  "issuedDate": "11/19/2025",
+  "filedDate": "11/19/2025",
+  "postedDate": "11/19/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.77,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8161741C-D87B-C985-958E-9A9C34C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251119 GPLNG CP14-517 IP246 LP Flare IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into the Low Pressure Flare",
+    "fileSize": 231283,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DB3CC798-72F8-C467-8712-9A9C34C00000}-{8161741C-D87B-C985-958E-9A9C34C00000}",
+  "documentId": "DB3CC798-72F8-C467-8712-9A9C34C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/18/2025 request to introduce fuel gas into the low pressure flare system under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251119-3014",
+  "issuedDate": "11/19/2025",
+  "filedDate": "11/19/2025",
+  "postedDate": "11/19/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.76,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8161741C-D87B-C985-958E-9A9C34C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251119 GPLNG CP14-517 IP246 LP Flare IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into the Low Pressure Flare",
+    "fileSize": 231283,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9EC7AB34-8B25-C46F-8782-9ABB89C00000}-{9E67241E-1149-C33B-9682-9ABB89C00000}",
+  "documentId": "9EC7AB34-8B25-C46F-8782-9ABB89C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/24/2025 request to introduce fuel gas into the Train 1 gas turbine and dry flare header under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251125-3020",
+  "issuedDate": "11/25/2025",
+  "filedDate": "11/25/2025",
+  "postedDate": "11/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.76,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9E67241E-1149-C33B-9682-9ABB89C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251125 GPLNG CP14-517 IP243 FG T1 GT, D. Flare IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into Train 1 Gas Turbine and Dry Flare",
+    "fileSize": 230156,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9EC7AB34-8B25-C46F-8782-9ABB89C00000}-{9E67241E-1149-C33B-9682-9ABB89C00000}",
+  "documentId": "9EC7AB34-8B25-C46F-8782-9ABB89C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/24/2025 request to introduce fuel gas into the Train 1 gas turbine and dry flare header under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251125-3020",
+  "issuedDate": "11/25/2025",
+  "filedDate": "11/25/2025",
+  "postedDate": "11/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.77,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9E67241E-1149-C33B-9682-9ABB89C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251125 GPLNG CP14-517 IP243 FG T1 GT, D. Flare IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into Train 1 Gas Turbine and Dry Flare",
+    "fileSize": 230156,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Ogden",
+    "firstInitial": "C",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{50A13881-3E22-CB95-8627-9AE9FFA00000}-{178BE2F7-F9CD-C009-978B-9AE9FFA00000}",
+  "documentId": "50A13881-3E22-CB95-8627-9AE9FFA00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/21/2025 request to introduce hazardous fluids into the boiloff gas and send out compressors, the LNG storage tanks, and the LNG pumps and receive the LNG marine vessel under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251204-3034",
+  "issuedDate": "12/04/2025",
+  "filedDate": "12/04/2025",
+  "postedDate": "12/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 82.32,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "178BE2F7-F9CD-C009-978B-9AE9FFA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251204 GPLNG CP14-517 IP247 LNG Sys, LNG Cargo IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into LNG Systems and Receive Cooldown Cargo",
+    "fileSize": 233436,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{50A13881-3E22-CB95-8627-9AE9FFA00000}-{178BE2F7-F9CD-C009-978B-9AE9FFA00000}",
+  "documentId": "50A13881-3E22-CB95-8627-9AE9FFA00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 11/21/2025 request to introduce hazardous fluids into the boiloff gas and send out compressors, the LNG storage tanks, and the LNG pumps and receive the LNG marine vessel under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251204-3034",
+  "issuedDate": "12/04/2025",
+  "filedDate": "12/04/2025",
+  "postedDate": "12/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 82.33,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "178BE2F7-F9CD-C009-978B-9AE9FFA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251204 GPLNG CP14-517 IP247 LNG Sys, LNG Cargo IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into LNG Systems and Receive Cooldown Cargo",
+    "fileSize": 233436,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6389E50C-E303-C138-87D4-9B0E18000000}-{F0C73736-6497-C71A-95F6-9B0E18000000}",
+  "documentId": "6389E50C-E303-C138-87D4-9B0E18000000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/11/2025 request to introduce fuel gas into the Train 1 gas turbine for the mixed refrigerant compressor solo run under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251211-3035",
+  "issuedDate": "12/11/2025",
+  "filedDate": "12/11/2025",
+  "postedDate": "12/11/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.76,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F0C73736-6497-C71A-95F6-9B0E18000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251211 GPLNG CP14-517 IP243 FG T1 MR GT IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into the Train 1 Gas Turbine",
+    "fileSize": 230185,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6389E50C-E303-C138-87D4-9B0E18000000}-{F0C73736-6497-C71A-95F6-9B0E18000000}",
+  "documentId": "6389E50C-E303-C138-87D4-9B0E18000000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/11/2025 request to introduce fuel gas into the Train 1 gas turbine for the mixed refrigerant compressor solo run under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251211-3035",
+  "issuedDate": "12/11/2025",
+  "filedDate": "12/11/2025",
+  "postedDate": "12/11/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.77,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F0C73736-6497-C71A-95F6-9B0E18000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251211 GPLNG CP14-517 IP243 FG T1 MR GT IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas into the Train 1 Gas Turbine",
+    "fileSize": 230185,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BE4A8DCB-187B-C9B7-8640-9B4BC8E00000}-{54FBA054-A30C-C2FA-9779-9B4BC8E00000}",
+  "documentId": "BE4A8DCB-187B-C9B7-8640-9B4BC8E00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/23/2025 request to introduce hazardous fluids into the BOG compressor system under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251223-3027",
+  "issuedDate": "12/23/2025",
+  "filedDate": "12/23/2025",
+  "postedDate": "12/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.94,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "54FBA054-A30C-C2FA-9779-9B4BC8E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251223 IP247 BOG Compression IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the BOG Compressor System",
+    "fileSize": 244003,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BE4A8DCB-187B-C9B7-8640-9B4BC8E00000}-{54FBA054-A30C-C2FA-9779-9B4BC8E00000}",
+  "documentId": "BE4A8DCB-187B-C9B7-8640-9B4BC8E00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 12/23/2025 request to introduce hazardous fluids into the BOG compressor system under CP14-517.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251223-3027",
+  "issuedDate": "12/23/2025",
+  "filedDate": "12/23/2025",
+  "postedDate": "12/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.95,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "54FBA054-A30C-C2FA-9779-9B4BC8E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20251223 IP247 BOG Compression IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the BOG Compressor System",
+    "fileSize": 244003,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8C12DA16-772C-CBB2-874C-9BBD9DE00000}-{EABC1E57-F9B8-CB41-95F0-9BBD9DE00000}",
+  "documentId": "8C12DA16-772C-CBB2-874C-9BBD9DE00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 01/12/2026 request to introduce hazardous fluids into the refrigerant storage system and the Train 1 dry liquid flare header under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260114-3072",
+  "issuedDate": "01/14/2026",
+  "filedDate": "01/14/2026",
+  "postedDate": "01/14/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "EABC1E57-F9B8-CB41-95F0-9BBD9DE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260114 GPLNG CP14-517 Refrig Storage Dry Flare IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Refrigerant Storage System and the Train 1 Dry Liquid Flare Header",
+    "fileSize": 243344,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8C12DA16-772C-CBB2-874C-9BBD9DE00000}-{EABC1E57-F9B8-CB41-95F0-9BBD9DE00000}",
+  "documentId": "8C12DA16-772C-CBB2-874C-9BBD9DE00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 01/12/2026 request to introduce hazardous fluids into the refrigerant storage system and the Train 1 dry liquid flare header under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260114-3072",
+  "issuedDate": "01/14/2026",
+  "filedDate": "01/14/2026",
+  "postedDate": "01/14/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "EABC1E57-F9B8-CB41-95F0-9BBD9DE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260114 GPLNG CP14-517 Refrig Storage Dry Flare IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Refrigerant Storage System and the Train 1 Dry Liquid Flare Header",
+    "fileSize": 243344,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{154516E5-E3CB-C75B-84FA-9C0B32600000}-{0976B818-88E9-C0D5-9757-9C0B32600000}",
+  "documentId": "154516E5-E3CB-C75B-84FA-9C0B32600000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 01/26/2026 request to introduce hazardous fluids into the warm end of Train 1 and the sendout compressor under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260129-3049",
+  "issuedDate": "01/29/2026",
+  "filedDate": "01/29/2026",
+  "postedDate": "01/29/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP20-459-000",
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0976B818-88E9-C0D5-9757-9C0B32600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260129 GPLNG CP14-517 IP244 T1 W Ends and Comp IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Warm End of Train 1 and the Sendout Compressor",
+    "fileSize": 232720,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{154516E5-E3CB-C75B-84FA-9C0B32600000}-{0976B818-88E9-C0D5-9757-9C0B32600000}",
+  "documentId": "154516E5-E3CB-C75B-84FA-9C0B32600000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 01/26/2026 request to introduce hazardous fluids into the warm end of Train 1 and the sendout compressor under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260129-3049",
+  "issuedDate": "01/29/2026",
+  "filedDate": "01/29/2026",
+  "postedDate": "01/29/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.96,
+  "docketNumbers": [
+   "CP20-459-000",
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0976B818-88E9-C0D5-9757-9C0B32600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260129 GPLNG CP14-517 IP244 T1 W Ends and Comp IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Warm End of Train 1 and the Sendout Compressor",
+    "fileSize": 232720,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{10848A99-A1B2-C81F-8413-9C9576F00000}-{95978195-887D-CF52-9BF2-9C9576F00000}",
+  "documentId": "10848A99-A1B2-C81F-8413-9C9576F00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 02/24/2026 request to introduce hazardous fluids into the cold end systems of Train 1 under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260225-3047",
+  "issuedDate": "02/25/2026",
+  "filedDate": "02/25/2026",
+  "postedDate": "02/25/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.92,
+  "docketNumbers": [
+   "CP20-459-000",
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "95978195-887D-CF52-9BF2-9C9576F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260225 GPLNG CP14-517 et al IP243 T1 Cold End IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Cold End of Train 1",
+    "fileSize": 226709,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{10848A99-A1B2-C81F-8413-9C9576F00000}-{95978195-887D-CF52-9BF2-9C9576F00000}",
+  "documentId": "10848A99-A1B2-C81F-8413-9C9576F00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 02/24/2026 request to introduce hazardous fluids into the cold end systems of Train 1 under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260225-3047",
+  "issuedDate": "02/25/2026",
+  "filedDate": "02/25/2026",
+  "postedDate": "02/25/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.93,
+  "docketNumbers": [
+   "CP20-459-000",
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "95978195-887D-CF52-9BF2-9C9576F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260225 GPLNG CP14-517 et al IP243 T1 Cold End IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Cold End of Train 1",
+    "fileSize": 226709,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7E76283B-CB09-CCFC-8411-9D01DF000000}-{F8378DF6-A98E-CC64-99EE-9D01DF000000}",
+  "documentId": "7E76283B-CB09-CCFC-8411-9D01DF000000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 03/17/2026 request to introduce hazardous fluids into the Train 1 Regen Gas System under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260318-3049",
+  "issuedDate": "03/18/2026",
+  "filedDate": "03/18/2026",
+  "postedDate": "03/18/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.94,
+  "docketNumbers": [
+   "CP20-459-000",
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F8378DF6-A98E-CC64-99EE-9D01DF000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260318 GPLNG CP14-517 et al IP244 T1 Regen Gas IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Train 1 Regen Gas System",
+    "fileSize": 206618,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7E76283B-CB09-CCFC-8411-9D01DF000000}-{F8378DF6-A98E-CC64-99EE-9D01DF000000}",
+  "documentId": "7E76283B-CB09-CCFC-8411-9D01DF000000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 03/17/2026 request to introduce hazardous fluids into the Train 1 Regen Gas System under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260318-3049",
+  "issuedDate": "03/18/2026",
+  "filedDate": "03/18/2026",
+  "postedDate": "03/18/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.95,
+  "docketNumbers": [
+   "CP20-459-000",
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F8378DF6-A98E-CC64-99EE-9D01DF000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260318 GPLNG CP14-517 et al IP244 T1 Regen Gas IHF NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into the Train 1 Regen Gas System",
+    "fileSize": 206618,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9AA15F49-DD48-C637-8522-9D4A02200000}-{EBD00A23-C9AF-C6E3-9ADF-9D4A02200000}",
+  "documentId": "9AA15F49-DD48-C637-8522-9D4A02200000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 03/31/2026 request to export LNG produced during commissioning activities by LNG marine vessels under CP14-517 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260401-3034",
+  "issuedDate": "04/01/2026",
+  "filedDate": "04/01/2026",
+  "postedDate": "04/01/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.68,
+  "docketNumbers": [
+   "CP14-517-000",
+   "CP20-459-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "EBD00A23-C9AF-C6E3-9ADF-9D4A02200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Golden Pass CP14-517 et al Commissioning Cargo NTP.pdf",
+    "fileDesc": "Authorization of Commissioning Cargoes",
+    "fileSize": 251857,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Harren",
+    "firstInitial": "K",
+    "middleInitial": "P"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F6316916-B704-CF6D-8644-9EFA71C00000}-{F6292EE5-A2DE-CB60-849F-9EFA71D00000}",
+  "documentId": "F6316916-B704-CF6D-8644-9EFA71C00000",
+  "description": "Letter to Golden Pass LNG Terminal LLC granting the 06/22/2026 request to commission the Train 2 systems under CP14-517. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260624-3060",
+  "issuedDate": "06/24/2026",
+  "filedDate": "06/24/2026",
+  "postedDate": "06/24/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.69,
+  "docketNumbers": [
+   "CP14-517-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F6292EE5-A2DE-CB60-849F-9EFA71D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20260624 GPLNG CP14-517 Train 2 Commissioning NTP.pdf",
+    "fileDesc": "Approval to Commission Train 2 Systems",
+    "fileSize": 201182,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "GOLDEN PASS LNG",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "GOLDEN PASS LNG TERMINAL LLC",
+    "lastName": "Chavez",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

@@ -1,0 +1,6819 @@
+[
+ {
+  "reference": "{DE4EE9A6-4A07-C137-8302-736AE6D00001}-{0203FCCA-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DE4EE9A6-4A07-C137-8302-736AE6D00001",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Venture Global Plaquemines LNG, LLC et al under CP17-66 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190930-3048",
+  "issuedDate": "09/30/2019",
+  "filedDate": "09/30/2019",
+  "postedDate": "09/30/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.44,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-67-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203FCCA-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-66-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 166545,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.46,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{38A98B7D-2578-C344-84D8-8F0BF4000000}-{6416C5D1-F75F-CF24-96E8-8F0BF4000000}",
+  "documentId": "38A98B7D-2578-C344-84D8-8F0BF4000000",
+  "description": "Letter to Venture Global Plaquemines, LLC granting the 04/16/2024 request to introduce hazardous fluids to the gas gate under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240423-3041",
+  "issuedDate": "04/23/2024",
+  "filedDate": "04/23/2024",
+  "postedDate": "04/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6416C5D1-F75F-CF24-96E8-8F0BF4000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 NTP V321 IHF Gas Gate (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Gas Gate",
+    "fileSize": 246833,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES, LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F3A79F50-6DA6-C1DC-8555-8F814FE00000}-{51FDCFD3-A189-C674-945B-8F814FE00000}",
+  "documentId": "F3A79F50-6DA6-C1DC-8555-8F814FE00000",
+  "description": "Letter to Venture Global Plaquemines, LLC granting the 05/14/2024 request to introduce hazardous fluids to the LM2500 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240516-3003",
+  "issuedDate": "05/16/2024",
+  "filedDate": "05/16/2024",
+  "postedDate": "05/16/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "51FDCFD3-A189-C674-945B-8F814FE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-05-16 PLNG CP17-66-000 NTP V322 IHF LM2500 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the LM2500 Generator",
+    "fileSize": 239839,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES, LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{18F8A997-0343-C761-849E-8FDEB3E00000}-{D410F8FB-C47D-CD28-8451-8FDEB3F00000}",
+  "documentId": "18F8A997-0343-C761-849E-8FDEB3E00000",
+  "description": "Letter to Venture Global Plaquemines, LLC granting the 05/29/2024 request to commission the Amine Storage System at the Gator Express Pipeline Project under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240603-3020",
+  "issuedDate": "06/03/2024",
+  "filedDate": "06/03/2024",
+  "postedDate": "06/03/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D410F8FB-C47D-CD28-8451-8FDEB3F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 NTP V340 S1 Commissioning.pdf",
+    "fileDesc": "Approval to Commission the Amine Storage System",
+    "fileSize": 237276,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES, LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{555BE1A7-B302-C31B-8674-902B53400000}-{B1A78E94-1E58-CA7B-9799-902B53400000}",
+  "documentId": "555BE1A7-B302-C31B-8674-902B53400000",
+  "description": "Letter to Venture Global Plaquemines, LLC granting the 06/12/2024 request to commission the Temporary Nitrogen System under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240618-3007",
+  "issuedDate": "06/18/2024",
+  "filedDate": "06/18/2024",
+  "postedDate": "06/18/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B1A78E94-1E58-CA7B-9799-902B53400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "PLNG CP17-66-000 NTP V340 S2 Commissioning.pdf",
+    "fileDesc": "Approval to Commission the Temporary Nitrogen System",
+    "fileSize": 238816,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES, LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{722680C6-ABFE-C95F-87CC-907457700000}-{07C004D5-B40B-CB0D-93C0-907457800000}",
+  "documentId": "722680C6-ABFE-C95F-87CC-907457700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/27/2024 request to commission the Aqueous Ammonia storage and pump package, and introduce aqueous ammonia and distribute to LM2500 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240702-3035",
+  "issuedDate": "07/02/2024",
+  "filedDate": "07/02/2024",
+  "postedDate": "07/02/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.44,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "07C004D5-B40B-CB0D-93C0-907457800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-07-02 Plaq CP17-66-000 V323 IHF Aq Ammonia.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Aqueous Ammonia System and LM2500",
+    "fileSize": 246245,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4004D2E0-1968-CAEC-86BB-909D5B200000}-{CD373432-4399-CE1B-95EC-909D5B200000}",
+  "documentId": "4004D2E0-1968-CAEC-86BB-909D5B200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/03/2024 request to commission and introduce hazardous fluids to Gas Turbine Generator 1 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240710-3017",
+  "issuedDate": "07/10/2024",
+  "filedDate": "07/10/2024",
+  "postedDate": "07/10/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CD373432-4399-CE1B-95EC-909D5B200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 V331 IHF GTG1 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Gas Turbine Generator 1 (GTG-1)",
+    "fileSize": 239657,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E33C29F7-7427-CF03-87C4-90E097E00000}-{BD772BEB-29E7-C9C2-9740-90E097E00000}",
+  "documentId": "E33C29F7-7427-CF03-87C4-90E097E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/17/2024 request to commission and introduce hazardous fluids to Gas Turbine Generator 2 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240723-3028",
+  "issuedDate": "07/23/2024",
+  "filedDate": "07/23/2024",
+  "postedDate": "07/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "BD772BEB-29E7-C9C2-9740-90E097E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-07-23 Plaq CP17-66-000 V332 IHF GTG2.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Gas Turbine Generator 2 (GTG-2)",
+    "fileSize": 244662,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5870B7C2-5A00-C9C2-8795-910E46000000}-{ADB11F75-A6CC-CABC-94C9-910E46000000}",
+  "documentId": "5870B7C2-5A00-C9C2-8795-910E46000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/31/2024 request to commission the Tempered Water System under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240801-3005",
+  "issuedDate": "08/01/2024",
+  "filedDate": "08/01/2024",
+  "postedDate": "08/01/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "ADB11F75-A6CC-CABC-94C9-910E46000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP17-66-000 NTP V340 S4 Commissioning.pdf",
+    "fileDesc": "Approval to Commission the Tempered Water System",
+    "fileSize": 238294,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{742B87FE-D2D2-CAA7-84B3-9127A2600000}-{72269E2F-BC23-CBD2-97A1-9127A2600000}",
+  "documentId": "742B87FE-D2D2-CAA7-84B3-9127A2600000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/02/2024 request to commission the Instrument Air Compressor & Dryer-A & B, and Wet Air Separators and Instrument Air Receivers under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240806-3010",
+  "issuedDate": "08/06/2024",
+  "filedDate": "08/06/2024",
+  "postedDate": "08/06/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "72269E2F-BC23-CBD2-97A1-9127A2600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 NTP V340 S5 Commissioning.pdf",
+    "fileDesc": "Approval to Commission the Instrument Air System",
+    "fileSize": 234578,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6843CF1D-943D-C9E0-8478-915790200000}-{FC3A378D-1E4B-C613-9594-915790200000}",
+  "documentId": "6843CF1D-943D-C9E0-8478-915790200000",
+  "description": "Letter to Global Plaquemines LNG, LLC granting the 08/13/2024 request to commission the Jetty 2 mooring system, ship to shore link, and LNG gangway under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240815-3068",
+  "issuedDate": "08/15/2024",
+  "filedDate": "08/15/2024",
+  "postedDate": "08/15/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "FC3A378D-1E4B-C613-9594-915790200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-08-15 Plaq CP17-66 NTP V390 S1 Commissioning.pdf",
+    "fileDesc": "Approval to Commission the Jetty 2 Ship Berthing Components",
+    "fileSize": 215907,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2FA4A05F-CCA5-C1B8-854E-917584500000}-{6066E538-3379-CDD3-951B-917584500000}",
+  "documentId": "2FA4A05F-CCA5-C1B8-854E-917584500000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/15/2024 request to commission the Booster Compressor B Substation and Load Bank Section B under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240821-3026",
+  "issuedDate": "08/21/2024",
+  "filedDate": "08/21/2024",
+  "postedDate": "08/21/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6066E538-3379-CDD3-951B-917584500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-08-21 Plaq CP17-66 NTP V330 S1 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Booster Compressor B Substation and Load Bank B",
+    "fileSize": 236015,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{284E2FD0-F048-C324-AA02-918080200000}-{AB181495-E15F-C650-8AD9-918080300000}",
+  "documentId": "284E2FD0-F048-C324-AA02-918080200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/15/2024 request to commission the Liquefaction Train System Block 1 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240823-3077",
+  "issuedDate": "08/23/2024",
+  "filedDate": "08/23/2024",
+  "postedDate": "08/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AB181495-E15F-C650-8AD9-918080300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-08-23 Plaq CP17-66 NTP V370 S3 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 1 with Nitrogen",
+    "fileSize": 237459,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A7316577-55BF-C6A3-86D7-919521700000}-{D541B29B-54E6-C2D0-8BF1-919521800000}",
+  "documentId": "A7316577-55BF-C6A3-86D7-919521700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/22/2024 request to commission the River Water Diesel Firewater Pump Package under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240827-3064",
+  "issuedDate": "08/27/2024",
+  "filedDate": "08/27/2024",
+  "postedDate": "08/27/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D541B29B-54E6-C2D0-8BF1-919521800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-08-27 Plaq CP17-66 NTP V340 S11 Commissioning.pdf",
+    "fileDesc": "Approval to Commission River Water Diesel Firewater Pump Package",
+    "fileSize": 237879,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2F07B722-C9B9-CEFD-863E-91C785B00000}-{50DA939B-656F-CC81-9776-91C785B00000}",
+  "documentId": "2F07B722-C9B9-CEFD-863E-91C785B00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/21/2024 request to introduce hazardous fluids to the Jetty 2 and associated marine terminal transfer piping, etc. for the LNG Storage Tank 1 reverse cooldown activities under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240906-3017",
+  "issuedDate": "09/06/2024",
+  "filedDate": "09/06/2024",
+  "postedDate": "09/06/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.16,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "50DA939B-656F-CC81-9776-91C785B00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 NTP V391 IHF Reverse Cooldown.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids for LNG Storage Tank 1 Reverse Cooldown Activity",
+    "fileSize": 234219,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3C5BD36F-FE77-C524-8625-91DC12300000}-{BC48788A-C01C-C57B-9594-91DC12300000}",
+  "documentId": "3C5BD36F-FE77-C524-8625-91DC12300000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/05/2024 request to commission the Liquefaction Train System Block 2 with nitrogen gas under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240910-3016",
+  "issuedDate": "09/10/2024",
+  "filedDate": "09/10/2024",
+  "postedDate": "09/10/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "BC48788A-C01C-C57B-9594-91DC12300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-09-10 Plaq CP17-66 NTP V370 S4 Commissioning (HT).pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 2 with Nitrogen",
+    "fileSize": 246327,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{FA4DC5D1-CA4D-C0E1-859D-921045700000}-{6BD973AE-651C-C7A8-94E8-921045700000}",
+  "documentId": "FA4DC5D1-CA4D-C0E1-859D-921045700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 9/19/2024 request to commission the hot oil system for pump testing, cold circulation, and piping system flushing under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240920-3044",
+  "issuedDate": "09/20/2024",
+  "filedDate": "09/20/2024",
+  "postedDate": "09/20/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6BD973AE-651C-C7A8-94E8-921045700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-09-20 Plaq CP17-66 NTP V360 S2 Commissioning HT.pdf",
+    "fileDesc": "Approval to Commission Hot Oil System",
+    "fileSize": 237776,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E49344EF-7424-CAE5-8490-9223F6F00000}-{419829C4-63A5-CE21-954C-9223F6F00000}",
+  "documentId": "E49344EF-7424-CAE5-8490-9223F6F00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/20/2024 request to commission and test the essential diesel generators under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240924-3001",
+  "issuedDate": "09/24/2024",
+  "filedDate": "09/24/2024",
+  "postedDate": "09/24/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "419829C4-63A5-CE21-954C-9223F6F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 NTP V340 S8 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Essential Diesel Generators",
+    "fileSize": 237710,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{40AC3BFB-83D1-CECE-8598-924451E00000}-{FB40164E-0026-C6DE-94EB-924451E00000}",
+  "documentId": "40AC3BFB-83D1-CECE-8598-924451E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/26/2024 request to commission the Liquefaction Train System Block 3 with nitrogen gas under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240930-3063",
+  "issuedDate": "09/30/2024",
+  "filedDate": "09/30/2024",
+  "postedDate": "09/30/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "FB40164E-0026-C6DE-94EB-924451E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP17-66 NTP.pdf",
+    "fileDesc": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/26/2024 request to commission the Liquefaction Train System Block 3 under CP17-66.",
+    "fileSize": 241991,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B2789F03-E2EE-CD31-848C-92969AD00000}-{E4373325-7FED-CFD8-96FA-92969AD00000}",
+  "documentId": "B2789F03-E2EE-CD31-848C-92969AD00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/10/2024 request to commission the Liquefaction Train System Block 4 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241016-3065",
+  "issuedDate": "10/16/2024",
+  "filedDate": "10/16/2024",
+  "postedDate": "10/16/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E4373325-7FED-CFD8-96FA-92969AD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66-000 NTP V380 S2 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 4 with Nitrogen",
+    "fileSize": 258398,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5C3076FD-9485-C642-8664-92E7EB000000}-{1BD644B5-911B-C085-973D-92E7EB000000}",
+  "documentId": "5C3076FD-9485-C642-8664-92E7EB000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/29/2024 request to commission the Acid Gas Removal Unit system by circulating demineralized water to the clean liquid circuit etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241101-3007",
+  "issuedDate": "11/01/2024",
+  "filedDate": "11/01/2024",
+  "postedDate": "11/01/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "1BD644B5-911B-C085-973D-92E7EB000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-01 Plaq CP17-66 NTP V360 S3 Commission (SK).pdf",
+    "fileDesc": "Approval to Commission Acid Gas Removal Unit (AGRU) System",
+    "fileSize": 254955,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AE65BB09-46AB-C1EA-853D-930212500000}-{67447090-9457-C676-9680-930212500000}",
+  "documentId": "AE65BB09-46AB-C1EA-853D-930212500000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/25/2024 request to commission and introduce hazardous fluid to the High Pressure and Low Pressure Fuel Gas Systems and the Warm Flare System under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241106-3025",
+  "issuedDate": "11/06/2024",
+  "filedDate": "11/06/2024",
+  "postedDate": "11/06/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.5,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "67447090-9457-C676-9680-930212500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66 NTP V342 IHF HP LP FG WFlare (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to High Pressure (HP) and Low Pressure (LP) Fuel Gas Systems and Warm Flare System",
+    "fileSize": 238920,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4CEF3FF6-7486-C8C6-8462-9321DD900000}-{EA9B27A7-5125-CFF1-9619-9321DD900000}",
+  "documentId": "4CEF3FF6-7486-C8C6-8462-9321DD900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/08/2024 request to commission the Hot Oil Storage Tank System under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241112-3051",
+  "issuedDate": "11/12/2024",
+  "filedDate": "11/12/2024",
+  "postedDate": "11/12/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "EA9B27A7-5125-CFF1-9619-9321DD900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-12 Plaq CP17-66 NTP V340 S3 Comm HO Tank (HT).pdf",
+    "fileDesc": "Approval to Commission Hot Oil Storage Tank System",
+    "fileSize": 239360,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F2494819-F135-C12C-8421-932088400000}-{67AB6554-5F7B-C282-968D-932088400000}",
+  "documentId": "F2494819-F135-C12C-8421-932088400000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/07/2024 request to commission the Liquefaction Train System Block 5 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241112-3006",
+  "issuedDate": "11/12/2024",
+  "filedDate": "11/12/2024",
+  "postedDate": "11/12/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "67AB6554-5F7B-C282-968D-932088400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-12 Plaq CP17-66 NTP V380 S3 Commissioning (HT).pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 5 with Nitrogen",
+    "fileSize": 241741,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C4B92159-B0B8-CD6B-8698-932AD5A00000}-{BB36C62E-2173-CDAD-974A-932AD5A00000}",
+  "documentId": "C4B92159-B0B8-CD6B-8698-932AD5A00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/04/2024 request to introduce low-pressure fuel gas to the hot oil heaters to circulate high temperature hot oil through the distribution system under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241114-3003",
+  "issuedDate": "11/14/2024",
+  "filedDate": "11/14/2024",
+  "postedDate": "11/14/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.86,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "BB36C62E-2173-CDAD-974A-932AD5A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-14 Plaq CP17-66 NTP V361 IHF LP FG to HO Heater.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: LP Fuel Gas to the Hot Oil Heaters and Distribution of High Temperature Hot Oil",
+    "fileSize": 245598,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6464AC45-7F8F-C384-8516-932BCAB00000}-{86160982-622A-C1D8-9515-932BCAB00000}",
+  "documentId": "6464AC45-7F8F-C384-8516-932BCAB00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC's 11/08/2024 request to commission the Feed Gas Booster Compressor A by circulating nitrogen through the knockout drum, compressor, and aftercooler under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241114-3044",
+  "issuedDate": "11/14/2024",
+  "filedDate": "11/14/2024",
+  "postedDate": "11/14/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "86160982-622A-C1D8-9515-932BCAB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-14 Plaq CP17-66 NTP V360 S4 Commission (HT).pdf",
+    "fileDesc": "Approval to Commission Feed Gas Booster Compressor A",
+    "fileSize": 242111,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{17D44651-6033-C49E-8605-93310CD00000}-{AE49B487-1B0D-C1F8-9367-93310CE00000}",
+  "documentId": "17D44651-6033-C49E-8605-93310CD00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/12/2024 request to commission Common Amine Equipment and Acid Gas Removal Unit, Unit A under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241115-3045",
+  "issuedDate": "11/15/2024",
+  "filedDate": "11/15/2024",
+  "postedDate": "11/15/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.47,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AE49B487-1B0D-C1F8-9367-93310CE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-15 Plaq CP17-66 NTP V360 S1 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Common Amine Equipment and Acid Gas Removal Unit (AGRU) Unit A",
+    "fileSize": 239670,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7B105C6C-A467-C0DD-8792-935022D00000}-{2540ECA4-A063-CB49-9622-935022D00000}",
+  "documentId": "7B105C6C-A467-C0DD-8792-935022D00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/12/2024 request to commission and introduce hazardous fluids to Liquefaction Block 1 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241121-3079",
+  "issuedDate": "11/21/2024",
+  "filedDate": "11/21/2024",
+  "postedDate": "11/21/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.86,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2540ECA4-A063-CB49-9622-935022D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-21 Plaq CP17-66 V374 IHF LTS Block 1 (JL).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 1",
+    "fileSize": 229213,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A5F247F9-CA1E-CBD4-87B9-9369EDD00000}-{ACAD6E94-E245-CF8B-9767-9369EDD00000}",
+  "documentId": "A5F247F9-CA1E-CBD4-87B9-9369EDD00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/18/2024 request to commission and introduce hazardous fluids to the Mercury Removal, Pretreatment Unit A, Booster Compressor A, and Heavy Hydrocarbon Condensate handling under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241126-3053",
+  "issuedDate": "11/26/2024",
+  "filedDate": "11/26/2024",
+  "postedDate": "11/26/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "ACAD6E94-E245-CF8B-9767-9369EDD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-26 Plaq CP17-66 NTP V362 Pretreatment A IHF (HT).pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to Pretreatment\nEquipment",
+    "fileSize": 243679,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{66B99531-1CFC-C21F-8771-936967600000}-{E94AB67B-F122-CCC7-97E3-936967600000}",
+  "documentId": "66B99531-1CFC-C21F-8771-936967600000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/20/2024 request to commission and introduce hazardous fluids to Mixed Refrigerant storage and distribution system etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241126-3033",
+  "issuedDate": "11/26/2024",
+  "filedDate": "11/26/2024",
+  "postedDate": "11/26/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E94AB67B-F122-CCC7-97E3-936967600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66 NTP V372 MR Storage, Cold Flare IHF (HT).pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to Mixed Refrigerant (MR) Storage and Distribution, Cold and Spare Flares, LTS Train MR Systems, and LNG Rundown from LTS Blocks to LNG Tank 1",
+    "fileSize": 245207,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{02140C2D-C91E-C4BF-844A-9392F4700000}-{64699E42-93D2-C248-94CF-9392F4700000}",
+  "documentId": "02140C2D-C91E-C4BF-844A-9392F4700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/26/2024 request to commission the Feed Gas Booster Compressor B by circulating nitrogen through the knockout drum, compressor, and aftercooler under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241204-3059",
+  "issuedDate": "12/04/2024",
+  "filedDate": "12/04/2024",
+  "postedDate": "12/04/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "64699E42-93D2-C248-94CF-9392F4700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-04 Plaq CP17-66 NTP V360 S5 Commission (HT).pdf",
+    "fileDesc": "Approval to Commission Feed Gas Booster Compressor B",
+    "fileSize": 241574,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B388C5FD-1CA0-C552-85BE-939817D00000}-{26D21085-7589-CC78-9789-939817D00000}",
+  "documentId": "B388C5FD-1CA0-C552-85BE-939817D00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/29/2024 request to commission and introduce hazardous fluids, Liquid Nitrogen, to the Liquid Nitrogen storage, vaporization, and production system, under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241205-3056",
+  "issuedDate": "12/05/2024",
+  "filedDate": "12/05/2024",
+  "postedDate": "12/05/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "26D21085-7589-CC78-9789-939817D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-05 Plaq CP17-66 V341 IHF LIN.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquid Nitrogen Storage, Vaporization, and Production Systems",
+    "fileSize": 217078,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7FE627C9-B2F8-C6DA-8564-939800C00000}-{9D3C651B-EA71-CD47-96F8-939800C00000}",
+  "documentId": "7FE627C9-B2F8-C6DA-8564-939800C00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/27/2024 request to commission and introduce hazardous fluids to LTS Block 2 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241205-3051",
+  "issuedDate": "12/05/2024",
+  "filedDate": "12/05/2024",
+  "postedDate": "12/05/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9D3C651B-EA71-CD47-96F8-939800C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-05 Plaq CP17-66 NTP V375 IHF LTS Block 2.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 2",
+    "fileSize": 235867,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7463D803-C63F-CA60-85F8-93ACB7600000}-{08C67859-99A1-C805-9528-93ACB7600000}",
+  "documentId": "7463D803-C63F-CA60-85F8-93ACB7600000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/29/2024 request to introduce hazardous fluids and cooldown LNG Storage Tank 2 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241209-3036",
+  "issuedDate": "12/09/2024",
+  "filedDate": "12/09/2024",
+  "postedDate": "12/09/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.16,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "08C67859-99A1-C805-9528-93ACB7600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-09 Plaq CP17-66 NTP IHF Tank 2.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids for LNG Storage Tank 2 Cooldown",
+    "fileSize": 242204,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F4BD732B-64C9-C4CE-874D-93B20B900000}-{313E4A80-10F1-C44C-9475-93B20B900000}",
+  "documentId": "F4BD732B-64C9-C4CE-874D-93B20B900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/02/2024 request to introduce hazardous fluids to the Marine Flare under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241210-3062",
+  "issuedDate": "12/10/2024",
+  "filedDate": "12/10/2024",
+  "postedDate": "12/10/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.93,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "313E4A80-10F1-C44C-9475-93B20B900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-10 Plaq CP17-66 NTP IHF Marine Flare.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Marine Flare",
+    "fileSize": 249497,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{23768825-6D1C-C6F5-8544-93B125F00000}-{03F77791-D307-CA44-9D3A-93B125F00000}",
+  "documentId": "23768825-6D1C-C6F5-8544-93B125F00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/08/2024 request to commission and introduce hazardous fluids to Gas Turbine Generator 3 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241210-4002",
+  "issuedDate": "11/13/2024",
+  "filedDate": "12/10/2024",
+  "postedDate": "12/10/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "03F77791-D307-CA44-9D3A-93B125F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-11-13 Plaq CP17-66 V351 IHF GTG3 (HT).pdf",
+    "fileDesc": "",
+    "fileSize": 239514,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F5A65AE3-2338-C409-85D3-93B703F00000}-{C3B10324-0120-C3D4-96BB-93B703F00000}",
+  "documentId": "F5A65AE3-2338-C409-85D3-93B703F00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/09/2024 request to commission the Pretreatment B Acid Gas Removal Unit System by operating it at design operating pressures utilizing nitrogen, etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241211-3040",
+  "issuedDate": "12/11/2024",
+  "filedDate": "12/11/2024",
+  "postedDate": "12/11/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C3B10324-0120-C3D4-96BB-93B703F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-11 Plaq CP17-66 NTP V440 S1 Commission.pdf",
+    "fileDesc": "Approval to Commission Pretreatment B \u2013 Acid Gas Removal Unit System",
+    "fileSize": 239612,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{87DC2B7C-47C3-C1C2-86EE-93BAFC700000}-{D16CA47B-B77A-C281-96EB-93BAFC700000}",
+  "documentId": "87DC2B7C-47C3-C1C2-86EE-93BAFC700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/29/2024 request to commission the Liquefaction Train System Block 6 with nitrogen gas under CP17-66.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241212-3000",
+  "issuedDate": "12/12/2024",
+  "filedDate": "12/12/2024",
+  "postedDate": "12/12/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D16CA47B-B77A-C281-96EB-93BAFC700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-12 Plaq CP17-66 NTP V380 S4 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 6 with Nitrogen",
+    "fileSize": 241461,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6F074EFE-2BF2-C89D-8411-93C0B8A00000}-{DC7F09C5-30C3-CFDA-9614-93C0B8A00000}",
+  "documentId": "6F074EFE-2BF2-C89D-8411-93C0B8A00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/11/2024 request to introduce hazardous fluids to the Feed Gas Booster Compressor B and ancillary equipment under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241213-3028",
+  "issuedDate": "12/13/2024",
+  "filedDate": "12/13/2024",
+  "postedDate": "12/13/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DC7F09C5-30C3-CFDA-9614-93C0B8A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-13 Plaq CP17-66 NTP IHF Booster Compressor B.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Feed Gas Booster Compressor B",
+    "fileSize": 215617,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D79679C3-B53D-C23C-843F-93CFDAC00000}-{2E3251EC-A756-CD3D-94DC-93CFDAC00000}",
+  "documentId": "D79679C3-B53D-C23C-843F-93CFDAC00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/02/2024 request to commission the Instrument Air Compressor C & D and Dryer C, River Water, Utility Water System, Demin Water, Potable Water, etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241216-3017",
+  "issuedDate": "12/16/2024",
+  "filedDate": "12/16/2024",
+  "postedDate": "12/16/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2E3251EC-A756-CD3D-94DC-93CFDAC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-16 Plaq CP17-66 NTP V340 S6 Commission.pdf",
+    "fileDesc": "Approval to Commission Utility Systems",
+    "fileSize": 238395,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2F7EDE48-D43F-CE48-8463-93D5CCF00000}-{CF2C2A9C-DE26-C833-9113-93D5CD000000}",
+  "documentId": "2F7EDE48-D43F-CE48-8463-93D5CCF00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/12/2024 request to commission and introduce hazardous fluids to Liquefaction Block 3 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241217-3076",
+  "issuedDate": "12/17/2024",
+  "filedDate": "12/17/2024",
+  "postedDate": "12/17/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CF2C2A9C-DE26-C833-9113-93D5CD000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-17 Plaq CP17-66 NTP V381 IHF LTS Block 3 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 3",
+    "fileSize": 254392,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BFE70902-D276-C7B8-8689-93DB79100000}-{715180DA-C91D-CC64-96E7-93DB79100000}",
+  "documentId": "BFE70902-D276-C7B8-8689-93DB79100000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/09/2024 request to commission and introduce hazardous fluids to Boil-Off Gas Compressor A under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241218-3067",
+  "issuedDate": "12/18/2024",
+  "filedDate": "12/18/2024",
+  "postedDate": "12/18/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "715180DA-C91D-CC64-96E7-93DB79100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-18 Plaq CP17-66 NTP V376 IHF BOG Comp A.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to BOG Compressor A",
+    "fileSize": 240790,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6D32CE92-879B-C8DA-8741-93E4EA900000}-{2A1DC3C0-0BB4-C29F-9408-93E4EA900000}",
+  "documentId": "6D32CE92-879B-C8DA-8741-93E4EA900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/20/2024 request to export by LNG marine vessels the volumes of produced liquefied natural gas related to the commissioning activities under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241220-3027",
+  "issuedDate": "12/20/2024",
+  "filedDate": "12/20/2024",
+  "postedDate": "12/20/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.47,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2A1DC3C0-0BB4-C29F-9408-93E4EA900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-20 Plaq CP17-66 NTP Commissioning Cargoes.pdf",
+    "fileDesc": "Authorization of Commissioning Cargoes",
+    "fileSize": 240189,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{40F6734C-56DF-CAE8-8726-93F4E2900000}-{B2AE85BA-341B-C33F-955E-93F4E2900000}",
+  "documentId": "40F6734C-56DF-CAE8-8726-93F4E2900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/16/2024 request to commission and introduce hazardous fluids to LTS Block 4 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241223-3090",
+  "issuedDate": "12/23/2024",
+  "filedDate": "12/23/2024",
+  "postedDate": "12/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B2AE85BA-341B-C33F-955E-93F4E2900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-23 Plaq CP17-66 NTP V382 IHF LTS Block 4 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 4",
+    "fileSize": 240299,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{29F27015-B414-CAAF-8419-93F4D1200000}-{6AC54ED7-6738-C7C6-8AF6-93F4D1300000}",
+  "documentId": "29F27015-B414-CAAF-8419-93F4D1200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/11/2024 request to commission and introduce hazardous fluids to GTG-4 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241223-3088",
+  "issuedDate": "12/23/2024",
+  "filedDate": "12/23/2024",
+  "postedDate": "12/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6AC54ED7-6738-C7C6-8AF6-93F4D1300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-23 Plaq CP17-66 NTP GTG 4 Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Gas Turbine Generator 4 (GTG-4)",
+    "fileSize": 239801,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{38DBEFCB-F9E0-C12C-8664-942878800000}-{A1BD1292-3D30-C387-9401-942878800000}",
+  "documentId": "38DBEFCB-F9E0-C12C-8664-942878800000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/17/2024 request to commission and introduce hazardous fluids to the Thermal Oxidizers, H2S removal beds, and Hot Oil Furnace C under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250102-3049",
+  "issuedDate": "01/02/2025",
+  "filedDate": "01/02/2025",
+  "postedDate": "01/02/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A1BD1292-3D30-C387-9401-942878800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-02 Plaq CP17-66 NTP V364 IHF Thermal Ox.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Thermal Oxidizers, H2S Removal, and Hot Oil Furnace C",
+    "fileSize": 241761,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9F7179AA-0A35-CC62-84C8-945168B00000}-{666A63C3-F10E-C868-9474-945168B00000}",
+  "documentId": "9F7179AA-0A35-CC62-84C8-945168B00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/26/2024 request to introduce hazardous fluids to Pretreatment Unit B under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250110-3031",
+  "issuedDate": "01/10/2025",
+  "filedDate": "01/10/2025",
+  "postedDate": "01/10/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "666A63C3-F10E-C868-9474-945168B00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-10 Plaq CP17-66 NTP PTS B IHF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Pretreatment Unit B",
+    "fileSize": 220310,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1710590E-4CE5-C108-87A5-9450A1100000}-{E21F2ABB-5B0B-C306-9603-9450A1100000}",
+  "documentId": "1710590E-4CE5-C108-87A5-9450A1100000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/23/2024 et al. requests to commission and introduce hazardous fluids to Liquefaction Blocks 5 and 6 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250110-3008",
+  "issuedDate": "01/10/2025",
+  "filedDate": "01/10/2025",
+  "postedDate": "01/10/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E21F2ABB-5B0B-C306-9603-9450A1100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-10 Plaq CP17-66 NTP V383 384 IHF LTS Block 5 6.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Blocks 5 and 6",
+    "fileSize": 216061,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D6004E2D-4A10-CC2F-8769-94609B100000}-{84E585C1-BB33-CCA0-979C-94609B100000}",
+  "documentId": "D6004E2D-4A10-CC2F-8769-94609B100000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 11/29/2024 request to commission the Liquefaction Train System Blocks 7 and 8 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250113-3041",
+  "issuedDate": "01/13/2025",
+  "filedDate": "01/13/2025",
+  "postedDate": "01/13/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "84E585C1-BB33-CCA0-979C-94609B100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-13 Plaq CP17-66 NTP V380 S5 Commission.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Blocks 7 and 8 with Nitrogen",
+    "fileSize": 238834,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{586D8C8B-80A3-CBA0-846E-946AA7C00000}-{C9FB061D-67A0-C8EE-97CF-946AA7C00000}",
+  "documentId": "586D8C8B-80A3-CBA0-846E-946AA7C00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/30/2024 request to introduce hazardous fluids to Boil-Off Gas Compressor B under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250115-3039",
+  "issuedDate": "01/15/2025",
+  "filedDate": "01/15/2025",
+  "postedDate": "01/15/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C9FB061D-67A0-C8EE-97CF-946AA7C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-15 Plaq CP17-66 NTP V388 BOG B IHF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to BOG Compressor B",
+    "fileSize": 236948,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{740C2EA3-06F2-C24C-867E-9475B0A00000}-{B450B7D3-044E-C415-9559-9475B0A00000}",
+  "documentId": "740C2EA3-06F2-C24C-867E-9475B0A00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/10/2025 request to commission and introduce hazardous fluids to Phase 1 Temporary Gas Turbine Generator LMX-1 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250117-3063",
+  "issuedDate": "01/17/2025",
+  "filedDate": "01/17/2025",
+  "postedDate": "01/17/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B450B7D3-044E-C415-9559-9475B0A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-17 Plaq CP17-66 NTP IHF LMX-1 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Phase 1 LMX-1 Generator",
+    "fileSize": 237830,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7383B414-2AD0-C2E9-8554-9494BD900000}-{A09DAD9D-8A96-C192-9760-9494BD900000}",
+  "documentId": "7383B414-2AD0-C2E9-8554-9494BD900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/16/2025 request to commission the Feed Gas Booster Compressor C by circulating nitrogen through the knockout drum, compressor, and aftercooler under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250123-3081",
+  "issuedDate": "01/23/2025",
+  "filedDate": "01/23/2025",
+  "postedDate": "01/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A09DAD9D-8A96-C192-9760-9494BD900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-23 Plaq CP17-66 NTP V440 S2 Booster C (HT).pdf",
+    "fileDesc": "Approval to Commission Feed Gas Booster Compressor C",
+    "fileSize": 234534,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4ED47B2D-6895-CE1A-84F3-94934B400000}-{B27DF08B-B496-C617-95C4-94934B400000}",
+  "documentId": "4ED47B2D-6895-CE1A-84F3-94934B400000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/12/2024 request to commission the Jetty 1 loading arms, loading headers and recirculation line etc. under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250123-3010",
+  "issuedDate": "01/23/2025",
+  "filedDate": "01/23/2025",
+  "postedDate": "01/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B27DF08B-B496-C617-95C4-94934B400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-23 Plaq CP17-66 NTP V410 Jetty 1 Berth.pdf",
+    "fileDesc": "Approval to Commission the Jetty 1 Ship Berthing",
+    "fileSize": 236283,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1A2E2365-E953-CC59-8435-94A8A8500000}-{55E16C1C-4D08-CAB5-961D-94A8A8500000}",
+  "documentId": "1A2E2365-E953-CC59-8435-94A8A8500000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/10/2025 request to commission and introduce hazardous fluids to the Phase 2 aqueous ammonia storage and pump packages, and the LM2500 gas turbine generator under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250127-3027",
+  "issuedDate": "01/27/2025",
+  "filedDate": "01/27/2025",
+  "postedDate": "01/27/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "55E16C1C-4D08-CAB5-961D-94A8A8500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-27 Plaq CP17-66 NTP IHF Phase 2 LM2500 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to the Phase 2 LM2500 Generator",
+    "fileSize": 242287,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2417E5BD-DE05-CDB5-84AD-94ADA3900000}-{6B2AF92E-E969-C6C6-8800-94ADA3A00000}",
+  "documentId": "2417E5BD-DE05-CDB5-84AD-94ADA3900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/22/2025 request to commission and introduce hazardous fluids to Liquefaction Block 7 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250128-3019",
+  "issuedDate": "01/28/2025",
+  "filedDate": "01/28/2025",
+  "postedDate": "01/28/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6B2AF92E-E969-C6C6-8800-94ADA3A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-28 Plaq CP17-66 NTP V385 IHF LTS Block 7.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 7",
+    "fileSize": 236324,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D0C1FED4-3318-CBE2-8505-94BD9E500000}-{6E486A10-1204-C815-8A3C-94BD9E600000}",
+  "documentId": "D0C1FED4-3318-CBE2-8505-94BD9E500000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/30/2025 request to introduce hazardous fluids to Feed Gas Booster Compressor B and ancillary equipment under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250131-3053",
+  "issuedDate": "01/31/2025",
+  "filedDate": "01/31/2025",
+  "postedDate": "01/31/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6E486A10-1204-C815-8A3C-94BD9E600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Plaq CP17-66 NTP V442 IHF Booster Compressor C (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Feed Gas Booster Compressor C",
+    "fileSize": 236444,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{20C35A3C-893B-CDA5-8793-94D284400000}-{25A287D6-622A-C9D2-9642-94D284400000}",
+  "documentId": "20C35A3C-893B-CDA5-8793-94D284400000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/28/2025 request to introduce hazardous fluids to the Jetty 1 under CP17-66.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250204-3055",
+  "issuedDate": "02/04/2025",
+  "filedDate": "02/04/2025",
+  "postedDate": "02/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "25A287D6-622A-C9D2-9642-94D284400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-04 Plaq CP17-66 NTP V411 IHF Jetty 1 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Jetty 1",
+    "fileSize": 236148,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{55BF5032-F8C8-CA8B-86A9-94DCC2200000}-{0E2FEDAF-257E-C5B0-9617-94DCC2200000}",
+  "documentId": "55BF5032-F8C8-CA8B-86A9-94DCC2200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/03/2025 request to commission and introduce hazardous fluids to the M35 A and B temporary gas turbine generators under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250206-3087",
+  "issuedDate": "02/06/2025",
+  "filedDate": "02/06/2025",
+  "postedDate": "02/06/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0E2FEDAF-257E-C5B0-9617-94DCC2200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-06 Plaq CP17-66 V426 NTP IHF M35AB Gens.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to M35 A and B Generators",
+    "fileSize": 240298,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0FABD7C4-9B3C-C525-8439-94F16C700000}-{F1C47F97-15E5-CDF7-94D5-94F16C700000}",
+  "documentId": "0FABD7C4-9B3C-C525-8439-94F16C700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/05/2025 et al. requests to commission and introduce hazardous fluids to Liquefaction Block 8 and Boil Off Gas Compressor C under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250210-3044",
+  "issuedDate": "02/10/2025",
+  "filedDate": "02/10/2025",
+  "postedDate": "02/10/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F1C47F97-15E5-CDF7-94D5-94F16C700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-10 Plaq CP17-66 NTP V386 402 IHF LTS 8 BOG C(HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 8 and BOG Compressor C",
+    "fileSize": 242500,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7AA9A6D3-CFCE-CE81-86A5-94FA61200000}-{67AAD314-6C34-CDA6-952C-94FA61200000}",
+  "documentId": "7AA9A6D3-CFCE-CE81-86A5-94FA61200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/07/2025 request to commission and introduce hazardous fluids to the M35 C and D temporary gas turbine generators under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250212-3004",
+  "issuedDate": "02/12/2025",
+  "filedDate": "02/12/2025",
+  "postedDate": "02/12/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "67AAD314-6C34-CDA6-952C-94FA61200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-12 Plaq CP17-66 V427 NTP IHF M35CD Gens (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to M35 C and D Generators",
+    "fileSize": 257999,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7DB56237-8D6C-C581-8435-94FFC6E00000}-{9AFAEEF2-F099-C11B-97D1-94FFC6E00000}",
+  "documentId": "7DB56237-8D6C-C581-8435-94FFC6E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/11/2025 request to commission the Liquefaction Train System Block 9 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250213-3012",
+  "issuedDate": "02/13/2025",
+  "filedDate": "02/13/2025",
+  "postedDate": "02/13/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9AFAEEF2-F099-C11B-97D1-94FFC6E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-13 Plaq CP17-66 NTP V380 S7 Commissioning (HT).pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 9 with Nitrogen",
+    "fileSize": 241504,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{271135A7-6C09-CAE9-84C7-951EF8B00000}-{7EC534D7-959C-CA79-916E-951EF8C00000}",
+  "documentId": "271135A7-6C09-CAE9-84C7-951EF8B00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/14/2025 request to introduce hazardous fluids to the Nitrogen Production System under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250219-3017",
+  "issuedDate": "02/19/2025",
+  "filedDate": "02/19/2025",
+  "postedDate": "02/19/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "7EC534D7-959C-CA79-916E-951EF8C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-19 Plaq CP17-66-000 V343 IHF LIN Production.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Nitrogen Production System",
+    "fileSize": 237228,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C6635D4C-624E-CCE3-8795-951F4C000000}-{C82B01FA-B10C-C6CD-97AC-951F4C000000}",
+  "documentId": "C6635D4C-624E-CCE3-8795-951F4C000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/12/2025 request to commission the Pretreatment C Acid Gas Removal Unit System by operating it at design operating pressures utilizing nitrogen, etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250219-3044",
+  "issuedDate": "02/19/2025",
+  "filedDate": "02/19/2025",
+  "postedDate": "02/19/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C82B01FA-B10C-C6CD-97AC-951F4C000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-19 Plaq CP17-66 NTP V440 S3 Commission (HT).pdf",
+    "fileDesc": "Approval to Commission Pretreatment C \u2013 Acid Gas Removal Unit System",
+    "fileSize": 238442,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{54CC961F-AB09-CF94-862F-954405000000}-{CB6226CD-4EC0-C3EB-889B-954405100000}",
+  "documentId": "54CC961F-AB09-CF94-862F-954405000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/24/2025 request to commission and introduce hazardous fluids to Phase 1 temporary gas turbine gas turbine generator LMX-B under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250226-3077",
+  "issuedDate": "02/26/2025",
+  "filedDate": "02/26/2025",
+  "postedDate": "02/26/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CB6226CD-4EC0-C3EB-889B-954405100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-26 Plaq CP17-66 NTP IHF LMX-B (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Phase 1 LMX-B",
+    "fileSize": 237828,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DCCF9E63-B6F0-C27C-869A-954926E00000}-{171811FA-E2C8-C758-944D-954926E00000}",
+  "documentId": "DCCF9E63-B6F0-C27C-869A-954926E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/24/2025 requests to commission and introduce hazardous fluids to Liquefaction Block 9 and Pretreatment Unit C under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250227-3064",
+  "issuedDate": "02/27/2025",
+  "filedDate": "02/27/2025",
+  "postedDate": "02/27/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "171811FA-E2C8-C758-944D-954926E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-02-27 Plaq CP17-66 NTP V387 443 IHF LTS 9 PTSC (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 9 and Pretreatment Unit C",
+    "fileSize": 237983,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3D5F94B9-31C7-C6DE-9CDC-95615CE00000}-{3D37FDA6-0134-C05C-AE7B-95615CE00000}",
+  "documentId": "3D5F94B9-31C7-C6DE-9CDC-95615CE00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 02/28/2025 request to commission and introduce hazardous fluids to Phase 1 temporary gas turbine generator LMX-C under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250304-3003",
+  "issuedDate": "03/04/2025",
+  "filedDate": "03/04/2025",
+  "postedDate": "03/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3D37FDA6-0134-C05C-AE7B-95615CE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-03-04 Plaq CP17-66 NTP IHF LMX-C (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 1 LMX-C",
+    "fileSize": 237764,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F383B34F-4AAE-C02C-87A6-9580BAF00000}-{CDDEBCF4-2620-C255-97EC-9580BAF00000}",
+  "documentId": "F383B34F-4AAE-C02C-87A6-9580BAF00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 03/07/2025 request to commission and introduce hazardous fluid to Phase 1 temporary gas turbine generator LMX-D under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250310-3019",
+  "issuedDate": "03/10/2025",
+  "filedDate": "03/10/2025",
+  "postedDate": "03/10/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CDDEBCF4-2620-C255-97EC-9580BAF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-03-10 Plaq CP17-66 NTP IHF LMX-D (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Phase 1 LMX-D",
+    "fileSize": 237704,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3CFA3BC2-1D9F-C55D-8730-95B402400000}-{969C4E52-5F55-C296-95C3-95B402400000}",
+  "documentId": "3CFA3BC2-1D9F-C55D-8730-95B402400000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 03/14/2025 et al. requests to commission and introduce hazardous fluids to Gas Turbine Generators 4 and 5 of the Phase 2 facility under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250320-3071",
+  "issuedDate": "03/20/2025",
+  "filedDate": "03/20/2025",
+  "postedDate": "03/20/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "969C4E52-5F55-C296-95C3-95B402400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-03-20 Plaq CP17-66 NTP HF Phase 2 GTGs 4 and 5 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 GTGs 4 and 5",
+    "fileSize": 237622,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{52047CC7-B708-C225-8545-95C8E8800000}-{63EDBDA3-D241-C297-96B1-95C8E8800000}",
+  "documentId": "52047CC7-B708-C225-8545-95C8E8800000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 03/21/2025 request to commission the electrical buildings in the Phase 2 Power Island Area under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250324-3038",
+  "issuedDate": "03/24/2025",
+  "filedDate": "03/24/2025",
+  "postedDate": "03/24/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.49,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "63EDBDA3-D241-C297-96B1-95C8E8800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-03-24 Plaq CP17-66 NTP Commission Elec Bldg (HT).pdf",
+    "fileDesc": "Approval to Commission Electrical Buildings",
+    "fileSize": 236240,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1262ABCC-9732-C9A9-8641-95DD64E00000}-{E33964EA-8388-C0E4-94C1-95DD64E00000}",
+  "documentId": "1262ABCC-9732-C9A9-8641-95DD64E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 03/25/2025 request to commission the Packaged Electrical and Electronic Control Compartment 5 and South E-house in the Phase 1 Power Island Area under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250328-3032",
+  "issuedDate": "03/28/2025",
+  "filedDate": "03/28/2025",
+  "postedDate": "03/28/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.46,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E33964EA-8388-C0E4-94C1-95DD64E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-03-28 Plaq CP17-66 NTP Commission Ph1 E-house (HT).pdf",
+    "fileDesc": "Approval to Commission Phase 1 Electrical Buildings",
+    "fileSize": 237634,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{934BC585-EFF4-C2E2-850E-95F2A9400000}-{F24E92BB-3C1E-CD8E-950E-95F2A9400000}",
+  "documentId": "934BC585-EFF4-C2E2-850E-95F2A9400000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 03/27/2025 request to commission the Liquefaction Train System Block 10 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250401-3069",
+  "issuedDate": "04/01/2025",
+  "filedDate": "04/01/2025",
+  "postedDate": "04/01/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F24E92BB-3C1E-CD8E-950E-95F2A9400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-04-01 Plaq CP17-66 NTP V580 S1 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 10 with Nitrogen",
+    "fileSize": 242645,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1C6D5F0A-2472-CD02-85B6-95FCFAF00000}-{27529850-C31B-C57E-94CD-95FCFAF00000}",
+  "documentId": "1C6D5F0A-2472-CD02-85B6-95FCFAF00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/01/2025 request to commission and introduce hazardous fluids to Gas Turbine Generator 3 of the Phase 2 facility under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250403-3075",
+  "issuedDate": "04/03/2025",
+  "filedDate": "04/03/2025",
+  "postedDate": "04/03/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "27529850-C31B-C57E-94CD-95FCFAF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-04-03 Plaq CP17-66 NTP HF Phase 2 GTG 3 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 GTG 3",
+    "fileSize": 237298,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4C30392A-3041-C95E-87C2-9635B9E00000}-{DD32F131-D78D-C18D-97E1-9635B9E00000}",
+  "documentId": "4C30392A-3041-C95E-87C2-9635B9E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/09/2025 request to commission the Liquefaction Train System Block 11 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250414-3061",
+  "issuedDate": "04/14/2025",
+  "filedDate": "04/14/2025",
+  "postedDate": "04/14/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DD32F131-D78D-C18D-97E1-9635B9E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-04-14 Plaq CP17-66 NTP V580 S2 Commissioning (HT).pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 11 with Nitrogen",
+    "fileSize": 238684,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D9DCB4D3-151B-CEB6-86B0-96638B900000}-{2231E7DF-AD0E-CB80-9687-96638B900000}",
+  "documentId": "D9DCB4D3-151B-CEB6-86B0-96638B900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/15/2025 request to commission and introduce hazardous fluids to Liquefaction Block 10 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250423-3066",
+  "issuedDate": "04/23/2025",
+  "filedDate": "04/23/2025",
+  "postedDate": "04/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2231E7DF-AD0E-CB80-9687-96638B900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-04-23 Plaq CP17-66 NTP V581 IHF LTS 10 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 10",
+    "fileSize": 243291,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B8013AD4-551A-CF43-84C0-966874D00000}-{2D6CB9C1-25EA-CF05-9559-966874D00000}",
+  "documentId": "B8013AD4-551A-CF43-84C0-966874D00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/22/2025 et al. requests to commission and introduce hazardous fluids to Liquefaction Block 11 and to commission Liquefaction Block 13 equipment with Nitrogen under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250424-3027",
+  "issuedDate": "04/24/2025",
+  "filedDate": "04/24/2025",
+  "postedDate": "04/24/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2D6CB9C1-25EA-CF05-9559-966874D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-04-24 Plaq CP17-66 NTP IHF LTS11 Comm LTS13.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 11 and Commission Liquefaction Block 13 with Nitrogen",
+    "fileSize": 240671,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6AFC79F3-97DE-CA98-8528-968D50300000}-{D2D3F638-9136-C326-94F6-968D50300000}",
+  "documentId": "6AFC79F3-97DE-CA98-8528-968D50300000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/28/2025 request to commission and introduce hazardous fluids to Gas Turbine Generator 5 and the associated Heat Recovery Steam Generator of the Phase 1 facility under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250501-3094",
+  "issuedDate": "05/01/2025",
+  "filedDate": "05/01/2025",
+  "postedDate": "05/01/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.79,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D2D3F638-9136-C326-94F6-968D50300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-05-01 Plaq CP17-66 NTP HF Ph 1 GTG 5 AA.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 1 GTG 5 and Aqueous Ammonia Distribution Piping",
+    "fileSize": 239770,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3AB1A8AF-80EA-C1BC-8426-96B149000000}-{3B4047F4-F536-CE66-96CC-96B149000000}",
+  "documentId": "3AB1A8AF-80EA-C1BC-8426-96B149000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 05/07/2025 request to commission and introduce hazardous fluids to Liquefaction Block 13 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250508-3059",
+  "issuedDate": "05/08/2025",
+  "filedDate": "05/08/2025",
+  "postedDate": "05/08/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3B4047F4-F536-CE66-96CC-96B149000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-05-08 Plaq CP17-66 NTP V584 IHF LTS 13.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 13",
+    "fileSize": 237271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2DFB66C8-3178-C933-867C-96B670700000}-{147859E2-59E2-CA09-949F-96B670700000}",
+  "documentId": "2DFB66C8-3178-C933-867C-96B670700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 05/07/2025 request to introduce hazardous fluids and cooldown LNG Storage Tank 3 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250509-3074",
+  "issuedDate": "05/09/2025",
+  "filedDate": "05/09/2025",
+  "postedDate": "05/09/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.17,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "147859E2-59E2-CA09-949F-96B670700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-05-09 Plaq CP 17-66 NTP LNG Tank 3 Intro HF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids for LNG Storage Tank 3 Cooldown",
+    "fileSize": 222811,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "NEVINS",
+    "firstInitial": "J",
+    "middleInitial": "P"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9C6C00E5-3349-C14B-85ED-96F2D6D00000}-{56097863-BA10-C985-9639-96F2D6D00000}",
+  "documentId": "9C6C00E5-3349-C14B-85ED-96F2D6D00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 05/16/2025 et al. requests to commission the Liquefaction Train System Block 12 with nitrogen gas etc. for the Phase 2 systems under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250521-3007",
+  "issuedDate": "05/21/2025",
+  "filedDate": "05/21/2025",
+  "postedDate": "05/21/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "56097863-BA10-C985-9639-96F2D6D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-05-21 Plaq CP17-66 NTP 580S3 540S4 560S1 540S1-HT.pdf",
+    "fileDesc": "Approval to Commission Various Phase 2 Systems",
+    "fileSize": 236093,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{20B4A2DA-B200-C07B-8678-973BF4F00000}-{C0128493-A50F-C44A-8975-973BF5000000}",
+  "documentId": "20B4A2DA-B200-C07B-8678-973BF4F00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/02/2025 request to introduce hazardous fluid to the Jetty 3 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250604-3028",
+  "issuedDate": "06/04/2025",
+  "filedDate": "06/04/2025",
+  "postedDate": "06/04/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.72,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C0128493-A50F-C44A-8975-973BF5000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-04 Plaq CP17-66 NTP V592 IHF Jetty 3 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Jetty 3",
+    "fileSize": 251048,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1E809CB7-B802-C444-8719-97409AA00000}-{6F4D6CB9-2F1A-C60D-9586-97409AA00000}",
+  "documentId": "1E809CB7-B802-C444-8719-97409AA00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/04/2025 request to commission and introduce hazardous fluids to Liquefaction Block 12 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250605-3017",
+  "issuedDate": "06/05/2025",
+  "filedDate": "06/05/2025",
+  "postedDate": "06/05/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6F4D6CB9-2F1A-C60D-9586-97409AA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-05 Plaq CP17-66 NTP V583 IHF LTS 12 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 12",
+    "fileSize": 240747,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DDC0A613-1770-C11A-8445-9779ABD00000}-{1A1BB373-3493-C102-91EC-9779ABE00000}",
+  "documentId": "DDC0A613-1770-C11A-8445-9779ABD00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/13/2025 request to commission the Phase 2 acid gas removal Unit A and associated R134a compressor circuit, and amine distribution system under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250616-3029",
+  "issuedDate": "06/16/2025",
+  "filedDate": "06/16/2025",
+  "postedDate": "06/16/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "1A1BB373-3493-C102-91EC-9779ABE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-16 Plaq CP17-66-000 NTP V560S2.pdf",
+    "fileDesc": "Approval to Commission Phase 2 AGRU A and Amine Distribution Systems",
+    "fileSize": 237369,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4E4C06A1-87D4-C5E9-846C-979D79600000}-{9DF56352-B93B-C7A8-9769-979D79600000}",
+  "documentId": "4E4C06A1-87D4-C5E9-846C-979D79600000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/18/2025 request to commission the Phase 1 Steam Generator 2 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250623-3029",
+  "issuedDate": "06/23/2025",
+  "filedDate": "06/23/2025",
+  "postedDate": "06/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9DF56352-B93B-C7A8-9769-979D79600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-23 Plaq CP17-66 NTP V430S3 (HT).pdf",
+    "fileDesc": "Approval to Commission Phase 1 Steam Generator 2",
+    "fileSize": 173148,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EC805581-29FA-C228-866E-97A2BEA00000}-{2813C790-CE57-C4E2-9443-97A2BEA00000}",
+  "documentId": "EC805581-29FA-C228-866E-97A2BEA00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/20/2025 request to commission and introduce hazardous fluids to the HP and LP fuel gas piping systems and warm flare headers under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250624-3031",
+  "issuedDate": "06/24/2025",
+  "filedDate": "06/24/2025",
+  "postedDate": "06/24/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2813C790-CE57-C4E2-9443-97A2BEA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "20250624 Plaq CP17-66 NTP V542 IHF HP_LP Fuel Gas (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to High Pressure (HP) and Low Pressure (LP) Fuel Gas Piping Systems and Warm Flare Headers",
+    "fileSize": 248012,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC.",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{97F11572-8741-C3A9-866F-97A784800000}-{B9DCAD31-8963-C17A-9439-97A784800000}",
+  "documentId": "97F11572-8741-C3A9-866F-97A784800000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/20/2025 request to commission and introduce hazardous fluids to Gas Turbine Generator 2 of the Phase 2 facility under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250625-3016",
+  "issuedDate": "06/25/2025",
+  "filedDate": "06/25/2025",
+  "postedDate": "06/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B9DCAD31-8963-C17A-9439-97A784800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-25 Plaq CP17-66 NTP HF Phase 2 GTG 2 (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 GTG 2",
+    "fileSize": 251064,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{37D97940-1BCB-C175-841D-97A7A8400000}-{9BF7CEC6-BA89-C0C1-9539-97A7A8400000}",
+  "documentId": "37D97940-1BCB-C175-841D-97A7A8400000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/25/2025 request to commission and introduce hazardous fluids to the hot oil burner management system under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250625-3022",
+  "issuedDate": "06/25/2025",
+  "filedDate": "06/25/2025",
+  "postedDate": "06/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9BF7CEC6-BA89-C0C1-9539-97A7A8400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-25 Plaq CP17-66 V561 IHF Hot Oil Heaters (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Hot Oil Burner Management System",
+    "fileSize": 238482,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BB61F94A-7208-C0F8-871A-97AC64B00000}-{2BA8A7D2-A0A0-C36F-8A2A-97AC64C00000}",
+  "documentId": "BB61F94A-7208-C0F8-871A-97AC64B00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/23/2025 et al. request to commission and introduce hazardous fluids to the Phase 2 Boil-off Gas Compressor A and commission Liquefaction Block 14 with nitrogen under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250626-3020",
+  "issuedDate": "06/26/2025",
+  "filedDate": "06/26/2025",
+  "postedDate": "06/26/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2BA8A7D2-A0A0-C36F-8A2A-97AC64C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-06-26 Plaq CP17-66 NTP IHF BOG A-Comm LTS14.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 BOG Compressor A and Commission Liquefaction Block 14 with Nitrogen",
+    "fileSize": 257389,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{FEDDC13B-0A34-C841-87F7-97C6BA700000}-{DC7DCFEB-BDE7-C28F-93EE-97C6BA800000}",
+  "documentId": "FEDDC13B-0A34-C841-87F7-97C6BA700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/26/2025 et al. requests to commission the Phase 2 Booster Gas Compressor A system with Nitrogen etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250701-3036",
+  "issuedDate": "07/01/2025",
+  "filedDate": "07/01/2025",
+  "postedDate": "07/01/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.68,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DC7DCFEB-BDE7-C28F-93EE-97C6BA800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-01 Plaq CP17-66 NTP V560S5 V437.pdf",
+    "fileDesc": "Approval to Commission Phase 2 Booster Gas Compressor A and Introduce Hazardous Fluids to Phase 1 HRSG-4",
+    "fileSize": 259101,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BFD76D9C-E9E5-C944-868C-97EAB6E00000}-{0BEF2684-D4FF-C6F5-95D1-97EAB6E00000}",
+  "documentId": "BFD76D9C-E9E5-C944-868C-97EAB6E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/03/2025 request to commission the Phase 2 H2S Removal Unit and Thermal Oxidizers A and B, etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250708-3036",
+  "issuedDate": "07/08/2025",
+  "filedDate": "07/08/2025",
+  "postedDate": "07/08/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.69,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0BEF2684-D4FF-C6F5-95D1-97EAB6E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-08 Plaq CP17-66 NTP V562 IHF Phase 2 PTS-A.pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to Phase 2 Pretreatment",
+    "fileSize": 237796,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8A4231B9-69F0-C906-84DD-981356600000}-{A8A27F4F-13AE-C2BB-97A7-981356600000}",
+  "documentId": "8A4231B9-69F0-C906-84DD-981356600000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/14/2025 requests to commission and introduce hazardous fluids to Phase 2 Liquefaction Block 14 and Boil-Off Gas Compressor B under CP17-66.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250716-3014",
+  "issuedDate": "07/16/2025",
+  "filedDate": "07/16/2025",
+  "postedDate": "07/16/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A8A27F4F-13AE-C2BB-97A7-981356600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-16 Plaq CP17-66 NTP IHF LTS14 Ph2 BOG B.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 Liquefaction Block 14 and BOG Compressor B",
+    "fileSize": 240223,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{345BC726-1E60-CF8C-8546-9837B4900000}-{93115E72-C9C6-C44F-9586-9837B4900000}",
+  "documentId": "345BC726-1E60-CF8C-8546-9837B4900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/18/2025 request to commission the Phase 2 Booster Gas Compressor B system with Nitrogen under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250723-3010",
+  "issuedDate": "07/23/2025",
+  "filedDate": "07/23/2025",
+  "postedDate": "07/23/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "93115E72-C9C6-C44F-9586-9837B4900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-23 PlaqCP17-66 NTP V560S6 Phase2 Booster CompB.pdf",
+    "fileDesc": "Approval to Commission Phase 2 Booster Gas Compressor B",
+    "fileSize": 257489,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6BAD2F80-AA6A-C4B6-85E9-983D28900000}-{B5EC1AB9-F0AE-CC31-9753-983D28900000}",
+  "documentId": "6BAD2F80-AA6A-C4B6-85E9-983D28900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/22/2025 request to commission Phase 1 and 2 Buildings etc. under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250724-3040",
+  "issuedDate": "07/24/2025",
+  "filedDate": "07/24/2025",
+  "postedDate": "07/24/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.7,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B5EC1AB9-F0AE-CC31-9753-983D28900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-24 Plaq CP17-66 NTP V520, V565, V580S6.pdf",
+    "fileDesc": "Approval to Commission Phase 1 and 2 Buildings, Commission LTS Block 16, and Introduce Hazardous Fluids to the Phase 2 Thermal Oxidizers and H2S Removal System",
+    "fileSize": 267725,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C190C596-2650-C2AE-8700-985BCAB00000}-{5AD217E9-ED11-C7DC-89A5-985BCAC00000}",
+  "documentId": "C190C596-2650-C2AE-8700-985BCAB00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/28/2025 request to introduce hazardous fluids into Heat Recovery Steam Generator 3 and the associated Selective Catalytic Reactor under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250730-3024",
+  "issuedDate": "07/30/2025",
+  "filedDate": "07/30/2025",
+  "postedDate": "07/30/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.93,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "5AD217E9-ED11-C7DC-89A5-985BCAC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-30 Plaq CP17-66-000 NTP IHF HRSG3 V436.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 1 HRSG-3",
+    "fileSize": 241228,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1567D1C5-1327-CE33-84BC-9860F7F00000}-{8F092BF9-8FEC-CB96-9423-9860F7F00000}",
+  "documentId": "1567D1C5-1327-CE33-84BC-9860F7F00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/28/2025 request to introduce hazardous fluids to LNG Storage Tank 4 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250731-3030",
+  "issuedDate": "07/31/2025",
+  "filedDate": "07/31/2025",
+  "postedDate": "07/31/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.17,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8F092BF9-8FEC-CB96-9423-9860F7F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-31 Plaq CP 17-66 NTP LNG Tank 4 Intro HF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids for LNG Storage Tank 4",
+    "fileSize": 238425,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5B9B797A-8294-C1F2-878F-987F61600000}-{8FB525E5-B0FE-C30E-9496-987F61600000}",
+  "documentId": "5B9B797A-8294-C1F2-878F-987F61600000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/01/2025 request to commission the Phase 2 Booster Gas Compressor C system with Nitrogen under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250806-3006",
+  "issuedDate": "08/06/2025",
+  "filedDate": "08/06/2025",
+  "postedDate": "08/06/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.7,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8FB525E5-B0FE-C30E-9496-987F61600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-08-06 Plaq CP17-66 NTP V560S7 V566.pdf",
+    "fileDesc": "Approval to Commission Phase 2 Booster Gas Compressor C and Introduce Hazardous Fluid to Booster Gas Compressor B",
+    "fileSize": 238437,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{41CB62DC-AD8C-C21A-85DD-989E86800000}-{80A419EE-16B9-C0F0-944D-989E86800000}",
+  "documentId": "41CB62DC-AD8C-C21A-85DD-989E86800000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/08/2025 request to commission and introduce hazardous fluids to Liquefaction Block 16 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250812-3010",
+  "issuedDate": "08/12/2025",
+  "filedDate": "08/12/2025",
+  "postedDate": "08/12/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "80A419EE-16B9-C0F0-944D-989E86800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-08-12 Plaq CP17-66 NTP V587 IHF LTS16.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 16",
+    "fileSize": 237559,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5E67F664-9965-C465-8651-98A4B3E00000}-{F9F89710-83FF-C7F0-95DE-98A4B3E00000}",
+  "documentId": "5E67F664-9965-C465-8651-98A4B3E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/12/2025 request to commission the Phase 2 Acid Gas Removal Unit B and associated R134a Compressor Circuit under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250813-3083",
+  "issuedDate": "08/13/2025",
+  "filedDate": "08/13/2025",
+  "postedDate": "08/13/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.27,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F9F89710-83FF-C7F0-95DE-98A4B3E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-08-13 Plaq CP17-66 NTP V560S4 Ph2 AGRU-B Comm.pdf",
+    "fileDesc": "Approval to Commission Phase 2 Acid Gas Removal Unit B",
+    "fileSize": 236559,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{01892170-B726-CA98-87C5-98BE8E000000}-{882ABFB1-48F1-C5E4-9636-98BE8E000000}",
+  "documentId": "01892170-B726-CA98-87C5-98BE8E000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/14/2025 request to commission the Liquefaction Train System Block 18 with nitrogen gas under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250818-3030",
+  "issuedDate": "08/18/2025",
+  "filedDate": "08/18/2025",
+  "postedDate": "08/18/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "882ABFB1-48F1-C5E4-9636-98BE8E000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-08-18 Plaq CP17-66 NTP V580 S9 Commission.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 18 with Nitrogen",
+    "fileSize": 239385,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4AB97310-469F-C996-8496-98CCDD000000}-{0F307AA0-A3E8-C186-96C1-98CCDD000000}",
+  "documentId": "4AB97310-469F-C996-8496-98CCDD000000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/18/2025 request to commission and introduce hazardous fluids to Phase 2 Boil-Off Gas Compressor C under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250821-3022",
+  "issuedDate": "08/21/2025",
+  "filedDate": "08/21/2025",
+  "postedDate": "08/21/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0F307AA0-A3E8-C186-96C1-98CCDD000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP17-66-000 Plaq CP17-66 NTP IHF Ph2 BOG C.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 BOG Compressor C",
+    "fileSize": 238561,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5D058E89-328C-C923-8575-98ED04700000}-{0A6790E5-20DE-C601-949F-98ED04700000}",
+  "documentId": "5D058E89-328C-C923-8575-98ED04700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/22/2025 et al. requests to commission and introduce hazardous fluids to Phase 2 Pretreatment Train B and Liquefaction Block 18, etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250827-3055",
+  "issuedDate": "08/27/2025",
+  "filedDate": "08/27/2025",
+  "postedDate": "08/27/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0A6790E5-20DE-C601-949F-98ED04700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-08-27 Plaq CP17-66-000 NTP V589 V563.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 Pretreatment Train B and Liquefaction Block 18",
+    "fileSize": 239233,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C3DC9C34-62BF-C36D-8773-98F61A300000}-{BFC24A59-0A36-C7CF-9539-98F61A300000}",
+  "documentId": "C3DC9C34-62BF-C36D-8773-98F61A300000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/27/2025 request to commission the Liquefaction Train System Block 15 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250829-3017",
+  "issuedDate": "08/29/2025",
+  "filedDate": "08/29/2025",
+  "postedDate": "08/29/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "BFC24A59-0A36-C7CF-9539-98F61A300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-08-29 Plaq CP17-66 NTP V580 S6 Commission.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 15 with Nitrogen",
+    "fileSize": 242256,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A39C21AF-A81D-CC25-847D-992ACDE00000}-{175D32A3-F045-CF88-891C-992ACDF00000}",
+  "documentId": "A39C21AF-A81D-CC25-847D-992ACDE00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/05/2025 request to commission and introduce liquid nitrogen to the liquid nitrogen production, storage, and vaporization system under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250908-3059",
+  "issuedDate": "09/08/2025",
+  "filedDate": "09/08/2025",
+  "postedDate": "09/08/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.65,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "175D32A3-F045-CF88-891C-992ACDF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-09-08 Plaq CP17-66-000 V541 IHF LIN.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquid Nitrogen Production, Storage, and Vaporization System",
+    "fileSize": 238828,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C8471C1C-C8CE-C9E1-8706-9958ACB00000}-{60815E54-58C4-CAFC-9704-9958ACB00000}",
+  "documentId": "C8471C1C-C8CE-C9E1-8706-9958ACB00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/16/2025 request to commission the Phase 2 Acid Gas Removal Unit C and associated R134a Compressor Circuit under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250917-3042",
+  "issuedDate": "09/17/2025",
+  "filedDate": "09/17/2025",
+  "postedDate": "09/17/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "60815E54-58C4-CAFC-9704-9958ACB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-09-17 Plaq CP17-66 NTP V560S8 Ph2 AGRUC Com.pdf",
+    "fileDesc": "Approval to Commission Phase 2 Acid Gas Removal Unit C",
+    "fileSize": 236130,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5DC67978-D682-C9B1-847C-995D5C700000}-{756B17B2-6A10-C253-9484-995D5C700000}",
+  "documentId": "5DC67978-D682-C9B1-847C-995D5C700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/17/2025 request to commission and introduce hazardous fluids to Liquefaction Block 15 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250918-3052",
+  "issuedDate": "09/18/2025",
+  "filedDate": "09/18/2025",
+  "postedDate": "09/18/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.75,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "756B17B2-6A10-C253-9484-995D5C700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-09-18 Plaq CP17-66 NTP V586 IHF LTS15.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 15",
+    "fileSize": 237592,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{FC4B032D-8575-C817-862C-9995F8C00000}-{6F236089-851E-CE1A-97CE-9995F8C00000}",
+  "documentId": "FC4B032D-8575-C817-862C-9995F8C00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/25/2025 request to commission the Liquefaction Train System Block 17 with nitrogen gas under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250929-3025",
+  "issuedDate": "09/29/2025",
+  "filedDate": "09/29/2025",
+  "postedDate": "09/29/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.25,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6F236089-851E-CE1A-97CE-9995F8C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-09-29 Plaq CP17-66 NTP V580 S8 Commission (HT).pdf",
+    "fileDesc": "Approval to Commission Liquefaction Train System Block 17 with Nitrogen",
+    "fileSize": 242428,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BDC3E65A-C549-C304-8735-99A507C00000}-{22701FB5-0E40-C7C6-9686-99A507C00000}",
+  "documentId": "BDC3E65A-C549-C304-8735-99A507C00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 09/30/2025 request to commission and introduce hazardous fluids to the Phase 2 Aqueous Ammonia Distribution Piping and Injection Packages under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251002-3018",
+  "issuedDate": "10/02/2025",
+  "filedDate": "10/02/2025",
+  "postedDate": "10/02/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "22701FB5-0E40-C7C6-9686-99A507C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-10-02 Plaq CP17-66 NTP V636 IHF Ammonia Inject.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Aqueous Ammonia Distribution Piping and Injection Packages",
+    "fileSize": 242556,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E830DC78-85A4-CEF8-86F2-99C45D700000}-{033F0318-BF69-C629-966D-99C45D700000}",
+  "documentId": "E830DC78-85A4-CEF8-86F2-99C45D700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/06/2025 request to introduce hazardous fluids into Phase 2 Booster Gas Compressor C system under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251008-3024",
+  "issuedDate": "10/08/2025",
+  "filedDate": "10/08/2025",
+  "postedDate": "10/08/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.67,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "033F0318-BF69-C629-966D-99C45D700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-10-08 Plaq CP17-66 NTP V567 IHF Boost Comp C.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluid to Booster Gas Compressor C",
+    "fileSize": 240904,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3BC83DC4-0954-C2CB-86FE-99EE90D00000}-{4B13068E-9F5F-C20D-9413-99EE90D00000}",
+  "documentId": "3BC83DC4-0954-C2CB-86FE-99EE90D00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/15/2025 requests to commission and introduce hazardous fluids to the Phase 2 Gas Turbine Generator - 1, Heat Recovery Steam Generator - 1, Selective Catalytic Reactor, etc. under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251016-3138",
+  "issuedDate": "10/16/2025",
+  "filedDate": "10/16/2025",
+  "postedDate": "10/16/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "4B13068E-9F5F-C20D-9413-99EE90D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-10-16 Plaq CP17-66 NTP V635 IHF Ph2 GTG HRSG 1.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 GTG-1 and HRSG-1",
+    "fileSize": 237748,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8532EF10-AD4C-CA46-87AE-9A07B1E00000}-{453F62B0-0CF1-CF36-9517-9A07B1E00000}",
+  "documentId": "8532EF10-AD4C-CA46-87AE-9A07B1E00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/20/2025 request to commission and introduce hazardous fluids to Liquefaction Block 17 under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251021-3029",
+  "issuedDate": "10/21/2025",
+  "filedDate": "10/21/2025",
+  "postedDate": "10/21/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.74,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "453F62B0-0CF1-CF36-9517-9A07B1E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-10-21 Plaq CP17-66 NTP V588 IHF LTS17.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 17",
+    "fileSize": 256262,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F089D392-AD4D-C84C-8691-9A317CA00000}-{3D515E86-218C-C2C9-969E-9A317CA00000}",
+  "documentId": "F089D392-AD4D-C84C-8691-9A317CA00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 10/28/2025 request to commission and introduce hazardous fluids into the Phase 2 Pretreatment Train C under CP17-66.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251029-3071",
+  "issuedDate": "10/29/2025",
+  "filedDate": "10/29/2025",
+  "postedDate": "10/29/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3D515E86-218C-C2C9-969E-9A317CA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-10-29 Plaq CP17-66 NTP V564 IHF PTS-C.pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to Phase 2 Pretreatment Train C",
+    "fileSize": 261716,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5B009EAA-EF50-C38E-85DB-9B22C3900000}-{CE9CB7F3-29A0-C08C-9138-9B22C3A00000}",
+  "documentId": "5B009EAA-EF50-C38E-85DB-9B22C3900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/11/2025 request to introduce hazardous fluids into Phase 1 Heat Recovery Steam Generator 2 etc. under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251215-3036",
+  "issuedDate": "12/15/2025",
+  "filedDate": "12/15/2025",
+  "postedDate": "12/15/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CE9CB7F3-29A0-C08C-9138-9B22C3A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-12-15 Plaq CP17-66-000 NTP V435 IHF Ph1 HRSG2.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 1 HRSG-2",
+    "fileSize": 241331,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E4D96A5C-E834-CE6E-87A8-9B3219500000}-{6F553F69-DDB3-C5A6-973A-9B3219500000}",
+  "documentId": "E4D96A5C-E834-CE6E-87A8-9B3219500000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 12/16/2025 request to commission the jetty firewater system under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251218-3021",
+  "issuedDate": "12/18/2025",
+  "filedDate": "12/18/2025",
+  "postedDate": "12/18/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 79.28,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6F553F69-DDB3-C5A6-973A-9B3219500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-12-18 Plaq CP17-66 NTP V434.pdf",
+    "fileDesc": "Approval to Commission Jetty Firewater System",
+    "fileSize": 249368,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{78532C4F-BBEF-C53A-850D-9BC85A200000}-{452C1FB6-69B7-C18F-95B5-9BC85A200000}",
+  "documentId": "78532C4F-BBEF-C53A-850D-9BC85A200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/15/2026 request to re-introduce hazardous fluids to the modified marine flare system under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260116-3086",
+  "issuedDate": "01/16/2026",
+  "filedDate": "01/16/2026",
+  "postedDate": "01/16/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.73,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "452C1FB6-69B7-C18F-95B5-9BC85A200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-01-16 Plaq CP17-66 NTP V393.pdf",
+    "fileDesc": "Approval to Re-Introduce Hazardous Fluids to the Marine Flare System",
+    "fileSize": 267952,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EE141710-27EA-CE74-86C2-9BE5B8700000}-{98FFAAB3-5EA3-C4BA-94AD-9BE5B8700000}",
+  "documentId": "EE141710-27EA-CE74-86C2-9BE5B8700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 01/16/2026 request to introduce hazardous fluids into Phase 1 Heat Recovery Steam Generator 1 and associated Selective Catalytic Reactor under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260122-3005",
+  "issuedDate": "01/22/2026",
+  "filedDate": "01/22/2026",
+  "postedDate": "01/22/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "98FFAAB3-5EA3-C4BA-94AD-9BE5B8700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-01-22 Plaq CP17-66 NTP V431 IHF Ph1 HRSG1.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 1 HRSG-1",
+    "fileSize": 239330,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0A361D29-803C-C0FA-860B-9CE385C00000}-{6DBD03B8-7300-C72F-9426-9CE385C00000}",
+  "documentId": "0A361D29-803C-C0FA-860B-9CE385C00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 03/12/2026 request to introduce hazardous fluids into Phase 2 Heat Recovery Steam Generator 2 and associated Selective Catalytic Reactor under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260312-3066",
+  "issuedDate": "03/12/2026",
+  "filedDate": "03/12/2026",
+  "postedDate": "03/12/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6DBD03B8-7300-C72F-9426-9CE385C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-03-12 Plaq CP17-66 NTP V634 IHF Ph2 HRSG2.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 HRSG-2",
+    "fileSize": 209484,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{41847276-30F2-CC6E-86A3-9DB151700000}-{C4059131-205A-C809-965D-9DB151700000}",
+  "documentId": "41847276-30F2-CC6E-86A3-9DB151700000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/20/2026 request to introduce hazardous fluids into Phase 2 Heat Recovery Steam Generator 3 under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260421-3082",
+  "issuedDate": "04/21/2026",
+  "filedDate": "04/21/2026",
+  "postedDate": "04/21/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.96,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C4059131-205A-C809-965D-9DB151700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-04-21 Plaq CP17-66 NTP V633 IHF Ph2 HRSG3.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 HRSG-3",
+    "fileSize": 213403,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{07C443AB-6661-CC6B-8669-9E3C92900000}-{6C5C3FF3-C63C-CCF6-A122-9E3C92900000}",
+  "documentId": "07C443AB-6661-CC6B-8669-9E3C92900000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 04/24/2026 request to introduce hazardous fluids from temporary iso-butane cylinders to liquefaction unit\u2019s refrigeration loop under CP17-66 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260518-3049",
+  "issuedDate": "05/18/2026",
+  "filedDate": "05/18/2026",
+  "postedDate": "05/18/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.82,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-66-001",
+   "CP17-67-000",
+   "CP17-67-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6C5C3FF3-C63C-CCF6-A122-9E3C92900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-05-18 Plaq CP17-66 NTP Variance_Temp MR Adjustment.pdf",
+    "fileDesc": "Approval of Variance Request for Temporary Mixed Refrigerant Adjustment",
+    "fileSize": 239521,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "VENTURE GLOBAL LNG, INC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{092F0295-161B-CCCF-8704-9EFA72A00000}-{472F8E7D-1E9C-C5A3-950E-9EFA72A00000}",
+  "documentId": "092F0295-161B-CCCF-8704-9EFA72A00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 06/22/2026 request to introduce hazardous fluids into Phase 2 Heat Recovery Steam Generator 4 and associated Selective Catalytic Reactor under CP17-66. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260624-3062",
+  "issuedDate": "06/24/2026",
+  "filedDate": "06/24/2026",
+  "postedDate": "06/24/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.01,
+  "docketNumbers": [
+   "CP17-66-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "472F8E7D-1E9C-C5A3-950E-9EFA72A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-06-24 Plaq CP17-66 NTP V632 IHF Ph2 HRSG4.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Phase 2 HRSG-4",
+    "fileSize": 236099,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7C48071B-D3CD-CB52-865F-9FA52C200000}-{A4AE08FE-361D-C8A8-88B5-9FA52C300000}",
+  "documentId": "7C48071B-D3CD-CB52-865F-9FA52C200000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 07/23/2026 request to commission and introduce hazardous fluids into the LP ground flare under CP17-66 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260727-3078",
+  "issuedDate": "07/27/2026",
+  "filedDate": "07/27/2026",
+  "postedDate": "07/27/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.77,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-66-001",
+   "CP17-67-000",
+   "CP17-67-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A4AE08FE-361D-C8A8-88B5-9FA52C300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-07-27 Plaq CP17-66 NTP V394 IHF Ground Flare.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the LP Ground Flare",
+    "fileSize": 252117,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B5FD5058-E230-CF51-875F-A01F49D00000}-{D3282318-2CB0-C4A9-A0CE-A01F49D00000}",
+  "documentId": "B5FD5058-E230-CF51-875F-A01F49D00000",
+  "description": "Letter to Venture Global Plaquemines LNG, LLC granting the 08/19/2026 request to introduce hazardous fluids into the gas pipeline #1 tie-in under CP17-66 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260820-3022",
+  "issuedDate": "08/20/2026",
+  "filedDate": "08/20/2026",
+  "postedDate": "08/20/2026",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-66-001",
+   "CP17-67-000",
+   "CP17-67-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D3282318-2CB0-C4A9-A0CE-A01F49D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2026-08-20 Plaq CP17-66 NTP V366.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Facility Piping Tie-in",
+    "fileSize": 238525,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL PLAQUEMINES LNG LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

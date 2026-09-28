@@ -1,0 +1,6115 @@
+[
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.55,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E89940B6-F3F7-CBE4-9D92-736765C00000}-{01FF7627-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E89940B6-F3F7-CBE4-9D92-736765C00000",
+  "description": "Order Granting Authorization etc. re Driftwood LNG LLC et al under CP17-117 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3085",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.65,
+  "docketNumbers": [
+   "CP17-117-000",
+   "CP17-118-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7627-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-117-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 167269,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.53,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{DE4EE9A6-4A07-C137-8302-736AE6D00001}-{0203FCCA-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DE4EE9A6-4A07-C137-8302-736AE6D00001",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Venture Global Plaquemines LNG, LLC et al under CP17-66 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190930-3048",
+  "issuedDate": "09/30/2019",
+  "filedDate": "09/30/2019",
+  "postedDate": "09/30/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.35,
+  "docketNumbers": [
+   "CP17-66-000",
+   "CP17-67-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203FCCA-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-66-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 166545,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{807FAAC9-ED7C-CF64-8FB5-736043000000}-{0206A575-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "807FAAC9-ED7C-CF64-8FB5-736043000000",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Sabine Pass LNG, L.P. under CP19-11. Commissioner Glick is dissenting in part with a separate statement attached. Commissioner McNamee's corrected statement.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200221-3019",
+  "issuedDate": "02/21/2020",
+  "filedDate": "02/21/2020",
+  "postedDate": "02/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.28,
+  "docketNumbers": [
+   "CP19-11-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206A575-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP19-11-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 149505,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS, SR.",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{C8D7DAE0-538B-CAF3-8C05-771DBEF00000}-{0209348C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "C8D7DAE0-538B-CAF3-8C05-771DBEF00000",
+  "description": "Order Issuing Certificates and Approving Abandonment re National Fuel Gas Supply Corporation et al under CP19-491 et al. Commr Glick is dissenting and Commr McNamee is concurring with a separate statement attached. \"For errata notice see 20200806-3061.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200717-3032",
+  "issuedDate": "07/17/2020",
+  "filedDate": "07/17/2020",
+  "postedDate": "07/17/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "child",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 68.44,
+  "docketNumbers": [
+   "CP19-491-000",
+   "CP19-494-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0209348C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP19-491-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 223466,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS, SR.",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{372E9CBD-D74B-C03F-85C8-78FCE9D00000}-{020CE166-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "372E9CBD-D74B-C03F-85C8-78FCE9D00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/19/2021 request to introduce fuel gas to the LM2500 Gas Turbine under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210421-3018",
+  "issuedDate": "04/21/2021",
+  "filedDate": "04/21/2021",
+  "postedDate": "04/21/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.83,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020CE166-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2021-04-21 Calcasieu Pass CP15-550 NTP.PDF",
+    "fileDesc": "",
+    "fileSize": 462747,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "Venture Global Calcasieu Pass, LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{372E9CBD-D74B-C03F-85C8-78FCE9D00000}-{020CE166-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "372E9CBD-D74B-C03F-85C8-78FCE9D00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/19/2021 request to introduce fuel gas to the LM2500 Gas Turbine under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210421-3018",
+  "issuedDate": "04/21/2021",
+  "filedDate": "04/21/2021",
+  "postedDate": "04/21/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.82,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020CE166-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2021-04-21 Calcasieu Pass CP15-550 NTP.PDF",
+    "fileDesc": "",
+    "fileSize": 462747,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "Venture Global Calcasieu Pass, LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F1A46A5A-DF6B-CA5E-8E05-7AAD1C300000}-{020DE097-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F1A46A5A-DF6B-CA5E-8E05-7AAD1C300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 06/29/2021 request to commission gas turbine generator 1 in simple cycle under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210701-3007",
+  "issuedDate": "07/01/2021",
+  "filedDate": "07/01/2021",
+  "postedDate": "07/01/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020DE097-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP15-550 Calcasieu Pass V240-1 GTG 1 Commissioning.PDF",
+    "fileDesc": "",
+    "fileSize": 462290,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "Venture Global Calcasieu Pass, LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5A8184C7-9911-C298-850F-7B3A55100000}-{45134CDC-437A-C65D-96A9-7B3A55100000}",
+  "documentId": "5A8184C7-9911-C298-850F-7B3A55100000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 07/28/2021 request to commission the liquid nitrogen system under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210812-3001",
+  "issuedDate": "08/12/2021",
+  "filedDate": "08/12/2021",
+  "postedDate": "08/12/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.29,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "45134CDC-437A-C65D-96A9-7B3A55100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V230-1 Liq N2 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Liquid Nitrogen System",
+    "fileSize": 461986,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5F94B056-1A0D-C459-85A5-7B78C3300000}-{22E81E15-AD09-C97F-952A-7B78C3300000}",
+  "documentId": "5F94B056-1A0D-C459-85A5-7B78C3300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's August 20, 2021 request to introduce fuel gas to Gas Turbine Generator 1 etc. under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210824-3032",
+  "issuedDate": "08/24/2021",
+  "filedDate": "08/24/2021",
+  "postedDate": "08/24/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.83,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "22E81E15-AD09-C97F-952A-7B78C3300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V241 GTG1 Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce fuel gas to Gas Turbine Generator 1",
+    "fileSize": 460606,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5F94B056-1A0D-C459-85A5-7B78C3300000}-{22E81E15-AD09-C97F-952A-7B78C3300000}",
+  "documentId": "5F94B056-1A0D-C459-85A5-7B78C3300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's August 20, 2021 request to introduce fuel gas to Gas Turbine Generator 1 etc. under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210824-3032",
+  "issuedDate": "08/24/2021",
+  "filedDate": "08/24/2021",
+  "postedDate": "08/24/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.82,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "22E81E15-AD09-C97F-952A-7B78C3300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V241 GTG1 Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce fuel gas to Gas Turbine Generator 1",
+    "fileSize": 460606,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C66CCEB2-4A9E-CBB1-8453-7B8378C00000}-{8E8EA11B-0450-CBCD-94B5-7B8378C00000}",
+  "documentId": "C66CCEB2-4A9E-CBB1-8453-7B8378C00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 08/16/2021 request to commission the hot oil system and warm flare knock drum system under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210826-3032",
+  "issuedDate": "08/26/2021",
+  "filedDate": "08/26/2021",
+  "postedDate": "08/26/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8E8EA11B-0450-CBCD-94B5-7B8378C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-08-26 CP15-550 NTP V230 Commissioning.pdf",
+    "fileDesc": "Approval to Commission the Hot Oil and Warm Flare KO Drum Systems",
+    "fileSize": 463912,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{3CA73BB8-14A6-CBE2-85EE-7BEE63400000}-{83EBA421-FF0E-CA4F-949D-7BEE63400000}",
+  "documentId": "3CA73BB8-14A6-CBE2-85EE-7BEE63400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 09/10/2021 request to commission gas turbine generator 2 in a simple cycle under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210916-3000",
+  "issuedDate": "09/16/2021",
+  "filedDate": "09/16/2021",
+  "postedDate": "09/16/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "83EBA421-FF0E-CA4F-949D-7BEE63400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V240-2 GTG2 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Gas Turbine Generator 2 in Simple Cycle",
+    "fileSize": 462494,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C713881F-A21F-C514-8743-7C0E1A400000}-{1F4197F8-9068-C3DD-91E6-7C0E1A500000}",
+  "documentId": "C713881F-A21F-C514-8743-7C0E1A400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 09/21/2021 request to introduce fuel gas to Gas Turbine Generator 2 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210922-3024",
+  "issuedDate": "09/22/2021",
+  "filedDate": "09/22/2021",
+  "postedDate": "09/22/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.83,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "1F4197F8-9068-C3DD-91E6-7C0E1A500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V242 GTG2 Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas to Gas Turbine Generator 2",
+    "fileSize": 460624,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{C713881F-A21F-C514-8743-7C0E1A400000}-{1F4197F8-9068-C3DD-91E6-7C0E1A500000}",
+  "documentId": "C713881F-A21F-C514-8743-7C0E1A400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 09/21/2021 request to introduce fuel gas to Gas Turbine Generator 2 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210922-3024",
+  "issuedDate": "09/22/2021",
+  "filedDate": "09/22/2021",
+  "postedDate": "09/22/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.82,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "1F4197F8-9068-C3DD-91E6-7C0E1A500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V242 GTG2 Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas to Gas Turbine Generator 2",
+    "fileSize": 460624,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CEB74250-BCB0-C7CD-87DA-7C55C3F00000}-{665685CA-6656-CD9E-9717-7C55C3F00000}",
+  "documentId": "CEB74250-BCB0-C7CD-87DA-7C55C3F00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 10/01/2021 request to commission Gas Turbine Generator 3 in simple cycle under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211006-3012",
+  "issuedDate": "10/06/2021",
+  "filedDate": "10/06/2021",
+  "postedDate": "10/06/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "665685CA-6656-CD9E-9717-7C55C3F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V240-3 GTG 3 Commissioning.pdf",
+    "fileDesc": "Approval to Commission Gas Turbine Generator 3 in Simple Cycle",
+    "fileSize": 462361,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{623B2801-0D05-C0B7-8456-7C9449E00000}-{B4595FE6-27B3-CC0D-942C-7C9449E00000}",
+  "documentId": "623B2801-0D05-C0B7-8456-7C9449E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's October 12, 2021 request to introduce fuel gas to the hot oil heaters and warm flare under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211018-3022",
+  "issuedDate": "10/18/2021",
+  "filedDate": "10/18/2021",
+  "postedDate": "10/18/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.79,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B4595FE6-27B3-CC0D-942C-7C9449E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V233 Fuel Gas Intro.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas to Hot Oil Heaters & Warm Flare",
+    "fileSize": 462660,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{623B2801-0D05-C0B7-8456-7C9449E00000}-{B4595FE6-27B3-CC0D-942C-7C9449E00000}",
+  "documentId": "623B2801-0D05-C0B7-8456-7C9449E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's October 12, 2021 request to introduce fuel gas to the hot oil heaters and warm flare under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211018-3022",
+  "issuedDate": "10/18/2021",
+  "filedDate": "10/18/2021",
+  "postedDate": "10/18/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.85,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B4595FE6-27B3-CC0D-942C-7C9449E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V233 Fuel Gas Intro.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas to Hot Oil Heaters & Warm Flare",
+    "fileSize": 462660,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7F6AB216-3456-C734-8753-7C9382100000}-{10D9B3BF-812E-C76E-94DA-7C9382100000}",
+  "documentId": "7F6AB216-3456-C734-8753-7C9382100000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 10/08/2021 request to commission the pre-treatment A hot oil piping and warm flare header under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211018-3010",
+  "issuedDate": "10/18/2021",
+  "filedDate": "10/18/2021",
+  "postedDate": "10/18/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "10D9B3BF-812E-C76E-94DA-7C9382100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250 Commission Pretreatment .pdf",
+    "fileDesc": "Approval to Commission Pre-Treatment A Hot Oil and Warm Flare",
+    "fileSize": 461769,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F8D94A25-FCD2-CFE6-8612-7C9DB7800000}-{8E2B0518-9136-C2CA-974D-7C9DB7800000}",
+  "documentId": "F8D94A25-FCD2-CFE6-8612-7C9DB7800000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 10/18/2021 request to introduce fuel gas to Gas Turbine Generator 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211020-3007",
+  "issuedDate": "10/20/2021",
+  "filedDate": "10/20/2021",
+  "postedDate": "10/20/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.81,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8E2B0518-9136-C2CA-974D-7C9DB7800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-10-20 Calcasieu Pass CP15-550 NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas to Gas Turbine Generator 3",
+    "fileSize": 460462,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F8D94A25-FCD2-CFE6-8612-7C9DB7800000}-{8E2B0518-9136-C2CA-974D-7C9DB7800000}",
+  "documentId": "F8D94A25-FCD2-CFE6-8612-7C9DB7800000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 10/18/2021 request to introduce fuel gas to Gas Turbine Generator 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211020-3007",
+  "issuedDate": "10/20/2021",
+  "filedDate": "10/20/2021",
+  "postedDate": "10/20/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.82,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8E2B0518-9136-C2CA-974D-7C9DB7800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-10-20 Calcasieu Pass CP15-550 NTP.pdf",
+    "fileDesc": "Approval to Introduce Fuel Gas to Gas Turbine Generator 3",
+    "fileSize": 460462,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2CEED051-7A31-C304-85D1-7CA2B9400000}-{350E6C5C-9432-C829-88F4-7CA2B9500000}",
+  "documentId": "2CEED051-7A31-C304-85D1-7CA2B9400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 10/19/2021 request to commission the Pre-treat A Amine System under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211021-3000",
+  "issuedDate": "10/21/2021",
+  "filedDate": "10/21/2021",
+  "postedDate": "10/21/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "350E6C5C-9432-C829-88F4-7CA2B9500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250-2  Pretreatment A Amine System.pdf",
+    "fileDesc": "Approval to Commission Pre-Treatment A Amine System",
+    "fileSize": 459919,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5B5A86F8-5B56-C43F-87C3-7CCC88E00000}-{15A3FE77-BC9D-CBC6-9569-7CCC88E00000}",
+  "documentId": "5B5A86F8-5B56-C43F-87C3-7CCC88E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's October 21, 2021 request to commission the Mixed Refrigerant Systems and Cold Flare under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211029-3014",
+  "issuedDate": "10/29/2021",
+  "filedDate": "10/29/2021",
+  "postedDate": "10/29/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "15A3FE77-BC9D-CBC6-9569-7CCC88E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass  NTP V250-4.pdf",
+    "fileDesc": "Approval to Commission Mixed Refrigerant Systems and Cold Flare",
+    "fileSize": 462627,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{604B52E1-150B-C609-843A-7CEB3FC00000}-{756E0CD5-134B-C972-88B4-7CEB3FD00000}",
+  "documentId": "604B52E1-150B-C609-843A-7CEB3FC00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's October 22, 2021 request to Commission the Block 1 Liquefaction Modules and the South LNG Tank under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211104-3022",
+  "issuedDate": "11/04/2021",
+  "filedDate": "11/04/2021",
+  "postedDate": "11/04/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "756E0CD5-134B-C972-88B4-7CEB3FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250-3 Commission Liq Block 1.pdf",
+    "fileDesc": "Approval to Commission Block 1 Liquefaction Modules and South LNG\nTank",
+    "fileSize": 464659,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{365A305B-2B94-CFD1-842F-7D7623000000}-{4C8BE0EA-31C9-CCAA-955F-7D7623000000}",
+  "documentId": "365A305B-2B94-CFD1-842F-7D7623000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 11/15/2021 request to commission the temporary compressed natural gas system under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211201-3005",
+  "issuedDate": "12/01/2021",
+  "filedDate": "12/01/2021",
+  "postedDate": "12/01/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "4C8BE0EA-31C9-CCAA-955F-7D7623000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-12-01 Calcasieu Pass CP15-550 -2.pdf",
+    "fileDesc": "Approval to Commission Temporary Compressed Natural Gas System",
+    "fileSize": 460809,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DC3F540C-2864-CB49-8509-7D7627700000}-{4A0FF320-A09F-C4B6-9590-7D7627700000}",
+  "documentId": "DC3F540C-2864-CB49-8509-7D7627700000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 11/09/2021 request to commission the remainder of liquefaction train 1 pretreatment systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211201-3006",
+  "issuedDate": "12/01/2021",
+  "filedDate": "12/01/2021",
+  "postedDate": "12/01/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "4A0FF320-A09F-C4B6-9590-7D7627700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP  3.pdf",
+    "fileDesc": "Approval to Commission the Remainder of Liquefaction Train 1\nPretreatment Systems",
+    "fileSize": 462621,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{64EEA663-100A-C60C-868C-7D7620E00000}-{F72B8D8E-9891-CC7F-944B-7D7620E00000}",
+  "documentId": "64EEA663-100A-C60C-868C-7D7620E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 11/19/2021 request to commission the diesel fuel storage area under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211201-3003",
+  "issuedDate": "12/01/2021",
+  "filedDate": "12/01/2021",
+  "postedDate": "12/01/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F72B8D8E-9891-CC7F-944B-7D7620E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-12-01 Calcasieu Pass CP15-550 NTP V210-4 -1.pdf",
+    "fileDesc": "Approval to Commission the Diesel Fuel Storage Area",
+    "fileSize": 462141,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{063DE43B-BCBB-C9F1-875E-7DA4BAB00000}-{BECFBC9B-2A1D-C6A8-97C6-7DA4BAB00000}",
+  "documentId": "063DE43B-BCBB-C9F1-875E-7DA4BAB00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 11/16/2021 request to commission Low Pressure Flare System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211210-3003",
+  "issuedDate": "12/10/2021",
+  "filedDate": "12/10/2021",
+  "postedDate": "12/10/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "BECFBC9B-2A1D-C6A8-97C6-7DA4BAB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250-6 Commission LP Flare.pdf",
+    "fileDesc": "Approval to Commission Low Pressure Flare System",
+    "fileSize": 461383,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{085432AA-AA22-CA42-854A-7DB477F00000}-{7D80A444-00F9-C07A-96A0-7DB477F00000}",
+  "documentId": "085432AA-AA22-CA42-854A-7DB477F00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's December 6, 2021 request to introduce hazardous fluids into the Mixed Refrigerant Storage Vessels and Cold Flare under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211213-3011",
+  "issuedDate": "12/13/2021",
+  "filedDate": "12/13/2021",
+  "postedDate": "12/13/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "7D80A444-00F9-C07A-96A0-7DB477F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V254 MR Storage .pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Mixed Refrigerant Storage\nand Cold Flare",
+    "fileSize": 464448,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{085432AA-AA22-CA42-854A-7DB477F00000}-{7D80A444-00F9-C07A-96A0-7DB477F00000}",
+  "documentId": "085432AA-AA22-CA42-854A-7DB477F00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's December 6, 2021 request to introduce hazardous fluids into the Mixed Refrigerant Storage Vessels and Cold Flare under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211213-3011",
+  "issuedDate": "12/13/2021",
+  "filedDate": "12/13/2021",
+  "postedDate": "12/13/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.03,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "7D80A444-00F9-C07A-96A0-7DB477F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V254 MR Storage .pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Mixed Refrigerant Storage\nand Cold Flare",
+    "fileSize": 464448,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{736D97EE-C5BE-C3D3-87E6-7DB479F00000}-{2D48DA4B-5EA5-CD1D-953E-7DB479F00000}",
+  "documentId": "736D97EE-C5BE-C3D3-87E6-7DB479F00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 12/02/2021 request to commission the Block 2 Liquefaction Modules under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211213-3012",
+  "issuedDate": "12/13/2021",
+  "filedDate": "12/13/2021",
+  "postedDate": "12/13/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2D48DA4B-5EA5-CD1D-953E-7DB479F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250-7A Commission Liq Block 2.pdf",
+    "fileDesc": "Approval to Commission Block 2 Liquefaction Modules",
+    "fileSize": 462971,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D35E4F3E-C3F5-C363-8515-7DE827400000}-{84BBF29A-95A3-C448-972D-7DE827400000}",
+  "documentId": "D35E4F3E-C3F5-C363-8515-7DE827400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's December 15, 2021 request to introduce hazardous fluids into the Hot Oil and Pretreatment Systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211223-3030",
+  "issuedDate": "12/23/2021",
+  "filedDate": "12/23/2021",
+  "postedDate": "12/23/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "84BBF29A-95A3-C448-972D-7DE827400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V255 Hot Oil ).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Hot Oil and Pretreatment Systems",
+    "fileSize": 279266,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D35E4F3E-C3F5-C363-8515-7DE827400000}-{84BBF29A-95A3-C448-972D-7DE827400000}",
+  "documentId": "D35E4F3E-C3F5-C363-8515-7DE827400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's December 15, 2021 request to introduce hazardous fluids into the Hot Oil and Pretreatment Systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211223-3030",
+  "issuedDate": "12/23/2021",
+  "filedDate": "12/23/2021",
+  "postedDate": "12/23/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "84BBF29A-95A3-C448-972D-7DE827400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V255 Hot Oil ).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the Hot Oil and Pretreatment Systems",
+    "fileSize": 279266,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{54FDCE3F-3EA8-C186-85B2-7E4EA1D00000}-{738AA5CE-9EDB-C04E-91B7-7E4EA1E00000}",
+  "documentId": "54FDCE3F-3EA8-C186-85B2-7E4EA1D00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's January 3, 2022 request to introduce hazardous fluids into Block 1A Liquefaction System and South LNG Storage Tank under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220112-3006",
+  "issuedDate": "01/12/2022",
+  "filedDate": "01/12/2022",
+  "postedDate": "01/12/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "738AA5CE-9EDB-C04E-91B7-7E4EA1E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-12 Calcasieu.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: Feed Gas, Mixed Refrigerant, and\nLNG to Liquefaction Block 1A and South LNG Storage Tank",
+    "fileSize": 466531,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E2E232E1-97E4-C540-8519-7E4EA8E00000}-{17197652-79E4-C064-9111-7E4EA8F00000}",
+  "documentId": "E2E232E1-97E4-C540-8519-7E4EA8E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's January 3, 2022 request to introduce hazardous fluids into the Low-Pressure Flare Ignition System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220112-3007",
+  "issuedDate": "01/12/2022",
+  "filedDate": "01/12/2022",
+  "postedDate": "01/12/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "17197652-79E4-C064-9111-7E4EA8F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-12.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Low-Pressure Flare Ignition\nSystem",
+    "fileSize": 462865,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E2E232E1-97E4-C540-8519-7E4EA8E00000}-{17197652-79E4-C064-9111-7E4EA8F00000}",
+  "documentId": "E2E232E1-97E4-C540-8519-7E4EA8E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's January 3, 2022 request to introduce hazardous fluids into the Low-Pressure Flare Ignition System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220112-3007",
+  "issuedDate": "01/12/2022",
+  "filedDate": "01/12/2022",
+  "postedDate": "01/12/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "17197652-79E4-C064-9111-7E4EA8F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-12.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Low-Pressure Flare Ignition\nSystem",
+    "fileSize": 462865,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{54FDCE3F-3EA8-C186-85B2-7E4EA1D00000}-{738AA5CE-9EDB-C04E-91B7-7E4EA1E00000}",
+  "documentId": "54FDCE3F-3EA8-C186-85B2-7E4EA1D00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's January 3, 2022 request to introduce hazardous fluids into Block 1A Liquefaction System and South LNG Storage Tank under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220112-3006",
+  "issuedDate": "01/12/2022",
+  "filedDate": "01/12/2022",
+  "postedDate": "01/12/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "738AA5CE-9EDB-C04E-91B7-7E4EA1E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-12 Calcasieu.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: Feed Gas, Mixed Refrigerant, and\nLNG to Liquefaction Block 1A and South LNG Storage Tank",
+    "fileSize": 466531,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{36226DC1-3AB0-CF38-860E-7E6DB0E00000}-{55E47872-D479-CCDA-976E-7E6DB0E00000}",
+  "documentId": "36226DC1-3AB0-CF38-860E-7E6DB0E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 12/22/2021 request to commission the reciprocating boil-off gas compressor system under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220118-3016",
+  "issuedDate": "01/18/2022",
+  "filedDate": "01/18/2022",
+  "postedDate": "01/18/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "55E47872-D479-CCDA-976E-7E6DB0E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-18 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Commission Reciprocating BOG Compressor",
+    "fileSize": 461766,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{08FA0FD9-6217-C063-8612-7E7DA8600000}-{637A47C0-B123-C97B-9381-7E7DA8700000}",
+  "documentId": "08FA0FD9-6217-C063-8612-7E7DA8600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/12/2022 request to introduce hazardous fluids into Block 1B Liquefaction System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220121-3038",
+  "issuedDate": "01/21/2022",
+  "filedDate": "01/21/2022",
+  "postedDate": "01/21/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "637A47C0-B123-C97B-9381-7E7DA8700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V253B Block 1B Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: Feed Gas, Mixed Refrigerant, and\nLNG to Liquefaction Block 1B",
+    "fileSize": 464936,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{08FA0FD9-6217-C063-8612-7E7DA8600000}-{637A47C0-B123-C97B-9381-7E7DA8700000}",
+  "documentId": "08FA0FD9-6217-C063-8612-7E7DA8600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/12/2022 request to introduce hazardous fluids into Block 1B Liquefaction System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220121-3038",
+  "issuedDate": "01/21/2022",
+  "filedDate": "01/21/2022",
+  "postedDate": "01/21/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "637A47C0-B123-C97B-9381-7E7DA8700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V253B Block 1B Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: Feed Gas, Mixed Refrigerant, and\nLNG to Liquefaction Block 1B",
+    "fileSize": 464936,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A66873E0-879B-CCF7-849F-7E8D94F00000}-{70A9EF0E-698C-C344-950D-7E8D94F00000}",
+  "documentId": "A66873E0-879B-CCF7-849F-7E8D94F00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/12/2022 request to commission the Block 3 Liquefaction Modules under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220124-3052",
+  "issuedDate": "01/24/2022",
+  "filedDate": "01/24/2022",
+  "postedDate": "01/24/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "70A9EF0E-698C-C344-950D-7E8D94F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250-7B Commission Liq Block 3.pdf",
+    "fileDesc": "Approval to Commission Block 3 Liquefaction Modules",
+    "fileSize": 462869,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6E598DDE-1B32-CB07-862B-7E9CF5800000}-{55C089A8-BE52-CC6D-9517-7E9CF5800000}",
+  "documentId": "6E598DDE-1B32-CB07-862B-7E9CF5800000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/21/2022 request to introduce hazardous fluids into Block 2A and Block 2B Liquefaction Systems under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220127-3066",
+  "issuedDate": "01/27/2022",
+  "filedDate": "01/27/2022",
+  "postedDate": "01/27/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "55C089A8-BE52-CC6D-9517-7E9CF5800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-27 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: Feed Gas, Mixed Refrigerant, and\nLNG to Liquefaction Blocks 2A and 2B",
+    "fileSize": 465321,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6E598DDE-1B32-CB07-862B-7E9CF5800000}-{55C089A8-BE52-CC6D-9517-7E9CF5800000}",
+  "documentId": "6E598DDE-1B32-CB07-862B-7E9CF5800000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/21/2022 request to introduce hazardous fluids into Block 2A and Block 2B Liquefaction Systems under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220127-3066",
+  "issuedDate": "01/27/2022",
+  "filedDate": "01/27/2022",
+  "postedDate": "01/27/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.03,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "55C089A8-BE52-CC6D-9517-7E9CF5800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-27 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids: Feed Gas, Mixed Refrigerant, and\nLNG to Liquefaction Blocks 2A and 2B",
+    "fileSize": 465321,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A0C261BE-6603-C9F6-848C-7EA160A00000}-{404D4C68-84B8-CA27-9440-7EA160A00000}",
+  "documentId": "A0C261BE-6603-C9F6-848C-7EA160A00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's January 19, 2022 request to commission the South Jetty and Main BOG Compressors under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220128-3029",
+  "issuedDate": "01/28/2022",
+  "filedDate": "01/28/2022",
+  "postedDate": "01/28/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "404D4C68-84B8-CA27-9440-7EA160A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-28 Calcasieu Pass CP15-550 NTP.pdf",
+    "fileDesc": "Approval to Commission South Jetty and Main BOG Compressors",
+    "fileSize": 463737,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{41B80604-5F4C-C44A-8759-7EB0A0E00000}-{17E7BC0A-2C92-C67A-943D-7EB0A0E00000}",
+  "documentId": "41B80604-5F4C-C44A-8759-7EB0A0E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass LLC's 01/24/2022 request to introduce hazardous fluids into the Reciprocating BOG Compressor systems under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220131-3020",
+  "issuedDate": "01/31/2022",
+  "filedDate": "01/31/2022",
+  "postedDate": "01/31/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "17E7BC0A-2C92-C67A-943D-7EB0A0E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-31 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Reciprocating BOG Compressor",
+    "fileSize": 462722,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{41B80604-5F4C-C44A-8759-7EB0A0E00000}-{17E7BC0A-2C92-C67A-943D-7EB0A0E00000}",
+  "documentId": "41B80604-5F4C-C44A-8759-7EB0A0E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass LLC's 01/24/2022 request to introduce hazardous fluids into the Reciprocating BOG Compressor systems under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220131-3020",
+  "issuedDate": "01/31/2022",
+  "filedDate": "01/31/2022",
+  "postedDate": "01/31/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "17E7BC0A-2C92-C67A-943D-7EB0A0E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-01-31 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Reciprocating BOG Compressor",
+    "fileSize": 462722,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{AB2B9813-7290-C0D3-8600-7ED9D7300000}-{7CB60651-BC11-CC39-8E0D-7ED9D7400000}",
+  "documentId": "AB2B9813-7290-C0D3-8600-7ED9D7300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/26/2022 request to commission the Block 4 Liquefaction Modules under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220208-3017",
+  "issuedDate": "02/08/2022",
+  "filedDate": "02/08/2022",
+  "postedDate": "02/08/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "7CB60651-BC11-CC39-8E0D-7ED9D7400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V250-7C Commission Liq Block 4.pdf",
+    "fileDesc": "Approval to Commission Block 4 Liquefaction Modules",
+    "fileSize": 462765,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9C58E8C4-C35D-C2B0-8679-7EDF1D500000}-{3A17D8CD-D62E-CB2E-9498-7EDF1D500000}",
+  "documentId": "9C58E8C4-C35D-C2B0-8679-7EDF1D500000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's February 3, 2022 request to introduce hazardous fluids to the South Jetty and Boil Off Gas compressors under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220209-3015",
+  "issuedDate": "02/09/2022",
+  "filedDate": "02/09/2022",
+  "postedDate": "02/09/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3A17D8CD-D62E-CB2E-9498-7EDF1D500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V259 S Jetty and BOG Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the South Jetty and BOG\nCompressor System",
+    "fileSize": 464779,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9C58E8C4-C35D-C2B0-8679-7EDF1D500000}-{3A17D8CD-D62E-CB2E-9498-7EDF1D500000}",
+  "documentId": "9C58E8C4-C35D-C2B0-8679-7EDF1D500000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's February 3, 2022 request to introduce hazardous fluids to the South Jetty and Boil Off Gas compressors under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220209-3015",
+  "issuedDate": "02/09/2022",
+  "filedDate": "02/09/2022",
+  "postedDate": "02/09/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3A17D8CD-D62E-CB2E-9498-7EDF1D500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V259 S Jetty and BOG Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the South Jetty and BOG\nCompressor System",
+    "fileSize": 464779,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{38E348EE-B000-CBD5-857A-7EE91A600000}-{84343C0B-A4D3-CA51-8786-7EE91A700000}",
+  "documentId": "38E348EE-B000-CBD5-857A-7EE91A600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/03/2022 request to export by vessels the volumes of produced liquefied natural gas related to the commissioning activities for the Calcasieu Pass Liquefaction Project under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220211-3008",
+  "issuedDate": "02/11/2022",
+  "filedDate": "02/11/2022",
+  "postedDate": "02/11/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.24,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "84343C0B-A4D3-CA51-8786-7EE91A700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 Commissioning Cargo Approval.pdf",
+    "fileDesc": "Authorization of Commissioning Cargoes",
+    "fileSize": 304767,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7A5FF3FF-16AC-CA7D-8497-7EF8EF000000}-{E0A5446A-0E2A-C4B7-91AE-7EF8EF100000}",
+  "documentId": "7A5FF3FF-16AC-CA7D-8497-7EF8EF000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/09/2022 request to introduce hazardous fluids to Liquefaction Block 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220214-3028",
+  "issuedDate": "02/14/2022",
+  "filedDate": "02/14/2022",
+  "postedDate": "02/14/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.01,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E0A5446A-0E2A-C4B7-91AE-7EF8EF100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-02-14 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 3",
+    "fileSize": 462506,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7A5FF3FF-16AC-CA7D-8497-7EF8EF000000}-{E0A5446A-0E2A-C4B7-91AE-7EF8EF100000}",
+  "documentId": "7A5FF3FF-16AC-CA7D-8497-7EF8EF000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/09/2022 request to introduce hazardous fluids to Liquefaction Block 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220214-3028",
+  "issuedDate": "02/14/2022",
+  "filedDate": "02/14/2022",
+  "postedDate": "02/14/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E0A5446A-0E2A-C4B7-91AE-7EF8EF100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-02-14 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 3",
+    "fileSize": 462506,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CFB5CC6D-F980-C056-84E6-7F0891000000}-{AEBE1FF8-7574-C2B4-96C0-7F0891000000}",
+  "documentId": "CFB5CC6D-F980-C056-84E6-7F0891000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 01/28/2022 request to commissioning the Gas Turbine Generator 4 and 5 systems under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220217-3019",
+  "issuedDate": "02/17/2022",
+  "filedDate": "02/17/2022",
+  "postedDate": "02/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.26,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AEBE1FF8-7574-C2B4-96C0-7F0891000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V260 Commission GTG 4 and 5.pdf",
+    "fileDesc": "Approval to Commission Gas Turbine Generator 4 and 5 Systems",
+    "fileSize": 462527,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5FE2C4D2-EDBE-C43E-84C1-7F41D9B00000}-{CA97B783-FED0-C04F-9637-7F41D9B00000}",
+  "documentId": "5FE2C4D2-EDBE-C43E-84C1-7F41D9B00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/23/2022 request to introduce hazardous fluids into Block 4 liquefactions systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220228-3070",
+  "issuedDate": "02/28/2022",
+  "filedDate": "02/28/2022",
+  "postedDate": "02/28/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CA97B783-FED0-C04F-9637-7F41D9B00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V257C Block 4 Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 4",
+    "fileSize": 386234,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5FE2C4D2-EDBE-C43E-84C1-7F41D9B00000}-{CA97B783-FED0-C04F-9637-7F41D9B00000}",
+  "documentId": "5FE2C4D2-EDBE-C43E-84C1-7F41D9B00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/23/2022 request to introduce hazardous fluids into Block 4 liquefactions systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220228-3070",
+  "issuedDate": "02/28/2022",
+  "filedDate": "02/28/2022",
+  "postedDate": "02/28/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "CA97B783-FED0-C04F-9637-7F41D9B00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V257C Block 4 Intro Haz Fluid.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 4",
+    "fileSize": 386234,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2330BB12-FA07-C34E-8633-7F5008A00000}-{713A2DDF-6DA4-CC8D-958C-7F5008A00000}",
+  "documentId": "2330BB12-FA07-C34E-8633-7F5008A00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/16/2022 request to commission the North LNG Storage Tank under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220303-3011",
+  "issuedDate": "03/03/2022",
+  "filedDate": "03/03/2022",
+  "postedDate": "03/03/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "713A2DDF-6DA4-CC8D-958C-7F5008A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-03-03 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Commission North LNG Storage Tank",
+    "fileSize": 462860,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{0008313B-D6E7-CB06-87F0-7F5521100000}-{6C7B3F7D-A2A0-C0D0-84D8-7F5521200000}",
+  "documentId": "0008313B-D6E7-CB06-87F0-7F5521100000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/18/2022 request to commission Pre-treatment System B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220304-3006",
+  "issuedDate": "03/04/2022",
+  "filedDate": "03/04/2022",
+  "postedDate": "03/04/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6C7B3F7D-A2A0-C0D0-84D8-7F5521200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V270S1 Commission Pretreatment B.pd.pdf",
+    "fileDesc": "Approval to Commission Pre-treatment System B",
+    "fileSize": 460366,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B8FE89B4-910C-C665-844A-7F8E35300000}-{2C897D29-7966-CE6D-8B89-7F8E35400000}",
+  "documentId": "B8FE89B4-910C-C665-844A-7F8E35300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 03/03/2022 request to commission Liquefaction Block 5 and the Feed Gas Booster Compressor B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220315-3029",
+  "issuedDate": "03/15/2022",
+  "filedDate": "03/15/2022",
+  "postedDate": "03/15/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2C897D29-7966-CE6D-8B89-7F8E35400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-03-15 Calcasieu Pass CP15-550 NTP V270S2.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Block 5 and Feed Gas Booster\nCompressor B",
+    "fileSize": 462139,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D99CF14A-9899-C251-87FD-7F937A900000}-{C103FD93-64B2-C20D-9709-7F937A900000}",
+  "documentId": "D99CF14A-9899-C251-87FD-7F937A900000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's request to introduce hazardous fluids to the North LNG Storage Tank under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220316-3034",
+  "issuedDate": "03/16/2022",
+  "filedDate": "03/16/2022",
+  "postedDate": "03/16/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C103FD93-64B2-C20D-9709-7F937A900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-03-16 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the North LNG Storage Tank",
+    "fileSize": 463940,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D99CF14A-9899-C251-87FD-7F937A900000}-{C103FD93-64B2-C20D-9709-7F937A900000}",
+  "documentId": "D99CF14A-9899-C251-87FD-7F937A900000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's request to introduce hazardous fluids to the North LNG Storage Tank under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220316-3034",
+  "issuedDate": "03/16/2022",
+  "filedDate": "03/16/2022",
+  "postedDate": "03/16/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C103FD93-64B2-C20D-9709-7F937A900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-03-16 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the North LNG Storage Tank",
+    "fileSize": 463940,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6AD169F9-1EB0-C566-8693-7F9DA0E00000}-{F799CDC1-0733-CB64-95E2-7F9DA0E00000}",
+  "documentId": "6AD169F9-1EB0-C566-8693-7F9DA0E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 03/14/2022 request to introduce hazardous fluids to the Gas Turbine Generators 4 and 5 and the Aqueous Ammonia Dosing System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220318-3020",
+  "issuedDate": "03/18/2022",
+  "filedDate": "03/18/2022",
+  "postedDate": "03/18/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F799CDC1-0733-CB64-95E2-7F9DA0E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V261 GTG 4, 5 and Aqu Ammonia .pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Gas Turbine Generators 4 and 5,\nand Aqueous Ammonia Dosing System",
+    "fileSize": 462836,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6AD169F9-1EB0-C566-8693-7F9DA0E00000}-{F799CDC1-0733-CB64-95E2-7F9DA0E00000}",
+  "documentId": "6AD169F9-1EB0-C566-8693-7F9DA0E00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 03/14/2022 request to introduce hazardous fluids to the Gas Turbine Generators 4 and 5 and the Aqueous Ammonia Dosing System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220318-3020",
+  "issuedDate": "03/18/2022",
+  "filedDate": "03/18/2022",
+  "postedDate": "03/18/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F799CDC1-0733-CB64-95E2-7F9DA0E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V261 GTG 4, 5 and Aqu Ammonia .pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Gas Turbine Generators 4 and 5,\nand Aqueous Ammonia Dosing System",
+    "fileSize": 462836,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4E45728B-EE14-CFBF-8687-7FDACB000000}-{35E7AC78-BB10-CE1B-9645-7FDACB000000}",
+  "documentId": "4E45728B-EE14-CFBF-8687-7FDACB000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 03/25/2022 request to commission Liquefaction Block 6 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220330-3009",
+  "issuedDate": "03/30/2022",
+  "filedDate": "03/30/2022",
+  "postedDate": "03/30/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "35E7AC78-BB10-CE1B-9645-7FDACB000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V270S3 Commission Block 6.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Block 6",
+    "fileSize": 461017,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5BCC0523-1682-CDE8-86A6-7FDB71600000}-{B879924C-AE68-C1CD-9065-7FDB71700000}",
+  "documentId": "5BCC0523-1682-CDE8-86A6-7FDB71600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 02/22/2022 request to commission Steam Turbine Generators 1 and 2 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220330-3022",
+  "issuedDate": "03/30/2022",
+  "filedDate": "03/30/2022",
+  "postedDate": "03/30/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.12,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B879924C-AE68-C1CD-9065-7FDB71700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-03-30 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Commission Steam Turbine Generators 1 and 2",
+    "fileSize": 462520,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CE4D90E9-2962-C1D8-8412-7FFF1D600000}-{88DC8F37-85AB-C63D-8B98-7FFF1D700000}",
+  "documentId": "CE4D90E9-2962-C1D8-8412-7FFF1D600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/01/2022 request to introduce hazardous fluids into Block 5 Liquefaction Systems and Feed Gas Booster Compressor B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220406-3027",
+  "issuedDate": "04/06/2022",
+  "filedDate": "04/06/2022",
+  "postedDate": "04/06/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "88DC8F37-85AB-C63D-8B98-7FFF1D700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-06 Calcasieu Pass CP15-550 NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 5 and Feed\nGas Booster Compressor B",
+    "fileSize": 462300,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CE4D90E9-2962-C1D8-8412-7FFF1D600000}-{88DC8F37-85AB-C63D-8B98-7FFF1D700000}",
+  "documentId": "CE4D90E9-2962-C1D8-8412-7FFF1D600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/01/2022 request to introduce hazardous fluids into Block 5 Liquefaction Systems and Feed Gas Booster Compressor B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220406-3027",
+  "issuedDate": "04/06/2022",
+  "filedDate": "04/06/2022",
+  "postedDate": "04/06/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "88DC8F37-85AB-C63D-8B98-7FFF1D700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-06 Calcasieu Pass CP15-550 NTP.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 5 and Feed\nGas Booster Compressor B",
+    "fileSize": 462300,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EA0D2DA3-BD96-C7D8-861A-80090F200000}-{6C0A3623-AFDD-CF08-9651-80090F200000}",
+  "documentId": "EA0D2DA3-BD96-C7D8-861A-80090F200000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's April 5, 2022 request to introduce hazardous fluids into the Heat Recovery Steam Generator 4 and 5 Aqueous Ammonia System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220408-3005",
+  "issuedDate": "04/08/2022",
+  "filedDate": "04/08/2022",
+  "postedDate": "04/08/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6C0A3623-AFDD-CF08-9651-80090F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-08 Calcasieu Pass CP15-550 NTP V261A.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Heat Recovery Steam\nGenerator 4 and 5 Aqueous Ammonia System",
+    "fileSize": 253506,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{EA0D2DA3-BD96-C7D8-861A-80090F200000}-{6C0A3623-AFDD-CF08-9651-80090F200000}",
+  "documentId": "EA0D2DA3-BD96-C7D8-861A-80090F200000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's April 5, 2022 request to introduce hazardous fluids into the Heat Recovery Steam Generator 4 and 5 Aqueous Ammonia System under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220408-3005",
+  "issuedDate": "04/08/2022",
+  "filedDate": "04/08/2022",
+  "postedDate": "04/08/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.03,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6C0A3623-AFDD-CF08-9651-80090F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-08 Calcasieu Pass CP15-550 NTP V261A.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into Heat Recovery Steam\nGenerator 4 and 5 Aqueous Ammonia System",
+    "fileSize": 253506,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7BC0AD73-F10D-C27C-8618-801E45400000}-{A6395225-B449-C4C1-9020-801E45500000}",
+  "documentId": "7BC0AD73-F10D-C27C-8618-801E45400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/05/2022 request to introduce hazardous fluids into Pre-Treatment System B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220412-3026",
+  "issuedDate": "04/12/2022",
+  "filedDate": "04/12/2022",
+  "postedDate": "04/12/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.01,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A6395225-B449-C4C1-9020-801E45500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V271 Haz Fluid Pretreat B (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Pre-Treatment B",
+    "fileSize": 227999,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7BC0AD73-F10D-C27C-8618-801E45400000}-{A6395225-B449-C4C1-9020-801E45500000}",
+  "documentId": "7BC0AD73-F10D-C27C-8618-801E45400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/05/2022 request to introduce hazardous fluids into Pre-Treatment System B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220412-3026",
+  "issuedDate": "04/12/2022",
+  "filedDate": "04/12/2022",
+  "postedDate": "04/12/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A6395225-B449-C4C1-9020-801E45500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V271 Haz Fluid Pretreat B (HT).pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Pre-Treatment B",
+    "fileSize": 227999,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2255D16A-5644-CE37-87CE-80483C200000}-{76F6B076-3FBA-C257-8AD3-80483C300000}",
+  "documentId": "2255D16A-5644-CE37-87CE-80483C200000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's April 18, 2022  request to introduce hazardous fluids into Liquefaction Block 6 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220420-3060",
+  "issuedDate": "04/20/2022",
+  "filedDate": "04/20/2022",
+  "postedDate": "04/20/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "76F6B076-3FBA-C257-8AD3-80483C300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-20 Calcasieu Pass CP15-550 NTP V273.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 6",
+    "fileSize": 462337,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2255D16A-5644-CE37-87CE-80483C200000}-{76F6B076-3FBA-C257-8AD3-80483C300000}",
+  "documentId": "2255D16A-5644-CE37-87CE-80483C200000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's April 18, 2022  request to introduce hazardous fluids into Liquefaction Block 6 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220420-3060",
+  "issuedDate": "04/20/2022",
+  "filedDate": "04/20/2022",
+  "postedDate": "04/20/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "76F6B076-3FBA-C257-8AD3-80483C300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-20 Calcasieu Pass CP15-550 NTP V273.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 6",
+    "fileSize": 462337,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7CBB01AB-66BB-C7FF-8695-80523C500000}-{5000F863-8C36-CE72-9585-80523C500000}",
+  "documentId": "7CBB01AB-66BB-C7FF-8695-80523C500000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's April 13, 2022 request to commission and introduce hazardous fluids into the North Jetty systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220422-3044",
+  "issuedDate": "04/22/2022",
+  "filedDate": "04/22/2022",
+  "postedDate": "04/22/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.77,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "5000F863-8C36-CE72-9585-80523C500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-22 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to North Jetty",
+    "fileSize": 462634,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7CBB01AB-66BB-C7FF-8695-80523C500000}-{5000F863-8C36-CE72-9585-80523C500000}",
+  "documentId": "7CBB01AB-66BB-C7FF-8695-80523C500000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's April 13, 2022 request to commission and introduce hazardous fluids into the North Jetty systems under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220422-3044",
+  "issuedDate": "04/22/2022",
+  "filedDate": "04/22/2022",
+  "postedDate": "04/22/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.84,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "5000F863-8C36-CE72-9585-80523C500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-04-22 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to North Jetty",
+    "fileSize": 462634,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B4BD5DFE-0BEB-C17A-85CE-8076A6600000}-{668163A2-13D8-C154-94FC-8076A6600000}",
+  "documentId": "B4BD5DFE-0BEB-C17A-85CE-8076A6600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 04/21/2022 request to construct and partially commission the temporary power system for the Calcasieu Pass Project under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220429-3055",
+  "issuedDate": "04/29/2022",
+  "filedDate": "04/29/2022",
+  "postedDate": "04/29/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.54,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "668163A2-13D8-C154-94FC-8076A6600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP Temp Power Construction and Commissioning.pdf",
+    "fileDesc": "Approval to Construct and Partially Commission the Temporary Power\nSystem",
+    "fileSize": 461727,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{141A1949-8A2C-CFA1-8787-809A49700000}-{3E8318ED-7236-C320-9787-809A49700000}",
+  "documentId": "141A1949-8A2C-CFA1-8787-809A49700000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/04/2022 request to introduce hazardous fluids into Boil Off Gas Compressor B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220506-3048",
+  "issuedDate": "05/06/2022",
+  "filedDate": "05/06/2022",
+  "postedDate": "05/06/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3E8318ED-7236-C320-9787-809A49700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V276 Bog Comp B Intro Haz Fluids.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to BOG Compressor B",
+    "fileSize": 461660,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{141A1949-8A2C-CFA1-8787-809A49700000}-{3E8318ED-7236-C320-9787-809A49700000}",
+  "documentId": "141A1949-8A2C-CFA1-8787-809A49700000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/04/2022 request to introduce hazardous fluids into Boil Off Gas Compressor B under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220506-3048",
+  "issuedDate": "05/06/2022",
+  "filedDate": "05/06/2022",
+  "postedDate": "05/06/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.03,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "3E8318ED-7236-C320-9787-809A49700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V276 Bog Comp B Intro Haz Fluids.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to BOG Compressor B",
+    "fileSize": 461660,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BA565027-B3EE-C7BC-879A-80B45CA00000}-{982B36B7-9783-C857-8A41-80B45CB00000}",
+  "documentId": "BA565027-B3EE-C7BC-879A-80B45CA00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/04/2022 request to commission Liquefaction Block 7 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220511-3085",
+  "issuedDate": "05/11/2022",
+  "filedDate": "05/11/2022",
+  "postedDate": "05/11/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.16,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "982B36B7-9783-C857-8A41-80B45CB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-05-11 Calcasieu Pass CP15-550 NTP.pdf",
+    "fileDesc": "Approval to Commission Liquefaction Block 7",
+    "fileSize": 461583,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8006948F-8720-C9A0-86F6-80BEAF800000}-{C2FFAD4F-50A8-CA75-973A-80BEAF800000}",
+  "documentId": "8006948F-8720-C9A0-86F6-80BEAF800000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/11/2022 request to introduce hazardous fluids into the Boil Off Gas area temporary power system under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220513-3065",
+  "issuedDate": "05/13/2022",
+  "filedDate": "05/13/2022",
+  "postedDate": "05/13/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C2FFAD4F-50A8-CA75-973A-80BEAF800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass NTP V263A BOG Area .pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the BOG Area Temporary Power\nSystem",
+    "fileSize": 463832,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8006948F-8720-C9A0-86F6-80BEAF800000}-{C2FFAD4F-50A8-CA75-973A-80BEAF800000}",
+  "documentId": "8006948F-8720-C9A0-86F6-80BEAF800000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/11/2022 request to introduce hazardous fluids into the Boil Off Gas area temporary power system under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220513-3065",
+  "issuedDate": "05/13/2022",
+  "filedDate": "05/13/2022",
+  "postedDate": "05/13/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C2FFAD4F-50A8-CA75-973A-80BEAF800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass NTP V263A BOG Area .pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the BOG Area Temporary Power\nSystem",
+    "fileSize": 463832,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9099F5D0-5223-C260-873B-80DCC3100000}-{038F34C6-B210-CF6B-9735-80DCC3100000}",
+  "documentId": "9099F5D0-5223-C260-873B-80DCC3100000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/18/2022 request to introduce hazardous fluids into the Gas Insulated Switchgear area temporary power system under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220519-3034",
+  "issuedDate": "05/19/2022",
+  "filedDate": "05/19/2022",
+  "postedDate": "05/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "038F34C6-B210-CF6B-9735-80DCC3100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-05-19 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the GIS Area Temporary Power\nSystem",
+    "fileSize": 462918,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9099F5D0-5223-C260-873B-80DCC3100000}-{038F34C6-B210-CF6B-9735-80DCC3100000}",
+  "documentId": "9099F5D0-5223-C260-873B-80DCC3100000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 05/18/2022 request to introduce hazardous fluids into the Gas Insulated Switchgear area temporary power system under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220519-3034",
+  "issuedDate": "05/19/2022",
+  "filedDate": "05/19/2022",
+  "postedDate": "05/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "038F34C6-B210-CF6B-9735-80DCC3100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-05-19 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to the GIS Area Temporary Power\nSystem",
+    "fileSize": 462918,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{798EB193-845A-C88E-869F-80FBEA900000}-{495A46DA-3846-C201-970F-80FBEA900000}",
+  "documentId": "798EB193-845A-C88E-869F-80FBEA900000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's request to introduce hazardous fluids into Liquefaction Block 7 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220525-3027",
+  "issuedDate": "05/25/2022",
+  "filedDate": "05/25/2022",
+  "postedDate": "05/25/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.19,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "495A46DA-3846-C201-970F-80FBEA900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass V282 Block 7 Intro.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 7",
+    "fileSize": 461813,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{798EB193-845A-C88E-869F-80FBEA900000}-{495A46DA-3846-C201-970F-80FBEA900000}",
+  "documentId": "798EB193-845A-C88E-869F-80FBEA900000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's request to introduce hazardous fluids into Liquefaction Block 7 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220525-3027",
+  "issuedDate": "05/25/2022",
+  "filedDate": "05/25/2022",
+  "postedDate": "05/25/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.24,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "495A46DA-3846-C201-970F-80FBEA900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass V282 Block 7 Intro.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 7",
+    "fileSize": 461813,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F5B70230-D1D2-C906-8777-814E38A00000}-{DDCD7472-9BED-CB53-96E7-814E38A00000}",
+  "documentId": "F5B70230-D1D2-C906-8777-814E38A00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's  June 8, 2022 request to introduce hazardous fluids into Liquefaction Block 8 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220610-3028",
+  "issuedDate": "06/10/2022",
+  "filedDate": "06/10/2022",
+  "postedDate": "06/13/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DDCD7472-9BED-CB53-96E7-814E38A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass NTP V283 Block 8 I.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 8",
+    "fileSize": 461641,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F5B70230-D1D2-C906-8777-814E38A00000}-{DDCD7472-9BED-CB53-96E7-814E38A00000}",
+  "documentId": "F5B70230-D1D2-C906-8777-814E38A00000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's  June 8, 2022 request to introduce hazardous fluids into Liquefaction Block 8 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220610-3028",
+  "issuedDate": "06/10/2022",
+  "filedDate": "06/10/2022",
+  "postedDate": "06/13/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DDCD7472-9BED-CB53-96E7-814E38A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550  Calcasieu Pass NTP V283 Block 8 I.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 8",
+    "fileSize": 461641,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{185F7F75-5554-CE33-8468-8225C0400000}-{89F7B925-CE39-C1ED-9721-8225C0400000}",
+  "documentId": "185F7F75-5554-CE33-8468-8225C0400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's July 18, 2022 request to introduce hazardous fluids into Liquefaction Block 9 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220722-3003",
+  "issuedDate": "07/22/2022",
+  "filedDate": "07/22/2022",
+  "postedDate": "07/22/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.01,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "89F7B925-CE39-C1ED-9721-8225C0400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V284 Block 9 Intro Haz Fluids.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 9",
+    "fileSize": 461337,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{185F7F75-5554-CE33-8468-8225C0400000}-{89F7B925-CE39-C1ED-9721-8225C0400000}",
+  "documentId": "185F7F75-5554-CE33-8468-8225C0400000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's July 18, 2022 request to introduce hazardous fluids into Liquefaction Block 9 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220722-3003",
+  "issuedDate": "07/22/2022",
+  "filedDate": "07/22/2022",
+  "postedDate": "07/22/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "89F7B925-CE39-C1ED-9721-8225C0400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V284 Block 9 Intro Haz Fluids.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to Liquefaction Block 9",
+    "fileSize": 461337,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DE37DB97-DB5E-C697-8568-827EC2000000}-{2F0CEE73-35B9-C11A-9773-827EC2000000}",
+  "documentId": "DE37DB97-DB5E-C697-8568-827EC2000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 08/04/2022 request to introduce hazardous fluids into HRSG 1 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220808-3029",
+  "issuedDate": "08/08/2022",
+  "filedDate": "08/08/2022",
+  "postedDate": "08/08/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.01,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2F0CEE73-35B9-C11A-9773-827EC2000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V264 HRSG 1 Intro Haz Fluids.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into HRSG 1",
+    "fileSize": 459321,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DE37DB97-DB5E-C697-8568-827EC2000000}-{2F0CEE73-35B9-C11A-9773-827EC2000000}",
+  "documentId": "DE37DB97-DB5E-C697-8568-827EC2000000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 08/04/2022 request to introduce hazardous fluids into HRSG 1 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220808-3029",
+  "issuedDate": "08/08/2022",
+  "filedDate": "08/08/2022",
+  "postedDate": "08/08/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "2F0CEE73-35B9-C11A-9773-827EC2000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP15-550 NTP V264 HRSG 1 Intro Haz Fluids.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into HRSG 1",
+    "fileSize": 459321,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{09C8DDD1-A457-CC0C-85A9-82AD86300000}-{9AE2D498-570A-C44A-95A3-82AD86300000}",
+  "documentId": "09C8DDD1-A457-CC0C-85A9-82AD86300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's August 15, 2022 request to introduce hazardous fluids into Pretreatment C under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220817-3062",
+  "issuedDate": "08/17/2022",
+  "filedDate": "08/17/2022",
+  "postedDate": "08/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "GasHydro"
+  ],
+  "score": 80.99,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9AE2D498-570A-C44A-95A3-82AD86300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Calcasieu Pass CP15-550 NTP 8.17.22.pdf",
+    "fileDesc": "Letter Order Approving Venture Global Calcasieu Pass, LLC's 08/15/22 request to introduce hazardous fluids into Pretreatment C under CP15-550.",
+    "fileSize": 460459,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{09C8DDD1-A457-CC0C-85A9-82AD86300000}-{9AE2D498-570A-C44A-95A3-82AD86300000}",
+  "documentId": "09C8DDD1-A457-CC0C-85A9-82AD86300000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's August 15, 2022 request to introduce hazardous fluids into Pretreatment C under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220817-3062",
+  "issuedDate": "08/17/2022",
+  "filedDate": "08/17/2022",
+  "postedDate": "08/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "GasHydro"
+  ],
+  "score": 81.0,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9AE2D498-570A-C44A-95A3-82AD86300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Calcasieu Pass CP15-550 NTP 8.17.22.pdf",
+    "fileDesc": "Letter Order Approving Venture Global Calcasieu Pass, LLC's 08/15/22 request to introduce hazardous fluids into Pretreatment C under CP15-550.",
+    "fileSize": 460459,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{65230241-44C8-C0CC-846D-82AD88700000}-{89F428DE-D6E3-C5DA-88FC-82AD88800000}",
+  "documentId": "65230241-44C8-C0CC-846D-82AD88700000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's August 15, 2022 request to commission Heat Recovery Steam Generator 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220817-3063",
+  "issuedDate": "08/17/2022",
+  "filedDate": "08/17/2022",
+  "postedDate": "08/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "89F428DE-D6E3-C5DA-88FC-82AD88800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-08-17 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Letter order approving Venture Global Calcasieu Pass, LLC's 08/15/22 request to commission Heat Recovery Steam Generator 3 under CP15-550.",
+    "fileSize": 460903,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{75AD29E0-D510-CB97-849E-82B6C9600000}-{299B24E7-BD2F-CB56-979E-82B6C9600000}",
+  "documentId": "75AD29E0-D510-CB97-849E-82B6C9600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 08/17/2022 request to introduce hazardous fluids into HRSG 2 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220819-3034",
+  "issuedDate": "08/19/2022",
+  "filedDate": "08/19/2022",
+  "postedDate": "08/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "299B24E7-BD2F-CB56-979E-82B6C9600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Calcasieu Pass CP15-550 NTP 8.19.22.pdf",
+    "fileDesc": "Letter granting Venture Global Calcasieu Pass, LLC's 08/17/2022 request to introduce hazardous fluids into HRSG 2 under CP15-550.",
+    "fileSize": 252768,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Thomas",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{75AD29E0-D510-CB97-849E-82B6C9600000}-{299B24E7-BD2F-CB56-979E-82B6C9600000}",
+  "documentId": "75AD29E0-D510-CB97-849E-82B6C9600000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 08/17/2022 request to introduce hazardous fluids into HRSG 2 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220819-3034",
+  "issuedDate": "08/19/2022",
+  "filedDate": "08/19/2022",
+  "postedDate": "08/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.03,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "299B24E7-BD2F-CB56-979E-82B6C9600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Calcasieu Pass CP15-550 NTP 8.19.22.pdf",
+    "fileDesc": "Letter granting Venture Global Calcasieu Pass, LLC's 08/17/2022 request to introduce hazardous fluids into HRSG 2 under CP15-550.",
+    "fileSize": 252768,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Thomas",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1D5F2780-972D-CED5-84EA-835644700000}-{640A22B7-5BD1-CAD3-9472-835644700000}",
+  "documentId": "1D5F2780-972D-CED5-84EA-835644700000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 09/15/2022 request to introduce hazardous fluids into HRSG 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220919-3035",
+  "issuedDate": "09/19/2022",
+  "filedDate": "09/19/2022",
+  "postedDate": "09/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.97,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "640A22B7-5BD1-CAD3-9472-835644700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-09-19 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into HRSG 3",
+    "fileSize": 461462,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1D5F2780-972D-CED5-84EA-835644700000}-{640A22B7-5BD1-CAD3-9472-835644700000}",
+  "documentId": "1D5F2780-972D-CED5-84EA-835644700000",
+  "description": "Letter order granting Venture Global Calcasieu Pass, LLC's 09/15/2022 request to introduce hazardous fluids into HRSG 3 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220919-3035",
+  "issuedDate": "09/19/2022",
+  "filedDate": "09/19/2022",
+  "postedDate": "09/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 81.05,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "640A22B7-5BD1-CAD3-9472-835644700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-09-19 Calcasieu Pass.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids into HRSG 3",
+    "fileSize": 461462,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Patel",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{8E4AD4F4-72A4-CB6E-84BD-836B77000000}-{446FEA1B-07DE-C993-95A3-836B77000000}",
+  "documentId": "8E4AD4F4-72A4-CB6E-84BD-836B77000000",
+  "description": "Order Issuing Certificate re LA Storage, LLC, CP21-44. Chairman Glick is concurring with a separate statement attached. Commissioner Danly is concurring in part with a separate statement attached. Commissioner Clements is concurring etc.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220923-3045",
+  "issuedDate": "09/23/2022",
+  "filedDate": "09/23/2022",
+  "postedDate": "09/23/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 63.42,
+  "docketNumbers": [
+   "CP21-44-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "446FEA1B-07DE-C993-95A3-836B77000000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP21-44-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 158031,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": "*"
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.87,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.94,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CD638E32-0C3C-CF36-84FD-86EC75200000}-{E5B7316C-30D8-C1EA-97B0-86EC75200000}",
+  "documentId": "CD638E32-0C3C-CF36-84FD-86EC75200000",
+  "description": "Order Amending Authorization Under Section 3 of the Natural Gas Act re Cameron LNG, LLC under CP22-41. Commissioner Danly is concurring in part with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230316-3095",
+  "issuedDate": "03/16/2023",
+  "filedDate": "03/16/2023",
+  "postedDate": "03/16/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 73.13,
+  "docketNumbers": [
+   "CP22-41-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "E5B7316C-30D8-C1EA-97B0-86EC75200000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP22-41-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 153271,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7C6BF260-C339-CCDB-84EC-8829EE800000}-{8C5133DF-5417-CBA8-9549-8829EE800000}",
+  "documentId": "7C6BF260-C339-CCDB-84EC-8829EE800000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the May 2, 2023 request to install, commission, and introduce hazardous fluids into the temporary quench line to facilitate bolt modifications to a shutdown valve under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20230517-3011",
+  "issuedDate": "05/17/2023",
+  "filedDate": "05/17/2023",
+  "postedDate": "05/17/2023",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.47,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8C5133DF-5417-CBA8-9549-8829EE800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2023-05-17 Calcasieu Pass CP15-550.pdf",
+    "fileDesc": "Approval to Proceed with the Temporary Quench Line and Valve Bolting Modification",
+    "fileSize": 244842,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "MUSSER",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{ED425AC2-C85F-CD9F-860F-8E5CB8100000}-{C45A593D-7B2D-CC0D-97C0-8E5CB8100000}",
+  "documentId": "ED425AC2-C85F-CD9F-860F-8E5CB8100000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the March 13, 2024 request to re-introduce hazardous fluids to HRSG 372 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240320-3048",
+  "issuedDate": "03/20/2024",
+  "filedDate": "03/20/2024",
+  "postedDate": "03/20/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.69,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C45A593D-7B2D-CC0D-97C0-8E5CB8100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-03-20 VGCP CP15-550-000 NTP HRSG 372.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 372",
+    "fileSize": 246596,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A015E981-3E74-CE82-84BB-90508C700000}-{AF91A9A8-6484-C55E-959C-90508C700000}",
+  "documentId": "A015E981-3E74-CE82-84BB-90508C700000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the request to re-introduce hazardous fluids to HRSG 375 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240625-3082",
+  "issuedDate": "06/25/2024",
+  "filedDate": "06/25/2024",
+  "postedDate": "06/25/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.69,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AF91A9A8-6484-C55E-959C-90508C700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-06-25 VGCP CP15-550-000 NTP HRSG 375.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 375",
+    "fileSize": 239457,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{A015E981-3E74-CE82-84BB-90508C700000}-{AF91A9A8-6484-C55E-959C-90508C700000}",
+  "documentId": "A015E981-3E74-CE82-84BB-90508C700000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the request to re-introduce hazardous fluids to HRSG 375 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20240625-3082",
+  "issuedDate": "06/25/2024",
+  "filedDate": "06/25/2024",
+  "postedDate": "06/25/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.68,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "AF91A9A8-6484-C55E-959C-90508C700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-06-25 VGCP CP15-550-000 NTP HRSG 375.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 375",
+    "fileSize": 239457,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{85AF4E4F-EF29-CBBA-8665-92486C500000}-{C41FDB3B-4029-C52A-9540-92486C500000}",
+  "documentId": "85AF4E4F-EF29-CBBA-8665-92486C500000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 09/25/2024 et al. request to re-introduce hazardous fluids to HRSG 373 under CP15-550.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241001-3011",
+  "issuedDate": "10/01/2024",
+  "filedDate": "10/01/2024",
+  "postedDate": "10/01/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.68,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C41FDB3B-4029-C52A-9540-92486C500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "VGCP CP15-550-000 NTP HRSG 373.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 373",
+    "fileSize": 239166,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{432968DC-8066-CCAB-84BB-92DE4D800000}-{04CAD123-5849-C5B9-9661-92DE4D800000}",
+  "documentId": "432968DC-8066-CCAB-84BB-92DE4D800000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 06/17/2024 request to construct the fuel gas piping modifications under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241030-3032",
+  "issuedDate": "10/30/2024",
+  "filedDate": "10/30/2024",
+  "postedDate": "10/30/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.18,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "04CAD123-5849-C5B9-9661-92DE4D800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "VGCP CP15-550-000 Fuel Gas Piping Modifications.pdf",
+    "fileDesc": "Approval to Construct Fuel Gas Piping Modifications",
+    "fileSize": 235735,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{51039018-B1A1-C675-846A-93F500A00000}-{9C6FEF76-4716-CE08-958C-93F500A00000}",
+  "documentId": "51039018-B1A1-C675-846A-93F500A00000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 12/20/2024 request to re-introduce hazardous fluids to HRSG 374 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241223-3094",
+  "issuedDate": "12/23/2024",
+  "filedDate": "12/23/2024",
+  "postedDate": "12/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.69,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9C6FEF76-4716-CE08-958C-93F500A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-23 Calcasieu Pass CP15-550 NTP HRSG 374 IHF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 374",
+    "fileSize": 239405,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{51039018-B1A1-C675-846A-93F500A00000}-{9C6FEF76-4716-CE08-958C-93F500A00000}",
+  "documentId": "51039018-B1A1-C675-846A-93F500A00000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 12/20/2024 request to re-introduce hazardous fluids to HRSG 374 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20241223-3094",
+  "issuedDate": "12/23/2024",
+  "filedDate": "12/23/2024",
+  "postedDate": "12/23/2024",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.68,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9C6FEF76-4716-CE08-958C-93F500A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2024-12-23 Calcasieu Pass CP15-550 NTP HRSG 374 IHF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 374",
+    "fileSize": 239405,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS ",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{89ADC769-2BAC-C6D2-86D7-946FC8200000}-{125E9A52-1CE5-C3BE-8914-946FC8300000}",
+  "documentId": "89ADC769-2BAC-C6D2-86D7-946FC8200000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 12/30/2024 request to commission and introduce hazardous fluids into the fuel gas system modifications under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250116-3029",
+  "issuedDate": "01/16/2025",
+  "filedDate": "01/16/2025",
+  "postedDate": "01/16/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.66,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "125E9A52-1CE5-C3BE-8914-946FC8300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-16 VGCP CP15-550 Fuel Gas Piping Mods IHF.pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to the Fuel Gas System Modifications",
+    "fileSize": 236900,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{89ADC769-2BAC-C6D2-86D7-946FC8200000}-{125E9A52-1CE5-C3BE-8914-946FC8300000}",
+  "documentId": "89ADC769-2BAC-C6D2-86D7-946FC8200000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 12/30/2024 request to commission and introduce hazardous fluids into the fuel gas system modifications under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250116-3029",
+  "issuedDate": "01/16/2025",
+  "filedDate": "01/16/2025",
+  "postedDate": "01/16/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.71,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "125E9A52-1CE5-C3BE-8914-946FC8300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-01-16 VGCP CP15-550 Fuel Gas Piping Mods IHF.pdf",
+    "fileDesc": "Approval to Commission and Introduce Hazardous Fluids to the Fuel Gas System Modifications",
+    "fileSize": 236900,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CF20E152-88F3-CEBE-8535-953DD9900000}-{B0971C9C-6F6C-CD96-9383-953DD9A00000}",
+  "documentId": "CF20E152-88F3-CEBE-8535-953DD9900000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 02/24/2025 request to re-introduce hazardous fluids to HRSG 371 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250225-3028",
+  "issuedDate": "02/25/2025",
+  "filedDate": "02/25/2025",
+  "postedDate": "02/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.68,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B0971C9C-6F6C-CD96-9383-953DD9A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Calcasieu Pass CP15-550-000 NTP HRSG 371 IHF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 371",
+    "fileSize": 235755,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CF20E152-88F3-CEBE-8535-953DD9900000}-{B0971C9C-6F6C-CD96-9383-953DD9A00000}",
+  "documentId": "CF20E152-88F3-CEBE-8535-953DD9900000",
+  "description": "Letter to Venture Global Calcasieu Pass, LLC granting the 02/24/2025 request to re-introduce hazardous fluids to HRSG 371 under CP15-550. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250225-3028",
+  "issuedDate": "02/25/2025",
+  "filedDate": "02/25/2025",
+  "postedDate": "02/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 80.68,
+  "docketNumbers": [
+   "CP15-550-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B0971C9C-6F6C-CD96-9383-953DD9A00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Calcasieu Pass CP15-550-000 NTP HRSG 371 IHF.pdf",
+    "fileDesc": "Approval to Introduce Hazardous Fluids to HRSG 371",
+    "fileSize": 235755,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "VENTURE GLOBAL CALCASIEU PASS LLC",
+    "lastName": "Musser",
+    "firstInitial": "F",
+    "middleInitial": ""
+   }
+  ]
+ }
+]
