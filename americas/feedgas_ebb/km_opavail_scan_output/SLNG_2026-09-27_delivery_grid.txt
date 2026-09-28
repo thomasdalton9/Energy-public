@@ -1,0 +1,21 @@
+
+
+View Segment(s) Capacity	Loc	Loc Name	Loc Zn	Loc (Segment)	Design Capacity	Operating Capacity	Total Scheduled Quantity	Operationally Available Capacity	IT	Flow Ind	All Qty Avail	Qty Reason
+
+
+												
+
+
+View	660000	SLNG/SNG CHATHAM	01	280	1,852,500	1,852,500	162,476	1,690,024	N	D	Y	
+
+
+View	660060	SLNG/SNG TO DCGT CHATHAM	01	280	315,642	315,642	0	315,642	N	BD	Y	
+
+
+View	660600	CARGAS/SLNG CHAT	01	280	315,642	315,642	0	315,642	N	D	Y	
+
+
+View	938000	SLNG/EEC CHATHAM	01	280	1,021,000	1,021,000	0	1,021,000	N	BD	Y	
+
+
+ 	Row Count: 4	 	 	 	 	 	 	 	 	 	 	 
