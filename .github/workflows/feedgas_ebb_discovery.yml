@@ -42,7 +42,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests playwright
+        run: pip install requests playwright pandas openpyxl
 
       - name: Install Chromium for Playwright
         if: inputs.script != 'FEEDGAS_PIPES_DISCOVERY.py' && inputs.script != 'KM_CAPACITY_DISCOVERY.py'
