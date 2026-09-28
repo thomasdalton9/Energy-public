@@ -569,7 +569,10 @@ def fetch_gulfsouth(page, pipe, gas_day):
         raise RuntimeError(f"no Gulf South posting for {gas_day}")
     post = next((p for p in posts if "Intraday 3" in p["description"]), posts[0])
     doc = next(f["infoPostTrackerID"] for f in post["reportFiles"] if f["fileName"].lower().endswith(".csv"))
-    text = req.get(GULFSOUTH_DOC.format(doc=doc), timeout=120000).text().lstrip("\ufeff")
+    text = req.get(GULFSOUTH_DOC.format(doc=doc), timeout=120000, headers={
+        "Origin": "https://www.gasquest.com", "Referer": "https://www.gasquest.com/", "Accept": "text/csv,*/*"}).text().lstrip("\ufeff")
+    if not text.startswith("TSP Name"):
+        raise RuntimeError(f"Gulf South doc {doc} ({post['description']}) isn't the CSV: {text[:300]!r}")
     df = pd.read_csv(io.StringIO(text), dtype=str)
     df = df[df["Loc Purp Desc"].astype(str).str.startswith("Delivery")]
     print(f"  Gulf South: {len(df)} delivery points, {post['description']}", flush=True)
