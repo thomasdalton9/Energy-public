@@ -13,11 +13,16 @@ on:
       script:
         description: "Discovery script to run"
         type: choice
-        default: KM_GCX_RETRIEVE_DISCOVERY.py
+        default: KM_OPAVAIL_SCAN.py
         options:
+          - KM_OPAVAIL_SCAN.py
           - KM_GCX_RETRIEVE_DISCOVERY.py
           - KM_CAPACITY_DISCOVERY.py
           - FEEDGAS_PIPES_DISCOVERY.py
+      args:
+        description: "Optional extra arguments for the script (e.g. pipeline codes for KM_OPAVAIL_SCAN.py)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -37,13 +42,14 @@ jobs:
         run: pip install requests playwright
 
       - name: Install Chromium for Playwright
-        if: inputs.script == 'KM_GCX_RETRIEVE_DISCOVERY.py'
+        if: startsWith(inputs.script, 'KM_GCX') || startsWith(inputs.script, 'KM_OPAVAIL')
         run: python3 -m playwright install --with-deps chromium
 
       - name: Run discovery
         env:
           SCRIPT: ${{ inputs.script }}
-        run: python3 "americas/feedgas_ebb/$SCRIPT"
+          ARGS: ${{ inputs.args }}
+        run: python3 "americas/feedgas_ebb/$SCRIPT" $ARGS
 
       - name: Commit discovery output
         if: always()
