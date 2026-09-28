@@ -76,13 +76,13 @@ POINTS = [
     # those upstream meters are dropped so nothing is counted twice.
     ("Sabine Pass", "cheniere", "200", "CT200111", "Creole Trail -> Sabine Pass Liquefaction"),
     ("Sabine Pass", "cheniere", "200", "SPLNGD", "Creole Trail -> Sabine Pass LNG"),
-    ("Plaquemines", "km", "TGP", "55833", "Tennessee Gas -> VG Gator Express, Evangeline Pass"),
-    ("Plaquemines", "enbridge", "TE", "74530", "Texas Eastern -> Gator Express"),
+    # Gator Express's own delivery meter into the plant = TGP + Texas Eastern
+    # + Columbia Gulf receipts (checked equal on 27 Sep 2026), with history
+    ("Plaquemines", "quorum", "VGPPB1IPWS:2", "VGPQD", "Gator Express -> Plaquemines LNG (whole plant)"),
     # Wilkinson Bayou is in Plaquemines Parish - Columbia Gulf's feed into
     # Gator Express (Venture Global's filings name Columbia Gulf, TGP and
     # Texas Eastern as the plant's supply pipes). Counterparty not yet
     # confirmed from Columbia Gulf's location file (it timed out).
-    ("Plaquemines", "tc", "CGT", "4267", "Columbia Gulf -> Wilkinson Bayou (Gator Express)"),
     # Cameron Interstate's own delivery meter into the terminal - its
     # receipts include the Tennessee Gas (TENN-CIP) and Texas Eastern
     # (TETCO-CIP) quantities seen on those pipes, plus LEAP, LEG, NG3 and
@@ -105,8 +105,9 @@ POINTS = [
     ("Freeport", "enbridge", "TE", "79999", "Texas Eastern -> Stratton Ridge"),
     ("Freeport", "enbridge", "TE", "73912", "Texas Eastern -> BIG Pipeline, Angleton"),
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
-    ("Golden Pass", "et", "GR", "808311", "Gulf Run -> Golden Pass Pipeline"),
-    ("Golden Pass", "transco", "TRANSCO", "9013124", "Transco -> Golden Pass Pipeline interconnect"),
+    # Golden Pass Pipeline's delivery meter into the terminal (gasnom, like
+    # Cameron Interstate) - Gulf Run's deliveries into GPP partly go elsewhere
+    ("Golden Pass", "gasnom", "goldenpass", "1097217", "Golden Pass Pipeline -> Golden Pass LNG terminal"),
     # Cove Point pipeline's delivery into the plant (BHE GT&S posting).
     ("Cove Point", "bhe", "cpl", "10001", "Cove Point pipeline -> Cove Point plant"),
 ]
@@ -263,13 +264,13 @@ DUMP_PIPELINES = [
 
 COVERAGE_NOTES = {
     "Sabine Pass": "Near complete - delivery meters of Creole Trail, Kinder Morgan Louisiana, NGPL and Transco's Gulf Trace lateral (Lighthouse Road).",
-    "Plaquemines": "Complete - Gator Express's three feeds: Tennessee Gas, Texas Eastern and Columbia Gulf.",
+    "Plaquemines": "Complete - Gator Express's own delivery meter into the plant (its Tennessee Gas, Texas Eastern and Columbia Gulf receipts), with full history.",
     "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal plus Columbia Gulf's direct feed.",
     "Calcasieu Pass": "Mostly complete - ANR (Grand Chenier XPress) and Texas Eastern deliveries into TransCameron; Sabine Pipe Line's, if any, not yet seen.",
     "Corpus Christi": "Mostly complete - Cheniere Corpus Christi Pipeline's delivery into the plant, which includes intrastate Permian gas it receives; gas delivered straight to the plant by the intrastate ADCC pipeline is not seen.",
     "Freeport": "Partial - Texas Eastern's deliveries at Stratton Ridge and into BIG Pipeline only; Texas intrastate supply is invisible, so use the calibrated estimate. Stratton Ridge also serves Dow's Freeport complex.",
     "Elba Island": "Elba Liquefaction meter on Elba Express.",
-    "Golden Pass": "Partial - Gulf Run's and Transco's deliveries into Golden Pass Pipeline; Permian gas via Kinder Morgan's Trident (intrastate) is not seen.",
+    "Golden Pass": "Golden Pass Pipeline's delivery meter into the terminal; gas brought straight to the plant by Kinder Morgan's intrastate Trident line, if any, is not seen.",
     "Cove Point": "Complete - Cove Point pipeline's delivery meter into the plant.",
 }
 
