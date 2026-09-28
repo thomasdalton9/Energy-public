@@ -16,6 +16,7 @@ on:
         default: KM_OPAVAIL_SCAN.py
         options:
           - KM_OPAVAIL_SCAN.py
+          - EBB_PLATFORM_RECON.py
           - KM_GCX_RETRIEVE_DISCOVERY.py
           - KM_CAPACITY_DISCOVERY.py
           - FEEDGAS_PIPES_DISCOVERY.py
@@ -42,7 +43,7 @@ jobs:
         run: pip install requests playwright
 
       - name: Install Chromium for Playwright
-        if: startsWith(inputs.script, 'KM_GCX') || startsWith(inputs.script, 'KM_OPAVAIL')
+        if: inputs.script != 'FEEDGAS_PIPES_DISCOVERY.py' && inputs.script != 'KM_CAPACITY_DISCOVERY.py'
         run: python3 -m playwright install --with-deps chromium
 
       - name: Run discovery
