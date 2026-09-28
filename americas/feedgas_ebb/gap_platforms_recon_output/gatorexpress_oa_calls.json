@@ -1,0 +1,23 @@
+[
+ [
+  200,
+  "GET",
+  "https://web-prd.myquorumcloud.com/VGPPB1IPWS/OpAvailPosting/GetCodeTable?codeTableId=52008&_=1790634425379",
+  "[{\"Q_CODE_\":\"1\",\"Q_DECODE_\":\"Timely\",\"Q_DROPDECODE_\":\"1 | Timely\",\"CYCLE_TYPE_CD\":\"1\",\"CYCLE_TYPE_DESCR\":\"Timely\"},{\"Q_CODE_\":\"2\",\"Q_DECODE_\":\"Evening\",\"Q_DROPDECODE_\":\"2 | Evening\",\"CYCLE_TYPE_CD\":\"2\",\"CYCLE_TYPE_DESCR\":\"Evening\"},{\"Q_CODE_\":\"3\",\"Q_DECODE_\":\"Intraday 1\",\"Q_DROPDECODE_\":\"3 | Intraday 1\",\"CYCLE_TYPE_CD\":\"3\",\"CYCLE_TYPE_DESCR\":\"Intraday 1\"},{\"Q_CODE_\":\"4\",\"Q_DECODE_\":\"Intraday 2\",\"Q_DROPDECODE_\":\"4 | Intraday 2\",\"CYCLE_TYPE_CD\":\"4\",\"CYCLE_TYPE_DESCR\":\"Intraday 2\"},{\"Q_CODE_\":\"6\",\"",
+  null
+ ],
+ [
+  200,
+  "GET",
+  "https://web-prd.myquorumcloud.com/VGPPB1IPWS/OpAvailPosting/GetActionHubText?tspno=2&_=1790634425380",
+  "{\"actionHubText\":\"Venture Global Gator Express, LLC\"}",
+  null
+ ],
+ [
+  200,
+  "POST",
+  "https://web-prd.myquorumcloud.com/VGPPB1IPWS/OpAvailPosting/GetOpAvailPostings?tspno=2",
+  "{\"Data\":[{\"OpAvailPostingHdrId\":15389,\"LocId\":\"CGT\",\"LocNm\":\"CGT/GXP GATOR EXPRESS\",\"TspProp\":2,\"TspNm\":\"VENTURE GLOBAL GATOR EXPRESS, LLC\",\"TspDunsNo\":\"119107110\",\"GasDay\":\"2026-09-29T00:00:00\",\"CycleId\":1,\"CycleDescr\":\"Timely\",\"PostDate\":\"2026-09-28T17:05:18\",\"ZoneId\":\"ALL_REC\",\"ZoneNm\":\"ALL RECEIPT LOCATIONS\",\"EffDate\":\"2026-09-29T09:00:00\",\"AllQtyIndCode\":\"Y\",\"AllQtyIndDescr\":\"Yes\",\"DesignCapQty\":725000.0000000000,\"OprCapQty\":725000.0000000000,\"OprAvailCapQty\":81334.0000000000,\"TotalSchdQty\"",
+  "sort=&group=&filter=&CycleId=&GasDay=2026-09-29&LocId=&LocPurpCode="
+ ]
+]

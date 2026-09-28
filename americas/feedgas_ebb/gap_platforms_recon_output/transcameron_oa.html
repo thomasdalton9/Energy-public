@@ -1,0 +1,1134 @@
+<!DOCTYPE html><html lang="en" class="k-webkit k-webkit124"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TransCameron Pipeline, LLC: Operationally Available</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/VGL17IPWS/favicon.ico">
+    
+    <script>
+        window.jqVersions = {};
+        window.getJqueryVersion = function (version) {
+            return window.jqVersions[version];
+        };
+
+        loadScriptAsync = function (url) {
+            var promise = new Promise(function (fulfill, reject) {
+                var script = document.createElement('script');
+                script.onload = fulfill;
+                script.onerror = reject;
+                script.src = url;
+
+                document.head.appendChild(script);
+            });
+
+            return promise;
+        };
+
+    </script>
+
+    <script>
+        window.anonymousPage = true;
+    </script>
+
+    <script>
+
+        var __mvcControllerName = "OpAvailPosting";
+        var __pageStartTime = Date.now(), l4jsurl = '/VGL17IPWS/MessageLog';
+        var setEffectiveDateSplitURL = '/VGL17IPWS/OpAvailPosting/SetEffectiveDateSplit';
+        var hasEffectiveDateSplitURL = '/VGL17IPWS/OpAvailPosting/HasEffectiveDateToSplit';
+        var __GetActionHubTextURL = '/VGL17IPWS/OpAvailPosting/GetActionHubText?tspno=10';
+        var __ProcessLaunchURL = '/VGL17IPWS/OpAvailPosting/LaunchBatchProcess';
+        var __GlobalProcessLaunchURL = '/VGL17IPWS/OpAvailPosting/LaunchGlobalBatchProcess';
+        var qUrlContentBase = '/VGL17IPWS/Content/images/';
+        var __Mobile = window.matchMedia("only screen and (max-width: 479px)");
+        var __MobileTablet = window.matchMedia("only screen and (min-width: 480px) and (max-width:991px)");
+        var __DesktopM = window.matchMedia("only screen and (min-width: 992px) and (max-width:1199px)");
+        var __DesktopL = window.matchMedia("only screen and (min-width: 1200px) and (max-width:1599px)");
+        var __DesktopXL = window.matchMedia("only screen and (min-width: 1600px)");
+        var __isMobile = __Mobile.matches;
+        var __isMobileTablet = __MobileTablet.matches;
+        var __workflowEnabled = "False" == "True";
+        var __customRouteAllowed = "False" == "True";
+        var __returnedFromLinkedScreen = "False" == "True";
+        var __RestoreStateEnabledDefault = "True" == "True";
+		var __pageBaseURL = "https://web-prd.myquorumcloud.com/VGL17IPWS/";
+		var __tspNo = 10;
+    </script>
+
+    <script>
+        var messagingBaseImageURL = '/Content/images/';
+        var messagingUpdateURL = '/Navigation/GetMessageSeverity/';
+        var messagingClearURL = '/MessageLog/ClearMessageLogs';
+        var messagingSeenURL = '/MessageLog/MarkAsSeen';
+        var checkLoggedOutURL = '/Navigation/CheckLoggedOut';
+        var signalMessagesFromLastAddURL = '/MessageLog/SignalMessagesFromLastAdd';
+    </script>
+
+    <script>
+        var __isWebIntegratedWithPortal = "False" == "True";
+        var __portalBaseURL = null;
+        if (__isWebIntegratedWithPortal) {
+            __portalBaseURL = "";
+        }
+	    var serverNow = new Date('2026-09-28T17:26:40.3971353-05:00').getTime();
+	    var browserNow = new Date().getTime();
+	    var __browserNowMinusServerNow = browserNow - serverNow;
+        var __botDateString = '1/1/1900';
+        var __eotDateString = '12/31/9000';
+    </script>
+
+    
+
+<script src="/VGL17IPWS/bundle/scripts/QFScriptsDefer?v=_10ZSDYmIfcGmy6S3rbfCzIYjocoYEiOxvCqqspJNkA1"></script>
+
+<script src="/VGL17IPWS/bundle/scripts/IPWS_Core?v=wyu51Bi3wx47Jj1u6bSN0EEWSOsa4ZtWmpMpz6QFIHM1"></script>
+
+
+<link href="/VGL17IPWS/bundle/styles/QFStyles?v=p5RYavWZ0GygZAboTuxGbx4IcZFxvIXKocwjSoN-cyg1" rel="stylesheet">
+
+<link href="/VGL17IPWS/bundle/styles/IPWS_Core?v=Zrr_gSM3DB1vwfWBM-eRaQLj4EBzCkXpF9NcvK8LTmE1" rel="stylesheet">
+
+
+
+
+    <script id="quorum-effectivedate-dialog" type="text/x-kendo-template">
+        <p>#:message#</p>
+    </script>
+    <script id="quorum-dialog" type="text/x-kendo-template">
+        #if(messageHeader){#
+        <p class="delete-header">#= messageHeader #</p>
+        #}#
+        <p class="delete-message">#= message #</p>
+        # if (!disableConfirmButton) { #
+        <a href="javascript:void(0)" class="delete-confirm footerlink lightboxClose">#=confirmButtonText#</a> # } # # if (!disableDenyButton) { #
+        <a href="javascript:void(0)" class="delete-cancel footerlink lightboxClose">#=denyButtonText#</a> # } #
+    </script>
+    <script id="quorum-lightbox" type="text/x-kendo-template">
+        <div id="#= lightboxId #" class="#:isFullWindow ? 'fullwindow' : ''# lightbox">
+            <div>
+                #= lightboxContent #
+            </div>
+            #if(!disableConfirmButton){#
+            <a href="javascript:void(0)" id="#= confirmButtonId #" class="footerlink lightboxClose">#= confirmButtonText #</a> #}# #if(!disableDenyButton){#
+            <a href="javascript:void(0)" id="#= denyButtonId #" class="footerlink lightboxClose">#= denyButtonText #</a> #}# # if (additionalButtons) { # # additionalButtons.forEach(function (btn) { # # if (btn.isDefault === true) { #
+            <a href="javascript:void(0)" id="#:btn.id#" class="footerlink lightboxClose">#:btn.text#</a> # } else { #
+            <a href="javascript:void(0)" id="#:btn.id#" class="footerlink lightboxClose">#:btn.text#</a> # } # # }); # # } #
+        </div>
+    </script>
+</head>
+
+<body class="q-capacity" data-role="tooltip">
+
+    <div id="lockPane" class="LockOnInvisible">
+        <div id="lockText"></div>
+    </div>
+
+    <div class="ipws-grid">
+        <div class="ipws-headerbar">
+            <!--model IPWSHeaderVM-->
+
+
+<div id="mainnav">
+    <div class="header-ipws">
+        <!--deprecate Model.HeaderExternalLink in core v17-->
+        <a href="https://web-prd.myquorumcloud.com/VGL17IPWS/">
+            <img width="300" height="60" class="img" src="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5CLogo%5C&amp;fileName=Logo.png">
+        </a>
+    </div>
+
+    <script>
+        $("#menuCollapsedButton").click(function () {
+            $("<div id='menuoverlay' class='q-overlay-menu' onclick='overlayClick()'></div>").appendTo($(document.body));
+            $("#menuoverlay").hide();
+            $("#menuoverlay").fadeIn();
+
+            if ($("#menuContainer").hasClass("viewMenu") == false) {
+                $("#menuContainer,#q_logo").removeClass("hideMenu");
+                $("#q_logo").removeClass("q-logo").addClass("q_logo_extended");
+                $("#mainNavigation").removeClass("hideMenu").addClass("updatedMainNavigation");
+                $("#q_appholder").removeClass("apphide");
+                $("#menuContent").addClass("viewMenu");
+                $("#menuContainer").addClass("viewMenu");
+            }
+        });
+
+        $(document).ready(function () {
+            // $(this).scrollTop(0);
+            $("html, body").animate({
+                scrollTop: 0
+            });
+        });
+    </script>
+</div>
+
+<!-- Action Bar Rendering-->
+<div id="q-sticky" class="q-actionbar">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 q-action q-action-hub q-action-left">
+                <div class="q-action_Hub">
+                    <div class="actionbarselect" id="UnitSelection">
+                        <div id="actionHubText" class="unitselect">TransCameron Pipeline, LLC</div>
+                        <!--Deprecate Model.DisableTspDropdown in core v17-->
+                        <span class="sprite q-actionw_View iconselect" onclick="showActionHubDialog(updateActionHubTextComplete); return false;"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-16 col-md-16 col-lg-16 q-action q-action-add">
+                <script>
+    var actionURL = '/VGL17IPWS/OpAvailPosting/VGL17IPWS/OpAvailPosting/Action';
+</script>
+
+<!-- Tertiary action drop down. Note for mobile, secondary actions are included at the top of the drop down with the class .onlyformobile -->
+
+
+<!-- Secondary action buttons area - hidden for mobile with .nomobile -->
+
+
+<!-- Primary action button area -->
+
+                <div class="actionholder1">
+
+					<button type="button" id="qaction_Retrieve" data-placement="bottom" onclick="doFActionSelect(event,{checkForNotifcations: false,confirmPendingChanges: false,confirmationMessage: null,overrideJavaScript: 'ReadGrid();',postCallback: null,disableReload: false,qaction: 'Retrieve',text: 'Retrieve',encoded: false,cssClass: 'qmid-Retrieve',imageUrl: null,url: null,actionGroup: 'enPrimary',waitMessage: 'Executing Retrieve for TransCameron Pipeline, LLC: Operationally Available',isLink: false,linkId: null,isHidden: false})" class="hotkeytooltip" title="Retrieve: &lt;span class='keyboardbtn'&gt;alt&lt;/span&gt;&lt;span class='keyboardbtn'&gt;q&lt;/span&gt;"> <span class="sprite q-actionw_Retrieve"></span> <span class="desktoptext">Retrieve</span></button>
+					<button type="button" id="qaction_Download" data-toggle="tooltip" data-placement="bottom" onclick="doFActionSelect(event,{checkForNotifcations: false,confirmPendingChanges: false,confirmationMessage: null,overrideJavaScript: 'DownloadFile',postCallback: null,disableReload: true,qaction: 'Download',text: 'Download',encoded: false,cssClass: 'qmid-Download',imageUrl: null,url: null,actionGroup: 'enPrimary',waitMessage: 'Executing Download for TransCameron Pipeline, LLC: Operationally Available',isLink: false,linkId: null,isHidden: false})" data-original-title="" title=""> <span class="sprite q-actionw_Download"></span> <span class="desktoptext" title="Download">Download</span></button>
+                </div>
+
+
+<script>
+qfcParsingDone(function() {
+                shortcut.add("Alt+R", doActionShortcut, { data: { "actionid": "qaction_Retrieve" } });
+                shortcut.add("Alt+Q", doActionShortcut, { data: { "actionid": "qaction_Retrieve" } });
+    var moreBtn = $("#btnMoreActions");
+    if (moreBtn && moreBtn.length) {
+        moreBtn.tooltip();
+        moreBtn.data()["bs.tooltip"].options.placement = "bottom";
+
+        //Don't show the overflow menu when there are only hidden mobile actions within it
+        if (!__isMobile && !__isMobileTablet) {
+            if (!moreBtn.next('ul').find('li').hasClass('')) {
+              moreBtn.parent().hide();  
+            } 
+        }
+    } 
+});
+</script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+			<script>
+                // Register the Update Package so Changes to controls are sent to MVC Controller
+                
+                qfcParsingDone(function() {
+                    registerUpdatePackage('TspChange', '/VGL17IPWS/OpAvailPosting/TspChangeFieldUpdate/', '','', false);
+                    
+                    quorum.partialRendering.complete(function () {
+			            
+                    
+                        // Setup for the control value change notifications
+                        bindGroupUpdate('TspChange');
+                    });
+                    
+                    checkComboBoxDependencies(null);
+                });
+            </script>
+
+
+        </div>
+
+        <div class="ipws-menu contentborder">
+            <div id="vertical-nav" class="navbar-collapse">
+                
+
+
+
+<ul id="mainNavigation" class="master">
+    <li class="q-menucapacity">
+        <button id="btnMenuTitle-Capacity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Capacity" class="menu-item-title">Capacity </span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionCapacity">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/OpAvailPosting?tspno=10" q-securityid="QUCOpAvailPosting" onclick="return executeLinkClick(this, 'Launching Operationally Available Capacity ...');" class="webstdlink"> Operationally Available  </a></li>
+<li><a href="/VGL17IPWS/UnsubscribedCapacity?tspno=10" q-securityid="QUCUnsubscribedCapacity" onclick="return executeLinkClick(this, 'Launching Unsubscribed Capacity ...');" class="webstdlink"> Unsubscribed </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menugasQuality">
+        <button id="btnMenuTitle-GasQuality" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_GasQuality" class="menu-item-title">Gas Quality </span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionGasQuality">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/GasQuality?tspno=10" q-securityid="QUCGasQuality" onclick="return executeLinkClick(this, 'Launching Gas Quality Report ...');" class="webstdlink"> Gas Quality Report </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=GasQuality%5CTariffProv%5CQuality.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Tariff Provisions ...');" class="webstdlink">Tariff Provisions</a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=GasQuality%5CIndustryStds%5CTransCameron%20IndustryStds.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Industry Standards ...');" class="webstdlink"> Industry Standards </a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menulocations">
+        <button id="btnMenuTitle-Locations" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Locations" class="menu-item-title">Locations</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionLocations">
+            <li>
+                <ul>
+                    
+
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Locations%5CLOCATIONDATA.csv&amp;d=True" target="_blank" class="webstdlink"> Locations </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menuindexofcust">
+        <button id="btnMenuTitle-IndexOfCust" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_IndexOfCust" class="menu-item-title">Index Of Customers</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionIndexOfCust">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/IndexOfCust?tspno=10" q-securityid="QUCIndexOfCust" onclick="return executeLinkClick(this, 'Launching Index Of Customers ...');" class="webstdlink"> Index Of Customers  </a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menunotices">
+        <button id="btnMenuTitle-Notices" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Notices" class="menu-item-title">Notices</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionNotices">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/NoticePosting?tspno=10&amp;CriticalNoticeCode=Y" q-securityid="QUCNoticePosting" onclick="return executeLinkClick(this, 'Launching Critical ...');" class="webstdlink"> Critical </a></li>
+<li><a href="/VGL17IPWS/NoticePosting?tspno=10&amp;CriticalNoticeCode=N" q-securityid="QUCNoticePosting" onclick="return executeLinkClick(this, 'Launching Non-Critical ...');" class="webstdlink"> Non-Critical </a></li>
+<li><a href="/VGL17IPWS/NoticePosting?tspno=10&amp;NoticeSubType=PLND OUTAGE" q-securityid="QUCNoticePosting" onclick="return executeLinkClick(this, 'Launching Planned Service Outage ...');" class="webstdlink"> Planned Service Outage </a></li>
+<li><a href="/VGL17IPWS/NoticePosting?tspno=10&amp;NoticeSubType=REQ PURCH REL CAP" q-securityid="QUCNoticePosting" onclick="return executeLinkClick(this, 'Launching Request to Purchase Releasable Capacity ...');" class="webstdlink"> Request to Purchase Releasable Capacity </a></li>
+<li><a href="/VGL17IPWS/NoticePosting?tspno=10&amp;NoticeSubType=WASTE HEAT" q-securityid="QUCNoticePosting" onclick="return executeLinkClick(this, 'Launching Waste Heat ...');" class="webstdlink"> Waste Heat </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menupostedImbal">
+        <button id="btnMenuTitle-PostedImbal" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_PostedImbal" class="menu-item-title">Posted Imbalances</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionPostedImbal">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/PostedImbal?tspno=10" q-securityid="QUCPostedImbal" onclick="return executeLinkClick(this, 'Launching Posted Imbalances ...');" class="webstdlink"> Posted Imbalances </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menuregulatory">
+        <button id="btnMenuTitle-Regulatory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Regulatory" class="menu-item-title">Regulatory</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionRegulatory">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/Regulatory?tspno=10" q-securityid="QUCRegulatory" onclick="return executeLinkClick(this, 'Launching Regulatory ...');" class="webstdlink"> Regulatory </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menustandardsOfConduct">
+        <button id="btnMenuTitle-StandardsOfConduct" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_StandardsOfConduct" class="menu-item-title">Standards Of Conduct</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionStandardsOfConduct">
+            <li>
+                <ul>
+                    
+
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CAfflNmAddr%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Affiliate Names &amp; Addresses ...');" class="webstdlink"> Affiliate Names &amp; Addresses </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CAfflTrfWaiv%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Affiliate Tariff Waivers ...');" class="webstdlink"> Affiliate Tariff Waivers </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CComplOffcr%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Chief Compliance Officer ...');" class="webstdlink"> Chief Compliance Officer </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CEmpTrans%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Employee Transfers ...');" class="webstdlink"> Employee Transfers </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CImplProcs%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Implementation Procedures  ...');" class="webstdlink"> Implementation Procedures  </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CInfoDisc%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Information Disclosure ...');" class="webstdlink"> Information Disclosure </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CJobTitleDescr%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Job Titles &amp; Descriptions ...');" class="webstdlink"> Job Titles &amp; Descriptions </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CPotentMerg%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Potential Mergers ...');" class="webstdlink"> Potential Mergers </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CSharedFacs%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Shared Facilities ...');" class="webstdlink"> Shared Facilities </a></li>
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=StandOfCond%5CVolConsent%5CTCPL_SOC_Statement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Voluntary Consent ...');" class="webstdlink"> Voluntary Consent </a></li>
+
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menutariff">
+        <button id="btnMenuTitle-Tariff" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Tariff" class="menu-item-title">Tariff</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionTariff">
+            <li>
+                <ul>
+                    
+
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=1" target="_blank" onclick="return executeLinkClick(this, 'Title Sheet/Section ...');" class="webstdlink">Title Sheet/Section</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=2" target="_blank" onclick="return executeLinkClick(this, 'Table of Contents ...');" class="webstdlink">Table of Contents</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=4" target="_blank" onclick="return executeLinkClick(this, 'Preliminary Statement ...');" class="webstdlink">Preliminary Statement</a></li>
+        <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CMap%5CMap.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Map ...');" class="webstdlink">Map</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=7" target="_blank" onclick="return executeLinkClick(this, 'Currently Effective Rates ...');" class="webstdlink">Currently Effective Rates</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=12" target="_blank" onclick="return executeLinkClick(this, 'Rate Schedules ...');" class="webstdlink">Rate Schedules</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=21" target="_blank" onclick="return executeLinkClick(this, 'General Terms and Conditions ...');" class="webstdlink">General Terms and Conditions</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=183" target="_blank" onclick="return executeLinkClick(this, 'Forms of Service Agreement ...');" class="webstdlink">Forms of Service Agreement</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Entire Tariff ...');" class="webstdlink">Entire Tariff</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Tariff%5CTariff.pdf#page=2" target="_blank" onclick="return executeLinkClick(this, 'Sheet/Section Index ...');" class="webstdlink">Sheet/Section Index</a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menutransposting">
+        <button id="btnMenuTitle-TransactionalReporting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_TransactionalReporting" class="menu-item-title">Transactional Reporting</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionTransactionalReporting">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="/VGL17IPWS/FtPosting?tspno=10" q-securityid="QUCFtPosting" onclick="return executeLinkClick(this, 'Launching Firm Transactional Reporting ...');" class="webstdlink"> Firm </a></li>
+<li><a href="/VGL17IPWS/ItPosting?tspno=10" q-securityid="QUCItPosting" onclick="return executeLinkClick(this, 'Launching Interruptible Transactional Reporting ...');" class="webstdlink"> Interruptible </a></li>
+<li><a href="/VGL17IPWS/CrPosting?tspno=10" q-securityid="QUCCrPosting" onclick="return executeLinkClick(this, 'Launching Capacity Release ...');" class="webstdlink"> Capacity Release </a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menudownloads">
+        <button id="btnMenuTitle-Downloads" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Downloads" class="menu-item-title">Downloads</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionDownloads">
+            <li>
+                <ul>
+                    
+
+
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Downloads%5CCAW%20Service%20Agreement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Customer Use and Access Agreement ...');" class="webstdlink">CAW Service Agreement</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Downloads%5CCAW%20User%20Request%20Form.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Customer Use and Access Agreement ...');" class="webstdlink">CAW User Request Form</a></li>
+    <li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=Downloads%5CTariff.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Customer Use and Access Agreement ...');" class="webstdlink">Tariff</a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menusearch">
+        <button id="btnMenuTitle-Search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_Search" class="menu-item-title">Search</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionSearch">
+            <li>
+                <ul>
+                    
+
+
+	<li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=EntireTariff%2FTransCameron%20Tariff.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Search ...');" class="webstdlink"> Entire Tariff </a></li>
+
+	<li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=RateSchedules%2FRateSchedule.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Search ...');" class="webstdlink"> Rate Schedules </a></li>
+
+	<li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=GeneralTermsandConditions%2FGeneralTermsAndConditions.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Search ...');" class="webstdlink"> General Terms and Conditions </a></li>
+
+	<li><a href="/VGL17IPWS/IPWSFile/IPWSFileHandler?path=%5CTSP_10%5C&amp;fileName=FormofServiceAgreement%2FFormsOfServiceAgreement.pdf" target="_blank" onclick="return executeLinkClick(this, 'Launching Search ...');" class="webstdlink"> Form of Service Agreement </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menucustomerActivities">
+        <button id="btnMenuTitle-CustomerActivites" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="menuItemTitle_CustomerActivites" class="menu-item-title">Customer Activities</span>
+        </button>
+        <ul class="dropdownSubmenu" role="menu" aria-labelledby="btnMenuTitle-SectionCustomerActivites">
+            <li>
+                <ul>
+                    
+
+
+<li><a href="https://web-prd.myquorumcloud.com/VGL17ESUITE/" target="_blank" onclick="return executeLinkClick(this, 'Launching Customer Activities ...');" class="webstdlink"> Customer Activities </a></li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="q-menusitemap">     
+      
+
+
+<a href="/VGL17IPWS/SiteMapIPWS?tspno=10" q-securityid="QUCSiteMapIPWS" onclick="return executeLinkClick(this, 'Launching Site Map ...');" class="singlemenu"> Site Map </a>
+
+    </li>
+</ul>
+            </div>
+        </div>
+        <div id="main" class="ipws-content container">
+                
+
+
+
+
+
+
+<link href="/VGL17IPWS/bundle/styles/OpAvailPosting?v=KY5I-egzkVIczw5E6o9T_yVoxAruNANvE_8bacXs49c1" rel="stylesheet">
+
+
+<form action="/VGL17IPWS/OpAvailPosting/Action" id="action" method="post" name="action"><input class="q-dynamicDisabled" id="QUIWebContextId" name="QUIWebContextId" type="hidden" value="" style="">
+<input class="q-controlStates q-dynamicDisabled" id="ControlStates" name="ControlStates" type="hidden" value="{}" style="">
+<input id="QMVCControllerName" name="QMVCControllerName" type="hidden" value="OpAvailPosting" style="">    <div class="intro">
+        <p>Operationally Available Capacity</p>
+    </div>
+    <div class="row">
+        <div class="col-xs-24 col-sm-8 col-md-8">
+		<div class="q-form-control-wrapper totals">
+			<p> TSP: <span id="TspDuns" class="q-statictext " qnegcolor="q-error">117434948</span></p>
+		</div>
+</div>
+        <div class="col-xs-24 col-sm-16 col-md-16">
+		<div class="q-form-control-wrapper totals">
+			<p> TSP Name: <span id="TspName" class="q-statictext " qnegcolor="q-error">TransCameron Pipeline, LLC</span></p>
+		</div>
+</div>
+    </div>
+    <div class="material q-form">
+        <div class="content k-content">
+            <div class="row">
+                <div class="col-md-8"><span class="q-form-control-wrapper has-value" qid="GasDay" qrole="datepicker" bindevntset="true"><label class="q-form-control-label is-active has-value" for="GasDay">Effective Gas Day</label><span class="k-widget k-datepicker q-form-control-input has-value" style=""><span class="k-picker-wrap k-state-default"><input class="q-form-control-input has-value k-input q-updateBound" data-qtgroup="OpAvailPosting" data-val="true" data-val-date="The field GasDay must be a date." id="GasDay" name="GasDay" type="text" value="9/29/2026" placeholder="Effective Gas Day" data-role="datepicker" role="combobox" aria-expanded="false" aria-owns="GasDay_dateview" autocomplete="off" aria-disabled="false" style="width: 100%;"><span unselectable="on" class="k-select" aria-label="select" role="button" aria-controls="GasDay_dateview"><span class="k-icon k-i-calendar"></span></span></span></span><script>
+	kendo.syncReady(function(){jQuery("#GasDay").kendoDatePicker({"open":qDateCalendarOpen,"culture":"en-US","format":"M/d/yyyy","min":new Date(1900,0,1,0,0,0,0),"max":new Date(9000,11,31,0,0,0,0)});});
+</script><span class="q-form-control-error"></span><span class="pickbuttons"><span class="q-btn1Holder"></span><span class="q-btn2Holder"></span></span></span><script>qfcParsingDone(function(){$("#GasDay").getFlyLabel('');});</script></div>
+                <div class="col-md-8"><span class="q-form-control-wrapper" qid="CycleId" qrole="combobox" bindevntset="true"><label class="q-form-control-label" for="CycleId" id="CycleId_label">Cycle Desc</label>
+<script>
+	function CycleId_RequestStart(data) {
+		comboBoxDataSourceRequestStart('CycleId',data);
+	}
+	function CycleId_RequestEnd(data) {
+		comboBoxDataSourceRequestEnd('CycleId',data);
+	}
+</script>
+<span class="k-widget k-combobox q-form-control-input k-combobox-clearable" style=""><span tabindex="-1" unselectable="on" class="k-dropdown-wrap k-state-default"><input name="CycleId_input" class="k-input q-form-control-input" type="text" autocomplete="off" title="" role="combobox" aria-expanded="false" placeholder="Cycle Desc" style="" tabindex="0" aria-disabled="false" aria-autocomplete="list" aria-owns="CycleId_listbox" aria-labelledby="CycleId_label" aria-busy="false" aria-activedescendant="765fcf70-e02b-4578-b664-482f498499b4"><span unselectable="on" class="k-icon k-clear-value k-i-close k-hidden" title="clear" role="button" tabindex="-1"></span><span unselectable="on" class="k-select" aria-label="select" role="button" tabindex="-1" aria-controls="CycleId_listbox"><span class="k-icon k-i-arrow-60-down"></span></span></span><input class="q-form-control-input q-updateBound" data-qtgroup="OpAvailPosting" data-val="true" data-val-number="The field CycleId must be a number." id="CycleId" name="CycleId" placeholder="Cycle Desc" type="text" data-role="combobox" style="display: none;" aria-disabled="false"></span><script>
+	kendo.syncReady(function(){jQuery("#CycleId").kendoComboBox({"dataBound":qSetCodeTableListAutoWidth,"dataSource":{"transport":{"read":{"url":"/VGL17IPWS/OpAvailPosting/GetCodeTable?codeTableId=52008"},"prefix":""},"requestStart":CycleId_RequestStart,"requestEnd":CycleId_RequestEnd,"schema":{"errors":"Errors"}},"dataTextField":"Q_DECODE_","filter":"startswith","valuePrimitive":true,"template":"${ qfc.core.unescapeHTML(data.Q_DROPDECODE_) }","autoBind":true,"dataValueField":"Q_CODE_"});});
+</script><span class="q-form-control-error"></span><span class="pickbuttons"><span class="q-btn1Holder"></span><span class="q-btn2Holder"></span></span></span><script>qfcParsingDone(function(){$("#CycleId").getFlyLabel('');});</script></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    
+        <script type="text/javascript">
+        function LocId_OnDataBound(e) {
+            pickField_OnDataBound(e);
+            qSetListAutoWidth(e);
+        }
+        </script>
+        <span class="q-form-control-wrapper" qid="LocId" qrole="pickfield" bindevntset="true"><label class="q-form-control-label" for="LocId" style="width:100%;">Location</label><span tabindex="-1" role="presentation" class="k-widget k-autocomplete allCaps q-manualTransfer q-form-control-input k-autocomplete-clearable k-state-default" style=""><input class="allCaps q-manualTransfer q-form-control-input k-input" data-q-allreturnfields="LocNm" data-q-clearotherfields="[&quot;LocNm&quot;]" data-q-contextdataurl="/VGL17IPWS/OpAvailPosting/GetContextData" data-q-ctxdatainputs="null" data-q-datainputs="null" data-q-datafilter="LOC_ID" data-q-dropdownwidth="0" data-q-gridinputs="null" data-q-pickfieldfiltername="LOC_ID" data-q-pickfieldurl="/VGL17IPWS/OpAvailPosting/GetPickSearchDataRows?columnName=LOC_ID&amp;pickId=40002&amp;filter=LOC_ID" data-q-pickid="40002" data-q-queryonreturn="False" data-q-setotherfields="{&quot;LocId&quot;: &quot;LOC_ID&quot;,&quot;LocNm&quot;: &quot;LOC_NM&quot;}" data-q-webcontextid="" data-qtgroup="OpAvailPosting" id="LocId" maxlength="256" name="LocId" placeholder="Location" type="text" data-role="autocomplete" autocomplete="off" role="textbox" aria-haspopup="true" aria-disabled="false" aria-readonly="false" aria-owns="LocId_listbox" aria-autocomplete="list" style=""><span unselectable="on" class="k-icon k-clear-value k-i-close k-hidden" title="clear" role="button" tabindex="-1"></span><span class="k-icon k-i-loading" style="display:none"></span></span><script>
+	kendo.syncReady(function(){jQuery("#LocId").kendoAutoComplete({"open":pickField_OnOpen,"dataBound":LocId_OnDataBound,"select":pickField_OnSelect,"close":pickField_OnClose,"change":pickField_OnChange,"dataSource":{"transport":{"read":{"url":"/VGL17IPWS/OpAvailPosting/GetPickSearchDataRows?columnName=LOC_ID\u0026pickId=40002\u0026filter=LOC_ID","data":pickField_OnData},"prefix":""},"serverFiltering":true,"filter":[],"requestStart":pickField_OnRequestStart,"requestEnd":pickField_OnRequestEnd,"schema":{"errors":"Errors"}},"dataTextField":"LocId","delay":300,"filter":"contains","minLength":2,"template":"#= LOC_ID # [#= LOC_NM #]"});});
+</script><span class="pickbuttons"><span class="q-btn1Holder"></span><span class="q-btn2Holder"></span></span><span class="q-form-control-error"></span></span><script>qfcParsingDone(function(){$("#LocId").getFlyLabel('');});</script>
+                </div>
+
+                <div class="col-md-8">
+                    
+        <script type="text/javascript">
+        function LocNm_OnDataBound(e) {
+            pickField_OnDataBound(e);
+            qSetListAutoWidth(e);
+        }
+        </script>
+        <span class="q-form-control-wrapper" qid="LocNm" qrole="pickfield" bindevntset="true"><label class="q-form-control-label" for="LocNm" style="width:100%;">Location Name</label><span tabindex="-1" role="presentation" class="k-widget k-autocomplete allCaps q-manualTransfer q-form-control-input singlepick k-autocomplete-clearable k-state-default" style=""><input class="allCaps q-manualTransfer q-form-control-input singlepick k-input" data-q-allreturnfields="LocId" data-q-clearotherfields="[&quot;LocId&quot;]" data-q-contextdataurl="/VGL17IPWS/OpAvailPosting/GetContextData" data-q-ctxdatainputs="null" data-q-datainputs="null" data-q-datafilter="LOC_NM" data-q-dropdownwidth="0" data-q-gridinputs="null" data-q-pickfieldfiltername="LOC_NM" data-q-pickfieldurl="/VGL17IPWS/OpAvailPosting/GetPickSearchDataRows?columnName=LOC_NM&amp;pickId=40002&amp;filter=LOC_NM" data-q-pickid="40002" data-q-queryonreturn="False" data-q-setotherfields="{&quot;LocId&quot;: &quot;LOC_ID&quot;,&quot;LocNm&quot;: &quot;LOC_NM&quot;}" data-q-webcontextid="" data-qtgroup="OpAvailPosting" id="LocNm" maxlength="40" name="LocNm" placeholder="Location Name" type="text" data-role="autocomplete" autocomplete="off" role="textbox" aria-haspopup="true" aria-disabled="false" aria-readonly="false" aria-owns="LocNm_listbox" aria-autocomplete="list" style=""><span unselectable="on" class="k-icon k-clear-value k-i-close k-hidden" title="clear" role="button" tabindex="-1"></span><span class="k-icon k-i-loading" style="display:none"></span></span><script>
+	kendo.syncReady(function(){jQuery("#LocNm").kendoAutoComplete({"open":pickField_OnOpen,"dataBound":LocNm_OnDataBound,"select":pickField_OnSelect,"close":pickField_OnClose,"change":pickField_OnChange,"dataSource":{"transport":{"read":{"url":"/VGL17IPWS/OpAvailPosting/GetPickSearchDataRows?columnName=LOC_NM\u0026pickId=40002\u0026filter=LOC_NM","data":pickField_OnData},"prefix":""},"serverFiltering":true,"filter":[],"requestStart":pickField_OnRequestStart,"requestEnd":pickField_OnRequestEnd,"schema":{"errors":"Errors"}},"dataTextField":"LocNm","delay":300,"filter":"contains","minLength":2,"template":"#= LOC_NM # [#= LOC_ID #]"});});
+</script><span class="pickbutton activePick"><span data-toggle="tooltip" title="" data-original-title="Operationally Available Postings Locations"><button id="LocNm_spicklist" tabindex="-1" type="button" onclick="LocNm_spicklist_PickButtonPressed(); return false;" class="sprite active  q-content_Scoped customicon" style=""></button></span>
+                                    <script type="text/javascript">
+
+                                    // ---------------------------------------------------------------------------------
+                                    // Javascript functions
+                                    // ---------------------------------------------------------------------------------
+
+                                    function LocNm_spicklistGrid_RowSelect(event)
+                                    {
+										pickListButtonGridRowSelect(event, 'LocNm_spicklistGrid','LocNm_spicklistWindow','False' == 'True',{ 'LocId': 'LOC_ID' , 'LocNm': 'LOC_NM' }, 'False' == 'True', 'LocNm_spicklist_ChxAppendToReturn');
+                                    }
+
+								</script>
+                                    
+                                <script type="text/javascript">
+
+                                    function LocNm_spicklist_DataBound(e) { 
+	                                    pickListDataBound(e);
+                                    }
+
+									function LocNm_spicklist_FilterMenuInit(e) {
+										pickListFilterMenuInit(e);
+                                    }
+
+									function LocNm_spicklist_GridSelect(e) {
+										var $btn = $('#LocNm_spicklist_BtnOK');
+										$btn.removeClass('disabledlink');
+										$btn.focus();
+                                    }
+								
+									
+
+                                    function LocNm_spicklist_RequestEnd(data) {
+										pickListButtonRequestEnd(data.response,'LocNm_spicklistGrid','LocNm_spicklist_BtnMore','LocNm_spicklist_BtnAll');
+                                    }
+
+                                    //function Picklist_Open(e) {
+                                    //    e.sender.element.parent().addClass('qPickList');
+                                    //}
+
+                                    function LocNm_spicklistGrid_Resize() {
+                                        pickListButtonGridResize('LocNm_spicklistGrid');
+                                    }
+
+                                    function LocNm_spicklistGrid_Close() {
+                                        pickListButtonGridClose('LocNm_spicklistGrid','/VGL17IPWS/OpAvailPosting/ClearPickData/',40002);
+                                    }
+								</script>
+		<script>
+	kendo.syncReady(function(){jQuery("#LocNm_spicklistWindow").kendoWindow({"resize":LocNm_spicklistGrid_Resize,"close":LocNm_spicklistGrid_Close,"open":qKendoWindowOpen,"activate":qKendoWindowActivate,"deactivate":qKendoWindowDeactivate,"animation":false,"modal":true,"iframe":false,"draggable":false,"scrollable":true,"pinned":false,"title":"Operationally Available Postings Locations","resizable":true,"width":602,"height":545,"actions":["Maximize","Close"]});});
+</script>
+                                    <script type="text/javascript">
+
+                                    // ---------------------------------------------------------------------------------
+                                    // Variables
+                                    // ---------------------------------------------------------------------------------
+
+                                    // Keeps track of the row numbering for the pick grid
+	                                var LocNm_spicklistGrid_RowNumber = 0;
+
+                                    // ---------------------------------------------------------------------------------
+                                    // Jquery binds
+                                    // ---------------------------------------------------------------------------------
+
+                                    function LocNm_spicklist_PickButtonPressed() {
+										pickListButtonPressed('LocNm_spicklist','/VGL17IPWS/OpAvailPosting/GetContextData/','LocNm_spicklistWindow','LocNm_spicklistGrid','LocNm_spicklist_BtnMore','LocNm_spicklist_BtnAll','LocNm_spicklist_BtnRetrieve','True' == 'True',null,null);
+                                    }
+
+                                    $('#LocNm_spicklistGrid tbody').bind('dblclick', function (e) { 
+										if('False' == 'True') {
+											gridMultiSelectFlipIsSelectedCheck(e,'LocNm_spicklistGrid');
+										}
+										else {
+											LocNm_spicklistGrid_RowSelect(e);
+										}
+                                    });            
+                                    
+                                    $('#LocNm_spicklistWindow').bind('keydown',function(e) {
+                                        pickListBtnGridKeyDownEventHandler(e,'LocNm_spicklist_BtnOK','LocNm_spicklistWindow');
+                                    });
+
+                                    $('#LocNm_spicklist_BtnOK, #LocNm_spicklist_BtnOK2').click(function (e) {
+	                                    LocNm_spicklistGrid_RowSelect(e);
+                                    });
+
+                                    $('#LocNm_spicklist_BtnClearFilters, #LocNm_spicklist_BtnClearFilters2').click(function (e) {
+	                                    pickListClearFilters(e);
+                                    });
+
+                                    $('#LocNm_spicklist_BtnMore, #LocNm_spicklist_BtnMore2').click(function (e) {
+										pickListRequestDataPressed(e,'LocNm_spicklistGrid',100,true,false);
+                                    });
+
+                                    $('#LocNm_spicklist_BtnAll, #LocNm_spicklist_BtnAll2').click(function (e) {
+										pickListRequestDataPressed(e,'LocNm_spicklistGrid',20000,true,false);
+                                    });
+
+                                    $('#LocNm_spicklist_BtnRetrieve, #LocNm_spicklist_BtnRetrieve2').click(function (e) {
+										pickListRequestDataPressed(e,'LocNm_spicklistGrid',100,false,true);
+                                    });
+
+                                    $('#LocNm_spicklist_BtnCancel').click(function (e) {
+										pickListCancelPressed(e,'LocNm_spicklistWindow');
+                                    });
+
+                                    // ---------------------------------------------------------------------------------
+                                    // Javascript functions
+                                    // ---------------------------------------------------------------------------------
+									$(document).ready(function () {
+										$('#LocNm_spicklistGrid_ToolbarMenu').kendoMenu();
+									});
+
+                                    function LocNm_spicklist_RenderNumber(data) {
+	                                    return ++LocNm_spicklistGrid_RowNumber;
+                                    }
+									
+									function IsAppendResult() {
+										var appendCheck = $('#LocNm_spicklist_ChxAppendToReturn').is(':checked');
+	                                    return appendCheck;
+                                    }
+
+                                    </script>
+                                    </span><span class="q-form-control-error"></span></span><script>qfcParsingDone(function(){$("#LocNm").getFlyLabel('');});</script>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </div>
+    <div class="material">
+        <div class="content k-content">
+            <div class="row">
+                <div class="gridholder"><div class="row"><div class="col-xs-24 responsivegrid">
+		<style type="text/css">
+			@media 
+			only screen and (max-width: 760px),
+			(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+                        #OpAvailPostingGrid td:nth-of-type(1):before { content: "Post Date/Time"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(2):before { content: "Eff Gas Day/Time"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(3):before { content: "Cycle Desc"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(4):before { content: "Loc"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(5):before { content: "Loc Name"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(6):before { content: "Loc Purp"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(7):before { content: "Loc/QTI"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(8):before { content: "Flow Ind"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(9):before { content: "IT Desc"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(10):before { content: "Meas Basis"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(11):before { content: "All Qty Avail"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(12):before { content: "Quantity Not Available Reason"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(13):before { content: "Design Capacity"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(14):before { content: "Operating Capacity"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(15):before { content: "Operationally Available Capacity"; }
+
+                        #OpAvailPostingGrid td:nth-of-type(16):before { content: "Total Scheduled Quantity"; }
+
+
+
+                    }
+		</style>       
+ 
+							<script>
+
+			var _OpAvailPostingGridPropertyToHeader = {
+				ImportDate: "Post Date/Time",
+				EffDate: "Eff Gas Day/Time",
+				CycleDescr: "Cycle Desc",
+				LocId: "Loc",
+				LocNm: "Loc Name",
+				LocPurpCode: "Loc Purp",
+				LocQtyTypeCode: "Loc/QTI",
+				FlowIndCode: "Flow Ind",
+				ItIndDescr: "IT Desc",
+				MeasBasisCode: "Meas Basis",
+				AllQtyIndDescr: "All Qty Avail",
+				QtyReason: "Quantity Not Available Reason",
+				DesignCapQty: "Design Capacity",
+				OprCapQty: "Operating Capacity",
+				OprAvailCapQty: "Operationally Available Capacity",
+				TotalSchdQty: "Total Scheduled Quantity"
+			};
+
+
+                                    // Data object returned from a datasource call from the server
+                                    var OpAvailPostingGrid_dataResponse;
+
+                                    // Holds the grid target model that we are editing
+                                    var global_tempTargetModel;
+                                    //declare variable for addnewUrl
+                                    var OpAvailPostingGrid_AddNewUrl = '';
+                                    var OpAvailPostingGrid_DeleteUrl = '';
+
+                                    function OpAvailPostingGrid_ChangeGrid(e)
+                                    {                          
+                                        
+                                    }
+
+                                    function OpAvailPostingGrid_EditGrid(e)
+                                    {
+                                        //SIR 153876 - sometimes the current doesn't get set which causes other problems... this is a
+                                        //hack to force it.  This might be b/c of how we are doing some of these things
+                                        e.sender.current(e.container);
+										var isDatePicker = true;
+										var isTimePicker = false;
+										var inpElem = e.container.find('[data-role=datepicker]');
+										if (inpElem === undefined || inpElem.length == 0) {
+											inpElem = e.container.find('[data-role=datetimepicker]');
+											isTimePicker = true;
+										}
+										if (inpElem === undefined && inpElem.length == 0) {
+											inpElem = e.container.find('[data-role=timepicker]');
+											isDatePicker = false;
+											isTimePicker = true;
+										}
+										if (inpElem !== undefined && inpElem.length > 0 && OpAvailPostingGrid_DateFormatMap !== undefined && OpAvailPostingGrid_DateFormatMap.size > 0) {
+											var fieldName = inpElem.attr('name');
+											if (fieldName !== undefined && fieldName.length > 0 && OpAvailPostingGrid_DateFormatMap.has(fieldName)) {
+												if (isDatePicker && isTimePicker) {
+													inpElem.kendoDateTimePicker('setOptions', { format: OpAvailPostingGrid_DateFormatMap.get(fieldName) });
+												}
+												else if (isDatePicker && !isTimePicker) {
+													inpElem.kendoDatePicker('setOptions', { format: OpAvailPostingGrid_DateFormatMap.get(fieldName) });
+												}
+												else if (!isDatePicker && isTimePicker) {
+													inpElem.kendoTimePicker('setOptions', { format: OpAvailPostingGrid_DateFormatMap.get(fieldName) });
+												}
+											}
+										}
+										// Get current target model
+                                        // CodeReview: why are we setting global variable?
+                                        global_tempTargetModel = e.model;
+										var handled = false;
+										
+										if(!handled) {
+											gridEditEventHandler(e,'OpAvailPostingGrid');
+										}
+                                        gridCellEditing(e);                                        
+                                    }
+
+                                    function OpAvailPostingGrid_SaveGrid(e)
+                                    {
+                                        gridSaving(e);                                       
+                                    }
+
+									function OpAvailPostingGrid_GridRowAdd() {
+                                        var bReadOnly=qGridIsReadOnly('OpAvailPostingGrid');
+                                        if(!bReadOnly)
+										qGridRowAdd('OpAvailPostingGrid','');
+									}
+
+									function OpAvailPostingGrid_DoRowDuplicate() {
+										qGridRowDuplicate('OpAvailPostingGrid','');
+									}
+
+									function OpAvailPostingGrid_DoRowDelete() {
+										qGridRowDelete('OpAvailPostingGrid','')
+									}
+
+                                    function OpAvailPostingGrid_GridRowDuplicateSelected() {
+                                        qGridRowDuplicateSelected('OpAvailPostingGrid', '');
+                                    }
+
+                                    function OpAvailPostingGrid_GridRowDeleteSelected() {
+                                        qGridRowDeleteSelected('OpAvailPostingGrid', '');
+                                    }
+
+                                    function OpAvailPostingGrid_OnError(e) {
+                                    }
+
+                                    function OpAvailPostingGrid_RequestStart(e) {
+                                        console.log('OpAvailPostingGrid_RequestStart');
+                                        qGridRequestStart(e, 'OpAvailPostingGrid');
+										
+                                    }
+                                    
+                                    function OpAvailPostingGrid_RequestEnd(e) {
+                                        console.log('OpAvailPostingGrid_RequestEnd');
+                                        if (e != null && e.response != null) {
+                                            OpAvailPostingGrid_dataResponse = e.response;
+                                            if (e.type != 'read' && e.response.aggregates) {
+                                                this._aggregateResult = e.response.aggregates;
+                                            }
+                                        }
+                                        qGridRequestEnd(e, 'OpAvailPostingGrid');
+										
+                                    }
+                                    
+									function OpAvailPostingGrid_doRowNumber(e) {
+                                        return;
+									}
+
+                                    function OpAvailPostingGrid_DetailInit(e) {
+                                            _detailInit(e, '{DetailContentAction}', 'OpAvailPosting');
+                                    }
+
+                                    function OpAvailPostingGrid_DetailExpand(e) {
+                                            
+                                    }
+
+                                    function OpAvailPostingGrid_DetailCollapse(e) {
+                                            
+                                    }
+
+									var OpAvailPostingGrid_DateFormatMap = new Map();
+
+                                    function OpAvailPostingGrid_DataBound(e) {
+                                        e.preventDefault();
+										var theGrid = e.sender;
+                                        if(!preventDynamicGridUpdate) {
+											// Grid GearBoxOptions Height apply
+											//$('.k-grid-header-locked th.k-header').css({ height: Math.ceil($('.k-grid-header-wrap th.k-header:eq(0)').height()) });
+											console.log('OpAvailPostingGrid_DataBound');
+											OpAvailPostingGrid_doRowNumber(e);
+											this.table.removeClass('q-grid-readonly');
+											this.table.addClass('q-grid-readonly')
+											var handled = false;
+											
+											if(!handled) {
+												gridDataBoundEventHandler(e,'OpAvailPostingGrid');
+											}
+											theGrid.fixGroupableLockColumn();
+											//setFocusOnNewRowCell(e);  //Note: It is conflicting with $(window).trigger('OpAvailPostingGrid_onDataBound'). that's the reason we commented out.
+											OpAvailPostingGrid_DateFormatMap.clear();
+											for (ix = 0; ix < theGrid.columns.length; ix++) {
+												if (theGrid.columns[ix].field !== undefined && theGrid.columns[ix].format !== undefined) {
+													OpAvailPostingGrid_DateFormatMap.set(theGrid.columns[ix].field, theGrid.columns[ix].format);
+												}
+											}
+										}
+                                        $(window).trigger('OpAvailPostingGrid_onDataBound'); // custom event for use in screen state restoration
+                                        //qHideShowPager(theGrid);
+                                        qGridDataBound(e);
+                                    }
+
+                                    function OpAvailPostingGrid_GridExport(name) {
+                                        alert('The export function has not yet been implemented');
+                                    }
+
+						</script><div class="k-widget k-grid manualGrid gridl2 k-grid-display-block k-reorderable k-editable" id="OpAvailPostingGrid" style="height:400px;" data-role="grid"><div class="k-grid-header" style="padding-right: 0px;"><div class="k-grid-header-wrap k-auto-scrollable" data-role="resizable"><table role="grid" tabindex="-1"><colgroup><col style="width:90px"><col style="width:90px"><col style="width:70px"><col style="width:90px"><col style="width:100px"><col style="width:50px"><col style="width:55px"><col style="width:45px"><col style="width:45px"><col style="width:45px"><col style="width:45px"><col style="width:80px"><col style="width:80px"><col style="width:80px"><col style="width:90px"><col style="width:90px"></colgroup><thead role="rowgroup"><tr role="row"><th class="k-header" data-field="ImportDate" data-index="0" data-title="Post Date/Time" id="005eaa39-3b4d-43d9-b100-af24574efaf1" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=ImportDate-asc" tabindex="-1">Post Date/Time</a></th><th class="k-header" data-field="EffDate" data-index="1" data-title="Eff Gas Day/Time" id="691a9bd3-4906-4c59-aa3a-ab29d1af8bf5" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=EffDate-asc" tabindex="-1">Eff Gas Day/Time</a></th><th class="k-header" data-field="CycleDescr" data-index="2" data-title="Cycle Desc" id="519ffde4-ff33-4a6e-aa8a-8742c6c38c40" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=CycleDescr-asc" tabindex="-1">Cycle Desc</a></th><th class="k-header" data-field="LocId" data-index="3" data-title="Loc" id="a5122cd8-9e9a-482c-be92-d494c8c747c3" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=LocId-asc" tabindex="-1">Loc</a></th><th class="k-header" data-field="LocNm" data-index="4" data-title="Loc Name" id="0766d27e-d455-43e3-a74d-732fc3db0ea4" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=LocNm-asc" tabindex="-1">Loc Name</a></th><th class="k-header" data-field="LocPurpCode" data-index="5" data-title="Loc Purp" id="81de192c-a581-45f6-ba63-f4eced463b3f" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=LocPurpCode-asc" tabindex="-1">Loc Purp</a></th><th class="k-header" data-field="LocQtyTypeCode" data-index="6" data-title="Loc/QTI" id="479488ca-d496-494b-a202-9d7beef4bbcf" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=LocQtyTypeCode-asc" tabindex="-1">Loc/QTI</a></th><th class="k-header" data-field="FlowIndCode" data-index="7" data-title="Flow Ind" id="4ea5166c-9cbc-44f5-8759-8860c1a38103" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=FlowIndCode-asc" tabindex="-1">Flow Ind</a></th><th class="k-header" data-field="ItIndDescr" data-index="8" data-title="IT Desc" id="69efeb09-3276-4848-86d9-39efb9cd51dd" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=ItIndDescr-asc" tabindex="-1">IT Desc</a></th><th class="k-header" data-field="MeasBasisCode" data-index="9" data-title="Meas Basis" id="66abcf17-2140-4e0f-b802-fefedef86ff0" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=MeasBasisCode-asc" tabindex="-1">Meas Basis</a></th><th class="k-header" data-field="AllQtyIndDescr" data-index="10" data-title="All Qty Avail" id="7e048289-7a42-418a-ac7e-486c8b8df58b" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=AllQtyIndDescr-asc" tabindex="-1">All Qty Avail</a></th><th class="k-header" data-field="QtyReason" data-index="11" data-title="Quantity Not Available Reason" id="1f9034c9-2298-4d89-a93a-4a037dc970ad" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=QtyReason-asc" tabindex="-1">Quantity Not Available Reason</a></th><th class="k-header" data-field="DesignCapQty" data-index="12" data-title="Design Capacity" id="2115047b-1a91-45b3-abea-9cc30e4d8fbe" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=DesignCapQty-asc" tabindex="-1">Design Capacity</a></th><th class="k-header" data-field="OprCapQty" data-index="13" data-title="Operating Capacity" id="c5e8a3f8-ed04-4445-88ea-07cc483b02de" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=OprCapQty-asc" tabindex="-1">Operating Capacity</a></th><th class="k-header" data-field="OprAvailCapQty" data-index="14" data-title="Operationally Available Capacity" id="b65dcffb-ceff-4b22-b1f1-c3672e6a8b81" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=OprAvailCapQty-asc" tabindex="-1">Operationally Available Capacity</a></th><th class="k-header" data-field="TotalSchdQty" data-index="15" data-title="Total Scheduled Quantity" id="2d4439c3-83f4-4887-aac4-8a8071ff49c6" scope="col" data-role="columnsorter"><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10&amp;OpAvailPostingGrid-sort=TotalSchdQty-asc" tabindex="-1">Total Scheduled Quantity</a></th></tr></thead></table></div></div><div class="gridrestrict"><div class="k-grid-content k-auto-scrollable" style="height: 278px;"><table role="grid" tabindex="0" data-role="selectable" class="k-selectable q-grid-readonly"><colgroup><col style="width:90px"><col style="width:90px"><col style="width:70px"><col style="width:90px"><col style="width:100px"><col style="width:50px"><col style="width:55px"><col style="width:45px"><col style="width:45px"><col style="width:45px"><col style="width:45px"><col style="width:80px"><col style="width:80px"><col style="width:80px"><col style="width:90px"><col style="width:90px"></colgroup><tbody role="rowgroup"><tr data-uid="a315e281-7871-43e3-92fa-2aa59a55f0a3" role="row"><td class="data-field-static" aria-describedby="005eaa39-3b4d-43d9-b100-af24574efaf1" role="gridcell">9/28/2026 05:15:09 PM</td><td class="data-field-static" aria-describedby="691a9bd3-4906-4c59-aa3a-ab29d1af8bf5" role="gridcell">9/29/2026 09:00:00 AM</td><td class="data-field-static" aria-describedby="519ffde4-ff33-4a6e-aa8a-8742c6c38c40" role="gridcell">Timely</td><td class="data-field-static" aria-describedby="a5122cd8-9e9a-482c-be92-d494c8c747c3" role="gridcell">ANR</td><td class="data-field-static" aria-describedby="0766d27e-d455-43e3-a74d-732fc3db0ea4" role="gridcell">ANR/TCPL MERMENTAU RIVER</td><td class="data-field-static" aria-describedby="81de192c-a581-45f6-ba63-f4eced463b3f" role="gridcell">M2</td><td class="data-field-static" aria-describedby="479488ca-d496-494b-a202-9d7beef4bbcf" role="gridcell">RPQ</td><td class="data-field-static" aria-describedby="4ea5166c-9cbc-44f5-8759-8860c1a38103" role="gridcell">R</td><td class="data-field-static" aria-describedby="69efeb09-3276-4848-86d9-39efb9cd51dd" role="gridcell">No</td><td class="data-field-static" aria-describedby="66abcf17-2140-4e0f-b802-fefedef86ff0" role="gridcell">BZ</td><td class="data-field-static" aria-describedby="7e048289-7a42-418a-ac7e-486c8b8df58b" role="gridcell">Yes</td><td class="data-field-static" aria-describedby="1f9034c9-2298-4d89-a93a-4a037dc970ad" role="gridcell"></td><td class="data-field-static" aria-describedby="2115047b-1a91-45b3-abea-9cc30e4d8fbe" role="gridcell">1,100,000</td><td class="data-field-static" aria-describedby="c5e8a3f8-ed04-4445-88ea-07cc483b02de" role="gridcell">1,100,000</td><td class="data-field-static" aria-describedby="b65dcffb-ceff-4b22-b1f1-c3672e6a8b81" role="gridcell">1,100,000</td><td class="data-field-static" aria-describedby="2d4439c3-83f4-4887-aac4-8a8071ff49c6" role="gridcell">0</td></tr><tr class="k-alt" data-uid="7f28be90-3843-471c-9814-35848bee5a5e" role="row"><td class="data-field-static" aria-describedby="005eaa39-3b4d-43d9-b100-af24574efaf1" role="gridcell">9/28/2026 05:15:09 PM</td><td class="data-field-static" aria-describedby="691a9bd3-4906-4c59-aa3a-ab29d1af8bf5" role="gridcell">9/29/2026 09:00:00 AM</td><td class="data-field-static" aria-describedby="519ffde4-ff33-4a6e-aa8a-8742c6c38c40" role="gridcell">Timely</td><td class="data-field-static" aria-describedby="a5122cd8-9e9a-482c-be92-d494c8c747c3" role="gridcell">BRL</td><td class="data-field-static" aria-describedby="0766d27e-d455-43e3-a74d-732fc3db0ea4" role="gridcell">BRL/TCPL MERMENTAU RIVER</td><td class="data-field-static" aria-describedby="81de192c-a581-45f6-ba63-f4eced463b3f" role="gridcell">M2</td><td class="data-field-static" aria-describedby="479488ca-d496-494b-a202-9d7beef4bbcf" role="gridcell">RPQ</td><td class="data-field-static" aria-describedby="4ea5166c-9cbc-44f5-8759-8860c1a38103" role="gridcell">R</td><td class="data-field-static" aria-describedby="69efeb09-3276-4848-86d9-39efb9cd51dd" role="gridcell">No</td><td class="data-field-static" aria-describedby="66abcf17-2140-4e0f-b802-fefedef86ff0" role="gridcell">BZ</td><td class="data-field-static" aria-describedby="7e048289-7a42-418a-ac7e-486c8b8df58b" role="gridcell">Yes</td><td class="data-field-static" aria-describedby="1f9034c9-2298-4d89-a93a-4a037dc970ad" role="gridcell"></td><td class="data-field-static" aria-describedby="2115047b-1a91-45b3-abea-9cc30e4d8fbe" role="gridcell">500,000</td><td class="data-field-static" aria-describedby="c5e8a3f8-ed04-4445-88ea-07cc483b02de" role="gridcell">500,000</td><td class="data-field-static" aria-describedby="b65dcffb-ceff-4b22-b1f1-c3672e6a8b81" role="gridcell">500,000</td><td class="data-field-static" aria-describedby="2d4439c3-83f4-4887-aac4-8a8071ff49c6" role="gridcell">0</td></tr><tr data-uid="959c5482-89cf-4836-bbda-4f9bbc7a1781" role="row"><td class="data-field-static" aria-describedby="005eaa39-3b4d-43d9-b100-af24574efaf1" role="gridcell">9/28/2026 05:15:09 PM</td><td class="data-field-static" aria-describedby="691a9bd3-4906-4c59-aa3a-ab29d1af8bf5" role="gridcell">9/29/2026 09:00:00 AM</td><td class="data-field-static" aria-describedby="519ffde4-ff33-4a6e-aa8a-8742c6c38c40" role="gridcell">Timely</td><td class="data-field-static" aria-describedby="a5122cd8-9e9a-482c-be92-d494c8c747c3" role="gridcell">PAYBACKMTR</td><td class="data-field-static" aria-describedby="0766d27e-d455-43e3-a74d-732fc3db0ea4" role="gridcell">SYSTEM BALANCING</td><td class="data-field-static" aria-describedby="81de192c-a581-45f6-ba63-f4eced463b3f" role="gridcell">M2</td><td class="data-field-static" aria-describedby="479488ca-d496-494b-a202-9d7beef4bbcf" role="gridcell">RPQ</td><td class="data-field-static" aria-describedby="4ea5166c-9cbc-44f5-8759-8860c1a38103" role="gridcell">R</td><td class="data-field-static" aria-describedby="69efeb09-3276-4848-86d9-39efb9cd51dd" role="gridcell">No</td><td class="data-field-static" aria-describedby="66abcf17-2140-4e0f-b802-fefedef86ff0" role="gridcell">BZ</td><td class="data-field-static" aria-describedby="7e048289-7a42-418a-ac7e-486c8b8df58b" role="gridcell">Yes</td><td class="data-field-static" aria-describedby="1f9034c9-2298-4d89-a93a-4a037dc970ad" role="gridcell"></td><td class="data-field-static" aria-describedby="2115047b-1a91-45b3-abea-9cc30e4d8fbe" role="gridcell">2,125,000</td><td class="data-field-static" aria-describedby="c5e8a3f8-ed04-4445-88ea-07cc483b02de" role="gridcell">2,125,000</td><td class="data-field-static" aria-describedby="b65dcffb-ceff-4b22-b1f1-c3672e6a8b81" role="gridcell">2,125,000</td><td class="data-field-static" aria-describedby="2d4439c3-83f4-4887-aac4-8a8071ff49c6" role="gridcell">0</td></tr><tr class="k-alt" data-uid="45024030-21af-4a8f-b092-5cc3da737ecb" role="row"><td class="data-field-static" aria-describedby="005eaa39-3b4d-43d9-b100-af24574efaf1" role="gridcell">9/28/2026 05:15:09 PM</td><td class="data-field-static" aria-describedby="691a9bd3-4906-4c59-aa3a-ab29d1af8bf5" role="gridcell">9/29/2026 09:00:00 AM</td><td class="data-field-static" aria-describedby="519ffde4-ff33-4a6e-aa8a-8742c6c38c40" role="gridcell">Timely</td><td class="data-field-static" aria-describedby="a5122cd8-9e9a-482c-be92-d494c8c747c3" role="gridcell">TTC</td><td class="data-field-static" aria-describedby="0766d27e-d455-43e3-a74d-732fc3db0ea4" role="gridcell">TTC/TCPL OAK GROVE CAMERON PARISH LA</td><td class="data-field-static" aria-describedby="81de192c-a581-45f6-ba63-f4eced463b3f" role="gridcell">M2</td><td class="data-field-static" aria-describedby="479488ca-d496-494b-a202-9d7beef4bbcf" role="gridcell">RPQ</td><td class="data-field-static" aria-describedby="4ea5166c-9cbc-44f5-8759-8860c1a38103" role="gridcell">R</td><td class="data-field-static" aria-describedby="69efeb09-3276-4848-86d9-39efb9cd51dd" role="gridcell">No</td><td class="data-field-static" aria-describedby="66abcf17-2140-4e0f-b802-fefedef86ff0" role="gridcell">BZ</td><td class="data-field-static" aria-describedby="7e048289-7a42-418a-ac7e-486c8b8df58b" role="gridcell">Yes</td><td class="data-field-static" aria-describedby="1f9034c9-2298-4d89-a93a-4a037dc970ad" role="gridcell"></td><td class="data-field-static" aria-describedby="2115047b-1a91-45b3-abea-9cc30e4d8fbe" role="gridcell">763,281</td><td class="data-field-static" aria-describedby="c5e8a3f8-ed04-4445-88ea-07cc483b02de" role="gridcell">763,281</td><td class="data-field-static" aria-describedby="b65dcffb-ceff-4b22-b1f1-c3672e6a8b81" role="gridcell">763,281</td><td class="data-field-static" aria-describedby="2d4439c3-83f4-4887-aac4-8a8071ff49c6" role="gridcell">0</td></tr><tr data-uid="af06f5a0-3fb1-4ef1-87f1-12e8c3ca62d0" role="row"><td class="data-field-static" aria-describedby="005eaa39-3b4d-43d9-b100-af24574efaf1" role="gridcell">9/28/2026 05:15:09 PM</td><td class="data-field-static" aria-describedby="691a9bd3-4906-4c59-aa3a-ab29d1af8bf5" role="gridcell">9/29/2026 09:00:00 AM</td><td class="data-field-static" aria-describedby="519ffde4-ff33-4a6e-aa8a-8742c6c38c40" role="gridcell">Timely</td><td class="data-field-static" aria-describedby="a5122cd8-9e9a-482c-be92-d494c8c747c3" role="gridcell">VGCPD</td><td class="data-field-static" aria-describedby="0766d27e-d455-43e3-a74d-732fc3db0ea4" role="gridcell">VENTURE GLOBAL CALCASIEU PASS DELIVERY</td><td class="data-field-static" aria-describedby="81de192c-a581-45f6-ba63-f4eced463b3f" role="gridcell">MQ</td><td class="data-field-static" aria-describedby="479488ca-d496-494b-a202-9d7beef4bbcf" role="gridcell">DPQ</td><td class="data-field-static" aria-describedby="4ea5166c-9cbc-44f5-8759-8860c1a38103" role="gridcell">D</td><td class="data-field-static" aria-describedby="69efeb09-3276-4848-86d9-39efb9cd51dd" role="gridcell">No</td><td class="data-field-static" aria-describedby="66abcf17-2140-4e0f-b802-fefedef86ff0" role="gridcell">BZ</td><td class="data-field-static" aria-describedby="7e048289-7a42-418a-ac7e-486c8b8df58b" role="gridcell">Yes</td><td class="data-field-static" aria-describedby="1f9034c9-2298-4d89-a93a-4a037dc970ad" role="gridcell"></td><td class="data-field-static" aria-describedby="2115047b-1a91-45b3-abea-9cc30e4d8fbe" role="gridcell">2,125,000</td><td class="data-field-static" aria-describedby="c5e8a3f8-ed04-4445-88ea-07cc483b02de" role="gridcell">2,125,000</td><td class="data-field-static" aria-describedby="b65dcffb-ceff-4b22-b1f1-c3672e6a8b81" role="gridcell">2,125,000</td><td class="data-field-static" aria-describedby="2d4439c3-83f4-4887-aac4-8a8071ff49c6" role="gridcell">0</td></tr></tbody></table></div></div><div class="k-pager-wrap k-grid-pager k-widget k-floatwrap" data-role="pager"><a aria-label="Go to the first page" class="k-link k-pager-nav k-state-disabled k-pager-first" data-page="1" href="#" title="Go to the first page" tabindex="-1"><span class="k-icon k-i-arrow-end-left"></span></a><a aria-label="Go to the previous page" class="k-link k-pager-nav k-state-disabled" data-page="1" href="#" title="Go to the previous page" tabindex="-1"><span class="k-icon k-i-arrow-60-left"></span></a><div class="k-pager-numbers-wrap"><ul class="k-pager-numbers k-reset"><li class="k-current-page"><span class="k-link k-pager-nav">1</span></li><li><span class="k-state-selected">1</span></li></ul></div><a aria-label="Go to the next page" class="k-link k-pager-nav k-state-disabled" data-page="1" href="#" title="Go to the next page" tabindex="-1"><span class="k-icon k-i-arrow-60-right"></span></a><a aria-label="Go to the last page" class="k-link k-pager-nav k-state-disabled k-pager-last" data-page="1" href="#" title="Go to the last page" tabindex="-1"><span class="k-icon k-i-arrow-end-right"></span></a><span class="k-pager-sizes k-label"><span title="" class="k-widget k-dropdown" unselectable="on" role="listbox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-owns="5e1ae692-514c-46da-abd6-7c7b3438ecc9_listbox" aria-live="polite" aria-disabled="false" aria-busy="false" aria-activedescendant="d5a591b2-8587-428d-bb8d-5934f8311490" style=""><span unselectable="on" class="k-dropdown-wrap k-state-default"><span unselectable="on" class="k-input">100</span><span unselectable="on" class="k-select" aria-label="select"><span class="k-icon k-i-arrow-60-down"></span></span></span><select data-role="dropdownlist" style="display: none;" aria-label="100"><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="100" selected="selected">100</option><option value="200">200</option></select></span>items per page</span><a aria-label="Refresh" class="k-pager-refresh k-link" href="/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10" title="Refresh"><span class="k-icon k-i-refresh"></span></a><span class="k-pager-info k-label">1 - 5 of 5 items</span><div class="fullwindowmode" onclick="qToggleFullWindow(this)" data-toggle="tooltip" data-placement="left" title="" data-original-title="Toggle fullscreen mode"><span class="sprite q-grid_Fullscreenenter"></span></div></div></div><script>
+	kendo.syncReady(function(){jQuery("#OpAvailPostingGrid").kendoGrid({"edit":OpAvailPostingGrid_EditGrid,"change":OpAvailPostingGrid_ChangeGrid,"save":gridSaving,"columnResize":gridColumnResize,"columnReorder":gridColumnReorder,"dataBound":OpAvailPostingGrid_DataBound,"detailExpand":OpAvailPostingGrid_DetailExpand,"detailCollapse":OpAvailPostingGrid_DetailCollapse,"columns":[{"title":"Post Date/Time","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"ImportDate","data-title":"Post\u0026#32;Date/Time"},"width":"90px","lockable":false,"field":"ImportDate","format":"{0:M/d/yyyy hh:mm:ss tt}","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cinput data-val=\"true\" data-val-date=\"The field ImportDate must be a date.\" data-val-required=\"The ImportDate field is required.\" id=\"DateTimeEditorTemplate\" name=\"ImportDate\" type=\"text\" value=\"1/1/0001\" /\u003e\u003cscript\u003e\r\n\tkendo.syncReady(function(){jQuery(\"#DateTimeEditorTemplate\").kendoDateTimePicker({\"culture\":\"en-US\",\"format\":\"M/d/yyyy\",\"min\":new Date(1900,0,1,0,0,0,0),\"max\":new Date(9000,11,31,0,0,0,0),\"interval\":30});});\r\n\u003c/script\u003e\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"ImportDate\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Eff Gas Day/Time","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"EffDate","data-title":"Eff\u0026#32;Gas\u0026#32;Day/Time"},"width":"90px","lockable":false,"field":"EffDate","format":"{0:M/d/yyyy hh:mm:ss tt}","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cinput data-val=\"true\" data-val-date=\"The field EffDate must be a date.\" data-val-required=\"The EffDate field is required.\" id=\"DateTimeEditorTemplate\" name=\"EffDate\" type=\"text\" value=\"1/1/0001\" /\u003e\u003cscript\u003e\r\n\tkendo.syncReady(function(){jQuery(\"#DateTimeEditorTemplate\").kendoDateTimePicker({\"culture\":\"en-US\",\"format\":\"M/d/yyyy\",\"min\":new Date(1900,0,1,0,0,0,0),\"max\":new Date(9000,11,31,0,0,0,0),\"interval\":30});});\r\n\u003c/script\u003e\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"EffDate\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Cycle Desc","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"CycleDescr","data-title":"Cycle\u0026#32;Desc"},"width":"70px","lockable":false,"field":"CycleDescr","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"CycleDescr\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Loc","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"LocId","data-title":"Loc"},"width":"90px","lockable":false,"field":"LocId","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"LocId\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Loc Name","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"LocNm","data-title":"Loc\u0026#32;Name"},"width":"100px","lockable":false,"field":"LocNm","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"LocNm\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Loc Purp","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"LocPurpCode","data-title":"Loc\u0026#32;Purp"},"width":"50px","lockable":false,"field":"LocPurpCode","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"LocPurpCode\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Loc/QTI","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"LocQtyTypeCode","data-title":"Loc/QTI"},"width":"55px","lockable":false,"field":"LocQtyTypeCode","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"LocQtyTypeCode\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Flow Ind","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"FlowIndCode","data-title":"Flow\u0026#32;Ind"},"width":"45px","lockable":false,"field":"FlowIndCode","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"FlowIndCode\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"IT Desc","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"ItIndDescr","data-title":"IT\u0026#32;Desc"},"width":"45px","lockable":false,"field":"ItIndDescr","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"ItIndDescr\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Meas Basis","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"MeasBasisCode","data-title":"Meas\u0026#32;Basis"},"width":"45px","lockable":false,"field":"MeasBasisCode","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"MeasBasisCode\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"All Qty Avail","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"AllQtyIndDescr","data-title":"All\u0026#32;Qty\u0026#32;Avail"},"width":"45px","lockable":false,"field":"AllQtyIndDescr","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"AllQtyIndDescr\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Quantity Not Available Reason","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"QtyReason","data-title":"Quantity\u0026#32;Not\u0026#32;Available\u0026#32;Reason"},"width":"80px","lockable":false,"field":"QtyReason","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\r\n\r\n\r\n\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"QtyReason\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Design Capacity","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"DesignCapQty","data-title":"Design\u0026#32;Capacity"},"width":"80px","lockable":false,"field":"DesignCapQty","format":"{0:#,##0.##}","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\u003cinput class=\"text-box\u0026#32;single-line\" data-val=\"true\" data-val-number=\"The\u0026#32;field\u0026#32;DesignCapQty\u0026#32;must\u0026#32;be\u0026#32;a\u0026#32;number.\" id=\"DesignCapQty\" name=\"DesignCapQty\" type=\"text\" value=\"\" /\u003e\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"DesignCapQty\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Operating Capacity","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"OprCapQty","data-title":"Operating\u0026#32;Capacity"},"width":"80px","lockable":false,"field":"OprCapQty","format":"{0:#,##0.##}","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\u003cinput class=\"text-box\u0026#32;single-line\" data-val=\"true\" data-val-number=\"The\u0026#32;field\u0026#32;OprCapQty\u0026#32;must\u0026#32;be\u0026#32;a\u0026#32;number.\" id=\"OprCapQty\" name=\"OprCapQty\" type=\"text\" value=\"\" /\u003e\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"OprCapQty\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Operationally Available Capacity","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"OprAvailCapQty","data-title":"Operationally\u0026#32;Available\u0026#32;Capacity"},"width":"90px","lockable":false,"field":"OprAvailCapQty","format":"{0:#,##0.##}","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\u003cinput class=\"text-box\u0026#32;single-line\" data-val=\"true\" data-val-number=\"The\u0026#32;field\u0026#32;OprAvailCapQty\u0026#32;must\u0026#32;be\u0026#32;a\u0026#32;number.\" id=\"OprAvailCapQty\" name=\"OprAvailCapQty\" type=\"text\" value=\"\" /\u003e\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"OprAvailCapQty\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"},{"title":"Total Scheduled Quantity","attributes":{"class":"data-field-static"},"headerAttributes":{"data-field":"TotalSchdQty","data-title":"Total\u0026#32;Scheduled\u0026#32;Quantity"},"width":"90px","lockable":false,"field":"TotalSchdQty","format":"{0:#,##0.##}","filterable":{"cell":{"delay":100,"suggestionOperator":"contains","operator":"contains"}},"encoded":true,"editor":"\u003cinput class=\"text-box\u0026#32;single-line\" data-val=\"true\" data-val-number=\"The\u0026#32;field\u0026#32;TotalSchdQty\u0026#32;must\u0026#32;be\u0026#32;a\u0026#32;number.\" id=\"TotalSchdQty\" name=\"TotalSchdQty\" type=\"text\" value=\"\" /\u003e\u003cspan class=\"field-validation-valid\" data-valmsg-for=\"TotalSchdQty\" data-valmsg-replace=\"true\"\u003e\u003c/span\u003e"}],"pageable":{"refresh":true,"pageSizes":[5,10,20,50,100,200],"buttonCount":5},"sortable":{"mode":"multiple"},"selectable":"Single, Row","resizable":true,"reorderable":true,"scrollable":{"height":""},"editable":{"confirmation":"Are you sure you want to delete this record?","confirmDelete":"Delete","cancelDelete":"Cancel","mode":"inline","create":true,"update":true,"destroy":true},"dataSource":{"type":(function(){if(kendo.data.transports['aspnetmvc-ajax']){return 'aspnetmvc-ajax';} else{throw new Error('The kendo.aspnetmvc.min.js script is not included.');}})(),"transport":{"read":{"url":"/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10","data":GetFilters},"prefix":""},"pageSize":100,"page":1,"total":0,"error":OpAvailPostingGrid_OnError,"requestStart":OpAvailPostingGrid_RequestStart,"requestEnd":OpAvailPostingGrid_RequestEnd,"schema":{"data":"Data","total":"Total","errors":"Errors","model":{"id":"ObjectID","fields":{"OpAvailPostingHdrId":{"type":"number"},"LocId":{"type":"string"},"LocNm":{"type":"string"},"TspProp":{"type":"number"},"TspNm":{"type":"string"},"TspDunsNo":{"type":"string"},"GasDay":{"type":"date"},"CycleId":{"type":"number"},"CycleDescr":{"type":"string"},"PostDate":{"type":"date"},"ZoneId":{"type":"string"},"ZoneNm":{"type":"string"},"EffDate":{"type":"date"},"AllQtyIndCode":{"type":"string"},"AllQtyIndDescr":{"type":"string"},"DesignCapQty":{"type":"number","defaultValue":null},"OprCapQty":{"type":"number","defaultValue":null},"OprAvailCapQty":{"type":"number","defaultValue":null},"TotalSchdQty":{"type":"number","defaultValue":null},"FlowIndCode":{"type":"string"},"FlowIndDescr":{"type":"string"},"ItIndCode":{"type":"string"},"ItIndDescr":{"type":"string"},"LocPurpCode":{"type":"string"},"LocPurpDescr":{"type":"string"},"LocQtyTypeCode":{"type":"string"},"LocQtyTypeDescr":{"type":"string"},"MeasBasisCode":{"type":"string"},"MeasBasisDescr":{"type":"string"},"IsNomCapExceeded":{"type":"string"},"NomCapExceededDescr":{"type":"string"},"PressBase":{"type":"number","defaultValue":null},"PressBaseCode":{"type":"string"},"PressBaseDescr":{"type":"string"},"QtyReason":{"type":"string"},"ImportDate":{"type":"date"},"EffDateTo":{"type":"date"},"ObjectID":{"type":"string"},"DisplayDataObjectState":{"type":"number"},"IsNewObject":{"type":"boolean"},"IsSelectedObject":{"type":"boolean"},"RowNum":{"type":"number"},"ViewId":{"type":"string"},"ModelDescription":{"type":"string"},"StatusIcon":{"type":"string"},"QUIWebContextId":{"type":"string"},"ControlStates":{"type":"object"},"HasNotifications":{"type":"boolean"},"HasChanges":{"type":"boolean"},"DeferJavascript":{"type":"boolean","defaultValue":null},"HasNotes":{"type":"boolean"},"AllowNotesAdd":{"type":"boolean"},"AllowNotesEdit":{"type":"boolean"},"AllowNotesDelete":{"type":"boolean"},"HasAuditHistory":{"type":"boolean"},"AuditHistoryControllerName":{"type":"string"},"GridPresetFilters":{"type":"object"},"GridPresetSorts":{"type":"object"}}}}},"navigatable":true});});
+</script>
+				
+            <script id="CBXHeaderOpAvailPostingGridScript" type="text/x-kendo-template">
+                <ul class='backgriddrop griddrop'>
+					<li><button type="button" onclick="cbxHeaderClicked(this,'OpAvailPostingGrid','cv'); return false;"> <span>Check visible</span></button></li>
+					<li><button type="button" onclick="cbxHeaderClicked(this,'OpAvailPostingGrid','ca'); return false;"> <span>Check all</span></button></li>
+					<li><button type="button" onclick="cbxHeaderClicked(this,'OpAvailPostingGrid','uv'); return false;"> <span>Uncheck visible</span></button></li>
+					<li><button type="button" onclick="cbxHeaderClicked(this,'OpAvailPostingGrid','ua'); return false;"> <span>Uncheck all</span></button></li>
+				</ul>
+            </script>
+
+
+                <script>
+                    qfcParsingDone(function() {
+                        
+                        quorum.partialRendering.complete(function() {
+                            qGridInitialized('OpAvailPostingGrid');                                       
+                        });
+                    });
+                </script></div></div></div>
+<script>
+	$(window).load(function() {
+	$("#OpAvailPostingGrid").find(".k-grid-content").wrap("<div class='gridrestrict'></div>");
+	});
+	</script>
+
+
+            </div>
+        </div>
+    </div>
+</form>
+
+			<script>
+                // Register the Update Package so Changes to controls are sent to MVC Controller
+                
+                qfcParsingDone(function() {
+                    registerUpdatePackage('OpAvailPosting', '/VGL17IPWS/OpAvailPosting/OpAvailPostingFieldUpdate/', '','', false);
+                    
+                    quorum.partialRendering.complete(function () {
+			            
+                    
+                        // Setup for the control value change notifications
+                        bindGroupUpdate('OpAvailPosting');
+                    });
+                    
+                    checkComboBoxDependencies(null);
+                });
+            </script>
+
+<script src="/VGL17IPWS/bundle/scripts/OpAvailPosting?v=3OjlnUhpB3DZXkaD_7hrIybLZqu3Aia3mfHUN4aGVhM1"></script>
+
+<script>
+qfcParsingDone(function() {
+	registerGridUpdatePackage('OpAvailPostingGrid', '/VGL17IPWS/OpAvailPosting/OpAvailPostingGridUpdate/', null, '', null, 'null', undefined, null, '/VGL17IPWS/OpAvailPosting/OpAvailPostingGridColumnHeaderCheckBoxChanged/');
+});
+</script>
+<script>
+
+    function DownloadFile() {
+
+        var url = qfc.core.getActionUrl("ExportToCSV", "OpAvailPosting");
+        url = url + '?CycleId=';
+        if (qGetValue($("#CycleId"))) {
+            url = url + qGetValue($("#CycleId"));
+        }
+        url = url + '&GasDay=';
+        if (qGetValue($("#GasDay"))) {
+            url = url + qGetValue($("#GasDay"));
+        }
+        url = url + '&LocId=';
+        if (qGetValue($("#LocId"))) {
+            url = url + qGetValue($("#LocId"));
+        }
+        url = url + "&TspNo=10";
+
+        window.location = url;
+    }
+</script>        
+        </div>
+
+
+        
+
+        <div class="ipws-footer">
+            <div id="mainfooter" class="footerborder">   
+            ©2026 Quorum Business Solutions, Inc. All Rights Reserved.    
+</div>
+        </div>
+
+    </div>
+
+    <script src="/VGL17IPWS/bundle/scripts/QFScriptsBottomDefer?v=32jNsqvvI_MsoKMa2zLAxqxsmzhfpOdur4xXq-vNhns1"></script>
+
+
+
+    <script>
+        $(function () {
+            updateActionHubTextComplete();
+        });
+
+        /* Check classes to see if text has ellipsis, then add data-title attribute to display styled tooltip - on Mouseenter used to reduce peformance hit of checking on page load and will adapt to varying browser sizes - add in any classes that need to be checked below */
+        $('.q-header_Item, .widget h1, .widget h2, .widget h3, .widget h4, .widget h5, .widget h6, .alertlabel, .datalabel, .errorlabel, .widgetfooter a, .unitselect ').on('mouseenter', function () {
+            var $this = $(this);
+            if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+                $this.attr('data-title', $this.text());
+            }
+        });  
+
+        // Function to use default browser tooltip when area overflow is set to hidden
+        $('.widgetfooter a').on('mouseenter', function () {
+
+            var $this = $(this);
+            if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+                $this.attr('title', $this.text());
+            }
+        });
+
+        // Script to smooth scroll to an anchor tag from an <a> tag
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top - 110 // Offset for the actionbar
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+
+        var togglefull = 'on';
+
+        $(window).load(function () {
+            if ($(".k-grid").length) { 
+                var checkForFullButton = setInterval(function () {
+                    if ($('.k-grid .fullwindowmode').length) {
+                        clearInterval(checkForFullButton);
+                        $('.fullwindowmode').click(function () {
+                            if (togglefull === 'on') {
+                                $('.fullwindowmode').parents('.k-grid').addClass('fullwindow');
+                                togglefull = 'off';
+                            } else {
+                                togglefull = 'on';
+                                $('.fullwindowmode').parents('.k-grid').removeClass('fullwindow');
+                            }   
+                        });
+                    }
+                }, 1000); // check every 1000ms     
+            }
+        });
+       
+    </script>
+
+<div aria-hidden="true" class="k-calendar-container k-popup k-group k-reset" id="GasDay_dateview" data-role="popup" style="display: none; position: absolute;"></div><div class="k-list-container k-popup k-group k-reset" id="CycleId-list" data-role="popup" aria-hidden="true" style="display: none; position: absolute; min-width: 403px; width: auto;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="CycleId_listbox" aria-live="polite" data-role="staticlist" role="listbox"><li tabindex="-1" role="option" unselectable="on" class="k-item k-state-focused" aria-selected="false" data-offset-index="0" id="765fcf70-e02b-4578-b664-482f498499b4">1 | Timely</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="1">2 | Evening</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="2">3 | Intraday 1</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="3">4 | Intraday 2</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="4">6 | Intraday 3</li></ul></div><div class="k-nodata" style="display:none"><div>No data found.</div></div></div><div class="k-list-container k-popup k-group k-reset" id="LocId-list" data-role="popup" aria-hidden="true" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="LocId_listbox" aria-live="polite" data-role="staticlist" role="listbox"></ul></div><div class="k-nodata" style="display:none"><div></div></div></div><div class="k-list-container k-popup k-group k-reset" id="LocNm-list" data-role="popup" aria-hidden="true" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="LocNm_listbox" aria-live="polite" data-role="staticlist" role="listbox"></ul></div><div class="k-nodata" style="display:none"><div></div></div></div><div class="k-widget k-window" data-role="draggable" style="visibility: visible; display: none; padding-top: 35px; min-width: 90px; min-height: 50px; width: 602px; height: 545px; top: 274.391px; left: 1093.77px;"><div class="k-window-titlebar k-header" style="margin-top: -35px;"><span class="k-window-title" id="LocNm_spicklistWindow_wnd_title">Operationally Available Postings Locations</span><div class="k-window-actions"><a role="button" href="#" class="k-button k-bare k-button-icon k-window-action" aria-label="window-Maximize"><span class="k-icon k-i-window-maximize"></span></a><a role="button" href="#" class="k-button k-bare k-button-icon k-window-action" aria-label="Close"><span class="k-icon k-i-close"></span></a></div></div><div class="qPickList k-window-content k-content" id="LocNm_spicklistWindow" style="opacity: 1; transform: scale(1);" data-role="window" tabindex="0" role="dialog" aria-labelledby="LocNm_spicklistWindow_wnd_title"><div class="lightboxcontentwrapper"><div class="lightboxcontent">
+						<div class="q-dialog-header">
+							<div class="q-header-message">
+								<span id="dialogHeader"> Viewing the first 100 rows.</span> 
+								<a href="javascript:void(0)" class="q-dialoglink" id="LocNm_spicklist_BtnRetrieve" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Return data">Retrieve</a>
+								<a href="javascript:void(0)" class="q-dialoglink" id="LocNm_spicklist_BtnMore" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Return another 100 rows">Retrieve more</a>
+								<a href="javascript:void(0)" class="q-dialoglink" id="LocNm_spicklist_BtnAll" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Return all Records">Retrieve all</a>
+							</div>
+							<div class="dialogcontrols">
+								<a id="LocNm_spicklist_BtnRetrieve2" data-toggle="tooltip" data-placement="bottom" title="" class="sprite q-content_Retrieve" href="javascript:void(0)" data-original-title="Retrieve">Retrieve</a>   
+								<a id="LocNm_spicklist_BtnClearFilters2" data-toggle="tooltip" data-placement="bottom" title="" class="sprite q-content_Clearfilters" href="javascript:void(0)" data-original-title="Clear Filters">Clear Filters</a>
+								<a id="LocNm_spicklist_BtnMore2" data-toggle="tooltip" data-placement="bottom" title="" class="sprite q-content_Retrievemore" href="javascript:void(0)" data-original-title="Retrieve More">Retrieve More</a>
+								<a id="LocNm_spicklist_BtnAll2" data-toggle="tooltip" data-placement="bottom" title="" class="sprite q-content_Retrieveall" href="javascript:void(0)" data-original-title="Retrieve All">Retrieve All</a>
+							</div>
+						</div><div class="gridheight"><div class="gridholder"><div class="l3grid"><div class="k-widget k-grid k-grid-display-block" id="LocNm_spicklistGrid" data-role="grid"><div class="k-grid-header" style="padding-right: 0px;"><div class="k-grid-header-wrap k-auto-scrollable" data-role="resizable"><table role="grid" tabindex="-1"><colgroup><col style="width:110px"><col style="width:170px"></colgroup><thead role="rowgroup"><tr role="row"><th class="k-header k-filterable k-with-icon" data-field="LOC_ID" data-index="0" data-title="Location" id="37e36b8c-ec66-4f45-b05f-644add4bf3ce" scope="col" data-role="columnsorter"><a aria-label="Filter" class="k-grid-filter" href="javascript:void(0)" tabindex="-1"><span class="k-icon k-i-filter" title="Filter"></span></a><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetPickData?PickId=40002&amp;pageRowSize=100&amp;bQueryData=False&amp;bFilterData=False&amp;tspno=10&amp;LocNm_spicklistGrid-sort=LOC_ID-asc" tabindex="-1">Location</a></th><th class="k-header k-filterable k-with-icon" data-field="LOC_NM" data-index="1" data-title="Location Name" id="d2401888-c979-43c9-9b7c-a735196e61d3" scope="col" data-role="columnsorter"><a aria-label="Filter" class="k-grid-filter" href="javascript:void(0)" tabindex="-1"><span class="k-icon k-i-filter" title="Filter"></span></a><a class="k-link" href="/VGL17IPWS/OpAvailPosting/GetPickData?PickId=40002&amp;pageRowSize=100&amp;bQueryData=False&amp;bFilterData=False&amp;tspno=10&amp;LocNm_spicklistGrid-sort=LOC_NM-asc" tabindex="-1">Location Name</a></th></tr></thead></table></div></div><div class="k-grid-content k-auto-scrollable" style="height:200px"><table role="grid" tabindex="0" data-role="selectable" class="k-selectable"><colgroup><col style="width:110px"><col style="width:170px"></colgroup><tbody role="rowgroup"><tr class="k-no-data"><td colspan="2"></td></tr></tbody></table></div></div></div></div></div>
+                            <div class="q-dialog-filters">
+								<strong>Active filters:</strong>
+								<span id="LocNm_spicklist_FilterText" class="q-pick-filters-message"></span>
+								<a href="javascript:void(0)" id="LocNm_spicklist_BtnClearFilters" class="q-dialoglink">Clear filters</a>
+								
+							</div></div><!-- End tag of lightboxcontent--><div class="modalactions">
+								<a id="LocNm_spicklist_BtnOK" href="javascript: void(0)" class="footerlink lightboxClose qOkay disabledlink"> OK </a>
+								<a id="LocNm_spicklist_BtnCancel" href="javascript: void(0)" class="footerlink lightboxClose"> Cancel </a>
+                            </div></div></div><div class="k-resize-handle k-resize-n"></div><div class="k-resize-handle k-resize-e"></div><div class="k-resize-handle k-resize-s"></div><div class="k-resize-handle k-resize-w"></div><div class="k-resize-handle k-resize-se"></div><div class="k-resize-handle k-resize-sw"></div><div class="k-resize-handle k-resize-ne"></div><div class="k-resize-handle k-resize-nw"></div></div><div class="k-list-container k-popup k-group k-reset" id="5e1ae692-514c-46da-abd6-7c7b3438ecc9-list" data-role="popup" aria-hidden="true" style="display: none; position: absolute;"><div class="k-group-header" style="display:none"></div><div class="k-list-scroller" unselectable="on"><ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="5e1ae692-514c-46da-abd6-7c7b3438ecc9_listbox" aria-live="off" data-role="staticlist" role="listbox"><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="0">5</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="1">10</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="2">20</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="3">50</li><li tabindex="-1" role="option" unselectable="on" class="k-item k-state-selected k-state-focused" aria-selected="true" data-offset-index="4" id="d5a591b2-8587-428d-bb8d-5934f8311490">100</li><li tabindex="-1" role="option" unselectable="on" class="k-item" aria-selected="false" data-offset-index="5">200</li></ul></div><div class="k-nodata" style="display:none"><div>No data found.</div></div></div></body></html>

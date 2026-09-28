@@ -1,0 +1,23 @@
+[
+ [
+  200,
+  "GET",
+  "https://web-prd.myquorumcloud.com/VGL17IPWS/OpAvailPosting/GetCodeTable?codeTableId=52008",
+  "[{\"Q_CODE_\":\"1\",\"Q_DECODE_\":\"Timely\",\"Q_DROPDECODE_\":\"1 | Timely\",\"CYCLE_TYPE_CD\":\"1\",\"CYCLE_TYPE_DESCR\":\"Timely\"},{\"Q_CODE_\":\"2\",\"Q_DECODE_\":\"Evening\",\"Q_DROPDECODE_\":\"2 | Evening\",\"CYCLE_TYPE_CD\":\"2\",\"CYCLE_TYPE_DESCR\":\"Evening\"},{\"Q_CODE_\":\"3\",\"Q_DECODE_\":\"Intraday 1\",\"Q_DROPDECODE_\":\"3 | Intraday 1\",\"CYCLE_TYPE_CD\":\"3\",\"CYCLE_TYPE_DESCR\":\"Intraday 1\"},{\"Q_CODE_\":\"4\",\"Q_DECODE_\":\"Intraday 2\",\"Q_DROPDECODE_\":\"4 | Intraday 2\",\"CYCLE_TYPE_CD\":\"4\",\"CYCLE_TYPE_DESCR\":\"Intraday 2\"},{\"Q_CODE_\":\"6\",\"",
+  null
+ ],
+ [
+  200,
+  "GET",
+  "https://web-prd.myquorumcloud.com/VGL17IPWS/OpAvailPosting/GetActionHubText?tspno=10&_=1790634400644",
+  "{\"actionHubText\":\"TransCameron Pipeline, LLC\"}",
+  null
+ ],
+ [
+  200,
+  "POST",
+  "https://web-prd.myquorumcloud.com/VGL17IPWS/OpAvailPosting/GetOpAvailPostings?tspno=10",
+  "{\"Data\":[{\"OpAvailPostingHdrId\":10331,\"LocId\":\"ANR\",\"LocNm\":\"ANR/TCPL MERMENTAU RIVER\",\"TspProp\":10,\"TspNm\":\"TRANSCAMERON PIPELINE, LLC\",\"TspDunsNo\":\"117434948\",\"GasDay\":\"2026-09-29T00:00:00\",\"CycleId\":1,\"CycleDescr\":\"Timely\",\"PostDate\":\"2026-09-28T17:15:07\",\"ZoneId\":\"ALL_REC\",\"ZoneNm\":\"ALL RECEIPT LOCATIONS\",\"EffDate\":\"2026-09-29T09:00:00\",\"AllQtyIndCode\":\"Y\",\"AllQtyIndDescr\":\"Yes\",\"DesignCapQty\":1100000.0000000000,\"OprCapQty\":1100000.0000000000,\"OprAvailCapQty\":1100000.0000000000,\"TotalSchdQty",
+  "sort=&group=&filter=&CycleId=&GasDay=2026-09-29&LocId=&LocPurpCode="
+ ]
+]
