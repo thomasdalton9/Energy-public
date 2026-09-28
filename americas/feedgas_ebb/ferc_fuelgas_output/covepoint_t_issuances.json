@@ -1,0 +1,196 @@
+[
+ {
+  "reference": "{5760340A-8AA6-CCAC-9F10-6B6D14E00003}-{01EDFEF8-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "5760340A-8AA6-CCAC-9F10-6B6D14E00003",
+  "description": "Letter order granting Dominion Energy Cove Point LNG, LP's August 21, 2017 request to introduce hazardous fluids and perform related commissioning activities under CP13-113.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20170831-3071",
+  "issuedDate": "08/31/2017",
+  "filedDate": "08/31/2017",
+  "postedDate": "08/31/2017",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.82,
+  "docketNumbers": [
+   "CP13-113-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01EDFEF8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP13-113-000 AUG 31 2017.DOCX",
+    "fileDesc": "",
+    "fileSize": 35491,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "DOMINION COVE POINT LNG, LP",
+    "lastName": "GHOLSON",
+    "firstInitial": "D",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5760340A-8AA6-CCAC-9F10-6B6D14E00003}-{01EDFEF8-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "5760340A-8AA6-CCAC-9F10-6B6D14E00003",
+  "description": "Letter order granting Dominion Energy Cove Point LNG, LP's August 21, 2017 request to introduce hazardous fluids and perform related commissioning activities under CP13-113.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20170831-3071",
+  "issuedDate": "08/31/2017",
+  "filedDate": "08/31/2017",
+  "postedDate": "08/31/2017",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 73.82,
+  "docketNumbers": [
+   "CP13-113-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01EDFEF8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP13-113-000 AUG 31 2017.DOCX",
+    "fileDesc": "",
+    "fileSize": 35491,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "DOMINION COVE POINT LNG, LP",
+    "lastName": "GHOLSON",
+    "firstInitial": "D",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BC31FFFD-43D8-CA96-AC4A-6B6D65100003}-{01EF7B64-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BC31FFFD-43D8-CA96-AC4A-6B6D65100003",
+  "description": "Transcript of the 10/19/17 1036th Commission Meeting held in Washington, D.C re Consent Electric etc.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20171020-4003",
+  "issuedDate": "10/19/2017",
+  "filedDate": "10/20/2017",
+  "postedDate": "11/06/2017",
+  "classTypes": [
+   {
+    "documentClass": "Transcript",
+    "documentType": "Commission Open Meeting Transcript"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 68.3,
+  "docketNumbers": [],
+  "transmittals": [
+   {
+    "fileId": "01EF7B64-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "101917CommissionMeeting.DOCX",
+    "fileDesc": "",
+    "fileSize": 107794,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "FEDERAL ENERGY REGULATORY COMMISSION",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BC31FFFD-43D8-CA96-AC4A-6B6D65100003}-{01EF7B64-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BC31FFFD-43D8-CA96-AC4A-6B6D65100003",
+  "description": "Transcript of the 10/19/17 1036th Commission Meeting held in Washington, D.C re Consent Electric etc.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20171020-4003",
+  "issuedDate": "10/19/2017",
+  "filedDate": "10/20/2017",
+  "postedDate": "11/06/2017",
+  "classTypes": [
+   {
+    "documentClass": "Transcript",
+    "documentType": "Commission Open Meeting Transcript"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 68.3,
+  "docketNumbers": [],
+  "transmittals": [
+   {
+    "fileId": "01EF7B64-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "101917CommissionMeeting.DOCX",
+    "fileDesc": "",
+    "fileSize": 107794,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "FEDERAL ENERGY REGULATORY COMMISSION",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

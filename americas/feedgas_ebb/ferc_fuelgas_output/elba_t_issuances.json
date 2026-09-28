@@ -1,0 +1,175 @@
+[
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 74.66,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{19045FE1-FD13-C2C0-B1B5-736172F00000}-{0207EFD5-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "19045FE1-FD13-C2C0-B1B5-736172F00000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 04/28/2020 request to introduce feed gas to Moveable Modular Liquefaction System #8 under CP14-103.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200501-3022",
+  "issuedDate": "05/01/2020",
+  "filedDate": "05/01/2020",
+  "postedDate": "05/01/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.59,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0207EFD5-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Feed Gas MMLS -8 2020-05-01.PDF",
+    "fileDesc": "",
+    "fileSize": 242214,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C. ",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{9AE1E977-447E-CA10-86D6-7722D9200000}-{0208886C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "9AE1E977-447E-CA10-86D6-7722D9200000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al May 29, 2020, as supplemented on June 11 & 12, 2020, request to introduce feed gas to Moveable Modular Liquefaction System #9 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200612-3039",
+  "issuedDate": "06/12/2020",
+  "filedDate": "06/12/2020",
+  "postedDate": "06/12/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.78,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0208886C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Feed Gas MMLS.PDF",
+    "fileDesc": "",
+    "fileSize": 245279,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "FRANCIS",
+    "firstInitial": "P",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "FRANCIS",
+    "firstInitial": "P",
+    "middleInitial": "S"
+   }
+  ]
+ }
+]

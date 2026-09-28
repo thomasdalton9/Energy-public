@@ -1,0 +1,184 @@
+[
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 87.56,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E89940B6-F3F7-CBE4-9D92-736765C00000}-{01FF7627-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E89940B6-F3F7-CBE4-9D92-736765C00000",
+  "description": "Order Granting Authorization etc. re Driftwood LNG LLC et al under CP17-117 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3085",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 87.59,
+  "docketNumbers": [
+   "CP17-117-000",
+   "CP17-118-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7627-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-117-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 167269,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4D040632-8644-C6DC-A19C-7369CDA00000}-{02050714-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "4D040632-8644-C6DC-A19C-7369CDA00000",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Corpus Christi Liquefaction Stage III, LLC et al under CP18-512 et al. Commissioner Glick is dissenting with a separate statement attached.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3017",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 88.54,
+  "docketNumbers": [
+   "CP18-512-000",
+   "CP18-513-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02050714-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP18-512-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 156372,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

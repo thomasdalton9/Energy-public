@@ -1,0 +1,48 @@
+[
+ {
+  "reference": "{AE1CAA8F-366E-CA4B-852F-94FF72200000}-{16A6AB23-8619-CF11-97DD-94FF72200000}",
+  "documentId": "AE1CAA8F-366E-CA4B-852F-94FF72200000",
+  "description": "Environmental Assessment for National Fuel Gas Supply Corporation's Tioga Pathway Project under CP24-514. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20250213-3007",
+  "issuedDate": "02/13/2025",
+  "filedDate": "02/13/2025",
+  "postedDate": "02/13/2025",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Environmental Assessment (EA) and Environmental Impact Statement (EIS)"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 87.28,
+  "docketNumbers": [
+   "CP24-514-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "16A6AB23-8619-CF11-97DD-94FF72200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP24-514 EA.pdf",
+    "fileDesc": "Environmental Assessment for National Fuel Gas Supply Corporation for the Tioga Pathway Project",
+    "fileSize": 3304439,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

@@ -1,0 +1,1008 @@
+[
+ {
+  "reference": "{40F9FF05-90A9-C56E-9032-6B6E0E900004}-{01D97E64-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "40F9FF05-90A9-C56E-9032-6B6E0E900004",
+  "description": "Letter order granting Cheniere Energy, Inc.' 11/17/15 request for Sabine Pass to introduce feed gas and refrigerants into the identified areas etc under CP11-72.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20151119-3080",
+  "issuedDate": "11/19/2015",
+  "filedDate": "11/19/2015",
+  "postedDate": "11/19/2015",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.78,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D97E64-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 NOV 19 2015.DOC",
+    "fileDesc": "",
+    "fileSize": 54784,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F531A535-4EC1-CB73-A741-6B6C23000002}-{01DF0354-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F531A535-4EC1-CB73-A741-6B6C23000002",
+  "description": "Letter order granting Cheniere Energy, Inc's April 16, 2015 request to introduce feed gas and refrigerants in the identified areas of your request for commissioning of Train 2 under CP11-72 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160418-3037",
+  "issuedDate": "04/18/2016",
+  "filedDate": "04/18/2016",
+  "postedDate": "04/18/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.79,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DF0354-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 APR 18 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 55296,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{180BB69B-D26A-CB5A-9D75-6B6DBDD00001}-{01E4CCA6-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "180BB69B-D26A-CB5A-9D75-6B6DBDD00001",
+  "description": "Letter order granting Cheniere Energy, Inc.'s 10/26/16 request to introduce feed gas and refrigerants in the identified areas of Train 3 under CP11-72 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20161108-3029",
+  "issuedDate": "11/08/2016",
+  "filedDate": "11/08/2016",
+  "postedDate": "11/08/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.79,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01E4CCA6-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 NOV 8 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 54784,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{9D7B9705-6B15-C8D9-9DA7-6B6C7A100002}-{01EB3B05-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "9D7B9705-6B15-C8D9-9DA7-6B6C7A100002",
+  "description": "Letter order granting Sabine Pass Liquefaction, LLC's 5/26/17 request to introduce feed gas and refrigerants to Train 4 under CP11-72 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20170601-4015",
+  "issuedDate": "06/01/2017",
+  "filedDate": "06/01/2017",
+  "postedDate": "06/01/2017",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.75,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01EB3B05-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 JUNE 1 2017.DOC",
+    "fileDesc": "",
+    "fileSize": 56320,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, LP",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{11C90CC8-38AE-CF81-9402-7365DFD00000}-{01FDBF13-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "11C90CC8-38AE-CF81-9402-7365DFD00000",
+  "description": "Order granting authorizations under Section 3 and 7 of the Natural Gas Act re Venture Global Calcasieu Pass, LLC - CP15-550 et al. Commissioner LaFleur concurring with a separate statement attached. Commissioner Glick dissenting separate statement att.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190221-3104",
+  "issuedDate": "02/21/2019",
+  "filedDate": "02/21/2019",
+  "postedDate": "02/21/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 75.85,
+  "docketNumbers": [
+   "CP15-550-000",
+   "CP15-551-000",
+   "CP15-551-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FDBF13-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP15-550-000a.DOCX",
+    "fileDesc": "",
+    "fileSize": 149401,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "LAFLEUR",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "GLICK",
+    "firstInitial": "R",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.37,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{913B1740-7284-CE3A-A60B-736765B00000}-{01FF7625-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "913B1740-7284-CE3A-A60B-736765B00000",
+  "description": "Order Granting Authorization etc. re Port Arthur LNG, LLC et al under CP17-20 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3083",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.37,
+  "docketNumbers": [
+   "CP17-20-000",
+   "CP17-21-000",
+   "CP17-21-001",
+   "CP18-7-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7625-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-20-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 210060,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{E89940B6-F3F7-CBE4-9D92-736765C00000}-{01FF7627-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E89940B6-F3F7-CBE4-9D92-736765C00000",
+  "description": "Order Granting Authorization etc. re Driftwood LNG LLC et al under CP17-117 et al. Commissioner LaFleur is concurring with a separate statement attached. Commissioner Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190418-3085",
+  "issuedDate": "04/18/2019",
+  "filedDate": "04/18/2019",
+  "postedDate": "04/18/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 72.47,
+  "docketNumbers": [
+   "CP17-117-000",
+   "CP17-118-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01FF7627-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-117-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 167269,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COM",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BEEA27E1-C4CF-CA8E-8395-7369D0500001}-{02050910-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BEEA27E1-C4CF-CA8E-8395-7369D0500001",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas Act re Texas LNG Brownsville LLC under CP16-116. Commissioner Glick is dissenting with a separate statement attached.   \t",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3048",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.07,
+  "docketNumbers": [
+   "CP16-116-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02050910-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-116-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 165197,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAVIS ",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F8603C0F-AD24-CF45-B053-7369D0400000}-{0205090E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F8603C0F-AD24-CF45-B053-7369D0400000",
+  "description": "Order Granting Authorizations under Sections 3 And 7 ff the Natural Gas Act re Rio Grande LNG, LLC et al under CP16-454 et al. Commissioner Glick is dissenting with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3046",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.05,
+  "docketNumbers": [
+   "CP16-454-000",
+   "CP16-455-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-454-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 267618,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{CB170628-2048-C8C9-A8CD-7369D0500000}-{0205090F-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "CB170628-2048-C8C9-A8CD-7369D0500000",
+  "description": "Order Granting Authorizations under Section 3 of the Natural Gas Act re Annova LNG Common Infrastructure, LLC et al under CP16-480. Commissioner Glick is dissenting with a separate statement attached. \"For errata see accession number 20191203-3093\". ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3047",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "parent",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.84,
+  "docketNumbers": [
+   "CP16-480-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205090F-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-480-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 175694,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "DAIVS",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{4D040632-8644-C6DC-A19C-7369CDA00000}-{02050714-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "4D040632-8644-C6DC-A19C-7369CDA00000",
+  "description": "Order Granting Authorizations under Sections 3 and 7 of the Natural Gas Act re Corpus Christi Liquefaction Stage III, LLC et al under CP18-512 et al. Commissioner Glick is dissenting with a separate statement attached.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191122-3017",
+  "issuedDate": "11/22/2019",
+  "filedDate": "11/22/2019",
+  "postedDate": "11/22/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 75.7,
+  "docketNumbers": [
+   "CP18-512-000",
+   "CP18-513-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02050714-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP18-512-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 156372,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7829C7D1-661C-CA62-B7ED-736036F00000}-{02062947-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "7829C7D1-661C-CA62-B7ED-736036F00000",
+  "description": "Order on Rehearing and Stay re Rio Grande LNG, LLC et al under CP16-454 et al. Commission Glick is dissenting with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200123-3129",
+  "issuedDate": "01/23/2020",
+  "filedDate": "01/23/2020",
+  "postedDate": "01/23/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.03,
+  "docketNumbers": [
+   "CP16-454-001",
+   "CP16-455-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02062947-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP16-454-001.DOCX",
+    "fileDesc": "",
+    "fileSize": 192053,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D3DF4BD9-4181-C042-B95E-7360C0B00000}-{02073470-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D3DF4BD9-4181-C042-B95E-7360C0B00000",
+  "description": "Order Granting Authorizations Under Sections 3 and 7 of the Natural Gas Act re Jordan Cove Energy Project L.P. et al under CP17-495 et al. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200319-3077",
+  "issuedDate": "03/19/2020",
+  "filedDate": "03/19/2020",
+  "postedDate": "03/19/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.06,
+  "docketNumbers": [
+   "CP17-494-000",
+   "CP17-495-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02073470-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-495-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 490205,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": " DAVIS, SR",
+    "firstInitial": "N",
+    "middleInitial": "J"
+   }
+  ]
+ },
+ {
+  "reference": "{9E87450C-64FC-C69B-BF87-7361B6F00002}-{0208253C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "9E87450C-64FC-C69B-BF87-7361B6F00002",
+  "description": "Order Granting Authorization under Section 3 of the Natural Gas ACT re Alaska Gasline Development Corporation under CP17-178. Commissioner Glick is dissenting and Commissioner McNamee is concurring with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200521-3111",
+  "issuedDate": "05/21/2020",
+  "filedDate": "05/21/2020",
+  "postedDate": "05/21/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.16,
+  "docketNumbers": [
+   "CP17-178-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0208253C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP17-178-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 310961,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": " , ",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{071F4ADF-E2E1-CF89-85A4-824B33D00000}-{D27E693D-06B7-C499-8642-824B33E00000}",
+  "documentId": "071F4ADF-E2E1-CF89-85A4-824B33D00000",
+  "description": "Order Amending Section 3 Authorization re Freeport LNG Development, L.P. et al under CP21-470. Commissioner Danly is concurring in part with a separate statement attached. Commissioner Clements is concurring with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220729-3049",
+  "issuedDate": "07/29/2022",
+  "filedDate": "07/29/2022",
+  "postedDate": "07/29/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 73.66,
+  "docketNumbers": [
+   "CP21-470-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D27E693D-06B7-C499-8642-824B33E00000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP21-470-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 94509,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Reese",
+    "firstInitial": "D",
+    "middleInitial": "A"
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 78.86,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ }
+]
