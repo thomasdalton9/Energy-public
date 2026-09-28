@@ -545,7 +545,10 @@ def fetch_eia_exports():
         if plant is None:
             continue
         series = pd.to_numeric(raw[col], errors="coerce")
-        if re.search(r"Exports to ", c):
+        # "Exports to All Countries" is the terminal's total, not a country
+        # (adding it to the country columns doubled Plaquemines, Calcasieu
+        # Pass, Elba and Golden Pass).
+        if re.search(r"Exports to ", c) and not re.search(r"Exports to All Countries", c, re.I):
             # The same terminal-country pair appears under more than one
             # label (MMcf vs Million Cubic Feet, repeated across sheets) -
             # summing every column doubled Plaquemines, Calcasieu Pass and
@@ -561,18 +564,14 @@ def fetch_eia_exports():
             totals.setdefault(plant, []).append((c, series))
     for plant, cols in totals.items():
         print(f"  EIA exports: {plant} total from {[c for c, _ in cols]}", flush=True)
-    for (plant, country), series in sorted(by_country.items()):
-        if plant not in totals and series.notna().any():
-            labels = [str(c) for c in raw.columns if plant.split()[0].lower() in str(c).lower()
-                      and country in str(c).lower()]
-            print(f"  EIA country col: {plant} / {country}: last {series.dropna().iloc[-1]:.0f} MMcf, "
-                  f"labels {labels}", flush=True)
     totals = {pl: pd.concat([s for _, s in cols], axis=1).max(axis=1) for pl, cols in totals.items()}
     country_sums = {}
     for (plant, _), series in by_country.items():
         country_sums[plant] = country_sums[plant].add(series, fill_value=0) if plant in country_sums else series
     by_country = country_sums
-    mmcf = {pl: totals.get(pl, by_country.get(pl)) for pl in set(totals) | set(by_country)}
+    # a total where EIA gives one, the country sum for months it doesn't
+    mmcf = {pl: totals[pl].combine_first(by_country[pl]) if pl in totals and pl in by_country
+            else totals.get(pl, by_country.get(pl)) for pl in set(totals) | set(by_country)}
     days = raw.index.days_in_month
     df = pd.DataFrame({pl: v / 1000 / days * FEEDGAS_PER_EXPORT for pl, v in mmcf.items()}, index=raw.index)
     df.index = df.index.astype(str)
