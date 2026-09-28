@@ -662,6 +662,37 @@ def estimated(plants_daily, check, eia=None):
     return est.round(3), share
 
 
+HISTORY_START = date(2020, 1, 1)
+NO_DATA = "no data yet (EIA runs 2-3 months behind)"
+
+
+def best_estimate_daily(est, eia):
+    """One daily series per plant from HISTORY_START: the metered and
+    calibrated estimate where the daily pull has it, otherwise the plant's
+    EIA monthly feedgas spread flat across every day of that month (the
+    pipelines only keep ~2 years of daily postings, so EIA is the history).
+    'Source' says which: metered, EIA monthly (flat), or mixed."""
+    if eia is None or eia.empty:
+        return pd.DataFrame()
+    plants = list(dict.fromkeys(p[0] for p in POINTS))
+    eia_end = pd.Period(eia.index[-1], "M").end_time.date()
+    last = max([eia_end] + ([max(est.index)] if not est.empty else []))
+    days = pd.date_range(HISTORY_START, last, freq="D")
+    months = days.to_period("M").astype(str)
+    flat = pd.DataFrame({pl: (eia[pl].reindex(months).values if pl in eia.columns else float("nan")) for pl in plants},
+                        index=days.date)
+    metered = est.reindex(columns=plants).reindex(flat.index)
+    out = metered.combine_first(flat)
+    used_met, used_eia = metered.notna().any(axis=1), (metered.isna() & flat.notna()).any(axis=1)
+    source = pd.Series(NO_DATA, index=out.index)
+    source[used_eia] = "EIA monthly (flat)"
+    source[used_met] = "mixed (EIA flat for unmetered plants)"
+    source[used_met & ~used_eia] = "metered"
+    out["Total"] = out[plants].sum(axis=1, min_count=1)
+    out["Source"] = source
+    out.index.name = "gas_day"
+    return out.round(3)
+
 def load_points(path):
     try:
         df = pd.read_excel(path, sheet_name="Points (Dth)", index_col=0)
@@ -700,6 +731,12 @@ def notes_lines():
               "(Freeport's Texas intrastate supply above all). Plants with no share yet (the first 2-3 months, until "
               "EIA catches up with our history) carry their metered value. 'Estimated total' vs 'Metered total' "
               "shows how much is inferred.",
+              "", "BEST ESTIMATE DAILY",
+              f"'Best estimate daily': one row per gas day from {HISTORY_START:%d %b %Y}. Where the daily pipeline pull has the day, "
+              "the metered/calibrated estimate ('Estimated (calibrated)'); before that - pipelines only keep about two years of "
+              "daily postings - each plant's EIA monthly feedgas spread flat across the month, so history has no day-to-day "
+              "shape. 'Source' says which was used. The last 2-3 months before the daily pull began have no data until EIA "
+              "publishes them.",
               "", "PLANT CAPACITY",
               "'Plant capacity': operator-published nameplate liquefaction capacity by phase (mtpa of LNG) and first-LNG month. "
               f"Bcf/d = mtpa x {BCF_PER_MT_LNG:.0f} Bcf per million tonnes / 365 ('lng_out'); 'feedgas' grosses that up by "
@@ -833,7 +870,10 @@ def save(out, new):
     if share:
         print(f"  seen shares used: {share}")
 
-    sheets = {"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(), "Points (Dth)": points}
+    best = best_estimate_daily(est, eia)
+    sheets = {"Best estimate daily": best} if not best.empty else {}
+    sheets.update({"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(),
+                   "Points (Dth)": points})
     cache = load_tc_cache(out)
     if TC_AHEAD:
         ahead = pd.DataFrame.from_dict(TC_AHEAD, orient="index")
@@ -849,10 +889,11 @@ def save(out, new):
     xlsx_notes.write_workbook(args.out, sheets, notes_lines(),
                               {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
                                "TC ENERGY METERS (ANR, COLUMBIA GULF)", "PLANT CAPACITY",
+                               "BEST ESTIMATE DAILY",
                                "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
-    for name in ("Bcfd by plant", "Estimated (calibrated)", "Points (Dth)", TC_CACHE_SHEET):
+    for name in ("Best estimate daily", "Bcfd by plant", "Estimated (calibrated)", "Points (Dth)", TC_CACHE_SHEET):
         if name not in wb.sheetnames:
             continue
         ws = wb[name]
