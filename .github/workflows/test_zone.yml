@@ -1,26 +1,35 @@
 name: Test zone
 
 # Manual only - a place to try scripts on GitHub, away from the automated
-# jobs. Runs one script (normally in testing/) with every repository secret
-# exposed as an environment variable of the same name - e.g. the secret
-# ENTSOE_API_KEY is $ENTSOE_API_KEY, read in Python with
-# os.environ["ENTSOE_API_KEY"] - and commits back only what the script
-# writes under testing/. Never touches the automated jobs' folders.
+# jobs, without changing how they run on your desktop.
 #
-# Add keys under Settings -> Secrets and variables -> Actions. Never put a
-# key in a file in the repo.
+# - code_branch: the branch whose code to run (e.g. claude/new-project-
+#   setup-3eipfq). Its scripts run exactly as on your PC.
+# - API keys: the scripts import api_keys.py (gitignored, on your PC). Here
+#   it is written fresh for each run from the repository's GitHub Secrets -
+#   a secret named EIA_API_KEY becomes api_keys.EIA_API_KEY (names as in
+#   api_keys.example.py) - and every secret is also an environment variable.
+#   It only ever exists on the runner and is never committed.
+# - Outputs: files the script creates or changes are copied to
+#   testing/outputs/<script name>/ on main and committed; nothing else is.
+#
+# Add keys under Settings -> Secrets and variables -> Actions.
 on:
   workflow_dispatch:
     inputs:
+      code_branch:
+        description: "Branch whose code to run"
+        required: true
+        default: "main"
       script:
-        description: "Script to run, path from the repo root (e.g. testing/my_test.py)"
+        description: "Script to run, path from the repo root (e.g. europe/gie_storage.py)"
         required: true
       args:
         description: "Arguments for the script"
         required: false
         default: ""
       packages:
-        description: "Extra pip packages, space-separated (pandas, openpyxl, requests are always installed)"
+        description: "Extra pip packages, space-separated (pandas, openpyxl, requests, xlrd, matplotlib always installed)"
         required: false
         default: ""
       browser:
@@ -36,7 +45,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out main (where outputs are saved)
+        uses: actions/checkout@v4
+
+      - name: Check out the code to run
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.code_branch }}
+          path: code
 
       - uses: actions/setup-python@v5
         with:
@@ -47,39 +63,69 @@ jobs:
           PACKAGES: ${{ inputs.packages }}
           BROWSER: ${{ inputs.browser }}
         run: |
-          pip install pandas openpyxl requests $PACKAGES
+          pip install pandas openpyxl requests xlrd matplotlib $PACKAGES
+          if [ -f code/requirements.txt ]; then pip install -r code/requirements.txt; fi
           if [ "$BROWSER" = "true" ]; then
             pip install playwright
             python3 -m playwright install --with-deps chromium
           fi
 
-      - name: Expose repository secrets as environment variables
+      - name: Write api_keys.py and environment from repository secrets
         env:
           SECRETS_JSON: ${{ toJSON(secrets) }}
         run: |
           python3 - <<'PY'
-          import json, os
+          import json, os, re
           secrets = {k: v for k, v in json.loads(os.environ["SECRETS_JSON"]).items() if k.lower() != "github_token"}
+          # every name api_keys.example.py defines, blank unless there's a secret for it
+          names = []
+          if os.path.exists("code/api_keys.example.py"):
+              names = re.findall(r"^([A-Z][A-Z0-9_]*)\s*=", open("code/api_keys.example.py").read(), re.M)
+          with open("code/api_keys.py", "w") as f:
+              f.write('"""Written by the Test zone workflow from GitHub Secrets - runner only, never committed."""\n')
+              for name in dict.fromkeys(names + sorted(secrets)):
+                  f.write(f"{name} = {secrets.get(name, '')!r}\n")
           with open(os.environ["GITHUB_ENV"], "a") as f:
               for name, value in secrets.items():
                   f.write(f"{name}<<__SECRET_END__\n{value}\n__SECRET_END__\n")
-          print("secrets available to the script (names only):", sorted(secrets) or "none")
+          print("keys set from secrets (names only):", sorted(secrets) or "none")
+          print("keys left blank:", sorted(set(names) - set(secrets)) or "none")
           PY
 
       - name: Run script
         env:
           SCRIPT: ${{ inputs.script }}
           ARGS: ${{ inputs.args }}
-        run: python3 "$SCRIPT" $ARGS
+        run: |
+          touch "$RUNNER_TEMP/started"
+          cd code
+          python3 "$SCRIPT" $ARGS
+
+      - name: Copy outputs to testing/outputs
+        if: always()
+        env:
+          SCRIPT: ${{ inputs.script }}
+        run: |
+          dest="testing/outputs/$(basename "$SCRIPT" .py)"
+          mkdir -p "$dest"
+          cd code
+          find . -type f -newer "$RUNNER_TEMP/started" \
+            ! -path './.git/*' ! -name 'api_keys.py' ! -path '*/__pycache__/*' ! -name '*.pyc' -print |
+            while read -r f; do
+              mkdir -p "../$dest/$(dirname "$f")"
+              cp "$f" "../$dest/$f"
+              echo "saved $f"
+            done
 
       - name: Commit outputs (testing/ only)
         if: always()
         env:
           SCRIPT: ${{ inputs.script }}
+          BRANCH: ${{ inputs.code_branch }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f -- testing/ ':!**/__pycache__/**'
-          git diff --cached --quiet || git commit -m "Test zone output: $SCRIPT"
+          git add -f -- testing/ ':!**/api_keys.py' ':!**/__pycache__/**'
+          git diff --cached --quiet || git commit -m "Test zone output: $SCRIPT (from $BRANCH)"
           git pull --rebase
           git push
