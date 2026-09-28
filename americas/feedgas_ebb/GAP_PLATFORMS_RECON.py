@@ -550,6 +550,31 @@ def vg_gp_recon(context):
         pg.close()
 
 
+def quorum_history(context):
+    """Venture Global plant delivery meters (Quorum) and Golden Pass
+    Pipeline's terminal meter (gasnom) across the gas days we need."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import lng_feedgas_daily as lfd
+    from datetime import date
+    page = context.new_page()
+    page.goto("https://web-prd.myquorumcloud.com/VGPPB1IPWS/OpAvailPosting?tspno=2", wait_until="domcontentloaded", timeout=90000)
+    days = [date(2026, 9, 27), date(2026, 9, 1), date(2026, 8, 1), date(2026, 7, 1), date(2026, 6, 1), date(2026, 1, 15), date(2025, 6, 1), date(2024, 6, 1), date(2023, 6, 1)]
+    for pipe, locs in (("VGL17IPWS:10", ["VGCPD", "ANR", "TTC", "BRL"]), ("VGPPB1IPWS:2", ["VGPQD", "TGP", "TETCO", "CGT"])):
+        for day in days:
+            try:
+                f = lfd.fetch_quorum(page, pipe, day)
+                log(f"  {pipe} {day}: " + ", ".join(f"{l}={f.at[l, 'scheduled_dth']:,.0f}" for l in locs if l in f.index))
+            except Exception as e:
+                log(f"  {pipe} {day}: FAILED {type(e).__name__}: {str(e)[:200]}")
+    for day in (date(2026, 9, 27), date(2026, 8, 1), date(2026, 7, 1)):
+        try:
+            f = lfd.fetch_gasnom(page, "goldenpass", day)
+            log(f"  goldenpass {day}: Terminal={f.at['1097217', 'scheduled_dth']:,.0f}")
+        except Exception as e:
+            log(f"  goldenpass {day}: FAILED {type(e).__name__}: {str(e)[:200]}")
+    page.close()
+
+
 def covepoint_csv(context):
     """Newest Cove Point OA CSV for yesterday's gas day (the listing page
     links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
@@ -615,6 +640,8 @@ def main():
             transco_oac(context)
         if "vg_gp" in wanted:
             vg_gp_recon(context)
+        if "quorum_hist" in wanted:
+            quorum_history(context)
         if "covepoint_csv" in wanted:
             covepoint_csv(context)
         browser.close()

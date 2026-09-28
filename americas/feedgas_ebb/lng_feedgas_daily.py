@@ -517,6 +517,26 @@ def parse_transco_report(html, gas_day):
     return points_frame(df["loc"], df["name"], df["tsq"])
 
 
+QUORUM_API = "https://web-prd.myquorumcloud.com/{site}/OpAvailPosting/GetOpAvailPostings?tspno={tsp}"
+
+
+def fetch_quorum(page, pipe, gas_day):
+    """Quorum myquorumcloud informational postings (Venture Global's
+    TransCameron and Gator Express): the OA page's own JSON call, for the
+    gas day, keeping the latest cycle posted. pipe = "<site>:<tspno>"."""
+    site, tsp = pipe.split(":")
+    r = page.context.request.post(QUORUM_API.format(site=site, tsp=tsp), timeout=120000, form={
+        "sort": "", "group": "", "filter": "", "CycleId": "", "GasDay": f"{gas_day:%Y-%m-%d}", "LocId": "", "LocPurpCode": ""})
+    rows = [d for d in (r.json().get("Data") or []) if str(d.get("GasDay", ""))[:10] == f"{gas_day:%Y-%m-%d}"]
+    if not rows:
+        raise RuntimeError(f"no Quorum {pipe} posting for {gas_day}")
+    last = max(d["CycleId"] for d in rows)
+    rows = [d for d in rows if d["CycleId"] == last]
+    df = pd.DataFrame(rows)
+    print(f"  Quorum {df['TspNm'].iloc[0]}: {len(df)} points, gas day {gas_day}, cycle {df['CycleDescr'].iloc[0]}", flush=True)
+    return points_frame(df["LocId"], df["LocNm"], df["TotalSchdQty"])
+
+
 def fetch_bhe(page, pipe, gas_day):
     """BHE GT&S OA postings: the listing page links a CSV per cycle; take
     the latest-posted one for the gas day (listing is newest first)."""
@@ -548,7 +568,7 @@ def point_column(point):
 
 
 FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et, "cheniere": fetch_cheniere,
-            "tc": fetch_tc, "bhe": fetch_bhe, "transco": fetch_transco}
+            "tc": fetch_tc, "bhe": fetch_bhe, "transco": fetch_transco, "quorum": fetch_quorum}
 
 
 def fetch_all(pipelines, gas_day):
