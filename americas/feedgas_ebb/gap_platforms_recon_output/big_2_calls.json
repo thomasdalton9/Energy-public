@@ -1,0 +1,30 @@
+[
+ [
+  200,
+  "GET",
+  "https://infopost.enbridge.com/assets/data/urls.json",
+  "{\n  \"welcomeUrl\": \"https://www.enbridge.com/\",\n  \"assetsUrl\": \"https://link.enbridge.com/view/CorporateInfrastructure.pdf\",\n  \"weatherUrl\": \"https://link.enbridge.com/Weather.asp\",\n  \"boardUrl\": \"https://linkwc.enbridge.com/LinkBoard/LinkBoardAnnouncement.pdf\",\n  \"privacyUrl\": \"https://www.enbridge.com/privacy-statement\",\n  \"termsUrl\": \"https://www.enbridge.com/termsofuse\",\n  \"siteMapUrl\": \"https://infopost.enbridge.com/infopost/SiteMap.asp\",\n  \"tutorialUrl\": \"https://link.enbridge.com/Tutorials",
+  null
+ ],
+ [
+  200,
+  "GET",
+  "https://infopost.enbridge.com/api/notices-listings?noticeType=CRI",
+  "{\r\n  \"noticeType\": \"CRI\",\r\n  \"noticeTypeDescription\": \"Critical Notices\",\r\n  \"timestamp\": \"2026-09-28T08:00:00.9111473Z\",\r\n  \"totalPipelines\": 25,\r\n  \"totalNotices\": 20,\r\n  \"pipelines\": [\r\n    {\r\n      \"pipelineCode\": \"AGT\",\r\n      \"pipelineName\": \"Algonquin Gas Transmission, LLC\",\r\n      \"noticeCount\": 3,\r\n      \"notices\": [\r\n        {\r\n          \"noticeId\": \"183475\",\r\n          \"effectiveDateDisplay\": \"09/27/2026 02:36:52 PM\",\r\n          \"effectiveFromDate\": \"2026-09-27\",\r\n          \"effective",
+  null
+ ],
+ [
+  200,
+  "GET",
+  "https://infopost.enbridge.com/assets/data/businessunits.json",
+  "{\n    \"pipelines\": [\n        {\n            \"code\": \"AG\",\n            \"name\": \"Algonquin\",\n            \"description\": \"Algonquin Gas Transmission, LLC - 006951446\",\n            \"abbreviation\": \"AGT\"\n        },\n        {\n            \"code\": \"BGS\",\n            \"name\": \"Bobcat Gas Storage\",\n            \"description\": \"Bobcat Gas Storage - 614834559\",\n            \"abbreviation\": \"BGS\"\n        },\n        {\n            \"code\": \"BIG\",\n            \"name\": \"BIG Pipeline\",\n            \"description\": \"Brazo",
+  null
+ ],
+ [
+  200,
+  "GET",
+  "https://infopost.enbridge.com/api/notices-listings?noticeType=NON",
+  "{\r\n  \"noticeType\": \"NON\",\r\n  \"noticeTypeDescription\": \"NonCritical Notices\",\r\n  \"timestamp\": \"2026-09-28T08:00:01.3378670Z\",\r\n  \"totalPipelines\": 25,\r\n  \"totalNotices\": 0,\r\n  \"pipelines\": [\r\n    {\r\n      \"pipelineCode\": \"AGT\",\r\n      \"pipelineName\": \"Algonquin Gas Transmission, LLC\",\r\n      \"noticeCount\": 0,\r\n      \"notices\": []\r\n    },\r\n    {\r\n      \"pipelineCode\": \"BSP\",\r\n      \"pipelineName\": \"Big Sandy Pipeline, LLC\",\r\n      \"noticeCount\": 0,\r\n      \"notices\": []\r\n    },\r\n    {\r\n      \"pipel",
+  null
+ ]
+]

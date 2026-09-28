@@ -1,0 +1,786 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono" as="style" onload="this.rel='stylesheet'">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono" media="all" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono"></noscript>
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" as="style" onload="this.rel='stylesheet'">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" media="all" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900"></noscript>
+
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" as="style" onload="this.rel='stylesheet'">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" media="all" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700"></noscript>
+
+
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Roboto" as="style" onload="this.rel='stylesheet'">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Roboto" media="all" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Roboto"></noscript>
+
+    <title>BWP GasQuest</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- <script src="https://cdn.signalfx.com/o11y-gdi-rum/latest/splunk-otel-web.js" crossorigin="anonymous"></script> -->
+    <script>
+        // window.addEventListener('TracingStart', function(event) {
+          // const env = JSON.parse(localStorage.getItem('environment'));
+          // Set auth state at first launch (for scenarios where user is already logged-in)
+          // const authState = JSON.parse(localStorage.getItem('authState'));
+
+          // SplunkRum.init({
+          //     beaconUrl: "https://rum-ingest.us1.signalfx.com/v1/rum",
+          //     rumAuth: "bmxmnnt1i2H4oju1RE7xNg",
+          //     app: "GasQuest",
+          //     environment: env,
+          //     globalAttributes: {
+          //       environment: env,
+          //       'user.userId': authState && authState.user && authState.user.data ? authState.user.data.userId : null,
+          //       'user.email': authState && authState.user && authState.user.data ? authState.user.data.emailAddress : null,
+          //       'user.warningLogoutTime': authState ? authState.warningLogoutTime : null,
+          //       'user.logoutTime': authState ? authState.logoutTime : null,
+          //       'user.isInternal': authState ? authState.isInternal : null,
+          //     }
+          // });
+        // });
+
+        // Also subscribe to login success (for scenarios where user isn't already logged-in)
+        // window.addEventListener('FetchUserSuccess', function(event) {
+        //   const authState = JSON.parse(localStorage.getItem('authState'));
+
+        //   SplunkRum.setGlobalAttributes({
+        //     'user.userId': authState && authState.user && authState.user.data ? authState.user.data.userId : null,
+        //     'user.email': authState && authState.user && authState.user.data ? authState.user.data.emailAddress : null,
+        //     'user.warningLogoutTime': authState ? authState.warningLogoutTime : null,
+        //     'user.logoutTime': authState ? authState.logoutTime : null,
+        //     'user.isInternal': authState ? authState.isInternal : null,
+        //   });
+        // }, false);
+    </script>
+  <link rel="stylesheet" href="styles-NBYCA2OQ.css"><style>
+
+.wrapper[_ngcontent-ng-c2193729052] {
+  height: 100%;
+}
+  .container {
+  max-width: 100% !important;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+  .row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+  input.k-checkbox {
+  min-width: 16px;
+  min-height: 16px;
+}
+/*# sourceMappingURL=/app.component-YKVM3EIL.css.map */</style><style>
+
+.title-bar[_ngcontent-ng-c1253917012] {
+  padding: 13px 28px 0px 28px;
+}
+.dashboard[_ngcontent-ng-c1253917012] {
+  padding: 24px 28px 0px 28px;
+}
+.dashboard[_ngcontent-ng-c1253917012]:last-child {
+  padding-bottom: 24px;
+}
+.dashboard[_ngcontent-ng-c1253917012]   .flex[_ngcontent-ng-c1253917012] {
+  display: flex;
+  flex-basis: 1;
+}
+.dashboard[_ngcontent-ng-c1253917012]   .tsp-title[_ngcontent-ng-c1253917012] {
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 300;
+}
+.dashboard[_ngcontent-ng-c1253917012]   .dashboard-footer[_ngcontent-ng-c1253917012] {
+  padding-top: 24px;
+  border-bottom: 1px solid #dbdee3;
+  margin: 0 15px;
+}
+[_nghost-ng-c1253917012]     .dashboard app-card div._container {
+  margin-top: 24px;
+}
+.pipeline-map-dashboard[_ngcontent-ng-c1253917012] {
+  border: 1px solid #eef1f6;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 15px 0 rgba(0, 50, 168, 0.1);
+  padding: 0px;
+  margin: 24px 0px 0px 0px;
+  position: relative;
+  overflow: hidden;
+  min-height: 496px;
+  min-width: 560px;
+  height: 19vw;
+  background-size: 150% 150% !important;
+  background-position: bottom right !important;
+  background-repeat: no-repeat !important;
+}
+.pipeline-map-dashboard[_ngcontent-ng-c1253917012]   .header[_ngcontent-ng-c1253917012] {
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 300;
+  font-weight: 400;
+  margin: 24px 0px 0px 24px;
+}
+.pipeline-map-dashboard[_ngcontent-ng-c1253917012]   .icon-download[_ngcontent-ng-c1253917012] {
+  color: #223c9b;
+  cursor: pointer;
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  font-size: 24px;
+}
+.pipeline-image[_ngcontent-ng-c1253917012] {
+  width: 100%;
+  height: 100%;
+}
+/*# sourceMappingURL=/infopost-home.component-RRZYZUTG.css.map */</style><style>
+
+[_nghost-ng-c299271074] {
+  margin-bottom: 90px;
+}
+[_nghost-ng-c299271074]   footer[_ngcontent-ng-c299271074] {
+  width: 100%;
+}
+[_nghost-ng-c299271074]   .gms-container[_ngcontent-ng-c299271074] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+[_nghost-ng-c299271074]   .vertical-content-container[_ngcontent-ng-c299271074] {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+  width: calc(100% - 244px - 32px);
+}
+[_nghost-ng-c299271074]   .content-area[_ngcontent-ng-c299271074] {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+}
+[_nghost-ng-c299271074]   .Y-scroll[_ngcontent-ng-c299271074] {
+  overflow-y: scroll !important;
+}
+[_nghost-ng-c299271074]   .no-Y-scroll[_ngcontent-ng-c299271074] {
+  overflow-y: visible !important;
+}
+[_nghost-ng-c299271074]   .processing-actions-area[_ngcontent-ng-c299271074] {
+  box-shadow: inset 0 -1px 0 0 #dbdee3;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 28px;
+  height: 64px;
+  min-height: 64px;
+  box-sizing: border-box;
+}
+[_nghost-ng-c299271074]   .processing-actions-area[_ngcontent-ng-c299271074]:empty {
+  display: none;
+}
+[_nghost-ng-c299271074]   .navigation-area[_ngcontent-ng-c299271074] {
+  display: flex;
+  flex-direction: row;
+}
+[_nghost-ng-c299271074]   .processing-actions-area[_ngcontent-ng-c299271074]     processing-actions-left .k-dropdown .k-dropdown-wrap {
+  border: none;
+}
+.footer-text[_ngcontent-ng-c299271074] {
+  font-family: Roboto, sans-serif;
+  text-align: center;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  line-height: 1.5;
+  color: #2c3e50;
+  font-size: 14px;
+  margin-right: 35px;
+  font-weight: normal;
+  float: inline-end;
+}
+/*# sourceMappingURL=/infopost-nav-container.component-Q7SH3EX2.css.map */</style><style>
+
+.left[_ngcontent-ng-c3956629787] {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.active[_ngcontent-ng-c3956629787] {
+  color: #223c9b;
+  border-right: 4px solid #223c9b;
+}
+/*# sourceMappingURL=/sidebar-nav.component-BR2WDCR7.css.map */</style><style>
+
+.gms-container[_ngcontent-ng-c3985693727] {
+  background: #fff;
+  height: 100%;
+  padding: 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  position: relative;
+  box-sizing: border-box;
+  background: rgb(247, 248, 252);
+  background: -moz-linear-gradient(left, rgb(247, 248, 252) 0%, rgb(247, 248, 252) 85%, rgb(231, 233, 238) 100%);
+  background: -webkit-linear-gradient(left, rgb(247, 248, 252) 0%, rgb(247, 248, 252) 85%, rgb(231, 233, 238) 100%);
+  background:
+    linear-gradient(
+      to right,
+      rgb(247, 248, 252) 0%,
+      rgb(247, 248, 252) 85%,
+      rgb(231, 233, 238) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f7f8fc", endColorstr="#e7e9ee", GradientType=1);
+}
+.wrapper[_ngcontent-ng-c3985693727] {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+.expand-button-wrapper[_ngcontent-ng-c3985693727] {
+  position: relative;
+  height: 100%;
+}
+.expand-button-container[_ngcontent-ng-c3985693727] {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 10;
+  height: 24px;
+}
+[_nghost-ng-c3985693727]     .gms-container.expanded .left.infopost-web {
+  width: 239px;
+}
+[_nghost-ng-c3985693727]     .gms-container .shrink {
+  transition: max-width 0.5s;
+  overflow: hidden;
+}
+[_nghost-ng-c3985693727]     .gms-container.collapsed .pop-over {
+  right: initial;
+  left: 8px;
+}
+[_nghost-ng-c3985693727]     .gms-container.collapsed .pop-over:after {
+  left: 26px;
+}
+[_nghost-ng-c3985693727]     .gms-container.collapsed .item-icon {
+  width: 30px;
+}
+[_nghost-ng-c3985693727]     .gms-container.expanded .item-icon {
+  width: 27px;
+}
+[_nghost-ng-c3985693727]     .gms-container.collapsed .shrink {
+  max-width: 0;
+}
+[_nghost-ng-c3985693727]     .gms-container.expanded .shrink {
+  max-width: auto;
+  width: 100%;
+}
+/*# sourceMappingURL=/sidebar-nav-container.component-RZ7O6I5L.css.map */</style><style>
+
+.logo-container[_ngcontent-ng-c1531871811] {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.logo-expanded-container[_ngcontent-ng-c1531871811], 
+.logo-collapsed-container[_ngcontent-ng-c1531871811], 
+.secondary-logo-container[_ngcontent-ng-c1531871811] {
+  position: relative;
+  width: 100%;
+  transition: opacity 0.5s, top 0.5s;
+  display: flex;
+  justify-content: center;
+}
+.logo-icon[_ngcontent-ng-c1531871811] {
+  transition: width 0.5s;
+  backface-visibility: visible;
+}
+.logo-expanded-container.expanded[_ngcontent-ng-c1531871811] {
+  opacity: 1;
+}
+.logo-expanded-container.expanded[_ngcontent-ng-c1531871811]   .logo-icon[_ngcontent-ng-c1531871811] {
+  width: 185px;
+}
+.logo-expanded-container.collapsed[_ngcontent-ng-c1531871811] {
+  opacity: 0;
+}
+.logo-expanded-container.collapsed[_ngcontent-ng-c1531871811]   .logo-icon[_ngcontent-ng-c1531871811] {
+  width: 155px;
+}
+.logo-collapsed-container.expanded[_ngcontent-ng-c1531871811] {
+  opacity: 0;
+}
+.logo-collapsed-container.expanded[_ngcontent-ng-c1531871811]   .logo-icon[_ngcontent-ng-c1531871811] {
+  width: 48px;
+}
+.logo-collapsed-container.collapsed[_ngcontent-ng-c1531871811] {
+  opacity: 1;
+}
+.logo-collapsed-container.collapsed[_ngcontent-ng-c1531871811]   .logo-icon[_ngcontent-ng-c1531871811] {
+  width: 40px;
+}
+.secondary-logo-container.expanded[_ngcontent-ng-c1531871811], 
+.secondary-logo-container.collapsed[_ngcontent-ng-c1531871811] {
+  opacity: 1;
+}
+.secondary-logo-container.expanded[_ngcontent-ng-c1531871811]   .logo-icon[_ngcontent-ng-c1531871811], 
+.secondary-logo-container.collapsed[_ngcontent-ng-c1531871811]   .logo-icon[_ngcontent-ng-c1531871811] {
+  width: 100px;
+}
+.link[_ngcontent-ng-c1531871811] {
+  text-decoration: none;
+}
+.divider[_ngcontent-ng-c1531871811] {
+  border-bottom: 1px solid #bfc5ca;
+  margin: 10px 16px;
+}
+/*# sourceMappingURL=/sidebar-nav-logo.component-UBHYMNN5.css.map */</style><style>
+
+div.btn-group[_ngcontent-ng-c76693555], 
+div.btn-group-vertical[_ngcontent-ng-c76693555] {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+button.btn-group[_ngcontent-ng-c76693555]   .btn.btn-secondary[_ngcontent-ng-c76693555]:active {
+  background-color: #f5f6fa;
+}
+button.btn-secondary[_ngcontent-ng-c76693555]:not(:disabled):not(.disabled):active:focus, 
+button.btn-secondary[_ngcontent-ng-c76693555]:not(:disabled):not(.disabled).active:focus, 
+button.show[_ngcontent-ng-c76693555]    > .btn-secondary.dropdown-toggle[_ngcontent-ng-c76693555]:focus {
+  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+button.btn[_ngcontent-ng-c76693555] {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+button[_ngcontent-ng-c76693555]   .btn-group[_ngcontent-ng-c76693555]    > .btn[_ngcontent-ng-c76693555], 
+button[_ngcontent-ng-c76693555]   .btn-group-vertical[_ngcontent-ng-c76693555]    > .btn[_ngcontent-ng-c76693555] {
+  position: relative;
+  flex: 1 1 auto;
+}
+button[_ngcontent-ng-c76693555]   button[_ngcontent-ng-c76693555]:not(:disabled), 
+button[_ngcontent-ng-c76693555]   [type=button][_ngcontent-ng-c76693555]:not(:disabled), 
+button[_ngcontent-ng-c76693555]   [type=reset][_ngcontent-ng-c76693555]:not(:disabled), 
+button[_ngcontent-ng-c76693555]   [type=submit][_ngcontent-ng-c76693555]:not(:disabled) {
+  cursor: pointer;
+}
+button.dropdown-toggle[_ngcontent-ng-c76693555] {
+  white-space: nowrap;
+}
+button[_ngcontent-ng-c76693555]   *[_ngcontent-ng-c76693555], 
+button[_ngcontent-ng-c76693555]   *[_ngcontent-ng-c76693555]::before, 
+button[_ngcontent-ng-c76693555]   *[_ngcontent-ng-c76693555]::after {
+  box-sizing: border-box;
+}
+button.dropdown-toggle[_ngcontent-ng-c76693555]::after {
+  display: inline-block;
+  vertical-align: 0.09em;
+  content: "";
+  border-top: 0.5em solid;
+  border-right: 0.5em solid transparent;
+  border-bottom: 0;
+  border-left: 0.5em solid transparent;
+}
+div.dropdown-menu.show[_ngcontent-ng-c76693555] {
+  display: block;
+}
+div.dropdown-menu.show[_ngcontent-ng-c76693555]:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 8px solid transparent;
+  border-bottom: 8px solid white;
+  border-right: 8px solid transparent;
+  right: 55px;
+  top: -8px;
+}
+div.dropdown-menu[_ngcontent-ng-c76693555] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.125rem 0;
+  margin: 0.625rem 0 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px 4px #ebecf3;
+}
+*[_ngcontent-ng-c76693555], 
+*[_ngcontent-ng-c76693555]::before, 
+*[_ngcontent-ng-c76693555]::after {
+  box-sizing: border-box;
+}
+div.dropdown-item[_ngcontent-ng-c76693555] {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+a[_ngcontent-ng-c76693555] {
+  color: #4a90e2;
+  text-decoration: none;
+  background-color: transparent;
+}
+*[_ngcontent-ng-c76693555], 
+*[_ngcontent-ng-c76693555]::before, 
+*[_ngcontent-ng-c76693555]::after {
+  box-sizing: border-box;
+}
+a[_ngcontent-ng-c76693555], 
+.global-link[_ngcontent-ng-c76693555] {
+  text-decoration: none;
+  color: #4a90e2;
+}
+a.dropdown-item[_ngcontent-ng-c76693555] {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-size: 0.875rem;
+  color: #223c9b;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+a.dropdown-item.dropdown-item[_ngcontent-ng-c76693555]:hover, 
+a.dropdown-item.dropdown-item[_ngcontent-ng-c76693555]:focus {
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+a[_ngcontent-ng-c76693555]   a[_ngcontent-ng-c76693555] {
+  color: #4a90e2;
+  text-decoration: none;
+  background-color: transparent;
+}
+a[_ngcontent-ng-c76693555]   *[_ngcontent-ng-c76693555], 
+a[_ngcontent-ng-c76693555]   *[_ngcontent-ng-c76693555]::before, 
+a[_ngcontent-ng-c76693555]   *[_ngcontent-ng-c76693555]::after {
+  box-sizing: border-box;
+}
+a[_ngcontent-ng-c76693555]   a[_ngcontent-ng-c76693555], 
+a.global-link[_ngcontent-ng-c76693555] {
+  text-decoration: none;
+  color: #4a90e2;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn[_ngcontent-ng-c76693555] {
+  border-radius: 3px;
+  border: none;
+  text-transform: uppercase;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.regular[_ngcontent-ng-c76693555] {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  min-width: 136px;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.large[_ngcontent-ng-c76693555] {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  min-width: 172px;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-primary[_ngcontent-ng-c76693555] {
+  color: #ffffff;
+  background-color: #223c9b;
+  box-shadow: 0 2px 5px 0 rgba(0, 45, 97, 0.2);
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-primary.primary-option[_ngcontent-ng-c76693555] {
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+  min-width: 100px;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-primary.dropdown-toggle[_ngcontent-ng-c76693555] {
+  min-width: 40px;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-primary[_ngcontent-ng-c76693555]:hover {
+  background-color: #2c3e50;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-primary.disabled[_ngcontent-ng-c76693555], 
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-primary.disabled[_ngcontent-ng-c76693555]:hover {
+  background-color: #e0e2e7;
+  color: #bfc5ca;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-secondary[_ngcontent-ng-c76693555] {
+  background-color: #ffffff;
+  color: #223c9b;
+  font-weight: normal !important;
+  padding-left: 0 !important;
+  text-transform: none;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.btn-secondary[_ngcontent-ng-c76693555]:active {
+  background-color: #f5f6fa;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.primary-dropdown-button[_ngcontent-ng-c76693555] {
+  background-color: #223c9b;
+  color: #ffffff;
+  min-width: 100px;
+  padding-left: 12px !important;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn.primary-dropdown-button.disabled[_ngcontent-ng-c76693555], 
+.btn-group[_ngcontent-ng-c76693555]   .btn.primary-dropdown-button.disabled[_ngcontent-ng-c76693555]:hover {
+  background-color: #dbdee3;
+  color: #abb4be;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn[_ngcontent-ng-c76693555]:active {
+  border: none;
+  box-shadow: none;
+}
+.btn-group[_ngcontent-ng-c76693555]   .btn[_ngcontent-ng-c76693555]:focus {
+  border: none;
+  box-shadow: none;
+}
+.dropdown-item.with-icon[_ngcontent-ng-c76693555] {
+  padding-left: 16px;
+}
+.dropdown-menu[_ngcontent-ng-c76693555]   a[_ngcontent-ng-c76693555]:active {
+  background-color: #f5f6fa;
+  color: #2c3e50;
+}
+.btn-group.align-menu-right[_ngcontent-ng-c76693555]   .dropdown-menu[_ngcontent-ng-c76693555] {
+  right: 0 !important;
+  left: auto;
+}
+.menu-icon[_ngcontent-ng-c76693555] {
+  position: relative;
+  top: 5px;
+  padding-right: 8px;
+  font-size: 1.25rem;
+}
+.dropdown-element-divider[_ngcontent-ng-c76693555] {
+  border-bottom: 1px solid #dbdee3;
+  padding-bottom: 8px;
+  margin-bottom: 5px;
+}
+.dropdown-item[_ngcontent-ng-c76693555] {
+  color: #2c3e50;
+}
+.dropdown-item[_ngcontent-ng-c76693555]:active, 
+.dropdown-item[_ngcontent-ng-c76693555]:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.dropdown-item[_ngcontent-ng-c76693555]:hover {
+  cursor: pointer;
+}
+.dropdown-item-disabled[_ngcontent-ng-c76693555] {
+  color: #abb4be !important;
+}
+.dropdown-item-disabled[_ngcontent-ng-c76693555]:hover, 
+.dropdown-item-disabled[_ngcontent-ng-c76693555]:active {
+  cursor: not-allowed;
+}
+/*# sourceMappingURL=/combo-button.component-SMJ6X3CR.css.map */</style><style>
+
+.error-panel-content-container[_ngcontent-ng-c2849384042] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+}
+.main-message[_ngcontent-ng-c2849384042] {
+  text-align: center;
+  margin-bottom: 8px;
+  color: #abb4be;
+}
+.sub-message[_ngcontent-ng-c2849384042] {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #abb4be;
+}
+.icon[_ngcontent-ng-c2849384042] {
+  margin: 0;
+  color: #e1e4ed;
+  font-size: 120px;
+}
+/*# sourceMappingURL=/error-panel.component-YNPHGBKQ.css.map */</style><style>
+
+.wrapper[_ngcontent-ng-c3000296953] {
+  padding: 20px 28px;
+  box-shadow: inset 0 -1px 0 0 #dbdee3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  box-sizing: border-box;
+}
+.header-title[_ngcontent-ng-c3000296953] {
+  font-family: Montserrat, sans-serif;
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #2c3e50;
+  display: inline-block;
+}
+/*# sourceMappingURL=/header.component-GB4E5AY3.css.map */</style><style>
+
+[_nghost-ng-c840805794] {
+  z-index: 1000;
+}
+[_nghost-ng-c840805794]   .app-loading-spinner[_ngcontent-ng-c840805794] {
+  display: block;
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+[_nghost-ng-c840805794]   .app-loading-spinner[_ngcontent-ng-c840805794]   .position-wrapper[_ngcontent-ng-c840805794] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+/*# sourceMappingURL=/loading-spinner.component-2D5NSCPM.css.map */</style><style>
+
+.gms-container[_ngcontent-ng-c3984491381] {
+  color: inherit;
+  transition: background 0.3s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  border-right: 4px solid rgba(155, 155, 155, 0);
+}
+.gms-container[_ngcontent-ng-c3984491381]:hover, 
+.gms-container[_ngcontent-ng-c3984491381]:focus {
+  background: rgba(44, 62, 80, 0.08);
+  color: #223c9b;
+}
+.selected[_ngcontent-ng-c3984491381] {
+  background: rgba(44, 62, 80, 0.08);
+  color: #223c9b;
+}
+.item-icon[_ngcontent-ng-c3984491381] {
+  padding: 12px 16px;
+  font-size: 24px;
+  box-sizing: content-box;
+  display: flex;
+  justify-content: center;
+  transition: width 0.5s;
+}
+.link[_ngcontent-ng-c3984491381] {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.link.active.gms-container[_ngcontent-ng-c3984491381], 
+.link.active[_ngcontent-ng-c3984491381]   .gms-container[_ngcontent-ng-c3984491381] {
+  color: #223c9b;
+  border-right: 4px solid #223c9b;
+  font-weight: bold;
+}
+a[_ngcontent-ng-c3984491381]:focus   .gms-container[_ngcontent-ng-c3984491381], 
+a[_ngcontent-ng-c3984491381]:focus {
+  outline-style: solid;
+  outline-color: #223c9b;
+  outline-width: 1px;
+}
+.arrow-right-icon[_ngcontent-ng-c3984491381] {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+  transition: color 0.3s;
+}
+.arrow-right-icon[_ngcontent-ng-c3984491381]:hover {
+  color: #223c9b;
+}
+/*# sourceMappingURL=/sidebar-nav-item.component-KDETPTG7.css.map */</style></head>
+  <body>
+    <app-root ng-version="19.2.15" _nghost-ng-c2193729052=""><div _ngcontent-ng-c2193729052="" class="wrapper"><router-outlet _ngcontent-ng-c2193729052=""></router-outlet><app-infopost-home _nghost-ng-c1253917012=""><app-infopost-nav-container _ngcontent-ng-c1253917012="" _nghost-ng-c299271074="" ng-reflect-title="Informational Postings" ng-reflect-menu-item-type="INFOPOST"><div _ngcontent-ng-c299271074="" class="gms-container"><div _ngcontent-ng-c299271074="" class="navigation-area"><app-infopost-sidebar-nav _ngcontent-ng-c299271074="" _nghost-ng-c3956629787="" ng-reflect-menu-item-type="INFOPOST"><app-sidebar-nav-container _ngcontent-ng-c3956629787="" _nghost-ng-c3985693727=""><div _ngcontent-ng-c3985693727="" class="wrapper"><div _ngcontent-ng-c3985693727="" id="sidebar-menu" class="gms-container expanded" ng-reflect-ng-class="[object Object]" style="width: 240px;"><div _ngcontent-ng-c3956629787="" class="left infopost-web"><div _ngcontent-ng-c3956629787=""><app-sidebar-nav-logo _ngcontent-ng-c3956629787="" collapsedimage="/assets/svg/gasquest-logo.svg" expandedimage="/assets/svg/gasquest-logo-right.svg" id="main-home-icon" _nghost-ng-c1531871811="" ng-reflect-collapsed-image="/assets/svg/gasquest-logo.svg" ng-reflect-expanded-image="/assets/svg/gasquest-logo-righ"><div _ngcontent-ng-c1531871811="" id="home-icon" class="logo-container"><div _ngcontent-ng-c1531871811="" class="logo-expanded-container expanded" ng-reflect-ng-class="[object Object]"><a _ngcontent-ng-c1531871811="" routerlink="" class="link" ng-reflect-router-link="" href="/"><img _ngcontent-ng-c1531871811="" alt="GasQuest" class="logo-icon" src="/assets/svg/gasquest-logo-right.svg"></a></div><!--container--><!--container--><!--container--></div><div _ngcontent-ng-c1531871811="" class="divider"></div></app-sidebar-nav-logo><app-infopost-sidebar-nav-item _ngcontent-ng-c3956629787="" _nghost-ng-c3984491381="" id="infopost-home" ng-reflect-config="[object Object]" ng-reflect-menu-item-type="INFOPOST" ng-reflect-menu-guards="[object Object]"><a _ngcontent-ng-c3984491381="" tabindex="0" routerlinkactive="active" class="link active" ng-reflect-router-link-active="active" ng-reflect-router-link="/informational-posting" ng-reflect-router-link-active-options="[object Object]" href="/informational-posting"><div _ngcontent-ng-c3984491381="" class="gms-container" id="infopost-home"><i _ngcontent-ng-c3984491381="" class="icon-info item-icon"></i><span _ngcontent-ng-c3984491381="" class="shrink label"> Informational Postings </span></div></a><!--container--><!--container--><!--container--><!--ng-container--><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--></app-infopost-sidebar-nav-item><app-infopost-sidebar-nav-item _ngcontent-ng-c3956629787="" _nghost-ng-c3984491381="" id="customer-activities-main" ng-reflect-config="[object Object]" ng-reflect-menu-item-type="INFOPOST" ng-reflect-menu-guards="[object Object]"><a _ngcontent-ng-c3984491381="" tabindex="0" routerlinkactive="active" class="link" ng-reflect-router-link-active="active" ng-reflect-router-link="/home" ng-reflect-router-link-active-options="[object Object]" href="/home"><div _ngcontent-ng-c3984491381="" class="gms-container" id="customer-activities-main"><i _ngcontent-ng-c3984491381="" class="icon-customer-activities item-icon"></i><span _ngcontent-ng-c3984491381="" class="shrink label"> Customer Activities </span></div></a><!--container--><!--container--><!--container--><!--ng-container--><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--></app-infopost-sidebar-nav-item><!--container--><!--ng-container--></div><div _ngcontent-ng-c3956629787=""><!--container--><!--ng-container--><!--container--></div></div><!--container--></div><div _ngcontent-ng-c3985693727="" class="expand-button-wrapper"><div _ngcontent-ng-c3985693727="" tabindex="0" id="expand-button" class="expand-button-container"><!--bindings={
+  "ng-reflect-ng-if": "false"
+}--><img _ngcontent-ng-c3985693727="" src="assets/svg/collapse-btn.svg" alt=""><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--></div></div></div></app-sidebar-nav-container></app-infopost-sidebar-nav></div><div _ngcontent-ng-c299271074="" class="vertical-content-container"><div _ngcontent-ng-c299271074="" class="header-area"><app-header _ngcontent-ng-c299271074="" _nghost-ng-c3000296953="" ng-reflect-title="Informational Postings"><div _ngcontent-ng-c3000296953="" class="wrapper"><div _ngcontent-ng-c3000296953="" class="header-title">Informational Postings</div><div _ngcontent-ng-c3000296953="" data-cy="tsp-wrapper-div" class="tsp-wrapper"><app-infopost-tsp-selector _ngcontent-ng-c1253917012="" ng-reflect-can-view-all="false"><app-combo-button _nghost-ng-c76693555="" ng-reflect-config="[object Object]" ng-reflect-options="[object Object],[object Object" ng-reflect-label="Select a TSP"><div _ngcontent-ng-c76693555="" tabindex="0" class="btn-group align-menu-right" ng-reflect-ng-class="[object Object]"><button _ngcontent-ng-c76693555="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn dropdown-toggle small btn-secondary enabled" id="-inner" ng-reflect-ng-class="small,btn-secondary,enabled"> Select a TSP </button><div _ngcontent-ng-c76693555="" data-cy="dropdown-menu-div" class="dropdown-menu" ng-reflect-ng-class="[object Object]"><a _ngcontent-ng-c76693555="" tabindex="0" class="dropdown-item" data-cy="078444247 - Gulf South Pipeline Company, LLC" data-display="078444247 - Gulf South Pipeline Company, LLC">078444247 - Gulf South Pipeline Company, LLC</a><a _ngcontent-ng-c76693555="" tabindex="0" class="dropdown-item" data-cy="078657183 - Boardwalk Storage Company, LLC" data-display="078657183 - Boardwalk Storage Company, LLC">078657183 - Boardwalk Storage Company, LLC</a><a _ngcontent-ng-c76693555="" tabindex="0" class="dropdown-item" data-cy="118287835 - Boardwalk Louisiana Gas Transmission, LLC" data-display="118287835 - Boardwalk Louisiana Gas Transmission, LLC">118287835 - Boardwalk Louisiana Gas Transmission, LLC</a><a _ngcontent-ng-c76693555="" tabindex="0" class="dropdown-item" data-cy="115972101 - Texas Gas Transmission, LLC" data-display="115972101 - Texas Gas Transmission, LLC">115972101 - Texas Gas Transmission, LLC</a><!--bindings={
+  "ng-reflect-ng-for-of": "[object Object],[object Object"
+}--></div></div><!--bindings={
+  "ng-reflect-ng-if": "true"
+}--><!--bindings={
+  "ng-reflect-ng-if": "false"
+}--></app-combo-button></app-infopost-tsp-selector></div></div></app-header></div><!--container--><div _ngcontent-ng-c299271074="" class="processing-actions-area" ng-reflect-ng-style="[object Object]" style="height: 64px; padding: 12px 28px;"></div><!--container--><div _ngcontent-ng-c299271074=""></div><div _ngcontent-ng-c299271074="" ng-reflect-ng-class="content-area Y-scroll" class="content-area Y-scroll"><gms-loading-spinner _ngcontent-ng-c299271074="" _nghost-ng-c840805794=""><!--bindings={
+  "ng-reflect-ng-if": null
+}--></gms-loading-spinner><!--container--><!--container--><view-body _ngcontent-ng-c1253917012=""><!--container--><div _ngcontent-ng-c1253917012="" ng-reflect-ng-class="[object Object]" class="global-gms-container"><gms-error-and-notice-panel _ngcontent-ng-c1253917012="" _nghost-ng-c2849384042="" ng-reflect-main-message="Please select a TSP"><div _ngcontent-ng-c2849384042="" class="error-panel-content-container"><span _ngcontent-ng-c2849384042="" class="main-message h3">Please select a TSP</span><span _ngcontent-ng-c2849384042="" class="sub-message p">There is currently nothing to be displayed.</span><i _ngcontent-ng-c2849384042="" class="icon icon-drought" ng-reflect-ng-class="icon-drought"></i><!--bindings={
+  "ng-reflect-ng-if": "false"
+}--></div></gms-error-and-notice-panel><!--container--><!--container--></div></view-body><!--container--></div><footer _ngcontent-ng-c299271074=""><span _ngcontent-ng-c299271074="" class="footer-text">Copyright ©2026 Boardwalk Pipeline Partners, LP</span></footer></div></div></app-infopost-nav-container></app-infopost-home><!--container--></div></app-root>
+  <link rel="modulepreload" href="chunk-WRSGI5NB.js"><link rel="modulepreload" href="chunk-HUMBXVGP.js"><link rel="modulepreload" href="chunk-MFDFPHZJ.js"><link rel="modulepreload" href="chunk-KUGNRA2M.js"><link rel="modulepreload" href="chunk-AJRKZ6FW.js"><link rel="modulepreload" href="chunk-V6Z5YXUS.js"><link rel="modulepreload" href="chunk-YLBJOXQN.js"><link rel="modulepreload" href="chunk-VB57EPB5.js"><link rel="modulepreload" href="chunk-32MXKGUC.js"><link rel="modulepreload" href="chunk-RT52U4XJ.js"><script src="polyfills-5YRVRG7W.js" type="module"></script><script src="scripts-GKY3L54U.js" defer=""></script><script src="main-355FIQXJ.js" type="module"></script>
+
+</body></html>
