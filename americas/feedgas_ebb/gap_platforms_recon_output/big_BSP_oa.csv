@@ -1,0 +1,4 @@
+Cycle_Desc,Post_Date,Eff_Gas_Day,Cap_Type_Desc,Post_Time,Eff_Time,Loc,Loc_Name,Loc_Zn,Flow_Ind_Desc,Loc_Purp_Desc,Loc_QTI_Desc,Meas_Basis_Desc,IT,All_Qty_Avail,Total_Design_Capacity,Operating_Capacity,Total_Scheduled_Quantity,Operationally_Available_Capacity,TSP_Name,TSP
+INTRDY_2026-09-28_0600,09-28-2026,09-27-2026,Operational Capacity,06:00,09:00,95001,TGP Glancy Fork,,Delivery,Delivery Location,Delivery Point Quantity,MMBtu,N,Y,"230,420","230,420",0,"230,420",BSP,968195714
+INTRDY_2026-09-28_0600,09-28-2026,09-27-2026,Operational Capacity,06:00,09:00,95002,Mark West - Langley Processing,,Receipt,Receipt Location,Receipt Point Quantity,MMBtu,N,Y,"230,420","230,420",0,"230,420",BSP,968195714
+
