@@ -33,6 +33,8 @@ QUERIES = {
     "calcasieu": "Calcasieu Pass introduce hazardous fluids",
     "plaquemines": "Plaquemines LNG introduce hazardous fluids",
     "goldenpass": "Golden Pass LNG introduce hazardous fluids",
+    # Sabine Pass Trains 1-2 commissioned in 2015, before the wording above
+    "sabine2015": ("Sabine Pass Liquefaction commissioning", "2014-06-01", "2016-06-30"),
 }
 
 
@@ -63,8 +65,9 @@ def print_hits(data):
         log(f"    HIT {date.group(1)[:10] if date else '?'} {sorted(set(dockets))[:3]} {desc.group(1) if desc else flat[:250]}")
 
 
-def run_query(page, tag, text):
-    log(f"\n==================== {tag}: {text!r} ====================")
+def run_query(page, tag, query):
+    text, start, end = query if isinstance(query, tuple) else (query, "2010-01-01", "2026-12-31")
+    log(f"\n==================== {tag}: {text!r} ({start} to {end}) ====================")
     # 1. the search API directly, every page; keep FERC's own issuances
     #    (staff letters) that grant hazardous-fluid / commissioning / service
     wanted = re.compile(r"hazardous fluid|commission|fuel gas|feed gas|in-service|in service|commence service|"
@@ -72,7 +75,7 @@ def run_query(page, tag, text):
     kept, total = [], None
     try:
         for cur in range(12):
-            body = api_body(text)
+            body = api_body(text, start, end)
             body["curPage"] = cur
             r = page.context.request.post(API, data=body, timeout=120000)
             if not r.ok:
