@@ -24,6 +24,7 @@ on:
           - KM_GCX_RETRIEVE_DISCOVERY.py
           - KM_CAPACITY_DISCOVERY.py
           - FEEDGAS_PIPES_DISCOVERY.py
+          - FERC_FUELGAS_DATES.py
       args:
         description: "Optional extra arguments for the script (e.g. pipeline codes for KM_OPAVAIL_SCAN.py)"
         required: false
