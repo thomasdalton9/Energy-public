@@ -1,0 +1,149 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="x-ua-compatible" content="IE=9">
+
+
+
+<script type="text/javascript">
+
+//alert(document.location.toString().indexOf('nomobile'));
+	
+if (((navigator.userAgent.indexOf('iPhone') != -1) 
+	|| (navigator.userAgent.indexOf('iPod') != -1)
+	|| (navigator.userAgent.indexOf('BlackBerry') != -1)
+	|| (navigator.userAgent.indexOf('Android') != -1))
+	&& document.location.toString().indexOf('nomobile') == -1)
+{  
+	document.location = "MobileInfoPost.aspx"; 
+}
+
+</script>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link rel="icon" href="favicon.ico?v=1" type="image/x-icon"><link rel="shortcut icon" href="favicon.ico?v=1" type="image/x-icon"><title>
+	TC eConnects Application
+</title>
+   
+       <style>
+        html, body
+        {
+            margin: 0; /* Remove body margin/padding */
+            padding: 0; /*overflow: hidden; */
+            height: 100%;
+        }
+        iframe
+        {
+            padding: 0 !important; /* iframes should not have padding */
+        }
+        #main {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #infoPostFrameContainer {
+            flex: 1;
+            overflow: hidden;
+        }
+        #infoPostFrame {
+            height: 100% !important;
+        }
+    </style>
+        
+
+    <link href="include/shadowbox-3.0.3/shadowbox.css?v=1" rel="stylesheet" type="text/css"><link href="include/css/default-infopost.css?v=2" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript">
+        var GB_ROOT_DIR = "../greybox/";
+        var TabIndex = 1;
+    </script>
+
+
+<script src="include/jquery/js/jquery-3.7.1.min.js?v=639261736886418964" type="text/javascript"></script><script src="include/shadowbox-3.0.3/shadowbox.js?v=639261736886418964" type="text/javascript"></script><script src="include/javascript/default.js?v=639261736886418964" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="css/example_theme.css?v=2">
+     <script type="text/javascript" src="scripts/liveMenu.js"></script>
+
+
+
+
+     <script type="text/javascript">
+     	liveMenu.initOnLoad('liveMenu1', { showOn: 'mouseover' });
+
+     	var counter;
+     	counter = 0;
+
+     	function KeepSession() {
+     	    counter++;
+     	    var img = document.getElementById("imgSessionCheck");
+     	    img.src = "KeepAlive.aspx?count=" + counter;
+     	    setTimeout(KeepSession, 60000);
+     	}
+
+     	jQuery(document).ready(function () {
+     	    KeepSession();
+     	});
+
+     </script>
+
+
+</head>
+<body>
+
+    <form name="aspnetForm" method="post" action="Default.aspx?assetid=0" id="aspnetForm">
+    <div id="main" style="z-index:auto">
+        <!-- Company Logo/Home Link -->
+        <div id="logo">
+
+			<a id="logoLink" href="Default.aspx?assetid=0">
+                <img id="logoImage" src="content/Logo0.gif?v=1" height="60">
+
+            </a>
+
+			
+        </div>
+
+        <!-- Main Navigation -->
+		
+        <div id="horizontal-menu" style="z-index: 99999">
+            <ul id="liveMenu1" class="lm-horizontal lm-menu">
+                <li id="submenu1_opener"><a href="#"><span class="down">Pipeline</span></a>
+					
+				</li>
+		
+                <li id="submenu2_opener"><a href="#"><span class="down">Logon</span></a>
+					
+				</li>
+		   </ul>
+	<div class="lm-container"><ul class="lm-down lm-vertical lm-submenu" id="submenu1" style="display: block;">
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3005', 'ANR Pipeline Company (ANR)');"><span>ANR Pipeline Company (ANR)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3009', 'ANR Storage Company (ANRSC)');"><span>ANR Storage Company (ANRSC)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3031', 'Bison Pipeline LLC (BISON)');"><span>Bison Pipeline LLC (BISON)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3014', 'Blue Lake Gas Storage Company (BLGSC)');"><span>Blue Lake Gas Storage Company (BLGSC)</span></a></li>
+						<li><a href="javascript:void(0)" onclick="changeAsset('51', 'Columbia Gas Transmission (TCO)');"><span>Columbia Gas Transmission (TCO)</span></a></li>
+						<li><a href="javascript:void(0)" onclick="changeAsset('14', 'Columbia Gulf Transmission (CGT)');"><span>Columbia Gulf Transmission (CGT)</span></a></li>
+						<li><a href="javascript:void(0)" onclick="changeAsset('44', 'Crossroads Pipeline (XRD)');"><span>Crossroads Pipeline (XRD)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3012', 'Eaton Rapids Gas Storage System (ERGSS)');"><span>Eaton Rapids Gas Storage System (ERGSS)</span></a></li>
+						<li><a href="javascript:void(0)" onclick="changeAsset('465', 'Hardy Storage Company (HRD)');"><span>Hardy Storage Company (HRD)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('26', 'Millennium Pipeline (MPC)');"><span>Millennium Pipeline (MPC)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3027', 'North Baja Pipeline, LLC (BAJA)');"><span>North Baja Pipeline, LLC (BAJA)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3029', 'Northern Border Pipeline Company (NBPL)');"><span>Northern Border Pipeline Company (NBPL)</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="changeAsset('3119', 'TC Louisiana Intrastate Pipeline LLC (TCLI)');"><span>TC Louisiana Intrastate Pipeline LLC (TCLI)</span></a></li>
+					</ul></div><div class="lm-container"><ul class="lm-down lm-vertical lm-submenu" id="submenu2" style="display: block;">
+       					<!-- DT195-1147: Pass in variable from config file to launch TC eConnects from the correct environment -->
+                        <li><a href="javascript:void(0)" onclick="window.open('https://ebb.tceconnects.com/app/','_blank');"><span>Launch TC eConnects</span></a></li>		
+                        <li><a href="javascript:void(0)" onclick="window.open('https://ebb.tceconnects.com/cpgnav/jnlp','_blank');"><span>Launch Navigates (Internal)</span></a></li>		
+       					<li><a href="javascript:void(0)" onclick="window.open('https://tceuser.tcenergy.com','_blank');"><span>Set Your Password</span></a></li>
+       					<li><a href="javascript:void(0)" onclick="window.open('webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cnavigates%5Cmfa.pdf&amp;S3FN=mfa.pdf');"><span>Multi-Factor Authentication Guide</span></a></li>		
+                        <!-- DT195-908: Updated following 2 links to correctly display in production -->		
+       					<li><a href="javascript:void(0)" onclick="window.open('webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cnavigates%5Creportsummary.pdf&amp;S3FN=RepSummary.pdf');"><span>Report Descriptions</span></a></li>		
+       					<li><a href="javascript:void(0)" onclick="window.open('webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cnavigates%5CTips%20and%20Tricks.pdf&amp;S3FN=TipsAndTricks.pdf');"><span>Helpful User Tips</span></a></li>		
+       					<li><a href="javascript:void(0)" onclick="window.open('https://aws-inettcplus.tcenergy.com/Citrix/storeawsinetWeb/','_blank');"><span>ICE Measurement</span></a></li>		
+	
+					</ul></div></div>
+
+        <div id="infoPostFrameContainer" style="margin: 0px; padding: 0px; height: 1074px;">
+            <iframe id="infoPostFrame" style="margin: 0px; padding: 0px;" name="infoPostFrame" width="100%" height="93%" frameborder="0" marginheight="0" marginwidth="0" scrolling="overflow" src="TCeConnects.aspx?v=639261736886418964&amp;SID=67&amp;info=Y&amp;assetid=0"></iframe>
+        </div>
+    </div>
+    <img id="imgSessionCheck" style="display: none;" src="KeepAlive.aspx?count=1">
+    </form>
+
+
+<div id="sb-container"><div id="sb-overlay"></div><div id="sb-wrapper"><div id="sb-title"><div id="sb-title-inner"></div></div><div id="sb-wrapper-inner"><div id="sb-body"><div id="sb-body-inner"></div><div id="sb-loading"><div id="sb-loading-inner"><span>loading</span></div></div></div></div><div id="sb-info"><div id="sb-info-inner"><div id="sb-counter"></div><div id="sb-nav"><a id="sb-nav-close" title="Close" onclick="Shadowbox.close()"></a><a id="sb-nav-next" title="Next" onclick="Shadowbox.next()"></a><a id="sb-nav-play" title="Play" onclick="Shadowbox.play()"></a><a id="sb-nav-pause" title="Pause" onclick="Shadowbox.pause()"></a><a id="sb-nav-previous" title="Previous" onclick="Shadowbox.previous()"></a></div></div></div></div></div></body></html>

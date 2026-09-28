@@ -1,0 +1,1866 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" style="height: 100%; overflow: hidden;"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>
+
+</title><link href="include/jquery.ui/css/uidarkness/uidarkness.css?v=3&gt;" rel="stylesheet" type="text/css"><link href="include/css/layout-default.css?v=1" rel="stylesheet" type="text/css">
+    <style>
+        .ui-layout-west .ui-jqgrid tr.jqgrow td
+        {
+            border-bottom: 0px none;
+        }
+        .pointer{
+        cursor: pointer;
+        }
+        .menu-tree { 
+            list-style: none; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .menu-tree ul { 
+            list-style: none; 
+            margin: 0; 
+            padding-left: 16px; 
+        }
+        .menu-tree li { 
+            margin: 0; 
+            padding: 0; 
+        }
+        .menu-item { 
+            cursor: pointer; 
+            padding: 4px 8px; 
+            display: block; 
+            text-decoration: none;
+            border: 1px solid transparent;
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: 11pt;
+        }
+        .menu-tree li .menu-item {
+            background: #237cc1;
+            color: #ffffff;
+            border-bottom: 1px solid #1a5f94;
+        }
+        .menu-tree li .menu-item:hover {
+            background: #4297d7;
+            color: #ffffff;
+        }
+        .menu-tree li.ui-state-highlight {
+            background: transparent;
+            border: none;
+        }
+        .menu-tree li.ui-state-highlight > .menu-item,
+        .menu-tree li.ui-state-highlight > .menu-item-container > .menu-item {
+            background: #799b3e !important;
+            color: #ffffff !important;
+            border-top: 1px solid #5f7a30;
+            border-right: 1px solid #5f7a30;
+            border-bottom: 1px solid #5f7a30;
+            border-left: none;
+        }
+        .menu-tree li.ui-state-highlight > ul {
+            margin-left: -1px;
+        }
+        .menu-tree ul {
+            display: block;
+        }
+        .menu-tree .collapsed {
+            display: none;
+        }
+        .ui-layout-west {
+            position: absolute;
+            width: 380px;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .ui-layout-west.loaded {
+            visibility: visible;
+        }
+        .menu-header {
+            background: #237cc1;
+            color: #ffffff;
+            padding: 12px 8px;
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: 14pt;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #1a5f94;
+            flex-shrink: 0;
+        }
+        .menu-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .menu-item {
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        .menu-item-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .custpdficon {
+            flex-shrink: 0;
+            margin-left: 8px;
+            margin-right: 3px;
+        }
+        .custcsvicon {
+            flex-shrink: 0;
+            margin-left: 8px;
+            margin-right: 3px;
+        }
+        .arrow {
+            display: inline-block;
+            margin-right: 5px;
+            transition: transform 0.2s;
+        }
+        .loading-spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .loading-message .menu-item {
+            background: #1a5f94 !important;
+            font-style: italic;
+        }
+        #scrollMe {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 388px;
+            width: calc(100vw - 388px);
+            height: 100vh;
+        }
+        #resize-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            left: 380px;
+            cursor: col-resize;
+            background: #1a5f94;
+            z-index: 100;
+        }
+        #resize-handle:hover,
+        #resize-handle.dragging {
+            background: #4297d7;
+        }
+    </style>
+
+	<script src="include/jquery/js/jquery-3.7.1.min.js?v=1.1"></script>
+
+     <script type="text/javascript">
+       var InfoPostScenarioID = 67;
+       var NavigatesScenarioID = 70;
+       var ScenarioID = 67;
+       var AssetID = 3037;
+       
+        function LaunchPDF(url){
+            window.open(url+'&rs:Format=PDF', 'new_window'); 
+        }
+        
+        function highlightMenuItemByAssetId(assetId) {
+            console.log('Highlighting menu item for assetId:', assetId);
+            
+            // Remove all highlights
+            $('.menu-tree li').removeClass('ui-state-highlight');
+            
+            // Find menu items with URLs containing the assetid
+            var found = false;
+            $('.menu-tree li[data-url]').each(function() {
+                var url = $(this).data('url');
+                if (url && url.toLowerCase().indexOf('assetid=' + assetId) !== -1) {
+                    $(this).addClass('ui-state-highlight');
+                    console.log('Found and highlighted menu item:', $(this).find('.menu-item').first().text());
+                    
+                    // Expand parent nodes to make it visible
+                    $(this).parents('li').each(function() {
+                        var parentUl = $(this).children('ul');
+                        if (parentUl.length > 0) {
+                            parentUl.removeClass('collapsed');
+                            var arrow = $(this).find('.menu-parent > .arrow').first();
+                            arrow.html('▼');
+                            $(this).find('.menu-parent').first().addClass('expanded');
+                        }
+                    });
+                    
+                    found = true;
+                    return false; // Break the loop
+                }
+            });
+            
+            if (!found) {
+                console.log('No menu item found for assetId:', assetId);
+            }
+        }
+	   
+		$(document).ready(function(){
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                $('#scrollMe').css({
+                    'overflow': 'scroll', 
+                    '-webkit-overflow-scrolling': 'touch' 
+                }); 
+            }
+            
+            // Add collapsible menu functionality
+            $('.menu-parent').click(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Handle navigation for parent items with URLs
+                var parentLi = $(this).closest('li');
+                var url = parentLi.data('url');
+                var newWindow = parentLi.data('newwindow');
+                if (url) {
+                    $('.menu-tree li').removeClass('ui-state-highlight');
+                    parentLi.addClass('ui-state-highlight');
+                    
+                    // Check if should open in new window
+                    if (newWindow === true || newWindow === 'true') {
+                        window.open(url, '_blank');
+                    } else {
+                        showFrameLoading();
+                        document.getElementById('mainFrame').src = url;
+                    }
+                }
+                
+                // Handle expand/collapse
+                $(this).next('ul').toggleClass('collapsed');
+                $(this).toggleClass('expanded');
+                
+                var arrow = $(this).find('.arrow');
+                if ($(this).next('ul').hasClass('collapsed')) {
+                    arrow.html('▶');
+                } else {
+                    arrow.html('▼');
+                }
+            });
+            
+            // Handle menu item selection with UI Darkness classes
+            $('.menu-item').click(function(e) {
+                if (!$(this).hasClass('menu-parent')) {
+                    e.stopPropagation();
+                    $('.menu-tree li').removeClass('ui-state-highlight');
+                    $(this).closest('li').addClass('ui-state-highlight');
+                    
+                    // Handle navigation if URL exists
+                    var parentLi = $(this).closest('li');
+                    var url = parentLi.data('url');
+                    var newWindow = parentLi.data('newwindow');
+                    if (url) {
+                        // Check if should open in new window
+                        if (newWindow === true || newWindow === 'true') {
+                            window.open(url, '_blank');
+                        } else {
+                            showFrameLoading();
+                            document.getElementById('mainFrame').src = url;
+                        }
+                    }
+                }
+            });
+            
+            // Initialize arrow directions based on current state
+            $('.menu-parent').each(function() {
+                var arrow = $(this).find('.arrow');
+                if ($(this).next('ul').hasClass('collapsed')) {
+                    arrow.html('▶');
+                } else {
+                    arrow.html('▼');
+                }
+            });
+            
+            // Show loading indicator
+            $('#menu-container').html('<li class="loading-message"><span class="menu-item"><span class="loading-spinner">⟳</span> Loading TC eConnects menu...</span></li>');
+            
+            // Load menu via AJAX for better performance
+            $.get('webmethods/Scenario_ListCapabilitiesTreeView.aspx?SID=67', function(data) {
+                $('#menu-container').html(data);
+                
+                // Handle parent menu item clicks (for both expand/collapse and navigation)
+                $(document).on('click', '.menu-parent', function(e) {
+                    console.log('Parent clicked');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Handle navigation for parent items with URLs
+                    var parentLi = $(this).closest('li');
+                    var url = parentLi.data('url');
+                    var newWindow = parentLi.data('newwindow');
+                    console.log('Parent URL:', url, 'NewWindow:', newWindow);
+                    if (url) {
+                        $('.menu-tree li').removeClass('ui-state-highlight');
+                        parentLi.addClass('ui-state-highlight');
+                        console.log('Added highlight to parent');
+                        
+                        // Check if should open in new window
+                        if (newWindow === true || newWindow === 'true') {
+                            window.open(url, '_blank');
+                        } else {
+                            // Extract and update AssetID from URL if present
+                            var assetMatch = url.match(/assetid=(\d+)/i);
+                            if (assetMatch) {
+                                AssetID = parseInt(assetMatch[1]);
+                                console.log('Updated AssetID to:', AssetID);
+                                
+                                // Update logo in parent page if we're in an iframe
+                                if (window.parent && window.parent.changeLogo) {
+                                    window.parent.changeLogo(AssetID);
+                                }
+                            }
+                            
+                            showFrameLoading();
+                            document.getElementById('mainFrame').src = url;
+                        }
+                    }
+                    
+                    // Handle expand/collapse - find the next ul sibling
+                    // If wrapped in menu-item-container, need to look from the container
+                    var container = $(this).parent('.menu-item-container');
+                    var nextUl;
+                    if (container.length > 0) {
+                        nextUl = container.next('ul');
+                    } else {
+                        nextUl = $(this).next('ul');
+                    }
+                    
+                    if (nextUl.length > 0) {
+                        nextUl.toggleClass('collapsed');
+                        $(this).toggleClass('expanded');
+                        
+                        var arrow = $(this).find('.arrow');
+                        if (nextUl.hasClass('collapsed')) {
+                            arrow.html('▶');
+                        } else {
+                            arrow.html('▼');
+                        }
+                    }
+                });
+                
+                $(document).on('click', '.menu-leaf', function(e) {
+                    console.log('Leaf clicked');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Handle leaf node selection
+                    $('.menu-tree li').removeClass('ui-state-highlight');
+                    
+                    // Find the parent li element
+                    var parentLi = $(this).closest('li');
+                    parentLi.addClass('ui-state-highlight');
+                    console.log('Added highlight to leaf, classes:', parentLi.attr('class'));
+                    
+                    var url = parentLi.data('url');
+                    var newWindow = parentLi.data('newwindow');
+                    console.log('Leaf URL:', url, 'NewWindow:', newWindow);
+                    if (url) {
+                        // Check if should open in new window
+                        if (newWindow === true || newWindow === 'true') {
+                            window.open(url, '_blank');
+                        } else {
+                            showFrameLoading();
+                            document.getElementById('mainFrame').src = url;
+                        }
+                    }
+                });
+                
+                $('.ui-layout-west').addClass('loaded');
+                
+                // After menu is loaded, highlight the menu item for the current AssetID
+                if (AssetID && AssetID != 0) {
+                    console.log('Auto-highlighting menu for AssetID:', AssetID);
+                    highlightMenuItemByAssetId(AssetID);
+                }
+            });
+            
+            // Load Operational Overview for performance improvement
+            if (ScenarioID == 67) {
+                showFrameLoading();
+                document.getElementById('mainFrame').src = 'OperationalOverview.aspx?v=' + '639261736732180046' + '&assetid=' + AssetID;
+            }
+
+            // Resize handle drag logic
+            var resizeHandle = $('#resize-handle');
+            var westPanel = $('.ui-layout-west');
+            var scrollMe = $('#scrollMe');
+            var isDragging = false;
+
+            resizeHandle.on('mousedown', function(e) {
+                isDragging = true;
+                resizeHandle.addClass('dragging');
+                // Prevent iframe from stealing mouse events
+                scrollMe.css('pointer-events', 'none');
+                e.preventDefault();
+            });
+
+            $(document).on('mousemove', function(e) {
+                if (!isDragging) return;
+                var newWidth = Math.max(150, Math.min(e.clientX, window.innerWidth - 100));
+                var handleOffset = newWidth + 8;
+                westPanel.css('width', newWidth + 'px');
+                resizeHandle.css('left', newWidth + 'px');
+                scrollMe.css({ 'left': handleOffset + 'px', 'width': 'calc(100vw - ' + handleOffset + 'px)' });
+            });
+
+            $(document).on('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    resizeHandle.removeClass('dragging');
+                    scrollMe.css('pointer-events', '');
+                }
+            });
+		});
+	   
+    </script>
+
+
+ 
+
+
+
+</head>
+<body style="margin: 0; padding: 0; height: 100vh; overflow: hidden;">
+    <form name="ctl01" method="post" action="./TCeConnects.aspx?v=1.3&amp;SID=67&amp;info=Y&amp;assetid=3037" id="ctl01">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE0NzA4ODc4OTdkZI+kH5toOJZ9m8PILYdp6mvIQQQ0ED/4KQYO28rg4mxt" style="">
+</div>
+
+    <div class="ui-layout-west loaded" style="width: 380px; margin: 0; padding: 0; background-color: #237cc1; border-bottom-width: 0px !important;border-left-width: 0px !important;border-right-width: 0px !important;border-top-width: 0px !important;border-left-color:#6597cd !important;">
+        <div class="menu-header">TC eConnects</div>
+        <div class="menu-container">
+            <ul class="menu-tree" id="menu-container"><ul class="menu-tree">
+<li data-value="6938">
+<span class="menu-item menu-parent expanded"><span class="arrow">▼</span> Informational Postings</span><ul>
+<li data-value="8294" data-url="OperationalOverview.aspx?assetid=3005">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> ANR Pipeline Company (ANR)</span><ul class="collapsed">
+<li data-value="8295">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="8296" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&amp;pAssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&amp;pAssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8298" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8373" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5CUnsubscribedSegment">
+<span class="menu-item menu-leaf">Unsubscribed Segment</span></li>
+<li data-value="8299" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRangeANR&amp;pAssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRangeANR&amp;pAssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8356" data-url="NoNotice.aspx?AssetNbr=3005">
+<span class="menu-item menu-leaf">No Notice</span></li>
+</ul></li>
+<li data-value="8438" data-url="ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Electric Coordination</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8302">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="8303" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8304" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cgasqualityindustrystandards">
+<span class="menu-item menu-leaf">Industry Standards and Methodologies</span></li>
+<li data-value="8305" data-url="https://www.hostedtariffs.com/anr/pdf/tariff.pdf#quality">
+<span class="menu-item menu-leaf">Gas Quality Tariff</span></li>
+</ul></li>
+<li data-value="8306" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="8307" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3005&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="8309">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8310" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3005&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3005&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8311" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3005&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3005&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8312" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3005&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3005&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8313" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3005&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3005&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8314" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="8315" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3005&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3005&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8316" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3005&amp;CritFlag=-1&amp;NoticeType=-1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">All</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3005&amp;CritFlag=-1&amp;NoticeType=-1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8317" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3005&amp;OpAreas=ML7">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3005&amp;OpAreas=ML7&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8318">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="8319" data-url="https://www.hostedtariffs.com/anr/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="8361" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5CRates">
+<span class="menu-item menu-leaf">Rates</span></li>
+</ul></li>
+<li data-value="8321">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="8322" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="8323" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waiver</span></li>
+<li data-value="8324" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="8325" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="8326" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="8327" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="8328" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="8329" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="8330" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="8331" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="8332" data-url="https://www.hostedtariffs.com/anr/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="8333">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="8334" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8335" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8336" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3005">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3005&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8337">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="8363" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="8364" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5CAfterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts</span></li>
+</ul></li>
+<li data-value="8338" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8339" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8341" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cpermpostingsandfaqs">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Reference Documents and FAQs</span><ul class="collapsed">
+<li data-value="8365" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5CNomsandschedulingresources">
+<span class="menu-item menu-leaf">Noms and Scheduling Resources</span></li>
+</ul></li>
+<li data-value="8340" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations</span></li>
+<li data-value="8342" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="8344" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="8366">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Other</span><ul class="collapsed">
+<li data-value="8367" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5CPenaltywaiverlog">
+<span class="menu-item menu-leaf">Penalty Waiver Log</span></li>
+<li data-value="8370" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cgassalepurchase">
+<span class="menu-item menu-leaf">Gas Sale/Purchase </span></li>
+</ul></li>
+<li data-value="8357" data-url="Documents.aspx?Folder=%5C%5Canr%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="8359" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="8136" data-url="OperationalOverview.aspx?assetid=3009">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> ANR Storage Company (ANRSC)</span><ul class="collapsed">
+<li data-value="8137">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="8138" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8139" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8140" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8141">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="8142" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8143" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cgasqualityindustrystandards">
+<span class="menu-item menu-leaf">Industry Standards and Methodologies</span></li>
+<li data-value="8144" data-url="https://www.hostedtariffs.com/anrsc/pdf/tariff.pdf#quality">
+<span class="menu-item menu-leaf">Gas Quality Tariff</span></li>
+</ul></li>
+<li data-value="8145" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="8146" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3009&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="8147">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8148" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8149" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8150" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8151" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releaseable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3009&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8152" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+</ul></li>
+<li data-value="8153" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3009&amp;OpAreas=ANRSC">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3009&amp;OpAreas=ANRSC&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8154">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="8155">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="8156" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cregulatoryactivities">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="8157">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="8158" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="8159" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waiver</span></li>
+<li data-value="8160" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="8161" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="8162" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="8163" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="8164" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="8167" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="8166" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="8165" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="8168" data-url="https://www.hostedtariffs.com/anrsc/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="8169">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="8171" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8170" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8172" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3009">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3009&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8263" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5CTrainingAndReference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8260" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance </span></li>
+<li data-value="8175" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="8173" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="8174" data-url="Documents.aspx?Folder=%5C%5Canrsc%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+</ul></li>
+<li data-value="8039" data-url="OperationalOverview.aspx?assetid=3031">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Bison Pipeline LLC (BISON)</span><ul class="collapsed">
+<li data-value="8040">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="8041" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8042" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8120" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8043">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="8044" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8045" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cgasqualityindustrystandards">
+<span class="menu-item menu-leaf">Industry Standards and Methodologies</span></li>
+<li data-value="8046" data-url="https://www.hostedtariffs.com/bison/pdf/tariff.pdf#quality">
+<span class="menu-item menu-leaf">Gas Quality Tariff</span></li>
+</ul></li>
+<li data-value="8047" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="8048" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3031&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="8049">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8050" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8051" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8052" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8053" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releaseable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3031&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8054" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="8055" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3031&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3031&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8056" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3031&amp;OpAreas=BISON">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3031&amp;OpAreas=BISON&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8057">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="8132" data-url="https://www.hostedtariffs.com/bison/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="8058" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cregulatoryactivities">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="8063">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="8064" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="8065" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waiver</span></li>
+<li data-value="8066" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="8067" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="8070" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="8068" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="8069" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="8071" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="8072" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="8073" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="8074" data-url="https://www.hostedtariffs.com/bison/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="8075">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="8077" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8078" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8079" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3031">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3031&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8080" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="8131" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8369" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cpermpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="8081" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="8121" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5CFuelmatrix">
+<span class="menu-item menu-leaf">Fuel Matrix</span></li>
+<li data-value="8084" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="8085" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="8086" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+<li data-value="8087">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Accounting</span><ul class="collapsed">
+<li data-value="8088" data-url="Documents.aspx?Folder=%5C%5Cbison%5C%5Cimbalancefortradeorpurchase">
+<span class="menu-item menu-leaf">Imbalances for Trade or Purchase</span></li>
+</ul></li>
+<li data-value="8129" data-url="https://aws-inettcplus.tcenergy.com/Citrix/storeawsinetWeb/" data-newwindow="true">
+<span class="menu-item menu-leaf">TC ICE Measurement</span></li>
+</ul></li>
+<li data-value="8206" data-url="OperationalOverview.aspx?assetid=3014">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Blue Lake Gas Storage Company (BLGSC)</span><ul class="collapsed">
+<li data-value="8215">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="8216" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8218" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8217" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8219">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="8220" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8221" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cgasqualityindustrystandards">
+<span class="menu-item menu-leaf">Industry Standards and Methodologies</span></li>
+<li data-value="8222" data-url="https://www.hostedtariffs.com/blgsc/pdf/tariff.pdf#quality">
+<span class="menu-item menu-leaf">Gas Quality Tariff</span></li>
+</ul></li>
+<li data-value="8223" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="8224" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3014&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="8225">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8226" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8227" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8228" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8229" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releaseable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3014&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8230" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+</ul></li>
+<li data-value="8231" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3014&amp;OpAreas=BLGSC">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3014&amp;OpAreas=BLGSC&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8232">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="8233">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="8234" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cregulatoryactivities">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="8235">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="8236" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="8237" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waiver</span></li>
+<li data-value="8238" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="8239" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="8240" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="8241" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="8242" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="8243" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="8244" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="8245" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="8246" data-url="https://www.hostedtariffs.com/blgsc/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="8247">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="8248" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8249" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8250" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3014">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3014&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8293" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5CTrainingAndReference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8261" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8251" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="8252" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="8253" data-url="Documents.aspx?Folder=%5C%5Cblgsc%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+</ul></li>
+<li data-value="6939" data-url="OperationalOverview.aspx?assetid=51">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Columbia Gas Transmission (TCO)</span><ul class="collapsed">
+<li data-value="6942">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="6943" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="6944" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7724" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed Point-to-Point</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="6961" data-url="content/TCOCapacityAllocationLog.htm">
+<span class="menu-item menu-leaf">Capacity Allocation Log</span></li>
+<li data-value="6963" data-url="ReportViewer.aspx?%2fInfoPost%2fOperationallyAvailableInternalConstraint&amp;pAssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Est Op Avail Cap - Internal Constraint</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fOperationallyAvailableInternalConstraint&amp;pAssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8122" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7661" data-url="ReportViewer.aspx?/InfoPost/OpenSeasonsOffers&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons - Offers</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OpenSeasonsOffers&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7660" data-url="ReportViewer.aspx?/InfoPost/OpenSeasonsAwards&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons - Awards</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OpenSeasonsAwards&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="6966" data-url="NoNotice.aspx?AssetNbr=51">
+<span class="menu-item menu-leaf">No Notice</span></li>
+</ul></li>
+<li data-value="8439" data-url="ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Electric Coordination</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="6955">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="6969" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7462" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5Cgasquality%5CGas%20Quality%20Industry%20Standards%20%26%20Methodologies.pdf&amp;S3FN=TCOStandards.pdf">
+<span class="menu-item menu-leaf">Gas Quality Analysis Standards</span></li>
+<li data-value="6968" data-url="https://www.hostedtariffs.com/tco/pdf/tariff.pdf#gasquality">
+<span class="menu-item menu-leaf">Gas Quality Tariff Reference</span></li>
+<li data-value="6967" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cgasqualitywaivers">
+<span class="menu-item menu-leaf">Gas Quality Waivers</span></li>
+</ul></li>
+<li data-value="6954" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="7718" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=51&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="6953">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="6974" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="6973" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="6972" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7725" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7463" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="7662" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=51&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="6952" data-url="ReportViewer.aspx?/InfoPost/PostedImbalances&amp;AssetNbr=51&amp;OpAreas=TCO">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/PostedImbalances&amp;AssetNbr=51&amp;OpAreas=TCO&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7726">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="7975" data-url="https://www.hostedtariffs.com/tco/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="7735">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Rates</span><ul class="collapsed">
+<li data-value="7737" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Ccurrentrates">
+<span class="menu-item menu-leaf">Current Rates</span></li>
+<li data-value="7738" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cpendingrates">
+<span class="menu-item menu-leaf">Pending Rates</span></li>
+<li data-value="7739" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cpreviousrates">
+<span class="menu-item menu-leaf">Previous Rates</span></li>
+</ul></li>
+<li data-value="7736" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5CRegulatory_Activities%5CReg%20Activities%20Re-direct.pdf">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="6951">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="6984" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names &amp; Addresses</span></li>
+<li data-value="6983" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waivers</span></li>
+<li data-value="6982" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="6981" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="6980" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="6979" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="6978" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles &amp; Descriptions</span></li>
+<li data-value="6977" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="6976" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="6975" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="6950" data-url="https://www.hostedtariffs.com/tco/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="7068">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="7078" data-url="ReportViewer.aspx?/InfoPost/SystemImbalance&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">System Imbalance</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/SystemImbalance&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7075" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7074" data-url="ReportViewer.aspx?/InfoPost/TransFirm&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/TransFirm&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7073" data-url="ReportViewer.aspx?/InfoPost/TransInterrupt&amp;AssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-parent"><span class="arrow">▶</span> Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/TransInterrupt&amp;AssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div><ul class="collapsed">
+<li data-value="7879" data-url="ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=51">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Transactional Report Group Location List</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=51&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+</ul></li>
+<li data-value="7069">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="7081" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="7080" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cafterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts</span></li>
+<li data-value="7079" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cemergencycontacts">
+<span class="menu-item menu-leaf">Emergency Contacts</span></li>
+</ul></li>
+<li data-value="7745" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="7744" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="7070" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="7071" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations</span></li>
+<li data-value="7653" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="7746" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="7885" data-url="Documents.aspx?Folder=%5C%5Ctco%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="7886" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="6940" data-url="OperationalOverview.aspx?assetid=14">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Columbia Gulf Transmission (CGT)</span><ul class="collapsed">
+<li data-value="7004">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="7016" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7015" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7747" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed Point-to-Point</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7014" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ccgt/CGTCapacityAllocationLog.htm&amp;S3FN=CGTCapAllocLog.htm">
+<span class="menu-item menu-leaf">Capacity Allocation Log</span></li>
+<li data-value="7013" data-url="ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Est Op Avail Cap - Internal Constraint</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8123" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7664" data-url="ReportViewer.aspx?/InfoPost/OpenSeasonsOffers&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons - Offers</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OpenSeasonsOffers&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7663" data-url="ReportViewer.aspx?/InfoPost/OpenSeasonsAwards&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons - Awards</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OpenSeasonsAwards&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8440" data-url="ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Electric Coordination</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7003">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="7018" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7464" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5Cgasquality%5CGas%20Quality%20Industry%20Standards%20%26%20Methodologies.pdf&amp;S3FN=TCOStandards.pdf">
+<span class="menu-item menu-leaf">Gas Quality Analysis Standards</span></li>
+<li data-value="7017" data-url="https://www.hostedtariffs.com/cgt/pdf/tariff.pdf#gasquality">
+<span class="menu-item menu-leaf">Gas Quality Tariff Reference</span></li>
+<li data-value="7023" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cgasqualitywaivers">
+<span class="menu-item menu-leaf">Gas Quality Postings</span></li>
+</ul></li>
+<li data-value="7002" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="7719" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=14&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="7001">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="7030" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=14&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=14&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7029" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=14&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=14&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7028" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=14&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=14&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7748" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=14&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=14&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7470" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="7665" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=14&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=14&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="7000" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=14&amp;OpAreas=MNL">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=14&amp;OpAreas=MNL&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7749">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="7976" data-url="https://www.hostedtariffs.com/cgt/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="7752">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Rates</span><ul class="collapsed">
+<li data-value="7764" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Ccurrentrates">
+<span class="menu-item menu-leaf">Current Rates</span></li>
+<li data-value="7766" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cpendingrates">
+<span class="menu-item menu-leaf">Pending Rates</span></li>
+<li data-value="7765" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cpreviousrates">
+<span class="menu-item menu-leaf">Previous Rates</span></li>
+</ul></li>
+<li data-value="7751" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5CRegulatory_Activities%5CReg%20Activities%20Re-direct.pdf">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="6999">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="7040" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="7039" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waivers</span></li>
+<li data-value="7038" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="7037" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="7036" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="7035" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosures</span></li>
+<li data-value="7034" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="7033" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="7199" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="7200" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="6998" data-url="https://www.hostedtariffs.com/cgt/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="6997">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="7052" data-url="ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">System Imbalance</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7382" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7049" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7048" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-parent"><span class="arrow">▶</span> Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div><ul class="collapsed">
+<li data-value="7880" data-url="ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Transactional Report Group Location List</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+</ul></li>
+<li data-value="6996">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="7055" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="7054" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cafterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts</span></li>
+<li data-value="7053" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cemergencycontacts">
+<span class="menu-item menu-leaf">Emergency Contacts</span></li>
+</ul></li>
+<li data-value="7768" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="7767" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8362" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5CCGTMaintenanceTimeline">
+<span class="menu-item menu-leaf">CGT Maintenance Timeline</span></li>
+<li data-value="7008" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents &amp; FAQs</span></li>
+<li data-value="7007" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations</span></li>
+<li data-value="7649" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="7769" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="7888" data-url="Documents.aspx?Folder=%5C%5Ccgt%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="7889" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="6986" data-url="OperationalOverview.aspx?assetid=44">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Crossroads Pipeline (XRD)</span><ul class="collapsed">
+<li data-value="7087">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="7202" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7203" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7774" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed Point-to-Point</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7204" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cxrd%5CXRDCapacityAllocationLog.htm&amp;S3FN=XRDCapAllocLog.htm">
+<span class="menu-item menu-leaf">Capacity Allocation Log</span></li>
+<li data-value="7373" data-url="ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Est Op Avail Cap - Internal Constraint </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8124" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7667" data-url="ReportViewer.aspx?/InfoPost/OpenSeasonsOffers&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons - Offers</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OpenSeasonsOffers&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7666" data-url="ReportViewer.aspx?/InfoPost/OpenSeasonsAwards&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons - Awards</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OpenSeasonsAwards&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="7172">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="7195" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7465" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5Cgasquality%5CGas%20Quality%20Industry%20Standards%20%26%20Methodologies.pdf&amp;S3FN=TCOStandards.pdf">
+<span class="menu-item menu-leaf">Gas Quality Analysis Standards</span></li>
+<li data-value="7208" data-url="https://www.hostedtariffs.com/xrds/pdf/tariff.pdf#gasquality">
+<span class="menu-item menu-leaf">Gas Quality Tariff Reference </span></li>
+<li data-value="7209" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cgasqualitywaivers">
+<span class="menu-item menu-leaf">Gas Quality Postings</span></li>
+</ul></li>
+<li data-value="7210" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="7720" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=44&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="7211">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="7212" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=44&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=44&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7213" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=44&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=44&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7214" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=44&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=44&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7770" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=44&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=44&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7471" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="7668" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=44&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=44&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="7217" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=44&amp;OpAreas=XRD">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=44&amp;OpAreas=XRD&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7775">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="7977" data-url="https://www.hostedtariffs.com/xrds/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="7778">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Rates</span><ul class="collapsed">
+<li data-value="7780" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Ccurrentrates">
+<span class="menu-item menu-leaf">Current Rates</span></li>
+<li data-value="7782" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cpendingrates">
+<span class="menu-item menu-leaf">Pending Rates</span></li>
+<li data-value="7781" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cpreviousrates">
+<span class="menu-item menu-leaf">Previous Rates</span></li>
+</ul></li>
+<li data-value="7779" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5CRegulatory_Activities%5CReg%20Activities%20Re-direct.pdf">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="7218" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cxrd/XRDSOC.htm&amp;S3FN=XRDSOC.htm">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="7219" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer </span></li>
+</ul></li>
+<li data-value="7233" data-url="https://www.hostedtariffs.com/xrds/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="7234">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="7239" data-url="ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">System Imbalance </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7236" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7235" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7240" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-parent"><span class="arrow">▶</span> Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div><ul class="collapsed">
+<li data-value="7881" data-url="ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=44">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Transactional Report Location Group List</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=44&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+</ul></li>
+<li data-value="7241">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="7245" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="7244" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cafterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts </span></li>
+<li data-value="7243" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cemergencycontacts">
+<span class="menu-item menu-leaf">Emergency Contacts </span></li>
+</ul></li>
+<li data-value="7794" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="7793" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="7242" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs </span></li>
+<li data-value="7246" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations</span></li>
+<li data-value="7650" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="7795" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="7890" data-url="Documents.aspx?Folder=%5C%5Cxrd%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="7891" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="8207" data-url="OperationalOverview.aspx?assetid=3012">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Eaton Rapids Gas Storage System</span><ul class="collapsed">
+<li data-value="8208">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8210" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8211" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8212" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8213" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releaseable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3012&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8214" data-url="Documents.aspx?Folder=%5C%5Cergss%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+</ul></li>
+<li data-value="8209" data-url="Documents.aspx?Folder=%5C%5Cergss%5C%5Cregulatoryactivities">
+<span class="menu-item menu-leaf">Regulatory</span></li>
+<li data-value="8292" data-url="Documents.aspx?Folder=%5C%5Cergss%5C%5CTrainingAndReference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8259" data-url="Documents.aspx?Folder=%5C%5Cergss%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8256" data-url="Documents.aspx?Folder=%5C%5Cergss%5C%5CReferenceDocumentsandFAQs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="8285" data-url="Documents.aspx?Folder=%5C%5Cergss%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+</ul></li>
+<li data-value="6988" data-url="OperationalOverview.aspx?assetid=465">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Hardy Storage Company (HRD)</span><ul class="collapsed">
+<li data-value="7089">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="7301" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7300" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7818" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed Point-to-Point</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7299" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Chrd%5CHRDCapacityAllocationLog.htm&amp;S3FN=HRDCapAllocLog.htm">
+<span class="menu-item menu-leaf">Capacity Allocation Log </span></li>
+<li data-value="7298" data-url="ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Est Op Avail Cap - Internal Constraint </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8125" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="7194">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="7304" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7467" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5Cgasquality%5CGas%20Quality%20Industry%20Standards%20%26%20Methodologies.pdf&amp;S3FN=TCOStandards.pdf">
+<span class="menu-item menu-leaf">Gas Quality Analysis Standards</span></li>
+<li data-value="7303" data-url="https://www.hostedtariffs.com/hardy/pdf/tariff.pdf#gasquality">
+<span class="menu-item menu-leaf">Gas Quality Tariff Reference </span></li>
+<li data-value="7302" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cgasqualitywaivers">
+<span class="menu-item menu-leaf">Gas Quality Postings</span></li>
+</ul></li>
+<li data-value="7193" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="7722" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=465&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="7192">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="7308" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=465&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=465&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7307" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=465&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=465&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7306" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=465&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=465&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7772" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=465&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=465&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7473" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+</ul></li>
+<li data-value="7191" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=465&amp;OpAreas=HRD">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=465&amp;OpAreas=HRD&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7819">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="7979" data-url="https://www.hostedtariffs.com/hardy/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="7822">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Rates</span><ul class="collapsed">
+<li data-value="7834" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Ccurrentrates">
+<span class="menu-item menu-leaf">Current Rates</span></li>
+<li data-value="7836" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cpendingrates">
+<span class="menu-item menu-leaf">Pending Rates</span></li>
+<li data-value="7835" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cpreviousrates">
+<span class="menu-item menu-leaf">Previous Rates</span></li>
+</ul></li>
+<li data-value="7821" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5CRegulatory_Activities%5CReg%20Activities%20Re-direct.pdf">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="7190" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Chrd%5CHRDSOC.htm&amp;S3FN=HRDSOC.htm">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct </span><ul class="collapsed">
+<li data-value="7321" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer </span></li>
+</ul></li>
+<li data-value="7189" data-url="https://www.hostedtariffs.com/hardy/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="7188">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="7328" data-url="ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">System Imbalance </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7325" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7324" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7329" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-parent"><span class="arrow">▶</span> Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div><ul class="collapsed">
+<li data-value="7883" data-url="ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=465">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Transactional Report Location Group List</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=465&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+</ul></li>
+<li data-value="7187">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="7333" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="7332" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cafterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts </span></li>
+<li data-value="7331" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cemergencycontacts">
+<span class="menu-item menu-leaf">Emergency Contacts </span></li>
+</ul></li>
+<li data-value="7838" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="7837" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="7330" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs </span></li>
+<li data-value="7186" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations </span></li>
+<li data-value="7651" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="7839" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="7894" data-url="Documents.aspx?Folder=%5C%5Chrd%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="7895" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="6989" data-url="OperationalOverview.aspx?assetid=26">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Millennium Pipeline (MPC)</span><ul class="collapsed">
+<li data-value="7116">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="7343" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7342" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7840" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed Point-to-Point</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacityPointToPoint&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7341" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cmpl%5CMPLCapacityAllocationLog.htm&amp;S3FN=MPLCapAllocLog.htm">
+<span class="menu-item menu-leaf">Capacity Allocation Log </span></li>
+<li data-value="7340" data-url="ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Est Op Avail Cap - Internal Constraint </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FOperationallyAvailableCapacitySegs&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8126" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8441" data-url="ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Electric Coordination</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7115">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="7348" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7468" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5Cgasquality%5CGas%20Quality%20Industry%20Standards%20%26%20Methodologies.pdf&amp;S3FN=TCOStandards.pdf">
+<span class="menu-item menu-leaf">Gas Quality Analysis Standards</span></li>
+<li data-value="7347" data-url="https://www.hostedtariffs.com/mpl/pdf/tariff.pdf#gasquality">
+<span class="menu-item menu-leaf">Gas Quality Tariff Reference </span></li>
+<li data-value="7346" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cgasqualitywaivers">
+<span class="menu-item menu-leaf">Gas Quality Postings</span></li>
+</ul></li>
+<li data-value="7114" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="7723" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=26&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="7113">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="7353" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=26&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=26&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7352" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=26&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=26&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7351" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=26&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=26&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7773" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=26&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=26&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7349" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="7878" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=26&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=26&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="7354" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=26&amp;OpAreas=MPL">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=26&amp;OpAreas=MPL&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7841">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="7980" data-url="https://www.hostedtariffs.com/mpl/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="7844">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Rates</span><ul class="collapsed">
+<li data-value="7851" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Ccurrentrates">
+<span class="menu-item menu-leaf">Current Rates</span></li>
+<li data-value="7853" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cpendingrates">
+<span class="menu-item menu-leaf">Pending Rates</span></li>
+<li data-value="7852" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cpreviousrates">
+<span class="menu-item menu-leaf">Previous Rates</span></li>
+</ul></li>
+<li data-value="7843" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Ctco%5CRegulatory_Activities%5CReg%20Activities%20Re-direct.pdf">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="7112">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="7161" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names &amp; Addresses </span></li>
+<li data-value="7160" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waivers </span></li>
+<li data-value="7159" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Cmpl%5CMPLChiefComplianceOfficer.htm&amp;S3FN=MPLCCO.htm">
+<span class="menu-item menu-leaf">Chief Compliance Officer </span></li>
+<li data-value="7158" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers </span></li>
+<li data-value="7157" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures </span></li>
+<li data-value="7156" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure </span></li>
+<li data-value="7155" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles &amp; Descriptions </span></li>
+<li data-value="7154" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers </span></li>
+<li data-value="7153" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities </span></li>
+<li data-value="7152" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent </span></li>
+</ul></li>
+<li data-value="7111" data-url="https://www.hostedtariffs.com/mpl/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="7090">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="7359" data-url="ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">System Imbalance </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FSystemImbalance&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7356" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7355" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7360" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-parent"><span class="arrow">▶</span> Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div><ul class="collapsed">
+<li data-value="7884" data-url="ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=26">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Transactional Report Location Group List</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/LocationLists&amp;pAssetNbr=26&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+</ul></li>
+<li data-value="7361">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="7364" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="7363" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cafterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts </span></li>
+<li data-value="7362" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cemergencycontacts">
+<span class="menu-item menu-leaf">Emergency Contacts </span></li>
+</ul></li>
+<li data-value="7860" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="7859" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="7365" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cpermanentpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="7366" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations </span></li>
+<li data-value="7652" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="7861" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="7896" data-url="Documents.aspx?Folder=%5C%5Cmpl%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="7897" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="8374" data-url="OperationalOverview.aspx?assetid=3027">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> North Baja Pipeline, LLC (BAJA)</span><ul class="collapsed">
+<li data-value="8375">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="8376" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&amp;pAssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&amp;pAssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8377" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8378" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5CUnsubscribedSegment">
+<span class="menu-item menu-leaf">Unsubscribed Segment</span></li>
+<li data-value="8379" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRangeANR&amp;pAssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRangeANR&amp;pAssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8443" data-url="ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Electric Coordination</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8380">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="8381" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8382" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cgasqualityindustrystandards">
+<span class="menu-item menu-leaf">Industry Standards and Methodologies</span></li>
+<li data-value="8383" data-url="https://www.hostedtariffs.com/baja/pdf/tariff.pdf#quality">
+<span class="menu-item menu-leaf">Gas Quality Tariff</span></li>
+</ul></li>
+<li data-value="8384" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="8385" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3027&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="8386">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8387" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3027&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3027&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8388" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3027&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3027&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8389" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3027&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3027&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8390" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3027&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3027&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8391" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="8392" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3027&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3027&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8393" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3027&amp;CritFlag=-1&amp;NoticeType=-1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">All</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3027&amp;CritFlag=-1&amp;NoticeType=-1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8394" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3027&amp;OpAreas=BAJA">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3027&amp;OpAreas=BAJA&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8395">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="8396" data-url="https://www.hostedtariffs.com/baja/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+</ul></li>
+<li data-value="8397">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="8398" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="8399" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waiver</span></li>
+<li data-value="8400" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="8401" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="8402" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="8403" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="8404" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="8405" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="8406" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="8407" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="8408" data-url="https://www.hostedtariffs.com/baja/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="8409">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="8410" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8411" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8412" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3027">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3027&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8413">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Contacts</span><ul class="collapsed">
+<li data-value="8414" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="8415" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5CAfterhourscontacts">
+<span class="menu-item menu-leaf">After Hours Contacts</span></li>
+</ul></li>
+<li data-value="8416" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8417" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8418" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cpermpostingsandfaqs">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Reference Documents and FAQs</span><ul class="collapsed">
+<li data-value="8419" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5CNomsandschedulingresources">
+<span class="menu-item menu-leaf">Noms and Scheduling Resources</span></li>
+</ul></li>
+<li data-value="8420" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations</span></li>
+<li data-value="8421" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="8422" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="8423">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Other</span><ul class="collapsed">
+<li data-value="8424" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5CPenaltywaiverlog">
+<span class="menu-item menu-leaf">Penalty Waiver Log</span></li>
+<li data-value="8425" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cgassalepurchase">
+<span class="menu-item menu-leaf">Gas Sale/Purchase </span></li>
+</ul></li>
+<li data-value="8426" data-url="Documents.aspx?Folder=%5C%5Cbaja%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="8427" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="7983" data-url="OperationalOverview.aspx?assetid=3029">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Northern Border Pipeline Company (NBPL)</span><ul class="collapsed">
+<li data-value="7985">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="7986" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7987" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8262" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5CUnsubscribedSegment">
+<span class="menu-item menu-leaf">Unsubscribed Segment</span></li>
+<li data-value="8117" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">HIstorical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8442" data-url="ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Electric Coordination</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/ScheduledQtyForPowerPlants&amp;pAssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7984">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Quality</span><ul class="collapsed">
+<li data-value="7988" data-url="ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Gas Quality</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/GasQuality&amp;AssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7989" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cgasqualityindustrystandards">
+<span class="menu-item menu-leaf">Industry Standards and Methodologies</span></li>
+<li data-value="7990" data-url="https://www.hostedtariffs.com/northern/pdf/tariff.pdf#quality">
+<span class="menu-item menu-leaf">Gas Quality Tariff</span></li>
+</ul></li>
+<li data-value="7991" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cindexofcustomers">
+<span class="menu-item menu-leaf">Index of Customers</span></li>
+<li data-value="7992" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3029&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="7993">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="7995" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7996" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7997" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7998" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releasable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3029&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="7999" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+<li data-value="8000" data-url="ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3029&amp;CritFlag=0&amp;NoticeType=14">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Open Seasons</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/Notices&amp;assetNbr=3029&amp;CritFlag=0&amp;NoticeType=14&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="7994" data-url="ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3029&amp;OpAreas=NBPL">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Posted Imbalances</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FPostedImbalances&amp;AssetNbr=3029&amp;OpAreas=NBPL&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8001">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Regulatory</span><ul class="collapsed">
+<li data-value="8133" data-url="https://www.hostedtariffs.com/northern/pending.html">
+<span class="menu-item menu-leaf">Pending Tariff Filings</span></li>
+<li data-value="8002" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cregulatoryactivities">
+<span class="menu-item menu-leaf">Regulatory Activities</span></li>
+</ul></li>
+<li data-value="8007">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Standards of Conduct</span><ul class="collapsed">
+<li data-value="8008" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Caffiliatenamesandaddresses">
+<span class="menu-item menu-leaf">Affiliate Names and Addresses</span></li>
+<li data-value="8009" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Caffiliatetariffwaivers">
+<span class="menu-item menu-leaf">Affiliate Tariff Waiver</span></li>
+<li data-value="8010" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cchiefcomplianceofficer">
+<span class="menu-item menu-leaf">Chief Compliance Officer</span></li>
+<li data-value="8011" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cemployeetransfers">
+<span class="menu-item menu-leaf">Employee Transfers</span></li>
+<li data-value="8012" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cimplementationprocedures">
+<span class="menu-item menu-leaf">Implementation Procedures</span></li>
+<li data-value="8013" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cinformationdisclosure">
+<span class="menu-item menu-leaf">Information Disclosure</span></li>
+<li data-value="8014" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cjobtitlesanddescriptions">
+<span class="menu-item menu-leaf">Job Titles and Descriptions</span></li>
+<li data-value="8015" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cpotentialmergers">
+<span class="menu-item menu-leaf">Potential Mergers</span></li>
+<li data-value="8016" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Csharedfacilities">
+<span class="menu-item menu-leaf">Shared Facilities</span></li>
+<li data-value="8017" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cvoluntaryconsent">
+<span class="menu-item menu-leaf">Voluntary Consent</span></li>
+</ul></li>
+<li data-value="8018" data-url="https://www.hostedtariffs.com/northern/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="8019">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Transactional Reporting</span><ul class="collapsed">
+<li data-value="8021" data-url="ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Capacity Release</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransCapacityRelease&amp;AssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8022" data-url="ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Firm</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransFirm&amp;AssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8023" data-url="ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3029">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Interruptible</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2FInfoPost%2FTransInterrupt&amp;AssetNbr=3029&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8024" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Ccontactlist">
+<span class="menu-item menu-leaf">Contact List</span></li>
+<li data-value="8130" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Ctrainingandreference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8254" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8134" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cpermpostingsandfaqs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="8264" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cpresentations">
+<span class="menu-item menu-leaf">Presentations</span></li>
+<li data-value="8025" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cmaps">
+<span class="menu-item menu-leaf">Maps</span></li>
+<li data-value="8119" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5CFuelmatrix">
+<span class="menu-item menu-leaf">Fuel Matrix</span></li>
+<li data-value="8028" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Ccustomermeeting">
+<span class="menu-item menu-leaf">Customer Meeting</span></li>
+<li data-value="8029">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Public Awareness</span><ul class="collapsed">
+<li data-value="8030" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cstateonecallcenters">
+<span class="menu-item menu-leaf">State One-Call Centers</span></li>
+<li data-value="8031" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Csafetyinformation">
+<span class="menu-item menu-leaf">Safety Information</span></li>
+<li data-value="8032" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cmaintainingpipelineintegrity">
+<span class="menu-item menu-leaf">Maintaining Pipeline Integrity</span></li>
+</ul></li>
+<li data-value="8033" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cpressreleases">
+<span class="menu-item menu-leaf">Press Releases</span></li>
+<li data-value="8135" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Copenseasons">
+<span class="menu-item menu-leaf">Open Seasons Offers/Results</span></li>
+<li data-value="8034" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="8035" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="8036" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+<li data-value="8037">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Gas Accounting</span><ul class="collapsed">
+<li data-value="8038" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Cuscustomsreporting">
+<span class="menu-item menu-leaf">US Customs Reporting</span></li>
+<li data-value="8118" data-url="Documents.aspx?Folder=%5C%5Cnbpl%5C%5Imbalancefortradeorpurchase">
+<span class="menu-item menu-leaf">Imbalances for Trade or Purchase</span></li>
+</ul></li>
+<li data-value="8128" data-url="https://aws-inettcplus.tcenergy.com/Citrix/storeawsinetWeb/" data-newwindow="true">
+<span class="menu-item menu-leaf">TC ICE Measurement</span></li>
+</ul></li>
+<li data-value="8265" data-url="OperationalOverview.aspx?assetid=3119">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> TC Louisiana Intrastate Pipeline LLC</span><ul class="collapsed">
+<li data-value="8286">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Capacity</span><ul class="collapsed">
+<li data-value="8287" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3119">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Operationally Available</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacity&amp;pAssetNbr=3119&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8289" data-url="ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3119">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Unsubscribed</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/UnsubscribedCapacity&amp;AssetNbr=3119&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8288" data-url="ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3119">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Historical OAC</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRange&amp;pAssetNbr=3119&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+</ul></li>
+<li data-value="8290" data-url="ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3119">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Locations</span><div class="custcsvicon pointer" title="Download CSV" onclick="event.stopPropagation(); window.open(&quot;ReportViewer.aspx?/InfoPost/LocationDataDownload&amp;assetNbr=3119&amp;rs:Format=CSV&amp;rc:NoHeader=true&quot;, &quot;_blank&quot;); return false;" style="height:16px; width:16px; background-repeat:no-repeat; background-image: url(&quot;images/icons/csv-16px.png&quot;);"></div></div></li>
+<li data-value="8266">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Notices</span><ul class="collapsed">
+<li data-value="8267" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=1">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=1&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8268" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=0">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Non-Critical</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=0&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8269" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=-1&amp;NoticeType=2">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Planned Service Outage </span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=-1&amp;NoticeType=2&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8270" data-url="ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=-1&amp;NoticeType=31">
+<div class="menu-item-container"><span class="menu-item menu-leaf">Request to Purchase Releaseable Capacity</span><div class="custpdficon pointer" title="Download PDF" onclick="event.stopPropagation(); LaunchPDF(&quot;ReportViewer.aspx?%2fInfoPost%2fNotices&amp;assetNbr=3119&amp;CritFlag=-1&amp;NoticeType=31&quot;); return false;" style="height:12px; width:12px; background-repeat:no-repeat; background-image: url(&quot;images/icons/pdf-12.gif&quot;);"></div></div></li>
+<li data-value="8271" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5Cwasteheat">
+<span class="menu-item menu-leaf">Waste Heat</span></li>
+</ul></li>
+<li data-value="8272" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5Cregulatoryactivities">
+<span class="menu-item menu-leaf">Regulatory</span></li>
+<li data-value="8291" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5CTrainingAndReference">
+<span class="menu-item menu-leaf">Training</span></li>
+<li data-value="8273" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5CConstrandMaint">
+<span class="menu-item menu-leaf">Construction and Maintenance</span></li>
+<li data-value="8274" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5CReferenceDocumentsandFAQs">
+<span class="menu-item menu-leaf">Reference Documents and FAQs</span></li>
+<li data-value="8284" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+<li data-value="8371" data-url="Documents.aspx?Folder=%5C%5Ctcli%5C%5Cmeterrequest">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Meter Request Process</span><ul class="collapsed">
+<li data-value="8372" data-url="https://forms.office.com/Pages/ResponsePage.aspx?id=bOPOsFwiSE-2C5IfREtWmDBHdOBhxSJLgQzMv_ngUJtUNURUSURUT0pDM1NJRENOVU1DQU1YWFlMTC4u" data-newwindow="true">
+<span class="menu-item menu-leaf">Meter Request System</span></li>
+</ul></li>
+</ul></li>
+<li data-value="7378" data-url="https://ebb.tceconnects.com/app/" data-newwindow="true">
+<span class="menu-item menu-leaf">Customer Activities</span></li>
+<li data-value="6992" data-url="Documents.aspx?Folder=%5C%5Call%5C%5Cdownloads">
+<span class="menu-item menu-leaf">Downloads</span></li>
+<li data-value="6990">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Other</span><ul class="collapsed">
+<li data-value="7101" data-url="Documents.aspx?Folder=%5C%5Call%5C%5Cblankforms">
+<span class="menu-item menu-leaf">Blank Forms</span></li>
+</ul></li>
+<li data-value="6993">
+<span class="menu-item menu-parent"><span class="arrow">▶</span> Search</span><ul class="collapsed">
+<li data-value="7099" data-url="https://www.hostedtariffs.com/">
+<span class="menu-item menu-leaf">Tariff</span></li>
+<li data-value="7098" data-url="webmethods/DownloadFile.aspx?Mode=V&amp;S3K=%5Call%5CTariffSearch.htm&amp;S3FN=TariffSearch.htm">
+<span class="menu-item menu-leaf">Tariff Search</span></li>
+</ul></li>
+<li data-value="6995" data-url="SiteMap.aspx?sid=67">
+<span class="menu-item menu-leaf">Site Map</span></li>
+</ul></li>
+</ul>
+</ul>
+        </div>
+    </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="1285D012" style="">
+</div></form>
+    <div id="resize-handle"></div>
+	<div id="scrollMe" class="ui-layout-center">
+		<div id="frameLoadingOverlay" style="display: none; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.7); z-index: 9999; justify-content: center; align-items: center;">
+			<div style="text-align:center;">
+				<div style="border:4px solid #f3f3f3; border-top:4px solid #237cc1; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:0 auto;"></div>
+				<div style="margin-top:10px; font-family:Arial; font-size:10pt; color:#333;">Loading...</div>
+			</div>
+		</div>
+		<style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+		<iframe class="ui-layout-center" style="!important; border-width: 0px !important; padding: 0px;" id="mainFrame" name="mainFrame" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto" src="OperationalOverview.aspx?v=639261736732180046&amp;assetid=3037" onload="hideFrameLoading();"></iframe>
+	</div>
+<script type="text/javascript">
+	function showFrameLoading() {
+		var overlay = document.getElementById('frameLoadingOverlay');
+		overlay.style.display = 'flex';
+	}
+	function hideFrameLoading() {
+		var overlay = document.getElementById('frameLoadingOverlay');
+		overlay.style.display = 'none';
+	}
+</script>
+
+
+</body></html>

@@ -1,0 +1,107 @@
+[
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/InformationContact/GetContacts?tspNo=200",
+  "application/json; charset=utf-8",
+  "[{\"contactId\":1,\"name\":\"GAS CONTROL\",\"companyId\":200,\"email\":\"chenierepipelinesgascontrol@cheniere.com\",\"office\":\"(713) 375-5002\",\"mobile\":\"(281) 468-1602\",\"afterHour\":\"\",\"metaId\":100,\"isExpired\":false},{\"contactId\":2,\"name\":\"CUSTOMER SERVICE\",\"companyId\":200,\"email\":\"Cheniere.CTPL@Cheniere.com\",\"office\":\"(713) 375-5900\",\"mobile\":\"CTPLScheduling@Cheniere.com\",\"afterHour\":\"713-375-6904\",\"metaId\":20"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/InformationContact/GetInformations?tspNo=200",
+  "application/json; charset=utf-8",
+  "[\"<span style=\\\"font-family:Times New Roman;\\\"></span><p style=\\\"margin:0in 0in 0pt;line-height:normal;\\\"><strong><span style=\\\"text-decoration:underline;\\\"><span style=\\\"font-family:'Verdana',sans-serif;font-size:9pt;\\\">&nbsp;</span></span></strong></p><span style=\\\"font-family:Times New Roman;\\\"></span><p style=\\\"margin:0in 0in 0pt;line-height:normal;\\\"><strong><span style=\\\"font-family:'Verdana"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/GasQuality/GetGasQuality?tspNo=200&beginDate=null&endDate=null&locationId=0",
+  "application/json; charset=utf-8",
+  "{\"report\":[],\"beginDate\":\"9/26/2026\",\"endDate\":\"9/26/2026\"}"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Page/GetPages",
+  "application/json; charset=utf-8",
+  "{\"pages\":[{\"name\":\"Capacity\",\"pageId\":1,\"isExpired\":false,\"attributeMetaId\":1005,\"attributeId\":6,\"orderBy\":-1,\"metaId\":4000,\"description\":\"Capacity\",\"isEmbedded\":false,\"subPage\":[{\"name\":\"Operationally Available \",\"pageId\":2,\"isExpired\":false,\"attributeMetaId\":1003,\"attributeId\":4,\"orderBy\":0,\"metaId\":4001,\"isEmbedded\":false,\"description\":\"Operationally Available \",\"subPage\":[]},{\"name\":\"Unsubscri"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Station/GetStationsByCompanyId?tspNo=200",
+  "application/json; charset=utf-8",
+  "[{\"stationId\":3,\"companyId\":200,\"locationId\":\"CT109461\",\"locationName\":\"GILLIS-LEAP\",\"directionOfFlow\":\"R         \",\"description\":\"Gillis Compressor Station\",\"isExpired\":true,\"metaId\":100,\"orderBy\":1},{\"stationId\":36,\"companyId\":200,\"locationId\":\"CT109471\",\"locationName\":\"GILLIS-ACADIAN\",\"directionOfFlow\":\"R         \",\"description\":\"Gillis Compressor Station\",\"isExpired\":true,\"metaId\":100,\"orderBy"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Notice/GetActiveSummaryNotices?companyId=200",
+  "application/json; charset=utf-8",
+  "[{\"noticeId\":1998,\"subject\":\"CTPL Quorum Server Maintenance September 24, 2026, 10:15PM to September 25, 2026, 12:00AM \",\"pageId\":10,\"effectiveDateTime\":\"2026-09-23T12:13:00\",\"metaId\":3002,\"description\":\"Non-Critical\"},{\"noticeId\":1996,\"subject\":\"CTPL Retainage Rates Eff 10.1.2026\",\"pageId\":10,\"effectiveDateTime\":\"2026-09-18T08:00:00\",\"metaId\":3002,\"description\":\"Non-Critical\"},{\"noticeId\":1991,\"s"
+ ],
+ [
+  200,
+  "POST",
+  "https://lngconnectionapi.cheniere.com/api/Logger/Exceptions",
+  "application/json; charset=utf-8",
+  "\"Exception has been saved\""
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Capacity/GetCapacity?tspNo=200&beginDate=null&cycleId=null&locationId=0",
+  "application/json; charset=utf-8",
+  "{\"report\":[{\"tsp\":\"800742780\",\"tsP_NAME\":\"CHENIERE CREOLE TRAIL PIPELINE, L.P. \",\"cycle\":\"Intraday 3\",\"postinG_DT_TIME\":\"2026-09-27T22:15:14.8\",\"avaiL_CAP_EFF_DT_TIME\":\"2026-09-27T22:00:00\",\"avaiL_CAP_END_DT\":\"2026-09-28T00:00:00\",\"caP_TYPE_DESC\":\"Operationally available unscheduled capacity\",\"loc\":\"CT109413\",\"loC_NAME\":\"CT109413-GILLIS-TETCO-R\",\"loC_PURP_DESC\":\"Receipt Location\",\"loC_QTI\":\"RPQ\",\""
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Station/GetStationsByCompanyId?tspNo=400",
+  "application/json; charset=utf-8",
+  "[]"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/InformationContact/GetInformations?tspNo=400",
+  "application/json; charset=utf-8",
+  "[\"<span style=\\\"font-family:Times New Roman;font-size:medium;\\\"></span><p style=\\\"background:white;margin:0in 0in 0pt;line-height:normal;\\\"><strong><span lang=\\\"EN\\\" style=\\\"color:#3e454c;font-family:'Helvetica','sans-serif';font-size:8pt;mso-fareast-font-family:'Times New Roman';mso-ansi-language:EN;\\\"></span></strong><span lang=\\\"EN\\\" style=\\\"color:#3e454c;font-family:'Helvetica','sans-serif';fo"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/InformationContact/GetContacts?tspNo=400",
+  "application/json; charset=utf-8",
+  "[{\"contactId\":3,\"name\":\"GAS CONTROL\",\"companyId\":400,\"email\":\"chenierepipelinesgascontrol@cheniere.com\",\"office\":\"(713) 375-5003\",\"mobile\":\"(281) 468-1602\",\"afterHour\":\"\",\"metaId\":100,\"isExpired\":false},{\"contactId\":4,\"name\":\"CUSTOMER SERVICE\",\"companyId\":400,\"email\":\"Cheniere.CCPL@Cheniere.com\",\"office\":\"(713) 375-5900\",\"mobile\":\"CCPLScheduling@Cheniere.com\",\"afterHour\":\"713-375-6905\",\"metaId\":20"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/GasQuality/GetGasQuality?tspNo=400&beginDate=null&endDate=null&locationId=0",
+  "application/json; charset=utf-8",
+  "{\"report\":[],\"beginDate\":\"9/26/2026\",\"endDate\":\"9/26/2026\"}"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Station/GetStationsByCompanyId?tspNo=400",
+  "application/json; charset=utf-8",
+  "[]"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Notice/GetActiveSummaryNotices?companyId=400",
+  "application/json; charset=utf-8",
+  "[{\"noticeId\":1999,\"subject\":\"CCPL Quorum Server Maintenance September 24, 2026, 10:15PM to September 25, 2026, 12:00AM \",\"pageId\":10,\"effectiveDateTime\":\"2026-09-23T12:15:00\",\"metaId\":3002,\"description\":\"Non-Critical\"},{\"noticeId\":1997,\"subject\":\"CCPL Retainage Rates Eff 10.1.2026\",\"pageId\":10,\"effectiveDateTime\":\"2026-09-18T08:09:00\",\"metaId\":3002,\"description\":\"Non-Critical\"},{\"noticeId\":1995,\"s"
+ ],
+ [
+  200,
+  "GET",
+  "https://lngconnectionapi.cheniere.com/api/Capacity/GetCapacity?tspNo=400&beginDate=null&cycleId=null&locationId=0",
+  "application/json; charset=utf-8",
+  "{\"report\":[{\"tsp\":\"079841991\",\"tsP_NAME\":\"CHENIERE CORPUS CHRISTI PIPELINE, L.P.\",\"cycle\":\"Intraday 3\",\"postinG_DT_TIME\":\"2026-09-27T22:15:15.53\",\"avaiL_CAP_EFF_DT_TIME\":\"2026-09-27T22:00:00\",\"avaiL_CAP_END_DT\":\"2026-09-28T00:00:00\",\"caP_TYPE_DESC\":\"Operationally available unscheduled capacity\",\"loc\":\"CC100221\",\"loC_NAME\":\"CC100221-CORPUS CHRISTI-CCLIQ-R\",\"loC_PURP_DESC\":\"Receipt Location\",\"loC_QT"
+ ]
+]
