@@ -1,0 +1,31 @@
+name: South Africa Eskom data portal discovery
+
+# Manual, one-off: lists every CSV on Eskom's data portal and prints each
+# one's columns, to design a second archive tab from. Output is in the
+# run log and uploaded as an artifact - nothing is committed.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery
+        run: python3 south_africa/ESKOM_DATAPORTAL_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eskom-discovery-output
+          path: south_africa/eskom_discovery_output.txt
+          if-no-files-found: ignore
