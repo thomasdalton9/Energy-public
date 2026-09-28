@@ -669,9 +669,9 @@ NO_DATA = "no data yet (EIA runs 2-3 months behind)"
 def best_estimate_daily(est, eia):
     """One daily series per plant from HISTORY_START: the metered and
     calibrated estimate where the daily pull has it, otherwise the plant's
-    EIA monthly feedgas spread flat across every day of that month (the
+    EIA monthly feedgas spread ratably across every day of that month (the
     pipelines only keep ~2 years of daily postings, so EIA is the history).
-    'Source' says which: metered, EIA monthly (flat), or mixed."""
+    'Source' says which: metered, EIA monthly (ratable), or mixed."""
     if eia is None or eia.empty:
         return pd.DataFrame()
     plants = list(dict.fromkeys(p[0] for p in POINTS))
@@ -685,8 +685,8 @@ def best_estimate_daily(est, eia):
     out = metered.combine_first(flat)
     used_met, used_eia = metered.notna().any(axis=1), (metered.isna() & flat.notna()).any(axis=1)
     source = pd.Series(NO_DATA, index=out.index)
-    source[used_eia] = "EIA monthly (flat)"
-    source[used_met] = "mixed (EIA flat for unmetered plants)"
+    source[used_eia] = "EIA monthly (ratable)"
+    source[used_met] = "mixed (EIA ratable for unmetered plants)"
     source[used_met & ~used_eia] = "metered"
     out["Total"] = out[plants].sum(axis=1, min_count=1)
     out["Source"] = source
@@ -734,7 +734,7 @@ def notes_lines():
               "", "BEST ESTIMATE DAILY",
               f"'Best estimate daily': one row per gas day from {HISTORY_START:%d %b %Y}. Where the daily pipeline pull has the day, "
               "the metered/calibrated estimate ('Estimated (calibrated)'); before that - pipelines only keep about two years of "
-              "daily postings - each plant's EIA monthly feedgas spread flat across the month, so history has no day-to-day "
+              "daily postings - each plant's EIA monthly feedgas spread ratably across the month, so history has no day-to-day "
               "shape. 'Source' says which was used. The last 2-3 months before the daily pull began have no data until EIA "
               "publishes them.",
               "", "PLANT CAPACITY",
