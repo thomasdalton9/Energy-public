@@ -696,6 +696,75 @@ def best_estimate_daily(est, eia):
     out.index.name = "gas_day"
     return out.round(3)
 
+# 'Feedgas vs capacity' chart: nameplate capacity stacked by plant in
+# start-up order (Cove Point and Elba share a slot - eight series is the
+# most the palette keeps distinguishable), total feedgas as a line.
+CAPACITY_GROUPS = [
+    ("Sabine Pass", ["Sabine Pass"]), ("Cove Point + Elba", ["Cove Point", "Elba Island"]),
+    ("Corpus Christi", ["Corpus Christi"]), ("Cameron", ["Cameron"]), ("Freeport", ["Freeport"]),
+    ("Calcasieu Pass", ["Calcasieu Pass"]), ("Plaquemines", ["Plaquemines"]), ("Golden Pass", ["Golden Pass"]),
+]
+CHART_COLORS = ["2A78D6", "EB6834", "1BAF7A", "EDA100", "E87BA4", "008300", "4A3AA7", "E34948"]
+CHART_LINE_COLOR = "0B0B0B"
+FEEDGAS_LINE = "Total feedgas (best estimate)"
+
+
+def chart_data(best):
+    """Daily nameplate capacity (feedgas Bcf/d) per group, stepping up as
+    each phase's first LNG arrives, plus the best-estimate total."""
+    days = pd.Series(pd.to_datetime(list(best.index)), index=best.index)
+    out = {}
+    for group, plants in CAPACITY_GROUPS:
+        cap = pd.Series(0.0, index=best.index)
+        for plant, _, _, mtpa, first in PLANT_CAPACITY:
+            if plant in plants:
+                cap += (days >= pd.Timestamp(first)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
+        out[f"{group} capacity"] = cap.round(3)
+    df = pd.DataFrame(out)
+    df[FEEDGAS_LINE] = best["Total"]
+    df.index.name = "gas_day"
+    return df
+
+
+def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity"):
+    from openpyxl.chart import AreaChart, LineChart, Reference
+    from openpyxl.chart.axis import DateAxis
+    ws = wb[data_sheet]
+    n = ws.max_row
+    area = AreaChart()
+    area.grouping = "stacked"
+    area.title = "US LNG feedgas vs nameplate capacity (Bcf/d)"
+    area.y_axis.title = "Bcf/d"
+    area.y_axis.majorGridlines.spPr = None
+    area.add_data(Reference(ws, min_col=2, max_col=1 + len(CAPACITY_GROUPS), min_row=1, max_row=n), titles_from_data=True)
+    dates = Reference(ws, min_col=1, min_row=2, max_row=n)
+    area.set_categories(dates)
+    for series, color in zip(area.series, CHART_COLORS):
+        series.graphicalProperties.solidFill = color
+        series.graphicalProperties.line.solidFill = "FFFFFF"
+        series.graphicalProperties.line.width = 6350  # 0.5pt surface gap between bands
+    line = LineChart()
+    line.add_data(Reference(ws, min_col=2 + len(CAPACITY_GROUPS), min_row=1, max_row=n), titles_from_data=True)
+    feed = line.series[0]
+    feed.graphicalProperties.line.solidFill = CHART_LINE_COLOR
+    feed.graphicalProperties.line.width = 22860  # 1.8pt
+    feed.smooth = False
+    line.y_axis.axId = area.y_axis.axId  # one shared axis
+    area += line
+    area.x_axis = DateAxis(crossAx=100)
+    area.x_axis.number_format = "mmm-yy"
+    area.x_axis.majorTimeUnit = "months"
+    area.x_axis.majorUnit = 6
+    area.x_axis.title = None
+    area.legend.position = "b"
+    area.width, area.height = 32, 16
+    cs = wb.create_sheet(title, 1)
+    cs.add_chart(area, "A1")
+    cs["A34"] = ("Stacked areas: operator nameplate liquefaction capacity by plant, as feedgas Bcf/d ('Plant capacity' tab). "
+                 "Line: 'Best estimate daily' total - EIA monthly spread ratably before the daily pull, metered after. "
+                 "Plants routinely run above nameplate, so the line can sit above the stack.")
+
+
 def load_points(path):
     try:
         df = pd.read_excel(path, sheet_name="Points (Dth)", index_col=0)
@@ -907,6 +976,8 @@ def save(out, new):
     sheets = {"Best estimate daily": best} if not best.empty else {}
     sheets.update({"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(),
                    "Points (Dth)": points})
+    if not best.empty:
+        sheets["Chart data"] = chart_data(best)
     cache = load_tc_cache(out)
     if TC_AHEAD:
         ahead = pd.DataFrame.from_dict(TC_AHEAD, orient="index")
@@ -933,6 +1004,10 @@ def save(out, new):
         for (cell,) in ws.iter_rows(min_row=2, max_col=1):
             cell.number_format = "dd-mmm-yyyy"
         ws.column_dimensions["A"].width = 14
+    if "Chart data" in wb.sheetnames:
+        for (cell,) in wb["Chart data"].iter_rows(min_row=2, max_col=1):
+            cell.number_format = "dd-mmm-yyyy"
+        add_capacity_chart(wb)
     ws = wb["Plant capacity"]
     for row in ws.iter_rows(min_row=2):
         row[-1].number_format = "mmm-yyyy"
