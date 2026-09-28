@@ -346,30 +346,45 @@ PORT_TO_PLANT = [  # first match wins; Calcasieu before Cameron (both in Cameron
 
 
 def fetch_eia_exports():
-    """Monthly EIA exports by plant, as feedgas-equivalent Bcf/d."""
+    """Monthly EIA exports by plant, as feedgas-equivalent Bcf/d.
+
+    The workbook splits each point of exit by destination country
+    ("Sabine Pass, LA Liquefied Natural Gas Exports to Japan") across
+    several "Data N" sheets. Use a port's own total column where one
+    exists ("Sabine Pass, LA Liquefied Natural Gas Exports (MMcf)"),
+    otherwise sum all of its country columns across every sheet - the
+    first version read only "Data 1", which stops part-way through the
+    alphabet of countries, and undercounted every terminal."""
     import re
     import requests
     r = requests.get(EIA_EXPORTS_XLS, timeout=120, headers={"User-Agent": "Mozilla/5.0"})
     r.raise_for_status()
-    raw = pd.read_excel(io.BytesIO(r.content), sheet_name="Data 1", header=2)
-    raw = raw.rename(columns={raw.columns[0]: "month"}).dropna(subset=["month"])
-    raw["month"] = pd.to_datetime(raw["month"]).dt.to_period("M")
-    out, unmapped = {}, []
-    for col in raw.columns[1:]:
-        plant = next((pl for pat, pl in PORT_TO_PLANT if re.search(pat, str(col), re.I)), None)
+    book = pd.ExcelFile(io.BytesIO(r.content))
+    frames = []
+    for name in [n for n in book.sheet_names if n.lower().startswith("data")]:
+        sheet = pd.read_excel(book, sheet_name=name, header=2)
+        sheet = sheet.rename(columns={sheet.columns[0]: "month"}).dropna(subset=["month"])
+        sheet["month"] = pd.to_datetime(sheet["month"]).dt.to_period("M")
+        frames.append(sheet.set_index("month"))
+    raw = pd.concat(frames, axis=1)
+    raw = raw.loc[:, ~raw.columns.duplicated()]
+    totals, by_country = {}, {}
+    for col in raw.columns:
+        c = str(col)
+        plant = next((pl for pat, pl in PORT_TO_PLANT if re.search(pat, c.split(" Liquefied")[0], re.I)), None)
         if plant is None:
-            unmapped.append(col)
             continue
-        mmcf = pd.to_numeric(raw[col], errors="coerce")
-        bcfd = mmcf / 1000 / raw["month"].dt.days_in_month * FEEDGAS_PER_EXPORT
-        out[plant] = out[plant].add(bcfd, fill_value=0) if plant in out else bcfd
-    if unmapped:
-        print(f"  EIA exports: columns not mapped to a plant: {unmapped}", flush=True)
-    df = pd.DataFrame(out)
-    df.index = raw["month"].astype(str).values
+        series = pd.to_numeric(raw[col], errors="coerce")
+        bucket = by_country if re.search(r"Exports to ", c) else totals
+        bucket[plant] = bucket[plant].add(series, fill_value=0) if plant in bucket else series
+    mmcf = {pl: totals.get(pl, by_country.get(pl)) for pl in set(totals) | set(by_country)}
+    days = raw.index.days_in_month
+    df = pd.DataFrame({pl: v / 1000 / days * FEEDGAS_PER_EXPORT for pl, v in mmcf.items()}, index=raw.index)
+    df.index = df.index.astype(str)
     df.index.name = "month"
     df = df.dropna(how="all").round(3)
-    print(f"  EIA exports: {len(df)} months, latest {df.index[-1]}, plants {list(df.columns)}", flush=True)
+    print(f"  EIA exports: {len(df)} months, latest {df.index[-1]}; port totals for {sorted(totals)}, "
+          f"country sums for {sorted(set(by_country) - set(totals))}", flush=True)
     return df
 
 
