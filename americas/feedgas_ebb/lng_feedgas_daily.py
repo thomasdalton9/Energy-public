@@ -276,20 +276,30 @@ def fetch_tc(page, pipe, gas_day):
     it, let the page post back, then use the viewer's CSV export."""
     import re
     report, asset = TC_REPORTS[pipe]
-    page.goto(TC_BASE + f"TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid={asset}", wait_until="networkidle", timeout=90000)
-    page.goto(f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&pAssetNbr={asset}", wait_until="networkidle", timeout=180000)
+    # The menu page keeps polling, so "networkidle" never comes (ANR timed
+    # out at 90s) - load it only for its session cookies.
+    page.goto(TC_BASE + f"TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid={asset}", wait_until="domcontentloaded", timeout=90000)
+    page.wait_for_timeout(3000)
+    page.goto(f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&pAssetNbr={asset}", wait_until="domcontentloaded", timeout=180000)
+    page.locator("#txtGasDate").wait_for(timeout=120000)
     box = page.locator("#txtGasDate")
     if box.input_value() != f"{gas_day:%m/%d/%Y}":
         box.fill(f"{gas_day:%m/%d/%Y}")
         box.dispatch_event("change")
-        page.wait_for_load_state("networkidle", timeout=180000)
-        page.wait_for_timeout(3000)
+        page.wait_for_load_state("domcontentloaded", timeout=180000)
+        page.wait_for_function(f"() => document.querySelector('#txtGasDate') && "
+                               f"document.querySelector('#txtGasDate').value === '{gas_day:%m/%d/%Y}' && "
+                               f"/ExportUrlBase/.test(document.documentElement.innerHTML)", timeout=180000)
+        page.wait_for_timeout(5000)
     m = re.search(r'"ExportUrlBase":"([^"]+)"', page.content())
     if not m:
         raise RuntimeError("no ExportUrlBase on the report viewer page")
     url = TC_BASE.split("/infopost/")[0] + m.group(1).replace("\\u0026", "&").replace("&amp;", "&") + "CSV"
     r = page.context.request.get(url, timeout=180000)
-    df = pd.read_csv(io.StringIO(r.text().lstrip("\ufeff")), dtype=str)
+    text = r.text().lstrip("\ufeff")
+    if not text.startswith("TSPName"):
+        raise RuntimeError(f"export didn't return the OA CSV (HTTP {r.status}): {text[:300]!r}")
+    df = pd.read_csv(io.StringIO(text), dtype=str)
     days = set(pd.to_datetime(df["EffGasDay"]).dt.date)
     if days != {gas_day}:
         raise RuntimeError(f"TC {pipe} export is for gas day(s) {days}, wanted {gas_day}")
@@ -446,7 +456,13 @@ def fetch_eia_exports():
             continue
         series = pd.to_numeric(raw[col], errors="coerce")
         if re.search(r"Exports to ", c):
-            by_country[plant] = by_country[plant].add(series, fill_value=0) if plant in by_country else series
+            # The same terminal-country pair appears under more than one
+            # label (MMcf vs Million Cubic Feet, repeated across sheets) -
+            # summing every column doubled Plaquemines, Calcasieu Pass and
+            # Elba. Keep one series per (terminal, country), the larger.
+            country = re.sub(r"\s*\(.*$", "", c.split("Exports to ", 1)[1]).strip().lower()
+            key = (plant, country)
+            by_country[key] = series if key not in by_country else pd.concat([by_country[key], series], axis=1).max(axis=1)
         else:
             # Some terminals have the same total repeated under two labels
             # (units spelled differently, or on two sheets) - summing them
@@ -456,6 +472,10 @@ def fetch_eia_exports():
     for plant, cols in totals.items():
         print(f"  EIA exports: {plant} total from {[c for c, _ in cols]}", flush=True)
     totals = {pl: pd.concat([s for _, s in cols], axis=1).max(axis=1) for pl, cols in totals.items()}
+    country_sums = {}
+    for (plant, _), series in by_country.items():
+        country_sums[plant] = country_sums[plant].add(series, fill_value=0) if plant in country_sums else series
+    by_country = country_sums
     mmcf = {pl: totals.get(pl, by_country.get(pl)) for pl in set(totals) | set(by_country)}
     days = raw.index.days_in_month
     df = pd.DataFrame({pl: v / 1000 / days * FEEDGAS_PER_EXPORT for pl, v in mmcf.items()}, index=raw.index)
