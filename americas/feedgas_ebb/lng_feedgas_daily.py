@@ -117,14 +117,14 @@ POINTS = [
 # "missing" list, out of the calibration (plus RAMP_MONTHS of start-up
 # after), and to stop an unmetered plant's EIA placeholder being applied
 # before it existed. Edit if you have better dates.
-PLANT_START = {}  # filled from PLANT_CAPACITY below: each plant's first FERC fuel-gas authorisation
+PLANT_START = {}  # filled from PLANT_CAPACITY below: each plant's first LNG
 RAMP_MONTHS = 3
 
 # Nameplate liquefaction capacity by phase, as published by the
-# operators (million tonnes per annum of LNG). Start-up = the date FERC
-# staff authorised fuel gas / hazardous fluids into that phase's
-# facilities (the letter's eLibrary accession number is kept); first-LNG
-# months are approximate, for reference. Plants routinely run above nameplate (Sabine Pass, Calcasieu
+# operators (million tonnes per annum of LNG). Start-up = first LNG (month,
+# approximate); the date FERC staff authorised fuel gas / hazardous
+# fluids into that phase's facilities is kept for reference, with the
+# letter's eLibrary accession number. Plants routinely run above nameplate (Sabine Pass, Calcasieu
 # Pass, Plaquemines), so utilisation over 100% is normal. Edit as phases
 # are added.
 PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, FERC fuel gas authorised, FERC accession, first LNG
@@ -140,8 +140,8 @@ PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, FERC fuel gas author
     ("Plaquemines", "Phase 2", 18, 6.7, date(2025, 1, 27), "20250127-3027", date(2025, 3, 1)),
     ("Golden Pass", "Trains 1-3", 3, 18.1, date(2025, 3, 19), "20250319-3021", date(2025, 11, 1)),
 ]
-for _plant, _, _, _, _fuel_gas, _, _ in PLANT_CAPACITY:
-    PLANT_START[_plant] = min(PLANT_START.get(_plant, _fuel_gas), _fuel_gas)
+for _plant, _, _, _, _, _, _first in PLANT_CAPACITY:
+    PLANT_START[_plant] = min(PLANT_START.get(_plant, _first), _first)
 BCF_PER_MT_LNG = 48.0  # 1 tonne of LNG ~ 48 Mcf of gas, so 1 mtpa ~ 0.13 Bcf/d
 
 
@@ -153,12 +153,12 @@ def capacity_table():
                      "nameplate_bcfd_lng_out": round(export, 2),
                      "nameplate_bcfd_feedgas": round(export * FEEDGAS_PER_EXPORT, 2),
                      "ferc_fuel_gas_authorised": pd.Timestamp(fuel_gas), "ferc_accession": accession,
-                     "first_lng_approx": pd.Timestamp(first)})
+                     "first_lng_start_up": pd.Timestamp(first)})
     df = pd.DataFrame(rows)
     totals = df.groupby("plant", sort=False)[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum()
     total_rows = [{"plant": pl, "phase": "Plant total", "trains": None, **totals.loc[pl].round(2).to_dict(),
                    "ferc_fuel_gas_authorised": df.loc[df.plant == pl, "ferc_fuel_gas_authorised"].min(),
-                   "first_lng_approx": df.loc[df.plant == pl, "first_lng_approx"].min()}
+                   "first_lng_start_up": df.loc[df.plant == pl, "first_lng_start_up"].min()}
                   for pl in totals.index if (df.plant == pl).sum() > 1]  # only plants built in phases
     us = {"plant": "US total", "phase": "", "trains": None,
           **df[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum().round(2).to_dict()}
@@ -759,9 +759,9 @@ def chart_data(best):
     out = {}
     for group, plants in CAPACITY_GROUPS:
         cap = pd.Series(0.0, index=best.index)
-        for plant, _, _, mtpa, fuel_gas, _, _ in PLANT_CAPACITY:
+        for plant, _, _, mtpa, _, _, first in PLANT_CAPACITY:
             if plant in plants:
-                cap += (days >= pd.Timestamp(fuel_gas)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
+                cap += (days >= pd.Timestamp(first)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
         out[f"{group} capacity"] = cap.round(3)
     df = pd.DataFrame(out)
     df[FEEDGAS_LINE] = best["Total"]
@@ -833,7 +833,7 @@ def notes_lines():
         "COVERAGE BY PLANT",
     ]
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
-    lines += ["", "PLANT START DATES (FERC authorisation of fuel gas into the plant - see Plant capacity for each letter; blanks before these = not operating yet)"]
+    lines += ["", "PLANT START DATES (first LNG; FERC fuel-gas authorisation dates are in the Plant capacity tab; blanks before these = not operating yet)"]
     lines += [f"{plant}: {start:%b %Y} (meters treated as live from {live_from(plant):%b %Y}, "
               f"{PRE_START_MONTHS} months earlier, to catch pre-commissioning feedgas)" for plant, start in PLANT_START.items()]
     lines += ["", "CALIBRATION",
@@ -1041,7 +1041,7 @@ def save(out, new):
                               {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
                                "TC ENERGY METERS (ANR, COLUMBIA GULF)", "PLANT CAPACITY",
                                "BEST ESTIMATE DAILY",
-                               "PLANT START DATES (FERC authorisation of fuel gas into the plant - see Plant capacity for each letter; blanks before these = not operating yet)"})
+                               "PLANT START DATES (first LNG; FERC fuel-gas authorisation dates are in the Plant capacity tab; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
     for name in ("Best estimate daily", "Bcfd by plant", "Estimated (calibrated)", "Points (Dth)", TC_CACHE_SHEET):
