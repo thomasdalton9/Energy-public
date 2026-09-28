@@ -165,6 +165,17 @@ WEEKLY_EAF_COLUMNS = {
 }
 
 
+# Pumped storage and Load shedding tabs both come from this one file,
+# which is hourly and ~8 days long, lagging about a week. Its "Gen Unit
+# Hours" columns are NOT hours run: they move smoothly hour to hour,
+# rising overnight (pumping) and falling through the day (generating),
+# between fixed "Min Hours" and "Max Hours" lines - i.e. the upper
+# reservoir's stored energy, as unit-hours of generation left.
+PUMPED_FILE = "Pumped_storage_gen_hours_gas_generation_and_manual_load_reduction"
+PUMPED_STATIONS = ["Drakensberg", "Ingula", "Palmiet"]
+MLR_COLUMN = "Manual Load Reduction(MLR)"
+
+
 def portal_url(name):
     today = datetime.now(timezone.utc)
     return f"https://www.eskom.co.za/dataportal/wp-content/uploads/{today:%Y}/{today:%m}/{name}.csv"
@@ -203,6 +214,52 @@ def fetch_weekly_eaf(session):
     df.index = pd.to_datetime(raw["Week Start Date"]).dt.date
     df.index.name = "week_start"
     return df.dropna(how="all").sort_index()
+
+
+_pumped_cache = {}
+
+
+def fetch_pumped_hourly(session):
+    """The pumped storage/MLR file, fetched once per run for both tabs,
+    as an hourly frame with complete days only."""
+    if "df" not in _pumped_cache:
+        raw = fetch_portal_csv(session, PUMPED_FILE)
+        df = raw.drop(columns=["Date"]).apply(pd.to_numeric, errors="coerce")
+        df.index = pd.to_datetime(raw["Date"])
+        df = df.dropna(subset=[f"{s} Gen Unit Hours" for s in PUMPED_STATIONS], how="all")  # unreported hours
+        counts = df.groupby(df.index.date).size()
+        complete = set(counts[counts >= MIN_HOURS_PER_DAY].index)
+        _pumped_cache["df"] = df[[d in complete for d in df.index.date]]
+    return _pumped_cache["df"]
+
+
+def fetch_pumped_storage(session):
+    hourly = fetch_pumped_hourly(session)
+    days = hourly.groupby(hourly.index.date)
+    out = {}
+    for station in PUMPED_STATIONS:
+        level = hourly[f"{station} Gen Unit Hours"]
+        full = hourly[f"{station} Max Hours"]
+        key = station.lower()
+        out[f"{key}_close_unit_hours"] = days[f"{station} Gen Unit Hours"].last()
+        out[f"{key}_close_pct_full"] = (level / full * 100).groupby(hourly.index.date).last()
+        out[f"{key}_low_pct_full"] = (level / full * 100).groupby(hourly.index.date).min()
+    df = pd.DataFrame(out)
+    df.index.name = "date"
+    return df.sort_index()
+
+
+def fetch_load_shedding(session):
+    hourly = fetch_pumped_hourly(session)
+    mlr = hourly[MLR_COLUMN].fillna(0)
+    days = mlr.groupby(mlr.index.date)
+    df = pd.DataFrame({
+        "load_shed_avg_mw": days.mean(),
+        "load_shed_peak_mw": days.max(),
+        "hours_with_load_shedding": days.apply(lambda s: int((s > 0).sum())),
+    })
+    df.index.name = "date"
+    return df.sort_index()
 
 
 def load_sheet(path, sheet):
@@ -296,9 +353,23 @@ NOTES_LINES = [
     "planned_outages_pct (PCLF), unplanned_outages_pct (UCLF), other_outages_pct (OCLF): "
     "the losses; the four add up to ~100%.",
     "",
+    "PUMPED STORAGE TAB (upper reservoir level, per station)",
+    "Eskom reports each station's stored water as 'generating unit-hours' left - how many hours "
+    "of generation the upper reservoir holds, summed over units. It is a storage level, not hours run: "
+    "it rises overnight while pumping and falls during the day while generating.",
+    "*_close_unit_hours: level at the last hour of the day. *_close_pct_full: that level as % of the "
+    "station's full reservoir (Drakensberg 102, Ingula 67, Palmiet 58.7 unit-hours). "
+    "*_low_pct_full: the lowest level in the day - how deep the peak drew it down.",
+    "",
+    "LOAD SHEDDING TAB (Eskom manual load reduction, MLR)",
+    "load_shed_avg_mw: daily mean MW shed. load_shed_peak_mw: highest hour. "
+    "hours_with_load_shedding: hours in the day with any MLR. All zero while there is no load shedding.",
+    "Coverage lags about a week behind the other tabs - Eskom's source file does.",
+    "",
     "SOURCE",
     "Eskom data portal CSVs: Station_Build_Up (Data), System_hourly_actual_and_forecasted_demand "
-    "and Hourly_UCLF_and_OCLF_Trend (System), Weekly_Eskom_generation_capacity_breakdown (Weekly EAF).",
+    "and Hourly_UCLF_and_OCLF_Trend (System), Weekly_Eskom_generation_capacity_breakdown (Weekly EAF), "
+    "Pumped_storage_gen_hours_gas_generation_and_manual_load_reduction (Pumped storage, Load shedding).",
 ]
 NOTES_SECTION_TITLES = {
     "UNITS",
@@ -306,6 +377,8 @@ NOTES_SECTION_TITLES = {
     "COVERAGE",
     "SYSTEM TAB (daily mean of hourly values, MW)",
     "WEEKLY EAF TAB (% of Eskom installed capacity, by week starting)",
+    "PUMPED STORAGE TAB (upper reservoir level, per station)",
+    "LOAD SHEDDING TAB (Eskom manual load reduction, MLR)",
     "SOURCE",
 }
 
@@ -349,12 +422,13 @@ def main():
 
     system = update_context_sheet(args.out, "System", fetch_system_daily, session, "date")
     weekly_eaf = update_context_sheet(args.out, "Weekly EAF", fetch_weekly_eaf, session, "week_start")
+    pumped = update_context_sheet(args.out, "Pumped storage", fetch_pumped_storage, session, "date")
+    load_shedding = update_context_sheet(args.out, "Load shedding", fetch_load_shedding, session, "date")
 
     sheets = {"Data": combined}
-    if not system.empty:
-        sheets["System"] = system
-    if not weekly_eaf.empty:
-        sheets["Weekly EAF"] = weekly_eaf
+    for name, df in [("System", system), ("Weekly EAF", weekly_eaf), ("Pumped storage", pumped), ("Load shedding", load_shedding)]:
+        if not df.empty:
+            sheets[name] = df
     xlsx_notes.write_workbook(args.out, sheets, NOTES_LINES, NOTES_SECTION_TITLES)
     format_date_column(args.out, sheets)
     print(f"Archive now has {len(combined)} days ({len(new_or_updated)} new since last run). Saved to {args.out}")
@@ -363,6 +437,10 @@ def main():
     print(system.tail())
     print(f"\nWeekly EAF tab: {len(weekly_eaf)} weeks")
     print(weekly_eaf.tail())
+    print(f"\nPumped storage tab: {len(pumped)} days")
+    print(pumped.tail())
+    print(f"\nLoad shedding tab: {len(load_shedding)} days")
+    print(load_shedding.tail())
 
     latest = max(new_daily.index) if not new_daily.empty else None
     age = (date.today() - latest).days if latest else None
