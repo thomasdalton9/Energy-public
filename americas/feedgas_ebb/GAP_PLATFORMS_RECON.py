@@ -294,36 +294,56 @@ def enbridge_units(context):
 
 def gulfsouth_ui(context):
     """Boardwalk's GasQuest app signs its API calls with AWS Cognito
-    credentials, so drive the UI instead: pick Gulf South, open
-    Operationally Available, capture tables and calls."""
+    credentials, so drive the UI instead: pick Gulf South from the TSP
+    dropdown (a JS click - the menu item is hidden until the dropdown
+    opens), open Operationally Available, capture tables and the API calls
+    (with bodies) behind them - Gulf South's Stratton Ridge delivery is one
+    of Freeport LNG's three interstate feeds."""
     page = context.new_page()
     calls = []
-    page.on("response", lambda resp: calls.append((resp.status, resp.request.method, resp.url))
-            if resp.request.resource_type in ("xhr", "fetch") else None)
+
+    def on_response(resp):
+        if resp.request.resource_type in ("xhr", "fetch"):
+            try:
+                body = resp.text()[:1500] if "bwpmlp" in resp.url else ""
+            except Exception:
+                body = ""
+            calls.append((resp.status, resp.request.method, resp.url, resp.request.post_data, body))
+    page.on("response", on_response)
     log("\n==================== Gulf South (Boardwalk GasQuest) ====================")
     try:
         page.goto("https://infopost.bwpipelines.com/", wait_until="networkidle", timeout=90000)
         page.wait_for_timeout(4000)
-        sel = page.locator("select").first
-        if sel.count():
-            opts = sel.evaluate("s => [...s.options].map(o => o.value + '|' + o.text)")
-            log(f"  select options: {opts}")
-            gs = next((o.split('|')[0] for o in opts if "Gulf South" in o), None)
-            if gs:
-                sel.select_option(gs)
-        else:
-            page.locator("text=Gulf South").first.click()
+        page.evaluate("""() => { const t = document.querySelector('[data-cy=tsp-wrapper-div] button, [data-cy=tsp-wrapper-div] .dropdown-toggle');
+                                  if (t) t.click(); }""")
+        page.wait_for_timeout(1500)
+        page.evaluate("""() => document.querySelector('[data-cy^="078444247"]').click()""")
         page.wait_for_load_state("networkidle", timeout=60000)
-        page.wait_for_timeout(4000)
+        page.wait_for_timeout(5000)
         dump_page(page, "gulfsouth_tsp")
-        page.locator("text=Operationally Available").first.click(timeout=20000)
+        links = page.evaluate("() => [...document.querySelectorAll('a')].map(a => [a.innerText.trim().slice(0, 60), a.href]).filter(x => x[0])")
+        for t, h in links[:80]:
+            log(f"    LINK {t!r} -> {h}")
+        target = page.get_by_text(re.compile("Operationally Available", re.I)).first
+        target.click(timeout=20000)
         page.wait_for_load_state("networkidle", timeout=90000)
-        page.wait_for_timeout(8000)
+        page.wait_for_timeout(10000)
         dump_page(page, "gulfsouth_oac")
+        rows = page.evaluate("""() => [...document.querySelectorAll('tr')].map(tr => [...tr.querySelectorAll('td,th')].map(c => c.innerText.trim()))""")
+        log(f"  {len(rows)} rows")
+        for r in rows[:3]:
+            log(f"    {r}")
+        for r in rows:
+            if re.search(r"STRATTON|FREEPORT|LNG", " ".join(r), re.I):
+                log(f"    ROW {r}")
     except Exception as e:
         log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
-    for c in calls[-25:]:
-        log(f"  CALL {c}")
+    for status, method, url, post, body in calls[-30:]:
+        log(f"  CALL {status} {method} {url[:200]}")
+        if post:
+            log(f"    POST {post[:500]}")
+        if body:
+            log(f"    {body[:600]!r}")
     page.close()
 
 
