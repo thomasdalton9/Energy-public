@@ -44,18 +44,15 @@ FOLLOW_LIMIT = 10
 # plant (as Cameron Interstate's was for Cameron):
 #   - Cheniere LNG Connection: Creole Trail (Sabine Pass) and Cheniere
 #     Corpus Christi Pipeline
-#   - PipeRiv: third-party aggregator mirroring many pipelines' postings
-#     (Creole Trail, ANR, Transco...) - possibly one format for many
+#   (PipeRiv, a third-party aggregator, was tried once and dropped: data
+#   sources here must be the operators' own FERC-mandated postings, not
+#   intermediaries that could start charging or disappear.)
 #   - TC Energy: ANR (feeds TransCameron/Calcasieu Pass) and Columbia
 #     Gulf (feeds Gator Express/Plaquemines)
 #   - BHE GT&S: Cove Point
 PLATFORMS = {
     "cheniere": [
         "https://lngconnection.cheniere.com/",
-    ],
-    "piperiv": [
-        "https://www.piperiv.com/ip/creole",
-        "https://www.piperiv.com/ip/",
     ],
     "tcenergy": [
         "https://ebb.anrpl.com/",
