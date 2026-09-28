@@ -27,6 +27,7 @@ import io
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlparse
 
@@ -34,24 +35,34 @@ import requests
 
 BASE = "https://www.eskom.co.za/dataportal/"
 HEADERS = {"User-Agent": "gas-demand-scripts/1.0", "Cache-Control": "no-cache", "Pragma": "no-cache"}
-MAX_PAGES = 80
+MAX_PAGES = 60
+# The first run sat for 12+ minutes with no output and had to be
+# cancelled - Eskom's site can be very slow per request. So each request
+# gets a (connect, read) timeout, the crawl stops at a time budget and
+# moves on to describing whatever it has found, and every log line is
+# written to the output file straight away so a killed run still leaves
+# something to read.
+TIMEOUT = (10, 20)
+CRAWL_BUDGET_SECONDS = 6 * 60
 OUTPUT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "eskom_discovery_output.txt")
 
 CSV_RE = re.compile(r"""https?:\\?/\\?/www\.eskom\.co\.za\\?/dataportal\\?/wp-content\\?/uploads\\?/[^"'\s<>)]+?\.csv""", re.I)
 REL_CSV_RE = re.compile(r"""/dataportal/wp-content/uploads/[^"'\s<>)]+?\.csv""", re.I)
 HREF_RE = re.compile(r"""href=["']([^"'#]+)["']""", re.I)
 
-lines = []
-
-
 def log(text=""):
     print(text, flush=True)
-    lines.append(text)
+    with open(OUTPUT_PATH, "a", encoding="utf-8") as f:
+        f.write(text + "\n")
 
 
 def get(session, url, **kwargs):
+    started = time.monotonic()
     try:
-        r = session.get(url, timeout=30, **kwargs)
+        r = session.get(url, timeout=TIMEOUT, **kwargs)
+        elapsed = time.monotonic() - started
+        if elapsed > 5:
+            log(f"  (slow: {elapsed:.0f}s for {url})")
         return r
     except requests.RequestException as e:
         log(f"  ERROR {url}: {type(e).__name__}: {e}")
@@ -118,7 +129,11 @@ def crawl(session, seeds):
     queue = [BASE] + sorted(seeds)
     seen = set()
     csvs = {}
+    deadline = time.monotonic() + CRAWL_BUDGET_SECONDS
     while queue and len(seen) < MAX_PAGES:
+        if time.monotonic() > deadline:
+            log(f"  crawl time budget ({CRAWL_BUDGET_SECONDS}s) used up with {len(queue)} page(s) still queued - moving on")
+            break
         url = queue.pop(0).split("#")[0]
         if url in seen:
             continue
@@ -164,6 +179,7 @@ def describe_csv(session, url):
 
 
 def main():
+    open(OUTPUT_PATH, "w").close()
     session = requests.Session()
     session.headers.update(HEADERS)
 
@@ -199,8 +215,6 @@ def main():
     for name in sorted(newest):
         describe_csv(session, newest[name])
 
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
     log(f"\nSaved: {OUTPUT_PATH}")
     if not newest:
         sys.exit(1)
