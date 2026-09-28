@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+		<script src="/Shared/js/GA4snippet.js" type="text/javascript"></script><script src="https://www.googletagmanager.com/gtag/js?id=G-LD2K0D4V6X"></script>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta name="stick-iframe-to-document" value="false">
+		<link href="/Shared/css/blueprint/inner/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/blueprint/inner/print.css" media="print" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/style.css" media="screen, projection" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/nav.css" media="screen, projection" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/style_standards.css" media="screen, print, projection" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/style_wysiwyg.css" media="screen, print, projection" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/1LinePortalStyleSheet.css" media="screen, print, projection" rel="stylesheet" type="text/css">
+		<link href="/Shared/css/MapNav.css" media="screen, print, projection" rel="stylesheet" type="text/css">
+		<link href="../../css/css_Trans.css" media="screen, print, projection" rel="stylesheet" type="text/css">
+	</head>
+	<body onload="resizeFrameDefault()">
+		
+		
+		<!-- Framework CSS -->
+		<script src="/Shared/js/urlSub.js" type="text/javascript"></script>
+		<script src="/Shared/js/jquery-min.js" type="text/javascript"></script>
+		<script src="/Shared/js/frame-functions.js" type="text/javascript"></script>
+		<script src="/Shared/js/frameResize.js" type="text/javascript"></script><script src="/Shared/js/interior-frame-parent-bridge.js"></script>
+		<script src="/Shared/js/ClientSideInclude.js" type="text/javascript"></script>
+		
+		
+		
+<script type="text/javascript">
+	// Set refresh to 2 minutes for Home page
+	function setPageRefreshRate() 
+	{
+		   // Refresh every 5 Minutes
+		   setTimeout('refresh()', 300000); 
+	}
+	function refresh() 
+	{
+		window.location.reload( true );
+	}
+	if(location.toString().indexOf("/home") > 0)
+	{
+		if (window.addEventListener) 
+		{ 
+			window.addEventListener('load', setPageRefreshRate, false); 
+		} 
+		else if (window.attachEvent) 
+		{ 
+			window.attachEvent('onload', setPageRefreshRate);                    
+		}
+	}
+</script>
+
+		<div class="container">
+			
+			
+			
+			<h1 class="superTitle">
+	     	        	            &gt; Capacity  
+  	      	   </h1>
+    <div class="WGPpgTitle"><span>No Notice Activity</span></div>
+
+			
+<script src="/Shared/js/inject-inner-table-styles.js"></script>
+
+<div class="portal-card" id="contentRegion">
+<content></content>
+
+									<div id="codeRegion">
+			<iframe frameborder="0" hspace="0" id="theiframe" marginheight="0" marginwidth="0" onload="injectInnerTableStyles(this);" scrolling="no" src="/#/document-list/transco/NoNoticeAct" style="overflow: hidden; height: 869px;" vspace="0" width="100%"></iframe>
+		</div>
+	
+<content-below>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+  var iframe = document.getElementById('theiframe');
+  
+  // Listen for height from Angular app and relay to parent
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'portalIframeResize') {
+      if (iframe && event.data.height) {
+        // Set the inner iframe height
+        var newHeight = Math.max(600, event.data.height);
+        iframe.style.height = newHeight + 'px';
+        
+        // Calculate total page height including all content
+        var totalHeight = 0;
+        var contentRegion = document.getElementById('contentRegion');
+        if (contentRegion) {
+          totalHeight = contentRegion.scrollHeight;
+        }
+        
+        // Add height of regulatory comment cards if present
+        var regComments = document.querySelectorAll('.regulatoryComment');
+        regComments.forEach(function(el) {
+          var card = el.closest('.portal-card');
+          if (card && card !== contentRegion) {
+            totalHeight += card.offsetHeight;
+          }
+        });
+        
+        // Relay total height to parent window (interiorFrame's parent)
+        if (window.parent !== window) {
+          window.parent.postMessage({
+            type: 'portalIframeResize',
+            height: totalHeight
+          }, '*');
+        }
+      }
+    }
+    
+    // Relay parent window height down to Angular app
+    if (event.data && event.data.type === 'portalParentHeight') {
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage(event.data, '*');
+      }
+    }
+  });
+  
+  // Send window height to Angular app on load and resize
+  function sendHeightToAngular() {
+    if (iframe && iframe.contentWindow) {
+      // Use top window height if available, otherwise current window
+      var height = window.top ? window.top.innerHeight : window.innerHeight;
+      iframe.contentWindow.postMessage({
+        type: 'portalParentHeight',
+        height: height
+      }, '*');
+    }
+  }
+  
+  // Send on iframe load
+  iframe.addEventListener('load', function() {
+    setTimeout(sendHeightToAngular, 100);
+  });
+  
+  // Send on window resize
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(sendHeightToAngular, 100);
+  });
+})();
+//]]>
+</script>
+</content-below></div>
+
+			
+		</div>
+	
+</body></html>

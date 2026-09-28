@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="t-chrome t-chrome124"><head><title>
+	Informational Postings
+</title><link href="Styles/jquery-ui-smoothness-1.8.17.css" rel="Stylesheet" type="text/css"><link href="Styles/InformationalPosting.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        
+        function PopulateDate(sender, eventArgs) {
+            //if (document.getElementById("hidDateChange") != null) {
+            //alert(sender.get_calendar().get_selectedDates());
+            //alert(sender.get_calendar().get_selectedDates());
+            document.getElementById("ctl00_MainContent_hidDateChange").value = sender.get_calendar().get_selectedDates();
+
+        }
+     
+    </script>
+    <style type="text/css">
+        #ctl00_MainContent_updProgress
+        {
+            position: absolute;
+            margin-left: 500px;
+            margin-top:100px;
+        }
+    </style>
+
+    <script type="text/javascript">
+    try
+    {
+        if (!console) {
+            console = {};
+            console.log = function () { };
+            console.debug = function () { };
+            console.warn = function () { };
+        }
+    }
+    catch (e) {
+        console = {};
+        console.log = function () { };
+        console.debug = function () { };
+        console.warn = function () { };
+    }
+    </script>
+<link href="/InformationalPosting/WebResource.axd?d=3rFomppBwZ2tMVfN15Dy0sRg_OgFFh630lXT0jvqenY-ZpK69gjSMJri3ZyAdF6yyKZNbph4P9sS0zmPaHp3JqgMzEFli21clc1DpuII27oXGUmle18iCnCFwoMuQ6D7aiKj4IpTgtKal_01ajTV8A2&amp;t=639077870317526593" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="/InformationalPosting/WebResource.axd?d=2RjL1idPy6It-i3MtSbyBrcNK0aMQ5j25fF8k8Xer04XLJ3VX3WjXv8tuDeQMm8NAAo3vm8CJ9brxz5xsMdpibmjKlEd_XSqyrIj9dh9OhtsAFEnP1fF-CaPwfn-URx0pvo96WnWGIh0Rv1VQ0oEbf7XFPyVhABf9Oj9PThlg1A1&amp;t=639077870317526593" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="/InformationalPosting/WebResource.axd?d=t8uY7lW7W9Zu6qv7QED0kOyV4WhjJsvTFYmiy5mMZRbWNQM9qM6XImm2FapkzS9Evfq7OxbM_FSynACsbbxKmn_KJ40jmGmRImLEVkLu9l2eU7mWdsTvNtmNPAjaZnwb4JAlVjZ7lP51zWPA3wkNAw2&amp;t=639077870317526593" type="text/css" rel="stylesheet" class="Telerik_stylesheet"><link href="/InformationalPosting/WebResource.axd?d=Di1xVYjhtapqEirqxfsAK7H4K04XCtpxvVjBrXZ58Tbt6cA1xWKLFB4SItm-Q8rciyPz-WZlzjFrvpE2lYQZr_2DdrCjZBTQqt8WgNXVCDSdiDuJb_0NAyaM54PBWUYr5JYfbd7PzVzWE9Q54gQJtzxkIerK_lyduTXCKMREp1o1&amp;t=639077870317526593" type="text/css" rel="stylesheet" class="Telerik_stylesheet"></head>
+<body>
+    <form method="post" action="./Default.aspx?bu=TE&amp;Type=OA" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="ctl00_ScriptManager111_HiddenField" id="ctl00_ScriptManager111_HiddenField" value="" style="">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" style="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" style="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" style="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjA5MjI2OTE0NQ9kFgJmD2QWAgIDD2QWAgIDD2QWAgIDD2QWAmYPZBYEAgMPFgIeCWlubmVyaHRtbAUeVGV4YXMgRWFzdGVybiBUcmFuc21pc3Npb24sIExQZAIFD2QWAgIBD2QWBgIMD2QWBAIBD2QWAmYPZBYGAgEPZBYCAgMPDxYOHhxFbmFibGVFbWJlZGRlZEJhc2VTdHlsZXNoZWV0Zx4HTWF4RGF0ZQYAgIBw8xzfCB4VRW5hYmxlRW1iZWRkZWRTY3JpcHRzZx4MU2VsZWN0ZWREYXRlBgDI7C5UHN+IHgdNaW5EYXRlBgCAwtu1v9sIHhFfc2tpcE1NVmFsaWRhdGlvbmgeElJlc29sdmVkUmVuZGVyTW9kZQspclRlbGVyaWsuV2ViLlVJLlJlbmRlck1vZGUsIFRlbGVyaWsuV2ViLlVJLCBWZXJzaW9uPTIwMjMuMS4zMTQuNDAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49MTIxZmFlNzgxNjViYTNkNAFkFgRmDxQrAAgPFhYfBwsrBAEeBFRleHQFEzIwMjYtMDktMjctMDAtMDAtMDAeEUVuYWJsZUFyaWFTdXBwb3J0aB4NTGFiZWxDc3NDbGFzcwUHcmlMYWJlbB4XRW5hYmxlQWpheFNraW5SZW5kZXJpbmdoHwFnHgRTa2luBQdEZWZhdWx0HwUGAIDC27W/2wgfBmgfAgYAgIBw8xzfCB8DZ2QWCB4FV2lkdGgbAAAAAAAAWUAHAAAAHgpSZXNpemVNb2RlCylyVGVsZXJpay5XZWIuVUkuUmVzaXplTW9kZSwgVGVsZXJpay5XZWIuVUksIFZlcnNpb249MjAyMy4xLjMxNC40MCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj0xMjFmYWU3ODE2NWJhM2Q0AB4IQ3NzQ2xhc3MFEXJpVGV4dEJveCByaUhvdmVyHgRfIVNCAoICFggfDRsAAAAAAABZQAcAAAAfDgsrBQAfDwURcmlUZXh0Qm94IHJpRXJyb3IfEAKCAhYIHw0bAAAAAAAAWUAHAAAAHw4LKwUAHw8FE3JpVGV4dEJveCByaUZvY3VzZWQfEAKCAhYGHw0bAAAAAAAAWUAHAAAAHw8FE3JpVGV4dEJveCByaUVuYWJsZWQfEAKCAhYIHw0bAAAAAAAAWUAHAAAAHw4LKwUAHw8FFHJpVGV4dEJveCByaURpc2FibGVkHxACggIWCB8NGwAAAAAAAFlABwAAAB8OCysFAB8PBRFyaVRleHRCb3ggcmlFbXB0eR8QAoICFggfDRsAAAAAAABZQAcAAAAfDgsrBQAfDwUQcmlUZXh0Qm94IHJpUmVhZB8QAoICZAICDxQrAA0PFg4FDVNlbGVjdGVkRGF0ZXMPBY8BVGVsZXJpay5XZWIuVUkuQ2FsZW5kYXIuQ29sbGVjdGlvbnMuRGF0ZVRpbWVDb2xsZWN0aW9uLCBUZWxlcmlrLldlYi5VSSwgVmVyc2lvbj0yMDIzLjEuMzE0LjQwLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTEyMWZhZTc4MTY1YmEzZDQUKwAABQ9SZW5kZXJJbnZpc2libGVnBQRNYXhEBgCAgHDzHN8IBQtTcGVjaWFsRGF5cw8FkgFUZWxlcmlrLldlYi5VSS5DYWxlbmRhci5Db2xsZWN0aW9ucy5DYWxlbmRhckRheUNvbGxlY3Rpb24sIFRlbGVyaWsuV2ViLlVJLCBWZXJzaW9uPTIwMjMuMS4zMTQuNDAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49MTIxZmFlNzgxNjViYTNkNBQrAAAFBE1pbkQGAIDC27W/2wgFA0VSU2gFEUVuYWJsZU11bHRpU2VsZWN0aA8WDB8DZx8BZx8JaB8MBQdEZWZhdWx0HwcLKwQBHwtoZGQWBB8PBQtyY01haW5UYWJsZR8QAgIWBB8PBQxyY090aGVyTW9udGgfEAICZBYEHw8FCnJjU2VsZWN0ZWQfEAICZBYEHw8FCnJjRGlzYWJsZWQfEAICFgQfDwUMcmNPdXRPZlJhbmdlHxACAhYEHw8FCXJjV2Vla2VuZB8QAgIWBB8PBQdyY0hvdmVyHxACAhYEHw8FMVJhZENhbGVuZGFyTW9udGhWaWV3IFJhZENhbGVuZGFyTW9udGhWaWV3X0RlZmF1bHQfEAICFgQfDwUJcmNWaWV3U2VsHxACAmQCAw9kFgICAw8QZBAVMxZUSU1FTFlfMjAyNi0wOS0yNl8xNDQzFExBVEVfMjAyNi0wOS0yNl8xNTAxFExBVEVfMjAyNi0wOS0yNl8xNjAxFExBVEVfMjAyNi0wOS0yNl8xNzAxFExBVEVfMjAyNi0wOS0yNl8xODAwFExBVEVfMjAyNi0wOS0yNl8xOTAwFUxBVEVDXzIwMjYtMDktMjZfMTkzNRVMQVRFQ18yMDI2LTA5LTI2XzIwMDAVTEFURUNfMjAyNi0wOS0yNl8yMDE1FUxBVEVDXzIwMjYtMDktMjZfMjAzNRRMQVRFXzIwMjYtMDktMjZfMjEwMBRMQVRFXzIwMjYtMDktMjZfMjIwMRRMQVRFXzIwMjYtMDktMjZfMjMwMBRMQVRFXzIwMjYtMDktMjdfMDAwNhRMQVRFXzIwMjYtMDktMjdfMDEwMBRMQVRFXzIwMjYtMDktMjdfMDIwMBRMQVRFXzIwMjYtMDktMjdfMDMwMRRMQVRFXzIwMjYtMDktMjdfMDQwMBRMQVRFXzIwMjYtMDktMjdfMDUwMBRMQVRFXzIwMjYtMDktMjdfMDYwMBRMQVRFXzIwMjYtMDktMjdfMDcwMRRMQVRFXzIwMjYtMDktMjdfMDgwMRRMQVRFXzIwMjYtMDktMjdfMDkwMRZJTlRSRFlfMjAyNi0wOS0yN18xMDAwFklOVFJEWV8yMDI2LTA5LTI3XzExMDAXSU5UUkRZQ18yMDI2LTA5LTI3XzExMzUXSU5UUkRZQ18yMDI2LTA5LTI3XzEyMDAXSU5UUkRZQ18yMDI2LTA5LTI3XzEyMTUXSU5UUkRZQ18yMDI2LTA5LTI3XzEyMzUWSU5UUkRZXzIwMjYtMDktMjdfMTMwMBZJTlRSRFlfMjAyNi0wOS0yN18xNDAwFklOVFJEWV8yMDI2LTA5LTI3XzE1MDEXSU5UUkRZQ18yMDI2LTA5LTI3XzE2MDAXSU5UUkRZQ18yMDI2LTA5LTI3XzE2MzAXSU5UUkRZQ18yMDI2LTA5LTI3XzE2NDYWSU5UUkRZXzIwMjYtMDktMjdfMTcwMBZJTlRSRFlfMjAyNi0wOS0yN18xODAwFklOVFJEWV8yMDI2LTA5LTI3XzE5MDEWSU5UUkRZXzIwMjYtMDktMjdfMjAwMRdJTlRSRFlDXzIwMjYtMDktMjdfMjAzMBdJTlRSRFlDXzIwMjYtMDktMjdfMjEwMRdJTlRSRFlDXzIwMjYtMDktMjdfMjExNhdJTlRSRFlDXzIwMjYtMDktMjdfMjEzNRZJTlRSRFlfMjAyNi0wOS0yN18yMjAxFklOVFJEWV8yMDI2LTA5LTI3XzIzMDAWSU5UUkRZXzIwMjYtMDktMjhfMDAwNRZJTlRSRFlfMjAyNi0wOS0yOF8wMTAxFklOVFJEWV8yMDI2LTA5LTI4XzAyMDAWSU5UUkRZXzIwMjYtMDktMjhfMDMwMBZJTlRSRFlfMjAyNi0wOS0yOF8wNDAxFklOVFJEWV8yMDI2LTA5LTI4XzA1MDEVMxZUSU1FTFlfMjAyNi0wOS0yNl8xNDQzFExBVEVfMjAyNi0wOS0yNl8xNTAxFExBVEVfMjAyNi0wOS0yNl8xNjAxFExBVEVfMjAyNi0wOS0yNl8xNzAxFExBVEVfMjAyNi0wOS0yNl8xODAwFExBVEVfMjAyNi0wOS0yNl8xOTAwFUxBVEVDXzIwMjYtMDktMjZfMTkzNRVMQVRFQ18yMDI2LTA5LTI2XzIwMDAVTEFURUNfMjAyNi0wOS0yNl8yMDE1FUxBVEVDXzIwMjYtMDktMjZfMjAzNRRMQVRFXzIwMjYtMDktMjZfMjEwMBRMQVRFXzIwMjYtMDktMjZfMjIwMRRMQVRFXzIwMjYtMDktMjZfMjMwMBRMQVRFXzIwMjYtMDktMjdfMDAwNhRMQVRFXzIwMjYtMDktMjdfMDEwMBRMQVRFXzIwMjYtMDktMjdfMDIwMBRMQVRFXzIwMjYtMDktMjdfMDMwMRRMQVRFXzIwMjYtMDktMjdfMDQwMBRMQVRFXzIwMjYtMDktMjdfMDUwMBRMQVRFXzIwMjYtMDktMjdfMDYwMBRMQVRFXzIwMjYtMDktMjdfMDcwMRRMQVRFXzIwMjYtMDktMjdfMDgwMRRMQVRFXzIwMjYtMDktMjdfMDkwMRZJTlRSRFlfMjAyNi0wOS0yN18xMDAwFklOVFJEWV8yMDI2LTA5LTI3XzExMDAXSU5UUkRZQ18yMDI2LTA5LTI3XzExMzUXSU5UUkRZQ18yMDI2LTA5LTI3XzEyMDAXSU5UUkRZQ18yMDI2LTA5LTI3XzEyMTUXSU5UUkRZQ18yMDI2LTA5LTI3XzEyMzUWSU5UUkRZXzIwMjYtMDktMjdfMTMwMBZJTlRSRFlfMjAyNi0wOS0yN18xNDAwFklOVFJEWV8yMDI2LTA5LTI3XzE1MDEXSU5UUkRZQ18yMDI2LTA5LTI3XzE2MDAXSU5UUkRZQ18yMDI2LTA5LTI3XzE2MzAXSU5UUkRZQ18yMDI2LTA5LTI3XzE2NDYWSU5UUkRZXzIwMjYtMDktMjdfMTcwMBZJTlRSRFlfMjAyNi0wOS0yN18xODAwFklOVFJEWV8yMDI2LTA5LTI3XzE5MDEWSU5UUkRZXzIwMjYtMDktMjdfMjAwMRdJTlRSRFlDXzIwMjYtMDktMjdfMjAzMBdJTlRSRFlDXzIwMjYtMDktMjdfMjEwMRdJTlRSRFlDXzIwMjYtMDktMjdfMjExNhdJTlRSRFlDXzIwMjYtMDktMjdfMjEzNRZJTlRSRFlfMjAyNi0wOS0yN18yMjAxFklOVFJEWV8yMDI2LTA5LTI3XzIzMDAWSU5UUkRZXzIwMjYtMDktMjhfMDAwNRZJTlRSRFlfMjAyNi0wOS0yOF8wMTAxFklOVFJEWV8yMDI2LTA5LTI4XzAyMDAWSU5UUkRZXzIwMjYtMDktMjhfMDMwMBZJTlRSRFlfMjAyNi0wOS0yOF8wNDAxFklOVFJEWV8yMDI2LTA5LTI4XzA1MDEUKwMzZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnFgECMmQCCQ9kFgQCAQ9kFgJmDw8WAh4HRW5hYmxlZGdkZAIDD2QWAmYPDxYCHxFnZGQCAw9kFgJmD2QWBGYPZBYCAgEPZBYCAg0PFgIeB1Zpc2libGVnZAIBDxYCHgZ2YWxpZ24FBmJvdHRvbRYCAgEPFgIfEmdkAg4PZBYCAgEPFgIfAGVkAhAPZBYCAgEPZBYCZg9kFgQCAQ8WAh8ABRBBcyBvZiAwOS8yNS8yMDI2ZAIDD2QWDGYPFgIfEmcWAgIBDxYCHwAFATFkAgEPFgIfEmcWAmYPFgIfAAUNODAsODQ0LjkgTUR0aGQCAg8WAh8SZxYCAgEPFgIfAAUBMmQCAw8WAh8SZxYCZg8WAh8ABQwxLDAwMS41IE1EdGhkAgQPFgIfEmcWAgIBDxYCHwAFATNkAgUPFgIfEmcWAmYPFgIfAAUKMzkxLjIgTUR0aGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgMFMGN0bDAwJE1haW5Db250ZW50JGN0bDAxJG9hRGVmYXVsdCR1Y0RhdGUkcmRwRGF0ZQU5Y3RsMDAkTWFpbkNvbnRlbnQkY3RsMDEkb2FEZWZhdWx0JHVjRGF0ZSRyZHBEYXRlJGNhbGVuZGFyBTljdGwwMCRNYWluQ29udGVudCRjdGwwMSRvYURlZmF1bHQkdWNEYXRlJHJkcERhdGUkY2FsZW5kYXLfo7BrduGuHv2wvCe3fw1wSHVc94nLJCbnbrfDDzaCnA==" style="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/4.6/1/WebForms.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+window.WebForm_PostBackOptions||document.write('<script type="text/javascript" src="/InformationalPosting/WebResource.axd?d=eR2W21qevpSTwspffw4_uY6bQGYbBXqXrXCdxNnFNtEfaZbSau0x0Pv87mnulGQe2G6dZeGm24o5SkelR3Gsp1wDv27kpToG0COV8-uO5so1&amp;t=639202416265548063"><\/script>');//]]>
+</script>
+
+
+
+<script src="/InformationalPosting/ScriptResource.axd?d=aHRDFkoKp5jcfzoTK-2-1rm3mNJ-hl3QaGn2qX221RBpORywuheznhjFmjPrN-0TMoof4o9j3zRFu52xTERodwk5YycvYfl6NNJhZ9aQFPVrmYPjlLfFKVUaVHJh3P8-0&amp;t=f2cd5c5" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+(window.Sys && Sys._Application && Sys.Observer)||document.write('<script type="text/javascript" src="/InformationalPosting/ScriptResource.axd?d=aHRDFkoKp5jcfzoTK-2-1rm3mNJ-hl3QaGn2qX221RBpORywuheznhjFmjPrN-0TMoof4o9j3zRFu52xTERodwk5YycvYfl6NNJhZ9aQFPVrmYPjlLfFKVUaVHJh3P8-0&t=f2cd5c5"><\/script>');//]]>
+</script>
+
+<script src="/InformationalPosting/ScriptResource.axd?d=G8nPSky7KtKHevo3BquHzlXQJtSzwMOuX1QHQordF-jdcRau3nuNHcJtf-mJtGpPkE0H8Fbs5fGzlkVhHpHO9iuPItfPfOoTpScJsA-nMXVTKALsLZ_awRpis0oZmwGwDkVud1YPNIDfH2qUcH43CQ2&amp;t=f2cd5c5" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+(window.Sys && Sys.WebForms)||document.write('<script type="text/javascript" src="/InformationalPosting/ScriptResource.axd?d=G8nPSky7KtKHevo3BquHzlXQJtSzwMOuX1QHQordF-jdcRau3nuNHcJtf-mJtGpPkE0H8Fbs5fGzlkVhHpHO9iuPItfPfOoTpScJsA-nMXVTKALsLZ_awRpis0oZmwGwDkVud1YPNIDfH2qUcH43CQ2&t=f2cd5c5"><\/script>');//]]>
+</script>
+
+<script src="Scripts/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="Scripts/jquery.querystring.js" type="text/javascript"></script>
+<script src="Scripts/date.format.js" type="text/javascript"></script>
+<script src="Scripts/service.js" type="text/javascript"></script>
+<script src="Scripts/jquery-ui-1.8.17.custom.min.js" type="text/javascript"></script>
+<script src="Scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="Scripts/jquery.json-2.3.js" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=o7Xm0fQfXwN3ZlFppnfSLhuUL-qkIYvJW6DOwvRUi6doF4UWHfwHacsr8XPtFBfm_iQU8-jlluoc0XoH8qcCmc59yA7cenYxnOUpxpkFUgnuDzQmN_fus0wAR-i4S1918Zy4hq2AhQ7R6IQWb6xMSw2&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=XS5j-QyELcdeIZA9Ds7J-8ZHKUxWW5qyXtUUQsc0MBzXqYMRnN3s-axzqsAUv4gLVljkMLKmXFwAHH4GJdrgnAs8MYq_7HRDeuWgKsjBLgTmRAVCs-jBece3EcvcfOLM07Xsk_zF2RKyUaIH2ZosSC8V86d1D0PwrdVhOLMTvIIu7beUQUJ3hXOYh0KcjzR50&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=YIxXn5A1MqEqm1ODz3nhjssCElwmPQfgHdxnOrcpjVQfhnL5v1kbAi6pp0uBArhzEPJzFa9oM4tRoPGcWrqQMbWDXHOBLj-p54Ti5zcyawIBKzwzTFrAAYs-I7taTNF9FBi9OT8mwR85rDd1S-8kNg2&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=_pFFpQTTLYIXLVq-Z0ac14CpG9VP9KleJlbTMKA-zsAIEZx903n_JMqLbV7Jz4Crx6U7kDHq2iMEQ5mKLFhXGFS8FFI-rk1B5K6lhXuCCfx4kF8PNpuQesKCPShNfEp9vDgYDz9PESj3cLFWJ8mQWG-eTDvnyFskz_Y-XHmt5OJ_ji_dK6KKZ9s6sZyaitkx0&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=aB5dMQCXgxNzW71ETAKjQcdkHBfjNEWv14lcXMiZNQyBd-6TLDTCXOtHBz2_hXzstyp7a9FxJK9-96SeM2OBr9uAWIEpSctI8VUNrRfBM2IYxKpbEkUN98suf1QGYeh4vJrt5bAG13O3OxweYnGt2V5-2zogq6GnhXRWwDAwfTk1&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=tGvvm7jpLq5Qh682HepCAJJexZoTv-VGknBGvKWYieytcsWDFnqDz2MMB8qb9FENPka09aI88Lem9UC5PvBQsYG8SnGm4cpStdSmQZe8zW2VQGTn9428xQ4rcBUB6dnKDRTLYTJQHwgAsOoLYQFwkyFY_3sk_YfCXml4ySQUqJs1&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=5LBhpGZyKx5Z4f5dpL14rPQdNmQhxgy1DW-befTorunVEoo7-F6pFMN8SA9RTrTdoB8X9CQM9rt30op18fKNn0HH8q4xuvdVF8joNB5_iXgytoCnSSs1NaqTIXCIXWFs8X9N6TBQspP--dIGuhw6LduQMdB5_tEL82YBR8V1Qtk1&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=umbTunpUzmsxkheKzuK03UhlgYpSjpYzGFF0X7FNQJ5jaNdm_uiK2Hd7l34cbjD5ZtnXVfVFklLzGLhhoOP5GlQfj7SLU9D87YvISxk9g2PvJ3SMJYTQ5kI0HqSl8avAw5VWtoUK47K8drYF0nn-zfUyOLQrcdlH5cBJsakYg8g1&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=2ouOllrBkt4PNd5MQAZ0RCN7GFZA_c5crWHw5JYF8a5ibqDYOwLkKbJj44Sc7Wo-eZzGoapWuMeTWdawdocEqxJ_eCxjvYfyUtmRhHHDZtHd3hR5pxWl4pR7WFgv4BMjiZx3tI90VBYcP49JOAXc_NZCXkSwAzUCFNP_cJ7nhNs1&amp;t=3f9c9a92" type="text/javascript"></script>
+<script src="/InformationalPosting/ScriptResource.axd?d=e2cQ3f45Nqm2cTx9-WTXynR5aSlBjH8usiE4K5rg9xA_9NvfofWpUhLFtPrKRQ_mIu7KjO0fWGrtOmn0IrodQBp_zc5haMG1ajH7Z__Fgm0eBvsXShymlP0rtkPpaZPsie6ku8zEHyEPCR9yPjL8Sr-JKLUQ8cHwgSTcm48E2Mc1&amp;t=3f9c9a92" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="2EB9BE08" style="">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAEa+wnrCQjoQveSEEu1e+SwCrtSO2vW1J9V/GKceG59UgMmjVNS+evs92qpzYLMqt+CVz/9qsnE8ND/igae6uQK15lSBMGYQ33uysQo0AhjEfO3eQ2krlL6M+Yufh24U1UFxlmM0JncdTb2sbxdklBrTKHRuRTUL+alnXPbWWjykzhrL4AYO/HNuT6qLuOs4UFlOwuhP/hEfntdmn6GfVnAsvmR8Ip8YlkDOhrKTG1/bHwvlOcmS2tpDgfl/AbnfDZ1sKqtiPoz4Ti56c32KrxHpcEfFwMfxtLo14TpYunmUwjSQO2HLRh3jBll5aqkSmnj3ux1SwqOiie/mNz1AjWHdjcYaLxP3NPvbCAQWLT4fzoQqYH+AWsTd++qAtBUnCFAmnVaZg+F38/7Q7SyMuuvv15HlCtCsPPVx2lVitktM9Yh8Ij2gW2SrrYgL4fWt3tX681nqYZC02mMNPPuKnH5GZeKoVOiBWvoMBbd1VEk7C7lI580fiHEmhf4TBG1PKSlyS+1pvobekEzPO3JxcYrUZIjlN+inlnnjOSykvI7ho4EH4FPM/eJ6gva742lPH099LRdHbbIscNv2GRJv8KTFAVRW/4PMy1WUV9RAOE3pIKWTHXLcY+hOkeI9gDPPiM//Y23bjyV1JStigGlyWgH9smdcxX58oFwUhrnvOmeiy47E3WFVA67BBVPtSpRWuYw+POLlh07wZeESXSkDQ62ZU+ikySFILlVAbspCuUkZw3Dh42z3Hij8m/f0J/pSYPyb3+8RKKFz3QXwh21ttmfcib+mkdFOzS++teGDoXHjfkhIMwhN0rpf7gQuN1eHmH3z3qy6aPh0KVtoZ2kjbxA/4FcJVWZkOENBjNHDNeRQWxwwT6qfZQYsXfaDmed3e+WfD3dTCZJ7PmkW9c3/8XR7W6NvRqpT8AnmD4HFi3QsUsKz5qfPp9dV1FT67FvsuNEUOCNyPcC9SWyZViB3lXMIltduJMQdEvz4oqwfm+LSMRYnQOTrpztd1b286u6o1mnm7PpSRrC7+nceElmWveG2P1rXgxRQN4hwsSi71fK56OY7Z6cv7n5L1P3CqHe3dIjCNAN1HNkbGV3/8xjD+X6UB81sbbxmKMx7z8FOGkDd1HML3gxmB1XfRNeeO66vtZsaiVSRkaKejGUypcc1atdGVMeOD8zfAkfDbayhjRqozEV447g0DBtcBcgbSwdm1fQjUg3G5RnLP3cjbWF77ORM1RaFpy10vMttuXj9WBzyonylreyRIeZPxCMqtOGOfbwD+d9JWmM2qIjNXBPKTwdxO4PK8fo6j3noZY4IUYb/MFbbY7cPxMc1I14b7JJtRPe+QQBWl7GPtzQe2xWpRsyRSOPwISoRZrhrrQQmUAdrgstcbn5CzsZW1IFmUATPiptG+HTBsvd3Mce+riylQmJ+dR3KsVPkppQvd3RJxYF3lroPzJc5bvDy4LAUb86Mxyfm2XkfUXox1ktAXlVbE6iwRYjfJVHjA3m7scISijB1ozNVCldV/dnEbaOZ/eWioXM=" style="">
+</div>
+    <div class="page">
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager111', 'aspnetForm', ['tctl00$MainContent$UpdatePanel1',''], ['ctl00$MainContent$ctl01$oaDefault$ucSelector$ddlSelector','ddlSelector'], ['ctl00$MainContent$ctl01$oaDefault$hlView','hlView','ctl00$MainContent$ctl01$oaDefault$hlDown','hlDown','Hyperlink39','','Hyperlink3','','Hyperlink6','','Hyperlink9','','Hyperlink12','','Hyperlink15','','Hyperlink18','','Hyperlink21','','Hyperlink24','','Hyperlink27','','Hyperlink45','','Hyperlink48','','Hyperlink30','','Hyperlink33','','Hyperlink42','','Hyperlink51','','Hyperlink54','','Hyperlink57','','Hyperlink63','','Hyperlink60','','Hyperlink36',''], 300, 'ctl00');
+//]]>
+</script>
+
+        <script type="text/javascript">
+            // jQuery Migrate compatibility shim for jQuery UI 1.8.17
+            // Restores $.browser and $.curCSS removed in jQuery 1.9+
+            (function() {
+                if (!jQuery.browser) {
+                    jQuery.browser = {};
+                    jQuery.browser.mozilla = false;
+                    jQuery.browser.webkit = false;
+                    jQuery.browser.opera = false;
+                    jQuery.browser.msie = false;
+
+                    var ua = navigator.userAgent;
+                    var verOffset;
+                    jQuery.browser.name = navigator.appName;
+                    jQuery.browser.fullVersion = '' + parseFloat(navigator.appVersion);
+                    jQuery.browser.majorVersion = parseInt(navigator.appVersion, 10);
+
+                    if ((verOffset = ua.indexOf("Opera")) != -1) {
+                        jQuery.browser.opera = true;
+                        jQuery.browser.name = "Opera";
+                        jQuery.browser.fullVersion = ua.substring(verOffset + 6);
+                    } else if ((verOffset = ua.indexOf("MSIE")) != -1) {
+                        jQuery.browser.msie = true;
+                        jQuery.browser.name = "Microsoft Internet Explorer";
+                        jQuery.browser.fullVersion = ua.substring(verOffset + 5);
+                    } else if ((verOffset = ua.indexOf("Chrome")) != -1) {
+                        jQuery.browser.webkit = true;
+                        jQuery.browser.name = "Chrome";
+                        jQuery.browser.fullVersion = ua.substring(verOffset + 7);
+                    } else if ((verOffset = ua.indexOf("Safari")) != -1) {
+                        jQuery.browser.webkit = true;
+                        jQuery.browser.name = "Safari";
+                        jQuery.browser.fullVersion = ua.substring(verOffset + 7);
+                    } else if ((verOffset = ua.indexOf("Firefox")) != -1) {
+                        jQuery.browser.mozilla = true;
+                        jQuery.browser.name = "Firefox";
+                        jQuery.browser.fullVersion = ua.substring(verOffset + 8);
+                    }
+                }
+
+                // Restore $.curCSS
+                if (!jQuery.curCSS) {
+                    jQuery.curCSS = function(elem, name, force) {
+                        return jQuery(elem).css(name);
+                    };
+                }
+            })();
+        </script>
+        <div class="main">
+            
+    <div id="ctl00_MainContent_updProgress" style="display:none;" role="status" aria-hidden="true">
+	
+            <img alt="progress" src="Images/bigSpinner.gif">
+            Processing...
+        
+</div>
+    <div id="ctl00_MainContent_UpdatePanel1">
+	
+            <input name="ctl00$MainContent$hidDateChange" type="hidden" id="ctl00_MainContent_hidDateChange" style="">
+            <div id="ctl00_MainContent_divBu" class="bu">Texas Eastern Transmission, LP</div>
+            <div id="ctl00_MainContent_divPostingTypes">
+            <div id="divTitle" class="title" style="width: 300px;">
+    Operationally Available Capacity
+</div>
+
+<input name="ctl00$MainContent$ctl01$hidTableTitle" type="hidden" id="hidTableTitle" style="">
+<input name="ctl00$MainContent$ctl01$hidMapName" type="hidden" id="hidMapName" style="">
+<input name="ctl00$MainContent$ctl01$hidFileId" type="hidden" id="hidFileId" style="">
+<input name="ctl00$MainContent$ctl01$hidStorageCap" type="hidden" id="hidStorageCap" style="">
+<div id="divMapHeader">
+    <div id="divDefault" class="current">
+	
+<div style="float:left">
+    <span id="lblDate" class="btn">Gas Date: </span>
+    <div id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_wrapper" class="RadPicker RadPicker_Default" style="display:inline-block;width:160px;">
+		<!-- 2023.1.314.40 --><input style="visibility: hidden; display: block; float: right; margin: 0px 0px -1px -1px; width: 1px; height: 1px; overflow: hidden; border: 0px; padding: 0px;" id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate" name="ctl00$MainContent$ctl01$oaDefault$ucDate$rdpDate" type="text" class="rdfd_ radPreventDecorate" value="2026-09-27" title="Visually hidden input created for functionality purposes."><table cellspacing="0" class="rcTable rcSingle" summary="Table holding date picker control for selection of dates." style="width:100%;">
+			<caption style="display:none;">
+				RadDatePicker
+			</caption><thead style="display:none;">
+				<tr>
+					<th scope="col">RadDatePicker</th>
+				</tr>
+			</thead><tbody>
+				<tr>
+					<td class="rcInputCell" style="width:100%;"><span id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput_wrapper" class="riSingle RadInput RadInput_Default" style="display:block;width:100%;"><input id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput" name="ctl00$MainContent$ctl01$oaDefault$ucDate$rdpDate$dateInput" class="riTextBox riEnabled" value="9/27/2026" type="text" style=""><input id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput_ClientState" name="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput_ClientState" type="hidden" autocomplete="off" value="{&quot;enabled&quot;:true,&quot;emptyMessage&quot;:&quot;&quot;,&quot;validationText&quot;:&quot;2026-09-27-00-00-00&quot;,&quot;valueAsString&quot;:&quot;2026-09-27-00-00-00&quot;,&quot;minDateStr&quot;:&quot;2023-00-28-00-09-00&quot;,&quot;maxDateStr&quot;:&quot;2026-00-28-00-09-00&quot;,&quot;lastSetTextBoxValue&quot;:&quot;9/27/2026&quot;}" style=""></span></td><td><a title="Open the calendar popup." href="#" id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_popupButton" class="rcCalPopup">Open the calendar popup.</a><div id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_wrapper" style="display:none;">
+						<table id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar" cellspacing="0" class="RadCalendar RadCalendar_Default">
+							<caption>
+								<span style="display:none;">Calendar</span>
+							</caption><thead>
+								<tr>
+									<td class="rcTitlebar"><table cellspacing="0">
+										<caption>
+											<span style="display:none;">Title and navigation</span>
+										</caption><thead>
+											<tr style="display:none;">
+												<th scope="col">Title and navigation</th>
+											</tr>
+										</thead><tbody>
+	<tr>
+		<td><a id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_FNP" class="t-button rcFastPrev" title="&lt;&lt;" href="#">&lt;&lt;</a></td><td><a id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_NP" class="t-button rcPrev" title="&lt;" href="#">&lt;</a></td><td id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Title" class="rcTitle">September 2026</td><td><a id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_NN" class="t-button rcNext" title="&gt;" href="#">&gt;</a></td><td><a id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_FNN" class="t-button rcFastNext" title="&gt;&gt;" href="#">&lt;&lt;</a></td>
+	</tr>
+</tbody>
+									</table></td>
+								</tr>
+							</thead><tbody>
+	<tr>
+		<td class="rcMain"><table id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top" class="rcMainTable" cellspacing="0">
+	<caption>
+		<span style="display:none;">September 2026</span>
+	</caption><thead>
+		<tr class="rcWeek">
+			<th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_0" title="Sunday" scope="col">S</th><th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_1" title="Monday" scope="col">M</th><th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_2" title="Tuesday" scope="col">T</th><th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_3" title="Wednesday" scope="col">W</th><th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_4" title="Thursday" scope="col">T</th><th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_5" title="Friday" scope="col">F</th><th id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top_cs_6" title="Saturday" scope="col">S</th>
+		</tr>
+	</thead><tbody>
+		<tr class="rcRow">
+			<td class="rcOtherMonth" title="Sunday, August 30, 2026"><a href="#">30</a></td><td class="rcOtherMonth" title="Monday, August 31, 2026"><a href="#">31</a></td><td title="Tuesday, September 01, 2026"><a href="#">1</a></td><td title="Wednesday, September 02, 2026"><a href="#">2</a></td><td title="Thursday, September 03, 2026"><a href="#">3</a></td><td title="Friday, September 04, 2026"><a href="#">4</a></td><td class="rcWeekend" title="Saturday, September 05, 2026"><a href="#">5</a></td>
+		</tr><tr class="rcRow">
+			<td class="rcWeekend" title="Sunday, September 06, 2026"><a href="#">6</a></td><td title="Monday, September 07, 2026"><a href="#">7</a></td><td title="Tuesday, September 08, 2026"><a href="#">8</a></td><td title="Wednesday, September 09, 2026"><a href="#">9</a></td><td title="Thursday, September 10, 2026"><a href="#">10</a></td><td title="Friday, September 11, 2026"><a href="#">11</a></td><td class="rcWeekend" title="Saturday, September 12, 2026"><a href="#">12</a></td>
+		</tr><tr class="rcRow">
+			<td class="rcWeekend" title="Sunday, September 13, 2026"><a href="#">13</a></td><td title="Monday, September 14, 2026"><a href="#">14</a></td><td title="Tuesday, September 15, 2026"><a href="#">15</a></td><td title="Wednesday, September 16, 2026"><a href="#">16</a></td><td title="Thursday, September 17, 2026"><a href="#">17</a></td><td title="Friday, September 18, 2026"><a href="#">18</a></td><td class="rcWeekend" title="Saturday, September 19, 2026"><a href="#">19</a></td>
+		</tr><tr class="rcRow">
+			<td class="rcWeekend" title="Sunday, September 20, 2026"><a href="#">20</a></td><td title="Monday, September 21, 2026"><a href="#">21</a></td><td title="Tuesday, September 22, 2026"><a href="#">22</a></td><td title="Wednesday, September 23, 2026"><a href="#">23</a></td><td title="Thursday, September 24, 2026"><a href="#">24</a></td><td title="Friday, September 25, 2026"><a href="#">25</a></td><td class="rcWeekend" title="Saturday, September 26, 2026"><a href="#">26</a></td>
+		</tr><tr class="rcRow">
+			<td class="rcWeekend" title="Sunday, September 27, 2026"><a href="#">27</a></td><td title="Monday, September 28, 2026"><a href="#">28</a></td><td class="rcOutOfRange"><span>29</span></td><td class="rcOutOfRange"><span>30</span></td><td class="rcOutOfRange"><span>1</span></td><td class="rcOutOfRange"><span>2</span></td><td class="rcOutOfRange"><span>3</span></td>
+		</tr><tr class="rcRow">
+			<td class="rcOutOfRange"><span>4</span></td><td class="rcOutOfRange"><span>5</span></td><td class="rcOutOfRange"><span>6</span></td><td class="rcOutOfRange"><span>7</span></td><td class="rcOutOfRange"><span>8</span></td><td class="rcOutOfRange"><span>9</span></td><td class="rcOutOfRange"><span>10</span></td>
+		</tr>
+	</tbody>
+</table></td>
+	</tr>
+</tbody>
+						</table><input type="hidden" name="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_SD" id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_SD" value="[]" style=""><input type="hidden" name="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_AD" id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_AD" value="[[2023,9,28],[2026,9,28],[2026,9,28]]" style="">
+					</div></td>
+				</tr>
+			</tbody>
+		</table><input id="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_ClientState" name="ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_ClientState" type="hidden" value="{&quot;minDateStr&quot;:&quot;2023-00-28-00-09-00&quot;,&quot;maxDateStr&quot;:&quot;2026-00-28-00-09-00&quot;}" autocomplete="off" style="">
+	</div>
+</div>
+
+	
+<div style="float:left">
+    <span id="lblSelector" class="btn">Cycle: </span>
+    <select name="ctl00$MainContent$ctl01$oaDefault$ucSelector$ddlSelector" onchange="javascript:LoadingMsg();setTimeout('__doPostBack(\'ctl00$MainContent$ctl01$oaDefault$ucSelector$ddlSelector\',\'\')', 0)" id="ddlSelector">
+		<option value="TIMELY_2026-09-26_1443">TIMELY_2026-09-26_1443</option>
+		<option value="LATE_2026-09-26_1501">LATE_2026-09-26_1501</option>
+		<option value="LATE_2026-09-26_1601">LATE_2026-09-26_1601</option>
+		<option value="LATE_2026-09-26_1701">LATE_2026-09-26_1701</option>
+		<option value="LATE_2026-09-26_1800">LATE_2026-09-26_1800</option>
+		<option value="LATE_2026-09-26_1900">LATE_2026-09-26_1900</option>
+		<option value="LATEC_2026-09-26_1935">LATEC_2026-09-26_1935</option>
+		<option value="LATEC_2026-09-26_2000">LATEC_2026-09-26_2000</option>
+		<option value="LATEC_2026-09-26_2015">LATEC_2026-09-26_2015</option>
+		<option value="LATEC_2026-09-26_2035">LATEC_2026-09-26_2035</option>
+		<option value="LATE_2026-09-26_2100">LATE_2026-09-26_2100</option>
+		<option value="LATE_2026-09-26_2201">LATE_2026-09-26_2201</option>
+		<option value="LATE_2026-09-26_2300">LATE_2026-09-26_2300</option>
+		<option value="LATE_2026-09-27_0006">LATE_2026-09-27_0006</option>
+		<option value="LATE_2026-09-27_0100">LATE_2026-09-27_0100</option>
+		<option value="LATE_2026-09-27_0200">LATE_2026-09-27_0200</option>
+		<option value="LATE_2026-09-27_0301">LATE_2026-09-27_0301</option>
+		<option value="LATE_2026-09-27_0400">LATE_2026-09-27_0400</option>
+		<option value="LATE_2026-09-27_0500">LATE_2026-09-27_0500</option>
+		<option value="LATE_2026-09-27_0600">LATE_2026-09-27_0600</option>
+		<option value="LATE_2026-09-27_0701">LATE_2026-09-27_0701</option>
+		<option value="LATE_2026-09-27_0801">LATE_2026-09-27_0801</option>
+		<option value="LATE_2026-09-27_0901">LATE_2026-09-27_0901</option>
+		<option value="INTRDY_2026-09-27_1000">INTRDY_2026-09-27_1000</option>
+		<option value="INTRDY_2026-09-27_1100">INTRDY_2026-09-27_1100</option>
+		<option value="INTRDYC_2026-09-27_1135">INTRDYC_2026-09-27_1135</option>
+		<option value="INTRDYC_2026-09-27_1200">INTRDYC_2026-09-27_1200</option>
+		<option value="INTRDYC_2026-09-27_1215">INTRDYC_2026-09-27_1215</option>
+		<option value="INTRDYC_2026-09-27_1235">INTRDYC_2026-09-27_1235</option>
+		<option value="INTRDY_2026-09-27_1300">INTRDY_2026-09-27_1300</option>
+		<option value="INTRDY_2026-09-27_1400">INTRDY_2026-09-27_1400</option>
+		<option value="INTRDY_2026-09-27_1501">INTRDY_2026-09-27_1501</option>
+		<option value="INTRDYC_2026-09-27_1600">INTRDYC_2026-09-27_1600</option>
+		<option value="INTRDYC_2026-09-27_1630">INTRDYC_2026-09-27_1630</option>
+		<option value="INTRDYC_2026-09-27_1646">INTRDYC_2026-09-27_1646</option>
+		<option value="INTRDY_2026-09-27_1700">INTRDY_2026-09-27_1700</option>
+		<option value="INTRDY_2026-09-27_1800">INTRDY_2026-09-27_1800</option>
+		<option value="INTRDY_2026-09-27_1901">INTRDY_2026-09-27_1901</option>
+		<option value="INTRDY_2026-09-27_2001">INTRDY_2026-09-27_2001</option>
+		<option value="INTRDYC_2026-09-27_2030">INTRDYC_2026-09-27_2030</option>
+		<option value="INTRDYC_2026-09-27_2101">INTRDYC_2026-09-27_2101</option>
+		<option value="INTRDYC_2026-09-27_2116">INTRDYC_2026-09-27_2116</option>
+		<option value="INTRDYC_2026-09-27_2135">INTRDYC_2026-09-27_2135</option>
+		<option value="INTRDY_2026-09-27_2201">INTRDY_2026-09-27_2201</option>
+		<option value="INTRDY_2026-09-27_2300">INTRDY_2026-09-27_2300</option>
+		<option value="INTRDY_2026-09-28_0005">INTRDY_2026-09-28_0005</option>
+		<option value="INTRDY_2026-09-28_0101">INTRDY_2026-09-28_0101</option>
+		<option value="INTRDY_2026-09-28_0200">INTRDY_2026-09-28_0200</option>
+		<option value="INTRDY_2026-09-28_0300">INTRDY_2026-09-28_0300</option>
+		<option value="INTRDY_2026-09-28_0401">INTRDY_2026-09-28_0401</option>
+		<option selected="selected" value="INTRDY_2026-09-28_0501">INTRDY_2026-09-28_0501</option>
+
+	</select>
+</div>
+<br>
+	
+	<span id="spanError"><span class="error"></span></span>
+    <div id="divLinks" class="divLinks">
+        <a id="LinkButton1" title="Click to view postings in PDF format" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$oaDefault$hlView$LinkButton1','')">Viewable and Printable Format</a><br>
+        <a id="LinkButton1" title="Click to view postings in CSV format - importable to Excel" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$oaDefault$hlDown$LinkButton1','')">Downloadable Format</a><br>
+       
+        
+    </div>
+</div>
+    <table id="tblMapNames" style="position:absolute;">
+		<tbody><tr>
+			<td id="tdNonStorge">
+                <div id="divCapacityMap" style="display: block;">
+                    <div id="divMapTitle" class="header" style="width: 200px;">
+                        Operational Capacity Maps
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    <div id="divTEMaps">
+                        <a id="lmapUS" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapUS','')">Texas Eastern Pipeline Summary</a><br>
+                        <a id="lmapPerulack" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapPerulack','')">Perulack to Chambersburg East</a><br>
+                        <a id="lmapBerne" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapBerne','')">Berne to Perulack</a><br>
+                        <a id="lmapGas" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapGas','')">Gas City to Berne</a><br>
+                        <a id="lmapKosciusko" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapKosciusko','')">Kosciusko to Berne</a><br>
+                        <a id="lmapLongview" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapLongview','')">Longview to Lebanon</a><br>
+                        <a id="lmapVidor" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapVidor','')">Vidor to Kosciusko</a><br>
+                        <a id="lmapWestEnd" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapWestEnd','')">West End to Longview &amp; Vidor</a><br>
+                        <a id="lmapManhattanTE" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lmapManhattanTE','')">TETLP Lease NJ/NY</a>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+            </td>
+			<td id="tdStorge" valign="bottom">
+                <div id="divStorageMaps">
+                    <div id="divStorageHeader" class="header" style="width: 200px;">
+                        Storage
+                    </div>
+                    <div id="divStorageLink" style="padding: 8px;">
+                        <a id="lbStorageLink" class="link" href="javascript:__doPostBack('ctl00$MainContent$ctl01$lbStorageLink','')">Storage Capacity Posting</a>
+                    </div>
+                </div>
+            </td>
+		</tr>
+	</tbody></table>
+	
+</div>
+<div id="divList" class="files" style="margin-top: 0px; padding-top: 0px">
+    <span id="spanError"></span>
+    <div id="oaMapSection" style="display: none">
+        <span id="spanMapError"></span>
+        <div id="maps">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+    function GasDateChanged(sender, eventArgs) {
+        var beginDate = '08-15-2013';
+        var selDate = eventArgs.get_newValue();
+        if (Date.parse(selDate) < Date.parse(beginDate)) {
+            $(".lease").attr('style', 'display:none');
+        }
+        else {
+            $(".lease").attr('style', 'display:block');
+        }
+    }
+</script>
+</div>
+        
+</div>
+    <script type="text/javascript">
+        var manager = Sys.WebForms.PageRequestManager.getInstance();
+        manager.add_beginRequest(OnBeginRequest);
+        function OnBeginRequest(sender, args) {
+            //var postBackElement = args.get_postBackElement();
+            $("#ctl00_MainContent_updProgress").css({ 'display': 'block' });
+        }
+        function LoadingMsg() {
+            $("#ctl00_MainContent_updProgress").css({ 'display': 'block' });
+        }
+
+</script>
+
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+(function() {var fn = function() {$get("ctl00_ScriptManager111_HiddenField").value = '';Sys.Application.remove_init(fn);};Sys.Application.add_init(fn);})();Sys.Application.add_init(function() {
+    $create(Sys.UI._UpdateProgress, {"associatedUpdatePanelId":"ctl00_MainContent_UpdatePanel1","displayAfter":500,"dynamicLayout":true}, null, null, $get("ctl00_MainContent_updProgress"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadDateInput, {"_displayText":"9/27/2026","_focused":false,"_initialValueAsText":"2026-09-27-00-00-00","_postBackEventReferenceScript":"__doPostBack(\u0027ctl00$MainContent$ctl01$oaDefault$ucDate$rdpDate\u0027,\u0027\u0027)","_skin":"Default","_validationText":"2026-09-27-00-00-00","autoPostBack":true,"clientStateFieldID":"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput_ClientState","dateFormat":"M/d/yyyy","dateFormatInfo":{"DayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"MonthNames":["January","February","March","April","May","June","July","August","September","October","November","December",""],"AbbreviatedDayNames":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"AbbreviatedMonthNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"AMDesignator":"AM","PMDesignator":"PM","DateSeparator":"/","TimeSeparator":":","FirstDayOfWeek":0,"DateSlots":{"Day":1,"Year":2,"Month":0},"ShortYearCenturyEnd":2029,"TimeInputOnly":false,"MonthYearOnly":false},"displayDateFormat":"M/d/yyyy","enabled":true,"incrementSettings":{InterceptArrowKeys:true,InterceptMouseWheel:true,Step:1},"maxDate":"2026-09-28-00-00-00","minDate":"2023-09-28-00-00-00","styles":{HoveredStyle: ["width:100%;", "riTextBox riHover"],InvalidStyle: ["width:100%;", "riTextBox riError"],DisabledStyle: ["width:100%;", "riTextBox riDisabled"],FocusedStyle: ["width:100%;", "riTextBox riFocused"],EmptyMessageStyle: ["width:100%;", "riTextBox riEmpty"],ReadOnlyStyle: ["width:100%;", "riTextBox riRead"],EnabledStyle: ["width:100%;", "riTextBox riEnabled"]}}, null, null, $get("ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadCalendar, {"_DayRenderChangedDays":{},"_FormatInfoArray":[["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],["January","February","March","April","May","June","July","August","September","October","November","December",""],["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"dddd, MMMM d, yyyy h:mm:ss tt","dddd, MMMM d, yyyy","h:mm:ss tt","MMMM d","ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","M/d/yyyy","h:mm tt","yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","MMMM yyyy","AM","PM","/",":",0],"_ViewRepeatableDays":{},"_ViewsHash":{"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_Top" : [[2026,9,1], 1]},"_calendarWeekRule":0,"_culture":"en-US","_enableKeyboardNavigation":false,"_enableViewSelector":false,"_firstDayOfWeek":7,"_postBackCall":"__doPostBack(\u0027ctl00$MainContent$ctl01$oaDefault$ucDate$rdpDate$calendar\u0027,\u0027@@\u0027)","_rangeSelectionMode":0,"clientStateFieldID":"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar_ClientState","enableMultiSelect":false,"enabled":true,"monthYearNavigationSettings":["Today","OK","Cancel","Date is out of range.","False","True","300","1","300","1","False"],"skin":"Default","specialDaysArray":[],"stylesHash":{"DayStyle": ["", ""],"CalendarTableStyle": ["", "rcMainTable"],"OtherMonthDayStyle": ["", "rcOtherMonth"],"TitleStyle": ["", ""],"SelectedDayStyle": ["", "rcSelected"],"SelectorStyle": ["", ""],"DisabledDayStyle": ["", "rcDisabled"],"OutOfRangeDayStyle": ["", "rcOutOfRange"],"WeekendDayStyle": ["", "rcWeekend"],"DayOverStyle": ["", "rcHover"],"FastNavigationStyle": ["", "RadCalendarMonthView RadCalendarMonthView_Default"],"ViewSelectorStyle": ["", "rcViewSel"]},"useColumnHeadersAsSelectors":false,"useRowHeadersAsSelectors":false}, null, null, $get("ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadDatePicker, {"_PopupButtonSettings":{ ResolvedImageUrl : "", ResolvedHoverImageUrl : ""},"_animationSettings":{ShowAnimationDuration:300,ShowAnimationType:1,HideAnimationDuration:0,HideAnimationType:1},"_enableKeyboardNavigation":false,"_popupControlID":"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_popupButton","_showPopupOnFocus":true,"clientStateFieldID":"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_ClientState","focusedDate":"2026-09-28-00-00-00","maxDate":"2026-09-28-00-00-00","minDate":"2023-09-28-00-00-00"}, {"popupClosing":PopulateDate}, {"calendar":"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_calendar","dateInput":"ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput"}, $get("ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate"));
+});
+//]]>
+</script>
+</form>
+
+
+</body></html>
