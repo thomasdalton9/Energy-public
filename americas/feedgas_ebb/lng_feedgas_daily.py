@@ -117,55 +117,51 @@ POINTS = [
 # "missing" list, out of the calibration (plus RAMP_MONTHS of start-up
 # after), and to stop an unmetered plant's EIA placeholder being applied
 # before it existed. Edit if you have better dates.
-PLANT_START = {
-    "Sabine Pass": date(2016, 1, 1),
-    "Cove Point": date(2018, 2, 1),
-    "Corpus Christi": date(2018, 11, 1),
-    "Cameron": date(2019, 5, 1),
-    "Freeport": date(2019, 8, 1),
-    "Elba Island": date(2019, 10, 1),
-    "Calcasieu Pass": date(2022, 1, 1),
-    "Plaquemines": date(2024, 12, 1),
-    "Golden Pass": date(2025, 11, 1),
-}
+PLANT_START = {}  # filled from PLANT_CAPACITY below: each plant's first FERC fuel-gas authorisation
 RAMP_MONTHS = 3
 
 # Nameplate liquefaction capacity by phase, as published by the
-# operators (million tonnes per annum of LNG), with approximate first-LNG
-# dates. Plants routinely run above nameplate (Sabine Pass, Calcasieu
+# operators (million tonnes per annum of LNG). Start-up = the date FERC
+# staff authorised fuel gas / hazardous fluids into that phase's
+# facilities (the letter's eLibrary accession number is kept); first-LNG
+# months are approximate, for reference. Plants routinely run above nameplate (Sabine Pass, Calcasieu
 # Pass, Plaquemines), so utilisation over 100% is normal. Edit as phases
 # are added.
-PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, first LNG
-    ("Sabine Pass", "Trains 1-6", 6, 30.0, date(2016, 2, 1)),
-    ("Cove Point", "Train 1", 1, 5.25, date(2018, 3, 1)),
-    ("Corpus Christi", "Stage 1-2 (Trains 1-3)", 3, 15.0, date(2018, 11, 1)),
-    ("Corpus Christi", "Stage 3 (7 midscale trains)", 7, 10.0, date(2024, 12, 1)),
-    ("Cameron", "Trains 1-3", 3, 12.0, date(2019, 5, 1)),
-    ("Freeport", "Trains 1-3", 3, 15.0, date(2019, 8, 1)),
-    ("Elba Island", "10 small-scale units", 10, 2.5, date(2019, 10, 1)),
-    ("Calcasieu Pass", "18 midscale trains (9 blocks)", 18, 10.0, date(2022, 1, 1)),
-    ("Plaquemines", "Phase 1", 18, 13.3, date(2024, 12, 1)),
-    ("Plaquemines", "Phase 2", 18, 6.7, date(2025, 3, 1)),
-    ("Golden Pass", "Trains 1-3", 3, 18.1, date(2025, 11, 1)),
+PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, FERC fuel gas authorised, FERC accession, first LNG
+    ("Sabine Pass", "Trains 1-6", 6, 30.0, date(2015, 9, 23), "20150923-3012", date(2016, 2, 1)),
+    ("Cove Point", "Train 1", 1, 5.25, date(2017, 8, 31), "20170831-3071", date(2018, 3, 1)),
+    ("Corpus Christi", "Stage 1-2 (Trains 1-3)", 3, 15.0, date(2018, 8, 16), "20180816-3034", date(2018, 11, 1)),
+    ("Corpus Christi", "Stage 3 (7 midscale trains)", 7, 10.0, date(2024, 7, 24), "20240724-3089", date(2024, 12, 1)),
+    ("Cameron", "Trains 1-3", 3, 12.0, date(2018, 11, 5), "20181105-3030", date(2019, 5, 1)),
+    ("Freeport", "Trains 1-3", 3, 15.0, date(2019, 2, 19), "20190219-3025", date(2019, 8, 1)),
+    ("Elba Island", "10 small-scale units", 10, 2.5, date(2019, 2, 1), "20190201-3039", date(2019, 10, 1)),
+    ("Calcasieu Pass", "18 midscale trains (9 blocks)", 18, 10.0, date(2021, 4, 21), "20210421-3018", date(2022, 1, 1)),
+    ("Plaquemines", "Phase 1", 18, 13.3, date(2024, 4, 23), "20240423-3041", date(2024, 12, 1)),
+    ("Plaquemines", "Phase 2", 18, 6.7, date(2025, 1, 27), "20250127-3027", date(2025, 3, 1)),
+    ("Golden Pass", "Trains 1-3", 3, 18.1, date(2025, 3, 19), "20250319-3021", date(2025, 11, 1)),
 ]
+for _plant, _, _, _, _fuel_gas, _, _ in PLANT_CAPACITY:
+    PLANT_START[_plant] = min(PLANT_START.get(_plant, _fuel_gas), _fuel_gas)
 BCF_PER_MT_LNG = 48.0  # 1 tonne of LNG ~ 48 Mcf of gas, so 1 mtpa ~ 0.13 Bcf/d
 
 
 def capacity_table():
     rows = []
-    for plant, phase, trains, mtpa, first in PLANT_CAPACITY:
+    for plant, phase, trains, mtpa, fuel_gas, accession, first in PLANT_CAPACITY:
         export = mtpa * BCF_PER_MT_LNG / 365
         rows.append({"plant": plant, "phase": phase, "trains": trains, "nameplate_mtpa": mtpa,
                      "nameplate_bcfd_lng_out": round(export, 2),
                      "nameplate_bcfd_feedgas": round(export * FEEDGAS_PER_EXPORT, 2),
-                     "first_lng": pd.Timestamp(first)})
+                     "ferc_fuel_gas_authorised": pd.Timestamp(fuel_gas), "ferc_accession": accession,
+                     "first_lng_approx": pd.Timestamp(first)})
     df = pd.DataFrame(rows)
     totals = df.groupby("plant", sort=False)[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum()
     total_rows = [{"plant": pl, "phase": "Plant total", "trains": None, **totals.loc[pl].round(2).to_dict(),
-                   "first_lng": df.loc[df.plant == pl, "first_lng"].min()}
+                   "ferc_fuel_gas_authorised": df.loc[df.plant == pl, "ferc_fuel_gas_authorised"].min(),
+                   "first_lng_approx": df.loc[df.plant == pl, "first_lng_approx"].min()}
                   for pl in totals.index if (df.plant == pl).sum() > 1]  # only plants built in phases
     us = {"plant": "US total", "phase": "", "trains": None,
-          **df[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum().round(2).to_dict(), "first_lng": None}
+          **df[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum().round(2).to_dict()}
     out = pd.concat([df, pd.DataFrame(total_rows), pd.DataFrame([us])], ignore_index=True)
     order = {pl: i for i, pl in enumerate(dict.fromkeys(df.plant))}
     out["_o"] = out.plant.map(order).fillna(len(order))
@@ -763,9 +759,9 @@ def chart_data(best):
     out = {}
     for group, plants in CAPACITY_GROUPS:
         cap = pd.Series(0.0, index=best.index)
-        for plant, _, _, mtpa, first in PLANT_CAPACITY:
+        for plant, _, _, mtpa, fuel_gas, _, _ in PLANT_CAPACITY:
             if plant in plants:
-                cap += (days >= pd.Timestamp(first)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
+                cap += (days >= pd.Timestamp(fuel_gas)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
         out[f"{group} capacity"] = cap.round(3)
     df = pd.DataFrame(out)
     df[FEEDGAS_LINE] = best["Total"]
@@ -837,7 +833,7 @@ def notes_lines():
         "COVERAGE BY PLANT",
     ]
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
-    lines += ["", "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"]
+    lines += ["", "PLANT START DATES (FERC authorisation of fuel gas into the plant - see Plant capacity for each letter; blanks before these = not operating yet)"]
     lines += [f"{plant}: {start:%b %Y} (meters treated as live from {live_from(plant):%b %Y}, "
               f"{PRE_START_MONTHS} months earlier, to catch pre-commissioning feedgas)" for plant, start in PLANT_START.items()]
     lines += ["", "CALIBRATION",
@@ -1045,7 +1041,7 @@ def save(out, new):
                               {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
                                "TC ENERGY METERS (ANR, COLUMBIA GULF)", "PLANT CAPACITY",
                                "BEST ESTIMATE DAILY",
-                               "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"})
+                               "PLANT START DATES (FERC authorisation of fuel gas into the plant - see Plant capacity for each letter; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
     for name in ("Best estimate daily", "Bcfd by plant", "Estimated (calibrated)", "Points (Dth)", TC_CACHE_SHEET):
@@ -1061,11 +1057,12 @@ def save(out, new):
         add_capacity_chart(wb)
     ws = wb["Plant capacity"]
     for row in ws.iter_rows(min_row=2):
-        row[-1].number_format = "mmm-yyyy"
+        row[6].number_format = "dd-mmm-yyyy"
+        row[8].number_format = "mmm-yyyy"
         if row[1].value == "Plant total" or row[0].value == "US total":
             for cell in row:
                 cell.font = openpyxl.styles.Font(bold=True)
-    for col, width in zip("ABCDEFG", (16, 30, 8, 16, 22, 22, 12)):
+    for col, width in zip("ABCDEFGHI", (16, 30, 8, 16, 22, 22, 24, 16, 16)):
         ws.column_dimensions[col].width = width
     wb.save(args.out)
 
