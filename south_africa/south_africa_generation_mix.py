@@ -164,10 +164,10 @@ def upsert(existing, new):
 
 
 # Eskom's CSV normally refreshes daily. If the newest complete day it
-# returns is older than this, the source has gone stale (moved URL, stopped
+# returns is older than this (Eskom itself runs ~4 days behind, so 6 leaves margin while still catching a real outage before its 7-day window rolls past), the source has gone stale (moved URL, stopped
 # publishing) - fail the run so GitHub flags it, rather than quietly
 # re-saving the same week forever.
-STALE_AFTER_DAYS = 4
+STALE_AFTER_DAYS = 6
 
 
 NOTES_LINES = [
