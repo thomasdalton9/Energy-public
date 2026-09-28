@@ -1,0 +1,58 @@
+name: Feedgas EBB discovery
+
+# Manual only, on purpose - one-off reconnaissance passes against
+# pipeline EBB sites that are unreachable from the sandbox this repo is
+# normally edited in, not a recurring data pull. Scoped end-to-end to
+# americas/feedgas_ebb/ so it can never touch any other file in the repo:
+# it checks out, runs one script that only writes inside that subfolder,
+# and commits only that subfolder's changes (force-added, since *.png /
+# *.csv are gitignored repo-wide and the screenshots are the point).
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Discovery script to run"
+        type: choice
+        default: KM_GCX_RETRIEVE_DISCOVERY.py
+        options:
+          - KM_GCX_RETRIEVE_DISCOVERY.py
+          - KM_CAPACITY_DISCOVERY.py
+          - FEEDGAS_PIPES_DISCOVERY.py
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests playwright
+
+      - name: Install Chromium for Playwright
+        if: inputs.script == 'KM_GCX_RETRIEVE_DISCOVERY.py'
+        run: python3 -m playwright install --with-deps chromium
+
+      - name: Run discovery
+        env:
+          SCRIPT: ${{ inputs.script }}
+        run: python3 "americas/feedgas_ebb/$SCRIPT"
+
+      - name: Commit discovery output
+        if: always()
+        env:
+          SCRIPT: ${{ inputs.script }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f -- americas/feedgas_ebb/ ':!**/__pycache__/**'
+          git diff --cached --quiet || git commit -m "Feedgas EBB discovery output: $SCRIPT (automated, americas/feedgas_ebb/ only)"
+          git pull --rebase
+          git push
