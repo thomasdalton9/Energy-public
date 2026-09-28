@@ -609,6 +609,51 @@ def quorum_history(context):
     page.close()
 
 
+def gulfsouth_csv(context):
+    """Click one Gulf South Operational Capacity CSV download (27 Sep
+    Intraday 3), capture the request it makes and the file; list Stratton
+    Ridge / Freeport rows."""
+    log("\n==================== Gulf South OA CSV ====================")
+    page = context.new_page()
+    reqs = []
+    page.on("request", lambda r: reqs.append((r.method, r.url, r.post_data)) if "bwpmlp" in r.url or "download" in r.url.lower() else None)
+    try:
+        page.goto("https://infopost.bwpipelines.com/", wait_until="networkidle", timeout=90000)
+        page.wait_for_timeout(3000)
+        page.evaluate("""() => { const t = document.querySelector('[data-cy=tsp-wrapper-div] button, [data-cy=tsp-wrapper-div] .dropdown-toggle'); if (t) t.click(); }""")
+        page.wait_for_timeout(1000)
+        page.evaluate("""() => document.querySelector('[data-cy^="078444247"]').click()""")
+        page.wait_for_timeout(4000)
+        page.goto("https://www.gasquest.com/capacity/operationally-available", wait_until="networkidle", timeout=90000)
+        page.wait_for_timeout(6000)
+        row = page.locator("tr", has_text="09/27/2026 Intraday 3").first
+        icons = row.locator("[title], a, button, i, span")
+        log(f"  row found: {row.count()}; clickable bits: {[ (icons.nth(i).get_attribute('title'), icons.nth(i).get_attribute('class')) for i in range(min(icons.count(), 12))]}")
+        target = row.locator("[title*=csv i], [title*=CSV]").first
+        if not target.count():
+            target = row.locator("[title]").first
+        n0 = len(reqs)
+        with page.expect_download(timeout=60000) as info:
+            target.click()
+        d = info.value
+        path = os.path.join(OUTPUT_DIR, "gulfsouth_" + d.suggested_filename)
+        d.save_as(path)
+        log(f"  DOWNLOAD {d.url} -> {path}")
+        for r in reqs[n0:]:
+            log(f"  REQ {r[0]} {r[1][:250]} {(r[2] or '')[:400]}")
+        text = open(path, encoding="utf-8", errors="replace").read()
+        lines = text.splitlines()
+        log(f"  {len(lines)} lines; header: {lines[:3]}")
+        for l in lines:
+            if re.search(r"STRATTON|FREEPORT|LNG|BRAZORIA|ANGLETON", l, re.I):
+                log(f"    ROW {l[:300]}")
+    except Exception as e:
+        log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+        for r in reqs[-15:]:
+            log(f"  REQ {r[0]} {r[1][:250]} {(r[2] or '')[:300]}")
+    page.close()
+
+
 def covepoint_csv(context):
     """Newest Cove Point OA CSV for yesterday's gas day (the listing page
     links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
@@ -638,7 +683,7 @@ def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(ignore_https_errors=True, user_agent=UA, viewport={"width": 1600, "height": 1200})
+        context = browser.new_context(ignore_https_errors=True, accept_downloads=True, user_agent=UA, viewport={"width": 1600, "height": 1200})
         if "cheniere" in wanted:
             cheniere(context)
         if "tc" in wanted:
@@ -676,6 +721,8 @@ def main():
             vg_gp_recon(context)
         if "quorum_hist" in wanted:
             quorum_history(context)
+        if "gulfsouth_csv" in wanted:
+            gulfsouth_csv(context)
         if "covepoint_csv" in wanted:
             covepoint_csv(context)
         browser.close()
