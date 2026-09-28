@@ -1,0 +1,950 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head>
+
+<style type="text/css">
+
+.contlabel{
+font-size: 10pt;
+font-weight: bold;
+padding: 0 10px 0 0;
+vertical-align: middle;
+}
+.datacellcenter{
+padding: 2px 5px 2px 5px;
+text-align: center;
+}
+.datacellleft{
+padding: 0 0 0 5px;
+text-align: left;
+}
+.datacellright{
+padding: 0 5px 0 0;
+text-align: right;
+}
+.dataheader{
+background-color: rgb(255,255,255);
+color: rgb(112,128,144);
+}
+a{
+color: rgb(1,147,213);
+}
+a.hover{
+color: rgb(1,147,213);
+}
+body{
+background-color: #ffffff;
+font-family: Helvetica, sans-serif;
+font-size: 9pt;
+margin: 40px;
+}
+button{
+cursor: hand;
+}
+button, input{
+border-style: solid;
+border-width: 1px;
+font-family: Helvetica, sans-serif;
+font-size: 9pt;
+}
+div.header{
+color: rgb(112,128,144);
+font-size: 12pt;
+font-weight: bold;
+text-align: center;
+width: 800px;
+}
+div.header2{
+color: rgb(112,128,144);
+font-size: 10pt;
+font-weight: bold;
+margin-top: 5px;
+text-align: center;
+width: 800px;
+}
+div.lcol{
+color: rgb(112,128,144);
+float: left;
+text-align: left;
+width: 180px;
+}
+div.rcol{
+float: right;
+text-align: left;
+width: 300px;
+}
+div.row{
+padding: 5px,0px,0px,0px;
+text-align: center;
+width: 800px;
+}
+span.dt{
+color: black;
+font-family: Helvetica, sans-serif;
+font-weight: normal;
+padding-top: 5px;
+}
+table{
+border-color: rgb(112,128,144);
+border-style: solid;
+border-width: 1px;
+font-size: 9pt;
+}
+table.hdr{
+border-color: rgb(255,255,255);
+border-style: solid;
+border-width: 1px;
+}
+td.hdr1, td.hdrc{
+border-bottom: 1px solid rgb(211,211,211);
+font-weight: bold;
+padding: 5px 5px 5px 5px;
+text-align: center;
+}
+td.hdrlabel{
+font-weight: bold;
+}
+tr.alt1{
+background-color: white;
+}
+tr.alt2{
+background-color: whitesmoke;
+}
+tr.hdr{
+background-color: rgb(112,128,144);
+color: rgb(255,255,255);
+} 
+</style>
+
+
+
+
+<title>Operationally Available Capacity</title>
+
+
+<link rel="stylesheet" type="text/css" href="js/jquery-ui.min.css">
+<style>
+	div.ui-datepicker {font-size:11px;}
+	div.ui-datepicker a {width:auto;}
+	.ui-datepicker-calendar {border: 0;}
+</style>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+
+
+<script>
+	$(function() {
+		$.datepicker.setDefaults({
+		  	changeMonth: true,
+			changeYear: true,
+			dateFormat: 'MM d, yy'
+		});
+	});
+</script>
+<script language="javascript">
+    //Use jQuery datepicker
+    $(function() {
+        $("#dt").datepicker();
+    });
+</script>
+
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-FVQ4PC5J52"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-FVQ4PC5J52');
+        </script>
+	</head><body>
+<div>
+    <div class="header">Operationally Available Capacity</div><br>
+    <div class="header2">
+    <table class="hdr" align="center">
+        <tbody><tr>
+            <td class="hdrlabel">TSP Name:</td>
+            <td>Cameron Interstate Pipeline LLC</td>
+        </tr>
+        <tr>
+            <td class="hdrlabel">TSP:</td>
+            <td>790555689</td>
+        </tr>
+    
+        <tr>
+            <td class="hdrlabel">Posting Date/Time:</td>
+            <td>September 27, 2026 08:29 PM CT</td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="hdrlabel">Eff Gas Day/Time:</td>
+            <td>September 28, 2026 09:00 AM CT</td>
+        </tr>
+
+        
+            <tr>
+                <td class="hdrlabel">Cycle Indicator Description:</td>
+                <td>Evening</td>
+            </tr>
+        
+
+        <tr>
+            <td class="hdrlabel">Capacity Type Description</td>
+            <td>Operationally available capacity</td>
+        </tr>
+    
+    </tbody></table>
+    </div>
+    
+
+        <div class="row" style="margin-top:15px;">
+
+            <table border="0" align="center" cellspacing="0" width="750" style="border:0;margin-bottom:5px;">
+            <tbody><tr>
+                <td> <a href="oauc.cfm?dt=09/27/2026&amp;type=1"> <strong> &lt;&lt; Previous Day </strong></a><strong> </strong> </td>
+                <td align="right"> <a href="oauc.cfm?dt=09/29/2026&amp;type=1"> <strong> Next Day &gt;&gt; </strong></a><strong>  </strong> </td>
+            </tr>
+            </tbody></table>
+
+            <table border="0" align="center" cellspacing="0" width="750">
+            <tbody><tr class="hdr">
+                <td class="hdr1">Location Name</td>
+                <td class="hdrc">Loc</td>
+                <td class="hdrc">Loc Zn</td>
+                <td class="hdr1">Loc Purp<br>Desc</td>
+                <td class="hdrc">Loc/QTI</td>
+                
+                    <td class="hdr1">Flow Ind</td>
+                    <td class="hdrc">All Qty<br>Avail</td>
+                
+                <td class="hdrc">Design<br>Capacity</td>
+                
+                <td class="hdrc">Operating<br>Capacity</td>
+                <td class="hdrc">TSQ</td>
+                
+                <td class="hdrc">
+                
+                OAC
+                
+                </td>
+                
+                <td class="hdrc">IT<br>Indicator</td>
+                <td class="hdrc">Qty<br>Reason</td>
+                
+            </tr>
+            <tr><td colspan="12" style="height:5px;"></td></tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">Cameron LNG (Del)</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772300</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">  1,560,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">  1,560,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">  1,428,275</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   131,725</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">Cameron LNG (Rec)</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772296</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">  1,500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">  1,500,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">  1,500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">Cameron-Gillis Hub Pipeline</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772295</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;"></td>
+                <td class="datacellcenter" style="white-space: nowrap;">772295</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">     6,250</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   493,750</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">CIP AGPS</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772303</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">CIP LEAP</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772302</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">    63,126</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   436,874</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">CIP NG3</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772305</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   700,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   700,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">    30,000</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   670,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">CIP-LEG</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772306</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   900,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   900,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">   217,251</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   682,749</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">CLNG - OSC</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772297</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">    93,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">    93,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">    93,000</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        N 
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">Florida Gas Transmission</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772290</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   400,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        N 
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;"></td>
+                <td class="datacellcenter" style="white-space: nowrap;">772290</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   400,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        N 
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">Hackberry City Gate</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772301</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">      730</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">      730</td>
+                    <td class="datacellright" style="white-space: nowrap;">      419</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">      311</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">TENN-CIP</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772298</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">  1,080,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   965,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">   889,241</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">    75,759</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">Tennessee</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772292</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   700,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   700,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   700,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;"></td>
+                <td class="datacellcenter" style="white-space: nowrap;">772292</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   700,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        N 
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">TETCO-CIP</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772299</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">   225,405</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   274,595</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;">Texas Eastern </td>
+                <td class="datacellcenter" style="white-space: nowrap;">772293</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        N 
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt2">
+                <td class="datacellleft" style="white-space: nowrap;"></td>
+                <td class="datacellcenter" style="white-space: nowrap;">772293</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">   500,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;">Transco</td>
+                <td class="datacellcenter" style="white-space: nowrap;">772294</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Delivery Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">D</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr class="alt1">
+                <td class="datacellleft" style="white-space: nowrap;"></td>
+                <td class="datacellcenter" style="white-space: nowrap;">772294</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    1
+                </td>
+                
+                <td class="datacellleft" style="white-space: nowrap;">Receipt Location</td>
+                <td class="datacellcenter" style="white-space: nowrap;">
+                    RDQ 
+                </td>
+                
+                    <td class="datacellleft" style="white-space: nowrap;">R</td>
+                    <td class="datacellright" style="white-space: nowrap;">Y </td>
+                
+
+                <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                    <td class="datacellright" style="white-space: nowrap;">        0</td>
+                
+                <td class="datacellright" style="white-space: nowrap;">  1,000,000</td>
+                
+                    <td class="datacellright" style="white-space: nowrap;">
+                        
+                            &nbsp;
+                        
+                    </td>
+                    <td class="datacellright" style="white-space: nowrap;"></td>
+
+                
+                <td class="datacellright" style="white-space: nowrap;"> </td>
+            </tr>
+            
+            <tr><td colspan="12" style="height:10px;"></td></tr>
+            </tbody></table>
+        </div>
+    
+    <div class="row" style="margin-top:30px;">
+        <form method="GET" action="oauc.cfm" style="margin:0px;">
+        <label class="contlabel">Change date to:</label>
+        <input type="text" id="dt" name="dt" value="September 29, 2026" maxlength="17" style="padding-left: 5px; width: 120px;" readonly="readonly" class="hasDatepicker">
+        <input type="hidden" name="type" value="1" style="">
+        <button type="submit" style="margin-left:30px;">Go</button>
+        </form>
+    </div>
+    
+
+    <br><br>
+    
+    <div class="row" style="text-align:left;margin-top:5px;font-family:sans-serif;font-size:9pt;color:black;">
+    <b>IT Indicator</b> -
+    An indicator which signifies whether or not interruptible transportation service is being utilized at this location.<br>
+    <li>Required if Capacity Type is 'Operationally available unscheduled capacity' and Quantity Available = '0'.</li>
+    <li>A value of Y = "At least a portion of the capacity being utilized at this location is interruptible"</li>
+    <li>A value of N = "There is not interruptible transportation service as a portion of the capacity being utilized at this location"</li>
+    <li>Will be blank if Quantity Available is not zero.</li>
+    </div>
+    <br>
+    
+    <div class="row" style="margin-top:5px;font-family:sans-serif;font-size:9pt;color:black;">
+        <div align="left">
+            <b>Measurement Basis Description:</b> Million BTU's (Dth)<br>
+            <b>Pressure Base Indicator Description:</b> 14.73 Pounds Per Square Inch Absolute<br>
+        </div>
+    </div>
+    
+
+    <br>
+
+    <table style="border:none;">
+        
+    </table>
+
+
+
+</div>
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>

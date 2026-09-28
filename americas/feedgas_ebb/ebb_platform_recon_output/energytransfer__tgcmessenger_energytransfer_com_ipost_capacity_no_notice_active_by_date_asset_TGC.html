@@ -1,0 +1,556 @@
+<!DOCTYPE html><html lang="en" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" style=""><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+	<!--[if IE 7]>    <html class="lt-ie9 lt-ie8"> <![endif]-->
+	<!--[if IE 8]>    <html class="lt-ie9"> <![endif]-->
+	<!--[if gt IE 8]><!-->  <!--<![endif]-->
+
+	<title>Energy Transfer</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" href="/ipost/assets/favicon-1032649b819aa7b709c7834670504fd9.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/ipost/assets/service_lynx.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/ipost/assets/apple-touch-icon-retina-18c3559cb150e467cace985f18238f87.png">
+	<link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
+
+	
+	
+	
+    <meta name="layout" content="oneColumnLayout">
+    <link rel="stylesheet" href="/ipost/assets/application-52f0abc539e32a3a32b0ecf226c0652e.css">
+    <script type="text/javascript" src="/ipost/assets/application-03825b507d8bc04a79fef3c5eb4075c8.js"></script>
+    <link rel="stylesheet" href="/ipost/assets/global-670c407021b7d90dd034f70af03508fe.css">
+    <link rel="stylesheet" href="/ipost/assets/responsive-9f8e42fc99744e95ed308bb744735572.css">
+    <link rel="stylesheet" href="/ipost/assets/print-43994e46a2e900ab583aa000a006da0c.css" media="print">
+    <link rel="stylesheet" href="/ipost/assets/loader-f4a6d15843767078b01c5f77c320288d.css">
+    <link rel="stylesheet" href="/ipost/assets/datepicker3-54063298a6d5babbec1e7d194fdfaafc.css">
+    <link rel="stylesheet" href="/ipost/assets/fonts-760b25ecb2fad2b7b95f45ebeab08269.css">
+    <!-- font-ie7.css-->
+    <script type="text/javascript" src="/ipost/assets/respond.src-553402befd150a3246cff1d5ef5c72d7.js" id="respond" disposition="head"></script>
+    <script type="text/javascript" src="/ipost/assets/modernizr-2.6.2-f18df8ea3d2145ed50da2212b4ee6335.js" disposition="head"></script>
+    <script type="text/javascript" src="/ipost/assets/global-head-1b3ef23bc10ec218e03113fbd74b3e62.js" disposition="head"></script>
+    <script type="text/javascript" src="/ipost/assets/global-f1ba87e152a7e615c6c77f57bf186cda.js"></script>
+    <script type="text/javascript" src="/ipost/assets/gridTableUtil-0addd79ae5a93c98901baee05ff5e8d0.js"></script>
+    <script type="text/javascript" src="/ipost/assets/bootstrap-datepicker-949e89ee73e92c8b8abe97dbb27deadc.js"></script>
+    <script type="text/javascript" src="/ipost/assets/jquery.PrintArea.js_4-455e8716b9162a8a9ba47f1139c1420d.js"></script>
+    <link rel="stylesheet" href="/ipost/assets/infoPage-5eb0d3516fc4cf552d944bb11a5b3543.css">
+    <script type="text/javascript" src="/ipost/assets/infoPage-19a063b246c42131e73f8148520e97b1.js"></script>
+    <link rel="stylesheet" href="/ipost/assets/footable.core-51697bd3a270e496997b62bbf259af2d.css">
+    <script type="text/javascript" src="/ipost/assets/footable-722ddb21ccd9069974511666eaae5cb7.js" disposition="head"></script>
+    <script type="text/javascript" src="/ipost/assets/footable.sort-bd543096145b6e162be8efcb47329d3c.js" disposition="head"></script>
+    <script type="text/javascript" src="/ipost/assets/footable.paginate-c14fb0b4320ddb26d7d6b85c583a0a13.js" disposition="head"></script>
+
+
+
+	
+</head>
+<body>
+
+	
+	
+
+	
+	
+		<header role="banner">
+			
+			<div class="container masthead">
+				<!-- BEGIN: grails-app/views/override/PE/layouts/_header.gsp -->
+<div class="branding">
+	<div class="coName">
+		<div class="etc-logo"><a href="http://www.energytransfer.com/"><img src="/ipost/assets/etc_logo-05bc69d7a81978926e75bc412d21a31f.png"></a></div>
+		<div class="subTitle">Trunkline<br>Gas Company, LLC</div>
+		<div class="dateTime">Monday, Sep 28, 2026</div><div class="clear"></div>
+		<nav class="navbar" role="navigation">
+			  <ul class="nav navbar-nav">
+				
+					
+					<li><a href="/ipost/main/switch-asset?asset=LCLNG">Lake Charles LNG</a></li>
+				
+					<li class="divider-vertical"></li>
+					<li><a href="/ipost/main/switch-asset?asset=PEPL">Panhandle</a></li>
+				
+					<li class="divider-vertical"></li>
+					<li><a href="/ipost/main/switch-asset?asset=ROVER">Rover</a></li>
+				
+					<li class="divider-vertical"></li>
+					<li><a href="/ipost/main/switch-asset?asset=SER">Sea Robin</a></li>
+				
+					<li class="divider-vertical"></li>
+					<li><a href="/ipost/main/switch-asset?asset=SPC">Stingray</a></li>
+				
+					<li class="divider-vertical"></li>
+					<li><a href="/ipost/main/switch-asset?asset=SWGS">Southwest Gas</a></li>
+				
+			  </ul>
+		</nav>
+	</div>
+
+	<div class="login" style="height: unset; padding-right: 60px;">
+		
+			<a href="/ipost/customer-activities/quick-launch_pe?asset=TGC" target="_blank"><img src="/ipost/assets/PEPL/quick_launch_without_icon-be6ed2145f463a69c856fa66f1b3176b.png" class="quickLaunch"></a>
+		
+	</div>
+</div>
+<!-- END: grails-app/views/override/PE/layouts/_header.gsp -->
+			</div>
+		</header>
+	
+	
+	<div id="wrapper-main" class="container" role="main"><div class="row">
+	
+		<nav class="navbar-default col-md-2" role="navigation"><div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			  <span class="sr-only">Toggle navigation</span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</button>
+			<a class="quick-launch" href="/ipost/customer-activities/quick-launch?asset=TGC">Quick Launch</a>
+		</div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<!-- BEGIN: grails-app/views/override/PE/layouts/_menu.gsp -->
+<section>
+	<ul class="css3menu1 topmenu">
+		<li class="topfirst"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_informationalPostings.gsp -->
+<a href="/ipost/main/index?asset=TGC" class="main">Informational Postings</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_informationalPostings.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_capacity.gsp -->
+<a href="#" class="capacity pressed"><span>Capacity</span></a>
+<ul>
+	<li class="subfirst"><a href="#">Operationally Available</a>
+		<ul>
+			<li><a href="/ipost/capacity/operationally-available-by-location?asset=TGC">By Location</a></li>
+			<!--<li><a href="/ipost/capacity/iframe/capacityOperAvailByLocation?asset=TGC">By Location</a></li>-->
+			<li><a href="/ipost/capacity/operationally-available-by-segment?asset=TGC">By Segment</a></li>
+		</ul>
+	</li>
+	<li><a href="#">Unsubscribed</a>
+		<ul>
+			<li><a href="/ipost/capacity/unsubscribed-by-location?asset=TGC">By Location</a></li>
+			<li><a href="/ipost/capacity/unsubscribed-by-segment?asset=TGC">By Segment</a></li>
+		</ul>
+	</li>
+	<li><a href="#">No-Notice Activity</a>
+		<ul>
+			<li><a href="/ipost/capacity/no-notice-active-by-date?asset=TGC">By Date</a></li>
+			<li><a href="/ipost/capacity/no-notice-active-by-location?asset=TGC">By Location</a></li>
+		</ul>
+	</li>	
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_capacity.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_gasQuality.gsp -->
+<a class="GQ" href="#"><span>Gas Quality</span></a>
+<ul>
+	<li class="subfirst"><a href="/ipost/gas-quality/tariff-provisions?asset=TGC">Tariff Provisions</a></li>
+	<li><a href="/ipost/gas-quality/methodology?asset=TGC">Methodology</a></li>
+	<li><a href="#">Daily Average Quality Info</a>
+		<ul>
+			<li><a href="/ipost/gas-quality/daily-average-quality-info-by-date?asset=TGC">By Date</a></li>
+			<li><a href="/ipost/gas-quality/daily-average-quality-info-by-segment?asset=TGC">By Segment</a></li>
+		</ul>
+	</li>
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_gasQuality.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_indexOfCustomers.gsp -->
+<a href="/ipost/index-of-customers/index?asset=TGC" class="ioc">Index Of Customers</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_indexOfCustomers.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_locations.gsp -->
+<a href="/ipost/locations/index?asset=TGC" class="L">Locations</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_locations.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/TGC/layouts/menu/_notice.gsp -->
+<a class="notices" href="#">Notices</a>
+<ul>
+	<li class="subfirst"><a href="/ipost/notice/critical?asset=TGC">Critical</a></li>
+	<li><a href="/ipost/notice/non-critical?asset=TGC">Non-Critical</a></li>
+	<li><a href="/ipost/notice/planned-service-outage?asset=TGC">Planned Service Outage</a></li>
+	<li><a href="/ipost/notice/purchase-capacity-release-request?asset=TGC">Request to Purchase Releasable Capacity</a></li>
+	<li><a href="/ipost/notice/waste-heat?asset=TGC">Waste Heat</a></li>
+	<li><a href="/ipost/notice/capacity-release-indices?asset=TGC">Capacity Release Indices</a></li>
+</ul>
+<!-- END: grails-app/views/override/PE/TGC/layouts/menu/_notice.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_postedImbalances.gsp -->
+<a href="/ipost/posted-imbalances?asset=TGC&amp;active=PI" class="PI">Posted Imbalances</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_postedImbalances.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_regulatory.gsp -->
+<a href="/ipost/regulatory/index?asset=TGC" class="rf">Regulatory</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_regulatory.gsp -->
+		</li>		
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_standardsOfConduct.gsp -->
+<a class="SC" href="#">Standards Of Conduct</a>
+<ul>
+	<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_standardsOfConductLinks.gsp -->
+<li class="subfirst"><a href="/ipost/standards-of-conduct/affiliate-name-address?asset=TGC">Affiliate Names &amp; Addresses</a></li>
+<li><a href="/ipost/standards-of-conduct/affiliate-tariff-waivers?asset=TGC">Affiliate Tariff Waivers</a></li>
+<li><a href="/ipost/standards-of-conduct/chief-compliance-officer?asset=TGC">Chief Compliance Officer</a></li>
+<li><a href="/ipost/standards-of-conduct/employee-transfers?asset=TGC">Employee Transfers</a></li>
+<li><a href="/ipost/standards-of-conduct/implementation-procedures?asset=TGC">Implementation Procedures</a></li>
+<li><a href="/ipost/standards-of-conduct/information-disclosure?asset=TGC">Information Disclosure</a></li>
+<li><a href="/ipost/standards-of-conduct/job-titles-descriptions?asset=TGC">Job Titles &amp; Descriptions</a></li>
+<li><a href="/ipost/standards-of-conduct/potential-mergers?asset=TGC">Potential Mergers</a></li>
+<li><a href="/ipost/standards-of-conduct/shared-facilities?asset=TGC">Shared Facilities</a></li>
+<li><a href="/ipost/standards-of-conduct/voluntary-consent?asset=TGC">Voluntary Consent</a></li>
+<!-- END: grails-app/views/override/PE/layouts/menu/_standardsOfConductLinks.gsp -->
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_standardsOfConduct.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_tariff.gsp -->
+<a href="#" class="tariff">Tariff</a>
+<ul>
+	<li class="subfirst"><a href="/ipost/tariff/title-sheet-section?asset=TGC">Title Sheet/Section</a></li>
+	<li><a href="/ipost/tariff/table-of-contents?asset=TGC">Table of Contents</a></li>
+	<li><a href="/ipost/tariff/preliminary-statement?asset=TGC">Preliminary Statement</a></li>
+	<li><a href="/ipost/tariff/map?asset=TGC">Map</a></li>
+	<li><a href="/ipost/tariff/currently-effective-rates?asset=TGC">Currently Effective Rates</a></li>
+	<li><a href="/ipost/tariff/rate-schedules?asset=TGC">Rate Schedules</a></li>
+	<li><a href="/ipost/tariff/general-terms-and-conditions?asset=TGC">General Terms and Conditions</a></li>
+	<li><a href="/ipost/tariff/form-of-service-agreement?asset=TGC">Form Of Service Agreements</a></li>
+	<li><a href="/ipost/tariff/entire-tariff?asset=TGC">Entire Tariff</a></li>
+	<li><a href="/ipost/tariff/sheet-section-index?asset=TGC">Sheet/Section Index</a></li>
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_tariff.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_transactionalReporting.gsp -->
+<a href="#" class="TR">Transactional Reporting</a>
+<ul>
+	<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_transactionalReportingLinks.gsp -->
+<li class="subfirst"><a href="/ipost/transactional-reporting/firm?asset=TGC">Firm</a></li>
+<li><a href="/ipost/transactional-reporting/interruptible?asset=TGC">Interruptible</a></li>
+<li><a href="/ipost/transactional-reporting/capacity-release?asset=TGC">Capacity Release</a></li>
+<!-- END: grails-app/views/override/PE/layouts/menu/_transactionalReportingLinks.gsp -->
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_transactionalReporting.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_passwordManagement.gsp -->
+<a href="/ipost/password-management?asset=TGC" class="PM">Password Management</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_passwordManagement.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_rates.gsp -->
+<a href="#" class="rates">Rates</a>
+<ul>
+	<li><a href="/ipost/rates/date-specific-tariff-rates?asset=TGC">Date Specific Tariff Rates</a></li>
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_rates.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/TGC/layouts/menu/_pointCatalog.gsp -->
+<a href="#" class="pc">Point Catalog</a>
+<ul>
+	<li class="subfirst"><a href="/ipost/point-catalog/master-receipt-point-list?asset=TGC">Master Receipt Point List</a></li>
+	<li><a href="/ipost/point-catalog/master-delivery-point-list?asset=TGC">Master Delivery Point List</a></li>
+	<li><a href="/ipost/point-catalog/master-parking-point-list?asset=TGC">Master Parking Point List</a></li>
+	<li><a href="/ipost/point-catalog/location-detail?asset=TGC">Location Detail</a></li>			
+</ul>
+<!-- END: grails-app/views/override/PE/TGC/layouts/menu/_pointCatalog.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/TGC/layouts/menu/_maps.gsp -->
+<a class="maps" href="#">Maps</a>
+<ul>
+	<li class="subfirst">
+	<a href="/ipost/maps/system-map?asset=TGC">System Map</a></li>
+	<li><a href="/ipost/maps/field-zone?asset=TGC">Field Zone</a></li>
+	<li><a href="/ipost/maps/zone1a?asset=TGC">Zone 1A</a></li>
+	<li><a href="/ipost/maps/zone1b?asset=TGC">Zone 1B</a></li>
+	<li><a href="/ipost/maps/zone2?asset=TGC">Zone 2</a></li>	
+</ul>
+<!-- END: grails-app/views/override/PE/TGC/layouts/menu/_maps.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_forms.gsp -->
+<a href="#" class="forms">Forms</a>
+<ul>
+	<li class="subfirst"><a href="/ipost/forms/custom-forms?asset=TGC">Messenger+ Forms</a></li>
+	<li><a href="/ipost/forms/general-forms?asset=TGC">General Forms</a></li>
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_forms.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_userManuals.gsp -->
+<a href="#" class="userManuals">User Manuals</a>
+
+<ul>
+	<li><a href="/ipost/user-manuals/training-tools?asset=TGC">Messenger+ Training Tools</a></li>
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_userManuals.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_downloads.gsp -->
+<a href="/ipost/downloads/index?asset=TGC" class="downloads">Downloads</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_downloads.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_search.gsp -->
+<a href="/ipost/search/index?asset=TGC" class="search">Search</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_search.gsp -->
+		</li>
+		<li class="topmenu"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_customerActivities.gsp -->
+<a href="#" class="">Customer Activities</a>
+<ul>
+	<li class="subfirst"><a href="/ipost/customer-activities/quick-launch_pe?asset=TGC" target="_blank">Messenger+ Quick Launch</a></li>
+	<li><a href="/ipost/customer-activities/information?asset=TGC">Messenger+ Information</a></li>
+</ul>
+<!-- END: grails-app/views/override/PE/layouts/menu/_customerActivities.gsp -->
+		</li>
+		<li class="toplast"><span class="lft"></span><span class="rt"></span>
+			<!-- BEGIN: grails-app/views/override/PE/layouts/menu/_siteMap.gsp -->
+<a href="/ipost/site-map?asset=TGC" class="SM">Site Map</a>
+<!-- END: grails-app/views/override/PE/layouts/menu/_siteMap.gsp -->
+		</li>
+	</ul>
+</section>
+<!-- END: grails-app/views/override/PE/layouts/_menu.gsp -->
+			
+				<section class="navLogo">
+					<img src="/ipost/assets/TGC/logo-d167a59ca296266746f6149f92479de5.png" class="logo">
+				</section>
+				<section class="disclaimer">
+					<a class="text" data-toggle="modal" data-target="#modal-legal" href="/ipost/main/legal?asset=TGC">Legal Disclaimer</a><br>
+				</section>
+				<div class="modal fade" id="modal-legal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"></div>
+			
+		</div></nav>
+			
+		
+		<article class="col-md-10">
+				
+    <section class="copy">
+        <p class="date">Date Requested: Sep 28 2026 5:56 AM</p>
+
+        <h1>TGC No-Notice Activity By Date</h1>
+
+        <h2>TSP Name: Trunkline Gas Company, LLC (TSP: 007933062)</h2>
+
+        <!-- BEGIN: grails-app/views/override/PE/capacity/_noNoticeActiveByDateForm.gsp -->
+<form action="/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;max=10&amp;dateFlag=null" method="post" class="well form" role="form" name="inputForm" id="inputForm">
+    <div class="form-group">
+       <label for="gasDay">Gas Day</label>
+           <div class="input-group-sm input-group input-date">
+               <input type="text" class="form-control" name="gasDay" value="09/28/2026" id="gasDay" style=""><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+           </div>
+    </div>
+    <div class="form-group">
+        <label for="pointCd">Loc</label>
+        <input type="text" class="form-control input-sm" name="pointCd" value="" placeholder="Loc" id="pointCd" style="">
+    </div>
+    <div class="form-group">
+        <label for="name">Loc Name</label>
+        <input type="text" class="form-control input-sm" name="name" value="" placeholder="Loc Name" id="name" style="">
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+</form>
+<!-- END: grails-app/views/override/PE/capacity/_noNoticeActiveByDateForm.gsp -->
+
+        <p class="pad"><strong>Gas Day:</strong> 09/28/2026</p>
+
+        <p class="pad"><strong>Post Date/Time:</strong>    </p>
+        <table class="no-paging footable-loaded footable"><tbody><tr style=""><td><span class="footable-toggle"></span>The quantities posted reflect the best available data pursuant to 18 CFR §284.13(d)</td></tr>
+        </tbody></table>
+
+        <p></p>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-2 col-xs-3">
+                <a href="/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;print=print&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=&amp;drnNbr=&amp;max=ALL&amp;sortOrder=asc&amp;sort=pointCd" target="_blank" onclick="updateQueryString(this);"><i class="glyphicon glyphicon-print"></i> Print</a>
+                <a href="#modal-oacInfo" class="legend" role="button" data-toggle="modal"><i class="glyphicon glyphicon-info-sign"></i>  Legend</a>
+            </div>
+
+            <div class="col-md-5  col-xs-9">
+                Downloads:<span class="export"><span class="menuButton"><a href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;f=csv&amp;extension=csv&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" class="csv">CSV</a></span> <span class="menuButton"><a href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;f=excel&amp;extension=xls&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" class="excel">Excel</a></span> <span class="menuButton"><a href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;f=ods&amp;extension=ods&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" class="ods">ODS</a></span> <span class="menuButton"><a href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;f=pdf&amp;extension=pdf&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" class="pdf">PDF</a></span> <span class="menuButton"><a href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;f=rtf&amp;extension=rtf&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" class="rtf">RTF</a></span> <span class="menuButton"><a href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;f=xml&amp;extension=xml&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" class="xml">XML</a></span></span>
+                <!-- BEGIN: grails-app/views/capacity/_oacModalInfo.gsp -->
+
+<div class="modal fade" id="modal-oacInfo" tabindex="-1" role="dialog" aria-labelledby="modalLabel-oacInfo" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <a href="javascript: void(0)" id="modal-print" class="modal-print"><img src="/ipost/assets/print-bd499ec72c6d5650aa165155dc9498b0.png"></a>
+
+                <h3 class="modal-title" id="modalLabel-oacInfo">Legend</h3>
+            </div>
+
+            <div class="modal-body" id="printArea">
+                
+                    
+                        <p class="pointCd"><b>Loc</b> - Location</p>
+                    
+                
+                    
+                        <p class="name"><b>Loc Name</b> - Location Name</p>
+                    
+                
+                    
+                        <p class="locQti"><b>Loc/QTI</b> - <u>Location/Quantity Type Indicator</u><br>RPQ - Receipt point(s) quantity <br>DPQ - Delivery point(s) quantity</p>
+                    
+                
+                    
+                        <p class="noNoticeQt"><b>No-Notice Qty</b> - No-Notice Quantity</p>
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#modal-print').click(function () {
+        $('#printArea').printArea({mode: "popup", popClose: false});
+    });</script>
+<!-- END: grails-app/views/capacity/_oacModalInfo.gsp -->
+            </div>
+
+            <div class="col-md-5">
+                <span class="displayedRowOptions">Displaying: <select class="rowOptions" style="width:45px;height:auto;padding:0;margin:0;" onchange="updateRowDisplay(this.value)">
+                    <option value="10" selected="">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="ALL">All</option>
+                </select> rows out of 1 results</span>
+            </div>
+        </div>
+
+        <div id="resultTable" class="">
+            <!-- BEGIN: grails-app/views/capacity/_noNoticeActiveByDate.gsp -->
+<!-- BEGIN: grails-app/views/layouts/dataTablePaging.gsp -->
+<table class="table table-bordered table-striped table-condensed table-hover footable default no-paging footable-loaded" data-filter="#filter" data-page-size="10" data-limit-navigation="10">
+	
+		
+    
+    
+    <thead>
+    <tr class="tableRowHeader">
+        
+            <th class="pointCd footable-sortable footable-visible footable-first-column" data-toggle="true" data-sort-initial="false">
+                <a href="javascript:void(0)?gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="Location">
+                    Loc
+                </a>
+                <span class="footable-sort-indicator"></span>
+            </th>
+        
+            <th class="name footable-sortable footable-visible">
+                <a href="javascript:void(0)?gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="Location Name">
+                    Loc Name
+                </a>
+                <span class="footable-sort-indicator"></span>
+            </th>
+        
+            <th class="locQti footable-sortable footable-visible" data-hide="phone,tablet">
+                <a href="javascript:void(0)?gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="&lt;u&gt;Location/Quantity Type Indicator&lt;/u&gt;&lt;/br&gt;RPQ - Receipt point(s) quantity &lt;br&gt;DPQ - Delivery point(s) quantity">
+                    Loc/QTI
+                </a>
+                <span class="footable-sort-indicator"></span>
+            </th>
+        
+            <th class="noNoticeQt footable-sortable footable-visible footable-last-column" data-type="numeric">
+                <a href="javascript:void(0)?gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="No-Notice Quantity">
+                    No-Notice Qty
+                </a>
+                <span class="footable-sort-indicator"></span>
+            </th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr class="odd" style="">
+            
+                <td class="pointCd toggle footable-visible footable-first-column"><span class="footable-toggle"></span>
+                    
+                        0
+                    
+                </td>
+            
+                <td class="name footable-visible">
+                    
+                         
+                    
+                </td>
+            
+                <td class="locQti text-center footable-visible">
+                    
+                        DPQ
+                    
+                </td>
+            
+                <td class="noNoticeQt text-center footable-visible footable-last-column">
+                    
+                        0
+                    
+                </td>
+            
+        </tr>
+    
+    </tbody>
+
+	
+	<tfoot class="hide-if-no-paging">
+	<tr class="footable-row-detail">
+		<td colspan="4">
+			<nav class="text-center"><ul class="pagination"><li class="footable-page-arrow disabled"><a data-page="first" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#first">«</a></li><li class="footable-page-arrow disabled"><a data-page="prev" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#prev">‹</a></li><li class="footable-page-arrow" style="display: none;"><a data-page="limit-prev" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#limit-prev">...</a></li><li class="footable-page active"><a data-page="0" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#">1</a></li><li class="footable-page-arrow" style="display: none;"><a data-page="limit-next" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#limit-next">...</a></li><li class="footable-page-arrow disabled"><a data-page="next" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#next">›</a></li><li class="footable-page-arrow disabled"><a data-page="last" href="https://tgcmessenger.energytransfer.com/ipost/capacity/no-notice-active-by-date?asset=TGC&amp;gasDay=09%2F28%2F2026&amp;pointCd=&amp;name=#last">»</a></li></ul></nav>
+		</td>
+	</tr>
+</tfoot>
+</table>
+<script>$(function() {$('table').footable();});</script>
+<!-- END: grails-app/views/layouts/dataTablePaging.gsp -->
+<!-- END: grails-app/views/capacity/_noNoticeActiveByDate.gsp -->
+        </div>
+        <!-- BEGIN: grails-app/views/capacity/_noNoticeActiveByDateFootnote.gsp -->
+
+<!-- END: grails-app/views/capacity/_noNoticeActiveByDateFootnote.gsp -->
+    </section>
+
+			<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"></div>
+		</article>
+	
+	</div>
+</div>
+	
+		
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.input-group.input-date').datepicker({
+                autoclose: true
+            }).on('changeDate', function (e) {
+                updateCycle(e)
+            });
+            $('a[rel=tooltip]').tooltip({html: true});
+            // retains search params for dataTable
+            $('#inputForm input, #inputForm select').each(function (index) {
+                var key = $(this).attr('name'), val = $(this).val();
+                $('#resultTable a[href]').add('.export a[href]').each(function (index) {
+                    $(this).attr('href', addQueryParam(this.href, key, val));
+                });
+            });
+        });
+    </script>
+
+	
+
+
+
+
+
+</body></html>

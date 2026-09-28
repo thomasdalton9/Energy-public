@@ -1,0 +1,546 @@
+<html><head>
+<title></title>
+
+<style type="text/css">
+
+.menutable{
+background-color: rgb(255,255,255);
+}
+a{
+font-size: 8pt;
+font-weight: bold;
+text-decoration: none;
+width: 100%;
+}
+a.hdr, a.hdr:link, a.hdr:visited, a.hdr:active{
+color: rgb(112,128,144);
+}
+a.hdr:Hover{
+color: rgb(112,128,144);
+}
+a.hhdr, a.hhdr:link, a.hhdr:visited,a.hhdr:active{
+color: rgb(112,128,144);
+}
+a.hhdr:Hover{
+color: rgb(112,128,144);
+}
+a.ssub, a.ssub:link, a.ssub:visited, a.ssub:active{
+color: rgb(255,255,0);
+}
+a.ssub:Hover{
+color: rgb(255,255,0);
+}
+a.sub, a.sub:link, a.sub:visited, a.sub:active{
+color: rgb(112,128,144);
+}
+a.sub:Hover{
+color: rgb(112,128,144);
+}
+a:Hover{
+color: rgb(112,128,144);
+}
+body{
+background-color: rgb(255,255,255);
+color: rgb(1,147,213);
+font-family: Helvetica, sans-serif;
+margin-left: 10px;
+text-align: left;
+}
+td.dataheader{
+font-size: 9pt;
+}
+td.h1{
+background-color: rgb(255,255,255);
+border-bottom: 1px solid rgb(211,211,211);
+color: rgb(112,128,144);
+cursor: normal;
+font-size: 8pt;
+font-weight: bold;
+}
+td.h2{
+background-color: rgb(211,211,211);
+color: rgb(112,128,144);
+cursor: hand;
+font-size: 8pt;
+font-weight: bold;
+}
+td.hh1{
+background-color: rgb(255,255,255);
+border-bottom: 1px solid rgb(211,211,211);
+}
+td.hh2{
+background-color: rgb(211,211,211);
+}
+td.s1{
+background-color: rgb(255,255,255);
+border-bottom: 1px solid rgb(211,211,211);
+color: rgb(112,128,144);
+cursor: hand;
+padding-left: 10px;
+}
+td.s2{
+background-color: rgb(211,211,211);
+color: rgb(112,128,144);
+cursor: normal;
+padding-left: 10px;
+} 
+</style>
+
+<script language="JavaScript" type="text/javascript">
+//<!--
+var curr=0;
+
+function getObject(obj) {
+    var theObj;
+    if (document.all) { if (typeof obj == "string") { return document.all(obj); } else { return obj.style; } }
+    if (document.getElementById) { if (typeof obj == "string") { return document.getElementById(obj); } else { return obj.style; } }
+    return null;
+}
+function toggleMenu(id) {
+    if( (curr != 0) && (curr != id) ) {
+        var obj = getObject("SubMenu" + curr);
+        if( obj != null ) {
+            obj.style.display = "none";
+            curr = 0;
+        }
+    }
+    var obj = getObject("SubMenu" + id);
+    if( obj == null ) { return; }
+
+    if( obj.style.display == "table-row-group"
+     || obj.style.display == "block" ) {
+          obj.style.display = "none";
+          curr = 0;
+    } else {
+          try {
+                obj.style.display="table-row-group";
+          } catch (e) {
+                obj.style.display="block";
+          }
+          curr=id;
+    }
+}
+function goOver(td) {
+    if( td.className == "h1" ) td.className = "h2";
+    if( td.className == "hh1" ) td.className = "hh2";
+}
+function goOut(td) {
+    if( td.className == "h2" ) td.className = "h1";
+    if( td.className == "hh2" ) td.className = "hh1";
+}
+function goOverSub(td) {
+    if( td.className == "s1" ) td.className = "s2";
+    if( td.className == "ss1" ) td.className = "ss2";
+ }
+function goOutSub(td) {
+    if( td.className == "s2" ) td.className = "s1";
+    if( td.className == "ss2" ) td.className = "ss1";
+}
+
+function openPage(p,t) {
+    window.open(p,t);
+}
+
+function MnuOpen(id) {
+    toggleDisplay(getObject("SubMenu" + id));
+}
+//-->
+</script>
+
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-FVQ4PC5J52"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-FVQ4PC5J52');
+        </script>
+	</head>
+<body>
+<br><p><b>Informational Postings</b></p>
+
+        <table width="170" cellspacing="1" cellpadding="1"><tbody><tr><td class="menutable">
+        <table width="100%" cellspacing="1" cellpadding="3">
+    
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="toggleMenu(1)">
+                Capacity
+            </td>
+        </tr>
+    
+            </tbody><tbody id="SubMenu1" style="display : none;">
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('oauc.cfm?type=1','BodyArea');">
+                <a href="oauc.cfm?type=1" class="sub" target="BodyArea">Operationally Available</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('oauc.cfm?type=2','BodyArea');">
+                <a href="oauc.cfm?type=2" class="sub" target="BodyArea">Unsubscribed</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=1','BodyArea');">
+                <a href="uploadfiles.cfm?type=1" class="sub" target="BodyArea">Capacity Allocation Log</a>
+            </td>
+        </tr>
+        
+            </tbody>
+        
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="toggleMenu(2)">
+                Gas Quality
+            </td>
+        </tr>
+    
+            </tbody><tbody id="SubMenu2" style="display : none;">
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=25','BodyArea');">
+                <a href="uploadfiles.cfm?type=25" class="sub" target="BodyArea">Gas Quality Information</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tariff.cfm?page=96','BodyArea');">
+                <a href="tariff.cfm?page=96" class="sub" target="BodyArea">Tariff Provisions</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=18','BodyArea');">
+                <a href="uploadfiles.cfm?type=18" class="sub" target="BodyArea">Industry Standards and Methodologies</a>
+            </td>
+        </tr>
+        
+            </tbody>
+        
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('customer_index.cfm','BodyArea');">
+                
+
+                <a href="customer_index.cfm" class="hdr" target="BodyArea">Index of Customers</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('uploadfiles.cfm?type=23','BodyArea');">
+                
+
+                <a href="uploadfiles.cfm?type=23" class="hdr" target="BodyArea">Locations</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="toggleMenu(4)">
+                Notices
+            </td>
+        </tr>
+    
+            </tbody><tbody id="SubMenu4" style="display : none;">
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('notices.cfm?type=1','BodyArea');">
+                <a href="notices.cfm?type=1" class="sub" target="BodyArea">Critical</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('notices.cfm?type=2','BodyArea');">
+                <a href="notices.cfm?type=2" class="sub" target="BodyArea">Non-Critical</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('notices.cfm?type=3','BodyArea');">
+                <a href="notices.cfm?type=3" class="sub" target="BodyArea">Planned Service Outage</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('notices.cfm?type=5','BodyArea');">
+                <a href="notices.cfm?type=5" class="sub" target="BodyArea">Request to Purchase Releasable Capacity</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('notices.cfm?type=4','BodyArea');">
+                <a href="notices.cfm?type=4" class="sub" target="BodyArea">Waste Heat</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('supported_indexes.cfm','BodyArea');">
+                <a href="supported_indexes.cfm" class="sub" target="BodyArea">Supported Indexes</a>
+            </td>
+        </tr>
+        
+            </tbody>
+        
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('uploadfiles.cfm?type=2','BodyArea');">
+                
+
+                <a href="uploadfiles.cfm?type=2" class="hdr" target="BodyArea">Posted Imbalances</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('uploadfiles.cfm?type=22','BodyArea');">
+                
+
+                <a href="uploadfiles.cfm?type=22" class="hdr" target="BodyArea">Regulatory</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="toggleMenu(6)">
+                Standards of Conduct
+            </td>
+        </tr>
+    
+            </tbody><tbody id="SubMenu6" style="display : none;">
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=3','BodyArea');">
+                <a href="uploadfiles.cfm?type=3" class="sub" target="BodyArea">Affiliate Names &amp; Addresses</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=4','BodyArea');">
+                <a href="uploadfiles.cfm?type=4" class="sub" target="BodyArea">Affiliate Tariff Waivers</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=5','BodyArea');">
+                <a href="uploadfiles.cfm?type=5" class="sub" target="BodyArea">Chief Compliance Officer</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=6','BodyArea');">
+                <a href="uploadfiles.cfm?type=6" class="sub" target="BodyArea">Employee Transfers</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=7','BodyArea');">
+                <a href="uploadfiles.cfm?type=7" class="sub" target="BodyArea">Implementation Procedures</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=8','BodyArea');">
+                <a href="uploadfiles.cfm?type=8" class="sub" target="BodyArea">Information Disclosure</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=9','BodyArea');">
+                <a href="uploadfiles.cfm?type=9" class="sub" target="BodyArea">Job Titles &amp; Descriptions</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=10','BodyArea');">
+                <a href="uploadfiles.cfm?type=10" class="sub" target="BodyArea">Potential Mergers</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=11','BodyArea');">
+                <a href="uploadfiles.cfm?type=11" class="sub" target="BodyArea">Shared Facilities</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('uploadfiles.cfm?type=12','BodyArea');">
+                <a href="uploadfiles.cfm?type=12" class="sub" target="BodyArea">Voluntary Consent</a>
+            </td>
+        </tr>
+        
+            </tbody>
+        
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="toggleMenu(7)">
+                Tariff
+            </td>
+        </tr>
+    
+            </tbody><tbody id="SubMenu7" style="display : none;">
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tariff.cfm?page=1','BodyArea');">
+                <a href="tariff.cfm?page=1" class="sub" target="BodyArea">Title Sheet/Section</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tariff.cfm?page=2','BodyArea');">
+                <a href="tariff.cfm?page=2" class="sub" target="BodyArea">Table of Contents</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tariff.cfm?page=5','BodyArea');">
+                <a href="tariff.cfm?page=5" class="sub" target="BodyArea">Preliminary Statement</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('/ip/cameron/map','BodyArea');">
+                <a href="/ip/cameron/map" class="sub" target="BodyArea">Map</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_rates.pdf','BodyArea');">
+                <a href="Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_rates.pdf" class="sub" target="BodyArea">Currently Effective Rates</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_schedules.pdf','BodyArea');">
+                <a href="Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_schedules.pdf" class="sub" target="BodyArea">Rate Schedules</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_terms.pdf','BodyArea');">
+                <a href="Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_terms.pdf" class="sub" target="BodyArea">General Terms and Conditions</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_forms.pdf','BodyArea');">
+                <a href="Fileviewer.cfm?FromLoc=Tariff&amp;file=tariff_forms.pdf" class="sub" target="BodyArea">Form of Service Agreement</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tariff.cfm?page=1','BodyArea');">
+                <a href="tariff.cfm?page=1" class="sub" target="BodyArea">Entire Tariff</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('sheetindex.cfm','BodyArea');">
+                <a href="sheetindex.cfm" class="sub" target="BodyArea">Sheet/Section Index</a>
+            </td>
+        </tr>
+        
+            </tbody>
+        
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="toggleMenu(8)">
+                Transactional Reporting
+            </td>
+        </tr>
+    
+            </tbody><tbody id="SubMenu8" style="display : none;">
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tr_list.cfm?type=1','BodyArea');">
+                <a href="tr_list.cfm?type=1" class="sub" target="BodyArea">Firm</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tr_list.cfm?type=2','BodyArea');">
+                <a href="tr_list.cfm?type=2" class="sub" target="BodyArea">Interruptible</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="s1" onmouseover="goOverSub(this)" onmouseout="goOutSub(this)" onclick="openPage('tr_list.cfm?type=3','BodyArea');">
+                <a href="tr_list.cfm?type=3" class="sub" target="BodyArea">Capacity Release</a>
+            </td>
+        </tr>
+        
+            </tbody>
+        
+            </table></td></tr></tbody></table><br>
+        
+        <table width="170" cellspacing="1" cellpadding="1"><tbody><tr><td class="custmenutable">
+        <table width="100%" cellspacing="1" cellpadding="3">
+    
+        <tbody><tr>
+            <td class="hh1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Links&amp;file=CIP_Service Request Form_FT.pdf','BodyArea');">
+                
+
+                <a href="Fileviewer.cfm?FromLoc=Links&amp;file=CIP_Service Request Form_FT.pdf" class="hhdr" target="BodyArea">CIP Service Request Form</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="hh1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Links&amp;file=CIP Noms Service Agreement.pdf','BodyArea');">
+                
+
+                <a href="Fileviewer.cfm?FromLoc=Links&amp;file=CIP Noms Service Agreement.pdf" class="hhdr" target="BodyArea">CIP Noms Service Agreement</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="hh1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Links&amp;file=SI_InfoPost_Contacts 6.26.pdf','BodyArea');">
+                
+
+                <a href="Fileviewer.cfm?FromLoc=Links&amp;file=SI_InfoPost_Contacts 6.26.pdf" class="hhdr" target="BodyArea">Contact Information</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="hh1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('Fileviewer.cfm?FromLoc=Links&amp;file=CIP System Access Request Form.pdf','BodyArea');">
+                
+
+                <a href="Fileviewer.cfm?FromLoc=Links&amp;file=CIP System Access Request Form.pdf" class="hhdr" target="BodyArea">CIP System Access Request</a>
+            </td>
+        </tr>
+    
+            </tbody></table></td></tr></tbody></table><br>
+        
+        <table width="170" cellspacing="1" cellpadding="1"><tbody><tr><td class="menutable">
+        <table width="100%" cellspacing="1" cellpadding="3">
+    
+        <tbody><tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('downloads.cfm','BodyArea');">
+                
+
+                <a href="downloads.cfm" class="hdr" target="BodyArea">Downloads</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('Search.cfm','BodyArea');">
+                
+
+                <a href="Search.cfm" class="hdr" target="BodyArea">Search</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('http://www.quicknom.com/cameron','_blank');">
+                
+
+                <a href="http://www.quicknom.com/cameron" class="hdr" target="_blank">Customer Activities</a>
+            </td>
+        </tr>
+    
+        <tr>
+            <td class="h1" onmouseover="goOver(this)" onmouseout="goOut(this)" onclick="openPage('sitemap.cfm','BodyArea');">
+                
+
+                <a href="sitemap.cfm" class="hdr" target="BodyArea">Site Map</a>
+            </td>
+        </tr>
+    
+</tbody></table></td></tr></tbody></table><br>
+
+
+<span id="sessionstatus"></span>
+<script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&amp;ns=1&amp;cb=1590231011" async=""></script>
+</body></html>
