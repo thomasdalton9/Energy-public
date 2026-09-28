@@ -38,24 +38,31 @@ except ImportError:
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ebb_platform_recon_output")
 FOLLOW_LIMIT = 10
 
-# Second pass, from the first pass's findings: Enbridge's OA page is
-# understood (-> ENBRIDGE_OA_SCAN.py); Energy Transfer's /ipost/TGC/...
-# paths were "asset-not-found" but its error page listed the real entry
-# links (../main/index?asset=CODE - TGC Trunkline, GR Gulf Run feeding
-# Golden Pass, LCLNG Lake Charles LNG); gasnom's page is a frameset
-# (header/frameindex/body .cfm); Williams' OA page is an iframe onto an
-# Angular app route.
+# Third pass - platforms for the feedgas gaps (after Kinder Morgan,
+# Enbridge TE, Energy Transfer and gasnom were mapped): the terminals'
+# own feed pipelines, whose delivery meter into the plant is the whole
+# plant (as Cameron Interstate's was for Cameron):
+#   - Cheniere LNG Connection: Creole Trail (Sabine Pass) and Cheniere
+#     Corpus Christi Pipeline
+#   - PipeRiv: third-party aggregator mirroring many pipelines' postings
+#     (Creole Trail, ANR, Transco...) - possibly one format for many
+#   - TC Energy: ANR (feeds TransCameron/Calcasieu Pass) and Columbia
+#     Gulf (feeds Gator Express/Plaquemines)
+#   - BHE GT&S: Cove Point
 PLATFORMS = {
-    "energytransfer": [
-        "https://tgcmessenger.energytransfer.com/ipost/main/index?asset=TGC",
-        "https://tgcmessenger.energytransfer.com/ipost/main/index?asset=GR",
+    "cheniere": [
+        "https://lngconnection.cheniere.com/",
     ],
-    "gasnom_cameron": [
-        "https://www.gasnom.com/ip/CAMERON/frameindex.cfm",
-        "https://www.gasnom.com/ip/CAMERON/body.cfm",
+    "piperiv": [
+        "https://www.piperiv.com/ip/creole",
+        "https://www.piperiv.com/ip/",
     ],
-    "williams_transco": [
-        "https://www.1line.williams.com/#/oac-reports/transco",
+    "tcenergy": [
+        "https://ebb.anrpl.com/",
+        "https://ebb.tceconnects.com/infopost/",
+    ],
+    "bhe_covepoint": [
+        "https://infopost.bhegts.com/",
     ],
 }
 
