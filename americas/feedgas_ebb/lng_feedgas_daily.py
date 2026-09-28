@@ -38,6 +38,7 @@ script.
 import argparse
 import io
 import os
+import re
 import sys
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -317,86 +318,52 @@ TC_REPORTS = {"ANR": ("OperationallyAvailableCapacityANR", 3005), "CGT": ("Opera
 BHE_OA_LIST = "https://infopost.bhegts.com/{pipe}/postings/capacity-operationally-available"
 
 
+# TC's report viewer can't change gas day for anyone (its session
+# keep-alive redirects to TC's error page, so the viewer shows "ASP.NET
+# session has expired" and the date box does nothing). The report URL with
+# rs:Format=CSV does work, but only ever serves TC's latest posting - by
+# the morning run, the NEXT gas day's Timely cycle. So each run caches that
+# posting ("TC next day (timely)" sheet) and the following run, pulling
+# that gas day, takes TC's meters from the cache: TC's values are the
+# Timely nominations, not the final intraday cycle, and there's no TC
+# history before the cache started.
+TC_AHEAD = {}  # gas day -> {point column: Dth}, filled by fetch_tc
+TC_CACHE_SHEET = "TC next day (timely)"
+_TC_LATEST = {}  # pipe -> (gas day, frame): fetched once per run
+
+
 def fetch_tc(page, pipe, gas_day):
-    """TC eConnects OA report (SQL Server Reporting Services). The gas day
-    is the page's own txtGasDate box - not a report URL parameter - so set
-    it, let the page post back, then use the viewer's CSV export."""
-    import re
+    if pipe not in _TC_LATEST:
+        _TC_LATEST[pipe] = fetch_tc_latest(page, pipe)
+    posted, frame = _TC_LATEST[pipe]
+    if posted == gas_day:
+        return frame
+    for point in POINTS:
+        if point[1] == "tc" and point[2] == pipe and point[3] in frame.index:
+            TC_AHEAD.setdefault(posted, {})[point_column(point)] = frame.at[point[3], "scheduled_dth"]
+    raise RuntimeError(f"TC only serves its latest posting ({posted}) - cached for that day's run; "
+                       f"{gas_day} comes from the cache if an earlier run saw it")
+
+
+def fetch_tc_latest(page, pipe):
     report, asset = TC_REPORTS[pipe]
-    # The menu page keeps polling, so "networkidle" never comes (ANR timed
-    # out at 90s) - load it only for its session cookies.
     page.goto(TC_BASE + f"TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid={asset}", wait_until="domcontentloaded", timeout=90000)
-    page.wait_for_timeout(3000)
-    page.goto(f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&pAssetNbr={asset}", wait_until="domcontentloaded", timeout=180000)
-    page.locator("#txtGasDate").wait_for(timeout=120000)
-    box = page.locator("#txtGasDate")
-    if box.input_value() != f"{gas_day:%m/%d/%Y}":
-        box.fill(f"{gas_day:%m/%d/%Y}")
-        box.dispatch_event("change")
-        page.wait_for_load_state("domcontentloaded", timeout=180000)
-        page.wait_for_function(f"() => document.querySelector('#txtGasDate') && "
-                               f"document.querySelector('#txtGasDate').value === '{gas_day:%m/%d/%Y}' && "
-                               f"/ExportUrlBase/.test(document.documentElement.innerHTML)", timeout=180000)
-        page.wait_for_timeout(5000)
-    # The viewer renders asynchronously after the postback ("no report
-    # loaded" if exported too soon), so wait for it to show a report page.
-    state_js = """() => { try { const v = $find('ReportViewer1'); if (!v) return 'none';
-        if (v.get_isLoading()) return 'loading';
-        const t = v.get_reportAreaContentType(), E = Microsoft.Reporting.WebFormsClient.ReportAreaContent;
-        return t === E.ReportPage ? 'ready' : 'content ' + t; } catch (e) { return 'err ' + e.message; } }"""
-    try:
-        page.wait_for_function(f"() => ({state_js})() === 'ready'", timeout=180000)
-    except Exception:
-        print(f"  TC {pipe}: viewer not ready ({page.evaluate(state_js)})", flush=True)
-    # Three ways to get the CSV, each checked for the wanted gas day:
-    # the viewer's own Export > CSV, its ExportUrlBase link, and the
-    # report URL with rs:Format=CSV (which serves the session's gas day).
-    def viewer_export():
-        with page.expect_download(timeout=180000) as info:
-            page.evaluate("() => $find('ReportViewer1').exportReport('CSV')")
-        with open(info.value.path(), encoding="utf-8-sig", errors="replace") as f:
-            return f.read()
-
-    def export_link():
-        m = re.search(r'"ExportUrlBase":"([^"]+)"', page.content())
-        if not m:
-            raise RuntimeError("no ExportUrlBase on the page")
-        url = TC_BASE.split("/infopost/")[0] + m.group(1).replace("\\u0026", "&").replace("&amp;", "&") + "CSV"
-        return page.context.request.get(url, timeout=180000, headers={"Referer": page.url}).text()
-
-    def format_url():
-        url = f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&pAssetNbr={asset}&rs:Format=CSV"
-        return page.context.request.get(url, timeout=180000).text()
-
-    text, notes = None, []
-    for how, get in (("viewer export", viewer_export), ("export link", export_link), ("rs:Format", format_url)):
-        try:
-            got = get().lstrip("\ufeff")
-        except Exception as e:
-            notes.append(f"{how}: {type(e).__name__}: {str(e).splitlines()[0][:120]}")
-            continue
-        if not got.startswith("TSPName"):
-            snippet = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", got))[:120]
-            notes.append(f"{how}: not CSV ({snippet!r})")
-            continue
-        days = set(pd.to_datetime(pd.read_csv(io.StringIO(got), dtype=str)["EffGasDay"]).dt.date)
-        if days != {gas_day}:
-            notes.append(f"{how}: gas day(s) {sorted(map(str, days))}")
-            continue
-        text = got
-        break
-    for n in notes:
-        print(f"  TC {pipe}: {n}", flush=True)
-    if text is None:
-        raise RuntimeError(f"no CSV export for gas day {gas_day}")
+    page.wait_for_timeout(2000)
+    url = f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&pAssetNbr={asset}&rs:Format=CSV"
+    text = page.context.request.get(url, timeout=180000).text().lstrip("\ufeff")
+    if not text.startswith("TSPName"):
+        snippet = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text))[:200]
+        raise RuntimeError(f"CSV export didn't return the OA report: {snippet!r}")
     df = pd.read_csv(io.StringIO(text), dtype=str)
     days = set(pd.to_datetime(df["EffGasDay"]).dt.date)
-    if days != {gas_day}:
-        raise RuntimeError(f"TC {pipe} export is for gas day(s) {days}, wanted {gas_day}")
+    if len(days) != 1:
+        raise RuntimeError(f"TC {pipe} export spans gas days {sorted(days)}")
+    posted = days.pop()
     tsq = next(c for c in df.columns if c.startswith("TotalSched"))
     df = df[df["LocPurpDesc"].astype(str).str.startswith("Delivery")]
-    print(f"  TC {pipe}: {len(df)} delivery points, gas day {gas_day}, cycle {df['Cycle'].iloc[0]}", flush=True)
-    return points_frame(df["Location"], df["LocationName"], df[tsq])
+    frame = points_frame(df["Location"], df["LocationName"], df[tsq])
+    print(f"  TC {pipe}: {len(frame)} delivery points, latest posting gas day {posted}, cycle {df['Cycle'].iloc[0]}", flush=True)
+    return posted, frame
 
 
 def fetch_bhe(page, pipe, gas_day):
@@ -464,7 +431,7 @@ def dump(gas_day):
         print(df.sort_values("scheduled_dth", ascending=False).head(15).to_string())
 
 
-def pull(gas_day):
+def pull(gas_day, tc_cache=None):
     """One row of point-level scheduled Dth for the gas day. Points on a
     pipeline that failed to load are left blank, not zero."""
     needed = sorted({(p[1], p[2]) for p in POINTS})
@@ -480,7 +447,24 @@ def pull(gas_day):
             row[point_column(point)] = float("nan")
         else:
             row[point_column(point)] = values.at[loc, "scheduled_dth"]
+    # TC meters: from the Timely posting an earlier run cached for this day
+    cached = {**(tc_cache.loc[gas_day].dropna().to_dict() if tc_cache is not None and gas_day in tc_cache.index else {}),
+              **TC_AHEAD.get(gas_day, {})}
+    for col, value in cached.items():
+        if col in row and pd.isna(row[col]):
+            row[col] = value
+            print(f"  {col}: {value:,.0f} Dth from the cached TC Timely posting", flush=True)
     return pd.DataFrame([row], index=pd.Index([gas_day], name="gas_day"))
+
+
+def load_tc_cache(path):
+    try:
+        df = pd.read_excel(path, sheet_name=TC_CACHE_SHEET, index_col=0)
+    except (FileNotFoundError, ValueError):
+        return None
+    df.index = pd.to_datetime(df.index).date
+    df.index.name = "gas_day"
+    return df
 
 
 def plants_bcfd(points_dth):
@@ -674,10 +658,15 @@ def notes_lines():
               "(Freeport's Texas intrastate supply above all). Plants with no share yet (the first 2-3 months, until "
               "EIA catches up with our history) carry their metered value. 'Estimated total' vs 'Metered total' "
               "shows how much is inferred.",
+              "", "TC ENERGY METERS (ANR, COLUMBIA GULF)",
+              "TC eConnects only serves its latest posting - by each morning run, the next gas day's Timely cycle. "
+              f"Each run caches it ('{TC_CACHE_SHEET}') and the next run uses it for that day, so TC's meters "
+              "(Calcasieu Pass via ANR; Cameron and Plaquemines via Columbia Gulf) are Timely nominations, not the final "
+              "cycle, and have no history before the cache started. A missed run leaves that day's TC meters blank.",
               "", "POINTS", "Each 'Points (Dth)' column is 'Plant | meter (pipeline code, location id)'.", "",
               "SOURCE", "Kinder Morgan (pipeline2.kindermorgan.com) and Enbridge LINK (rtba.enbridge.com) "
               "Operationally Available Capacity postings, Total Scheduled Quantity column; gasnom.com (Cameron Interstate), "
-              "Energy Transfer Messenger+ and Cheniere LNG Connection equivalents - all operator-hosted."]
+              "Energy Transfer Messenger+, Cheniere LNG Connection, TC eConnects and BHE GT&S equivalents - all operator-hosted."]
     return lines
 
 
@@ -710,11 +699,12 @@ def main():
     # what it has (re-running skips nothing - it just overwrites).
     SAVE_EVERY = 7
     pending, retrieved = [], 0
+    tc_cache = load_tc_cache(args.out)
     started = datetime.now()
     progress_log = os.path.splitext(args.out)[0] + "_progress.log"
     for i, day in enumerate(days, 1):
         print(f"Pulling LNG feedgas points for gas day {day} ({i}/{len(days)})...", flush=True)
-        row = pull(day)
+        row = pull(day, tc_cache)
         if row.notna().sum(axis=1).iloc[0] == 0:
             print(f"  No points retrieved for {day} - skipped.", file=sys.stderr)
         else:
@@ -798,16 +788,27 @@ def save(out, new):
         print(f"  seen shares used: {share}")
 
     sheets = {"Bcfd by plant": plants, "Estimated (calibrated)": est, "Points (Dth)": points}
+    cache = load_tc_cache(out)
+    if TC_AHEAD:
+        ahead = pd.DataFrame.from_dict(TC_AHEAD, orient="index")
+        cache = ahead if cache is None else ahead.combine_first(cache)
+    if cache is not None and not cache.empty:
+        cache = cache.sort_index().tail(14)
+        cache.index.name = "gas_day"
+        sheets[TC_CACHE_SHEET] = cache
     if not check.empty:
         sheets["Monthly check"] = check
     if not eia.empty:
         sheets["EIA exports (Bcfd)"] = eia
     xlsx_notes.write_workbook(args.out, sheets, notes_lines(),
                               {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
+                               "TC ENERGY METERS (ANR, COLUMBIA GULF)",
                                "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
-    for name in ("Bcfd by plant", "Estimated (calibrated)", "Points (Dth)"):
+    for name in ("Bcfd by plant", "Estimated (calibrated)", "Points (Dth)", TC_CACHE_SHEET):
+        if name not in wb.sheetnames:
+            continue
         ws = wb[name]
         for (cell,) in ws.iter_rows(min_row=2, max_col=1):
             cell.number_format = "dd-mmm-yyyy"
