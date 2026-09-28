@@ -1,0 +1,1689 @@
+[
+ {
+  "reference": "{20EE932C-191A-C87E-93D7-79D2AB600001}-{020D83F6-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "20EE932C-191A-C87E-93D7-79D2AB600001",
+  "description": "Order Issuing Certificates and Approving Abandonment re Enable Gas Transmission, LLC et al under CP20-68 et al. Chairman Glick and Commissioner Clements are dissenting in part with a joint separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210601-3150",
+  "issuedDate": "06/01/2021",
+  "filedDate": "06/01/2021",
+  "postedDate": "06/01/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 70.01,
+  "docketNumbers": [
+   "CP20-68-000",
+   "CP20-70-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020D83F6-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CP20-68-000.DOCX",
+    "fileDesc": "",
+    "fileSize": 121473,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BC2E21CA-1ABB-CFCD-91E3-7AACDB100000}-{020DD6D1-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BC2E21CA-1ABB-CFCD-91E3-7AACDB100000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion, LLC's et al 05/27/2021 request to introduce gas and commission the Train 6 fuel gas system under CP13-552. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210629-3038",
+  "issuedDate": "06/29/2021",
+  "filedDate": "06/29/2021",
+  "postedDate": "06/29/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.2,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020DD6D1-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2021-06-29 Sabine Pass Train 6.PDF",
+    "fileDesc": "",
+    "fileSize": 255718,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{BC2E21CA-1ABB-CFCD-91E3-7AACDB100000}-{020DD6D1-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "BC2E21CA-1ABB-CFCD-91E3-7AACDB100000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion, LLC's et al 05/27/2021 request to introduce gas and commission the Train 6 fuel gas system under CP13-552. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210629-3038",
+  "issuedDate": "06/29/2021",
+  "filedDate": "06/29/2021",
+  "postedDate": "06/29/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.2,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020DD6D1-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "2021-06-29 Sabine Pass Train 6.PDF",
+    "fileDesc": "",
+    "fileSize": 255718,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{684260B5-A75A-C186-8586-7B4076000000}-{F4220F78-265D-C2EB-94B5-7B4076000000}",
+  "documentId": "684260B5-A75A-C186-8586-7B4076000000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion, LLC's et al August 10, 2021 request to deliver, store, and circulate hot oil both at ambient and heated temperatures for commissioning of the Train 6 Hot Oil Utility System under CP13-552.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210813-3033",
+  "issuedDate": "08/13/2021",
+  "filedDate": "08/13/2021",
+  "postedDate": "08/13/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.32,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F4220F78-265D-C2EB-94B5-7B4076000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-08-13 Sabine Pass Train 6 Hot Oil NTP.pdf",
+    "fileDesc": "Approval to Commission Train 6 Hot Oil System",
+    "fileSize": 187431,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Thomas",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{684260B5-A75A-C186-8586-7B4076000000}-{F4220F78-265D-C2EB-94B5-7B4076000000}",
+  "documentId": "684260B5-A75A-C186-8586-7B4076000000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion, LLC's et al August 10, 2021 request to deliver, store, and circulate hot oil both at ambient and heated temperatures for commissioning of the Train 6 Hot Oil Utility System under CP13-552.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210813-3033",
+  "issuedDate": "08/13/2021",
+  "filedDate": "08/13/2021",
+  "postedDate": "08/13/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.27,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "F4220F78-265D-C2EB-94B5-7B4076000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-08-13 Sabine Pass Train 6 Hot Oil NTP.pdf",
+    "fileDesc": "Approval to Commission Train 6 Hot Oil System",
+    "fileSize": 187431,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Thomas",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6FA89AB8-2FDE-C30A-8701-7C0E66C00000}-{8D23B90D-96FB-C2D0-9719-7C0E66C00000}",
+  "documentId": "6FA89AB8-2FDE-C30A-8701-7C0E66C00000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion, LLC's et al September 15, 2021 request for the introduction of feed gas to commission certain portions of Train 6 under CP13-552. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20210922-3034",
+  "issuedDate": "09/22/2021",
+  "filedDate": "09/22/2021",
+  "postedDate": "09/22/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.2,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "8D23B90D-96FB-C2D0-9719-7C0E66C00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-09-22 Sabine Pass Train 6 Feed Gas NTP (CP13-552).pdf",
+    "fileDesc": "Approval to Introduce Feed Gas",
+    "fileSize": 253940,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "Thomas",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{DCCC05FD-01CC-C628-859E-7D0101A00000}-{D74B36B3-1775-C867-8916-7D0101B00000}",
+  "documentId": "DCCC05FD-01CC-C628-859E-7D0101A00000",
+  "description": "Transcription of 1083rd Commission Meeting (telephonic conference) held on 10/21/2021 re Consent Electric, Consent Gas, Consent Hydro, Consent Certificates, Discussion Items, Struck Items.            ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211108-4002",
+  "issuedDate": "10/21/2021",
+  "filedDate": "11/08/2021",
+  "postedDate": "11/08/2021",
+  "classTypes": [
+   {
+    "documentClass": "Transcript",
+    "documentType": "Commission Open Meeting Transcript"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 69.71,
+  "docketNumbers": [],
+  "transmittals": [
+   {
+    "fileId": "C9867C19-9207-C2A7-932C-7D0101A00000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "102121CommissionMtg.docx",
+    "fileDesc": "",
+    "fileSize": 100331,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D74B36B3-1775-C867-8916-7D0101B00000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "102121CommissionMtg (1).txt",
+    "fileDesc": "",
+    "fileSize": 116795,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "FEDERAL ENERGY REGULATORY COMMISSION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5F72FD96-BA65-CB69-87FD-7D063A500000}-{031533D2-0F1C-CB91-95AA-7D063A500000}",
+  "documentId": "5F72FD96-BA65-CB69-87FD-7D063A500000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion LLC's et al 10/28/2021 request for the introduction of refrigerants and continue commissioning of Train 6 under CP13-552.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211109-3052",
+  "issuedDate": "11/09/2021",
+  "filedDate": "11/09/2021",
+  "postedDate": "11/09/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.79,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "031533D2-0F1C-CB91-95AA-7D063A500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-11-09 Sabine Pass Train 6 Intro Refrigerants.pdf",
+    "fileDesc": "Approval to Introduce Refrigerants",
+    "fileSize": 462043,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOND",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{5F72FD96-BA65-CB69-87FD-7D063A500000}-{031533D2-0F1C-CB91-95AA-7D063A500000}",
+  "documentId": "5F72FD96-BA65-CB69-87FD-7D063A500000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion LLC's et al 10/28/2021 request for the introduction of refrigerants and continue commissioning of Train 6 under CP13-552.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211109-3052",
+  "issuedDate": "11/09/2021",
+  "filedDate": "11/09/2021",
+  "postedDate": "11/09/2021",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.79,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "031533D2-0F1C-CB91-95AA-7D063A500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-11-09 Sabine Pass Train 6 Intro Refrigerants.pdf",
+    "fileDesc": "Approval to Introduce Refrigerants",
+    "fileSize": 462043,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "PATEL",
+    "firstInitial": "G",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOND",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E7AA9BF1-64C4-C6AE-84AF-7DB94BC00000}-{6E70A089-4CE2-C36B-A4DE-7DB94BC00000}",
+  "documentId": "E7AA9BF1-64C4-C6AE-84AF-7DB94BC00000",
+  "description": "Letter to Sabine Pass LNG, L.P. discussing the LNG Storage Tank S-101 in service request under CP04-47 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20211214-3021",
+  "issuedDate": "12/14/2021",
+  "filedDate": "12/14/2021",
+  "postedDate": "12/14/2021",
+  "classTypes": [
+   {
+    "documentClass": "FERC Correspondence With Applicant",
+    "documentType": "General Correspondence"
+   },
+   {
+    "documentClass": "FERC Correspondence With Applicant",
+    "documentType": "Request for Additional Information"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 70.12,
+  "docketNumbers": [
+   "CP05-396-000",
+   "CP13-2-000",
+   "CP04-47-000",
+   "CP11-72-000",
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6E70A089-4CE2-C36B-A4DE-7DB94BC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2021-12-14 CP04-47 Sabine Pass Tank Data Request.pdf",
+    "fileDesc": "LNG Storage Tank S-101 In Service Request",
+    "fileSize": 243507,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AGENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "HINZ",
+    "firstInitial": "M",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "HINZ",
+    "firstInitial": "M",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{50B14D6D-EE3C-C737-86E1-7EC53EE00000}-{B1ECFE5B-91DC-C412-8A21-7EC53EF00000}",
+  "documentId": "50B14D6D-EE3C-C737-86E1-7EC53EE00000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion,\nLLC's et al February 1, 2022 request to commence service for liquefaction and export activities from Train 6 under CP13-552. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220204-3018",
+  "issuedDate": "02/04/2022",
+  "filedDate": "02/04/2022",
+  "postedDate": "02/04/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.66,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B1ECFE5B-91DC-C412-8A21-7EC53EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP13-552  Sabine Train 6 In Service.pdf",
+    "fileDesc": "Authorization to Commence Service of Train 6 Facilities",
+    "fileSize": 307039,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{50B14D6D-EE3C-C737-86E1-7EC53EE00000}-{B1ECFE5B-91DC-C412-8A21-7EC53EF00000}",
+  "documentId": "50B14D6D-EE3C-C737-86E1-7EC53EE00000",
+  "description": "Letter order granting Sabine Pass Liquefaction Expansion,\nLLC's et al February 1, 2022 request to commence service for liquefaction and export activities from Train 6 under CP13-552. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220204-3018",
+  "issuedDate": "02/04/2022",
+  "filedDate": "02/04/2022",
+  "postedDate": "02/04/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 77.62,
+  "docketNumbers": [
+   "CP13-552-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "B1ECFE5B-91DC-C412-8A21-7EC53EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CP13-552  Sabine Train 6 In Service.pdf",
+    "fileDesc": "Authorization to Commence Service of Train 6 Facilities",
+    "fileSize": 307039,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "CHENIERE ENERGY INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": "x"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION EXPANSION LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG LP",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{410FF4F4-3A6D-CAD7-8674-7F0E37100000}-{A7118D43-C33A-CB2A-8702-7F0EA7C00000}",
+  "documentId": "410FF4F4-3A6D-CAD7-8674-7F0E37100000",
+  "description": "Updated Policy Statement re Certification of New Instate Natural Gas Facilities under PL18-1. Commissioner Danly and Commissioner Christie are dissenting with separate statements attached. \n\t\t\t  \n",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220218-3034",
+  "issuedDate": "02/18/2022",
+  "filedDate": "02/18/2022",
+  "postedDate": "02/18/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 69.86,
+  "docketNumbers": [
+   "PL18-1-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "A7118D43-C33A-CB2A-8702-7F0EA7C00000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "PL18-1-000.docx",
+    "fileDesc": "",
+    "fileSize": 235517,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{07436E5B-A7E4-C6EB-8551-7FE021D00000}-{32564266-40FA-C980-983E-7FE021E00000}",
+  "documentId": "07436E5B-A7E4-C6EB-8551-7FE021D00000",
+  "description": "Commissioner James P. Danly's response to United States Representative Cathy McMorris Rodgers' et al 03/23/2022 letter re concerns for energy security in the United States and Europe following Russia\u2019s invasion of Ukraine under PL18-1. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220331-4001",
+  "issuedDate": "03/23/2022",
+  "filedDate": "03/31/2022",
+  "postedDate": "03/31/2022",
+  "classTypes": [
+   {
+    "documentClass": "Informational Correspondence",
+    "documentType": "Informational Correspondence (Miscellaneous Issuances)"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 71.78,
+  "docketNumbers": [
+   "PL18-1-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "32564266-40FA-C980-983E-7FE021E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Danly McMorris Rodgers Upton Letter FINAL.pdf",
+    "fileDesc": "",
+    "fileSize": 628730,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "UNITED STATES HOUSE OF REPRESENTATIVES",
+    "lastName": "RODGERS",
+    "firstInitial": "C",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "UNITED STATES HOUSE OF REPRESENTATIVES",
+    "lastName": "UPTON",
+    "firstInitial": "F",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "DANLY",
+    "firstInitial": "J",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D4ED4F5C-C062-C711-8484-804DF5400000}-{103ECD87-D6DD-CB2F-91EA-804DF5400000}",
+  "documentId": "D4ED4F5C-C062-C711-8484-804DF5400000",
+  "description": "Staff Report to the Commission re 2021 State of the Market under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220421-3074",
+  "issuedDate": "04/21/2022",
+  "filedDate": "04/21/2022",
+  "postedDate": "04/21/2022",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 84.39,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "103ECD87-D6DD-CB2F-91EA-804DF5400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Report - 2021 State of the Markets.pdf",
+    "fileDesc": "Report - 2021 State of the Markets",
+    "fileSize": 942996,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY POLICY AND INNOVATION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{D4ED4F5C-C062-C711-8484-804DF5400000}-{103ECD87-D6DD-CB2F-91EA-804DF5400000}",
+  "documentId": "D4ED4F5C-C062-C711-8484-804DF5400000",
+  "description": "Staff Report to the Commission re 2021 State of the Market under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220421-3074",
+  "issuedDate": "04/21/2022",
+  "filedDate": "04/21/2022",
+  "postedDate": "04/21/2022",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 84.31,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "103ECD87-D6DD-CB2F-91EA-804DF5400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Report - 2021 State of the Markets.pdf",
+    "fileDesc": "Report - 2021 State of the Markets",
+    "fileSize": 942996,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY POLICY AND INNOVATION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E358C992-B6FB-C270-84DA-804EE1600000}-{C2E580EA-0C8F-C957-9667-804EE1600000}",
+  "documentId": "E358C992-B6FB-C270-84DA-804EE1600000",
+  "description": "Order Issuing Certificate and Approving Abandonment re ANR Pipeline Company et al under CP20-484 et al. Chairman Glick is concurring with a separate statement attached. Commissioner Danly is concurring in part with a separate statement attached. Etc.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220421-3089",
+  "issuedDate": "04/21/2022",
+  "filedDate": "04/21/2022",
+  "postedDate": "04/21/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 69.82,
+  "docketNumbers": [
+   "CP20-485-000",
+   "CP20-484-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "C2E580EA-0C8F-C957-9667-804EE1600000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP20-484-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 132408,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Reese",
+    "firstInitial": "D",
+    "middleInitial": "A"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{24041941-8838-C766-85AF-80DDC8500000}-{829952CB-0134-C87C-94B5-80DDC8500000}",
+  "documentId": "24041941-8838-C766-85AF-80DDC8500000",
+  "description": "Staff Report to the Commission re FERC Staff Issues 2022 Summer Assessment under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220519-3090",
+  "issuedDate": "05/19/2022",
+  "filedDate": "05/19/2022",
+  "postedDate": "05/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 84.38,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "829952CB-0134-C87C-94B5-80DDC8500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Report_Summer Assessment 2022.pdf",
+    "fileDesc": "FERC Staff Issues 2022 Summer Assessment",
+    "fileSize": 1383454,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY POLICY AND INNOVATION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{24041941-8838-C766-85AF-80DDC8500000}-{829952CB-0134-C87C-94B5-80DDC8500000}",
+  "documentId": "24041941-8838-C766-85AF-80DDC8500000",
+  "description": "Staff Report to the Commission re FERC Staff Issues 2022 Summer Assessment under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220519-3090",
+  "issuedDate": "05/19/2022",
+  "filedDate": "05/19/2022",
+  "postedDate": "05/19/2022",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 84.32,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "829952CB-0134-C87C-94B5-80DDC8500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Report_Summer Assessment 2022.pdf",
+    "fileDesc": "FERC Staff Issues 2022 Summer Assessment",
+    "fileSize": 1383454,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY POLICY AND INNOVATION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F034B2A8-7071-C3CB-87A0-824BFB000000}-{6F7B81A7-536B-C51E-95EE-824BFB000000}",
+  "documentId": "F034B2A8-7071-C3CB-87A0-824BFB000000",
+  "description": "Order Amending Authorization etc. re Golden Pass LNG Terminal LLC, CP14-517. Chairman Glick, Commissioner Clements & Phillips are concurring with joint separate statements attached. Chairman Glick, and Commissioner Clements & Christie are concurring etc. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220729-3067",
+  "issuedDate": "07/29/2022",
+  "filedDate": "07/29/2022",
+  "postedDate": "07/29/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 70.49,
+  "docketNumbers": [
+   "CP14-517-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "6F7B81A7-536B-C51E-95EE-824BFB000000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP14-517-001.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 131596,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Reese",
+    "firstInitial": "D",
+    "middleInitial": "A"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{071F4ADF-E2E1-CF89-85A4-824B33D00000}-{D27E693D-06B7-C499-8642-824B33E00000}",
+  "documentId": "071F4ADF-E2E1-CF89-85A4-824B33D00000",
+  "description": "Order Amending Section 3 Authorization re Freeport LNG Development, L.P. et al under CP21-470. Commissioner Danly is concurring in part with a separate statement attached. Commissioner Clements is concurring with a separate statement attached. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220729-3049",
+  "issuedDate": "07/29/2022",
+  "filedDate": "07/29/2022",
+  "postedDate": "07/29/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 69.67,
+  "docketNumbers": [
+   "CP21-470-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "D27E693D-06B7-C499-8642-824B33E00000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP21-470-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 94509,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Reese",
+    "firstInitial": "D",
+    "middleInitial": "A"
+   }
+  ]
+ },
+ {
+  "reference": "{8E4AD4F4-72A4-CB6E-84BD-836B77000000}-{446FEA1B-07DE-C993-95A3-836B77000000}",
+  "documentId": "8E4AD4F4-72A4-CB6E-84BD-836B77000000",
+  "description": "Order Issuing Certificate re LA Storage, LLC, CP21-44. Chairman Glick is concurring with a separate statement attached. Commissioner Danly is concurring in part with a separate statement attached. Commissioner Clements is concurring etc.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20220923-3045",
+  "issuedDate": "09/23/2022",
+  "filedDate": "09/23/2022",
+  "postedDate": "09/23/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 56.48,
+  "docketNumbers": [
+   "CP21-44-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "446FEA1B-07DE-C993-95A3-836B77000000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP21-44-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 158031,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": "*"
+   }
+  ]
+ },
+ {
+  "reference": "{B3D4D9D7-370E-C262-856B-83F725C00000}-{7FDDB75D-107A-C3FF-87A5-8410A8F00000}",
+  "documentId": "B3D4D9D7-370E-C262-856B-83F725C00000",
+  "description": "Staff Report to the Commission re 2022-2023 Winter Energy Market and Reliability Assessment under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221020-3103",
+  "issuedDate": "10/20/2022",
+  "filedDate": "10/20/2022",
+  "postedDate": "10/20/2022",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 84.26,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "78318CD3-B8C3-CAAD-8569-83F725D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Report_2022-2023 Winter Assessment.pdf",
+    "fileDesc": "Report | 2022-2023 Winter Assessment",
+    "fileSize": 1382568,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7FDDB75D-107A-C3FF-87A5-8410A8F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-2023 Winter Assessment Final 10252022.pdf",
+    "fileDesc": "",
+    "fileSize": 1450459,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "FEDERAL ENERGY REGULATORY COMMISSION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B3D4D9D7-370E-C262-856B-83F725C00000}-{7FDDB75D-107A-C3FF-87A5-8410A8F00000}",
+  "documentId": "B3D4D9D7-370E-C262-856B-83F725C00000",
+  "description": "Staff Report to the Commission re 2022-2023 Winter Energy Market and Reliability Assessment under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221020-3103",
+  "issuedDate": "10/20/2022",
+  "filedDate": "10/20/2022",
+  "postedDate": "10/20/2022",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 84.18,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "78318CD3-B8C3-CAAD-8569-83F725D00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "Report_2022-2023 Winter Assessment.pdf",
+    "fileDesc": "Report | 2022-2023 Winter Assessment",
+    "fileSize": 1382568,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7FDDB75D-107A-C3FF-87A5-8410A8F00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2022-2023 Winter Assessment Final 10252022.pdf",
+    "fileDesc": "",
+    "fileSize": 1450459,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "FEDERAL ENERGY REGULATORY COMMISSION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{B35F13A0-0317-CA5F-841A-845E37200000}-{FCFC37C8-D1C3-C4ED-9BAD-845E37300000}",
+  "documentId": "B35F13A0-0317-CA5F-841A-845E37200000",
+  "description": "Commissioner James P. Danly's Response to United States Senator John Barrasso's September 6, 2022 letter  re Energy and Natural Resources under PL18-1 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221109-4001",
+  "issuedDate": "11/04/2022",
+  "filedDate": "11/09/2022",
+  "postedDate": "11/09/2022",
+  "classTypes": [
+   {
+    "documentClass": "Informational Correspondence",
+    "documentType": "Informational Correspondence (Miscellaneous Issuances)"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 72.0,
+  "docketNumbers": [
+   "PL18-1-001",
+   "PL21-3-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "FCFC37C8-D1C3-C4ED-9BAD-845E37300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "BARRASSO LETTER - PDF.pdf",
+    "fileDesc": "",
+    "fileSize": 788185,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "UNITED STATES SENATE",
+    "lastName": "Barrasso",
+    "firstInitial": "J",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "Danly",
+    "firstInitial": "J",
+    "middleInitial": "P"
+   }
+  ]
+ },
+ {
+  "reference": "{402E49EB-EE7B-CB5A-85CE-847DD9400000}-{DF8FC26A-130F-C78D-9CD9-847DD9500000}",
+  "documentId": "402E49EB-EE7B-CB5A-85CE-847DD9400000",
+  "description": "Commissioner James P. Danly\u2019s response to United States Senator John Barrasso's September 6, 2022 letter re Energy and Natural Resources under PL18-1 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221115-4019",
+  "issuedDate": "11/04/2022",
+  "filedDate": "11/15/2022",
+  "postedDate": "11/15/2022",
+  "classTypes": [
+   {
+    "documentClass": "Informational Correspondence",
+    "documentType": "Informational Correspondence (Miscellaneous Issuances)"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "ElectricGasRulemaking"
+  ],
+  "score": 71.91,
+  "docketNumbers": [
+   "AD22-9-000",
+   "PL18-1-001",
+   "PL21-3-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "DF8FC26A-130F-C78D-9CD9-847DD9500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "BARRASSO LETTER - PDF.pdf",
+    "fileDesc": "",
+    "fileSize": 788185,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "UNITED STATES SENATOR",
+    "lastName": "Barrasso",
+    "firstInitial": "J",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "Danly",
+    "firstInitial": "J",
+    "middleInitial": "P"
+   }
+  ]
+ },
+ {
+  "reference": "{70BEC6E4-1CBD-CCA8-841F-8487C5700000}-{9947D960-7100-C824-9694-8487C5700000}",
+  "documentId": "70BEC6E4-1CBD-CCA8-841F-8487C5700000",
+  "description": "Order Granting Authorization etc. re Commonwealth LNG, LLC, CP19-502. Chairman Glick and Cmmrs. Clements and Phillips are concurring with sep. stmts. attached. Commissioner Danly is concurring in part etc. For errata see accession 20240102-3045.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20221117-3091",
+  "issuedDate": "11/17/2022",
+  "filedDate": "11/17/2022",
+  "postedDate": "11/17/2022",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "Parent",
+  "libraries": [
+   "Gas"
+  ],
+  "score": 71.86,
+  "docketNumbers": [
+   "CP19-502-000",
+   "CP19-502-001"
+  ],
+  "transmittals": [
+   {
+    "fileId": "9947D960-7100-C824-9694-8487C5700000",
+    "fileType": "DOCX",
+    "fileFormat": "Standard",
+    "fileName": "CP19-502-000.docx",
+    "fileDesc": "Commission Order",
+    "fileSize": 205970,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS AND IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

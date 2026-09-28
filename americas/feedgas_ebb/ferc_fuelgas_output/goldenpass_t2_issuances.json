@@ -1,0 +1,1932 @@
+[
+ {
+  "reference": "{C837CE1E-E4A5-C8F3-87ED-9ABC4E500000}-{D019E9B0-4D80-CBCC-8AF4-9ABC50100001}",
+  "documentId": "C837CE1E-E4A5-C8F3-87ED-9ABC4E500000",
+  "description": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20251125-3081",
+  "issuedDate": "11/25/2025",
+  "filedDate": "11/25/2025",
+  "postedDate": "11/25/2025",
+  "classTypes": [
+   {
+    "documentClass": "ALJ Issuance",
+    "documentType": "Certification of Initial Decision and Record"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 59.46,
+  "docketNumbers": [
+   "EL02-60-018",
+   "EL02-62-017"
+  ],
+  "transmittals": [
+   {
+    "fileId": "78CAF316-0131-C5F5-96F6-9ABC4E500000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "2025-07-08  Final Joint Exhibit List.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1254720,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "304E13A5-CCF2-CFA1-8407-9ABC4E600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01023.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 801657,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "62CC72E0-D306-CA9F-8F32-9ABC4E600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01024.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 930120,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E85DAD33-D206-CE20-95C1-9ABC4E600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01025.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 906215,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "DED98086-1917-C112-9F07-9ABC4E600000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_decay horizon.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 13908,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B66D2FEE-37CB-CB40-A633-9ABC4E600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_Fwd Price Adj.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 186253,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D94BB22D-FC3B-CC7E-AF4D-9ABC4E600000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_hh futures.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2521,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "36F0E97A-C92B-C1D6-B792-9ABC4E600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_Inputs.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 27788383,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "036DFC4F-F117-C8F7-BF4C-9ABC4E600000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_m2 no shp.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 50501,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E43F255D-A7B2-C94D-8A05-9ABC4E700000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_natsource v tfs.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 17551,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B60E80B0-1008-CA6A-92E3-9ABC4E700000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_Natsource_Shell.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 690258,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6961647E-4163-C6C4-99FA-9ABC4E700000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01026_Remedy Sensitivity.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 433093,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "71824141-BD5E-CD64-A19C-9ABC4E700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01027-REV Fox-Penner Revised Rebuttal Testimony.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 526242,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9B1BFD44-CEDC-CDD9-AADC-9ABC4E700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01028.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2299804,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "1EC6FF34-3769-CB95-B071-9ABC4E700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01029.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 360409,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9FE9B652-A0E1-CE1A-B821-9ABC4E700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01030.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1195881,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "663BA4F4-01A7-C436-83B9-9ABC4E700001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01031.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 4072892,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A2913C5E-7036-C307-85B5-9ABC4E800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01032 (PUBLIC).pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 120513,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E24FF86A-4F70-CD9A-8D4F-9ABC4E800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01033 (PUBLIC).pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 80568,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "2565D028-AD31-C31E-9794-9ABC4E800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01034.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2851173,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "FD7398F1-5FE5-C5B6-9F4D-9ABC4E800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01035.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 245584,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "24B7A32D-023D-C368-A589-9ABC4E800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01036.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 292515,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "13636FF8-8C53-C3AB-AFDB-9ABC4E800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01037.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 461361,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "AF611482-81CF-CB60-8596-9ABC4E900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01038.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 5958386,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7E002A18-11F0-CED9-8E92-9ABC4E900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01039.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 63753,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "AC21344B-355E-CFF8-97F6-9ABC4E900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01040.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 631596,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "73FFAD76-9E10-C080-9C5E-9ABC4E900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01041.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 906607,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C9036BF4-BB9C-C8B6-A735-9ABC4E900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01042.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2907442,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A9295438-3F71-C6BE-AC1C-9ABC4E900000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01043_May and Sept Price Change.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2053106,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9629F11A-476C-C712-B748-9ABC4E900000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01043-REV_Shell Price Violations.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 23375125,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5C815623-E999-C242-8BD3-9ABC4EA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01044-REV Villadsen Revised Rebuttal Testimony.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 672394,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "26E89351-08B8-CB1C-921F-9ABC4EA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01045.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 750489,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9A0A00FD-4134-C40C-9A38-9ABC4EA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01046.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2192768,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "20E1D0FF-4419-C9D0-A097-9ABC4EA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01047.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 7324734,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D26579F6-22FC-CCAF-A851-9ABC4EA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01048.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1254075,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "CC11077E-7EF6-C419-89EA-9ABC4EB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01049.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3153473,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "1EBCCA44-E059-CD29-90A5-9ABC4EB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01050.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3137341,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "18EA9616-1D07-C92F-99A8-9ABC4EB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01051.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1717040,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "CFD5894A-48B4-CC0E-A1F8-9ABC4EB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01052.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 273038,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6A065BB9-8E07-C0C6-8593-9ABC4EC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01053.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 966315,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E96436A2-D8A7-C8ED-8CA0-9ABC4EC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01054.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 304652,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6FA89B5E-E864-C636-96FE-9ABC4EC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01055 (PUBLIC).pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 120414,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "EE2A67D2-2543-CB56-9CEB-9ABC4EC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01056 (PUBLIC).pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 120779,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "838D4A0E-1A62-C341-A662-9ABC4EC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01057 Gannon Rebuttal Testimony.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 259219,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "DA199D6F-017A-C65C-AFBB-9ABC4EC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01058.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1139576,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "71527628-0B57-CACC-B424-9ABC4EC00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 April Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 258560,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "0B1D70CE-7B03-CDED-BC9B-9ABC4EC00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 August 2007 Year-Ahead Filing.xls",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 369664,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A7271807-ACFF-CACF-85B4-9ABC4EC00001",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 August Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 204800,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "49BEBFE6-6488-CE09-8A58-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 December Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 257536,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B54F2BFC-0890-CCAC-91A1-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 February Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 262656,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A0E6A7A3-399C-C43D-9AE7-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 January Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 264192,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5EA4B833-9EE0-C178-A366-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 July 2007 Year-Ahead Filing.xls",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 369152,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C6EAF94B-92F4-C448-A9DD-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 July Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 258560,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "4FBC9097-7954-CD0C-B2A8-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 June 2007 Year-Ahead Filing.xls",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 369152,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C3BE94C3-A0AF-C8BC-BAA1-9ABC4ED00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 June Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 254976,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "8A97DCB6-F864-C0D6-8233-9ABC4ED00001",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 March Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 262656,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D0F14C66-D0D4-CB21-8A85-9ABC4ED00001",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 May 2007 Year-Ahead Filing.xls",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 374784,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "0B2192EA-07CE-C65F-91AF-9ABC4ED00001",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 May Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 252928,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7F4B5134-24CB-C394-89BD-9ABC4EE00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 November Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 256000,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "33BDA65C-5601-C0EA-906C-9ABC4EE00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 October Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 253440,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D3135D02-52B4-CF95-9BA8-9ABC4EE00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 September 2007 Year-Ahead Filing.xls",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 369152,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "4F3DEEE2-E999-CB12-A2D5-9ABC4EE00000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01059 September Month-Ahead Filing.XLS",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 204800,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6BE7560F-71C3-CFF0-AB26-9ABC4EE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01060.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1606370,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "56E79FE6-6D05-C67C-B267-9ABC4EE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01061.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1587242,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "05256FFC-C8C8-CD1A-B8E7-9ABC4EE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01062.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 730986,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D4D7AF7A-8A57-C7E7-8181-9ABC4EE00001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01063-REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 15364481,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "8E2C3648-1107-CBE1-890B-9ABC4EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01064-REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 4471222,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A0835C5A-B37E-C639-918A-9ABC4EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01065-REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 8494024,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "800654E9-26ED-C102-9BD3-9ABC4EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01066-REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2112376,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "BE1945A9-F9E3-C760-A3DC-9ABC4EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01067.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1304142,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "1CDBEF04-1827-CDF3-ABD1-9ABC4EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01068.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 884983,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B4305BBA-4293-C01D-B129-9ABC4EF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01069-REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 10177218,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "99C9BDB7-EC06-C648-8665-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01071.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1547453,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "4113AFD1-08D7-C1A5-8DB1-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01072.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1515099,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6E17098A-BCD1-CB14-94D9-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01073.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2024799,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "28744D05-7A7B-CEBB-9EE7-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01074.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1461842,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5C34AF94-B49B-CB87-A683-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01075.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1448980,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "8B4E43F5-B110-CE30-AEE4-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01076.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 5964275,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7E2D6AC4-6688-C9DF-B71A-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01077.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2572383,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6453588E-47DC-CDA2-BDE5-9ABC4F000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01079.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1033229,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "3B986D8B-DF81-C0A4-86C3-9ABC4F000001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "CAL-01081.PDF",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1188609,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C126BD41-F61F-CE9B-8F06-9ABC4F000001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "COR-1.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 121232,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C75664F3-3875-CC16-8A2B-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "COR-10.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 222150,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "243C23DA-C2E1-C822-90E4-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "COR-7.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 253464,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B0C640D8-2FF4-CBE2-98C5-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "COR-9.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 257288,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "34CDBEA9-F45C-CBE4-A174-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "DYN-21.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1625089,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "F8C0F63B-3E2B-CFEE-A8B9-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "EL02-60-018 Certification of ID and Record.docx.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 164880,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A39343D1-12D6-CBA6-B10C-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "EPME-22.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 52690,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "89186C5D-9054-C981-BB02-9ABC4F100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "EPME-23.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 52093,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "FD4204A9-AD47-C12A-81D2-9ABC4F100001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-222_Errata_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1808448,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "44C83E5B-9350-C926-8A2F-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-223_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1516085,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C3579A3C-A280-CDBB-921F-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-233_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 518562,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B622B062-7F0B-C116-9A6A-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-234_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 516971,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "EAC628F2-A8B4-C359-A36C-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-237_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 529553,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "73E6A8BA-A6E4-C13D-AA3B-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-238_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 519109,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "3E80C765-B60B-C0FA-B074-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "IB-241_Public.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 6481172,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "3BE2D44B-7F10-CF66-BA67-9ABC4F200000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0106 - Golino Dir and Ans Testimony.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 277123,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "82C4A5AF-D027-C2DD-81FC-9ABC4F200001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0107 - Green Answering Testimony.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 308492,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "57F1B491-5718-C4F9-890B-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0108 REV - Green Supporting Materials ERRATA.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2958536,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B576216A-A767-C9AA-91EB-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0109 - Turan Answering Testimony.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 627961,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7F3A4193-7C76-C6F1-9B3D-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0110 - Turan Ref Documents and Data Utilized.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1441035,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "29ED6FA7-CF5F-C072-A120-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0111 Cal Party Objects and Resp to Staff Set 1.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 894969,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B7D1916E-822D-C3B9-AA2A-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0112 Shell Objects and Resp to Staff Set 1.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1644297,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "4F174622-29A2-CB9B-B0B8-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0113 Shell Objects and Resp to Staff Set 3.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 905697,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "71933F00-3402-C230-B85A-9ABC4F300000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0114 Morin Chapt 9.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3440486,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "1079C605-6940-CFF2-8B65-9ABC4F400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0115 Damodaran Invest Valuation Chapt 13.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2070184,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "FB3C697D-0724-C326-9340-9ABC4F400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0116 Brealey et al Princp Corp Finance Chapt 4.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 4125849,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "05C6DF96-1AFD-C097-9966-9ABC4F400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "S-0117 Gordon et al Required Rate of Profit.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2516507,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "8711E63C-72AA-C4DB-A2AC-9ABC4F400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0001 REV2 Answering Testimony Cavicchi.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1860319,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "AF25D5A7-2331-C187-A8DC-9ABC4F400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0002.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1555757,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C271731E-6B26-C273-B183-9ABC4F400000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_1x1-Variable-Costs REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 25879,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5DF4AC15-96C0-C060-B900-9ABC4F400000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_2003-CEC-Comparative-Cost-Report REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 468302,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "71BEA423-8321-CBBA-8BDC-9ABC4F500000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Adjusted_Celebi_LRMC_Model REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 327407,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C9C2C608-B0CE-CC26-906D-9ABC4F500000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Cavicchi_Operational_Model REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 222694,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E4B917DC-C7DF-C440-9839-9ABC4F500000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Comparable-Plants-Capacity-Factor REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 24651,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "F1E05FEA-2D1F-C974-A20D-9ABC4F500000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Fig11_Celebi_BenchvCost-Bas_Rate REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 60623,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "CA734BEF-7409-C7C5-AAAE-9ABC4F500000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Figure10_Capacity_Factors_Compar REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 85817,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "605A9B2B-0615-CE55-B112-9ABC4F500000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Figure6_CAISO_RT_Day-Ahead_Price REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 35475,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "2B938E4C-D498-C1CF-B8F1-9ABC4F500000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Figure6_CAISO-RT-DA-Prices REV.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 4322,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A40CDB42-A051-CA3B-83F6-9ABC4F500001",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Figures_Comparable_Contracts REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 59826,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D3594560-8EE9-C48E-8852-9ABC4F500001",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Fuel_Input_Minimization REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 229713,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "39CBC165-46BE-CECF-88DC-9ABC4F600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Inputs REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 15136952,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "2383B307-9C2F-C53C-9126-9ABC4F600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_long_term_output REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 25016,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "FC758873-0960-C325-982F-9ABC4F600000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_NAV08-015815 REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1058966,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "34B31F69-FA0F-CE6F-A076-9ABC4F600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_NP-15-ATC-On-Peak-Off-Peak REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 20618,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B508DE55-88B1-C4C4-A8CB-9ABC4F600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_NP15-DAPlattsvRT_Spot_Prices REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 21480,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "2026E59D-3B6F-CBB8-B019-9ABC4F600000",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Peak_Days REV.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2541,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "F9B495B2-D303-C70B-B8B3-9ABC4F600000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Projected_Gas_Power_Prices REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 33102,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6A3D917C-564B-C0CF-8040-9ABC4F600001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_1x1-Capacity-Factor-Sensitiv REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56492,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D01123F9-EC7F-CB8F-8AF0-9ABC4F600001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Adj_Celebi_LRMC_Model_Sens REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56439,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5D9B4DD9-C139-C449-8ABD-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_CALSSOCAL_Bidweek_NG REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56437,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5C9EDCBB-824D-CFAB-9258-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Figure10_CA_capacity_factors REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56448,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "DA343C34-621F-C2CF-9A92-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Figures7-9_CAISO_v_Proxy REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56448,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9319FBA6-6CEB-C5F1-A3CA-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_long_term REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56417,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "CB740AF5-A12B-C5CB-A871-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_sempra REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56452,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "57A4EEC5-7350-CECD-B395-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Table5_Average_Energy_Price REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56462,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E1A924C8-5A2F-C154-B80E-9ABC4F700000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Table5_Average-Energy-Prices REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56459,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6F4365FC-8C45-C0E3-814F-9ABC4F700001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Unit_Contingent_Add REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56426,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D2D6FEB7-3CCD-C151-8986-9ABC4F800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Velocity Suite-CA PlantA REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56460,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "7F7018AC-2F31-CB17-9229-9ABC4F800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Velocity Suite-CA PlantB REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56459,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "8E1F021B-0AD0-CD52-9B73-9ABC4F800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Velocity Suite-CA PlantC REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56444,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "753320A3-9906-CE83-A3BB-9ABC4F800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Velocity Suite-CA PlantD REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56462,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "BDC0B5BB-6D0C-C7E9-AA1A-9ABC4F800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Velocity_Suite-CAPlant REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56447,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9C9AD617-6541-C7D1-B095-9ABC4F800000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_PUB_Velocity-Suite-CAISO-RT REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 56448,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "B32B1630-182C-CE39-BA3E-9ABC4F800000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_sempra_intermediate REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 20817,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "EDFDB717-5205-C140-835B-9ABC4F800001",
+    "fileType": "TXT",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_short_term REV.txt",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3065,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "AB98E846-6B3B-C3C5-8945-9ABC4F800001",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_short_term_output REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 20927,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A08CCA64-07DE-C206-89F7-9ABC4F900000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Tables_Comparable Rates REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 86118,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "3097C5F2-62DD-CA6D-9311-9ABC4F900000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0003_Total-and-Peak-Days REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 23019,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "915B952B-36E9-C966-98CE-9ABC4F900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0004.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1271785,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "70FC4AA0-3DDA-C744-A0D2-9ABC4F900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0005.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 821574,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6ACFBF33-92B1-CC0A-A9A9-9ABC4F900000",
+    "fileType": "XLS",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0007.xls",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 41984,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "16E550A5-FAD6-CBC0-B090-9ABC4F900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0008.PDF",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1293677,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "3646ED84-0641-CEBE-B829-9ABC4F900000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0009.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 7373435,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "4BE76123-F046-C1F8-8B41-9ABC4FA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0010.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3990362,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "98BA1711-4048-C515-9280-9ABC4FA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0011.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1516141,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "4CB2273C-2CD3-CE57-9BD8-9ABC4FA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0012.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2235851,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "87D0E5AE-3EBC-C27B-A296-9ABC4FA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0013-A.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 8515976,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E75AD70A-1B51-C3E5-A997-9ABC4FA00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0013-B.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 9953630,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "F079A3A9-E561-CD31-8B08-9ABC4FB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0013-C.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 8872795,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A95CC356-8711-C4C0-9332-9ABC4FB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0013-D.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 7620479,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "C8CFFDC9-DCA9-C9D9-996F-9ABC4FB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0013-E.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 8154381,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "33253AF3-7937-C8D6-A0EE-9ABC4FB00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0013-F.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 8935149,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E4918E93-3B3C-CC24-8A3F-9ABC4FC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0014.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 978236,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "BCEE1269-404D-C633-939E-9ABC4FC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0015.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1181927,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "890432A0-B943-C89E-9B08-9ABC4FC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0016.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 897593,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "57F1EF19-7839-C2D2-A37E-9ABC4FC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0017.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1937016,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D987DE6D-6AE5-C1A5-AA3F-9ABC4FC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0018.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3930594,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "1072DCA6-CECF-C74C-B362-9ABC4FC00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0019.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 6807162,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "E451247C-E1D2-C831-862B-9ABC4FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0020.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1760872,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A9210D9A-3571-C048-8E85-9ABC4FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0021.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2053459,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "26B01A3F-58DD-C7F8-97EB-9ABC4FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0022.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1813184,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "58B434B4-4E40-C5CF-9F37-9ABC4FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0029 Answering Testimony Hibbard REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1142365,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "3175ED2D-192B-C872-A5E0-9ABC4FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0030.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1511541,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "432945B6-9A14-C466-AE31-9ABC4FD00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0032.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3735908,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "494B27BD-F94A-C685-8861-9ABC4FE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0033.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 886381,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6622BD32-8BC7-C2B4-93DF-9ABC4FE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0034.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 888101,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "86742C12-E9B9-CF34-9BBB-9ABC4FE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0035.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 5047175,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "40E6B60B-8743-C372-A221-9ABC4FE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0036.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2469340,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "09EA280D-0C0B-C344-A934-9ABC4FE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0037.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2493605,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "5DA75E67-623C-C78A-88E8-9ABC4FF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0038.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1705121,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "72E1CE5C-87EB-C5E3-9007-9ABC4FF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0039.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1148469,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9E0C023F-FE72-CB32-9AE2-9ABC4FF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0040.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1552195,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "69465043-8123-CFE5-A120-9ABC4FF00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0041.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2161240,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A268A8EA-F6BD-CACB-88E8-9ABC50000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0042.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 804291,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "24D0AB05-86DF-CE64-96E3-9ABC50000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0043.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2039129,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "BC3FEDBF-02BE-C2CB-A809-9ABC50000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0044.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 952736,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "00FBF4F6-37C4-C189-B4CD-9ABC50000000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0045.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 5615925,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "FEE48DA9-3320-C8ED-871A-9ABC50000001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0046.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 3884790,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "EB40EE9A-218A-C72C-94DA-9ABC50000001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0047.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 361588,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "BB6A7316-6B3F-C94B-8C8F-9ABC50100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0048.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 382088,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A385B4AF-8D98-C11D-9B7D-9ABC50100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0049.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 978705,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "6F6204DE-BCB6-C1A2-A3B2-9ABC50100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0050.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 838363,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "2427F1DE-7E66-C82D-A97F-9ABC50100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0052 REV2 Answering Testimony Puller.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 2897496,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D6E5A339-9168-C997-BE5A-9ABC50100000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0053.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 869563,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "D019E9B0-4D80-CBCC-8AF4-9ABC50100001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0054_199602_EPM REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1993982,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "A25F60B4-0CC2-CB09-95B8-9ABC50100001",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0054_199603_EPM REV.pdf",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 1329653,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "42973A67-2A4A-C564-A161-9ABC50100001",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0054_2000-rtc-trade-listing REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 172088,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "9C31153E-805D-C1AD-B02F-9ABC50100001",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0054_2001-rtc-trade-listing REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 200775,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "28C99061-2347-C93C-88DD-9ABC50200000",
+    "fileType": "XLSX",
+    "fileFormat": "Standard",
+    "fileName": "SHE-0054_2002-rtc-trade-listing REV.xlsx",
+    "fileDesc": "Certification of Initial Decision and Official Record in Public Utilities Commission of California et al. v. Sellers of Long-Term Contracts to the California Department of Water Resources under EL02-60-018, et al. Part 2 of 4 (ADMITTED EXHIBITS) (PUBLIC)",
+    "fileSize": 176636,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ADMINISTRATIVE LAW JUDGES",
+    "lastName": "NAGEL",
+    "firstInitial": "S",
+    "middleInitial": "L"
+   }
+  ]
+ },
+ {
+  "reference": "{F0B2746A-41C9-C5AA-9920-9D0B43E00000}-{BF05F948-221D-C45E-A830-9D0B43E00000}",
+  "documentId": "F0B2746A-41C9-C5AA-9920-9D0B43E00000",
+  "description": "Memo providing record of 02/26/2026 email correspondence from staff of the Advisory Council for Historic Preservation and Rye Development to Commission staff re the Goldendale Energy Pumped Storage Hydroelectric Project under P-14861. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260320-3007",
+  "issuedDate": "03/20/2026",
+  "filedDate": "03/20/2026",
+  "postedDate": "03/20/2026",
+  "classTypes": [
+   {
+    "documentClass": "FERC Memo",
+    "documentType": "Telephone Conversation or Electronic Mail Memo"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "Hydro"
+  ],
+  "score": 59.14,
+  "docketNumbers": [
+   "P-14861-002"
+  ],
+  "transmittals": [
+   {
+    "fileId": "BF05F948-221D-C45E-A830-9D0B43E00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "00 P-14861-002 Memo with email correspondence.pdf",
+    "fileDesc": "Email correspondence from staff for the Advisory Council for Historic Preservation and Rye Development to Commission staff regarding notification that a license had been issued for the Goldendale Energy Pumped Storage Hydroelectric Project",
+    "fileSize": 1825611,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "OFFICE OF ENERGY PROJECTS",
+    "lastName": "Tust",
+    "firstInitial": "M",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{817B8762-9995-C489-846D-9D2A5DE00000}-{312230C6-448D-C239-9737-9D2A5DE00000}",
+  "documentId": "817B8762-9995-C489-846D-9D2A5DE00000",
+  "description": "Staff Report to the Commission re the 2025 State of the Markets under AD06-3. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20260326-3017",
+  "issuedDate": "03/26/2026",
+  "filedDate": "03/26/2026",
+  "postedDate": "03/26/2026",
+  "classTypes": [
+   {
+    "documentClass": "FERC Report/Study",
+    "documentType": "Other FERC Report/Study"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "None",
+  "libraries": [
+   "ElectricRulemaking"
+  ],
+  "score": 74.73,
+  "docketNumbers": [
+   "AD06-3-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "312230C6-448D-C239-9737-9D2A5DE00000",
+    "fileType": "PDF",
+    "fileFormat": "Standard",
+    "fileName": "26_State-of-the-Market_0324_1430.pdf",
+    "fileDesc": "The State of the Markets Report 2025",
+    "fileSize": 3378489,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "FEDERAL ENERGY REGULATORY COMMISSION",
+    "lastName": "*",
+    "firstInitial": "*",
+    "middleInitial": ""
+   }
+  ]
+ }
+]

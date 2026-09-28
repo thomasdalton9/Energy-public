@@ -1,0 +1,930 @@
+[
+ {
+  "reference": "{D44027B8-3C4E-C6AA-BB3A-736AE8500001}-{0203FEE1-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D44027B8-3C4E-C6AA-BB3A-736AE8500001",
+  "description": "Letter order granting Elba Liquefaction Co, LLC's et al 9/30/19 request to commence service for liquefaction and export activities from the Balance of Plant, Terminal Upgrade, and Moveable Modular Liquefaction System No. 1 facilities under CP14-103.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20190930-4000",
+  "issuedDate": "09/30/2019",
+  "filedDate": "09/30/2019",
+  "postedDate": "10/01/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.12,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0203FEE1-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 In-Service MMLS 1-BOP-TU (1).PDF",
+    "fileDesc": "",
+    "fileSize": 221433,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MCGUIRE",
+    "firstInitial": "R",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, LLC",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY LLC",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{A1D3FAC0-FE21-C039-85E4-7369E5D00001}-{0205228B-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "A1D3FAC0-FE21-C039-85E4-7369E5D00001",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 11/26/2019 request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No.3 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191126-3018",
+  "issuedDate": "11/26/2019",
+  "filedDate": "11/26/2019",
+  "postedDate": "11/26/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.1,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205228B-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 In-Service MMLS.PDF",
+    "fileDesc": "",
+    "fileSize": 237248,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MCGUIRE",
+    "firstInitial": "R",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY LLC",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, LLC",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{5518559B-DF93-C8EC-8F24-736AA5F00000}-{0205AB14-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "5518559B-DF93-C8EC-8F24-736AA5F00000",
+  "description": "Letter order granting Elba Liquefaction Company, L.LC.'s et al 12/26/2019 request to commence service for liquefaction and export activities from the Movable Modular Liquefaction System No. 4 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20191230-3015",
+  "issuedDate": "12/30/2019",
+  "filedDate": "12/30/2019",
+  "postedDate": "12/30/2019",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.07,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0205AB14-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 In-Service.PDF",
+    "fileDesc": "",
+    "fileSize": 241949,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MCGUIRE",
+    "firstInitial": "R",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C. ",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "Southern LNG Company, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{DE657462-7BEB-C702-B61B-73600CA00000}-{020600C9-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "DE657462-7BEB-C702-B61B-73600CA00000",
+  "description": "Letter order granting Elba Liquefaction Company L.L.C.'s et al 1/13/2020, as supplemented on 1/16/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No. 2 under CP14-103.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200116-3052",
+  "issuedDate": "01/16/2020",
+  "filedDate": "01/16/2020",
+  "postedDate": "01/16/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.1,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "020600C9-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103.PDF",
+    "fileDesc": "",
+    "fileSize": 251259,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MCGUIRE",
+    "firstInitial": "R",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{3BE15B6A-0073-CD8F-B7F1-736054B00000}-{0206B3BA-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "3BE15B6A-0073-CD8F-B7F1-736054B00000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 02/24/2020 request to introduce hazardous fluids to Moveable Modular Liquefaction System #6 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200225-3038",
+  "issuedDate": "02/25/2020",
+  "filedDate": "02/25/2020",
+  "postedDate": "02/25/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.02,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206B3BA-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Haz Flds MMLS-6 2020-02-25.PDF",
+    "fileDesc": "",
+    "fileSize": 241795,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{E33046CB-9E50-C0DF-895E-73607DF00001}-{0206DDD5-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E33046CB-9E50-C0DF-895E-73607DF00001",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s, et al. 2/26/2020, as supplemented on 03/02/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No. 5 under CP14-103.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200302-3018",
+  "issuedDate": "03/02/2020",
+  "filedDate": "03/02/2020",
+  "postedDate": "03/02/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 83.59,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0206DDD5-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 Elba NTP In-Service MMLS-5.PDF",
+    "fileDesc": "",
+    "fileSize": 247123,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MCGUIRE",
+    "firstInitial": "R",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMAPNY, LLC",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "SOUTHERN NATURAL GAS COMPANY",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{FBE70317-2B8E-CEB9-B879-73613BB00000}-{0207A65F-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "FBE70317-2B8E-CEB9-B879-73613BB00000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 04/16/2020, as supplemented on 04/20/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No. 6 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200420-3060",
+  "issuedDate": "04/20/2020",
+  "filedDate": "04/20/2020",
+  "postedDate": "04/20/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.08,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0207A65F-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 Elba In-Service MMLS 6.PDF",
+    "fileDesc": "",
+    "fileSize": 250220,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MCGUIRE",
+    "firstInitial": "R",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "SOUTHERN NATIONAL GAS COMPANY",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{19045FE1-FD13-C2C0-B1B5-736172F00000}-{0207EFD5-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "19045FE1-FD13-C2C0-B1B5-736172F00000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 04/28/2020 request to introduce feed gas to Moveable Modular Liquefaction System #8 under CP14-103.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200501-3022",
+  "issuedDate": "05/01/2020",
+  "filedDate": "05/01/2020",
+  "postedDate": "05/01/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.02,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0207EFD5-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Feed Gas MMLS -8 2020-05-01.PDF",
+    "fileDesc": "",
+    "fileSize": 242214,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C. ",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{9AE1E977-447E-CA10-86D6-7722D9200000}-{0208886C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "9AE1E977-447E-CA10-86D6-7722D9200000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al May 29, 2020, as supplemented on June 11 & 12, 2020, request to introduce feed gas to Moveable Modular Liquefaction System #9 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200612-3039",
+  "issuedDate": "06/12/2020",
+  "filedDate": "06/12/2020",
+  "postedDate": "06/12/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.1,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0208886C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Feed Gas MMLS.PDF",
+    "fileDesc": "",
+    "fileSize": 245279,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "FRANCIS",
+    "firstInitial": "P",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "FRANCIS",
+    "firstInitial": "P",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{D138B48E-4F5F-C899-8594-771D80200000}-{0209214E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D138B48E-4F5F-C899-8594-771D80200000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 07/08/2020, as supplemented on 07/14/2020, request to introduce hazardous fluids to Moveable Modular Liquefaction System #10 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200714-3051",
+  "issuedDate": "07/14/2020",
+  "filedDate": "07/14/2020",
+  "postedDate": "07/14/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.02,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0209214E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Haz Fluids MMLS -10 2020-07-14.PDF",
+    "fileDesc": "",
+    "fileSize": 245954,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{97E03E34-7E0D-C161-9964-771DB6A00000}-{02093325-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "97E03E34-7E0D-C161-9964-771DB6A00000",
+  "description": "Letter order granting Southern Natural Gas Company's et al 06/29/2020, as supplemented on 07/13/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No. 8 under CP14-103.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200717-3006",
+  "issuedDate": "07/17/2020",
+  "filedDate": "07/17/2020",
+  "postedDate": "07/17/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.26,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02093325-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 In-Service MMLS -8 2020-07-17.PDF",
+    "fileDesc": "",
+    "fileSize": 297203,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN NATURAL GAS COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{867B6B21-48AE-CD45-8E3D-772556E00000}-{02094ACF-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "867B6B21-48AE-CD45-8E3D-772556E00000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 07/21/2020, as supplemented on 07/27/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No.9 under CP14-103. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200727-3046",
+  "issuedDate": "07/27/2020",
+  "filedDate": "07/27/2020",
+  "postedDate": "07/27/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.26,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02094ACF-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP In-Service MMLS 9 2020-07-27.PDF",
+    "fileDesc": "",
+    "fileSize": 246636,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHUNT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{014324AF-A897-CB98-8EA7-7725F0200000}-{02096858-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "014324AF-A897-CB98-8EA7-7725F0200000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 07/31/2020 request to introduce hazardous fluids to Moveable Modular Liquefaction System #7 under CP14-103.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200805-3007",
+  "issuedDate": "08/05/2020",
+  "filedDate": "08/05/2020",
+  "postedDate": "08/05/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.02,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02096858-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 NTP Intr Haz Flds MMLS -7 2020-08-05.PDF",
+    "fileDesc": "",
+    "fileSize": 245508,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "THOMAS",
+    "firstInitial": "H",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{8B62EA92-9B23-CF36-9FB0-772621900000}-{02097296-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "8B62EA92-9B23-CF36-9FB0-772621900000",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 08/03/2020, as supplemented on 08/10/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No. 10 under CP14-103.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200810-3020",
+  "issuedDate": "08/10/2020",
+  "filedDate": "08/10/2020",
+  "postedDate": "08/10/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.26,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "02097296-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 In-Service MMLS -10 2020-08-10.PDF",
+    "fileDesc": "",
+    "fileSize": 296902,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "SOUTHERN NATURAL GAS COMPANY",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ },
+ {
+  "reference": "{0B5DCFC5-42C6-CB5F-8509-77235FB00001}-{0209ACF9-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "0B5DCFC5-42C6-CB5F-8509-77235FB00001",
+  "description": "Letter order granting Elba Liquefaction Company, L.L.C.'s et al 08/20/2020, as supplemented on 08/26/2020, request to commence service for liquefaction and export activities from the Moveable Modular Liquefaction System No. 7 under CP14-103.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20200827-3006",
+  "issuedDate": "08/27/2020",
+  "filedDate": "08/27/2020",
+  "postedDate": "08/27/2020",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 84.26,
+  "docketNumbers": [
+   "CP14-103-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "0209ACF9-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "PDF",
+    "fileName": "CP14-103 In-Service MMLS.PDF",
+    "fileDesc": "",
+    "fileSize": 296698,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "ELBA LIQUEFACTION COMPANY, L.L.C. ",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SOUTHERN LNG COMPANY, L.L.C.",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   },
+   {
+    "afType": "AGENT",
+    "affiliation": "SOUTHERN NATURAL GAS COMPANY",
+    "lastName": "HARDY",
+    "firstInitial": "T",
+    "middleInitial": "S"
+   }
+  ]
+ }
+]
