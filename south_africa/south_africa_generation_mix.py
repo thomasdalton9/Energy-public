@@ -31,6 +31,7 @@ import io
 import sys
 from datetime import date, datetime, timezone
 
+import openpyxl
 import pandas as pd
 import requests
 
@@ -191,6 +192,19 @@ NOTES_LINES = [
 NOTES_SECTION_TITLES = {"UNITS", "CATEGORIES", "COVERAGE", "SOURCE"}
 
 
+def format_date_column(path):
+    # pandas' default "YYYY-MM-DD" format in a narrow column was shown by
+    # some viewers (e.g. phone previews) as "26/9" - year and month only -
+    # making every September row look identical. A spelled-out month is
+    # unambiguous in any viewer or locale.
+    wb = openpyxl.load_workbook(path)
+    ws = wb["Data"]
+    for (cell,) in ws.iter_rows(min_row=2, max_col=1):
+        cell.number_format = "dd-mmm-yyyy"
+    ws.column_dimensions["A"].width = 14
+    wb.save(path)
+
+
 DEFAULT_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "south_africa_generation_mix_daily.xlsx")
 
 
@@ -213,6 +227,7 @@ def main():
     new_or_updated = sorted(set(combined.index) - before_days)
 
     xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
+    format_date_column(args.out)
     print(f"Archive now has {len(combined)} days ({len(new_or_updated)} new since last run). Saved to {args.out}")
     print(combined.tail())
 
