@@ -338,14 +338,27 @@ def fetch_tc(page, pipe, gas_day):
                                f"document.querySelector('#txtGasDate').value === '{gas_day:%m/%d/%Y}' && "
                                f"/ExportUrlBase/.test(document.documentElement.innerHTML)", timeout=180000)
         page.wait_for_timeout(5000)
-    m = re.search(r'"ExportUrlBase":"([^"]+)"', page.content())
-    if not m:
-        raise RuntimeError("no ExportUrlBase on the report viewer page")
-    url = TC_BASE.split("/infopost/")[0] + m.group(1).replace("\\u0026", "&").replace("&amp;", "&") + "CSV"
-    r = page.context.request.get(url, timeout=180000)
-    text = r.text().lstrip("\ufeff")
+    # Export through the viewer itself (what its Export > CSV menu item
+    # does) so the request carries the page's own session - fetching the
+    # ExportUrlBase link separately returned an HTML error page.
+    text = None
+    try:
+        with page.expect_download(timeout=180000) as info:
+            page.evaluate("() => $find('ReportViewer1').exportReport('CSV')")
+        with open(info.value.path(), encoding="utf-8-sig", errors="replace") as f:
+            text = f.read()
+    except Exception as e:
+        print(f"  TC {pipe}: viewer export failed ({type(e).__name__}: {str(e)[:150]}), trying the export link", flush=True)
+    if text is None or not text.startswith("TSPName"):
+        m = re.search(r'"ExportUrlBase":"([^"]+)"', page.content())
+        if not m:
+            raise RuntimeError("no ExportUrlBase on the report viewer page")
+        url = TC_BASE.split("/infopost/")[0] + m.group(1).replace("\\u0026", "&").replace("&amp;", "&") + "CSV"
+        r = page.context.request.get(url, timeout=180000, headers={"Referer": page.url})
+        text = r.text().lstrip("\ufeff")
     if not text.startswith("TSPName"):
-        raise RuntimeError(f"export didn't return the OA CSV (HTTP {r.status}): {text[:300]!r}")
+        heading = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text))[:300]
+        raise RuntimeError(f"export didn't return the OA CSV: {heading!r}")
     df = pd.read_csv(io.StringIO(text), dtype=str)
     days = set(pd.to_datetime(df["EffGasDay"]).dt.date)
     if days != {gas_day}:
