@@ -66,6 +66,7 @@ POINTS = [
     ("Sabine Pass", "km", "KMLP", "49448", "KMLP -> SP Liquefaction, Cameron Par."),
     ("Sabine Pass", "km", "NGPL", "46622", "NGPL -> Sabine Pass Liquefaction"),
     ("Sabine Pass", "enbridge", "TE", "75866", "Texas Eastern -> Cheniere (Creole Trail), Beauregard Par."),
+    ("Sabine Pass", "et", "TGC", "82742", "Trunkline -> Cheniere Creole Trail, Beauregard Par."),
     ("Plaquemines", "km", "TGP", "55833", "Tennessee Gas -> VG Gator Express, Evangeline Pass"),
     ("Plaquemines", "enbridge", "TE", "74530", "Texas Eastern -> Gator Express"),
     # Cameron Interstate's own delivery meter into the terminal - its
@@ -78,6 +79,7 @@ POINTS = [
     ("Corpus Christi", "km", "TGP", "49861", "Tennessee Gas -> Cheniere Corpus Christi Pipeline, Sinton"),
     ("Freeport", "enbridge", "TE", "79999", "Texas Eastern -> Stratton Ridge"),
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
+    ("Golden Pass", "et", "GR", "808311", "Gulf Run -> Golden Pass Pipeline"),
 ]
 
 # Everything --dump pulls: all delivery points on these pipelines, to
@@ -89,14 +91,14 @@ DUMP_PIPELINES = [
 ]
 
 COVERAGE_NOTES = {
-    "Sabine Pass": "Partial - missing Trunkline/Creole Trail (Energy Transfer) and Transco (Williams).",
+    "Sabine Pass": "Mostly complete - KMLP, NGPL, and Creole Trail deliveries from Trunkline and Texas Eastern; Transco (Williams) not yet covered.",
     "Plaquemines": "Near complete - Gator Express is fed by Tennessee Gas and Texas Eastern.",
     "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal.",
     "Calcasieu Pass": "Partial - TransCameron is intrastate; only Texas Eastern's delivery into it is seen.",
     "Corpus Christi": "Partial - Permian supply arrives on intrastate pipes (GCX, Whistler, ADCC) with no public data; only NGPL/TGP deliveries into Cheniere's Corpus Christi Pipeline are seen.",
     "Freeport": "Partial - Stratton Ridge only; BIG Pipeline and Gulf South meters not yet covered. Stratton Ridge is a hub, so check against Freeport's reported output.",
     "Elba Island": "Elba Liquefaction meter on Elba Express.",
-    "Golden Pass": "Not yet covered - fed by Gulf Run (Energy Transfer) and Trident (intrastate).",
+    "Golden Pass": "Partial - Gulf Run's delivery into Golden Pass Pipeline; Permian gas via Kinder Morgan's Trident (intrastate) is not seen.",
     "Cove Point": "Not yet covered - Transco, Columbia and DETI.",
 }
 
