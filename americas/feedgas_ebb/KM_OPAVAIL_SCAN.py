@@ -49,8 +49,13 @@ CODES = [
     "CIG",  # Colorado Interstate Gas
     "MEP",  # Midcontinent Express
     "FEP",  # Fayetteville Express
+    "SLNG",  # Southern LNG - Elba Island terminal
     "GCX",  # control: known to return no rows
 ]
+# First scan (27 Sep gas day): KMLP, EEC and MEP returned rows and Excel
+# exports - KMLP's "SPLIQ/KMLP SP LIQUEFACTION CAMERON" point had 1.28
+# million Dth scheduled into Sabine Pass. NGPL and the rest were caught
+# mid-load, hence the wait in query().
 
 PREFIX = "#WebSplitter1_tmpl1_ContentPlaceHolder1_"
 RETRIEVE_BTN = PREFIX + "HeaderBTN1_btnRetrieve"
@@ -104,7 +109,17 @@ def query(page, code, day, location):
     page.wait_for_timeout(500)
     page.click(RETRIEVE_BTN, timeout=15000)
     page.wait_for_load_state("networkidle", timeout=45000)
-    page.wait_for_timeout(2000)
+    # Big systems (NGPL, TGP, ...) keep a "Loading... Please wait" overlay
+    # long after the network goes quiet - the first scan screenshotted
+    # NGPL mid-load and read an empty grid. Wait for the grid footer's
+    # row count (or the no-records message) to actually appear.
+    page.wait_for_function(
+        """sel => { const g = document.querySelector(sel);
+                    return g && /Row Count:\\s*\\d|No record/.test(g.innerText); }""",
+        arg=GRID_CONTAINER,
+        timeout=180000,
+    )
+    page.wait_for_timeout(1000)
     return page.inner_text(GRID_CONTAINER, timeout=10000)
 
 
