@@ -503,6 +503,53 @@ def transco_oac(context):
     page.close()
 
 
+def vg_gp_recon(context):
+    """Whole-plant feed meters on the terminals' own interstate pipelines:
+    Golden Pass Pipeline (gasnom.com, like Cameron Interstate), and Venture
+    Global's TransCameron (Calcasieu Pass) and Gator Express (Plaquemines)
+    on Quorum's myquorumcloud informational postings."""
+    log("\n==================== Golden Pass Pipeline (gasnom) ====================")
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import lng_feedgas_daily as lfd
+    from datetime import date
+    page = context.new_page()
+    for pipe in ("goldenpass", "GOLDENPASS"):
+        for day in (date(2026, 9, 27), date(2026, 6, 1), date(2025, 12, 1)):
+            try:
+                df = lfd.fetch_gasnom(page, pipe, day)
+                log(f"  {pipe} {day}: {len(df)} delivery points")
+                for loc, r in df.sort_values("scheduled_dth", ascending=False).iterrows():
+                    log(f"    {loc} {r['name'][:60]!r} {r['scheduled_dth']:,.0f}")
+            except Exception as e:
+                log(f"  {pipe} {day}: FAILED {type(e).__name__}: {str(e)[:200]}")
+        if "df" in dir():
+            break
+    page.close()
+    log("\n==================== Venture Global pipelines (Quorum) ====================")
+    for tag, url in [
+        ("transcameron_home", "https://web-prd.myquorumcloud.com/VGPPA1IPWS/?tspno=10"),
+        ("transcameron_oa", "https://web-prd.myquorumcloud.com/VGL17IPWS/OpAvailPosting?tspno=10"),
+        ("gatorexpress_home", "https://web-prd.myquorumcloud.com/VGPPB1IPWS/?tspno=2"),
+        ("gatorexpress_oa", "https://web-prd.myquorumcloud.com/VGPPB1IPWS/OpAvailPosting?tspno=2"),
+    ]:
+        capture_page(context, tag, url)
+        pg = context.new_page()
+        try:
+            pg.goto(url, wait_until="networkidle", timeout=90000)
+            pg.wait_for_timeout(4000)
+            links = pg.evaluate("() => [...document.querySelectorAll('a[href]')].map(a => [a.innerText.trim().slice(0, 60), a.href])")
+            for t, h in links[:80]:
+                log(f"    LINK {t!r} -> {h}")
+            rows = pg.evaluate(lfd.TABLE_ROWS_JS)
+            log(f"    {len(rows)} table rows; first: {rows[:3]}")
+            for r in rows:
+                if re.search(r"LNG|CALCAS|PLAQUE|TERMINAL|DELIVERY|Del", " ".join(r), re.I):
+                    log(f"    ROW {r[:14]}")
+        except Exception as e:
+            log(f"  {tag} FAILED {type(e).__name__}: {str(e)[:200]}")
+        pg.close()
+
+
 def covepoint_csv(context):
     """Newest Cove Point OA CSV for yesterday's gas day (the listing page
     links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
@@ -566,6 +613,8 @@ def main():
             tc_session_diag(context)
         if "transco" in wanted:
             transco_oac(context)
+        if "vg_gp" in wanted:
+            vg_gp_recon(context)
         if "covepoint_csv" in wanted:
             covepoint_csv(context)
         browser.close()
