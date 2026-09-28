@@ -18,6 +18,7 @@ on:
           - KM_OPAVAIL_SCAN.py
           - EBB_PLATFORM_RECON.py
           - ENBRIDGE_OA_SCAN.py
+          - lng_feedgas_daily.py
           - KM_GCX_RETRIEVE_DISCOVERY.py
           - KM_CAPACITY_DISCOVERY.py
           - FEEDGAS_PIPES_DISCOVERY.py

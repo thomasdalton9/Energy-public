@@ -59,17 +59,20 @@ DEFAULT_OUT = os.path.join(HERE, "lng_feedgas_daily.xlsx")
 BTU_PER_CF = 1037
 DTH_PER_BCF = BTU_PER_CF * 1_000_000 / 1000  # 1 Bcf = 1e9 cf * 1,037 Btu = 1.037e12 Btu = 1.037e6 Dth
 
-# (plant, platform, pipeline, loc id, label). Platform "km" = Kinder
-# Morgan pipeline code; "enbridge" = Enbridge LINK business unit.
+# (plant, platform, pipeline, loc id, label). Platforms: "km" = Kinder
+# Morgan pipeline code, "enbridge" = Enbridge LINK business unit,
+# "gasnom" = gasnom.com pipeline, "et" = Energy Transfer asset code.
 POINTS = [
     ("Sabine Pass", "km", "KMLP", "49448", "KMLP -> SP Liquefaction, Cameron Par."),
     ("Sabine Pass", "km", "NGPL", "46622", "NGPL -> Sabine Pass Liquefaction"),
     ("Sabine Pass", "enbridge", "TE", "75866", "Texas Eastern -> Cheniere (Creole Trail), Beauregard Par."),
     ("Plaquemines", "km", "TGP", "55833", "Tennessee Gas -> VG Gator Express, Evangeline Pass"),
     ("Plaquemines", "enbridge", "TE", "74530", "Texas Eastern -> Gator Express"),
-    ("Cameron", "km", "TGP", "49446", "Tennessee Gas -> Cameron Interstate, Banken Rd"),
-    ("Cameron", "enbridge", "TE", "73882", "Texas Eastern -> Sempra/Cameron"),
-    ("Cameron", "enbridge", "TE", "75533", "Texas Eastern -> Cameron Interstate, Beauregard Par."),
+    # Cameron Interstate's own delivery meter into the terminal - its
+    # receipts include the Tennessee Gas (TENN-CIP) and Texas Eastern
+    # (TETCO-CIP) quantities seen on those pipes, plus LEAP, LEG, NG3 and
+    # Gillis Hub, so this one meter is the whole plant.
+    ("Cameron", "gasnom", "CAMERON", "772300", "Cameron Interstate -> Cameron LNG"),
     ("Calcasieu Pass", "enbridge", "TE", "74529", "Texas Eastern -> TransCameron, Oak Grove"),
     ("Corpus Christi", "km", "NGPL", "48934", "NGPL -> Cheniere Corpus Christi Pipeline, Sinton"),
     ("Corpus Christi", "km", "TGP", "49861", "Tennessee Gas -> Cheniere Corpus Christi Pipeline, Sinton"),
@@ -77,10 +80,18 @@ POINTS = [
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
 ]
 
+# Everything --dump pulls: all delivery points on these pipelines, to
+# find more terminal meters for POINTS.
+DUMP_PIPELINES = [
+    ("km", "KMLP"), ("km", "NGPL"), ("km", "TGP"), ("km", "EEC"), ("km", "SNG"),
+    ("enbridge", "TE"), ("gasnom", "CAMERON"),
+    ("et", "TGC"), ("et", "GR"), ("et", "TGR"), ("et", "LCLNG"), ("et", "FGT"),
+]
+
 COVERAGE_NOTES = {
     "Sabine Pass": "Partial - missing Trunkline/Creole Trail (Energy Transfer) and Transco (Williams).",
     "Plaquemines": "Near complete - Gator Express is fed by Tennessee Gas and Texas Eastern.",
-    "Cameron": "Partial - Cameron Interstate's other supply interconnects not yet covered.",
+    "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal.",
     "Calcasieu Pass": "Partial - TransCameron is intrastate; only Texas Eastern's delivery into it is seen.",
     "Corpus Christi": "Partial - Permian supply arrives on intrastate pipes (GCX, Whistler, ADCC) with no public data; only NGPL/TGP deliveries into Cheniere's Corpus Christi Pipeline are seen.",
     "Freeport": "Partial - Stratton Ridge only; BIG Pipeline and Gulf South meters not yet covered. Stratton Ridge is a hub, so check against Freeport's reported output.",
@@ -96,6 +107,11 @@ KM_SET_DATE_JS = """([id, y, m, d]) => { const p = $find(id); if (!p) return nul
     p.set_value(new Date(y, m - 1, d)); return String(p.get_value()); }"""
 ENBRIDGE_URL = "https://rtba.enbridge.com/InformationalPosting/Default.aspx?bu={bu}&Type=OA"
 ENBRIDGE_DATE_INPUT = "#ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInput"
+GASNOM_URL = "https://www.gasnom.com/ip/{pipe}/oauc.cfm?dt={day:%m/%d/%Y}&type=1"
+ET_PAGE_URL = "https://tgcmessenger.energytransfer.com/ipost/capacity/operationally-available-by-location?asset={asset}"
+ET_CSV_URL = ET_PAGE_URL + "&f=csv&extension=csv&gasDay={day:%m}%2F{day:%d}%2F{day:%Y}&cycleDesc=Final&pointCd=&name="
+TABLE_ROWS_JS = """() => [...document.querySelectorAll('tr')].map(tr =>
+    [...tr.querySelectorAll('td,th')].map(c => c.innerText.replace(/\\s+/g, ' ').trim()))"""
 
 
 def to_number(series):
@@ -123,7 +139,7 @@ def fetch_km(page, code, gas_day):
     df = pd.read_excel(path, header=3)
     df = df[to_number(df["Loc"]).notna()]
     print(f"  KM {code}: {len(df)} delivery points, {meta.iloc[1, 2]}, cycle {meta.iloc[1, 3]}", flush=True)
-    return dict(zip(df["Loc"].astype(str).str.split(".").str[0], to_number(df["Total Scheduled Quantity"])))
+    return points_frame(df["Loc"].astype(str).str.split(".").str[0], df["Loc Name"], df["Total Scheduled Quantity"])
 
 
 def fetch_enbridge(page, bu, gas_day):
@@ -140,7 +156,61 @@ def fetch_enbridge(page, bu, gas_day):
         df = pd.read_csv(io.StringIO(f.read()))
     df = df[df["Flow_Ind_Desc"] == "Delivery"]
     print(f"  Enbridge {bu}: {len(df)} delivery points, gas day {shown}, cycle {df['Cycle_Desc'].iloc[0]}", flush=True)
-    return dict(zip(df["Loc"].astype(str), to_number(df["Total_Scheduled_Quantity"])))
+    return points_frame(df["Loc"].astype(str), df["Loc_Name"], df["Total_Scheduled_Quantity"])
+
+
+def fetch_gasnom(page, pipe, gas_day):
+    """gasnom.com OAC page: a plain HTML table per gas day. Rows with a
+    blank name continue the location above (its other flow direction)."""
+    page.goto(GASNOM_URL.format(pipe=pipe, day=gas_day), wait_until="networkidle", timeout=60000)
+    text = page.inner_text("body")
+    wanted = f"{gas_day:%B} {gas_day.day}, {gas_day:%Y}"
+    if wanted not in text.split("Eff Gas Day")[-1][:80]:
+        raise RuntimeError(f"page isn't for gas day {wanted}: {text[:300]!r}")
+    rows = page.evaluate(TABLE_ROWS_JS)
+    header = next(r for r in rows if "Loc" in r and "TSQ" in r)
+    i_name, i_loc, i_flow, i_tsq = (header.index(c) for c in ("Location Name", "Loc", "Flow Ind", "TSQ"))
+    data, last_name = [], ""
+    for r in rows:
+        if len(r) < len(header) or r == header or not r[i_loc].isdigit():
+            continue
+        last_name = r[i_name] or last_name
+        if r[i_flow] == "D":
+            data.append((r[i_loc], last_name, r[i_tsq]))
+    df = pd.DataFrame(data, columns=["loc", "name", "tsq"])
+    cycle = text.split("Cycle Indicator Description:")[-1].split("Capacity Type")[0].strip()[:30]
+    print(f"  gasnom {pipe}: {len(df)} delivery points, gas day {wanted}, cycle {cycle!r}", flush=True)
+    return points_frame(df["loc"], df["name"], df["tsq"])
+
+
+def fetch_et(page, asset, gas_day):
+    """Energy Transfer Messenger+ OA-by-location CSV export for the gas
+    day's Final cycle. The HTML page is loaded first so the export
+    request carries the site's cookies."""
+    page.goto(ET_PAGE_URL.format(asset=asset), wait_until="networkidle", timeout=60000)
+    response = page.context.request.get(ET_CSV_URL.format(asset=asset, day=gas_day), timeout=90000)
+    if not response.ok:
+        raise RuntimeError(f"CSV export HTTP {response.status}")
+    df = pd.read_csv(io.StringIO(response.text()))
+    cols = {c.lower().strip(): c for c in df.columns}
+    def col(*names):
+        for n in names:
+            if n in cols:
+                return cols[n]
+        raise KeyError(f"none of {names} in columns {list(df.columns)}")
+    flow = col("flow ind", "flow indicator", "flow_ind")
+    df = df[df[flow].astype(str).str.upper().str.startswith("D")]
+    print(f"  ET {asset}: {len(df)} delivery points, gas day {gas_day}, Final cycle", flush=True)
+    return points_frame(df[col("loc", "location")].astype(str).str.split(".").str[0],
+                        df[col("loc name", "location name")], df[col("tsq", "total scheduled quantity")])
+
+
+def points_frame(locs, names, tsq):
+    """Common shape for every fetcher: loc id -> name, scheduled Dth."""
+    df = pd.DataFrame({"loc": locs.astype(str).str.strip().values,
+                       "name": names.astype(str).map(lambda s: " ".join(s.split())).values,
+                       "scheduled_dth": to_number(pd.Series(tsq.values))})
+    return df.drop_duplicates("loc", keep="last").set_index("loc")
 
 
 def point_column(point):
@@ -148,33 +218,56 @@ def point_column(point):
     return f"{plant} | {label} ({pipeline} {loc})"
 
 
-def pull(gas_day):
-    """One row of point-level scheduled Dth for the gas day. Points on a
-    pipeline that failed to load are left blank, not zero."""
-    fetchers = {"km": fetch_km, "enbridge": fetch_enbridge}
-    needed = sorted({(p[1], p[2]) for p in POINTS})
+FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et}
+
+
+def fetch_all(pipelines, gas_day):
+    """{(platform, pipeline): points frame}; a pipeline that fails is
+    logged and left out."""
     results = {}
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(ignore_https_errors=True, accept_downloads=True, viewport={"width": 1600, "height": 1200})
         page = context.new_page()
-        for platform, pipeline in needed:
+        for platform, pipeline in pipelines:
             try:
-                results[(platform, pipeline)] = fetchers[platform](page, pipeline, gas_day)
+                results[(platform, pipeline)] = FETCHERS[platform](page, pipeline, gas_day)
             except Exception as e:
-                print(f"  WARNING: {platform} {pipeline} failed ({type(e).__name__}: {str(e)[:200]})", file=sys.stderr, flush=True)
+                print(f"  WARNING: {platform} {pipeline} failed ({type(e).__name__}: {str(e)[:300]})", file=sys.stderr, flush=True)
         browser.close()
+    return results
+
+
+def dump(gas_day):
+    """Every delivery point with scheduled gas on DUMP_PIPELINES, to a
+    CSV next to this script - for finding terminal meters to add."""
+    results = fetch_all(DUMP_PIPELINES, gas_day)
+    frames = [df.assign(platform=pl, pipeline=pipe) for (pl, pipe), df in results.items()]
+    allpts = pd.concat(frames).reset_index().sort_values("scheduled_dth", ascending=False)
+    path = os.path.join(HERE, f"feedgas_point_dump_{gas_day}.csv")
+    allpts.to_csv(path, index=False)
+    print(f"\nSaved {path} ({len(allpts)} delivery points)")
+    for (pl, pipe), df in results.items():
+        print(f"\n== {pl} {pipe}: top delivery points by scheduled Dth")
+        print(df.sort_values("scheduled_dth", ascending=False).head(15).to_string())
+
+
+def pull(gas_day):
+    """One row of point-level scheduled Dth for the gas day. Points on a
+    pipeline that failed to load are left blank, not zero."""
+    needed = sorted({(p[1], p[2]) for p in POINTS})
+    results = fetch_all(needed, gas_day)
     row = {}
     for point in POINTS:
         plant, platform, pipeline, loc, label = point
         values = results.get((platform, pipeline))
         if values is None:
             row[point_column(point)] = float("nan")
-        elif loc not in values:
+        elif loc not in values.index:
             print(f"  WARNING: {pipeline} point {loc} ({label}) not in today's posting", file=sys.stderr, flush=True)
             row[point_column(point)] = float("nan")
         else:
-            row[point_column(point)] = values[loc]
+            row[point_column(point)] = values.at[loc, "scheduled_dth"]
     return pd.DataFrame([row], index=pd.Index([gas_day], name="gas_day"))
 
 
@@ -217,7 +310,8 @@ def notes_lines():
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
     lines += ["", "POINTS", "Each 'Points (Dth)' column is 'Plant | meter (pipeline code, location id)'.", "",
               "SOURCE", "Kinder Morgan (pipeline2.kindermorgan.com) and Enbridge LINK (rtba.enbridge.com) "
-              "Operationally Available Capacity postings, Total Scheduled Quantity column."]
+              "Operationally Available Capacity postings, Total Scheduled Quantity column; gasnom.com (Cameron Interstate) "
+              "and Energy Transfer Messenger+ equivalents."]
     return lines
 
 
@@ -225,8 +319,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--out", default=DEFAULT_OUT)
     parser.add_argument("--gas-day", help="YYYY-MM-DD (default: yesterday, US Central)")
+    parser.add_argument("--dump", action="store_true", help="list every delivery point on DUMP_PIPELINES instead of updating the workbook")
     args = parser.parse_args()
     gas_day = date.fromisoformat(args.gas_day) if args.gas_day else datetime.now(ZoneInfo("America/Chicago")).date() - timedelta(days=1)
+    if args.dump:
+        dump(gas_day)
+        return
 
     print(f"Pulling LNG feedgas points for gas day {gas_day}...", flush=True)
     new = pull(gas_day)
