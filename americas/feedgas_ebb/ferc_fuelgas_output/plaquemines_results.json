@@ -1,0 +1,1829 @@
+[
+ {
+  "Class": "Other Submittal",
+  "Type": "Government Agency Submittal",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Other Submittal",
+  "Type": "Congressional Submittal",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Other Submittal",
+  "Type": "Other External Submittal",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Affirmation",
+  "Type": "Certificate of Service",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Affirmation",
+  "Type": "Affidavits/Sworn Statement",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Affirmation",
+  "Type": "Affirmation to Testimony",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Agreement/Understanding/Contract",
+  "Type": "Stipulation",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Agreement/Understanding/Contract",
+  "Type": "Contract/Letter Agreement",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Agreement/Understanding/Contract",
+  "Type": "Settlement Agreement (Stipulation and Agreement)",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Briefing/Arguments of Law",
+  "Type": "Brief",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Briefing/Arguments of Law",
+  "Type": "Statement of Issues or Position",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Briefing/Arguments of Law",
+  "Type": "Findings of Fact/Conclusions of Law",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Comments/Protest",
+  "Type": "Settlement Comment",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Comments/Protest",
+  "Type": "Comment on Filing",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Deposition Document",
+  "Type": "Notice/Motion to Depose",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Determination of Jurisdiction",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Declaration of Intent",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Application for Preliminary Permit",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Exemption From License - Conduit/5MW",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Application For Transmission Line License",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "License/Relicense Application",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Surrender",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Application To Amend License or Exemption",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Transfer of Hydropower License or Exemption",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Application for Change in Land & Water Rights",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Withdrawal of Application",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Waiver Request for Hydro Fees and Charges",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Waiver Request For Hydro Regulation or Terms/Conditions",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Request for Interpretation",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Allegation of Non-Compliance",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Annual Conveyance Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Annual Generation Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Annual Spill Gate Testing Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Annual Water Quality/Minimum Flow",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Annual Headwater Benefits Compliance",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 80 - Licensed Hydropower Development Recreation Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Accident Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Project Safety Compliance Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Environmental and Recreational Compliance Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Project Operations Compliance Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Dam Safety Compliance Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Emergency Action Plan",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Part 12 Consultant Safety Inspection Reports",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Other Dam Safety Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Progress Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Deposition Document",
+  "Type": "Objection to Deposition",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Interrogatory/Data Request",
+  "Type": "Data Request Document",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Interrogatory/Data Request",
+  "Type": "Response to Data Request",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Intervention",
+  "Type": "Motion/Notice of Intervention",
+  "Library": "E/G/O/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Intervention",
+  "Type": "Motion to Intervene Out of Time",
+  "Library": "E/G/O/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Motion to Compel Production",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Production of Document",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Complaints",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Response to Complaint",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Request for Hearing",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Request for Rehearing or Appeal",
+  "Library": "E/G/O/H/RM/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Election",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Petition for Declaratory Order",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Petition for Review",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Compliance Audit Summary",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Construction Inspection Report",
+  "Library": "H/G",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "EPUI and Public Safety Report",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Pre-license or Pre-Exemption Inspection Report",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Safety and Design Assessment",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Special Inspection Report",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Transcript",
+  "Type": "Hearing Transcript",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Transcript",
+  "Type": "Conference/Meeting Transcript",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Deficiency Letter/Data Response",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence With Applicant",
+  "Type": "Request for Additional Information",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence With Applicant",
+  "Type": "General Correspondence",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "General Correspondence",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence With Applicant",
+  "Type": "Compliance Directives",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Memo",
+  "Type": "Memo to Commission",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Memo",
+  "Type": "Other Internal Memo",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Memo",
+  "Type": "Telephone Conversation or Electronic Mail Memo",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Memo",
+  "Type": "Internal Transmittal Memo",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Memo",
+  "Type": "Non-Compliance Memo",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Policy Study",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Comment",
+  "Type": "Comment on Pending Legislation",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Comment",
+  "Type": "Comment on Policies/Procedures Before Government Agencies",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "ALJ Initial Decision",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Findings of Fact",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Certification of Settlement",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Certification of Record",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Certification of Question and Memorandum to the Commission",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Report to the Commission",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Procedural Order/Procedural Report",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Protective Order",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Discovery Order",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Order Permitting Interlocutory Appeal",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Order on Transcript Correction",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "ALJ Notice",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Notice",
+  "Type": "Formal Notice",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Notice",
+  "Type": "Notice of Proposed Rulemaking",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Order/Opinion",
+  "Type": "Delegated Order",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Abandonment of Service or Facility",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Certificate of Public Convenience and Necessity",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Waiver of Filing Fee",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Waiver of Oil or Gas Regulation",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Certificate of Compliance Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 6 - Annual Report of Oil Pipeline Companies",
+  "Library": "O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Peak Day Capacity Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 8 - Underground Gas Storage Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 11 - Natural Gas Pipeline Company Qtrly. Stmt. of Monthly",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 14 - Annual Report for Importers and Exporters of Natural Gas",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Transportation Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Annual Charges Report",
+  "Library": "G/O/E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 2 - Annual Report of Major Natural Gas Companies",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 2-A - Annual Report of Non-Major Natural Gas Companies",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 542 - Purchased Gas Adjustment",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 567 - Annual Report of System Flow Diagrams and Capacity",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Correspondence Concerning Filing Fees and Annual Charges",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Response to Inquiry",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Request for Delay of Action/Extension of Time",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Supplemental/Additional Information",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Agreement/Understanding/Contract",
+  "Type": "Memoranda of Understanding(MOU)/Memoranda of Agreement (MOA)",
+  "Library": "H/Gen/O/RM/E/G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Agreement/Understanding/Contract",
+  "Type": "Memoranda of Understanding(MOU)/Memoranda of Agreement (MOA)",
+  "Library": "RM/O/Gen/H/G/E",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Comments/Protest",
+  "Type": "Rulemaking Comment",
+  "Library": "RM/O/Gen/H/G/E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Procedural Motion",
+  "Library": "E/G/O/H/RM/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Audit Summary",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Environmental Report",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Environmental Assessment (EA) and Environmental Impact Statement (EIS)",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Other FERC Report/Study",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Transcript",
+  "Type": "Approved Transcript Correction",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Order/Opinion",
+  "Type": "Dissent/Concurrence by the Commissioner",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Disposition of Facilities Filing",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Electric Transmission Service",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Exempt Wholesale Generator Request",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Federal Rate Filing",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Approval of Interlocking Position",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Merger Filing",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Compliance Electric Rate Filing",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Utility Accounting Request",
+  "Library": "E/G/O/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 423 - Monthly Rpt. of Cost & Quality of Fuels for Electric Plants",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 566 - Report of Utilitys 20 Largest Purchasers",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Environmental Study & Report",
+  "Library": "G/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 580 - Fuel and Energy Purchase Practices",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 561 - Annual Report of Interlocking Positions",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 1 - Annual Rpt. for Major Electric Utilities, Licensees & Others",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Other Utility Report",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Report of Refund Obligation",
+  "Library": "E/G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Securities Transaction Report",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 715 - Annual Transmission Planning and Evaluation Report",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Testimony",
+  "Type": "Initial Testimony",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Testimony",
+  "Type": "Response (Rebuttal) Testimony",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 714 - Annual Electric Control and Planning Area Report",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Compliance Electric Refund Report",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Electric Rate Filing",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Securities Issuances",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Emergency Gas Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Gas Refund Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 1-F - Annual Report for Non-Major Public Utilities",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Index of Customer",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Discount Rate Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "284.126 (g) Semi-Annual Storage Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "284.288 Annual Pipeline Sales Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "2.55 Annual Construction Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "157.207 Annual Construction Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "284.11 Annual Construction Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "260.9 Service Interruption Report",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Comments/Protest",
+  "Type": "Litigation Comment",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Deposition Document",
+  "Type": "Deposition",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence With Applicant",
+  "Type": "Deficiency Letter",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Order/Opinion",
+  "Type": "Commission Order/Opinion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Order/Opinion",
+  "Type": "Interpretation and Advisory Opinion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Gas and Oil Tariff Filing",
+  "Library": "G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Financial Audit Refund Report",
+  "Library": "E/G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Comment",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Uncertain",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "H/Gen/E/G/O",
+  "Category": "Uncertain",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Testimony",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "O/H/Gen/E/G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "G/O/H/Gen/E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Intervention",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "Gen/E/G/O/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Other Submittal",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Interrogatory/Data Request",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "H/Gen/E/G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Deposition Document",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "O/H/Gen/E/G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Comments/Protest",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "G/O/H/Gen/E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Briefing/Arguments of Law",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Applicant Correspondence",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "Gen/E/G/O/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Agreement/Understanding/Contract",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "H/Gen/E/G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Affirmation",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "O/H/Gen/E/G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Transcript",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "G/O/H/Gen/E",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Order/Opinion",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "Gen/E/G/O/H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Notice",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Memo",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "H/Gen/E/G/O",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence With Applicant",
+  "Type": "Untyped During RIMS II Conversion",
+  "Library": "O/H/Gen/E/G",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Approved Designation",
+  "Type": "Approved Designation",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Fee Collection or Validation Forms",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Informational Correspondence",
+  "Type": "Informational Correspondence (Miscellaneous Issuances)",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence With Government Agencies",
+  "Type": "FERC Correspondence With Government Agencies",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Exhibit",
+  "Type": "Exhibit",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Litigation Correspondence",
+  "Type": "Litigation Correspondence",
+  "Library": "E/G/O/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Subpoena",
+  "Type": "Subpoena",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Status Report",
+  "Type": "Status Report",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Top Sheet",
+  "Type": "Top Sheet",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Court Related Documents",
+  "Type": "Court Related Documents",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Drawing/Maps",
+  "Type": "Drawing/Maps",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Cultural Resources Inventory - Report/Archaeological Study",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Application for Participation in Pilot Program",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Application for Presidential Permit for Pipeline Facilities",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Standards of Conduct of Public Utility",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Answer/Response to a Pleading/Motion",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Standards of Conduct",
+  "Library": "G/G/E/H/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Waiver of Electric Regulation",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Power Marketer Quarterly Reports",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "OCSLA (Outer Continental Shelf Lands Act) Reports",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "California PX/ISO Monthly Reports",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Electric Quarterly Report",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Informational Correspondence",
+  "Type": "News Release",
+  "Library": "E/G/O/RM/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Informational Correspondence",
+  "Type": "Agenda Materials",
+  "Library": "E/G/O/RM/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Informational Correspondence",
+  "Type": "Agenda Materials",
+  "Library": "G/H/Gen/O/RM/E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Comprehensive Plan Section 10(a)(2)(A)",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Preliminary Permit Progress Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Notice/Report of Intent to Proceed with Emergency Procedures",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Pre-Application Document",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 3-Q -Quarterly financial report of electric utilities- licensees- and natural gas companies",
+  "Library": "E/G/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 6-Q -Quarterly report of oil pipeline companies",
+  "Library": "O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Tariff Filing",
+  "Library": "E/G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Foreign Utility Company Request",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "ILP Comments or Study Request",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "ILP Proposed Study Plan or Revised Study Plan",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "ILP Notice of Request for Formal Dispute Resolution",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "ILP Initial or Updated Study Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "ERO Certification or performance assessment",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "ERO Funding",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Reliability Std. -violation, disposition, or penalty",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Regional Entities",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Rule Change - ERO or Regional Entity",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Regional Advisory Body",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Reliability Std. -approval, remand, or modification",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "ERO Reliability or Adequacy assess. or requested info.",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "ILP Preliminary Licensing Proposal",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Qualifying Facility Application or PURPA Energy Utility Filing",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "EAP Testing Report",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Pleading/Motion",
+  "Type": "Objection to Motion to Compel Production",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Intervention",
+  "Type": "Withdrawal of Intervention",
+  "Library": "E/G/O/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "CPA Statement Certifications",
+  "Library": "E/G/O",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "FERC-730 - Report of Transaction Investment Activity",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "FERC-61 - Narrative Description of Service Company Functions",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 60 - Annual Report by \"Centralized\" Service Company",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "FERC Form 719  Public Utility Sellers Report",
+  "Library": "E",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Dam Safety Inspection Report/Operation Report",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 552 - Annual Report of Natural Gas Transactions",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Report/Study",
+  "Type": "Scoping Document",
+  "Library": "G/H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Form 549D-Quarterly Transportation & Storage Report for Intrastate Natural Gas and Hinshaw Pipelines",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Transcript",
+  "Type": "Commission Open Meeting Transcript",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "ALJ Issuance",
+  "Type": "Certification of Initial Decision and Record",
+  "Library": "E/G/O/H/Gen",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Other Submittal",
+  "Type": "Tribal Government Submittal",
+  "Library": "E/G/H/Gen/O/RM",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "FERC Correspondence with Tribal Governments",
+  "Type": "FERC Correspondence with Tribal Governments",
+  "Library": "E/G/H/Gen/O/RM",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Pre-Filing Process",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Report/Form",
+  "Type": "Pre-Filing Process Progress Report",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Request for Authorization under NGA Section 3",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Certification of Generation for Tax Credit",
+  "Library": "H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Certification of Generation for Tax Credit",
+  "Library": "H",
+  "Category": "Issuance",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Amendment to Application",
+  "Library": "G/H",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "30-Day Advance Notification",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Prior Notice Request under Blanket Certificate",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ },
+ {
+  "Class": "Application/Petition/Request",
+  "Type": "Service Area Determination",
+  "Library": "G",
+  "Category": "Submittal",
+  "Accession_Number": null
+ }
+]
