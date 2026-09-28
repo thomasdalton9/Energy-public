@@ -611,9 +611,17 @@ def fetch_eia_exports():
     return df
 
 
-def monthly_check(plants_daily, eia):
-    """Metered monthly average vs EIA-implied feedgas, per plant."""
+def monthly_check(plants_daily, eia, points=None):
+    """Metered monthly average vs EIA-implied feedgas, per plant. Only
+    days with every one of the plant's meters present count - a share
+    worked out while a meter was missing (e.g. TC's, which have no
+    history) would over-scale the plant once that meter is back."""
     daily = plants_daily.drop(columns=["Total"], errors="ignore").copy()
+    if points is not None:
+        for plant in daily.columns:
+            cols = [point_column(p) for p in POINTS if p[0] == plant and point_column(p) in points.columns]
+            if cols:
+                daily[plant] = daily[plant].where(points[cols].notna().all(axis=1))
     daily.index = pd.to_datetime(daily.index)
     months = daily.index.to_period("M").astype(str)
     counts = daily.groupby(months).count()
@@ -967,7 +975,7 @@ def save(out, new):
             eia.index = eia.index.astype(str)
         except (FileNotFoundError, ValueError):
             eia = pd.DataFrame()
-    check = monthly_check(plants, eia) if not eia.empty else pd.DataFrame()
+    check = monthly_check(plants, eia, points) if not eia.empty else pd.DataFrame()
     est, share = estimated(plants, check, eia)
     if share:
         print(f"  seen shares used: {share}")
