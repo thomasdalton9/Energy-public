@@ -40,49 +40,84 @@ def log(msg=""):
     print(msg, flush=True)
 
 
+API = "https://elibrary.ferc.gov/eLibraryWebAPI/api/Search/AdvancedSearch"
+
+
+def api_body(text, start="2010-01-01", end="2026-12-31"):
+    return {"searchText": text, "searchFullText": True, "searchDescription": True,
+            "dateSearches": [{"dateType": "filed_date", "startDate": start, "endDate": end}],
+            "availability": None, "affiliations": [], "categories": [], "libraries": [], "accessionNumber": None,
+            "eFiling": False, "docketSearches": [], "resultsPerPage": 100, "curPage": 0, "classTypes": [],
+            "sortBy": "", "groupBy": "NONE", "idolResultID": "", "allDates": False}
+
+
+def print_hits(data):
+    hits = data if isinstance(data, list) else (data.get("searchHits") or data.get("SearchHits") or
+                                                data.get("results") or data.get("Results") or [])
+    log(f"    {len(hits)} hits; keys: {list(data)[:15] if isinstance(data, dict) else 'list'}")
+    for h in hits[:80]:
+        flat = json.dumps(h)
+        date = re.search(r'"(?:filedDate|issuedDate|docDate|FiledDate|IssuedDate|filed_date|issued_date)"\s*:\s*"([^"]+)"', flat, re.I)
+        desc = re.search(r'"(?:description|Description|title|Title)"\s*:\s*"([^"]{0,300})', flat)
+        dockets = re.findall(r"[CR]P\d\d-\d+", flat)
+        log(f"    HIT {date.group(1)[:10] if date else '?'} {sorted(set(dockets))[:3]} {desc.group(1) if desc else flat[:250]}")
+
+
 def run_query(page, tag, text):
     log(f"\n==================== {tag}: {text!r} ====================")
+    # 1. the search API directly
+    try:
+        r = page.context.request.post(API, data=api_body(text), timeout=120000)
+        log(f"  API {r.status}: {r.text()[:300]!r}")
+        if r.ok:
+            data = r.json()
+            with open(os.path.join(OUTPUT_DIR, f"{tag}_api.json"), "w") as f:
+                json.dump(data, f, indent=1)
+            print_hits(data)
+            return
+    except Exception as e:
+        log(f"  API failed: {type(e).__name__}: {str(e)[:200]}")
+    # 2. the search form, capturing the call it makes
     calls = []
 
     def on_response(resp):
-        if "eLibraryWebAPI" in resp.url or "api" in resp.url.lower() and resp.request.method == "POST":
+        if "eLibraryWebAPI" in resp.url and resp.request.method == "POST":
             try:
-                calls.append((resp.status, resp.request.method, resp.url, resp.request.post_data, resp.text()))
+                calls.append((resp.status, resp.url, resp.request.post_data, resp.text()))
             except Exception:
                 pass
     page.on("response", on_response)
     try:
         page.goto(SEARCH_URL, wait_until="networkidle", timeout=120000)
         page.wait_for_timeout(3000)
-        box = page.locator("input[type=text], input[type=search], textarea").first
-        box.fill(text)
-        box.press("Enter")
+        inputs = page.evaluate("""() => [...document.querySelectorAll('input, textarea, select, mat-select, button')].map(e => ({
+            tag: e.tagName, type: e.type || '', id: e.id, name: e.name || '', ph: e.placeholder || '',
+            aria: e.getAttribute('aria-label') || '', fc: e.getAttribute('formcontrolname') || '',
+            text: (e.innerText || '').trim().slice(0, 40)}))""")
+        for i in inputs:
+            log(f"  CONTROL {i}")
+        kw = next((i for i in inputs if re.search(r"keyword|searchtext|search text", " ".join([i["fc"], i["aria"], i["ph"], i["id"], i["name"]]), re.I)), None)
+        if kw:
+            sel = f"#{kw['id']}" if kw["id"] else f"[formcontrolname={kw['fc']}]"
+            page.fill(sel, text)
+        for i in inputs:
+            key = " ".join([i["fc"], i["aria"], i["ph"], i["id"]]).lower()
+            if "from" in key and ("date" in key or i["type"] == "text"):
+                page.fill(f"#{i['id']}" if i["id"] else f"[formcontrolname={i['fc']}]", "01/01/2010")
+        page.get_by_role("button", name=re.compile("^\\s*Search\\s*$", re.I)).first.click(timeout=15000)
         page.wait_for_load_state("networkidle", timeout=120000)
         page.wait_for_timeout(8000)
         page.screenshot(path=os.path.join(OUTPUT_DIR, f"{tag}.png"), full_page=True)
-        body = " ".join(page.evaluate("() => document.body.innerText").split())
-        log(f"  page text: {body[:1500]!r}")
     except Exception as e:
-        log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+        log(f"  form FAILED: {type(e).__name__}: {str(e)[:300]}")
     page.remove_listener("response", on_response)
-    for status, method, url, post, text_ in calls:
-        log(f"  CALL {status} {method} {url}")
-        if post:
-            log(f"    POST {post[:1500]}")
-        log(f"    {text_[:300]!r}")
+    for status, url, post, body in calls:
+        log(f"  CALL {status} POST {url}")
+        log(f"    BODY {post[:2000] if post else ''}")
         try:
-            data = json.loads(text_)
+            print_hits(json.loads(body))
         except Exception:
-            continue
-        with open(os.path.join(OUTPUT_DIR, f"{tag}_results.json"), "w") as f:
-            json.dump(data, f, indent=1)
-        hits = data.get("searchHits") or data.get("SearchHits") or data.get("results") or []
-        for h in hits[:60]:
-            flat = json.dumps(h)
-            date = re.search(r'"(?:filedDate|issuedDate|docDate|FiledDate|IssuedDate)"\s*:\s*"([^"]+)"', flat)
-            desc = re.search(r'"(?:description|Description|title)"\s*:\s*"([^"]{0,400})', flat)
-            dockets = re.findall(r"[CR]P\d\d-\d+", flat)
-            log(f"    HIT {date.group(1) if date else '?'} {sorted(set(dockets))[:4]} {desc.group(1) if desc else flat[:300]}")
+            log(f"    {body[:300]!r}")
 
 
 def main():
