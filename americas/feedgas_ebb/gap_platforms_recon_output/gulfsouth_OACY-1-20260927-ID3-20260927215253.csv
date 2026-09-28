@@ -1,0 +1,778 @@
+﻿TSP Name,TSP,Post Date/Time,Effective Gas Day,Effective Time,LineCode,Loc,Loc Name,Loc Zn,Loc Purp Desc,Loc/QTI,Flow Ind,Design Capacity,Operating Capacity,Total Scheduled Quantity,Operationally  Available Capacity,IT,All Qty Avail,Quantity Not Available Reason,Meas Basis Desc
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6,Raceland Sugar Factory ,SYS,Delivery Location,DPQ,D,8618,8618,1,8617,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8,Gonzales City Gate ,SYS,Delivery Location,DPQ,D,13040,13040,291,12749,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,14,Arabi City Gate ,SYS,Delivery Location,DPQ,D,14148,14148,1,14147,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,45,Golden Meadow City Gate ,SYS,Delivery Location,DPQ,D,14640,14640,996,13644,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,68,Willow Glen Power (To Gsu) ,SYS,Delivery Location,DPQ,D,326887,326887,0,326887,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,70,St Amant Brittany & Acy City Gate ,SYS,Delivery Location,DPQ,D,2016,2016,50,1966,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,73,Nine Mile Power Plt (To Lp&L) ,SYS,Delivery Location,DPQ,D,222151,222151,55592,166559,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,99,Kaiser Coke Calciner Plant ,SYS,Delivery Location,DPQ,D,17640,17640,340,17300,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,116,Livingston City Gate,SYS,Delivery Location,DPQ,D,808,808,71,737,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,118,Walker-Livingston Etal City Gate,SYS,Delivery Location,DPQ,D,8736,8736,854,7882,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,121,Marathon - Garyville Plt ,SYS,Delivery Location,DPQ,D,80756,80756,0,80756,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,165,Shell: N. Terrebonne Plant Residue,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,177,Bayou Sale/Shadyside (To Sng) ,SYS,Delivery Location,DPQ,D,274742,274742,47680,227062,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,178,Oak Hills-Br ,SYS,Delivery Location,DPQ,D,9195,9195,1350,7845,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,180,Old Hammond Hwy-Br ,SYS,Delivery Location,DPQ,D,17712,17712,450,17262,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,184,Hexion Chemical - Norco ,SYS,Delivery Location,DPQ,D,32358,32358,500,31858,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,185,Shell: Norco Complex ,SYS,Delivery Location,DPQ,D,104363,104363,15028,89335,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,187,Oak Point Plant @ Belle Chase ,SYS,Delivery Location,DPQ,D,18301,18301,2969,15332,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,188,Monsanto Luling Plant ,SYS,Delivery Location,DPQ,D,15168,15168,0,15168,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,193,Petro-United Sunshine Terminal ,SYS,Delivery Location,DPQ,D,1536,1536,150,1386,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,198,Shell Plant @ Geismar ,SYS,Delivery Location,DPQ,D,67307,67307,0,67307,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,235,La Paving Plt @Bayou Blue ,SYS,Delivery Location,DPQ,D,145,145,75,70,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,289,E.I.Blk 32 Pltfm A ,SYS,Receipt Location,RPQ,R,16397,16387,0,16387,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,298,N Turtle Bayou Cp #1 ,SYS,Receipt Location,RPQ,R,84995,84995,3001,81994,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,300,West Lake Verret ,SYS,Receipt Location,RPQ,R,21156,21156,0,21156,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,355,Lake Hatch C.P. #1 ,SYS,Receipt Location,RPQ,R,22093,22093,0,22093,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,453,West Pointe-A-La Hache (From Atmos) ,SYS,Receipt Location,RPQ,R,9045,9045,0,9045,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,464,Venice Plt (From Targa Midstream) ,SYS,Receipt Location,RPQ,R,235250,235250,153104,82146,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,473,Bayou Blue (Frm Columbia) ,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,489,Huntington City Gate ,SYS,Delivery Location,DPQ,D,1800,1800,181,1619,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,492,Newton City Gate,SYS,Delivery Location,DPQ,D,3144,3144,45,3099,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,561,Bullard City Gate ,SYS,Delivery Location,DPQ,D,1044,1044,389,655,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,562,Garrison City Gate ,SYS,Delivery Location,DPQ,D,1949,1949,30,1919,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,563,Pineland City Gate,SYS,Delivery Location,DPQ,D,2664,2664,33,2631,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,571,Alto/Wells City Gate ,SYS,Delivery Location,DPQ,D,6026,6026,115,5911,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,572,Water Injection Plant @ Wright Mountain ,SYS,Delivery Location,DPQ,D,2276,2276,0,2276,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,575,New Summerfield #1 City Gate ,SYS,Delivery Location,DPQ,D,1680,1680,19,1661,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,576,Boral Brick - Henderson Plant ,SYS,Delivery Location,DPQ,D,6623,6623,1,6622,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,577,Easton City Gate ,SYS,Delivery Location,DPQ,D,726,726,20,706,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,578,Appleby City Gate ,SYS,Delivery Location,DPQ,D,1265,1265,22,1243,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,579,Gary City Gate ,SYS,Delivery Location,DPQ,D,2948,2948,120,2828,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,580,New Summerfield #2 City Gate ,SYS,Delivery Location,DPQ,D,1656,1656,11,1645,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,581,Lufkin Trailer Mfg. (To Lufkin Ind) ,SYS,Delivery Location,DPQ,D,816,816,801,15,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,583,Reklaw/Laneville/New Salem/Sacul Cg ,SYS,Delivery Location,DPQ,D,2563,2563,1,2562,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,584,Mt Enterprise Cg ,SYS,Delivery Location,DPQ,D,1308,1308,1,1307,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,592,Kirkpatrick Heights Subd City Gate ,SYS,Delivery Location,DPQ,D,876,876,307,569,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,599,Chester City Gate,SYS,Delivery Location,DPQ,D,696,696,38,658,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,975,Corley C.P. #1 ,SYS,Receipt Location,RPQ,R,10727,10727,0,10727,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,988,Cherokee Water #1 Well ,SYS,Receipt Location,RPQ,R,3713,3712,0,3712,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1262,Neuhoff Field C.P. #1 ,SYS,Receipt Location,RPQ,R,11400,11400,5800,5600,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1265,Chapel Hill Plant (Gas Solutions) ,SYS,Receipt Location,RPQ,R,35096,35096,0,35096,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1285,Van Plant Discharge ,SYS,Receipt Location,RPQ,R,14193,14193,0,14193,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1336,Chandler #1 Well ,SYS,Receipt Location,RPQ,R,8657,8657,1,8656,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1421,Vinland Energy Texas,SYS,Receipt Location,RPQ,R,15235,15235,0,15235,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1607,Goodrich (From Midcoast Pipelines),SYS,Receipt Location,RPQ,R,80000,80000,0,80000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1649,Frost #1 Well ,SYS,Receipt Location,RPQ,R,14864,14864,0,14864,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1651,Brown C 1 & 2 Wells ,SYS,Receipt Location,RPQ,R,10785,10785,0,10785,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1688,Ne Red Land C.P. #2 ,SYS,Receipt Location,RPQ,R,2849,2849,1,2848,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1715,Shelby County Cp ,SYS,Receipt Location,RPQ,R,7719,7719,1,7718,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,1743,Highmark's Hutching Minor Cp,SYS,Receipt Location,RPQ,R,27199,27199,0,27199,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2406,Abita Springs City Gate,SYS,Delivery Location,DPQ,D,0,0,114,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2412,Bay Springs City Gate,SYS,Delivery Location,DPQ,D,1440,1440,42,1398,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2413,Bay St Louis City Gate ,SYS,Delivery Location,DPQ,D,4464,4464,248,4216,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2417,Ascend - Pensacola Plt ,SYS,Delivery Location,DPQ,D,147183,147183,0,147183,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2418,Desoto/Quitman/Shubuta/Waynesboro Cg,SYS,Delivery Location,DPQ,D,9369,9369,696,8673,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2420,Taminco Floridatown Plant,SYS,Delivery Location,DPQ,D,66871,66871,5750,61121,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2421,Fairhope City Gate,SYS,Delivery Location,DPQ,D,14708,14708,2000,12708,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2424,Greensburg City Gate,SYS,Delivery Location,DPQ,D,2244,2244,625,1619,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2425,Gulf Power Plt @ Pensacola - Plt Crist,SYS,Delivery Location,DPQ,D,33816,33816,0,33816,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2428,Lucedale City Gate,SYS,Delivery Location,DPQ,D,2852,2852,192,2660,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2432,Kentwood City Gate,SYS,Delivery Location,DPQ,D,3191,3191,35,3156,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2443,Madisonville City Gate,SYS,Delivery Location,DPQ,D,3168,3168,391,2777,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2463,Picayune City Gate,SYS,Delivery Location,DPQ,D,12076,12076,779,11297,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2464,Port Gibson City Gate ,SYS,Delivery Location,DPQ,D,11340,11340,124,11216,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2467,Akzo - Salco Chemical Plant,SYS,Delivery Location,DPQ,D,8200,8200,0,8200,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2468,St. Joe Brick Plant @ Slidell,SYS,Delivery Location,DPQ,D,2400,2400,1,2399,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2509,Keesler Air Force Base,SYS,Delivery Location,DPQ,D,29493,29493,314,29179,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2514,Waveland City Gate ,SYS,Delivery Location,DPQ,D,5037,5037,69,4968,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,725,2515,Cooper Lighting ,SYS,Delivery Location,DPQ,D,1488,1488,1,1487,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2516,Braxton City Gate,SYS,Delivery Location,DPQ,D,185,185,46,139,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2530,Zapata Haynie (Ms Menhaden Inc) @ Moss,SYS,Delivery Location,DPQ,D,11356,11356,484,10872,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2534,Jack Watson Power Plant @ Gulfport,SYS,Delivery Location,DPQ,D,294376,294376,109447,184929,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2536,Brewton Mill Georgia Pacific,SYS,Delivery Location,DPQ,D,31858,31858,0,31858,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2540,Sterling Fibers @ Pensacola ,SYS,Delivery Location,DPQ,D,288,288,0,288,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2541,Calciner Ind Purvis Plt,SYS,Delivery Location,DPQ,D,1824,1824,1,1823,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2543,Milton City Gate,SYS,Delivery Location,DPQ,D,14487,14487,0,14487,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2548,Salco (Clark Mobile) City Gate,SYS,Delivery Location,DPQ,D,54078,54078,0,54078,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2549,Montpelier & Pine Grove City Gate,SYS,Delivery Location,DPQ,D,194,194,6,188,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2550,Bogue Chitto/Norfield City Gate ,SYS,Delivery Location,DPQ,D,456,456,25,431,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2551,Williamsville City Gate ,SYS,Delivery Location,DPQ,D,989,989,105,884,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,850,2553,Bryan Field Lease Operations,SYS,Delivery Location,DPQ,D,1560,1560,1,1559,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2556,Conecuh-Monroe (Delivery) City Gate,SYS,Delivery Location,DPQ,D,30029,30029,2820,27209,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2568,Nasa: John C Stennis Space Center,SYS,Delivery Location,DPQ,D,7384,7384,150,7234,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2570,Beaumont City Gate,SYS,Delivery Location,DPQ,D,335,335,109,226,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,775,2582,International Paper @ Vicksburg ,SYS,Delivery Location,DPQ,D,34187,34187,4000,30187,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2583,Kentwood Brick & Tile Plant,SYS,Delivery Location,DPQ,D,573,573,1,572,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2584,First Chem: Bayou Casotte Plant ,SYS,Delivery Location,DPQ,D,11558,11558,0,11558,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2586,Ovett Field Lease Operations,SYS,Delivery Location,DPQ,D,1044,1044,185,859,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2587,Georgia Pacific Monticello,SYS,Delivery Location,DPQ,D,66216,66216,16119,50097,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2593,Century City Gate,SYS,Delivery Location,DPQ,D,1608,1608,100,1508,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2594,Lumberton Refinery,SYS,Delivery Location,DPQ,D,1700,1700,1,1699,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,850,2595,Rogerslacy Refinery @ Sandersville,SYS,Delivery Location,DPQ,D,6854,6854,1,6853,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2598,Dupont,SYS,Delivery Location,DPQ,D,8100,8100,900,7200,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2599,Franklinton City Gate,SYS,Delivery Location,DPQ,D,5665,5665,213,5452,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2602,Benndale Power Plant ,SYS,Delivery Location,DPQ,D,12444,12444,2000,10444,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2605,Moselle Power Plant,SYS,Delivery Location,DPQ,D,44148,44148,28000,16148,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2607,Ga.Pac-Plywood Plt @ Taylorsville ,SYS,Delivery Location,DPQ,D,2064,2064,0,2064,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2621,Town Of Citronelle/Bayou La Batre Dist ,SYS,Delivery Location,DPQ,D,16956,16956,1,16955,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2690,Holmesville (To Transco),SYS,Delivery Location,DPQ,D,532000,532000,468565,63435,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,850,2760,W.Nancy Fld Compr Fuel ,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2836,Spooner Petro-Walker 17-3 #1,SYS,Receipt Location,RPQ,R,3112,3112,1132,1980,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,825,2867,Stringer C.P. #1 ,SYS,Receipt Location,RPQ,R,2065,2065,331,1734,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2893,Gwinnville C.P. #1 - Texla ,SYS,Receipt Location,RPQ,R,10230,10230,750,9480,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2925,Canton (From Tet) ,SYS,Receipt Location,RPQ,R,45125,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,2926,Flomaton-(Florida Gas Crossover),SYS,Receipt Location,RPQ,R,42395,28000,26539,1461,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2936,Baldwin City Gate ,SYS,Delivery Location,DPQ,D,1080,1080,17,1063,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2938,Breaux Bridge City Gate ,SYS,Delivery Location,DPQ,D,5874,5874,1,5873,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2939,Carencro City Gate ,SYS,Delivery Location,DPQ,D,7330,7330,32,7298,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2941,Delcambre City Gate ,SYS,Delivery Location,DPQ,D,926,926,9,917,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2946,Iota City Gate ,SYS,Delivery Location,DPQ,D,986,986,16,970,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2947,Kaplan City Gate ,SYS,Delivery Location,DPQ,D,9824,9824,129,9695,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2951,Moreauville City Gate ,SYS,Delivery Location,DPQ,D,1104,1104,39,1065,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2952,Scott City Gate ,SYS,Delivery Location,DPQ,D,1387,1387,64,1323,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2955,Sterling Sugars Inc ,SYS,Delivery Location,DPQ,D,12442,12442,0,12442,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,2956,Sunset City Gate ,SYS,Delivery Location,DPQ,D,2829,2829,38,2791,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,2993,Roy Nelson Plant,LKC,Delivery Location,DPQ,D,205246,205246,0,205246,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3001,Zapata Haynie - Vermilion (Pogy Plant),SYS,Delivery Location,DPQ,D,6249,6249,1,6248,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3004,La Sugarcane Inc-St. Martinville Factory,SYS,Delivery Location,DPQ,D,12980,12980,0,12980,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3005,Cameron #1 City Gate,SYS,Delivery Location,DPQ,D,317,317,0,317,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3009,Hornbeck & Anacoco City Gate,SYS,Delivery Location,DPQ,D,7927,7927,20,7907,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,3011,Lake Charles Refinery (Citgo),LKC,Delivery Location,DPQ,D,53776,53776,40000,13776,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3012,Packaging Corporation Of America,SYS,Delivery Location,DPQ,D,67206,67206,9334,57872,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3014,Cameron #2 City Gate,SYS,Delivery Location,DPQ,D,100,100,0,100,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3016,Deridder Tall Oil Plt (To Ingevity),SYS,Delivery Location,DPQ,D,11340,11340,0,11340,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3024,Arnaudville City Gate ,SYS,Delivery Location,DPQ,D,4005,4005,0,4005,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3063,Opelousas (To Tet) ,SYS,Delivery Location,DPQ,D,387831,387831,0,387831,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3064,Arnaudville/St Landry (To Fgt) ,SYS,Delivery Location,DPQ,D,135167,135167,5547,129620,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,3071,Sasol - Lake Charles Chemical ,LKC,Delivery Location,DPQ,D,59186,59186,32000,27186,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3155,Acadia Plant @ Egan (From Targa) ,SYS,Receipt Location,RPQ,R,26932,26932,0,26932,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3260,Erath (From Ngpl) ,SYS,Receipt Location,RPQ,R,0,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3262,Centerville (From Trunkline) ,SYS,Receipt Location,RPQ,R,700000,700000,0,700000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,3263,Deep Lake (From Ngpl) ,LKC,Receipt Location,RPQ,R,72200,72200,10000,62200,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3290,Gillis (From Texas Eastern) ,SYS,Receipt Location,RPQ,R,205246,205246,9402,195844,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3297,Cameron (From Kinetica),SYS,Receipt Location,RPQ,R,958,958,0,958,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,3298,Deep Lake (Fr Bridgeline)/Grand Chenier ,LKC,Receipt Location,RPQ,R,53960,53960,0,53960,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3317,Perryville (To Mrt) ,SYS,Delivery Location,DPQ,D,250290,50000,0,50000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3339,Chatham City Gate,SYS,Delivery Location,DPQ,D,958,958,6,952,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3343,West Monroe (To Tet) ,SYS,Delivery Location,DPQ,D,268967,268967,0,268967,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3344,Springhill Mill (International Paper) ,SYS,Delivery Location,DPQ,D,34322,34322,300,34022,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3355,Montgomery & Clarence (Villages Of),SYS,Delivery Location,DPQ,D,996,996,15,981,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3362,Lonewa (To Texas Gas) ,SYS,Delivery Location,DPQ,D,714204,714204,561372,152832,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3364,Mill Gansville / Tannehill Comm Cg,SYS,Delivery Location,DPQ,D,888,888,1,887,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3477,Haughton (To Texas Gas) ,SYS,Delivery Location,DPQ,D,81000,81000,7500,73500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3492,Farmers Grain Terminal Inc. @ Mound ,SYS,Delivery Location,DPQ,D,1056,1056,1,1055,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,3667,Kalmbach #1 Well ,SYS,Receipt Location,RPQ,R,3479,3479,36,3443,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4089,Sligo Plant (From Enable Midstream) ,SYS,Receipt Location,RPQ,R,42911,42911,8100,34811,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4382,Sample #1 & #2 Wells ,SYS,Receipt Location,RPQ,R,15912,15912,0,15912,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4416,Sibley C.P. #5 ,SYS,Receipt Location,RPQ,R,7600,7600,0,7600,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4551,Castor Station (From Tet) ,SYS,Receipt Location,RPQ,R,155000,155000,502,154498,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4691,Delhi Plant - Ngs Sub Corp ,SYS,Receipt Location,RPQ,R,3949,3949,0,3949,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4695,West Carroll (From Tet) ,SYS,Receipt Location,RPQ,R,12221,12221,0,12221,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,4708,Erath (From Sea Robin) ,SYS,Receipt Location,RPQ,R,477936,477936,0,477936,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,6355,Chemtura - Lake Charles,LKC,Delivery Location,DPQ,D,737,737,299,438,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6366,Goodrich (From Kinder Morgan),SYS,Receipt Location,RPQ,R,50000,50000,0,50000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6611,Misc Area 01 130 Aggregate,SYS,Delivery Location,DPQ,D,9908,9908,2043,7865,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6612,Laurel Aggregate,SYS,Delivery Location,DPQ,D,74289,74289,11181,63108,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6613,Brookhaven Aggregate,SYS,Delivery Location,DPQ,D,74074,74074,4934,69140,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6615,Pearl River Aggregate,SYS,Delivery Location,DPQ,D,1500,1500,1,1499,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6616,Stonewall Aggregate,SYS,Delivery Location,DPQ,D,8860,8860,810,8050,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6617,Gulfport Aggregate,SYS,Delivery Location,DPQ,D,116905,116905,2749,114156,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6618,Bogalusa Aggregate,SYS,Delivery Location,DPQ,D,30092,30092,344,29748,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6619,Wiggins Aggregate,SYS,Delivery Location,DPQ,D,6953,6953,102,6851,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6620,San Augustine Aggregate,SYS,Delivery Location,DPQ,D,20,20,1,19,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6621,New Iberia Aggregate,SYS,Delivery Location,DPQ,D,46395,46395,74,46321,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6622,Franklin Aggregate,SYS,Delivery Location,DPQ,D,49638,49638,69,49569,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6623,Avoyelles-Rapides Aggregate,SYS,Delivery Location,DPQ,D,6468,6468,2,6466,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6624,Southwest La Aggregate 06,SYS,Delivery Location,DPQ,D,109032,109032,9606,99426,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6625,Oakdale Aggregate,SYS,Delivery Location,DPQ,D,31913,31913,83,31830,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6626,Crowley Aggregate,SYS,Delivery Location,DPQ,D,50242,50242,3152,47090,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6627,Longview Aggregate,SYS,Delivery Location,DPQ,D,45637,45637,3235,42402,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6628,Tyler Aggregate,SYS,Delivery Location,DPQ,D,2550,2550,443,2107,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6629,Henderson Aggregate,SYS,Delivery Location,DPQ,D,73692,73692,3729,69963,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6630,Carthage Aggregate,SYS,Delivery Location,DPQ,D,824,824,164,660,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6631,Crockett Aggregate,SYS,Delivery Location,DPQ,D,17797,17797,2040,15757,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6633,Misc Area 08-266 Aggregate,SYS,Delivery Location,DPQ,D,12939,12939,1499,11440,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6634,Tatum Aggregate,SYS,Delivery Location,DPQ,D,1250,1250,202,1048,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6638,Nacogdoches Aggregate,SYS,Delivery Location,DPQ,D,32077,32077,7225,24852,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6639,Jasper Aggregate,SYS,Delivery Location,DPQ,D,12517,12517,273,12244,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6640,Houston Aggregate,SYS,Delivery Location,DPQ,D,98810,98810,3748,95062,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6641,Livingston Aggregate,SYS,Delivery Location,DPQ,D,8362,8362,719,7643,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6642,Opelousas Aggregate,SYS,Delivery Location,DPQ,D,53346,53346,3727,49619,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6643,Richton Aggregate,SYS,Delivery Location,DPQ,D,3474,3474,105,3369,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6644,Tyler #5 Aggregate,SYS,Delivery Location,DPQ,D,10,10,1,9,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6645,Colmesneil Aggregate,SYS,Delivery Location,DPQ,D,210,210,1,209,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6646,Center Aggregate,SYS,Delivery Location,DPQ,D,24082,24082,164,23918,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,6684,Denham Springs #4 City Gate,SYS,Delivery Location,DPQ,D,10584,10584,1174,9410,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,6861,Bienville (From Panenergy) ,SYS,Receipt Location,RPQ,R,26154,26154,0,26154,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,7051,Black Bayou Central Facility ,SYS,Receipt Location,RPQ,R,24728,24728,0,24728,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,7328,S Bogalusa Ft-Dairyman/Covington Pavers,SYS,Delivery Location,DPQ,D,95,95,1,94,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,7376,Wilmer Road - South Alabama Utilities ,SYS,Delivery Location,DPQ,D,345,345,1,344,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,7849,Stevens Utilities-Livingston City Gate ,SYS,Delivery Location,DPQ,D,912,912,94,818,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,7865,Cellu Tissue Wiggins Mill,SYS,Delivery Location,DPQ,D,4010,4010,0,4010,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8298,Flomaton #1 City Gate,SYS,Delivery Location,DPQ,D,1834,1834,0,1834,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8304,Madden Heirs #1 Well ,SYS,Receipt Location,RPQ,R,13950,13950,0,13950,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8340,Paradis (From Bridgeline),SYS,Receipt Location,RPQ,R,25000,25000,0,25000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8389,Morton Salt @ Grand Saline ,SYS,Delivery Location,DPQ,D,6255,6255,67,6188,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8452,Bayou Steel - Montz Delivery,SYS,Delivery Location,DPQ,D,7061,7061,0,7061,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8455,Raceland (From Texas Eastern) ,SYS,Receipt Location,RPQ,R,250000,250000,44750,205250,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8531,Gaston Trust #1 Well ,SYS,Receipt Location,RPQ,R,1980,1980,0,1980,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8544,Lufkin Creosote Plant ,SYS,Delivery Location,DPQ,D,432,432,64,368,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8580,Vicksburg City Gate ,SYS,Delivery Location,DPQ,D,9931,9931,1092,8839,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8666,Morton Salt,SYS,Delivery Location,DPQ,D,1887,187,0,187,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8715,Simmesport City Gate ,SYS,Delivery Location,DPQ,D,880,880,43,837,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8828,Luling (To Atmos Energy) ,SYS,Delivery Location,DPQ,D,73945,73945,1,73944,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,8835,Delta Asphalt Plt @ Convent,SYS,Delivery Location,DPQ,D,2112,2112,155,1957,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,8999,Bracky Branch C.P. ,SYS,Receipt Location,RPQ,R,46528,46528,4810,41718,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9080,Dupont - Pontchartrain Plt ,SYS,Delivery Location,DPQ,D,6500,6500,0,6500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9089,D & L Wood Veneer Plant,SYS,Delivery Location,DPQ,D,1028,1028,0,1028,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9104,Shell:N Terrebone Plt Inlet,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9110,Entergy-Atalla Power Plant Del,KOS,Delivery Location,DPQ,D,238197,238197,0,238197,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9122,Ormet Plt @ Burnside (To Ormet) ,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9123,Tyler Pipe & Foundry - North Plant ,SYS,Delivery Location,DPQ,D,4180,4180,1,4179,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9124,Tyler Pipe & Foundry - South Plant ,SYS,Delivery Location,DPQ,D,4180,4180,719,3461,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9140,Iberville Parish Prison ,SYS,Delivery Location,DPQ,D,3030,3030,135,2895,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9141,Little Gypsy Power (To Lp&L) ,SYS,Delivery Location,DPQ,D,214875,214875,26948,187927,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9143,Cheneyville Field Well,SYS,Receipt Location,RPQ,R,2861,2861,0,2861,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,9153,Firestone Plant @ Lake Charles,LKC,Delivery Location,DPQ,D,10870,10870,1,10869,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9154,Sabine Fee #1 Well ,SYS,Receipt Location,RPQ,R,3281,3281,700,2581,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9182,Olla (To Trunkline),SYS,Delivery Location,DPQ,D,674870,674870,0,674870,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,775,9230,Ergon Refinery ,SYS,Delivery Location,DPQ,D,14729,14729,10000,4729,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9252,Petroquest Energy,SYS,Receipt Location,RPQ,R,4033,4033,0,4033,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9258,Sterlington Power (To Lp&L ) ,SYS,Delivery Location,DPQ,D,74106,74106,0,74106,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,9311,Westlake: Lake Charles South Plant,LKC,Delivery Location,DPQ,D,192823,192823,52000,140823,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9314,Cotton Valley City Gate ,SYS,Delivery Location,DPQ,D,846,846,2,844,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9332,West Monroe (From Enable) ,SYS,Receipt Location,RPQ,R,289114,289114,50000,239114,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9351,Trinity Ind @ Longview (To Oncor) ,SYS,Delivery Location,DPQ,D,1900,1900,0,1900,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9421,Town Of Flomaton,SYS,Delivery Location,DPQ,D,50,50,0,50,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9429,Sport Pipeline East Baton Rouge ,SYS,Delivery Location,DPQ,D,78500,78500,2481,76019,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9500,Tennessee - Greenville Del,KOS,Delivery Location,DPQ,D,512500,512500,0,512500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9504,Trunkline Burdette Del,KOS,Delivery Location,DPQ,D,538125,538125,0,538125,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9505,Tennessee- (800) Isola Del,KOS,Delivery Location,DPQ,D,512500,512500,0,512500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9519,Columbia Gulf Isola Del,KOS,Delivery Location,DPQ,D,994250,994250,0,994250,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9522,Tifton Aluminum @ Delhi (To Sigco) ,SYS,Delivery Location,DPQ,D,11340,11340,3835,7505,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9559,Sonat - Kosciusko Del,KOS,Delivery Location,DPQ,D,275500,275500,0,275500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,9560,Tetco - Kosciusko Del,KOS,Delivery Location,DPQ,D,1025000,1025000,0,1025000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9641,Beckville (From Egpt Texas Pl) ,SYS,Receipt Location,RPQ,R,80000,80000,0,80000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9652,Turtle Bayou Field C.P. ,SYS,Receipt Location,RPQ,R,32034,32034,0,32034,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9694,Bully Camp Fld Gas Lift Operations ,SYS,Delivery Location,DPQ,D,3355,3355,0,3355,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9699,East Tx Asphalt Plt @ Center,SYS,Delivery Location,DPQ,D,3600,3600,50,3550,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9702,Knox Lee Power (Swepco) ,SYS,Delivery Location,DPQ,D,120213,120213,29781,90432,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9741,Nucor Steel Jackson @ Flowood,SYS,Delivery Location,DPQ,D,11633,11633,2000,9633,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9756,W Lake Verret Gas Lift Milagro ,SYS,Delivery Location,DPQ,D,2758,2758,0,2758,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9778,Flowood-Terra Mississippi Nitrogen ,SYS,Delivery Location,DPQ,D,36253,36253,0,36253,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9779,Diamond B Asphalt Plant,SYS,Delivery Location,DPQ,D,2880,2880,0,2880,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,9803,Loftis Resch Unit ,SYS,Receipt Location,RPQ,R,22818,22818,0,22818,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9807,Uncle Sam Chem Plt - To Imc Global ,SYS,Delivery Location,DPQ,D,10598,10598,3500,7098,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9829,Atalco Gramercy Refinery,SYS,Delivery Location,DPQ,D,103765,103765,0,103765,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9837,Paradis (To Bridgeline) ,SYS,Delivery Location,DPQ,D,0,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9842,Bush Corp Plant (To Enbridge),SYS,Delivery Location,DPQ,D,1925,1925,0,1925,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9851,Southern Hens Plant @ Moselle,SYS,Delivery Location,DPQ,D,4224,4224,400,3824,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9915,Jackson City Gates Aggregate,SYS,Delivery Location,DPQ,D,322964,322964,12436,310528,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9921,NOPSI Aggregate ,SYS,Delivery Location,DPQ,D,492495,492495,22711,469784,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9922,Pensacola Aggregate,SYS,Delivery Location,DPQ,D,180715,180715,0,180715,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9929,Bay Minette Aggregate,SYS,Delivery Location,DPQ,D,12637,12637,1600,11037,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9930,Pascagoula Aggregate,SYS,Delivery Location,DPQ,D,41309,41309,695,40614,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9931,Brewton Aggregate,SYS,Delivery Location,DPQ,D,20179,20179,0,20179,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9959,Canton Municipal Aggregate,SYS,Delivery Location,DPQ,D,13691,13691,645,13046,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9960,Moss Point Aggregate,SYS,Delivery Location,DPQ,D,17405,17405,298,17107,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9961,Hattiesburg Aggregate,SYS,Delivery Location,DPQ,D,73100,73100,2118,70982,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9962,Collins Aggregate,SYS,Delivery Location,DPQ,D,7248,7248,512,6736,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9963,D'Lo Aggregate,SYS,Delivery Location,DPQ,D,600,600,261,339,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9964,East Jackson Aggregate,SYS,Delivery Location,DPQ,D,1657,1657,300,1357,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9965,Magee Aggregate,SYS,Delivery Location,DPQ,D,5340,5340,910,4430,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9966,Mendenhall Aggregate,SYS,Delivery Location,DPQ,D,2020,2020,560,1460,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9967,Mt Olive Aggregate,SYS,Delivery Location,DPQ,D,3096,3096,219,2877,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9968,Sanford Aggregate,SYS,Delivery Location,DPQ,D,185,185,28,157,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9969,Seminary Aggregate,SYS,Delivery Location,DPQ,D,588,588,150,438,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,9972,Mobile Gas Service Aggregate,SYS,Delivery Location,DPQ,D,3310,3310,0,3310,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10128,Dequincy Aggregate,SYS,Delivery Location,DPQ,D,19392,19392,106,19286,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10129,Kinder Aggregate,SYS,Delivery Location,DPQ,D,4116,4116,170,3946,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10130,Livingston Parish Aggregate 04,SYS,Delivery Location,DPQ,D,3652,3652,157,3495,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10131,Oberlin Aggregate,SYS,Delivery Location,DPQ,D,792,792,30,762,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10132,St James Parish Aggregate 03,SYS,Delivery Location,DPQ,D,10772,10772,376,10396,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10134,Washington Aggregate 05,SYS,Delivery Location,DPQ,D,9660,960,14,946,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10135,Westlake La Aggregate,SYS,Delivery Location,DPQ,D,10929,10929,0,10929,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10144,Goodrich (From Ngpl),SYS,Receipt Location,RPQ,R,175000,175000,136997,38003,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10166,Avoyelles Rapides Aggregate,SYS,Delivery Location,DPQ,D,1400,1400,1,1399,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10168,Huntsville Aggregate,SYS,Delivery Location,DPQ,D,750,750,115,635,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10169,Tyler-Aggregate,SYS,Delivery Location,DPQ,D,24123,24123,328,23795,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10170,Tenaha Aggregate,SYS,Delivery Location,DPQ,D,1920,1920,96,1824,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10175,Flomaton (Sgt)-Alabama River Pulp,SYS,Delivery Location,DPQ,D,33190,33190,0,33190,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10287,Winona City Gate ,SYS,Delivery Location,DPQ,D,7032,7032,252,6780,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10314,Dreher Plant @ Bastrop (Sigco),SYS,Delivery Location,DPQ,D,1392,1392,0,1392,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10333,Air Liquide Algus ,SYS,Delivery Location,DPQ,D,25425,25425,50,25375,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10336,Mobil Natural: Intracoastal Loading Dock,SYS,Delivery Location,DPQ,D,2357,2357,47,2310,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10394,Assumption Parish (From Lgs) ,SYS,Receipt Location,RPQ,R,95317,95317,0,95317,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10401,Bistineau Injection,SYS,Injection Point,SIQ,SI,519000,519000,28046,490954,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10402,Bistineau Withdrawal,SYS,Withdrawal Point,SWQ,SW,970000,970000,48127,921873,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10675,Pirkey Power Plant (To Swepco) ,SYS,Delivery Location,DPQ,D,22093,22093,0,22093,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10676,Meraux Refinery Valero ,SYS,Delivery Location,DPQ,D,27304,27304,15001,12303,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10708,Allentown - Four Square Gas,SYS,Receipt Location,RPQ,R,17607,17607,0,17607,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10709,Frito-Lay Rosenberg Plant ,SYS,Delivery Location,DPQ,D,1299,1299,1208,91,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10715,West Monroe Aggregate,SYS,Delivery Location,DPQ,D,130482,130482,498,129984,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10717,Gloster Farm Aggregate,SYS,Delivery Location,DPQ,D,175,175,1,174,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10718,North Louisiana TBS Aggregate,SYS,Delivery Location,DPQ,D,1022,1022,1,1021,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,10719,Northeast Louisiana Aggregate,SYS,Delivery Location,DPQ,D,68250,68250,1,68249,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10720,Hammond/Ponchatoula Aggregate,SYS,Delivery Location,DPQ,D,51956,51956,4819,47137,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10721,Amite/Indep Aggregate,SYS,Delivery Location,DPQ,D,13048,13048,694,12354,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10722,Slidell Aggregate,SYS,Delivery Location,DPQ,D,159148,159148,2467,156681,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10723,Mandeville Aggregate,SYS,Delivery Location,DPQ,D,42560,42560,2893,39667,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10724,Delacroix/B.Chasse/Reserve Agg,SYS,Delivery Location,DPQ,D,87401,87401,3259,84142,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10725,Buras / Venice Aggregate,SYS,Delivery Location,DPQ,D,15863,15863,595,15268,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10726,Goodwood/Webber Aggregate,SYS,Delivery Location,DPQ,D,37805,37805,4334,33471,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,10821,Boutte-Luling-Des Allemands Agg,SYS,Delivery Location,DPQ,D,7696,7696,732,6964,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11291,Farmerville Aggregate,SYS,Delivery Location,DPQ,D,2721,2721,0,2721,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,11303,Meridian South City Gate,SYS,Delivery Location,DPQ,D,38781,38781,2626,36155,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11314,Lafayette Aggregate 05,SYS,Delivery Location,DPQ,D,31200,31200,993,30207,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11315,Many Etal Aggregate,SYS,Delivery Location,DPQ,D,13630,13630,498,13132,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11316,D'Arbonne Hills Aggregate,SYS,Delivery Location,DPQ,D,2060,2060,1,2059,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11573,Boise Plywood Plant,SYS,Delivery Location,DPQ,D,5232,5232,1536,3696,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,11586,Ballard-Hudson Poultry (To Tenngpl) ,SYS,Delivery Location,DPQ,D,15966,15966,0,15966,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,11648,South Coast Aggregate,SYS,Delivery Location,DPQ,D,24101,24101,745,23356,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11673,Longview Plt (From Midcoast Pipelines) ,SYS,Receipt Location,RPQ,R,50000,50000,21000,29000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,11745,International Paper @ Mansfield ,SYS,Delivery Location,DPQ,D,57893,57893,2000,55893,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,11869,Basf Catalysts - Jackson Ms,SYS,Delivery Location,DPQ,D,1920,1920,586,1334,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12026,Elizabeth NG - Oberlin Farm Taps,SYS,Delivery Location,DPQ,D,60,60,15,45,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12063,Shell: St Rose Refinery,SYS,Delivery Location,DPQ,D,7322,7322,22,7300,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,12081,Champion International @ Cantonment,SYS,Delivery Location,DPQ,D,27684,27684,10500,17184,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,12292,Union Carbide @ Taft ,SYS,Delivery Location,DPQ,D,65406,65406,10000,55406,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12569,La Pacific Jasper Osb Mill,SYS,Delivery Location,DPQ,D,3696,3696,1200,2496,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,12587,Washington Parish Wards 5/7 Agg,SYS,Delivery Location,DPQ,D,1356,1356,15,1341,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12731,Compressor Fuel - Uprc ,SYS,Delivery Location,DPQ,D,3175,3175,472,2703,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,12763,Tri-State Brick & Tile (Clarkco) ,SYS,Delivery Location,DPQ,D,,,450,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,12775,Westlake Ind - Ethylene Plt ,LKC,Delivery Location,DPQ,D,50664,50664,30000,20664,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,12776,Westlake Ind - Polymer Plt ,LKC,Delivery Location,DPQ,D,11636,11636,0,11636,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12780,Teco Polk County - Enterprise ,SYS,Receipt Location,RPQ,R,110439,110439,0,110439,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12824,Copperfield ,SYS,Delivery Location,DPQ,D,290,290,1,289,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12826,Cypress Bayou Casino (To TransLa),SYS,Delivery Location,DPQ,D,114,114,1,113,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12832,Waskom Plant - Centerpoint ,SYS,Receipt Location,RPQ,R,28004,28004,0,28004,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,12833,Mobil Refin - Chalmette,SYS,Delivery Location,DPQ,D,222151,222151,1069,221082,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,12844,Denbury Conroe Plant Cp,SYS,Receipt Location,RPQ,R,9007,9007,1400,7607,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,12896,Precoat Metals (Utility Mgmt Corp) ,SYS,Delivery Location,DPQ,D,,,564,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,13314,Payback To Shipper,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,13317,Payback To Gulf South,SYS,Delivery Location,DPQ,D,,,191,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,13460,Warren Asphalt (To Entex),SYS,Delivery Location,DPQ,D,8665,8665,240,8425,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,13472,Nachez Road - S.E.Alabama Utilities ,SYS,Delivery Location,DPQ,D,20,20,1,19,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,13484,West Trout Creek Field,SYS,Delivery Location,DPQ,D,3064,3064,0,3064,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,13488,Wiley #1 ,SYS,Receipt Location,RPQ,R,4929,4929,10,4919,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,15824,Tyson Plant @ Center ,SYS,Delivery Location,DPQ,D,5904,5904,520,5384,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,15872,Nautilus (From Nautilus) ,SYS,Receipt Location,RPQ,R,335496,335496,14708,320788,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,15898,Dedeaux Road To Centerpoint City Gate,SYS,Delivery Location,DPQ,D,2472,2472,1,2471,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,15903,Jackson County (From Destin) ,SYS,Receipt Location,RPQ,R,230000,230000,267,229733,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,15911,Air Liquide @ Geismar ,SYS,Delivery Location,DPQ,D,38150,38150,6899,31251,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,15912,Duke - Mobile Bay ,SYS,Receipt Location,RPQ,R,181507,181507,0,181507,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,15935,Pig Trap Yard,SYS,Delivery Location,DPQ,D,3572,3572,1,3571,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,17114,Santa Rosa (From FGT) FFP,SYS,Receipt Location,RPQ,R,52000,24000,0,24000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,17149,Williams Fld Service - Mobile Bay ,SYS,Receipt Location,RPQ,R,312794,312794,40305,272489,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,17157,Shell-Yellowhammer - Mobile Bay ,SYS,Receipt Location,RPQ,R,310924,310924,0,310924,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,17158,Mobile Gas Service - Mobile Bay ,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,17160,Pilgrim S Pride Feed Mill ,SYS,Delivery Location,DPQ,D,2500,2500,250,2250,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,17568,CEGT Bistineau Delivery,SYS,Delivery Location,DPQ,D,100000,100000,0,100000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,17576,Aquasition Llc Delivery,SYS,Delivery Location,DPQ,D,31162,31162,11843,19319,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,17589,Scotlandville (To Midla),SYS,Delivery Location,DPQ,D,78500,78500,0,78500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20462,Philadelphia City Gate ,SYS,Delivery Location,DPQ,D,,,10643,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20470,Acadian St Charles Parish (To Acadian) ,SYS,Delivery Location,DPQ,D,100000,100000,0,100000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20476,BR/NO St Rose-Marchand,SYS,Delivery Location,DPQ,D,52367,52367,2651,49716,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20477,Fort Johnson Aggregate (Ft Polk) Aggregate,SYS,Delivery Location,DPQ,D,36760,36760,160,36600,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20529,Plant Daniels (Power Plant) ,SYS,Delivery Location,DPQ,D,268967,268967,0,268967,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20546,Texas Petro Gas Lift(Bayou Des Allemands,SYS,Delivery Location,DPQ,D,2989,2989,0,2989,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20646,St Mary Parish School - Trans La,SYS,Delivery Location,DPQ,D,613,613,1,612,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20666,Northwest La Aggregate,SYS,Delivery Location,DPQ,D,250,250,0,250,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,20709,Bayou Dinde City Gate,LKC,Delivery Location,DPQ,D,5690,5690,1,5689,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20740,Claiborne Parish Prison (To Arkla) ,SYS,Delivery Location,DPQ,D,2144,2144,1,2143,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20764,Byram City Gate,SYS,Delivery Location,DPQ,D,17201,17201,4656,12545,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20776,Whistler Junction (To Mobile Gas) ,SYS,Delivery Location,DPQ,D,189483,189483,61369,128114,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20777,Jacinto Port (Bayou Sara Junction),SYS,Delivery Location,DPQ,D,110212,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20841,Belle Isle ,SYS,Receipt Location,RPQ,R,175629,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20847,Ip Paper Mill @ Wiggins-Entex ,SYS,Delivery Location,DPQ,D,231,231,253,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,20862,Calcasieu Power Lake Charles,LKC,Delivery Location,DPQ,D,205704,205704,21071,184633,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20874,Palmetto Aggregate,SYS,Delivery Location,DPQ,D,10355,10355,1,10354,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20922,Union Parish Re-1473 (To Reliant) ,SYS,Delivery Location,DPQ,D,130,130,8,122,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20934,Friendship Road (From Centerpoint) ,SYS,Receipt Location,RPQ,R,75197,75197,0,75197,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20941,Barriere Asphalt ,SYS,Delivery Location,DPQ,D,2229,2229,150,2079,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20953,Snake Creek/Raymond Pigging (From Tet) ,SYS,Receipt Location,RPQ,R,35620,35620,0,35620,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20975,Tom Gaston Road/Jeff Hamilton City Gate ,SYS,Delivery Location,DPQ,D,3072,3072,0,3072,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,20979,Black Jack Creek,SYS,Delivery Location,DPQ,D,3384,3384,0,3384,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,20985,St Mary Parish Drainage Aggregate,SYS,Delivery Location,DPQ,D,2989,2989,63,2926,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21004,Okaloosa Gas Aggregate,SYS,Delivery Location,DPQ,D,126526,126526,0,126526,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21008,Johnson Rippy #1-H Well ,SYS,Receipt Location,RPQ,R,5354,5354,100,5254,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21041,Daphne Alabama City Gate,SYS,Delivery Location,DPQ,D,9504,9504,397,9107,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21052,Union Parish Farm Tap (Reliant) ,SYS,Delivery Location,DPQ,D,180,180,1,179,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21054,Mobile Gas Highway 225,SYS,Delivery Location,DPQ,D,365,365,200,165,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21103,L.O. Peck ,SYS,Delivery Location,DPQ,D,101,101,1,100,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21119,E.I.Blk 32 Gas Lift (Buy Back) ,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21134,Santa Rosa Cogen Plant,SYS,Delivery Location,DPQ,D,110212,110212,0,110212,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21139,Davis #1 Legacy Reserves,SYS,Receipt Location,RPQ,R,13220,13220,100,13120,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21169,City Of Foley Aggregate,SYS,Delivery Location,DPQ,D,31606,31606,3000,28606,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21175,Aep - Eastex Cogen ,SYS,Delivery Location,DPQ,D,63647,63647,0,63647,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21228,Townsend #1 Well ,SYS,Receipt Location,RPQ,R,3395,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21262,Airport (To Florida Gas),SYS,Delivery Location,DPQ,D,532734,532734,69813,462921,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21264,Gulfstream Interconnect ,SYS,Delivery Location,DPQ,D,315000,315000,173517,141483,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21267,Zeolite Industrial ,SYS,Delivery Location,DPQ,D,11952,11952,0,11952,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21289,Oxychem Cogen (St Charles Parish) ,SYS,Delivery Location,DPQ,D,130213,130213,5000,125213,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21293,Red Chute Cp ,SYS,Receipt Location,RPQ,R,20576,20576,0,20576,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21349,Marshall Power Plant (Entergy) ,SYS,Delivery Location,DPQ,D,173720,173720,0,173720,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21365,Entergy Louisiana Baton Rouge Aggregate,SYS,Delivery Location,DPQ,D,25852,25852,6000,19852,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21384,Burns Condensate Reduction,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21391,Holly Field Cp #2 Exco ,SYS,Receipt Location,RPQ,R,42512,42512,0,42512,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21409,Texas Petroleum Kent Bayou Aggregate,SYS,Receipt Location,RPQ,R,36213,36213,0,36213,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21416,Section 23 Cp - Aethon United,SYS,Receipt Location,RPQ,R,126360,126360,18618,107742,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21429,Castor Cp ,SYS,Receipt Location,RPQ,R,23375,23375,0,23375,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21430,Gus Irwin Cp - Enerquest ,SYS,Receipt Location,RPQ,R,15365,15365,0,15365,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21432,Augustine #1 - Noble Energy,SYS,Receipt Location,RPQ,R,2425,2425,0,2425,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21435,Keystone Gu -  Rockcliff Energy,SYS,Receipt Location,RPQ,R,8665,8665,220,8445,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21463,Leakesville - FGT,SYS,Receipt Location,RPQ,R,2500,2500,100,2400,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21486,St Louis Canal Road - Atmos City Gate,SYS,Delivery Location,DPQ,D,2650,2650,1,2649,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21519,Eastman Chemical @ Tyler ,SYS,Delivery Location,DPQ,D,130,130,122,8,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21532,Ibex Koran Cp,SYS,Receipt Location,RPQ,R,,,1,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21575,Mallalieu - Denbury ,SYS,Delivery Location,DPQ,D,851,851,1,850,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21576,Little Creek - Denbury,SYS,Delivery Location,DPQ,D,418,418,1,417,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21603,Apache Gas Lift,SYS,Delivery Location,DPQ,D,1791,1791,40,1751,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21611,Cl&F #7-1 Well,SYS,Receipt Location,RPQ,R,37795,37795,12941,24854,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21613,Patterson #1 ,SYS,Receipt Location,RPQ,R,8678,8678,0,8678,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21621,John Montesano #1 ,SYS,Receipt Location,RPQ,R,5405,5405,0,5405,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21638,Starrville C P ,SYS,Receipt Location,RPQ,R,5041,5041,0,5041,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21659,Patoutville Mill Farm Gate (Sugar Mill),SYS,Delivery Location,DPQ,D,1024,1024,1,1023,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21660,TDC Jasper Prison (To Entex),SYS,Delivery Location,DPQ,D,240,240,28,212,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21670,Timpson Sales Point ,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,21677,Big Lake Road (From Trunkline Lng),LKC,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21681,Hargis Hebert Power Plant ,SYS,Delivery Location,DPQ,D,25000,25000,2650,22350,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21692,Ventex Allar 6-1 #1,SYS,Receipt Location,RPQ,R,2723,2723,0,2723,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21703,K M To Gspl @ Marshall Power Plant - Pig,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21705,Chacahoula (From Texas Gas MSN 9473),SYS,Receipt Location,RPQ,R,241000,241000,228913,12087,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,21722,Excalibur 22 #1 Well,LKC,Receipt Location,RPQ,R,15680,15680,50,15630,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21724,Burford C P ,SYS,Receipt Location,RPQ,R,15065,15065,0,15065,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21733,La Minerals Common Point ,SYS,Receipt Location,RPQ,R,5701,5701,0,5701,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21734,Tristate Midstream  Harrison County Tx,SYS,Receipt Location,RPQ,R,38765,38765,0,38765,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,21737,Calcasieu Industries,LKC,Delivery Location,DPQ,D,15509,15509,6548,8961,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,21738,Calcasieu Refining,LKC,Delivery Location,DPQ,D,23540,23540,12097,11443,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21741,G L Smith Gas Unit ,SYS,Receipt Location,RPQ,R,3674,3674,1,3673,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21745,Vixen Cp 1  ,SYS,Receipt Location,RPQ,R,50261,50261,0,50261,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21762,Northgate (To Gulf South) ,SYS,Receipt Location,RPQ,R,17555,17555,0,17555,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21767,Gs To Dcp @ Mile Pole 27,SYS,Delivery Location,DPQ,D,31875,31875,0,31875,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21772,Woodardville Cp #1 (Qep),SYS,Receipt Location,RPQ,R,14922,14922,1,14921,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21786,Anadarko Central Compression Panola ,SYS,Delivery Location,DPQ,D,6756,6756,0,6756,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21793,Barlow #1 Well ,SYS,Receipt Location,RPQ,R,7587,7587,0,7587,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21796,Patoutville From Texas Gas,SYS,Receipt Location,RPQ,R,200000,200000,35456,164544,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21799,Weddington Estates #1 Well ,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21805,Discovery Gas Transmission,SYS,Receipt Location,RPQ,R,250000,250000,35292,214708,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21812,Driscoll Gathering Cp ,SYS,Receipt Location,RPQ,R,47394,47394,2978,44416,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21823,Terrell Gas Unit #1 Well ,SYS,Receipt Location,RPQ,R,7066,7066,0,7066,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21828,East Vernon Field Cp #1 ,SYS,Receipt Location,RPQ,R,45601,45601,1,45600,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21829,Almond Bros. Cp ,SYS,Receipt Location,RPQ,R,7249,7249,0,7249,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21839,Hodde Etal H Well,SYS,Receipt Location,RPQ,R,33201,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,825,21842,Martinville Field Delivery,SYS,Delivery Location,DPQ,D,1598,1598,0,1598,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21848,Holly Field Cp #4 Exco ,SYS,Receipt Location,RPQ,R,98207,98207,0,98207,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21856,Colorado Bend Energy Center,SYS,Delivery Location,DPQ,D,130213,130213,98873,31340,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21860,Lucky Cp ,SYS,Receipt Location,RPQ,R,17688,17688,790,16898,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,21890,Lincoln Road (From Trunkline),LKC,Receipt Location,RPQ,R,500000,500000,220016,279984,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21905,Apache Corporation Common Point ,SYS,Receipt Location,RPQ,R,33789,33789,0,33789,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21911,Madisonville City Gate #2,SYS,Delivery Location,DPQ,D,5544,5544,392,5152,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21920,Garner #1 Well ,SYS,Receipt Location,RPQ,R,11143,11143,1,11142,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,21921,Midcoast - Carthage (Expansion) ,SYS,Receipt Location,RPQ,R,361144,361144,162971,198173,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,21922,Energy Transfer - Carthage (Expansion) ,SYS,Receipt Location,RPQ,R,1822782,1822782,82500,1740282,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,21923,Enterprise - Carthage (Expansion) ,SYS,Receipt Location,RPQ,R,570165,570165,0,570165,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21929,Castor Cp 3 ,SYS,Receipt Location,RPQ,R,23370,23370,992,22378,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21930,Castor Cp 1 ,SYS,Receipt Location,RPQ,R,3974,3974,1,3973,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21954,Woodardville Cp #2 (Qep) ,SYS,Receipt Location,RPQ,R,109921,109921,94471,15450,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21967,Aethon United Desoto Aggregate,SYS,Receipt Location,RPQ,R,120442,120442,1,120441,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,21974,Craton Cp ,SYS,Receipt Location,RPQ,R,17052,17052,0,17052,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,21975,Kent Bayou / South Gibson (From Txgt) ,SYS,Receipt Location,RPQ,R,305564,305564,229550,76014,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22089,Livingston Gas & Utility Aggregate,SYS,Delivery Location,DPQ,D,2027,2027,90,1937,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22091,Davis Gu #1 ,SYS,Receipt Location,RPQ,R,13531,13531,0,13531,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22094,Agnes Toup Investment #1 Well,SYS,Receipt Location,RPQ,R,15089,15089,1,15088,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22108,Rock Springs/Scott Mtn (To Transco 85) ,SYS,Delivery Location,DPQ,D,,,1003281,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22110,Gulf Run Delhi,SYS,Receipt Location,RPQ,R,280000,280000,163682,116318,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22111,Delhi (To Sesh) ,SYS,Delivery Location,DPQ,D,2289786,2289786,0,2289786,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22113,South Raymond - Expansion (To Tet) ,SYS,Delivery Location,DPQ,D,722288,722288,0,722288,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22114,Walthall (To Transco),SYS,Delivery Location,DPQ,D,,,67745,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22122,Harrison County (To Dcp) ,SYS,Delivery Location,DPQ,D,5000,5000,0,5000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22124,DCP East Texas Plant (Expansion Area 16),SYS,Receipt Location,RPQ,R,486000,486000,61532,424468,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22128,Clarke County (To Destin) ,SYS,Delivery Location,DPQ,D,966906,966906,191590,775316,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22129,Tennessee Heidelburg (Expansion) ,SYS,Delivery Location,DPQ,D,684476,684476,312161,372315,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22133,Transfer Tallulah Suction,SYS,Delivery Location,DPQ,D,1160000,1160000,8000,1152000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22133,Transfer Tallulah Suction,SYS,Receipt Location,RPQ,R,1160000,1160000,8000,1152000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22151,Mary Russell #3-1 Well,SYS,Receipt Location,RPQ,R,24044,24044,0,24044,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22153,Coker Price Cp ,SYS,Receipt Location,RPQ,R,11155,11155,0,11155,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22159,Southtex Jdp Landfill Gas Plant,SYS,Receipt Location,RPQ,R,2538,2538,0,2538,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22168,Adeline Sugar Factory Etal #1 Well,SYS,Receipt Location,RPQ,R,14559,14559,500,14059,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22171,Bta Plant Rec - Carthage (Expansion) ,SYS,Receipt Location,RPQ,R,172007,172007,7400,164607,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22182,Montpelier/St Helena (To Fgt),SYS,Delivery Location,DPQ,D,674870,674870,25158,649712,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22200,George Cason #1 Well ,SYS,Receipt Location,RPQ,R,7874,7874,0,7874,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22201,Broussard Heirs #1,SYS,Receipt Location,RPQ,R,8704,8704,0,8704,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22323,Dcp East Tx Plant (Legacy Area 8),SYS,Receipt Location,RPQ,R,538103,538103,56053,482050,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22329,Sherman (From Enterprise),GC,Receipt Location,RPQ,R,1500000,1500000,591885,908115,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22330,Bennington (From Enable Ok),GC,Receipt Location,RPQ,R,678456,678456,203589,474867,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22331,Paris (From Atmos North Texas),GC,Receipt Location,RPQ,R,400000,400000,75000,325000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22332,Sterlington (To Texas Gas),GC,Delivery Location,DPQ,D,1127388,1127388,0,1127388,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22333,North Delhi (To Columbia Gulf),GC,Delivery Location,DPQ,D,1166583,1166583,0,1166583,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22334,Tallulah (To Sesh),GC,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22369,Joe Mchugh,SYS,Receipt Location,RPQ,R,12734,12734,690,12044,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22373,Central C P,SYS,Receipt Location,RPQ,R,21204,21204,0,21204,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22382,Thornlake Aethon,SYS,Receipt Location,RPQ,R,79374,79374,23196,56178,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22400,Shaw 16-1Well,SYS,Receipt Location,RPQ,R,6396,6396,0,6396,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22401,Bagley C P ,SYS,Receipt Location,RPQ,R,20193,20193,0,20193,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22406,Delhi (To SESH / SNG),SYS,Delivery Location,DPQ,D,1109696,1109696,15294,1094402,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22410,Plantation West Cp (Kinderhawk) ,SYS,Receipt Location,RPQ,R,402989,402989,164981,238008,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22484,Martin Field Cp #1,SYS,Receipt Location,RPQ,R,75762,75762,0,75762,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,22492,Bennington (From Mark West),GC,Receipt Location,RPQ,R,736324,736324,170494,565830,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22493,Air Products Hydrogen @ Garyville,SYS,Delivery Location,DPQ,D,122097,122097,50760,71337,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22498,Kosciusko (From Texas Gas) ,SYS,Receipt Location,RPQ,R,400000,400000,305100,94900,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22507,Hall Summit C P ,SYS,Receipt Location,RPQ,R,166750,166750,0,166750,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22509,East Texas Renewables Receipt ,SYS,Receipt Location,RPQ,R,6529,6529,975,5554,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22510,East Texas Renewables Delivery ,SYS,Delivery Location,DPQ,D,166750,166750,0,166750,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22511,Stateline Gathering System (Legacy),SYS,Receipt Location,RPQ,R,388861,388861,8970,379891,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22520,Bolan 27-1 Well ,SYS,Receipt Location,RPQ,R,198495,198495,45297,153198,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22523,Kinderhawk Sligo Cp,SYS,Receipt Location,RPQ,R,4161,4161,0,4161,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22527,Brushy Bayou Cp - (Legacy) ,SYS,Receipt Location,RPQ,R,143000,143000,56882,86118,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22537,Louisiana Delta Farms #1,SYS,Receipt Location,RPQ,R,100,100,0,100,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22545,Holly Field Cp - Chesapeake ,SYS,Receipt Location,RPQ,R,304212,304212,0,304212,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22546,Kent Bayou Field Cp ,SYS,Receipt Location,RPQ,R,16678,16678,0,16678,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22551,Holly Field Cp - Hawk Field Services ,SYS,Receipt Location,RPQ,R,140074,140074,50,140024,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22554,Dcp Compressor Delivery ,SYS,Delivery Location,DPQ,D,5175,5175,496,4679,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22561,Plantation West Ii - Expansion ,SYS,Receipt Location,RPQ,R,402988,402988,301437,101551,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22562,Terrebonne Govt Aggregate,SYS,Delivery Location,DPQ,D,42467,42467,1109,41358,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22568,Holly Field Cp #5 - Exco ,SYS,Receipt Location,RPQ,R,81674,81674,0,81674,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22585,Woodardville Cp #3  ,SYS,Receipt Location,RPQ,R,87641,87641,106395,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22602,San Augustine Cp #1 ,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22617,Wiggins #2 Well ,SYS,Receipt Location,RPQ,R,66529,66529,835,65694,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22622,Magnolia Cdp (Cefs) Legacy ,SYS,Receipt Location,RPQ,R,646686,646686,1,646685,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,22624,Bregstedt Kuttner #1 Well,LKC,Receipt Location,RPQ,R,9038,9038,0,9038,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22630,Bolan 27 Ii - Expansion ,SYS,Receipt Location,RPQ,R,540025,540025,9,540016,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22631,Magnolia Cdp Ii - Expansion ,SYS,Receipt Location,RPQ,R,592534,592534,42121,550413,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22633,Petrodome Pointe A La Hache,SYS,Delivery Location,DPQ,D,2664,2664,1,2663,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22636,Logansport Cp 1 ,SYS,Receipt Location,RPQ,R,44494,44494,9000,35494,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22641,Brushy Bayou Cdp Ii - (Expansion) ,SYS,Receipt Location,RPQ,R,346327,346327,0,346327,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22647,Hall Summit Cp - Qep  (Expansion) ,SYS,Receipt Location,RPQ,R,,330000,210846,119154,,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22653,Desoto Parish (Etc Field Services) ,SYS,Receipt Location,RPQ,R,185443,185443,99172,86271,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22662,Holly Field Cp - Exco (Expanson) ,SYS,Receipt Location,RPQ,R,712632,712632,98905,613727,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22681, Dugas & Leblanc Co Ltd #3 ,SYS,Receipt Location,RPQ,R,15779,15779,151,15628,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22682,Davis Brothers 9 #1 Well ,SYS,Receipt Location,RPQ,R,8403,8403,450,7953,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22701,Football Cp - Haynesville Gathering,SYS,Receipt Location,RPQ,R,47948,47948,201,47747,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22708,Bulldog Panola (Bta Egt Gathering),SYS,Receipt Location,RPQ,R,560402,560402,142454,417948,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,22709,Central Crude Lake Charles,LKC,Delivery Location,DPQ,D,4143,4143,50,4093,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22723,Bay Springs (To Sng) Expansion ,SYS,Delivery Location,DPQ,D,505379,505379,21234,484145,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22748,Acadian - Red River (Expansion) ,SYS,Receipt Location,RPQ,R,574036,574036,0,574036,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,22749,Air Products Hydrogen @ Luling ,SYS,Delivery Location,DPQ,D,134926,134926,14419,120507,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22791,Neil Field Gas Lift (Texas Petroleum),SYS,Delivery Location,DPQ,D,1293,1293,1,1292,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22792,Targa Field Service@Gillis,SYS,Delivery Location,DPQ,D,36743,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22806,Bistineau Injection Expansion,SYS,Injection Point,SIQ,SI,260000,260000,113065,146935,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,22807,Bistineau Withdrawal Expansion,SYS,Withdrawal Point,SWQ,SW,471000,471000,46599,424401,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22810,Wharton (From Enterprise Texas),SYS,Receipt Location,RPQ,R,230000,230000,139817,90183,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,22950,Rosenberg (To Kinder Morgan) ,SYS,Delivery Location,DPQ,D,12768,12768,1650,11118,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23018,Edna (From Boardwalk Texas Intrastate),SYS,Receipt Location,RPQ,R,179329,179329,0,179329,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23024,Caney Trails (To Kinder Morgan) ,SYS,Delivery Location,DPQ,D,0,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23025,Expansion Payback To Shipper,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23026,Expansion Payback To Gulf South,SYS,Delivery Location,DPQ,D,,,54036,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23036,Denbury Expansion @ Delhi ,SYS,Delivery Location,DPQ,D,6045,6045,1713,4332,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23039,Perryville Exchange Point,SYS,Delivery Location,DPQ,D,,,589766,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23039,Perryville Exchange Point,SYS,Receipt Location,RPQ,R,1000000,1000000,589766,410234,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23042,Air Products - Norco,SYS,Delivery Location,DPQ,D,136981,136981,47497,89484,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23044,Praxair Hydrogen St. Charles/Valero,SYS,Delivery Location,DPQ,D,131446,131446,39001,92445,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,23074,Rayburn Energy Station,GC,Delivery Location,DPQ,D,229614,229614,115000,114614,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23089,Payback To Petal,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23090,Payback To Petal Shipper,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23091,Nucor Steel Mill,SYS,Delivery Location,DPQ,D,141109,141109,50000,91109,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23111,Willmut/Lakeview Hattiesburg Delivery,SYS,Delivery Location,DPQ,D,20000,20000,1,19999,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23112,Willmut/Dunn Hattiesburg Delivery,SYS,Delivery Location,DPQ,D,5000,5000,1,4999,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23123,Ldc-Llc Wharton County ,SYS,Delivery Location,DPQ,D,437,437,78,359,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23150,Dte La Gas Sabine Parish,SYS,Receipt Location,RPQ,R,38433,38433,0,38433,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23159,Huntsville Montgomery Gas,SYS,Delivery Location,DPQ,D,586,586,191,395,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,23160,Enterprise Texas Pipeline Rec,GC,Receipt Location,RPQ,R,25000,25000,0,25000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23168,Valero St Charles Aggregate,SYS,Delivery Location,DPQ,D,153487,153487,49001,104486,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23169,Rock Springs (To Transco/Sabal Trail),SYS,Delivery Location,DPQ,D,1800000,1800000,0,1800000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23192,Virtual Point System Zone,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23192,Virtual Point System Zone,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,23193,Virtual Point Lake Charles Zone,LKC,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,23193,Virtual Point Lake Charles Zone,LKC,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23201,Perryville Transportation Point,SYS,Delivery Location,DPQ,D,1100000,1100000,1926989,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23201,Perryville Transportation Point,SYS,Receipt Location,RPQ,R,1100000,1100000,1926989,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23202,NNS-A Houston Aggregate Centerpoint,SYS,Delivery Location,DPQ,D,61851,61851,1,61850,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23204,Huxley Aggregate,SYS,Delivery Location,DPQ,D,4650,4650,402,4248,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23246,Bistineau Purchase Transfer,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,23334,Gulf Crossing Zone to/from SysZone,GC,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,23334,Gulf Crossing Zone to/from SysZone,GC,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23335,Sys Zone to/from Gulf Crossing Zone,SYS,Delivery Location,DPQ,D,1100000,1100000,0,1100000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23335,Sys Zone to/from Gulf Crossing Zone,SYS,Receipt Location,RPQ,R,1100000,1100000,0,1100000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,23337,Iowa (Texas Gas),LKC,Delivery Location,DPQ,D,3000,3000,0,3000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,23337,Iowa (Texas Gas),LKC,Receipt Location,RPQ,R,80000,80000,28995,51005,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,375,23340,Westlake CS Transfer Del,LKC,Delivery Location,DPQ,D,317520,317520,10000,307520,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,375,23340,Westlake CS Transfer Del,LKC,Receipt Location,RPQ,R,317520,317520,10000,307520,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23350,Jackson County Tx (Texas Eastern),SYS,Delivery Location,DPQ,D,418440,418440,0,418440,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23350,Jackson County Tx (Texas Eastern),SYS,Receipt Location,RPQ,R,418440,418440,0,418440,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23351,Tres Palacios Storage,SYS,Delivery Location,DPQ,D,928410,928410,0,928410,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23351,Tres Palacios Storage,SYS,Receipt Location,RPQ,R,1540604,1540604,91045,1449559,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23352,Bay Gas Storage @ Axis,SYS,Delivery Location,DPQ,D,175520,175520,0,175520,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23352,Bay Gas Storage @ Axis,SYS,Receipt Location,RPQ,R,185145,185145,907,184238,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23353,Bay Gas Storage @ Whistler Junction,SYS,Delivery Location,DPQ,D,189483,189483,40501,148982,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23353,Bay Gas Storage @ Whistler Junction,SYS,Receipt Location,RPQ,R,189836,189836,0,189836,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23354,Delhi (Columbia Gulf),SYS,Delivery Location,DPQ,D,1489044,1489044,44592,1444452,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23354,Delhi (Columbia Gulf),SYS,Receipt Location,RPQ,R,1489044,1489044,0,1489044,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23355,Destin (Petal Pipeline),SYS,Delivery Location,DPQ,D,735000,735000,246934,488066,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23355,Destin (Petal Pipeline),SYS,Receipt Location,RPQ,R,735000,735000,0,735000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23356,Jefferson Island Storage,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23356,Jefferson Island Storage,SYS,Receipt Location,RPQ,R,,,18,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23357,Napoleonville Storage (Bridgeline),SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23357,Napoleonville Storage (Bridgeline),SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23358,Enstor Katy Storage,SYS,Delivery Location,DPQ,D,505000,505000,17318,487682,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23358,Enstor Katy Storage,SYS,Receipt Location,RPQ,R,505000,505000,399300,105700,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23359,Kosciusko (Texas Eastern),SYS,Delivery Location,DPQ,D,556167,556167,0,556167,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23359,Kosciusko (Texas Eastern),SYS,Receipt Location,RPQ,R,220000,220000,0,220000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23360,Arcadia Gas Storage,SYS,Delivery Location,DPQ,D,350566,350566,0,350566,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23360,Arcadia Gas Storage,SYS,Receipt Location,RPQ,R,350566,350566,10826,339740,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23361,Bobcat Storage,SYS,Delivery Location,DPQ,D,193772,193772,0,193772,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23361,Bobcat Storage,SYS,Receipt Location,RPQ,R,193772,193772,24475,169297,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23362,Sesh (Petal Storage),SYS,Delivery Location,DPQ,D,1000000,1000000,0,1000000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23362,Sesh (Petal Storage),SYS,Receipt Location,RPQ,R,1000000,1000000,0,1000000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23364,Coastal Bend (Ngpl),SYS,Delivery Location,DPQ,D,889564,889564,0,889564,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23364,Coastal Bend (Ngpl),SYS,Receipt Location,RPQ,R,889564,889564,0,889564,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23365,Henry Hub (Sabine),SYS,Delivery Location,DPQ,D,640000,640000,542405,97595,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23365,Henry Hub (Sabine),SYS,Receipt Location,RPQ,R,640000,640000,160491,479509,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23366,Southern Nat (Petal Pipeline),SYS,Delivery Location,DPQ,D,890331,890331,33549,856782,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23366,Southern Nat (Petal Pipeline),SYS,Receipt Location,RPQ,R,890331,890331,51981,838350,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23367,Kiln (Tennesse Gas),SYS,Delivery Location,DPQ,D,408572,408572,10026,398546,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23367,Kiln (Tennesse Gas),SYS,Receipt Location,RPQ,R,453951,453951,25000,428951,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23368,Coastal Bend (Tennessee Gas),SYS,Delivery Location,DPQ,D,889564,889564,0,889564,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23368,Coastal Bend (Tennessee Gas),SYS,Receipt Location,RPQ,R,889564,889564,72522,817042,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23369,Tennessee Gas (Petal Storage),SYS,Delivery Location,DPQ,D,824123,824123,47936,776187,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23369,Tennessee Gas (Petal Storage),SYS,Receipt Location,RPQ,R,824123,824123,0,824123,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23370,Transco (Hattiesburg),SYS,Delivery Location,DPQ,D,400000,400000,0,400000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23370,Transco (Hattiesburg),SYS,Receipt Location,RPQ,R,400000,400000,220501,179499,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23371,Bosco (Texas Gas),SYS,Delivery Location,DPQ,D,628777,628777,380232,248545,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23371,Bosco (Texas Gas),SYS,Receipt Location,RPQ,R,618226,618226,349550,268676,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23372,Coastal Bend (Transco),SYS,Delivery Location,DPQ,D,80000,80000,0,80000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23372,Coastal Bend (Transco),SYS,Receipt Location,RPQ,R,805890,805890,0,805890,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23373,Transco (Petal Pipeline),SYS,Delivery Location,DPQ,D,1468165,1468165,40633,1427532,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23373,Transco (Petal Pipeline),SYS,Receipt Location,RPQ,R,350000,350000,273244,76756,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23374,Petal Gas Storage (Gulf South Leg),SYS,Delivery Location,DPQ,D,160000,160000,61404,98596,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23374,Petal Gas Storage (Gulf South Leg),SYS,Receipt Location,RPQ,R,160000,160000,0,160000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23375,Gulf South Leg (Petal Storage),SYS,Delivery Location,DPQ,D,160000,160000,0,160000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23375,Gulf South Leg (Petal Storage),SYS,Receipt Location,RPQ,R,160000,160000,61404,98596,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23376,Coastal Bend (Enterprise),SYS,Delivery Location,DPQ,D,850000,850000,0,850000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,23376,Coastal Bend (Enterprise),SYS,Receipt Location,RPQ,R,850000,850000,627382,222618,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23377,Bistineau Storage (Enable),SYS,Delivery Location,DPQ,D,125000,125000,7,124993,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23377,Bistineau Storage (Enable),SYS,Receipt Location,RPQ,R,100000,100000,0,100000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23378,Leaf River Storage,SYS,Delivery Location,DPQ,D,325125,325125,37200,287925,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23378,Leaf River Storage,SYS,Receipt Location,RPQ,R,325125,325125,0,325125,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23379,Gulf South Expansion (Petal Pipeline),SYS,Delivery Location,DPQ,D,950000,950000,0,950000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,23379,Gulf South Expansion (Petal Pipeline),SYS,Receipt Location,RPQ,R,950000,950000,58045,891955,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23380,BBT Mississippi  (Petal  Storage),SYS,Delivery Location,DPQ,D,146602,146602,0,146602,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,23380,BBT Mississippi  (Petal  Storage),SYS,Receipt Location,RPQ,R,146602,146602,0,146602,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23381,Petal Pipeline,SYS,Delivery Location,DPQ,D,650000,650000,97753,552247,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23381,Petal Pipeline,SYS,Receipt Location,RPQ,R,650000,650000,39708,610292,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23389,Atmos TX Pipeline (Fort Bend),SYS,Delivery Location,DPQ,D,50000,50000,0,50000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23389,Atmos TX Pipeline (Fort Bend),SYS,Receipt Location,RPQ,R,300000,300000,184559,115441,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23390,Kosciusko (Southern Natural),SYS,Delivery Location,DPQ,D,126000,126000,20000,106000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23390,Kosciusko (Southern Natural),SYS,Receipt Location,RPQ,R,131408,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23417,Washington Aggregate 06,SYS,Delivery Location,DPQ,D,500,500,1,499,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,23429,Lake Charles Aggregate  Lc 24,LKC,Delivery Location,DPQ,D,1631,1631,1,1630,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,23435,Westlake Aggregate   LC24,LKC,Delivery Location,DPQ,D,50,50,0,50,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23450,Haile #2 (Enable to Atmos),SYS,Delivery Location,DPQ,D,,,1,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23451,Spencer #2 (Enable To Atmos),SYS,Delivery Location,DPQ,D,,,1,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23452,West Sterlington (Enable To Atmos),SYS,Delivery Location,DPQ,D,,,1,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23453,HIOS 563 Buy Back,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23454,HIOS Blk 563/564 To HIOS In A-582,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23470,Haile #2 (Enable From Atmos),SYS,Receipt Location,RPQ,R,,,1,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23471,Spencer #2 (Enable From Atmos),SYS,Receipt Location,RPQ,R,,,2,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23472,West Sterlington (Enable From Atmos),SYS,Receipt Location,RPQ,R,,,4,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23473,HIOS 563 ,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23474,HIOS Blk 563/564 From HIOS In A-582,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23475,Livingston Parish (To Transco),SYS,Delivery Location,DPQ,D,,,24,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23505,Carthage Supply Transfer,SYS,Delivery Location,DPQ,D,200000,200000,0,200000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23505,Carthage Supply Transfer,SYS,Receipt Location,RPQ,R,200000,200000,0,200000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23508,Index 99/129 Transfer,SYS,Delivery Location,DPQ,D,605000,605000,0,605000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23508,Index 99/129 Transfer,SYS,Receipt Location,RPQ,R,605000,605000,0,605000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23601,Jackson Storage Injection,SYS,Injection Point,SIQ,SI,104000,104000,0,104000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23602,Jackson Storage Withdrawal,SYS,Withdrawal Point,SWQ,SW,303000,303000,0,303000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23700,Gulf South Transfer To Coastal Bend,SYS,Delivery Location,DPQ,D,,,612446,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,23700,Gulf South Transfer To Coastal Bend,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23813,Lamar County Lateral Transfer,SYS,Delivery Location,DPQ,D,250000,250000,45000,205000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23813,Lamar County Lateral Transfer,SYS,Receipt Location,RPQ,R,250000,250000,45000,205000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23814,Ratcliffe Lateral Expan Transfer,SYS,Delivery Location,DPQ,D,308540,308540,49500,259040,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,23814,Ratcliffe Lateral Expan Transfer,SYS,Receipt Location,RPQ,R,308540,308540,49500,259040,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,23992,NOPS,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24100,Coastal Bend Gulf South Transfer Receipt,SYS,Delivery Location,DPQ,D,1450000,1450000,0,1450000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24100,Coastal Bend Gulf South Transfer Receipt,SYS,Receipt Location,RPQ,R,1450000,1450000,612446,837554,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,24224,Forrest MISS Del (To Gulf South),SYS,Delivery Location,DPQ,D,810000,810000,0,810000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,875,24225,Forrest MS Rec (From/To Petal) SEME,SYS,Receipt Location,RPQ,R,810000,810000,0,810000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,875,24229,George Co Seme (Merrill To Fgt),SYS,Delivery Location,DPQ,D,475774,475774,282732,193042,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24244,Abbeville Asphalt Plant System ,SYS,Delivery Location,DPQ,D,4968,4968,300,4668,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24245,Markwest Carthage [Expansion] ,SYS,Receipt Location,RPQ,R,290000,290000,104565,185435,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24246,Longview Plant (J. Global Energy),SYS,Receipt Location,RPQ,R,30170,30170,0,30170,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24248,Bastrop Line Meter Skid City Gate,SYS,Delivery Location,DPQ,D,15779,15779,1,15778,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24251,Pascagoula High Pressure (To Chevron) ,SYS,Delivery Location,DPQ,D,127781,127781,61707,66074,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24255,Methanex Geismer 2,SYS,Delivery Location,DPQ,D,350427,350427,170602,179825,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24260,Elizabeth Gas Allen Parish Jail,SYS,Delivery Location,DPQ,D,360,360,3,357,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24268,Tlgp Delivery @ Urania,SYS,Delivery Location,DPQ,D,4464,4464,609,3855,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24271,Devon Donner 13-11 #1 Well,SYS,Receipt Location,RPQ,R,9790,9790,0,9790,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24274,Square Mile Energy Kearns #1 Well,SYS,Receipt Location,RPQ,R,17426,17426,0,17426,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24287,Colorado Bend Plant (State Hwy 60),SYS,Delivery Location,DPQ,D,301982,301982,156261,145721,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24300,Chemours Delisle Plt (Centerpoint),SYS,Delivery Location,DPQ,D,79374,79374,17063,62311,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24302,Gary City Gate #2,SYS,Delivery Location,DPQ,D,1800,1800,2,1798,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24318,Coastal Bend Hpl Receipt,SYS,Receipt Location,RPQ,R,336634,336634,0,336634,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24329,Stratton Ridge (To Freeport Lng),SYS,Delivery Location,DPQ,D,1779129,1779129,1461328,317801,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24333,Delhi Franklin Parish (To Tennessee Gas),SYS,Delivery Location,DPQ,D,666250,666250,523,665727,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,24334,Delhi Madison Parish (To Tennessee Gas),GC,Delivery Location,DPQ,D,666250,666250,0,666250,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24336,Metairie City Gate #1,SYS,Delivery Location,DPQ,D,44734,44734,1,44733,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24341,West Monroe (From Tennessee),SYS,Receipt Location,RPQ,R,346450,346450,0,346450,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24342,Echo Papa #1  (Sklar),SYS,Receipt Location,RPQ,R,9798,9798,1094,8704,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24343, Weyerhaeuser 15-10  Hc #1 Well,SYS,Receipt Location,RPQ,R,40475,40475,993,39482,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24344,Bachtel #1 Well (Jamex),SYS,Receipt Location,RPQ,R,10747,10747,230,10517,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24346,Tooke Well W/D,SYS,Receipt Location,RPQ,R,5747,5747,20,5727,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24351,Davis Brothers 34-3 Hc #1 Cp ,SYS,Receipt Location,RPQ,R,37592,0,0,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24352,St Charles Power Station,SYS,Delivery Location,DPQ,D,249160,249160,151286,97874,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24355,Amp Ii Etx  Panola (Legacy),SYS,Receipt Location,RPQ,R,102414,102414,16300,86114,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24360,Coastal Bend Fgt Receipt,SYS,Receipt Location,RPQ,R,126516,126516,0,126516,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24362,Momentum Midstream (M5 Desoto),SYS,Receipt Location,RPQ,R,602894,602894,105947,496947,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24372,Coastal Bend Dow Delivery,SYS,Delivery Location,DPQ,D,294736,294736,0,294736,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24375,Pine Hill Renewables Receipt,SYS,Receipt Location,RPQ,R,3321,3321,900,2421,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24379,Royomartin Corrigan Osb Plant,SYS,Delivery Location,DPQ,D,8201,8201,4466,3735,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24383,Brookhaven Co2 Recycling Denbury,SYS,Delivery Location,DPQ,D,1896,1896,288,1608,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,350,24397,Lake Charles (From Boardwalk La Gas),LKC,Receipt Location,RPQ,R,214445,214445,89761,124684,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24415,Tri Delta Timber 13-12 #1 Well,SYS,Receipt Location,RPQ,R,39378,39378,993,38385,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24417,Align Midstream Angelina County Cp,SYS,Receipt Location,RPQ,R,70000,70000,11117,58883,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,24418,Paris To Atmos North Texas,GC,Delivery Location,DPQ,D,400000,400000,0,400000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,24421,Bennington (From Midship),GC,Receipt Location,RPQ,R,1027000,1027000,545901,481099,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24424,Aethon Hwy 5 (Expansion),SYS,Receipt Location,RPQ,R,183691,183691,79448,104243,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24431,Atmos Cue Road From Tgt,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24435,Rockcliff Deadwood Cp (Expansion),SYS,Receipt Location,RPQ,R,205836,205836,40280,165556,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,375,24439,Lake Charles Power Station,LKC,Delivery Location,DPQ,D,317520,317520,153670,163850,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24440,Tellurian Cp Desoto Parish,SYS,Receipt Location,RPQ,R,47005,47005,101,46904,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24445,Mineola (To Cp Energy Intrastate),SYS,Delivery Location,DPQ,D,1900,1900,143,1757,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24446,Gemini Panola County Tx (Expansion),SYS,Receipt Location,RPQ,R,732672,732672,119025,613647,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24451,Montgomery County Power Plant,SYS,Delivery Location,DPQ,D,200000,200000,144933,55067,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24454,Amp Ii Etx  Panola (Expansion),SYS,Receipt Location,RPQ,R,318240,318240,26448,291792,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24469,Bland Lake-Kudu,SYS,Receipt Location,RPQ,R,710960,710960,274536,436424,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24471,Butane Injection Stratton Ridge,SYS,Receipt Location,RPQ,R,7762,7762,4866,2896,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24493,Tristate Nla Blocker Cp Well,SYS,Receipt Location,RPQ,R,37013,37013,0,37013,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24494,Tristate Longview (From Tristate),SYS,Receipt Location,RPQ,R,110738,110738,58256,52482,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24500,Align Midstream (Tuco) Expansion,SYS,Receipt Location,RPQ,R,299084,299084,97800,201284,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24501,Sponte Cp Panola County,SYS,Receipt Location,RPQ,R,110738,110738,18941,91797,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,24504,Nextera (Lowman) Choctaw County,SYS,Delivery Location,DPQ,D,120000,120000,79482,40518,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,900,24511,Ratcliffe Plant Southern Company,SYS,Delivery Location,DPQ,D,308540,308540,49500,259040,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24520,Tristate Longview (To Tristate),SYS,Delivery Location,DPQ,D,63117,63117,0,63117,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24526,Complex Chemicals Ii @ Tallulah,SYS,Delivery Location,DPQ,D,33432,33432,9453,23979,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,335,24529,Plant Morrow - Cooperative Energy,SYS,Delivery Location,DPQ,D,250000,250000,45000,205000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,24531,Coastal Bend Km Tejas Receipt,SYS,Receipt Location,RPQ,R,,,25000,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24533,Big Oaks Farm Llc #1 Well,SYS,Receipt Location,RPQ,R,37013,37013,1037,35976,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24538,Texas Petroleum Investment Co (Tpic),SYS,Delivery Location,DPQ,D,3850,3850,410,3440,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24543,Atmos Energy Lucedale #2 Cg,SYS,Delivery Location,DPQ,D,11000,11000,420,10580,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24576,Lumberton Centerpoint,SYS,Delivery Location,DPQ,D,4700,4700,0,4700,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24578,Sandhill,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,24580,Aquasition Delivery Mobile County,SYS,Delivery Location,DPQ,D,100,100,0,100,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,24583,Kinder Morgan North Texas Lamar County,GC,Delivery Location,DPQ,D,439000,439000,0,439000,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,24584,Cedar Crossing (To Texas Republic),SYS,Delivery Location,DPQ,D,3000,3000,9,2991,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26003,Borneo Pie LA Operating,SYS,Receipt Location,RPQ,R,3000,3000,601,2399,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26004,Hilcorp Harris County Cp,SYS,Receipt Location,RPQ,R,4000,4000,800,3200,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,26007,Deadwood Panola (To Chevron),SYS,Delivery Location,DPQ,D,10800,10800,0,10800,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26012,Tgg Holly Field #6,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,26013,"Matterhorn Express Pipeline, Llc (Mxp)",SYS,Receipt Location,RPQ,R,750000,750000,35500,714500,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,225,26016,Bbt Trans-Union Claiborne Parish,GC,Delivery Location,DPQ,D,,,149463,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26021,Paloma Daboval Lease Cp Well,SYS,Receipt Location,RPQ,R,180,180,524,0,N,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,125,26024,Socagee Midstream Gas Services Llc,SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26035,Weeks Island Gas Lift,SYS,Delivery Location,DPQ,D,1181,1181,530,651,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,26052,La Tap 70,SYS,Delivery Location,DPQ,D,,,1,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26067,Termo's Hebert #3 Well,SYS,Receipt Location,RPQ,R,,,250,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,425,26108,"GEP Haynesville II, LLC",SYS,Receipt Location,RPQ,R,150000,50000,24966,25034,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,26109,San Jacinto Receipt,SYS,Receipt Location,RPQ,R,200000,200000,93435,106565,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,625,26116,"TTC Connector, LLC",SYS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,26119,Pecan Grove Delivery ,SYS,Delivery Location,DPQ,D,2610,2610,137,2473,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,325,26120,Pecan Grove Receipt ,SYS,Receipt Location,RPQ,R,2610,2610,478,2132,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,26124,Vicksburg Advanced Power Station   ,SYS,Delivery Location,DPQ,D,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,,26140,Greenville from Texas Gas Mainline,KOS,Receipt Location,RPQ,R,,,0,,N,N,Design and/or Operating Capacity has not been specified by the TSP,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,50201,Petal Storage Injection/Withdrawal,SYS,Delivery Location,DPQ,D,1388000,1388000,20934,1367066,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,525,50201,Petal Storage Injection/Withdrawal,SYS,Receipt Location,RPQ,R,1388000,1388000,123043,1264957,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,50202,Petal Pipeline Injection/Withdrawal,SYS,Delivery Location,DPQ,D,2150000,2150000,123043,2026957,,Y,,MMBtu
+"Gulf South Pipeline Company, LLC",078444247,20260927 21:52:00,20260927,22:00:00,550,50202,Petal Pipeline Injection/Withdrawal,SYS,Receipt Location,RPQ,R,2150000,2150000,20934,2129066,,Y,,MMBtu
