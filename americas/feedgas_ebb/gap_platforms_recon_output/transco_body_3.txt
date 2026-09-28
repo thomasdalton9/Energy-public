@@ -1,0 +1,4 @@
+POST https://www.1line.williams.com/portal-service/api/portal-service/v1/public/oac/query
+{"buid":80,"mapId":0,"startDate":"09/27/2026","endDate":"09/27/2026","cycle":8,"locationIds":"","locationType":"All"}
+
+{"data":{"valid":true,"recordCount":550,"rowLimit":52000,"withinLimit":true,"reportType":"OAC","queryParams":{"locationArray":null,"cycleArray":[8],"startDate":"09/27/2026","endDate":"09/27/2026"},"beginDateStr":null},"notificationMessages":null}
