@@ -127,6 +127,48 @@ PLANT_START = {
     "Golden Pass": date(2026, 1, 1),
 }
 RAMP_MONTHS = 3
+
+# Nameplate liquefaction capacity by phase, as published by the
+# operators (million tonnes per annum of LNG), with approximate first-LNG
+# dates. Plants routinely run above nameplate (Sabine Pass, Calcasieu
+# Pass, Plaquemines), so utilisation over 100% is normal. Edit as phases
+# are added.
+PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, first LNG
+    ("Sabine Pass", "Trains 1-6", 6, 30.0, date(2016, 2, 1)),
+    ("Cove Point", "Train 1", 1, 5.25, date(2018, 3, 1)),
+    ("Corpus Christi", "Stage 1-2 (Trains 1-3)", 3, 15.0, date(2018, 11, 1)),
+    ("Corpus Christi", "Stage 3 (7 midscale trains)", 7, 10.0, date(2024, 12, 1)),
+    ("Cameron", "Trains 1-3", 3, 12.0, date(2019, 5, 1)),
+    ("Freeport", "Trains 1-3", 3, 15.0, date(2019, 8, 1)),
+    ("Elba Island", "10 small-scale units", 10, 2.5, date(2019, 10, 1)),
+    ("Calcasieu Pass", "18 midscale trains (9 blocks)", 18, 10.0, date(2022, 1, 1)),
+    ("Plaquemines", "Phase 1", 18, 13.3, date(2024, 12, 1)),
+    ("Plaquemines", "Phase 2", 18, 6.7, date(2025, 3, 1)),
+    ("Golden Pass", "Trains 1-3", 3, 18.1, date(2026, 1, 1)),
+]
+BCF_PER_MT_LNG = 48.0  # 1 tonne of LNG ~ 48 Mcf of gas, so 1 mtpa ~ 0.13 Bcf/d
+
+
+def capacity_table():
+    rows = []
+    for plant, phase, trains, mtpa, first in PLANT_CAPACITY:
+        export = mtpa * BCF_PER_MT_LNG / 365
+        rows.append({"plant": plant, "phase": phase, "trains": trains, "nameplate_mtpa": mtpa,
+                     "nameplate_bcfd_lng_out": round(export, 2),
+                     "nameplate_bcfd_feedgas": round(export * FEEDGAS_PER_EXPORT, 2),
+                     "first_lng": pd.Timestamp(first)})
+    df = pd.DataFrame(rows)
+    totals = df.groupby("plant", sort=False)[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum()
+    total_rows = [{"plant": pl, "phase": "Plant total", "trains": None, **totals.loc[pl].round(2).to_dict(),
+                   "first_lng": df.loc[df.plant == pl, "first_lng"].min()}
+                  for pl in totals.index if (df.plant == pl).sum() > 1]  # only plants built in phases
+    us = {"plant": "US total", "phase": "", "trains": None,
+          **df[["nameplate_mtpa", "nameplate_bcfd_lng_out", "nameplate_bcfd_feedgas"]].sum().round(2).to_dict(), "first_lng": None}
+    out = pd.concat([df, pd.DataFrame(total_rows), pd.DataFrame([us])], ignore_index=True)
+    order = {pl: i for i, pl in enumerate(dict.fromkeys(df.plant))}
+    out["_o"] = out.plant.map(order).fillna(len(order))
+    out["_t"] = (out.phase == "Plant total").astype(int)
+    return out.sort_values(["_o", "_t"], kind="stable").drop(columns=["_o", "_t"]).set_index("plant")
 # Meters are treated as live this many months BEFORE PLANT_START, so any
 # pre-commissioning feedgas is captured (and reported missing if absent);
 # the calibration still waits for PLANT_START + RAMP_MONTHS.
@@ -658,6 +700,10 @@ def notes_lines():
               "(Freeport's Texas intrastate supply above all). Plants with no share yet (the first 2-3 months, until "
               "EIA catches up with our history) carry their metered value. 'Estimated total' vs 'Metered total' "
               "shows how much is inferred.",
+              "", "PLANT CAPACITY",
+              "'Plant capacity': operator-published nameplate liquefaction capacity by phase (mtpa of LNG) and first-LNG month. "
+              f"Bcf/d = mtpa x {BCF_PER_MT_LNG:.0f} Bcf per million tonnes / 365 ('lng_out'); 'feedgas' grosses that up by "
+              f"{FEEDGAS_PER_EXPORT:.2f} like the EIA calibration. Plants often run above nameplate, so metered feedgas above it is normal.",
               "", "TC ENERGY METERS (ANR, COLUMBIA GULF)",
               "TC eConnects only serves its latest posting - by each morning run, the next gas day's Timely cycle. "
               f"Each run caches it ('{TC_CACHE_SHEET}') and the next run uses it for that day, so TC's meters "
@@ -787,7 +833,7 @@ def save(out, new):
     if share:
         print(f"  seen shares used: {share}")
 
-    sheets = {"Bcfd by plant": plants, "Estimated (calibrated)": est, "Points (Dth)": points}
+    sheets = {"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(), "Points (Dth)": points}
     cache = load_tc_cache(out)
     if TC_AHEAD:
         ahead = pd.DataFrame.from_dict(TC_AHEAD, orient="index")
@@ -802,7 +848,7 @@ def save(out, new):
         sheets["EIA exports (Bcfd)"] = eia
     xlsx_notes.write_workbook(args.out, sheets, notes_lines(),
                               {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
-                               "TC ENERGY METERS (ANR, COLUMBIA GULF)",
+                               "TC ENERGY METERS (ANR, COLUMBIA GULF)", "PLANT CAPACITY",
                                "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
@@ -813,6 +859,14 @@ def save(out, new):
         for (cell,) in ws.iter_rows(min_row=2, max_col=1):
             cell.number_format = "dd-mmm-yyyy"
         ws.column_dimensions["A"].width = 14
+    ws = wb["Plant capacity"]
+    for row in ws.iter_rows(min_row=2):
+        row[-1].number_format = "mmm-yyyy"
+        if row[1].value == "Plant total" or row[0].value == "US total":
+            for cell in row:
+                cell.font = openpyxl.styles.Font(bold=True)
+    for col, width in zip("ABCDEFG", (16, 30, 8, 16, 22, 22, 12)):
+        ws.column_dimensions[col].width = width
     wb.save(args.out)
 
     print(f"\nSaved {args.out} - {len(points)} gas day(s).")
