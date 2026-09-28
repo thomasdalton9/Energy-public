@@ -260,6 +260,129 @@ def tc_params(context):
     page.close()
 
 
+def enbridge_units(context):
+    """Enbridge's portal lists business-unit codes in businessunits.json -
+    Algonquin's is 'AG', not 'AGT', so BIG's rtba code is probably not
+    'BIG' either (bu=BIG returned the generic error page)."""
+    log("\n==================== Enbridge business units ====================")
+    r = context.request.get("https://infopost.enbridge.com/assets/data/businessunits.json", timeout=60000)
+    units = r.json().get("pipelines", [])
+    for u in units:
+        log(f"  {u}")
+    page = context.new_page()
+    for u in units:
+        if "BIG" not in (u.get("abbreviation", "") + u.get("name", "")).upper():
+            continue
+        for code in {u.get("code"), u.get("abbreviation")} - {None}:
+            url = f"https://rtba.enbridge.com/InformationalPosting/Default.aspx?bu={code}&Type=OA"
+            log(f"\n--- BIG as {code}: {url}")
+            try:
+                page.goto(url, wait_until="networkidle", timeout=60000)
+                log(f"  text: {' '.join(page.inner_text('body').split())[:300]!r}")
+                if page.locator("a:has-text('Downloadable Format')").count():
+                    with page.expect_download(timeout=90000) as info:
+                        page.locator("a:has-text('Downloadable Format')").first.click()
+                    text = open(info.value.path(), encoding="utf-8", errors="replace").read()
+                    with open(os.path.join(OUTPUT_DIR, f"big_{code}_oa.csv"), "w", encoding="utf-8") as f:
+                        f.write(text)
+                    for line in text.splitlines()[:40]:
+                        log(f"    {line[:250]}")
+            except Exception as e:
+                log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+    page.close()
+
+
+def gulfsouth_ui(context):
+    """Boardwalk's GasQuest app signs its API calls with AWS Cognito
+    credentials, so drive the UI instead: pick Gulf South, open
+    Operationally Available, capture tables and calls."""
+    page = context.new_page()
+    calls = []
+    page.on("response", lambda resp: calls.append((resp.status, resp.request.method, resp.url))
+            if resp.request.resource_type in ("xhr", "fetch") else None)
+    log("\n==================== Gulf South (Boardwalk GasQuest) ====================")
+    try:
+        page.goto("https://infopost.bwpipelines.com/", wait_until="networkidle", timeout=90000)
+        page.wait_for_timeout(4000)
+        sel = page.locator("select").first
+        if sel.count():
+            opts = sel.evaluate("s => [...s.options].map(o => o.value + '|' + o.text)")
+            log(f"  select options: {opts}")
+            gs = next((o.split('|')[0] for o in opts if "Gulf South" in o), None)
+            if gs:
+                sel.select_option(gs)
+        else:
+            page.locator("text=Gulf South").first.click()
+        page.wait_for_load_state("networkidle", timeout=60000)
+        page.wait_for_timeout(4000)
+        dump_page(page, "gulfsouth_tsp")
+        page.locator("text=Operationally Available").first.click(timeout=20000)
+        page.wait_for_load_state("networkidle", timeout=90000)
+        page.wait_for_timeout(8000)
+        dump_page(page, "gulfsouth_oac")
+    except Exception as e:
+        log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+    for c in calls[-25:]:
+        log(f"  CALL {c}")
+    page.close()
+
+
+def tc_param_probe(context):
+    """Find the SSRS parameter names that set the gas day and cycle - the
+    CSV's own EffGasDay/Cycle columns show whether a guess took effect."""
+    log("\n==================== TC Energy parameter probe ====================")
+    page = context.new_page()
+    page.goto(TC_BASE + "TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid=3005", wait_until="networkidle", timeout=60000)
+    base = f"{TC_BASE}ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&pAssetNbr=3005&rs:Format=CSV"
+    day = "09/27/2026"
+    guesses = [
+        f"&pEffGasDay={day}&pCycle=ID3", f"&pGasDay={day}&pCycle=ID3", f"&pEffGasDate={day}&pCycle=ID3",
+        f"&pBeginDate={day}", f"&pDate={day}", f"&EffGasDay={day}&Cycle=ID3", f"&pEffGasDay={day}",
+    ]
+    for g in guesses:
+        try:
+            r = context.request.get(base + g, timeout=120000)
+            lines = r.text().splitlines()
+            first = lines[1][:120] if len(lines) > 1 else lines[:1]
+            log(f"  {g!r}: HTTP {r.status}, {len(lines)} lines, first row: {first!r}")
+        except Exception as e:
+            log(f"  {g!r}: FAILED {type(e).__name__}: {str(e)[:150]}")
+    # the date-range variant, in case it takes begin/end dates
+    for g in (f"&pBeginDate={day}&pEndDate={day}", f"&pStartDate={day}&pEndDate={day}", f"&pFromDate={day}&pToDate={day}"):
+        url = f"{TC_BASE}ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityByDateRangeANR&pAssetNbr=3005&rs:Format=CSV{g}"
+        try:
+            r = context.request.get(url, timeout=120000)
+            lines = r.text().splitlines()
+            log(f"  daterange {g!r}: HTTP {r.status}, {len(lines)} lines, first row: {(lines[1][:120] if len(lines) > 1 else lines[:1])!r}")
+        except Exception as e:
+            log(f"  daterange {g!r}: FAILED {type(e).__name__}: {str(e)[:150]}")
+    page.close()
+
+
+def covepoint_csv(context):
+    """Newest Cove Point OA CSV for yesterday's gas day (the listing page
+    links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
+    log("\n==================== Cove Point CSV ====================")
+    page = context.new_page()
+    page.goto("https://infopost.bhegts.com/cpl/postings/capacity-operationally-available", wait_until="networkidle", timeout=90000)
+    page.wait_for_timeout(4000)
+    rows = page.evaluate("""() => [...document.querySelectorAll('[role=row]')].map(r => ({
+        text: r.innerText.replace(/\\s+/g, ' ').trim(),
+        csv: (r.querySelector('a[href$=".csv"]') || {}).href}))""")
+    for r in rows[:12]:
+        log(f"  {r}")
+    target = next((r for r in rows if r.get("csv") and "09/27/2026 Intraday 3" in r["text"]), None) or \
+        next((r for r in rows if r.get("csv")), None)
+    if target:
+        text = context.request.get(target["csv"], timeout=60000).text()
+        with open(os.path.join(OUTPUT_DIR, "covepoint_oa.csv"), "w", encoding="utf-8") as f:
+            f.write(text)
+        log(f"\n  {target['csv']}:")
+        for line in text.splitlines()[:60]:
+            log(f"    {line[:250]}")
+    page.close()
+
+
 def main():
     wanted = sys.argv[1:] or ["cheniere", "tc", "bhe"]
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -287,6 +410,14 @@ def main():
                 capture_page(context, f"big_{i}", url)
         if "gulfsouth" in wanted:
             capture_page(context, "gulfsouth_home", "https://infopost.bwpipelines.com/")
+        if "enbridge_units" in wanted:
+            enbridge_units(context)
+        if "gulfsouth_ui" in wanted:
+            gulfsouth_ui(context)
+        if "tc_params" in wanted:
+            tc_param_probe(context)
+        if "covepoint_csv" in wanted:
+            covepoint_csv(context)
         browser.close()
     log(f"\nDONE. Outputs in {OUTPUT_DIR}/")
 
