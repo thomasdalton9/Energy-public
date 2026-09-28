@@ -599,6 +599,8 @@ def main():
     parser.add_argument("--out", default=DEFAULT_OUT)
     parser.add_argument("--gas-day", help="YYYY-MM-DD (default: yesterday, US Central)")
     parser.add_argument("--dump", action="store_true", help="list every delivery point on DUMP_PIPELINES instead of updating the workbook")
+    parser.add_argument("--probe", help="comma-separated gas days (YYYY-MM-DD,...): report which pipelines still "
+                                        "serve each day, without touching the workbook - to see how far back a backfill can go")
     parser.add_argument("--from", dest="date_from", help="backfill: first gas day, YYYY-MM-DD (with --to)")
     parser.add_argument("--to", dest="date_to", help="backfill: last gas day, YYYY-MM-DD (default: yesterday)")
     args = parser.parse_args()
@@ -606,6 +608,9 @@ def main():
     gas_day = date.fromisoformat(args.gas_day) if args.gas_day else yesterday
     if args.dump:
         dump(gas_day)
+        return
+    if args.probe:
+        probe([date.fromisoformat(d.strip()) for d in args.probe.split(",")])
         return
 
     if args.date_from:
@@ -656,6 +661,20 @@ def progress_line(path, i, n, day, row, started):
     print(line, flush=True)
     with open(path, "a", encoding="utf-8") as f:
         f.write(f"{datetime.now():%Y-%m-%d %H:%M}  {line}\n")
+
+
+def probe(days):
+    """For each gas day, which pipelines return a posting - pipelines are
+    only required to keep ~3 years of postings, so this shows how far
+    back a backfill will actually find data. Nothing is saved."""
+    needed = sorted({(p[1], p[2]) for p in POINTS})
+    table = {}
+    for day in days:
+        print(f"\nProbing {day}...", flush=True)
+        got = fetch_all(needed, day)
+        table[str(day)] = {f"{pl} {pipe}": ("ok" if (pl, pipe) in got else "-") for pl, pipe in needed}
+    print("\n=== PROBE: which pipelines still serve each gas day (ok / -) ===")
+    print(pd.DataFrame(table).to_string())
 
 
 _EIA_CACHE = {}
