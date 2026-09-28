@@ -20,6 +20,7 @@ on:
           - ENBRIDGE_OA_SCAN.py
           - lng_feedgas_daily.py
           - DEMAND_SOURCES_DISCOVERY.py
+          - GAP_PLATFORMS_RECON.py
           - KM_GCX_RETRIEVE_DISCOVERY.py
           - KM_CAPACITY_DISCOVERY.py
           - FEEDGAS_PIPES_DISCOVERY.py
