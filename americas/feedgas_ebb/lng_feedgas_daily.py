@@ -63,7 +63,8 @@ DTH_PER_BCF = BTU_PER_CF * 1_000_000 / 1000  # 1 Bcf = 1e9 cf * 1,037 Btu = 1.03
 # Morgan pipeline code, "enbridge" = Enbridge LINK business unit,
 # "gasnom" = gasnom.com pipeline, "et" = Energy Transfer asset code,
 # "cheniere" = Cheniere LNG Connection pipeline number (200 Creole
-# Trail, 400 Corpus Christi Pipeline).
+# Trail, 400 Corpus Christi Pipeline), "tc" = TC Energy pipeline (ANR,
+# CGT = Columbia Gulf), "bhe" = BHE GT&S pipeline path ("cpl" = Cove Point).
 POINTS = [
     ("Sabine Pass", "km", "KMLP", "49448", "KMLP -> SP Liquefaction, Cameron Par."),
     ("Sabine Pass", "km", "NGPL", "46622", "NGPL -> Sabine Pass Liquefaction"),
@@ -75,20 +76,36 @@ POINTS = [
     ("Sabine Pass", "cheniere", "200", "SPLNGD", "Creole Trail -> Sabine Pass LNG"),
     ("Plaquemines", "km", "TGP", "55833", "Tennessee Gas -> VG Gator Express, Evangeline Pass"),
     ("Plaquemines", "enbridge", "TE", "74530", "Texas Eastern -> Gator Express"),
+    # Wilkinson Bayou is in Plaquemines Parish - Columbia Gulf's feed into
+    # Gator Express (Venture Global's filings name Columbia Gulf, TGP and
+    # Texas Eastern as the plant's supply pipes). Counterparty not yet
+    # confirmed from Columbia Gulf's location file (it timed out).
+    ("Plaquemines", "tc", "CGT", "4267", "Columbia Gulf -> Wilkinson Bayou (Gator Express)"),
     # Cameron Interstate's own delivery meter into the terminal - its
     # receipts include the Tennessee Gas (TENN-CIP) and Texas Eastern
     # (TETCO-CIP) quantities seen on those pipes, plus LEAP, LEG, NG3 and
     # Gillis Hub, so this one meter is the whole plant.
     ("Cameron", "gasnom", "CAMERON", "772300", "Cameron Interstate -> Cameron LNG"),
+    # A second, direct feed: Cameron Interstate's receipts don't include
+    # Columbia Gulf, and the two together (~2.0 Bcf/d) match Cameron's
+    # EIA-implied feedgas.
+    ("Cameron", "tc", "CGT", "4246", "Columbia Gulf -> Cameron LNG"),
     ("Calcasieu Pass", "enbridge", "TE", "74529", "Texas Eastern -> TransCameron, Oak Grove"),
+    # ANR's location file: meter 523094 is an interconnect in Cameron
+    # Parish whose counterparty is TransCameron Pipeline, LLC (TC Energy's
+    # Grand Chenier XPress).
+    ("Calcasieu Pass", "tc", "ANR", "523094", "ANR -> TransCameron (Grand Chenier XPress), Mermentau River"),
     # Cheniere Corpus Christi Pipeline's delivery into the plant - its
     # receipts include the intrastate Permian supply (Kinder Morgan
     # Tejas, Enterprise...) as well as the NGPL/TGP Sinton meters
     # previously summed here, which are dropped to avoid double counting.
     ("Corpus Christi", "cheniere", "400", "CC200221", "Corpus Christi Pipeline -> Corpus Christi Liquefaction"),
     ("Freeport", "enbridge", "TE", "79999", "Texas Eastern -> Stratton Ridge"),
+    ("Freeport", "enbridge", "TE", "73912", "Texas Eastern -> BIG Pipeline, Angleton"),
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
     ("Golden Pass", "et", "GR", "808311", "Gulf Run -> Golden Pass Pipeline"),
+    # Cove Point pipeline's delivery into the plant (BHE GT&S posting).
+    ("Cove Point", "bhe", "cpl", "10001", "Cove Point pipeline -> Cove Point plant"),
 ]
 
 # Everything --dump pulls: all delivery points on these pipelines, to
@@ -97,18 +114,19 @@ DUMP_PIPELINES = [
     ("km", "KMLP"), ("km", "NGPL"), ("km", "TGP"), ("km", "EEC"), ("km", "SNG"),
     ("enbridge", "TE"), ("gasnom", "CAMERON"), ("cheniere", "200"), ("cheniere", "400"),
     ("et", "TGC"), ("et", "GR"), ("et", "TGR"), ("et", "LCLNG"), ("et", "FGT"),
+    ("tc", "ANR"), ("tc", "CGT"), ("bhe", "cpl"),
 ]
 
 COVERAGE_NOTES = {
     "Sabine Pass": "Near complete - the plant's three feed pipes' delivery meters: Creole Trail, Kinder Morgan Louisiana and NGPL.",
-    "Plaquemines": "Near complete - Gator Express is fed by Tennessee Gas and Texas Eastern.",
-    "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal.",
-    "Calcasieu Pass": "Partial - TransCameron is intrastate; only Texas Eastern's delivery into it is seen.",
+    "Plaquemines": "Complete - Gator Express's three feeds: Tennessee Gas, Texas Eastern and Columbia Gulf.",
+    "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal plus Columbia Gulf's direct feed.",
+    "Calcasieu Pass": "Mostly complete - ANR (Grand Chenier XPress) and Texas Eastern deliveries into TransCameron; Sabine Pipe Line's, if any, not yet seen.",
     "Corpus Christi": "Mostly complete - Cheniere Corpus Christi Pipeline's delivery into the plant, which includes intrastate Permian gas it receives; gas delivered straight to the plant by the intrastate ADCC pipeline is not seen.",
-    "Freeport": "Partial - Stratton Ridge only; BIG Pipeline and Gulf South meters not yet covered. Stratton Ridge is a hub, so check against Freeport's reported output.",
+    "Freeport": "Partial - Texas Eastern's deliveries at Stratton Ridge and into BIG Pipeline only; Texas intrastate supply is invisible, so use the calibrated estimate. Stratton Ridge also serves Dow's Freeport complex.",
     "Elba Island": "Elba Liquefaction meter on Elba Express.",
     "Golden Pass": "Partial - Gulf Run's delivery into Golden Pass Pipeline; Permian gas via Kinder Morgan's Trident (intrastate) is not seen.",
-    "Cove Point": "Not yet covered - Transco, Columbia and DETI.",
+    "Cove Point": "Complete - Cove Point pipeline's delivery meter into the plant.",
 }
 
 KM_URL = "https://pipeline2.kindermorgan.com/Capacity/OpAvailPoint.aspx?code={code}"
@@ -247,6 +265,57 @@ def fetch_cheniere(page, tsp, gas_day):
     return points_frame(df[keys["loc"]], df[keys["loc_name"]], df[tsq])
 
 
+TC_BASE = "https://ebb.tceconnects.com/infopost/"
+TC_REPORTS = {"ANR": ("OperationallyAvailableCapacityANR", 3005), "CGT": ("OperationallyAvailableCapacity", 14)}
+BHE_OA_LIST = "https://infopost.bhegts.com/{pipe}/postings/capacity-operationally-available"
+
+
+def fetch_tc(page, pipe, gas_day):
+    """TC eConnects OA report (SQL Server Reporting Services). The gas day
+    is the page's own txtGasDate box - not a report URL parameter - so set
+    it, let the page post back, then use the viewer's CSV export."""
+    import re
+    report, asset = TC_REPORTS[pipe]
+    page.goto(TC_BASE + f"TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid={asset}", wait_until="networkidle", timeout=90000)
+    page.goto(f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&pAssetNbr={asset}", wait_until="networkidle", timeout=180000)
+    box = page.locator("#txtGasDate")
+    if box.input_value() != f"{gas_day:%m/%d/%Y}":
+        box.fill(f"{gas_day:%m/%d/%Y}")
+        box.dispatch_event("change")
+        page.wait_for_load_state("networkidle", timeout=180000)
+        page.wait_for_timeout(3000)
+    m = re.search(r'"ExportUrlBase":"([^"]+)"', page.content())
+    if not m:
+        raise RuntimeError("no ExportUrlBase on the report viewer page")
+    url = TC_BASE.split("/infopost/")[0] + m.group(1).replace("\\u0026", "&").replace("&amp;", "&") + "CSV"
+    r = page.context.request.get(url, timeout=180000)
+    df = pd.read_csv(io.StringIO(r.text().lstrip("\ufeff")), dtype=str)
+    days = set(pd.to_datetime(df["EffGasDay"]).dt.date)
+    if days != {gas_day}:
+        raise RuntimeError(f"TC {pipe} export is for gas day(s) {days}, wanted {gas_day}")
+    tsq = next(c for c in df.columns if c.startswith("TotalSched"))
+    df = df[df["LocPurpDesc"].astype(str).str.startswith("Delivery")]
+    print(f"  TC {pipe}: {len(df)} delivery points, gas day {gas_day}, cycle {df['Cycle'].iloc[0]}", flush=True)
+    return points_frame(df["Location"], df["LocationName"], df[tsq])
+
+
+def fetch_bhe(page, pipe, gas_day):
+    """BHE GT&S OA postings: the listing page links a CSV per cycle; take
+    the latest-posted one for the gas day (listing is newest first)."""
+    page.goto(BHE_OA_LIST.format(pipe=pipe), wait_until="networkidle", timeout=90000)
+    page.wait_for_timeout(3000)
+    rows = page.evaluate("""() => [...document.querySelectorAll('[role=row]')].map(r => ({
+        text: r.innerText.replace(/\\s+/g, ' '), csv: (r.querySelector('a[href$=".csv"]') || {}).href}))""")
+    wanted = f"Capacity Available {gas_day:%m/%d/%Y}"
+    row = next((r for r in rows if r.get("csv") and wanted in r["text"]), None)
+    if row is None:
+        raise RuntimeError(f"no BHE {pipe} posting for {gas_day}")
+    df = pd.read_csv(io.StringIO(page.context.request.get(row["csv"], timeout=60000).text()), dtype=str)
+    df = df[df["Loc Purp Desc"].astype(str).str.startswith("Delivery")]
+    print(f"  BHE {pipe}: {len(df)} delivery points, gas day {gas_day}, cycle {df['CycleDesc'].iloc[0]}", flush=True)
+    return points_frame(df["Loc"], df["Loc Name"], df["Total Scheduled Quantity"])
+
+
 def points_frame(locs, names, tsq):
     """Common shape for every fetcher: loc id -> name, scheduled Dth."""
     df = pd.DataFrame({"loc": locs.astype(str).str.strip().values,
@@ -260,7 +329,8 @@ def point_column(point):
     return f"{plant} | {label} ({pipeline} {loc})"
 
 
-FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et, "cheniere": fetch_cheniere}
+FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et, "cheniere": fetch_cheniere,
+            "tc": fetch_tc, "bhe": fetch_bhe}
 
 
 def fetch_all(pipelines, gas_day):
