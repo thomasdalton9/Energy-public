@@ -126,6 +126,15 @@ PLANT_START = {
     "Golden Pass": date(2026, 1, 1),
 }
 RAMP_MONTHS = 3
+# Meters are treated as live this many months BEFORE PLANT_START, so any
+# pre-commissioning feedgas is captured (and reported missing if absent);
+# the calibration still waits for PLANT_START + RAMP_MONTHS.
+PRE_START_MONTHS = 6
+
+
+def live_from(plant):
+    start = PLANT_START.get(plant)
+    return (pd.Timestamp(start) - pd.DateOffset(months=PRE_START_MONTHS)).date() if start else date.min
 
 
 # Everything --dump pulls: all delivery points on these pipelines, to
@@ -558,7 +567,7 @@ def estimated(plants_daily, check, eia=None):
             if plant not in daily.columns or daily[plant].isna().all():
                 latest = eia[plant].dropna()
                 if not latest.empty:
-                    start = PLANT_START.get(plant, date.min)
+                    start = live_from(plant)
                     after_start = pd.Series([d >= start for d in daily.index], index=daily.index)
                     daily[f"{plant} (EIA {latest.index[-1]}, unmetered)"] = latest.iloc[-1] * after_start.where(after_start)
                     daily = daily.drop(columns=[plant], errors="ignore")
@@ -605,7 +614,8 @@ def notes_lines():
     ]
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
     lines += ["", "PLANT START DATES (approximate first feedgas; blanks before these = not operating yet)"]
-    lines += [f"{plant}: {start:%b %Y}" for plant, start in PLANT_START.items()]
+    lines += [f"{plant}: {start:%b %Y} (meters treated as live from {live_from(plant):%b %Y}, "
+              f"{PRE_START_MONTHS} months earlier, to catch pre-commissioning feedgas)" for plant, start in PLANT_START.items()]
     lines += ["", "CALIBRATION",
               f"'EIA exports (Bcfd)': EIA monthly LNG exports by terminal (point of exit), converted to Bcf/d and grossed up by "
               f"{FEEDGAS_PER_EXPORT:.2f} for liquefaction fuel and shrinkage (an assumed ~{(FEEDGAS_PER_EXPORT - 1) * 100:.0f}%) - "
@@ -677,7 +687,7 @@ def progress_line(path, i, n, day, row, started):
     be followed day by day: meters found, metered total, which pipes
     were missing, time elapsed and an estimate of time left."""
     values = row.iloc[0]
-    live = [p for p in POINTS if day >= PLANT_START.get(p[0], date.min)]
+    live = [p for p in POINTS if day >= live_from(p[0])]
     got = int(sum(pd.notna(values.get(point_column(p))) for p in live))
     missing = sorted({f"{p[0]} ({p[2]})" for p in live if pd.isna(values.get(point_column(p)))})
     total = values.sum(skipna=True) / DTH_PER_BCF
