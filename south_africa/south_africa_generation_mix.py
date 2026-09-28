@@ -41,7 +41,15 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 import xlsx_notes
 
-HEADERS = {"User-Agent": "gas-demand-scripts/1.0"}
+# No-cache headers plus a timestamp query param (see fetch_current_window):
+# two scheduled runs three days apart got byte-identical windows ending
+# 23 Sep, while Electricity Maps' own Eskom parser still uses this same
+# URL - so a cached copy in front of Eskom's site is a plausible cause.
+HEADERS = {
+    "User-Agent": "gas-demand-scripts/1.0",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+}
 
 # Column index (within the row, after the leading datetime column) to
 # category. Indices not listed here are storage/pumping-consumption/
@@ -75,7 +83,7 @@ def get_url():
 
 def fetch_current_window(session):
     """Fetch and parse Eskom's current rolling ~7-day hourly CSV."""
-    response = session.get(get_url(), timeout=30)
+    response = session.get(get_url(), params={"t": int(datetime.now(timezone.utc).timestamp())}, timeout=30)
     response.raise_for_status()
     reader = csv.reader(io.StringIO(response.text))
     header = next(reader, None)
