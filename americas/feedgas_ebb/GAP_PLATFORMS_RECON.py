@@ -427,6 +427,49 @@ def tc_session_diag(context):
     page.close()
 
 
+def transco_oac(context):
+    """Transco's OA report is an SPA (1line.williams.com/#/oac-reports/
+    transco). Capture its data calls, keep full JSON/CSV bodies, and grep
+    them for LNG terminal delivery points (Sabine Pass via Gulf Trace,
+    Cameron, Cove Point, Corpus Christi...)."""
+    log("\n==================== Transco (Williams 1Line) OA ====================")
+    page = context.new_page()
+    bodies = []
+
+    def on_response(resp):
+        ct = resp.headers.get("content-type", "")
+        if resp.request.resource_type in ("xhr", "fetch") or "json" in ct or "csv" in ct:
+            try:
+                bodies.append((resp.status, resp.request.method, resp.url, ct, resp.text(), resp.request.post_data))
+            except Exception:
+                pass
+    page.on("response", on_response)
+    lng = re.compile(r"SABINE|CHENIERE|GULF ?TRACE|LIQUEF|\bLNG\b|CAMERON|COVE POINT|CORPUS|PLAQUEMINES|CALCASIEU|VENTURE|GOLDEN PASS|ELBA", re.I)
+    try:
+        page.goto("https://www.1line.williams.com/#/oac-reports/transco", wait_until="networkidle", timeout=120000)
+        page.wait_for_timeout(10000)
+        dump_page(page, "transco_oac")
+        # any download/export control
+        for label in ("CSV", "Download", "Export", "Excel"):
+            loc = page.get_by_text(label, exact=False)
+            if loc.count():
+                log(f"  control with text {label!r}: {loc.count()}")
+    except Exception as e:
+        log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+    log(f"  {len(bodies)} data responses:")
+    for i, (status, method, url, ct, body, post) in enumerate(bodies):
+        log(f"    [{i}] {status} {method} {url[:200]} ({ct}, {len(body):,} chars)")
+        if post:
+            log(f"      POST {post[:400]!r}")
+        log(f"      {body[:300]!r}")
+        hits = [l for l in re.split(r"[\n}]", body) if lng.search(l)]
+        for h in hits[:15]:
+            log(f"      LNG: {h[:400]}")
+        with open(os.path.join(OUTPUT_DIR, f"transco_body_{i}.txt"), "w", encoding="utf-8") as f:
+            f.write(f"{method} {url}\n{post or ''}\n\n{body}")
+    page.close()
+
+
 def covepoint_csv(context):
     """Newest Cove Point OA CSV for yesterday's gas day (the listing page
     links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
@@ -488,6 +531,8 @@ def main():
             tc_param_probe2(context)
         if "tc_session" in wanted:
             tc_session_diag(context)
+        if "transco" in wanted:
+            transco_oac(context)
         if "covepoint_csv" in wanted:
             covepoint_csv(context)
         browser.close()
