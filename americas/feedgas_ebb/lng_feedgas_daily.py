@@ -618,6 +618,8 @@ def main():
     # what it has (re-running skips nothing - it just overwrites).
     SAVE_EVERY = 7
     pending, retrieved = [], 0
+    started = datetime.now()
+    progress_log = os.path.splitext(args.out)[0] + "_progress.log"
     for i, day in enumerate(days, 1):
         print(f"Pulling LNG feedgas points for gas day {day} ({i}/{len(days)})...", flush=True)
         row = pull(day)
@@ -626,12 +628,34 @@ def main():
         else:
             pending.append(row)
             retrieved += 1
+        progress_line(progress_log, i, len(days), day, row, started)
         if pending and (i % SAVE_EVERY == 0 or i == len(days)):
             save(args.out, pd.concat(pending))
             pending = []
     if retrieved == 0:
         print("No points retrieved at all - leaving the archive untouched.", file=sys.stderr)
         sys.exit(1)
+
+
+def progress_line(path, i, n, day, row, started):
+    """One summary line per gas day - printed, and appended to a
+    <workbook>_progress.log next to the workbook - so a long backfill can
+    be followed day by day: meters found, metered total, which pipes
+    were missing, time elapsed and an estimate of time left."""
+    values = row.iloc[0]
+    got = int(values.notna().sum())
+    missing = sorted({f"{p[0]} ({p[2]})" for p in POINTS if pd.isna(values.get(point_column(p)))})
+    total = values.sum(skipna=True) / DTH_PER_BCF
+    elapsed = datetime.now() - started
+    left = elapsed / i * (n - i)
+    fmt = lambda td: f"{int(td.total_seconds() // 3600)}:{int(td.total_seconds() % 3600 // 60):02d}"
+    mark = "✓" if got == len(POINTS) else ("~" if got else "✗")
+    line = (f"[{i:>4}/{n}] {day}  {mark} {got}/{len(POINTS)} meters  metered {total:5.2f} Bcf/d"
+            + (f"  missing: {', '.join(missing)}" if missing else "")
+            + f"  |  elapsed {fmt(elapsed)}  ~{fmt(left)} left")
+    print(line, flush=True)
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(f"{datetime.now():%Y-%m-%d %H:%M}  {line}\n")
 
 
 _EIA_CACHE = {}
