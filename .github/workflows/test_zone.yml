@@ -1,0 +1,85 @@
+name: Test zone
+
+# Manual only - a place to try scripts on GitHub, away from the automated
+# jobs. Runs one script (normally in testing/) with every repository secret
+# exposed as an environment variable of the same name - e.g. the secret
+# ENTSOE_API_KEY is $ENTSOE_API_KEY, read in Python with
+# os.environ["ENTSOE_API_KEY"] - and commits back only what the script
+# writes under testing/. Never touches the automated jobs' folders.
+#
+# Add keys under Settings -> Secrets and variables -> Actions. Never put a
+# key in a file in the repo.
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Script to run, path from the repo root (e.g. testing/my_test.py)"
+        required: true
+      args:
+        description: "Arguments for the script"
+        required: false
+        default: ""
+      packages:
+        description: "Extra pip packages, space-separated (pandas, openpyxl, requests are always installed)"
+        required: false
+        default: ""
+      browser:
+        description: "Install Chromium for Playwright"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        env:
+          PACKAGES: ${{ inputs.packages }}
+          BROWSER: ${{ inputs.browser }}
+        run: |
+          pip install pandas openpyxl requests $PACKAGES
+          if [ "$BROWSER" = "true" ]; then
+            pip install playwright
+            python3 -m playwright install --with-deps chromium
+          fi
+
+      - name: Expose repository secrets as environment variables
+        env:
+          SECRETS_JSON: ${{ toJSON(secrets) }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          secrets = {k: v for k, v in json.loads(os.environ["SECRETS_JSON"]).items() if k.lower() != "github_token"}
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+              for name, value in secrets.items():
+                  f.write(f"{name}<<__SECRET_END__\n{value}\n__SECRET_END__\n")
+          print("secrets available to the script (names only):", sorted(secrets) or "none")
+          PY
+
+      - name: Run script
+        env:
+          SCRIPT: ${{ inputs.script }}
+          ARGS: ${{ inputs.args }}
+        run: python3 "$SCRIPT" $ARGS
+
+      - name: Commit outputs (testing/ only)
+        if: always()
+        env:
+          SCRIPT: ${{ inputs.script }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f -- testing/ ':!**/__pycache__/**'
+          git diff --cached --quiet || git commit -m "Test zone output: $SCRIPT"
+          git pull --rebase
+          git push
