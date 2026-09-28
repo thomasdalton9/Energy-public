@@ -561,6 +561,12 @@ def fetch_eia_exports():
             totals.setdefault(plant, []).append((c, series))
     for plant, cols in totals.items():
         print(f"  EIA exports: {plant} total from {[c for c, _ in cols]}", flush=True)
+    for (plant, country), series in sorted(by_country.items()):
+        if plant not in totals and series.notna().any():
+            labels = [str(c) for c in raw.columns if plant.split()[0].lower() in str(c).lower()
+                      and country in str(c).lower()]
+            print(f"  EIA country col: {plant} / {country}: last {series.dropna().iloc[-1]:.0f} MMcf, "
+                  f"labels {labels}", flush=True)
     totals = {pl: pd.concat([s for _, s in cols], axis=1).max(axis=1) for pl, cols in totals.items()}
     country_sums = {}
     for (plant, _), series in by_country.items():
