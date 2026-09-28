@@ -19,6 +19,10 @@ on:
         description: "Backfill: last gas day, YYYY-MM-DD (blank = yesterday)"
         required: false
         default: ""
+      only:
+        description: "Backfill just these platforms, comma-separated (e.g. transco); blank = all"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -44,6 +48,7 @@ jobs:
         env:
           DATE_FROM: ${{ inputs.date_from }}
           DATE_TO: ${{ inputs.date_to }}
+          ONLY: ${{ inputs.only }}
         run: |
           if [ -n "$DATE_FROM" ]; then
             # a backfill saves and pushes after every day, with the day's
@@ -51,7 +56,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             FEEDGAS_SAVE_EVERY=1 FEEDGAS_PUSH_EACH_DAY=1 \
-              python3 americas/feedgas_ebb/lng_feedgas_daily.py --from "$DATE_FROM" ${DATE_TO:+--to "$DATE_TO"}
+              python3 americas/feedgas_ebb/lng_feedgas_daily.py --from "$DATE_FROM" ${DATE_TO:+--to "$DATE_TO"} ${ONLY:+--only "$ONLY"}
           else
             python3 americas/feedgas_ebb/lng_feedgas_daily.py
           fi

@@ -68,6 +68,7 @@ DTH_PER_BCF = BTU_PER_CF * 1_000_000 / 1000  # 1 Bcf = 1e9 cf * 1,037 Btu = 1.03
 # CGT = Columbia Gulf), "bhe" = BHE GT&S pipeline path ("cpl" = Cove Point).
 POINTS = [
     ("Sabine Pass", "km", "KMLP", "49448", "KMLP -> SP Liquefaction, Cameron Par."),
+    ("Sabine Pass", "transco", "TRANSCO", "9009310", "Transco (Gulf Trace) -> Sabine Pass, Lighthouse Road"),
     ("Sabine Pass", "km", "NGPL", "46622", "NGPL -> Sabine Pass Liquefaction"),
     # Creole Trail's own delivery meter into the plant. Its receipts
     # include the Texas Eastern (25,000) and Trunkline (259,976) Creole
@@ -105,6 +106,7 @@ POINTS = [
     ("Freeport", "enbridge", "TE", "73912", "Texas Eastern -> BIG Pipeline, Angleton"),
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
     ("Golden Pass", "et", "GR", "808311", "Gulf Run -> Golden Pass Pipeline"),
+    ("Golden Pass", "transco", "TRANSCO", "9013124", "Transco -> Golden Pass Pipeline interconnect"),
     # Cove Point pipeline's delivery into the plant (BHE GT&S posting).
     ("Cove Point", "bhe", "cpl", "10001", "Cove Point pipeline -> Cove Point plant"),
 ]
@@ -190,14 +192,14 @@ DUMP_PIPELINES = [
 ]
 
 COVERAGE_NOTES = {
-    "Sabine Pass": "Near complete - the plant's three feed pipes' delivery meters: Creole Trail, Kinder Morgan Louisiana and NGPL.",
+    "Sabine Pass": "Near complete - delivery meters of Creole Trail, Kinder Morgan Louisiana, NGPL and Transco's Gulf Trace lateral (Lighthouse Road).",
     "Plaquemines": "Complete - Gator Express's three feeds: Tennessee Gas, Texas Eastern and Columbia Gulf.",
     "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal plus Columbia Gulf's direct feed.",
     "Calcasieu Pass": "Mostly complete - ANR (Grand Chenier XPress) and Texas Eastern deliveries into TransCameron; Sabine Pipe Line's, if any, not yet seen.",
     "Corpus Christi": "Mostly complete - Cheniere Corpus Christi Pipeline's delivery into the plant, which includes intrastate Permian gas it receives; gas delivered straight to the plant by the intrastate ADCC pipeline is not seen.",
     "Freeport": "Partial - Texas Eastern's deliveries at Stratton Ridge and into BIG Pipeline only; Texas intrastate supply is invisible, so use the calibrated estimate. Stratton Ridge also serves Dow's Freeport complex.",
     "Elba Island": "Elba Liquefaction meter on Elba Express.",
-    "Golden Pass": "Partial - Gulf Run's delivery into Golden Pass Pipeline; Permian gas via Kinder Morgan's Trident (intrastate) is not seen.",
+    "Golden Pass": "Partial - Gulf Run's and Transco's deliveries into Golden Pass Pipeline; Permian gas via Kinder Morgan's Trident (intrastate) is not seen.",
     "Cove Point": "Complete - Cove Point pipeline's delivery meter into the plant.",
 }
 
@@ -408,6 +410,43 @@ def fetch_tc_latest(page, pipe):
     return posted, frame
 
 
+TRANSCO_API = "https://www.1line.williams.com/portal-service/api/portal-service/v1/public/oac/"
+TRANSCO_CYCLES = [(8, "ID3"), (5, "Post"), (4, "ID2")]  # latest intraday first
+
+
+def fetch_transco(page, pipe, gas_day):
+    """Williams 1Line (Transco) OA report: a public API - POST the query,
+    then GET the report view (an HTML table) for the gas day and cycle."""
+    day = f"{gas_day:%m/%d/%Y}"
+    req = page.context.request
+    for cycle, label in TRANSCO_CYCLES:
+        q = req.post(TRANSCO_API + "query", timeout=120000, data={
+            "buid": 80, "mapId": 0, "startDate": day, "endDate": day, "cycle": cycle, "locationIds": "", "locationType": "All"})
+        if not (q.ok and (q.json().get("data") or {}).get("recordCount")):
+            continue
+        html = req.get(TRANSCO_API + "report/view", timeout=180000, params={
+            "buid": 80, "startDate": day, "endDate": day, "cycle": cycle, "zoneId": 0, "sortType": "HDR"}).text()
+        frame = parse_transco_report(html, gas_day)
+        print(f"  Transco: {len(frame)} delivery points, gas day {gas_day}, cycle {label}", flush=True)
+        return frame
+    raise RuntimeError(f"no Transco posting for {gas_day}")
+
+
+def parse_transco_report(html, gas_day):
+    m = re.search(r"Effective Gas Day:\s*(?:<[^>]+>\s*)*(\d\d/\d\d/\d{4})", html)
+    if not m or m.group(1) != f"{gas_day:%m/%d/%Y}":
+        raise RuntimeError(f"Transco report is for {m.group(1) if m else '?'}, wanted {gas_day}")
+    rows = []
+    for r in re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.S):
+        cells = [" ".join(re.sub(r"<[^>]+>", " ", c).split()) for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", r, re.S)]
+        if len(cells) >= 9 and cells[1] == "Delivery Location":
+            rows.append((cells[0], cells[4], cells[8]))
+    if not rows:
+        raise RuntimeError("no delivery rows in the Transco report")
+    df = pd.DataFrame(rows, columns=["loc", "name", "tsq"])
+    return points_frame(df["loc"], df["name"], df["tsq"])
+
+
 def fetch_bhe(page, pipe, gas_day):
     """BHE GT&S OA postings: the listing page links a CSV per cycle; take
     the latest-posted one for the gas day (listing is newest first)."""
@@ -439,7 +478,7 @@ def point_column(point):
 
 
 FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et, "cheniere": fetch_cheniere,
-            "tc": fetch_tc, "bhe": fetch_bhe}
+            "tc": fetch_tc, "bhe": fetch_bhe, "transco": fetch_transco}
 
 
 def fetch_all(pipelines, gas_day):
@@ -842,14 +881,18 @@ def main():
                                         "serve each day, without touching the workbook - to see how far back a backfill can go")
     parser.add_argument("--from", dest="date_from", help="backfill: first gas day, YYYY-MM-DD (with --to)")
     parser.add_argument("--to", dest="date_to", help="backfill: last gas day, YYYY-MM-DD (default: yesterday)")
+    parser.add_argument("--only", help="comma-separated platforms (e.g. transco) - pull just these, leaving the "
+                                       "workbook's other meters as they are (to backfill a newly added meter)")
     args = parser.parse_args()
     yesterday = datetime.now(ZoneInfo("America/Chicago")).date() - timedelta(days=1)
     gas_day = date.fromisoformat(args.gas_day) if args.gas_day else yesterday
     if args.dump:
         dump(gas_day)
         return
+    only = {x.strip() for x in args.only.split(",")} if args.only else None
+    not_wanted = {(p[1], p[2]) for p in POINTS if only and p[1] not in only}
     if args.probe:
-        probe([date.fromisoformat(d.strip()) for d in args.probe.split(",")])
+        probe([date.fromisoformat(d.strip()) for d in args.probe.split(",")], not_wanted)
         return
 
     if args.date_from:
@@ -861,7 +904,7 @@ def main():
     else:
         days = [gas_day]
     GIVE_UP_AFTER = 3
-    streak, dead = {}, set()
+    streak, dead = {}, set(not_wanted)
 
     # Backfills save every SAVE_EVERY days, so an interrupted run keeps
     # what it has (re-running skips nothing - it just overwrites).
@@ -934,11 +977,11 @@ def push_progress(paths, line):
     print("  (progress push failed - carrying on)", flush=True)
 
 
-def probe(days):
+def probe(days, skip=()):
     """For each gas day, which pipelines return a posting - pipelines are
     only required to keep ~3 years of postings, so this shows how far
     back a backfill will actually find data. Nothing is saved."""
-    needed = sorted({(p[1], p[2]) for p in POINTS})
+    needed = sorted({(p[1], p[2]) for p in POINTS} - set(skip))
     table = {}
     for day in days:
         print(f"\nProbing {day}...", flush=True)
