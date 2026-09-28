@@ -1,0 +1,4 @@
+GET https://www.1line.williams.com/portal-service/api/portal-service/v1/public/oac/filters?buid=80&mapId=0
+
+
+{"data":{"pageTitle":"Operational Capacity","showBeginDate":true,"showEndDate":true,"showCycle":true,"showLocations":true,"defaultStartDate":"09/27/2026","defaultEndDate":"09/27/2026","defaultCycle":8,"cycleOptions":[{"value":1,"label":"Timely"},{"value":2,"label":"Evening"},{"value":3,"label":"ID1"},{"value":4,"label":"ID2"},{"value":8,"label":"ID3"},{"value":5,"label":"Post"},{"value":7,"label":"Retro"}],"message":"","gulfstreamMessage":"The reports for the period beginning 6/1/2015 Timely through 6/23 Flow Time 8am reflect corrected design capacity quantities for the Station 100 location. With these changes, any impacted report calculations have been updated.","buid":80,"mapId":0,"showLocType":false,"locTypeOptions":null,"sessionAlert":null,"id3CycleEnabled":true},"notificationMessages":null}

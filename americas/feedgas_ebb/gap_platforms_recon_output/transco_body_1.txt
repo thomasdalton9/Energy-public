@@ -1,0 +1,18 @@
+GET https://www.1line.williams.com/Transco/info-postings/capacity/OAC_footnote.html
+
+
+<div class="portal-card">
+<p>&#160;</p>
+<p><span data-olk-copy-source="MessageBody">Effective May 13, 2026. Between the Mainline milepost 784.0 and 944.25, the Design Capacity, Operating Capacity, Total Scheduled Quantity, and Operationally Available Capacity quantities reflect the amounts for Transco only.&#160;The quantities for Sabal Trail shippers are reported under Sabal Trail&#8217;s Informational Postings Page.</span></p>
+<p><span data-olk-copy-source="MessageBody">The reports for the retro cycle starting 3/6/2025&#160;were displaying incorrect storage quantities for Eminence and Washington. These issues have been corrected for the&#160;impacted&#160;retro cycle&#160;reports&#160;as of 10/30/2025.</span><span data-olk-copy-source="MessageBody"></span></p>
+<p><span data-olk-copy-source="MessageBody">The following locations were inadvertently missing from the OAC and have now been added to the reports retroactively with information from the retro cycle:</span></p>
+<ul type="disc">
+<li>Receipt 9013223<span>: Whale M1772 MP 78.63 (December 2024)</span></li>
+<li>Delivery 9013224<span>: Whale BB M4684 MP 78.63 (October 2024)</span></li>
+<li>Delivery 9013243<span>: Whale BB #2 M17826 MP 78.63 (October 2024)</span></li>
+</ul>
+<p><span>The reports beginning 7/1/2024 Timely cycle through 07/01/2024 Retro cycle were not displaying quantities related to the Operationally Available Capacity for Location ID 9013023 BRUNSWICK/GREENSVILLE VAD. This was corrected starting the Timely cycle on 07/02/2024.</span></p>
+<p>Any constraint between the Mainline milepost 784.0 and 944.25 involving restriction of Primary volumes will result in the Operating Capacity being reflective of the amount available for both Transco and Sabal Trail.&#160; However, the Total Scheduled Quantity represents Transco volumes only. The scheduled volumes of Sabal Trail shippers are reported under Sabal Trail&#8217;s Informational Postings Page. The Operationally Available Capacity takes into account both the Transco Scheduled Quantity and the scheduled volumes of Sabal Trail shippers posted by Sabal Trail.</p>
+<p><span>The reports beginning 4/18/2024 Timely cycle through 04/19/2024 Intraday 1 cycle were displaying incorrect quantities related to the Operationally Available Capacity for Location ID 9012923 &#160;Station 90 MP 812. This was corrected starting the Intraday 2 cycle on 04/19/2024.</span></p>
+<p>The reports beginning 9/18/2023 Timely cycle through 11/02/2023 Intraday 2 cycle were displaying incorrect quantities related to the Operationally Available Capacity for Loc ID 9012503 Compressor Station 100. This was corrected starting the Intraday 3 cycle on 11/3/2023.</p>
+</div>
