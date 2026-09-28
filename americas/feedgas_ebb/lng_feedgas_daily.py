@@ -325,6 +325,101 @@ def plants_bcfd(points_dth):
     return df.round(3)
 
 
+# ---- Calibration against EIA monthly LNG exports by terminal ----------
+# EIA's "U.S. Liquefied Natural Gas Exports by Point of Exit" (monthly,
+# ~2-3 months behind, free, no key) gives what each terminal actually
+# exported. Feedgas is larger than exports by the plant's own fuel and
+# shrinkage - FEEDGAS_PER_EXPORT is a round, stated assumption (~9%),
+# not a measured figure. Comparing monthly-average metered feedgas with
+# EIA-implied feedgas gives each plant's "seen share" of its supply;
+# dividing daily metered by the latest seen share gives a calibrated
+# estimate - the fix for plants whose supply is partly invisible
+# (Freeport's Texas intrastate gas above all).
+EIA_EXPORTS_XLS = "https://www.eia.gov/dnav/ng/xls/NG_MOVE_POE2_A_EPG0_ENG_MMCF_M.xls"
+FEEDGAS_PER_EXPORT = 1.09
+MIN_DAYS_FOR_MONTH = 20
+PORT_TO_PLANT = [  # first match wins; Calcasieu before Cameron (both in Cameron Parish)
+    (r"calcasieu", "Calcasieu Pass"), (r"sabine", "Sabine Pass"), (r"cameron", "Cameron"),
+    (r"freeport", "Freeport"), (r"corpus", "Corpus Christi"), (r"cove point", "Cove Point"),
+    (r"elba", "Elba Island"), (r"plaquemines", "Plaquemines"), (r"golden pass", "Golden Pass"),
+]
+
+
+def fetch_eia_exports():
+    """Monthly EIA exports by plant, as feedgas-equivalent Bcf/d."""
+    import re
+    import requests
+    r = requests.get(EIA_EXPORTS_XLS, timeout=120, headers={"User-Agent": "Mozilla/5.0"})
+    r.raise_for_status()
+    raw = pd.read_excel(io.BytesIO(r.content), sheet_name="Data 1", header=2)
+    raw = raw.rename(columns={raw.columns[0]: "month"}).dropna(subset=["month"])
+    raw["month"] = pd.to_datetime(raw["month"]).dt.to_period("M")
+    out, unmapped = {}, []
+    for col in raw.columns[1:]:
+        plant = next((pl for pat, pl in PORT_TO_PLANT if re.search(pat, str(col), re.I)), None)
+        if plant is None:
+            unmapped.append(col)
+            continue
+        mmcf = pd.to_numeric(raw[col], errors="coerce")
+        bcfd = mmcf / 1000 / raw["month"].dt.days_in_month * FEEDGAS_PER_EXPORT
+        out[plant] = out[plant].add(bcfd, fill_value=0) if plant in out else bcfd
+    if unmapped:
+        print(f"  EIA exports: columns not mapped to a plant: {unmapped}", flush=True)
+    df = pd.DataFrame(out)
+    df.index = raw["month"].astype(str).values
+    df.index.name = "month"
+    df = df.dropna(how="all").round(3)
+    print(f"  EIA exports: {len(df)} months, latest {df.index[-1]}, plants {list(df.columns)}", flush=True)
+    return df
+
+
+def monthly_check(plants_daily, eia):
+    """Metered monthly average vs EIA-implied feedgas, per plant."""
+    daily = plants_daily.drop(columns=["Total"], errors="ignore").copy()
+    daily.index = pd.to_datetime(daily.index)
+    months = daily.index.to_period("M").astype(str)
+    counts = daily.groupby(months).count()
+    metered = daily.groupby(months).mean().where(counts >= MIN_DAYS_FOR_MONTH)
+    rows = []
+    for month in sorted(set(metered.index) | set(eia.index)):
+        for plant in sorted(set(daily.columns) | set(eia.columns)):
+            m = metered.at[month, plant] if month in metered.index and plant in metered.columns else float("nan")
+            e = eia.at[month, plant] if month in eia.index and plant in eia.columns else float("nan")
+            if pd.isna(m) and pd.isna(e):
+                continue
+            rows.append({"month": month, "plant": plant, "eia_implied_feedgas_bcfd": e,
+                         "metered_bcfd": round(m, 3) if pd.notna(m) else m,
+                         "seen_share": round(m / e, 3) if pd.notna(m) and pd.notna(e) and e > 0 else float("nan")})
+    return pd.DataFrame(rows).set_index(["month", "plant"]) if rows else pd.DataFrame()
+
+
+def estimated(plants_daily, check, eia=None):
+    """Daily estimate = metered / latest seen share, per plant with a
+    share; plants without one yet carry their metered value. Plants in
+    EIA's data with no meter at all (e.g. Cove Point until it's covered)
+    carry their latest EIA month - stale, but better than leaving them
+    out of the estimated total."""
+    daily = plants_daily.drop(columns=["Total"], errors="ignore").copy()
+    metered_total = daily.sum(axis=1, min_count=1)
+    if eia is not None and not eia.empty:
+        for plant in eia.columns:
+            if plant not in daily.columns or daily[plant].isna().all():
+                latest = eia[plant].dropna()
+                if not latest.empty:
+                    daily[f"{plant} (EIA {latest.index[-1]}, unmetered)"] = latest.iloc[-1]
+                    daily = daily.drop(columns=[plant], errors="ignore")
+    share = {}
+    if not check.empty:
+        s = check["seen_share"].dropna()
+        for (month, plant), v in s.sort_index().items():
+            if 0.05 < v < 2:  # ignore nonsense ratios (plant starting up, outages)
+                share[plant] = v
+    est = pd.DataFrame({p: (daily[p] / share[p]) if p in share else daily[p] for p in daily.columns}, index=daily.index)
+    est["Estimated total"] = est.sum(axis=1, min_count=1)
+    est["Metered total"] = metered_total
+    return est.round(3), share
+
+
 def load_points(path):
     try:
         df = pd.read_excel(path, sheet_name="Points (Dth)", index_col=0)
@@ -350,7 +445,17 @@ def notes_lines():
         "COVERAGE BY PLANT",
     ]
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
-    lines += ["", "POINTS", "Each 'Points (Dth)' column is 'Plant | meter (pipeline code, location id)'.", "",
+    lines += ["", "CALIBRATION",
+              f"'EIA exports (Bcfd)': EIA monthly LNG exports by terminal (point of exit), converted to Bcf/d and grossed up by "
+              f"{FEEDGAS_PER_EXPORT:.2f} for liquefaction fuel and shrinkage (an assumed ~{(FEEDGAS_PER_EXPORT - 1) * 100:.0f}%) - "
+              "i.e. the feedgas each plant actually needed. About 2-3 months behind.",
+              f"'Monthly check': for each month with {MIN_DAYS_FOR_MONTH}+ metered days, metered average vs EIA-implied feedgas; "
+              "seen_share = the part of each plant's supply our meters see.",
+              "'Estimated (calibrated)': daily metered / the plant's latest seen_share - fills the gas we can't see "
+              "(Freeport's Texas intrastate supply above all). Plants with no share yet (the first 2-3 months, until "
+              "EIA catches up with our history) carry their metered value. 'Estimated total' vs 'Metered total' "
+              "shows how much is inferred.",
+              "", "POINTS", "Each 'Points (Dth)' column is 'Plant | meter (pipeline code, location id)'.", "",
               "SOURCE", "Kinder Morgan (pipeline2.kindermorgan.com) and Enbridge LINK (rtba.enbridge.com) "
               "Operationally Available Capacity postings, Total Scheduled Quantity column; gasnom.com (Cameron Interstate), "
               "Energy Transfer Messenger+ and Cheniere LNG Connection equivalents - all operator-hosted."]
@@ -384,11 +489,30 @@ def main():
     points.index.name = "gas_day"
     plants = plants_bcfd(points)
 
-    xlsx_notes.write_workbook(args.out, {"Bcfd by plant": plants, "Points (Dth)": points}, notes_lines(),
-                              {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "POINTS", "SOURCE"})
+    try:
+        eia = fetch_eia_exports()
+    except Exception as e:
+        print(f"  WARNING: EIA exports fetch failed ({type(e).__name__}: {e}) - reusing the workbook's copy", file=sys.stderr)
+        try:
+            eia = pd.read_excel(args.out, sheet_name="EIA exports (Bcfd)", index_col=0)
+            eia.index = eia.index.astype(str)
+        except (FileNotFoundError, ValueError):
+            eia = pd.DataFrame()
+    check = monthly_check(plants, eia) if not eia.empty else pd.DataFrame()
+    est, share = estimated(plants, check, eia)
+    if share:
+        print(f"  seen shares used: {share}")
+
+    sheets = {"Bcfd by plant": plants, "Estimated (calibrated)": est, "Points (Dth)": points}
+    if not check.empty:
+        sheets["Monthly check"] = check
+    if not eia.empty:
+        sheets["EIA exports (Bcfd)"] = eia
+    xlsx_notes.write_workbook(args.out, sheets, notes_lines(),
+                              {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
-    for name in ("Bcfd by plant", "Points (Dth)"):
+    for name in ("Bcfd by plant", "Estimated (calibrated)", "Points (Dth)"):
         ws = wb[name]
         for (cell,) in ws.iter_rows(min_row=2, max_col=1):
             cell.number_format = "dd-mmm-yyyy"
