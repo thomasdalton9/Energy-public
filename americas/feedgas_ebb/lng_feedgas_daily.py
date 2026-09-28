@@ -61,12 +61,18 @@ DTH_PER_BCF = BTU_PER_CF * 1_000_000 / 1000  # 1 Bcf = 1e9 cf * 1,037 Btu = 1.03
 
 # (plant, platform, pipeline, loc id, label). Platforms: "km" = Kinder
 # Morgan pipeline code, "enbridge" = Enbridge LINK business unit,
-# "gasnom" = gasnom.com pipeline, "et" = Energy Transfer asset code.
+# "gasnom" = gasnom.com pipeline, "et" = Energy Transfer asset code,
+# "cheniere" = Cheniere LNG Connection pipeline number (200 Creole
+# Trail, 400 Corpus Christi Pipeline).
 POINTS = [
     ("Sabine Pass", "km", "KMLP", "49448", "KMLP -> SP Liquefaction, Cameron Par."),
     ("Sabine Pass", "km", "NGPL", "46622", "NGPL -> Sabine Pass Liquefaction"),
-    ("Sabine Pass", "enbridge", "TE", "75866", "Texas Eastern -> Cheniere (Creole Trail), Beauregard Par."),
-    ("Sabine Pass", "et", "TGC", "82742", "Trunkline -> Cheniere Creole Trail, Beauregard Par."),
+    # Creole Trail's own delivery meter into the plant. Its receipts
+    # include the Texas Eastern (25,000) and Trunkline (259,976) Creole
+    # Trail deliveries previously counted here, plus LEAP and Acadian -
+    # those upstream meters are dropped so nothing is counted twice.
+    ("Sabine Pass", "cheniere", "200", "CT200111", "Creole Trail -> Sabine Pass Liquefaction"),
+    ("Sabine Pass", "cheniere", "200", "SPLNGD", "Creole Trail -> Sabine Pass LNG"),
     ("Plaquemines", "km", "TGP", "55833", "Tennessee Gas -> VG Gator Express, Evangeline Pass"),
     ("Plaquemines", "enbridge", "TE", "74530", "Texas Eastern -> Gator Express"),
     # Cameron Interstate's own delivery meter into the terminal - its
@@ -75,8 +81,11 @@ POINTS = [
     # Gillis Hub, so this one meter is the whole plant.
     ("Cameron", "gasnom", "CAMERON", "772300", "Cameron Interstate -> Cameron LNG"),
     ("Calcasieu Pass", "enbridge", "TE", "74529", "Texas Eastern -> TransCameron, Oak Grove"),
-    ("Corpus Christi", "km", "NGPL", "48934", "NGPL -> Cheniere Corpus Christi Pipeline, Sinton"),
-    ("Corpus Christi", "km", "TGP", "49861", "Tennessee Gas -> Cheniere Corpus Christi Pipeline, Sinton"),
+    # Cheniere Corpus Christi Pipeline's delivery into the plant - its
+    # receipts include the intrastate Permian supply (Kinder Morgan
+    # Tejas, Enterprise...) as well as the NGPL/TGP Sinton meters
+    # previously summed here, which are dropped to avoid double counting.
+    ("Corpus Christi", "cheniere", "400", "CC200221", "Corpus Christi Pipeline -> Corpus Christi Liquefaction"),
     ("Freeport", "enbridge", "TE", "79999", "Texas Eastern -> Stratton Ridge"),
     ("Elba Island", "km", "EEC", "660700", "Elba Express -> Elba Liquefaction, Chatham"),
     ("Golden Pass", "et", "GR", "808311", "Gulf Run -> Golden Pass Pipeline"),
@@ -86,16 +95,16 @@ POINTS = [
 # find more terminal meters for POINTS.
 DUMP_PIPELINES = [
     ("km", "KMLP"), ("km", "NGPL"), ("km", "TGP"), ("km", "EEC"), ("km", "SNG"),
-    ("enbridge", "TE"), ("gasnom", "CAMERON"),
+    ("enbridge", "TE"), ("gasnom", "CAMERON"), ("cheniere", "200"), ("cheniere", "400"),
     ("et", "TGC"), ("et", "GR"), ("et", "TGR"), ("et", "LCLNG"), ("et", "FGT"),
 ]
 
 COVERAGE_NOTES = {
-    "Sabine Pass": "Mostly complete - KMLP, NGPL, and Creole Trail deliveries from Trunkline and Texas Eastern; Transco (Williams) not yet covered.",
+    "Sabine Pass": "Near complete - the plant's three feed pipes' delivery meters: Creole Trail, Kinder Morgan Louisiana and NGPL.",
     "Plaquemines": "Near complete - Gator Express is fed by Tennessee Gas and Texas Eastern.",
     "Cameron": "Complete - Cameron Interstate's delivery meter into the terminal.",
     "Calcasieu Pass": "Partial - TransCameron is intrastate; only Texas Eastern's delivery into it is seen.",
-    "Corpus Christi": "Partial - Permian supply arrives on intrastate pipes (GCX, Whistler, ADCC) with no public data; only NGPL/TGP deliveries into Cheniere's Corpus Christi Pipeline are seen.",
+    "Corpus Christi": "Mostly complete - Cheniere Corpus Christi Pipeline's delivery into the plant, which includes intrastate Permian gas it receives; gas delivered straight to the plant by the intrastate ADCC pipeline is not seen.",
     "Freeport": "Partial - Stratton Ridge only; BIG Pipeline and Gulf South meters not yet covered. Stratton Ridge is a hub, so check against Freeport's reported output.",
     "Elba Island": "Elba Liquefaction meter on Elba Express.",
     "Golden Pass": "Partial - Gulf Run's delivery into Golden Pass Pipeline; Permian gas via Kinder Morgan's Trident (intrastate) is not seen.",
@@ -112,6 +121,7 @@ ENBRIDGE_DATE_INPUT = "#ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate_dateInp
 GASNOM_URL = "https://www.gasnom.com/ip/{pipe}/oauc.cfm?dt={day:%m/%d/%Y}&type=1"
 ET_PAGE_URL = "https://tgcmessenger.energytransfer.com/ipost/capacity/operationally-available-by-location?asset={asset}"
 ET_CSV_URL = ET_PAGE_URL + "&f=csv&extension=csv&gasDay={day:%m}%2F{day:%d}%2F{day:%Y}&cycleDesc=Final&pointCd=&name="
+CHENIERE_API = "https://lngconnectionapi.cheniere.com/api/Capacity/GetCapacity?tspNo={tsp}&beginDate={begin}&cycleId=null&locationId=0"
 TABLE_ROWS_JS = """() => [...document.querySelectorAll('tr')].map(tr =>
     [...tr.querySelectorAll('td,th')].map(c => c.innerText.replace(/\\s+/g, ' ').trim()))"""
 
@@ -207,6 +217,36 @@ def fetch_et(page, asset, gas_day):
                         df[col("loc name", "location name")], df[col("tsq", "total scheduled quantity")])
 
 
+def fetch_cheniere(page, tsp, gas_day):
+    """Cheniere LNG Connection's JSON capacity feed (what its site calls
+    behind the scenes; operator-hosted, no browser needed). Asks for the
+    gas day explicitly, falls back to the default (current gas day's
+    latest cycle), and checks the effective date either way."""
+    import requests
+    for begin in (f"{gas_day:%m/%d/%Y}", "null"):
+        r = requests.get(CHENIERE_API.format(tsp=tsp, begin=begin), timeout=60,
+                         headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
+        r.raise_for_status()
+        report = r.json().get("report") or []
+        if not report:
+            continue
+        eff = datetime.fromisoformat(report[0]["avaiL_CAP_EFF_DT_TIME"])
+        eff_day = (eff - timedelta(hours=9)).date()  # gas day runs 9am-9am Central
+        if eff_day == gas_day:
+            break
+    else:
+        raise RuntimeError(f"no Cheniere {tsp} posting for gas day {gas_day}")
+    if eff_day != gas_day:
+        raise RuntimeError(f"Cheniere {tsp} posting is for gas day {eff_day}, wanted {gas_day}")
+    df = pd.DataFrame(report)
+    keys = {k.lower(): k for k in df.columns}
+    tsq = next(keys[k] for k in keys if "sch" in k and "q" in k)
+    flow = next(keys[k] for k in keys if "purp" in k)
+    df = df[df[flow].astype(str).str.contains("Deliver", case=False)]
+    print(f"  Cheniere {tsp}: {len(df)} delivery points, gas day {eff_day}, cycle {report[0].get('cycle')}", flush=True)
+    return points_frame(df[keys["loc"]], df[keys["loc_name"]], df[tsq])
+
+
 def points_frame(locs, names, tsq):
     """Common shape for every fetcher: loc id -> name, scheduled Dth."""
     df = pd.DataFrame({"loc": locs.astype(str).str.strip().values,
@@ -220,7 +260,7 @@ def point_column(point):
     return f"{plant} | {label} ({pipeline} {loc})"
 
 
-FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et}
+FETCHERS = {"km": fetch_km, "enbridge": fetch_enbridge, "gasnom": fetch_gasnom, "et": fetch_et, "cheniere": fetch_cheniere}
 
 
 def fetch_all(pipelines, gas_day):
@@ -312,8 +352,8 @@ def notes_lines():
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
     lines += ["", "POINTS", "Each 'Points (Dth)' column is 'Plant | meter (pipeline code, location id)'.", "",
               "SOURCE", "Kinder Morgan (pipeline2.kindermorgan.com) and Enbridge LINK (rtba.enbridge.com) "
-              "Operationally Available Capacity postings, Total Scheduled Quantity column; gasnom.com (Cameron Interstate) "
-              "and Energy Transfer Messenger+ equivalents."]
+              "Operationally Available Capacity postings, Total Scheduled Quantity column; gasnom.com (Cameron Interstate), "
+              "Energy Transfer Messenger+ and Cheniere LNG Connection equivalents - all operator-hosted."]
     return lines
 
 

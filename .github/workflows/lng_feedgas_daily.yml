@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pandas openpyxl playwright
+          pip install pandas openpyxl playwright requests
           python3 -m playwright install --with-deps chromium
 
       - name: Pull LNG feedgas
