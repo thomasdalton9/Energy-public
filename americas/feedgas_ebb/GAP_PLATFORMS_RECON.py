@@ -405,6 +405,28 @@ def tc_param_probe2(context):
     page.close()
 
 
+def tc_session_diag(context):
+    """Why the TC viewer says "ASP.NET session has expired": log every
+    Set-Cookie and each request the viewer makes (with its status), then
+    the cookies the browser holds for the site."""
+    log("\n==================== TC Energy session diagnostics ====================")
+    page = context.new_page()
+    def on_response(r):
+        if "tceconnects" in r.url:
+            sc = r.headers.get("set-cookie", "")
+            log(f"  {r.status} {r.request.method} {r.url[:150]}" + (f"  SET-COOKIE: {sc[:300]!r}" if sc else ""))
+    page.on("response", on_response)
+    page.goto(TC_BASE + "TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid=3005", wait_until="domcontentloaded", timeout=90000)
+    page.wait_for_timeout(3000)
+    log(f"  cookies after menu: {[(c['name'], c['domain'], c['path'], c.get('sameSite'), c.get('secure')) for c in context.cookies()]}")
+    page.goto(f"{TC_BASE}ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&pAssetNbr=3005",
+              wait_until="domcontentloaded", timeout=180000)
+    page.wait_for_timeout(20000)
+    log(f"  cookies after viewer: {[(c['name'], c['domain'], c['path'], c.get('sameSite'), c.get('secure')) for c in context.cookies()]}")
+    log(f"  viewer text: {' '.join(page.evaluate('() => document.body.innerText').split())[:400]!r}")
+    page.close()
+
+
 def covepoint_csv(context):
     """Newest Cove Point OA CSV for yesterday's gas day (the listing page
     links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
@@ -464,6 +486,8 @@ def main():
             tc_param_probe(context)
         if "tc_params2" in wanted:
             tc_param_probe2(context)
+        if "tc_session" in wanted:
+            tc_session_diag(context)
         if "covepoint_csv" in wanted:
             covepoint_csv(context)
         browser.close()
