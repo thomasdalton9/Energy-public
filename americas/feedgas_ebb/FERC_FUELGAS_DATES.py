@@ -35,6 +35,15 @@ QUERIES = {
     "goldenpass": "Golden Pass LNG introduce hazardous fluids",
     # Sabine Pass Trains 1-2 commissioned in 2015, before the wording above
     "sabine2015": ("Sabine Pass Liquefaction commissioning", "2014-06-01", "2016-06-30"),
+    # train-by-train: letters granting feed gas / hazardous fluids to each
+    # liquefaction train or block (date-bounded so they rank)
+    "sabine_t": ("Sabine Pass Liquefaction Train feed gas refrigerants", "2015-06-01", "2022-12-31"),
+    "freeport_t": ("Freeport LNG liquefaction Train feed gas hazardous fluids", "2019-01-01", "2020-12-31"),
+    "elba_t": ("Elba Liquefaction unit feed gas hazardous fluids", "2019-01-01", "2020-12-31"),
+    "calcasieu_t": ("Calcasieu Pass Liquefaction Block hazardous fluids", "2021-06-01", "2023-06-30"),
+    "plaquemines_t": ("Plaquemines Liquefaction Block hazardous fluids", "2024-09-01", "2026-09-30"),
+    "goldenpass_t": ("Golden Pass Train feed gas hazardous fluids liquefaction", "2025-01-01", "2026-09-30"),
+    "covepoint_t": ("Cove Point liquefaction feed gas commissioning", "2017-06-01", "2018-06-30"),
 }
 
 
