@@ -136,21 +136,65 @@ def simple(context, name, urls):
         page.close()
 
 
+TC_BASE = "https://ebb.tceconnects.com/infopost/"
+# Second pass findings: TC eConnects reports are SQL Server Reporting
+# Services (ReportViewer.aspx?/InfoPost/<Report>&pAssetNbr=N), which can
+# export CSV with rs:Format=CSV. Asset numbers from the menu: ANR 3005,
+# Columbia Gulf 14, Columbia Gas (TCO) 51.
+TC_REPORTS = [
+    ("ANR", "OperationallyAvailableCapacityANR", "pAssetNbr=3005"),
+    ("CGT", "OperationallyAvailableCapacity", "pAssetNbr=14"),
+    ("TCO", "OperationallyAvailableCapacity", "pAssetNbr=51"),
+    ("ANR_power", "ScheduledQtyForPowerPlants", "pAssetNbr=3005"),
+    ("ANR_locations", "LocationDataDownload", "assetNbr=3005"),
+]
+LNG_RE = re.compile(r"LNG|LIQ|CAMERON|TRANSCAM|CALCAS|VENTURE|GATOR|PLAQUEM|COVE|SABINE|CREOLE|GILLIS", re.I)
+
+
+def tc_csv(context):
+    log("\n==================== TC Energy CSV exports ====================")
+    page = context.new_page()
+    page.goto(TC_BASE + "TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid=3005", wait_until="networkidle", timeout=60000)
+    for tag, report, asset in TC_REPORTS:
+        url = f"{TC_BASE}ReportViewer.aspx?/InfoPost/{report}&{asset}&rs:Format=CSV"
+        log(f"\n--- {tag}: {url}")
+        try:
+            r = context.request.get(url, timeout=120000)
+            text = r.text()
+            log(f"  HTTP {r.status}, {len(text):,} chars, {r.headers.get('content-type')}")
+            with open(os.path.join(OUTPUT_DIR, f"tc_{tag}.csv"), "w", encoding="utf-8") as f:
+                f.write(text)
+            lines = text.splitlines()
+            for line in lines[:6]:
+                log(f"    {line[:300]}")
+            hits = [l for l in lines if LNG_RE.search(l)]
+            log(f"  {len(lines)} lines, {len(hits)} LNG-ish:")
+            for l in hits[:25]:
+                log(f"    {l[:300]}")
+        except Exception as e:
+            log(f"  FAILED: {type(e).__name__}: {str(e)[:300]}")
+    page.close()
+
+
+def bhe(context):
+    simple(context, "bhe2", [
+        "https://infopost.bhegts.com/cpl",
+        "https://ebb.bhegts.com/InformationalPostings/default.aspx/",
+    ])
+
+
 def main():
+    wanted = sys.argv[1:] or ["cheniere", "tc", "bhe"]
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(ignore_https_errors=True, user_agent=UA, viewport={"width": 1600, "height": 1200})
-        cheniere(context)
-        simple(context, "tcenergy", [
-            "https://ebb.tceconnects.com/infopost/TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid=3037",
-            "https://www.tceconnects.com/",
-            "https://ebb.anrpl.com/",
-        ])
-        simple(context, "bhe", [
-            "https://infopost.bhegts.com/",
-            "https://www.bhegts.com/",
-        ])
+        if "cheniere" in wanted:
+            cheniere(context)
+        if "tc" in wanted:
+            tc_csv(context)
+        if "bhe" in wanted:
+            bhe(context)
         browser.close()
     log(f"\nDONE. Outputs in {OUTPUT_DIR}/")
 
