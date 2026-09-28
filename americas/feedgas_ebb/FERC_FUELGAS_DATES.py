@@ -44,6 +44,11 @@ QUERIES = {
     "plaquemines_t": ("Plaquemines Liquefaction Block hazardous fluids", "2024-09-01", "2026-09-30"),
     "goldenpass_t": ("Golden Pass Train feed gas hazardous fluids liquefaction", "2025-01-01", "2026-09-30"),
     "covepoint_t": ("Cove Point liquefaction feed gas commissioning", "2017-06-01", "2018-06-30"),
+    "freeport_t2": ("Freeport LNG Train", "2019-03-01", "2020-06-30"),
+    "elba_t2": ("Moveable Modular Liquefaction System", "2019-01-01", "2020-12-31"),
+    "goldenpass_t2": ("Golden Pass Train 1", "2025-03-01", "2026-09-30"),
+    "sabine_t6": ("Sabine Pass Train 6", "2021-06-01", "2022-12-31"),
+    "plaquemines_t18": ("Plaquemines Block 18", "2025-08-01", "2026-09-30"),
 }
 
 
