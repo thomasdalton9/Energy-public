@@ -359,6 +359,52 @@ def tc_param_probe(context):
     page.close()
 
 
+def tc_param_probe2(context):
+    """Wider search for the OA report's gas-day parameter (an unknown name
+    makes SSRS error, so the right one is the guess that returns CSV for
+    09/27), then open the viewer, set the gas day and print what its
+    report area actually says (the daily run saw it land in an error)."""
+    log("\n==================== TC Energy parameter probe 2 ====================")
+    page = context.new_page()
+    page.goto(TC_BASE + "TCeConnects.aspx?v=1.3&SID=67&info=Y&assetid=3005", wait_until="domcontentloaded", timeout=90000)
+    page.wait_for_timeout(3000)
+    base = f"{TC_BASE}ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&pAssetNbr=3005&rs:Format=CSV"
+    names = ["pGasDate", "GasDate", "pGasDt", "pEffDate", "pEffectiveDate", "pFlowDate", "pPostDate", "pPostingDate",
+             "pReportDate", "pRptDate", "pStartDate", "pBegDate", "pGasFlowDate", "pDay", "pEffDt", "pEffGasDt",
+             "pGasDateTime", "pEffGasDate", "EffGasDate", "pDate"]
+    for name in names:
+        for day in ("09/27/2026", "2026-09-27", "9/27/2026"):
+            try:
+                r = context.request.get(f"{base}&{name}={day}", timeout=120000)
+                t = r.text().lstrip("\ufeff")
+                if t.startswith("TSPName"):
+                    rows = t.splitlines()
+                    eff = rows[1].split(",")[2] if len(rows) > 1 else "?"
+                    cyc = rows[1].split(",")[3] if len(rows) > 1 else "?"
+                    log(f"  {name}={day}: CSV, EffGasDay {eff}, cycle {cyc}")
+                else:
+                    log(f"  {name}={day}: HTTP {r.status}, not CSV")
+            except Exception as e:
+                log(f"  {name}={day}: FAILED {type(e).__name__}: {str(e)[:120]}")
+    # the viewer itself, with a date change
+    page.goto(f"{TC_BASE}ReportViewer.aspx?/InfoPost/OperationallyAvailableCapacityANR&pAssetNbr=3005",
+              wait_until="domcontentloaded", timeout=180000)
+    page.locator("#txtGasDate").wait_for(timeout=120000)
+    page.wait_for_timeout(20000)
+    body = page.evaluate("() => document.body.innerText").split()
+    log(f"  viewer before date change: {' '.join(body)[:1500]!r}")
+    box = page.locator("#txtGasDate")
+    box.fill("09/27/2026")
+    box.dispatch_event("change")
+    page.wait_for_timeout(45000)
+    body = page.evaluate("() => document.body.innerText").split()
+    log(f"  viewer after date change: {' '.join(body)[:1500]!r}")
+    with open(os.path.join(OUTPUT_DIR, "tc_ANR_viewer_after_date.html"), "w", encoding="utf-8") as f:
+        f.write(page.content())
+    page.screenshot(path=os.path.join(OUTPUT_DIR, "tc_ANR_viewer_after_date.png"), full_page=True)
+    page.close()
+
+
 def covepoint_csv(context):
     """Newest Cove Point OA CSV for yesterday's gas day (the listing page
     links each posting's CSV at /docs/cpl/postings/{id}/0/cpl-{id}.csv)."""
@@ -416,6 +462,8 @@ def main():
             gulfsouth_ui(context)
         if "tc_params" in wanted:
             tc_param_probe(context)
+        if "tc_params2" in wanted:
+            tc_param_probe2(context)
         if "covepoint_csv" in wanted:
             covepoint_csv(context)
         browser.close()
