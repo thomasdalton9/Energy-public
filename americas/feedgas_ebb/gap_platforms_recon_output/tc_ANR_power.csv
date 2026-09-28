@@ -1,0 +1,37 @@
+﻿TSPName,EffGasDay,TSP,EffTime,Cycle,PostingDateTime,IsoRto,Location,LocationName,LocCounty,LocState,DirOfFlow,MeasBasis,TotalScheduledQty
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,322045,ACADIA POWER PLANT      ,ACADIA,LA      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,322045,ACADIA POWER PLANT      ,ACADIA,LA      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,,261475,BEDISON INTERCONNECT    ,NODAWAY,MO      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,,261475,BEDISON INTERCONNECT    ,NODAWAY,MO      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,1402545,BRANDON ROAD DELIVERY   ,WILL,IL      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,1402545,BRANDON ROAD DELIVERY   ,WILL,IL      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,TVA                           ,261572,BROWNSVILLE INTERCONNECT,HAYWOOD,TN      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,TVA                           ,261572,BROWNSVILLE INTERCONNECT,HAYWOOD,TN      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,312117,COVERT POWER PLANT      ,VAN BUREN,MI      ,D,MMBtu,124473
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,312117,COVERT POWER PLANT      ,VAN BUREN,MI      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,360888,CRETE POWER PLANT       ,WILL,IL      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,360888,CRETE POWER PLANT       ,WILL,IL      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,523097,JACKSON GEN             ,WILL,IL      ,D,MMBtu,182000
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,523097,JACKSON GEN             ,WILL,IL      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,398767,LAWRENCE                ,LAWRENCE,IN      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,398767,LAWRENCE                ,LAWRENCE,IN      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,278172,MINOOKA INTERCONNECT    ,KENDALL,IL      ,D,MMBtu,139095
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,278172,MINOOKA INTERCONNECT    ,KENDALL,IL      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,314730,MONE PLANT INTERCONNECT ,VAN WERT,OH      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,314730,MONE PLANT INTERCONNECT ,VAN WERT,OH      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,523098,NILES PLANT             ,CASS,MI      ,D,MMBtu,165000
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,523098,NILES PLANT             ,CASS,MI      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,TVA                           ,266555,PANOLA COUNTY INT,PANOLA,MS      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,TVA                           ,266555,PANOLA COUNTY INT,PANOLA,MS      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,318733,PPL UNIVERSITY PARK PWR ,WILL,IL      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,318733,PPL UNIVERSITY PARK PWR ,WILL,IL      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,1292925,PROUGH ROAD             ,KALKASKA,MI      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,1292925,PROUGH ROAD             ,KALKASKA,MI      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,956594,STADT ROAD INTERCONNECT ,WOOD,WI      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,956594,STADT ROAD INTERCONNECT ,WOOD,WI      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,218538,TECHE PLANT (CLECO),ST MARY,LA      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,MISO                          ,218538,TECHE PLANT (CLECO),ST MARY,LA      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,TVA                           ,274229,WEAKLEY COUNTY INT      ,WEAKLEY,TN      ,D,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,TVA                           ,274229,WEAKLEY COUNTY INT      ,WEAKLEY,TN      ,R,MMBtu,0
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,282436,ZEELAND INTERCONNECT    ,OTTAWA,MI      ,D,MMBtu,145001
+ANR Pipeline Company,9/28/2026,006958581        ,9:00 AM,TIM,9/27/2026 5:03 PM,PJM                           ,282436,ZEELAND INTERCONNECT    ,OTTAWA,MI      ,R,MMBtu,0
