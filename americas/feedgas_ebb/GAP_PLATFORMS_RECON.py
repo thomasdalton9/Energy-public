@@ -443,7 +443,10 @@ def transco_oac(context):
                 bodies.append((resp.status, resp.request.method, resp.url, ct, resp.text(), resp.request.post_data))
             except Exception:
                 pass
-    page.on("response", on_response)
+    context.on("response", on_response)  # popups too
+    popups, downloads = [], []
+    context.on("page", lambda pg: popups.append(pg))
+    page.on("download", lambda d: downloads.append(d))
     lng = re.compile(r"SABINE|CHENIERE|GULF ?TRACE|LIQUEF|\bLNG\b|CAMERON|COVE POINT|CORPUS|PLAQUEMINES|CALCASIEU|VENTURE|GOLDEN PASS|ELBA", re.I)
     try:
         page.goto("https://www.1line.williams.com/#/oac-reports/transco", wait_until="networkidle", timeout=120000)
@@ -453,7 +456,31 @@ def transco_oac(context):
         page.get_by_text("View Report", exact=False).first.click(timeout=20000)
         page.wait_for_load_state("networkidle", timeout=180000)
         page.wait_for_timeout(15000)
-        log(f"  View Report -> {len(bodies) - n_before} new data responses")
+        log(f"  View Report -> {len(bodies) - n_before} new data responses, {len(popups)} popups, {len(downloads)} downloads")
+        for pg in popups:
+            try:
+                pg.wait_for_load_state("networkidle", timeout=120000)
+            except Exception:
+                pass
+            log(f"  POPUP {pg.url}")
+            text = pg.evaluate("() => document.body ? document.body.innerText : ''")
+            log(f"    {' '.join(text.split())[:800]!r}")
+            try:
+                pg.screenshot(path=os.path.join(OUTPUT_DIR, "transco_popup.png"))
+                with open(os.path.join(OUTPUT_DIR, "transco_popup.html"), "w", encoding="utf-8") as f:
+                    f.write(pg.content())
+            except Exception as e:
+                log(f"    popup save failed: {e}")
+        for d in downloads:
+            path = os.path.join(OUTPUT_DIR, "transco_download_" + d.suggested_filename)
+            d.save_as(path)
+            log(f"  DOWNLOAD {d.url} -> {path}")
+            with open(path, encoding="utf-8", errors="replace") as f:
+                text = f.read()
+            log(f"    {text[:400]!r}")
+            for l in text.splitlines():
+                if lng.search(l):
+                    log(f"    LNG: {l[:300]}")
         page.screenshot(path=os.path.join(OUTPUT_DIR, "transco_oac_report.png"), full_page=False)
         # any download/export control
         for label in ("CSV", "Download", "Export", "Excel"):
