@@ -172,20 +172,38 @@ def fetch_km(page, code, gas_day):
     return points_frame(df["Loc"].astype(str).str.split(".").str[0], df["Loc Name"], df["Total Scheduled Quantity"])
 
 
+ENBRIDGE_PICKER_ID = "ctl00_MainContent_ctl01_oaDefault_ucDate_rdpDate"
+ENBRIDGE_SET_DATE_JS = """([id, y, m, d]) => { const p = $find(id); if (!p) return false;
+    p.set_selectedDate(new Date(y, m - 1, d)); return true; }"""
+
+
 def fetch_enbridge(page, bu, gas_day):
-    """Delivery points for one Enbridge business unit. The page defaults
-    to yesterday's gas day and the latest cycle - only that default is
-    used, so it must match the requested gas day."""
+    """Delivery points for one Enbridge business unit. The page opens on
+    yesterday's gas day; for any other day, set its Telerik date picker
+    (which posts back and reloads the cycle list) and pick the latest
+    cycle posted for that day. The CSV's own Eff_Gas_Day is checked."""
     page.goto(ENBRIDGE_URL.format(bu=bu), wait_until="networkidle", timeout=60000)
-    shown = page.locator(ENBRIDGE_DATE_INPUT).input_value()
-    if datetime.strptime(shown, "%m/%d/%Y").date() != gas_day:
-        raise RuntimeError(f"page shows gas day {shown}, wanted {gas_day} (only the default day is supported)")
+    want = f"{gas_day.month}/{gas_day.day}/{gas_day.year}"
+    if page.locator(ENBRIDGE_DATE_INPUT).input_value() != want:
+        if not page.evaluate(ENBRIDGE_SET_DATE_JS, [ENBRIDGE_PICKER_ID, gas_day.year, gas_day.month, gas_day.day]):
+            raise RuntimeError("Enbridge date picker not found")
+        page.wait_for_function(f"() => document.querySelector('{ENBRIDGE_DATE_INPUT}').value === '{want}'", timeout=60000)
+        page.wait_for_load_state("networkidle", timeout=90000)
+        page.wait_for_timeout(2000)
+        latest = page.locator("#ddlSelector option").last.get_attribute("value")
+        if page.locator("#ddlSelector").input_value() != latest:
+            page.locator("#ddlSelector").select_option(latest)
+            page.wait_for_load_state("networkidle", timeout=90000)
+            page.wait_for_timeout(2000)
     with page.expect_download(timeout=90000) as info:
         page.locator("a:has-text('Downloadable Format')").first.click()
     with open(info.value.path(), encoding="utf-8", errors="replace") as f:
         df = pd.read_csv(io.StringIO(f.read()))
+    days = set(pd.to_datetime(df["Eff_Gas_Day"], format="%m-%d-%Y").dt.date)
+    if days != {gas_day}:
+        raise RuntimeError(f"Enbridge {bu} CSV is for gas day(s) {days}, wanted {gas_day}")
     df = df[df["Flow_Ind_Desc"] == "Delivery"]
-    print(f"  Enbridge {bu}: {len(df)} delivery points, gas day {shown}, cycle {df['Cycle_Desc'].iloc[0]}", flush=True)
+    print(f"  Enbridge {bu}: {len(df)} delivery points, gas day {gas_day}, cycle {df['Cycle_Desc'].iloc[0]}", flush=True)
     return points_frame(df["Loc"].astype(str), df["Loc_Name"], df["Total_Scheduled_Quantity"])
 
 
@@ -581,19 +599,47 @@ def main():
     parser.add_argument("--out", default=DEFAULT_OUT)
     parser.add_argument("--gas-day", help="YYYY-MM-DD (default: yesterday, US Central)")
     parser.add_argument("--dump", action="store_true", help="list every delivery point on DUMP_PIPELINES instead of updating the workbook")
+    parser.add_argument("--from", dest="date_from", help="backfill: first gas day, YYYY-MM-DD (with --to)")
+    parser.add_argument("--to", dest="date_to", help="backfill: last gas day, YYYY-MM-DD (default: yesterday)")
     args = parser.parse_args()
-    gas_day = date.fromisoformat(args.gas_day) if args.gas_day else datetime.now(ZoneInfo("America/Chicago")).date() - timedelta(days=1)
+    yesterday = datetime.now(ZoneInfo("America/Chicago")).date() - timedelta(days=1)
+    gas_day = date.fromisoformat(args.gas_day) if args.gas_day else yesterday
     if args.dump:
         dump(gas_day)
         return
 
-    print(f"Pulling LNG feedgas points for gas day {gas_day}...", flush=True)
-    new = pull(gas_day)
-    if new.notna().sum(axis=1).iloc[0] == 0:
+    if args.date_from:
+        first, last = date.fromisoformat(args.date_from), date.fromisoformat(args.date_to) if args.date_to else yesterday
+        days = [first + timedelta(days=i) for i in range((last - first).days + 1)]
+    else:
+        days = [gas_day]
+
+    # Backfills save every SAVE_EVERY days, so an interrupted run keeps
+    # what it has (re-running skips nothing - it just overwrites).
+    SAVE_EVERY = 7
+    pending, retrieved = [], 0
+    for i, day in enumerate(days, 1):
+        print(f"Pulling LNG feedgas points for gas day {day} ({i}/{len(days)})...", flush=True)
+        row = pull(day)
+        if row.notna().sum(axis=1).iloc[0] == 0:
+            print(f"  No points retrieved for {day} - skipped.", file=sys.stderr)
+        else:
+            pending.append(row)
+            retrieved += 1
+        if pending and (i % SAVE_EVERY == 0 or i == len(days)):
+            save(args.out, pd.concat(pending))
+            pending = []
+    if retrieved == 0:
         print("No points retrieved at all - leaving the archive untouched.", file=sys.stderr)
         sys.exit(1)
 
-    points = load_points(args.out)
+
+_EIA_CACHE = {}
+
+
+def save(out, new):
+    """Upsert new gas-day rows into the workbook and rewrite every sheet."""
+    points = load_points(out)
     points = new if points.empty else new.combine_first(points)
     # Columns follow POINTS exactly: a meter dropped from POINTS (e.g. the
     # three upstream Cameron interconnects replaced by Cameron Interstate's
@@ -602,9 +648,12 @@ def main():
     points = points.sort_index()
     points.index.name = "gas_day"
     plants = plants_bcfd(points)
+    args = argparse.Namespace(out=out)
 
     try:
-        eia = fetch_eia_exports()
+        if "eia" not in _EIA_CACHE:  # once per run, not at every backfill save
+            _EIA_CACHE["eia"] = fetch_eia_exports()
+        eia = _EIA_CACHE["eia"]
     except Exception as e:
         print(f"  WARNING: EIA exports fetch failed ({type(e).__name__}: {e}) - reusing the workbook's copy", file=sys.stderr)
         try:
