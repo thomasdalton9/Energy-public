@@ -449,6 +449,12 @@ def transco_oac(context):
         page.goto("https://www.1line.williams.com/#/oac-reports/transco", wait_until="networkidle", timeout=120000)
         page.wait_for_timeout(10000)
         dump_page(page, "transco_oac")
+        n_before = len(bodies)
+        page.get_by_text("View Report", exact=False).first.click(timeout=20000)
+        page.wait_for_load_state("networkidle", timeout=180000)
+        page.wait_for_timeout(15000)
+        log(f"  View Report -> {len(bodies) - n_before} new data responses")
+        page.screenshot(path=os.path.join(OUTPUT_DIR, "transco_oac_report.png"), full_page=False)
         # any download/export control
         for label in ("CSV", "Download", "Export", "Excel"):
             loc = page.get_by_text(label, exact=False)
