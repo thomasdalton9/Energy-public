@@ -1,0 +1,43 @@
+name: LNG feedgas daily
+
+# Every morning at 11:40 UTC (6:40am CDT / 5:40am CST) - after the
+# previous gas day's final intraday cycle is posted, and before 9am
+# Central, when Enbridge's page rolls its default to the new gas day
+# (the script only reads Enbridge's default day). Pulls yesterday's
+# scheduled deliveries into each LNG terminal and upserts them into
+# americas/feedgas_ebb/lng_feedgas_daily.xlsx - touches nothing else.
+on:
+  schedule:
+    - cron: "40 11 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl playwright
+          python3 -m playwright install --with-deps chromium
+
+      - name: Pull LNG feedgas
+        run: python3 americas/feedgas_ebb/lng_feedgas_daily.py
+
+      - name: Commit updated workbook
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f americas/feedgas_ebb/lng_feedgas_daily.xlsx
+          git diff --cached --quiet || git commit -m "LNG feedgas daily: automated update"
+          git pull --rebase
+          git push
