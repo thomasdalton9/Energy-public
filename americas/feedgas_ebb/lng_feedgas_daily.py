@@ -375,8 +375,17 @@ def fetch_eia_exports():
         if plant is None:
             continue
         series = pd.to_numeric(raw[col], errors="coerce")
-        bucket = by_country if re.search(r"Exports to ", c) else totals
-        bucket[plant] = bucket[plant].add(series, fill_value=0) if plant in bucket else series
+        if re.search(r"Exports to ", c):
+            by_country[plant] = by_country[plant].add(series, fill_value=0) if plant in by_country else series
+        else:
+            # Some terminals have the same total repeated under two labels
+            # (units spelled differently, or on two sheets) - summing them
+            # doubled Plaquemines, Calcasieu Pass and Elba. Take the larger
+            # value month by month instead of the sum.
+            totals.setdefault(plant, []).append((c, series))
+    for plant, cols in totals.items():
+        print(f"  EIA exports: {plant} total from {[c for c, _ in cols]}", flush=True)
+    totals = {pl: pd.concat([s for _, s in cols], axis=1).max(axis=1) for pl, cols in totals.items()}
     mmcf = {pl: totals.get(pl, by_country.get(pl)) for pl in set(totals) | set(by_country)}
     days = raw.index.days_in_month
     df = pd.DataFrame({pl: v / 1000 / days * FEEDGAS_PER_EXPORT for pl, v in mmcf.items()}, index=raw.index)
