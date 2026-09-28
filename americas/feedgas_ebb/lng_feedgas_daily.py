@@ -334,7 +334,10 @@ def main():
 
     points = load_points(args.out)
     points = new if points.empty else new.combine_first(points)
-    points = points.reindex(columns=[point_column(p) for p in POINTS] + [c for c in points.columns if c not in {point_column(p) for p in POINTS}])
+    # Columns follow POINTS exactly: a meter dropped from POINTS (e.g. the
+    # three upstream Cameron interconnects replaced by Cameron Interstate's
+    # own terminal meter) drops out of the sheet rather than lingering.
+    points = points.reindex(columns=[point_column(p) for p in POINTS])
     points = points.sort_index()
     points.index.name = "gas_day"
     plants = plants_bcfd(points)
