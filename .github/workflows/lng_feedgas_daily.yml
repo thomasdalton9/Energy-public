@@ -46,7 +46,12 @@ jobs:
           DATE_TO: ${{ inputs.date_to }}
         run: |
           if [ -n "$DATE_FROM" ]; then
-            python3 americas/feedgas_ebb/lng_feedgas_daily.py --from "$DATE_FROM" ${DATE_TO:+--to "$DATE_TO"}
+            # a backfill saves and pushes after every day, with the day's
+            # progress line as the commit message, so it can be followed
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            FEEDGAS_SAVE_EVERY=1 FEEDGAS_PUSH_EACH_DAY=1 \
+              python3 americas/feedgas_ebb/lng_feedgas_daily.py --from "$DATE_FROM" ${DATE_TO:+--to "$DATE_TO"}
           else
             python3 americas/feedgas_ebb/lng_feedgas_daily.py
           fi

@@ -788,7 +788,7 @@ def main():
 
     # Backfills save every SAVE_EVERY days, so an interrupted run keeps
     # what it has (re-running skips nothing - it just overwrites).
-    SAVE_EVERY = 7
+    SAVE_EVERY = int(os.environ.get("FEEDGAS_SAVE_EVERY", "7"))
     pending, retrieved = [], 0
     tc_cache = load_tc_cache(args.out)
     started = datetime.now()
@@ -806,10 +806,12 @@ def main():
         else:
             pending.append(row)
             retrieved += 1
-        progress_line(progress_log, i, len(days), day, row, started)
+        line = progress_line(progress_log, i, len(days), day, row, started)
         if pending and (i % SAVE_EVERY == 0 or i == len(days)):
             save(args.out, pd.concat(pending))
             pending = []
+        if os.environ.get("FEEDGAS_PUSH_EACH_DAY"):  # set by the workflow for a watched backfill
+            push_progress([args.out, progress_log], line)
     if retrieved == 0:
         print("No points retrieved at all - leaving the archive untouched.", file=sys.stderr)
         sys.exit(1)
@@ -835,6 +837,24 @@ def progress_line(path, i, n, day, row, started):
     print(line, flush=True)
     with open(path, "a", encoding="utf-8") as f:
         f.write(f"{datetime.now():%Y-%m-%d %H:%M}  {line}\n")
+    return line
+
+
+def push_progress(paths, line):
+    """Commit and push the workbook and progress log with the day's
+    progress line as the message, so a backfill running on GitHub can be
+    followed day by day from the commit history. Best effort."""
+    import subprocess
+    run = lambda *cmd: subprocess.run(cmd, capture_output=True, text=True)
+    run("git", "add", "-f", *paths)
+    if run("git", "diff", "--cached", "--quiet").returncode == 0:
+        return
+    run("git", "commit", "-m", f"Feedgas backfill: {' '.join(line.split())}")
+    for _ in range(3):
+        run("git", "pull", "--rebase", "-X", "theirs")
+        if run("git", "push").returncode == 0:
+            return
+    print("  (progress push failed - carrying on)", flush=True)
 
 
 def probe(days):
