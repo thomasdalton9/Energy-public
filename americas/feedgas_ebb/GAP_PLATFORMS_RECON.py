@@ -324,11 +324,25 @@ def gulfsouth_ui(context):
         links = page.evaluate("() => [...document.querySelectorAll('a')].map(a => [a.innerText.trim().slice(0, 60), a.href]).filter(x => x[0])")
         for t, h in links[:80]:
             log(f"    LINK {t!r} -> {h}")
-        target = page.get_by_text(re.compile("Operationally Available", re.I)).first
-        target.click(timeout=20000)
+        # "Operationally Available" sits under the Capacity menu
+        try:
+            page.get_by_text("Capacity", exact=True).first.click(timeout=10000)
+            page.wait_for_timeout(1500)
+            page.get_by_text(re.compile("Operationally Available", re.I)).first.click(timeout=10000)
+        except Exception as e:
+            log(f"  menu click failed ({type(e).__name__}); trying direct URLs")
+            for path in ("capacity/operationally-available", "operationally-available",
+                         "capacity/operationally-available-capacity", "operationally-available-capacity"):
+                page.goto(f"https://www.gasquest.com/informational-posting/{path}", wait_until="networkidle", timeout=60000)
+                page.wait_for_timeout(4000)
+                if re.search("operationally available", page.inner_text("body"), re.I) and "404" not in page.inner_text("body")[:200]:
+                    log(f"  direct URL worked: {page.url}")
+                    break
         page.wait_for_load_state("networkidle", timeout=90000)
         page.wait_for_timeout(10000)
         dump_page(page, "gulfsouth_oac")
+        menu = page.evaluate("() => [...document.querySelectorAll('a, button, li')].map(e => (e.innerText || '').trim()).filter(t => /capacity|available/i.test(t)).slice(0, 30)")
+        log(f"  capacity menu items: {menu}")
         rows = page.evaluate("""() => [...document.querySelectorAll('tr')].map(tr => [...tr.querySelectorAll('td,th')].map(c => c.innerText.trim()))""")
         log(f"  {len(rows)} rows")
         for r in rows[:3]:
