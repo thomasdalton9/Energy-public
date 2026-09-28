@@ -117,7 +117,7 @@ POINTS = [
 # "missing" list, out of the calibration (plus RAMP_MONTHS of start-up
 # after), and to stop an unmetered plant's EIA placeholder being applied
 # before it existed. Edit if you have better dates.
-PLANT_START = {}  # filled from PLANT_CAPACITY below: each plant's first LNG
+PLANT_START = {}  # filled from TRAIN_STARTS below: each plant's first train
 RAMP_MONTHS = 3
 
 # Nameplate liquefaction capacity by phase, as published by the
@@ -140,8 +140,82 @@ PLANT_CAPACITY = [  # plant, phase, trains, nameplate mtpa, FERC fuel gas author
     ("Plaquemines", "Phase 2", 18, 6.7, date(2025, 1, 27), "20250127-3027", date(2025, 3, 1)),
     ("Golden Pass", "Trains 1-3", 3, 18.1, date(2025, 3, 19), "20250319-3021", date(2025, 11, 1)),
 ]
-for _plant, _, _, _, _, _, _first in PLANT_CAPACITY:
-    PLANT_START[_plant] = min(PLANT_START.get(_plant, _first), _first)
+
+# Train-by-train start-ups: the date FERC staff granted each liquefaction
+# train / block its feed gas (or hazardous fluids - Venture Global's
+# wording) - the point it can start making LNG - with the letter's
+# eLibrary accession number. Elba units 1-5 only have "commence service"
+# letters. Nameplate mtpa is the phase's split evenly across its trains.
+# Plant start-ups (PLANT_START) and the capacity chart step up from these.
+TRAIN_STARTS = [  # plant, phase, train/block, nameplate mtpa, start, FERC accession, basis
+    ("Sabine Pass", "Trains 1-6", "Train 1", 5.0, date(2015, 11, 19), "20151119-3080", "feed gas"),
+    ("Sabine Pass", "Trains 1-6", "Train 2", 5.0, date(2016, 4, 18), "20160418-3037", "feed gas"),
+    ("Sabine Pass", "Trains 1-6", "Train 3", 5.0, date(2016, 11, 8), "20161108-3029", "feed gas"),
+    ("Sabine Pass", "Trains 1-6", "Train 4", 5.0, date(2017, 6, 1), "20170601-4015", "feed gas"),
+    ("Sabine Pass", "Trains 1-6", "Train 5", 5.0, date(2018, 9, 6), "20180906-3061", "feed gas"),
+    ("Sabine Pass", "Trains 1-6", "Train 6", 5.0, date(2021, 9, 22), "20210922-3034", "feed gas"),
+    ("Cove Point", "Train 1", "Train 1", 5.25, date(2017, 8, 31), "20170831-3071", "hazardous fluids"),
+    ("Corpus Christi", "Stage 1-2", "Train 1", 5.0, date(2018, 8, 16), "20180816-3034", "feed gas"),
+    ("Corpus Christi", "Stage 1-2", "Train 2", 5.0, date(2019, 3, 11), "20190311-3000", "feed gas"),
+    ("Corpus Christi", "Stage 1-2", "Train 3", 5.0, date(2020, 9, 24), "20200924-3032", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 1", 1.4286, date(2024, 12, 23), "20241223-3028", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 2", 1.4286, date(2025, 6, 5), "20250605-3048", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 3", 1.4286, date(2025, 8, 28), "20250828-3093", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 4", 1.4286, date(2025, 10, 20), "20251020-3039", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 5", 1.4286, date(2026, 2, 9), "20260209-3069", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 6", 1.4286, date(2026, 4, 24), "20260424-3056", "feed gas"),
+    ("Corpus Christi", "Stage 3", "Midscale Train 7", 1.4286, date(2026, 7, 28), "20260728-3030", "feed gas"),
+    ("Cameron", "Trains 1-3", "Train 1", 4.0, date(2019, 4, 5), "20190405-3083", "feed gas"),
+    ("Cameron", "Trains 1-3", "Train 2", 4.0, date(2019, 11, 26), "20191126-3050", "feed gas"),
+    ("Cameron", "Trains 1-3", "Train 3", 4.0, date(2020, 4, 21), "20200421-3085", "feed gas"),
+    ("Freeport", "Trains 1-3", "Train 1", 5.0, date(2019, 7, 19), "20190719-3031", "hazardous fluids"),
+    ("Freeport", "Trains 1-3", "Train 2", 5.0, date(2019, 11, 7), "20191107-3043", "hazardous fluids"),
+    ("Freeport", "Trains 1-3", "Train 3", 5.0, date(2020, 3, 9), "20200309-3010", "hazardous fluids"),
+    ("Elba Island", "10 MMLS units", "MMLS 1", 0.25, date(2019, 9, 30), "20190930-4000", "commence service"),
+    ("Elba Island", "10 MMLS units", "MMLS 2", 0.25, date(2020, 1, 16), "20200116-3052", "commence service"),
+    ("Elba Island", "10 MMLS units", "MMLS 3", 0.25, date(2019, 11, 26), "20191126-3018", "commence service"),
+    ("Elba Island", "10 MMLS units", "MMLS 4", 0.25, date(2019, 12, 30), "20191230-3015", "commence service"),
+    ("Elba Island", "10 MMLS units", "MMLS 5", 0.25, date(2020, 3, 2), "20200302-3018", "commence service"),
+    ("Elba Island", "10 MMLS units", "MMLS 6", 0.25, date(2020, 2, 25), "20200225-3038", "hazardous fluids"),
+    ("Elba Island", "10 MMLS units", "MMLS 7", 0.25, date(2020, 8, 5), "20200805-3007", "hazardous fluids"),
+    ("Elba Island", "10 MMLS units", "MMLS 8", 0.25, date(2020, 5, 1), "20200501-3022", "feed gas"),
+    ("Elba Island", "10 MMLS units", "MMLS 9", 0.25, date(2020, 6, 12), "20200612-3039", "feed gas"),
+    ("Elba Island", "10 MMLS units", "MMLS 10", 0.25, date(2020, 7, 14), "20200714-3051", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 1 (1A)", 0.5556, date(2022, 1, 12), "20220112-3006", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 1 (1B)", 0.5556, date(2022, 1, 21), "20220121-3038", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 2", 1.1111, date(2022, 1, 27), "20220127-3066", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 3", 1.1111, date(2022, 2, 14), "20220214-3028", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 4", 1.1111, date(2022, 2, 28), "20220228-3070", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 5", 1.1111, date(2022, 4, 6), "20220406-3027", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 6", 1.1111, date(2022, 4, 20), "20220420-3060", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 7", 1.1111, date(2022, 5, 25), "20220525-3027", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 8", 1.1111, date(2022, 6, 10), "20220610-3028", "hazardous fluids"),
+    ("Calcasieu Pass", "9 blocks", "Block 9", 1.1111, date(2022, 7, 22), "20220722-3003", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 1", 1.4778, date(2024, 11, 21), "20241121-3079", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 2", 1.4778, date(2024, 12, 5), "20241205-3051", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 3", 1.4778, date(2024, 12, 17), "20241217-3076", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 4", 1.4778, date(2024, 12, 23), "20241223-3090", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 5", 1.4778, date(2025, 1, 10), "20250110-3008", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 6", 1.4778, date(2025, 1, 10), "20250110-3008", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 7", 1.4778, date(2025, 1, 28), "20250128-3019", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 8", 1.4778, date(2025, 2, 10), "20250210-3044", "hazardous fluids"),
+    ("Plaquemines", "Phase 1", "Block 9", 1.4778, date(2025, 2, 27), "20250227-3064", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 10", 0.7444, date(2025, 4, 23), "20250423-3066", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 11", 0.7444, date(2025, 4, 24), "20250424-3027", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 12", 0.7444, date(2025, 6, 5), "20250605-3017", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 13", 0.7444, date(2025, 5, 8), "20250508-3059", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 14", 0.7444, date(2025, 7, 16), "20250716-3014", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 15", 0.7444, date(2025, 9, 18), "20250918-3052", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 16", 0.7444, date(2025, 8, 12), "20250812-3010", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 17", 0.7444, date(2025, 10, 21), "20251021-3029", "hazardous fluids"),
+    ("Plaquemines", "Phase 2", "Block 18", 0.7444, date(2025, 8, 27), "20250827-3055", "hazardous fluids"),
+    ("Golden Pass", "Trains 1-3", "Train 1", 6.0333, date(2025, 11, 1), "", "first LNG (no FERC train letter found)"),
+    ("Golden Pass", "Trains 1-3", "Train 2", 6.0333, None, "", "not yet dated - excluded from capacity"),
+    ("Golden Pass", "Trains 1-3", "Train 3", 6.0333, None, "", "not yet dated - excluded from capacity"),
+]
+for _plant, _, _, _, _start, _, _ in TRAIN_STARTS:
+    if _start:
+        PLANT_START[_plant] = min(PLANT_START.get(_plant, _start), _start)
 BCF_PER_MT_LNG = 48.0  # 1 tonne of LNG ~ 48 Mcf of gas, so 1 mtpa ~ 0.13 Bcf/d
 
 
@@ -752,6 +826,13 @@ CHART_LINE_COLOR = "0B0B0B"
 FEEDGAS_LINE = "Total feedgas (best estimate)"
 
 
+def train_table():
+    df = pd.DataFrame(TRAIN_STARTS, columns=["plant", "phase", "train", "nameplate_mtpa", "start_up", "ferc_accession", "basis"])
+    df["nameplate_bcfd_feedgas"] = (df["nameplate_mtpa"] * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT).round(3)
+    df["start_up"] = pd.to_datetime(df["start_up"])
+    return df.set_index("plant")[["phase", "train", "start_up", "nameplate_mtpa", "nameplate_bcfd_feedgas", "basis", "ferc_accession"]]
+
+
 def chart_data(best):
     """Daily nameplate capacity (feedgas Bcf/d) per group, stepping up as
     each phase's first LNG arrives, plus the best-estimate total."""
@@ -759,9 +840,9 @@ def chart_data(best):
     out = {}
     for group, plants in CAPACITY_GROUPS:
         cap = pd.Series(0.0, index=best.index)
-        for plant, _, _, mtpa, _, _, first in PLANT_CAPACITY:
-            if plant in plants:
-                cap += (days >= pd.Timestamp(first)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
+        for plant, _, _, mtpa, start, _, _ in TRAIN_STARTS:
+            if plant in plants and start:
+                cap += (days >= pd.Timestamp(start)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
         out[f"{group} capacity"] = cap.round(3)
     df = pd.DataFrame(out)
     df[FEEDGAS_LINE] = best["Total"]
@@ -803,7 +884,8 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     area.width, area.height = 32, 16
     cs = wb.create_sheet(title, 1)
     cs.add_chart(area, "A1")
-    cs["A34"] = ("Stacked areas: operator nameplate liquefaction capacity by plant, as feedgas Bcf/d ('Plant capacity' tab). "
+    cs["A34"] = ("Stacked areas: operator nameplate liquefaction capacity by plant, as feedgas Bcf/d, stepping up train by train "
+                 "on each train's FERC feed-gas date ('Train start-ups' tab). "
                  "Line: 'Best estimate daily' total - EIA monthly spread ratably before the daily pull, metered after. "
                  "Plants routinely run above nameplate, so the line can sit above the stack.")
 
@@ -833,7 +915,7 @@ def notes_lines():
         "COVERAGE BY PLANT",
     ]
     lines += [f"{plant}: {note}" for plant, note in COVERAGE_NOTES.items()]
-    lines += ["", "PLANT START DATES (first LNG; FERC fuel-gas authorisation dates are in the Plant capacity tab; blanks before these = not operating yet)"]
+    lines += ["", "PLANT START DATES (first train's FERC feed-gas letter - see Train start-ups; blanks before these = not operating yet)"]
     lines += [f"{plant}: {start:%b %Y} (meters treated as live from {live_from(plant):%b %Y}, "
               f"{PRE_START_MONTHS} months earlier, to catch pre-commissioning feedgas)" for plant, start in PLANT_START.items()]
     lines += ["", "CALIBRATION",
@@ -1022,7 +1104,7 @@ def save(out, new):
     best = best_estimate_daily(est, eia)
     sheets = {"Best estimate daily": best} if not best.empty else {}
     sheets.update({"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(),
-                   "Points (Dth)": points})
+                   "Train start-ups": train_table(), "Points (Dth)": points})
     if not best.empty:
         sheets["Chart data"] = chart_data(best)
     cache = load_tc_cache(out)
@@ -1041,7 +1123,7 @@ def save(out, new):
                               {"UNITS", "WHAT THIS IS", "COVERAGE BY PLANT", "CALIBRATION", "POINTS", "SOURCE",
                                "TC ENERGY METERS (ANR, COLUMBIA GULF)", "PLANT CAPACITY",
                                "BEST ESTIMATE DAILY",
-                               "PLANT START DATES (first LNG; FERC fuel-gas authorisation dates are in the Plant capacity tab; blanks before these = not operating yet)"})
+                               "PLANT START DATES (first train's FERC feed-gas letter - see Train start-ups; blanks before these = not operating yet)"})
     import openpyxl
     wb = openpyxl.load_workbook(args.out)
     for name in ("Best estimate daily", "Bcfd by plant", "Estimated (calibrated)", "Points (Dth)", TC_CACHE_SHEET):
@@ -1055,6 +1137,11 @@ def save(out, new):
         for (cell,) in wb["Chart data"].iter_rows(min_row=2, max_col=1):
             cell.number_format = "dd-mmm-yyyy"
         add_capacity_chart(wb)
+    ws = wb["Train start-ups"]
+    for row in ws.iter_rows(min_row=2):
+        row[3].number_format = "dd-mmm-yyyy"
+    for col, width in zip("ABCDEFGH", (16, 14, 20, 13, 15, 22, 44, 16)):
+        ws.column_dimensions[col].width = width
     ws = wb["Plant capacity"]
     for row in ws.iter_rows(min_row=2):
         row[6].number_format = "dd-mmm-yyyy"
