@@ -802,21 +802,39 @@ def best_estimate_daily(est, eia, points=None):
     flat = pd.DataFrame({pl: (eia[pl].reindex(months).values if pl in eia.columns else float("nan")) for pl in plants},
                         index=days.date)
     metered = est.reindex(columns=plants).reindex(flat.index)
+    # Provisional: months EIA hasn't published yet carry each plant's latest
+    # EIA month forward - used only for plant days missing meters, and
+    # replaced by the real month once EIA publishes it.
+    carried = pd.DataFrame({pl: (eia[pl].dropna().iloc[-1] if pl in eia.columns and eia[pl].notna().any() else float("nan"))
+                            for pl in plants}, index=flat.index)
+    carried = carried.where(flat.isna() & (pd.Series(months, index=flat.index) > eia.index[-1]).values[:, None])
+    provisional = pd.DataFrame(False, index=flat.index, columns=plants)
     if points is not None:
-        # A plant day missing some of its meters (e.g. Kinder Morgan only
-        # keeps ~90 days, TC has no history) understates the plant: where
-        # EIA has the month, use EIA's ratable figure for that plant instead.
+        # A plant day missing some of its meters (Kinder Morgan, Cheniere
+        # and Cameron Interstate keep ~90 days; TC has no history)
+        # understates the plant: use EIA's ratable figure for that plant
+        # instead - the month's own where EIA has it, else the latest
+        # EIA month carried forward (provisional).
         pts = points.reindex(flat.index)
         for pl in plants:
+            if pl not in PLANT_START:
+                continue
+            live = pd.Series([d >= PLANT_START[pl] for d in flat.index], index=flat.index)
             cols = [point_column(p) for p in POINTS if p[0] == pl and point_column(p) in pts.columns]
             if cols:
-                partial = pts[cols].isna().any(axis=1) & metered[pl].notna() & flat[pl].notna()
-                metered.loc[partial, pl] = float("nan")
+                partial = pts[cols].isna().any(axis=1) & live
+                use_month = partial & flat[pl].notna()
+                use_carry = partial & flat[pl].isna() & carried[pl].notna()
+                metered.loc[use_month | use_carry, pl] = float("nan")
+                flat.loc[use_carry, pl] = carried.loc[use_carry, pl]
+                provisional.loc[use_carry, pl] = True
     out = metered.combine_first(flat)
     used_met, used_eia = metered.notna().any(axis=1), (metered.isna() & flat.notna()).any(axis=1)
+    used_prov = provisional.any(axis=1)
     source = pd.Series(NO_DATA, index=out.index)
     source[used_eia] = "EIA monthly (ratable)"
     source[used_met] = "mixed (EIA ratable for unmetered plants)"
+    source[used_met & used_prov] = "mixed (provisional: latest EIA month for unmetered plants)"
     source[used_met & ~used_eia] = "metered"
     out["Total"] = out[plants].sum(axis=1, min_count=1)
     out["Source"] = source
@@ -943,7 +961,8 @@ def notes_lines():
               "the metered/calibrated estimate ('Estimated (calibrated)'); before that - pipelines only keep about two years of "
               "daily postings - each plant's EIA monthly feedgas spread ratably across the month, so history has no day-to-day "
               "shape. 'Source' says which was used. A plant missing some of its meters on a day (Kinder Morgan keeps only "
-              "~90 days of postings; TC has none) uses EIA's ratable figure for that month where EIA has it ('mixed').",
+              "~90 days of postings; TC has none) uses EIA's ratable figure for that month where EIA has it ('mixed'), or, "
+              "for months EIA hasn't published yet, its latest EIA month carried forward ('provisional') until EIA catches up.",
               "", "PLANT CAPACITY",
               "'Plant capacity': operator-published nameplate liquefaction capacity by phase (mtpa of LNG) and first-LNG month. "
               f"Bcf/d = mtpa x {BCF_PER_MT_LNG:.0f} Bcf per million tonnes / 365 ('lng_out'); 'feedgas' grosses that up by "
