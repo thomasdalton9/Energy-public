@@ -1,0 +1,1151 @@
+[
+ {
+  "reference": "{A6CE6BA6-2A59-CBBF-A131-6B6D02600000}-{01D07333-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "A6CE6BA6-2A59-CBBF-A131-6B6D02600000",
+  "description": "Order on Petition for Declaratory Order re Shell U.S. Gas & Power, LLC under RP14-52. Commissioner Bay is concurring in part and dissenting in part with a separate statement attached.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20140904-3046",
+  "issuedDate": "09/04/2014",
+  "filedDate": "09/04/2014",
+  "postedDate": "09/04/2014",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Dissent/Concurrence by the Commissioner"
+   },
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Commission Order/Opinion"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.55,
+  "docketNumbers": [
+   "RP14-52-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D07333-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "RP14-52-000.DOC",
+    "fileDesc": "",
+    "fileSize": 229376,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "BAY",
+    "firstInitial": "N",
+    "middleInitial": "C"
+   }
+  ]
+ },
+ {
+  "reference": "{D4158EA3-5387-CFB5-82D3-6B6D19100001}-{01D07576-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "D4158EA3-5387-CFB5-82D3-6B6D19100001",
+  "description": "Notice of Action Taken at the September 18, 2014 Commission Meeting.  ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20140918-3028",
+  "issuedDate": "09/18/2014",
+  "filedDate": "09/18/2014",
+  "postedDate": "09/18/2014",
+  "classTypes": [
+   {
+    "documentClass": "Notice",
+    "documentType": "Formal Notice"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 77.91,
+  "docketNumbers": [],
+  "transmittals": [
+   {
+    "fileId": "01D07576-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CA09-18-014.DOC",
+    "fileDesc": "",
+    "fileSize": 88576,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ },
+ {
+  "reference": "{87A4B09D-31BE-C6BA-9696-6B683B900003}-{01CC501C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "87A4B09D-31BE-C6BA-9696-6B683B900003",
+  "description": "Letter to Sabine Pass Liquefaction LLC's et al (Sabine Pass) discussing the Environmental Conditions for Stage 1 facilities in Compliance with the Commission's 4/16/12 and 8/2/13 Orders under CP11-72 et al. Compliance with Conditions.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20150213-3017",
+  "issuedDate": "02/13/2015",
+  "filedDate": "02/13/2015",
+  "postedDate": "02/13/2015",
+  "classTypes": [
+   {
+    "documentClass": "FERC Correspondence With Applicant",
+    "documentType": "General Correspondence"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.51,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01CC501C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 FEB 13 2015.DOC",
+    "fileDesc": "",
+    "fileSize": 55808,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "TURPIN",
+    "firstInitial": "T",
+    "middleInitial": "L"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{76BD4414-9393-CC3F-A201-6B6D8C600003}-{01D7860B-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "76BD4414-9393-CC3F-A201-6B6D8C600003",
+  "description": "Letter order granting Sabine Pass Liquefaction, LLC's et al 9/14/15 filing re the request to Introduce Fuel Gas to Train 1 and Stage 1 Outside Battery Limits under CP11-72. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20150923-3012",
+  "issuedDate": "09/23/2015",
+  "filedDate": "09/23/2015",
+  "postedDate": "09/23/2015",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.94,
+  "docketNumbers": [
+   "CP11-72-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D7860B-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 delegated letter order.DOC",
+    "fileDesc": "",
+    "fileSize": 53760,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD, K",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{1ED2B29E-DA2C-CD24-9B0F-6B6E0BB00002}-{01D973E2-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "1ED2B29E-DA2C-CD24-9B0F-6B6E0BB00002",
+  "description": "Letter order granting Cheniere Energy, Inc's 11/16/15 request for Sabine Pass Liquefaction, LLC et al to introduce fuel gas into Gas Turbine Generators G-101E and G-101F under CP11-72.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20151117-3044",
+  "issuedDate": "11/17/2015",
+  "filedDate": "11/17/2015",
+  "postedDate": "11/17/2015",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.5,
+  "docketNumbers": [
+   "CP11-72-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D973E2-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 NOV  17 2015.DOC",
+    "fileDesc": "",
+    "fileSize": 54272,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{40F9FF05-90A9-C56E-9032-6B6E0E900004}-{01D97E64-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "40F9FF05-90A9-C56E-9032-6B6E0E900004",
+  "description": "Letter order granting Cheniere Energy, Inc.' 11/17/15 request for Sabine Pass to introduce feed gas and refrigerants into the identified areas etc under CP11-72.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20151119-3080",
+  "issuedDate": "11/19/2015",
+  "filedDate": "11/19/2015",
+  "postedDate": "11/19/2015",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.91,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01D97E64-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 NOV 19 2015.DOC",
+    "fileDesc": "",
+    "fileSize": 54784,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F9493C09-0B70-C42F-9FFF-6B6E3AE00002}-{01DA82D9-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F9493C09-0B70-C42F-9FFF-6B6E3AE00002",
+  "description": "Letter order granting Sabine Pass Liquefaction, LLC's et al 12/11/15 request to Introduce Fuel Gas and Operate Marine Flare 00Z-1903 under CP11-72. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20151221-3045",
+  "issuedDate": "12/21/2015",
+  "filedDate": "12/21/2015",
+  "postedDate": "12/21/2015",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.55,
+  "docketNumbers": [
+   "CP11-72-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DA82D9-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000-122115.DOC",
+    "fileDesc": "",
+    "fileSize": 54784,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "TURPIN",
+    "firstInitial": "T",
+    "middleInitial": "L"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E33B85AA-7235-C9E3-8CC2-6B6851F00001}-{01DD0FB5-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E33B85AA-7235-C9E3-8CC2-6B6851F00001",
+  "description": "Letter order granting Sabine Pass Liquefaction, LLC's et al 2/24/16 request to continue the commissioning of Liquefaction Train 1 etc. under CP11-72 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160224-3006",
+  "issuedDate": "02/24/2016",
+  "filedDate": "02/24/2016",
+  "postedDate": "02/24/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.56,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DD0FB5-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 FEB 24 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 55296,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DD1012-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12138135.PDF",
+    "fileDesc": "",
+    "fileSize": 15315,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "TURPIN",
+    "firstInitial": "T",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{E33B85AA-7235-C9E3-8CC2-6B6851F00001}-{01DD0FB5-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "E33B85AA-7235-C9E3-8CC2-6B6851F00001",
+  "description": "Letter order granting Sabine Pass Liquefaction, LLC's et al 2/24/16 request to continue the commissioning of Liquefaction Train 1 etc. under CP11-72 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160224-3006",
+  "issuedDate": "02/24/2016",
+  "filedDate": "02/24/2016",
+  "postedDate": "02/24/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.56,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DD0FB5-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 FEB 24 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 55296,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DD1012-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12138135.PDF",
+    "fileDesc": "",
+    "fileSize": 15315,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "TURPIN",
+    "firstInitial": "T",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2182B743-F75E-CA4C-8644-6B6867A00001}-{01DD6462-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "2182B743-F75E-CA4C-8644-6B6867A00001",
+  "description": "Letter order granting Cheniere Energy, Inc's February 19, 2016 request for Sabine Pass to introduce fuel gas in the identified areas of your request for commissioning of Train 2 under CP11-72. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160303-3041",
+  "issuedDate": "03/03/2016",
+  "filedDate": "03/03/2016",
+  "postedDate": "03/03/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.91,
+  "docketNumbers": [
+   "CP11-72-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DD6462-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 MAR 3 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 54272,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DD658E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12145238.PDF",
+    "fileDesc": "",
+    "fileSize": 17774,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{7B7145E1-C80D-C0E6-8587-6B6870A00000}-{01DD8A4C-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "7B7145E1-C80D-C0E6-8587-6B6870A00000",
+  "description": "Letter order granting Sabine Pass Liquefaction, LLC's et al 2/24/16 request to deliver, store, and circulate Therminol for commissioning of the Train 2 Hot Oil Utility System under CP11-72.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160308-3047",
+  "issuedDate": "03/08/2016",
+  "filedDate": "03/08/2016",
+  "postedDate": "03/08/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.91,
+  "docketNumbers": [
+   "CP11-72-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DD8A4C-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 MAR 8 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 53248,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DFD4C8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12147998.PDF",
+    "fileDesc": "",
+    "fileSize": 17578,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6AE31031-46E7-C0AD-B90C-6B6878900000}-{01DDAD9E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6AE31031-46E7-C0AD-B90C-6B6878900000",
+  "description": "Letter order granting Cheniere Energy, Inc.'s February 24, 2016, as supplemented on March 10, 2016, request for Sabine Pass Liquefaction, LLC et al to continue commissioning activities of Liquefaction Train 1 etc. under CP11-72 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160311-3011",
+  "issuedDate": "03/11/2016",
+  "filedDate": "03/11/2016",
+  "postedDate": "03/11/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.29,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DDAD9E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 MAR 11 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 57344,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DFF499-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12150227.PDF",
+    "fileDesc": "",
+    "fileSize": 16432,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MILES",
+    "firstInitial": "A",
+    "middleInitial": "F"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{6AE31031-46E7-C0AD-B90C-6B6878900000}-{01DDAD9E-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "6AE31031-46E7-C0AD-B90C-6B6878900000",
+  "description": "Letter order granting Cheniere Energy, Inc.'s February 24, 2016, as supplemented on March 10, 2016, request for Sabine Pass Liquefaction, LLC et al to continue commissioning activities of Liquefaction Train 1 etc. under CP11-72 et al. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160311-3011",
+  "issuedDate": "03/11/2016",
+  "filedDate": "03/11/2016",
+  "postedDate": "03/11/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 80.29,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DDAD9E-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 MAR 11 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 57344,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DFF499-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12150227.PDF",
+    "fileDesc": "",
+    "fileSize": 16432,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MILES",
+    "firstInitial": "A",
+    "middleInitial": "F"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{2F3679DD-9E53-C98E-88DF-6B688B700000}-{01DDFCBC-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "2F3679DD-9E53-C98E-88DF-6B688B700000",
+  "description": "Transcript of the 1025th Commission Meeting held on March 17, 2016 in Washington, DC.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160317-4005",
+  "issuedDate": "03/17/2016",
+  "filedDate": "03/17/2016",
+  "postedDate": "04/04/2016",
+  "classTypes": [
+   {
+    "documentClass": "Transcript",
+    "documentType": "Commission Open Meeting Transcript"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "Electric"
+  ],
+  "score": 62.31,
+  "docketNumbers": [],
+  "transmittals": [
+   {
+    "fileId": "01DDFCBC-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "031716commission.DOCX",
+    "fileDesc": "",
+    "fileSize": 81641,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01DDFCBD-66E2-5005-8110-C31FAFC91712",
+    "fileType": "TXT",
+    "fileFormat": "Text",
+    "fileName": "031716commission.TXT",
+    "fileDesc": "",
+    "fileSize": 116043,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01E064B8-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12155602.PDF",
+    "fileDesc": "",
+    "fileSize": 263779,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "CHAIR AND IMMEDIATE STAFF (CHAIR)",
+    "lastName": "BAY",
+    "firstInitial": "N",
+    "middleInitial": "C"
+   },
+   {
+    "afType": "AUTHOR",
+    "affiliation": "COMMISSIONERS & IMMEDIATE STAFF (THE COMMISSION)",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{F531A535-4EC1-CB73-A741-6B6C23000002}-{01DF0354-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "F531A535-4EC1-CB73-A741-6B6C23000002",
+  "description": "Letter order granting Cheniere Energy, Inc's April 16, 2015 request to introduce feed gas and refrigerants in the identified areas of your request for commissioning of Train 2 under CP11-72 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160418-3037",
+  "issuedDate": "04/18/2016",
+  "filedDate": "04/18/2016",
+  "postedDate": "04/18/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 78.91,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DF0354-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 APR 18 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 55296,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "KOHOUT",
+    "firstInitial": "A",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "",
+    "firstInitial": "",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{701F81B2-A18E-C76F-B7DD-6B6C4B000002}-{01DFB9A3-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "701F81B2-A18E-C76F-B7DD-6B6C4B000002",
+  "description": "Letter order granting Cheniere Energy, Inc's 4/29/16 request for Sabine Pass to commence service of Train 1 and associated facilities under CP11-72 et al.",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160503-3027",
+  "issuedDate": "05/03/2016",
+  "filedDate": "05/03/2016",
+  "postedDate": "05/03/2016",
+  "classTypes": [
+   {
+    "documentClass": "Order/Opinion",
+    "documentType": "Delegated Order"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "GAS"
+  ],
+  "score": 79.05,
+  "docketNumbers": [
+   "CP11-72-000",
+   "CP13-2-000"
+  ],
+  "transmittals": [
+   {
+    "fileId": "01DFB9A3-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOC",
+    "fileFormat": "Word",
+    "fileName": "CP11-72-000 MAY 3 2016.DOC",
+    "fileDesc": "",
+    "fileSize": 57856,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "ENERGY PROJECTS, OFFICE OF",
+    "lastName": "MILES",
+    "firstInitial": "A",
+    "middleInitial": "F"
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "CHENIERE ENERGY, INC.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LIQUEFACTION, LLC",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   },
+   {
+    "afType": "RECIPIENT",
+    "affiliation": "SABINE PASS LNG, L.P.",
+    "lastName": "MAHMOUD",
+    "firstInitial": "K",
+    "middleInitial": ""
+   }
+  ]
+ },
+ {
+  "reference": "{271B7976-02C7-CBEC-AC09-6B6CACC00002}-{01E0F50A-66E2-5005-8110-C31FAFC91712}",
+  "documentId": "271B7976-02C7-CBEC-AC09-6B6CACC00002",
+  "description": "Notice of Action Taken at the June 16, 2016 Commission Meeting. ",
+  "summary": null,
+  "category": "Issuance",
+  "acesssionNumber": "20160616-3056",
+  "issuedDate": "06/16/2016",
+  "filedDate": "06/16/2016",
+  "postedDate": "06/16/2016",
+  "classTypes": [
+   {
+    "documentClass": "Notice",
+    "documentType": "Formal Notice"
+   }
+  ],
+  "availCode": "P",
+  "familyValue": "none",
+  "libraries": [
+   "ElectricRulemaking"
+  ],
+  "score": 78.0,
+  "docketNumbers": [],
+  "transmittals": [
+   {
+    "fileId": "01E0F50A-66E2-5005-8110-C31FAFC91712",
+    "fileType": "DOCX",
+    "fileFormat": "Word",
+    "fileName": "CA06-16-016.DOCX",
+    "fileDesc": "",
+    "fileSize": 43309,
+    "transmittalFk": null
+   },
+   {
+    "fileId": "01E0F518-66E2-5005-8110-C31FAFC91712",
+    "fileType": "PDF",
+    "fileFormat": "FERC Generated PDF",
+    "fileName": "12224393.PDF",
+    "fileDesc": "",
+    "fileSize": 10690,
+    "transmittalFk": null
+   }
+  ],
+  "affiliations": [
+   {
+    "afType": "AUTHOR",
+    "affiliation": "SECRETARY OF THE COMMISSION, FERC",
+    "lastName": "Bose",
+    "firstInitial": "K",
+    "middleInitial": "D"
+   }
+  ]
+ }
+]
