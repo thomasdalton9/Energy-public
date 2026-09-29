@@ -1,0 +1,39 @@
+name: Mexico CENACE graficademanda.aspx discovery
+
+# Manual, one-off: probes a specific, user-supplied real URL -
+# https://www.cenace.gob.mx/graficademanda.aspx - plus a couple of
+# same-naming-pattern sibling guesses, for how the chart actually
+# gets its data (inline JSON, an ASP.NET AJAX endpoint, or a
+# server-rendered table). See
+# americas/MEXICO_CENACE_GRAFICADEMANDA_DISCOVERY.py's docstring.
+# Output is in the run log and uploaded as an artifact - nothing is
+# committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery
+        run: python3 americas/MEXICO_CENACE_GRAFICADEMANDA_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-graficademanda-discovery-output
+          path: |
+            americas/mexico_graficademanda_discovery_output.txt
+            americas/mexico_discovery_page_*
+          if-no-files-found: ignore
