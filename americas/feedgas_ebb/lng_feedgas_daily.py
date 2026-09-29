@@ -990,6 +990,7 @@ def chart_data(best):
 
 
 CHART_FONT_PT = 12
+CHART_TITLE_PT = 16
 
 
 def _font(size_pt=CHART_FONT_PT, bold=False):
@@ -1020,7 +1021,7 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     n = ws.max_row
     area = AreaChart()
     area.grouping = "stacked"
-    area.title = _title("US LNG feedgas vs nameplate capacity")
+    area.title = _title("US LNG feedgas vs nameplate capacity", CHART_TITLE_PT)
     area.y_axis.title = _title("Gcf/d")  # primary y-axis label carries the units (Gcf/d = Bcf/d)
     area.y_axis.majorGridlines.spPr = None
     area.add_data(Reference(ws, min_col=2, max_col=1 + len(CAPACITY_GROUPS), min_row=1, max_row=n), titles_from_data=True)
