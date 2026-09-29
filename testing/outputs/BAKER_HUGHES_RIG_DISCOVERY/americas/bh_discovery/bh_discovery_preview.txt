@@ -1,0 +1,9 @@
+
+==== PAGE https://rigcount.bakerhughes.com/na-rig-count
+  HTTP 403, 398 bytes
+
+==== PAGE https://rigcount.bakerhughes.com/intl-rig-count
+  HTTP 403, 400 bytes
+
+==== PAGE https://rigcount.bakerhughes.com/
+  HTTP 403, 378 bytes
