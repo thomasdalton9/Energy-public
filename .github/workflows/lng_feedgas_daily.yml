@@ -69,5 +69,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f americas/feedgas_ebb/lng_feedgas_daily.xlsx
           git diff --cached --quiet || git commit -m "LNG feedgas daily: automated update"
-          git pull --rebase
-          git push
+          # the run can leave other files modified (logs, caches) - set them
+          # aside for the rebase, and retry if another job pushed meanwhile
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
