@@ -1,0 +1,3675 @@
+{
+  "Metric": {
+    "Id": "ListadoMetricas",
+    "Name": "Listado metricas API XM"
+  },
+  "Items": [
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaReal",
+            "MetricName": "Demanda Real por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda de usuarios regulados y no regulados que hacen parte del Sistema Interconectado Nacional (no incluye Alumbrado Público)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaReal",
+            "MetricName": "Demanda Real por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda de usuarios regulados y no regulados que hacen parte del Sistema Interconectado Nacional (no incluye Alumbrado Público)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ExpoMoneda",
+            "MetricName": "Exportaciones Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Transferencias de Energia desde Colombia hacia otros paises"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaCome",
+            "MetricName": "Demanda Comercial por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "Gene",
+            "MetricName": "Generación por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Generacion neta de cada una de las plantas Nacionales en sus puntos de frontera."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "GeneIdea",
+            "MetricName": "Generación Ideal por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Despacho de generacion que resulta de considerar una red de transporte inexistente"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecBolsNaci",
+            "MetricName": "Precio Bolsa Nacional por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de oferta de la última planta flexible para atender la demanda comercial nacional, más delta de incremento para remunerar los costos no cubiertos de las plantas térmicas en el despacho ideal."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RestAliv",
+            "MetricName": "Restricciones Aliviadas por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "“Es el valor a cargo de los comercializadores por concepto de restricciones después de aplicar los alivios definidos en la regulación vigente”, la regla de negocio de esta métrica sería la Resolución "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ConsCombustibleMBTU",
+            "MetricName": "Consumo Combustible MBTU por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "MBTU",
+            "MetricDescription": "Los generadores térmicos deben reportar diariamente según resolución CREG 084 de 2005 el consumo de combustible en MBTU"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ConsCombustibleMBTU",
+            "MetricName": "Consumo Combustible MBTU",
+            "Entity": "Combustible",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "MBTU",
+            "MetricDescription": "Los generadores térmicos deben reportar diariamente según resolución CREG 084 de 2005 el consumo de combustible en MBTU"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "Gene",
+            "MetricName": "Generación por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Generacion neta de cada una de las plantas Nacionales en sus puntos de frontera."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "IndRecMargina",
+            "MetricName": "Indicador Recurso Margina por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "#",
+            "MetricDescription": "Si Precio de Oferta Declarado = Máximo Precio de Oferta Nacional (para el recurso que esto se cumpla, es el recurso que margina)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaCome",
+            "MetricName": "Demanda Comercial por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecOferDesp",
+            "MetricName": "Precio de Oferta de Despacho por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Es el precio de la energia de un recurso de generación despachados centralmente enviados por los agentes para el Despacho. Incluye el CEE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "MaxPrecOferNal",
+            "MetricName": "Máximo Precio de Oferta Nacional por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Máximo precio de oferta nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsNaciEner",
+            "MetricName": "Compras Bolsa Nacional Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsNaciEner",
+            "MetricName": "Compras Bolsa Nacional Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEner",
+            "MetricName": "Compras en Contrato Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEner",
+            "MetricName": "Compras en Contrato Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentContEner",
+            "MetricName": "Ventas en Contrato Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energia vendida mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentContEner",
+            "MetricName": "Ventas en Contrato Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energia vendida mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "GeneIdea",
+            "MetricName": "Generación Ideal por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Despacho de generacion que resulta de considerar una red de transporte inexistente"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ConsCombAprox",
+            "MetricName": "Consumo Combustible Aproximado para el Factor de Emisión por RecursoComb",
+            "Entity": "RecursoComb",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "MBTU",
+            "MetricDescription": "Consumo aproximado de combustible de los generadores térmicos que no reportan diariamente consumo en MBTU, utilizado como insumo para el cálculo  de emisión de CO2 de los recursos."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EmisionesCO2",
+            "MetricName": "Emisiones de CO2 por RecursoComb",
+            "Entity": "RecursoComb",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "TonCO2",
+            "MetricDescription": "Emisiones totales de dióxido de carbono (CO2) de las plantas de generación registradas ante el Centro Nacional de Despacho. Incluye tanto las obtenidas con base en el reporte de consumo de combustible"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EmisionesCH4",
+            "MetricName": "Emisiones de CH4 por RecursoComb",
+            "Entity": "RecursoComb",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "TonCH4",
+            "MetricDescription": "Emisiones totales de Dióxido de Carbono (CH4)  de las plantas de generación registradas ante el Centro Nacional de Despacho, incluyendo las calculadas con base en información reportada y las estimadas"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EmisionesN2O",
+            "MetricName": "Emisiones de N2O por RecursoComb",
+            "Entity": "RecursoComb",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "TonN2O",
+            "MetricDescription": "Emisiones totales de Dióxido de Carbono – N2O de las plantas de generación registradas ante el CND, incluye tanto las obtenidas con base en el reporte de consumo de combustible como las aproximadas po"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EmisionesCO2Eq",
+            "MetricName": "Emisiones de CO2 Eq por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "gCO2e/kWh",
+            "MetricDescription": "Emisiones de dióxido de carbono equivalente expresadas como los gramos de dióxido de carbono equivalente emitidos a la atmósfera por cada kilovatio-hora (kWh) de electricidad generada por las plantas "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "factorEmisionCO2e",
+            "MetricName": "Emisiones de CO2 Eq/kWh por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "gCO2e/kWh",
+            "MetricDescription": "Factor de emisión de dióxido de carbono equivalente del sistema, correspondiente al Margen de Operación Simple (OM), expresado como los gramos de dióxido de carbono equivalente emitidos por cada kilov"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ImpoEner",
+            "MetricName": "Importaciones Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Transferencias de Energia desde otros paises para abastecer la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ImpoEner",
+            "MetricName": "Importaciones Energía",
+            "Entity": "Enlace",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Transferencias de Energia desde otros paises para abastecer la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ImpoMoneda",
+            "MetricName": "Importaciones Moneda",
+            "Entity": "Enlace",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Transferencias de Energia desde otros paises para abastecer la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ExpoEner",
+            "MetricName": "Exportaciones Energía",
+            "Entity": "Enlace",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Transferencias de Energia desde Colombia hacia otros paises"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ExpoMoneda",
+            "MetricName": "Exportaciones Moneda",
+            "Entity": "Enlace",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Transferencias de Energia desde Colombia hacia otros paises"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaOR",
+            "MetricName": "Demanda por OR por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Distribuidor",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda real del OR sin referir al STN, excluyendo la demanda de los usuarios conectados directamente al STN. Es decir que no se consideran las perdidas existentes en el STN."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PerdidasEner",
+            "MetricName": "Perdidas de Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de las inyecciones de energia al Sistema de Transmision Nacional (Generación), menos la cantidad de los flujos que salieron del Sistema (Demanda de energia reportada a traves de lectura de co"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "GeneSeguridad",
+            "MetricName": "Generación de Seguridad por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Generación que se requiere para garantizar condiciones de seguridad y confiabilidad, en la operación del Sistema Interconectado Nacional (SIN). Esta generación es programada por el CND en el Despacho "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "GeneFueraMerito",
+            "MetricName": "Generación Fuera de Mérito por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de energía generada por recursos de generación que operan fuera de mérito para atender restricciones del Sistema Interconectado Nacional (SIN), aun cuando su precio de oferta sea superior al "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ExpoEner",
+            "MetricName": "Exportaciones Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Transferencias de Energia desde Colombia hacia otros paises"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "GeneProgDesp",
+            "MetricName": "Generación Programada por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Despacho de generacion esperado de las centrales, que resulta de considerar la red de transporte real"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "GeneProgRedesp",
+            "MetricName": "Generación Programada Redespacho por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Generación programada del redespacho"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DispoReal",
+            "MetricName": "Disponibilidad Real por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kW",
+            "MetricDescription": "Disponibilidad promedio calculada a partir de la fecha de los eventos que modifican la disponibilidad de las unidades de generacion de los generadores, asi como de la disponibilidad reportada al Centr"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DispoCome",
+            "MetricName": "Disponibilidad Comercial por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kW",
+            "MetricDescription": "Considera la declaración de disponibilidad de los generadores, modificada cuando se presentan cambios en las unidades de generación en operación real del Sistema"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DispoDeclarada",
+            "MetricName": "Disponibilidad Declarada por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Máxima cantidad de potencia neta que un generador puede suministrar al sistema durante el intervalo de tiempo determinado para el despacho económico o el redespacho, reportada diariamente en la oferta"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RecoPosEner",
+            "MetricName": "Reconciliación Positiva Energía por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Es el valor de la compensacion positiva que se debe aplicar a los generadores para cada uno de sus recursos ofertados debido a las diferencias entre el despacho ideal y la generacion real. Este concep"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RecoNegEner",
+            "MetricName": "Reconciliación Negativa Energía por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Costos asociados con generaciones desplazadas en el despacho real por Generaciones de Seguridad Fuera de Merito o por Redespachos (diferencia entre el despacho ideal y el real).Este concepto aplica de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RespComerAGC",
+            "MetricName": "Responsabilidad Comercial AGC por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Responsabilidad Comercial de cada agente generador frente al Servicio de Regulación Secundara de Frecuencia"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DesvEner",
+            "MetricName": "Desviaciones Energía por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Es la cantidad de energía que se desvía una Central cuando incumple el programa de generación"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DesvMoneda",
+            "MetricName": "Desviaciones Moneda por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP",
+            "MetricDescription": "Es la cantidad de energía que se desvía una Central cuando incumple el programa de generación"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RecoPosMoneda",
+            "MetricName": "Reconciliación Positiva Moneda por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP",
+            "MetricDescription": "Es el valor de la compensacion positiva que se debe aplicar a los generadores para cada uno de sus recursos ofertados debido a las diferencias entre el despacho ideal y la generacion real. Este concep"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RecoNegMoneda",
+            "MetricName": "Reconciliación Negativa Moneda por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP",
+            "MetricDescription": "Costos asociados con generaciones desplazadas en el despacho real por Generaciones de Seguridad Fuera de Merito o por Redespachos (diferencia entre el despacho ideal y el real).Este concepto aplica de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ExcedenteAGPE",
+            "MetricName": "Compras Excedentes AGPE por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Compras Excedentes AGPE: Esta consulta está asociada con la energía que reportan los comercializadores integrados con los Operadores de Red como compras de excedentes a Autogeneradores a Pequeña Escal"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaComeReg",
+            "MetricName": "Demanda Comercial Mercado Regulado por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaComeNoReg",
+            "MetricName": "Demanda Comercial Mercado No Regulado por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaComeReg",
+            "MetricName": "Demanda Comercial Mercado Regulado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaComeNoReg",
+            "MetricName": "Demanda Comercial Mercado No Regulado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RestSinAliv",
+            "MetricName": "Restricciones sin Alivios por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Es el valor de la generacion de seguridad total del sistema asociada a restricciones por concepto de limitaciones en la capacidad de transporte en las redes del SIN."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaComeNoReg",
+            "MetricName": "Demanda Comercial por CIIU",
+            "Entity": "CIIU",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecPromContNoRegu",
+            "MetricName": "Precio Promedio Contratos No Regulados por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "[Sumatoria Valor Ventas Contrato cuando el Mercado Destino es No Regulado] / [Sumatoria Ventas Energía Contrato cuando el Mercado Destino es No Regulado]"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecPromContRegu",
+            "MetricName": "Precio Promedio Contratos Regulados por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "[Sumatoria Valor Ventas Contrato cuando el Mercado Destino es Regulado] / [Sumatoria Ventas Energía Contrato cuando el Mercado Destino es Regulado]"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEnerReg",
+            "MetricName": "Compras en Contrato Energía Mercado Regulado por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEnerNoReg",
+            "MetricName": "Compras en Contrato Energía Mercado No Regulado por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEnerReg",
+            "MetricName": "Compras en Contrato Energía Mercado Regulado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEnerNoReg",
+            "MetricName": "Compras en Contrato Energía  Mercado No Regulado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RentasCongestRestr",
+            "MetricName": "Rentas de Congestion para Cubrir Restricciones por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "La Resolución CREG 060 de 2004 modifica la Resolución CREG 004 de 2003, estableciendo la asignación de las Rentas de Congestión a la demanda total, la cual es definida como la sumatoria de la demanda "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EjecGarantRestr",
+            "MetricName": "Ejecución de Garantías por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Ejecución de Garantías (Res. CREG 071 de 2006):“Valor (horario, diario y mensual) a favor de los comercializadores por ejecución de garantías del Cargo por Confiabilidad”; la regla de negocio es la Re"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "SnTIEMerito",
+            "MetricName": "Saldo Neto TIE Merito por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Corresponde a los valores netos deficitarios o superavitarios resultantes del ajuste final de Transacciones Internacionales de Electricidad de acuerdo con lo definido en la Resolución 004 de 2003."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "SnTIEFueraMerito",
+            "MetricName": "Saldo Neto TIE Fuera Merito por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Corresponde a los valores netos deficitarios o superavitarios resultantes del ajuste final de Transacciones Internacionales de Electricidad de acuerdo con lo definido en la Resolución 004 de 2003."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecBolsNaciTX1",
+            "MetricName": "Precio Bolsa Promedio Aritmético TX1 por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Promedio aritmético del precio de bolsa nacional de la versión TX1"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaTIEEner",
+            "MetricName": "Compras Bolsa TIE Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaIntEner",
+            "MetricName": "Compras Bolsa Internacional Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa para atender la demanda internacional, es decir, las exportaciones a Venezuela. La interconexión con Venezuela se hace a través de las líneas Cuestecitas- Cuatricentenario"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaTIEEner",
+            "MetricName": "Ventas Bolsa TIE Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaIntEner",
+            "MetricName": "Ventas Bolsa Internacional Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía vendida en la Bolsa de Energía para atender la demanda internacional."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaTIEEner",
+            "MetricName": "Compras Bolsa TIE Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaIntEner",
+            "MetricName": "Compras Bolsa Internacional Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa para atender la demanda internacional, es decir, las exportaciones a Venezuela. La interconexión con Venezuela se hace a través de las líneas Cuestecitas- Cuatricentenario"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaTIEEner",
+            "MetricName": "Ventas Bolsa TIE Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaIntEner",
+            "MetricName": "Ventas Bolsa Internacional Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía vendida en la Bolsa de Energía para atender la demanda internacional."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaTIEMoneda",
+            "MetricName": "Compras Bolsa TIE Moneda por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaIntMoneda",
+            "MetricName": "Compras Bolsa Internacional Moneda por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa para atender la demanda internacional, es decir, las exportaciones a Venezuela. La interconexión con Venezuela se hace a través de las líneas Cuestecitas- Cuatricentenario"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaTIEMoneda",
+            "MetricName": "Ventas Bolsa TIE Moneda por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaIntMoneda",
+            "MetricName": "Ventas Bolsa Internacional Moneda por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía vendida en la Bolsa de Energía para atender la demanda internacional."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaTIEMoneda",
+            "MetricName": "Compras Bolsa TIE Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaIntMoneda",
+            "MetricName": "Compras Bolsa Internacional Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa para atender la demanda internacional, es decir, las exportaciones a Venezuela. La interconexión con Venezuela se hace a través de las líneas Cuestecitas- Cuatricentenario"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaTIEMoneda",
+            "MetricName": "Ventas Bolsa TIE Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda TIE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsaIntMoneda",
+            "MetricName": "Ventas Bolsa Internacional Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía vendida en la Bolsa de Energía para atender la demanda internacional."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaCome",
+            "MetricName": "Demanda Comercial por MercadoComercializacion",
+            "Entity": "MercadoComercializacion",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Considera la demanda propia de cada comercializador mas la paticipacion en la perdidas del STN y los consumos propios de los generadores."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ImportMonedaCOP",
+            "MetricName": "Importaciones Moneda COP por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Transferencias de Energia desde otros paises para abastecer la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ExportMonedaUSD",
+            "MetricName": "Exportaciones Moneda USD por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Transferencias de Energia desde Colombia hacia otros paises"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ImportMonedaUSD",
+            "MetricName": "Importaciones Moneda USD por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Transferencias de Energia desde otros paises para abastecer la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompBolsaNacMoneda",
+            "MetricName": "Compras Bolsa Nacional Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada en la Bolsa de Energía para atender la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContMoneda",
+            "MetricName": "Compras en Contrato Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentaBolsNaciMoneda",
+            "MetricName": "Ventas Bolsa Nacional Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energia comprada en la Bolsa de Energia para atender la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsNaciEner",
+            "MetricName": "Ventas Bolsa Nacional Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energia comprada en la Bolsa de Energia para atender la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentBolsNaciEner",
+            "MetricName": "Ventas Bolsa Nacional Energía por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energia comprada en la Bolsa de Energia para atender la demanda nacional"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CostMargDesp",
+            "MetricName": "Costo Marginal Despacho Programado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Es el aumento en el costo total operativo del Sistema debido al incremento de la demanda del mismo en una unidad. El costo adicional es imputable únicamente a unidades de generación flexbiles y con el"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DesvMoneda",
+            "MetricName": "Desviaciones Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Es la cantidad de energía que se desvía una Central cuando incumple el programa de generación"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CostRecPos",
+            "MetricName": "Costo Unitario Reconciliacion Positiva por Area",
+            "Entity": "Area",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No Aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo unitario de la Reconciliación Positiva sin AGC, calculado a partir de la relación entre el valor total reconocido y la energía asociada a la Reconciliación Positiva sin AGC durante el período de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CostRecPos",
+            "MetricName": "Costo Unitario Reconciliacion Positiva por SubArea",
+            "Entity": "SubArea",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No Aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo unitario de la Reconciliación Positiva sin AGC, calculado a partir de la relación entre el valor total reconocido y la energía asociada a la Reconciliación Positiva sin AGC durante el período de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CostRecNeg",
+            "MetricName": "Costo Unitario Reconciliacion Negativa por Area",
+            "Entity": "Area",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No Aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo unitario de la Reconciliación Negativa sin AGC, calculado a partir de la relación entre el valor total reconocido y la energía asociada a la Reconciliación Negativa sin AGC durante el período de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CostRecNeg",
+            "MetricName": "Costo Unitario Reconciliacion Negativa por SubArea",
+            "Entity": "SubArea",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No Aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo unitario de la Reconciliación Negativa sin AGC, calculado a partir de la relación entre el valor total reconocido y la energía asociada a la Reconciliación Negativa sin AGC durante el período de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEnerSICEP",
+            "MetricName": "Compras en Contrato Energía en SICEP por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompContEnerSICEP",
+            "MetricName": "Compras en Contrato Energía en SICEP por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía comprada mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentContEnerSICEP",
+            "MetricName": "Ventas en Contrato Energía del SICEP por Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Agente",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energia vendida mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentContEnerSICEP",
+            "MetricName": "Ventas en Contrato Energía del SICEP por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energia vendida mediante Contratos de largo plazo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaRealReg",
+            "MetricName": "Demanda Real Regulada Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda de usuarios regulados y no regulados que hacen parte del Sistema Interconectado Nacional (no incluye Alumbrado Público)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaRealReg",
+            "MetricName": "Demanda Real Regulada Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda de usuarios regulados y no regulados que hacen parte del Sistema Interconectado Nacional (no incluye Alumbrado Público)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaRealNoReg",
+            "MetricName": "Demanda Real No Regulada Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda de usuarios regulados y no regulados que hacen parte del Sistema Interconectado Nacional (no incluye Alumbrado Público)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaRealNoReg",
+            "MetricName": "Demanda Real No Regulada Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda de usuarios regulados y no regulados que hacen parte del Sistema Interconectado Nacional (no incluye Alumbrado Público)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PerdidasEnerReg",
+            "MetricName": "Perdidas de Energía Regulada Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de las inyecciones de energia al Sistema de Transmision Nacional (Generación), menos la cantidad de los flujos que salieron del Sistema (Demanda de energia reportada a traves de lectura de co"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PerdidasEnerReg",
+            "MetricName": "Perdidas de Energía Regulada Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de las inyecciones de energia al Sistema de Transmision Nacional (Generación), menos la cantidad de los flujos que salieron del Sistema (Demanda de energia reportada a traves de lectura de co"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PerdidasEnerNoReg",
+            "MetricName": "Perdidas de Energía No Regulada Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de las inyecciones de energia al Sistema de Transmision Nacional (Generación), menos la cantidad de los flujos que salieron del Sistema (Demanda de energia reportada a traves de lectura de co"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PerdidasEnerNoReg",
+            "MetricName": "Perdidas de Energía No Regulada Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de las inyecciones de energia al Sistema de Transmision Nacional (Generación), menos la cantidad de los flujos que salieron del Sistema (Demanda de energia reportada a traves de lectura de co"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PerdidasEner",
+            "MetricName": "Perdidas de Energía Agente",
+            "Entity": "Agente",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Comercializador",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Cantidad de las inyecciones de energia al Sistema de Transmision Nacional (Generación), menos la cantidad de los flujos que salieron del Sistema (Demanda de energia reportada a traves de lectura de co"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DesvGenVariableDesp",
+            "MetricName": "Desviación generación variable despacho",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Desviación de los recursos de generación variable de acuerdo con lo establecido en la Resolución CREG 060 de 2019, el valor es obtenido como la diferencia entre la generación real con respecto a la ge"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecTransBolsa",
+            "MetricName": "Precio Transaccion Bolsa",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de las Transacciones en Bolsa $/kWh"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DesvGenVariableRedesp",
+            "MetricName": "Desviación generación variable redespacho",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "HourlyEntities",
+            "Url": "https://servapibi.xm.com.co/hourly",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Desviación de los recursos de generación variable de acuerdo con lo establecido en la Resolución CREG 060 de 2019, el valor es obtenido como la diferencia entre la generación real con respecto a la ge"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DeltaInt",
+            "MetricName": "Delta Incremento Internacional por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No Aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Incremento sobre el MPO (Máximo Precio Ofertado) Internacional horario para calcular el Precio de Bolsa Internacional (Venezuela). Resolución 051/2009"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DeltaNal",
+            "MetricName": "Delta Incremento Nacional por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No Aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Incremento sobre el MPO (Máximo Precio Ofertado) Nacional horario para calcular el Precio de Bolsa Nacional. Resolución 51/2009"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ENFICC",
+            "MetricName": "Energía en Firme Cargo por Confiabilidad - ENFICC por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía Firme para el Cargo por Confiabilidad : Es la máxima energía eléctrica que es capaz de entregar una planta de generación continuamente, en condiciones de baja hidrología, en un período de un a"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ENFICC",
+            "MetricName": "Energía en Firme Cargo por Confiabilidad - ENFICC por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No Aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Energía Firme para el Cargo por Confiabilidad : Es la máxima energía eléctrica que es capaz de entregar una planta de generación continuamente, en condiciones de baja hidrología, en un período de un a"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CompNetArranPara",
+            "MetricName": "Compras Netas Arranque y Parada por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Valor neto de las transacciones por concepto del valor a favor del recurso de generacion y  el valor a recaudar por el recurso de generacion por concepto de arranque y parada para un recurso de genera"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "AporEner",
+            "MetricName": "Aportes  Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Caudales en energia de los rios que aportan agua a algun embalse del SIN"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecPromCont",
+            "MetricName": "Precio Promedio Contrato por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de los contratos de largo plazo ponderado por la energía transada durante el período de análisis."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "RemuRealIndiv",
+            "MetricName": "Remuneración Real Individual Diaria - RRID por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Remuneración Real Individual Diaria de la Obligación de Energía Firme de acuerdo con lo establecido en la Resolución CREG 071 de 2006."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VoluUtilDiarEner",
+            "MetricName": "Volumen Útil diario Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Volumen almacenado por encima del Nivel Minimo Tecnico, reportado diariamente por los agentes. En % corresponde a la relacion entre el Volumen Util Diario y la Capacidad Util del Embalse"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecEscaAct",
+            "MetricName": "Precio Escasez Activación por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de Escasez de Activación calculado de acuerdo con la Resolución CREG 140 del 2017"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecEsca",
+            "MetricName": "Precio Escasez por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Establecido por la CREG- y actualizado mensualmente con base en la variación de un índice de precios de combustibles, tiene una doble función. Por una parte indica a partir de qué momento las Obligaci"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecEscaMarg",
+            "MetricName": "Precio Marginal Escasez por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio Marginal de Escasez calculado de acuerdo con la Resolución CREG 140 del 2017"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecEscaSup",
+            "MetricName": "Precio Escasez Superior",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de Escasez Superior"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecEscaInf",
+            "MetricName": "Precio Escasez Inferior",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de Escasez Inferior"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CapEfecNeta",
+            "MetricName": "Capacidad Efectiva Neta por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kW",
+            "MetricDescription": "Máxima cantidad de potencia neta que puede suministrar una unidad de generación en condiciones normales de operación. Incluye las menores y cogeneradores"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaSIN",
+            "MetricName": "Demanda Energia SIN por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Demanda del SIN, la cual se calcula con base en la generacion neta de las plantas e incluye: hidraulicas, termicas, plantas menores, cogeneradores , solares, eolicas, demanda no atendida, limitacion d"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "AporEnerMediHist",
+            "MetricName": "Aportes Media Histórica Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Caudal medio mensual histórico en energia para los rios del SIN, obtenido como el promedio de los valores de cada mes para todos años con información disponibles "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CapaUtilDiarEner",
+            "MetricName": "Capacidad Útil Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Corresponde al Volumen Útil del Embalse, que se define como el volumen almacenado entre el nivel Mínimo Técnico y el Nivel Máximo Físico"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "FAZNI",
+            "MetricName": "FAZNI Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Valor recaudado por concepto del Fondo de apoyo a zonas no interconectadas. Hace parte de los fondos para atender zonas especiales deprimidas y zonas no interconectadas, con recursos del mismo sector"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ObligEnerFirme",
+            "MetricName": "Obligación de Energía en Firme - OEF por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "La OEF es un producto diseñado para garantizar la confiabilidad en el suministro de energía en el largo plazo a precios eficientes. Prorrata de la Energía Firme declarada para cada una de las Plantas "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaNoAtenProg",
+            "MetricName": "Demanda No Atendida Programada por Area",
+            "Entity": "Area",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Es la demanda no atendida de energía del SIN por desconexiones forzadas o programadas"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaNoAtenNoProg",
+            "MetricName": "Demanda No Atendida No Programada por Area",
+            "Entity": "Area",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Es la demanda no atendida de energía del SIN por desconexiones forzadas o programadas"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaNoAtenProg",
+            "MetricName": "Demanda No Atendida Programada por Subarea",
+            "Entity": "Subarea",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Es la demanda no atendida de energía del SIN por desconexiones forzadas o programadas"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaNoAtenNoProg",
+            "MetricName": "Demanda No Atendida No Programada por Subarea",
+            "Entity": "Subarea",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Es la demanda no atendida de energía del SIN por desconexiones forzadas o programadas"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VoluUtilDiarEner",
+            "MetricName": "Volumen Útil diario Energía por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Volumen almacenado por encima del Nivel Minimo Tecnico, reportado diariamente por los agentes. En % corresponde a la relacion entre el Volumen Util Diario y la Capacidad Util del Embalse"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CapaUtilDiarEner",
+            "MetricName": "Capacidad Útil Energía por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Corresponde al Volumen Útil del Embalse, que se define como el volumen almacenado entre el nivel Mínimo Técnico y el Nivel Máximo Físico"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "AporEner",
+            "MetricName": "Aportes  Energía por Rio",
+            "Entity": "Rio",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Río",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Caudales en energia de los rios que aportan agua a algun embalse del SIN"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "AporEnerMediHist",
+            "MetricName": "Aportes Media Histórica Energía por Rio",
+            "Entity": "Rio",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Río",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Caudal medio mensual histórico en energia para los rios del SIN, obtenido como el promedio de los valores de cada mes para todos años con información disponibles "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DDVContratada",
+            "MetricName": "DDV Contratada por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Valor total diario contratado por cada recurso de generación bajo el esquema de Demanda Desconectable Voluntaria."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DemaMaxPot",
+            "MetricName": "Demanda Máxima de Potencia por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kW",
+            "MetricDescription": "Es la máxima demanda de potencia, expresada en MW, requerida por el SIN en un instante de tiempo. Conocida también como demanda pico."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ComContRespEner",
+            "MetricName": "Compras Contrato Respaldo por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energia comprada en la Bolsa de Energia a aquellos generadores que brindan estabilidad al Sistema"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecCargConf",
+            "MetricName": "Precio Cargo por Confiabilidad por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "USD/kWh",
+            "MetricDescription": " Precio del Cargo por confiabilidad al que se remunera la Obligación de Energía Firme"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentContRespEner",
+            "MetricName": "Ventas Contrato Respaldo por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP",
+            "MetricDescription": "Ventas de contratos Respaldo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ComContRespEner",
+            "MetricName": "Compras Contrato Respaldo por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Energia comprada en la Bolsa de Energia a aquellos generadores que brindan estabilidad al Sistema"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VentContRespEner",
+            "MetricName": "Ventas Contrato Respaldo por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Ventas de contratos Respaldo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VoluUtilDiarMasa",
+            "MetricName": "Volumen Útil diario por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "m3",
+            "MetricDescription": "Definida como el volumen almacenado en el embalse por encima del Nivel Mínimo Técnico, inició su declaración diaria por parte de los agentes hidráulicos del mercado desde julio 11 de 2004 (Acuerdo 294"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VertMasa",
+            "MetricName": "Vertimientos Volumen por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "m3",
+            "MetricDescription": "Los vertimientos estan relacionados con la cantidad de agua que debe ser evacuada en los embalses cuando la reserva sobrepasa la capacidad maxima de almacenamiento."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "AporCaudal",
+            "MetricName": "Aportes Caudal por Rio",
+            "Entity": "Rio",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Río",
+            "MetricUnits": "m3/s",
+            "MetricDescription": "Valores de la hidrologia de los caudales de los rios del SIN, en metros cubicos por segundo"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "AporCaudalMediHist",
+            "MetricName": "Aportes Media Histórica Caudal por Rio",
+            "Entity": "Rio",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Río",
+            "MetricUnits": "m3/s",
+            "MetricDescription": "Caudal medio mensual histórico para los rios del SIN, obtenido como el promedio de los valores de cada mes para todos años con información disponibles"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "DescMasa",
+            "MetricName": "Descargas por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "m3",
+            "MetricDescription": "Agua descargada del embalse por compuertas de fondo o cualquier otro sistema, expresado en m3."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VertEner",
+            "MetricName": "Vertimientos Energía por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Los vertimientos estan relacionados con la cantidad de agua que debe ser evacuada en los embalses cuando la reserva sobrepasa la capacidad maxima de almacenamiento."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VertEner",
+            "MetricName": "Vertimientos Energía por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "Los vertimientos estan relacionados con la cantidad de agua que debe ser evacuada en los embalses cuando la reserva sobrepasa la capacidad maxima de almacenamiento."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CapaUtilDiarMasa",
+            "MetricName": "Capacidad Útil Volumen por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "m3",
+            "MetricDescription": "Corresponde al Volumen Útil del Embalse, que se define como el volumen almacenado entre el nivel Mínimo Técnico y el Nivel Máximo Físico"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CapaUtilDiarMasa",
+            "MetricName": "Capacidad Útil Volumen por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "m3",
+            "MetricDescription": "Corresponde al Volumen Útil del Embalse, que se define como el volumen almacenado entre el nivel Mínimo Técnico y el Nivel Máximo Físico"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VolTurbMasa",
+            "MetricName": "Volumen Turbinado por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "m3",
+            "MetricDescription": "Agua turbinada por la planta expresada en m3, incluye caudal ambiental y caudal de acueducto"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "VolTurbMasa",
+            "MetricName": "Volumen Turbinado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "m3",
+            "MetricDescription": "Agua turbinada por la planta expresada en m3, incluye caudal ambiental y caudal de acueducto"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecOferIdeal",
+            "MetricName": "Precio de Oferta Ideal por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Es el precio de la energia de una recurso de generación para cada una de las 24 horas de un dia. Difiere del precio de oferta de despacho en que incluye el CERE en lugar del CEE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PorcVoluUtilDiar",
+            "MetricName": "Volumen Útil  diario % por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "%",
+            "MetricDescription": "Porcentaje de llenado del area util de un embalse (Volumen almacenado por encima del Nivel Mínimo Técnico)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PorcVoluUtilDiar",
+            "MetricName": "Volumen Útil  diario % por Embalse",
+            "Entity": "Embalse",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Embalse",
+            "MetricUnits": "%",
+            "MetricDescription": "Porcentaje de llenado del area util de un embalse (Volumen almacenado por encima del Nivel Mínimo Técnico)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PorcApor",
+            "MetricName": "Aportes % por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "%",
+            "MetricDescription": "Aportes naturales de los ríos que aportan agua a algún embalse del SIN, dividido por su media histórica calculado en porcentaje "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PorcApor",
+            "MetricName": "Aportes % por Rio",
+            "Entity": "Rio",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Nombre Río",
+            "MetricUnits": "%",
+            "MetricDescription": "Aportes naturales de los ríos que aportan agua a algún embalse del SIN, dividido por su media histórica calculado en porcentaje "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PPPrecBolsNaci",
+            "MetricName": "Precio Bolsa Nacional Ponderado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio de la energía en la Bolsa Nacional ponderado es el precio de transacción en bolsa para el mercado nacional, calculado con base en el Costo Marginal (MPO) Nacional y el Delta de Incremento Nacio"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecEscaPon",
+            "MetricName": "Precio Escasez Ponderado por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Precio Escasez Ponderado del Sistema calculado de acuerdo a la Resolución CREG 140 de 2017"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "IrrPanel",
+            "MetricName": "Irradiación Panel por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "W/m2",
+            "MetricDescription": "Irradiación solar en la superficie de los paneles representativa de  la planta solar fotovoltaica."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "IrrGlobal",
+            "MetricName": "Irradiación Global por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "W/m2",
+            "MetricDescription": "Irradiación solar en superficie horizontal representativa de la planta solar fotovoltaica."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "TempPanel",
+            "MetricName": "Temperatura Panel por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "",
+            "MetricDescription": ""
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "TempAmbSolar",
+            "MetricName": "Temperatura Ambiente Solar por Recurso",
+            "Entity": "Recurso",
+            "MaxDays": 31,
+            "Type": "DailyEntities",
+            "Url": "https://servapibi.xm.com.co/daily",
+            "Filter": "Codigo Submercado Generación",
+            "MetricUnits": "°C",
+            "MetricDescription": "Temperatura del aire representativa de la planta solar fotovoltaica."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "FAER",
+            "MetricName": "FAER Moneda por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Fondo de Apoyo Financiero para la Energización de las Zonas Rurales Interconectadas -FAER-"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PRONE",
+            "MetricName": "PRONE por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Hace parte de los fondos especiales para atender zonas especiales deprimidas y zonas no interconectadas, con recursos del mismo sector eléctrico (FAZNI, FAER, FOES, PRONE)."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "MC",
+            "MetricName": "MC por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo Promedio ponderado por energía, expresado en COP/kWh, de todos los contratos bilaterales liquidados en el Mercado de Energía Mayorista con destino al mercado regulado. Mediante la Resolución CRE"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CERE",
+            "MetricName": "CERE por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo Equivalente Real de Energia del Cargo por Capacidad se usa para efectos de cotización en la Bolsa de Energía, es una señal de referencia para los agentes generadores del mercado. El propósito de"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CEE",
+            "MetricName": "CEE por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Costo Equivalente de Energia del Cargo por Capacidad se usa para efectos de cotización en la Bolsa de Energía, es una señal de referencia para los agentes generadores del mercado. El propósito de la s"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CargoUsoSTN",
+            "MetricName": "Cargos por Uso STN por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Valor que recibe el agente transmisor por uso del sistema de transmisión nacional."
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CargoUsoSTR",
+            "MetricName": "Cargos por Uso STR por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP",
+            "MetricDescription": "Distribución de los cargos por uso del sistema de transmisión regional de los operadores de red"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CargMaxTPrima",
+            "MetricName": "Cargo Máximo T Prima por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Termino usado enla metodología para el cálculo y aplicación de los Cargos por Uso del Sistema de Transmisión Nacional (STN)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CargMinTPrima",
+            "MetricName": "Cargo Mínimo T Prima por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Termino usado enla metodología para el cálculo y aplicación de los Cargos por Uso del Sistema de Transmisión Nacional (STN)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "CargMedTPrima",
+            "MetricName": "Cargo Media T Prima por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "Termino usado enla metodología para el cálculo y aplicación de los Cargos por Uso del Sistema de Transmisión Nacional (STN)"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EscDemUPMEAlto",
+            "MetricName": "Demanda de Energia Proyectada UPME Escenario Alto por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "proyecciones de demanda de energía realizada por la UPME "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EscDemUPMEMedio",
+            "MetricName": "Demanda de Energia Proyectada UPME Escenario Medio por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "proyecciones de demanda de energía realizada por la UPME"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "EscDemUPMEBajo",
+            "MetricName": "Demanda de Energia Proyectada UPME Escenario Bajo por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "kWh",
+            "MetricDescription": "proyecciones de demanda de energía realizada por la UPME "
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "PrecFAZNI",
+            "MetricName": "FAZNI Precio por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "MonthlyEntities",
+            "Url": "https://servapibi.xm.com.co/monthly",
+            "Filter": "No aplica",
+            "MetricUnits": "COP/kWh",
+            "MetricDescription": "FAZNI - Fondo de apoyo a zonas no interconectadas"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoRecursos",
+            "MetricName": "plantas y unidades que tiene asociadas un agente por Agente",
+            "Entity": "Agente",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "",
+            "MetricDescription": "Listado de recursos y unidades que pertenecen a un agente generador"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoRecursos",
+            "MetricName": "Listado Recursos con atributos por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "",
+            "MetricDescription": "Listado de recursos con sus atributos y que se encuentran en operación comercial  y pruebas conectados al Sistema Interconectado Nacional SIN"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoAgentes",
+            "MetricName": "Listado de agentes con atributos por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "",
+            "MetricDescription": "Listado de Agentes registrados ante el ASIC con la actividad que desarrollan en el mercado"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoRios",
+            "MetricName": "Listado de rios por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "",
+            "MetricDescription": "Listado de ríos que se encuentran registrados ante el CND y que cuentan con punto de medida"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoEmbalses",
+            "MetricName": "Listado de embalses por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "",
+            "MetricDescription": "Listado de embalses que se encuentran registrados ante el CND y que son reportados por algún recurso del SIN"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoMetricas",
+            "MetricName": "Listado de Métricas por Sistema",
+            "Entity": "Sistema",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "",
+            "MetricDescription": "Listado de métricas disponibles en la API XM con los respectivos atributos de consulta"
+          }
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-28",
+      "ListEntities": [
+        {
+          "Id": "Sistema",
+          "Values": {
+            "MetricId": "ListadoAGPE",
+            "MetricName": "Listado Autogeneradores a Pequeña Escala por Agente",
+            "Entity": "Agente",
+            "MaxDays": 731,
+            "Type": "ListsEntities",
+            "Url": "https://servapibi.xm.com.co/list",
+            "Filter": "No aplica",
+            "MetricUnits": "kW",
+            "MetricDescription": "Listado de Autogeneradores a Pequeña Escala AGPE con reporte y sin reporte al ASIC."
+          }
+        }
+      ]
+    }
+  ]
+}

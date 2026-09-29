@@ -1,0 +1,73 @@
+{
+  "Metric": {
+    "Id": "PorcVoluUtilDiar",
+    "Name": "Volumen Útil  diario % por Sistema",
+    "StartDate": "2026-09-05T00:00:00",
+    "EndDate": "2026-09-11T00:00:00"
+  },
+  "Items": [
+    {
+      "Date": "2026-09-05",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.79701"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-06",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.79591"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-07",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.79394"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-08",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.79213"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-09",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.78994"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-10",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.78852"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-11",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "0.79110"
+        }
+      ]
+    }
+  ]
+}

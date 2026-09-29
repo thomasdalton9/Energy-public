@@ -1,0 +1,73 @@
+{
+  "Metric": {
+    "Id": "VoluUtilDiarEner",
+    "Name": "Volumen Útil diario Energía por Sistema",
+    "StartDate": "2026-09-05T00:00:00",
+    "EndDate": "2026-09-11T00:00:00"
+  },
+  "Items": [
+    {
+      "Date": "2026-09-05",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13934319400.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-06",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13915147000.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-07",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13880655500.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-08",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13848947500.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-09",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13810681600.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-10",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13785864100.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-11",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "13830921800.00000"
+        }
+      ]
+    }
+  ]
+}

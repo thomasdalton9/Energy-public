@@ -1,0 +1,73 @@
+{
+  "Metric": {
+    "Id": "CapaUtilDiarEner",
+    "Name": "Capacidad Útil Energía por Sistema",
+    "StartDate": "2026-09-05T00:00:00",
+    "EndDate": "2026-09-11T00:00:00"
+  },
+  "Items": [
+    {
+      "Date": "2026-09-05",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-06",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-07",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-08",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-09",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-10",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    },
+    {
+      "Date": "2026-09-11",
+      "DailyEntities": [
+        {
+          "Id": "Sistema",
+          "Value": "17483245544.00000"
+        }
+      ]
+    }
+  ]
+}
