@@ -1,0 +1,9 @@
+{
+  "Metric": {
+    "Id": "Gene",
+    "Name": "Generación por Recurso",
+    "StartDate": "2026-09-26T00:00:00",
+    "EndDate": "2026-09-27T00:00:00"
+  },
+  "Items": []
+}
