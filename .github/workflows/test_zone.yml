@@ -110,7 +110,8 @@ jobs:
           mkdir -p "$dest"
           cd code
           find . -type f -newer "$RUNNER_TEMP/started" \
-            ! -path './.git/*' ! -name 'api_keys.py' ! -path '*/__pycache__/*' ! -name '*.pyc' -print |
+            ! -path './.git/*' ! -name 'api_keys.py' ! -path '*/__pycache__/*' ! -name '*.pyc' \
+            ! -path '*/ons_cache/*' ! -name '*.parquet' ! -name '*_cache.csv' -print |
             while read -r f; do
               mkdir -p "../$dest/$(dirname "$f")"
               cp "$f" "../$dest/$f"
