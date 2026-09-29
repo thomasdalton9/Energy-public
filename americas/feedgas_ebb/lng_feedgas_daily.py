@@ -1054,10 +1054,10 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     from openpyxl.chart.shapes import GraphicalProperties
     from openpyxl.drawing.line import LineProperties
     area.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))  # no border round the chart
-    area.width, area.height = 32, 16
+    area.width, area.height = 40, 22
     cs = wb.create_sheet(title, 1)
     cs.add_chart(area, "A1")
-    cs["A34"] = ("Stacked areas: operator nameplate liquefaction capacity by plant, as feedgas Bcf/d, stepping up train by train "
+    cs["A46"] = ("Stacked areas: operator nameplate liquefaction capacity by plant, as feedgas Bcf/d, stepping up train by train "
                  "on each train's FERC feed-gas date ('Train start-ups' tab). "
                  "Line: 'Best estimate daily' total - EIA monthly spread ratably before the daily pull, metered after. "
                  "Plants routinely run above nameplate, so the line can sit above the stack. "
