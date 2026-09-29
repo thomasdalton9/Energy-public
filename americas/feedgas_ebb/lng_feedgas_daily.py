@@ -949,7 +949,7 @@ CAPACITY_GROUPS = [
 # a ninth hue wouldn't stay distinguishable - new plants get a neutral grey
 CHART_COLORS = ["2A78D6", "EB6834", "1BAF7A", "EDA100", "E87BA4", "008300", "4A3AA7", "E34948", "9A9A94"]
 CHART_LINE_COLOR = "0B0B0B"
-FEEDGAS_LINE = "Total feedgas (best estimate)"
+FEEDGAS_LINE = "Total feedgas"
 
 
 def train_table():
@@ -982,7 +982,7 @@ def chart_data(best):
         for plant, mtpa, start in trains:
             if plant in plants and start:
                 cap += (days >= pd.Timestamp(start)) * mtpa * BCF_PER_MT_LNG / 365 * FEEDGAS_PER_EXPORT
-        out[f"{group} capacity"] = cap.round(3)
+        out[group] = cap.round(3)  # column header = legend label (plant name only)
     df = pd.DataFrame(out, index=index)
     df[FEEDGAS_LINE] = best["Total"].reindex(index)
     df.index.name = "gas_day"
@@ -1051,6 +1051,9 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     area.y_axis.txPr = _font()
     area.x_axis.delete = False
     area.y_axis.delete = False
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
+    area.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))  # no border round the chart
     area.width, area.height = 32, 16
     cs = wb.create_sheet(title, 1)
     cs.add_chart(area, "A1")
