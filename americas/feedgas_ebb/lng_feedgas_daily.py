@@ -991,22 +991,24 @@ def chart_data(best):
 
 CHART_FONT_PT = 12
 CHART_TITLE_PT = 16
+CHART_FONT = "Aptos"            # same faces as the repo's other native charts
+CHART_TITLE_FONT = "Aptos Display"
 
 
-def _font(size_pt=CHART_FONT_PT, bold=False):
-    """Text properties for a chart element: one font size throughout."""
+def _font(size_pt=CHART_FONT_PT, bold=False, face=CHART_FONT):
+    """Text properties for a chart element: one font and size throughout."""
     from openpyxl.chart.text import RichText
-    from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties
-    cp = CharacterProperties(sz=int(size_pt * 100), b=bold)
+    from openpyxl.drawing.text import CharacterProperties, Font, Paragraph, ParagraphProperties
+    cp = CharacterProperties(sz=int(size_pt * 100), b=bold, latin=Font(typeface=face))
     return RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=cp), endParaRPr=cp)])
 
 
-def _title(text, size_pt=CHART_FONT_PT):
+def _title(text, size_pt=CHART_FONT_PT, face=CHART_FONT):
     from openpyxl.chart.text import Text
     from openpyxl.chart.title import Title
-    from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties, RegularTextRun
-    cp = CharacterProperties(sz=int(size_pt * 100), b=True)
-    rich = Text(rich=_font(size_pt, bold=True))
+    from openpyxl.drawing.text import CharacterProperties, Font, Paragraph, ParagraphProperties, RegularTextRun
+    cp = CharacterProperties(sz=int(size_pt * 100), b=True, latin=Font(typeface=face))
+    rich = Text(rich=_font(size_pt, bold=True, face=face))
     rich.rich.p = [Paragraph(pPr=ParagraphProperties(defRPr=cp), r=[RegularTextRun(rPr=cp, t=text)])]
     return Title(tx=rich, overlay=False)
 
@@ -1021,7 +1023,7 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     n = ws.max_row
     area = AreaChart()
     area.grouping = "stacked"
-    area.title = _title("US LNG feedgas vs nameplate capacity", CHART_TITLE_PT)
+    area.title = _title("US LNG feedgas vs nameplate capacity", CHART_TITLE_PT, CHART_TITLE_FONT)
     area.y_axis.title = _title("Gcf/d")  # primary y-axis label carries the units (Gcf/d = Bcf/d)
     area.y_axis.majorGridlines.spPr = None
     area.add_data(Reference(ws, min_col=2, max_col=1 + len(CAPACITY_GROUPS), min_row=1, max_row=n), titles_from_data=True)
