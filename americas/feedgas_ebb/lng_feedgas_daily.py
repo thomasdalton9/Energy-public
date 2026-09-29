@@ -989,7 +989,7 @@ def chart_data(best):
     return df
 
 
-CHART_FONT_PT = 10
+CHART_FONT_PT = 12
 
 
 def _font(size_pt=CHART_FONT_PT, bold=False):
