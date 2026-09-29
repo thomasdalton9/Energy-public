@@ -664,6 +664,48 @@ def fetch_all(pipelines, gas_day):
     return results
 
 
+def capture_tc_only(out):
+    """--tc-only: save TC's latest posting (ANR, Columbia Gulf) into the
+    workbook's TC cache sheet and change nothing else. Run a few times a day
+    so a missed morning run doesn't lose TC's day (TC keeps no history) and
+    a later cycle for the same gas day overwrites an earlier one."""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(ignore_https_errors=True, viewport={"width": 1600, "height": 1200})
+        page = context.new_page()
+        for pipe in TC_REPORTS:
+            try:
+                posted, frame = fetch_tc_latest(page, pipe)
+            except Exception as e:
+                print(f"  WARNING: TC {pipe} failed ({type(e).__name__}: {str(e)[:300]})", file=sys.stderr, flush=True)
+                continue
+            for point in POINTS:
+                if point[1] == "tc" and point[2] == pipe and point[3] in frame.index:
+                    TC_AHEAD.setdefault(posted, {})[point_column(point)] = frame.at[point[3], "scheduled_dth"]
+        browser.close()
+    if not TC_AHEAD:
+        print("No TC posting captured - workbook unchanged.", flush=True)
+        return
+    import openpyxl
+    cache = load_tc_cache(out)
+    ahead = pd.DataFrame.from_dict(TC_AHEAD, orient="index")
+    cache = ahead if cache is None else ahead.combine_first(cache)  # newest capture wins for the same day
+    cache = cache.sort_index().tail(14)
+    wb = openpyxl.load_workbook(out)
+    position = wb.sheetnames.index(TC_CACHE_SHEET) if TC_CACHE_SHEET in wb.sheetnames else len(wb.sheetnames)
+    if TC_CACHE_SHEET in wb.sheetnames:
+        del wb[TC_CACHE_SHEET]
+    ws = wb.create_sheet(TC_CACHE_SHEET, position)
+    ws.append(["gas_day"] + list(cache.columns))
+    for day, row in cache.iterrows():
+        ws.append([pd.Timestamp(day).to_pydatetime()] + [None if pd.isna(v) else float(v) for v in row])
+    for (cell,) in ws.iter_rows(min_row=2, max_col=1):
+        cell.number_format = "dd-mmm-yyyy"
+    ws.column_dimensions["A"].width = 14
+    wb.save(out)
+    print(f"TC cache updated for gas day(s) {sorted(TC_AHEAD)} - rest of the workbook untouched.", flush=True)
+
+
 def dump(gas_day):
     """Every delivery point with scheduled gas on DUMP_PIPELINES, to a
     CSV next to this script - for finding terminal meters to add."""
@@ -1145,7 +1187,12 @@ def main():
     parser.add_argument("--to", dest="date_to", help="backfill: last gas day, YYYY-MM-DD (default: yesterday)")
     parser.add_argument("--only", help="comma-separated platforms (e.g. transco) - pull just these, leaving the "
                                        "workbook's other meters as they are (to backfill a newly added meter)")
+    parser.add_argument("--tc-only", action="store_true", help="just save TC's latest posting into the TC cache "
+                                                                 "sheet (the extra intraday runs); nothing else changes")
     args = parser.parse_args()
+    if args.tc_only:
+        capture_tc_only(args.out)
+        return
     yesterday = datetime.now(ZoneInfo("America/Chicago")).date() - timedelta(days=1)
     gas_day = date.fromisoformat(args.gas_day) if args.gas_day else yesterday
     if args.dump:

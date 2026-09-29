@@ -6,9 +6,16 @@ name: LNG feedgas daily
 # (the script only reads Enbridge's default day). Pulls yesterday's
 # scheduled deliveries into each LNG terminal and upserts them into
 # americas/feedgas_ebb/lng_feedgas_daily.xlsx - touches nothing else.
+#
+# Two more short runs a day (17:40 and 23:40 UTC) only re-save TC Energy's
+# latest posting (ANR -> Calcasieu Pass, Columbia Gulf -> Cameron): TC keeps
+# no history, so this covers a missed morning run and keeps the latest
+# intraday cycle for each gas day. They change nothing else.
 on:
   schedule:
     - cron: "40 11 * * *"
+    - cron: "40 17 * * *"
+    - cron: "40 23 * * *"
   workflow_dispatch:
     inputs:
       date_from:
@@ -49,8 +56,11 @@ jobs:
           DATE_FROM: ${{ inputs.date_from }}
           DATE_TO: ${{ inputs.date_to }}
           ONLY: ${{ inputs.only }}
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
-          if [ -n "$DATE_FROM" ]; then
+          if [ -n "$SCHEDULE" ] && [ "$SCHEDULE" != "40 11 * * *" ]; then
+            python3 americas/feedgas_ebb/lng_feedgas_daily.py --tc-only
+          elif [ -n "$DATE_FROM" ]; then
             # a backfill saves and pushes after every day, with the day's
             # progress line as the commit message, so it can be followed
             git config user.name "github-actions[bot]"
