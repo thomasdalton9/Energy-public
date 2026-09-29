@@ -1,0 +1,59 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+
+<html lang="es">
+
+    <head>        
+        <title>Generación por fuente.</title>
+        <link href="../scripts/calendario-jquery/calendario_dw/calendario_dw-estilos.css" type="text/css" rel="STYLESHEET">
+        <style type="text/css">
+            body{
+                font-family:verdana,sans-serif;
+            }
+        </style>
+        <script type="text/javascript" src="../scripts/calendario-jquery/calendario_dw/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript" src="../scripts/calendario-jquery/calendario_dw/calendario_dw.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".campofecha").calendarioDW();
+            });
+        </script>
+    </head>
+    <!--<hr>command60: /home/upronos/SimSEE/bin/Gen_EOL_SOL_EXP 46292 46293 60 <br><hr>comand: /home/upronos/SimSEE/bin/Gen_EOL_SOL_EXP 46292 46293 <br>-->
+    <body>
+        <script type="text/javascript">
+            window.onload = function () {
+                document.forms['fdatos'].elements['fecha_ini'].value = '27/09/2026';
+                document.forms['fdatos'].elements['fecha_fin'].value = '28/09/2026';
+            }
+        </script>
+    <a href="https://www.adme.com.uy"><img src="https://www.adme.com.uy/logo_adme.png"></a>
+    <p style="font-family:Verdana; font-size: 20px; font-color:#287cd2" >Generación por fuente. (datos del SCADA)</p><br>
+    <form action="" name="fdatos" >
+
+        Fecha inicial:<input type="text" name="fecha_ini" class="campofecha" size="12">
+
+        Fecha final:<input type="text" name="fecha_fin" class="campofecha" size="12">
+
+
+        <input name="send" type="submit" value="MOSTRAR" >    
+    </form>
+    <hr/>
+
+
+<div style='float: center; width: 100%;'>
+                <img title='Generación por fuente.' src="/cache/gpf_6666048_6666192.svg" alt='gráfico de generación por fuente.' style='width: 100%;' />
+        </div>
+    <div style='float: center; width: 50%;'>
+		<a href='/cache/gpf_6666048_6666192_diezminutal.ods' ><button>Archivo Scada Detalle 10minutal</button></a>
+         
+	</div>    <div style='float: center; width: 50%;'>
+		<a href='/cache/gpf_6666048_6666192_horario.ods' ><button>Archivo Scada Detalle Horario</button></a>
+         
+	</div>     
+
+</body>
+</html>
