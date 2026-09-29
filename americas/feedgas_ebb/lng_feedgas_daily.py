@@ -1011,16 +1011,17 @@ def _title(text, size_pt=CHART_FONT_PT):
 
 
 def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity"):
-    """Excel Quick Layout 1 (chart title + legend, no axis titles), legend
-    at the bottom, every piece of chart text at CHART_FONT_PT."""
+    """Excel Quick Layout 1 style (chart title + legend), legend at the
+    bottom, the units as the primary y-axis title, every piece of chart
+    text at CHART_FONT_PT."""
     from openpyxl.chart import AreaChart, LineChart, Reference
     from openpyxl.chart.axis import DateAxis
     ws = wb[data_sheet]
     n = ws.max_row
     area = AreaChart()
     area.grouping = "stacked"
-    area.title = _title("US LNG feedgas vs nameplate capacity (Bcf/d)")
-    area.y_axis.title = None  # Layout 1: no axis titles - the units are in the chart title
+    area.title = _title("US LNG feedgas vs nameplate capacity")
+    area.y_axis.title = _title("Gcf/d")  # primary y-axis label carries the units (Gcf/d = Bcf/d)
     area.y_axis.majorGridlines.spPr = None
     area.add_data(Reference(ws, min_col=2, max_col=1 + len(CAPACITY_GROUPS), min_row=1, max_row=n), titles_from_data=True)
     dates = Reference(ws, min_col=1, min_row=2, max_row=n)
