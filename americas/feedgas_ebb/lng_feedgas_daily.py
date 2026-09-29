@@ -989,15 +989,38 @@ def chart_data(best):
     return df
 
 
+CHART_FONT_PT = 12
+
+
+def _font(size_pt=CHART_FONT_PT, bold=False):
+    """Text properties for a chart element: one font size throughout."""
+    from openpyxl.chart.text import RichText
+    from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties
+    cp = CharacterProperties(sz=int(size_pt * 100), b=bold)
+    return RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=cp), endParaRPr=cp)])
+
+
+def _title(text, size_pt=CHART_FONT_PT):
+    from openpyxl.chart.text import Text
+    from openpyxl.chart.title import Title
+    from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties, RegularTextRun
+    cp = CharacterProperties(sz=int(size_pt * 100), b=True)
+    rich = Text(rich=_font(size_pt, bold=True))
+    rich.rich.p = [Paragraph(pPr=ParagraphProperties(defRPr=cp), r=[RegularTextRun(rPr=cp, t=text)])]
+    return Title(tx=rich, overlay=False)
+
+
 def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity"):
+    """Excel Quick Layout 1 (chart title + legend, no axis titles), legend
+    at the bottom, every piece of chart text at CHART_FONT_PT."""
     from openpyxl.chart import AreaChart, LineChart, Reference
     from openpyxl.chart.axis import DateAxis
     ws = wb[data_sheet]
     n = ws.max_row
     area = AreaChart()
     area.grouping = "stacked"
-    area.title = "US LNG feedgas vs nameplate capacity (Bcf/d)"
-    area.y_axis.title = "Bcf/d"
+    area.title = _title("US LNG feedgas vs nameplate capacity (Bcf/d)")
+    area.y_axis.title = None  # Layout 1: no axis titles - the units are in the chart title
     area.y_axis.majorGridlines.spPr = None
     area.add_data(Reference(ws, min_col=2, max_col=1 + len(CAPACITY_GROUPS), min_row=1, max_row=n), titles_from_data=True)
     dates = Reference(ws, min_col=1, min_row=2, max_row=n)
@@ -1021,6 +1044,12 @@ def add_capacity_chart(wb, data_sheet="Chart data", title="Feedgas vs capacity")
     area.display_blanks = "gap"  # no feedgas line in the future
     area.x_axis.title = None
     area.legend.position = "b"
+    area.legend.overlay = False
+    area.legend.txPr = _font()
+    area.x_axis.txPr = _font()
+    area.y_axis.txPr = _font()
+    area.x_axis.delete = False
+    area.y_axis.delete = False
     area.width, area.height = 32, 16
     cs = wb.create_sheet(title, 1)
     cs.add_chart(area, "A1")
