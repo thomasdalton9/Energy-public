@@ -1,0 +1,68 @@
+name: NBET + Mexico gob.mx follow-up discovery
+
+# Manual, one-off: two independent follow-up probes from the first
+# round of Nigeria/Mexico discovery -
+#   - nbet_pages: inspects the specific nbet.gov.ng pages the fixed
+#     NIGERIA_TCN_DISCOVERY.py crawl found (generation-data,
+#     distribution-data, ...) for actual embedded content (tables,
+#     iframes, charts), not just linked files.
+#   - mexico_gob_cenace: crawls gob.mx/cenace, since
+#     MEXICO_CENACE_DISCOVERY.py found cenace.gob.mx is now just a
+#     redirect stub pointing there.
+# Output is in each job's run log and uploaded as an artifact -
+# nothing is committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  nbet_pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run NBET page inspection
+        run: python3 africa/NBET_GENERATION_DATA_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nbet-generation-data-discovery-output
+          path: |
+            africa/nbet_generation_data_discovery_output.txt
+            africa/nbet_discovery_page_*
+          if-no-files-found: ignore
+
+  mexico_gob_cenace:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run gob.mx/cenace discovery
+        run: python3 americas/MEXICO_GOB_CENACE_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-gob-cenace-discovery-output
+          path: |
+            americas/mexico_gob_cenace_discovery_output.txt
+            americas/mx_gob_discovery_*
+          if-no-files-found: ignore
