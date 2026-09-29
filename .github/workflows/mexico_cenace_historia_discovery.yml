@@ -1,0 +1,39 @@
+name: Mexico CENACE historical demand report discovery
+
+# Manual, one-off: probes CENACE's historical demand report page
+# (EstimacionDemandaReal.aspx, per open-energy-transition/Awesome-
+# Electricity-Demand: 2016-present, 60-min, per region) for its form
+# structure - date-range inputs, region selector, ASP.NET postback
+# fields (__VIEWSTATE etc.) - since it's likely a report generator,
+# not a plain GET like graficademanda.aspx. See
+# americas/MEXICO_CENACE_HISTORIA_DISCOVERY.py's docstring. Output is
+# in the run log and uploaded as an artifact - nothing is committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery
+        run: python3 americas/MEXICO_CENACE_HISTORIA_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-historia-discovery-output
+          path: |
+            americas/mexico_historia_discovery_output.txt
+            americas/mexico_historia_seed.html
+          if-no-files-found: ignore
