@@ -921,6 +921,7 @@ def estimated(plants_daily, check, eia=None):
 
 
 HISTORY_START = date(2020, 1, 1)
+TRUEUP_LIMITS = (0.5, 2.0)  # EIA true-up factors outside this are an outage/start-up month - not applied
 NO_DATA = "no data yet (EIA runs 2-3 months behind)"
 
 
@@ -931,7 +932,7 @@ def best_estimate_daily(est, eia, points=None):
     pipelines only keep ~2 years of daily postings, so EIA is the history).
     'Source' says which: metered, EIA monthly (ratable), or mixed."""
     if eia is None or eia.empty:
-        return pd.DataFrame()
+        return pd.DataFrame(), {}
     plants = list(dict.fromkeys(p[0] for p in POINTS))
     eia_end = pd.Period(eia.index[-1], "M").end_time.date()
     last = max([eia_end] + ([max(est.index)] if not est.empty else []))
@@ -967,6 +968,36 @@ def best_estimate_daily(est, eia, points=None):
                 flat.loc[use_carry, pl] = carried.loc[use_carry, pl]
                 provisional.loc[use_carry, pl] = True
     out = metered.combine_first(flat)
+    # EIA true-up: once EIA publishes a month, scale each plant's metered
+    # days in it so the plant's month averages exactly EIA's figure - the
+    # meters keep the day-to-day shape, EIA sets the level. Any ratable
+    # (unmetered) days that month already sit at EIA's figure and are left
+    # alone. Factors outside TRUEUP_LIMITS (outages, start-up months) are
+    # not applied - the month stays as metered and 'Monthly check' shows it.
+    month_of = pd.Series(months, index=out.index)
+    trueup = {}
+    for pl in plants:
+        if pl not in eia.columns:
+            continue
+        met = metered[pl].notna() & (month_of <= eia.index[-1])
+        for month in sorted(set(month_of[met])):
+            e = eia.at[month, pl] if month in eia.index else float("nan")
+            if pd.isna(e):
+                continue
+            in_m = month_of == month
+            met_m, flat_m = in_m & metered[pl].notna(), in_m & metered[pl].isna()
+            m_sum = out.loc[met_m, pl].sum()
+            if m_sum <= 0:
+                continue
+            f = (e * in_m.sum() - out.loc[flat_m, pl].sum()) / m_sum
+            ok = TRUEUP_LIMITS[0] < f < TRUEUP_LIMITS[1]
+            trueup[(month, pl)] = (round(f, 3), ok)
+            if ok:
+                out.loc[met_m, pl] *= f
+    trued = pd.DataFrame(False, index=out.index, columns=plants)
+    for (month, pl), (f, ok) in trueup.items():
+        if ok:
+            trued.loc[(month_of == month) & metered[pl].notna(), pl] = True
     used_met, used_eia = metered.notna().any(axis=1), (metered.isna() & flat.notna()).any(axis=1)
     used_prov = provisional.any(axis=1)
     source = pd.Series(NO_DATA, index=out.index)
@@ -974,10 +1005,11 @@ def best_estimate_daily(est, eia, points=None):
     source[used_met] = "mixed (EIA ratable for unmetered plants)"
     source[used_met & used_prov] = "mixed (provisional: latest EIA month for unmetered plants)"
     source[used_met & ~used_eia] = "metered"
+    source[used_met & trued.any(axis=1)] = "metered, trued up to EIA month"
     out["Total"] = out[plants].sum(axis=1, min_count=1)
     out["Source"] = source
     out.index.name = "gas_day"
-    return out.round(3)
+    return out.round(3), trueup
 
 # 'Feedgas vs capacity' chart: nameplate capacity stacked by plant in
 # start-up order (Cove Point and Elba share a slot - eight series is the
@@ -1143,7 +1175,14 @@ def notes_lines():
               f"{FEEDGAS_PER_EXPORT:.2f} for liquefaction fuel and shrinkage (an assumed ~{(FEEDGAS_PER_EXPORT - 1) * 100:.0f}%) - "
               "i.e. the feedgas each plant actually needed. About 2-3 months behind.",
               f"'Monthly check': for each month with {MIN_DAYS_FOR_MONTH}+ metered days, metered average vs EIA-implied feedgas; "
-              "seen_share = the part of each plant's supply our meters see.",
+              "seen_share = the part of each plant's supply our meters see; gap_bcfd = metered minus EIA. For the fully "
+              "metered plants a gap of a few percent is normal (nominations vs actual flow; EIA counts cargoes by departure, "
+              "so tank inventory swings move it) - a large one means a meter has broken or a supply route has changed.",
+              "EIA TRUE-UP: once EIA publishes a month, each plant's metered days in it are scaled so the plant's month "
+              "averages exactly EIA's figure ('trueup_factor'; Source 'metered, trued up to EIA month'). The meters keep "
+              "the daily shape, EIA sets the level. Months EIA hasn't published stay metered (Corpus Christi and Freeport "
+              f"calibrated by seen_share). Factors outside {TRUEUP_LIMITS[0]}-{TRUEUP_LIMITS[1]} (outage or start-up months) "
+              "are not applied ('trueup_applied').",
               "'Estimated (calibrated)': daily metered / the plant's latest seen_share - fills the gas we can't see "
               "(Freeport's Texas intrastate supply above all). Plants with no share yet (the first 2-3 months, until "
               "EIA catches up with our history) carry their metered value. 'Estimated total' vs 'Metered total' "
@@ -1332,7 +1371,12 @@ def save(out, new):
     if share:
         print(f"  seen shares used: {share}")
 
-    best = best_estimate_daily(est, eia, points)
+    best, trueup = best_estimate_daily(est, eia, points)
+    if not check.empty:
+        check["gap_bcfd"] = (check["metered_bcfd"] - check["eia_implied_feedgas_bcfd"]).round(3)
+        check["trueup_factor"] = [trueup.get(k, (float("nan"), False))[0] for k in check.index]
+        check["trueup_applied"] = [("yes" if trueup[k][1] else "no - outside limits") if k in trueup else ""
+                                   for k in check.index]
     sheets = {"Best estimate daily": best} if not best.empty else {}
     sheets.update({"Bcfd by plant": plants, "Estimated (calibrated)": est, "Plant capacity": capacity_table(),
                    "Train start-ups": train_table(), "Future capacity": future_table(), "Points (Dth)": points})
