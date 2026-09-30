@@ -1,7 +1,17 @@
 name: Ireland gas demand
 
+# GNI's source CSV is a single evergreen file covering all history, so
+# every run just re-fetches and overwrites the full archive - no
+# upsert/checkpoint needed, same pattern as the Rhine/Trinidad pulls.
+# Gas demand updates daily; once a day well after data.gov.ie publishes
+# is plenty.
 on:
+  schedule:
+    - cron: "0 9 * * *"
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   run:
@@ -15,10 +25,21 @@ jobs:
       - name: Install dependencies
         run: pip install pandas requests openpyxl
       - name: Run
-        run: timeout 300 python3 europe/ireland_gas_demand.py
-      - name: Upload output
-        uses: actions/upload-artifact@v4
-        with:
-          name: ireland-gas-demand-output
-          path: output/ireland_gas_demand_daily.xlsx
-          if-no-files-found: ignore
+        run: timeout 300 python3 europe/ireland_gas_demand.py --out output/ireland_gas_demand_daily.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f output/ireland_gas_demand_daily.xlsx ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f output/ireland_gas_demand_daily.xlsx
+          git diff --cached --quiet || git commit -m "Ireland gas demand: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

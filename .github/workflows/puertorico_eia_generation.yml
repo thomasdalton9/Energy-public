@@ -1,7 +1,17 @@
 name: Puerto Rico EIA generation
 
+# EIA's API returns the full monthly series every call (no incremental
+# range query used), so every run just re-fetches and overwrites the
+# full archive - no upsert/checkpoint needed. Monthly data, published
+# with a lag of a couple months - a weekly check is plenty to catch a
+# new month promptly without hammering the API.
 on:
+  schedule:
+    - cron: "0 13 * * 3"
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   run:
@@ -17,10 +27,21 @@ jobs:
       - name: Run
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: timeout 300 python3 rest_of_world/puertorico_eia_generation.py
-      - name: Upload output
-        uses: actions/upload-artifact@v4
-        with:
-          name: puertorico-eia-generation-output
-          path: output/puertorico_generation_monthly.xlsx
-          if-no-files-found: ignore
+        run: timeout 300 python3 rest_of_world/puertorico_eia_generation.py --out output/puertorico_generation_monthly.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f output/puertorico_generation_monthly.xlsx ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f output/puertorico_generation_monthly.xlsx
+          git diff --cached --quiet || git commit -m "Puerto Rico EIA generation: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
