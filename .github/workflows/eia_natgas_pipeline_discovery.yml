@@ -1,0 +1,25 @@
+name: EIA natural gas pipeline and Waha discovery
+
+# One-off, manual: probe EIA API v2 natural-gas routes for Waha spot
+# price and pipeline capacity/flow data ahead of building anything.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery probe
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 120 python3 americas/EIA_NATGAS_PIPELINE_DISCOVERY.py
