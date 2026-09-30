@@ -42,6 +42,15 @@ fully idle. v5 swaps that for wait_until="load" plus an explicit wait
 for the first date picker's DOM element to appear, which doesn't
 depend on the network ever going quiet.
 
+v5's first live run got past goto() but then failed at that same
+wait_for_selector - the element is there (confirmed by the timeout
+error itself showing its live value) but is intentionally hidden,
+since Telerik's RadDatePicker keeps its real <input> invisible behind
+a decorated widget. wait_for_selector's default state ("visible")
+waits forever on it. v6 waits for state="attached" instead - present
+in the DOM is all that's actually needed before calling
+window.$find() on it.
+
 This combines both working parts instead of clicking anything: sets
 the date via Telerik's client API (proven to work), then reads back
 every field on the live, now-correctly-synced form via JS - including
@@ -118,7 +127,13 @@ def main():
         # explicit wait for the first date picker's DOM element is a more
         # reliable readiness signal for this kind of page.
         page.goto(URL, timeout=60000, wait_until="load")
-        page.wait_for_selector(f"#{DATE_PICKER_IDS[0]}", timeout=30000)
+        # v5's first live run proved the element exists at this point but is
+        # intentionally hidden (Telerik's RadDatePicker keeps its real
+        # <input> visually hidden behind a decorated widget) - the default
+        # wait_for_selector state ("visible") fails on it forever. "attached"
+        # (present in the DOM, visible or not) is what's actually needed
+        # before calling window.$find() on it.
+        page.wait_for_selector(f"#{DATE_PICKER_IDS[0]}", timeout=30000, state="attached")
         log(f"  loaded, title: {page.title()!r}")
 
         log("Step 1a: first pass - setting all three dates...")

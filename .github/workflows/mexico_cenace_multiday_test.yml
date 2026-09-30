@@ -1,0 +1,26 @@
+name: Mexico CENACE multiday test
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+      - name: Run test
+        run: timeout 300 python3 americas/MEXICO_CENACE_MULTIDAY_TEST.py
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-multiday-test-output
+          path: americas/mexico_multiday_test_output.txt
+          if-no-files-found: ignore
