@@ -1,0 +1,22 @@
+name: Argentina gas test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run
+        run: |
+          cd south_america
+          python3 ARGENTINA_GAS.py --out /tmp/argentina_gas.xlsx
+          echo "--- sheets ---"
+          python3 -c "import pandas as pd; xl = pd.ExcelFile('/tmp/argentina_gas.xlsx'); print(xl.sheet_names); [print('=== ' + n + ' ===\n' + xl.parse(n).tail(10).to_string()) for n in xl.sheet_names if n != 'Units']"
