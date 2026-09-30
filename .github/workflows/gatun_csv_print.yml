@@ -1,0 +1,15 @@
+name: Gatun CSV print
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Download and print full CSV
+        run: |
+          echo "===CSV_START==="
+          curl -s -A "Mozilla/5.0" "https://evtms-rpts.pancanal.com/eng/h2o/Download_Gatun_Lake_Water_Level_History.csv"
+          echo "===CSV_END==="
