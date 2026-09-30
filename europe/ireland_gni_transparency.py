@@ -61,7 +61,9 @@ DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "ireland_gni_transparency_daily.
 
 
 def fetch_csv(dataset, start, end):
-    params = {"frequency": "daily", "date": start.isoformat(), "date_end": end.isoformat()}
+    # GNI's export treats date_end as EXCLUSIVE (confirmed live: every
+    # chunk came back one day short), so ask for one day past `end`.
+    params = {"frequency": "daily", "date": start.isoformat(), "date_end": (end + timedelta(days=1)).isoformat()}
     last_error = None
     for attempt in range(1, FETCH_ATTEMPTS + 1):
         try:
@@ -117,7 +119,13 @@ def fetch_range(dataset, start, end, drop_group):
     wide = long.pivot_table(index="date", columns="Location", values="gwh", aggfunc="sum")
     wide.columns = [column_name(c) for c in wide.columns]
     wide.index.name = "date"
-    return wide.sort_index()
+    wide = wide.sort_index()
+    # GNI's per-point series can have blank days while Aggregate is complete
+    # (seen live: 21 blank Moffat days in the first 177) - surface it.
+    gaps = wide.isna().sum()
+    if gaps.any():
+        print(f"  {dataset}: blank days per column: {gaps[gaps > 0].to_dict()}", file=sys.stderr, flush=True)
+    return wide
 
 
 def load_sheet(path, sheet):
