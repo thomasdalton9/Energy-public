@@ -1,0 +1,22 @@
+name: Bolivia generation test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run for a small recent window
+        run: |
+          cd south_america
+          python3 BOLIVIA_CNDC.py --full --limit 3
+          echo "--- sheets ---"
+          python3 -c "import pandas as pd; xl = pd.ExcelFile('bolivia_generation.xlsx'); print(xl.sheet_names); [print('=== ' + n + ' (' + str(len(xl.parse(n))) + ' rows) ===\n' + xl.parse(n).head(15).to_string()) for n in xl.sheet_names if n != 'Units']"
