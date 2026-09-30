@@ -174,7 +174,18 @@ def fetch_one_day(page, context, target_day):
     if header_idx is None:
         return None
     csv_text = "\n".join(lines[header_idx:])
-    df = pd.read_csv(io.StringIO(csv_text))
+    # The header row has 4 fields ("Sistema, Zona de Carga, Hora, Energia
+    # (MWh) ") but every DATA row has a trailing comma (5 fields,
+    # "BCA,ENSENADA,1,116.16564,") - without index_col=False, pandas'
+    # usual heuristic for "data has one more column than the header"
+    # kicks in: it silently treats the FIRST data field as an unnamed
+    # index and shifts every named column one field to the right, so
+    # "energia_mwh" ends up holding the trailing empty string (always
+    # NaN) while "sistema" silently holds what was really the load zone.
+    # Confirmed live via MEXICO_DEMANDA_ZERO_CHECK.py - the raw CSV has
+    # real nonzero values throughout; this was a parsing bug, not a
+    # genuine data-quality gap.
+    df = pd.read_csv(io.StringIO(csv_text), index_col=False)
     df.columns = [c.strip() for c in df.columns]
     df = df.rename(columns={"Sistema": "sistema", "Zona de Carga": "zona_carga",
                              "Hora": "hora", "Energia (MWh)": "energia_mwh"})

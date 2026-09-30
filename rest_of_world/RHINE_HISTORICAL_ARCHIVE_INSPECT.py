@@ -37,6 +37,9 @@ if r.status_code in (301, 302, 303, 307, 308):
     redirect_url = r.headers.get("Location")
     print(f"redirects to: {redirect_url}", file=sys.stderr)
     if redirect_url:
+        if redirect_url.startswith("/"):
+            redirect_url = "https://www.pegelonline.wsv.de" + redirect_url
+            print(f"resolved to absolute: {redirect_url}", file=sys.stderr)
         r2 = requests.get(redirect_url, headers=HEADERS, timeout=TIMEOUT)
         print(f"  follow-up status={r2.status_code} bytes={len(r2.content)} "
               f"content-type={r2.headers.get('content-type')}", file=sys.stderr)
