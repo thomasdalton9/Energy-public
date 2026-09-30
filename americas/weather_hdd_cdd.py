@@ -12,8 +12,11 @@ touching anyone else's. (It also covers NW Europe/JKTC, not just the
 US, but lands in the US workbook so MASTER_USA.py's run always
 includes it - see MASTER_USA.py's SCRIPTS list.)
 
-Each region is a simple, equally-weighted average across a handful of
-major demand-centre cities (not a true population-weighted index):
+Each region is a population-weighted average across a handful of
+major demand-centre cities (weighted by each city's approximate metro-
+area population - see BASKETS - not a true population-weighted index
+across every city/town in the region, just these proxies weighted
+against each other):
     USA: New York, Chicago, Houston, Los Angeles, Atlanta.
     NW Europe: London, Paris, Amsterdam, Brussels, Frankfurt.
     JKTC: Tokyo, Seoul, Taipei, Shanghai.
@@ -52,6 +55,7 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import requests
 from openpyxl.utils import get_column_letter
@@ -121,28 +125,33 @@ HDD_COLOUR = excel_rgb(42, 120, 214)
 CDD_COLOUR = excel_rgb(235, 104, 52)
 TODAY_LINE_COLOUR = excel_rgb(90, 90, 90)
 
-# Simple, equally-weighted proxy baskets - not true population-weighted
-# indices. Pick major gas/power demand centres per region.
+# Proxy baskets, weighted by each city's approximate metro-area
+# population (millions - the unit doesn't matter, only the ratios
+# between cities in the same basket do). Figures are rounded, widely-
+# cited metro/urban-area estimates (not a specific census date) - close
+# enough for weighting a handful of demand-centre proxies against each
+# other, not meant as precise official population statistics. Adjust
+# freely if better figures are wanted.
 BASKETS = {
     "USA": [
-        ("New York", 40.71, -74.01),
-        ("Chicago", 41.85, -87.65),
-        ("Houston", 29.76, -95.37),
-        ("Los Angeles", 34.05, -118.24),
-        ("Atlanta", 33.75, -84.39),
+        ("New York", 40.71, -74.01, 19.5),
+        ("Chicago", 41.85, -87.65, 9.5),
+        ("Houston", 29.76, -95.37, 7.3),
+        ("Los Angeles", 34.05, -118.24, 13.0),
+        ("Atlanta", 33.75, -84.39, 6.3),
     ],
     "NW Europe": [
-        ("London", 51.51, -0.13),
-        ("Paris", 48.85, 2.35),
-        ("Amsterdam", 52.37, 4.90),
-        ("Brussels", 50.85, 4.35),
-        ("Frankfurt", 50.11, 8.68),
+        ("London", 51.51, -0.13, 9.6),
+        ("Paris", 48.85, 2.35, 12.3),
+        ("Amsterdam", 52.37, 4.90, 2.5),
+        ("Brussels", 50.85, 4.35, 2.1),
+        ("Frankfurt", 50.11, 8.68, 5.8),
     ],
     "JKTC": [
-        ("Tokyo", 35.68, 139.65),
-        ("Seoul", 37.57, 126.98),
-        ("Taipei", 25.03, 121.56),
-        ("Shanghai", 31.23, 121.47),
+        ("Tokyo", 35.68, 139.65, 37.0),
+        ("Seoul", 37.57, 126.98, 25.6),
+        ("Taipei", 25.03, 121.56, 7.0),
+        ("Shanghai", 31.23, 121.47, 24.9),
     ],
 }
 
@@ -186,12 +195,31 @@ def fetch_city_forecast_temp(latitude, longitude, from_date, to_date):
     return pd.Series(daily["temperature_2m_mean"], index=index, dtype=float)
 
 
+def weighted_average(frame, weights):
+    """Row-wise population-weighted average across frame's columns.
+    Weights are re-normalized per row over whichever columns actually
+    have data that day, so one city's occasional missing reading
+    doesn't zero out or skew the rest - a row with no data anywhere
+    comes back NaN rather than 0."""
+    weight_array = np.array([weights[column] for column in frame.columns], dtype=float)
+    values = frame.to_numpy(dtype=float)
+    present = ~np.isnan(values)
+    weighted_sum = np.nansum(values * weight_array, axis=1)
+    weight_total = (present * weight_array).sum(axis=1)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        result = weighted_sum / weight_total
+    result[weight_total == 0] = np.nan
+    return pd.Series(result, index=frame.index)
+
+
 def build_basket_temperature(basket, from_date, to_date, forecast_from=None, forecast_to=None):
-    """Equally-weighted average daily mean temperature across a
-    basket's cities, with the forecast window (if given) appended
-    onto each city's series before averaging."""
+    """Population-weighted average daily mean temperature across a
+    basket's cities (see BASKETS for each city's weight), with the
+    forecast window (if given) appended onto each city's series before
+    averaging."""
     city_series = {}
-    for city, latitude, longitude in basket:
+    weights = {}
+    for city, latitude, longitude, population in basket:
         print(f"  Fetching {city}...", file=sys.stderr, flush=True)
         series = fetch_city_mean_temp(latitude, longitude, from_date, to_date)
         if forecast_from is not None:
@@ -199,7 +227,8 @@ def build_basket_temperature(basket, from_date, to_date, forecast_from=None, for
             forecast_series = fetch_city_forecast_temp(latitude, longitude, forecast_from, forecast_to)
             series = pd.concat([series, forecast_series])
         city_series[city] = series
-    return pd.DataFrame(city_series).mean(axis=1)
+        weights[city] = population
+    return weighted_average(pd.DataFrame(city_series), weights)
 
 
 def five_year_normal(full_series, current_dates, years_back=HISTORY_YEARS):
