@@ -147,13 +147,17 @@ NOTES_LINES = [
     "",
     "ENTRY FLOWS",
     "One column per entry point as GNI names them: Bellanaboy is the Corrib field's onshore terminal "
-    "(indigenous production); Moffat is the interconnector from Great Britain; Inch was the Kinsale/Seven "
-    "Heads entry (ceased 2020); Aggregate is GNI's own total. Column set is whatever GNI publishes - see "
-    "the run log for the full list of series seen.",
+    "(indigenous production, = 'Corrib' in the open-data supply file); Moffat is the WHOLE interconnector "
+    "from Great Britain, including gas that transits the ROI system onward to Northern Ireland - subtract "
+    "(Total_LDM - ROI_LDM) from the consumption sheet to get the ROI-only figure that matches the "
+    "open-data 'Moffat ROI' column (reconciled exactly on the 2026-03-31 overlap day); Gormanston is the "
+    "South-North entry (normally 0); Aggregate is GNI's total of all entry points.",
     "",
     "CONSUMPTION BY SECTOR",
-    "One column per market sector as GNI names them (DM = daily metered industrial, NDM = non-daily "
-    "metered residential/small commercial, plus large daily metered and power generation as published). "
+    "As GNI names them: NDM (non-daily metered residential/small commercial), DM (daily metered "
+    "industrial), ROI_Power_Gen (gas-fired power stations), ROI_LDM (large daily metered INCLUDING power "
+    "generation - subtract ROI_Power_Gen for the open-data 'LDM non Power Gen' figure), Total_LDM (ROI_LDM "
+    "plus the Northern Ireland/Isle of Man offtake). NDM + DM + ROI_LDM = the open-data 'Total ROI demand'. "
     "Only outturn 'Gas Consumption' series are kept; GNI's 'Forecast EOD' series are dropped.",
     "",
     "COVERAGE",
