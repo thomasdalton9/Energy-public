@@ -1,0 +1,34 @@
+name: AEMO power mix test run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl nemosis
+
+      - name: Run small-scale test (one month)
+        run: timeout 600 python3 rest_of_world/aemo_nemweb_power_mix.py --from-date 2024-06-01 --to-date 2024-06-30 --out /tmp/aemo_test.xlsx
+
+      - name: Show output summary
+        run: |
+          python3 -c "
+          import pandas as pd
+          xl = pd.ExcelFile('/tmp/aemo_test.xlsx')
+          print('Sheets:', xl.sheet_names)
+          for name in xl.sheet_names:
+              df = pd.read_excel(xl, name)
+              print(f'--- {name} ---')
+              print(df.head(5).to_string())
+              print(f'shape: {df.shape}')
+          "
