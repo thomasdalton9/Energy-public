@@ -69,11 +69,17 @@ TIPO_TO_CATEGORY = {
 
 # DscFonteCombustivel (fuel source description) -> category, used for
 # UTE (thermal) plants where the technology code alone doesn't say what
-# fuel is burned.
+# fuel is burned. Exact strings confirmed from a live pull (ANEEL's own
+# capitalization, e.g. "Gás natural" not "Gás Natural") - a first pass
+# using guessed capitalization silently fell through to "other (...)"
+# for every thermal fuel, since Python string matching is case-exact.
 FONTE_TO_CATEGORY = {
-    "Gás Natural": "gas_thermal", "Gás de Processo": "gas_thermal",
-    "Óleo Combustível": "oil_thermal", "Óleo Diesel": "oil_thermal",
-    "Carvão Mineral": "coal", "Biomassa": "biomass",
+    "Gás natural": "gas_thermal", "Gás de Processo": "gas_thermal", "Gás de processo": "gas_thermal",
+    "Petróleo": "oil_thermal", "Óleo Combustível": "oil_thermal", "Óleo Diesel": "oil_thermal",
+    "Carvão mineral": "coal",
+    # Biomass sub-types, all rolled up to one "biomass" category
+    "Agroindustriais": "biomass", "Floresta": "biomass", "Resíduos sólidos urbanos": "biomass",
+    "Resíduos animais": "biomass", "Biocombustíveis líquidos": "biomass", "Biomassa": "biomass",
     "Potencial hidráulico": "hydro", "Cinética do vento": "wind",
     "Radiação solar": "solar", "Urânio": "nuclear",
 }
