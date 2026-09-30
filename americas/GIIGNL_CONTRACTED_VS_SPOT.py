@@ -66,6 +66,27 @@ Page numbers are NOT hardcoded (confirmed to shift across report
 editions) - each year's PDF is scanned for the two tables by their own
 title text instead.
 
+OLDER EDITIONS (2020-2024, confirmed via GIIGNL_OLDER_FORMAT_INSPECT.py):
+GIIGNL's own report format has evolved release to release, all handled
+without per-year branching by making each piece of parsing self-
+detecting rather than assumed fixed:
+  - Units: the 2020-2022 editions' spot/short-term table is in
+    kilotonnes ("(in 103T)" in its own title), not MT - detected from
+    that title text and converted, rather than assumed per year.
+  - Column layout: the 2020-2022 editions' export-totals table has an
+    extra "106 m3 liquid" volume column before the real MT column -
+    the MT column is found by matching the header cell text itself
+    ("106 T" or "MT"), not a fixed index.
+  - Naming: "United States"/"United Arab Emirates"/"Trinidad and
+    Tobago"/"Russia (Asia)"/"Russia (Europe)" (plus briefly "Russia
+    (Arctic)"/"Russia (East)" in the 2020 edition) and basin subtotals
+    without a trailing footnote digit ("ATLANTIC BASIN") are all
+    resolved to the same canonical MAJOR_EXPORTERS names via aliases.
+  - Pagination: some editions' spot/short-term matrix splits across
+    two physical PDF pages column-wise (confirmed for 2024's), with
+    the same total row repeated per page holding just that page's
+    columns - every matching page is scanned and merged.
+
 Only as many years as are actually found at the known URL pattern are
 pulled - not assumed to run back further than GIIGNL_DISCOVERY.py found
 real links for (2020 onward, as of this script's writing).
@@ -122,7 +143,32 @@ def _normalize(s):
     return re.sub(r"\s+", " ", str(s)).strip().casefold()
 
 
+# 2020-2024 editions spell/group several of these differently from the
+# 2025/2026 format MAJOR_EXPORTERS is matched against (confirmed via
+# GIIGNL_OLDER_FORMAT_INSPECT.py): "United States" instead of "USA",
+# "United Arab Emirates" instead of "UAE", "Trinidad and Tobago" instead
+# of "Trinidad & Tobago", "Russia (Asia)"/"Russia (Europe)" (with
+# parens, and briefly "Russia (Arctic)"/"Russia (East)" in the 2020
+# edition specifically - Arctic/East map onto the same Europe/Asia
+# basin split GIIGNL itself uses in the later naming), and basin
+# subtotal rows without the trailing superscript-footnote digit
+# ("ATLANTIC BASIN" instead of "Atlantic Basin1").
+_ALIASES = {
+    "united states": "USA",
+    "united arab emirates": "UAE",
+    "trinidad and tobago": "Trinidad & Tobago",
+    "russia (asia)": "Russia Asia",
+    "russia (east)": "Russia Asia",
+    "russia (europe)": "Russia Europe",
+    "russia (arctic)": "Russia Europe",
+    "atlantic basin": "Atlantic Basin1",
+    "middle east": "Middle East1",
+    "pacific basin": "Pacific Basin1",
+}
+
 _EXPORTER_LOOKUP = {_normalize(name): name for name in MAJOR_EXPORTERS}
+for _alias, _canonical in _ALIASES.items():
+    _EXPORTER_LOOKUP[_normalize(_alias)] = _canonical
 
 
 def fetch_pdf_bytes(year):
@@ -146,6 +192,57 @@ def fetch_pdf_bytes(year):
 _BASIN_SUBTOTALS = {"Atlantic Basin1", "Middle East1", "Pacific Basin1"}
 
 
+def _find_value_column_index(header_row):
+    """The 2020-2022 editions insert an extra "106 m3 liquid" volume
+    column before the real MT column (5 columns: Country, 106 m3
+    liquid, 106 T, Global Share, Var - vs. 2023+'s 4: Market/Country,
+    106 T or MT, Global Share, Var), so the MT value isn't reliably at
+    a fixed index - found instead by matching the header cell whose
+    text (whitespace-stripped) is exactly "106T" or "MT". Matching on
+    a substring like "106" alone would wrongly stop at "106 m3 liquid"
+    before reaching the real "106 T" column."""
+    for i, cell in enumerate(header_row):
+        if i == 0 or cell is None:
+            continue
+        norm = re.sub(r"\s+", "", str(cell)).upper()
+        if norm in ("106T", "MT"):
+            return i
+    # No literal header cell to match (confirmed for the 2021 edition:
+    # some pages' export-totals table extracts as a single mega-row per
+    # logical block, with every row's cells - header included - jammed
+    # together as newline-separated text in one cell, leaving no clean
+    # header text to search). Falls back to the layout's own column
+    # count instead: every edition seen uses either 5 columns (Country,
+    # 106 m3 liquid, 106 T, Global Share, Var - MT at index 2) or 4
+    # (Market/Country, 106 T/MT, Global Share, Var - MT at index 1).
+    return 2 if len(header_row) >= 5 else 1
+
+
+def _expand_multiline_rows(table):
+    """Some pages (confirmed for the 2021 edition) extract an entire
+    logical block of the export-totals table as ONE table row, with
+    every column's several values jammed together as newline-separated
+    text within a single cell (row[0] literally becomes "Papua New
+    Guinea\\nBrunei\\nPeru\\n..." instead of one row per country) - a
+    pdfplumber ruling-line detection quirk specific to that page's
+    layout, not a real table structure. Split back into individual
+    rows by zipping each cell's own newline-split lines together; a
+    row with no embedded newlines (the normal case) passes through
+    unchanged."""
+    expanded = []
+    for row in table:
+        if not row:
+            continue
+        split_cells = [str(c).split("\n") if c is not None else [None] for c in row]
+        max_lines = max(len(sc) for sc in split_cells)
+        if max_lines == 1:
+            expanded.append(row)
+            continue
+        for i in range(max_lines):
+            expanded.append([sc[i] if i < len(sc) else None for sc in split_cells])
+    return expanded
+
+
 def find_export_totals(pdf):
     """Table 1: total exports by exporting country/basin. Matching by
     name alone isn't enough - the US, Canada, Mexico and Egypt (among
@@ -154,13 +251,17 @@ def find_export_totals(pdf):
     of this script silently picking up the US's 0.4 MT import row
     instead of its real ~109 MT export total). A table is only trusted
     for exporter matches if it also contains one of GIIGNL's own basin-
-    subtotal rows (Atlantic Basin1/Middle East1/Pacific Basin1) -
-    a label distinctive enough to only appear in the real export-totals
-    table, unlike a plain country name."""
+    subtotal rows (Atlantic Basin1/Middle East1/Pacific Basin1, or their
+    2020-2023-edition spelling without the trailing digit) - a label
+    distinctive enough to only appear in the real export-totals table,
+    unlike a plain country name."""
     result = {}
     for page in pdf.pages:
         for table in page.extract_tables():
-            rows = [r for r in table if r and r[0]]
+            if not table or not table[0]:
+                continue
+            value_col = _find_value_column_index(table[0])
+            rows = [r for r in _expand_multiline_rows(table) if r and r[0]]
             is_export_table = any(
                 _EXPORTER_LOOKUP.get(_normalize(r[0])) in _BASIN_SUBTOTALS for r in rows
             )
@@ -170,27 +271,40 @@ def find_export_totals(pdf):
                 canonical = _EXPORTER_LOOKUP.get(_normalize(row[0]))
                 if canonical is None or canonical in result:
                     continue
-                if len(row) < 2 or row[1] in (None, ""):
+                if len(row) <= value_col or row[value_col] in (None, ""):
                     continue
                 try:
-                    mt = float(str(row[1]).replace(",", ""))
+                    mt = float(str(row[value_col]).replace(",", ""))
                 except ValueError:
                     continue
                 result[canonical] = mt
     return result
 
 
+def _detect_unit_divisor(page_text):
+    """2020-2022 editions' spot/short-term table title says "(in
+    103T)" (thousand tonnes = kilotonnes); 2023+ editions say "(in
+    MT)". Detected from the title text itself rather than assumed per
+    year, since it's the one place the unit is stated directly."""
+    m = re.search(r"quantities\*?\s*\(in\s*([^)]+)\)", page_text, re.IGNORECASE)
+    if m and "103" in m.group(1):
+        return 1000.0
+    return 1.0
+
+
 def find_spot_shortterm_totals(pdf):
     """Table 2's GRAND TOTAL row, read per known exporter via exact
     column-boundary cropping (see module docstring) rather than word-
-    position guessing."""
+    position guessing. Some editions (2024's, confirmed via
+    GIIGNL_OLDER_FORMAT_INSPECT.py) split this matrix across two
+    physical PDF pages column-wise, with the same total row repeated
+    on each page holding just that page's column subset - so every
+    matching page is scanned and merged, not just the first."""
+    result = {}
     for page in pdf.pages:
         text = page.extract_text() or ""
         if "Spot and Short" not in text and "SPOT AND SHORT" not in text.upper():
             continue
-        collapsed = _collapse_doubled_letters(text.upper().replace("\n", " "))
-        if "GRAND TOTAL" not in collapsed:
-            continue  # some editions may wrap/omit the title differently
 
         header_cells = _find_header_row_cells(page)
         if header_cells is None:
@@ -199,33 +313,50 @@ def find_spot_shortterm_totals(pdf):
         if total_row_bbox is None:
             continue
         total_top, total_bottom = total_row_bbox
+        divisor = _detect_unit_divisor(text)
 
-        result = {}
         for header_text, (x0, x1) in header_cells.items():
             canonical = _EXPORTER_LOOKUP.get(_normalize(header_text))
             if canonical is None or canonical in result:
                 continue
-            crop = page.within_bbox((x0, total_top, x1, total_bottom))
+            # clamp to the page's own bbox: cell/row coordinates can land
+            # a hair outside it from floating-point rounding (confirmed:
+            # an x0 of -0.0002 on an otherwise-valid crop), which
+            # pdfplumber's within_bbox rejects outright.
+            crop_x0 = max(0.0, min(x0, page.width))
+            crop_x1 = max(0.0, min(x1, page.width))
+            crop_top = max(0.0, min(total_top, page.height))
+            crop_bottom = max(0.0, min(total_bottom, page.height))
+            if crop_x1 <= crop_x0 or crop_bottom <= crop_top:
+                continue
+            crop = page.within_bbox((crop_x0, crop_top, crop_x1, crop_bottom))
             cell_text = (crop.extract_text() or "").strip()
             if not cell_text:
                 continue
             match = re.search(r"-?\d+(\.\d+)?", cell_text.replace(",", ""))
             if match:
-                result[canonical] = float(match.group())
-        return result if result else None
-    return None
+                result[canonical] = float(match.group()) / divisor
+    return result if result else None
 
 
 def _find_header_row_cells(page):
     """Uses find_tables() to get the spot/short-term matrix's own
     detected table object, so the header row's cell x-ranges are the
-    PDF's real column boundaries - not re-derived from word positions."""
+    PDF's real column boundaries - not re-derived from word positions.
+    The row-label header text varies by edition ("Markets", "Country",
+    or blank on a page-split continuation half), so a table is accepted
+    as the real header row by matching >=2 of its cells against known
+    exporter names instead of a fixed literal label."""
     for table in page.find_tables():
         extracted = table.extract()
         if not extracted or not extracted[0]:
             continue
         header_row_text = extracted[0]
-        if "Markets" not in header_row_text:
+        matched = sum(
+            1 for cell in header_row_text
+            if cell and _EXPORTER_LOOKUP.get(_normalize(cell)) is not None
+        )
+        if matched < 2:
             continue
         header_cells = table.rows[0].cells
         result = {}
@@ -238,22 +369,42 @@ def _find_header_row_cells(page):
 
 
 def _find_grand_total_row_bbox(page):
+    """Scans the WHOLE page's words (not just one detected table's own
+    rows) for the GRAND TOTAL / GLOBAL NET IMPORTS line, since a 2-page
+    -split matrix's continuation half (confirmed for the 2020-2022
+    editions) can hold the real total values without the row's own
+    label appearing anywhere in that half's own table grid - the label
+    only shows up once, associated with the OTHER half's columns, but
+    the FULL total row's numbers get duplicated as running page text on
+    each half regardless (confirmed empirically), so a page-wide scan
+    still finds a usable y-range on the continuation half too.
+
+    The label itself can also render wrapped across 2-3 physical text
+    lines with the numeric row sandwiched in between (confirmed for
+    the 2023/2024 editions combined with the doubled-letter font quirk
+    - "GLOBAL NET" / [the numbers] / "IMPORTS" as three separate lines)
+    - handled by matching the label across a small window of
+    consecutive lines (their alpha-only text concatenated) rather than
+    requiring one single line to contain the whole phrase, and
+    returning the bbox spanning that whole window so the sandwiched
+    numeric line is included."""
     words = page.extract_words(use_text_flow=False, keep_blank_chars=False)
     lines = _group_words_into_lines(words)
-    for line in lines:
-        joined = _collapse_doubled_letters("".join(w["text"] for w in line).upper())
-        if "GRANDTOTAL" in joined.replace(" ", ""):
-            top = min(w["top"] for w in line)
-            bottom = max(w["bottom"] for w in line)
-            return (top, bottom)
+    lines.sort(key=lambda line: min(w["top"] for w in line))
+
+    def alpha_text(line):
+        alpha_words = [w["text"] for w in line if re.search(r"[A-Za-z]", w["text"])]
+        return _collapse_doubled_letters("".join(alpha_words).upper())
+
+    for window in (1, 2, 3):
+        for i in range(len(lines) - window + 1):
+            window_lines = lines[i:i + window]
+            combined = "".join(alpha_text(l) for l in window_lines)
+            if "GRANDTOTAL" in combined or "GLOBALNETIMPORTS" in combined:
+                tops = [w["top"] for l in window_lines for w in l]
+                bottoms = [w["bottom"] for l in window_lines for w in l]
+                return (min(tops), max(bottoms))
     return None
-
-
-def _collapse_doubled_letters(s):
-    """GIIGNL's PDF renders certain bold/spaced headings with every
-    letter doubled (a font/kerning artifact, not a typo) -
-    "GGRRAANNDD TTOOTTAALL" for "GRAND TOTAL", "AASSIIAA" for "ASIA"."""
-    return re.sub(r"(.)\1+", r"\1", s)
 
 
 def _group_words_into_lines(words, y_tolerance=3):
@@ -268,6 +419,13 @@ def _group_words_into_lines(words, y_tolerance=3):
         if not placed:
             lines.append([w])
     return lines
+
+
+def _collapse_doubled_letters(s):
+    """GIIGNL's PDF renders certain bold/spaced headings with every
+    letter doubled (a font/kerning artifact, not a typo) -
+    "GGRRAANNDD TTOOTTAALL" for "GRAND TOTAL", "AASSIIAA" for "ASIA"."""
+    return re.sub(r"(.)\1+", r"\1", s)
 
 
 def build_year_row(export_totals, spot_totals):
