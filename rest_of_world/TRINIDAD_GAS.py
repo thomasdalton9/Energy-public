@@ -134,8 +134,15 @@ def table_to_long(table, entity_col):
             value = float(value)
             if value == 0:
                 continue  # zero = month not yet reached this year, not a real reading
-            date = pd.Timestamp(header.iloc[i]).replace(day=1)
-            rows.append({"date": date, entity_col: entity, "mmscfd": value, "country": COUNTRY})
+            # Named month_date, not date - assigning to a name also used
+            # as the imported datetime.date type anywhere in this function
+            # makes Python treat every reference to that name as the local
+            # variable for the WHOLE function, including the isinstance()
+            # check above that runs first - caught live as a NameError
+            # ("free variable... not associated with a value") the first
+            # time this ran against a real bulletin.
+            month_date = pd.Timestamp(header.iloc[i]).replace(day=1)
+            rows.append({"date": month_date, entity_col: entity, "mmscfd": value, "country": COUNTRY})
     return pd.DataFrame(rows)
 
 
