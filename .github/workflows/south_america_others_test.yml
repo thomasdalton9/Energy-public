@@ -1,0 +1,112 @@
+name: South America others reachability test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  brazil_generation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl pyarrow fastparquet
+      - name: Run ONS Brazil.py
+        run: |
+          cd south_america
+          timeout 1700 python3 "ONS Brazil.py"
+          echo "--- brazil_generation_daily.xlsx ---"
+          python3 -c "import pandas as pd; df=pd.read_excel('brazil_generation_daily.xlsx', sheet_name='Data'); print(df.shape); print(df.head()); print(df.tail())"
+
+  brazil_hydro_by_region:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run BRAZIL_ONS_HYDRO_BY_REGION.py
+        run: |
+          cd south_america
+          timeout 1700 python3 BRAZIL_ONS_HYDRO_BY_REGION.py
+          echo "--- outputs ---"
+          ls -la ear_*.csv 2>&1 || true
+          for f in ear_daily_pct.csv ear_daily_energy.csv; do
+            [ -f "$f" ] && echo "== $f ==" && head -3 "$f" && tail -3 "$f"
+          done
+
+  colombia_generation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run COLOMBIA_XM_GENERATION.py
+        run: |
+          cd south_america
+          timeout 1700 python3 COLOMBIA_XM_GENERATION.py --full
+          echo "--- co_generation_daily_by_fuel.csv ---"
+          head -3 co_generation_daily_by_fuel.csv
+          tail -3 co_generation_daily_by_fuel.csv
+
+  colombia_hydro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas
+      - name: Run COLOMBIA_XM_HYDRO.py
+        run: |
+          cd south_america
+          timeout 1700 python3 COLOMBIA_XM_HYDRO.py
+          echo "--- co_hydro_daily_pct.csv ---"
+          head -3 co_hydro_daily_pct.csv
+          tail -3 co_hydro_daily_pct.csv
+
+  uruguay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run URUGUAY_ADME.py
+        run: |
+          cd south_america
+          timeout 1700 python3 URUGUAY_ADME.py --full
+          echo "--- uruguay_generation.xlsx ---"
+          python3 -c "import pandas as pd; df=pd.read_excel('uruguay_generation.xlsx', sheet_name='Daily'); print(df.shape); print(df.head()); print(df.tail())"
+
+  ecuador:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run ECUADOR_CENACE.py
+        run: |
+          cd south_america
+          timeout 300 python3 ECUADOR_CENACE.py
+          echo "--- ecuador_generation.xlsx ---"
+          python3 -c "import pandas as pd; df=pd.read_excel('ecuador_generation.xlsx', sheet_name='Daily'); print(df.shape); print(df.tail())"
