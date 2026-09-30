@@ -49,7 +49,9 @@ DATASETS = {
     "physicalflows": {"sheet": "Entry flows", "keep_group": None, "drop_group": None},
     "gasconsumption": {"sheet": "Consumption by sector", "keep_group": None, "drop_group": re.compile("forecast", re.I)},
 }
-DATA_START = date(2018, 1, 1)
+# Only needed from where GNI's quarterly open-data files stop (they run
+# 2018-01-01 to 2026-03-31); the one-day overlap is a sanity check.
+DATA_START = date(2026, 3, 31)
 CHUNK_DAYS = 31
 RELOAD_DAYS = 45
 KWH_TO_GWH = 1e-6
@@ -155,9 +157,9 @@ NOTES_LINES = [
     "Only outturn 'Gas Consumption' series are kept; GNI's 'Forecast EOD' series are dropped.",
     "",
     "COVERAGE",
-    f"Daily from {DATA_START.isoformat()} or wherever GNI's export begins, through yesterday. The last "
-    f"{RELOAD_DAYS} days are re-pulled every run. Overlaps GNI's quarterly open-data files "
-    "(ireland_gas_supply_daily.xlsx / ireland_gas_demand_daily.xlsx) which end 2026-03-31.",
+    f"Daily from {DATA_START.isoformat()} through yesterday - this archive continues GNI's quarterly "
+    "open-data files (ireland_gas_supply_daily.xlsx / ireland_gas_demand_daily.xlsx, 2018-01-01 to "
+    f"2026-03-31) rather than duplicating them. The last {RELOAD_DAYS} days are re-pulled every run.",
     "",
     "SOURCE",
     "Gas Networks Ireland data transparency: /about/data-transparency/entry-flows/physical-flows and "
