@@ -1,0 +1,41 @@
+name: Trinidad gas
+
+# MEEI publishes a new bulletin roughly monthly - weekly is more than
+# enough to pick up a new one promptly without hammering the site.
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+
+      - name: Run Trinidad gas pull
+        run: python3 rest_of_world/TRINIDAD_GAS.py --out output/trinidad_gas.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f output/trinidad_gas.xlsx ] && git add -f output/trinidad_gas.xlsx
+          git diff --cached --quiet || git commit -m "Trinidad gas: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

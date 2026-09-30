@@ -3,36 +3,45 @@ Trinidad & Tobago natural gas production (by company) and utilization
 (by sector) from the Ministry of Energy and Energy Industries (MEEI)'s
 Consolidated Monthly Bulletin - free, public, no key.
 
-Confirmed via TRINIDAD_GAS_PDF_INSPECT.py: the bulletin PDF has two
-clean, machine-parseable tables on one page:
-  TABLE 3A - Natural Gas Production by Company (MMSCF/D)
-  TABLE 3B - Natural Gas Utilization by Sector (MMSCF/D)
+REWRITTEN to fix the original version's "needs manual URL updates"
+limitation and replace brittle PDF table extraction:
+  - The bulletin LISTING page (energy.gov.tt/?p=11949) always links the
+    CURRENT bulletin directly - confirmed live via TRINIDAD_GAS_EXCEL_
+    DISCOVERY.py - so the current bulletin's URL is resolved from that
+    page on every run instead of being hardcoded.
+  - Bulletins also publish in Excel (.xlsx) alongside the PDF - far
+    more reliable to parse than PDF table extraction (which needed a
+    real workaround for a pdfplumber table-merge quirk in the original
+    version). Confirmed via TRINIDAD_GAS_XLSX_INSPECT.py: sheet
+    "3A,3B" has both tables with clean cell values, no OCR/extraction
+    ambiguity, just occasional stray data-quality issues in the sheet
+    itself (see the TOTAL row note below).
+
+TABLE 3A - Natural Gas Production by Company (MMSCF/D)
+TABLE 3B - Natural Gas Utilization by Sector (MMSCF/D)
 Both are monthly, year-to-date within the bulletin (e.g. a bulletin
-titled "January-April 2025" has non-zero columns for Jan-Apr only).
+covering January-May has non-zero columns for Jan-May only, 0 for the
+rest of that year).
 
-data.gov.tt (the structured CSV alternative) was down for maintenance
-when checked - this PDF is the only confirmed-live source right now.
-
-IMPORTANT LIMITATION: only ONE bulletin URL is confirmed (the most
-recent one found via web search). MEEI publishes these periodically
-under a date-stamped filename - there's no confirmed index/archive page
-listing every past bulletin, so this script can't backfill history on
-its own. BULLETIN_URL needs updating by hand to a newer bulletin as MEEI
-publishes them (each new one still contains the full current year to
-date, so re-running against a newer URL naturally extends coverage).
+NOTE: the sheet's own "AVG <year>" column for the Utilization TOTAL row
+was found to be wrong in a live pull (947.58, when the monthly values
+themselves average to ~2274) - a data-quality issue in MEEI's own
+spreadsheet, not a parsing bug. This script reads only the real monthly
+columns and does not use the sheet's own AVG column at all, to avoid
+propagating that kind of error.
 
 Outputs (trinidad_gas.xlsx):
   Production by company    date, company, mmscfd, country
   Utilization by sector    date, sector, mmscfd, country
 
-Usage: python3 TRINIDAD_GAS.py [--out trinidad_gas.xlsx]
+Usage: python3 TRINIDAD_GAS.py [--out trinidad_gas.xlsx] [--url <bulletin .xlsx URL>]
 """
 print("STARTING", flush=True)
 
 import argparse
 import io
-import os
 import re
+import os
 import sys
 
 import pandas as pd
@@ -42,8 +51,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 import xlsx_notes
 
-BULLETIN_URL = ("https://www.energy.gov.tt/wp-content/uploads/2025/09/"
-                 "MEEI-Consolidated-Monthly-Bulletins_January-April-2025-14-07-2025.pdf")
+LISTING_URL = "https://www.energy.gov.tt/?p=11949"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
@@ -51,87 +59,100 @@ HEADERS = {
 TIMEOUT = (10, 120)
 COUNTRY = "Trinidad and Tobago"
 OUT_DEFAULT = "trinidad_gas.xlsx"
-
-MONTH_COL_RE = re.compile(r"^[A-Za-z]{3}-\d{2}$")  # e.g. "Jan-25"
-
-
-def to_number(val):
-    if val in (None, "", "0"):
-        return None
-    try:
-        return float(str(val).replace(",", ""))
-    except ValueError:
-        return None
+GAS_SHEET_CANDIDATES = ["3A,3B", "3A, 3B", "3A 3B"]
 
 
-def find_tables(pdf):
-    """Returns (production_table, utilization_table) - the raw row lists
-    from pdfplumber, located by title rather than a fixed page number
-    (bulletins can reorder pages between issues).
+def resolve_current_bulletin_url():
+    """The listing page always links the current bulletin directly (in
+    both PDF and Excel) - confirmed live via TRINIDAD_GAS_EXCEL_
+    DISCOVERY.py. Picks the newest-dated .xlsx link found (bulletin
+    filenames embed the publish date at the end, e.g.
+    "...-16-06-2026.xlsx")."""
+    r = requests.get(LISTING_URL, headers=HEADERS, timeout=TIMEOUT)
+    r.raise_for_status()
+    xlsx_links = sorted(set(re.findall(r'href="([^"]+\.xlsx?)"', r.text, re.I)))
+    bulletin_links = [link for link in xlsx_links if "Consolidated-Monthly-Bulletin" in link]
+    if not bulletin_links:
+        raise RuntimeError(f"No Excel bulletin link found on {LISTING_URL} - page layout may have changed")
 
-    pdfplumber merges Table 3A and 3B into a SINGLE extracted table when
-    there's no visible border between them on the page - confirmed live
-    (a first version of this function assumed one extracted table per
-    logical table and silently missed 3B entirely). So this scans EVERY
-    extracted table's rows for a title cell, and splits on it wherever
-    one appears mid-table."""
-    production, utilization = None, None
-    for page in pdf.pages:
-        for table in page.extract_tables():
-            if not table:
-                continue
-            split_at = None
-            for i, row in enumerate(table):
-                title = str((row[0] if row else "") or "").upper()
-                if "PRODUCTION BY COMPANY" in title:
-                    production = table[i:] if split_at is None else production
-                    split_at = i
-                elif "UTILIZATION BY SECTOR" in title or "UTILISATION BY SECTOR" in title:
-                    if production is not None and split_at is not None:
-                        production = table[split_at:i]
-                    utilization = table[i:]
-    return production, utilization
+    def publish_date_key(url):
+        m = re.search(r"(\d{2})-(\d{2})-(\d{4})\.xlsx?$", url)
+        return (m.group(3), m.group(2), m.group(1)) if m else ("0000", "00", "00")
+
+    return max(bulletin_links, key=publish_date_key)
+
+
+def find_gas_sheet(xl):
+    for name in xl.sheet_names:
+        if name.strip() in GAS_SHEET_CANDIDATES:
+            return name
+    # Fall back to scanning every sheet's first column for the table title,
+    # in case MEEI ever renames the tab.
+    for name in xl.sheet_names:
+        df = xl.parse(name, header=None, nrows=5)
+        if df.iloc[:, 0].astype(str).str.contains("PRODUCTION BY COMPANY", case=False, na=False).any():
+            return name
+    raise RuntimeError(f"Could not find the gas production/utilization sheet among: {xl.sheet_names}")
+
+
+def find_tables(df):
+    """df is the raw sheet (header=None). Returns (production_rows,
+    utilization_rows) - each a sub-DataFrame starting at its title row
+    up to (not including) the next title row or a blank row."""
+    col0 = df.iloc[:, 0].astype(str)
+    production_idx = col0[col0.str.contains("PRODUCTION BY COMPANY", case=False, na=False)].index
+    utilization_idx = col0[col0.str.contains("UTILI[SZ]ATION BY SECTOR", case=False, na=False, regex=True)].index
+    if len(production_idx) == 0 or len(utilization_idx) == 0:
+        raise RuntimeError("Could not locate both table titles in the gas sheet")
+    p_start, u_start = production_idx[0], utilization_idx[0]
+    return df.iloc[p_start:u_start], df.iloc[u_start:]
 
 
 def table_to_long(table, entity_col):
-    """table[0] = title row, table[1] = header (entity name, Jan-25, ..., AVG YYYY),
-    table[2:] = data rows, last row = TOTAL (kept as its own entity)."""
-    header = table[1]
-    month_cols = [(i, col) for i, col in enumerate(header) if col and MONTH_COL_RE.match(col.strip())]
+    """table row 0 = title, row 1 = header (entity name, then one
+    datetime column per month, then an AVG column we deliberately
+    ignore - see module docstring), row 2+ = data, ending at TOTAL."""
+    header = table.iloc[1]
+    month_cols = [i for i, val in enumerate(header) if isinstance(val, pd.Timestamp)]
     rows = []
-    for row in table[2:]:
-        if not row or not row[0]:
+    for _, row in table.iloc[2:].iterrows():
+        entity = row.iloc[0]
+        if not isinstance(entity, str) or not entity.strip():
             continue
-        entity = row[0].strip()
-        for i, month_label in month_cols:
-            value = to_number(row[i]) if i < len(row) else None
-            if value is not None:
-                date = pd.to_datetime(month_label, format="%b-%y")
-                rows.append({"date": date, entity_col: entity, "mmscfd": value, "country": COUNTRY})
+        entity = entity.strip()
+        if entity.upper().startswith("NOTE"):
+            break
+        for i in month_cols:
+            value = row.iloc[i]
+            if pd.isna(value):
+                continue
+            value = float(value)
+            if value == 0:
+                continue  # zero = month not yet reached this year, not a real reading
+            date = pd.Timestamp(header.iloc[i]).replace(day=1)
+            rows.append({"date": date, entity_col: entity, "mmscfd": value, "country": COUNTRY})
     return pd.DataFrame(rows)
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=OUT_DEFAULT)
-    parser.add_argument("--url", default=BULLETIN_URL, help="override the bulletin PDF URL")
+    parser.add_argument("--url", default=None, help="override the bulletin .xlsx URL (skips auto-discovery)")
     args = parser.parse_args()
 
-    print(f"Downloading MEEI bulletin: {args.url}", flush=True)
-    r = requests.get(args.url, headers=HEADERS, timeout=TIMEOUT)
+    bulletin_url = args.url or resolve_current_bulletin_url()
+    print(f"Downloading MEEI bulletin: {bulletin_url}", flush=True)
+    r = requests.get(bulletin_url, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
 
-    import pdfplumber
-    with pdfplumber.open(io.BytesIO(r.content)) as pdf:
-        production_table, utilization_table = find_tables(pdf)
+    xl = pd.ExcelFile(io.BytesIO(r.content))
+    sheet_name = find_gas_sheet(xl)
+    print(f"Using sheet: {sheet_name!r}", flush=True)
+    full = xl.parse(sheet_name, header=None)
+    production_table, utilization_table = find_tables(full)
 
-    if production_table is None:
-        print("  WARNING: 'Production by Company' table not found - page layout may have changed", flush=True)
-    if utilization_table is None:
-        print("  WARNING: 'Utilization by Sector' table not found - page layout may have changed", flush=True)
-
-    production = table_to_long(production_table, "company") if production_table else pd.DataFrame()
-    utilization = table_to_long(utilization_table, "sector") if utilization_table else pd.DataFrame()
+    production = table_to_long(production_table, "company")
+    utilization = table_to_long(utilization_table, "sector")
 
     print(f"Production: {len(production)} rows, {production['date'].nunique() if not production.empty else 0} months",
           flush=True)
@@ -152,17 +173,22 @@ def main():
         "Cement, Ammonia Derivatives (Urea/UAN/Melamine), Gas Processing, Small Consumers, and LNG (by far the "
         "largest single use). 'TOTAL' is MEEI's own published system total, kept as its own row.",
         "",
-        "LIMITATION",
-        "Only one bulletin is confirmed reachable right now (data.gov.tt, the structured CSV alternative, is "
-        "down for maintenance) - this script has no way to discover or backfill older bulletins on its own. "
-        "BULLETIN_URL needs updating by hand as MEEI publishes newer ones; each new bulletin still covers the "
-        "full current year to date, so history grows a little each time this is pointed at a newer URL.",
+        "COVERAGE",
+        "The bulletin's own listing page (energy.gov.tt) always links the current bulletin directly, so this "
+        "resolves the current bulletin's URL fresh on every run - no manual updates needed. Each bulletin "
+        "covers the current year to date; months not yet reached that year show as 0 in the source and are "
+        "dropped here rather than kept as fake zero readings.",
+        "",
+        "DATA QUALITY NOTE",
+        "The source spreadsheet's own 'AVG <year>' column for the Utilization TOTAL row does not match the "
+        "average of that row's monthly values in at least one bulletin seen live - this script does not read "
+        "that column at all (only the real monthly columns), to avoid propagating that kind of error.",
         "",
         "SOURCE",
-        "Ministry of Energy and Energy Industries (MEEI) Consolidated Monthly Bulletin, energy.gov.tt.",
+        f"Ministry of Energy and Energy Industries (MEEI) Consolidated Monthly Bulletin: {LISTING_URL}",
     ]
     sheets = {"Production by company": production, "Utilization by sector": utilization}
-    xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "SECTORS", "LIMITATION", "SOURCE"})
+    xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "SECTORS", "COVERAGE", "DATA QUALITY NOTE", "SOURCE"})
     print(f"Saved {args.out}", flush=True)
 
 
