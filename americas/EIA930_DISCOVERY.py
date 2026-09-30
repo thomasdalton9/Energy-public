@@ -81,6 +81,20 @@ def main():
     )
     print(json.dumps(data2, indent=2)[:5000])
 
+    print("\n=== 5. Facet values: respondent - looking for major ISOs/RTOs + region aggregates ===")
+    respondents = get("electricity/rto/daily-fuel-type-data/facet/respondent", {})
+    all_facets = respondents.get("response", {}).get("facets", [])
+    print(f"total respondent facets: {len(all_facets)}")
+    wanted_ids = {"PJM", "MISO", "CISO", "ERCO", "SWPP", "NYIS", "ISNE", "SOCO", "TVA", "US48"}
+    region_like = [f for f in all_facets if f["alias"].startswith("Region:")]
+    matched = [f for f in all_facets if f["id"] in wanted_ids]
+    print("\n--- matched major ISOs/RTOs ---")
+    print(json.dumps(matched, indent=2))
+    print("\n--- all 'Region:' aggregates ---")
+    print(json.dumps(region_like, indent=2))
+    print("\n--- all ids (compact) ---")
+    print(sorted(f["id"] for f in all_facets))
+
 
 if __name__ == "__main__":
     main()
