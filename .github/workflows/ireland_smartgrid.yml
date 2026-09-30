@@ -1,0 +1,43 @@
+name: Ireland smart grid
+
+# Plain HTTP requests (no browser), and the API accepts wide date-range
+# chunks - a full multi-year backfill completes in one run (unlike
+# Mexico's CENACE, which needs a real browser per day). Daily schedule
+# keeps it current after the initial backfill.
+on:
+  schedule:
+    - cron: "15 5 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run Ireland smart grid pull
+        run: python3 europe/ireland_smartgrid.py --out output/ireland_smartgrid_15min.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f output/ireland_smartgrid_15min.xlsx ] && git add -f output/ireland_smartgrid_15min.xlsx
+          git diff --cached --quiet || git commit -m "Ireland smart grid: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
