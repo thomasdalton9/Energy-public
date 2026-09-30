@@ -335,13 +335,29 @@ def get_or_create_chart_sheet(workbook):
     return ws
 
 
+EXCEL_EPOCH = pd.Timestamp("1899-12-30")
+
+
+def to_excel_serial(d):
+    """Convert a date/datetime/Timestamp to an Excel serial date
+    number. A single Range.Value = <python datetime> assignment works
+    fine via win32com's automatic marshaling, but a bulk
+    Range.Value = <tuple of tuples> array write does not get the same
+    treatment - pywin32 raises "TypeError: must be a PyWinTypes time
+    object" for a raw Python datetime/date inside that array, since the
+    array-packing path doesn't do the datetime->PyTime conversion a
+    scalar property-set does. Writing plain serial numbers sidesteps
+    that entirely; NumberFormat below still renders them as dates."""
+    return (pd.Timestamp(d) - EXCEL_EPOCH).total_seconds() / 86400
+
+
 def write_chart_sheet(ws, df, today_date=None):
     headers = ["Date"] + list(df.columns)
     for col, header in enumerate(headers, 1):
         ws.Cells(1, col).Value = header
 
     rows = [
-        (index.to_pydatetime(),) + tuple(None if pd.isna(v) else float(v) for v in record)
+        (to_excel_serial(index),) + tuple(None if pd.isna(v) else float(v) for v in record)
         for index, record in zip(df.index, df.itertuples(index=False, name=None))
     ]
     end_row = 1 + len(rows)
@@ -363,8 +379,9 @@ def write_chart_sheet(ws, df, today_date=None):
         # the chart uses - so a 2-point series here still draws as a
         # correctly-positioned vertical line, not a separate mini-chart.
         today_col = len(headers) + 2
-        ws.Cells(2, today_col).Value = today_date
-        ws.Cells(3, today_col).Value = today_date
+        today_serial = to_excel_serial(today_date)
+        ws.Cells(2, today_col).Value = today_serial
+        ws.Cells(3, today_col).Value = today_serial
         ws.Range(ws.Cells(2, today_col), ws.Cells(3, today_col)).NumberFormat = "dd/mm/yyyy"
         today_date_range = f"{get_column_letter(today_col)}2:{get_column_letter(today_col)}3"
 
