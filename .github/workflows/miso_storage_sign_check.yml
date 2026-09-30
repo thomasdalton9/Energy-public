@@ -1,0 +1,36 @@
+name: MISO storage sign check
+
+# Manual, one-off: checks whether MISO's hourly "Storage" (Battery
+# Storage) value in the sr_gfm daily reports ever goes negative
+# (charging/withdrawing) or is always >=0 (net discharge only) - informs
+# whether the daily archive should split Battery Storage into separate
+# injection/withdrawal columns instead of a single netted daily mean. See
+# americas/MISO_STORAGE_SIGN_CHECK.py's docstring. Output is in the run
+# log and uploaded as an artifact - nothing committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run check
+        run: python3 americas/MISO_STORAGE_SIGN_CHECK.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: miso-storage-sign-check-output
+          path: americas/miso_storage_sign_check_output.txt
+          if-no-files-found: ignore
