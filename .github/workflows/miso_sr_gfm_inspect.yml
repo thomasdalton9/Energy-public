@@ -1,0 +1,35 @@
+name: MISO sr_gfm inspect
+
+# Manual, one-off: inspects sample daily <YYYYMMDD>_sr_gfm.xlsx
+# "Generation Fuel Mix" files found via
+# MISO_HISTORICAL_FUEL_MIX_PLAYWRIGHT_DISCOVERY.py round 2, to see if they
+# can fill the 2026-to-date gap the annual historical archive can't yet
+# cover. See americas/MISO_SR_GFM_INSPECT.py's docstring. Output is in the
+# run log and uploaded as an artifact - nothing committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run inspect
+        run: python3 americas/MISO_SR_GFM_INSPECT.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: miso-sr-gfm-inspect-output
+          path: americas/miso_sr_gfm_inspect_output.txt
+          if-no-files-found: ignore
