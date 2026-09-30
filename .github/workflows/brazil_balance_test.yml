@@ -1,0 +1,22 @@
+name: Brazil balance test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl pyarrow
+      - name: Run
+        run: |
+          cd south_america
+          python3 "ONS Brazil.py"
+          echo "--- sheets ---"
+          python3 -c "import pandas as pd; xl = pd.ExcelFile('brazil_generation_daily.xlsx'); print(xl.sheet_names); print(xl.parse('National balance').tail(10).to_string()); print(xl.parse('Regional balance').tail(20).to_string())"

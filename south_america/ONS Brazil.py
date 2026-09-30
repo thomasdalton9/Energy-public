@@ -42,6 +42,11 @@ START_YEAR = 2010
 URL = "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/balanco_energia_subsistema_ho/BALANCO_ENERGIA_SUBSISTEMA_{year}.parquet"
 COLS = {"val_gerhidraulica": "hydro", "val_gertermica": "thermal", "val_gereolica": "wind", "val_gersolar": "solar"}
 SOURCES = list(COLS.values())
+# Balance columns (load/exchange) - confirmed present via ONS_BALANCE_COLUMNS_INSPECT.py but
+# not previously extracted (the script only pulled generation-by-source). Kept separate from
+# SOURCES/COLS so the existing "Data"/"By region" tabs (read by south_america_dashboard.py)
+# are completely unchanged.
+BALANCE_COLS = {"val_carga": "load", "val_intercambio": "exchange"}
 # ONS subsystem codes -> names; any whole-system row (SIN) is left out of
 # the national sum so it isn't counted twice
 REGIONS = {"N": "North", "NE": "Northeast", "S": "South", "SE": "Southeast/Centre-West", "SE/CO": "Southeast/Centre-West"}
@@ -117,10 +122,10 @@ def load_hourly(cache_dir, refresh):
 # ------------------------------------------------------------------
 
 def tidy(raw):
-    """Hourly MW per subsystem and source: time, region, hydro..solar."""
+    """Hourly MW per subsystem and source: time, region, hydro..solar, load, exchange."""
     sub_col = "id_subsistema" if "id_subsistema" in raw.columns else "nom_subsistema"
     df = pd.DataFrame({"time": pd.to_datetime(raw["din_instante"]), "code": raw[sub_col].astype(str).str.strip().str.upper()})
-    for col, name in COLS.items():
+    for col, name in {**COLS, **BALANCE_COLS}.items():
         df[name] = pd.to_numeric(raw[col], errors="coerce") if col in raw.columns else float("nan")
     codes = sorted(df["code"].unique())
     print(f"  subsystems in the file: {codes}")
@@ -130,7 +135,7 @@ def tidy(raw):
     df = df[~df["code"].isin(WHOLE_SYSTEM)].copy()
     df["region"] = df["code"].map(REGIONS).fillna(df["code"])
     # one row per hour and region (SE and SE/CO are the same subsystem)
-    return df.groupby(["time", "region"], as_index=False)[SOURCES].sum(min_count=1)
+    return df.groupby(["time", "region"], as_index=False)[SOURCES + list(BALANCE_COLS.values())].sum(min_count=1)
 
 
 def drop_incomplete_tail(hourly):
@@ -152,6 +157,29 @@ def drop_incomplete_tail(hourly):
 
 def national_hourly(hourly):
     return hourly.groupby("time")[SOURCES].sum(min_count=1)
+
+
+def balance_tables(hourly):
+    """Daily national and regional generation-vs-load balance, MW (mean of
+    that day's hourly readings). 'net_mw' here is this script's own
+    generation-minus-load (not an ONS-published figure) - a genuine
+    national imbalance mostly reflects transmission losses, not an error.
+    'exchange' is kept as ONS publishes it (val_intercambio) - its sign
+    convention (export vs import positive) hasn't been independently
+    verified against a known real interchange event."""
+    hourly = hourly.copy()
+    hourly["generation"] = hourly[SOURCES].sum(axis=1, min_count=1)
+
+    nat_hourly = hourly.groupby("time")[["generation", "load"]].sum(min_count=1)
+    national = nat_hourly.groupby(nat_hourly.index.date).mean().round(1)
+    national.index.name = "date"
+    national["net_mw"] = (national["generation"] - national["load"]).round(1)
+
+    regional = (hourly.assign(date=hourly["time"].dt.date)
+                .groupby(["date", "region"])[["generation", "load", "exchange"]].mean().round(1)
+                .reset_index())
+    regional["net_mw"] = (regional["generation"] - regional["load"]).round(1)
+    return national, regional
 
 
 def daily_tables(hourly):
@@ -227,15 +255,22 @@ def main():
     print(f"  {len(hourly):,} hourly region rows, {hourly['time'].min():%d-%b-%Y} to {hourly['time'].max():%d-%b-%Y %H:%M}")
 
     daily, daily_reg = daily_tables(hourly)
+    national_balance, regional_balance = balance_tables(hourly)
     xlsx_notes.write_workbook(
-        DAILY_OUT, {"Data": daily, "By region": daily_reg},
+        DAILY_OUT, {"Data": daily, "By region": daily_reg,
+                    "National balance": national_balance, "Regional balance": regional_balance},
         ["UNITS",
          "MW - each day's mean of the hourly readings ('average MW for that day'), not daily energy. "
          "Daily energy in MWh = MW x 24.",
          "",
          "TABS",
          "'Data': national generation by source (the four subsystems summed). "
-         "'By region': the same per subsystem, one column per region and source.",
+         "'By region': the same per subsystem, one column per region and source. "
+         "'National balance'/'Regional balance': generation (all 4 sources summed) vs load (val_carga) - "
+         "'net_mw' is this script's own generation-minus-load, not an ONS-published figure; a nonzero national "
+         "net mostly reflects transmission losses, not an error. 'Regional balance' also carries 'exchange' "
+         "(val_intercambio, ONS's own inter-subsystem interchange figure, sign convention as published and not "
+         "independently verified).",
          ""] + SOURCE_NOTE,
         {"UNITS", "TABS", "SOURCE", "REGIONS"})
 
