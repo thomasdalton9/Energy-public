@@ -1,0 +1,33 @@
+name: MISO fuel mix debug
+
+# Manual, one-off: diagnoses why the first live MISO_FUEL_MIX_DAILY.py
+# run saved a row where every category except Imports was NaN. See
+# americas/MISO_FUEL_MIX_DEBUG.py's docstring. Output is in the run
+# log and uploaded as an artifact - nothing is committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas requests
+
+      - name: Run debug
+        run: python3 americas/MISO_FUEL_MIX_DEBUG.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: miso-fuel-mix-debug-output
+          path: americas/miso_fuel_mix_debug_output.txt
+          if-no-files-found: ignore
