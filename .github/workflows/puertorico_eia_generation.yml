@@ -1,0 +1,26 @@
+name: Puerto Rico EIA generation
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Run
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 300 python3 rest_of_world/puertorico_eia_generation.py
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: puertorico-eia-generation-output
+          path: output/puertorico_generation_monthly.xlsx
+          if-no-files-found: ignore
