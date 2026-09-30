@@ -62,11 +62,13 @@ FIELD_RENAME = {
 }
 
 DATA_START = date(2015, 1, 15)  # confirmed live; may go back further, not yet tested
-# One request per ~90-day chunk - well inside the confirmed-working
-# 31-day span, with margin, while keeping each request's response size
-# (and this script's total request count for a multi-year backfill)
-# reasonable.
-CHUNK_DAYS = 90
+# The API silently returns 0 rows (HTTP 200, empty "Rows") past some
+# width threshold - confirmed live (IRELAND_SMARTGRID_BUG_ISOLATE.py)
+# that a 90-day span always fails (regardless of year or how many
+# "areas" are requested) while a 31-day span always works. The real
+# cutoff was never pinned down more precisely than "somewhere between
+# 31 and 90" - 30 days is safely inside the confirmed-working side.
+CHUNK_DAYS = 30
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "ireland_smartgrid_15min.xlsx")
