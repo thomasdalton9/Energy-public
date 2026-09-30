@@ -93,13 +93,17 @@ REGION_MAP = {
 }
 
 
-def fetch_series(ids):
+DATA_START = "2021-01-01"
+
+
+def fetch_series(ids, start_date):
     """ids: {column_name: series_id}. Returns a wide DataFrame indexed by
     date, one column per name, values in the series' native units
     (million m3/month)."""
     id_list = list(ids.values())
     r = requests.get(SERIES_API, headers=HEADERS, timeout=TIMEOUT,
-                      params={"ids": ",".join(id_list), "format": "json", "limit": 5000})
+                      params={"ids": ",".join(id_list), "format": "json", "limit": 5000,
+                              "start_date": start_date})
     r.raise_for_status()
     payload = r.json()
     dates = [row[0] for row in payload["data"]]
@@ -112,14 +116,15 @@ def fetch_series(ids):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default=OUT_DEFAULT)
+    parser.add_argument("--start-date", default=DATA_START, help="first month to pull (YYYY-MM-DD)")
     args = parser.parse_args()
 
-    print("Fetching production + sector consumption...", flush=True)
-    national = fetch_series({"produccion_gas_natural": PRODUCTION_ID, **SECTOR_IDS})
+    print(f"Fetching production + sector consumption from {args.start_date}...", flush=True)
+    national = fetch_series({"produccion_gas_natural": PRODUCTION_ID, **SECTOR_IDS}, args.start_date)
     print(f"  {len(national)} months, {national.index.min().date()} to {national.index.max().date()}", flush=True)
 
     print("Fetching distributor consumption...", flush=True)
-    distributors = fetch_series(DISTRIBUTOR_IDS)
+    distributors = fetch_series(DISTRIBUTOR_IDS, args.start_date)
     print(f"  {len(distributors)} months, {distributors.index.min().date()} to {distributors.index.max().date()}",
           flush=True)
 
@@ -160,7 +165,8 @@ def main():
         "",
         "SOURCE",
         "apis.datos.gob.ar/series/api/series - Secretaria de Energia, Ministerio de Economia, dataset "
-        "'Produccion y consumo de gas natural'. Monthly, 1996-01 onward.",
+        f"'Produccion y consumo de gas natural'. Monthly; this archive starts {args.start_date} (the source "
+        "goes back to 1996-01 - rerun with --start-date to pull more).",
     ]
     sheets = {
         "National": national_out,
