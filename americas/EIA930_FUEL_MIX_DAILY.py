@@ -392,9 +392,15 @@ def add_region_chart(ws, sheet_name, helper_range, columns):
     chart.y_axis.tickLblPos = "nextTo"
     chart.x_axis.txPr = _sized_text_props()
     chart.y_axis.txPr = _sized_text_props()
-    # Chart size 5.5 x 2.8 inches - openpyxl uses centimeters (1 in = 2.54 cm).
-    chart.width = 5.5 * 2.54
-    chart.height = 2.8 * 2.54
+    # Values are stored in MWh; the trailing comma in the format code is
+    # Excel's built-in scale-by-1000 trick, so the axis reads in GWh
+    # without altering the underlying data.
+    chart.y_axis.number_format = '#,##0,"GWh"'
+    chart.y_axis.number_format_source_linked = False
+    # Chart size - a little smaller than the original 5.5 x 2.8in spec
+    # (openpyxl uses centimeters, 1 in = 2.54 cm).
+    chart.width = 5.0 * 2.54
+    chart.height = 2.5 * 2.54
     # No border around the chart area.
     chart.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
 
