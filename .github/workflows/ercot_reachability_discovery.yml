@@ -1,0 +1,35 @@
+name: ERCOT reachability discovery
+
+# Manual, one-off: checks whether ERCOT's public fuel-mix dashboard
+# and API are reachable from a GitHub Actions runner (US-based),
+# since ercot.com is blocked both for the user abroad and from this
+# repo's own editing sandbox. See
+# americas/ERCOT_REACHABILITY_DISCOVERY.py's docstring. Output is in
+# the run log and uploaded as an artifact - nothing is committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery
+        run: python3 americas/ERCOT_REACHABILITY_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ercot-reachability-discovery-output
+          path: americas/ercot_reachability_discovery_output.txt
+          if-no-files-found: ignore
