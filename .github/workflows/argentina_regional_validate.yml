@@ -1,10 +1,10 @@
-name: Argentina regional test run 2
+name: Argentina regional validation run
 
 on:
   workflow_dispatch: {}
 
 jobs:
-  test:
+  validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
