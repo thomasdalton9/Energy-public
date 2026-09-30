@@ -1,0 +1,50 @@
+name: Mexico demanda real
+
+# Runs in bounded day-chunks (see the script's --max-days) since a full
+# multi-year backfill would run far longer than one job should - each
+# invocation resumes from wherever the archive left off. Scheduled
+# daily to both keep advancing the backfill and, once caught up, to
+# keep the archive current with new days as CENACE publishes them.
+on:
+  schedule:
+    - cron: "30 10 * * *"
+  workflow_dispatch:
+    inputs:
+      max_days:
+        description: "Max new days to fetch this run"
+        default: "90"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl playwright
+          playwright install --with-deps chromium
+
+      - name: Run Mexico demanda real pull
+        run: python3 americas/mexico_demanda_real.py --max-days "${{ github.event.inputs.max_days || '90' }}"
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f output/mexico_demanda_nacional_daily.xlsx output/mexico_demanda_por_zona_hourly.csv.gz
+          git diff --cached --quiet || git commit -m "Mexico demanda real: automated backfill/update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
