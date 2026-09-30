@@ -1,0 +1,43 @@
+name: Turkey generation mix dashboard daily
+
+# Once a day at 20:45 UTC = 23:45 Istanbul (Turkey is UTC+3 year-round,
+# no DST since 2016) - late enough in the Turkish day that
+# turkey_generation_mix_dashboard.py's "today so far" pull has close to
+# full 24-hour coverage before the script's own completeness threshold
+# is checked.
+on:
+  schedule:
+    - cron: "45 20 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run Turkey generation mix dashboard pull
+        run: python3 europe/turkey_generation_mix_dashboard.py --out output/turkey_generation_mix_dashboard_daily.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f output/turkey_generation_mix_dashboard_daily.xlsx
+          git diff --cached --quiet || git commit -m "Turkey generation mix dashboard: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
