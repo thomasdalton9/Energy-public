@@ -1,0 +1,31 @@
+name: Cyprus generation mix test run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl beautifulsoup4 lxml
+
+      - name: Run small-scale test (5 days)
+        run: |
+          python3 -c "
+          import sys
+          sys.path.insert(0, 'europe')
+          import cyprus_generation_mix as cgm
+          from datetime import date, timedelta
+          df, capacity = cgm.build_daily_dataframe(date(2025, 6, 1), date(2025, 6, 5))
+          print('capacity:', capacity)
+          print(df.to_string())
+          assert not df.empty, 'No data returned'
+          "
