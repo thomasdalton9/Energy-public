@@ -1,0 +1,61 @@
+DATA SOURCES - south_america/
+==============================
+
+Extracted from the actual URLs each script requests - not a guess.
+Regenerate by re-scanning the .py files in this folder if scripts change.
+
+EXTERNAL DATA SOURCES
+----------------------
+
+adme.com.uy
+    ADME (Administración del Mercado Eléctrico, Uruguay) - generation by source
+    used by: URUGUAY_ADME_DISCOVERY.py
+
+api.cammesa.com
+    CAMMESA (Argentina grid operator) API - power generation mix by fuel/technology
+    used by: ARGENTINA_CAMMESA_DISCOVERY.py
+    used by: argentina_generation_mix.py
+
+ons-aws-prod-opendata.s3.amazonaws.com
+    ONS Brazil open data (AWS S3) - generation by source, hydro by region
+    used by: BRAZIL_ONS_HYDRO_BY_REGION.py
+    used by: ONS Brazil.py
+
+pronos.adme.com.uy
+    ADME Uruguay forecast/data portal - generation by source
+    used by: URUGUAY_ADME.py
+    used by: URUGUAY_ADME_DISCOVERY.py
+
+servapibi.xm.com.co
+    XM (Colombia market operator) API - generation by fuel, hydro reservoir storage
+    used by: COLOMBIA_XM_GENERATION.py
+    used by: COLOMBIA_XM_GENERATION_DISCOVERY.py
+    used by: COLOMBIA_XM_GENERATION_DISCOVERY_NOPANDAS.py
+    used by: COLOMBIA_XM_HYDRO.py
+
+sipub.api.coordinador.cl
+    Coordinador Eléctrico Nacional (Chile) API - hydro reservoir levels (cota)
+    used by: CHILE_CEN_HYDRO.py
+
+sipub.coordinador.cl
+    Coordinador Eléctrico Nacional (Chile) portal - hydro reservoir levels (cota)
+    used by: CHILE_CEN_HYDRO.py
+    used by: MASTER_SOUTH_AMERICA.py
+
+www.aic.gob.ar
+    AIC (Autoridad Interjurisdiccional de Cuencas, Argentina) - hydro basin data
+    used by: ARGENTINA_CAMMESA_DISCOVERY.py
+
+www.cenace.gob.ec
+    CENACE (Ecuador grid operator) - generation by source
+    used by: ECUADOR_CENACE.py
+    used by: ECUADOR_CENACE_DISCOVERY.py
+
+
+SCRIPTS WITH NO DIRECT EXTERNAL SOURCE
+---------------------------------------
+(orchestrators, chart/dashboard builders, local calculations, or
+discovery scripts not yet wired to a confirmed endpoint)
+
+south_america_dashboard.py
+    South America dashboard: every South America chart in one workbook,
