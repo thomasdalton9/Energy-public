@@ -1,0 +1,22 @@
+name: Trinidad gas test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl pdfplumber
+      - name: Run
+        run: |
+          cd rest_of_world
+          python3 TRINIDAD_GAS.py --out /tmp/trinidad_gas.xlsx
+          echo "--- sheets ---"
+          python3 -c "import pandas as pd; xl = pd.ExcelFile('/tmp/trinidad_gas.xlsx'); print(xl.sheet_names)"
