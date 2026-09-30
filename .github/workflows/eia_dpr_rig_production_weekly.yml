@@ -1,0 +1,46 @@
+name: EIA DPR rig count and basin production weekly
+
+# Weekly - DPR itself only publishes monthly (mid-month), so most weeks
+# this is a harmless no-op re-confirming nothing changed; the point is
+# never missing a new monthly release by more than a few days.
+on:
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run EIA DPR rig/production pull
+        run: timeout 300 python3 americas/EIA_DPR_RIG_PRODUCTION_WEEKLY.py --out output/eia_dpr_rig_and_production_weekly.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f output/eia_dpr_rig_and_production_weekly.xlsx ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f output/eia_dpr_rig_and_production_weekly.xlsx
+          git diff --cached --quiet || git commit -m "EIA DPR rig count and basin production: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
