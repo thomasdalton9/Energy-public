@@ -64,3 +64,15 @@ if __name__ == "__main__":
         "region": "ALL", "chartType": "demand", "dateRange": "day",
         "dateFrom": "15-Jan-2015", "dateTo": "14-Apr-2015", "areas": "demandactual,demandforecast",
     })
+    # Same 90-day WIDTH as #5, but in 2020 instead of 2015 - disambiguates
+    # "width" from "this specific date range" as the real cause.
+    try_get("6. same width (90 days) as #5, but in 2020", None, {
+        "region": "ALL", "chartType": "demand", "dateRange": "day",
+        "dateFrom": "01-Jan-2020", "dateTo": "31-Mar-2020", "areas": "demandactual,demandforecast",
+    })
+    # Same 2015 start, narrower (31-day) span - disambiguates "any 2015
+    # range" from "specifically a 90-day 2015 range".
+    try_get("7. 2015 start, narrower (31-day) span", None, {
+        "region": "ALL", "chartType": "demand", "dateRange": "day",
+        "dateFrom": "15-Jan-2015", "dateTo": "14-Feb-2015", "areas": "demandactual,demandforecast",
+    })
