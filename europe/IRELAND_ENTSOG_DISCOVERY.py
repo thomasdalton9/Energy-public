@@ -58,7 +58,7 @@ for _, p in df.iterrows():
         print(f"  {p['pointLabel']} {p['operatorKey']} {p['directionKey']}: no rows", flush=True)
         continue
     d = pd.DataFrame(data)
-    d["periodFrom"] = pd.to_datetime(d["periodFrom"])
+    d["periodFrom"] = pd.to_datetime(d["periodFrom"], utc=True)  # ENTSOG mixes +01:00/+00:00 offsets
     unit = d["unit"].iloc[0] if "unit" in d else "?"
     print(f"  {p['pointLabel']} {p['operatorKey']} {p['directionKey']}: {len(d)} days, "
           f"{d['periodFrom'].min().date()} to {d['periodFrom'].max().date()}, unit={unit}, "
