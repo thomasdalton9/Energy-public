@@ -1,0 +1,24 @@
+name: Colombia hydro print
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run ID of the 'Colombia hydro artifact' workflow to pull the artifact from"
+        required: true
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: colombia-hydro-csv
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.inputs.run_id }}
+      - name: Print full CSV
+        run: |
+          echo "===CSV_START==="
+          cat co_hydro_daily_pct.csv
+          echo "===CSV_END==="
