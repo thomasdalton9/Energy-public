@@ -1,14 +1,22 @@
 name: MISO fuel mix daily
 
-# Once a day at 09:00 UTC - comfortably after MISO's Eastern-time
-# midnight rollover (05:00 UTC in EST, 04:00 UTC in EDT), so the
-# /FuelMix/Yesterday endpoint has settled on the just-completed
-# operating day rather than still being mid-rollover. Pulls that
-# day's 5-minute generation-by-fuel-type readings and upserts the
-# daily mean into americas/miso_fuel_mix_daily.xlsx.
+# Twice a day, at 03:45 and 04:45 UTC - late enough in the Eastern day
+# (22:45/23:45 EST or 23:45/00:45 EDT, depending on time of year) that
+# MISO_FUEL_MIX_DAILY.py's script docstring explains why: /FuelMix/
+# Today (used instead of /Yesterday, which turned out to not reliably
+# be a real prior day) only ever shows the current, still-in-progress
+# day, so this needs to run close to Eastern midnight for that day's
+# interval coverage to pass the script's completeness threshold. Two
+# fixed UTC times bracket both DST regimes: whichever one lands late
+# in the correct Eastern day captures it with near-full coverage; the
+# other either also succeeds (harmless, same day refined) or lands
+# just after midnight with ~0 intervals and is safely skipped by the
+# script's own coverage check - never a wasted or harmful run either
+# way.
 on:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "45 3 * * *"
+    - cron: "45 4 * * *"
   workflow_dispatch: {}
 
 permissions:
