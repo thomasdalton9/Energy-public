@@ -1,0 +1,20 @@
+name: Brazil gas balance inspect
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run inspect
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 300 python3 south_america/BRAZIL_GAS_BALANCE_INSPECT.py
