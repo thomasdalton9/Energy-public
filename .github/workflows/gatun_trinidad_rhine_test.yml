@@ -1,0 +1,49 @@
+name: Gatun Trinidad Rhine test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  gatun:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run Gatun Lake
+        run: |
+          cd rest_of_world
+          python3 GATUN_LAKE_LEVEL.py --out /tmp/gatun.xlsx
+
+  trinidad:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl pdfplumber
+      - name: Run Trinidad gas (retest table split fix)
+        run: |
+          cd rest_of_world
+          python3 TRINIDAD_GAS.py --out /tmp/trinidad_gas.xlsx
+          python3 -c "import pandas as pd; df = pd.ExcelFile('/tmp/trinidad_gas.xlsx').parse('Utilization by sector'); print(df.pivot_table(index='date', columns='sector', values='mmscfd').to_string())"
+
+  rhine_depth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run Rhine history depth check
+        run: timeout 240 python3 rest_of_world/RHINE_HISTORY_DEPTH_CHECK.py

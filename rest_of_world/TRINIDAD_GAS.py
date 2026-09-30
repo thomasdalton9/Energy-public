@@ -66,18 +66,30 @@ def to_number(val):
 
 def find_tables(pdf):
     """Returns (production_table, utilization_table) - the raw row lists
-    from pdfplumber, located by their title row rather than a fixed page
-    number (bulletins can reorder pages between issues)."""
+    from pdfplumber, located by title rather than a fixed page number
+    (bulletins can reorder pages between issues).
+
+    pdfplumber merges Table 3A and 3B into a SINGLE extracted table when
+    there's no visible border between them on the page - confirmed live
+    (a first version of this function assumed one extracted table per
+    logical table and silently missed 3B entirely). So this scans EVERY
+    extracted table's rows for a title cell, and splits on it wherever
+    one appears mid-table."""
     production, utilization = None, None
     for page in pdf.pages:
         for table in page.extract_tables():
-            if not table or not table[0]:
+            if not table:
                 continue
-            title = str(table[0][0] or "")
-            if "PRODUCTION BY COMPANY" in title.upper():
-                production = table
-            elif "UTILIZATION BY SECTOR" in title.upper() or "UTILISATION BY SECTOR" in title.upper():
-                utilization = table
+            split_at = None
+            for i, row in enumerate(table):
+                title = str((row[0] if row else "") or "").upper()
+                if "PRODUCTION BY COMPANY" in title:
+                    production = table[i:] if split_at is None else production
+                    split_at = i
+                elif "UTILIZATION BY SECTOR" in title or "UTILISATION BY SECTOR" in title:
+                    if production is not None and split_at is not None:
+                        production = table[split_at:i]
+                    utilization = table[i:]
     return production, utilization
 
 
