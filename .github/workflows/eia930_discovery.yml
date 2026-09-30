@@ -1,0 +1,26 @@
+name: EIA-930 discovery
+
+# One-off, manual: probe the EIA API v2 electricity/rto endpoints ahead
+# of building EIA930_FUEL_MIX_DAILY.py. Needs the EIA_API_KEY repo
+# secret (never printed by the script itself).
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery probe
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 120 python3 americas/EIA930_DISCOVERY.py
