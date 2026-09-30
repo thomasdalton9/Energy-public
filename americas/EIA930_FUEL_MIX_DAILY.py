@@ -174,6 +174,20 @@ def rows_to_wide(rows):
     return wide.sort_index()
 
 
+CHART_LOOKBACK_MONTHS = 36
+
+# Kept as their own series in the chart (in stacking order); every other
+# *_MWh column present (EIA-930 reports up to 16 - battery/pumped/other
+# storage variants, Unknown, Petroleum, Geothermal, etc.) is summed into
+# a single "Other_MWh" bucket instead. A full-history, full-category
+# stacked area chart (2,800+ days x up to 16 series) at the requested
+# 5.5x2.8in size renders as unreadable noise - confirmed by rendering it
+# and looking at the result - so the embedded chart is a deliberately
+# reduced view; the untouched, full-category, full-history data stays in
+# the sheet's own columns for anyone who wants it.
+MAJOR_FUEL_COLUMNS = ["Nuclear_MWh", "Coal_MWh", "Natural_Gas_MWh", "Hydro_MWh", "Wind_MWh", "Solar_MWh"]
+
+
 def add_summary_columns(df):
     fuel_cols = [c for c in df.columns if c.endswith("_MWh")]
     df["Total_MWh"] = df[fuel_cols].sum(axis=1, skipna=True)
@@ -223,6 +237,70 @@ def format_date_columns(path, sheet_names):
     wb.save(path)
 
 
+def build_chart_helper(combined_df, months=CHART_LOOKBACK_MONTHS):
+    """Reduce a region's full archive to what the embedded chart actually
+    plots: the trailing `months` months, major categories kept separate,
+    everything else summed into one Other_MWh column."""
+    if combined_df.empty:
+        return pd.DataFrame()
+    max_date = pd.Timestamp(max(combined_df.index))
+    cutoff = (max_date - pd.DateOffset(months=months)).date()
+    windowed = combined_df[[d >= cutoff for d in combined_df.index]]
+    if windowed.empty:
+        return pd.DataFrame()
+
+    fuel_cols = [c for c in windowed.columns if c.endswith("_MWh") and c != "Total_MWh"]
+    major_present = [c for c in MAJOR_FUEL_COLUMNS if c in fuel_cols]
+    other_cols = [c for c in fuel_cols if c not in major_present]
+
+    helper = windowed[major_present].copy() if major_present else pd.DataFrame(index=windowed.index)
+    if other_cols:
+        helper["Other_MWh"] = windowed[other_cols].sum(axis=1, skipna=True)
+    return helper
+
+
+HELPER_START_COL = 40  # comfortably clear of the archive's own columns (up to ~18 wide)
+
+
+def write_chart_helper(ws, helper_df, start_col=HELPER_START_COL):
+    """Writes a small, clearly-labelled block far to the right of a
+    region's real data - date + consolidated categories only, the exact
+    slice the embedded chart plots - so the chart's own Reference ranges
+    don't depend on the full archive's (currently 16) category columns
+    or its ever-growing row count in a way that would put years of daily
+    noise into a 2.8-inch-tall chart. Returns the range info
+    add_region_chart needs, or None if there's nothing to chart."""
+    if helper_df.empty:
+        return None
+
+    label_row = 1
+    header_row = 2
+    ws.cell(row=label_row, column=start_col,
+            value=f"Chart data only - trailing {CHART_LOOKBACK_MONTHS} months, minor categories "
+                   "combined into Other_MWh. Full history/categories are in the columns to the left.")
+
+    ws.cell(row=header_row, column=start_col, value="date")
+    for j, col_name in enumerate(helper_df.columns):
+        ws.cell(row=header_row, column=start_col + 1 + j, value=col_name)
+
+    for i, (idx, row) in enumerate(helper_df.iterrows()):
+        excel_row = header_row + 1 + i
+        date_cell = ws.cell(row=excel_row, column=start_col, value=idx)
+        date_cell.number_format = "mmm/yy"
+        for j, col_name in enumerate(helper_df.columns):
+            val = row[col_name]
+            ws.cell(row=excel_row, column=start_col + 1 + j,
+                    value=None if pd.isna(val) else float(val))
+
+    return {
+        "date_col": start_col,
+        "first_data_col": start_col + 1,
+        "last_data_col": start_col + len(helper_df.columns),
+        "header_row": header_row,
+        "n_rows": len(helper_df),
+    }
+
+
 CHART_FONT_SIZE = 1200  # openpyxl font sizes are in hundredths of a point - 1200 = 12pt
 
 
@@ -245,18 +323,26 @@ def _sized_text_props():
     return RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=cp))])
 
 
-def add_region_chart(ws, sheet_name, n_data_rows, fuel_cols):
+def add_region_chart(ws, sheet_name, helper_range):
     """Native (embedded, editable-in-Excel) stacked area chart of a
-    region's daily generation by fuel type - not a static image, and
-    not win32com-automated (this pipeline runs on Linux GitHub Actions
+    region's generation by fuel type - not a static image, and not
+    win32com-automated (this pipeline runs on Linux GitHub Actions
     runners, no Excel installed), just openpyxl's chart objects, which
-    Excel opens and renders like any chart built by hand."""
+    Excel opens and renders like any chart built by hand. Plots the
+    reduced helper block (see build_chart_helper/write_chart_helper),
+    not the sheet's full archive columns - a full-history, full-
+    category version at this chart's small size renders as unreadable
+    noise (confirmed by actually rendering it)."""
     from openpyxl.chart import AreaChart, Reference
     from openpyxl.chart.shapes import GraphicalProperties
     from openpyxl.drawing.line import LineProperties
+    from openpyxl.utils import get_column_letter
 
-    if n_data_rows == 0 or not fuel_cols:
+    if helper_range is None:
         return
+
+    header_row = helper_range["header_row"]
+    last_row = header_row + helper_range["n_rows"]
 
     chart = AreaChart()
     chart.grouping = "stacked"
@@ -273,12 +359,9 @@ def add_region_chart(ws, sheet_name, n_data_rows, fuel_cols):
     # No border around the chart area.
     chart.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
 
-    last_row = n_data_rows + 1  # +1 for the header row
-    first_fuel_col = 2  # column A is the date index; data starts at column B
-    last_fuel_col = first_fuel_col + len(fuel_cols) - 1
-
-    data = Reference(ws, min_col=first_fuel_col, max_col=last_fuel_col, min_row=1, max_row=last_row)
-    cats = Reference(ws, min_col=1, min_row=2, max_row=last_row)
+    data = Reference(ws, min_col=helper_range["first_data_col"], max_col=helper_range["last_data_col"],
+                      min_row=header_row, max_row=last_row)
+    cats = Reference(ws, min_col=helper_range["date_col"], min_row=header_row + 1, max_row=last_row)
     chart.add_data(data, titles_from_data=True)
     chart.set_categories(cats)
 
@@ -286,24 +369,24 @@ def add_region_chart(ws, sheet_name, n_data_rows, fuel_cols):
     if chart.legend is not None:
         chart.legend.txPr = _sized_text_props()
 
-    anchor_col_index = last_fuel_col + 3  # a couple of columns clear of Total_MWh/Renewables_Share
-    from openpyxl.utils import get_column_letter
-
+    anchor_col_index = helper_range["last_data_col"] + 3
     ws.add_chart(chart, f"{get_column_letter(anchor_col_index)}2")
 
 
-def add_charts(path, region_fuel_cols):
-    """region_fuel_cols: {sheet_name: [fuel column names]}, in the same
-    column order they were written to that sheet."""
+def add_charts(path, region_data):
+    """region_data: {sheet_name: full combined DataFrame} for each
+    region - reduced per-region via build_chart_helper() before being
+    written and charted."""
     import openpyxl
 
     wb = openpyxl.load_workbook(path)
-    for sheet_name, fuel_cols in region_fuel_cols.items():
+    for sheet_name, combined_df in region_data.items():
         if sheet_name not in wb.sheetnames:
             continue
         ws = wb[sheet_name]
-        n_data_rows = ws.max_row - 1  # minus the header row
-        add_region_chart(ws, sheet_name, n_data_rows, fuel_cols)
+        helper_df = build_chart_helper(combined_df)
+        helper_range = write_chart_helper(ws, helper_df)
+        add_region_chart(ws, sheet_name, helper_range)
     wb.save(path)
 
 
@@ -357,7 +440,6 @@ def main():
 
     today = date.today()
     sheets = {}
-    region_fuel_cols = {}
     us_total_latest = None
 
     for respondent, sheet_name in REGIONS.items():
@@ -387,16 +469,13 @@ def main():
             print(f"  tab now has {len(combined)} days ({combined.index.min()} to {combined.index.max()})")
 
         sheets[sheet_name] = combined
-        region_fuel_cols[sheet_name] = [
-            c for c in combined.columns if c.endswith("_MWh") and c != "Total_MWh"
-        ]
         if respondent == "US48" and not combined.empty:
             us_total_latest = max(combined.index)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     xlsx_notes.write_workbook(args.out, sheets, NOTES_LINES, NOTES_SECTION_TITLES)
     format_date_columns(args.out, list(sheets.keys()))
-    add_charts(args.out, region_fuel_cols)
+    add_charts(args.out, sheets)
 
     print(f"Saved to {args.out}")
 
