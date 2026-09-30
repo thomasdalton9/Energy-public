@@ -1,0 +1,26 @@
+name: CAMMESA reachability test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+
+      - name: Run Argentina/CAMMESA script for a couple of recent days
+        run: |
+          cd south_america
+          FROM=$(date -u -d '3 days ago' +%Y-%m-%d)
+          TO=$(date -u -d '2 days ago' +%Y-%m-%d)
+          echo "Testing CAMMESA reachability from GitHub Actions for $FROM to $TO"
+          timeout 300 python3 argentina_generation_mix.py --from-date "$FROM" --to-date "$TO" --out /tmp/cammesa_test.xlsx --full
