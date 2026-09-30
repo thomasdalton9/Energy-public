@@ -1,0 +1,45 @@
+name: Mexico CENACE historical report calendar-click probe
+
+# Manual, one-off, final attempt: every previous technique (raw POST,
+# Telerik's own client API via Playwright) returned CENACE's
+# EstimacionDemandaReal.aspx report for the page's default day
+# regardless of what date was submitted. This opens the RadDatePicker
+# popup with the standard Alt+Down keyboard shortcut and clicks
+# through it like a real user, dumping the popup's HTML/a screenshot
+# either way for diagnosis. See
+# americas/MEXICO_CENACE_HISTORIA_CALENDAR_CLICK_PROBE.py's docstring.
+# Output is in the run log and uploaded as an artifact - nothing is
+# committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          python3 -m playwright install --with-deps chromium
+
+      - name: Run probe
+        run: python3 americas/MEXICO_CENACE_HISTORIA_CALENDAR_CLICK_PROBE.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-historia-calendar-click-probe-output
+          path: |
+            americas/mexico_historia_calendar_click_probe_output.txt
+            americas/mexico_historia_calendar_popup.html
+            americas/mexico_historia_calendar_open.png
+            americas/mexico_historia_calendar_click_test.zip
+          if-no-files-found: ignore
