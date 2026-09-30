@@ -34,6 +34,10 @@ jobs:
       - name: Commit updated archive
         if: always()
         run: |
+          if [ ! -f output/henry_hub_daily.xlsx ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f output/henry_hub_daily.xlsx
