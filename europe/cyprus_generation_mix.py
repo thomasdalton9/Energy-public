@@ -31,9 +31,14 @@ source, not a parsing shortcut - there is no way to separate biomass
 from solar more precisely with what TSOC publishes.
 
 The archive page's own "published" date is 2018-04-25, but that's when
-the WEB PAGE was created, not necessarily how far back real data goes -
-this script does not assume a start date works and simply skips/warns
-on any date that returns no data rather than guessing.
+the WEB PAGE was created, not how far back real data goes - a binary
+search (CYPRUS_HISTORY_DEPTH_PROBE.py, run 2026-09-30) found real data
+actually starts 2016-10-26 (confirmed: no data any day tested before
+that, real data every day tested from then through today, no gaps
+found in the sampled years in between). FROM_DATE below is set to that
+confirmed boundary. The script still skips/warns rather than crashing
+on any individual date that unexpectedly returns no data, in case of a
+real outage/gap somewhere in the range.
 
 Output: cyprus_generation_mix_daily.csv/.xlsx - daily mean MW per
 category (wind, oil, biomass, solar) plus installed capacity as of the
@@ -57,7 +62,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 import xlsx_notes
 
-FROM_DATE = date(2018, 1, 1)
+FROM_DATE = date(2016, 10, 26)  # confirmed via binary search (CYPRUS_HISTORY_DEPTH_PROBE.py): no
+                                 # data any earlier, real data every day sampled from here on
 TO_DATE = date.today()
 OUT_FILE = "cyprus_generation_mix_daily.xlsx"
 HISTORY_CSV = "cyprus_generation_mix_daily.csv"
@@ -112,13 +118,24 @@ def parse_production(soup):
         row = {}
         dt = None
         for col, val in zip(columns, values, strict=True):
+            # substring match, not exact equality - TSOC has already
+            # added a " στο ΣΜ" ("in the System") suffix to the wind/
+            # conventional headers (and two new columns, available
+            # capacity and total demand) since electricitymaps-contrib's
+            # CY.py parser (which this is ported from) was last verified
+            # against the live site - matching on the stable core phrase
+            # is more robust to further minor wording changes.
+            # "Συμβατική Παραγωγή" (nominative, generation - wanted)
+            # does NOT appear as a substring of "Συμβατικής Παραγωγής"
+            # (genitive, the *capacity* column - skipped), so this stays
+            # unambiguous between the two similarly-worded columns.
             if col == "Timestamp":
                 dt = datetime.fromisoformat(val).replace(tzinfo=TIMEZONE)
-            elif col == "Αιολική Παραγωγή":
+            elif "Αιολική Παραγωγή" in col:
                 row["wind"] = float(val)
-            elif col == "Συμβατική Παραγωγή":
+            elif "Συμβατική Παραγωγή" in col:
                 row["oil"] = float(val)
-            elif col == "Εκτίμηση Διεσπαρμένης Παραγωγής":
+            elif "Εκτίμηση Διεσπαρμένης Παραγωγής" in col:
                 value = float(val)
                 if dt is not None and (dt.hour < 3 or dt.hour >= 22):
                     biomass_estimate = value
