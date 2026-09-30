@@ -1,8 +1,12 @@
-name: Ireland gas imports (ENTSOG)
+name: Ireland GNI transparency (entry flows + consumption by sector)
 
-# Validation-only cross-check against GNI's own transparency data
-# (ireland_gni_transparency.yml is the production source) - run by hand.
+# GNI's transparency pages publish the previous gas day during the
+# morning; 08:30 UTC is after that. The last 45 days are re-pulled each
+# run, so a missed run just catches up. The first run backfills from
+# 2018 month by month (~200 requests) - give it room.
 on:
+  schedule:
+    - cron: "30 8 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -11,7 +15,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,19 +26,19 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1000 python3 europe/ireland_gas_imports_entsog.py --out output/ireland_gas_imports_entsog_daily.xlsx
+        run: timeout 1600 python3 europe/ireland_gni_transparency.py --out output/ireland_gni_transparency_daily.xlsx
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/ireland_gas_imports_entsog_daily.xlsx ]; then
+          if [ ! -f output/ireland_gni_transparency_daily.xlsx ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/ireland_gas_imports_entsog_daily.xlsx
-          git diff --cached --quiet || git commit -m "Ireland gas imports (ENTSOG): automated update"
+          git add -f output/ireland_gni_transparency_daily.xlsx
+          git diff --cached --quiet || git commit -m "Ireland GNI transparency: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0
             sleep $((i * 5))
