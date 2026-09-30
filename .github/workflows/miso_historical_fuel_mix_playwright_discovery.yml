@@ -1,0 +1,38 @@
+name: MISO historical fuel mix playwright discovery
+
+# Manual, one-off: the market-reports page's report grid is client-rendered
+# (not in static HTML or any script bundle - see
+# miso_historical_fuel_mix_discovery.yml). This uses headless Chromium via
+# Playwright to actually render it and find the real historical fuel mix
+# report download links. See
+# americas/MISO_HISTORICAL_FUEL_MIX_PLAYWRIGHT_DISCOVERY.py's docstring.
+# Output is in the run log and uploaded as an artifact - nothing committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Run discovery
+        run: python3 americas/MISO_HISTORICAL_FUEL_MIX_PLAYWRIGHT_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: miso-historical-fuel-mix-playwright-output
+          path: americas/miso_historical_fuel_mix_playwright_output.txt
+          if-no-files-found: ignore
