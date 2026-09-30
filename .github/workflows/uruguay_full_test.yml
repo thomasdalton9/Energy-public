@@ -1,0 +1,22 @@
+name: Uruguay full history test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  uruguay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run URUGUAY_ADME.py (full history, generous timeout)
+        run: |
+          cd south_america
+          timeout 3300 python3 URUGUAY_ADME.py --full
+          echo "--- uruguay_generation.xlsx ---"
+          python3 -c "import pandas as pd; df=pd.read_excel('uruguay_generation.xlsx', sheet_name='Daily'); print(df.shape); print(df.head()); print(df.tail())"
