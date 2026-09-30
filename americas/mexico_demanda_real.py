@@ -86,6 +86,28 @@ DEFAULT_MAX_DAYS = 90
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_XLSX_OUT = os.path.join(REPO_ROOT, "output", "mexico_demanda_nacional_daily.xlsx")
 DEFAULT_CSV_OUT = os.path.join(REPO_ROOT, "output", "mexico_demanda_por_zona_hourly.csv.gz")
+# Tracks the last day ATTEMPTED (not just the last one successfully
+# saved) - CENACE has genuine data gaps (its SIM/mercado real-time
+# market didn't go live on day one of 2016 - the first ~26 days of
+# January 2016 all came back "no data" live), and without this, a run
+# that hits only no-data days would never advance past them: the
+# archive would stay empty forever and every run would just re-try the
+# same dead days from DATA_START again.
+DEFAULT_CHECKPOINT = os.path.join(REPO_ROOT, "output", "mexico_demanda_checkpoint.txt")
+
+
+def load_checkpoint(path):
+    try:
+        with open(path) as f:
+            return date.fromisoformat(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def save_checkpoint(path, last_attempted):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        f.write(last_attempted.isoformat())
 
 
 def set_all_dates(page, year, month, day):
@@ -197,7 +219,10 @@ NOTES_LINES = [
     "COVERAGE",
     f"Backfilling day by day from {DATA_START.isoformat()} - each run processes a bounded chunk of "
     "new days (see the script's --max-days), so a full multi-year backfill spans several runs rather "
-    "than one very long job. Revisions: CENACE sometimes republishes a day under a revised filename "
+    "than one very long job. CENACE's real-time market didn't go live on day one of 2016 (the first "
+    "~26 days of January 2016 genuinely have no data) - a checkpoint file tracks the last day "
+    "attempted (not just the last one with real data) so the backfill advances past such gaps instead "
+    "of retrying them forever. Revisions: CENACE sometimes republishes a day under a revised filename "
     "- this always uses the latest revision available at run time.",
     "",
     "SOURCE",
@@ -214,13 +239,17 @@ def main():
     parser.add_argument("--max-days", type=int, default=DEFAULT_MAX_DAYS)
     parser.add_argument("--xlsx-out", default=DEFAULT_XLSX_OUT)
     parser.add_argument("--csv-out", default=DEFAULT_CSV_OUT)
+    parser.add_argument("--checkpoint", default=DEFAULT_CHECKPOINT)
     args = parser.parse_args()
 
     national = load_national_archive(args.xlsx_out)
+    checkpoint = load_checkpoint(args.checkpoint)
+    candidates = [args.start_date]
     if not national.empty:
-        resume_from = max(national.index) + timedelta(days=1)
-    else:
-        resume_from = args.start_date
+        candidates.append(max(national.index) + timedelta(days=1))
+    if checkpoint is not None:
+        candidates.append(checkpoint + timedelta(days=1))
+    resume_from = max(candidates)
     stop_before = date.today()  # today itself is still in progress/preliminary - never fetched
 
     if resume_from >= stop_before:
@@ -236,6 +265,7 @@ def main():
     print(f"Fetching {len(days_to_try)} day(s): {days_to_try[0]} to {days_to_try[-1]}", file=sys.stderr)
 
     new_totals = {}
+    last_attempted = None
     with sync_playwright() as p:
         browser = p.chromium.launch()
         context = browser.new_context()
@@ -248,7 +278,9 @@ def main():
                 day_df = fetch_one_day(page, context, target_day)
             except Exception as e:
                 print(f"  {target_day}: FAILED ({type(e).__name__}: {e})", file=sys.stderr)
+                last_attempted = target_day
                 continue
+            last_attempted = target_day
             if day_df is None or day_df.empty:
                 print(f"  {target_day}: no data (not yet published?)", file=sys.stderr)
                 continue
@@ -258,6 +290,13 @@ def main():
             print(f"  {target_day}: OK, {len(day_df)} zone-hours, {total:,.0f} MWh total", file=sys.stderr)
 
         browser.close()
+
+    # Checkpoint how far this run actually got, regardless of whether any
+    # day had real data - otherwise a run that lands entirely on a data
+    # gap (or crashes partway through) would make the NEXT run start from
+    # the same dead spot again, never advancing.
+    if last_attempted is not None:
+        save_checkpoint(args.checkpoint, last_attempted)
 
     if new_totals:
         new_df = pd.DataFrame({"Total_MWh": new_totals})
