@@ -27,7 +27,9 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run Ireland smart grid pull
-        run: python3 europe/ireland_smartgrid.py --out output/ireland_smartgrid_15min.xlsx
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 europe/ireland_smartgrid.py --out output/ireland_smartgrid_15min.xlsx
 
       - name: Commit updated archive
         if: always()

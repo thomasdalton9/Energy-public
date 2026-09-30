@@ -30,6 +30,7 @@ dashboard also supports "ROI" and "NI" separately, not pulled here.
 import argparse
 import os
 import sys
+import time
 from datetime import date, timedelta
 
 import pandas as pd
@@ -46,7 +47,9 @@ HEADERS = {
     "Accept": "application/json",
     "Referer": "https://www.smartgriddashboard.com/",
 }
-TIMEOUT = (10, 60)
+TIMEOUT = (10, 30)
+FETCH_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = [5, 15]
 
 CHART_TYPES = {
     "demand": "demandactual,demandforecast",
@@ -83,9 +86,21 @@ def fetch_chunk(chart_type, areas, start, end):
         "dateTo": end.strftime("%d-%b-%Y"),
         "areas": areas,
     }
-    r = requests.get(URL, headers=HEADERS, params=params, timeout=TIMEOUT)
-    r.raise_for_status()
-    return r.json().get("Rows", [])
+    last_error = None
+    for attempt in range(1, FETCH_ATTEMPTS + 1):
+        try:
+            r = requests.get(URL, headers=HEADERS, params=params, timeout=TIMEOUT)
+            r.raise_for_status()
+            return r.json().get("Rows", [])
+        except requests.RequestException as e:
+            last_error = e
+            print(f"    attempt {attempt}/{FETCH_ATTEMPTS} failed: {type(e).__name__}: {e}",
+                  file=sys.stderr, flush=True)
+            if attempt < FETCH_ATTEMPTS:
+                wait = RETRY_BACKOFF_SECONDS[attempt - 1]
+                print(f"    waiting {wait}s before retrying...", file=sys.stderr, flush=True)
+                time.sleep(wait)
+    raise last_error
 
 
 def fetch_range(start, end):
@@ -96,9 +111,13 @@ def fetch_range(start, end):
         chunk_start = start
         while chunk_start <= end:
             chunk_end = min(chunk_start + timedelta(days=CHUNK_DAYS - 1), end)
+            # Printed and flushed BEFORE the request (not just after), so a
+            # hung request is visible in the logs instead of leaving a long
+            # silent gap that looks identical to "not started yet".
+            print(f"  fetching {chart_type} {chunk_start} to {chunk_end} ...", file=sys.stderr, flush=True)
             rows = fetch_chunk(chart_type, areas, chunk_start, chunk_end)
             all_rows.extend(rows)
-            print(f"  {chart_type} {chunk_start} to {chunk_end}: {len(rows)} rows", file=sys.stderr)
+            print(f"  {chart_type} {chunk_start} to {chunk_end}: {len(rows)} rows", file=sys.stderr, flush=True)
             chunk_start = chunk_end + timedelta(days=1)
     if not all_rows:
         return pd.DataFrame()
