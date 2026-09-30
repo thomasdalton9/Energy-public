@@ -1,0 +1,26 @@
+name: Colombia hydro artifact
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas
+      - name: Run COLOMBIA_XM_HYDRO.py
+        run: |
+          cd south_america
+          timeout 1700 python3 COLOMBIA_XM_HYDRO.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: colombia-hydro-csv
+          path: |
+            south_america/co_hydro_daily_pct.csv
+            south_america/co_hydro_daily_energy.csv
