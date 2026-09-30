@@ -24,7 +24,16 @@ are skipped for cenace.gob.ec only (public, read-only page).
 Outputs:
   ec_generation_daily.csv       one row per day (MWh by source and plant)
   ec_generation_halfhourly.csv  the half-hourly curves (MW)
-  ecuador_generation.xlsx       'Daily' (MWh and mean GW), 'Plants', 'Half-hourly'
+  ecuador_generation.xlsx       'Daily' (MWh and mean GW), 'Plants', 'Plants by region'
+                                 (long format: date, plant, province, region,
+                                 country, mwh - see PLANT_LOCATION), 'Half-hourly'
+
+CENACE reports no region/province field itself - PLANT_LOCATION below is
+this script's own mapping from each named plant to where it actually is,
+looked up by hand (province, then Ecuador's standard 3-zone grouping:
+Costa/Sierra/Oriente). "Otras Hidro" is CENACE's own catch-all for every
+smaller hydro plant not named individually, so it can't be assigned a
+single location - left as region "Nacional (agregado)".
 
 Usage: python3 ECUADOR_CENACE.py
 """
@@ -59,6 +68,26 @@ MONTHS = {m: i for i, m in enumerate(["enero", "febrero", "marzo", "abril", "may
                                       "septiembre", "octubre", "noviembre", "diciembre"], 1)}
 TOTALS = [("PRODUCCIÓN TOTAL", "total_mwh"), ("EXPORTACIÓN", "exports_mwh"), ("IMPORTACIÓN", "imports_mwh"),
           ("HIDRÁULICA", "hydro_mwh"), ("TÉRMICA", "thermal_mwh"), ("R. NO CONVENCIONAL", "renewable_mwh")]
+
+# CENACE names each large plant but reports no location - mapped here by
+# hand (province, then Ecuador's standard Costa/Sierra/Oriente zoning).
+# Sopladora/Mazar are the two reservoirs of the same Paute Integral
+# complex as Paute (Molino); Agoyán/San Francisco are the two steps of
+# the same Pastaza-river cascade. "Otras Hidro" is CENACE's catch-all
+# for every smaller hydro plant not named individually - no single
+# location applies, so it's tagged as a national aggregate rather than
+# guessed into one region.
+PLANT_LOCATION = {
+    "Coca Codo": ("Napo", "Oriente"),
+    "Paute": ("Azuay", "Sierra"),
+    "Sopladora": ("Azuay", "Sierra"),
+    "Mazar": ("Azuay", "Sierra"),
+    "Delsitanisagua": ("Zamora Chinchipe", "Oriente"),
+    "San Francisco": ("Tungurahua", "Sierra"),
+    "Agoyán": ("Tungurahua", "Sierra"),
+    "Minas San Francisco": ("Azuay", "Sierra"),
+    "Otras Hidro": (None, "Nacional (agregado)"),
+}
 
 
 def plain(html):
@@ -151,23 +180,43 @@ def main():
     gw = (sources / 24 / 1000).round(3)
     gw.columns = [c.replace("_mwh", "_gw") for c in gw.columns]
     plant_cols = [c for c in daily.columns if c.startswith("plant: ")]
+    plants_wide = daily[plant_cols].rename(columns=lambda c: c[7:])
+
+    by_region_rows = []
+    for plant in plants_wide.columns:
+        province, region = PLANT_LOCATION.get(plant, (None, "Unmapped"))
+        for dt, mwh in plants_wide[plant].items():
+            if pd.notna(mwh):
+                by_region_rows.append({"date": dt, "plant": plant, "province": province, "region": region,
+                                        "country": "Ecuador", "mwh": mwh})
+    by_region = pd.DataFrame(by_region_rows)
+
     notes = [
         "UNITS",
         "'Daily': MWh generated that day by source, then the same as mean GW (MWh / 24 / 1000). "
-        "'Plants': MWh per large plant. 'Half-hourly': MW.",
+        "'Plants': MWh per large plant, one column each. 'Plants by region': the same plant-level MWh reshaped "
+        "long, with province/region/country columns added. 'Half-hourly': MW.",
         "",
         "SOURCES",
         "hydro, thermal (split into oil/diesel 'Termica' and natural gas), non-conventional renewables, imports, "
         "exports - as CENACE reports them. Data are CENACE's preliminary SCADA values.",
         "",
+        "REGIONS",
+        "CENACE reports no location for any plant - province/region in 'Plants by region' is this script's own "
+        "mapping (PLANT_LOCATION), looked up by hand: province, then Ecuador's standard Costa/Sierra/Oriente "
+        "zoning. 'Otras Hidro' is CENACE's own catch-all for every smaller hydro plant not named individually, so "
+        "it can't be assigned a single location - tagged region 'Nacional (agregado)' instead of guessed.",
+        "",
         "SOURCE",
         "CENACE Informacion Operativa (cenace.gob.ec/info-operativa/InformacionOperativa.htm), 'Informacion "
         "operativa diaria' tab - the last complete day only, so history starts at the first run and grows daily.",
     ]
-    sheets = {"Daily": pd.concat([sources, gw], axis=1), "Plants": daily[plant_cols].rename(columns=lambda c: c[7:])}
+    sheets = {"Daily": pd.concat([sources, gw], axis=1), "Plants": plants_wide}
+    if not by_region.empty:
+        sheets["Plants by region"] = by_region
     if not half.empty:
         sheets["Half-hourly"] = half
-    xlsx_notes.write_workbook(OUT_FILE, sheets, notes, {"UNITS", "SOURCES", "SOURCE"})
+    xlsx_notes.write_workbook(OUT_FILE, sheets, notes, {"UNITS", "SOURCES", "REGIONS", "SOURCE"})
     print(f"Saved {OUT_FILE}: {len(daily)} day(s) of history", flush=True)
     print(sources.tail().to_string(), flush=True)
 
