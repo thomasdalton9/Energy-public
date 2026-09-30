@@ -103,25 +103,26 @@ def fetch_chunk(chart_type, areas, start, end):
     raise last_error
 
 
-def fetch_range(start, end):
-    """One combined long DataFrame (datetime, FieldName, Value) across
-    all three chart types, for [start, end] inclusive."""
-    all_rows = []
-    for chart_type, areas in CHART_TYPES.items():
-        chunk_start = start
-        while chunk_start <= end:
-            chunk_end = min(chunk_start + timedelta(days=CHUNK_DAYS - 1), end)
-            # Printed and flushed BEFORE the request (not just after), so a
-            # hung request is visible in the logs instead of leaving a long
-            # silent gap that looks identical to "not started yet".
-            print(f"  fetching {chart_type} {chunk_start} to {chunk_end} ...", file=sys.stderr, flush=True)
-            rows = fetch_chunk(chart_type, areas, chunk_start, chunk_end)
-            all_rows.extend(rows)
-            print(f"  {chart_type} {chunk_start} to {chunk_end}: {len(rows)} rows", file=sys.stderr, flush=True)
-            chunk_start = chunk_end + timedelta(days=1)
-    if not all_rows:
+CHART_TYPE_COLUMNS = {
+    "demand": ["Demand_Actual_MW", "Demand_Forecast_MW"],
+    "wind": ["Wind_Actual_MW", "Wind_Forecast_MW"],
+    "co2": ["CO2_Intensity_gCO2_per_kWh"],
+}
+# Re-checkpoint to disk every this-many chunks within a single chart
+# type's fetch, not just once per chart type - a full initial backfill
+# is ~140 chunks per type (~4,270 days / 30), and without this a
+# workflow timeout mid-fetch would discard everything fetched so far
+# (confirmed live: the script previously only wrote xlsx_notes.write_
+# workbook() once, at the very end of ALL three chart types combined -
+# a 15-minute internal `timeout 900` wrapper killing that run would
+# have lost the entire backfill with nothing committed).
+CHECKPOINT_EVERY_N_CHUNKS = 10
+
+
+def rows_to_wide(rows):
+    if not rows:
         return pd.DataFrame()
-    df = pd.DataFrame(all_rows)
+    df = pd.DataFrame(rows)
     df["datetime"] = pd.to_datetime(df["EffectiveTime"], format="%d-%b-%Y %H:%M:%S")
     df["Value"] = pd.to_numeric(df["Value"], errors="coerce")
     df["column"] = df["FieldName"].map(lambda f: FIELD_RENAME.get(f, f))
@@ -132,6 +133,59 @@ def fetch_range(start, end):
     return wide[ordered + other].sort_index()
 
 
+def merge_columns(existing, new_wide):
+    """Upsert new_wide's columns/rows into existing. new_wide's values
+    win wherever it has data (even re-fetched overlap); everything else
+    in existing (other chart types' columns, other rows) is preserved."""
+    if new_wide.empty:
+        return existing
+    if existing.empty:
+        combined = new_wide
+    else:
+        combined = new_wide.combine_first(existing)
+    combined.index.name = "datetime"
+    return combined.sort_index()
+
+
+def resume_date_for(existing, chart_type):
+    cols = [c for c in CHART_TYPE_COLUMNS[chart_type] if c in existing.columns]
+    if not cols:
+        return None
+    sub = existing[cols].dropna(how="all")
+    if sub.empty:
+        return None
+    return sub.index.max().date()
+
+
+def fetch_and_merge_chart_type(chart_type, areas, start, end, existing, save_callback):
+    """Fetches one chart type's full [start, end] range in CHUNK_DAYS
+    chunks, checkpointing (merging into existing + saving to disk) every
+    CHECKPOINT_EVERY_N_CHUNKS chunks so a mid-fetch interruption keeps
+    whatever was already fetched instead of losing it all."""
+    rows = []
+    chunk_start = start
+    chunk_count = 0
+    while chunk_start <= end:
+        chunk_end = min(chunk_start + timedelta(days=CHUNK_DAYS - 1), end)
+        # Printed and flushed BEFORE the request (not just after), so a
+        # hung request is visible in the logs instead of leaving a long
+        # silent gap that looks identical to "not started yet".
+        print(f"  fetching {chart_type} {chunk_start} to {chunk_end} ...", file=sys.stderr, flush=True)
+        chunk_rows = fetch_chunk(chart_type, areas, chunk_start, chunk_end)
+        rows.extend(chunk_rows)
+        print(f"  {chart_type} {chunk_start} to {chunk_end}: {len(chunk_rows)} rows", file=sys.stderr, flush=True)
+        chunk_start = chunk_end + timedelta(days=1)
+        chunk_count += 1
+        if chunk_count % CHECKPOINT_EVERY_N_CHUNKS == 0 and chunk_start <= end:
+            existing = merge_columns(existing, rows_to_wide(rows))
+            rows = []
+            save_callback(existing)
+            print(f"  checkpoint saved ({len(existing)} rows so far)", file=sys.stderr, flush=True)
+    existing = merge_columns(existing, rows_to_wide(rows))
+    save_callback(existing)
+    return existing
+
+
 def load_archive(path):
     try:
         df = pd.read_excel(path, sheet_name="Data", index_col=0)
@@ -140,18 +194,6 @@ def load_archive(path):
     df.index = pd.to_datetime(df.index)
     df.index.name = "datetime"
     return df
-
-
-def upsert(existing, new_df):
-    if new_df.empty:
-        return existing
-    if existing.empty:
-        combined = new_df
-    else:
-        combined = pd.concat([existing, new_df])
-        combined = combined[~combined.index.duplicated(keep="last")]
-    combined.index.name = "datetime"
-    return combined.sort_index()
 
 
 NOTES_LINES = [
@@ -188,23 +230,30 @@ def main():
     args = parser.parse_args()
 
     existing = load_archive(args.out)
-    if not existing.empty:
-        resume_from = existing.index.max().date()  # re-pull the last saved day too (it may have been partial)
-    else:
-        resume_from = args.start_date
     stop_at = date.today() - timedelta(days=1)  # today itself is still in progress
-
-    if resume_from > stop_at:
-        print(f"Archive already current ({resume_from} > {stop_at}) - nothing to do.", file=sys.stderr)
-        return
-
-    print(f"Fetching {resume_from} to {stop_at} ...", file=sys.stderr)
-    new_df = fetch_range(resume_from, stop_at)
-    combined = upsert(existing, new_df)
-
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
-    print(f"Saved to {args.out} ({len(combined)} rows, {combined.index.min()} to {combined.index.max()})")
+
+    def save(df):
+        xlsx_notes.write_workbook(args.out, {"Data": df}, NOTES_LINES, NOTES_SECTION_TITLES)
+
+    # Each chart type is resumed independently (from the latest date that
+    # already has non-null data for THAT type's own columns), not from a
+    # single shared "last row" - otherwise, once one chart type's backfill
+    # reaches near-today, the other two (not yet backfilled) would wrongly
+    # be resumed from near-today too and their older history would never
+    # get fetched.
+    for chart_type, areas in CHART_TYPES.items():
+        rd = resume_date_for(existing, chart_type)
+        start = max(args.start_date, rd) if rd is not None else args.start_date
+        if start > stop_at:
+            print(f"{chart_type}: already current ({start} > {stop_at}) - skipping.", file=sys.stderr)
+            continue
+        print(f"{chart_type}: fetching {start} to {stop_at} ...", file=sys.stderr)
+        existing = fetch_and_merge_chart_type(chart_type, areas, start, stop_at, existing, save)
+
+    print(f"Saved to {args.out} ({len(existing)} rows, "
+          f"{existing.index.min() if not existing.empty else 'n/a'} to "
+          f"{existing.index.max() if not existing.empty else 'n/a'})")
 
 
 if __name__ == "__main__":

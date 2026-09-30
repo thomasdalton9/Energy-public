@@ -15,7 +15,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -26,10 +26,15 @@ jobs:
       - name: Install dependencies
         run: pip install pandas openpyxl requests
 
+      # The script now checkpoints to disk every 10 chunks within each
+      # chart type (not just once at the very end), so even if this
+      # timeout fires mid-backfill the next run resumes from the last
+      # checkpoint instead of losing everything - this is now headroom
+      # for the (one-time) initial backfill, not a correctness requirement.
       - name: Run Ireland smart grid pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 900 python3 europe/ireland_smartgrid.py --out output/ireland_smartgrid_15min.xlsx
+        run: timeout 1700 python3 europe/ireland_smartgrid.py --out output/ireland_smartgrid_15min.xlsx
 
       - name: Commit updated archive
         if: always()
