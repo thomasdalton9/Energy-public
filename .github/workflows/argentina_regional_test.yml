@@ -1,7 +1,7 @@
-name: Argentina regional test run
+name: Argentina regional test run 2
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   test:
