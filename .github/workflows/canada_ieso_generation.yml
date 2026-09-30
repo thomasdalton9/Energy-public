@@ -1,0 +1,44 @@
+name: Canada IESO generation
+
+# IESO's XML is a rolling "today" document (hours populate through the
+# day) - like MISO_FUEL_MIX_DAILY.py, scheduled late in the Eastern day
+# so that day's hour coverage is close to complete. Two fixed UTC times
+# bracket both DST regimes (Ontario observes DST).
+on:
+  schedule:
+    - cron: "45 3 * * *"
+    - cron: "45 4 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run Canada IESO generation pull
+        run: python3 americas/canada_ieso_generation.py --out output/canada_ieso_generation_daily.xlsx
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f output/canada_ieso_generation_daily.xlsx ] && git add -f output/canada_ieso_generation_daily.xlsx
+          git diff --cached --quiet || git commit -m "Canada IESO generation: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
