@@ -1,0 +1,38 @@
+name: Mexico CENACE historical report POST probe
+
+# Manual, one-off: attempts a real form postback against
+# EstimacionDemandaReal.aspx's "Descargar en archivo .zip" button for
+# a single test day, to confirm the download actually works before a
+# real puller is written against it. See
+# americas/MEXICO_CENACE_HISTORIA_POST_PROBE.py's docstring. Output is
+# in the run log and uploaded as an artifact - nothing is committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run probe
+        run: python3 americas/MEXICO_CENACE_HISTORIA_POST_PROBE.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-historia-post-probe-output
+          path: |
+            americas/mexico_historia_post_probe_output.txt
+            americas/mexico_historia_test_*.zip
+            americas/mexico_historia_post_response.html
+          if-no-files-found: ignore
