@@ -1,0 +1,21 @@
+name: EIA coal markets page discovery
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run probe
+        run: timeout 120 python3 americas/EIA_COAL_MARKETS_PAGE_DISCOVERY.py
