@@ -1,0 +1,22 @@
+name: Australia gas sector test run
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run Australia gas demand by sector
+        run: |
+          cd rest_of_world
+          timeout 600 python3 australia_gas_demand_by_sector.py --out /tmp/australia_gas.xlsx
+          echo "--- sheets ---"
+          python3 -c "import pandas as pd; xl = pd.ExcelFile('/tmp/australia_gas.xlsx'); print(xl.sheet_names)"
