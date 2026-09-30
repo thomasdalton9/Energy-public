@@ -323,7 +323,23 @@ def _sized_text_props():
     return RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=cp))])
 
 
-def add_region_chart(ws, sheet_name, helper_range):
+# Explicit per-category colors - Excel's automatic palette put several of
+# these series (Hydro/Wind/Other especially) at near-zero contrast against
+# each other and the plot background, effectively invisible (confirmed by
+# actually looking at a rendered chart, not just inspecting the XML). Same
+# palette family as MISO_FUEL_MIX_CHART_PREVIEW.py's COLORS.
+CHART_COLORS = {
+    "Nuclear_MWh": "7B2D8B",
+    "Coal_MWh": "4D4D4D",
+    "Natural_Gas_MWh": "E8743B",
+    "Hydro_MWh": "4A90D9",
+    "Wind_MWh": "3F8F4F",
+    "Solar_MWh": "F9D71C",
+    "Other_MWh": "BFBFBF",
+}
+
+
+def add_region_chart(ws, sheet_name, helper_range, columns):
     """Native (embedded, editable-in-Excel) stacked area chart of a
     region's generation by fuel type - not a static image, and not
     win32com-automated (this pipeline runs on Linux GitHub Actions
@@ -332,8 +348,14 @@ def add_region_chart(ws, sheet_name, helper_range):
     reduced helper block (see build_chart_helper/write_chart_helper),
     not the sheet's full archive columns - a full-history, full-
     category version at this chart's small size renders as unreadable
-    noise (confirmed by actually rendering it)."""
+    noise (confirmed by actually rendering it).
+
+    columns: helper_df.columns in order - used to assign each series its
+    fixed color and, in principle, to line series up with names, since a
+    region missing a major category (e.g. ISO-NE has no Coal some years)
+    still needs its remaining series colored correctly, not shifted."""
     from openpyxl.chart import AreaChart, Reference
+    from openpyxl.chart.axis import DateAxis
     from openpyxl.chart.shapes import GraphicalProperties
     from openpyxl.drawing.line import LineProperties
     from openpyxl.utils import get_column_letter
@@ -348,11 +370,28 @@ def add_region_chart(ws, sheet_name, helper_range):
     chart.grouping = "stacked"
     chart.overlap = 100
     chart.title = _sized_title(f"{sheet_name} daily generation by fuel type")
-    # "Layout 1": title only, no axis titles.
-    chart.x_axis.txPr = _sized_text_props()
-    chart.y_axis.txPr = _sized_text_props()
+
+    # A plain category (text) axis showed NO date labels at all once there
+    # were 1,000+ distinct daily categories - Excel's auto tick-skip gave up
+    # rather than pick a readable interval (confirmed by actually rendering
+    # this chart, not just inspecting its XML). A real DateAxis lets Excel
+    # apply its own sensible month-based ticks instead.
+    chart.x_axis = DateAxis(axId=10, crossAx=100)
     chart.x_axis.number_format = "mmm/yy"
     chart.x_axis.number_format_source_linked = False
+    chart.x_axis.majorTimeUnit = "months"
+    chart.x_axis.baseTimeUnit = "days"
+    # "Layout 1": title only, no axis titles - but the tick labels
+    # themselves (dates, MWh values) must stay on, which needs both
+    # `delete = False` and an explicit tick-label position; leaving
+    # either unset was enough for Excel to render axes with no labels
+    # at all (again, only visible by actually rendering the chart).
+    chart.x_axis.delete = False
+    chart.y_axis.delete = False
+    chart.x_axis.tickLblPos = "nextTo"
+    chart.y_axis.tickLblPos = "nextTo"
+    chart.x_axis.txPr = _sized_text_props()
+    chart.y_axis.txPr = _sized_text_props()
     # Chart size 5.5 x 2.8 inches - openpyxl uses centimeters (1 in = 2.54 cm).
     chart.width = 5.5 * 2.54
     chart.height = 2.8 * 2.54
@@ -364,6 +403,13 @@ def add_region_chart(ws, sheet_name, helper_range):
     cats = Reference(ws, min_col=helper_range["date_col"], min_row=header_row + 1, max_row=last_row)
     chart.add_data(data, titles_from_data=True)
     chart.set_categories(cats)
+
+    for series, col_name in zip(chart.series, columns):
+        color = CHART_COLORS.get(col_name)
+        if color:
+            series.graphicalProperties = GraphicalProperties(
+                solidFill=color, ln=LineProperties(noFill=True)
+            )
 
     chart.legend.position = "b"
     if chart.legend is not None:
@@ -386,7 +432,7 @@ def add_charts(path, region_data):
         ws = wb[sheet_name]
         helper_df = build_chart_helper(combined_df)
         helper_range = write_chart_helper(ws, helper_df)
-        add_region_chart(ws, sheet_name, helper_range)
+        add_region_chart(ws, sheet_name, helper_range, list(helper_df.columns))
     wb.save(path)
 
 
