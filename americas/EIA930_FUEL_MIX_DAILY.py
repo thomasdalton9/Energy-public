@@ -252,6 +252,8 @@ def add_region_chart(ws, sheet_name, n_data_rows, fuel_cols):
     runners, no Excel installed), just openpyxl's chart objects, which
     Excel opens and renders like any chart built by hand."""
     from openpyxl.chart import AreaChart, Reference
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
 
     if n_data_rows == 0 or not fuel_cols:
         return
@@ -260,12 +262,16 @@ def add_region_chart(ws, sheet_name, n_data_rows, fuel_cols):
     chart.grouping = "stacked"
     chart.overlap = 100
     chart.title = _sized_title(f"{sheet_name} daily generation by fuel type")
-    chart.y_axis.title = "MWh"
-    chart.x_axis.title = "Date"
+    # "Layout 1": title only, no axis titles.
     chart.x_axis.txPr = _sized_text_props()
     chart.y_axis.txPr = _sized_text_props()
-    chart.height = 11
-    chart.width = 26
+    chart.x_axis.number_format = "mmm/yy"
+    chart.x_axis.number_format_source_linked = False
+    # Chart size 5.5 x 2.8 inches - openpyxl uses centimeters (1 in = 2.54 cm).
+    chart.width = 5.5 * 2.54
+    chart.height = 2.8 * 2.54
+    # No border around the chart area.
+    chart.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
 
     last_row = n_data_rows + 1  # +1 for the header row
     first_fuel_col = 2  # column A is the date index; data starts at column B
@@ -276,6 +282,7 @@ def add_region_chart(ws, sheet_name, n_data_rows, fuel_cols):
     chart.add_data(data, titles_from_data=True)
     chart.set_categories(cats)
 
+    chart.legend.position = "b"
     if chart.legend is not None:
         chart.legend.txPr = _sized_text_props()
 
