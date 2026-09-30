@@ -35,7 +35,7 @@ for s in xl.sheet_names:
     df = xl.parse(s, header=None)
     print(f"\n==================== sheet {s!r} shape {df.shape}", flush=True)
     print(df.head(12).to_string(max_colwidth=22)[:5000], flush=True)
-    lab = df.iloc[:, :3].astype(str).agg(" | ".join, axis=1)
+    lab = df.iloc[:, :3].fillna("").astype(str).fillna("").agg(" | ".join, axis=1)
     hits = df[lab.str.contains(seg, case=False, regex=True)]
     print(f"--- {len(hits)} rows with segment-like labels (first 3 cols + last 6 cols):", flush=True)
     cols = list(df.columns[:3]) + list(df.columns[-6:])
