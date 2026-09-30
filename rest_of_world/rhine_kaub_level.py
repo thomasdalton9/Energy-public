@@ -64,18 +64,35 @@ def fetch_range(start, end):
     r2.raise_for_status()
 
     with zipfile.ZipFile(io.BytesIO(r2.content)) as zf:
-        names = zf.namelist()
-        with zf.open(names[0]) as f:
+        # The zip also carries nutzungsbedingungen.txt (terms of use) and
+        # zeitreiheninformation.txt (series metadata) alongside the real
+        # data CSV - picking by extension rather than position, since
+        # position was never guaranteed, just observed.
+        csv_names = [n for n in zf.namelist() if n.endswith(".csv")]
+        if not csv_names:
+            raise RuntimeError(f"No .csv file in the downloaded zip: {zf.namelist()}")
+        with zf.open(csv_names[0]) as f:
             text = f.read().decode("utf-8", errors="replace")
 
+    # Confirmed live via RHINE_CSV_STRUCTURE_INSPECT.py: header is
+    # "timestamp;value" (English, not German as first guessed), 15-minute
+    # resolution (not daily) - "timestamp" like "2024-01-01 01:00",
+    # "value" the water level in cm at the gauge's local reference datum.
     df = pd.read_csv(io.StringIO(text), sep=";")
     df.columns = [c.strip() for c in df.columns]
-    # Confirmed columns via a live pull: "Datum" (date) and "Wert" (value,
-    # water level in cm at the gauge's local reference datum).
-    df = df.rename(columns={"Datum": "date", "Wert": "level_cm"})
-    df["date"] = pd.to_datetime(df["date"]).dt.date
+    df = df.rename(columns={"timestamp": "datetime", "value": "level_cm"})
+    df["datetime"] = pd.to_datetime(df["datetime"])
     df["level_cm"] = pd.to_numeric(df["level_cm"], errors="coerce")
-    return df.set_index("date")[["level_cm"]].sort_index()
+    # Aggregated to one row per day (last reading of the day) - the
+    # source is 15-minute resolution, but a multi-year archive at that
+    # resolution (~35,000 rows/year) is unnecessary detail for a water-
+    # level chart and would approach Excel's row limit over the full
+    # 2000-present depth; daily is what the requested AGSI-style
+    # current-vs-5-year-range chart actually plots.
+    daily = df.set_index("datetime")["level_cm"].resample("D").last().to_frame()
+    daily.index = daily.index.date
+    daily.index.name = "date"
+    return daily
 
 
 def load_archive(path):
@@ -103,7 +120,10 @@ def upsert(existing, new_df):
 NOTES_LINES = [
     "UNITS",
     "level_cm is the water level in centimeters at Kaub's gauge datum (a local reference level, not "
-    "sea level) - PEGELONLINE's own published value.",
+    "sea level) - PEGELONLINE's own published value. The source reports every 15 minutes; this "
+    "archive keeps one row per day (that day's last reading), not a mean - a multi-year 15-minute "
+    "archive would be unnecessary detail here and would approach Excel's row limit over this "
+    "endpoint's full depth.",
     "",
     "SCOPE",
     "Kaub is a single gauge station, not a full-river average - but it's one of the Rhine's most-",
