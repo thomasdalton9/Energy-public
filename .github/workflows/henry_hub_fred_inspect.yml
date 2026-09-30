@@ -1,0 +1,34 @@
+name: Henry Hub FRED inspect
+
+# Manual, one-off: checks FRED's public CSV endpoint for Henry Hub daily
+# spot price (DHHNGSP) - shape, date format, whether one request returns
+# the full history. See americas/HENRY_HUB_FRED_INSPECT.py's docstring.
+# Output is in the run log and uploaded as an artifact - nothing
+# committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas requests
+
+      - name: Run inspect
+        run: python3 americas/HENRY_HUB_FRED_INSPECT.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: henry-hub-fred-inspect-output
+          path: americas/henry_hub_fred_inspect_output.txt
+          if-no-files-found: ignore
