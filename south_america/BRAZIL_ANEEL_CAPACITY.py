@@ -8,8 +8,12 @@ state, municipality, fuel, operational status and capacity in kW.
 
 Source: https://dadosabertos.aneel.gov.br - dataset
 "siga-sistema-de-informacoes-de-geracao-da-aneel", resource
-siga-empreendimentos-geracao.csv. ';'-delimited, latin-1 encoded,
-comma-decimal numbers (Brazilian format).
+siga-empreendimentos-geracao.csv. ';'-delimited, UTF-8 encoded,
+comma-decimal numbers (Brazilian format). (The inspection script that
+first looked at this file picked latin-1 because that decodes ANY byte
+sequence without erroring - it just silently mojibakes "Operação" into
+"OperaÃ§Ã£o" rather than failing loudly, so the encoding must be
+confirmed by checking the actual text, not just "did read_csv raise".)
 
 Capacity fields (kW, as published):
   MdaPotenciaOutorgadaKw    licensed/granted capacity (may include
@@ -89,7 +93,7 @@ def to_float_br(series):
 def fetch_raw():
     r = requests.get(URL, headers=HEADERS, timeout=TIMEOUT)
     r.raise_for_status()
-    return pd.read_csv(io.BytesIO(r.content), sep=";", encoding="latin-1", low_memory=False)
+    return pd.read_csv(io.BytesIO(r.content), sep=";", encoding="utf-8", low_memory=False)
 
 
 def main():
