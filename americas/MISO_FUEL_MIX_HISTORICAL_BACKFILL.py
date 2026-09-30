@@ -83,7 +83,7 @@ FUEL_TYPE_RENAME = {
 }
 
 DIR = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_OUT = os.path.join(DIR, "outputs", "miso_fuel_mix_daily.xlsx")
+DEFAULT_OUT = os.path.join(os.path.dirname(DIR), "output", "miso_fuel_mix_daily.xlsx")
 
 
 def fetch_year(year):

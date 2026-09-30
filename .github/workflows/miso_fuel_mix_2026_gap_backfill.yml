@@ -27,13 +27,13 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run gap backfill
-        run: python3 americas/MISO_FUEL_MIX_2026_GAP_BACKFILL.py --out americas/outputs/miso_fuel_mix_daily.xlsx
+        run: python3 americas/MISO_FUEL_MIX_2026_GAP_BACKFILL.py --out output/miso_fuel_mix_daily.xlsx
 
       - name: Commit updated archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f americas/outputs/miso_fuel_mix_daily.xlsx
+          git add -f output/miso_fuel_mix_daily.xlsx
           git diff --cached --quiet || git commit -m "MISO fuel mix: 2026-to-date gap backfill"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

@@ -241,7 +241,8 @@ NOTES_LINES = [
 ]
 NOTES_SECTION_TITLES = {"UNITS", "CATEGORIES", "TIMESTAMPS", "COVERAGE", "SOURCE"}
 
-DEFAULT_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs", "miso_fuel_mix_daily.xlsx")
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "miso_fuel_mix_daily.xlsx")
 
 # MISO's own API is real-time; if this script's own run misses several
 # days in a row (workflow disabled, MISO API down), flag it rather
