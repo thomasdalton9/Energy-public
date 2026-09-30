@@ -19,5 +19,5 @@ jobs:
           cd south_america
           python3 "ONS Brazil.py"
           echo "===CSV_START==="
-          python3 -c "import pandas as pd; df = pd.ExcelFile('brazil_generation_daily.xlsx').parse('Regional balance'); df = df[df['date'] >= (pd.Timestamp.today() - pd.Timedelta(days=730)).date()]; df.to_csv('/dev/stdout', index=False)"
+          python3 -c "import pandas as pd; df = pd.ExcelFile('brazil_generation_daily.xlsx').parse('Regional balance'); df['date'] = pd.to_datetime(df['date']); df = df[df['date'] >= pd.Timestamp.today() - pd.Timedelta(days=730)]; df.to_csv('/dev/stdout', index=False)"
           echo "===CSV_END==="
