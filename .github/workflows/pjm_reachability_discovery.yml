@@ -1,0 +1,34 @@
+name: PJM reachability discovery
+
+# Manual, one-off: checks whether PJM's Data Miner 2 public UI and API
+# are reachable from a GitHub Actions runner, and whether the public
+# UI embeds a usable subscription key of its own. See
+# americas/PJM_REACHABILITY_DISCOVERY.py's docstring. Output is in the
+# run log and uploaded as an artifact - nothing is committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run discovery
+        run: python3 americas/PJM_REACHABILITY_DISCOVERY.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pjm-reachability-discovery-output
+          path: americas/pjm_reachability_discovery_output.txt
+          if-no-files-found: ignore
