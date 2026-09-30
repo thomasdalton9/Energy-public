@@ -192,6 +192,15 @@ def main():
     for dataset, cfg in DATASETS.items():
         existing = load_sheet(args.out, cfg["sheet"])
         start = args.start_date if existing.empty else max(args.start_date, max(existing.index) - timedelta(days=RELOAD_DAYS))
+        if not existing.empty:
+            # Self-heal holes inside the archive (e.g. the chunk-boundary
+            # days lost before date_end's exclusivity was understood).
+            have = set(existing.index)
+            holes = [d.date() for d in pd.date_range(min(existing.index), max(existing.index), freq="D") if d.date() not in have]
+            if holes:
+                print(f"{dataset}: {len(holes)} missing day(s) inside archive, earliest {holes[0]} - refetching from there",
+                      file=sys.stderr, flush=True)
+                start = min(start, holes[0] - timedelta(days=1))
         print(f"{dataset}: fetching {start} to {stop_at}", file=sys.stderr, flush=True)
         new = fetch_range(dataset, start, stop_at, cfg["drop_group"])
         combined = upsert(existing, new)
