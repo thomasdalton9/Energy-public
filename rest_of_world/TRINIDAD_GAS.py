@@ -43,6 +43,7 @@ import io
 import re
 import os
 import sys
+from datetime import date, datetime
 
 import pandas as pd
 import requests
@@ -113,7 +114,11 @@ def table_to_long(table, entity_col):
     datetime column per month, then an AVG column we deliberately
     ignore - see module docstring), row 2+ = data, ending at TOTAL."""
     header = table.iloc[1]
-    month_cols = [i for i, val in enumerate(header) if isinstance(val, pd.Timestamp)]
+    # openpyxl hands back date-formatted cells as plain datetime.datetime
+    # (or datetime.date), NOT pd.Timestamp - isinstance(val, pd.Timestamp)
+    # alone silently matched nothing, producing zero output rows (caught
+    # live: the first automated run committed an empty archive).
+    month_cols = [i for i, val in enumerate(header) if isinstance(val, (pd.Timestamp, datetime, date))]
     rows = []
     for _, row in table.iloc[2:].iterrows():
         entity = row.iloc[0]
