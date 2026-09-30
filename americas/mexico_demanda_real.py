@@ -275,8 +275,8 @@ def main():
 
     print(f"Fetching {len(days_to_try)} day(s): {days_to_try[0]} to {days_to_try[-1]}", file=sys.stderr)
 
-    new_totals = {}
-    last_attempted = None
+    new_totals = 0
+    os.makedirs(os.path.dirname(args.xlsx_out), exist_ok=True)
     with sync_playwright() as p:
         browser = p.chromium.launch()
         context = browser.new_context()
@@ -289,36 +289,37 @@ def main():
                 day_df = fetch_one_day(page, context, target_day)
             except Exception as e:
                 print(f"  {target_day}: FAILED ({type(e).__name__}: {e})", file=sys.stderr)
-                last_attempted = target_day
+                save_checkpoint(args.checkpoint, target_day)
                 continue
-            last_attempted = target_day
             if day_df is None or day_df.empty:
                 print(f"  {target_day}: no data (not yet published?)", file=sys.stderr)
+                save_checkpoint(args.checkpoint, target_day)
                 continue
+            # Persisted (hourly CSV append, national xlsx rewrite, and the
+            # checkpoint bump) immediately after EACH day, not once at the
+            # end of the whole --max-days loop - a job-level timeout
+            # killing the run mid-loop (the runner-enforced timeout-
+            # minutes, not a `timeout N` this script can catch) used to
+            # discard every day's national total and leave the checkpoint
+            # stale, so the next run would re-fetch and re-append those
+            # same days into the hourly CSV a second time (duplicate rows,
+            # since append_hourly_csv has no dedup of its own).
             append_hourly_csv(args.csv_out, day_df)
-            total = day_df["energia_mwh"].sum()
-            new_totals[target_day] = round(total, 1)
+            total = round(day_df["energia_mwh"].sum(), 1)
+            national = pd.concat([national, pd.DataFrame({"Total_MWh": [total]}, index=[target_day])]) \
+                if not national.empty else pd.DataFrame({"Total_MWh": [total]}, index=[target_day])
+            national.index.name = "date"
+            national = national[~national.index.duplicated(keep="last")].sort_index()
+            xlsx_notes.write_workbook(args.xlsx_out, {"Data": national}, NOTES_LINES, NOTES_SECTION_TITLES)
+            save_checkpoint(args.checkpoint, target_day)
+            new_totals += 1
             print(f"  {target_day}: OK, {len(day_df)} zone-hours, {total:,.0f} MWh total", file=sys.stderr)
 
         browser.close()
 
-    # Checkpoint how far this run actually got, regardless of whether any
-    # day had real data - otherwise a run that lands entirely on a data
-    # gap (or crashes partway through) would make the NEXT run start from
-    # the same dead spot again, never advancing.
-    if last_attempted is not None:
-        save_checkpoint(args.checkpoint, last_attempted)
-
     if new_totals:
-        new_df = pd.DataFrame({"Total_MWh": new_totals})
-        new_df.index.name = "date"
-        combined = pd.concat([national, new_df]) if not national.empty else new_df
-        combined = combined[~combined.index.duplicated(keep="last")].sort_index()
-
-        os.makedirs(os.path.dirname(args.xlsx_out), exist_ok=True)
-        xlsx_notes.write_workbook(args.xlsx_out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
-        print(f"\nSaved {len(new_totals)} new day(s) to {args.xlsx_out} "
-              f"(archive now {len(combined)} days, {combined.index.min()} to {combined.index.max()})")
+        print(f"\nSaved {new_totals} new day(s) to {args.xlsx_out} "
+              f"(archive now {len(national)} days, {national.index.min()} to {national.index.max()})")
     else:
         print("\nNo new days saved this run.", file=sys.stderr)
 
