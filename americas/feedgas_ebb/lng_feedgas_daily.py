@@ -56,7 +56,8 @@ except ImportError:
     sys.exit(1)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_OUT = os.path.join(HERE, "lng_feedgas_daily.xlsx")
+REPO_ROOT = os.path.dirname(os.path.dirname(HERE))
+DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "lng_feedgas_daily.xlsx")
 BTU_PER_CF = 1037
 DTH_PER_BCF = BTU_PER_CF * 1_000_000 / 1000  # 1 Bcf = 1e9 cf * 1,037 Btu = 1.037e12 Btu = 1.037e6 Dth
 
@@ -1229,6 +1230,7 @@ def main():
     parser.add_argument("--tc-only", action="store_true", help="just save TC's latest posting into the TC cache "
                                                                  "sheet (the extra intraday runs); nothing else changes")
     args = parser.parse_args()
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
     if args.tc_only:
         capture_tc_only(args.out)
         return

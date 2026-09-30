@@ -399,7 +399,8 @@ def format_date_column(path, sheets=("Data",)):
     wb.save(path)
 
 
-DEFAULT_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "south_africa_generation_mix_daily.xlsx")
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "south_africa_generation_mix_daily.xlsx")
 
 
 def main():
@@ -429,6 +430,7 @@ def main():
     for name, df in [("System", system), ("Weekly EAF", weekly_eaf), ("Pumped storage", pumped), ("Load shedding", load_shedding)]:
         if not df.empty:
             sheets[name] = df
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
     xlsx_notes.write_workbook(args.out, sheets, NOTES_LINES, NOTES_SECTION_TITLES)
     format_date_column(args.out, sheets)
     print(f"Archive now has {len(combined)} days ({len(new_or_updated)} new since last run). Saved to {args.out}")
