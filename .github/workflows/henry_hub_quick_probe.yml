@@ -1,0 +1,26 @@
+name: Henry Hub quick probe
+
+# Manual, one-off: fast reachability check for fred.stlouisfed.org after
+# HENRY_HUB_FRED_INSPECT.py hung for 20+ minutes with no artifact
+# produced, well past its own 90s read timeout and the job's 10-minute
+# timeout-minutes - a real hang, not a slow response. Short timeouts and
+# a hard job-level cap here to avoid hanging the same way.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run probe
+        run: timeout 60 python3 americas/HENRY_HUB_QUICK_PROBE.py
