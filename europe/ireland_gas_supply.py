@@ -81,7 +81,20 @@ def fetch():
         raise RuntimeError(f"Could not identify the date/Moffat columns - headers were {list(df.columns)}")
     keep = ["date"] + [out for _, out in COLUMN_RULES if out in df.columns]
     df = df[keep].copy()
-    df["date"] = pd.to_datetime(df["date"], dayfirst=True, errors="coerce")
+    # GNI writes month-first dates (confirmed live: parsing day-first
+    # silently dropped every day 13-31 as unparseable and swapped the
+    # rest). Parse both ways and keep whichever loses fewer rows, then
+    # refuse to continue if more than a handful still failed.
+    raw = df["date"].astype(str).str.strip()
+    month_first = pd.to_datetime(raw, dayfirst=False, errors="coerce")
+    day_first = pd.to_datetime(raw, dayfirst=True, errors="coerce")
+    parsed = month_first if month_first.notna().sum() >= day_first.notna().sum() else day_first
+    print(f"Date parse: month-first ok={month_first.notna().sum()} day-first ok={day_first.notna().sum()} "
+          f"of {len(raw)} rows", file=sys.stderr)
+    if parsed.isna().sum() > 5:
+        raise RuntimeError(f"{parsed.isna().sum()} of {len(raw)} dates failed to parse - sample: "
+                           f"{raw[parsed.isna()].head().tolist()}")
+    df["date"] = parsed
     df = df.dropna(subset=["date"]).set_index("date").sort_index()
     for col in df.columns:
         df[col] = pd.to_numeric(df[col], errors="coerce")
