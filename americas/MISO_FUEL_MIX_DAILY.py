@@ -241,7 +241,7 @@ NOTES_LINES = [
 ]
 NOTES_SECTION_TITLES = {"UNITS", "CATEGORIES", "TIMESTAMPS", "COVERAGE", "SOURCE"}
 
-DEFAULT_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "miso_fuel_mix_daily.xlsx")
+DEFAULT_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outputs", "miso_fuel_mix_daily.xlsx")
 
 # MISO's own API is real-time; if this script's own run misses several
 # days in a row (workflow disabled, MISO API down), flag it rather
@@ -273,6 +273,7 @@ def main():
               f"({'new' if is_new else 'refreshed'})")
 
     combined = reorder_columns(combined)
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
     format_date_column(args.out)
 

@@ -83,7 +83,7 @@ FUEL_TYPE_RENAME = {
 }
 
 DIR = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_OUT = os.path.join(DIR, "miso_fuel_mix_daily.xlsx")
+DEFAULT_OUT = os.path.join(DIR, "outputs", "miso_fuel_mix_daily.xlsx")
 
 
 def fetch_year(year):
@@ -194,6 +194,7 @@ def main():
           f"(kept existing/live values for those).")
 
     combined = miso_daily.reorder_columns(combined)
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
     miso_daily.xlsx_notes.write_workbook(
         args.out, {"Data": combined}, miso_daily.NOTES_LINES, miso_daily.NOTES_SECTION_TITLES
     )
