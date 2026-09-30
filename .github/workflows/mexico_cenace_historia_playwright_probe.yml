@@ -1,0 +1,42 @@
+name: Mexico CENACE historical report Playwright probe
+
+# Manual, one-off: three raw-POST attempts against
+# EstimacionDemandaReal.aspx's date picker all got back the page's
+# default day instead of the requested date - Telerik's RadDatePicker
+# keeps its real value in client-side state that only its own
+# JavaScript populates. This drives an actual headless Chromium
+# against the page instead of guessing that protocol. See
+# americas/MEXICO_CENACE_HISTORIA_PLAYWRIGHT_PROBE.py's docstring.
+# Output is in the run log and uploaded as an artifact - nothing is
+# committed.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install playwright
+          python3 -m playwright install --with-deps chromium
+
+      - name: Run probe
+        run: python3 americas/MEXICO_CENACE_HISTORIA_PLAYWRIGHT_PROBE.py
+
+      - name: Upload output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mexico-historia-playwright-probe-output
+          path: |
+            americas/mexico_historia_playwright_probe_output.txt
+            americas/mexico_historia_playwright_test.zip
+          if-no-files-found: ignore
