@@ -178,6 +178,22 @@ def upsert(existing, new_row):
     return combined.sort_index()
 
 
+# Display order for the *_MW columns - not the order MISO's API reports
+# categories in (that varies), just how the archive reads left to right:
+# baseload/dispatchable first, then renewables, then storage, then the
+# catch-all. Hydro and any category not in this list still show up (per
+# the CATEGORIES note below) - they're just placed after the ones named
+# here rather than wherever alphabetical/pivot order would put them.
+CATEGORY_DISPLAY_ORDER = ["Nuclear", "Coal", "Natural Gas", "Hydro", "Wind", "Solar", "Battery Storage", "Other"]
+
+
+def reorder_columns(df):
+    named_cat_cols = [f"{c}_MW" for c in CATEGORY_DISPLAY_ORDER if f"{c}_MW" in df.columns]
+    other_cat_cols = [c for c in df.columns if c.endswith("_MW") and c not in named_cat_cols]
+    non_cat_cols = [c for c in df.columns if not c.endswith("_MW")]
+    return df[named_cat_cols + other_cat_cols + non_cat_cols]
+
+
 def format_date_column(path, sheet="Data"):
     import openpyxl
 
@@ -200,7 +216,9 @@ NOTES_LINES = [
     "CATEGORIES",
     "Whatever MISO's API itself reports (typically Coal, Natural Gas, Nuclear, Wind, Solar, "
     "Battery Storage, Other, Imports) - not a fixed list maintained here, so a category MISO adds "
-    "shows up as a new column automatically.",
+    "shows up as a new column automatically. Columns are ordered Nuclear, Coal, Natural Gas, Hydro, "
+    "Wind, Solar, Battery Storage, Other, then any other category, then Total_MW/Renewables_Share/"
+    "Intervals_Reported.",
     "Renewables_Share: (Wind + Solar) daily mean, as a share of Total_MW.",
     "Intervals_Reported: how many of the expected 288 five-minute intervals that day actually came "
     "back - always close to 288 for a complete day; a day is only saved if at least "
@@ -254,6 +272,7 @@ def main():
         print(f"Day {new_row.name}: {n_intervals}/{EXPECTED_INTERVALS_PER_DAY} intervals "
               f"({'new' if is_new else 'refreshed'})")
 
+    combined = reorder_columns(combined)
     xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
     format_date_column(args.out)
 

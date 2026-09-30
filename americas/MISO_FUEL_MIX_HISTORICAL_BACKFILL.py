@@ -193,6 +193,7 @@ def main():
     print(f"Added {len(new_days)} new day(s), {len(overlap_days)} day(s) already present "
           f"(kept existing/live values for those).")
 
+    combined = miso_daily.reorder_columns(combined)
     miso_daily.xlsx_notes.write_workbook(
         args.out, {"Data": combined}, miso_daily.NOTES_LINES, miso_daily.NOTES_SECTION_TITLES
     )
