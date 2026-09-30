@@ -227,14 +227,14 @@ CHART_FONT_SIZE = 1200  # openpyxl font sizes are in hundredths of a point - 120
 
 
 def _sized_title(text):
-    from openpyxl.chart.text import RichText
+    from openpyxl.chart.text import RichText, Text
     from openpyxl.chart.title import Title
     from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties, RegularTextRun
 
     cp = CharacterProperties(sz=CHART_FONT_SIZE, b=True)
     run = RegularTextRun(t=text, rPr=cp)
     para = Paragraph(pPr=ParagraphProperties(defRPr=cp), r=[run])
-    return Title(tx=RichText(p=[para]))
+    return Title(tx=Text(rich=RichText(p=[para])))
 
 
 def _sized_text_props():
