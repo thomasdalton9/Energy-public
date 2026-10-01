@@ -39,34 +39,39 @@ def _fold_to_palette(df):
     return out
 
 
-def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", date_format="%Y-%m",
-                    width=28, height=13, line_cols=()):
-    """line_cols: columns of df drawn as lines over the bars/areas, on the same axis (same units only)."""
+def prepare(df, line_cols=()):
+    """Clean a wide frame for charting; returns (frame, number of bar/area series before overlay lines)."""
     df = df.copy()
     df.index = pd.to_datetime(df.index)
     df = df.sort_index()
     df = df.apply(pd.to_numeric, errors="coerce")
     df = df.loc[:, df.notna().any()]
     if df.empty:
-        return
+        return df, 0
     lines_df = df[[c for c in line_cols if c in df.columns]]
-    df = _fold_to_palette(df.drop(columns=list(lines_df.columns)))
-    n_bars = df.shape[1]
-    df = pd.concat([df, lines_df], axis=1)
+    body = _fold_to_palette(df.drop(columns=list(lines_df.columns)))
+    return pd.concat([body, lines_df], axis=1), body.shape[1]
 
-    wb = load_workbook(path)
-    if sheet_name in wb.sheetnames:
-        del wb[sheet_name]
-    ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
-    # Real Excel dates shown as mmm/yy (owner's preference); annual series show the year.
+
+def write_table(ws, df, date_format="%Y-%m", start_row=1, start_col=1):
+    """Write Date + series columns; dates are real Excel dates shown as mmm/yy (annual: yyyy)."""
     excel_fmt = "yyyy" if date_format == "%Y" else "mmm/yy"
-    ws.append(["Date"] + [str(c) for c in df.columns])
-    for ts, row in df.iterrows():
-        ws.append([ts.to_pydatetime()] + [None if pd.isna(v) else float(v) for v in row.values])
-        ws.cell(row=ws.max_row, column=1).number_format = excel_fmt
-    n = len(df) + 1
-    ws.column_dimensions["A"].width = 11
+    ws.cell(row=start_row, column=start_col, value="Date")
+    for j, c in enumerate(df.columns):
+        ws.cell(row=start_row, column=start_col + 1 + j, value=str(c))
+    for i, (ts, row) in enumerate(df.iterrows(), start=1):
+        cell = ws.cell(row=start_row + i, column=start_col, value=ts.to_pydatetime())
+        cell.number_format = excel_fmt
+        for j, v in enumerate(row.values):
+            ws.cell(row=start_row + i, column=start_col + 1 + j, value=None if pd.isna(v) else float(v))
+    ws.column_dimensions[ws.cell(row=1, column=start_col).column_letter].width = 11
 
+
+def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m", start_row=1, start_col=1,
+                width=28, height=13):
+    """Native chart over a table written by write_table on sheet ws (the chart can be placed on any sheet)."""
+    n = start_row + len(df)
+    excel_fmt = "yyyy" if date_format == "%Y" else "mmm/yy"
     if kind == "stacked_bar":
         chart = BarChart()
         chart.type = "col"
@@ -78,8 +83,10 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
         chart.grouping = "stacked"
     else:
         chart = LineChart()
-    chart.add_data(Reference(ws, min_col=2, max_col=n_bars + 1, min_row=1, max_row=n), titles_from_data=True)
-    chart.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
+    cats = Reference(ws, min_col=start_col, min_row=start_row + 1, max_row=n)
+    chart.add_data(Reference(ws, min_col=start_col + 1, max_col=start_col + n_bars, min_row=start_row, max_row=n),
+                   titles_from_data=True)
+    chart.set_categories(cats)
     for i, s in enumerate(chart.series):
         colour = OTHER_GREY if str(df.columns[i]) == "Other" else PALETTE[i % len(PALETTE)]
         if kind == "line":
@@ -90,7 +97,6 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
             s.graphicalProperties = GraphicalProperties(solidFill=colour, ln=LineProperties(noFill=True))
     chart.title = f"{title} (to {df.index.max().strftime('%Y' if date_format == '%Y' else '%b/%y')})"
     chart.x_axis.number_format = excel_fmt
-    chart.x_axis.majorTimeUnit = "years" if date_format == "%Y" else None
     chart.y_axis.title = y_title
     chart.x_axis.tickLblPos = "low"
     spacing = df.index.to_series().diff().median().days if len(df) > 1 else 30
@@ -106,11 +112,11 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
     # no borders: chart frame and plot area
     chart.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
     chart.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
-    if lines_df.shape[1] and kind != "line":
+    if df.shape[1] > n_bars and kind != "line":
         over = LineChart()
-        over.add_data(Reference(ws, min_col=n_bars + 2, max_col=df.shape[1] + 1, min_row=1, max_row=n),
-                      titles_from_data=True)
-        over.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
+        over.add_data(Reference(ws, min_col=start_col + n_bars + 1, max_col=start_col + df.shape[1],
+                                min_row=start_row, max_row=n), titles_from_data=True)
+        over.set_categories(cats)
         for s in over.series:
             s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill="252525", w=28575))
             s.smooth = False
@@ -118,8 +124,10 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
         over.y_axis.delete = True   # shares the bar chart's axis
         chart += over
     chart.width, chart.height = width, height
-    ws.add_chart(chart, f"{chr(ord('A') + min(df.shape[1] + 2, 20))}2")
+    return chart
 
+
+def save_atomic(wb, path):
     root, ext = os.path.splitext(path)
     tmp = f"{root}.tmp{os.getpid()}{ext}"
     try:
@@ -128,3 +136,19 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
     finally:
         if os.path.exists(tmp):
             os.remove(tmp)
+
+
+def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", date_format="%Y-%m",
+                    width=28, height=13, line_cols=()):
+    """line_cols: columns of df drawn as lines over the bars/areas, on the same axis (same units only)."""
+    df, n_bars = prepare(df, line_cols)
+    if df.empty:
+        return
+    wb = load_workbook(path)
+    if sheet_name in wb.sheetnames:
+        del wb[sheet_name]
+    ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
+    write_table(ws, df, date_format)
+    chart = build_chart(ws, df, n_bars, title, y_title, kind, date_format, width=width, height=height)
+    ws.add_chart(chart, f"{chr(ord('A') + min(df.shape[1] + 2, 20))}2")
+    save_atomic(wb, path)
