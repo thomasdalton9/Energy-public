@@ -6,9 +6,11 @@ coal grades (anthracite, 4500/5000/5500/5800 kcal steam coal, coking
 coal), metallurgical coke, LNG, LPG, gasoline 92#/95#, diesel 0#,
 steel products, copper/aluminium/lead/zinc, basic chemicals and
 polymers, cement, float glass, fertilisers, farm and forest products.
-NBS revised the basket in Jan 2026 (added polysilicon, lithium iron
-phosphate, ethanol, acetic acid, hot-rolled sheet, MAP, potash, sugar;
-dropped some others), so those series start in 2026.
+The basket changes over time, so not every series spans the whole
+history: Jan 2026 added polysilicon, lithium iron phosphate, ethanol,
+acetic acid, MAP, potash and sugar and dropped 4500/5000/5800 kcal steam
+coal, gasoline 92#, styrene, PVC and bagged cement; hot-rolled sheet
+(2021) was replaced by hot-rolled coil from 2022.
 
 Each release is an HTML table [product (spec) | unit | price (yuan) |
 change vs previous period (yuan) | change %]; only the price is kept.
@@ -103,8 +105,8 @@ PRODUCTS = [
     (r"^苯乙烯", "Styrene", "Styrene", "basic chemical prices"),
     (r"^乙醇", "Ethanol", "Ethanol (95%)", "basic chemical prices"),
     (r"^冰醋酸", "Acetic_Acid", "Glacial acetic acid (99.5%+)", "basic chemical prices"),
-    (r"^多晶硅", "Polysilicon", "Polysilicon (dense material)", "solar and battery material prices"),
-    (r"^磷酸铁锂", "LFP", "Lithium iron phosphate (power type)", "solar and battery material prices"),
+    (r"^多晶硅", "Polysilicon", "Polysilicon (dense material)", "polysilicon prices"),
+    (r"^磷酸铁锂", "LFP", "Lithium iron phosphate (power type)", "lithium iron phosphate prices"),
     (r"^聚乙烯", "Polyethylene", "Polyethylene (LLDPE film)", "polymer and fibre prices"),
     (r"^聚丙烯", "Polypropylene", "Polypropylene (drawing grade)", "polymer and fibre prices"),
     (r"^聚氯乙烯", "PVC", "PVC (SG5)", "polymer and fibre prices"),
@@ -220,7 +222,8 @@ def main():
 
 NOTES_LINES = [
     "UNITS",
-    "Prices in yuan per tonne (live hogs: yuan per kg), average market transaction price in circulation "
+    "Prices in yuan per tonne (live hogs and polysilicon: yuan per kg; see the 'Series' sheet), average "
+    "market transaction price in circulation "
     "for that 10-day period, nationwide (NBS's monitoring survey of the circulation sector). "
     "Column names are on the 'Series' sheet with the full product description and unit.",
     "",
