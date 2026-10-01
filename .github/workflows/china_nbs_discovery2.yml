@@ -1,0 +1,19 @@
+name: China NBS discovery 2
+
+# Manual-only one-off probe (see discovery_archive/asia/CHINA_NBS_DISCOVERY2.py).
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run probe
+        run: timeout 2100 python3 -u discovery_archive/asia/CHINA_NBS_DISCOVERY2.py
