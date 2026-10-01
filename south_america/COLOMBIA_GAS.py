@@ -171,7 +171,11 @@ def headline_total(texts):
         flat = re.sub(r"\s+", " ", t)
         m = re.search(r"demanda promedio de\s*([\d.,]+)\s*GBTUD", flat, re.I)
         if m:
-            return num(m.group(1))
+            raw = m.group(1).rstrip(".,")
+            # headline is always hundreds-to-thousands of GBTUD: "1,097" / "1.097" are thousands separators
+            if re.fullmatch(r"\d{1,2}[.,]\d{3}", raw):
+                return float(raw.replace(".", "").replace(",", ""))
+            return num(raw)
     return None
 
 
@@ -191,28 +195,37 @@ def header_sectors(lines):
 
 
 def regional_rows_from_tables(tables, n):
+    """Costa / Interior / TOTAL Nacional rows of the regional table.
+    Cells are positional: a blank cell is a sector with no demand in that
+    region (2021 reports leave e.g. petrochemical blank for the Interior)."""
     rows = {}
     for tb in tables:
         for row in tb:
             if not row or not row[0]:
                 continue
-            key = strip_accents(str(row[0]).strip().split("\n")[0])
-            if key in ("costa", "interior"):
-                vals = [num(c) for c in row[1:] if str(c or "").strip() != ""]
-                vals = [v for v in vals if v is not None]
-                if len(vals) == n:
-                    rows[key] = vals
+            key = strip_accents(re.sub(r"\s+", " ", str(row[0])).strip())
+            key = "total" if key.startswith("total") else key
+            if key not in ("costa", "interior", "total"):
+                continue
+            cells = [c for c in row[1:]]
+            if len(cells) == n:
+                vals = [num(c) if str(c or "").strip() else 0.0 for c in cells]
+            else:
+                vals = [v for v in (num(c) for c in cells if str(c or "").strip()) if v is not None]
+            if len(vals) == n and None not in vals:
+                rows[key] = vals
     return rows
 
 
 def regional_rows_from_text(lines, n):
     rows = {}
     for ln in lines:
-        m = re.match(r"\s*(COSTA|INTERIOR)\s+([\d\s.,]+)$", ln, re.I)
+        m = re.match(r"\s*(COSTA|INTERIOR|TOTAL(?:\s+NACIONAL)?)\s+([\d\s.,]+)$", ln, re.I)
         if m:
             vals = [num(x) for x in m.group(2).split()]
+            key = "total" if m.group(1).lower().startswith("total") else m.group(1).lower()
             if len(vals) == n and None not in vals:
-                rows[m.group(1).lower()] = vals
+                rows[key] = vals
     return rows
 
 
@@ -223,11 +236,13 @@ def parse_regional(pages):
         secs = header_sectors(lines)
         if not secs:
             continue
-        rows = regional_rows_from_tables(tables, len(secs)) or {}
-        if len(rows) < 2:
-            rows = regional_rows_from_text(lines, len(secs))
-        if len(rows) == 2:
+        rows = regional_rows_from_tables(tables, len(secs))
+        for k, v in regional_rows_from_text(lines, len(secs)).items():
+            rows.setdefault(k, v)
+        if "costa" in rows and "interior" in rows:
             return {s: rows["costa"][i] + rows["interior"][i] for i, s in enumerate(secs)}
+        if "total" in rows:
+            return dict(zip(secs, rows["total"]))
     return None
 
 
