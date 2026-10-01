@@ -191,6 +191,8 @@ def table_to_long(table, entity_col):
             break
         for i in month_cols:
             value = row.iloc[i]
+            # dash cells ("-", "-  ") are Excel accounting-format zeros
+            value = pd.to_numeric(str(value).strip(), errors="coerce") if isinstance(value, str) else value
             if pd.isna(value):
                 continue
             value = float(value)
