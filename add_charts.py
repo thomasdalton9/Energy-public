@@ -162,6 +162,22 @@ def ireland_demand(p):
             {"name": "Seasonal", "water_year": d["Total_ROI_GWh"], "title": "Ireland total gas demand", "units": "GWh/day"}]
 
 
+def ireland_combined(p):
+    names = {"PowerGen": "Power", "LDM_ex_PowerGen": "Large industry (ex power)", "DM": "Daily metered",
+             "NDM": "Non-daily metered (homes, small business)"}
+    d = by_date(read(p, "Demand"), "date")
+    dem = d[cols(d, "PowerGen_GWh", "LDM_ex_PowerGen_GWh", "DM_GWh", "NDM_GWh")]
+    s = by_date(read(p, "Supply"), "date")
+    sup = s[cols(s, "Corrib_Production_GWh", "Inch_Production_GWh", "Moffat_Imports_GWh")]
+    return [spec("Demand", monthly_mean(dem, "2021-01-01").rename(columns=lambda c: names.get(c.replace("_GWh", ""), c)),
+                 "Ireland gas demand by sector (monthly average)", "GWh/day", "stacked_bar"),
+            spec("Supply", monthly_mean(sup, "2021-01-01").rename(
+                     columns={"Corrib_Production_GWh": "Corrib", "Inch_Production_GWh": "Inch",
+                              "Moffat_Imports_GWh": "Moffat imports (UK)"}),
+                 "Ireland gas supply by source (monthly average)", "GWh/day", "stacked_bar"),
+            {"name": "Seasonal", "water_year": d["Total_ROI_GWh"], "title": "Ireland total gas demand", "units": "GWh/day"}]
+
+
 def ireland_supply(p):
     d = by_date(read(p, "Data"), "date")
     s = d[cols(d, "Corrib_Production_GWh", "Inch_Production_GWh", "Moffat_Imports_GWh")]
@@ -278,6 +294,7 @@ REGISTRY = {
     "trinidad_gas.xlsx": trinidad,
     "ireland_gas_demand_daily.xlsx": ireland_demand,
     "ireland_gas_supply_daily.xlsx": ireland_supply,
+    "ireland_gas_combined_daily.xlsx": ireland_combined,
     "ireland_gni_transparency_daily.xlsx": ireland_gni,
     "ireland_smartgrid_15min.xlsx": ireland_smartgrid,
     "mexico_demanda_nacional_daily.xlsx": mexico,
