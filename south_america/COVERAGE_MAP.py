@@ -61,8 +61,8 @@ GAS_PRODUCERS = {
 }
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
 # Countries with reservoir / lake-level (hydro) data
-HYDRO = {"Brazil", "Colombia", "Argentina", "Chile", "Panama"}
-HYDRO_AT = {"Panama": (-80.2, 8.6), "Chile": (-71.5, -33.0)}
+HYDRO = {"Brazil", "Colombia", "Argentina", "Chile", "Panama", "Peru", "Ecuador", "Uruguay"}
+HYDRO_AT = {"Panama": (-80.2, 8.6), "Chile": (-71.5, -33.0), "Uruguay": (-56.0, -32.6)}
 # Where a dot would sit on a label or off a tiny island, place it here instead (lon, lat)
 DOT_AT = {"Chile": (-73.8, -46.5), "Trinidad and Tobago": (-61.2, 10.5), "Ecuador": (-78.3, -1.5),
           "Guyana": (-58.8, 5.5), "Cuba": (-79.5, 22.0)}
