@@ -133,7 +133,7 @@ def parse_release(html):
         vals = [nbs.num(c) for c in cells[1:]]
         if not vals or all(v is None for v in vals):
             continue
-        stem = BY_NAME.get(name)
+        stem = BY_NAME.get(name) or BY_NAME.get(name.replace("其它", "其他").replace("及精制茶", "和精制茶"))
         if stem is None:
             unmatched.append(name)
             continue
