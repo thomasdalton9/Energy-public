@@ -1,7 +1,9 @@
 print("STARTING", flush=True)
 
+import argparse
 import datetime as dt
 import io
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -9,6 +11,18 @@ import requests
 
 START_YEAR = 2000
 END_YEAR = dt.date.today().year
+
+# Default (no arguments): the owner's desktop pipeline - writes the four
+# ear_*.csv files to the current directory, as before.
+# --out <xlsx>: scheduled pull (.github/workflows/brazil_hydro_reservoirs.yml)
+# - writes one workbook (sheet "Daily": storage % and stored energy per
+# subsystem plus the SIN national total) instead of the CSVs. Incremental:
+# the workbook is its own archive, so only years ONS may still revise
+# (this year, and last year until April) are downloaded again.
+ap = argparse.ArgumentParser(description="ONS EAR reservoir storage by subsystem")
+ap.add_argument("--out", help="write a workbook here instead of the ear_*.csv files")
+ARGS = ap.parse_args()
+OUT_KEEP = None   # --out: rows already in the workbook that are kept as they are
 
 BASE = (
     "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/"
@@ -75,6 +89,22 @@ def get_year(year):
                 )
 
     return None
+
+
+if ARGS.out:
+    try:
+        OUT_KEEP = pd.read_excel(ARGS.out, sheet_name="Daily", index_col=0)
+        OUT_KEEP.index = pd.to_datetime(OUT_KEEP.index, errors="coerce")
+        OUT_KEEP = OUT_KEEP[OUT_KEEP.index.notna()].sort_index()
+        first_unsettled = next(y for y in range(START_YEAR, END_YEAR + 1) if not settled(y))
+        if len(OUT_KEEP):
+            START_YEAR = max(START_YEAR, min(first_unsettled, OUT_KEEP.index.max().year))
+            OUT_KEEP = OUT_KEEP[OUT_KEEP.index < pd.Timestamp(START_YEAR, 1, 1)]
+            print(f"{ARGS.out}: keeping {len(OUT_KEEP):,} days before {START_YEAR}; "
+                  f"downloading {START_YEAR}-{END_YEAR}", flush=True)
+    except (FileNotFoundError, ValueError, KeyError) as e:
+        print(f"{ARGS.out}: no usable archive ({type(e).__name__}) - full history from {START_YEAR}", flush=True)
+        OUT_KEEP = None
 
 
 # ----------------------------------------------------------
@@ -227,6 +257,106 @@ daily_energy = (
     .sort_index()
     .reset_index()
 )
+
+# ----------------------------------------------------------
+# --out: SCHEDULED WORKBOOK (instead of the CSVs below)
+# ----------------------------------------------------------
+
+# ONS subsystem names -> short codes, in the workbook's column order.
+SUBSYSTEM_CODES = {
+    "SUDESTE": "SE_CO", "SUDESTE/CENTRO-OESTE": "SE_CO", "SE": "SE_CO", "SE/CO": "SE_CO",
+    "SUL": "S", "S": "S",
+    "NORDESTE": "NE", "NE": "NE",
+    "NORTE": "N", "N": "N",
+}
+CODES = ["SE_CO", "S", "NE", "N"]
+
+
+def write_out_workbook(path):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    import xlsx_notes
+
+    # Maximum storable energy per subsystem (ear_max_subsistema, MWmes)
+    # - published in the same files. If ONS ever drops it, fall back to
+    # the capacity implied by stored energy / storage %.
+    try:
+        max_col = pick("max", exclude=("percent",))
+    except KeyError:
+        max_col = None
+    print(f"capacity column: {max_col or '(none - implied from energy / %)'}", flush=True)
+
+    d = raw[[date_col, sub_col, energy_col, pct_col] + ([max_col] if max_col else [])].copy()
+    d.columns = ["Date", "Subsystem", "Energy", "Pct"] + (["Max"] if max_col else [])
+    d["Date"] = pd.to_datetime(d["Date"], errors="coerce")
+    for c in d.columns[2:]:
+        d[c] = pd.to_numeric(d[c], errors="coerce")
+    if not max_col:
+        d["Max"] = d["Energy"] / (d["Pct"].where(d["Pct"] > 0) / 100)
+    names = d["Subsystem"].astype(str).str.strip().str.upper()
+    d["Code"] = names.map(SUBSYSTEM_CODES)
+    unknown = sorted(set(names[d["Code"].isna()]))
+    if unknown:
+        print(f"WARNING: unmapped subsystem names ignored: {unknown}", flush=True)
+    d = d.dropna(subset=["Date", "Code"])
+
+    wide = {}
+    for value, suffix in (("Pct", "pct"), ("Energy", "MWmes"), ("Max", "max_MWmes")):
+        wide[suffix] = d.pivot_table(index="Date", columns="Code", values=value, aggfunc="last").reindex(columns=CODES)
+    # SIN national % = total stored energy / total maximum storable
+    # energy across the four subsystems (energy-weighted, the way ONS
+    # computes its own SIN EAR %). Only on days all four report.
+    complete = wide["MWmes"].notna().all(axis=1) & wide["max_MWmes"].notna().all(axis=1)
+    sin_energy = wide["MWmes"].sum(axis=1).where(complete)
+    sin_max = wide["max_MWmes"].sum(axis=1).where(complete)
+
+    out = pd.DataFrame(index=wide["pct"].index)
+    for c in CODES:
+        out[f"{c}_pct"] = wide["pct"][c]
+    out["SIN_pct"] = sin_energy / sin_max * 100
+    for c in CODES:
+        out[f"{c}_MWmes"] = wide["MWmes"][c]
+    out["SIN_MWmes"] = sin_energy
+    out["SIN_max_MWmes"] = sin_max
+    out = out.dropna(how="all")
+
+    if OUT_KEEP is not None and len(OUT_KEEP):
+        out = pd.concat([OUT_KEEP.reindex(columns=out.columns), out[out.index > OUT_KEEP.index.max()]])
+    out = out[~out.index.duplicated(keep="last")].sort_index().round(4)
+    out.index = pd.DatetimeIndex(out.index).date
+    out.index.name = "date"
+
+    notes = [
+        "UNITS",
+        "*_pct: reservoir storage, % of maximum storable energy (EAR % - energia armazenada).",
+        "*_MWmes: stored energy, MW-month (MWmes = average MW sustained for one month; x 0.73 = GWh approx).",
+        "SIN_max_MWmes: maximum storable energy of the whole interconnected system (sum of the subsystems' EARmax).",
+        "",
+        "SUBSYSTEMS",
+        "SE_CO = Sudeste/Centro-Oeste (about 70% of Brazil's storage capacity), S = Sul, NE = Nordeste, N = Norte.",
+        "SIN = Sistema Interligado Nacional (the national total).",
+        "",
+        "SIN NATIONAL %",
+        "ONS's subsystem dataset carries no national row, so SIN_pct is energy-weighted:",
+        "sum of the four subsystems' stored energy (ear_verif_subsistema_mwmes) / sum of their maximum storable",
+        "energy (ear_max_subsistema) x 100 - the same definition ONS uses for its SIN EAR %. Left blank on any day",
+        "a subsystem is missing.",
+        "",
+        "SOURCE",
+        "ONS open data (dados.ons.org.br), dataset ear_subsistema_di (EAR diario por subsistema), yearly files",
+        BASE + "<year>.csv",
+        f"Daily, from {out.index.min()} to {out.index.max()}. Updated daily by .github/workflows/brazil_hydro_reservoirs.yml;",
+        "only the current year (and last year until April, while ONS may revise it) is re-downloaded each run.",
+    ]
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    xlsx_notes.write_workbook(path, {"Daily": out}, notes, {"UNITS", "SUBSYSTEMS", "SIN NATIONAL %", "SOURCE"})
+    print(f"\nWrote {path}: {len(out):,} days, {out.index.min()} to {out.index.max()}", flush=True)
+    print(out.tail(5).to_string(float_format="%.1f"), flush=True)
+
+
+if ARGS.out:
+    write_out_workbook(ARGS.out)
+    sys.exit(0)
+
 
 # ----------------------------------------------------------
 # MONTHLY STORAGE %

@@ -23,11 +23,24 @@ fuel-type is a separate, not-yet-built, follow-up.
 
 print("STARTING", flush=True)
 
+import argparse
 import datetime as dt
+import sys
 import time
+from pathlib import Path
 
 import pandas as pd
 import requests
+
+# Default (no arguments): the owner's desktop pipeline - cache in
+# co_hydro_daily_cache.csv, writes co_hydro_daily_*.csv, as before.
+# --out <xlsx>: scheduled pull (.github/workflows/colombia_hydro_reservoirs.yml)
+# - the workbook (sheet "Daily") is the archive instead of the cache CSV,
+# and no CSVs are written.
+ap = argparse.ArgumentParser(description="XM national reservoir storage")
+ap.add_argument("--out", help="write/update a workbook here instead of the co_hydro_*.csv files")
+ARGS = ap.parse_args()
+GWH = 1e6   # kWh per GWh
 
 BASE_DAILY_URL = "https://servapibi.xm.com.co/daily"
 ENTITY = "Sistema"
@@ -169,7 +182,17 @@ def records_to_series(records, value_name):
 CACHE_CSV = "co_hydro_daily_cache.csv"
 REFRESH_DAYS = 14
 try:
-    cached = pd.read_csv(CACHE_CSV, parse_dates=["Date"]).set_index("Date").sort_index()
+    if ARGS.out:
+        cached = pd.read_excel(ARGS.out, sheet_name="Daily", index_col=0)
+        cached.index = pd.to_datetime(cached.index, errors="coerce")
+        cached = cached[cached.index.notna()].sort_index()
+        cached.index.name = "Date"
+        cached = pd.DataFrame({"StoredEnergy": cached["StoredEnergy_GWh"] * GWH,
+                               "Capacity": cached["Capacity_GWh"] * GWH}).dropna(how="all")
+        if cached.empty:
+            raise ValueError("empty archive")
+    else:
+        cached = pd.read_csv(CACHE_CSV, parse_dates=["Date"]).set_index("Date").sort_index()
     fetch_from = max(START_DATE, (cached.index.max() - pd.Timedelta(days=REFRESH_DAYS)).date())
     print(f"{len(cached):,} days cached to {cached.index.max():%d-%b-%Y}; fetching from {fetch_from}", flush=True)
 except (FileNotFoundError, ValueError, KeyError):
@@ -188,6 +211,45 @@ fresh = pd.concat([series["StoredEnergy"], series["Capacity"]], axis=1).dropna(h
 daily = fresh if cached is None else fresh.combine_first(cached[["StoredEnergy", "Capacity"]])
 daily = daily.sort_index()
 daily.index.name = "Date"
+
+
+def write_out_workbook(path):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    import xlsx_notes
+
+    out = pd.DataFrame({
+        "Storage_pct": daily["StoredEnergy"] / daily["Capacity"] * 100,
+        "StoredEnergy_GWh": daily["StoredEnergy"] / GWH,
+        "Capacity_GWh": daily["Capacity"] / GWH,
+    }).dropna(how="all").round(4)
+    out.index = pd.DatetimeIndex(out.index).date
+    out.index.name = "date"
+    notes = [
+        "UNITS",
+        "Storage_pct: national hydro reservoir storage, % of useful capacity (stored energy / capacity x 100).",
+        "StoredEnergy_GWh: useful stored energy in the reservoirs, GWh (XM VoluUtilDiarEner, published in kWh).",
+        "Capacity_GWh: useful reservoir capacity, GWh (XM CapaUtilDiarEner, published in kWh).",
+        "",
+        "COVERAGE",
+        "National total (XM entity 'Sistema' - all reservoirs of the Sistema Interconectado Nacional).",
+        "XM publishes the national aggregate directly, so no weighting is needed; the ratio matches XM's own",
+        "PorcVoluUtilDiar.",
+        "",
+        "SOURCE",
+        "XM (Colombian power market operator) public API, " + BASE_DAILY_URL + " (no key needed).",
+        f"Daily, from {out.index.min()} to {out.index.max()}. Updated daily by .github/workflows/colombia_hydro_reservoirs.yml;",
+        f"each run re-fetches only the last {REFRESH_DAYS} days (XM revises recent days).",
+    ]
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    xlsx_notes.write_workbook(path, {"Daily": out}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    print(f"\nWrote {path}: {len(out):,} days, {out.index.min()} to {out.index.max()}", flush=True)
+    print(out.tail(10).to_string(float_format="%.1f"), flush=True)
+
+
+if ARGS.out:
+    write_out_workbook(ARGS.out)
+    sys.exit(0)
+
 daily.to_csv(CACHE_CSV)
 daily["StoragePct"] = (daily["StoredEnergy"] / daily["Capacity"]) * 100
 daily = daily.reset_index()

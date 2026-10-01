@@ -126,12 +126,13 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12):
     area += lines
     return area
 
-def add_water_year_chart(path, series, title, unit):
+def add_water_year_chart(path, series, title, unit, sheet_name=SHEET):
+    """sheet_name: pass a different name to put several water-year charts in one workbook."""
     table, meta = water_year_table(series)
     wb = load_workbook(path)
-    if SHEET in wb.sheetnames:
-        del wb[SHEET]
-    ws = wb.create_sheet(SHEET, 1 if len(wb.sheetnames) > 1 else None)
+    if sheet_name in wb.sheetnames:
+        del wb[sheet_name]
+    ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
     write_table(ws, table)
     area = build_chart(ws, table, meta, title, unit)
     ws.add_chart(area, "I2")

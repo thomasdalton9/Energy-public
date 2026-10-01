@@ -18,7 +18,7 @@ api.cammesa.com
 
 ons-aws-prod-opendata.s3.amazonaws.com
     ONS Brazil open data (AWS S3) - generation by source, hydro by region
-    used by: BRAZIL_ONS_HYDRO_BY_REGION.py
+    used by: BRAZIL_ONS_HYDRO_BY_REGION.py (--out: brazil_hydro_reservoirs.xlsx, .github/workflows/brazil_hydro_reservoirs.yml)
     used by: ONS Brazil.py
 
 pronos.adme.com.uy
@@ -31,7 +31,7 @@ servapibi.xm.com.co
     used by: COLOMBIA_XM_GENERATION.py
     used by: COLOMBIA_XM_GENERATION_DISCOVERY.py
     used by: COLOMBIA_XM_GENERATION_DISCOVERY_NOPANDAS.py
-    used by: COLOMBIA_XM_HYDRO.py
+    used by: COLOMBIA_XM_HYDRO.py (--out: colombia_hydro_reservoirs.xlsx, .github/workflows/colombia_hydro_reservoirs.yml)
 
 sipub.api.coordinador.cl
     Coordinador Eléctrico Nacional (Chile) API - hydro reservoir levels (cota)
