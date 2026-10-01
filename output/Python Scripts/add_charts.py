@@ -819,19 +819,20 @@ def sa_coal(p):
 
 # South America daily wholesale power prices (south_america/SA_POWER_PRICES_DAILY.py) - a separate workbook,
 # not part of the South & Central America master.
-PRICE_CHARTS = [  # sheet, title (with source), local unit
-    ("Brazil", "Brazil CMO by subsystem (ONS, daily average)", "BRL/MWh"),
-    ("Colombia", "Colombia Precio de Bolsa and Precio de Escasez (XM, daily average)", "COP/kWh"),
-    ("Peru", "Peru marginal cost, Santa Rosa 220 kV (COES, daily average)", "PEN/MWh"),
-    ("Argentina", "Argentina CMO and sanctioned spot price (CAMMESA, daily average)", "ARS/MWh"),
-    ("Uruguay", "Uruguay spot sancionado (ADME, daily average)", "USD/MWh"),
-    ("Bolivia", "Bolivia marginal cost (CNDC, daily)", "USD/MWh"),
+PRICE_CHARTS = [  # sheet, title (with source)
+    ("Brazil", "Brazil CMO by subsystem (ONS, daily average)"),
+    ("Colombia", "Colombia Precio de Bolsa and Precio de Escasez (XM, daily average)"),
+    ("Peru", "Peru marginal cost, Santa Rosa 220 kV (COES, daily average)"),
+    ("Argentina", "Argentina CMO and sanctioned spot price (CAMMESA, daily average)"),
+    ("Uruguay", "Uruguay spot sancionado (ADME, daily average)"),
+    ("Bolivia", "Bolivia marginal cost (CNDC, daily)"),
 ]
 
 
 def sa_power_prices(p):
-    """All markets in USD/MWh as monthly averages (plus CNDC's monthly Bolivian energy price where the daily
-    series is short), then one chart per country in local currency (daily; Chile's PMM is monthly)."""
+    """Everything in US$/MWh: all markets as monthly averages of 'USD daily' (Chile's monthly PMM is on every day
+    of its month there; CNDC's monthly Bolivian energy price is added since the daily series is short), then one
+    chart per country (daily; Chile monthly). Local-currency prices stay in the country sheets only."""
     sheets = pd.ExcelFile(p).sheet_names
     u = by_date(read(p, "USD daily"), "date")
     m = monthly_mean(u, "2021-01-01")
@@ -841,24 +842,23 @@ def sa_power_prices(p):
         if "Precio de energia (USD/MWh)" in b:
             m = m.join(b[["Precio de energia (USD/MWh)"]].rename(
                 columns={"Precio de energia (USD/MWh)": "Bolivia (CNDC energy price, monthly)"}), how="outer")
-    out = [spec("USD monthly", m.drop(columns=[c for c in m if c.startswith("Bolivia (CNDC marginal")], errors="ignore"),
-                "South America wholesale power prices (monthly average)", "USD/MWh")]
-    for sheet, title, unit in PRICE_CHARTS:
+    m = m.drop(columns=[c for c in m if c.startswith("Bolivia (CNDC marginal")], errors="ignore")
+    out = [spec("USD monthly", m[m.index >= "2021-01-01"],
+                "South America wholesale power prices (monthly average)", "US$/MWh")]
+    for sheet, title in PRICE_CHARTS:
         if sheet not in sheets:
             continue
         d = by_date(read(p, sheet), "date")
-        local = [c for c in d.columns if f"({unit})" in str(c) and "USD per" not in str(c)]
-        if unit != "USD/MWh":
-            local = [c for c in local if "(USD/MWh)" not in str(c)]
-        if local:
-            g = d[local].rename(columns=lambda c: re.sub(r"\s*\([^)]*\)$", "", str(c)))
-            out.append(spec(sheet, daily(g, "2021-01-01"), title, unit))
+        usd = [c for c in d.columns if "(USD/MWh)" in str(c)]
+        if usd:
+            g = d[usd].rename(columns=lambda c: re.sub(r"\s*\([^)]*\)$", "", str(c)))
+            out.append(spec(sheet, daily(g, "2021-01-01"), title, "US$/MWh"))
     if "Chile" in sheets:
         c = read(p, "Chile")
         c = by_date(c, c.columns[0])
-        if "PMM SEN (CLP/kWh)" in c:
-            out.append(spec("Chile", c[["PMM SEN (CLP/kWh)"]].rename(columns={"PMM SEN (CLP/kWh)": "PMM SEN"}),
-                            "Chile Precio Medio de Mercado, SEN (CNE, monthly)", "CLP/kWh"))
+        if "PMM SEN (USD/MWh)" in c:
+            out.append(spec("Chile", c[["PMM SEN (USD/MWh)"]].rename(columns={"PMM SEN (USD/MWh)": "PMM SEN"}),
+                            "Chile Precio Medio de Mercado, SEN (CNE, monthly; FX dolar observado)", "US$/MWh"))
     return out
 
 

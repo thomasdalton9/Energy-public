@@ -166,15 +166,18 @@ def list_weeks(year):
 
 
 def week_end(calendar, year, week):
-    """End date (Friday) of COES week `week` of `year`, from the folder names; weeks without a folder are
-    counted on from the nearest listed week of that year."""
+    """End date (Friday) of COES week `week` of `year`: the end of week 1 plus 7 days per week. The end of
+    week 1 is the most common value of (folder end date - 7 x (week - 1)) over that year's folder names, so a
+    typo in one folder name (there are some) or a missing folder doesn't shift any week."""
     weeks = calendar.get(year) or {}
-    if week in weeks:
-        return weeks[week]
     if not weeks:
         return None
-    k = min(weeks, key=lambda w: abs(w - week))
-    return weeks[k] + timedelta(days=7 * (week - k))
+    if (year, len(weeks)) not in _W1:
+        _W1[(year, len(weeks))] = pd.Series([end - timedelta(days=7 * (w - 1)) for w, end in weeks.items()]).mode().iloc[0]
+    return _W1[(year, len(weeks))] + timedelta(days=7 * (week - 1))
+
+
+_W1 = {}
 
 
 def sheet_with(xl, title):
@@ -365,6 +368,9 @@ def main():
             newest[y] = ws[-1]
         print(f"  {y}: {len(ws)} weekly folders" + (f", newest {ws[-1][1]} ending {ws[-1][3]}" if ws else ""),
               flush=True)
+    if not long.empty:   # re-date saved rows from (year, week) with the current calendar
+        redated = [week_end(calendar, int(y), int(w)) for y, w in zip(long["year"], long["week"])]
+        long["date"] = [pd.Timestamp(r) if r is not None else d for r, d in zip(redated, long["date"])]
     todo = [w for y, w in sorted(newest.items()) if w[0] not in done]
     print(f"{len(done)} reports already read; to read: {[f'{w[3]}' for w in todo]}", flush=True)
     new_rep, failed = [], 0
