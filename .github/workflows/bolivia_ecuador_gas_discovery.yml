@@ -1,0 +1,20 @@
+name: Bolivia + Ecuador gas discovery
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pdfplumber
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 780 python3 south_america/BOLIVIA_ECUADOR_GAS_DISCOVERY.py
