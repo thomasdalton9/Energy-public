@@ -42,6 +42,10 @@ sipub.coordinador.cl
     used by: CHILE_CEN_HYDRO.py
     used by: MASTER_SOUTH_AMERICA.py
 
+visualpeb.miem.gub.uy
+    MIEM / DNE Uruguay VisualPEB - monthly natural gas flows by tariff (demand by sector)
+    used by: URUGUAY_GAS.py (--out: uruguay_gas_demand_by_sector.xlsx, .github/workflows/uruguay_gas.yml)
+
 www.aic.gob.ar
     AIC (Autoridad Interjurisdiccional de Cuencas, Argentina) - hydro basin data
     used by: ARGENTINA_CAMMESA_DISCOVERY.py

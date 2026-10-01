@@ -50,6 +50,7 @@ DATASETS = [
     ("CL", "Chile", "chile_gas_imports.xlsx", "Gas imports", "gas imports"),
     ("CO", "Colombia", "colombia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("EC", "Ecuador", "ecuador_gas.xlsx", "Gas by use", "gas"),
+    ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
