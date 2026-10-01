@@ -1,5 +1,5 @@
 """
-Round 16 (Oct-2026), El Salvador. SIGET's yearly 'Boletin de Estadisticas
+Round 16 (Oct-2026; rerun: the view page names a '-redirect' cluster whose API host is '-api'), El Salvador. SIGET's yearly 'Boletin de Estadisticas
 Electricas' (PROBE15) has annual tables only. Its 'Visualizador dinamico de
 Estadisticas Electricas' is a public Power BI report:
   https://app.powerbi.com/view?r=eyJrIjoiYmM0MDJhMTktNmQ2YS00ZDkxLTgyYWUtMDUxYjQ5MjQxYWY5IiwidCI6IjE1OTg0YzZmLTNiMmMtNDZmMi1iNmU0LTUzNDQ3MGY2MDVmNyJ9
@@ -32,7 +32,7 @@ def pbi():
     view = requests.get("https://app.powerbi.com/view", params={"r": TOKEN}, headers=H, timeout=60)
     clusters = sorted(set(re.findall(r"https://[a-z0-9-]+\.analysis\.windows\.net", view.text)))
     print("clusters in view page:", clusters, flush=True)
-    cands = clusters + ["https://wabi-us-north-central-api.analysis.windows.net",
+    cands = [c.replace("-redirect.", "-api.") for c in clusters] + clusters + ["https://wabi-us-north-central-api.analysis.windows.net",
                         "https://wabi-us-east2-api.analysis.windows.net",
                         "https://wabi-south-central-us-api.analysis.windows.net",
                         "https://wabi-west-us-api.analysis.windows.net",
@@ -52,7 +52,7 @@ def pbi():
         except requests.RequestException as e:
             print(" ", base, e, flush=True)
             continue
-        print(f"  {base}: [{r.status_code}] {len(r.text)} chars", flush=True)
+        print(f"  {base}: [{r.status_code}] {len(r.text)} chars {r.text[:200] if not r.ok else ''}", flush=True)
         if not r.ok:
             continue
         j = r.json()
