@@ -15,11 +15,33 @@ details are printed so the right fix can be chosen.
 Round 1 (ROUND=1): COES portal pages + scripts + file browser roots;
 CENACE page keywords; CELEC SUR dashboard bundle + ORDS API; ADME per-plant
 series columns and Salto Grande; UTE / CTM landing pages.
+Round 1 findings:
+  - COES portalinformacion has only 'generacion' and 'demanda' (no hydrology
+    page); the file browser has 'Post Operacion/Reportes/IEOD/<year>/' folders
+    (Informe de Evaluacion de la Operacion Diaria).
+  - CELEC SUR's ORDS service (port 8443) serves a valid Sectigo chain, so
+    plain certifi verification works. pointValuesMesH24 for Mazar (mrid
+    30031) answers for 2021 too (not only from 2022) but leaves each month's
+    last day empty. The dashboard bundle also calls pointValuesAnioH24 /
+    AniosH24 / MesAvg / AnioAvg / AniosAvg. Plants: Mazar (cota 30031),
+    Molino/Amaluza (24019), Sopladora (90919), Minas San Francisco (650919).
+    Other CELEC units (Hidronacion: Daule-Peripa, Hidroagoyan: Pisayambo)
+    have no such dashboard.
+  - ADME seriescentralhidro.cgi: ids bon/bay/pal only (no Salto Grande);
+    columns Pot_MW_, hToma_m_ (lake level), hDescarga_m_, QVertido, CE,
+    QTurbinado, QErogado; Bonete has real values in 2019, none in 2015.
+    adme.com.uy's menu links 'Operacion Rio Negro' = pronos.adme.com.uy/seriesbonete.php.
+  - CTM Salto Grande publishes a daily 'Reporte de Caudales y Niveles' PDF
+    (current day only) on datos_hidrologicos.php.
+Round 2 (ROUND=2): COES IEOD folders down to one day's files (+ sitemap);
+CELEC SUR year endpoints, history depth, month-end days; ADME
+seriesbonete.php, Bonete history start; INA a5 Salto Grande level; CTM pages.
 """
 
 print("STARTING", flush=True)
 
 import hashlib
+import io
 import json
 import os
 import re
@@ -353,9 +375,156 @@ def uruguay():
                 print("    link:", l, flush=True)
 
 
+# ---------------------------------------------------------------- round 2
+def peru2():
+    print("\n################ PERU round 2 ################", flush=True)
+    r = get(COES + "sitemap/index", name="coes_sitemap.html", show=False)
+    if r is not None and r.ok:
+        for u in sorted(set(links(r.text, r.url, r"/Portal/"))):
+            if not re.search(r"\.(css|png|jpg|gif|ico|svg|js)(\?|$)", u, re.I):
+                print("   sitemap:", u, flush=True)
+    get(COES + "PostOperacion/Reportes/Idcos", name="coes_idcos.html", show=False)
+    for year in ["2026", "2021"]:
+        months = [html_unescape(p) for p, k in coes_browse(f"Post Operación/Reportes/IEOD/{year}/") if k == "D"]
+        months = sorted(set(months))
+        if not months:
+            continue
+        mpath = months[-1] if year == "2026" else months[0]
+        listing = coes_browse(mpath)
+        days = sorted({html_unescape(p) for p, k in listing if k == "D"})
+        files = [html_unescape(p) for p, k in listing if k == "F"]
+        print(f"   {year}: month {mpath}: {len(days)} day folders {days[:3]}..., files {files[:10]}", flush=True)
+        items = [(p, "F") for p in files]
+        if days:
+            dpath = days[-2] if len(days) > 1 else days[0]
+            for p, k in coes_browse(dpath):
+                p = html_unescape(p)
+                items.append((p, k))
+                if k == "D":
+                    sub = coes_browse(p)
+                    print(f"     sub {p}: {sub[:20]}", flush=True)
+                    items += [(html_unescape(q), kk) for q, kk in sub if kk == "F"]
+        seen = set()
+        for p, k in items:
+            if k != "F" or p in seen or not re.search(r"\.(xlsx?|xlsm|zip|csv)$", p, re.I):
+                continue
+            seen.add(p)
+            r = get(COES + "browser/download?url=" + quote(p), name=f"ieod_{year}_" + p.split("/")[-1],
+                    show=False, timeout=180)
+            if r is None or not r.ok or not p.lower().endswith((".xlsx", ".xlsm", ".xls")):
+                continue
+            try:
+                import pandas as pd
+                xl = pd.ExcelFile(io.BytesIO(r.content))
+                print(f"     sheets {p.split('/')[-1]}: {xl.sheet_names}", flush=True)
+                for sh in xl.sheet_names:
+                    df = pd.read_excel(xl, sheet_name=sh, header=None)
+                    txt = df.astype(str).apply(lambda c: " | ".join(c), axis=1)
+                    hit = txt[txt.str.contains("VOLUMEN|EMBALSE|LAGUNA|JUNIN|SIBINACOCHA|HIDROLOG", case=False)]
+                    if len(hit):
+                        print(f"       [{sh}] {len(df)}x{df.shape[1]} hits:", flush=True)
+                        for i, t in hit.head(12).items():
+                            print(f"         r{i}: {t[:300]}", flush=True)
+            except Exception as e:  # noqa: BLE001
+                print("     excel read failed:", type(e).__name__, e, flush=True)
+
+
+def html_unescape(s):
+    import html
+    return html.unescape(s)
+
+
+def ecuador2():
+    print("\n################ ECUADOR round 2 ################", flush=True)
+    base = "https://generacioncsr.celec.gob.ec:8443/ords/csr/sardomcsr/"
+
+    def call(ep, mrid, a, b, name):
+        r = get(base + ep, name=name, show=False, params={"mrid": mrid, "fechaInicio": f"{a}T00:00:00.000Z",
+                                                          "fechaFin": f"{b}T00:00:00.000Z",
+                                                          "fecha": f"{a[8:10]}/{a[5:7]}/{a[:4]} 00:00:00"})
+        if r is None or not r.ok:
+            return []
+        try:
+            j = r.json()
+        except ValueError:
+            print("   not json", r.text[:200], flush=True)
+            return []
+        it = j.get("items") or []
+        vals = [x for x in it if x.get("valueedit") is not None]
+        meta = {k: v for k, v in j.items() if k not in ("items", "links")}
+        print(f"   {ep} {mrid} {a}..{b}: {len(it)} items, {len(vals)} with values; {meta}; "
+              f"first {it[-1] if it else None}; last {it[0] if it else None}", flush=True)
+        return it
+    for y in [2026, 2021, 2018, 2015, 2012, 2010]:
+        call("pointValuesAnioH24", 30031, f"{y}-01-01", f"{y + 1}-01-01", f"csr_anioh24_mazar_{y}.json")
+    call("pointValuesAnioH24", 24019, "2021-01-01", "2022-01-01", "csr_anioh24_amaluza_2021.json")
+    call("pointValuesAniosH24", 30031, "2010-01-01", "2026-10-01", "csr_aniosh24_mazar.json")
+    for y in [2019, 2016, 2013]:
+        call("pointValuesMesH24", 30031, f"{y}-03-01", f"{y}-04-01", f"csr_mesh24_mazar_{y}03.json")
+    call("pointValuesMesH24", 30031, "2026-08-01", "2026-09-02", "csr_mesh24_mazar_aug_plus1.json")
+    call("pointValuesMesH24", 30031, "2026-08-31", "2026-09-01", "csr_mesh24_mazar_aug31.json")
+    call("pointValues", 30031, "2026-08-31", "2026-09-01", "csr_hourly_mazar_aug31.json")
+    call("pointValues", 30031, "2026-09-30", "2026-10-01", "csr_hourly_mazar_sep30.json")
+    call("pointValuesMesAvg", 30031, "2026-08-01", "2026-09-01", "csr_mesavg_mazar_aug.json")
+    for mrid in [30030, 30032, 30033, 30039, 30040, 24018, 24020]:
+        call("pointValuesMesH24", mrid, "2026-08-01", "2026-09-01", f"csr_probe_{mrid}.json")
+
+
+def uruguay2():
+    print("\n################ URUGUAY round 2 ################", flush=True)
+    r = get("https://pronos.adme.com.uy/seriesbonete.php", name="adme_seriesbonete.html")
+    if r is not None and r.ok:
+        for u in links(r.text, r.url):
+            if not re.search(r"\.(css|png|jpg|gif|ico|svg)(\?|$)", u, re.I):
+                print("    link:", u, flush=True)
+        for m in re.finditer(r"<form.*?</form>", r.text, re.S | re.I):
+            print("    form:", re.sub(r"\s+", " ", m.group(0))[:800], flush=True)
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                                    "south_america"))
+    import URUGUAY_ADME as U
+    ser = lambda d: (d - date(1899, 12, 30)).days  # noqa: E731
+    for y in [2016, 2017, 2018]:
+        for plant in ["bon", "pal", "bay"]:
+            r = get(U.PLANT_SERIES_URL, params={"idCentral": plant, "ts": "ods", "dtIni": ser(date(y, 6, 1)),
+                                                "dtFin": ser(date(y, 6, 3))}, show=False, timeout=180)
+            if r is not None and r.ok:
+                try:
+                    rows = next(iter(U.read_ods(r.content).values()))
+                    print(f"   {plant} {y}: {rows[10][:4] if len(rows) > 10 else rows[-1]}", flush=True)
+                except Exception as e:  # noqa: BLE001
+                    print(f"   {plant} {y}: {type(e).__name__}", flush=True)
+    r = get("https://alerta.ina.gob.ar/a5/obs/puntual/series/26319/observaciones", name="ina_26319.json", show=False,
+            params={"timestart": "2026-09-01", "timeend": "2026-10-02", "format": "json"}, timeout=180)
+    if r is not None and r.ok:
+        obs = r.json()
+        print(f"   INA 26319: {len(obs)} obs; {obs[:2]} .. {obs[-1:]}", flush=True)
+    r = get("https://alerta.ina.gob.ar/a5/obs/puntual/series/26319", name="ina_26319_meta.json", show=False)
+    if r is not None and r.ok:
+        print("   INA 26319 meta:", r.text[:800], flush=True)
+    for u in ["https://www.saltogrande.org/datos_hidrologicos.php", "https://www.saltogrande.org/datos_operativos.php"]:
+        r = get(u, name="ctm_" + u.split("/")[-1])
+        if r is not None and r.ok:
+            for l in links(r.text, r.url):
+                if re.search(r"docs|pdf|xls|csv|php", l, re.I):
+                    print("    link:", l, flush=True)
+    r = get("https://www.saltogrande.org/docs/hidrologia/CaudalesNiveles.pdf", name="ctm_CaudalesNiveles.pdf",
+            show=False)
+    if r is not None and r.ok:
+        try:
+            import pdfplumber
+            with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+                for pg in pdf.pages[:2]:
+                    print("    pdf:", (pg.extract_text() or "")[:1500], flush=True)
+        except Exception as e:  # noqa: BLE001
+            print("    pdf failed", e, flush=True)
+
+
+ROUND_FUNCS = {2: [("pe", peru2), ("ec", ecuador2), ("uy", uruguay2)]}
+
+
 if __name__ == "__main__":
     which = os.environ.get("ONLY", "pe,ec,uy").split(",")
-    for k, fn in [("pe", peru), ("ec", ecuador), ("uy", uruguay)]:
+    for k, fn in ROUND_FUNCS.get(ROUND, [("pe", peru), ("ec", ecuador), ("uy", uruguay)]):
         if k in which:
             try:
                 fn()
