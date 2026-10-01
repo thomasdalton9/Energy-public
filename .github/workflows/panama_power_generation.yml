@@ -1,0 +1,57 @@
+name: Panama power generation (CND)
+
+# CND 'Reporte Diario' (one .xls per day): energy delivered to the grid by type, MWh.
+# Incremental - fetches only days missing since 2021-01-01 plus the last 14.
+# The day's report is out by ~05:00 Panama time; daily at 13:20 UTC (8:20am Panama).
+on:
+  schedule:
+    - cron: "20 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: panama_power_generation
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl xlrd
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 3600 python3 south_america/PANAMA_CND_GENERATION_DAILY.py --budget-min 50 --out "output/Data and Chart Outputs/panama_power_generation_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/panama_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/panama_power_generation_daily.xlsx" || echo "chart step skipped/failed for panama_power_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/PANAMA_CND_GENERATION_DAILY.py south_america/central_america_power_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/panama_power_generation_daily.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/panama_power_generation_daily.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Panama power generation: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
