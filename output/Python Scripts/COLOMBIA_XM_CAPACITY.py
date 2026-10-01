@@ -67,6 +67,9 @@ def plant_list():
     payload = post(LISTS_URL, {"MetricId": "ListadoRecursos", "Entity": "Sistema"})
     rows = [e.get("Values", {}) for it in payload.get("Items", []) for e in it.get("ListEntities", [])]
     df = pd.DataFrame(rows)
+    for col in ["Code", "Name", "Type", "EnerSource", "Disp", "RecType", "OperStartdate", "State"]:
+        if col not in df:
+            df[col] = None
     df = df[df["Code"].notna()].drop_duplicates("Code").set_index("Code")
     df["EnerSource"] = df["EnerSource"].fillna("").astype(str).str.strip().str.upper()
     print(f"  {len(df):,} resources in XM's plant list", flush=True)
@@ -149,13 +152,26 @@ def main():
                        if fuel_of[c] == "Other"})
     if unmapped:
         print(f"  counted as Other: {unmapped}", flush=True)
-    by_fuel = by_plant.T.groupby(pd.Series(fuel_of)).sum().T
+    # XM stopped reporting CapEfecNeta for plants in test operation (State PRUEBAS) on 2025-03-02: ~50 solar
+    # plants (~0.6 GW) that keep generating vanish from the metric. A plant still in XM's current plant list keeps
+    # its last reported capacity until XM reports it again (raw values stay in 'By plant monthly').
+    listed = [c for c in by_plant.columns if c in plants.index]
+    filled = by_plant.copy()
+    filled[listed] = filled[listed].ffill()
+    carried = (filled.fillna(0) - by_plant.fillna(0)).clip(lower=0)
+    carried_by_fuel = carried.T.groupby(pd.Series(fuel_of)).sum().T.round(1)
+    carried_by_fuel = carried_by_fuel.loc[:, carried_by_fuel.ne(0).any()]
+    carried_by_fuel.index.name = "date"
+    print(f"  carried forward (in XM's plant list, missing from CapEfecNeta): "
+          f"{carried.iloc[-1].sum():,.0f} MW in {carried.index[-1]:%Y-%m} "
+          f"({(carried.iloc[-1] > 0).sum()} plants)", flush=True)
+    by_fuel = filled.T.groupby(pd.Series(fuel_of)).sum().T
     monthly = std.standard(by_fuel)
 
-    by_label = by_plant.T.groupby(pd.Series({c: plants["EnerSource"].get(c, "(not listed)") for c in by_plant.columns})
+    by_label = filled.T.groupby(pd.Series({c: plants["EnerSource"].get(c, "(not listed)") for c in by_plant.columns})
                                   ).sum().T.round(1)
     by_label.index.name = "date"
-    latest = by_plant.iloc[-1].dropna()
+    latest = filled.iloc[-1].dropna()
     latest = latest[latest > 0]
     plant_tab = pd.DataFrame({
         "name": [plants["Name"].get(c) for c in latest.index],
@@ -166,6 +182,8 @@ def main():
         "class": [plants["RecType"].get(c) for c in latest.index],
         "start": [plants["OperStartdate"].get(c) for c in latest.index],
         "capacity_MW": latest.round(3).values,
+        "carried_forward": ["yes" if carried.iloc[-1].get(c, 0) > 0 else "" for c in latest.index],
+        "xm_state": [plants["State"].get(c) for c in latest.index],
     }, index=pd.Index(latest.index, name="code")).sort_values(["fuel", "capacity_MW"], ascending=[True, False])
     check = std.ember_check("Colombia", monthly)
     if not check.empty:
@@ -194,17 +212,28 @@ def main():
         "Solar_MW = RAD SOLAR. Bioenergy_MW = BAGAZO, BIOGAS, BIOMASA. Nuclear_MW = 0.",
         "Other_MW = plants whose code is missing from XM's plant list (unclassified); Colombia reports no geothermal "
         "or storage capacity in this metric. Total_MW = sum of the fuel columns.",
-        "Dual-fuel thermal plants are counted under the fuel XM lists for them (e.g. gas plants that can burn "
-        "liquids stay in Gas_MW).",
+        "Dual-fuel thermal plants are counted under the fuel XM lists for them: XM lists the TermoSierra, TermoValle and "
+        "TermoEmcali combined cycles (~0.9 GW, able to burn natural gas) under ACPM, so they are in Oil_MW.",
+        "",
+        "CARRIED FORWARD",
+        "From 2 Mar 2025 XM no longer reports CapEfecNeta for plants in test operation (State 'PRUEBAS'); about 50 "
+        "solar plants (~0.6 GW, e.g. Celsia Solar La Victoria, Trina-Vatia BSL I-III, La Sierpe) disappeared from the "
+        "metric although they keep generating. A plant still in XM's current plant list keeps its last reported "
+        "capacity until XM reports it again (sheet 'Carried forward' gives the MW by fuel; 'By plant monthly' keeps the "
+        "raw XM values). Plants that entered test operation after that date and have never had a CapEfecNeta value "
+        "are not counted.",
         "",
         "SHEETS",
         "Monthly: standard capacity table. By XM fuel: the same month-end MW by XM's own fuel label. By plant monthly: "
-        "MW per plant code per month (the incremental archive). Latest by plant: plant detail for the last month. "
+        "raw XM MW per plant code per month (the incremental archive). Carried forward: MW added by the rule above. "
+        "Latest by plant: plant detail for the last month. "
         "Ember check: this table's December value against Ember's yearly capacity (GW, % difference).",
     ]
-    std.write(args.out, monthly, {"By XM fuel": by_label, "Latest by plant": plant_tab,
-                                  "By plant monthly": by_plant.round(3), "Ember check": check},
-              notes, {"UNITS", "COVERAGE", "SOURCE", "MAPPING (XM EnerSource -> column)", "SHEETS"})
+    std.write(args.out, monthly, {"By XM fuel": by_label, "Carried forward": carried_by_fuel,
+                                  "Latest by plant": plant_tab, "By plant monthly": by_plant.round(3),
+                                  "Ember check": check},
+              notes, {"UNITS", "COVERAGE", "SOURCE", "MAPPING (XM EnerSource -> column)", "CARRIED FORWARD",
+                      "SHEETS"})
 
 
 if __name__ == "__main__":
