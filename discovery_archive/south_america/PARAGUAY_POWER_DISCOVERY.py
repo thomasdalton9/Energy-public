@@ -348,7 +348,7 @@ def wpsearch(base, query, pages=10):
         items = r.json()
         for it in items:
             body = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", it["content"]["rendered"]))
-            print(f"  {it['date'][:10]} {it['title']['rendered'][:80]} | {it['link']}\n      {body[:400]}")
+            print(f"  {it['date'][:10]} {it['title']['rendered'][:80]} | {it['link']}\n      {body[:int(os.environ.get('WPLEN', 400))]}")
         if len(items) < 100:
             break
 

@@ -26,6 +26,6 @@ jobs:
       - name: Probe
         env:
           PYTHONUNBUFFERED: "1"
+          WPLEN: "1600"
         run: |
-          echo | openssl s_client -connect www.eby.org.ar:443 -servername www.eby.org.ar 2>&1 | grep -E 'verify|depth|s:|i:|NotAfter' | head -20 || true
           timeout 2200 python3 discovery_archive/south_america/PARAGUAY_POWER_DISCOVERY.py ${{ github.event.inputs.args }}
