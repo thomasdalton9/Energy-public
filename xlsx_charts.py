@@ -39,6 +39,16 @@ def _fold_to_palette(df):
     return out
 
 
+def rotated_labels(axis, degrees=-45):
+    """Category-axis tick labels at a fixed angle (Excel and LibreOffice otherwise pick their own), so every chart's
+    date axis looks the same."""
+    from openpyxl.chart.text import RichText
+    from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties, RichTextProperties
+    axis.txPr = RichText(bodyPr=RichTextProperties(rot=int(degrees * 60000), vert="horz"),
+                         p=[Paragraph(pPr=ParagraphProperties(defRPr=CharacterProperties()),
+                                      endParaRPr=CharacterProperties())])
+
+
 def tidy_layout(chart, gridlines=True, inner=None):
     """Excel-safe layout: title, legend and axis titles never overlay the plot (openpyxl leaves <c:overlay>
     unset, which newer Excel draws on top of the plot), the category axis sits at the bottom, optional
@@ -145,6 +155,7 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
     chart.x_axis.number_format = excel_fmt
     chart.y_axis.title = y_title
     chart.x_axis.tickLblPos = "low"
+    rotated_labels(chart.x_axis)
     step = 1 if spacing <= 2 else max(1, len(df) // 12)   # daily: every (mostly blank) label is shown
     chart.x_axis.tickLblSkip = step
     chart.x_axis.tickMarkSkip = step
