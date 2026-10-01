@@ -628,7 +628,9 @@ def annual_table(co_annual, br, ar, cl, pe, ei):
     return t.dropna(subset=["Colombia_Mt", "Brazil_Mt"], how="all")
 
 
-def ei_check(annual, ei):
+def ei_check(annual, ei, exports):
+    """Our annual figures against EI, plus Colombia's full-year exports (a floor for production: EI's own
+    consumption figures put Colombian domestic use at roughly 5-8 Mt a year on top)."""
     if ei.empty:
         return pd.DataFrame()
     c = pd.DataFrame(index=ei.index)
@@ -636,6 +638,10 @@ def ei_check(annual, ei):
         c[f"{country}_ours_Mt"] = annual[f"{country}_Mt"].reindex(c.index)
         c[f"{country}_EI_Mt"] = ei.get(country)
         c[f"{country}_diff_pct"] = (c[f"{country}_ours_Mt"] / c[f"{country}_EI_Mt"] - 1) * 100
+        if country == "Colombia" and not exports.empty:
+            yr = exports.groupby(exports.index.year)
+            c["Colombia_exports_DANE_Mt"] = yr["DANE_exports_Mt"].sum(min_count=12).reindex(c.index)
+            c["Colombia_exports_HS2701_Comtrade_Mt"] = yr["Comtrade_HS2701_Mt"].sum(min_count=12).reindex(c.index)
     c["Venezuela_EI_Mt"] = ei.get("Venezuela")   # the annual table uses EI for Venezuela: nothing to compare
     small = annual[["Argentina_Mt", "Chile_Mt", "Peru_Mt"]].reindex(c.index)
     c["AR_CL_PE_ours_Mt"] = small.sum(axis=1, min_count=1)
@@ -718,7 +724,7 @@ def main():
         ve["Source"] = ei["Edition"]
 
     annual = annual_table(co_annual, br, ar, cl, pe, ei)
-    check = ei_check(annual, ei)
+    check = ei_check(annual, ei, exports)
 
     sheets = {S_CO: q, S_CO_EXP: exports, S_CO_MINE: mines, S_BR: br, S_AR: ar, S_CL: cl, S_PE: pe, S_VE: ve,
               S_ANNUAL: annual, S_EI: ei, S_CHECK: check, S_CO_RAW: raw.set_index("Year")}
@@ -765,6 +771,28 @@ def main():
         "Monthly production by department is not published: ANM's royalty data are monthly only for the large "
         "mines that liquidate monthly; small producers liquidate by quarter.",
         "",
+        "CROSS-CHECK",
+        "Checked Oct-2026 against the EI 2026 edition. Colombia vs EI: ANM is within 1.5% of EI for 2021-2023. For 2024 and 2025 ANM is 7.7% and 17% above EI "
+        "(61.9 / 56.1 Mt vs 57.5 / 47.9 Mt in the EI 2026 edition). Checked for double counting: no duplicate rows; "
+        "where one municipality has CARBON, CARBON TERMICO and CARBON METALURGICO rows in a period these are "
+        "different coals with their own royalty payments (different COP per tonne), not the same tonnes twice; each "
+        "mining title's liquidation periods do not overlap (Cerrejon's Oreganal title 081-91 is declared as CERREJON - "
+        "OREGANAL to Oct-2024 and as CDC LIMITED from Nov-2024; the CZN title changes only its spelling in Q4-2024); "
+        "the CERREJON CONTRATO DE ASOCIACION rows carry royalties with zero tonnes. EI's 2024-2025 tonnages are "
+        "below Colombia's coal exports alone (Comtrade HS 2701: 60.7 Mt in 2024, 47.8 Mt in 2025; DANE incl. coke: "
+        "64.6 / 51.5 Mt), before 5-8 Mt of domestic use, so they look like early estimates; ANM's royalty-declared "
+        "tonnes are consistent with exports + domestic use. The figures here stay on the ANM basis (coal declared "
+        "for royalties, by liquidation period).",
+        "Brazil vs EI: EPE (BEN table 2.4, 'Carvao vapor - Producao', thousand t; Brazil mines no metallurgical "
+        "coal, table 2.5 production = 0) is 16-25% below EI's Brazil tonnage every year, while EI's own energy "
+        "figures imply 13.5-15.2 GJ/t (about 3,200-3,600 kcal/kg), i.e. typical marketed Brazilian steam coal rather than "
+        "run-of-mine. EPE's tonnage is the marketed steam-coal production of the national energy balance; EI "
+        "documents only 'commercial solid fuels' and does not give its Brazil source, so the gap is a difference of "
+        "basis/source that cannot be resolved from the two publications. The workbook keeps the official EPE "
+        "figure.",
+        "Argentina + Chile + Peru vs EI 'Other S. & Cent. America': 0.20 / 0.24 / 0.40 / 0.25 / 0.31 Mt vs "
+        "0.19 / 0.25 / 0.36 / 0.29 / 0.26 Mt (2021-2025) - consistent.",
+        "",
         "SOURCE",
         f"ANM, Volumen de Explotacion de Minerales Asociados a Pagos de Regalias (datos.gov.co): {ANM_PAGE}",
         f"DANE exports (series file): {sources.get('dane') or DANE_PAGE}",
@@ -776,7 +804,7 @@ def main():
         f"Energy Institute, Statistical Review of World Energy: {EI_PAGE} (all-data xlsx read from OWID's snapshot "
         "store, https://github.com/owid/etl/tree/master/snapshots/energy_institute)",
     ]
-    titles = {"UNITS", "COVERAGE", "SOURCE"}
+    titles = {"UNITS", "COVERAGE", "CROSS-CHECK", "SOURCE"}
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, sheets, notes, titles)
     out(f"Saved {args.out}")
