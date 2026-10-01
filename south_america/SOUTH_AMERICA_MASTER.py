@@ -133,6 +133,16 @@ OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile"
              "Nicaragua": "CNDC", "Panama": "CND"}
 
 
+MIN_RAW_DAYS = 365   # a raw generation workbook replaces Ember only once it has a year of history
+
+
+def raw_history_days(path):
+    try:
+        return int(pd.read_excel(path, sheet_name="Daily", usecols=[0]).iloc[:, 0].nunique())
+    except Exception:
+        return 0
+
+
 def source_of(fname, spec_name=None):
     publisher, url = SOURCES.get(fname, (fname, None))
     if fname in EMBER and spec_name in OPERATORS:
@@ -249,7 +259,7 @@ def draw_dashboard(dash, heading, charts, index_rows, missing):
             dash.cell(row=i, column=6).font = link
     row = 5 + len(index_rows) + 1
     if missing:
-        dash.cell(row=row, column=2, value="Not available this run: " + "; ".join(missing)).font = Font(color="E34948")
+        dash.cell(row=row, column=2, value="Not available / notes this run: " + "; ".join(missing)).font = Font(color="E34948")
         row += 1
     for col, w in (("B", 12), ("C", 48), ("D", 9), ("E", 24), ("F", 52)):
         dash.column_dimensions[col].width = w
@@ -278,14 +288,26 @@ def main():
     sources = []
 
     gas = collect(wb, DATASETS, args.data_dir, used, sources)
-    raw_power = [d for d in RAW_POWER_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))]
+    raw_power, building = [], []
+    for d in RAW_POWER_DATASETS:
+        path = os.path.join(args.data_dir, d[2])
+        if not os.path.exists(path):
+            continue
+        days = raw_history_days(path)
+        if days >= MIN_RAW_DAYS:
+            raw_power.append(d)
+        else:  # e.g. a source with no archive that only grows a day at a time: keep Ember until it has a year
+            building.append(f"{d[1]} raw feed has {days} days so far - Ember shown until it has {MIN_RAW_DAYS}")
     have_raw = {d[1] for d in raw_power}
     print(f"power by type: raw operator data for {sorted(have_raw) or 'none'}; Ember for the rest")
+    for b in building:
+        print(b)
     parts = [collect(wb, raw_power, args.data_dir, used, sources),
              *(collect(wb, [(code, region, f, "*", "power")], args.data_dir, used, sources, skip=have_raw)
                for code, region, f in EMBER_FILES),
              collect(wb, HYDRO_DATASETS, args.data_dir, used, sources)]
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
+    power[2].extend(building)
     draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
     draw_dashboard(dash2, "South & Central America energy - power generation & hydro", *power)
 
