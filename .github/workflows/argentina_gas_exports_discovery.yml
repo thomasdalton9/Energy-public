@@ -1,0 +1,20 @@
+name: Argentina gas exports discovery
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl xlrd
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 840 python3 discovery_archive/south_america/ARGENTINA_GAS_EXPORTS_DISCOVERY.py
