@@ -51,6 +51,7 @@ DATASETS = [
     ("CL", "Chile", "chile_gas_imports.xlsx", "Gas imports", "gas imports"),
     ("CO", "Colombia", "colombia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("EC", "Ecuador", "ecuador_gas.xlsx", "Gas by use", "gas"),
+    ("PE", "Peru", "peru_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
 ]
@@ -79,6 +80,7 @@ RAW_POWER_DATASETS = [
     ("PA", "Panama", "panama_power_generation_daily.xlsx", "Daily", "power"),
 ]
 HYDRO_DATASETS = [
+    ("AR", "Argentina", "argentina_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("BR", "Brazil", "brazil_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("CO", "Colombia", "colombia_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
@@ -99,8 +101,8 @@ MASTER_SPECS = {"gatun_lake_level.xlsx": gatun}
 SOURCES = {
     "argentina_gas_monthly.xlsx": ("Secretaría de Energía (Argentina), Series de Tiempo API",
                                    "https://datos.gob.ar/series/api/series/"),
-    "brazil_gas_monthly.xlsx": ("MME Brazil, monthly gas bulletin",
-                                "https://www.gov.br/mme/pt-br/assuntos/secretarias/petroleo-gas-natural-e-biocombustiveis/publicacoes-1/boletim-mensal-de-acompanhamento-da-industria-de-gas-natural"),
+    "brazil_gas_monthly.xlsx": ("MME Brazil gas bulletin (segments, to Jun-2025); ANP open data (pipeline flows, production, imports)",
+                                "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/dados-consolidados-movimentacao-de-gas-natural-em-gasodutos-de-transporte"),
     "bolivia_gas_demand_by_sector.xlsx": ("INE Bolivia",
                                           "https://www.ine.gob.bo/index.php/estadisticas-economicas/hidrocarburos-mineria/hidrocarburo-cuadros-estadisticos/"),
     "chile_gas_imports.xlsx": ("CNE Chile, Reporte Mensual (customs data)", "https://www.cne.cl/nuestros-servicios/reportes/"),
@@ -109,6 +111,8 @@ SOURCES = {
     "trinidad_gas.xlsx": ("Ministry of Energy and Energy Industries (MEEI), monthly bulletins",
                           "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"),
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
+    "peru_gas_demand_by_sector.xlsx": ("MINEM Peru (DGH), Informes Estadisticos Upstream - Downstream",
+                                       "https://www.gob.pe/institucion/minem/colecciones/17643-informes-estadisticos-upstream-downstream"),
     "argentina_power_generation_daily.xlsx": ("CAMMESA", "https://cammesaweb.cammesa.com/"),
     "bolivia_power_generation_daily.xlsx": ("CNDC Bolivia", "https://www.cndc.bo/"),
     "brazil_power_generation_daily.xlsx": ("ONS Brazil open data", "https://dados.ons.org.br/"),
@@ -118,6 +122,8 @@ SOURCES = {
     "uruguay_power_generation_daily.xlsx": ("ADME Uruguay", "https://pronos.adme.com.uy/"),
     "brazil_hydro_reservoirs.xlsx": ("ONS Brazil open data (EAR)", "https://dados.ons.org.br/dataset/ear-diario-por-subsistema"),
     "colombia_hydro_reservoirs.xlsx": ("XM Colombia", "https://www.xm.com.co/"),
+    "argentina_hydro_reservoirs.xlsx": ("CAMMESA (daily lake levels and river flows, weekly programme), AIC, INA",
+                                        "https://cammesaweb.cammesa.com/download/cotas-diarias/"),
     "belize_power_generation_daily.xlsx": ("Belize Electricity Ltd (BEL)", "https://www.bel.com.bz/"),
     "costa_rica_power_generation_daily.xlsx": ("ICE / CENCE Costa Rica", "https://apps.grupoice.com/CenceWeb/"),
     "el_salvador_power_generation_daily.xlsx": ("Unidad de Transacciones (UT) El Salvador", "https://www.ut.com.sv/"),
