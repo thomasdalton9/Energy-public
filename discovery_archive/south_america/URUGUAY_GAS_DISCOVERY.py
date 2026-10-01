@@ -2,20 +2,18 @@
 One-off probe: what Uruguay natural gas demand data (by sector / tariff) is
 downloadable, and in what layout.
 
-Candidates:
-  - MIEM / DNE 'Series estadisticas de gas natural' (billing by tariff per
-    distributor, customers by tariff, prices, imports) on gub.uy
-  - MIEM discontinued series page
-  - catalogodatos.gub.uy (CKAN open data) - search 'gas natural'
-  - ben.miem.gub.uy (Balance Energetico Nacional) - annual by sector
-  - URSEA statistics pages
-Lists links on each page, downloads spreadsheet/zip files and dumps every
-sheet's shape, first rows and last rows. Runs in GitHub Actions only.
+Round 1 (pages + CKAN): catalogodatos.gub.uy has nothing for 'gas natural';
+ben.miem.gub.uy no longer resolves; the URSEA statistics page has no gas
+files. The MIEM 'Series estadisticas de gas natural' page offers one zip
+of all attachments (download/node/field_documento/3815) plus a monthly
+visualiser (visualpeb.miem.gub.uy/visualPEB/gas_natural).
+
+Round 2 (this version): download and dump the MIEM zips, look at the
+visualPEB page / scripts, and list BEN (balance) links on the MIEM data
+pages. Runs in GitHub Actions only.
 """
 import io
-import json
 import re
-import sys
 import zipfile
 from urllib.parse import urljoin
 
@@ -26,17 +24,18 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (10, 60)
 pd.set_option("display.width", 250)
 pd.set_option("display.max_columns", 30)
-pd.set_option("display.max_colwidth", 40)
+pd.set_option("display.max_colwidth", 32)
 
+ZIPS = [
+    "https://www.gub.uy/ministerio-industria-energia-mineria/download/node/field_documento/3815",  # gas series
+    "https://www.gub.uy/ministerio-industria-energia-mineria/download/node/field_documento/3876",  # discontinued
+]
 PAGES = [
-    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/estadisticas/series-estadisticas-gas-natural",
-    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos/series-estadisticas-gas-natural",
-    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/estadisticas/series-estadisticas-discontinuadas",
-    "https://ben.miem.gub.uy/",
-    "https://ben.miem.gub.uy/descargas.php",
-    "https://ben.miem.gub.uy/series.php",
-    "https://www.gub.uy/unidad-reguladora-servicios-energia-agua/datos-y-estadisticas",
-    "https://www.gub.uy/unidad-reguladora-servicios-energia-agua/datos-y-estadisticas/estadisticas",
+    "https://visualpeb.miem.gub.uy/visualPEB/gas_natural",
+    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos",
+    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos-abiertos",
+    "https://www.gub.uy/ministerio-industria-energia-mineria/tematica/planificacion-estadistica-balance",
+    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/estadisticas",
 ]
 FILE_RE = re.compile(r"\.(zip|xlsx|xls|csv|ods)(\?|$)", re.I)
 seen = set()
@@ -71,9 +70,9 @@ def dump_sheets(content, name):
     for sn, raw in sheets.items():
         raw = raw.dropna(how="all").dropna(axis=1, how="all")
         out(f"  === {name} :: sheet {sn!r} shape {raw.shape}")
-        out(raw.head(22).iloc[:, :16].to_string())
+        out(raw.head(25).iloc[:, :15].to_string())
         out("  ... last rows:")
-        out(raw.tail(6).iloc[:, :16].to_string())
+        out(raw.tail(6).iloc[:, :15].to_string())
 
 
 def handle_file(url, label=""):
@@ -85,7 +84,7 @@ def handle_file(url, label=""):
     if r is None or r.status_code != 200:
         return
     c = r.content
-    if c[:2] == b"PK" and (url.lower().split("?")[0].endswith(".zip") or b"xl/" not in c[:2000]):
+    if c[:2] == b"PK":
         try:
             z = zipfile.ZipFile(io.BytesIO(c))
             names = z.namelist()
@@ -110,41 +109,27 @@ def links(html, base):
     return res
 
 
-def ckan():
-    for base in ["https://catalogodatos.gub.uy/api/3/action/package_search"]:
-        for q in ["gas natural", "gas natural miem", "balance energetico"]:
-            r = get(base, params={"q": q, "rows": 30})
-            if r is None or r.status_code != 200:
-                continue
-            try:
-                res = r.json()["result"]["results"]
-            except Exception as e:
-                out(f"  bad json: {e} {r.text[:300]}")
-                continue
-            for p in res:
-                out(f"  PKG {p.get('name')} | {p.get('title')} | org={p.get('organization', {}).get('name')}")
-                for rs in p.get("resources", []):
-                    out(f"      RES {rs.get('format')} | {rs.get('name')} | {rs.get('url')} | mod={rs.get('last_modified') or rs.get('created')}")
-
-
 def main():
-    out("########## CKAN catalogodatos.gub.uy")
-    ckan()
+    for z in ZIPS:
+        handle_file(z, "zip")
     for page in PAGES:
         out(f"\n########## PAGE {page}")
         r = get(page)
         if r is None or r.status_code != 200:
             continue
+        if "visualpeb" in page:
+            out(r.text[:3000])
+            for src in re.findall(r'<script[^>]+src="([^"]+)"', r.text, re.I):
+                js = get(urljoin(page, src))
+                if js is not None:
+                    found = sorted(set(re.findall(r"[\"'](/?(?:api|data|visualPEB|static)[^\"']{2,120})[\"']", js.text)))
+                    out(f"  script {src}: urls {found[:60]}")
         ls = links(r.text, page)
-        interesting = [(u, t) for u, t in ls if FILE_RE.search(u) or re.search(
-            r"gas|tarifa|factur|import|balance|serie|descarg|estad|consumo|power ?bi|tablero|visualiz", u + " " + t, re.I)]
-        for u, t in interesting:
-            out(f"  LINK {t[:90]!r} -> {u}")
+        for u, t in ls:
+            if FILE_RE.search(u) or re.search(r"gas|balance|serie|consumo|visualiz|sector|energ", u + " " + t, re.I):
+                out(f"  LINK {t[:90]!r} -> {u}")
         iframes = re.findall(r'<iframe[^>]+src="([^"]+)"', r.text, re.I)
         out(f"  iframes: {iframes}")
-        for u, t in ls:
-            if FILE_RE.search(u) and re.search(r"gas|GN|factur|tarif|import|client|precio|ben|serie", u + t, re.I):
-                handle_file(u, t)
 
 
 if __name__ == "__main__":
