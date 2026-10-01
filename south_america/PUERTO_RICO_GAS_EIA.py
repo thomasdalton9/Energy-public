@@ -47,6 +47,24 @@ START = "2021-01"
 REFRESH_MONTHS = 6
 M3_PER_MCF = 28.3168466
 PENUELAS = re.compile(r"eco\s*el|costa\s*sur", re.I)
+# Gas burned by use: the four PREPA / Genera PR and IPP gas power stations, other utility units
+# (temporary TM2500s etc.), and everything else = industrial combined heat & power (pharma plants)
+GROUPS = ["Power_EcoElectrica", "Power_Costa_Sur", "Power_San_Juan", "Power_Palo_Seco_and_other_utility",
+          "Industrial_CHP"]
+UTILITY = re.compile(r"palo seco|aguirre|mayag|cambalache|daguao|vega baja|jobos|yabucoa|culebra|vieques|"
+                     r"tm ?2500|temporary|genera|prepa|peaker", re.I)
+
+
+def group_of(plant):
+    if re.search(r"eco\s*el", plant, re.I):
+        return "Power_EcoElectrica"
+    if re.search(r"costa\s*sur", plant, re.I):
+        return "Power_Costa_Sur"
+    if re.search(r"san\s*juan", plant, re.I):
+        return "Power_San_Juan"
+    if UTILITY.search(plant):
+        return "Power_Palo_Seco_and_other_utility"
+    return "Industrial_CHP"
 
 
 def fetch(start):
@@ -80,19 +98,22 @@ def build(raw):
     mcf = raw.pivot_table(index="date", columns="plant", values="total-consumption", aggfunc="sum")
     mmbtu = raw.pivot_table(index="date", columns="plant", values="total-consumption-btu", aggfunc="sum")
     mcf = mcf.loc[:, mcf.fillna(0).abs().sum() > 0]
+    groups = {g: [p for p in mcf.columns if group_of(p) == g] for g in GROUPS}
     days = mcf.index.days_in_month
+    to_mcmd = lambda s: s * M3_PER_MCF / 1e6 / days  # noqa: E731
     use = pd.DataFrame(index=mcf.index)
-    for p in mcf.columns:
-        use[f"{p}_mcm_per_day"] = mcf[p] * M3_PER_MCF / 1e6 / days
+    for g in GROUPS:
+        use[f"{g}_mcm_per_day"] = to_mcmd(mcf[groups[g]].sum(axis=1, min_count=1)) if groups[g] else 0.0
     pen = [p for p in mcf.columns if PENUELAS.search(p)]
-    sj = [p for p in mcf.columns if p not in pen]
-    use["Penuelas_terminal_mcm_per_day"] = mcf[pen].sum(axis=1, min_count=1) * M3_PER_MCF / 1e6 / days
-    use["San_Juan_terminal_mcm_per_day"] = mcf[sj].sum(axis=1, min_count=1) * M3_PER_MCF / 1e6 / days
-    use["Total_mcm_per_day"] = mcf.sum(axis=1, min_count=1) * M3_PER_MCF / 1e6 / days
+    use["Penuelas_terminal_mcm_per_day"] = to_mcmd(mcf[pen].sum(axis=1, min_count=1))
+    use["San_Juan_terminal_mcm_per_day"] = to_mcmd(mcf[[p for p in mcf.columns if p not in pen]].sum(axis=1, min_count=1))
+    use["Total_mcm_per_day"] = to_mcmd(mcf.sum(axis=1, min_count=1))
     use["Total_Mcf_per_month"] = mcf.sum(axis=1, min_count=1)
     use["Total_MMBtu_per_month"] = mmbtu.reindex(index=mcf.index).sum(axis=1, min_count=1)
+    for g in GROUPS:
+        use[f"{g}_Mcf_per_month"] = mcf[groups[g]].sum(axis=1, min_count=1) if groups[g] else 0.0
     for p in mcf.columns:
-        use[f"{p}_Mcf_per_month"] = mcf[p]
+        use[f"Plant {p}_Mcf_per_month"] = mcf[p]
     use.index.name = "Month"
     return use.round(4)
 
@@ -116,18 +137,23 @@ def notes(d):
         "COVERAGE",
         f"{d.index.min():%b-%Y} to {d.index.max():%b-%Y} ({len(d)} months). EIA-923 is published about two months "
         "after month end.",
-        "Covers gas burned in power plants, which is almost all Puerto Rico gas use. Puerto Rico LNG imports are not "
-        "published by EIA (or anyone official, monthly); the terminal groups below are the send-out implied by plant burn.",
+        "Covers gas burned in every EIA-923 plant: the power stations (almost all Puerto Rico gas use) and the "
+        "industrial combined heat & power plants (pharmaceutical sites) that report to EIA. Puerto Rico LNG imports "
+        "are not published by EIA (or anyone official, monthly); the terminal groups below are the send-out implied "
+        "by plant burn.",
         "",
         "SOURCE",
         "EIA API v2 electricity/facility-fuel (EIA-923 plant fuel consumption), state PR, fuel NG: " + URL,
         "Browse: https://www.eia.gov/electricity/data/browser/ (Plant level data, Puerto Rico)",
         "",
         "MAPPING",
+        "Power_EcoElectrica: EcoEléctrica CCGT (independent producer, Penuelas). Power_Costa_Sur: Costa Sur 5&6. "
+        "Power_San_Juan: Central San Juan 5&6. Power_Palo_Seco_and_other_utility: Palo Seco temporary TM2500 units "
+        "and any other PREPA / Genera PR site. Industrial_CHP: every other plant (AbbVie, Baxter, Lilly, Stryker, "
+        "HP, Neolpharma, ...). 'Plant <name>' columns: each plant's own Mcf per month.",
         "Penuelas_terminal = EcoEléctrica + Costa Sur (both fed from the EcoEléctrica LNG terminal at Penuelas). "
-        "San_Juan_terminal = every other gas-burning plant (Central San Juan 5&6, Palo Seco temporary units and any "
-        "other units New Fortress Energy's San Juan terminal supplies).",
-        "EcoEléctrica is an independent producer (EIA sector Industrial CHP); the others are PREPA / Genera PR units.",
+        "San_Juan_terminal = every other plant (New Fortress Energy's San Juan terminal, by pipeline or trucked "
+        "ISO containers).",
     ]
 
 
@@ -139,6 +165,8 @@ def main():
     if not API_KEY:
         sys.exit("EIA_API_KEY is not set")
     old = load(args.out)
+    if not old.empty and "Industrial_CHP_mcm_per_day" not in old.columns:
+        old = pd.DataFrame()   # saved with an older column layout: rebuild from 2021
     start = START
     if not args.full and not old.empty:
         start = max(pd.Timestamp(START), old.index.max() - pd.DateOffset(months=REFRESH_MONTHS)).strftime("%Y-%m")
@@ -153,7 +181,8 @@ def main():
     d = new if old.empty else pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
     d = d[d.index >= pd.Timestamp(START)]
     lead = [c for c in d.columns if c.endswith("_mcm_per_day")]
-    d = d[[*lead, *[c for c in d.columns if c not in lead]]]
+    plants = sorted(c for c in d.columns if c.startswith("Plant "))
+    d = d[[*lead, *[c for c in d.columns if c not in lead and c not in plants], *plants]]
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Gas use": d}, notes(d), {"UNITS", "COVERAGE", "SOURCE", "MAPPING"})
     print(f"Saved {args.out}: {len(d)} months")
