@@ -92,7 +92,8 @@ NOTES = [
     "Each month appears after it closes, so for the latest weeks the sheet uses CNDC's real-time generation "
     "by technology (https://www.cndc.bo/wp-json/cndc/v1/rt/generacion?fecha=, available from Jan-2025), "
     "replaced by the monthly figures once published. Sheet 'Source' says which one each day uses; 'By plant' "
-    "has the monthly workbooks' plant columns.",
+    "has the monthly workbooks' plant columns (CNDC's own TOTAL / P. MAXIMA columns, where a workbook has them, "
+    "are kept there as a check and not counted).",
     "History from 2021-01-01. Updated daily by GitHub Actions (bolivia_power_generation_daily.yml): "
     "only monthly workbooks with missing days (plus the latest two) and real-time days not yet covered are "
     "downloaded.",
@@ -125,7 +126,15 @@ def plant_fuel(col):
     return PLANT_FUEL.get(base)
 
 
+def not_a_plant(col):
+    """CNDC's own TOTAL and peak-power (P. MAXIMA, MW) columns, and blank headers - older workbooks have them
+    in other positions, so parse_gen_dia() can keep them; they stay in 'By plant' as a check only."""
+    name = str(col).strip().upper()
+    return name.startswith("TOTAL") or name.startswith("P. M") or name in ("", "NONE", "NAN")
+
+
 def plants_to_fuels(by_plant):
+    by_plant = by_plant[[c for c in by_plant.columns if not not_a_plant(c)]]
     unknown = [c for c in by_plant.columns if plant_fuel(c) is None]
     if unknown:
         print(f"  WARNING: plants not in PLANT_FUEL (-> Other): {unknown}", flush=True)
@@ -180,8 +189,8 @@ def main():
             frame = B.parse_gen_dia(r.content)
             frame = frame[(frame.index >= pd.Timestamp(first)) & (frame.index <= pd.Timestamp(days[-1]))]
             fresh.append(frame)
-            print(f"  gen_dia {period}: {len(frame)} days, {frame.apply(pd.to_numeric, errors='coerce').sum().sum():,.0f} MWh",
-                  flush=True)
+            plants = frame[[c for c in frame.columns if not not_a_plant(c)]].apply(pd.to_numeric, errors="coerce")
+            print(f"  gen_dia {period}: {len(frame)} days, {plants.sum().sum():,.0f} MWh", flush=True)
         except Exception as e:  # noqa: BLE001 - keep going, the month is retried next run
             print(f"  gen_dia {period}: FAILED ({type(e).__name__}: {e})", flush=True)
         time.sleep(0.3)
