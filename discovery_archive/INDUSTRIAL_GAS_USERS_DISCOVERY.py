@@ -137,24 +137,21 @@ def url(urls):
             print(f"## {u}: {e}")
 
 
-WIKI = re.compile(r"(coordinates?[^A-Za-z]{0,60}|-?\d{1,2}\.\d{2,}, ?-?\d{1,3}\.\d{2,}|(?:owner|operator|parent|status|"
-                  r"start date|closed|capacity|production|location)[^|]{0,180})", re.I)
-
-
 def wiki(urls):
+    """One compact line per GEM wiki plant page: location, coordinates, owner, capacity rows."""
     for u in urls:
         try:
             r = get(u)
-            t = text_of(r.text)
-            print(f"## {u}: HTTP {r.status_code}")
-            seen = set()
-            for m in WIKI.finditer(t):
-                s = m.group(0).strip()[:200]
-                if s[:60] not in seen:
-                    seen.add(s[:60])
-                    print("   >", s)
-                if len(seen) > 40:
-                    break
+            t = text_of(r.text).replace("&#91;", "[").replace("&#93;", "]")
+            t = re.sub(r"\[\s*\d+\s*\]", "", t)
+            loc = re.search(r"Location: (.{0,110}?) Coordinates", t)
+            xy = re.search(r"(-?\d{1,2}\.\d{4,}), ?(-?\d{1,3}\.\d{4,})", t)
+            own = re.search(r"Owner GEM entity ID (.{0,90}?\])", t)
+            caps = re.findall(r"Nominal (?:iron|crude steel|cement|clinker)[^()]{0,30}capacity \(total\) (\w+) ([\d.,]+)", t)
+            caps += re.findall(r"((?:Cement|Clinker) capacity[^.]{0,80})", t)[:3]
+            fuel = re.findall(r"(syngas \(reformed methane\)|natural gas|coal)", t)[:3]
+            print(f"## {u} [{r.status_code}] loc={loc.group(1) if loc else ''} | xy={xy.groups() if xy else ''} | "
+                  f"owner={own.group(1) if own else ''} | cap={caps} | fuel={sorted(set(fuel))}")
         except Exception as e:  # noqa: BLE001
             print(f"## {u}: {e}")
 

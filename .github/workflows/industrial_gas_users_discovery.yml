@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber
+        run: pip install -q requests pandas openpyxl xlrd pdfplumber
       - name: Run discovery
         env:
           MODE: ${{ inputs.mode }}
