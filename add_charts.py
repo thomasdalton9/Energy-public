@@ -451,6 +451,24 @@ def power_annual(title):
     return f
 
 
+def paraguay_power(p):
+    """PARAGUAY_POWER.py: Paraguay's 50% share of Itaipu + Yacyreta by month (standard 'Daily' layout, monthly
+    rows), then where that energy went: Paraguay's own use vs the shares ceded to Brazil and Argentina."""
+    out = power_daily("Paraguay power generation by type (ANDE / Itaipu / Yacyreta)")(p)
+    try:
+        e = by_date(read(p, "Exports"), "date")
+    except Exception:  # noqa: BLE001
+        return out
+    e = e[e.index >= "2021-01-01"]
+    g = pd.DataFrame({"Paraguay's own use (ANDE)": e.get("Paraguay_consumption_GWh"),
+                      "Itaipu ceded to Brazil": e.get("Itaipu_to_Brazil_GWh"),
+                      "Yacyreta ceded to Argentina": e.get("Yacyreta_to_Argentina_GWh"),
+                      "Paraguay's 50% share of generation": e.get("Total_generation_share_GWh")})
+    out.append(spec("Domestic vs exports", g, "Paraguay hydro: domestic use vs exports", "GWh per month",
+                    "stacked_bar", line_cols=("Paraguay's 50% share of generation",)))
+    return out
+
+
 def jamaica_gas(p):
     d = by_date(read(p, "Gas use"), "Month")
     return [spec("Use", d[["Total_mcm_per_day"]].rename(columns={"Total_mcm_per_day": "Natural gas, all uses"}),
@@ -1047,6 +1065,8 @@ REGISTRY = {
     "dominican_republic_power_generation_daily.xlsx": power_daily("Dominican Republic power generation by type (OC-SENI)"),
     "puerto_rico_gas.xlsx": gas_use("Puerto Rico gas use"),
     "jamaica_power_generation_daily.xlsx": power_annual("Jamaica power generation by type (MSET / JPS, annual)"),
+    # Paraguay: monthly rows (first of month); second chart = own use vs energy ceded to Brazil / Argentina
+    "paraguay_power_generation_daily.xlsx": paraguay_power,
     "jamaica_gas.xlsx": jamaica_gas,
     "dominican_republic_gas.xlsx": gas_use("Dominican Republic gas use (gas burned for power, SIE)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
@@ -1101,6 +1121,7 @@ REGISTRY = {
     "bolivia_power_capacity.xlsx": power_capacity("Bolivia installed generation capacity (CNDC)"),
     "ecuador_power_capacity.xlsx": power_capacity("Ecuador installed generation capacity (ARCONEL)"),
     "peru_power_capacity.xlsx": power_capacity("Peru installed generation capacity (COES)"),
+    "paraguay_power_capacity.xlsx": power_capacity("Paraguay installed generation capacity (ANDE)"),
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
