@@ -314,17 +314,22 @@ def colombia(p):
     return out
 
 
+MMBTU_PER_MCM = 36374.0   # MMBtu per million m3 at 1,030 Btu/cf (gross); used to show gas in mcm/d
+
+
 def panama_gas(p):
     d = by_date(read(p, "Gas use"), "Month")
     g = pd.DataFrame({"Gas use, estimate (CND gas-fired MWh x 7.0 MMBtu/MWh)": d.get("Gas_use_MMBtu_per_day_est")})
-    return [spec("Use", g, "Panama LNG use for power (estimate from CND gas generation)", "MMBtu/day", "stacked_bar")]
+    return [spec("Use", g / MMBTU_PER_MCM, "Panama LNG use for power (estimate from CND gas generation)",
+                 "mcm/d (1,030 Btu/cf)", "stacked_bar")]
 
 
 def ecuador(p):
     d = by_date(read(p, "Gas by use"), "Month")
     g = pd.DataFrame({"Power (Machala)": d.get("Power_MMBtu_per_day"),
                       "Industry (Bajo Alto LNG)": d.get("Industrial_LNG_MMBtu_per_day")})
-    out = [spec("Use", g, "Ecuador domestic gas (Amistad) by use", "MMBtu/day", "stacked_bar")]
+    out = [spec("Use", g / MMBTU_PER_MCM, "Ecuador domestic gas (Amistad) by use", "mcm/d (1,030 Btu/cf)",
+                "stacked_bar")]
     try:
         t = by_date(read(p, "Total demand"), "Month")
     except ValueError:  # workbook from before the total-demand sheet
@@ -334,14 +339,16 @@ def ecuador(p):
                        "Imports - power": t.get("Imports_power_MMBtu_per_day"),
                        "Imports - industry (LNG, customs)": t.get("Imports_industry_MMBtu_per_day")})
     td = td.loc[:, td.fillna(0).ne(0).any()]  # no imports for power so far: leave out an all-zero series
-    out.append(spec("Total demand", td, "Ecuador gas demand: domestic + imports", "MMBtu/day", "stacked_bar"))
+    out.append(spec("Total demand", td / MMBTU_PER_MCM, "Ecuador gas demand: domestic + imports",
+                    "mcm/d (1,030 Btu/cf)", "stacked_bar"))
     return out
 
 
 def el_salvador_gas(p):
     d = by_date(read(p, "Gas use"), "Month")
     g = pd.DataFrame({"Power (Energia del Pacifico, estimate)": d.get("Gas_use_MMBtu_per_day")})
-    return [spec("Use", g, "El Salvador gas use for power (estimate)", "MMBtu/day", "stacked_bar")]
+    return [spec("Use", g / MMBTU_PER_MCM, "El Salvador gas use for power (estimate)", "mcm/d (1,030 Btu/cf)",
+                 "stacked_bar")]
 
 
 def trinidad(p):
