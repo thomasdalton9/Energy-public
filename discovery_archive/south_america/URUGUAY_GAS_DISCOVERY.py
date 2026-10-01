@@ -79,8 +79,26 @@ def walk_zip(content, prefix=""):
             out(f"    (not excel: {e}) head: {data[:300]!r}")
 
 
+ROUND4 = [  # visualPEB form actions (round 4): annual gas flows by sector and BEN consumption by source/sector
+    "gnFlujosSectores?anio=2025&unidades=m%C2%B3",
+    "gnFlujosSectores?anio=2021&unidades=m%C2%B3",
+    "gnFlujos?anio=2025&unidades=m%C2%B3",
+    "gnParticipacion?anio=2025&unidades=m%C2%B3",
+    "benConsumoPorFuenteOSector?fuenteOSector=fuente&anioDesde=2010&anioHasta=2025&unidades=ktep",
+    "benConsumoFinalParaSector?sectores=industrial&anioDesde=2010&anioHasta=2025&unidades=ktep",
+    "benInsumosElectricidad?anioDesde=2010&anioHasta=2025&unidades=ktep",
+    "gnFlujosTarifasMes?mesDesde=Ene&anioDesde=2021&mesHasta=Dic&anioHasta=2026&unidades=m%C2%B3",
+]
+
+
 def main():
     os.makedirs(RAW, exist_ok=True)
+    if os.environ.get("ROUND") == "4":
+        for i, q in enumerate(ROUND4):
+            r = get(VP + q)
+            if r is not None:
+                save(f"r4_{i}_{q.split('?')[0]}.html", r.content)
+        return
     r = get(ZIP)
     if r is not None and r.status_code == 200:
         walk_zip(r.content)
