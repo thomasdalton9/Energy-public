@@ -12,6 +12,13 @@ MEXICO_CENACE_DATE_DIAGNOSTIC.py showed:
 This dumps the raw head of one file of each layout, plus the largest
 range one POST will return, so the production parser can be written
 against the real formats.
+
+FINDINGS (run 2026-10-01): three layouts - plain "BCA,ENSENADA,1,115.8,"
+(2016-2017), fully quoted "\"BCA\",\"ENSENADA\",\"1\",\"117.8\"" (2017 L5/L6,
+2018 R0-R2), and quoted with broken preamble lines (2018-08 on). Each
+file carries "LIQUIDACION N (Dia de Operacion: dd/mm/yyyy)". 2016-01-27/28
+hold only BCA (4 zones); SIN starts 2016-01-29. A 90-day range = 8.4 MB,
+a full year = 34 MB / ~20 s, both returned complete.
 """
 
 import io

@@ -14,7 +14,17 @@ This checks, per requested day:
     the CSV preamble, or, for a non-ZIP answer, the page's message
   - single-day vs a fresh page per day vs a multi-day FI..FF range.
 
-Run via .github/workflows/mexico_cenace_date_diagnostic.yml (manual only).
+FINDINGS (run 2026-10-01): pickers read back correctly after the second
+pass, and each ZIP's file names embed the operating day; but production
+had still saved 2016-02-15/16 with 2016-02-14's file (Retiro_3 total
+591,920 MWh), so the race is intermittent and the date must be validated
+from the file name. From 2017-03 the ZIPs also hold Retiro_4/L5/L6 files
+in an "Estimacion de Demanda por Retiros" (later fully quoted) layout
+that production's parser didn't recognise -> every later day "no data".
+The pickers' maxDate is ~15 days behind today (2026-09-16 on 2026-10-01).
+An FI..FF range returns every day in the range in one ZIP.
+
+Workflow (archived): discovery_archive/workflows/mexico_cenace_date_diagnostic.yml.
 """
 
 import io

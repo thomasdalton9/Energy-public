@@ -1,18 +1,18 @@
 name: Mexico demanda real
 
-# Runs in bounded day-chunks (see the script's --max-days) since a full
-# multi-year backfill would run far longer than one job should - each
-# invocation resumes from wherever the archive left off. Scheduled
-# daily to both keep advancing the backfill and, once caught up, to
-# keep the archive current with new days as CENACE publishes them.
+# CENACE serves whole date ranges per download, so one run can backfill
+# the full history (2016-01-29 on) in a few minutes; each run resumes
+# from the archive's last saved day and re-fetches the trailing ~8
+# months to pick up later settlements. Scheduled daily to keep current
+# (CENACE publishes each day ~15 days after it).
 on:
   schedule:
     - cron: "30 10 * * *"
   workflow_dispatch:
     inputs:
       max_days:
-        description: "Max new days to fetch this run"
-        default: "90"
+        description: "Max days of new history to fetch this run"
+        default: "5000"
 
 permissions:
   contents: write
@@ -20,7 +20,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +34,7 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Run Mexico demanda real pull
-        run: python3 americas/mexico_demanda_real.py --max-days "${{ github.event.inputs.max_days || '90' }}"
+        run: python3 americas/mexico_demanda_real.py --max-days "${{ github.event.inputs.max_days || '5000' }}"
 
       - name: Add Excel charts and copy scripts
         if: always()
@@ -48,10 +48,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in "output/Data and Chart Outputs/mexico_demanda_nacional_daily.xlsx" "output/Data and Chart Outputs/mexico_demanda_por_zona_hourly.csv.gz" "output/Data and Chart Outputs/mexico_demanda_checkpoint.txt"; do
-            [ -f "$f" ] && git add -f "$f"
-            git add -f "output/Python Scripts" || true
-          done
+          git add -f "output/Data and Chart Outputs/mexico_demanda_nacional_daily.xlsx" || true
+          git add -A -f "output/Data and Chart Outputs/mexico_demanda_por_zona_hourly" || true
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Mexico demanda real: automated backfill/update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

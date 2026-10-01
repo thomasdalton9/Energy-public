@@ -17,10 +17,10 @@ jobs:
           pip install playwright
           playwright install --with-deps chromium
       - name: Run check
-        run: timeout 300 python3 americas/MEXICO_DEMANDA_ZERO_CHECK.py
+        run: timeout 300 python3 discovery_archive/americas/MEXICO_DEMANDA_ZERO_CHECK.py
       - name: Upload output
         uses: actions/upload-artifact@v4
         with:
           name: mexico-demanda-zero-check-output
-          path: americas/mexico_demanda_zero_check_output.txt
+          path: discovery_archive/americas/mexico_demanda_zero_check_output.txt
           if-no-files-found: ignore
