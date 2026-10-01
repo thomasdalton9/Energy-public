@@ -180,12 +180,15 @@ OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile"
              "Dominican Republic": "OC-SENI", "Jamaica": "JPS", "Puerto Rico": "PREPA/Genera PR"}
 
 
-MIN_RAW_DAYS = 365   # a raw generation workbook replaces Ember only once it has a year of history
+MIN_RAW_DAYS = 365   # a raw generation workbook replaces Ember only once it spans a year of history
 
 
 def raw_history_days(path):
+    """Days spanned by the raw feed (first to last date), so monthly or annual feeds with a year of history
+    qualify as well as daily ones."""
     try:
-        return int(pd.read_excel(path, sheet_name="Daily", usecols=[0]).iloc[:, 0].nunique())
+        d = pd.to_datetime(pd.read_excel(path, sheet_name="Daily", usecols=[0]).iloc[:, 0], errors="coerce").dropna()
+        return int((d.max() - d.min()).days) + 1 if len(d) else 0
     except Exception:
         return 0
 
