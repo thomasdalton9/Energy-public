@@ -13,6 +13,12 @@ colombia: 48 small solar plants (~19.9 MW each, ~580 MW) drop out of XM's
   whether they are still in ListadoRecursos (state) and still generating.
 
     python3 POWER_CAPACITY_PROBE3.py argentina|colombia
+
+Found (Oct 2026): Argentina - CAMMESA's 'Potencia Instalada.xlsx' (microfe.cammesa.com
+static file behind cammesaweb /download/potencia-instalada/) and the SE copy
+potencia-instalada.csv (datos.energia.gob.ar). Colombia - the plants dropping
+out of CapEfecNeta on 2025-03-02 are XM State 'PRUEBAS' and still generate in
+Aug 2026; XM lists no other per-plant capacity metric.
 """
 import datetime as dt
 import io

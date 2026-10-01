@@ -11,6 +11,11 @@ This checks how current (1) is, the technology labels and monthly totals, and
 the full layout of (2).
 
     python3 POWER_CAPACITY_PROBE4.py
+
+Found (Oct 2026): the SE CSV stops at 2020-02. CAMMESA's workbook has year-end
+MW by machine type 2002-2025 plus the current year, a 633-machine list for the
+latest month (213 with FECHA HABILITACION) summing exactly to the current-year
+total, and 57 retirements since 2021 with MES BAJA. -> ARGENTINA_CAMMESA_CAPACITY.py.
 """
 import io
 

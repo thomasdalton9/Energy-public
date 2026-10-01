@@ -7,6 +7,10 @@ it holds earlier copies of CNE's capacity workbook, and opens the oldest and one
 mid-period copy to compare the coal total.
 
     python3 POWER_CAPACITY_PROBE5.py
+
+Found (Oct 2026): the Wayback CDX holds no copies of CNE's capacity workbooks
+(empty result for all three patterns), so Chile's months before the first run
+stay rebuilt from the current plant list.
 """
 import io
 import time

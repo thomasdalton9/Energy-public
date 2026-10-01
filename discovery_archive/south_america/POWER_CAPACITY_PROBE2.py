@@ -16,6 +16,14 @@ This round checks:
           wp-content/uploads/YYYY/MM/ URLs; energiaabierta.cl.
 
     python3 POWER_CAPACITY_PROBE2.py brazil|chile
+
+Found (Oct 2026): ANEEL's unit-release list gives yearly additions close to
+SIGA's plant start dates (2021-25: 7.6/8.3/10.3/10.8/7.5 GW); ANEEL also
+publishes year-end MW by plant type (empreendimento-operacao-historico.csv,
+used as a check sheet). MMGD parquet: 4.66 million systems, 54 GW, dated by
+DthAtualizaCadastralEmpreend. CNE 'base' sheet: one row per SEN plant with
+fecha_puesta_servicio_central and potencia_neta_mw, no retired plants; no older
+uploads at old wp-content URLs; Wayback CDX returned 503.
 """
 import io
 import re

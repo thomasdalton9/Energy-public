@@ -7,6 +7,15 @@ real names. Run in GitHub Actions (external sites are blocked from the
 Claude sandbox):
 
     python3 POWER_CAPACITY_PROBE.py brazil|argentina|chile|colombia|ember
+
+Found (Oct 2026): ANEEL SIGA has DatEntradaOperacao for every operating
+plant but no retirement date (retired plants are dropped); MMGD is a separate
+parquet. CAMMESA's nemo API has no public capacity publication (INFORME_MENSUAL,
+POTENCIA_INSTALADA, ... 'no es publica'). CNE uploads Capacidad_Instalada_
+Generacion.xlsx monthly (current snapshot only). XM CapEfecNeta per plant per
+day works back to 2021 (/daily, Entity Recurso, kW). Ember yearly capacity in GW
+by fuel to 2025. -> BRAZIL_ANEEL_CAPACITY_MONTHLY.py, CHILE_CNE_CAPACITY.py,
+COLOMBIA_XM_CAPACITY.py.
 """
 import datetime as dt
 import io
