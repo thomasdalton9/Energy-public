@@ -23,8 +23,8 @@ import pandas as pd
 import china_nbs_common as nbs
 import xlsx_notes
 
-TITLE_RE = r"\d{4}年(\d{1,2}|1[—\-－～~]2)月份?(规模以上|规上)工业(增加值|生产)"
-NEAR_RE = r"\d{1,2}月份?.*工业(增加值|生产(?!者))"
+TITLE_RE = r"\d{4}年((\d{1,2}|1[—\-－～~]\d{1,2})月份?|上半年|前三季度)(规模以上|规上)工业(增加值|生产)"
+NEAR_RE = r"(月份?|半年|季度).*工业(增加值|生产(?!者))"
 HISTORY_START = "2021-01-01"
 
 # Releases that still exist but are no longer on the (~1000-item) release list,
@@ -95,6 +95,10 @@ def parse_release(html):
     """{column: value} from the product-output table of one release."""
     row, started = {}, False
     for cells in nbs.table_rows(html):
+        periods = [c for c in cells if re.fullmatch(r"(1[—\-－~～])?\d{1,2}月", c)]
+        if not started and periods and re.match(r"1[—\-－~～]([3-9]|1[0-2])月", periods[0]):
+            nbs.log(f"    table holds only year-to-date columns ({periods}) - no monthly figures")
+            return {}
         if any("主要产品产量" in c for c in cells):
             started = True
             continue
