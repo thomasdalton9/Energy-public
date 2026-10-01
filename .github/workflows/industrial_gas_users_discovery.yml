@@ -1,0 +1,30 @@
+name: Industrial gas users discovery (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "usgs | gem | pages | url"
+        required: true
+        default: "usgs"
+      urls:
+        description: "space-separated URLs (pages / url modes)"
+        required: false
+        default: ""
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl xlrd
+      - name: Run discovery
+        env:
+          MODE: ${{ inputs.mode }}
+          URLS: ${{ inputs.urls }}
+        run: timeout 840 python3 discovery_archive/INDUSTRIAL_GAS_USERS_DISCOVERY.py "$MODE" $URLS
