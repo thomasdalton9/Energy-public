@@ -244,6 +244,13 @@ def south_africa(p):
     return fuel_mix("South Africa generation mix (Eskom)", "MW (daily mean)")(p)
 
 
+def henry_hub(p):
+    d = by_date(read(p, "Data"), "date")[["Henry_Hub_USD_per_MMBtu"]].rename(
+        columns={"Henry_Hub_USD_per_MMBtu": "Henry Hub spot"})
+    return [spec("Daily", daily(d, "2021-01-01"), "Henry Hub natural gas spot price (daily)", "USD/MMBtu"),
+            spec("Monthly", monthly_mean(d), "Henry Hub natural gas spot price (monthly average)", "USD/MMBtu")]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -281,6 +288,7 @@ REGISTRY = {
     "china_nbs_clean_energy_products_monthly.xlsx": china_nbs,
     "china_nbs_energy_production_monthly.xlsx": china_nbs,
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
+    "henry_hub_daily.xlsx": henry_hub,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,

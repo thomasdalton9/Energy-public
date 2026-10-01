@@ -1,32 +1,31 @@
 """
 Pull the daily Henry Hub Natural Gas Spot Price and maintain a growing
-archive.
+archive (output/Data and Chart Outputs/henry_hub_daily.xlsx, sheet
+'Data': date index + Henry_Hub_USD_per_MMBtu).
 
-Data source: FRED (Federal Reserve Economic Data), series DHHNGSP -
-https://fred.stlouisfed.org/graph/fredgraph.csv?id=DHHNGSP - a plain CSV
-download, genuinely open, no API key or account needed (unlike getting
-the same underlying EIA data via api.eia.gov, which needs a free EIA
-key). Found via HENRY_HUB_FRED_INSPECT.py / HENRY_HUB_QUICK_PROBE.py.
+Source: EIA only, tried in order (first that answers wins):
+  1. EIA API v2, series RNGWHHD (route natural-gas/pri/fut, daily) - needs
+     the free EIA key, read from the EIA_API_KEY environment variable
+     (repo secret EIA_API_KEY, as used by the EIA-930 workflow).
+     Incremental: once the archive exists only the last two weeks are
+     re-read.
+  2. EIA's keyless history workbook
+     https://www.eia.gov/dnav/ng/hist_xls/RNGWHHDd.xls (full history).
+The previous FRED (DHHNGSP) source kept failing with read timeouts from
+GitHub Actions (Sep 2026) and was removed on 2026-10-01.
 
-Unlike MISO's real-time API (only "today"/"yesterday", no historical
-range), this single request returns FRED's entire history for the
-series in one response - back to 1997-01-07 as of the discovery pull.
-So this one script is both the daily updater and the one-time
-historical backfill: the very first run seeds the whole archive, and
-every run after just upserts whatever's new (usually one row, since
-Henry Hub spot prices publish once per business day with roughly a
-one-day lag - no weekend/holiday rows, so gaps in the date index are
-expected and not a sign of missing data).
-
-Price is USD per MMBtu. FRED marks a missing/not-yet-published
-observation as "." in the CSV rather than omitting the row - those are
-dropped rather than kept as a fabricated value.
+History runs back to 1997-01-07. Henry Hub spot prices publish once per
+business day with a lag of a few days - no weekend/holiday rows, so gaps
+in the date index are expected and not a sign of missing data. Price is
+USD per MMBtu; missing observations are dropped, never filled.
+Charts: add_charts.py (registry entry henry_hub_daily.xlsx) after the pull.
 """
 
 import argparse
+import io
 import os
 import sys
-from datetime import date
+from datetime import date, timedelta
 
 import pandas as pd
 import requests
@@ -35,62 +34,101 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 import xlsx_notes
 
-URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DHHNGSP"
+EIA_API = "https://api.eia.gov/v2/natural-gas/pri/fut/data/"
+EIA_SERIES = "RNGWHHD"
+EIA_XLS = "https://www.eia.gov/dnav/ng/hist_xls/RNGWHHDd.xls"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
 }
-TIMEOUT = (10, 30)
+TIMEOUT = (10, 60)
+COL = "Henry_Hub_USD_per_MMBtu"
 
-# FRED publishes Henry Hub spot price with roughly a one-day lag and
-# only on business days; a few extra days of slack absorb a holiday
-# weekend before this is treated as a genuinely stale source.
-STALE_AFTER_DAYS = 7
+# EIA publishes Henry Hub spot price with a lag of a few business days;
+# a few extra days of slack absorb a holiday weekend before this is
+# treated as a genuinely stale source.
+STALE_AFTER_DAYS = 10
+OVERLAP_DAYS = 14  # incremental runs re-read the last two weeks (EIA occasionally revises recent days)
 
 DEFAULT_OUT = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output", "henry_hub_daily.xlsx"
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output", "Data and Chart Outputs",
+    "henry_hub_daily.xlsx"
 )
 
+FETCH_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = [5, 20]
 
-FETCH_ATTEMPTS = 5
-RETRY_BACKOFF_SECONDS = [5, 15, 30, 60]  # between attempts 1-2, 2-3, 3-4, 4-5
 
-
-def fetch_series():
-    """FRED's CSV endpoint is occasionally slow enough to exceed a
-    30s read timeout (observed as fast as 0.24s and, minutes later,
-    timing out three times in a row) - looks like transient backend
-    load rather than a real block, so retry with backoff before giving
-    up."""
+def get(url, **kw):
+    """GET with a short retry loop (sources are tried in turn, so each one gives up fairly quickly)."""
     import time
 
     last_error = None
     for attempt in range(1, FETCH_ATTEMPTS + 1):
         try:
-            r = requests.get(URL, headers=HEADERS, timeout=TIMEOUT)
+            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, **kw)
             r.raise_for_status()
-            return r.text
+            return r
         except requests.RequestException as e:
             last_error = e
             print(f"  attempt {attempt}/{FETCH_ATTEMPTS} failed: {type(e).__name__}: {e}", file=sys.stderr)
             if attempt < FETCH_ATTEMPTS:
-                wait = RETRY_BACKOFF_SECONDS[attempt - 1]
-                print(f"  waiting {wait}s before retrying...", file=sys.stderr)
-                time.sleep(wait)
+                time.sleep(RETRY_BACKOFF_SECONDS[attempt - 1])
     raise last_error
 
 
-def parse_series(csv_text):
-    from io import StringIO
+def tidy(dates, values):
+    df = pd.DataFrame({"date": pd.DatetimeIndex(pd.to_datetime(list(dates), errors="coerce")).date,
+                       COL: pd.to_numeric(list(values), errors="coerce")})
+    df = df.dropna().set_index("date").sort_index()
+    return df[~df.index.duplicated(keep="last")]
 
-    df = pd.read_csv(StringIO(csv_text))
-    date_col, value_col = df.columns[0], df.columns[1]
-    df[date_col] = pd.to_datetime(df[date_col]).dt.date
-    df["Henry_Hub_USD_per_MMBtu"] = pd.to_numeric(df[value_col], errors="coerce")
-    df = df.dropna(subset=["Henry_Hub_USD_per_MMBtu"])
-    df = df.set_index(date_col)[["Henry_Hub_USD_per_MMBtu"]]
-    df.index.name = "date"
-    return df.sort_index()
+
+def fetch_eia_api(start=None):
+    """EIA API v2, series RNGWHHD (needs EIA_API_KEY). Incremental from `start`; pages of 5000 rows."""
+    key = os.environ.get("EIA_API_KEY")
+    if not key:
+        raise RuntimeError("EIA_API_KEY not set")
+    rows, offset = [], 0
+    while True:
+        params = {"api_key": key, "frequency": "daily", "data[0]": "value", "facets[series][]": EIA_SERIES,
+                  "sort[0][column]": "period", "sort[0][direction]": "asc", "offset": offset, "length": 5000}
+        if start:
+            params["start"] = start.isoformat()
+        resp = get(EIA_API, params=params).json()["response"]
+        data = resp.get("data", [])
+        rows += data
+        offset += len(data)
+        if not data or offset >= int(resp.get("total", 0)):
+            break
+    units = {r.get("units") for r in rows}
+    print(f"  EIA API: {len(rows)} rows, units {units}", file=sys.stderr)
+    return tidy([r["period"] for r in rows], [r["value"] for r in rows])
+
+
+def fetch_eia_xls(start=None):
+    """EIA's keyless history workbook (sheet 'Data 1': Date, Henry Hub spot $/MMBtu, header on row 3)."""
+    raw = pd.read_excel(io.BytesIO(get(EIA_XLS).content), sheet_name="Data 1", header=2)
+    print(f"  EIA XLS columns: {list(raw.columns)}", file=sys.stderr)
+    return tidy(raw.iloc[:, 0], raw.iloc[:, 1])
+
+
+SOURCES = [("EIA API v2 (RNGWHHD)", fetch_eia_api), ("EIA history XLS (RNGWHHDd.xls)", fetch_eia_xls)]
+
+
+def fetch_series(start=None):
+    """First source that answers wins: EIA API, then EIA's keyless XLS of the same series."""
+    for name, fn in SOURCES:
+        print(f"Fetching from {name} ...", file=sys.stderr)
+        try:
+            df = fn(start)
+        except Exception as e:  # noqa: BLE001 - fall through to the next source
+            print(f"  {name} failed: {type(e).__name__}: {e}", file=sys.stderr)
+            continue
+        if not df.empty:
+            return df, name
+        print(f"  {name} returned no rows", file=sys.stderr)
+    raise SystemExit("all Henry Hub sources failed")
 
 
 def load_archive(path):
@@ -132,16 +170,19 @@ NOTES_LINES = [
     "Henry Hub natural gas spot price quote.",
     "",
     "COVERAGE",
-    "Published on business days only (no weekend/holiday rows) - gaps in the date index are expected, "
-    "not missing data. FRED publishes with roughly a one-day lag from the trade date.",
+    "Daily from 1997-01-07. Published on business days only (no weekend/holiday rows) - gaps in the date "
+    "index are expected, not missing data. EIA publishes with a lag of a few business days.",
     "",
     "TIMESTAMPS",
-    "The 'date' index is the trade date FRED assigns the observation to, as published - not converted "
+    "The 'date' index is the trade date EIA assigns the observation to, as published - not converted "
     "or shifted.",
     "",
     "SOURCE",
-    f"FRED (Federal Reserve Economic Data), series DHHNGSP: {URL} - sourced from EIA, but this CSV "
-    "endpoint is public with no API key needed (unlike EIA's own api.eia.gov for the same data).",
+    f"EIA (US Energy Information Administration), Henry Hub Natural Gas Spot Price, series {EIA_SERIES}: "
+    f"EIA API v2 ({EIA_API}, needs an API key), falling back to EIA's keyless history workbook {EIA_XLS}. "
+    "Only days a source returns are upserted; existing days are never deleted.",
+    "Source changed 2026-10-01: EIA is now the only source (the earlier third-party re-publication of this "
+    "series kept timing out from GitHub Actions and was dropped).",
 ]
 NOTES_SECTION_TITLES = {"UNITS", "COVERAGE", "TIMESTAMPS", "SOURCE"}
 
@@ -151,21 +192,23 @@ def main():
     parser.add_argument("--out", default=DEFAULT_OUT)
     args = parser.parse_args()
 
-    print(f"Fetching {URL} ...", file=sys.stderr)
-    csv_text = fetch_series()
-    new_df = parse_series(csv_text)
-    print(f"  {len(new_df)} published observations, {new_df.index.min()} to {new_df.index.max()}",
+    existing = load_archive(args.out)
+    # Incremental: only re-read the last couple of weeks once the archive holds the history.
+    start = max(existing.index) - timedelta(days=OVERLAP_DAYS) if not existing.empty else None
+    new_df, source = fetch_series(start)
+    print(f"  {source}: {len(new_df)} observations, {new_df.index.min()} to {new_df.index.max()}",
           file=sys.stderr)
 
-    existing = load_archive(args.out)
     before_days = set(existing.index) if not existing.empty else set()
     combined = upsert(existing, new_df)
     new_days = sorted(set(combined.index) - before_days)
 
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
+    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES + ["", f"Last run's source: {source}"],
+                              NOTES_SECTION_TITLES)
     format_date_column(args.out)
 
+    print(f"Source used: {source}")
     print(f"Added {len(new_days)} new day(s){' - ' + str(new_days[-5:]) if new_days else ''}")
     print(f"Archive now has {len(combined)} days ({combined.index.min()} to {combined.index.max()}). "
           f"Saved to {args.out}")
@@ -175,7 +218,7 @@ def main():
     age = (date.today() - latest).days if latest else None
     if latest is None or age > STALE_AFTER_DAYS:
         print(f"STALE SOURCE: newest saved day is {latest} ({age} days old) - "
-              f"{URL} may have changed or stopped updating.", file=sys.stderr)
+              f"{source} may have changed or stopped updating.", file=sys.stderr)
         sys.exit(1)
 
 
