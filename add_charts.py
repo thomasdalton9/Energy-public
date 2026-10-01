@@ -685,6 +685,62 @@ def chile_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
+IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics"]
+
+
+def _category_stacked_bar(path, sheet, t, title, y_title):
+    """Native stacked column chart over a category (non-date) axis: rows of t are the categories, columns the series."""
+    from openpyxl import load_workbook
+    from openpyxl.chart import BarChart, Reference
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
+    wb = load_workbook(path)
+    if sheet in wb.sheetnames:
+        del wb[sheet]
+    ws = wb.create_sheet(sheet, 1)
+    ws.cell(row=1, column=1, value="Country")
+    for j, c in enumerate(t.columns, start=2):
+        ws.cell(row=1, column=j, value=str(c))
+    for i, (k, r) in enumerate(t.iterrows(), start=2):
+        ws.cell(row=i, column=1, value=str(k))
+        for j, v in enumerate(r.values, start=2):
+            ws.cell(row=i, column=j, value=None if pd.isna(v) else round(float(v), 3))
+    ws.column_dimensions["A"].width = 20
+    n = len(t) + 1
+    ch = BarChart()
+    ch.type, ch.grouping, ch.overlap, ch.gapWidth = "col", "stacked", 100, 50
+    ch.add_data(Reference(ws, min_col=2, max_col=1 + t.shape[1], min_row=1, max_row=n), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
+    for i, s in enumerate(ch.series):
+        s.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
+                                                    ln=LineProperties(noFill=True))
+    ch.title = title
+    ch.y_axis.title = y_title
+    ch.x_axis.delete = False
+    ch.y_axis.delete = False
+    ch.legend.position = "b"
+    ch.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))     # no borders
+    ch.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
+    ch.width, ch.height = 28, 13
+    xlsx_charts.tidy_layout(ch)
+    ws.add_chart(ch, f"{chr(ord('A') + min(t.shape[1] + 2, 20))}2")
+    xlsx_charts.save_atomic(wb, path)
+
+
+def industrial_gas_users(p):
+    """Plant register (south_america/INDUSTRIAL_GAS_USERS.py): static data, so a stacked bar over countries of the
+    ESTIMATED gas demand (mcm/d at nameplate) of operating plants, by sector."""
+    d = read(p, "Plants")
+    op = d[(d["counted_as"] == "Operating") & d["gas_mcm_d_estimate"].notna()]
+    t = op.pivot_table(index="country", columns="sector", values="gas_mcm_d_estimate", aggfunc="sum")
+    t = t[[s for s in IGU_SECTORS if s in t.columns]]
+    t = t.loc[t.sum(axis=1).sort_values(ascending=False).index].fillna(0)
+    t.index = [str(c).replace("Trinidad and Tobago", "Trinidad & Tobago") for c in t.index]
+    return [{"name": "Gas by country", "custom": lambda path, sheet: _category_stacked_bar(
+        path, sheet, t, "Estimated gas demand of operating industrial plants, by country and sector",
+        "mcm/d (estimate at nameplate)")}]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -757,6 +813,7 @@ REGISTRY = {
     "singapore_power.xlsx": singapore_power,
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
+    "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
@@ -827,6 +884,9 @@ def add_charts(path):
     _drop_old_chart_sheets(path)
     for i, s in enumerate(specs):
         sheet = "Chart" if i == 0 else f"Chart - {s['name']}"[:31]
+        if "custom" in s:   # chart that is not a date-indexed series (e.g. categories on the x-axis)
+            s["custom"](path, sheet)
+            continue
         if "water_year" in s:
             water_year_chart.add_water_year_chart(path, s["water_year"], s["title"], s["units"],
                                                   sheet_name=s.get("sheet", water_year_chart.SHEET),
