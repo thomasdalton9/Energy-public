@@ -1,10 +1,10 @@
-name: China NBS clean energy products monthly
+name: China NBS industrial output monthly
 
 # Monthly - NBS publishes industrial output mid-month for the prior month.
 # Incremental: only releases not yet in the workbook are fetched (see the script's docstring).
 on:
   schedule:
-    - cron: "0 13 20 * *"  # 20th of the month - well after NBS's mid-month release
+    - cron: "0 14 20 * *"  # 20th of the month - well after NBS's mid-month release
   workflow_dispatch: {}
 
 permissions:
@@ -24,28 +24,28 @@ jobs:
       - name: Install dependencies
         run: pip install pandas openpyxl requests
 
-      - name: Run China NBS clean energy products monthly pull
-        run: timeout 2700 python3 asia/CHINA_NBS_CLEAN_ENERGY_PRODUCTS.py --out "output/Data and Chart Outputs/china_nbs_clean_energy_products_monthly.xlsx"
+      - name: Run China NBS industrial output monthly pull
+        run: timeout 2700 python3 asia/CHINA_NBS_INDUSTRIAL_OUTPUT.py --out "output/Data and Chart Outputs/china_nbs_industrial_output_monthly.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/china_nbs_clean_energy_products_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_clean_energy_products_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_clean_energy_products_monthly.xlsx"
+          [ -f "output/Data and Chart Outputs/china_nbs_industrial_output_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_industrial_output_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_industrial_output_monthly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/CHINA_NBS_CLEAN_ENERGY_PRODUCTS.py asia/china_nbs_common.py asia/china_nbs_output.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp asia/CHINA_NBS_INDUSTRIAL_OUTPUT.py asia/china_nbs_common.py asia/china_nbs_output.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f "output/Data and Chart Outputs/china_nbs_clean_energy_products_monthly.xlsx" ]; then
+          if [ ! -f "output/Data and Chart Outputs/china_nbs_industrial_output_monthly.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/china_nbs_clean_energy_products_monthly.xlsx"
+          git add -f "output/Data and Chart Outputs/china_nbs_industrial_output_monthly.xlsx"
           git add -f "output/Python Scripts" || true
-          git diff --cached --quiet || git commit -m "China NBS clean energy products monthly: automated update"
+          git diff --cached --quiet || git commit -m "China NBS industrial output monthly: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0
             sleep $((i * 5))

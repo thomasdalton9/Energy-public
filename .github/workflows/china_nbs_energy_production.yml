@@ -1,12 +1,10 @@
 name: China NBS energy production monthly
 
-# Monthly - NBS publishes this release once a month (mid-month,
-# covering the prior calendar month). Re-running is cheap (re-crawls
-# the press-release index and re-parses each release fresh) and picks
-# up a source correction to a prior month, not just a newly-added one.
+# Monthly - NBS publishes industrial/energy output mid-month for the prior month.
+# Incremental: only releases not yet in the workbook are fetched (see the script's docstring).
 on:
   schedule:
-    - cron: "0 12 20 * *"  # 20th of the month - well after NBS's typical mid-month release
+    - cron: "0 12 20 * *"  # 20th of the month - well after NBS's mid-month release
   workflow_dispatch: {}
 
 permissions:
@@ -15,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -26,15 +24,15 @@ jobs:
       - name: Install dependencies
         run: pip install pandas openpyxl requests
 
-      - name: Run China NBS energy production pull
-        run: timeout 600 python3 asia/CHINA_NBS_ENERGY_PRODUCTION.py --out "output/Data and Chart Outputs/china_nbs_energy_production_monthly.xlsx"
+      - name: Run China NBS energy production monthly pull
+        run: timeout 2700 python3 asia/CHINA_NBS_ENERGY_PRODUCTION.py --out "output/Data and Chart Outputs/china_nbs_energy_production_monthly.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
           [ -f "output/Data and Chart Outputs/china_nbs_energy_production_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_energy_production_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_energy_production_monthly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/CHINA_NBS_ENERGY_PRODUCTION.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp asia/CHINA_NBS_ENERGY_PRODUCTION.py asia/china_nbs_common.py asia/china_nbs_output.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
