@@ -10,6 +10,8 @@ Run in GitHub Actions (usgs.gov and company sites are blocked from the sandbox).
   url   - document links + ~7,000 characters of page text from the first capacity sentence.
   wiki  - GEM wiki plant pages: coordinates, owner, status and capacity snippets.
   pdf   - capacity sentences from PDFs given as URLs.
+  verify - for each row of south_america/industrial_gas_users.csv, fetch its source URLs and report whether the
+          capacity figure appears in any of them (one line per row: OK / not found / fetch errors).
 
 Usage: python3 discovery_archive/INDUSTRIAL_GAS_USERS_DISCOVERY.py usgs|gem|pages|url [URL ...]
 """
@@ -177,7 +179,61 @@ def pdf(urls):
             print(f"## {u}: {e}")
 
 
+def _doc_text(url, cache={}):
+    if url in cache:
+        return cache[url]
+    try:
+        r = get(url)
+        ct = r.headers.get("content-type", "")
+        if url.lower().endswith((".xlsx", ".xls")) or "spreadsheet" in ct or "excel" in ct:
+            import pandas as pd
+            book = pd.read_excel(io.BytesIO(r.content), sheet_name=None, header=None)
+            t = " ".join(" ".join(str(v) for v in df.fillna("").values.ravel()) for df in book.values())
+        elif url.lower().endswith(".pdf") or "pdf" in ct:
+            import pdfplumber
+            with pdfplumber.open(io.BytesIO(r.content)) as doc:
+                t = " ".join((pg.extract_text() or "") for pg in doc.pages[:120])
+        else:
+            t = text_of(r.text)
+        cache[url] = (r.status_code, re.sub(r"\s+", " ", t))
+    except Exception as e:  # noqa: BLE001
+        cache[url] = (0, str(e)[:80])
+    return cache[url]
+
+
+def _variants(v):
+    x = float(v)
+    out = {str(v)}
+    if x == int(x):
+        n = int(x)
+        out |= {str(n), f"{n:,}", f"{n:,}".replace(",", "."), f"{n:,}".replace(",", " "), f"{n * 1000:,}",
+                f"{n * 1000:,}".replace(",", "."), f"{n / 1000:g}", f"{n / 1000:g}".replace(".", ",")}
+    else:
+        out |= {f"{x:g}", f"{x:g}".replace(".", ",")}
+    return {o for o in out if o not in ("0", "")}
+
+
+def verify():
+    import csv
+    rows = list(csv.DictReader(open("south_america/industrial_gas_users.csv", encoding="utf-8")))
+    for i, rw in enumerate(rows, start=2):
+        cap = rw["capacity"].strip()
+        urls = [u.strip() for u in rw["sources"].split(";") if u.strip()]
+        if not cap:
+            print(f"{i:3d} NO-CAPACITY {rw['plant'][:50]}")
+            continue
+        found, codes = [], []
+        for u in urls:
+            code, t = _doc_text(u)
+            codes.append(code)
+            if any(re.search(r"(?<![\d.,])" + re.escape(v) + r"(?![\d])", t) for v in _variants(cap)):
+                found.append(u)
+        tag = "OK" if found else "NOTFOUND"
+        print(f"{i:3d} {tag:8s} {cap:>7s} {rw['plant'][:48]:48s} http={codes} in={[f[:60] for f in found][:2]}")
+
+
 if __name__ == "__main__":
     what = sys.argv[1] if len(sys.argv) > 1 else "usgs"
     {"usgs": lambda: usgs(), "gem": lambda: gem(), "pages": lambda: pages(sys.argv[2:]),
-     "url": lambda: url(sys.argv[2:]), "wiki": lambda: wiki(sys.argv[2:]), "pdf": lambda: pdf(sys.argv[2:])}[what]()
+     "url": lambda: url(sys.argv[2:]), "wiki": lambda: wiki(sys.argv[2:]), "pdf": lambda: pdf(sys.argv[2:]),
+     "verify": verify}[what]()
