@@ -68,6 +68,13 @@ def water_year_table(series):
     return t, meta
 
 
+def _nice_step(span, ticks=7):
+    """A 1/2/2.5/5 x 10^k step giving about `ticks` gridlines over span."""
+    raw = span / ticks
+    mag = 10 ** math.floor(math.log10(raw))
+    return next(m * mag for m in (1, 2, 2.5, 5, 10) if m * mag >= raw)
+
+
 def _line(series, colour, width_emu, dash=None):
     series.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=colour, w=width_emu, prstDash=dash))
     series.smooth = False
@@ -129,9 +136,13 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
         area.y_axis.scaling.min, area.y_axis.scaling.max, area.y_axis.majorUnit = 0.0, 100.0, 20.0
     else:
         vals = pd.concat([table["5Y min"], table["5Y max"], table.iloc[:, 5], table.iloc[:, 6]]).dropna()
-        span = float(vals.max() - vals.min()) or 1.0
-        area.y_axis.scaling.min = float(vals.min() - 0.05 * span)
-        area.y_axis.scaling.max = float(vals.max() + 0.05 * span)
+        lo, hi = float(vals.min()), float(vals.max())
+        step = _nice_step((hi - lo) or 1.0)   # round axis ends and gridline step (Excel ticks start at the min)
+        area.y_axis.scaling.min = math.floor(lo / step) * step
+        area.y_axis.scaling.max = math.ceil(hi / step) * step
+        if area.y_axis.scaling.max - area.y_axis.scaling.min < step * 2:
+            area.y_axis.scaling.max = area.y_axis.scaling.min + step * 2
+        area.y_axis.majorUnit = step
     if y_decimals == 0 and "%" not in str(unit):   # whole-number labels: whole-number axis ends too
         area.y_axis.scaling.min = float(math.floor(area.y_axis.scaling.min))
         area.y_axis.scaling.max = float(math.ceil(area.y_axis.scaling.max))
