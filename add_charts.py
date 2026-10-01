@@ -79,10 +79,23 @@ def argentina(p):
     sectors = cols(d, "centrales_electricas", "industria", "residencial", "comercial", "gnc", "entes_oficiales")
     out = d[sectors].rename(columns={"centrales_electricas": "Power", "industria": "Industry", "residencial": "Residential",
                                      "comercial": "Commercial", "gnc": "Vehicle CNG", "entes_oficiales": "Government"})
+    exports = None
+    if "Exports by destination" in pd.ExcelFile(p).sheet_names:
+        exports = by_date(read(p, "Exports by destination"), "date")
+        if "Total_exports" in exports:
+            out["Exports"] = exports["Total_exports"].reindex(out.index)
     if "produccion_gas_natural" in d:
         out["Production"] = d["produccion_gas_natural"]
-    return [spec("Demand", out, "Argentina gas demand by sector vs production", "million m3 per month", "stacked_bar",
-                 line_cols=("Production",))]
+    title = ("Argentina gas demand by sector + exports vs production" if "Exports" in out
+             else "Argentina gas demand by sector vs production")
+    specs = [spec("Demand", out, title, "million m3 per month", "stacked_bar", line_cols=("Production",))]
+    if exports is not None:
+        dest = exports.drop(columns=[c for c in exports.columns if c in ("Total_exports", "country")])
+        dest = dest.loc[:, dest.fillna(0).ne(0).any()]   # destinations with any flow since the start date
+        if not dest.empty:
+            specs.append(spec("Exports", dest.rename(columns=lambda c: str(c).replace("_", " ")),
+                              "Argentina gas exports by destination", "million m3 per month", "stacked_bar"))
+    return specs
 
 
 def brazil(p):

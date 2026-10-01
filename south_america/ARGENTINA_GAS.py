@@ -1,7 +1,8 @@
 """
 Argentina national gas production and consumption by sector and by
 distributor, from the Ministry of Economy's Series de Tiempo API
-(apis.datos.gob.ar/series/api/series/) - free, public, no key.
+(apis.datos.gob.ar/series/api/series/) - free, public, no key - plus
+gas exports by destination from ENARGAS's daily export reports.
 
 Found via ARGENTINA_GAS_DISCOVERY.py + ARGENTINA_GAS_DISCOVERY2.py: all
 these series belong to one dataset ("Producción y consumo de gas
@@ -20,6 +21,29 @@ Outputs (argentina_gas.xlsx):
                          country
   By region (long)       the distributor columns reshaped long with a
                          region column added (REGION_MAP below)
+  Exports by destination date (month), one column per destination country
+                         (Chile, Brazil, Uruguay, ...), Total_exports - million
+                         m3/month, complete months only
+  Exports by point       the same months by export point (pipeline/border
+                         crossing), million m3/month
+  Exports daily          ENARGAS daily export reports as published, thousand
+                         m3/day, one column per "country | point | route";
+                         kept so later runs only fetch recent days
+
+Exports come from ENARGAS's daily export reports ("Partes diarios de
+exportacion"), found via discovery_archive/south_america/
+ARGENTINA_GAS_EXPORTS_DISCOVERY*.py: two tables, "dentro del sistema"
+(through the national transport system: GasAndes, NorAndino, Methanex
+YPF/EGS to Chile; PetroUruguay and Cruz del Sur to Uruguay; TGM/Uruguayana
+and "por Bolivia" to Brazil) and "fuera del sistema" (producers' own
+pipelines: Gasoducto del Pacifico, Atacama, Methanex PAE/SIP/PTB to Chile;
+"por Bolivia" to Brazil). Daily values in thousand m3 (9300 kcal/m3) are
+summed to calendar months. There is no separate Bolivia column in the
+reports: gas sent through Bolivia is labelled "Brasil por Bolivia" and is
+counted under Brazil (its export point is listed in "Exports by point").
+The Secretaria de Energia's comercio-exterior CSV and ENARGAS's monthly
+Exportaciones.xlsx were checked too: the CSV has unit errors in several
+months and the xlsx covers only part of the in-system points.
 
 REGION_MAP covers the 9 classic distribution licensees from Argentina's
 1992 gas-distribution privatization, each with a single well-defined
@@ -34,7 +58,9 @@ Usage: python3 ARGENTINA_GAS.py [--out argentina_gas.xlsx]
 print("STARTING", flush=True)
 
 import argparse
+import html
 import os
+import re
 import sys
 
 import pandas as pd
@@ -95,6 +121,127 @@ REGION_MAP = {
 
 DATA_START = "2021-01-01"
 
+# ENARGAS daily export reports (see module docstring). POST, at most 365 days per request.
+ENARGAS_PAGE = "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/dod-partes-exp-imp-consulta.php"
+ENARGAS_LIST = "https://www.enargas.gob.ar/secciones/transporte-y-distribucion/partes-diarios-exp-imp-consulta-listado.php"
+EXPORT_TABLES = {"exp_dentro": "transport system", "exp_fuera": "producer pipeline"}
+COUNTRY_EN = {"Chile": "Chile", "Brasil": "Brazil", "Uruguay": "Uruguay", "Bolivia": "Bolivia",
+              "Paraguay": "Paraguay"}
+COUNTRY_ORDER = ("Chile", "Brazil", "Uruguay", "Bolivia", "Paraguay")
+EXPORTS_DAILY_SHEET = "Exports daily"
+REFETCH_DAYS = 45        # each run re-reads the last 45 days (late or revised daily reports); older days are kept
+CHUNK_DAYS = 180
+
+
+def _text(cell_html):
+    return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", cell_html))).strip()
+
+
+def parse_export_table(page, route):
+    """ENARGAS report table -> daily frame (thousand m3/day), columns 'Country | Point | route'.
+    Headers read '<b>Chile</b><br>GasAndes'; the published Total column is checked, then dropped."""
+    heads = [_text(re.sub(r"<br\s*/?>", "|", h)) for h in re.findall(r"<th[^>]*>(.*?)</th>", page, re.S | re.I)]
+    rows = []
+    for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", page, re.S | re.I):
+        cells = [_text(c) for c in re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S | re.I)]
+        if cells and re.fullmatch(r"\d{2}/\d{2}/\d{4}", cells[0]):
+            rows.append(cells)
+    if not rows:
+        return pd.DataFrame()
+    if len(heads) != len(rows[0]) or heads[0].lower() != "fecha":
+        raise ValueError(f"unexpected ENARGAS export table layout: {heads} vs {len(rows[0])} cells")
+    cols = []
+    for h in heads[1:]:
+        parts = [x.strip() for x in h.split("|")]
+        cols.append(f"{COUNTRY_EN.get(parts[0], parts[0])} | {parts[1]} | {route}" if len(parts) == 2 else h)
+    df = pd.DataFrame([r[1:] for r in rows], columns=cols,
+                      index=pd.to_datetime([r[0] for r in rows], format="%d/%m/%Y"))
+    df = df.apply(lambda c: pd.to_numeric(c.str.replace(",", ".", regex=False), errors="coerce"))
+    total = df.pop("Total") if "Total" in df else None
+    if total is not None:
+        gap = (df.fillna(0).sum(axis=1) - total.fillna(0)).abs()
+        if (gap > 1).any():
+            print(f"  WARNING {route}: {int((gap > 1).sum())} days where the points don't add up to the "
+                  f"published Total (max gap {gap.max():.0f} thousand m3)", flush=True)
+    df.index.name = "date"
+    return df
+
+
+def fetch_exports_daily(start, end):
+    """Both ENARGAS export tables, start..end (Timestamps), in requests of at most CHUNK_DAYS days."""
+    s = requests.Session()
+    s.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                                    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"})
+    s.get(ENARGAS_PAGE, params={"tipo": "exp_dentro"}, timeout=TIMEOUT)     # session cookie, as a browser gets
+    frames = []
+    for tipo, route in EXPORT_TABLES.items():
+        parts = []
+        d0 = start
+        while d0 <= end:
+            d1 = min(d0 + pd.Timedelta(days=CHUNK_DAYS - 1), end)
+            r = s.post(ENARGAS_LIST, timeout=TIMEOUT, data={"fecha_desde": d0.strftime("%Y-%m-%d"),
+                                                             "fecha_hasta": d1.strftime("%Y-%m-%d"),
+                                                             "tipo_list": tipo})
+            r.raise_for_status()
+            part = parse_export_table(r.text, route)
+            print(f"  {tipo} {d0.date()}..{d1.date()}: {len(part)} days", flush=True)
+            if not part.empty:
+                parts.append(part)
+            d0 = d1 + pd.Timedelta(days=1)
+        if parts:
+            frames.append(pd.concat(parts))
+    if not frames:
+        return pd.DataFrame()
+    out = pd.concat(frames, axis=1).sort_index()
+    return out[~out.index.duplicated(keep="last")]
+
+
+def load_exports_daily(path):
+    try:
+        old = pd.read_excel(path, sheet_name=EXPORTS_DAILY_SHEET, index_col=0)
+    except (FileNotFoundError, ValueError):
+        return pd.DataFrame()
+    old.index = pd.to_datetime(old.index)
+    old.index.name = "date"
+    return old
+
+
+def update_exports_daily(path, start_date):
+    """Incremental: keep the archived daily table and fetch only from REFETCH_DAYS before its last day."""
+    old = load_exports_daily(path)
+    start = pd.Timestamp(start_date)
+    end = pd.Timestamp.today().normalize()
+    incremental = not old.empty and old.index.min() <= start
+    if incremental:
+        start = old.index.max() - pd.Timedelta(days=REFETCH_DAYS)
+    print(f"Fetching ENARGAS daily export reports {start.date()}..{end.date()} "
+          f"({'incremental' if incremental else 'full backfill'})...", flush=True)
+    new = fetch_exports_daily(start, end)
+    if not incremental or new.empty:
+        daily = new if not incremental else old
+    else:
+        daily = pd.concat([old[old.index < new.index.min()], new]).sort_index()
+        daily = daily[~daily.index.duplicated(keep="last")]
+    return daily[daily.index >= pd.Timestamp(start_date)] if not daily.empty else daily
+
+
+def monthly_exports(daily):
+    """Daily thousand m3 -> calendar-month million m3, complete months only (every day reported)."""
+    if daily.empty:
+        return pd.DataFrame(), pd.DataFrame()
+    month = daily.index.to_period("M")
+    days = pd.Series(1, index=daily.index).groupby(month).sum()
+    complete = days[days.values == days.index.days_in_month].index
+    by_point = daily.fillna(0).groupby(month).sum() / 1000.0
+    by_point = by_point.loc[by_point.index.isin(complete)]
+    by_point = by_point.loc[:, by_point.ne(0).any()]           # points with no flow since the start date
+    by_point.index = by_point.index.to_timestamp()
+    by_point.index.name = "date"
+    country = by_point.T.groupby(lambda c: c.split(" | ")[0]).sum().T
+    country = country[[c for c in COUNTRY_ORDER if c in country] + [c for c in country if c not in COUNTRY_ORDER]]
+    country["Total_exports"] = country.sum(axis=1)
+    return country.round(3), by_point.round(3)
+
 
 def fetch_series(ids, start_date):
     """ids: {column_name: series_id}. Returns a wide DataFrame indexed by
@@ -127,6 +274,18 @@ def main():
     distributors = fetch_series(DISTRIBUTOR_IDS, args.start_date)
     print(f"  {len(distributors)} months, {distributors.index.min().date()} to {distributors.index.max().date()}",
           flush=True)
+
+    try:
+        exports_daily = update_exports_daily(args.out, args.start_date)
+    except (requests.RequestException, ValueError) as e:      # keep the archived exports if ENARGAS is down
+        print(f"  ENARGAS export reports failed ({type(e).__name__}: {e}); keeping the archived daily table",
+              flush=True)
+        exports_daily = load_exports_daily(args.out)
+    exports, exports_points = monthly_exports(exports_daily)
+    if not exports.empty:
+        print(f"  exports: {len(exports)} complete months, {exports.index.min().date()} to "
+              f"{exports.index.max().date()}; daily reports to {exports_daily.index.max().date()}", flush=True)
+        print(exports.tail(3).to_string(), flush=True)
 
     national_out = national.copy()
     national_out.insert(0, "country", COUNTRY)
@@ -163,10 +322,31 @@ def main():
         "each with one well-defined service territory. 'sdb' and 'redengas' are smaller/newer entities not "
         "confidently placeable in a single province - left region=None (printed as unmapped) rather than guessed.",
         "",
+        "EXPORTS",
+        "'Exports by destination': natural gas exports by destination country, million m3 per month (m3 of "
+        "9300 kcal/m3 gas, ENARGAS's standard), one column per country in the reports (Chile, Brazil, Uruguay) "
+        "plus Total_exports. Calendar months, complete months only (a month appears once ENARGAS has published "
+        "every day of it). From 2021-01.",
+        "'Exports by point': the same months by export point and route. 'transport system' = through the "
+        "national transport system (ENARGAS 'dentro del sistema': GasAndes, NorAndino, Methanex YPF and "
+        "Methanex EGS to Chile; PetroUruguay and Cruz del Sur to Uruguay; TGM/Uruguayana and 'por Bolivia' to "
+        "Brazil). 'producer pipeline' = producers' own export pipelines (ENARGAS 'fuera del sistema': "
+        "Gasoducto del Pacifico, Atacama and Methanex PAE/SIP/PTB to Chile; 'por Bolivia' to Brazil).",
+        "Bolivia: the reports have no column for sales to Bolivia. Gas sent through Bolivia's network is "
+        "reported as 'Brasil por Bolivia' and counted under Brazil (its destination); see 'Exports by point'.",
+        "'Exports daily': the daily reports as published, thousand m3 per day, one column per "
+        "'country | point | route'; the published Total column is checked against the points, not stored. "
+        f"Each run keeps the archived days and re-reads only the last {REFETCH_DAYS} days.",
+        "Validation: ENARGAS's monthly file 'Gas exportado a traves del sistema de transporte' matches these "
+        "sums for GasAndes and PetroUruguay in 2021-2025 but lists only part of the in-system points; in 2026 "
+        "its GasAndes figures run below the daily reports (consolidated vs daily data).",
+        "",
         "SOURCE",
         "apis.datos.gob.ar/series/api/series - Secretaria de Energia, Ministerio de Economia, dataset "
         f"'Produccion y consumo de gas natural'. Monthly; this archive starts {args.start_date} (the source "
         "goes back to 1996-01 - rerun with --start-date to pull more).",
+        "Exports: ENARGAS (Ente Nacional Regulador del Gas y la Electricidad), Partes diarios de exportacion, "
+        "dentro del sistema and fuera del sistema: " + ENARGAS_PAGE + "?tipo=exp_dentro and ?tipo=exp_fuera",
     ]
     sheets = {
         "National": national_out,
@@ -174,7 +354,11 @@ def main():
         "By distributor": distributors_out,
         "By region (long)": region_long,
     }
-    xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "SECTORS", "REGIONS", "SOURCE"})
+    if not exports.empty:
+        sheets["Exports by destination"] = exports
+        sheets["Exports by point"] = exports_points
+        sheets[EXPORTS_DAILY_SHEET] = exports_daily
+    xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "SECTORS", "REGIONS", "EXPORTS", "SOURCE"})
     print(f"Saved {args.out}", flush=True)
     print(national_out.tail().to_string(), flush=True)
 

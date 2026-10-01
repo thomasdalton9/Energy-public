@@ -2,8 +2,10 @@ name: Argentina gas
 
 # Monthly Energy Secretariat series, published with a lag of a few
 # months. The API returns the full series from 2021 on every call, so
-# each run just overwrites the archive. Weekly is plenty to catch a new
-# month promptly.
+# each run just overwrites those tabs. Exports by destination come from
+# ENARGAS's daily export reports: the archived "Exports daily" tab is
+# kept and only the last 45 days are re-read each run. Weekly is plenty
+# to catch a new month promptly.
 on:
   schedule:
     - cron: "0 11 * * 2"

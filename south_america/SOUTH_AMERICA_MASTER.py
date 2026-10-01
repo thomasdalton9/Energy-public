@@ -114,7 +114,8 @@ MASTER_SPECS = {"gatun_lake_level.xlsx": gatun}
 
 # Where each workbook's data comes from: (publisher, link). Shown on the dashboards.
 SOURCES = {
-    "argentina_gas_monthly.xlsx": ("Secretaría de Energía (Argentina), Series de Tiempo API",
+    "argentina_gas_monthly.xlsx": ("Secretaría de Energía (Argentina), Series de Tiempo API (production, demand); "
+                                   "ENARGAS daily export reports (exports by destination, enargas.gob.ar)",
                                    "https://datos.gob.ar/series/api/series/"),
     "brazil_gas_monthly.xlsx": ("MME Brazil gas bulletin (segments, to Jun-2025); ANP open data (pipeline flows, production, imports)",
                                 "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/dados-consolidados-movimentacao-de-gas-natural-em-gasodutos-de-transporte"),
