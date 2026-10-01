@@ -118,6 +118,29 @@ def bolivia(p):
                  "Bolivia gas demand by sector", "million m3/day", "stacked_bar")]
 
 
+def peru(p):
+    d = by_date(read(p, "Demand by sector"), "Month")
+    names = {"Power": "Power", "Industrial": "Industrial", "Vehicle_CNG": "Vehicle CNG",
+             "Residential_commercial": "Residential & commercial"}
+    out = [spec("Demand", d[cols(d, *[f"{k}_mcm_per_day" for k in names])].rename(
+        columns=lambda x: names[x.replace("_mcm_per_day", "")]), "Peru gas demand by sector", "million m3/day",
+        "stacked_bar")]
+    sheets = pd.ExcelFile(p).sheet_names
+    if "Production by lot" in sheets:
+        s = by_date(read(p, "Production by lot"), "Month")
+        lots = {"Lot_88": "Camisea Lot 88", "Lot_56": "Camisea Lot 56", "Lot_57": "Lot 57 (Repsol)",
+                "Aguaytia_31C": "Aguaytia 31C", "Northwest": "Northwest", "Other": "Other lots"}
+        g = s[cols(s, *[f"{k}_mcm_per_day" for k in lots])].rename(columns=lambda x: lots[x.replace("_mcm_per_day", "")])
+        g = g.loc[:, g.abs().sum() > 0]
+        g["Domestic demand"] = d.get("Total_mcm_per_day")
+        if "LNG exports" in sheets:
+            g["LNG exports"] = by_date(read(p, "LNG exports"), "Month").get("LNG_exports_mcm_per_day")
+        out.append(spec("Supply", g.dropna(subset=[g.columns[0]]),
+                        "Peru gas production by lot vs domestic demand and LNG exports", "million m3/day",
+                        "stacked_bar", line_cols=("Domestic demand", "LNG exports")))
+    return out
+
+
 def uruguay(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     c = [f"{x}_mcm_per_day" for x in ("Residential", "Commercial", "Industrial", "Power", "Energy_own_use")]
@@ -449,6 +472,7 @@ REGISTRY = {
     "brazil_gas_monthly.xlsx": brazil,
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
+    "peru_gas_demand_by_sector.xlsx": peru,
     "chile_gas_imports.xlsx": chile_imports,
     "chile_power_by_type.xlsx": chile_power,
     "brazil_power_generation_daily.xlsx": power_daily("Brazil power generation by type (ONS)"),
