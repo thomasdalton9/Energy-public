@@ -285,7 +285,9 @@ def main():
         "Biogas + Biomasa.",
         "CAMMESA publishes thermal capacity by machine type, not fuel: Gas_MW = Ciclos Combinados + Turbina a gas + "
         "Turbovapor (natural-gas plants; most can also burn gasoil or fuel oil); Oil_MW = Motor Diesel (gasoil/fuel "
-        "oil engines); Coal_MW = the Rio Turbio coal-fired steam units, taken out of Turbovapor by plant name.",
+        "oil engines). Coal_MW would take the Rio Turbio coal plant out of Turbovapor by name, but Rio Turbio is not in "
+        "CAMMESA's machine list, so Coal_MW is 0; steam units able to burn coal (e.g. San Nicolas) stay in Gas_MW "
+        "because CAMMESA does not split steam turbines by fuel.",
         "Other_MW = any machine type outside this list (none in the current file). Argentina has no geothermal; "
         "batteries are not in the CAMMESA table. Total_MW = sum of the fuel columns.",
         "",
