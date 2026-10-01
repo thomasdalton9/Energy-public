@@ -45,7 +45,10 @@ def read_mov(path):
     r = S.get(MOV + path, timeout=T)
     out(f"GET {path} -> {r.status_code} {len(r.content)}B")
     c = r.content
-    txt = c.decode("utf-8-sig") if b"\xc3" in c[:50000] else c.decode("latin-1")
+    try:
+        txt = c.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        txt = c.decode("latin-1")
     df = pd.read_csv(io.StringIO(txt), sep=";", dtype=str)
     days = [x for x in df.columns if re.match(r"\d{2}/\d{2}/\d{4}$", x)]
     meta = [x for x in df.columns if x not in days]
@@ -59,14 +62,18 @@ def read_mov(path):
 
 for path in ["2026/gn_agosto_2026.csv", "2025/gn_junho_2025.csv"]:
     out(f"\n######## 1. {path} ########")
-    df, meta = read_mov(path)
+    try:
+        df, meta = read_mov(path)
+    except Exception as e:
+        out(f"  ERR {type(e).__name__} {e}")
+        continue
     var = [c for c in meta if "vari" in c.lower()][0]
     tipo = [c for c in meta if c.startswith("Tipo")][0]
     out(df[var].value_counts().to_string())
-    v = df[df[var].str.strip() == "Volume Realizado"]
+    v = df[df[var].str.strip().str.startswith("Volume Realizado")]
     out(f"\n  Volume Realizado rows: {len(v)}; sum of means by {tipo}:")
     out(v.groupby(tipo, dropna=False)["mean"].sum().round(1).to_string())
-    keys = [c for c in meta if c.startswith(("Nome da Instala", "Código da Instalação de Gasoduto", "Nome da UF", "Nome do Carregador"))]
+    keys = [c for c in meta if c.lower().startswith(("nome da instala", "código da instalação de gasoduto", "nome da uf"))]
     g = v.groupby([tipo] + keys, dropna=False)["mean"].sum().reset_index().sort_values([tipo, "mean"], ascending=[True, False])
     out(g.round(1).to_string(index=False))
 
@@ -150,7 +157,10 @@ out("\n".join("  " + l for l in links))
 for u_ in [l for l in links if re.search(r"gn|gas", l, re.I)] + [DA + "arquivos/ie/gn/importacao-gas-natural-2000-2025.csv"]:
     try:
         c = S.get(u_, timeout=T).content
-        txt = c.decode("utf-8-sig") if b"\xc3" in c[:50000] else c.decode("latin-1")
+        try:
+            txt = c.decode("utf-8-sig")
+        except UnicodeDecodeError:
+            txt = c.decode("latin-1")
         d = pd.read_csv(io.StringIO(txt), sep=";", dtype=str)
         out(f"\n  {u_.rsplit('/', 1)[-1]} shape {d.shape} cols {list(d.columns)}")
         for col in d.columns[:6]:
