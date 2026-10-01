@@ -309,14 +309,39 @@ def ays(url):
         print(f"   {cid} [{titles.get(cid, '?')}] type={d.get('chart_type')}: " + json.dumps(src, ensure_ascii=False)[:1500])
 
 
+def pw(url):
+    """Load a page in headless Chromium (Playwright) - for bot-protected sites - and list its links."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(user_agent=UA["User-Agent"], locale="es-PY")
+        try:
+            pg.goto(url, wait_until="networkidle", timeout=60000)
+            pg.wait_for_timeout(5000)
+            html = pg.content()
+            print(f"\n== pw {url} -> {pg.url} title={pg.title()!r} {len(html):,} B")
+            for href, text in links(html, pg.url):
+                if not SKIP.search(href) and (DOC.search(href) or KEY.search(href) or KEY.search(text)):
+                    print(f"    link {href}  [{text[:70]}]")
+            print("   TEXT:", re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))[:1500])
+        except Exception as e:  # noqa: BLE001
+            print(f"\n== pw {url}: {type(e).__name__}: {str(e)[:300]}")
+        b.close()
+
+
 def wpsearch(base, query, pages=10):
     """WordPress REST search: every post matching `query` (title, date, link, text start)."""
     s = requests.Session()
     s.headers.update(UA)
-    print(f"\n== wp search {base} q={query!r}")
+    after = None
+    if "@" in query:
+        query, after = query.split("@", 1)
+    print(f"\n== wp search {base} q={query!r} after={after}")
     for page in range(1, pages + 1):
-        r = get(s, f"{base.rstrip('/')}/wp-json/wp/v2/posts", params={"search": query, "per_page": 100, "page": page,
-                                                                      "_fields": "date,link,title,content"})
+        params = {"search": query, "per_page": 100, "page": page, "_fields": "date,link,title,content"}
+        if after:
+            params["after"] = after + "T00:00:00"
+        r = get(s, f"{base.rstrip('/')}/wp-json/wp/v2/posts", params=params)
         if r is None or r.status_code != 200:
             print("   stop:", r.status_code if r is not None else None, (r.text[:200] if r is not None else ""))
             break
@@ -341,7 +366,9 @@ if __name__ == "__main__":
         pdfgrep(url, pat)
     for a in [x for x in args if x.startswith("ays=")]:
         ays(a[4:])
-    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays="))]
+    for a in [x for x in args if x.startswith("pw=")]:
+        pw(a[3:])
+    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]

@@ -21,8 +21,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install -y -q mdbtools poppler-utils >/dev/null
-          pip install pandas requests openpyxl pdfplumber
+          pip install pandas requests openpyxl pdfplumber playwright
+          python3 -m playwright install --with-deps chromium >/dev/null 2>&1 || echo 'playwright install failed'
       - name: Probe
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 2200 python3 discovery_archive/south_america/PARAGUAY_POWER_DISCOVERY.py ${{ github.event.inputs.args }}
+        run: |
+          echo | openssl s_client -connect www.eby.org.ar:443 -servername www.eby.org.ar 2>&1 | grep -E 'verify|depth|s:|i:|NotAfter' | head -20 || true
+          timeout 2200 python3 discovery_archive/south_america/PARAGUAY_POWER_DISCOVERY.py ${{ github.event.inputs.args }}
