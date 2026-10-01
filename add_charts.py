@@ -135,12 +135,17 @@ def peru(p):
                 "Aguaytia_31C": "Aguaytia 31C", "Northwest": "Northwest", "Other": "Other lots"}
         g = s[cols(s, *[f"{k}_mcm_per_day" for k in lots])].rename(columns=lambda x: lots[x.replace("_mcm_per_day", "")])
         g = g.loc[:, g.abs().sum() > 0]
+        # demand lines stacked: domestic, then domestic + LNG exports, so the top line compares with production
         g["Domestic demand"] = d.get("Total_mcm_per_day")
+        lines = ("Domestic demand",)
         if "LNG exports" in sheets:
-            g["LNG exports"] = by_date(read(p, "LNG exports"), "Month").get("LNG_exports_mcm_per_day")
+            lng = by_date(read(p, "LNG exports"), "Month").get("LNG_exports_mcm_per_day")
+            if lng is not None:
+                g["Domestic demand + LNG exports"] = g["Domestic demand"] + lng.reindex(g.index).fillna(0)
+                lines += ("Domestic demand + LNG exports",)
         out.append(spec("Supply", g.dropna(subset=[g.columns[0]]),
-                        "Peru gas production by lot vs domestic demand and LNG exports", "million m3/day",
-                        "stacked_bar", line_cols=("Domestic demand", "LNG exports")))
+                        "Peru gas production by lot vs domestic demand and LNG exports (stacked)", "million m3/day",
+                        "stacked_bar", line_cols=lines))
     return out
 
 
