@@ -50,5 +50,9 @@ gdf = gdf[keep]
 gdf["geometry"] = gdf.geometry.simplify(0.05, preserve_topology=True)
 print(gdf.drop(columns="geometry").to_string())
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
-gdf.to_file(OUT, driver="GeoJSON")
+for c in gdf.columns:
+    if c != "geometry":
+        gdf[c] = gdf[c].astype(object).where(gdf[c].notna(), None).map(lambda v: None if v is None else str(v))
+with open(OUT, "w") as f:
+    f.write(gdf.to_json())
 print("saved", OUT, os.path.getsize(OUT), "bytes")
