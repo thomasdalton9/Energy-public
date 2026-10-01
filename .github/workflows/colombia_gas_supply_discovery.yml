@@ -1,16 +1,26 @@
 name: Colombia gas supply discovery
 
+# Manual-only probe of the Gestor del Mercado monthly reports' supply table.
+# ROUND 5 renders the image-only supply pages to PNG and pushes them to the
+# probe-out/co-supply-ocr branch for offline OCR tuning.
 on:
   workflow_dispatch:
     inputs:
       months:
-        description: "Round 3: space-separated YYYY-MM months"
+        description: "Space-separated YYYY-MM months"
         type: string
         default: ""
+      round:
+        description: "Discovery round (2-5)"
+        type: string
+        default: "5"
       reports:
-        description: "Space-separated report PDF URLs (blank = defaults)"
+        description: "Space-separated report PDF URLs (round 1 only)"
         type: string
         default: ""
+
+permissions:
+  contents: write
 
 jobs:
   discover:
@@ -28,6 +38,17 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-          ROUND: "4"
+          ROUND: ${{ inputs.round }}
           MONTHS: ${{ inputs.months }}
         run: timeout 800 python3 discovery_archive/COLOMBIA_GAS_SUPPLY_DISCOVERY.py ${{ inputs.reports }}
+      - name: Push rendered pages to a probe branch
+        if: inputs.round == '5'
+        run: |
+          [ -d probe_out ] || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan probe-out/co-supply-ocr
+          git rm -rq --cached .
+          git add -f probe_out
+          git commit -qm "Colombia supply page renders for OCR tuning"
+          git push -f origin HEAD:probe-out/co-supply-ocr

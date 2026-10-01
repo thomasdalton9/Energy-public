@@ -156,7 +156,36 @@ def round4():
                     out("    |", ln[:170])
 
 
+def round5():
+    """Round 5: render the image-only supply table page of each MONTHS report to
+    PNG (400 dpi) in probe_out/, for OCR tuning offline (the workflow pushes it
+    to a probe-out branch)."""
+    import pandas as pd
+    import pdfplumber
+    import pypdfium2 as pdfium
+    want = os.environ.get("MONTHS", "").split()
+    os.makedirs("probe_out", exist_ok=True)
+    d = pd.read_excel("output/Data and Chart Outputs/colombia_gas_demand_by_sector.xlsx", sheet_name="Demand by sector")
+    d["Month"] = d["Month"].astype(str).str[:7]
+    for _, r in d[d["Month"].isin(want)].iterrows():
+        c = requests.get(r["Report"], headers=H, timeout=T).content
+        with pdfplumber.open(io.BytesIO(c)) as pdf:
+            texts = [(p.extract_text() or "") for p in pdf.pages[:8]]
+        page = next((i for i, t in enumerate(texts) if re.search(r"principales\s+fuentes\s+de\s+suministro", t, re.I)), None)
+        if page is None:
+            out(r["Month"], "no supply page")
+            continue
+        doc = pdfium.PdfDocument(c)
+        doc[page].render(scale=400 / 72).to_pil().convert("RGB").save(f"probe_out/co_supply_{r['Month']}.png")
+        doc.close()
+        prof = next((m.group(0)[:120] for t in texts for m in [re.search(r"Suministro\s+Prom.*", t)] if m), None)
+        out(r["Month"], "page", page, "profile:", prof)
+
+
 if __name__ == "__main__":
+    if os.environ.get("ROUND") == "5":
+        round5()
+        sys.exit(0)
     if os.environ.get("ROUND") == "4":
         round4()
         sys.exit(0)
