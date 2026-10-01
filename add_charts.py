@@ -185,6 +185,22 @@ def power_daily(title):
     return f
 
 
+def honduras_power(p):
+    """ODS daily mix (from 2026-06) plus ODS's monthly history by technology (thermal not split by fuel)."""
+    out = power_daily("Honduras power generation by type (ODS)")(p)
+    try:
+        raw = pd.read_excel(p, sheet_name="Monthly_GWh")
+        m = by_date(raw, raw.columns[0])   # month column (header may be blank)
+    except Exception:  # noqa: BLE001
+        return out
+    g = pd.DataFrame({"Hydro": m.get("Hydro_GWh"), "Thermal (oil + coal)": m.get("Thermal_GWh"),
+                      "Wind": m.get("Wind_GWh"), "Solar": m.get("Solar_GWh"), "Bioenergy": m.get("Bioenergy_GWh"),
+                      "Geothermal": m.get("Other_GWh")}).fillna(0)
+    out.append(spec("History", g[g.index >= "2021-01-01"], "Honduras monthly production by technology (ODS reports)",
+                    "GWh per month", "stacked_bar"))
+    return out
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
     return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
@@ -554,7 +570,7 @@ REGISTRY = {
     "chile_power_generation_daily.xlsx": power_daily("Chile power generation by type (CEN)"),
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
-    "honduras_power_generation_daily.xlsx": power_daily("Honduras power generation by type (ODS)"),
+    "honduras_power_generation_daily.xlsx": honduras_power,
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,
