@@ -1,0 +1,28 @@
+name: Paraguay power discovery
+
+# Manual one-off probe of ANDE / Itaipu / EBY / VMME / CAMMESA for the Paraguay power pull.
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: "modes: crawl datos cammesa | fetch URL ..."
+        required: false
+        default: "crawl datos cammesa"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y -q mdbtools poppler-utils >/dev/null
+          pip install pandas requests openpyxl pdfplumber
+      - name: Probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 2200 python3 discovery_archive/south_america/PARAGUAY_POWER_DISCOVERY.py ${{ github.event.inputs.args }}
