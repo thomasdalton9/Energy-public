@@ -291,12 +291,15 @@ def china_nbs_series(p):
     d = read(p, "Data")
     d = by_date(d, d.columns[0])
     s = pd.read_excel(p, sheet_name="Series", index_col=0)
-    out = []
+    out, used = [], set()
     for group in dict.fromkeys(s["chart"].dropna()):
         rows = s[s["chart"] == group]
         c = [x for x in rows.index if x in d.columns and d[x].notna().any()]
         if str(group).strip() and c:
-            out.append(spec(re.sub(r"[\\/*?:\[\]]", "-", str(group)), d[c].rename(columns=rows["label"].to_dict()),
+            name = re.sub(r"[\\/*?:\[\]]", "-", str(group))[:23]   # sheet = "Chart - " + name, max 31 chars
+            name = name if name not in used else f"{name[:20]} {len(used)}"
+            used.add(name)
+            out.append(spec(name, d[c].rename(columns=rows["label"].to_dict()),
                             f"China {group} (NBS)", rows["unit"].iloc[0], rows["kind"].iloc[0]))
     return out
 
