@@ -329,6 +329,41 @@ def pw(url):
         b.close()
 
 
+SECTIGO_OV_R36 = "http://crt.sectigo.com/SectigoPublicServerAuthenticationCAOVR36.crt"
+
+
+def chain_bundle():
+    """certifi's CA bundle plus the Sectigo OV R36 intermediate that www.eby.org.ar does not send (the server
+    presents only its leaf certificate). Verification stays on: the intermediate is itself checked against the
+    Sectigo root already in certifi when the chain is built."""
+    import ssl
+    import certifi
+    der = requests.get(SECTIGO_OV_R36, timeout=30).content
+    pem = ssl.DER_cert_to_PEM_cert(der)
+    path = os.path.join(tempfile.gettempdir(), "certifi_plus_sectigo_r36.pem")
+    with open(certifi.where()) as f, open(path, "w") as g:
+        g.write(f.read() + "\n" + pem)
+    return path
+
+
+def ebyar(urls):
+    s = requests.Session()
+    s.headers.update(UA)
+    s.verify = chain_bundle()
+    for u in urls:
+        r = get(s, u, timeout=60)
+        if r is None:
+            continue
+        print(f"\n== ebyar {u}: {r.status_code} {r.headers.get('content-type', '')[:30]} {len(r.content):,} B")
+        seen = set()
+        for href, text in links(r.text, r.url):
+            if href not in seen and not SKIP.search(href) and (DOC.search(href) or KEY.search(href) or KEY.search(text)):
+                seen.add(href)
+                print(f"    link {href}  [{text[:70]}]")
+        txt = re.sub(r"<script.*?</script>|<style.*?</style>", " ", r.text, flags=re.S | re.I)
+        print("   TEXT:", re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", txt))[:2500])
+
+
 def wpsearch(base, query, pages=10):
     """WordPress REST search: every post matching `query` (title, date, link, text start)."""
     s = requests.Session()
@@ -368,7 +403,10 @@ if __name__ == "__main__":
         ays(a[4:])
     for a in [x for x in args if x.startswith("pw=")]:
         pw(a[3:])
-    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw="))]
+    eb = [x[6:] for x in args if x.startswith("ebyar=")]
+    if eb:
+        ebyar(eb)
+    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw=", "ebyar="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
