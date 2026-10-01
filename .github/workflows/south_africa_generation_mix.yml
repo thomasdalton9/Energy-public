@@ -31,12 +31,19 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run South Africa generation mix pull
-        run: python3 south_africa/south_africa_generation_mix.py --out output/south_africa_generation_mix_daily.xlsx
+        run: python3 south_africa/south_africa_generation_mix.py --out "output/Data and Chart Outputs/south_africa_generation_mix_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/south_africa_generation_mix_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/south_africa_generation_mix_daily.xlsx" || echo "chart step skipped/failed for south_africa_generation_mix_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_africa/south_africa_generation_mix.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/south_africa_generation_mix_daily.xlsx
+          git add "output/Data and Chart Outputs/south_africa_generation_mix_daily.xlsx"
           git diff --cached --quiet || git commit -m "South Africa generation mix: automated update"
           git push

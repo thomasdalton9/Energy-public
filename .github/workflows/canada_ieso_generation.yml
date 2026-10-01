@@ -28,14 +28,22 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run Canada IESO generation pull
-        run: python3 americas/canada_ieso_generation.py --out output/canada_ieso_generation_daily.xlsx
+        run: python3 americas/canada_ieso_generation.py --out "output/Data and Chart Outputs/canada_ieso_generation_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/canada_ieso_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/canada_ieso_generation_daily.xlsx" || echo "chart step skipped/failed for canada_ieso_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp americas/canada_ieso_generation.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          [ -f output/canada_ieso_generation_daily.xlsx ] && git add -f output/canada_ieso_generation_daily.xlsx
+          [ -f "output/Data and Chart Outputs/canada_ieso_generation_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/canada_ieso_generation_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Canada IESO generation: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

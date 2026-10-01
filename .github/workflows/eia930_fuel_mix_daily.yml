@@ -29,18 +29,26 @@ jobs:
       - name: Run EIA-930 fuel mix pull
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: timeout 600 python3 americas/EIA930_FUEL_MIX_DAILY.py --out output/eia930_fuel_mix_daily.xlsx
+        run: timeout 600 python3 americas/EIA930_FUEL_MIX_DAILY.py --out "output/Data and Chart Outputs/eia930_fuel_mix_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/eia930_fuel_mix_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/eia930_fuel_mix_daily.xlsx" || echo "chart step skipped/failed for eia930_fuel_mix_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp americas/EIA930_FUEL_MIX_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/eia930_fuel_mix_daily.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/eia930_fuel_mix_daily.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/eia930_fuel_mix_daily.xlsx
+          git add -f "output/Data and Chart Outputs/eia930_fuel_mix_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "EIA-930 fuel mix daily: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

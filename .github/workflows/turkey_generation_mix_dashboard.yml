@@ -27,14 +27,22 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run Turkey generation mix dashboard pull
-        run: python3 europe/turkey_generation_mix_dashboard.py --out output/turkey_generation_mix_dashboard_daily.xlsx
+        run: python3 europe/turkey_generation_mix_dashboard.py --out "output/Data and Chart Outputs/turkey_generation_mix_dashboard_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/turkey_generation_mix_dashboard_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/turkey_generation_mix_dashboard_daily.xlsx" || echo "chart step skipped/failed for turkey_generation_mix_dashboard_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp europe/turkey_generation_mix_dashboard.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/turkey_generation_mix_dashboard_daily.xlsx
+          git add -f "output/Data and Chart Outputs/turkey_generation_mix_dashboard_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Turkey generation mix dashboard: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

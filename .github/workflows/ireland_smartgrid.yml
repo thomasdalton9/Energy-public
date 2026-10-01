@@ -34,14 +34,22 @@ jobs:
       - name: Run Ireland smart grid pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1700 python3 europe/ireland_smartgrid.py --out output/ireland_smartgrid_15min.xlsx
+        run: timeout 1700 python3 europe/ireland_smartgrid.py --out "output/Data and Chart Outputs/ireland_smartgrid_15min.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/ireland_smartgrid_15min.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/ireland_smartgrid_15min.xlsx" || echo "chart step skipped/failed for ireland_smartgrid_15min.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp europe/ireland_smartgrid.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          [ -f output/ireland_smartgrid_15min.xlsx ] && git add -f output/ireland_smartgrid_15min.xlsx
+          [ -f "output/Data and Chart Outputs/ireland_smartgrid_15min.xlsx" ] && git add -f "output/Data and Chart Outputs/ireland_smartgrid_15min.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Ireland smart grid: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

@@ -26,18 +26,26 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 south_america/ARGENTINA_GAS.py --out output/argentina_gas_monthly.xlsx
+        run: timeout 300 python3 south_america/ARGENTINA_GAS.py --out "output/Data and Chart Outputs/argentina_gas_monthly.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/argentina_gas_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/argentina_gas_monthly.xlsx" || echo "chart step skipped/failed for argentina_gas_monthly.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/ARGENTINA_GAS.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/argentina_gas_monthly.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/argentina_gas_monthly.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/argentina_gas_monthly.xlsx
+          git add -f "output/Data and Chart Outputs/argentina_gas_monthly.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Argentina gas: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

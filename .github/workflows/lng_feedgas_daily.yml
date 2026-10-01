@@ -71,13 +71,21 @@ jobs:
             python3 americas/feedgas_ebb/lng_feedgas_daily.py
           fi
 
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/lng_feedgas_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/lng_feedgas_daily.xlsx" || echo "chart step skipped/failed for lng_feedgas_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp americas/feedgas_ebb/lng_feedgas_daily.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
       - name: Commit updated workbook
         # always: a backfill cut off by the timeout still keeps the days it saved
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/lng_feedgas_daily.xlsx
+          git add -f "output/Data and Chart Outputs/lng_feedgas_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "LNG feedgas daily: automated update"
           # the run can leave other files modified (logs, caches) - set them
           # aside for the rebase, and retry if another job pushed meanwhile

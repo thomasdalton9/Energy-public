@@ -22,18 +22,18 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1000 python3 europe/ireland_gas_imports_entsog.py --out output/ireland_gas_imports_entsog_daily.xlsx
+        run: timeout 1000 python3 europe/ireland_gas_imports_entsog.py --out "output/Data and Chart Outputs/ireland_gas_imports_entsog_daily.xlsx"
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/ireland_gas_imports_entsog_daily.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/ireland_gas_imports_entsog_daily.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/ireland_gas_imports_entsog_daily.xlsx
+          git add -f "output/Data and Chart Outputs/ireland_gas_imports_entsog_daily.xlsx"
           git diff --cached --quiet || git commit -m "Ireland gas imports (ENTSOG): automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

@@ -25,18 +25,26 @@ jobs:
       - name: Install dependencies
         run: pip install pandas requests openpyxl
       - name: Run
-        run: timeout 300 python3 europe/ireland_gas_demand.py --out output/ireland_gas_demand_daily.xlsx
+        run: timeout 300 python3 europe/ireland_gas_demand.py --out "output/Data and Chart Outputs/ireland_gas_demand_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/ireland_gas_demand_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/ireland_gas_demand_daily.xlsx" || echo "chart step skipped/failed for ireland_gas_demand_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp europe/ireland_gas_demand.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/ireland_gas_demand_daily.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/ireland_gas_demand_daily.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/ireland_gas_demand_daily.xlsx
+          git add -f "output/Data and Chart Outputs/ireland_gas_demand_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Ireland gas demand: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

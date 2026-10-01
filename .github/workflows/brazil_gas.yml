@@ -27,20 +27,28 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 south_america/BRAZIL_GAS.py --out output/brazil_gas_monthly.xlsx --watch-out output/brazil_gas_source_watch.txt
+        run: timeout 300 python3 south_america/BRAZIL_GAS.py --out "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" --watch-out "output/Data and Chart Outputs/brazil_gas_source_watch.txt"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" || echo "chart step skipped/failed for brazil_gas_monthly.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/BRAZIL_GAS.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in output/brazil_gas_monthly.xlsx output/brazil_gas_source_watch.txt; do
+          for f in "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" "output/Data and Chart Outputs/brazil_gas_source_watch.txt"; do
             [ -f "$f" ] && git add -f "$f"
+            git add -f "output/Python Scripts" || true
           done
-          if git diff --cached --quiet -- output/brazil_gas_source_watch.txt; then
+          if git diff --cached --quiet -- "output/Data and Chart Outputs/brazil_gas_source_watch.txt"; then
             msg="Brazil gas: automated update"
           else
-            msg="Brazil gas: SOURCE CHANGED - see output/brazil_gas_source_watch.txt"
+            msg="Brazil gas: SOURCE CHANGED - see output/Data and Chart Outputs/brazil_gas_source_watch.txt"
           fi
           git diff --cached --quiet || git commit -m "$msg"
           for i in 1 2 3 4 5; do

@@ -13,8 +13,13 @@ Standing instructions from the repo owner. Follow these on every change.
     `water_year_chart.add_water_year_chart()` (5-year min-max band, 5Y average,
     previous and current water year).
   - Other time series: line or stacked chart of the main columns on a chart sheet.
+  - Charts have **no borders** (no chart-area or plot-area outline).
+  - Chart dates are formatted **mmm/yy** (e.g. Jan/26); annual series show the year.
+  - `add_charts.py` holds the per-workbook chart registry; each scheduled workflow runs it after the pull.
 - Storage/level/seasonal charts use an **Oct-Sep water year**, not Jan-Dec.
-- Every new or updated PNG chart is committed to `output/` on main and sent to the owner.
+- Outputs live in `output/Data and Chart Outputs/` (xlsx + png); a copy of each producing script is kept in
+  `output/Python Scripts/` (refreshed by the workflow on every run).
+- Every new or updated PNG chart is committed to `output/Data and Chart Outputs/` on main and sent to the owner.
 - Units/notes tab via `xlsx_notes.write_workbook()` (atomic write).
 
 ## Pull scripts

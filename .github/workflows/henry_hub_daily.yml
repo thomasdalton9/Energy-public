@@ -29,18 +29,26 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run Henry Hub pull
-        run: timeout 300 python3 americas/HENRY_HUB_DAILY.py --out output/henry_hub_daily.xlsx
+        run: timeout 300 python3 americas/HENRY_HUB_DAILY.py --out "output/Data and Chart Outputs/henry_hub_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/henry_hub_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/henry_hub_daily.xlsx" || echo "chart step skipped/failed for henry_hub_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp americas/HENRY_HUB_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/henry_hub_daily.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/henry_hub_daily.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/henry_hub_daily.xlsx
+          git add -f "output/Data and Chart Outputs/henry_hub_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Henry Hub daily: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

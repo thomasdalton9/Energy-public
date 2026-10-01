@@ -23,14 +23,22 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run Rhine Kaub level pull
-        run: python3 rest_of_world/rhine_kaub_level.py --out output/rhine_kaub_level_daily.xlsx
+        run: python3 rest_of_world/rhine_kaub_level.py --out "output/Data and Chart Outputs/rhine_kaub_level_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/rhine_kaub_level_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/rhine_kaub_level_daily.xlsx" || echo "chart step skipped/failed for rhine_kaub_level_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp rest_of_world/rhine_kaub_level.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          [ -f output/rhine_kaub_level_daily.xlsx ] && git add -f output/rhine_kaub_level_daily.xlsx
+          [ -f "output/Data and Chart Outputs/rhine_kaub_level_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/rhine_kaub_level_daily.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Rhine Kaub level: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

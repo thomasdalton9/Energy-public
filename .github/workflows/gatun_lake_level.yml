@@ -23,18 +23,26 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 rest_of_world/GATUN_LAKE_LEVEL.py --out output/gatun_lake_level.xlsx
+        run: timeout 300 python3 rest_of_world/GATUN_LAKE_LEVEL.py --out "output/Data and Chart Outputs/gatun_lake_level.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/gatun_lake_level.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/gatun_lake_level.xlsx" || echo "chart step skipped/failed for gatun_lake_level.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp rest_of_world/GATUN_LAKE_LEVEL.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/gatun_lake_level.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/gatun_lake_level.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/gatun_lake_level.xlsx
+          git add -f "output/Data and Chart Outputs/gatun_lake_level.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Gatun Lake level: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

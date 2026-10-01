@@ -25,14 +25,22 @@ jobs:
         run: pip install requests pandas openpyxl
 
       - name: Run Trinidad gas pull
-        run: python3 rest_of_world/TRINIDAD_GAS.py --out output/trinidad_gas.xlsx
+        run: python3 rest_of_world/TRINIDAD_GAS.py --out "output/Data and Chart Outputs/trinidad_gas.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/trinidad_gas.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/trinidad_gas.xlsx" || echo "chart step skipped/failed for trinidad_gas.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp rest_of_world/TRINIDAD_GAS.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          [ -f output/trinidad_gas.xlsx ] && git add -f output/trinidad_gas.xlsx
+          [ -f "output/Data and Chart Outputs/trinidad_gas.xlsx" ] && git add -f "output/Data and Chart Outputs/trinidad_gas.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Trinidad gas: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0

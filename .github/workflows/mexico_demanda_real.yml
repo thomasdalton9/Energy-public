@@ -36,13 +36,21 @@ jobs:
       - name: Run Mexico demanda real pull
         run: python3 americas/mexico_demanda_real.py --max-days "${{ github.event.inputs.max_days || '90' }}"
 
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/mexico_demanda_nacional_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/mexico_demanda_nacional_daily.xlsx" || echo "chart step skipped/failed for mexico_demanda_nacional_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp americas/mexico_demanda_real.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in output/mexico_demanda_nacional_daily.xlsx output/mexico_demanda_por_zona_hourly.csv.gz output/mexico_demanda_checkpoint.txt; do
+          for f in "output/Data and Chart Outputs/mexico_demanda_nacional_daily.xlsx" "output/Data and Chart Outputs/mexico_demanda_por_zona_hourly.csv.gz" "output/Data and Chart Outputs/mexico_demanda_checkpoint.txt"; do
             [ -f "$f" ] && git add -f "$f"
+            git add -f "output/Python Scripts" || true
           done
           git diff --cached --quiet || git commit -m "Mexico demanda real: automated backfill/update"
           for i in 1 2 3 4 5; do

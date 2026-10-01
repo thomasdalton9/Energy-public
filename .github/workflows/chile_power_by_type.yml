@@ -24,18 +24,26 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --country Chile --out output/chile_power_by_type.xlsx
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --country Chile --out "output/Data and Chart Outputs/chile_power_by_type.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/chile_power_by_type.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/chile_power_by_type.xlsx" || echo "chart step skipped/failed for chile_power_by_type.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/EMBER_POWER_BY_TYPE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/chile_power_by_type.xlsx ]; then
+          if [ ! -f "output/Data and Chart Outputs/chile_power_by_type.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/chile_power_by_type.xlsx
+          git add -f "output/Data and Chart Outputs/chile_power_by_type.xlsx"
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Chile power by type: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0
