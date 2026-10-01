@@ -1,8 +1,9 @@
 name: El Salvador gas use (estimate)
 
-# El Salvador LNG burn at Energia del Pacifico, ESTIMATED from Ember's monthly
-# gas-fired generation (compiled from UT, whose servers block non-Salvadoran
-# traffic) x 8.2 MMBtu/MWh. Ember adds months a few weeks late; weekly is plenty.
+# El Salvador LNG burn at Energia del Pacifico, ESTIMATED from monthly gas-fired
+# generation x 8.2 MMBtu/MWh: SIGET's net LNG generation (from the committed
+# el_salvador_power_generation_daily.xlsx, refreshed Mondays) where it has the
+# month, Ember (compiled from UT, which blocks non-Salvadoran traffic) otherwise.
 on:
   schedule:
     - cron: "37 12 * * 3"
