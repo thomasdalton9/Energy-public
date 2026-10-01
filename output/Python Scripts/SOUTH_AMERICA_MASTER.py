@@ -106,7 +106,7 @@ def gatun(path):
     """gatun_lake_level.xlsx draws its own chart (REGISTRY entry is None); the master needs a spec."""
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
     return [{"name": "Gatun", "water_year": d["level_ft"], "title": "Panama Canal, Gatun Lake level",
-             "units": "feet above sea level"}]
+             "units": "feet above sea level", "y_decimals": 0}]
 
 
 # Chart specs for workbooks whose add_charts REGISTRY entry is None (they chart themselves)
@@ -264,7 +264,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                 water_year_chart.write_table(ws, table)
                 charts.append((water_year_chart.build_chart(ws, table, meta, s["title"], s["units"],
                                                             width=CHART_W, height=CHART_H, gridlines=False,
-                                                            inner=xlsx_charts.DASHBOARD_INNER, short_title=True), src))
+                                                            inner=xlsx_charts.DASHBOARD_INNER, short_title=True,
+                                                            y_decimals=s.get("y_decimals")), src))
                 index_rows.append((country, f"{s['title']} (water year)", pd.Timestamp(meta["last"]).strftime("%d/%m/%y"),
                                    ws.title, *src))
                 continue
