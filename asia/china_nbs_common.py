@@ -194,10 +194,20 @@ def norm_label(label):
 
 
 def month_period(title):
-    """'2026年8月份...' -> (Timestamp 2026-08-01, False); '2026年1—2月份...' -> (2026-02-01, True)."""
-    m = re.search(r"(\d{4})年1[—\-－~～至]2月", title)
+    """Reference month of a monthly release title -> (Timestamp, is_jan_feb_combined).
+
+    '2026年8月份...' -> (2026-08-01, False); '2026年1—2月份...' -> (2026-02-01, True).
+    Some months' releases are titled year-to-date ('2026年1—4月份...', '2023年上半年...')
+    but still carry that month's figures: -> (2026-04-01, False), (2023-06-01, False).
+    """
+    m = re.search(r"(\d{4})年1[—\-－~～至](\d{1,2})月", title)
     if m:
-        return pd.Timestamp(int(m.group(1)), 2, 1), True
+        n = int(m.group(2))
+        return pd.Timestamp(int(m.group(1)), n, 1), n == 2
+    for word, month in (("上半年", 6), ("前三季度", 9)):
+        m = re.search(r"(\d{4})年" + word, title)
+        if m:
+            return pd.Timestamp(int(m.group(1)), month, 1), False
     m = re.search(r"(\d{4})年(\d{1,2})月", title)
     if m:
         return pd.Timestamp(int(m.group(1)), int(m.group(2)), 1), False
@@ -227,7 +237,7 @@ def has_sheet(path, sheet):
 
 # Gaps older than this are not chased with a full crawl every run: the release list only
 # holds ~1000 items, so an old gap that is not on it now never will be.
-GAP_WINDOW = pd.Timedelta(days=400)
+GAP_WINDOW = pd.Timedelta(days=1800)  # the list spans ~3.5-5 years
 
 
 def recent_gaps(held, freq):

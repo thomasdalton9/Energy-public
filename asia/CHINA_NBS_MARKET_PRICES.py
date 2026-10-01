@@ -6,6 +6,9 @@ coal grades (anthracite, 4500/5000/5500/5800 kcal steam coal, coking
 coal), metallurgical coke, LNG, LPG, gasoline 92#/95#, diesel 0#,
 steel products, copper/aluminium/lead/zinc, basic chemicals and
 polymers, cement, float glass, fertilisers, farm and forest products.
+NBS revised the basket in Jan 2026 (added polysilicon, lithium iron
+phosphate, ethanol, acetic acid, hot-rolled sheet, MAP, potash, sugar;
+dropped some others), so those series start in 2026.
 
 Each release is an HTML table [product (spec) | unit | price (yuan) |
 change vs previous period (yuan) | change %]; only the price is kept.
@@ -88,6 +91,7 @@ PRODUCTS = [
     (r"^热轧普通板卷", "Hot_Rolled_Coil", "Hot-rolled coil (Q235)", "steel prices"),
     (r"^无缝钢管", "Seamless_Pipe", "Seamless steel pipe", "steel prices"),
     (r"^角钢", "Angle_Steel", "Angle steel", "steel prices"),
+    (r"^热轧普通薄板", "Hot_Rolled_Sheet", "Hot-rolled sheet (Q235, 3mm)", "steel prices"),
     (r"^电解铜", "Copper", "Electrolytic copper", "non-ferrous metal prices"),
     (r"^铝锭", "Aluminium", "Aluminium ingot (A00)", "non-ferrous metal prices"),
     (r"^铅锭", "Lead", "Lead ingot", "non-ferrous metal prices"),
@@ -97,6 +101,10 @@ PRODUCTS = [
     (r"^甲醇", "Methanol", "Methanol", "basic chemical prices"),
     (r"^纯苯", "Benzene", "Benzene", "basic chemical prices"),
     (r"^苯乙烯", "Styrene", "Styrene", "basic chemical prices"),
+    (r"^乙醇", "Ethanol", "Ethanol (95%)", "basic chemical prices"),
+    (r"^冰醋酸", "Acetic_Acid", "Glacial acetic acid (99.5%+)", "basic chemical prices"),
+    (r"^多晶硅", "Polysilicon", "Polysilicon (dense material)", "solar and battery material prices"),
+    (r"^磷酸铁锂", "LFP", "Lithium iron phosphate (power type)", "solar and battery material prices"),
     (r"^聚乙烯", "Polyethylene", "Polyethylene (LLDPE film)", "polymer and fibre prices"),
     (r"^聚丙烯", "Polypropylene", "Polypropylene (drawing grade)", "polymer and fibre prices"),
     (r"^聚氯乙烯", "PVC", "PVC (SG5)", "polymer and fibre prices"),
@@ -108,6 +116,8 @@ PRODUCTS = [
     (r"^尿素", "Urea", "Urea", "fertiliser and agrochemical prices"),
     (r"^复合肥", "Compound_Fertiliser", "Compound fertiliser (potassium sulphate, 45%)", "fertiliser and agrochemical prices"),
     (r"^农药|草甘膦", "Glyphosate", "Pesticide (glyphosate, 95%)", "fertiliser and agrochemical prices"),
+    (r"^磷肥", "MAP_Phosphate", "Phosphate fertiliser (55% MAP)", "fertiliser and agrochemical prices"),
+    (r"^钾肥", "Potash", "Potash (62% KCl, port)", "fertiliser and agrochemical prices"),
     (r"^稻米", "Rice", "Rice (japonica)", "farm product prices"),
     (r"^小麦", "Wheat", "Wheat", "farm product prices"),
     (r"^玉米", "Corn", "Corn", "farm product prices"),
@@ -115,6 +125,7 @@ PRODUCTS = [
     (r"^大豆", "Soybeans", "Soybeans", "farm product prices"),
     (r"^豆粕", "Soybean_Meal", "Soybean meal", "farm product prices"),
     (r"^花生", "Peanuts", "Peanuts", "farm product prices"),
+    (r"^白糖", "Sugar", "White sugar", "farm product prices"),
     (r"^生猪", "Live_Hogs", "Live hogs", "live hog prices"),
     (r"^天然橡胶", "Natural_Rubber", "Natural rubber", "forest product prices"),
     (r"^纸浆", "Pulp", "Pulp (imported softwood)", "forest product prices"),
