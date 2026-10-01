@@ -726,7 +726,8 @@ def chile_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
-IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics"]
+IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics",
+               "Other"]
 
 
 def _category_stacked_bar(path, sheet, t, title, y_title):
@@ -753,8 +754,10 @@ def _category_stacked_bar(path, sheet, t, title, y_title):
     ch.add_data(Reference(ws, min_col=2, max_col=1 + t.shape[1], min_row=1, max_row=n), titles_from_data=True)
     ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
     for i, s in enumerate(ch.series):
-        s.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
-                                                    ln=LineProperties(noFill=True))
+        grey = str(t.columns[i]).startswith("Other")
+        s.graphicalProperties = GraphicalProperties(
+            solidFill=xlsx_charts.OTHER_GREY if grey else xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
+            ln=LineProperties(noFill=True))
     ch.title = title
     ch.y_axis.title = y_title
     ch.x_axis.delete = False
@@ -770,16 +773,18 @@ def _category_stacked_bar(path, sheet, t, title, y_title):
 
 def industrial_gas_users(p):
     """Plant register (south_america/INDUSTRIAL_GAS_USERS.py): static data, so a stacked bar over countries of the
-    ESTIMATED gas demand (mcm/d at nameplate) of operating plants, by sector."""
+    number of OPERATING plants, by sector (Petrochemical folds into 'Other': 8 palette slots)."""
     d = read(p, "Plants")
-    op = d[(d["counted_as"] == "Operating") & d["gas_mcm_d_estimate"].notna()]
-    t = op.pivot_table(index="country", columns="sector", values="gas_mcm_d_estimate", aggfunc="sum")
+    op = d[d["counted_as"] == "Operating"].copy()
+    op["sector"] = op["sector"].where(op["sector"] != "Petrochemical", "Other")
+    t = op.pivot_table(index="country", columns="sector", values="plant", aggfunc="count").fillna(0)
     t = t[[s for s in IGU_SECTORS if s in t.columns]]
-    t = t.loc[t.sum(axis=1).sort_values(ascending=False).index].fillna(0)
+    t = t.loc[t.sum(axis=1).sort_values(ascending=False).index]
     t.index = [str(c).replace("Trinidad and Tobago", "Trinidad & Tobago") for c in t.index]
-    return [{"name": "Gas by country", "custom": lambda path, sheet: _category_stacked_bar(
-        path, sheet, t, "Estimated gas demand of operating industrial plants, by country and sector",
-        "mcm/d (estimate at nameplate)")}]
+    t = t.rename(columns={"Other": "Other (petrochemical)"})
+    return [{"name": "Plants by country", "custom": lambda path, sheet: _category_stacked_bar(
+        path, sheet, t, "Large industrial gas users: operating plants by country and sector (source: plant register - "
+        "USGS, Trinidad MEEI, GEM, company reports)", "number of operating plants")}]
 
 
 CO_COAL_DEPTS = ["La_Guajira", "Cesar", "Boyaca", "Cundinamarca", "Norte_de_Santander", "Cordoba"]
