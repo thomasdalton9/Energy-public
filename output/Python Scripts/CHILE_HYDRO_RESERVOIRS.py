@@ -74,6 +74,9 @@ RESERVOIRS = {
 # backup station used on days the main one has no reading (same lake, gauge at the dam)
 FALLBACK = {"LagunaMaule": "07300006-8"}
 TOTAL_GAP_DAYS = 10                    # the daily total bridges a reservoir's gaps up to this long
+SLOW_GAP_DAYS = {"LagunaMaule_Mm3": 35}  # multi-year lake that moves slowly: month-end points are joined up
+BULLETIN = "DGA monthly bulletin (month-end)"
+ONLINE = "DGA online (daily median)"
 TOTAL = [k for k, v in RESERVOIRS.items() if v[2]]          # in both sources, with a DGA capacity
 CAPACITY = sum(RESERVOIRS[k][2] for k in TOTAL)
 
@@ -85,6 +88,9 @@ BULLETINS = {
     # 2023 (Boletin-DGA-septiembre-2023.pdf): its reservoir tables are images with no text layer, so water year
     # 2022/23 has no month-end history here.
     2024: "https://dga.mop.gob.cl/uploads/sites/13/2024/06/Boletin-Hidrometrico-DGA-Septiembre-2024.pdf",
+    # inside the daily period: only fills month-ends a station missed (Laguna del Maule had no online
+    # readings from mid-Apr-2025 to Jan-2026)
+    2025: "https://dga.mop.gob.cl/uploads/sites/13/2025/01/Boletin-Hidrometrico-DGA-septiembre-2025.pdf",
 }
 MONTHS = ["O", "N", "D", "E", "F", "M", "A", "M", "J", "J", "A", "S"]   # Resumen Anual columns, Oct..Sep
 
@@ -108,7 +114,10 @@ NOTES = [
     "reservoirs DGA classes as generation or generation-and-irrigation, the bulk of the SEN's storable hydro "
     "energy. Days where a reservoir has no reading bridge gaps of up to 10 days by straight-line interpolation "
     "(for the total only; the reservoir columns stay blank); longer gaps leave the total blank. Laguna del Maule "
-    "falls back to DGA's dam gauge (07300006-8) on days its main station (07300000-9) has no reading.",
+    "had no online readings from mid-Apr-2025 to Jan-2026 (nor did its dam gauge 07300006-8, the fallback "
+    "station): its Apr-Sep 2025 month-ends come from the Sep-2025 bulletin (Source column says so) and the total "
+    "joins them up (gaps up to 35 days for this slow lake). Oct-2025 to early Jan-2026 stays blank in the total "
+    "until DGA publishes its Sep-2026 bulletin, which the script looks for on every run.",
     "Capacities (Mm3, DGA weekly bulletin Sep-2026): Colbún 1,544; Rapel 695; Ralco 1,174; Pangue 83; Lago Laja "
     "5,582; Laguna del Maule 1,359 (DGA's current storage curve; earlier bulletins used 1,420).",
     "Melado and Laguna de la Invernada (Maule basin, generation) are daily only (not in the bulletin table) and "
@@ -183,7 +192,7 @@ def fetch_daily(start, end):
                                                   f"latest {s.iloc[-1]:,.1f} Mm3" if len(s) else ""), flush=True)
         out[f"{col}_Mm3"] = s
     df = pd.DataFrame(out)
-    df["Source"] = "DGA online (daily median)"
+    df["Source"] = ONLINE
     return df
 
 
@@ -222,10 +231,25 @@ def parse_bulletin(content, wy_end):
     return df
 
 
+def find_bulletin(year):
+    """URL of DGA's September bulletin for a year not in BULLETINS, via dga.mop.gob.cl's WordPress media search."""
+    try:
+        r = requests.get("https://dga.mop.gob.cl/wp-json/wp/v2/media", headers={"User-Agent": HEADERS["User-Agent"]},
+                         params={"search": f"septiembre-{year}", "per_page": 50, "_fields": "source_url"},
+                         timeout=(10, 60))
+        urls = [i["source_url"] for i in r.json() if isinstance(i, dict)]
+    except Exception as e:  # noqa: BLE001
+        print(f"  media search for the Sep-{year} bulletin failed: {e}", flush=True)
+        return None
+    urls = [u for u in urls if re.search(rf"Bolet.*septiembre[-_]{year}.*\.pdf$", u, re.I)
+            and "hidrometeorologico" not in u.lower()]
+    return sorted(urls)[-1] if urls else None
+
+
 def fetch_bulletins(missing_years):
     frames = []
     for wy_end in sorted(missing_years):
-        url = BULLETINS.get(wy_end)
+        url = BULLETINS.get(wy_end) or find_bulletin(wy_end)
         if not url:
             continue
         try:
@@ -237,17 +261,16 @@ def fetch_bulletins(missing_years):
     frames = [f for f in frames if not f.empty]
     if not frames:
         return pd.DataFrame()
-    df = pd.concat(frames)
-    df = df[df.index < pd.Timestamp(API_START)]
-    df["Source"] = "DGA monthly bulletin (month-end)"
-    return df
+    return pd.concat(frames)
 
 
 def finish(df):
     df = df.reindex(columns=COLS)
     tot = df[[f"{k}_Mm3" for k in TOTAL]].copy()
     daily = df["Source"].astype(str).str.startswith("DGA online")
-    tot[daily] = tot[daily].interpolate(limit=TOTAL_GAP_DAYS, limit_area="inside")
+    for c in tot.columns:
+        tot.loc[daily, c] = tot.loc[daily, c].interpolate(limit=SLOW_GAP_DAYS.get(c, TOTAL_GAP_DAYS),
+                                                          limit_area="inside")
     df["Total_Mm3"] = tot.sum(axis=1).where(tot.notna().all(axis=1)).round(1)
     df["Total_pct"] = (100 * df["Total_Mm3"] / CAPACITY).round(2)
     df.index.name = "date"
@@ -262,19 +285,24 @@ def main():
     arch = load_archive(args.out)
     today = dt.date.today()
     # 1) month-end history from the bulletins, only for water years not yet in the archive
-    hist_idx = arch.index[arch["Source"] == "DGA monthly bulletin (month-end)"] if len(arch) else pd.DatetimeIndex([])
+    hist_idx = arch.index[arch["Source"] == BULLETIN] if len(arch) else pd.DatetimeIndex([])
+    tot_cols = [f"{k}_Mm3" for k in TOTAL]
     missing = set()
-    for y in BULLETINS:
+    last_saved = arch.index.max() if len(arch) else pd.Timestamp(API_START)
+    for y in sorted(set(BULLETINS) | set(range(2025, today.year + 1))):
         ends = pd.date_range(pd.Timestamp(y - 1, 10, 31), pd.Timestamp(y, 9, 30), freq="ME")
-        ends = ends[ends < pd.Timestamp(API_START)]
-        if not ends.isin(hist_idx).all():
+        before = ends[ends < pd.Timestamp(API_START)]
+        inside = ends[(ends >= pd.Timestamp(API_START)) & (ends <= last_saved)]
+        if not before.isin(hist_idx).all():
             missing.add(y)
+        elif len(inside) and (arch.empty or arch.reindex(inside)[tot_cols].isna().any(axis=None)):
+            missing.add(y)   # a station missed a month-end inside the daily period
     hist = pd.DataFrame()
     if missing:
         print(f"Reading DGA September bulletins for water years ending {sorted(missing)}", flush=True)
         hist = fetch_bulletins(missing)
     # 2) daily API from the last saved day
-    daily_arch = arch[arch["Source"] == "DGA online (daily median)"] if len(arch) else arch
+    daily_arch = arch[arch["Source"].astype(str).str.startswith(ONLINE)] if len(arch) else arch
     try:
         saved_method = str(pd.read_excel(args.out, sheet_name="Method", index_col=0).loc["daily_method", "value"])
     except Exception:  # noqa: BLE001 - first run / older workbook
@@ -286,15 +314,28 @@ def main():
     print(f"Fetching DGA daily volumes {start} .. {today}", flush=True)
     new = fetch_daily(start, today)
 
-    parts = [p for p in (arch, hist, new) if p is not None and not p.empty]
-    if not parts:
-        print("No data.", flush=True)
-        sys.exit(1)
-    base = pd.concat([p for p in (arch, hist) if p is not None and not p.empty] or [pd.DataFrame(columns=COLS)])
+    pre = hist[hist.index < pd.Timestamp(API_START)].assign(Source=BULLETIN) if not hist.empty else hist
+    post = hist[hist.index >= pd.Timestamp(API_START)] if not hist.empty else hist
+    base = pd.concat([p for p in (arch, pre) if p is not None and not p.empty] or [pd.DataFrame(columns=COLS)])
     base = base[~base.index.duplicated(keep="last")]
     # new readings win, but a station that returned nothing this run keeps its saved values
     new = new.dropna(how="all", subset=[c for c in new.columns if c.endswith("_Mm3")])
     df = new.combine_first(base) if not new.empty else base
+    if not base.empty and not new.empty:   # keep the note on month-ends filled from a bulletin in earlier runs
+        ann = base["Source"].astype(str).str.contains("bulletin month-end")
+        df.loc[ann[ann].index, "Source"] = base.loc[ann[ann].index, "Source"]
+    if df.empty:
+        print("No data.", flush=True)
+        sys.exit(1)
+    # month-end bulletin values only fill cells the online network missed
+    for d, row in post.iterrows():
+        if d not in df.index:
+            continue
+        for c, v in row.items():
+            if c.endswith("_Mm3") and pd.notna(v) and pd.isna(df.at[d, c]):
+                df.at[d, c] = v
+                src = str(df.at[d, "Source"])
+                df.at[d, "Source"] = (src + "; " if "bulletin" in src else src + "; bulletin month-end: ") + c[:-4]
     df = finish(df[df.index >= pd.Timestamp(HISTORY_START)])
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     stations = pd.DataFrame([{"column": f"{k}_Mm3", "reservoir": (v[1] or k), "DGA station code": v[0],
