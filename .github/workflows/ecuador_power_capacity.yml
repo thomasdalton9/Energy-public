@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl certifi cryptography xlrd
+        run: pip install pandas requests openpyxl certifi cryptography xlrd pdfplumber
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"

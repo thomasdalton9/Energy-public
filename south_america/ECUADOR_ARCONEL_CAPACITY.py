@@ -169,6 +169,59 @@ def parse_bnee(content):
     return fuels, tech, (float(national[0]) if national else None)
 
 
+ANNUAL_PAGE = SITE + "/publicaciones-estadistica-del-sector-electrico-2/"
+NUM = r"(\d{1,3}(?:\.\d{3})*,\d+)"
+PDF_ROWS = {"HIDRAULICA": "HIDRAULICA", "EOLICA": "EOLICA", "FOTOVOLTAICA": "FOTOVOLTAICA", "BIOMAS": "BIOMASA",
+            "BIOMASA": "BIOMASA", "BIOGAS": "BIOGAS", "MCI": "MCI", "TURBOGAS": "TURBOGAS", "TURBOVAPOR": "TURBOVAPOR",
+            "RENOVABLE": "RENOVABLE", "NO RENOVABLE": "NO RENOVABLE"}
+
+
+def annual_pdf_urls():
+    """{year: download URL} of ARCONEL's 'Estadistica Anual y Multianual del Sector Electrico' PDFs."""
+    r = S.get(ANNUAL_PAGE, timeout=TIMEOUT)
+    r.raise_for_status()
+    out = {}
+    for m in re.finditer(r'href=["\']([^"\']*download\.php\?id=\d+)&(?:amp;)?force=0["\']', r.text):
+        before = re.sub(r"<[^>]+>|\s+", " ", r.text[max(0, m.start() - 600):m.start()])
+        hits = re.findall(r"Estad\S*stica Anual y Multianual[^+]*?(\d{4})", before, re.I)
+        if hits:
+            out.setdefault(int(hits[-1]), m.group(1) + "&force=0")
+    return out
+
+
+def parse_annual_pdf(content):
+    """December nominal capacity by technology from the 'Balance nacional de energia electrica' table of an
+    ARCONEL annual statistics PDF: ({fuel: MW}, {technology: MW})."""
+    import pdfplumber
+    with pdfplumber.open(io.BytesIO(content)) as pdf:
+        for page in pdf.pages[:60]:
+            t = page.extract_text() or ""
+            k = key(t)
+            if not ("POTENCIA NOMINAL" in k and "TURBOVAPOR" in k and "BALANCE NACIONAL DE ENERGIA ELECTRICA" in k):
+                continue
+            vals = {}
+            for line in t.splitlines():
+                m = re.match(r"^\s*([A-Za-zÁÉÍÓÚáéíóúñÑ ]+?)\s+" + NUM, line)
+                if not m:
+                    continue
+                lab = PDF_ROWS.get(key(m.group(1)))
+                if lab and lab not in vals:
+                    vals[lab] = float(m.group(2).replace(".", "").replace(",", "."))
+            if "MCI" not in vals or "HIDRAULICA" not in vals:
+                continue
+            ren = sum(vals.get(x, 0) for x in ("HIDRAULICA", "EOLICA", "FOTOVOLTAICA", "BIOMASA", "BIOGAS"))
+            non = sum(vals.get(x, 0) for x in ("MCI", "TURBOGAS", "TURBOVAPOR"))
+            for lab, tot in (("RENOVABLE", ren), ("NO RENOVABLE", non)):
+                if lab in vals and abs(vals[lab] - tot) > 1:
+                    raise ValueError(f"{lab}: rows add to {tot:,.2f}, table total {vals[lab]:,.2f}")
+            tech = {x: v for x, v in vals.items() if x not in ("RENOVABLE", "NO RENOVABLE")}
+            fuels = {}
+            for x, v in tech.items():
+                fuels[TECH[x]] = fuels.get(TECH[x], 0.0) + v
+            return fuels, tech
+    raise ValueError("no 'Balance nacional de energia electrica' capacity table found")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=DEFAULT_OUT)
@@ -181,6 +234,13 @@ def main():
     months, latest = month_index()
     for m in latest:
         months.setdefault(m, [])
+    # Months with no PNG in the media library: try the folders of the following months (ARCONEL uploads each
+    # balance two to three months after the month it covers).
+    gap_months = set()
+    for m in pd.date_range(min(months), max(months), freq="MS"):
+        if m not in months:
+            months[m] = [f"{m + pd.DateOffset(months=k):%Y/%m}" for k in (2, 3)]
+            gap_months.add(m)
     wanted = sorted(m for m in months if m >= pcc.START)
     have = set(old.index) if not old.empty else set()
     todo = [m for m in wanted if m not in have]
@@ -194,7 +254,8 @@ def main():
         url = latest.get(m) or find_url(m, months[m])
         if url is None:
             print(f"  {m:%Y-%m}: workbook not found (upload folders {months[m]})", flush=True)
-            failed.append(m)
+            if m not in gap_months:
+                failed.append(m)
             continue
         try:
             r = S.get(url, timeout=TIMEOUT)
@@ -211,6 +272,32 @@ def main():
             raise SystemExit(f"{m:%Y-%m}: technology rows do not add up to the national total - layout changed?")
         rows[m] = {f"{f}_MW": v for f, v in fuels.items()}
         techs[m] = dict(tech, source_url=url)
+
+    # Before the BNEE workbooks on arconel.gob.ec start: December values from ARCONEL's annual statistics PDFs.
+    bnee_months = [m for m in list(rows) + list(have) if m >= pd.Timestamp("2024-01-01")]
+    first_bnee = min(bnee_months) if bnee_months else min(months)
+    annual_years = [y for y in range(pcc.START.year, first_bnee.year)
+                    if pd.Timestamp(year=y, month=12, day=1) not in have]
+    if annual_years:
+        pdfs = annual_pdf_urls()
+        print(f"Annual statistics PDFs: {sorted(pdfs)}; fetching {annual_years}", flush=True)
+        for y in annual_years:
+            if y not in pdfs:
+                print(f"  {y}: no annual statistics PDF listed", flush=True)
+                continue
+            try:
+                r = S.get(pdfs[y], timeout=(15, 600))
+                r.raise_for_status()
+                fuels, tech = parse_annual_pdf(r.content)
+            except Exception as e:  # noqa: BLE001
+                print(f"  {y}: annual PDF failed: {type(e).__name__}: {str(e)[:150]}", flush=True)
+                failed.append(pd.Timestamp(year=y, month=12, day=1))
+                continue
+            m = pd.Timestamp(year=y, month=12, day=1)
+            print(f"  {y}-12 (annual PDF {r.url}): {', '.join(f'{k} {v:,.1f}' for k, v in tech.items())}; "
+                  f"sum {sum(tech.values()):,.1f} MW", flush=True)
+            rows[m] = {f"{f}_MW": v for f, v in fuels.items()}
+            techs[m] = dict(tech, source_url=r.url)
 
     new = pd.DataFrame.from_dict(rows, orient="index")
     monthly = pcc.standardise(new) if not new.empty else pd.DataFrame()
@@ -234,10 +321,12 @@ def main():
         "total (S.N.I. plus isolated systems and self-generators).",
         "",
         "COVERAGE",
-        f"{monthly.index.min():%Y-%m} to {monthly.index.max():%Y-%m} ({len(monthly)} months). BNEE workbooks are "
-        "on arconel.gob.ec from April 2024; months before that were published on the retired ARCERNNR site "
-        "(www.controlrecursosyenergia.gob.ec, which no longer serves them), so the series starts in April 2024. "
-        "ARCONEL publishes each month about two to three months later."
+        f"{monthly.index.min():%Y-%m} to {monthly.index.max():%Y-%m} ({len(monthly)} rows). Monthly BNEE workbooks "
+        "are on arconel.gob.ec from April 2024; earlier months were published on the retired ARCERNNR site "
+        "(www.controlrecursosyenergia.gob.ec, which no longer serves them). For 2021-2023 the series has one row "
+        "per year, dated 1 December: the December 'Balance nacional de energia electrica' table reprinted in "
+        "ARCONEL's 'Estadistica Anual y Multianual del Sector Electrico Ecuatoriano' PDF for that year "
+        f"({ANNUAL_PAGE}). ARCONEL publishes each month about two to three months later."
         + (f" Months missing inside the range: {', '.join(f'{m:%Y-%m}' for m in gaps)}." if gaps else ""),
         "",
         "SOURCE",
