@@ -1,6 +1,6 @@
 name: Peru and Ecuador power discovery
 
-# One-off, manual-only probe for PERU_COES_ECUADOR_CENACE_DISCOVERY.py.
+# One-off, manual-only probe (PERU_COES_ECUADOR_CENACE_DISCOVERY.py, then round 2).
 # Raw responses go to the throwaway branch ecpe-discovery-raw.
 on:
   workflow_dispatch: {}
@@ -22,7 +22,7 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1000 python3 discovery_archive/south_america/PERU_COES_ECUADOR_CENACE_DISCOVERY.py
+        run: timeout 1000 python3 discovery_archive/south_america/PERU_ECUADOR_POWER_DISCOVERY2.py
       - name: Push raw files to a throwaway branch for offline inspection
         if: always()
         run: |
