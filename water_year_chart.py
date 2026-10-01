@@ -12,6 +12,7 @@ Usage (after the workbook has been written):
     water_year_chart.add_water_year_chart(path, series, "Rhine at Kaub", "cm")
 where `series` is a pandas Series of daily values indexed by date.
 """
+import math
 import os
 
 import pandas as pd
@@ -83,7 +84,8 @@ def write_table(ws, table):
         ws.column_dimensions[col].width = 14
 
 
-def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=True, inner=None, short_title=False):
+def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=True, inner=None, short_title=False,
+                y_decimals=None):
     """AGSI-style chart over a table written by write_table on ws (the chart can be placed on any sheet)."""
     n = len(table) + 1
     cats = Reference(ws, min_col=1, min_row=2, max_row=n)
@@ -123,6 +125,12 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
         span = float(vals.max() - vals.min()) or 1.0
         area.y_axis.scaling.min = float(vals.min() - 0.05 * span)
         area.y_axis.scaling.max = float(vals.max() + 0.05 * span)
+    if y_decimals == 0 and "%" not in str(unit):   # whole-number labels: whole-number axis ends too
+        area.y_axis.scaling.min = float(math.floor(area.y_axis.scaling.min))
+        area.y_axis.scaling.max = float(math.ceil(area.y_axis.scaling.max))
+    if y_decimals is not None:
+        area.y_axis.number_format = "0" if y_decimals == 0 else "0." + "0" * y_decimals
+        area.y_axis.numFmt.sourceLinked = False
     lines.y_axis.scaling.min = area.y_axis.scaling.min
     lines.y_axis.scaling.max = area.y_axis.scaling.max
     lines.y_axis.majorUnit = area.y_axis.majorUnit
@@ -137,7 +145,7 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     area += lines
     return xlsx_charts.tidy_layout(area, gridlines, inner)
 
-def add_water_year_chart(path, series, title, unit, sheet_name=SHEET):
+def add_water_year_chart(path, series, title, unit, sheet_name=SHEET, y_decimals=None):
     """sheet_name: pass a different name to put several water-year charts in one workbook."""
     table, meta = water_year_table(series)
     wb = load_workbook(path)
@@ -145,7 +153,7 @@ def add_water_year_chart(path, series, title, unit, sheet_name=SHEET):
         del wb[sheet_name]
     ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
     write_table(ws, table)
-    area = build_chart(ws, table, meta, title, unit)
+    area = build_chart(ws, table, meta, title, unit, y_decimals=y_decimals)
     ws.add_chart(area, "I2")
 
     root, ext = os.path.splitext(path)
