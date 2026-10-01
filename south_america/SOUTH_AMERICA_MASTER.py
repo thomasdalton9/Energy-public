@@ -267,13 +267,14 @@ def south_america_generation(data_dir, have_raw):
     return total, notes
 
 
-def south_america_capacity(data_dir):
+def south_america_capacity(data_dir, cfg=None):
     """South America installed capacity by technology, GW: the sum of each country's capacity workbook. Capacity is
     a stock, so an annual-only country's figure is carried forward month by month until its next value. Runs to the
     last month every monthly-source country has; a country with no workbook is listed, not estimated."""
     import add_charts as ac
+    cfg = cfg or sys.modules[__name__]   # the North America master passes itself
     frames, notes, monthly_last = {}, [], []
-    for code, country, fname, _, _ in CAPACITY_DATASETS:
+    for code, country, fname, _, _ in cfg.CAPACITY_DATASETS:
         path = os.path.join(data_dir, fname)
         if not os.path.exists(path):
             notes.append(f"NOT INCLUDED: {country} (no capacity workbook yet)")
@@ -287,7 +288,7 @@ def south_america_capacity(data_dir):
         else:
             monthly_last.append(g.index.max())
         frames[country] = (g, annual)
-        notes.append(f"{country}: {SOURCES.get(fname, (fname,))[0]}, {'annual' if annual else 'monthly'} "
+        notes.append(f"{country}: {cfg.SOURCES.get(fname, (fname,))[0]}, {'annual' if annual else 'monthly'} "
                      f"{g.index.min():%b/%y}-{g.index.max():%b/%y}")
     if not frames:
         return pd.DataFrame(), notes

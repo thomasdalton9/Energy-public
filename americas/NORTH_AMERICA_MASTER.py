@@ -10,7 +10,8 @@ this reuses).
                        feedgas; Canada supply and disposition; Mexico
                        imports from the US
   Dashboard - Power  - North America generation by source (sum of the three
-                       countries), US Lower 48 and each ISO/RTO region
+                       countries) and installed capacity (EIA-860M, StatCan,
+                       Ember for Mexico), then US Lower 48 and each ISO/RTO region
                        (EIA-930), Canada (StatCan), Mexico (Ember fallback:
                        no raw CENACE generation feed yet) and Mexico demand
                        (CENACE)
@@ -62,6 +63,12 @@ RAW_POWER_DATASETS = [
 OTHER_POWER_DATASETS = [
     ("MX", "Mexico", "mexico_demanda_nacional_daily.xlsx", "Data", "demand"),
 ]
+# Installed generating capacity (standard sheet "Monthly"): US monthly, Canada and Mexico annual
+CAPACITY_DATASETS = [
+    ("US", "United States", "us_power_capacity.xlsx", "Monthly", "capacity"),
+    ("CA", "Canada", "canada_power_capacity.xlsx", "Monthly", "capacity"),
+    ("MX", "Mexico", "mexico_power_capacity.xlsx", "Monthly", "capacity"),
+]
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
@@ -112,14 +119,27 @@ def eia930(path):
     return out
 
 
-def canada_monthly(path):
-    """StatCan by type of plant -> the dashboard's fuel groups (conventional steam burns coal, gas and biomass and is
-    not split by fuel monthly, so it goes to Other with internal combustion)."""
-    d = add_charts.by_date(add_charts.read(path, "Daily"), "date").apply(pd.to_numeric, errors="coerce")
-    g = pd.DataFrame({f: d.get(f"{f}_MWh") for f in ("Hydro", "Gas", "Wind", "Solar", "Nuclear")}, index=d.index)
-    g["Coal"] = 0.0
-    g["Other"] = d[add_charts.cols(d, "Oil_MWh", "Steam_MWh", "Other_MWh")].sum(axis=1, min_count=1)
-    return g[FUELS].fillna(0) / 1000.0
+def canada_monthly(path, ember_path):
+    """StatCan monthly generation (GWh) in the dashboard's fuel groups. StatCan does not split fossil generation by
+    fuel monthly, so it is shared out into gas, coal and other fossil (-> Other) on Ember's Canada mix for that month
+    (the average share of Ember's latest 12 months where Ember has not published the month yet)."""
+    d = add_charts.by_date(add_charts.read(path, "Daily"), "date").apply(pd.to_numeric, errors="coerce") / 1000.0
+    g = pd.DataFrame({f: d.get(f"{f}_MWh") for f in ("Hydro", "Wind", "Solar", "Nuclear")}, index=d.index)
+    other = d[add_charts.cols(d, "Bioenergy_MWh", "Other_MWh")].sum(axis=1)
+    fossil = d.get("Fossil_MWh", pd.Series(0.0, index=d.index)).fillna(0)
+    try:
+        e = add_charts.by_date(add_charts.read(ember_path, "Canada"), "Month")
+        parts = pd.DataFrame({"Gas": e.get("Gas_GWh"), "Coal": e.get("Coal_GWh"),
+                              "Other": e.get("Other Fossil_GWh")}).fillna(0)
+        share = parts.div(parts.sum(axis=1), axis=0)
+        share = share.reindex(share.index.union(d.index)).sort_index()
+        share = share.fillna(share.dropna().tail(12).mean()).reindex(d.index)
+    except Exception:  # noqa: BLE001 - no Ember Canada sheet: fossil stays unsplit, under Other
+        share = pd.DataFrame({"Gas": 0.0, "Coal": 0.0, "Other": 1.0}, index=d.index)
+    g["Gas"] = fossil * share["Gas"]
+    g["Coal"] = fossil * share["Coal"]
+    g["Other"] = other + fossil * share["Other"]
+    return g[FUELS].fillna(0)
 
 
 def henry_hub(path):
@@ -170,6 +190,13 @@ SOURCES = {
                                            "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501"),
     "mexico_demanda_nacional_daily.xlsx": ("CENACE (Centro Nacional de Control de Energía), Demanda Real del Sistema",
                                            "https://www.cenace.gob.mx/Paginas/SIM/Reportes/EstimacionDemandaReal.aspx"),
+    "us_power_capacity.xlsx": ("EIA-860M monthly generator inventory (net summer capacity), via EIA API v2",
+                               "https://www.eia.gov/electricity/data/eia860m/"),
+    "canada_power_capacity.xlsx": ("Statistics Canada, Tables 25-10-0022-01 (capacity by type) and 25-10-0023-01 "
+                                   "(thermal capacity by principal fuel)",
+                                   "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510002201"),
+    "mexico_power_capacity.xlsx": ("Ember yearly electricity data - FALLBACK, no raw Mexican capacity feed yet",
+                                   "https://ember-energy.org/data/yearly-electricity-data/"),
     **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
 }
 # The grid operator / statistics office Ember compiles each country from (named on Ember-fed charts)
@@ -192,8 +219,8 @@ def north_america_generation(data_dir, have_raw):
                 src = SOURCES[fname][0] + " (Alaska and Hawaii not included)"
             elif country in have_raw:
                 fname = "canada_power_generation_daily.xlsx"
-                m = canada_monthly(os.path.join(data_dir, fname))
-                src = SOURCES[fname][0] + " (conventional steam and internal combustion counted as Other)"
+                m = canada_monthly(os.path.join(data_dir, fname), ember)
+                src = SOURCES[fname][0] + " (fossil split into gas/coal/oil on Ember's Canada shares - estimate)"
             else:
                 m = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
                 src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})"
@@ -275,6 +302,34 @@ def main():
             f"; {', '.join(missing)} missing in latest months)" if missing else ")")
         power[1].insert(0, ("North America", name, df.index.max().strftime("%b/%y"), ws.title, *src))
         print("North America generation total:", "; ".join(notes))
+
+    # Capacity: combined North America chart (GW) right after the generation total, then each country
+    cap_total, cap_notes = sam.south_america_capacity(args.data_dir, cfg=cfg)
+    cap = sam.collect(wb, [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
+                      args.data_dir, used, sources, cfg=cfg)
+    pos = 1 if not total.empty else 0
+    if not cap_total.empty:
+        ws = wb.create_sheet(sam.sheet_name("NA capacity total data", used))
+        df, n_bars = xlsx_charts.prepare(cap_total)
+        xlsx_charts.write_table(ws, df)
+        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (annual figures carried forward; storage "
+                                                      "excluded):")
+        for i, note in enumerate(cap_notes, start=2):
+            ws.cell(row=i, column=df.shape[1] + 4, value=note)
+        src = ("Sum of the country capacity workbooks (EIA-860M, StatCan; Ember for Mexico)", None)
+        power[0].insert(pos, (xlsx_charts.build_chart(ws, df, n_bars, "North America installed generating capacity",
+                                                      "GW installed", "stacked_bar", width=sam.CHART_W,
+                                                      height=sam.CHART_H, gridlines=False,
+                                                      inner=xlsx_charts.DASHBOARD_INNER), src))
+        missing = [n.split(":", 1)[1].split("(")[0].strip() for n in cap_notes if n.startswith("NOT INCLUDED")]
+        power[1].insert(pos, ("North America", "North America installed generating capacity" +
+                              (f" (missing: {', '.join(missing)})" if missing else ""),
+                              df.index.max().strftime("%b/%y"), ws.title, *src))
+        pos += 1
+        print("North America capacity total:", "; ".join(cap_notes))
+    power[0][pos:pos] = cap[0]
+    power[1][pos:pos] = cap[1]
+    power[2].extend(cap[2])
 
     sam.draw_dashboard(dash, "North America energy (US, Canada, Mexico) - gas dashboard", *gas)
     sam.draw_dashboard(dash2, "North America energy (US, Canada, Mexico) - power generation", *power)

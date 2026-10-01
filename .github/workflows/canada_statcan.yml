@@ -1,8 +1,9 @@
 name: Canada power and gas (StatCan)
 
-# Statistics Canada monthly tables 25-10-0015-01 (generation by type) and
-# 25-10-0055-01 (natural gas supply and disposition). Each run checks the
-# tables' latest month first and downloads only when there is a newer one.
+# Statistics Canada tables 25-10-0015-01 (monthly generation by type),
+# 25-10-0086-01 (monthly natural gas supply and disposition) and
+# 25-10-0022-01 / 25-10-0023-01 (annual generating capacity). Each run checks
+# the tables' latest period first and downloads only when there is a newer one.
 on:
   schedule:
     - cron: "10 13 * * 1"
@@ -25,12 +26,12 @@ jobs:
       - name: Run StatCan pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 900 python3 americas/CANADA_STATCAN.py --power-out "output/Data and Chart Outputs/canada_power_generation_daily.xlsx" --gas-out "output/Data and Chart Outputs/canada_gas.xlsx"
+        run: timeout 900 python3 americas/CANADA_STATCAN.py --power-out "output/Data and Chart Outputs/canada_power_generation_daily.xlsx" --gas-out "output/Data and Chart Outputs/canada_gas.xlsx" --capacity-out "output/Data and Chart Outputs/canada_power_capacity.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          for f in canada_power_generation_daily canada_gas; do
+          for f in canada_power_generation_daily canada_gas canada_power_capacity; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
@@ -41,7 +42,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in canada_power_generation_daily canada_gas; do
+          for f in canada_power_generation_daily canada_gas canada_power_capacity; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
           git add -f "output/Python Scripts" || true

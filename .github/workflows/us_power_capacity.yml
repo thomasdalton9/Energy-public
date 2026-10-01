@@ -1,0 +1,53 @@
+name: US power capacity (EIA-860M)
+
+# EIA's monthly generator inventory (Form EIA-860M) is published about two
+# months after each month; weekly runs pick up a new month within a week
+# and otherwise only re-read the latest two months.
+on:
+  schedule:
+    - cron: "25 14 * * 3"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+      - name: Run US capacity pull
+        env:
+          PYTHONUNBUFFERED: "1"
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 3000 python3 americas/US_POWER_CAPACITY_EIA.py --out "output/Data and Chart Outputs/us_power_capacity.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/us_power_capacity.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp americas/US_POWER_CAPACITY_EIA.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/us_power_capacity.xlsx"
+          [ -f "$f" ] || { echo "No workbook to commit."; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "$f"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "US power capacity (EIA-860M): automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

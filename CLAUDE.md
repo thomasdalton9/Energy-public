@@ -30,7 +30,7 @@ Standing instructions from the repo owner. Follow these on every change.
   lists (and add_charts.py REGISTRY), plus a SOURCES entry (publisher + link).
 - `americas/NORTH_AMERICA_MASTER.py` -> `north_america_master.xlsx`: United States, Canada, Mexico, same layout
   (reuses SOUTH_AMERICA_MASTER's code). Gas Dashboard + "Dashboard - Power"; add datasets to its DATASETS /
-  RAW_POWER_DATASETS / OTHER_POWER_DATASETS lists plus a SOURCES entry.
+  RAW_POWER_DATASETS / OTHER_POWER_DATASETS / CAPACITY_DATASETS lists plus a SOURCES entry.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
