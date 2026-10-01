@@ -60,6 +60,7 @@ DATASETS = [
     ("PR", "Puerto Rico", "puerto_rico_gas.xlsx", "Gas use", "gas"),
     ("JM", "Jamaica", "jamaica_gas.xlsx", "Gas use", "gas"),
     ("DO", "Dominican Republic", "dominican_republic_gas.xlsx", "Gas use", "gas"),
+    ("CO", "Colombia", "south_america_coal_production.xlsx", "Colombia", "coal"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
@@ -95,7 +96,10 @@ HYDRO_DATASETS = [
     ("BR", "Brazil", "brazil_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("CL", "Chile", "chile_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("CO", "Colombia", "colombia_hydro_reservoirs.xlsx", "Daily", "hydro"),
+    ("EC", "Ecuador", "ecuador_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
+    ("PE", "Peru", "peru_hydro_reservoirs.xlsx", "Daily", "hydro"),
+    ("UY", "Uruguay", "uruguay_hydro_reservoirs.xlsx", "Daily", "hydro"),
 ]
 # The Power & Hydro dashboard shows one national hydro chart per country (each workbook's first water-year
 # spec) plus these extra regional charts by spec name; the full sets stay in each country workbook.
@@ -130,7 +134,10 @@ SOURCES = {
                                 "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/dados-consolidados-movimentacao-de-gas-natural-em-gasodutos-de-transporte"),
     "bolivia_gas_demand_by_sector.xlsx": ("INE Bolivia",
                                           "https://www.ine.gob.bo/index.php/estadisticas-economicas/hidrocarburos-mineria/hidrocarburo-cuadros-estadisticos/"),
-    "chile_gas_imports.xlsx": ("CNE Chile, Reporte Mensual (customs data)", "https://www.cne.cl/nuestros-servicios/reportes/"),
+    "chile_gas_imports.xlsx": ("CNE Chile: Estadísticas > Hidrocarburo (import workbook by use and region, customs "
+                               "data; ENAP + CEOP gas production, Ministerio de Energía data); Reporte Mensual "
+                               "(imports for months after the workbook)",
+                               "https://www.cne.cl/estadisticas/hidrocarburo/"),
     "colombia_gas_demand_by_sector.xlsx": ("Gestor del Mercado de Gas (BMC)", "https://www.bmcbec.com.co/informes/informes-mensuales"),
     "ecuador_gas.xlsx": ("EP Petroecuador (domestic gas); UN Comtrade, Ecuador customs HS 2711.11 (LNG imports)",
                          "https://www.eppetroecuador.ec/?p=3721"),
@@ -158,6 +165,13 @@ SOURCES = {
                                     "https://vipnet.mop.gob.cl/"),
     "argentina_hydro_reservoirs.xlsx": ("CAMMESA (daily lake levels and river flows, weekly programme), AIC, INA",
                                         "https://cammesaweb.cammesa.com/download/cotas-diarias/"),
+    "peru_hydro_reservoirs.xlsx": ("COES Peru, Informe Semanal de Evaluación de la Operación (5.1 useful volume of "
+                                   "reservoirs and lagoons)",
+                                   "https://www.coes.org.pe/Portal/PostOperacion/Informes/EvaluacionSemanal"),
+    "ecuador_hydro_reservoirs.xlsx": ("CELEC EP - CELEC SUR, Gráficas de Producción (Mazar / Amaluza SCADA levels)",
+                                      "https://generacioncsr.celec.gob.ec/graficasproduccion/"),
+    "uruguay_hydro_reservoirs.xlsx": ("ADME Uruguay (Río Negro lake levels, SCADA); INA Argentina (Salto Grande lake level)",
+                                      "https://pronos.adme.com.uy/seriesbonete.php"),
     "belize_power_generation_daily.xlsx": ("Belize Electricity Ltd (BEL)", "https://www.bel.com.bz/"),
     "costa_rica_power_generation_daily.xlsx": ("ICE / CENCE Costa Rica", "https://apps.grupoice.com/CenceWeb/"),
     "el_salvador_power_generation_daily.xlsx": ("SIGET El Salvador, Estadisticas Electricas (Power BI), monthly net generation",
@@ -190,6 +204,10 @@ SOURCES = {
                                             "https://www.mset.gov.jm/document-category/statistics-data/"),
     "jamaica_gas.xlsx": ("Ministry of Energy (MSET), Jamaica Energy Statistics Table 3 natural gas, ANNUAL only",
                          "https://www.mset.gov.jm/document-category/statistics-data/"),
+    "south_america_coal_production.xlsx": ("ANM Colombia (coal production declared for royalties, datos.gov.co) and "
+                                           "DANE (coal exports); EPE, SE Argentina, Cochilco, MINEM Peru annual; "
+                                           "Venezuela: Energy Institute Statistical Review",
+                                           "https://www.datos.gov.co/d/r85m-vv6c"),
     **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
 }
 # The grid operator Ember compiles each country from (named on Ember-fed charts)

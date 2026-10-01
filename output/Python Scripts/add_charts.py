@@ -782,6 +782,115 @@ def industrial_gas_users(p):
         "mcm/d (estimate at nameplate)")}]
 
 
+CO_COAL_DEPTS = ["La_Guajira", "Cesar", "Boyaca", "Cundinamarca", "Norte_de_Santander", "Cordoba"]
+
+
+def sa_coal(p):
+    """South America coal (SOUTH_AMERICA_COAL.py): Colombia quarterly production by department (ANM, stacked bars)
+    with DANE coal exports as a line; annual production by country (stacked bars, Mt/yr)."""
+    out = []
+    q = _sheet(p, "Colombia", "Quarter")
+    if not q.empty:
+        q = q.apply(pd.to_numeric, errors="coerce")
+        dep = [f"{d}_Mt" for d in CO_COAL_DEPTS if f"{d}_Mt" in q]
+        rest = [c for c in q.columns if c.endswith("_Mt") and c not in dep + ["Total_production_Mt", "Exports_DANE_Mt"]]
+        df = q[dep].rename(columns=lambda c: c[:-3].replace("_", " ").replace("Boyaca", "Boyacá")
+                           .replace("Cordoba", "Córdoba"))
+        df["Other departments"] = q[rest].sum(axis=1, min_count=1)
+        lines = ()
+        if "Exports_DANE_Mt" in q and q["Exports_DANE_Mt"].notna().any():
+            df["Exports (DANE)"] = q["Exports_DANE_Mt"]
+            lines = ("Exports (DANE)",)
+        out.append(spec("Colombia", df, "Colombia coal production by department (ANM) and exports (DANE)",
+                        "Mt per quarter", "stacked_bar", line_cols=lines))
+    a = _sheet(p, "Annual by country", "Year")
+    if not a.empty:
+        mt = [c for c in a.columns if str(c).endswith("_Mt") and c != "Total_Mt"]
+        out.append(spec("Annual", a[mt].apply(pd.to_numeric, errors="coerce").rename(columns=lambda c: c[:-3]),
+                        "South America coal production by country (Venezuela: EI estimate)", "Mt per year",
+                        "stacked_bar", "%Y"))
+
+
+# South America daily wholesale power prices (south_america/SA_POWER_PRICES_DAILY.py) - a separate workbook,
+# not part of the South & Central America master.
+PRICE_CHARTS = [  # sheet, title (with source), local unit
+    ("Brazil", "Brazil CMO by subsystem (ONS, daily average)", "BRL/MWh"),
+    ("Colombia", "Colombia Precio de Bolsa and Precio de Escasez (XM, daily average)", "COP/kWh"),
+    ("Peru", "Peru marginal cost, Santa Rosa 220 kV (COES, daily average)", "PEN/MWh"),
+    ("Argentina", "Argentina CMO and sanctioned spot price (CAMMESA, daily average)", "ARS/MWh"),
+    ("Uruguay", "Uruguay spot sancionado (ADME, daily average)", "USD/MWh"),
+    ("Bolivia", "Bolivia marginal cost (CNDC, daily)", "USD/MWh"),
+]
+
+
+def sa_power_prices(p):
+    """All markets in USD/MWh as monthly averages (plus CNDC's monthly Bolivian energy price where the daily
+    series is short), then one chart per country in local currency (daily; Chile's PMM is monthly)."""
+    sheets = pd.ExcelFile(p).sheet_names
+    u = by_date(read(p, "USD daily"), "date")
+    m = monthly_mean(u, "2021-01-01")
+    if "Bolivia monthly" in sheets:
+        b = read(p, "Bolivia monthly")
+        b = by_date(b, b.columns[0])
+        if "Precio de energia (USD/MWh)" in b:
+            m = m.join(b[["Precio de energia (USD/MWh)"]].rename(
+                columns={"Precio de energia (USD/MWh)": "Bolivia (CNDC energy price, monthly)"}), how="outer")
+    out = [spec("USD monthly", m.drop(columns=[c for c in m if c.startswith("Bolivia (CNDC marginal")], errors="ignore"),
+                "South America wholesale power prices (monthly average)", "USD/MWh")]
+    for sheet, title, unit in PRICE_CHARTS:
+        if sheet not in sheets:
+            continue
+        d = by_date(read(p, sheet), "date")
+        local = [c for c in d.columns if f"({unit})" in str(c) and "USD per" not in str(c)]
+        if unit != "USD/MWh":
+            local = [c for c in local if "(USD/MWh)" not in str(c)]
+        if local:
+            g = d[local].rename(columns=lambda c: re.sub(r"\s*\([^)]*\)$", "", str(c)))
+            out.append(spec(sheet, daily(g, "2021-01-01"), title, unit))
+    if "Chile" in sheets:
+        c = read(p, "Chile")
+        c = by_date(c, c.columns[0])
+        if "PMM SEN (CLP/kWh)" in c:
+            out.append(spec("Chile", c[["PMM SEN (CLP/kWh)"]].rename(columns={"PMM SEN (CLP/kWh)": "PMM SEN"}),
+                            "Chile Precio Medio de Mercado, SEN (CNE, monthly)", "CLP/kWh"))
+    return out
+
+
+def peru_hydro(p):
+    """COES weekly table: two readings a week (start and end of each COES week), joined up for the chart.
+    The national useful-storage % first, then the main seasonal systems in hm3."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("Total_pct", "Total", "Peru reservoirs and lagoons, total useful volume (COES)", "% of useful capacity"),
+              ("Junin_hm3", "Junin", "Peru, Lake Junín useful volume (COES)", "million m3 (useful)"),
+              ("Mantaro_lagoons_hm3", "Mantaro", "Peru, Mantaro-basin lagoons useful volume (COES)", "million m3 (useful)"),
+              ("Rimac_hm3", "Rimac", "Peru, Rímac system useful volume (COES)", "million m3 (useful)"),
+              ("Chili_hm3", "Chili", "Peru, Chili system (Arequipa) useful volume (COES)", "million m3 (useful)"),
+              ("Aricota_hm3", "Aricota", "Peru, Aricota useful volume (COES)", "million m3 (useful)"),
+              ("Sibinacocha_hm3", "Sibinacocha", "Peru, Sibinacocha useful volume (COES)", "million m3 (useful)")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=8), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
+def ecuador_hydro(p):
+    """CELEC SUR daily levels: Mazar (the seasonal store behind the 2023-24 blackouts) first, then Amaluza."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("MazarLevel_m", "Mazar", "Ecuador, Mazar reservoir level (CELEC SUR)", "m above sea level"),
+              ("AmaluzaLevel_m", "Amaluza", "Ecuador, Amaluza (Paute) reservoir level (CELEC SUR)", "m above sea level")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=8), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
+def uruguay_hydro(p):
+    """Rincón del Bonete (Uruguay's storage lake) first, then Salto Grande and the two lower Río Negro lakes."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("BoneteLevel_m", "Bonete", "Uruguay, Rincón del Bonete lake level (ADME)", "m above sea level"),
+              ("SaltoGrandeLevel_m", "SaltoGrande", "Uruguay/Argentina, Salto Grande lake level (INA)", "m"),
+              ("PalmarLevel_m", "Palmar", "Uruguay, Palmar lake level (ADME)", "m above sea level"),
+              ("BaygorriaLevel_m", "Baygorria", "Uruguay, Baygorria lake level (ADME)", "m above sea level")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=8), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -855,10 +964,15 @@ REGISTRY = {
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
+    "south_america_power_prices_daily.xlsx": sa_power_prices,
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
     "chile_hydro_reservoirs.xlsx": chile_hydro,
+    "south_america_coal_production.xlsx": sa_coal,
+    "peru_hydro_reservoirs.xlsx": peru_hydro,
+    "ecuador_hydro_reservoirs.xlsx": ecuador_hydro,
+    "uruguay_hydro_reservoirs.xlsx": uruguay_hydro,
     # installed generation capacity by technology (standard sheet "Monthly")
     "brazil_power_capacity.xlsx": power_capacity("Brazil installed generation capacity (ANEEL)"),
     "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),
