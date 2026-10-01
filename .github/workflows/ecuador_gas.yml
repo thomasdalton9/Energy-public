@@ -1,6 +1,6 @@
 name: Ecuador gas
 
-# Petroecuador statistical reports (monthly YTD + annual PDFs).
+# Petroecuador statistical reports (monthly YTD + annual PDFs) + UN Comtrade LNG imports (Ecuador customs).
 on:
   schedule:
     - cron: "50 11 * * 2"

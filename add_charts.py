@@ -250,7 +250,18 @@ def ecuador(p):
     d = by_date(read(p, "Gas by use"), "Month")
     g = pd.DataFrame({"Power (Machala)": d.get("Power_MMBtu_per_day"),
                       "Industry (Bajo Alto LNG)": d.get("Industrial_LNG_MMBtu_per_day")})
-    return [spec("Use", g, "Ecuador domestic gas (Amistad) by use", "MMBtu/day", "stacked_bar")]
+    out = [spec("Use", g, "Ecuador domestic gas (Amistad) by use", "MMBtu/day", "stacked_bar")]
+    try:
+        t = by_date(read(p, "Total demand"), "Month")
+    except ValueError:  # workbook from before the total-demand sheet
+        return out
+    td = pd.DataFrame({"Domestic - power (Machala)": t.get("Domestic_power_MMBtu_per_day"),
+                       "Domestic - industry (Bajo Alto LNG)": t.get("Domestic_industry_MMBtu_per_day"),
+                       "Imports - power": t.get("Imports_power_MMBtu_per_day"),
+                       "Imports - industry (LNG, customs)": t.get("Imports_industry_MMBtu_per_day")})
+    td = td.loc[:, td.fillna(0).ne(0).any()]  # no imports for power so far: leave out an all-zero series
+    out.append(spec("Total demand", td, "Ecuador gas demand: domestic + imports", "MMBtu/day", "stacked_bar"))
+    return out
 
 
 def el_salvador_gas(p):

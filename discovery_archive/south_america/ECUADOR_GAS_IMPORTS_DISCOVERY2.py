@@ -23,6 +23,21 @@ This round:
      a CDX listing of its uploaded statistics files.
   3. BCE BCEData and comercio-exterior BI pages, IEM publication list.
   4. Ministerio de Energia y Minas hosts.
+
+Round 2 found (-> ECUADOR_GAS.py "Total demand"):
+  - Comtrade monthly Ecuador data exist for 2021-01..2022-01, 2024-01..12
+    and 2026-01..03; none for 2022-02..2023-12, 2025 or 2026-04+ (annual
+    figures exist for 2021-2025).
+  - HS 271111 (LNG) imports: Jan-2022 26.4 t from Panama (Sycar's first
+    ISO-container cargo); 2022 total 123.3 t (Panama); Dec-2024 92.2 t from
+    Peru (first overland cargo, Limagas/Sycar, 28 Nov 2024); 2025 total
+    3,270 t from Peru (World row has no weight, Peru row does; USD 1.72 m);
+    Jan/Feb/Mar-2026 416.5 / 248.9 / 400.0 t from Peru. Otherwise only
+    kilogram samples (Netherlands, USA). HS 271121: grams/kilograms only.
+    Mirror exports to Ecuador confirm: Peru 2024 92.2 t, USA 2024-25 ~5 t;
+    no Panama/Colombia/Trinidad rows.
+  - Wayback Machine rate-limited (429) and CDX 503; BCE BCEData is a grid app;
+    IEM is HTML tables (no product detail); ministry hosts don't resolve.
 """
 import re
 import time
