@@ -18,9 +18,12 @@ Report layouts differ:
   - other older reports (e.g. 2022, 2025): no text layer at all (text drawn
     as outlines), so the imports page is read with OCR (tesseract).
 When the data month cannot be read it is taken as report month - 2, and the
-series is checked month to month against each report's published monthly
-change. A month with no report (e.g. CNE published no May 2026 report) is
-derived from the following month's value and its published monthly change.
+series is checked against each report's published monthly and annual
+changes. Some reports repeat an earlier report's table (same figures, or a
+stated data month that is too old); those are skipped. A month left without
+a table (e.g. CNE published no May 2026 report) is derived from the
+following month's value and its published monthly change, or else from the
+same month a year later and its published annual change.
 
 Units: thousand tonnes per month as published; also an approximate
 million m3/day at 1,360 m3 of gas per tonne of LNG.
@@ -50,14 +53,17 @@ LAG = 2  # report month - data month, when the report doesn't say
 M3_PER_TONNE = 1360.0
 MESES = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7, "agosto": 8,
          "septiembre": 9, "setiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12}
-OCR_DPI = 250
+OCR_DPI = 300
 
-PCT = r"(?:[-+−–—>]?\s?\d{1,4}(?:[.,]\d+)?\s?%|n/[ad])"
-# imports-table row: "Gas Natural 215 -25,6% -48,1%" (the exports table's own "Gas Natural" row follows on the same line)
-SEP = r"[\s|:]+"  # OCR may read table rules as '|'
-GAS_ROW = re.compile(r"Gas\s*Natur\w*" + SEP + r"(\d{1,3}(?:\.\d{3})+|\d{1,4}(?:,\d+)?)" + SEP + "(" + PCT + ")" + SEP + "(" + PCT + ")")
+# Imports table: header "Combustible [miles de Ton] Mensual Anual", then rows such as
+#   "Gas Natural 215 -25,6% -48,1% Gas Natural 0 n/d n/d"   (imports row, then the exports table's row)
+# OCR adds arrow icons and stray marks ("4 Gas Natural 444 Y 533% Am 225% 4 Gas Natural 52 y -15% n/d") and
+# often drops the decimal comma, so a change is only taken when it reads as one-decimal "-12,6%".
+HEADER_RE = re.compile(r"miles\s*de\s*Ton", re.I)
+GAS_RE = re.compile(r"Gas\s*Natur\w*\W{0,3}?\s*(\d{1,3}(?:,\d{1,2})?)(?!\d)", re.I)
+PCT_RE = re.compile(r"[-+\u2212\u2013\u2014]?\s?\d{1,3},\d\s?%|>\s?100\s?%|n\s?/\s?[ad]|[-+]?\d{1,4}\s?%")
 MONTH_RE = re.compile(r"corresponden?\s+al\s+mes\s+de\s+([A-Za-zé]+)\s+(?:de|del)?\s*(20\d\d)", re.I)
-ORIGIN_RE = re.compile(r"gas\s+natural\s+desde\s+([^.;]+)", re.I)
+ORIGIN_RE = re.compile(r"gas\s+natural\s+(?:tra[i\u00ed]do\s+)?desde\s+([^.;]+)", re.I)
 
 
 def out(*a):
@@ -72,9 +78,9 @@ def num(s):
 
 
 def pct(s):
-    """'-25,6%' -> -0.256; 'n/d', '>100%' -> None."""
-    s = re.sub(r"\s", "", s).replace("−", "-").replace("–", "-").replace("—", "-")
-    if not s.endswith("%") or s.startswith(">"):
+    """'-25,6%' -> -0.256; 'n/d', '>100%' and OCR tokens without the decimal comma ('-126%') -> None."""
+    s = re.sub(r"\s", "", s).replace("\u2212", "-").replace("\u2013", "-").replace("\u2014", "-")
+    if not re.fullmatch(r"[-+]?\d{1,3},\d%", s):
         return None
     return round(float(s[:-1].replace(",", ".")) / 100, 4)
 
@@ -109,10 +115,22 @@ def ocr_page(content, i, psm):
 
 
 def find_row(text):
-    """First imports-table gas row in text: (kt, monthly change, annual change)."""
-    for m in GAS_ROW.finditer(text or ""):
-        if num(m.group(1)) > 0:  # a 0 is the exports table's gas row (Chile exports none)
-            return num(m.group(1)), pct(m.group(2)), pct(m.group(3))
+    """Imports-table gas row: (kt, monthly change, annual change). The imports table is the left-hand one,
+    so its gas row starts the line; a second 'Gas Natural' further along is the exports table."""
+    lines = (text or "").splitlines()
+    for h, ln in enumerate(lines):
+        if not HEADER_RE.search(ln) or not re.search(r"Combustible|Mensual", ln, re.I):
+            continue
+        for row in lines[h + 1:h + 9]:
+            m = GAS_RE.search(row)
+            if not m or m.start() > 8:
+                continue
+            kt = num(m.group(1))
+            if kt <= 0:
+                continue
+            rest = re.split(r"Gas\s*Natur", row[m.end():], flags=re.I)[0]
+            toks = PCT_RE.findall(rest)
+            return kt, (pct(toks[0]) if toks else None), (pct(toks[1]) if len(toks) > 1 else None)
     return None
 
 
@@ -123,7 +141,8 @@ def month_and_origin(text):
     if dm and dm.group(1).lower() in MESES:
         month = pd.Period(year=int(dm.group(2)), month=MESES[dm.group(1).lower()], freq="M")
     origin = ORIGIN_RE.search(flat)
-    return month, (origin.group(1).strip() if origin else None)
+    origin = re.split(r",?\s+El(?:\s|$)", origin.group(1))[0].strip(" ,") if origin else None  # OCR reads '. El' as ', El'
+    return month, origin
 
 
 def parse(content):
@@ -153,7 +172,7 @@ def parse(content):
         out("      (no text-layer table and tesseract not installed)")
         return None
     cands = [i for i in range(n) if len(texts[i]) < 400 and 0.45 * n <= i <= 0.85 * n]
-    cands.sort(key=lambda i: abs(i - 0.645 * n))
+    cands.sort(key=lambda i: abs(i - 0.62 * n))
     for i in cands[:8]:
         t6 = ocr_page(content, i, 6)
         if not re.search(r"miles\s*de\s*Ton|Importaci", t6, re.I):
@@ -205,15 +224,20 @@ def check_and_fill(df):
     months = pd.period_range(START, max(pd.Period(m, "M") for m in kt), freq="M")
     add = []
     for p in months:
-        m, nxt = str(p), str(p + 1)
+        m, nxt, ny = str(p), str(p + 1), str(p + 12)
         if m in kt:
             continue
         if nxt in kt and pd.notna(mom[nxt]) and mom[nxt] > -1:
-            v = round(kt[nxt] / (1 + mom[nxt]), 1)
-            add.append({"Month": m, "Imports_kt": v, "MoM_change_published": None, "YoY_change_published": None,
-                        "Origins": None, "Method": f"derived: {nxt} value / (1 + its monthly change {mom[nxt]:+.1%})",
-                        "Report": rep[nxt]})
-            out(f"  {m}: no report; derived {v} kt from {nxt} ({kt[nxt]:g} kt, monthly change {mom[nxt]:+.1%})")
+            v, how, src = kt[nxt] / (1 + mom[nxt]), f"{nxt} value / (1 + its monthly change {mom[nxt]:+.1%})", nxt
+        elif ny in kt and pd.notna(yoy[ny]) and yoy[ny] > -1:
+            v, how, src = kt[ny] / (1 + yoy[ny]), f"{ny} value / (1 + its annual change {yoy[ny]:+.1%})", ny
+        else:
+            out(f"  {m}: no data (no report table for it, and no published change to derive it from)")
+            continue
+        v = round(v, 1)
+        add.append({"Month": m, "Imports_kt": v, "MoM_change_published": None, "YoY_change_published": None,
+                    "Origins": None, "Method": f"derived: {how}", "Report": rep[src]})
+        out(f"  {m}: no report table; derived {v} kt = {how}")
     if add:
         df = pd.concat([df, pd.DataFrame(add)], ignore_index=True)
     return df
@@ -238,6 +262,21 @@ def main():
     done = {m.group(1) for u in (have["Report"] if len(have) else [])
             for m in [re.search(r"RMensual_v(\d{6})", str(u))] if m}
 
+    def tag(u):
+        m = re.search(r"RMensual_v(\d{6})", str(u))
+        return pd.Period(f"{m.group(1)[:4]}-{m.group(1)[4:]}", "M") if m else None
+
+    # last accepted table per report month, to spot reports that repeat an earlier report's table
+    accepted = {tag(r["Report"]): (r["Imports_kt"], r["MoM_change_published"]) for _, r in have.iterrows()} \
+        if len(have) else {}
+
+    def repeats_previous(p, kt, mom):
+        before = [q for q in accepted if q is not None and q < p]
+        if not before:
+            return False
+        pkt, pmom = accepted[max(before)]
+        return kt == pkt and (mom is None or pd.isna(pmom) or abs(mom - pmom) < 1e-6)
+
     rows = []
     today = pd.Timestamp.today().to_period("M")
     p = START + LAG  # report for data month Jan 2021 is published ~Mar 2021
@@ -248,24 +287,27 @@ def main():
         u, c = fetch_report(p)
         if u is None:
             out(f"  {p}: no report found")
+            p += 1
+            continue
+        r = parse(c)
+        if r is None:
+            out(f"  {p}: no 'Gas Natural' import line found ({u})")
+            p += 1
+            continue
+        month, mom_s = r["month"], (f"{r['mom']:+.1%}" if r["mom"] is not None else "n/a")
+        desc = f"{r['kt']:g} kt, m/m {mom_s}, y/y " + (f"{r['yoy']:+.1%}" if r["yoy"] is not None else "n/a")
+        if month is not None and not (p - 4 <= month <= p - 1):
+            out(f"  report {p}: SKIPPED, stale: text says data month {month} ({desc})")
+        elif repeats_previous(p, r["kt"], r["mom"]):
+            out(f"  report {p}: SKIPPED, repeats the previous report's table ({desc}; text says {month})")
         else:
-            r = parse(c)
-            if r is None:
-                out(f"  {p}: no 'Gas Natural' import line found ({u})")
-            else:
-                month = r["month"]
-                if month is None or not (p - 4 <= month <= p - 1):
-                    if month is not None:
-                        out(f"      stated data month {month} implausible for report {p}; using {p - LAG}")
-                    month = p - LAG
-                    how = "month assumed"
-                else:
-                    how = "month stated"
-                rows.append({"Month": str(month), "Imports_kt": r["kt"], "MoM_change_published": r["mom"],
-                             "YoY_change_published": r["yoy"], "Origins": r["origin"],
-                             "Method": f"{r['method']} p{r['page']}; {how}", "Report": u})
-                mom = f"{r['mom']:+.1%}" if r["mom"] is not None else "n/a"
-                out(f"  report {p}: data {month} ({r['method']} p{r['page']}, {how}) gas imports {r['kt']:g} kt, m/m {mom} [{r['origin']}]")
+            how = "month stated" if month is not None else "month assumed"
+            month = month if month is not None else p - LAG
+            accepted[p] = (r["kt"], r["mom"])
+            rows.append({"Month": str(month), "Imports_kt": r["kt"], "MoM_change_published": r["mom"],
+                         "YoY_change_published": r["yoy"], "Origins": r["origin"],
+                         "Method": f"{r['method']} p{r['page']}; {how}", "Report": u})
+            out(f"  report {p}: data {month} ({r['method']} p{r['page']}, {how}) {desc} [{r['origin']}]")
         p += 1
 
     df = pd.concat([have, pd.DataFrame(rows)], ignore_index=True) if len(have) else pd.DataFrame(rows)
@@ -299,8 +341,11 @@ def main():
         "Each month is checked against the following month's published monthly change (see the run log).",
         "Method: 'text' = PDF text layer; 'text+ocr' = table from the text layer, data month and origins by OCR; "
         "'ocr' = the whole page by OCR (reports from 2021-2025 that have no text layer); p<n> = PDF page. "
-        "'derived' = month with no CNE report (e.g. no May 2026 report was published), computed from the "
-        "next month's value and its published monthly change.",
+        "'derived' = month with no table of its own, computed from the next month's value and its published "
+        "monthly change, or else from the same month a year later and its published annual change. This covers "
+        "months where CNE published no report (no May 2026 report) or a report that repeated an earlier "
+        "report's table (e.g. the Nov 2021-Feb 2022 reports all repeat Aug 2021's table). OCR'd changes are only "
+        "kept when they read cleanly, so a few months may still have no value (see the run log).",
         "Origins lists the source countries the report names for that month's gas imports.",
         "",
         "SOURCE",
