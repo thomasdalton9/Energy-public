@@ -1,0 +1,22 @@
+name: Gas sources round 3 discovery (Trinidad 2025, Chile, Ecuador, Bolivia)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install requests pdfplumber pandas openpyxl xlrd playwright
+          playwright install --with-deps chromium
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1380 python3 south_america/GAS_SOURCES_ROUND3_DISCOVERY.py
