@@ -1,0 +1,5 @@
+annex latest month: 2025-06
+bulletin page 2025: HTTP 200, monthly PDFs listed: 01,02,03,04,05,06,07,08,09
+bulletin page 2026: HTTP 404, monthly PDFs listed: none
+bulletin page 2027: HTTP 404, monthly PDFs listed: none
+observatorio boletim do gas: HTTP 200, login-gated=True, public embeds=none
