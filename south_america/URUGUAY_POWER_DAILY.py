@@ -9,7 +9,8 @@ Source: ADME "Generacion por fuente", https://pronos.adme.com.uy/gpf.php
 functions. History from 2021-01-01 (gpf.php goes back to 2019).
 
 Each run fetches only days missing from the workbook (plus the last 3,
-which ADME can revise), in 31-day requests.
+which ADME can revise), in 31-day requests, newest first, within a time
+budget (--budget-min), saving as it goes.
 
 Usage: python3 URUGUAY_POWER_DAILY.py [--out PATH] [--start YYYY-MM-DD]
 The owner's local URUGUAY_ADME.py is unchanged; this only imports it.
@@ -21,6 +22,7 @@ import argparse
 import datetime as dt
 import os
 import sys
+import time
 
 import pandas as pd
 
@@ -66,19 +68,6 @@ NOTES = [
 ]
 
 
-def fetch(days):
-    frames = []
-    for a, b in std.ranges(days, U.CHUNK_DAYS):
-        print(f"ADME {a}..{b}", flush=True)
-        df = U.fetch_range(a, b)
-        if not df.empty:
-            frames.append(df)
-    if not frames:
-        return pd.DataFrame()
-    hourly = pd.concat(frames)
-    return hourly[~hourly.index.duplicated(keep="last")].sort_index()
-
-
 def to_daily(hourly):
     hourly = hourly.copy()
     hourly["Imports"] = hourly[[c for c in U.IMPORTS if c in hourly]].sum(axis=1, min_count=1)
@@ -102,20 +91,40 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--start", type=dt.date.fromisoformat, default=std.HISTORY_START)
+    ap.add_argument("--budget-min", type=float, default=25, help="stop fetching after this many minutes")
+    ap.add_argument("--save-every", type=int, default=6, help="write the workbook every N 31-day requests")
     args = ap.parse_args()
+    t0 = time.time()
 
-    existing = std.load_sheet(args.out, "Daily")
-    existing_detail = std.load_sheet(args.out, "Detail")
+    daily = std.load_sheet(args.out, "Daily")
+    detail = std.load_sheet(args.out, "Detail")
     end = dt.date.today() - dt.timedelta(days=1)
-    days = std.missing_days(existing, args.start, end)
-    print(f"{len(existing):,} days saved; fetching {len(days):,}", flush=True)
-    hourly = fetch(days) if days else pd.DataFrame()
-    if hourly.empty and existing.empty:
+    days = std.missing_days(daily, args.start, end)
+    chunks = sorted(std.ranges(days, U.CHUNK_DAYS), reverse=True)  # newest first
+    print(f"{daily['Total_MWh'].notna().sum() if not daily.empty else 0:,} days saved; fetching {len(days):,} "
+          f"in {len(chunks)} requests", flush=True)
+    frames = []
+    for k, (a, b) in enumerate(chunks, 1):
+        if time.time() - t0 > args.budget_min * 60:
+            print(f"time budget reached; {len(chunks) - k + 1} requests left for later runs", flush=True)
+            break
+        print(f"ADME {a}..{b}", flush=True)
+        df = U.fetch_range(a, b)
+        if not df.empty:
+            frames.append(df)
+        if frames and (k % args.save_every == 0 or k == len(chunks)):
+            hourly = pd.concat(frames)
+            frames = []
+            new, new_detail = to_daily(hourly[~hourly.index.duplicated(keep="last")])
+            daily, detail = std.merge(new, daily), std.merge(new_detail, detail)
+            std.write(args.out, daily, NOTES, {"Detail": detail})
+    if frames:
+        hourly = pd.concat(frames)
+        new, new_detail = to_daily(hourly[~hourly.index.duplicated(keep="last")])
+        daily, detail = std.merge(new, daily), std.merge(new_detail, detail)
+    if daily.empty:
         print("No data returned.", flush=True)
         sys.exit(1)
-    new, new_detail = to_daily(hourly) if not hourly.empty else (pd.DataFrame(), pd.DataFrame())
-    daily = std.merge(new, existing)
-    detail = std.merge(new_detail, existing_detail)
     std.write(args.out, daily, NOTES, {"Detail": detail})
 
 
