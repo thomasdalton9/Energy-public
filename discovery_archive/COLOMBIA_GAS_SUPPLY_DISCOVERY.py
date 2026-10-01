@@ -104,9 +104,33 @@ def round2():
             out(r["Month"], "ERR", type(e).__name__, str(e)[:120])
 
 
+def round3():
+    """Round 3: full text of the supply page(s) for the months the parser
+    missed (MONTHS env, space-separated YYYY-MM), plus extract_words rows."""
+    import pandas as pd
+    import pdfplumber
+    want = os.environ.get("MONTHS", "").split()
+    d = pd.read_excel("output/Data and Chart Outputs/colombia_gas_demand_by_sector.xlsx", sheet_name="Demand by sector")
+    d["Month"] = d["Month"].astype(str).str[:7]
+    for _, r in d[d["Month"].isin(want)].iterrows():
+        u = r["Report"]
+        c = requests.get(u, headers=H, timeout=T).content
+        with pdfplumber.open(io.BytesIO(c)) as pdf:
+            for i, page in enumerate(pdf.pages[:8]):
+                t = page.extract_text() or ""
+                if not re.search(r"Suministro\s+por\s+fuente|regasificaci", t, re.I) or "Hechos Destacados" in t:
+                    continue
+                out(f"\n=== {r['Month']} p{i + 1} {u}")
+                for ln in t.splitlines()[:70]:
+                    out("    |", ln[:170])
+
+
 if __name__ == "__main__":
     if os.environ.get("ROUND") == "2":
         round2()
+        sys.exit(0)
+    if os.environ.get("ROUND") == "3":
+        round3()
         sys.exit(0)
     for k, u in enumerate(REPORTS):
         dump_pdf(u, k == 0)
