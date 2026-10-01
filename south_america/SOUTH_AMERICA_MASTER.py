@@ -220,9 +220,18 @@ def south_america_generation(data_dir, have_raw):
     if not frames:
         return pd.DataFrame(), notes
     fuels = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]
-    months = sorted(set.intersection(*(set(f.dropna(how="all").index) for f in frames.values())))
+    have = {c: set(f.dropna(how="all").index) for c, f in frames.items()}
+    # Run to the last month every raw-fed country has; an Ember-fed country that lags (Ember publishes months
+    # late) is left out of the months it doesn't have yet, and those gaps are listed rather than estimated.
+    raw_have = [h for c, h in have.items() if c in have_raw] or list(have.values())
+    end = min(max(h) for h in raw_have)
+    months = sorted(m for m in set.intersection(*raw_have) if m <= end)
     total = sum(f.reindex(index=months, columns=fuels).fillna(0) for f in frames.values()) / 1000.0   # GWh -> TWh
     total.index.name = "date"
+    for c, h in have.items():
+        gap = [m for m in months if m not in h]
+        if gap:
+            notes.append(f"NOT INCLUDED: {c} in {gap[0]:%b/%y}-{gap[-1]:%b/%y} ({len(gap)} months, no data yet)")
     return total, notes
 
 
@@ -427,7 +436,10 @@ def main():
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "South America power generation by source",
                                                     "TWh per month", "stacked_bar", width=CHART_W, height=CHART_H,
                                                     gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
-        power[1].insert(0, ("South America", "South America power generation by source (8 countries)",
+        missing = [n.split(":", 1)[1].split(" in ")[0].strip() for n in sa_notes if n.startswith("NOT INCLUDED")]
+        name = "South America power generation by source (8 countries" + (
+            f"; {', '.join(missing)} missing in latest months)" if missing else ")")
+        power[1].insert(0, ("South America", name,
                             df.index.max().strftime("%b/%y"), ws.title, *src))
         print("South America generation total:", "; ".join(sa_notes))
     draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
