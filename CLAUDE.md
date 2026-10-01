@@ -22,6 +22,11 @@ Standing instructions from the repo owner. Follow these on every change.
 - Every new or updated PNG chart is committed to `output/Data and Chart Outputs/` on main and sent to the owner.
 - Units/notes tab via `xlsx_notes.write_workbook()` (atomic write).
 
+## Master workbooks
+- `south_america/SOUTH_AMERICA_MASTER.py` -> `south_america_master.xlsx`: Dashboard front page with every South
+  America chart, a data tab per chart, raw data tabs, Sources tab. New South American datasets: add them to its
+  DATASETS list (and add_charts.py REGISTRY).
+
 ## Pull scripts
 - Incremental: backfill gaps only, don't re-pull complete history each run.
 - South America gas demand by sector: data from 2021 only.
