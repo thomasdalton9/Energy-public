@@ -31,6 +31,16 @@ Natural, Embarques de GN para exportacion, Informe Mensual. Calidda links a
 
 Round 3 (ROUND=3): Perupetro statistics pages + their files, Calidda
 regulatory reports, gob.pe searches for 2021-2022 distribution reports.
+Round 3 findings: Perupetro statistics are PDFs (daily 'Reporte de
+Produccion de Gas' per month, 'Estadistica Mensual', annual books); LNG
+cargoes sit in an iframe /ExportaGAS/Relacion_ES.jsp. Calidda's
+'Reportes Regulatorios' (ASP.NET WebForms, postbacks) lists daily
+'Reporte Operativo Volumetrico', 'Reportes Operativos' (GNLC) and monthly
+'Reporte Operativo por Categoria Tarifaria' - 2,856 files. gob.pe search
+results are rendered client-side (no hits server-side).
+
+Round 4 (ROUND=4): Calidda report lists per type (first and last page)
+and downloads; Perupetro LNG cargo list and sample PDFs.
 Runs in GitHub Actions only (sites are blocked from the editing sandbox).
 """
 import os
@@ -329,5 +339,102 @@ def round3():
     out("round 3 done")
 
 
+CAL = "https://appadmin.calidda.com.pe/ReportesOsinerming/Reportes/documentos"
+
+
+def html_unescape(x):
+    import html
+    return html.unescape(x)
+
+
+def aspnet_fields(text):
+    return {m.group(1): html_unescape(m.group(2))
+            for m in re.finditer(r'<input type="hidden" name="([^"]+)" id="[^"]*" value="([^"]*)"', text)}
+
+
+def grid_rows(text):
+    rows = []
+    for m in re.finditer(r'lblTipoReporte_(\d+)"[^>]*>([^<]*)</span>\s*</td><td>([^<]*)</td><td[^>]*>([^<]*)</td>', text):
+        rows.append((int(m.group(1)), html_unescape(m.group(2)), html_unescape(m.group(3)), m.group(4)))
+    return rows
+
+
+def cal_post(s, text, extra):
+    data = aspnet_fields(text)
+    data.update({"ctl00$main$ddlTipoReporte": extra.pop("_tipo", ""),
+                 "ctl00$main$ucwPaginacion$ddlTamanioGrilla": extra.pop("_size", "30")})
+    if "_page" in extra:
+        data["ctl00$main$ucwPaginacion$ddlPaginacion"] = extra.pop("_page")
+    data.update(extra)
+    return s.post(CAL, data=data, headers=H, timeout=T)
+
+
+def cal_download(s, text, idx, tipo, page=None):
+    extra = {"_tipo": tipo, f"ctl00$main$gdvArchivos$ctl{idx + 2:02d}$btnDescargar.x": "8",
+             f"ctl00$main$gdvArchivos$ctl{idx + 2:02d}$btnDescargar.y": "8", "__EVENTTARGET": ""}
+    if page:
+        extra["_page"] = page
+    r = cal_post(s, text, extra)
+    cd = r.headers.get("content-disposition", "")
+    out(f"  download idx {idx}: {r.status_code} {r.headers.get('content-type')} {len(r.content)}b cd={cd}")
+    if r.status_code == 200 and "html" not in r.headers.get("content-type", ""):
+        name = re.search(r'filename\*?=(?:UTF-8\'\')?"?([^";]+)', cd)
+        out(f"  FILE saved {save('cal_' + tipo + '_' + (name.group(1) if name else str(idx)), r.content)}")
+
+
+def round4():
+    os.makedirs(RAW, exist_ok=True)
+    s = requests.Session()
+    r = get(CAL, s)
+    for tipo in ["CategoriaTarifaria", "Volumetricos", "GNLC"]:
+        try:
+            r1 = cal_post(s, r.text, {"_tipo": tipo, "__EVENTTARGET": "ctl00$main$ddlTipoReporte"})
+            r1 = cal_post(s, r1.text, {"_tipo": tipo, "__EVENTTARGET": "ctl00$main$ucwPaginacion$ddlTamanioGrilla"})
+            save(f"cal_{tipo}_p1.html", r1.content)
+            total = re.search(r"Registros encontrados:\s*(\d+)", r1.text)
+            sel = re.findall(r'ddlPaginacion.*?</select>', r1.text, re.S)
+            npages = len(re.findall(r"<option", sel[0])) if sel else 1
+            out(f"== {tipo}: {total.group(1) if total else '?'} records, {npages} pages")
+            for row in grid_rows(r1.text):
+                out(f"  ROW {row}")
+            for i in range(2):
+                cal_download(s, r1.text, i, tipo)
+            if npages > 1:
+                rl = cal_post(s, r1.text, {"_tipo": tipo, "_page": str(npages),
+                                           "__EVENTTARGET": "ctl00$main$ucwPaginacion$ddlPaginacion"})
+                save(f"cal_{tipo}_plast.html", rl.content)
+                rows = grid_rows(rl.text)
+                for row in rows:
+                    out(f"  LASTROW {row}")
+                if rows and tipo == "CategoriaTarifaria":
+                    cal_download(s, rl.text, rows[-1][0], tipo, page=str(npages))
+                if tipo == "CategoriaTarifaria":
+                    for pg in range(max(2, npages - 6), npages):
+                        rp = cal_post(s, r1.text, {"_tipo": tipo, "_page": str(pg),
+                                                   "__EVENTTARGET": "ctl00$main$ucwPaginacion$ddlPaginacion"})
+                        for row in grid_rows(rp.text):
+                            out(f"  P{pg} ROW {row}")
+        except Exception as e:  # noqa: BLE001
+            out(f"{tipo} failed: {type(e).__name__}: {e}")
+    try:
+        s.verify = perupetro_bundle()
+    except Exception as e:  # noqa: BLE001
+        out(f"bundle failed: {e}")
+    rr = get("https://www.perupetro.com.pe/ExportaGAS/Relacion_ES.jsp", s)
+    if rr is not None and rr.status_code == 200:
+        save("pp_exportagas.html", rr.content)
+        for link in dict.fromkeys(links(rr.text, rr.url)):
+            out(f"  LINK {link}")
+    base = "https://www.perupetro.com.pe/wps/wcm/connect/corporativo/"
+    for path in ["7d03f6b6-3d69-417c-9cbc-2bc791c7dc85/Reporte+de+Producci%C3%B3n+de+Gas+31.8.2026.pdf?MOD=AJPERES",
+                 "5dbf87aa-b716-4934-9425-713810ca701a/Estadistica+Mensual-Junio+2026..pdf?MOD=AJPERES",
+                 "be17839d-d5ae-4b17-89a9-6e5730e157ff/ESTAD%C3%8DSTICA%2BANUAL%2BDE%2BHIDROCARBUROS%2B2021%2B.pdf"
+                 "?MOD=AJPERES"]:
+        rr = get(base + path, s)
+        if rr is not None and rr.status_code == 200:
+            out(f"  FILE saved {save('pp_' + path.split('/')[1][:60] + '.pdf', rr.content)}")
+    out("round 4 done")
+
+
 if __name__ == "__main__":
-    {"2": round2, "3": round3}.get(ROUND, main)()
+    {"2": round2, "3": round3, "4": round4}.get(ROUND, main)()
