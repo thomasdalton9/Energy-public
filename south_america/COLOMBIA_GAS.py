@@ -19,7 +19,10 @@ section I. OFERTA): average daily supply by field, the national
 production total, the SPEC regasification plant at Cartagena (LNG
 imports) and the grand total. That goes to the "Supply by source" sheet,
 with fields grouped (Cusiana/Cupiagua, Guajira, Canacol blocks, other)
-and mcm/d columns at 1,000 BTU/cf.
+and mcm/d columns at 1,000 BTU/cf. Reports from late 2023 to mid 2024
+carry that table as an image: it is read with OCR (tesseract) and kept
+only when its rows add up (fields = national production, production +
+LNG = total, total = the 'Suministro Prom.' profile figure).
 
 Units: GBTUD (billion BTU per day, a monthly average of daily energy).
 1 GBTUD is roughly 0.027 million m3/day at Colombian gas heating values.
@@ -315,13 +318,21 @@ SUPPLY_COLS = ([g for g, _ in FIELD_GROUPS] + ["Other_fields", "Domestic_product
 # 1 GBTU = 1e9 BTU; at 1,000 BTU per cubic foot that is 1e6 cf = 0.0283 million m3.
 BTU_PER_CF = 1000
 MCM_PER_GBTU = 1e9 / BTU_PER_CF * 0.0283168 / 1e6
-VAL = r"(?:\d{1,3}(?:[.,]\d{3})+|\d+|-)"
-ROW = re.compile(rf"^(?P<label>.*?)\s*(?P<nums>{VAL}(?:\s+{VAL}){{2,3}})(?:\s+\d+(?:[.,]\d+)?\s*%)?\s*$")
+# a cell: '1.238' / '1,322' (thousands), '4,5' / '0.7' (decimal, small regas volumes in 2021), '-' (zero)
+VAL = r"(?:\d{1,3}(?:[.,]\d{3})+|\d+(?:[.,]\d{1,2})?|-)"
+# last column is the % of potential ('106%', '102%(1)' with a footnote, '-' when there is no potential)
+PCT = r"(?:\s+(?:\d+(?:[.,]\d+)?\s*%\s*(?:\(\d\))?|-))?"
+ROW = re.compile(rf"^(?P<label>.*?)\s*(?P<nums>{VAL}(?:\s+{VAL}){{2,3}}){PCT}\s*$")
+OCR_DPI = 300
 
 
 def whole(s):
-    """Table cells are whole GBTUD; '1.238' / '1,322' are thousands, '-' is zero."""
-    return 0.0 if s == "-" else float(re.sub(r"[.,]", "", s))
+    """GBTUD cell value: thousands separators dropped, decimal comma read as a point, '-' is zero."""
+    if s == "-":
+        return 0.0
+    if re.fullmatch(r"\d{1,3}(?:[.,]\d{3})+", s):
+        return float(re.sub(r"[.,]", "", s))
+    return float(s.replace(",", "."))
 
 
 def supply_rows(text):
@@ -348,37 +359,113 @@ def supply_rows(text):
     return rows
 
 
-def parse_supply(pages):
-    """Supply by source (GBTUD) from the 'Suministro por fuente' table."""
+def supply_table(text):
+    """Supply by source (GBTUD) from the text of the 'Suministro por fuente' page, or None."""
+    rows = supply_rows(text)
+    is_dom = lambda lb: re.search(r"potencial\s+(?:de\s+)?producci", lb, re.I)  # noqa: E731
+    k_dom = next((i for i, (lb, _) in enumerate(rows) if is_dom(lb)), None)
+    lng = next((v for lb, v in rows if re.search(r"regasific", lb, re.I)), None)
+    if k_dom is None or lng is None:
+        return None
+    dom = rows[k_dom][1]
+    fields = [(lb, v) for lb, v in rows[:k_dom] if re.search(r"[A-Za-z]{3}", lb)]
+    ven = next((v for lb, v in rows if re.search(r"venezuela", lb, re.I)), None)
+    tot = next((v for lb, v in rows[k_dom:]
+                if re.fullmatch(r"(?:[a-zA-Z]{1,3}\s+)?total\W*", lb.strip(), re.I)), None)
+    res = {"Domestic_production": dom[3], "Production_potential": dom[0],
+           # 2021 reports put the regas plant's delivery in 'to SNT' and leave its total blank
+           "LNG_imports_SPEC": max(lng[3], lng[1] + lng[2]), "LNG_regas_capacity": lng[0],
+           "Venezuela_imports": ven[3] if ven else None}
+    grouped = 0.0
+    for g, pat in FIELD_GROUPS:
+        hit = [v[3] for lb, v in fields if re.search(pat, lb, re.I)]
+        res[g] = sum(hit) if hit else None
+        grouped += sum(hit)
+    res["Other_fields"] = round(dom[3] - grouped, 1)
+    res["Fields_sum"] = sum(v[3] for _, v in fields)
+    res["Total_supply"] = tot[3] if tot else dom[3] + res["LNG_imports_SPEC"] + (res["Venezuela_imports"] or 0)
+    res["Supply_to_SNT"] = tot[1] if tot else None
+    res["Field_rows"] = "; ".join(f"{re.sub(r'[*]+', '', lb).strip()} {v[3]:g}" for lb, v in fields)
+    return res
+
+
+def profile_average(pages, month):
+    """The month's average supply from the 'Perfil Contratación vs Suministro' table
+    ('Suministro Prom.' row, one value per month of the year so far), for cross-checks."""
+    k = int(month[5:7]) - 1 if month else None
     for text, _ in pages[:8]:
-        if not re.search(r"Suministro\s+por\s+fuente", text, re.I):
-            continue
-        rows = supply_rows(text)
-        dom = next((v for lb, v in rows if re.search(r"potencial\s+(?:de\s+)?producci", lb, re.I)), None)
-        lng = next((v for lb, v in rows if re.search(r"regasific", lb, re.I)), None)
-        if dom is None or lng is None:
-            continue
-        k_dom = next(i for i, (lb, _) in enumerate(rows) if re.search(r"potencial\s+(?:de\s+)?producci", lb, re.I))
-        fields = [(lb, v) for lb, v in rows[:k_dom] if re.search(r"[A-Za-z]{3}", lb)]
-        ven = next((v for lb, v in rows if re.search(r"venezuela", lb, re.I)), None)
-        tot = next((v for lb, v in rows[k_dom:]
-                    if re.fullmatch(r"(?:[a-zA-Z]{1,3}\s+)?total\W*", lb.strip(), re.I)), None)
-        res = {"Domestic_production": dom[3], "Production_potential": dom[0],
-               # 2021 reports put the regas plant's delivery in 'to SNT' and leave its total blank
-               "LNG_imports_SPEC": max(lng[3], lng[1] + lng[2]), "LNG_regas_capacity": lng[0],
-               "Venezuela_imports": ven[3] if ven else None}
-        grouped = 0.0
-        for g, pat in FIELD_GROUPS:
-            hit = [v[3] for lb, v in fields if re.search(pat, lb, re.I)]
-            res[g] = sum(hit) if hit else None
-            grouped += sum(hit)
-        res["Other_fields"] = round(dom[3] - grouped, 1)
-        res["Fields_sum"] = sum(v[3] for _, v in fields)
-        res["Total_supply"] = tot[3] if tot else dom[3] + res["LNG_imports_SPEC"] + (res["Venezuela_imports"] or 0)
-        res["Supply_to_SNT"] = tot[1] if tot else None
-        res["Field_rows"] = "; ".join(f"{re.sub(r'[*]+', '', lb).strip()} {v[3]:.0f}" for lb, v in fields)
-        return res
+        m = re.search(r"Suministro\s+Prom\.?\s+((?:[\d.,]+\s*)+)", text)
+        if m and k is not None:
+            vals = m.group(1).split()
+            return whole(vals[k]) if k < len(vals) else None
     return None
+
+
+def supply_issues(res, profile):
+    """Internal consistency of one month's table: sources add up to the total,
+    field rows add up to national production, total matches the profile table."""
+    issues = []
+    srcs = res["Domestic_production"] + res["LNG_imports_SPEC"] + (res["Venezuela_imports"] or 0)
+    if abs(srcs - res["Total_supply"]) > 2:
+        issues.append(f"domestic+LNG {srcs:g} vs total {res['Total_supply']:g}")
+    if abs(res["Fields_sum"] - res["Domestic_production"]) > max(6, 0.01 * res["Domestic_production"]):
+        issues.append(f"field rows {res['Fields_sum']:g} vs domestic {res['Domestic_production']:g}")
+    if profile is not None and abs(profile - res["Total_supply"]) > 2:
+        issues.append(f"total {res['Total_supply']:g} vs profile table {profile:g}")
+    return issues
+
+
+def ocr_page(content, i, psm):
+    """OCR page i (0-based) with tesseract (Spanish). From late 2023 to mid 2024 the
+    supply table is an image with no text layer."""
+    import subprocess
+    import tempfile
+    import pypdfium2 as pdfium  # installed with pdfplumber
+    pdf = pdfium.PdfDocument(content)
+    try:
+        img = pdf[i].render(scale=OCR_DPI / 72).to_pil().convert("L")
+    finally:
+        pdf.close()
+    with tempfile.TemporaryDirectory() as td:
+        f = os.path.join(td, "p.png")
+        img.save(f)
+        r = subprocess.run(["tesseract", f, "stdout", "-l", "spa", "--psm", str(psm)],
+                           capture_output=True, text=True, timeout=180)
+    # table rules and dashes come out as '|', '—', '–'
+    return re.sub(r"[|]", " ", r.stdout).replace("—", "-").replace("–", "-")
+
+
+def parse_supply(pages, content=None, month=None):
+    """Supply by source from the 'Suministro por fuente' table: text layer first,
+    OCR of the table page when the table is an image. OCR results are kept only
+    if every consistency check passes. Returns (result or None, issues)."""
+    profile = profile_average(pages, month)
+    for text, _ in pages[:8]:
+        if re.search(r"Suministro\s+por\s+fuente", text, re.I):
+            res = supply_table(text)
+            if res:
+                res["Method"] = "text"
+                return res, supply_issues(res, profile)
+    page = next((i for i, (t, _) in enumerate(pages[:8])
+                 if re.search(r"principales\s+fuentes\s+de\s+suministro", t, re.I)), None)
+    if content is None or page is None:
+        return None, ["no supply table found"]
+    issues = []
+    for psm in (6, 4, 11):
+        try:
+            txt = ocr_page(content, page, psm)
+        except Exception as e:
+            return None, [f"OCR failed: {type(e).__name__}: {str(e)[:100]}"]
+        res = supply_table(txt)
+        if not res:
+            issues = [f"OCR psm {psm}: no table rows"]
+            continue
+        issues = supply_issues(res, profile)
+        if not issues:
+            res["Method"] = f"OCR (psm {psm})"
+            return res, []
+        issues = [f"OCR psm {psm}: " + "; ".join(issues) + f" | {res['Field_rows']}"]
+    return None, issues
 
 
 def dump(pages):
@@ -441,12 +528,12 @@ def main():
                 failed.append(gm)
                 continue
             month, total, sec, src, pages = parse_pdf(c)
-            sup = parse_supply(pages)
+            month = month or gm
+            sup, issues = parse_supply(pages, c, month)
         except Exception as e:
             out(f"  {gm}: ERR {type(e).__name__}: {str(e)[:150]}")
             failed.append(gm)
             continue
-        month = month or gm
         if month != gm:
             out(f"  note: file name suggests {gm}, report header says {month}; using header")
         if sup:
@@ -454,15 +541,17 @@ def main():
             check = sup["Domestic_production"] + sup["LNG_imports_SPEC"] + (sup["Venezuela_imports"] or 0)
             srow["Check_sources_vs_total"] = round(check - sup["Total_supply"], 1)
             srow["Check_fields_vs_domestic"] = round(sup["Fields_sum"] - sup["Domestic_production"], 1)
+            srow["Method"] = sup["Method"]
             srow["Field_rows"] = sup["Field_rows"]
             srow["Report"] = u
             sup_rows.append(srow)
             ven = sup["Venezuela_imports"]
-            out(f"  {month}: supply {sup['Total_supply']:.0f} = domestic {sup['Domestic_production']:.0f} "
-                f"+ LNG {sup['LNG_imports_SPEC']:.0f}" + (f" + Venezuela {ven:.0f}" if ven is not None else "")
-                + f" GBTUD (fields sum {sup['Fields_sum']:.0f}) | {sup['Field_rows']}")
+            out(f"  {month}: supply {sup['Total_supply']:g} = domestic {sup['Domestic_production']:g} "
+                f"+ LNG {sup['LNG_imports_SPEC']:g}" + (f" + Venezuela {ven:g}" if ven is not None else "")
+                + f" GBTUD (fields sum {sup['Fields_sum']:g}) [{sup['Method']}] | {sup['Field_rows']}"
+                + (f"\n    WARNING: {'; '.join(issues)}" if issues else ""))
         else:
-            out(f"  {month}: could not parse the supply table {u}")
+            out(f"  {month}: could not parse the supply table ({'; '.join(issues)}) {u}")
             failed_sup.append(month)
         if not sec:
             out(f"  {month}: could not parse sectors (headline total {total}) {u}")
@@ -497,8 +586,9 @@ def main():
             sup[k + "_mcmd"] = (pd.to_numeric(sup[k], errors="coerce") * MCM_PER_GBTU).round(2)
         sup = sup.drop(columns=["Total_demand_SNT"], errors="ignore").merge(
             df[["Month", "Reported_total"]].rename(columns={"Reported_total": "Total_demand_SNT"}), on="Month", how="left")
-        sup = sup[["Month"] + SUPPLY_COLS + [k + "_mcmd" for k in mcmd]
-                  + ["Total_demand_SNT", "Check_sources_vs_total", "Check_fields_vs_domestic", "Field_rows", "Report"]]
+        sup = sup.reindex(columns=["Month"] + SUPPLY_COLS + [k + "_mcmd" for k in mcmd]
+                          + ["Total_demand_SNT", "Check_sources_vs_total", "Check_fields_vs_domestic", "Method",
+                             "Field_rows", "Report"])
         sheets["Supply by source"] = sup
         sm = pd.period_range(sup["Month"].min(), sup["Month"].max(), freq="M").astype(str)
         out(f"{len(sup)} supply months {sup['Month'].min()}..{sup['Month'].max()}; "
@@ -545,7 +635,10 @@ def main():
         f"heating value of {BTU_PER_CF:,} BTU per cubic foot = 0.0283 million m3. Colombian gas is often "
         "1,000-1,100 BTU/cf, so the physical volume can be up to ~10% lower.",
         "Checks: Check_sources_vs_total = Domestic + LNG (+ Venezuela) minus the table's Total (0 or +/-1 from "
-        "rounding); Check_fields_vs_domestic = sum of the field rows minus Domestic_production.",
+        "rounding); Check_fields_vs_domestic = sum of the field rows minus Domestic_production. Method: 'text' "
+        "= read from the PDF text; 'OCR' = the table is an image in that report (late 2023 to mid 2024) and was "
+        "read with OCR, kept only when both checks pass and the total matches the report's 'Suministro Prom.' "
+        "profile figure. Months whose table could not be read reliably are left out rather than estimated.",
         "",
         "SOURCE",
         f"Gestor del Mercado de Gas Natural (Bolsa Mercantil de Colombia), monthly reports: {PAGE}. "

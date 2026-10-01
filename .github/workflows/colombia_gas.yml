@@ -27,6 +27,8 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: |
+          # tesseract: OCR for the late-2023 to mid-2024 reports whose supply table is an image
+          sudo apt-get update -q && sudo apt-get install -y -q tesseract-ocr tesseract-ocr-spa
           pip install pandas requests openpyxl pdfplumber playwright
           playwright install --with-deps chromium
       - name: Run
