@@ -153,7 +153,9 @@ def main():
     stop_at = date.today() - timedelta(days=1)
 
     if resume_from > stop_at:
-        print(f"Archive already current ({resume_from} > {stop_at}) - nothing to do.", file=sys.stderr)
+        print(f"Archive already current ({resume_from} > {stop_at}) - no new data; refreshing chart only.",
+              file=sys.stderr)
+        water_year_chart.add_water_year_chart(args.out, existing["level_cm"], "Rhine at Kaub", "cm")
         return
 
     print(f"Fetching {resume_from} to {stop_at} ...", file=sys.stderr)
