@@ -1,0 +1,27 @@
+name: Fetch US balancing authority boundaries (one-off)
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "geopandas==0.14.4" pyogrio requests
+      - run: python3 discovery_archive/FETCH_US_BALANCING_AUTHORITIES.py
+      - name: Commit boundaries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add maps/us_balancing_authorities.geojson
+          git diff --cached --quiet || git commit -m "US balancing authority boundaries (HIFLD Control Areas, simplified)"
+          for i in 1 2 3 4 5; do git pull --rebase --autostash -X theirs && git push && exit 0; sleep $((i * 5)); done
+          exit 1
