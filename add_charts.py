@@ -87,16 +87,19 @@ def argentina(p):
 
 def brazil(p):
     d = by_date(read(p, "Demand by segment"), "date")
-    last = d.index.max().strftime("%b/%y")
     out = [spec("Demand", d[cols(d, "Power_Generation", "Industrial", "Residential", "Commercial", "Automotive",
                                  "Cogeneration", "Other_incl_CNG")].rename(
                     columns={"Power_Generation": "Power generation", "Automotive": "Vehicle CNG",
                              "Other_incl_CNG": "Other"}),
-                f"Brazil gas demand by segment (MME, last published {last})", "million m3/day", "stacked_bar")]
+                "Brazil gas demand by segment (MME, nothing newer published)", "million m3/day", "stacked_bar")]
     sheets = pd.ExcelFile(p).sheet_names
     if "Grid demand (ANP)" in sheets:   # pipeline-grid deliveries by consumer type, current (ANP)
         g = by_date(read(p, "Grid demand (ANP)"), "date")
-        out.append(spec("Grid demand", g[cols(g, "Power_Generation", "Distributors", "Refineries", "Fertiliser", "Other")]
+        g = g[cols(g, "Power_Generation", "Distributors", "Refineries", "Fertiliser", "Other")].copy()
+        part = g.drop(columns="Other").isna().any(axis=1)
+        g.loc[part] = float("nan")              # months ANP reported only in part: an empty bar, not a partial stack
+        g["Other"] = g["Other"].fillna(0.0)     # (keeps those rows, so the gap shows on the time axis)
+        out.append(spec("Grid demand", g
                         .rename(columns={"Power_Generation": "Power generation", "Distributors": "Distributors (city gates)"}),
                         "Brazil gas delivered from the transport pipelines, by consumer (ANP)", "million m3/day",
                         "stacked_bar"))
