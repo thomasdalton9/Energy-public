@@ -174,14 +174,33 @@ def parse_itaipu(post):
     posted = pd.Timestamp(post["date"][:10])
     year, month = itaipu_period(title, text[:400], posted)
     ytd = re.search(r"([\d.]+(?:,\d+)?)\s*GWh", title)
-    gen = re.search(r"generaci[óo]n\s+(?:total\s+)?del?\s+[^.]{0,40}?mes[^.]{0,30}?fue de\s+([\d.]+(?:,\d+)?)\s*GWh",
+    # The month's generation is the first GWh figure of the sentence about the month's generation: 'La generacion
+    # del mes de agosto fue de 6.796 GWh', '...correspondiente al mes de junio fue de', 'En cuanto a la generacion del
+    # mes de abril, el reporte refiere que fue de', 'de octubre alcanzo' - not the year-to-date sentences.
+    verb = r"(?:fue de|totaliz[óo]|alcanz[óo]|lleg[óo] a|registr[óo])"
+    gen = None
+    month_word = r"\bmes\b|" + "|".join(MONTHS)
+    clause = re.compile(r"generaci[óo]n\b(?P<mid>[^;]{0,100}?)(?P<n>\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:,\d+)?)\s*GWh", re.I)
+    for start in [g.start() for g in re.finditer(r"generaci[óo]n\b", text, re.I)]:   # overlapping: every mention
+        m = clause.match(text, start)
+        if not m:
+            continue
+        mid = m.group("mid")
+        if (re.search(month_word, mid, re.I) and not re.search(r"\.\s+[A-ZÁÉÍÓÚ]", mid)
+                and not re.search(r"acumulad|anual|enero a|hasta |en lo que va|durante el|del 20\d\d|año 20\d\d|y suministro",
+                                  mid, re.I)):
+            gen = m
+            break
+    g50 = re.search(r"([\d.]+(?:,\d+)?)\s*GWh\s+(?:fueron|se)\s+generad[oa]s?\s+(?:por|en)\s+el\s+(?:sistema|sector)\s+de\s+50\s*Hz",
                     text, re.I)
-    g50 = re.search(r"([\d.]+(?:,\d+)?)\s*GWh fueron generados por el sistema de 50\s*Hz", text, re.I)
-    ande = re.search(r"de los cuales\s+([\d.]+(?:,\d+)?)\s*GWh fueron suministrados a la ANDE", text, re.I)
-    gen_ytd = re.search(r"cantidad total (?:de energ[íi]a )?generada[^.]{0,80}?fue de\s+([\d.]+(?:,\d+)?)\s*GWh", text, re.I)
+    ande = re.search(r"(?:de los cuales|de esa cantidad|de este total|de ese total),?\s+([\d.]+(?:,\d+)?)\s*GWh\s+"
+                     r"(?:fueron suministrados|se suministraron|fueron entregados|se entregaron|fueron destinados)\s+a\s+la\s+ANDE",
+                     text, re.I)
+    gen_ytd = (re.search(rf"cantidad total (?:de energ[íi]a )?generada[^.]{{0,80}}?{verb}\s+([\d.]+(?:,\d+)?)\s*GWh", text, re.I)
+               or re.search(rf"generaci[óo]n acumulada[^.]{{0,40}}?(?:{verb}|llega a|es de)\s+([\d.]+(?:,\d+)?)\s*GWh", text, re.I))
     return {"date": pd.Timestamp(year, month, 1), "ANDE_YTD_GWh": num(ytd.group(1)) if ytd else None,
             "ANDE_month_GWh_reported": num(ande.group(1)) if ande else None,
-            "Generation_GWh_reported": num(gen.group(1)) if gen else None,
+            "Generation_GWh_reported": num(gen.group("n")) if gen else None,
             "Generation_50Hz_GWh": num(g50.group(1)) if g50 else None,
             "Generation_YTD_GWh": num(gen_ytd.group(1)) if gen_ytd else None,
             "posted": posted, "link": post["link"]}
@@ -302,6 +321,28 @@ def eby_period(title, url, posted):
     return year, month
 
 
+MWH = r"(\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+,\d+)\s*MWh"
+
+
+def parse_eby(txt):
+    """(SADI MWh, SINP MWh) from an EBY monthly post. Phrasings seen:
+      'Correspondio a ANDE 157.076,7 MWh y a IEASA 1.038.327,7 MWh' (also EBISA / ENARSA, the Argentine buyer);
+      'correspondio a la Administracion Nacional de Electricidad (ANDE) 72.381,6 MWh y a ... (ENARSA) 1.388.156,8 MWh';
+      '... al SADI en el periodo mencionado fue de 1.549.645,8 MWh. ... al SINP ... fue de 233.691,9 MWh'.
+    Paraguay's side (ANDE / SINP) and Argentina's buyer (IEASA, EBISA, ENARSA, CAMMESA) or the SADI."""
+    py = (re.search(r"\bANDE\)?\s*:?\s*" + MWH, txt)
+          or re.search(r"\(SINP\)[^.]{0,60}?fue de\s+" + MWH, txt))
+    ar = (re.search(r"\b(?:IEASA|EBISA|ENARSA|CAMMESA)\)?\s*:?\s*" + MWH, txt)
+          or re.search(r"\(SADI\)[^.]{0,60}?fue de\s+" + MWH, txt))
+    if py and not ar:
+        tot = re.search(r"total[^.]{0,220}?(?:fue de|de)\s+" + MWH, txt)
+        if tot:
+            return num(tot.group(1)) - num(py.group(1)), num(py.group(1))
+    if py and ar:
+        return num(ar.group(1)), num(py.group(1))
+    return None, None
+
+
 def fetch_eby(s, known_links):
     links = {}
     for q in EBY_QUERIES:
@@ -324,16 +365,15 @@ def fetch_eby(s, known_links):
         r = s.get(link, timeout=60)
         if r.status_code != 200:
             continue
-        body = r.text.split("Últimas Publicaciones")[0]
-        txt = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", body)))
-        sadi = re.search(r"(?:SADI|Sistema Argentino de Interconexi[óo]n)[^.]{0,120}?fue de\s+([\d.]+(?:,\d+)?)\s*MWh", txt)
-        sinp = re.search(r"(?:SINP|Sistema Interconectado Nacional Paraguayo)[^.]{0,120}?fue de\s+([\d.]+(?:,\d+)?)\s*MWh", txt)
-        if not (sadi and sinp):
+        body = html.unescape(r.text)
+        body = body.split('class="entry-summary"', 1)[-1].split("Últimas Publicaciones")[0]
+        txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body))
+        sadi, sinp = parse_eby(txt)
+        if sadi is None or sinp is None:
             print(f"  EBY {link}: no SADI/SINP figures", flush=True)
             continue
         y, m = eby_period(title, link, posted)
-        rows.append({"date": pd.Timestamp(y, m, 1), "SADI_MWh": num(sadi.group(1)), "SINP_MWh": num(sinp.group(1)),
-                     "posted": posted, "link": link})
+        rows.append({"date": pd.Timestamp(y, m, 1), "SADI_MWh": sadi, "SINP_MWh": sinp, "posted": posted, "link": link})
     if not rows:
         return pd.DataFrame()
     df = pd.DataFrame(rows).sort_values("posted").drop_duplicates("date", keep="last").set_index("date").sort_index()

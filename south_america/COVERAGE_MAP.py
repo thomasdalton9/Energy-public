@@ -53,6 +53,8 @@ COVERAGE = {
     "Puerto Rico": ("blue", "Power + gas burn by plant (EIA, monthly)"),
     "Dominican Rep.": ("blue", "Power OC-SENI; gas for power (SIE)"),
     "Jamaica": ("blue", "Power + gas, annual only"),
+    "Paraguay": ("blue", "Power monthly: 50% of Itaipu + Yacyreta (Itaipu reports, ONS, EBY, CAMMESA), own use vs "
+                         "exports to Brazil/Argentina; no gas"),
 }
 # Gas-producing countries: True = we pull domestic production, False = produces gas but no data here
 GAS_PRODUCERS = {

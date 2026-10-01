@@ -78,6 +78,7 @@ RAW_POWER_DATASETS = [
     ("EC", "Ecuador", "ecuador_power_generation_daily.xlsx", "Daily", "power"),
     ("PE", "Peru", "peru_power_generation_daily.xlsx", "Daily", "power"),
     ("UY", "Uruguay", "uruguay_power_generation_daily.xlsx", "Daily", "power"),
+    ("PY", "Paraguay", "paraguay_power_generation_daily.xlsx", "Daily", "power"),
     # Central America
     ("BZ", "Belize", "belize_power_generation_daily.xlsx", "Daily", "power"),
     ("CR", "Costa Rica", "costa_rica_power_generation_daily.xlsx", "Daily", "power"),
@@ -107,7 +108,8 @@ HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"}}
 # Installed generation capacity by technology (standard <country>_power_capacity.xlsx, sheet "Monthly")
 CAPACITY_DATASETS = [(code, country, f"{country.lower()}_power_capacity.xlsx", "Monthly", "capacity")
                      for code, country in [("AR", "Argentina"), ("BO", "Bolivia"), ("BR", "Brazil"), ("CL", "Chile"),
-                                           ("CO", "Colombia"), ("EC", "Ecuador"), ("PE", "Peru"), ("UY", "Uruguay")]]
+                                           ("CO", "Colombia"), ("EC", "Ecuador"), ("PE", "Peru"), ("UY", "Uruguay"),
+                                           ("PY", "Paraguay")]]
 
 # Workbooks with several charts where the dashboard shows only some (by spec name); the rest stay in the
 # country workbook. Honduras: the monthly ODS history (2021 on) rather than the daily feed (June 2026 on).
@@ -159,6 +161,10 @@ SOURCES = {
     "chile_power_generation_daily.xlsx": ("CNE Chile, Generación Bruta workbook (daily, from Coordinador Eléctrico Nacional data)",
                                           "https://www.cne.cl/estadisticas/electricidad/"),
     "uruguay_power_generation_daily.xlsx": ("ADME Uruguay", "https://pronos.adme.com.uy/"),
+    "paraguay_power_generation_daily.xlsx": ("ITAIPU Binacional monthly production reports (generation, supply to "
+                                             "ANDE), ONS (Itaipu to Brazil), EBY / CAMMESA (Yacyreta to the SADI and "
+                                             "SINP), VMME Balance Energetico; monthly, Paraguay's 50% share",
+                                             "https://www.itaipu.gov.py/noticias/energia/"),
     "brazil_hydro_reservoirs.xlsx": ("ONS Brazil open data (EAR)", "https://dados.ons.org.br/dataset/ear-diario-por-subsistema"),
     "colombia_hydro_reservoirs.xlsx": ("XM Colombia", "https://www.xm.com.co/"),
     "chile_hydro_reservoirs.xlsx": ("DGA Chile (Visualizador Hidrométrico Nacional; monthly Boletín Hidrométrico before mid-2024)",
@@ -188,6 +194,8 @@ SOURCES = {
     "colombia_power_capacity.xlsx": ("XM Colombia, net effective capacity (CapEfecNeta)", "https://www.xm.com.co/"),
     "ecuador_power_capacity.xlsx": ("ARCONEL, Balance Nacional de Energia Electrica", "https://arconel.gob.ec/balance-nacional-de-energia-electrica/"),
     "peru_power_capacity.xlsx": ("COES Peru, annual statistics (effective capacity, SEIN)", "https://www.coes.org.pe/Portal/publicaciones/estadisticas/"),
+    "paraguay_power_capacity.xlsx": ("ITAIPU (14,000 MW) and EBY (3,200 MW) at 50%; ANDE's own plants from Ember "
+                                     "(ande.gov.py is captcha-protected) - annual", "https://www.eby.gov.py/datos-tecnicos/"),
     "uruguay_power_capacity.xlsx": ("MIEM / DNE Uruguay, potencia instalada (annual)",
                                     "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos/series-estadisticas-energia-electrica"),
     "gatun_lake_level.xlsx": ("Panama Canal Authority (ACP)", "https://evtms-rpts.pancanal.com/"),
@@ -212,7 +220,7 @@ SOURCES = {
 }
 # The grid operator Ember compiles each country from (named on Ember-fed charts)
 OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile": "Coordinador Eléctrico Nacional",
-             "Colombia": "XM", "Ecuador": "CENACE", "Peru": "COES", "Uruguay": "ADME",
+             "Colombia": "XM", "Ecuador": "CENACE", "Peru": "COES", "Uruguay": "ADME", "Paraguay": "ANDE",
              "Belize": "BEL", "Costa Rica": "ICE/CENCE", "El Salvador": "UT", "Guatemala": "AMM", "Honduras": "ODS",
              "Nicaragua": "CNDC", "Panama": "CND",
              "Dominican Republic": "OC-SENI", "Jamaica": "JPS", "Puerto Rico": "PREPA/Genera PR"}
@@ -221,7 +229,24 @@ OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile"
 MIN_RAW_DAYS = 365   # a raw generation workbook replaces Ember only once it spans a year of history
 
 
-SA_POWER_COUNTRIES = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Peru", "Uruguay"]
+SA_POWER_COUNTRIES = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Peru", "Uruguay", "Paraguay"]
+# Countries whose SA-total contribution comes from a different sheet of their workbook than the dashboard chart.
+# Paraguay: its workbook's 'Daily' sheet is Paraguay's 50% share of Itaipu and Yacyreta, but ONS already counts
+# Itaipu's whole supply to Brazil (60 Hz + the 50 Hz energy Paraguay cedes) and CAMMESA all of Yacyreta's supply
+# to Argentina (YACYHI + YACYHIPY). Only ANDE's own take is counted nowhere else, so the total adds that sheet.
+SA_TOTAL_SHEET = {"Paraguay": "Not counted by ONS-CAMMESA"}
+# Monthly feeds published ~10 days after month end: the total does not wait for them (like an Ember-fed
+# country, a missing latest month is listed under NOT INCLUDED rather than holding the total back).
+SA_LAGGING = {"Paraguay"}
+
+
+def sa_total_sheet(path, sheet):
+    """A standard-layout sheet (date + <Fuel>_MWh) other than 'Daily' -> monthly GWh frame like power_daily's."""
+    d = add_charts.by_date(add_charts.read(path, sheet), "date")
+    m = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].resample("MS").sum(min_count=1) / 1000
+    m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+    m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
+    return add_charts.power_mix(m)
 
 
 def south_america_generation(data_dir, have_raw):
@@ -235,12 +260,20 @@ def south_america_generation(data_dir, have_raw):
         try:
             if country in have_raw:
                 path = os.path.join(data_dir, raw_files[country])
-                build = add_charts.REGISTRY.get(raw_files[country]) or add_charts.power_daily(country)
-                m = build(path)[0]["df"]
-                last = add_charts.by_date(add_charts.read(path, "Daily"), "date").index.max()
-                if last < last + pd.offsets.MonthEnd(0):           # current month not complete yet
+                sheet = SA_TOTAL_SHEET.get(country, "Daily")
+                if sheet != "Daily":
+                    m = sa_total_sheet(path, sheet)
+                else:
+                    build = add_charts.REGISTRY.get(raw_files[country]) or add_charts.power_daily(country)
+                    m = build(path)[0]["df"]
+                dates = add_charts.by_date(add_charts.read(path, sheet), "date").index
+                last = dates.max()
+                monthly_rows = len(dates) > 1 and dates.to_series().diff().median().days > 25
+                if not monthly_rows and last < last + pd.offsets.MonthEnd(0):   # current month not complete yet
                     m = m[m.index < last.to_period("M").to_timestamp()]
                 src = SOURCES.get(raw_files[country], (raw_files[country],))[0]
+                if sheet != "Daily":
+                    src = f"{src} [sheet '{sheet}': ANDE's own take only, the rest is in ONS/CAMMESA]"
             else:
                 m = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
                 src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})"
@@ -255,7 +288,7 @@ def south_america_generation(data_dir, have_raw):
     have = {c: set(f.dropna(how="all").index) for c, f in frames.items()}
     # Run to the last month every raw-fed country has; an Ember-fed country that lags (Ember publishes months
     # late) is left out of the months it doesn't have yet, and those gaps are listed rather than estimated.
-    raw_have = [h for c, h in have.items() if c in have_raw] or list(have.values())
+    raw_have = [h for c, h in have.items() if c in have_raw and c not in SA_LAGGING] or list(have.values())
     end = min(max(h) for h in raw_have)
     months = sorted(m for m in set.intersection(*raw_have) if m <= end)
     total = sum(f.reindex(index=months, columns=fuels).fillna(0) for f in frames.values()) / 1000.0   # GWh -> TWh
@@ -509,7 +542,7 @@ def main():
                                                     "TWh per month", "stacked_bar", width=CHART_W, height=CHART_H,
                                                     gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
         missing = [n.split(":", 1)[1].split(" in ")[0].strip() for n in sa_notes if n.startswith("NOT INCLUDED")]
-        name = "South America power generation by source (8 countries" + (
+        name = f"South America power generation by source ({len(SA_POWER_COUNTRIES)} countries" + (
             f"; {', '.join(missing)} missing in latest months)" if missing else ")")
         power[1].insert(0, ("South America", name,
                             df.index.max().strftime("%b/%y"), ws.title, *src))
