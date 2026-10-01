@@ -323,7 +323,7 @@ VAL = r"(?:\d{1,3}(?:[.,]\d{3})+|\d+(?:[.,]\d{1,2})?|-)"
 # last column is the % of potential ('106%', '102%(1)' with a footnote, '-' when there is no potential)
 PCT = r"(?:\s+(?:\d+(?:[.,]\d+)?\s*%\s*(?:\(\d\))?|-))?"
 ROW = re.compile(rf"^(?P<label>.*?)\s*(?P<nums>{VAL}(?:\s+{VAL}){{2,3}}){PCT}\s*$")
-OCR_DPI = 300
+OCR_DPI = 400
 
 
 def whole(s):
@@ -384,8 +384,10 @@ def supply_table(text):
     res["Other_fields"] = round(dom[3] - grouped, 1)
     res["Fields_sum"] = sum(v[3] for _, v in fields)
     res["Total_supply"] = tot[3] if tot else dom[3] + res["LNG_imports_SPEC"] + (res["Venezuela_imports"] or 0)
-    res["Supply_to_SNT"] = tot[1] if tot else None
-    res["Field_rows"] = "; ".join(f"{re.sub(r'[*]+', '', lb).strip()} {v[3]:g}" for lb, v in fields)
+    # no Total row read (OCR months): the SNT column of production + regas (+ Venezuela)
+    res["Supply_to_SNT"] = tot[1] if tot else dom[1] + lng[1] + (ven[1] if ven else 0)
+    clean = lambda lb: re.sub(r"""[\s*”“"'?%/]+$""", "", lb.replace("*", "")).strip()  # noqa: E731
+    res["Field_rows"] = "; ".join(f"{clean(lb)} {v[3]:g}" for lb, v in fields)
     return res
 
 
@@ -415,24 +417,179 @@ def supply_issues(res, profile):
     return issues
 
 
-def ocr_page(content, i, psm):
-    """OCR page i (0-based) with tesseract (Spanish). From late 2023 to mid 2024 the
-    supply table is an image with no text layer."""
+# ---- OCR of the image-only supply table (late 2023 to mid 2024 reports)
+#
+# The page is rendered at 400 dpi and split along the table's ruled lines into
+# rows and cells. Each number cell is read several times (two scales, two
+# tesseract language models, digits only) and a row is accepted only when its
+# readings add up: to SNT + to others = total, and total / potential matches the
+# printed percentage within rounding. Across rows, the field rows must add up to
+# the national production row; otherwise the next-best consistent readings are
+# tried, and the month is dropped if nothing fits.
+
+OCR_PASSES = [(0.5, "eng"), (0.5, "spa"), (0.75, "eng"), (0.75, "spa")]
+OCR_DIGITS = "0123456789,.%"
+
+
+def tesseract(img, psm, lang="spa", whitelist=None):
     import subprocess
     import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        f = os.path.join(td, "c.png")
+        img.save(f)
+        cmd = ["tesseract", f, "stdout", "-l", lang, "--psm", str(psm)]
+        if whitelist:
+            cmd += ["-c", f"tessedit_char_whitelist={whitelist}"]
+        return subprocess.run(cmd, capture_output=True, text=True, timeout=60).stdout.strip()
+
+
+def _longest_run(row):
+    import numpy as np
+    d = np.diff(np.concatenate(([0], row.astype(np.int8), [0])))
+    s, e = np.where(d == 1)[0], np.where(d == -1)[0]
+    if not len(s):
+        return 0, 0, 0
+    k = int(np.argmax(e - s))
+    return int(e[k] - s[k]), int(s[k]), int(e[k])
+
+
+def _cell_image(arr, scale):
+    import numpy as np
+    from PIL import Image
+    pad = np.full((arr.shape[0] + 40, arr.shape[1] + 40), 255, np.uint8)
+    pad[20:-20, 20:-20] = arr
+    im = Image.fromarray(pad)
+    return im.resize((max(1, int(im.width * scale)), max(1, int(im.height * scale))), Image.LANCZOS)
+
+
+def _cell_number(tok):
+    tok = tok.replace("%", "")
+    if re.fullmatch(r"\d{1,3}(?:[.,]\d{3})+", tok):
+        return float(re.sub(r"[.,]", "", tok))
+    try:
+        return float(tok.replace(",", ".")) if tok else None
+    except ValueError:
+        return None
+
+
+def _cell_readings(cell):
+    """{value: votes} over the OCR passes; a blank cell reads 0."""
+    if (cell < 128).sum() < 30:
+        return {0.0: len(OCR_PASSES)}
+    votes = {}
+    for scale, lang in OCR_PASSES:
+        im = _cell_image(cell, scale)
+        for psm in (7, 10):   # psm 10 (single character) when a lone digit comes back empty
+            v = _cell_number(tesseract(im, psm, lang, OCR_DIGITS))
+            if v is not None:
+                votes[v] = votes.get(v, 0) + 1
+                break
+    # a cell-corner marker can come out as an extra leading or trailing digit ('7969' for 969):
+    # offer those trims as low-vote alternatives, used only if the row's arithmetic needs them
+    for v in list(votes):
+        s = f"{v:g}"
+        if v == int(v) and len(s) >= 3:
+            for t in (s[1:], s[:-1]):
+                votes.setdefault(float(t), 0.1)
+    return votes
+
+
+def _row_consistent(pot, snt, oth, tot, pct):
+    if abs(snt + oth - tot) > 1:
+        return False
+    if pct is None or not pot:
+        return True
+    lo = max(tot - 0.5, 0) / (pot + 0.5) * 100 - 0.5   # cells are rounded, so allow for that
+    hi = (tot + 0.5) / max(pot - 0.5, 0.5) * 100 + 0.5
+    return lo <= pct <= hi
+
+
+def ocr_table_rows(gray):
+    """[(label, [consistent (pot, snt, oth, tot, pct) readings, best first])] for each table row."""
+    import itertools
+    import numpy as np
+    g = gray.astype(np.int16)
+    dark = g < 140
+    runs = [_longest_run(dark[y]) for y in range(g.shape[0])]
+    ruled = [y for y, (n, _, _) in enumerate(runs) if n >= 1200]   # horizontal rules (and dark-filled rows)
+    if not ruled:
+        return []
+    x0, x1 = min(runs[y][1] for y in ruled), max(runs[y][2] for y in ruled)
+    cl = []
+    for y in ruled:
+        if cl and y - cl[-1][1] <= 2:
+            cl[-1][1] = y
+        else:
+            cl.append([y, y])
+    bands = [(cl[i][1] + 1, cl[i + 1][0]) for i in range(len(cl) - 1)] + [(a, b) for a, b in cl if b - a > 15]
+    out = []
+    for top, bot in sorted(bands):
+        if not 35 <= bot - top <= 260:
+            continue
+        band = g[top:bot, x0:x1].copy()
+        if np.median(band) < 170:                      # white text on a dark fill (the Total row)
+            band = 255 - band
+        col_dark = (band < 140).mean(axis=0)
+        rule = np.convolve((col_dark > 0.6).astype(int), np.ones(9, int), "same") > 0
+        band[:, rule] = 255                            # vertical rules
+        bw = np.clip((band - band.min()) * 255.0 / max(1, 255 - band.min()), 0, 255).astype(np.uint8)
+        segs, start = [], None
+        for x, r in enumerate(list(rule) + [True]):
+            if not r and start is None:
+                start = x
+            elif r and start is not None:
+                if x - start > 30:
+                    segs.append((start, x))
+                start = None
+        if len(segs) < 5:
+            continue
+        lab = max(range(len(segs)), key=lambda i: segs[i][1] - segs[i][0])   # the source-name column
+        nums = segs[lab + 1:lab + 6]
+        if len(nums) < 4:
+            continue
+        label = " ".join(tesseract(_cell_image(bw[:, segs[lab][0]:segs[lab][1]], 0.5), 6).split())
+        votes = [_cell_readings(bw[:, a:b]) for a, b in nums] + ([{None: 1}] if len(nums) == 4 else [])
+        votes[4].setdefault(None, 0.05)   # an unreadable % cell: fall back to the to-SNT + others = total check
+        opts = []
+        for combo in itertools.product(*[sorted(v, key=v.get, reverse=True) for v in votes]):
+            if None not in combo[:4] and _row_consistent(*combo):
+                opts.append((sum(votes[i][c] for i, c in enumerate(combo)), combo))
+        out.append((label, [c for _, c in sorted(opts, key=lambda t: -t[0])]))
+    return out
+
+
+def ocr_supply_text(gray):
+    """Table text ('label pot snt oth tot pct%' per line) from the image, choosing for each
+    row the best-voted consistent reading whose field rows add up to national production."""
+    import itertools
+    rows = [(lb, o) for lb, o in ocr_table_rows(gray) if o]
+
+    def text(choice):
+        return "\n".join(f"{lb} " + " ".join(f"{v:g}" for v in c[:4]) + (f" {c[4]:g}%" if c[4] is not None else "")
+                         for (lb, _), c in zip(rows, choice))
+    first = [o[0] for _, o in rows]
+    res = supply_table(text(first))
+    if not res or not supply_issues(res, None):
+        return text(first)
+    alt = [i for i, (_, o) in enumerate(rows) if len(o) > 1]
+    for picks in itertools.islice(itertools.product(*[range(min(3, len(rows[i][1]))) for i in alt]), 1, 3000):
+        choice = list(first)
+        for i, k in zip(alt, picks):
+            choice[i] = rows[i][1][k]
+        res = supply_table(text(choice))
+        if res and not supply_issues(res, None):
+            return text(choice)
+    return text(first)
+
+
+def ocr_page_gray(content, i):
+    import numpy as np
     import pypdfium2 as pdfium  # installed with pdfplumber
     pdf = pdfium.PdfDocument(content)
     try:
-        img = pdf[i].render(scale=OCR_DPI / 72).to_pil().convert("L")
+        return np.asarray(pdf[i].render(scale=OCR_DPI / 72).to_pil().convert("L"))
     finally:
         pdf.close()
-    with tempfile.TemporaryDirectory() as td:
-        f = os.path.join(td, "p.png")
-        img.save(f)
-        r = subprocess.run(["tesseract", f, "stdout", "-l", "spa", "--psm", str(psm)],
-                           capture_output=True, text=True, timeout=180)
-    # table rules and dashes come out as '|', '—', '–'
-    return re.sub(r"[|]", " ", r.stdout).replace("—", "-").replace("–", "-")
 
 
 def parse_supply(pages, content=None, month=None):
@@ -452,22 +609,18 @@ def parse_supply(pages, content=None, month=None):
                  if re.search(r"principales\s+fuentes\s+de\s+suministro", t, re.I)), None)
     if content is None or page is None:
         return None, ["no supply table found"]
-    issues = []
-    for psm in (6, 4, 11):
-        try:
-            txt = ocr_page(content, page, psm)
-        except Exception as e:
-            return None, [f"OCR failed: {type(e).__name__}: {str(e)[:100]}"]
-        res = supply_table(txt)
-        if not res:
-            issues = [f"OCR psm {psm}: no table rows"]
-            continue
-        issues = supply_issues(res, profile)
-        if not issues:
-            res["Method"] = f"OCR (psm {psm})"
-            return res, []
-        issues = [f"OCR psm {psm}: " + "; ".join(issues) + f" | {res['Field_rows']}"]
-    return None, issues
+    try:
+        txt = ocr_supply_text(ocr_page_gray(content, page))
+    except Exception as e:
+        return None, [f"OCR failed: {type(e).__name__}: {str(e)[:100]}"]
+    res = supply_table(txt)
+    if not res:
+        return None, ["OCR: no table rows | " + txt.replace("\n", " / ")[:600]]
+    issues = supply_issues(res, profile)
+    if issues:
+        return None, ["OCR rejected: " + "; ".join(issues) + " | " + txt.replace("\n", " / ")[:600]]
+    res["Method"] = "OCR"
+    return res, []
 
 
 def dump(pages):

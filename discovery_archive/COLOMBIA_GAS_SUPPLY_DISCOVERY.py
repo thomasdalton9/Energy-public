@@ -149,11 +149,9 @@ def round4():
                 out("    profile:", m.group(0)[:150])
         if page is None:
             continue
-        for psm in (6, 4):
-            out(f"  -- OCR psm {psm}")
-            for ln in C.ocr_page(c, page, psm).splitlines():
-                if ln.strip():
-                    out("    |", ln[:170])
+        out("  -- OCR (cell by cell, as COLOMBIA_GAS.py reads it)")
+        for ln in C.ocr_supply_text(C.ocr_page_gray(c, page)).splitlines():
+            out("    |", ln[:170])
 
 
 def round5():
