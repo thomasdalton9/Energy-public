@@ -431,6 +431,8 @@ REGISTRY = {
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
     "chile_gas_imports.xlsx": chile_imports,
     "chile_power_by_type.xlsx": chile_power,
+    "brazil_power_generation_daily.xlsx": power_daily("Brazil power generation by type (ONS)"),
+    "colombia_power_generation_daily.xlsx": power_daily("Colombia power generation by type (XM)"),
     "south_america_power_by_type.xlsx": sa_power,
     "argentina_power_generation_daily.xlsx": power_daily("Argentina power generation by type (CAMMESA)"),
     "uruguay_power_generation_daily.xlsx": power_daily("Uruguay power generation by type (ADME)"),
