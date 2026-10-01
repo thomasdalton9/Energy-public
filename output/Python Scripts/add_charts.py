@@ -101,6 +101,13 @@ def bolivia(p):
                  "Bolivia gas demand by sector", "million m3/day", "stacked_bar")]
 
 
+def uruguay(p):
+    d = by_date(read(p, "Demand by sector"), "Month")
+    c = [f"{x}_mcm_per_day" for x in ("Residential", "Commercial", "Industrial", "Power", "Energy_own_use")]
+    return [spec("Demand", d[cols(d, *c)].rename(columns=lambda x: x.replace("_mcm_per_day", "").replace("_", " ")),
+                 "Uruguay gas demand by sector", "million m3/day", "stacked_bar")]
+
+
 def chile_imports(p):
     d = by_date(read(p, "Gas imports"), "Month")
     return [spec("Imports", d[["Imports_mcm_per_day_approx"]].rename(columns={"Imports_mcm_per_day_approx": "Gas imports"}),
@@ -406,9 +413,15 @@ REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "brazil_gas_monthly.xlsx": brazil,
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
+    "uruguay_gas_demand_by_sector.xlsx": uruguay,
     "chile_gas_imports.xlsx": chile_imports,
     "chile_power_by_type.xlsx": chile_power,
     "south_america_power_by_type.xlsx": sa_power,
+    "argentina_power_generation_daily.xlsx": power_daily("Argentina power generation by type (CAMMESA)"),
+    "uruguay_power_generation_daily.xlsx": power_daily("Uruguay power generation by type (ADME)"),
+    "bolivia_power_generation_daily.xlsx": power_daily("Bolivia power generation by type (CNDC)"),
+    "ecuador_power_generation_daily.xlsx": power_daily("Ecuador power generation by type (CENACE)"),
+    "peru_power_generation_daily.xlsx": power_daily("Peru power generation by type (COES)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "trinidad_gas.xlsx": trinidad,
