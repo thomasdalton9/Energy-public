@@ -61,21 +61,23 @@ def key(s):
 
 
 def fuel_of(resource, gen_type):
+    """Standard fuel for a COES unit. Gas is tested before water: 'Gas Natural de Aguaytia' contains 'AGUA'."""
     r, g = key(resource), key(gen_type)
-    if "AGUA" in r or "HIDR" in r or g == "HIDROELECTRICA":
-        return "Hydro"
-    if "SOLAR" in r or g == "SOLAR":
-        return "Solar"
-    if "EOLIC" in r or "VIENTO" in r or g.startswith("EOLIC"):
-        return "Wind"
+    if "GAS NATURAL" in r or r == "GAS":
+        return "Gas"
+    if any(t in r for t in ("DIESEL", "RESIDUAL", "R500", "R6", "D2", "PETROLEO", "NAFTA", "REFINERIA", "RFG",
+                            "FUEL")):
+        return "Oil"
     if "CARBON" in r:
         return "Coal"
     if "BAGAZO" in r or "BIOMASA" in r or "BIOGAS" in r:
         return "Bioenergy"
-    if "GAS NATURAL" in r or r == "GAS" or r.startswith("GAS NATURAL"):
-        return "Gas"
-    if any(t in r for t in ("DIESEL", "RESIDUAL", "R500", "R6", "D2", "PETROLEO", "NAFTA", "REFINERIA", "FUEL")):
-        return "Oil"
+    if g == "HIDROELECTRICA" or r in ("AGUA", "HIDRO", "HIDRAULICA"):
+        return "Hydro"
+    if g == "SOLAR" or r == "SOLAR":
+        return "Solar"
+    if g.startswith("EOLIC") or r.startswith("EOLIC") or r == "VIENTO":
+        return "Wind"
     if "GEOTERM" in r or g == "GEOTERMICA":
         return "Other"
     return None
@@ -103,35 +105,45 @@ def chapter2_url(year):
 
 
 def unit_table(content):
-    """The per-unit list (DataFrame with columns company, gen_type, plant, unit, technology, resource, mw)."""
+    """The per-unit list: (sheet, DataFrame with company, gen_type, plant, unit, technology, resource, mw).
+    Every sheet / header row with 'POTENCIA EFECTIVA' and 'TIPO DE GENERACION' columns is read as one contiguous
+    block of unit rows (a block ends after three rows without a generation type, which separates it from the
+    commissioning / retirement table and any other table further down); the largest block is the unit list."""
     xl = pd.ExcelFile(io.BytesIO(content))
+    best = None
     for sheet in xl.sheet_names:
         raw = pd.read_excel(xl, sheet_name=sheet, header=None)
         for i in range(min(30, len(raw))):
             cells = {key(v): j for j, v in enumerate(raw.iloc[i]) if isinstance(v, str)}
             mw = [j for k, j in cells.items() if k.startswith("POTENCIA EFECTIVA")]
-            res = [j for k, j in cells.items() if "RECURSO" in k or "COMBUSTIBLE" in k or k == "FUENTE"]
             gen = [j for k, j in cells.items() if k.startswith("TIPO DE GENERACION")]
             if not (mw and gen):
                 continue
+            res = [j for k, j in cells.items() if "RECURSO" in k or "COMBUSTIBLE" in k or k == "FUENTE"]
             col = lambda names: next((j for k, j in cells.items() if any(k.startswith(n) for n in names)), None)  # noqa: E731
             cols = {"company": col(["EMPRESA"]), "gen_type": gen[0], "plant": col(["CENTRAL"]),
                     "unit": col(["UNIDAD", "GRUPO"]), "technology": col(["TECNOLOGIA"]),
                     "resource": res[0] if res else None, "mw": mw[0]}
-            rows = []
+            rows, misses = [], 0
             for r in range(i + 1, len(raw)):
                 g = raw.iat[r, cols["gen_type"]]
                 v = raw.iat[r, cols["mw"]]
-                if key(g) not in GEN_TYPES:
+                ok = (key(g) in GEN_TYPES and not isinstance(v, (datetime, date, pd.Timestamp))
+                      and pd.notna(pd.to_numeric(v, errors="coerce")))
+                if not ok:
+                    misses += 1
+                    if rows and misses >= 3:
+                        break
                     continue
-                if isinstance(v, (datetime, date, pd.Timestamp)) or pd.isna(pd.to_numeric(v, errors="coerce")):
-                    continue
+                misses = 0
                 rows.append({c: (raw.iat[r, j] if j is not None else None) for c, j in cols.items()})
-            if rows:
-                d = pd.DataFrame(rows)
-                d["mw"] = pd.to_numeric(d["mw"], errors="coerce")
-                return sheet, d
-    raise ValueError(f"no unit list with 'POTENCIA EFECTIVA' and 'TIPO DE GENERACION' in sheets {xl.sheet_names}")
+            if rows and (best is None or len(rows) > len(best[1])):
+                best = (sheet, rows)
+    if best is None:
+        raise ValueError(f"no unit list with 'POTENCIA EFECTIVA' and 'TIPO DE GENERACION' in {xl.sheet_names}")
+    d = pd.DataFrame(best[1])
+    d["mw"] = pd.to_numeric(d["mw"], errors="coerce")
+    return best[0], d
 
 
 def main():
@@ -196,7 +208,7 @@ def main():
     val = pcc.validation_lines(monthly, "Peru")
     print("\n".join(val), flush=True)
     resources = (unit_df.reset_index().groupby("fuel")["resource"]
-                 .apply(lambda s: ", ".join(sorted(s.astype(str).unique()))).to_dict())
+                 .apply(lambda s: ", ".join(sorted(set(s.map(str))))).to_dict())
     notes = pcc.unit_notes("year") + [
         "Effective capacity (potencia efectiva) of the units COES lists in the SEIN at 31 December; each row is dated "
         "1 January of that year. COES' monthly bulletins carry no capacity table, so there is no monthly series.",
