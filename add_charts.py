@@ -628,6 +628,7 @@ REGISTRY = {
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
     "honduras_power_generation_daily.xlsx": honduras_power,
+    "el_salvador_power_generation_daily.xlsx": power_daily("El Salvador power generation by type (SIGET, monthly net)"),
     # Caribbean
     "puerto_rico_power_generation_daily.xlsx": power_daily("Puerto Rico power generation by type (EIA-923)"),
     "dominican_republic_power_generation_daily.xlsx": power_daily("Dominican Republic power generation by type (OC-SENI)"),

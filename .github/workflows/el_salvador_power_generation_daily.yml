@@ -1,0 +1,54 @@
+name: El Salvador power generation (SIGET, monthly)
+
+# SIGET (El Salvador): monthly generation by technology from SIGET's public
+# Power BI statistics report (UT, the grid operator, blocks non-Salvadoran
+# traffic). SIGET refreshes it about once a year; weekly check, saved months kept.
+on:
+  schedule:
+    - cron: "23 12 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pandas requests openpyxl
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 south_america/EL_SALVADOR_SIGET_POWER.py --out "output/Data and Chart Outputs/el_salvador_power_generation_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/el_salvador_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/el_salvador_power_generation_daily.xlsx" || echo "chart step skipped/failed for el_salvador_power_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/EL_SALVADOR_SIGET_POWER.py south_america/power_daily_std.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/el_salvador_power_generation_daily.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/el_salvador_power_generation_daily.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "El Salvador power generation: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
