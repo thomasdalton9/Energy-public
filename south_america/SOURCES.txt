@@ -54,6 +54,11 @@ www.cenace.gob.ec
     CENACE (Ecuador grid operator) - generation by source
     used by: ECUADOR_CENACE.py
     used by: ECUADOR_CENACE_DISCOVERY.py
+    (ECUADOR_POWER_DAILY.py rebuilds ecuador_power_generation_daily.xlsx from ECUADOR_CENACE.py's CSV)
+
+www.coes.org.pe
+    COES (Peru grid operator) Portal de Informacion - daily generation by fuel/technology (half-hourly SCADA)
+    used by: PERU_COES_GENERATION.py (--out: peru_power_generation_daily.xlsx, .github/workflows/peru_power_generation.yml)
 
 
 SCRIPTS WITH NO DIRECT EXTERNAL SOURCE

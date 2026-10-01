@@ -1,6 +1,7 @@
 name: Peru and Ecuador power discovery
 
-# One-off, manual-only probe (PERU_COES_ECUADOR_CENACE_DISCOVERY.py, then rounds 2-4).
+# One-off, manual-only probe (PERU_COES_ECUADOR_CENACE_DISCOVERY.py, then rounds 2-4;
+# the last run was round 4). Archived here - copy back to .github/workflows to re-run.
 # Raw responses go to the throwaway branch ecpe-discovery-raw.
 on:
   workflow_dispatch: {}

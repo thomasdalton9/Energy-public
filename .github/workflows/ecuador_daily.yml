@@ -60,7 +60,8 @@ jobs:
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Ecuador generation daily: automated update"
           for i in 1 2 3 4 5; do
-            git pull --rebase --autostash && git push && exit 0
+            git pull --rebase --autostash -X theirs && git push && exit 0
+            git rebase --abort 2>/dev/null || true
             sleep $((i * 5))
           done
           exit 1
