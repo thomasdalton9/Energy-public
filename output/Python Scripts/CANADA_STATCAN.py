@@ -4,8 +4,13 @@ Canada power generation and natural gas from Statistics Canada (no key):
   Table 25-10-0015-01  Electric power generation, monthly generation by type of electricity
       -> canada_power_generation_daily.xlsx (standard power layout, one row per MONTH, MWh)
          plus a "Provinces" sheet (total generation by province)
-  Table 25-10-0055-01  Supply and disposition of natural gas, monthly
-      -> canada_gas.xlsx ("Supply and disposition": every item for Canada, million m3/day)
+  Table 25-10-0086-01  Natural gas supply and disposition, monthly (successor of 25-10-0055, inactive
+                       since Dec 2025)
+      -> canada_gas.xlsx ("Supply and disposition": every item for Canada, million m3/day; inventories in
+         million m3)
+  Tables 25-10-0022-01 (installed generating capacity by type, annual) and 25-10-0023-01 (conventional
+  thermal capacity by principal fuel, annual)
+      -> canada_power_capacity.xlsx (standard capacity layout, sheet "Monthly", one row per YEAR, MW)
 
 StatCan publishes each table as one CSV zip; there is no date-range
 query, so each run first asks the WDS API for the table's latest month
@@ -13,13 +18,12 @@ query, so each run first asks the WDS API for the table's latest month
 (when one happens, every downloaded month replaces the saved one, since
 StatCan revises recent months).
 
-StatCan reports generation by TYPE OF PLANT, not by fuel: hydraulic,
-tidal, wind, solar, nuclear, conventional steam (coal, gas, biomass and
-oil boilers), combustion turbine (gas) and internal combustion (mostly
-diesel in remote communities). These map to the standard columns as:
-Hydro (hydraulic + tidal), Wind, Solar, Nuclear, Gas (combustion turbine),
-Oil (internal combustion), Steam (conventional steam - mixed fuels, kept
-separate), Other.
+StatCan reports generation by type of plant (hydraulic, tidal, wind,
+solar, nuclear, ...) and, for fuel-burning plants, by fuel group: it no
+longer splits combustible generation by turbine type (those rows are zero
+in recent months), so the standard columns are Hydro (hydraulic + tidal),
+Wind, Solar, Nuclear, Fossil (non-renewable combustible fuels: coal, gas,
+oil - not split by fuel monthly), Bioenergy (biomass), Other.
 
 Usage: python3 CANADA_STATCAN.py [--power-out ...] [--gas-out ...]
 """
@@ -42,24 +46,12 @@ DEFAULT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 CSV_ZIP = "https://www150.statcan.gc.ca/n1/tbl/csv/{pid}-eng.zip"
 METADATA = "https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata"
 POWER_TABLE = 25100015
-GAS_TABLE = 25100055
+GAS_TABLE = 25100086
+CAP_TYPE_TABLE = 25100022
+CAP_FUEL_TABLE = 25100023
 HISTORY_START = "2019-01-01"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                          "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
-
-# Type of electricity generation -> standard column (first match wins; "Total ..." rows are skipped)
-POWER_MAP = [
-    (r"hydraulic|tidal", "Hydro"),
-    (r"wind", "Wind"),
-    (r"solar", "Solar"),
-    (r"nuclear", "Nuclear"),
-    (r"internal combustion", "Oil"),
-    (r"combustion turbine", "Gas"),
-    (r"conventional steam", "Steam"),
-    (r".", "Other"),
-]
-POWER_COLS = ["Hydro", "Gas", "Wind", "Solar", "Nuclear", "Oil", "Steam", "Other"]
-
 
 def get(url, **kw):
     last = None
@@ -136,27 +128,27 @@ def needs_update(pid, saved, force):
 
 
 def power(d, dims):
+    """Canada by type (non-combustible plants) plus StatCan's combustible-fuel totals. StatCan stopped splitting
+    combustible generation by turbine type (combustion / steam / internal combustion are zero in recent months), so
+    fuel-burning plants come from its 'non-renewable combustible fuels' (Fossil) and 'biomass' (Bioenergy) totals."""
     cls = next(c for c in dims if "class" in c.lower())
     typ = next(c for c in dims if "type" in c.lower())
     d = d[d[cls].str.contains("total all classes", case=False, na=False)]
     d = d[d["UOM"].str.contains("megawatt", case=False, na=False)]
-
-    def fuel(t):
-        if t.lower().startswith("total"):
-            return None
-        return next(col for pat, col in POWER_MAP if re.search(pat, t, re.I))
-
-    ca = d[d["GEO"] == "Canada"].copy()
-    ca["fuel"] = ca[typ].map(fuel)
-    for t, f in sorted(set(zip(ca[typ], ca["fuel"]))):
-        print(f"    {t!r} -> {f}", flush=True)
-    w = ca.dropna(subset=["fuel"]).pivot_table(index="date", columns="fuel", values="value", aggfunc="sum")
-    w = w.reindex(columns=[c for c in POWER_COLS if c in w.columns])
-    total = ca[ca[typ].str.match(r"total all types", case=False, na=False)].groupby("date")["value"].sum()
-    out = w.add_suffix("_MWh")
-    out["Total_MWh"] = total.reindex(out.index) if len(total) else w.sum(axis=1, min_count=1)
-    out = out.round(0)
+    ca = d[d["GEO"] == "Canada"]
+    row = lambda pat: ca[ca[typ].str.contains(pat, case=False, na=False, regex=True)].groupby("date")["value"].sum()  # noqa: E731
+    out = pd.DataFrame({"Hydro": row(r"^hydraulic|^tidal"), "Wind": row(r"^wind"), "Solar": row(r"^solar$"),
+                        "Nuclear": row(r"^nuclear")})
+    bio, fossil, comb = row(r"from biomass"), row(r"non-renewable combustible"), row(r"from combustible fuels")
+    out["Fossil"] = fossil if len(fossil) else comb - bio
+    out["Fossil"] = out["Fossil"].fillna(comb.reindex(out.index) - bio.reindex(out.index).fillna(0))
+    out["Bioenergy"] = bio
+    out["Other"] = row(r"^other types")
+    out = out.add_suffix("_MWh")
+    out["Total_MWh"] = row(r"^total all types")
+    out = out.dropna(how="all").round(0)
     out.index.name = "date"
+    print(out.tail(3).to_string(), flush=True)
     prov = d[d[typ].str.match(r"total all types", case=False, na=False) & (d["GEO"] != "Canada")]
     prov = prov.pivot_table(index="date", columns="GEO", values="value", aggfunc="sum").round(0)
     prov = prov[prov.sum().sort_values(ascending=False).index].add_suffix("_MWh")
@@ -164,15 +156,88 @@ def power(d, dims):
     return out, prov
 
 
+STOCK = re.compile(r"inventory", re.I)   # stocks (end/start of month), not flows: not divided by days
+
+
 def gas(d, dims):
-    d = d[(d["GEO"] == "Canada") & d["UOM"].str.contains("metre", case=False, na=False)].copy()
-    d["item"] = d[dims].fillna("").agg(" | ".join, axis=1).str.strip(" |")
+    unit = next((c for c in dims if "unit" in c.lower()), None)
+    items = [c for c in dims if c != unit]
+    d = d[d["GEO"] == "Canada"]
+    metric = d[unit] if unit else d["UOM"]
+    d = d[metric.str.contains("metre", case=False, na=False)].copy()
+    d["item"] = d[items].fillna("").agg(" | ".join, axis=1).str.strip(" |")
     w = d.pivot_table(index="date", columns="item", values="value", aggfunc="sum")
-    w = w.div(w.index.days_in_month, axis=0) / 1e6          # m3 per month -> million m3 per day
-    w = w[[c for c in d["item"].drop_duplicates() if c in w.columns]].round(3)   # StatCan's own item order
-    w.columns = [f"{c} (mcm/d)" for c in w.columns]
-    w.index.name = "Month"
-    return w
+    w = w[[c for c in d["item"].drop_duplicates() if c in w.columns]]   # StatCan's own item order
+    flows = [c for c in w.columns if not STOCK.search(c) or "change" in c.lower()]
+    out = w[flows].div(w.index.days_in_month, axis=0) / 1e6          # m3 per month -> million m3 per day
+    out.columns = [f"{c} (mcm/d)" for c in flows]
+    for c in w.columns:
+        if c not in flows:
+            out[f"{c} (mcm)"] = w[c] / 1e6                             # stock, million m3
+    out = out.round(3)
+    out.index.name = "Month"
+    return out
+
+
+# Principal fuel (table 25-10-0023) -> standard capacity column (first match wins)
+FUEL_MAP = [(r"coal", "Coal"), (r"natural gas", "Gas"), (r"petroleum|oil|diesel|fuel oil", "Oil"),
+            (r"wood|biomass|pulping|landfill|biogas|black liquor|waste", "Bioenergy"), (r".", "Other")]
+
+
+def only_totals(d, dim):
+    """Collapse a dimension to its 'Total ...' member when it has one (so members are not double counted)."""
+    tot = d[dim].str.match(r"total", case=False, na=False)
+    return d[tot] if tot.any() else d
+
+
+def to_mw(d):
+    kw = d["UOM"].str.contains("kilowatt", case=False, na=False)
+    return d["value"].where(~kw, d["value"] / 1000.0)
+
+
+def capacity(type_tab, fuel_tab):
+    """Annual MW by standard fuel: non-thermal types from 25-10-0022, thermal split by principal fuel from
+    25-10-0023 (if that table can't be used, thermal capacity goes to Other)."""
+    d, dims = type_tab
+    d = d[d["GEO"] == "Canada"].copy()
+    d["mw"] = to_mw(d)
+    typ = next(c for c in dims if "type" in c.lower())
+    for dim in dims:
+        if dim != typ:
+            d = only_totals(d, dim)
+    row = lambda pat: d[d[typ].str.contains(pat, case=False, na=False, regex=True)].groupby("date")["mw"].sum()  # noqa: E731
+    out = pd.DataFrame({"Hydro": row(r"^hydraulic|^tidal"), "Wind": row(r"^wind"), "Solar": row(r"^solar"),
+                        "Nuclear": row(r"^nuclear")})
+    total = row(r"^total all types")
+    thermal = total - out.sum(axis=1, min_count=1)
+    try:
+        f, fdims = fuel_tab
+        f = f[f["GEO"] == "Canada"].copy()
+        f["mw"] = to_mw(f)
+        fuel = next(c for c in fdims if "fuel" in c.lower())
+        for dim in fdims:
+            if dim != fuel:
+                f = only_totals(f, dim)
+        f = f[~f[fuel].str.match(r"total", case=False, na=False)].copy()
+        f["std"] = f[fuel].map(lambda t: next(col for pat, col in FUEL_MAP if re.search(pat, t, re.I)))
+        for t, c in sorted(set(zip(f[fuel], f["std"]))):
+            print(f"    {t!r} -> {c}", flush=True)
+        byfuel = f.pivot_table(index="date", columns="std", values="mw", aggfunc="sum")
+        for c in byfuel.columns:
+            out[c] = byfuel[c]
+        # thermal capacity table 23 doesn't cover (e.g. a fuel the type table counts but table 23 omits) -> Other
+        gap = (thermal - byfuel.sum(axis=1).reindex(thermal.index)).clip(lower=0)
+        out["Other"] = (out["Other"].fillna(0) if "Other" in out else 0) + gap.where(gap > 1, 0)
+    except Exception as e:  # noqa: BLE001
+        print(f"  thermal-by-fuel table not usable ({type(e).__name__}: {e}); thermal capacity -> Other", flush=True)
+        out["Other"] = thermal
+    out = out.reindex(columns=[c for c in ("Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy",
+                                            "Other") if c in out.columns]).add_suffix("_MW")
+    out["Total_MW"] = total
+    out = out.dropna(how="all").round(1)
+    out.index.name = "date"
+    print(out.tail(3).to_string(), flush=True)
+    return out
 
 
 def save(path, sheets, notes):
@@ -185,6 +250,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--power-out", default=os.path.join(DEFAULT_DIR, "canada_power_generation_daily.xlsx"))
     ap.add_argument("--gas-out", default=os.path.join(DEFAULT_DIR, "canada_gas.xlsx"))
+    ap.add_argument("--capacity-out", default=os.path.join(DEFAULT_DIR, "canada_power_capacity.xlsx"))
     ap.add_argument("--force", action="store_true", help="download even if the saved data look current")
     args = ap.parse_args()
     ok = 0
@@ -194,15 +260,16 @@ def main():
     try:
         if needs_update(POWER_TABLE, saved, args.force):
             out, prov = power(*download(POWER_TABLE))
+            saved = saved[[c for c in saved.columns if c in out.columns]]   # columns retired by a layout change go
             out, prov = merge(out, saved), merge(prov, saved_prov)
             notes = [
                 "UNITS",
                 "MWh per MONTH (this standard 'Daily' layout holds one row per month, dated the 1st). "
                 "Provinces: total generation by province, MWh per month.",
-                "Columns are StatCan's types of plant: Hydro = hydraulic + tidal turbines; Gas = combustion "
-                "turbines; Oil = internal combustion (mostly diesel, remote communities); Steam = conventional "
-                "steam turbines, burning coal, gas, biomass or oil (StatCan does not split this monthly by fuel); "
-                "Wind, Solar, Nuclear as named; Total_MWh = StatCan's 'Total all types'.",
+                "Columns: Hydro = hydraulic + tidal turbines; Wind, Solar, Nuclear as named; Fossil = StatCan's "
+                "'Total electricity production from non-renewable combustible fuels' (coal, natural gas, oil - not "
+                "split by fuel monthly); Bioenergy = 'from biomass'; Other = 'Other types'; Total_MWh = 'Total all "
+                "types'.",
                 "Class of producer: total all classes (utilities and industry).",
                 "",
                 "COVERAGE",
@@ -218,7 +285,7 @@ def main():
     except Exception as e:  # noqa: BLE001 - still try the gas table
         print(f"POWER FAILED: {type(e).__name__}: {e}", flush=True)
 
-    print("Natural gas (table 25-10-0055-01)", flush=True)
+    print("Natural gas (table 25-10-0086-01)", flush=True)
     saved = load(args.gas_out, "Supply and disposition")
     try:
         if needs_update(GAS_TABLE, saved, args.force):
@@ -230,22 +297,56 @@ def main():
             notes = [
                 "UNITS",
                 "Million cubic metres per day (mcm/d), monthly average = StatCan monthly volume / days in month. "
-                "One column per StatCan 'Supply and disposition' item, Canada total, in StatCan's order.",
+                "One column per StatCan item, Canada total, in StatCan's order. Inventories (stocks) are in million "
+                "cubic metres (mcm), not per day.",
                 "",
                 "COVERAGE",
                 f"Canada, monthly, {out.index.min()} to {out.index.max()}. StatCan publishes about "
                 "two to three months after the month ends.",
                 "",
                 "SOURCE",
-                "Statistics Canada, Table 25-10-0055-01 Supply and disposition of natural gas, monthly: "
-                "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510005501",
+                "Statistics Canada, Table 25-10-0086-01 Natural gas supply and disposition, monthly: "
+                "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510008601 (successor of table "
+                "25-10-0055-01, inactive since December 2025).",
             ]
             save(args.gas_out, {"Supply and disposition": out}, notes)
         ok += 1
     except Exception as e:  # noqa: BLE001
         print(f"GAS FAILED: {type(e).__name__}: {e}", flush=True)
+    print("Generating capacity (tables 25-10-0022-01, 25-10-0023-01)", flush=True)
+    saved = load(args.capacity_out, "Monthly")
+    try:
+        if needs_update(CAP_TYPE_TABLE, saved, args.force):
+            try:
+                fuel_tab = download(CAP_FUEL_TABLE)
+            except Exception as e:  # noqa: BLE001 - capacity() falls back to thermal -> Other
+                print(f"  table {CAP_FUEL_TABLE} download failed: {e}", flush=True)
+                fuel_tab = None
+            out = capacity(download(CAP_TYPE_TABLE), fuel_tab)
+            out = merge(out, saved[[c for c in saved.columns if c in out.columns]])
+            notes = [
+                "UNITS",
+                "Installed generating capacity, MW, one row per YEAR (dated 1 January; StatCan's year-end figure).",
+                "Hydro (hydraulic + tidal), Wind, Solar, Nuclear: table 25-10-0022 by type of generation. Coal, "
+                "Gas, Oil, Bioenergy, Other: conventional thermal capacity by principal fuel, table 25-10-0023. "
+                "Total_MW = 25-10-0022 'Total all types'. All classes of producer (utilities and industry).",
+                "",
+                "COVERAGE",
+                f"Canada, annual, {out.index.min():%Y} to {out.index.max():%Y}. StatCan publishes these tables about "
+                "a year after the year ends; the dashboard carries the latest year forward.",
+                "",
+                "SOURCE",
+                "Statistics Canada, Table 25-10-0022-01 Installed plants, annual generating capacity by type of "
+                "electricity generation: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510002201 ; Table "
+                "25-10-0023-01 Conventional thermal, annual generating capacity by class of electricity producer "
+                "and principal fuel: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510002301",
+            ]
+            save(args.capacity_out, {"Monthly": out}, notes)
+        ok += 1
+    except Exception as e:  # noqa: BLE001
+        print(f"CAPACITY FAILED: {type(e).__name__}: {e}", flush=True)
     if not ok:
-        raise SystemExit("Neither StatCan table could be updated")
+        raise SystemExit("No StatCan table could be updated")
 
 
 if __name__ == "__main__":
