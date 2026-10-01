@@ -290,6 +290,23 @@ def trinidad(p):
     return out
 
 
+def power_annual(title):
+    """Standard 'Daily' layout holding one row per YEAR (Jamaica): annual GWh bars labelled by year."""
+    def f(p):
+        d = by_date(read(p, "Daily"), "date")
+        y = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]] / 1000
+        y = y[y.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+        y = y.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
+        return [spec("Generation", power_mix(y), title, "GWh per year", "stacked_bar", "%Y")]
+    return f
+
+
+def jamaica_gas(p):
+    d = by_date(read(p, "Gas use"), "Month")
+    return [spec("Use", d[["Total_mcm_per_day"]].rename(columns={"Total_mcm_per_day": "Natural gas, all uses"}),
+                 "Jamaica gas use (annual)", "million m3/day, annual average", "stacked_bar", "%Y")]
+
+
 def gas_use(title, skip=r"^(Total|.*_terminal)_"):
     """Caribbean 'Gas use' sheets (Month + *_mcm_per_day columns): stack the parts, not the totals/groupings."""
     def f(p):
@@ -602,6 +619,9 @@ REGISTRY = {
     "puerto_rico_power_generation_daily.xlsx": power_daily("Puerto Rico power generation by type (EIA-923)"),
     "dominican_republic_power_generation_daily.xlsx": power_daily("Dominican Republic power generation by type (OC-SENI)"),
     "puerto_rico_gas.xlsx": gas_use("Puerto Rico gas use"),
+    "jamaica_power_generation_daily.xlsx": power_annual("Jamaica power generation by type (MSET / JPS, annual)"),
+    "jamaica_gas.xlsx": jamaica_gas,
+    "dominican_republic_gas.xlsx": gas_use("Dominican Republic gas use (gas burned for power, SIE)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,
