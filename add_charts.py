@@ -87,11 +87,28 @@ def argentina(p):
 
 def brazil(p):
     d = by_date(read(p, "Demand by segment"), "date")
-    return [spec("Demand", d[cols(d, "Power_Generation", "Industrial", "Residential", "Commercial", "Automotive",
-                                  "Cogeneration", "Other_incl_CNG")].rename(
-                     columns={"Power_Generation": "Power generation", "Automotive": "Vehicle CNG",
-                              "Other_incl_CNG": "Other"}),
-                 "Brazil gas demand by segment", "million m3/day", "stacked_bar")]
+    last = d.index.max().strftime("%b/%y")
+    out = [spec("Demand", d[cols(d, "Power_Generation", "Industrial", "Residential", "Commercial", "Automotive",
+                                 "Cogeneration", "Other_incl_CNG")].rename(
+                    columns={"Power_Generation": "Power generation", "Automotive": "Vehicle CNG",
+                             "Other_incl_CNG": "Other"}),
+                f"Brazil gas demand by segment (MME, last published {last})", "million m3/day", "stacked_bar")]
+    sheets = pd.ExcelFile(p).sheet_names
+    if "Grid demand (ANP)" in sheets:   # pipeline-grid deliveries by consumer type, current (ANP)
+        g = by_date(read(p, "Grid demand (ANP)"), "date")
+        out.append(spec("Grid demand", g[cols(g, "Power_Generation", "Distributors", "Refineries", "Fertiliser", "Other")]
+                        .rename(columns={"Power_Generation": "Power generation", "Distributors": "Distributors (city gates)"}),
+                        "Brazil gas delivered from the transport pipelines, by consumer (ANP)", "million m3/day",
+                        "stacked_bar"))
+    if "Supply (ANP)" in sheets:
+        s = by_date(read(p, "Supply (ANP)"), "date")
+        s = s[cols(s, "Domestic_Available", "Bolivia_Pipeline", "Argentina_Pipeline", "LNG_Implied")].dropna(how="any")
+        out.append(spec("Supply", s.rename(columns={"Domestic_Available": "Domestic (available)",
+                                                    "Bolivia_Pipeline": "Bolivia (pipeline)",
+                                                    "Argentina_Pipeline": "Argentina (pipeline)",
+                                                    "LNG_Implied": "LNG (imports less pipeline)"}),
+                        "Brazil gas supply by source (ANP)", "million m3/day", "stacked_bar"))
+    return out
 
 
 def bolivia(p):

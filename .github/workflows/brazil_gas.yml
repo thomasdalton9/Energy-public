@@ -1,10 +1,11 @@
 name: Brazil gas
 
-# Weekly. MME's public national series is frozen at 2025-06 (annex xlsx),
-# the PDF bulletins stopped at Sep-2025, and the replacement dashboard is
-# login-gated. Each run re-pulls the annex and rewrites a small source-watch
-# file, so if MME updates the annex, posts a 2026 bulletin page or opens the
-# dashboard, it shows up as a commit.
+# Weekly. Segments: MME's public national series is frozen at 2025-06 (annex
+# xlsx); the PDF bulletins stopped at Sep-2025 and the replacement dashboard
+# is login-gated, so the source-watch file flags any MME change ("SOURCE
+# CHANGED" commit). Current data: ANP open data (pipeline movement by point,
+# production, imports), pulled incrementally - only new, revised and the
+# latest two months of pipeline files are fetched.
 on:
   schedule:
     - cron: "15 11 * * 2"
@@ -16,7 +17,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,7 +28,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 south_america/BRAZIL_GAS.py --out "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" --watch-out "output/Data and Chart Outputs/brazil_gas_source_watch.txt"
+        run: timeout 1500 python3 south_america/BRAZIL_GAS.py --out "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" --watch-out "output/Data and Chart Outputs/brazil_gas_source_watch.txt"
 
       - name: Add Excel charts and copy scripts
         if: always()
@@ -41,14 +42,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" "output/Data and Chart Outputs/brazil_gas_source_watch.txt"; do
+          watch="output/Data and Chart Outputs/brazil_gas_source_watch.txt"
+          for f in "output/Data and Chart Outputs/brazil_gas_monthly.xlsx" "$watch"; do
             [ -f "$f" ] && git add -f "$f"
-            git add -f "output/Python Scripts" || true
           done
-          if git diff --cached --quiet -- "output/Data and Chart Outputs/brazil_gas_source_watch.txt"; then
-            msg="Brazil gas: automated update"
+          git add -f "output/Python Scripts" || true
+          if git diff --cached -U0 -- "$watch" | grep -q '^[+-]MME'; then
+            msg="Brazil gas: SOURCE CHANGED (MME) - see output/Data and Chart Outputs/brazil_gas_source_watch.txt"
           else
-            msg="Brazil gas: SOURCE CHANGED - see output/Data and Chart Outputs/brazil_gas_source_watch.txt"
+            msg="Brazil gas: automated update"
           fi
           git diff --cached --quiet || git commit -m "$msg"
           for i in 1 2 3 4 5; do

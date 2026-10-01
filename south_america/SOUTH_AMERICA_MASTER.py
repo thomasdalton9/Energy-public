@@ -99,8 +99,8 @@ MASTER_SPECS = {"gatun_lake_level.xlsx": gatun}
 SOURCES = {
     "argentina_gas_monthly.xlsx": ("Secretaría de Energía (Argentina), Series de Tiempo API",
                                    "https://datos.gob.ar/series/api/series/"),
-    "brazil_gas_monthly.xlsx": ("MME Brazil, monthly gas bulletin",
-                                "https://www.gov.br/mme/pt-br/assuntos/secretarias/petroleo-gas-natural-e-biocombustiveis/publicacoes-1/boletim-mensal-de-acompanhamento-da-industria-de-gas-natural"),
+    "brazil_gas_monthly.xlsx": ("MME Brazil gas bulletin (segments, to Jun-2025); ANP open data (pipeline flows, production, imports)",
+                                "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/dados-consolidados-movimentacao-de-gas-natural-em-gasodutos-de-transporte"),
     "bolivia_gas_demand_by_sector.xlsx": ("INE Bolivia",
                                           "https://www.ine.gob.bo/index.php/estadisticas-economicas/hidrocarburos-mineria/hidrocarburo-cuadros-estadisticos/"),
     "chile_gas_imports.xlsx": ("CNE Chile, Reporte Mensual (customs data)", "https://www.cne.cl/nuestros-servicios/reportes/"),
