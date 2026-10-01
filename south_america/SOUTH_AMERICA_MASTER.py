@@ -80,6 +80,7 @@ RAW_POWER_DATASETS = [
     ("PA", "Panama", "panama_power_generation_daily.xlsx", "Daily", "power"),
 ]
 HYDRO_DATASETS = [
+    ("AR", "Argentina", "argentina_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("BR", "Brazil", "brazil_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("CO", "Colombia", "colombia_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
@@ -121,6 +122,8 @@ SOURCES = {
     "uruguay_power_generation_daily.xlsx": ("ADME Uruguay", "https://pronos.adme.com.uy/"),
     "brazil_hydro_reservoirs.xlsx": ("ONS Brazil open data (EAR)", "https://dados.ons.org.br/dataset/ear-diario-por-subsistema"),
     "colombia_hydro_reservoirs.xlsx": ("XM Colombia", "https://www.xm.com.co/"),
+    "argentina_hydro_reservoirs.xlsx": ("CAMMESA (daily lake levels and river flows, weekly programme), AIC, INA",
+                                        "https://cammesaweb.cammesa.com/download/cotas-diarias/"),
     "belize_power_generation_daily.xlsx": ("Belize Electricity Ltd (BEL)", "https://www.bel.com.bz/"),
     "costa_rica_power_generation_daily.xlsx": ("ICE / CENCE Costa Rica", "https://apps.grupoice.com/CenceWeb/"),
     "el_salvador_power_generation_daily.xlsx": ("Unidad de Transacciones (UT) El Salvador", "https://www.ut.com.sv/"),
