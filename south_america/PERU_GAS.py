@@ -368,14 +368,20 @@ GLOBALSIGN_INTERMEDIATE = "http://secure.globalsign.com/cacert/gsrsaovsslca2018.
 LNG_COLS = ["Cargoes", "LNG_m3", "LNG_tonnes", "MMBtu", "Gas_MMcf"]
 
 
+PP_TIMEOUT = (45, 180)  # Perupetro is slow to accept connections from CI runners at times
+
+
 def perupetro_verify():
-    try:
-        requests.head("https://www.perupetro.com.pe/", headers=H, timeout=T)
-        return True
-    except requests.exceptions.SSLError:
-        pass
-    except requests.RequestException as e:
-        out(f"perupetro unreachable ({type(e).__name__})")
+    for attempt in range(4):
+        try:
+            requests.head("https://www.perupetro.com.pe/", headers=H, timeout=PP_TIMEOUT)
+            return True
+        except requests.exceptions.SSLError:
+            break
+        except requests.RequestException as e:
+            out(f"perupetro attempt {attempt + 1}: unreachable ({type(e).__name__})")
+            time.sleep(20 * (attempt + 1))
+    else:
         return None
     import ssl
     import tempfile
@@ -398,7 +404,7 @@ def lng_cargoes():
     data = {"fechaInicio": DATA_START.strftime("%d/%m/%Y"), "fechaFin": today.strftime("%d/%m/%Y"), "accion": "Todos"}
     for attempt in range(3):
         try:
-            r = requests.post(PP_LNG, data=data, headers=H, timeout=T, verify=verify)
+            r = requests.post(PP_LNG, data=data, headers=H, timeout=PP_TIMEOUT, verify=verify)
             m = re.search(r"\.columns\(\{\s*data:\s*(\[.*?\])\s*,\s*\n", r.text, re.S)
             if r.status_code == 200 and m:
                 break

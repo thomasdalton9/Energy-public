@@ -14,7 +14,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,7 +25,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 600 python3 south_america/PERU_GAS.py --out "output/Data and Chart Outputs/peru_gas_demand_by_sector.xlsx"
+        run: timeout 900 python3 south_america/PERU_GAS.py --out "output/Data and Chart Outputs/peru_gas_demand_by_sector.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
