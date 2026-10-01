@@ -20,6 +20,17 @@ Round 2 (ROUND=2): list every publication in collection 17643 (all pages)
 and save their attachments (distribution, upstream) for offline inspection;
 retry Perupetro with its missing intermediate CA added to the trust store
 (fetched from the leaf's AIA 'CA Issuers' URL - verification stays on).
+Round 2 findings: collection 17643 runs Jan-2023..Aug-2026 (88 monthly
+publications). Downstream 'distribucion-<mes>-<anio>.xlsx' files were all
+re-uploaded in 2026 and every one now covers Jan-2022..its month (no 2021).
+Upstream '7-produccion-fiscalizada-de-gas-natural.xlsx' = monthly fiscalised
+gas production by lot (MPCD) from Jan-2019. Perupetro works with the
+intermediate CA added: its Estadisticas menu has Produccion Diaria, Gas
+Natural, Embarques de GN para exportacion, Informe Mensual. Calidda links a
+'Reportes Regulatorios' page (appadmin.calidda.com.pe/ReportesOsinerming).
+
+Round 3 (ROUND=3): Perupetro statistics pages + their files, Calidda
+regulatory reports, gob.pe searches for 2021-2022 distribution reports.
 Runs in GitHub Actions only (sites are blocked from the editing sandbox).
 """
 import os
@@ -247,5 +258,76 @@ def round2():
     out(f"round 2 done: {files} files")
 
 
+def perupetro_bundle():
+    """certifi + Perupetro's missing intermediate CA (from the leaf's AIA URL); verification stays on."""
+    import subprocess
+    import certifi
+    host = "www.perupetro.com.pe"
+    pem = subprocess.run(["openssl", "s_client", "-connect", f"{host}:443", "-servername", host, "-showcerts"],
+                         input=b"", capture_output=True, timeout=30).stdout.decode("latin-1")
+    leaf = re.search(r"-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----", pem, re.S).group(0)
+    txt = subprocess.run(["openssl", "x509", "-noout", "-text"], input=leaf.encode(), capture_output=True).stdout.decode()
+    extra = ""
+    for url in re.findall(r"CA Issuers - URI:(\S+)", txt):
+        der = requests.get(url, headers=H, timeout=T).content
+        extra += subprocess.run(["openssl", "x509", "-inform", "PEM" if der.startswith(b"-----") else "DER"],
+                                input=der, capture_output=True).stdout.decode()
+    bundle = os.path.join(RAW, "perupetro_ca.pem")
+    with open(bundle, "w") as f:
+        f.write(open(certifi.where()).read() + "\n" + extra)
+    return bundle
+
+
+PP = "https://www.perupetro.com.pe/wps/portal/corporativo/PerupetroSite/estadisticas/"
+PP_PAGES = {"produccion_diaria": "Z6_N2E4HH41JGPM80Q4TDJTM80BM2", "gas_natural": "Z6_N2E4HH41JGPM80Q4TDJTM80FP3",
+            "embarques_gn": "Z6_N2E4HH41JGPM80Q4TDJTM80HU6", "estadistica_petrolera": "Z6_N2E4HH41JGPM80Q4TDJTM801L4",
+            "informe_mensual": "Z6_N2E4HH41JGPM80Q4TDJTM80JH1", "lgn": "Z6_N2E4HH41JGPM80Q4TDJTM80V47",
+            "compromisos_l88": "Z6_N2E4HH41JGPM80Q4TDJTM80RJ0", "industria_gn": "Z6_N2E4HH41JGPM80Q4TDJTM80L30"}
+
+
+def crawl_files(s, url, tag, max_files=12, follow=1):
+    r = get(url, s)
+    if r is None or r.status_code != 200:
+        return
+    save(f"{tag}.html", r.content)
+    ls = list(dict.fromkeys(links(r.text, r.url)))
+    files = [u for u in ls if re.search(r"\.(xlsx?|csv|zip|pdf)(\?|$)|MOD=AJPERES|/documentos?/|download", u, re.I)]
+    for u in ls:
+        if re.search(r"estad|produc|gas|embarq|mensual|report|volum|categor", u, re.I):
+            out(f"  LINK {u[:220]}")
+    n = 0
+    for u in files:
+        out(f"  FILELINK {u[:220]}")
+        if n < max_files and not re.search(r"\.pdf(\?|$)", u, re.I):
+            rr = get(u, s)
+            if rr is not None and rr.status_code == 200:
+                n += 1
+                out(f"  FILE saved {save(tag + '_' + u.split('/')[-1][:80], rr.content)}")
+
+
+def round3():
+    os.makedirs(RAW, exist_ok=True)
+    s = requests.Session()
+    try:
+        s.verify = perupetro_bundle()
+    except Exception as e:  # noqa: BLE001
+        out(f"bundle failed: {e}")
+    for tag, oid in PP_PAGES.items():
+        crawl_files(s, f"{PP}?uri=nm:oid:{oid}", "pp_" + tag)
+    for u in ["https://appadmin.calidda.com.pe/ReportesOsinerming/Reportes/documentos",
+              "https://appadmin.calidda.com.pe/ReportesOsinerming/",
+              "https://www.calidda.com.pe/ir/es/"]:
+        crawl_files(s, u, "cal_" + re.sub(r"\W+", "_", u.split("//")[1])[:60], max_files=20)
+    for term in ["distribucion de gas natural 2021", "informe estadistico downstream 2022",
+                 "volumen de gas natural distribuido por sector", "estadistica de gas natural 2021"]:
+        u = "https://www.gob.pe/busquedas?term=" + requests.utils.quote(term) + "&institucion[]=minem"
+        r = get(u, s)
+        if r is not None and r.status_code == 200:
+            save("search_" + term, r.content)
+            for m in re.finditer(r'href="(/institucion/minem/informes-publicaciones/[^"]+)"', r.text):
+                out(f"  SEARCHHIT {m.group(1)}")
+    out("round 3 done")
+
+
 if __name__ == "__main__":
-    round2() if ROUND == "2" else main()
+    {"2": round2, "3": round3}.get(ROUND, main)()
