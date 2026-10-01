@@ -77,6 +77,14 @@ def publication_key(url):
         f"{d.group(3)}{int(d.group(2)):02d}{int(d.group(1)):02d}" if d else "00000000")
 
 
+def bulletin_year(url):
+    """The year a bulletin covers, from its file name ("January-December-
+    2021", "January-May-2026"), not the amendment date some names end with."""
+    name = url.rsplit("/", 1)[-1]
+    m = re.search(r"January-(?:[A-Za-z]+-)?(20\d\d)", name, re.I) or re.search(r"(20\d\d)", name)
+    return int(m.group(1)) if m else None
+
+
 def list_bulletin_urls():
     """Every bulletin workbook linked from the bulletin category (one
     post per year; full-year editions for past years). Picks up a new
@@ -195,19 +203,39 @@ def table_to_long(table, entity_col):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=OUT_DEFAULT)
+    parser.add_argument("--full", action="store_true", help="re-read every bulletin from 2021, ignoring the archive")
     parser.add_argument("--url", default=None, help="override the bulletin .xlsx URL (skips auto-discovery)")
     args = parser.parse_args()
+
+    production_parts, utilization_parts = [], []
+    complete_years = set()
+    if os.path.exists(args.out) and not args.full and not args.url:
+        # Incremental: keep the archive, and only read bulletins for years
+        # that aren't complete in it, plus the current year-to-date one.
+        for sheet, parts in (("Production by company", production_parts),
+                             ("Utilization by sector", utilization_parts)):
+            old = pd.read_excel(args.out, sheet_name=sheet)
+            old = old.drop(columns=[c for c in old.columns if str(c).startswith("Unnamed")])
+            old["date"] = pd.to_datetime(old["date"])
+            if "source" not in old.columns:
+                old["source"] = ""
+            old["source"] = old["source"].fillna("").astype(str)
+            old["pub"] = old["source"].map(publication_key)
+            parts.append(old)
+        u_old = utilization_parts[0]
+        per_year = u_old.groupby(u_old["date"].dt.year)["date"].nunique()
+        complete_years = {int(y) for y, n in per_year.items() if n == 12}
+        print(f"archive: {u_old['date'].nunique()} months; complete years {sorted(complete_years)}", flush=True)
 
     if args.url:
         urls = [args.url]
     else:
-        urls = list_bulletin_urls()
         current = resolve_current_bulletin_url()
+        urls = [u for u in list_bulletin_urls() if bulletin_year(u) not in complete_years]
         if current not in urls:
             urls.append(current)
     print(f"{len(urls)} bulletin workbooks to read", flush=True)
 
-    production_parts, utilization_parts = [], []
     for bulletin_url in sorted(urls, key=publication_key):
         try:
             p, u = read_bulletin(bulletin_url)
@@ -231,6 +259,8 @@ def main():
         df = pd.concat(parts, ignore_index=True)
         newest = df.groupby("date")["pub"].transform("max")
         df = df[df["pub"] == newest].drop(columns="pub")
+        # same edition already in the archive and read again: fresh read wins
+        df = df.drop_duplicates(["date", key], keep="last")
         return df.sort_values(["date", key]).reset_index(drop=True)
 
     production = splice(production_parts, "company")
@@ -267,7 +297,9 @@ def main():
         "two editions cover the same month the most recently published one wins; the 'source' column names the "
         "workbook used. Months not yet reached in a year-to-date edition show as 0 in the source and are "
         "dropped rather than kept as fake zero readings. 2025 has no full-year edition posted yet (as of "
-        "Oct 2026), so it is a gap until MEEI publishes one.",
+        "Oct 2026), so it is a gap until MEEI publishes one. Runs are incremental: years already complete in this "
+        "archive are not downloaded again; each run reads the current year-to-date bulletin plus any year with "
+        "missing months. Use --full to rebuild from scratch.",
         "",
         "DATA QUALITY NOTE",
         "The source spreadsheet's own 'AVG <year>' column for the Utilization TOTAL row does not match the "
