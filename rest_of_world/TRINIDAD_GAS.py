@@ -63,6 +63,52 @@ OUT_DEFAULT = "trinidad_gas.xlsx"
 GAS_SHEET_CANDIDATES = ["3A,3B", "3A, 3B", "3A 3B"]
 
 
+CATEGORY_URL = "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"
+DATA_START = pd.Timestamp("2021-01-01")
+
+
+def publication_key(url):
+    """Upload folder (wp-content/uploads/YYYY/MM) then the publish date
+    some file names end with, so an amended re-issue sorts after the
+    original."""
+    m = re.search(r"/uploads/(\d{4})/(\d{2})/", url)
+    d = re.search(r"(\d{1,2})-(\d{1,2})-(\d{4})\.xlsx?$", url)
+    return ((m.group(1) + m.group(2)) if m else "000000") + (
+        f"{d.group(3)}{int(d.group(2)):02d}{int(d.group(1)):02d}" if d else "00000000")
+
+
+def list_bulletin_urls():
+    """Every bulletin workbook linked from the bulletin category (one
+    post per year; full-year editions for past years). Picks up a new
+    year's edition (e.g. Jan-Dec 2025) automatically once it's posted."""
+    posts = set()
+    for page in range(1, 10):
+        url = CATEGORY_URL if page == 1 else f"{CATEGORY_URL}page/{page}/"
+        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+        if r.status_code != 200:
+            break
+        posts |= set(re.findall(r'href="(https://www\.energy\.gov\.tt/[a-z0-9\-]*bulletin[a-z0-9\-]*/)"', r.text))
+    urls = set()
+    for post in sorted(posts):
+        years = [int(y) for y in re.findall(r"(20\d\d)", post)]
+        if years and max(years) < DATA_START.year:
+            continue
+        r = requests.get(post, headers=HEADERS, timeout=TIMEOUT)
+        for link in re.findall(r'href="([^"]+\.xlsx?)"', r.text, re.I):
+            if re.search(r"Consolidated-Monthly-Bulletin", link, re.I):
+                urls.add(link.replace("http://", "https://"))
+    return sorted(urls)
+
+
+def read_bulletin(bulletin_url):
+    r = requests.get(bulletin_url, headers=HEADERS, timeout=TIMEOUT)
+    r.raise_for_status()
+    xl = pd.ExcelFile(io.BytesIO(r.content))
+    full = xl.parse(find_gas_sheet(xl), header=None)
+    production_table, utilization_table = find_tables(full)
+    return table_to_long(production_table, "company"), table_to_long(utilization_table, "sector")
+
+
 def resolve_current_bulletin_url():
     """The listing page always links the current bulletin directly (in
     both PDF and Excel) - confirmed live via TRINIDAD_GAS_EXCEL_
@@ -152,19 +198,48 @@ def main():
     parser.add_argument("--url", default=None, help="override the bulletin .xlsx URL (skips auto-discovery)")
     args = parser.parse_args()
 
-    bulletin_url = args.url or resolve_current_bulletin_url()
-    print(f"Downloading MEEI bulletin: {bulletin_url}", flush=True)
-    r = requests.get(bulletin_url, headers=HEADERS, timeout=TIMEOUT)
-    r.raise_for_status()
+    if args.url:
+        urls = [args.url]
+    else:
+        urls = list_bulletin_urls()
+        current = resolve_current_bulletin_url()
+        if current not in urls:
+            urls.append(current)
+    print(f"{len(urls)} bulletin workbooks to read", flush=True)
 
-    xl = pd.ExcelFile(io.BytesIO(r.content))
-    sheet_name = find_gas_sheet(xl)
-    print(f"Using sheet: {sheet_name!r}", flush=True)
-    full = xl.parse(sheet_name, header=None)
-    production_table, utilization_table = find_tables(full)
+    production_parts, utilization_parts = [], []
+    for bulletin_url in sorted(urls, key=publication_key):
+        try:
+            p, u = read_bulletin(bulletin_url)
+        except Exception as e:
+            print(f"  SKIP {bulletin_url}: {type(e).__name__}: {str(e)[:150]}", flush=True)
+            continue
+        if args.url is None:
+            p = p[p["date"] >= DATA_START] if not p.empty else p
+            u = u[u["date"] >= DATA_START] if not u.empty else u
+        if p.empty and u.empty:
+            continue
+        print(f"  {bulletin_url.rsplit('/', 1)[-1]}: months "
+              f"{u['date'].min():%Y-%m}..{u['date'].max():%Y-%m}", flush=True)
+        production_parts.append(p.assign(source=bulletin_url, pub=publication_key(bulletin_url)))
+        utilization_parts.append(u.assign(source=bulletin_url, pub=publication_key(bulletin_url)))
 
-    production = table_to_long(production_table, "company")
-    utilization = table_to_long(utilization_table, "sector")
+    def splice(parts, key):
+        """Where two bulletins cover the same month, keep every row of
+        that month from the most recently published one (amended
+        editions supersede the originals)."""
+        df = pd.concat(parts, ignore_index=True)
+        newest = df.groupby("date")["pub"].transform("max")
+        df = df[df["pub"] == newest].drop(columns="pub")
+        return df.sort_values(["date", key]).reset_index(drop=True)
+
+    production = splice(production_parts, "company")
+    utilization = splice(utilization_parts, "sector")
+    months = pd.date_range(utilization["date"].min(), utilization["date"].max(), freq="MS")
+    gaps = [f"{m:%Y-%m}" for m in months if m not in set(utilization["date"])]
+    print(f"Spliced {utilization['date'].nunique()} months "
+          f"{utilization['date'].min():%Y-%m}..{utilization['date'].max():%Y-%m}; missing: {gaps or 'none'}",
+          flush=True)
 
     print(f"Production: {len(production)} rows, {production['date'].nunique() if not production.empty else 0} months",
           flush=True)
@@ -186,10 +261,13 @@ def main():
         "largest single use). 'TOTAL' is MEEI's own published system total, kept as its own row.",
         "",
         "COVERAGE",
-        "The bulletin's own listing page (energy.gov.tt) always links the current bulletin directly, so this "
-        "resolves the current bulletin's URL fresh on every run - no manual updates needed. Each bulletin "
-        "covers the current year to date; months not yet reached that year show as 0 in the source and are "
-        "dropped here rather than kept as fake zero readings.",
+        "Monthly from January 2021. Each year comes from that year's bulletin workbook (full-year editions for "
+        "past years, amended Nov 2025; the current year-to-date edition for this year), found on every run "
+        "from the ministry's bulletin category pages, so a newly posted year is picked up automatically. Where "
+        "two editions cover the same month the most recently published one wins; the 'source' column names the "
+        "workbook used. Months not yet reached in a year-to-date edition show as 0 in the source and are "
+        "dropped rather than kept as fake zero readings. 2025 has no full-year edition posted yet (as of "
+        "Oct 2026), so it is a gap until MEEI publishes one.",
         "",
         "DATA QUALITY NOTE",
         "The source spreadsheet's own 'AVG <year>' column for the Utilization TOTAL row does not match the "
