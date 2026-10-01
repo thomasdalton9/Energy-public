@@ -6,6 +6,10 @@ name: SA power prices discovery
 on:
   workflow_dispatch:
     inputs:
+      script:
+        description: "probe script in discovery_archive/south_america"
+        required: false
+        default: "SA_POWER_PRICES_DISCOVERY.py"
       only:
         description: "probes to run (blank = all)"
         required: false
@@ -27,4 +31,4 @@ jobs:
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1000 python3 discovery_archive/south_america/SA_POWER_PRICES_DISCOVERY.py ${{ github.event.inputs.only }}
+        run: timeout 1000 python3 "discovery_archive/south_america/${{ github.event.inputs.script }}" ${{ github.event.inputs.only }}
