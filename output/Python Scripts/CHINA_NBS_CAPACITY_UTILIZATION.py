@@ -67,6 +67,7 @@ INDUSTRIES = [
      "other manufacturing capacity utilisation"),
 ]
 BY_NAME = {cn: col for cn, col, *_ in INDUSTRIES}
+BY_NAME.update({"规模以上工业": "Industry_Total", "全国规模以上工业": "Industry_Total", "全国工业": "Industry_Total"})
 
 
 def period_of(title):
@@ -118,6 +119,9 @@ def main():
             continue
         row, unmatched = parse_release(html or "")
         unmatched_all.update(unmatched)
+        m = re.search(r"产能利用率为([\d.]+)%", title)
+        if row and "Industry_Total" not in row and m:   # some releases label the total row differently
+            row["Industry_Total"] = float(m.group(1))
         if not row:
             nbs.log(f"  [{p:%Y-%m}] no rates parsed - skipped ({url})")
             continue
