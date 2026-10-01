@@ -255,6 +255,8 @@ def grep(url, pattern, n=40, width=220):
     """Contexts of a regex in a page's raw HTML/JS (find embedded data, API endpoints)."""
     s = requests.Session()
     s.headers.update(UA)
+    if "eby.org.ar" in url:
+        s.verify = chain_bundle()
     r = get(s, url, timeout=90)
     if r is None:
         return
