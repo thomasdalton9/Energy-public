@@ -1,43 +1,45 @@
 """
 Peru hydro reservoirs: useful volume (volumen util, hm3) of the SEIN's
-seasonal reservoirs and lagoons - Lake Junin, the Mantaro-basin lagoons
-(Electroperu, Statkraft and the other Mantaro sub-basin systems), the
-Rimac system (Sheque, Antacoto/Marcapomacocha, Yuracmayo ...), the Chili
-system (El Frayle, Pillones, El Pane ...), Aricota, Sibinacocha and the rest
-- and the national total in hm3 and as % of total useful capacity, from
-COES. No key needed.
+seasonal reservoirs and lagoons by basin - Lake Junin, the Mantaro-basin
+lagoons, the Rimac system, the Chili system (Arequipa), Aricota,
+Sibinacocha and the rest - and the national total in hm3 and as % of
+total useful capacity, weekly, from COES. No key needed.
 
-Source: COES 'Informe Semanal de Evaluacion de la Operacion'
+Source: COES 'Informe Semanal de Evaluacion de la Operacion del SEIN'
 (https://www.coes.org.pe/Portal/PostOperacion/Informes/EvaluacionSemanal),
-one Excel workbook per operating week (Saturday-Friday), listed by the
+one Excel workbook per COES operating week (Saturday-Friday), listed by the
 portal's file browser under
     Post Operacion/Informes/Evaluacion Semanal/<year>/SEMANAL N° <w> (dd.mm.yyyy - dd.mm.yyyy)/
-and downloaded through /Portal/browser/download?url=... . Its section
-5.1 'VOLUMEN UTIL DE LOS EMBALSES Y LAGUNAS (Millones de m3)' lists every
-reservoir / lagoon group with its useful volume at the start (Saturday)
-and end (Friday) of the week, % full, and its useful capacity (hm3) - for
-the week and for the same week a year earlier.
-Found via discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py (round 3).
+and downloaded through /Portal/browser/download?url=... . Since 2024 it has
+  - 'EVOLUCION DE VOLUMENES DE LOS EMBALSES Y LAGUNAS' (5.2; 6.2 in early
+    2024): the useful volume at the end of every week of this year and the
+    three before, by basin (12 series: Junin, Mantaro sub-basins, Rimac,
+    Chili, Locumba/Aricota, Vilcanota/Sibinacocha, Paucartambo, Santa,
+    Pativilca/Viconga, San Gaban, Canete/Paucarcocha, Huallaga/Chaglla);
+  - 'VOLUMEN UTIL DE LOS EMBALSES Y LAGUNAS' (5.1): every reservoir /
+    lagoon row with its volume at the start and end of the week and its
+    useful capacity.
+Before 2024 the reports used another layout (company blocks, not all
+reservoirs), so the series starts with the earliest year the 2024
+reports look back to: 2021. Found via
+discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py (rounds 3-4).
 COES publishes no daily table covering all lagoons: its daily IDCOS / IEOD
 hydrology annexes carry only a handful of seasonal reservoirs (Junin,
 Sibinacocha, Aricota, Viconga) and the Mantaro lagoons only as discharges.
-So this series has two readings a week (start and end of each COES week).
+So this series is WEEKLY (end of each COES week, a Friday).
 
-National total = sum of all reservoirs in that week's table; national % =
-total / sum of their useful capacities (COES' own capacities, 1,970 hm3 in
-2026). Basin groups are this script's grouping of COES' rows (BASINS);
-group % = group volume / group capacity.
+National total = sum of the 12 basin series. National % = total / the
+total useful capacity in the newest report's 5.1 table (1,970 hm3 in
+Sep-2026), applied to every week - COES' capacity figures have changed
+between reports (e.g. Junin 376 -> 315 hm3 in 2024), so one fixed
+denominator keeps the % comparable across years.
 
-Each report also carries the same week a year earlier, so the reports
-from 2021 on give history back to early 2020. A date's value comes from
-the report of its own week; the year-earlier columns only fill dates no
-report of their own covers.
+A week's value comes from the newest report that covers it (each report
+restates four years). Each run lists the year folders and reads the newest
+report of every year from 2024 that has not been read yet ('Reports read');
+the newest report also refreshes the latest-week detail sheet.
 
-Incremental: the workbook is the archive ('Reports read' sheet); each run
-lists the year folders and reads only weekly reports not yet read (the
-backfill runs newest-first within --budget-min minutes).
-
-Usage: python3 PERU_HYDRO_RESERVOIRS.py [--out PATH] [--start-year 2021] [--budget-min N] [--max-reports N]
+Usage: python3 PERU_HYDRO_RESERVOIRS.py [--out PATH] [--start-year 2021]
 """
 
 print("STARTING", flush=True)
@@ -50,7 +52,7 @@ import re
 import sys
 import time
 import unicodedata
-from datetime import date
+from datetime import date, timedelta
 from urllib.parse import quote
 
 import pandas as pd
@@ -68,31 +70,36 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 TIMEOUT = (15, 240)
 OUT = os.path.join("output", "Data and Chart Outputs", "peru_hydro_reservoirs.xlsx")
 START_YEAR = 2021
+NEW_LAYOUT_FROM = 2024   # first year whose weekly reports carry the 5.1 / 5.2 volume tables
 
-# group -> keywords matched (accent-free, upper case) against COES' row label. First match wins.
+# group -> keywords matched (accent-free, upper case) against COES' series / row labels. First match wins.
 BASINS = [
     ("Junin", ["JUNIN"]),
-    ("Mantaro_lagoons", ["ELECTROPERU", "LAGUNAS STATKRAFT", "POMACOCHA", "VICHECOCHA", "CARHUACOCHA", "CHILLICOCHA",
-                         "CHILICOCHA", "HUICHICOCHA", "COYLLORCOCHA", "YURAJCOCHA"]),
-    ("Rimac", ["SHEQUE", "QUISHA", "SACSA", "ANTACOTO", "MARCAPOMACOCHA", "YURACMAYO"]),
-    ("Chili", ["EL PANE", "BAMPUTANE", "ESPANOLES", "CHALHUANCA", "PILLONES", "FRAYLE", "AGUADA BLANCA"]),
-    ("Aricota", ["ARICOTA"]),
-    ("Sibinacocha", ["SIBINACOCHA"]),
-    ("Paucartambo", ["JAICO", "PACCHAPATA", "MACHAY", "MATACOCHA", "HUANGUSH"]),
-    ("Santa", ["AGUASCOCHA", "RAJUCOLTA", "CULLICOCHA"]),
-    ("Viconga", ["VICONGA"]),
-    ("San_Gaban", ["AJOYAJOTA", "PARINAJOTA", "ISOCOCHA"]),
-    ("Canete", ["PAUCARCOCHA"]),
-    ("Chaglla", ["CHAGLLA"]),
+    ("Rimac", ["RIMAC", "SHEQUE", "QUISHA", "SACSA", "ANTACOTO", "MARCAPOMACOCHA", "YURACMAYO"]),
+    ("Mantaro_lagoons", ["MANTARO", "ELECTROPERU", "LAGUNAS STATKRAFT", "POMACOCHA", "VICHECOCHA", "CARHUACOCHA",
+                         "CHILLICOCHA", "CHILICOCHA", "HUICHICOCHA", "COYLLORCOCHA", "YURAJCOCHA"]),
+    ("Chili", ["CHILI", "EL PANE", "BAMPUTANE", "ESPANOLES", "CHALHUANCA", "PILLONES", "FRAYLE", "AGUADA BLANCA"]),
+    ("Aricota", ["ARICOTA", "LOCUMBA"]),
+    ("Sibinacocha", ["SIBINACOCHA", "VILCANOTA"]),
+    ("Paucartambo", ["PAUCARTAMBO", "JAICO", "PACCHAPATA", "MACHAY", "MATACOCHA", "HUANGUSH"]),
+    ("Santa", ["SANTA", "AGUASCOCHA", "RAJUCOLTA", "CULLICOCHA"]),
+    ("Viconga", ["VICONGA", "PATIVILCA"]),
+    ("San_Gaban", ["SAN GABAN", "AJOYAJOTA", "PARINAJOTA", "ISOCOCHA"]),
+    ("Canete", ["PAUCARCOCHA", "CANETE"]),
+    ("Chaglla", ["CHAGLLA", "HUALLAGA"]),
 ]
-GROUP_LABEL = {"Junin": "Lake Junin (Chinchaycocha)", "Mantaro_lagoons": "Mantaro-basin lagoons (Electroperu, Statkraft, "
-               "Carhuacocha, Chillicocha, Huichicocha ...)", "Rimac": "Rimac system (Sheque, Sacsa, Antacoto/"
-               "Marcapomacocha, Yuracmayo)", "Chili": "Chili system, Arequipa (El Frayle, Pillones, El Pane, Bamputane, "
-               "Aguada Blanca, Chalhuanca, Los Espanoles)", "Aricota": "Aricota (Locumba)",
-               "Sibinacocha": "Sibinacocha (Vilcanota)", "Paucartambo": "Paucartambo (Jaico/Pacchapata/Altos Machay, "
-               "Matacocha/Huangush)", "Santa": "Santa (Aguascocha, Rajucolta, Cullicocha)", "Viconga": "Viconga (Pativilca)",
-               "San_Gaban": "San Gaban (Ajoyajota, Parinajota, Isococha ...)", "Canete": "Paucarcocha (Canete)",
-               "Chaglla": "Chaglla (Huallaga)", "Other": "Rows not matched to a group"}
+GROUPS = [g for g, _ in BASINS]
+GROUP_LABEL = {"Junin": "Lake Junin (Chinchaycocha)",
+               "Mantaro_lagoons": "Mantaro sub-basin lagoons (Electroperu, Statkraft, Carhuacocha, Chillicocha, "
+                                  "Huichicocha, Vichecocha ...)",
+               "Rimac": "Rimac system (Sheque, Sacsa, Antacoto/Marcapomacocha, Yuracmayo ...)",
+               "Chili": "Chili system, Arequipa (El Frayle, Pillones, El Pane, Bamputane, Aguada Blanca, Chalhuanca, "
+                        "Los Espanoles)",
+               "Aricota": "Aricota (Locumba)", "Sibinacocha": "Sibinacocha (Vilcanota)",
+               "Paucartambo": "Paucartambo (Jaico/Pacchapata/Altos Machay, Matacocha/Huangush)",
+               "Santa": "Santa (Aguascocha, Rajucolta, Cullicocha)", "Viconga": "Viconga (Pativilca)",
+               "San_Gaban": "San Gaban lagoons (Ajoyajota, Parinajota, Isococha ...)",
+               "Canete": "Paucarcocha (Canete)", "Chaglla": "Chaglla (Huallaga)"}
 
 S = requests.Session()
 S.headers.update(HEADERS)
@@ -108,7 +115,7 @@ def group_of(label):
     for g, words in BASINS:
         if any(w in k for w in words):
             return g
-    return "Other"
+    return None
 
 
 def browse(path):
@@ -148,212 +155,264 @@ WEEK = re.compile(r"SEMANAL\s*N\D{0,3}(\d+)\s*\((\d\d)\.(\d\d)\.(\d{4})\s*-\s*(\
 
 
 def list_weeks(year):
-    """[(folder, week number, start date, end date)] for one year."""
+    """[(folder, week number, start date, end date)] for one year, from the folder names."""
     out = []
     for p, k in browse(f"{BASE}{year}/"):
         m = WEEK.search(p)
         if k == "D" and m:
             g = list(map(int, m.groups()))
             out.append((p, g[0], date(g[3], g[2], g[1]), date(g[6], g[5], g[4])))
-    return out
+    return sorted(out, key=lambda w: w[1])
 
 
-def parse_volumes(content):
-    """Section 5.1 of a weekly report -> long frame: date, reservoir, volume_hm3, capacity_hm3, own_week (bool)."""
-    xl = pd.ExcelFile(io.BytesIO(content))
+def week_end(calendar, year, week):
+    """End date (Friday) of COES week `week` of `year`, from the folder names; weeks without a folder are
+    counted on from the nearest listed week of that year."""
+    weeks = calendar.get(year) or {}
+    if week in weeks:
+        return weeks[week]
+    if not weeks:
+        return None
+    k = min(weeks, key=lambda w: abs(w - week))
+    return weeks[k] + timedelta(days=7 * (week - k))
+
+
+def sheet_with(xl, title):
     for sh in xl.sheet_names:
-        df = pd.read_excel(xl, sheet_name=sh, header=None, nrows=80)
-        text = " ".join(key(v) for v in df.values.ravel() if isinstance(v, str))
-        if "UTIL DE LOS EMBALSES Y LAGUNAS" not in text:
-            continue
-        # header row: the one with 'VOLUMEN UTIL dd/mm/yyyy' cells
-        for i in range(len(df)):
-            cells = {j: key(v) for j, v in df.iloc[i].items() if isinstance(v, str)}
-            vol_cols = {}
-            for j, v in cells.items():
-                m = re.search(r"VOLUMEN UTIL\s*(\d{1,2})/(\d{1,2})/(\d{4})", v)
-                if m:
-                    vol_cols[j] = date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
-            if len(vol_cols) >= 2:
-                cap_cols = sorted(j for j, v in cells.items() if v.startswith("CAPACIDAD"))
-                break
-        else:
-            continue   # e.g. the table of contents names the section too
-        # the label column: the one with 'LAGUNA / EMBALSE' above, else the first text column left of the data
-        label_col = None
-        for r in range(max(0, i - 3), i + 1):
-            for j, v in df.iloc[r].items():
-                if isinstance(v, str) and re.fullmatch(r"(LAGUNAS? ?/ ?EMBALSES?|EMBALSES? ?/ ?LAGUNAS?)", key(v)):
-                    label_col = j
-        if label_col is None:
-            label_col = min(vol_cols) - 1
-        newest = max(vol_cols.values()).year
-        rows = []
-        for r in range(i + 1, len(df)):
-            label = df.iat[r, label_col]
-            if isinstance(label, str) and key(label).startswith(("CUADRO", "FUENTE", "NOTA")):
-                break
-            if not isinstance(label, str) or not label.strip():
+        df = pd.read_excel(xl, sheet_name=sh, header=None, nrows=15)
+        if any(title in key(v) for v in df.values.ravel() if isinstance(v, str)):
+            if key(sh) not in ("INDICE", "PORTADA"):
+                return sh
+    return None
+
+
+def parse_evolution(xl, calendar):
+    """'Evolucion de volumenes' sheet -> long frame: date, group, volume_hm3 (end-of-week, four years)."""
+    sh = sheet_with(xl, "EVOLUCION DE VOLUMENES DE LOS EMBALSES")
+    if sh is None:
+        raise RuntimeError("no 'EVOLUCION DE VOLUMENES DE LOS EMBALSES Y LAGUNAS' sheet")
+    df = pd.read_excel(xl, sheet_name=sh, header=None)
+    rows = []
+    seen = set()
+    for i in range(min(30, len(df))):
+        for j in range(df.shape[1]):
+            v = df.iat[i, j]
+            if not (isinstance(v, str) and key(v).startswith("VOLUMEN UTIL")):
                 continue
-            name = re.sub(r"^Volumen [UÚ]til de(l)? (Embalse|Laguna)s? ", "", label.strip(), flags=re.I).strip()
-            for j, d in vol_cols.items():
-                cap_j = next((c for c in cap_cols if c > j), None)
-                vol = pd.to_numeric(df.iat[r, j], errors="coerce")
-                cap = pd.to_numeric(df.iat[r, cap_j], errors="coerce") if cap_j is not None else float("nan")
-                if pd.notna(vol):
-                    rows.append({"date": pd.Timestamp(d), "reservoir": name, "volume_hm3": float(vol),
-                                 "capacity_hm3": float(cap) if pd.notna(cap) else None, "own_week": d.year == newest})
-        if not rows:
-            raise RuntimeError(f"sheet {sh}: header found but no reservoir rows")
-        return pd.DataFrame(rows)
-    raise RuntimeError("no '5.1 VOLUMEN UTIL DE LOS EMBALSES Y LAGUNAS' sheet")
+            g = group_of(v)
+            if g is None:
+                print(f"    WARNING: series not matched to a group: {v!r}", flush=True)
+                continue
+            if g in seen:
+                raise RuntimeError(f"two series map to {g}: {v!r}")
+            seen.add(g)
+            # the next row holds the years over the columns to the right of the week column j
+            years = {}
+            for c in range(j + 1, min(j + 6, df.shape[1])):
+                y = pd.to_numeric(df.iat[i + 1, c], errors="coerce")
+                if pd.notna(y) and 2000 < y < 2100:
+                    years[c] = int(y)
+            for r in range(i + 2, len(df)):
+                wk = pd.to_numeric(df.iat[r, j], errors="coerce")
+                if pd.isna(wk):
+                    if r > i + 3:
+                        break
+                    continue
+                for c, y in years.items():
+                    vol = pd.to_numeric(df.iat[r, c], errors="coerce")
+                    d = week_end(calendar, y, int(wk))
+                    if pd.notna(vol) and d is not None:
+                        rows.append({"date": pd.Timestamp(d), "group": g, "volume_hm3": float(vol), "year": y,
+                                     "week": int(wk)})
+    if len(seen) < 10:
+        raise RuntimeError(f"only {len(seen)} basin series found in sheet {sh}")
+    return pd.DataFrame(rows), sorted(seen)
 
 
-def load(path, sheet):
+def parse_table(xl):
+    """'Volumen util de los embalses y lagunas' (5.1) -> per-reservoir rows of this week: reservoir, group,
+    volume at start / end of week, capacity."""
+    sh = sheet_with(xl, "UTIL DE LOS EMBALSES Y LAGUNAS")
+    if sh is None:
+        raise RuntimeError("no 'VOLUMEN UTIL DE LOS EMBALSES Y LAGUNAS' sheet")
+    df = pd.read_excel(xl, sheet_name=sh, header=None, nrows=80)
+    for i in range(len(df)):
+        cells = {j: key(v) for j, v in df.iloc[i].items() if isinstance(v, str)}
+        vol_cols = {}
+        for j, v in cells.items():
+            m = re.search(r"VOLUMEN UTIL\s*(\d{1,2})/(\d{1,2})/(\d{4})", v)
+            if m:
+                vol_cols[j] = date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+        if len(vol_cols) >= 2:
+            cap_cols = sorted(j for j, v in cells.items() if v.startswith("CAPACIDAD"))
+            break
+    else:
+        raise RuntimeError(f"sheet {sh}: no 'VOLUMEN UTIL dd/mm/yyyy' header row")
+    label_col = None
+    for r in range(max(0, i - 3), i + 1):
+        for j, v in df.iloc[r].items():
+            if isinstance(v, str) and re.fullmatch(r"(LAGUNAS? ?/ ?EMBALSES?|EMBALSES? ?/ ?LAGUNAS?)", key(v)):
+                label_col = j
+    if label_col is None:
+        label_col = min(vol_cols) - 1
+    newest = max(vol_cols.values()).year
+    own = sorted(j for j, d in vol_cols.items() if d.year == newest)   # start and end of this week
+    cap_j = next((c for c in cap_cols if c > max(own)), None)
+    rows = []
+    for r in range(i + 1, len(df)):
+        label = df.iat[r, label_col]
+        if isinstance(label, str) and key(label).startswith(("CUADRO", "FUENTE", "NOTA")):
+            break
+        if not isinstance(label, str) or not label.strip():
+            continue
+        name = re.sub(r"^Volumen [UÚ]til de(l)? (Embalse|Laguna)s? ", "", label.strip(), flags=re.I).strip()
+        row = {"reservoir": name, "group": group_of(name)}
+        for n, j in zip(("start", "end"), own):
+            row[f"volume_hm3_{vol_cols[j]:%Y-%m-%d}"] = pd.to_numeric(df.iat[r, j], errors="coerce")
+        row["capacity_hm3"] = pd.to_numeric(df.iat[r, cap_j], errors="coerce") if cap_j is not None else None
+        rows.append(row)
+    if not rows:
+        raise RuntimeError(f"sheet {sh}: header found but no reservoir rows")
+    return pd.DataFrame(rows)
+
+
+def load(path, sheet, **kw):
     try:
-        return pd.read_excel(path, sheet_name=sheet)
+        return pd.read_excel(path, sheet_name=sheet, **kw)
     except (FileNotFoundError, ValueError, KeyError, OSError):
         return pd.DataFrame()
 
 
-def build_daily(raw):
-    """Long per-reservoir rows -> one row per date: national total / %, then each group's hm3 and %."""
-    raw = raw.copy()
-    raw["date"] = pd.to_datetime(raw["date"])
-    # a date's own report wins over a year-later report's look-back columns
-    raw = raw.sort_values(["date", "reservoir", "own_week", "report"]).drop_duplicates(["date", "reservoir"], keep="last")
-    raw["group"] = raw["reservoir"].map(group_of)
-    vol = raw.pivot_table(index="date", columns="group", values="volume_hm3", aggfunc="sum")
-    cap = raw.pivot_table(index="date", columns="group", values="capacity_hm3", aggfunc="sum")
-    out = pd.DataFrame(index=vol.index)
-    out["Total_hm3"] = vol.sum(axis=1).round(2)
-    out["Total_capacity_hm3"] = cap.sum(axis=1).round(2)
-    out["Total_pct"] = (100 * out["Total_hm3"] / out["Total_capacity_hm3"]).round(2)
-    out["Reservoirs_reported"] = raw.groupby("date")["reservoir"].nunique()
-    for g in [g for g, _ in BASINS] + ["Other"]:
-        if g in vol:
-            out[f"{g}_hm3"] = vol[g].round(3)
-            out[f"{g}_pct"] = (100 * vol[g] / cap[g]).round(2) if g in cap else float("nan")
+def build_daily(long, capacity):
+    """Long (date, group, volume, report_end) -> one row per week-end date. Newest report wins."""
+    long = long.sort_values(["date", "group", "report_end"]).drop_duplicates(["date", "group"], keep="last")
+    wide = long.pivot(index="date", columns="group", values="volume_hm3").reindex(columns=GROUPS)
+    out = pd.DataFrame(index=wide.index)
+    complete = wide.notna().sum(axis=1) >= len(GROUPS) - 1   # tolerate one basin missing in a week
+    out["Total_hm3"] = wide.sum(axis=1, min_count=1).where(complete).round(2)
+    out["Total_pct"] = (100 * out["Total_hm3"] / capacity).round(2)
+    out["Capacity_hm3"] = round(capacity, 2)
+    out["Basins_reported"] = wide.notna().sum(axis=1)
+    for g in GROUPS:
+        out[f"{g}_hm3"] = wide[g].round(3)
     out.index.name = "date"
     return out.sort_index()
 
 
-def notes(daily, reports):
+def notes(daily, reports, latest):
     last = daily.dropna(subset=["Total_hm3"]).iloc[-1]
-    groups = [g for g, _ in BASINS] + ["Other"]
     return [
         "UNITS",
-        "hm3 = million m3 of USEFUL volume (volumen util: water above each reservoir's minimum operating level). "
-        "*_pct = % of that reservoir group's useful capacity as COES states it in the same table.",
-        "Total_hm3 = sum of every reservoir/lagoon row in COES' table 5.1 for that date; Total_capacity_hm3 = sum of "
-        "their capacities; Total_pct = Total_hm3 / Total_capacity_hm3 (the national % of useful storage). "
-        "Reservoirs_reported = rows in COES' table that date.",
+        "hm3 = million m3 of USEFUL volume (volumen util: water above each reservoir's minimum operating level), "
+        "at the END of each COES operating week (Saturday-Friday; the date is the Friday).",
+        "Total_hm3 = sum of COES' 12 basin series (weeks with more than one basin missing are left blank). "
+        f"Total_pct = Total_hm3 / Capacity_hm3, where Capacity_hm3 = {last['Capacity_hm3']:,.1f} hm3 is the sum of "
+        "the useful capacities in the newest report's reservoir table (sheet 'Latest week by reservoir'), used for "
+        "every week. COES' capacity figures have changed between reports (e.g. Junin 376 -> 315 hm3 in 2024; the "
+        "San Gaban lagoons 376 -> 69 hm3), so a single denominator keeps the % comparable across years; a basin can "
+        "exceed its current capacity in years when COES allowed more (Junin in early 2025).",
         "",
         "COVERAGE",
-        f"{daily.index.min():%d-%b-%Y} to {daily.index.max():%d-%b-%Y}: two readings per week - the start (Saturday) "
-        "and end (Friday) of each COES operating week. COES publishes no daily table covering all lagoons. "
-        f"Latest ({last.name:%d-%b-%Y}): {last['Total_hm3']:,.0f} hm3 = {last['Total_pct']:.1f}% of "
-        f"{last['Total_capacity_hm3']:,.0f} hm3.",
-        f"Weekly reports read: {len(reports)} (sheet 'Reports read'). Reports from 2021 on also give the same weeks "
-        "of the year before, so history starts in early 2020.",
+        f"{daily.index.min():%d-%b-%Y} to {daily.index.max():%d-%b-%Y}, weekly. Latest ({last.name:%d-%b-%Y}): "
+        f"{last['Total_hm3']:,.0f} hm3 = {last['Total_pct']:.1f}% of {last['Capacity_hm3']:,.0f} hm3.",
+        "COES publishes no daily table covering all reservoirs and lagoons (its daily IDCOS/IEOD annexes carry only "
+        "a few, e.g. Junin, Sibinacocha, Aricota), so the series is weekly. History starts in 2021: the 2024 reports "
+        "restate 2021-2024; reports before 2024 use another layout (company blocks that miss several reservoirs).",
         "",
-        "GROUPS (this script's grouping of COES' rows by basin; full detail per row in sheet 'COES table 5.1')",
-        *[f"{g}: {GROUP_LABEL[g]}" for g in groups],
+        "BASINS (COES' own 12 series in 'Evolucion de volumenes de los embalses y lagunas'; COES' basin series and "
+        "the sum of its reservoir rows in table 5.1 can differ by a few hm3, e.g. Rimac)",
+        *[f"{g}_hm3: {GROUP_LABEL[g]}" for g in GROUPS],
         "",
         "SOURCE",
-        f"COES, Informe Semanal de Evaluacion de la Operacion del SEIN ({PAGE}), section 5.1 'Volumen util de los "
-        "embalses y lagunas (millones de m3)', one Excel per week, via the portal's file browser "
-        "(Post Operacion/Informes/Evaluacion Semanal/<year>/SEMANAL N° <w> (...)/Informe_Semanal_SEM<w>_<year>.xlsx).",
+        f"COES, Informe Semanal de Evaluacion de la Operacion del SEIN ({PAGE}): sheet 'Evolucion de volumenes de los "
+        "embalses y lagunas' (5.2; 6.2 in early 2024) for the weekly basin series, sheet 'Volumen util de los "
+        "embalses y lagunas' (5.1) for the per-reservoir table and capacities. One Excel per week, via the portal's "
+        "file browser (Post Operacion/Informes/Evaluacion Semanal/<year>/SEMANAL N° <w> (...)/).",
+        f"Latest report read: {latest}. Reports read: {len(reports)} (sheet 'Reports read').",
         "Script: south_america/PERU_HYDRO_RESERVOIRS.py (scheduled by .github/workflows/peru_hydro_reservoirs.yml).",
         "",
         "METHOD",
-        "A date's values come from the weekly report covering that week; the year-earlier columns of later reports "
-        "only fill dates that have no report of their own. Incremental: reports already read are skipped.",
+        "Each report restates its year and the three before; a week's value comes from the newest report that "
+        "covers it. Each run reads only reports not read before: the newest one of each year from 2024.",
     ]
-
-
-def save(path, raw, reports):
-    daily = build_daily(raw)
-    table = raw.sort_values(["date", "reservoir", "own_week", "report"]).drop_duplicates(["date", "reservoir"],
-                                                                                         keep="last")
-    table = table.assign(group=table["reservoir"].map(group_of)).sort_values(["date", "group", "reservoir"])
-    nl = notes(daily, reports)
-    xlsx_notes.write_workbook(path, {"Daily": daily, "COES table 5.1": table.set_index("date"),
-                                     "Reports read": reports.set_index("report")},
-                              nl, {ln for ln in nl if ln and ln.split(" (")[0].isupper()})
-    return daily
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--start-year", type=int, default=START_YEAR)
-    ap.add_argument("--budget-min", type=float, default=40)
-    ap.add_argument("--max-reports", type=int, default=0, help="test: read at most N new reports (spread over years)")
     args = ap.parse_args()
-    t0 = time.time()
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
 
-    raw = load(args.out, "COES table 5.1")
+    long = load(args.out, "Weekly by basin (long)")
+    if not long.empty:
+        long["date"] = pd.to_datetime(long["date"])
+        long["report_end"] = pd.to_datetime(long["report_end"])
     reports = load(args.out, "Reports read")
-    if not raw.empty:
-        raw["date"] = pd.to_datetime(raw["date"])
+    latest_table = load(args.out, "Latest week by reservoir")
     done = set(reports["report"]) if not reports.empty else set()
-    weeks = []
-    for y in range(args.start_year, date.today().year + 1):
+
+    today = date.today()
+    calendar, newest = {}, {}
+    for y in range(args.start_year, today.year + 1):
         try:
             ws = list_weeks(y)
         except Exception as e:  # noqa: BLE001
             print(f"  {y}: listing FAILED {type(e).__name__}: {e}", flush=True)
             continue
-        print(f"  {y}: {len(ws)} weekly folders", flush=True)
-        weeks += ws
-    todo = sorted([w for w in weeks if w[0] not in done], key=lambda w: w[3], reverse=True)
-    if args.max_reports:
-        step = max(1, len(todo) // args.max_reports)
-        todo = todo[::step][:args.max_reports]
-    print(f"{len(done)} reports already read; {len(todo)} to read", flush=True)
-    new_raw, new_rep, failed = [], [], 0
-    for n, (folder, wk, a, b) in enumerate(todo, 1):
-        if time.time() - t0 > args.budget_min * 60:
-            print(f"time budget reached; {len(todo) - n + 1} reports left for later runs", flush=True)
-            break
+        calendar[y] = {w: end for _, w, _, end in ws}
+        if ws and y >= NEW_LAYOUT_FROM:
+            newest[y] = ws[-1]
+        print(f"  {y}: {len(ws)} weekly folders" + (f", newest {ws[-1][1]} ending {ws[-1][3]}" if ws else ""),
+              flush=True)
+    todo = [w for y, w in sorted(newest.items()) if w[0] not in done]
+    print(f"{len(done)} reports already read; to read: {[f'{w[3]}' for w in todo]}", flush=True)
+    new_rep, failed = [], 0
+    for folder, wk, a, b in todo:
         try:
-            files = [p for p, k in browse(folder) if k == "F" and p.lower().endswith((".xlsx", ".xlsm", ".xls"))]
+            files = [p for p, k in browse(folder) if k == "F" and p.lower().endswith((".xlsx", ".xlsm"))]
             if not files:
                 raise RuntimeError("no Excel file in the folder")
             f = sorted(files, key=lambda p: ("SEMANAL" not in key(p), p))[0]
-            df = parse_volumes(download(f))
-            df["report"] = folder
-            new_raw.append(df)
-            own = df[df["own_week"]]
+            xl = pd.ExcelFile(io.BytesIO(download(f)))
+            evo, groups = parse_evolution(xl, calendar)
+            evo["report_end"] = pd.Timestamp(b)
+            long = pd.concat([long, evo], ignore_index=True) if not long.empty else evo
+            if b >= max(w[3] for w in newest.values()):
+                latest_table = parse_table(xl)
+                latest_table.insert(0, "report_week_end", pd.Timestamp(b))
             new_rep.append({"report": folder, "file": f.split("/")[-1], "week": wk, "start": a, "end": b,
-                            "rows": own["reservoir"].nunique(), "total_hm3_end": round(own[own["date"] == own["date"].max()]["volume_hm3"].sum(), 2)})
-            print(f"  [{n}/{len(todo)}] {b}: {own['reservoir'].nunique()} reservoirs, end-of-week total "
-                  f"{new_rep[-1]['total_hm3_end']:,.1f} hm3", flush=True)
+                            "basins": len(groups), "weeks_read": len(evo),
+                            "first": evo["date"].min().date(), "last": evo["date"].max().date()})
+            print(f"  report ending {b}: {len(groups)} basins, {len(evo)} basin-weeks "
+                  f"{evo['date'].min():%d-%b-%Y}..{evo['date'].max():%d-%b-%Y}", flush=True)
         except Exception as e:  # noqa: BLE001 - one bad report shouldn't stop the run; it is retried next run
             failed += 1
-            print(f"  [{n}/{len(todo)}] {folder}: FAILED {type(e).__name__}: {str(e)[:200]}", flush=True)
-        if new_raw and n % 25 == 0:   # checkpoint
-            raw = pd.concat([raw] + new_raw, ignore_index=True)
-            reports = pd.concat([reports, pd.DataFrame(new_rep)], ignore_index=True)
-            new_raw, new_rep = [], []
-            save(args.out, raw, reports)
-    if new_raw:
-        raw = pd.concat([raw] + new_raw, ignore_index=True)
-        reports = pd.concat([reports, pd.DataFrame(new_rep)], ignore_index=True)
-    if raw.empty:
+            print(f"  {folder}: FAILED {type(e).__name__}: {str(e)[:200]}", flush=True)
+    if new_rep:
+        reports = pd.concat([reports, pd.DataFrame(new_rep)], ignore_index=True) if not reports.empty \
+            else pd.DataFrame(new_rep)
+    if long.empty or latest_table.empty:
         sys.exit("No data read and no archive - nothing to write")
-    daily = save(args.out, raw, reports)
-    print(f"Saved {args.out}: {len(daily)} dates {daily.index.min():%d-%b-%Y} .. {daily.index.max():%d-%b-%Y}; "
-          f"{len(reports)} reports; failed {failed}", flush=True)
-    print(daily[["Total_hm3", "Total_capacity_hm3", "Total_pct", "Reservoirs_reported", "Junin_hm3",
-                 "Mantaro_lagoons_hm3", "Rimac_hm3"]].tail(8).to_string(), flush=True)
-    if "Other_hm3" in daily:
-        print("WARNING: rows not matched to a group:",
-              sorted(set(raw.loc[raw["reservoir"].map(group_of) == "Other", "reservoir"])), flush=True)
-    if failed > max(3, len(todo) // 5):
-        sys.exit(f"{failed} reports failed")
+    long = long[long["date"].dt.year >= args.start_year]
+    capacity = float(pd.to_numeric(latest_table["capacity_hm3"], errors="coerce").sum())
+    daily = build_daily(long, capacity)
+    latest = str(latest_table["report_week_end"].iloc[0])[:10]
+    nl = notes(daily, reports, latest)
+    keep = long.sort_values(["date", "group", "report_end"]).drop_duplicates(["date", "group"], keep="last")
+    xlsx_notes.write_workbook(args.out, {"Daily": daily, "Latest week by reservoir": latest_table.set_index("reservoir"),
+                                         "Weekly by basin (long)": keep.set_index("date"),
+                                         "Reports read": reports.set_index("report")},
+                              nl, {ln for ln in nl if ln and ln.split(" (")[0].isupper()})
+    print(f"Saved {args.out}: {len(daily)} weeks {daily.index.min():%d-%b-%Y} .. {daily.index.max():%d-%b-%Y}; "
+          f"capacity {capacity:,.1f} hm3; failed {failed}", flush=True)
+    print(daily[["Total_hm3", "Total_pct", "Basins_reported", "Junin_hm3", "Mantaro_lagoons_hm3",
+                 "Rimac_hm3", "Chili_hm3"]].tail(8).to_string(), flush=True)
+    unmatched = latest_table[latest_table["group"].isna()]
+    if len(unmatched):
+        print("WARNING: reservoir rows not matched to a basin:", unmatched["reservoir"].tolist(), flush=True)
+    if failed and failed >= len(todo):
+        sys.exit(f"all {failed} reports failed")
 
 
 if __name__ == "__main__":

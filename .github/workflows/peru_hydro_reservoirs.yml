@@ -1,19 +1,16 @@
 name: Peru hydro reservoirs
 
-# Useful volume of Peru's reservoirs and lagoons (Junin, Mantaro lagoons, Rimac, Chili, Aricota, Sibinacocha ...)
-# and the national total / % from COES' weekly operation report (section 5.1), two readings a week, from 2020.
-# Runs daily: lists COES' weekly folders and reads only reports not yet in the workbook ('Reports read');
-# the backfill goes newest-first within budget_min.
+# Weekly useful volume of Peru's reservoirs and lagoons by basin (Junin, Mantaro lagoons, Rimac, Chili, Aricota,
+# Sibinacocha ...) and the national total / % from COES' weekly operation report ('Evolucion de volumenes' and
+# table 5.1), from 2021. Runs daily: lists COES' weekly folders and reads only reports not yet in the workbook
+# ('Reports read') - the newest of each year from 2024 (each restates four years).
 on:
   schedule:
     - cron: "53 13 * * *"
   workflow_dispatch:
     inputs:
-      budget_min:
-        description: "minutes to spend reading weekly reports (one ~1 MB Excel per week since 2021)"
-        default: "40"
       test:
-        description: "1 = test run (8 reports spread over 2021-2026, written to /tmp, nothing committed)"
+        description: "1 = test run (written to /tmp, nothing committed)"
         default: "0"
 
 permissions:
@@ -35,13 +32,13 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          python3 south_america/PERU_HYDRO_RESERVOIRS.py --out /tmp/peru_hydro_reservoirs.xlsx --max-reports 8 --budget-min 15
+          python3 south_america/PERU_HYDRO_RESERVOIRS.py --out /tmp/peru_hydro_reservoirs.xlsx
           python3 add_charts.py /tmp/peru_hydro_reservoirs.xlsx
       - name: Run
         if: github.event.inputs.test != '1'
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 3000 python3 south_america/PERU_HYDRO_RESERVOIRS.py --out "output/Data and Chart Outputs/peru_hydro_reservoirs.xlsx" --budget-min "${{ github.event.inputs.budget_min || '40' }}"
+        run: timeout 3000 python3 south_america/PERU_HYDRO_RESERVOIRS.py --out "output/Data and Chart Outputs/peru_hydro_reservoirs.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always() && github.event.inputs.test != '1'
