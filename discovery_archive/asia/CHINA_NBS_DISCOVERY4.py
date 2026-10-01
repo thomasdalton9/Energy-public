@@ -42,7 +42,7 @@ def scan(lo, hi, date):
             if t:
                 found.append((i, url, t))
     print(f"  date {date} ids {lo}-{hi}: {len(found)} pages exist")
-    years = collections.Counter((re.search(r"(20\d\d)年", t) or re.search(r"(\d{4})", "????")).group(1) for _, _, t in found)
+    years = collections.Counter((re.findall(r"((?:19|20)\d\d)年", t) or ["?"])[0] for _, _, t in found)
     print(f"  title years: {dict(sorted(years.items()))}")
     for i, url, t in found:
         if any(k in t for k in KEYS):
