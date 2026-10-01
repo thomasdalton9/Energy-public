@@ -41,6 +41,16 @@ results are rendered client-side (no hits server-side).
 
 Round 4 (ROUND=4): Calidda report lists per type (first and last page)
 and downloads; Perupetro LNG cargo list and sample PDFs.
+Round 4 findings: Calidda's monthly 'Reporte Operativo x Categoria
+tarifaria' runs RC_01_2022..RC_08_2026 (PDF); daily volumetric and GNLC
+reports start Nov-2022 (PDF; served as text/html with a .pdf attachment
+name). Perupetro timed out that run. MINEM's Anuario Estadistico de
+Hidrocarburos 2020 (gob.pe collection 25333) has monthly tables of volume
+distributed by sector per concession (MMPC per month) - a 2021 edition
+would fill 2021.
+
+Round 5 (ROUND=5): collection 25333 (anuarios 2021+), Perupetro LNG cargo
+list + daily gas production PDF (retry), Calidda sample PDFs.
 Runs in GitHub Actions only (sites are blocked from the editing sandbox).
 """
 import os
@@ -377,7 +387,7 @@ def cal_download(s, text, idx, tipo, page=None):
     r = cal_post(s, text, extra)
     cd = r.headers.get("content-disposition", "")
     out(f"  download idx {idx}: {r.status_code} {r.headers.get('content-type')} {len(r.content)}b cd={cd}")
-    if r.status_code == 200 and "html" not in r.headers.get("content-type", ""):
+    if r.status_code == 200 and (r.content[:4] == b"%PDF" or "html" not in r.headers.get("content-type", "")):
         name = re.search(r'filename\*?=(?:UTF-8\'\')?"?([^";]+)', cd)
         out(f"  FILE saved {save('cal_' + tipo + '_' + (name.group(1) if name else str(idx)), r.content)}")
 
@@ -436,5 +446,63 @@ def round4():
     out("round 4 done")
 
 
+def round5():
+    os.makedirs(RAW, exist_ok=True)
+    s = requests.Session()
+    coll = "https://www.gob.pe/institucion/minem/colecciones/25333-anuario-estadistico-de-hidrocarburos"
+    pubs = []
+    for page in range(1, 5):
+        r = get(f"{coll}?sheet={page}", s)
+        if r is None or r.status_code != 200:
+            break
+        save(f"anuario_coll_{page}.html", r.content)
+        new = [u for u in re.findall(r'href="(/institucion/minem/informes-publicaciones/\d+-[^"?#]+)"', r.text)
+               if u not in pubs]
+        pubs += new
+        if not new:
+            break
+    for u in dict.fromkeys(pubs):
+        out(f"PUB {u}")
+        r = get("https://www.gob.pe" + u, s)
+        if r is None or r.status_code != 200:
+            continue
+        for a in sorted(set(re.findall(r'https://cdn\.www\.gob\.pe/uploads/document/file/\d+/[^"?#\s]+', r.text))):
+            out(f"  ATT {a}")
+            if re.search(r"202[1-6]", a) and a.lower().endswith((".pdf", ".xlsx", ".xls", ".zip")) and "preview" not in a:
+                rr = get(a, s)
+                if rr is not None and rr.status_code == 200:
+                    out(f"  FILE saved {save(a, rr.content)}")
+    # Calidda samples
+    r = get(CAL, s)
+    for tipo in ["CategoriaTarifaria", "Volumetricos"]:
+        try:
+            r1 = cal_post(s, r.text, {"_tipo": tipo, "__EVENTTARGET": "ctl00$main$ddlTipoReporte"})
+            cal_download(s, r1.text, 0, tipo)
+        except Exception as e:  # noqa: BLE001
+            out(f"{tipo} failed: {e}")
+    # Perupetro, longer timeouts
+    global T
+    T = (30, 120)
+    for attempt in range(3):
+        try:
+            s.verify = perupetro_bundle()
+            break
+        except Exception as e:  # noqa: BLE001
+            out(f"bundle attempt {attempt} failed: {e}")
+            time.sleep(10)
+    for u in ["https://www.perupetro.com.pe/ExportaGAS/Relacion_ES.jsp",
+              "https://www.perupetro.com.pe/wps/wcm/connect/corporativo/7d03f6b6-3d69-417c-9cbc-2bc791c7dc85/"
+              "Reporte+de+Producci%C3%B3n+de+Gas+31.8.2026.pdf?MOD=AJPERES",
+              "https://www.perupetro.com.pe/wps/wcm/connect/corporativo/5dbf87aa-b716-4934-9425-713810ca701a/"
+              "Estadistica+Mensual-Junio+2026..pdf?MOD=AJPERES"]:
+        rr = get(u, s)
+        if rr is not None and rr.status_code == 200:
+            out(f"  FILE saved {save('pp_' + u.split('/')[-1][:70], rr.content)}")
+            if "html" in rr.headers.get("content-type", ""):
+                for link in dict.fromkeys(links(rr.text, rr.url)):
+                    out(f"  LINK {link}")
+    out("round 5 done")
+
+
 if __name__ == "__main__":
-    {"2": round2, "3": round3, "4": round4}.get(ROUND, main)()
+    {"2": round2, "3": round3, "4": round4, "5": round5}.get(ROUND, main)()
