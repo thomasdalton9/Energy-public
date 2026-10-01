@@ -31,6 +31,7 @@ import requests
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root, for xlsx_notes
 
+import water_year_chart
 import xlsx_notes
 
 PREPARE_URL = "https://www.pegelonline.wsv.de/gast/historische-zeitreihen/prepare-download"
@@ -161,6 +162,7 @@ def main():
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
+    water_year_chart.add_water_year_chart(args.out, combined["level_cm"], "Rhine at Kaub", "cm")
     print(f"Saved to {args.out} ({len(combined)} days, {combined.index.min()} to {combined.index.max()})")
 
 

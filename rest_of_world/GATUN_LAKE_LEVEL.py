@@ -26,6 +26,7 @@ import requests
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root, for xlsx_notes
 
+import water_year_chart
 import xlsx_notes
 
 URL = "https://evtms-rpts.pancanal.com/eng/h2o/Download_Gatun_Lake_Water_Level_History.csv"
@@ -69,6 +70,8 @@ def main():
         "dashboard's underlying CSV. Daily, back to 1965-01-01.",
     ]
     xlsx_notes.write_workbook(args.out, {"Daily": df}, notes, {"UNITS", "WHY THIS MATTERS", "SOURCE"})
+    water_year_chart.add_water_year_chart(args.out, df.set_index(pd.to_datetime(df["date"]))["level_ft"],
+                                          "Gatun Lake (Panama Canal)", "feet above sea level")
     print(f"Saved {args.out}", flush=True)
 
 
