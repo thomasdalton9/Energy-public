@@ -12,7 +12,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +24,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1800 python3 south_america/URUGUAY_POWER_DAILY.py --out "output/Data and Chart Outputs/uruguay_power_generation_daily.xlsx"
+        run: timeout 2400 python3 south_america/URUGUAY_POWER_DAILY.py --out "output/Data and Chart Outputs/uruguay_power_generation_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
