@@ -31,6 +31,8 @@ Standing instructions from the repo owner. Follow these on every change.
 - `americas/NORTH_AMERICA_MASTER.py` -> `north_america_master.xlsx`: United States, Canada, Mexico, same layout
   (reuses SOUTH_AMERICA_MASTER's code). Gas Dashboard + "Dashboard - Power"; add datasets to its DATASETS /
   RAW_POWER_DATASETS / OTHER_POWER_DATASETS / CAPACITY_DATASETS lists plus a SOURCES entry.
+  US power generation comes from EIA-930 (balancing-authority data, current to yesterday) - owner's decision; don't
+  switch the US regions to direct ISO feeds.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
