@@ -351,6 +351,135 @@ def salto_grande():
     get("https://www.saltogrande.org/datos_hidrologicos.php", show_text=3000)
 
 
+# Round 2 (Oct-2026) found:
+#  - CAMMESA 'Cotas Diarias' (wpdmdl=41420): one xlsx, sheet COTAS, daily level
+#    (msnm) per plant code from 2023-01-01 to the end of last month (ALICHI,
+#    CHOCHI, FUTAHI, PAGUHI, PBANHI, PPLEHI, RGDEHB, SGDEHIAR, YACYHI); header
+#    row 'AÑO MES FECHA CENTRAL AGENTE ... PAIS <value>'. 'Caudales Diarios'
+#    (wpdmdl=41412): daily m3/s for C. Cura, Futaleufu, Limay, Neuquen, Parana,
+#    Uruguay, same span. No stored volumes.
+#  - AIC detail pages: today's level only ('Nivel Actual'), no history ('Pedir datos').
+#  - INA a5: Yacyreta afluente/efluente (ids 87/88), Salto Grande arriba/abajo
+#    (77/78) level stations (Prefectura); no Comahue lake stations.
+#  - BDHI: ASP.NET station pages; no Comahue lake level station seen.
+#  - psem (weekly) zip: .chm + .MDB; PO zip: .mdb + HTML.
+# Round 3: older CAMMESA cotas/caudales packages (WordPress REST search of the
+# Download Manager posts), Jet tables in the PO / psem .mdb (mdbtools), and
+# INA a5 series + history depth for Yacyreta / Salto Grande.
+def wpdm_search():
+    print("\n######## R3. CAMMESA Download Manager packages", flush=True)
+    seen = {}
+    for q in ["cota", "cotas", "caudal", "caudales", "hidro", "embalse", "hidraul", "hidrolog", "nivel"]:
+        for kind in ["wpdmpro", "posts", "pages"]:
+            u = f"https://cammesaweb.cammesa.com/wp-json/wp/v2/{kind}?search={q}&per_page=100"
+            try:
+                r = S.get(u, timeout=60)
+                items = r.json()
+            except Exception as e:  # noqa: BLE001
+                print(f"  {u}: FAILED {type(e).__name__}: {str(e)[:120]}", flush=True)
+                continue
+            if not isinstance(items, list):
+                print(f"  {u}: {r.status_code} {str(items)[:200]}", flush=True)
+                continue
+            for it in items:
+                link = it.get("link")
+                if link not in seen:
+                    seen[link] = (it.get("id"), (it.get("title") or {}).get("rendered"), it.get("date"), it.get("modified"))
+    for link, (i, title, d, m) in sorted(seen.items(), key=lambda kv: kv[1][2] or ""):
+        print(f"  PKG id={i} {d} mod={m} {title!r} {link}", flush=True)
+
+
+def mdb_tables(content, tag, want=r"cota|nivel|embal|hidr|caudal|volum|lago|hm3"):
+    import subprocess
+    import tempfile
+    with tempfile.NamedTemporaryFile(suffix=".mdb", delete=False) as f:
+        f.write(content)
+        path = f.name
+    tables = [t for t in subprocess.run(["mdb-tables", "-1", path], capture_output=True, text=True).stdout.split("\n") if t]
+    print(f"  [{tag}] {len(tables)} tables: {tables}", flush=True)
+    for t in tables:
+        out = subprocess.run(["mdb-export", path, t], capture_output=True, text=True, timeout=300).stdout
+        lines = out.splitlines()
+        hdr = lines[0] if lines else ""
+        if re.search(want, t + " " + hdr, re.I) or re.search(r"CHOC|ALIC|PAGU", "\n".join(lines[:400])):
+            print(f"\n    -- table {t}: {len(lines) - 1} rows; header: {hdr[:400]}", flush=True)
+            for line in lines[1:15]:
+                print(f"       {line[:300]}", flush=True)
+
+
+def cammesa_mdbs():
+    print("\n######## R3. CAMMESA mdb tables", flush=True)
+    import datetime as _dt
+    for nemo, days_back in [("PARTE_POST_OPERATIVO", 3), ("PROGRAMACION_SEMANAL", 10)]:
+        for day in [_dt.date.today() - _dt.timedelta(days=days_back), _dt.date(2021, 3, 10)]:
+            params = {"fechadesde": (day - _dt.timedelta(days=7)).strftime(TIME_FMT),
+                      "fechahasta": (day + _dt.timedelta(days=1)).strftime(TIME_FMT), "nemo": nemo}
+            docs = requests.get(LOOKUP_URL, params=params, headers={"User-Agent": "gas-demand-scripts/1.0"}, timeout=60).json()
+            print(f"\n  {nemo} around {day}: {len(docs)} docs", flush=True)
+            for doc in docs[-1:]:
+                att = doc["adjuntos"][0]
+                f = requests.get(ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"], "nemo": nemo},
+                                 headers={"User-Agent": "gas-demand-scripts/1.0"}, timeout=300)
+                print(f"  {att['id']}: {f.status_code} {len(f.content):,} bytes", flush=True)
+                if f.ok and f.content[:2] == b"PK":
+                    zf = zipfile.ZipFile(io.BytesIO(f.content))
+                    for n in zf.namelist():
+                        if n.lower().endswith(".mdb"):
+                            mdb_tables(zf.read(n), f"{att['id']}:{n}")
+                        if n.lower().endswith(".chm"):
+                            open(f"/tmp/{n}", "wb").write(zf.read(n))
+                            import subprocess
+                            out = subprocess.run(["bash", "-c", f"cd /tmp && rm -rf chm && mkdir chm && cd chm && 7z x -y ../{n} >/dev/null 2>&1; ls; "
+                                                  "for h in cotasinifin.html caudalesmedios.html; do [ -f $h ] && python3 -c \"import re,sys;t=open('$h',encoding='latin-1').read();"
+                                                  "print(re.sub(r'\\s+',' ',re.sub(r'<[^>]+>',' ',t))[:3000])\"; done"],
+                                                 capture_output=True, text=True, timeout=120)
+                            print(f"  CHM {n}: {out.stdout[:6000]} {out.stderr[:300]}", flush=True)
+
+
+def ina_series():
+    print("\n######## R3. INA a5 series (Yacyreta / Salto Grande)", flush=True)
+    base = "https://alerta.ina.gob.ar/a5"
+    for est in [77, 78, 87, 88, 89, 90, 1229, 1018, 2006]:
+        u = f"{base}/obs/puntual/series?estacion_id={est}&format=json"
+        try:
+            r = S.get(u, timeout=120)
+            rows = r.json()
+        except Exception as e:  # noqa: BLE001
+            print(f"  {u}: FAILED {type(e).__name__}: {str(e)[:150]}", flush=True)
+            continue
+        rows = rows if isinstance(rows, list) else rows.get("rows") or []
+        print(f"\n  estacion {est}: {len(rows)} series", flush=True)
+        for s in rows[:8]:
+            sid = s.get("id")
+            var = s.get("var") or {}
+            proc = s.get("procedimiento") or {}
+            unit = s.get("unidades") or {}
+            print(f"    series {sid}: var={var.get('nombre')!r} ({var.get('timeSupport')}) proc={proc.get('nombre')!r} "
+                  f"unit={unit.get('abrev')!r} keys={list(s.keys())[:14]}", flush=True)
+            for t0, t1 in [("1990-01-01", "1990-02-01"), ("2010-01-01", "2010-01-10"), ("2016-01-01", "2016-01-10"),
+                           ((dt.date.today() - dt.timedelta(days=5)).isoformat(), dt.date.today().isoformat())]:
+                g = f"{base}/obs/puntual/series/{sid}/observaciones?timestart={t0}&timeend={t1}&format=json"
+                try:
+                    o = S.get(g, timeout=120)
+                except requests.RequestException as e:
+                    print(f"      {t0}: {type(e).__name__} {str(e)[:100]}", flush=True)
+                    continue
+                try:
+                    obs = o.json()
+                except ValueError:
+                    print(f"      {t0}: {o.status_code} not JSON: {o.text[:200]}", flush=True)
+                    continue
+                obs = obs if isinstance(obs, list) else obs.get("rows") or []
+                print(f"      {t0}..{t1}: {len(obs)} obs {json.dumps(obs[:2], ensure_ascii=False)[:300]}", flush=True)
+
+
+if ROUND == "3":
+    for fn in (wpdm_search, cammesa_mdbs, ina_series):
+        try:
+            fn()
+        except Exception as e:  # noqa: BLE001
+            print(f"!! {fn.__name__} crashed: {type(e).__name__}: {e}", flush=True)
+
 if ROUND == "2":
     for fn in (cammesa_downloads, cammesa_reports, ina_a5, salto_grande, aic, bdhi):
         try:
