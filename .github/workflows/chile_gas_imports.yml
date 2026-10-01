@@ -1,10 +1,16 @@
 name: Chile gas imports
 
 # CNE monthly energy report: gas imports (LNG + Argentina pipeline), ~2-month lag.
+# Older reports have no text layer and are read with OCR (tesseract). Manual run with full=true re-parses all.
 on:
   schedule:
     - cron: "55 11 * * 2"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Re-parse every report from 2021"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -12,18 +18,20 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl pdfplumber
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q tesseract-ocr tesseract-ocr-spa
+          pip install pandas requests openpyxl pdfplumber
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1500 python3 south_america/CHILE_GAS_IMPORTS.py --out "output/Data and Chart Outputs/chile_gas_imports.xlsx"
+        run: timeout 4000 python3 south_america/CHILE_GAS_IMPORTS.py --out "output/Data and Chart Outputs/chile_gas_imports.xlsx" ${{ inputs.full && '--full' || '' }}
 
       - name: Add Excel charts and copy scripts
         if: always()
