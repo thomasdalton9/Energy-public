@@ -71,20 +71,19 @@ def _line(series, colour, width_emu, dash=None):
     series.marker.symbol = "none"
 
 
-def add_water_year_chart(path, series, title, unit):
-    table, meta = water_year_table(series)
-    wb = load_workbook(path)
-    if SHEET in wb.sheetnames:
-        del wb[SHEET]
-    ws = wb.create_sheet(SHEET, 1 if len(wb.sheetnames) > 1 else None)
+
+def write_table(ws, table):
     ws.append(list(table.columns))
     for row in table.itertuples(index=False):
         ws.append([None if (isinstance(v, float) and pd.isna(v)) else v for v in row])
-    n = len(table) + 1
     ws.column_dimensions["A"].width = 9
     for col in "BCDEFG":
         ws.column_dimensions[col].width = 14
 
+
+def build_chart(ws, table, meta, title, unit, width=26, height=12):
+    """AGSI-style chart over a table written by write_table on ws (the chart can be placed on any sheet)."""
+    n = len(table) + 1
     cats = Reference(ws, min_col=1, min_row=2, max_row=n)
     # Band: stacked area of (min, max-min) with the min part invisible.
     area = AreaChart()
@@ -123,8 +122,18 @@ def add_water_year_chart(path, series, title, unit):
     # no borders: chart frame and plot area
     area.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
     area.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
-    area.height, area.width = 12, 26
+    area.height, area.width = height, width
     area += lines
+    return area
+
+def add_water_year_chart(path, series, title, unit):
+    table, meta = water_year_table(series)
+    wb = load_workbook(path)
+    if SHEET in wb.sheetnames:
+        del wb[SHEET]
+    ws = wb.create_sheet(SHEET, 1 if len(wb.sheetnames) > 1 else None)
+    write_table(ws, table)
+    area = build_chart(ws, table, meta, title, unit)
     ws.add_chart(area, "I2")
 
     root, ext = os.path.splitext(path)
