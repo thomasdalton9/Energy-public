@@ -146,6 +146,35 @@ def unit_table(content):
     return best[0], d
 
 
+def resource_summary(content):
+    """COES' own summary table 'Potencia efectiva por tipo de recurso energetico' (Cuadro 2.5 / C5): (sheet,
+    {resource label: MW}, published total) - or None when the workbook has no such table. The rows must add up
+    to the table's TOTAL row."""
+    xl = pd.ExcelFile(io.BytesIO(content))
+    for sheet in xl.sheet_names:
+        raw = pd.read_excel(xl, sheet_name=sheet, header=None)
+        for i in range(min(15, len(raw))):
+            cells = {key(v): j for j, v in enumerate(raw.iloc[i]) if isinstance(v, str)}
+            lab = next((j for k, j in cells.items() if k.startswith("TIPO DE RECURSO")), None)
+            mw = next((j for k, j in cells.items() if k.startswith("POTENCIA EFECTIVA")), None)
+            if lab is None or mw is None:
+                continue
+            vals, total = {}, None
+            for r in range(i + 1, min(i + 40, len(raw))):
+                name, v = raw.iat[r, lab], pd.to_numeric(raw.iat[r, mw], errors="coerce")
+                if not isinstance(name, str) or pd.isna(v):
+                    if vals and not isinstance(name, str):
+                        break
+                    continue
+                if key(name).startswith("TOTAL"):
+                    total = float(v)
+                    break
+                vals[name.strip()] = float(v)
+            if vals and total is not None and abs(sum(vals.values()) - total) <= 1:
+                return sheet, vals, total
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=DEFAULT_OUT)
@@ -157,11 +186,12 @@ def main():
     years = [y for y in years if y >= pcc.START.year]
     old = pcc.load_monthly(args.out)
     old_units = pcc.load_sheet(args.out, "COES units")
+    old_files = pcc.load_sheet(args.out, "COES files")
     have = set(old.index.year) if not old.empty else set()
     todo = [y for y in years if y not in have or y == max(years)]
     print(f"COES annual statistics years {years}; archive {sorted(have)}; fetching {todo}", flush=True)
 
-    rows, units, sources = {}, [], {}
+    rows, units, sources, basis, labels = {}, [], {}, {}, {}
     for y in todo:
         url, files = chapter2_url(y)
         if url is None:
@@ -172,22 +202,49 @@ def main():
         if len(r.content) < 1000:
             print(f"  {y}: {url} returned {len(r.content)} bytes - skipped", flush=True)
             continue
-        sheet, d = unit_table(r.content)
-        d["fuel"] = [fuel_of(res, g) for res, g in zip(d["resource"], d["gen_type"])]
-        unknown = d[d["fuel"].isna()]
-        if not unknown.empty:
-            print(f"  {y}: unmapped resources -> Other: {sorted(unknown['resource'].astype(str).unique())}", flush=True)
-            d["fuel"] = d["fuel"].fillna("Other")
-        d.insert(0, "year", y)
-        units.append(d)
-        by = d.groupby("fuel")["mw"].sum()
+        summary = resource_summary(r.content)
+        try:
+            sheet, d = unit_table(r.content)
+        except ValueError as e:
+            sheet, d = None, None
+            print(f"  {y}: {e}", flush=True)
+        if d is not None:
+            d["fuel"] = [fuel_of(res, g) for res, g in zip(d["resource"], d["gen_type"])]
+            unknown = d[d["fuel"].isna()]
+            if not unknown.empty:
+                print(f"  {y}: unmapped resources -> Other: {sorted(set(unknown['resource'].map(str)))}", flush=True)
+                d["fuel"] = d["fuel"].fillna("Other")
+            print(f"  {y}: unit list sheet {sheet!r}: {len(d)} units, {d['mw'].sum():,.1f} MW", flush=True)
+        if summary:
+            print(f"  {y}: summary sheet {summary[0]!r}: total {summary[2]:,.1f} MW: {summary[1]}", flush=True)
+        # The unit list is used when it matches COES' own summary total (or there is no summary); otherwise the
+        # summary by energy resource (in 2021-2022 the unit list has merged cells and company subtotals).
+        if d is not None and (summary is None or abs(d["mw"].sum() - summary[2]) <= 0.01 * summary[2]):
+            d.insert(0, "year", y)
+            units.append(d)
+            by = d.groupby("fuel")["mw"].sum()
+            basis[y] = f"unit list (sheet {sheet!r}, {len(d)} units)"
+            for res, f in zip(d["resource"].map(str), d["fuel"]):
+                if res != "nan":
+                    labels.setdefault(y, {}).setdefault(f, set()).add(res)
+            if args.test:
+                print(d.groupby(["gen_type", "resource", "fuel"], dropna=False)["mw"].agg(["count", "sum"])
+                      .to_string(), flush=True)
+        elif summary:
+            by = {}
+            for name, v in summary[1].items():
+                f = fuel_of(name, "") or "Other"
+                labels.setdefault(y, {}).setdefault(f, set()).add(name)
+                by[f] = by.get(f, 0.0) + v
+            by = pd.Series(by)
+            basis[y] = f"summary by energy resource (sheet {summary[0]!r})"
+        else:
+            print(f"  {y}: neither a unit list nor a summary table - skipped", flush=True)
+            continue
         rows[pd.Timestamp(year=y, month=1, day=1)] = {f"{f}_MW": v for f, v in by.items()}
         sources[y] = url
-        print(f"  {y}: sheet {sheet!r}, {len(d)} units, {d['mw'].sum():,.1f} MW: "
-              f"{', '.join(f'{k} {v:,.1f}' for k, v in by.items())}", flush=True)
-        if args.test:
-            print(d.groupby(["gen_type", "resource", "fuel"], dropna=False)["mw"].agg(["count", "sum"]).to_string(),
-                  flush=True)
+        print(f"  {y}: using {basis[y]}: {by.sum():,.1f} MW: {', '.join(f'{k} {v:,.1f}' for k, v in by.items())}",
+              flush=True)
 
     new = pcc.standardise(pd.DataFrame.from_dict(rows, orient="index")) if rows else pd.DataFrame()
     if not old.empty:
@@ -202,13 +259,24 @@ def main():
         old_units = old_units.reset_index()
         fetched = [t.year for t in rows]
         unit_df = pd.concat([old_units[~old_units["year"].isin(fetched)], unit_df], ignore_index=True)
-    unit_df = unit_df.sort_values(["year", "fuel", "mw"], ascending=[True, True, False]).set_index("year")
+    if not unit_df.empty:
+        unit_df = unit_df.sort_values(["year", "fuel", "mw"], ascending=[True, True, False]).set_index("year")
+    files = pd.DataFrame([{"year": y, "url": sources[y], "basis": basis[y],
+                           "resources": " | ".join(f"{f}: {', '.join(sorted(v))}" for f, v in labels[y].items())}
+                          for y in sorted(sources)])
+    if not old_files.empty:
+        old_files = old_files.reset_index()
+        files = pd.concat([old_files[~old_files["year"].isin(list(sources))], files], ignore_index=True)
+    files = files.sort_values("year").set_index("year")
+    all_labels = {}
+    for txt in files["resources"].dropna():
+        for part in str(txt).split(" | "):
+            f, _, names = part.partition(": ")
+            all_labels.setdefault(f, set()).update(n for n in names.split(", ") if n)
     print(monthly.to_string(), flush=True)
 
     val = pcc.validation_lines(monthly, "Peru")
     print("\n".join(val), flush=True)
-    resources = (unit_df.reset_index().groupby("fuel")["resource"]
-                 .apply(lambda s: ", ".join(sorted(set(s.map(str))))).to_dict())
     notes = pcc.unit_notes("year") + [
         "Effective capacity (potencia efectiva) of the units COES lists in the SEIN at 31 December; each row is dated "
         "1 January of that year. COES' monthly bulletins carry no capacity table, so there is no monthly series.",
@@ -221,17 +289,23 @@ def main():
         "SOURCE",
         "COES - Estadisticas Anuales, chapter 2 'Estado de la infraestructura del SEIN' (Excel), unit list: "
         "https://www.coes.org.pe/Portal/publicaciones/estadisticas/ ; files: "
-        + "; ".join(f"{y}: {u}" for y, u in sorted(sources.items())) + ".",
+        + "; ".join(f"{y}: {r.url} - {r.basis}" for y, r in files.iterrows()) + ".",
+        "The per-unit list is summed by energy resource when its total matches COES' own summary table "
+        "'Potencia efectiva por tipo de recurso energetico'; otherwise (2021-2022 workbooks, whose unit list has "
+        "merged cells and company subtotals) that summary table is used directly.",
         "Script: south_america/PERU_COES_CAPACITY.py (scheduled by .github/workflows/peru_power_capacity.yml).",
         "",
         "MAPPING (COES 'TIPO DE RECURSO ENERGETICO', or the generation type for hydro / solar / wind)",
-    ] + [f"{f}_MW = {resources[f]}" for f in pcc.FUELS if f in resources] + [
+    ] + [f"{f}_MW = {', '.join(sorted(all_labels[f]))}" for f in pcc.FUELS if f in all_labels] + [
         "Diesel, residual fuel oil and refinery gas / naphtha go in Oil_MW; bagasse and biogas in Bioenergy_MW. No "
         "nuclear; Other_MW = any resource not matched above.",
         "",
         "VALIDATION",
     ] + val
-    pcc.write(args.out, monthly, notes, {"COES units": unit_df})
+    extra = {"COES files": files}
+    if not unit_df.empty:
+        extra["COES units"] = unit_df
+    pcc.write(args.out, monthly, notes, extra)
     print(f"Saved {args.out}", flush=True)
 
 
