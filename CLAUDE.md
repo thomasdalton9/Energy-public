@@ -28,6 +28,9 @@ Standing instructions from the repo owner. Follow these on every change.
   Dominican Republic. Gas Dashboard + "Dashboard - Power & Hydro", a data tab per
   chart, raw data tabs, Sources tab. New datasets: add them to its DATASETS / RAW_POWER_DATASETS / HYDRO_DATASETS
   lists (and add_charts.py REGISTRY), plus a SOURCES entry (publisher + link).
+- `americas/NORTH_AMERICA_MASTER.py` -> `north_america_master.xlsx`: United States, Canada, Mexico, same layout
+  (reuses SOUTH_AMERICA_MASTER's code). Gas Dashboard + "Dashboard - Power"; add datasets to its DATASETS /
+  RAW_POWER_DATASETS / OTHER_POWER_DATASETS lists plus a SOURCES entry.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
