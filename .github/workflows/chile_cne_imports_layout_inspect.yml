@@ -1,0 +1,19 @@
+name: Chile CNE imports layout inspect
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pdfplumber
+      - name: Inspect
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 500 python3 discovery_archive/south_america/CHILE_CNE_IMPORTS_LAYOUT_INSPECT.py
