@@ -246,9 +246,34 @@ def uruguay(p):
 
 
 def chile_imports(p):
+    """Chile gas (CHILE_GAS_IMPORTS.py): imports by use / terminal region (CNE import workbook), with the monthly
+    report's total for months after the workbook ends; domestic production (ENAP + CEOP)."""
+    sheets = pd.ExcelFile(p).sheet_names
     d = by_date(read(p, "Gas imports"), "Month")
-    return [spec("Imports", d[["Imports_mcm_per_day_approx"]].rename(columns={"Imports_mcm_per_day_approx": "Gas imports"}),
-                 "Chile natural gas imports (LNG + Argentina)", "million m3/day (approx)", "stacked_bar")]
+    total = d["Imports_mcm_per_day_approx"]
+    if "Imports by use" in sheets:
+        u = by_date(read(p, "Imports by use"), "Month")
+        names = {"LNG_V_region_Quintero_mcm_per_day": "LNG - Quintero (central)",
+                 "LNG_II_region_Mejillones_mcm_per_day": "LNG - Mejillones (north)",
+                 "Pipeline_energy_RM_V_region_mcm_per_day": "Argentina pipeline - central (energy use)",
+                 "Pipeline_energy_II_region_mcm_per_day": "Argentina pipeline - north (energy use)",
+                 "Pipeline_energy_VIII_region_mcm_per_day": "Argentina pipeline - Biobio (energy use)",
+                 "Pipeline_petrochemical_Magallanes_mcm_per_day": "Argentina pipeline - Magallanes (methanol)"}
+        imp = u[cols(u, *names)].rename(columns=names).reindex(d.index)
+        no_split = imp.isna().all(axis=1)
+        imp["Total, monthly report (no split)"] = total.where(no_split)
+        title = "Chile natural gas imports by use and entry region"
+    else:
+        imp = total.to_frame("Gas imports")
+        title = "Chile natural gas imports (LNG + Argentina)"
+    specs = [spec("Imports", imp, title, "million m3/day (monthly average)", "stacked_bar")]
+    if "Domestic production" in sheets:
+        q = by_date(read(p, "Domestic production"), "Month")
+        q = q[["ENAP_mcm_per_day", "CEOP_mcm_per_day"]].rename(
+            columns={"ENAP_mcm_per_day": "ENAP", "CEOP_mcm_per_day": "CEOP (private operators)"})
+        specs.append(spec("Production", q, "Chile domestic gas production (Magallanes)", "million m3/day",
+                          "stacked_bar"))
+    return specs
 
 
 def power_mix(d):

@@ -130,7 +130,10 @@ SOURCES = {
                                 "https://www.gov.br/anp/pt-br/centrais-de-conteudo/dados-abertos/dados-consolidados-movimentacao-de-gas-natural-em-gasodutos-de-transporte"),
     "bolivia_gas_demand_by_sector.xlsx": ("INE Bolivia",
                                           "https://www.ine.gob.bo/index.php/estadisticas-economicas/hidrocarburos-mineria/hidrocarburo-cuadros-estadisticos/"),
-    "chile_gas_imports.xlsx": ("CNE Chile, Reporte Mensual (customs data)", "https://www.cne.cl/nuestros-servicios/reportes/"),
+    "chile_gas_imports.xlsx": ("CNE Chile: Estadísticas > Hidrocarburo (import workbook by use and region, customs "
+                               "data; ENAP + CEOP gas production, Ministerio de Energía data); Reporte Mensual "
+                               "(imports for months after the workbook)",
+                               "https://www.cne.cl/estadisticas/hidrocarburo/"),
     "colombia_gas_demand_by_sector.xlsx": ("Gestor del Mercado de Gas (BMC)", "https://www.bmcbec.com.co/informes/informes-mensuales"),
     "ecuador_gas.xlsx": ("EP Petroecuador (domestic gas); UN Comtrade, Ecuador customs HS 2711.11 (LNG imports)",
                          "https://www.eppetroecuador.ec/?p=3721"),
