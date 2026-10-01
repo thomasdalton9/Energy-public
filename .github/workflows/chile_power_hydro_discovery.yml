@@ -1,5 +1,8 @@
 name: Chile power + hydro discovery
 
+# Manual probe runner. The script's stdout and any files it saves under
+# probe_out/ are pushed to a throwaway branch probe-chile-<run id> so they
+# can be read outside Actions (the branch is deleted afterwards).
 on:
   workflow_dispatch:
     inputs:
@@ -10,18 +13,37 @@ on:
         description: "arguments"
         default: "all"
 
+permissions:
+  contents: write
+
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber
+        run: pip install requests pandas openpyxl xlrd pdfplumber pypdfium2
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1700 python3 "discovery_archive/south_america/${{ github.event.inputs.script }}" ${{ github.event.inputs.args }}
+          PROBE_OUT: probe_out
+        run: |
+          mkdir -p probe_out
+          timeout 2100 python3 "discovery_archive/south_america/${{ github.event.inputs.script }}" ${{ github.event.inputs.args }} 2>&1 | tee probe_out/log.txt | tail -40
+      - name: Push probe output to a scratch branch
+        if: always()
+        run: |
+          mkdir -p /tmp/probe && cp -r probe_out/. /tmp/probe/
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -q --orphan scratch
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq
+          cp -r /tmp/probe/. .
+          git add -A
+          git commit -qm "probe output ${{ github.event.inputs.script }} ${{ github.event.inputs.args }}"
+          git push -qf origin HEAD:refs/heads/probe-chile-${{ github.run_id }}
