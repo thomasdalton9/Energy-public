@@ -5,7 +5,7 @@ on:
     inputs:
       script:
         description: "discovery_archive/asia script to run"
-        default: "SINGAPORE_DISCOVERY3.py"
+        default: "SINGAPORE_DISCOVERY4.py"
 
 jobs:
   discover:
@@ -21,4 +21,4 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1600 python3 "discovery_archive/asia/${{ inputs.script || 'SINGAPORE_DISCOVERY3.py' }}"
+        run: timeout 1600 python3 "discovery_archive/asia/${{ inputs.script || 'SINGAPORE_DISCOVERY4.py' }}"
