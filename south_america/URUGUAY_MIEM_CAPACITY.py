@@ -59,7 +59,7 @@ MAPPING = [
     (r"SOLAR|FOTOVOLT", "Solar"),
     (r"BIOMASA|BIOGAS|BAGAZO|RESIDUO", "Bioenergy"),
     (r"GAS NATURAL", "Gas"),
-    (r"FOSIL|TERMIC|GASOIL|FUEL|DIESEL|PETROLEO|MOTOR|TURBINA|CICLO", "Oil"),
+    (r"FOSIL|GASOIL|FUEL OIL|DIESEL|PETROLEO", "Oil"),
 ]
 
 
@@ -118,25 +118,25 @@ def parse(xl):
     print("Row labels:", list(t.index), flush=True)
     year_cols = [c for c in t.columns if year_of(c)]
     num = t[year_cols].apply(lambda s: pd.to_numeric(s, errors="coerce"))
-    # Only leaf rows: skip totals / sub-totals; rows mapped to a fuel.
-    rows = {}
+    # The sheet is in sections: a header row with the source name (no values), its equipment-type rows,
+    # then 'Total <source>'. Each source's 'Total' row is used; the final 'TOTAL' is the published grand total.
+    rows, section, published_total = {}, None, None
     for label, vals in num.iterrows():
         k = key(label)
         if vals.isna().all():
-            continue  # section header (UTE / PRIVADOS ...)
-        if k.startswith("TOTAL") or "TOTAL" in k.split():
+            section = label
             continue
-        fuel = fuel_of(label)
-        if fuel is None:
-            print(f"  unmapped row {label!r} -> Other", flush=True)
-            fuel = "Other"
-        rows.setdefault(fuel, []).append(label)
-        rows[fuel + "_series"] = rows.get(fuel + "_series", 0) + vals.fillna(0)
+        if k == "TOTAL":
+            published_total = vals
+        elif k.startswith("TOTAL "):
+            fuel = fuel_of(k[len("TOTAL "):]) or "Other"
+            if fuel == "Other":
+                print(f"  unmapped section {label!r} -> Other", flush=True)
+            rows.setdefault(fuel, []).append(label)
+            rows[fuel + "_series"] = rows.get(fuel + "_series", 0) + vals.fillna(0)
     out = pd.DataFrame({f"{f}_MW": rows[f + "_series"] for f in pcc.FUELS if f + "_series" in rows})
     out.index = [pd.Timestamp(year=year_of(c), month=1, day=1) for c in out.index]
     mapping = {f: rows[f] for f in pcc.FUELS if f in rows}
-    total_rows = [lab for lab in num.index if key(lab).startswith("TOTAL")]
-    published_total = num.loc[total_rows[-1]] if total_rows else None
     if published_total is not None:
         published_total.index = out.index
     return sheet, t, out, mapping, published_total
@@ -156,7 +156,10 @@ def main():
     annual = pcc.standardise(annual)
     if published_total is not None:
         gap = (annual["Total_MW"] - published_total.reindex(annual.index)).abs()
-        print(f"Max |sum of sources - published total| over all years: {gap.max():.2f} MW", flush=True)
+        gap = gap[gap.index >= pcc.START]
+        print(f"Max |sum of sources - published TOTAL| since 2021: {gap.max():.2f} MW", flush=True)
+        if gap.max() > 1:
+            raise SystemExit("Sum of MIEM's source totals differs from its grand total - layout changed?")
     annual = annual[annual.index >= pcc.START]
 
     old = pcc.load_monthly(args.out)
@@ -196,10 +199,13 @@ def main():
         "Script: south_america/URUGUAY_MIEM_CAPACITY.py (scheduled by .github/workflows/uruguay_power_capacity.yml).",
         "",
         "MAPPING",
-    ] + [f"{f}_MW = MIEM rows {', '.join(repr(x) for x in labels)}" for f, labels in mapping.items()] + [
-        "Oil_MW = MIEM's fossil/thermal capacity: UTE's gas-oil and fuel-oil plants (motors, open-cycle turbines and "
-        "the Punta del Tigre B combined cycle, which is dual-fuel but runs on gas oil because Uruguay has almost no "
-        "natural gas supply). Ember counts Punta del Tigre B as gas, so Ember shows more Gas and less Oil.",
+    ] + [f"{f}_MW = MIEM row(s) {', '.join(repr(x) for x in labels)}" for f, labels in mapping.items()] + [
+        "Oil_MW = MIEM's 'Total Fosil' (steam turbines, gas turbines and engines). Uruguay's fossil plants burn gas "
+        "oil / fuel oil (the Punta del Tigre B combined cycle is dual-fuel, natural gas or gas oil); MIEM does not "
+        "split fossil capacity by fuel, so all of it is shown as Oil. Ember counts the gas turbines / combined cycle "
+        "as Gas, hence the large Gas and Oil differences against Ember below; the fossil total matches.",
+        "Bioenergy_MW = MIEM's 'Total Biomasa' (biomass steam turbines and engines, mostly pulp-mill and other "
+        "industrial self-producers).",
         "No coal, nuclear or geothermal in Uruguay; Other_MW = any MIEM row not matching a fuel above (none now).",
         "",
         "VALIDATION",
