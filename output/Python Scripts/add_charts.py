@@ -261,15 +261,26 @@ def power_daily(title):
 CAPACITY_FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Other"]
 
 
+CAPACITY_GROUPS = ["Hydro", "Gas", "Wind", "Solar", "Oil", "Bioenergy", "Coal", "Nuclear & other"]
+
+
+def capacity_groups(mw):
+    """CAPACITY_FUELS columns -> the 8 fixed chart groups (same order and colours on every capacity chart, zero
+    groups kept so colours never shift)."""
+    mw = mw.apply(pd.to_numeric, errors="coerce").fillna(0)
+    g = pd.DataFrame({k: mw[k] if k in mw else 0.0 for k in CAPACITY_GROUPS[:-1]}, index=mw.index)
+    g["Nuclear & other"] = (mw["Nuclear"] if "Nuclear" in mw else 0.0) + (mw["Other"] if "Other" in mw else 0.0)
+    return g
+
+
 def power_capacity(title):
     """Standard capacity workbook: sheet "Monthly" with date (1st of month) and <Fuel>_MW columns for
     CAPACITY_FUELS plus Total_MW. Annual-only sources use one row per year dated 1 January."""
     def f(p):
         d = by_date(read(p, "Monthly"), "date")
         d = d[d.index >= "2021-01-01"]
-        g = pd.DataFrame({fuel: d.get(f"{fuel}_MW") for fuel in CAPACITY_FUELS}, index=d.index)
-        g = g.apply(pd.to_numeric, errors="coerce").fillna(0) / 1000.0   # MW -> GW
-        g = g.loc[:, g.ne(0).any()]
+        g = capacity_groups(pd.DataFrame({fuel: d.get(f"{fuel}_MW") for fuel in CAPACITY_FUELS}, index=d.index))
+        g = g / 1000.0   # MW -> GW
         annual = len(d) > 1 and d.index.to_series().diff().median().days > 300
         return [spec("Capacity", g, title, "GW installed", "stacked_bar", "%Y" if annual else "%Y-%m")]
     return f
