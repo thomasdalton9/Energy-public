@@ -208,7 +208,8 @@ def ireland_smartgrid(p):
 
 def mexico(p):
     d = by_date(read(p, "Data"), "date")
-    return [spec("Demand", d[["Total_MWh"]], "Mexico national electricity demand", "MWh/day", "line", "%Y-%m-%d")]
+    w = weekly_mean(d[["Total_MWh"]]).rename(columns={"Total_MWh": "National demand"})
+    return [spec("Demand", w, "Mexico national electricity demand (weekly average)", "MWh/day", "line", "%Y-%m-%d")]
 
 
 def fuel_mix(title, units, drop=("Total", "Imports", "Renewables_Share", "share", "unknown")):
