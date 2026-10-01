@@ -112,7 +112,24 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
         chart.grouping = "stacked"
     else:
         chart = LineChart()
-    cats = Reference(ws, min_col=start_col, min_row=start_row + 1, max_row=n)
+    spacing = df.index.to_series().diff().median().days if len(df) > 1 else 30
+    if spacing <= 2:
+        # Daily: a category axis can only skip evenly, so a "label every 30 days" drifts off month starts. Write a
+        # text label column beside the table holding mmm/yy on the 1st of each (every k-th) month, blank otherwise,
+        # and show every label.
+        months = pd.period_range(df.index.min(), df.index.max(), freq="M")
+        k = max(1, -(-len(months) // 18))   # at most ~18 labels
+        label_col = start_col + df.shape[1] + 1
+        ws.cell(row=start_row, column=label_col, value="Axis label")
+        seen = set()
+        for i, d in enumerate(df.index, start=start_row + 1):
+            m = d.year * 12 + d.month - 1
+            first = m not in seen and m % k == 0   # first day present in the month (a missing 1st still gets a label)
+            seen.add(m)
+            ws.cell(row=i, column=label_col, value=d.strftime("%b/%y") if first else None)
+        cats = Reference(ws, min_col=label_col, min_row=start_row + 1, max_row=n)
+    else:
+        cats = Reference(ws, min_col=start_col, min_row=start_row + 1, max_row=n)
     chart.add_data(Reference(ws, min_col=start_col + 1, max_col=start_col + n_bars, min_row=start_row, max_row=n),
                    titles_from_data=True)
     chart.set_categories(cats)
@@ -128,11 +145,7 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
     chart.x_axis.number_format = excel_fmt
     chart.y_axis.title = y_title
     chart.x_axis.tickLblPos = "low"
-    spacing = df.index.to_series().diff().median().days if len(df) > 1 else 30
-    if spacing <= 2:   # daily: label once every whole number of months so mmm/yy labels don't repeat
-        step = 30 * max(1, -(-len(df) // (30 * 12)))
-    else:
-        step = max(1, len(df) // 12)
+    step = 1 if spacing <= 2 else max(1, len(df) // 12)   # daily: every (mostly blank) label is shown
     chart.x_axis.tickLblSkip = step
     chart.x_axis.tickMarkSkip = step
     chart.x_axis.delete = False
