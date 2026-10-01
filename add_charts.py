@@ -809,6 +809,50 @@ def sa_coal(p):
         out.append(spec("Annual", a[mt].apply(pd.to_numeric, errors="coerce").rename(columns=lambda c: c[:-3]),
                         "South America coal production by country (Venezuela: EI estimate)", "Mt per year",
                         "stacked_bar", "%Y"))
+
+
+# South America daily wholesale power prices (south_america/SA_POWER_PRICES_DAILY.py) - a separate workbook,
+# not part of the South & Central America master.
+PRICE_CHARTS = [  # sheet, title (with source), local unit
+    ("Brazil", "Brazil CMO by subsystem (ONS, daily average)", "BRL/MWh"),
+    ("Colombia", "Colombia Precio de Bolsa and Precio de Escasez (XM, daily average)", "COP/kWh"),
+    ("Peru", "Peru marginal cost, Santa Rosa 220 kV (COES, daily average)", "PEN/MWh"),
+    ("Argentina", "Argentina CMO and sanctioned spot price (CAMMESA, daily average)", "ARS/MWh"),
+    ("Uruguay", "Uruguay spot sancionado (ADME, daily average)", "USD/MWh"),
+    ("Bolivia", "Bolivia marginal cost (CNDC, daily)", "USD/MWh"),
+]
+
+
+def sa_power_prices(p):
+    """All markets in USD/MWh as monthly averages (plus CNDC's monthly Bolivian energy price where the daily
+    series is short), then one chart per country in local currency (daily; Chile's PMM is monthly)."""
+    sheets = pd.ExcelFile(p).sheet_names
+    u = by_date(read(p, "USD daily"), "date")
+    m = monthly_mean(u, "2021-01-01")
+    if "Bolivia monthly" in sheets:
+        b = read(p, "Bolivia monthly")
+        b = by_date(b, b.columns[0])
+        if "Precio de energia (USD/MWh)" in b:
+            m = m.join(b[["Precio de energia (USD/MWh)"]].rename(
+                columns={"Precio de energia (USD/MWh)": "Bolivia (CNDC energy price, monthly)"}), how="outer")
+    out = [spec("USD monthly", m.drop(columns=[c for c in m if c.startswith("Bolivia (CNDC marginal")], errors="ignore"),
+                "South America wholesale power prices (monthly average)", "USD/MWh")]
+    for sheet, title, unit in PRICE_CHARTS:
+        if sheet not in sheets:
+            continue
+        d = by_date(read(p, sheet), "date")
+        local = [c for c in d.columns if f"({unit})" in str(c) and "USD per" not in str(c)]
+        if unit != "USD/MWh":
+            local = [c for c in local if "(USD/MWh)" not in str(c)]
+        if local:
+            g = d[local].rename(columns=lambda c: re.sub(r"\s*\([^)]*\)$", "", str(c)))
+            out.append(spec(sheet, daily(g, "2021-01-01"), title, unit))
+    if "Chile" in sheets:
+        c = read(p, "Chile")
+        c = by_date(c, c.columns[0])
+        if "PMM SEN (CLP/kWh)" in c:
+            out.append(spec("Chile", c[["PMM SEN (CLP/kWh)"]].rename(columns={"PMM SEN (CLP/kWh)": "PMM SEN"}),
+                            "Chile Precio Medio de Mercado, SEN (CNE, monthly)", "CLP/kWh"))
     return out
 
 
@@ -885,6 +929,7 @@ REGISTRY = {
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
+    "south_america_power_prices_daily.xlsx": sa_power_prices,
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
