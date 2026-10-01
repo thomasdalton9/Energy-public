@@ -59,7 +59,10 @@ GAS_PRODUCERS = {
     "Argentina": True, "Brazil": True, "Colombia": True, "Peru": True, "Ecuador": True, "Trinidad and Tobago": True,
     "Bolivia": False, "Venezuela": False, "Chile": False, "Guyana": False, "Cuba": False,
 }
-DOT_HAVE, DOT_MISSING = "#0B3A66", "#E34948"
+DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
+# Countries with reservoir / lake-level (hydro) data
+HYDRO = {"Brazil", "Colombia", "Argentina", "Chile", "Panama"}
+HYDRO_AT = {"Panama": (-80.2, 8.6), "Chile": (-71.5, -33.0)}
 # Where a dot would sit on a label or off a tiny island, place it here instead (lon, lat)
 DOT_AT = {"Chile": (-73.8, -46.5), "Trinidad and Tobago": (-61.2, 10.5), "Ecuador": (-78.3, -1.5),
           "Guyana": (-58.8, 5.5), "Cuba": (-79.5, 22.0)}
@@ -123,6 +126,15 @@ def main():
                 dx, dy = p.x, p.y - 1.8
             ax.plot(dx, dy, "o", markersize=8, color=DOT_HAVE if GAS_PRODUCERS[name] else DOT_MISSING,
                     markeredgecolor="white", markeredgewidth=1.2, zorder=5)
+        if name in HYDRO:
+            if name in HYDRO_AT:
+                hx, hy = HYDRO_AT[name]
+            elif name in GAS_PRODUCERS:   # beside the gas dot
+                hx, hy = dx + 2.0, dy
+            else:
+                hx, hy = p.x, p.y - 1.8
+            ax.plot(hx, hy, "o", markersize=8, color=DOT_HYDRO, markeredgecolor="#0B3A66", markeredgewidth=0.8,
+                    zorder=5)
     ax.text(-104, 24, "Mexico\n(not in scope)", fontsize=7.5, color="#999999", ha="center")
     ax.text(-53.5, 3.4, "Fr. Guiana", fontsize=6.5, color="#333333", ha="center")
 
@@ -133,7 +145,9 @@ def main():
                Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_HAVE, markeredgecolor="white",
                       label="Gas producer: domestic production data"),
                Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_MISSING, markeredgecolor="white",
-                      label="Gas producer: no production data")]
+                      label="Gas producer: no production data"),
+               Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_HYDRO, markeredgecolor="#0B3A66",
+                      label="Hydro reservoir / lake-level data")]
     # Inset: Trinidad & Tobago is too small to see at this scale - zoom on it in the open Atlantic
     ins = ax.inset_axes([0.84, 0.73, 0.14, 0.11])
     world.plot(ax=ins, color=world["fill"], edgecolor=EDGE, linewidth=0.6)
