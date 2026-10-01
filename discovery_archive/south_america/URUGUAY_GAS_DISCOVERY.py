@@ -13,10 +13,22 @@ Conecta Sur, Montevideo Gas), customers by tariff, prices, and
 importacion_gas_natural_por_gasoducto_m3. visualPEB also has a BEN
 endpoint benDatosActividadesFuentes (annual consumption by activity).
 
-Round 3 (this version): save every inner file plus the visualPEB pages /
-BEN endpoint responses under uy_raw/ (the workflow pushes them to a
-throwaway branch for offline inspection) and print sheet summaries.
-Runs in GitHub Actions only.
+Round 3: save every inner file plus the visualPEB pages / BEN endpoint
+responses under uy_raw/ (the workflow pushed them to a throwaway branch
+for offline inspection). The zip CSVs are monthly billing by tariff
+(residencial / servicio general only, MMkcal at 9300 kcal/m3; excludes
+large/interruptible users) per distributor, and monthly imports by
+pipeline (thousand m3, Oct-1998 on). benDatosActividadesFuentes -> HTTP 500.
+
+Round 4 (ROUND=4): visualPEB reports embed their data as a JS 'datos'
+array. gnFlujosSectores?anio=Y gives annual flows by sector (residential,
+commercial, industrial, power input, energy own use) in m3;
+benConsumoPorFuenteOSector / benInsumosElectricidad give annual BEN ktep.
+
+Round 5 (ROUND=5): gnFlujosTarifasMes (needs the hidden
+ultimoAnioSeleccionable field) gives the same flows for any month range ->
+monthly by tariff incl. large users and the 'Otros' (energy) residuals.
+That is what south_america/URUGUAY_GAS.py pulls. Runs in GitHub Actions only.
 """
 import io
 import os
