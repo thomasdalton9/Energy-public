@@ -65,6 +65,11 @@ SES_PAGE = f"{EMA}/resources/singapore-energy-statistics/chapter3"
 SES_FALLBACK = (f"{EMA}/content/dam/corporate/resources/singapore-energy-statistics/excel/"
                 "SES_tidy.xlsx.coredownload.xlsx")
 
+EMA_FOOTNOTES = [  # as printed under each weekly file; refreshed from the files when any are fetched
+    "1. System Demand (Actual): includes demand of consumers with their own embedded generators.",
+    "2. NEM Demand (Actual): Actual Demand met by all Generation Registered Facilities.",
+    "3. NEM Demand (Forecast): Forecast demand for scheduling of Generation Registered Facilities.",
+]
 HH_SHEET, DAILY_SHEET, GEN_SHEET = "Half-hourly demand", "Daily demand", "Daily generation by type"
 MONTHLY_SHEET, CONS_SHEET, MIX_SHEET = "Monthly generation", "Annual consumption", "Annual fuel mix"
 DEMAND_COLS = {"system demand": "System_Demand_Actual_MW", "nem demand (actual)": "NEM_Demand_Actual_MW",
@@ -112,7 +117,7 @@ def parse_ema_week(content):
     hdr_row = next((i for i in range(date_row, date_row + 6)
                     if any("demand" in str(v).lower() for v in raw.iloc[i, 1:])), None)
     data_rows = [i for i in range(raw.shape[0]) if re.fullmatch(r"\d\d:\d\d(:\d\d)?", str(raw.iloc[i, 0]).strip())]
-    notes = [str(v) for v in raw.iloc[data_rows[-1] + 1:, 0].dropna() if str(v).strip()]
+    notes = [str(v).strip() for v in raw.iloc[data_rows[-1] + 1:, 0].dropna() if len(str(v).strip()) > 8]
     frames = []
     for k, c in enumerate(date_cols):
         d = pd.to_datetime(raw.iloc[date_row, c], dayfirst=True).normalize()
@@ -366,7 +371,7 @@ def main():
         f"{MIX_SHEET}: share of fuel used for electricity generation, % per year.",
         "",
         "DEFINITIONS",
-        *[f"EMA footnote: {n}" for n in ema_notes],
+        *[f"EMA footnote: {n}" for n in (ema_notes or EMA_FOOTNOTES)],
         "Facility types (NEMS): CCGT/COGEN/TRIGEN = combined-cycle gas turbines and cogeneration/trigeneration plants "
         "(almost all gas-fired); ST = steam turbines (incl. waste-to-energy); GT = open-cycle gas turbines; IGS = "
         "intermittent generation sources registered in the market (grid-scale solar only - most solar PV is embedded "
