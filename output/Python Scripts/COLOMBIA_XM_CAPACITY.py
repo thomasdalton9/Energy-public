@@ -153,9 +153,12 @@ def main():
     if unmapped:
         print(f"  counted as Other: {unmapped}", flush=True)
     # XM stopped reporting CapEfecNeta for plants in test operation (State PRUEBAS) on 2025-03-02: ~50 solar
-    # plants (~0.6 GW) that keep generating vanish from the metric. A plant still in XM's current plant list keeps
-    # its last reported capacity until XM reports it again (raw values stay in 'By plant monthly').
-    listed = [c for c in by_plant.columns if c in plants.index]
+    # plants (~0.6 GW) that keep generating vanish from the metric. A plant XM still lists in test operation keeps
+    # its last reported capacity until XM reports it again (raw values stay in 'By plant monthly'). Plants listed
+    # in OPERACION that drop out are not carried (e.g. Termocandelaria TCD1/TCD2, replaced by the TCDT combined
+    # cycle in Oct 2023).
+    state = plants["State"].fillna("").astype(str).str.strip().str.upper()
+    listed = [c for c in by_plant.columns if state.get(c, "") == "PRUEBAS"]
     filled = by_plant.copy()
     filled[listed] = filled[listed].ffill()
     carried = (filled.fillna(0) - by_plant.fillna(0)).clip(lower=0)
@@ -218,10 +221,11 @@ def main():
         "CARRIED FORWARD",
         "From 2 Mar 2025 XM no longer reports CapEfecNeta for plants in test operation (State 'PRUEBAS'); about 50 "
         "solar plants (~0.6 GW, e.g. Celsia Solar La Victoria, Trina-Vatia BSL I-III, La Sierpe) disappeared from the "
-        "metric although they keep generating. A plant still in XM's current plant list keeps its last reported "
-        "capacity until XM reports it again (sheet 'Carried forward' gives the MW by fuel; 'By plant monthly' keeps the "
-        "raw XM values). Plants that entered test operation after that date and have never had a CapEfecNeta value "
-        "are not counted.",
+        "metric although they keep generating. A plant XM still lists as PRUEBAS keeps its last reported capacity "
+        "until XM reports it again (sheet 'Carried forward' gives the MW by fuel; 'By plant monthly' keeps the raw XM "
+        "values). Plants in OPERACION that drop out are not carried (e.g. Termocandelaria TCD1/TCD2, replaced by the "
+        "TCDT combined cycle in Oct 2023). Plants that entered test operation after 2 Mar 2025 and never had a "
+        "CapEfecNeta value are not counted.",
         "",
         "SHEETS",
         "Monthly: standard capacity table. By XM fuel: the same month-end MW by XM's own fuel label. By plant monthly: "
