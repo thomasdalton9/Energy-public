@@ -54,6 +54,9 @@ TZ = "America/Santiago"
 API_START = dt.date(2024, 6, 30)
 HISTORY_START = dt.date(2019, 10, 1)   # five water years before the API starts, for the 5-year range
 REVISION_DAYS = 3
+# Bump when the daily method changes (stations, fallbacks, daily statistic): the next run then re-reads the
+# whole daily API history once. Stored in the workbook's 'Method' sheet.
+DAILY_METHOD = "2"
 WINDOW_HOURS = 8760                    # one API request = up to a year of half-hourly readings
 
 # column -> (DGA station code on vipnet, name in the bulletin 'Resumen Anual' table, capacity Mm3, purpose)
@@ -68,6 +71,9 @@ RESERVOIRS = {
     "Melado":       ("07317004-4", None, None, "Generación (Pehuenche)"),
     "Invernada":    ("07306000-1", None, None, "Generación (Cipreses)"),
 }
+# backup station used on days the main one has no reading (same lake, gauge at the dam)
+FALLBACK = {"LagunaMaule": "07300006-8"}
+TOTAL_GAP_DAYS = 10                    # the daily total bridges a reservoir's gaps up to this long
 TOTAL = [k for k, v in RESERVOIRS.items() if v[2]]          # in both sources, with a DGA capacity
 CAPACITY = sum(RESERVOIRS[k][2] for k in TOTAL)
 
@@ -100,7 +106,9 @@ NOTES = [
     "RESERVOIRS / METHOD",
     "Total_Mm3 = Colbún + Rapel + Ralco + Pangue + Lago Laja (Laguna de La Laja) + Laguna del Maule - the six "
     "reservoirs DGA classes as generation or generation-and-irrigation, the bulk of the SEN's storable hydro "
-    "energy. Only filled when all six have a value that day.",
+    "energy. Days where a reservoir has no reading bridge gaps of up to 10 days by straight-line interpolation "
+    "(for the total only; the reservoir columns stay blank); longer gaps leave the total blank. Laguna del Maule "
+    "falls back to DGA's dam gauge (07300006-8) on days its main station (07300000-9) has no reading.",
     "Capacities (Mm3, DGA weekly bulletin Sep-2026): Colbún 1,544; Rapel 695; Ralco 1,174; Pangue 83; Lago Laja "
     "5,582; Laguna del Maule 1,359 (DGA's current storage curve; earlier bulletins used 1,420).",
     "Melado and Laguna de la Invernada (Maule basin, generation) are daily only (not in the bulletin table) and "
@@ -164,6 +172,10 @@ def fetch_daily(start, end):
     for col, (code, *_rest) in RESERVOIRS.items():
         try:
             s = station_series(session, code, start, end)
+            if col in FALLBACK:
+                b = station_series(session, FALLBACK[col], start, end)
+                print(f"  {col}: {int(b.index.difference(s.index).size)} days filled from {FALLBACK[col]}", flush=True)
+                s = s.combine_first(b)
         except Exception as e:  # noqa: BLE001 - one station down shouldn't lose the others; retried next run
             print(f"  {col} ({code}): FAILED {type(e).__name__}: {e}", flush=True)
             s = pd.Series(dtype=float)
@@ -233,7 +245,9 @@ def fetch_bulletins(missing_years):
 
 def finish(df):
     df = df.reindex(columns=COLS)
-    tot = df[[f"{k}_Mm3" for k in TOTAL]]
+    tot = df[[f"{k}_Mm3" for k in TOTAL]].copy()
+    daily = df["Source"].astype(str).str.startswith("DGA online")
+    tot[daily] = tot[daily].interpolate(limit=TOTAL_GAP_DAYS, limit_area="inside")
     df["Total_Mm3"] = tot.sum(axis=1).where(tot.notna().all(axis=1)).round(1)
     df["Total_pct"] = (100 * df["Total_Mm3"] / CAPACITY).round(2)
     df.index.name = "date"
@@ -261,8 +275,14 @@ def main():
         hist = fetch_bulletins(missing)
     # 2) daily API from the last saved day
     daily_arch = arch[arch["Source"] == "DGA online (daily median)"] if len(arch) else arch
-    start = API_START if daily_arch.empty else max(API_START, daily_arch.index.max().date() -
-                                                    dt.timedelta(days=REVISION_DAYS))
+    try:
+        saved_method = str(pd.read_excel(args.out, sheet_name="Method", index_col=0).loc["daily_method", "value"])
+    except Exception:  # noqa: BLE001 - first run / older workbook
+        saved_method = None
+    if daily_arch.empty or saved_method != DAILY_METHOD:
+        start = API_START
+    else:
+        start = max(API_START, daily_arch.index.max().date() - dt.timedelta(days=REVISION_DAYS))
     print(f"Fetching DGA daily volumes {start} .. {today}", flush=True)
     new = fetch_daily(start, today)
 
@@ -270,14 +290,18 @@ def main():
     if not parts:
         print("No data.", flush=True)
         sys.exit(1)
-    df = pd.concat(parts)
-    df = df[~df.index.duplicated(keep="last")]
+    base = pd.concat([p for p in (arch, hist) if p is not None and not p.empty] or [pd.DataFrame(columns=COLS)])
+    base = base[~base.index.duplicated(keep="last")]
+    # new readings win, but a station that returned nothing this run keeps its saved values
+    new = new.dropna(how="all", subset=[c for c in new.columns if c.endswith("_Mm3")])
+    df = new.combine_first(base) if not new.empty else base
     df = finish(df[df.index >= pd.Timestamp(HISTORY_START)])
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     stations = pd.DataFrame([{"column": f"{k}_Mm3", "reservoir": (v[1] or k), "DGA station code": v[0],
                               "capacity_Mm3": v[2], "purpose": v[3], "in total": k in TOTAL}
                              for k, v in RESERVOIRS.items()]).set_index("column")
-    xlsx_notes.write_workbook(args.out, {"Daily": df, "Reservoirs": stations}, NOTES,
+    method = pd.DataFrame({"value": [DAILY_METHOD]}, index=pd.Index(["daily_method"], name="key"))
+    xlsx_notes.write_workbook(args.out, {"Daily": df, "Reservoirs": stations, "Method": method}, NOTES,
                               {ln for ln in NOTES if ln and ln.isupper()})
     last = df.dropna(subset=["Total_Mm3"]).iloc[-1]
     print(f"Saved {args.out}: {len(df):,} rows ({df.index.min():%d-%b-%Y} to {df.index.max():%d-%b-%Y}); "
