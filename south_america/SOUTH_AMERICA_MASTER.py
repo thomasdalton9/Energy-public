@@ -100,6 +100,11 @@ HYDRO_DATASETS = [
 # The Power & Hydro dashboard shows one national hydro chart per country (each workbook's first water-year
 # spec) plus these extra regional charts by spec name; the full sets stay in each country workbook.
 HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"}}
+# Installed generation capacity by technology (standard <country>_power_capacity.xlsx, sheet "Monthly")
+CAPACITY_DATASETS = [(code, country, f"{country.lower()}_power_capacity.xlsx", "Monthly", "capacity")
+                     for code, country in [("AR", "Argentina"), ("BO", "Bolivia"), ("BR", "Brazil"), ("CL", "Chile"),
+                                           ("CO", "Colombia"), ("EC", "Ecuador"), ("PE", "Peru"), ("UY", "Uruguay")]]
+
 # Workbooks with several charts where the dashboard shows only some (by spec name); the rest stay in the
 # country workbook. Honduras: the monthly ODS history (2021 on) rather than the daily feed (June 2026 on).
 DASHBOARD_ONLY = {"honduras_power_generation_daily.xlsx": {"History"}}
@@ -232,6 +237,38 @@ def south_america_generation(data_dir, have_raw):
         gap = [m for m in months if m not in h]
         if gap:
             notes.append(f"NOT INCLUDED: {c} in {gap[0]:%b/%y}-{gap[-1]:%b/%y} ({len(gap)} months, no data yet)")
+    return total, notes
+
+
+def south_america_capacity(data_dir):
+    """South America installed capacity by technology, GW: the sum of each country's capacity workbook. Capacity is
+    a stock, so an annual-only country's figure is carried forward month by month until its next value. Runs to the
+    last month every monthly-source country has; a country with no workbook is listed, not estimated."""
+    import add_charts as ac
+    frames, notes, monthly_last = {}, [], []
+    for code, country, fname, _, _ in CAPACITY_DATASETS:
+        path = os.path.join(data_dir, fname)
+        if not os.path.exists(path):
+            notes.append(f"NOT INCLUDED: {country} (no capacity workbook yet)")
+            continue
+        d = ac.by_date(ac.read(path, "Monthly"), "date")
+        d = d[d.index >= "2021-01-01"]
+        g = pd.DataFrame({f: pd.to_numeric(d.get(f"{f}_MW"), errors="coerce") for f in ac.CAPACITY_FUELS},
+                         index=d.index).fillna(0) / 1000.0
+        annual = len(d) > 1 and d.index.to_series().diff().median().days > 300
+        if not annual:
+            monthly_last.append(g.index.max())
+        frames[country] = (g, annual)
+        notes.append(f"{country}: {SOURCES.get(fname, (fname,))[0]}, {'annual' if annual else 'monthly'} "
+                     f"{g.index.min():%b/%y}-{g.index.max():%b/%y}")
+    if not frames:
+        return pd.DataFrame(), notes
+    end = min(monthly_last) if monthly_last else max(g.index.max() for g, _ in frames.values())
+    months = pd.date_range("2021-01-01", end, freq="MS")
+    total = sum(g.reindex(g.index.union(months)).sort_index().ffill().reindex(months).fillna(0)
+                for g, _ in frames.values())
+    total = total.loc[:, total.ne(0).any()]
+    total.index.name = "date"
     return total, notes
 
 
@@ -442,6 +479,31 @@ def main():
         power[1].insert(0, ("South America", name,
                             df.index.max().strftime("%b/%y"), ws.title, *src))
         print("South America generation total:", "; ".join(sa_notes))
+    # Capacity: combined South America chart (GW) right after the combined generation chart, then each country
+    cap_total, cap_notes = south_america_capacity(args.data_dir)
+    cap = collect(wb, [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
+                  args.data_dir, used, sources)
+    pos = 1 if not sa_total.empty else 0
+    if not cap_total.empty:
+        ws = wb.create_sheet(sheet_name("SA capacity total data", used))
+        df, n_bars = xlsx_charts.prepare(cap_total)
+        xlsx_charts.write_table(ws, df)
+        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed:")
+        for i, note in enumerate(cap_notes, start=2):
+            ws.cell(row=i, column=df.shape[1] + 4, value=note)
+        src = ("Sum of the country capacity workbooks (ANEEL, CAMMESA, CNE, XM, COES, CNDC, ADME/MIEM, ...)", None)
+        power[0].insert(pos, (xlsx_charts.build_chart(ws, df, n_bars, "South America installed generation capacity",
+                                                      "GW installed", "stacked_bar", width=CHART_W, height=CHART_H,
+                                                      gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
+        missing = [n.split(":", 1)[1].split("(")[0].strip() for n in cap_notes if n.startswith("NOT INCLUDED")]
+        power[1].insert(pos, ("South America", "South America installed generation capacity" +
+                              (f" (missing: {', '.join(missing)})" if missing else ""),
+                              df.index.max().strftime("%b/%y"), ws.title, *src))
+        pos += 1
+        print("South America capacity total:", "; ".join(cap_notes))
+    power[0][pos:pos] = cap[0]
+    power[1][pos:pos] = cap[1]
+    power[2].extend(cap[2])
     draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
     draw_dashboard(dash2, "South & Central America energy - power generation & hydro", *power)
 
