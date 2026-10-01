@@ -8,6 +8,8 @@ Run in GitHub Actions (usgs.gov and company sites are blocked from the sandbox).
   gem   - download links and licence text found on Global Energy Monitor tracker pages.
   pages - capacity sentences from the pages given as further arguments (space-separated URLs).
   url   - first 200 links + text of the given pages (to find report/PDF links).
+  wiki  - GEM wiki plant pages: coordinates, owner, status and capacity snippets.
+  pdf   - capacity sentences from PDFs given as URLs.
 
 Usage: python3 discovery_archive/INDUSTRIAL_GAS_USERS_DISCOVERY.py usgs|gem|pages|url [URL ...]
 """
@@ -130,7 +132,50 @@ def url(urls):
             print(f"## {u}: {e}")
 
 
+WIKI = re.compile(r"(coordinates?[^A-Za-z]{0,60}|-?\d{1,2}\.\d{2,}, ?-?\d{1,3}\.\d{2,}|(?:owner|operator|parent|status|"
+                  r"start date|closed|capacity|production|location)[^|]{0,180})", re.I)
+
+
+def wiki(urls):
+    for u in urls:
+        try:
+            r = get(u)
+            t = text_of(r.text)
+            print(f"## {u}: HTTP {r.status_code}")
+            seen = set()
+            for m in WIKI.finditer(t):
+                s = m.group(0).strip()[:200]
+                if s[:60] not in seen:
+                    seen.add(s[:60])
+                    print("   >", s)
+                if len(seen) > 40:
+                    break
+        except Exception as e:  # noqa: BLE001
+            print(f"## {u}: {e}")
+
+
+def pdf(urls):
+    import pdfplumber
+    for u in urls:
+        try:
+            b = get(u).content
+            with pdfplumber.open(io.BytesIO(b)) as doc:
+                t = " ".join((pg.extract_text() or "") for pg in doc.pages[:80])
+            t = re.sub(r"\s+", " ", t)
+            print(f"## {u}: {len(t)} chars")
+            seen = set()
+            for m in CAP.finditer(t):
+                s = m.group(0).strip()
+                if s[:80] not in seen:
+                    seen.add(s[:80])
+                    print("   >", s[:440])
+                if len(seen) > 60:
+                    break
+        except Exception as e:  # noqa: BLE001
+            print(f"## {u}: {e}")
+
+
 if __name__ == "__main__":
     what = sys.argv[1] if len(sys.argv) > 1 else "usgs"
     {"usgs": lambda: usgs(), "gem": lambda: gem(), "pages": lambda: pages(sys.argv[2:]),
-     "url": lambda: url(sys.argv[2:])}[what]()
+     "url": lambda: url(sys.argv[2:]), "wiki": lambda: wiki(sys.argv[2:]), "pdf": lambda: pdf(sys.argv[2:])}[what]()

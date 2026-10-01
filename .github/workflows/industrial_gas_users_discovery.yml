@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "usgs | gem | pages | url"
+        description: "usgs | gem | pages | url | wiki | pdf"
         required: true
         default: "usgs"
       urls:
@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd
+        run: pip install requests pandas openpyxl xlrd pdfplumber
       - name: Run discovery
         env:
           MODE: ${{ inputs.mode }}
