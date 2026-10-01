@@ -1,0 +1,272 @@
+"""
+National hydro reservoir storage for Colombia, from XM (the Colombian
+wholesale power market operator)'s free, no-auth public API
+(servapibi.xm.com.co).
+
+Pulls two daily national ("Sistema" entity) metrics directly - no
+per-region weighting needed here, unlike Brazil's equivalent pull,
+because XM already publishes the national aggregate:
+  - VoluUtilDiarEner: national reservoir stored energy, kWh ("Volumen
+    Util diario Energia por Sistema").
+  - CapaUtilDiarEner: national reservoir capacity, kWh ("Capacidad Util
+    Energia por Sistema").
+
+StoragePct = stored / capacity * 100. Both MetricIds were confirmed
+against live XM responses (Sep-2026); the ratio matches XM's own
+PorcVoluUtilDiar. Daily totals are cached in co_hydro_daily_cache.csv,
+so later runs only fetch the last two weeks.
+
+This is the "high confidence" half of the Colombia build - see
+COLOMBIA_XM_GENERATION_DISCOVERY.py's docstring for why generation-by-
+fuel-type is a separate, not-yet-built, follow-up.
+"""
+
+print("STARTING", flush=True)
+
+import argparse
+import datetime as dt
+import sys
+import time
+from pathlib import Path
+
+import pandas as pd
+import requests
+
+# Default (no arguments): the owner's desktop pipeline - cache in
+# co_hydro_daily_cache.csv, writes co_hydro_daily_*.csv, as before.
+# --out <xlsx>: scheduled pull (.github/workflows/colombia_hydro_reservoirs.yml)
+# - the workbook (sheet "Daily") is the archive instead of the cache CSV,
+# and no CSVs are written.
+ap = argparse.ArgumentParser(description="XM national reservoir storage")
+ap.add_argument("--out", help="write/update a workbook here instead of the co_hydro_*.csv files")
+ARGS = ap.parse_args()
+GWH = 1e6   # kWh per GWh
+
+BASE_DAILY_URL = "https://servapibi.xm.com.co/daily"
+ENTITY = "Sistema"
+START_DATE = dt.date(2010, 1, 1)
+END_DATE = dt.date.today()
+
+# XM's own client library caps daily-period requests at a 30-day
+# window; chunk one day short of that to stay safely inside it.
+CHUNK_DAYS = 29
+
+# Confirmed against live responses (Sep-2026, COLOMBIA_XM_GENERATION_DISCOVERY.py);
+# the earlier VolUti/CapUti guesses get 400 from XM. Both are kWh, and
+# their ratio matches XM's own PorcVoluUtilDiar.
+METRICS = {
+    "VoluUtilDiarEner": "StoredEnergy",
+    "CapaUtilDiarEner": "Capacity",
+}
+
+
+def date_chunks(start, end, size_days):
+    cur = start
+    while cur <= end:
+        chunk_end = min(cur + dt.timedelta(days=size_days), end)
+        yield cur, chunk_end
+        cur = chunk_end + dt.timedelta(days=1)
+
+
+def extract_records(payload):
+    """
+    XM wraps results as {"Items": [...]}. The exact inner shape isn't
+    documented publicly, but every source seen describes each item as
+    a dict holding one list-valued key (e.g. "DailyEntities") with the
+    actual rows - detect that structurally instead of hardcoding the
+    wrapper key name, so a minor naming difference doesn't silently
+    drop data.
+    """
+    items = payload.get("Items")
+    if items is None:
+        raise KeyError(f"No 'Items' key in response - keys were: {list(payload.keys())}")
+
+    if isinstance(items, dict):
+        items = [items]
+
+    records = []
+    for item in items:
+        if isinstance(item, dict):
+            list_values = [v for v in item.values() if isinstance(v, list)]
+            if list_values:
+                # the day sits on the item, the value on its entities:
+                # {"Date": ..., "DailyEntities": [{"Id": "Sistema", "Value": ...}]}
+                parent = {k: v for k, v in item.items() if not isinstance(v, list)}
+                for v in list_values:
+                    records.extend({**parent, **r} if isinstance(r, dict) else r for r in v)
+            else:
+                records.append(item)
+        else:
+            records.append(item)
+
+    return records
+
+
+def fetch_metric(metric_id, start, end):
+    all_records = []
+    failed_chunks = 0
+
+    for chunk_start, chunk_end in date_chunks(start, end, CHUNK_DAYS):
+        body = {
+            "MetricId": metric_id,
+            "Entity": ENTITY,
+            "StartDate": chunk_start.isoformat(),
+            "EndDate": chunk_end.isoformat(),
+        }
+
+        try:
+            r = requests.post(
+                BASE_DAILY_URL,
+                json=body,
+                headers={"Connection": "close"},
+                timeout=60,
+            )
+            r.raise_for_status()
+            payload = r.json()
+            records = extract_records(payload)
+        except Exception as e:
+            failed_chunks += 1
+            print(
+                f"  {metric_id} {chunk_start}..{chunk_end}: FAILED ({type(e).__name__}: {e})",
+                flush=True,
+            )
+            continue
+
+        all_records.extend(records)
+        time.sleep(0.2)
+
+    if failed_chunks:
+        print(f"  {metric_id}: {failed_chunks} chunk(s) failed", flush=True)
+
+    return all_records
+
+
+def pick(columns, *keywords, exclude=()):
+    for c in columns:
+        lc = c.lower()
+        if all(k in lc for k in keywords) and not any(x in lc for x in exclude):
+            return c
+    raise KeyError(f"Could not find a column matching {keywords} in {list(columns)}")
+
+
+def records_to_series(records, value_name):
+    if not records:
+        raise RuntimeError(
+            f"No records returned for {value_name} - MetricId/Entity may no "
+            "longer be valid, or the API's response shape changed. Run "
+            "COLOMBIA_XM_GENERATION_DISCOVERY.py to inspect a raw response."
+        )
+
+    df = pd.json_normalize(records)
+
+    date_col = pick(df.columns, "date")
+    value_col = pick(df.columns, "value")
+
+    df = df[[date_col, value_col]].copy()
+    df.columns = ["Date", value_name]
+
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    df[value_name] = pd.to_numeric(df[value_name], errors="coerce")
+    df = df.dropna(subset=["Date"]).drop_duplicates(subset="Date", keep="last")
+
+    return df.set_index("Date")[value_name].sort_index()
+
+
+# ----------------------------------------------------------
+# PULL
+# ----------------------------------------------------------
+
+# Cache: the full series is kept in CACHE_CSV, so a later run only asks
+# XM for the last REFRESH_DAYS (XM can revise recent days) instead of
+# re-downloading everything since 2010.
+CACHE_CSV = "co_hydro_daily_cache.csv"
+REFRESH_DAYS = 14
+try:
+    if ARGS.out:
+        cached = pd.read_excel(ARGS.out, sheet_name="Daily", index_col=0)
+        cached.index = pd.to_datetime(cached.index, errors="coerce")
+        cached = cached[cached.index.notna()].sort_index()
+        cached.index.name = "Date"
+        cached = pd.DataFrame({"StoredEnergy": cached["StoredEnergy_GWh"] * GWH,
+                               "Capacity": cached["Capacity_GWh"] * GWH}).dropna(how="all")
+        if cached.empty:
+            raise ValueError("empty archive")
+    else:
+        cached = pd.read_csv(CACHE_CSV, parse_dates=["Date"]).set_index("Date").sort_index()
+    fetch_from = max(START_DATE, (cached.index.max() - pd.Timedelta(days=REFRESH_DAYS)).date())
+    print(f"{len(cached):,} days cached to {cached.index.max():%d-%b-%Y}; fetching from {fetch_from}", flush=True)
+except (FileNotFoundError, ValueError, KeyError):
+    cached = None
+    fetch_from = START_DATE
+
+series = {}
+
+for metric_id, value_name in METRICS.items():
+    print(f"Downloading {metric_id} ({ENTITY}, {fetch_from}..{END_DATE})...", flush=True)
+    records = fetch_metric(metric_id, fetch_from, END_DATE)
+    series[value_name] = records_to_series(records, value_name)
+    print(f"  {metric_id}: {len(series[value_name]):,} daily values", flush=True)
+
+fresh = pd.concat([series["StoredEnergy"], series["Capacity"]], axis=1).dropna(how="all")
+daily = fresh if cached is None else fresh.combine_first(cached[["StoredEnergy", "Capacity"]])
+daily = daily.sort_index()
+daily.index.name = "Date"
+
+
+def write_out_workbook(path):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    import xlsx_notes
+
+    out = pd.DataFrame({
+        "Storage_pct": daily["StoredEnergy"] / daily["Capacity"] * 100,
+        "StoredEnergy_GWh": daily["StoredEnergy"] / GWH,
+        "Capacity_GWh": daily["Capacity"] / GWH,
+    }).dropna(how="all").round(4)
+    out.index = pd.DatetimeIndex(out.index).date
+    out.index.name = "date"
+    notes = [
+        "UNITS",
+        "Storage_pct: national hydro reservoir storage, % of useful capacity (stored energy / capacity x 100).",
+        "StoredEnergy_GWh: useful stored energy in the reservoirs, GWh (XM VoluUtilDiarEner, published in kWh).",
+        "Capacity_GWh: useful reservoir capacity, GWh (XM CapaUtilDiarEner, published in kWh).",
+        "",
+        "COVERAGE",
+        "National total (XM entity 'Sistema' - all reservoirs of the Sistema Interconectado Nacional).",
+        "XM publishes the national aggregate directly, so no weighting is needed; the ratio matches XM's own",
+        "PorcVoluUtilDiar.",
+        "",
+        "SOURCE",
+        "XM (Colombian power market operator) public API, " + BASE_DAILY_URL + " (no key needed).",
+        f"Daily, from {out.index.min()} to {out.index.max()}. Updated daily by .github/workflows/colombia_hydro_reservoirs.yml;",
+        f"each run re-fetches only the last {REFRESH_DAYS} days (XM revises recent days).",
+    ]
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    xlsx_notes.write_workbook(path, {"Daily": out}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    print(f"\nWrote {path}: {len(out):,} days, {out.index.min()} to {out.index.max()}", flush=True)
+    print(out.tail(10).to_string(float_format="%.1f"), flush=True)
+
+
+if ARGS.out:
+    write_out_workbook(ARGS.out)
+    sys.exit(0)
+
+daily.to_csv(CACHE_CSV)
+daily["StoragePct"] = (daily["StoredEnergy"] / daily["Capacity"]) * 100
+daily = daily.reset_index()
+
+# ----------------------------------------------------------
+# WRITE FILES
+# ----------------------------------------------------------
+
+daily[["Date", "StoredEnergy"]].to_csv("co_hydro_daily_energy.csv", index=False)
+daily[["Date", "StoragePct"]].to_csv("co_hydro_daily_pct.csv", index=False)
+
+print("\nLATEST NATIONAL HYDRO STORAGE")
+print(daily.tail(12).to_string(index=False, float_format="%.1f"))
+
+print(
+    "\nSaved:\n"
+    "  co_hydro_daily_energy.csv (StoredEnergy in kWh)\n"
+    "  co_hydro_daily_pct.csv\n",
+    flush=True,
+)
