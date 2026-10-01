@@ -302,8 +302,62 @@ def argentina2():
         os.unlink(path)
 
 
+# Round 2 found rt/generacion?fecha= (96 quarter-hour MW values per series: TOT, TERMO, HIDRO, ...) for recent
+# days, estadisticas/documentos?categoria_id=225&desde=&hasta= (every monthly gen_dia file in one call) and
+# dashboard/genbruta/detalle?tecnologia= (monthly MWh per plant for one technology). Round 4 ('bolivia3'):
+# rt/generacion series codes and history depth, every plant name in gen_dia 2021-2026, and which technology
+# CNDC files each plant under.
+def bolivia3():
+    import openpyxl
+    from collections import defaultdict
+    base = "https://www.cndc.bo/wp-json/cndc/v1/"
+    for day in ["2026-09-28", "2026-07-01", "2026-03-01", "2025-09-01", "2025-01-01", "2024-01-01", "2023-01-01"]:
+        r = requests.get(base + "rt/generacion", params={"fecha": day}, headers=UA, timeout=90)
+        try:
+            js = r.json()
+        except ValueError:
+            js = []
+        print(f"  rt/generacion {day}: {r.status_code} " + str([(x.get("codigo"), len(x.get("valores") or []),
+              round(sum(v or 0 for v in x.get("valores") or []) / max(1, len(x.get("valores") or [])) * 24))
+              for x in js] if isinstance(js, list) else str(js)[:300]), flush=True)
+    r = requests.get(base + "estadisticas/documentos", params={"categoria_id": 225, "desde": "2021-01-01",
+                                                             "hasta": dt.date.today().isoformat()}, headers=UA, timeout=120)
+    grupos = r.json().get("grupos", [])
+    print(f"\n==== gen_dia files 2021-: {len(grupos)}: {[g['periodo'] for g in grupos]}", flush=True)
+    plants = defaultdict(list)
+    totals = {}
+    for g in grupos:
+        url = g["docs"][0]["archivo_url"]
+        try:
+            x = requests.get(url, headers=UA, timeout=120)
+            wb = openpyxl.load_workbook(io.BytesIO(x.content), data_only=True)
+        except Exception as e:  # noqa: BLE001
+            print(f"  {g['periodo']}: {url} FAILED {type(e).__name__}", flush=True)
+            continue
+        rows = list(wb.worksheets[0].iter_rows(values_only=True))
+        hi = next((i for i, row in enumerate(rows) if row and row[0] == "CENTRAL"), None)
+        if hi is None:
+            print(f"  {g['periodo']}: no CENTRAL row; first rows {rows[:8]}", flush=True)
+            continue
+        head = rows[hi]
+        days = [row for row in rows[hi + 2:] if row and hasattr(row[0], "year")]
+        tcol = next((j for j, h in enumerate(head) if h == "TOTAL"), None)
+        totals[g["periodo"]] = sum((row[tcol] or 0) for row in days) if tcol else None
+        for j, name in enumerate(head[1:], 1):
+            if name and name not in ("TOTAL",) and not str(name).startswith("P. M"):
+                plants[str(name).strip()].append(g["periodo"])
+        print(f"  {g['periodo']}: {len(days)} days, TOTAL {totals[g['periodo']]:,.0f} MWh, sheets {wb.sheetnames}", flush=True)
+    for name, per in sorted(plants.items()):
+        print(f"  PLANT {name!r}: {min(per)}..{max(per)} ({len(per)} months)", flush=True)
+    for tec in ["hidro", "termo", "eolica", "solar", "biomasa", "Hidraulica", "Eolica", "Biomasa", "otros"]:
+        for anio, mes in [(2026, 8), (2022, 6)]:
+            r = requests.get(base + "dashboard/genbruta/detalle", params={"tecnologia": tec, "modo": "mensual",
+                                                                          "anio": anio, "mes": mes}, headers=UA, timeout=90)
+            print(f"  genbruta/detalle {tec} {anio}-{mes}: {r.status_code} {r.text[:900]}", flush=True)
+
+
 for name, fn in [("argentina", argentina), ("uruguay", uruguay), ("bolivia", bolivia), ("bolivia2", bolivia2),
-                 ("argentina2", argentina2)]:
+                 ("argentina2", argentina2), ("bolivia3", bolivia3)]:
     if name in WHICH:
         try:
             fn()
