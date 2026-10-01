@@ -163,16 +163,23 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     area += lines
     return xlsx_charts.tidy_layout(area, gridlines, inner)
 
-def add_water_year_chart(path, series, title, unit, sheet_name=SHEET, y_decimals=None):
-    """sheet_name: pass a different name to put several water-year charts in one workbook."""
+def add_water_year_chart(path, series, title, unit, sheet_name=SHEET, y_decimals=None, wb=None):
+    """sheet_name: pass a different name to put several water-year charts in one workbook.
+    wb: an open workbook to add the sheet to (the caller saves it). openpyxl drops the formatting of charts it
+    reads back in (axis min/max and step, axis titles), so several charts must go into one workbook in a single
+    load/save - add_charts.py does that."""
     table, meta = water_year_table(series)
-    wb = load_workbook(path)
+    own = wb is None
+    if own:
+        wb = load_workbook(path)
     if sheet_name in wb.sheetnames:
         del wb[sheet_name]
     ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
     write_table(ws, table)
     area = build_chart(ws, table, meta, title, unit, y_decimals=y_decimals)
     ws.add_chart(area, "I2")
+    if not own:
+        return table
 
     root, ext = os.path.splitext(path)
     tmp = f"{root}.tmp{os.getpid()}{ext}"

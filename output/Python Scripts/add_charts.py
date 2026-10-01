@@ -451,6 +451,24 @@ def power_annual(title):
     return f
 
 
+def paraguay_power(p):
+    """PARAGUAY_POWER.py: Paraguay's 50% share of Itaipu + Yacyreta by month (standard 'Daily' layout, monthly
+    rows), then where that energy went: Paraguay's own use vs the shares ceded to Brazil and Argentina."""
+    out = power_daily("Paraguay power generation by type (ANDE / Itaipu / Yacyreta)")(p)
+    try:
+        e = by_date(read(p, "Exports"), "date")
+    except Exception:  # noqa: BLE001
+        return out
+    e = e[e.index >= "2021-01-01"]
+    g = pd.DataFrame({"Paraguay's own use (ANDE)": e.get("Paraguay_consumption_GWh"),
+                      "Itaipu ceded to Brazil": e.get("Itaipu_to_Brazil_GWh"),
+                      "Yacyreta ceded to Argentina": e.get("Yacyreta_to_Argentina_GWh"),
+                      "Paraguay's 50% share of generation": e.get("Total_generation_share_GWh")})
+    out.append(spec("Domestic vs exports", g, "Paraguay hydro: domestic use vs exports", "GWh per month",
+                    "stacked_bar", line_cols=("Paraguay's 50% share of generation",)))
+    return out
+
+
 def jamaica_gas(p):
     d = by_date(read(p, "Gas use"), "Month")
     return [spec("Use", d[["Total_mcm_per_day"]].rename(columns={"Total_mcm_per_day": "Natural gas, all uses"}),
@@ -1047,6 +1065,8 @@ REGISTRY = {
     "dominican_republic_power_generation_daily.xlsx": power_daily("Dominican Republic power generation by type (OC-SENI)"),
     "puerto_rico_gas.xlsx": gas_use("Puerto Rico gas use"),
     "jamaica_power_generation_daily.xlsx": power_annual("Jamaica power generation by type (MSET / JPS, annual)"),
+    # Paraguay: monthly rows (first of month); second chart = own use vs energy ceded to Brazil / Argentina
+    "paraguay_power_generation_daily.xlsx": paraguay_power,
     "jamaica_gas.xlsx": jamaica_gas,
     "dominican_republic_gas.xlsx": gas_use("Dominican Republic gas use (gas burned for power, SIE)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
@@ -1101,6 +1121,7 @@ REGISTRY = {
     "bolivia_power_capacity.xlsx": power_capacity("Bolivia installed generation capacity (CNDC)"),
     "ecuador_power_capacity.xlsx": power_capacity("Ecuador installed generation capacity (ARCONEL)"),
     "peru_power_capacity.xlsx": power_capacity("Peru installed generation capacity (COES)"),
+    "paraguay_power_capacity.xlsx": power_capacity("Paraguay installed generation capacity (ANDE)"),
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
@@ -1148,6 +1169,37 @@ def _order_chart_sheets(path, names):
             os.remove(tmp)
 
 
+def _add_in_one_pass(path, specs):
+    """All chart sheets in one load/save. openpyxl drops the formatting of charts it reads back in (axis
+    min/max and step - e.g. the 0-100% scale of storage charts - axis titles, date formats), so adding charts
+    one save at a time left every chart but the last unformatted in multi-chart workbooks."""
+    from openpyxl import load_workbook
+    wb = load_workbook(path)
+    for n in [n for n in wb.sheetnames if n == "Chart" or n.startswith("Chart - ")]:
+        del wb[n]
+    names = []
+    for i, s in enumerate(specs):
+        sheet = "Chart" if i == 0 else f"Chart - {s['name']}"[:31]
+        if "water_year" in s:
+            sheet = s.get("sheet", water_year_chart.SHEET)
+            water_year_chart.add_water_year_chart(path, s["water_year"], s["title"], s["units"], sheet_name=sheet,
+                                                  y_decimals=s.get("y_decimals"), wb=wb)
+        else:
+            df = s["df"].dropna(how="all")
+            if df.empty:
+                continue
+            xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
+                                        date_format=s["date_format"], line_cols=s.get("line_cols", ()), wb=wb)
+        names.append(sheet)
+    # chart sheets straight after the Units tab, in registry order
+    present = [n for n in names if n in wb.sheetnames]
+    sheets = {ws.title: ws for ws in wb._sheets}
+    rest = [ws for ws in wb._sheets if ws.title not in present]
+    head = rest[:1] if rest and rest[0].title.lower() in ("units", "notes") else []
+    wb._sheets = head + [sheets[n] for n in present] + [ws for ws in rest if ws not in head]
+    xlsx_charts.save_atomic(wb, path)
+
+
 def add_charts(path):
     name = os.path.basename(path)
     fn = REGISTRY.get(name, generic)
@@ -1155,6 +1207,10 @@ def add_charts(path):
         print(f"{name}: charts are built by its own pull script")
         return 0
     specs = fn(path)
+    if not any("custom" in s for s in specs):
+        _add_in_one_pass(path, specs)
+        print(f"{name}: {len(specs)} chart(s)")
+        return len(specs)
     _drop_old_chart_sheets(path)
     for i, s in enumerate(specs):
         sheet = "Chart" if i == 0 else f"Chart - {s['name']}"[:31]

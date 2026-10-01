@@ -267,13 +267,14 @@ def south_america_generation(data_dir, have_raw):
     return total, notes
 
 
-def south_america_capacity(data_dir):
+def south_america_capacity(data_dir, cfg=None):
     """South America installed capacity by technology, GW: the sum of each country's capacity workbook. Capacity is
     a stock, so an annual-only country's figure is carried forward month by month until its next value. Runs to the
     last month every monthly-source country has; a country with no workbook is listed, not estimated."""
     import add_charts as ac
+    cfg = cfg or sys.modules[__name__]   # the North America master passes itself
     frames, notes, monthly_last = {}, [], []
-    for code, country, fname, _, _ in CAPACITY_DATASETS:
+    for code, country, fname, _, _ in cfg.CAPACITY_DATASETS:
         path = os.path.join(data_dir, fname)
         if not os.path.exists(path):
             notes.append(f"NOT INCLUDED: {country} (no capacity workbook yet)")
@@ -287,7 +288,7 @@ def south_america_capacity(data_dir):
         else:
             monthly_last.append(g.index.max())
         frames[country] = (g, annual)
-        notes.append(f"{country}: {SOURCES.get(fname, (fname,))[0]}, {'annual' if annual else 'monthly'} "
+        notes.append(f"{country}: {cfg.SOURCES.get(fname, (fname,))[0]}, {'annual' if annual else 'monthly'} "
                      f"{g.index.min():%b/%y}-{g.index.max():%b/%y}")
     if not frames:
         return pd.DataFrame(), notes
@@ -309,10 +310,11 @@ def raw_history_days(path):
         return 0
 
 
-def source_of(fname, spec_name=None):
-    publisher, url = SOURCES.get(fname, (fname, None))
-    if fname in EMBER and spec_name in OPERATORS:
-        publisher = f"Ember, compiled from {OPERATORS[spec_name]} (no raw feed yet)"
+def source_of(fname, spec_name=None, cfg=None):
+    cfg = cfg or sys.modules[__name__]
+    publisher, url = cfg.SOURCES.get(fname, (fname, None))
+    if fname in cfg.EMBER and spec_name in cfg.OPERATORS:
+        publisher = f"Ember, compiled from {cfg.OPERATORS[spec_name]} (no raw feed yet)"
     return publisher, url
 
 CHART_W, CHART_H = 21.0, 11.0      # cm - room for the title, rotated date labels and axis titles
@@ -348,10 +350,13 @@ def notes_text(path):
         return ""
 
 
-def collect(wb, datasets, data_dir, used, sources, skip=()):
+def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
     """Data + raw tabs for one dashboard's datasets; returns (charts, index rows, missing).
     Each chart is (chart, (publisher, url)); index rows end with the same source.
-    skip: spec names not to chart (Ember countries that have a raw workbook)."""
+    skip: spec names not to chart (Ember countries that have a raw workbook).
+    cfg: the module holding SOURCES, MASTER_SPECS, HYDRO_DATASETS, ... (this one by default; the North America
+    master passes itself)."""
+    cfg = cfg or sys.modules[__name__]
     charts, index_rows, missing = [], [], []
     for code, country, fname, raw_sheet, short in datasets:
         path = os.path.join(data_dir, fname)
@@ -359,21 +364,21 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
             missing.append(f"{country} {short} ({fname})")
             continue
         try:
-            build = MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
+            build = cfg.MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)
-            if fname in DASHBOARD_ONLY:
-                specs = [sp for sp in specs if sp["name"] in DASHBOARD_ONLY[fname]] or specs
-            if (code, country, fname, raw_sheet, short) in HYDRO_DATASETS:
-                specs = [sp for i, sp in enumerate(specs) if i == 0 or sp["name"] in HYDRO_EXTRA.get(fname, ())]
+            if fname in cfg.DASHBOARD_ONLY:
+                specs = [sp for sp in specs if sp["name"] in cfg.DASHBOARD_ONLY[fname]] or specs
+            if (code, country, fname, raw_sheet, short) in cfg.HYDRO_DATASETS:
+                specs = [sp for i, sp in enumerate(specs) if i == 0 or sp["name"] in cfg.HYDRO_EXTRA.get(fname, ())]
         except Exception as e:
             missing.append(f"{country} {short} ({fname}: {type(e).__name__}: {e})")
             continue
         for s in specs:
             if s["name"] in skip:
                 continue
-            src = source_of(fname, s["name"])
+            src = source_of(fname, s["name"], cfg)
             if "water_year" in s:
                 table, meta = water_year_chart.water_year_table(s["water_year"])
                 ws = wb.create_sheet(sheet_name(f"{code} {s['name']} data", used))
@@ -396,17 +401,20 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                                                    inner=xlsx_charts.DASHBOARD_INNER), src))
             index_rows.append((s["name"] if raw_sheet == "*" else country, s["title"], df.index.max().strftime("%b/%y"),
                                ws.title, *src))
+        # raw_sheet: one sheet, "*" (every data sheet, one per country) or a tuple of sheets
         raw_sheets = ([n for n in pd.ExcelFile(path).sheet_names
                        if n.lower() not in ("units", "notes") and not n.startswith("Chart")
-                       and n != water_year_chart.SHEET and n not in skip] if raw_sheet == "*" else [raw_sheet])
+                       and n != water_year_chart.SHEET and n not in skip] if raw_sheet == "*"
+                      else list(raw_sheet) if isinstance(raw_sheet, tuple) else [raw_sheet])
         for rs in raw_sheets:
             try:
                 raw = add_charts.read(path, rs)
-                label = f"{rs} {short} raw" if raw_sheet == "*" else f"{code} {short} raw"
+                label = (f"{rs} {short} raw" if raw_sheet == "*" else
+                         f"{code} {rs} raw" if isinstance(raw_sheet, tuple) else f"{code} {short} raw")
                 write_frame(wb.create_sheet(sheet_name(label, used)), raw)
             except Exception as e:
                 missing.append(f"{country} {short} raw sheet {rs} ({e})")
-        sources.append((country, short, fname, *source_of(fname), notes_text(path)))
+        sources.append((country, short, fname, *source_of(fname, cfg=cfg), notes_text(path)))
     return charts, index_rows, missing
 
 

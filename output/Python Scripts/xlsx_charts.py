@@ -198,16 +198,22 @@ def save_atomic(wb, path):
 
 
 def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", date_format="%Y-%m",
-                    width=28, height=13, line_cols=()):
-    """line_cols: columns of df drawn as lines over the bars/areas, on the same axis (same units only)."""
+                    width=28, height=13, line_cols=(), wb=None):
+    """line_cols: columns of df drawn as lines over the bars/areas, on the same axis (same units only).
+    wb: an open workbook to add the sheet to (the caller saves it). openpyxl drops chart formatting (axis
+    scaling, titles, number formats) of charts it reads back in, so several charts must be added to one
+    workbook in a single load/save - add_charts.py does that."""
     df, n_bars = prepare(df, line_cols)
     if df.empty:
         return
-    wb = load_workbook(path)
+    own = wb is None
+    if own:
+        wb = load_workbook(path)
     if sheet_name in wb.sheetnames:
         del wb[sheet_name]
     ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
     write_table(ws, df, date_format)
     chart = build_chart(ws, df, n_bars, title, y_title, kind, date_format, width=width, height=height)
     ws.add_chart(chart, f"{chr(ord('A') + min(df.shape[1] + 2, 20))}2")
-    save_atomic(wb, path)
+    if own:
+        save_atomic(wb, path)
