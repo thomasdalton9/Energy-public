@@ -125,7 +125,41 @@ def round3():
                     out("    |", ln[:170])
 
 
+def round4():
+    """Round 4: OCR text (tesseract, psm 6 and 4) of the image-only supply table
+    page, and the 'Perfil' profile table text, for the MONTHS given."""
+    import pandas as pd
+    import pdfplumber
+    sys.path.insert(0, "south_america")
+    import COLOMBIA_GAS as C
+    want = os.environ.get("MONTHS", "").split()
+    d = pd.read_excel("output/Data and Chart Outputs/colombia_gas_demand_by_sector.xlsx", sheet_name="Demand by sector")
+    d["Month"] = d["Month"].astype(str).str[:7]
+    for _, r in d[d["Month"].isin(want)].iterrows():
+        u = r["Report"]
+        c = requests.get(u, headers=H, timeout=T).content
+        with pdfplumber.open(io.BytesIO(c)) as pdf:
+            texts = [(p.extract_text() or "") for p in pdf.pages[:8]]
+            imgs = [len(p.images) for p in pdf.pages[:8]]
+        page = next((i for i, t in enumerate(texts) if re.search(r"principales\s+fuentes\s+de\s+suministro", t, re.I)), None)
+        out(f"\n=== {r['Month']} supply page {page} images per page {imgs} {u}")
+        for t in texts:
+            m = re.search(r"Suministro\s+Prom.*", t)
+            if m:
+                out("    profile:", m.group(0)[:150])
+        if page is None:
+            continue
+        for psm in (6, 4):
+            out(f"  -- OCR psm {psm}")
+            for ln in C.ocr_page(c, page, psm).splitlines():
+                if ln.strip():
+                    out("    |", ln[:170])
+
+
 if __name__ == "__main__":
+    if os.environ.get("ROUND") == "4":
+        round4()
+        sys.exit(0)
     if os.environ.get("ROUND") == "2":
         round2()
         sys.exit(0)

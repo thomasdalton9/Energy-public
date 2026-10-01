@@ -22,10 +22,12 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pdfplumber pandas openpyxl
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q tesseract-ocr tesseract-ocr-spa
+          pip install requests pdfplumber pandas openpyxl
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-          ROUND: "3"
+          ROUND: "4"
           MONTHS: ${{ inputs.months }}
         run: timeout 800 python3 discovery_archive/COLOMBIA_GAS_SUPPLY_DISCOVERY.py ${{ inputs.reports }}

@@ -445,7 +445,9 @@ def parse_supply(pages, content=None, month=None):
             res = supply_table(text)
             if res:
                 res["Method"] = "text"
-                return res, supply_issues(res, profile)
+                # the profile cross-check is for OCR only: from 2025 that table's layout no longer
+                # lines up month by month, and text-layer rows are already checked against each other
+                return res, supply_issues(res, None)
     page = next((i for i, (t, _) in enumerate(pages[:8])
                  if re.search(r"principales\s+fuentes\s+de\s+suministro", t, re.I)), None)
     if content is None or page is None:
