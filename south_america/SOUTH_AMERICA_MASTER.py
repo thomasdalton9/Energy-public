@@ -52,6 +52,7 @@ DATASETS = [
     ("CO", "Colombia", "colombia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("EC", "Ecuador", "ecuador_gas.xlsx", "Gas by use", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
+    ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
@@ -105,6 +106,8 @@ SOURCES = {
     "chile_gas_imports.xlsx": ("CNE Chile, Reporte Mensual (customs data)", "https://www.cne.cl/nuestros-servicios/reportes/"),
     "colombia_gas_demand_by_sector.xlsx": ("Gestor del Mercado de Gas (BMC)", "https://www.bmcbec.com.co/informes/informes-mensuales"),
     "ecuador_gas.xlsx": ("EP Petroecuador", "https://www.eppetroecuador.ec/?p=3721"),
+    "trinidad_gas.xlsx": ("Ministry of Energy and Energy Industries (MEEI), monthly bulletins",
+                          "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"),
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
     "argentina_power_generation_daily.xlsx": ("CAMMESA", "https://cammesaweb.cammesa.com/"),
     "bolivia_power_generation_daily.xlsx": ("CNDC Bolivia", "https://www.cndc.bo/"),
