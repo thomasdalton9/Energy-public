@@ -1,8 +1,12 @@
 name: China NBS discovery 2
 
-# Manual-only one-off probe (see discovery_archive/asia/CHINA_NBS_DISCOVERY2.py).
+# Manual-only one-off probes (discovery_archive/asia/CHINA_NBS_DISCOVERY*.py).
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "probe script under discovery_archive/asia/"
+        default: "CHINA_NBS_DISCOVERY2.py"
 
 jobs:
   probe:
@@ -14,6 +18,6 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests pandas openpyxl xlrd
       - name: Run probe
-        run: timeout 2100 python3 -u discovery_archive/asia/CHINA_NBS_DISCOVERY2.py
+        run: timeout 2100 python3 -u "discovery_archive/asia/${{ inputs.script }}"
