@@ -1,7 +1,11 @@
 name: Singapore discovery
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "discovery_archive/asia script to run"
+        default: "SINGAPORE_DISCOVERY2.py"
 
 jobs:
   discover:
@@ -17,4 +21,4 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1600 python3 discovery_archive/asia/SINGAPORE_DISCOVERY.py
+        run: timeout 1600 python3 "discovery_archive/asia/${{ inputs.script || 'SINGAPORE_DISCOVERY2.py' }}"
