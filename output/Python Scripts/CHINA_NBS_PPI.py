@@ -102,11 +102,9 @@ SERIES = [
     ("橡胶和塑料制品业", "Rubber_Plastics", "Rubber and plastics", None),
     ("金属制品业", "Metal_Products", "Metal products", None),
     ("通用设备制造业", "General_Equipment", "General-purpose equipment", None),
-    ("专用设备制造业", "Special_Equipment", "Special-purpose equipment", None),
     ("汽车制造业", "Automobiles", "Automobiles", None),
     ("铁路、船舶、航空航天和其他运输设备制造业", "Other_Transport_Equipment", "Rail, ship, aerospace and other transport",
      None),
-    ("电气机械和器材制造业", "Electrical_Machinery", "Electrical machinery", None),
     ("计算机、通信和其他电子设备制造业", "Electronics", "Computers, communication and electronics", None),
     ("水的生产和供应业", "Water_Supply", "Water production and supply", None),
 ]
@@ -133,7 +131,7 @@ def parse_release(html):
         vals = [nbs.num(c) for c in cells[1:]]
         if not vals or all(v is None for v in vals):
             continue
-        stem = BY_NAME.get(name)
+        stem = BY_NAME.get(name) or BY_NAME.get(name.replace("其它", "其他").replace("及精制茶", "和精制茶"))
         if stem is None:
             unmatched.append(name)
             continue
