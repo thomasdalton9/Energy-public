@@ -258,6 +258,23 @@ def power_daily(title):
     return f
 
 
+CAPACITY_FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Other"]
+
+
+def power_capacity(title):
+    """Standard capacity workbook: sheet "Monthly" with date (1st of month) and <Fuel>_MW columns for
+    CAPACITY_FUELS plus Total_MW. Annual-only sources use one row per year dated 1 January."""
+    def f(p):
+        d = by_date(read(p, "Monthly"), "date")
+        d = d[d.index >= "2021-01-01"]
+        g = pd.DataFrame({fuel: d.get(f"{fuel}_MW") for fuel in CAPACITY_FUELS}, index=d.index)
+        g = g.apply(pd.to_numeric, errors="coerce").fillna(0) / 1000.0   # MW -> GW
+        g = g.loc[:, g.ne(0).any()]
+        annual = len(d) > 1 and d.index.to_series().diff().median().days > 300
+        return [spec("Capacity", g, title, "GW installed", "stacked_bar", "%Y" if annual else "%Y-%m")]
+    return f
+
+
 def honduras_power(p):
     """ODS daily mix (from 2026-06) plus ODS's monthly history by technology (thermal not split by fuel)."""
     out = power_daily("Honduras power generation by type (ODS)")(p)
