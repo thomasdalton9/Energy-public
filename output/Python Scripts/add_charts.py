@@ -726,7 +726,8 @@ def chile_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
-IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics"]
+IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics",
+               "Other"]
 
 
 def _category_stacked_bar(path, sheet, t, title, y_title):
@@ -753,8 +754,10 @@ def _category_stacked_bar(path, sheet, t, title, y_title):
     ch.add_data(Reference(ws, min_col=2, max_col=1 + t.shape[1], min_row=1, max_row=n), titles_from_data=True)
     ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
     for i, s in enumerate(ch.series):
-        s.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
-                                                    ln=LineProperties(noFill=True))
+        grey = str(t.columns[i]).startswith("Other")
+        s.graphicalProperties = GraphicalProperties(
+            solidFill=xlsx_charts.OTHER_GREY if grey else xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
+            ln=LineProperties(noFill=True))
     ch.title = title
     ch.y_axis.title = y_title
     ch.x_axis.delete = False
@@ -770,16 +773,18 @@ def _category_stacked_bar(path, sheet, t, title, y_title):
 
 def industrial_gas_users(p):
     """Plant register (south_america/INDUSTRIAL_GAS_USERS.py): static data, so a stacked bar over countries of the
-    ESTIMATED gas demand (mcm/d at nameplate) of operating plants, by sector."""
+    number of OPERATING plants, by sector (Petrochemical folds into 'Other': 8 palette slots)."""
     d = read(p, "Plants")
-    op = d[(d["counted_as"] == "Operating") & d["gas_mcm_d_estimate"].notna()]
-    t = op.pivot_table(index="country", columns="sector", values="gas_mcm_d_estimate", aggfunc="sum")
+    op = d[d["counted_as"] == "Operating"].copy()
+    op["sector"] = op["sector"].where(op["sector"] != "Petrochemical", "Other")
+    t = op.pivot_table(index="country", columns="sector", values="plant", aggfunc="count").fillna(0)
     t = t[[s for s in IGU_SECTORS if s in t.columns]]
-    t = t.loc[t.sum(axis=1).sort_values(ascending=False).index].fillna(0)
+    t = t.loc[t.sum(axis=1).sort_values(ascending=False).index]
     t.index = [str(c).replace("Trinidad and Tobago", "Trinidad & Tobago") for c in t.index]
-    return [{"name": "Gas by country", "custom": lambda path, sheet: _category_stacked_bar(
-        path, sheet, t, "Estimated gas demand of operating industrial plants, by country and sector",
-        "mcm/d (estimate at nameplate)")}]
+    t = t.rename(columns={"Other": "Other (petrochemical)"})
+    return [{"name": "Plants by country", "custom": lambda path, sheet: _category_stacked_bar(
+        path, sheet, t, "Large industrial gas users: operating plants by country and sector (source: plant register - "
+        "USGS, Trinidad MEEI, GEM, company reports)", "number of operating plants")}]
 
 
 CO_COAL_DEPTS = ["La_Guajira", "Cesar", "Boyaca", "Cundinamarca", "Norte_de_Santander", "Cordoba"]
@@ -809,6 +814,7 @@ def sa_coal(p):
         out.append(spec("Annual", a[mt].apply(pd.to_numeric, errors="coerce").rename(columns=lambda c: c[:-3]),
                         "South America coal production by country (Venezuela: EI estimate)", "Mt per year",
                         "stacked_bar", "%Y"))
+    return out
 
 
 # South America daily wholesale power prices (south_america/SA_POWER_PRICES_DAILY.py) - a separate workbook,
@@ -891,6 +897,93 @@ def uruguay_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
+# North America (americas/US_GAS_EIA.py, americas/CANADA_STATCAN.py) - gas in Bcf/d, the North American convention
+BCF_TO_MCM = 28.3168   # 1 Bcf = 28.3168 million m3
+
+
+def us_gas(p):
+    """EIA: demand by sector, dry production, trade (exports stacked, Canadian pipeline imports as a line), then a
+    water-year chart of Lower 48 working gas and one per storage region."""
+    out = []
+    d = _sheet(p, "Demand by sector", "Month")
+    if not d.empty:
+        z = lambda *c: d[[f"{x}_Bcf_per_day" for x in c if f"{x}_Bcf_per_day" in d]].sum(axis=1, min_count=1)  # noqa: E731
+        g = pd.DataFrame({"Power": z("Electric_power"), "Industrial": z("Industrial"), "Residential": z("Residential"),
+                          "Commercial": z("Commercial"), "Lease & plant fuel": z("Lease_fuel", "Plant_fuel"),
+                          "Pipeline, distribution & vehicle": z("Pipeline_and_distribution", "Vehicle_fuel")})
+        out.append(spec("Demand", g[g.index >= "2021-01-01"], "US natural gas consumption by sector (EIA)",
+                        "Bcf/d", "stacked_bar"))
+    t = _sheet(p, "Supply and trade", "Month")
+    if not t.empty:
+        t = t[t.index >= "2021-01-01"]
+        if "Dry_production_Bcf_per_day" in t:
+            out.append(spec("Production", t[["Dry_production_Bcf_per_day"]].rename(
+                columns={"Dry_production_Bcf_per_day": "Dry gas production"}), "US dry natural gas production (EIA)",
+                "Bcf/d"))
+        names = {"LNG_exports_Bcf_per_day": "LNG exports", "Pipeline_exports_to_Mexico_Bcf_per_day": "Pipeline exports to Mexico",
+                 "Pipeline_exports_to_Canada_Bcf_per_day": "Pipeline exports to Canada",
+                 "Pipeline_imports_from_Canada_Bcf_per_day": "Pipeline imports from Canada"}
+        tr = t[cols(t, *names)].rename(columns=names)
+        if not tr.empty:
+            out.append(spec("Trade", tr, "US natural gas exports and imports from Canada (EIA)", "Bcf/d", "stacked_bar",
+                            line_cols=tuple(c for c in ("Pipeline imports from Canada",) if c in tr)))
+    w = _sheet(p, "Storage weekly", "date")
+    regions = [("Lower_48", "US Lower 48"), ("East", "US East"), ("Midwest", "US Midwest"), ("Mountain", "US Mountain"),
+               ("Pacific", "US Pacific"), ("South_Central", "US South Central")]
+    for col, label in regions:
+        if f"{col}_Bcf" in w and w[f"{col}_Bcf"].notna().any():
+            daily_s = w[f"{col}_Bcf"].dropna().resample("D").interpolate()   # weekly -> daily so the lines join up
+            out.append({"name": "Storage" if col == "Lower_48" else f"Storage {label[3:]}", "water_year": daily_s,
+                        "title": f"{label} working gas in storage (EIA)", "units": "Bcf",
+                        "sheet": "Water year" if col == "Lower_48" else f"Water year - {col.replace('_', ' ')}"[:31],
+                        "y_decimals": 0})
+    return out
+
+
+def mexico_gas(p):
+    d = _sheet(p, "Imports from US", "Month")
+    names = {"Pipeline_imports_from_US_Bcf_per_day": "Pipeline from the US", "LNG_imports_from_US_Bcf_per_day": "LNG from the US"}
+    return [spec("Imports", d[cols(d, *names)].rename(columns=names)[lambda x: x.index >= "2021-01-01"],
+                 "Mexico gas imports from the US (EIA, US export data)", "Bcf/d", "stacked_bar")]
+
+
+def canada_gas(p):
+    """StatCan supply and disposition: deliveries by sector (stacked) and production / trade (lines), in Bcf/d.
+    Items are matched by name because StatCan's labels carry the detail."""
+    d = _sheet(p, "Supply and disposition", "Month")
+    d = d[d.index >= "2021-01-01"].apply(pd.to_numeric, errors="coerce") / BCF_TO_MCM
+    d.columns = [re.sub(r"\s*\(mcm/d\)$", "", str(c)) for c in d.columns]
+    pick = lambda pat, excl=r"^total": [c for c in d.columns if re.search(pat, c, re.I) and not re.search(excl, c, re.I)]  # noqa: E731
+    out = []
+    use = pick(r"residential|commercial|industrial|electric|power|transport|pipeline|producers'? own|own use")
+    if use:
+        out.append(spec("Demand", d[use], "Canada natural gas disposition by use (StatCan)", "Bcf/d", "stacked_bar"))
+    flows = pick(r"marketable production|^gross withdrawals|^imports|^exports", excl=r"^$")
+    if flows:
+        out.append(spec("Supply", d[flows], "Canada natural gas production and trade (StatCan)", "Bcf/d"))
+    return out or generic(p)
+
+
+def canada_power(p):
+    """StatCan monthly generation by type of plant (conventional steam burns mixed fuels, kept separate)."""
+    d = by_date(read(p, "Daily"), "date")
+    d = d[d.index >= "2021-01-01"]
+    names = {"Hydro_MWh": "Hydro", "Nuclear_MWh": "Nuclear", "Wind_MWh": "Wind", "Solar_MWh": "Solar",
+             "Gas_MWh": "Combustion turbine (gas)", "Steam_MWh": "Conventional steam (coal, gas, biomass)",
+             "Oil_MWh": "Internal combustion (diesel)", "Other_MWh": "Other"}
+    out = [spec("Generation", d[cols(d, *names)].rename(columns=names) / 1000,
+                "Canada power generation by type of plant (StatCan)", "GWh per month", "stacked_bar")]
+    pv = _sheet(p, "Provinces", "date")
+    if not pv.empty:
+        pv = pv[pv.index >= "2021-01-01"].rename(columns=lambda c: str(c).replace("_MWh", "")) / 1000
+        top = list(pv.sum().sort_values(ascending=False).index[:6])
+        g = pv[top].copy()
+        g["Other provinces & territories"] = pv.drop(columns=top).sum(axis=1)
+        out.append(spec("Provinces", g, "Canada power generation by province (StatCan)", "GWh per month",
+                        "stacked_bar"))
+    return out
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -963,6 +1056,11 @@ REGISTRY = {
     "singapore_power.xlsx": singapore_power,
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
+    "us_gas.xlsx": us_gas,
+    "mexico_gas.xlsx": mexico_gas,
+    "canada_gas.xlsx": canada_gas,
+    "canada_power_generation_daily.xlsx": canada_power,
+    "north_america_power_by_type.xlsx": sa_power,   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "south_america_power_prices_daily.xlsx": sa_power_prices,
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
