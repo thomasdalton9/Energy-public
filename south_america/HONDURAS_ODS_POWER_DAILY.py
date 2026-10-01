@@ -15,7 +15,8 @@ Source (found via discovery_archive/south_america/NORTH_CENTRAL_AMERICA_POWER_PR
   Before that, sheet "Monthly_GWh" holds ODS's monthly production by
   technology (GWh) from its annual market reports ('PRODUCCION GENERAL DE
   ENERGIA <year> (GWh)', 2021-2025) and the latest monthly report (Tabla 8,
-  current year); thermal there is not split by fuel.
+  current year; December monthly reports where an annual report does not
+  parse); thermal there is not split by fuel.
 
 The server does not send its intermediate certificate; the script fetches
 it from the leaf certificate's AIA URL and verifies normally against it.
@@ -70,7 +71,9 @@ MESES = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "
 NOTES = [
     "UNITS",
     "Sheet 'Daily': MWh per day (gross generation in Honduras' national grid, SIN). Interconnection (imports) excluded.",
-    "Sheet 'Monthly_GWh': GWh per month, ODS's own monthly production by technology (history before the daily data).",
+    "Sheet 'Monthly_GWh': GWh per month, ODS's own monthly production by technology (history before the daily data). "
+    "It is ODS's 'Produccion General de Energia' table, which runs about 8-10% below gross generation (the same "
+    "reports' 'Produccion Bruta' and the daily sheet are gross), so do not splice it onto the daily series unadjusted.",
     "",
     "COVERAGE",
     "Daily from 2026-06-01: the ODS app keeps hourly plant data only from that date (P8_MIN_DATE), so the daily "
@@ -308,7 +311,12 @@ def monthly_history(existing):
     except Exception as e:  # noqa: BLE001
         print(f"  monthly report list failed: {e}", flush=True)
         monthly = []
-    for title, link in monthly[:1]:
+    got = {k.year for k in out} | have
+    picks = monthly[:1] + [(t, l) for t, l in monthly
+                           if re.search(r"diciembre (\d{4})", t, re.I)
+                           and int(re.search(r"diciembre (\d{4})", t, re.I).group(1)) not in got
+                           and int(re.search(r"diciembre (\d{4})", t, re.I).group(1)) >= 2021]
+    for title, link in picks:
         m = re.search(r"(\d{4})", title)
         year = int(m.group(1)) if m else this_year
         r = get(link)
