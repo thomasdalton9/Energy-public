@@ -100,6 +100,9 @@ HYDRO_DATASETS = [
 # The Power & Hydro dashboard shows one national hydro chart per country (each workbook's first water-year
 # spec) plus these extra regional charts by spec name; the full sets stay in each country workbook.
 HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"}}
+# Workbooks with several charts where the dashboard shows only some (by spec name); the rest stay in the
+# country workbook. Honduras: the monthly ODS history (2021 on) rather than the daily feed (June 2026 on).
+DASHBOARD_ONLY = {"honduras_power_generation_daily.xlsx": {"History"}}
 
 
 def gatun(path):
@@ -249,6 +252,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)
+            if fname in DASHBOARD_ONLY:
+                specs = [sp for sp in specs if sp["name"] in DASHBOARD_ONLY[fname]] or specs
             if (code, country, fname, raw_sheet, short) in HYDRO_DATASETS:
                 specs = [sp for i, sp in enumerate(specs) if i == 0 or sp["name"] in HYDRO_EXTRA.get(fname, ())]
         except Exception as e:
