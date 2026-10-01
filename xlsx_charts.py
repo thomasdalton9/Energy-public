@@ -117,8 +117,10 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
         over.add_data(Reference(ws, min_col=start_col + n_bars + 1, max_col=start_col + df.shape[1],
                                 min_row=start_row, max_row=n), titles_from_data=True)
         over.set_categories(cats)
-        for s in over.series:
-            s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill="252525", w=28575))
+        for j, s in enumerate(over.series):
+            # first overlay line solid, further ones dashed so they stay distinguishable
+            s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill="252525", w=28575,
+                                                                          prstDash="solid" if j == 0 else "dash"))
             s.smooth = False
             s.marker.symbol = "none"
         over.y_axis.delete = True   # shares the bar chart's axis

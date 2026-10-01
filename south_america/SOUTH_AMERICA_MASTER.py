@@ -51,6 +51,7 @@ DATASETS = [
     ("CL", "Chile", "chile_gas_imports.xlsx", "Gas imports", "gas imports"),
     ("CO", "Colombia", "colombia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("EC", "Ecuador", "ecuador_gas.xlsx", "Gas by use", "gas"),
+    ("PE", "Peru", "peru_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
 ]
@@ -109,6 +110,8 @@ SOURCES = {
     "trinidad_gas.xlsx": ("Ministry of Energy and Energy Industries (MEEI), monthly bulletins",
                           "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"),
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
+    "peru_gas_demand_by_sector.xlsx": ("MINEM Peru (DGH), Informes Estadisticos Upstream - Downstream",
+                                       "https://www.gob.pe/institucion/minem/colecciones/17643-informes-estadisticos-upstream-downstream"),
     "argentina_power_generation_daily.xlsx": ("CAMMESA", "https://cammesaweb.cammesa.com/"),
     "bolivia_power_generation_daily.xlsx": ("CNDC Bolivia", "https://www.cndc.bo/"),
     "brazil_power_generation_daily.xlsx": ("ONS Brazil open data", "https://dados.ons.org.br/"),

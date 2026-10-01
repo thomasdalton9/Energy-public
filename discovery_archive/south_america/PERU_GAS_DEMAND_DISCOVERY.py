@@ -58,7 +58,12 @@ transport. Perupetro's daily 'Reporte de Produccion de Gas' PDF has daily
 production by lot (Mcf, MMBtu). The LNG cargo page posts a form to
 /ExportaGAS/EmbarqueGasServlet (fechaInicio, fechaFin, accion=Todos).
 
-Round 6 (ROUND=6): Perupetro LNG cargo list for 2021-2026.
+Round 6 (ROUND=6): Perupetro LNG cargo list for 2021-2026. The servlet
+returns every cargo since 2010 as a JSON array in the page ('.columns({
+data: [...]'): date, m3 LNG, tonnes, MMBtu, MPC.
+
+Outcome: south_america/PERU_GAS.py (MINEM distribution + production files,
+Anuario 2021 tables for 2021, Perupetro cargoes, COES cross-check).
 Runs in GitHub Actions only (sites are blocked from the editing sandbox).
 """
 import os

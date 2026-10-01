@@ -48,6 +48,15 @@ visualpeb.miem.gub.uy
     MIEM / DNE Uruguay VisualPEB - monthly natural gas flows by tariff (demand by sector)
     used by: URUGUAY_GAS.py (--out: uruguay_gas_demand_by_sector.xlsx, .github/workflows/uruguay_gas.yml)
 
+www.gob.pe (MINEM collections 17643 and 25333)
+    MINEM / DGH Peru - monthly gas distribution by sector per concession (distribucion-<mes>-<anio>.xlsx),
+    fiscalised gas production by lot; Anuario Estadistico de Hidrocarburos 2021 tables (2021 backfill)
+    used by: PERU_GAS.py (--out: peru_gas_demand_by_sector.xlsx, .github/workflows/peru_gas.yml)
+
+www.perupetro.com.pe
+    Perupetro - Peru LNG export cargoes (ExportaGAS/EmbarqueGasServlet)
+    used by: PERU_GAS.py
+
 www.aic.gob.ar
     AIC (Autoridad Interjurisdiccional de Cuencas, Argentina) - hydro basin data
     used by: ARGENTINA_CAMMESA_DISCOVERY.py
