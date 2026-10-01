@@ -167,6 +167,15 @@ SOURCES = {
     "honduras_power_generation_daily.xlsx": ("Operador del Sistema (ODS) Honduras", "https://www.ods.org.hn/"),
     "nicaragua_power_generation_daily.xlsx": ("CNDC / ENATREL Nicaragua", "https://www.cndc.org.ni/"),
     "panama_power_generation_daily.xlsx": ("CND / ETESA Panama", "https://www.cnd.com.pa/"),
+    "argentina_power_capacity.xlsx": ("CAMMESA, Potencia Instalada", "https://cammesaweb.cammesa.com/download/potencia-instalada/"),
+    "bolivia_power_capacity.xlsx": ("CNDC Bolivia, potencia (annual, December)", "https://www.cndc.bo/"),
+    "brazil_power_capacity.xlsx": ("ANEEL SIGA plant register + MMGD distributed generation", "https://dadosabertos.aneel.gov.br/"),
+    "chile_power_capacity.xlsx": ("CNE Chile, Capacidad Instalada de Generacion", "https://www.cne.cl/estadisticas/electricidad/"),
+    "colombia_power_capacity.xlsx": ("XM Colombia, net effective capacity (CapEfecNeta)", "https://www.xm.com.co/"),
+    "ecuador_power_capacity.xlsx": ("ARCONEL, Balance Nacional de Energia Electrica", "https://arconel.gob.ec/balance-nacional-de-energia-electrica/"),
+    "peru_power_capacity.xlsx": ("COES Peru, annual statistics (effective capacity, SEIN)", "https://www.coes.org.pe/Portal/publicaciones/estadisticas/"),
+    "uruguay_power_capacity.xlsx": ("MIEM / DNE Uruguay, potencia instalada (annual)",
+                                    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos/series-estadisticas-energia-electrica"),
     "gatun_lake_level.xlsx": ("Panama Canal Authority (ACP)", "https://evtms-rpts.pancanal.com/"),
     # Caribbean
     "puerto_rico_power_generation_daily.xlsx": ("EIA (US Energy Information Administration), EIA-923 monthly generation by fuel, Puerto Rico",
@@ -253,10 +262,11 @@ def south_america_capacity(data_dir):
             continue
         d = ac.by_date(ac.read(path, "Monthly"), "date")
         d = d[d.index >= "2021-01-01"]
-        g = pd.DataFrame({f: pd.to_numeric(d.get(f"{f}_MW"), errors="coerce") for f in ac.CAPACITY_FUELS},
-                         index=d.index).fillna(0) / 1000.0
+        g = ac.capacity_groups(pd.DataFrame({f: d.get(f"{f}_MW") for f in ac.CAPACITY_FUELS}, index=d.index)) / 1000.0
         annual = len(d) > 1 and d.index.to_series().diff().median().days > 300
-        if not annual:
+        if annual:   # annual rows hold the year-END value but are dated 1 January: place them in December
+            g.index = g.index + pd.DateOffset(months=11)
+        else:
             monthly_last.append(g.index.max())
         frames[country] = (g, annual)
         notes.append(f"{country}: {SOURCES.get(fname, (fname,))[0]}, {'annual' if annual else 'monthly'} "
@@ -265,9 +275,8 @@ def south_america_capacity(data_dir):
         return pd.DataFrame(), notes
     end = min(monthly_last) if monthly_last else max(g.index.max() for g, _ in frames.values())
     months = pd.date_range("2021-01-01", end, freq="MS")
-    total = sum(g.reindex(g.index.union(months)).sort_index().ffill().reindex(months).fillna(0)
-                for g, _ in frames.values())
-    total = total.loc[:, total.ne(0).any()]
+    total = sum(g.reindex(g.index.union(months)).sort_index().ffill().bfill().reindex(months).fillna(0)
+                for g, _ in frames.values())   # bfill: months before a country's first figure take that figure
     total.index.name = "date"
     return total, notes
 
