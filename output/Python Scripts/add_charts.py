@@ -967,25 +967,28 @@ def mexico_gas(p):
 
 def canada_gas(p):
     """StatCan supply and disposition: consumption by sector (stacked), production and trade (lines), in Bcf/d;
-    then closing inventory (storage) as a water-year chart in Bcf."""
+    then closing inventory (storage) as a water-year chart in Bcf. Items are matched by name; StatCan's
+    ', supply' / ', disposition' / ', storage' tags are dropped from the labels."""
     d = _sheet(p, "Supply and disposition", "Month").apply(pd.to_numeric, errors="coerce") / BCF_TO_MCM
-    flow = {re.sub(r"\s*\(mcm/d\)$", "", c): c for c in d.columns if str(c).endswith("(mcm/d)")}
-    pick = lambda pat: {k: v for k, v in flow.items() if re.search(pat, k, re.I) and not k.lower().startswith("total")}  # noqa: E731
+    label = lambda c: re.sub(r",\s*(supply|disposition|storage)$", "", re.sub(r"\s*\((mcm/d|mcm)\)$", "",  # noqa: E731
+                                                                              re.sub(r"\s+", " ", str(c))))
+    flow = {label(c): c for c in d.columns if str(c).endswith("(mcm/d)")}
+    pick = lambda pat: {k: v for k, v in flow.items() if re.search(pat, k, re.I)}  # noqa: E731
     out = []
     recent = d[d.index >= "2021-01-01"]
-    use = pick(r"consumption|electric|power")
+    use = pick(r"^(residential|commercial|industrial) consumption$|^pipeline fuel$|^deliveries to natural gas processing")
     if use:
         out.append(spec("Demand", recent[list(use.values())].rename(columns={v: k for k, v in use.items()}),
                         "Canada natural gas consumption by sector (StatCan)", "Bcf/d", "stacked_bar"))
-    flows = pick(r"^marketable production$|^imports$|^exports$")
+    flows = pick(r"^marketable production$|^total imports$|^total exports$|^exports to the united states$")
     if flows:
         out.append(spec("Supply", recent[list(flows.values())].rename(columns={v: k for k, v in flows.items()}),
                         "Canada natural gas production and trade (StatCan)", "Bcf/d"))
-    inv = next((c for c in d.columns if re.match(r"closing inventory", str(c), re.I)), None)
+    inv = next((c for c in d.columns if re.match(r"closing\s+inventory", str(c), re.I)), None)
     if inv is not None and d[inv].notna().any():
-        s = d[inv].dropna()
-        s.index = s.index + pd.offsets.MonthEnd(0)   # closing inventory = end of the month
-        out.append({"name": "Storage", "water_year": s.resample("D").interpolate(), "y_decimals": 0,
+        st = d[inv].dropna()
+        st.index = st.index + pd.offsets.MonthEnd(0)   # closing inventory = end of the month
+        out.append({"name": "Storage", "water_year": st.resample("D").interpolate(), "y_decimals": 0,
                     "title": "Canada natural gas in storage, closing inventory (StatCan)", "units": "Bcf"})
     return out or generic(p)
 
