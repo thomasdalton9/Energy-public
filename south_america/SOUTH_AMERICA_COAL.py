@@ -28,7 +28,8 @@ Other countries - annual (their coal output is small):
     https first and over the plain-http address the ministry's own data portal lists only if https fails
     (certificate verification is never switched off).
   Chile - Cochilco, Anuario de Estadisticas del Cobre y Otros Minerales (database xlsx): coal production, t.
-  Peru - MINEM, Anuario Minero: coal (carbon antracita / bituminoso) production, t.
+  Peru - MINEM, Anuario Minero (one PDF per year; its Excel annex lists metals only): non-metallic production
+    table rows CARBON ANTRACITA and CARBON BITUMINOSO, t (accepted only when their % shares add up to 100).
   Venezuela - no official production statistics are published; Energy Institute figures only, labelled as such.
 Annual cross-check for all countries: Energy Institute Statistical Review of World Energy, "Coal Production - mt".
   energyinst.org refuses scripted downloads (HTTP 403), so EI's all-data xlsx is read from the copy kept in Our
@@ -261,7 +262,7 @@ def dane_series():
         units = [norm(v).lower() for v in df.iloc[hdr + 1].astype(str)]
         t_col = next(j for j in range(col, col + 3) if "tonelada" in units[j])
         usd_col = next((j for j in range(col, col + 3) if "dolares" in units[j]), None)
-        dates = pd.to_datetime(df.iloc[:, 0], errors="coerce")
+        dates = pd.to_datetime(df.iloc[:, 0], errors="coerce", format="mixed")
         ok = dates.notna() & (dates.dt.day == 1)
         s = pd.DataFrame({"DANE_exports_Mt": pd.to_numeric(df.loc[ok, t_col], errors="coerce").values / 1e6,
                           "DANE_exports_USD_million_FOB": (pd.to_numeric(df.loc[ok, usd_col], errors="coerce").values
@@ -486,60 +487,64 @@ def peru_anuarios():
     return dict(sorted(found.items(), reverse=True))
 
 
-def peru_annex(content):
-    """Coal rows of the Anuario's Excel annex ('Produccion' sheet): t by year for anthracite and bituminous."""
-    xl = pd.ExcelFile(io.BytesIO(content))
-    for s in [s for s in xl.sheet_names if norm(s).lower().strip().startswith("produccion")
-              and "mundial" not in norm(s).lower()]:
-        df = xl.parse(s, header=None)
-        lab = df.astype(str).map(lambda v: norm(v).lower())
-        res = {}
-        for i in range(len(df)):
-            j0 = next((j for j in range(min(6, df.shape[1])) if re.match(r"carbon (antracita|bituminoso)", lab.iat[i, j])), None)
-            if j0 is None:
+PE_ROW = r"CARBON {kind}\s+(\d[\d\s,.]*?)\s+(\d{{1,3}}[.,]\d)\s*%"
+
+
+def peru_pdf_coal(content):
+    """Anthracite and bituminous coal production (t) from an Anuario Minero PDF: the non-metallic production
+    table lists 'CARBON ANTRACITA <t> <share>%' and 'CARBON BITUMINOSO <t> <share>%' (the Excel annex has metals
+    only). Accepted only if both rows are found and their shares add up to 100% (+-1.5)."""
+    import pdfplumber
+    vals = {}
+    with pdfplumber.open(io.BytesIO(content)) as pdf:
+        for page in pdf.pages:
+            t = page.extract_text() or ""
+            if "CARB" not in t.upper():
                 continue
-            kind = "Anthracite_t" if "antracita" in lab.iat[i, j0] else "Bituminous_t"
-            for k in range(i, -1, -1):
-                yrs = {j: int(v) for j, v in enumerate(df.iloc[k].values) if isinstance(v, (int, float))
-                       and not pd.isna(v) and 1990 <= v <= 2100 and float(v).is_integer() and j > j0}
-                if len(yrs) >= 2:
-                    res.setdefault(kind, {y: pd.to_numeric(df.iat[i, j], errors="coerce") for j, y in yrs.items()})
-                    out(f"Peru annex [{s} r{i}] {kind}: {res[kind]}")
-                    break
-        if res:
-            p = pd.DataFrame(res)
-            p.index.name = "Year"
-            return p
-    return pd.DataFrame()
+            u = norm(t).upper()
+            for kind, key in (("Anthracite_t", "ANTRACITA"), ("Bituminous_t", "BITUMINOSO")):
+                m = re.search(PE_ROW.format(kind=key), u)
+                if m and kind not in vals:
+                    num = re.sub(r"\s", "", m.group(1)).replace(",", "")
+                    num = re.sub(r"\.(?=\d{3}(\D|$))", "", num)
+                    vals[kind] = (float(num), float(m.group(2).replace(",", ".")))
+            if len(vals) == 2:
+                break
+    if len(vals) == 2 and abs(sum(v[1] for v in vals.values()) - 100) <= 1.5:
+        return {k: v[0] for k, v in vals.items()}
+    out(f"  Peru Anuario PDF: coal rows not found / shares do not add up ({vals})")
+    return None
 
 
 def peru(old):
-    """MINEM Anuario Minero Excel annex: coal production (t) by year; older anuarios only for missing years."""
+    """MINEM Anuario Minero (one PDF per year): coal production (t); only years still missing are read."""
     have = set(old.index) if not old.empty else set()
     want = set(range(START_YEAR, datetime.date.today().year))
     if want <= have:
         return old, None
-    p, src = old.copy(), None
+    rows, src = {}, None
     for y, path in peru_anuarios().items():
-        if y < START_YEAR or not (want - have):
-            break
+        if y < START_YEAR or y in have:
+            continue
         r = get("https://www.gob.pe" + path)
         if r is None:
             continue
-        files = re.findall(r'https://cdn\.www\.gob\.pe/uploads/document/file/\d+/[^"?#\s]+\.xlsx', r.text)
-        for f in dict.fromkeys(files):
+        pdfs = re.findall(r'https://cdn\.www\.gob\.pe/uploads/document/file/\d+/[^"?#\s]+\.pdf', r.text)
+        pdfs = sorted(dict.fromkeys(pdfs), key=lambda f: "anuario" not in f.lower())
+        for f in dict.fromkeys(pdfs):
             x = get(f)
-            if x is None:
+            if x is None or x.content[:4] != b"%PDF":
                 continue
-            got = peru_annex(x.content)
-            if got.empty:
-                continue
-            got = got[got.index >= START_YEAR]
-            got["Source_file"] = f
-            p = got if p.empty else got.combine_first(p)
-            have |= set(got.index)
-            src = src or f
-            break
+            v = peru_pdf_coal(x.content)
+            if v:
+                rows[y] = {**v, "Source_file": f}
+                out(f"Peru Anuario Minero {y}: {v}")
+                src = src or f
+                break
+    new = pd.DataFrame.from_dict(rows, orient="index")
+    p = new if old.empty else (old if new.empty else new.combine_first(old))
+    if not p.empty:
+        p.index.name = "Year"
     if p.empty:
         return p, src
     p = p.sort_index()
@@ -581,8 +586,11 @@ def ei_production(version):
         return pd.DataFrame()
     df = pd.read_excel(io.BytesIO(x.content), sheet_name="Coal Production - mt", header=None)
     hdr = next(i for i in range(10) if str(df.iloc[i, 0]).strip().lower().startswith("million tonnes"))
-    years = {j: int(v) for j, v in enumerate(df.iloc[hdr]) if isinstance(v, (int, float)) and not pd.isna(v)
-             and 1900 < v < 2100 and float(v).is_integer()}
+    years = {}
+    for j, v in enumerate(df.iloc[hdr]):   # first occurrence only: the growth / share columns repeat the last year
+        if isinstance(v, (int, float)) and not pd.isna(v) and 1900 < v < 2100 and float(v).is_integer() \
+                and int(v) not in years.values():
+            years[j] = int(v)
     rows = {}
     for _, row in df.iterrows():
         name = str(row.iloc[0]).strip()
@@ -640,6 +648,11 @@ def ei_check(annual, ei):
 
 def span(df):
     return f"{df.index.min():%b %Y}..{df.index.max():%b %Y}" if not df.empty else "none"
+
+
+def qspan(df):
+    return (f"{pd.Period(df.index.min(), 'Q')}..{pd.Period(df.index.max(), 'Q')} (quarters dated by their first "
+            "month)") if not df.empty else "none"
 
 
 def yspan(df):
@@ -733,6 +746,8 @@ def main():
         f"'{S_AR}': BEN 'Carbon Mineral' production in ktoe as published; Production_kt_converted / _Mt_converted "
         f"= ktoe x 10^7 kcal / {AR_KCAL_PER_KG:,.0f} kcal/kg (the BEN's net calorific value for domestic coal) - a "
         "conversion, not a published tonnage.",
+        f"'{S_CL}': Cochilco yearbook Tabla 1.1 (Produccion minera de Chile), 'Carbon (TM netas)', t. "
+        f"'{S_PE}': MINEM Anuario Minero, carbon antracita + carbon bituminoso, t.",
         f"'{S_VE}': Energy Institute figure (Mt) - Venezuela publishes no official coal production statistics.",
         f"'{S_EI}': EI 'Coal Production - mt' rows for South & Central America; '{S_CHECK}': our figures against "
         "EI (diff_pct = ours / EI - 1). EI lists Colombia, Brazil and Venezuela; Argentina, Chile and Peru are "
@@ -740,9 +755,9 @@ def main():
         f"'{S_CO_RAW}': every ANM coal row used (tonnes, royalties in COP), the incremental archive.",
         "",
         "COVERAGE",
-        f"Colombia production quarterly {span(q)} (latest quarter {last_q:%b %Y} onwards is preliminary; ANM "
-        f"revises as late declarations arrive - the last {REFRESH_YEARS} years are re-pulled each run)." if last_q
-        is not None else "Colombia production: none",
+        f"Colombia production quarterly {qspan(q)}; the latest quarters are preliminary (ANM revises as late "
+        f"declarations arrive - the last {REFRESH_YEARS} years are re-pulled each run). A quarter is shown once its "
+        "last month has been liquidated." if last_q is not None else "Colombia production: none",
         f"Colombia exports monthly {span(exports)} (DANE publishes about 6 weeks after month end; Comtrade later).",
         f"Brazil {yspan(br)}; Argentina {yspan(ar)}; Chile {yspan(cl)}; Peru {yspan(pe)}; Venezuela (EI) {yspan(ve)}.",
         "Chile: Mina Invierno (the last large mine) stopped in 2020; remaining output is negligible. Peru: small "

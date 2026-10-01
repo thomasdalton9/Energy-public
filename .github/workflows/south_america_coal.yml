@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl certifi
+        run: pip install pandas requests openpyxl certifi pdfplumber
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
