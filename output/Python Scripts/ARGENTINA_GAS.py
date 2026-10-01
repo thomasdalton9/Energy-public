@@ -468,7 +468,7 @@ def parse_transport_parte(text, tables):
     m = re.search(r"Per[ií]odo.{0,60}?(\d{2}/\d{2}/\d{2,4})", t, re.S)
     out["Gas_day"] = pd.to_datetime(m.group(1), dayfirst=True, errors="coerce") if m else None
     m = re.search(r"Inyecci[oó]n\s*Total\s*\(e\)\s*" + NUM, t)
-    out["Injection_total"] = _num(m.group(1)) if m else None
+    out["Injection_total"] = _num(m.group(1)) if m and _num(m.group(1)) > 0 else None     # blank reports print 0
     m = re.search(r"Inyecci[oó]n\s*Total\s*\(e\)\s*-?[\d.,]+[^\n]*?\)\s*" + NUM + r"\s+" + NUM, t)
     out["LinePack"], out["LinePack_change"] = (_num(m.group(1)), _num(m.group(2))) if m else (None, None)
     for key, pat in (("Incl_Bolivia_NorAndino", r"\(a\)\s*Incluye[^()]*?Bolivia[^()]*?\(\s*" + NUM + r"\s*\)"),
@@ -562,6 +562,8 @@ def by_gas_day(transport):
         gd = pd.to_datetime(t.pop("Gas_day"), errors="coerce")
         t.index = pd.DatetimeIndex(gd.where(gd.notna(), pd.Series(t.index, index=t.index)))
         t = t[~t.index.duplicated(keep="last")].sort_index()
+    if "Injection_total" in t:          # a few reports are published blank (all zeros): no data that day
+        t.loc[t["Injection_total"] <= 0] = float("nan")
     t.index.name = "date"
     return t
 
