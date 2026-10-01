@@ -1,13 +1,13 @@
 name: Brazil gas
 
-# Monthly: MME's public national series is frozen at 2025-06 (annex xlsx),
+# Weekly. MME's public national series is frozen at 2025-06 (annex xlsx),
 # the PDF bulletins stopped at Sep-2025, and the replacement dashboard is
 # login-gated. Each run re-pulls the annex and rewrites a small source-watch
 # file, so if MME updates the annex, posts a 2026 bulletin page or opens the
 # dashboard, it shows up as a commit.
 on:
   schedule:
-    - cron: "15 11 3 * *"
+    - cron: "15 11 * * 2"
   workflow_dispatch: {}
 
 permissions:
