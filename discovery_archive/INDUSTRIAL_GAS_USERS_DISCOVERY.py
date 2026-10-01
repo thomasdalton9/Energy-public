@@ -44,43 +44,46 @@ def text_of(html):
 
 
 def usgs():
+    """Newest XLSX that still carries the structure-of-industry table (recent 'advance releases' only have
+    production), all rows of the gas-using commodity sections."""
     import pandas as pd
+    done = set()
     for c in COUNTRIES:
         try:
             r = get(NMIC + c)
         except Exception as e:  # noqa: BLE001
             print(f"## {c}: {e}")
             continue
-        links = sorted(set(re.findall(r'href="([^"]*myb3[^"]*\.(?:xlsx?|pdf))"', r.text, re.I)),
-                       key=lambda u: max([int(y) for y in re.findall(r"(20\d\d)", u)] or [0]))
-        print(f"## {c}: HTTP {r.status_code}, {len(links)} myb3 links")
-        for lk in links[-4:]:
-            print("   ", lk)
-        xl = [lk for lk in links if re.search(r"\.xlsx?$", lk, re.I)]
-        if not xl:
-            continue
-        url = xl[-1] if xl[-1].startswith("http") else "https://www.usgs.gov" + xl[-1]
-        try:
-            book = pd.read_excel(io.BytesIO(get(url).content), sheet_name=None, header=None)
-        except Exception as e:  # noqa: BLE001
-            print(f"   xlsx {url}: {e}")
-            continue
-        print(f"   XLSX {url}: sheets {list(book)}")
-        for name, df in book.items():
-            head = " ".join(str(v) for v in df.head(4).fillna("").values.ravel())
-            if not re.search(r"structure", head, re.I):
+        links = sorted(set(re.findall(r'href="([^"]*myb3[^"]*\.xlsx?)"', r.text, re.I)),
+                       key=lambda u: max([int(y) for y in re.findall(r"(20\d\d)", u)] or [0]), reverse=True)
+        for lk in links[:8]:
+            url = lk if lk.startswith("http") else "https://www.usgs.gov" + lk
+            if url in done:
+                break
+            try:
+                book = pd.read_excel(io.BytesIO(get(url).content), sheet_name=None, header=None)
+            except Exception as e:  # noqa: BLE001
+                print(f"## {c} {url}: {e}")
                 continue
-            print(f"   --- {name}: {head[:160]}")
-            last = ""
+            st = [n for n, df in book.items()
+                  if re.search(r"structure", " ".join(str(v) for v in df.head(4).fillna("").values.ravel()), re.I)]
+            if not st:
+                continue
+            done.add(url)
+            df = book[st[0]]
+            print(f"## {c}: {url} [{st[0]}] {str(df.iloc[0, 0])[:90]}")
+            sect = ""
             for _, row in df.iterrows():
-                vals = [str(v).strip() for v in row.values if str(v).strip() not in ("", "nan")]
-                if not vals:
+                cells = ["" if str(v) == "nan" else str(v).strip() for v in row.values]
+                if not any(cells):
                     continue
-                line = " | ".join(vals)
-                if not re.search(r"\d", line) or len(vals) == 1:
-                    last = line   # commodity heading rows
-                if KEY.search(line) or KEY.search(last):
-                    print(f"   {line[:320]}")
+                if cells[0] and cells[0].lower().rstrip(".") != "do":
+                    sect = cells[0]
+                if KEY.search(sect) or KEY.search(" ".join(cells)):
+                    print("   " + " | ".join(cells)[:400])
+            break
+        else:
+            print(f"## {c}: no structure table in {len(links)} xlsx links")
 
 
 def gem():
