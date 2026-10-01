@@ -23,9 +23,12 @@ Standing instructions from the repo owner. Follow these on every change.
 - Units/notes tab via `xlsx_notes.write_workbook()` (atomic write).
 
 ## Master workbooks
-- `south_america/SOUTH_AMERICA_MASTER.py` -> `south_america_master.xlsx`: Dashboard front page with every South
-  America chart, a data tab per chart, raw data tabs, Sources tab. New South American datasets: add them to its
-  DATASETS list (and add_charts.py REGISTRY).
+- `south_america/SOUTH_AMERICA_MASTER.py` -> `south_and_central_america_master.xlsx`: South America plus Central
+  America (Guatemala-Panama + Belize; NOT Mexico). Gas Dashboard + "Dashboard - Power & Hydro", a data tab per
+  chart, raw data tabs, Sources tab. New datasets: add them to its DATASETS / RAW_POWER_DATASETS / HYDRO_DATASETS
+  lists (and add_charts.py REGISTRY), plus a SOURCES entry (publisher + link).
+- Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
+  Ember is a fallback only for countries with no raw feed, labelled as such.
 
 ## Pull scripts
 - Incremental: backfill gaps only, don't re-pull complete history each run.

@@ -1,7 +1,8 @@
 """
-South America master workbook: one file with every South American
-dataset this repo pulls, and a Dashboard front page carrying all their
-charts.
+South & Central America master workbook: one file with every South and
+Central American dataset this repo pulls (Central America = Guatemala to
+Panama, plus Belize; Mexico is not included), and Dashboard front pages
+carrying all their charts.
 
   Dashboard          - gas: title, index of charts (latest month, data
                        tab), then every chart (native Excel, no borders, mmm/yy)
@@ -16,13 +17,13 @@ charts.
 Both dashboards name each chart's source (publisher + link) in the index
 and under the chart.
 
-Reads (doesn't refetch) the workbooks the scheduled South America pulls
+Reads (doesn't refetch) the workbooks the scheduled South/Central America pulls
 write to "output/Data and Chart Outputs/". Chart definitions come from
 add_charts.py's registry, so the master and each country workbook always
 show the same charts. A missing input is listed on the Dashboard and
 skipped rather than stopping the rest.
 
-Usage: python3 SOUTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/south_america_master.xlsx"]
+Usage: python3 SOUTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/south_and_central_america_master.xlsx"]
 """
 import argparse
 import os
@@ -56,7 +57,9 @@ DATASETS = [
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
 # Raw grid-operator generation comes first; Ember (one sheet per country) only charts
 # the countries with no raw workbook this run - see main().
-EMBER = "south_america_power_by_type.xlsx"
+EMBER_FILES = [("SA", "South America", "south_america_power_by_type.xlsx"),
+               ("CA", "Central America", "central_america_power_by_type.xlsx")]
+EMBER = {f for _, _, f in EMBER_FILES}
 RAW_POWER_DATASETS = [
     ("AR", "Argentina", "argentina_power_generation_daily.xlsx", "Daily", "power"),
     ("BO", "Bolivia", "bolivia_power_generation_daily.xlsx", "Daily", "power"),
@@ -65,11 +68,31 @@ RAW_POWER_DATASETS = [
     ("EC", "Ecuador", "ecuador_power_generation_daily.xlsx", "Daily", "power"),
     ("PE", "Peru", "peru_power_generation_daily.xlsx", "Daily", "power"),
     ("UY", "Uruguay", "uruguay_power_generation_daily.xlsx", "Daily", "power"),
+    # Central America
+    ("BZ", "Belize", "belize_power_generation_daily.xlsx", "Daily", "power"),
+    ("CR", "Costa Rica", "costa_rica_power_generation_daily.xlsx", "Daily", "power"),
+    ("SV", "El Salvador", "el_salvador_power_generation_daily.xlsx", "Daily", "power"),
+    ("GT", "Guatemala", "guatemala_power_generation_daily.xlsx", "Daily", "power"),
+    ("HN", "Honduras", "honduras_power_generation_daily.xlsx", "Daily", "power"),
+    ("NI", "Nicaragua", "nicaragua_power_generation_daily.xlsx", "Daily", "power"),
+    ("PA", "Panama", "panama_power_generation_daily.xlsx", "Daily", "power"),
 ]
 HYDRO_DATASETS = [
     ("BR", "Brazil", "brazil_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("CO", "Colombia", "colombia_hydro_reservoirs.xlsx", "Daily", "hydro"),
+    ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
 ]
+
+
+def gatun(path):
+    """gatun_lake_level.xlsx draws its own chart (REGISTRY entry is None); the master needs a spec."""
+    d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
+    return [{"name": "Gatun", "water_year": d["level_ft"], "title": "Panama Canal, Gatun Lake level",
+             "units": "feet above sea level"}]
+
+
+# Chart specs for workbooks whose add_charts REGISTRY entry is None (they chart themselves)
+MASTER_SPECS = {"gatun_lake_level.xlsx": gatun}
 
 # Where each workbook's data comes from: (publisher, link). Shown on the dashboards.
 SOURCES = {
@@ -91,16 +114,27 @@ SOURCES = {
     "uruguay_power_generation_daily.xlsx": ("ADME Uruguay", "https://pronos.adme.com.uy/"),
     "brazil_hydro_reservoirs.xlsx": ("ONS Brazil open data (EAR)", "https://dados.ons.org.br/dataset/ear-diario-por-subsistema"),
     "colombia_hydro_reservoirs.xlsx": ("XM Colombia", "https://www.xm.com.co/"),
-    EMBER: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/"),
+    "belize_power_generation_daily.xlsx": ("Belize Electricity Ltd (BEL)", "https://www.bel.com.bz/"),
+    "costa_rica_power_generation_daily.xlsx": ("ICE / CENCE Costa Rica", "https://apps.grupoice.com/CenceWeb/"),
+    "el_salvador_power_generation_daily.xlsx": ("Unidad de Transacciones (UT) El Salvador", "https://www.ut.com.sv/"),
+    "guatemala_power_generation_daily.xlsx": ("Administrador del Mercado Mayorista (AMM) Guatemala",
+                                              "https://www.amm.org.gt/"),
+    "honduras_power_generation_daily.xlsx": ("Operador del Sistema (ODS) Honduras", "https://www.ods.org.hn/"),
+    "nicaragua_power_generation_daily.xlsx": ("CNDC / ENATREL Nicaragua", "https://www.cndc.org.ni/"),
+    "panama_power_generation_daily.xlsx": ("CND / ETESA Panama", "https://www.cnd.com.pa/"),
+    "gatun_lake_level.xlsx": ("Panama Canal Authority (ACP)", "https://evtms-rpts.pancanal.com/"),
+    **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
 }
 # The grid operator Ember compiles each country from (named on Ember-fed charts)
 OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile": "Coordinador Eléctrico Nacional",
-             "Colombia": "XM", "Ecuador": "CENACE", "Peru": "COES", "Uruguay": "ADME"}
+             "Colombia": "XM", "Ecuador": "CENACE", "Peru": "COES", "Uruguay": "ADME",
+             "Belize": "BEL", "Costa Rica": "ICE/CENCE", "El Salvador": "UT", "Guatemala": "AMM", "Honduras": "ODS",
+             "Nicaragua": "CNDC", "Panama": "CND"}
 
 
 def source_of(fname, spec_name=None):
     publisher, url = SOURCES.get(fname, (fname, None))
-    if fname == EMBER and spec_name in OPERATORS:
+    if fname in EMBER and spec_name in OPERATORS:
         publisher = f"Ember, compiled from {OPERATORS[spec_name]} (no raw feed yet)"
     return publisher, url
 
@@ -148,7 +182,7 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
             missing.append(f"{country} {short} ({fname})")
             continue
         try:
-            build = add_charts.REGISTRY.get(fname) or (
+            build = MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)
@@ -231,7 +265,7 @@ def draw_dashboard(dash, heading, charts, index_rows, missing):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "south_america_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "south_and_central_america_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
 
@@ -247,11 +281,12 @@ def main():
     have_raw = {d[1] for d in raw_power}
     print(f"power by type: raw operator data for {sorted(have_raw) or 'none'}; Ember for the rest")
     parts = [collect(wb, raw_power, args.data_dir, used, sources),
-             collect(wb, [("SA", "South America", EMBER, "*", "power")], args.data_dir, used, sources, skip=have_raw),
+             *(collect(wb, [(code, region, f, "*", "power")], args.data_dir, used, sources, skip=have_raw)
+               for code, region, f in EMBER_FILES),
              collect(wb, HYDRO_DATASETS, args.data_dir, used, sources)]
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
-    draw_dashboard(dash, "South America energy - gas dashboard", *gas)
-    draw_dashboard(dash2, "South America energy - power generation & hydro", *power)
+    draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
+    draw_dashboard(dash2, "South & Central America energy - power generation & hydro", *power)
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])
