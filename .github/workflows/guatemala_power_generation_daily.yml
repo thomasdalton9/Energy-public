@@ -6,7 +6,12 @@ name: Guatemala power generation daily
 on:
   schedule:
     - cron: "41 11 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      refresh_from:
+        description: "Optional YYYY-MM-DD: re-fetch every saved day from this date"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -26,7 +31,8 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 3000 python3 south_america/GUATEMALA_AMM_POWER_DAILY.py --budget-min 42 --out "output/Data and Chart Outputs/guatemala_power_generation_daily.xlsx"
+          REFRESH_FROM: ${{ github.event.inputs.refresh_from }}
+        run: timeout 3000 python3 south_america/GUATEMALA_AMM_POWER_DAILY.py --budget-min 42 ${REFRESH_FROM:+--refresh-from "$REFRESH_FROM"} --out "output/Data and Chart Outputs/guatemala_power_generation_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
