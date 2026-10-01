@@ -356,8 +356,54 @@ def bolivia3():
             print(f"  genbruta/detalle {tec} {anio}-{mes}: {r.status_code} {r.text[:900]}", flush=True)
 
 
+# Round 3 confirmed PARTE_POST_OPERATIVO mdbs from 2021 on (24 hours, ~420 GWh/day, same tables). Round 5
+# ('argentina3'): what each fuel code is (unit dam3 / m3 / t from the burned-fuel tables), which units are
+# INTERCAMBIO='S' (imports?), pumped storage sign, Salto Grande / Yacyreta units, winter days.
+def argentina3():
+    from collections import defaultdict
+    for day in [dt.date(2021, 7, 15), dt.date(2022, 7, 20), dt.date(2023, 7, 15), dt.date(2025, 7, 10)]:
+        docs = cammesa_docs("PARTE_POST_OPERATIVO", day)
+        want = day.strftime("PO%y%m%d.zip")
+        hit = [(d, a) for d in (docs if isinstance(docs, list) else []) for a in d.get("adjuntos", []) if a.get("id") == want]
+        if not hit:
+            continue
+        zf = zipfile.ZipFile(io.BytesIO(cammesa_get(*hit[0], "PARTE_POST_OPERATIVO")))
+        mdb = next(n for n in zf.namelist() if n.lower().endswith(".mdb"))
+        with tempfile.NamedTemporaryFile(suffix=".mdb", delete=False) as f:
+            f.write(zf.read(mdb))
+            path = f.name
+        codes = defaultdict(float)
+        for t in ("COMBUSTIBLES_QUEMADOS_DET_TOTAL", "COMB_QUEMADOS_SCOM"):
+            for x in mdb_table(path, t):
+                c = x.get("COMB") or x.get("CMB")
+                codes[(t[:9], c, x.get("SUBCOMB") or x.get("SUB_CMB"), x.get("UNIDAD"))] += 1
+        print("  fuel codes (table, code, subfuel, unit): rows", dict(sorted(codes.items())), flush=True)
+        gens = {g["GRUPO"]: g for g in mdb_table(path, "GENERADORES")}
+        per = defaultdict(float)
+        neg = defaultdict(float)
+        for v in mdb_table(path, "VALORES_GENERADORES"):
+            e = float(v["ENERGIA"] or 0)
+            per[v["GRUPO"]] += e
+            if e < 0:
+                neg[v["GRUPO"]] += e
+        print(f"  negative ENERGIA by unit: {dict(neg)}", flush=True)
+        for gname, e in sorted(per.items(), key=lambda kv: -kv[1]):
+            g = gens.get(gname, {})
+            if g.get("INTERCAMBIO") == "S" or g.get("SUBTIPO") in ("HB", "AG", "MH") or gname[:4] in ("SGDE", "SGUY", "YACY", "SALT") \
+                    or g.get("REGION") == "CTMSG":
+                print(f"   unit {gname} {g.get('CENTRAL')} {g.get('AGENTE')} {g.get('REGION')} {g.get('TIPO')} {g.get('SUBTIPO')} "
+                      f"int={g.get('INTERCAMBIO')}: {e:,.0f}", flush=True)
+        top = sorted(((e, gname) for gname, e in per.items() if gens.get(gname, {}).get("SUBTIPO") == "HI"), reverse=True)[:6]
+        print(f"  top HI units: {[(gn, gens[gn].get('REGION'), round(e)) for e, gn in top]}", flush=True)
+        pct = defaultdict(float)
+        for c in mdb_table(path, "COMBUSTIBLE_PORCENTAJE_DET"):
+            pct[c["COMB"]] += 1
+        print(f"  COMBUSTIBLE_PORCENTAJE_DET codes: {dict(pct)}", flush=True)
+        os.unlink(path)
+
+
 for name, fn in [("argentina", argentina), ("uruguay", uruguay), ("bolivia", bolivia), ("bolivia2", bolivia2),
-                 ("argentina2", argentina2), ("bolivia3", bolivia3)]:
+                 ("argentina2", argentina2), ("bolivia3", bolivia3), ("argentina3", argentina3)]:
     if name in WHICH:
         try:
             fn()
