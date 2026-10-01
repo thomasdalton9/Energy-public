@@ -107,12 +107,29 @@ def chile_imports(p):
                  "Chile natural gas imports (LNG + Argentina)", "million m3/day (approx)", "stacked_bar")]
 
 
+def power_mix(d):
+    """Ember generation-by-type sheet (GWh columns) -> chart frame with a fixed fuel order."""
+    g = pd.DataFrame({"Hydro": d.get("Hydro_GWh"), "Gas": d.get("Gas_GWh"), "Wind": d.get("Wind_GWh"),
+                      "Solar": d.get("Solar_GWh"), "Coal": d.get("Coal_GWh"), "Nuclear": d.get("Nuclear_GWh"),
+                      "Other": d[cols(d, "Bioenergy_GWh", "Other Fossil_GWh", "Other Renewables_GWh")].sum(axis=1)})
+    # every chart carries the full fuel list (zeros where a country has none) so each fuel keeps its colour
+    return g.fillna(0)
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
-    g = pd.DataFrame({"Hydro": d.get("Hydro_GWh"), "Gas": d.get("Gas_GWh"), "Wind": d.get("Wind_GWh"),
-                      "Solar": d.get("Solar_GWh"), "Coal": d.get("Coal_GWh"),
-                      "Other": d[cols(d, "Bioenergy_GWh", "Other Fossil_GWh", "Other Renewables_GWh")].sum(axis=1)})
-    return [spec("Generation", g, "Chile power generation by type", "GWh per month", "stacked_bar")]
+    return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
+
+
+def sa_power(p):
+    """One chart per country sheet of the Ember South America workbook."""
+    out = []
+    for sheet in pd.ExcelFile(p).sheet_names:
+        if sheet.lower() in ("units", "notes") or sheet.startswith("Chart"):
+            continue
+        d = by_date(read(p, sheet), "Month")
+        out.append(spec(sheet, power_mix(d), f"{sheet} power generation by type", "GWh per month", "stacked_bar"))
+    return out
 
 
 def colombia(p):
@@ -208,7 +225,8 @@ def ireland_smartgrid(p):
 
 def mexico(p):
     d = by_date(read(p, "Data"), "date")
-    return [spec("Demand", d[["Total_MWh"]], "Mexico national electricity demand", "MWh/day", "line", "%Y-%m-%d")]
+    w = weekly_mean(d[["Total_MWh"]]).rename(columns={"Total_MWh": "National demand"})
+    return [spec("Demand", w, "Mexico national electricity demand (weekly average)", "MWh/day", "line", "%Y-%m-%d")]
 
 
 def fuel_mix(title, units, drop=("Total", "Imports", "Renewables_Share", "share", "unknown")):
@@ -267,6 +285,76 @@ def henry_hub(p):
             spec("Monthly", monthly_mean(d), "Henry Hub natural gas spot price (monthly average)", "USD/MMBtu")]
 
 
+def _sheet(p, name, date_col):
+    try:
+        return by_date(read(p, name), date_col)
+    except ValueError:   # sheet not in this workbook
+        return pd.DataFrame()
+
+
+def _full_years(d):
+    return d[d["Coverage"].astype(str).eq("Full year")] if "Coverage" in d else d
+
+
+def singapore_power(p):
+    out = []
+    d = _sheet(p, "Daily demand", "Date")
+    if not d.empty:
+        dm = monthly_mean(d[cols(d, "System_Demand_Avg_MW", "System_Demand_Peak_MW")], "2021-01-01")
+        out.append(spec("Demand", dm.rename(columns={"System_Demand_Avg_MW": "Average system demand",
+                                                     "System_Demand_Peak_MW": "Daily peak"}),
+                        "Singapore electricity system demand (monthly average of daily values)", "MW"))
+    g = _sheet(p, "Daily generation by type", "Date")
+    if not g.empty:
+        gc = [c for c in g.columns if str(c).endswith("_GWh") and not str(c).startswith("Total")]
+        out.append(spec("Generation", monthly_mean(g[gc], "2021-01-01").rename(
+                            columns=lambda c: c.replace("_GWh", "").replace("_", " ")),
+                        "Singapore metered generation by plant type (monthly average)", "GWh/day", "stacked_bar"))
+    m = _sheet(p, "Monthly generation", "Month")
+    if not m.empty:
+        out.append(spec("Monthly generation", m.loc[m.index >= "2015-01-01", ["Electricity_Generation_GWh"]].rename(
+                            columns={"Electricity_Generation_GWh": "Electricity generation"}),
+                        "Singapore electricity generation (SingStat/EMA)", "GWh per month"))
+    c = _full_years(_sheet(p, "Annual consumption", "Year"))
+    if not c.empty:
+        cc = [x for x in c.columns if str(x).endswith("_GWh") and not str(x).startswith("Total")]
+        out.append(spec("Consumption", c[cc].rename(columns=lambda x: x.replace("_GWh", "").replace("_", " ")),
+                        "Singapore electricity consumption by sector", "GWh per year", "stacked_bar", "%Y"))
+    f = _full_years(_sheet(p, "Annual fuel mix", "Year"))
+    if not f.empty:
+        fc = [x for x in f.columns if str(x).endswith("_pct")]
+        out.append(spec("Fuel mix", f[fc].rename(columns=lambda x: x.replace("_pct", "").replace("_", " ")),
+                        "Singapore fuel mix for electricity generation", "% of generation", "stacked_bar", "%Y"))
+    return out
+
+
+def singapore_gas(p):
+    out = []
+    d = _full_years(_sheet(p, "Annual demand by sector", "Year"))
+    if not d.empty:
+        dc = cols(d, "Power_generation_TJ", "Industrial_TJ", "Commerce_Services_TJ", "Households_TJ", "Transport_TJ",
+                  "Others_TJ")
+        out.append(spec("Demand", (d[dc] / 1000).rename(columns=lambda x: x.replace("_TJ", "").replace("_", " ")),
+                        "Singapore natural gas demand by sector", "PJ per year", "stacked_bar", "%Y"))
+    i = _sheet(p, "Annual imports", "Year")
+    if not i.empty:
+        out.append(spec("Imports", (i[cols(i, "Pipeline_TJ", "LNG_TJ")] / 1000).rename(
+                            columns={"Pipeline_TJ": "Pipeline gas", "LNG_TJ": "LNG"}),
+                        "Singapore natural gas imports, pipeline vs LNG", "PJ per year", "stacked_bar", "%Y"))
+    e = _sheet(p, "Power burn monthly (est)", "Month")
+    if not e.empty:
+        out.append(spec("Power burn", e[["Gas_for_power_mcm_per_day_est"]].rename(
+                            columns={"Gas_for_power_mcm_per_day_est": "Gas for power (estimate)"}),
+                        "Singapore gas burn for power, estimated from metered CCGT generation",
+                        "mcm/day (approx)"))
+    t = _sheet(p, "Town gas quarterly", "Quarter_start")
+    if not t.empty:
+        out.append(spec("Town gas", t.loc[t.index >= "2015-01-01", cols(t, "Domestic_GWh", "Non_domestic_GWh")].rename(
+                            columns={"Domestic_GWh": "Domestic", "Non_domestic_GWh": "Non-domestic"}),
+                        "Singapore town gas sales", "GWh per quarter", "stacked_bar"))
+    return out
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -289,6 +377,7 @@ REGISTRY = {
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "chile_gas_imports.xlsx": chile_imports,
     "chile_power_by_type.xlsx": chile_power,
+    "south_america_power_by_type.xlsx": sa_power,
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "trinidad_gas.xlsx": trinidad,
@@ -305,6 +394,8 @@ REGISTRY = {
     "china_nbs_clean_energy_products_monthly.xlsx": china_nbs,
     "china_nbs_energy_production_monthly.xlsx": china_nbs,
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
+    "singapore_power.xlsx": singapore_power,
+    "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
@@ -332,6 +423,27 @@ def _drop_old_chart_sheets(path):
                 os.remove(tmp)
 
 
+def _order_chart_sheets(path, names):
+    """Chart sheets straight after the Units tab, in registry order (each add inserts at position 1)."""
+    from openpyxl import load_workbook
+    wb = load_workbook(path)
+    present = [n for n in names if n in wb.sheetnames]
+    if len(present) < 2:
+        return
+    sheets = {ws.title: ws for ws in wb._sheets}
+    rest = [ws for ws in wb._sheets if ws.title not in present]
+    head = rest[:1] if rest and rest[0].title.lower() in ("units", "notes") else []
+    wb._sheets = head + [sheets[n] for n in present] + [ws for ws in rest if ws not in head]
+    root, ext = os.path.splitext(path)
+    tmp = f"{root}.tmp{os.getpid()}{ext}"
+    try:
+        wb.save(tmp)
+        os.replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+
 def add_charts(path):
     name = os.path.basename(path)
     fn = REGISTRY.get(name, generic)
@@ -350,6 +462,8 @@ def add_charts(path):
             continue
         xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
                                     date_format=s["date_format"], line_cols=s.get("line_cols", ()))
+    _order_chart_sheets(path, [("Chart" if i == 0 else f"Chart - {sp['name']}"[:31]) for i, sp in enumerate(specs)
+                               if "water_year" not in sp])
     print(f"{name}: {len(specs)} chart(s)")
     return len(specs)
 
