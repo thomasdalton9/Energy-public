@@ -366,6 +366,38 @@ def ebyar(urls):
         print("   TEXT:", re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", txt))[:2500])
 
 
+EBYAR_MONTH = re.compile(r'table-cell">\s*([A-Za-zé]+)\s*</td>\s*</tr>\s*<tr class="row">\s*<td class="cell" '
+                         r'data-auto="table-cell">\s*([\d.]+)\s*MWh', re.I)
+
+
+def wayback(url="www.eby.org.ar/", start="2023"):
+    """Internet Archive snapshots of a page (one per day), each searched for the eby.org.ar 'ENERGIA GENERADA
+    Mes <month> <n> MWh' widget - the history of the monthly figure the live page only shows for the latest month."""
+    s = requests.Session()
+    s.headers.update(UA)
+    r = get(s, "https://web.archive.org/cdx/search/cdx", params={"url": url, "from": start, "output": "json",
+                                                                   "filter": "statuscode:200", "collapse": "timestamp:8"},
+            timeout=120)
+    if r is None:
+        return
+    rows = r.json()[1:] if r.status_code == 200 and r.text.strip() else []
+    print(f"\n== wayback {url} from {start}: {len(rows)} daily snapshots")
+    seen = {}
+    for row in rows:
+        ts = row[1]
+        snap = get(s, f"https://web.archive.org/web/{ts}id_/http://{url}", timeout=90)
+        if snap is None or snap.status_code != 200:
+            continue
+        m = EBYAR_MONTH.search(snap.text)
+        val = (m.group(1), m.group(2)) if m else None
+        if val and seen.get(val) is None:
+            seen[val] = ts
+            print(f"   {ts}: {val[0]} {val[1]} MWh")
+        elif not val and len(seen) == 0:
+            print(f"   {ts}: no widget")
+    print(f"   {len(seen)} distinct month figures")
+
+
 def wpsearch(base, query, pages=10):
     """WordPress REST search: every post matching `query` (title, date, link, text start)."""
     s = requests.Session()
@@ -405,10 +437,13 @@ if __name__ == "__main__":
         ays(a[4:])
     for a in [x for x in args if x.startswith("pw=")]:
         pw(a[3:])
+    for a in [x for x in args if x.startswith("wayback=")]:   # wayback=URL|FROMYEAR
+        u, y = a[8:].split("|", 1)
+        wayback(u, y)
     eb = [x[6:] for x in args if x.startswith("ebyar=")]
     if eb:
         ebyar(eb)
-    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw=", "ebyar="))]
+    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw=", "ebyar=", "wayback="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
