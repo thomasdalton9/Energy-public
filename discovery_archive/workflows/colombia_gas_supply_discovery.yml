@@ -18,8 +18,9 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pdfplumber
+        run: pip install requests pdfplumber pandas openpyxl
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
+          ROUND: "2"
         run: timeout 800 python3 discovery_archive/COLOMBIA_GAS_SUPPLY_DISCOVERY.py ${{ inputs.reports }}

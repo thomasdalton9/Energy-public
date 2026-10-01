@@ -7,6 +7,7 @@ SPEC LNG regasification, Venezuela imports) live?
 Manual-only (discovery_archive/workflows/colombia_gas_supply_discovery.yml).
 """
 import io
+import os
 import re
 import sys
 
@@ -76,7 +77,37 @@ def probe(u):
         out(f"\nERR {u}: {type(e).__name__} {str(e)[:150]}")
 
 
+def round2():
+    """Round 2: only the 'Suministro por fuente' page, across a sample of
+    reports (one every few months, URLs from the demand workbook)."""
+    import pandas as pd
+    import pdfplumber
+    d = pd.read_excel("output/Data and Chart Outputs/colombia_gas_demand_by_sector.xlsx", sheet_name="Demand by sector")
+    d["Month"] = d["Month"].astype(str).str[:7]
+    pick = d[d["Month"].str[5:].isin(["01", "05", "09"]) | (d["Month"] >= "2026-06")]
+    for _, r in pick.iterrows():
+        u = r["Report"]
+        try:
+            c = requests.get(u, headers=H, timeout=T).content
+            with pdfplumber.open(io.BytesIO(c)) as pdf:
+                for i, page in enumerate(pdf.pages[:6]):
+                    t = page.extract_text() or ""
+                    if not re.search(r"Suministro\s+por\s+fuente", t, re.I) or not re.search(r"Cusiana", t):
+                        continue
+                    out(f"\n=== {r['Month']} p{i + 1} {u}")
+                    lines = t.splitlines()
+                    k0 = next((k for k, ln in enumerate(lines) if re.search(r"Cusiana", ln)), 0)
+                    for ln in lines[max(0, k0 - 10):k0 + 22]:
+                        out("    |", ln[:170])
+                    break
+        except Exception as e:
+            out(r["Month"], "ERR", type(e).__name__, str(e)[:120])
+
+
 if __name__ == "__main__":
+    if os.environ.get("ROUND") == "2":
+        round2()
+        sys.exit(0)
     for k, u in enumerate(REPORTS):
         dump_pdf(u, k == 0)
     for u in [
