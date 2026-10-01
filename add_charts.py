@@ -755,6 +755,8 @@ REGISTRY = {
     "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),
     "chile_power_capacity.xlsx": power_capacity("Chile installed generation capacity (CNE)"),
     "colombia_power_capacity.xlsx": power_capacity("Colombia installed generation capacity (XM)"),
+    "uruguay_power_capacity.xlsx": power_capacity("Uruguay installed generation capacity (MIEM / DNE)"),
+    "bolivia_power_capacity.xlsx": power_capacity("Bolivia installed generation capacity (CNDC)"),
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
