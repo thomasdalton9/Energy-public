@@ -208,7 +208,20 @@ def colombia(p):
                       "Residential & commercial": z("Residential", "Commercial"),
                       "Refinery & petrochemical": z("Refinery", "Petrochemical"),
                       "Vehicle CNG & compressors": z("Vehicle_CNG", "Compressors")})
-    return [spec("Demand", g, "Colombia gas demand by sector", "GBTUD", "stacked_bar")]
+    out = [spec("Demand", g, "Colombia gas demand by sector", "GBTUD", "stacked_bar")]
+    if "Supply by source" in pd.ExcelFile(p).sheet_names:
+        s = by_date(read(p, "Supply by source"), "Month")
+        sup = pd.DataFrame({"Cusiana/Cupiagua (Piedemonte)": s["Piedemonte_Cusiana_Cupiagua"],
+                            "Guajira (Chuchupa/Ballena)": s["Guajira_Chuchupa_Ballena"],
+                            "Canacol (VIM-5, VIM-21, Esperanza)": s["Canacol_VIM5_VIM21_Esperanza"],
+                            "Other domestic fields": s["Other_fields"],
+                            "LNG imports (SPEC Cartagena)": s["LNG_imports_SPEC"]})
+        if s["Venezuela_imports"].notna().any():
+            sup["Imports from Venezuela"] = s["Venezuela_imports"]
+        sup["Total demand"] = d["Reported_total"].reindex(sup.index)
+        out.append(spec("Supply", sup, "Colombia gas supply by source vs demand", "GBTUD", "stacked_bar",
+                        line_cols=("Total demand",)))
+    return out
 
 
 def panama_gas(p):
