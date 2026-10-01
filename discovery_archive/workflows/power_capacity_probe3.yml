@@ -1,0 +1,25 @@
+name: Power capacity probe 3
+
+# Manual-only: round-3 capacity probes (Argentina CAMMESA/SE downloads, Colombia XM solar drop-outs).
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [argentina, colombia]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl certifi pyarrow xlrd
+      - name: Probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1300 python3 discovery_archive/south_america/POWER_CAPACITY_PROBE3.py ${{ matrix.target }}
