@@ -46,9 +46,8 @@ DEMAND = {
     "Industrial": "N3035US2",
     "Electric_power": "N3045US2",
     "Vehicle_fuel": "N3025US2",
-    "Lease_fuel": "N9160US2",
-    "Plant_fuel": "N9170US2",
-    "Pipeline_and_distribution": "N9180US2",
+    "Lease_and_plant_fuel": "N9160US2",
+    "Pipeline_and_distribution": "N9170US2",
     "Total_consumption": "N9140US2",
 }
 SUPPLY = {
@@ -70,9 +69,9 @@ STORAGE = {
     "Lower_48": "NW2_EPG0_SWO_R48_BCF",
     "East": "NW2_EPG0_SWO_R31_BCF",
     "Midwest": "NW2_EPG0_SWO_R32_BCF",
-    "Mountain": "NW2_EPG0_SWO_R33_BCF",
-    "Pacific": "NW2_EPG0_SWO_R34_BCF",
-    "South_Central": "NW2_EPG0_SWO_R35_BCF",
+    "South_Central": "NW2_EPG0_SWO_R33_BCF",
+    "Mountain": "NW2_EPG0_SWO_R34_BCF",
+    "Pacific": "NW2_EPG0_SWO_R35_BCF",
 }
 
 
@@ -119,6 +118,7 @@ def fetch(sid, freq, start):
         s = s[s.index.notna()].dropna().sort_index()
         if freq == "m":
             s.index = s.index.to_period("M").to_timestamp()
+        s = s[s.index >= pd.Timestamp(start)]   # the seriesid route returns full history whatever `start` says
         if not s.empty:
             print(f"  {sid} via {name}: {len(s)} rows {s.index.min():%Y-%m-%d}..{s.index.max():%Y-%m-%d}", flush=True)
             return s
@@ -143,6 +143,9 @@ def start_for(saved, freq):
 
 def pull(series, saved, freq, bcfd=True):
     """Fetch every series from the refresh start, convert MMcf/month to Bcf/d, merge over the saved rows."""
+    suffix = "_Bcf_per_day" if bcfd else "_Bcf"
+    if not saved.empty:   # columns retired by a series change are dropped, not carried forward
+        saved = saved[[c for c in saved.columns if c[:-len(suffix)] in series and c.endswith(suffix)]]
     start = start_for(saved, freq)
     new = pd.DataFrame({c: fetch(sid, freq, start) for c, sid in series.items()})
     new.index = pd.DatetimeIndex(new.index)
@@ -197,8 +200,8 @@ def main():
         "volume (MMcf) / days in month / 1,000.",
         "Storage weekly: working gas in underground storage, Bcf, week ending Friday (EIA Weekly Natural Gas "
         "Storage Report). Lower_48 plus EIA's five regions.",
-        "Lease_fuel, Plant_fuel, Pipeline_and_distribution: gas used in field operations, processing plants and "
-        "pipeline compressors; Total_consumption includes them.",
+        "Lease_and_plant_fuel, Pipeline_and_distribution: gas used in field operations and processing plants, and "
+        "by pipeline compressors and distribution systems; Total_consumption includes them.",
         "",
         "COVERAGE",
         f"Demand: {cover(demand)}. Supply and trade: {cover(supply)}. Storage: {cover(storage)}. EIA's monthly "
