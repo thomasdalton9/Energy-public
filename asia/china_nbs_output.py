@@ -37,6 +37,7 @@ EXTRA_RELEASES = [(t, _OLD.format(i)) for t, i in [
     ("2021年6月份规模以上工业增加值增长8.3%", 1901155),
     ("2021年7月份规模以上工业增加值增长6.4%", 1901191),
     ("2021年8月份规模以上工业增加值增长5.3%", 1901218),
+    ("2021年9月份规模以上工业增加值增长3.1%", 1901241),
 ]]
 
 # (regex on the product name with any "其中：" prefix and unit removed, column, English label,
