@@ -158,9 +158,9 @@ def source_of(fname, spec_name=None):
         publisher = f"Ember, compiled from {OPERATORS[spec_name]} (no raw feed yet)"
     return publisher, url
 
-CHART_W, CHART_H = 17.0, 8.5       # cm
-ROWS_PER_CHART = 19
-COLS = ("B", "F")                  # two charts per row (B-E are ~17 cm wide, so F starts the second)
+CHART_W, CHART_H = 21.0, 11.0      # cm - room for the title, rotated date labels and axis titles
+ROWS_PER_CHART = 24                # 11 cm is ~21 default rows, plus the source line and a gap
+COLS = ("B", "F")                  # two charts per row (B-E are sized to ~21 cm, so F starts the second)
 
 
 def sheet_name(text, used):
@@ -270,7 +270,7 @@ def draw_dashboard(dash, heading, charts, index_rows, missing):
     if missing:
         dash.cell(row=row, column=2, value="Not available / notes this run: " + "; ".join(missing)).font = Font(color="E34948")
         row += 1
-    for col, w in (("B", 12), ("C", 48), ("D", 9), ("E", 24), ("F", 52)):
+    for col, w in (("B", 14), ("C", 52), ("D", 10), ("E", 38), ("F", 56)):
         dash.column_dimensions[col].width = w
     start = row + 1
     for k, (ch, (publisher, url)) in enumerate(charts):
