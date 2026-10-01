@@ -1,6 +1,6 @@
 name: South America power prices
 
-# Daily wholesale power prices (local currency and USD) for Brazil (ONS CMO), Colombia (XM bolsa),
+# Daily wholesale power prices (headline US$/MWh; local currency kept in the country sheets) for Brazil (ONS CMO), Colombia (XM bolsa),
 # Peru (COES CMg Santa Rosa 220), Argentina (CAMMESA CMO / spot), Uruguay (ADME spot), Bolivia (CNDC)
 # and Chile (CNE PMM, monthly) - south_america/SA_POWER_PRICES_DAILY.py. A separate workbook, not part of
 # the South & Central America master. Incremental: missing days + the last 7 days each run.
@@ -34,9 +34,9 @@ on:
 permissions:
   contents: write
 
-# one run at a time: runs queue instead of overwriting each other's workbook
+# one live run at a time: runs queue instead of overwriting each other's workbook (dry runs are independent)
 concurrency:
-  group: south-america-power-prices
+  group: south-america-power-prices-${{ github.event.inputs.dry_run == 'true' && github.run_id || 'live' }}
   cancel-in-progress: false
 
 jobs:
