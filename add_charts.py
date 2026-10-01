@@ -116,6 +116,20 @@ def power_mix(d):
     return g.fillna(0)
 
 
+# Standard layout for raw grid-operator generation workbooks (one per country):
+#   sheet "Daily": date, Hydro_MWh, Gas_MWh, Wind_MWh, Solar_MWh, Coal_MWh, Nuclear_MWh, Oil_MWh,
+#                  Bioenergy_MWh, Other_MWh, Total_MWh   (MWh per day; absent fuels may be omitted)
+# Charted as monthly GWh with the same fuel order/colours as power_mix.
+def power_daily(title):
+    def f(p):
+        d = by_date(read(p, "Daily"), "date")
+        m = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].resample("MS").sum(min_count=1) / 1000
+        m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+        m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
+        return [spec("Generation", power_mix(m), title, "GWh per month", "stacked_bar")]
+    return f
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
     return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
