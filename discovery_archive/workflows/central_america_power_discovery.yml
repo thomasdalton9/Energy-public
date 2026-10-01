@@ -2,7 +2,9 @@ name: Central America power discovery
 
 # One-off, manual-only probe for Panama (CND), Costa Rica (CENCE) and
 # Nicaragua (CNDC) generation-by-fuel sources. Raw responses go to the
-# throwaway branch ca-power-discovery-raw.
+# throwaway branch ca-power-discovery-raw. Rounds 1-6 (CENTRAL_AMERICA_POWER_DISCOVERY*.py) led to
+# south_america/PANAMA_CND_GENERATION_DAILY.py, COSTA_RICA_CENCE_GENERATION_DAILY.py and
+# NICARAGUA_CNDC_GENERATION_DAILY.py and PANAMA_GAS.py. Archived: copy back to .github/workflows/ to re-run.
 on:
   workflow_dispatch:
     inputs:
