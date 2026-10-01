@@ -1,0 +1,27 @@
+name: Argentina Uruguay Bolivia power discovery
+
+# One-off, manual only: history depth and fuel detail for the CAMMESA / ADME / CNDC daily generation pulls.
+on:
+  workflow_dispatch:
+    inputs:
+      which:
+        description: "countries (argentina uruguay bolivia)"
+        default: "argentina uruguay bolivia"
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y -q mdbtools >/dev/null
+          pip install requests pandas openpyxl
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1100 python3 discovery_archive/south_america/AUB_POWER_DISCOVERY.py ${{ github.event.inputs.which }}
