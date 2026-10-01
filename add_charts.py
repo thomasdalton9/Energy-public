@@ -420,6 +420,8 @@ REGISTRY = {
     "argentina_power_generation_daily.xlsx": power_daily("Argentina power generation by type (CAMMESA)"),
     "uruguay_power_generation_daily.xlsx": power_daily("Uruguay power generation by type (ADME)"),
     "bolivia_power_generation_daily.xlsx": power_daily("Bolivia power generation by type (CNDC)"),
+    "ecuador_power_generation_daily.xlsx": power_daily("Ecuador power generation by type (CENACE)"),
+    "peru_power_generation_daily.xlsx": power_daily("Peru power generation by type (COES)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "trinidad_gas.xlsx": trinidad,
