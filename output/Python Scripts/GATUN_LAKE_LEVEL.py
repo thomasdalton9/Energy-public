@@ -71,7 +71,7 @@ def main():
     ]
     xlsx_notes.write_workbook(args.out, {"Daily": df}, notes, {"UNITS", "WHY THIS MATTERS", "SOURCE"})
     water_year_chart.add_water_year_chart(args.out, df.set_index(pd.to_datetime(df["date"]))["level_ft"],
-                                          "Gatun Lake (Panama Canal)", "feet above sea level")
+                                          "Gatun Lake (Panama Canal)", "feet above sea level", y_decimals=0)
     print(f"Saved {args.out}", flush=True)
 
 

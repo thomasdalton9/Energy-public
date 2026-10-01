@@ -725,7 +725,8 @@ def add_charts(path):
         sheet = "Chart" if i == 0 else f"Chart - {s['name']}"[:31]
         if "water_year" in s:
             water_year_chart.add_water_year_chart(path, s["water_year"], s["title"], s["units"],
-                                                  sheet_name=s.get("sheet", water_year_chart.SHEET))
+                                                  sheet_name=s.get("sheet", water_year_chart.SHEET),
+                                                  y_decimals=s.get("y_decimals"))
             continue
         df = s["df"].dropna(how="all")
         if df.empty:
