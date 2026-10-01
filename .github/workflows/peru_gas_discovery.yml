@@ -22,7 +22,7 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-          ROUND: "1"
+          ROUND: "2"
         run: |
           mkdir -p pe_raw
           timeout 2100 python3 discovery_archive/south_america/PERU_GAS_DEMAND_DISCOVERY.py 2>&1 | tee pe_raw/log.txt

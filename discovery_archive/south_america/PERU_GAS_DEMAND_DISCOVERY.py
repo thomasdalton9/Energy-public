@@ -7,6 +7,19 @@ Crawls the candidate publishers (MINEM, Osinergmin, Perupetro, TGP,
 Calidda, COES, BCRP, datosabiertos.gob.pe), logs every link that looks
 relevant and saves the pages and data files under pe_raw/ (the workflow
 pushes them to a throwaway branch for offline inspection).
+Round 1 findings: MINEM (gob.pe) collection 17643 'Informes Estadisticos
+Upstream - Downstream' has a monthly 'distribucion-<mes>-<anio>.xlsx'
+(Informe de distribucion de gas natural): one sheet per distribution
+concession (Calidda, Contugas, Quavii, Petroperu, Gasnorp) with monthly
+volume by sector in MMPCD for a rolling window (Jan-2022..latest).
+Osinergmin's quarterly Boletin Estadistico de Gas Natural only has charts.
+www.minem.gob.pe times out; perupetro.com.pe fails TLS verification
+(incomplete chain); datosabiertos CKAN API 404.
+
+Round 2 (ROUND=2): list every publication in collection 17643 (all pages)
+and save their attachments (distribution, upstream) for offline inspection;
+retry Perupetro with its missing intermediate CA added to the trust store
+(fetched from the leaf's AIA 'CA Issuers' URL - verification stays on).
 Runs in GitHub Actions only (sites are blocked from the editing sandbox).
 """
 import os
@@ -156,5 +169,83 @@ def main():
     out(f"done: {pages} pages, {files} files, {len(q)} left in queue")
 
 
+COLL = "https://www.gob.pe/institucion/minem/colecciones/17643-informes-estadisticos-upstream-downstream"
+
+
+def round2():
+    import subprocess
+    import certifi
+    os.makedirs(RAW, exist_ok=True)
+    s = requests.Session()
+    pubs = {}
+    for page in range(1, 40):
+        r = get(f"{COLL}?sheet={page}", s)
+        if r is None or r.status_code != 200:
+            break
+        save(f"{COLL}_sheet{page}.html", r.content)
+        found = re.findall(r'href="(/institucion/minem/informes-publicaciones/(\d+)-[^"?#]+)"', r.text)
+        new = [u for u, _ in found if u not in pubs]
+        for u in new:
+            pubs[u] = None
+        out(f"  sheet {page}: {len(new)} new publications")
+        if not new:
+            break
+    out(f"{len(pubs)} publications in the collection")
+    for u in pubs:
+        out(f"PUB {u}")
+    files = 0
+    for u in pubs:
+        if time.time() > DEADLINE:
+            break
+        r = get("https://www.gob.pe" + u, s)
+        if r is None or r.status_code != 200:
+            continue
+        att = sorted(set(re.findall(r'https://cdn\.www\.gob\.pe/uploads/document/file/\d+/[^"?#\s]+', r.text)))
+        for a in att:
+            out(f"  ATT {a}")
+        keep = [a for a in att if a.lower().endswith((".xlsx", ".xls", ".zip", ".csv"))
+                and re.search(r"distrib|gas|upstream|produc|fiscaliz|liquid|regal|hidrocarb", a, re.I)
+                and not re.search(r"refiner|inventar|precios-comb|ventas", a, re.I)]
+        for a in keep:
+            if files >= MAX_FILES:
+                break
+            rr = get(a, s)
+            if rr is not None and rr.status_code == 200:
+                files += 1
+                out(f"  FILE saved {save(a, rr.content)}")
+    # Perupetro: add the missing intermediate CA (from the leaf's AIA) to certifi's bundle; verification stays on
+    host = "www.perupetro.com.pe"
+    try:
+        pem = subprocess.run(["openssl", "s_client", "-connect", f"{host}:443", "-servername", host, "-showcerts"],
+                             input=b"", capture_output=True, timeout=30).stdout.decode("latin-1")
+        out(pem[:3000])
+        leaf = re.search(r"-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----", pem, re.S).group(0)
+        txt = subprocess.run(["openssl", "x509", "-noout", "-text"], input=leaf.encode(), capture_output=True).stdout.decode()
+        aia = re.findall(r"CA Issuers - URI:(\S+)", txt)
+        out(f"AIA: {aia}")
+        bundle = os.path.join(RAW, "perupetro_ca.pem")
+        extra = ""
+        for url in aia:
+            der = requests.get(url, headers=H, timeout=T).content
+            conv = subprocess.run(["openssl", "x509", "-inform", "DER" if not der.startswith(b"-----") else "PEM"],
+                                  input=der, capture_output=True).stdout.decode()
+            extra += conv
+        with open(bundle, "w") as f:
+            f.write(open(certifi.where()).read() + "\n" + extra)
+        s.verify = bundle
+        for u in ["https://www.perupetro.com.pe/", 
+                  "https://www.perupetro.com.pe/wps/portal/corporativo/PerupetroSite/estadisticas",
+                  "https://www.perupetro.com.pe/wps/portal/corporativo/PerupetroSite/estadisticas/estadistica%20petrolera"]:
+            r = get(u, s)
+            if r is not None and r.status_code == 200:
+                save(u + ".html", r.content)
+                for l in sorted(set(links(r.text, r.url))):
+                    if re.search(r"estad|produc|gas|xls|pdf", l, re.I):
+                        out(f"  LINK {l}")
+    except Exception as e:  # noqa: BLE001
+        out(f"perupetro probe failed: {type(e).__name__}: {e}")
+    out(f"round 2 done: {files} files")
+
+
 if __name__ == "__main__":
-    main()
+    round2() if ROUND == "2" else main()
