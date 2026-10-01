@@ -115,13 +115,47 @@ def fetch():
     return bal.sort_index()
 
 
+BULLETIN_BASE = ("https://www.gov.br/mme/pt-br/assuntos/secretarias/petroleo-gas-natural-e-biocombustiveis/publicacoes-1/"
+                 "boletim-mensal-de-acompanhamento-da-industria-de-gas-natural")
+OBSERVATORIO = ("https://www.gov.br/mme/pt-br/assuntos/observatorio-de-minas-e-energia/petroleo-gas-e-biocombustiveis/"
+                "boletim-do-gas")
+
+
+def source_watch(latest_month, path):
+    """As of 2026-10 the public national series stops at 2025-06 (this annex), the PDF bulletins stop
+    at Sep-2025 (grid-only), and the Observatorio dashboard that replaced them needs a gov.br login.
+    Record each signal in a small text file so any change shows up as a git diff on the monthly run."""
+    lines = [f"annex latest month: {latest_month:%Y-%m}"]
+    for year in (2025, 2026, 2027):
+        try:
+            r = requests.get(f"{BULLETIN_BASE}/{year}", headers=HEADERS, timeout=TIMEOUT)
+            pdfs = sorted(set(re.findall(r"/(\d{2})-boletim[^\"/]*?\.pdf", r.text)))
+            lines.append(f"bulletin page {year}: HTTP {r.status_code}, monthly PDFs listed: {','.join(pdfs) or 'none'}")
+        except requests.RequestException as e:
+            lines.append(f"bulletin page {year}: ERR {type(e).__name__}")
+    try:
+        r = requests.get(OBSERVATORIO, headers=HEADERS, timeout=TIMEOUT)
+        gated = "require_login" in r.text or "credentials_cookie_auth" in r.text
+        embeds = sorted(set(re.findall(r"(app\.powerbi\.com/view\?r=[^\"'&]+|[a-z0-9.-]*(?:qlik|tableau)[a-z0-9./-]*)", r.text)))
+        lines.append(f"observatorio boletim do gas: HTTP {r.status_code}, login-gated={gated}, public embeds={embeds or 'none'}")
+    except requests.RequestException as e:
+        lines.append(f"observatorio boletim do gas: ERR {type(e).__name__}")
+    text = "\n".join(lines) + "\n"
+    print("\nSOURCE WATCH\n" + text, flush=True)
+    with open(path, "w") as f:
+        f.write(text)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=OUT_DEFAULT)
     parser.add_argument("--start-date", default=DATA_START)
+    parser.add_argument("--watch-out", default=None, help="write the source-watch status file here")
     args = parser.parse_args()
 
     bal = fetch()
+    if args.watch_out:
+        source_watch(bal.index.max(), args.watch_out)
     bal = bal[bal.index >= args.start_date]
 
     demand = pd.DataFrame(index=bal.index)

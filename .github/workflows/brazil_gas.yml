@@ -1,11 +1,13 @@
 name: Brazil gas
 
-# MME republishes its historical gas balance annex with each monthly
-# bulletin (a lag of a couple of months). The file always carries the
-# full history, so each run just overwrites the archive. Weekly is plenty.
+# Monthly: MME's public national series is frozen at 2025-06 (annex xlsx),
+# the PDF bulletins stopped at Sep-2025, and the replacement dashboard is
+# login-gated. Each run re-pulls the annex and rewrites a small source-watch
+# file, so if MME updates the annex, posts a 2026 bulletin page or opens the
+# dashboard, it shows up as a commit.
 on:
   schedule:
-    - cron: "15 11 * * 2"
+    - cron: "15 11 3 * *"
   workflow_dispatch: {}
 
 permissions:
@@ -25,19 +27,22 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 south_america/BRAZIL_GAS.py --out output/brazil_gas_monthly.xlsx
+        run: timeout 300 python3 south_america/BRAZIL_GAS.py --out output/brazil_gas_monthly.xlsx --watch-out output/brazil_gas_source_watch.txt
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f output/brazil_gas_monthly.xlsx ]; then
-            echo "No archive file to commit (pull failed before writing it)."
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f output/brazil_gas_monthly.xlsx
-          git diff --cached --quiet || git commit -m "Brazil gas: automated update"
+          for f in output/brazil_gas_monthly.xlsx output/brazil_gas_source_watch.txt; do
+            [ -f "$f" ] && git add -f "$f"
+          done
+          if git diff --cached --quiet -- output/brazil_gas_source_watch.txt; then
+            msg="Brazil gas: automated update"
+          else
+            msg="Brazil gas: SOURCE CHANGED - see output/brazil_gas_source_watch.txt"
+          fi
+          git diff --cached --quiet || git commit -m "$msg"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0
             sleep $((i * 5))
