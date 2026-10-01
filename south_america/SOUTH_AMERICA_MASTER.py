@@ -297,13 +297,19 @@ def main():
     sources = []
 
     gas = collect(wb, DATASETS, args.data_dir, used, sources)
+    ember_countries = set()
+    for _, _, f in EMBER_FILES:
+        try:
+            ember_countries |= set(pd.ExcelFile(os.path.join(args.data_dir, f)).sheet_names)
+        except Exception:
+            pass
     raw_power, building = [], []
     for d in RAW_POWER_DATASETS:
         path = os.path.join(args.data_dir, d[2])
         if not os.path.exists(path):
             continue
         days = raw_history_days(path)
-        if days >= MIN_RAW_DAYS:
+        if days >= MIN_RAW_DAYS or d[1] not in ember_countries:   # no Ember fallback: show the raw feed whatever its length
             raw_power.append(d)
         else:  # e.g. a source with no archive that only grows a day at a time: keep Ember until it has a year
             building.append(f"{d[1]} raw feed has {days} days so far - Ember shown until it has {MIN_RAW_DAYS}")
