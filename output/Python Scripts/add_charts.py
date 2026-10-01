@@ -190,8 +190,24 @@ def brazil(p):
 def bolivia(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     c = [x for x in d.columns if x.endswith("_mcm_per_day") and not x.startswith("Total")]
-    return [spec("Demand", d[c].rename(columns=lambda x: x.replace("_mcm_per_day", "").replace("_", " ")),
-                 "Bolivia gas demand by sector", "million m3/day", "stacked_bar")]
+    specs = [spec("Demand", d[c].rename(columns=lambda x: x.replace("_mcm_per_day", "").replace("_", " ")),
+                  "Bolivia gas demand by sector", "million m3/day", "stacked_bar")]
+    try:
+        pe = by_date(read(p, "Production and exports"), "Month")
+    except ValueError:   # older workbook without the production / exports sheet
+        return specs
+    names = {"Exports_Brazil_mcm_per_day": "Exports to Brazil", "Exports_Argentina_mcm_per_day": "Exports to Argentina",
+             "Exports_other_mcm_per_day": "Exports, other", "Domestic_market_mcm_per_day": "Domestic market",
+             "Production_mcm_per_day": "Production"}
+    bal = pe[cols(pe, *names)].rename(columns=names)
+    # months where production and every use are published (INE's production / domestic tables lag the customs data)
+    bal = bal[bal.notna().all(axis=1)]
+    specs.append(spec("Production", bal, "Bolivia gas production vs exports + domestic demand", "million m3/day",
+                      "stacked_bar", line_cols=("Production",)))
+    exp = pe[cols(pe, "Exports_Brazil_mcm_per_day", "Exports_Argentina_mcm_per_day", "Exports_other_mcm_per_day")]
+    specs.append(spec("Exports", exp.rename(columns=names).dropna(how="all"),
+                      "Bolivia gas exports by destination (INE customs)", "million m3/day", "stacked_bar"))
+    return specs
 
 
 def peru(p):
@@ -230,9 +246,34 @@ def uruguay(p):
 
 
 def chile_imports(p):
+    """Chile gas (CHILE_GAS_IMPORTS.py): imports by use / terminal region (CNE import workbook), with the monthly
+    report's total for months after the workbook ends; domestic production (ENAP + CEOP)."""
+    sheets = pd.ExcelFile(p).sheet_names
     d = by_date(read(p, "Gas imports"), "Month")
-    return [spec("Imports", d[["Imports_mcm_per_day_approx"]].rename(columns={"Imports_mcm_per_day_approx": "Gas imports"}),
-                 "Chile natural gas imports (LNG + Argentina)", "million m3/day (approx)", "stacked_bar")]
+    total = d["Imports_mcm_per_day_approx"]
+    if "Imports by use" in sheets:
+        u = by_date(read(p, "Imports by use"), "Month")
+        names = {"LNG_V_region_Quintero_mcm_per_day": "LNG - Quintero (central)",
+                 "LNG_II_region_Mejillones_mcm_per_day": "LNG - Mejillones (north)",
+                 "Pipeline_energy_RM_V_region_mcm_per_day": "Argentina pipeline - central (energy use)",
+                 "Pipeline_energy_II_region_mcm_per_day": "Argentina pipeline - north (energy use)",
+                 "Pipeline_energy_VIII_region_mcm_per_day": "Argentina pipeline - Biobio (energy use)",
+                 "Pipeline_petrochemical_Magallanes_mcm_per_day": "Argentina pipeline - Magallanes (methanol)"}
+        imp = u[cols(u, *names)].rename(columns=names).reindex(d.index)
+        no_split = imp.isna().all(axis=1)
+        imp["Total, monthly report (no split)"] = total.where(no_split)
+        title = "Chile natural gas imports by use and entry region"
+    else:
+        imp = total.to_frame("Gas imports")
+        title = "Chile natural gas imports (LNG + Argentina)"
+    specs = [spec("Imports", imp, title, "million m3/day (monthly average)", "stacked_bar")]
+    if "Domestic production" in sheets:
+        q = by_date(read(p, "Domestic production"), "Month")
+        q = q[["ENAP_mcm_per_day", "CEOP_mcm_per_day"]].rename(
+            columns={"ENAP_mcm_per_day": "ENAP", "CEOP_mcm_per_day": "CEOP (private operators)"})
+        specs.append(spec("Production", q, "Chile domestic gas production (Magallanes)", "million m3/day",
+                          "stacked_bar"))
+    return specs
 
 
 def power_mix(d):
@@ -685,6 +726,62 @@ def chile_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
+IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics"]
+
+
+def _category_stacked_bar(path, sheet, t, title, y_title):
+    """Native stacked column chart over a category (non-date) axis: rows of t are the categories, columns the series."""
+    from openpyxl import load_workbook
+    from openpyxl.chart import BarChart, Reference
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
+    wb = load_workbook(path)
+    if sheet in wb.sheetnames:
+        del wb[sheet]
+    ws = wb.create_sheet(sheet, 1)
+    ws.cell(row=1, column=1, value="Country")
+    for j, c in enumerate(t.columns, start=2):
+        ws.cell(row=1, column=j, value=str(c))
+    for i, (k, r) in enumerate(t.iterrows(), start=2):
+        ws.cell(row=i, column=1, value=str(k))
+        for j, v in enumerate(r.values, start=2):
+            ws.cell(row=i, column=j, value=None if pd.isna(v) else round(float(v), 3))
+    ws.column_dimensions["A"].width = 20
+    n = len(t) + 1
+    ch = BarChart()
+    ch.type, ch.grouping, ch.overlap, ch.gapWidth = "col", "stacked", 100, 50
+    ch.add_data(Reference(ws, min_col=2, max_col=1 + t.shape[1], min_row=1, max_row=n), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
+    for i, s in enumerate(ch.series):
+        s.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
+                                                    ln=LineProperties(noFill=True))
+    ch.title = title
+    ch.y_axis.title = y_title
+    ch.x_axis.delete = False
+    ch.y_axis.delete = False
+    ch.legend.position = "b"
+    ch.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))     # no borders
+    ch.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
+    ch.width, ch.height = 28, 13
+    xlsx_charts.tidy_layout(ch)
+    ws.add_chart(ch, f"{chr(ord('A') + min(t.shape[1] + 2, 20))}2")
+    xlsx_charts.save_atomic(wb, path)
+
+
+def industrial_gas_users(p):
+    """Plant register (south_america/INDUSTRIAL_GAS_USERS.py): static data, so a stacked bar over countries of the
+    ESTIMATED gas demand (mcm/d at nameplate) of operating plants, by sector."""
+    d = read(p, "Plants")
+    op = d[(d["counted_as"] == "Operating") & d["gas_mcm_d_estimate"].notna()]
+    t = op.pivot_table(index="country", columns="sector", values="gas_mcm_d_estimate", aggfunc="sum")
+    t = t[[s for s in IGU_SECTORS if s in t.columns]]
+    t = t.loc[t.sum(axis=1).sort_values(ascending=False).index].fillna(0)
+    t.index = [str(c).replace("Trinidad and Tobago", "Trinidad & Tobago") for c in t.index]
+    return [{"name": "Gas by country", "custom": lambda path, sheet: _category_stacked_bar(
+        path, sheet, t, "Estimated gas demand of operating industrial plants, by country and sector",
+        "mcm/d (estimate at nameplate)")}]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -757,6 +854,7 @@ REGISTRY = {
     "singapore_power.xlsx": singapore_power,
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
+    "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
@@ -827,6 +925,9 @@ def add_charts(path):
     _drop_old_chart_sheets(path)
     for i, s in enumerate(specs):
         sheet = "Chart" if i == 0 else f"Chart - {s['name']}"[:31]
+        if "custom" in s:   # chart that is not a date-indexed series (e.g. categories on the x-axis)
+            s["custom"](path, sheet)
+            continue
         if "water_year" in s:
             water_year_chart.add_water_year_chart(path, s["water_year"], s["title"], s["units"],
                                                   sheet_name=s.get("sheet", water_year_chart.SHEET),

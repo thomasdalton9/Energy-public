@@ -27,10 +27,30 @@ same month a year later and its published annual change.
 
 Units: thousand tonnes per month as published; also an approximate
 million m3/day at 1,360 m3 of gas per tonne of LNG.
+
+Main series and sheet "Imports by use": CNE's import statistics workbook
+(Estadisticas > Hidrocarburo, importaciones-web.xlsx, customs data) has
+monthly pipeline gas from Argentina by use and region (energy: II, RM-V,
+VIII regions; petrochemical: Magallanes) and LNG by terminal region (II,
+V). It is the main source for every month it covers (to Apr 2026 in the
+Jun 2026 upload; this fills the months the reports don't show, e.g. Sep-Nov
+2021); the monthly report covers later months. Each run logs how the two
+sources compare where both have a month. The newest workbook is found via
+CNE's media library and only downloaded when it changes.
+
+Sheet "Domestic production": monthly gas production (thousand m3) by ENAP
+and CEOP (private operators), Magallanes, from CNE Estadisticas >
+Hidrocarburo, file Produccion_combustibles-<month>-<year>.xlsx (Ministerio
+de Energia data; latest found: Jun 2024). The newest file is found via CNE's
+media library and only downloaded when it changes. Found via
+discovery_archive/south_america/CHILE_GAS_DEMAND_DISCOVERY*.py, which also
+found no official gas demand split by sector covering 2021 on (CNE's monthly
+consumption-by-sector file ends Oct 2018), so none is included.
 Not reachable from the editing sandbox; runs in GitHub Actions
 (OCR needs the tesseract-ocr and tesseract-ocr-spa packages).
 """
 import argparse
+import datetime
 import io
 import os
 import re
@@ -243,6 +263,251 @@ def check_and_fill(df):
     return df
 
 
+PROD_SHEET = "produccion crudo gas m_energia"
+PROD_FALLBACK = "https://www.cne.cl/wp-content/uploads/2024/09/Produccion_combustibles-junio-2024.xlsx"
+
+
+def production_file_url():
+    """Newest monthly 'Produccion_combustibles-<month>-<year>.xlsx' in CNE's media library (Estadisticas >
+    Hidrocarburo). The annual-only versions ('Produccion_anual...', 'Produccion_combustibles-2023') are skipped."""
+    try:
+        r = requests.get("https://www.cne.cl/wp-json/wp/v2/media", headers=H, timeout=T,
+                         params={"search": "Produccion_combustibles", "per_page": 100})
+        urls = [s.replace("\\/", "/") for s in re.findall(r'"source_url":"([^"]+)"', r.text)] \
+            if r.status_code == 200 else []
+    except requests.RequestException:
+        urls = []
+    best = None
+    for u in urls:
+        m = re.search(r"Produccion_combustibles-([a-z]+)-(20\d\d)\.xlsx$", u, re.I)
+        if m and m.group(1).lower() in MESES:
+            key = (int(m.group(2)), MESES[m.group(1).lower()])
+            if best is None or key > best[0]:
+                best = (key, u)
+    return best[1] if best else PROD_FALLBACK
+
+
+def parse_production(content, url):
+    """Monthly gas production (thousand m3) by ENAP and CEOP (private operators under special petroleum operation
+    contracts), Ministerio de Energia data, sheet 'produccion crudo gas m_energia':
+    Mes | ENAP Petroleo (m3) | ENAP Gas (miles de m3) | CEOP Petroleo | CEOP Gas | Total Petroleo | Total Gas."""
+    df = pd.read_excel(io.BytesIO(content), sheet_name=PROD_SHEET, header=None)
+    rows = []
+    for _, r in df.iterrows():
+        if not isinstance(r.iloc[0], datetime.datetime):  # header, notes and annual rows are skipped
+            continue
+        d = pd.Timestamp(r.iloc[0])
+        vals = pd.to_numeric(r.iloc[[2, 4, 6]], errors="coerce").tolist()
+        if any(pd.isna(v) for v in vals):
+            continue
+        enap, ceop, total = vals
+        if abs(enap + ceop - total) > max(1.0, 0.005 * total):
+            out(f"  production {d:%Y-%m}: ENAP {enap:.0f} + CEOP {ceop:.0f} != total {total:.0f}")
+        rows.append({"Month": d.strftime("%Y-%m"), "ENAP_thousand_m3": enap, "CEOP_thousand_m3": ceop,
+                     "Total_thousand_m3": total, "Source_file": url})
+    p = pd.DataFrame(rows)
+    if p.empty:
+        return p
+    dup = p[p.duplicated("Month", keep=False)]
+    if len(dup):
+        out(f"  production: repeated months in the file (first kept): {sorted(set(dup['Month']))}")
+    return p.drop_duplicates("Month", keep="first")
+
+
+def production(out_path, full):
+    """Domestic gas production sheet, monthly from 2021. Re-downloaded only when CNE posts a newer file."""
+    have = pd.DataFrame()
+    if os.path.exists(out_path) and not full:
+        try:
+            have = pd.read_excel(out_path, sheet_name="Domestic production")
+            have = have.drop(columns=[c for c in have.columns if str(c).startswith("Unnamed")])
+            have["Month"] = have["Month"].astype(str)
+        except ValueError:  # sheet not there yet
+            have = pd.DataFrame()
+    url = production_file_url()
+    if len(have) and url in set(have["Source_file"]):
+        out(f"production: {url} already read; {len(have)} months kept")
+        return have
+    try:
+        r = requests.get(url, headers=H, timeout=T)
+        r.raise_for_status()
+        p = parse_production(r.content, url)
+    except Exception as e:
+        out(f"production: could not read {url}: {type(e).__name__} {str(e)[:120]}")
+        return have
+    p = p[p["Month"] >= str(START)]
+    if p.empty:
+        out(f"production: no 2021+ months in {url}")
+        return have
+    if len(have):  # keep months the old file has and the new one doesn't
+        p = pd.concat([have[~have["Month"].isin(p["Month"])], p], ignore_index=True)
+    p = p.sort_values("Month").reset_index(drop=True)
+    days = pd.PeriodIndex(p["Month"], freq="M").days_in_month
+    for c in ("ENAP", "CEOP", "Total"):
+        p[f"{c}_mcm_per_day"] = (p[f"{c}_thousand_m3"] / 1000 / days).round(3)
+    p = p[["Month", "ENAP_mcm_per_day", "CEOP_mcm_per_day", "Total_mcm_per_day", "ENAP_thousand_m3",
+           "CEOP_thousand_m3", "Total_thousand_m3", "Source_file"]]
+    out(f"production: {len(p)} months {p['Month'].min()}..{p['Month'].max()} from {url}")
+    out(p.drop(columns=["Source_file"]).tail(6).to_string(index=False))
+    return p
+
+
+USE_FALLBACK = "https://www.cne.cl/wp-content/uploads/2026/06/importaciones-web.xlsx"
+USE_COLS = ["Pipeline_energy_II_region_mcm_per_day", "Pipeline_energy_RM_V_region_mcm_per_day",
+            "Pipeline_energy_VIII_region_mcm_per_day", "Pipeline_petrochemical_Magallanes_mcm_per_day",
+            "LNG_II_region_Mejillones_mcm_per_day", "LNG_V_region_Quintero_mcm_per_day"]
+
+
+def imports_file_url():
+    """Newest 'importaciones-web*.xlsx' in CNE's media library (one upload folder per update)."""
+    try:
+        r = requests.get("https://www.cne.cl/wp-json/wp/v2/media", headers=H, timeout=T,
+                         params={"search": "importaciones-web", "per_page": 100})
+        urls = [s.replace("\\/", "/") for s in re.findall(r'"source_url":"([^"]+)"', r.text)] \
+            if r.status_code == 200 else []
+    except requests.RequestException:
+        urls = []
+    best = None
+    for u in urls:
+        m = re.search(r"/uploads/(20\d\d)/(\d\d)/importaciones-web(-\d+)?\.xlsx$", u)
+        if m:
+            key = (int(m.group(1)), int(m.group(2)), int((m.group(3) or "-0")[1:]))
+            if best is None or key > best[0]:
+                best = (key, u)
+    return best[1] if best else USE_FALLBACK
+
+
+def month_rows(df, first_col=1):
+    """{YYYY-MM: row} for the monthly rows of a CNE import sheet (column B holds a date; totals are text)."""
+    rows = {}
+    for _, r in df.iterrows():
+        d = r.iloc[first_col]
+        if isinstance(d, datetime.datetime):
+            rows.setdefault(d.strftime("%Y-%m"), r)
+    return rows
+
+
+def parse_imports_by_use(content, url):
+    """CNE 'importaciones-web.xlsx' (Camara de Comercio de Santiago customs data), monthly:
+    'GAS NATURAL GASEOSO' (pipeline gas from Argentina, million m3): energy use by region (II, RM-V, VIII; cols C-E)
+    and petrochemical use in Magallanes (col J); 'GAS NATURAL LICUADO' (LNG, tonnes) by region (II, V; cols C-D)."""
+    x = pd.ExcelFile(io.BytesIO(content))
+    g = pd.read_excel(x, sheet_name="GAS NATURAL GASEOSO", header=None)
+    lng = pd.read_excel(x, sheet_name="GAS NATURAL LICUADO", header=None)
+    # check the layout before reading by position
+    head_g = " ".join(str(v) for v in g.iloc[5:9].values.ravel())
+    head_l = " ".join(str(v) for v in lng.iloc[4:8].values.ravel())
+    for need, txt in (("USO ENERGETIC", head_g), ("PETROQUIMICO", head_g), ("II REGION", head_g),
+                      ("RM - V REGION", head_g), ("VIII REGION", head_g), ("V REGION", head_l), ("TONELADAS", head_l)):
+        if need not in txt:
+            raise ValueError(f"layout changed: '{need}' not found in the sheet headers")
+    gr, lr = month_rows(g), month_rows(lng)
+    rows = []
+    for m in sorted(set(gr) | set(lr)):
+        if m < str(START):
+            continue
+        a = pd.to_numeric(gr[m].iloc[[2, 3, 4, 9]], errors="coerce").tolist() if m in gr else [None] * 4
+        b = pd.to_numeric(lr[m].iloc[[2, 3]], errors="coerce").tolist() if m in lr else [None] * 2
+        rows.append({"Month": m, "Pipeline_energy_II_region_mcm": a[0], "Pipeline_energy_RM_V_region_mcm": a[1],
+                     "Pipeline_energy_VIII_region_mcm": a[2], "Pipeline_petrochemical_Magallanes_mcm": a[3],
+                     "LNG_II_region_Mejillones_t": b[0], "LNG_V_region_Quintero_t": b[1]})
+    df = pd.DataFrame(rows)
+    vals = df.drop(columns="Month").fillna(0)
+    # months not yet published are zero placeholders: drop trailing months with nothing in any column
+    filled = df.loc[vals.sum(axis=1) > 0, "Month"]
+    df = df[df["Month"] <= filled.max()] if len(filled) else df.iloc[0:0]
+    df["Source_file"] = url
+    return df
+
+
+def imports_by_use(out_path, full):
+    """'Imports by use' sheet: CNE's monthly import workbook, from 2021. Re-downloaded only when CNE posts a new one."""
+    have = pd.DataFrame()
+    if os.path.exists(out_path) and not full:
+        try:
+            have = pd.read_excel(out_path, sheet_name="Imports by use")
+            have = have.drop(columns=[c for c in have.columns if str(c).startswith("Unnamed")])
+            have["Month"] = have["Month"].astype(str)
+        except ValueError:
+            have = pd.DataFrame()
+    url = imports_file_url()
+    if len(have) and url in set(have["Source_file"]):
+        out(f"imports by use: {url} already read; {len(have)} months kept")
+        return have
+    try:
+        r = requests.get(url, headers=H, timeout=(10, 300))
+        r.raise_for_status()
+        u = parse_imports_by_use(r.content, url)
+    except Exception as e:
+        out(f"imports by use: could not read {url}: {type(e).__name__} {str(e)[:160]}")
+        return have
+    if u.empty:
+        out(f"imports by use: no 2021+ months in {url}")
+        return have
+    if len(have):
+        keep = have[~have["Month"].isin(u["Month"])]
+        u = pd.concat([keep[[c for c in u.columns if c in keep.columns]], u], ignore_index=True)
+    u = u.sort_values("Month").reset_index(drop=True)
+    days = pd.PeriodIndex(u["Month"], freq="M").days_in_month
+    for c in ("Pipeline_energy_II_region", "Pipeline_energy_RM_V_region", "Pipeline_energy_VIII_region",
+              "Pipeline_petrochemical_Magallanes"):
+        u[f"{c}_mcm_per_day"] = (u[f"{c}_mcm"] / days).round(3)
+    for c in ("LNG_II_region_Mejillones", "LNG_V_region_Quintero"):
+        u[f"{c}_mcm_per_day"] = (u[f"{c}_t"] * M3_PER_TONNE / 1e6 / days).round(3)
+    u["Total_mcm_per_day_approx"] = u[USE_COLS].sum(axis=1, min_count=1).round(2)
+    raw = ["Pipeline_energy_II_region_mcm", "Pipeline_energy_RM_V_region_mcm", "Pipeline_energy_VIII_region_mcm",
+           "Pipeline_petrochemical_Magallanes_mcm", "LNG_II_region_Mejillones_t", "LNG_V_region_Quintero_t"]
+    u = u[["Month"] + USE_COLS + ["Total_mcm_per_day_approx"] + raw + ["Source_file"]]
+    out(f"imports by use: {len(u)} months {u['Month'].min()}..{u['Month'].max()} from {url}")
+    out(u[["Month"] + USE_COLS + ["Total_mcm_per_day_approx"]].tail(6).to_string(index=False))
+    return u
+
+
+PIPE_T_PER_MCM = 756.0  # the import workbook's stated density of pipeline gas, tonnes per million m3
+
+
+def combine(rep, use):
+    """Main monthly series: CNE's import workbook where it has the month (customs data, split by use; pipeline
+    gas converted to tonnes at the workbook's 756 t per million m3, LNG in tonnes), else the monthly report.
+    Returns (combined frame, comparison frame for months in both)."""
+    rep = rep.copy()
+    days = pd.PeriodIndex(rep["Month"], freq="M").days_in_month
+    rep["Report_kt"] = rep["Imports_kt"]
+    rep["Report_mcm_per_day"] = (rep["Imports_kt"] * 1000 * M3_PER_TONNE / 1e6 / days).round(2)
+    if use is None or use.empty:
+        rep["Workbook_kt"] = None
+        u = pd.DataFrame(columns=["Month", "Workbook_kt", "Workbook_mcm_per_day"])
+    else:
+        pipe = use[["Pipeline_energy_II_region_mcm", "Pipeline_energy_RM_V_region_mcm",
+                    "Pipeline_energy_VIII_region_mcm", "Pipeline_petrochemical_Magallanes_mcm"]].sum(axis=1)
+        lng = use[["LNG_II_region_Mejillones_t", "LNG_V_region_Quintero_t"]].sum(axis=1)
+        u = pd.DataFrame({"Month": use["Month"], "Workbook_kt": (pipe * PIPE_T_PER_MCM + lng) / 1000,
+                          "Workbook_mcm_per_day": use["Total_mcm_per_day_approx"]})
+        u["Workbook_kt"] = u["Workbook_kt"].round(1)
+    d = rep.merge(u, on="Month", how="outer").sort_values("Month").reset_index(drop=True)
+    wb = d["Workbook_kt"].notna()
+    d["Imports_kt"] = d["Workbook_kt"].where(wb, d["Report_kt"])
+    d["Imports_mcm_per_day_approx"] = d["Workbook_mcm_per_day"].where(wb, d["Report_mcm_per_day"])
+    derived = d["Method"].astype(str).str.startswith("derived")
+    d["Source"] = "CNE import workbook (customs)"
+    d.loc[~wb, "Source"] = "CNE Reporte Mensual" + derived[~wb].map({True: " (derived)", False: ""})
+    both = wb & d["Report_kt"].notna()
+    d["Workbook_vs_report_pct"] = (d["Workbook_kt"] / d["Report_kt"] - 1).where(both).round(4)
+    cmp = d.loc[both, ["Month", "Workbook_kt", "Report_kt", "Workbook_vs_report_pct", "Method"]]
+    if len(cmp):
+        a = cmp["Workbook_vs_report_pct"].abs()
+        out(f"\nworkbook vs monthly report, {len(cmp)} overlapping months: mean |diff| {a.mean():.1%}, "
+            f"median {a.median():.1%}, max {a.max():.1%} ({cmp.loc[a.idxmax(), 'Month']}); "
+            f"within 1%: {(a <= 0.01).sum()}, within 3%: {(a <= 0.03).sum()}")
+        for _, r in cmp[a > 0.03].iterrows():
+            out(f"    {r['Month']}: workbook {r['Workbook_kt']:g} kt vs report {r['Report_kt']:g} kt "
+                f"({r['Workbook_vs_report_pct']:+.1%}; report {r['Method']})")
+    d = d[d["Imports_kt"].notna() & (d["Month"] >= str(START))]
+    d = d[["Month", "Imports_kt", "Imports_mcm_per_day_approx", "Source", "Workbook_kt", "Report_kt",
+           "Workbook_vs_report_pct", "MoM_change_published", "YoY_change_published", "Origins", "Method", "Report"]]
+    return d.reset_index(drop=True), cmp
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="output/Data and Chart Outputs/chile_gas_imports.xlsx")
@@ -257,7 +522,12 @@ def main():
         if "Method" not in have.columns:  # file from before the old-layout parser: re-parse everything
             have = pd.DataFrame()
         else:
+            if "Report_kt" in have.columns:  # combined sheet: get back the report-only series
+                have["Imports_kt"] = have["Report_kt"]
+                have = have[have["Report_kt"].notna()]
             have = have[~have["Method"].astype(str).str.startswith("derived")]  # re-derive each run
+            have = have[["Month", "Imports_kt", "MoM_change_published", "YoY_change_published", "Origins",
+                         "Method", "Report"]]
     # report months already parsed (from the Report URL); these aren't downloaded again
     done = {m.group(1) for u in (have["Report"] if len(have) else [])
             for m in [re.search(r"RMensual_v(\d{6})", str(u))] if m}
@@ -318,47 +588,93 @@ def main():
     df = df[df["Month"] >= str(START)]
     df = check_and_fill(df)
     df = df.sort_values("Month").reset_index(drop=True)
-    days = pd.PeriodIndex(df["Month"], freq="M").days_in_month
-    df["Imports_mcm_per_day_approx"] = (df["Imports_kt"] * 1000 * M3_PER_TONNE / 1e6 / days).round(2)
-    df = df[["Month", "Imports_kt", "Imports_mcm_per_day_approx", "MoM_change_published", "YoY_change_published",
-             "Origins", "Method", "Report"]]
+    rep_gaps = sorted(set(pd.period_range(df["Month"].min(), df["Month"].max(), freq="M").astype(str))
+                      - set(df["Month"]))
+    use = imports_by_use(args.out, args.full)
+    df, cmp = combine(df, use)
     months = pd.period_range(df["Month"].min(), df["Month"].max(), freq="M").astype(str)
     gaps = sorted(set(months) - set(df["Month"]))
     out(f"\n{len(df)} months {df['Month'].min()}..{df['Month'].max()}; missing: {gaps or 'none'}")
     out(df.drop(columns=["Report"]).to_string(index=False))
 
+    wb_last = use["Month"].max() if len(use) else None
+    n_cmp = len(cmp)
+    mean_diff = f"{cmp['Workbook_vs_report_pct'].abs().mean():.1%}" if n_cmp else "n/a"
     notes = [
         "UNITS",
-        "Imports_kt: natural gas imports in thousand tonnes per month, as published by CNE from customs data "
-        "(LNG cargoes plus pipeline gas from Argentina). Imports_mcm_per_day_approx: million m3 per day at "
-        f"{M3_PER_TONNE:.0f} m3 of gas per tonne, a standard LNG conversion; approximate.",
-        "MoM_change_published / YoY_change_published: the report's own change on the previous month and on the "
-        "same month a year earlier (fractions; blank where the report shows n/d or n/a).",
+        "Imports_kt: natural gas imports in thousand tonnes per month (LNG cargoes plus pipeline gas from "
+        "Argentina), customs data published by CNE. Imports_mcm_per_day_approx: million m3 per day (monthly "
+        f"average); LNG at {M3_PER_TONNE:.0f} m3 of gas per tonne (a standard conversion; approximate), pipeline "
+        "gas as published in million m3.",
+        "Source column: 'CNE import workbook (customs)' = CNE's monthly import statistics workbook "
+        "(importaciones-web.xlsx), used for every month it covers; its pipeline gas (million m3) is converted to "
+        f"tonnes at the workbook's own density, {PIPE_T_PER_MCM:.0f} t per million m3. 'CNE Reporte Mensual' = the "
+        "monthly report's table, used for months after the workbook ends; '(derived)' marks a month the report "
+        "does not show, derived from a neighbouring month's published change.",
+        "Workbook_kt / Report_kt: the two sources side by side; Workbook_vs_report_pct = Workbook_kt / Report_kt - "
+        "1 (fraction) for months in both. MoM_change_published / YoY_change_published: the report's own change on "
+        "the previous month and on the same month a year earlier (fractions; blank where the report shows n/d).",
         "",
         "COVERAGE",
-        "Monthly from January 2021. The data month lags the report by about two months; it is read from the "
-        "report's own text where the text can be read ('month stated'), otherwise taken as report month - 2. "
-        "Each month is checked against the following month's published monthly change (see the run log).",
-        "Method: 'text' = PDF text layer; 'text+ocr' = table from the text layer, data month and origins by OCR; "
-        "'ocr' = the whole page by OCR (reports from 2021-2025 that have no text layer); p<n> = PDF page. "
-        "'derived' = month with no table of its own, computed from the next month's value and its published "
-        "monthly change, or else from the same month a year later and its published annual change. This covers "
-        "months where CNE published no report (no May 2026 report) or a report that repeated an earlier "
-        "report's table (e.g. the Nov 2021-Feb 2022 reports all repeat Aug 2021's table). OCR'd changes are only "
-        "kept when they read cleanly, so a few months may still have no value (see the run log).",
-        "Months with no value: " + (", ".join(gaps) if gaps else "none") + (
-            "." if not gaps else
-            ". CNE published no table for them (its Nov 2021-Feb 2022 reports repeat the Aug 2021 table), and the "
-            "annual changes in the Sep-Nov 2022 tables needed to derive them do not OCR cleanly."
-            if set(gaps) <= {"2021-09", "2021-10", "2021-11"} else ". See the run log for why."),
+        f"Monthly from January 2021: import workbook to {wb_last or 'n/a'}, then the monthly report "
+        f"(to {df['Month'].max()}). {n_cmp} months are in both sources; mean absolute difference {mean_diff} "
+        "(both are the same customs data; the report rounds to whole kt and its 2021-2025 values are read by OCR).",
+        "Monthly report parsing: the data month lags the report by about two months; it is read from the report's "
+        "own text where possible ('month stated'), otherwise taken as report month - 2. Method: 'text' = PDF text "
+        "layer; 'text+ocr' = table from the text layer, data month and origins by OCR; 'ocr' = the whole page by "
+        "OCR (reports with no text layer); p<n> = PDF page. Report months with no table: "
+        + (", ".join(rep_gaps) if rep_gaps else "none") + " (filled from the import workbook).",
+        "Months with no value: " + (", ".join(gaps) if gaps else "none") + ".",
         "Origins lists the source countries the report names for that month's gas imports.",
         "",
         "SOURCE",
-        "Comision Nacional de Energia (CNE), Reporte Mensual del Sector Energetico, section 'Importaciones y "
-        "Exportaciones de Combustibles' (Aduana data via COMEX). The Report column holds the PDF used.",
+        "Comision Nacional de Energia (CNE): (1) Estadisticas > Hidrocarburo > 'Importaciones' workbook "
+        "(importaciones-web.xlsx; Camara de Comercio de Santiago customs data), https://www.cne.cl/estadisticas/"
+        "hidrocarburo/; (2) Reporte Mensual del Sector Energetico, section 'Importaciones y Exportaciones de "
+        "Combustibles' (Aduana data via COMEX). The Report column holds the report PDF used.",
     ]
+    if len(use):
+        notes += [
+            "",
+            "IMPORTS BY USE",
+            "Sheet 'Imports by use' (measured, CNE import workbook): pipeline gas from Argentina for energy use by "
+            "region of entry - II region (Antofagasta, north), RM-V (Santiago/Valparaiso, central), VIII (Biobio, "
+            "south) - and for petrochemical use in the Magallanes region (methanol, i.e. Methanex's Cabo Negro "
+            "plant); LNG by region of the regasification terminal - II region (GNL Mejillones) and V region (GNL "
+            "Quintero). *_mcm / *_t = as published (million m3; tonnes); *_mcm_per_day = million m3 per day, LNG at "
+            f"{M3_PER_TONNE:.0f} m3/t. The workbook's own pipeline TOTAL column is not used (in some months it "
+            "leaves out the VIII region); totals here are the sum of the regions.",
+            "This is a split of imports, not of demand: it shows imported gas for petrochemical use, but Methanex "
+            "also uses domestic Magallanes gas, which is not in it. Coverage: "
+            f"{use['Month'].min()} to {use['Month'].max()}; the workbook is re-read when CNE uploads a new one.",
+        ]
+    prod = production(args.out, args.full)
+    sheets = {"Gas imports": df}
+    if len(use):
+        sheets["Imports by use"] = use
+    if len(prod):
+        sheets["Domestic production"] = prod
+        notes += [
+            "",
+            "DOMESTIC PRODUCTION",
+            "Sheet 'Domestic production': monthly natural gas production in Chile (all of it in the Magallanes "
+            "basin), measured, as published by CNE from Ministerio de Energia data: ENAP (state oil company) and "
+            "CEOP (private operators under Contratos Especiales de Operacion Petrolera). Thousand m3 per month as "
+            "published; *_mcm_per_day = million m3 per day (monthly average).",
+            f"Coverage: {prod['Month'].min()} to {prod['Month'].max()} (2021 on). CNE's latest file stops there; "
+            "the sheet extends when CNE posts a newer 'Produccion_combustibles-<month>-<year>.xlsx'. Where the "
+            "file repeats a month (Nov 2021 appears twice, identical) the first is kept.",
+            "Source: CNE, Estadisticas > Hidrocarburo > 'Produccion de combustibles' "
+            "(https://www.cne.cl/estadisticas/hidrocarburo/), sheet 'produccion crudo gas m_energia'. The "
+            "Source_file column holds the workbook read.",
+            "Not included: gas demand by sector. No official monthly or annual split by sector covering 2021 on "
+            "was found (CNE's monthly consumption-by-sector file ends Oct 2018; the CNE monthly report, INE and "
+            "SEC publish none; see discovery_archive/south_america/CHILE_GAS_DEMAND_DISCOVERY*.py).",
+        ]
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
-    xlsx_notes.write_workbook(args.out, {"Gas imports": df}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    xlsx_notes.write_workbook(args.out, sheets, notes,
+                              {"UNITS", "COVERAGE", "SOURCE", "IMPORTS BY USE",
+                               "DOMESTIC PRODUCTION"})
     out(f"Saved {args.out}")
 
 
