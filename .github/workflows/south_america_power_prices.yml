@@ -34,6 +34,11 @@ on:
 permissions:
   contents: write
 
+# one run at a time: runs queue instead of overwriting each other's workbook
+concurrency:
+  group: south-america-power-prices
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest

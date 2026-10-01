@@ -71,6 +71,7 @@ import xlsx_notes  # noqa: E402
 OUT = os.path.join("output", "Data and Chart Outputs", "south_america_power_prices_daily.xlsx")
 START = dt.date(2021, 1, 1)
 REVISION_DAYS = 7
+MIN_HALF_HOURS = 40   # Brazil / Peru days with fewer half-hourly values are incomplete
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/124.0 Safari/537.36"}
 MONTHS_ES = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "ago": 8, "set": 9, "sep": 9,
@@ -719,6 +720,12 @@ def main():
             continue
         new.index = pd.to_datetime(new.index)
         new = new[(new.index >= pd.Timestamp(start)) & (new.index <= pd.Timestamp(end))]
+        if "Half-hours" in new:   # a day still being published (e.g. COES real time today) is left for later
+            partial = new["Half-hours"] < MIN_HALF_HOURS
+            if partial.any():
+                print(f"  {country}: {partial.sum()} incomplete day(s) skipped: "
+                      f"{', '.join(f'{d:%Y-%m-%d}' for d in new.index[partial][:5])}", flush=True)
+            new = new[~partial]
         sheets[country] = merge(old, new)
         add_fx(country, sheets, failures)
         save(args.out, sheets)
