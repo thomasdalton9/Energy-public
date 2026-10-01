@@ -15,6 +15,30 @@ Checks:
      and 10-day producer-goods market price releases.
   4. data.stats.gov.cn query engine, re-probed with a browser-like
      session (cookie + referer) in case the 403 UrlACL was header-driven.
+
+FINDINGS (passes 2-7, Oct 2026):
+  - data.stats.gov.cn (incl. the new /dg/ portal): 403 UrlACL by IP for
+    GitHub runners - not usable.
+  - English press-release list: only back to Apr 2024 (33 pages). Its
+    "Industrial Production Operation" table changed label case in Sep
+    2025, which is why the old English-based pull lost generation by
+    source before then.
+  - Chinese list /sj/zxfb/: capped at ~1000 items (67 pages), back to
+    Oct 2021. Pre-migration releases still exist at
+    /sj/zxfb/202302/t20230203_<id>.html; DISCOVERY5's slow ID scan found
+    Jan-Sep 2021 (and Jul-Dec 2020) industrial production, energy, PPI,
+    10-day price and capacity-utilisation releases (now EXTRA_RELEASES
+    in the pull scripts).
+  - Pullable tables: industrial production (product output, ~36
+    products), 10-day producer-goods prices (~50 products), PPI by
+    sector (% only), quarterly capacity utilisation by industry. The
+    Chinese energy production release is prose only (same numbers as
+    the product table plus daily averages).
+  - Statistical yearbook energy chapter (/sj/ndsj/YYYY/html/C09-xx):
+    JPG images only (no xls/htm) - not pullable without OCR.
+  - Hammering the site (12 parallel requests) triggers an anti-bot JS
+    challenge served with HTTP 200; sequential requests with a pause
+    are fine.
 """
 
 import collections
