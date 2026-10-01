@@ -42,6 +42,7 @@ import tempfile
 import time
 import zipfile
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
 import requests
@@ -54,6 +55,7 @@ import power_daily_std as std  # noqa: E402
 OUT = "output/Data and Chart Outputs/argentina_power_generation_daily.xlsx"
 NEMO = "PARTE_POST_OPERATIVO"
 RAW_SHEET = "By type and fuel (raw)"
+CODES_SHEET = "Fuel codes"
 
 # unit SUBTIPO -> fuel for non-thermal units (thermal ones are split by fuel code below)
 SUBTYPE_FUEL = {"HI": "Hydro", "HR": "Hydro", "HB": "Hydro", "MH": "Hydro", "NU": "Nuclear", "EO": "Wind",
@@ -95,7 +97,8 @@ NOTES = [
     "Excluded: units flagged INTERCAMBIO='S' - import nodes (Brazil via Garabi, Uruguay's Salto Grande half "
     "and thermal plants, Paraguay, Bolivia, Chile). Their MWh are kept in the raw sheet as 'IMPORT|...'.",
     f"Sheet '{RAW_SHEET}': daily MWh per 'SUBTIPO|FUEL CODE' as read, so the mapping can change without "
-    "re-downloading.",
+    "re-downloading. Sheet 'Fuel codes': each code's sub-fuel and unit as CAMMESA reports them and where it is "
+    "mapped; a code not in the list above is placed by its unit (dam3 -> Gas, m3 -> Oil), else Other.",
     "",
     "SOURCE",
     "CAMMESA 'Parte control post-operativo' (PARTE_POST_OPERATIVO), one POyymmdd.zip per day with an Access "
@@ -133,7 +136,8 @@ def mdb_rows(path, table):
 
 
 def parse_day(zip_bytes):
-    """{'SUBTIPO|FUEL' or 'IMPORT|SUBTIPO': MWh} for one day's post-operative database."""
+    """({'SUBTIPO|FUEL' or 'IMPORT|SUBTIPO': MWh}, {fuel code: (sub-fuel, unit)}) for one day's
+    post-operative database."""
     zf = zipfile.ZipFile(io.BytesIO(zip_bytes))
     name = next(n for n in zf.namelist() if n.lower().endswith(".mdb"))
     with tempfile.NamedTemporaryFile(suffix=".mdb", delete=False) as f:
@@ -156,6 +160,12 @@ def parse_day(zip_bytes):
             if pct > 0:
                 key = (c["GRUPO"], c["HORA"])
                 shares[key][c["COMB"]] = shares[key].get(c["COMB"], 0) + pct
+        codes = {}
+        try:
+            for c in mdb_rows(path, "COMBUSTIBLES_QUEMADOS_DET_TOTAL"):
+                codes[c.get("COMB")] = (c.get("SUBCOMB") or "", c.get("UNIDAD") or "")
+        except (RuntimeError, subprocess.SubprocessError):
+            pass
     finally:
         os.unlink(path)
     out = defaultdict(float)
@@ -178,12 +188,17 @@ def parse_day(zip_bytes):
             out[f"{sub}|"] += e
     if len(hours) < 23:
         raise RuntimeError(f"only {len(hours)} hours in VALORES_GENERADORES")
-    return dict(out)
+    return dict(out), codes
 
 
 # ------------------------------------------------------------------ shape
-def raw_to_fuels(raw):
-    """Raw 'SUBTIPO|CODE' columns -> standard fuel columns."""
+UNIT_FUEL = {"DAM3": "Gas", "M3": "Oil"}
+
+
+def raw_to_fuels(raw, codes=None):
+    """Raw 'SUBTIPO|CODE' columns -> standard fuel columns. A fuel code not in FUEL_CODE is placed by the
+    unit CAMMESA measures it in (dam3 -> Gas, m3 -> Oil; 'Fuel codes' sheet), else Other."""
+    units = {} if codes is None or codes.empty else codes["unit"].astype(str).str.upper().to_dict()
     fuels = defaultdict(lambda: pd.Series(0.0, index=raw.index))
     unknown = set()
     for col in raw.columns:
@@ -196,6 +211,9 @@ def raw_to_fuels(raw):
             fuel = "Gas"
         elif code in FUEL_CODE:
             fuel = FUEL_CODE[code]
+        elif units.get(code) in UNIT_FUEL:
+            fuel = UNIT_FUEL[units[code]]
+            print(f"  note: fuel code {code} not in FUEL_CODE, placed by its unit ({units[code]}) -> {fuel}", flush=True)
         else:
             fuel = "Other"
             unknown.add(col)
@@ -207,12 +225,41 @@ def raw_to_fuels(raw):
     return std.standardise(out)
 
 
-def save(path, raw):
+def save(path, raw, codes):
     raw = raw.sort_index()
     raw.index.name = "date"
     raw = raw[sorted(raw.columns)]
-    daily = raw_to_fuels(raw)
-    std.write(path, daily, NOTES, {RAW_SHEET: raw.round(1)})
+    daily = raw_to_fuels(raw, codes)
+    std.write(path, daily, NOTES, {RAW_SHEET: raw.round(1), CODES_SHEET: codes.sort_index()})
+
+
+def load_codes(path):
+    try:
+        codes = pd.read_excel(path, sheet_name=CODES_SHEET, index_col=0)
+    except (FileNotFoundError, ValueError, KeyError, OSError):
+        codes = pd.DataFrame(columns=["sub_fuel", "unit", "mapped_to"])
+    codes.index = codes.index.astype(str)
+    codes.index.name = "code"
+    return codes
+
+
+def add_codes(codes, found):
+    for code, (sub, unit) in found.items():
+        if not code:
+            continue
+        codes.loc[code, "sub_fuel"] = sub
+        codes.loc[code, "unit"] = unit
+        codes.loc[code, "mapped_to"] = FUEL_CODE.get(code) or UNIT_FUEL.get(str(unit).upper(), "Other")
+    return codes
+
+
+def fetch_one(s, day, hit):
+    doc, att = hit
+    r = s.get(A.ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"],
+                                        "nemo": doc.get("nemo") or NEMO}, timeout=180)
+    r.raise_for_status()
+    out, codes = parse_day(r.content)
+    return out, codes, len(r.content)
 
 
 def main():
@@ -220,7 +267,8 @@ def main():
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--start", type=dt.date.fromisoformat, default=std.HISTORY_START)
     ap.add_argument("--budget-min", type=float, default=40, help="stop fetching after this many minutes")
-    ap.add_argument("--save-every", type=int, default=25, help="write the workbook every N fetched days")
+    ap.add_argument("--save-every", type=int, default=24, help="write the workbook every N fetched days")
+    ap.add_argument("--workers", type=int, default=3, help="parallel downloads")
     args = ap.parse_args()
     t0 = time.time()
 
@@ -230,44 +278,49 @@ def main():
     todo = sorted(std.missing_days(daily_saved, args.start, end), reverse=True)  # newest first
     print(f"{len(raw):,} days saved; {len(todo):,} to fetch (budget {args.budget_min:.0f} min)", flush=True)
 
+    codes = load_codes(args.out)
     s = A.make_session()
-    listings = {}
-    fetched, rows = 0, {}
-    for day in todo:
-        if time.time() - t0 > args.budget_min * 60:
-            print(f"time budget reached; {len(todo) - fetched} days left for later runs", flush=True)
-            break
-        first = day.replace(day=1)
-        try:
-            if first not in listings:
-                listings[first] = month_docs(s, first)
-            hit = listings[first].get(day.strftime("PO%y%m%d.zip"))
-            if hit is None:
-                print(f"  {day}: not published (yet)", flush=True)
-                fetched += 1
-                continue
-            doc, att = hit
-            r = s.get(A.ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"],
-                                                "nemo": doc.get("nemo") or NEMO}, timeout=180)
-            r.raise_for_status()
-            body = r.content
-            rows[pd.Timestamp(day)] = parse_day(body)
-            tot = sum(v for k, v in rows[pd.Timestamp(day)].items() if not k.startswith("IMPORT"))
-            print(f"  {day}: {tot:,.0f} MWh ({len(body) / 1e6:.1f} MB, {time.time() - t0:.0f}s)", flush=True)
-        except (requests.RequestException, zipfile.BadZipFile, StopIteration, RuntimeError, ValueError) as e:
-            print(f"  {day}: FAILED ({type(e).__name__}: {e})", flush=True)
-        fetched += 1
-        if rows and len(rows) % args.save_every == 0:
-            raw = std.merge(pd.DataFrame.from_dict(rows, orient="index"), raw)
-            rows = {}
-            save(args.out, raw)
-        time.sleep(0.2)
-    if rows:
-        raw = std.merge(pd.DataFrame.from_dict(rows, orient="index"), raw)
+    listings, rows, done = {}, {}, 0
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        for i in range(0, len(todo), args.save_every):
+            if time.time() - t0 > args.budget_min * 60:
+                print(f"time budget reached; {len(todo) - done} days left for later runs", flush=True)
+                break
+            batch = todo[i:i + args.save_every]
+            jobs = {}
+            for day in batch:
+                first = day.replace(day=1)
+                try:
+                    if first not in listings:
+                        listings[first] = month_docs(s, first)
+                except (requests.RequestException, ValueError) as e:
+                    print(f"  listing {first:%Y-%m}: FAILED ({type(e).__name__}: {e})", flush=True)
+                    listings[first] = {}
+                hit = listings[first].get(day.strftime("PO%y%m%d.zip"))
+                if hit is None:
+                    print(f"  {day}: not published (yet)", flush=True)
+                    continue
+                jobs[pool.submit(fetch_one, s, day, hit)] = day
+            for fut in as_completed(jobs):
+                day = jobs[fut]
+                try:
+                    out, found, size = fut.result()
+                    rows[pd.Timestamp(day)] = out
+                    codes = add_codes(codes, found)
+                    tot = sum(v for k, v in out.items() if not k.startswith("IMPORT"))
+                    print(f"  {day}: {tot:,.0f} MWh ({size / 1e6:.1f} MB, {time.time() - t0:.0f}s)", flush=True)
+                except (requests.RequestException, zipfile.BadZipFile, StopIteration, RuntimeError, ValueError,
+                        subprocess.SubprocessError) as e:
+                    print(f"  {day}: FAILED ({type(e).__name__}: {e})", flush=True)
+            done += len(batch)
+            if rows:
+                raw = std.merge(pd.DataFrame.from_dict(rows, orient="index"), raw)
+                rows = {}
+                save(args.out, raw, codes)
     if raw.empty:
         print("No data returned.", flush=True)
         sys.exit(1)
-    save(args.out, raw)
+    save(args.out, raw, codes)
 
 
 if __name__ == "__main__":
