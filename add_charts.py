@@ -253,6 +253,12 @@ def ecuador(p):
     return [spec("Use", g, "Ecuador domestic gas (Amistad) by use", "MMBtu/day", "stacked_bar")]
 
 
+def el_salvador_gas(p):
+    d = by_date(read(p, "Gas use"), "Month")
+    g = pd.DataFrame({"Power (Energia del Pacifico, estimate)": d.get("Gas_use_MMBtu_per_day")})
+    return [spec("Use", g, "El Salvador gas use for power (estimate)", "MMBtu/day", "stacked_bar")]
+
+
 def trinidad(p):
     out = []
     u = read(p, "Utilization by sector")
@@ -575,6 +581,7 @@ REGISTRY = {
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,
     "trinidad_gas.xlsx": trinidad,
+    "el_salvador_gas.xlsx": el_salvador_gas,
     "ireland_gas_demand_daily.xlsx": ireland_demand,
     "ireland_gas_supply_daily.xlsx": ireland_supply,
     "ireland_gas_combined_daily.xlsx": ireland_combined,

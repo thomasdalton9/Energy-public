@@ -55,6 +55,7 @@ DATASETS = [
     ("PE", "Peru", "peru_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
+    ("SV", "El Salvador", "el_salvador_gas.xlsx", "Gas use", "gas"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
@@ -113,6 +114,8 @@ SOURCES = {
     "ecuador_gas.xlsx": ("EP Petroecuador", "https://www.eppetroecuador.ec/?p=3721"),
     "panama_gas.xlsx": ("Estimate from CND / ETESA Panama gas-fired generation (daily report) x 7.0 MMBtu/MWh heat rate",
                         "https://www.cnd.com.pa/index.php/informes/categoria/informes-de-operaciones"),
+    "el_salvador_gas.xlsx": ("ESTIMATE: Ember monthly gas generation for El Salvador (compiled from UT) x 8.2 MMBtu/MWh heat rate",
+                             "https://ember-energy.org/data/monthly-electricity-data/"),
     "trinidad_gas.xlsx": ("Ministry of Energy and Energy Industries (MEEI), monthly bulletins",
                           "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"),
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
