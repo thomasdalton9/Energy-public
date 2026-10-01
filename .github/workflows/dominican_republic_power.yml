@@ -1,0 +1,58 @@
+name: Dominican Republic power generation (OC-SENI)
+
+# OC-SENI daily generation by fuel (web service behind oc.org.do 'Reportes'), MWh/day
+# -> dominican_republic_power_generation_daily.xlsx. Incremental - asks only from the
+# first missing day (or the last 14 days, which OC revises). Daily at 13:14 UTC
+# (9:14am Santo Domingo), once the previous day is complete.
+on:
+  schedule:
+    - cron: "14 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dominican_republic_power
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 south_america/DOMINICAN_REPUBLIC_OC_POWER_DAILY.py --out "output/Data and Chart Outputs/dominican_republic_power_generation_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/dominican_republic_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/dominican_republic_power_generation_daily.xlsx" || echo "chart step skipped/failed for dominican_republic_power_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/DOMINICAN_REPUBLIC_OC_POWER_DAILY.py south_america/central_america_power_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/dominican_republic_power_generation_daily.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/dominican_republic_power_generation_daily.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Dominican Republic power generation: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash -X theirs && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

@@ -279,6 +279,16 @@ def trinidad(p):
     return out
 
 
+def gas_use(title, skip=r"^(Total|.*_terminal)_"):
+    """Caribbean 'Gas use' sheets (Month + *_mcm_per_day columns): stack the parts, not the totals/groupings."""
+    def f(p):
+        d = by_date(read(p, "Gas use"), "Month")
+        c = [x for x in d.columns if str(x).endswith("_mcm_per_day") and not re.match(skip, str(x))]
+        return [spec("Use", d[c].rename(columns=lambda x: x.replace("_mcm_per_day", "").replace("_", " ")),
+                     title, "million m3/day", "stacked_bar")]
+    return f
+
+
 def ireland_demand(p):
     d = by_date(read(p, "Data"), "date")
     s = d[cols(d, "PowerGen_GWh", "LDM_ex_PowerGen_GWh", "DM_GWh", "NDM_GWh")]
@@ -577,6 +587,10 @@ REGISTRY = {
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
     "honduras_power_generation_daily.xlsx": honduras_power,
+    # Caribbean
+    "puerto_rico_power_generation_daily.xlsx": power_daily("Puerto Rico power generation by type (EIA-923)"),
+    "dominican_republic_power_generation_daily.xlsx": power_daily("Dominican Republic power generation by type (OC-SENI)"),
+    "puerto_rico_gas.xlsx": gas_use("Puerto Rico gas use"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,

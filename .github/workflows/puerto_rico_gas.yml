@@ -1,0 +1,59 @@
+name: Puerto Rico gas (EIA-923)
+
+# EIA-923 plant-level natural gas burned in Puerto Rico (EIA API v2 facility-fuel),
+# by plant and by supplying LNG terminal -> puerto_rico_gas.xlsx (sheet "Gas use").
+# Incremental - re-reads only the last six saved months plus anything newer.
+# EIA publishes about two months after month end; weekly run on Wednesdays 13:29 UTC.
+on:
+  schedule:
+    - cron: "29 13 * * 3"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: puerto_rico_gas
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 600 python3 south_america/PUERTO_RICO_GAS_EIA.py --out "output/Data and Chart Outputs/puerto_rico_gas.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/puerto_rico_gas.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/puerto_rico_gas.xlsx" || echo "chart step skipped/failed for puerto_rico_gas.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/PUERTO_RICO_GAS_EIA.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/puerto_rico_gas.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/puerto_rico_gas.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Puerto Rico gas: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash -X theirs && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
