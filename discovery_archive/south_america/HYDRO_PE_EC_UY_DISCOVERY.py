@@ -54,6 +54,15 @@ Round 2 findings:
 Round 3 (ROUND=3, Peru only): newest files under IDCOS, weekly / monthly
 evaluation reports, daily and weekly operation programmes, bulletins; IEOD
 hydrology annex layouts 2022-2025.
+Round 3 findings: the weekly 'Informe Semanal de Evaluacion de la Operacion'
+(Post Operacion/Informes/Evaluacion Semanal/<year>/SEMANAL N° w (dd.mm.yyyy -
+dd.mm.yyyy)/Informe_Semanal_SEMw_yyyy.xlsx) has section 5.1 'Volumen util de
+los embalses y lagunas': 29 reservoir/lagoon rows with start/end-of-week
+useful volume, % and capacity (total 1,970 hm3), this year and last; 5.2
+has 12 basin series by week for 4 years. IDCOS daily annex 9 has only a
+few seasonal reservoirs. -> PERU_HYDRO_RESERVOIRS.py reads 5.1.
+Round 4 (ROUND=4): the 5.1 test run failed on 2021-2023 reports (no sheet
+with that title) - dump the volume sheets of older reports.
 """
 
 print("STARTING", flush=True)
@@ -650,7 +659,47 @@ def peru3():
                     scan_excel(r.content, f, rows=6)
 
 
-ROUND_FUNCS = {2: [("pe", peru2), ("ec", ecuador2), ("uy", uruguay2)], 3: [("pe", peru3)]}
+def peru4():
+    """Older weekly reports: which sheet holds the useful-volume table before 2024, and in what layout."""
+    print("\n################ PERU round 4 ################", flush=True)
+    picks = {"2020": [10, 40], "2021": [43], "2022": [28], "2023": [12, 48], "2024": [5, 20]}
+    for y, wks in picks.items():
+        items = [(html_unescape(p), k) for p, k in coes_browse(f"Post Operación/Informes/Evaluacion Semanal/{y}/")]
+        for p, k in items:
+            m = re.search(r"N\D{0,3}(\d+)\s*\(", p)
+            if k != "D" or not m or int(m.group(1)) not in wks:
+                continue
+            files = [(html_unescape(q), kk) for q, kk in coes_browse(p)]
+            print(f"   {p}: {files}", flush=True)
+            for f, kk in files:
+                if kk != "F" or not re.search(r"\.(xlsx?|xlsm|zip)$", f, re.I):
+                    continue
+                r = get(COES + "browser/download?url=" + quote(f), name=f"pe4_{y}_" + f.split("/")[-1], show=False,
+                        timeout=240)
+                if r is None or not r.ok:
+                    continue
+                if f.lower().endswith(".zip"):
+                    scan_zip(r.content, f)
+                    continue
+                import pandas as pd
+                try:
+                    xl = pd.ExcelFile(io.BytesIO(r.content))
+                except Exception as e:  # noqa: BLE001
+                    print("     unreadable", type(e).__name__, e, flush=True)
+                    continue
+                print(f"     sheets: {xl.sheet_names}", flush=True)
+                for sh in xl.sheet_names:
+                    df = pd.read_excel(xl, sheet_name=sh, header=None, nrows=60)
+                    txt = " | ".join(str(v) for v in df.values.ravel() if isinstance(v, str))
+                    if re.search(r"VOL[UÚ]MEN", txt, re.I) and re.search(r"EMBALSE|LAGUNA", txt, re.I):
+                        print(f"     [{sh}] {df.shape}", flush=True)
+                        for i, row in df.iterrows():
+                            cells = [str(v).replace(chr(10), " ")[:45] for v in row if pd.notna(v)]
+                            if cells:
+                                print(f"        r{i}: {cells[:12]}", flush=True)
+
+
+ROUND_FUNCS = {2: [("pe", peru2), ("ec", ecuador2), ("uy", uruguay2)], 3: [("pe", peru3)], 4: [("pe", peru4)]}
 
 
 if __name__ == "__main__":
