@@ -236,7 +236,74 @@ def bolivia2():
             print(f"\n==== {path} {params}: {type(e).__name__} {e}", flush=True)
 
 
-for name, fn in [("argentina", argentina), ("uruguay", uruguay), ("bolivia", bolivia), ("bolivia2", bolivia2)]:
+# Round 1 also found that PARTE_POST_OPERATIVO (POyymmdd.zip, ~9 MB: HTML pages + POyymmdd.mdb) carries the
+# actual (post-operation) VALORES_GENERADORES.ENERGIA per unit and hour, GENERADORES (TIPO/SUBTIPO per unit)
+# and COMBUSTIBLE_PORCENTAJE_DET (fuel % per unit and hour). Round 3 ('argentina2') checks it across 2021-2026:
+# energy by TIPO/SUBTIPO, fuel codes and their descriptions, and one-call listing of a month of documents.
+def mdb_table(path, table):
+    import csv as _csv
+    out = subprocess.run(["mdb-export", path, table], capture_output=True, text=True, timeout=300).stdout
+    return list(_csv.DictReader(io.StringIO(out)))
+
+
+def argentina2():
+    from collections import defaultdict
+    r = requests.get(LOOKUP_URL, params={"fechadesde": "2021-01-01T00:00:00.000Z", "fechahasta": "2021-02-01T00:00:00.000Z",
+                                         "nemo": "PARTE_POST_OPERATIVO"}, headers=UA, timeout=120)
+    docs = r.json() if r.ok else []
+    print(f"\n==== PO listing Jan-2021 in one call: {r.status_code}, {len(docs) if isinstance(docs, list) else docs}",
+          flush=True)
+    if isinstance(docs, list):
+        print("  ", [(d.get("fecha"), [a.get("id") for a in d.get("adjuntos", [])]) for d in docs[:40]], flush=True)
+    for day in [dt.date(2021, 1, 15), dt.date(2022, 7, 15), dt.date(2024, 6, 15), dt.date.today() - dt.timedelta(days=3)]:
+        docs = cammesa_docs("PARTE_POST_OPERATIVO", day)
+        want = day.strftime("PO%y%m%d.zip")
+        hit = [(d, a) for d in (docs if isinstance(docs, list) else []) for a in d.get("adjuntos", []) if a.get("id") == want]
+        if not hit:
+            print(f"  no {want}", flush=True)
+            continue
+        body = cammesa_get(*hit[0], "PARTE_POST_OPERATIVO")
+        zf = zipfile.ZipFile(io.BytesIO(body))
+        mdb = next(n for n in zf.namelist() if n.lower().endswith(".mdb"))
+        with tempfile.NamedTemporaryFile(suffix=".mdb", delete=False) as f:
+            f.write(zf.read(mdb))
+            path = f.name
+        tables = subprocess.run(["mdb-tables", "-1", path], capture_output=True, text=True).stdout.split()
+        print(f"  {mdb}: tables {tables}", flush=True)
+        gens = {g["GRUPO"]: g for g in mdb_table(path, "GENERADORES")}
+        vals = mdb_table(path, "VALORES_GENERADORES")
+        hours = sorted({int(v["HORA"]) for v in vals})
+        print(f"  VALORES_GENERADORES hours {hours[:3]}..{hours[-3:]} ({len(hours)})", flush=True)
+        by_type = defaultdict(float)
+        energy = {}
+        for v in vals:
+            g = gens.get(v["GRUPO"], {})
+            e = float(v["ENERGIA"] or 0)
+            by_type[(g.get("TIPO"), g.get("SUBTIPO"), g.get("INTERCAMBIO"))] += e
+            energy[(v["GRUPO"], v["HORA"])] = e
+        for k, e in sorted(by_type.items(), key=lambda kv: -kv[1]):
+            print(f"    {k}: {e:,.0f}", flush=True)
+        print(f"    TOTAL {sum(by_type.values()):,.0f}", flush=True)
+        missing = sorted({v["GRUPO"] for v in vals if v["GRUPO"] not in gens})[:20]
+        print(f"    units without GENERADORES row: {missing}", flush=True)
+        by_fuel = defaultdict(float)
+        for c in mdb_table(path, "COMBUSTIBLE_PORCENTAJE_DET"):
+            e = energy.get((c["GRUPO"], c["HORA"]), 0)
+            by_fuel[(c["COMB"], gens.get(c["GRUPO"], {}).get("SUBTIPO"))] += e * float(c["PORCENTAJE"] or 0) / 100
+        print("    thermal energy by (fuel code, subtipo):", {k: round(v) for k, v in sorted(by_fuel.items(), key=lambda kv: -kv[1])},
+              flush=True)
+        if "CVP" in tables:
+            print("    CVP fuel codes:", sorted({(c["COMB"], c["COMB_DESC"]) for c in mdb_table(path, "CVP")}), flush=True)
+        if "ENERGIAS_RENOVABLES" in tables:
+            ren = defaultdict(float)
+            for x in mdb_table(path, "ENERGIAS_RENOVABLES"):
+                ren[gens.get(x["GRUPO"], {}).get("SUBTIPO")] += float(x["EGENERADA"] or 0)
+            print("    ENERGIAS_RENOVABLES.EGENERADA by subtipo:", {k: round(v) for k, v in ren.items()}, flush=True)
+        os.unlink(path)
+
+
+for name, fn in [("argentina", argentina), ("uruguay", uruguay), ("bolivia", bolivia), ("bolivia2", bolivia2),
+                 ("argentina2", argentina2)]:
     if name in WHICH:
         try:
             fn()
