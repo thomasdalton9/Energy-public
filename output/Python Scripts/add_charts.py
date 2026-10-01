@@ -286,6 +286,21 @@ def china_nbs(p):
     return out
 
 
+def china_nbs_series(p):
+    """China NBS workbooks: the pull writes a 'Series' sheet (column, label, unit, chart, kind); one chart per group."""
+    d = read(p, "Data")
+    d = by_date(d, d.columns[0])
+    s = pd.read_excel(p, sheet_name="Series", index_col=0)
+    out = []
+    for group in dict.fromkeys(s["chart"].dropna()):
+        rows = s[s["chart"] == group]
+        c = [x for x in rows.index if x in d.columns and d[x].notna().any()]
+        if str(group).strip() and c:
+            out.append(spec(re.sub(r"[\\/*?:\[\]]", "-", str(group)), d[c].rename(columns=rows["label"].to_dict()),
+                            f"China {group} (NBS)", rows["unit"].iloc[0], rows["kind"].iloc[0]))
+    return out
+
+
 def giignl(p):
     d = read(p, "Data")
     d = d.set_index(pd.to_datetime(d["report_year"].astype(int).astype(str) + "-01-01"))
@@ -416,12 +431,15 @@ REGISTRY = {
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
     "chile_gas_imports.xlsx": chile_imports,
     "chile_power_by_type.xlsx": chile_power,
+    "brazil_power_generation_daily.xlsx": power_daily("Brazil power generation by type (ONS)"),
+    "colombia_power_generation_daily.xlsx": power_daily("Colombia power generation by type (XM)"),
     "south_america_power_by_type.xlsx": sa_power,
     "argentina_power_generation_daily.xlsx": power_daily("Argentina power generation by type (CAMMESA)"),
     "uruguay_power_generation_daily.xlsx": power_daily("Uruguay power generation by type (ADME)"),
     "bolivia_power_generation_daily.xlsx": power_daily("Bolivia power generation by type (CNDC)"),
     "ecuador_power_generation_daily.xlsx": power_daily("Ecuador power generation by type (CENACE)"),
     "peru_power_generation_daily.xlsx": power_daily("Peru power generation by type (COES)"),
+    "central_america_power_by_type.xlsx": sa_power,
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "trinidad_gas.xlsx": trinidad,
@@ -435,8 +453,12 @@ REGISTRY = {
     "turkey_generation_mix_dashboard_daily.xlsx": fuel_mix("Turkey generation mix", "MW"),
     "south_africa_generation_mix_daily.xlsx": south_africa,
     "puertorico_generation_monthly.xlsx": puertorico,
-    "china_nbs_clean_energy_products_monthly.xlsx": china_nbs,
-    "china_nbs_energy_production_monthly.xlsx": china_nbs,
+    "china_nbs_clean_energy_products_monthly.xlsx": china_nbs_series,
+    "china_nbs_energy_production_monthly.xlsx": china_nbs_series,
+    "china_nbs_industrial_output_monthly.xlsx": china_nbs_series,
+    "china_nbs_market_prices_10day.xlsx": china_nbs_series,
+    "china_nbs_capacity_utilization_quarterly.xlsx": china_nbs_series,
+    "china_nbs_ppi_monthly.xlsx": china_nbs_series,
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
     "singapore_power.xlsx": singapore_power,
     "singapore_gas.xlsx": singapore_gas,
