@@ -750,6 +750,11 @@ REGISTRY = {
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
     "chile_hydro_reservoirs.xlsx": chile_hydro,
+    # installed generation capacity by technology (standard sheet "Monthly")
+    "brazil_power_capacity.xlsx": power_capacity("Brazil installed generation capacity (ANEEL)"),
+    "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),
+    "chile_power_capacity.xlsx": power_capacity("Chile installed generation capacity (CNE)"),
+    "colombia_power_capacity.xlsx": power_capacity("Colombia installed generation capacity (XM)"),
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
