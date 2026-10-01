@@ -237,7 +237,8 @@ def colombia(p):
                       "Residential & commercial": z("Residential", "Commercial"),
                       "Refinery & petrochemical": z("Refinery", "Petrochemical"),
                       "Vehicle CNG & compressors": z("Vehicle_CNG", "Compressors")})
-    out = [spec("Demand", g, "Colombia gas demand by sector", "GBTUD", "stacked_bar")]
+    mcm = 0.0283   # GBTU -> million m3 at 1,000 Btu/cf (same factor as the Supply sheet's mcm columns)
+    out = [spec("Demand", g * mcm, "Colombia gas demand by sector", "mcm/d (1,000 Btu/cf)", "stacked_bar")]
     if "Supply by source" in pd.ExcelFile(p).sheet_names:
         s = by_date(read(p, "Supply by source"), "Month")
         sup = pd.DataFrame({"Cusiana/Cupiagua (Piedemonte)": s["Piedemonte_Cusiana_Cupiagua"],
@@ -248,8 +249,8 @@ def colombia(p):
         if s["Venezuela_imports"].notna().any():
             sup["Imports from Venezuela"] = s["Venezuela_imports"]
         sup["Total demand"] = d["Reported_total"].reindex(sup.index)
-        out.append(spec("Supply", sup, "Colombia gas supply by source vs demand", "GBTUD", "stacked_bar",
-                        line_cols=("Total demand",)))
+        out.append(spec("Supply", sup * mcm, "Colombia gas supply by source vs demand", "mcm/d (1,000 Btu/cf)",
+                        "stacked_bar", line_cols=("Total demand",)))
     return out
 
 
