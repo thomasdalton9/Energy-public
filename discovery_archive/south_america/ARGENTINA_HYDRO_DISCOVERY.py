@@ -593,6 +593,43 @@ def ina_ranges():
             print(f"     full pull failed: {o.status_code} {type(e).__name__} {o.text[:200]}", flush=True)
 
 
+# Round 4 (Oct-2026) found:
+#  - psem weekly programmes go back to 2005 (psemWWYY.zip, .MDB with COTAS + FECHA,
+#    FInicio = Monday the week starts). CotaIni is the level CAMMESA expects at the
+#    week start, set ~3-4 days before: usually within 0.1 m of the daily file for
+#    El Chocon / Cerros Colorados / Futaleufu, up to ~0.6-1 m off for Alicura.
+#  - AIC detail pages: 'Nivel Actual X msnm' for Alicura, Piedra del Aguila, Pichi
+#    Picun Leufu, El Chocon, Arroyito, Los Barreales, Mari Menuco (no timestamp).
+#  - INA a5 daily means: Salto Grande Arriba level 26319 and flow 26674 (from
+#    1995/2000), Yacyreta afluente flow 26684 (from 2006); one request returns all.
+#  - The daily cotas file's 'COTA' column (index 9) looked shifted between plants
+#    on 2026-05-03 - round 5 dumps the raw rows there.
+def daily_file_rows():
+    import pandas as pd
+    print("\n######## R5. raw rows of the CAMMESA daily files", flush=True)
+    for slug in ["cotas-diarias", "caudales-diarios"]:
+        r = S.get(f"https://cammesaweb.cammesa.com/download/{slug}/", timeout=60)
+        dl = re.findall(r'(https?://[^"\'\s<>]*wpdmdl=\d+[^"\'\s<>]*)', r.text)[0].replace("&amp;", "&")
+        raw = pd.read_excel(io.BytesIO(S.get(dl, timeout=120).content), header=None)
+        hdr = raw.index[raw.iloc[:, 0].astype(str).str.strip().str.upper().isin(["AÑO", "ANO"])][0]
+        body = raw.iloc[hdr + 1:].dropna(how="all", axis=1)
+        print(f"\n  {slug}: header {raw.iloc[hdr].dropna().tolist()}; {len(body)} rows; non-empty cols {list(body.columns)}", flush=True)
+        print("  FECHA types:", body.iloc[:, 2].map(type).value_counts().to_dict(), flush=True)
+        dates = pd.to_datetime(body.iloc[:, 2], errors="coerce")
+        print("  rows per date (value counts of counts):", dates.value_counts().value_counts().sort_index().to_dict(), flush=True)
+        print("  date span:", dates.min(), dates.max(), flush=True)
+        with pd.option_context("display.width", 250, "display.max_columns", 20, "display.max_colwidth", 30):
+            m = (dates >= "2026-04-29") & (dates <= "2026-05-05")
+            print(body[m].head(60).to_string(), flush=True)
+            for c in body.columns[9:]:
+                nn = body[c].notna().sum()
+                if nn:
+                    print(f"  extra column {c}: {nn} non-null, sample {body[c].dropna().head(5).tolist()}", flush=True)
+
+
+if ROUND == "5":
+    daily_file_rows()
+
 if ROUND == "4":
     for fn in (aic_levels, ina_ranges, psem_depth_and_dates):
         try:
