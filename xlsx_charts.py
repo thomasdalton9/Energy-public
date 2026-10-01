@@ -65,7 +65,7 @@ def tidy_layout(chart, gridlines=True, inner=None):
 
 # Plot-area box used on the master dashboards: room for a one-line title, y-axis labels and title on the
 # left, rotated mmm/yy labels and a two-line legend underneath.
-DASHBOARD_INNER = (0.10, 0.13, 0.87, 0.55)
+DASHBOARD_INNER = (0.12, 0.15, 0.83, 0.52)
 
 
 def prepare(df, line_cols=()):
@@ -138,6 +138,8 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
     chart.x_axis.delete = False
     chart.y_axis.delete = False
     chart.legend.position = "b"
+    if df.shape[1] == 1:   # a single series needs no legend box: the title names it
+        chart.legend = None
     # no borders: chart frame and plot area
     chart.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
     chart.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
