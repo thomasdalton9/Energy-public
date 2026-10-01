@@ -34,7 +34,7 @@ import xlsx_notes  # noqa: E402
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "china_nbs_ppi_monthly.xlsx")
-TITLE_RE = r"\d{4}年\d{1,2}月份工业生产者(出厂)?价格"
+TITLE_RE = r"\d{4}年\d{1,2}月份?工业生产者(出厂)?价格"
 HISTORY_START = "2021-01-01"
 _OLD = "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_{}.html"
 EXTRA_RELEASES = [(t, _OLD.format(i)) for t, i in [
@@ -161,7 +161,7 @@ def main():
         p, _ = nbs.month_period(title)
         return p is not None and p >= pd.Timestamp(HISTORY_START) and (p.year, p.month) not in held
 
-    releases = nbs.crawl_index(TITLE_RE, wanted, deep, EXTRA_RELEASES)
+    releases = nbs.crawl_index(TITLE_RE, wanted, deep, EXTRA_RELEASES, near_re=r"工业生产者")
     nbs.log(f"  held {len(held)} months; {len(releases)} release(s) to fetch")
     new, unmatched_all = {}, set()
     for title, url in releases:

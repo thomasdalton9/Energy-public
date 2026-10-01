@@ -166,7 +166,7 @@ def main():
         p = period_of(title)
         return p is not None and p >= pd.Timestamp(HISTORY_START) and p not in held
 
-    releases = nbs.crawl_index(TITLE_RE, wanted, deep, EXTRA_RELEASES, stop_after_known=6)
+    releases = nbs.crawl_index(TITLE_RE, wanted, deep, EXTRA_RELEASES, stop_after_known=6, near_re=r"生产资料")
     nbs.log(f"  {len(releases)} release(s) to fetch")
     new, unit_of, unmatched_all = {}, {}, set()
     for title, url in releases:

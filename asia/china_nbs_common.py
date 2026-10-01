@@ -116,15 +116,16 @@ def _links(html, base):
     return out
 
 
-def crawl_index(title_re, wanted, deep, extra=(), stop_after_known=3):
+def crawl_index(title_re, wanted, deep, extra=(), stop_after_known=3, near_re=None):
     """Releases on the /sj/zxfb/ list whose title matches title_re and wanted(title), newest first.
 
     deep=False (routine run, nothing missing): stop once `stop_after_known` matching releases in a
     row are already held. deep=True (backfill): read the whole list.
     extra: (title, url) pairs for releases known to exist but no longer listed.
+    near_re: titles matching this but not title_re are logged (spots renamed releases).
     """
     rx = re.compile(title_re)
-    found, seen = [], set()
+    found, seen, near_logged = [], set(), set()
     known_streak = 0
     for i in range(MAX_INDEX_PAGES):
         url = CN_INDEX if i == 0 else f"{CN_INDEX}index_{i}.html"
@@ -137,7 +138,12 @@ def crawl_index(title_re, wanted, deep, extra=(), stop_after_known=3):
             log(f"  index page {i}: 404 - end of list")
             break
         for title, href in _links(html, url.rsplit("/", 1)[0] + "/"):
-            if href in seen or not rx.search(title):
+            if href in seen:
+                continue
+            if not rx.search(title):
+                if near_re and re.search(near_re, title) and title not in near_logged:
+                    near_logged.add(title)
+                    log(f"  (similar title not matched: {title})")
                 continue
             seen.add(href)
             if wanted(title):
@@ -192,7 +198,7 @@ def month_period(title):
     m = re.search(r"(\d{4})年1[—\-－~～至]2月", title)
     if m:
         return pd.Timestamp(int(m.group(1)), 2, 1), True
-    m = re.search(r"(\d{4})年(\d{1,2})月份", title)
+    m = re.search(r"(\d{4})年(\d{1,2})月", title)
     if m:
         return pd.Timestamp(int(m.group(1)), int(m.group(2)), 1), False
     return None, None

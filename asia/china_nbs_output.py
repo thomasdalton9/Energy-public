@@ -23,7 +23,8 @@ import pandas as pd
 import china_nbs_common as nbs
 import xlsx_notes
 
-TITLE_RE = r"\d{4}年(\d{1,2}|1[—\-－]2)月份规模以上工业增加值"
+TITLE_RE = r"\d{4}年(\d{1,2}|1[—\-－～~]2)月份?(规模以上|规上)工业(增加值|生产)"
+NEAR_RE = r"\d{1,2}月份?.*工业(增加值|生产(?!者))"
 HISTORY_START = "2021-01-01"
 
 # Releases that still exist but are no longer on the (~1000-item) release list,
@@ -135,7 +136,7 @@ def pull(out_path, columns, notes_lines, notes_titles):
             return False
         return (period.year not in held_jf) if is_jf else ((period.year, period.month) not in held)
 
-    releases = nbs.crawl_index(TITLE_RE, wanted, deep, EXTRA_RELEASES)
+    releases = nbs.crawl_index(TITLE_RE, wanted, deep, EXTRA_RELEASES, near_re=NEAR_RE)
     nbs.log(f"  {len(releases)} release(s) to fetch")
     new_rows, new_jf = {}, {}
     for title, url in releases:
