@@ -330,7 +330,8 @@ def update_weekly(archive):
     recent_from = (TODAY - pd.Timedelta(days=60)).date()
     docs = psem_docs(recent_from, TODAY.date() + dt.timedelta(days=7))
     oldest = pd.to_datetime(archive["published"], dayfirst=True, errors="coerce").min() if have else pd.NaT
-    if pd.isna(oldest) or oldest > pd.Timestamp(start) + pd.Timedelta(days=365):   # backfill not finished
+    # whole span while the backfill is unfinished, and on the 1st of each month to retry weeks that failed
+    if pd.isna(oldest) or oldest > pd.Timestamp(start) + pd.Timedelta(days=365) or TODAY.day == 1:
         docs = {**psem_docs(start, recent_from), **docs}
     todo = sorted((k for k in docs if k not in have),
                   key=lambda k: pd.to_datetime(docs[k][0].get("fecha"), dayfirst=True, errors="coerce"), reverse=True)
@@ -348,7 +349,7 @@ def update_weekly(archive):
             return None
         return {"file": k, **(row or {"published": doc.get("fecha")})}   # an unreadable week is remembered too
 
-    with ThreadPoolExecutor(max_workers=8) as pool:   # ~10 s per programme, mostly waiting on CAMMESA
+    with ThreadPoolExecutor(max_workers=5) as pool:   # ~10 s per programme; more in parallel draws connect timeouts
         for res in pool.map(fetch, todo):
             if res is not None:
                 rows.append(res)
@@ -465,7 +466,19 @@ def build_daily(levels_arc, flows_arc, weekly_arc, aic_arc, ina_arc):
     cols, source = {}, {}
     weekly = pd.DataFrame()
     if not weekly_arc.empty and "week_start" in weekly_arc:
-        weekly = weekly_arc.dropna(subset=["week_start"]).set_index("week_start").sort_index()
+        weekly = weekly_arc.dropna(subset=["week_start"]).copy()
+        # a few programmes carry a wrong FInicio (wrong year or month, e.g. psem0126.zip published
+        # 23/12/2025 says 29/12/2026): then use the Monday after the publication date
+        start = pd.to_datetime(weekly["week_start"], errors="coerce")
+        pub = pd.to_datetime(weekly["published"], dayfirst=True, errors="coerce")
+        lag = (start - pub).dt.days
+        next_monday = pub + pd.to_timedelta((7 - pub.dt.weekday) % 7 + 7 * (pub.dt.weekday == 0), unit="D")
+        weekly["week_start"] = start.where(lag.between(0, 7) | pub.isna(), next_monday)
+        bad = int((~lag.between(0, 7) & pub.notna()).sum())
+        if bad:
+            print(f"  weekly programme: {bad} programme(s) with an implausible FInicio placed on the Monday after "
+                  "publication", flush=True)
+        weekly = weekly.dropna(subset=["week_start"]).set_index("week_start").sort_index()
         weekly = weekly[~weekly.index.duplicated(keep="last")]
         weekly = weekly[weekly.index <= TODAY]          # programmes for a week still ahead are forecasts
     for stem, code, wcode, aic_name, rng in RESERVOIRS:
@@ -553,8 +566,10 @@ def write(daily, levels_arc, flows_arc, weekly_arc, aic_arc, ina_arc):
         "CotaIni, the level CAMMESA expects at the start of the programmed week (a Monday), set 3-4 days before - usually within",
         "0.1 m of the daily file (up to ~1 m at Alicura, whose level moves fastest). So before 2023 the level columns have one",
         "value per week (placed on the week's Monday) and are blank in between; the water-year charts join those weekly points",
-        "with straight lines (gaps of up to 8 days only) so the 5-year band is comparable across years. Weeks after the daily",
+        "with straight lines (gaps of up to 15 days only) so the 5-year band is comparable across years. Weeks after the daily",
         "file ends use the weekly programme and AIC readings until CAMMESA publishes the month.",
+        "A few programmes give an implausible week start (FInicio more than a week after, or before, its publication); the value is",
+        "placed on the Monday after publication (programmes are published on the Thursday/Friday before the week).",
         "Values outside each lake's height band (about 2 m below AIC's minimum extraordinary level to 1 m above its maximum",
         "level) are dropped. CAMMESA's daily file sometimes lists a day's levels against the wrong plant codes (seen from",
         "2026-05-03: some values repeated on other plants' rows, some plants missing). On such days each value is given to the",
