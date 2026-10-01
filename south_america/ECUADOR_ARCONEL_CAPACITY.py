@@ -315,7 +315,9 @@ def main():
 
     val = pcc.validation_lines(monthly, "Ecuador")
     print("\n".join(val), flush=True)
-    gaps = [m for m in pd.date_range(monthly.index.min(), monthly.index.max(), freq="MS") if m not in monthly.index]
+    monthly_part = [m for m in monthly.index if m >= pd.Timestamp("2024-01-01")]
+    gaps = ([m for m in pd.date_range(min(monthly_part), monthly.index.max(), freq="MS") if m not in monthly.index]
+            if monthly_part else [])
     notes = pcc.unit_notes("month") + [
         "Nominal (nameplate) capacity, as ARCONEL's BNEE reports it ('Potencia Nominal en Generacion'), national "
         "total (S.N.I. plus isolated systems and self-generators).",
