@@ -1,0 +1,39 @@
+name: Peru and Ecuador power discovery
+
+# One-off, manual-only probe for PERU_COES_ECUADOR_CENACE_DISCOVERY.py.
+# Raw responses go to the throwaway branch ecpe-discovery-raw.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1000 python3 discovery_archive/south_america/PERU_COES_ECUADOR_CENACE_DISCOVERY.py
+      - name: Push raw files to a throwaway branch for offline inspection
+        if: always()
+        run: |
+          [ -d ecpe_raw ] || exit 0
+          mv ecpe_raw /tmp/ecpe_raw
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan ecpe-discovery-raw
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq
+          mv /tmp/ecpe_raw ecpe_raw
+          git add ecpe_raw
+          git commit -qm "Peru/Ecuador power discovery raw files (throwaway)"
+          git push -f origin ecpe-discovery-raw
