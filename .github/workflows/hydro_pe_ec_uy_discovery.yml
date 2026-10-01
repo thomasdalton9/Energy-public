@@ -1,0 +1,48 @@
+name: Hydro reservoirs discovery (Peru, Ecuador, Uruguay)
+
+# One-off, manual-only probe (discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py).
+# Raw responses go to the throwaway branch hydro3-discovery-raw. Move to discovery_archive/workflows/ when done.
+on:
+  workflow_dispatch:
+    inputs:
+      round:
+        description: "discovery round"
+        default: "1"
+      only:
+        description: "countries (pe,ec,uy)"
+        default: "pe,ec,uy"
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas numpy openpyxl cryptography certifi pdfplumber
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+          ROUND: ${{ github.event.inputs.round }}
+          ONLY: ${{ github.event.inputs.only }}
+        run: timeout 2100 python3 discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py
+      - name: Push raw files to a throwaway branch for offline inspection
+        if: always()
+        run: |
+          [ -d hydro3_raw ] || exit 0
+          mv hydro3_raw /tmp/hydro3_raw
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan hydro3-discovery-raw
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq
+          mv /tmp/hydro3_raw hydro3_raw
+          git add hydro3_raw
+          git commit -qm "Hydro PE/EC/UY discovery raw files (throwaway)"
+          git push -f origin hydro3-discovery-raw
