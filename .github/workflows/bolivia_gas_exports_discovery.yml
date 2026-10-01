@@ -1,4 +1,4 @@
-name: Bolivia gas exports discovery 2
+name: Bolivia gas exports discovery 3
 
 on:
   workflow_dispatch: {}
@@ -17,4 +17,4 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 780 python3 discovery_archive/south_america/BOLIVIA_GAS_EXPORTS_DISCOVERY2.py
+        run: timeout 780 python3 discovery_archive/south_america/BOLIVIA_GAS_EXPORTS_DISCOVERY3.py
