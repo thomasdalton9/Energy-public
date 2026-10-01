@@ -66,12 +66,13 @@ THERMAL = {"TV", "TG", "CC", "DI", "AG"}
 FUEL_CODE = {
     # natural gas: own (propio), provided by CAMMESA (provisto), Plan Gas, agreement, imported LNG
     "GN": "Gas", "GA": "Gas", "GQ": "Gas", "GR": "Gas", "GX": "Gas", "GZ": "Gas", "GH": "Gas", "PI": "Gas",
-    "GM": "Gas", "GU": "Gas", "LG": "Gas",
+    "GM": "Gas", "GU": "Gas", "LG": "Gas", "GD": "Gas",
     # gasoil (GO/GP/GY/GC 'GO provisto', GF/GG 'gas oil forzado') and fuel oil (FO/FP/FX), OX
     "GO": "Oil", "GP": "Oil", "GY": "Oil", "GC": "Oil", "GF": "Oil", "GG": "Oil", "FO": "Oil", "FP": "Oil",
-    "FX": "Oil", "OX": "Oil",
+    "FX": "Oil", "OX": "Oil", "OI": "Oil",
     "CM": "Coal",  # carbon mineral (San Nicolas, Rio Turbio)
     "BM": "Bioenergy", "BG": "Bioenergy", "BC": "Bioenergy", "BD": "Bioenergy",
+    "U2": "Nuclear", "UA": "Nuclear", "UE": "Nuclear",  # uranium (nuclear units are counted by subtype NU anyway)
 }
 NO_FUEL = "--"  # thermal unit-hours with no fuel row: mostly the steam halves of combined cycles -> Gas
 
@@ -88,9 +89,9 @@ NOTES = [
     "Thermal units (TV steam, TG gas turbine, CC combined cycle, DI diesel/engines) are split hour by hour by "
     "the fuel shares CAMMESA reports per unit (COMBUSTIBLE_PORCENTAJE_DET):",
     "  Gas_MWh: GN, GA, GQ, GR, GX, GZ, GH, PI, GM, GU, LG (natural gas - own, CAMMESA-provided, Plan Gas, "
-    "agreement, LNG); plus thermal hours with no fuel reported (code '--', mostly the steam turbines of "
+    "agreement, LNG; GD also gas, in dam3); plus thermal hours with no fuel reported (code '--', mostly the steam turbines of "
     "combined cycles, which burn no fuel of their own) - an assumption, see the '--' columns in the raw sheet.",
-    "  Oil_MWh: GO, GP, GY, GC (gasoil), GF, GG (gasoil 'forzado'), FO, FP, FX (fuel oil), OX.",
+    "  Oil_MWh: GO, GP, GY, GC, OX (gasoil), GF, GG (gasoil 'forzado'), OI (gasoil industria), FO, FP, FX (fuel oil).",
     "  Coal_MWh: CM (carbon mineral).",
     "Bioenergy_MWh: BG (biogas) and BM (biomass) units, plus BM/BG/BC/BD fuel shares burned in thermal units.",
     "Other_MWh: any unit subtype or fuel code not listed above (none so far; new ones are printed by the pull).",
