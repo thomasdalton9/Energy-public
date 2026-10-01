@@ -909,7 +909,7 @@ def us_gas(p):
     if not d.empty:
         z = lambda *c: d[[f"{x}_Bcf_per_day" for x in c if f"{x}_Bcf_per_day" in d]].sum(axis=1, min_count=1)  # noqa: E731
         g = pd.DataFrame({"Power": z("Electric_power"), "Industrial": z("Industrial"), "Residential": z("Residential"),
-                          "Commercial": z("Commercial"), "Lease & plant fuel": z("Lease_fuel", "Plant_fuel"),
+                          "Commercial": z("Commercial"), "Lease & plant fuel": z("Lease_and_plant_fuel", "Lease_fuel", "Plant_fuel"),
                           "Pipeline, distribution & vehicle": z("Pipeline_and_distribution", "Vehicle_fuel")})
         out.append(spec("Demand", g[g.index >= "2021-01-01"], "US natural gas consumption by sector (EIA)",
                         "Bcf/d", "stacked_bar"))
@@ -948,31 +948,38 @@ def mexico_gas(p):
 
 
 def canada_gas(p):
-    """StatCan supply and disposition: deliveries by sector (stacked) and production / trade (lines), in Bcf/d.
-    Items are matched by name because StatCan's labels carry the detail."""
-    d = _sheet(p, "Supply and disposition", "Month")
-    d = d[d.index >= "2021-01-01"].apply(pd.to_numeric, errors="coerce") / BCF_TO_MCM
-    d.columns = [re.sub(r"\s*\(mcm/d\)$", "", str(c)) for c in d.columns]
-    pick = lambda pat, excl=r"^total": [c for c in d.columns if re.search(pat, c, re.I) and not re.search(excl, c, re.I)]  # noqa: E731
+    """StatCan supply and disposition: consumption by sector (stacked), production and trade (lines), in Bcf/d;
+    then closing inventory (storage) as a water-year chart in Bcf."""
+    d = _sheet(p, "Supply and disposition", "Month").apply(pd.to_numeric, errors="coerce") / BCF_TO_MCM
+    flow = {re.sub(r"\s*\(mcm/d\)$", "", c): c for c in d.columns if str(c).endswith("(mcm/d)")}
+    pick = lambda pat: {k: v for k, v in flow.items() if re.search(pat, k, re.I) and not k.lower().startswith("total")}  # noqa: E731
     out = []
-    use = pick(r"residential|commercial|industrial|electric|power|transport|pipeline|producers'? own|own use")
+    recent = d[d.index >= "2021-01-01"]
+    use = pick(r"consumption|electric|power")
     if use:
-        out.append(spec("Demand", d[use], "Canada natural gas disposition by use (StatCan)", "Bcf/d", "stacked_bar"))
-    flows = pick(r"marketable production|^gross withdrawals|^imports|^exports", excl=r"^$")
+        out.append(spec("Demand", recent[list(use.values())].rename(columns={v: k for k, v in use.items()}),
+                        "Canada natural gas consumption by sector (StatCan)", "Bcf/d", "stacked_bar"))
+    flows = pick(r"^marketable production$|^imports$|^exports$")
     if flows:
-        out.append(spec("Supply", d[flows], "Canada natural gas production and trade (StatCan)", "Bcf/d"))
+        out.append(spec("Supply", recent[list(flows.values())].rename(columns={v: k for k, v in flows.items()}),
+                        "Canada natural gas production and trade (StatCan)", "Bcf/d"))
+    inv = next((c for c in d.columns if re.match(r"closing inventory", str(c), re.I)), None)
+    if inv is not None and d[inv].notna().any():
+        s = d[inv].dropna()
+        s.index = s.index + pd.offsets.MonthEnd(0)   # closing inventory = end of the month
+        out.append({"name": "Storage", "water_year": s.resample("D").interpolate(), "y_decimals": 0,
+                    "title": "Canada natural gas in storage, closing inventory (StatCan)", "units": "Bcf"})
     return out or generic(p)
 
 
 def canada_power(p):
-    """StatCan monthly generation by type of plant (conventional steam burns mixed fuels, kept separate)."""
+    """StatCan monthly generation: non-combustible plants by type, fuel-burning plants as fossil and biomass."""
     d = by_date(read(p, "Daily"), "date")
     d = d[d.index >= "2021-01-01"]
     names = {"Hydro_MWh": "Hydro", "Nuclear_MWh": "Nuclear", "Wind_MWh": "Wind", "Solar_MWh": "Solar",
-             "Gas_MWh": "Combustion turbine (gas)", "Steam_MWh": "Conventional steam (coal, gas, biomass)",
-             "Oil_MWh": "Internal combustion (diesel)", "Other_MWh": "Other"}
+             "Fossil_MWh": "Fossil fuels (coal, gas, oil)", "Bioenergy_MWh": "Bioenergy", "Other_MWh": "Other"}
     out = [spec("Generation", d[cols(d, *names)].rename(columns=names) / 1000,
-                "Canada power generation by type of plant (StatCan)", "GWh per month", "stacked_bar")]
+                "Canada power generation by source (StatCan)", "GWh per month", "stacked_bar")]
     pv = _sheet(p, "Provinces", "date")
     if not pv.empty:
         pv = pv[pv.index >= "2021-01-01"].rename(columns=lambda c: str(c).replace("_MWh", "")) / 1000
@@ -981,6 +988,17 @@ def canada_power(p):
         g["Other provinces & territories"] = pv.drop(columns=top).sum(axis=1)
         out.append(spec("Provinces", g, "Canada power generation by province (StatCan)", "GWh per month",
                         "stacked_bar"))
+    return out
+
+
+def us_capacity(p):
+    """EIA-860M monthly capacity in the standard groups, plus battery storage (kept out of the fuel columns)."""
+    out = power_capacity("US installed generating capacity (EIA-860M, net summer)")(p)
+    d = by_date(read(p, "Monthly"), "date")
+    d = d[d.index >= "2021-01-01"]
+    for col, label in (("Battery_storage_MW", "Battery storage"), ("Pumped_storage_MW", "Pumped storage")):
+        if col in d:
+            out[0]["df"][label] = pd.to_numeric(d[col], errors="coerce").fillna(0) / 1000.0
     return out
 
 
@@ -1060,7 +1078,10 @@ REGISTRY = {
     "mexico_gas.xlsx": mexico_gas,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
-    "north_america_power_by_type.xlsx": sa_power,   # Ember fallback for Canada and Mexico (same layout)
+    "north_america_power_by_type.xlsx": sa_power,
+    "us_power_capacity.xlsx": us_capacity,
+    "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
+    "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "south_america_power_prices_daily.xlsx": sa_power_prices,
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
