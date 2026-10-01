@@ -768,6 +768,11 @@ def main():
         f"Brazil {yspan(br)}; Argentina {yspan(ar)}; Chile {yspan(cl)}; Peru {yspan(pe)}; Venezuela (EI) {yspan(ve)}.",
         "Chile: Mina Invierno (the last large mine) stopped in 2020; remaining output is negligible. Peru: small "
         "anthracite / bituminous output (Ancash, La Libertad). Annual figures only for both, where published.",
+        "Quarters follow ANM's liquidation period, so late or catch-up declarations land in the quarter they were "
+        "liquidated in, as published. Q4-2021 (21.5 Mt) is the clear case: small producers (PRODUCTORES rows, all "
+        "interior departments) declared 7.4 Mt in period 12 against 1.0-1.7 Mt in each earlier 2021 quarter (172 "
+        "municipality rows in period 12 vs 61-68 in periods 3/6/9), i.e. catch-up of 2021 output; Drummond's Jul-Aug "
+        "2021 was liquidated in Sep-2021 (Cesar Q3-2021). Annual totals are unaffected.",
         "Monthly production by department is not published: ANM's royalty data are monthly only for the large "
         "mines that liquidate monthly; small producers liquidate by quarter.",
         "",
