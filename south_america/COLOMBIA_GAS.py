@@ -427,7 +427,7 @@ def supply_issues(res, profile):
 # the national production row; otherwise the next-best consistent readings are
 # tried, and the month is dropped if nothing fits.
 
-OCR_PASSES = [(0.5, "eng"), (0.5, "spa"), (0.75, "eng"), (0.75, "spa")]
+OCR_PASSES = [(0.5, "eng"), (0.5, "spa"), (0.75, "eng"), (0.75, "spa"), (0.6, "spa"), (1.0, "spa"), (0.6, "eng")]
 OCR_DIGITS = "0123456789,.%"
 
 

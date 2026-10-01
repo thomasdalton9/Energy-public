@@ -19,7 +19,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -34,7 +34,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1500 python3 south_america/COLOMBIA_GAS.py --out "output/Data and Chart Outputs/colombia_gas_demand_by_sector.xlsx" ${{ inputs.full && '--full' || '' }}
+        run: timeout 2400 python3 south_america/COLOMBIA_GAS.py --out "output/Data and Chart Outputs/colombia_gas_demand_by_sector.xlsx" ${{ inputs.full && '--full' || '' }}
 
       - name: Add Excel charts and copy scripts
         if: always()
