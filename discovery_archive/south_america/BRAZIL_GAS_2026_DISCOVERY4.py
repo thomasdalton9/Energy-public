@@ -30,7 +30,9 @@ for u in links:
     df = pd.read_csv(io.StringIO(t), sep=sep, dtype=str, on_bad_lines="skip")
     print("  sep", repr(sep), "shape", df.shape, flush=True)
     print("  cols", list(df.columns)[:16], "...", list(df.columns)[-3:], flush=True)
-    for col in df.columns[:16]:
+    var = [c for c in df.columns if "vari" in c.lower()][0]
+    print("  variables:", df[var].value_counts().head(40).to_dict(), flush=True)
+    for col in df.columns[:12]:
         if df[col].nunique() <= 15:
             print(f"  distinct {col!r}: {df[col].value_counts().to_dict()}", flush=True)
 print("\ndone")
