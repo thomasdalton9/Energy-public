@@ -60,6 +60,7 @@ import sys
 import tempfile
 import time
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pandas as pd
@@ -256,22 +257,30 @@ def cammesa_flows():
 # ------------------------------------------------------------------ 3. weekly programme
 
 def psem_docs(start, end):
-    """Weekly-programme documents published between start and end (queried a quarter at a time)."""
-    docs, cur = [], start
+    """Weekly-programme documents published between start and end (a quarter per request, 8 in parallel:
+    each lookup takes ~10 s)."""
+    spans, cur = [], start
     while cur <= end:
         nxt = min(cur + dt.timedelta(days=91), end + dt.timedelta(days=1))
-        params = {"fechadesde": cur.strftime(TIME_FMT), "fechahasta": nxt.strftime(TIME_FMT), "nemo": PSEM_NEMO}
+        spans.append((cur, nxt))
+        cur = nxt
+
+    def lookup(span):
+        a, b = span
+        params = {"fechadesde": a.strftime(TIME_FMT), "fechahasta": b.strftime(TIME_FMT), "nemo": PSEM_NEMO}
         for attempt in range(3):
             try:
-                r = requests.get(LOOKUP_URL, params=params, headers=CAMMESA_UA, timeout=60)
+                r = requests.get(LOOKUP_URL, params=params, headers=CAMMESA_UA, timeout=90)
                 r.raise_for_status()
-                docs += r.json()
-                break
+                return r.json()
             except (requests.RequestException, ValueError) as e:
                 if attempt == 2:
-                    print(f"  psem list {cur}..{nxt}: FAILED {type(e).__name__}: {e}", flush=True)
+                    print(f"  psem list {a}..{b}: FAILED {type(e).__name__}: {e}", flush=True)
                 time.sleep(3)
-        cur = nxt
+        return []
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        docs = [d for part in pool.map(lookup, spans) for d in part]
     out = {}
     for d in docs:
         for a in d.get("adjuntos", []):
@@ -327,19 +336,26 @@ def update_weekly(archive):
                   key=lambda k: pd.to_datetime(docs[k][0].get("fecha"), dayfirst=True, errors="coerce"), reverse=True)
     print(f"  weekly programme: {len(docs)} listed, {len(have)} already read, {len(todo)} to fetch", flush=True)
     rows = []
-    for k in todo:
-        if elapsed_min() > ARGS.budget_min:
-            print(f"  time budget reached; {len(todo) - len(rows)} weekly programmes left for the next run", flush=True)
-            break
+
+    def fetch(k):
         doc, att = docs[k]
+        if elapsed_min() > ARGS.budget_min:
+            return None
         try:
             row = read_psem(doc, att)
         except Exception as e:  # noqa: BLE001
             print(f"  {k}: FAILED {type(e).__name__}: {e}", flush=True)
-            continue
-        rows.append({"file": k, **(row or {"published": doc.get("fecha")})})   # an unreadable week is remembered too
-        if len(rows) % 50 == 0:
-            print(f"  ... {len(rows)} weekly programmes read ({elapsed_min():.1f} min)", flush=True)
+            return None
+        return {"file": k, **(row or {"published": doc.get("fecha")})}   # an unreadable week is remembered too
+
+    with ThreadPoolExecutor(max_workers=8) as pool:   # ~10 s per programme, mostly waiting on CAMMESA
+        for res in pool.map(fetch, todo):
+            if res is not None:
+                rows.append(res)
+                if len(rows) % 100 == 0:
+                    print(f"  ... {len(rows)} weekly programmes read ({elapsed_min():.1f} min)", flush=True)
+    if len(rows) < len(todo):
+        print(f"  {len(todo) - len(rows)} weekly programmes left for the next run (time budget / failures)", flush=True)
     if rows:
         new = pd.DataFrame(rows).set_index("file")
         archive = new if archive.empty else pd.concat([archive[~archive.index.isin(new.index)], new])
@@ -480,7 +496,7 @@ def build_daily(levels_arc, flows_arc, weekly_arc, aic_arc, ina_arc):
         cols[ina_col] = s
     daily = pd.DataFrame(cols).sort_index()
     daily = daily[daily.index >= pd.Timestamp(ARGS.start)].dropna(how="all")
-    daily["Comahue_level_source"] = pd.concat([source[s] for s in COMAHUE], axis=1).reindex(daily.index).apply(
+    daily["Comahue_level_source"] = pd.concat([source[s] for s in COMAHUE], axis=1, sort=True).reindex(daily.index).apply(
         lambda r: " + ".join(sorted(set(r.dropna()))) or None, axis=1)
     daily.index.name = "date"
     return daily.round(3)
