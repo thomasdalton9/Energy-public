@@ -20,7 +20,7 @@ jobs:
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
-          ROUND: "4"
+          ROUND: "5"
         run: timeout 780 python3 discovery_archive/south_america/URUGUAY_GAS_DISCOVERY.py
       - name: Push raw files to a throwaway branch for offline inspection
         if: always()

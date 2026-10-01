@@ -91,13 +91,26 @@ ROUND4 = [  # visualPEB form actions (round 4): annual gas flows by sector and B
 ]
 
 
+ROUND5 = [  # round 5: monthly flows by tariff need the hidden ultimoAnioSeleccionable field
+    "gnFlujosTarifasMes?ultimoAnioSeleccionable=2026&mesDesde=Ene&anioDesde=2026&mesHasta=Ene&anioHasta=2026"
+    "&unidades=m%C2%B3",
+    "gnFlujosTarifasMes?ultimoAnioSeleccionable=2026&mesDesde=Mar&anioDesde=2026&mesHasta=Mar&anioHasta=2026"
+    "&unidades=m%C2%B3",
+    "gnFlujosTarifasMes?ultimoAnioSeleccionable=2026&mesDesde=Ene&anioDesde=2021&mesHasta=Dic&anioHasta=2026"
+    "&unidades=m%C2%B3",
+    "gnFacturacionMensualDistrib?distrib=Montevideo+Gas&mesDesde=Ene&anioDesde=2025&mesHasta=Dic&anioHasta=2026",
+    "gnImportacionGasoductoMes?mesDesde=Ene&anioDesde=2025&mesHasta=Dic&anioHasta=2026",
+]
+
+
 def main():
     os.makedirs(RAW, exist_ok=True)
-    if os.environ.get("ROUND") == "4":
-        for i, q in enumerate(ROUND4):
+    rounds = {"4": ROUND4, "5": ROUND5}
+    if os.environ.get("ROUND") in rounds:
+        for i, q in enumerate(rounds[os.environ["ROUND"]]):
             r = get(VP + q)
             if r is not None:
-                save(f"r4_{i}_{q.split('?')[0]}.html", r.content)
+                save(f"r{os.environ['ROUND']}_{i}_{q.split('?')[0]}.html", r.content)
         return
     r = get(ZIP)
     if r is not None and r.status_code == 200:
