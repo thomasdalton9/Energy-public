@@ -346,6 +346,11 @@ def main():
         "months where CNE published no report (no May 2026 report) or a report that repeated an earlier "
         "report's table (e.g. the Nov 2021-Feb 2022 reports all repeat Aug 2021's table). OCR'd changes are only "
         "kept when they read cleanly, so a few months may still have no value (see the run log).",
+        "Months with no value: " + (", ".join(gaps) if gaps else "none") + (
+            "." if not gaps else
+            ". CNE published no table for them (its Nov 2021-Feb 2022 reports repeat the Aug 2021 table), and the "
+            "annual changes in the Sep-Nov 2022 tables needed to derive them do not OCR cleanly."
+            if set(gaps) <= {"2021-09", "2021-10", "2021-11"} else ". See the run log for why."),
         "Origins lists the source countries the report names for that month's gas imports.",
         "",
         "SOURCE",
