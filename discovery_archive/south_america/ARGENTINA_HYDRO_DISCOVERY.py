@@ -473,6 +473,135 @@ def ina_series():
                 print(f"      {t0}..{t1}: {len(obs)} obs {json.dumps(obs[:2], ensure_ascii=False)[:300]}", flush=True)
 
 
+# Round 3 (Oct-2026) found:
+#  - no older Cotas/Caudales packages via the WordPress REST API (wpdmpro route is off);
+#  - PARTE_POST_OPERATIVO .mdb has no level table;
+#  - PROGRAMACION_SEMANAL psemWWYY.MDB has table COTAS (CentHidr, CotaIni, CotaFin)
+#    for ALICHI, CHOCHI, PBANHI, PDAGHI, PICUHI, FUTAHI, ARROHI, ... (not Yacyreta /
+#    Salto Grande), present in 2021 and 2026;
+#  - INA a5: Salto Grande Arriba (estacion 77) daily mean level series 26319 and
+#    daily mean flow 26674; Yacyreta afluente (87) daily mean flow 26684 (2010 on),
+#    all current to yesterday. Yacyreta level series are empty.
+# Round 4: how far back psem goes, which date CotaIni refers to (compare with the
+# daily file), AIC 'Nivel Actual' per lake, INA series date ranges.
+def psem_depth_and_dates():
+    import subprocess
+    import tempfile
+    import datetime as _dt
+    import pandas as pd
+    print("\n######## R4. psem history depth", flush=True)
+    ua = {"User-Agent": "gas-demand-scripts/1.0"}
+
+    def docs_between(a, b):
+        p = {"fechadesde": a.strftime(TIME_FMT), "fechahasta": b.strftime(TIME_FMT), "nemo": "PROGRAMACION_SEMANAL"}
+        r = requests.get(LOOKUP_URL, params=p, headers=ua, timeout=60)
+        return r.json() if r.ok else []
+
+    for y in [2000, 2005, 2008, 2010, 2012, 2014, 2016, 2018, 2020]:
+        d = docs_between(_dt.date(y, 6, 1), _dt.date(y, 6, 20))
+        print(f"  {y}-06: {len(d)} docs {[(x.get('fecha'), [a['id'] for a in x.get('adjuntos', [])]) for x in d][:4]}", flush=True)
+
+    def cotas_of(doc):
+        att = doc["adjuntos"][0]
+        f = requests.get(ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"], "nemo": "PROGRAMACION_SEMANAL"},
+                         headers=ua, timeout=300)
+        if not (f.ok and f.content[:2] == b"PK"):
+            return None, None
+        zf = zipfile.ZipFile(io.BytesIO(f.content))
+        mdb = next((n for n in zf.namelist() if n.lower().endswith(".mdb")), None)
+        if mdb is None:
+            return None, zf.namelist()
+        with tempfile.NamedTemporaryFile(suffix=".mdb", delete=False) as t:
+            t.write(zf.read(mdb))
+        out = {}
+        for table in ["COTAS", "FECHA"]:
+            out[table] = subprocess.run(["mdb-export", t.name, table], capture_output=True, text=True).stdout
+        return out, zf.namelist()
+
+    # oldest psem with an mdb
+    for y in [2010, 2014, 2016, 2018]:
+        d = docs_between(_dt.date(y, 6, 1), _dt.date(y, 6, 20))
+        if d:
+            out, names = cotas_of(d[0])
+            print(f"\n  {y} {d[0].get('fecha')} members {names}", flush=True)
+            if out:
+                print("  FECHA:", out["FECHA"][:400], flush=True)
+                print("  COTAS:", out["COTAS"][:700], flush=True)
+
+    # which date does CotaIni match? compare with the CAMMESA daily file
+    r = S.get("https://cammesaweb.cammesa.com/download/cotas-diarias/", timeout=60)
+    dl = re.findall(r'(https?://[^"\'\s<>]*wpdmdl=\d+[^"\'\s<>]*)', r.text)[0].replace("&amp;", "&")
+    raw = pd.read_excel(io.BytesIO(S.get(dl, timeout=120).content), header=None)
+    hdr = raw.index[raw.iloc[:, 0].astype(str).str.strip().str.upper().isin(["AÑO", "ANO"])][0]
+    body = raw.iloc[hdr + 1:]
+    print("  daily header row:", raw.iloc[hdr].tolist()[:14], flush=True)
+    daily = pd.DataFrame({"date": pd.to_datetime(body.iloc[:, 2]), "code": body.iloc[:, 3].astype(str).str.strip(),
+                          "v": pd.to_numeric(body.iloc[:, 9], errors="coerce")}).dropna()
+    piv = daily.pivot_table(index="date", columns="code", values="v")
+    alias = {"PDAGHI": "PAGUHI", "PICUHI": "PPLEHI"}
+    for start in [_dt.date(2023, 3, 1), _dt.date(2024, 7, 1), _dt.date(2025, 11, 1), _dt.date(2026, 5, 1)]:
+        d = docs_between(start, start + _dt.timedelta(days=8))
+        for doc in d[:1]:
+            out, _ = cotas_of(doc)
+            if not out:
+                continue
+            print(f"\n  psem {doc['adjuntos'][0]['id']} published {doc.get('fecha')}; FECHA: {out['FECHA'][:300]!r}", flush=True)
+            for line in out["COTAS"].splitlines()[1:]:
+                parts = line.replace('"', "").split(",")
+                if len(parts) < 3:
+                    continue
+                code = alias.get(parts[0], parts[0])
+                if code not in piv.columns:
+                    continue
+                pub = pd.Timestamp(_dt.datetime.strptime(doc["fecha"], "%d/%m/%Y"))
+                near = piv[code].loc[pub - pd.Timedelta(days=3): pub + pd.Timedelta(days=10)]
+                print(f"    {parts[0]:7s} ini={parts[1]:>8s} fin={parts[2]:>8s} daily {pub.date()}-3..+10: "
+                      + " ".join(f"{i:%d}:{v:.2f}" for i, v in near.items()), flush=True)
+
+
+def aic_levels():
+    print("\n######## R4. AIC Nivel Actual", flush=True)
+    r = S.get("https://www.aic.gob.ar/sitio/embalses", timeout=60)
+    for href in sorted(set(re.findall(r'href=["\']([^"\']*embalses-detalle\?a=\d+[^"\'#]*)', r.text))):
+        d = S.get(urljoin(r.url, href.replace("&amp;", "&")), timeout=60)
+        t = text_of(d.text)
+        name = re.search(r"Caudales Programados Embalses (.+?) Ubicación", t)
+        i = t.find("Síntesis de Caudales")
+        print(f"  {name.group(1) if name else href}: {t[i:i + 700] if i >= 0 else t[-700:]}", flush=True)
+        for m in re.findall(r"(?:Fecha|Actualiz|hs\b|\d{2}/\d{2}/\d{4})[^.]{0,80}", t)[:5]:
+            print(f"     date? {m}", flush=True)
+
+
+def ina_ranges():
+    print("\n######## R4. INA series date ranges", flush=True)
+    for sid in [26319, 26674, 26684, 26320, 926, 936]:
+        r = S.get(f"https://alerta.ina.gob.ar/a5/obs/puntual/series/{sid}?format=json", timeout=120)
+        try:
+            j = r.json()
+        except ValueError:
+            print(f"  {sid}: {r.status_code} {r.text[:200]}", flush=True)
+            continue
+        print(f"  {sid}: {j.get('estacion', {}).get('nombre')!r} {j.get('var', {}).get('nombre')!r} "
+              f"date_range={j.get('date_range')}", flush=True)
+        o = S.get(f"https://alerta.ina.gob.ar/a5/obs/puntual/series/{sid}/observaciones?timestart=2000-01-01&timeend=2026-12-31&format=json",
+                  timeout=300)
+        try:
+            obs = o.json()
+            vals = [(x["timestart"][:10], x["valor"]) for x in obs]
+            print(f"     full pull: {len(vals)} obs, {vals[:2]} ... {vals[-2:]}", flush=True)
+        except Exception as e:  # noqa: BLE001
+            print(f"     full pull failed: {o.status_code} {type(e).__name__} {o.text[:200]}", flush=True)
+
+
+if ROUND == "4":
+    for fn in (aic_levels, ina_ranges, psem_depth_and_dates):
+        try:
+            fn()
+        except Exception as e:  # noqa: BLE001
+            import traceback
+            traceback.print_exc()
+            print(f"!! {fn.__name__} crashed: {type(e).__name__}: {e}", flush=True)
+
 if ROUND == "3":
     for fn in (wpdm_search, cammesa_mdbs, ina_series):
         try:
