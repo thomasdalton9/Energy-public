@@ -16,11 +16,14 @@ diagram from pipeline -> zone -> distributor -> tariff:
                     Energia" = gas fed to power generation, i.e. Punta del Tigre)
   Montevideo:       Montevideo Gas residential + general service + large users,
                     plus "Otros" ("Consumo del sector Energia" = energy-sector own use)
-"Otros" is what is left of a zone's pipeline import after the distributors'
-billing, so it carries timing differences and can be small or noisy.
+"Otros" is a zone's pipeline import less the distributor's metered intake.
+The tariff flows are BILLED volumes, which follow meter-reading cycles and
+lag physical flow (in May a distributor can take ~5 mcm and bill ~3), so
+each distributor's metered intake is split across its tariffs pro rata to
+that month's billing; the raw billed flows are kept in the raw sheet.
 
 Sectors written here follow MIEM's own sector view (gnFlujosSectores):
-  Residential  = Residencial (all three distributors)
+  Residential  = Residencial (all three distributors, intake-scaled)
   Commercial   = Servicio General (commerce, services, small industry)
   Industrial   = Grandes usuarios (Sur, Montevideo) + Otros (Norte)
   Power        = Otros (Sur)  - insumo del sector Energia
@@ -122,16 +125,26 @@ def load_existing(path):
         return pd.DataFrame()
 
 
+TARIFFS = {"Residencial": "Residential", "Servicio General": "Commercial", "Grandes usuarios": "Industrial"}
+
+
 def sectors(raw):
-    g = lambda *c: raw.reindex(columns=list(c)).sum(axis=1, min_count=1)  # noqa: E731
-    s = pd.DataFrame({
-        "Residential": g("Residencial (Norte)", "Residencial (Sur)", "Residencial (Mvdo.)"),
-        "Commercial": g("Servicio General (Norte)", "Servicio General (Sur)", "Servicio General (Mvdo.)"),
-        "Industrial": g("Grandes usuarios (Sur)", "Grandes usuarios (Mvdo.)", "Otros (Norte)"),
-        "Power": g("Otros (Sur)"),
-        "Energy_own_use": g("Otros (Mvdo.)"),
-    })
-    s["Total"] = s[SECTORS].sum(axis=1, min_count=1)
+    """Million m3 per month by sector. Each distributor's metered intake (its node in the flow diagram) is
+    split across its tariffs in proportion to that month's billing, because billing runs on meter-reading
+    cycles and lags physical flow (a distributor's billed total can be well above or below its intake in the
+    shoulder months). The 'Otros' flows are metered already and are taken as published."""
+    v = lambda c: raw[c] if c in raw else pd.Series(0.0, index=raw.index)  # noqa: E731
+    s = pd.DataFrame(0.0, index=raw.index, columns=SECTORS)
+    for zone, node in DISTRIBUTORS.items():
+        billed = sum(v(f"{t} ({zone})").fillna(0) for t in TARIFFS)
+        intake = v(node)
+        factor = (intake / billed).where((billed > 0) & intake.notna(), 1.0)
+        for t, sector in TARIFFS.items():
+            s[sector] += v(f"{t} ({zone})").fillna(0) * factor
+    s["Industrial"] += v("Otros (Norte)").fillna(0)
+    s["Power"] = v("Otros (Sur)").fillna(0).clip(lower=0)
+    s["Energy_own_use"] = v("Otros (Mvdo.)").fillna(0).clip(lower=0)
+    s["Total"] = s[SECTORS].sum(axis=1)
     s["Imports"] = raw[[c for c in raw.columns if c.startswith("Gasoducto")]].sum(axis=1, min_count=1)
     return s / 1e6  # million m3 per month
 
@@ -194,8 +207,11 @@ def main():
         "Power: 'Otros (Sur)' - MIEM's sector view calls it 'Insumo del sector Energia' (gas input to power "
         "generation on the Cruz del Sur southern branch).",
         "Energy_own_use: 'Otros (Mvdo.)' - 'Consumo del sector Energia' (energy-sector own use in Montevideo).",
-        "The 'Otros' flows are what is left of each zone's pipeline import after distributor billing, so they absorb "
-        "billing-cycle timing and can be noisy month to month.",
+        "The 'Otros' flows are each zone's pipeline import less the distributor's metered intake.",
+        "Tariff flows are BILLED volumes (meter-reading cycles lag physical flow, so a distributor's billing can be "
+        "well above or below its intake in the shoulder months). Residential / Commercial / large-user volumes here "
+        "are each distributor's metered intake split pro rata to that month's billing; the billed volumes as "
+        f"published are in '{RAW_SHEET}'.",
         "Total: sum of sectors. Imports: Gasoducto del Litoral + Gasoducto Cruz del Sur (should match Total).",
         "",
         "COVERAGE",
