@@ -60,10 +60,10 @@ COMPLETENESS = {
                     "(Profertil), Bolivia (Bulo Bulo), Brazil (Petrobras FAFEN-BA/SE, ANSA, UFN-III, Yara Cubatao). "
                     "Small or idle units (e.g. Colombia's Ferticol) are not listed.",
     "Methanol": "Complete for the region's methanol plants (Trinidad x8, Venezuela x2, Chile, Argentina).",
-    "LNG liquefaction": "Complete for export LNG (Atlantic LNG, Peru LNG, Argentina FLNG under construction) plus "
+    "LNG liquefaction": "Complete for export LNG (Atlantic LNG, Peru LNG, Argentina's Hilli FLNG under construction) plus "
                         "Ecuador's small Bajo Alto plant; Bolivia's small-scale Rio Grande plant is not listed.",
-    "Steel DRI": "Complete for gas-based DRI/HBI (Trinidad, Venezuela, Argentina). SIDOR has no DRI capacity figure, "
-                 "so no estimate. Brazil/Peru steel is blast-furnace or coal-based, so not listed.",
+    "Steel DRI": "Complete for gas-based DRI/HBI (Trinidad, Venezuela, Argentina). Brazil, Peru and Colombia steel is "
+                 "blast-furnace, coal-based DRI or scrap-EAF, so not listed.",
     "Alumina": "Jamalco (LNG-fired) and Brazil's Alunorte (fuel-oil to gas switch) are included; Venezuela's Bauxilum "
                "is listed without an estimate (fuel unconfirmed). Alumar, CBA, Alpart and Windalco are not listed "
                "(gas use unconfirmed).",
@@ -90,7 +90,7 @@ SOURCES = [
     "ANFACER / Ceramic World Review (ceramics), trade and national press: one or more URLs on each row of 'Plants'.",
 ]
 
-COLS = ["country", "plant", "operator", "sector", "products", "capacity", "capacity_unit", "status", "status_as_of",
+COLS = ["country", "plant", "operator", "sector", "products", "capacity", "capacity_unit", "capacity_check", "status", "status_as_of",
         "city", "region", "lat", "lon", "coords", "basis_kt_or_Mm2_per_yr", "gas_mcm_d_estimate", "gas_estimate_basis",
         "counted_as", "notes", "sources"]
 
@@ -220,6 +220,8 @@ def notes(p, piv):
              "Edit south_america/industrial_gas_users.csv and rerun south_america/INDUSTRIAL_GAS_USERS.py to rebuild.", "",
              "UNITS",
              "capacity / capacity_unit: nameplate as published by the source (kt/yr, t/d, Mt/yr, million m2/yr).",
+             "capacity_check: whether an automated fetch found the figure on a cited page (Oct-2026); 'UNVERIFIED' "
+             "rows rest on figures whose pages block automated access - treat with care.",
              "basis_kt_or_Mm2_per_yr: the capacity the gas estimate is built on, annualised (t/d x 350 days).",
              "gas_mcm_d_estimate: ESTIMATED gas demand in million cubic metres per day (1 mcm/d = 35.3 MMscf/d) at "
              "nameplate - not measured.",
@@ -232,6 +234,8 @@ def notes(p, piv):
     lines += ["Where a company states its gas use or contract volume, that figure is used instead (gas_estimate_basis "
               "says which).",
               f"Energy conversions assume pipeline gas at {GJ_PER_M3:g} MJ/m3 (gross).",
+              "Double counting: Ecuador's Bajo Alto LNG plant liquefies the gas that Cuenca's ceramics plants burn, so "
+              "their estimates overlap (both small). LNG plants' gas is feed for export, not domestic end use.",
               "Pivot ('By country & sector'): plant counts by status; capacity and gas summed over plants counted as "
               "operating; idle and under-construction gas shown separately. Capacity sums mix units across sectors, "
               "so read them within a sector.", ""]
