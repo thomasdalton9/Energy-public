@@ -10,6 +10,7 @@ Run in GitHub Actions (usgs.gov and company sites are blocked from the sandbox).
   url   - document links + ~7,000 characters of page text from the first capacity sentence.
   wiki  - GEM wiki plant pages: coordinates, owner, status and capacity snippets.
   pdf   - capacity sentences from PDFs given as URLs.
+  grep  - first argument is a regex; prints up to 6 snippets (+-160 chars) matching it on each later URL.
   verify - for each row of south_america/industrial_gas_users.csv, fetch its source URLs and report whether the
           capacity figure appears in any of them (one line per row: OK / not found / fetch errors).
 
@@ -213,6 +214,16 @@ def _variants(v):
     return {o for o in out if o not in ("0", "")}
 
 
+def grep(args):
+    pat, urls = re.compile(args[0], re.I), args[1:]
+    for u in urls:
+        code, t = _doc_text(u)
+        hits = [t[max(0, m.start() - 160):m.end() + 160] for m in pat.finditer(t)][:6]
+        print(f"## {u} [{code}] {len(t)} chars, {len(hits)} hits")
+        for h in hits:
+            print("   >", h)
+
+
 def verify():
     import csv
     rows = list(csv.DictReader(open("south_america/industrial_gas_users.csv", encoding="utf-8")))
@@ -236,4 +247,4 @@ if __name__ == "__main__":
     what = sys.argv[1] if len(sys.argv) > 1 else "usgs"
     {"usgs": lambda: usgs(), "gem": lambda: gem(), "pages": lambda: pages(sys.argv[2:]),
      "url": lambda: url(sys.argv[2:]), "wiki": lambda: wiki(sys.argv[2:]), "pdf": lambda: pdf(sys.argv[2:]),
-     "verify": verify}[what]()
+     "verify": verify, "grep": lambda: grep(sys.argv[2:])}[what]()
