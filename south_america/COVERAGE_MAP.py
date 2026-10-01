@@ -66,7 +66,7 @@ DOT_AT = {"Chile": (-73.8, -46.5), "Trinidad and Tobago": (-61.2, 10.5), "Ecuado
 OUT_OF_SCOPE = {"Mexico", "United States of America", "Canada", "Greenland"}
 # Small countries get their label beside them, with a leader line: name -> (label lon, label lat)
 CALLOUTS = {
-    "Trinidad and Tobago": (-56.0, 12.5), "Puerto Rico": (-59.5, 20.5), "Dominican Rep.": (-63.5, 24.5),
+    "Puerto Rico": (-59.5, 20.5), "Dominican Rep.": (-63.5, 24.5),
     "Jamaica": (-80.0, 15.5), "Chile": (-82.0, -28.0), "El Salvador": (-95.5, 11.0), "Belize": (-94.0, 18.5), "Costa Rica": (-90.5, 7.0),
     "Panama": (-80.0, 4.5), "Honduras": (-81.5, 18.0), "Nicaragua": (-79.0, 13.5), "Guatemala": (-97.5, 15.5),
     "Uruguay": (-49.5, -35.0), "Haiti": (-72.5, 26.5), "Cuba": (-84.0, 26.0), "Guyana": (-55.0, 9.5),
@@ -101,7 +101,7 @@ def main():
 
     for _, row in world.iterrows():
         name = row["name"]
-        if name in OUT_OF_SCOPE or name in ("Falkland Is.", "France", "Bahamas"):
+        if name in OUT_OF_SCOPE or name in ("Falkland Is.", "France", "Bahamas", "Trinidad and Tobago"):
             continue
         p = row.geometry.representative_point()
         if name in ANCHOR:   # long, thin countries: point the label at a visible part
@@ -134,6 +134,21 @@ def main():
                       label="Gas producer: domestic production data"),
                Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_MISSING, markeredgecolor="white",
                       label="Gas producer: no production data")]
+    # Inset: Trinidad & Tobago is too small to see at this scale - zoom on it in the open Atlantic
+    ins = ax.inset_axes([0.84, 0.73, 0.14, 0.11])
+    world.plot(ax=ins, color=world["fill"], edgecolor=EDGE, linewidth=0.6)
+    ins.set_xlim(-62.2, -60.3)
+    ins.set_ylim(9.9, 11.5)
+    ins.set_xticks([])
+    ins.set_yticks([])
+    for side in ins.spines.values():
+        side.set_edgecolor("#888888")
+        side.set_linewidth(0.6)
+    ins.plot(-61.25, 10.45, "o", markersize=8, color=DOT_HAVE if GAS_PRODUCERS.get("Trinidad and Tobago") else DOT_MISSING,
+             markeredgecolor="white", markeredgewidth=1.2, zorder=5)
+    ins.set_title("Trinidad & Tobago", fontsize=7.5, color="#333333", pad=2)
+    ax.indicate_inset((-62.2, 9.9, 1.9, 1.6), edgecolor="#888888", linewidth=0.6)   # box only, no leader lines
+
     ax.legend(handles=handles, loc="lower left", frameon=False, fontsize=9, bbox_to_anchor=(0.0, 0.06),
               labelspacing=1.0)
     ax.set_title("South and Central America: Gas and Power Data Coverage", fontsize=14,
