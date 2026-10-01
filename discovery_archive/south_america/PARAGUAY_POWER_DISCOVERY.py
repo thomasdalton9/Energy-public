@@ -192,6 +192,10 @@ SKIP = re.compile(r"facebook|twitter|instagram|youtube|linkedin|flickr|whatsapp|
                   r"register|/page/\d|cota-\d|noticias/|/tag/|/author/|wp-json|xmlrpc|\.jpg|\.png", re.I)
 
 
+PDF_PAT = r"(?i)(GWh|MWh).{0,400}(ANDE|Eletrobras|ENBPar|cedid|SINP|SADI|mensual|enero|janeiro)"
+PDF_MAX = 8
+
+
 def fetch(urls, text_chars=3500):
     """Compact view of each page: unique doc/keyword links (filtered) + stripped text + any html tables.
     A PDF is read with pdfplumber (first pages' text); an xlsx/csv prints its sheets' heads."""
@@ -214,10 +218,10 @@ def fetch(urls, text_chars=3500):
                     hits = 0
                     for i, pg in enumerate(pdf.pages):
                         t = pg.extract_text() or ""
-                        if re.search(r"(?i)generaci|energ[ií]a (cedida|entregada|retirada)|ANDE|GWh|MWh|cesi", t):
+                        if re.search(PDF_PAT, t, re.S):
                             print(f"   --- page {i + 1}:\n" + t[:1500])
                             hits += 1
-                        if hits >= 6:
+                        if hits >= PDF_MAX:
                             break
             except Exception as e:  # noqa: BLE001
                 print("   pdf error", e)
@@ -247,8 +251,49 @@ def fetch(urls, text_chars=3500):
         print("   TEXT:", re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", txt))[:text_chars])
 
 
+def grep(url, pattern, n=40, width=220):
+    """Contexts of a regex in a page's raw HTML/JS (find embedded data, API endpoints)."""
+    s = requests.Session()
+    s.headers.update(UA)
+    r = get(s, url, timeout=90)
+    if r is None:
+        return
+    print(f"\n== grep {pattern!r} in {url}: {r.status_code}, {len(r.content):,} B")
+    for i, m in enumerate(re.finditer(pattern, r.text, re.I)):
+        if i >= n:
+            break
+        a = max(0, m.start() - width // 2)
+        print("   ..." + re.sub(r"\s+", " ", r.text[a:m.end() + width // 2]) + "...")
+
+
+def wpsearch(base, query, pages=10):
+    """WordPress REST search: every post matching `query` (title, date, link, text start)."""
+    s = requests.Session()
+    s.headers.update(UA)
+    print(f"\n== wp search {base} q={query!r}")
+    for page in range(1, pages + 1):
+        r = get(s, f"{base.rstrip('/')}/wp-json/wp/v2/posts", params={"search": query, "per_page": 100, "page": page,
+                                                                      "_fields": "date,link,title,content"})
+        if r is None or r.status_code != 200:
+            print("   stop:", r.status_code if r is not None else None, (r.text[:200] if r is not None else ""))
+            break
+        items = r.json()
+        for it in items:
+            body = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", it["content"]["rendered"]))
+            print(f"  {it['date'][:10]} {it['title']['rendered'][:80]} | {it['link']}\n      {body[:400]}")
+        if len(items) < 100:
+            break
+
+
 if __name__ == "__main__":
     args = sys.argv[1:] or ["crawl", "datos", "cammesa"]
+    for a in [x for x in args if x.startswith("grep=")]:   # grep=URL|REGEX
+        url, pat = a[5:].split("|", 1)
+        grep(url, pat)
+    for a in [x for x in args if x.startswith("wp=")]:     # wp=BASE|QUERY
+        base, q = a[3:].split("|", 1)
+        wpsearch(base, q)
+    args = [x for x in args if not x.startswith(("grep=", "wp="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
