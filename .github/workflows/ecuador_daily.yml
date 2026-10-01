@@ -6,7 +6,10 @@ name: Ecuador generation daily
 # runs south_america/ECUADOR_CENACE.py, which upserts that day into
 # south_america/ec_generation_daily.csv and ec_generation_halfhourly.csv
 # (a repeat of the same day just overwrites it) and rebuilds
-# ecuador_generation.xlsx. Touches nothing else.
+# ecuador_generation.xlsx. Then ECUADOR_POWER_DAILY.py rebuilds the
+# standard-layout workbook output/Data and Chart Outputs/
+# ecuador_power_generation_daily.xlsx (sheet 'Daily', MWh by type) from
+# that CSV, and add_charts.py redraws its chart.
 on:
   schedule:
     - cron: "10 14 * * *"
@@ -34,12 +37,27 @@ jobs:
         working-directory: south_america
         run: python3 ECUADOR_CENACE.py
 
+      - name: Build standard daily workbook
+        if: always()
+        run: python3 south_america/ECUADOR_POWER_DAILY.py --out "output/Data and Chart Outputs/ecuador_power_generation_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/ecuador_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/ecuador_power_generation_daily.xlsx" || echo "chart step skipped/failed for ecuador_power_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/ECUADOR_CENACE.py south_america/ECUADOR_POWER_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
       - name: Commit updated history
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f south_america/ec_generation_daily.csv south_america/ec_generation_halfhourly.csv south_america/ecuador_generation.xlsx
+          if [ -f "output/Data and Chart Outputs/ecuador_power_generation_daily.xlsx" ]; then
+            git add -f "output/Data and Chart Outputs/ecuador_power_generation_daily.xlsx"
+          fi
+          git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Ecuador generation daily: automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0
