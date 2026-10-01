@@ -559,7 +559,7 @@ def _join_short_gaps(s, max_gap=8):
 
 
 def argentina_hydro(p):
-    """Lake levels (before 2023 one CAMMESA weekly-programme value per week, joined up for the chart) and the
+    """Lake levels (before 2023 one CAMMESA weekly-programme value per week, joined up across gaps of up to 15 days) and the
     Parana / Uruguay flows at the run-of-river binational plants. El Chocon first: no volume-based Comahue %."""
     d = by_date(read(p, "Daily"), "date")
     charts = [("ChoconLevel_m", "Chocon", "Argentina, El Chocón reservoir level (Comahue)", "m above sea level"),
@@ -571,7 +571,7 @@ def argentina_hydro(p):
               ("FutaleufuLevel_m", "Futaleufu", "Argentina, Futaleufú reservoir level", "m above sea level"),
               ("Parana_Yacyreta_m3s", "Yacyreta", "Paraná river flow into Yacyretá", "m3/s (daily mean)"),
               ("Uruguay_SaltoGrande_m3s", "SaltoGrande", "Uruguay river flow at Salto Grande", "m3/s (daily mean)")]
-    return [{"name": n, "water_year": _join_short_gaps(d[c]), "title": t, "units": u, "sheet": f"Water year - {n}"}
+    return [{"name": n, "water_year": _join_short_gaps(d[c], 15), "title": t, "units": u, "sheet": f"Water year - {n}"}
             for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
