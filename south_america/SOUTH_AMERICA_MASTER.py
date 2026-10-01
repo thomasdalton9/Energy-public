@@ -56,6 +56,10 @@ DATASETS = [
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
     ("SV", "El Salvador", "el_salvador_gas.xlsx", "Gas use", "gas"),
+    # Caribbean
+    ("PR", "Puerto Rico", "puerto_rico_gas.xlsx", "Gas use", "gas"),
+    ("JM", "Jamaica", "jamaica_gas.xlsx", "Gas use", "gas"),
+    ("DO", "Dominican Republic", "dominican_republic_gas.xlsx", "Gas use", "gas"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
@@ -81,6 +85,10 @@ RAW_POWER_DATASETS = [
     ("HN", "Honduras", "honduras_power_generation_daily.xlsx", "Daily", "power"),
     ("NI", "Nicaragua", "nicaragua_power_generation_daily.xlsx", "Daily", "power"),
     ("PA", "Panama", "panama_power_generation_daily.xlsx", "Daily", "power"),
+    # Caribbean
+    ("PR", "Puerto Rico", "puerto_rico_power_generation_daily.xlsx", "Daily", "power"),
+    ("JM", "Jamaica", "jamaica_power_generation_daily.xlsx", "Daily", "power"),
+    ("DO", "Dominican Republic", "dominican_republic_power_generation_daily.xlsx", "Daily", "power"),
 ]
 HYDRO_DATASETS = [
     ("AR", "Argentina", "argentina_hydro_reservoirs.xlsx", "Daily", "hydro"),
@@ -149,13 +157,27 @@ SOURCES = {
     "nicaragua_power_generation_daily.xlsx": ("CNDC / ENATREL Nicaragua", "https://www.cndc.org.ni/"),
     "panama_power_generation_daily.xlsx": ("CND / ETESA Panama", "https://www.cnd.com.pa/"),
     "gatun_lake_level.xlsx": ("Panama Canal Authority (ACP)", "https://evtms-rpts.pancanal.com/"),
+    # Caribbean
+    "puerto_rico_power_generation_daily.xlsx": ("EIA (US Energy Information Administration), EIA-923 monthly generation by fuel, Puerto Rico",
+                                                "https://www.eia.gov/electricity/data/browser/"),
+    "puerto_rico_gas.xlsx": ("EIA, EIA-923 plant-level natural gas consumption, Puerto Rico (monthly)",
+                             "https://www.eia.gov/electricity/data/browser/"),
+    "dominican_republic_power_generation_daily.xlsx": ("Organismo Coordinador del SENI (OC), daily generation by fuel",
+                                                       "https://www.oc.org.do/Servicios/Reporte"),
+    "dominican_republic_gas.xlsx": ("Superintendencia de Electricidad (SIE), monthly fuel consumption for power (datos.gob.do)",
+                                    "https://datos.gob.do/dataset/energia-y-potencia-facturadas-ede"),
+    "jamaica_power_generation_daily.xlsx": ("Ministry of Energy (MSET), Jamaica Energy Statistics Table 8 - JPS + IPPs, ANNUAL only",
+                                            "https://www.mset.gov.jm/document-category/statistics-data/"),
+    "jamaica_gas.xlsx": ("Ministry of Energy (MSET), Jamaica Energy Statistics Table 3 natural gas, ANNUAL only",
+                         "https://www.mset.gov.jm/document-category/statistics-data/"),
     **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
 }
 # The grid operator Ember compiles each country from (named on Ember-fed charts)
 OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile": "Coordinador Eléctrico Nacional",
              "Colombia": "XM", "Ecuador": "CENACE", "Peru": "COES", "Uruguay": "ADME",
              "Belize": "BEL", "Costa Rica": "ICE/CENCE", "El Salvador": "UT", "Guatemala": "AMM", "Honduras": "ODS",
-             "Nicaragua": "CNDC", "Panama": "CND"}
+             "Nicaragua": "CNDC", "Panama": "CND",
+             "Dominican Republic": "OC-SENI", "Jamaica": "JPS", "Puerto Rico": "PREPA/Genera PR"}
 
 
 MIN_RAW_DAYS = 365   # a raw generation workbook replaces Ember only once it has a year of history

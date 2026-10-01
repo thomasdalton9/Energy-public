@@ -1,0 +1,58 @@
+name: Jamaica power generation (MSET energy statistics)
+
+# Jamaica publishes generation by source and natural gas use ANNUALLY only, in the
+# ministry's "Jamaica Energy Statistics" (PDF, each July, five years per edition).
+# The newest edition's years replace the saved ones (later editions revise); older
+# saved years are kept -> jamaica_power_generation_daily.xlsx. Monthly check on the 3rd at 13:41 UTC.
+on:
+  schedule:
+    - cron: "41 13 3 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jamaica_power
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl pymupdf
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 south_america/JAMAICA_MSET_ENERGY_STATS.py --what power --out "output/Data and Chart Outputs/jamaica_power_generation_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/jamaica_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/jamaica_power_generation_daily.xlsx" || echo "chart step skipped/failed for jamaica_power_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/JAMAICA_MSET_ENERGY_STATS.py south_america/central_america_power_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/jamaica_power_generation_daily.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/jamaica_power_generation_daily.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Jamaica power: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash -X theirs && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

@@ -24,7 +24,8 @@ Standing instructions from the repo owner. Follow these on every change.
 
 ## Master workbooks
 - `south_america/SOUTH_AMERICA_MASTER.py` -> `south_and_central_america_master.xlsx`: South America plus Central
-  America (Guatemala-Panama + Belize; NOT Mexico) and Trinidad & Tobago. Gas Dashboard + "Dashboard - Power & Hydro", a data tab per
+  America (Guatemala-Panama + Belize; NOT Mexico) and the Caribbean: Trinidad & Tobago, Puerto Rico, Jamaica,
+  Dominican Republic. Gas Dashboard + "Dashboard - Power & Hydro", a data tab per
   chart, raw data tabs, Sources tab. New datasets: add them to its DATASETS / RAW_POWER_DATASETS / HYDRO_DATASETS
   lists (and add_charts.py REGISTRY), plus a SOURCES entry (publisher + link).
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
