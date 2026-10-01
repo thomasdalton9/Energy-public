@@ -191,10 +191,12 @@ def parse_csv(text):
 
 
 def parse_zip(body, first, last):
-    """{day: (liquidacion, DataFrame)} using the highest settlement per day.
-    Each file's date comes from its own name and must match the
-    'Dia de Operacion' line inside it and lie within first..last."""
-    best = {}
+    """{day: (liquidacion, DataFrame)} using the highest settlement per day
+    that has data rows (a few late-settlement files hold none - the next
+    settlement down is used then). Each file's date comes from its own
+    name and must match the 'Dia de Operacion' line inside it and lie
+    within first..last."""
+    files = {}
     with zipfile.ZipFile(io.BytesIO(body)) as zf:
         for name in zf.namelist():
             m = FILE_RE.search(name)
@@ -204,23 +206,30 @@ def parse_zip(body, first, last):
             liq, day = int(m.group(1)), date.fromisoformat(m.group(2))
             if not first <= day <= last:
                 raise RuntimeError(f"ZIP for {first}..{last} contains {name!r} - outside the requested range")
-            if day in best and best[day][0] >= liq:
-                continue
-            best[day] = (liq, name)
+            files.setdefault(day, []).append((liq, name))
 
-        out = {}
-        for day, (liq, name) in sorted(best.items()):
-            text = zf.read(name).decode("latin-1", errors="replace")
-            dm = DIA_RE.search(text)
-            if dm:
-                inner = date(int(dm.group(3)), int(dm.group(2)), int(dm.group(1)))  # dd/mm/yyyy
-                if inner != day:
-                    raise RuntimeError(f"{name!r} says Dia de Operacion {inner}, filename says {day}")
-            rows = parse_csv(text)
-            if not rows:
-                raise RuntimeError(f"{name!r}: no data rows recognised - layout changed?")
-            df = pd.DataFrame(rows, columns=["sistema", "zona_carga", "hora", "energia_mwh"])
-            out[day] = (liq, df)
+        out, unparsed = {}, []
+        for day, candidates in sorted(files.items()):
+            for liq, name in sorted(candidates, reverse=True):
+                text = zf.read(name).decode("latin-1", errors="replace")
+                dm = DIA_RE.search(text)
+                if dm:
+                    inner = date(int(dm.group(3)), int(dm.group(2)), int(dm.group(1)))  # dd/mm/yyyy
+                    if inner != day:
+                        raise RuntimeError(f"{name!r} says Dia de Operacion {inner}, filename says {day}")
+                rows = parse_csv(text)
+                if rows:
+                    out[day] = (liq, pd.DataFrame(rows, columns=["sistema", "zona_carga", "hora", "energia_mwh"]))
+                    break
+                lines = text.splitlines()
+                log(f"  {name!r}: no data rows ({len(text):,} chars) - trying an earlier settlement. "
+                    f"Head: {lines[:3]!r} ... tail: {lines[-2:]!r}")
+            else:
+                unparsed.append(day)
+        if unparsed:
+            log(f"  {len(unparsed)} day(s) with no parseable file at all: {[d.isoformat() for d in unparsed[:10]]}")
+        if files and len(unparsed) > 0.2 * len(files):
+            raise RuntimeError(f"{len(unparsed)} of {len(files)} days in {first}..{last} unparseable - layout changed?")
     return out
 
 
