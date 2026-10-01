@@ -55,6 +55,7 @@ DATASETS = [
     ("PE", "Peru", "peru_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
+    ("SV", "El Salvador", "el_salvador_gas.xlsx", "Gas use", "gas"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
@@ -67,6 +68,7 @@ RAW_POWER_DATASETS = [
     ("AR", "Argentina", "argentina_power_generation_daily.xlsx", "Daily", "power"),
     ("BO", "Bolivia", "bolivia_power_generation_daily.xlsx", "Daily", "power"),
     ("BR", "Brazil", "brazil_power_generation_daily.xlsx", "Daily", "power"),
+    ("CL", "Chile", "chile_power_generation_daily.xlsx", "Daily", "power"),
     ("CO", "Colombia", "colombia_power_generation_daily.xlsx", "Daily", "power"),
     ("EC", "Ecuador", "ecuador_power_generation_daily.xlsx", "Daily", "power"),
     ("PE", "Peru", "peru_power_generation_daily.xlsx", "Daily", "power"),
@@ -83,9 +85,13 @@ RAW_POWER_DATASETS = [
 HYDRO_DATASETS = [
     ("AR", "Argentina", "argentina_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("BR", "Brazil", "brazil_hydro_reservoirs.xlsx", "Daily", "hydro"),
+    ("CL", "Chile", "chile_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("CO", "Colombia", "colombia_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
 ]
+# The Power & Hydro dashboard shows one national hydro chart per country (each workbook's first water-year
+# spec) plus these extra regional charts by spec name; the full sets stay in each country workbook.
+HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"}}
 
 
 def gatun(path):
@@ -111,6 +117,8 @@ SOURCES = {
     "ecuador_gas.xlsx": ("EP Petroecuador", "https://www.eppetroecuador.ec/?p=3721"),
     "panama_gas.xlsx": ("Estimate from CND / ETESA Panama gas-fired generation (daily report) x 7.0 MMBtu/MWh heat rate",
                         "https://www.cnd.com.pa/index.php/informes/categoria/informes-de-operaciones"),
+    "el_salvador_gas.xlsx": ("ESTIMATE: Ember monthly gas generation for El Salvador (compiled from UT) x 8.2 MMBtu/MWh heat rate",
+                             "https://ember-energy.org/data/monthly-electricity-data/"),
     "trinidad_gas.xlsx": ("Ministry of Energy and Energy Industries (MEEI), monthly bulletins",
                           "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"),
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
@@ -122,9 +130,13 @@ SOURCES = {
     "colombia_power_generation_daily.xlsx": ("XM Colombia", "https://www.xm.com.co/"),
     "ecuador_power_generation_daily.xlsx": ("CENACE Ecuador", "https://www.cenace.gob.ec/info-operativa/InformacionOperativa.htm"),
     "peru_power_generation_daily.xlsx": ("COES Peru", "https://www.coes.org.pe/"),
+    "chile_power_generation_daily.xlsx": ("CNE Chile, Generación Bruta workbook (daily, from Coordinador Eléctrico Nacional data)",
+                                          "https://www.cne.cl/estadisticas/electricidad/"),
     "uruguay_power_generation_daily.xlsx": ("ADME Uruguay", "https://pronos.adme.com.uy/"),
     "brazil_hydro_reservoirs.xlsx": ("ONS Brazil open data (EAR)", "https://dados.ons.org.br/dataset/ear-diario-por-subsistema"),
     "colombia_hydro_reservoirs.xlsx": ("XM Colombia", "https://www.xm.com.co/"),
+    "chile_hydro_reservoirs.xlsx": ("DGA Chile (Visualizador Hidrométrico Nacional; monthly Boletín Hidrométrico before mid-2024)",
+                                    "https://vipnet.mop.gob.cl/"),
     "argentina_hydro_reservoirs.xlsx": ("CAMMESA (daily lake levels and river flows, weekly programme), AIC, INA",
                                         "https://cammesaweb.cammesa.com/download/cotas-diarias/"),
     "belize_power_generation_daily.xlsx": ("Belize Electricity Ltd (BEL)", "https://www.bel.com.bz/"),
@@ -209,6 +221,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)
+            if (code, country, fname, raw_sheet, short) in HYDRO_DATASETS:
+                specs = [sp for i, sp in enumerate(specs) if i == 0 or sp["name"] in HYDRO_EXTRA.get(fname, ())]
         except Exception as e:
             missing.append(f"{country} {short} ({fname}: {type(e).__name__}: {e})")
             continue
@@ -221,7 +235,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                 ws = wb.create_sheet(sheet_name(f"{code} {s['name']} data", used))
                 water_year_chart.write_table(ws, table)
                 charts.append((water_year_chart.build_chart(ws, table, meta, s["title"], s["units"],
-                                                            width=CHART_W, height=CHART_H), src))
+                                                            width=CHART_W, height=CHART_H, gridlines=False,
+                                                            inner=xlsx_charts.DASHBOARD_INNER, short_title=True), src))
                 index_rows.append((country, f"{s['title']} (water year)", pd.Timestamp(meta["last"]).strftime("%d/%m/%y"),
                                    ws.title, *src))
                 continue
@@ -232,7 +247,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
             ws = wb.create_sheet(sheet_name(label, used))
             xlsx_charts.write_table(ws, df, s["date_format"])
             charts.append((xlsx_charts.build_chart(ws, df, n_bars, s["title"], s["units"], s["kind"],
-                                                   s["date_format"], width=CHART_W, height=CHART_H), src))
+                                                   s["date_format"], width=CHART_W, height=CHART_H, gridlines=False,
+                                                   inner=xlsx_charts.DASHBOARD_INNER), src))
             index_rows.append((s["name"] if raw_sheet == "*" else country, s["title"], df.index.max().strftime("%b/%y"),
                                ws.title, *src))
         raw_sheets = ([n for n in pd.ExcelFile(path).sheet_names
