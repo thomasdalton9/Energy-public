@@ -116,6 +116,20 @@ def power_mix(d):
     return g.fillna(0)
 
 
+# Standard layout for raw grid-operator generation workbooks (one per country):
+#   sheet "Daily": date, Hydro_MWh, Gas_MWh, Wind_MWh, Solar_MWh, Coal_MWh, Nuclear_MWh, Oil_MWh,
+#                  Bioenergy_MWh, Other_MWh, Total_MWh   (MWh per day; absent fuels may be omitted)
+# Charted as monthly GWh with the same fuel order/colours as power_mix.
+def power_daily(title):
+    def f(p):
+        d = by_date(read(p, "Daily"), "date")
+        m = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].resample("MS").sum(min_count=1) / 1000
+        m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+        m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
+        return [spec("Generation", power_mix(m), title, "GWh per month", "stacked_bar")]
+    return f
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
     return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
@@ -355,6 +369,23 @@ def singapore_gas(p):
     return out
 
 
+def brazil_hydro(p):
+    d = by_date(read(p, "Daily"), "date")
+    areas = [("SIN", "Brazil reservoirs, SIN (national)"),
+             ("SE_CO", "Brazil reservoirs, SE/CO"),
+             ("S", "Brazil reservoirs, South"),
+             ("NE", "Brazil reservoirs, Northeast"),
+             ("N", "Brazil reservoirs, North")]
+    return [{"name": a, "water_year": d[f"{a}_pct"], "title": t, "units": "% full",
+             "sheet": f"Water year - {a.replace('_', '-')}"} for a, t in areas if f"{a}_pct" in d]
+
+
+def colombia_hydro(p):
+    d = by_date(read(p, "Daily"), "date")
+    return [{"name": "Storage", "water_year": d["Storage_pct"], "title": "Colombia reservoirs (national)",
+             "units": "% full"}]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -397,6 +428,8 @@ REGISTRY = {
     "singapore_power.xlsx": singapore_power,
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
+    "brazil_hydro_reservoirs.xlsx": brazil_hydro,
+    "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
@@ -455,15 +488,19 @@ def add_charts(path):
     for i, s in enumerate(specs):
         sheet = "Chart" if i == 0 else f"Chart - {s['name']}"[:31]
         if "water_year" in s:
-            water_year_chart.add_water_year_chart(path, s["water_year"], s["title"], s["units"])
+            water_year_chart.add_water_year_chart(path, s["water_year"], s["title"], s["units"],
+                                                  sheet_name=s.get("sheet", water_year_chart.SHEET))
             continue
         df = s["df"].dropna(how="all")
         if df.empty:
             continue
         xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
                                     date_format=s["date_format"], line_cols=s.get("line_cols", ()))
-    _order_chart_sheets(path, [("Chart" if i == 0 else f"Chart - {sp['name']}"[:31]) for i, sp in enumerate(specs)
-                               if "water_year" not in sp])
+    # one name per spec, in registry order; an optional "sheet" key names a water-year sheet
+    # (several water-year charts in one workbook)
+    _order_chart_sheets(path, [sp.get("sheet", water_year_chart.SHEET) if "water_year" in sp
+                               else ("Chart" if i == 0 else f"Chart - {sp['name']}"[:31])
+                               for i, sp in enumerate(specs)])
     print(f"{name}: {len(specs)} chart(s)")
     return len(specs)
 
