@@ -13,8 +13,36 @@ exports to Brazil and Argentina, capacity) before writing PARAGUAY_POWER.py.
               for Yacyreta (YACY*) and every INTERCAMBIO='S' (import) node, with
               that day's MWh - how CAMMESA counts Yacyreta and Paraguay.
 
-Usage: python3 PARAGUAY_POWER_DISCOVERY.py [crawl] [datos] [cammesa] [fetch URL ...]
+Usage: python3 PARAGUAY_POWER_DISCOVERY.py [crawl] [datos] [cammesa] [quiet] [ande] ['grep=URL|REGEX']
+       ['pdfgrep=URL|REGEX'] ['wp=SITE|QUERY[@YYYY-MM-DD]'] ['ays=URL'] ['pw=URL'] ['ebyar=URL']
+       ['wayback=HOST/|YEAR'] ['cammesamonth=YYYY-MM'] [fetch URL ...]
        (manual workflow: discovery_archive/workflows/paraguay_power_discovery.yml)
+
+FINDINGS (Oct-2026) -> south_america/PARAGUAY_POWER.py, PARAGUAY_POWER_CAPACITY.py
+  ANDE (ande.gov.py): every statistics page redirects to a Radware bot-manager captcha (also from headless
+    Chromium) - unusable. datos.gov.py has only INE yearbooks (annual generation by origin to 2021).
+  ITAIPU: itaipu.gov.py WordPress REST API is open (/wp-json/wp/v2/posts?search=suministró). Every month since
+    2019 a post 'ITAIPU suministró N GWh ... de enero a <mes>' gives ANDE's year-to-date take, the month's
+    generation, the 50 Hz sector's generation and the month's supply to ANDE (wording varies: 'fue de',
+    'totalizó', 'alcanzó'; 'de los cuales / de esa cantidad ... a la ANDE'). Annual report 2025 (Memoria Anual):
+    production 72,879 GWh; ANDE 25,768 GWh, ENBPar 46,679 GWh (monthly table). itaipu.gov.br charts
+    (chart-builder plugin, base64 JSON) are annual only. ITAIPU 2021-25 production: 66,369 / 69,873 / 83,879 /
+    67,092 / 72,879 GWh.
+  ONS geracao_usina_2_ho: 'ITAIPU 60 HZ' (PRIT60) + 'ITAIPU 50 HZ' (PYIT50) = Itaipu's supply to ENBPar within 0.1%
+    every month of 2025 (e.g. Jan 5,084 vs 5,087 GWh) - ONS counts all of Itaipu except ANDE's take.
+  EBY (eby.gov.py): WordPress REST API needs login; the site search works. Monthly posts 'Datos oficiales sobre
+    generación ...' (2018 - Nov-2023, not every month): ANDE / SINP and IEASA / EBISA / ENARSA / SADI MWh.
+    Nothing monthly after Nov-2023. Daily 'Cota ... Resumen Ejecutivo' posts carry levels and flows only.
+  EBY Argentina (eby.org.ar): sends no intermediate certificate (Sectigo Public Server Authentication CA OV R36);
+    with that intermediate added to certifi it verifies. Home page shows only the latest month's net generation
+    (Agosto 2026: 1,653,958 MWh); no Wayback history.
+  CAMMESA post-operation MDB: YACYHI (+ YACYHIPY from 2025, 'Paraguayan share delivered to Argentina'),
+    INTERCAMBIO='N'. Nov-2023 sum ~1,546 GWh (30 days) vs EBY SADI 1,549.6 GWh: CAMMESA counts all of Yacyreta
+    except the SINP. ANDE market nodes (DORAIN, IMAC*PY; AGENTE ANDE-EBG) are booked as Argentine hydro when
+    INTERCAMBIO='N' (Jun-2025 11.6 GWh).
+  VMME Balance Energético Nacional 2025 (PDF): exports to Argentina 3,025.5 (2024) / 5,083.7 (2025) GWh, of which
+    ANDE's own billed exports 97.0 / 112.8; Brazil (Itaipu surplus) 12,972.6 / 10,455.6; gross generation 2025
+    45,569.1 GWh; demand for the SIN 29,431.8 GWh.
 """
 import csv
 import io
