@@ -74,27 +74,80 @@ def label_and_unit(col):
 
 # ------------------------------------------------------------------ registry
 
+def per_day(df):
+    """Monthly totals (million m3 per month) -> monthly averages in million m3/day."""
+    return df.div(df.index.days_in_month, axis=0)
+
+
+AR_DOMESTIC = "Net domestic supply (injected into pipelines + direct)"
+AR_WITH_IMPORTS = "Net domestic supply + imports (LNG, Bolivia, Chile)"
+
+
 def argentina(p):
+    """Argentina gas (ARGENTINA_GAS.py), all charts in mcm/d (monthly averages): demand + exports vs measured net
+    supply and imports; gross production vs net injection; imports; exports by destination; daily supply."""
+    sheets = pd.ExcelFile(p).sheet_names
     d = by_date(read(p, "National"), "date")
-    sectors = cols(d, "centrales_electricas", "industria", "residencial", "comercial", "gnc", "entes_oficiales")
-    out = d[sectors].rename(columns={"centrales_electricas": "Power", "industria": "Industry", "residencial": "Residential",
-                                     "comercial": "Commercial", "gnc": "Vehicle CNG", "entes_oficiales": "Government"})
-    exports = None
-    if "Exports by destination" in pd.ExcelFile(p).sheet_names:
-        exports = by_date(read(p, "Exports by destination"), "date")
-        if "Total_exports" in exports:
-            out["Exports"] = exports["Total_exports"].reindex(out.index)
-    if "produccion_gas_natural" in d:
-        out["Production"] = d["produccion_gas_natural"]
-    title = ("Argentina gas demand by sector + exports vs production" if "Exports" in out
-             else "Argentina gas demand by sector vs production")
-    specs = [spec("Demand", out, title, "million m3 per month", "stacked_bar", line_cols=("Production",))]
+    d = d[cols(d, "produccion_gas_natural", "centrales_electricas", "industria", "residencial", "comercial",
+               "entes_oficiales", "gnc")].apply(pd.to_numeric, errors="coerce")
+    out = pd.DataFrame({"Power": d.get("centrales_electricas"), "Industry": d.get("industria"),
+                        "Residential": d.get("residencial"),
+                        "Commercial & public": d.get("comercial") + d.get("entes_oficiales"),
+                        "Vehicle CNG": d.get("gnc")}, index=d.index).dropna(how="all")
+    exports = by_date(read(p, "Exports by destination"), "date") if "Exports by destination" in sheets else None
+    net = by_date(read(p, "Supply net"), "date") if "Supply net" in sheets else None
+    check = by_date(read(p, "Balance check"), "date") if "Balance check" in sheets else None
+    if check is not None and "Other_deliveries_subdistributors_Cerri" in check:
+        out["Sub-distributors & Cerri plant"] = check["Other_deliveries_subdistributors_Cerri"].reindex(out.index)
+    if exports is not None and "Total_exports" in exports:
+        out["Exports"] = exports["Total_exports"].reindex(out.index)
+    lines = ()
+    if net is not None and "Net_domestic_supply" in net:
+        # supply lines stacked: domestic, then domestic + imports, so the top line compares with the bars
+        out[AR_DOMESTIC] = net["Net_domestic_supply"].reindex(out.index)
+        out[AR_WITH_IMPORTS] = net["Total_net_supply"].reindex(out.index)
+        lines = (AR_DOMESTIC, AR_WITH_IMPORTS)
+        out = out.dropna(subset=[AR_WITH_IMPORTS])      # months with both sides measured
+        title = "Argentina gas demand + exports vs net supply and imports"
+    else:
+        title = "Argentina gas demand by sector + exports"
+    specs = [spec("Demand", per_day(out), title, "million m3/day (monthly average)", "stacked_bar", line_cols=lines)]
+    if net is not None and "produccion_gas_natural" in d:
+        g = pd.DataFrame({"Gross production (wellhead)": d["produccion_gas_natural"],
+                          "Net domestic supply (pipelines + direct)": net.get("Net_domestic_supply"),
+                          "Injected into pipelines (domestic basins)": net.get("Domestic_injection")})
+        g = g.dropna(subset=["Gross production (wellhead)", "Injected into pipelines (domestic basins)"])
+        specs.append(spec("Production", per_day(g), "Argentina gross gas production vs net injection",
+                          "million m3/day (monthly average)", "line"))
+    if net is not None:
+        imp = net[cols(net, "LNG_Escobar", "LNG_BahiaBlanca", "Imports_Bolivia", "Imports_Chile")].rename(
+            columns={"LNG_Escobar": "LNG Escobar", "LNG_BahiaBlanca": "LNG Bahia Blanca",
+                     "Imports_Bolivia": "Bolivia (pipeline)", "Imports_Chile": "Chile (pipeline)"})
+        imp = imp.dropna(how="all")
+        imp = imp.loc[:, imp.fillna(0).ne(0).any()]
+        if not imp.empty:
+            specs.append(spec("Imports", per_day(imp), "Argentina gas imports (LNG and pipeline)",
+                              "million m3/day (monthly average)", "stacked_bar"))
     if exports is not None:
         dest = exports.drop(columns=[c for c in exports.columns if c in ("Total_exports", "country")])
         dest = dest.loc[:, dest.fillna(0).ne(0).any()]   # destinations with any flow since the start date
         if not dest.empty:
-            specs.append(spec("Exports", dest.rename(columns=lambda c: str(c).replace("_", " ")),
-                              "Argentina gas exports by destination", "million m3 per month", "stacked_bar"))
+            specs.append(spec("Exports", per_day(dest.rename(columns=lambda c: str(c).replace("_", " "))),
+                              "Argentina gas exports by destination", "million m3/day (monthly average)",
+                              "stacked_bar"))
+    if "Supply daily" in sheets:
+        s = by_date(read(p, "Supply daily"), "date")
+        if "Domestic_injection_mcmd" in s:
+            start = pd.Timestamp(year=s.index.max().year - (1 if s.index.max().month >= 5 else 2), month=5, day=1)
+            day = pd.DataFrame({"Domestic injection": s["Domestic_injection_mcmd"],
+                                "LNG (Escobar, Bahia Blanca)": s[cols(s, "LNG_Escobar_mcmd",
+                                                                      "LNG_BahiaBlanca_mcmd")].sum(axis=1, min_count=1),
+                                "Pipeline imports (Bolivia, Chile)": s[cols(s, "Imports_Bolivia_mcmd",
+                                                                            "Imports_Chile_mcmd")].sum(axis=1, min_count=1)})
+            day = daily(day.dropna(subset=["Domestic injection"]), start)
+            if len(day) > 30:
+                specs.append(spec("Supply daily", day, "Argentina daily gas supply: domestic injection + imports",
+                                  "million m3/day", "stacked_area", date_format="%Y-%m-%d"))
     return specs
 
 
