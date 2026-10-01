@@ -65,6 +65,8 @@ def standardise(daily):
     daily = daily.rename(columns={f: f"{f}_MWh" for f in FUELS})
     cols = [f"{f}_MWh" for f in FUELS if f"{f}_MWh" in daily.columns]
     out = daily[cols].astype(float)
+    if "Other_MWh" in out and not out["Other_MWh"].fillna(0).ne(0).any():
+        out = out.drop(columns="Other_MWh")  # only shown when something actually falls outside the mapping
     out["Total_MWh"] = out.sum(axis=1, min_count=1)
     out.index = pd.to_datetime(out.index)
     out.index.name = "date"
