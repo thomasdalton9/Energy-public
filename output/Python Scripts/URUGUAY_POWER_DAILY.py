@@ -25,6 +25,7 @@ import sys
 import time
 
 import pandas as pd
+import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -68,6 +69,19 @@ NOTES = [
 ]
 
 
+def fetch_span(session, a, b):
+    """Hourly MW for days a..b. gpf.php's fecha_fin is the END instant (its file runs fecha_ini 00:00 ..
+    fecha_fin 00:00), so ask for one day more; the extra 00:00 reading is dropped by to_daily (<23 hours)."""
+    for attempt in range(3):
+        try:
+            return U.fetch_chunk(session, a, b + dt.timedelta(days=1))
+        except Exception as e:  # noqa: BLE001 - ADME errors vary (HTTP, missing link, bad .ods)
+            if attempt == 2:
+                print(f"  {a}..{b}: FAILED ({type(e).__name__}: {e})", flush=True)
+                return pd.DataFrame()
+            time.sleep(5 * (attempt + 1))
+
+
 def to_daily(hourly):
     hourly = hourly.copy()
     hourly["Imports"] = hourly[[c for c in U.IMPORTS if c in hourly]].sum(axis=1, min_count=1)
@@ -100,16 +114,19 @@ def main():
     detail = std.load_sheet(args.out, "Detail")
     end = dt.date.today() - dt.timedelta(days=1)
     days = std.missing_days(daily, args.start, end)
-    chunks = sorted(std.ranges(days, U.CHUNK_DAYS), reverse=True)  # newest first
+    chunks = sorted(std.ranges(days, U.CHUNK_DAYS - 1), reverse=True)  # newest first; requests of <= 31 days
     print(f"{daily['Total_MWh'].notna().sum() if not daily.empty else 0:,} days saved; fetching {len(days):,} "
           f"in {len(chunks)} requests", flush=True)
     frames = []
+    session = requests.Session()
+    session.headers.update(U.HEADERS)
     for k, (a, b) in enumerate(chunks, 1):
         if time.time() - t0 > args.budget_min * 60:
             print(f"time budget reached; {len(chunks) - k + 1} requests left for later runs", flush=True)
             break
         print(f"ADME {a}..{b}", flush=True)
-        df = U.fetch_range(a, b)
+        df = fetch_span(session, a, b)
+        print(f"  {len(df)} hours", flush=True)
         if not df.empty:
             frames.append(df)
         if frames and (k % args.save_every == 0 or k == len(chunks)):
