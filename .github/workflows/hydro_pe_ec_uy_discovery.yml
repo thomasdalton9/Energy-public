@@ -25,13 +25,15 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas numpy openpyxl cryptography certifi pdfplumber
+        run: pip install requests pandas numpy openpyxl xlrd cryptography certifi pdfplumber
       - name: Run discovery
         env:
           PYTHONUNBUFFERED: "1"
           ROUND: ${{ github.event.inputs.round }}
           ONLY: ${{ github.event.inputs.only }}
-        run: timeout 2100 python3 discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py
+        run: |
+          mkdir -p hydro3_raw
+          timeout 2100 python3 discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py 2>&1 | tee hydro3_raw/log.txt
       - name: Push raw files to a throwaway branch for offline inspection
         if: always()
         run: |

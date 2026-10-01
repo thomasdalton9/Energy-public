@@ -36,6 +36,24 @@ Round 1 findings:
 Round 2 (ROUND=2): COES IEOD folders down to one day's files (+ sitemap);
 CELEC SUR year endpoints, history depth, month-end days; ADME
 seriesbonete.php, Bonete history start; INA a5 Salto Grande level; CTM pages.
+Round 2 findings:
+  - COES IEOD day folders hold the daily annexes: 2026 'AnexoA_DDMM.xlsx'
+    (sheet PRINCIP_VOLUMENES: half-hourly volumes/levels of ~29 reservoirs,
+    mostly daily-regulation ponds; seasonal ones = Junin (Statkraft),
+    Sibinacocha, Aricota, Macusani, Viconga, filled only at a few hours),
+    2021 'Anexo2_Hidrologia_DDMM.xlsx' (sheet 'Princip_Caudales y Volumenes',
+    hourly, 90 columns; Junin empty). Electroperu's Mantaro lagoons appear
+    only as discharges (m3/s). No national useful-storage total in the IEOD.
+  - CELEC SUR: Mazar level goes back to 2010 (pointValuesAnioH24 /
+    MesH24); MesH24 with fechaFin = next month + 1 day returns every day
+    including the last. Amaluza has 2021. 30032/30033 are other Mazar points
+    (not levels).
+  - ADME: Rio Negro levels (hToma) valid from 2017 (2016 = -121111 missing).
+  - INA a5 series 26319 'Salto Grande Arriba' (Prefectura gauge, daily mean
+    level, m) is current (34.38 m on 30-Sep-2026).
+Round 3 (ROUND=3, Peru only): newest files under IDCOS, weekly / monthly
+evaluation reports, daily and weekly operation programmes, bulletins; IEOD
+hydrology annex layouts 2022-2025.
 """
 
 print("STARTING", flush=True)
@@ -519,7 +537,120 @@ def uruguay2():
             print("    pdf failed", e, flush=True)
 
 
-ROUND_FUNCS = {2: [("pe", peru2), ("ec", ecuador2), ("uy", uruguay2)]}
+# ---------------------------------------------------------------- round 3
+HIT = re.compile(r"VOLUMEN|VOL\. ?UTIL|EMBALSE|LAGUNA|JUNIN|JUNÍN|SIBINACOCHA|HIDROLOG|ALMACEN|RESERVA H", re.I)
+
+
+def scan_excel(content, label, rows=14):
+    """Print sheet names and the rows that mention volumes / lagoons (strings only)."""
+    import pandas as pd
+    try:
+        xl = pd.ExcelFile(io.BytesIO(content))
+    except Exception as e:  # noqa: BLE001
+        print(f"     {label}: not an Excel file we can read ({type(e).__name__}: {e})", flush=True)
+        return
+    print(f"     sheets {label.split('/')[-1]}: {xl.sheet_names}", flush=True)
+    for sh in xl.sheet_names:
+        try:
+            df = pd.read_excel(xl, sheet_name=sh, header=None)
+        except Exception as e:  # noqa: BLE001
+            print(f"       [{sh}] read failed {e}", flush=True)
+            continue
+        txt = df.apply(lambda r: " | ".join(str(v) for v in r if pd.notna(v)), axis=1)
+        hit = txt[txt.str.contains(HIT)]
+        if len(hit):
+            print(f"       [{sh}] {df.shape} hits:", flush=True)
+            for i, t in hit.head(rows).items():
+                print(f"         r{i}: {t[:400]}", flush=True)
+                # and the row below (often the values)
+                if i + 1 in txt.index:
+                    print(f"         r{i + 1}: {txt[i + 1][:400]}", flush=True)
+
+
+def scan_zip(content, label):
+    import zipfile
+    try:
+        z = zipfile.ZipFile(io.BytesIO(content))
+    except zipfile.BadZipFile:
+        print(f"     {label}: bad zip", flush=True)
+        return
+    names = z.namelist()
+    print(f"     zip {label.split('/')[-1]}: {names[:30]}", flush=True)
+    for n in names:
+        if re.search(r"\.(xlsx?|xlsm)$", n, re.I) and HIT.search(n + " hidro volumen"):
+            scan_excel(z.read(n), f"{label}!{n}", rows=10)
+
+
+def coes_base_paths(page):
+    r = get(COES + page, name="coes_" + page, show=False)
+    if r is None or not r.ok:
+        return []
+    import html
+    t = html.unescape(r.text)
+    paths = sorted(set(re.findall(r"""["']((?:Post Operación|Operación|Publicaciones|Planificación)/[^"'<>]{2,120}/)["']""", t)))
+    print(f"   {page}: base paths {paths}", flush=True)
+    return paths
+
+
+def newest_leaf(path, depth=4, want_files=2):
+    """Walk down the newest folder until files appear; return (folder, files)."""
+    for _ in range(depth):
+        items = [(html_unescape(p), k) for p, k in coes_browse(path)]
+        files = [p for p, k in items if k == "F"]
+        dirs = [p for p, k in items if k == "D"]
+        if len(files) >= want_files or not dirs:
+            return path, files
+        # newest = sort by name, prefer year/month/day numbering
+        path = sorted(dirs, key=lambda d: re.sub(r"\D", "", d.rstrip("/").split("/")[-1]).zfill(8) + d)[-1]
+    items = [(html_unescape(p), k) for p, k in coes_browse(path)]
+    return path, [p for p, k in items if k == "F"]
+
+
+def peru3():
+    print("\n################ PERU round 3 ################", flush=True)
+    pages = ["PostOperacion/Reportes/Idcos", "PostOperacion/Informes/EvaluacionSemanal",
+             "PostOperacion/Informes/EvaluacionMensual", "Operacion/ProgOperacion/ProgramaDiario",
+             "Operacion/ProgOperacion/ProgSemanalOp", "Publicaciones/Boletines/", "Publicaciones/Informes/"]
+    downloads = 0
+    for page in pages:
+        for base in coes_base_paths(page)[:2]:
+            folder, files = newest_leaf(base)
+            print(f"   {page}: newest folder {folder}: {files[:25]}", flush=True)
+            for f in files:
+                if downloads >= 18:
+                    break
+                if not re.search(r"\.(xlsx?|xlsm|zip)$", f, re.I):
+                    continue
+                if re.search(r"cmg|costo|mantto|manten|rpf|rsf|hop", f, re.I):
+                    continue
+                r = get(COES + "browser/download?url=" + quote(f), name="pe3_" + f.split("/")[-1], show=False,
+                        timeout=240)
+                downloads += 1
+                if r is None or not r.ok:
+                    continue
+                if f.lower().endswith(".zip"):
+                    scan_zip(r.content, f)
+                else:
+                    scan_excel(r.content, f)
+    # older IEOD layouts: one day per year 2022-2025 (which file holds the volumes, and is Junin filled?)
+    for y in ["2022", "2023", "2024", "2025"]:
+        months = sorted({html_unescape(p) for p, k in coes_browse(f"Post Operación/Reportes/IEOD/{y}/") if k == "D"})
+        if not months:
+            continue
+        days = sorted({html_unescape(p) for p, k in coes_browse(months[len(months) // 2]) if k == "D"})
+        if not days:
+            continue
+        files = [html_unescape(p) for p, k in coes_browse(days[len(days) // 2]) if k == "F"]
+        print(f"   IEOD {y}: {days[len(days) // 2]}: {[f.split('/')[-1] for f in files]}", flush=True)
+        for f in files:
+            if re.search(r"hidro|anexoa|anexo2", f, re.I) and f.lower().endswith((".xlsx", ".xls")):
+                r = get(COES + "browser/download?url=" + quote(f), name="pe3_ieod_" + f.split("/")[-1], show=False,
+                        timeout=240)
+                if r is not None and r.ok:
+                    scan_excel(r.content, f, rows=6)
+
+
+ROUND_FUNCS = {2: [("pe", peru2), ("ec", ecuador2), ("uy", uruguay2)], 3: [("pe", peru3)]}
 
 
 if __name__ == "__main__":
