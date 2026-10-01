@@ -780,7 +780,10 @@ def main():
         "Sinú-San Jacinto blocks VIM-5, VIM-21 and Esperanza (Clarinete, Pandereta, Nelson and the rest). "
         "Other_fields = Domestic_production minus those groups (Gibraltar, Bonga/Mamey, Bullerengue, Istanbul "
         "and the smaller interior and coast fields). The report's row list changed over time; Field_rows "
-        "keeps the rows read each month.",
+        "keeps the rows read each month. Until May 2024 the table lists only Bloque VIM 5 (and Nelson) "
+        "separately, with the VIM-21 and Esperanza fields inside 'Otras Fuentes'; from Jun 2024 those blocks "
+        "have their own rows, so the Canacol group steps up (~+50 GBTUD) and Other_fields steps down then - "
+        "a change in the report's breakdown, not in production. Domestic_production is unaffected.",
         "LNG_imports_SPEC = regasified LNG from the SPEC terminal at Cartagena ('Planta Regasificación "
         "Cartagena'); LNG_regas_capacity is the plant capacity the report states. Production_potential is the "
         "declared production potential (Ministerio de Minas y Energía) for the month.",
