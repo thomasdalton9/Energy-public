@@ -373,8 +373,10 @@ def main():
     if daily.empty:
         print("No daily data returned.", flush=True)
         sys.exit(1)
+    detail.index.name = "date"
     extra = {"By_technology_MWh": detail}
     if monthly is not None and not monthly.empty:
+        monthly.index.name = "month"
         extra["Monthly_GWh"] = monthly
     std.write(args.out, daily.reindex(columns=COLS + ["Total_MWh"]), NOTES, extra)
     if monthly is not None and not monthly.empty:
