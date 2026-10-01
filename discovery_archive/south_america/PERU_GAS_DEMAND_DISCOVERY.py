@@ -51,6 +51,14 @@ would fill 2021.
 
 Round 5 (ROUND=5): collection 25333 (anuarios 2021+), Perupetro LNG cargo
 list + daily gas production PDF (retry), Calidda sample PDFs.
+Round 5 findings: collection 25333 has the Anuario 2021-2024 with
+'Tablas Anuario <year>.xlsx' - 2021 sheets '51-52-53-54'.. hold monthly
+volume by sector per concession (MMPC) and sheet '50' domestic vs export
+transport. Perupetro's daily 'Reporte de Produccion de Gas' PDF has daily
+production by lot (Mcf, MMBtu). The LNG cargo page posts a form to
+/ExportaGAS/EmbarqueGasServlet (fechaInicio, fechaFin, accion=Todos).
+
+Round 6 (ROUND=6): Perupetro LNG cargo list for 2021-2026.
 Runs in GitHub Actions only (sites are blocked from the editing sandbox).
 """
 import os
@@ -504,5 +512,31 @@ def round5():
     out("round 5 done")
 
 
+def round6():
+    os.makedirs(RAW, exist_ok=True)
+    s = requests.Session()
+    global T
+    T = (30, 180)
+    for attempt in range(4):
+        try:
+            s.verify = perupetro_bundle()
+            break
+        except Exception as e:  # noqa: BLE001
+            out(f"bundle attempt {attempt} failed: {e}")
+            time.sleep(15)
+    url = "https://www.perupetro.com.pe/ExportaGAS/EmbarqueGasServlet"
+    for a, b in [("01/01/2021", "31/12/2021"), ("01/01/2025", "30/09/2026"), ("01/01/2021", "30/09/2026")]:
+        for attempt in range(3):
+            try:
+                r = s.post(url, data={"fechaInicio": a, "fechaFin": b, "accion": "Todos"}, headers=H, timeout=T)
+                out(f"POST {a}-{b} -> {r.status_code} {r.headers.get('content-type')} {len(r.content)}b")
+                save(f"pp_embarques_{a[-4:]}_{b[-4:]}.html", r.content)
+                break
+            except requests.RequestException as e:
+                out(f"POST {a}-{b} failed: {e}")
+                time.sleep(10)
+    out("round 6 done")
+
+
 if __name__ == "__main__":
-    {"2": round2, "3": round3, "4": round4, "5": round5}.get(ROUND, main)()
+    {"2": round2, "3": round3, "4": round4, "5": round5, "6": round6}.get(ROUND, main)()
