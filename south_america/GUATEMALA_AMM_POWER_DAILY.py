@@ -304,10 +304,15 @@ def main():
           f"{len(new_p)} from Posdespacho", flush=True)
 
     gm = {}
-    years = sorted({d.year for d in new_p} | {today.year, today.year - 1})
+    saved_gm = std.load_sheet(args.out, "AMM_Monthly_GWh")   # keep years not re-read this run
+    have_years = {} if saved_gm.empty else saved_gm.groupby(saved_gm.index.year).size().to_dict()
+    years = sorted({d.year for d in new_p} | {today.year, today.year - 1}
+                   | {y for y in range(args.start.year, today.year) if have_years.get(y, 0) < 12})
     for y in years:
         gm[y] = gm_year(y, today)
     gm_all = pd.concat([g for g in gm.values() if not g.empty]) if any(not g.empty for g in gm.values()) else pd.DataFrame()
+    if not saved_gm.empty:
+        gm_all = std.merge(gm_all, saved_gm) if not gm_all.empty else saved_gm
     shares = thermal_shares(gm_all) if not gm_all.empty else {}
 
     rows, unknown_all = {}, set()
