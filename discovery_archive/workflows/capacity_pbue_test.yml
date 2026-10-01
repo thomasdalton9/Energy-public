@@ -1,0 +1,43 @@
+name: Capacity pull test (Peru Bolivia Uruguay Ecuador)
+
+# Manual-only dry run of a capacity pull script: writes to the runner's temp dir, prints the parse,
+# commits nothing. Archived copy; copy to .github/workflows to dispatch.
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "script path, e.g. south_america/URUGUAY_MIEM_CAPACITY.py"
+        required: true
+      args:
+        description: "extra arguments (e.g. --test)"
+        required: false
+        default: ""
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl certifi cryptography pdfplumber xlrd odfpy
+      - name: Run (dry)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          timeout 1500 python3 "${{ github.event.inputs.script }}" --out "$RUNNER_TEMP/test_capacity.xlsx" ${{ github.event.inputs.args }}
+          python3 - <<'EOF'
+          import os, pandas as pd
+          p = os.path.join(os.environ["RUNNER_TEMP"], "test_capacity.xlsx")
+          if os.path.exists(p):
+              xl = pd.ExcelFile(p)
+              print("sheets:", xl.sheet_names)
+              m = pd.read_excel(p, sheet_name="Monthly")
+              pd.set_option("display.width", 250)
+              print(m.head(3).to_string()); print("..."); print(m.tail(15).to_string())
+              print(pd.read_excel(p, sheet_name=xl.sheet_names[0]).to_string())
+          EOF
+          python3 add_charts.py "$RUNNER_TEMP/test_capacity.xlsx" || true
