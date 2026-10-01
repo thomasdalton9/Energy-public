@@ -97,7 +97,14 @@ def argentina(p):
     exports = by_date(read(p, "Exports by destination"), "date") if "Exports by destination" in sheets else None
     net = by_date(read(p, "Supply net"), "date") if "Supply net" in sheets else None
     check = by_date(read(p, "Balance check"), "date") if "Balance check" in sheets else None
-    if check is not None and "Other_deliveries_subdistributors_Cerri" in check:
+    deliv = by_date(read(p, "Deliveries (ENARGAS)"), "date") if "Deliveries (ENARGAS)" in sheets else None
+    if deliv is not None and "Tra | RTP" in deliv:
+        # ENARGAS deliveries the sector series leaves out: small local utilities (end users, mostly homes and small
+        # business) and TGS's Cerri processing plant (NGL extraction + fuel, i.e. system use, not end demand)
+        sub = deliv[cols(deliv, "Dis | Subdistribuidor", "Tra | Subdistribuidor")].sum(axis=1, min_count=1)
+        out["Sub-distributors (local utilities)"] = sub.reindex(out.index)
+        out["Cerri processing plant (system use)"] = deliv["Tra | RTP"].reindex(out.index)
+    elif check is not None and "Other_deliveries_subdistributors_Cerri" in check:
         out["Sub-distributors & Cerri plant"] = check["Other_deliveries_subdistributors_Cerri"].reindex(out.index)
     if exports is not None and "Total_exports" in exports:
         out["Exports"] = exports["Total_exports"].reindex(out.index)
