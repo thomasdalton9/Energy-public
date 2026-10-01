@@ -2,6 +2,7 @@ name: Panama power generation (CND)
 
 # CND 'Reporte Diario' (one .xls per day): energy delivered to the grid by type, MWh.
 # Incremental - fetches only days missing since 2021-01-01 plus the last 14.
+# Then PANAMA_GAS.py estimates monthly LNG use for power -> panama_gas.xlsx (sheet "Gas use").
 # The day's report is out by ~05:00 Panama time; daily at 13:20 UTC (8:20am Panama).
 on:
   schedule:
@@ -31,12 +32,20 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: timeout 3600 python3 south_america/PANAMA_CND_GENERATION_DAILY.py --budget-min 50 --out "output/Data and Chart Outputs/panama_power_generation_daily.xlsx"
 
+      - name: Gas use estimate (panama_gas.xlsx)
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          [ -f "output/Data and Chart Outputs/panama_power_generation_daily.xlsx" ] && python3 south_america/PANAMA_GAS.py || echo "gas estimate skipped/failed"
+
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
           [ -f "output/Data and Chart Outputs/panama_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/panama_power_generation_daily.xlsx" || echo "chart step skipped/failed for panama_power_generation_daily.xlsx"
+          [ -f "output/Data and Chart Outputs/panama_gas.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/panama_gas.xlsx" || echo "chart step skipped/failed for panama_gas.xlsx"
           mkdir -p "output/Python Scripts"
-          cp south_america/PANAMA_CND_GENERATION_DAILY.py south_america/central_america_power_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp south_america/PANAMA_CND_GENERATION_DAILY.py south_america/PANAMA_GAS.py south_america/central_america_power_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
@@ -48,6 +57,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/panama_power_generation_daily.xlsx"
+          if [ -f "output/Data and Chart Outputs/panama_gas.xlsx" ]; then git add -f "output/Data and Chart Outputs/panama_gas.xlsx"; fi
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Panama power generation: automated update"
           for i in 1 2 3 4 5; do

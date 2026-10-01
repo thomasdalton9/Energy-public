@@ -10,6 +10,12 @@ This round crawls the Secretaria de Energia (energia.gob.pa) statistics pages
 (hydrocarbon imports / consumption, where LNG would appear) and ASEP, saves every
 page and every xls/xlsx/csv found whose name or link text mentions gas / GNL /
 importacion / hidrocarburos, and prints the links.
+
+Found: no monthly gas / LNG series. energia.gob.pa has butane/propane monthly stats,
+fuel-price notices and the annual energy balance (BALANCES-DE-ENERGIA-1970-2025.xls),
+whose natural-gas column (~5.6 thousand boe into power in 2024) is far too small to
+match CND's gas-fired output; ASEP's open-data CSVs are electricity-sector only.
+-> south_america/PANAMA_GAS.py estimates gas use from CND gas-fired MWh x heat rate.
 """
 import os
 import re
