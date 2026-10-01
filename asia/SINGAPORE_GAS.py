@@ -221,8 +221,8 @@ def main():
     demand["Final_consumption_TJ"] = sec.sum(axis=1, min_count=1)
     demand["Total_TJ"] = demand["Power_generation_TJ"] + demand["Final_consumption_TJ"]
     demand["Power_share_pct"] = (100 * demand["Power_generation_TJ"] / demand["Total_TJ"]).round(1)
-    demand["Coverage"] = ["Jan-%02d only (part-year)" % part[1] if part and y == part[0] else "Full year"
-                          for y in demand.index]
+    demand["Coverage"] = [f"Jan-{pd.Timestamp(2000, part[1], 1):%b} only (part-year)" if part and y == part[0]
+                          else "Full year" for y in demand.index]
     demand = demand[demand.index >= 2009]
     demand.index.name = "Year"
 

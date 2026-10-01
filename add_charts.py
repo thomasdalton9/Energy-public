@@ -343,7 +343,7 @@ def singapore_power(p):
     g = _sheet(p, "Daily generation by type", "Date")
     if not g.empty:
         gc = [c for c in g.columns if str(c).endswith("_GWh") and not str(c).startswith("Total")]
-        out.append(spec("Generation", monthly_mean(g[gc], "2021-01-01").rename(
+        out.append(spec("Generation", monthly_mean(g[gc].clip(lower=0), "2021-01-01").rename(
                             columns=lambda c: c.replace("_GWh", "").replace("_", " ")),
                         "Singapore metered generation by plant type (monthly average)", "GWh/day", "stacked_bar"))
     m = _sheet(p, "Monthly generation", "Month")

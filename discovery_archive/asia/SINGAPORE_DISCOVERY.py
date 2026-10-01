@@ -9,6 +9,17 @@ Probes:
   3. EMC (NEMS) market data pages - prints download links.
   4. data.gov.sg v2 API - collections and datasets whose names mention
      electricity / gas / energy / demand, plus their metadata and a few rows.
+
+Findings (rounds 1-7, SINGAPORE_DISCOVERY2..7.py), used by asia/SINGAPORE_POWER.py and SINGAPORE_GAS.py:
+  - EMA half-hourly system demand: weekly .xls files 2014->, listed by
+    /bin/corporate-site/half-hourly-list (System Demand actual, NEM demand actual + forecast, MW).
+  - EMC NEMS data download: /api/sitecore/DataSync/DataDownload(ByYear)?value=16 = metered generation by
+    facility type (half-hourly MWh, 2021->, five-year rolling); value=1 = USEP price + demand forecast.
+  - SingStat M890831 Electricity Generation, Monthly (GWh, 1975->); M890371 Piped (town) gas sales, quarterly.
+  - EMA SES tidy workbook (annual): T1.1 NG imports pipeline/LNG, T2.1 gas into power, T2.2 fuel mix,
+    T3.2 electricity consumption by sector, T3.7 NG final consumption by sector.
+  - data.gov.sg EMA datasets are old snapshots (mostly to 2020/2021); no monthly gas consumption or imports
+    anywhere; SingStat T010002 detailed trade table has no working tabledata API (HTTP 400).
 """
 import json
 import re
