@@ -111,7 +111,7 @@ def main():
                Patch(facecolor=GREY, label="No data")]
     ax.legend(handles=handles, loc="lower left", frameon=False, fontsize=9, bbox_to_anchor=(0.0, 0.06),
               labelspacing=1.0)
-    ax.set_title("South & Central America: where the repo has gas and power data", fontsize=14,
+    ax.set_title("South and Central America: Gas and Power Data Coverage", fontsize=14,
                  fontweight="bold", loc="left")
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
