@@ -78,19 +78,24 @@ def links(html, base):
     return out
 
 
-def crawl():
+QUIET = False
+ANDE_SEEDS = ["https://www.ande.gov.py/", "https://www.ande.gov.py/estadisticas.php",
+              "https://www.ande.gov.py/transparencia.php", "https://www.ande.gov.py/datos_abiertos.php"]
+
+
+def crawl(seeds=None, cap=30):
     s = requests.Session()
     s.headers.update(UA)
     seen, docs = set(), {}
     per_site = defaultdict(int)
-    queue = [(u, 0) for u in SEEDS]
+    queue = [(u, 0) for u in (seeds or SEEDS)]
     while queue:
         url, depth = queue.pop(0)
         if url in seen:
             continue
         seen.add(url)
         host = urlparse(url).netloc
-        if per_site[host] >= 30:
+        if per_site[host] >= cap:
             continue
         per_site[host] += 1
         r = get(s, url)
@@ -104,13 +109,15 @@ def crawl():
             continue
         for href, text in links(r.text, r.url):
             h = urlparse(href).netloc
+            if SKIP.search(href):
+                continue
             if DOC.search(href):
                 if href not in docs:
                     docs[href] = text
-                    print(f"    DOC {href}  [{text}]")
+                    print(f"    DOC {href}  [{text[:70]}]")
             elif KEY.search(href) or KEY.search(text):
-                if href not in seen:
-                    print(f"    key {href}  [{text}]")
+                if href not in seen and not QUIET:
+                    print(f"    key {href}  [{text[:70]}]")
                 if depth < 2 and (h == host or h.endswith(host.replace("www.", ""))):
                     queue.append((href, depth + 1))
     print(f"\n==== {len(docs)} document links")
@@ -181,7 +188,14 @@ def cammesa():
         os.unlink(path)
 
 
-def fetch(urls):
+SKIP = re.compile(r"facebook|twitter|instagram|youtube|linkedin|flickr|whatsapp|mailto|FontSize|login|"
+                  r"register|/page/\d|cota-\d|noticias/|/tag/|/author/|wp-json|xmlrpc|\.jpg|\.png", re.I)
+
+
+def fetch(urls, text_chars=3500):
+    """Compact view of each page: unique doc/keyword links (filtered) + stripped text + any html tables.
+    A PDF is read with pdfplumber (first pages' text); an xlsx/csv prints its sheets' heads."""
+    import pandas as pd
     s = requests.Session()
     s.headers.update(UA)
     for u in urls:
@@ -189,13 +203,48 @@ def fetch(urls):
         if r is None:
             continue
         ct = r.headers.get("content-type", "")
-        print(f"\n== {r.status_code} {u} -> {r.url} ({ct}, {len(r.content):,} B)")
-        if "html" in ct or "json" in ct or "text" in ct:
-            txt = re.sub(r"<script.*?</script>|<style.*?</style>", " ", r.text, flags=re.S | re.I)
-            for href, text in links(r.text, r.url):
-                if DOC.search(href) or KEY.search(href) or KEY.search(text):
-                    print(f"    link {href}  [{text}]")
-            print(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", txt))[:4000])
+        print(f"\n== {r.status_code} {u} -> {r.url} ({ct[:40]}, {len(r.content):,} B)")
+        if r.status_code != 200:
+            continue
+        if "pdf" in ct or u.lower().endswith(".pdf"):
+            try:
+                import pdfplumber
+                with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+                    print(f"   pdf pages: {len(pdf.pages)}")
+                    hits = 0
+                    for i, pg in enumerate(pdf.pages):
+                        t = pg.extract_text() or ""
+                        if re.search(r"(?i)generaci|energ[ií]a (cedida|entregada|retirada)|ANDE|GWh|MWh|cesi", t):
+                            print(f"   --- page {i + 1}:\n" + t[:1500])
+                            hits += 1
+                        if hits >= 6:
+                            break
+            except Exception as e:  # noqa: BLE001
+                print("   pdf error", e)
+            continue
+        if re.search(r"sheet|excel|csv|octet", ct) or DOC.search(u):
+            try:
+                xl = pd.read_excel(io.BytesIO(r.content), sheet_name=None, header=None)
+                for name, df in xl.items():
+                    print(f"   sheet {name} {df.shape}\n{df.head(25).to_string()[:2500]}")
+            except Exception as e:  # noqa: BLE001
+                print("   not a workbook:", e, r.text[:500])
+            continue
+        seen = set()
+        for href, text in links(r.text, r.url):
+            if href in seen or SKIP.search(href):
+                continue
+            seen.add(href)
+            if DOC.search(href) or KEY.search(href) or KEY.search(text):
+                print(f"    link {href}  [{text[:70]}]")
+        try:
+            for i, t in enumerate(pd.read_html(io.StringIO(r.text))[:6]):
+                print(f"   table {i} {t.shape}\n{t.head(20).to_string()[:2000]}")
+        except Exception:  # noqa: BLE001
+            pass
+        txt = re.sub(r"<script.*?</script>|<style.*?</style>|<nav.*?</nav>|<header.*?</header>|<footer.*?</footer>",
+                     " ", r.text, flags=re.S | re.I)
+        print("   TEXT:", re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", txt))[:text_chars])
 
 
 if __name__ == "__main__":
@@ -203,8 +252,12 @@ if __name__ == "__main__":
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
+    if "quiet" in args:
+        QUIET = True
     if "crawl" in args:
         crawl()
+    if "ande" in args:
+        crawl(ANDE_SEEDS, cap=60)
     if "datos" in args:
         datos()
     if "cammesa" in args:
