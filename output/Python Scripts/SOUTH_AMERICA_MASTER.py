@@ -189,6 +189,52 @@ OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile"
 MIN_RAW_DAYS = 365   # a raw generation workbook replaces Ember only once it spans a year of history
 
 
+SA_POWER_COUNTRIES = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Peru", "Uruguay"]
+
+
+def south_america_generation(data_dir, have_raw):
+    """South America generation by source, TWh per month: the sum of each country's monthly mix from the same
+    series the dashboard shows (raw grid operator where used, Ember otherwise). Only months every country has
+    in full (a daily feed's current month is left out until it is complete). Returns (frame, per-country notes)."""
+    raw_files = {d[1]: d[2] for d in RAW_POWER_DATASETS}
+    ember = os.path.join(data_dir, "south_america_power_by_type.xlsx")
+    frames, notes = {}, []
+    for country in SA_POWER_COUNTRIES:
+        try:
+            if country in have_raw:
+                path = os.path.join(data_dir, raw_files[country])
+                build = add_charts.REGISTRY.get(raw_files[country]) or add_charts.power_daily(country)
+                m = build(path)[0]["df"]
+                last = add_charts.by_date(add_charts.read(path, "Daily"), "date").index.max()
+                if last < last + pd.offsets.MonthEnd(0):           # current month not complete yet
+                    m = m[m.index < last.to_period("M").to_timestamp()]
+                src = SOURCES.get(raw_files[country], (raw_files[country],))[0]
+            else:
+                m = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
+                src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})"
+            m = m.apply(pd.to_numeric, errors="coerce")
+            frames[country] = m
+            notes.append(f"{country}: {src}, {m.index.min():%b/%y}-{m.index.max():%b/%y}")
+        except Exception as e:  # noqa: BLE001
+            notes.append(f"{country}: not available ({type(e).__name__}: {e})")
+    if not frames:
+        return pd.DataFrame(), notes
+    fuels = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]
+    have = {c: set(f.dropna(how="all").index) for c, f in frames.items()}
+    # Run to the last month every raw-fed country has; an Ember-fed country that lags (Ember publishes months
+    # late) is left out of the months it doesn't have yet, and those gaps are listed rather than estimated.
+    raw_have = [h for c, h in have.items() if c in have_raw] or list(have.values())
+    end = min(max(h) for h in raw_have)
+    months = sorted(m for m in set.intersection(*raw_have) if m <= end)
+    total = sum(f.reindex(index=months, columns=fuels).fillna(0) for f in frames.values()) / 1000.0   # GWh -> TWh
+    total.index.name = "date"
+    for c, h in have.items():
+        gap = [m for m in months if m not in h]
+        if gap:
+            notes.append(f"NOT INCLUDED: {c} in {gap[0]:%b/%y}-{gap[-1]:%b/%y} ({len(gap)} months, no data yet)")
+    return total, notes
+
+
 def raw_history_days(path):
     """Days spanned by the raw feed (first to last date), so monthly or annual feeds with a year of history
     qualify as well as daily ones."""
@@ -377,6 +423,25 @@ def main():
              collect(wb, HYDRO_DATASETS, args.data_dir, used, sources)]
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
     power[2].extend(building)
+    # Combined South America generation by source, first on the Power & Hydro dashboard
+    sa_total, sa_notes = south_america_generation(args.data_dir, have_raw)
+    if not sa_total.empty:
+        ws = wb.create_sheet(sheet_name("SA generation total data", used))
+        df, n_bars = xlsx_charts.prepare(sa_total)
+        xlsx_charts.write_table(ws, df)
+        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
+        for i, note in enumerate(sa_notes, start=2):
+            ws.cell(row=i, column=df.shape[1] + 4, value=note)
+        src = ("Sum of the country series on this dashboard (grid operators; Ember where no raw feed yet)", None)
+        power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "South America power generation by source",
+                                                    "TWh per month", "stacked_bar", width=CHART_W, height=CHART_H,
+                                                    gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
+        missing = [n.split(":", 1)[1].split(" in ")[0].strip() for n in sa_notes if n.startswith("NOT INCLUDED")]
+        name = "South America power generation by source (8 countries" + (
+            f"; {', '.join(missing)} missing in latest months)" if missing else ")")
+        power[1].insert(0, ("South America", name,
+                            df.index.max().strftime("%b/%y"), ws.title, *src))
+        print("South America generation total:", "; ".join(sa_notes))
     draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
     draw_dashboard(dash2, "South & Central America energy - power generation & hydro", *power)
 

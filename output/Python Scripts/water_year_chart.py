@@ -122,6 +122,7 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     area.x_axis.tickLblSkip = 1
     area.x_axis.tickMarkSkip = 1
     area.x_axis.tickLblPos = "low"   # dates below the plot, not on the zero line
+    xlsx_charts.rotated_labels(area.x_axis)   # same angled date labels as the monthly power/gas charts
     area.x_axis.delete = False
     area.y_axis.delete = False
     if "%" in str(unit):   # percent full: fixed 0-100 scale, gridline/label every 20%
