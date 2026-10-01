@@ -856,6 +856,41 @@ def sa_power_prices(p):
     return out
 
 
+def peru_hydro(p):
+    """COES weekly table: two readings a week (start and end of each COES week), joined up for the chart.
+    The national useful-storage % first, then the main seasonal systems in hm3."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("Total_pct", "Total", "Peru reservoirs and lagoons, total useful volume (COES)", "% of useful capacity"),
+              ("Junin_hm3", "Junin", "Peru, Lake Junín useful volume (COES)", "million m3 (useful)"),
+              ("Mantaro_lagoons_hm3", "Mantaro", "Peru, Mantaro-basin lagoons useful volume (COES)", "million m3 (useful)"),
+              ("Rimac_hm3", "Rimac", "Peru, Rímac system useful volume (COES)", "million m3 (useful)"),
+              ("Chili_hm3", "Chili", "Peru, Chili system (Arequipa) useful volume (COES)", "million m3 (useful)"),
+              ("Aricota_hm3", "Aricota", "Peru, Aricota useful volume (COES)", "million m3 (useful)"),
+              ("Sibinacocha_hm3", "Sibinacocha", "Peru, Sibinacocha useful volume (COES)", "million m3 (useful)")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=8), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
+def ecuador_hydro(p):
+    """CELEC SUR daily levels: Mazar (the seasonal store behind the 2023-24 blackouts) first, then Amaluza."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("MazarLevel_m", "Mazar", "Ecuador, Mazar reservoir level (CELEC SUR)", "m above sea level"),
+              ("AmaluzaLevel_m", "Amaluza", "Ecuador, Amaluza (Paute) reservoir level (CELEC SUR)", "m above sea level")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=8), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
+def uruguay_hydro(p):
+    """Rincón del Bonete (Uruguay's storage lake) first, then Salto Grande and the two lower Río Negro lakes."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("BoneteLevel_m", "Bonete", "Uruguay, Rincón del Bonete lake level (ADME)", "m above sea level"),
+              ("SaltoGrandeLevel_m", "SaltoGrande", "Uruguay/Argentina, Salto Grande lake level (INA)", "m"),
+              ("PalmarLevel_m", "Palmar", "Uruguay, Palmar lake level (ADME)", "m above sea level"),
+              ("BaygorriaLevel_m", "Baygorria", "Uruguay, Baygorria lake level (ADME)", "m above sea level")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=8), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -935,6 +970,9 @@ REGISTRY = {
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
     "chile_hydro_reservoirs.xlsx": chile_hydro,
     "south_america_coal_production.xlsx": sa_coal,
+    "peru_hydro_reservoirs.xlsx": peru_hydro,
+    "ecuador_hydro_reservoirs.xlsx": ecuador_hydro,
+    "uruguay_hydro_reservoirs.xlsx": uruguay_hydro,
     # installed generation capacity by technology (standard sheet "Monthly")
     "brazil_power_capacity.xlsx": power_capacity("Brazil installed generation capacity (ANEEL)"),
     "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),

@@ -1,0 +1,68 @@
+name: Uruguay hydro reservoirs
+
+# Daily lake levels of Rincon del Bonete, Baygorria and Palmar (ADME per-plant SCADA series, from 2017) and of
+# Salto Grande (INA a5 'Salto Grande Arriba'). Incremental: the workbook is the archive; ADME is re-read from the
+# last saved day minus 5 days (never-saved months are filled newest-first within budget_min), INA from 30 days back.
+on:
+  schedule:
+    - cron: "17 12 * * *"
+  workflow_dispatch:
+    inputs:
+      budget_min:
+        description: "minutes to spend on the ADME backfill (one request per plant per month since 2017)"
+        default: "30"
+      test:
+        description: "1 = test run (2026 only, written to /tmp, nothing committed)"
+        default: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Test run
+        if: github.event.inputs.test == '1'
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 south_america/URUGUAY_HYDRO_RESERVOIRS.py --out /tmp/uruguay_hydro_reservoirs.xlsx --start 2026-06-01 --budget-min 10
+          python3 add_charts.py /tmp/uruguay_hydro_reservoirs.xlsx
+      - name: Run
+        if: github.event.inputs.test != '1'
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 3000 python3 south_america/URUGUAY_HYDRO_RESERVOIRS.py --out "output/Data and Chart Outputs/uruguay_hydro_reservoirs.xlsx" --budget-min "${{ github.event.inputs.budget_min || '30' }}"
+
+      - name: Add Excel charts and copy scripts
+        if: always() && github.event.inputs.test != '1'
+        run: |
+          [ -f "output/Data and Chart Outputs/uruguay_hydro_reservoirs.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/uruguay_hydro_reservoirs.xlsx" || echo "chart step skipped/failed for uruguay_hydro_reservoirs.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/URUGUAY_HYDRO_RESERVOIRS.py south_america/URUGUAY_ADME.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always() && github.event.inputs.test != '1'
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/uruguay_hydro_reservoirs.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/uruguay_hydro_reservoirs.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Uruguay hydro reservoirs: automated update"
+          for i in 1 2 3 4 5 6; do
+            git pull --rebase --autostash -X theirs && git push && exit 0
+            sleep $((i * 7))
+          done
+          exit 1

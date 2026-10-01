@@ -1,0 +1,65 @@
+name: Ecuador hydro reservoirs
+
+# Daily lake levels of the Paute cascade reservoirs Mazar and Amaluza from CELEC SUR's SCADA service
+# (the ORDS API behind generacioncsr.celec.gob.ec/graficasproduccion), back to 2011. Incremental: the
+# workbook is the archive; each run re-reads the last two months (and any month of the past year with a gap).
+on:
+  schedule:
+    - cron: "41 11 * * *"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "1 = test run (2026 only, written to /tmp, nothing committed)"
+        default: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Test run
+        if: github.event.inputs.test == '1'
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 south_america/ECUADOR_HYDRO_RESERVOIRS.py --out /tmp/ecuador_hydro_reservoirs.xlsx --start 2026-01-01
+          python3 add_charts.py /tmp/ecuador_hydro_reservoirs.xlsx
+      - name: Run
+        if: github.event.inputs.test != '1'
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1800 python3 south_america/ECUADOR_HYDRO_RESERVOIRS.py --out "output/Data and Chart Outputs/ecuador_hydro_reservoirs.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always() && github.event.inputs.test != '1'
+        run: |
+          [ -f "output/Data and Chart Outputs/ecuador_hydro_reservoirs.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/ecuador_hydro_reservoirs.xlsx" || echo "chart step skipped/failed for ecuador_hydro_reservoirs.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/ECUADOR_HYDRO_RESERVOIRS.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always() && github.event.inputs.test != '1'
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/ecuador_hydro_reservoirs.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/ecuador_hydro_reservoirs.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Ecuador hydro reservoirs: automated update"
+          for i in 1 2 3 4 5 6; do
+            git pull --rebase --autostash -X theirs && git push && exit 0
+            sleep $((i * 7))
+          done
+          exit 1
