@@ -45,7 +45,7 @@ COVERAGE: from 2016-01-29, the first day with the national
 interconnected system (SIN) in the report. CENACE's market data starts
 2016-01-27, but 27-28 Jan 2016 cover only Baja California (BCA, ~33,000
 MWh/day) and are not national totals, so days without SIN are skipped.
-Baja California Sur (BCS) is missing from the earliest files and is
+Baja California Sur (BCS) is in the report from 2016-03-23 on and is
 included whenever CENACE reports it.
 
 ARCHIVES:
@@ -282,8 +282,8 @@ NOTES_LINES = [
     "",
     "COVERAGE",
     f"From {DATA_START.isoformat()}, the first day the report includes the national interconnected "
-    "system (SIN). 27-28 January 2016 cover only Baja California and are excluded. BCS is included "
-    "whenever CENACE reports it (BCS_MWh blank where it does not).",
+    "system (SIN). 27-28 January 2016 cover only Baja California and are excluded. BCS is in the "
+    "report from 2016-03-23 (BCS_MWh blank before that, so early totals exclude BCS's ~5,000 MWh/day).",
     "",
     "DETAIL FILES",
     "Hourly demand by load zone (date, sistema, zona_carga, hora, energia_mwh) is in the "
