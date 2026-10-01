@@ -87,16 +87,19 @@ def argentina(p):
 
 def brazil(p):
     d = by_date(read(p, "Demand by segment"), "date")
-    last = d.index.max().strftime("%b/%y")
     out = [spec("Demand", d[cols(d, "Power_Generation", "Industrial", "Residential", "Commercial", "Automotive",
                                  "Cogeneration", "Other_incl_CNG")].rename(
                     columns={"Power_Generation": "Power generation", "Automotive": "Vehicle CNG",
                              "Other_incl_CNG": "Other"}),
-                f"Brazil gas demand by segment (MME, last published {last})", "million m3/day", "stacked_bar")]
+                "Brazil gas demand by segment (MME, nothing newer published)", "million m3/day", "stacked_bar")]
     sheets = pd.ExcelFile(p).sheet_names
     if "Grid demand (ANP)" in sheets:   # pipeline-grid deliveries by consumer type, current (ANP)
         g = by_date(read(p, "Grid demand (ANP)"), "date")
-        out.append(spec("Grid demand", g[cols(g, "Power_Generation", "Distributors", "Refineries", "Fertiliser", "Other")]
+        g = g[cols(g, "Power_Generation", "Distributors", "Refineries", "Fertiliser", "Other")].copy()
+        part = g.drop(columns="Other").isna().any(axis=1)
+        g.loc[part] = float("nan")              # months ANP reported only in part: an empty bar, not a partial stack
+        g["Other"] = g["Other"].fillna(0.0)     # (keeps those rows, so the gap shows on the time axis)
+        out.append(spec("Grid demand", g
                         .rename(columns={"Power_Generation": "Power generation", "Distributors": "Distributors (city gates)"}),
                         "Brazil gas delivered from the transport pipelines, by consumer (ANP)", "million m3/day",
                         "stacked_bar"))
@@ -451,6 +454,30 @@ def colombia_hydro(p):
              "units": "% full"}]
 
 
+def _join_short_gaps(s, max_gap=8):
+    """Daily series with gaps of up to max_gap days filled by straight lines (longer gaps stay empty)."""
+    full = s.dropna().resample("D").mean()
+    gap = full.isna().groupby(full.notna().cumsum()).transform("sum")
+    return full.interpolate(limit_area="inside").where(full.notna() | (gap <= max_gap)).dropna()
+
+
+def argentina_hydro(p):
+    """Lake levels (before 2023 one CAMMESA weekly-programme value per week, joined up for the chart) and the
+    Parana / Uruguay flows at the run-of-river binational plants. El Chocon first: no volume-based Comahue %."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("ChoconLevel_m", "Chocon", "Argentina, El Chocón reservoir level (Comahue)", "m above sea level"),
+              ("PiedraAguilaLevel_m", "PiedraAguila", "Argentina, Piedra del Águila reservoir level (Comahue)", "m above sea level"),
+              ("AlicuraLevel_m", "Alicura", "Argentina, Alicurá reservoir level (Comahue)", "m above sea level"),
+              ("CerrosColoradosLevel_m", "CerrosColorados", "Argentina, Cerros Colorados (Los Barreales) level (Comahue)",
+               "m above sea level"),
+              ("PichiPicunLevel_m", "PichiPicun", "Argentina, Pichi Picún Leufú reservoir level (Comahue)", "m above sea level"),
+              ("FutaleufuLevel_m", "Futaleufu", "Argentina, Futaleufú reservoir level", "m above sea level"),
+              ("Parana_Yacyreta_m3s", "Yacyreta", "Paraná river flow into Yacyretá", "m3/s (daily mean)"),
+              ("Uruguay_SaltoGrande_m3s", "SaltoGrande", "Uruguay river flow at Salto Grande", "m3/s (daily mean)")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c]), "title": t, "units": u, "sheet": f"Water year - {n}"}
+            for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -488,6 +515,7 @@ REGISTRY = {
     "peru_power_generation_daily.xlsx": power_daily("Peru power generation by type (COES)"),
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
+    "honduras_power_generation_daily.xlsx": power_daily("Honduras power generation by type (ODS)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "trinidad_gas.xlsx": trinidad,
@@ -513,6 +541,7 @@ REGISTRY = {
     "henry_hub_daily.xlsx": henry_hub,
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
+    "argentina_hydro_reservoirs.xlsx": argentina_hydro,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
