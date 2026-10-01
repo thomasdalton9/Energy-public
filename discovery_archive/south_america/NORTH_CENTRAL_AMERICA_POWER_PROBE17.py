@@ -112,8 +112,8 @@ def pbi():
     by_y = collections.defaultdict(float)
     by_y_res = collections.defaultdict(float)
     for r in rows:
-        by_y[year(r)] += r[-1] or 0
-        by_y_res[(year(r), names["ID_RECURSO"].get(r[2], r[2]))] += r[-1] or 0
+        by_y[year(r)] += float(r[-1] or 0)
+        by_y_res[(year(r), names["ID_RECURSO"].get(r[2], r[2]))] += float(r[-1] or 0)
     print("  ANNUAL GWh:", {k: round(v / 1000) for k, v in sorted(by_y.items(), key=lambda x: str(x[0]))}, flush=True)
     for k, v in sorted(by_y_res.items(), key=lambda x: str(x[0])):
         if str(k[0]) >= "2019":
@@ -122,11 +122,11 @@ def pbi():
         agg = collections.defaultdict(float)
         for r in rows:
             if str(year(r)) == "2024":
-                agg[names.get(col, {}).get(r[i], r[i])] += r[-1] or 0
+                agg[names.get(col, {}).get(r[i], r[i])] += float(r[-1] or 0)
         print(f"  2024 by {col}: {{{', '.join(f'{k}: {v / 1000:,.0f}' for k, v in agg.items())}}}", flush=True)
     ym = collections.defaultdict(float)
     for r in rows:
-        ym[(year(r), r[1])] += r[-1] or 0
+        ym[(year(r), r[1])] += float(r[-1] or 0)
     last = sorted(ym, key=lambda x: (str(x[0]), x[1] if isinstance(x[1], int) else 0))[-30:]
     print("  LATEST MONTHS GWh:", [(k, round(ym[k] / 1000, 1)) for k in last], flush=True)
     print("  sample rows:", rows[:5], flush=True)
@@ -134,7 +134,7 @@ def pbi():
     agg = collections.defaultdict(float)
     for r in drows:
         if str(names["ID_AÑO"].get(r[0], r[0])) == "2024":
-            agg[(names["ID_TRANSACCIÓN"].get(r[2], r[2]), names["ID_RECURSO"].get(r[3], r[3]))] += r[-1] or 0
+            agg[(names["ID_TRANSACCIÓN"].get(r[2], r[2]), names["ID_RECURSO"].get(r[3], r[3]))] += float(r[-1] or 0)
     print("  DEMANDA 2024 by transaccion/recurso GWh:", {k: round(v) for k, v in agg.items()}, flush=True)
 
 
