@@ -60,6 +60,7 @@ DATASETS = [
     ("PR", "Puerto Rico", "puerto_rico_gas.xlsx", "Gas use", "gas"),
     ("JM", "Jamaica", "jamaica_gas.xlsx", "Gas use", "gas"),
     ("DO", "Dominican Republic", "dominican_republic_gas.xlsx", "Gas use", "gas"),
+    ("CO", "Colombia", "south_america_coal_production.xlsx", "Colombia", "coal"),
 ]
 
 # Second dashboard: (code, country, workbook, raw sheet or "*" for every data sheet, short name).
@@ -193,6 +194,10 @@ SOURCES = {
                                             "https://www.mset.gov.jm/document-category/statistics-data/"),
     "jamaica_gas.xlsx": ("Ministry of Energy (MSET), Jamaica Energy Statistics Table 3 natural gas, ANNUAL only",
                          "https://www.mset.gov.jm/document-category/statistics-data/"),
+    "south_america_coal_production.xlsx": ("ANM Colombia (coal production declared for royalties, datos.gov.co) and "
+                                           "DANE (coal exports); EPE, SE Argentina, Cochilco, MINEM Peru annual; "
+                                           "Venezuela: Energy Institute Statistical Review",
+                                           "https://www.datos.gov.co/d/r85m-vv6c"),
     **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
 }
 # The grid operator Ember compiles each country from (named on Ember-fed charts)

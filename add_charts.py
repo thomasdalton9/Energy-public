@@ -782,6 +782,36 @@ def industrial_gas_users(p):
         "mcm/d (estimate at nameplate)")}]
 
 
+CO_COAL_DEPTS = ["La_Guajira", "Cesar", "Boyaca", "Cundinamarca", "Norte_de_Santander", "Cordoba"]
+
+
+def sa_coal(p):
+    """South America coal (SOUTH_AMERICA_COAL.py): Colombia quarterly production by department (ANM, stacked bars)
+    with DANE coal exports as a line; annual production by country (stacked bars, Mt/yr)."""
+    out = []
+    q = _sheet(p, "Colombia", "Quarter")
+    if not q.empty:
+        q = q.apply(pd.to_numeric, errors="coerce")
+        dep = [f"{d}_Mt" for d in CO_COAL_DEPTS if f"{d}_Mt" in q]
+        rest = [c for c in q.columns if c.endswith("_Mt") and c not in dep + ["Total_production_Mt", "Exports_DANE_Mt"]]
+        df = q[dep].rename(columns=lambda c: c[:-3].replace("_", " ").replace("Boyaca", "Boyacá")
+                           .replace("Cordoba", "Córdoba"))
+        df["Other departments"] = q[rest].sum(axis=1, min_count=1)
+        lines = ()
+        if "Exports_DANE_Mt" in q and q["Exports_DANE_Mt"].notna().any():
+            df["Exports (DANE)"] = q["Exports_DANE_Mt"]
+            lines = ("Exports (DANE)",)
+        out.append(spec("Colombia", df, "Colombia coal production by department (ANM) and exports (DANE)",
+                        "Mt per quarter", "stacked_bar", line_cols=lines))
+    a = _sheet(p, "Annual by country", "Year")
+    if not a.empty:
+        mt = [c for c in a.columns if str(c).endswith("_Mt") and c != "Total_Mt"]
+        out.append(spec("Annual", a[mt].apply(pd.to_numeric, errors="coerce").rename(columns=lambda c: c[:-3]),
+                        "South America coal production by country (Venezuela: EI estimate)", "Mt per year",
+                        "stacked_bar", "%Y"))
+    return out
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -859,6 +889,7 @@ REGISTRY = {
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
     "chile_hydro_reservoirs.xlsx": chile_hydro,
+    "south_america_coal_production.xlsx": sa_coal,
     # installed generation capacity by technology (standard sheet "Monthly")
     "brazil_power_capacity.xlsx": power_capacity("Brazil installed generation capacity (ANEEL)"),
     "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),
