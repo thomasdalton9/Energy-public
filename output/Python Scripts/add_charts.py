@@ -144,7 +144,7 @@ def peru(p):
                 g["Domestic demand + LNG exports"] = g["Domestic demand"] + lng.reindex(g.index).fillna(0)
                 lines += ("Domestic demand + LNG exports",)
         out.append(spec("Supply", g.dropna(subset=[g.columns[0]]),
-                        "Peru gas production by lot vs domestic demand and LNG exports (stacked)", "million m3/day",
+                        "Peru gas supply vs demand + LNG", "million m3/day",
                         "stacked_bar", line_cols=lines))
     return out
 
