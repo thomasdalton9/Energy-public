@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: pip install requests pandas openpyxl xlrd
       - name: Run probe
-        run: timeout 2100 python3 -u "discovery_archive/asia/${{ inputs.script }}"
+        run: timeout 2100 python3 -u discovery_archive/asia/${{ inputs.script }}

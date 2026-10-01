@@ -6,6 +6,9 @@ challenge, not releases. It did show migrated release IDs run roughly in
 date order (Dec 2012 PMI at 1898246, Oct 2021 at ~1901240). This pass
 scans the IDs just below the oldest indexed release SEQUENTIALLY and
 slowly, detecting the challenge page, to find the Jan-Sep 2021 releases.
+Run 1 (ids 1900800-1901240) found Jan-Aug 2021 (and Jul-Dec 2020) industrial
+production, energy, 10-day price and capacity-utilisation releases; run 2
+(argv 1900950 1901300) adds PPI and the ids just above 1901240.
 """
 
 import re
@@ -17,7 +20,7 @@ import requests
 S = requests.Session()
 S.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                                 "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"})
-KEYS = ("规模以上工业增加值", "能源生产", "流通领域重要生产资料", "产能利用率")
+KEYS = ("规模以上工业增加值", "能源生产", "流通领域重要生产资料", "产能利用率", "工业生产者出厂价格")
 
 
 def fetch(url):
