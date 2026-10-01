@@ -3,6 +3,9 @@ name: Uruguay gas discovery
 on:
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   discover:
     runs-on: ubuntu-latest
@@ -18,3 +21,17 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: timeout 780 python3 discovery_archive/south_america/URUGUAY_GAS_DISCOVERY.py
+      - name: Push raw files to a throwaway branch for offline inspection
+        if: always()
+        run: |
+          [ -d uy_raw ] || exit 0
+          mv uy_raw /tmp/uy_raw
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan uy-gas-discovery-raw
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq
+          mv /tmp/uy_raw uy_raw
+          git add uy_raw
+          git commit -qm "Uruguay gas discovery raw files (throwaway)"
+          git push -f origin uy-gas-discovery-raw

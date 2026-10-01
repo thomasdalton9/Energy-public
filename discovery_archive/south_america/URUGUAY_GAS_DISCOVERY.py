@@ -8,11 +8,18 @@ files. The MIEM 'Series estadisticas de gas natural' page offers one zip
 of all attachments (download/node/field_documento/3815) plus a monthly
 visualiser (visualpeb.miem.gub.uy/visualPEB/gas_natural).
 
-Round 2 (this version): download and dump the MIEM zips, look at the
-visualPEB page / scripts, and list BEN (balance) links on the MIEM data
-pages. Runs in GitHub Actions only.
+Round 2: zip 3815 is a zip of zips - billing by tariff (Conecta Paysandu,
+Conecta Sur, Montevideo Gas), customers by tariff, prices, and
+importacion_gas_natural_por_gasoducto_m3. visualPEB also has a BEN
+endpoint benDatosActividadesFuentes (annual consumption by activity).
+
+Round 3 (this version): save every inner file plus the visualPEB pages /
+BEN endpoint responses under uy_raw/ (the workflow pushes them to a
+throwaway branch for offline inspection) and print sheet summaries.
+Runs in GitHub Actions only.
 """
 import io
+import os
 import re
 import zipfile
 from urllib.parse import urljoin
@@ -21,24 +28,14 @@ import pandas as pd
 import requests
 
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
-T = (10, 60)
-pd.set_option("display.width", 250)
-pd.set_option("display.max_columns", 30)
-pd.set_option("display.max_colwidth", 32)
-
-ZIPS = [
-    "https://www.gub.uy/ministerio-industria-energia-mineria/download/node/field_documento/3815",  # gas series
-    "https://www.gub.uy/ministerio-industria-energia-mineria/download/node/field_documento/3876",  # discontinued
-]
-PAGES = [
-    "https://visualpeb.miem.gub.uy/visualPEB/gas_natural",
-    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos",
-    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/datos-abiertos",
-    "https://www.gub.uy/ministerio-industria-energia-mineria/tematica/planificacion-estadistica-balance",
-    "https://www.gub.uy/ministerio-industria-energia-mineria/datos-y-estadisticas/estadisticas",
-]
-FILE_RE = re.compile(r"\.(zip|xlsx|xls|csv|ods)(\?|$)", re.I)
-seen = set()
+T = (10, 90)
+RAW = "uy_raw"
+ZIP = "https://www.gub.uy/ministerio-industria-energia-mineria/download/node/field_documento/3815"
+VP = "https://visualpeb.miem.gub.uy/visualPEB/"
+BEN_Q = ("benDatosActividadesFuentes?actividades=actividades&actividades=CONSUMO+FINAL+ENERG%C3%89TICO"
+         "&actividades=fuentes&fuentes=Gas+Natural&anioDesde=1998&anioHasta=2025&unidades=ktep")
+SECTORS = ["RESIDENCIAL", "COMERCIAL/SERVICIOS/SECTOR P%C3%9ABLICO", "TRANSPORTE", "INDUSTRIAL",
+           "ACTIVIDADES PRIMARIAS", "CENTRALES EL%C3%89CTRICAS SERVICIO P%C3%9ABLICO"]
 
 
 def out(*a):
@@ -55,81 +52,53 @@ def get(url, **kw):
         return None
 
 
-def dump_sheets(content, name):
-    try:
-        sheets = pd.read_excel(io.BytesIO(content), sheet_name=None, header=None)
-    except Exception as e:
-        out(f"  cannot read {name} as excel: {e}")
+def save(name, content):
+    path = os.path.join(RAW, re.sub(r"[^\w.\-]+", "_", name))
+    with open(path, "wb") as f:
+        f.write(content)
+    return path
+
+
+def walk_zip(content, prefix=""):
+    z = zipfile.ZipFile(io.BytesIO(content))
+    for n in z.namelist():
+        data = z.read(n)
+        out(f"  member {prefix}{n} ({len(data)} bytes, magic {data[:4]!r})")
+        if data[:2] == b"PK" and not n.lower().endswith((".xlsx", ".xlsm")):
+            try:
+                walk_zip(data, prefix + n + "/")
+                continue
+            except zipfile.BadZipFile:
+                pass
+        p = save(prefix + n, data)
         try:
-            df = pd.read_csv(io.BytesIO(content), sep=None, engine="python", encoding="latin-1")
-            out(df.head(15).to_string())
-            out(df.tail(5).to_string())
-        except Exception as e2:
-            out(f"  not csv either: {e2}")
-        return
-    for sn, raw in sheets.items():
-        raw = raw.dropna(how="all").dropna(axis=1, how="all")
-        out(f"  === {name} :: sheet {sn!r} shape {raw.shape}")
-        out(raw.head(25).iloc[:, :15].to_string())
-        out("  ... last rows:")
-        out(raw.tail(6).iloc[:, :15].to_string())
-
-
-def handle_file(url, label=""):
-    if url in seen or len(seen) > 40:
-        return
-    seen.add(url)
-    out(f"\n##### FILE {label!r} {url}")
-    r = get(url)
-    if r is None or r.status_code != 200:
-        return
-    c = r.content
-    if c[:2] == b"PK":
-        try:
-            z = zipfile.ZipFile(io.BytesIO(c))
-            names = z.namelist()
-            if any(n.startswith("xl/") for n in names):
-                dump_sheets(c, url)
-                return
-            out(f"  zip members: {names}")
-            for n in names:
-                if FILE_RE.search(n):
-                    dump_sheets(z.read(n), n)
-            return
-        except zipfile.BadZipFile:
-            pass
-    dump_sheets(c, url)
-
-
-def links(html, base):
-    res = []
-    for href, txt in re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', html, re.S | re.I):
-        t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", txt)).strip()
-        res.append((urljoin(base, href.replace("&amp;", "&")), t))
-    return res
+            sheets = pd.read_excel(p, sheet_name=None, header=None)
+            for sn, raw in sheets.items():
+                out(f"    sheet {sn!r} {raw.shape}")
+        except Exception as e:
+            out(f"    (not excel: {e}) head: {data[:300]!r}")
 
 
 def main():
-    for z in ZIPS:
-        handle_file(z, "zip")
-    for page in PAGES:
-        out(f"\n########## PAGE {page}")
-        r = get(page)
-        if r is None or r.status_code != 200:
-            continue
-        if "visualpeb" in page:
-            out(r.text[:3000])
-            for src in re.findall(r'<script[^>]+src="([^"]+)"', r.text, re.I):
-                js = get(urljoin(page, src))
-                if js is not None:
-                    found = sorted(set(re.findall(r"[\"'](/?(?:api|data|visualPEB|static)[^\"']{2,120})[\"']", js.text)))
-                    out(f"  script {src}: urls {found[:60]}")
-        ls = links(r.text, page)
-        for u, t in ls:
-            if FILE_RE.search(u) or re.search(r"gas|balance|serie|consumo|visualiz|sector|energ", u + " " + t, re.I):
-                out(f"  LINK {t[:90]!r} -> {u}")
-        iframes = re.findall(r'<iframe[^>]+src="([^"]+)"', r.text, re.I)
-        out(f"  iframes: {iframes}")
+    os.makedirs(RAW, exist_ok=True)
+    r = get(ZIP)
+    if r is not None and r.status_code == 200:
+        walk_zip(r.content)
+    for page in ["gas_natural", "ben", BEN_Q]:
+        r = get(VP + page)
+        if r is not None:
+            save(f"visualpeb_{page[:40]}.html", r.content)
+    # BEN gas by sector: try the same endpoint with each consuming activity
+    for s in SECTORS:
+        q = BEN_Q.replace("CONSUMO+FINAL+ENERG%C3%89TICO", s.replace(" ", "+"))
+        r = get(VP + q)
+        if r is not None:
+            save(f"visualpeb_ben_{s[:12]}.html", r.content)
+    # links/scripts the visualPEB gas page calls
+    r = get(VP + "gas_natural")
+    if r is not None:
+        for u in sorted(set(re.findall(r"""(?:url|href|src|action)\s*[:=]\s*["']([^"']+)["']""", r.text))):
+            out(f"  ref {u}")
 
 
 if __name__ == "__main__":
