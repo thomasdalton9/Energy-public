@@ -211,6 +211,12 @@ def colombia(p):
     return [spec("Demand", g, "Colombia gas demand by sector", "GBTUD", "stacked_bar")]
 
 
+def panama_gas(p):
+    d = by_date(read(p, "Gas use"), "Month")
+    g = pd.DataFrame({"Gas use, estimate (CND gas-fired MWh x 7.0 MMBtu/MWh)": d.get("Gas_use_MMBtu_per_day_est")})
+    return [spec("Use", g, "Panama LNG use for power (estimate from CND gas generation)", "MMBtu/day", "stacked_bar")]
+
+
 def ecuador(p):
     d = by_date(read(p, "Gas by use"), "Month")
     g = pd.DataFrame({"Power (Machala)": d.get("Power_MMBtu_per_day"),
@@ -523,6 +529,7 @@ REGISTRY = {
     "honduras_power_generation_daily.xlsx": power_daily("Honduras power generation by type (ODS)"),
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
+    "panama_gas.xlsx": panama_gas,
     "trinidad_gas.xlsx": trinidad,
     "ireland_gas_demand_daily.xlsx": ireland_demand,
     "ireland_gas_supply_daily.xlsx": ireland_supply,
