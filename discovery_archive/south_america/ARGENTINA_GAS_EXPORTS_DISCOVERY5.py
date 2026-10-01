@@ -1,5 +1,5 @@
 """
-Round 5 for Argentina gas exports by destination (see rounds 1-4).
+Round 5 (re-run with a parsing fix) for Argentina gas exports by destination (see rounds 1-4).
 
 Round 4 found the ENARGAS daily export report's AJAX endpoint:
   POST secciones/transporte-y-distribucion/partes-diarios-exp-imp-consulta-listado.php
@@ -67,22 +67,24 @@ def main():
     if fmt_ok is None:
         return
     for tipo in ("exp_dentro", "exp_fuera"):
-        for year in range(2019, 2027):
+        for year in range(2021, 2027):
             d0 = pd.Timestamp(f"{year}-01-01")
-            d1 = min(pd.Timestamp(f"{year}-12-31"), pd.Timestamp("2026-09-30"))
+            d1 = min(pd.Timestamp(f"{year}-12-30"), pd.Timestamp("2026-09-30"))   # <=365 days
             r = s.post(URL, data={"fecha_desde": d0.strftime(fmt_ok), "fecha_hasta": d1.strftime(fmt_ok),
                                   "tipo_list": tipo}, timeout=TIMEOUT)
             heads, df = parse(r.text)
             print(f"\n== {tipo} {year}: rows={len(df)} heads={heads}")
             if df.empty:
                 continue
-            df["Fecha"] = pd.to_datetime(df.iloc[:, 0], format="%d/%m/%Y", errors="coerce")
-            num = df.drop(columns=[df.columns[0]]).set_index("Fecha").apply(
+            idx = pd.to_datetime(df.iloc[:, 0], format="%d/%m/%Y", errors="coerce")
+            num = df.drop(columns=[df.columns[0]]).set_index(idx).apply(
                 lambda c: pd.to_numeric(c.str.replace(".", "", regex=False).str.replace(",", ".", regex=False),
                                         errors="coerce"))
-            print(f"   first={df['Fecha'].min().date()} last={df['Fecha'].max().date()} "
+            print(f"   first={idx.min().date()} last={idx.max().date()} "
                   f"missing days={(d1 - d0).days + 1 - len(df)}; sample raw row: {df.iloc[0, :].tolist()}")
-            print(num.resample("MS").sum().astype(int).to_string())
+            print(num.resample("MS").sum().round().to_string())
+            odd = [v for v in df.iloc[:, 1:].values.ravel() if not re.fullmatch(r"-?\d+", str(v))]
+            print(f"   non-integer cells: {odd[:10]}")
 
 
 if __name__ == "__main__":
