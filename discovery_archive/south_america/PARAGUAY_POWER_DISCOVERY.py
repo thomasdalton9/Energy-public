@@ -288,6 +288,27 @@ def pdfgrep(url, pattern, n=150):
                         return
 
 
+def ays(url):
+    """Itaipu pages draw their charts with the WordPress 'chart-builder' plugin: each chart's data is a
+    base64 JSON in `var aysChartOptions<id> = {"aysChartOptions":"..."}`. Decode and print every one."""
+    import base64
+    s = requests.Session()
+    s.headers.update(UA)
+    r = get(s, url, timeout=90)
+    if r is None:
+        return
+    print(f"\n== ays charts in {url}: {r.status_code}")
+    titles = dict(re.findall(r"ays-chart-charts-title(\w+)'>([^<]*)<", r.text))
+    for cid, b64 in re.findall(r"var aysChartOptions(\w+) = \{\"aysChartOptions\":\"([A-Za-z0-9+/=]+)\"", r.text):
+        try:
+            d = json.loads(base64.b64decode(b64))
+        except Exception as e:  # noqa: BLE001
+            print("   decode error", cid, e)
+            continue
+        src = d.get("source", {})
+        print(f"   {cid} [{titles.get(cid, '?')}] type={d.get('chart_type')}: " + json.dumps(src, ensure_ascii=False)[:1500])
+
+
 def wpsearch(base, query, pages=10):
     """WordPress REST search: every post matching `query` (title, date, link, text start)."""
     s = requests.Session()
@@ -318,7 +339,9 @@ if __name__ == "__main__":
     for a in [x for x in args if x.startswith("pdfgrep=")]:   # pdfgrep=URL|REGEX
         url, pat = a[8:].split("|", 1)
         pdfgrep(url, pat)
-    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep="))]
+    for a in [x for x in args if x.startswith("ays=")]:
+        ays(a[4:])
+    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
