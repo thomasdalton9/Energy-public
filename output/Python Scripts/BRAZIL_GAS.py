@@ -245,7 +245,9 @@ def read_movement(url):
     var, tipo = col(r"^nome da variavel"), col(r"^tipo da instalacao")
     pipe, point, code, uf = (col(r"^nome da instalacao de transporte"), col(r"^nome da instalacao de gasoduto"),
                              col(r"^codigo da instalacao de gasoduto"), col(r"^nome da uf"))
-    v = df[df[var].astype(str).map(norm).str.startswith("volume realizado")].copy()
+    v = df[df[var].astype(str).map(norm).str.match(r"(volume )?realizado\b")].copy()   # "Realizado" in Jan-May 2022
+    if v.empty:
+        raise RuntimeError(f"no 'Volume Realizado' rows; variables: {sorted(df[var].dropna().unique())[:15]}")
     vals = v[days].apply(num)
     v["mcm_d"] = vals.sum(axis=1, min_count=1) / ndays / 1000.0     # mil m3/day summed over days -> mcm/d average
     v["flow"] = v[tipo].astype(str).map(norm).map(
@@ -391,20 +393,107 @@ def grid_tables(pts, units):
     odd = pts[pts.category == "Unidentified"].groupby("month")["mcm_d"].sum()
     if odd.abs().max() > 0.05:
         log(f"WARNING rows with no point name/flow left out, mcm/d: {odd[odd.abs() > 0.05].round(2).to_dict()}")
+    bad, issues = quality(pts)
     piv = pts.pivot_table(index="month", columns=["flow", "category"], values="mcm_d", aggfunc="sum").fillna(0.0)
-    dem = pd.DataFrame(index=piv.index)
-    for c in GRID_DEMAND:
-        dem[c] = piv[("Delivery", c)] if ("Delivery", c) in piv else 0.0
-    dem["Total_Grid_Deliveries"] = dem[GRID_DEMAND].sum(axis=1)
-    rec = pd.DataFrame(index=piv.index)
-    for c in ["Domestic", "Bolivia", "Argentina", "LNG"]:
-        rec[c] = piv[("Receipt", c)] if ("Receipt", c) in piv else 0.0
-    rec["Total"] = rec.sum(axis=1)
-    dem.index.name = rec.index.name = "date"
+    piv = piv.reindex(pd.date_range(piv.index.min(), piv.index.max(), freq="MS"))   # a month ANP never published stays blank
+
+    def table(flow, names, total):
+        t = pd.DataFrame(index=piv.index)
+        for c in names:
+            t[c] = piv[(flow, c)] if (flow, c) in piv else 0.0
+            t.loc[t.index.isin(bad.get((flow, c), set())), c] = float("nan")
+        t.loc[piv.isna().all(axis=1)] = float("nan")
+        t[total] = t[names].sum(axis=1, min_count=len(names))      # blank if any part is blank
+        t.index.name = "date"
+        return t
+
+    dem = table("Delivery", GRID_DEMAND, "Total_Grid_Deliveries")
+    rec = table("Receipt", ["Domestic", "Bolivia", "Argentina", "LNG"], "Total")
     imb = rec["Total"] - dem["Total_Grid_Deliveries"]
+    note = pd.Series({m: "; ".join(v) for m, v in issues.items()}, dtype=object).reindex(dem.index)
+    log(f"months with blanked grid categories: {int(note.notna().sum())} of {len(dem)}")
+    for m, t in note.dropna().items():
+        log(f"  {m:%Y-%m}: {t}")
+    i = imb.dropna()
     log("grid receipts minus deliveries (system use, line pack, losses), mcm/d: "
-        f"median {imb.median():.2f}, min {imb.min():.2f} ({imb.idxmin():%Y-%m}), max {imb.max():.2f} ({imb.idxmax():%Y-%m})")
-    return pts, dem.round(3), rec.round(3), imb.round(3)
+        f"median {i.median():.2f}, min {i.min():.2f} ({i.idxmin():%Y-%m}), max {i.max():.2f} ({i.idxmax():%Y-%m})")
+    return pts, dem.round(3), rec.round(3), imb.round(3), note
+
+
+STEADY = {("Delivery", "Distributors"), ("Delivery", "Refineries"), ("Receipt", "Domestic"), ("Receipt", "Bolivia")}
+
+
+def quality(pts):
+    """Find months where ANP's file misses a pipeline or carries a bad value, so the affected categories are left
+    blank instead of showing a false dip or spike. Each point is judged against its own history over the 12 months
+    either side:
+      dropout - a steady point (city gate, refinery, processing plant, Bolivia border) with a typical flow above
+                0.3 mcm/d reports nothing or under 10% of it, while flowing normally in the 3 months before and
+                within the 12 after (renamed or closed points never come back, so they are not flagged). If at
+                least half of a pipeline's steady flow is missing, the pipeline was not reported and each category
+                that usually flows on it loses that usual flow; otherwise a category loses its missing points.
+                A category losing at least 1 mcm/d or 5% is blanked; a smaller loss is only noted;
+      outlier - a value over 3 mcm/d above the point's median, more than twice it and 30% above its highest
+                month in the window (power plants only above 8 mcm/d, as they swing with dispatch; LNG terminals
+                are cargo-driven and not tested).
+    Returns ({(flow, category): {months}}, {month: [notes]})."""
+    s = pts[~pts["category"].isin(["Interconnection", "Unidentified"])]
+    months = pd.date_range(s["month"].min(), s["month"].max(), freq="MS")
+    wide = s.pivot_table(index="month", columns=["flow", "category", "pipeline", "point_code"], values="mcm_d",
+                         aggfunc="sum").reindex(months)
+    names = s.groupby(["flow", "point_code"])["point"].last().to_dict()
+    pipe_cat = s.pivot_table(index="month", columns=["pipeline", "flow", "category"], values="mcm_d",
+                             aggfunc="sum").reindex(months)
+    cat_tot = s.pivot_table(index="month", columns=["flow", "category"], values="mcm_d", aggfunc="sum").reindex(months)
+    bad, issues, drop, steady = {}, {}, {}, {}
+    for (flow, cat, pipe, code), v in wide.items():
+        vals = v.to_numpy()
+        for i, m in enumerate(months):
+            x = vals[i]
+            win = [y for y in list(vals[max(0, i - 12):i]) + list(vals[i + 1:i + 13]) if pd.notna(y)]
+            if not win:
+                continue
+            med, mx = float(pd.Series(win).median()), max(win)
+            if (cat != "LNG" and pd.notna(x) and x - med > 3 and x > 2 * med and x > 1.3 * mx
+                    and (cat != "Power_Generation" or x > 8)):
+                bad.setdefault((flow, cat), set()).add(m)
+                issues.setdefault(m, []).append(f"{cat} blank: outlier {names.get((flow, code))} {x:.1f} vs usual {med:.1f}")
+            if (flow, cat) not in STEADY:
+                continue
+            nz = [y for y in win if y > 0.05]
+            ref = float(pd.Series(nz).median()) if nz else 0.0
+            if ref <= 0.3:
+                continue
+            steady[(m, pipe)] = steady.get((m, pipe), 0.0) + ref
+            if pd.isna(x) or x < 0.1 * ref:
+                before, after = vals[max(0, i - 3):i], vals[i + 1:i + 13]
+                if any(pd.notna(y) and y > 0.5 * ref for y in before) and any(pd.notna(y) and y > 0.5 * ref for y in after):
+                    drop.setdefault((m, pipe), []).append((names.get((flow, code)), ref, flow, cat))
+    def judge(m, flow, cat, loss, what):
+        total = cat_tot[(flow, cat)].loc[m] if (flow, cat) in cat_tot else 0.0
+        total = 0.0 if pd.isna(total) else float(total)
+        if loss >= 1.0 or loss >= 0.05 * total:
+            bad.setdefault((flow, cat), set()).add(m)
+            issues.setdefault(m, []).append(f"{cat} blank: {what} not reported (usually {loss:.1f} mcm/d)")
+        elif loss >= 0.3:
+            issues.setdefault(m, []).append(f"{cat} understated by about {loss:.1f} mcm/d: {what} not reported")
+
+    for (m, pipe), lost in drop.items():
+        i = months.get_loc(m)
+        size = sum(r for _, r, _, _ in lost)
+        if size >= 0.5 * steady[(m, pipe)]:          # the whole pipeline is missing from the file
+            for (p, flow, cat), v in pipe_cat.items():
+                if p != pipe:
+                    continue
+                win = [y for y in v.iloc[max(0, i - 12):i].tolist() + v.iloc[i + 1:i + 13].tolist() if pd.notna(y)]
+                usual = float(pd.Series(win).median()) if win else 0.0
+                if usual > 0.3:
+                    judge(m, flow, cat, usual, f"pipeline {pipe}")
+            continue
+        for flow, cat in sorted({(f, c) for _, _, f, c in lost}):
+            part = [(n, r) for n, r, f, c in lost if (f, c) == (flow, cat)]
+            judge(m, flow, cat, sum(r for _, r in part), f"{', '.join(str(n) for n, _ in part)} on {pipe}")
+    return bad, issues
 
 
 # ------------------------------------------------------------------ ANP production / imports
@@ -434,7 +523,7 @@ def anp_supply(rec):
     sup = pd.DataFrame({"Domestic_Available": avail, "Imports_Total": imports})
     sup = sup.join(rec[["Bolivia", "Argentina"]].rename(columns=lambda c: f"{c}_Pipeline"), how="outer")
     sup["Grid_Domestic_Receipts"] = rec["Domestic"]
-    sup["LNG_Implied"] = (sup["Imports_Total"] - sup["Bolivia_Pipeline"].fillna(0) - sup["Argentina_Pipeline"].fillna(0)).clip(lower=0)
+    sup["LNG_Implied"] = (sup["Imports_Total"] - sup["Bolivia_Pipeline"] - sup["Argentina_Pipeline"]).clip(lower=0)
     sup["Total_Supply"] = sup["Domestic_Available"] + sup["Imports_Total"]
     sup.index.name = "date"
     log(f"ANP gas available: to {avail.dropna().index.max():%Y-%m}; imports: to {imports.dropna().index.max():%Y-%m}")
@@ -547,7 +636,7 @@ def main():
         existing["month"] = pd.to_datetime(existing["month"])
         existing["point_code"] = existing["point_code"].astype(str).str.replace(r"\.0$", "", regex=True)
     pts = update_points(existing, start)
-    pts, dem, rec, imb = grid_tables(pts, pbi_units())
+    pts, dem, rec, imb, grid_notes = grid_tables(pts, pbi_units())
     log("\ngrid deliveries by consumer type (mcm/d), last 6 months\n" + dem.tail(6).round(2).to_string())
     log("\ngrid receipts by source (mcm/d), last 6 months\n" + rec.tail(6).round(2).to_string())
     sup = anp_supply(rec)
@@ -557,7 +646,7 @@ def main():
     if args.watch_out:
         source_watch(args.watch_out, mme_last, dem.index.max(), sup)
 
-    dem_out = dem.assign(Receipts_minus_Deliveries=imb, Source=SRC_GRID)
+    dem_out = dem.assign(Receipts_minus_Deliveries=imb, Source=SRC_GRID, Data_Issues=grid_notes)
     sup_out = sup.dropna(how="all").assign(Source=SRC_SUPPLY)
     seg_out = seg.assign(Source=SRC_MME)
     grid_last = dem.index.max()
@@ -584,6 +673,11 @@ def main():
         "from processing plants. So grid power generation is well below MME's national power figure.",
         "Receipts_minus_Deliveries = grid receipts (processing plants, Bolivia, Argentina, LNG terminals) minus "
         "deliveries: system use, losses and line pack.",
+        "Quality check: ANP's monthly files sometimes miss a transporter or a pipeline (e.g. NTS in Aug-Oct 2025, "
+        "Urucu-Manaus in Feb-Dec 2025) or carry a bad value. A category is left BLANK (not estimated) for a month "
+        "when a steady point (city gate, refinery, processing plant, Bolivia border) on one of its pipelines stops "
+        "reporting and resumes later, or when a point jumps far outside its own 12-month range; Data_Issues says "
+        "which. The gaps are ANP's, not interpolated here.",
         "",
         "SUPPLY (ANP)",
         "Domestic_Available = ANP 'gas natural disponivel' (production less reinjection, flaring/losses and E&P "
