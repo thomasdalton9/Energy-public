@@ -40,14 +40,26 @@ def main():
             print(d.date(), "ERROR", type(e).__name__, e)
             continue
         recs[d] = rec or {"Injection_total": None}
-    t = pd.DataFrame.from_dict(recs, orient="index").apply(pd.to_numeric, errors="coerce")
+    t = pd.DataFrame.from_dict(recs, orient="index")
+    t = t.apply(lambda c: pd.to_datetime(c, errors="coerce") if c.name == "Gas_day" else pd.to_numeric(c, errors="coerce"))
     print(f"transport sample: {len(t)} days in {time.time() - t0:.0f}s; missing/unparsed: "
           f"{[str(x.date()) for x in t.index[t['Injection_total'].isna()]]}")
     print("missing fields per column:", t.isna().sum().to_dict())
     print(t.round(2).to_string())
+    recs_frame = t.copy()
 
+    # text of reports whose Bolivia footnote did not parse
+    import io
+    import pdfplumber
+    for d in list(t.index[t["Incl_Bolivia_NorAndino"].isna() & t["Injection_total"].notna()])[:2]:
+        r = s.get(A.PARTE_URL, timeout=A.TIMEOUT, params={"tipo": "transporte", "path": "partes-diarios/transporte",
+                                                          "file": d.strftime("%Y%m%d") + ".pdf"})
+        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+            print(f"\n--- unparsed footnote, {d.date()} ---\n{pdf.pages[0].extract_text()}")
     imp = A.fetch_imports_daily(pd.Timestamp("2021-01-01"), pd.Timestamp.today().normalize())
-    k = imp.reindex(t.index) / 1000
+    tg = A.by_gas_day(t)
+    k = imp.reindex(tg.index) / 1000
+    t = tg
     cmp = pd.DataFrame({"parte_Bol_NorAnd": t["Incl_Bolivia_NorAndino"],
                         "imp_Bol_NorAnd": k["Bolivia"] + k["Norandino"],
                         "parte_Esc_GasAnd": t["Incl_Escobar_GasAndes"], "imp_Esc_GasAnd": k["GNL Escobar"] + k["Gasandes"],
@@ -62,10 +74,13 @@ def main():
     exports_daily = A.load_exports_daily(BOOK)
     exports, exports_points = A.monthly_exports(exports_daily)
     net = A.supply_net(grt, getd, exports_points, imports_m, clp, pd.DataFrame())
+    sd_full = A.supply_daily(recs_frame, imp)
+    print("\nSupply daily (sample days):")
+    print(sd_full.dropna(subset=["Domestic_injection_mcmd"]).iloc[:, :14].to_string())
     print("\nSupply net:")
     print(net.to_string())
 
-    sd = A.supply_daily(t, pd.DataFrame())
+    sd = sd_full
     samp = sd["Domestic_injection_mcmd"].groupby(sd.index.to_period("M")).mean()
     samp.index = samp.index.to_timestamp()
     g = grt / 1000

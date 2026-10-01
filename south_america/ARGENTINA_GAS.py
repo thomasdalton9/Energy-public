@@ -64,8 +64,9 @@ NET SUPPLY (found via discovery_archive/south_america/ARGENTINA_GAS_NETSUPPLY_DI
     imports inside those figures (Bolivia+Norandino in Norte, GNL Escobar+Gasandes in
     Centro Oeste, GNL Bahia Blanca in Neuba II until it was replaced by the Perito
     Moreno pipeline footnote) and the line-pack. Domestic daily injection = total minus
-    those imports. Each run re-reads the last 45 days and backfills missing days within
-    a time budget.
+    those imports (a missing footnote is taken from the import report). Rows are gas days read
+    from each report's 'Periodo' line. Each run re-reads the last 45 days and backfills missing
+    days within a time budget.
   * Transport fuel, unaccounted gas and losses: ENARGAS publishes them only as % of gas
     delivered per transporter (CLP.xlsx); they are stored as published (%), not turned
     into volumes, so the charts carry no "system use & losses" segment.
@@ -462,15 +463,19 @@ def parse_transport_parte(text, tables):
     is the Perito Moreno pipeline, domestic gas), (e) the peak-shaving plant."""
     t = re.sub(r"[ \t]+", " ", text)
     out = {}
+    # the report covers 06:00 to 06:00; its file date was the END of that gas day until about 2025 and the
+    # START since, so the gas day is read from the 'Periodo' line (its first date)
+    m = re.search(r"Per[ií]odo.{0,60}?(\d{2}/\d{2}/\d{2,4})", t, re.S)
+    out["Gas_day"] = pd.to_datetime(m.group(1), dayfirst=True, errors="coerce") if m else None
     m = re.search(r"Inyecci[oó]n\s*Total\s*\(e\)\s*" + NUM, t)
     out["Injection_total"] = _num(m.group(1)) if m else None
     m = re.search(r"Inyecci[oó]n\s*Total\s*\(e\)\s*-?[\d.,]+[^\n]*?\)\s*" + NUM + r"\s+" + NUM, t)
     out["LinePack"], out["LinePack_change"] = (_num(m.group(1)), _num(m.group(2))) if m else (None, None)
-    for key, pat in (("Incl_Bolivia_NorAndino", r"\(a\)\s*Incluye[^()\n]*?Bolivia[^()\n]*?\(\s*" + NUM + r"\s*\)"),
-                     ("Incl_Escobar_GasAndes", r"\(d\)\s*Incluye[^()\n]*?Escobar[^()\n]*?\(\s*" + NUM + r"\s*\)"),
-                     ("Incl_LNG_BahiaBlanca", r"\(b\)\s*Incluye[^()\n]*?(?:GNL|Blanca)[^()\n]*?\(\s*" + NUM + r"\s*\)"),
-                     ("Incl_PeritoMoreno", r"\(b\)\s*Incluye\s*(?:GPM|[^()\n]*?Perito)[^()\n]*?\(\s*" + NUM + r"\s*\)"),
-                     ("Incl_PeakShaving", r"\(e\)\s*Incluye[^()\n]*?Peak\s*Shaving\s*\(\s*" + NUM + r"\s*\)")):
+    for key, pat in (("Incl_Bolivia_NorAndino", r"\(a\)\s*Incluye[^()]*?Bolivia[^()]*?\(\s*" + NUM + r"\s*\)"),
+                     ("Incl_Escobar_GasAndes", r"\(d\)\s*Incluye[^()]*?Escobar[^()]*?\(\s*" + NUM + r"\s*\)"),
+                     ("Incl_LNG_BahiaBlanca", r"\(b\)\s*Incluye[^()]*?(?:GNL|Blanca)[^()]*?\(\s*" + NUM + r"\s*\)"),
+                     ("Incl_PeritoMoreno", r"\(b\)\s*Incluye\s*(?:GPM|[^()]*?Perito)[^()]*?\(\s*" + NUM + r"\s*\)"),
+                     ("Incl_PeakShaving", r"\(e\)\s*Incluye[^()]*?Peak\s*Shaving\s*\(\s*" + NUM + r"\s*\)")):
         m = re.search(pat, t, re.I)
         out[key] = _num(m.group(1)) if m else None
     for basin in ("Norte", "Neuquina", "Austral"):
@@ -537,7 +542,9 @@ def update_transport_daily(path, start_date):
         recs[d] = rec or {"Injection_total": None}      # None: no report that day (not retried unless recent)
         if rec and rec.get("Injection_total") is None:
             print(f"  {d.date()}: report found but not parsed", flush=True)
-    new = pd.DataFrame.from_dict(recs, orient="index").apply(pd.to_numeric, errors="coerce")
+    new = pd.DataFrame.from_dict(recs, orient="index")
+    new = new.apply(lambda c: pd.to_datetime(c, errors="coerce") if c.name == "Gas_day"
+                    else pd.to_numeric(c, errors="coerce"))
     if new.empty:
         return old
     print(f"  fetched {len(new)} days ({int(new['Injection_total'].notna().sum())} parsed) "
@@ -548,32 +555,54 @@ def update_transport_daily(path, start_date):
     return daily
 
 
-def supply_daily(transport, imports_daily):
-    """Daily domestic injection (transport reports) and imports (import reports), mcm/d."""
+def by_gas_day(transport):
+    """Transport reports re-indexed by the gas day they cover (see parse_transport_parte)."""
     t = transport.copy()
-    out = pd.DataFrame(index=t.index.union(imports_daily.index) if not imports_daily.empty else t.index)
+    if "Gas_day" in t:
+        gd = pd.to_datetime(t.pop("Gas_day"), errors="coerce")
+        t.index = pd.DatetimeIndex(gd.where(gd.notna(), pd.Series(t.index, index=t.index)))
+        t = t[~t.index.duplicated(keep="last")].sort_index()
+    t.index.name = "date"
+    return t
+
+
+def supply_daily(transport, imports_daily):
+    """Daily domestic injection (transport reports, by gas day) and imports (import reports), mcm/d.
+    Domestic injection = Injection_total less the imports its footnotes say it holds; a footnote missing
+    from a report is filled with the import report's figure for that day."""
+    t = by_gas_day(transport) if not transport.empty else transport
+    idx = t.index.union(imports_daily.index) if not imports_daily.empty else t.index
+    out = pd.DataFrame(index=idx)
     out.index.name = "date"
+    t = t.reindex(idx)
+    k = (imports_daily.reindex(idx) / 1000) if not imports_daily.empty else pd.DataFrame(index=idx)
+
+    def imp(*names):
+        cols_ = [n for n in names if n in k]
+        return k[cols_].sum(axis=1, min_count=len(cols_)) if cols_ else pd.Series(float("nan"), index=idx)
+
+    fill = {"Incl_Bolivia_NorAndino": imp("Bolivia", "Norandino"), "Incl_Escobar_GasAndes": imp("GNL Escobar", "Gasandes"),
+            "Incl_LNG_BahiaBlanca": imp("GNL B. Blanca")}
     for c in ("Basin_Norte", "Basin_Neuquina", "Basin_Austral", "Injection_total", "Incl_Bolivia_NorAndino",
               "Incl_Escobar_GasAndes", "Incl_LNG_BahiaBlanca", "Incl_PeritoMoreno", "Incl_PeakShaving",
               "LinePack", "LinePack_change"):
         if c in t:
             out[f"{c}_mcmd"] = t[c]
-    imp = t[[c for c in ("Incl_Bolivia_NorAndino", "Incl_Escobar_GasAndes", "Incl_LNG_BahiaBlanca") if c in t]]
     if "Injection_total" in t:
-        dom = t["Injection_total"] - imp.fillna(0).sum(axis=1)
-        out["Domestic_injection_mcmd"] = dom.where(t["Injection_total"].notna())
-        if "Basin_Norte" in t and "Incl_Bolivia_NorAndino" in t:
-            out["Domestic_Norte_mcmd"] = t["Basin_Norte"] - t["Incl_Bolivia_NorAndino"].fillna(0)
+        inside = pd.DataFrame({c: (t[c] if c in t else pd.Series(float("nan"), index=idx)).fillna(v)
+                               for c, v in fill.items()})
+        out["Domestic_injection_mcmd"] = (t["Injection_total"] - inside.fillna(0).sum(axis=1)).where(
+            t["Injection_total"].notna())
+        if "Basin_Norte" in t:
+            out["Domestic_Norte_mcmd"] = t["Basin_Norte"] - inside["Incl_Bolivia_NorAndino"].fillna(0)
     if not imports_daily.empty:
         for raw, name in IMPORT_NAMES.items():
             if raw in imports_daily:
-                out[f"{name} (thousand m3)"] = imports_daily[raw]
-        k = imports_daily.reindex(out.index)
-        out["LNG_Escobar_mcmd"] = k.get("GNL Escobar") / 1000
-        out["LNG_BahiaBlanca_mcmd"] = k.get("GNL B. Blanca") / 1000
-        out["Imports_Bolivia_mcmd"] = k.get("Bolivia") / 1000
-        out["Imports_Chile_mcmd"] = (k.get("Gasandes").fillna(0) + k.get("Norandino").fillna(0)).where(
-            k.notna().any(axis=1)) / 1000
+                out[f"{name} (thousand m3)"] = imports_daily[raw].reindex(idx)
+        out["LNG_Escobar_mcmd"] = imp("GNL Escobar")
+        out["LNG_BahiaBlanca_mcmd"] = imp("GNL B. Blanca")
+        out["Imports_Bolivia_mcmd"] = imp("Bolivia")
+        out["Imports_Chile_mcmd"] = imp("Gasandes", "Norandino")
         out["Total_imports_mcmd"] = out[["LNG_Escobar_mcmd", "LNG_BahiaBlanca_mcmd", "Imports_Bolivia_mcmd",
                                          "Imports_Chile_mcmd"]].sum(axis=1, min_count=1)
         if "Domestic_injection_mcmd" in out:
@@ -581,7 +610,7 @@ def supply_daily(transport, imports_daily):
     return out.dropna(how="all").round(3)
 
 
-def supply_net(grt, getd, exports_points, imports_m, clp, transport):
+def supply_net(grt, getd, exports_points, imports_m, clp, sd):
     """Monthly net supply, million m3/month (see module docstring)."""
     idx = grt.index.union(imports_m.index) if not imports_m.empty else grt.index
     g = (grt / 1000.0).reindex(idx)
@@ -612,8 +641,7 @@ def supply_net(grt, getd, exports_points, imports_m, clp, transport):
         out[c] = imp[c]
     out["Total_net_supply"] = out["Net_domestic_supply"] + out["Total_imports"]
     out["GRT_LNG_other_origins_reported"] = col_like(g, "Otros Orígenes").where(idx.isin(grt.index))
-    if not transport.empty and "Injection_total" in transport:
-        sd = supply_daily(transport, pd.DataFrame())
+    if not sd.empty and "Domestic_injection_mcmd" in sd:
         ok = complete_months(sd, "Domestic_injection_mcmd")
         m = sd["Domestic_injection_mcmd"].groupby(sd.index.to_period("M")).sum()
         m = m[m.index.isin(ok)]
@@ -716,9 +744,9 @@ def main():
         print(f"  CLP failed ({type(e).__name__}: {e})", flush=True)
         clp = pd.DataFrame()
 
-    net = supply_net(grt, getd, exports_points, imports_m, clp, transport) if not grt.empty else pd.DataFrame()
     daily_supply = supply_daily(transport, imports_daily) if not (transport.empty and imports_daily.empty) \
         else pd.DataFrame()
+    net = supply_net(grt, getd, exports_points, imports_m, clp, daily_supply) if not grt.empty else pd.DataFrame()
     check = balance_check(national, getd, exports, net) if not net.empty else pd.DataFrame()
     if not net.empty:
         print("Supply net (million m3/month), last months:", flush=True)
@@ -821,7 +849,10 @@ def main():
         "of 9300 kcal. Incl_* = imports and other sources the report says are inside those figures (Bolivia + "
         "NorAndino in Norte; GNL Escobar + GasAndes in Centro Oeste; GNL Bahia Blanca in Neuba II; later the "
         "Perito Moreno pipeline (domestic) in Neuba II; peak-shaving plant). Domestic_injection_mcmd = "
-        "Injection_total minus Bolivia+NorAndino, Escobar+GasAndes and Bahia Blanca LNG. LinePack_mcmd = "
+        "Injection_total minus Bolivia+NorAndino, Escobar+GasAndes and Bahia Blanca LNG (a footnote missing from a "
+        "report is taken from the import report for that day). Dates are gas days (06:00 to 06:00), read from "
+        "each report's 'Periodo' line: the PDF file date was the end of the gas day until about 2025 and is its "
+        "start since. LinePack_mcmd = "
         "transport line-pack (million m3) and its change on the day. Import columns: the daily import reports, "
         "thousand m3/day as published, and mcm/d. Each run re-reads the last 45 days and backfills missing days "
         f"within a {PARTES_BUDGET_S}s budget.",
