@@ -56,6 +56,12 @@ OUT = "output/Data and Chart Outputs/argentina_power_generation_daily.xlsx"
 NEMO = "PARTE_POST_OPERATIVO"
 RAW_SHEET = "By type and fuel (raw)"
 CODES_SHEET = "Fuel codes"
+# Yacyreta's YACYHIPY group (listed from Dec-2024) is Paraguay's own take from the plant (the SINP), not energy
+# delivered to Argentina - kept in its own raw/daily column and out of Argentina's totals (see NOTES)
+PY_COL = "PARAGUAY|YACYHIPY"
+DAILY_PY_COL = "Yacyretá - Paraguay share (YACYHIPY)"
+PY_START = pd.Timestamp("2024-12-01")
+PARAGUAY_OUT = "output/Data and Chart Outputs/paraguay_power_generation_daily.xlsx"
 
 # unit SUBTIPO -> fuel for non-thermal units (thermal ones are split by fuel code below)
 SUBTYPE_FUEL = {"HI": "Hydro", "HR": "Hydro", "HB": "Hydro", "MH": "Hydro", "NU": "Nuclear", "EO": "Wind",
@@ -82,9 +88,17 @@ NOTES = [
     "",
     "CATEGORY MAPPING (CAMMESA unit type / fuel -> sheet 'Daily')",
     "Hydro_MWh: unit subtypes HI (hydro), HR (renewable small hydro), HB (pumped storage, generation only - no "
-    "negative/pumping values in the data), MH (mini hydro). Includes Yacyreta's whole output (YACYHI plus the "
-    "Paraguayan share delivered to Argentina, YACYHIPY) and Argentina's half of Salto Grande (SGDEHIAR); "
+    "negative/pumping values in the data), MH (mini hydro). Includes Yacyreta's supply to Argentina (YACYHI: "
+    "Argentina's half plus the energy Paraguay cedes) and Argentina's half of Salto Grande (SGDEHIAR); "
     "Uruguay's half of Salto Grande is an import node and is excluded.",
+    f"NOT in Hydro_MWh or Total_MWh: Yacyreta's YACYHIPY group (listed from Dec-2024), in its own column "
+    f"'{DAILY_PY_COL}' (MWh). It is Paraguay's own take from Yacyreta (the SINP), not supply to Argentina: VMME's "
+    "Balance Energetico Nacional 2025 closes with YACYHIPY counted as the SINP (Yacyreta ceded to Argentina = 50% of "
+    "(YACYHI + YACYHIPY) - YACYHIPY = 4.97 TWh, BEN 4.97 TWh = 5.08 to Argentina less ANDE's 0.11 TWh own sales), "
+    "whereas counting it as Argentine supply would put Yacyreta at ~22 TWh and Paraguay's use 3 TWh above its "
+    "demand. Its monthly profile also peaks in Paraguay's summer. Paraguay's workbook counts it "
+    "(paraguay_power_generation_daily.xlsx). Days saved before this change were corrected with that workbook's "
+    "daily YACYHIPY series (same CAMMESA databases); days it lacked were re-fetched.",
     "Nuclear_MWh: NU (Atucha I/II, Embalse). Wind_MWh: EO. Solar_MWh: FV.",
     "Thermal units (TV steam, TG gas turbine, CC combined cycle, DI diesel/engines) are split hour by hour by "
     "the fuel shares CAMMESA reports per unit (COMBUSTIBLE_PORCENTAJE_DET):",
@@ -175,7 +189,9 @@ def parse_day(zip_bytes):
         hours.add(hour)
         g = gens.get(unit, {})
         sub = g.get("SUBTIPO") or "?"
-        if g.get("INTERCAMBIO") == "S":
+        if unit.startswith("YACY") and unit != "YACYHI":   # YACYHIPY: Paraguay's Yacyreta take, not Argentina's
+            out[PY_COL] += e
+        elif g.get("INTERCAMBIO") == "S":
             out[f"IMPORT|{sub}"] += e
         elif sub in THERMAL or sub in ("BG", "BM"):
             fuel = shares.get((unit, hour))
@@ -204,7 +220,7 @@ def raw_to_fuels(raw, codes=None):
     unknown = set()
     for col in raw.columns:
         sub, code = col.split("|", 1)
-        if sub == "IMPORT":
+        if sub in ("IMPORT", "PARAGUAY"):
             continue
         if sub in SUBTYPE_FUEL and (not code or sub in ("BG", "BM")):
             fuel = SUBTYPE_FUEL[sub]
@@ -231,7 +247,36 @@ def save(path, raw, codes):
     raw.index.name = "date"
     raw = raw[sorted(raw.columns)]
     daily = raw_to_fuels(raw, codes)
+    # Paraguay's Yacyreta take, shown but not in Argentina's fuels/Total (the name has no _MWh suffix, so the
+    # charts and the South America total leave it out)
+    daily[DAILY_PY_COL] = raw[PY_COL].reindex(daily.index).round(1) if PY_COL in raw else 0.0
     std.write(path, daily, NOTES, {RAW_SHEET: raw.round(1), CODES_SHEET: codes.sort_index()})
+
+
+def migrate_yacyhipy(raw, paraguay_path=PARAGUAY_OUT):
+    """One-off fix of an archive saved before YACYHIPY had its own column, when it was summed into 'HI|'. Days
+    before Dec-2024 had no YACYHIPY (0). Later days: move the day's YACYHIPY out of 'HI|' using the daily series
+    PARAGUAY_POWER.py reads from the same CAMMESA databases; a day that series lacks is dropped so this run
+    re-fetches it. Returns (raw, dropped days)."""
+    raw = raw.copy()
+    raw[PY_COL] = 0.0
+    try:
+        py = pd.read_excel(paraguay_path, sheet_name="Yacyreta CAMMESA daily", index_col=0)["YACYHIPY_MWh"]
+        py.index = pd.to_datetime(py.index)
+    except Exception as e:  # noqa: BLE001
+        print(f"  YACYHIPY migration: Paraguay series unavailable ({e}); re-fetching every day from Dec-2024", flush=True)
+        py = pd.Series(dtype=float)
+    late = raw.index[raw.index >= PY_START]
+    have = [d for d in late if d in py.index and pd.notna(py.get(d))]
+    dropped = [d for d in late if d not in have]
+    if have:
+        v = py.reindex(have).astype(float)
+        raw.loc[have, "HI|"] = raw.loc[have, "HI|"] - v.values
+        raw.loc[have, PY_COL] = v.values
+    raw = raw.drop(index=dropped)
+    print(f"  YACYHIPY migration: {len(have)} days moved out of hydro ({py.reindex(have).sum() / 1e6:,.2f} TWh), "
+          f"{len(dropped)} days dropped for re-fetch", flush=True)
+    return raw, dropped
 
 
 def load_codes(path):
@@ -282,6 +327,9 @@ def main():
 
     raw = std.load_sheet(args.out, RAW_SHEET)
     daily_saved = std.load_sheet(args.out, "Daily")
+    if not raw.empty and PY_COL not in raw.columns:
+        raw, dropped = migrate_yacyhipy(raw)
+        daily_saved = daily_saved.drop(index=[d for d in dropped if d in daily_saved.index])
     end = dt.date.today() - dt.timedelta(days=1)
     todo = sorted(std.missing_days(daily_saved, args.start, end), reverse=True)  # newest first
     print(f"{len(raw):,} days saved; {len(todo):,} to fetch (budget {args.budget_min:.0f} min)", flush=True)
@@ -315,7 +363,7 @@ def main():
                     out, found, size = fut.result()
                     rows[pd.Timestamp(day)] = out
                     codes = add_codes(codes, found)
-                    tot = sum(v for k, v in out.items() if not k.startswith("IMPORT"))
+                    tot = sum(v for k, v in out.items() if not k.startswith(("IMPORT", "PARAGUAY")))
                     print(f"  {day}: {tot:,.0f} MWh ({size / 1e6:.1f} MB, {time.time() - t0:.0f}s)", flush=True)
                 except Exception as e:  # noqa: BLE001 - one bad day must not stop the backfill
                     print(f"  {day}: FAILED ({type(e).__name__}: {str(e)[:200]}) - retried next run", flush=True)

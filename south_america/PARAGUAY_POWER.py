@@ -695,12 +695,11 @@ def outputs(p):
     ex = ex.round(1)
     ex.index.name = "date"
 
-    # What ONS (Brazil) and CAMMESA (Argentina) do NOT already count: ANDE's own take from both plants, less what
-    # the Argentina workbook already books as Argentine hydro - YACYHIPY (Paraguay's Yacyreta take, from Dec-2024)
-    # and ANDE's market sales (INTERCAMBIO='N' ANDE nodes)
+    # What ONS (Brazil) and CAMMESA (Argentina) do NOT already count: ANDE's own take from both plants (the SINP
+    # includes YACYHIPY, which ARGENTINA_POWER_DAILY.py keeps out of Argentine hydro), less ANDE's market sales that
+    # CAMMESA books as Argentine generation (INTERCAMBIO='N' ANDE nodes)
     sa = pd.DataFrame(index=q.index)
     sa["Hydro_MWh"] = (q["Itaipu_to_ANDE_MWh"] + q["Yacyreta_to_SINP_MWh"]
-                       - q["YACYHIPY_counted_by_CAMMESA_MWh"].fillna(0)
                        - q["ANDE_sales_counted_by_CAMMESA_MWh"].fillna(0)).round(1)
     sa["Total_MWh"] = sa["Hydro_MWh"]
     sa.index.name = "date"
@@ -767,10 +766,10 @@ NOTES = [
     "YACYHIPY, which behaves as Paraguay's own take (SINP): it peaks in Paraguay's summer, and with it as the SINP "
     "VMME's 2025 balance closes (Yacyreta ceded to Argentina 4.97 TWh here vs BEN 4.97 TWh = 5.08 to Argentina less "
     "ANDE's 0.11 TWh own sales); counted as extra SADI supply it would put Yacyreta at ~22 TWh and Paraguay's use "
-    "3 TWh above its demand. ARGENTINA_POWER_DAILY.py books YACYHIPY as Argentine hydro, so from Dec-2024 Argentina's "
-    "series also holds that part of Paraguay's take. Paraguay's own 50% share (sheet Daily) overlaps both; the "
-    "'Not counted by ONS-CAMMESA' sheet is ANDE's Itaipu take + SINP - YACYHIPY - ANDE's market sales CAMMESA books "
-    "(INTERCAMBIO='N' ANDE nodes).",
+    "3 TWh above its demand. ARGENTINA_POWER_DAILY.py keeps YACYHIPY out of Argentine hydro (own column), so the "
+    "SINP is counted here only. Paraguay's own 50% share (sheet Daily) overlaps both ONS and CAMMESA; the "
+    "'Not counted by ONS-CAMMESA' sheet is ANDE's Itaipu take + SINP - ANDE's market sales CAMMESA books as "
+    "Argentine generation (INTERCAMBIO='N' ANDE nodes).",
     "",
     "ESTIMATES",
     "EBY published SADI/SINP monthly only to Nov-2023 (and not every month); CAMMESA's YACYHIPY gives the SINP from "

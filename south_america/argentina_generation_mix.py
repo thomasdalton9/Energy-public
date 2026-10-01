@@ -151,6 +151,16 @@ def _sum_hours(totals, key, hour_values):
             continue
 
 
+# Yacyreta's YACYHIPY group (listed from Dec-2024) is Paraguay's own take from the plant (the SINP): VMME's 2025
+# energy balance closes only with it counted as Paraguay's. Its MWh go to this code, which is not in
+# TYPE_TO_CATEGORY, so they stay out of Argentina's categories (to_categories lists it as left out).
+PARAGUAY_YACYHIPY = "PARAGUAY_YACYHIPY"
+
+
+def is_yacyhipy(row):
+    return any(str(c).strip().strip('"').upper().startswith("YACYHIPY") for c in row[:4])
+
+
 def parse_generators_csv(zip_bytes):
     """Sum unit-level hourly generation (MWh) by generator type code -
     kept per code (not per category) so a change to TYPE_TO_CATEGORY
@@ -172,6 +182,8 @@ def parse_generators_csv(zip_bytes):
             type_code = row[3].strip().strip('"')
             if not type_code:
                 continue
+            if is_yacyhipy(row):   # Paraguay's own Yacyreta take, not Argentine generation (kept apart)
+                type_code = PARAGUAY_YACYHIPY
             _sum_hours(totals, type_code, row[4:28])
     return totals
 
@@ -197,6 +209,8 @@ def parse_generators_by_region(zip_bytes):
             type_code = row[3].strip().strip('"')
             if not region or not type_code:
                 continue
+            if is_yacyhipy(row):
+                type_code = PARAGUAY_YACYHIPY
             _sum_hours(totals, f"{region}|{type_code}", row[4:28])
     return totals
 
