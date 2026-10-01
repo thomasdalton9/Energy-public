@@ -41,8 +41,8 @@ COVERAGE = {
     "Peru": ("green", "Gas demand by sector, production by lot, LNG exports; power COES"),
     "Ecuador": ("green", "Gas by use + LNG imports, Amistad production; power (Ember, CENACE daily from Sep-26)"),
     "Uruguay": ("green", "Gas demand by sector (no domestic production); power ADME"),
+    "Bolivia": ("green", "Gas demand by sector, production by department, exports to Brazil/Argentina (INE); power CNDC"),
     "Trinidad and Tobago": ("green", "Gas use by sector (incl. power generation) + production by company; power is ~100% gas-fired"),
-    "Bolivia": ("blue", "Gas demand by sector; power CNDC; no production series"),
     "Chile": ("blue", "Power CNE; gas imports only (no demand split)"),
     "Guatemala": ("blue", "Power AMM"),
     "Honduras": ("blue", "Power ODS (daily from Jun-26, monthly history)"),
@@ -57,7 +57,7 @@ COVERAGE = {
 # Gas-producing countries: True = we pull domestic production, False = produces gas but no data here
 GAS_PRODUCERS = {
     "Argentina": True, "Brazil": True, "Colombia": True, "Peru": True, "Ecuador": True, "Trinidad and Tobago": True,
-    "Bolivia": False, "Venezuela": False, "Chile": False, "Guyana": False, "Cuba": False,
+    "Bolivia": True, "Venezuela": False, "Chile": False, "Guyana": False, "Cuba": False,
 }
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
 # Countries with reservoir / lake-level (hydro) data

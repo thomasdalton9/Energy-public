@@ -190,8 +190,24 @@ def brazil(p):
 def bolivia(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     c = [x for x in d.columns if x.endswith("_mcm_per_day") and not x.startswith("Total")]
-    return [spec("Demand", d[c].rename(columns=lambda x: x.replace("_mcm_per_day", "").replace("_", " ")),
-                 "Bolivia gas demand by sector", "million m3/day", "stacked_bar")]
+    specs = [spec("Demand", d[c].rename(columns=lambda x: x.replace("_mcm_per_day", "").replace("_", " ")),
+                  "Bolivia gas demand by sector", "million m3/day", "stacked_bar")]
+    try:
+        pe = by_date(read(p, "Production and exports"), "Month")
+    except ValueError:   # older workbook without the production / exports sheet
+        return specs
+    names = {"Exports_Brazil_mcm_per_day": "Exports to Brazil", "Exports_Argentina_mcm_per_day": "Exports to Argentina",
+             "Exports_other_mcm_per_day": "Exports, other", "Domestic_market_mcm_per_day": "Domestic market",
+             "Production_mcm_per_day": "Production"}
+    bal = pe[cols(pe, *names)].rename(columns=names)
+    # months where production and every use are published (INE's production / domestic tables lag the customs data)
+    bal = bal[bal.notna().all(axis=1)]
+    specs.append(spec("Production", bal, "Bolivia gas production vs exports + domestic demand", "million m3/day",
+                      "stacked_bar", line_cols=("Production",)))
+    exp = pe[cols(pe, "Exports_Brazil_mcm_per_day", "Exports_Argentina_mcm_per_day", "Exports_other_mcm_per_day")]
+    specs.append(spec("Exports", exp.rename(columns=names).dropna(how="all"),
+                      "Bolivia gas exports by destination (INE customs)", "million m3/day", "stacked_bar"))
+    return specs
 
 
 def peru(p):

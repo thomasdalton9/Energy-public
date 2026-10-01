@@ -1,6 +1,7 @@
 name: Bolivia gas
 
-# INE monthly gas sales by sector (domestic market), published with a lag.
+# INE monthly gas sales by sector (domestic market), production by department and exports by destination
+# (customs micro-data), published with a lag.
 on:
   schedule:
     - cron: "5 12 * * 2"
@@ -12,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,7 +24,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/BOLIVIA_GAS.py --out "output/Data and Chart Outputs/bolivia_gas_demand_by_sector.xlsx"
+        run: timeout 900 python3 south_america/BOLIVIA_GAS.py --out "output/Data and Chart Outputs/bolivia_gas_demand_by_sector.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
