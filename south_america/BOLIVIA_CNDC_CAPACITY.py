@@ -112,7 +112,9 @@ def split_thermal(annual, detail, diesel):
     """Gas = thermal - diesel plants' capacity; Oil = diesel plants (matched by name to the plant detail)."""
     oil, matched = {}, {}
     for year in annual.index:
-        names = diesel.get(year) or diesel.get(max([y for y in diesel if y <= year], default=None)) or set()
+        # CNDC publishes the diesel workbook for recent years only; earlier years use the nearest year's list.
+        near = min(diesel, key=lambda y: (abs(y - year), -y)) if diesel else None
+        names = diesel.get(year) or diesel.get(near) or set()
         th = detail[(detail["year"] == year) & (detail["technology"] == "Thermal")]
         hit = th[th["plant"].map(lambda p: any(key(p) == n or key(p).startswith(n + " ") or n.startswith(key(p))
                                                for n in names))]
@@ -185,7 +187,11 @@ def main():
         "MAPPING",
         "Hydro_MW = Hidroelectrica; Wind_MW = Eolica; Solar_MW = Solar; Bioenergy_MW = Biomasa (sugar-mill bagasse "
         "plants).",
-        f"Oil_MW = thermal plants that appear in CNDC's diesel-consumption statistics for that year ({', '.join(oil_names) or 'none'}).",
+        f"Oil_MW = thermal plants listed in CNDC's 'Consumo de Diesel' statistics ({', '.join(oil_names) or 'none'}). "
+        f"CNDC publishes those workbooks for {', '.join(str(y) for y in sorted(diesel)) or 'no years'} only; other "
+        "years use the nearest year's list. Small Beni thermal plants listed by CNDC in 2021-2022 (Rurrenabaque, "
+        "San Borja, Santa Ana de Yacuma, San Ignacio de Moxos, Yucumo; about 6 MW) are not in those workbooks, so "
+        "they stay in Gas_MW.",
         "Gas_MW = Termoelectrica minus Oil_MW (natural-gas turbines and combined cycles).",
         "No coal, nuclear or geothermal; Other_MW = 0.",
         "",
