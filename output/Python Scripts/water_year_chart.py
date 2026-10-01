@@ -88,7 +88,13 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
                 y_decimals=None):
     """AGSI-style chart over a table written by write_table on ws (the chart can be placed on any sheet)."""
     n = len(table) + 1
-    cats = Reference(ws, min_col=1, min_row=2, max_row=n)
+    # Axis labels only on the 1st of each month (a category axis can only skip evenly, so label the other
+    # days blank and show every label): written next to the table, column H.
+    label_col = table.shape[1] + 1
+    ws.cell(row=1, column=label_col, value="Axis label")
+    for i, day in enumerate(table["Day"], start=2):
+        ws.cell(row=i, column=label_col, value=day if str(day).startswith("01-") else None)
+    cats = Reference(ws, min_col=label_col, min_row=2, max_row=n)
     # Band: stacked area of (min, max-min) with the min part invisible.
     area = AreaChart()
     area.grouping = "stacked"
@@ -113,8 +119,8 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     else:
         area.title = f"{title} - water year (Oct-Sep), data to {meta['last']}"
     area.y_axis.title = unit
-    area.x_axis.tickLblSkip = 30
-    area.x_axis.tickMarkSkip = 30
+    area.x_axis.tickLblSkip = 1
+    area.x_axis.tickMarkSkip = 1
     area.x_axis.tickLblPos = "low"   # dates below the plot, not on the zero line
     area.x_axis.delete = False
     area.y_axis.delete = False
