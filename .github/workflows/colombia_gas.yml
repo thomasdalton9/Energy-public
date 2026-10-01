@@ -1,0 +1,52 @@
+name: Colombia gas
+
+# Gestor del Mercado de Gas monthly reports (one PDF per month, published
+# a few weeks after month end). The archive keeps parsed months, so a
+# weekly run only downloads the newest few reports.
+on:
+  schedule:
+    - cron: "30 11 * * 2"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Re-parse every report from 2021"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pandas requests openpyxl pdfplumber playwright
+          playwright install --with-deps chromium
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1500 python3 south_america/COLOMBIA_GAS.py --out output/colombia_gas_demand_by_sector.xlsx ${{ inputs.full && '--full' || '' }}
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f output/colombia_gas_demand_by_sector.xlsx ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f output/colombia_gas_demand_by_sector.xlsx
+          git diff --cached --quiet || git commit -m "Colombia gas: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
