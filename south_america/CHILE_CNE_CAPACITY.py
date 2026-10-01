@@ -113,7 +113,13 @@ def main():
 
     url, modified = latest_upload()
     print(f"Newest CNE capacity upload: {url} (modified {modified})", flush=True)
-    base, snap_month = parse(cne.download(url))
+    allrows, snap_month = parse(cne.download(url))
+    # plants still in test operation ('En Pruebas') are listed but not counted, matching CNE's own SEN total
+    in_op = allrows["estado"].astype(str).str.strip().str.lower().str.startswith("en operaci")
+    base = allrows[in_op].copy()
+    if (~in_op).any():
+        print(f"  not counted (estado != En Operacion): {allrows.loc[~in_op, 'MW'].sum():,.1f} MW in "
+              f"{(~in_op).sum()} rows", flush=True)
     other = sorted(base.loc[~base["tipo_de_energia"].isin(MAPPING), "tipo_de_energia"].unique())
     if other:
         print(f"  unmapped technologies counted as Other: {other}", flush=True)
@@ -159,7 +165,7 @@ def main():
     by_system = base.pivot_table(index="tipo_de_energia", columns="sistema", values="MW", aggfunc="sum",
                                  fill_value=0.0).round(2)
     by_system["fuel"] = by_system.index.map(lambda t: MAPPING.get(t, "Other"))
-    plants = base[["sistema", "subsistema", "central", "estado", "start", "tipo_de_energia", "fuel", "MW",
+    plants = allrows[["sistema", "subsistema", "central", "estado", "start", "tipo_de_energia", "fuel", "MW",
                    "medio_generacion", "region_nombre"]].rename(columns={"MW": "potencia_neta_MW"}) \
         .sort_values(["fuel", "potencia_neta_MW"], ascending=[True, False]).set_index("central")
     check = std.ember_check("Chile", monthly)
@@ -174,7 +180,8 @@ def main():
         "COVERAGE",
         f"Monthly, {monthly.index.min():%b %Y} to {monthly.index.max():%b %Y}: the national grid (SEN) plus the "
         "medium-size systems of Los Lagos, Aysen, Magallanes and Easter Island, including small distributed "
-        "generators (PMGD). The latest month is the CNE upload's report month (the September upload holds August).",
+        "generators (PMGD); plants still in test operation (En Pruebas) are not counted. The latest month is the "
+        "CNE upload's report month (the September upload holds August).",
         "RETIREMENTS: CNE keeps only the current snapshot on cne.cl and it has no retirement dates, so months filled "
         "in on the first run (Jan 2021 to Aug 2026) count only plants still in service in Aug 2026, each from the month "
         "it entered service. Capacity retired in between (mainly coal units closed in 2021-2025, plus some diesel) is "
