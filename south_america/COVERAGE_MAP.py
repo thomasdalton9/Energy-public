@@ -8,6 +8,8 @@ repo pulls:
           country produces no gas)
   blue  - power generation by type, or a gas demand split, but not the full set
   grey  - no data pulled
+Dots mark gas-producing countries: dark blue if we pull domestic production,
+red if the country produces gas but we have no production data.
 
 The classification below is maintained by hand: update COVERAGE when a pull
 is added. Country shapes are Natural Earth 1:110m (bundled with geopandas
@@ -24,6 +26,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,6 +54,15 @@ COVERAGE = {
     "Dominican Rep.": ("blue", "Power OC-SENI; gas for power (SIE)"),
     "Jamaica": ("blue", "Power + gas, annual only"),
 }
+# Gas-producing countries: True = we pull domestic production, False = produces gas but no data here
+GAS_PRODUCERS = {
+    "Argentina": True, "Brazil": True, "Colombia": True, "Peru": True, "Ecuador": True, "Trinidad and Tobago": True,
+    "Bolivia": False, "Venezuela": False, "Chile": False, "Guyana": False, "Cuba": False,
+}
+DOT_HAVE, DOT_MISSING = "#0B3A66", "#E34948"
+# Where a dot would sit on a label or off a tiny island, place it here instead (lon, lat)
+DOT_AT = {"Chile": (-73.8, -46.5), "Trinidad and Tobago": (-61.2, 10.5), "Ecuador": (-78.3, -1.5),
+          "Guyana": (-58.8, 5.5), "Cuba": (-79.5, 22.0)}
 OUT_OF_SCOPE = {"Mexico", "United States of America", "Canada", "Greenland"}
 # Small countries get their label beside them, with a leader line: name -> (label lon, label lat)
 CALLOUTS = {
@@ -102,13 +114,26 @@ def main():
         else:
             ax.text(p.x, p.y, text, fontsize=8.5, color="white" if name in COVERAGE else "#333333",
                     ha="center", va="center", fontweight="bold")
+        if name in GAS_PRODUCERS:
+            if name in DOT_AT:
+                dx, dy = DOT_AT[name]
+            elif name in CALLOUTS:
+                dx, dy = p.x, p.y
+            else:   # just below the in-country label
+                dx, dy = p.x, p.y - 1.8
+            ax.plot(dx, dy, "o", markersize=8, color=DOT_HAVE if GAS_PRODUCERS[name] else DOT_MISSING,
+                    markeredgecolor="white", markeredgewidth=1.2, zorder=5)
     ax.text(-104, 24, "Mexico\n(not in scope)", fontsize=7.5, color="#999999", ha="center")
     ax.text(-53.5, 3.4, "Fr. Guiana", fontsize=6.5, color="#333333", ha="center")
 
     handles = [Patch(facecolor=GREEN, label="Good coverage: gas demand by sector,\ngas production/supply and\n"
                                             "power generation by type"),
                Patch(facecolor=BLUE, label="Partial: power generation by type,\nor a gas demand split"),
-               Patch(facecolor=GREY, label="No data")]
+               Patch(facecolor=GREY, label="No data"),
+               Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_HAVE, markeredgecolor="white",
+                      label="Gas producer: domestic production data"),
+               Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_MISSING, markeredgecolor="white",
+                      label="Gas producer: no production data")]
     ax.legend(handles=handles, loc="lower left", frameon=False, fontsize=9, bbox_to_anchor=(0.0, 0.06),
               labelspacing=1.0)
     ax.set_title("South and Central America: Gas and Power Data Coverage", fontsize=14,

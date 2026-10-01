@@ -9,5 +9,6 @@ Scheduled pulls of gas and power data, run in GitHub Actions. Workbooks (with na
 ![South & Central America data coverage](output/PNG%20Charts/south_central_america_coverage_map.png)
 
 Green: gas demand by sector, gas production/supply and power generation by type. Blue: power by type or a gas
-demand split only. Grey: no data. All of it feeds `south_and_central_america_master.xlsx`; the map is redrawn by
+demand split only. Grey: no data. Dark blue dots: gas producers with production data; red dots: gas producers
+without. All of it feeds `south_and_central_america_master.xlsx`; the map is redrawn by
 `south_america/COVERAGE_MAP.py`.
