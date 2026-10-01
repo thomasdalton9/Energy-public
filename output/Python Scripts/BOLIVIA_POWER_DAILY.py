@@ -91,7 +91,10 @@ NOTES = [
     "generation per plant) via https://www.cndc.bo/wp-json/cndc/v1/estadisticas/documentos (categoria 225). "
     "Each month appears after it closes, so for the latest weeks the sheet uses CNDC's real-time generation "
     "by technology (https://www.cndc.bo/wp-json/cndc/v1/rt/generacion?fecha=, available from Jan-2025), "
-    "replaced by the monthly figures once published. Sheet 'Source' says which one each day uses; 'By plant' "
+    "replaced by the monthly figures once published. Each monthly workbook is checked against CNDC's own "
+    "monthly totals (wp-json/cndc/v1/historico/generacion/detalle); one more than 5% off (Jan-2026, whose columns "
+    "are shifted) is not used and those days come from the real-time series instead. Sheet 'Source' says which "
+    "one each day uses; 'By plant' "
     "has the monthly workbooks' plant columns (CNDC's own TOTAL / P. MAXIMA columns, where a workbook has them, "
     "are kept there as a check and not counted).",
     "History from 2021-01-01. Updated daily by GitHub Actions (bolivia_power_generation_daily.yml): "
@@ -144,6 +147,26 @@ def plants_to_fuels(by_plant):
         if cols:
             fuels[fuel] = by_plant[cols].apply(pd.to_numeric, errors="coerce").sum(axis=1, min_count=1)
     return std.standardise(fuels)
+
+
+def api_monthly_totals(s, years):
+    """{Period('YYYY-MM'): MWh} - CNDC's own monthly generation by technology (historico/generacion/detalle),
+    summed, to check each monthly workbook was parsed into the right plant columns."""
+    out = {}
+    for year in years:
+        try:
+            r = s.get(API + "historico/generacion/detalle", params={"anio": year}, timeout=B.TIMEOUT)
+            r.raise_for_status()
+            js = r.json()
+        except (requests.RequestException, ValueError) as e:
+            print(f"  historico/generacion/detalle {year}: FAILED ({type(e).__name__})", flush=True)
+            continue
+        for k, month in enumerate(js.get("mes_nums", [])):
+            vals = [ser["data"][k] for ser in js.get("series", []) if k < len(ser.get("data") or [])]
+            vals = [v for v in vals if v is not None]
+            if vals and sum(vals) > 0:
+                out[pd.Period(f"{year}-{month:02d}", "M")] = sum(vals)
+    return out
 
 
 def rt_day(s, day):
@@ -202,6 +225,18 @@ def main():
     by_plant = by_plant[by_plant.index >= pd.Timestamp(args.start)]
     monthly_daily = plants_to_fuels(by_plant) if not by_plant.empty else pd.DataFrame()
     good = monthly_daily[monthly_daily["Total_MWh"] >= MIN_DAY_MWH] if not monthly_daily.empty else monthly_daily
+    # a workbook whose month total is off CNDC's own monthly figure by >5% was mis-parsed (e.g. Jan-2026,
+    # whose columns are shifted) - its days are left to the real-time series, or left blank before 2025
+    if not good.empty:
+        api = api_monthly_totals(s, range(args.start.year, yesterday.year + 1))
+        ours = good["Total_MWh"].groupby(good.index.to_period("M")).sum()
+        bad = [p for p, v in ours.items() if p in api and abs(v / api[p] - 1) > 0.05]
+        for p in bad:
+            print(f"  WARNING: gen_dia {p} sums to {ours[p]:,.0f} MWh vs CNDC's monthly {api[p]:,.0f} - not used",
+                  flush=True)
+        good = good[~good.index.to_period("M").isin(bad)]
+        print(f"  monthly check: {len(ours) - len(bad)} of {len(ours)} months within 5% of CNDC's monthly totals",
+              flush=True)
 
     # 2. real-time series for the days the monthly workbooks don't cover (yet)
     if not args.no_rt:
