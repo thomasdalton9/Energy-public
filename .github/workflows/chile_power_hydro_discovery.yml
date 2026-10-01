@@ -1,0 +1,27 @@
+name: Chile power + hydro discovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "discovery script under discovery_archive/south_america/"
+        default: "CHILE_POWER_HYDRO_DISCOVERY.py"
+      args:
+        description: "arguments"
+        default: "all"
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl xlrd pdfplumber
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1700 python3 "discovery_archive/south_america/${{ github.event.inputs.script }}" ${{ github.event.inputs.args }}
