@@ -1,0 +1,49 @@
+name: Power capacity test
+
+# Manual-only: test run of one capacity pull, written to /tmp (nothing committed). Prints every sheet's head/tail.
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "script under south_america/"
+        required: true
+        default: "BRAZIL_ANEEL_CAPACITY_MONTHLY.py"
+      args:
+        description: "extra arguments"
+        required: false
+        default: ""
+      name:
+        description: "output workbook name"
+        required: true
+        default: "brazil_power_capacity.xlsx"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl certifi pyarrow
+      - name: Test
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          mkdir -p /tmp/out
+          timeout 1500 python3 "south_america/${{ inputs.script }}" --out "/tmp/out/${{ inputs.name }}" ${{ inputs.args }}
+          python3 add_charts.py "/tmp/out/${{ inputs.name }}"
+          python3 - <<'EOF'
+          import pandas as pd
+          pd.set_option("display.width", 250); pd.set_option("display.max_columns", 30); pd.set_option("display.max_rows", 200)
+          x = pd.ExcelFile("/tmp/out/${{ inputs.name }}")
+          print(x.sheet_names)
+          for s in x.sheet_names:
+              if s == "Units" or s.startswith("Chart"):
+                  continue
+              d = x.parse(s)
+              print(f"=== {s} {d.shape}")
+              print(d.head(6).to_string()); print("..."); print(d.tail(14).to_string())
+          EOF
