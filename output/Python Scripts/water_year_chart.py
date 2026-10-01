@@ -15,6 +15,8 @@ where `series` is a pandas Series of daily values indexed by date.
 import os
 
 import pandas as pd
+
+import xlsx_charts
 from openpyxl import load_workbook
 from openpyxl.chart import AreaChart, LineChart, Reference
 from openpyxl.chart.series import SeriesLabel
@@ -81,7 +83,7 @@ def write_table(ws, table):
         ws.column_dimensions[col].width = 14
 
 
-def build_chart(ws, table, meta, title, unit, width=26, height=12):
+def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=True, inner=None, short_title=False):
     """AGSI-style chart over a table written by write_table on ws (the chart can be placed on any sheet)."""
     n = len(table) + 1
     cats = Reference(ws, min_col=1, min_row=2, max_row=n)
@@ -104,27 +106,36 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12):
     _line(prev, PREV_LINE, 19050)
     _line(curr, CURR_LINE, 38100)
 
-    area.title = f"{title} - water year (Oct-Sep), data to {meta['last']}"
+    if short_title:   # dashboards: keep the title to one line so it never runs into the plot
+        area.title = f"{title} (to {pd.Timestamp(meta['last']):%d/%m/%y})"
+    else:
+        area.title = f"{title} - water year (Oct-Sep), data to {meta['last']}"
     area.y_axis.title = unit
     area.x_axis.tickLblSkip = 30
     area.x_axis.tickMarkSkip = 30
     area.x_axis.tickLblPos = "low"   # dates below the plot, not on the zero line
     area.x_axis.delete = False
     area.y_axis.delete = False
-    vals = pd.concat([table["5Y min"], table["5Y max"], table.iloc[:, 5], table.iloc[:, 6]]).dropna()
-    span = float(vals.max() - vals.min()) or 1.0
-    area.y_axis.scaling.min = float(vals.min() - 0.05 * span)
-    area.y_axis.scaling.max = float(vals.max() + 0.05 * span)
+    if "%" in str(unit):   # percent full: fixed 0-100 scale, gridline/label every 20%
+        area.y_axis.scaling.min, area.y_axis.scaling.max, area.y_axis.majorUnit = 0.0, 100.0, 20.0
+    else:
+        vals = pd.concat([table["5Y min"], table["5Y max"], table.iloc[:, 5], table.iloc[:, 6]]).dropna()
+        span = float(vals.max() - vals.min()) or 1.0
+        area.y_axis.scaling.min = float(vals.min() - 0.05 * span)
+        area.y_axis.scaling.max = float(vals.max() + 0.05 * span)
     lines.y_axis.scaling.min = area.y_axis.scaling.min
     lines.y_axis.scaling.max = area.y_axis.scaling.max
+    lines.y_axis.majorUnit = area.y_axis.majorUnit
     lines.y_axis.delete = True   # one visible y axis (shared id); the area chart draws it
     area.legend.position = "b"
     # no borders: chart frame and plot area
     area.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
     area.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
     area.height, area.width = height, width
+    if not gridlines:
+        lines.y_axis.majorGridlines = None
     area += lines
-    return area
+    return xlsx_charts.tidy_layout(area, gridlines, inner)
 
 def add_water_year_chart(path, series, title, unit, sheet_name=SHEET):
     """sheet_name: pass a different name to put several water-year charts in one workbook."""

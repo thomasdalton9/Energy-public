@@ -208,7 +208,20 @@ def colombia(p):
                       "Residential & commercial": z("Residential", "Commercial"),
                       "Refinery & petrochemical": z("Refinery", "Petrochemical"),
                       "Vehicle CNG & compressors": z("Vehicle_CNG", "Compressors")})
-    return [spec("Demand", g, "Colombia gas demand by sector", "GBTUD", "stacked_bar")]
+    out = [spec("Demand", g, "Colombia gas demand by sector", "GBTUD", "stacked_bar")]
+    if "Supply by source" in pd.ExcelFile(p).sheet_names:
+        s = by_date(read(p, "Supply by source"), "Month")
+        sup = pd.DataFrame({"Cusiana/Cupiagua (Piedemonte)": s["Piedemonte_Cusiana_Cupiagua"],
+                            "Guajira (Chuchupa/Ballena)": s["Guajira_Chuchupa_Ballena"],
+                            "Canacol (VIM-5, VIM-21, Esperanza)": s["Canacol_VIM5_VIM21_Esperanza"],
+                            "Other domestic fields": s["Other_fields"],
+                            "LNG imports (SPEC Cartagena)": s["LNG_imports_SPEC"]})
+        if s["Venezuela_imports"].notna().any():
+            sup["Imports from Venezuela"] = s["Venezuela_imports"]
+        sup["Total demand"] = d["Reported_total"].reindex(sup.index)
+        out.append(spec("Supply", sup, "Colombia gas supply by source vs demand", "GBTUD", "stacked_bar",
+                        line_cols=("Total demand",)))
+    return out
 
 
 def panama_gas(p):
@@ -489,6 +502,20 @@ def argentina_hydro(p):
             for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
+def chile_hydro(p):
+    """DGA reservoir volumes: daily from mid-2024, month-end points before that (joined up for the chart).
+    The six-reservoir total as % of capacity first, then the big generation reservoirs in Mm3."""
+    d = by_date(read(p, "Daily"), "date")
+    charts = [("Total_pct", "Total", "Chile hydro reservoirs, total of 6 generation reservoirs (DGA)", "% full"),
+              ("Colbun_Mm3", "Colbun", "Chile, Colbún reservoir volume (DGA)", "million m3"),
+              ("LagoLaja_Mm3", "LagoLaja", "Chile, Lago Laja volume (DGA)", "million m3"),
+              ("Ralco_Mm3", "Ralco", "Chile, Ralco reservoir volume (DGA)", "million m3"),
+              ("LagunaMaule_Mm3", "LagunaMaule", "Chile, Laguna del Maule volume (DGA)", "million m3"),
+              ("Rapel_Mm3", "Rapel", "Chile, Rapel reservoir volume (DGA)", "million m3")]
+    return [{"name": n, "water_year": _join_short_gaps(d[c], max_gap=35), "title": t, "units": u,
+             "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -524,6 +551,7 @@ REGISTRY = {
     "bolivia_power_generation_daily.xlsx": power_daily("Bolivia power generation by type (CNDC)"),
     "ecuador_power_generation_daily.xlsx": power_daily("Ecuador power generation by type (CENACE)"),
     "peru_power_generation_daily.xlsx": power_daily("Peru power generation by type (COES)"),
+    "chile_power_generation_daily.xlsx": power_daily("Chile power generation by type (CEN)"),
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
     "honduras_power_generation_daily.xlsx": power_daily("Honduras power generation by type (ODS)"),
@@ -554,6 +582,7 @@ REGISTRY = {
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
+    "chile_hydro_reservoirs.xlsx": chile_hydro,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,

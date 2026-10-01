@@ -39,6 +39,35 @@ def _fold_to_palette(df):
     return out
 
 
+def tidy_layout(chart, gridlines=True, inner=None):
+    """Excel-safe layout: title, legend and axis titles never overlay the plot (openpyxl leaves <c:overlay>
+    unset, which newer Excel draws on top of the plot), the category axis sits at the bottom, optional
+    removal of horizontal gridlines, and an optional manual inner plot area (x, y, w, h as fractions of
+    the chart) so tick labels and axis titles get fixed room around the plot."""
+    from openpyxl.chart.layout import Layout, ManualLayout
+    if chart.title is not None:
+        chart.title.overlay = False
+    if chart.legend is not None:
+        chart.legend.overlay = False
+    chart.x_axis.axPos = "b"
+    for ax in (chart.x_axis, chart.y_axis):
+        if getattr(ax, "title", None) is not None:
+            ax.title.overlay = False
+    if not gridlines:
+        chart.y_axis.majorGridlines = None
+        chart.x_axis.majorGridlines = None
+    if inner:
+        x, y, w, h = inner
+        chart.layout = Layout(manualLayout=ManualLayout(layoutTarget="inner", xMode="edge", yMode="edge",
+                                                                  x=x, y=y, w=w, h=h))
+    return chart
+
+
+# Plot-area box used on the master dashboards: room for a one-line title, y-axis labels and title on the
+# left, rotated mmm/yy labels and a two-line legend underneath.
+DASHBOARD_INNER = (0.10, 0.13, 0.87, 0.55)
+
+
 def prepare(df, line_cols=()):
     """Clean a wide frame for charting; returns (frame, number of bar/area series before overlay lines)."""
     df = df.copy()
@@ -68,7 +97,7 @@ def write_table(ws, df, date_format="%Y-%m", start_row=1, start_col=1):
 
 
 def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m", start_row=1, start_col=1,
-                width=28, height=13):
+                width=28, height=13, gridlines=True, inner=None):
     """Native chart over a table written by write_table on sheet ws (the chart can be placed on any sheet)."""
     n = start_row + len(df)
     excel_fmt = "yyyy" if date_format == "%Y" else "mmm/yy"
@@ -124,9 +153,11 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
             s.smooth = False
             s.marker.symbol = "none"
         over.y_axis.delete = True   # shares the bar chart's axis
+        if not gridlines:
+            over.y_axis.majorGridlines = None
         chart += over
     chart.width, chart.height = width, height
-    return chart
+    return tidy_layout(chart, gridlines, inner)
 
 
 def save_atomic(wb, path):
