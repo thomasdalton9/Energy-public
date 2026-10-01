@@ -63,6 +63,10 @@ def post(url, body, tries=4):
             time.sleep(10 * (attempt + 1))
 
 
+# Combined-cycle gas plants XM lists under ACPM (diesel back-up fuel): counted as Gas (owner's decision)
+GAS_CC_CODES = {"TSR1": "TERMOSIERRA CC", "TVL1": "TERMOVALLE CC", "TEC1": "TERMOEMCALI CC"}
+
+
 def plant_list():
     payload = post(LISTS_URL, {"MetricId": "ListadoRecursos", "Entity": "Sistema"})
     rows = [e.get("Values", {}) for it in payload.get("Items", []) for e in it.get("ListEntities", [])]
@@ -148,6 +152,9 @@ def main():
     by_plant.index.name = "date"
 
     fuel_of = {c: FUEL_MAP.get(plants["EnerSource"].get(c, ""), "Other") for c in by_plant.columns}
+    for c in by_plant.columns:   # combined cycles XM lists under ACPM (diesel) that run on natural gas
+        if c in GAS_CC_CODES:
+            fuel_of[c] = "Gas"
     unmapped = sorted({plants["EnerSource"].get(c, "(not in XM plant list)") for c in by_plant.columns
                        if fuel_of[c] == "Other"})
     if unmapped:
@@ -215,8 +222,9 @@ def main():
         "Solar_MW = RAD SOLAR. Bioenergy_MW = BAGAZO, BIOGAS, BIOMASA. Nuclear_MW = 0.",
         "Other_MW = plants whose code is missing from XM's plant list (unclassified); Colombia reports no geothermal "
         "or storage capacity in this metric. Total_MW = sum of the fuel columns.",
-        "Dual-fuel thermal plants are counted under the fuel XM lists for them: XM lists the TermoSierra, TermoValle and "
-        "TermoEmcali combined cycles (~0.9 GW, able to burn natural gas) under ACPM, so they are in Oil_MW.",
+        "Dual-fuel thermal plants are counted under the fuel XM lists for them, except the TermoSierra, TermoValle and "
+        "TermoEmcali combined cycles (TSR1/TVL1/TEC1, ~0.9 GW): XM lists them under ACPM (their diesel back-up) but they "
+        "are gas-fired combined cycles, so they are in Gas_MW.",
         "",
         "CARRIED FORWARD",
         "From 2 Mar 2025 XM no longer reports CapEfecNeta for plants in test operation (State 'PRUEBAS'); about 50 "
