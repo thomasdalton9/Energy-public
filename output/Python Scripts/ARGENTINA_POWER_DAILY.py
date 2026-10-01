@@ -253,13 +253,20 @@ def add_codes(codes, found):
     return codes
 
 
-def fetch_one(s, day, hit):
+def fetch_one(s, day, hit, tries=3):
+    """Download and parse one day; a failed or truncated download (bad zip / zlib error) is retried."""
     doc, att = hit
-    r = s.get(A.ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"],
-                                        "nemo": doc.get("nemo") or NEMO}, timeout=180)
-    r.raise_for_status()
-    out, codes = parse_day(r.content)
-    return out, codes, len(r.content)
+    for attempt in range(tries):
+        try:
+            r = s.get(A.ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"],
+                                                "nemo": doc.get("nemo") or NEMO}, timeout=180)
+            r.raise_for_status()
+            out, codes = parse_day(r.content)
+            return out, codes, len(r.content)
+        except Exception:  # noqa: BLE001 - network, HTTP, zip/zlib and mdb errors alike
+            if attempt == tries - 1:
+                raise
+            time.sleep(5 * (attempt + 1))
 
 
 def main():
@@ -309,9 +316,8 @@ def main():
                     codes = add_codes(codes, found)
                     tot = sum(v for k, v in out.items() if not k.startswith("IMPORT"))
                     print(f"  {day}: {tot:,.0f} MWh ({size / 1e6:.1f} MB, {time.time() - t0:.0f}s)", flush=True)
-                except (requests.RequestException, zipfile.BadZipFile, StopIteration, RuntimeError, ValueError,
-                        subprocess.SubprocessError) as e:
-                    print(f"  {day}: FAILED ({type(e).__name__}: {e})", flush=True)
+                except Exception as e:  # noqa: BLE001 - one bad day must not stop the backfill
+                    print(f"  {day}: FAILED ({type(e).__name__}: {str(e)[:200]}) - retried next run", flush=True)
             done += len(batch)
             if rows:
                 raw = std.merge(pd.DataFrame.from_dict(rows, orient="index"), raw)
