@@ -43,6 +43,7 @@ import re
 import sys
 import time
 import unicodedata
+import warnings
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
 
@@ -52,6 +53,8 @@ import requests
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import power_daily_std as std  # noqa: E402
+
+warnings.filterwarnings("ignore", message="Print area cannot be set")
 
 OUT = "output/Data and Chart Outputs/guatemala_power_generation_daily.xlsx"
 GRAFICA = "https://wl12.amm.org.gt/GraficaPW/graficaCombustible"
@@ -74,6 +77,7 @@ GRAFICA_MAP = {
     "BUNKER": "Oil", "DIESEL": "Oil",
     "GAS NATURAL": "Gas",
     "BIOMASA": "Bioenergy", "BIOGAS": "Bioenergy",
+    "BIOMASA/CARBON": "Bioenergy",  # sugar-mill boilers co-firing bagasse and coal (counted as sugar-mill cogeneration)
     "VAPOR": "Other",     # geothermal steam (Orzunil, Ortitlan)
     "SYNGAN": "Other",    # syngas (ESUS)
     "DEM SNI": None, "DEMANDA LOCAL PROG": None, "INTERCONEXION": None, "NULL": None, "NONE": None, "": None,
@@ -113,7 +117,8 @@ NOTES = [
     "Coal_MWh = CARBON + CARBON/PETCOKE (coal and petroleum coke; includes sugar mills burning coal off-season).",
     "Oil_MWh = BUNKER + DIESEL (bunker engines and steam, diesel turbines).",
     "Gas_MWh = GAS NATURAL (Ocultun, Ooxol, Innova engines; Actun Can turbine).",
-    "Bioenergy_MWh = BIOMASA + BIOGAS (sugar-mill bagasse cogeneration, landfill biogas).",
+    "Bioenergy_MWh = BIOMASA + BIOGAS + BIOMASA/CARBON (sugar-mill bagasse cogeneration, incl. mill boilers "
+    "co-firing bagasse with coal, which AMM reports as one fuel; landfill biogas).",
     "Other_MWh = VAPOR (geothermal: Orzunil, Ortitlan - geothermal is reported in Other) + SYNGAN (syngas).",
     "Nuclear_MWh = 0 (none in Guatemala).",
     "Total_MWh = sum of the fuel columns.",
@@ -275,6 +280,8 @@ def main():
     ap.add_argument("--start", type=dt.date.fromisoformat, default=std.HISTORY_START)
     ap.add_argument("--budget-min", type=float, default=45, help="stop fetching after this many minutes")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--refresh-from", type=dt.date.fromisoformat, default=None,
+                    help="also re-fetch every saved day from this date (after a mapping change)")
     args = ap.parse_args()
     t0 = time.time()
     today = dt.date.today()
@@ -288,6 +295,9 @@ def main():
         daily = daily.reindex(columns=COLS + ["Total_MWh"]).fillna(0.0)
     end = today - dt.timedelta(days=1)
     days = std.missing_days(daily, args.start, end, refresh_days=14)
+    if args.refresh_from:
+        days = sorted(set(days) | {args.refresh_from + dt.timedelta(days=i)
+                                   for i in range((end - args.refresh_from).days + 1)})
     new_g = sorted([d for d in days if d >= GRAFICA_START], reverse=True)
     new_p = sorted([d for d in days if d < GRAFICA_START], reverse=True)
     print(f"{0 if daily.empty else daily['Total_MWh'].notna().sum():,} days saved; to fetch: {len(new_g)} from GraficaPW, "
