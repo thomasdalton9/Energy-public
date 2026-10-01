@@ -13,7 +13,28 @@ Bolivia: the CNDC WordPress REST route index, the monthly document list
   (first/last months, document types) and the gen_dia header (plant
   names) for Jan-2021 and the latest month.
 
-Usage: python3 AUB_POWER_DISCOVERY.py [argentina] [uruguay] [bolivia]
+Usage: python3 AUB_POWER_DISCOVERY.py [argentina] [uruguay] [bolivia] [bolivia2] [argentina2] [bolivia3]
+       [argentina3]   (manual workflow: discovery_archive/workflows/aub_power_discovery.yml)
+
+FINDINGS (Oct-2026) -> ARGENTINA_POWER_DAILY.py, URUGUAY_POWER_DAILY.py, BOLIVIA_POWER_DAILY.py
+  Argentina: PARTE_POST_OPERATIVO has one POyymmdd.zip per day from 2021 (2-13 MB: HTML pages + an Access
+    .mdb). Tables VALORES_GENERADORES (GRUPO, HORA 1-24, ENERGIA MWh - actual), GENERADORES (TIPO, SUBTIPO
+    HI/HR/HB/MH/NU/EO/FV/BG/BM/TV/TG/CC/DI, REGION, INTERCAMBIO 'S' = import node), COMBUSTIBLE_PORCENTAJE_DET
+    (fuel % per unit-hour) and COMBUSTIBLES_QUEMADOS_DET_TOTAL (code, sub-fuel, unit: dam3 gas / m3 gasoil /
+    t fuel oil, coal, biomass). Codes: GN GA GQ GR GX GZ GH PI = gas; GO GP GY GC ('GO provisto') GF GG = gasoil;
+    FO FP FX = fuel oil; CM coal; BM BG BC biomass/biogas. CC steam turbines have no fuel rows. Salto Grande:
+    SGDEHIAR (Argentine half); Uruguay's half and Brazil/Uruguay/Paraguay imports are INTERCAMBIO='S'. No
+    negative ENERGIA (pumping is not in the table). One listing call per month covers every day.
+    Programacion Diaria (day-ahead) mdbs before Oct-2024 hold the same table names.
+  Uruguay: gpf.php works for 2021 dates; 'GPF' sheet columns Salto Grande, Bonete, Baygorria, Palmar, Eolica,
+    Solar, Termica, Biomasa, Imp.Arg, Imp.Br.Riv, Imp.Br.Mel, Demanda (hourly MW); per-plant sheets (Termica:
+    CB motores, La Tablada, PTA 7-8, PTB combined cycle, Punta del Tigre). ~19 s per 31-day request.
+  Bolivia: route index lists rt/generacion?fecha= (96 quarter-hour MW per series PREV, TOT, TERMO, HIDRO,
+    SOLAR, EOL, BAGAZO, RENO; from Jan-2025 only), estadisticas/documentos?categoria_id=225&desde=&hasta=
+    (every monthly gen_dia workbook, 2015+), historico/generacion/detalle?anio= (monthly MWh by technology),
+    dashboard/genbruta/detalle?tecnologia= (monthly MWh per plant; bagasse mills sit under 'termo').
+    gen_dia_0126 (Jan-2026) has shifted columns (sums to ~2x); older workbooks keep TOTAL / P. MAXIMA in
+    other positions.
 """
 
 print("STARTING", flush=True)

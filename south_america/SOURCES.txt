@@ -15,6 +15,7 @@ api.cammesa.com
     CAMMESA (Argentina grid operator) API - power generation mix by fuel/technology
     used by: ARGENTINA_CAMMESA_DISCOVERY.py
     used by: argentina_generation_mix.py
+    used by: ARGENTINA_POWER_DAILY.py (PARTE_POST_OPERATIVO daily mdb; --out: argentina_power_generation_daily.xlsx, .github/workflows/argentina_power_generation_daily.yml)
 
 ons-aws-prod-opendata.s3.amazonaws.com
     ONS Brazil open data (AWS S3) - generation by source, hydro by region
@@ -25,6 +26,7 @@ pronos.adme.com.uy
     ADME Uruguay forecast/data portal - generation by source
     used by: URUGUAY_ADME.py
     used by: URUGUAY_ADME_DISCOVERY.py
+    used by: URUGUAY_POWER_DAILY.py (gpf.php via URUGUAY_ADME.py; --out: uruguay_power_generation_daily.xlsx, .github/workflows/uruguay_power_generation_daily.yml)
 
 servapibi.xm.com.co
     XM (Colombia market operator) API - generation by fuel, hydro reservoir storage
@@ -55,6 +57,11 @@ www.cenace.gob.ec
     used by: ECUADOR_CENACE.py
     used by: ECUADOR_CENACE_DISCOVERY.py
     (ECUADOR_POWER_DAILY.py rebuilds ecuador_power_generation_daily.xlsx from ECUADOR_CENACE.py's CSV)
+
+www.cndc.bo
+    CNDC (Bolivia grid operator) WordPress REST API - monthly gen_dia workbooks (daily MWh per plant), rt/generacion by technology
+    used by: BOLIVIA_CNDC.py
+    used by: BOLIVIA_POWER_DAILY.py (--out: bolivia_power_generation_daily.xlsx, .github/workflows/bolivia_power_generation_daily.yml)
 
 www.coes.org.pe
     COES (Peru grid operator) Portal de Informacion - daily generation by fuel/technology (half-hourly SCADA)
