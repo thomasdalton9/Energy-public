@@ -2,9 +2,13 @@ name: Argentina gas
 
 # Monthly Energy Secretariat series, published with a lag of a few
 # months. The API returns the full series from 2021 on every call, so
-# each run just overwrites those tabs. Exports by destination come from
-# ENARGAS's daily export reports: the archived "Exports daily" tab is
-# kept and only the last 45 days are re-read each run. Weekly is plenty
+# each run just overwrites those tabs. Exports and imports come from
+# ENARGAS's daily export/import reports: the archived "Exports daily" and
+# "Imports daily" tabs are kept and only the last 45 days are re-read each
+# run. Net supply: ENARGAS monthly operating data (GRT/GETD/CLP xlsx, small,
+# re-read whole) plus the daily transport report PDFs ("Transport daily"
+# tab: last 45 days re-read, missing days backfilled within a time budget,
+# so the first runs fill 2021 onwards over several runs). Weekly is plenty
 # to catch a new month promptly.
 on:
   schedule:
@@ -17,18 +21,19 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl
+        run: pip install pandas requests openpyxl pdfplumber
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 south_america/ARGENTINA_GAS.py --out "output/Data and Chart Outputs/argentina_gas_monthly.xlsx"
+          PARTES_BUDGET_S: "1200"
+        run: timeout 1800 python3 south_america/ARGENTINA_GAS.py --out "output/Data and Chart Outputs/argentina_gas_monthly.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
