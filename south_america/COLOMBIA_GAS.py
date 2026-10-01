@@ -41,7 +41,7 @@ DATA_START = "2021-01"
 RECHECK_MONTHS = 3
 
 SECTORS = ["Power", "Industrial", "Residential", "Commercial", "Vehicle_CNG", "Refinery",
-           "Petrochemical", "Compressors"]
+           "Petrochemical", "Oil_sector", "Compressors"]
 MESES = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7,
          "agosto": 8, "septiembre": 9, "setiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12}
 
@@ -73,6 +73,8 @@ def sector_of(word, prev):
         return "Refinery"
     if w.startswith("petroquimic"):
         return "Petrochemical"
+    if w.startswith("petroler"):
+        return "Oil_sector"   # "Petrolero", split out of Industrial from the Aug 2025 report on
     if w.startswith("compresor"):
         return "Compressors"
     return None
@@ -373,7 +375,8 @@ def main():
         "",
         "SECTORS",
         "Power (gas-fired thermal plants), Industrial, Residential, Commercial, Vehicle_CNG (GNVC), Refinery, "
-        "Petrochemical, Compressors (gas burned by pipeline compressor stations on the national grid, SNT). "
+        "Petrochemical, Oil_sector ('Petrolero' - oil-industry use, reported separately from Aug 2025; before "
+        "that it was inside Industrial, so add the two for a consistent industrial series), Compressors (gas burned by pipeline compressor stations on the national grid, SNT). "
         "Each is Costa (Caribbean coast) + Interior, as published.",
         "",
         "CHECKS",
