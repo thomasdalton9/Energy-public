@@ -1,11 +1,9 @@
 name: Henry Hub daily
 
-# Once a day at 18:00 UTC (~2pm Eastern) - well after FRED/EIA typically
-# publish the prior business day's Henry Hub spot price (usually posted
-# by midday Eastern). A single request returns FRED's entire history
-# each time (see the script docstring), so this run both keeps the
-# archive current and, on its very first run, seeds the whole history
-# back to 1997.
+# Once a day at 18:00 UTC (~2pm Eastern). Source: EIA only - API v2
+# series RNGWHHD (EIA_API_KEY secret), falling back to EIA's keyless
+# RNGWHHDd.xls history workbook. The first run seeds the whole history
+# back to 1997; later runs re-read only the last two weeks.
 on:
   schedule:
     - cron: "0 18 * * *"
@@ -26,9 +24,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install pandas openpyxl requests
+        run: pip install pandas openpyxl requests xlrd
 
       - name: Run Henry Hub pull
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          PYTHONUNBUFFERED: "1"
         run: timeout 300 python3 americas/HENRY_HUB_DAILY.py --out "output/Data and Chart Outputs/henry_hub_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
