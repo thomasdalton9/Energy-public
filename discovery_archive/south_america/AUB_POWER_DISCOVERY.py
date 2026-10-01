@@ -206,7 +206,37 @@ def bolivia():
         print(f"  try {path}: {r.status_code} {r.text[:300]!r}", flush=True)
 
 
-for name, fn in [("argentina", argentina), ("uruguay", uruguay), ("bolivia", bolivia)]:
+# Round 1 (Oct-2026): the route index lists daily/by-technology endpoints (rt/generacion, dashboard/genbruta/
+# detalle, historico/generacion/central); the monthly documentos list returns only the last 20 months unless
+# asked by year. Round 2 ('bolivia2') probes those.
+def bolivia2():
+    base = "https://www.cndc.bo/wp-json/cndc/v1/"
+    probes = [
+        ("rt/fechas", {}), ("rt/generacion", {"fecha": "2026-09-28"}), ("rt/generacion", {"fecha": "2021-03-10"}),
+        ("movil/fechas", {}), ("movil/generacion-datos", {}), ("fecha-operacion", {}),
+        ("dashboard/energia", {"modo": "mensual", "anio": 2026, "mes": 8}),
+        ("dashboard/energia", {"modo": "diario", "anio": 2026, "mes": 8}),
+        ("dashboard/genbruta/detalle", {"modo": "diario", "anio": 2026, "mes": 8}),
+        ("dashboard/genbruta/detalle", {"modo": "mensual", "anio": 2026, "mes": 8}),
+        ("dashboard/genbruta/detalle", {"tecnologia": "Termoelectrica", "modo": "diario", "anio": 2021, "mes": 3}),
+        ("historico/generacion/detalle", {"anio": 2025}),
+        ("historico/generacion/central", {"anio": 2026, "mes": 8}),
+        ("historico/generacion/central", {"anio": 2021, "mes": 1}),
+        ("ga/generacion-bruta", {}),
+        ("inyecsti", {"fecha": "2026-09-28"}),
+        ("estadisticas/documentos", {"categoria_id": 265, "agrupado": "true"}),
+        ("estadisticas/documentos", {"categoria_id": 155, "anio": 2021, "agrupado": "true"}),
+        ("estadisticas/documentos", {"categoria_id": 225, "desde": "2020-12-01", "hasta": "2021-03-01"}),
+    ]
+    for path, params in probes:
+        try:
+            r = requests.get(base + path, params=params, headers=UA, timeout=90)
+            print(f"\n==== {path} {params}: {r.status_code} {len(r.content):,} bytes\n  {r.text[:2500]}", flush=True)
+        except requests.RequestException as e:
+            print(f"\n==== {path} {params}: {type(e).__name__} {e}", flush=True)
+
+
+for name, fn in [("argentina", argentina), ("uruguay", uruguay), ("bolivia", bolivia), ("bolivia2", bolivia2)]:
     if name in WHICH:
         try:
             fn()
