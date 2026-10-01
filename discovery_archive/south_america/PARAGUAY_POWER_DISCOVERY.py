@@ -266,6 +266,28 @@ def grep(url, pattern, n=40, width=220):
         print("   ..." + re.sub(r"\s+", " ", r.text[a:m.end() + width // 2]) + "...")
 
 
+def pdfgrep(url, pattern, n=150):
+    """Lines of a PDF matching a regex, with page numbers (tables come out as text lines)."""
+    import pdfplumber
+    s = requests.Session()
+    s.headers.update(UA)
+    r = get(s, url, timeout=180)
+    if r is None:
+        return
+    print(f"\n== pdfgrep {pattern!r} in {url}: {r.status_code}, {len(r.content):,} B")
+    if r.status_code != 200:
+        return
+    k = 0
+    with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+        for i, pg in enumerate(pdf.pages):
+            for ln in (pg.extract_text() or "").split("\n"):
+                if re.search(pattern, ln, re.I):
+                    print(f"   p{i + 1}: {ln[:200]}")
+                    k += 1
+                    if k >= n:
+                        return
+
+
 def wpsearch(base, query, pages=10):
     """WordPress REST search: every post matching `query` (title, date, link, text start)."""
     s = requests.Session()
@@ -293,7 +315,10 @@ if __name__ == "__main__":
     for a in [x for x in args if x.startswith("wp=")]:     # wp=BASE|QUERY
         base, q = a[3:].split("|", 1)
         wpsearch(base, q)
-    args = [x for x in args if not x.startswith(("grep=", "wp="))]
+    for a in [x for x in args if x.startswith("pdfgrep=")]:   # pdfgrep=URL|REGEX
+        url, pat = a[8:].split("|", 1)
+        pdfgrep(url, pat)
+    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
