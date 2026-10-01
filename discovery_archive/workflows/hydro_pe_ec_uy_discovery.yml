@@ -1,7 +1,8 @@
 name: Hydro reservoirs discovery (Peru, Ecuador, Uruguay)
 
 # One-off, manual-only probe (discovery_archive/south_america/HYDRO_PE_EC_UY_DISCOVERY.py).
-# Raw responses go to the throwaway branch hydro3-discovery-raw. Move to discovery_archive/workflows/ when done.
+# Rounds 1-4 (ROUND input); the last run was round 4. Archived here - copy back to .github/workflows to re-run.
+# Raw responses go to the throwaway branch hydro3-discovery-raw.
 on:
   workflow_dispatch:
     inputs:

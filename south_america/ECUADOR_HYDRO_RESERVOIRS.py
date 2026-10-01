@@ -146,8 +146,9 @@ def notes(df):
         f"({latest['Mazar_pct_of_range']:.0f}% of range) on {latest.name:%d-%b-%Y}.",
         "CELEC SUR's service goes back to 2010 (Mazar's first year of operation); this workbook starts 2011-01-01. "
         "CENACE's Informacion Operativa page shows no reservoir levels and keeps no archive.",
-        "Not covered: Daule-Peripa (CELEC Hidronacion) and Pisayambo (CELEC Hidroagoyan) - those units publish "
-        "no machine-readable level series.",
+        "Not covered: Daule-Peripa (CELEC Hidronacion) and Pisayambo (CELEC Hidroagoyan) - no public level series "
+        "found: their CELEC sites have no production/level dashboard like CELEC SUR's, and CENACE's Informacion "
+        "Operativa page (checked Oct-2026) has generation by plant but no reservoir levels.",
         "",
         "SOURCE",
         f"CELEC EP - CELEC SUR, 'Graficas de Produccion' dashboard ({DASHBOARD}); data from its ORDS service "

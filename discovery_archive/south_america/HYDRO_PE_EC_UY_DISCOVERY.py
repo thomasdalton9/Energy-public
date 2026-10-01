@@ -63,6 +63,16 @@ has 12 basin series by week for 4 years. IDCOS daily annex 9 has only a
 few seasonal reservoirs. -> PERU_HYDRO_RESERVOIRS.py reads 5.1.
 Round 4 (ROUND=4): the 5.1 test run failed on 2021-2023 reports (no sheet
 with that title) - dump the volume sheets of older reports.
+Round 4 findings: reports up to 2023 have one 'HIDROLOGIA' sheet of
+company blocks (weekly by year since 1997: Yuracmayo, Edegel lagoons,
+Electroperu sub-basins, Junin, EGASA, Viconga, Orazul, San Gaban, Aricota,
+EGEMSA, Bamputane, Chalhuanca, Paucarcocha) that miss several reservoirs
+and carry no capacities. From 2024 the 'Evolucion de volumenes' sheet (6.2
+early 2024, 5.2 later) restates four years by basin (12 series; Junin is split
+out of Mantaro between weeks 5 and 20 of 2024), so the last 2024 report gives
+2021-2024. Capacities in table 5.1 change between reports (Junin 376 ->
+315 hm3, San Gaban lagoons 376 -> 69 hm3). -> PERU_HYDRO_RESERVOIRS.py reads
+the basin series of the newest report of each year from 2024.
 """
 
 print("STARTING", flush=True)
