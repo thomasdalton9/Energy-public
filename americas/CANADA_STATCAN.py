@@ -165,7 +165,7 @@ def gas(d, dims):
     d = d[d["GEO"] == "Canada"]
     metric = d[unit] if unit else d["UOM"]
     d = d[metric.str.contains("metre", case=False, na=False)].copy()
-    d["item"] = d[items].fillna("").agg(" | ".join, axis=1).str.strip(" |")
+    d["item"] = d[items].fillna("").agg(" | ".join, axis=1).str.strip(" |").str.replace(r"\s+", " ", regex=True)
     w = d.pivot_table(index="date", columns="item", values="value", aggfunc="sum")
     w = w[[c for c in d["item"].drop_duplicates() if c in w.columns]]   # StatCan's own item order
     flows = [c for c in w.columns if not STOCK.search(c) or "change" in c.lower()]
@@ -208,8 +208,11 @@ def capacity(type_tab, fuel_tab):
     row = lambda pat: d[d[typ].str.contains(pat, case=False, na=False, regex=True)].groupby("date")["mw"].sum()  # noqa: E731
     out = pd.DataFrame({"Hydro": row(r"^hydraulic|^tidal"), "Wind": row(r"^wind"), "Solar": row(r"^solar"),
                         "Nuclear": row(r"^nuclear")})
-    total = row(r"^total all types")
-    thermal = total - out.sum(axis=1, min_count=1)
+    other_clean = row(r"^geothermal|^other non-combustible")   # geothermal and other non-thermal plants
+    total = row(r"^total installed|^total all types")
+    thermal = row(r"^total thermal")
+    if thermal.empty:
+        thermal = total - out.sum(axis=1, min_count=1) - other_clean.reindex(total.index).fillna(0)
     try:
         f, fdims = fuel_tab
         f = f[f["GEO"] == "Canada"].copy()
@@ -231,6 +234,7 @@ def capacity(type_tab, fuel_tab):
     except Exception as e:  # noqa: BLE001
         print(f"  thermal-by-fuel table not usable ({type(e).__name__}: {e}); thermal capacity -> Other", flush=True)
         out["Other"] = thermal
+    out["Other"] = out["Other"].fillna(0) + other_clean.reindex(out.index).fillna(0)
     out = out.reindex(columns=[c for c in ("Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy",
                                             "Other") if c in out.columns]).add_suffix("_MW")
     out["Total_MW"] = total
@@ -328,8 +332,10 @@ def main():
                 "UNITS",
                 "Installed generating capacity, MW, one row per YEAR (dated 1 January; StatCan's year-end figure).",
                 "Hydro (hydraulic + tidal), Wind, Solar, Nuclear: table 25-10-0022 by type of generation. Coal, "
-                "Gas, Oil, Bioenergy, Other: conventional thermal capacity by principal fuel, table 25-10-0023. "
-                "Total_MW = 25-10-0022 'Total all types'. All classes of producer (utilities and industry).",
+                "Gas, Oil: conventional thermal capacity by principal fuel, table 25-10-0023; Other = 'Other "
+                "principal fuels' (biomass and other fuels - StatCan does not split them) plus geothermal and other "
+                "non-combustible plants. Total_MW = 25-10-0022 'Total installed capacity'. All classes of producer "
+                "(utilities and industry).",
                 "",
                 "COVERAGE",
                 f"Canada, annual, {out.index.min():%Y} to {out.index.max():%Y}. StatCan publishes these tables about "
