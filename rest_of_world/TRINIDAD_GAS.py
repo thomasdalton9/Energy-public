@@ -96,6 +96,14 @@ def list_bulletin_urls():
         if r.status_code != 200:
             break
         posts |= set(re.findall(r'href="(https://www\.energy\.gov\.tt/[a-z0-9\-]*bulletin[a-z0-9\-]*/)"', r.text))
+    # Some yearly posts (e.g. the Jan-Dec 2025 edition) aren't listed in the
+    # category pages; the WordPress post sitemap lists every post.
+    try:
+        r = requests.get("https://www.energy.gov.tt/wp-sitemap-posts-post-1.xml", headers=HEADERS, timeout=TIMEOUT)
+        if r.status_code == 200:
+            posts |= {u for u in re.findall(r"<loc>([^<]+)</loc>", r.text) if re.search(r"bulletin", u, re.I)}
+    except requests.RequestException as e:
+        print(f"  sitemap unavailable: {e}", flush=True)
     urls = set()
     for post in sorted(posts):
         years = [int(y) for y in re.findall(r"(20\d\d)", post)]
@@ -296,8 +304,8 @@ def main():
         "from the ministry's bulletin category pages, so a newly posted year is picked up automatically. Where "
         "two editions cover the same month the most recently published one wins; the 'source' column names the "
         "workbook used. Months not yet reached in a year-to-date edition show as 0 in the source and are "
-        "dropped rather than kept as fake zero readings. 2025 has no full-year edition posted yet (as of "
-        "Oct 2026), so it is a gap until MEEI publishes one. Runs are incremental: years already complete in this "
+        "dropped rather than kept as fake zero readings. Bulletin posts are found from both the category pages "
+        "and the site's post sitemap (the Jan-Dec 2025 edition is only in the latter). Runs are incremental: years already complete in this "
         "archive are not downloaded again; each run reads the current year-to-date bulletin plus any year with "
         "missing months. Use --full to rebuild from scratch.",
         "",
