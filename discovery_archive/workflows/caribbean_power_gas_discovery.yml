@@ -12,6 +12,9 @@ on:
         description: "JSON list of arguments, one job each"
         default: '["eia","oc","dogas","jm","prlocal"]'
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -26,9 +29,22 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber beautifulsoup4
+        run: pip install requests pandas openpyxl xlrd pdfplumber beautifulsoup4 odfpy
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: timeout 1000 python3 "${{ github.event.inputs.script }}" ${{ matrix.target }}
+        run: timeout 1000 python3 "${{ github.event.inputs.script }}" ${{ matrix.target }} 2>&1 | tee /tmp/probe_out.txt
+      # The full output also goes to a throw-away branch (probe-out/carib-<target>) so it
+      # can be fetched and searched locally instead of paging through job logs.
+      - name: Save output to branch
+        if: always()
+        run: |
+          T=$(echo "${{ matrix.target }}" | tr -c 'A-Za-z0-9_-' '_')
+          mkdir -p /tmp/po && cp /tmp/probe_out.txt "/tmp/po/$T.txt" || true
+          cp -r probe_files /tmp/po/ 2>/dev/null || true
+          cd /tmp/po && git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -qm "probe output $T"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/probe-out/carib-$T
