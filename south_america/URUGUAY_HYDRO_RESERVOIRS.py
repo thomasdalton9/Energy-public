@@ -126,8 +126,16 @@ def ina_series(session, sid, since, until):
     obs = r.json()
     s = pd.Series({pd.Timestamp(o["timestart"]).tz_convert("America/Argentina/Buenos_Aires").tz_localize(None)
                    .normalize(): pd.to_numeric(o["valor"], errors="coerce") for o in obs}, dtype=float)
-    s = s.dropna().sort_index()
-    return s[(s > 20) & (s < 45)]   # the lake runs ~30-36 m; drop gauge glitches
+    return clean_salto_grande(s.dropna().sort_index())
+
+
+def clean_salto_grande(s):
+    """INA's gauge series has spells of readings on another datum (e.g. ~23.5 m on alternate days in Jul-Sep
+    2017, when the lake was at ~35 m). The lake runs ~30-37 m: keep 28-40 m, and drop days more than 1.5 m off
+    the centred 15-day median."""
+    s = s[(s > 28) & (s < 40)]
+    med = s.rolling(15, center=True, min_periods=5).median()
+    return s[(s - med).abs().fillna(0) <= 1.5]
 
 
 def load_archive(path):
@@ -142,6 +150,8 @@ def load_archive(path):
 
 def finish(df):
     df = df.reindex(columns=COLS).sort_index()
+    sg = clean_salto_grande(df["SaltoGrandeLevel_m"].dropna())
+    df["SaltoGrandeLevel_m"] = sg.reindex(df.index)
     df["Bonete_pct_of_range"] = (100 * (df["BoneteLevel_m"] - BONETE_MIN) / (BONETE_MAX - BONETE_MIN)).round(1)
     lv = [c for c in COLS if c.endswith("_m")]
     df[lv] = df[lv].round(3)
