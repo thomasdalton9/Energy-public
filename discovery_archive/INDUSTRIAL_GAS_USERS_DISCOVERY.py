@@ -7,7 +7,7 @@ Run in GitHub Actions (usgs.gov and company sites are blocked from the sandbox).
           location, capacity).
   gem   - download links and licence text found on Global Energy Monitor tracker pages.
   pages - capacity sentences from the pages given as further arguments (space-separated URLs).
-  url   - first 200 links + text of the given pages (to find report/PDF links).
+  url   - document links + ~7,000 characters of page text from the first capacity sentence.
   wiki  - GEM wiki plant pages: coordinates, owner, status and capacity snippets.
   pdf   - capacity sentences from PDFs given as URLs.
 
@@ -125,9 +125,14 @@ def url(urls):
         try:
             r = get(u)
             print(f"## {u}: HTTP {r.status_code}")
-            for lk in list(dict.fromkeys(re.findall(r'href="([^"#]+)"', r.text)))[:200]:
+            for lk in [x for x in dict.fromkeys(re.findall(r'href="([^"#]+)"', r.text))
+                       if re.search(r"\.(pdf|xlsx?|csv)$", x, re.I)][:40]:
                 print("   L", lk)
-            print("   T", text_of(r.text)[:4000])
+            t = text_of(r.text)
+            # skip the site menu: start at the first capacity-like sentence
+            m = CAP.search(t)
+            start = max(0, m.start() - 600) if m else 0
+            print("   T", t[start:start + 7000])
         except Exception as e:  # noqa: BLE001
             print(f"## {u}: {e}")
 
