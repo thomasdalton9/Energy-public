@@ -89,6 +89,9 @@ HYDRO_DATASETS = [
     ("CO", "Colombia", "colombia_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
 ]
+# The Power & Hydro dashboard shows one national hydro chart per country (each workbook's first water-year
+# spec) plus these extra regional charts by spec name; the full sets stay in each country workbook.
+HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"}}
 
 
 def gatun(path):
@@ -218,6 +221,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)
+            if (code, country, fname, raw_sheet, short) in HYDRO_DATASETS:
+                specs = [sp for i, sp in enumerate(specs) if i == 0 or sp["name"] in HYDRO_EXTRA.get(fname, ())]
         except Exception as e:
             missing.append(f"{country} {short} ({fname}: {type(e).__name__}: {e})")
             continue
