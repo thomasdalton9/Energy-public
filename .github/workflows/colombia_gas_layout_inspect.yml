@@ -1,0 +1,20 @@
+name: Colombia gas layout inspect
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pdfplumber pandas openpyxl
+      - name: Inspect
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 500 python3 south_america/COLOMBIA_GAS_LAYOUT_INSPECT.py
