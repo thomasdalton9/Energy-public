@@ -3,6 +3,10 @@ name: SA coal discovery
 on:
   workflow_dispatch:
     inputs:
+      script:
+        description: "discovery script name in discovery_archive/south_america"
+        required: false
+        default: "SA_COAL_DISCOVERY2.py"
       which:
         description: "probe functions (space separated), blank = all"
         required: false
@@ -21,4 +25,4 @@ jobs:
       - name: Probe
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1700 python3 discovery_archive/south_america/SA_COAL_DISCOVERY.py ${{ github.event.inputs.which }}
+        run: timeout 1700 python3 discovery_archive/south_america/${{ github.event.inputs.script || 'SA_COAL_DISCOVERY2.py' }} ${{ github.event.inputs.which }}
