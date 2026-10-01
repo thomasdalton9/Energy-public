@@ -15,6 +15,15 @@ Round 3 found:
 This prints the listing HTML and the DecargarPDF JS, then downloads the three PDFs for
 two days (2021 and 2026) and prints their text, to see whether the daily 'Real' report
 has injection by basin / receipt point.
+
+Found: DecargarPDF(tipo, path, file) -> descarga.php?tipo=<tipo>&path=partes-diarios/<tipo>&file=yyyymmdd.pdf.
+'requerido' and 'real' are the distributors' daily requests / consumption. 'transporte' is the
+"Parte Diario Operativo - Gas Natural Transportado" (TGN/TGS, provisional): injection by basin
+(Norte, Neuquina, Austral) and by pipeline, Inyeccion Total, line-pack and its change, mcm/d of
+9300 kcal, with footnotes giving the imports inside the figures: (a) Bolivia y Norandino in Norte,
+(d) GNL Escobar y Gasandes in Centro Oeste, (b) GNL Bahia Blanca in Neuba II (from 2025 footnote
+(b) is the Perito Moreno pipeline), (e) peak-shaving plant. Used by ARGENTINA_GAS.py for the daily
+domestic injection.
 """
 import io
 import re

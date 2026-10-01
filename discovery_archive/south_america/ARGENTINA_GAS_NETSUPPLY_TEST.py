@@ -10,6 +10,15 @@ scheduled pull (see ARGENTINA_GAS_NETSUPPLY_DISCOVERY*.py for how the sources we
     particular whether GRT's 2026 TGN figures hold Escobar LNG (GRT 'Otros Origenes' is 0);
   - prints the balance check against the workbook's sector and export series.
 Nothing is written to the repo.
+
+Found (Oct 2026): 134 of 138 sampled days parse (4 days have no report). The report's file date
+was the END of the 06:00-06:00 gas day in 2021-2024 and is its START in 2026, so rows are keyed on
+the 'Periodo' line; keyed that way, the footnote imports equal the daily import reports to 0.01
+mcm/d. About 20% of reports print the (a) Bolivia footnote with overlapping characters that
+pdfplumber cannot read; the import report fills them. GRT's domestic injection (TGN+TGS, imports
+taken out) matches the sampled daily reports within sampling noise; in Jun-Jul 2026 GRT is ~2 mcm/d
+below them, so GRT's 2026 figures do not hold Escobar LNG (its 'Otros Origenes' is 0 in 2026). The
+Secretaria de Energia sector series equal ENARGAS GETD (max differences 1-17 million m3/month).
 """
 import os
 import sys
