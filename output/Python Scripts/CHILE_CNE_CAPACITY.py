@@ -106,6 +106,54 @@ def parse(content):
     return base, report_month(xl, base)
 
 
+EMBER_COAL_TO = pd.Timestamp("2026-01-01")   # coal history before this month uses Ember's year-end closures
+
+
+def ember_coal_year_end():
+    """Ember yearly coal capacity for Chile, MW by year (year-end), or empty if Ember can't be reached."""
+    import io
+
+    import requests
+    try:
+        r = requests.get(std.EMBER_URL, timeout=(15, 300), headers={"User-Agent": "gas-demand-scripts/1.0"})
+        r.raise_for_status()
+        e = pd.read_csv(io.BytesIO(r.content), usecols=["Area", "Year", "Category", "Variable", "Unit", "Value"])
+    except Exception as exc:  # noqa: BLE001
+        print(f"  Ember coal history skipped: {type(exc).__name__}: {exc}", flush=True)
+        return pd.Series(dtype=float)
+    e = e[(e["Area"] == "Chile") & (e["Category"] == "Capacity") & (e["Variable"] == "Coal")]
+    return (e.set_index("Year")["Value"] * 1000.0).sort_index()   # GW -> MW
+
+
+def apply_ember_coal_closures(monthly, by_fuel):
+    """cne.cl only keeps the current plant list (no retirement dates), so a rebuild from start dates shows coal flat
+    and misses the 2021-25 closures. For months before EMBER_COAL_TO, coal = CNE's rebuilt coal + (Ember coal at the
+    relevant year-end - Ember coal at end-2025): CNE's level is kept (no step into 2026) and Ember's closures are
+    applied. Ember is annual, so a closure is placed in December of its year (Jan-Nov use the previous year-end)."""
+    ember = ember_coal_year_end()
+    last_year = EMBER_COAL_TO.year - 1
+    if ember.empty or last_year not in ember.index:
+        return monthly, pd.DataFrame()
+    rows = []
+    for m in monthly.index[monthly.index < EMBER_COAL_TO]:
+        year = m.year if m.month == 12 else m.year - 1
+        if year not in ember.index:
+            continue
+        adj = float(ember[year] - ember[last_year])
+        base = float(by_fuel.get("Coal", pd.Series(dtype=float)).get(m, monthly.at[m, "Coal_MW"]))
+        monthly.at[m, "Coal_MW"] = round(base + adj, 1)
+        rows.append({"date": m, "CNE_rebuilt_coal_MW": round(base, 1), "Ember_year_end_used": year,
+                     "Ember_coal_MW": round(float(ember[year]), 1), "Adjustment_MW": round(adj, 1),
+                     "Coal_MW": monthly.at[m, "Coal_MW"]})
+    fuel_cols = [c for c in std.COLUMNS if c != "Total_MW"]
+    monthly["Total_MW"] = monthly[fuel_cols].sum(axis=1).round(1)
+    adj_tab = pd.DataFrame(rows).set_index("date") if rows else pd.DataFrame()
+    if rows:
+        print(f"  coal before {EMBER_COAL_TO:%Y-%m} adjusted with Ember year-end closures: "
+              f"{adj_tab['Coal_MW'].iloc[0]:,.0f} MW (Jan-21) -> {adj_tab['Coal_MW'].iloc[-1]:,.0f} MW", flush=True)
+    return monthly, adj_tab
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
@@ -148,6 +196,7 @@ def main():
             by_tech = pd.concat([old_tech[old_tech.index.isin(keep)], by_tech_new.drop(index=keep, errors="ignore")]
                                 ).sort_index().fillna(0.0)
         print(f"kept {len(keep)} saved month(s) to {keep.max():%Y-%m}", flush=True)
+    monthly, coal_adj = apply_ember_coal_closures(monthly, by_fuel)
     by_tech.index.name = "date"
 
     # each upload's own totals (one row per snapshot month), kept across runs
@@ -185,7 +234,10 @@ def main():
         "RETIREMENTS: CNE keeps only the current snapshot on cne.cl and it has no retirement dates, so months filled "
         "in on the first run (Jan 2021 to Aug 2026) count only plants still in service in Aug 2026, each from the month "
         "it entered service. Capacity retired in between (mainly coal units closed in 2021-2025, plus some diesel) is "
-        "missing from those months, so Coal_MW reads flat while actual coal capacity fell. From the first run on, "
+        "missing from the rebuild. COAL FIX: for months before Jan 2026 Coal_MW = CNE's rebuilt coal + (Ember's Chile coal "
+        "capacity at the relevant year-end - Ember's end-2025 coal), so Ember's annual coal closures show while CNE's level "
+        "carries on into 2026 without a step; closures are placed in December of their year (Ember is annual). Sheet "
+        "'Coal closures (Ember)' gives the adjustment by month. Other fuels are not adjusted. From the first run on, "
         "saved months are kept and only the latest two are recomputed from each new upload, so later retirements "
         "show. Battery storage is not in CNE's capacity report.",
         "",
@@ -209,7 +261,8 @@ def main():
         "technology and system. Plants (latest): one row per plant/unit in the latest upload. Ember check: December "
         "values vs Ember's yearly capacity.",
     ]
-    std.write(args.out, monthly, {"By CNE technology": by_tech, "Snapshots": snaps, "By system (latest)": by_system,
+    std.write(args.out, monthly, {**({"Coal closures (Ember)": coal_adj} if not coal_adj.empty else {}),
+                                  "By CNE technology": by_tech, "Snapshots": snaps, "By system (latest)": by_system,
                                   "Plants (latest)": plants, "Ember check": check},
               notes, {"UNITS", "COVERAGE", "SOURCE", "MAPPING (CNE tipo_de_energia -> column)", "SHEETS"})
 
