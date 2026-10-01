@@ -208,6 +208,156 @@ def others():
         get(u, show_text=700)
 
 
+# Round 1 (Oct-2026) found: CAMMESA's WordPress site has Download Manager
+# pages 'Cotas Diarias', 'Caudales Diarios' and 'Hidro Binacional'
+# (cammesaweb.cammesa.com/download/<slug>/); pub-svc nemo PROGRAMACION_SEMANAL
+# (psemWWYY.zip) exists; INA's a5 database (alerta.ina.gob.ar/a5) has a
+# public JSON API (obs/puntual/series, getObservaciones); Salto Grande has
+# datos_hidrologicos.php. datos.gob.ar / energia open data have nothing.
+# (The AIC/BDHI part of the log was cut off - re-run here, quieter.)
+import io
+import zipfile
+
+
+def show_file(content, name):
+    """Print what a downloaded file holds: zip members, Excel sheets + first rows, or text."""
+    head = content[:8]
+    print(f"  FILE {name}: {len(content):,} bytes, magic {head!r}", flush=True)
+    if head[:2] == b"PK":
+        try:
+            zf = zipfile.ZipFile(io.BytesIO(content))
+        except zipfile.BadZipFile:
+            zf = None
+        if zf is not None:
+            names = zf.namelist()
+            if any(n.startswith("xl/") for n in names):
+                show_excel(content, name)
+                return
+            print(f"  ZIP {len(names)} members: {names[:60]}", flush=True)
+            for n in names:
+                if re.search(r"cota|embal|caudal|hidr|hm3|volum", n, re.I) or n.lower().endswith((".xls", ".xlsx", ".csv", ".txt")):
+                    show_file(zf.read(n), f"{name}:{n}")
+            return
+    if head[:4] == b"\xd0\xcf\x11\xe0":
+        show_excel(content, name)
+        return
+    try:
+        t = content.decode("utf-8")
+    except UnicodeDecodeError:
+        t = content.decode("latin-1")
+    if "<html" in t[:2000].lower():
+        tt = text_of(t)
+        for m in list(re.finditer(r"cota|embalse|chocon|chocón|alicur|piedra del", tt, re.I))[:4]:
+            print(f"  HTML ...{tt[max(0, m.start() - 200):m.start() + 600]}...", flush=True)
+        return
+    for line in t.splitlines()[:25]:
+        print(f"    | {line[:250]}", flush=True)
+
+
+def show_excel(content, name):
+    import pandas as pd
+    try:
+        xl = pd.ExcelFile(io.BytesIO(content))
+    except Exception as e:  # noqa: BLE001
+        print(f"  EXCEL {name}: cannot open ({type(e).__name__}: {e})", flush=True)
+        return
+    print(f"  EXCEL {name}: sheets {xl.sheet_names}", flush=True)
+    for s in xl.sheet_names[:12]:
+        df = xl.parse(s, header=None)
+        print(f"   -- sheet {s!r}: {df.shape}", flush=True)
+        with pd.option_context("display.width", 250, "display.max_columns", 30, "display.max_colwidth", 22):
+            print(df.head(30).to_string(), flush=True)
+            if len(df) > 30:
+                print("   ... last rows:", flush=True)
+                print(df.tail(5).to_string(), flush=True)
+
+
+def cammesa_downloads():
+    print("\n######## R2. CAMMESA download pages", flush=True)
+    for slug in ["cotas-diarias", "caudales-diarios", "hidro-binacional"]:
+        url = f"https://cammesaweb.cammesa.com/download/{slug}/"
+        r = S.get(url, timeout=60)
+        body = r.text
+        t = text_of(body)
+        i = t.find("Descargar")
+        print(f"\n==== {url}: {r.status_code}", flush=True)
+        for m in list(re.finditer(r"Actualiz|Fecha|Tama|Size|Archivo|File|\.xls|\.zip|\.csv", t))[:8]:
+            print(f"  TEXT ...{t[max(0, m.start() - 150):m.start() + 250]}...", flush=True)
+        if i >= 0:
+            print(f"  NEAR DESCARGAR ...{t[max(0, i - 700):i + 300]}", flush=True)
+        dls = sorted(set(re.findall(r'(https?://[^"\'\s<>]*wpdmdl=\d+[^"\'\s<>]*)', body)))
+        dls += sorted(set(re.findall(r'data-downloadurl=["\']([^"\']+)', body)))
+        print(f"  DOWNLOAD URLS {dls[:6]}", flush=True)
+        for d in dls[:2]:
+            d = d.replace("&amp;", "&")
+            try:
+                f = S.get(d, timeout=120)
+            except requests.RequestException as e:
+                print(f"  {d}: FAILED {e}", flush=True)
+                continue
+            print(f"  GET {d}: {f.status_code} {f.headers.get('Content-Type')} "
+                  f"disp={f.headers.get('Content-Disposition')}", flush=True)
+            if f.ok:
+                show_file(f.content, slug)
+                break
+
+
+def cammesa_reports():
+    print("\n######## R2. CAMMESA PROGRAMACION_SEMANAL / PARTE_POST_OPERATIVO contents", flush=True)
+    for nemo in ["PROGRAMACION_SEMANAL", "PARTE_POST_OPERATIVO"]:
+        docs = nemo_docs(nemo)
+        for doc in docs[-1:]:
+            for att in doc.get("adjuntos", [])[:1]:
+                f = requests.get(ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"], "nemo": nemo},
+                                 headers={"User-Agent": "gas-demand-scripts/1.0"}, timeout=180)
+                print(f"  {nemo} {att['id']}: {f.status_code} {len(f.content):,} bytes", flush=True)
+                if f.ok and f.content[:2] == b"PK":
+                    zf = zipfile.ZipFile(io.BytesIO(f.content))
+                    print(f"  members: {zf.namelist()}", flush=True)
+                    for n in zf.namelist():
+                        data = zf.read(n)
+                        low = data[:3_000_000].decode("latin-1").lower()
+                        if any(k in low for k in ("cota", "chocon", "chocón", "alicura", "piedra del", "embalse")):
+                            print(f"  >> {n} mentions cota/embalse", flush=True)
+                            show_file(data, f"{nemo}:{n}")
+
+
+def ina_a5():
+    print("\n######## R2. INA a5 API", flush=True)
+    base = "https://alerta.ina.gob.ar/a5"
+    for u in [f"{base}/obs/puntual/estaciones?format=json", f"{base}/obs/puntual/series?format=json&limit=5",
+              f"{base}/obs/puntual/estaciones?format=json&nombre=Chocon"]:
+        try:
+            r = S.get(u, timeout=120)
+        except requests.RequestException as e:
+            print(f"  {u}: FAILED {e}", flush=True)
+            continue
+        print(f"\n==== {u}: {r.status_code} {r.headers.get('Content-Type')} {len(r.content):,} bytes", flush=True)
+        try:
+            j = r.json()
+        except ValueError:
+            print("  ", r.text[:500], flush=True)
+            continue
+        rows = j if isinstance(j, list) else j.get("features") or j.get("rows") or j.get("data") or []
+        print(f"  {len(rows)} rows; first: {json.dumps(rows[:1], ensure_ascii=False)[:800]}", flush=True)
+        for row in rows:
+            s = json.dumps(row, ensure_ascii=False)
+            if re.search(r"choc|alicur|piedra del|barreales|mari menuco|pichi|futaleu|yacyret|salto grande|planicie|portezuelo|arroyito|el chañar|chanar", s, re.I):
+                print(f"  HIT {s[:600]}", flush=True)
+
+
+def salto_grande():
+    print("\n######## R2. Salto Grande", flush=True)
+    get("https://www.saltogrande.org/datos_hidrologicos.php", show_text=3000)
+
+
+if ROUND == "2":
+    for fn in (cammesa_downloads, cammesa_reports, ina_a5, salto_grande, aic, bdhi):
+        try:
+            fn()
+        except Exception as e:  # noqa: BLE001
+            print(f"!! {fn.__name__} crashed: {type(e).__name__}: {e}", flush=True)
+
 if ROUND == "1":
     for fn in (aic, bdhi, cammesa, open_data, others):
         try:
