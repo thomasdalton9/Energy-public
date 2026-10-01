@@ -12,7 +12,7 @@ combined-cycle-heavy fleet), converted to million m3/day at 38 MJ/m3.
 It's a proxy for the power sector's gas demand where no published
 monthly gas-by-sector split exists (e.g. Chile).
 
-Usage: python3 EMBER_POWER_BY_TYPE.py --country Chile --out "output/Data and Chart Outputs/chile_power_by_type.xlsx
+Usage: python3 EMBER_POWER_BY_TYPE.py --country Chile --out "output/Data and Chart Outputs/chile_power_by_type.xlsx"
 """
 import argparse
 import io
