@@ -1,0 +1,52 @@
+name: South America power by type
+
+# Ember's monthly electricity release (from CEN data), a few months behind
+# real time. Weekly is plenty to catch new months.
+on:
+  schedule:
+    - cron: "50 12 * * 2"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "Argentina,Bolivia,Brazil,Chile,Colombia,Ecuador,Peru,Uruguay" --out "output/Data and Chart Outputs/south_america_power_by_type.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/south_america_power_by_type.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/south_america_power_by_type.xlsx" || echo "chart step skipped/failed for south_america_power_by_type.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp south_america/EMBER_POWER_BY_TYPE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/south_america_power_by_type.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/south_america_power_by_type.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "South America power by type: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

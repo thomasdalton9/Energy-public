@@ -107,12 +107,29 @@ def chile_imports(p):
                  "Chile natural gas imports (LNG + Argentina)", "million m3/day (approx)", "stacked_bar")]
 
 
+def power_mix(d):
+    """Ember generation-by-type sheet (GWh columns) -> chart frame with a fixed fuel order."""
+    g = pd.DataFrame({"Hydro": d.get("Hydro_GWh"), "Gas": d.get("Gas_GWh"), "Wind": d.get("Wind_GWh"),
+                      "Solar": d.get("Solar_GWh"), "Coal": d.get("Coal_GWh"), "Nuclear": d.get("Nuclear_GWh"),
+                      "Other": d[cols(d, "Bioenergy_GWh", "Other Fossil_GWh", "Other Renewables_GWh")].sum(axis=1)})
+    # every chart carries the full fuel list (zeros where a country has none) so each fuel keeps its colour
+    return g.fillna(0)
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
-    g = pd.DataFrame({"Hydro": d.get("Hydro_GWh"), "Gas": d.get("Gas_GWh"), "Wind": d.get("Wind_GWh"),
-                      "Solar": d.get("Solar_GWh"), "Coal": d.get("Coal_GWh"),
-                      "Other": d[cols(d, "Bioenergy_GWh", "Other Fossil_GWh", "Other Renewables_GWh")].sum(axis=1)})
-    return [spec("Generation", g, "Chile power generation by type", "GWh per month", "stacked_bar")]
+    return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
+
+
+def sa_power(p):
+    """One chart per country sheet of the Ember South America workbook."""
+    out = []
+    for sheet in pd.ExcelFile(p).sheet_names:
+        if sheet.lower() in ("units", "notes") or sheet.startswith("Chart"):
+            continue
+        d = by_date(read(p, sheet), "Month")
+        out.append(spec(sheet, power_mix(d), f"{sheet} power generation by type", "GWh per month", "stacked_bar"))
+    return out
 
 
 def colombia(p):
@@ -360,6 +377,7 @@ REGISTRY = {
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "chile_gas_imports.xlsx": chile_imports,
     "chile_power_by_type.xlsx": chile_power,
+    "south_america_power_by_type.xlsx": sa_power,
     "colombia_gas_demand_by_sector.xlsx": colombia,
     "ecuador_gas.xlsx": ecuador,
     "trinidad_gas.xlsx": trinidad,
@@ -405,6 +423,27 @@ def _drop_old_chart_sheets(path):
                 os.remove(tmp)
 
 
+def _order_chart_sheets(path, names):
+    """Chart sheets straight after the Units tab, in registry order (each add inserts at position 1)."""
+    from openpyxl import load_workbook
+    wb = load_workbook(path)
+    present = [n for n in names if n in wb.sheetnames]
+    if len(present) < 2:
+        return
+    sheets = {ws.title: ws for ws in wb._sheets}
+    rest = [ws for ws in wb._sheets if ws.title not in present]
+    head = rest[:1] if rest and rest[0].title.lower() in ("units", "notes") else []
+    wb._sheets = head + [sheets[n] for n in present] + [ws for ws in rest if ws not in head]
+    root, ext = os.path.splitext(path)
+    tmp = f"{root}.tmp{os.getpid()}{ext}"
+    try:
+        wb.save(tmp)
+        os.replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+
 def add_charts(path):
     name = os.path.basename(path)
     fn = REGISTRY.get(name, generic)
@@ -423,6 +462,8 @@ def add_charts(path):
             continue
         xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
                                     date_format=s["date_format"], line_cols=s.get("line_cols", ()))
+    _order_chart_sheets(path, [("Chart" if i == 0 else f"Chart - {sp['name']}"[:31]) for i, sp in enumerate(specs)
+                               if "water_year" not in sp])
     print(f"{name}: {len(specs)} chart(s)")
     return len(specs)
 
