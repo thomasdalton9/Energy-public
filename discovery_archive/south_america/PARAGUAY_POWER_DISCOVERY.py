@@ -196,6 +196,38 @@ PDF_PAT = r"(?i)(GWh|MWh).{0,400}(ANDE|Eletrobras|ENBPar|cedid|SINP|SADI|mensual
 PDF_MAX = 8
 
 
+def cammesa_month(ym):
+    """Sum of CAMMESA's Yacyreta groups (YACY*) and ANDE-agent groups over one month of post-operation MDBs,
+    to compare with EBY's monthly 'energy supplied to the SADI'."""
+    sys.path.insert(0, os.path.join(HERE, "..", "..", "south_america"))
+    import ARGENTINA_POWER_DAILY as AR  # noqa: E402
+    import datetime as dt
+    s = AR.A.make_session()
+    first = dt.date.fromisoformat(ym + "-01")
+    docs = AR.month_docs(s, first)
+    tot = defaultdict(float)
+    days = 0
+    for aid, (doc, att) in sorted(docs.items()):
+        try:
+            r = s.get(AR.A.ATTACHMENT_URL, params={"attachmentId": att["id"], "docId": doc["id"],
+                                                    "nemo": doc.get("nemo") or AR.NEMO}, timeout=180)
+            zf = zipfile.ZipFile(io.BytesIO(r.content))
+            name = next(n for n in zf.namelist() if n.lower().endswith(".mdb"))
+            with tempfile.NamedTemporaryFile(suffix=".mdb", delete=False) as f:
+                f.write(zf.read(name))
+                path = f.name
+            gens = {g["GRUPO"]: g for g in mdb_rows(path, "GENERADORES")}
+            for v in mdb_rows(path, "VALORES_GENERADORES"):
+                g = v["GRUPO"]
+                if "YACY" in g or gens.get(g, {}).get("AGENTE", "").startswith("ANDE"):
+                    tot[g] += float(v["ENERGIA"] or 0)
+            os.unlink(path)
+            days += 1
+        except Exception as e:  # noqa: BLE001
+            print("  ", aid, "failed", e)
+    print(f"\n== CAMMESA {ym}: {days} days; " + ", ".join(f"{k} {v:,.1f} MWh" for k, v in sorted(tot.items())))
+
+
 def fetch(urls, text_chars=3500):
     """Compact view of each page: unique doc/keyword links (filtered) + stripped text + any html tables.
     A PDF is read with pdfplumber (first pages' text); an xlsx/csv prints its sheets' heads."""
@@ -437,13 +469,15 @@ if __name__ == "__main__":
         ays(a[4:])
     for a in [x for x in args if x.startswith("pw=")]:
         pw(a[3:])
+    for a in [x for x in args if x.startswith("cammesamonth=")]:
+        cammesa_month(a[13:])
     for a in [x for x in args if x.startswith("wayback=")]:   # wayback=URL|FROMYEAR
         u, y = a[8:].split("|", 1)
         wayback(u, y)
     eb = [x[6:] for x in args if x.startswith("ebyar=")]
     if eb:
         ebyar(eb)
-    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw=", "ebyar=", "wayback="))]
+    args = [x for x in args if not x.startswith(("grep=", "wp=", "pdfgrep=", "ays=", "pw=", "ebyar=", "wayback=", "cammesamonth="))]
     if "fetch" in args:
         fetch(args[args.index("fetch") + 1:])
         args = args[:args.index("fetch")]
