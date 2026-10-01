@@ -1,0 +1,43 @@
+name: Power capacity probe 2
+
+# Manual-only: round-2 capacity probes (ANEEL unit releases + MMGD, CNE history) and a one-month test of the
+# Colombia XM capacity pull (written to /tmp, not committed).
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [brazil, chile]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl certifi pyarrow
+      - name: Probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1300 python3 discovery_archive/south_america/POWER_CAPACITY_PROBE2.py ${{ matrix.target }}
+  colombia_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl certifi
+      - name: Test (latest month only)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          timeout 900 python3 south_america/COLOMBIA_XM_CAPACITY.py --out /tmp/colombia_power_capacity.xlsx --months 2
+          python3 add_charts.py /tmp/colombia_power_capacity.xlsx
+          python3 -c "import pandas as pd; x = pd.ExcelFile('/tmp/colombia_power_capacity.xlsx'); print(x.sheet_names); print(x.parse('Monthly').to_string()); print(x.parse('Latest by plant').groupby('xm_fuel')['capacity_MW'].agg(['count','sum']).to_string()); print(x.parse('Ember check').to_string())"
