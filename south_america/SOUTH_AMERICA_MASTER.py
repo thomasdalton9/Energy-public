@@ -221,7 +221,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
                 ws = wb.create_sheet(sheet_name(f"{code} {s['name']} data", used))
                 water_year_chart.write_table(ws, table)
                 charts.append((water_year_chart.build_chart(ws, table, meta, s["title"], s["units"],
-                                                            width=CHART_W, height=CHART_H), src))
+                                                            width=CHART_W, height=CHART_H, gridlines=False,
+                                                            inner=xlsx_charts.DASHBOARD_INNER, short_title=True), src))
                 index_rows.append((country, f"{s['title']} (water year)", pd.Timestamp(meta["last"]).strftime("%d/%m/%y"),
                                    ws.title, *src))
                 continue
@@ -232,7 +233,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=()):
             ws = wb.create_sheet(sheet_name(label, used))
             xlsx_charts.write_table(ws, df, s["date_format"])
             charts.append((xlsx_charts.build_chart(ws, df, n_bars, s["title"], s["units"], s["kind"],
-                                                   s["date_format"], width=CHART_W, height=CHART_H), src))
+                                                   s["date_format"], width=CHART_W, height=CHART_H, gridlines=False,
+                                                   inner=xlsx_charts.DASHBOARD_INNER), src))
             index_rows.append((s["name"] if raw_sheet == "*" else country, s["title"], df.index.max().strftime("%b/%y"),
                                ws.title, *src))
         raw_sheets = ([n for n in pd.ExcelFile(path).sheet_names
