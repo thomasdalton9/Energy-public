@@ -38,7 +38,8 @@ CACHE = os.path.join(ROOT, "nemosis_cache")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
 STORAGE = ["Battery_discharge", "Pumped_hydro"]
 RENAME = {"Battery_storage": "Battery_discharge", "Pumped_storage": "Pumped_hydro"}
-FETCH_VERSION = 3   # bump when a month's saved content changes (2: state balance, 3: storage charging) - refetches once
+FETCH_VERSION = 4   # bump when a month's saved content changes (2: state balance, 3: storage charging,
+#   4: units that left the registration list - retired plant, pre-2024 battery/pump load DUIDs) - refetches once
 CHARGE = {"Battery_discharge": "Battery_charge", "Pumped_hydro": "Pumped_hydro_pumping"}   # storage consumption
 STATES = ["NSW", "QLD", "SA", "TAS", "VIC"]
 
@@ -96,6 +97,10 @@ def fetch_month(duid_map, start, end):
     df = _table("DISPATCH_UNIT_SCADA", start, end)
     if df is None or df.empty:
         return None, None, None
+    unk = df[~df["DUID"].isin(duid_map["duid"])]
+    if not unk.empty:   # SCADA from units with no region/fuel (left out of every total) - largest first
+        top = (pd.to_numeric(unk["SCADAVALUE"], errors="coerce").abs() / 12e3).groupby(unk["DUID"]).sum()
+        print(f"    unmapped DUIDs (GWh): {top.sort_values(ascending=False).head(12).round(1).to_dict()}", flush=True)
     df = df.merge(duid_map, left_on="DUID", right_on="duid", how="inner")
     raw = pd.to_numeric(df["SCADAVALUE"], errors="coerce") / 12.0
     df = df.assign(date=_day(df["SETTLEMENTDATE"], 5))
@@ -198,7 +203,9 @@ def main():
     todo = [m for m in months if m not in have] + have[-1:]
     todo = sorted(set(todo))[:args.max_months]
     print(f"{len(have)} months saved; fetching {len(todo)}: {[f'{m:%Y-%m}' for m in todo]}", flush=True)
-    duid_map = aemo_registration.units(include_loads=True)[["duid", "region", "fuel", "role"]]
+    duid_map = aemo_registration.units(include_loads=True)
+    duid_map = aemo_registration.with_history(duid_map, pd.Timestamp(HISTORY_START), today, _table)
+    duid_map = duid_map[["duid", "region", "fuel", "role"]]
     duid_map["fuel"] = duid_map["fuel"].replace(RENAME)
     for m in todo:
         end = min(m + pd.offsets.MonthBegin(1), today)
