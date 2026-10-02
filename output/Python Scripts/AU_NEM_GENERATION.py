@@ -109,7 +109,7 @@ def save(path, fuel, states):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=DEFAULT_OUT)
-    ap.add_argument("--max-months", type=int, default=12)
+    ap.add_argument("--max-months", type=int, default=36)
     args = ap.parse_args()
 
     raw = load(args.out, "Daily")
