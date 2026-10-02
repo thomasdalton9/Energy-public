@@ -22,3 +22,4 @@ EMBER_API_KEY = ""        # https://ember-energy.org/data/ember-api/ - used by t
 CEN_USER_KEY = ""         # https://sipub.coordinador.cl - Chile hydro reservoir cota (CHILE_CEN_HYDRO.py)
 DATAGOVINDIA_API_KEY = "" # https://www.data.gov.in - My Account -> Generate API Key - India gas demand by sector (india_gas_demand_by_sector.py)
 FRED_API_KEY = ""         # https://fred.stlouisfed.org/docs/api/api_key.html - free, instant - Dallas Fed Energy Survey breakeven prices (PERMIAN_BREAKEVEN_DALLAS_FED.py)
+EMAIL_RECIPIENT = ""      # where global/run_short_term_view_pipeline.py emails the Short Term View deck
