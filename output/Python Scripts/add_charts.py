@@ -1215,6 +1215,41 @@ def au_rooftop_solar(p):
     return out
 
 
+def future_workbook(p):
+    """One-off 'future' workbooks (future/*.py): year-indexed pipeline sheets as stacked bars (MW by fuel), the EIA
+    STEO outlook as one line chart per series, other time-indexed outlook sheets as lines. Status / region / list
+    sheets stay as tables."""
+    region = {"north_america_future.xlsx": "North America", "south_america_future.xlsx": "South America",
+              "australia_nz_future.xlsx": "Australia + NZ"}.get(os.path.basename(p), "")
+    out = []
+    for sh in pd.ExcelFile(p).sheet_names:
+        if sh.lower() in ("units", "notes") or sh.startswith("Chart"):
+            continue
+        d = read(p, sh)
+        first = d.columns[0]
+        idx = pd.to_datetime(d[first], errors="coerce") if str(first) in ("Year", "Month", "date") else None
+        if idx is None or idx.isna().all():
+            continue
+        d = d.set_index(idx).drop(columns=[first]).apply(pd.to_numeric, errors="coerce").dropna(how="all", axis=1)
+        if d.empty:
+            continue
+        if str(first) == "Year":
+            if "STEO" in sh or "rebuilt" in sh:
+                pass
+            unit = "MW" if not sh.startswith(("NZ", "CA")) else "as published"
+            kind = "line" if sh.startswith(("NZ", "CA")) else "stacked_bar"
+            out.append(spec(sh, d, f"{region}: {sh}", unit, kind, "%Y"))
+        elif sh == "US STEO outlook":
+            for c in d.columns:
+                out.append(spec(f"STEO {c}"[:28], d[[c]], f"US Short-Term Energy Outlook: {c} (EIA)", c))
+        elif sh == "NEM capacity rebuilt":
+            out.append(spec(sh, d / 1000.0, "Australia NEM capacity rebuilt from AEMO unit commissioning dates",
+                            "GW", "stacked_bar"))
+        else:
+            out.append(spec(sh, d, f"{region}: {sh}", "as published"))
+    return out
+
+
 def au_hydro_storage(p):
     d = _sheet(p, "Weekly", "date")
     return [{"name": "Storage", "water_year": d["Total_GWh"].dropna().resample("D").interpolate(), "y_decimals": 0,
@@ -1338,6 +1373,10 @@ REGISTRY = {
     "nz_power_capacity.xlsx": capacity_with_storage("New Zealand installed generating capacity (MBIE)"),
     "au_gas.xlsx": au_gas,
     "au_gas_prices.xlsx": au_gas_prices,
+    # one-off future workbooks (future/*.py)
+    "north_america_future.xlsx": future_workbook,
+    "south_america_future.xlsx": future_workbook,
+    "australia_nz_future.xlsx": future_workbook,
     "au_gas_hub_prices.xlsx": au_gas_hub_prices,
     "au_wa_gas.xlsx": au_wa_gas,
     "au_rooftop_solar.xlsx": au_rooftop_solar,
