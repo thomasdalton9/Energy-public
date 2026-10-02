@@ -44,6 +44,8 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 DATASETS = [
     ("AU", "Australia", "au_gas.xlsx", ("Demand by sector", "Production", "Storage", "LNG shipments"), "gas"),
     ("AU", "Australia", "au_gas_prices.xlsx", "Daily", "gas prices"),
+    ("AU", "Australia", "au_gas_hub_prices.xlsx", "Daily", "gas hub prices"),
+    ("WA", "Western Australia", "au_wa_gas.xlsx", ("Production", "Consumption", "Storage", "By zone"), "gas"),
     ("NZ", "New Zealand", "nz_gas.xlsx", ("Monthly", "Quarterly consumption"), "gas"),
 ]
 RAW_POWER_DATASETS = [
@@ -57,6 +59,7 @@ CAPACITY_DATASETS = [
 ]
 PRICE_DATASETS = [
     ("AU", "Australia NEM", "au_nem_prices.xlsx", ("Daily average", "Negative hours"), "power prices"),
+    ("AU", "Australia", "au_rooftop_solar.xlsx", ("Solar capacity", "Solar installs", "Battery installs"), "rooftop solar"),
 ]
 HYDRO_DATASETS = [
     ("TAS", "Tasmania", "au_hydro_storage.xlsx", "Weekly", "hydro storage"),
@@ -85,6 +88,11 @@ SOURCES = {
                                "https://www.mbie.govt.nz/building-and-energy/energy-and-natural-resources/energy-statistics-and-modelling/energy-statistics/electricity-statistics/"),
     "au_nem_prices.xlsx": ("AEMO NEMWEB / MMSDM DISPATCHPRICE (5-minute regional reference price)",
                            "https://nemweb.com.au/"),
+    "au_gas_hub_prices.xlsx": ("AEMO: Victorian DWGM market prices (INT041) and Wallumbilla gas supply hub benchmark "
+                               "price", "https://aemo.com.au/energy-systems/gas/declared-wholesale-gas-market-dwgm"),
+    "au_wa_gas.xlsx": ("AEMO WA Gas Bulletin Board (actual flows, end-user consumption)", "https://gbbwa.aemo.com.au/"),
+    "au_rooftop_solar.xlsx": ("Clean Energy Regulator, small-scale installation postcode data",
+                              "https://cer.gov.au/markets/reports-and-data/small-scale-installation-postcode-data"),
     "au_hydro_storage.xlsx": ("Hydro Tasmania, Energy in Storage", "https://www.hydro.com.au/water/energy-in-storage"),
 }
 

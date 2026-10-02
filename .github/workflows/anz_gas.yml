@@ -13,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -34,6 +34,18 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: timeout 300 python3 australia_nz/AU_HYDRO_TAS_STORAGE.py
 
+      - name: WA Gas Bulletin Board
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 2700 python3 australia_nz/AU_WA_GAS_GBB.py
+
+      - name: Rooftop solar (CER)
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 australia_nz/AU_ROOFTOP_SOLAR_CER.py
+
       - name: MBIE gas and capacity
         if: always()
         env:
@@ -43,18 +55,18 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          for f in au_gas au_hydro_storage nz_gas nz_power_capacity; do
+          for f in au_gas au_wa_gas au_rooftop_solar au_hydro_storage nz_gas nz_power_capacity; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp australia_nz/AU_GAS_GBB.py australia_nz/AU_HYDRO_TAS_STORAGE.py australia_nz/NZ_MBIE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp australia_nz/AU_GAS_GBB.py australia_nz/AU_WA_GAS_GBB.py australia_nz/AU_ROOFTOP_SOLAR_CER.py australia_nz/AU_HYDRO_TAS_STORAGE.py australia_nz/NZ_MBIE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbooks
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in au_gas au_hydro_storage nz_gas nz_power_capacity; do
+          for f in au_gas au_wa_gas au_rooftop_solar au_hydro_storage nz_gas nz_power_capacity; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
           git add -f "output/Python Scripts" || true
