@@ -37,6 +37,7 @@ DATASETS = [
 RAW_POWER_DATASETS = [
     ("JP", "Japan", "japan_power_generation_daily.xlsx", ("Daily", "By area"), "power"),
     ("JP", "Japan", "japan_power_prices_daily.xlsx", "Daily", "prices"),
+    ("TW", "Taiwan", "taiwan_power_generation_daily.xlsx", "Daily", "power (Taipower)"),
     ("KR/TW", "Korea / Taiwan", "korea_taiwan_power_by_type.xlsx", "*", "power (Ember)"),
 ]
 CAPACITY_DATASETS = [
@@ -55,6 +56,8 @@ SOURCES = {
                                           "Tohoku, TEPCO PG, Chubu, Hokuriku, Kansai, Chugoku, Shikoku, Kyushu, Okinawa)",
                                           "https://www.occto.or.jp/en/"),
     "japan_power_prices_daily.xlsx": ("JEPX day-ahead spot market", "https://www.jepx.jp/electricpower/market-data/spot/"),
+    "taiwan_power_generation_daily.xlsx": ("Taipower open data, net generation by unit (10-minute, summed to days; from Mar 2026)",
+                                           "https://service.taipower.com.tw/data/opendata/apply/file/d006010/001.json"),
     "korea_taiwan_power_by_type.xlsx": ("Ember monthly electricity data (no raw KPX / Taipower feed yet)",
                                         "https://ember-energy.org/data/monthly-electricity-data/"),
     "south_korea_power_capacity.xlsx": ("Ember yearly electricity data (no raw capacity feed yet)",

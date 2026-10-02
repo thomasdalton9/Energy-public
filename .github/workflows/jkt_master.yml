@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '30 23 1,15 * *'   # 1st and 15th evening, after the day's pulls
   workflow_dispatch: {}
+  push:
+    branches: ["claude/loving-ptolemy-oeieeq"]
+    paths:
+      - "asia/JKT_MASTER.py"
+      - ".github/workflows/jkt_master.yml"
 
 permissions:
   contents: write
