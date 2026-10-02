@@ -1202,6 +1202,23 @@ def japan_prices(p):
     return [spec("Prices", m, "Japan day-ahead spot price, monthly average (JEPX)", "JPY per kWh", "line")]
 
 
+def taiwan_gas(p):
+    """Taiwan monthly gas (Bureau of Energy E-STAT): supply by origin and demand by sector, mcm/d."""
+    d = by_date(read(p, "Monthly"), "date")
+    g = lambda c: pd.to_numeric(d.get(c), errors="coerce")   # noqa: E731
+    days = d.index.days_in_month
+    sup = pd.DataFrame({"LNG imports": g("LNG_imports_kcm"), "Indigenous production": g("Indigenous_production_kcm")})
+    sup = (sup.div(days, axis=0) / 1000.0).round(3)
+    dem = pd.DataFrame({"Power & cogeneration": g("Power_and_cogen_kcm"), "Industrial": g("Industrial_kcm"),
+                        "Residential": g("Residential_kcm"), "Services": g("Services_kcm"),
+                        "Energy own use, transport & other": g("Final_consumption_kcm") - g("Industrial_kcm")
+                        - g("Residential_kcm") - g("Services_kcm")})
+    dem = (dem.div(days, axis=0) / 1000.0).round(3)
+    sup, dem = sup[sup.index >= "2021-01-01"], dem[dem.index >= "2021-01-01"]
+    return [spec("Supply", sup, "Taiwan natural gas supply by origin (Bureau of Energy)", "mcm/d", "stacked_bar"),
+            spec("Demand", dem, "Taiwan natural gas consumption by sector (Bureau of Energy)", "mcm/d", "stacked_bar")]
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "brazil_gas_monthly.xlsx": brazil,
@@ -1267,6 +1284,7 @@ REGISTRY = {
     # Japan / Korea / Taiwan
     "japan_power_generation_daily.xlsx": power_daily("Japan power generation by fuel (10 regional TSOs)"),
     "japan_power_prices_daily.xlsx": japan_prices,
+    "taiwan_gas.xlsx": taiwan_gas,
     "taiwan_power_generation_daily.xlsx": power_daily("Taiwan power generation by fuel (Taipower)"),
     "korea_taiwan_power_by_type.xlsx": sa_power,   # Ember fallback, one sheet per country
     "south_korea_power_capacity.xlsx": power_capacity("South Korea installed generating capacity (Ember - no raw feed yet, annual)"),
