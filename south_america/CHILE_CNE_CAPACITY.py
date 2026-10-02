@@ -122,7 +122,8 @@ def ember_year_end():
     except Exception as exc:  # noqa: BLE001
         print(f"  Ember fossil history skipped: {type(exc).__name__}: {exc}", flush=True)
         return pd.DataFrame()
-    e = e[(e["Area"] == "Chile") & (e["Category"] == "Capacity") & e["Variable"].isin(EMBER_FUELS.values())]
+    e = e[(e["Area"] == "Chile") & (e["Category"] == "Capacity") & e["Variable"].isin(EMBER_FUELS.values())
+          & e["Unit"].astype(str).str.upper().eq("GW")]   # capacity rows also come as % shares
     w = e.pivot_table(index="Year", columns="Variable", values="Value", aggfunc="sum") * 1000.0   # GW -> MW
     return w.rename(columns={v: k for k, v in EMBER_FUELS.items()}).sort_index()
 
