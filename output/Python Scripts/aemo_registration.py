@@ -88,3 +88,38 @@ def units(include_loads=False):
         print(f"  registration list: descriptors mapped to Other: {sorted(unknown)}", flush=True)
     print(f"  registration list: {len(out)} NEM units, {out['mw'].sum() / 1000:.1f} GW ({capcol})", flush=True)
     return out
+
+
+# units retired before the current registration list whose station has no current unit to borrow a fuel from
+RETIRED = {"LD0": "Coal", "TORR": "Gas", "OSB-AG": "Gas", "SWAN": "Gas", "MACKAYGT": "Oil", "SNUG": "Oil",
+           "LONSDALE": "Oil", "PTSTAN": "Oil", "ANGAST": "Oil", "DRYCGT": "Gas", "MSTUART": "Oil", "QPS": "Gas"}
+
+
+def with_history(current, start, end, table):
+    """Adds units that left the registration list (retired generators; the separate battery-charging and pump LOAD
+    DUIDs that AEMO folded into bidirectional units in 2024) from MMS DUDETAILSUMMARY, which keeps every DUID's
+    region, station and dispatch type. A missing unit takes the fuel of a current unit at the same station.
+    table(name, start, end) is the caller's nemosis fetch; any failure keeps the current list."""
+    try:
+        h = table("DUDETAILSUMMARY", start, end)
+    except Exception as e:  # noqa: BLE001
+        print(f"  DUDETAILSUMMARY failed ({type(e).__name__}: {str(e)[:150]}); current registration list only",
+              flush=True)
+        return current
+    h = h.sort_values("START_DATE").drop_duplicates("DUID", keep="last")
+    h = h[h["REGIONID"].isin(nem.REGION_TO_STATE_NAME)]
+    station = h.set_index("DUID")["STATIONID"]
+    st_fuel = current.assign(st=current["duid"].map(station)).dropna(subset=["st"])
+    st_fuel = st_fuel[st_fuel["role"].eq("gen")].groupby("st")["fuel"].agg(lambda f: f.mode().iat[0])
+    new = h[~h["DUID"].isin(current["duid"])]
+    fuel = new["STATIONID"].map(st_fuel)
+    for pre, f in RETIRED.items():
+        fuel = fuel.where(fuel.notna() | ~new["DUID"].str.upper().str.startswith(pre), f)
+    load = new["DISPATCHTYPE"].astype(str).str.upper().str.contains("LOAD")
+    add = pd.DataFrame({"duid": new["DUID"], "region": new["REGIONID"].str[:-1], "fuel": fuel, "mw": float("nan"),
+                        "role": load.map({True: "load", False: "gen"})}).dropna(subset=["fuel"])
+    miss = new[fuel.isna()]
+    print(f"  DUDETAILSUMMARY: {len(new)} DUIDs not in the current list, {len(add)} mapped "
+          f"({(add['role'] == 'load').sum()} loads: {sorted(add.loc[add['role'] == 'load', 'duid'])[:40]}); "
+          f"unmapped: {sorted(zip(miss['DUID'], miss['STATIONID']))[:60]}", flush=True)
+    return pd.concat([current, add], ignore_index=True)
