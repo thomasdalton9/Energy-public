@@ -41,27 +41,74 @@ RENAME = {"Battery_storage": "Battery_discharge", "Pumped_storage": "Pumped_hydr
 STATES = ["NSW", "QLD", "SA", "TAS", "VIC"]
 
 
-def fetch_month(duid_map, start, end):
-    """[start, end) -> (daily MWh by fuel, daily generation MWh by state)."""
+def _table(name, start, end):
     from nemosis import dynamic_data_compiler
 
     os.makedirs(CACHE, exist_ok=True)
     try:
-        df = dynamic_data_compiler(start.strftime("%Y/%m/%d %H:%M:%S"), end.strftime("%Y/%m/%d %H:%M:%S"),
-                                   "DISPATCH_UNIT_SCADA", CACHE)
+        return dynamic_data_compiler(start.strftime("%Y/%m/%d %H:%M:%S"), end.strftime("%Y/%m/%d %H:%M:%S"),
+                                     name, CACHE)
     finally:
-        shutil.rmtree(CACHE, ignore_errors=True)   # the monthly archive is large; keep the runner's disk free
+        shutil.rmtree(CACHE, ignore_errors=True)   # the monthly archives are large; keep the runner's disk free
+
+
+def _day(ts, minutes):
+    """Interval-END timestamps -> market day (intervals ending 00:05..24:00, or 00:30..24:00, make up one day)."""
+    return (pd.to_datetime(ts) - pd.Timedelta(minutes=minutes)).dt.normalize()
+
+
+def region_balance(start, end):
+    """Per region and day: operational demand and net imports (MWh, from DISPATCHREGIONSUM) and rooftop solar
+    (MWh, ROOFTOP_PV_ACTUAL) where available. Columns <STATE>_<item>."""
+    out = []
+    rs = _table("DISPATCHREGIONSUM", start, end)
+    if rs is not None and not rs.empty:
+        if "INTERVENTION" in rs:
+            rs = rs[pd.to_numeric(rs["INTERVENTION"], errors="coerce").fillna(0) == 0]
+        rs = rs.assign(date=_day(rs["SETTLEMENTDATE"], 5), state=rs["REGIONID"].str[:-1],
+                       demand=pd.to_numeric(rs["TOTALDEMAND"], errors="coerce") / 12.0,
+                       # NETINTERCHANGE > 0 is a net EXPORT from the region
+                       imports=-pd.to_numeric(rs["NETINTERCHANGE"], errors="coerce") / 12.0)
+        g = rs.groupby(["date", "state"])[["demand", "imports"]].sum().unstack("state")
+        g.columns = [f"{st}_{'Operational_demand' if k == 'demand' else 'Net_imports'}" for k, st in g.columns]
+        out.append(g)
+    try:
+        pv = _table("ROOFTOP_PV_ACTUAL", start, end)
+        if pv is not None and not pv.empty:
+            pv = pv[pv["REGIONID"].isin([f"{st}1" for st in STATES])]
+            if "QI" in pv:   # one estimate per half-hour: the highest-quality one
+                pv = pv.sort_values("QI", ascending=False)
+            pv = pv.drop_duplicates(["INTERVAL_DATETIME", "REGIONID"])
+            pv = pv.assign(date=_day(pv["INTERVAL_DATETIME"], 30), state=pv["REGIONID"].str[:-1],
+                           mwh=pd.to_numeric(pv["POWER"], errors="coerce") / 2.0)
+            g = pv.groupby(["date", "state"])["mwh"].sum().unstack("state")
+            g.columns = [f"{st}_Rooftop_solar" for st in g.columns]
+            out.append(g)
+    except Exception as e:  # noqa: BLE001 - the balance still works without rooftop solar
+        print(f"    rooftop PV not available: {type(e).__name__}: {str(e)[:150]}", flush=True)
+    return pd.concat(out, axis=1) if out else pd.DataFrame()
+
+
+def fetch_month(duid_map, start, end):
+    """[start, end) -> (daily MWh by fuel, daily generation MWh by state, daily state power balance)."""
+    df = _table("DISPATCH_UNIT_SCADA", start, end)
     if df is None or df.empty:
-        return None, None
+        return None, None, None
     df = df.merge(duid_map, left_on="DUID", right_on="duid", how="inner")
-    # SETTLEMENTDATE is the interval END: 00:05..24:00 make up one day
-    t = pd.to_datetime(df["SETTLEMENTDATE"]) - pd.Timedelta(minutes=5)
-    df = df.assign(date=t.dt.normalize(),
+    df = df.assign(date=_day(df["SETTLEMENTDATE"], 5),
                    mwh=pd.to_numeric(df["SCADAVALUE"], errors="coerce").clip(lower=0) / 12.0)
     fuel = df.pivot_table(index="date", columns="fuel", values="mwh", aggfunc="sum")
     gen = df[~df["fuel"].isin(STORAGE)]
     states = gen.pivot_table(index="date", columns="region", values="mwh", aggfunc="sum")
-    return fuel, states
+    sf = df.pivot_table(index="date", columns=["region", "fuel"], values="mwh", aggfunc="sum")
+    sf.columns = [f"{st}_{f}" for st, f in sf.columns]
+    try:
+        bal = pd.concat([sf, region_balance(start, end)], axis=1)
+    except Exception as e:  # noqa: BLE001 - generation by state and fuel is still saved
+        print(f"    region demand/interchange failed: {type(e).__name__}: {str(e)[:150]}", flush=True)
+        bal = sf
+    bal = bal[(bal.index >= start) & (bal.index < end)]
+    return fuel, states, bal
 
 
 def load(path, sheet):
@@ -73,7 +120,7 @@ def load(path, sheet):
     return d[d.index.notna()].sort_index()
 
 
-def save(path, fuel, states):
+def save(path, fuel, states, balance):
     daily = fuel.reindex(columns=[f for f in FUELS + ["Nuclear"] if f in fuel.columns]).add_suffix("_MWh")
     daily["Total_MWh"] = daily.sum(axis=1, min_count=1)
     for s in STORAGE:
@@ -90,6 +137,11 @@ def save(path, fuel, states):
         "Bioenergy; Total_MWh is their sum. Battery_discharge_MWh and Pumped_hydro_MWh are storage output, kept "
         "out of Total_MWh (they shift energy rather than generate it).",
         "States: generation (excl. storage) by NEM region, MWh per day.",
+        "State balance: per NEM region and day, MWh - <STATE>_<Fuel> generation by fuel (incl. Battery_discharge, "
+        "Pumped_hydro), <STATE>_Rooftop_solar (AEMO ROOFTOP_PV_ACTUAL estimate, half-hourly MW / 2), "
+        "<STATE>_Net_imports (interconnector flow into the region; negative = net export; DISPATCHREGIONSUM "
+        "NETINTERCHANGE with the sign reversed) and <STATE>_Operational_demand (TOTALDEMAND: demand met by "
+        "scheduled, semi-scheduled and significant non-scheduled generation, excl. rooftop solar).",
         "",
         "COVERAGE",
         f"National Electricity Market (QLD, NSW incl. ACT, VIC, SA, TAS), daily, {daily.index.min():%d %b %Y} to "
@@ -102,7 +154,10 @@ def save(path, fuel, states):
         f"Exemption List: {aemo_registration.URL}",
         "https://nemweb.com.au/",
     ]
-    xlsx_notes.write_workbook(path, {"Daily": daily.round(1), "States": st.round(1)}, notes,
+    bal = balance.reindex(columns=sorted(balance.columns)).add_suffix("_MWh")
+    bal.index.name = "date"
+    xlsx_notes.write_workbook(path, {"Daily": daily.round(1), "States": st.round(1), "State balance": bal.round(1)},
+                              notes,
                               {"UNITS", "COVERAGE", "SOURCE"})
 
 
@@ -116,9 +171,13 @@ def main():
     fuel = raw[[c for c in raw.columns if c != "Total_MWh"]].rename(columns=lambda c: c[:-4]) if not raw.empty else raw
     states = load(args.out, "States")
     states = states.rename(columns=lambda c: c[:-4]) if not states.empty else states
+    balance = load(args.out, "State balance")
+    balance = balance.rename(columns=lambda c: c[:-4]) if not balance.empty else balance
     today = pd.Timestamp(date.today())
     months = pd.date_range(HISTORY_START, today, freq="MS")
-    have = sorted(set(fuel.index.to_period("M").to_timestamp())) if not fuel.empty else []
+    # a month counts as saved once its state balance is saved too (the balance sheet was added after the first
+    # backfill, so earlier months are fetched once more to fill it)
+    have = sorted(set(balance.index.to_period("M").to_timestamp())) if not balance.empty else []
     todo = [m for m in months if m not in have] + have[-1:]
     todo = sorted(set(todo))[:args.max_months]
     print(f"{len(have)} months saved; fetching {len(todo)}: {[f'{m:%Y-%m}' for m in todo]}", flush=True)
@@ -127,7 +186,7 @@ def main():
     for m in todo:
         end = min(m + pd.offsets.MonthBegin(1), today)
         try:
-            f, s = fetch_month(duid_map, m, end)
+            f, s, b = fetch_month(duid_map, m, end)
         except Exception as e:  # noqa: BLE001 - keep the months already done
             print(f"  {m:%Y-%m}: failed {type(e).__name__}: {str(e)[:200]}", flush=True)
             continue
@@ -137,9 +196,10 @@ def main():
         keep = lambda d: d[d.index.to_period("M") != m.to_period("M")] if not d.empty else d  # noqa: E731
         fuel = pd.concat([keep(fuel), f]).sort_index()
         states = pd.concat([keep(states), s]).sort_index()
+        balance = pd.concat([keep(balance), b]).sort_index()
         print(f"  {m:%Y-%m}: {len(f)} days, {f.drop(columns=STORAGE, errors='ignore').sum().sum() / 1e3:,.0f} GWh",
               flush=True)
-        save(args.out, fuel, states)
+        save(args.out, fuel, states, balance)
     if fuel.empty:
         raise SystemExit("No NEM generation data")
     print(f"Saved {args.out}: {len(fuel)} days", flush=True)
