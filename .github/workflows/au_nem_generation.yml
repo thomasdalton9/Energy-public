@@ -21,6 +21,12 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install pandas openpyxl requests nemosis
+      - name: NEM prices
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 3600 python3 australia_nz/AU_NEM_PRICES.py
+
       - name: NEM generation
         if: always()
         env:
@@ -30,18 +36,18 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          for f in au_nem_power_generation_daily; do
+          for f in au_nem_power_generation_daily au_nem_prices; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp australia_nz/AU_NEM_GENERATION.py rest_of_world/aemo_nemweb_power_mix.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp australia_nz/AU_NEM_GENERATION.py australia_nz/AU_NEM_PRICES.py australia_nz/aemo_registration.py rest_of_world/aemo_nemweb_power_mix.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbooks
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in au_nem_power_generation_daily; do
+          for f in au_nem_power_generation_daily au_nem_prices; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
           git add -f "output/Python Scripts" || true

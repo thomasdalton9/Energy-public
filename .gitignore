@@ -4,3 +4,4 @@
 __pycache__/
 api_keys.py
 nemosis_cache/
+nemosis_cache_prices/

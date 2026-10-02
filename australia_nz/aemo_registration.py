@@ -31,7 +31,9 @@ def _text(v):
     return "" if v is None or (isinstance(v, float) and pd.isna(v)) else str(v).strip()
 
 
-def units():
+def units(include_loads=False):
+    """One row per DUID: duid, region, fuel, mw, role ('gen', or 'load' for scheduled loads - battery charging and
+    hydro pumps - which are only kept with include_loads=True)."""
     r = requests.get(URL, headers=nem.HEADERS, timeout=(10, 120))
     r.raise_for_status()
     d = None
@@ -44,8 +46,10 @@ def units():
     if d is None:
         raise RuntimeError(f"none of {nem.REGISTRATION_SHEET_NAMES} in the registration list")
     d = d[d["DUID"].map(_text).ne("") & d["Region"].isin(nem.REGION_TO_STATE_NAME)]
-    if "Dispatch Type" in d:   # generating units only (scheduled loads are listed too)
-        d = d[~d["Dispatch Type"].map(_text).str.contains("load", case=False)]
+    is_load = d["Dispatch Type"].map(_text).str.contains("load", case=False) if "Dispatch Type" in d else \
+        pd.Series(False, index=d.index)
+    if not include_loads:   # generating units only (scheduled loads are listed too)
+        d, is_load = d[~is_load], is_load[~is_load]
     unknown = set()
 
     def fuel(row):
@@ -62,7 +66,8 @@ def units():
     capcol = next((c for c in d.columns if "reg cap" in c.lower() and "gen" in c.lower()),
                   next((c for c in d.columns if "reg cap" in c.lower()), None))
     out = pd.DataFrame({"duid": d["DUID"].map(_text), "region": d["Region"].str[:-1], "fuel": d.apply(fuel, axis=1),
-                        "mw": pd.to_numeric(d[capcol], errors="coerce") if capcol else float("nan")})
+                        "mw": pd.to_numeric(d[capcol], errors="coerce") if capcol else float("nan"),
+                        "role": is_load.map({True: "load", False: "gen"})})
     out = out.drop_duplicates("duid")
     blank = out["fuel"].eq("Unknown")
     if blank.any():   # rows with no fuel or technology at all (loads, placeholders) are not generating capacity

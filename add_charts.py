@@ -1054,7 +1054,35 @@ def au_nem_power(p):
         st = st[st.index >= "2021-01-01"].resample("MS").sum(min_count=1) / 1000
         out.append(spec("States", st.rename(columns=lambda c: str(c).replace("_MWh", "")),
                         "Australia NEM power generation by state (AEMO)", "GWh per month", "stacked_bar"))
+    d = by_date(read(p, "Daily"), "date")
+    if "Battery_charge_MWh" in d:
+        last = d.dropna(how="all").index.max()
+        m = d[d.index >= "2021-01-01"].resample("MS").sum(min_count=1) / 1000
+        if last < last + pd.offsets.MonthEnd(0):
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        bt = pd.DataFrame({"Battery discharge": m.get("Battery_discharge_MWh"),
+                           "Battery charging (-)": -m["Battery_charge_MWh"]})
+        out.append(spec("Batteries", bt, "Australia NEM grid batteries: charging vs discharging (AEMO)",
+                        "GWh per month", "stacked_bar"))
     out += nem_state_balance(p)
+    return out
+
+
+def au_nem_prices(p):
+    """NEM wholesale prices: monthly average by state (A$/MWh) and hours of negative prices per month."""
+    out = []
+    a = _sheet(p, "Daily average", "date")
+    if not a.empty:
+        out.append(spec("Prices", monthly_mean(a, "2021-01-01"), "Australia NEM wholesale power price by state (AEMO)",
+                        "A$/MWh, monthly average"))
+    n = _sheet(p, "Negative hours", "date")
+    if not n.empty:
+        last = n.dropna(how="all").index.max()
+        m = n[n.index >= "2021-01-01"].resample("MS").sum(min_count=1)
+        if last < last + pd.offsets.MonthEnd(0):
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        out.append(spec("Negative prices", m, "Australia NEM hours with negative power prices by state (AEMO)",
+                        "hours per month"))
     return out
 
 
@@ -1064,7 +1092,8 @@ NEM_STATE_NAMES = {"NSW": "New South Wales", "QLD": "Queensland", "VIC": "Victor
 
 def nem_state_balance(p):
     """One chart per NEM state: monthly GWh of generation by fuel, rooftop solar, storage output and net
-    interconnector imports (negative = net exports) as stacked bars, demand (operational + rooftop) as a line."""
+    interconnector imports (negative = net exports) as stacked bars, storage charging below zero, demand
+    (operational + rooftop) as a line."""
     b = _sheet(p, "State balance", "date")
     if b.empty:
         return []
@@ -1081,7 +1110,8 @@ def nem_state_balance(p):
         g = pd.DataFrame({"Hydro": z("Hydro"), "Gas": z("Gas"), "Wind": z("Wind"), "Solar (utility)": z("Solar"),
                           "Rooftop solar": z("Rooftop_solar"), "Coal": z("Coal"), "Other": z("Oil", "Bioenergy", "Other"),
                           "Storage (battery, pumped hydro)": z("Battery_discharge", "Pumped_hydro"),
-                          "Net imports (- = exports)": z("Net_imports")})
+                          "Net imports (- = exports)": z("Net_imports"),
+                          "Storage charging (-)": -z("Battery_charge", "Pumped_hydro_pumping")})
         g["Demand (incl. rooftop solar)"] = z("Operational_demand") + g["Rooftop solar"].fillna(0)
         g = g.dropna(axis=1, how="all")
         g = g.loc[:, (g.fillna(0) != 0).any()]
@@ -1258,6 +1288,7 @@ REGISTRY = {
     # Australia and New Zealand
     "nz_power_generation_daily.xlsx": power_daily("New Zealand power generation by source (Electricity Authority EMI)"),
     "au_nem_power_generation_daily.xlsx": au_nem_power,
+    "au_nem_prices.xlsx": au_nem_prices,
     "au_wem_power_generation_daily.xlsx": power_daily("Western Australia (WEM) power generation by source (AEMO)"),
     "au_power_capacity.xlsx": capacity_with_storage("Australia registered generating capacity (AEMO, NEM + WEM)"),
     "nz_power_capacity.xlsx": capacity_with_storage("New Zealand installed generating capacity (MBIE)"),

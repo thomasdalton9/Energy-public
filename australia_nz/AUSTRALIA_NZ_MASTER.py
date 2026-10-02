@@ -55,6 +55,9 @@ CAPACITY_DATASETS = [
     ("AU", "Australia", "au_power_capacity.xlsx", ("Monthly", "By region"), "capacity"),
     ("NZ", "New Zealand", "nz_power_capacity.xlsx", ("Monthly", "By plant type"), "capacity"),
 ]
+PRICE_DATASETS = [
+    ("AU", "Australia NEM", "au_nem_prices.xlsx", ("Daily average", "Negative hours"), "power prices"),
+]
 HYDRO_DATASETS = [
     ("TAS", "Tasmania", "au_hydro_storage.xlsx", "Weekly", "hydro storage"),
 ]
@@ -80,6 +83,8 @@ SOURCES = {
                                "https://aemo.com.au/en/energy-systems/electricity/national-electricity-market-nem/participate-in-the-market/registration"),
     "nz_power_capacity.xlsx": ("MBIE electricity statistics, installed capacity by plant type",
                                "https://www.mbie.govt.nz/building-and-energy/energy-and-natural-resources/energy-statistics-and-modelling/energy-statistics/electricity-statistics/"),
+    "au_nem_prices.xlsx": ("AEMO NEMWEB / MMSDM DISPATCHPRICE (5-minute regional reference price)",
+                           "https://nemweb.com.au/"),
     "au_hydro_storage.xlsx": ("Hydro Tasmania, Energy in Storage", "https://www.hydro.com.au/water/energy-in-storage"),
 }
 
@@ -184,6 +189,7 @@ def main():
 
     gas = sam.collect(wb, DATASETS, args.data_dir, used, sources, cfg=cfg)
     parts = [sam.collect(wb, RAW_POWER_DATASETS, args.data_dir, used, sources, cfg=cfg),
+             sam.collect(wb, PRICE_DATASETS, args.data_dir, used, sources, cfg=cfg),
              sam.collect(wb, CAPACITY_DATASETS, args.data_dir, used, sources, cfg=cfg),
              sam.collect(wb, HYDRO_DATASETS, args.data_dir, used, sources, cfg=cfg)]
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
