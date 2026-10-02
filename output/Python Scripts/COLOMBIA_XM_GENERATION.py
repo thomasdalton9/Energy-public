@@ -75,8 +75,14 @@ def post(url, body, tries=3):
             time.sleep(5 * (attempt + 1))
 
 
-def plant_fuels():
-    """Plant code -> XM fuel label."""
+# gas combined cycles XM lists under their backup liquid fuel (ACPM): counted as gas, as in COLOMBIA_XM_CAPACITY
+GAS_CC_CODES = {"TSR1": "TERMOSIERRA CC", "TVL1": "TERMOVALLE CC", "TEC1": "TERMOEMCALI CC"}
+UNKNOWN_MWH = {}   # plant code -> MWh fetched with no fuel (printed by the caller)
+
+
+def plant_fuels(saved=None):
+    """Plant code -> XM fuel label: today's XM plant list over `saved` (codes seen on earlier runs, so a plant XM
+    later drops from the list keeps its fuel), with the gas combined-cycle override."""
     payload = post(LISTS_URL, {"MetricId": "ListadoRecursos", "Entity": "Sistema"})
     fuels = {}
     for item in payload.get("Items", []):
@@ -85,6 +91,11 @@ def plant_fuels():
             if v.get("Code"):
                 fuels[v["Code"]] = str(v.get("EnerSource") or "").strip().upper() or "UNKNOWN"
     print(f"  {len(fuels):,} plants listed", flush=True)
+    kept = {c: f for c, f in (saved or {}).items() if c not in fuels and f != "UNKNOWN"}
+    if kept:
+        print(f"  {len(kept)} plants no longer in XM's list keep their saved fuel: {sorted(kept)[:30]}", flush=True)
+    fuels = {**kept, **fuels}
+    fuels.update({c: "GAS" for c in GAS_CC_CODES})
     return fuels
 
 
@@ -108,6 +119,8 @@ def fetch_generation(start, end, fuels):
                 v = entity.get("Values", {})
                 kwh = sum(float(x) for k, x in v.items() if k.startswith("Hour") and x not in (None, ""))
                 fuel = fuels.get(v.get("code"), "UNKNOWN")
+                if fuel == "UNKNOWN":
+                    UNKNOWN_MWH[v.get("code")] = UNKNOWN_MWH.get(v.get("code"), 0.0) + kwh / 1000
                 totals[(day, fuel)] = totals.get((day, fuel), 0.0) + kwh / 1000  # kWh -> MWh
         rows += [{"Date": d, "fuel": f, "MWh": m} for (d, f), m in totals.items()]
         days_back = len({d for d, _ in totals})

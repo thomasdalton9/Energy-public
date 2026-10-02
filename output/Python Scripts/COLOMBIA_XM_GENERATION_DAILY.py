@@ -60,7 +60,9 @@ NOTES = [
     "",
     "TABS",
     "'Daily': standard layout shared by every country's grid-operator workbook. "
-    "'By XM fuel': the same days in MWh per XM fuel label (each plant's EnerSource), before mapping.",
+    "'By XM fuel': the same days in MWh per XM fuel label (each plant's EnerSource), before mapping. "
+    "'Plant fuels': plant code -> XM fuel label, kept across runs so a plant XM drops from its list keeps its fuel; "
+    "the gas combined cycles Termosierra, Termovalle and Termoemcali (listed by XM under backup ACPM) count as GAS.",
     "",
     "CATEGORY MAPPING (XM EnerSource -> column)",
     "Hydro = AGUA. Gas = GAS, GLP (domestic gas and imported LNG via SPEC Cartagena are not split by XM). "
@@ -127,11 +129,24 @@ def to_standard(by_fuel):
     return out.round(1)
 
 
+def load_plant_fuels(path):
+    """Saved plant code -> XM fuel label (None when the workbook predates the saved table)."""
+    try:
+        d = pd.read_excel(path, sheet_name="Plant fuels", dtype=str)
+    except (FileNotFoundError, ValueError):
+        return None
+    return dict(zip(d["code"], d["xm_fuel"]))
+
+
+PLANT_FUELS = {}
+
+
 def save(path, by_fuel):
     by_fuel = by_fuel.sort_index().round(1)
     by_fuel.index.name = "date"
     daily = to_standard(by_fuel)
-    xlsx_notes.write_workbook(path, {"Daily": daily, "By XM fuel": by_fuel}, NOTES,
+    pf = pd.DataFrame(sorted(PLANT_FUELS.items()), columns=["code", "xm_fuel"]).set_index("code")
+    xlsx_notes.write_workbook(path, {"Daily": daily, "By XM fuel": by_fuel, "Plant fuels": pf}, NOTES,
                               {"UNITS", "TABS", "CATEGORY MAPPING (XM EnerSource -> column)", "COVERAGE", "SOURCE"})
     return daily
 
@@ -143,12 +158,17 @@ def main():
     args = ap.parse_args()
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
 
+    saved_fuels = load_plant_fuels(args.out)
+    if saved_fuels is None and not args.full:   # first run with the saved plant table (and the gas-CC fix): rebuild
+        print("No saved plant-fuel table yet: rebuilding the history once with the current mapping", flush=True)
+        args.full = True
     by_fuel = pd.DataFrame() if args.full else load_existing(args.out)
     today = date.today()
     ranges = ranges_to_fetch(by_fuel, today, args.full)
     print(f"Existing days: {len(by_fuel):,}; ranges to fetch: {[(str(a), str(b)) for a, b in ranges]}", flush=True)
     print("Plant list...", flush=True)
-    fuels = xm.plant_fuels()
+    fuels = xm.plant_fuels(saved_fuels)
+    PLANT_FUELS.update(fuels)
     print("Fuel labels in the plant list:", sorted(set(fuels.values())), flush=True)
 
     for a, b in ranges:
@@ -164,6 +184,10 @@ def main():
                 save(args.out, by_fuel)
             cur = block_end + timedelta(days=1)
 
+    if xm.UNKNOWN_MWH:
+        top = sorted(xm.UNKNOWN_MWH.items(), key=lambda kv: -kv[1])[:15]
+        print(f"Generation from plants with no fuel (counted as Other), GWh: {[(c, round(m / 1000, 1)) for c, m in top]}",
+              flush=True)
     if by_fuel.empty:
         sys.exit("No XM data")
     daily = save(args.out, by_fuel)
