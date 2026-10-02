@@ -6,22 +6,26 @@ on:
   workflow_dispatch:
     inputs:
       step:
-        description: "1 = source probe, 2 = EPE/ANEEL file listing"
-        default: "2"
+        description: "1 = source probe, 2 = EPE/ANEEL file listing, 3 = parse"
+        default: "3"
 
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd
+        run: pip install requests pandas openpyxl xlrd pyarrow pdfplumber
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          if [ "${{ github.event.inputs.step }}" = "1" ]; then timeout 500 python3 discovery_archive/PMO_DECK_DISCOVERY.py; else timeout 800 python3 discovery_archive/PMO_DECK_DISCOVERY2.py; fi
+          case "${{ github.event.inputs.step }}" in
+            1) timeout 500 python3 discovery_archive/PMO_DECK_DISCOVERY.py ;;
+            2) timeout 800 python3 discovery_archive/PMO_DECK_DISCOVERY2.py ;;
+            *) timeout 1100 python3 discovery_archive/PMO_DECK_DISCOVERY3.py ;;
+          esac
