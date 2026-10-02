@@ -55,7 +55,7 @@ def get(url):
 def discover():
     """Seed pages plus one level of data-centre sub-pages; return {file_url: page}."""
     files, seen, queue = {}, set(), list(SEED_PAGES)
-    while queue and len(seen) < 60:
+    while queue and len(seen) < 150:
         page = queue.pop(0)
         if page in seen:
             continue
@@ -67,13 +67,14 @@ def discover():
             continue
         for href in FILE_RE.findall(html):
             url = urljoin(page, href)
-            if any(k in url.lower() for k in KEYWORDS) or any(k in page.lower() for k in KEYWORDS):
-                files.setdefault(url, page)
+            files.setdefault(url, page)
         for href in PAGE_RE.findall(html):
             url = urljoin(page, href)
-            if url not in seen and any(k in url.lower() for k in KEYWORDS):
+            if url not in seen and url.startswith(BASE) and not FILE_RE.search(f'href="{url}"'):
                 queue.append(url)
     print(f"Crawled {len(seen)} pages, found {len(files)} files", file=sys.stderr)
+    for p in sorted(seen):
+        print("  page:", p, file=sys.stderr)
     for u in files:
         print("  file:", u, file=sys.stderr)
     return files
