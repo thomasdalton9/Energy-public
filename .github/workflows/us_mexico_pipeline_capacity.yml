@@ -1,0 +1,54 @@
+name: US-Mexico pipeline capacity (EIA)
+
+# EIA posts a new State to State Capacity workbook a few times a year, so the
+# pull runs once a month (the 1st) and downloads only when a new release is listed.
+on:
+  schedule:
+    - cron: "20 16 1 * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Re-download even if the release is unchanged"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+      - name: Pull US-Mexico pipeline capacity
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 americas/US_MEXICO_PIPELINE_CAPACITY.py --out "output/Data and Chart Outputs/us_mexico_pipeline_capacity.xlsx" ${{ github.event.inputs.force == 'true' && '--force' || '' }}
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/us_mexico_pipeline_capacity.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/us_mexico_pipeline_capacity.xlsx" || echo "chart step skipped"
+          mkdir -p "output/Python Scripts"
+          cp americas/US_MEXICO_PIPELINE_CAPACITY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit workbook
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/us_mexico_pipeline_capacity.xlsx" ] || { echo "No workbook to commit."; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/us_mexico_pipeline_capacity.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "US-Mexico pipeline capacity (EIA): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

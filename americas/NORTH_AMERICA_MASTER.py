@@ -52,6 +52,8 @@ DATASETS = [
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
     ("MX", "Mexico", "mexico_gas.xlsx", "Imports from US", "gas"),
+    ("MX", "Mexico", "us_mexico_pipeline_capacity.xlsx", ("Export capacity by line", "Import capacity by line"),
+     "pipeline capacity"),
 ]
 
 EIA930_SHEETS = ("US_Total", "ERCOT", "PJM", "MISO", "SPP", "CAISO", "NYISO", "ISONE", "Southern", "TVA")
@@ -184,6 +186,8 @@ SOURCES = {
                         "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510005501"),
     "mexico_gas.xlsx": ("EIA, US natural gas exports to Mexico (pipeline N9132MX2, LNG N9133MX2) - Mexico's "
                         "imports from the US as measured on the US side", "https://www.eia.gov/dnav/ng/ng_move_expc_s1_m.htm"),
+    "us_mexico_pipeline_capacity.xlsx": ("EIA, Natural Gas Pipelines: State to State Capacity (annual capacity by line, "
+                                         "US to Mexico and Mexico to US, MMcf/d)", EIA_GAS),
     "eia930_fuel_mix_daily.xlsx": ("EIA-930 Hourly Electric Grid Monitor (balancing authority data, Lower 48)",
                                    "https://www.eia.gov/electricity/gridmonitor/"),
     "canada_power_generation_daily.xlsx": ("Statistics Canada, Table 25-10-0015-01 Electric power generation, "
