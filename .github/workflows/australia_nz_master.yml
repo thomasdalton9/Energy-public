@@ -31,7 +31,7 @@ jobs:
         if: always()
         run: |
           mkdir -p "output/Python Scripts"
-          cp australia_nz/AUSTRALIA_NZ_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp australia_nz/AUSTRALIA_NZ_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit master workbook
         if: always()
