@@ -227,7 +227,8 @@ def main():
         for m in months(start, date.today()):
             mw, last_status = fetch_month(session, zone, m)
             d = to_daily(mw)
-            d = d[d.index >= pd.Timestamp(start)]
+            if len(d):
+                d = d[d.index >= pd.Timestamp(start)]
             if len(d):
                 d = d.reset_index()
                 d.insert(1, "area", zone[1])

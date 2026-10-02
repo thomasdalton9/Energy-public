@@ -98,7 +98,8 @@ def main():
     print("; ".join(notes))
     if not frames and old.empty:
         sys.exit("no JEPX data fetched")
-    d = pd.concat([old[old.index < pd.Timestamp(start)]] + frames).sort_index()
+    keep = [old[old.index < pd.Timestamp(start)]] if len(old) else []
+    d = pd.concat(keep + frames).sort_index()
     d = d[~d.index.duplicated(keep="last")]
     d.index = d.index.strftime("%Y-%m-%d")
     d.index.name = "date"
