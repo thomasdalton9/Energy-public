@@ -744,14 +744,6 @@ def chile_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
-def denmark_gas(p):
-    """Denmark gas flows (Energinet), GWh/d monthly averages: sources up, exits down."""
-    d = by_date(read(p, "Daily"), "date").apply(pd.to_numeric, errors="coerce")
-    m = monthly_mean(d, "2021-01-01")
-    return [spec("Flows", m, "Denmark gas flows by entry and exit (Energinet)", "GWh per day, monthly average",
-                 "stacked_bar")]
-
-
 IGU_SECTORS = ["LNG liquefaction", "Ammonia/urea", "Methanol", "Steel DRI", "Alumina", "Cement", "Glass", "Ceramics",
                "Other"]
 
@@ -1287,12 +1279,6 @@ REGISTRY = {
     "peru_hydro_reservoirs.xlsx": peru_hydro,
     "ecuador_hydro_reservoirs.xlsx": ecuador_hydro,
     "uruguay_hydro_reservoirs.xlsx": uruguay_hydro,
-    # Europe (national TSO feeds)
-    "great_britain_power_generation_daily.xlsx": power_daily("Great Britain power generation by type (NESO)"),
-    "belgium_power_generation_daily.xlsx": power_daily("Belgium power generation by type (Elia)"),
-    "denmark_power_generation_daily.xlsx": power_daily("Denmark power generation by type (Energinet)"),
-    "spain_power_generation_daily.xlsx": power_daily("Spain power generation by type (REE)"),
-    "denmark_gas_flows.xlsx": denmark_gas,
     # installed generation capacity by technology (standard sheet "Monthly")
     "brazil_power_capacity.xlsx": power_capacity("Brazil installed generation capacity (ANEEL)"),
     "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),
