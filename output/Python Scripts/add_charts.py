@@ -1054,7 +1054,35 @@ def au_nem_power(p):
         st = st[st.index >= "2021-01-01"].resample("MS").sum(min_count=1) / 1000
         out.append(spec("States", st.rename(columns=lambda c: str(c).replace("_MWh", "")),
                         "Australia NEM power generation by state (AEMO)", "GWh per month", "stacked_bar"))
+    d = by_date(read(p, "Daily"), "date")
+    if "Battery_charge_MWh" in d:
+        last = d.dropna(how="all").index.max()
+        m = d[d.index >= "2021-01-01"].resample("MS").sum(min_count=1) / 1000
+        if last < last + pd.offsets.MonthEnd(0):
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        bt = pd.DataFrame({"Battery discharge": m.get("Battery_discharge_MWh"),
+                           "Battery charging (-)": -m["Battery_charge_MWh"]})
+        out.append(spec("Batteries", bt, "Australia NEM grid batteries: charging vs discharging (AEMO)",
+                        "GWh per month", "stacked_bar"))
     out += nem_state_balance(p)
+    return out
+
+
+def au_nem_prices(p):
+    """NEM wholesale prices: monthly average by state (A$/MWh) and hours of negative prices per month."""
+    out = []
+    a = _sheet(p, "Daily average", "date")
+    if not a.empty:
+        out.append(spec("Prices", monthly_mean(a, "2021-01-01"), "Australia NEM wholesale power price by state (AEMO)",
+                        "A$/MWh, monthly average"))
+    n = _sheet(p, "Negative hours", "date")
+    if not n.empty:
+        last = n.dropna(how="all").index.max()
+        m = n[n.index >= "2021-01-01"].resample("MS").sum(min_count=1)
+        if last < last + pd.offsets.MonthEnd(0):
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        out.append(spec("Negative prices", m, "Australia NEM hours with negative power prices by state (AEMO)",
+                        "hours per month"))
     return out
 
 
@@ -1064,7 +1092,8 @@ NEM_STATE_NAMES = {"NSW": "New South Wales", "QLD": "Queensland", "VIC": "Victor
 
 def nem_state_balance(p):
     """One chart per NEM state: monthly GWh of generation by fuel, rooftop solar, storage output and net
-    interconnector imports (negative = net exports) as stacked bars, demand (operational + rooftop) as a line."""
+    interconnector imports (negative = net exports) as stacked bars, storage charging below zero, demand
+    (operational + rooftop) as a line."""
     b = _sheet(p, "State balance", "date")
     if b.empty:
         return []
@@ -1081,7 +1110,8 @@ def nem_state_balance(p):
         g = pd.DataFrame({"Hydro": z("Hydro"), "Gas": z("Gas"), "Wind": z("Wind"), "Solar (utility)": z("Solar"),
                           "Rooftop solar": z("Rooftop_solar"), "Coal": z("Coal"), "Other": z("Oil", "Bioenergy", "Other"),
                           "Storage (battery, pumped hydro)": z("Battery_discharge", "Pumped_hydro"),
-                          "Net imports (- = exports)": z("Net_imports")})
+                          "Net imports (- = exports)": z("Net_imports"),
+                          "Storage charging (-)": -z("Battery_charge", "Pumped_hydro_pumping")})
         g["Demand (incl. rooftop solar)"] = z("Operational_demand") + g["Rooftop solar"].fillna(0)
         g = g.dropna(axis=1, how="all")
         g = g.loc[:, (g.fillna(0) != 0).any()]
@@ -1139,6 +1169,50 @@ def au_gas(p):
 def au_gas_prices(p):
     d = _sheet(p, "Daily", "date")
     return [spec("Prices", d, "Australia east coast gas hub prices, STTM ex-ante (AEMO)", "A$/GJ")]
+
+
+def au_gas_hub_prices(p):
+    d = _sheet(p, "Daily", "date")
+    names = {"DWGM_BOD": "Victoria DWGM (beginning of day)", "Wallumbilla_benchmark": "Wallumbilla (QLD)"}
+    return [spec("Hub prices", d[cols(d, *names)].rename(columns=names),
+                 "Australia gas hub prices: Victoria DWGM and Wallumbilla (AEMO)", "A$/GJ")]
+
+
+def au_wa_gas(p):
+    """WA GBB: production by facility (top 6 + other) and consumption by user type, monthly average MMcf/d."""
+    out = []
+    pr = _sheet(p, "Production", "date")
+    if not pr.empty:
+        pr = pr.drop(columns=["Total"], errors="ignore")
+        top = list(pr.sum().sort_values(ascending=False).index[:6])
+        g = pr[top].copy()
+        g["Other facilities"] = pr.drop(columns=top).sum(axis=1, min_count=1)
+        out.append(spec("Production", monthly_mean(g, "2021-01-01") * MMCF_PER_TJ,
+                        "Western Australia domestic gas production by facility (AEMO WA GBB)",
+                        f"{MMCFD}, monthly average", "stacked_bar"))
+    c = _sheet(p, "Consumption", "date")
+    if not c.empty:
+        c = c.drop(columns=["Total"], errors="ignore")
+        out.append(spec("Demand", monthly_mean(c, "2021-01-01") * MMCF_PER_TJ,
+                        "Western Australia gas consumption by user type (AEMO WA GBB)",
+                        f"{MMCFD}, monthly average", "stacked_bar"))
+    return out
+
+
+def au_rooftop_solar(p):
+    """CER small-scale solar: MW installed per month by state, and home battery installs."""
+    out = []
+    c = _sheet(p, "Solar capacity", "Month")
+    if not c.empty:
+        out.append(spec("Rooftop solar", c[c.index >= "2021-01-01"].drop(columns=["Total"], errors="ignore"),
+                        "Australia rooftop solar installed per month by state (Clean Energy Regulator)",
+                        "MW per month (latest 12 months still rising)", "stacked_bar"))
+    b = _sheet(p, "Battery installs", "Month")
+    if not b.empty:
+        out.append(spec("Home batteries", b.drop(columns=["Total"], errors="ignore"),
+                        "Australia home batteries installed per month by state (Clean Energy Regulator)",
+                        "installations per month", "stacked_bar"))
+    return out
 
 
 def au_hydro_storage(p):
@@ -1258,11 +1332,15 @@ REGISTRY = {
     # Australia and New Zealand
     "nz_power_generation_daily.xlsx": power_daily("New Zealand power generation by source (Electricity Authority EMI)"),
     "au_nem_power_generation_daily.xlsx": au_nem_power,
+    "au_nem_prices.xlsx": au_nem_prices,
     "au_wem_power_generation_daily.xlsx": power_daily("Western Australia (WEM) power generation by source (AEMO)"),
     "au_power_capacity.xlsx": capacity_with_storage("Australia registered generating capacity (AEMO, NEM + WEM)"),
     "nz_power_capacity.xlsx": capacity_with_storage("New Zealand installed generating capacity (MBIE)"),
     "au_gas.xlsx": au_gas,
     "au_gas_prices.xlsx": au_gas_prices,
+    "au_gas_hub_prices.xlsx": au_gas_hub_prices,
+    "au_wa_gas.xlsx": au_wa_gas,
+    "au_rooftop_solar.xlsx": au_rooftop_solar,
     "au_hydro_storage.xlsx": au_hydro_storage,
     "nz_gas.xlsx": nz_gas,
     "north_america_power_by_type.xlsx": sa_power,
