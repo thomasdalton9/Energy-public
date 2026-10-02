@@ -584,7 +584,7 @@ def main():
             path = os.path.join(args.data_dir, raw_files[country])
             build = add_charts.REGISTRY.get(raw_files[country]) or add_charts.power_daily(country)
             gen_frames[country] = build(path)[0]["df"]
-    cf_chart, cf_row, cf_missing = capacity_factors.add_capacity_factor_sheets(
+    cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
         wb, used, sheet_name, gen_frames,
         {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, CHART_W, CHART_H,
         "Country generation (dashboard series) / installed capacity workbooks", "South America")
@@ -594,6 +594,10 @@ def main():
     power[2].extend(cf_missing)
     draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
     draw_dashboard(dash2, "South & Central America energy - power generation & hydro", *power)
+    cf_dash = wb.create_sheet("Dashboard - Capacity factors", 2)
+    used.add("Dashboard - Capacity factors")
+    cf_items = cf_countries   # regional chart first, then each country
+    draw_dashboard(cf_dash, "South America - capacity factor by generation type (generation / capacity x hours)", [c for c, _ in cf_items], [r for _, r in cf_items], cf_missing)
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])

@@ -10,8 +10,8 @@ Inputs per country, as the masters already build them:
 Capacity is a stock: annual rows (year-end values dated 1 January) are placed in December and carried forward
 month by month; a month before the first capacity figure takes that figure for up to 12 months (flagged in the
 notes) and is otherwise left out. "Other" generation (oil, bioenergy, geothermal, other) is compared with Oil +
-Bioenergy + Other capacity. Values above 100% (generation and capacity series that don't cover the same plant)
-and fuels under 50 MW are left blank.
+Bioenergy + Other capacity. Values up to 110% are kept (output above a net or summer rating is real); above
+110% (generation and capacity classify the plant differently) and fuels under 50 MW are left blank.
 
 add_capacity_factor_sheets() writes a "Capacity factors" summary tab (trailing 12 months, country x fuel) and one
 regional chart (monthly %, all countries summed) for the master's power dashboard.
@@ -28,6 +28,9 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]
 CAP_FOR = {"Hydro": ["Hydro"], "Gas": ["Gas"], "Wind": ["Wind"], "Solar": ["Solar"], "Coal": ["Coal"],
            "Nuclear": ["Nuclear"], "Other": ["Oil", "Bioenergy", "Other"]}
 MIN_MW = 50.0
+MAX_CF = 110.0   # slightly over 100% is real (output above the net / summer rating in cool months); far above it
+                 # means generation and capacity classify the plant differently (e.g. dual-fuel turbines burning
+                 # diesel: oil generation, gas capacity) and is left blank
 BACKFILL_MONTHS = 12
 
 
@@ -53,7 +56,7 @@ def capacity_factor(gen_gwh, cap_mw):
     cap = cap.bfill(limit=BACKFILL_MONTHS).reindex(months)
     hours = pd.Series(months.days_in_month * 24.0, index=months)
     cf = gen * 1000.0 / cap.mul(hours, axis=0) * 100.0
-    cf = cf.where(cap >= MIN_MW).where(cf <= 100.0).where(cf >= 0)
+    cf = cf.where(cap >= MIN_MW).where(cf <= MAX_CF).where(cf >= 0)
     return cf.dropna(how="all", axis=1).dropna(how="all"), gen, cap
 
 
@@ -68,7 +71,7 @@ def trailing(gen, cap, months=12):
     hrs = pd.Series(window.days_in_month * 24.0, index=window)
     c = cap.loc[window].where(ok.loc[window]).mul(hrs, axis=0)
     out = g.sum() * 1000.0 / c.sum() * 100.0
-    return out.where((out > 0) & (out <= 100)), (window.min(), window.max())
+    return out.where((out > 0) & (out <= MAX_CF)), (window.min(), window.max())
 
 
 def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, chart_w, chart_h, source_note,
@@ -77,7 +80,7 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
     "Capacity factors" summary tab (trailing 12 months, country x fuel) and ONE regional chart: monthly capacity
     factor by generation type over all countries (summed generation / summed capacity x hours; a month sums the
     countries reporting it, shown when they hold >= 90% of the region's capacity). Returns (chart, index_row, missing) for the master's power dashboard."""
-    missing, summary, gens, caps = [], [], {}, {}
+    missing, summary, gens, caps, country_charts = [], [], {}, {}, []
     for country, gen in gen_frames.items():
         path = cap_paths.get(country)
         if not path or not os.path.exists(path):
@@ -102,6 +105,18 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
         summary.append((country, window, t12, note))
         ok = g.notna() & c.notna() & (c >= MIN_MW)
         gens[country], caps[country] = g.where(ok), c.where(ok)
+        cdf = cf[cf.index >= "2021-01-01"]
+        if not cdf.empty:
+            ws = wb.create_sheet(sheet_name_fn(f"{country[:20]} CF data", used))
+            df, _ = xlsx_charts.prepare(cdf.round(1))
+            xlsx_charts.write_table(ws, df)
+            ws.cell(row=1, column=df.shape[1] + 4, value=f"Capacity factor = generation / (capacity x hours); {note}")
+            title = f"{country} capacity factor by generation type"
+            country_charts.append(
+                ((xlsx_charts.build_chart(ws, df, df.shape[1], title, "% of installed capacity", "line",
+                                          width=chart_w, height=chart_h, gridlines=False,
+                                          inner=xlsx_charts.DASHBOARD_INNER), (source_note, None)),
+                 (country, title, df.index.max().strftime("%b/%y"), ws.title, source_note, None)))
 
     chart, row = None, None
     if gens:
@@ -116,7 +131,7 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
         g_sum = sum(g.reindex(months).fillna(0) for g in gens.values())
         c_sum = sum(c.reindex(months).fillna(0) for c in caps.values())
         reg = g_sum * 1000.0 / c_sum.mul(hours, axis=0) * 100.0
-        reg = reg.where(c_sum >= MIN_MW).where((reg > 0) & (reg <= 100))
+        reg = reg.where(c_sum >= MIN_MW).where((reg > 0) & (reg <= MAX_CF))
         reg = reg[reg.index >= "2021-01-01"].dropna(how="all", axis=1).dropna(how="all")
         if not reg.empty:
             ws = wb.create_sheet(sheet_name_fn(f"{region[:18]} CF data", used))
@@ -125,19 +140,24 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
             ws.cell(row=1, column=df.shape[1] + 4, value="Capacity factor = generation / (capacity x hours), countries "
                                                          "reporting each month summed. Countries: " + ", ".join(gens))
             title = f"{region} capacity factor by generation type"
-            chart = (xlsx_charts.build_chart(ws, df, df.shape[1], title, "% of installed capacity", "line",
-                                             width=chart_w, height=chart_h, gridlines=False,
-                                             inner=xlsx_charts.DASHBOARD_INNER), (source_note, None))
+
+            def build():   # one chart object per dashboard (openpyxl can't place a chart twice)
+                return xlsx_charts.build_chart(ws, df, df.shape[1], title, "% of installed capacity", "line",
+                                               width=chart_w, height=chart_h, gridlines=False,
+                                               inner=xlsx_charts.DASHBOARD_INNER)
             row = (region, title + f" ({len(gens)} countries)", df.index.max().strftime("%b/%y"), ws.title,
                    source_note, None)
+            chart = (build(), (source_note, None))
+            country_charts.insert(0, ((build(), (source_note, None)), row))   # leads the capacity-factor dashboard
 
     ws = wb.create_sheet(sheet_name_fn("Capacity factors", used))
     ws["A1"] = "Capacity factor by generation type, % - trailing 12 months (energy-weighted: total generation / " \
                "(capacity x hours) over the window)"
     ws["A1"].font = Font(bold=True, size=12)
     ws["A2"] = ("Generation and capacity are the same series as on the power dashboard. 'Other' = oil, bioenergy, "
-                "geothermal and other plant. Blank: under 50 MW installed, or generation exceeds capacity (the two "
-                "sources don't cover the same plant).")
+                "geothermal and other plant. Up to 110% is kept (plants can run above a net / summer rating); blank: "
+                "under 50 MW installed, or above 110% (generation and capacity classify the plant differently, e.g. "
+                "dual-fuel turbines burning diesel count as oil generation but gas capacity).")
     ws["A2"].font = Font(italic=True, color="6B6B6B")
     head = ["Country", "Window"] + FUELS + ["Capacity basis"]
     for j, h in enumerate(head, start=1):
@@ -155,4 +175,4 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
     ws.column_dimensions["A"].width = 22
     ws.column_dimensions["B"].width = 16
     ws.column_dimensions[ws.cell(row=4, column=len(head)).column_letter].width = 60
-    return chart, row, missing
+    return chart, row, missing, country_charts

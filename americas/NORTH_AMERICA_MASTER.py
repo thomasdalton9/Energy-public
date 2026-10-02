@@ -335,7 +335,7 @@ def main():
     power[1][pos:pos] = cap[1]
     power[2].extend(cap[2])
     # One regional capacity-factor chart (generation by type / capacity x hours), after the capacity charts
-    cf_chart, cf_row, cf_missing = capacity_factors.add_capacity_factor_sheets(
+    cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
         wb, used, sam.sheet_name, gen_frames,
         {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, sam.CHART_W, sam.CHART_H,
         "Country generation (EIA-930 Lower 48, StatCan, Ember for Mexico) / capacity (EIA-860M, StatCan, Ember)",
@@ -347,6 +347,10 @@ def main():
 
     sam.draw_dashboard(dash, "North America energy (US, Canada, Mexico) - gas dashboard", *gas)
     sam.draw_dashboard(dash2, "North America energy (US, Canada, Mexico) - power generation", *power)
+    cf_dash = wb.create_sheet("Dashboard - Capacity factors", 2)
+    used.add("Dashboard - Capacity factors")
+    cf_items = cf_countries   # regional chart first, then each country
+    sam.draw_dashboard(cf_dash, "North America - capacity factor by generation type (generation / capacity x hours)", [c for c, _ in cf_items], [r for _, r in cf_items], cf_missing)
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])
