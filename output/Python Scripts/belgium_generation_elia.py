@@ -4,6 +4,7 @@ aggregated by fuel type" (Opendatasoft API, no key): 15-minute MW by ENTSO-E fue
 UTC day, fuel type and resolution on the server and converts to MWh here (MW x hours per interval).
 """
 import sys
+from datetime import timedelta
 from datetime import date
 
 import pandas as pd
@@ -18,7 +19,7 @@ def fetch(start, end):
     frames = []
     for a, b in ec.month_chunks(start, end):
         rows, offset = [], 0
-        where = f"datetime >= date'{a.isoformat()}' AND datetime < date'{(b + pd.Timedelta(days=1)).date().isoformat()}'"
+        where = f"datetime >= date'{a.isoformat()}' AND datetime < date'{(b + timedelta(days=1)).isoformat()}'"
         while True:
             j = ec.get_json(URL, {"select": "sum(generatedpower) as s", "where": where, "limit": 100, "offset": offset,
                                   "group_by": "year(datetime) as y, month(datetime) as m, day(datetime) as d, "

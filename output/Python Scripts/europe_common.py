@@ -133,3 +133,4 @@ STANDARD_NOTES = [
     "Hydro, Gas, Wind, Solar, Coal, Nuclear, Oil (-> 'Other Fossil' on the charts), Bioenergy, Other.",
     "",
 ]
+# rerun
