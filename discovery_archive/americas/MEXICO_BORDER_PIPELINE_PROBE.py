@@ -1,20 +1,19 @@
-"""One-off probe: do EIA's state-to-state capacity / pipeline-project workbooks carry US-Mexico border crossings? Log only."""
+"""One-off probe: layout of EIA state-to-state capacity workbook sheets with Mexico rows. Log only."""
 import io
 import pandas as pd
 import requests
 
 UA = {"User-Agent": "Mozilla/5.0 (energy-data research)"}
-BASE = "https://www.eia.gov/naturalgas/pipelines/"
-for f in ["EIA-StatetoStateCapacity_Jan2026.xlsx", "EIA-NaturalGasPipelineProjectsAug2026.xlsx"]:
-    try:
-        r = requests.get(BASE + f, headers=UA, timeout=90)
-        print(f"## {f} -> {r.status_code} {len(r.content)}")
-        xl = pd.read_excel(io.BytesIO(r.content), sheet_name=None, header=None)
-        for sh, df in xl.items():
-            print(f"-- sheet {sh!r} {df.shape}")
-            mask = df.astype(str).apply(lambda c: c.str.contains("Mexic|Border|Sasabe|Presidio|Ojinaga|Roma|Rio Grande|Nogales|Douglas|Clint|Agua Prieta", case=False, regex=True)).any(axis=1)
-            print(df.head(4).to_string(max_colwidth=40)[:900])
-            print(f"   rows mentioning Mexico/border: {int(mask.sum())}")
-            print(df[mask].head(40).to_string(max_colwidth=45)[:6000])
-    except Exception as e:
-        print("##", f, "ERROR", type(e).__name__, str(e)[:150])
+r = requests.get("https://www.eia.gov/naturalgas/pipelines/EIA-StatetoStateCapacity_Jan2026.xlsx", headers=UA, timeout=90)
+xl = pd.read_excel(io.BytesIO(r.content), sheet_name=None, header=None)
+print("SHEETS", {k: v.shape for k, v in xl.items()})
+pd.set_option("display.width", 400); pd.set_option("display.max_columns", 60)
+for sh, df in xl.items():
+    if "H" not in sh and "Capacity" not in sh:
+        continue
+    print(f"-- {sh!r} {df.shape}")
+    print(df.iloc[:8, :14].to_string(max_colwidth=30))
+    print("header row candidates:", [i for i in range(12) if df.iloc[i].astype(str).str.contains(r"^(19|20)\d\d").sum() > 5])
+    f = df.copy(); f[0] = f[0].ffill()
+    m = f[(f[2].astype(str) == "Mexico") | (f[1].astype(str) == "Mexico")]
+    print(m.to_string(max_colwidth=36)[:7000])
