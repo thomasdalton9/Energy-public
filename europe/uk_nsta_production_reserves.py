@@ -36,10 +36,12 @@ SEED_PAGES = [
     BASE + "/data-centre/data-downloads-and-publications/production-data/",
     BASE + "/data-centre/data-downloads-and-publications/reserves-and-resources/",
     BASE + "/data-centre/data-downloads-and-publications/production-projections/",
+    "https://opendata-nstauthority.hub.arcgis.com/",
 ]
 KEYWORDS = ("production", "reserve", "resource")
 FILE_RE = re.compile(r'href="([^"]+?\.(?:xlsx|xls|csv)(?:\?[^"]*)?)"', re.I)
-PAGE_RE = re.compile(r'href="([^"]*data-centre[^"#]*)"', re.I)
+PAGE_RE = re.compile(r'href="([^"#]+)"', re.I)
+FOLLOW = ("data", "production", "reserve", "resource", "publication", "stats", "download", "hub.arcgis")
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "uk_nsta_production_reserves.xlsx")
@@ -70,7 +72,8 @@ def discover():
             files.setdefault(url, page)
         for href in PAGE_RE.findall(html):
             url = urljoin(page, href)
-            if url not in seen and url.startswith(BASE) and not FILE_RE.search(f'href="{url}"'):
+            if (url not in seen and url.startswith(("http://", "https://")) and not FILE_RE.search(f'href="{url}"')
+                    and (url.startswith(BASE) or "arcgis" in url) and any(k in url.lower() for k in FOLLOW)):
                 queue.append(url)
     print(f"Crawled {len(seen)} pages, found {len(files)} files", file=sys.stderr)
     for p in sorted(seen):
