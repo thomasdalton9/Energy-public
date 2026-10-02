@@ -108,6 +108,127 @@ def brazil_ralie():
     return {"BR expected additions": by_year_fuel(t, "Year", "Fuel", "MW", end=2040)}, url
 
 
+CNE_MEDIA = "https://www.cne.cl/wp-json/wp/v2/media"
+ES_MONTHS = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "ago": 8, "sep": 9, "set": 9,
+             "oct": 10, "nov": 11, "dic": 12}
+
+
+def _es_date(v):
+    """Excel date, 'nov-25' / 'nov-2025' style text, or blank -> Timestamp."""
+    if isinstance(v, (pd.Timestamp, date)):
+        return pd.Timestamp(v)
+    m = re.match(r"\s*([a-zA-Z]{3})[a-z]*[-/ .]+(\d{2,4})", str(v))
+    if m and m.group(1).lower() in ES_MONTHS:
+        y = int(m.group(2))
+        return pd.Timestamp(year=y + 2000 if y < 100 else y, month=ES_MONTHS[m.group(1).lower()], day=1)
+    t = str(v).strip()
+    return pd.to_datetime(t, errors="coerce", dayfirst=not re.match(r"\d{4}-", t))
+
+
+def _num(v):
+    """'1,0' / '1.234,5' / 12.3 -> float."""
+    if isinstance(v, (int, float)):
+        return float(v)
+    t = str(v).strip().replace(" ", "")
+    if "," in t:
+        t = t.replace(".", "").replace(",", ".")
+    try:
+        return float(t)
+    except ValueError:
+        return float("nan")
+
+
+def chile():
+    """CNE 'Instalaciones declaradas en construcción' (monthly workbook): generation (PMGD small distributed, PMG /
+    large generation, isolated systems) and BESS projects with estimated interconnection date and net MW."""
+    import requests
+    from future_common import HEADERS
+    media = requests.get(CNE_MEDIA, params={"search": "Declaracion-Construccion", "per_page": 30, "orderby": "date"},
+                         headers=HEADERS, timeout=(10, 120)).json()
+    urls = [m["source_url"] for m in media if re.search(r"Declaracion-Construccion.*\.xlsx$", m.get("source_url", ""), re.I)]
+    if not urls:
+        raise RuntimeError("no 'Tablas-Declaracion-Construccion' workbook in CNE's media library")
+    url = sorted(urls, key=lambda u: re.search(r"/uploads/(\d{4}/\d{2})/", u).group(1) if re.search(r"/uploads/(\d{4}/\d{2})/", u) else "")[-1]
+    xl = pd.ExcelFile(io.BytesIO(get(url).content))
+    print(f"CNE declared-in-construction {url}: sheets {xl.sheet_names}", flush=True)
+    rows = []
+    for sh, kind in (("PMGD", "Small distributed (PMGD)"), ("P.Generación", "Generation"), ("BESS", "Storage (BESS)"),
+                     ("P.Generación SSMM", "Isolated systems")):
+        if sh not in xl.sheet_names:
+            continue
+        raw = pd.read_excel(xl, sh, header=None)
+        h = next(i for i in range(min(len(raw), 15)) if raw.iloc[i].astype(str).str.contains("Proyecto").any())
+        d = raw.iloc[h + 1:].copy()
+        d.columns = [re.sub(r"\s+", " ", str(c)).strip() for c in raw.iloc[h]]
+        d = d[d["Proyecto"].notna()]
+        tech = col(d, r"Tipo de Tecnolog")
+        mw = col(d, r"Potencia Neta")
+        when = col(d, r"Fecha Estimada")
+        t = pd.DataFrame({"Project": d["Proyecto"], "Owner": d.get(col(d, r"Propietario", required=False)),
+                          "Category": kind, "Technology": d[tech],
+                          "Fuel": "Battery storage" if kind.startswith("Storage") else d[tech].fillna("").astype(str).map(fuel_from_text),
+                          "MW": d[mw].map(_num), "Expected": d[when].map(_es_date),
+                          "Region": d.get(col(d, r"Ubicaci|Regi", required=False))})
+        print(f"  {sh}: {len(t)} projects, {t['MW'].sum():,.0f} MW", flush=True)
+        rows.append(t)
+    p = pd.concat(rows, ignore_index=True)
+    p["Year"] = p["Expected"].dt.year
+    sheets = {"CL in construction by year": by_year_fuel(p, "Year", "Fuel", "MW"),
+              "CL in construction projects": p.sort_values("MW", ascending=False).set_index("Project")}
+    cat = p.pivot_table(index="Category", columns="Fuel", values="MW", aggfunc="sum").fillna(0).round(0)
+    cat.index.name = "Category"
+    sheets["CL in construction by type"] = cat
+    print(f"  total {p['MW'].sum() / 1000:,.1f} GW: {p.groupby('Fuel')['MW'].sum().round(0).to_dict()}", flush=True)
+    return sheets, url
+
+
+UPME_REG = ("https://docs.upme.gov.co/SIMEC/Energia%20Electrica/Informes_Registro_Proyectos_Generacion/"
+            "Informe_registros_activos_de_proyectos_generacion_electrica_{m}_{y}.xlsx")
+ES_MONTH_NAMES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
+                  "noviembre", "diciembre"]
+
+
+def colombia():
+    """UPME register of generation projects (active registrations, monthly workbook): phase (FASE 1 prefeasibility,
+    2 feasibility, 3 detailed design / construction), resource, technology, MW and expected start of operation."""
+    today = date.today()
+    content = url = None
+    for back in range(0, 6):   # newest published month first
+        m = (today.month - 1 - back) % 12
+        y = today.year + (today.month - 1 - back) // 12
+        u = UPME_REG.format(m=ES_MONTH_NAMES[m], y=y)
+        try:
+            r = get(u)
+        except Exception:  # noqa: BLE001
+            continue
+        if r.content[:2] == b"PK":
+            content, url = r.content, u
+            break
+    if content is None:
+        raise RuntimeError("no UPME active-registrations workbook found")
+    raw = pd.read_excel(io.BytesIO(content), header=None)
+    h = next(i for i in range(min(len(raw), 15)) if raw.iloc[i].astype(str).str.contains("Codigo Proyecto|Código Proyecto").any())
+    d = raw.iloc[h + 1:].copy()
+    d.columns = [re.sub(r"\s+", " ", str(c)).strip() for c in raw.iloc[h]]
+    d = d[pd.to_numeric(d[col(d, r"C[oó]digo Proyecto")], errors="coerce").notna()]
+    text = lambda c: d[col(d, c)].fillna("").astype(str).str.strip()  # noqa: E731
+    fuel = (text(r"^Recurso") + " " + text(r"^Tipo$") + " " + text(r"Tecnolog")).map(
+        lambda t: "Gas" if re.search("GAS", t) else "Hydro" if re.search("HIDR|AGUA", t) else "Wind" if re.search("E[OÓ]LIC|VIENTO", t)
+        else "Solar" if re.search("SOLAR|SOL ", t + " ") else "Bioenergy" if re.search("BIOMASA|BAGAZO", t)
+        else "Coal" if re.search("CARB", t) else fuel_from_text(t))
+    p = pd.DataFrame({"Project": text(r"Nombre"), "Phase": text(r"^Estado"), "Resource": text(r"^Recurso"),
+                      "Technology": text(r"Tecnolog"), "Fuel": fuel.values,
+                      "MW": d[col(d, r"Capacidad")].map(_num), "Department": text(r"Departamento"),
+                      "Expected operation": d[col(d, r"entrada en operaci")].map(_es_date)})
+    p["Year"] = p["Expected operation"].dt.year
+    ph = p.pivot_table(index="Phase", columns="Fuel", values="MW", aggfunc="sum").fillna(0).round(0)
+    ph.index.name = "Phase"
+    print(f"UPME {url}: {len(p)} projects, {p['MW'].sum() / 1000:,.1f} GW; by phase "
+          f"{p.groupby('Phase')['MW'].sum().round(0).to_dict()}", flush=True)
+    return {"CO registered by phase": ph, "CO registered by year": by_year_fuel(p, "Year", "Fuel", "MW"),
+            "CO registered projects": p.sort_values("MW", ascending=False).set_index("Project")}, url
+
+
 def argentina():
     import requests
     from future_common import HEADERS
@@ -157,6 +278,8 @@ def main():
     sheets, src = {}, []
     for name, fn, s in (("Brazil", brazil, "ANEEL SIGA plant register (phase: under construction / not started)"),
                         ("Brazil RALIE", brazil_ralie, "ANEEL RALIE generation expansion monitoring"),
+                        ("Chile", chile, "CNE, Instalaciones declaradas en construcción"),
+                        ("Colombia", colombia, "UPME, registro de proyectos de generación (registros activos)"),
                         ("Argentina", argentina, f"Secretaría de Energía, Obras de generación: {AR_OBRAS}")):
         try:
             got = fn()
@@ -177,7 +300,9 @@ def main():
         "generation works listed by the Secretaría de Energía, MW as published.",
         "",
         "COVERAGE",
-        "Brazil, Argentina. Chile, Colombia, Peru and the rest: no machine-readable project pipeline found yet.",
+        "Brazil, Chile (CNE: projects declared in construction, incl. small distributed PMGD and BESS), Colombia "
+        "(UPME project register: FASE 1 prefeasibility, FASE 2 feasibility, FASE 3 design/construction - a "
+        "registration is not a commitment), Peru (COES), Argentina. One-off snapshot, not refreshed on a schedule.",
         "",
         "SOURCE",
         *src,
