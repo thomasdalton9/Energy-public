@@ -53,7 +53,7 @@ COVERAGE = {
     "Puerto Rico": ("blue", "Power + gas burn by plant (EIA, monthly)"),
     "Dominican Rep.": ("blue", "Power OC-SENI; gas for power (SIE)"),
     "Jamaica": ("blue", "Power + gas, annual only"),
-    "Guyana": ("blue", "Gas production, reinjection, fuel use and flaring (Ministry, daily from Dec-19); no power"),
+    "Guyana": ("blue", "Gas production, reinjection, fuel use and flaring (Ministry, daily Dec-19 to Sep-23, not updated since); no power"),
     "Paraguay": ("blue", "Power monthly: 50% of Itaipu + Yacyreta (Itaipu reports, ONS, EBY, CAMMESA), own use vs "
                          "exports to Brazil/Argentina; no gas"),
 }
