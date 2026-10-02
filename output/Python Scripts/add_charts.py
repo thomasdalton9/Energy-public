@@ -861,6 +861,10 @@ def sa_power_prices(p):
             m = m.join(b[["Precio de energia (USD/MWh)"]].rename(
                 columns={"Precio de energia (USD/MWh)": "Bolivia (CNDC energy price, monthly)"}), how="outer")
     m = m.drop(columns=[c for c in m if c.startswith("Bolivia (CNDC marginal")], errors="ignore")
+    # one price per market: averaging is fine, but a fold into "Other" would ADD prices, so the extra Brazil
+    # subsystems and Argentina's capped spot price stay in their country charts
+    m = m.drop(columns=[c for c in m if c.startswith(("Brazil S ", "Brazil NE", "Brazil N ", "Argentina (spot"))],
+               errors="ignore")
     out = [spec("USD monthly", m[m.index >= "2021-01-01"],
                 "South America wholesale power prices (monthly average)", "US$/MWh")]
     for sheet, title in PRICE_CHARTS:
@@ -870,7 +874,10 @@ def sa_power_prices(p):
         usd = [c for c in d.columns if "(USD/MWh)" in str(c)]
         if usd:
             g = d[usd].rename(columns=lambda c: re.sub(r"\s*\([^)]*\)$", "", str(c)))
-            out.append(spec(sheet, daily(g, "2021-01-01"), title, "US$/MWh"))
+            g = daily(g, "2021-01-01").dropna(how="all")
+            if len(g) and (g.index.max() - g.index.min()).days > 400:   # years of days: weekly averages read better
+                g, title = weekly_mean(g), title.replace("daily average", "weekly average of daily prices")
+            out.append(spec(sheet, g, title, "US$/MWh"))
     if "Chile" in sheets:
         c = read(p, "Chile")
         c = by_date(c, c.columns[0])
