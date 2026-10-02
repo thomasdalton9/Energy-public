@@ -1412,6 +1412,7 @@ REGISTRY = {
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "south_america_power_prices_daily.xlsx": sa_power_prices,
     "south_america_gas_balance.xlsx": sa_gas_balance,
+    "south_america_prices_vs_hydro.xlsx": None,   # two-panel charts drawn by SA_PRICES_VS_HYDRO.py itself
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
