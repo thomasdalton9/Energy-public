@@ -1,18 +1,22 @@
 name: PMO deck discovery (one-off, manual)
 
 # One-off: probes where the NEWAVE deck's load forecast and expansion schedule can be fetched
-# from a GitHub runner. Commits nothing. Move to discovery_archive/workflows/ when done.
+# from a GitHub runner; step 4 writes CSVs to discovery_archive/pmo_deck/ and commits them.
+# Move to discovery_archive/workflows/ when done.
 on:
   workflow_dispatch:
     inputs:
       step:
-        description: "1 = source probe, 2 = EPE/ANEEL file listing, 3 = parse"
-        default: "3"
+        description: "1 = source probe, 2 = EPE/ANEEL file listing, 3 = parse test, 4 = pull + commit CSVs"
+        default: "4"
+
+permissions:
+  contents: write
 
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,12 +24,26 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install requests pandas openpyxl xlrd pyarrow pdfplumber
-      - name: Run probe
+      - name: Run
         env:
           PYTHONUNBUFFERED: "1"
         run: |
           case "${{ github.event.inputs.step }}" in
             1) timeout 500 python3 discovery_archive/PMO_DECK_DISCOVERY.py ;;
             2) timeout 800 python3 discovery_archive/PMO_DECK_DISCOVERY2.py ;;
-            *) timeout 1100 python3 discovery_archive/PMO_DECK_DISCOVERY3.py ;;
+            3) timeout 1100 python3 discovery_archive/PMO_DECK_DISCOVERY3.py ;;
+            *) timeout 1500 python3 discovery_archive/PMO_DECK_PULL.py ;;
           esac
+      - name: Commit CSVs
+        if: always()
+        run: |
+          ls -la discovery_archive/pmo_deck || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/pmo_deck || true
+          git diff --cached --quiet || git commit -m "PMO deck discovery: load forecasts and RALIE forward schedule (automated)"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
