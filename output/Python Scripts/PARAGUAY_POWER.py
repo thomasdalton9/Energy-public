@@ -27,8 +27,9 @@ Sources (found with discovery_archive/south_america/PARAGUAY_POWER_DISCOVERY.py)
      generacion' posts: energy supplied to Argentina's SADI and to Paraguay's
      SINP, metered at the SR1 / SR2 substations (2018 - Nov 2023, not every month).
   4. CAMMESA post-operation daily database (PARTE_POST_OPERATIVO, .mdb): Yacyreta's
-     groups YACYHI + YACYHIPY (energy delivered to the SADI; Nov-2023 sum is within
-     0.2% of EBY's SADI figure) and ANDE's market-node sales to Argentina. Daily.
+     group YACYHI (energy delivered to the SADI; Nov-2023 sum is within 0.2% of EBY's
+     SADI figure), YACYHIPY (from Dec-2024; Paraguay's take, see the DOUBLE COUNTING
+     note) and ANDE's market-node sales to Argentina. Daily.
   5. EBY Argentina home page (eby.org.ar): Yacyreta's total net generation of the
      latest month - stored each run (no archive exists, so history starts when this
      pull started reading it).
@@ -561,23 +562,30 @@ def fetch_ben(s, old):
 
 
 # ------------------------------------------------------------------ build
-def monthly_sum(daily, cols, min_days=None):
-    """Month sums of complete months only (every day of the month present)."""
+def monthly_sum(daily, cols, max_missing=0):
+    """Month sums of complete months. With max_missing > 0 a month missing up to that many days (a source file
+    that cannot be read) is scaled up by days-in-month / days present; the 'days' column records the days used."""
     if daily.empty:
-        return pd.DataFrame(columns=cols)
+        return pd.DataFrame(columns=cols + ["days"])
     d = daily[cols]
     g = d.resample("MS")
     n = g.size()
     out = g.sum(min_count=1)
-    full = n == pd.Series(out.index.days_in_month, index=out.index)
-    return out[full]
+    dim = pd.Series(out.index.days_in_month, index=out.index)
+    ok = (n >= dim - max_missing) & (n > 0)
+    if d.index.max() < (d.index.max() + pd.offsets.MonthEnd(0)):   # never scale up the month in progress
+        ok &= out.index < d.index.max().to_period("M").to_timestamp()
+    out = out.mul(dim / n, axis=0)
+    out["days"] = n
+    return out[ok]
 
 
 def build(rep, ons, eby, ebyar, cam, ben):
     it = itaipu_monthly(rep) * 1000.0   # GWh -> MWh
     it.columns = ["Itaipu_to_ANDE_MWh", "Itaipu_generation_MWh"]
     enb = monthly_sum(ons, ["Itaipu_to_Brazil_ONS_MWh"])
-    cm = monthly_sum(cam, ["YACYHI_MWh", "YACYHIPY_MWh", "ANDE_nodes_counted_MWh"]) if not cam.empty else pd.DataFrame()
+    cm = (monthly_sum(cam, ["YACYHI_MWh", "YACYHIPY_MWh", "ANDE_nodes_counted_MWh"], max_missing=1)
+          if not cam.empty else pd.DataFrame())
     idx = pd.date_range(START, max([x.index.max() for x in (it, enb) if not x.empty]), freq="MS")
     p = pd.DataFrame(index=idx)
     p.index.name = "date"
@@ -590,16 +598,36 @@ def build(rep, ons, eby, ebyar, cam, ben):
     p.loc[miss, "Itaipu_generation_source"] = "supply: ANDE (report) + Brazil (ONS); excludes ~0.6% own use"
     p.loc[p["Itaipu_generation_MWh"].isna(), "Itaipu_generation_source"] = None
 
-    # Yacyreta: SADI from EBY, else CAMMESA; total from EBY (SADI + SINP), else eby.org.ar
-    sadi_cam = (cm["YACYHI_MWh"] + cm["YACYHIPY_MWh"]) if not cm.empty else pd.Series(dtype=float)
+    # Yacyreta. SADI: EBY's report, else CAMMESA's YACYHI. SINP: EBY's report, else CAMMESA's YACYHIPY (a group that
+    # appears in Dec-2024: its monthly profile peaks in Paraguay's summer and, taken as Paraguay's take, it closes
+    # VMME's 2025 balance - 50% x (YACYHI + YACYHIPY) - YACYHIPY = 4.90 TWh ceded vs BEN 4.97 TWh - whereas adding it
+    # to the SADI would put Yacyreta at ~22 TWh and Paraguay's use 3 TWh above its demand), else eby.org.ar's monthly
+    # total - SADI, else an estimate.
+    sadi_cam = cm["YACYHI_MWh"] if not cm.empty else pd.Series(dtype=float)
     p["Yacyreta_to_SADI_MWh"] = eby["SADI_MWh"] if not eby.empty else None
+    p["Yacyreta_SADI_source"] = None
+    p.loc[p["Yacyreta_to_SADI_MWh"].notna(), "Yacyreta_SADI_source"] = "EBY monthly report"
     p["Yacyreta_to_SADI_MWh"] = p["Yacyreta_to_SADI_MWh"].astype(float).fillna(sadi_cam)
+    days = cm["days"].reindex(p.index) if not cm.empty else pd.Series(index=p.index, dtype=float)
+    if not cm.empty:
+        from_cam = p["Yacyreta_SADI_source"].isna() & p["Yacyreta_to_SADI_MWh"].notna()
+        p.loc[from_cam, "Yacyreta_SADI_source"] = [
+            f"CAMMESA YACYHI ({int(n)} days" + (", scaled to the month)" if n < d.days_in_month else ")")
+            for d, n in days[from_cam].items()]
     p["Yacyreta_to_SINP_MWh"] = eby["SINP_MWh"] if not eby.empty else None
     p["Yacyreta_to_SINP_MWh"] = p["Yacyreta_to_SINP_MWh"].astype(float)
     p["Yacyreta_SINP_source"] = None
     p.loc[p["Yacyreta_to_SINP_MWh"].notna(), "Yacyreta_SINP_source"] = "EBY monthly report"
+    p["YACYHIPY_counted_by_CAMMESA_MWh"] = cm["YACYHIPY_MWh"] if not cm.empty else 0.0
+    p["YACYHIPY_counted_by_CAMMESA_MWh"] = p["YACYHIPY_counted_by_CAMMESA_MWh"].fillna(0.0)
+    if not cm.empty:
+        ok = (p["Yacyreta_to_SINP_MWh"].isna() & (p["YACYHIPY_counted_by_CAMMESA_MWh"] > 0)
+              & p["Yacyreta_SADI_source"].astype(str).str.startswith("CAMMESA"))
+        p.loc[ok, "Yacyreta_to_SINP_MWh"] = p.loc[ok, "YACYHIPY_counted_by_CAMMESA_MWh"]
+        p.loc[ok, "Yacyreta_SINP_source"] = "CAMMESA YACYHIPY (Paraguay's take, see notes)"
     if not ebyar.empty:
         tot = ebyar["Yacyreta_net_MWh"].reindex(p.index)
+        p["Yacyreta_net_eby_org_ar_MWh"] = tot
         ok = p["Yacyreta_to_SINP_MWh"].isna() & tot.notna() & p["Yacyreta_to_SADI_MWh"].notna()
         p.loc[ok, "Yacyreta_to_SINP_MWh"] = tot[ok] - p.loc[ok, "Yacyreta_to_SADI_MWh"]
         p.loc[ok, "Yacyreta_SINP_source"] = "eby.org.ar monthly total - SADI (CAMMESA)"
@@ -667,8 +695,9 @@ def outputs(p):
     ex = ex.round(1)
     ex.index.name = "date"
 
-    # What ONS (Brazil) and CAMMESA (Argentina) do NOT already count: ANDE's own take from both plants, less
-    # ANDE's market sales CAMMESA books as Argentine generation (INTERCAMBIO='N' ANDE nodes)
+    # What ONS (Brazil) and CAMMESA (Argentina) do NOT already count: ANDE's own take from both plants (the SINP
+    # includes YACYHIPY, which ARGENTINA_POWER_DAILY.py keeps out of Argentine hydro), less ANDE's market sales that
+    # CAMMESA books as Argentine generation (INTERCAMBIO='N' ANDE nodes)
     sa = pd.DataFrame(index=q.index)
     sa["Hydro_MWh"] = (q["Itaipu_to_ANDE_MWh"] + q["Yacyreta_to_SINP_MWh"]
                        - q["ANDE_sales_counted_by_CAMMESA_MWh"].fillna(0)).round(1)
@@ -731,13 +760,20 @@ NOTES = [
     "DOUBLE COUNTING (why the South America total uses the 'Not counted' sheet)",
     "ONS counts Itaipu's 60 Hz output and the 50 Hz output sent to Brazil ('ITAIPU 50 HZ', id PYIT50): together "
     "they equal Itaipu's supply to ENBPar (2025: 46.68 TWh ONS vs 46.68 TWh Itaipu report), i.e. all of Itaipu except "
-    "ANDE's take - so Brazil's series already holds Paraguay's ceded Itaipu energy. CAMMESA counts Yacyreta as "
-    "YACYHI (+ YACYHIPY from 2025, 'Paraguayan share delivered to Argentina'), equal to Yacyreta's supply to the SADI "
-    "(Nov-2023: CAMMESA ~1,546 GWh vs EBY 1,549.6 GWh) - all of Yacyreta except the SINP. Paraguay's own 50% share "
-    "(sheet Daily) therefore overlaps both; only ANDE's take is Paraguay-only.",
+    "ANDE's take - so Brazil's series already holds Paraguay's ceded Itaipu energy. CAMMESA's YACYHI equals "
+    "Yacyreta's supply to the SADI (Nov-2023: CAMMESA ~1,546 GWh for 30 days vs EBY 1,549.6 GWh) - all of Yacyreta "
+    "except the SINP, so Argentina's series holds Paraguay's ceded Yacyreta energy. From Dec-2024 CAMMESA also lists "
+    "YACYHIPY, which behaves as Paraguay's own take (SINP): it peaks in Paraguay's summer, and with it as the SINP "
+    "VMME's 2025 balance closes (Yacyreta ceded to Argentina 4.97 TWh here vs BEN 4.97 TWh = 5.08 to Argentina less "
+    "ANDE's 0.11 TWh own sales); counted as extra SADI supply it would put Yacyreta at ~22 TWh and Paraguay's use "
+    "3 TWh above its demand. ARGENTINA_POWER_DAILY.py keeps YACYHIPY out of Argentine hydro (own column), so the "
+    "SINP is counted here only. Paraguay's own 50% share (sheet Daily) overlaps both ONS and CAMMESA; the "
+    "'Not counted by ONS-CAMMESA' sheet is ANDE's Itaipu take + SINP - ANDE's market sales CAMMESA books as "
+    "Argentine generation (INTERCAMBIO='N' ANDE nodes).",
     "",
     "ESTIMATES",
-    "EBY published SADI/SINP monthly only to Nov-2023 (and not every month). For other months the SINP supply is "
+    "EBY published SADI/SINP monthly only to Nov-2023 (and not every month); CAMMESA's YACYHIPY gives the SINP from "
+    "Dec-2024. For the months in between the SINP supply is "
     "estimated as ANDE's Itaipu take that month x a yearly ratio (SINP / ANDE's Itaipu take) from VMME's annual "
     "export to Argentina (annual SINP = SADI - 2 x export), else from that year's EBY months, else the nearest "
     "year; such months are flagged. From the run that first reads it, eby.org.ar's latest-month total replaces the "
