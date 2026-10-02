@@ -42,9 +42,9 @@ ELEC_PAGE = STATS + "electricity-statistics/"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0"}
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 # MBIE plant type -> standard capacity fuel (matched by regex on the row label, first match wins)
-PLANT = [(r"hydro", "Hydro"), (r"geotherm", "Other"), (r"wind", "Wind"), (r"solar", "Solar"),
-         (r"coal|gas|thermal|cogen|combined|peaker|diesel|oil", "Gas"), (r"bio|wood|waste", "Bioenergy"),
-         (r"batter", "Battery_storage")]
+PLANT = [(r"bio|wood|waste", "Bioenergy"), (r"hydro", "Hydro"), (r"geotherm", "Other"), (r"wind", "Wind"),
+         (r"solar", "Solar"), (r"diesel|oil", "Oil"), (r"coal", "Coal"), (r"batter", "Battery_storage"),
+         (r"other", "Other"), (r"gas|thermal|cogen|combined|peaker", "Gas")]
 
 
 def get(url):
@@ -111,20 +111,24 @@ def wide(raw):
 
 
 def long(raw):
-    """A sheet with periods down the first column: header row = first row whose next rows start with dates."""
-    dates = pd.to_datetime(raw.iloc[:, 0], errors="coerce")
-    if dates.notna().sum() < 4:
-        years = pd.to_numeric(raw.iloc[:, 0], errors="coerce")
-        ok = years.between(1950, 2100)
-        if ok.sum() < 4:
-            return None
-        dates = pd.to_datetime(years.where(ok).astype("Int64").astype(str) + "-01-01", errors="coerce")
-    first = dates.first_valid_index()
-    header = raw.iloc[:first].ffill().iloc[-1] if first else raw.iloc[0]
-    d = raw.loc[dates.notna()].iloc[:, 1:].apply(pd.to_numeric, errors="coerce")
-    d.columns = [re.sub(r"\s+", " ", str(h)).strip() for h in header.iloc[1:]]
-    d.index = dates[dates.notna()]
-    return d.dropna(axis=1, how="all").sort_index()
+    """A sheet with periods (years or dates) down the first column: the column names are the last non-empty header
+    cell above the first period row (footnote digits dropped; repeated names numbered, e.g. Gas, Gas (2))."""
+    periods = raw.iloc[:, 0].map(period)
+    if periods.notna().sum() < 4:
+        return None
+    first = periods.first_valid_index()
+    head = raw.iloc[:first, 1:]
+    names, seen = [], {}
+    for c in head.columns:
+        vals = [str(v) for v in head[c] if pd.notna(v) and str(v).strip()]
+        n = re.sub(r"(?<=[A-Za-z)])\d+$", "", re.sub(r"\s+", " ", vals[-1]).strip()) if vals else f"col{c}"
+        seen[n] = seen.get(n, 0) + 1
+        names.append(n if seen[n] == 1 else f"{n} ({seen[n]})")
+    d = raw.loc[periods.notna()].iloc[:, 1:].apply(pd.to_numeric, errors="coerce")
+    d.columns = names
+    d.index = pd.DatetimeIndex(periods[periods.notna()])
+    d = d.dropna(axis=1, how="all")
+    return d[~d.index.duplicated()].sort_index()
 
 
 def table(content, sheet):
@@ -192,11 +196,10 @@ def capacity(out):
     print("electricity:", url, flush=True)
     content = get(url).content
     sheet = next(s for s in pd.ExcelFile(io.BytesIO(content)).sheet_names if re.search(r"plant type.*MW", s, re.I))
-    print(pd.read_excel(io.BytesIO(content), sheet_name=sheet, header=None).iloc[:30, :6].to_string()[:3500], flush=True)
     t = table(content, sheet)
     if t.empty:
         raise SystemExit("capacity table not parsed")
-    cols = [c for c in t.columns if not re.search(r"total", c, re.I)]
+    cols = [c for c in t.columns if not re.search(r"total|∆|change|p\.a\.", c, re.I)]
     fuel = {c: next((f for p, f in PLANT if re.search(p, c, re.I)), "Other") for c in cols}
     print("  plant type -> fuel:", fuel, flush=True)
     m = t[cols].T.groupby(fuel).sum(min_count=1).T
@@ -209,10 +212,11 @@ def capacity(out):
         x.index.name = "date"
     notes = [
         "UNITS",
-        "Installed generating capacity, MW, as at each period MBIE publishes (annual, dated 1 January of the "
-        "year or at the period end). Monthly: MBIE plant types grouped - Hydro; Other = geothermal; Wind; "
-        "Solar; Gas = all thermal plant (gas, coal/gas Huntly units, cogeneration, diesel peakers) since MBIE "
-        "does not split thermal capacity by fuel; Bioenergy; Battery_storage_MW kept out of Total_MW.",
+        "Installed generating capacity, MW, at the END of each year (MBIE 'Year End'), one row per year dated 1 "
+        "January. Monthly: MBIE plant types grouped - Hydro; Other = geothermal and other thermal; Wind; Solar; "
+        "Coal = Huntly's coal/gas Rankine units; Gas = gas plant incl. gas cogeneration (the second 'Gas' "
+        "column, 'Gas (2)', is cogeneration); Oil = diesel; Bioenergy = biogas; Battery_storage_MW kept out of "
+        "Total_MW.",
         "Mapping used: " + "; ".join(f"{k} -> {v}" for k, v in fuel.items()),
         "By plant type: as published.",
         "",
