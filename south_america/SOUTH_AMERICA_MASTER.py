@@ -57,7 +57,6 @@ DATASETS = [
     ("PE", "Peru", "peru_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
-    ("GY", "Guyana", "guyana_gas.xlsx", "Monthly", "gas"),
     ("SV", "El Salvador", "el_salvador_gas.xlsx", "Gas use", "gas"),
     # Caribbean
     ("PR", "Puerto Rico", "puerto_rico_gas.xlsx", "Gas use", "gas"),
@@ -152,8 +151,6 @@ SOURCES = {
                              "https://www.siget.gob.sv/gerencias/electricidad/informe-de-mercado-y-estadisticas-electricas/estadisticas-electricas-bi/"),
     "trinidad_gas.xlsx": ("Ministry of Energy and Energy Industries (MEEI), monthly bulletins",
                           "https://www.energy.gov.tt/category/publications/energy-industry-bulletins/"),
-    "guyana_gas.xlsx": ("Ministry of Natural Resources, Petroleum Management Programme data centre (daily, from Esso's "
-                        "audited monthly reports)", "https://petroleum.gov.gy/data-chart/gas-injected-flared-and-used/"),
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
     "peru_gas_demand_by_sector.xlsx": ("MINEM Peru (DGH), Informes Estadisticos Upstream - Downstream",
                                        "https://www.gob.pe/institucion/minem/colecciones/17643-informes-estadisticos-upstream-downstream"),

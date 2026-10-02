@@ -17,11 +17,9 @@ Country sources (each workbook's own official source; see its Units tab):
   Peru       peru_gas_demand_by_sector.xlsx 'Production by lot' total, 'LNG exports'
   Trinidad   trinidad_gas.xlsx 'Production by company' TOTAL; LNG exports = 'Utilization by sector' LNG (feed gas
              to Atlantic LNG, MEEI)
-  Guyana     guyana_gas.xlsx 'Monthly' Produced minus Reinjected (Ministry of Natural Resources data centre)
   Uruguay    uruguay_gas_demand_by_sector.xlsx Imports (from Argentina, pipeline); no production
 Production is each country's published basis (gross for Argentina, Bolivia, Peru, Trinidad, Colombia; Brazil
-net 'available' production; Guyana net of reinjection, as most of its associated gas goes back into the
-reservoir) - noted per country on the Units tab. Venezuela publishes no gas statistics.
+net 'available' production) - noted per country on the Units tab. Venezuela publishes no gas statistics.
 
 Usage: python3 SA_GAS_BALANCE.py [--out PATH]
 """
@@ -120,10 +118,6 @@ def country_frames():
         put("Trinidad & Tobago", Production=p.loc[p["company"] == "TOTAL", "mmscfd"] * MCM_PER_MMSCF,
             Exports_LNG=u.loc[u["sector"] == "LNG", "mmscfd"] * MCM_PER_MMSCF)
 
-    def guyana():
-        g = read("guyana_gas.xlsx", "Monthly", "date")
-        put("Guyana", Production=g["Produced_mcm_per_day"] - g["Reinjected_mcm_per_day"])
-
     def uruguay():
         u = read("uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "Month")
         put("Uruguay", Imports_pipeline=u["Imports_mcm_per_day"])
@@ -140,8 +134,6 @@ def country_frames():
             ("Ecuador", ecuador, "Amistad production and LNG imports, MMBtu converted at 1,030 Btu/cf"),
             ("Peru", peru, "production by lot (fiscalised); LNG exports (Peru LNG)"),
             ("Trinidad & Tobago", trinidad, "production (MEEI, all companies); LNG = feed gas to Atlantic LNG (MEEI)"),
-            ("Guyana", guyana, "associated gas produced net of reinjection (Ministry of Natural Resources; includes "
-                               "fuel use and flaring - no gas is exported or sent onshore yet)"),
             ("Uruguay", uruguay, "imports from Argentina (pipeline); no domestic production")]:
         safe(c, fn, note)
     return out, notes

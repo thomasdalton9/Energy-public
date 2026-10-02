@@ -53,14 +53,13 @@ COVERAGE = {
     "Puerto Rico": ("blue", "Power + gas burn by plant (EIA, monthly)"),
     "Dominican Rep.": ("blue", "Power OC-SENI; gas for power (SIE)"),
     "Jamaica": ("blue", "Power + gas, annual only"),
-    "Guyana": ("blue", "Gas production, reinjection, fuel use and flaring (Ministry, daily Dec-19 to Sep-23, not updated since); no power"),
     "Paraguay": ("blue", "Power monthly: 50% of Itaipu + Yacyreta (Itaipu reports, ONS, EBY, CAMMESA), own use vs "
                          "exports to Brazil/Argentina; no gas"),
 }
 # Gas-producing countries: True = we pull domestic production, False = produces gas but no data here
 GAS_PRODUCERS = {
     "Argentina": True, "Brazil": True, "Colombia": True, "Peru": True, "Ecuador": True, "Trinidad and Tobago": True,
-    "Bolivia": True, "Venezuela": False, "Chile": True, "Guyana": True, "Cuba": False,
+    "Bolivia": True, "Venezuela": False, "Chile": True, "Guyana": False, "Cuba": False,
 }
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
 # Countries with reservoir / lake-level (hydro) data

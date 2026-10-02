@@ -440,23 +440,6 @@ def trinidad(p):
     return out
 
 
-def guyana_gas(p):
-    """GUYANA_GAS.py (Ministry data centre): monthly gross production, reinjection as its own line, and production net
-    of reinjection; then the disposition of the gas (stacked) with gross production as a line."""
-    d = by_date(read(p, "Monthly"), "date")
-    g = lambda c: d.get(f"{c}_mcm_per_day")  # noqa: E731
-    prod = pd.DataFrame({"Gross production": g("Produced"), "Reinjected": g("Reinjected"),
-                         "Net of reinjection": g("Produced") - g("Reinjected")})
-    disp = pd.DataFrame({"Reinjected": g("Reinjected"), "Used as fuel": g("Used_as_fuel"), "Flared": g("Flared"),
-                         "Other / onshore": g("Other_or_unreported"), "Gross production": g("Produced")})
-    if disp["Other / onshore"].abs().max() < 0.01:   # nothing sent onshore yet: keep the legend clean
-        disp = disp.drop(columns="Other / onshore")
-    return [spec("Production", prod, "Guyana gas production and reinjection (Ministry of Natural Resources)",
-                 "million m3/day"),
-            spec("Disposition", disp, "Guyana associated gas: where it goes (Ministry of Natural Resources)",
-                 "million m3/day", "stacked_bar", line_cols=("Gross production",))]
-
-
 def power_annual(title):
     """Standard 'Daily' layout holding one row per YEAR (Jamaica): annual GWh bars labelled by year."""
     def f(p):
@@ -1401,7 +1384,6 @@ REGISTRY = {
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,
     "trinidad_gas.xlsx": trinidad,
-    "guyana_gas.xlsx": guyana_gas,
     "el_salvador_gas.xlsx": el_salvador_gas,
     "ireland_gas_demand_daily.xlsx": ireland_demand,
     "ireland_gas_supply_daily.xlsx": ireland_supply,
