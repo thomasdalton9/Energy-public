@@ -63,10 +63,21 @@ def eia860m():
         found.append((int(m.group(3)), MONTHS.index(m.group(2).lower()), m.group(1)))
     if not found:
         raise RuntimeError("no current EIA-860M workbook link")
-    year, mon, href = max(found)
-    url = href if href.startswith("http") else EIA860M + href.lstrip("/").replace("electricity/data/eia860m/", "")
+    content = None
+    for year, mon, href in sorted(set(found), reverse=True)[:6]:   # newest first; a link can precede its file
+        url = href if href.startswith("http") else EIA860M + href.lstrip("/").replace("electricity/data/eia860m/", "")
+        try:
+            r = get(url)
+        except Exception as e:  # noqa: BLE001
+            print(f"  EIA-860M {MONTHS[mon].title()} {year}: {type(e).__name__}", flush=True)
+            continue
+        if r.content[:2] == b"PK":
+            content = r.content
+            break
+        print(f"  EIA-860M {MONTHS[mon].title()} {year}: not an xlsx ({r.content[:60]!r})", flush=True)
+    if content is None:
+        raise RuntimeError("no EIA-860M workbook could be downloaded")
     print(f"EIA-860M: {MONTHS[mon].title()} {year} -> {url}", flush=True)
-    content = get(url).content
     must = [r"Entity ID", r"Technology"]
     planned = read_table(content, "Planned", must)
     operating = read_table(content, "Operating", must)
@@ -109,15 +120,16 @@ def steo(key):
         out[name] = pd.Series({pd.Timestamp(x["period"] + "-01"): float(x["value"]) for x in rows if x["value"]})
     # generation by fuel: STEO series named "... generation ..." for the electric power sector / all sectors
     facets = get(STEO + "facet/seriesId/", params={"api_key": key}).json()["response"]["facets"]
-    gen = [f for f in facets if re.search(r"generation", f["name"], re.I)
-           and re.search(r"all sectors|total", f["name"], re.I)
-           and re.search(r"coal|natural gas|nuclear|hydro|wind|solar|petroleum|other", f["name"], re.I)]
+    # "Net generation from <fuel>, all sectors, United States" (the *TOGEN_US series), one per fuel
+    gen = [f for f in facets if re.match(r"Net generation from .*, all sectors, United States$", f["name"])
+           and not re.search(r"renewables excluding|other fossil", f["name"])]
     print(f"STEO generation series: {[(f['id'], f['name']) for f in gen][:30]}", flush=True)
     g = {}
     for f in gen[:14]:
+        short = re.sub(r"^Net generation from |, all sectors, United States$", "", f["name"]).capitalize()
         r = get(STEO + "data/", params={"api_key": key, "frequency": "monthly", "data[0]": "value",
                                         "facets[seriesId][]": f["id"], "start": "2023-01", "length": 5000})
-        g[f["name"]] = pd.Series({pd.Timestamp(x["period"] + "-01"): float(x["value"])
+        g[short + " (BkWh/d)"] = pd.Series({pd.Timestamp(x["period"] + "-01"): float(x["value"])
                                   for x in r.json()["response"]["data"] if x["value"]})
     m = pd.DataFrame(out).sort_index()
     m.index.name = "Month"
@@ -135,27 +147,26 @@ def cer():
            and "dictionary" not in x["url"]]
     print(f"CER EF2026: {len(res)} CSVs: {[u.rsplit('/', 1)[-1] for u in res]}", flush=True)
     sheets = {}
+    keep = {"electricity-capacity-technology": "capacity MW", "electricity-generation-technology": "generation GWh"}
     for u in res:
-        if not re.search(r"electricity", u, re.I):
+        kind = next((v for k, v in keep.items() if k in u), None)
+        if kind is None:
             continue
         d = pd.read_csv(io.BytesIO(get(u).content), low_memory=False)
-        print(f"  {u.rsplit('/', 1)[-1]}: {d.shape}, columns {list(d.columns)}; sample\n{d.head(3).to_string()[:900]}",
-              flush=True)
-        yc, vc = col(d, r"^year$"), col(d, r"^value$")
-        sc = col(d, r"scenario", required=False)
-        rc = col(d, r"region|province", required=False)
-        tc = col(d, r"type|source|fuel|variable", required=False)
-        t = d
-        if rc:
-            canada = t[t[rc].astype(str).str.contains(r"^Canada$|ALL|^CA$", case=False, regex=True)]
-            t = canada if not canada.empty else t.groupby([c for c in (sc, tc, yc) if c], as_index=False)[vc].sum()
-        for scen in (t[sc].dropna().unique() if sc else [None]):
-            s = t[t[sc] == scen] if sc else t
-            p = s.pivot_table(index=yc, columns=tc, values=vc, aggfunc="sum") if tc else s.groupby(yc)[vc].sum().to_frame()
+        print(f"  {u.rsplit('/', 1)[-1]}: regions {d['Region'].unique().tolist()}; scenarios "
+              f"{d['Scenario'].unique().tolist()}", flush=True)
+        t = d[d["Region"].astype(str).str.fullmatch("Canada", case=False)]
+        if t.empty:   # provinces only: sum them
+            t = d.groupby(["Scenario", "Variable", "Year"], as_index=False)["Value"].sum()
+        for scen in t["Scenario"].dropna().unique():
+            if not re.search(r"current|net.?zero", str(scen), re.I):   # the two headline scenarios
+                continue
+            p = t[t["Scenario"] == scen].pivot_table(index="Year", columns="Variable", values="Value", aggfunc="sum")
+            p = p.loc[:, p.abs().sum() > 0]
             p.index = pd.to_datetime(p.index.astype(int).astype(str) + "-01-01")
             p.index.name = "Year"
-            name = re.sub(r"-2026\.csv$", "", u.rsplit("/", 1)[-1]).replace("-", " ").title()
-            sheets[f"CA {name[:12]} {str(scen)[:10]}".strip()[:31]] = p.round(2)
+            tag = "Net-zero" if re.search(r"net.?zero", str(scen), re.I) else "Current"
+            sheets[f"CA {kind.split()[0]} {tag}"] = p.round(1)
     return sheets
 
 
@@ -196,7 +207,7 @@ def main():
         "reported planned retirement year. Developers' dates slip - treat later years as indicative.",
         "US STEO: monthly forecast (and recent history) from EIA's Short-Term Energy Outlook; units in the column "
         "names.",
-        "Canada: CER Energy Futures 2026 projections by scenario (capacity MW, generation GWh as published).",
+        "Canada: CER Energy Futures 2026 projections, Current Measures and Canada Net-zero scenarios (capacity MW, generation GWh by technology).",
         "",
         "COVERAGE",
         "United States and Canada. Mexico: SENER publishes its plan (PRODESEN) only as PDF - not included.",
