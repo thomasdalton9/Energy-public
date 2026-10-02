@@ -7,7 +7,7 @@ on:
   push:
     branches: ["claude/loving-ptolemy-oeieeq"]
     paths:
-      - "discovery_archive/asia/JKT_DISCOVERY.py"
+      - "discovery_archive/asia/JKT_DISCOVERY2.py"
       - ".github/workflows/jkt_discovery.yml"
 
 jobs:
@@ -26,4 +26,4 @@ jobs:
           PYTHONUNBUFFERED: "1"
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
           ESTAT_APP_ID: ${{ secrets.ESTAT_APP_ID }}
-        run: timeout 1500 python3 discovery_archive/asia/JKT_DISCOVERY.py
+        run: timeout 1500 python3 discovery_archive/asia/JKT_DISCOVERY2.py
