@@ -37,7 +37,7 @@ jobs:
           git add -f "output/Data and Chart Outputs/miso_fuel_mix_daily.xlsx"
           git diff --cached --quiet || git commit -m "MISO fuel mix: historical backfill (2023-2025)"
           for i in 1 2 3 4 5; do
-            git pull --rebase --autostash && git push && exit 0
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))
           done
           exit 1

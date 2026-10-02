@@ -34,7 +34,7 @@ jobs:
           git add -f americas/miso_fuel_mix_preview.png
           git diff --cached --quiet || git commit -m "MISO fuel mix chart preview: automated render"
           for i in 1 2 3 4 5; do
-            git pull --rebase --autostash && git push && exit 0
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))
           done
           exit 1

@@ -60,7 +60,7 @@ jobs:
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Peru hydro reservoirs: automated update"
           for i in 1 2 3 4 5 6; do
-            git pull --rebase --autostash -X theirs && git push && exit 0
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 7))
           done
           exit 1
