@@ -1,16 +1,14 @@
 name: Sync to private repo
 
 # Copies every change on Energy-public's main into the private thomasdalton9/Energy repo (main and
-# github-access-energy) - see .github/scripts/sync_public_to_private.sh. Hourly, because commits made by the
-# other workflows (GITHUB_TOKEN pushes) don't trigger push events; also on a person's push and by hand.
+# github-access-energy) - see .github/scripts/sync_public_to_private.sh. Weekly, Monday 23:30 UTC: after the
+# Monday pulls and the Monday-evening master rebuilds (21:20 / 21:40). Can also be run by hand.
 # Needs the secret PRIVATE_REPO_TOKEN: a fine-grained token with Contents read/write on thomasdalton9/Energy only.
 # Sync commits carry [skip ci], so they don't start the private repo's push-triggered workflows.
 
 on:
   schedule:
-    - cron: "50 * * * *"
-  push:
-    branches: [main]
+    - cron: "30 23 * * 1"
   workflow_dispatch:
 
 concurrency:
@@ -32,31 +30,56 @@ jobs:
         run: |
           [ -n "$T" ] || { echo "::error::Add the PRIVATE_REPO_TOKEN secret (fine-grained token, Contents read/write on thomasdalton9/Energy)"; exit 1; }
 
-      - uses: actions/checkout@v4
-        with:
-          path: public
-          fetch-depth: 0
+      # Cheap check first: read each private branch's .public_sync_sha through the API. If both already hold the
+      # current public commit, stop here - nothing is downloaded.
+      - name: Anything to sync?
+        id: need
+        env:
+          T: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          todo=""
+          for br in main github-access-energy; do
+            last=$(curl -fsS -H "Authorization: Bearer $T" -H "Accept: application/vnd.github.raw" \
+                   "https://api.github.com/repos/thomasdalton9/Energy/contents/.public_sync_sha?ref=$br" || true)
+            if [ "$last" = "$HEAD_SHA" ]; then echo "$br: already at ${HEAD_SHA::7}"; else todo="$todo $br"; fi
+          done
+          echo "branches=${todo# }" >> "$GITHUB_OUTPUT"
 
       - uses: actions/checkout@v4
+        if: steps.need.outputs.branches != ''
         with:
           repository: thomasdalton9/Energy
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           path: private
           fetch-depth: 1
 
-      - name: Sync main and github-access-energy
+      # Only two public snapshots are needed: the last one synced and the current one - the sync compares the
+      # two trees, so no history in between is downloaded.
+      - name: Sync
+        if: steps.need.outputs.branches != ''
         working-directory: private
+        env:
+          HEAD_SHA: ${{ github.sha }}
+          PUBLIC_URL: https://github.com/${{ github.repository }}
+          BRANCHES: ${{ steps.need.outputs.branches }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for br in main github-access-energy; do
+          PUB="$GITHUB_WORKSPACE/public"
+          git init -q "$PUB"
+          git -C "$PUB" remote add origin "$PUBLIC_URL"
+          git -C "$PUB" fetch -q --depth 1 origin "$HEAD_SHA"
+          git -C "$PUB" checkout -q --detach FETCH_HEAD
+          for br in $BRANCHES; do
             for attempt in 1 2 3 4; do
               git fetch -q --depth 1 origin "$br"
               git checkout -q -f -B "$br" FETCH_HEAD
-              bash "$GITHUB_WORKSPACE/public/.github/scripts/sync_public_to_private.sh" "$GITHUB_WORKSPACE/public" "$PWD" "$br"
-              if [ "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)" ] || git push -q origin "HEAD:$br"; then
-                break
-              fi
+              last=$(cat .public_sync_sha 2>/dev/null || echo 2a9da3d6ffb99159fce963a35ab655ef8616c807)
+              [ "$last" = "$HEAD_SHA" ] && break
+              git -C "$PUB" cat-file -e "$last^{commit}" 2>/dev/null || git -C "$PUB" fetch -q --depth 1 origin "$last"
+              bash "$PUB/.github/scripts/sync_public_to_private.sh" "$PUB" "$PWD" "$br"
+              if git push -q origin "HEAD:$br"; then break; fi
               echo "push to $br rejected (attempt $attempt) - re-syncing on the new tip"; sleep $((2 ** attempt))
             done
           done
