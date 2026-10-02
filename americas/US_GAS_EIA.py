@@ -19,6 +19,7 @@ Usage: python3 US_GAS_EIA.py [--out "output/Data and Chart Outputs/us_gas.xlsx"]
 import argparse
 import io
 import os
+import re
 import sys
 import time
 
@@ -95,8 +96,23 @@ def fetch_api(sid, freq, start):
         raise RuntimeError("EIA_API_KEY not set")
     params = {"api_key": key, "start": start, "length": 5000}
     rows = get(API.format(sid=sid, freq=freq.upper()), params=params).json()["response"]["data"]
-    s = pd.Series({r["period"]: r["value"] for r in rows}, dtype="object")
-    return s
+    # The seriesid route can return more than one row per period (other units such as $/Mcf, or other
+    # breakdowns of the same flow). Keep only this series' volume rows; never let a stray row overwrite one.
+    kinds = sorted({(str(r.get("series", "")), str(r.get("units", "")), str(r.get("process-name", r.get("process", ""))))
+                    for r in rows})
+    if len(kinds) > 1:
+        print(f"    {sid}: API returned {len(kinds)} row kinds {kinds} - keeping {sid} volume rows only", flush=True)
+    rows = [r for r in rows
+            if str(r.get("series", sid)).upper().endswith(sid.upper())
+            and re.search(r"MMCF|BCF", str(r.get("units", "MMCF")), re.I)]
+    by_period = {}
+    for r in rows:
+        by_period.setdefault(r["period"], []).append(r["value"])
+    dupes = {p: v for p, v in by_period.items() if len(set(map(str, v))) > 1}
+    if dupes:
+        print(f"    {sid}: {len(dupes)} period(s) with conflicting values, left blank: {dict(list(dupes.items())[:5])}",
+              flush=True)
+    return pd.Series({p: v[0] for p, v in by_period.items() if p not in dupes}, dtype="object")
 
 
 def fetch_xls(sid, freq, start):
