@@ -51,6 +51,9 @@ def monthly_capacity(path):
 def capacity_factor(gen_gwh, cap_mw):
     """Monthly GWh x monthly MW -> monthly capacity factor %, with the months/fuels that can't be compared blank."""
     gen = gen_gwh.reindex(columns=FUELS).apply(pd.to_numeric, errors="coerce")
+    # a month whose total generation is under half the typical month is a gap in the feed, not plant standing idle
+    tot = gen.sum(axis=1, min_count=1)
+    gen = gen[tot >= 0.5 * tot.rolling(13, center=True, min_periods=3).median()]
     months = gen.index
     cap = cap_mw.reindex(cap_mw.index.union(months)).sort_index().ffill()
     cap = cap.bfill(limit=BACKFILL_MONTHS).reindex(months)
