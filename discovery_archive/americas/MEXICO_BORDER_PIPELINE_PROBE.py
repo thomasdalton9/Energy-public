@@ -11,7 +11,7 @@ def log(*a):
 def probe(name, url, params=None, n=600):
     try:
         r = requests.get(url, params=params, headers=UA, timeout=60)
-        log(f"## {name}\n{r.url[:200]}\n-> {r.status_code} {r.headers.get('content-type')} {len(r.content)} bytes")
+        log(f"## {name}\n{url}\n-> {r.status_code} {r.headers.get('content-type')} {len(r.content)} bytes")
         log(r.text[:n].replace("\n", " ") if "text" in (r.headers.get("content-type") or "") or "json" in (r.headers.get("content-type") or "") else "(binary)")
         return r
     except Exception as e:
