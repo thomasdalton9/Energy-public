@@ -100,6 +100,7 @@ def main():
         r = s.get(url, timeout=120)
         r.raise_for_status()
         end = end or page_end(r.text)
+        # the page text's end date has run ahead of its data since 2023, so this rarely skips; reading is cheap
         if not old.empty and end is not None and end <= old.index.max() and not args.force:
             print(f"page period ends {end:%Y-%m-%d}, workbook already to {old.index.max():%Y-%m-%d}: nothing new",
                   flush=True)
@@ -117,7 +118,10 @@ def main():
              "Source: Ministry of Natural Resources, Petroleum Management Programme - Data Centre "
              "(https://petroleum.gov.gy/data-chart/gas-injected-flared-and-used/), daily, from the audited monthly "
              "production reports of Esso Exploration and Production Guyana Ltd; published about a month in arrears.",
-             f"Period on the page: 20-Dec-2019 to {end:%d-%b-%Y}" if end is not None else "Period: see Daily",
+             f"Data: {daily.index.min():%d-%b-%Y} to {daily.index.max():%d-%b-%Y}. The page text says the period runs to "
+             f"{end:%d-%b-%Y}, but the Ministry's data arrays (gas, oil, water, prices alike) stop at Sep/Oct-2023; "
+             "no later official gas series was found (Oct-2026). New days are picked up automatically if it resumes."
+             if end is not None else "Period: see Daily",
              "",
              "UNITS",
              "million m3/day (from the Ministry's kscf/day at 1 scf = 0.0283168 m3; 1 mcm/d = 35.3 MMscf/d). "

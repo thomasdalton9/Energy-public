@@ -449,6 +449,8 @@ def guyana_gas(p):
                          "Net of reinjection": g("Produced") - g("Reinjected")})
     disp = pd.DataFrame({"Reinjected": g("Reinjected"), "Used as fuel": g("Used_as_fuel"), "Flared": g("Flared"),
                          "Other / onshore": g("Other_or_unreported"), "Gross production": g("Produced")})
+    if disp["Other / onshore"].abs().max() < 0.01:   # nothing sent onshore yet: keep the legend clean
+        disp = disp.drop(columns="Other / onshore")
     return [spec("Production", prod, "Guyana gas production and reinjection (Ministry of Natural Resources)",
                  "million m3/day"),
             spec("Disposition", disp, "Guyana associated gas: where it goes (Ministry of Natural Resources)",
