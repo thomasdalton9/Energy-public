@@ -85,6 +85,8 @@ def main():
         labels = defaultdict(int)
         first = last = None
         with open(tmp.name, "rb") as f:
+            if f.read(3) != b"\xef\xbb\xbf":   # Taipower's JSON starts with a UTF-8 byte-order mark
+                f.seek(0)
             for rec in ijson.items(f, "records.NET_P.item", use_float=True):
                 label = str(rec.get("FUEL_TYPE", ""))
                 ts = str(rec.get("DATETIME", ""))
