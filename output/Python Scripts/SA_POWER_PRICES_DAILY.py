@@ -713,14 +713,15 @@ SECTIONS = ["SOUTH AMERICA DAILY WHOLESALE POWER PRICES", "BRAZIL (sheet 'Brazil
 
 def save(path, sheets):
     built = {c: build_country(c, sheets[c]) for c in COUNTRIES if c in sheets and not sheets[c].empty}
-    usd = pd.DataFrame()
+    parts = []   # outer-joined: assigning columns into one frame would keep only the first market's dates
     for c, df in built.items():
         for col, label in COUNTRIES[c]["cols"].items():
             if label is None:
                 continue
             src = usd_name(col) if COUNTRIES[c]["fx"] else col
             if src in df:
-                usd[label] = df[src]
+                parts.append(df[src].rename(label))
+    usd = pd.concat(parts, axis=1) if parts else pd.DataFrame()
     ch = sheets.get("Chile")
     if ch is not None and "PMM SEN (USD/MWh)" in ch and ch["PMM SEN (USD/MWh)"].notna().any():
         m = ch["PMM SEN (USD/MWh)"].dropna()
