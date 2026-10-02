@@ -9,9 +9,8 @@ Australia + NZ "future" workbook (one-off, run on demand): project pipeline, clo
   NZ scenarios   MBIE Electricity Demand and Generation Scenarios (EDGS 2024): results workbook (generation and
                  capacity by fuel to 2050, by scenario)
 
-Writes australia_nz_future.xlsx. Also writes "NEM capacity rebuilt": capacity by fuel at each month-end from 2021,
-rebuilt from the units' commissioning dates and closures - a check on (and possible replacement for) the
-snapshot-only history in au_power_capacity.xlsx.
+Writes australia_nz_future.xlsx, including "NEM capacity outlook": in-service capacity by fuel, plus committed/anticipated projects by their commercial-use
+year, minus announced closures by closure year.
 
 Usage: python3 future/ANZ_FUTURE.py [--out "output/Data and Chart Outputs/australia_nz_future.xlsx"]
 """
@@ -61,14 +60,21 @@ def nem(url, content):
     print(f"  status values: {d[status].value_counts().to_dict()}", flush=True)
     tech, detail = col(d, r"Technology Type"), col(d, r"Technology Detail", required=False)
     gasfuel = col(d, r"Fuel Type", required=False)
-    cap = col(d, r"Nameplate Capacity \(MW\)|Upper Nameplate", r"Unit Capacity \(MW", r"Capacity \(MW")
+    agg = col(d, r"Aggregated Nameplate Capacity \(MW AC\)", required=False)
+    unit = col(d, r"Unit Capacity \(MW AC\)", required=False)
     cnt = col(d, r"Unit Count", required=False)
-    mw = pd.to_numeric(d[cap], errors="coerce")
-    if cnt and re.search(r"Unit Capacity", cap):
-        mw = mw * pd.to_numeric(d[cnt], errors="coerce").fillna(1)
+    mw = pd.to_numeric(d[agg], errors="coerce") if agg else pd.Series(float("nan"), index=d.index)
+    if unit:   # units without an aggregated figure: unit capacity x unit count
+        mw = mw.fillna(pd.to_numeric(d[unit], errors="coerce") * pd.to_numeric(d[cnt], errors="coerce").fillna(1)
+                       if cnt else pd.to_numeric(d[unit], errors="coerce"))
+    site = col(d, r"Max Site Capacity", required=False)
+    if site:   # single-unit sites: the site capacity
+        mw = mw.fillna(pd.to_numeric(d[site], errors="coerce"))
     d["MW"] = mw
-    d["Fuel"] = (d[tech].astype(str) + " " + (d[detail].astype(str) if detail else "") + " " +
-                 (d[gasfuel].astype(str) if gasfuel else "")).map(fuel_from_text)
+    print(f"  MW: {d['MW'].notna().sum()} of {len(d)} rows have a capacity ({d['MW'].sum() / 1000:,.1f} GW)", flush=True)
+    text = lambda c: d[c].fillna("").astype(str) if c else ""  # noqa: E731 - NaN would blank the whole label
+    d["Fuel"] = (text(tech) + " " + text(detail) + " " + text(gasfuel)).map(fuel_from_text)
+    print(f"  fuels: {d.groupby('Fuel')['MW'].sum().round(0).to_dict()}", flush=True)
     region = col(d, r"^Region$")
     sheets = {}
     st = d.pivot_table(index=status, columns="Fuel", values="MW", aggfunc="sum").fillna(0)
@@ -80,33 +86,35 @@ def nem(url, content):
     close = col(d, r"Expected Closure Year|Closure Year", required=False)
     print(f"  date columns: start={start}, close={close}", flush=True)
     stv = d[status].astype(str)
-    pipeline = d[~stv.str.contains(r"In Service|Existing|Operating", case=False, regex=True)]
+    live = stv.str.contains(r"In Service", case=False)
+    firm = stv.str.contains(r"Committed|Anticipated|In Commissioning", case=False)
+    pipeline = d[~live & ~stv.str.contains("Withdraw", case=False)]
+    this_year = date.today().year
     if start:
         yr = pd.to_datetime(pipeline[start], errors="coerce").dt.year
         sheets["NEM additions by year"] = by_year_fuel(pipeline.assign(_yr=yr), "_yr", "Fuel", "MW",
-                                                       start=date.today().year - 1)
+                                                       start=this_year - 1, end=2040)
     if close:
-        existing = d[stv.str.contains(r"In Service|Existing|Operating", case=False, regex=True)]
-        sheets["NEM closures by year"] = by_year_fuel(existing, close, "Fuel", "MW", start=date.today().year)
-        # capacity history rebuilt from commissioning dates (existing units only), month-ends from 2021
-        if start:
-            when = pd.to_datetime(existing[start], errors="coerce")
-            known = when.notna()
-            months = pd.date_range("2021-01-01", pd.Timestamp(date.today()), freq="MS")
-            rows = {}
-            for m in months:
-                live = existing[known & (when <= m + pd.offsets.MonthEnd(0))]
-                rows[m] = live.groupby("Fuel")["MW"].sum()
-            hist = pd.DataFrame(rows).T.fillna(0)
-            hist = hist.reindex(columns=[f for f in FUELS if f in hist.columns]).round(0)
-            hist.index.name = "date"
-            sheets["NEM capacity rebuilt"] = hist
-            print(f"  rebuilt history: {known.sum()} of {len(existing)} existing units have a start date "
-                  f"({existing.loc[known, 'MW'].sum() / 1000:.1f} of {existing['MW'].sum() / 1000:.1f} GW)", flush=True)
+        existing = d[live]
+        sheets["NEM closures by year"] = by_year_fuel(existing, close, "Fuel", "MW", start=this_year, end=2060)
+        # capacity outlook: in service today, plus committed / anticipated / commissioning projects by their
+        # commercial-use year, minus announced closures by closure year
+        cy = pd.to_numeric(existing[close], errors="coerce")
+        sy = pd.to_datetime(d.loc[firm, start], errors="coerce").dt.year if start else None
+        rows = {}
+        for y in range(this_year, 2041):
+            base = existing[~(cy <= y)].groupby("Fuel")["MW"].sum()
+            if sy is not None:
+                base = base.add(d.loc[firm][sy.fillna(this_year) <= y].groupby("Fuel")["MW"].sum(), fill_value=0)
+            rows[pd.Timestamp(f"{y}-01-01")] = base
+        out = pd.DataFrame(rows).T.fillna(0)
+        out = out.reindex(columns=[f for f in FUELS if f in out.columns]).round(0)
+        out.index.name = "Year"
+        sheets["NEM capacity outlook"] = out
     keep = [c for c in (col(d, r"^Site Name$"), col(d, r"Site Owner", required=False), region, status, tech,
                         detail, "Fuel", "MW", start, close) if c]
     sheets["NEM units"] = d[keep].reset_index(drop=True)
-    by_region = d[~stv.str.contains(r"In Service|Existing|Operating", case=False, regex=True)].pivot_table(
+    by_region = pipeline.pivot_table(
         index=region, columns="Fuel", values="MW", aggfunc="sum").fillna(0).round(0)
     by_region.index.name = "Region"
     sheets["NEM pipeline by region"] = by_region
@@ -124,21 +132,31 @@ def nz():
     print(f"EDGS results {url}: sheets {xl.sheet_names}", flush=True)
     sheets = {}
     for sh in xl.sheet_names:
-        if not re.search(r"generation|capacity", sh, re.I):
+        if not re.search(r"generation|build", sh, re.I):
             continue
         d = pd.read_excel(xl, sh)
-        print(f"  {sh}: {d.shape} columns {list(d.columns)}", flush=True)
+        print(f"  {sh}: {d.shape} columns {list(d.columns)}\n{d.head(4).to_string()[:900]}", flush=True)
         try:
-            yc, vc, sc = col(d, r"TimePeriod|Year"), col(d, r"^Value$"), col(d, r"Scenario")
+            yc, vc = col(d, r"TimePeriod|Year"), col(d, r"^Value$|MW|Capacity")
         except KeyError:
             continue
-        cat = col(d, r"Fuel|Technology|Generation type|Plant", r"Variable", required=False)
-        ref = d[d[sc].astype(str).str.contains("Reference", case=False)] if d[sc].astype(str).str.contains(
-            "Reference", case=False).any() else d
-        p = ref.pivot_table(index=yc, columns=cat, values=vc, aggfunc="sum") if cat else ref.groupby(yc)[vc].sum().to_frame()
-        p.index = pd.to_datetime(p.index.astype(int).astype(str) + "-01-01")
-        p.index.name = "Year"
-        sheets[f"NZ {sh}"[:31]] = p.round(2)
+        sc = col(d, r"Scenario", required=False)
+        if sc:
+            print(f"    scenarios: {d[sc].dropna().unique().tolist()}", flush=True)
+            ref = d[sc].astype(str).str.contains("Reference", case=False)
+            d = d[ref] if ref.any() else d
+        cat = col(d, r"Commodity|Fuel|Technology|Plant type", required=False)
+        var = col(d, r"^Variable$", required=False)
+        groups = d.groupby(var) if var else [(sh, d)]
+        for v, g in groups:
+            p = g.pivot_table(index=yc, columns=cat, values=vc, aggfunc="sum") if cat else g.groupby(yc)[vc].sum().to_frame()
+            p.index = pd.to_datetime(pd.to_numeric(p.index, errors="coerce").astype("Int64").astype(str) + "-01-01",
+                                     errors="coerce")
+            p = p[p.index.notna()]
+            p = p.loc[:, p.abs().sum() > 0]
+            p.index.name = "Year"
+            if not p.empty:
+                sheets[f"NZ {v}"[:31]] = p.round(2)
     return sheets, url
 
 
@@ -166,9 +184,9 @@ def main():
         "UNITS",
         "NEM: MW by fuel. Pipeline by status: every unit in AEMO's Generation Information by its commitment status "
         "(in service, committed, anticipated, proposed, ...). Additions by year: not-yet-operating units by "
-        "expected commercial use year. Closures by year: operating units by expected closure year. Capacity "
-        "rebuilt: operating units' capacity at each month-end from their commissioning dates (units retired before "
-        "this publication are not in it, so earlier months understate closed coal).",
+        "expected commercial use year. Closures by year: in-service units by expected closure year. Capacity "
+        "outlook: in-service capacity, plus committed / anticipated / commissioning projects from their commercial "
+        "use year, minus announced closures from their closure year (publicly announced projects not included).",
         "NZ: MBIE EDGS 2024 Reference scenario, as published (generation GWh / capacity MW).",
         "",
         "COVERAGE",
