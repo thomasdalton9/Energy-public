@@ -38,6 +38,7 @@ CACHE = os.path.join(ROOT, "nemosis_cache")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
 STORAGE = ["Battery_discharge", "Pumped_hydro"]
 RENAME = {"Battery_storage": "Battery_discharge", "Pumped_storage": "Pumped_hydro"}
+CHARGE = {"Battery_discharge": "Battery_charge", "Pumped_hydro": "Pumped_hydro_pumping"}   # storage consumption
 STATES = ["NSW", "QLD", "SA", "TAS", "VIC"]
 
 
@@ -95,12 +96,19 @@ def fetch_month(duid_map, start, end):
     if df is None or df.empty:
         return None, None, None
     df = df.merge(duid_map, left_on="DUID", right_on="duid", how="inner")
-    df = df.assign(date=_day(df["SETTLEMENTDATE"], 5),
-                   mwh=pd.to_numeric(df["SCADAVALUE"], errors="coerce").clip(lower=0) / 12.0)
+    raw = pd.to_numeric(df["SCADAVALUE"], errors="coerce") / 12.0
+    df = df.assign(date=_day(df["SETTLEMENTDATE"], 5))
+    # storage charging: a scheduled-load DUID's consumption, or a bidirectional unit's negative output
+    store = df["fuel"].isin(STORAGE)
+    charge = raw.where(df["role"].eq("load"), (-raw).clip(lower=0)).where(store).clip(lower=0)
+    ch = df.assign(mwh=charge)[store].copy()
+    ch["fuel"] = ch["fuel"].map(CHARGE)
+    df = df[df["role"].ne("load")].assign(mwh=raw.clip(lower=0))
     fuel = df.pivot_table(index="date", columns="fuel", values="mwh", aggfunc="sum")
     gen = df[~df["fuel"].isin(STORAGE)]
     states = gen.pivot_table(index="date", columns="region", values="mwh", aggfunc="sum")
-    sf = df.pivot_table(index="date", columns=["region", "fuel"], values="mwh", aggfunc="sum")
+    fuel = fuel.join(ch.pivot_table(index="date", columns="fuel", values="mwh", aggfunc="sum"), how="left")
+    sf = pd.concat([df, ch]).pivot_table(index="date", columns=["region", "fuel"], values="mwh", aggfunc="sum")
     sf.columns = [f"{st}_{f}" for st, f in sf.columns]
     try:
         bal = pd.concat([sf, region_balance(start, end)], axis=1)
@@ -123,7 +131,7 @@ def load(path, sheet):
 def save(path, fuel, states, balance):
     daily = fuel.reindex(columns=[f for f in FUELS + ["Nuclear"] if f in fuel.columns]).add_suffix("_MWh")
     daily["Total_MWh"] = daily.sum(axis=1, min_count=1)
-    for s in STORAGE:
+    for s in STORAGE + list(CHARGE.values()):
         if s in fuel:
             daily[f"{s}_MWh"] = fuel[s]
     st = states.reindex(columns=[s for s in STATES if s in states.columns]).add_suffix("_MWh")
@@ -135,7 +143,9 @@ def save(path, fuel, states, balance):
         "day in AEST (intervals ending 00:05 to 24:00).",
         "Daily: Hydro (excl. pumped storage), Gas, Wind, Solar (utility scale), Coal, Oil (diesel/kerosene), "
         "Bioenergy; Total_MWh is their sum. Battery_discharge_MWh and Pumped_hydro_MWh are storage output, kept "
-        "out of Total_MWh (they shift energy rather than generate it).",
+        "out of Total_MWh (they shift energy rather than generate it). Battery_charge_MWh and "
+        "Pumped_hydro_pumping_MWh are the energy they draw (scheduled-load DUIDs, or a bidirectional unit's negative "
+        "output).",
         "States: generation (excl. storage) by NEM region, MWh per day.",
         "State balance: per NEM region and day, MWh - <STATE>_<Fuel> generation by fuel (incl. Battery_discharge, "
         "Pumped_hydro), <STATE>_Rooftop_solar (AEMO ROOFTOP_PV_ACTUAL estimate, half-hourly MW / 2), "
@@ -177,11 +187,14 @@ def main():
     months = pd.date_range(HISTORY_START, today, freq="MS")
     # a month counts as saved once its state balance is saved too (the balance sheet was added after the first
     # backfill, so earlier months are fetched once more to fill it)
-    have = sorted(set(balance.index.to_period("M").to_timestamp())) if not balance.empty else []
+    # (and once more for storage CHARGING, added later: a month counts once SA - which has had batteries throughout -
+    # has its battery charging saved)
+    done = balance[balance["SA_Battery_charge"].notna()] if "SA_Battery_charge" in balance else balance.iloc[0:0]
+    have = sorted(set(done.index.to_period("M").to_timestamp()))
     todo = [m for m in months if m not in have] + have[-1:]
     todo = sorted(set(todo))[:args.max_months]
     print(f"{len(have)} months saved; fetching {len(todo)}: {[f'{m:%Y-%m}' for m in todo]}", flush=True)
-    duid_map = aemo_registration.units()[["duid", "region", "fuel"]]
+    duid_map = aemo_registration.units(include_loads=True)[["duid", "region", "fuel", "role"]]
     duid_map["fuel"] = duid_map["fuel"].replace(RENAME)
     for m in todo:
         end = min(m + pd.offsets.MonthBegin(1), today)
