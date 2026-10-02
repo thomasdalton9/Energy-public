@@ -4,7 +4,7 @@
 # the last sync is copied over as public has it now, each file it deleted is deleted. Files public has not
 # touched since the last sync (e.g. private-only files) are left alone. On the private development branch (anything
 # but main) generated outputs stay out: a file that branch's .gitignore excludes and that it doesn't already track
-# is skipped, as the dev branch keeps only source.
+# is skipped, as the dev branch keeps only source; its own .gitignore is never overwritten.
 # The last synced public commit is kept in .public_sync_sha on the private branch.
 # usage: sync_public_to_private.sh <public checkout> <private checkout> <private branch>
 set -euo pipefail
@@ -18,6 +18,8 @@ if [ "$last" = "$head" ]; then echo "$BR: up to date at ${head:0:7}"; exit 0; fi
 copied=0; removed=0
 while IFS= read -r -d '' path; do
   [ "$path" = ".public_sync_sha" ] && continue
+  # the development branch keeps its own .gitignore (it decides which outputs stay off that branch)
+  [ "$BR" != "main" ] && [ "$path" = ".gitignore" ] && continue
   if [ "$BR" != "main" ] && ! git ls-files --error-unmatch -- "$path" >/dev/null 2>&1 && git check-ignore -q -- "$path"; then
     continue   # generated output: not kept on the development branch
   fi
