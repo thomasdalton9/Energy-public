@@ -34,6 +34,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "south_america"))
 import add_charts  # noqa: E402
+import capacity_factors  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
 
@@ -44,6 +45,8 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 DATASETS = [
     ("AU", "Australia", "au_gas.xlsx", ("Demand by sector", "Production", "Storage", "LNG shipments"), "gas"),
     ("AU", "Australia", "au_gas_prices.xlsx", "Daily", "gas prices"),
+    ("AU", "Australia", "au_gas_hub_prices.xlsx", "Daily", "gas hub prices"),
+    ("WA", "Western Australia", "au_wa_gas.xlsx", ("Production", "Consumption", "Storage", "By zone"), "gas"),
     ("NZ", "New Zealand", "nz_gas.xlsx", ("Monthly", "Quarterly consumption"), "gas"),
 ]
 RAW_POWER_DATASETS = [
@@ -54,6 +57,10 @@ RAW_POWER_DATASETS = [
 CAPACITY_DATASETS = [
     ("AU", "Australia", "au_power_capacity.xlsx", ("Monthly", "By region"), "capacity"),
     ("NZ", "New Zealand", "nz_power_capacity.xlsx", ("Monthly", "By plant type"), "capacity"),
+]
+PRICE_DATASETS = [
+    ("AU", "Australia NEM", "au_nem_prices.xlsx", ("Daily average", "Negative hours"), "power prices"),
+    ("AU", "Australia", "au_rooftop_solar.xlsx", ("Solar capacity", "Solar installs", "Battery installs"), "rooftop solar"),
 ]
 HYDRO_DATASETS = [
     ("TAS", "Tasmania", "au_hydro_storage.xlsx", "Weekly", "hydro storage"),
@@ -80,6 +87,13 @@ SOURCES = {
                                "https://aemo.com.au/en/energy-systems/electricity/national-electricity-market-nem/participate-in-the-market/registration"),
     "nz_power_capacity.xlsx": ("MBIE electricity statistics, installed capacity by plant type",
                                "https://www.mbie.govt.nz/building-and-energy/energy-and-natural-resources/energy-statistics-and-modelling/energy-statistics/electricity-statistics/"),
+    "au_nem_prices.xlsx": ("AEMO NEMWEB / MMSDM DISPATCHPRICE (5-minute regional reference price)",
+                           "https://nemweb.com.au/"),
+    "au_gas_hub_prices.xlsx": ("AEMO: Victorian DWGM market prices (INT041) and Wallumbilla gas supply hub benchmark "
+                               "price", "https://aemo.com.au/energy-systems/gas/declared-wholesale-gas-market-dwgm"),
+    "au_wa_gas.xlsx": ("AEMO WA Gas Bulletin Board (actual flows, end-user consumption)", "https://gbbwa.aemo.com.au/"),
+    "au_rooftop_solar.xlsx": ("Clean Energy Regulator, small-scale installation postcode data",
+                              "https://cer.gov.au/markets/reports-and-data/small-scale-installation-postcode-data"),
     "au_hydro_storage.xlsx": ("Hydro Tasmania, Energy in Storage", "https://www.hydro.com.au/water/energy-in-storage"),
 }
 
@@ -101,7 +115,7 @@ def monthly_gwh(path):
     return add_charts.power_mix(m)
 
 
-def anz_generation(data_dir):
+def anz_generation(data_dir, frames_out=None):
     """Sum of NEM + WEM + NZ, GWh per month, over the months all three have."""
     frames, notes = {}, []
     for name, fname in POWER_PARTS:
@@ -112,6 +126,13 @@ def anz_generation(data_dir):
             notes.append(f"{name}: {SOURCES[fname][0]}, {m.index.min():%b/%y}-{m.index.max():%b/%y}")
         except Exception as e:  # noqa: BLE001
             notes.append(f"NOT INCLUDED: {name} ({type(e).__name__}: {e})")
+    if frames_out is not None:   # per country for capacity factors: Australia = NEM + WEM (as its capacity)
+        if "Australia NEM" in frames:
+            au = [frames[k] for k in ("Australia NEM", "Western Australia") if k in frames]
+            both = sorted(set.intersection(*(set(f.index) for f in au)))
+            frames_out["Australia"] = sum(f.reindex(index=both, columns=FUELS).fillna(0) for f in au)
+        if "New Zealand" in frames:
+            frames_out["New Zealand"] = frames["New Zealand"]
     if not frames:
         return pd.DataFrame(), notes
     months = sorted(set.intersection(*(set(f.index) for f in frames.values())))
@@ -184,12 +205,14 @@ def main():
 
     gas = sam.collect(wb, DATASETS, args.data_dir, used, sources, cfg=cfg)
     parts = [sam.collect(wb, RAW_POWER_DATASETS, args.data_dir, used, sources, cfg=cfg),
+             sam.collect(wb, PRICE_DATASETS, args.data_dir, used, sources, cfg=cfg),
              sam.collect(wb, CAPACITY_DATASETS, args.data_dir, used, sources, cfg=cfg),
              sam.collect(wb, HYDRO_DATASETS, args.data_dir, used, sources, cfg=cfg)]
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
 
     pos = 0
-    total, notes = anz_generation(args.data_dir)
+    gen_frames = {}
+    total, notes = anz_generation(args.data_dir, gen_frames)
     if not total.empty:
         total_chart(wb, used, power, pos, total, notes, "ANZ generation total data",
                     "Australia + New Zealand power generation by source", "GWh per month",
@@ -208,8 +231,22 @@ def main():
                     "first monthly snapshot):")
         print("ANZ capacity total:", "; ".join(cap_notes))
 
+    # One regional capacity-factor chart, after the generation and capacity totals
+    cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
+        wb, used, sam.sheet_name, gen_frames,
+        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, sam.CHART_W, sam.CHART_H,
+        "Generation (AEMO NEM + WEM SCADA, EMI) / capacity (AEMO registration lists, MBIE)", "Australia + NZ",
+        exclude={("New Zealand", "Solar"): "MBIE capacity includes rooftop solar, EMI generation does not"})
+    if cf_chart:
+        power[0].insert(pos + 1 if not cap.empty else pos, cf_chart)
+        power[1].insert(pos + 1 if not cap.empty else pos, cf_row)
+    power[2].extend(cf_missing)
     sam.draw_dashboard(dash, "Australia and New Zealand energy - gas dashboard", *gas)
     sam.draw_dashboard(dash2, "Australia and New Zealand energy - power generation and hydro", *power)
+    cf_dash = wb.create_sheet("Dashboard - Capacity factors", 2)
+    used.add("Dashboard - Capacity factors")
+    cf_items = cf_countries   # regional chart first, then each country
+    sam.draw_dashboard(cf_dash, "Australia + NZ - capacity factor by generation type (generation / capacity x hours)", [c for c, _ in cf_items], [r for _, r in cf_items], cf_missing)
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])

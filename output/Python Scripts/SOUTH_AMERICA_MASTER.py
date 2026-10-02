@@ -37,6 +37,7 @@ from openpyxl.styles import Font, PatternFill
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 import add_charts  # noqa: E402
+import capacity_factors  # noqa: E402
 import water_year_chart  # noqa: E402
 import xlsx_charts  # noqa: E402
 
@@ -249,7 +250,7 @@ def sa_total_sheet(path, sheet):
     return add_charts.power_mix(m)
 
 
-def south_america_generation(data_dir, have_raw):
+def south_america_generation(data_dir, have_raw, frames_out=None):
     """South America generation by source, TWh per month: the sum of each country's monthly mix from the same
     series the dashboard shows (raw grid operator where used, Ember otherwise). Only months every country has
     in full (a daily feed's current month is left out until it is complete). Returns (frame, per-country notes)."""
@@ -282,6 +283,8 @@ def south_america_generation(data_dir, have_raw):
             notes.append(f"{country}: {src}, {m.index.min():%b/%y}-{m.index.max():%b/%y}")
         except Exception as e:  # noqa: BLE001
             notes.append(f"{country}: not available ({type(e).__name__}: {e})")
+    if frames_out is not None:
+        frames_out.update(frames)
     if not frames:
         return pd.DataFrame(), notes
     fuels = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]
@@ -529,7 +532,8 @@ def main():
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
     power[2].extend(building)
     # Combined South America generation by source, first on the Power & Hydro dashboard
-    sa_total, sa_notes = south_america_generation(args.data_dir, have_raw)
+    gen_frames = {}
+    sa_total, sa_notes = south_america_generation(args.data_dir, have_raw, gen_frames)
     if not sa_total.empty:
         ws = wb.create_sheet(sheet_name("SA generation total data", used))
         df, n_bars = xlsx_charts.prepare(sa_total)
@@ -572,8 +576,28 @@ def main():
     power[0][pos:pos] = cap[0]
     power[1][pos:pos] = cap[1]
     power[2].extend(cap[2])
+    # Capacity factors: each country's dashboard generation over its capacity workbook. A country whose
+    # SA-total series is a partial sheet (Paraguay: ANDE's own take) uses its full feed here.
+    raw_files = {d[1]: d[2] for d in RAW_POWER_DATASETS}
+    for country in SA_TOTAL_SHEET:
+        if country in gen_frames and country in have_raw:
+            path = os.path.join(args.data_dir, raw_files[country])
+            build = add_charts.REGISTRY.get(raw_files[country]) or add_charts.power_daily(country)
+            gen_frames[country] = build(path)[0]["df"]
+    cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
+        wb, used, sheet_name, gen_frames,
+        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, CHART_W, CHART_H,
+        "Country generation (dashboard series) / installed capacity workbooks", "South America")
+    if cf_chart:   # right after the capacity charts
+        power[0].insert(pos + len(cap[0]), cf_chart)
+        power[1].insert(pos + len(cap[1]), cf_row)
+    power[2].extend(cf_missing)
     draw_dashboard(dash, "South & Central America energy - gas dashboard", *gas)
     draw_dashboard(dash2, "South & Central America energy - power generation & hydro", *power)
+    cf_dash = wb.create_sheet("Dashboard - Capacity factors", 2)
+    used.add("Dashboard - Capacity factors")
+    cf_items = cf_countries   # regional chart first, then each country
+    draw_dashboard(cf_dash, "South America - capacity factor by generation type (generation / capacity x hours)", [c for c, _ in cf_items], [r for _, r in cf_items], cf_missing)
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])
