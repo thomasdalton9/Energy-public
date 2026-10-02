@@ -1,0 +1,39 @@
+name: UK NSTA production and reserves
+
+# One-off pull (manual run only): NSTA production and reserves downloads.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl xlrd
+      - name: Run
+        run: timeout 600 python3 europe/uk_nsta_production_reserves.py
+      - name: Copy scripts
+        if: always()
+        run: |
+          mkdir -p "output/Python Scripts"
+          cp europe/uk_nsta_production_reserves.py xlsx_charts.py xlsx_notes.py "output/Python Scripts/" || true
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/uk_nsta_production_reserves.xlsx" "output/Data and Chart Outputs/uk_nsta_raw" "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "UK NSTA production and reserves: one-off pull"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
