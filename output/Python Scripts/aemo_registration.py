@@ -95,13 +95,28 @@ RETIRED = {"LD0": "Coal", "TORR": "Gas", "OSB-AG": "Gas", "SWAN": "Gas", "MACKAY
            "LONSDALE": "Oil", "PTSTAN": "Oil", "ANGAST": "Oil", "DRYCGT": "Gas", "MSTUART": "Oil", "QPS": "Gas"}
 
 
+def latest_mms(table, name, start):
+    """An MMS register table (DUDETAILSUMMARY, DUDETAIL: each monthly archive holds the full register) from the
+    newest monthly archive AEMO has published - the current month's lags by a month or two."""
+    today = pd.Timestamp.today().normalize()
+    last = None
+    for back in range(0, 5):
+        end = (today - pd.offsets.MonthBegin(back + 1)) if back else today
+        try:
+            return table(name, start, end)
+        except Exception as e:  # noqa: BLE001 - archive not published yet: one month back
+            last = e
+            print(f"  {name} to {end:%Y-%m}: not available ({type(e).__name__}); trying a month earlier", flush=True)
+    raise last
+
+
 def with_history(current, start, end, table):
     """Adds units that left the registration list (retired generators; the separate battery-charging and pump LOAD
     DUIDs that AEMO folded into bidirectional units in 2024) from MMS DUDETAILSUMMARY, which keeps every DUID's
     region, station and dispatch type. A missing unit takes the fuel of a current unit at the same station.
     table(name, start, end) is the caller's nemosis fetch; any failure keeps the current list."""
     try:
-        h = table("DUDETAILSUMMARY", start, end)
+        h = latest_mms(table, "DUDETAILSUMMARY", start)
     except Exception as e:  # noqa: BLE001
         print(f"  DUDETAILSUMMARY failed ({type(e).__name__}: {str(e)[:150]}); current registration list only",
               flush=True)
