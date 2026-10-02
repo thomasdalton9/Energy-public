@@ -1032,6 +1032,93 @@ def us_capacity(p):
     return out
 
 
+
+def capacity_with_storage(title):
+    """Standard capacity chart plus battery / pumped storage columns (kept out of the fuel groups)."""
+    def f(p):
+        out = power_capacity(title)(p)
+        d = by_date(read(p, "Monthly"), "date")
+        d = d[d.index >= "2021-01-01"]
+        for col, label in (("Battery_storage_MW", "Battery storage"), ("Pumped_storage_MW", "Pumped storage")):
+            if col in d:
+                out[0]["df"][label] = pd.to_numeric(d[col], errors="coerce").fillna(0) / 1000.0
+        return out
+    return f
+
+
+def au_nem_power(p):
+    """NEM generation by fuel (monthly GWh) and by state."""
+    out = power_daily("Australia NEM power generation by source (AEMO unit SCADA)")(p)
+    st = _sheet(p, "States", "date")
+    if not st.empty:
+        st = st[st.index >= "2021-01-01"].resample("MS").sum(min_count=1) / 1000
+        out.append(spec("States", st.rename(columns=lambda c: str(c).replace("_MWh", "")),
+                        "Australia NEM power generation by state (AEMO)", "GWh per month", "stacked_bar"))
+    return out
+
+
+def au_gas(p):
+    """GBB: east coast demand by sector and production by state (monthly average TJ/d), storage (water year, PJ),
+    LNG cargoes (PJ per month)."""
+    out = []
+    d = _sheet(p, "Demand by sector", "date")
+    if not d.empty:
+        names = {"Gas_power_generation": "Power generation", "Large_industrial": "Large industrial",
+                 "Distribution_networks": "Distribution (residential, commercial)", "LNG_export_plants": "LNG export plants"}
+        out.append(spec("Demand", monthly_mean(d[cols(d, *names)].rename(columns=names)),
+                        "Australia east coast gas demand by sector (AEMO Gas Bulletin Board)", "TJ/day, monthly average",
+                        "stacked_bar"))
+    q = _sheet(p, "Production", "date")
+    if not q.empty:
+        q = q.drop(columns=["Total"], errors="ignore")
+        out.append(spec("Production", monthly_mean(q, "2021-01-01"),
+                        "Australia east coast gas production by state (AEMO GBB)", "TJ/day, monthly average",
+                        "stacked_bar"))
+    st = _sheet(p, "Storage", "date")
+    if "Total" in st and st["Total"].notna().any():
+        out.append({"name": "Storage", "water_year": _join_short_gaps(st["Total"] / 1000.0), "y_decimals": 1,
+                    "title": "Australia east coast gas in storage (AEMO GBB)", "units": "PJ"})
+    s = _sheet(p, "LNG shipments", "Month")
+    if not s.empty:
+        s = s.drop(columns=["Total", "Cargoes"], errors="ignore")
+        out.append(spec("LNG", s[s.index >= "2021-01-01"], "Australia east coast LNG exports by plant (AEMO GBB cargoes)",
+                        "PJ per month", "stacked_bar"))
+    return out
+
+
+def au_gas_prices(p):
+    d = _sheet(p, "Daily", "date")
+    return [spec("Prices", d, "Australia east coast gas hub prices, STTM ex-ante (AEMO)", "A$/GJ")]
+
+
+def au_hydro_storage(p):
+    d = _sheet(p, "Weekly", "date")
+    return [{"name": "Storage", "water_year": d["Total_GWh"].dropna().resample("D").interpolate(), "y_decimals": 0,
+             "title": "Tasmania hydro energy in storage (Hydro Tasmania)", "units": "GWh"}]
+
+
+def nz_gas(p):
+    """MBIE: monthly gross/net production and stock change (PJ), quarterly consumption by sector."""
+    out = []
+    d = _sheet(p, "Monthly", "date")
+    if not d.empty:
+        d = d[d.index >= "2021-01-01"]
+        prod = [c for c in d.columns if re.match(r"(gross|net) production", c, re.I)]
+        if prod:
+            out.append(spec("Production", d[prod], "New Zealand gas production (MBIE)", "PJ per month"))
+        stock = [c for c in d.columns if re.match(r"stock change", c, re.I)]
+        if stock:
+            out.append(spec("Storage", d[stock], "New Zealand gas stock change, Ahuroa storage (MBIE)",
+                            "PJ per month", "stacked_bar"))
+    q = _sheet(p, "Quarterly consumption", "date")
+    if not q.empty:
+        q = q[q.index >= "2021-01-01"]
+        use = [c for c in q.columns if not re.search(r"total", c, re.I)][:8]
+        out.append(spec("Demand", q[use], "New Zealand gas consumption by sector (MBIE, quarterly)", "PJ per quarter",
+                        "stacked_bar"))
+    return out
+
+
 def generic(p):
     xl = pd.ExcelFile(p)
     for s in xl.sheet_names:
@@ -1110,6 +1197,16 @@ REGISTRY = {
     "mexico_gas.xlsx": mexico_gas,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
+    # Australia and New Zealand
+    "nz_power_generation_daily.xlsx": power_daily("New Zealand power generation by source (Electricity Authority EMI)"),
+    "au_nem_power_generation_daily.xlsx": au_nem_power,
+    "au_wem_power_generation_daily.xlsx": power_daily("Western Australia (WEM) power generation by source (AEMO)"),
+    "au_power_capacity.xlsx": capacity_with_storage("Australia registered generating capacity (AEMO, NEM + WEM)"),
+    "nz_power_capacity.xlsx": capacity_with_storage("New Zealand installed generating capacity (MBIE)"),
+    "au_gas.xlsx": au_gas,
+    "au_gas_prices.xlsx": au_gas_prices,
+    "au_hydro_storage.xlsx": au_hydro_storage,
+    "nz_gas.xlsx": nz_gas,
     "north_america_power_by_type.xlsx": sa_power,
     "us_power_capacity.xlsx": us_capacity,
     "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
