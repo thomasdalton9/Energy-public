@@ -1,0 +1,65 @@
+name: Future masters (one-off)
+
+# Pipelines, plans and outlooks per region - one-off jobs, run by hand from the Actions tab (no schedule):
+# north_america_future.xlsx (EIA-860M planned/retiring units, EIA STEO, CER Energy Futures 2026),
+# australia_nz_future.xlsx (AEMO NEM Generation Information, MBIE EDGS), south_america_future.xlsx (ANEEL SIGA
+# pipeline, Argentina generation works). Separate from the history masters.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests xlrd pyarrow
+      - name: North America future
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 900 python3 future/NA_FUTURE.py
+      - name: Australia + NZ future
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 future/ANZ_FUTURE.py
+      - name: South America future
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 future/SA_FUTURE.py
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          for f in north_america_future australia_nz_future south_america_future; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+          done
+          mkdir -p "output/Python Scripts"
+          cp future/*.py add_charts.py xlsx_charts.py xlsx_notes.py "output/Python Scripts/" || true
+
+      - name: Commit workbooks
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in north_america_future australia_nz_future south_america_future; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
+          done
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Future masters: one-off build"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
