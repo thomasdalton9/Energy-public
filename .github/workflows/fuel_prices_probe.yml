@@ -1,0 +1,26 @@
+name: Fuel prices probe (one-off, manual)
+
+# One-off: prints monthly TTF / Japan LNG / Brent / diesel / BRL series to the job log
+# for the Brazil water-value study. Commits nothing. Move to
+# discovery_archive/workflows/ when done.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 500 python3 discovery_archive/FUEL_PRICES_PROBE.py
