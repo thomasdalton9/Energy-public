@@ -959,10 +959,12 @@ def us_gas(p):
 
 
 def mexico_gas(p):
+    """Pipeline imports only: EIA's LNG-to-Mexico series (N9133MX2) has implausible months of 2-3.5 Bcf/d among
+    months of ~0.1 (as published by EIA, one row per month), so it stays in the sheet but is not charted."""
     d = _sheet(p, "Imports from US", "Month")
-    names = {"Pipeline_imports_from_US_Bcf_per_day": "Pipeline from the US", "LNG_imports_from_US_Bcf_per_day": "LNG from the US"}
+    names = {"Pipeline_imports_from_US_Bcf_per_day": "Pipeline from the US"}
     return [spec("Imports", d[cols(d, *names)].rename(columns=names)[lambda x: x.index >= "2021-01-01"],
-                 "Mexico gas imports from the US (EIA, US export data)", "Bcf/d", "stacked_bar")]
+                 "Mexico pipeline gas imports from the US (EIA, US export data)", "Bcf/d", "stacked_bar")]
 
 
 def canada_gas(p):
