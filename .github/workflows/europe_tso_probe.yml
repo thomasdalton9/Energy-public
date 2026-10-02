@@ -3,6 +3,9 @@ name: Europe TSO probe
 # Manual-only probe of national TSO open-data endpoints; archived in discovery_archive/ once settled.
 on:
   workflow_dispatch: {}
+  push:
+    branches: [claude/vigilant-ritchie-sol4e7]
+    paths: [europe/EUROPE_TSO_PROBE.py]
 
 permissions:
   contents: read
