@@ -1,14 +1,14 @@
 name: PMO deck discovery (one-off, manual)
 
 # One-off: probes where the NEWAVE deck's load forecast and expansion schedule can be fetched
-# from a GitHub runner; step 4 writes CSVs to discovery_archive/pmo_deck/ and commits them.
+# from a GitHub runner; steps 4-5 write CSVs to discovery_archive/pmo_deck/ and commit them.
 # Move to discovery_archive/workflows/ when done.
 on:
   workflow_dispatch:
     inputs:
       step:
-        description: "1 = source probe, 2 = EPE/ANEEL file listing, 3 = parse test, 4 = pull + commit CSVs"
-        default: "4"
+        description: "1 = source probe, 2 = file listing, 3 = parse test, 4 = EPE pull + commit, 5 = RALIE by status + commit"
+        default: "5"
 
 permissions:
   contents: write
@@ -32,7 +32,8 @@ jobs:
             1) timeout 500 python3 discovery_archive/PMO_DECK_DISCOVERY.py ;;
             2) timeout 800 python3 discovery_archive/PMO_DECK_DISCOVERY2.py ;;
             3) timeout 1100 python3 discovery_archive/PMO_DECK_DISCOVERY3.py ;;
-            *) timeout 1500 python3 discovery_archive/PMO_DECK_PULL.py ;;
+            4) timeout 1500 python3 discovery_archive/PMO_DECK_PULL.py ;;
+            *) timeout 1500 python3 discovery_archive/PMO_DECK_RALIE.py ;;
           esac
       - name: Commit CSVs
         if: always()
@@ -41,7 +42,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f discovery_archive/pmo_deck || true
-          git diff --cached --quiet || git commit -m "PMO deck discovery: load forecasts and RALIE forward schedule (automated)"
+          git diff --cached --quiet || git commit -m "PMO deck discovery: RALIE forward schedule by status (automated)"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))
