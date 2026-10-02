@@ -88,7 +88,10 @@ def parse_csv(raw, shift_min=0):
     df.columns = [norm(c) for c in df.columns]
     if "DATE" not in df.columns or "TIME" not in df.columns:
         return None
-    ts = pd.to_datetime(df["DATE"].map(norm) + " " + df["TIME"].map(norm), errors="coerce", format="mixed")
+    day_s, time_s = df["DATE"].map(norm), df["TIME"].map(norm)
+    end_of_day = time_s.str.startswith("24:")   # some TSOs label the last interval 24:00 (= next day 00:00)
+    ts = pd.to_datetime(day_s + " " + time_s.where(~end_of_day, "0:00"), errors="coerce", format="mixed")
+    ts = ts + pd.to_timedelta(end_of_day.astype(int), unit="D")
     out = pd.DataFrame(index=ts)
     for col in df.columns:
         if col in FUEL_COLS or col in SIGNED:
@@ -119,6 +122,7 @@ def to_daily(mw):
         e[f"{t}_MWh"] = mw[c] * step_h if c in mw else float("nan")
     d = e.groupby(day).sum(min_count=1)
     d = d[mw.groupby(day).size().reindex(d.index) >= expected]
+    d = d[d.index <= pd.Timestamp(date.today() - timedelta(days=1))]   # some TSOs publish whole-month templates
     d.index.name = "date"
     return d[VALUE_COLS].round(1)
 
@@ -178,7 +182,7 @@ def load_store(path):
     try:
         d = pd.read_excel(path, sheet_name=AREA_SHEET)
         d["date"] = pd.to_datetime(d["date"])
-        return d
+        return d[d["date"] <= pd.Timestamp(date.today() - timedelta(days=1))]
     except Exception as e:  # noqa: BLE001
         print(f"could not read stored {AREA_SHEET} sheet ({type(e).__name__}); rebuilding from {DATA_START}")
         return pd.DataFrame()
