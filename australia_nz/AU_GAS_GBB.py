@@ -121,7 +121,7 @@ def main():
         if not old.empty and not full:
             v = v.combine_first(old)   # new values win over the saved ones on the days both have
             v = v[[c for c in v.columns if c != "Total"] + ["Total"]]
-        out[k] = v.sort_index()
+        out[k] = v.dropna(axis=1, how="all").sort_index()   # e.g. a facility type no longer reported
     ship = shipments()
     out["LNG shipments"] = ship
     for k, v in out.items():
