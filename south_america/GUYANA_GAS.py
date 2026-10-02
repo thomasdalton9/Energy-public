@@ -49,7 +49,15 @@ def parse(html):
         df = pd.DataFrame(rows)
         if "Date" not in df:
             continue
-        df["date"] = pd.to_datetime(df["Date"], format="%d-%b-%Y", errors="coerce")
+        # 'Data' is the chart's x value (epoch ms); 'Date' text is typed by hand and its format varies
+        ms = pd.to_numeric(df.get("Data"), errors="coerce")
+        df["date"] = pd.to_datetime(ms, unit="ms").dt.normalize().where(ms.notna(),
+                                                                        pd.to_datetime(df["Date"], errors="coerce",
+                                                                                       dayfirst=True, format="mixed"))
+        bad = df["date"].isna().sum()
+        print(f"  {len(df)} rows, {df['date'].min():%Y-%m-%d} to {df['date'].max():%Y-%m-%d}"
+              + (f"; {bad} undated rows dropped, e.g. {df.loc[df['date'].isna(), 'Date'].head(3).tolist()}" if bad else ""),
+              flush=True)
         cols = [c for c in df.columns if str(c).endswith("(kscf)")]
         if cols:
             frames.append(df.dropna(subset=["date"]).set_index("date")[cols].apply(pd.to_numeric, errors="coerce"))
