@@ -84,8 +84,9 @@ def main():
     reg = units[~units["fuel"].isin(STORAGE)].groupby("region")["mw"].sum().to_frame(month).T.add_suffix("_MW")
 
     monthly, region = load(args.out, "Monthly"), load(args.out, "By region")
-    monthly = row.combine_first(monthly) if not monthly.empty else row
-    region = reg.combine_first(region) if not region.empty else reg
+    # this run's snapshot REPLACES any row saved earlier for the same month (no stale columns carried over)
+    monthly = pd.concat([monthly.drop(index=month, errors="ignore"), row]).sort_index().dropna(axis=1, how="all")
+    region = pd.concat([region.drop(index=month, errors="ignore"), reg]).sort_index().dropna(axis=1, how="all")
     monthly = monthly[[c for c in row.columns] + [c for c in monthly.columns if c not in row.columns]]
     for x in (monthly, region):
         x.index.name = "date"
