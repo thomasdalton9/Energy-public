@@ -1,0 +1,32 @@
+name: SA discovery (manual)
+
+# Manual-only runner for one-off probe scripts in discovery_archive/south_america (Paraguay Yacyreta, Guyana, ...).
+# Move to discovery_archive/workflows/ when the probes are done.
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "probe script in discovery_archive/south_america"
+        required: true
+      args:
+        description: "arguments"
+        required: false
+        default: ""
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y -q mdbtools poppler-utils >/dev/null
+          pip install -q pandas requests openpyxl xlrd pdfplumber certifi
+      - name: Probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 2500 python3 "discovery_archive/south_america/${{ github.event.inputs.script }}" ${{ github.event.inputs.args }}
