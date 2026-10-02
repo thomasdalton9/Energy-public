@@ -55,8 +55,15 @@ def parse(html):
             frames.append(df.dropna(subset=["date"]).set_index("date")[cols].apply(pd.to_numeric, errors="coerce"))
     if not frames:
         raise RuntimeError("no embedded data array found - the page layout changed")
-    out = pd.concat(frames, axis=1)
-    return out.loc[:, ~out.columns.duplicated()].groupby(level=0).last().sort_index()
+    return combine(frames)
+
+
+def combine(frames):
+    """Arrays split the history by period and share column names: merge them cell by cell (first non-blank)."""
+    out = frames[0]
+    for f in frames[1:]:
+        out = out.combine_first(f)
+    return out.groupby(level=0).first().sort_index()
 
 
 def to_mcm(kscf):
@@ -90,8 +97,7 @@ def main():
                   flush=True)
             return
         raws.append(parse(r.text))
-    kscf = pd.concat(raws, axis=1)
-    kscf = kscf.loc[:, ~kscf.columns.duplicated()]
+    kscf = combine(raws)
     daily = to_mcm(kscf)
     if not old.empty:   # keep any day the page no longer carries
         daily = daily.combine_first(old)
