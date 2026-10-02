@@ -92,7 +92,8 @@ def units(include_loads=False):
 
 # units retired before the current registration list whose station has no current unit to borrow a fuel from
 RETIRED = {"LD0": "Coal", "TORR": "Gas", "OSB-AG": "Gas", "SWAN": "Gas", "MACKAYGT": "Oil", "SNUG": "Oil",
-           "LONSDALE": "Oil", "PTSTAN": "Oil", "ANGAST": "Oil", "DRYCGT": "Gas", "MSTUART": "Oil", "QPS": "Gas"}
+           "LONSDALE": "Oil", "PTSTAN": "Oil", "ANGAST": "Oil", "DRYCGT": "Gas", "MSTUART": "Oil", "QPS": "Gas",
+           "PORTWF": "Wind", "PIONEER": "Bioenergy"}   # Portland wind farm (VIC), Pioneer sugar mill (QLD, bagasse)
 
 
 def latest_mms(table, name, start):
