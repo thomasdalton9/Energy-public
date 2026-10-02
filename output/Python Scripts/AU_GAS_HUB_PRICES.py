@@ -73,7 +73,7 @@ def aemo_csv(content):
     lines = text.splitlines()
     if lines and lines[0].startswith("C,"):
         head = next(ln for ln in lines if ln.startswith("I,"))
-        cols = head.split(",")
+        cols = ["ROW_TYPE", "REPORT", "TABLE", "VERSION"] + head.split(",")[4:]   # the first 4 fields describe the report
         rows = [ln.split(",") for ln in lines if ln.startswith("D,")]
         return pd.DataFrame(rows, columns=cols[:len(rows[0])] if rows else cols)
     return pd.read_csv(io.StringIO(text))
@@ -102,14 +102,14 @@ def wallumbilla(backfill):
     print(f"GSH columns: {list(d.columns)[:20]} -> date {dcol}, price {pcol}", flush=True)
     if dcol is None or pcol is None:
         return pd.DataFrame()
-    if any("LOCATION" in c or "PRODUCT" in c for c in d.columns):
-        loc = next(c for c in d.columns if "LOCATION" in c or "PRODUCT" in c)
-        print(f"  locations: {d[loc].value_counts().head(8).to_dict()}", flush=True)
-        wal = d[d[loc].astype(str).str.contains("WAL", case=False)]
-        d = wal if not wal.empty else d
-    d = d.assign(date=pd.to_datetime(d[dcol].str.strip('"').str[:11], errors="coerce", dayfirst=True),
-                 price=pd.to_numeric(d[pcol].astype(str).str.strip('"'), errors="coerce")).dropna(subset=["date"])
-    out = d.groupby("date")["price"].last().to_frame("Wallumbilla_benchmark")
+    d = d.apply(lambda c: c.astype(str).str.strip('"'))
+    if "PRODUCT_LOCATION" in d:
+        print(f"  locations: {d['PRODUCT_LOCATION'].value_counts().head(8).to_dict()}; types: "
+              f"{d.get('PRODUCT_TYPE', pd.Series(dtype=str)).value_counts().head(6).to_dict()}", flush=True)
+        d = d[d["PRODUCT_LOCATION"].str.upper().isin(["WAL", "WALLUMBILLA"])]
+    d = d.assign(date=pd.to_datetime(d[dcol].str[:10], format="%Y/%m/%d", errors="coerce"),
+                 price=pd.to_numeric(d[pcol], errors="coerce")).dropna(subset=["date", "price"])
+    out = d.groupby("date")["price"].mean().to_frame("Wallumbilla_benchmark")   # mean over Wallumbilla products
     print(f"Wallumbilla: {len(out)} gas days {out.index.min():%Y-%m-%d}..{out.index.max():%Y-%m-%d}", flush=True)
     return out
 
