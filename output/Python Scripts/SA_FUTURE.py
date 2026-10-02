@@ -157,7 +157,7 @@ def chile():
         if sh not in xl.sheet_names:
             continue
         raw = pd.read_excel(xl, sh, header=None)
-        h = next(i for i in range(min(len(raw), 15)) if raw.iloc[i].astype(str).str.contains("Proyecto").any())
+        h = next(i for i in range(min(len(raw), 15)) if raw.iloc[i].astype(str).str.strip().eq("Proyecto").any())
         d = raw.iloc[h + 1:].copy()
         d.columns = [re.sub(r"\s+", " ", str(c)).strip() for c in raw.iloc[h]]
         d = d[d["Proyecto"].notna()]
@@ -220,6 +220,7 @@ def colombia():
                       "Technology": text(r"Tecnolog"), "Fuel": fuel.values,
                       "MW": d[col(d, r"Capacidad")].map(_num), "Department": text(r"Departamento"),
                       "Expected operation": d[col(d, r"entrada en operaci")].map(_es_date)})
+    p = p[p["Project"].ne("") & p["Phase"].ne("")]   # the sheet ends with a totals row
     p["Year"] = p["Expected operation"].dt.year
     ph = p.pivot_table(index="Phase", columns="Fuel", values="MW", aggfunc="sum").fillna(0).round(0)
     ph.index.name = "Phase"
@@ -299,13 +300,34 @@ def peru():
                                 rows.append(cells + [f.rsplit("/", 1)[-1]])
         except Exception as e:  # noqa: BLE001
             print(f"  {f}: {type(e).__name__}: {e}", flush=True)
-    if rows:
-        width = max(len(r) for r in rows)
-        t = pd.DataFrame([r + [""] * (width - len(r)) for r in rows])
-        print(f"  EPO table rows with MW and a year: {len(t)}\n{t.head(25).to_string(max_colwidth=30)[:4000]}", flush=True)
-        sheets["PE EPO model projects (raw)"] = t.set_index(t.columns[0])
-        src.append("COES, Modelo Eléctrico del SEIN para la elaboración de EPO (tables as extracted from the PDF): "
-                   + "; ".join(epo))
+    ref = COES_EPO + "2. Información Referencial para EPOs/"
+    try:
+        items = _coes_browse(S, ref)
+        print(f"COES EPO reference folder: {items[:40]}", flush=True)
+        for sub in [p for p, k in items if k.upper() == "D"][:6]:
+            print(f"  {sub}: {_coes_browse(S, sub)[:30]}", flush=True)
+    except Exception as e:  # noqa: BLE001
+        print(f"  EPO reference folder: {type(e).__name__}: {e}", flush=True)
+    prefix = [(r"^C\.?\s?E\b|E[OÓ]LIC", "Wind"), (r"^C\.?\s?S\.?\s?F|^C\.?\s?S\b|SOLAR", "Solar"),
+              (r"^C\.?\s?H\b|HIDRO", "Hydro"), (r"^C\.?\s?T\b|TERMO|GAS|CICLO", "Gas"), (r"BESS|ALMACEN", "Battery storage")]
+    proj = []
+    for r in rows:
+        name = next((c for c in r if re.search(r"\d+(?:[.,]\d+)?\s*MW", c)), "")
+        m = re.search(r"(\d+(?:[.,]\d+)?)\s*MW", name)
+        when = next((c for c in r if re.match(r"\d{2}/\d{2}/\d{4}$", c)), "")
+        fuel = next((f for pat, f in prefix if re.search(pat, name, re.I)), fuel_from_text(name))
+        if m:
+            proj.append({"Code": r[0], "Project": re.sub(r"\s*\d+(?:[.,]\d+)?\s*MW.*", "", name).strip(), "Fuel": fuel,
+                         "MW": _num(m.group(1)), "Model entry date": pd.to_datetime(when, dayfirst=True, errors="coerce"),
+                         "Connection": r[3] if len(r) > 3 else "", "File": r[-1]})
+    if proj:
+        t = pd.DataFrame(proj).drop_duplicates(["Project", "MW"])
+        print(f"  EPO model new projects: {len(t)}, {t['MW'].sum():,.0f} MW: {t.groupby('Fuel')['MW'].sum().to_dict()}",
+              flush=True)
+        sheets["PE EPO model new projects"] = t.set_index("Code")
+        t["Year"] = t["Model entry date"].dt.year
+        sheets["PE EPO new projects by year"] = by_year_fuel(t, "Year", "Fuel", "MW")
+        src.append("COES, Modelo Eléctrico del SEIN para EPO - 'Lo Nuevo' (projects added to the model): " + "; ".join(epo))
     if not sheets:
         raise RuntimeError("nothing parsed from COES")
     return sheets, " ; ".join(src)
