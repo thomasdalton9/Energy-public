@@ -5,6 +5,10 @@ Standing instructions from the repo owner. Follow these on every change.
 ## Branches
 - Develop on `github-access-energy`; production is `main`. Every change goes to BOTH branches.
 - External data sites are mostly blocked from the Claude sandbox: run pulls in GitHub Actions.
+- Pulls run in the PUBLIC repo thomasdalton9/Energy-public (free Actions minutes); make code changes there.
+  Its main is copied into the private thomasdalton9/Energy (main + github-access-energy) weekly, Monday 23:30 UTC,
+  by .github/workflows/sync_to_private.yml (needs the PRIVATE_REPO_TOKEN secret). Never copy private-repo
+  content into the public repo.
 
 ## Spreadsheets and charts
 - **Every xlsx we pull must include native Excel charts of its data**, redrawn by the
