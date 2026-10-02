@@ -1,0 +1,34 @@
+name: Peru COES node discovery (manual)
+
+# One-off probe: why SANTA ROSA 220 kV misses half-hours in COES's marginal-cost export, and which node gives a
+# complete Lima price. See discovery_archive/south_america/PERU_COES_NODE_DISCOVERY.py. Move this file to
+# discovery_archive/workflows/ once the probe is done.
+on:
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "months to probe, space-separated YYYY-MM (blank = default set)"
+        required: false
+        default: ""
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: discovery_archive/south_america
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q requests pandas openpyxl
+      - name: Probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 3300 python3 discovery_archive/south_america/PERU_COES_NODE_DISCOVERY.py ${{ github.event.inputs.months }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: peru-node-probe
+          path: peru_node_probe.csv
