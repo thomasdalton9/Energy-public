@@ -54,9 +54,10 @@ def nem_history(months):
     (REGISTEREDCAPACITY, latest version effective by the month-end) for units registered at that month-end
     (DUDETAILSUMMARY START_DATE..END_DATE). Fuel from the registration list, plus units that have left it."""
     from AU_NEM_GENERATION import _table
-    end = max(months) + pd.offsets.MonthBegin(1)
-    summ = _table("DUDETAILSUMMARY", pd.Timestamp(HISTORY_START), end)
-    det = _table("DUDETAIL", pd.Timestamp("2009-07-01"), end)
+    summ = aemo_registration.latest_mms(_table, "DUDETAILSUMMARY", pd.Timestamp(HISTORY_START))
+    det = aemo_registration.latest_mms(_table, "DUDETAIL", pd.Timestamp(HISTORY_START))
+    print(f"DUDETAILSUMMARY {summ.shape}, DUDETAIL {det.shape}; DUDETAIL effective dates "
+          f"{det['EFFECTIVEDATE'].min()} .. {det['EFFECTIVEDATE'].max()}", flush=True)
     fuel = aemo_registration.with_history(aemo_registration.units(include_loads=True), None, None,
                                           lambda *a: summ)
     fuel = fuel[fuel["role"].eq("gen")].drop_duplicates("duid").set_index("duid")["fuel"]

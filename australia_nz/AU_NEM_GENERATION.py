@@ -38,8 +38,8 @@ CACHE = os.path.join(ROOT, "nemosis_cache")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
 STORAGE = ["Battery_discharge", "Pumped_hydro"]
 RENAME = {"Battery_storage": "Battery_discharge", "Pumped_storage": "Pumped_hydro"}
-FETCH_VERSION = 4   # bump when a month's saved content changes (2: state balance, 3: storage charging,
-#   4: units that left the registration list - retired plant, pre-2024 battery/pump load DUIDs) - refetches once
+FETCH_VERSION = 5   # bump when a month's saved content changes (2: state balance, 3: storage charging,
+#   4-5: units that left the registration list - retired plant, pre-2024 battery/pump load DUIDs) - refetches once
 CHARGE = {"Battery_discharge": "Battery_charge", "Pumped_hydro": "Pumped_hydro_pumping"}   # storage consumption
 STATES = ["NSW", "QLD", "SA", "TAS", "VIC"]
 
