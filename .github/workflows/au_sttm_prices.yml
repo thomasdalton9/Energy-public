@@ -1,10 +1,10 @@
-name: Australia and NZ gas and hydro storage
+name: Australia gas hub prices (STTM)
 
-# AEMO Gas Bulletin Board (east coast demand by sector, production, storage, LNG cargoes), MBIE New Zealand gas statistics and generating capacity, Hydro Tasmania energy in storage. Incremental:
-# GBB reads its last-31-days file once the history is saved; Hydro Tasmania merges into saved rows. (STTM prices: au_sttm_prices.yml, daily.)
+# AEMO STTM ex-ante prices (INT651). The report only holds about a week of gas days, so this runs daily and
+# merges into the saved sheet.
 on:
   schedule:
-    - cron: "20 21 * * 1"
+    - cron: "15 22 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,45 +21,31 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install pandas openpyxl requests xlrd
-      - name: Gas Bulletin Board
-        if: always()
+      - name: STTM prices
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 900 python3 australia_nz/AU_GAS_GBB.py
-
-
-      - name: Hydro Tasmania storage
-        if: always()
-        env:
-          PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 australia_nz/AU_HYDRO_TAS_STORAGE.py
-
-      - name: MBIE gas and capacity
-        if: always()
-        env:
-          PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 australia_nz/NZ_MBIE.py
+        run: timeout 300 python3 australia_nz/AU_STTM_PRICES.py
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          for f in au_gas au_hydro_storage nz_gas nz_power_capacity; do
+          for f in au_gas_prices; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp australia_nz/AU_GAS_GBB.py australia_nz/AU_HYDRO_TAS_STORAGE.py australia_nz/NZ_MBIE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp australia_nz/AU_STTM_PRICES.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbooks
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in au_gas au_hydro_storage nz_gas nz_power_capacity; do
+          for f in au_gas_prices; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
-          git commit -m "Australia and NZ gas and hydro storage: automated update"
+          git commit -m "Australia gas hub prices (STTM): automated update"
           for i in 1 2 3 4 5; do
             git pull --rebase --autostash && git push && exit 0
             sleep $((i * 5))
