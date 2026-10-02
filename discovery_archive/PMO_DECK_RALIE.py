@@ -1,6 +1,8 @@
-"""Step 5 (GitHub Actions): RALIE unit-level history -> forward schedule per snapshot, split by construction
-status and viability, so the unfiltered 180 GW 'expected within 12 months' can be reduced to what the deck
-would count. Writes discovery_archive/pmo_deck/ralie_forward_by_status.csv and prints the category counts."""
+"""Step 6 (GitHub Actions): RALIE forward schedule by construction status.
+Unit-level history carries the expected commercial-operation date (DatPrevisaoOpComercialSFG) and unit MW;
+plant-level history carries DscSituacaoObra / DscViabilidade / DscSituacaoCronograma. Join on (DatRalie, CodCEG)
+and aggregate per snapshot: MW expected within 12 / 24 months, all projects vs projects with works started
+vs 'on schedule', by source. Writes discovery_archive/pmo_deck/ralie_forward_by_status.csv."""
 import re, io, os, time, requests, pandas as pd, numpy as np, unicodedata
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) energy-data-probe/1.0"}
 OUT = "discovery_archive/pmo_deck"; os.makedirs(OUT, exist_ok=True)
@@ -11,31 +13,33 @@ def get(url, tries=3):
         except Exception as e: print("retry", i + 1, repr(e)[:120]); time.sleep(10 * (i + 1))
     raise RuntimeError("download failed")
 base = "https://dadosabertos.aneel.gov.br/dataset/57e4b8b5-a5db-40e6-9901-27ca629d0477/resource/"
-b = get(base + "896a51b2-6d40-4b0a-b2b2-b460f6a5b7ed/download/ralie-unidade-geradora-historico.parquet"); R = pd.read_parquet(io.BytesIO(b))
-print("rows", len(R)); print("columns:", list(R.columns))
-for c in [c for c in R.columns if c.lower().startswith("dat")]: R[c] = pd.to_datetime(R[c], errors="coerce")
-snap = "DatRalie" if "DatRalie" in R.columns else [c for c in R.columns if "ralie" in c.lower()][0]
-exp = [c for c in R.columns if re.search(r"previs", c, re.I) and c.lower().startswith("dat")]; print("expected-date cols:", exp)
-pw = [c for c in R.columns if re.search(r"potencia", c, re.I)][0]; R[pw] = pd.to_numeric(R[pw].astype(str).str.replace(".", "", regex=False).str.replace(",", ".", regex=False), errors="coerce")
-cat = [c for c in R.columns if re.search(r"situacao|viabilidade|cronograma|fase|status", c, re.I)]; print("status columns:", cat)
-last = R[R[snap] == R[snap].max()]
-for c in cat:
-    print(f"\n{c} (latest snapshot, MW by category):"); print((last.groupby(c)[pw].sum() / 1000).round(0).sort_values(ascending=False).head(12).to_string())
-src = [c for c in R.columns if re.search(r"origem|tipogeracao|fonte", c, re.I)]; sc = src[0] if src else None
-obra = [c for c in cat if "obra" in c.lower()]; viab = [c for c in cat if "viabil" in c.lower()]
-ec = exp[0]; out = []
-for s, d in R.dropna(subset=[snap, ec]).groupby(snap):
-    lead = (d[ec] - s).dt.days; w12 = (lead >= 0) & (lead <= 365); w24 = (lead >= 0) & (lead <= 730)
-    row = dict(snapshot=s.date(), n_units=len(d), all_12m=d.loc[w12, pw].sum() / 1000, all_24m=d.loc[w24, pw].sum() / 1000)
-    if obra:
-        oc = obra[0]; st = d[oc].map(norm).str.lower()
-        started = st.str.contains(r"andamento|iniciad|conclu|comission|operac", regex=True)
-        row["started_12m"] = d.loc[w12 & started, pw].sum() / 1000; row["started_24m"] = d.loc[w24 & started, pw].sum() / 1000
-        if sc:
-            for k, v in d.loc[w12 & started].groupby(sc)[pw].sum().items(): row["started12_" + re.sub(r"\W+", "_", norm(k))[:12]] = v / 1000
-    if viab:
-        vc = viab[0]; vv = d[vc].map(norm).str.lower(); ok = vv.str.contains(r"viavel|viab|alta|media", regex=True) & ~vv.str.contains(r"inviavel|baixa|sem", regex=True)
-        row["viable_12m"] = d.loc[w12 & ok, pw].sum() / 1000; row["viable_24m"] = d.loc[w24 & ok, pw].sum() / 1000
+P = pd.read_parquet(io.BytesIO(get(base + "4cd32195-55fb-4f3f-83e9-2168369e818d/download/ralie-usina-historico.parquet")))
+print("plant rows", len(P)); print("plant columns:", list(P.columns))
+U = pd.read_parquet(io.BytesIO(get(base + "896a51b2-6d40-4b0a-b2b2-b460f6a5b7ed/download/ralie-unidade-geradora-historico.parquet")),
+                    columns=["DatRalie", "CodCEG", "DscOrigemCombustivel", "SigTipoGeracao", "MdaPotenciaUnitaria", "DatPrevisaoOpComercialSFG", "DatUGInicioOpComerOutorgado", "DatLiberOpTesteRealizado"])
+print("unit rows", len(U))
+for df in (P, U):
+    for c in [c for c in df.columns if c.lower().startswith("dat")]: df[c] = pd.to_datetime(df[c], errors="coerce")
+U["mw"] = pd.to_numeric(U.MdaPotenciaUnitaria.astype(str).str.replace(".", "", regex=False).str.replace(",", ".", regex=False), errors="coerce") / 1000
+scols = [c for c in P.columns if re.search(r"SituacaoObra|Viabilidade|SituacaoCronograma", c)]
+print("status columns:", scols)
+last = P[P.DatRalie == P.DatRalie.max()]
+for c in scols: print(f"\n{c} (latest plant snapshot, plants by category):"); print(last[c].value_counts().head(10).to_string())
+S = P[["DatRalie", "CodCEG"] + scols].drop_duplicates(["DatRalie", "CodCEG"])
+M = U.merge(S, on=["DatRalie", "CodCEG"], how="left"); print("units with status:", M[scols[0]].notna().mean().round(3) if scols else "none")
+M = M[M.DatLiberOpTesteRealizado.isna()]   # units not yet released for test operation = still to come
+obra = M[[c for c in scols if "Obra" in c][0]].map(norm).str.lower() if any("Obra" in c for c in scols) else pd.Series("", index=M.index)
+cron = M[[c for c in scols if "Cronograma" in c][0]].map(norm).str.lower() if any("Cronograma" in c for c in scols) else pd.Series("", index=M.index)
+M["started"] = obra.str.contains(r"andamento|iniciad|conclu|avanc|montagem|comission", regex=True)
+M["onschedule"] = cron.str.contains(r"dentro|no prazo|adiantad|conforme", regex=True)
+M["src"] = M.DscOrigemCombustivel.map(lambda x: re.sub(r"\W+", "_", norm(x))[:10])
+out = []
+for s, d in M.dropna(subset=["DatRalie", "DatPrevisaoOpComercialSFG"]).groupby("DatRalie"):
+    lead = (d.DatPrevisaoOpComercialSFG - s).dt.days; w12 = (lead >= 0) & (lead <= 365); w24 = (lead >= 0) & (lead <= 730)
+    row = dict(snapshot=s.date(), n_units=len(d), all_12m=d.loc[w12, "mw"].sum(), all_24m=d.loc[w24, "mw"].sum(), started_12m=d.loc[w12 & d.started, "mw"].sum(), started_24m=d.loc[w24 & d.started, "mw"].sum(), onsched_12m=d.loc[w12 & d.onschedule, "mw"].sum())
+    for k, v in d.loc[w12 & d.started].groupby("src").mw.sum().items(): row["started12_" + k] = v
+    for k, v in d.loc[w12].groupby("src").mw.sum().items(): row["all12_" + k] = v
     out.append(row)
-O = pd.DataFrame(out); O.to_csv(f"{OUT}/ralie_forward_by_status.csv", index=False); print("\nforward schedule rows:", len(O)); print(O.head(4).to_string()[:2500]); print(O.tail(4).to_string()[:2500])
+O = pd.DataFrame(out).sort_values("snapshot"); O.to_csv(f"{OUT}/ralie_forward_by_status.csv", index=False)
+print("\nforward schedule rows:", len(O)); pd.set_option("display.width", 250); print(O[["snapshot", "n_units", "all_12m", "started_12m", "onsched_12m", "all_24m", "started_24m"]].iloc[::12].round(1).to_string())
 print("DONE")
