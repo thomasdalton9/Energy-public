@@ -34,7 +34,7 @@ sys.path.insert(0, ROOT)  # repo root, for xlsx_notes
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xlsx_notes  # noqa: E402
 import aemo_registration  # noqa: E402
-from AU_WEM_GENERATION import fuel_of  # noqa: E402
+from AU_WEM_GENERATION import DEFAULT_OUT as WEM_GENERATION, fuel_of  # noqa: E402
 
 WEM_FACILITIES = "https://data.wa.aemo.com.au/public/public-data/datafiles/facilities/facilities.csv"
 DEFAULT_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "au_power_capacity.xlsx")
@@ -47,6 +47,8 @@ def nem_units():
 
 
 HISTORY_START = "2021-01-01"
+FIRST_SNAPSHOT = pd.Timestamp("2026-10-01")   # first month written from the live registration lists
+HISTORY_VERSION = 2   # bump to rebuild the months before FIRST_SNAPSHOT (2: WEM from facility output dates)
 
 
 def nem_history(months):
@@ -94,10 +96,40 @@ def wem_units():
     capcol = next((c for c in d.columns if "maximum capacity" in c.lower()),
                   next(c for c in d.columns if "capacity" in c.lower() and "credit" not in c.lower()))
     fuel = d["Facility Code"].map(fuel_of).replace({"Battery_discharge": "Battery_storage"})
-    out = pd.DataFrame({"region": "WA (WEM)", "fuel": fuel, "mw": pd.to_numeric(d[capcol], errors="coerce")})
+    out = pd.DataFrame({"region": "WA (WEM)", "fuel": fuel, "mw": pd.to_numeric(d[capcol], errors="coerce"),
+                        "code": d["Facility Code"]})
     print(f"WEM: {len(out)} facilities, {out['mw'].sum() / 1000:.1f} GW ({capcol}); types "
           f"{d[tcol].value_counts().to_dict() if tcol else 'n/a'}", flush=True)
     return out
+
+
+def wem_history(months, now):
+    """WEM capacity by fuel for each month in `months`: a facility counts from its first month of output (WEM
+    facility SCADA, au_wem_power_generation_daily.xlsx 'By facility') - and, if it has left AEMO's facilities list,
+    until its last month of output. Capacity = the list's Maximum Capacity; a facility no longer listed (retired)
+    takes its highest daily output / 24 h."""
+    fac = pd.read_excel(WEM_GENERATION, sheet_name="By facility", index_col=0)
+    fac.index = pd.to_datetime(fac.index)
+    out = fac.clip(lower=0).where(fac > 0)
+    first = out.apply(lambda c: c.first_valid_index())
+    last = out.apply(lambda c: c.last_valid_index())
+    cap = now.dropna(subset=["code"]).drop_duplicates("code").set_index("code")["mw"]
+    gone = [c for c in fac.columns if c not in cap.index]
+    est = (fac[gone].max() / 24.0).round(0)
+    print(f"WEM facilities with output but no longer listed (capacity = peak daily MWh / 24): {est.to_dict()}",
+          flush=True)
+    mw = pd.concat([cap, est])
+    fuel = pd.Series({c: fuel_of(c) for c in mw.index}).replace({"Battery_discharge": "Battery_storage"})
+    rows = {}
+    for m in months:
+        me = m + pd.offsets.MonthEnd(0)
+        live = [c for c in mw.index if c in first.index and pd.notna(first[c]) and first[c] <= me
+                and (c in cap.index or last[c] >= m)]
+        rows[m] = mw[live].groupby(fuel[live]).sum()
+    h = pd.DataFrame(rows).T.fillna(0)
+    print(f"WEM history: {h.iloc[0].sum() / 1000:.1f} GW in {months[0]:%b %Y}, {h.iloc[-1].sum() / 1000:.1f} GW in "
+          f"{months[-1]:%b %Y}", flush=True)
+    return h
 
 
 def load(path, sheet):
@@ -128,9 +160,13 @@ def main():
     # this run's snapshot REPLACES any row saved earlier for the same month (no stale columns carried over)
     monthly = pd.concat([monthly.drop(index=month, errors="ignore"), row]).sort_index().dropna(axis=1, how="all")
     region = pd.concat([region.drop(index=month, errors="ignore"), reg]).sort_index().dropna(axis=1, how="all")
-    # one-off: NEM months before the first snapshot, rebuilt from the MMS unit history (WEM at its first snapshot)
-    first = monthly.index.min()
-    gap = [m for m in pd.date_range(HISTORY_START, first, freq="MS") if m < first]
+    # months before the first snapshot: NEM rebuilt from the MMS unit history, WEM from facility output dates.
+    # Rebuilt once (and again whenever HISTORY_VERSION is bumped).
+    saved = load(args.out, "History")
+    version = int(saved["version"].iloc[-1]) if "version" in saved and len(saved) else 1
+    if version < HISTORY_VERSION:
+        monthly, region = monthly[monthly.index >= FIRST_SNAPSHOT], region[region.index >= FIRST_SNAPSHOT]
+    gap = [m for m in pd.date_range(HISTORY_START, FIRST_SNAPSHOT, freq="MS") if m < FIRST_SNAPSHOT and m not in monthly.index]
     if gap:
         try:
             hf, hr = nem_history(gap + [month])
@@ -138,22 +174,21 @@ def main():
             nem_now = nem_units().groupby("fuel")["mw"].sum()
             print("rebuilt vs registration list, this month (MW):\n" + pd.DataFrame(
                 {"rebuilt": check, "registration list": nem_now}).round(0).to_string(), flush=True)
-            wem = units[units["region"].eq("WA (WEM)")].groupby("fuel")["mw"].sum()
-            wem_first = region.loc[first, "WA (WEM)_MW"] if "WA (WEM)_MW" in region else wem[~wem.index.isin(STORAGE)].sum()
             hf = hf.drop(index=month)
-            for f, v in wem.items():   # WEM held at its current snapshot
-                hf[f] = hf[f].fillna(0) + v if f in hf else v
+            wem = wem_history(gap, units[units["region"].eq("WA (WEM)")])
+            hf = hf.add(wem.reindex(index=hf.index, columns=hf.columns.union(wem.columns), fill_value=0), fill_value=0)
             hist = pd.DataFrame({f"{f}_MW": hf[f] for f in FUELS if f in hf}, index=hf.index)
             hist["Total_MW"] = hist.sum(axis=1)
             for st in STORAGE:
                 if st in hf:
                     hist[f"{st}_MW"] = hf[st]
             hr = hr.drop(index=month).add_suffix("_MW")
-            hr["WA (WEM)_MW"] = wem_first
+            hr["WA (WEM)_MW"] = wem.drop(columns=[c for c in STORAGE if c in wem]).sum(axis=1)
             monthly = pd.concat([hist, monthly]).sort_index()
             region = pd.concat([hr, region]).sort_index()
+            version = HISTORY_VERSION
         except Exception as e:  # noqa: BLE001 - keep the snapshots
-            print(f"NEM history rebuild failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
+            print(f"History rebuild failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
     monthly = monthly[[c for c in row.columns] + [c for c in monthly.columns if c not in row.columns]]
     for x in (monthly, region):
         x.index.name = "date"
@@ -171,15 +206,18 @@ def main():
         "COVERAGE",
         "NEM (QLD, NSW, VIC, SA, TAS) + WA's WEM. Rooftop solar, NT and off-grid plant not included. Months from "
         "Jan 2021 to Sep 2026: NEM rebuilt from AEMO MMS unit history (DUDETAIL registered capacity, "
-        "DUDETAILSUMMARY registration dates); WEM held at its Oct 2026 snapshot. From Oct 2026: monthly snapshots "
-        "of the registration lists.",
+        "DUDETAILSUMMARY registration dates); WEM from each facility's first month of output (and last month, for "
+        "facilities no longer listed - their capacity is estimated as peak daily output / 24 h). From Oct 2026: "
+        "monthly snapshots of the registration lists.",
         "",
         "SOURCE",
         f"AEMO NEM Registration and Exemption List: {aemo_registration.URL}; AEMO WA facilities list: "
         f"{WEM_FACILITIES}",
         "https://aemo.com.au/en/energy-systems/electricity/national-electricity-market-nem/participate-in-the-market/registration",
     ]
-    xlsx_notes.write_workbook(args.out, {"Monthly": monthly.round(1), "By region": region.round(1)}, notes,
+    hist_sheet = pd.DataFrame({"version": [version]}, index=pd.DatetimeIndex([month], name="date"))
+    xlsx_notes.write_workbook(args.out, {"Monthly": monthly.round(1), "By region": region.round(1),
+                                         "History": hist_sheet}, notes,
                               {"UNITS", "COVERAGE", "SOURCE"})
     print(f"Saved {args.out}", flush=True)
 
