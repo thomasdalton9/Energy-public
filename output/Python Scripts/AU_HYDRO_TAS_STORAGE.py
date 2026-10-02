@@ -56,10 +56,12 @@ def parse(content):
     full = full.groupby(level=0, sort=False).sum()
     # system totals sit after the lakes: "Including Lake Gardiner, Margaret & Plimsol" (the whole system - the
     # total used here), "Excluding ..." and "System less ..." (subtotals)
-    totals = [c for c in body.columns if re.match(r"(including|excluding|system|total)", c, re.I)]
+    body.columns = [re.sub(r"^System \+ ", "", c) for c in body.columns]
+    full.index = body.columns
+    totals = [c for c in body.columns if re.search(r"including|excluding|system|total", c, re.I)]
     lakes = [c for c in body.columns if c not in totals]
-    totals = sorted(totals, key=lambda c: 0 if re.match(r"including", c, re.I) else 1 if re.match(r"total", c, re.I)
-                    else 2)
+    totals = sorted(totals, key=lambda c: 0 if re.search(r"including", c, re.I) else
+                    1 if re.search(r"excluding", c, re.I) else 2)
     return body, full, lakes, totals
 
 
