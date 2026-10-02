@@ -243,6 +243,9 @@ def main():
             "Billion cubic feet per day (Bcf/d), monthly average. Mexico imports most of its gas by pipeline from "
             "the US; these are EIA's US export volumes to Mexico (pipeline, and LNG by truck/ship), so they are "
             "Mexico's imports from the US as measured on the US side.",
+            "LNG_imports_from_US is EIA's series as published, but it has months of 2-3.5 Bcf/d (20-25% of all US LNG "
+            "exports) among months of ~0.1 Bcf/d, which is not credible; it is kept here but not charted. Pipeline "
+            "imports are the meaningful series (they match EIA's US pipeline exports to Mexico).",
             "",
             "COVERAGE",
             f"{cover(mexico)}. Mexico's own demand-by-sector statistics (SENER SIE) are not pulled yet.",
