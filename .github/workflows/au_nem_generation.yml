@@ -1,6 +1,6 @@
 name: Australia NEM power generation
 
-# AEMO 5-minute unit SCADA via nemosis -> daily MWh by fuel and state. Incremental: up to 12 months not yet
+# AEMO 5-minute unit SCADA via nemosis -> daily MWh by fuel and state. Incremental: up to 36 months not yet
 # saved per run (the backfill to 2021 completes over several runs), plus the month in progress.
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
         if: always()
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 18000 python3 australia_nz/AU_NEM_GENERATION.py --max-months 12
+        run: timeout 18000 python3 australia_nz/AU_NEM_GENERATION.py --max-months 36
 
       - name: Add Excel charts and copy scripts
         if: always()
