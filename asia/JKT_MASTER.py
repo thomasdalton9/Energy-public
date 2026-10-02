@@ -33,6 +33,7 @@ DATA_DIR = sam.DATA_DIR
 
 # (country code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 DATASETS = [
+    ("TW", "Taiwan", "taiwan_gas.xlsx", ("Monthly", "LNG monthly"), "gas"),
 ]
 RAW_POWER_DATASETS = [
     ("JP", "Japan", "japan_power_generation_daily.xlsx", ("Daily", "By area"), "power"),
@@ -52,6 +53,8 @@ EMBER = {"korea_taiwan_power_by_type.xlsx", "south_korea_power_capacity.xlsx", "
 OPERATORS = {"South Korea": "KPX / MOTIE", "Taiwan": "Taipower / MOEA"}
 
 SOURCES = {
+    "taiwan_gas.xlsx": ("Taiwan Bureau of Energy (MOEA), E-STAT open API, table 6-01 natural gas supply and consumption",
+                        "https://ea01.moeaea.gov.tw/a0303/02/en/database/api/"),
     "japan_power_generation_daily.xlsx": ("The 10 regional TSOs' area supply-demand actuals (eria_jukyu CSVs: Hokkaido, "
                                           "Tohoku, TEPCO PG, Chubu, Hokuriku, Kansai, Chugoku, Shikoku, Kyushu, Okinawa)",
                                           "https://www.occto.or.jp/en/"),
