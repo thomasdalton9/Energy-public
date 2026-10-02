@@ -626,7 +626,10 @@ def notes(sheets):
         "published hourly (or half-hourly) prices of each day. USD = local price / that day's official FX rate "
         "(local currency per USD); weekends and holidays use the last published rate. Local-currency prices are "
         "kept in each country sheet. Charts: all markets as monthly averages of the daily US$/MWh prices, and "
-        "one US$/MWh chart per country.",
+        "one US$/MWh chart per country (weekly averages of the daily prices where the series spans years). "
+        f"Brazil and Peru: a day with fewer than {MIN_HALF_HOURS} of its 48 half-hourly values has no daily price; "
+        "it is kept with its 'Half-hours' count and blank prices (COES often publishes Santa Rosa with gaps), so "
+        "it is not downloaded again.",
         "Separate workbook - deliberately not part of the South & Central America master.",
         "",
         "BRAZIL (sheet 'Brazil')",
@@ -754,6 +757,8 @@ def wanted_days(df, cols, start, end):
     have = set()
     if df is not None and not df.empty:
         ok = df[[c for c in cols if c in df.columns]].notna().any(axis=1)
+        if "Half-hours" in df.columns:   # a day already read and found incomplete is not fetched again
+            ok |= df["Half-hours"].notna()
         have = {d.date() for d in df.index[ok]}
     allday = [start + dt.timedelta(days=i) for i in range((end - start).days + 1)]
     missing = [d for d in allday if d not in have]
@@ -806,12 +811,17 @@ def main():
             continue
         new.index = pd.to_datetime(new.index)
         new = new[(new.index >= pd.Timestamp(start)) & (new.index <= pd.Timestamp(end))]
-        if "Half-hours" in new:   # a day still being published (e.g. COES real time today) is left for later
+        if "Half-hours" in new:
+            # fewer than MIN_HALF_HOURS values: no daily price. A recent day may still be being published (COES
+            # real time) and is left out to be read again; an older one is what the source has, so it is kept
+            # with its Half-hours count and no price - stored as read, so its month is not downloaded again.
             partial = new["Half-hours"] < MIN_HALF_HOURS
             if partial.any():
-                print(f"  {country}: {partial.sum()} incomplete day(s) skipped: "
-                      f"{', '.join(f'{d:%Y-%m-%d}' for d in new.index[partial][:5])}", flush=True)
-            new = new[~partial]
+                settled = partial & (new.index < pd.Timestamp(end) - pd.Timedelta(days=REVISION_DAYS))
+                print(f"  {country}: {partial.sum()} incomplete day(s) without a price ({settled.sum()} kept as "
+                      f"read): {', '.join(f'{d:%Y-%m-%d}' for d in new.index[partial][:5])}", flush=True)
+                new = new[~partial | settled].copy()
+                new.loc[settled, [c for c in new.columns if c != "Half-hours"]] = float("nan")
         sheets[country] = merge(old, new)
         add_fx(country, sheets, failures)
         save(args.out, sheets)
