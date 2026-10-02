@@ -1238,9 +1238,9 @@ def future_workbook(p):
                 out.append(spec(sh, d / 1000.0, "Australia NEM capacity outlook: in service + committed/anticipated "
                                 "projects - announced closures (AEMO Generation Information)", "GW", "stacked_bar", "%Y"))
                 continue
-            unit = "MW" if not sh.startswith(("NZ", "CA")) else "as published"
-            kind = "line" if sh.startswith(("NZ", "CA")) else "stacked_bar"
-            out.append(spec(sh, d, f"{region}: {sh}", unit, kind, "%Y"))
+            unit = "GWh" if "generation" in sh.lower() else "MW"
+            d = d.drop(columns=[c for c in d.columns if str(c).lower() == "total"])
+            out.append(spec(sh, d, f"{region}: {sh}", unit, "stacked_bar", "%Y"))
         elif sh == "US STEO outlook":
             for c in d.columns:
                 out.append(spec(f"STEO {c}"[:28], d[[c]], f"US Short-Term Energy Outlook: {c} (EIA)", c))

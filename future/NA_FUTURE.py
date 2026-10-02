@@ -45,12 +45,14 @@ NAMES = {"Battery_storage": "Battery storage", "Pumped_storage": "Pumped storage
 
 
 def eia_fuel(row, tech_col, src_col):
-    tech = str(row.get(tech_col, ""))
+    tech = row.get(tech_col, "")
+    tech = "" if pd.isna(tech) else str(tech)
     if "Pumped Storage" in tech:
         return "Pumped storage"
     if re.search(r"Batter|Flywheel", tech):
         return "Battery storage"
-    f = FUEL.get(str(row.get(src_col, "")).strip(), "Other")
+    src = row.get(src_col, "")
+    f = FUEL.get("" if pd.isna(src) else str(src).strip(), "Other")
     return NAMES.get(f, f)
 
 
@@ -88,7 +90,7 @@ def eia860m():
     for d in (planned, operating, retired):
         d["Fuel"] = d.apply(lambda r: eia_fuel(r, tech, src), axis=1)
     status = col(planned, r"^Status$")
-    planned["Stage"] = planned[status].astype(str).map(
+    planned["Stage"] = planned[status].fillna("").astype(str).map(
         lambda s: "Under construction or complete" if re.search(r"\((U|V|TS)\)", s) else "Approved or pending" if
         re.search(r"\((T|L)\)", s) else "Planned, not started")
     add = by_year_fuel(planned, col(planned, r"Planned Operation Year"), "Fuel", mw)
@@ -105,10 +107,10 @@ def eia860m():
                         col(planned, r"Plant State", required=False), tech, src, mw, status,
                         col(planned, r"Planned Operation Year"), col(planned, r"Planned Operation Month",
                                                                      required=False), "Fuel") if c]
-    units = planned[keep].sort_values(keep[-3] if len(keep) > 3 else keep[0])
+    units = planned[keep].sort_values(keep[-3] if len(keep) > 3 else keep[0]).set_index(keep[0])
     label = f"{MONTHS[mon].title()} {year}"
     return {"US additions by fuel": add, "US additions by stage": stage, "US planned retirements": ret_plan,
-            "US retirements since 2021": ret_done, "US planned units": units.reset_index(drop=True)}, label, url
+            "US retirements since 2021": ret_done, "US planned units": units}, label, url
 
 
 def steo(key):

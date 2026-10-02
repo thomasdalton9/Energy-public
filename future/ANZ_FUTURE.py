@@ -86,7 +86,7 @@ def nem(url, content):
     close = col(d, r"Expected Closure Year|Closure Year", required=False)
     print(f"  date columns: start={start}, close={close}", flush=True)
     stv = d[status].astype(str)
-    live = stv.str.contains(r"In Service", case=False)
+    live = stv.str.contains(r"In Service|Announced Withdrawal", case=False)   # withdrawal announced: still running
     firm = stv.str.contains(r"Committed|Anticipated|In Commissioning", case=False)
     pipeline = d[~live & ~stv.str.contains("Withdraw", case=False)]
     this_year = date.today().year
@@ -113,7 +113,7 @@ def nem(url, content):
         sheets["NEM capacity outlook"] = out
     keep = [c for c in (col(d, r"^Site Name$"), col(d, r"Site Owner", required=False), region, status, tech,
                         detail, "Fuel", "MW", start, close) if c]
-    sheets["NEM units"] = d[keep].reset_index(drop=True)
+    sheets["NEM units"] = d[keep].set_index(keep[0])
     by_region = pipeline.pivot_table(
         index=region, columns="Fuel", values="MW", aggfunc="sum").fillna(0).round(0)
     by_region.index.name = "Region"
@@ -155,8 +155,11 @@ def nz():
             p = p[p.index.notna()]
             p = p.loc[:, p.abs().sum() > 0]
             p.index.name = "Year"
-            if not p.empty:
-                sheets[f"NZ {v}"[:31]] = p.round(2)
+            name = ("NZ new build (GEM)" if re.search("build", sh, re.I) else
+                    "NZ capacity" if re.search("capacity", str(v), re.I) else
+                    "NZ generation" if re.search("net", str(v), re.I) else None)
+            if name and not p.empty:   # (generation 'use' - own use - left out)
+                sheets[name] = p.round(1)
     return sheets, url
 
 
