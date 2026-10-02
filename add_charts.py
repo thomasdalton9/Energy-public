@@ -1064,9 +1064,9 @@ def au_gas(p):
     d = _sheet(p, "Demand by sector", "date")
     if not d.empty:
         names = {"Gas_power_generation": "Power generation", "Large_industrial": "Large industrial",
-                 "Distribution_networks": "Distribution (residential, commercial)", "LNG_export_plants": "LNG export plants"}
+                 "LNG_export_plants": "LNG export plants"}
         out.append(spec("Demand", monthly_mean(d[cols(d, *names)].rename(columns=names)),
-                        "Australia east coast gas demand by sector (AEMO Gas Bulletin Board)", "TJ/day, monthly average",
+                        "Australia east coast gas demand: power, large industry, LNG (AEMO GBB)", "TJ/day, monthly average",
                         "stacked_bar"))
     q = _sheet(p, "Production", "date")
     if not q.empty:

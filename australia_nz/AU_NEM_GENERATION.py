@@ -28,19 +28,17 @@ import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)  # repo root, for xlsx_notes
-sys.path.insert(0, os.path.join(ROOT, "rest_of_world"))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xlsx_notes  # noqa: E402
-import aemo_nemweb_power_mix as nem  # noqa: E402
+import aemo_registration  # noqa: E402
 
 HISTORY_START = "2021-01-01"
 DEFAULT_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "au_nem_power_generation_daily.xlsx")
 CACHE = os.path.join(ROOT, "nemosis_cache")
-CATEGORY = {"coal": "Coal", "gas": "Gas", "oil": "Oil", "hydro": "Hydro", "wind": "Wind", "solar": "Solar",
-            "biomass": "Bioenergy", "nuclear": "Nuclear", "battery": "Battery_discharge",
-            "hydro_pumped": "Pumped_hydro"}
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
 STORAGE = ["Battery_discharge", "Pumped_hydro"]
-STATES = {"NSW1": "NSW", "QLD1": "QLD", "SA1": "SA", "TAS1": "TAS", "VIC1": "VIC"}
+RENAME = {"Battery_storage": "Battery_discharge", "Pumped_storage": "Pumped_hydro"}
+STATES = ["NSW", "QLD", "SA", "TAS", "VIC"]
 
 
 def fetch_month(duid_map, start, end):
@@ -55,15 +53,14 @@ def fetch_month(duid_map, start, end):
         shutil.rmtree(CACHE, ignore_errors=True)   # the monthly archive is large; keep the runner's disk free
     if df is None or df.empty:
         return None, None
-    m = df["DUID"].map(duid_map)
-    df = df[m.notna()].assign(region=m.dropna().str[0], fuel=m.dropna().str[1].map(CATEGORY))
+    df = df.merge(duid_map, left_on="DUID", right_on="duid", how="inner")
     # SETTLEMENTDATE is the interval END: 00:05..24:00 make up one day
     t = pd.to_datetime(df["SETTLEMENTDATE"]) - pd.Timedelta(minutes=5)
     df = df.assign(date=t.dt.normalize(),
                    mwh=pd.to_numeric(df["SCADAVALUE"], errors="coerce").clip(lower=0) / 12.0)
     fuel = df.pivot_table(index="date", columns="fuel", values="mwh", aggfunc="sum")
     gen = df[~df["fuel"].isin(STORAGE)]
-    states = gen.pivot_table(index="date", columns="region", values="mwh", aggfunc="sum").rename(columns=STATES)
+    states = gen.pivot_table(index="date", columns="region", values="mwh", aggfunc="sum")
     return fuel, states
 
 
@@ -82,7 +79,7 @@ def save(path, fuel, states):
     for s in STORAGE:
         if s in fuel:
             daily[f"{s}_MWh"] = fuel[s]
-    st = states.reindex(columns=[s for s in STATES.values() if s in states.columns]).add_suffix("_MWh")
+    st = states.reindex(columns=[s for s in STATES if s in states.columns]).add_suffix("_MWh")
     for x in (daily, st):
         x.index.name = "date"
     notes = [
@@ -102,7 +99,7 @@ def save(path, fuel, states):
         "",
         "SOURCE",
         "AEMO NEMWEB / MMSDM DISPATCH_UNIT_SCADA (via nemosis), unit fuel types from the NEM Registration and "
-        f"Exemption List: {nem.REGISTRATION_LIST_URL}",
+        f"Exemption List: {aemo_registration.URL}",
         "https://nemweb.com.au/",
     ]
     xlsx_notes.write_workbook(path, {"Daily": daily.round(1), "States": st.round(1)}, notes,
@@ -125,8 +122,8 @@ def main():
     todo = [m for m in months if m not in have] + have[-1:]
     todo = sorted(set(todo))[:args.max_months]
     print(f"{len(have)} months saved; fetching {len(todo)}: {[f'{m:%Y-%m}' for m in todo]}", flush=True)
-    duid_map = nem.fetch_duid_category_map()
-    print(f"{len(duid_map)} NEM units mapped", flush=True)
+    duid_map = aemo_registration.units()[["duid", "region", "fuel"]]
+    duid_map["fuel"] = duid_map["fuel"].replace(RENAME)
     for m in todo:
         end = min(m + pd.offsets.MonthBegin(1), today)
         try:

@@ -146,8 +146,8 @@ def fetch_duid_category_map():
         region = row.get("Region")
         if region not in REGION_TO_STATE_NAME:
             continue  # WA (WEM) or another non-NEM-MMSDM region - not covered here
-        tech = (row.get("Technology Type - Descriptor") or "").strip()
-        fuel = (row.get("Fuel Source - Descriptor") or "").strip()
+        tech = str(row.get("Technology Type - Descriptor") or "").replace("nan", "").strip()
+        fuel = str(row.get("Fuel Source - Descriptor") or "").replace("nan", "").strip()
         category = TECHNOLOGY_OVERRIDE_TO_CATEGORY.get(tech)
         if category is None:
             category = FUEL_DESCRIPTOR_TO_CATEGORY.get(fuel)

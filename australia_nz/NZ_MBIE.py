@@ -62,33 +62,52 @@ def link(page, pat):
     return u if u.startswith("http") else MBIE + u
 
 
+def period(v):
+    """A header cell -> Timestamp: a date, a year (1950-2100, number or text) or a date string; else NaT."""
+    if isinstance(v, pd.Timestamp) or hasattr(v, "year") and not isinstance(v, (int, float, str)):
+        return pd.Timestamp(v)
+    if isinstance(v, (int, float)) and not pd.isna(v) and 1950 <= v <= 2100 and float(v).is_integer():
+        return pd.Timestamp(int(v), 1, 1)
+    if isinstance(v, str):
+        t = v.strip()
+        if re.fullmatch(r"(19|20)\d\d", t):
+            return pd.Timestamp(int(t), 1, 1)
+        if re.search(r"\d{4}", t) and re.search(r"[-/ ]", t):
+            return pd.to_datetime(t, errors="coerce", dayfirst=True)
+    return pd.NaT
+
+
 def wide(raw):
-    """A webtable sheet with periods across the columns: find the header row (most date-like cells), return a
-    frame indexed by period with one column per labelled row."""
-    best, best_n = None, 0
+    """A webtable sheet with periods across the columns: the header row is the row with the most period cells; row
+    labels are the text column left of the first period column. Returns a frame indexed by period."""
+    best, best_n, best_p = None, 0, None
     for i in range(min(len(raw), 40)):
-        vals = raw.iloc[i, 1:]
-        n = pd.to_datetime(vals, errors="coerce").notna().sum() if vals.dtype == object or True else 0
-        if n > best_n:
-            best, best_n = i, n
+        p = raw.iloc[i].map(period)
+        if p.notna().sum() > best_n:
+            best, best_n, best_p = i, p.notna().sum(), p
     if best is None or best_n < 4:
         return None
-    periods = pd.to_datetime(raw.iloc[best, 1:], errors="coerce")
-    keep = [c for c, p in zip(raw.columns[1:], periods) if pd.notna(p)]
+    keep = [c for c in raw.columns if pd.notna(best_p[c])]
+    left = [c for c in raw.columns if c < keep[0]]
+    body = raw.iloc[best + 1:]
+    label_col = max(left, key=lambda c: body[c].map(lambda x: isinstance(x, str)).sum()) if left else None
+    if label_col is None:
+        return None
     out = {}
-    for i in range(best + 1, len(raw)):
-        label = raw.iat[i, 0]
-        if pd.isna(label) or str(label).strip().lower().startswith(("note", "source", "1 ", "2 ", "3 ", "4 ")):
+    for i in body.index:
+        label = raw.at[i, label_col]
+        if not isinstance(label, str) or label.strip().lower().startswith(("note", "source", "return to")) \
+                or re.match(r"^\d+\s", label.strip()):
             continue
         v = pd.to_numeric(raw.loc[i, keep], errors="coerce")
         if v.notna().sum() == 0:
             continue
-        name = re.sub(r"\d+$", "", re.sub(r"\s+", " ", str(label)).strip()).strip()
+        name = re.sub(r"(?<=[A-Za-z)])\d+$", "", re.sub(r"\s+", " ", label).strip()).strip()
         while name in out:
             name += " (2)"
         out[name] = v.values
-    d = pd.DataFrame(out, index=pd.DatetimeIndex([p for p in periods if pd.notna(p)]))
-    return d.sort_index()
+    d = pd.DataFrame(out, index=pd.DatetimeIndex([best_p[c] for c in keep]))
+    return d[~d.index.duplicated()].sort_index()
 
 
 def long(raw):
@@ -136,7 +155,7 @@ def gas(out):
         xl = pd.ExcelFile(io.BytesIO(content))
         print("  sheets:", xl.sheet_names, flush=True)
         for sh in xl.sheet_names:
-            if re.search(r"consum|sector|use", sh, re.I) and re.search(r"quarter|PJ", sh, re.I):
+            if re.fullmatch(r"quarterly_?pj", sh, re.I):
                 q = table(content, sh)
                 if not q.empty:
                     sheets["Quarterly consumption"] = q[q.index >= "2010-01-01"]
@@ -173,6 +192,7 @@ def capacity(out):
     print("electricity:", url, flush=True)
     content = get(url).content
     sheet = next(s for s in pd.ExcelFile(io.BytesIO(content)).sheet_names if re.search(r"plant type.*MW", s, re.I))
+    print(pd.read_excel(io.BytesIO(content), sheet_name=sheet, header=None).iloc[:30, :6].to_string()[:3500], flush=True)
     t = table(content, sheet)
     if t.empty:
         raise SystemExit("capacity table not parsed")

@@ -42,8 +42,9 @@ def parse(content):
     for c in range(1, raw.shape[1]):
         label = [str(raw.iat[r, c]).strip() for r in range(full_row) if pd.notna(raw.iat[r, c])]
         # a column can hold several storages listed on successive rows (e.g. Lake St. Clair + Lake King William)
-        lake = " + ".join(x for x in label if re.search(r"lake|lagoon|pond|total|reservoir|dam", x, re.I)) or (
-            label[-1] if label else None)
+        lake = " + ".join(re.sub(r"\s*\*+\s*", " ", x).strip() for x in label
+                          if re.search(r"lake|lagoon|pond|total|reservoir|dam|system", x, re.I)
+                          and not re.search(r"redefined|FSL", x)) or (label[-1] if label else None)
         if lake and pd.notna(pd.to_numeric(raw.iat[full_row, c], errors="coerce")):
             names[c] = re.sub(r"\s+", " ", lake)
     body = raw.loc[dates.notna(), list(names)].apply(pd.to_numeric, errors="coerce")
@@ -53,8 +54,12 @@ def parse(content):
     full.index = body.columns
     body = body.T.groupby(level=0, sort=False).sum(min_count=1).T   # a lake split over two columns
     full = full.groupby(level=0, sort=False).sum()
-    totals = [c for c in body.columns if re.search(r"total", c, re.I)]
+    # system totals sit after the lakes: "Including Lake Gardiner, Margaret & Plimsol" (the whole system - the
+    # total used here), "Excluding ..." and "System less ..." (subtotals)
+    totals = [c for c in body.columns if re.match(r"(including|excluding|system|total)", c, re.I)]
     lakes = [c for c in body.columns if c not in totals]
+    totals = sorted(totals, key=lambda c: 0 if re.match(r"including", c, re.I) else 1 if re.match(r"total", c, re.I)
+                    else 2)
     return body, full, lakes, totals
 
 
@@ -68,7 +73,7 @@ def main():
     body, full, lakes, totals = parse(r.content)
     print(f"{len(body)} weeks {body.index.min():%Y-%m-%d}..{body.index.max():%Y-%m-%d}; lakes {lakes}; "
           f"total columns {totals}", flush=True)
-    w = body[lakes].add_suffix("_GWh")
+    w = body[lakes + totals[1:]].add_suffix("_GWh")
     w["Total_GWh"] = body[totals[0]] if totals else body[lakes].sum(axis=1, min_count=1)
     cap = full[totals[0]] if totals else full[lakes].sum()
     w["Total_pct"] = (w["Total_GWh"] / cap * 100).round(1)
@@ -83,7 +88,8 @@ def main():
     notes = [
         "UNITS",
         "GWh of energy in storage (water stored x the generation it can produce downstream), weekly, by lake; "
-        f"Total_GWh = all storages; Total_pct = Total_GWh / full-supply energy in storage ({cap:,.0f} GWh).",
+        f"Total_GWh = the whole system ('{totals[0] if totals else 'sum of lakes'}'), the other system columns are "
+        "Hydro Tasmania's subtotals; Total_pct = Total_GWh / full-supply energy in storage ({cap:,.0f} GWh).",
         "",
         "COVERAGE",
         f"Tasmania (Hydro Tasmania's storages - the NEM's largest hydro system), weekly, {w.index.min():%d %b %Y} to "

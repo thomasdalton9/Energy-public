@@ -28,52 +28,23 @@ import requests
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)  # repo root, for xlsx_notes
-sys.path.insert(0, os.path.join(ROOT, "rest_of_world"))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xlsx_notes  # noqa: E402
-import aemo_nemweb_power_mix as nem  # noqa: E402
+import aemo_registration  # noqa: E402
 from AU_WEM_GENERATION import fuel_of  # noqa: E402
 
 WEM_FACILITIES = "https://data.wa.aemo.com.au/public/public-data/datafiles/facilities/facilities.csv"
 DEFAULT_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "au_power_capacity.xlsx")
-CATEGORY = {"coal": "Coal", "gas": "Gas", "oil": "Oil", "hydro": "Hydro", "wind": "Wind", "solar": "Solar",
-            "biomass": "Bioenergy", "nuclear": "Nuclear", "battery": "Battery_storage",
-            "hydro_pumped": "Pumped_storage"}
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy", "Nuclear", "Other"]
 STORAGE = ["Battery_storage", "Pumped_storage"]
 
 
 def nem_units():
-    r = requests.get(nem.REGISTRATION_LIST_URL, headers=nem.HEADERS, timeout=(10, 120))
-    r.raise_for_status()
-    d = None
-    for sh in nem.REGISTRATION_SHEET_NAMES:
-        try:
-            d = pd.read_excel(io.BytesIO(r.content), sheet_name=sh, dtype=str, engine="openpyxl")
-            break
-        except ValueError:
-            continue
-    d = d.dropna(subset=["DUID"])
-    d = d[d["Region"].isin(nem.REGION_TO_STATE_NAME)]
-    if "Dispatch Type" in d:   # generators only (scheduled loads carry the same DUID list)
-        d = d[~d["Dispatch Type"].astype(str).str.contains("Load", case=False)]
-    capcol = next(c for c in d.columns if "reg cap" in c.lower() and "gen" in c.lower())
-    mw = pd.to_numeric(d[capcol], errors="coerce")
-
-    def cat(row):
-        tech = str(row.get("Technology Type - Descriptor") or "").strip()
-        fuel = str(row.get("Fuel Source - Descriptor") or "").strip()
-        c = nem.TECHNOLOGY_OVERRIDE_TO_CATEGORY.get(tech) or nem.FUEL_DESCRIPTOR_TO_CATEGORY.get(fuel)
-        return CATEGORY.get(c, "Other")
-
-    out = pd.DataFrame({"region": d["Region"].map(lambda r: r[:-1]), "fuel": d.apply(cat, axis=1), "mw": mw})
-    out = out.drop_duplicates() if "DUID" not in d else out.assign(duid=d["DUID"]).drop_duplicates("duid")
-    print(f"NEM: {len(out)} units, {out['mw'].sum() / 1000:.1f} GW ({capcol})", flush=True)
-    return out
+    return aemo_registration.units()
 
 
 def wem_units():
-    r = requests.get(WEM_FACILITIES, headers=nem.HEADERS, timeout=(10, 120))
+    r = requests.get(WEM_FACILITIES, headers={"User-Agent": "Mozilla/5.0"}, timeout=(10, 120))
     r.raise_for_status()
     d = pd.read_csv(io.BytesIO(r.content))
     tcol = next((c for c in d.columns if "type" in c.lower()), None)
@@ -134,7 +105,7 @@ def main():
         "lists.",
         "",
         "SOURCE",
-        f"AEMO NEM Registration and Exemption List: {nem.REGISTRATION_LIST_URL}; AEMO WA facilities list: "
+        f"AEMO NEM Registration and Exemption List: {aemo_registration.URL}; AEMO WA facilities list: "
         f"{WEM_FACILITIES}",
         "https://aemo.com.au/en/energy-systems/electricity/national-electricity-market-nem/participate-in-the-market/registration",
     ]

@@ -7,9 +7,10 @@ Board (GBB) - daily facility flows, public, no key:
   https://nemweb.com.au/Reports/Current/GBB/GasBBLNGShipments.CSV            LNG export cargoes
 
 Writes au_gas.xlsx:
-  Demand by sector  TJ/day: gas-powered generation (BBGPG), large industrial users (BBLARGE), distribution
-                    networks (BDIST - residential/commercial), LNG export plants (LNGEXPORT). From 15 Mar 2023,
-                    when AEMO extended the Bulletin Board to these facility types.
+  Demand by sector  TJ/day: gas-powered generation (BBGPG), large industrial users (BBLARGE), LNG export plants
+                    (LNGEXPORT). From 15 Mar 2023, when AEMO extended the Bulletin Board to these facility types.
+                    The Bulletin Board has no distribution-network (residential/commercial) facility type, so mass-
+                    market demand is not in this table.
   Production        TJ/day by state, production facilities (PROD) supply
   Storage           TJ held in storage by facility (STOR: Iona, Roma, Silver Springs, Newcastle, Dandenong LNG,
                     Moomba) and Total
@@ -37,8 +38,7 @@ import xlsx_notes  # noqa: E402
 GBB = "https://nemweb.com.au/Reports/Current/GBB/"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0"}
 DEFAULT_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "au_gas.xlsx")
-SECTORS = {"BBGPG": "Gas_power_generation", "BBLARGE": "Large_industrial", "BDIST": "Distribution_networks",
-           "LNGEXPORT": "LNG_export_plants"}
+SECTORS = {"BBGPG": "Gas_power_generation", "BBLARGE": "Large_industrial", "LNGEXPORT": "LNG_export_plants"}
 SECTOR_START = "2023-03-15"
 
 
@@ -140,8 +140,8 @@ def main():
         "LNG shipments: PJ loaded per month by plant (latest version of each cargo record); Cargoes = number "
         "of cargoes.",
         "Demand by sector: end-use facility types - gas-powered generation (BBGPG), large industrial users "
-        "(BBLARGE), distribution networks (BDIST: residential, commercial, small industry), LNG export plants "
-        "(LNGEXPORT: feed gas to the Curtis Island plants).",
+        "(BBLARGE), LNG export plants (LNGEXPORT: feed gas to the Curtis Island plants). Residential and "
+        "commercial (distribution network) demand is not a Bulletin Board facility type and is not included.",
         "",
         "COVERAGE",
         f"East coast market and Northern Territory (no WA). Demand by sector {cover(out['Demand by sector'])} - AEMO "
