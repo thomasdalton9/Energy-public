@@ -34,6 +34,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "south_america"))
 import add_charts  # noqa: E402
+import capacity_factors  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
 
@@ -114,7 +115,7 @@ def monthly_gwh(path):
     return add_charts.power_mix(m)
 
 
-def anz_generation(data_dir):
+def anz_generation(data_dir, frames_out=None):
     """Sum of NEM + WEM + NZ, GWh per month, over the months all three have."""
     frames, notes = {}, []
     for name, fname in POWER_PARTS:
@@ -125,6 +126,13 @@ def anz_generation(data_dir):
             notes.append(f"{name}: {SOURCES[fname][0]}, {m.index.min():%b/%y}-{m.index.max():%b/%y}")
         except Exception as e:  # noqa: BLE001
             notes.append(f"NOT INCLUDED: {name} ({type(e).__name__}: {e})")
+    if frames_out is not None:   # per country for capacity factors: Australia = NEM + WEM (as its capacity)
+        if "Australia NEM" in frames:
+            au = [frames[k] for k in ("Australia NEM", "Western Australia") if k in frames]
+            both = sorted(set.intersection(*(set(f.index) for f in au)))
+            frames_out["Australia"] = sum(f.reindex(index=both, columns=FUELS).fillna(0) for f in au)
+        if "New Zealand" in frames:
+            frames_out["New Zealand"] = frames["New Zealand"]
     if not frames:
         return pd.DataFrame(), notes
     months = sorted(set.intersection(*(set(f.index) for f in frames.values())))
@@ -203,7 +211,8 @@ def main():
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
 
     pos = 0
-    total, notes = anz_generation(args.data_dir)
+    gen_frames = {}
+    total, notes = anz_generation(args.data_dir, gen_frames)
     if not total.empty:
         total_chart(wb, used, power, pos, total, notes, "ANZ generation total data",
                     "Australia + New Zealand power generation by source", "GWh per month",
@@ -222,6 +231,16 @@ def main():
                     "first monthly snapshot):")
         print("ANZ capacity total:", "; ".join(cap_notes))
 
+    # One regional capacity-factor chart, after the generation and capacity totals
+    cf_chart, cf_row, cf_missing = capacity_factors.add_capacity_factor_sheets(
+        wb, used, sam.sheet_name, gen_frames,
+        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, sam.CHART_W, sam.CHART_H,
+        "Generation (AEMO NEM + WEM SCADA, EMI) / capacity (AEMO registration lists, MBIE)", "Australia + NZ",
+        exclude={("New Zealand", "Solar"): "MBIE capacity includes rooftop solar, EMI generation does not"})
+    if cf_chart:
+        power[0].insert(pos + 1 if not cap.empty else pos, cf_chart)
+        power[1].insert(pos + 1 if not cap.empty else pos, cf_row)
+    power[2].extend(cf_missing)
     sam.draw_dashboard(dash, "Australia and New Zealand energy - gas dashboard", *gas)
     sam.draw_dashboard(dash2, "Australia and New Zealand energy - power generation and hydro", *power)
 
