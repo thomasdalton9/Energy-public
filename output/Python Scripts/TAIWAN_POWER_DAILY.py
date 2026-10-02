@@ -30,11 +30,12 @@ import xlsx_notes  # noqa: E402
 URL = "https://service.taipower.com.tw/data/opendata/apply/file/d006010/001.json"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 SLOTS = 144
+MAPPING_VERSION = "2"   # bump when FUEL_MAP changes: forces a re-download so stored days use the new mapping
 OUT_FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Other"]
 COLS = [f"{f}_MWh" for f in OUT_FUELS] + ["Pumped_net_MWh", "Battery_net_MWh"]
 # substring of Taipower's fuel label -> output column (first match wins; order matters)
 FUEL_MAP = [("抽蓄", "Pumped_net"), ("儲能", "Battery_net"), ("核", "Nuclear"), ("燃氣", "Gas"), ("燃煤", "Coal"),
-            ("燃油", "Oil"), ("柴油", "Oil"), ("重油", "Oil"), ("水力", "Hydro"), ("風力", "Wind"), ("太陽", "Solar"),
+            ("燃油", "Oil"), ("輕油", "Oil"), ("柴油", "Oil"), ("重油", "Oil"), ("水力", "Hydro"), ("風力", "Wind"), ("太陽", "Solar"),
             ("生質", "Bioenergy"), ("汽電", "Other"), ("其它", "Other"), ("其他", "Other"), ("地熱", "Other"),
             ("垃圾", "Other")]
 
@@ -65,7 +66,8 @@ def main():
     head = requests.head(URL, headers=H, timeout=60, allow_redirects=True)
     lm = head.headers.get("Last-Modified", "") or head.headers.get("ETag", "")
     print(f"HEAD {head.status_code}, Last-Modified/ETag: {lm!r}; stored: {release.get('last_modified')!r}")
-    if lm and lm == release.get("last_modified") and not old.empty and not args.force:
+    if (lm and lm == release.get("last_modified") and release.get("mapping_version") == MAPPING_VERSION
+            and not old.empty and not args.force):
         print("source unchanged since the last pull - nothing to do")
         return
 
@@ -116,8 +118,8 @@ def main():
     daily.index.name = "date"
     mapping = pd.DataFrame({"Taipower fuel label": list(labels), "rows": list(labels.values()),
                             "maps to": [column_for(k) for k in labels]}).set_index("Taipower fuel label")
-    rel = pd.DataFrame({"item": ["last_modified", "window_first", "window_last"],
-                        "value": [lm, first, last]}).set_index("item")
+    rel = pd.DataFrame({"item": ["last_modified", "window_first", "window_last", "mapping_version"],
+                        "value": [lm, first, last, MAPPING_VERSION]}).set_index("item")
     lines = ["UNITS", "MWh per day = sum of 10-minute net MW x 10/60 over every unit, by fuel. Pumped_net_MWh and Battery_net_MWh",
              "are signed (negative = pumping / charging) and are not in Total_MWh. Other = cogeneration (汽電共生), other",
              "renewables and anything unmapped (see the 'Fuel types' sheet).", "",
