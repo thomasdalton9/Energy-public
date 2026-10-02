@@ -1,0 +1,54 @@
+name: Australia NEM power generation
+
+# AEMO 5-minute unit SCADA via nemosis -> daily MWh by fuel and state. Incremental: up to 12 months not yet
+# saved per run (the backfill to 2021 completes over several runs), plus the month in progress.
+on:
+  schedule:
+    - cron: "0 22 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests nemosis
+      - name: NEM generation
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 18000 python3 australia_nz/AU_NEM_GENERATION.py --max-months 12
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          for f in au_nem_power_generation_daily; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+          done
+          mkdir -p "output/Python Scripts"
+          cp australia_nz/AU_NEM_GENERATION.py rest_of_world/aemo_nemweb_power_mix.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbooks
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in au_nem_power_generation_daily; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
+          done
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Australia NEM power generation: automated update"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
