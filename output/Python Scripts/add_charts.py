@@ -974,6 +974,28 @@ def mexico_gas(p):
                  "Mexico pipeline gas imports from the US (EIA, US export data)", "Bcf/d", "stacked_bar")]
 
 
+def us_mexico_pipeline_capacity(p):
+    """Export capacity by line (stacked, Bcf/d, annual) and monthly US pipeline exports to Mexico against total capacity."""
+    out = []
+    d = _sheet(p, "Export capacity by line", "Year")
+    if d.empty:
+        return out
+    d = d.apply(pd.to_numeric, errors="coerce") / 1000.0
+    lines = d.drop(columns=["Total"], errors="ignore")
+    out.append(spec("Capacity", lines[lines.index >= "2010-01-01"], "US to Mexico gas pipeline capacity by line (EIA)",
+                    "Bcf/d", "stacked_bar", "%Y"))
+    mx = os.path.join(os.path.dirname(p), "mexico_gas.xlsx")
+    if os.path.exists(mx) and "Total" in d:
+        e = by_date(read(mx, "Imports from US"), "Month")
+        e = e[["Pipeline_imports_from_US_Bcf_per_day"]].rename(
+            columns={"Pipeline_imports_from_US_Bcf_per_day": "US pipeline exports to Mexico"})
+        e = e[e.index >= "2015-01-01"].copy()
+        cap = d["Total"].reindex(pd.date_range(d.index.min(), e.index.max(), freq="MS")).ffill()
+        e["Pipeline capacity (annual, EIA)"] = cap.reindex(e.index)
+        out.append(spec("Exports vs capacity", e, "US pipeline exports to Mexico vs pipeline capacity (EIA)", "Bcf/d"))
+    return out
+
+
 def canada_gas(p):
     """StatCan supply and disposition: consumption by sector (stacked), production and trade (lines), in Bcf/d;
     then closing inventory (storage) as a water-year chart in Bcf. Items are matched by name; StatCan's
@@ -1253,6 +1275,7 @@ REGISTRY = {
     "henry_hub_daily.xlsx": henry_hub,
     "us_gas.xlsx": us_gas,
     "mexico_gas.xlsx": mexico_gas,
+    "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
     # Australia and New Zealand
