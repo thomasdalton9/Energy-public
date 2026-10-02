@@ -45,7 +45,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/great_britain_power_generation_daily.xlsx" "output/Data and Chart Outputs/belgium_power_generation_daily.xlsx" "output/Data and Chart Outputs/denmark_power_generation_daily.xlsx" "output/Data and Chart Outputs/spain_power_generation_daily.xlsx" "output/Data and Chart Outputs/denmark_gas_flows.xlsx" || true
+          for f in great_britain_power_generation_daily belgium_power_generation_daily denmark_power_generation_daily spain_power_generation_daily denmark_gas_flows; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
+          done
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Europe power generation and gas flows: automated update"
           for i in 1 2 3 4 5; do

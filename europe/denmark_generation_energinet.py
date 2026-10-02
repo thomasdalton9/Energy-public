@@ -4,6 +4,7 @@ GenerationProdTypeExchange (hourly MWh per price area DK1/DK2, no key). Where a 
 Final version the Final one is used. SolarPowerSelfCon (self-consumed solar) is not counted.
 """
 import sys
+from datetime import timedelta
 
 import pandas as pd
 
@@ -18,7 +19,7 @@ MAP = {"OffshoreWindPower": "Wind_MWh", "OnshoreWindPower": "Wind_MWh", "HydroPo
 def fetch(start, end):
     frames = []
     for a, b in ec.month_chunks(start, end):
-        j = ec.get_json(URL, {"start": f"{a.isoformat()}T00:00", "end": f"{(b + pd.Timedelta(days=1)).date().isoformat()}T00:00",
+        j = ec.get_json(URL, {"start": f"{a.isoformat()}T00:00", "end": f"{(b + timedelta(days=1)).isoformat()}T00:00",
                               "limit": 0, "sort": "TimeUTC asc"})
         recs = j.get("records", [])
         print(f"  {a} to {b}: {len(recs)} rows", file=sys.stderr, flush=True)
