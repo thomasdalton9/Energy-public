@@ -1,5 +1,5 @@
 """
-Round 2 of the Peru marginal-cost gap probe (round 1: PERU_COES_NODE_DISCOVERY.py found that COES's
+Round 2-3 of the Peru marginal-cost gap probe (round 1: PERU_COES_NODE_DISCOVERY.py found that COES's
 costos-marginales ExportarMasivo file leaves out whole half-hours for EVERY node - 936 of 1,440 in Mar-2026 -
 so another node can't fill Santa Rosa's gaps).
 
@@ -15,6 +15,7 @@ import io
 import re
 import sys
 import time
+import zipfile
 from urllib.parse import quote
 
 import pandas as pd
@@ -131,8 +132,24 @@ for d in DAYS:
         queue = nxt
     print(f"  files ({len(files)}): {[f.split('/')[-1] for f in files]}", flush=True)
     for f in files:
-        if not re.search(r"\.(xlsx?|xlsm)$", f, re.I):
+        if not re.search(r"cmg.*\.zip$", f, re.I):   # round 2: the day folder's marginal-cost zip
             continue
         r = req("GET", PORTAL + "browser/download?url=" + quote(f))
-        if r is not None:
-            scan(r.content, f.split("/")[-1])
+        if r is None:
+            continue
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        print(f"    {f.split('/')[-1]}: {len(r.content) / 1e6:.1f} MB, members "
+              f"{[(i.filename, i.file_size) for i in z.infolist()][:30]}", flush=True)
+        for i in z.infolist()[:12]:
+            data = z.read(i)
+            low = i.filename.lower()
+            if low.endswith((".xlsx", ".xls", ".xlsm")):
+                scan(data, i.filename)
+            elif low.endswith((".csv", ".txt", ".prn", ".dat")):
+                text = data.decode("latin-1", "replace")
+                lines = text.splitlines()
+                sr = [ln for ln in lines if re.search(r"SANTA ROSA|STAROSA|SROSA", ln, re.I)]
+                print(f"      {i.filename}: {len(lines)} lines; head {lines[:3]}; Santa Rosa lines {len(sr)}: {sr[:3]}",
+                      flush=True)
+            else:
+                print(f"      {i.filename}: {data[:120]!r}", flush=True)
