@@ -3,9 +3,6 @@ name: US-Mexico pipeline capacity (EIA)
 # EIA posts a new State to State Capacity workbook a few times a year, so the
 # pull runs once a month (the 1st) and downloads only when a new release is listed.
 on:
-  push:   # TEMP: test run on the dev branch (removed once verified)
-    branches: [claude/vigilant-ritchie-sol4e7]
-    paths: [americas/US_MEXICO_PIPELINE_CAPACITY.py, .github/workflows/us_mexico_pipeline_capacity.yml]
   schedule:
     - cron: "20 16 1 * *"
   workflow_dispatch:
