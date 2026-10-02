@@ -17,4 +17,4 @@ jobs:
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 800 python3 discovery_archive/rest_of_world/ANZ_DISCOVERY5.py
+        run: timeout 800 python3 discovery_archive/rest_of_world/ANZ_DISCOVERY6.py
