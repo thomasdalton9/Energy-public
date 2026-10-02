@@ -1267,6 +1267,7 @@ REGISTRY = {
     # Japan / Korea / Taiwan
     "japan_power_generation_daily.xlsx": power_daily("Japan power generation by fuel (10 regional TSOs)"),
     "japan_power_prices_daily.xlsx": japan_prices,
+    "taiwan_power_generation_daily.xlsx": power_daily("Taiwan power generation by fuel (Taipower)"),
     "korea_taiwan_power_by_type.xlsx": sa_power,   # Ember fallback, one sheet per country
     "south_korea_power_capacity.xlsx": power_capacity("South Korea installed generating capacity (Ember - no raw feed yet, annual)"),
     "taiwan_power_capacity.xlsx": power_capacity("Taiwan installed generating capacity (Ember - no raw feed yet, annual)"),

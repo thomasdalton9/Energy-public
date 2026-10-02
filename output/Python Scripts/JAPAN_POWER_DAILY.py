@@ -143,7 +143,10 @@ def fetch_month(session, zone, month):
     shift = SHIFT_MIN.get(name, 0)
     raw, status = get(session, url.format(ym=f"{month:%Y%m}"))
     if raw is not None:
-        return parse_csv(raw, shift), status
+        parsed = parse_csv(raw, shift)
+        if parsed is None:
+            print(f"  {name} {month:%Y-%m}: http 200 but not parseable; first lines: {decode(raw)[:300]!r}")
+        return parsed, status
     if name == "Chubu":
         fy = month.year if month.month >= 4 else month.year - 1
         z, zs = get(session, CHUBU_ZIP.format(fy=fy))
@@ -227,6 +230,10 @@ def main():
         for m in months(start, date.today()):
             mw, last_status = fetch_month(session, zone, m)
             d = to_daily(mw)
+            if mw is not None and not len(d):
+                step = mw.index.to_series().diff().dropna().median()
+                print(f"  {zone[1]} {m:%Y-%m}: parsed {len(mw)} rows ({mw.index.min()} to {mw.index.max()}, step {step}) "
+                      f"but no complete day; columns {list(mw.columns)[:6]}")
             if len(d):
                 d = d[d.index >= pd.Timestamp(start)]
             if len(d):
