@@ -26,6 +26,10 @@ on:
         description: "Argentina download time budget, minutes"
         required: false
         default: "40"
+      ieod_budget_min:
+        description: "Peru: minutes for filling stored days' missing half-hours from the IEOD report"
+        required: false
+        default: "10"
       dry_run:
         description: "true = write to /tmp and commit nothing (testing)"
         required: false
@@ -58,7 +62,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          ARGS=(--out "$OUT" --budget-min "${{ github.event.inputs.budget_min || '40' }}")
+          ARGS=(--out "$OUT" --budget-min "${{ github.event.inputs.budget_min || '40' }}" --ieod-budget-min "${{ github.event.inputs.ieod_budget_min || '10' }}")
           [ -n "${{ github.event.inputs.markets }}" ] && ARGS+=(--markets "${{ github.event.inputs.markets }}")
           [ -n "${{ github.event.inputs.start }}" ] && ARGS+=(--start "${{ github.event.inputs.start }}")
           [ -n "${{ github.event.inputs.end }}" ] && ARGS+=(--end "${{ github.event.inputs.end }}")

@@ -59,8 +59,10 @@ import re
 import subprocess
 import sys
 import tempfile
+import html
 import time
 import zipfile
+from urllib.parse import quote
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
@@ -100,7 +102,7 @@ COUNTRIES = {
 }
 CHILE_USD_COL = "Chile (CNE PMM, monthly value)"
 EXTRA_COLS = {"Argentina": ["Hours with more than one price area"],
-              "Peru": ["Half-hours"], "Brazil": ["Half-hours"]}
+              "Peru": ["Half-hours", "Half-hours from IEOD"], "Brazil": ["Half-hours"]}
 
 
 def usd_name(col):
@@ -210,33 +212,175 @@ COES = "https://www.coes.org.pe/Portal/mercadomayorista/costosmarginales/Exporta
 PERU_NODE = "STAROSA220"   # 'SANTA ROSA 220'
 
 
+PERU_COL = "CMg Santa Rosa 220 kV (PEN/MWh)"
+IEOD_COL = "Half-hours from IEOD"   # half-hours filled from COES's daily operation report (0 = checked, none needed/found)
+PORTAL = "https://www.coes.org.pe/Portal/"
+IEOD_BAR = "SANTA ROSA 220"
+_BROWSE = {}
+
+
+def slots(t):
+    """End-of-half-hour time stamps (00:30 .. 24:00, 24:00 also written 00:00 next day or 23:59) -> (day, slot 0..47)."""
+    u = pd.DatetimeIndex(t) - pd.Timedelta(minutes=1)
+    return u.normalize(), (u.hour * 60 + u.minute) // 30
+
+
+def coes_export(s, a, b):
+    """Santa Rosa 220 half-hourly TOTAL from the costos-marginales export for days a..b: {day: {slot: value}}."""
+    r = get(s, f"{COES}?fechaInicio={a:%d/%m/%Y}&fechaFin={b + dt.timedelta(days=1):%d/%m/%Y}", timeout=600)
+    if r.content[:2] != b"PK":
+        print(f"  Peru {a}..{b}: not an xlsx ({r.headers.get('content-type')})", flush=True)
+        return None, 0
+    raw = pd.read_excel(io.BytesIO(r.content), header=None)
+    hdr = next(i for i in range(15) if "NOMBRE BARRA" in [str(v).strip() for v in raw.iloc[i].values])
+    raw.columns = [str(c).strip() for c in raw.iloc[hdr].values]
+    raw = raw.iloc[hdr + 1:]
+    node = raw[raw["NODO EMD"].astype(str).str.strip() == PERU_NODE].copy()
+    node["t"] = pd.to_datetime(node["FECHA HORA"].astype(str), format="%d/%m/%Y %H:%M", errors="coerce")
+    node["TOTAL"] = pd.to_numeric(node["TOTAL"], errors="coerce")
+    node = node.dropna(subset=["t", "TOTAL"]).drop_duplicates("t")
+    out = {}
+    if len(node):
+        day, slot = slots(node["t"])
+        for d, k, v in zip(day, slot, node["TOTAL"]):
+            if pd.Timestamp(a) <= d <= pd.Timestamp(b):
+                out.setdefault(d, {})[int(k)] = float(v)
+    return out, len(r.content)
+
+
+def coes_browse(s, path):
+    if path not in _BROWSE:
+        r = None
+        for i in range(4):
+            try:
+                r = s.post(PORTAL + "browser/vistadatos", timeout=120, data={
+                    "baseDirectory": path, "url": path, "indicador": "", "initialLink": "", "orderFolder": ""})
+                r.raise_for_status()
+                break
+            except requests.RequestException:
+                r = None
+                time.sleep(5 * (i + 1))
+        _BROWSE[path] = [] if r is None else [
+            (html.unescape(m.group(1)), m.group(2)) for m in re.finditer(r"openBlob\('([^']+)',\s*'(\w)'", r.text)]
+    return _BROWSE[path]
+
+
+def ieod_santa_rosa(s, day):
+    """Santa Rosa 220 half-hourly marginal cost (S/./MWh) from COES's daily operation report (IEOD): the day
+    folder's CMg zip holds CMgCP<DDMM>.xlsx, sheet Cmg_Barra (energy + congestion, one column per bar).
+    Returns {slot: value}; {} when the report or the bar is not there."""
+    year = coes_browse(s, f"Post Operación/Reportes/IEOD/{day.year}/")
+    month = next((p for p, k in year if k == "D" and re.match(rf"0?{day.month}_", p.rstrip("/").split("/")[-1])), None)
+    if not month:
+        return {}
+    folder = next((p for p, k in coes_browse(s, month)
+                   if k == "D" and p.rstrip("/").split("/")[-1] in (f"{day.day:02d}", str(day.day))), None)
+    if not folder:
+        return {}
+    zpath = next((p for p, k in coes_browse(s, folder) if k == "F" and re.search(r"cmg.*\.zip$", p, re.I)), None)
+    if not zpath:
+        return {}
+    z = zipfile.ZipFile(io.BytesIO(get(s, PORTAL + "browser/download?url=" + quote(zpath), timeout=300).content))
+    member = next((i.filename for i in z.infolist() if re.search(r"cmgcp[^/]*\.xlsx?$", i.filename, re.I)), None)
+    if not member:
+        return {}
+    data = z.read(member)
+    if member.lower().endswith(".xlsx"):
+        from openpyxl import load_workbook
+        wb = load_workbook(io.BytesIO(data), read_only=True, data_only=True)
+        if "Cmg_Barra" not in wb.sheetnames:
+            return {}
+        rows = wb["Cmg_Barra"].iter_rows(values_only=True)
+    else:
+        rows = pd.read_excel(io.BytesIO(data), sheet_name="Cmg_Barra", header=None).itertuples(index=False)
+    col, out = None, {}
+    for row in rows:
+        row = list(row)
+        if col is None:
+            col = next((j for j, v in enumerate(row) if str(v).strip().upper() == IEOD_BAR), None)
+            continue
+        t = next((v for v in row if isinstance(v, (dt.datetime, pd.Timestamp))), None)
+        v = pd.to_numeric(row[col], errors="coerce") if col < len(row) else float("nan")
+        if t is None or pd.isna(v):
+            continue
+        d, k = slots([t])
+        if d[0] == pd.Timestamp(day):
+            out[int(k[0])] = float(v)
+    return out
+
+
+def peru_day(day, export_slots, s, today):
+    """One day's row: the export's half-hours, the missing ones filled from the IEOD report (completed days only)."""
+    sl = dict(export_slots)
+    filled = float("nan")   # not checked (a day still in progress)
+    if len(sl) < 48 and day.date() < today:
+        try:
+            ieod = ieod_santa_rosa(s, day)
+        except Exception as e:  # noqa: BLE001
+            print(f"    IEOD {day:%Y-%m-%d} FAILED ({type(e).__name__}: {str(e)[:120]})", flush=True)
+            ieod = None
+        if ieod is not None:
+            add = {k: v for k, v in ieod.items() if k not in sl}
+            sl.update(add)
+            filled = len(add)
+    elif len(sl) == 48:
+        filled = 0
+    return {PERU_COL: sum(sl.values()) / len(sl) if sl else float("nan"), "Half-hours": len(sl), IEOD_COL: filled}
+
+
 def fetch_peru(days):
     s = session()
+    today = dt.date.today()
     frames = []
     for m in months(days):
-        a = max(m, START)
-        b = month_end(m) + dt.timedelta(days=1)   # the 00:00 value closing the month's last day
-        r = get(s, f"{COES}?fechaInicio={a:%d/%m/%Y}&fechaFin={b:%d/%m/%Y}", timeout=600)
-        if r.content[:2] != b"PK":
-            print(f"  Peru {m:%Y-%m}: not an xlsx ({r.headers.get('content-type')})", flush=True)
+        a, b = max(m, START), month_end(m)
+        exp, size = coes_export(s, a, b)
+        if exp is None:
             continue
-        raw = pd.read_excel(io.BytesIO(r.content), header=None)
-        hdr = next(i for i in range(15) if "NOMBRE BARRA" in [str(v).strip() for v in raw.iloc[i].values])
-        raw.columns = [str(c).strip() for c in raw.iloc[hdr].values]
-        raw = raw.iloc[hdr + 1:]
-        node = raw[raw["NODO EMD"].astype(str).str.strip() == PERU_NODE].copy()
-        node["t"] = pd.to_datetime(node["FECHA HORA"].astype(str), format="%d/%m/%Y %H:%M", errors="coerce")
-        node["TOTAL"] = pd.to_numeric(node["TOTAL"], errors="coerce")
-        node = node.dropna(subset=["t", "TOTAL"]).drop_duplicates("t")
-        # FECHA HORA marks the END of each half hour: 00:30 .. 24:00 (shown as 00:00 next day) is one day
-        node["date"] = (node["t"] - pd.Timedelta(minutes=1)).dt.normalize()
-        g = node.groupby("date")["TOTAL"]
-        out = pd.DataFrame({"CMg Santa Rosa 220 kV (PEN/MWh)": g.mean(), "Half-hours": g.size()})
-        out = out[(out.index >= pd.Timestamp(m)) & (out.index <= pd.Timestamp(month_end(m)))]
-        print(f"  Peru {m:%Y-%m}: {len(out)} days, {raw['NOMBRE BARRA'].nunique()} bars "
-              f"({len(r.content) / 1e6:.1f} MB)", flush=True)
+        want = {pd.Timestamp(d) for d in days if a <= d <= b}
+        rows = {d: peru_day(d, exp.get(d, {}), s, today) for d in sorted(want | set(exp)) if d in want}
+        out = pd.DataFrame.from_dict(rows, orient="index")
+        out = out[out["Half-hours"] > 0] if len(out) else out
+        print(f"  Peru {m:%Y-%m}: {len(out)} days ({size / 1e6:.1f} MB); "
+              f"{int((out[IEOD_COL] > 0).sum()) if len(out) else 0} days filled from the IEOD report", flush=True)
         frames.append(out)
     return pd.concat(frames) if frames else pd.DataFrame()
+
+
+def refill_peru(df, budget_min):
+    """Stored Peru days that were short of half-hours and never checked against the IEOD report: re-read that
+    day's export and fill the gaps from the report (days with no price first), within budget_min minutes."""
+    if df is None or df.empty or budget_min <= 0:
+        return df
+    df = df.copy()
+    if IEOD_COL not in df:
+        df[IEOD_COL] = float("nan")
+    todo = df[df[IEOD_COL].isna() & ((df["Half-hours"] < 48) | df[PERU_COL].isna())
+              & (df.index < pd.Timestamp(dt.date.today()))]
+    todo = todo.assign(_p=todo[PERU_COL].notna(), _n=todo["Half-hours"]).sort_values(["_p", "_n"]).index
+    if not len(todo):
+        return df
+    print(f"  Peru: {len(todo)} stored day(s) short of half-hours to check against the IEOD report "
+          f"(budget {budget_min:g} min)", flush=True)
+    s, t0, done = session(), time.time(), 0
+    for d in todo:
+        if (time.time() - t0) / 60 > budget_min:
+            break
+        try:
+            exp, _ = coes_export(s, d.date(), d.date())
+        except Exception as e:  # noqa: BLE001
+            print(f"    {d:%Y-%m-%d} export FAILED ({type(e).__name__})", flush=True)
+            continue
+        row = peru_day(d, (exp or {}).get(d, {}), s, dt.date.today())
+        if pd.isna(row[IEOD_COL]):
+            continue
+        ok = row["Half-hours"] >= MIN_HALF_HOURS
+        df.loc[d, [PERU_COL, "Half-hours", IEOD_COL]] = [row[PERU_COL] if ok else float("nan"), row["Half-hours"],
+                                                         row[IEOD_COL]]
+        done += 1
+    left = len(todo) - done
+    print(f"  Peru: {done} day(s) checked against the IEOD report; {left} left for later runs", flush=True)
+    return df
 
 
 # ------------------------------------------------------------------ Argentina (CAMMESA)
@@ -628,8 +772,11 @@ def notes(sheets):
         "kept in each country sheet. Charts: all markets as monthly averages of the daily US$/MWh prices, and "
         "one US$/MWh chart per country (weekly averages of the daily prices where the series spans years). "
         f"Brazil and Peru: a day with fewer than {MIN_HALF_HOURS} of its 48 half-hourly values has no daily price; "
-        "it is kept with its 'Half-hours' count and blank prices (COES often publishes Santa Rosa with gaps), so "
-        "it is not downloaded again.",
+        "it is kept with its 'Half-hours' count and blank prices, so it is not downloaded again. Peru: COES's "
+        "costos-marginales export leaves out whole half-hours for every bar on some days; those half-hours are "
+        "filled from the same day's IEOD daily operation report (CMg zip, CMgCP workbook, sheet Cmg_Barra, "
+        "SANTA ROSA 220) - column 'Half-hours from IEOD' counts them (0 = checked, none needed). On half-hours "
+        "both publish, the two agree to ~1% on most days.",
         "Separate workbook - deliberately not part of the South & Central America master.",
         "",
         "BRAZIL (sheet 'Brazil')",
@@ -774,6 +921,8 @@ def main():
     ap.add_argument("--start", default=START.isoformat())
     ap.add_argument("--end", default=None, help="last day to fetch (default: today)")
     ap.add_argument("--budget-min", type=float, default=40, help="Argentina download time budget per run")
+    ap.add_argument("--ieod-budget-min", type=float, default=10,
+                    help="minutes per run for re-checking stored Peru days short of half-hours against the IEOD report")
     args = ap.parse_args()
     start = dt.date.fromisoformat(args.start)
     end = dt.date.fromisoformat(args.end) if args.end else dt.date.today()
@@ -822,10 +971,19 @@ def main():
                 print(f"  {country}: {partial.sum()} incomplete day(s) without a price ({settled.sum()} kept as "
                       f"read): {', '.join(f'{d:%Y-%m-%d}' for d in new.index[partial][:5])}", flush=True)
                 new = new[~partial | settled].copy()
-                new.loc[settled, [c for c in new.columns if c != "Half-hours"]] = float("nan")
+                new.loc[settled, [c for c in new.columns if c not in ("Half-hours", IEOD_COL)]] = float("nan")
         sheets[country] = merge(old, new)
         add_fx(country, sheets, failures)
         save(args.out, sheets)
+
+    if "peru" in wanted and sheets.get("Peru") is not None and not sheets["Peru"].empty:
+        try:
+            sheets["Peru"] = refill_peru(sheets["Peru"], args.ieod_budget_min)
+            add_fx("Peru", sheets, failures)
+            save(args.out, sheets)
+        except Exception as e:  # noqa: BLE001
+            print(f"  Peru IEOD refill FAILED ({type(e).__name__}: {str(e)[:300]})", flush=True)
+            failures.append("Peru IEOD")
 
     for name, fn in (("Chile", fetch_chile_monthly), ("Bolivia monthly", fetch_bolivia_monthly)):
         if name.split()[0].lower() not in wanted:
