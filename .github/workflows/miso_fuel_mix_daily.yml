@@ -1,22 +1,12 @@
 name: MISO fuel mix daily
 
-# Twice a day, at 03:45 and 04:45 UTC - late enough in the Eastern day
-# (22:45/23:45 EST or 23:45/00:45 EDT, depending on time of year) that
-# MISO_FUEL_MIX_DAILY.py's script docstring explains why: /FuelMix/
-# Today (used instead of /Yesterday, which turned out to not reliably
-# be a real prior day) only ever shows the current, still-in-progress
-# day, so this needs to run close to Eastern midnight for that day's
-# interval coverage to pass the script's completeness threshold. Two
-# fixed UTC times bracket both DST regimes: whichever one lands late
-# in the correct Eastern day captures it with near-full coverage; the
-# other either also succeeds (harmless, same day refined) or lands
-# just after midnight with ~0 intervals and is safely skipped by the
-# script's own coverage check - never a wasted or harmful run either
-# way.
+# MISO's daily real-time generation fuel mix report (<YYYYMMDD>_sr_gfm.xlsx)
+# is published the morning after each market day; one run in the US
+# afternoon picks it up. The script fetches only the days published since
+# the last saved one (see MISO_FUEL_MIX_DAILY.py).
 on:
   schedule:
-    - cron: "45 3 * * *"
-    - cron: "45 4 * * *"
+    - cron: "35 16 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -36,14 +26,16 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run MISO fuel mix pull
-        run: python3 americas/MISO_FUEL_MIX_DAILY.py --out "output/Data and Chart Outputs/miso_fuel_mix_daily.xlsx"
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 americas/MISO_FUEL_MIX_DAILY.py --out "output/Data and Chart Outputs/miso_fuel_mix_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
           [ -f "output/Data and Chart Outputs/miso_fuel_mix_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/miso_fuel_mix_daily.xlsx" || echo "chart step skipped/failed for miso_fuel_mix_daily.xlsx"
           mkdir -p "output/Python Scripts"
-          cp americas/MISO_FUEL_MIX_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp americas/MISO_FUEL_MIX_DAILY.py americas/MISO_FUEL_MIX_2026_GAP_BACKFILL.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()

@@ -45,7 +45,6 @@ import sys
 from datetime import date, timedelta
 
 import pandas as pd
-import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import importlib.util
@@ -56,64 +55,14 @@ _spec = importlib.util.spec_from_file_location(
 miso_daily = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(miso_daily)
 
-BASE = "https://docs.misoenergy.org/marketreports/{name}"
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                   "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-}
-TIMEOUT = (10, 30)
-
 START_MARKET_DATE = date(2026, 1, 1)
-MIN_HOURS_PER_DAY = 20  # mirrors the other backfill script's completeness bar
-
-# fixed positions confirmed by MISO_SR_GFM_INSPECT.py across 3 widely-spaced samples
-COL_HE = 31
-COL_CATEGORIES = {
-    "Coal": 32, "Natural Gas": 33, "Nuclear": 34, "Hydro": 35,
-    "Wind": 36, "Solar": 37, "Other": 38, "Battery Storage": 39,
-}
-COL_TOTAL = 40
+MIN_HOURS_PER_DAY = miso_daily.MIN_HOURS_PER_DAY
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_OUT = os.path.join(os.path.dirname(DIR), "output", "miso_fuel_mix_daily.xlsx")
 
-
-def fetch_file(filename):
-    url = BASE.format(name=filename)
-    r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
-    if r.status_code == 404:
-        return None
-    r.raise_for_status()
-    return r.content
-
-
-def parse_day(content, market_day):
-    tmp_path = os.path.join(DIR, f"_tmp_gapfill_{market_day}.xlsx")
-    with open(tmp_path, "wb") as f:
-        f.write(content)
-    try:
-        raw = pd.read_excel(tmp_path, sheet_name="RT Generation Fuel Mix", header=None)
-    finally:
-        os.remove(tmp_path)
-
-    he = pd.to_numeric(raw[COL_HE], errors="coerce")
-    valid = he.between(1, 24)
-    rows = raw[valid]
-    n_hours = len(rows)
-    if n_hours < MIN_HOURS_PER_DAY:
-        return None, n_hours
-
-    means = {}
-    for cat, col in COL_CATEGORIES.items():
-        means[cat] = pd.to_numeric(rows[col], errors="coerce").mean()
-    total_mean = pd.to_numeric(rows[COL_TOTAL], errors="coerce").mean()
-
-    row = {f"{cat}_MW": v for cat, v in means.items() if pd.notna(v)}
-    row["Total_MW"] = total_mean if pd.notna(total_mean) else sum(row.values())
-    renewable = means.get("Wind", 0.0) + means.get("Solar", 0.0)
-    row["Renewables_Share"] = renewable / row["Total_MW"] if row["Total_MW"] else None
-    row["Intervals_Reported"] = n_hours
-    return pd.Series(row, name=market_day), n_hours
+# report download and parsing live in MISO_FUEL_MIX_DAILY.py (the daily pull reads the same report)
+parse_day = miso_daily.parse_day
 
 
 def main():
@@ -132,12 +81,10 @@ def main():
     market_day = START_MARKET_DATE
     fetched, missing, incomplete = 0, 0, 0
     while market_day <= end_day:
-        filename_day = market_day + timedelta(days=1)
-        filename = f"{filename_day.strftime('%Y%m%d')}_sr_gfm.xlsx"
-        content = fetch_file(filename)
+        content = miso_daily.fetch_file(market_day)
         if content is None:
             missing += 1
-            print(f"  {market_day}: {filename} not found (404) - skipping", file=sys.stderr)
+            print(f"  {market_day}: {miso_daily.report_url(market_day)} not found (404) - skipping", file=sys.stderr)
         else:
             row, n_hours = parse_day(content, market_day)
             if row is None:
