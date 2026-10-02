@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas openpyxl requests xlrd pyarrow
+        run: pip install pandas openpyxl requests xlrd pyarrow pdfplumber
       - name: North America future
         if: always()
         env:

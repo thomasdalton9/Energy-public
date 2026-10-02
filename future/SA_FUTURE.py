@@ -229,6 +229,88 @@ def colombia():
             "CO registered projects": p.sort_values("MW", ascending=False).set_index("Project")}, url
 
 
+COES_PORTAL = "https://www.coes.org.pe/Portal/"
+COES_OC = "Planificación/Nuevos Proyectos/Operación Comercial de unidades o centrales de generación/"
+COES_EPO = "Planificación/Nuevos Proyectos/Estudios de Pre Operatividad/1. Modelo Eléctrico del SEIN para la elaboración de EPO/"
+
+
+def _coes_browse(S, path):
+    import html as _html
+    r = S.post(COES_PORTAL + "browser/vistadatos", data={"baseDirectory": path, "url": path, "indicador": "",
+                                                        "initialLink": "", "orderFolder": ""}, timeout=(10, 120))
+    r.raise_for_status()
+    out = []
+    for m in re.finditer(r"openBlob\('([^']+)',\s*'(\w)'", r.text):
+        it = (_html.unescape(m.group(1)), m.group(2))
+        if it not in out:
+            out.append(it)
+    return out
+
+
+def peru():
+    """COES: (1) units/plants granted commercial operation (OC list, 2001 on) -> additions by year since 2021;
+    (2) projects in COES's SEIN model for pre-operability studies (EPO model, 10-year horizon, PDF) -> pipeline."""
+    import requests
+    from urllib.parse import quote
+    from future_common import HEADERS
+    S = requests.Session()
+    S.headers.update(HEADERS)
+    sheets, src = {}, []
+    oc = [p for p, k in _coes_browse(S, COES_OC + "2. Lista de unidades o centrales de generación con conformidad de OC/")
+          if p.lower().endswith((".xlsx", ".xls"))]
+    if oc:
+        content = S.get(COES_PORTAL + "browser/download?url=" + quote(oc[-1]), timeout=(10, 300)).content
+        xl = pd.ExcelFile(io.BytesIO(content))
+        print(f"COES OC list {oc[-1]}: sheets {xl.sheet_names}", flush=True)
+        raw = pd.read_excel(xl, xl.sheet_names[0], header=None)
+        h = next(i for i in range(min(len(raw), 20)) if raw.iloc[i].astype(str).str.contains(r"(?i)potencia|MW").any())
+        d = raw.iloc[h + 1:].copy()
+        d.columns = [re.sub(r"\s+", " ", str(c)).strip() for c in raw.iloc[h]]
+        print(f"  columns {list(d.columns)}\n{d.head(5).to_string(max_colwidth=25)[:1500]}", flush=True)
+        mw = col(d, r"Potencia.*MW|MW|Potencia")
+        when = col(d, r"Fecha.*(Operaci|OC|inicio)|Fecha")
+        tech = col(d, r"Tecnolog|Tipo|Fuente|Combust|Recurso", required=False)
+        name = col(d, r"Central|Unidad|Nombre|Proyecto", required=False)
+        t = pd.DataFrame({"Plant": d[name] if name else "", "Technology": d[tech] if tech else "",
+                          "Fuel": (d[tech].fillna("").astype(str) + " " + (d[name].fillna("").astype(str) if name else "")).map(fuel_from_text) if tech else "Other",
+                          "MW": d[mw].map(_num), "Date": d[when].map(_es_date)})
+        t = t.dropna(subset=["Date"])
+        t["Year"] = t["Date"].dt.year
+        sheets["PE commercial operation by year"] = by_year_fuel(t, "Year", "Fuel", "MW", start=2021)
+        sheets["PE commercial operation list"] = t[t["Year"] >= 2021].sort_values("Date").set_index("Plant")
+        src.append(f"COES, unidades o centrales con conformidad de Operación Comercial: {oc[-1]}")
+    epo = [p for p, k in _coes_browse(S, COES_EPO) if re.search(r"Modelo_SEIN_EPO|Lo Nuevo", p, re.I) and
+           re.search(r"\.(pdf|pfd)$", p, re.I)]
+    print(f"COES EPO model files: {epo}", flush=True)
+    rows = []
+    for f in epo:
+        try:
+            import pdfplumber
+            content = S.get(COES_PORTAL + "browser/download?url=" + quote(f), timeout=(10, 300)).content
+            with pdfplumber.open(io.BytesIO(content)) as pdf:
+                print(f"  {f.rsplit('/', 1)[-1]}: {len(pdf.pages)} pages; page 1 text:\n"
+                      f"{(pdf.pages[0].extract_text() or '')[:1500]}", flush=True)
+                for pg in pdf.pages:
+                    for tb in pg.extract_tables() or []:
+                        for r in tb:
+                            cells = [re.sub(r"\s+", " ", str(c or "")).strip() for c in r]
+                            if any(re.search(r"(?i)\bMW\b|^\d+([.,]\d+)?$", c) for c in cells) and \
+                                    any(re.search(r"20[2-4]\d", c) for c in cells):
+                                rows.append(cells + [f.rsplit("/", 1)[-1]])
+        except Exception as e:  # noqa: BLE001
+            print(f"  {f}: {type(e).__name__}: {e}", flush=True)
+    if rows:
+        width = max(len(r) for r in rows)
+        t = pd.DataFrame([r + [""] * (width - len(r)) for r in rows])
+        print(f"  EPO table rows with MW and a year: {len(t)}\n{t.head(25).to_string(max_colwidth=30)[:4000]}", flush=True)
+        sheets["PE EPO model projects (raw)"] = t.set_index(t.columns[0])
+        src.append("COES, Modelo Eléctrico del SEIN para la elaboración de EPO (tables as extracted from the PDF): "
+                   + "; ".join(epo))
+    if not sheets:
+        raise RuntimeError("nothing parsed from COES")
+    return sheets, " ; ".join(src)
+
+
 def argentina():
     import requests
     from future_common import HEADERS
@@ -280,6 +362,7 @@ def main():
                         ("Brazil RALIE", brazil_ralie, "ANEEL RALIE generation expansion monitoring"),
                         ("Chile", chile, "CNE, Instalaciones declaradas en construcción"),
                         ("Colombia", colombia, "UPME, registro de proyectos de generación (registros activos)"),
+                        ("Peru", peru, "COES"),
                         ("Argentina", argentina, f"Secretaría de Energía, Obras de generación: {AR_OBRAS}")):
         try:
             got = fn()
