@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: '0 22 1,15 * *'   # 1st and 15th, evening - after that day's pulls
   workflow_dispatch: {}
-  push:
-    branches: [claude/vigilant-ritchie-sol4e7]
-    paths: ['europe/EUROPE_MASTER.py']
 
 permissions:
   contents: write

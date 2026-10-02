@@ -6,9 +6,6 @@ on:
   schedule:
     - cron: '20 6 1,15 * *'
   workflow_dispatch: {}
-  push:
-    branches: [claude/vigilant-ritchie-sol4e7]
-    paths: ['europe/europe_common.py']
 
 permissions:
   contents: write
