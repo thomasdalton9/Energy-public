@@ -1,48 +1,30 @@
 """
-Pull MISO's real-time generation by fuel type and maintain a growing
-daily archive.
+MISO generation by fuel type, daily archive (average MW per fuel per day).
 
-Data source: https://public-api.misoenergy.org/api/FuelMix/Today
-Found via MISO_REACHABILITY_DISCOVERY.py - genuinely open, no API key
-or account needed (unlike ERCOT/PJM's gated APIs). Returns every
-5-minute interval (INTERVALEST) so far for the current MISO operating
-day, each interval reporting instantaneous MW ("ACT") per fuel
-category (Coal, Natural Gas, Nuclear, Wind, Solar, Battery Storage,
-Other, Imports).
+Data source: MISO's daily real-time generation fuel mix report, public, no key:
+  https://docs.misoenergy.org/marketreports/<YYYYMMDD>_sr_gfm.xlsx
+A file named <YYYYMMDD> is published the next morning for market date YYYYMMDD minus one day (its
+"Publish Date" / "Market Date" header rows). Sheet "RT Generation Fuel Mix" (real-time actuals; the
+"DA Cleared" sheet is a day-ahead forecast and is not used) has 24 hourly rows (HE 1-24) and a pre-summed
+national block: Coal, Gas, Nuclear, Hydro, Wind, Solar, Other, Storage, then the MISO total.
 
-Originally used /FuelMix/Yesterday instead, on the assumption its name
-meant a complete prior day - but two live pulls showed its generation-
-by-fuel categories (everything except Imports) actually mirror
-/Today's still-in-progress current day, not a real "yesterday" (only
-Imports was genuinely dated the day before). Rather than depend on
-that inconsistency, this uses /Today directly and is scheduled to run
-late in the Eastern day (see the workflow: two UTC times, one per DST
-regime, so one of them always lands close to Eastern midnight)  so
-the "day so far" is close enough to complete to pass the interval-
-coverage threshold below.
+Incremental: each run fetches only market dates after the last one saved, up to yesterday (at most
+MAX_DAYS_PER_RUN per run, so a long outage catches up over a few runs). The same report backs the
+2023-2025 annual archive (MISO_FUEL_MIX_HISTORICAL_BACKFILL.py) and the 2026 backfill
+(MISO_FUEL_MIX_2026_GAP_BACKFILL.py), so the whole series is one consistent source; it agrees with
+EIA-930's MISO series to within about half a percent a day.
 
-Categories are read from whatever the API actually reports each run,
-not hardcoded, so a new one MISO adds shows up automatically as a new
-archive column. If a single payload ever mixes rows from more than
-one calendar date again (as /Yesterday's did), this picks whichever
-date the most distinct categories actually have data for - see
-to_daily_row()'s docstring.
-
-INTERVALEST timestamps are Eastern local time (MISO's own operating
-day), kept as reported - not converted to UTC.
-
-Like south_africa_generation_mix.py, this upserts by date into a
-local archive on every run: MISO's API is not a historical range
-query (no /FuelMix/{date} - confirmed by probing it), just "today"
-and "yesterday", so history only starts accumulating from whenever
-this script started running. Run it at least once a day, late in the
-Eastern day, so no day is skipped or saved too early/incomplete.
+Until Oct 2026 this script read MISO's live API (public-api.misoenergy.org/api/FuelMix/Today) late each
+evening instead. That endpoint has no Hydro, adds Imports to its total and covers only the day so far,
+so its two saved days (29-30 Sep 2026) didn't match the rest of the series; they are replaced by the
+report's figures.
 """
 
 import argparse
+import io
 import os
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import pandas as pd
@@ -52,106 +34,57 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 import xlsx_notes
 
-URL = "https://public-api.misoenergy.org/api/FuelMix/Today"
+BASE = "https://docs.misoenergy.org/marketreports/{name}"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-    "Accept": "application/json",
 }
 TIMEOUT = (10, 30)
 
-# MISO reports every 5 minutes -> 288 intervals in a complete day.
-# A day is only accepted if most of that window actually came back;
-# a day cut short (API hiccup, this script started mid-day) keeps
-# whatever the archive already had instead of overwriting it with a
-# thin, misleading mean.
-EXPECTED_INTERVALS_PER_DAY = 288
-MIN_INTERVALS_PER_DAY = 270
+FIRST_MARKET_DATE = date(2023, 1, 1)   # the report archive's start
+MAX_DAYS_PER_RUN = 60
+MIN_HOURS_PER_DAY = 20                 # a day with fewer hourly rows is skipped, not saved thin
+
+# fixed column positions in "RT Generation Fuel Mix" (MISO_SR_GFM_INSPECT.py, confirmed on dates across 2026)
+COL_HE = 31
+COL_CATEGORIES = {
+    "Coal": 32, "Natural Gas": 33, "Nuclear": 34, "Hydro": 35,
+    "Wind": 36, "Solar": 37, "Other": 38, "Battery Storage": 39,
+}
+COL_TOTAL = 40
 
 RENEWABLE_CATEGORIES = ["Wind", "Solar"]
 
 
-def fetch_today():
-    r = requests.get(URL, headers=HEADERS, timeout=TIMEOUT)
+def report_url(market_day):
+    return BASE.format(name=f"{(market_day + timedelta(days=1)).strftime('%Y%m%d')}_sr_gfm.xlsx")
+
+
+def fetch_file(market_day):
+    """The report for one market date (bytes), or None if MISO hasn't published it (404)."""
+    r = requests.get(report_url(market_day), headers=HEADERS, timeout=TIMEOUT)
+    if r.status_code == 404:
+        return None
     r.raise_for_status()
-    return r.json()
+    return r.content
 
 
-def parse_intervals(payload):
-    """Long list of {INTERVALEST, CATEGORY, ACT, ...} -> wide DataFrame,
-    index = interval datetime, columns = fuel category, values = MW."""
-    rows = payload.get("Fuel", {}).get("Type", [])
-    if not rows:
-        return pd.DataFrame()
-    df = pd.DataFrame(rows)
-    # e.g. "2026-09-29 7:15:00 PM" - explicit format avoids pandas
-    # falling back to per-row dateutil parsing (slow, and warns).
-    df["INTERVALEST"] = pd.to_datetime(df["INTERVALEST"], format="%Y-%m-%d %I:%M:%S %p")
-    df["ACT"] = pd.to_numeric(df["ACT"], errors="coerce")
-    wide = df.pivot_table(index="INTERVALEST", columns="CATEGORY", values="ACT", aggfunc="last")
-    return wide.sort_index()
-
-
-def to_daily_row(wide, expected_day):
-    """Mean MW per category for whichever date the most fuel
-    categories actually agree on, plus Total_MW (sum of categories,
-    matching the API's own TotalMW) and a renewables share. Only for
-    days with enough intervals present.
-
-    Two live pulls of "Yesterday" both mixed two different calendar
-    dates into one payload, but not the way a naive "which date has
-    more rows" or "trust the expected Eastern date" check assumes.
-    One pull had Imports on 288 timestamps and the other 7 generation
-    categories on a disjoint 237 timestamps; filtering to the
-    Eastern-computed expected day picked Imports' date (it happened to
-    be the real "yesterday") while every generation category turned
-    out to be dated *today* instead - a genuine inconsistency in how
-    MISO itself labels different categories in this endpoint, not a
-    which-date-to-trust bug. Trusting either a single category's date
-    or a precomputed wall-clock date silently drops whichever
-    categories disagree.
-
-    Instead, pick the date where the most distinct categories actually
-    have data (ties broken by total row count) - empirically the day
-    the payload is really "about", regardless of which category's
-    labeling is off - then average only that date's rows (an
-    individual category still missing entirely for that date ends up
-    correctly NaN rather than a fabricated value)."""
-    if wide.empty:
-        return None, 0
-
-    dates = wide.index.date
-    coverage_by_date = wide.notna().groupby(dates).sum()  # date -> per-category non-null count
-    categories_present = (coverage_by_date > 0).sum(axis=1)  # date -> how many distinct categories
-    row_counts = pd.Series(dates).value_counts()
-
-    chosen_day = sorted(
-        categories_present.index,
-        key=lambda d: (categories_present[d], row_counts.get(d, 0)),
-    )[-1]
-
-    if chosen_day != expected_day:
-        print(f"  note: payload's best-covered date is {chosen_day}, not the expected "
-              f"{expected_day} - using {chosen_day} (categories present: "
-              f"{categories_present[chosen_day]}/{wide.shape[1]})", file=sys.stderr)
-    other_days = sorted(set(dates) - {chosen_day})
-    if other_days:
-        print(f"  note: payload also contained data for other date(s), ignored: {other_days}",
-              file=sys.stderr)
-
-    on_chosen_day = wide[dates == chosen_day]
-    n_intervals = len(on_chosen_day)
-    if n_intervals < MIN_INTERVALS_PER_DAY:
-        return None, n_intervals
-
-    means = on_chosen_day.mean()
-    row = {f"{cat}_MW": means[cat] for cat in means.index}
-    total = means.sum()
-    row["Total_MW"] = total
-    renewable = sum(means.get(cat, 0.0) for cat in RENEWABLE_CATEGORIES)
-    row["Renewables_Share"] = renewable / total if total else None
-    row["Intervals_Reported"] = n_intervals
-    return pd.Series(row, name=chosen_day), n_intervals
+def parse_day(content, market_day):
+    """Daily mean MW per fuel from the national block of the real-time sheet -> (row, hours found)."""
+    raw = pd.read_excel(io.BytesIO(content), sheet_name="RT Generation Fuel Mix", header=None)
+    he = pd.to_numeric(raw[COL_HE], errors="coerce")
+    rows = raw[he.between(1, 24)]
+    n_hours = len(rows)
+    if n_hours < MIN_HOURS_PER_DAY:
+        return None, n_hours
+    means = {cat: pd.to_numeric(rows[col], errors="coerce").mean() for cat, col in COL_CATEGORIES.items()}
+    total = pd.to_numeric(rows[COL_TOTAL], errors="coerce").mean()
+    row = {f"{cat}_MW": v for cat, v in means.items() if pd.notna(v)}
+    row["Total_MW"] = total if pd.notna(total) else sum(row.values())
+    renewable = sum(means.get(c, 0.0) for c in RENEWABLE_CATEGORIES)
+    row["Renewables_Share"] = renewable / row["Total_MW"] if row["Total_MW"] else None
+    row["Intervals_Reported"] = n_hours
+    return pd.Series(row, name=market_day), n_hours
 
 
 def load_archive(path):
@@ -209,44 +142,34 @@ def format_date_column(path, sheet="Data"):
 
 NOTES_LINES = [
     "UNITS",
-    "All *_MW columns are MW, the daily mean of MISO's 5-minute generation readings for that fuel "
-    "category - 'average MW for that day', not total daily energy. Total_MW is the sum of the "
-    "category means (matches the sum of the API's own instantaneous category values).",
+    "All *_MW columns are MW, the daily mean of MISO's 24 hourly real-time readings for that fuel - 'average "
+    "MW for that day', not daily energy (x 24 for MWh). Total_MW is MISO's own national total (generation only, "
+    "no imports).",
     "",
     "CATEGORIES",
-    "Whatever MISO's API itself reports (typically Coal, Natural Gas, Nuclear, Wind, Solar, "
-    "Battery Storage, Other, Imports) - not a fixed list maintained here, so a category MISO adds "
-    "shows up as a new column automatically. Columns are ordered Nuclear, Coal, Natural Gas, Hydro, "
-    "Wind, Solar, Battery Storage, Other, then any other category, then Total_MW/Renewables_Share/"
-    "Intervals_Reported.",
+    "Nuclear, Coal, Natural Gas, Hydro, Wind, Solar, Battery Storage (net: negative when charging), Other - "
+    "the national block of MISO's 'RT Generation Fuel Mix' report.",
     "Renewables_Share: (Wind + Solar) daily mean, as a share of Total_MW.",
-    "Intervals_Reported: how many of the expected 288 five-minute intervals that day actually came "
-    "back - always close to 288 for a complete day; a day is only saved if at least "
-    f"{MIN_INTERVALS_PER_DAY} came back.",
+    "Intervals_Reported: hourly rows found for that day (24 for a complete day; a day with fewer than "
+    f"{MIN_HOURS_PER_DAY} is not saved).",
     "",
     "TIMESTAMPS",
-    "The 'date' index is MISO's own operating day (Eastern local time, as the API reports it - not "
-    "converted to UTC).",
+    "The 'date' index is MISO's market day (Eastern Standard Time, hour ending 1-24).",
     "",
     "COVERAGE",
-    "This is NOT a historical range API - MISO's public-api.misoenergy.org only exposes 'Today' and "
-    "'Yesterday' (and 'Yesterday' turned out to actually mirror 'Today' for every category except "
-    "Imports, not a real prior day - see the script docstring), no query-by-date endpoint (confirmed "
-    "by probing it), so this script upserts by date into the Data tab on every run, building up "
-    "history from whenever it first started running. Scheduled late in the Eastern day so 'today so "
-    "far' is close enough to complete to save.",
+    "Daily from 2023-01-01 (the report archive's start). Each report is published the morning after the "
+    "market day; each run adds the days published since the last saved one.",
     "",
     "SOURCE",
-    f"MISO (Midcontinent Independent System Operator) public real-time API: {URL}",
+    "MISO (Midcontinent Independent System Operator) daily real-time generation fuel mix report: "
+    "https://docs.misoenergy.org/marketreports/<YYYYMMDD>_sr_gfm.xlsx (market reports, public, no key).",
 ]
 NOTES_SECTION_TITLES = {"UNITS", "CATEGORIES", "TIMESTAMPS", "COVERAGE", "SOURCE"}
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "miso_fuel_mix_daily.xlsx")
 
-# MISO's own API is real-time; if this script's own run misses several
-# days in a row (workflow disabled, MISO API down), flag it rather
-# than silently going stale forever.
+# The report appears the morning after each market day; flag it if the newest saved day falls this far behind
 STALE_AFTER_DAYS = 4
 
 
@@ -255,37 +178,44 @@ def main():
     parser.add_argument("--out", default=DEFAULT_OUT)
     args = parser.parse_args()
 
-    target_day = datetime.now(ZoneInfo("America/New_York")).date()
-    print(f"Fetching {URL} (expecting {target_day}) ...", file=sys.stderr)
-    payload = fetch_today()
-    wide = parse_intervals(payload)
-    new_row, n_intervals = to_daily_row(wide, target_day)
-
     existing = load_archive(args.out)
-    before_days = set(existing.index) if not existing.empty else set()
-    combined = upsert(existing, new_row)
-    is_new = bool(new_row is not None and new_row.name not in before_days)
+    if not existing.empty:
+        # rows from the old live 5-minute pull (>24 'intervals') don't match the report series: refetch them
+        live = existing.index[pd.to_numeric(existing.get("Intervals_Reported"), errors="coerce") > 24]
+        if len(live):
+            print(f"Replacing {len(live)} day(s) saved from the old live API: {sorted(live)}", file=sys.stderr)
+            existing = existing.drop(index=live)
+    yesterday = datetime.now(ZoneInfo("America/New_York")).date() - timedelta(days=1)
+    start = max(existing.index) + timedelta(days=1) if not existing.empty else FIRST_MARKET_DATE
+    days = [start + timedelta(days=i) for i in range((yesterday - start).days + 1)][:MAX_DAYS_PER_RUN]
+    print(f"Fetching market dates {days[0] if days else '-'} to {days[-1] if days else '-'} "
+          f"({len(days)} day(s))", file=sys.stderr)
 
-    if new_row is None:
-        print(f"Not enough intervals to save a day ({n_intervals}/{EXPECTED_INTERVALS_PER_DAY}) - "
-              "keeping the archive as-is.", file=sys.stderr)
-    else:
-        print(f"Day {new_row.name}: {n_intervals}/{EXPECTED_INTERVALS_PER_DAY} intervals "
-              f"({'new' if is_new else 'refreshed'})")
+    combined = existing
+    for d in days:
+        content = fetch_file(d)
+        if content is None:
+            print(f"  {d}: not published yet ({report_url(d)} 404)", file=sys.stderr)
+            break   # later days can't be out either
+        row, n_hours = parse_day(content, d)
+        if row is None:
+            print(f"  {d}: only {n_hours}/24 hours - skipped", file=sys.stderr)
+            continue
+        combined = upsert(combined, row)
+        print(f"  {d}: {n_hours} hours, total {row['Total_MW']:,.0f} MW average")
 
-    combined = reorder_columns(combined)
+    combined = reorder_columns(combined.dropna(axis=1, how="all"))   # e.g. Imports_MW, only the old live rows had it
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Data": combined}, NOTES_LINES, NOTES_SECTION_TITLES)
     format_date_column(args.out)
-
     print(f"Archive now has {len(combined)} days. Saved to {args.out}")
     print(combined.tail())
 
     latest = max(combined.index) if not combined.empty else None
     age = (date.today() - latest).days if latest else None
     if latest is None or age > STALE_AFTER_DAYS:
-        print(f"STALE SOURCE: newest saved day is {latest} ({age} days old) - "
-              f"{URL} may have changed or stopped updating.", file=sys.stderr)
+        print(f"STALE SOURCE: newest saved day is {latest} ({age} days old) - the sr_gfm report may have "
+              "moved or stopped publishing.", file=sys.stderr)
         sys.exit(1)
 
 
