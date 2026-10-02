@@ -6,8 +6,12 @@ name: Peru COES node discovery (manual)
 on:
   workflow_dispatch:
     inputs:
+      script:
+        description: "probe script in discovery_archive/south_america"
+        required: false
+        default: "PERU_COES_NODE_DISCOVERY.py"
       months:
-        description: "months to probe, space-separated YYYY-MM (blank = default set)"
+        description: "arguments: months (YYYY-MM) or days (YYYY-MM-DD), space-separated (blank = default set)"
         required: false
         default: ""
 
@@ -26,9 +30,10 @@ jobs:
       - name: Probe
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 3300 python3 discovery_archive/south_america/PERU_COES_NODE_DISCOVERY.py ${{ github.event.inputs.months }}
+        run: timeout 3300 python3 "discovery_archive/south_america/${{ github.event.inputs.script }}" ${{ github.event.inputs.months }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: peru-node-probe
           path: peru_node_probe.csv
+          if-no-files-found: ignore
