@@ -37,7 +37,8 @@ FX (official daily rates; weekends/holidays carry the last published rate):
        dataset 32sa-8pi3 (Banco de la Republica's own site sits behind a bot captcha)
   PEN  BCRP series PD04640PD (TC sistema bancario SBS, venta), estadisticas.bcrp.gob.pe
   ARS  BCRA Comunicacion A 3500 wholesale reference rate (api.bcra.gob.ar estadisticas v4.0, variable 5)
-  CLP  not available key-free (Banco Central de Chile's API needs credentials) - Chile is shown in CLP only.
+  CLP  SII 'dolar observado' tables (Banco Central de Chile's official rate; sii.cl/valores_y_fechas/dolar),
+       month average, for the monthly Chilean PMM; fallback mindicador.cl (mirror of the BCCh series).
 
 Incremental: every day already in the workbook is kept; each run fetches only missing days since 2021-01-01
 plus the last REVISION_DAYS days. Argentina's daily files are 5-13 MB, so its history is built newest-first
@@ -97,6 +98,7 @@ COUNTRIES = {
     "Bolivia": {"fx": None, "to_mwh": 1, "cols": {
         "Costo marginal (USD/MWh)": "Bolivia (CNDC marginal cost)"}},
 }
+CHILE_USD_COL = "Chile (CNE PMM, monthly value)"
 EXTRA_COLS = {"Argentina": ["Hours with more than one price area"],
               "Peru": ["Half-hours"], "Brazil": ["Half-hours"]}
 
@@ -432,7 +434,77 @@ def fetch_chile_monthly():
     df = df[df.index >= pd.Timestamp(START)]
     df.index.name = "month (of publication)"
     print(f"  Chile PMM: {len(df)} months from {url}", flush=True)
+    fx, src = fx_clp_monthly(sorted({d.year for d in df.index}))
+    df[CLP_FX] = fx.reindex(df.index).round(2)
+    df["FX source"] = [src.get(d.year, "") for d in df.index]
+    df["PMM SEN (USD/MWh)"] = (df["PMM SEN (CLP/kWh)"] * 1000 / df[CLP_FX]).round(2)
     return df
+
+
+CLP_FX = "CLP per USD (month average of dolar observado)"
+SII_DOLAR = "https://www.sii.cl/valores_y_fechas/dolar/dolar{year}.htm"
+MINDICADOR = "https://mindicador.cl/api/dolar/{year}"
+
+
+def _num_cl(txt):
+    """'1.012,34' / '943,58' -> float (Chilean format)."""
+    t = re.sub(r"[^0-9,.]", "", txt)
+    if not t:
+        return None
+    try:
+        return float(t.replace(".", "").replace(",", "."))
+    except ValueError:
+        return None
+
+
+def clp_daily_sii(s, year):
+    """Daily dolar observado (CLP per USD) from the SII's yearly table: rows = day of month, columns = months."""
+    html = get(s, SII_DOLAR.format(year=year)).content.decode("latin-1", "replace")
+    vals = {}
+    for tr in re.findall(r"(?is)<tr[^>]*>(.*?)</tr>", html):
+        cells = [re.sub(r"<[^>]+>|&nbsp;", " ", c).strip()
+                 for c in re.findall(r"(?is)<t[hd][^>]*>(.*?)</t[hd]>", tr)]
+        if len(cells) < 13 or not re.fullmatch(r"\d{1,2}", cells[0]):
+            continue
+        day = int(cells[0])
+        for mon, c in enumerate(cells[1:13], start=1):
+            v = _num_cl(c)
+            if v and 300 < v < 3000:
+                try:
+                    vals[pd.Timestamp(year, mon, day)] = v
+                except ValueError:
+                    pass
+    return pd.Series(vals, dtype=float)
+
+
+def clp_daily_mindicador(s, year):
+    j = get(s, MINDICADOR.format(year=year)).json()
+    vals = {pd.Timestamp(x["fecha"][:10]): float(x["valor"]) for x in j.get("serie", [])}
+    return pd.Series(vals, dtype=float)
+
+
+def fx_clp_monthly(years):
+    """Monthly average of the daily dolar observado: SII tables first, mindicador.cl (a mirror of the Banco
+    Central de Chile series) if the SII is unreachable."""
+    s = session()
+    parts, src = [], {}
+    for y in years:
+        for name, fn in (("SII dolar observado (sii.cl)", clp_daily_sii),
+                         ("mindicador.cl mirror of BCCh dolar observado", clp_daily_mindicador)):
+            try:
+                d = fn(s, y)
+            except Exception as e:  # noqa: BLE001
+                print(f"  CLP FX {y} from {name}: FAILED ({type(e).__name__}: {str(e)[:120]})", flush=True)
+                continue
+            if len(d) >= 5:
+                parts.append(d)
+                src[y] = name
+                print(f"  CLP FX {y}: {len(d)} daily rates from {name}", flush=True)
+                break
+    if not parts:
+        return pd.Series(dtype=float), src
+    daily_fx = pd.concat(parts).sort_index()
+    return daily_fx.resample("MS").mean(), src
 
 
 # ------------------------------------------------------------------ FX
@@ -550,10 +622,11 @@ def notes(sheets):
         return f"{s.index.min():%Y-%m-%d} to {s.index.max():%Y-%m-%d} ({len(s):,} days)" if len(s) else "no data yet"
     return [
         "SOUTH AMERICA DAILY WHOLESALE POWER PRICES",
-        "Daily values are the simple average of the published hourly (or half-hourly) prices of each day. USD "
-        "columns = local price / that day's official FX rate (local currency per USD); weekends and holidays use "
-        "the last published rate. Charts: monthly averages of the daily USD prices, and one chart per country "
-        "in local currency.",
+        "Headline unit: US$/MWh (sheet 'USD daily' and every chart). Daily values are the simple average of the "
+        "published hourly (or half-hourly) prices of each day. USD = local price / that day's official FX rate "
+        "(local currency per USD); weekends and holidays use the last published rate. Local-currency prices are "
+        "kept in each country sheet. Charts: all markets as monthly averages of the daily US$/MWh prices, and "
+        "one US$/MWh chart per country.",
         "Separate workbook - deliberately not part of the South & Central America master.",
         "",
         "BRAZIL (sheet 'Brazil')",
@@ -614,7 +687,11 @@ def notes(sheets):
         "publication month) - Precio_Medio_de_Mercado.xlsx from https://www.cne.cl (media library). Chile's "
         "marginal costs at Quillota 220 kV / Crucero 220 kV come only from the Coordinador Electrico Nacional, "
         "whose site sits behind a browser challenge and whose API (sipub.api.coordinador.cl) needs a user key. "
-        "CLP is not converted to USD: the Banco Central de Chile's API needs credentials.",
+        "USD conversion: PMM SEN (USD/MWh) = PMM (CLP/kWh) x 1000 / the average of the daily 'dolar observado' "
+        "(Banco Central de Chile's official rate, CLP per USD) over the publication month, taken from the SII's "
+        "yearly tables (https://www.sii.cl/valores_y_fechas/dolar/dolarYYYY.htm); if the SII is unreachable, from "
+        "mindicador.cl (a mirror of the same BCCh series) - column 'FX source' says which. In 'USD daily' the "
+        "column 'Chile (CNE PMM, monthly value)' repeats each month's PMM on every day of that month.",
         "",
         "ECUADOR: not included - Ecuador has no spot market (regulated contracts through the single buyer) and "
         "CENACE publishes no marginal-cost series; its site also fails TLS certificate verification.",
@@ -641,6 +718,14 @@ def save(path, sheets):
             src = usd_name(col) if COUNTRIES[c]["fx"] else col
             if src in df:
                 usd[label] = df[src]
+    ch = sheets.get("Chile")
+    if ch is not None and "PMM SEN (USD/MWh)" in ch and ch["PMM SEN (USD/MWh)"].notna().any():
+        m = ch["PMM SEN (USD/MWh)"].dropna()
+        m.index = pd.to_datetime(m.index).to_period("M")
+        days = pd.date_range(m.index.min().to_timestamp(), min(pd.Timestamp(dt.date.today()),
+                             m.index.max().to_timestamp(how="end").normalize()), freq="D")
+        chile = pd.Series(m.reindex(days.to_period("M")).values, index=days)
+        usd = usd.join(chile.rename(CHILE_USD_COL), how="outer") if not usd.empty else chile.rename(CHILE_USD_COL).to_frame()
     usd = usd.sort_index().round(2)
     usd.index.name = "date"
     out = {"USD daily": usd}
@@ -687,6 +772,7 @@ def main():
     start = dt.date.fromisoformat(args.start)
     end = dt.date.fromisoformat(args.end) if args.end else dt.date.today()
     wanted = [m.strip().lower() for m in args.markets.split(",") if m.strip()]
+    OUT_PATH[:] = [args.out]
     sheets = load(args.out)
     failures = []
 
@@ -751,6 +837,7 @@ def main():
 
 
 FX_CACHE = {}
+OUT_PATH = [OUT]
 
 
 def fx_series(country, a):
@@ -787,6 +874,19 @@ def add_fx(country, sheets, failures):
 
 
 def summary(sheets):
+    try:
+        u = pd.read_excel(OUT_PATH[0], sheet_name="USD daily", index_col=0)
+        u.index = pd.to_datetime(u.index)
+        mm = u.resample("MS").mean()
+        print("\n== US$/MWh monthly averages: Jan-2021 and the latest month of each market", flush=True)
+        for c in mm.columns:
+            s_ = mm[c].dropna()
+            if len(s_):
+                jan = s_.get(pd.Timestamp("2021-01-01"))
+                print(f"  {c}: Jan-21 {jan if jan is None else round(jan, 2)} | latest {s_.index[-1]:%b-%y} "
+                      f"{s_.iloc[-1]:.2f} (days in latest month: {u[c].loc[s_.index[-1]:].notna().sum()})", flush=True)
+    except Exception as e:  # noqa: BLE001
+        print(f"  (USD summary unavailable: {e})", flush=True)
     print("\n== Summary (monthly averages, last 3 months)", flush=True)
     for c in COUNTRIES:
         if c not in sheets or sheets[c].empty:
