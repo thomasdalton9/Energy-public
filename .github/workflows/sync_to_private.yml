@@ -1,0 +1,62 @@
+name: Sync to private repo
+
+# Copies every change on Energy-public's main into the private thomasdalton9/Energy repo (main and
+# github-access-energy) - see .github/scripts/sync_public_to_private.sh. Hourly, because commits made by the
+# other workflows (GITHUB_TOKEN pushes) don't trigger push events; also on a person's push and by hand.
+# Needs the secret PRIVATE_REPO_TOKEN: a fine-grained token with Contents read/write on thomasdalton9/Energy only.
+# Sync commits carry [skip ci], so they don't start the private repo's push-triggered workflows.
+
+on:
+  schedule:
+    - cron: "50 * * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: sync-to-private
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    if: github.repository == 'thomasdalton9/Energy-public'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check the token is set
+        env:
+          T: ${{ secrets.PRIVATE_REPO_TOKEN }}
+        run: |
+          [ -n "$T" ] || { echo "::error::Add the PRIVATE_REPO_TOKEN secret (fine-grained token, Contents read/write on thomasdalton9/Energy)"; exit 1; }
+
+      - uses: actions/checkout@v4
+        with:
+          path: public
+          fetch-depth: 0
+
+      - uses: actions/checkout@v4
+        with:
+          repository: thomasdalton9/Energy
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: private
+          fetch-depth: 1
+
+      - name: Sync main and github-access-energy
+        working-directory: private
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for br in main github-access-energy; do
+            for attempt in 1 2 3 4; do
+              git fetch -q --depth 1 origin "$br"
+              git checkout -q -f -B "$br" FETCH_HEAD
+              bash "$GITHUB_WORKSPACE/public/.github/scripts/sync_public_to_private.sh" "$GITHUB_WORKSPACE/public" "$PWD" "$br"
+              if [ "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)" ] || git push -q origin "HEAD:$br"; then
+                break
+              fi
+              echo "push to $br rejected (attempt $attempt) - re-syncing on the new tip"; sleep $((2 ** attempt))
+            done
+          done
