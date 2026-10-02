@@ -49,14 +49,16 @@ HISTORY_START = pd.Timestamp("2021-01-01")
 REFRESH_DAYS = 3
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0"}
 DEFAULT_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "au_wem_power_generation_daily.xlsx")
-FUELS = ["Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
+FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
 FUEL_RULES = [   # (regex on facility code, fuel) - first match wins
     (r"ESR|BESS|BATT|_BS\d|STORAGE", "Battery_discharge"),
     (r"_WF|WWF|WINDFARM|WIND", "Wind"),
     (r"_PV|_SF|SOLAR", "Solar"),
     (r"^MUJA|COLLIE|BW\d_BLUEWATERS|BLUEWATERS", "Coal"),
     (r"LFG|LANDFILL|BIOGAS|_IG\d|RENEWABLE|WOOD|BIOMASS|WTE|WASTE", "Bioenergy"),
-    (r"DIESEL|_DG\d", "Oil"),
+    (r"^(TAMALA_PARK|RED_HILL|SOUTH_CARDUP|ROCKINGHAM|KALAMUNDA_SG|GOSNELLS)$", "Bioenergy"),   # landfill gas sites
+    (r"_HG\d", "Hydro"),   # Walpole
+    (r"DIESEL|_DG\d|^TESLA_|^WEST_KALGOORLIE|^NAMKKN_MERR", "Oil"),   # diesel / distillate units
 ]
 
 
@@ -142,7 +144,8 @@ def save(path, fac):
         "MWh per day by fuel, Western Australia's main grid (SWIS). Pre-reform files give MWh per 30-minute "
         "trading interval; from Oct 2023 AEMO publishes MWh per 5-minute dispatch interval (summed per day). "
         "Negative readings are clipped to 0. Day = WEM trading day, 08:00 to 08:00 AWST.",
-        "Daily: Gas (incl. dual-fuel gas/diesel peakers), Wind, Solar (utility scale), Coal, Oil (diesel units), "
+        "Daily: Hydro (Walpole), Gas (incl. dual-fuel gas/diesel peakers), Wind, Solar (utility scale), Coal, "
+        "Oil (diesel / distillate units), "
         "Bioenergy (landfill gas, biomass, waste to energy); Total_MWh is their sum. Battery_discharge_MWh is "
         "storage output, kept out of Total_MWh.",
         "Fuel is classified from each facility's registered code (AEMO's WEM facilities list has no fuel field): "
