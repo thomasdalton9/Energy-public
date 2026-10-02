@@ -46,6 +46,7 @@ DARK_BLUE = "17365D"
 
 # (country code, country, workbook, raw sheet to copy, short dataset name)
 DATASETS = [
+    ("SA", "South America", "south_america_gas_balance.xlsx", "Balance (long)", "gas balance"),
     ("AR", "Argentina", "argentina_gas_monthly.xlsx", "National", "gas"),
     ("BR", "Brazil", "brazil_gas_monthly.xlsx", "Demand by segment", "gas"),
     ("BO", "Bolivia", "bolivia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
@@ -213,6 +214,10 @@ SOURCES = {
                                             "https://www.mset.gov.jm/document-category/statistics-data/"),
     "jamaica_gas.xlsx": ("Ministry of Energy (MSET), Jamaica Energy Statistics Table 3 natural gas, ANNUAL only",
                          "https://www.mset.gov.jm/document-category/statistics-data/"),
+    "south_america_gas_balance.xlsx": ("Built from the country workbooks above (each official source: SE/ENARGAS, INE "
+                                       "Bolivia, ANP, CNE Chile, Colombia supply report, Petroecuador/ARCERNNR, "
+                                       "Perupetro/MINEM, MEEI Trinidad, URSEA) - no estimates",
+                                       "see each country's row"),
     "south_america_coal_production.xlsx": ("ANM Colombia (coal production declared for royalties, datos.gov.co) and "
                                            "DANE (coal exports); EPE, SE Argentina, Cochilco, MINEM Peru annual; "
                                            "Venezuela: Energy Institute Statistical Review",

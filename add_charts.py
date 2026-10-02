@@ -922,6 +922,30 @@ def uruguay_hydro(p):
              "sheet": f"Water year - {n}"} for c, n, t, u in charts if c in d and d[c].notna().any()]
 
 
+def complete_through(d, active_months=12):
+    """Rows up to the last month every 'active' column (one with data in the final active_months) has a value, so a
+    stacked total does not drop because one country publishes later than the others."""
+    d = d.dropna(how="all")
+    if d.empty:
+        return d
+    last = d.index.max()
+    active = [c for c in d.columns if d[c].last_valid_index() is not None
+              and d[c].last_valid_index() >= last - pd.DateOffset(months=active_months)]
+    end = min(d[c].last_valid_index() for c in active) if active else last
+    return d[d.index <= end]
+
+
+def sa_gas_balance(p):
+    """SA_GAS_BALANCE.py: production, imports and exports by country (million m3/day), stacked."""
+    out = []
+    for sheet, title in [("Production", "South America gas production by country"),
+                         ("Imports", "South America gas imports by country (pipeline + LNG)"),
+                         ("Exports", "South America gas exports by country (pipeline + LNG)")]:
+        d = by_date(read(p, sheet), "date")
+        out.append(spec(sheet, complete_through(d), title, "million m3/day", "stacked_bar"))
+    return out
+
+
 # North America (americas/US_GAS_EIA.py, americas/CANADA_STATCAN.py) - gas in Bcf/d, the North American convention
 BCF_TO_MCM = 28.3168   # 1 Bcf = 28.3168 million m3
 
@@ -1387,6 +1411,7 @@ REGISTRY = {
     "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "south_america_power_prices_daily.xlsx": sa_power_prices,
+    "south_america_gas_balance.xlsx": sa_gas_balance,
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,
     "argentina_hydro_reservoirs.xlsx": argentina_hydro,
