@@ -1193,6 +1193,15 @@ def generic(p):
     return []
 
 
+def japan_prices(p):
+    """JEPX daily system and area prices (JPY/kWh) -> monthly averages, line chart."""
+    d = by_date(read(p, "Daily"), "date")
+    cols_ = [c for c in ("System_JPY_kWh", "Tokyo_JPY_kWh", "Kansai_JPY_kWh", "Hokkaido_JPY_kWh", "Kyushu_JPY_kWh") if c in d.columns]
+    m = d[cols_].apply(pd.to_numeric, errors="coerce").resample("MS").mean().dropna(how="all")
+    m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_JPY_kWh", ""))
+    return [spec("Prices", m, "Japan day-ahead spot price, monthly average (JEPX)", "JPY per kWh", "line")]
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "brazil_gas_monthly.xlsx": brazil,
@@ -1255,6 +1264,9 @@ REGISTRY = {
     "mexico_gas.xlsx": mexico_gas,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
+    # Japan / Korea / Taiwan
+    "japan_power_generation_daily.xlsx": power_daily("Japan power generation by fuel (10 regional TSOs)"),
+    "japan_power_prices_daily.xlsx": japan_prices,
     # Australia and New Zealand
     "nz_power_generation_daily.xlsx": power_daily("New Zealand power generation by source (Electricity Authority EMI)"),
     "au_nem_power_generation_daily.xlsx": au_nem_power,
