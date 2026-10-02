@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas openpyxl requests
+        run: pip install pandas openpyxl requests nemosis
       - name: NZ generation (EMI)
         if: always()
         env:
@@ -38,7 +38,7 @@ jobs:
         if: always()
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 300 python3 australia_nz/AU_POWER_CAPACITY.py
+        run: timeout 2400 python3 australia_nz/AU_POWER_CAPACITY.py
 
       - name: Add Excel charts and copy scripts
         if: always()
