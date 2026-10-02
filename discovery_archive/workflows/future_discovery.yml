@@ -1,0 +1,21 @@
+name: Future discovery
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl xlrd
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 1100 python3 discovery_archive/future/FUTURE_DISCOVERY.py
