@@ -102,7 +102,7 @@ def monthly_gwh(path):
 
 
 def anz_generation(data_dir):
-    """Sum of NEM + WEM + NZ, TWh per month, over the months all three have."""
+    """Sum of NEM + WEM + NZ, GWh per month, over the months all three have."""
     frames, notes = {}, []
     for name, fname in POWER_PARTS:
         try:
@@ -117,7 +117,7 @@ def anz_generation(data_dir):
     months = sorted(set.intersection(*(set(f.index) for f in frames.values())))
     if not months:
         return pd.DataFrame(), notes + ["no month common to every feed yet"]
-    total = sum(f.reindex(index=months, columns=FUELS).fillna(0) for f in frames.values()) / 1000.0
+    total = sum(f.reindex(index=months, columns=FUELS).fillna(0) for f in frames.values())
     total.index.name = "date"
     return total, notes
 
@@ -192,7 +192,7 @@ def main():
     total, notes = anz_generation(args.data_dir)
     if not total.empty:
         total_chart(wb, used, power, pos, total, notes, "ANZ generation total data",
-                    "Australia + New Zealand power generation by source", "TWh per month",
+                    "Australia + New Zealand power generation by source", "GWh per month",
                     "Sum of NEM (AEMO SCADA), WEM (AEMO WA SCADA) and NZ (Electricity Authority EMI)",
                     "Feeds summed (only months all of them have):")
         pos += 1
