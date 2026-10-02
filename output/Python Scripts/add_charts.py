@@ -1054,38 +1054,85 @@ def au_nem_power(p):
         st = st[st.index >= "2021-01-01"].resample("MS").sum(min_count=1) / 1000
         out.append(spec("States", st.rename(columns=lambda c: str(c).replace("_MWh", "")),
                         "Australia NEM power generation by state (AEMO)", "GWh per month", "stacked_bar"))
+    out += nem_state_balance(p)
     return out
 
 
+NEM_STATE_NAMES = {"NSW": "New South Wales", "QLD": "Queensland", "VIC": "Victoria", "SA": "South Australia",
+                   "TAS": "Tasmania"}
+
+
+def nem_state_balance(p):
+    """One chart per NEM state: monthly GWh of generation by fuel, rooftop solar, storage output and net
+    interconnector imports (negative = net exports) as stacked bars, demand (operational + rooftop) as a line."""
+    b = _sheet(p, "State balance", "date")
+    if b.empty:
+        return []
+    b = b[b.index >= "2021-01-01"].apply(pd.to_numeric, errors="coerce")
+    last = b.dropna(how="all").index.max()
+    m = b.resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    out = []
+    for st, name in NEM_STATE_NAMES.items():
+        z = lambda *items: m[[f"{st}_{i}_MWh" for i in items if f"{st}_{i}_MWh" in m]].sum(axis=1, min_count=1)  # noqa: E731
+        if not any(c.startswith(f"{st}_") for c in m.columns):
+            continue
+        g = pd.DataFrame({"Hydro": z("Hydro"), "Gas": z("Gas"), "Wind": z("Wind"), "Solar (utility)": z("Solar"),
+                          "Rooftop solar": z("Rooftop_solar"), "Coal": z("Coal"), "Other": z("Oil", "Bioenergy", "Other"),
+                          "Storage (battery, pumped hydro)": z("Battery_discharge", "Pumped_hydro"),
+                          "Net imports (- = exports)": z("Net_imports")})
+        g["Demand (incl. rooftop solar)"] = z("Operational_demand") + g["Rooftop solar"].fillna(0)
+        g = g.dropna(axis=1, how="all")
+        g = g.loc[:, (g.fillna(0) != 0).any()]
+        out.append(spec(f"Balance {st}", g, f"{name} power balance (AEMO)", "GWh per month", "stacked_bar",
+                        line_cols=tuple(c for c in ("Demand (incl. rooftop solar)",) if c in g)))
+    return out
+
+
+# Energy -> volume for the ANZ gas charts (sources publish TJ / PJ): 1 TJ = 1e12 J / (1,037 Btu/cf x 1,055.06 J/Btu)
+# = 0.914 MMcf, EIA's average US heat content - the same basis as the US workbooks
+MMCF_PER_TJ = 1e12 / (1037 * 1055.06) / 1e6
+MMCFD = "MMcf/d (1 TJ = 0.914 MMcf)"
+
+
+def _per_day(df, months=1):
+    """Volume per month (or quarter) dated at its start/end -> per day over that period."""
+    days = df.index.to_period("Q" if months == 3 else "M").days_in_month if months == 1 else \
+        (df.index.to_period("Q").end_time - df.index.to_period("Q").start_time).days + 1
+    return df.div(pd.Index(days, dtype=float).values, axis=0)
+
+
 def au_gas(p):
-    """GBB: east coast demand by sector and production by state (monthly average TJ/d), storage (water year, PJ),
-    LNG cargoes (PJ per month)."""
+    """GBB: east coast demand by sector and production by state (monthly average MMcf/d), storage (water year, Bcf),
+    LNG cargoes (MMcf/d averaged over the month). Sheets hold AEMO's TJ / PJ; charts convert at MMCF_PER_TJ."""
     out = []
     d = _sheet(p, "Demand by sector", "date")
     if not d.empty:
         names = {"Gas_power_generation": "Power generation", "Large_industrial": "Large industrial",
                  "LNG_export_plants": "LNG export plants"}
-        out.append(spec("Demand", monthly_mean(d[cols(d, *names)].rename(columns=names)),
-                        "Australia east coast gas demand: power, large industry, LNG (AEMO GBB)", "TJ/day, monthly average",
-                        "stacked_bar"))
+        out.append(spec("Demand", monthly_mean(d[cols(d, *names)].rename(columns=names)) * MMCF_PER_TJ,
+                        "Australia east coast gas demand: power, large industry, LNG (AEMO GBB)",
+                        f"{MMCFD}, monthly average", "stacked_bar"))
     q = _sheet(p, "Production", "date")
     if not q.empty:
         q = q.drop(columns=["Total"], errors="ignore")
-        out.append(spec("Production", monthly_mean(q, "2021-01-01"),
-                        "Australia east coast gas production by state (AEMO GBB)", "TJ/day, monthly average",
+        out.append(spec("Production", monthly_mean(q, "2021-01-01") * MMCF_PER_TJ,
+                        "Australia east coast gas production by state (AEMO GBB)", f"{MMCFD}, monthly average",
                         "stacked_bar"))
     st = _sheet(p, "Storage", "date")
     if "Total" in st and st["Total"].notna().any():
-        tot = st["Total"].dropna() / 1000.0
+        tot = st["Total"].dropna() * MMCF_PER_TJ / 1000.0   # TJ -> Bcf
         med = tot.rolling(15, center=True, min_periods=5).median()
         tot = tot[(tot - med).abs() <= 0.15 * med]   # one-day reporting glitches (a facility missing or doubled)
         out.append({"name": "Storage", "water_year": _join_short_gaps(tot), "y_decimals": 1,
-                    "title": "Australia east coast gas in storage (AEMO GBB)", "units": "PJ"})
+                    "title": "Australia east coast gas in storage (AEMO GBB)", "units": "Bcf (1 PJ = 0.914 Bcf)"})
     s = _sheet(p, "LNG shipments", "Month")
     if not s.empty:
         s = s.drop(columns=["Total", "Cargoes"], errors="ignore")
-        out.append(spec("LNG", s[s.index >= "2021-01-01"], "Australia east coast LNG exports by plant (AEMO GBB cargoes)",
-                        "PJ per month", "stacked_bar"))
+        s = _per_day(s[s.index >= "2021-01-01"] * 1000 * MMCF_PER_TJ)   # PJ per month -> MMcf/d
+        out.append(spec("LNG", s, "Australia east coast LNG exports by plant (AEMO GBB cargoes)",
+                        f"{MMCFD}, monthly average", "stacked_bar"))
     return out
 
 
@@ -1101,18 +1148,19 @@ def au_hydro_storage(p):
 
 
 def nz_gas(p):
-    """MBIE: monthly gross/net production and stock change (PJ), quarterly consumption by sector."""
+    """MBIE: monthly gross/net production and stock change, quarterly consumption by sector - sheets in PJ as
+    published, charts in MMcf/d (average over the month / quarter)."""
     out = []
     d = _sheet(p, "Monthly", "date")
     if not d.empty:
-        d = d[d.index >= "2021-01-01"]
+        d = _per_day(d[d.index >= "2021-01-01"].apply(pd.to_numeric, errors="coerce") * 1000 * MMCF_PER_TJ)
         prod = [c for c in d.columns if re.match(r"(gross|net) production", c, re.I)]
         if prod:
-            out.append(spec("Production", d[prod], "New Zealand gas production (MBIE)", "PJ per month"))
+            out.append(spec("Production", d[prod], "New Zealand gas production (MBIE)", f"{MMCFD}, monthly average"))
         stock = [c for c in d.columns if re.match(r"stock change", c, re.I)]
         if stock:
             out.append(spec("Storage", d[stock], "New Zealand gas stock change, Ahuroa storage (MBIE)",
-                            "PJ per month", "stacked_bar"))
+                            f"{MMCFD}, monthly average", "stacked_bar"))
     q = _sheet(p, "Quarterly consumption", "date")
     if not q.empty:
         q = q[q.index >= "2021-01-01"].apply(pd.to_numeric, errors="coerce")
@@ -1123,8 +1171,9 @@ def nz_gas(p):
                                         "Wood, Pulp, Paper, and Printing", "Chemicals", "Basic Metals", "Other"),
                           "Commercial & residential": z("Commercial", "Residential"),
                           "Transport & other transformation": z("Transport", "Other Transformation")})
-        out.append(spec("Demand", g.dropna(how="all"), "New Zealand gas consumption by sector (MBIE, quarterly)",
-                        "PJ per quarter", "stacked_bar"))
+        g = _per_day(g.dropna(how="all") * 1000 * MMCF_PER_TJ, months=3)
+        out.append(spec("Demand", g, "New Zealand gas consumption by sector (MBIE, quarterly)",
+                        f"{MMCFD}, quarterly average", "stacked_bar"))
     return out
 
 
