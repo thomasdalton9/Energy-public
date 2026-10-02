@@ -6,7 +6,7 @@ name: Dominican Republic power generation (OC-SENI)
 # (9:14am Santo Domingo), once the previous day is complete.
 on:
   schedule:
-    - cron: "14 13 * * *"
+    - cron: "14 13 * * 1"
   workflow_dispatch: {}
 
 permissions:

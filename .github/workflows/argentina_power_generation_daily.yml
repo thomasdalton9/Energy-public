@@ -3,7 +3,7 @@ name: Argentina power generation daily
 # CAMMESA post-operative daily database (unit-level actual MWh + fuel shares) -> daily MWh by fuel (standard layout). Incremental, newest-first within a time budget; history from 2021-01-01.
 on:
   schedule:
-    - cron: "11 11 * * *"
+    - cron: "11 11 * * 1"
   workflow_dispatch:
     inputs:
       budget_min:

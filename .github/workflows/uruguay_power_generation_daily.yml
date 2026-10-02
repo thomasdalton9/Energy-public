@@ -3,7 +3,7 @@ name: Uruguay power generation daily
 # ADME hourly SCADA generation by source -> daily MWh by fuel (standard layout). Incremental: missing days + last 3; history from 2021-01-01.
 on:
   schedule:
-    - cron: "23 10 * * *"
+    - cron: "23 10 * * 1"
   workflow_dispatch: {}
 
 permissions:

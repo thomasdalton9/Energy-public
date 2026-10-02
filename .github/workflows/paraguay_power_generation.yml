@@ -5,7 +5,7 @@ name: Paraguay power generation
 # ONS and CAMMESA are daily, so a daily run keeps the CAMMESA Yacyreta backfill moving (budgeted, newest first).
 on:
   schedule:
-    - cron: "41 11 * * *"
+    - cron: "41 11 * * 1"
   workflow_dispatch:
     inputs:
       budget_min:

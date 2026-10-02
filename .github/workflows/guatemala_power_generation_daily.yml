@@ -5,7 +5,7 @@ name: Guatemala power generation daily
 # that. Incremental: missing days + last 14; history from 2021-01-01.
 on:
   schedule:
-    - cron: "41 11 * * *"
+    - cron: "41 11 * * 1"
   workflow_dispatch:
     inputs:
       refresh_from:

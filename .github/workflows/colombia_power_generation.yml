@@ -4,7 +4,7 @@ name: Colombia power generation (XM)
 # grid-operator layout. Incremental: missing days + the last 21 days (XM runs ~2 weeks behind).
 on:
   schedule:
-    - cron: "23 10 * * *"
+    - cron: "23 10 * * 1"
   workflow_dispatch: {}
 
 permissions:

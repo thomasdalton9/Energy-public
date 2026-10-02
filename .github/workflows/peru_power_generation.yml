@@ -6,7 +6,7 @@ name: Peru power generation (COES)
 # Daily at 12:40 UTC (7:40am Lima).
 on:
   schedule:
-    - cron: "40 12 * * *"
+    - cron: "40 12 * * 1"
   workflow_dispatch: {}
 
 permissions:

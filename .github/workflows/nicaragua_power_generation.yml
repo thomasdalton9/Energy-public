@@ -5,7 +5,7 @@ name: Nicaragua power generation (CNDC)
 # Yesterday's post-dispatch is published during the morning; daily at 17:50 UTC (11:50am Managua).
 on:
   schedule:
-    - cron: "50 17 * * *"
+    - cron: "50 17 * * 1"
   workflow_dispatch: {}
 
 permissions:

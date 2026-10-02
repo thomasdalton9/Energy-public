@@ -37,6 +37,10 @@ Standing instructions from the repo owner. Follow these on every change.
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
 ## Pull scripts
+- Schedules: pulls whose source keeps history run WEEKLY (Monday; they backfill every missed day), to save
+  Actions minutes. Only sources with no history stay daily or more often: Argentina hydro (AIC snapshot),
+  Canada IESO (rolling 'today' XML), Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS
+  ('today' only). Masters rebuild Mon + Thu evening. A new pull is weekly unless its source has no history.
 - Incremental: backfill gaps only, don't re-pull complete history each run.
 - South America gas demand by sector: data from 2021 only.
 - Ireland gas: GNI transparency pages from 2026-03-31 on (open data covers earlier);

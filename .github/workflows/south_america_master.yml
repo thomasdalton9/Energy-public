@@ -5,7 +5,7 @@ name: South and Central America master workbook
 # 11:00-12:05 UTC) and daily so it never lags a re-run.
 on:
   schedule:
-    - cron: "20 13 * * *"
+    - cron: '20 21 * * 1,4'   # Mon + Thu evening, after the weekly pulls
   workflow_dispatch: {}
 
 permissions:

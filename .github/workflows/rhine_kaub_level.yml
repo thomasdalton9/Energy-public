@@ -2,7 +2,7 @@ name: Rhine Kaub level
 
 on:
   schedule:
-    - cron: "30 6 * * *"
+    - cron: "30 6 * * 1"
   workflow_dispatch: {}
 
 permissions:

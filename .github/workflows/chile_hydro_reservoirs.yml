@@ -6,7 +6,7 @@ name: Chile hydro reservoirs
 # the bulletin history is read only while some of it is missing.
 on:
   schedule:
-    - cron: "41 11 * * *"
+    - cron: "41 11 * * 1"
   workflow_dispatch: {}
 
 permissions:

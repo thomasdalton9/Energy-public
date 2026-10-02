@@ -6,7 +6,7 @@ name: Honduras power generation daily
 # ODS annual/monthly market reports in sheet Monthly_GWh.
 on:
   schedule:
-    - cron: "17 13 * * *"
+    - cron: "17 13 * * 1"
   workflow_dispatch: {}
 
 permissions:

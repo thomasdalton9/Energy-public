@@ -5,7 +5,7 @@ name: Uruguay hydro reservoirs
 # last saved day minus 5 days (never-saved months are filled newest-first within budget_min), INA from 30 days back.
 on:
   schedule:
-    - cron: "17 12 * * *"
+    - cron: "17 12 * * 1"
   workflow_dispatch:
     inputs:
       budget_min:
