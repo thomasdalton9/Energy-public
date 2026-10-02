@@ -982,7 +982,7 @@ def us_mexico_pipeline_capacity(p):
         return out
     d = d.apply(pd.to_numeric, errors="coerce") / 1000.0
     lines = d.drop(columns=["Total"], errors="ignore")
-    out.append(spec("Capacity", lines[lines.index >= "2010-01-01"], "US to Mexico gas pipeline capacity by line (EIA)",
+    out.append(spec("Pipeline capacity", lines[lines.index >= "2010-01-01"], "US to Mexico gas pipeline capacity by line (EIA)",
                     "Bcf/d", "stacked_bar", "%Y"))
     mx = os.path.join(os.path.dirname(p), "mexico_gas.xlsx")
     if os.path.exists(mx) and "Total" in d:
