@@ -68,6 +68,14 @@ def units(include_loads=False):
     out = pd.DataFrame({"duid": d["DUID"].map(_text), "region": d["Region"].str[:-1], "fuel": d.apply(fuel, axis=1),
                         "mw": pd.to_numeric(d[capcol], errors="coerce") if capcol else float("nan"),
                         "role": is_load.map({True: "load", False: "gen"})})
+    station = next((c for c in d.columns if "station name" in c.lower()), None)
+    if include_loads and station:   # a scheduled load with blank descriptors (battery charging, hydro pumps) takes
+        st = d[station].map(_text)  # the fuel of the generating units at the same station
+        gen_fuel = out[out["role"].eq("gen") & ~out["fuel"].isin(["Unknown", "Other"])].assign(st=st).groupby("st")["fuel"].first()
+        fill = out["role"].eq("load") & out["fuel"].isin(["Unknown", "Other"])
+        out.loc[fill, "fuel"] = st[fill].map(gen_fuel).fillna(out.loc[fill, "fuel"])
+        print(f"  registration list: {fill.sum()} scheduled loads without descriptors, "
+              f"{out.loc[fill, 'fuel'].isin(list(CATEGORY.values())).sum()} matched to their station's fuel", flush=True)
     out = out.drop_duplicates("duid")
     blank = out["fuel"].eq("Unknown")
     if blank.any():   # rows with no fuel or technology at all (loads, placeholders) are not generating capacity

@@ -38,6 +38,7 @@ CACHE = os.path.join(ROOT, "nemosis_cache")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy"]
 STORAGE = ["Battery_discharge", "Pumped_hydro"]
 RENAME = {"Battery_storage": "Battery_discharge", "Pumped_storage": "Pumped_hydro"}
+FETCH_VERSION = 3   # bump when a month's saved content changes (2: state balance, 3: storage charging) - refetches once
 CHARGE = {"Battery_discharge": "Battery_charge", "Pumped_hydro": "Pumped_hydro_pumping"}   # storage consumption
 STATES = ["NSW", "QLD", "SA", "TAS", "VIC"]
 
@@ -115,7 +116,8 @@ def fetch_month(duid_map, start, end):
     except Exception as e:  # noqa: BLE001 - generation by state and fuel is still saved
         print(f"    region demand/interchange failed: {type(e).__name__}: {str(e)[:150]}", flush=True)
         bal = sf
-    bal = bal[(bal.index >= start) & (bal.index < end)]
+    bal = bal[(bal.index >= start) & (bal.index < end)].copy()
+    bal["Fetch_version"] = FETCH_VERSION
     return fuel, states, bal
 
 
@@ -164,7 +166,9 @@ def save(path, fuel, states, balance):
         f"Exemption List: {aemo_registration.URL}",
         "https://nemweb.com.au/",
     ]
-    bal = balance.reindex(columns=sorted(balance.columns)).add_suffix("_MWh")
+    bal = balance.reindex(columns=sorted(c for c in balance.columns if c != "Fetch_version")).add_suffix("_MWh")
+    if "Fetch_version" in balance:
+        bal["Fetch_version"] = balance["Fetch_version"]
     bal.index.name = "date"
     xlsx_notes.write_workbook(path, {"Daily": daily.round(1), "States": st.round(1), "State balance": bal.round(1)},
                               notes,
@@ -182,14 +186,14 @@ def main():
     states = load(args.out, "States")
     states = states.rename(columns=lambda c: c[:-4]) if not states.empty else states
     balance = load(args.out, "State balance")
-    balance = balance.rename(columns=lambda c: c[:-4]) if not balance.empty else balance
+    balance = balance.rename(columns=lambda c: c[:-4] if c.endswith("_MWh") else c) if not balance.empty else balance
     today = pd.Timestamp(date.today())
     months = pd.date_range(HISTORY_START, today, freq="MS")
     # a month counts as saved once its state balance is saved too (the balance sheet was added after the first
     # backfill, so earlier months are fetched once more to fill it)
     # (and once more for storage CHARGING, added later: a month counts once SA - which has had batteries throughout -
     # has its battery charging saved)
-    done = balance[balance["SA_Battery_charge"].notna()] if "SA_Battery_charge" in balance else balance.iloc[0:0]
+    done = balance[balance["Fetch_version"] >= FETCH_VERSION] if "Fetch_version" in balance else balance.iloc[0:0]
     have = sorted(set(done.index.to_period("M").to_timestamp()))
     todo = [m for m in months if m not in have] + have[-1:]
     todo = sorted(set(todo))[:args.max_months]
