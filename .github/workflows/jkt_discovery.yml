@@ -1,0 +1,29 @@
+name: JKT discovery
+
+# Manual (and on pushes that touch the script): probes candidate Japan / Korea / Taiwan endpoints from a runner.
+# Optional secrets: DATA_GO_KR_KEY (Korea data.go.kr), ESTAT_APP_ID (Japan e-Stat).
+on:
+  workflow_dispatch: {}
+  push:
+    branches: ["claude/loving-ptolemy-oeieeq"]
+    paths:
+      - "discovery_archive/asia/JKT_DISCOVERY.py"
+      - ".github/workflows/jkt_discovery.yml"
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+          ESTAT_APP_ID: ${{ secrets.ESTAT_APP_ID }}
+        run: timeout 1500 python3 discovery_archive/asia/JKT_DISCOVERY.py
