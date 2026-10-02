@@ -1076,7 +1076,10 @@ def au_gas(p):
                         "stacked_bar"))
     st = _sheet(p, "Storage", "date")
     if "Total" in st and st["Total"].notna().any():
-        out.append({"name": "Storage", "water_year": _join_short_gaps(st["Total"] / 1000.0), "y_decimals": 1,
+        tot = st["Total"].dropna() / 1000.0
+        med = tot.rolling(15, center=True, min_periods=5).median()
+        tot = tot[(tot - med).abs() <= 0.15 * med]   # one-day reporting glitches (a facility missing or doubled)
+        out.append({"name": "Storage", "water_year": _join_short_gaps(tot), "y_decimals": 1,
                     "title": "Australia east coast gas in storage (AEMO GBB)", "units": "PJ"})
     s = _sheet(p, "LNG shipments", "Month")
     if not s.empty:

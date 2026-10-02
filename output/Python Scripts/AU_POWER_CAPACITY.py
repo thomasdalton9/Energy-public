@@ -49,8 +49,9 @@ def wem_units():
     d = pd.read_csv(io.BytesIO(r.content))
     tcol = next((c for c in d.columns if "type" in c.lower()), None)
     if tcol:
-        d = d[d[tcol].astype(str).str.contains("Gen|Storage|Intermittent|Scheduled|Non", case=False)]
-    capcol = next(c for c in d.columns if "capacity" in c.lower())
+        d = d[d[tcol].astype(str).str.contains("Gen|Storage", case=False)]   # generators and storage, not loads
+    capcol = next((c for c in d.columns if "maximum capacity" in c.lower()),
+                  next(c for c in d.columns if "capacity" in c.lower() and "credit" not in c.lower()))
     fuel = d["Facility Code"].map(fuel_of).replace({"Battery_discharge": "Battery_storage"})
     out = pd.DataFrame({"region": "WA (WEM)", "fuel": fuel, "mw": pd.to_numeric(d[capcol], errors="coerce")})
     print(f"WEM: {len(out)} facilities, {out['mw'].sum() / 1000:.1f} GW ({capcol}); types "

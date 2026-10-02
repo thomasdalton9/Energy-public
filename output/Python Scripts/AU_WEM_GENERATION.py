@@ -6,7 +6,7 @@ generation by fuel, daily, from AEMO's public facility SCADA:
                (MWh per 30-minute trading interval per facility)
   since the WEM reform (Oct 2023)
                https://data.wa.aemo.com.au/public/market-data/wemde/facilityScada/previous/FacilityScada_YYYYMMDD.zip
-               (JSON, MW per 5-minute dispatch interval per facility; MWh = MW / 12)
+               (JSON, MWh per 5-minute dispatch interval per facility)
 
 AEMO's WEM facilities list carries no fuel type, so facilities are
 classified by their registered code (FUEL_RULES below: _WF wind, _PV/_SF
@@ -93,14 +93,14 @@ def old_month(m):
 
 
 def new_day(day):
-    """WEMDE daily zip (JSON, 5-minute MW, 08:00 to 08:00 AWST) -> one row of MWh by facility for that trading day."""
+    """WEMDE daily zip (JSON, energy in MWh per 5-minute interval, 08:00 to 08:00 AWST) -> one row of MWh by facility for that trading day."""
     r = get(NEW.format(d=day.strftime("%Y%m%d")), ok404=True)
     if r is None:
         return None
     z = zipfile.ZipFile(io.BytesIO(r.content))
     rows = json.loads(z.read(z.namelist()[0]))["data"]["facilityScadaDispatchIntervals"]
     d = pd.DataFrame(rows)
-    d["mwh"] = pd.to_numeric(d["quantity"], errors="coerce").clip(lower=0) / 12.0
+    d["mwh"] = pd.to_numeric(d["quantity"], errors="coerce").clip(lower=0)   # MWh in each 5-minute interval
     out = d.groupby("code")["mwh"].sum().to_frame(day).T
     return out
 
@@ -140,7 +140,7 @@ def save(path, fac):
     notes = [
         "UNITS",
         "MWh per day by fuel, Western Australia's main grid (SWIS). Pre-reform files give MWh per 30-minute "
-        "trading interval; from Oct 2023 AEMO publishes MW per 5-minute dispatch interval (MWh = MW / 12). "
+        "trading interval; from Oct 2023 AEMO publishes MWh per 5-minute dispatch interval (summed per day). "
         "Negative readings are clipped to 0. Day = WEM trading day, 08:00 to 08:00 AWST.",
         "Daily: Gas (incl. dual-fuel gas/diesel peakers), Wind, Solar (utility scale), Coal, Oil (diesel units), "
         "Bioenergy (landfill gas, biomass, waste to energy); Total_MWh is their sum. Battery_discharge_MWh is "
