@@ -347,7 +347,7 @@ def fetch_peru(days):
     return pd.concat(frames) if frames else pd.DataFrame()
 
 
-def refill_peru(df, budget_min):
+def refill_peru(df, budget_min, checkpoint=None):
     """Stored Peru days that were short of half-hours and never checked against the IEOD report: re-read that
     day's export and fill the gaps from the report (days with no price first), within budget_min minutes."""
     if df is None or df.empty or budget_min <= 0:
@@ -378,6 +378,8 @@ def refill_peru(df, budget_min):
         df.loc[d, [PERU_COL, "Half-hours", IEOD_COL]] = [row[PERU_COL] if ok else float("nan"), row["Half-hours"],
                                                          row[IEOD_COL]]
         done += 1
+        if checkpoint and done % 100 == 0:   # long catch-ups: keep what is done if the job is stopped
+            checkpoint(df)
     left = len(todo) - done
     print(f"  Peru: {done} day(s) checked against the IEOD report; {left} left for later runs", flush=True)
     return df
@@ -978,7 +980,10 @@ def main():
 
     if "peru" in wanted and sheets.get("Peru") is not None and not sheets["Peru"].empty:
         try:
-            sheets["Peru"] = refill_peru(sheets["Peru"], args.ieod_budget_min)
+            def peru_checkpoint(part):
+                sheets["Peru"] = part
+                save(args.out, sheets)
+            sheets["Peru"] = refill_peru(sheets["Peru"], args.ieod_budget_min, checkpoint=peru_checkpoint)
             add_fx("Peru", sheets, failures)
             save(args.out, sheets)
         except Exception as e:  # noqa: BLE001
