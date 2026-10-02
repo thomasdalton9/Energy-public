@@ -1112,10 +1112,16 @@ def nz_gas(p):
                             "PJ per month", "stacked_bar"))
     q = _sheet(p, "Quarterly consumption", "date")
     if not q.empty:
-        q = q[q.index >= "2021-01-01"]
-        use = [c for c in q.columns if not re.search(r"total", c, re.I)][:8]
-        out.append(spec("Demand", q[use], "New Zealand gas consumption by sector (MBIE, quarterly)", "PJ per quarter",
-                        "stacked_bar"))
+        q = q[q.index >= "2021-01-01"].apply(pd.to_numeric, errors="coerce")
+        z = lambda *c: q[cols(q, *c)].sum(axis=1, min_count=1)  # noqa: E731
+        g = pd.DataFrame({"Power (incl. cogeneration)": z("Electricity Generation", "Cogeneration"),
+                          "Petrochemicals (non-energy: methanol, urea)": z("Non-Energy Use"),
+                          "Industry": z("Agriculture/ Forestry/ Fishing", "Food Processing",
+                                        "Wood, Pulp, Paper, and Printing", "Chemicals", "Basic Metals", "Other"),
+                          "Commercial & residential": z("Commercial", "Residential"),
+                          "Transport & other transformation": z("Transport", "Other Transformation")})
+        out.append(spec("Demand", g.dropna(how="all"), "New Zealand gas consumption by sector (MBIE, quarterly)",
+                        "PJ per quarter", "stacked_bar"))
     return out
 
 
