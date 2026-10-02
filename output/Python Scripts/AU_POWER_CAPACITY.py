@@ -74,8 +74,9 @@ def nem_history(months):
         live = summ[(summ["START_DATE"] <= me) & (summ["END_DATE"].isna() | (summ["END_DATE"] > me))]
         live = live.sort_values("START_DATE").drop_duplicates("DUID", keep="last")
         cap = det[det["EFFECTIVEDATE"] <= me].drop_duplicates("DUID", keep="last").set_index("DUID")["MW"]
+        # DUIDs with no fuel (demand response, ancillary-service and dummy units, Basslink) are not generators
         u = pd.DataFrame({"region": live["REGIONID"].str[:-1].values, "mw": live["DUID"].map(cap).values,
-                          "fuel": live["DUID"].map(fuel).fillna("Other").values})
+                          "fuel": live["DUID"].map(fuel).values}).dropna(subset=["fuel"])
         rows[m] = u.groupby("fuel")["mw"].sum()
         regs[m] = u[~u["fuel"].isin(STORAGE)].groupby("region")["mw"].sum()
     by_fuel, by_region = pd.DataFrame(rows).T, pd.DataFrame(regs).T
@@ -139,7 +140,9 @@ def main():
                 {"rebuilt": check, "registration list": nem_now}).round(0).to_string(), flush=True)
             wem = units[units["region"].eq("WA (WEM)")].groupby("fuel")["mw"].sum()
             wem_first = region.loc[first, "WA (WEM)_MW"] if "WA (WEM)_MW" in region else wem[~wem.index.isin(STORAGE)].sum()
-            hf = hf.drop(index=month).add(wem, axis=1, fill_value=0)
+            hf = hf.drop(index=month)
+            for f, v in wem.items():   # WEM held at its current snapshot
+                hf[f] = hf[f].fillna(0) + v if f in hf else v
             hist = pd.DataFrame({f"{f}_MW": hf[f] for f in FUELS if f in hf}, index=hf.index)
             hist["Total_MW"] = hist.sum(axis=1)
             for st in STORAGE:
