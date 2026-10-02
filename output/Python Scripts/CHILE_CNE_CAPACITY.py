@@ -139,7 +139,11 @@ def apply_ember_closures(monthly, by_fuel):
     last_year = EMBER_COAL_TO.year - 1
     if ember.empty or last_year not in ember.index:
         return monthly, pd.DataFrame()
-    dec = lambda f, y: float(by_fuel.get(f, pd.Series(dtype=float)).get(pd.Timestamp(f"{y}-12-01"), 0.0))  # noqa: E731
+    def dec(f, y):   # CNE rebuilt MW in December of year y (before the series starts: its first month)
+        s = by_fuel.get(f, pd.Series(dtype=float))
+        if s.empty:
+            return 0.0
+        return float(s.get(max(pd.Timestamp(f"{y}-12-01"), s.index.min()), s.iloc[-1]))
     rows = []
     for m in monthly.index[monthly.index < EMBER_COAL_TO]:
         year = m.year if m.month == 12 else m.year - 1
