@@ -6,7 +6,7 @@ name: MISO fuel mix daily
 # the last saved one (see MISO_FUEL_MIX_DAILY.py).
 on:
   schedule:
-    - cron: "35 16 * * 1"
+    - cron: "35 16 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

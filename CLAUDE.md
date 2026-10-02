@@ -6,7 +6,7 @@ Standing instructions from the repo owner. Follow these on every change.
 - Develop on `github-access-energy`; production is `main`. Every change goes to BOTH branches.
 - External data sites are mostly blocked from the Claude sandbox: run pulls in GitHub Actions.
 - Pulls run in the PUBLIC repo thomasdalton9/Energy-public (free Actions minutes); make code changes there.
-  Its main is copied into the private thomasdalton9/Energy (main + github-access-energy) weekly, Monday 23:30 UTC,
+  Its main is copied into the private thomasdalton9/Energy (main + github-access-energy) on the 1st and 15th (23:50 UTC),
   by .github/workflows/sync_to_private.yml (needs the PRIVATE_REPO_TOKEN secret). Never copy private-repo
   content into the public repo.
 
@@ -41,10 +41,12 @@ Standing instructions from the repo owner. Follow these on every change.
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
 ## Pull scripts
-- Schedules: pulls whose source keeps history run WEEKLY (Monday; they backfill every missed day), to save
-  Actions minutes. Only sources with no history stay daily or more often: Argentina hydro (AIC snapshot),
-  Canada IESO (rolling 'today' XML), Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS
-  ('today' only). Masters rebuild Mon + Thu evening. A new pull is weekly unless its source has no history.
+- Schedules: pulls whose source keeps history run on the 1st and 15th of each month (they backfill every missed
+  day), to save Actions minutes. Only sources with no history run daily or more often: the Argentina AIC snapshot
+  (argentina_aic_snapshot.yml; the full Argentina hydro pull is 1st/15th), Canada IESO (rolling 'today' XML),
+  Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS ('today' only). Masters rebuild on the
+  1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
+  source has no history.
 - Incremental: backfill gaps only, don't re-pull complete history each run.
   The committed workbook IS the history store: each run reads it and fetches only periods not saved yet (plus a
   short revision window). Sources that only publish whole files (e.g. MBIE webtables, Hydro Tasmania) are

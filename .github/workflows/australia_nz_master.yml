@@ -5,7 +5,7 @@ name: Australia and New Zealand master workbook
 # Central America and North America masters). Weekly, after the Monday ANZ pulls.
 on:
   schedule:
-    - cron: '30 23 * * 1'   # Monday, after the weekly ANZ pulls
+    - cron: '30 23 1,15 * *'   # 1st and 15th, after that day's ANZ pulls
   workflow_dispatch: {}
 
 permissions:

@@ -5,7 +5,7 @@ name: North America power by type and Mexico capacity (Ember fallback)
 # until the StatCan workbook has a year of history). Weekly is plenty.
 on:
   schedule:
-    - cron: "55 12 * * 2"
+    - cron: "55 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

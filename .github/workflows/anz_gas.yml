@@ -4,7 +4,7 @@ name: Australia and NZ gas and hydro storage
 # GBB reads its last-31-days file once the history is saved; Hydro Tasmania merges into saved rows. (STTM prices: au_sttm_prices.yml, daily.)
 on:
   schedule:
-    - cron: "20 21 * * 1"
+    - cron: "20 21 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

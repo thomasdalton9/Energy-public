@@ -7,7 +7,7 @@ name: Mexico demanda real
 # (CENACE publishes each day ~15 days after it).
 on:
   schedule:
-    - cron: "30 10 * * 1"
+    - cron: "30 10 1,15 * *"
   workflow_dispatch:
     inputs:
       max_days:

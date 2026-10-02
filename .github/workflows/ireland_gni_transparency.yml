@@ -6,7 +6,7 @@ name: Ireland GNI transparency (entry flows + consumption by sector)
 # 2018 month by month (~200 requests) - give it room.
 on:
   schedule:
-    - cron: "30 8 * * 1"
+    - cron: "30 8 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

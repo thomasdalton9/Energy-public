@@ -6,7 +6,7 @@ name: Panama power generation (CND)
 # The day's report is out by ~05:00 Panama time; daily at 13:20 UTC (8:20am Panama).
 on:
   schedule:
-    - cron: "20 13 * * 1"
+    - cron: "20 13 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

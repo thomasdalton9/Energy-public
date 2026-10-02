@@ -6,7 +6,7 @@ name: South America coal
 # DANE publishes ~6 weeks after month end and ANM updates its open data monthly; weekly run on Tuesdays 14:23 UTC.
 on:
   schedule:
-    - cron: "23 14 * * 2"
+    - cron: "23 14 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

@@ -4,7 +4,7 @@ name: Australia NEM power generation
 # saved per run (the backfill to 2021 completes over several runs), plus the month in progress.
 on:
   schedule:
-    - cron: "0 22 * * 1"
+    - cron: "0 22 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

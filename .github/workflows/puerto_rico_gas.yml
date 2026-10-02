@@ -6,7 +6,7 @@ name: Puerto Rico gas (EIA-923)
 # EIA publishes about two months after month end; weekly run on Wednesdays 13:29 UTC.
 on:
   schedule:
-    - cron: "29 13 * * 3"
+    - cron: "29 13 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

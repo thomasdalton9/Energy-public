@@ -1,0 +1,43 @@
+name: Argentina AIC reservoir snapshot
+
+# AIC (Comahue basin authority) shows only today's lake levels and keeps no history, so this small daily job
+# stores each day's reading in south_america/argentina_aic_snapshots.csv. The full Argentina hydro pull
+# (argentina_hydro_reservoirs.yml, 1st and 15th of the month) merges the file into its workbook.
+on:
+  schedule:
+    - cron: "7 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            south_america/ARGENTINA_HYDRO_RESERVOIRS.py
+            south_america/argentina_aic_snapshots.csv
+            xlsx_notes.py
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q pandas requests openpyxl
+      - name: Store today's AIC reading
+        run: timeout 300 python3 south_america/ARGENTINA_HYDRO_RESERVOIRS.py --aic-only
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f south_america/argentina_aic_snapshots.csv
+          git diff --cached --quiet && exit 0
+          git commit -m "Argentina AIC snapshot: automated update"
+          for i in 1 2 3 4 5 6; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 7))
+          done
+          exit 1

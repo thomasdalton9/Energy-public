@@ -6,7 +6,7 @@ name: Peru hydro reservoirs
 # ('Reports read') - the newest of each year from 2024 (each restates four years).
 on:
   schedule:
-    - cron: "53 13 * * 1"
+    - cron: "53 13 1,15 * *"
   workflow_dispatch:
     inputs:
       test:

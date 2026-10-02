@@ -6,7 +6,7 @@ name: Henry Hub daily
 # back to 1997; later runs re-read only the last two weeks.
 on:
   schedule:
-    - cron: "0 18 * * 1"
+    - cron: "0 18 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

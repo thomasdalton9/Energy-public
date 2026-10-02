@@ -7,7 +7,7 @@ name: South America power prices
 # Daily at 14:47 UTC (most sources publish D-1 by then; ADME monthly ~8 days after month end).
 on:
   schedule:
-    - cron: "47 14 * * 1"
+    - cron: "47 14 1,15 * *"
   workflow_dispatch:
     inputs:
       markets:

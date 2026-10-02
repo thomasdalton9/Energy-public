@@ -6,7 +6,7 @@ name: Ireland gas supply
 # demand pull; scheduled 10 minutes after it.
 on:
   schedule:
-    - cron: "10 9 * * 1"
+    - cron: "10 9 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

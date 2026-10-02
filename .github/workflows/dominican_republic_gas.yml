@@ -6,7 +6,7 @@ name: Dominican Republic gas (SIE)
 # check on Wednesdays 13:35 UTC.
 on:
   schedule:
-    - cron: "35 13 * * 3"
+    - cron: "35 13 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

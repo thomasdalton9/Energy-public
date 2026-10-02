@@ -5,7 +5,7 @@ name: North America master workbook
 # Central America master). Daily, after the morning pulls.
 on:
   schedule:
-    - cron: '40 21 * * 1,4'   # Mon + Thu evening, after the weekly pulls
+    - cron: '40 21 1,15 * *'   # 1st and 15th, evening - after that day's pulls
   workflow_dispatch: {}
 
 permissions:

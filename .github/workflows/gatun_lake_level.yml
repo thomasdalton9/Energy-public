@@ -3,7 +3,7 @@ name: Gatun Lake level
 # Panama Canal Authority daily Gatun Lake level CSV (full history each pull).
 on:
   schedule:
-    - cron: "40 6 * * 1"
+    - cron: "40 6 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

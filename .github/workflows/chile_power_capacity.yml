@@ -5,7 +5,7 @@ name: Chile power capacity
 # recomputed from each upload.
 on:
   schedule:
-    - cron: "37 10 * * 4"
+    - cron: "37 10 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

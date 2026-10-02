@@ -5,7 +5,7 @@ name: Ireland gas combined (open data + GNI transparency)
 # the three pulls (08:30, 09:10 and the demand pull) each day.
 on:
   schedule:
-    - cron: "20 10 * * 1"
+    - cron: "20 10 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

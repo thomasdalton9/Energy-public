@@ -8,7 +8,7 @@ name: Brazil gas
 # latest two months of pipeline files are fetched.
 on:
   schedule:
-    - cron: "15 11 * * 2"
+    - cron: "15 11 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

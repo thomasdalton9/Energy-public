@@ -5,7 +5,7 @@ name: Ecuador hydro reservoirs
 # workbook is the archive; each run re-reads the last two months (and any month of the past year with a gap).
 on:
   schedule:
-    - cron: "41 11 * * 1"
+    - cron: "41 11 1,15 * *"
   workflow_dispatch:
     inputs:
       test:

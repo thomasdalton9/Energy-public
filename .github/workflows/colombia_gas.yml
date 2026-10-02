@@ -5,7 +5,7 @@ name: Colombia gas
 # weekly run only downloads the newest few reports.
 on:
   schedule:
-    - cron: "30 11 * * 2"
+    - cron: "30 11 1,15 * *"
   workflow_dispatch:
     inputs:
       full:

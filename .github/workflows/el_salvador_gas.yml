@@ -6,7 +6,7 @@ name: El Salvador gas use (estimate)
 # month, Ember (compiled from UT, which blocks non-Salvadoran traffic) otherwise.
 on:
   schedule:
-    - cron: "37 12 * * 3"
+    - cron: "37 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

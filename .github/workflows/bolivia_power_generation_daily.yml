@@ -3,7 +3,7 @@ name: Bolivia power generation daily
 # CNDC daily gross generation by plant (monthly workbooks) + real-time series for recent days -> daily MWh by fuel (standard layout). Incremental; history from 2021-01-01.
 on:
   schedule:
-    - cron: "41 10 * * 1"
+    - cron: "41 10 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

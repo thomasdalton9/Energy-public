@@ -5,7 +5,7 @@ name: El Salvador power generation (SIGET, monthly)
 # traffic). SIGET refreshes it about once a year; weekly check, saved months kept.
 on:
   schedule:
-    - cron: "23 12 * * 1"
+    - cron: "23 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

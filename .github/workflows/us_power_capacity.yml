@@ -5,7 +5,7 @@ name: US power capacity (EIA-860M)
 # and otherwise only re-read the latest two months.
 on:
   schedule:
-    - cron: "25 14 * * 3"
+    - cron: "25 14 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

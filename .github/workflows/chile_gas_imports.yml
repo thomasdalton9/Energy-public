@@ -4,7 +4,7 @@ name: Chile gas imports
 # Older reports have no text layer and are read with OCR (tesseract). Manual run with full=true re-parses all.
 on:
   schedule:
-    - cron: "55 11 * * 2"
+    - cron: "55 11 1,15 * *"
   workflow_dispatch:
     inputs:
       full:

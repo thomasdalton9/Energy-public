@@ -4,7 +4,7 @@ name: Bolivia gas
 # (customs micro-data), published with a lag.
 on:
   schedule:
-    - cron: "5 12 * * 2"
+    - cron: "5 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

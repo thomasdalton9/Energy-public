@@ -5,7 +5,7 @@ name: Colombia power capacity
 # fetched.
 on:
   schedule:
-    - cron: "23 7 * * 2"
+    - cron: "23 7 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

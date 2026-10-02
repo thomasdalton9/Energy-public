@@ -12,7 +12,7 @@ name: Argentina gas
 # to catch a new month promptly.
 on:
   schedule:
-    - cron: "0 11 * * 2"
+    - cron: "0 11 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

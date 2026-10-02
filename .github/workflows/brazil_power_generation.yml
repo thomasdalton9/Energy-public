@@ -4,7 +4,7 @@ name: Brazil power generation (ONS)
 # standard grid-operator layout. Incremental: only months with missing days + the latest two.
 on:
   schedule:
-    - cron: "17 9 * * 1"
+    - cron: "17 9 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

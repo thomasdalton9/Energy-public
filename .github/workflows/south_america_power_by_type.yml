@@ -4,7 +4,7 @@ name: South and Central America power by type
 # real time. Weekly is plenty to catch new months.
 on:
   schedule:
-    - cron: "50 12 * * 2"
+    - cron: "50 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

@@ -7,7 +7,7 @@ name: Ireland gas demand
 # is plenty.
 on:
   schedule:
-    - cron: "0 9 * * 1"
+    - cron: "0 9 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

@@ -6,7 +6,7 @@ name: EIA-930 fuel mix daily
 # one - not time-critical the way MISO's "today only" API is.
 on:
   schedule:
-    - cron: "0 15 * * 1"
+    - cron: "0 15 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

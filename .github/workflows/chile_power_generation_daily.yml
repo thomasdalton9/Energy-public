@@ -7,7 +7,7 @@ name: Chile power generation daily
 # or recent days are read.
 on:
   schedule:
-    - cron: "17 12 * * 1"
+    - cron: "17 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

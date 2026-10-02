@@ -6,7 +6,7 @@ name: US gas (EIA)
 # week. Also writes Mexico's gas imports from the US (mexico_gas.xlsx).
 on:
   schedule:
-    - cron: "5 16 * * 4"
+    - cron: "5 16 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

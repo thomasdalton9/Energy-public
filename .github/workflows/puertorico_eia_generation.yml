@@ -7,7 +7,7 @@ name: Puerto Rico EIA generation
 # new month promptly without hammering the API.
 on:
   schedule:
-    - cron: "0 13 * * 3"
+    - cron: "0 13 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

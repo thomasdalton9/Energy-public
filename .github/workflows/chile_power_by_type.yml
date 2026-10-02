@@ -4,7 +4,7 @@ name: Chile power by type
 # real time. Weekly is plenty to catch new months.
 on:
   schedule:
-    - cron: "45 11 * * 2"
+    - cron: "45 11 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

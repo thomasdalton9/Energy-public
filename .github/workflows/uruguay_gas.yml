@@ -3,7 +3,7 @@ name: Uruguay gas
 # MIEM VisualPEB monthly gas flows by tariff -> demand by sector, published with a lag.
 on:
   schedule:
-    - cron: "25 12 * * 2"
+    - cron: "25 12 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

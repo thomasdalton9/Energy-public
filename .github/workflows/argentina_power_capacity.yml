@@ -5,7 +5,7 @@ name: Argentina power capacity
 # it monthly; weekly run on Fridays 11:19 UTC. Saved months are kept; only the latest two are recomputed.
 on:
   schedule:
-    - cron: "19 11 * * 5"
+    - cron: "19 11 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

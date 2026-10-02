@@ -1,14 +1,14 @@
 name: Sync to private repo
 
 # Copies every change on Energy-public's main into the private thomasdalton9/Energy repo (main and
-# github-access-energy) - see .github/scripts/sync_public_to_private.sh. Weekly, Monday 23:30 UTC: after the
-# Monday pulls and the Monday-evening master rebuilds (21:20 / 21:40). Can also be run by hand.
+# github-access-energy) - see .github/scripts/sync_public_to_private.sh. On the 1st and 15th at 23:50 UTC:
+# after that day's pulls and the evening master rebuilds (21:20 / 21:40 / 23:30). Can also be run by hand.
 # Needs the secret PRIVATE_REPO_TOKEN: a fine-grained token with Contents read/write on thomasdalton9/Energy only.
 # Sync commits carry [skip ci], so they don't start the private repo's push-triggered workflows.
 
 on:
   schedule:
-    - cron: "30 23 * * 1"
+    - cron: "50 23 1,15 * *"
   workflow_dispatch:
 
 concurrency:
