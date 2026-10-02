@@ -55,7 +55,7 @@ def brazil():
     # SIGA's DatEntradaOperacao is blank (read as day 0) for plants not yet operating: expected dates come from RALIE
     keep = [c for c in ("NomEmpreendimento", "SigUFPrincipal", "SigTipoGeracao", "DscFonteCombustivel", "Fuel",
                         "Phase", "MW") if c in p.columns]
-    sheets["BR pipeline projects"] = p[keep].sort_values("MW", ascending=False).reset_index(drop=True)
+    sheets["BR pipeline projects"] = p[keep].sort_values("MW", ascending=False).set_index(keep[0])
     print(f"  pipeline {p['MW'].sum() / 1000:,.1f} GW: {p.groupby('Fuel')['MW'].sum().round(0).to_dict()}", flush=True)
     return sheets
 
@@ -73,7 +73,7 @@ def _ckan_csv(api, query, pattern):
 def _csv(content):
     for enc in ("utf-8", "latin-1"):
         try:
-            return pd.read_csv(io.BytesIO(content), low_memory=False, encoding=enc, sep=None, engine="python")
+            return pd.read_csv(io.BytesIO(content), encoding=enc, sep=None, engine="python")
         except UnicodeDecodeError:
             continue
     raise ValueError("unreadable CSV")
@@ -109,11 +109,24 @@ def brazil_ralie():
 
 
 def argentina():
-    try:
-        content = get(AR_OBRAS).content
-    except Exception as e:  # noqa: BLE001 - the direct link moves; look it up in the open-data catalogue
-        print(f"  AR direct link failed ({type(e).__name__}); searching the catalogue", flush=True)
-        content = get(_ckan_csv(AR_CKAN, "obras generacion", r"obra")).content
+    import requests
+    from future_common import HEADERS
+    s = requests.Session()   # the portal redirects through a cookie check: a session keeps the cookie
+    s.headers.update(HEADERS)
+    content = None
+    for url in (AR_OBRAS, AR_OBRAS.replace("https://", "http://")):
+        try:
+            r = s.get(url, timeout=(10, 300))
+            r.raise_for_status()
+            content = r.content
+            break
+        except Exception as e:  # noqa: BLE001
+            print(f"  AR {url[:40]}...: {type(e).__name__}", flush=True)
+    if content is None:   # the direct link moves: look it up in the open-data catalogue
+        res = s.get(AR_CKAN, params={"q": "obras generacion", "rows": 10}, timeout=(10, 120)).json()
+        url = next(x["url"] for p in res["result"]["results"] for x in p.get("resources", [])
+                   if re.search("obra", x.get("url", ""), re.I) and x["url"].lower().endswith(".csv"))
+        content = s.get(url, timeout=(10, 300)).content
     d = _csv(content)
     print(f"AR obras: {d.shape}; columns {list(d.columns)}\n{d.head(3).to_string()[:1500]}", flush=True)
     tech = col(d, r"tecnolog|fuente|tipo")
@@ -133,7 +146,7 @@ def argentina():
             yr = pd.to_datetime(d[yc], errors="coerce", dayfirst=True).dt.year
         if yr.notna().any():
             sheets["AR works by year"] = by_year_fuel(d.assign(_y=yr), "_y", "Fuel", "MW", start=2021)
-    sheets["AR works list"] = d.reset_index(drop=True)
+    sheets["AR works list"] = d.set_index(d.columns[0])
     return sheets
 
 
