@@ -46,6 +46,9 @@ Standing instructions from the repo owner. Follow these on every change.
   Canada IESO (rolling 'today' XML), Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS
   ('today' only). Masters rebuild Mon + Thu evening. A new pull is weekly unless its source has no history.
 - Incremental: backfill gaps only, don't re-pull complete history each run.
+  The committed workbook IS the history store: each run reads it and fetches only periods not saved yet (plus a
+  short revision window). Sources that only publish whole files (e.g. MBIE webtables, Hydro Tasmania) are
+  downloaded only when a new release/Last-Modified appears (recorded on the Units sheet).
 - South America gas demand by sector: data from 2021 only.
 - Ireland gas: GNI transparency pages from 2026-03-31 on (open data covers earlier);
   ENTSOG is for validation only.

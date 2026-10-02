@@ -17,8 +17,9 @@ Writes:
   nz_power_capacity.xlsx   standard capacity layout (sheet "Monthly": date, <Fuel>_MW, Total_MW; one row per
                            period MBIE publishes) plus "By plant type" as published
 
-Each release restates the whole history (MBIE revises back years), so each run reads the latest release
-whole - one small file per table, nothing re-downloaded beyond that.
+Each release restates the whole history (MBIE revises back years), so a NEW release is read whole (one
+small file per table); a run that finds the same release files already recorded in the workbook's Units sheet
+downloads nothing.
 
 Usage: python3 NZ_MBIE.py [--gas-out ...nz_gas.xlsx] [--capacity-out ...nz_power_capacity.xlsx]
 """
@@ -75,6 +76,16 @@ def period(v):
         if re.search(r"\d{4}", t) and re.search(r"[-/ ]", t):
             return pd.to_datetime(t, errors="coerce", dayfirst=True)
     return pd.NaT
+
+
+def saved_release(out, *urls):
+    """True when `out` was built from these exact release files (MBIE names each release by month, and the
+    workbook's Units sheet records the file links) - nothing new to download."""
+    try:
+        text = " ".join(str(x) for x in pd.read_excel(out, sheet_name=0, header=None).iloc[:, 0].dropna())
+    except (FileNotFoundError, ValueError, KeyError, OSError):
+        return False
+    return all(u and u in text for u in urls)
 
 
 def wide(raw):
@@ -146,6 +157,13 @@ def table(content, sheet):
 
 def gas(out):
     murl = link(GAS_PAGE, r"monthly-gas-webtable")
+    try:
+        qlink = link(GAS_PAGE, r"gas-quarterly-webtable")
+    except SystemExit:
+        qlink = None
+    if saved_release(out, murl, qlink):
+        print(f"gas: latest releases already saved ({murl}, {qlink}) - nothing to download", flush=True)
+        return
     print("monthly gas:", murl, flush=True)
     monthly = table(get(murl).content, "Monthly_PJ")
     monthly = monthly[monthly.index >= "2010-01-01"]
@@ -193,6 +211,9 @@ def gas(out):
 
 def capacity(out):
     url = link(ELEC_PAGE, r"electricity-quarterly-webtable")
+    if saved_release(out, url):
+        print(f"capacity: latest release already saved ({url}) - nothing to download", flush=True)
+        return
     print("electricity:", url, flush=True)
     content = get(url).content
     sheet = next(s for s in pd.ExcelFile(io.BytesIO(content)).sheet_names if re.search(r"plant type.*MW", s, re.I))

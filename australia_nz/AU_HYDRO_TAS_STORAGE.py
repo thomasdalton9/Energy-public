@@ -8,9 +8,10 @@ Writes au_hydro_storage.xlsx, sheet "Weekly": date, one GWh column per lake,
 Total_GWh and Total_pct (of the full-supply energy in storage the workbook
 lists). Charted as an Oct-Sep water-year chart.
 
-The workbook is small and Hydro Tasmania revises it in place, so each run
-reads it whole and merges it over the saved rows (weeks that drop out of
-the published file are kept).
+Hydro Tasmania replaces the file in place (one small workbook, whole
+history), so a run first checks its Last-Modified date and downloads only
+when it has changed; the new file is merged over the saved rows (weeks that
+drop out of the published file are kept).
 
 Usage: python3 AU_HYDRO_TAS_STORAGE.py [--out "output/Data and Chart Outputs/au_hydro_storage.xlsx"]
 """
@@ -70,8 +71,19 @@ def main():
     ap.add_argument("--out", default=DEFAULT_OUT)
     args = ap.parse_args()
 
+    # only download when Hydro Tasmania has published a newer file (Last-Modified recorded on the Units sheet)
+    head = requests.head(URL, headers=HEADERS, timeout=(10, 60), allow_redirects=True)
+    stamp = head.headers.get("Last-Modified", "")
+    try:
+        units = " ".join(str(x) for x in pd.read_excel(args.out, sheet_name=0, header=None).iloc[:, 0].dropna())
+    except (FileNotFoundError, ValueError, KeyError, OSError):
+        units = ""
+    if stamp and f"Published file Last-Modified: {stamp}" in units:
+        print(f"No new file since {stamp} - nothing to download", flush=True)
+        return
     r = requests.get(URL, headers=HEADERS, timeout=(10, 120))
     r.raise_for_status()
+    stamp = r.headers.get("Last-Modified", stamp)
     body, full, lakes, totals = parse(r.content)
     print(f"{len(body)} weeks {body.index.min():%Y-%m-%d}..{body.index.max():%Y-%m-%d}; lakes {lakes}; "
           f"total columns {totals}", flush=True)
@@ -99,6 +111,7 @@ def main():
         "",
         "SOURCE",
         f"Hydro Tasmania, Energy in Storage historical data: {URL}",
+        f"Published file Last-Modified: {stamp or 'not given'}",
         "https://www.hydro.com.au/water/energy-in-storage",
     ]
     xlsx_notes.write_workbook(args.out, {"Weekly": w.round(2)}, notes, {"UNITS", "COVERAGE", "SOURCE"})
