@@ -45,6 +45,7 @@ GD_URL = ("https://dadosabertos.aneel.gov.br/dataset/5e0fafd2-21b9-4d5b-b622-404
 HIST_URL = ("https://dadosabertos.aneel.gov.br/dataset/306a6fdb-beb9-4296-bf18-77fa0e076ef1/resource/"
             "e61fd029-5e78-43be-bed4-873b7b11f04c/download/empreendimento-operacao-historico.csv")
 REFRESH_MONTHS = 2
+BACKFILL_TO = pd.Timestamp("2026-10-01")   # months before the first run: rebuilt from today's register every run
 
 TYPE_TO_FUEL = {"UHE": "Hydro", "PCH": "Hydro", "CGH": "Hydro", "EOL": "Wind", "UFV": "Solar", "UTN": "Nuclear"}
 # UTE (thermal) plants by DscFonteCombustivel (SIGA) / DscFonteGeracao (MMGD)
@@ -128,6 +129,24 @@ def aneel_history():
     return h.pivot_table(index="date", columns="SigTipoGeracao", values="MW", aggfunc="sum")
 
 
+def thermal_retirement_gap(hist, plants, months):
+    """MW of thermal (UTE) capacity in ANEEL's published totals but missing from the rebuild from today's SIGA
+    (plants retired since), at each month: ANEEL - rebuild at each published date, interpolated between dates and
+    tapered to 0 at the latest month (the register is complete for today)."""
+    if hist.empty or "UTE" not in hist:
+        return pd.Series(0.0, index=months)
+    ours = cumulative(plants[(plants["source"] == "SIGA") & plants["type"].str.startswith("UTE")].assign(t="UTE"),
+                      months, "t")["UTE"]
+    pts = {}
+    for d in hist.index[hist.index >= std.START]:
+        m = d.to_period("M").to_timestamp()
+        if m in ours.index and pd.notna(hist.at[d, "UTE"]):
+            pts[m] = float(hist.at[d, "UTE"]) - float(ours[m])
+    pts[months[-1]] = 0.0
+    gap = pd.Series(pts).sort_index().reindex(months).interpolate().bfill().fillna(0.0)
+    return gap.clip(lower=0.0)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
@@ -153,11 +172,19 @@ def main():
     saved = std.load_monthly(args.out)
     keep = saved.index[saved.index < (saved.index.max() - pd.DateOffset(months=REFRESH_MONTHS - 1))] \
         if not saved.empty else pd.DatetimeIndex([])
+    # back-filled months: thermal plants retired since 2021 are missing from today's register; add the gap to
+    # ANEEL's published year-end UTE totals (interpolated) under Oil - the retirements are mostly oil/diesel units
+    hist = aneel_history()
+    gap = thermal_retirement_gap(hist, plants, months)
+    back = gap.index < BACKFILL_TO
+    by_fuel_new.loc[back, "Oil"] = by_fuel_new.loc[back, "Oil"] + gap[back] if "Oil" in by_fuel_new else gap[back]
+    print(f"  retired thermal added to back-filled months (Oil): {gap.iloc[0]:,.0f} MW in {months[0]:%b %Y}, "
+          f"{gap[back].iloc[-1]:,.0f} MW in {gap[back].index[-1]:%b %Y}", flush=True)
+    keep = keep[keep >= BACKFILL_TO]   # back-filled months are always recomputed (with the adjustment)
     monthly = std.standard(by_fuel_new)
     if len(keep):
         monthly = pd.concat([saved.loc[keep, std.COLUMNS], monthly.drop(index=keep, errors="ignore")]).sort_index()
-        print(f"kept {len(keep)} saved month(s) up to {keep.max():%Y-%m}; recomputed {monthly.index.max():%Y-%m} "
-              f"back to {monthly.index[len(keep)]:%Y-%m}", flush=True)
+        print(f"kept {len(keep)} saved month(s) {keep.min():%Y-%m}..{keep.max():%Y-%m}; the rest recomputed", flush=True)
 
     def merge_saved(new, sheet):
         old = std.load_sheet(args.out, sheet, index_col=0)
@@ -173,7 +200,6 @@ def main():
 
     latest = (plants.groupby(["source", "type", "fuel"])["MW"].agg(["count", "sum"])
               .rename(columns={"count": "plants", "sum": "capacity_MW"}).round(1).reset_index().set_index("type"))
-    hist = aneel_history()
     check_hist = pd.DataFrame()
     if not hist.empty:
         ours = cumulative(plants[plants["source"] == "SIGA"].assign(
@@ -205,10 +231,12 @@ def main():
         f"Monthly, {monthly.index.min():%b %Y} to {monthly.index.max():%b %Y}. Centralised plants from SIGA (SIN and "
         "isolated systems) plus mini and micro distributed generation (MMGD). The latest month is the register as of "
         f"{asof:%Y-%m-%d} (month to date).",
-        "RETIREMENTS: neither register has a decommissioning date. Retired plants are removed from SIGA, so months "
-        "back-filled on the first run (2021 to Sep 2026) count only plants still registered today; capacity retired "
-        "since 2021 (mainly old oil/diesel units) is missing from them. Each later run keeps the months already saved "
-        "and recomputes only the latest two, so retirements from then on show up.",
+        "RETIREMENTS: neither register has a decommissioning date. Retired plants are removed from SIGA, so a rebuild "
+        "from today's register misses capacity retired since 2021 (mainly old oil/diesel thermal units). Back-filled "
+        "months (Jan 2021 to Sep 2026) are therefore recomputed on every run and topped up to ANEEL's own published "
+        "thermal (UTE) totals: the gap at each published date (2.2 GW end-2021, 1.5 GW end-2022, ...) is "
+        "interpolated between dates, tapered to 0 at the latest month and added to Oil_MW. From Oct 2026 each saved "
+        "month is kept as computed (only the latest two are recomputed), so later retirements show up directly.",
         "Each SIGA plant is counted in full from its start of commercial operation (DatEntradaOperacao, the first "
         "unit); ANEEL's unit-by-unit release list (unidades-geradoras-liberadas-operacao-comercial) gives similar "
         "yearly additions (2021-2025: 7.6/8.3/10.3/10.8/7.5 GW vs 7.5/8.4/10.3/10.2/7.3 GW here). "
