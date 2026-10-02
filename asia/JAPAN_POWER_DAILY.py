@@ -218,16 +218,17 @@ def main():
     start = date.fromisoformat(args.from_date)
 
     store = load_store(args.out)
-    if not store.empty:
-        last = store["date"].max().date()
-        start = max(start, last - timedelta(days=REVISION_DAYS))
-        store = store[store["date"] < pd.Timestamp(start)]
-        print(f"store has data to {last}; refetching from {start}")
     session = requests.Session()
     new, report = [], []
     for zone in ZONES:
+        # incremental per area: a week before that area's last stored day (a new area starts at DATA_START)
+        zstart = start
+        if not store.empty and (store["area"] == zone[1]).any():
+            zlast = store.loc[store["area"] == zone[1], "date"].max().date()
+            zstart = max(start, zlast - timedelta(days=REVISION_DAYS))
+            store = store[~((store["area"] == zone[1]) & (store["date"] >= pd.Timestamp(zstart)))]
         got, last_status = 0, ""
-        for m in months(start, date.today()):
+        for m in months(zstart, date.today()):
             mw, last_status = fetch_month(session, zone, m)
             d = to_daily(mw)
             if mw is not None and not len(d):
@@ -235,13 +236,13 @@ def main():
                 print(f"  {zone[1]} {m:%Y-%m}: parsed {len(mw)} rows ({mw.index.min()} to {mw.index.max()}, step {step}) "
                       f"but no complete day; columns {list(mw.columns)[:6]}")
             if len(d):
-                d = d[d.index >= pd.Timestamp(start)]
+                d = d[d.index >= pd.Timestamp(zstart)]
             if len(d):
                 d = d.reset_index()
                 d.insert(1, "area", zone[1])
                 new.append(d)
                 got += len(d)
-        report.append(f"{zone[1]}: {got} area-days (last http {last_status})")
+        report.append(f"{zone[1]}: from {zstart}, {got} area-days fetched (last http {last_status})")
         print(report[-1])
     if new:
         store = pd.concat([store] + new, ignore_index=True)
