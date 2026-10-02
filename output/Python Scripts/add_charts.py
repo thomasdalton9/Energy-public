@@ -1234,17 +1234,16 @@ def future_workbook(p):
         if d.empty:
             continue
         if str(first) == "Year":
-            if "STEO" in sh or "rebuilt" in sh:
-                pass
+            if sh == "NEM capacity outlook":
+                out.append(spec(sh, d / 1000.0, "Australia NEM capacity outlook: in service + committed/anticipated "
+                                "projects - announced closures (AEMO Generation Information)", "GW", "stacked_bar", "%Y"))
+                continue
             unit = "MW" if not sh.startswith(("NZ", "CA")) else "as published"
             kind = "line" if sh.startswith(("NZ", "CA")) else "stacked_bar"
             out.append(spec(sh, d, f"{region}: {sh}", unit, kind, "%Y"))
         elif sh == "US STEO outlook":
             for c in d.columns:
                 out.append(spec(f"STEO {c}"[:28], d[[c]], f"US Short-Term Energy Outlook: {c} (EIA)", c))
-        elif sh == "NEM capacity rebuilt":
-            out.append(spec(sh, d / 1000.0, "Australia NEM capacity rebuilt from AEMO unit commissioning dates",
-                            "GW", "stacked_bar"))
         else:
             out.append(spec(sh, d, f"{region}: {sh}", "as published"))
     return out
