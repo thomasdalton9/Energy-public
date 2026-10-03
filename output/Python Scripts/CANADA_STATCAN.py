@@ -210,8 +210,8 @@ def capacity(type_tab, fuel_tab):
                         "Nuclear": row(r"^nuclear")})
     other_clean = row(r"^geothermal|^other non-combustible")   # geothermal and other non-thermal plants
     total = row(r"^total installed|^total all types")
-    thermal = row(r"^total thermal")
-    if thermal.empty:
+    thermal = row(r"^total thermal") - out["Nuclear"].fillna(0)   # StatCan's 'Total thermal' includes nuclear steam
+    if thermal.dropna().empty:
         thermal = total - out.sum(axis=1, min_count=1) - other_clean.reindex(total.index).fillna(0)
     try:
         f, fdims = fuel_tab
