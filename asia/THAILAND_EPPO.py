@@ -67,8 +67,8 @@ def parse_monthly(content, colmap):
     ('JAN' in the first or second column) carry values. Column names come from the two header rows (the group
     header carried right)."""
     df = pd.read_excel(io.BytesIO(content), header=None)
-    hdr_i = next(i for i in range(len(df)) if any(str(v).strip().lower().startswith(("date", "month"))
-                                                    for v in df.iloc[i, :2]))
+    hdr_i = next(i for i in range(len(df)) if any(str(v).strip().lower() in ("date", "month")
+                                                    for v in df.iloc[i, :2]))   # not the 'Monthly ...' title
     top = df.iloc[hdr_i].ffill()
     sub = df.iloc[hdr_i + 1] if hdr_i + 1 < len(df) else pd.Series(dtype=object)
     names = {}
