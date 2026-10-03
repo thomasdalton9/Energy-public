@@ -478,6 +478,53 @@ def india_gas(p):
     return out
 
 
+MCM_PER_MMSCF = 0.0283168
+
+
+def thailand_gas(p):
+    """EPPO tables 3.1-1 / 3.2-2: monthly MMSCFD -> mcm/d. Supply by source, demand by sector."""
+    out = []
+    s = _sheet(p, "Supply", "date")
+    if not s.empty:
+        s = s[s.index >= "2015-01-01"].apply(pd.to_numeric, errors="coerce")
+        g = pd.DataFrame({"Domestic (Gulf of Thailand, JDA)": s.get("Domestic_total"),
+                          "Myanmar pipeline": s.get("Myanmar_pipeline"), "LNG": s.get("LNG")})
+        out.append(spec("Supply", (g * MCM_PER_MMSCF).round(1), "Thailand gas supply: domestic, Myanmar pipeline and LNG "
+                        "(EPPO / PTT)", "mcm/d, monthly average", "stacked_bar"))
+    d = _sheet(p, "Demand", "date")
+    if not d.empty:
+        d = d[d.index >= "2015-01-01"].apply(pd.to_numeric, errors="coerce")
+        g = pd.DataFrame({"Power": d.get("Power_total"), "Industry": d.get("Industry"),
+                          "Gas separation plants": d.get("GSP"), "NGV": d.get("NGV")})
+        out.append(spec("Demand", (g * MCM_PER_MMSCF).round(1), "Thailand gas consumption by sector (EPPO / PTT)",
+                        "mcm/d, monthly average", "stacked_bar"))
+    return out
+
+
+def bangladesh_gas(p):
+    """Petrobangla daily report: MMCFD -> mcm/d, monthly averages. Supply by source, distribution by sector."""
+    out = []
+    d = _sheet(p, "Daily", "date")
+    if d.empty:
+        return out
+    d = d.apply(pd.to_numeric, errors="coerce") * MCM_PER_MMSCF
+    out.append(spec("Supply", monthly_mean(pd.DataFrame({"Domestic - state companies": d.get("Prod_state"),
+                                                          "Domestic - IOCs (Chevron, Tullow)": d.get("Prod_IOC"),
+                                                          "Regasified LNG": d.get("RLNG")}), "2021-01-01").round(1),
+                    "Bangladesh gas supply: domestic production and LNG (Petrobangla)", "mcm/d, monthly average",
+                    "stacked_bar"))
+    out.append(spec("Demand", monthly_mean(pd.DataFrame({"Power": d.get("Power_supply"),
+                                                          "Fertiliser": d.get("Fertiliser_supply"),
+                                                          "Industry, CNG, households and other": d.get("Others_supply")}),
+                                           "2021-01-01").round(1),
+                    "Bangladesh gas supplied by sector (Petrobangla)", "mcm/d, monthly average", "stacked_bar"))
+    out.append(spec("Power gas", monthly_mean(pd.DataFrame({"Demanded by power plants": d.get("Power_demand"),
+                                                             "Supplied to power plants": d.get("Power_supply")}),
+                                              "2021-01-01").round(1),
+                    "Bangladesh gas for power: demand vs supply (Petrobangla)", "mcm/d, monthly average"))
+    return out
+
+
 def india_npp_generation(p):
     d = _sheet(p, "Daily", "date")
     c = [x for x in ("Coal_MWh", "Gas_MWh", "Oil_MWh", "Nuclear_MWh", "Hydro_MWh") if x in d]
@@ -1707,6 +1754,8 @@ REGISTRY = {
                                                            "Bhutan peak demand (BPSO)"),
     "india_power_prices.xlsx": india_iex,
     "india_gas.xlsx": india_gas,
+    "thailand_gas.xlsx": thailand_gas,
+    "bangladesh_gas.xlsx": bangladesh_gas,
     "india_npp_generation_daily.xlsx": india_npp_generation,
     "india_hydro_reservoirs.xlsx": india_reservoirs,
     "india_coal_stocks.xlsx": india_coal,
