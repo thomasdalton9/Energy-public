@@ -57,8 +57,13 @@ Standing instructions from the repo owner. Follow these on every change.
   net imports + pumped storage/batteries vs load) and "Dashboard - Capacity factors". Country list and bidding zones live in
   `europe/europe_countries.py` (add a country there and the pulls, registry and master pick it up). ENTSO-E is the primary
   power source for Europe (it is the TSOs' own statutory reporting, and matched SMARD/RTE within 0.5% in a settled-week check),
-  labelled as such; replace it per country with a national feed where that is better (e.g. CGES for Montenegro, Elexon for GB,
-  neither yet pulled). Gas: ENTSOG physical flows (pipeline imports by origin, exports, production, consumption) with ALSI LNG and
+  labelled as such; replace it per country with a national feed where that is better. Great Britain is not in ENTSO-E generation: it is pulled from
+  Elexon BMRS + NESO (`GB_POWER_DAILY.py`, incl. embedded wind/solar and interconnector flows) and its gas from National Gas NTS
+  (`GB_GAS_NTS_DAILY.py`). Ireland's ENTSO-E all-island feed covers only part of demand, so the Europe totals use Ember's monthly data for the
+  Republic of Ireland (`EMBER_EUROPE_MONTHLY.py`, labelled fallback); Albania has no Ember rows and ENTSO-E only from May 2026, so it is
+  left out of the totals. CGES (Montenegro) is not yet pulled. Months where a country's feed was incomplete (Sweden before Dec 2021) are
+  dropped, so the Europe totals start Dec 2021.
+  Gas: ENTSOG physical flows (pipeline imports by origin, exports, production, consumption) with ALSI LNG and
   AGSI+ storage give a gas balance per country and for the EU.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.

@@ -59,11 +59,13 @@ DATASETS = [
     ("IE", "Ireland", "ireland_gas_combined_daily.xlsx", "*", "gas"),
     ("IE", "Ireland", "ireland_gni_transparency_daily.xlsx", "*", "gas by sector"),
     ("EU", "Europe", "europe_gas_flows_daily.xlsx", "*", "ENTSOG"),
+    ("GB", "Great Britain", "gb_gas_nts_daily.xlsx", "Daily", "NTS gas"),
 ]
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
+       ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
        ("TR", "Turkey", "turkey_generation_mix_dashboard_daily.xlsx", "*", "power"),
        ("CY", "Cyprus", "cyprus_generation_mix_daily.xlsx", "*", "power")])
 CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "capacity")
@@ -99,6 +101,10 @@ SOURCES = {
                                         "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "ireland_gni_transparency_daily.xlsx": ("Gas Networks Ireland (GNI) transparency pages",
                                             "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
+    "gb_gas_nts_daily.xlsx": ("National Gas Transmission Data Portal (NTS demand by sector and supply by entry point)",
+                              "https://data.nationalgas.com/find-gas-data"),
+    "ember_europe_power_monthly.xlsx": ("Ember monthly electricity data (fallback for Ireland, where the ENTSO-E all-island feed is "
+                                        "incomplete; CC-BY-4.0)", "https://ember-energy.org/data/monthly-electricity-data/"),
     "great_britain_power_generation_daily.xlsx": ("Elexon BMRS (FUELHH) and NESO historic demand data (national demand, "
                                                   "embedded wind and solar)", "https://bmrs.elexon.co.uk/"),
     "ireland_smartgrid_15min.xlsx": ("EirGrid / SONI Smart Grid Dashboard", "https://www.smartgriddashboard.com/"),
@@ -181,6 +187,13 @@ def monthly_gwh(path):
     return add_charts.power_mix(m)
 
 
+def ember_ireland(data_dir):
+    """Ember monthly generation for the Republic of Ireland, GWh, in the dashboard fuel groups."""
+    d = add_charts.by_date(add_charts.read(os.path.join(data_dir, "ember_europe_power_monthly.xlsx"), "Ireland"), "Month")
+    d = d[[c for c in d.columns if str(c).endswith("_GWh") and c not in ("Total_GWh", "Demand_GWh", "NetImports_GWh")]]
+    return add_charts.power_mix(d.apply(pd.to_numeric, errors="coerce"))
+
+
 def europe_generation(data_dir, frames_out=None):
     """Sum of the ENTSO-E countries with a near-complete record, GWh per month, over the months they all have."""
     frames, notes = {}, []
@@ -193,6 +206,27 @@ def europe_generation(data_dir, frames_out=None):
             notes.append(f"NOT INCLUDED: {name} ({type(e).__name__}: {e})")
     if not frames:
         return pd.DataFrame(), notes
+    last_all = max(f.index.max() for f in frames.values())
+    # Great Britain (Elexon + NESO) is not in ENTSO-E generation; Ireland's ENTSO-E all-island feed covers only part of demand,
+    # so Ireland (Republic) comes from Ember, which lags a few months: later months repeat the same month of the previous year.
+    try:
+        frames["Great Britain"] = monthly_gwh(os.path.join(data_dir, GB_FILE))
+    except Exception as e:  # noqa: BLE001
+        notes.append(f"NOT INCLUDED: Great Britain ({type(e).__name__}: {e})")
+    try:
+        em = ember_ireland(data_dir)
+        frames.pop("Ireland (all-island SEM)", None)
+        em_last = em.index.max()
+        ext = [d for d in pd.date_range(em_last + pd.offsets.MonthBegin(1), last_all, freq="MS")]
+        for d in ext:
+            em.loc[d] = em.loc[d - pd.DateOffset(years=1)] if (d - pd.DateOffset(years=1)) in em.index else float("nan")
+        em = em.dropna(how="all")
+        frames["Ireland"] = em
+        if ext:
+            notes.append(f"Ireland (Republic of Ireland): Ember monthly data to {em_last:%b/%y}; "
+                         f"{ext[0]:%b/%y}-{ext[-1]:%b/%y} repeat the same month of the previous year (about 1% of the total)")
+    except Exception as e:  # noqa: BLE001
+        notes.append(f"Ireland from Ember not available ({type(e).__name__}: {e}); ENTSO-E all-island feed used")
     if frames_out is not None:
         frames_out.update(frames)
     keep, months = core_months(frames, START, notes)

@@ -365,6 +365,19 @@ def sa_power(p):
     return out
 
 
+def ember_europe(p):
+    """Ember fallback sheets for Europe (Ireland, Albania): generation by fuel per month (demand and net imports stay in the
+    data columns for the master's balance)."""
+    out = []
+    for sheet in pd.ExcelFile(p).sheet_names:
+        if sheet.lower() in ("units", "notes") or sheet.startswith("Chart"):
+            continue
+        d = by_date(read(p, sheet), "Month")
+        d = d[[c for c in d.columns if c.endswith("_GWh") and c not in ("Total_GWh", "Demand_GWh", "NetImports_GWh")]]
+        out.append(spec(sheet, power_mix(d), f"{sheet} power generation by type (Ember)", "GWh per month", "stacked_bar"))
+    return out
+
+
 def sa_power_annual(p):
     """EMBER_POWER_BY_TYPE.py --yearly: one chart per country sheet, GWh per year (countries Ember has no
     monthly data for)."""
@@ -1705,6 +1718,7 @@ def gb_gas_nts(p):
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
+    "ember_europe_power_monthly.xlsx": ember_europe,
     "brazil_gas_monthly.xlsx": brazil,
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
