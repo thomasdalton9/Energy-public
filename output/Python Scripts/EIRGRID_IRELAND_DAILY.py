@@ -69,14 +69,17 @@ def links():
             y, v = int(m.group(1)), int(m.group(2) or 0)
             if y not in best or v > best[y][0]:
                 best[y] = (v, u)
-    # older years are still hosted but no longer linked from the page: try the plain per-year name
+    # older years are still hosted but no longer linked from the page: try the plain per-year name and -V2..-V25 and keep the
+    # highest version that exists (a year's first file is a part-year draft; later versions are complete)
     base = "https://cms.eirgrid.ie/sites/default/files/publications/"
-    for y in range(2014, datetime.now(timezone.utc).year):
-        if y not in best:
-            u = f"{base}System-Data-Qtr-Hourly-{y}.xlsx"
+    for y in range(2021, datetime.now(timezone.utc).year):
+        if y in best:
+            continue
+        for v in range(0, 26):
+            u = f"{base}System-Data-Qtr-Hourly-{y}.xlsx" if v == 0 else f"{base}System-Data-Qtr-Hourly-{y}-V{v}.xlsx"
             try:
                 if requests.head(u, headers=H, timeout=30, allow_redirects=True).status_code == 200:
-                    best[y] = (0, u)
+                    best[y] = (v, u)
             except requests.RequestException:
                 pass
     summary = [u for u in hrefs if "System-and-Renewable-Data-Summary-Report" in u]
