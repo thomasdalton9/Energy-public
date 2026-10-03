@@ -6,8 +6,9 @@ EPPO publishes each statistics table as .xls, re-uploaded when it updates (the u
 links are read from the page each run):
   Table 5.2-4  Power Generation by Fuel (Detail), GWh, monthly: Natural Gas, Lignite, Coal, Fuel Oil,
                Diesel, Hydro, Imported Electricity (mainly Lao hydro), Renewable Energy, Total - whole
-               system (EGAT, IPP, SPP, VSPP). T05_02_04-1.xls = history by month (from 1992), T05_02_04.xls =
-               current year.
+               system (EGAT, IPP, SPP, VSPP). T05_02_04-1.xls = history by month (from 1992).
+  Table 5.2-2  Power Generation by Fuel Type, same system and fuels (coal and lignite combined):
+               T05_02_02.xls = the current year and the two before it, which extends 5.2-4.
   Table 5.2-5  Peak, generation and load factor (EGAT system), monthly: T05_02_05-1.xls / T05_02_05.xls.
 
 Writes output/Data and Chart Outputs/thailand_power_generation_daily.xlsx (monthly rows in the standard
@@ -56,7 +57,7 @@ def table_links():
     r = requests.get(PAGE, headers=H, timeout=T)
     r.raise_for_status()
     links = {}
-    for u in re.findall(r'href="([^"]+/(T05_02_0[45](?:-1)?)\.xls)"', r.text):
+    for u in re.findall(r'href="([^"]+/(T05_02_0[245](?:-1)?)\.xls)"', r.text):
         links.setdefault(u[1], u[0])
     return links
 
@@ -93,9 +94,9 @@ def parse_monthly(content, colmap):
     return pd.DataFrame.from_dict(rows, orient="index").sort_index()
 
 
-def fetch(links, name, colmap):
+def fetch(links, keys, colmap):
     frames, stamps = [], []
-    for key in (f"{name}-1", name):   # history first, then the current-year file overrides it
+    for key in keys:   # history first, then the current-year file overrides it
         if key not in links:
             out(f"  {key}: no link on the page")
             continue
@@ -117,8 +118,8 @@ def main():
     args = ap.parse_args()
     links = table_links()
     out(f"links: {links}")
-    gen, s1 = fetch(links, "T05_02_04", GEN_COLS)
-    peak, s2 = fetch(links, "T05_02_05", PEAK_COLS)
+    gen, s1 = fetch(links, ("T05_02_04-1", "T05_02_02"), GEN_COLS)
+    peak, s2 = fetch(links, ("T05_02_05-1", "T05_02_05"), PEAK_COLS)
     if gen.empty:
         raise SystemExit("No EPPO generation table")
     g = gen.apply(pd.to_numeric, errors="coerce").fillna(0) * 1000   # GWh -> MWh
@@ -128,24 +129,24 @@ def main():
                           "Other_MWh": g.get("Renewable", 0)}, index=g.index)
     daily["Total_MWh"] = daily.sum(axis=1)
     daily["Imports_MWh"] = g.get("Imports", 0)
-    daily["Lignite_MWh"] = g.get("Lignite", 0)
     daily = daily[(daily.index >= "2010-01-01") & (daily["Total_MWh"] > 0)].round(0)
     daily.index.name = "date"
-    peak = peak[peak.index >= "2010-01-01"] if not peak.empty else peak
+    peak = peak[peak.index >= "2010-01-01"].dropna(how="all") if not peak.empty else peak
     peak.index.name = "date"
     out(daily.tail(4).to_string())
-    out((daily.drop(columns="Lignite_MWh").resample("YS").sum() / 1e6).round(1).tail(6).to_string())
+    out((daily.resample("YS").sum() / 1e6).round(1).tail(6).to_string())
     notes = [
         "UNITS",
         "Daily: one row per MONTH (dated the 1st), MWh in the month (EPPO publishes GWh, x1,000). Gas, Coal (coal + "
-        "lignite; Lignite_MWh shown separately as well), Oil (fuel oil + diesel), Hydro, Other = EPPO 'Renewable "
+        "lignite), Oil (fuel oil + diesel), Hydro, Other = EPPO 'Renewable "
         "Energy' (solar, wind, biomass, biogas, waste - EPPO does not split it). Total_MWh = domestic generation (sum "
         "of those). Imports_MWh = imported electricity (Lao PDR hydro, some Malaysia), not in Total_MWh.",
         "Peak: monthly peak demand (MW), generation (GWh) and load factor (%), EGAT system (Table 5.2-5).",
         "",
         "COVERAGE",
         f"Monthly from {daily.index.min():%Y-%m} to {daily.index.max():%Y-%m}, whole Thai system (EGAT, IPP, SPP and "
-        "VSPP generation), EPPO Table 5.2-4 'Power Generation by Fuel (Detail)'. EPPO updates about two months "
+        "VSPP generation), EPPO Table 5.2-4 'Power Generation by Fuel (Detail)', extended with Table 5.2-2 for the "
+        "current year. EPPO updates about two months "
         "after the month.",
         "Files read this run: " + "; ".join(s1 + s2),
         "",
