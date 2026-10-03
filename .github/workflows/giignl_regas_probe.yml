@@ -1,0 +1,21 @@
+name: GIIGNL regas probe (manual)
+
+# One-off: find GIIGNL's LNG imports and regasification capacity by country tables. Move to discovery_archive/workflows/ when done.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -q pandas openpyxl requests pdfplumber
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 800 python3 discovery_archive/rest_of_world/GIIGNL_REGAS_PROBE.py
