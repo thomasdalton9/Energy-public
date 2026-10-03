@@ -192,7 +192,7 @@ def main():
             "Gas Infrastructure Europe, AGSI+")),
         ("EU Storage flows data", lambda: fuel_chart(
             xl, "EU Storage flows data", "EU gas storage: withdrawals (+) and injections (-)", "GWh per month",
-            out("europe_gas_storage_flows.png"), source="Gas Infrastructure Europe, AGSI+")),
+            out("europe_gas_storage_flows.png"), source="Gas Infrastructure Europe, AGSI+", by_order=True)),
         ("EU Send-out data", lambda: fuel_chart(
             xl, "EU Send-out data", "EU LNG terminal send-out by country", "GWh per month",
             out("europe_lng_sendout.png"), source="Gas Infrastructure Europe, ALSI", by_order=True)),
