@@ -445,6 +445,31 @@ def philippines_market(p):
     return out
 
 
+def india_gas(p):
+    """PPAC: monthly MMSCM -> mcm/d. Sector groups: Power, Fertiliser, CGD, Refinery & petrochemical, Other."""
+    out = []
+    d = _sheet(p, "Sectoral", "month")
+    if not d.empty:
+        d = d[d.index >= "2019-04-01"].apply(pd.to_numeric, errors="coerce")
+        pick = lambda *k: d[[c for c in d.columns if any(x in str(c).lower() for x in k)  # noqa: E731
+                             and "total" not in str(c).lower()]].sum(axis=1, min_count=1)
+        g = pd.DataFrame({"Power": pick("power"), "Fertiliser": pick("fertili"), "City gas (CGD)": pick("cgd"),
+                          "Refinery & petrochemical": pick("refiner", "petrochem")})
+        known = [c for c in d.columns if any(x in str(c).lower() for x in ("power", "fertili", "cgd", "refiner",
+                                                                          "petrochem", "total"))]
+        g["Other"] = d[[c for c in d.columns if c not in known]].sum(axis=1, min_count=1)
+        out.append(spec("Demand", _per_day(g), "India gas consumption by sector (PPAC)", "mcm/d, monthly average",
+                        "stacked_bar"))
+    b = _sheet(p, "Balance", "month")
+    if not b.empty:
+        b = b[b.index >= "2019-04-01"][cols(b, "Net_production", "LNG_imports")]
+        out.append(spec("Supply", _per_day(b).rename(columns={"Net_production": "Domestic production (net)",
+                                                              "LNG_imports": "LNG imports"}),
+                        "India gas supply: domestic production and LNG imports (PPAC)", "mcm/d, monthly average",
+                        "stacked_bar"))
+    return out
+
+
 def malaysia_smp(p):
     d = _sheet(p, "Daily", "date")
     c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
@@ -1507,6 +1532,7 @@ REGISTRY = {
     "bhutan_power_generation_daily.xlsx": power_and_demand("Bhutan power generation (BPSO, hydro)",
                                                            "Bhutan peak demand (BPSO)"),
     "india_power_prices.xlsx": india_iex,
+    "india_gas.xlsx": india_gas,
     "bangladesh_power_generation_daily.xlsx": power_and_demand("Bangladesh power generation by fuel (PGCB)",
                                                                "Bangladesh served demand (PGCB)"),
     "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,

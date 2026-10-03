@@ -1,2 +1,2 @@
 # pull commands run by .github/workflows/sea_pull_run.yml (temporary, branch only)
-asia/BANGLADESH_PGCB.py
+asia/INDIA_PPAC_GAS.py
