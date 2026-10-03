@@ -25,7 +25,7 @@ jobs:
       - name: Run (monthly)
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Bangladesh,Sri Lanka,Thailand,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia,Singapore" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Bangladesh,Sri Lanka,Thailand,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
       - name: Run (yearly)
         if: always()
         env:
