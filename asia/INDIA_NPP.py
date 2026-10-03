@@ -47,8 +47,8 @@ NPP = "https://npp.gov.in/public-reports/cea/daily"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (20, 120)
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
-GEN_START, RES_START, COAL_START = date(2021, 1, 1), date(2020, 10, 1), date(2022, 1, 1)
-REVISION_DAYS = 3
+GEN_START, RES_START, COAL_START = date(2021, 1, 1), date(2020, 10, 21), date(2024, 6, 5)   # where NPP's archives start
+REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
 WORKERS = 6
 TYPES = {"THERMAL": "Coal", "THER (GT)": "Gas", "THER (DG)": "Oil", "NUCLEAR": "Nuclear", "HYDRO": "Hydro"}
 # plausible all-India conventional generation, MWh/day (catches a wrong column: April-to-date totals are ~100x)
@@ -269,9 +269,10 @@ def coal(path):
     out(f"  totals taken from: {how}")
     new = pd.DataFrame.from_dict(res, orient="index")
     if not new.empty:
-        new["Days_of_stock"] = (new["Actual_stock_kt"] / new["Consumption_kt"].rolling(7, min_periods=1).mean()).round(1)
         new = new.round(1)
     d = merge(old, new)
+    if not d.empty:   # on the merged history, so the 7-day average spans consecutive days
+        d["Days_of_stock"] = (d["Actual_stock_kt"] / d["Consumption_kt"].rolling(7, min_periods=1).mean()).round(1)
     d.index.name = "date"
     notes = ["UNITS",
              "Thousand tonnes ('000 t), all-India thermal power plants in CEA's daily coal stock report: Actual_stock_kt "

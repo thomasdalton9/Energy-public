@@ -53,7 +53,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (15, 120)
 DATA_START = date(2021, 1, 1)
 CHUNK_DAYS = 7
-REVISION_DAYS = 3
+REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 GEN_OUT = os.path.join(OUT_DIR, "malaysia_power_generation_daily.xlsx")
 CAP_OUT = os.path.join(OUT_DIR, "malaysia_power_capacity.xlsx")
@@ -280,8 +280,9 @@ def main():
     ap.add_argument("--start", default=DATA_START.isoformat())
     args = ap.parse_args()
     os.makedirs(os.path.dirname(os.path.abspath(args.gen_out)), exist_ok=True)
-    generation(args.gen_out, date.fromisoformat(args.start))
-    for step, fn, path in (("Capacity", capacity, args.cap_out), ("Prices", prices, args.price_out)):
+    steps = (("Generation", lambda p: generation(p, date.fromisoformat(args.start)), args.gen_out),
+             ("Capacity", capacity, args.cap_out), ("Prices", prices, args.price_out))
+    for step, fn, path in steps:   # one source down (GSO or Single Buyer) does not stop the others
         try:
             fn(path)
         except Exception as e:  # noqa: BLE001

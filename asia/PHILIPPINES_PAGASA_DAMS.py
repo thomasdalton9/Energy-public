@@ -102,12 +102,18 @@ def main():
         old.index = pd.to_datetime(old.index)
     except (FileNotFoundError, ValueError):
         old = pd.DataFrame()
-    daily = new if old.empty else pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
+    # a dam missing from today's table keeps its stored reading: new values win only where present
+    daily = new if old.empty else new.combine_first(old).sort_index()
     daily = daily[sorted(daily.columns, key=lambda c: [f"{d.replace(' ', '_')}_m" for d in DAMS].index(c)
                          if c in [f"{d.replace(' ', '_')}_m" for d in DAMS] else 99)]
     daily.index.name = "date"
     lim = pd.DataFrame([{"dam": d, "NHWL_m": v[0], "Rule_curve_m": v[1], "as_of": today.isoformat()}
                         for d, v in limits.items()]).set_index("dam") if limits else pd.DataFrame()
+    if lim.empty:   # no limits parsed today: keep the saved ones
+        try:
+            lim = pd.read_excel(args.out, sheet_name="Limits", index_col=0)
+        except (FileNotFoundError, ValueError):
+            pass
     notes = [
         "UNITS",
         "Daily: reservoir water level at 08:00, metres above mean sea level, one column per dam. Limits: normal high "

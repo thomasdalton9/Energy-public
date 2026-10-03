@@ -38,7 +38,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
      "Accept": "application/json"}
 T = (15, 60)
 DATA_START = date(2020, 10, 1)
-REVISION_DAYS = 3
+REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
 BATCH = 400
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "thailand_hydro_reservoirs.xlsx")
 

@@ -42,7 +42,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
      "Referer": "https://www.bpso.bt/home/energy", "X-Requested-With": "XMLHttpRequest",
      "Accept": "application/json, */*"}
 T = (15, 90)
-DATA_START = date(2023, 4, 1)
+DATA_START = date(2023, 7, 1)   # BPSO's daily data starts in July 2023
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "bhutan_power_generation_daily.xlsx")
 SERIES = {"generation_mwh": "Generation_MWh", "energy_met_mwh": "Energy_met_MWh", "peak_demand_mw": "Demand_peak_MW",
           "energy_export_mwh": "Exports_MWh", "energy_import_mwh": "Imports_MWh",
@@ -107,7 +107,8 @@ def main():
     raw = old.copy()
     if new:
         add = pd.concat(new.values())
-        raw = pd.concat([raw[~raw.index.isin(add.index)], add]).sort_index() if not raw.empty else add.sort_index()
+        # a series that failed to download this run (empty) keeps its saved values: new values win only where present
+        raw = add.combine_first(raw).sort_index() if not raw.empty else add.sort_index()
     raw = raw[raw["Generation_MWh"].fillna(0) > 0] if "Generation_MWh" in raw else raw
     if raw.empty:
         raise SystemExit("No BPSO data")

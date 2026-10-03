@@ -185,6 +185,14 @@ def regional_generation(data_dir, raw_files, frames_out=None):
                 fname = raw_files[country]
                 m = monthly_gwh(os.path.join(data_dir, fname))
                 src = SOURCES.get(fname, (fname,))[0]
+                try:   # months before the raw feed starts (e.g. Sri Lanka's PUCSL data from 2023) come from Ember
+                    e = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
+                    e = e[(e.index < m.index.min()) & (e.index >= "2021-01-01")]
+                    if len(e):
+                        m = pd.concat([e, m]).sort_index()
+                        src += f" (Ember before {e.index.max() + pd.offsets.MonthBegin(1):%b/%y})"
+                except Exception:  # noqa: BLE001  (no Ember sheet for this country: raw only)
+                    pass
             else:
                 m = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
                 src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})" + (

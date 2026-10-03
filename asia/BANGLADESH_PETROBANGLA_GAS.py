@@ -16,7 +16,7 @@ Writes output/Data and Chart Outputs/bangladesh_gas.xlsx:
           Power_demand, Power_supply, Fertiliser_demand, Fertiliser_supply, Others_supply, Total_distribution
 
 Incremental: the Daily sheet is the history store; the listing is read newest first only as far back as the
-earliest missing day (from DATA_START), and only reports not saved yet are downloaded (plus REVISION_DAYS).
+earliest missing day (from DATA_START on the first run, then within the last GAP_DAYS), and only reports not saved yet are downloaded (plus REVISION_DAYS).
 A checkpoint is written every BATCH reports. Runs on the 1st and 15th.
 
     python3 asia/BANGLADESH_PETROBANGLA_GAS.py
@@ -27,6 +27,7 @@ import json
 import os
 import re
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 
@@ -45,8 +46,9 @@ FILTER = json.dumps({"reports_type": "6922d2b181fc96cef9e99f16"})
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (20, 120)
 DATA_START = date(2021, 1, 1)
-REVISION_DAYS = 3
+REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
 BATCH = 150
+GAP_DAYS = 45
 MAX_PAGES = 400
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "bangladesh_gas.xlsx")
 BN = str.maketrans("০১২৩৪৫৬৭৮৯", "0123456789")
@@ -71,6 +73,7 @@ def get(url, **kw):
             if i == 3:
                 raise
             out(f"  retry {url[:90]}: {e}")
+            time.sleep(5 * (i + 1))
 
 
 def listing_page(page):
@@ -253,7 +256,10 @@ def main():
     have = set(saved.dropna(subset=["Total_supply"]).index.date) if "Total_supply" in saved else set()
     today = date.today()
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS + 1)}
-    missing = {DATA_START + timedelta(days=k) for k in range((today - DATA_START).days + 1)} - (have - revise)
+    # once history is saved, only the last GAP_DAYS count as missing: a day Petrobangla never published must not
+    # send every run back through the whole listing
+    first = max(DATA_START, max(have) - timedelta(days=GAP_DAYS)) if have else DATA_START
+    missing = {first + timedelta(days=k) for k in range((today - first).days + 1)} - (have - revise)
     earliest = min(missing) if missing else today
     out(f"{len(have)} days saved; {len(missing)} candidate days, earliest {earliest}")
     todo = []

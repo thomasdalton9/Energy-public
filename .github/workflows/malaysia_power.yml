@@ -13,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -34,7 +34,7 @@ jobs:
           [ -f "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" || echo "chart step skipped/failed for malaysia_power_capacity.xlsx"
           [ -f "output/Data and Chart Outputs/malaysia_power_prices.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_prices.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/malaysia_power_prices.xlsx" || echo "chart step skipped/failed for malaysia_power_prices.xlsx"
           mkdir -p "output/Python Scripts"
-          cp png_charts.py asia/MALAYSIA_GSO.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/MALAYSIA_GSO.py south_america/power_capacity_std.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()

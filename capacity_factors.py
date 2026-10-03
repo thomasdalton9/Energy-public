@@ -110,7 +110,7 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
         gens[country], caps[country] = g.where(ok), c.where(ok)
         cdf = cf[cf.index >= "2021-01-01"]
         if not cdf.empty:
-            ws = wb.create_sheet(sheet_name_fn(f"{country[:20]} CF data", used))
+            ws = wb.create_sheet(sheet_name_fn(f"{country[:20].rstrip()} CF data", used))
             df, _ = xlsx_charts.prepare(cdf.round(1))
             xlsx_charts.write_table(ws, df)
             ws.cell(row=1, column=df.shape[1] + 4, value=f"Capacity factor = generation / (capacity x hours); {note}")
@@ -137,7 +137,7 @@ def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, c
         reg = reg.where(c_sum >= MIN_MW).where((reg > 0) & (reg <= MAX_CF))
         reg = reg[reg.index >= "2021-01-01"].dropna(how="all", axis=1).dropna(how="all")
         if not reg.empty:
-            ws = wb.create_sheet(sheet_name_fn(f"{region[:18]} CF data", used))
+            ws = wb.create_sheet(sheet_name_fn(f"{region[:18].rstrip()} CF data", used))
             df, _ = xlsx_charts.prepare(reg.round(1))
             xlsx_charts.write_table(ws, df)
             ws.cell(row=1, column=df.shape[1] + 4, value="Capacity factor = generation / (capacity x hours), countries "

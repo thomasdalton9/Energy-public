@@ -102,7 +102,7 @@ def main():
         "",
         "COVERAGE",
         ("Yearly. " if args.yearly else "Monthly. ") + "; ".join(coverage) + ". Ember lags real time by one to several months (it varies by "
-        "country); the weekly run picks up new months as they're released.",
+        "country); each scheduled run picks up new months as they're released.",
         "",
         "SOURCE",
         f"Ember {'yearly' if args.yearly else 'monthly'} electricity data (free, CC-BY-4.0): {url}. Ember compiles each country's grid operator / "

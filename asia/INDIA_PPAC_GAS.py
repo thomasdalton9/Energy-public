@@ -137,13 +137,14 @@ def balance(session):
     """getGasConsumption per FY -> Net production, LNG import, Total consumption (MMSCM) by month."""
     rows = {}
     for fy in range(FIRST_FY, fy_now() + 1):
-        r = session.post(f"{BASE}/AjaxController/getGasConsumption",
-                         data={"financialYear": f"{fy}-{fy + 1}", "reportBy": 4, "pageId": 138},
-                         headers={"X-Requested-With": "XMLHttpRequest", "Referer": f"{BASE}/natural-gas/consumption"},
-                         timeout=T)
         try:
+            r = session.post(f"{BASE}/AjaxController/getGasConsumption",
+                             data={"financialYear": f"{fy}-{fy + 1}", "reportBy": 4, "pageId": 138},
+                             headers={"X-Requested-With": "XMLHttpRequest", "Referer": f"{BASE}/natural-gas/consumption"},
+                             timeout=T)
             res = r.json().get("result") or {}
-        except ValueError:
+        except (requests.RequestException, ValueError) as e:   # one year failing skips that year, not the run
+            print(f"  balance FY{fy}: {type(e).__name__}: {e}", flush=True)
             continue
         for v in (res.values() if isinstance(res, dict) else res):
             title = re.sub(r"<[^>]+>", "", str(v.get("title", ""))).strip()

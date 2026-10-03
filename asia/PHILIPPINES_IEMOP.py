@@ -49,7 +49,7 @@ T = (20, 120)
 POSTS = {"RTDREG": 5760, "DIPCER": 5754}
 REGIONS = {"CLUZ": "Luzon", "CVIS": "Visayas", "CMIN": "Mindanao", "LUZON": "Luzon", "VISAYAS": "Visayas",
            "MINDANAO": "Mindanao"}
-REVISION_DAYS = 2
+REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "philippines_power_market.xlsx")
 
 
@@ -196,7 +196,10 @@ def main():
     for d in todo:
         c = get(rtd[d][0])
         if c:
-            rows[pd.Timestamp(d)] = demand_day(c)
+            try:
+                rows[pd.Timestamp(d)] = demand_day(c)
+            except Exception as e:  # noqa: BLE001  (one malformed file skips that day, not the run)
+                out(f"  RTD {d}: {type(e).__name__}: {e}")
     dem = merge(old_d, pd.DataFrame.from_dict(rows, orient="index").round(1))
 
     dip = listing("DIPCER")
@@ -205,8 +208,15 @@ def main():
     out(f"DIPCER: {len(dip)} days listed, fetching {len(todo)} (24 hourly files each)")
     rows = {}
     for n, d in enumerate(todo):
+        parts = []
         with ThreadPoolExecutor(8) as ex:   # the day's 24 hourly zips at once
-            parts = [price_hour(c) for c in ex.map(get, dip[d]) if c]
+            for c in ex.map(get, dip[d]):
+                if not c:
+                    continue
+                try:
+                    parts.append(price_hour(c))
+                except Exception as e:  # noqa: BLE001  (one malformed zip skips that hour)
+                    out(f"  DIPCER {d}: {type(e).__name__}: {e}")
         if not parts:
             continue
         x = pd.concat(parts)

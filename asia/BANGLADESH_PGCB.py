@@ -39,7 +39,7 @@ URL = "https://erp.powergrid.gov.bd/w/generations/view_generations"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (15, 90)
 DATA_START = date(2021, 1, 1)
-REVISION_DAYS = 3
+REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
 MAX_PAGES = 3000
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "bangladesh_power_generation_daily.xlsx")
 # header keyword (lower case) -> column; first match wins, checked against the flattened header text
@@ -150,7 +150,10 @@ def main():
     # read back to the earliest day not saved (or the revision window), so gaps and dropped days are refilled
     last = date.today() - timedelta(days=1)
     have = set(old.index.date) if not old.empty else set()
-    missing = [d for d in (DATA_START + timedelta(days=k) for k in range((last - DATA_START).days + 1)) if d not in have]
+    # once history is saved, only the last 45 days count as missing (an old day PGCB never published must not send
+    # every run back through thousands of pages)
+    first = max(DATA_START, max(have) - timedelta(days=45)) if have else DATA_START
+    missing = [d for d in (first + timedelta(days=k) for k in range((last - first).days + 1)) if d not in have]
     stop = min([last - timedelta(days=REVISION_DAYS)] + missing[:1])
     out(f"{len(old)} days saved; reading pages back to {stop}")
     frames = []

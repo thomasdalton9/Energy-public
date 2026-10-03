@@ -19,7 +19,7 @@ generation layout, dated the 1st of each month - like the other monthly-only cou
   Peak     monthly peak demand (MW), generation (GWh) and load factor (%), EGAT system
 
 EPPO only re-publishes whole files: they are downloaded every run (two small files) and the history is the
-merged result; the files' Last-Modified dates are recorded on the Units sheet. Runs on the 1st and 15th.
+merged result, merged over the saved sheets (new rows win); the files' Last-Modified dates are recorded on the Units sheet. Runs on the 1st and 15th.
 
     python3 asia/THAILAND_EPPO.py
 """
@@ -117,6 +117,19 @@ def fetch(links, keys, colmap):
     return d[~d.index.duplicated(keep="last")].sort_index(), stamps
 
 
+def keep_saved(path, sheet, new):
+    """Merge a freshly parsed table over the saved sheet (new rows win), so a failed or truncated download never
+    drops history or a whole sheet."""
+    try:
+        old = pd.read_excel(path, sheet_name=sheet, index_col=0)
+        old.index = pd.to_datetime(old.index)
+    except (FileNotFoundError, ValueError):
+        return new
+    if new is None or new.empty:
+        return old
+    return pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
@@ -138,6 +151,8 @@ def main():
     daily.index.name = "date"
     peak = peak[peak.index >= "2010-01-01"].dropna(how="all") if not peak.empty else peak
     peak.index.name = "date"
+    daily, peak = keep_saved(args.out, "Daily", daily), keep_saved(args.out, "Peak", peak)
+    daily.index.name = peak.index.name = "date"
     out(daily.tail(4).to_string())
     out((daily.resample("YS").sum() / 1e6).round(1).tail(6).to_string())
     notes = [

@@ -14,7 +14,7 @@ Writes output/Data and Chart Outputs/thailand_gas.xlsx:
   Supply     monthly MMSCFD by field / import source, plus Domestic_total, Myanmar_pipeline, LNG, Imports_total, Total
   Demand     monthly MMSCFD: Power_EGAT, Power_IPP, Power_SPP, Power_total, Industry, GSP, NGV, Total
 
-EPPO only re-publishes whole files (small): they are downloaded every run and the files' Last-Modified dates are
+EPPO only re-publishes whole files (small): they are downloaded every run, merged over the saved sheets (new rows win), and the files' Last-Modified dates are
 recorded on the Units sheet. Runs on the 1st and 15th.
 
     python3 asia/THAILAND_EPPO_GAS.py
@@ -124,6 +124,19 @@ def fetch(links, keys, sub_key):
     return d[~d.index.duplicated(keep="last")].sort_index(), stamps
 
 
+def keep_saved(path, sheet, new):
+    """Merge a freshly parsed table over the saved sheet (new rows win), so a failed or truncated download never
+    drops history or a whole sheet."""
+    try:
+        old = pd.read_excel(path, sheet_name=sheet, index_col=0)
+        old.index = pd.to_datetime(old.index)
+    except (FileNotFoundError, ValueError):
+        return new
+    if new is None or new.empty:
+        return old
+    return pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
@@ -164,6 +177,9 @@ def main():
         "EPPO (Energy Policy and Planning Office, Ministry of Energy, Thailand), natural gas statistics, tables 3.1-1 "
         "and 3.2-2 (data from PTT): https://www.eppo.go.th/data-energy-statistic/energy-statistic/gas-energy-stat/",
     ]
+    supply, demand = keep_saved(args.out, "Supply", supply), keep_saved(args.out, "Demand", demand)
+    for v in (supply, demand):
+        v.index.name = "date"
     sheets = {k: v for k, v in (("Supply", supply), ("Demand", demand)) if not v.empty}
     xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "COVERAGE", "SOURCE"})
     out(f"Saved {args.out}")
