@@ -126,7 +126,8 @@ SOURCES = {
     "philippines_dam_levels.xlsx": ("DOST-PAGASA, dam information", "https://www.pagasa.dost.gov.ph/flood"),
     "singapore_gas.xlsx": ("EMA Singapore Energy Statistics (annual); SingStat town gas; power burn ESTIMATED from "
                            "EMC/NEMS metered CCGT generation", "https://www.ema.gov.sg/resources/singapore-energy-statistics"),
-    "singapore_power_generation_daily.xlsx": ("EMC / NEMS (Energy Market Company), metered generation by facility type; "
+    "singapore_power_generation_daily.xlsx": ("EMC / NEMS (Energy Market Company) metered generation by facility type, plus estimated "
+                                              "unmetered generation to the EMA / SingStat monthly total; "
                                               "EMA system demand", "https://www.nems.emcsg.com/nems-prices"),
     "singapore_power.xlsx": ("EMA half-hourly system demand; EMC/NEMS metered generation by facility type; SingStat; "
                              "EMA SES", "https://www.ema.gov.sg/resources/statistics/half-hourly-system-demand-data"),

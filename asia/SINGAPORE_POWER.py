@@ -35,7 +35,9 @@ re-read each run.
 Also writes singapore_power_generation_daily.xlsx next to it: the NEMS metered generation in the standard
 'Daily' layout (<Fuel>_MWh) used by the master workbooks - Gas = CCGT/COGEN/TRIGEN + GT; Other = steam turbines
 (waste-to-energy, oil, coal cogeneration) + OTHERS; Solar = grid-scale (IGS) solar only; Imports and battery storage
-kept as separate columns, not counted in Total_MWh - plus a 'Demand' sheet from EMA system demand.
+kept as separate columns, not counted in Total_MWh - plus a 'Demand' sheet from EMA system demand. Unmetered
+generation (autoproducers, embedded plant; ~4%) is ESTIMATED and added so each month matches SingStat's total
+(Metered_total_MWh and Unmetered_est_MWh columns keep the two apart; method on the Units sheet).
 
     python3 asia/SINGAPORE_POWER.py --out "output/Data and Chart Outputs/singapore_power.xlsx"
 """
@@ -338,30 +340,91 @@ def annual_fuel_mix(xl):
 
 # ------------------------------------------------------------------ main
 
-def write_standard(gen, daily, path):
-    """NEMS generation (GWh/day by facility type) + EMA daily demand -> the standard Daily/Demand layout."""
+GAP_FUELS = {"Gas": ("Natural_Gas_pct",), "Solar": ("Solar_PV_pct",),
+             "Other": ("Petroleum_Products_pct", "Coal_pct", "Others_pct")}
+
+
+def unmetered_estimate(metered, monthly, mix):
+    """Generation NEMS does not meter (autoproducers - e.g. Jurong Island refinery and petrochemical cogeneration -
+    and embedded plant), MWh per day by fuel: each month SingStat total generation minus the NEMS metered total
+    (floor 0), spread evenly over the month's days; months SingStat has not published yet use the median daily gap
+    of its last 12 published months. Split by fuel with EMA's annual fuel mix: each fuel's shortfall (EMA share x
+    SingStat year total - metered) as a share of the year's total shortfall; years after the latest full SES year use
+    that year's split."""
+    days = metered.index
+    met_m = metered["Total"].resample("MS").sum(min_count=1)
+    n_days = metered["Total"].resample("MS").count()
+    ss = monthly["Electricity_Generation_GWh"].reindex(met_m.index) * 1000.0
+    full = n_days == met_m.index.days_in_month
+    gap_m = (ss - met_m).where(full).clip(lower=0) / met_m.index.days_in_month   # MWh/day
+    published = gap_m.dropna()
+    fill = published.iloc[-12:].median() if len(published) else 0.0
+    gap_m = gap_m.where(ss.notna(), fill).fillna(fill)
+    gap_d = gap_m.reindex(days.to_period("M").to_timestamp()).to_numpy()
+    # fuel split per year
+    mix_full = mix[mix["Coverage"].astype(str).str.startswith("Full")] if "Coverage" in mix else mix
+    split = {}
+    for y in sorted(set(days.year)):
+        yy = y if y in mix_full.index else (max(mix_full.index) if len(mix_full) else None)
+        tot_y = monthly["Electricity_Generation_GWh"][monthly.index.year == yy].sum() * 1000.0
+        if yy is None or tot_y <= 0:
+            split[y] = {"Gas": 1.0}
+            continue
+        sel = metered[metered.index.year == yy]
+        short = {f: max(0.0, sum(float(mix_full.loc[yy].get(c, 0) or 0) for c in cs) / 100 * tot_y - sel[f].sum())
+                 for f, cs in GAP_FUELS.items()}
+        s = sum(short.values())
+        split[y] = {f: v / s for f, v in short.items()} if s > 0 else {"Gas": 1.0}
+    return pd.DataFrame({f: gap_d * [split[y].get(f, 0.0) for y in days.year] for f in GAP_FUELS}, index=days), split
+
+
+def write_standard(gen, daily, monthly, mix, path):
+    """NEMS generation (GWh/day by facility type) + an estimate of unmetered generation (to SingStat's total) + EMA
+    daily demand -> the standard Daily/Demand layout."""
     g = gen.apply(pd.to_numeric, errors="coerce") * 1000.0
-    std = pd.DataFrame({"Gas_MWh": g[[c for c in ("CCGT_Cogen_Trigen_GWh", "Gas_turbine_OCGT_GWh") if c in g]].sum(axis=1, min_count=1),
-                        "Solar_MWh": g.get("Solar_IGS_GWh"),
-                        "Other_MWh": g[[c for c in ("Steam_turbine_GWh", "Other_GWh") if c in g]].sum(axis=1, min_count=1)},
+    g.index = pd.to_datetime(g.index)
+    met = pd.DataFrame({"Gas": g[[c for c in ("CCGT_Cogen_Trigen_GWh", "Gas_turbine_OCGT_GWh") if c in g]].sum(axis=1, min_count=1),
+                        "Solar": g.get("Solar_IGS_GWh"),
+                        "Other": g[[c for c in ("Steam_turbine_GWh", "Other_GWh") if c in g]].sum(axis=1, min_count=1)},
                        index=g.index)
+    met["Total"] = met.sum(axis=1, min_count=1)
+    monthly = monthly.copy()
+    monthly.index = pd.to_datetime(monthly.index)
+    est, split = unmetered_estimate(met, monthly, mix)
+    std = pd.DataFrame({f"{f}_MWh": met[f] + est[f] for f in ("Gas", "Solar", "Other")})
     std["Total_MWh"] = std.sum(axis=1, min_count=1)
+    std["Metered_total_MWh"] = met["Total"]
+    std["Unmetered_est_MWh"] = est.sum(axis=1)
     std["Imports_MWh"], std["Battery_net_MWh"] = g.get("Imports_GWh"), g.get("Battery_ESS_GWh")
     std = std.round(1)
+    last_ss = monthly["Electricity_Generation_GWh"].dropna().index.max()
     dem = pd.DataFrame({"Demand_avg_MW": daily.get("System_Demand_Avg_MW"), "Demand_peak_MW": daily.get("System_Demand_Peak_MW"),
                         "Demand_min_MW": daily.get("System_Demand_Min_MW")}).round(1)
     for df in (std, dem):
         df.index = pd.to_datetime(df.index).strftime("%Y-%m-%d")
         df.index.name = "date"
+    split_txt = "; ".join(f"{y}: " + ", ".join(f"{f} {100 * v:.0f}%" for f, v in s.items()) for y, s in split.items())
     notes = [
         "UNITS",
-        "Daily: MWh per day of metered gross injection (EMC / NEMS 'Metered Generation by Facility Type'). Gas_MWh = "
-        "CCGT/COGEN/TRIGEN + open-cycle GT; Other_MWh = steam turbines (waste-to-energy, oil- and coal-fired "
-        "cogeneration) + other facilities; Solar_MWh = grid-scale solar registered in the market (IGS) only - most "
-        "Singapore solar is embedded and not metered here. Total_MWh (about 3-4% below EMA/SingStat total generation, "
-        "which adds embedded solar and other unmetered generation) = Gas + Solar + Other. Imports_MWh and "
-        "Battery_net_MWh (storage, net of charging) are shown separately and not counted in the total.",
+        "Daily: MWh per day. Gas_MWh, Solar_MWh, Other_MWh and Total_MWh = metered generation PLUS an estimate of "
+        "unmetered generation, so that each month adds up to EMA / SingStat total electricity generation (M890831). "
+        "Metered_total_MWh = metered gross injection (EMC / NEMS 'Metered Generation by Facility Type'): gas = "
+        "CCGT/COGEN/TRIGEN + open-cycle GT; other = steam turbines (waste-to-energy, oil- and coal-fired cogeneration) "
+        "+ other facilities; solar = grid-scale solar registered in the market (IGS). Unmetered_est_MWh = the estimate "
+        "added (ESTIMATED). Imports_MWh and Battery_net_MWh (storage, net of charging) are shown separately and not "
+        "counted in the total.",
         "Demand: EMA system demand, MW - daily average, peak and minimum of the half-hourly values.",
+        "",
+        "METHOD (unmetered estimate)",
+        "NEMS meters only market-registered generation; SingStat's total also includes autoproducers (e.g. Jurong Island "
+        "refinery and petrochemical cogeneration) and embedded plant. The gap is steady at about 4% (about 200 GWh a "
+        "month, ~280 MW) and does not grow with solar, so it is mostly autoproducer generation rather than rooftop "
+        "solar. Each month: SingStat total minus the NEMS metered total (floor 0), spread evenly over the days; "
+        f"months after SingStat's latest ({last_ss:%b %Y}) use the median gap of its last 12 published months.",
+        "Fuel split of the estimate, from EMA's annual fuel mix for electricity generation (Singapore Energy Statistics "
+        "T2.2): each fuel's shortfall (EMA share x SingStat year total - metered) as a share of the year's total "
+        "shortfall (coal, petroleum products and others -> Other); years after the latest full SES year use that "
+        f"year's split. {split_txt}.",
         "",
         "COVERAGE",
         f"Daily from {std.index.min()} to {std.index.max()}; demand to {dem.index.max()}. Rebuilt from "
@@ -369,9 +432,12 @@ def write_standard(gen, daily, path):
         "",
         "SOURCE",
         f"EMC NEMS market data (Metered Generation by Facility Type): {NEMS_PAGE}",
+        "SingStat M890831 Electricity Generation, Monthly (source EMA): https://tablebuilder.singstat.gov.sg/table/TS/M890831",
+        "EMA Singapore Energy Statistics T2.2 fuel mix: https://www.ema.gov.sg/resources/singapore-energy-statistics",
         f"EMA Half-hourly System Demand Data: {EMA_PAGE}",
     ]
-    xlsx_notes.write_workbook(path, {"Daily": std, "Demand": dem}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    xlsx_notes.write_workbook(path, {"Daily": std, "Demand": dem}, notes,
+                              {"UNITS", "METHOD (unmetered estimate)", "COVERAGE", "SOURCE"})
     out(f"Saved {path}: {std.index.min()}..{std.index.max()}")
 
 
@@ -455,7 +521,7 @@ def main():
                                          CONS_SHEET: cons_out, MIX_SHEET: mix_out, HH_SHEET: hh_out},
                               notes, {"UNITS", "DEFINITIONS", "COVERAGE", "SOURCES"})
     out(f"Saved {args.out}")
-    write_standard(gen, daily, os.path.join(os.path.dirname(os.path.abspath(args.out)),
+    write_standard(gen, daily, monthly, mix_out, os.path.join(os.path.dirname(os.path.abspath(args.out)),
                                             "singapore_power_generation_daily.xlsx"))
 
 
