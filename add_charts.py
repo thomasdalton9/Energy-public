@@ -1416,6 +1416,26 @@ def europe_net_imports(p):
     return [spec("Net imports", t, "Europe net electricity imports (+) and exports (-) by country (ENTSO-E)", "GWh per month", "stacked_bar")]
 
 
+def europe_gas_flows(p):
+    """ENTSOG: pipeline gas entering the EU27 from outside the EU by origin country, TWh per month."""
+    d = _sheet(p, "Imports by origin", "date")
+    if d.empty:
+        return []
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    top = m.sum().sort_values(ascending=False).index[:7]
+    t = m[top].copy()
+    t["Other"] = m.drop(columns=top).sum(axis=1, min_count=1)
+    names = {"NO": "Norway", "RU": "Russia", "DZ": "Algeria", "AZ": "Azerbaijan", "LY": "Libya", "TR": "Turkey",
+             "UA": "Ukraine", "BY": "Belarus", "MA": "Morocco", "CH": "Switzerland", "RS": "Serbia", "MK": "North Macedonia",
+             "BA": "Bosnia and Herzegovina", "MD": "Moldova", "AL": "Albania", "UK": "United Kingdom"}
+    t = t.rename(columns=lambda c: names.get(c, c))
+    return [spec("Imports by origin", t, "Pipeline gas imported into the EU from outside the EU, by origin (ENTSOG)",
+                 "TWh per month", "stacked_bar")]
+
+
 def eu_lng(p):
     """ALSI: send-out by country per month, and the EU tank inventory (water year)."""
     d = by_date(read(p, "Daily"), "date")
@@ -1549,6 +1569,7 @@ REGISTRY = {
     "eu_gas_storage_daily.xlsx": eu_gas_storage,
     "eu_lng_terminals_daily.xlsx": eu_lng,
     "europe_cross_border_flows_daily.xlsx": europe_net_imports,
+    "europe_gas_flows_daily.xlsx": europe_gas_flows,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,

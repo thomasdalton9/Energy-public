@@ -44,7 +44,8 @@ Standing instructions from the repo owner. Follow these on every change.
   `europe/europe_countries.py` (add a country there and the pulls, registry and master pick it up). ENTSO-E is the primary
   power source for Europe (it is the TSOs' own statutory reporting, and matched SMARD/RTE within 0.5% in a settled-week check),
   labelled as such; replace it per country with a national feed where that is better (e.g. CGES for Montenegro, Elexon for GB,
-  neither yet pulled). Gas pipeline imports/exports (ENTSOG) are still to add.
+  neither yet pulled). Gas: ENTSOG physical flows (pipeline imports by origin, exports, production, consumption) with ALSI LNG and
+  AGSI+ storage give a gas balance per country and for the EU.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 

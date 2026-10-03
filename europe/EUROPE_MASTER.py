@@ -58,6 +58,7 @@ DATASETS = [
     ("EU", "Europe", "eu_lng_terminals_daily.xlsx", "Daily", "LNG terminals"),
     ("IE", "Ireland", "ireland_gas_combined_daily.xlsx", "*", "gas"),
     ("IE", "Ireland", "ireland_gni_transparency_daily.xlsx", "*", "gas by sector"),
+    ("EU", "Europe", "europe_gas_flows_daily.xlsx", "*", "ENTSOG"),
 ]
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
@@ -88,6 +89,8 @@ MASTER_SPECS = {"rhine_kaub_level_daily.xlsx": rhine}
 SOURCES = {
     "eu_gas_storage_daily.xlsx": ("Gas Infrastructure Europe, AGSI+ (storage operators' own reports)", "https://agsi.gie.eu/"),
     "eu_lng_terminals_daily.xlsx": ("Gas Infrastructure Europe, ALSI (LNG terminal operators' own reports)", "https://alsi.gie.eu/"),
+    "europe_gas_flows_daily.xlsx": ("ENTSOG Transparency Platform: physical flows at interconnection points (TSOs' own reporting)",
+                                    "https://transparency.entsog.eu/"),
     "ireland_gas_combined_daily.xlsx": ("Gas Networks Ireland (GNI) transparency and open data",
                                         "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "ireland_gni_transparency_daily.xlsx": ("Gas Networks Ireland (GNI) transparency pages",
@@ -101,6 +104,9 @@ SOURCES = {
     "europe_cross_border_flows_daily.xlsx": ("ENTSO-E Transparency Platform: cross-border physical flows",
                                              "https://transparency.entsoe.eu/"),
 }
+GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
+                   "https://transparency.entsog.eu/")
+GAS_FLOWS_FILE = "europe_gas_flows_daily.xlsx"
 BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows",
                "https://transparency.entsoe.eu/")
 for _code, (_name, _slug, _zones) in COUNTRIES.items():
@@ -252,6 +258,68 @@ def country_balance(gen_path, net_imports):
     return m.dropna(how="any")
 
 
+GAS_BAL_COLS = ["Production", "Pipeline imports", "LNG send-out", "Storage withdrawals", "Pipeline exports",
+                "Storage injections", "Consumption"]
+EU27_GAS = ["AT", "BE", "BG", "HR", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "NL", "PL",
+            "PT", "RO", "SK", "SI", "ES", "SE"]
+GAS_NAMES = {"AT": "Austria", "BE": "Belgium", "BG": "Bulgaria", "HR": "Croatia", "CZ": "Czechia", "DK": "Denmark",
+             "EE": "Estonia", "FI": "Finland", "FR": "France", "DE": "Germany", "GR": "Greece", "HU": "Hungary",
+             "IE": "Ireland", "IT": "Italy", "LV": "Latvia", "LT": "Lithuania", "LU": "Luxembourg", "NL": "Netherlands",
+             "PL": "Poland", "PT": "Portugal", "RO": "Romania", "SK": "Slovakia", "SI": "Slovenia", "ES": "Spain",
+             "SE": "Sweden", "UK": "United Kingdom"}
+
+
+def _col(df, name):
+    return df[name] if name in df else pd.Series(float("nan"), index=df.index)
+
+
+def _monthly_twh(day, line_floor=12):
+    """Daily GWh frame -> complete months in TWh (months with >= 90% of days), blank rows dropped."""
+    m = monthly_cover(day).dropna(how="all") / 1000.0
+    last = day.dropna(how="all").index.max()
+    if len(day) and last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    return m.dropna(how="any") if len(m) >= line_floor else pd.DataFrame()
+
+
+def gas_country_balance(bal, cc, storage, lng):
+    """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
+    withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
+    final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
+    unreported or unclassified flow."""
+    a = "GB" if cc == "UK" else cc
+    day = pd.DataFrame(index=bal.index)
+    day["Production"] = _col(bal, f"{cc}_production_GWhd").fillna(0)
+    day["Pipeline imports"] = _col(bal, f"{cc}_imports_GWhd")
+    lng_s = _col(lng, f"{a}_sendout_GWhd").reindex(bal.index)
+    day["LNG send-out"] = lng_s.where(lng_s.notna(), _col(bal, f"{cc}_lng_GWhd")).fillna(0)
+    out_s, in_s = _col(storage, f"{a}_withdrawal_GWhd").reindex(bal.index), _col(storage, f"{a}_injection_GWhd").reindex(bal.index)
+    day["Storage withdrawals"] = out_s.where(out_s.notna(), _col(bal, f"{cc}_storage_out_GWhd")).fillna(0)
+    day["Pipeline exports"] = -_col(bal, f"{cc}_exports_GWhd").fillna(0)
+    day["Storage injections"] = -in_s.where(in_s.notna(), _col(bal, f"{cc}_storage_in_GWhd")).fillna(0)
+    day["Consumption"] = pd.concat([_col(bal, f"{cc}_distribution_GWhd"), _col(bal, f"{cc}_final_consumers_GWhd")], axis=1).sum(axis=1, min_count=1)
+    day = day.dropna(subset=["Pipeline imports", "Consumption"])
+    day = day[day.index >= "2021-10-01"]
+    return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
+
+
+def eu_gas_balance(bal, org, dst, storage, lng):
+    """EU27 gas balance: production and consumption summed over the countries; extra-EU pipeline imports and exports
+    from the origin / destination sheets; LNG and storage from GIE's EU aggregates."""
+    cols = lambda cat: [f"{c}_{cat}_GWhd" for c in EU27_GAS if f"{c}_{cat}_GWhd" in bal]   # noqa: E731
+    day = pd.DataFrame(index=bal.index)
+    day["Production"] = bal[cols("production")].sum(axis=1, min_count=1).fillna(0)
+    day["Pipeline imports"] = org.reindex(bal.index).sum(axis=1, min_count=1) if len(org) else float("nan")
+    day["LNG send-out"] = _col(lng, "EU_sendout_GWhd").reindex(bal.index).fillna(0)
+    day["Storage withdrawals"] = _col(storage, "EU_withdrawal_GWhd").reindex(bal.index).fillna(0)
+    day["Pipeline exports"] = -(dst.reindex(bal.index).sum(axis=1, min_count=1) if len(dst) else 0.0)
+    day["Storage injections"] = -_col(storage, "EU_injection_GWhd").reindex(bal.index).fillna(0)
+    day["Consumption"] = bal[cols("distribution") + cols("final_consumers")].sum(axis=1, min_count=1)
+    day = day.dropna(subset=["Pipeline imports", "Consumption"])
+    day = day[day.index >= "2021-10-01"]
+    return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(DATA_DIR, "europe_master.xlsx"))
@@ -302,6 +370,33 @@ def main():
         power[0].insert(pos, cf_chart)
         power[1].insert(pos, cf_row)
     power[2].extend(cf_missing)
+    # gas balance: EU27 first, then each country (ENTSOG flows + ALSI LNG + AGSI+ storage)
+    try:
+        gbal = add_charts.by_date(add_charts.read(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Country balance"), "date")
+        gorg = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Imports by origin", "date")
+        gdst = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Exports by destination", "date")
+        gsto = add_charts._sheet(os.path.join(args.data_dir, "eu_gas_storage_daily.xlsx"), "Daily", "date")
+        glng = add_charts._sheet(os.path.join(args.data_dir, "eu_lng_terminals_daily.xlsx"), "Daily", "date")
+    except Exception as e:  # noqa: BLE001
+        gbal = pd.DataFrame()
+        gas[2].append(f"gas balance charts need {GAS_FLOWS_FILE} ({type(e).__name__}: {e})")
+    if len(gbal):
+        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng)
+        if not eu.empty:
+            total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG); pipeline imports/exports "
+                                               "from/to outside the EU; LNG and storage from GIE's EU aggregates"],
+                        "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
+                        "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
+        for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
+            b = gas_country_balance(gbal, cc, gsto, glng)
+            if b.empty:
+                gas[2].append(f"{GAS_NAMES[cc]} gas balance: too little data")
+                continue
+            total_chart(wb, used, gas, None, b, ["Supply (production, pipeline imports, LNG, storage withdrawals) less exports and "
+                                                 "storage injections should land near consumption (distribution + final consumers); "
+                                                 "the gap is unreported or unclassified flow"],
+                        f"{GAS_NAMES[cc]} gas balance data", f"{GAS_NAMES[cc]} gas balance: supply and storage vs consumption",
+                        "TWh per month", GAS_BALANCE_SRC, "Notes:", label=GAS_NAMES[cc], line_cols=("Consumption",))
     # supply/demand balance per country (needs the flows workbook and each country's load)
     flows_path = os.path.join(args.data_dir, FLOWS_FILE)
     try:
