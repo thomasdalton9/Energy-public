@@ -491,6 +491,15 @@ def thailand_gas(p):
                           "Myanmar pipeline": s.get("Myanmar_pipeline"), "LNG": s.get("LNG")})
         out.append(spec("Supply", (g * MCM_PER_MMSCF).round(1), "Thailand gas supply: domestic, Myanmar pipeline and LNG "
                         "(EPPO / PTT)", "mcm/d, monthly average", "stacked_bar"))
+    if not s.empty:
+        # domestic production by field: the big fields on their own, the rest as 'Other fields'
+        fields = [c for c in s.columns if c not in ("Domestic_total", "Yadana", "Yetagun", "Zawtika", "LNG",
+                                                    "Imports_total", "Total", "Myanmar_pipeline")]
+        big = ["Erawan", "Bongkot", "Bongkot_Tai", "Arthit", "Pailin", "JDA"]
+        f = pd.DataFrame({c.replace("_", " "): s[c] for c in big if c in s})
+        f["Other fields"] = s[[c for c in fields if c not in big]].sum(axis=1, min_count=1)
+        out.append(spec("Production by field", (f * MCM_PER_MMSCF).round(1),
+                        "Thailand gas production by field (EPPO / PTT)", "mcm/d, monthly average", "stacked_bar"))
     d = _sheet(p, "Demand", "date")
     if not d.empty:
         d = d[d.index >= "2015-01-01"].apply(pd.to_numeric, errors="coerce")
