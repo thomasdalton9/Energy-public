@@ -1,6 +1,7 @@
 name: GIIGNL regas probe (manual)
 
-# One-off: find GIIGNL's LNG imports and regasification capacity by country tables. Move to discovery_archive/workflows/ when done.
+# One-off (run 2026-10-03): GIIGNL Annual Report 2025 has LNG imports by country on page 16 and the per-terminal
+# regasification table (pages 52-62) with each market total printed as "<n> MTPA" under the market name.
 on:
   workflow_dispatch:
 
