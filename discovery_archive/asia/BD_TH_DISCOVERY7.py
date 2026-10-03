@@ -35,9 +35,14 @@ def main():
         p = s.get(href, timeout=T, verify=False)
         out(f"\n######## {text}: {p.status_code} {len(p.text)} {p.url[:160]}")
         try:
-            tables = pd.read_html(io.StringIO(p.text))
-        except ValueError:
+            tables = pd.read_html(io.StringIO(p.text), flavor="lxml")
+        except Exception as e:  # noqa: BLE001
+            out(f"  read_html: {type(e).__name__}: {e}")
             tables = []
+        for raw in re.findall(r"<table.*?</table>", p.text, re.S)[:4]:   # plain text of each table, row by row
+            rows = [" | ".join(re.sub(r"<[^>]+>|\s+", " ", c).strip() for c in re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", tr, re.S))
+                    for tr in re.findall(r"<tr.*?</tr>", raw, re.S)]
+            out("  TABLE TEXT:\n    " + "\n    ".join(r for r in rows[:40] if r.strip(" |")))
         out(f"  {len(tables)} tables")
         for i, t in enumerate(tables[:5]):
             with pd.option_context("display.width", 250, "display.max_columns", 30):

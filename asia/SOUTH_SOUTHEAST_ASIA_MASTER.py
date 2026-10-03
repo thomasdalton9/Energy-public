@@ -218,6 +218,23 @@ def regional_generation(data_dir, raw_files, frames_out=None):
     return total, notes
 
 
+def malaysia_split(data_dir, raw_files):
+    """Monthly TWh: Peninsular Malaysia from GSO (raw) and Sabah + Sarawak as Ember's national Malaysia minus GSO
+    (an estimate: the two grids publish no feed). Complete months both sources have, from 2021."""
+    try:
+        gso = monthly_gwh(os.path.join(data_dir, raw_files["Malaysia"])).sum(axis=1)
+        e = add_charts.by_date(add_charts.read(os.path.join(data_dir, EMBER_FILES[0][2]), "Malaysia"), "Month")
+        nat = pd.to_numeric(e["Total_GWh"], errors="coerce")
+    except Exception as ex:  # noqa: BLE001
+        print(f"Malaysia split skipped: {type(ex).__name__}: {ex}")
+        return pd.DataFrame()
+    both = gso.index.intersection(nat.index)
+    d = pd.DataFrame({"Peninsular (GSO)": gso[both], "Sabah + Sarawak (estimate)": (nat[both] - gso[both]).clip(lower=0)})
+    d = d[d.index >= "2021-01-01"] / 1000.0
+    d.index.name = "date"
+    return d.round(2)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(DATA_DIR, "south_southeast_asia_master.xlsx"))
@@ -283,8 +300,23 @@ def main():
         power[1].insert(0, ("South & Southeast Asia", name, df.index.max().strftime("%b/%y"), ws.title, *src))
         print("South & Southeast Asia generation total:", "; ".join(notes))
 
+    lead = 1 if not total.empty else 0
+    # Malaysia: GSO covers Peninsular Malaysia only; Sabah + Sarawak = Ember's national total minus GSO (estimate)
+    my = malaysia_split(args.data_dir, {d[1]: d[2] for d in raw_power})
+    if not my.empty:
+        ws = wb.create_sheet(sam.sheet_name("MY regions data", used))
+        df, n_bars = xlsx_charts.prepare(my)
+        xlsx_charts.write_table(ws, df)
+        src = ("GSO (Peninsular, raw); Sabah + Sarawak ESTIMATED as Ember's national Malaysia minus GSO", None)
+        power[0].insert(lead, (xlsx_charts.build_chart(ws, df, n_bars, "Malaysia power generation: Peninsular (GSO) "
+                                                       "and Sabah + Sarawak (estimate)", "TWh per month", "stacked_bar",
+                                                       width=sam.CHART_W, height=sam.CHART_H, gridlines=False,
+                                                       inner=xlsx_charts.DASHBOARD_INNER), src))
+        power[1].insert(lead, ("Malaysia", "Malaysia generation: Peninsular (GSO) and Sabah + Sarawak (estimate)",
+                               df.index.max().strftime("%b/%y"), ws.title, *src))
+        lead += 1
     cap = sam.collect(wb, [d for d in CAPACITY_DATASETS if exists(d)], args.data_dir, used, sources, cfg=cfg)
-    pos = 1 if not total.empty else 0
+    pos = lead
     power[0][pos:pos] = cap[0]
     power[1][pos:pos] = cap[1]
     power[2].extend(cap[2])
