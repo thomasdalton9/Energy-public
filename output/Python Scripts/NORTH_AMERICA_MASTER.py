@@ -38,6 +38,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "south_america"))
 import add_charts  # noqa: E402
+import capacity_factors  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
 
@@ -51,6 +52,8 @@ DATASETS = [
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
     ("MX", "Mexico", "mexico_gas.xlsx", "Imports from US", "gas"),
+    ("MX", "Mexico", "us_mexico_pipeline_capacity.xlsx", ("Export capacity by line", "Import capacity by line"),
+     "pipeline capacity"),
 ]
 
 EIA930_SHEETS = ("US_Total", "ERCOT", "PJM", "MISO", "SPP", "CAISO", "NYISO", "ISONE", "Southern", "TVA")
@@ -183,6 +186,8 @@ SOURCES = {
                         "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510005501"),
     "mexico_gas.xlsx": ("EIA, US natural gas exports to Mexico (pipeline N9132MX2, LNG N9133MX2) - Mexico's "
                         "imports from the US as measured on the US side", "https://www.eia.gov/dnav/ng/ng_move_expc_s1_m.htm"),
+    "us_mexico_pipeline_capacity.xlsx": ("EIA, Natural Gas Pipelines: State to State Capacity (annual capacity by line, "
+                                         "US to Mexico and Mexico to US, MMcf/d)", EIA_GAS),
     "eia930_fuel_mix_daily.xlsx": ("EIA-930 Hourly Electric Grid Monitor (balancing authority data, Lower 48)",
                                    "https://www.eia.gov/electricity/gridmonitor/"),
     "canada_power_generation_daily.xlsx": ("Statistics Canada, Table 25-10-0015-01 Electric power generation, "
@@ -205,7 +210,7 @@ OPERATORS = {"Mexico": "CENACE / SENER", "Canada": "Statistics Canada"}
 NA_POWER_COUNTRIES = ["United States", "Canada", "Mexico"]
 
 
-def north_america_generation(data_dir, have_raw):
+def north_america_generation(data_dir, have_raw, frames_out=None):
     """North America generation by source, TWh per month: US Lower 48 (EIA-930) + Canada (StatCan, or Ember) +
     Mexico (Ember). Runs to the last month every raw-fed country has in full; an Ember-fed country that lags is left
     out of the months it doesn't have yet, and those gaps are listed rather than estimated."""
@@ -229,6 +234,8 @@ def north_america_generation(data_dir, have_raw):
             notes.append(f"{country}: {src}, {m.index.min():%b/%y}-{m.index.max():%b/%y}")
         except Exception as e:  # noqa: BLE001
             notes.append(f"{country}: not available ({type(e).__name__}: {e})")
+    if frames_out is not None:
+        frames_out.update(frames)
     if not frames:
         return pd.DataFrame(), notes
     have = {c: set(f.dropna(how="all").index) for c, f in frames.items()}
@@ -284,7 +291,8 @@ def main():
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
     power[2].extend(building)
 
-    total, notes = north_america_generation(args.data_dir, have_raw)
+    gen_frames = {}
+    total, notes = north_america_generation(args.data_dir, have_raw, gen_frames)
     if not total.empty:
         ws = wb.create_sheet(sam.sheet_name("NA generation total data", used))
         df, n_bars = xlsx_charts.prepare(total)
@@ -330,9 +338,23 @@ def main():
     power[0][pos:pos] = cap[0]
     power[1][pos:pos] = cap[1]
     power[2].extend(cap[2])
+    # One regional capacity-factor chart (generation by type / capacity x hours), after the capacity charts
+    cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
+        wb, used, sam.sheet_name, gen_frames,
+        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, sam.CHART_W, sam.CHART_H,
+        "Country generation (EIA-930 Lower 48, StatCan, Ember for Mexico) / capacity (EIA-860M, StatCan, Ember)",
+        "North America")
+    if cf_chart:
+        power[0].insert(pos + len(cap[0]), cf_chart)
+        power[1].insert(pos + len(cap[1]), cf_row)
+    power[2].extend(cf_missing)
 
     sam.draw_dashboard(dash, "North America energy (US, Canada, Mexico) - gas dashboard", *gas)
     sam.draw_dashboard(dash2, "North America energy (US, Canada, Mexico) - power generation", *power)
+    cf_dash = wb.create_sheet("Dashboard - Capacity factors", 2)
+    used.add("Dashboard - Capacity factors")
+    cf_items = cf_countries   # regional chart first, then each country
+    sam.draw_dashboard(cf_dash, "North America - capacity factor by generation type (generation / capacity x hours)", [c for c, _ in cf_items], [r for _, r in cf_items], cf_missing)
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])
