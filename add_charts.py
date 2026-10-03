@@ -406,6 +406,20 @@ def thailand_reservoirs(p):
              "title": "Thailand large-reservoir storage (RID, 35 dams)", "units": "% of normal storage"}]
 
 
+def philippines_dams(p):
+    """PAGASA 08:00 water levels (daily snapshot): water-year charts for the main hydro / water-supply dams."""
+    d = _sheet(p, "Daily", "date")
+    out = []
+    for dam, what in (("Angat", "Metro Manila water supply and hydro"), ("San_Roque", "hydro, Agno river"),
+                      ("Magat", "irrigation and hydro"), ("Pantabangan", "irrigation and hydro")):
+        col = f"{dam}_m"
+        if col in d and d[col].notna().sum() >= 2:
+            out.append({"name": dam.replace("_", " "), "water_year": d[col].dropna().resample("D").interpolate(),
+                        "title": f"{dam.replace('_', ' ')} dam water level ({what}; PAGASA)", "units": "m above sea level",
+                        "y_decimals": 0, "sheet": f"Water year - {dam.replace('_', ' ')}"})
+    return out
+
+
 def malaysia_smp(p):
     d = _sheet(p, "Daily", "date")
     c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
@@ -1471,6 +1485,7 @@ REGISTRY = {
     "bangladesh_power_generation_daily.xlsx": power_and_demand("Bangladesh power generation by fuel (PGCB)",
                                                                "Bangladesh served demand (PGCB)"),
     "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
+    "philippines_dam_levels.xlsx": philippines_dams,
     "malaysia_power_prices.xlsx": malaysia_smp,
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
