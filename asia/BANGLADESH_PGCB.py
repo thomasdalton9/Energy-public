@@ -20,7 +20,6 @@ days already saved (less REVISION_DAYS) or DATA_START. Runs on the 1st and 15th.
     python3 asia/BANGLADESH_PGCB.py
 """
 import argparse
-import io
 import os
 import re
 import sys
@@ -44,7 +43,7 @@ REVISION_DAYS = 3
 MAX_PAGES = 3000
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "bangladesh_power_generation_daily.xlsx")
 # header keyword (lower case) -> column; first match wins, checked against the flattened header text
-COLMAP = [("date", "time"), ("generation", "Generation_MW"), ("demand", "Demand_MW"), ("loadshed", "Loadshed_MW"),
+COLMAP = [("date", "time"), ("time", "time"), ("generation", "Generation_MW"), ("demand", "Demand_MW"), ("loadshed", "Loadshed_MW"),
           ("load shed", "Loadshed_MW"), ("gas", "Gas"), ("liquid", "Oil"), ("coal", "Coal"), ("hydro", "Hydro"),
           ("solar", "Solar"), ("wind", "Wind"), ("bheramara", "Import_Bheramara"), ("tripura", "Import_Tripura"),
           ("adani", "Import_Adani"), ("nepal", "Import_Nepal"), ("india", "Import_India"), ("remark", "Remarks")]
@@ -68,22 +67,54 @@ def page(n):
             time.sleep(5 * (i + 1))
 
 
+def cells(fragment, tag):
+    return [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
+            for c in re.findall(rf"(?is)<{tag}[^>]*>(.*?)</{tag}>", fragment)]
+
+
+def header_names(html):
+    """Header labels -> standard names, with India's sub-headers (Bheramara HVDC, Tripura, Adani) in place of
+    'India'."""
+    thead = re.search(r"(?is)<thead.*?</thead>", html)
+    labels = cells(thead.group(0), "th") if thead else []
+    subs = [x for x in labels if any(k in x.lower() for k in ("bheramara", "tripura", "adani"))]
+    flat = []
+    for x in labels:
+        if x in subs:
+            continue
+        flat.extend(subs if x.lower() == "india" and subs else [x])
+    return [next((v for k, v in COLMAP if k in x.lower()), x) for x in flat]
+
+
 def parse(html):
-    tables = pd.read_html(io.StringIO(html))
-    t = next((x for x in tables if any("gas" in " ".join(map(str, c if isinstance(c, tuple) else (c,))).lower()
-                                       for c in x.columns)), None)
-    if t is None:
+    """PGCB hourly table -> rows (time + MW columns). The page comments out the Demand and Loadshed cells in each
+    row (while the header still lists them), so HTML comments are removed and, when a row has two cells fewer
+    than the header, those two columns are dropped from the header."""
+    html = re.sub(r"(?s)<!--.*?-->", "", html)
+    names = header_names(html) or ["time", "Generation_MW", "Demand_MW", "Loadshed_MW", "Gas", "Oil", "Coal",
+                                   "Hydro", "Solar", "Wind", "Import_Bheramara", "Import_Tripura", "Import_Adani",
+                                   "Import_Nepal", "Remarks"]
+    if names and names[0] == "time" and len(names) > 1 and names[1] in ("time", "Time"):
+        names = names[1:]
+    body = re.search(r"(?is)<tbody.*?</tbody>", html)
+    rows = []
+    for tr in re.findall(r"(?is)<tr[^>]*>(.*?)</tr>", body.group(0) if body else html):
+        c = cells(tr, "td")
+        if len(c) < 5 or not re.match(r"\d\d-\d\d-\d{4}$", c[0]):
+            continue
+        vals = [f"{c[0]} {c[1]}"] + c[2:]    # date and time sit in separate cells
+        cols = names
+        if len(vals) == len(names) - 2:
+            cols = [n for n in names if n not in ("Demand_MW", "Loadshed_MW")]
+        if len(vals) != len(cols):
+            continue
+        rows.append(dict(zip(cols, vals)))
+    if not rows:
         return pd.DataFrame()
-    names = []
-    for c in t.columns:
-        text = " ".join(str(x) for x in (c if isinstance(c, tuple) else (c,)) if "Unnamed" not in str(x)).lower()
-        names.append(next((v for k, v in COLMAP if k in text), text))
-    t.columns = names
-    t = t.loc[:, ~pd.Index(names).duplicated()]
-    t["time"] = pd.to_datetime(t["time"].astype(str).str.extract(r"(\d\d-\d\d-\d{4} \d\d:\d\d(?::\d\d)?)")[0],
-                               format="mixed", dayfirst=True, errors="coerce")
+    t = pd.DataFrame(rows)
+    t["time"] = pd.to_datetime(t["time"], format="%d-%m-%Y %H:%M:%S", errors="coerce")
     t = t.dropna(subset=["time"])
-    num = [c for c in t.columns if c not in ("time", "Remarks")]
+    num = [x for x in t.columns if x not in ("time", "Remarks")]
     t[num] = t[num].apply(lambda s: pd.to_numeric(s.astype(str).str.replace(",", ""), errors="coerce"))
     return t[["time"] + num]
 
