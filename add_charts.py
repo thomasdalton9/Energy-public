@@ -836,7 +836,6 @@ def singapore_gas(p):
     dd = _sheet(p, "Power burn daily (est)", "date")
     if not dd.empty:
         x = dd["Gas_for_power_mcm_per_day_est"]
-        x = x[x.index >= x.index.max() - pd.Timedelta(days=730)]
         out.append(spec("Power burn daily", pd.DataFrame({"Daily (estimate)": x,
                                                            "7-day average": x.rolling(7, min_periods=4).mean().round(2)}),
                         "Singapore gas burn for power, daily, estimated from metered CCGT generation",
