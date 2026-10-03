@@ -429,6 +429,22 @@ def thailand_power(p):
     return out
 
 
+def philippines_market(p):
+    out = []
+    d = _sheet(p, "Daily demand", "date")
+    c = [f"{r}_demand_avg_MW" for r in ("Luzon", "Visayas", "Mindanao") if f"{r}_demand_avg_MW" in d]
+    if c:
+        out.append(spec("Demand", d[c].rename(columns=lambda x: x.split("_")[0]),
+                        "Philippines WESM demand by grid (IEMOP, daily average)", "MW", "stacked_area", "%Y-%m-%d"))
+    q = _sheet(p, "Daily prices", "date")
+    c = [f"{r}_SMP_PHP_per_MWh" for r in ("Luzon", "Visayas", "Mindanao") if f"{r}_SMP_PHP_per_MWh" in q]
+    if c:
+        out.append(spec("Prices", q[c].rename(columns=lambda x: x.split("_")[0]),
+                        "Philippines WESM system marginal price by grid (IEMOP, daily average)", "PHP/MWh",
+                        "line", "%Y-%m-%d"))
+    return out
+
+
 def malaysia_smp(p):
     d = _sheet(p, "Daily", "date")
     c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
@@ -1496,6 +1512,7 @@ REGISTRY = {
     "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
     "thailand_power_generation_daily.xlsx": thailand_power,
     "philippines_dam_levels.xlsx": philippines_dams,
+    "philippines_power_market.xlsx": philippines_market,
     "malaysia_power_prices.xlsx": malaysia_smp,
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
