@@ -131,10 +131,12 @@ def save(frames, old, old_dem, old_plant, meta, out_path):
         gen["Total_MWh"] = gen.sum(axis=1)
         gen["Intervals"] = raw.groupby("date")["time"].nunique()
         gen = gen.round(1)
+        gen = gen[gen["Total_MWh"] > 0]   # days not published yet come back as all-zero rows: fetch them next run
         tot = raw.groupby("time")["MW"].sum()
         g = tot.groupby(tot.index.normalize())
         dem = pd.DataFrame({"Demand_avg_MW": g.mean().round(0), "Demand_peak_MW": g.max().round(0),
                             "Demand_min_MW": g.min().round(0)})
+        dem = dem[dem.index.isin(gen.index)]
         solar = [c for c, f in fuel_of.items() if f == "Solar"]
         if solar:
             sol = raw[raw["powerPlantId"].isin(solar)]
