@@ -131,7 +131,25 @@ def start_for(old, cols, default):
     return max(datetime.strptime(default, "%Y-%m-%d").date(), (last - timedelta(days=REVISION_DAYS)).date()).isoformat()
 
 
+def fill_eu(df):
+    """AGSI+'s own EU aggregate only exists from mid-2024; before that the EU total is the sum of its member countries
+    (the two agree to 0.001% where both exist). GB and UA are not EU members and are left out of the sum."""
+    members = [c[:-4] for c in df if c.endswith("_TWh") and c[:-4] in STORAGE and c[:-4] not in ("GB", "UA")]
+    if not members or "EU_TWh" not in df:
+        return df
+    df = df.copy()
+    for suffix in ("TWh", "injection_GWhd", "withdrawal_GWhd"):
+        cols = [f"{m}_{suffix}" for m in members if f"{m}_{suffix}" in df]
+        if len(cols) == len(members):
+            total = df[cols].sum(axis=1, min_count=len(cols))
+            df[f"EU_{suffix}"] = df.get(f"EU_{suffix}", pd.Series(dtype=float)).combine_first(total)
+    cap = sum(df[f"{m}_TWh"] / (df[f"{m}_full_pct"] / 100.0) for m in members)   # working gas volume, TWh
+    df["EU_full_pct"] = df["EU_full_pct"].combine_first(df["EU_TWh"] / cap * 100.0)
+    return df.round(3)
+
+
 def write_storage(path, df):
+    df = fill_eu(df)
     lines = ["Europe gas storage (Gas Infrastructure Europe, AGSI+)", "",
              "Source", "GIE AGSI+ (Aggregated Gas Storage Inventory), https://agsi.gie.eu/ - operators' own daily storage reports, "
              "aggregated by GIE. Free API key.",
