@@ -24,3 +24,12 @@ for i, t in enumerate(texts):
         if re.search(r"\d\s*MTPA", line):
             ctx = " || ".join(l.strip() for l in lines[max(0, j - 2):j + 1])
             print(f"p{i + 1}: {ctx[:220]}")
+
+print("\n----- Argentina / Israel lines -----")
+for i, t in enumerate(texts):
+    if "Send-out" not in t:
+        continue
+    lines = t.splitlines()
+    for j, line in enumerate(lines):
+        if re.search(r"Argentina|Escobar|Israel|Hadera|Croatia|Krk", line):
+            print(f"p{i + 1}: " + " || ".join(l.strip() for l in lines[max(0, j - 1):j + 3])[:240])
