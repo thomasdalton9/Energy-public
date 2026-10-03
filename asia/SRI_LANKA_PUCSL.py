@@ -49,7 +49,7 @@ CHECKPOINT = 25          # write the workbook every 25 chunks during a backfill
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "sri_lanka_power_generation_daily.xlsx")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy", "Other"]
 # keyword in the plant's energy type / technology / fuel (lower case) -> standard fuel; first match wins
-FUEL_KEYS = [("hydro", "Hydro"), ("coal", "Coal"), ("wind", "Wind"), ("solar", "Solar"), ("biomass", "Bioenergy"),
+FUEL_KEYS = [("bess", "Other"), ("battery", "Other"), ("hydro", "Hydro"), ("coal", "Coal"), ("wind", "Wind"), ("solar", "Solar"), ("biomass", "Bioenergy"),
              ("dendro", "Bioenergy"), ("bio", "Bioenergy"), ("lng", "Gas"), ("natural gas", "Gas"), ("oil", "Oil"),
              ("diesel", "Oil"), ("naphtha", "Oil"), ("fuel", "Oil"), ("thermal", "Oil"), ("combined cycle", "Oil")]
 
@@ -77,12 +77,13 @@ def plants():
         cx = p.get("powerPlantComplex") or {}
         et = cx.get("energyType") or {}
         text = " ".join(str(x) for x in (et.get("name"), et.get("slug"), p.get("technology"), p.get("fuelUsed"),
-                                         cx.get("name"))).lower()
+                                         cx.get("name"), p.get("name"))).lower()
         fuel = next((f for k, f in FUEL_KEYS if k in text), "Other")
         rows.append({"id": p["id"], "name": p.get("name"), "complex": cx.get("name"), "energy_type": et.get("name"),
                      "technology": p.get("technology"), "fuel_used": p.get("fuelUsed"),
                      "capacity_MW": p.get("capacityData"), "fuel": fuel})
-    return pd.DataFrame(rows).set_index("id")
+    df = pd.DataFrame(rows).drop_duplicates("id", keep="first")   # the list repeats some plant ids
+    return df.set_index("id")
 
 
 def fetch(d0, d1):

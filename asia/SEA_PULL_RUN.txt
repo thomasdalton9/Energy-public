@@ -1,3 +1,2 @@
 # pull commands run by .github/workflows/sea_pull_run.yml (temporary, branch only)
 asia/SRI_LANKA_PUCSL.py
-asia/BHUTAN_BPSO.py
