@@ -22,7 +22,12 @@ What is published (free, no login):
 
 Not published: monthly or daily natural gas consumption, sendout or imports
 (pipeline or LNG). EMA/SES give these annually only; SLNG and the pipeline
-operators do not publish flows. The monthly Enterprise Singapore trade
+operators do not publish flows. Metered offtake data exists (PowerGas meters every
+transmission offtake point and shares readings with shippers over its GTSS system),
+but the Gas Network Code (Section K 4.2.3) makes Metering Data Confidential
+Information; PowerGas publishes only maintenance and network-development plans and a
+monthly shrinkage factor (discovery_archive/asia/SINGAPORE_GAS_DISCOVERY3.py). Town
+gas (City Energy) is published quarterly only (SingStat M890371). The monthly Enterprise Singapore trade
 dataset (SingStat T010002) has no public API.
 
     python3 asia/SINGAPORE_GAS.py --out "output/Data and Chart Outputs/singapore_gas.xlsx"
@@ -266,7 +271,9 @@ def main():
         f"Town gas: quarterly from 1994 (SingStat last updated {tg_updated}). Power-burn estimate: daily and monthly "
         "from 2021 (monthly: complete months only), to the latest NEMS metered day (final about a week after the day).",
         "NOT PUBLISHED: monthly/daily natural gas consumption, sendout or imports (pipeline or LNG) - EMA/SES publish "
-        "these annually only and SLNG / pipeline operators do not publish flows.",
+        "these annually only and SLNG / pipeline operators do not publish flows. PowerGas meters every offtake point, but "
+        "the Gas Network Code (Section K 4.2.3) makes metering data confidential (shippers only); town gas is "
+        "published quarterly only.",
         "Each run re-reads the (small) source tables; the power-burn estimate is rebuilt from the power workbook.",
         "",
         "SOURCES",
