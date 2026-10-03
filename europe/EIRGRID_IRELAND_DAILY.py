@@ -212,7 +212,8 @@ def main():
              "(check the sign against the net import you expect before using).",
              "Monthly: GWh per month from the Summary report's System Data Summary (since 2014). Fuel mix: the Summary report's rolling "
              "12-month Fuel Mix & CO2 table, as published.",
-             "Whole-file sources: a file is re-read only when its Last-Modified changes (see Releases).",
+             "Whole-file sources: a file is re-read only when its Last-Modified changes (see Releases). EirGrid's published quarter-hourly file for 2025 stops at "
+             "end-March 2025 (the year is not republished), so Daily has a gap from April to December 2025; the Monthly sheet is complete.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; daily {len(daily)} days"
              + (f", {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}" if len(daily) else "")]
     releases = pd.DataFrame({"File": list(rel), "Last-Modified": list(rel.values())}).set_index("File")
