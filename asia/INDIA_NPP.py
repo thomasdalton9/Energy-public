@@ -51,7 +51,8 @@ GEN_START, RES_START, COAL_START = date(2021, 1, 1), date(2020, 10, 1), date(202
 REVISION_DAYS = 3
 WORKERS = 6
 TYPES = {"THERMAL": "Coal", "THER (GT)": "Gas", "THER (DG)": "Oil", "NUCLEAR": "Nuclear", "HYDRO": "Hydro"}
-ACTUAL_COL = 9   # dgr2 'GENERATION (MU) - TODAY'S ACTUAL'
+# plausible all-India conventional generation, MWh/day (catches a wrong column: April-to-date totals are ~100x)
+DAY_RANGE = (1.5e6, 8e6)
 
 
 def out(*a):
@@ -84,16 +85,21 @@ def gen_day(d):
     if c is None:
         return None
     df = frame(c)
+    # 'TODAY'S ACTUAL' column under 'GENERATION (MU)'; its position differs between report versions
+    actual = next(j for i in range(min(10, len(df))) for j in range(df.shape[1])
+                  if re.search(r"today.?s\s*actual", text(df.iat[i, j]), re.I))
     tot = {}
     for i in range(len(df)):
         if text(df.iat[i, 0]).upper() != "TYPE:":
             continue
         label = next((text(v) for v in df.iloc[i, 1:8] if text(v)), "")
         key = TYPES.get(re.sub(r"\s+", " ", label.upper()))
-        v = pd.to_numeric(df.iat[i, ACTUAL_COL], errors="coerce")
+        v = pd.to_numeric(df.iat[i, actual], errors="coerce")
         if key and pd.notna(v):
             tot[key] = tot.get(key, 0.0) + float(v) * 1000   # MU -> MWh
-    return tot or None
+    if not tot or not DAY_RANGE[0] <= sum(tot.values()) <= DAY_RANGE[1]:
+        return None
+    return tot
 
 
 def res_day(d):
@@ -101,13 +107,15 @@ def res_day(d):
     if c is None:
         return None
     df = frame(c)
-    hdr = next(i for i in range(len(df)) if text(df.iat[i, 0]).lower() == "reservoir")
+    hdr = next(i for i in range(min(15, len(df))) if any("energy content" in text(v).lower() for v in df.iloc[i]))
     cols = {j: text(v).lower() for j, v in enumerate(df.iloc[hdr])}
     frl = next(j for j, t in cols.items() if "energy content at frl" in t or "energy content at f.r.l" in t)
     now = next(j for j, t in cols.items() if "energy content at present" in t)
     per = {}
-    for i in range(hdr + 3, len(df)):
+    for i in range(hdr + 1, len(df)):
         name = text(df.iat[i, 0])
+        if not name or name.isdigit() or re.match(r"^\d+(\.0)?$", name):
+            continue
         a, b = pd.to_numeric(df.iat[i, frl], errors="coerce"), pd.to_numeric(df.iat[i, now], errors="coerce")
         if name and not name.lower().startswith(("total", "remark", "note")) and pd.notna(a) and pd.notna(b):
             per[name.title()] = (float(a), float(b))
@@ -157,7 +165,19 @@ def todo(old, start):
     return [d for d in (start + timedelta(days=k) for k in range((last - start).days + 1)) if d not in have or d in revise]
 
 
+def safe(fn):
+    """A day whose file cannot be read is skipped (and refetched next run), not the whole step."""
+    def f(d):
+        try:
+            return fn(d)
+        except Exception as e:  # noqa: BLE001
+            print(f"    {fn.__name__} {d}: {type(e).__name__}: {e}", flush=True)
+            return None
+    return f
+
+
 def run(fn, days, label):
+    fn = safe(fn)
     res = {}
     with ThreadPoolExecutor(WORKERS) as ex:
         for n, (d, r) in enumerate(zip(days, ex.map(fn, days))):
@@ -176,6 +196,8 @@ def merge(old, new):
 
 def generation(path):
     old = read_sheet(path, "Daily")
+    if not old.empty:   # drop implausible saved days (an earlier column mix-up) so they are fetched again
+        old = old[old["Total_MWh"].between(*DAY_RANGE)]
     days = todo(old, GEN_START)
     out(f"Generation (dgr2): {len(old)} days saved, fetching {len(days)}")
     new = pd.DataFrame.from_dict(run(gen_day, days, "dgr2"), orient="index")
