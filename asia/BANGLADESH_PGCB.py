@@ -181,6 +181,8 @@ def main():
         raise SystemExit("No PGCB rows")
     h = pd.concat(frames).drop_duplicates("time").set_index("time").sort_index()
     h = h[h.index.date >= stop]
+    if "Generation_MW" in h:   # an hourly total far above the series' level is a keying slip (64,526,500 MW on 2023-01-15)
+        h.loc[h["Generation_MW"] > 3 * h["Generation_MW"].median(), "Generation_MW"] = None
     if "Generation_MW" in h:   # an hourly fuel value above the hour's total generation is a keying slip
         for f in FUELS:
             if f in h:
@@ -200,6 +202,10 @@ def main():
                         "Loadshed_MWh": g["Loadshed_MW"].mean().mul(24).round(0) if "Loadshed_MW" in h else None})
     dem = dem[dem.index.isin(new.index)]
     daily, demand = merge(old, new), merge(old_dem, dem)
+    for c in ("Demand_peak_MW", "Demand_avg_MW"):   # and blank any such day already saved
+        if c in demand:
+            med = demand[c].rolling(15, center=True, min_periods=5).median()
+            demand.loc[demand[c] > 3 * med, c] = None
     hourly = merge(old_h, h.drop(columns=[c for c in h.columns if c == "Remarks"]))
     hourly = hourly[hourly.index >= hourly.index.max() - pd.Timedelta(days=60)]
     daily.index.name = demand.index.name = "date"

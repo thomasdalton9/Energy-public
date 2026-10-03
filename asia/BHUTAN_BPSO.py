@@ -10,7 +10,7 @@ energy_met_mwh (domestic consumption met), peak_demand_mw, energy_export_mwh / e
 Daily values start in 2023.
 
 Data checks: BPSO's daily figures carry occasional keying slips (e.g. 8,200 for 82,000 MWh). A day below
-30% of the centred 15-day median of its series is blanked and listed on the Flags sheet, not charted.
+30% (or above 4x) the centred 15-day median of its series is blanked and listed on the Flags sheet, not charted.
 
 Writes output/Data and Chart Outputs/bhutan_power_generation_daily.xlsx:
   Daily   standard layout: Hydro_MWh = total generation (Total_MWh the same), plus Exports/Imports/Energy met
@@ -48,6 +48,7 @@ SERIES = {"generation_mwh": "Generation_MWh", "energy_met_mwh": "Energy_met_MWh"
           "energy_export_mwh": "Exports_MWh", "energy_import_mwh": "Imports_MWh",
           "iex_export_mwh": "IEX_exports_MWh", "iex_import_mwh": "IEX_imports_MWh"}
 CHECK = ["Generation_MWh", "Energy_met_MWh", "Demand_peak_MW", "Exports_MWh"]
+SMOOTH = ["Generation_MWh", "Energy_met_MWh", "Demand_peak_MW"]
 
 
 def out(*a):
@@ -113,11 +114,15 @@ def main():
     raw.index.name = "date"
 
     clean, flags = raw.copy(), []
+    num = clean.select_dtypes("number").columns
+    clean[num] = clean[num].mask(clean[num] >= 99999).mask(clean[num] < 0)   # BPSO's 99999.999 placeholder; negatives
     for c in CHECK:
         if c not in clean:
             continue
         med = clean[c].rolling(15, center=True, min_periods=5).median()
         bad = clean[c] < 0.3 * med
+        if c in SMOOTH:   # trade jumps with the season and imports are mostly zero: only the smooth series get an upper bound
+            bad |= clean[c] > 4 * med
         for d in clean.index[bad]:
             flags.append({"date": d, "series": c, "value": clean.at[d, c], "median_15d": round(med[d], 1)})
         clean.loc[bad, c] = None
@@ -138,8 +143,9 @@ def main():
         "power exchange).",
         "Demand: Demand_peak_MW = daily peak demand met, MW.",
         "Raw: every series as published (before the check below).",
-        "Flags: values blanked because they fall below 30% of the centred 15-day median of their series - BPSO's "
-        "daily sheets carry occasional keying slips (e.g. 8,200 for 82,000 MWh).",
+        "Flags: values blanked because they fall below 30% (generation, energy met, peak: or above 4x) the centred 15-day median of their series - "
+        "BPSO's daily sheets carry occasional keying slips (e.g. 8,200 for 82,000 MWh). BPSO's placeholder 99999.999 "
+        "and negative energy values are blanked too (not listed).",
         "",
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}.",
