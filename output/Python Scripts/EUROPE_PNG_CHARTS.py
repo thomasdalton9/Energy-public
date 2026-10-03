@@ -8,7 +8,7 @@ exactly what the Excel charts show (CLAUDE.md: every new or updated PNG chart is
   europe_net_imports.png                  net electricity imports (+) and exports (-) by country
   europe_power_prices.png                 day-ahead prices, selected countries, monthly average
   europe_gas_storage_water_year.png       EU gas storage, AGSI-style water year (Oct-Sep)
-  europe_gas_storage_flows.png            EU storage withdrawals (+) and injections (-)
+  europe_gas_balance.png                  EU gas balance: supply and storage flows vs consumption\n  europe_gas_storage_flows.png            EU storage withdrawals (+) and injections (-)
   europe_lng_sendout.png                  LNG terminal send-out by country
 
 Colours are the repo's fixed categorical order (xlsx_charts.PALETTE) so a fuel keeps its colour on every chart; no
@@ -95,11 +95,13 @@ def latest(df):
     return df.index.max().strftime("%b/%y")
 
 
-def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=()):
+def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=(), by_order=False):
     d = tab(xl, tab_name).drop(columns=list(drop), errors="ignore")
     fig, ax = plt.subplots(figsize=(11, 5.6))
     style(ax)
     cols = {c: FUEL_COLOURS.get(c, GREY) for c in d.columns}
+    if by_order:   # series are countries, not fuels: the repo's fixed categorical order, "Other" last in grey
+        cols = {c: (GREY if c == "Other" else PAL[i % len(PAL)]) for i, c in enumerate(d.columns)}
     cols.update({"Pumped & battery (net)": "#4A3AA7", "Load": INK})
     stacked(ax, d, cols, lines=lines)
     if "Load" in lines:
@@ -109,6 +111,20 @@ def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=
     date_axis(ax)
     ax.axhline(0, color="#BBBBBB", linewidth=0.8)
     finish(fig, ax, f"{title} (to {latest(d)})", ylabel, source, path, ncol=5 if lines else 8)
+
+
+def gas_balance(xl, path):
+    d = tab(xl, "EU gas balance data")
+    fig, ax = plt.subplots(figsize=(11, 5.6))
+    style(ax)
+    bars = [c for c in d.columns if c != "Consumption"]
+    cols = {c: PAL[i % len(PAL)] for i, c in enumerate(bars)}
+    stacked(ax, d[bars], cols)
+    ax.plot(d.index, d["Consumption"], color=INK, linewidth=2, label="Consumption (final consumers)")
+    date_axis(ax)
+    ax.axhline(0, color="#BBBBBB", linewidth=0.8)
+    finish(fig, ax, f"EU gas balance: supply and storage flows vs consumption (to {latest(d)})", "TWh per month",
+           "ENTSOG physical flows (operational data); Gas Infrastructure Europe ALSI (LNG) and AGSI+ (storage)", path, ncol=4)
 
 
 def water_year(xl, tab_name, title, unit, path, source):
@@ -184,22 +200,23 @@ def main():
             out("europe_power_balance.png"), lines=("Pumped & battery (net)", "Load"),
             source=ENTSOE + " (generation, load, cross-border physical flows)")),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
+        ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
         ("EU Prices data", lambda: prices(xl, out("europe_power_prices.png"))),
         ("EU Storage EU data", lambda: water_year(
             xl, "EU Storage EU data", "EU gas storage", "TWh", out("europe_gas_storage_water_year.png"),
             "Gas Infrastructure Europe, AGSI+")),
         ("EU Storage flows data", lambda: fuel_chart(
             xl, "EU Storage flows data", "EU gas storage: withdrawals (+) and injections (-)", "GWh per month",
-            out("europe_gas_storage_flows.png"), source="Gas Infrastructure Europe, AGSI+")),
+            out("europe_gas_storage_flows.png"), source="Gas Infrastructure Europe, AGSI+", by_order=True)),
         ("EU Send-out data", lambda: fuel_chart(
             xl, "EU Send-out data", "EU LNG terminal send-out by country", "GWh per month",
-            out("europe_lng_sendout.png"), source="Gas Infrastructure Europe, ALSI")),
+            out("europe_lng_sendout.png"), source="Gas Infrastructure Europe, ALSI", by_order=True)),
     ]
     netname = "Net imports flows data" if "Net imports flows data" in names else None
     if netname:
         jobs.append((netname, lambda: fuel_chart(
             xl, netname, "Europe net electricity imports (+) and exports (-) by country", "GWh per month",
-            out("europe_net_imports.png"), source=ENTSOE + ", cross-border physical flows")))
+            out("europe_net_imports.png"), source=ENTSOE + ", cross-border physical flows", by_order=True)))
     for tabname, fn in jobs:
         if tabname not in names:
             print(f"skipped (tab '{tabname}' not in the master)")
