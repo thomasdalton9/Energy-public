@@ -552,9 +552,18 @@ def india_reservoirs(p):
 
 
 def india_coal(p):
-    d = _sheet(p, "Daily", "date")
+    """Days of coal at India's power plants (stock / 7-day average burn) against CEA's normative level in days,
+    then the stock itself in million tonnes."""
+    d = _sheet(p, "Daily", "date").apply(pd.to_numeric, errors="coerce")
+    con = d["Consumption_kt"]
+    con = con.mask(con > 1.6 * con.rolling(15, center=True, min_periods=5).median())   # a day reported twice (2 Oct 2025)
+    burn = con.rolling(7, min_periods=1).mean()
+    days = pd.DataFrame({"Days of coal (actual stock / 7-day average burn)": (d["Actual_stock_kt"] / burn).round(1),
+                         "Normative stock, in days": (d["Normative_stock_kt"] / burn).round(1)})
     c = cols(d, "Actual_stock_kt", "Normative_stock_kt")
-    return [spec("Coal stock", d[c].rename(columns={"Actual_stock_kt": "Actual stock", "Normative_stock_kt":
+    return [spec("Days of coal", days, "India: days of coal at power plants (CEA daily coal stock report)", "days",
+                 "line", "%Y-%m-%d"),
+            spec("Coal stock", d[c].rename(columns={"Actual_stock_kt": "Actual stock", "Normative_stock_kt":
                                                     "Normative stock"}) / 1000,
                  "India coal stock at power plants (CEA)", "million tonnes", "line", "%Y-%m-%d")]
 
