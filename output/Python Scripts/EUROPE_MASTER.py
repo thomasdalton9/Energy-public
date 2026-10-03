@@ -251,7 +251,7 @@ def country_balance(gen_path, net_imports):
     day = day[day.index >= START]
     if day.empty:
         return pd.DataFrame()
-    m = monthly_cover(day[BALANCE_COLS]).dropna(how="all")
+    m = monthly_cover(day[BALANCE_COLS], 0.75).dropna(how="all")
     last = day.index.max()
     if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
         m = m[m.index < last.to_period("M").to_timestamp()]
@@ -426,12 +426,22 @@ def main():
         window = pd.date_range(START, max(b.index.max() for b in bal_frames.values()), freq="MS")
         core = {n: b for n, b in bal_frames.items() if len(b.index.intersection(window)) / len(window) >= MIN_SHARE}
         skipped = [n for n in bal_frames if n not in core]
-        months = sorted(set.intersection(*(set(b.index) for b in core.values()))) if core else []
+        skipped_notes = []
+        # a single month a small country lacks (e.g. Bosnia, Sep 2023: 13 days of load) is interpolated from its neighbours
+        filled = {}
+        for n, b in core.items():
+            f = b.reindex(window).interpolate(limit=1, limit_area="inside")
+            gaps = [f"{d:%b/%y}" for d in window if d not in b.index and f.loc[d].notna().all()]
+            if gaps:
+                skipped_notes.append(f"{n}: {', '.join(gaps)} interpolated from neighbouring months (too few days of data)")
+            filled[n] = f
+        core = filled
+        months = [d for d in window if all(f.loc[d].notna().all() for f in core.values())] if core else []
         if months:
             eu = sum(b.loc[months] for b in core.values())
             eu.index.name = "date"
             total_chart(wb, used, power, pos, eu, [f"{len(core)} countries with load and flows: " + ", ".join(core)]
-                        + [f"NOT INCLUDED: {n} (balance months since {pd.Timestamp(START):%b/%y}: too few)" for n in skipped],
+                        + [f"NOT INCLUDED: {n} (balance months since {pd.Timestamp(START):%b/%y}: too few)" for n in skipped] + skipped_notes,
                         "Europe balance data", "Europe power balance: supply by source and net imports vs load",
                         "GWh per month", BALANCE_SRC, "Countries summed (only months all of them have):",
                         line_cols=("Pumped & battery (net)", "Load"))
