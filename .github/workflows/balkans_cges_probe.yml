@@ -1,0 +1,32 @@
+name: Balkans and CGES probe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: CGES (Montenegro TSO) crawl
+        run: timeout 600 python3 discovery_archive/europe/CGES_PROBE.py
+
+      - name: Balkans ENTSO-E and Energy-Charts coverage
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+        run: timeout 1200 python3 discovery_archive/europe/BALKANS_PROBE.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cges_probe_report
+          path: cges_probe_report.json
