@@ -408,7 +408,9 @@ def india_iex(p):
 
 def thailand_reservoirs(p):
     d = _sheet(p, "Daily", "date")
-    return [{"name": "Storage", "water_year": d["Pct_full"].dropna().resample("D").interpolate(), "y_decimals": 0,
+    x = d["Pct_full"].dropna()
+    x = x[(x - x.rolling(7, center=True, min_periods=3).median()).abs() <= 3]   # one-dam volume typos in RID's feed
+    return [{"name": "Storage", "water_year": x.resample("D").interpolate(), "y_decimals": 0,
              "title": "Thailand large-reservoir storage (RID, 35 dams)", "units": "% of normal storage"}]
 
 
