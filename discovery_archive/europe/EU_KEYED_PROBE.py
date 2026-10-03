@@ -307,7 +307,7 @@ def accuracy():
     raw = {"DE-LU": ("SMARD", smard_week), "FR": ("RTE eCO2mix", rte_week), "ES": ("REE REData", ree_week)}
     out = {}
     for zone, cc in ec_codes.items():
-        base = entsoe_week(zone)
+        base = entsoe_week(ZONES[zone])  # EIC code, not the label
         log(f"  {zone}: ENTSO-E " + ("unavailable" if base is None else "; ".join(f"{k} {base[k] / 1000:.0f}GWh" for k in ORDER)))
         try:
             show("Energy-Charts", base, energy_charts_week(cc))

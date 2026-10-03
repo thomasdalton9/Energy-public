@@ -1,4 +1,4 @@
-name: ENTSO-E date bracket and accuracy
+name: ENTSO-E accuracy week
 
 on:
   workflow_dispatch:
@@ -20,11 +20,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install requests
-
-      - name: Which dates have ENTSO-E generation data
-        env:
-          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
-        run: timeout 600 python3 discovery_archive/europe/ENTSOE_DATE_BRACKET.py
 
       - name: Accuracy week vs national feeds
         env:
