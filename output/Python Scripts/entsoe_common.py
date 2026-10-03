@@ -267,14 +267,17 @@ def merge_energy(a, b):
 
 
 def parse_capacity(text):
-    """A68 XML -> {psr: {year: MW}} (installed capacity at the year in the period)."""
+    """A68 XML -> {psr: {year: MW}} (installed capacity for the year). Annual periods start at the zone's local
+    midnight (23:00 UTC on 31 December for CET zones), so the year is that of the period's midpoint."""
     root = ET.fromstring(text)
     out = {}
     for direction, psr, start, step, n, vals in _periods(root):
         v = next((x for x in vals if x is not None), None)
         if psr is None or v is None:
             continue
-        out.setdefault(psr, {})[start.year] = out.setdefault(psr, {}).get(start.year, 0.0) + v
+        year = (start + timedelta(minutes=step * n / 2)).year
+        d = out.setdefault(psr, {})
+        d[year] = d.get(year, 0.0) + v
     return out
 
 
@@ -290,15 +293,19 @@ def merge_capacity(a, b):
 
 
 def parse_prices(text):
-    """A44 XML -> {date: [price EUR/MWh, ...]} using only the finest resolution present on each day."""
+    """A44 XML -> {date: [price EUR/MWh, ...]} using only the finest resolution present on each day; a slot reported
+    by more than one series (the 15-minute market is published twice) counts once."""
     root = ET.fromstring(text)
-    per_day = {}
+    slots = {}   # step -> {slot start: price}
     for direction, psr, start, step, n, vals in _periods(root):
+        d = slots.setdefault(step, {})
         for i, v in enumerate(vals):
-            if v is None:
-                continue
-            d = (start + timedelta(minutes=step * i)).date()
-            per_day.setdefault(d, {}).setdefault(step, []).append(v)
+            if v is not None:
+                d[start + timedelta(minutes=step * i)] = v
+    per_day = {}
+    for step, ts in slots.items():
+        for t, v in ts.items():
+            per_day.setdefault(t.date(), {}).setdefault(step, []).append(v)
     return {d: v[min(v)] for d, v in per_day.items()}
 
 
