@@ -97,18 +97,23 @@ def parse(html):
     if names and names[0] == "time" and len(names) > 1 and names[1] in ("time", "Time"):
         names = names[1:]
     body = re.search(r"(?is)<tbody.*?</tbody>", html)
-    rows = []
+    rows, bad = [], []
     for tr in re.findall(r"(?is)<tr[^>]*>(.*?)</tr>", body.group(0) if body else html):
         c = cells(tr, "td")
         if len(c) < 5 or not re.match(r"\d\d-\d\d-\d{4}$", c[0]):
             continue
         vals = [f"{c[0]} {c[1]}"] + c[2:]    # date and time sit in separate cells
+        if re.search(r"peak", vals[-1], re.I):
+            continue   # 'Day Peak' / 'Evening Peak' rows repeat an hour of the table
         cols = names
         if len(vals) == len(names) - 2:
             cols = [n for n in names if n not in ("Demand_MW", "Loadshed_MW")]
         if len(vals) != len(cols):
+            bad.append((len(vals), len(cols), vals[:4]))
             continue
         rows.append(dict(zip(cols, vals)))
+    if bad and not rows:
+        print(f"  unparsed layout: header {names}; first rows (cells, header cols, start) {bad[:2]}", flush=True)
     if not rows:
         return pd.DataFrame()
     t = pd.DataFrame(rows)
@@ -142,11 +147,17 @@ def main():
     stop = (old.index.max().date() - timedelta(days=REVISION_DAYS)) if not old.empty else DATA_START
     out(f"{len(old)} days saved; reading pages back to {stop}")
     frames = []
+    empty = 0
     for n in range(1, MAX_PAGES + 1):
         p = page(n)
         if p.empty:
-            out(f"  page {n}: no rows - stopping")
-            break
+            empty += 1
+            out(f"  page {n}: no rows")
+            if empty >= 5:
+                out("  5 pages without rows - stopping")
+                break
+            continue
+        empty = 0
         frames.append(p)
         oldest = p["time"].min()
         if n % 50 == 0:
