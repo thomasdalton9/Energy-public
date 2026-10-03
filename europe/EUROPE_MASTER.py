@@ -67,7 +67,7 @@ RAW_POWER_DATASETS = (
 CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "capacity")
                      for code, (name, slug, _) in COUNTRIES.items()]
 PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "power prices"),
-                  ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "cross-border flows")]
+                  ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "flows")]
 FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
 HYDRO_DATASETS = [("DE", "Germany (Rhine)", "rhine_kaub_level_daily.xlsx", "Data", "river level")]
 HYDRO_EXTRA = {}
@@ -168,18 +168,22 @@ def europe_capacity(data_dir):
             notes.append(f"NOT INCLUDED: {name} ({type(e).__name__}: {e})")
     if not frames:
         return pd.DataFrame(), notes
-    years = sorted(set().union(*(set(f.index) for f in frames.values())))
-    rows, used_years = [], []
-    for y in years:
-        have = [n for n, f in frames.items() if y in f.index]
-        if len(have) >= MIN_SHARE * len(frames):
-            rows.append(sum(frames[n].loc[y] for n in have))
-            used_years.append(y)
-            if len(have) < len(frames):
-                notes.append(f"{y:%Y}: {len(frames) - len(have)} countries without figures: "
-                             + ", ".join(sorted(set(frames) - set(have))))
+    first = min(f.index.min() for f in frames.values())
+    last = max(f.index.max() for f in frames.values())
+    rng = pd.date_range(first, last, freq="YS")
+    core = {}
+    for name, f in frames.items():
+        share = len(f.index.intersection(rng)) / len(rng)
+        if share >= MIN_SHARE:
+            core[name] = f
+        else:
+            notes.append(f"NOT INCLUDED: {name} (figures for only {share:.0%} of {first:%Y}-{last:%Y}: "
+                         f"{f.index.min():%Y}-{f.index.max():%Y})")
+    years = sorted(set.intersection(*(set(f.index) for f in core.values()))) if core else []
+    rows, used_years = [sum(core[n].loc[y] for n in core) for y in years], years
+    frames = core
     if not rows:
-        return pd.DataFrame(), notes + ["no year with figures for most countries"]
+        return pd.DataFrame(), notes + ["no year with figures for the countries counted"]
     total = pd.DataFrame(rows, index=pd.DatetimeIndex(used_years))
     total.index.name = "date"
     notes.insert(0, f"{len(frames)} countries (ENTSO-E annual installed capacity, 1 January; storage excluded)")
@@ -324,11 +328,15 @@ def main():
                     f"{name} balance data", f"{name} power balance: supply by source and net imports vs load",
                     "GWh per month", BALANCE_SRC, "Notes:", label=name, line_cols=("Pumped & battery (net)", "Load"))
     if len(bal_frames) >= 10:
-        months = sorted(set.intersection(*(set(b.index) for b in bal_frames.values())))
+        window = pd.date_range(START, max(b.index.max() for b in bal_frames.values()), freq="MS")
+        core = {n: b for n, b in bal_frames.items() if len(b.index.intersection(window)) / len(window) >= MIN_SHARE}
+        skipped = [n for n in bal_frames if n not in core]
+        months = sorted(set.intersection(*(set(b.index) for b in core.values()))) if core else []
         if months:
-            eu = sum(b.loc[months] for b in bal_frames.values())
+            eu = sum(b.loc[months] for b in core.values())
             eu.index.name = "date"
-            total_chart(wb, used, power, pos, eu, [f"{len(bal_frames)} countries with load and flows: " + ", ".join(bal_frames)],
+            total_chart(wb, used, power, pos, eu, [f"{len(core)} countries with load and flows: " + ", ".join(core)]
+                        + [f"NOT INCLUDED: {n} (balance months since {pd.Timestamp(START):%b/%y}: too few)" for n in skipped],
                         "Europe balance data", "Europe power balance: supply by source and net imports vs load",
                         "GWh per month", BALANCE_SRC, "Countries summed (only months all of them have):",
                         line_cols=("Pumped & battery (net)", "Load"))
