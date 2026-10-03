@@ -1,0 +1,50 @@
+name: South & Southeast Asia pull runner (branch only, temporary)
+
+# Runs the pull commands listed in asia/SEA_PULL_RUN.txt on the development branch, charts every
+# workbook they changed and commits the outputs back to the branch. Used to test and backfill the
+# new South & Southeast Asia pulls before their scheduled workflows reach main; deleted afterwards.
+on:
+  push:
+    branches: [claude/compassionate-darwin-2khdxe]
+    paths:
+      - "asia/SEA_PULL_RUN.txt"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl xlrd pdfplumber lxml
+      - name: Run pulls
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          grep -v '^#' asia/SEA_PULL_RUN.txt | while read -r line; do
+            [ -z "$line" ] && continue
+            echo "################ $line"
+            timeout 3000 python3 $line || echo "!! exit $?"
+          done
+      - name: Chart and commit outputs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git status --porcelain -- "output/Data and Chart Outputs" | sed 's/^...//; s/^"//; s/"$//' | grep '\.xlsx$' | while read -r f; do
+            python3 add_charts.py "$f" || echo "chart step failed for $f"
+          done
+          git add -f "output/Data and Chart Outputs" || true
+          git diff --cached --quiet || git commit -m "South & Southeast Asia pulls: branch run"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

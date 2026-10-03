@@ -373,6 +373,24 @@ def sa_power_annual(p):
     return out
 
 
+def daily_demand(title):
+    """'Demand' sheet (date + Demand_avg_MW / Demand_peak_MW): monthly average of the daily values."""
+    def f(p):
+        d = _sheet(p, "Demand", "date")
+        if d.empty:
+            return []
+        c = cols(d, "Demand_avg_MW", "Demand_peak_MW")
+        return [spec("Demand", monthly_mean(d[c], "2021-01-01").rename(
+            columns={"Demand_avg_MW": "Average demand", "Demand_peak_MW": "Daily peak"}), title,
+            "MW (monthly average of daily values)")]
+    return f
+
+
+def power_and_demand(gen_title, demand_title):
+    """Standard Daily generation chart plus the Demand sheet chart."""
+    return lambda p: power_daily(gen_title)(p) + daily_demand(demand_title)(p)
+
+
 def colombia(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     z = lambda *c: d[cols(d, *c)].sum(axis=1, min_count=1)  # noqa: E731
@@ -1420,6 +1438,9 @@ REGISTRY = {
     # South & Southeast Asia (Ember fallback until each country's raw feed is in)
     "south_southeast_asia_power_by_type.xlsx": sa_power,
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
+    "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
+                                                             "Malaysia (Peninsular) system demand (GSO)"),
+    "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "us_gas.xlsx": us_gas,
