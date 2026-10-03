@@ -470,6 +470,29 @@ def india_gas(p):
     return out
 
 
+def india_npp_generation(p):
+    d = _sheet(p, "Daily", "date")
+    c = [x for x in ("Coal_MWh", "Gas_MWh", "Oil_MWh", "Nuclear_MWh", "Hydro_MWh") if x in d]
+    m = d[c].resample("MS").sum(min_count=1) / 1000
+    return [spec("Generation", m[m.index >= "2021-01-01"].rename(columns=lambda x: x.replace("_MWh", "")),
+                 "India conventional generation by type (CEA daily report; excludes wind/solar)", "GWh per month",
+                 "stacked_bar")]
+
+
+def india_reservoirs(p):
+    d = _sheet(p, "Daily", "date")
+    return [{"name": "Storage", "water_year": d["Pct_of_FRL"].dropna().resample("D").interpolate(), "y_decimals": 0,
+             "title": "India hydro reservoirs, energy content (CEA)", "units": "% of energy at full reservoir level"}]
+
+
+def india_coal(p):
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "Actual_stock_kt", "Normative_stock_kt")
+    return [spec("Coal stock", d[c].rename(columns={"Actual_stock_kt": "Actual stock", "Normative_stock_kt":
+                                                    "Normative stock"}) / 1000,
+                 "India coal stock at power plants (CEA)", "million tonnes", "line", "%Y-%m-%d")]
+
+
 def malaysia_smp(p):
     d = _sheet(p, "Daily", "date")
     c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
@@ -1533,6 +1556,9 @@ REGISTRY = {
                                                            "Bhutan peak demand (BPSO)"),
     "india_power_prices.xlsx": india_iex,
     "india_gas.xlsx": india_gas,
+    "india_npp_generation_daily.xlsx": india_npp_generation,
+    "india_hydro_reservoirs.xlsx": india_reservoirs,
+    "india_coal_stocks.xlsx": india_coal,
     "bangladesh_power_generation_daily.xlsx": power_and_demand("Bangladesh power generation by fuel (PGCB)",
                                                                "Bangladesh served demand (PGCB)"),
     "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
