@@ -1688,6 +1688,20 @@ def eu_lng(p):
     return out
 
 
+def ireland_eirgrid(p):
+    """EirGrid quarter-hourly system data (Republic of Ireland): monthly GWh by wind, solar, hydro and thermal/other, from the
+    Daily sheet."""
+    d = by_date(read(p, "Daily"), "date")
+    cols = {"IE_Thermal_other": "Thermal & other (gas, oil, peat/coal)", "IE_Wind": "Wind", "IE_Solar": "Solar", "IE_Hydro": "Hydro"}
+    d = d[[c for c in cols if c in d]]
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1)
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m.dropna(how="all").rename(columns=cols)
+    return [spec("Generation", m, "Ireland (Republic) generation by source (EirGrid)", "GWh per month", "stacked_bar")] if len(m) else []
+
+
 def gb_gas_nts(p):
     """GB NTS gas: demand by sector and supply by entry point, monthly TWh (National Gas Transmission)."""
     d = by_date(read(p, "Daily"), "date")
@@ -1719,6 +1733,7 @@ REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "ember_europe_power_monthly.xlsx": ember_europe,
+    "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
