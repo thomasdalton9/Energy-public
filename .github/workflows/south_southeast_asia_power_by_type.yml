@@ -1,7 +1,7 @@
 name: South and Southeast Asia power by type (Ember fallback)
 
-# Ember monthly generation by fuel for the South & Southeast Asia countries (fallback until each has a raw
-# feed; the master switches a country to its raw workbook once that holds a year), plus Ember's yearly
+# Ember monthly generation by fuel for the South & Southeast Asia countries (fallback: the master uses a raw
+# workbook wherever one exists and holds a year, so raw countries are kept here unused), plus Ember's yearly
 # release for the countries Ember has no monthly data for. Ember re-publishes whole files: 1st and 15th.
 on:
   schedule:
@@ -25,12 +25,12 @@ jobs:
       - name: Run (monthly)
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Bangladesh,Sri Lanka,Thailand,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia,Singapore" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
       - name: Run (yearly)
         if: always()
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --yearly --countries "Indonesia,Myanmar,Cambodia,Lao People's Democratic Republic (the):Laos,Brunei Darussalam:Brunei,Nepal,Timor-Leste" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type_annual.xlsx"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --yearly --countries "Indonesia,Myanmar,Cambodia,Lao People's Democratic Republic (the):Laos,Brunei Darussalam:Brunei,Nepal,Bhutan,Timor-Leste" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type_annual.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
