@@ -223,7 +223,7 @@ def main():
             m = re.search(r"(20\d\d)-\d\d", sh)
             raw = pd.read_excel(xl, sh, header=None)
             if not m:   # current-FY file: 'Financial Year 2026-27' in the sheet
-                txt = " ".join(raw.head(10).astype(str).values.ravel())
+                txt = " ".join(raw.head(10).fillna("").astype(str).values.ravel())
                 m = re.search(r"Financial Year\s*(20\d\d)", txt)
                 if not m or "month" not in txt.lower():
                     continue
