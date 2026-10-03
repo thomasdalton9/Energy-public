@@ -1666,6 +1666,8 @@ REGISTRY = {
                                                              "Malaysia (Peninsular) system demand (GSO)"),
     "sri_lanka_power_generation_daily.xlsx": power_and_demand("Sri Lanka power generation by source (PUCSL / CEB)",
                                                               "Sri Lanka total dispatch (PUCSL / CEB)"),
+    "singapore_power_generation_daily.xlsx": power_and_demand("Singapore power generation by type (EMC / NEMS metered)",
+                                                              "Singapore system demand (EMA)"),
     "bhutan_power_generation_daily.xlsx": power_and_demand("Bhutan power generation (BPSO, hydro)",
                                                            "Bhutan peak demand (BPSO)"),
     "india_power_prices.xlsx": india_iex,

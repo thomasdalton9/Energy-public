@@ -32,6 +32,11 @@ covering a missing day; NEMS years containing a missing day, plus the days
 after the latest yearly zip). The monthly/annual tables are small and are
 re-read each run.
 
+Also writes singapore_power_generation_daily.xlsx next to it: the NEMS metered generation in the standard
+'Daily' layout (<Fuel>_MWh) used by the master workbooks - Gas = CCGT/COGEN/TRIGEN + GT; Other = steam turbines
+(waste-to-energy, oil, coal cogeneration) + OTHERS; Solar = grid-scale (IGS) solar only; Imports and battery storage
+kept as separate columns, not counted in Total_MWh - plus a 'Demand' sheet from EMA system demand.
+
     python3 asia/SINGAPORE_POWER.py --out "output/Data and Chart Outputs/singapore_power.xlsx"
 """
 import argparse
@@ -333,6 +338,43 @@ def annual_fuel_mix(xl):
 
 # ------------------------------------------------------------------ main
 
+def write_standard(gen, daily, path):
+    """NEMS generation (GWh/day by facility type) + EMA daily demand -> the standard Daily/Demand layout."""
+    g = gen.apply(pd.to_numeric, errors="coerce") * 1000.0
+    std = pd.DataFrame({"Gas_MWh": g[[c for c in ("CCGT_Cogen_Trigen_GWh", "Gas_turbine_OCGT_GWh") if c in g]].sum(axis=1, min_count=1),
+                        "Solar_MWh": g.get("Solar_IGS_GWh"),
+                        "Other_MWh": g[[c for c in ("Steam_turbine_GWh", "Other_GWh") if c in g]].sum(axis=1, min_count=1)},
+                       index=g.index)
+    std["Total_MWh"] = std.sum(axis=1, min_count=1)
+    std["Imports_MWh"], std["Battery_net_MWh"] = g.get("Imports_GWh"), g.get("Battery_ESS_GWh")
+    std = std.round(1)
+    dem = pd.DataFrame({"Demand_avg_MW": daily.get("System_Demand_Avg_MW"), "Demand_peak_MW": daily.get("System_Demand_Peak_MW"),
+                        "Demand_min_MW": daily.get("System_Demand_Min_MW")}).round(1)
+    for df in (std, dem):
+        df.index = pd.to_datetime(df.index).strftime("%Y-%m-%d")
+        df.index.name = "date"
+    notes = [
+        "UNITS",
+        "Daily: MWh per day of metered gross injection (EMC / NEMS 'Metered Generation by Facility Type'). Gas_MWh = "
+        "CCGT/COGEN/TRIGEN + open-cycle GT; Other_MWh = steam turbines (waste-to-energy, oil- and coal-fired "
+        "cogeneration) + other facilities; Solar_MWh = grid-scale solar registered in the market (IGS) only - most "
+        "Singapore solar is embedded and not metered here. Total_MWh (about 3-4% below EMA/SingStat total generation, "
+        "which adds embedded solar and other unmetered generation) = Gas + Solar + Other. Imports_MWh and "
+        "Battery_net_MWh (storage, net of charging) are shown separately and not counted in the total.",
+        "Demand: EMA system demand, MW - daily average, peak and minimum of the half-hourly values.",
+        "",
+        "COVERAGE",
+        f"Daily from {std.index.min()} to {std.index.max()}; demand to {dem.index.max()}. Rebuilt from "
+        "singapore_power.xlsx on every run of asia/SINGAPORE_POWER.py.",
+        "",
+        "SOURCE",
+        f"EMC NEMS market data (Metered Generation by Facility Type): {NEMS_PAGE}",
+        f"EMA Half-hourly System Demand Data: {EMA_PAGE}",
+    ]
+    xlsx_notes.write_workbook(path, {"Daily": std, "Demand": dem}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    out(f"Saved {path}: {std.index.min()}..{std.index.max()}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="output/Data and Chart Outputs/singapore_power.xlsx")
@@ -413,6 +455,8 @@ def main():
                                          CONS_SHEET: cons_out, MIX_SHEET: mix_out, HH_SHEET: hh_out},
                               notes, {"UNITS", "DEFINITIONS", "COVERAGE", "SOURCES"})
     out(f"Saved {args.out}")
+    write_standard(gen, daily, os.path.join(os.path.dirname(os.path.abspath(args.out)),
+                                            "singapore_power_generation_daily.xlsx"))
 
 
 if __name__ == "__main__":

@@ -63,6 +63,7 @@ RAW_POWER_DATASETS = [
     ("PH", "Philippines", "philippines_power_generation_daily.xlsx", "Daily", "power"),
     ("MY", "Malaysia", "malaysia_power_generation_daily.xlsx", "Daily", "power"),
     ("ID", "Indonesia", "indonesia_power_generation_daily.xlsx", "Daily", "power"),
+    ("SG", "Singapore", "singapore_power_generation_daily.xlsx", "Daily", "power"),
 ]
 # Ember fallback: monthly release (country sheets named as below) and yearly release
 EMBER_FILES = [("SSEA", "South & Southeast Asia", "south_southeast_asia_power_by_type.xlsx")]
@@ -75,8 +76,7 @@ OTHER_POWER_DATASETS = [
     ("IN", "India", "india_coal_stocks.xlsx", "Daily", "coal stocks"),
     ("MY", "Malaysia", "malaysia_power_prices.xlsx", "Daily", "power prices"),
     ("PH", "Philippines", "philippines_power_market.xlsx", ("Daily demand", "Daily prices"), "power market"),
-    ("SG", "Singapore", "singapore_power.xlsx",
-     ("Daily demand", "Daily generation by type", "Monthly generation", "Annual consumption", "Annual fuel mix"),
+    ("SG", "Singapore", "singapore_power.xlsx", ("Monthly generation", "Annual consumption", "Annual fuel mix"),
      "power"),
 ]
 CAPACITY_DATASETS = [(code, country, f"{country.lower().replace(' ', '_')}_power_capacity.xlsx", "Monthly",
@@ -89,7 +89,10 @@ HYDRO_DATASETS = [
 ]
 HYDRO_EXTRA = {"philippines_dam_levels.xlsx": {"San Roque", "Magat", "Pantabangan"}}
 DASHBOARD_ONLY = {}
-MASTER_SPECS = {}
+# singapore_power.xlsx: its daily demand and generation charts are already drawn from the standard
+# singapore_power_generation_daily.xlsx (same EMA / NEMS data), so the master keeps only its monthly and annual charts
+MASTER_SPECS = {"singapore_power.xlsx": lambda p: [s for s in add_charts.singapore_power(p)
+                                                   if s["name"] not in ("Demand", "Generation")]}
 
 SOURCES = {
     "india_gas.xlsx": ("PPAC (Petroleum Planning & Analysis Cell, Ministry of Petroleum and Natural Gas)",
@@ -123,6 +126,8 @@ SOURCES = {
     "philippines_dam_levels.xlsx": ("DOST-PAGASA, dam information", "https://www.pagasa.dost.gov.ph/flood"),
     "singapore_gas.xlsx": ("EMA Singapore Energy Statistics (annual); SingStat town gas; power burn ESTIMATED from "
                            "EMC/NEMS metered CCGT generation", "https://www.ema.gov.sg/resources/singapore-energy-statistics"),
+    "singapore_power_generation_daily.xlsx": ("EMC / NEMS (Energy Market Company), metered generation by facility type; "
+                                              "EMA system demand", "https://www.nems.emcsg.com/nems-prices"),
     "singapore_power.xlsx": ("EMA half-hourly system demand; EMC/NEMS metered generation by facility type; SingStat; "
                              "EMA SES", "https://www.ema.gov.sg/resources/statistics/half-hourly-system-demand-data"),
     "south_southeast_asia_power_by_type.xlsx": ("Ember monthly electricity data",
