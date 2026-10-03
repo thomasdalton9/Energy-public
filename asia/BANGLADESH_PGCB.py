@@ -103,8 +103,6 @@ def parse(html):
         if len(c) < 5 or not re.match(r"\d\d-\d\d-\d{4}$", c[0]):
             continue
         vals = [f"{c[0]} {c[1]}"] + c[2:]    # date and time sit in separate cells
-        if re.search(r"peak", vals[-1], re.I):
-            continue   # 'Day Peak' / 'Evening Peak' rows repeat an hour of the table
         cols = names
         if len(vals) == len(names) - 2:
             cols = [n for n in names if n not in ("Demand_MW", "Loadshed_MW")]
@@ -118,7 +116,9 @@ def parse(html):
         return pd.DataFrame()
     t = pd.DataFrame(rows)
     t["time"] = pd.to_datetime(t["time"], format="%d-%m-%Y %H:%M:%S", errors="coerce")
+    # keep the on-the-hour rows; an 'Evening Peak' remark row can add an off-hour reading or repeat an hour
     t = t.dropna(subset=["time"])
+    t = t[t["time"].dt.minute.eq(0)].drop_duplicates("time")
     num = [x for x in t.columns if x not in ("time", "Remarks")]
     t[num] = t[num].apply(lambda s: pd.to_numeric(s.astype(str).str.replace(",", ""), errors="coerce"))
     return t[["time"] + num]
