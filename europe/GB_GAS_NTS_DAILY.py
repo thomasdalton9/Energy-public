@@ -167,7 +167,7 @@ def main():
     start = datetime.strptime(args.start, "%Y-%m-%d").date()
     today = datetime.now(timezone.utc).date()
     old = read_existing(path)
-    have = set(old.dropna(how="all").index.date)
+    have = set(old.dropna(how="all").index.date) if len(old) else set()
     fs = start
     if have:
         fs = max(start, max(have) - timedelta(days=REVISION_DAYS))
