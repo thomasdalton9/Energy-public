@@ -49,7 +49,8 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 START = "2021-01-01"
 MIN_SHARE = 0.95   # a country joins the Europe total if it has this share of the months since START
 
-ENTSOE = ("ENTSO-E Transparency Platform (TSOs' reporting): actual generation per production type",
+ENTSOE = ("ENTSO-E Transparency Platform (TSOs' reporting): actual generation per production type; Great Britain: Elexon BMRS + NESO; "
+          "Ireland: EirGrid + Ember",
           "https://transparency.entsoe.eu/")
 
 # (code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
@@ -122,7 +123,8 @@ SOURCES = {
 GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
                    "https://transparency.entsog.eu/")
 GAS_FLOWS_FILE = "europe_gas_flows_daily.xlsx"
-BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows",
+BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows (Great Britain: Elexon BMRS + NESO; "
+               "Ireland: EirGrid + Ember)",
                "https://transparency.entsoe.eu/")
 for _code, (_name, _slug, _zones) in COUNTRIES.items():
     SOURCES[f"{_slug}_power_generation_daily.xlsx"] = ENTSOE

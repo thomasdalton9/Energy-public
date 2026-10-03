@@ -37,6 +37,7 @@ PAL = ["#" + c for c in xlsx_charts.PALETTE]
 GREY, INK, MUTED = "#9A9A9A", "#222222", "#6B6B6B"
 FUEL_COLOURS = dict(zip(["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports"], PAL))
 ENTSOE = "ENTSO-E Transparency Platform"
+EXTRA = "; Great Britain: Elexon BMRS + NESO; Ireland: EirGrid + Ember"
 
 
 def tab(xl, name):
@@ -175,7 +176,7 @@ def major_markets(xl, path):
     fig.legend(handles, labels, loc="lower center", ncol=6, frameon=False, fontsize=9, bbox_to_anchor=(0.5, -0.02))
     fig.suptitle("Power balance, major markets: supply by source and net imports vs load (GWh per month)", x=0.01, ha="left",
                  fontsize=13, fontweight="bold", color=INK)
-    fig.text(0.01, -0.035, "Source: " + ENTSOE + " (generation, load, cross-border physical flows)", fontsize=8, color=MUTED, va="top")
+    fig.text(0.01, -0.035, "Source: " + ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA, fontsize=8, color=MUTED, va="top")
     fig.tight_layout(rect=(0, 0.03, 1, 0.96))
     fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight", pad_inches=0.25)
     plt.close(fig)
@@ -194,11 +195,11 @@ def main():
     jobs = [
         ("Europe generation total data", lambda: fuel_chart(
             xl, "Europe generation total data", "Europe power generation by source", "GWh per month",
-            out("europe_power_generation_by_source.png"), source=ENTSOE + ", actual generation per production type")),
+            out("europe_power_generation_by_source.png"), source=ENTSOE + " (actual generation per production type)" + EXTRA),
         ("Europe balance data", lambda: fuel_chart(
             xl, "Europe balance data", "Europe power balance: supply by source and net imports vs load", "GWh per month",
             out("europe_power_balance.png"), lines=("Pumped & battery (net)", "Load"),
-            source=ENTSOE + " (generation, load, cross-border physical flows)")),
+            source=ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
         ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
         ("EU Prices data", lambda: prices(xl, out("europe_power_prices.png"))),
