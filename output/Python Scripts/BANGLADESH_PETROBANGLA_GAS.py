@@ -46,7 +46,7 @@ FILTER = json.dumps({"reports_type": "6922d2b181fc96cef9e99f16"})
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (20, 120)
 DATA_START = date(2021, 1, 1)
-REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 BATCH = 150
 GAP_DAYS = 45
 MAX_PAGES = 400
@@ -107,14 +107,16 @@ def listing_page(page):
 
 
 def report_date(text):
-    """'Date : 01-02 Oct, 2026' / '30 Sep- 1 Oct 2026' / '29 - 30 Sep, 2026' -> the end of the gas day."""
+    """'Date : 01-02 Oct, 2026' / '28-29Sep, 2026' / '30 Sep- 1 Oct 2026' / '29 - 30 Sep, 2026' -> the end of the gas
+    day. Most reports put no space between the day and the month ('28-29Sep'), so days are found by digits alone (a
+    word boundary would miss the 29 and date the report a day early)."""
     m = re.search(r"Date\s*:\s*(.{4,40}?)\s+From", text)
     if not m:
         return None
     s = m.group(1)
     yr = re.findall(r"(20\d\d)", s)
     mons = [MON[x.lower()[:3]] for x in re.findall(r"[A-Za-z]{3,9}", s) if x.lower()[:3] in MON]
-    days = [int(x) for x in re.findall(r"\b(\d{1,2})\b", s)]
+    days = [int(x) for x in re.findall(r"(?<!\d)(\d{1,2})(?!\d)", s)]
     if not (yr and mons and days):
         return None
     try:
@@ -175,7 +177,7 @@ def parse(text):
     if len(v) >= 6:
         (row["Power_demand"], row["Power_supply"], row["Fertiliser_demand"], row["Fertiliser_supply"],
          row["Others_supply"], row["Total_distribution"]) = map(float, v[:6])
-    # older reports list gas to non-grid (captive / off-grid) power separately, outside 'Total :'
+    # memo line: gas to non-grid (captive / off-grid) power, already counted inside the distribution total
     row["Power_nongrid"] = nums_after(r"Total Non-Grid Power", dist, 0)
     # the state companies add up to (1+2+3); state + IOCs + R-LNG add up to the grand total: drop what doesn't
     comp = [row.get(k) for k in ("Prod_BGFCL", "Prod_SGFL", "Prod_BAPEX")]
@@ -194,6 +196,8 @@ def fetch(item):
         with pdfplumber.open(io.BytesIO(r.content)) as pdf:
             text = "\n".join((p.extract_text() or "") for p in pdf.pages[:2])
         when = report_date(text) or label
+        if label and when != label:   # the listing label is the same end-of-gas-day date, bar the odd typo
+            out(f"  label {label} vs PDF date {when} ({url[-40:]}): PDF date used")
         row = parse(text)
         # sanity: the three supply blocks add up to the grand total
         parts = [row.get(k) for k in ("Prod_state", "Prod_IOC", "RLNG")]
@@ -215,12 +219,15 @@ def read_saved(path):
     return d.sort_index()
 
 
-def save(path, new_rows):
-    old = read_saved(path)
+def save(path, new_rows, rebuild=False):
+    old = pd.DataFrame() if rebuild else read_saved(path)
     new = pd.DataFrame.from_dict(new_rows, orient="index")
     if not new.empty:
         new.index = pd.to_datetime(new.index)
     d = new if old.empty else (old if new.empty else pd.concat([old[~old.index.isin(new.index)], new]))
+    if d.empty:
+        out("Nothing saved yet and nothing parsed this run")
+        return d
     d = d.sort_index()
     d = d[[c for c in COLS if c in d] + [c for c in d if c not in COLS]].round(1)
     d.index.name = "date"
@@ -233,8 +240,9 @@ def save(path, new_rows):
         "RLNG = regasified LNG delivered by RPGCL from the FSRUs (imports); Total_supply = Petrobangla's grand total.",
         "Distribution: Power_demand / Power_supply = gas demanded by and supplied to power plants; Fertiliser_demand "
         "(maximum) / Fertiliser_supply; Others_supply = everything else supplied by the distribution companies "
-        "(industry, captive power, CNG, commercial, households); Total_distribution. Power_nongrid = gas to non-grid "
-        "power listed separately in the older reports (2021 - early 2022), not in Power_supply.",
+        "(industry, captive power, CNG, commercial, households); Total_distribution. Power_nongrid = the report's "
+        "'Total Non-Grid Power' memo line (captive / off-grid power): already inside the distribution figures (Power + "
+        "Fertiliser + Others = Total_distribution exactly), so it is not added to them.",
         "Checks: the state companies must add up to their (1+2+3) sub-total and state + IOCs + R-LNG to the grand total "
         "(within a few MMCFD); a report that fails keeps its totals but its company split is left blank.",
         "",
@@ -254,8 +262,10 @@ def save(path, new_rows):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
+    ap.add_argument("--rebuild", action="store_true",
+                    help="ignore the saved workbook and re-read every report from DATA_START (e.g. after a parser fix)")
     args = ap.parse_args()
-    saved = read_saved(args.out)
+    saved = pd.DataFrame() if args.rebuild else read_saved(args.out)
     have = set(saved.dropna(subset=["Total_supply"]).index.date) if "Total_supply" in saved else set()
     today = date.today()
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS + 1)}
@@ -265,7 +275,7 @@ def main():
     missing = {first + timedelta(days=k) for k in range((today - first).days + 1)} - (have - revise)
     earliest = min(missing) if missing else today
     out(f"{len(have)} days saved; {len(missing)} candidate days, earliest {earliest}")
-    todo = []
+    todo, blind = [], 0
     for page in range(1, MAX_PAGES + 1):
         rows = listing_page(page)
         if not rows:
@@ -274,16 +284,29 @@ def main():
         dates = [d for d, _ in rows if d]
         if dates and max(dates) < earliest:   # the whole page is older than anything still missing
             break
+        blind = 0 if dates else blind + 1
+        # labels no longer parse (a layout change): with history saved, ten pages (~100 days) cover the gap window
+        if have and blind >= 10 and page * 10 > (today - earliest).days + 20:
+            out(f"  no dated labels on the last {blind} pages: stopping at page {page}")
+            break
     out(f"{len(todo)} reports to download (listing read to page {page})")
     done = {}
+    # a rebuild writes beside the workbook and replaces it only once complete: a timeout leaves the old one intact
+    target = args.out.replace(".xlsx", "_rebuild.xlsx") if args.rebuild else args.out
     for b in range(0, len(todo), BATCH):
         with ThreadPoolExecutor(max_workers=6) as ex:
             for when, row in ex.map(fetch, todo[b:b + BATCH]):
                 if when and row and row.get("Total_supply"):
                     done[when] = row
-        save(args.out, done)
+        save(target, done, args.rebuild)
     if not todo:
-        save(args.out, done)
+        save(target, done, args.rebuild)
+    if args.rebuild:
+        before = len(read_saved(args.out))
+        if len(done) < 0.95 * before:
+            raise SystemExit(f"Rebuild parsed {len(done)} days vs {before} saved: workbook left as it was ({target})")
+        os.replace(target, args.out)
+        out(f"Rebuild: {len(done)} days (was {before})")
     d = read_saved(args.out)
     if d.empty:
         raise SystemExit("No Petrobangla reports parsed")
