@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install -q pandas requests
+        run: pip install -q pandas requests openpyxl lxml
       - name: Pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1600 python3 discovery_archive/rest_of_world/AP_INDUSTRIAL_COAL_PULL.py
+        run: timeout 1600 python3 discovery_archive/rest_of_world/AP_INDUSTRIAL_COAL_PULL2.py
       - name: Commit data
         if: always()
         run: |
