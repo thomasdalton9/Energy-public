@@ -134,6 +134,7 @@ def read_sheet(path, sheet):
 
 
 GAP_INTERPOLATE_DAYS = 14
+ENDED_AFTER_DAYS = 30
 
 
 def fill_for_net(borders_df):
@@ -141,13 +142,16 @@ def fill_for_net(borders_df):
     ENTSO-E publishes nothing for a link before it starts or while it carries no flow, so a blank is read as follows:
     before a link's first reported day = 0 (link not yet in service); a gap of up to 14 days inside the series =
     interpolated (outage/late data); a longer gap = 0 (link out of service, e.g. Moyle/EWIC outages); days after
-    the last reported day stay blank so a recent lag is not mistaken for zero flow."""
+    the last reported day count as 0 if that was over 30 days before the end of the data (link discontinued, e.g. the Russian and
+    Belarusian links in 2022), otherwise stay blank so a recent lag is not mistaken for zero flow."""
     out = borders_df.reindex(pd.date_range(borders_df.index.min(), borders_df.index.max()))
     out.index.name = "date"
     for c in out:
         s = out[c]
         first, last = s.first_valid_index(), s.last_valid_index()
         out.loc[:first, c] = out.loc[:first, c].fillna(0.0)
+        if last < out.index.max() - pd.Timedelta(days=ENDED_AFTER_DAYS):   # link stopped reporting long ago (e.g. Russia/Belarus 2022)
+            out.loc[last:, c] = out.loc[last:, c].fillna(0.0)
         inner = s.loc[first:last]
         gap = inner.isna()
         if not gap.any():
