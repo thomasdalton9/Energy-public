@@ -75,13 +75,31 @@ def zone_year(eic, year):
     return None
 
 
-def country_year(zones, year):
+# Capacity is often reported for the whole country rather than per bidding zone (Italy, Sweden): used when a zone has
+# nothing for the year.
+COUNTRY_EIC = {"IT": "10YIT-GRTN-----B", "SE": "10YSE-1--------K", "NO": "10YNO-0--------C", "DK": "10Y1001A1001A65H"}
+
+
+def country_year(zones, year, code=None):
     total = {}
+    missing = []
     for label, eic in zones:
         z = zone_year(eic, year)
         if z is None:
-            return None
+            missing.append(label)
+            continue
         for psr, mw in z.items():
+            col = C.CAP_COLUMN.get(psr)
+            if col:
+                total[col] = total.get(col, 0.0) + mw
+    if missing:
+        whole = zone_year(COUNTRY_EIC[code], year) if code in COUNTRY_EIC else None
+        print(f"  {code} {year}: no capacity for zone(s) {', '.join(missing)}; country-level "
+              f"{'used' if whole else 'not available'}", flush=True)
+        if not whole:
+            return None
+        total = {}
+        for psr, mw in whole.items():
             col = C.CAP_COLUMN.get(psr)
             if col:
                 total[col] = total.get(col, 0.0) + mw
@@ -111,7 +129,7 @@ def main():
         rows = {}
         for y in todo:
             try:
-                tot = country_year(zones, y)
+                tot = country_year(zones, y, code)
             except Exception as e:  # noqa: BLE001
                 print(f"  {code} {y}: {type(e).__name__}: {e}")
                 continue
