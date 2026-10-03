@@ -45,5 +45,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "output/Data and Chart Outputs/south_africa_generation_mix_daily.xlsx"
-          git diff --cached --quiet || git commit -m "South Africa generation mix: automated update"
-          git push
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "South Africa generation mix: automated update"
+          # another workflow may have pushed meanwhile - rebase onto it and retry
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
