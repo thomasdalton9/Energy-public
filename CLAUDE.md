@@ -44,7 +44,8 @@ Standing instructions from the repo owner. Follow these on every change.
 - Schedules: pulls whose source keeps history run on the 1st and 15th of each month (they backfill every missed
   day), to save Actions minutes. Only sources with no history run daily or more often: the Argentina AIC snapshot
   (argentina_aic_snapshot.yml; the full Argentina hydro pull is 1st/15th), Canada IESO (rolling 'today' XML),
-  Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS ('today' only). Masters rebuild on the
+  Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS ('today' only), Australia gas hub prices
+  (au_sttm_prices.yml: AEMO STTM report INT651 holds about a week, DWGM about 14 days). Masters rebuild on the
   1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
   source has no history.
 - Incremental: backfill gaps only, don't re-pull complete history each run.
