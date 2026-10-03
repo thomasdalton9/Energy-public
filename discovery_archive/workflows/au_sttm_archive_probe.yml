@@ -1,6 +1,7 @@
 name: AU STTM archive probe (manual)
 
-# One-off: does AEMO keep INT651 STTM price history? Move to discovery_archive/workflows/ when done.
+# One-off (run 2026-10-03): does AEMO keep INT651 STTM price history? Result: no ARCHIVE/STTM folder (404),
+# but CURRENT/STTM keeps 31 DayNN.zip daily snapshots, each with a 7-day INT651 report (about 5 weeks in all).
 on:
   workflow_dispatch:
 
