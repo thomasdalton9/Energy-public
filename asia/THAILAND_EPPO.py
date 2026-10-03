@@ -104,6 +104,8 @@ def fetch(links, keys, colmap):
         r.raise_for_status()
         f = parse_monthly(r.content, colmap)
         out(f"  {key}: {len(f)} months {f.index.min():%Y-%m}..{f.index.max():%Y-%m}" if len(f) else f"  {key}: empty")
+        if f.empty:   # layout changed: show it in the log
+            out(pd.read_excel(io.BytesIO(r.content), header=None).head(30).to_string(max_cols=14, max_colwidth=16))
         frames.append(f)
         stamps.append(f"{links[key].rsplit('/', 1)[-1]} (Last-Modified {r.headers.get('last-modified')})")
     if not frames:
