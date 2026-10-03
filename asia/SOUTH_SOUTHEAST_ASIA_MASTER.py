@@ -220,7 +220,8 @@ def regional_generation(data_dir, raw_files, frames_out=None):
 
 def malaysia_split(data_dir, raw_files):
     """Monthly TWh: Peninsular Malaysia from GSO (raw) and Sabah + Sarawak as Ember's national Malaysia minus GSO
-    (an estimate: the two grids publish no feed). Complete months both sources have, from 2021."""
+    (an estimate: the two grids publish no feed; the residual also holds any Peninsular captive / embedded generation
+    GSO does not dispatch). Complete months both sources have, from 2021."""
     try:
         gso = monthly_gwh(os.path.join(data_dir, raw_files["Malaysia"])).sum(axis=1)
         e = add_charts.by_date(add_charts.read(os.path.join(data_dir, EMBER_FILES[0][2]), "Malaysia"), "Month")
@@ -229,7 +230,7 @@ def malaysia_split(data_dir, raw_files):
         print(f"Malaysia split skipped: {type(ex).__name__}: {ex}")
         return pd.DataFrame()
     both = gso.index.intersection(nat.index)
-    d = pd.DataFrame({"Peninsular (GSO)": gso[both], "Sabah + Sarawak (estimate)": (nat[both] - gso[both]).clip(lower=0)})
+    d = pd.DataFrame({"Peninsular (GSO)": gso[both], "Sabah + Sarawak + other (estimate)": (nat[both] - gso[both]).clip(lower=0)})
     d = d[d.index >= "2021-01-01"] / 1000.0
     d.index.name = "date"
     return d.round(2)
@@ -307,7 +308,8 @@ def main():
         ws = wb.create_sheet(sam.sheet_name("MY regions data", used))
         df, n_bars = xlsx_charts.prepare(my)
         xlsx_charts.write_table(ws, df)
-        src = ("GSO (Peninsular, raw); Sabah + Sarawak ESTIMATED as Ember's national Malaysia minus GSO", None)
+        src = ("GSO (Peninsular grid, raw); Sabah + Sarawak ESTIMATED as Ember's national Malaysia minus GSO, so it "
+               "also holds Peninsular generation outside the GSO grid (captive / embedded)", None)
         power[0].insert(lead, (xlsx_charts.build_chart(ws, df, n_bars, "Malaysia power generation: Peninsular (GSO) "
                                                        "and Sabah + Sarawak (estimate)", "TWh per month", "stacked_bar",
                                                        width=sam.CHART_W, height=sam.CHART_H, gridlines=False,

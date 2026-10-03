@@ -46,7 +46,7 @@ FILTER = json.dumps({"reports_type": "6922d2b181fc96cef9e99f16"})
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (20, 120)
 DATA_START = date(2021, 1, 1)
-REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
 BATCH = 150
 GAP_DAYS = 45
 MAX_PAGES = 400
@@ -175,7 +175,7 @@ def parse(text):
     if len(v) >= 6:
         (row["Power_demand"], row["Power_supply"], row["Fertiliser_demand"], row["Fertiliser_supply"],
          row["Others_supply"], row["Total_distribution"]) = map(float, v[:6])
-    # older reports list gas to non-grid (captive / off-grid) power separately, outside 'Total :'
+    # memo line: gas to non-grid (captive / off-grid) power, already counted inside the distribution total
     row["Power_nongrid"] = nums_after(r"Total Non-Grid Power", dist, 0)
     # the state companies add up to (1+2+3); state + IOCs + R-LNG add up to the grand total: drop what doesn't
     comp = [row.get(k) for k in ("Prod_BGFCL", "Prod_SGFL", "Prod_BAPEX")]
@@ -221,6 +221,9 @@ def save(path, new_rows):
     if not new.empty:
         new.index = pd.to_datetime(new.index)
     d = new if old.empty else (old if new.empty else pd.concat([old[~old.index.isin(new.index)], new]))
+    if d.empty:
+        out("Nothing saved yet and nothing parsed this run")
+        return d
     d = d.sort_index()
     d = d[[c for c in COLS if c in d] + [c for c in d if c not in COLS]].round(1)
     d.index.name = "date"
@@ -233,8 +236,9 @@ def save(path, new_rows):
         "RLNG = regasified LNG delivered by RPGCL from the FSRUs (imports); Total_supply = Petrobangla's grand total.",
         "Distribution: Power_demand / Power_supply = gas demanded by and supplied to power plants; Fertiliser_demand "
         "(maximum) / Fertiliser_supply; Others_supply = everything else supplied by the distribution companies "
-        "(industry, captive power, CNG, commercial, households); Total_distribution. Power_nongrid = gas to non-grid "
-        "power listed separately in the older reports (2021 - early 2022), not in Power_supply.",
+        "(industry, captive power, CNG, commercial, households); Total_distribution. Power_nongrid = the report's "
+        "'Total Non-Grid Power' memo line (captive / off-grid power): already inside the distribution figures (Power + "
+        "Fertiliser + Others = Total_distribution exactly), so it is not added to them.",
         "Checks: the state companies must add up to their (1+2+3) sub-total and state + IOCs + R-LNG to the grand total "
         "(within a few MMCFD); a report that fails keeps its totals but its company split is left blank.",
         "",
@@ -265,7 +269,7 @@ def main():
     missing = {first + timedelta(days=k) for k in range((today - first).days + 1)} - (have - revise)
     earliest = min(missing) if missing else today
     out(f"{len(have)} days saved; {len(missing)} candidate days, earliest {earliest}")
-    todo = []
+    todo, blind = [], 0
     for page in range(1, MAX_PAGES + 1):
         rows = listing_page(page)
         if not rows:
@@ -273,6 +277,11 @@ def main():
         todo += [(d, u) for d, u in rows if d is None or (d >= DATA_START and d in missing)]
         dates = [d for d, _ in rows if d]
         if dates and max(dates) < earliest:   # the whole page is older than anything still missing
+            break
+        blind = 0 if dates else blind + 1
+        # labels no longer parse (a layout change): with history saved, ten pages (~100 days) cover the gap window
+        if have and blind >= 10 and page * 10 > (today - earliest).days + 20:
+            out(f"  no dated labels on the last {blind} pages: stopping at page {page}")
             break
     out(f"{len(todo)} reports to download (listing read to page {page})")
     done = {}

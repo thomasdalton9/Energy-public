@@ -109,11 +109,11 @@ def main():
     daily.index.name = "date"
     lim = pd.DataFrame([{"dam": d, "NHWL_m": v[0], "Rule_curve_m": v[1], "as_of": today.isoformat()}
                         for d, v in limits.items()]).set_index("dam") if limits else pd.DataFrame()
-    if lim.empty:   # no limits parsed today: keep the saved ones
-        try:
-            lim = pd.read_excel(args.out, sheet_name="Limits", index_col=0)
-        except (FileNotFoundError, ValueError):
-            pass
+    try:   # a dam whose limits were not parsed today keeps its saved ones
+        saved = pd.read_excel(args.out, sheet_name="Limits", index_col=0)
+        lim = saved if lim.empty else pd.concat([lim, saved[~saved.index.isin(lim.index)]])
+    except (FileNotFoundError, ValueError):
+        pass
     notes = [
         "UNITS",
         "Daily: reservoir water level at 08:00, metres above mean sea level, one column per dam. Limits: normal high "

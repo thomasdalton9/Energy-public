@@ -188,7 +188,12 @@ def main():
     stamps = []
 
     tot, rl = [], []
-    for u in page_links(s, "sectoral-consumption"):
+    try:
+        sect_links = page_links(s, "sectoral-consumption")
+    except Exception as e:  # noqa: BLE001  (the page down: the saved sectoral sheets are kept)
+        out(f"  sectoral page: {type(e).__name__}: {e}")
+        sect_links = []
+    for u in sect_links:
         if "sectoral" not in u.lower():
             continue
         try:
@@ -213,7 +218,12 @@ def main():
     rlng = rlng[~rlng.index.duplicated(keep="last")].sort_index() if not rlng.empty else rlng
 
     lng = []
-    for u in page_links(s, "import"):
+    try:
+        imp = page_links(s, "import")
+    except Exception as e:  # noqa: BLE001  (the import page down: the saved LNG sheet is kept)
+        out(f"  LNG import page: {type(e).__name__}: {e}")
+        imp = []
+    for u in imp:
         try:
             xl = get_xl(s, u)
         except Exception as e:  # noqa: BLE001
@@ -237,7 +247,11 @@ def main():
     lng = pd.concat(lng) if lng else pd.DataFrame()
     lng = lng[~lng.index.duplicated(keep="last")].sort_index() if not lng.empty else lng
 
-    bal = balance(s)
+    try:
+        bal = balance(s)
+    except Exception as e:  # noqa: BLE001  (the saved Balance sheet is kept)
+        out(f"  balance: {type(e).__name__}: {e}")
+        bal = pd.DataFrame()
     out(f"balance: {len(bal)} months")
 
     sheets = {}

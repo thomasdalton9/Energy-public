@@ -49,7 +49,7 @@ T = (20, 120)
 POSTS = {"RTDREG": 5760, "DIPCER": 5754}
 REGIONS = {"CLUZ": "Luzon", "CVIS": "Visayas", "CMIN": "Mindanao", "LUZON": "Luzon", "VISAYAS": "Visayas",
            "MINDANAO": "Mindanao"}
-REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "philippines_power_market.xlsx")
 
 
@@ -158,7 +158,7 @@ def write(out_path, dem, pri):
         "Daily demand: per region (Luzon, Visayas, Mindanao) from the 5-minute real-time dispatch (RTD) regional "
         "summaries, energy commodity: demand_avg / demand_peak = average and maximum market requirement (MW); "
         "demand_MWh, generation_MWh, losses_MWh = mean MW x 24. Philippines_* = the three regions summed per interval. "
-        "Intervals = 5-minute intervals in the day (288 = complete).",
+        "Intervals = 5-minute intervals in the day (287 = complete: the files carry 287 per day; under 280 is re-read).",
         "Daily prices: PHP/MWh (Philippine pesos). <Region>_SMP = time-weighted average of the 5-minute system "
         "marginal price; <Region>_LMP_genweighted = locational marginal price weighted by each resource's scheduled "
         "generation; Philippines_LMP_genweighted = the same across all regions.",
@@ -181,6 +181,15 @@ def write(out_path, dem, pri):
 
 
 
+def safe_listing(report):
+    """listing(), or nothing when IEMOP's file list fails: the other report still runs and the saved days are kept."""
+    try:
+        return listing(report)
+    except Exception as e:  # noqa: BLE001
+        out(f"{report} listing failed: {type(e).__name__}: {e}")
+        return {}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
@@ -189,8 +198,12 @@ def main():
     yesterday = date.today() - timedelta(days=1)
     revise = {yesterday - timedelta(days=k) for k in range(REVISION_DAYS)}
 
-    rtd = listing("RTDREG")
-    todo = sorted(d for d in rtd if d <= yesterday and (d in revise or old_d.empty or pd.Timestamp(d) not in old_d.index))
+    rtd = safe_listing("RTDREG")
+    # a saved day well short of a full set of five-minute intervals (287 a day in the files) was read part-published:
+    # read it again while listed
+    short = set(old_d.index[old_d["Intervals"] < 280].date) if "Intervals" in old_d else set()
+    todo = sorted(d for d in rtd if d <= yesterday and (d in revise or d in short or old_d.empty
+                                                        or pd.Timestamp(d) not in old_d.index))
     out(f"RTDREG: {len(rtd)} days listed, fetching {len(todo)}")
     rows = {}
     for d in todo:
@@ -202,7 +215,7 @@ def main():
                 out(f"  RTD {d}: {type(e).__name__}: {e}")
     dem = merge(old_d, pd.DataFrame.from_dict(rows, orient="index").round(1))
 
-    dip = listing("DIPCER")
+    dip = safe_listing("DIPCER")
     todo = sorted(d for d, f in dip.items() if d <= yesterday and len(f) >= 24
                   and (d in revise or old_p.empty or pd.Timestamp(d) not in old_p.index))
     out(f"DIPCER: {len(dip)} days listed, fetching {len(todo)} (24 hourly files each)")

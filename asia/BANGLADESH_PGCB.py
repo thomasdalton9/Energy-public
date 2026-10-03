@@ -39,7 +39,7 @@ URL = "https://erp.powergrid.gov.bd/w/generations/view_generations"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (15, 90)
 DATA_START = date(2021, 1, 1)
-REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
 MAX_PAGES = 3000
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "bangladesh_power_generation_daily.xlsx")
 # header keyword (lower case) -> column; first match wins, checked against the flattened header text
@@ -144,9 +144,11 @@ def main():
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
     old, old_dem, old_h = (read_sheet(args.out, s) for s in ("Daily", "Demand", "Hourly"))
-    if not old.empty:   # a saved day far above its neighbours (a keying slip PGCB later fixed) is fetched again
+    if not old.empty:   # a recent saved day far above its neighbours (a keying slip PGCB later fixed) is fetched again;
+        # older ones are left (the walk only reaches back 45 days, so a dropped old day would never come back)
         med = old["Total_MWh"].rolling(15, center=True, min_periods=5).median()
-        old = old[~(old["Total_MWh"] > 1.5 * med)]
+        recent = old.index >= old.index.max() - pd.Timedelta(days=45)
+        old = old[~((old["Total_MWh"] > 1.5 * med) & recent)]
     # read back to the earliest day not saved (or the revision window), so gaps and dropped days are refilled
     last = date.today() - timedelta(days=1)
     have = set(old.index.date) if not old.empty else set()

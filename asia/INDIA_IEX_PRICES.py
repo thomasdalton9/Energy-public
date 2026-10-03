@@ -38,7 +38,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (15, 120)
 DATA_START = date(2022, 1, 1)
 CHUNK_DAYS = 7
-REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "india_power_prices.xlsx")
 NUM = ["purchase_bid", "sell_bid", "mcv", "final_scheduled_volume", "mcp", "weighted_mcp"]
 
@@ -117,6 +117,7 @@ def main():
             out(f"  {d0}..{d1}")
         time.sleep(0.5)
     hourly = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=["date", "hour"] + NUM)
+    hourly["date"] = pd.to_datetime(hourly["date"])   # typed even when nothing was fetched
     hourly = hourly[hourly["date"].dt.date.isin(todo)].drop_duplicates(["date", "hour"], keep="last")
     new = daily_from(hourly) if not hourly.empty else pd.DataFrame()
     daily = new if old.empty else pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
