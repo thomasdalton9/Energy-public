@@ -1,3 +1,2 @@
 # scripts run by .github/workflows/sea_discovery.yml (paths relative to discovery_archive/asia)
-../subcontinent/SEA_DISCOVERY_INDIA.py
-../subcontinent/SEA_DISCOVERY_SOUTH_ASIA.py
+SEA_DISCOVERY2.py
