@@ -62,7 +62,8 @@ DATASETS = [
 ]
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
-    + [("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
+    + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
+       ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("TR", "Turkey", "turkey_generation_mix_dashboard_daily.xlsx", "*", "power"),
        ("CY", "Cyprus", "cyprus_generation_mix_daily.xlsx", "*", "power")])
 CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "capacity")
@@ -70,6 +71,9 @@ CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "cap
 PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "power prices"),
                   ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "flows")]
 FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
+GB_FILE = "great_britain_power_generation_daily.xlsx"
+GB_BALANCE_SRC = ("Elexon BMRS (metered generation, interconnectors) and NESO (national demand, embedded wind and solar)",
+                  "https://bmrs.elexon.co.uk/")
 HYDRO_DATASETS = [("DE", "Germany (Rhine)", "rhine_kaub_level_daily.xlsx", "Data", "river level")]
 HYDRO_EXTRA = {}
 DASHBOARD_ONLY = {}
@@ -95,6 +99,8 @@ SOURCES = {
                                         "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "ireland_gni_transparency_daily.xlsx": ("Gas Networks Ireland (GNI) transparency pages",
                                             "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
+    "great_britain_power_generation_daily.xlsx": ("Elexon BMRS (FUELHH) and NESO historic demand data (national demand, "
+                                                  "embedded wind and solar)", "https://bmrs.elexon.co.uk/"),
     "ireland_smartgrid_15min.xlsx": ("EirGrid / SONI Smart Grid Dashboard", "https://www.smartgriddashboard.com/"),
     "turkey_generation_mix_dashboard_daily.xlsx": ("EPIAS Transparency Platform (Turkey)", "https://seffaflik.epias.com.tr/"),
     "cyprus_generation_mix_daily.xlsx": ("Transmission System Operator Cyprus (TSOC)", "https://tsoc.org.cy/"),
@@ -468,12 +474,21 @@ def main():
     except Exception as e:  # noqa: BLE001
         net_all = pd.DataFrame()
         power[2].append(f"balance charts need {FLOWS_FILE} ({type(e).__name__}: {e})")
-    bal_frames = {}
-    for code, (name, slug, _) in COUNTRIES.items():
-        if name not in net_all:
+    bal_frames, bal_src = {}, {}
+    inputs = [(name, os.path.join(args.data_dir, f"{slug}_power_generation_daily.xlsx"), net_all[name] if name in net_all else None)
+              for _, (name, slug, _z) in COUNTRIES.items()]
+    gb_path = os.path.join(args.data_dir, GB_FILE)
+    try:   # Great Britain is not in ENTSO-E generation: Elexon/NESO workbook carries its own interconnector net imports (MWh -> GWh)
+        gb_net = add_charts.by_date(add_charts.read(gb_path, "Daily"), "date")["NetImports_MWh"].apply(pd.to_numeric, errors="coerce") / 1000.0
+        inputs.append(("Great Britain", gb_path, gb_net))
+        bal_src["Great Britain"] = GB_BALANCE_SRC
+    except Exception as e:  # noqa: BLE001
+        power[2].append(f"Great Britain balance ({type(e).__name__}: {e})")
+    for name, gen_path, net in inputs:
+        if net is None:
             continue
         try:
-            b = country_balance(os.path.join(args.data_dir, f"{slug}_power_generation_daily.xlsx"), net_all[name])
+            b = country_balance(gen_path, net)
         except Exception as e:  # noqa: BLE001
             power[2].append(f"{name} balance ({type(e).__name__}: {e})")
             continue
@@ -482,11 +497,13 @@ def main():
         else:
             power[2].append(f"{name} balance: fewer than 3 months with load and flows")
     for name, b in bal_frames.items():
+        src_label = "Elexon BMRS + NESO" if name == "Great Britain" else "ENTSO-E"
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
-                                               "months with >= 75% of days (scaled to the month); ENTSO-E"]
+                                               f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
                     f"{name} balance data", f"{name} power balance: supply by source and net imports vs load",
-                    "GWh per month", BALANCE_SRC, "Notes:", label=name, line_cols=("Pumped & battery (net)", "Load"))
+                    "GWh per month", bal_src.get(name, BALANCE_SRC), "Notes:", label=name,
+                    line_cols=("Pumped & battery (net)", "Load"))
     if len(bal_frames) >= 10:
         last_m = max(b.index.max() for b in bal_frames.values())
         core, skipped, skipped_notes = {}, [], []
