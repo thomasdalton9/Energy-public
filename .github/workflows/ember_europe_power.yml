@@ -1,0 +1,56 @@
+name: Europe Ember fallback (Ireland, Albania)
+
+# Ember's monthly electricity release for Ireland and Albania (europe/EMBER_EUROPE_MONTHLY.py): the labelled fallback where
+# the ENTSO-E feed is incomplete (Ireland) or starts in 2026 (Albania). One whole-file download; Ember lags a few months.
+on:
+  schedule:
+    - cron: "40 2 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ember-europe
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 europe/EMBER_EUROPE_MONTHLY.py
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          python3 add_charts.py "output/Data and Chart Outputs/ember_europe_power_monthly.xlsx" || echo "chart step failed"
+          mkdir -p "output/Python Scripts"
+          cp europe/EMBER_EUROPE_MONTHLY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/ember_europe_power_monthly.xlsx" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe Ember fallback (Ireland, Albania): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
