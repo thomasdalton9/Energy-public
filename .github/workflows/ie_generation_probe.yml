@@ -12,8 +12,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install requests
+      - run: pip install requests pandas openpyxl xlrd
       - env:
           ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
           PYTHONUNBUFFERED: "1"
-        run: python3 discovery_archive/europe/IE_GENERATION_PROBE.py
+        run: python3 discovery_archive/europe/IE_EIRGRID_REPORTS_PROBE.py
