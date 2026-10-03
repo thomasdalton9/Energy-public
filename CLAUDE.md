@@ -37,6 +37,14 @@ Standing instructions from the repo owner. Follow these on every change.
   RAW_POWER_DATASETS / OTHER_POWER_DATASETS / CAPACITY_DATASETS lists plus a SOURCES entry.
   US power generation comes from EIA-930 (balancing-authority data, current to yesterday) - owner's decision; don't
   switch the US regions to direct ISO feeds.
+- `europe/EUROPE_MASTER.py` -> `europe_master.xlsx`: Europe - the ENTSO-E countries (EU/EEA, UK excluded, plus the Balkans) plus
+  Ireland EirGrid, Turkey, Cyprus and the Rhine at Kaub. Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
+  "Dashboard - Power" (generation, capacity, day-ahead prices, net imports, and a supply/demand balance per country: generation +
+  net imports + pumped storage/batteries vs load) and "Dashboard - Capacity factors". Country list and bidding zones live in
+  `europe/europe_countries.py` (add a country there and the pulls, registry and master pick it up). ENTSO-E is the primary
+  power source for Europe (it is the TSOs' own statutory reporting, and matched SMARD/RTE within 0.5% in a settled-week check),
+  labelled as such; replace it per country with a national feed where that is better (e.g. CGES for Montenegro, Elexon for GB,
+  neither yet pulled). Gas pipeline imports/exports (ENTSOG) are still to add.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 

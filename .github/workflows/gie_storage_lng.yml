@@ -1,0 +1,58 @@
+name: Europe gas storage and LNG (GIE AGSI+ / ALSI)
+
+# Daily gas storage (AGSI+) and LNG terminals (ALSI) (europe/GIE_STORAGE_LNG.py).
+# Incremental: reads the committed workbook(s) and fetches only what is missing plus a short revision window;
+# a first run backfills and stops gracefully at its time budget (the next run continues).
+on:
+  schedule:
+    - cron: "0 6 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gie-storage-lng
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run pull
+        env:
+          PYTHONUNBUFFERED: "1"
+          GIE_API_KEY: ${{ secrets.GIE_API_KEY }}
+        run: |
+          python3 europe/GIE_STORAGE_LNG.py --out-dir "output/Data and Chart Outputs"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          python3 add_charts.py "output/Data and Chart Outputs/eu_gas_storage_daily.xlsx" "output/Data and Chart Outputs/eu_lng_terminals_daily.xlsx" || echo "chart step failed"
+          mkdir -p "output/Python Scripts"
+          cp europe/GIE_STORAGE_LNG.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbooks
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/eu_gas_storage_daily.xlsx" "output/Data and Chart Outputs/eu_lng_terminals_daily.xlsx" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe gas storage and LNG (GIE): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

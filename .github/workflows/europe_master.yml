@@ -1,0 +1,52 @@
+name: Europe master workbook
+
+# Combines the Europe pulls (ENTSO-E generation, load, flows, capacity and prices; GIE storage and LNG; Ireland,
+# Turkey, Cyprus, Rhine) into one master file with Dashboard front pages of every chart (same layout as the other
+# masters). Runs on the evening of the 1st and 15th, after that day's pulls.
+on:
+  schedule:
+    - cron: '20 23 1,15 * *'   # 1st and 15th evening, after that day's Europe pulls (01:00-06:00) and before the 23:50 private-repo sync
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl
+      - name: Build master workbook
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 europe/EUROPE_MASTER.py --out "output/Data and Chart Outputs/europe_master.xlsx"
+
+      - name: Copy scripts
+        if: always()
+        run: |
+          mkdir -p "output/Python Scripts"
+          cp europe/EUROPE_MASTER.py europe/europe_countries.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit master workbook
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/europe_master.xlsx" ]; then
+            echo "No master workbook written."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/europe_master.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe master: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
