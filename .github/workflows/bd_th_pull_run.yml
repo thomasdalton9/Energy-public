@@ -36,14 +36,13 @@ jobs:
       - name: Chart and commit outputs
         if: always()
         run: |
-          for f in thailand_gas bangladesh_gas; do
-            p="output/Data and Chart Outputs/$f.xlsx"
-            [ -f "$p" ] && python3 add_charts.py "$p" && python3 png_charts.py "$p" || echo "chart step skipped/failed for $f"
+          git status --porcelain -- "output/Data and Chart Outputs" | sed 's/^...//; s/^"//; s/"$//' | grep '\.xlsx$' | while read -r p; do
+            python3 add_charts.py "$p" && python3 png_charts.py "$p" || echo "chart step skipped/failed for $p"
           done
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/"*gas*.xlsx "output/PNG Charts" || true
-          git diff --cached --quiet || git commit -m "Bangladesh + Thailand gas pulls: branch run"
+          git add -f "output/Data and Chart Outputs" "output/PNG Charts" || true
+          git diff --cached --quiet || git commit -m "South & Southeast Asia pulls: branch run"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))

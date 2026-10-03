@@ -145,7 +145,14 @@ def coal_day(d):
         plant = ~lab.str.contains("TOTAL") & pd.to_numeric(rows[c_cap], errors="coerce").notna()
         pick, how = rows[plant], "sum of plant rows"
     num = lambda j: float(pd.to_numeric(pick[j], errors="coerce").sum()) if j is not None else None  # noqa: E731
-    return {"Actual_stock_kt": num(c_tot), "Normative_stock_kt": num(c_norm), "Receipt_kt": num(c_rec),
+    actual = num(c_tot)
+    if how == "grand total row" and c_norm is not None and c_rec is not None and not actual:
+        # older layout: the 'Total' sub-header sits on a merged cell one column off its numbers. The actual-stock
+        # block (indigenous, imported, total, then % of normative and days) lies between the normative-stock and
+        # receipt columns; its largest number is the total.
+        block = pd.to_numeric(pick.iloc[0, c_norm + 1:c_rec], errors="coerce").dropna()
+        actual = float(block.max()) if len(block) else None
+    return {"Actual_stock_kt": actual, "Normative_stock_kt": num(c_norm), "Receipt_kt": num(c_rec),
             "Consumption_kt": num(c_con), "Capacity_MW": num(c_cap), "_how": how}
 
 
@@ -253,6 +260,8 @@ def reservoirs(path):
 
 def coal(path):
     old = read_sheet(path, "Daily")
+    if not old.empty:   # days saved with actual stock 0 (an earlier column mix-up) are fetched again
+        old = old[old["Actual_stock_kt"] > 0]
     days = todo(old, COAL_START)
     out(f"Coal stocks (dailyCoal1): {len(old)} days saved, fetching {len(days)}")
     res = run(coal_day, days, "coal")
