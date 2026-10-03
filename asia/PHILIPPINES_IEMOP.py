@@ -32,6 +32,7 @@ import os
 import sys
 import time
 import zipfile
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 
 import pandas as pd
@@ -204,7 +205,8 @@ def main():
     out(f"DIPCER: {len(dip)} days listed, fetching {len(todo)} (24 hourly files each)")
     rows = {}
     for n, d in enumerate(todo):
-        parts = [price_hour(c) for c in (get(u) for u in dip[d]) if c]
+        with ThreadPoolExecutor(8) as ex:   # the day's 24 hourly zips at once
+            parts = [price_hour(c) for c in ex.map(get, dip[d]) if c]
         if not parts:
             continue
         x = pd.concat(parts)
