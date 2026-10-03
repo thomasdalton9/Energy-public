@@ -85,12 +85,26 @@ class TooMuch(Exception):
     pass
 
 
-def request(params, key=None, tries=4):
+# ENTSO-E allows 400 requests per minute per API key, shared by every job using it (generation, flows, capacity and
+# prices can run at once), so each process keeps to about 100 a minute.
+MIN_INTERVAL = float(os.environ.get("ENTSOE_MIN_INTERVAL", "0.6"))
+_last_request = [0.0]
+
+
+def _throttle():
+    wait = _last_request[0] + MIN_INTERVAL - time.time()
+    if wait > 0:
+        time.sleep(wait)
+    _last_request[0] = time.time()
+
+
+def request(params, key=None, tries=5):
     """GET with retry. Returns the XML text. Raises NoData for 'no matching data', TooMuch when the platform says
     the window is too large, RuntimeError for anything else after the retries."""
     key = key or api_key()
     last = ""
     for attempt in range(tries):
+        _throttle()
         try:
             r = requests.get(URL, params=dict(params, securityToken=key), headers=UA, timeout=(10, 180))
         except requests.RequestException as e:
@@ -99,7 +113,7 @@ def request(params, key=None, tries=4):
             continue
         if r.status_code == 429 or r.status_code >= 500:
             last = f"HTTP {r.status_code}"
-            time.sleep(15 * (attempt + 1))
+            time.sleep(20 * (attempt + 1))
             continue
         text = r.text
         if "<Acknowledgement_MarketDocument" in text[:600] or r.status_code == 400:
