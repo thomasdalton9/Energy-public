@@ -48,7 +48,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (20, 120)
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 GEN_START, RES_START, COAL_START = date(2021, 1, 1), date(2020, 10, 21), date(2024, 6, 5)   # where NPP's archives start
-REVISION_DAYS = 16   # runs are 14-17 days apart: re-read everything since the last run (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 WORKERS = 6
 TYPES = {"THERMAL": "Coal", "THER (GT)": "Gas", "THER (DG)": "Oil", "NUCLEAR": "Nuclear", "HYDRO": "Hydro"}
 # plausible all-India conventional generation, MWh/day (catches a wrong column: April-to-date totals are ~100x)
@@ -272,16 +272,18 @@ def coal(path):
         new = new.round(1)
     d = merge(old, new)
     if not d.empty:   # on the merged history, so the 7-day average spans consecutive days
-        d["Days_of_stock"] = (d["Actual_stock_kt"] / d["Consumption_kt"].rolling(7, min_periods=1).mean()).round(1)
+        con = d["Consumption_kt"]   # a day reported twice (2 Oct 2025) is left out of the average, as on the chart
+        con = con.mask(con > 1.6 * con.rolling(15, center=True, min_periods=5).median())
+        d["Days_of_stock"] = (d["Actual_stock_kt"] / con.rolling(7, min_periods=1).mean()).round(1)
     d.index.name = "date"
     notes = ["UNITS",
              "Thousand tonnes ('000 t), all-India thermal power plants in CEA's daily coal stock report: Actual_stock_kt "
              "(indigenous + imported coal at the plants), Normative_stock_kt (stock the plants should hold), Receipt_kt "
              "and Consumption_kt (of the day), Capacity_MW (plants covered). Days_of_stock = actual stock / 7-day average "
-             "consumption.",
+             "consumption (a day more than 1.6x the 15-day median, i.e. reported twice, left out of the average).",
              "", "COVERAGE",
-             f"Daily from {d.index.min():%Y-%m-%d} to {d.index.max():%Y-%m-%d} (the NPP archive of this report starts "
-             "in 2022). Totals from: " + ", ".join(how or ["previous runs"]) + ".",
+             f"Daily from {d.index.min():%Y-%m-%d} to {d.index.max():%Y-%m-%d} (pulled from "
+             f"{COAL_START:%Y-%m-%d}, where the NPP archive of this report starts). Totals from: " + ", ".join(how or ["previous runs"]) + ".",
              "", "SOURCE",
              "CEA Fuel Management Division, daily coal stock report, via the National Power Portal: "
              "https://npp.gov.in/public-reports/cea/daily/fuel/DD-MM-YYYY/dailyCoal1-YYYY-MM-DD.xls"]
