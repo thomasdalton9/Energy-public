@@ -1,7 +1,7 @@
 name: AP industrial coal pull (manual)
 
 # One-off: UN energy balances/statistics and monthly fuel prices for the Asia-Pacific industrial coal-to-LNG study.
-# Commits CSVs to discovery_archive/rest_of_world/data/. Move to discovery_archive/workflows/ when done.
+# Commits CSVs to discovery_archive/rest_of_world/data/ (run 2026-10-03; last run used AP_INDUSTRIAL_COAL_PULL2.py).
 on:
   workflow_dispatch:
 

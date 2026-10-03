@@ -1,6 +1,7 @@
 name: AP industrial coal probe (manual)
 
-# One-off: sources for coal use by industry subsector and coal type in Asia-Pacific. Move to discovery_archive/workflows/ when done.
+# One-off (run 2026-10-03): sources for coal use by industry subsector in Asia-Pacific. Result: UNSD SDMX energy
+# balances (data.un.org/legacy/ws/rest, DF_UNData_EnergyBalance) work keyless; EGEDA balance.php returns HTTP 500.
 on:
   workflow_dispatch:
 
