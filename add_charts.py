@@ -833,6 +833,14 @@ def singapore_gas(p):
                             columns={"Gas_for_power_mcm_per_day_est": "Gas for power (estimate)"}),
                         "Singapore gas burn for power, estimated from metered CCGT generation",
                         "mcm/day (approx)"))
+    dd = _sheet(p, "Power burn daily (est)", "date")
+    if not dd.empty:
+        x = dd["Gas_for_power_mcm_per_day_est"]
+        x = x[x.index >= x.index.max() - pd.Timedelta(days=730)]
+        out.append(spec("Power burn daily", pd.DataFrame({"Daily (estimate)": x,
+                                                           "7-day average": x.rolling(7, min_periods=4).mean().round(2)}),
+                        "Singapore gas burn for power, daily, estimated from metered CCGT generation",
+                        "mcm/day (approx)"))
     t = _sheet(p, "Town gas quarterly", "Quarter_start")
     if not t.empty:
         out.append(spec("Town gas", t.loc[t.index >= "2015-01-01", cols(t, "Domestic_GWh", "Non_domestic_GWh")].rename(
