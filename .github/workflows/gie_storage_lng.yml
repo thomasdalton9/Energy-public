@@ -18,7 +18,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 130
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +34,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
           GIE_API_KEY: ${{ secrets.GIE_API_KEY }}
         run: |
-          python3 europe/GIE_STORAGE_LNG.py --out-dir "output/Data and Chart Outputs"
+          python3 europe/GIE_STORAGE_LNG.py --out-dir "output/Data and Chart Outputs" --max-minutes 115
 
       - name: Add Excel charts and copy scripts
         if: always()

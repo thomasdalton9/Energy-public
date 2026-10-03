@@ -11,7 +11,7 @@ Gas days (not calendar-adjusted). Storage charts are AGSI-style water-year chart
 monthly by country (add_charts.py REGISTRY).
 
 Incremental: reads the committed workbook and re-fetches the last 14 days (GIE revises) plus any gap, from 2012-01-01
-(storage) / 2018-01-01 (LNG) on the first run. A first backfill is ~300 requests of up to 400 days each.
+(storage) / 2019-01-01 (LNG) on the first run; the workbook is saved after every country, so a timeout loses nothing.
 
 Usage: python3 GIE_STORAGE_LNG.py [--out-dir DIR] [--what storage,lng]
 Requires GIE_API_KEY (environment / GitHub secret, or api_keys.py): one free key serves AGSI and ALSI.
@@ -38,8 +38,8 @@ except Exception:  # noqa: BLE001
 OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
 REVISION_DAYS = 14
-STORAGE_START = "2012-01-01"
-LNG_START = "2018-01-01"
+STORAGE_START = "2018-10-01"   # 8 water years: the current + previous + the 5 before it for the 5-year band
+LNG_START = "2019-01-01"
 
 # AGSI+ countries with storage (EU members + GB + UA); "EU" is the continent aggregate
 STORAGE = ["AT", "BE", "BG", "HR", "CZ", "DK", "FR", "DE", "HU", "IE", "IT", "LV", "NL", "PL", "PT", "RO", "SK", "ES",
@@ -131,42 +131,7 @@ def start_for(old, cols, default):
     return max(datetime.strptime(default, "%Y-%m-%d").date(), (last - timedelta(days=REVISION_DAYS)).date()).isoformat()
 
 
-def pull_storage(out_dir, key):
-    path = os.path.join(out_dir, "eu_gas_storage_daily.xlsx")
-    old = read_existing(path)
-    frames, status = {}, []
-    for cc in ["EU"] + STORAGE:
-        cols = [f"{cc}_TWh", f"{cc}_full_pct", f"{cc}_injection_GWhd", f"{cc}_withdrawal_GWhd"]
-        start = start_for(old, cols, STORAGE_START)
-        if len(old) and f"{cc}_injection_GWhd" not in old:   # workbook predates the injection/withdrawal columns
-            start = STORAGE_START
-        params = {"continent": "eu"} if cc == "EU" else {"country": cc}
-        try:
-            rows = fetch("https://agsi.gie.eu/api", dict(params, **{"from": start, "to": date.today().isoformat()}), key)
-        except Exception as e:  # noqa: BLE001
-            status.append((cc, f"FAILED {e}"))
-            print(f"  {cc}: FAILED {e}", flush=True)
-            continue
-        recs = {}
-        for r in rows:
-            d = pd.Timestamp(r["gasDayStart"])
-            twh, full = num(r.get("gasInStorage")), num(r.get("full"))
-            if twh == twh:   # not NaN
-                recs[d] = {f"{cc}_TWh": twh, f"{cc}_full_pct": full,
-                           f"{cc}_injection_GWhd": num(r.get("injection")), f"{cc}_withdrawal_GWhd": num(r.get("withdrawal"))}
-        if recs:
-            frames[cc] = pd.DataFrame.from_dict(recs, orient="index")
-        status.append((cc, f"{len(recs)} days from {start}"))
-        print(f"  AGSI {cc}: {len(recs)} days from {start}", flush=True)
-        time.sleep(0.3)
-    new = pd.concat(frames.values(), axis=1) if frames else pd.DataFrame()
-    new.index.name = "date"
-    df = merge(old, new)
-    if df.empty:
-        print("no storage data")
-        return
-    df.index.name = "date"
-    df = df.round(3)
+def write_storage(path, df):
     lines = ["Europe gas storage (Gas Infrastructure Europe, AGSI+)", "",
              "Source", "GIE AGSI+ (Aggregated Gas Storage Inventory), https://agsi.gie.eu/ - operators' own daily storage reports, "
              "aggregated by GIE. Free API key.",
@@ -179,17 +144,69 @@ def pull_storage(out_dir, key):
              f"Re-fetches the last {REVISION_DAYS} days each run (GIE revises); history from {STORAGE_START}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(df)} days to {df.index.max():%Y-%m-%d}"]
     xlsx_notes.write_workbook(path, {"Daily": df}, lines, {"Source", "Units and definitions", "Last pull"})
+
+
+def pull_storage(out_dir, key, deadline):
+    path = os.path.join(out_dir, "eu_gas_storage_daily.xlsx")
+    df = read_existing(path)
+    for cc in ["EU"] + STORAGE:
+        if time.time() > deadline:
+            print("time budget reached; stopping (countries done so far are saved)")
+            break
+        cols = [f"{cc}_TWh", f"{cc}_full_pct", f"{cc}_injection_GWhd", f"{cc}_withdrawal_GWhd"]
+        start = start_for(df, cols, STORAGE_START)
+        if len(df) and f"{cc}_injection_GWhd" not in df:   # workbook predates the injection/withdrawal columns
+            start = STORAGE_START
+        params = {"continent": "eu"} if cc == "EU" else {"country": cc}
+        t0 = time.time()
+        try:
+            rows = fetch("https://agsi.gie.eu/api", dict(params, **{"from": start, "to": date.today().isoformat()}), key)
+        except Exception as e:  # noqa: BLE001
+            print(f"  AGSI {cc}: FAILED {e}", flush=True)
+            continue
+        recs = {}
+        for r in rows:
+            d = pd.Timestamp(r["gasDayStart"])
+            twh, full = num(r.get("gasInStorage")), num(r.get("full"))
+            if twh == twh:   # not NaN
+                recs[d] = {f"{cc}_TWh": twh, f"{cc}_full_pct": full,
+                           f"{cc}_injection_GWhd": num(r.get("injection")), f"{cc}_withdrawal_GWhd": num(r.get("withdrawal"))}
+        print(f"  AGSI {cc}: {len(recs)} days from {start} in {time.time() - t0:.0f}s", flush=True)
+        if recs:
+            new = pd.DataFrame.from_dict(recs, orient="index")
+            df = merge(df, new).round(3)
+            df.index.name = "date"
+            write_storage(path, df)   # checkpoint
+        time.sleep(0.3)
+    if df.empty:
+        print("no storage data")
+        return
     print(f"saved eu_gas_storage_daily.xlsx: {len(df)} days x {df.shape[1]} columns")
 
 
-def pull_lng(out_dir, key):
+def write_lng(path, df):
+    lines = ["Europe LNG terminals (Gas Infrastructure Europe, ALSI)", "",
+             "Source", "GIE ALSI (Aggregated LNG Storage Inventory), https://alsi.gie.eu/ - terminal operators' own daily reports, "
+             "aggregated by GIE. Free API key (the same as AGSI+).",
+             "", "Units and definitions",
+             "<CC>_sendout_GWhd = LNG regasified and sent into the grid, GWh per gas day. <CC>_inventory_GWh = LNG in terminal tanks "
+             "(GWh). EU = GIE's EU aggregate. Countries without terminals or with no ALSI data are absent.",
+             f"Re-fetches the last {REVISION_DAYS} days each run; history from {LNG_START}.",
+             "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(df)} days to {df.index.max():%Y-%m-%d}"]
+    xlsx_notes.write_workbook(path, {"Daily": df}, lines, {"Source", "Units and definitions", "Last pull"})
+
+
+def pull_lng(out_dir, key, deadline):
     path = os.path.join(out_dir, "eu_lng_terminals_daily.xlsx")
-    old = read_existing(path)
-    frames = {}
+    df = read_existing(path)
     for cc in ["EU"] + LNG:
+        if time.time() > deadline:
+            print("time budget reached; stopping (countries done so far are saved)")
+            break
         cols = [f"{cc}_sendout_GWhd", f"{cc}_inventory_GWh"]
-        start = start_for(old, cols, LNG_START)
+        start = start_for(df, cols, LNG_START)
         params = {"continent": "eu"} if cc == "EU" else {"country": cc}
+        t0 = time.time()
         try:
             rows = fetch("https://alsi.gie.eu/api", dict(params, **{"from": start, "to": date.today().isoformat()}), key)
         except Exception as e:  # noqa: BLE001
@@ -203,28 +220,15 @@ def pull_lng(out_dir, key):
             inv_gwh = num(inv.get("gwh")) if isinstance(inv, dict) else float("nan")
             if so == so:
                 recs[d] = {f"{cc}_sendout_GWhd": so, f"{cc}_inventory_GWh": inv_gwh}
+        print(f"  ALSI {cc}: {len(recs)} days from {start} in {time.time() - t0:.0f}s", flush=True)
         if recs:
-            frames[cc] = pd.DataFrame.from_dict(recs, orient="index")
-        print(f"  ALSI {cc}: {len(recs)} days from {start}", flush=True)
+            df = merge(df, pd.DataFrame.from_dict(recs, orient="index")).round(3)
+            df.index.name = "date"
+            write_lng(path, df)   # checkpoint
         time.sleep(0.3)
-    new = pd.concat(frames.values(), axis=1) if frames else pd.DataFrame()
-    new.index.name = "date"
-    df = merge(old, new)
     if df.empty:
         print("no LNG data")
         return
-    df.index.name = "date"
-    df = df.round(3)
-    # inventory is only charted for the EU total; keep the per-country send-out plus every inventory column
-    lines = ["Europe LNG terminals (Gas Infrastructure Europe, ALSI)", "",
-             "Source", "GIE ALSI (Aggregated LNG Storage Inventory), https://alsi.gie.eu/ - terminal operators' own daily reports, "
-             "aggregated by GIE. Free API key (the same as AGSI+).",
-             "", "Units and definitions",
-             "<CC>_sendout_GWhd = LNG regasified and sent into the grid, GWh per gas day. <CC>_inventory_GWh = LNG in terminal tanks "
-             "(GWh). EU = GIE's EU aggregate. Countries without terminals or with no ALSI data are absent.",
-             f"Re-fetches the last {REVISION_DAYS} days each run; history from {LNG_START}.",
-             "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(df)} days to {df.index.max():%Y-%m-%d}"]
-    xlsx_notes.write_workbook(path, {"Daily": df}, lines, {"Source", "Units and definitions", "Last pull"})
     print(f"saved eu_lng_terminals_daily.xlsx: {len(df)} days x {df.shape[1]} columns")
 
 
@@ -232,14 +236,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--what", default="storage,lng")
+    ap.add_argument("--max-minutes", type=float, default=100.0)
     args = ap.parse_args()
     key = gie_key()
     os.makedirs(args.out_dir, exist_ok=True)
     what = [w.strip() for w in args.what.split(",")]
+    deadline = time.time() + args.max_minutes * 60
     if "storage" in what:
-        pull_storage(args.out_dir, key)
+        pull_storage(args.out_dir, key, deadline)
     if "lng" in what:
-        pull_lng(args.out_dir, key)
+        pull_lng(args.out_dir, key, deadline)
 
 
 if __name__ == "__main__":
