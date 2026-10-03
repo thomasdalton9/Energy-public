@@ -1,0 +1,60 @@
+name: Europe pulls smoke test (manual)
+
+# Small real-API run of the Europe pulls (a few countries, ~1 month) into a temporary folder; prints what came back.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: ENTSO-E generation + load (DE, IT, ME, NO) - one month
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/ENTSOE_GENERATION_DAILY.py --out-dir /tmp/smoke --countries DE,IT,ME,NO --start 2026-09-01 --max-minutes 25
+
+      - name: ENTSO-E capacity (DE, ME, IT)
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/ENTSOE_CAPACITY.py --out-dir /tmp/smoke --countries DE,ME,IT --start-year 2024
+
+      - name: GIE storage and LNG (short window)
+        env:
+          GIE_API_KEY: ${{ secrets.GIE_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 - <<'PY'
+          import sys, os, time
+          sys.path.insert(0, "europe"); sys.path.insert(0, ".")
+          import GIE_STORAGE_LNG as G
+          G.STORAGE = ["DE", "FR"]; G.LNG = ["ES", "FR"]
+          G.STORAGE_START = "2026-08-01"; G.LNG_START = "2026-08-01"
+          key = G.gie_key(); t = time.time()
+          G.pull_storage("/tmp/smoke", key, time.time() + 600); G.pull_lng("/tmp/smoke", key, time.time() + 600)
+          print("GIE took", round(time.time() - t), "s")
+          PY
+
+      - name: Show results
+        run: |
+          python3 - <<'PY'
+          import pandas as pd, glob
+          pd.set_option("display.width", 250); pd.set_option("display.max_columns", 30)
+          for f in sorted(glob.glob("/tmp/smoke/*.xlsx")):
+              xl = pd.ExcelFile(f)
+              for sh in xl.sheet_names:
+                  if sh == "Units":
+                      continue
+                  d = pd.read_excel(xl, sh)
+                  print("\n==", f.split("/")[-1], sh, d.shape)
+                  print(d.tail(3).round(1).T.to_string()[:2500])
+          PY
