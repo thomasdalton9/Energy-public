@@ -49,6 +49,8 @@ DATASETS = [
     ("IN", "India", "india_gas.xlsx", ("Sectoral", "Sectoral RLNG", "Balance", "LNG imports"), "gas"),
     ("SG", "Singapore", "singapore_gas.xlsx",
      ("Annual demand by sector", "Annual imports", "Power burn monthly (est)", "Town gas quarterly"), "gas"),
+    ("BD", "Bangladesh", "bangladesh_gas.xlsx", "Daily", "gas"),
+    ("TH", "Thailand", "thailand_gas.xlsx", ("Supply", "Demand"), "gas"),
 ]
 # Standard 'Daily' generation workbooks (date + <Fuel>_MWh), one per country
 RAW_POWER_DATASETS = [
@@ -124,6 +126,10 @@ SOURCES = {
     "philippines_power_market.xlsx": ("IEMOP (Independent Electricity Market Operator of the Philippines), WESM "
                                       "market data", "https://www.iemop.ph/market-data/"),
     "philippines_dam_levels.xlsx": ("DOST-PAGASA, dam information", "https://www.pagasa.dost.gov.ph/flood"),
+    "bangladesh_gas.xlsx": ("Petrobangla, daily gas & condensate production and distribution report",
+                            "https://petrobangla.org.bd/pages/reports"),
+    "thailand_gas.xlsx": ("EPPO (Energy Policy and Planning Office), natural gas statistics tables 3.1-1 / 3.2-2 "
+                          "(data from PTT)", "https://www.eppo.go.th/data-energy-statistic/energy-statistic/gas-energy-stat/"),
     "singapore_gas.xlsx": ("EMA Singapore Energy Statistics (annual); SingStat town gas; power burn ESTIMATED from "
                            "EMC/NEMS metered CCGT generation", "https://www.ema.gov.sg/resources/singapore-energy-statistics"),
     "singapore_power_generation_daily.xlsx": ("EMC / NEMS (Energy Market Company) metered generation by facility type, plus estimated "
