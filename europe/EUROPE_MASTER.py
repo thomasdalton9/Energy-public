@@ -440,18 +440,40 @@ def gas_country_balance(bal, cc, storage, lng):
     return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
 
 
-def eu_gas_balance(bal, org, dst, storage, lng):
+def gni_daily(data_dir):
+    """Gas Networks Ireland daily series (GWh/d): Corrib + Inch production, Moffat imports from Great Britain (Republic of
+    Ireland share) and Republic of Ireland demand. ENTSOG's Irish country totals miss most of Moffat and the Irish demand."""
+    path = os.path.join(data_dir, "ireland_gas_combined_daily.xlsx")
+    sup, dem = add_charts._sheet(path, "Supply", "date"), add_charts._sheet(path, "Demand", "date")
+    out = pd.DataFrame(index=sup.index)
+    out["Production"] = sup[[c for c in ("Corrib_Production_GWh", "Inch_Production_GWh") if c in sup]].sum(axis=1, min_count=1)
+    out["Moffat"] = sup["Moffat_Imports_GWh"]
+    out["Consumption"] = dem["Total_ROI_GWh"].reindex(out.index)
+    return out
+
+
+def eu_gas_balance(bal, org, dst, storage, lng, gni=None):
     """EU27 gas balance: production and consumption summed over the countries; extra-EU pipeline imports and exports
-    from the origin / destination sheets; LNG and storage from GIE's EU aggregates."""
-    cols = lambda cat: [f"{c}_{cat}_GWhd" for c in EU27_GAS if f"{c}_{cat}_GWhd" in bal]   # noqa: E731
+    from the origin / destination sheets; LNG and storage from GIE's EU aggregates. Ireland is taken from GNI (`gni`):
+    its production, Moffat imports from Great Britain and demand replace ENTSOG's Irish figures, which are incomplete."""
+    use_gni = gni is not None and len(gni)
+    skip = {"IE"} if use_gni else set()
+    cols = lambda cat: [f"{c}_{cat}_GWhd" for c in EU27_GAS if c not in skip and f"{c}_{cat}_GWhd" in bal]   # noqa: E731
     day = pd.DataFrame(index=bal.index)
     day["Production"] = bal[cols("production")].sum(axis=1, min_count=1).fillna(0)
     day["Pipeline imports"] = org.reindex(bal.index).sum(axis=1, min_count=1) if len(org) else float("nan")
+    cons = bal[cols("distribution") + cols("final_consumers")].sum(axis=1, min_count=1)
+    if use_gni:
+        g = gni.reindex(bal.index)
+        day["Production"] = day["Production"] + g["Production"].fillna(0)
+        # ENTSOG's own Irish imports (from Great Britain) are inside the origin sheet; swap them for GNI's Moffat figure
+        day["Pipeline imports"] = day["Pipeline imports"] - _col(bal, "IE_imports_GWhd").fillna(0) + g["Moffat"]
+        cons = cons.add(g["Consumption"], fill_value=0)
     day["LNG send-out"] = _col(lng, "EU_sendout_GWhd").reindex(bal.index).fillna(0)
     day["Storage withdrawals"] = _col(storage, "EU_withdrawal_GWhd").reindex(bal.index).fillna(0)
     day["Pipeline exports"] = -(dst.reindex(bal.index).sum(axis=1, min_count=1) if len(dst) else 0.0)
     day["Storage injections"] = -_col(storage, "EU_injection_GWhd").reindex(bal.index).fillna(0)
-    day["Consumption"] = bal[cols("distribution") + cols("final_consumers")].sum(axis=1, min_count=1)
+    day["Consumption"] = cons
     day = day.dropna(subset=["Pipeline imports", "Consumption"])
     day = day[day.index >= "2021-10-01"]
     return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
@@ -539,9 +561,15 @@ def main():
         gbal = pd.DataFrame()
         gas[2].append(f"gas balance charts need {GAS_FLOWS_FILE} ({type(e).__name__}: {e})")
     if len(gbal):
-        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng)
+        try:
+            gni = gni_daily(args.data_dir)
+        except Exception as e:  # noqa: BLE001
+            gni = None
+            gas[2].append(f"EU gas balance without GNI Ireland ({type(e).__name__}: {e})")
+        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng, gni)
         if not eu.empty:
-            total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG); pipeline imports/exports "
+            total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG; Ireland from Gas Networks Ireland, whose Moffat "
+                                               "imports from Great Britain replace ENTSOG's incomplete Irish figures); pipeline imports/exports "
                                                "from/to outside the EU; LNG and storage from GIE's EU aggregates"],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
