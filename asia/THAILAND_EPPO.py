@@ -89,8 +89,9 @@ def parse_monthly(content, colmap):
             year = int(m.group(1))
         mon = next((MONTHS[x[:3].upper()] for x in (c0, c1) if x[:3].upper() in MONTHS), None)
         if year and mon:
-            rows[pd.Timestamp(year, mon, 1)] = {k: pd.to_numeric(df.iat[i, j], errors="coerce")
-                                                for j, k in names.items()}
+            # first block wins: Table 5.2-2 repeats the months below as % shares
+            rows.setdefault(pd.Timestamp(year, mon, 1), {k: pd.to_numeric(df.iat[i, j], errors="coerce")
+                                                         for j, k in names.items()})
     return pd.DataFrame.from_dict(rows, orient="index").sort_index()
 
 
@@ -104,6 +105,8 @@ def fetch(links, keys, colmap):
         r.raise_for_status()
         f = parse_monthly(r.content, colmap)
         out(f"  {key}: {len(f)} months {f.index.min():%Y-%m}..{f.index.max():%Y-%m}" if len(f) else f"  {key}: empty")
+        if len(f):
+            out(f.tail(2).to_string())
         if f.empty:   # layout changed: show it in the log
             out(pd.read_excel(io.BytesIO(r.content), header=None).head(30).to_string(max_cols=14, max_colwidth=16))
         frames.append(f)
