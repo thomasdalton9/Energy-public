@@ -1,0 +1,23 @@
+name: AU STTM archive probe (manual)
+
+# One-off: does AEMO keep INT651 STTM price history? Move to discovery_archive/workflows/ when done.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: discovery_archive/rest_of_world
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -q requests pandas
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1100 python3 discovery_archive/rest_of_world/AU_STTM_ARCHIVE_PROBE.py
