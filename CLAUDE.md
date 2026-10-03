@@ -44,7 +44,8 @@ Standing instructions from the repo owner. Follow these on every change.
   monthly (`south_southeast_asia_power_by_type.xlsx`) and, where Ember has no monthly data, yearly
   (`..._annual.xlsx`, EMBER_POWER_BY_TYPE.py --yearly). GSO covers Peninsular Malaysia only, so the regional total
   keeps Ember's national Malaysia (TOTAL_USE_EMBER). Singapore is raw only (EMC/NEMS metered generation topped up to the EMA/SingStat monthly total;
-  singapore_power_generation_daily.xlsx from SINGAPORE_POWER.py) - not in the Ember pull.
+  singapore_power_generation_daily.xlsx from SINGAPORE_POWER.py) - not in the Ember pull. The Ember pull holds only countries
+  with no raw generation feed (Bangladesh, Sri Lanka, Thailand, Bhutan and Singapore are raw and not in it).
 - `europe/EUROPE_MASTER.py` -> `europe_master.xlsx`: Europe - the ENTSO-E countries (EU/EEA, UK excluded, plus the Balkans) plus
   Ireland EirGrid, Turkey, Cyprus and the Rhine at Kaub. Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
   "Dashboard - Power" (generation, capacity, day-ahead prices, net imports, and a supply/demand balance per country: generation +

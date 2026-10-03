@@ -25,12 +25,12 @@ jobs:
       - name: Run (monthly)
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Bangladesh,Sri Lanka,Thailand,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
       - name: Run (yearly)
         if: always()
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --yearly --countries "Indonesia,Myanmar,Cambodia,Lao People's Democratic Republic (the):Laos,Brunei Darussalam:Brunei,Nepal,Bhutan,Timor-Leste" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type_annual.xlsx"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --yearly --countries "Indonesia,Myanmar,Cambodia,Lao People's Democratic Republic (the):Laos,Brunei Darussalam:Brunei,Nepal,Timor-Leste" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type_annual.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
