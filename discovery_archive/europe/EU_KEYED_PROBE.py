@@ -111,13 +111,16 @@ def parse_series(xml_text, want_generation=True):
         if strip(ts.tag) != "TimeSeries":
             continue
         kids = {strip(c.tag): c for c in ts}
-        if want_generation and "outBiddingZone_Domain.mRID" not in kids and "inBiddingZone_Domain.mRID" in kids:
-            continue  # consumption leg (pumped storage etc.)
+        # Direction tags are not reliable across TSOs (some publish generation as in-, others as out-BiddingZone),
+        # so keep both and key by psr:direction; fuel groups only use generation psr types.
+        direction = "in" if "inBiddingZone_Domain.mRID" in kids else "out" if "outBiddingZone_Domain.mRID" in kids else ""
         psr = None
         for e in ts.iter():
             if strip(e.tag) == "psrType":
                 psr = e.text
         psr = psr or "total"
+        if want_generation:
+            psr = f"{psr}:{direction}"
         for per in ts:
             if strip(per.tag) != "Period":
                 continue
@@ -161,9 +164,14 @@ def entsoe_coverage():
         res = entsoe_gen(z, now - timedelta(days=3), now)
         if isinstance(res, tuple):
             cov[name] = f"{res[0]}: {res[1][:120]}"
+        elif not res:
+            cov[name] = "empty"
         else:
             last = max(v["last"] for v in res.values())
-            cov[name] = f"types={len(res)} {sorted(res)} res={sorted({v['res'] for v in res.values()})}min last={last:%Y-%m-%d %H:%M} lag_h={(now - last).total_seconds() / 3600:.0f}"
+            gen = sorted({k.split(":")[0] for k in res if k.split(":")[0] in GROUPS})
+            dirs = sorted({k.split(":")[1] for k in res if k.split(":")[0] in GROUPS})
+            cov[name] = (f"types={len({k.split(':')[0] for k in res})} fuel-types={gen} dir={dirs} "
+                         f"res={sorted({v['res'] for v in res.values()})}min last={last:%Y-%m-%d %H:%M} lag_h={(now - last).total_seconds() / 3600:.0f}")
         log(f"  {name}: {cov[name]}")
         time.sleep(0.4)
     RESULTS["entsoe_coverage"] = cov
@@ -186,14 +194,23 @@ def group_sum(d):
 
 
 def entsoe_week(zone):
-    res = entsoe_gen(zone, W0, W1)
-    if isinstance(res, tuple):
-        return None
+    """Day-by-day requests (a 7-day request came back empty/errored), summed to fuel groups."""
     g = {k: 0.0 for k in ORDER}
-    for psr, v in res.items():
-        if psr in GROUPS:
-            g[GROUPS[psr]] += v["mwh"]
-    return g
+    days_ok = 0
+    d = W0
+    while d < W1:
+        res = entsoe_gen(zone, d, d + timedelta(days=1))
+        if isinstance(res, tuple):
+            log(f"    ENTSO-E {zone} {d:%Y-%m-%d}: {res[0]} {str(res[1])[:200]}")
+        else:
+            days_ok += 1
+            for k, v in res.items():
+                psr = k.split(":")[0]
+                if psr in GROUPS:
+                    g[GROUPS[psr]] += v["mwh"]
+        d += timedelta(days=1)
+        time.sleep(0.3)
+    return g if days_ok == 7 else None
 
 
 def energy_charts_week(cc):
