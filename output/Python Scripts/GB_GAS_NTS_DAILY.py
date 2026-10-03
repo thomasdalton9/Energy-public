@@ -64,7 +64,8 @@ COLUMNS = ["ldz_offtake", "powerstations", "industrial_offtake", "interconnector
            "bacton_ukcs", "barrow", "easington", "st_fergus", "teesside", "storage_withdrawal", "interconnector_iuk",
            "interconnector_bbl"]
 # columns where large day-to-day swings are normal (no spike filter)
-NO_SPIKE_FILTER = {"storage_injection", "storage_withdrawal", "interconnector_exports", "interconnector_iuk", "interconnector_bbl"}
+NO_SPIKE_FILTER = {"storage_injection", "storage_withdrawal", "interconnector_exports", "interconnector_iuk", "interconnector_bbl",
+                   "barrow", "teesside"}   # small terminals that sit at zero most days: a median-based filter misfires on them
 
 HEADERS = {"Content-Type": "application/json", "Accept": "application/json, text/plain, */*",
            "Referer": "https://data.nationalgas.com/find-gas-data/view",
@@ -115,6 +116,8 @@ def to_frame(items, unmatched):
         return pd.DataFrame(columns=COLUMNS)
     d = pd.DataFrame(recs, columns=["date", "col", "gwh"])
     out = d.pivot_table(index="date", columns="col", values="gwh", aggfunc="last").sort_index()
+    if "storage_withdrawal" in out:   # the source reports withdrawals as negative injections
+        out["storage_withdrawal"] = out["storage_withdrawal"].abs()
     for c in COLUMNS:
         if c not in out:
             out[c] = np.nan
@@ -205,7 +208,9 @@ def main():
              "powerstations, industrial_offtake, interconnector_exports, storage_injection. Supply: entry terminal nominations "
              "(Day Ahead Net Aggregate) at Bacton UKCS, Barrow, Easington, St Fergus, Teesside - St Fergus and Easington also carry "
              "Norwegian pipeline gas mixed with UKCS production -, plus storage_withdrawal and the interconnector entry points "
-             "interconnector_iuk (Belgium) and interconnector_bbl (Netherlands). LNG terminals are not in this workbook (see GIE ALSI).",
+             "interconnector_iuk (Belgium) and interconnector_bbl (Netherlands) - the portal returned no data for the IUK, BBL and Teesside items "
+             "(columns stay empty), so pipeline imports from Belgium and the Netherlands are not in this workbook. LNG terminals are not "
+             "either (see GIE ALSI). The portal's history starts in Oct 2021.",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps within 120 days; history from {args.start}. "
              "One-off bad values (more than 6x the local median) are blanked.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
