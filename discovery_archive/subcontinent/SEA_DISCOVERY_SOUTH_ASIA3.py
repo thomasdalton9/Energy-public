@@ -76,11 +76,11 @@ def npp():
         out(f"  {name} header rows (all columns):")
         for i in range(min(9, len(df))):
             out(f"   {i}: " + " | ".join(str(v).replace('\n', ' ') for v in df.iloc[i].tolist()))
-        hits = df[df.apply(lambda r: r.astype(str).str.contains("ALL INDIA|All India|TOTAL", case=False).any(), axis=1)]
+        hits = df[df.apply(lambda r: r.fillna("").astype(str).str.contains("ALL INDIA|All India|TOTAL", case=False).any(), axis=1)]
         out(f"  {name} total rows:\n" + hits.head(12).to_string(max_cols=40, max_colwidth=18)[:5000])
         if name == "dgr2":
             types = df[df[0].astype(str).str.strip().str.upper().eq("TYPE:")]
-            out("  TYPE values: " + str(sorted(set(types.iloc[:, 1:8].astype(str).agg(" ".join, axis=1)))))
+            out("  TYPE values: " + str(sorted(set(types.iloc[:, 1:8].fillna("").astype(str).agg(" ".join, axis=1)))))
     for d in (date(2021, 1, 15), date(2019, 6, 15)):
         dd, iso = d.strftime("%d-%m-%Y"), d.isoformat()
         for name, url in (("dgr1", f"https://npp.gov.in/public-reports/cea/daily/dgr/{dd}/dgr1-{iso}.xls"),
