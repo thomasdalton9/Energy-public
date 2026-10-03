@@ -14,6 +14,10 @@ Writes two workbooks:
   malaysia_power_generation_daily.xlsx  'Daily' (standard layout, MWh per day = mean of the day's 10-minute MW
                                         x 24, so a day missing a few intervals is not understated), 'Demand'
                                         (daily average and peak MW)
+  malaysia_power_prices.xlsx            'Daily' system marginal price (SMP) from Single Buyer: daily average, max
+                                        and min of the half-hourly SMP, RM/MWh; 'Half-hourly' (last 120 days).
+                                        Single Buyer's API returns the last 12 months on every call, so each run
+                                        adds to the saved history.
   malaysia_power_capacity.xlsx          'Monthly' (standard layout: installed MW by fuel, one snapshot per month
                                         from the plant list - the list holds only today's fleet, so history
                                         starts with the first run), 'Plants' (latest list)
@@ -53,6 +57,8 @@ REVISION_DAYS = 3
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 GEN_OUT = os.path.join(OUT_DIR, "malaysia_power_generation_daily.xlsx")
 CAP_OUT = os.path.join(OUT_DIR, "malaysia_power_capacity.xlsx")
+PRICE_OUT = os.path.join(OUT_DIR, "malaysia_power_prices.xlsx")
+SMP_API = "https://www.singlebuyer.com.my/api/v1/smp/actual-forecast"
 # GSO series -> standard fuel
 FUEL_MAP = {"Coal": "Coal", "Gas": "Gas", "CoGen": "Gas", "Oil": "Oil", "Hydro": "Hydro", "Solar": "Solar"}
 FUELS = ["Hydro", "Gas", "Solar", "Coal", "Oil", "Other"]
@@ -225,18 +231,60 @@ def capacity(cap_out):
     cap_std.write(cap_out, monthly, {"Plants": plants[keep]}, notes, {"UNITS", "COVERAGE", "SOURCE"})
 
 
+def prices(price_out):
+    """Single Buyer half-hourly SMP (RM/kWh in the API) -> RM/MWh; the API answers with the last 12 months of
+    actuals (its date parameters are ignored), merged into the saved history."""
+    r = requests.get(SMP_API, params={"from": date.today().isoformat()},
+                     headers={"User-Agent": H["User-Agent"], "Accept": "application/json",
+                              "Referer": "https://www.singlebuyer.com.my/"}, timeout=T)
+    r.raise_for_status()
+    j = r.json()
+    act = (j.get("meta") or {}).get("data", {}).get("actual") or (j.get("data") or {}).get("actual") or []
+    hh = pd.DataFrame(act)
+    if hh.empty:
+        out("No SMP actuals returned")
+        return
+    hh["t"] = pd.to_datetime(hh["t"])
+    hh = hh.set_index("t")["v"].astype(float).mul(1000).rename("SMP_RM_per_MWh").to_frame()
+    old_hh = read_sheet(price_out, "Half-hourly")
+    hh = merge(old_hh, hh)
+    g = hh["SMP_RM_per_MWh"].groupby(hh.index.normalize())
+    new = pd.DataFrame({"SMP_avg_RM_per_MWh": g.mean(), "SMP_max_RM_per_MWh": g.max(), "SMP_min_RM_per_MWh": g.min(),
+                        "Periods": g.size()}).round(2)
+    daily = merge(read_sheet(price_out, "Daily"), new[new["Periods"] >= 46])   # complete days only
+    hh = hh[hh.index >= hh.index.max() - pd.Timedelta(days=120)]
+    daily.index.name, hh.index.name = "date", "time"
+    notes = [
+        "UNITS",
+        "RM/MWh (Malaysian ringgit per MWh; the API gives RM/kWh, x1,000). Daily: average, max and min of the 48 "
+        "half-hourly system marginal prices; Periods = half-hours present. Half-hourly: last 120 days.",
+        "",
+        "COVERAGE",
+        f"Peninsular Malaysia. Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}. Single Buyer's "
+        "API holds a rolling 12 months; earlier days are kept from previous runs.",
+        "",
+        "SOURCE",
+        "Single Buyer (Malaysia), System Marginal Price: https://www.singlebuyer.com.my/ "
+        "(API https://www.singlebuyer.com.my/api/v1/smp/actual-forecast).",
+    ]
+    xlsx_notes.write_workbook(price_out, {"Daily": daily, "Half-hourly": hh}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    out(f"Saved {price_out}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--gen-out", default=GEN_OUT)
     ap.add_argument("--cap-out", default=CAP_OUT)
+    ap.add_argument("--price-out", default=PRICE_OUT)
     ap.add_argument("--start", default=DATA_START.isoformat())
     args = ap.parse_args()
     os.makedirs(os.path.dirname(os.path.abspath(args.gen_out)), exist_ok=True)
     generation(args.gen_out, date.fromisoformat(args.start))
-    try:
-        capacity(args.cap_out)
-    except Exception as e:  # noqa: BLE001
-        out(f"Capacity step failed: {type(e).__name__}: {e}")
+    for step, fn, path in (("Capacity", capacity, args.cap_out), ("Prices", prices, args.price_out)):
+        try:
+            fn(path)
+        except Exception as e:  # noqa: BLE001
+            out(f"{step} step failed: {type(e).__name__}: {e}")
 
 
 if __name__ == "__main__":

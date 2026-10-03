@@ -391,6 +391,29 @@ def power_and_demand(gen_title, demand_title):
     return lambda p: power_daily(gen_title)(p) + daily_demand(demand_title)(p)
 
 
+def india_iex(p):
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "MCP_avg_Rs_per_MWh", "MCP_max_Rs_per_MWh", "MCP_min_Rs_per_MWh")
+    m = monthly_mean(d[c], "2021-01-01").rename(columns={"MCP_avg_Rs_per_MWh": "Daily average",
+                                                         "MCP_max_Rs_per_MWh": "Daily max hour",
+                                                         "MCP_min_Rs_per_MWh": "Daily min hour"})
+    return [spec("Prices", m, "India IEX day-ahead market clearing price (monthly average)", "Rs/MWh")]
+
+
+def thailand_reservoirs(p):
+    d = _sheet(p, "Daily", "date")
+    return [{"name": "Storage", "water_year": d["Pct_full"].dropna().resample("D").interpolate(), "y_decimals": 0,
+             "title": "Thailand large-reservoir storage (RID, 35 dams)", "units": "% of normal storage"}]
+
+
+def malaysia_smp(p):
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
+    return [spec("Prices", monthly_mean(d[c]).rename(columns={"SMP_avg_RM_per_MWh": "Daily average",
+                                                              "SMP_max_RM_per_MWh": "Daily max half-hour"}),
+                 "Malaysia (Peninsular) system marginal price (Single Buyer, monthly average)", "RM/MWh")]
+
+
 def colombia(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     z = lambda *c: d[cols(d, *c)].sum(axis=1, min_count=1)  # noqa: E731
@@ -1444,6 +1467,9 @@ REGISTRY = {
                                                               "Sri Lanka total dispatch (PUCSL / CEB)"),
     "bhutan_power_generation_daily.xlsx": power_and_demand("Bhutan power generation (BPSO, hydro)",
                                                            "Bhutan peak demand (BPSO)"),
+    "india_power_prices.xlsx": india_iex,
+    "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
+    "malaysia_power_prices.xlsx": malaysia_smp,
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
