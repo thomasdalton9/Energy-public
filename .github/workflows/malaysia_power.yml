@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl xlrd
+        run: pip install pandas requests openpyxl xlrd matplotlib
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
@@ -30,11 +30,11 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx" || echo "chart step skipped/failed for malaysia_power_generation_daily.xlsx"
-          [ -f "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" || echo "chart step skipped/failed for malaysia_power_capacity.xlsx"
-          [ -f "output/Data and Chart Outputs/malaysia_power_prices.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_prices.xlsx" || echo "chart step skipped/failed for malaysia_power_prices.xlsx"
+          [ -f "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx" || echo "chart step skipped/failed for malaysia_power_generation_daily.xlsx"
+          [ -f "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" || echo "chart step skipped/failed for malaysia_power_capacity.xlsx"
+          [ -f "output/Data and Chart Outputs/malaysia_power_prices.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/malaysia_power_prices.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/malaysia_power_prices.xlsx" || echo "chart step skipped/failed for malaysia_power_prices.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/MALAYSIA_GSO.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/MALAYSIA_GSO.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
@@ -44,6 +44,7 @@ jobs:
           [ -f "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/malaysia_power_generation_daily.xlsx"
           [ -f "output/Data and Chart Outputs/malaysia_power_capacity.xlsx" ] && git add -f "output/Data and Chart Outputs/malaysia_power_capacity.xlsx"
           [ -f "output/Data and Chart Outputs/malaysia_power_prices.xlsx" ] && git add -f "output/Data and Chart Outputs/malaysia_power_prices.xlsx" || true
+          git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Malaysia power: automated update"
           for i in 1 2 3 4 5; do

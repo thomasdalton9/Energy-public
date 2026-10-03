@@ -22,17 +22,23 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas openpyxl
+        run: pip install pandas openpyxl matplotlib
       - name: Build master workbook
         env:
           PYTHONUNBUFFERED: "1"
         run: timeout 600 python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py --out "output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
 
+      - name: PNG charts
+        if: always()
+        run: |
+          M="output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+          [ -f "$M" ] && python3 png_charts.py "$M" --sheet "SSEA generation total data" --title "South & Southeast Asia power generation by source" --units "TWh per month" || echo "PNG step skipped/failed"
+
       - name: Copy scripts
         if: always()
         run: |
           mkdir -p "output/Python Scripts"
-          cp asia/SOUTH_SOUTHEAST_ASIA_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/SOUTH_SOUTHEAST_ASIA_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit master workbook
         if: always()
@@ -44,6 +50,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+          git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "South and Southeast Asia master: automated update"
           for i in 1 2 3 4 5; do

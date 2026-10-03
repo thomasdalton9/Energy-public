@@ -5,8 +5,10 @@ mmm/yy dates (years for annual series), and the AGSI-style water-year chart (5-y
 previous and current water year, Oct-Sep). No chart borders.
 
     python3 png_charts.py "output/Data and Chart Outputs/thailand_hydro_reservoirs.xlsx" [...] [--out "output/PNG Charts"]
+    python3 png_charts.py <master.xlsx> --sheet "SSEA generation total data" --title "..." --units "TWh per month"
 
-Writes <workbook stem>__<chart name>.png per chart.
+Writes <workbook stem>__<chart name>.png per chart (with --sheet: <workbook stem>__<sheet>.png, a stacked bar of
+that chart-data tab - date in the first column, one series per column).
 """
 import argparse
 import os
@@ -116,13 +118,32 @@ def render(path, out_dir=OUT):
     return done
 
 
+def render_sheet(path, sheet, title, units, out_dir=OUT, kind="stacked_bar"):
+    """A master's chart-data tab (first column dates, then one column per series) -> PNG."""
+    d = pd.read_excel(path, sheet_name=sheet)
+    d = d.set_index(pd.to_datetime(d.iloc[:, 0], errors="coerce")).iloc[:, 1:]
+    d = d[d.index.notna()].apply(pd.to_numeric, errors="coerce").dropna(axis=1, how="all")
+    d = d[[c for c in d.columns if not str(c).startswith("Unnamed")]]
+    stem = os.path.splitext(os.path.basename(path))[0]
+    out = os.path.join(out_dir, f"{stem}__{re.sub(r'[^A-Za-z0-9_-]+', '_', sheet).strip('_')}.png")
+    os.makedirs(out_dir, exist_ok=True)
+    if series_chart({"df": d, "title": title, "units": units, "kind": kind, "date_format": "%Y-%m"}, out):
+        print(f"{stem}: {out}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("workbooks", nargs="+")
     ap.add_argument("--out", default=OUT)
+    ap.add_argument("--sheet", help="render this chart-data tab instead of the add_charts specs")
+    ap.add_argument("--title", default="")
+    ap.add_argument("--units", default="")
     args = ap.parse_args()
     for p in args.workbooks:
-        render(p, args.out)
+        if args.sheet:
+            render_sheet(p, args.sheet, args.title or args.sheet, args.units, args.out)
+        else:
+            render(p, args.out)
 
 
 if __name__ == "__main__":

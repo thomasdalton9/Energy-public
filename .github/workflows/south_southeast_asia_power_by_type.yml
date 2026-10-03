@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl
+        run: pip install pandas requests openpyxl matplotlib
       - name: Run (monthly)
         env:
           PYTHONUNBUFFERED: "1"
@@ -36,10 +36,10 @@ jobs:
         if: always()
         run: |
           for f in south_southeast_asia_power_by_type south_southeast_asia_power_by_type_annual; do
-            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp south_america/EMBER_POWER_BY_TYPE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py south_america/EMBER_POWER_BY_TYPE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
@@ -48,6 +48,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/"south_southeast_asia_power_by_type*.xlsx
+          git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "South and Southeast Asia power by type (Ember): automated update"
           for i in 1 2 3 4 5; do

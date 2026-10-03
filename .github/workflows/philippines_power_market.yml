@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl xlrd
+        run: pip install pandas requests openpyxl xlrd matplotlib
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
@@ -30,9 +30,9 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/philippines_power_market.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/philippines_power_market.xlsx" || echo "chart step skipped/failed for philippines_power_market.xlsx"
+          [ -f "output/Data and Chart Outputs/philippines_power_market.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/philippines_power_market.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/philippines_power_market.xlsx" || echo "chart step skipped/failed for philippines_power_market.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/PHILIPPINES_IEMOP.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/PHILIPPINES_IEMOP.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
@@ -40,6 +40,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f "output/Data and Chart Outputs/philippines_power_market.xlsx" ] && git add -f "output/Data and Chart Outputs/philippines_power_market.xlsx" || true
+          git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Philippines power market: automated update"
           for i in 1 2 3 4 5; do
