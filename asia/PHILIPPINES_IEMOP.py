@@ -148,6 +148,38 @@ def merge(old, new):
     return pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
 
 
+def write(out_path, dem, pri):
+    if dem.empty and pri.empty:
+        raise SystemExit("No IEMOP data")
+    dem.index.name = pri.index.name = "date"
+    notes = [
+        "UNITS",
+        "Daily demand: per region (Luzon, Visayas, Mindanao) from the 5-minute real-time dispatch (RTD) regional "
+        "summaries, energy commodity: demand_avg / demand_peak = average and maximum market requirement (MW); "
+        "demand_MWh, generation_MWh, losses_MWh = mean MW x 24. Philippines_* = the three regions summed per interval. "
+        "Intervals = 5-minute intervals in the day (288 = complete).",
+        "Daily prices: PHP/MWh (Philippine pesos). <Region>_SMP = time-weighted average of the 5-minute system "
+        "marginal price; <Region>_LMP_genweighted = locational marginal price weighted by each resource's scheduled "
+        "generation; Philippines_LMP_genweighted = the same across all regions.",
+        "",
+        "COVERAGE",
+        (f"Demand from {dem.index.min():%Y-%m-%d} to {dem.index.max():%Y-%m-%d}; " if not dem.empty else "") +
+        (f"prices from {pri.index.min():%Y-%m-%d} to {pri.index.max():%Y-%m-%d}. " if not pri.empty else "") +
+        "IEMOP lists about 90 days of files; older days are kept from previous runs. Grid-connected WESM regions "
+        "(Mindanao joined WESM in 2023); off-grid islands are not included.",
+        "",
+        "SOURCE",
+        "IEMOP (Independent Electricity Market Operator of the Philippines), market data: RTD Regional Summaries and "
+        "DIPC Energy Results - Raw, https://www.iemop.ph/market-data/",
+    ]
+    xlsx_notes.write_workbook(out_path, {"Daily demand": dem, "Daily prices": pri}, notes,
+                              {"UNITS", "COVERAGE", "SOURCE"})
+    out(f"Saved {out_path}: demand {len(dem)} days, prices {len(pri)} days")
+    out(dem.tail(2).T.to_string())
+    out(pri.tail(2).T.to_string())
+
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
@@ -185,35 +217,9 @@ def main():
         rows[pd.Timestamp(d)] = row
         if n % 10 == 0:
             out(f"  prices {d}")
-    pri = merge(old_p, pd.DataFrame.from_dict(rows, orient="index").round(2))
-    if dem.empty and pri.empty:
-        raise SystemExit("No IEMOP data")
-    dem.index.name = pri.index.name = "date"
-    notes = [
-        "UNITS",
-        "Daily demand: per region (Luzon, Visayas, Mindanao) from the 5-minute real-time dispatch (RTD) regional "
-        "summaries, energy commodity: demand_avg / demand_peak = average and maximum market requirement (MW); "
-        "demand_MWh, generation_MWh, losses_MWh = mean MW x 24. Philippines_* = the three regions summed per interval. "
-        "Intervals = 5-minute intervals in the day (288 = complete).",
-        "Daily prices: PHP/MWh (Philippine pesos). <Region>_SMP = time-weighted average of the 5-minute system "
-        "marginal price; <Region>_LMP_genweighted = locational marginal price weighted by each resource's scheduled "
-        "generation; Philippines_LMP_genweighted = the same across all regions.",
-        "",
-        "COVERAGE",
-        (f"Demand from {dem.index.min():%Y-%m-%d} to {dem.index.max():%Y-%m-%d}; " if not dem.empty else "") +
-        (f"prices from {pri.index.min():%Y-%m-%d} to {pri.index.max():%Y-%m-%d}. " if not pri.empty else "") +
-        "IEMOP lists about 90 days of files; older days are kept from previous runs. Grid-connected WESM regions "
-        "(Mindanao joined WESM in 2023); off-grid islands are not included.",
-        "",
-        "SOURCE",
-        "IEMOP (Independent Electricity Market Operator of the Philippines), market data: RTD Regional Summaries and "
-        "DIPC Energy Results - Raw, https://www.iemop.ph/market-data/",
-    ]
-    xlsx_notes.write_workbook(args.out, {"Daily demand": dem, "Daily prices": pri}, notes,
-                              {"UNITS", "COVERAGE", "SOURCE"})
-    out(f"Saved {args.out}: demand {len(dem)} days, prices {len(pri)} days")
-    out(dem.tail(2).T.to_string())
-    out(pri.tail(2).T.to_string())
+            if rows:   # checkpoint: a timeout keeps what is done
+                write(args.out, dem, merge(old_p, pd.DataFrame.from_dict(rows, orient="index").round(2)))
+    write(args.out, dem, merge(old_p, pd.DataFrame.from_dict(rows, orient="index").round(2)))
 
 
 if __name__ == "__main__":

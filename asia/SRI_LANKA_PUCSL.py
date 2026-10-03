@@ -45,6 +45,7 @@ T = (15, 180)
 DATA_START = date(2023, 1, 1)
 CHUNK_DAYS = 7
 REVISION_DAYS = 3
+CHECKPOINT = 25          # write the workbook every 25 chunks during a backfill
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "sri_lanka_power_generation_daily.xlsx")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy", "Other"]
 # keyword in the plant's energy type / technology / fuel (lower case) -> standard fuel; first match wins
@@ -112,40 +113,9 @@ def merge(old, new):
     return pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=OUT)
-    ap.add_argument("--start", default=DATA_START.isoformat())
-    args = ap.parse_args()
-    start = date.fromisoformat(args.start)
-
-    meta = plants()
-    out(f"{len(meta)} plants; by fuel: {meta['fuel'].value_counts().to_dict()}")
-    other = meta[meta["fuel"] == "Other"]
-    if not other.empty:
-        out(f"  unmapped (counted as Other): {other[['name', 'energy_type', 'technology']].to_dict('records')}")
-
-    old, old_dem, old_plant = (read_sheet(args.out, s) for s in ("Daily", "Demand", "By plant"))
-    yesterday = date.today() - timedelta(days=1)
-    have = set(old.index.date) if not old.empty else set()
-    revise = {yesterday - timedelta(days=k) for k in range(REVISION_DAYS)}
-    todo = [d for d in (start + timedelta(days=k) for k in range((yesterday - start).days + 1))
-            if d not in have or d in revise]
-    out(f"{len(have)} days saved; fetching {len(todo)}")
-
-    frames = []
-    i = 0
-    while i < len(todo):
-        d0 = todo[i]
-        d1 = min(d0 + timedelta(days=CHUNK_DAYS - 1), yesterday)
-        df = fetch(d0, d1)
-        if not df.empty:
-            frames.append(df[df["time"].dt.date.isin([d for d in todo if d0 <= d <= d1])])
-        out(f"  {d0}..{d1}: {len(df)} rows")
-        while i < len(todo) and todo[i] <= d1:
-            i += 1
-        time.sleep(0.5)
-
+def save(frames, old, old_dem, old_plant, meta, out_path):
+    """Aggregate the fetched 15-minute rows, merge with the saved history and write the workbook (also used as a
+    checkpoint during long backfills)."""
     gen, dem, by_plant = pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
     if frames:
         raw = pd.concat(frames, ignore_index=True)
@@ -197,10 +167,50 @@ def main():
         "PUCSL GenData (Public Utilities Commission of Sri Lanka), actual system dispatch: "
         "https://gendata.pucsl.gov.lk/ (API /api/actual-system-dispatch, /api/metadata/power-plants).",
     ]
-    xlsx_notes.write_workbook(args.out, {"Daily": daily, "Demand": demand, "By plant": plant_daily,
+    xlsx_notes.write_workbook(out_path, {"Daily": daily, "Demand": demand, "By plant": plant_daily,
                                          "Plants": meta.reset_index()}, notes, {"UNITS", "COVERAGE", "SOURCE"})
-    out(f"Saved {args.out}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
+    out(f"Saved {out_path}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
     out(daily.tail(3).to_string())
+
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default=OUT)
+    ap.add_argument("--start", default=DATA_START.isoformat())
+    args = ap.parse_args()
+    start = date.fromisoformat(args.start)
+
+    meta = plants()
+    out(f"{len(meta)} plants; by fuel: {meta['fuel'].value_counts().to_dict()}")
+    other = meta[meta["fuel"] == "Other"]
+    if not other.empty:
+        out(f"  unmapped (counted as Other): {other[['name', 'energy_type', 'technology']].to_dict('records')}")
+
+    old, old_dem, old_plant = (read_sheet(args.out, s) for s in ("Daily", "Demand", "By plant"))
+    yesterday = date.today() - timedelta(days=1)
+    have = set(old.index.date) if not old.empty else set()
+    revise = {yesterday - timedelta(days=k) for k in range(REVISION_DAYS)}
+    todo = [d for d in (start + timedelta(days=k) for k in range((yesterday - start).days + 1))
+            if d not in have or d in revise]
+    out(f"{len(have)} days saved; fetching {len(todo)}")
+
+    frames = []
+    i = 0
+    while i < len(todo):
+        d0 = todo[i]
+        d1 = min(d0 + timedelta(days=CHUNK_DAYS - 1), yesterday)
+        df = fetch(d0, d1)
+        if not df.empty:
+            frames.append(df[df["time"].dt.date.isin([d for d in todo if d0 <= d <= d1])])
+        out(f"  {d0}..{d1}: {len(df)} rows")
+        if len(frames) % CHECKPOINT == 0 and frames:
+            save(frames, old, old_dem, old_plant, meta, args.out)   # checkpoint: a timeout keeps what is done
+        while i < len(todo) and todo[i] <= d1:
+            i += 1
+        time.sleep(0.5)
+
+    save(frames, old, old_dem, old_plant, meta, args.out)
 
 
 if __name__ == "__main__":

@@ -39,6 +39,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (15, 60)
 DATA_START = date(2020, 10, 1)
 REVISION_DAYS = 3
+BATCH = 400
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "thailand_hydro_reservoirs.xlsx")
 
 
@@ -82,13 +83,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
-    old, old_dam = read_sheet(args.out, "Daily"), read_sheet(args.out, "By dam")
+    old = read_sheet(args.out, "Daily")
     today = date.today()
     have = set(old.index.date) if not old.empty else set()
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS)}
     todo = [d for d in (DATA_START + timedelta(days=k) for k in range((today - DATA_START).days + 1))
             if d not in have or d in revise]
     out(f"{len(have)} days saved; fetching {len(todo)}")
+    for b in range(0, max(len(todo), 1), BATCH):   # write after each batch: a timeout keeps what is done
+        run_batch(todo[b:b + BATCH], args.out)
+
+
+def run_batch(todo, out_path):
+    old, old_dam = read_sheet(out_path, "Daily"), read_sheet(out_path, "By dam")
     tot, per_dam, names = {}, {}, {}
     for n, d in enumerate(todo):
         df = fetch(d)
@@ -131,8 +138,8 @@ def main():
         "Royal Irrigation Department (RID), reservoir database: https://app.rid.go.th/reservoir/ "
         "(API https://app.rid.go.th/reservoir/api/dam/public/<date>).",
     ]
-    xlsx_notes.write_workbook(args.out, {"Daily": daily, "By dam": dam}, notes, {"UNITS", "COVERAGE", "SOURCE"})
-    out(f"Saved {args.out}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
+    xlsx_notes.write_workbook(out_path, {"Daily": daily, "By dam": dam}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    out(f"Saved {out_path}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
     out(daily.tail(3).to_string())
 
 
