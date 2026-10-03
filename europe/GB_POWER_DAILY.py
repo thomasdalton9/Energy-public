@@ -139,6 +139,8 @@ def daily(f, n):
     for fuel in GEN_FUELS:
         out[f"{fuel}_MWh"] = j[fuel] if fuel in j else 0.0
     out["Wind_MWh"] = wind
+    if "PumpedStorage" in j:   # FUELHH "PS" goes negative while pumping; output only here, pumping comes from NESO
+        out["PumpedStorage_MWh"] = j["PumpedStorage"].clip(lower=0)
     out["Solar_MWh"] = j["EMBEDDED_SOLAR_GENERATION"]
     out["Storage_MWh"] = 0.0
     out["Load_MWh"] = j["ND"] + j["EMBEDDED_WIND_GENERATION"] + j["EMBEDDED_SOLAR_GENERATION"]
@@ -214,7 +216,7 @@ def main():
              "https://bmrs.elexon.co.uk/ ; NESO Historic demand data (national demand, embedded wind and solar, pumping), "
              "https://www.neso.energy/data-portal/historic-demand-data . Free, no key.",
              "", "Units and definitions",
-             "MWh per UTC day (MW x 0.5 h per half hour). Hydro = non-pumped hydro (NPSHYD); PumpedStorage = pumped storage output (PS); "
+             "MWh per UTC day (MW x 0.5 h per half hour). Hydro = non-pumped hydro (NPSHYD); PumpedStorage = pumped storage output (PS, positive half hours only); "
              "Gas = CCGT + OCGT; Bioenergy = BIOMASS; Wind = metered wind + NESO embedded wind; Solar = NESO embedded solar "
              "(almost all GB solar is embedded and not in FUELHH).",
              "Load_MWh = national demand (ND) + embedded wind + embedded solar. PumpedStorageConsumption_MWh = pumping. "
