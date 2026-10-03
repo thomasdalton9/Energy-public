@@ -31,8 +31,8 @@ Units: pipelines post Dth (= MMBtu). Bcf/d = Dth / 1,037,000, using
 1,037 Btu per cubic foot, EIA's average heat content of US dry gas.
 
 Run by .github/workflows/lng_feedgas_daily.yml every morning; needs
-Playwright + Chromium. Output: lng_feedgas_daily.xlsx next to this
-script.
+Playwright + Chromium. Output: output/Data and Chart Outputs/
+lng_feedgas_daily.xlsx (the workbook the workflow commits).
 """
 
 import argparse
@@ -57,7 +57,7 @@ except ImportError:
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(os.path.dirname(HERE))
-DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "lng_feedgas_daily.xlsx")
+DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "lng_feedgas_daily.xlsx")
 BTU_PER_CF = 1037
 DTH_PER_BCF = BTU_PER_CF * 1_000_000 / 1000  # 1 Bcf = 1e9 cf * 1,037 Btu = 1.037e12 Btu = 1.037e6 Dth
 
