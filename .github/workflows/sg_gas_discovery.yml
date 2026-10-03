@@ -1,0 +1,28 @@
+name: Singapore gas discovery (branch only, temporary)
+
+# One-off probe for Singapore daily/monthly metered gas data. Runs on push to the dev branch; moved to
+# discovery_archive/workflows/ once done.
+on:
+  push:
+    branches: [claude/compassionate-darwin-2khdxe]
+    paths:
+      - "discovery_archive/asia/SINGAPORE_GAS_DISCOVERY*.py"
+      - ".github/workflows/sg_gas_discovery.yml"
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pdfplumber
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          for f in discovery_archive/asia/SINGAPORE_GAS_DISCOVERY*.py; do echo "######## $f"; timeout 1200 python3 "$f" || echo "!! exit $?"; done
