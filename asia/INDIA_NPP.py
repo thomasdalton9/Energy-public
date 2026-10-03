@@ -48,7 +48,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (20, 120)
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 GEN_START, RES_START, COAL_START = date(2021, 1, 1), date(2020, 10, 21), date(2024, 6, 5)   # where NPP's archives start
-REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 WORKERS = 6
 TYPES = {"THERMAL": "Coal", "THER (GT)": "Gas", "THER (DG)": "Oil", "NUCLEAR": "Nuclear", "HYDRO": "Hydro"}
 # plausible all-India conventional generation, MWh/day (catches a wrong column: April-to-date totals are ~100x)

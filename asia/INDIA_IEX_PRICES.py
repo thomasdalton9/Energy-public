@@ -38,7 +38,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (15, 120)
 DATA_START = date(2022, 1, 1)
 CHUNK_DAYS = 7
-REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "india_power_prices.xlsx")
 NUM = ["purchase_bid", "sell_bid", "mcv", "final_scheduled_volume", "mcp", "weighted_mcp"]
 

@@ -4,7 +4,12 @@ name: Bangladesh gas
 on:
   schedule:
     - cron: "52 3 1,15 * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "Re-read every report from 2021 (ignore the saved workbook)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -12,7 +17,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 70
+    timeout-minutes: 100
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,7 +28,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 3300 python3 asia/BANGLADESH_PETROBANGLA_GAS.py || echo "asia/BANGLADESH_PETROBANGLA_GAS.py failed"
+        run: timeout 5700 python3 asia/BANGLADESH_PETROBANGLA_GAS.py ${{ inputs.rebuild && '--rebuild' || '' }} || echo "asia/BANGLADESH_PETROBANGLA_GAS.py failed"
 
       - name: Add Excel charts and copy scripts
         if: always()

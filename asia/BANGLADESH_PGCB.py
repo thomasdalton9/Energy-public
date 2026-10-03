@@ -39,7 +39,7 @@ URL = "https://erp.powergrid.gov.bd/w/generations/view_generations"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (15, 90)
 DATA_START = date(2021, 1, 1)
-REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 MAX_PAGES = 3000
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "bangladesh_power_generation_daily.xlsx")
 # header keyword (lower case) -> column; first match wins, checked against the flattened header text

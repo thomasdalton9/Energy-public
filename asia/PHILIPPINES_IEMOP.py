@@ -49,7 +49,7 @@ T = (20, 120)
 POSTS = {"RTDREG": 5760, "DIPCER": 5754}
 REGIONS = {"CLUZ": "Luzon", "CVIS": "Visayas", "CMIN": "Mindanao", "LUZON": "Luzon", "VISAYAS": "Visayas",
            "MINDANAO": "Mindanao"}
-REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, with 1-2 days spare (provisional days get final)
+REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "philippines_power_market.xlsx")
 
 
