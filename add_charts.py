@@ -1468,6 +1468,8 @@ REGISTRY = {
     "bhutan_power_generation_daily.xlsx": power_and_demand("Bhutan power generation (BPSO, hydro)",
                                                            "Bhutan peak demand (BPSO)"),
     "india_power_prices.xlsx": india_iex,
+    "bangladesh_power_generation_daily.xlsx": power_and_demand("Bangladesh power generation by fuel (PGCB)",
+                                                               "Bangladesh served demand (PGCB)"),
     "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
     "malaysia_power_prices.xlsx": malaysia_smp,
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
