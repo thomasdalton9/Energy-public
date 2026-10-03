@@ -1,0 +1,57 @@
+name: South and Southeast Asia power by type (Ember fallback)
+
+# Ember monthly generation by fuel for the South & Southeast Asia countries (fallback until each has a raw
+# feed; the master switches a country to its raw workbook once that holds a year), plus Ember's yearly
+# release for the countries Ember has no monthly data for. Ember re-publishes whole files: 1st and 15th.
+on:
+  schedule:
+    - cron: "5 5 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+      - name: Run (monthly)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --countries "India,Pakistan,Bangladesh,Sri Lanka,Thailand,Viet Nam:Vietnam,Philippines (the):Philippines,Malaysia,Singapore" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type.xlsx"
+      - name: Run (yearly)
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 400 python3 south_america/EMBER_POWER_BY_TYPE.py --yearly --countries "Indonesia,Myanmar,Cambodia,Lao People's Democratic Republic (the):Laos,Brunei Darussalam:Brunei,Nepal,Bhutan,Timor-Leste" --out "output/Data and Chart Outputs/south_southeast_asia_power_by_type_annual.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          for f in south_southeast_asia_power_by_type south_southeast_asia_power_by_type_annual; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+          done
+          mkdir -p "output/Python Scripts"
+          cp south_america/EMBER_POWER_BY_TYPE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          ls "output/Data and Chart Outputs/"south_southeast_asia_power_by_type*.xlsx >/dev/null 2>&1 || { echo "No archive file to commit."; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/"south_southeast_asia_power_by_type*.xlsx
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "South and Southeast Asia power by type (Ember): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
