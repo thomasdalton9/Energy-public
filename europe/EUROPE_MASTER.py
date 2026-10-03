@@ -457,6 +457,27 @@ def eu_gas_balance(bal, org, dst, storage, lng):
     return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
 
 
+def ireland_gas_balance(data_dir):
+    """Republic of Ireland gas balance from Gas Networks Ireland's own supply and demand series (monthly TWh): Corrib and Inch
+    production, Moffat imports from Great Britain (ROI share - gas in transit to Northern Ireland is excluded) against ROI
+    demand. ENTSOG's Irish country totals miss most of Moffat (about 7 TWh a year against about 42 in GNI's figures), so the
+    Irish balance uses GNI. Ireland has no LNG terminal in service and no storage."""
+    path = os.path.join(data_dir, "ireland_gas_combined_daily.xlsx")
+    sup = add_charts._sheet(path, "Supply", "date")
+    dem = add_charts._sheet(path, "Demand", "date")
+    day = pd.DataFrame(index=sup.index)
+    day["Production"] = sup[[c for c in ("Corrib_Production_GWh", "Inch_Production_GWh") if c in sup]].sum(axis=1, min_count=1)
+    day["Pipeline imports"] = sup["Moffat_Imports_GWh"]
+    day["LNG send-out"] = 0.0
+    day["Storage withdrawals"] = 0.0
+    day["Pipeline exports"] = 0.0
+    day["Storage injections"] = 0.0
+    day["Consumption"] = dem["Total_ROI_GWh"].reindex(day.index)
+    day = day.dropna(subset=["Pipeline imports", "Consumption"])
+    day = day[day.index >= "2021-01-01"]
+    return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(DATA_DIR, "europe_master.xlsx"))
@@ -526,12 +547,20 @@ def main():
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
             b = gas_country_balance(gbal, cc, gsto, glng)
+            note = None
+            if cc == "IE":
+                try:
+                    b, note = ireland_gas_balance(args.data_dir), (
+                        "Republic of Ireland from Gas Networks Ireland's own series: Corrib/Inch production and Moffat imports "
+                        "(from Great Britain, ROI share) against ROI demand. ENTSOG's Irish totals miss most of Moffat.")
+                except Exception as e:  # noqa: BLE001
+                    gas[2].append(f"Ireland gas balance from GNI failed ({type(e).__name__}: {e}); ENTSOG used")
             if b.empty:
                 gas[2].append(f"{GAS_NAMES[cc]} gas balance: too little data")
                 continue
-            total_chart(wb, used, gas, None, b, ["Supply (production, pipeline imports, LNG, storage withdrawals) less exports and "
+            total_chart(wb, used, gas, None, b, [note or ("Supply (production, pipeline imports, LNG, storage withdrawals) less exports and "
                                                  "storage injections should land near consumption (distribution + final consumers); "
-                                                 "the gap is unreported or unclassified flow"],
+                                                 "the gap is unreported or unclassified flow")],
                         f"{GAS_NAMES[cc]} gas balance data", f"{GAS_NAMES[cc]} gas balance: supply and storage vs consumption",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label=GAS_NAMES[cc], line_cols=("Consumption",))
     # supply/demand balance per country (needs the flows workbook and each country's load)
