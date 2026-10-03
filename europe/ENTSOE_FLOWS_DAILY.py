@@ -127,6 +127,36 @@ def read_sheet(path, sheet):
     return d.dropna(subset=["date"]).set_index("date").sort_index()
 
 
+GAP_INTERPOLATE_DAYS = 14
+
+
+def fill_for_net(borders_df):
+    """Border table used for the country net imports (the Borders sheet itself stays as reported).
+    ENTSO-E publishes nothing for a link before it starts or while it carries no flow, so a blank is read as follows:
+    before a link's first reported day = 0 (link not yet in service); a gap of up to 14 days inside the series =
+    interpolated (outage/late data); a longer gap = 0 (link out of service, e.g. Moyle/EWIC outages); days after
+    the last reported day stay blank so a recent lag is not mistaken for zero flow."""
+    out = borders_df.reindex(pd.date_range(borders_df.index.min(), borders_df.index.max()))
+    out.index.name = "date"
+    for c in out:
+        s = out[c]
+        first, last = s.first_valid_index(), s.last_valid_index()
+        out.loc[:first, c] = out.loc[:first, c].fillna(0.0)
+        inner = s.loc[first:last]
+        gap = inner.isna()
+        if not gap.any():
+            continue
+        run_id = (gap != gap.shift()).cumsum()
+        run_len = gap.groupby(run_id).transform("sum")
+        interp = inner.interpolate(limit_area="inside")
+        fill = inner.copy()
+        short = gap & (run_len <= GAP_INTERPOLATE_DAYS)
+        fill[short] = interp[short]
+        fill[gap & ~short] = 0.0
+        out.loc[first:last, c] = fill
+    return out
+
+
 def flow_days(out_eic, in_eic, d0, d1, deadline):
     """{date: GWh} physical flow out_eic -> in_eic for the complete UTC days in [d0, d1); None if no data at all."""
     got, any_data = {}, False
@@ -210,6 +240,7 @@ def main():
     # country net imports: into - out over all valid borders touching the country; blank if any border is missing
     covered = {name for name, _, _ in C.COUNTRIES.values()}
     valid = [(x, y) for a, b in pairs for x, y in ((a, b), (b, a)) if f"{x}>{y}" in borders_df]
+    filled = fill_for_net(borders_df)
     net = {}
     for name in sorted(covered):
         ins = [f"{x}>{y}" for x, y in valid if country[y] == name]
@@ -217,12 +248,12 @@ def main():
         if not ins and not outs:
             continue
         cols = ins + outs
-        full = borders_df[cols].notna().all(axis=1)
-        v = borders_df[ins].sum(axis=1, min_count=1) - borders_df[outs].sum(axis=1, min_count=1)
+        full = filled[cols].notna().all(axis=1)
+        v = filled[ins].sum(axis=1, min_count=1) - filled[outs].sum(axis=1, min_count=1)
         if not ins:
-            v = -borders_df[outs].sum(axis=1, min_count=1)
+            v = -filled[outs].sum(axis=1, min_count=1)
         elif not outs:
-            v = borders_df[ins].sum(axis=1, min_count=1)
+            v = filled[ins].sum(axis=1, min_count=1)
         net[name] = v.where(full)
     net_df = pd.DataFrame(net).dropna(how="all").round(3)
     net_df.index.name = "date"
@@ -232,6 +263,7 @@ def main():
              "Borders: GWh per UTC day of physical flow from the first zone to the second. Net imports: per country, GWh per day, "
              "flows in minus flows out over all its borders (positive = net import, negative = net export); blank on a day when any "
              "of its borders is missing. Zones inside one country are internal and not counted.",
+             "A border blank in the source counts as zero before the link's first reported day and in gaps longer than 14 days (link not in service), and gaps up to 14 days are interpolated, so a short outage does not blank the country's net import. The Borders sheet keeps the raw values. "
              "Great Britain and Turkey are not generation countries here, but their links are included so the neighbours' "
              "net imports are complete. Candidate borders with no ENTSO-E data are dropped: " + (", ".join(dead) or "none this run") + ".",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps within {GAP_DAYS} days; history from {args.start}.",

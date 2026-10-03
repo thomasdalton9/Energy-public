@@ -95,11 +95,13 @@ def latest(df):
     return df.index.max().strftime("%b/%y")
 
 
-def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=()):
+def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=(), by_order=False):
     d = tab(xl, tab_name).drop(columns=list(drop), errors="ignore")
     fig, ax = plt.subplots(figsize=(11, 5.6))
     style(ax)
     cols = {c: FUEL_COLOURS.get(c, GREY) for c in d.columns}
+    if by_order:   # series are countries, not fuels: the repo's fixed categorical order, "Other" last in grey
+        cols = {c: (GREY if c == "Other" else PAL[i % len(PAL)]) for i, c in enumerate(d.columns)}
     cols.update({"Pumped & battery (net)": "#4A3AA7", "Load": INK})
     stacked(ax, d, cols, lines=lines)
     if "Load" in lines:
@@ -193,13 +195,13 @@ def main():
             out("europe_gas_storage_flows.png"), source="Gas Infrastructure Europe, AGSI+")),
         ("EU Send-out data", lambda: fuel_chart(
             xl, "EU Send-out data", "EU LNG terminal send-out by country", "GWh per month",
-            out("europe_lng_sendout.png"), source="Gas Infrastructure Europe, ALSI")),
+            out("europe_lng_sendout.png"), source="Gas Infrastructure Europe, ALSI", by_order=True)),
     ]
     netname = "Net imports flows data" if "Net imports flows data" in names else None
     if netname:
         jobs.append((netname, lambda: fuel_chart(
             xl, netname, "Europe net electricity imports (+) and exports (-) by country", "GWh per month",
-            out("europe_net_imports.png"), source=ENTSOE + ", cross-border physical flows")))
+            out("europe_net_imports.png"), source=ENTSOE + ", cross-border physical flows", by_order=True)))
     for tabname, fn in jobs:
         if tabname not in names:
             print(f"skipped (tab '{tabname}' not in the master)")
