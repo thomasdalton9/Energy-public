@@ -166,6 +166,9 @@ def parse(text):
     for f, pat in (("Bibiyana", r"Bibiyana"), ("Jalalabad", r"Jalalabad"), ("Moulavibazar", r"Ma?o?u?lavibazar"),
                    ("Bangora", r"Bangora")):
         row[f] = nums_after(pat, prod, 2)
+        cap = nums_after(pat, prod, 1)   # the field's stated capacity: a value far above it is a misaligned row
+        if row[f] is not None and cap and row[f] > 1.5 * cap:
+            row[f] = None
     row["Total_supply"] = nums_after(r"Grand Total[^:\n]*:", prod, 2)
     tot = re.findall(r"Total\s*:\s*([^\n]*)", dist)
     v = re.findall(r"-?\d+(?:\.\d+)?", tot[-1]) if tot else []
