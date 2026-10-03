@@ -1,6 +1,8 @@
 name: AU gas hub archive probe (manual)
 
-# One-off: how far back AEMO's DWGM and Wallumbilla folders reach. Move to discovery_archive/workflows/ when done.
+# One-off (run 2026-10-03): how far back AEMO's DWGM and Wallumbilla folders reach. Result: VicGas keeps 31
+# PublicRptsNN.zip daily snapshots, each with a 14-day INT041 (about 6 weeks in all); every Wallumbilla benchmark
+# file holds the full history from 2014-03-19.
 on:
   workflow_dispatch:
 
