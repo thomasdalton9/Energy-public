@@ -26,29 +26,35 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 import xlsx_notes
 
 URL = "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/monthly_full_release_long_format.csv"
+YEARLY_URL = ("https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/"
+              "yearly_full_release_long_format.csv")
 DATA_START = "2021-01-01"
 EFFICIENCY = 0.50          # assumed average gas fleet efficiency (electric out / fuel in)
 MJ_PER_M3 = 38.0           # natural gas gross heating value
 
 
-def country_table(d, country, start_date):
+def country_table(d, country, start_date, yearly=False):
     c = d[(d["Area"] == country) & (d["Category"] == "Electricity generation")
           & (d["Subcategory"] == "Fuel") & (d["Unit"] == "TWh")]
     if c.empty:
         return None
-    w = c.pivot_table(index="Date", columns="Variable", values="Value", aggfunc="sum")
-    w.index = pd.to_datetime(w.index)
+    w = c.pivot_table(index="Year" if yearly else "Date", columns="Variable", values="Value", aggfunc="sum")
+    w.index = pd.to_datetime(w.index.astype(int).astype(str) + "-01-01") if yearly else pd.to_datetime(w.index)
     w = w[w.index >= start_date].sort_index()
     w["Total"] = w.sum(axis=1)
     out = w.mul(1000).round(1)  # GWh
     out.columns = [f"{col}_GWh" for col in out.columns]
     if "Gas" in w.columns:
-        days = w.index.days_in_month
+        days = (365 + w.index.is_leap_year) if yearly else w.index.days_in_month
         fuel_mj = w["Gas"] * 1e9 * 3.6 / EFFICIENCY          # TWh_e -> MJ of fuel
         out["Gas_for_power_est_mcm_per_day"] = (fuel_mj / MJ_PER_M3 / 1e6 / days).round(2)
     out.index.name = "Month"
     out = out.reset_index()
-    out["Month"] = out["Month"].dt.strftime("%Y-%m")
+    if yearly:
+        out = out.rename(columns={"Month": "Year"})
+        out["Year"] = out["Year"].dt.year
+    else:
+        out["Month"] = out["Month"].dt.strftime("%Y-%m")
     return out
 
 
@@ -59,41 +65,47 @@ def main():
                     help="comma-separated list -> one sheet per country (e.g. the South America set)")
     ap.add_argument("--out", default="output/Data and Chart Outputs/chile_power_by_type.xlsx")
     ap.add_argument("--start-date", default=DATA_START)
+    ap.add_argument("--yearly", action="store_true",
+                    help="Ember's yearly release (GWh per year) - for countries with no monthly Ember data")
     args = ap.parse_args()
+    url = YEARLY_URL if args.yearly else URL
+    per = "Year" if args.yearly else "Month"
 
-    print(f"Downloading {URL}", flush=True)
-    r = requests.get(URL, timeout=(10, 300))
+    print(f"Downloading {url}", flush=True)
+    r = requests.get(url, timeout=(10, 300))
     r.raise_for_status()
     d = pd.read_csv(io.BytesIO(r.content))
     sheets, coverage = {}, []
+    # "Ember area name:sheet label" renames a country (e.g. "Viet Nam:Vietnam"); plain names are used as given
     countries = [c.strip() for c in args.countries.split(",")] if args.countries else [args.country]
-    for country in countries:
-        out = country_table(d, country, args.start_date)
+    for entry in countries:
+        country, _, label = entry.partition(":")
+        out = country_table(d, country, args.start_date, args.yearly)
         if out is None:
             print(f"No Ember generation rows for {country!r} - skipped", flush=True)
             continue
-        name = "Generation by type" if not args.countries else country[:31]
+        name = "Generation by type" if not args.countries else (label or country)[:31]
         sheets[name] = out
-        coverage.append(f"{country}: {out['Month'].min()} to {out['Month'].max()}")
-        print(f"{country}: {len(out)} months to {out['Month'].max()}", flush=True)
+        coverage.append(f"{label or country}: {out[per].min()} to {out[per].max()}")
+        print(f"{country}: {len(out)} {per.lower()}s to {out[per].max()}", flush=True)
     if not sheets:
         raise SystemExit("No Ember data for any requested country")
     print(next(iter(sheets.values())).tail(3).to_string(index=False), flush=True)
 
     notes = [
         "UNITS",
-        "Generation in GWh per month (Ember publishes TWh; multiplied by 1,000).",
+        f"Generation in GWh per {per.lower()} (Ember publishes TWh; multiplied by 1,000).",
         "Gas_for_power_est_mcm_per_day: ESTIMATED gas burned by gas-fired plants, million m3 per day = gas "
         f"generation / {EFFICIENCY:.0%} assumed fleet efficiency, at {MJ_PER_M3:.0f} MJ/m3. A proxy, not a "
         "published figure: actual efficiency varies with the plant mix (open-cycle and diesel-capable units "
         "are less efficient), so treat the level as approximate and the month-to-month shape as the signal.",
         "",
         "COVERAGE",
-        "Monthly. " + "; ".join(coverage) + ". Ember lags real time by one to several months (it varies by "
+        ("Yearly. " if args.yearly else "Monthly. ") + "; ".join(coverage) + ". Ember lags real time by one to several months (it varies by "
         "country); the weekly run picks up new months as they're released.",
         "",
         "SOURCE",
-        f"Ember monthly electricity data (free, CC-BY-4.0): {URL}. Ember compiles each country's grid operator / "
+        f"Ember {'yearly' if args.yearly else 'monthly'} electricity data (free, CC-BY-4.0): {url}. Ember compiles each country's grid operator / "
         "ministry data (e.g. Chile: Coordinador Electrico Nacional; Brazil: ONS; Colombia: XM).",
     ]
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
