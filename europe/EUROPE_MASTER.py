@@ -115,11 +115,58 @@ for _code, (_name, _slug, _zones) in COUNTRIES.items():
                                                "https://transparency.entsoe.eu/")
 
 
+MIN_COVERAGE = 0.5          # a month whose generation/load ratio is under this share of the country's typical ratio is not usable
+LATE_START_OK = pd.Timestamp("2022-03-01")   # a country whose usable history starts by here still joins the Europe totals
+
+
+def covered_months(daily_mwh):
+    """Boolean Series by month start: generation reported (fuels, excluding pumped storage and batteries) is at least
+    MIN_COVERAGE of load. Catches a feed that only started reporting part-way through (e.g. Sweden's hydro and nuclear
+    begin in Dec 2021, so Jan-Nov 2021 would show about 20% of load)."""
+    fuel = [c for c in daily_mwh if c.endswith("_MWh") and c not in (
+        "Total_MWh", "Load_MWh", "PumpedStorage_MWh", "Storage_MWh", "PumpedStorageConsumption_MWh", "StorageCharging_MWh")]
+    gen = daily_mwh[fuel].sum(axis=1, min_count=1).resample("MS").sum(min_count=1)
+    load = daily_mwh["Load_MWh"].resample("MS").sum(min_count=1)
+    ratio = gen / load
+    good = ratio >= MIN_COVERAGE * ratio.median()   # relative: import-heavy countries (Baltics) legitimately sit well below 1
+    first = good.idxmax() if good.any() else None
+    # only the leading months before the feed was complete are dropped; seasonal dips later (hydro) are real
+    return pd.Series([bool(first is not None and d >= first) for d in ratio.index], index=ratio.index)
+
+
+def core_months(frames, start, notes):
+    """Countries that can be summed, and the months they all have. A country joins if its usable history starts by
+    LATE_START_OK and is >= MIN_SHARE complete from its own first month; the totals then start when the last of them
+    joins. The others are listed as not included."""
+    last = max(f.index.max() for f in frames.values())
+    keep = {}
+    for name, f in frames.items():
+        span = pd.date_range(f.index.min(), last, freq="MS")
+        share = len(f.index.intersection(span)) / len(span)
+        if f.index.min() <= LATE_START_OK and share >= MIN_SHARE:
+            keep[name] = f
+        else:
+            notes.append(f"NOT INCLUDED: {name} (usable months {f.index.min():%b/%y}-{f.index.max():%b/%y}, "
+                         f"{share:.0%} complete from its first month)")
+    if not keep:
+        return {}, []
+    first = max(max(f.index.min() for f in keep.values()), pd.Timestamp(start))
+    late = [f"{n} from {f.index.min():%b/%y}" for n, f in keep.items() if f.index.min() > pd.Timestamp(start) and f.index.min() == first]
+    if late:
+        notes.append(f"Totals start {first:%b/%y} because " + ", ".join(late)
+                     + f" (earlier months of the feed are missing or under {MIN_COVERAGE:.0%} of the country's typical share of load)")
+    months = sorted(set.intersection(*(set(f.index[f.index >= first]) for f in keep.values())))
+    return keep, months
+
+
 def monthly_gwh(path):
     """Standard Daily sheet (MWh) -> complete months, GWh, in the dashboard fuel groups (storage/pumping left out)."""
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
     d = d[[c for c in d.columns if str(c).endswith("_MWh")]].apply(pd.to_numeric, errors="coerce")
     m = d.resample("MS").sum(min_count=1) / 1000.0
+    if "Load_MWh" in d:
+        ok = covered_months(d)
+        m = m[m.index.isin(ok.index[ok])]
     last = d.dropna(how="all").index.max()
     if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
         m = m[m.index < last.to_period("M").to_timestamp()]
@@ -140,19 +187,9 @@ def europe_generation(data_dir, frames_out=None):
             notes.append(f"NOT INCLUDED: {name} ({type(e).__name__}: {e})")
     if not frames:
         return pd.DataFrame(), notes
-    last = max(f.index.max() for f in frames.values())
-    window = pd.date_range(START, last, freq="MS")
-    keep = {}
-    for name, f in frames.items():
-        share = len(f.index.intersection(window)) / len(window)
-        if share >= MIN_SHARE:
-            keep[name] = f
-        else:
-            notes.append(f"NOT INCLUDED: {name} (only {share:.0%} of months since {pd.Timestamp(START):%b/%y}: "
-                         f"{f.index.min():%b/%y}-{f.index.max():%b/%y})")
     if frames_out is not None:
         frames_out.update(frames)
-    months = sorted(set.intersection(*(set(f.index) for f in keep.values()))) if keep else []
+    keep, months = core_months(frames, START, notes)
     if not months:
         return pd.DataFrame(), notes + ["no month common to every country yet"]
     total = sum(f.reindex(index=months, columns=FUELS).fillna(0) for f in keep.values())
@@ -231,6 +268,29 @@ BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Ne
                 "Pumped & battery (net)", "Load"]
 
 
+# Why reported supply can fall short of load for a country (ENTSO-E reports what TSOs meter; the rest is not in the feed).
+KNOWN_GAPS = {
+    "Switzerland": "ENTSO-E hydro for Switzerland is incomplete before 2025 (reported hydro + pumped storage is well under the "
+                   "country's annual hydro output); supply/load is about 70% until 2024, about 91% from 2025.",
+    "Netherlands": "Embedded and rooftop solar (tens of TWh a year) is not in the ENTSO-E per-type feed: Solar shows under 1 TWh.",
+    "Germany": "Industrial self-generation and small embedded plants are not in the feed; supply is typically 4-5% below load.",
+    "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
+    "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
+    "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
+}
+
+
+def coverage_notes(name, b):
+    """Supply-to-load ratio over the last 12 months shown, plus the known reason for any shortfall."""
+    cols = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports", "Pumped & battery (net)"]
+    tail = b.tail(12)
+    ratio = tail[cols].sum().sum() / tail["Load"].sum()
+    out = [f"Supply (generation + net imports + pumped/battery net) is {ratio:.1%} of load over the last 12 months shown."]
+    if name in KNOWN_GAPS:
+        out.append(KNOWN_GAPS[name])
+    return out
+
+
 def country_balance(gen_path, net_imports):
     """Monthly GWh supply/demand balance for one country: generation by fuel group, net imports, pumped storage and
     batteries (discharge minus pumping/charging) and load - over the days that have load and flows."""
@@ -252,6 +312,10 @@ def country_balance(gen_path, net_imports):
     if day.empty:
         return pd.DataFrame()
     m = monthly_cover(day[BALANCE_COLS], 0.75).dropna(how="all")
+    fuels = m[["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]].sum(axis=1)
+    r = fuels / m["Load"]
+    good = r >= MIN_COVERAGE * r.median()
+    m = m[m.index >= (good.idxmax() if good.any() else m.index.min())]   # leading months before a feed was complete (e.g. Sweden hydro/nuclear before Dec 2021)
     last = day.index.max()
     if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
         m = m[m.index < last.to_period("M").to_timestamp()]
@@ -419,14 +483,25 @@ def main():
             power[2].append(f"{name} balance: fewer than 3 months with load and flows")
     for name, b in bal_frames.items():
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
-                                               "months with >= 90% of days; ENTSO-E"],
+                                               "months with >= 75% of days (scaled to the month); ENTSO-E"]
+                    + coverage_notes(name, b),
                     f"{name} balance data", f"{name} power balance: supply by source and net imports vs load",
                     "GWh per month", BALANCE_SRC, "Notes:", label=name, line_cols=("Pumped & battery (net)", "Load"))
     if len(bal_frames) >= 10:
-        window = pd.date_range(START, max(b.index.max() for b in bal_frames.values()), freq="MS")
-        core = {n: b for n, b in bal_frames.items() if len(b.index.intersection(window)) / len(window) >= MIN_SHARE}
-        skipped = [n for n in bal_frames if n not in core]
-        skipped_notes = []
+        last_m = max(b.index.max() for b in bal_frames.values())
+        core, skipped, skipped_notes = {}, [], []
+        for n, b in bal_frames.items():
+            span = pd.date_range(b.index.min(), last_m, freq="MS")
+            if b.index.min() <= LATE_START_OK and len(b.index.intersection(span)) / len(span) >= MIN_SHARE:
+                core[n] = b
+            else:
+                skipped.append(n)
+        first_m = max([pd.Timestamp(START)] + [b.index.min() for b in core.values()])
+        window = pd.date_range(first_m, last_m, freq="MS")
+        late = [f"{n} from {b.index.min():%b/%y}" for n, b in core.items() if b.index.min() > pd.Timestamp(START) and b.index.min() == first_m]
+        if late:
+            skipped_notes.append(f"Totals start {first_m:%b/%y} because " + ", ".join(late)
+                                 + f" (earlier months of the feed are missing or under {MIN_COVERAGE:.0%} of the country's typical share of load)")
         # a single month a small country lacks (e.g. Bosnia, Sep 2023: 13 days of load) is interpolated from its neighbours
         filled = {}
         for n, b in core.items():

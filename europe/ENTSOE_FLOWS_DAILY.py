@@ -47,7 +47,12 @@ GAP_DAYS = 120
 WINDOW_DAYS = 180
 MIN_HOURS = 21.0
 
-EXTERNAL = {"GB": ("Great Britain", "10YGB----------A"), "TR": ("Turkey", "10YTR-TEIAS----W")}
+EXTERNAL = {"GB": ("Great Britain", "10YGB----------A"), "TR": ("Turkey", "10YTR-TEIAS----W"),
+            # eastern neighbours: Ukraine (ENTSO-E synchronised in 2022; the Burshtyn "island" before), Moldova, Russia, Belarus.
+            # Candidate links only - those ENTSO-E does not publish are dropped and logged.
+            "UA": ("Ukraine", "10Y1001C--00003F"), "UA-IPS": ("Ukraine", "10Y1001C--000182"),
+            "UA-BEI": ("Ukraine", "10YUA-WEPS-----0"), "MD": ("Moldova", "10Y1001A1001A990"),
+            "RU": ("Russia", "10Y1001A1001A49F"), "RU-KGD": ("Russia", "10Y1001A1001A50U"), "BY": ("Belarus", "10Y1001A1001A51S")}
 
 # zone -> neighbouring zones (candidate interconnectors; pairs inside one country are skipped, and a pair with no
 # ENTSO-E data in either direction is dropped)
@@ -62,12 +67,12 @@ NL: BE GB DK1 NO2
 BE: GB
 AT: CZ HU SI CH
 CZ: PL SK
-SK: PL HU
-HU: RO RS HR SI
-RO: RS BG
+SK: PL HU UA UA-IPS
+HU: RO RS HR SI UA UA-BEI UA-IPS
+RO: RS BG UA UA-IPS MD
 BG: GR RS MK TR
 GR: MK AL TR
-PL: LT SE4
+PL: LT SE4 UA UA-IPS BY
 HR: SI RS BA
 RS: BA ME MK XK
 BA: ME
@@ -80,11 +85,12 @@ SE1: NO4 FI
 SE2: NO3 NO4
 SE3: NO1 FI
 SE4: LT
+LT: BY RU-KGD
 NO1: SE3
 NO2: GB
-FI: NO4 EE
-EE: LV
-LV: LT
+FI: NO4 EE RU
+EE: LV RU
+LV: LT RU BY
 IE(SEM): GB
 """
 
