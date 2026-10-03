@@ -359,6 +359,20 @@ def sa_power(p):
     return out
 
 
+def sa_power_annual(p):
+    """EMBER_POWER_BY_TYPE.py --yearly: one chart per country sheet, GWh per year (countries Ember has no
+    monthly data for)."""
+    out = []
+    for sheet in pd.ExcelFile(p).sheet_names:
+        if sheet.lower() in ("units", "notes") or sheet.startswith("Chart"):
+            continue
+        d = read(p, sheet)
+        d = d.set_index(pd.to_datetime(d["Year"].astype(int).astype(str) + "-01-01")).drop(columns="Year")
+        out.append(spec(sheet, power_mix(d), f"{sheet} power generation by type (annual)", "GWh per year",
+                        "stacked_bar", "%Y"))
+    return out
+
+
 def colombia(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     z = lambda *c: d[cols(d, *c)].sum(axis=1, min_count=1)  # noqa: E731
@@ -1403,6 +1417,9 @@ REGISTRY = {
     "china_nbs_ppi_monthly.xlsx": china_nbs_series,
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
     "singapore_power.xlsx": singapore_power,
+    # South & Southeast Asia (Ember fallback until each country's raw feed is in)
+    "south_southeast_asia_power_by_type.xlsx": sa_power,
+    "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "us_gas.xlsx": us_gas,
