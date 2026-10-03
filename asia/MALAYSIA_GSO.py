@@ -63,8 +63,8 @@ SMP_API = "https://www.singlebuyer.com.my/api/v1/smp/actual-forecast"
 FUEL_MAP = {"Coal": "Coal", "Gas": "Gas", "CoGen": "Gas", "Oil": "Oil", "Hydro": "Hydro", "Solar": "Solar"}
 FUELS = ["Hydro", "Gas", "Solar", "Coal", "Oil", "Other"]
 # plant list 'Fuel' -> standard capacity fuel
-PLANT_FUEL = {"gas": "Gas", "coal": "Coal", "hydro": "Hydro", "solar": "Solar", "oil": "Oil", "distillate": "Oil",
-              "diesel": "Oil", "biomass": "Bioenergy", "biogas": "Bioenergy", "cogen": "Gas"}
+PLANT_FUEL = {"water": "Hydro", "hydro": "Hydro", "gas": "Gas", "coal": "Coal", "solar": "Solar", "oil": "Oil",
+              "distillate": "Oil", "diesel": "Oil", "biomass": "Bioenergy", "biogas": "Bioenergy", "cogen": "Gas"}
 
 
 def out(*a):
@@ -205,8 +205,9 @@ def capacity(cap_out):
         return
     plants["Fuel"] = plants["Fuel"].astype(str).str.strip()
     plants["Capacity_MW"] = pd.to_numeric(plants.get("Capacity (MW)", plants.get("Capacity")), errors="coerce")
-    plants["Standard_fuel"] = [next((v for k, v in PLANT_FUEL.items() if k in f.lower()), "Other")
-                               for f in plants["Fuel"]]
+    plants["Standard_fuel"] = [next((v for k, v in PLANT_FUEL.items() if k in f"{f} {t}".lower()), "Other")
+                               for f, t in zip(plants["Fuel"], plants.get("Type", ""))]   # GSO lists hydro as 'Water'
+
     by = plants.groupby("Standard_fuel")["Capacity_MW"].sum()
     month = pd.Timestamp(t.replace(day=1))
     row = cap_std.standard(pd.DataFrame([by.to_dict()], index=[month]))
