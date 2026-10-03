@@ -191,6 +191,9 @@ def main():
         out(f"  unmapped (counted as Other): {other[['name', 'energy_type', 'technology']].to_dict('records')}")
 
     old, old_dem, old_plant = (read_sheet(args.out, s) for s in ("Daily", "Demand", "By plant"))
+    if not old.empty:   # all-zero days were saved before they were published: fetch them again
+        old = old[old["Total_MWh"] > 0]
+        old_dem = old_dem[old_dem.index.isin(old.index)] if not old_dem.empty else old_dem
     yesterday = date.today() - timedelta(days=1)
     have = set(old.index.date) if not old.empty else set()
     revise = {yesterday - timedelta(days=k) for k in range(REVISION_DAYS)}
