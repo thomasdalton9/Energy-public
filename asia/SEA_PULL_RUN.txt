@@ -1,2 +1,2 @@
 # pull commands run by .github/workflows/sea_pull_run.yml (temporary, branch only)
-asia/PHILIPPINES_PAGASA_DAMS.py
+asia/THAILAND_EPPO.py

@@ -112,7 +112,8 @@ def monthly_gwh(path):
                                                                                           errors="coerce")
     m = d.resample("MS").sum(min_count=1) / 1000.0
     last = d.dropna(how="all").index.max()
-    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+    monthly_rows = len(d) > 2 and d.index.to_series().diff().median().days > 20   # EPPO-style monthly feeds
+    if not monthly_rows and last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
         m = m[m.index < last.to_period("M").to_timestamp()]
     m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
     m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})

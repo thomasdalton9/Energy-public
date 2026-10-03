@@ -420,6 +420,15 @@ def philippines_dams(p):
     return out
 
 
+def thailand_power(p):
+    out = power_daily("Thailand power generation by fuel (EPPO, whole system)")(p)
+    k = _sheet(p, "Peak", "date")
+    if not k.empty and "Peak_MW" in k:
+        out.append(spec("Peak", k.loc[k.index >= "2015-01-01", ["Peak_MW"]].rename(columns={"Peak_MW": "Peak demand"}),
+                        "Thailand monthly peak demand (EGAT system, EPPO)", "MW"))
+    return out
+
+
 def malaysia_smp(p):
     d = _sheet(p, "Daily", "date")
     c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
@@ -1485,6 +1494,7 @@ REGISTRY = {
     "bangladesh_power_generation_daily.xlsx": power_and_demand("Bangladesh power generation by fuel (PGCB)",
                                                                "Bangladesh served demand (PGCB)"),
     "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
+    "thailand_power_generation_daily.xlsx": thailand_power,
     "philippines_dam_levels.xlsx": philippines_dams,
     "malaysia_power_prices.xlsx": malaysia_smp,
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
