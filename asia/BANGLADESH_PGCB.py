@@ -160,6 +160,11 @@ def main():
                 break
             continue
         empty = 0
+        mid = p["time"].median()   # a mistyped date (e.g. 2004 for 2024) must not end the walk or enter the data
+        typo = (p["time"] - mid).abs() > pd.Timedelta(days=10)
+        if typo.any():
+            out(f"  page {n}: dropped {int(typo.sum())} row(s) dated far from the page: {p.loc[typo, 'time'].tolist()[:3]}")
+        p = p[~typo]
         frames.append(p)
         oldest = p["time"].min()
         if n % 50 == 0:
