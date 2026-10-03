@@ -1,10 +1,13 @@
 """
 One-off probe (prints only) for an Asia-Pacific industrial coal-to-LNG switching study.
-Round 1-2: IEA 403; India coal ministry pages 404; EGEDA balance form posts OTYPE to rev_newbalance_select_cond2.php.
-Round 3: EGEDA OTYPE 9 page posts to ./php/rev_newbalance2/balance.php with Y1/Y2 (1980-2023), fE[] products (coking
-coal, other bituminous, sub-bituminous, ...), fS[] flows (95: transformation, industry subsectors ...), fC[] economies
-(001-021), U unit, HEAD=Y. UNdata SDMX has DF_UNData_EnergyBalance and DF_UNDATA_ENERGY.
-Round 4: full fE/fS/fC code lists; one trial balance.php query; UNdata energy-balance structure (dimensions, codes).
+Round 1-3: IEA 403; India coal ministry 404; EGEDA balance form (OTYPE 9) -> ./php/rev_newbalance2/balance.php.
+Round 4: EGEDA codes: fE coking 001001002, other bituminous 001001001, sub-bit 001001003, anthracite 001002000,
+lignite 001003000, natural gas 005022000; fS industry 000020000 + subsectors 000020003 (iron & steel) ...
+000020122, autoproducers 000024000; fC China 005, Japan 008, Korea 009, Taipei 016, Thailand 017, Vietnam 021,
+Malaysia 010, Philippines 014, Indonesia 007, Singapore 015, HK 006. A plain POST to balance.php returned HTTP 500.
+UNdata SDMX DF_UNData_EnergyBalance: dims REF_AREA.COMMODITY.TRANSACTION.UNIT; coal only as B00_CL (no coking split);
+industry subsectors B27_1211 ... B39_1214o.
+Round 5: EGEDA page JavaScript (how OkSubmit builds the request); UNdata data query for India; DF_UNDATA_ENERGY codes.
 """
 import re
 import requests
@@ -13,33 +16,29 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 EG = "https://www.egeda.ewg.apec.org/egeda/database/"
 s = requests.Session(); s.headers.update(H)
 r = s.post(EG + "rev_newbalance_select_cond2.php", data={"OTYPE": "9"}, timeout=60)
-html = r.text
-for name in ("fE[]", "fS[]"):
-    body = re.search(r'<select[^>]*name="%s"[^>]*>(.*?)</select>' % re.escape(name), html, re.S | re.I).group(1)
-    opts = re.findall(r'<option[^>]*value="([^"]*)"[^>]*>\s*([^<]*)', body, re.I)
-    print(f"\n{name} ({len(opts)}):")
-    for v, t in opts:
-        print(f"  {v} {t.strip()}")
-print("\nfC[] economies:")
-for v, label in re.findall(r'NAME="fC\[\]" VALUE="([^"]+)"[^>]*>\s*([^<]{2,40})', html, re.I):
-    print(f"  {v} {label.strip()}")
-print("\nunit radios:", re.findall(r'NAME="U" VALUE="([^"]+)"[^>]*>\s*([^<]{2,30})', html, re.I))
+for sc in re.findall(r"<script[^>]*>(.*?)</script>", r.text, re.S | re.I):
+    print("----- script -----\n" + sc[:3500])
+print("----- form tag + hidden inputs -----")
+print(re.findall(r"<FORM[^>]*>", r.text, re.I))
+print([i for i in re.findall(r"<INPUT[^>]*>", r.text, re.I) if "HIDDEN" in i.upper() or "SUBMIT" in i.upper()])
 
-# trial query: all economies? use first economy only, coal + gas totals, all flows, 2019
-data = [("Y1", "2019"), ("Y2", "2019"), ("U", "001"), ("HEAD", "Y"), ("fC[]", "001"),
-        ("fE[]", "001000000"), ("fE[]", "001001002"), ("fS[]", "allallall")]
-r2 = s.post(EG + "php/rev_newbalance2/balance.php", data=data, timeout=120)
-txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " | ", r2.text))
-print(f"\nTRIAL balance.php: {r2.status_code} {len(r2.content):,} B ctype {r2.headers.get('content-type')}")
-print(txt[:3000])
-print("links/forms in result:", re.findall(r'href="([^"]+)"', r2.text)[:10], re.findall(r'<form[^>]*>', r2.text, re.I)[:3])
+print("\n===== UNdata energy balance query (India 356) =====")
+B = "https://data.un.org/legacy/ws/rest/"
+for url, acc in [(B + "data/DF_UNData_EnergyBalance/356.B00_CL+B04_NG../ALL/?startPeriod=2018&endPeriod=2023", "application/vnd.sdmx.data+csv"),
+                 (B + "data/DF_UNData_EnergyBalance/356...?startPeriod=2021&endPeriod=2021", "application/vnd.sdmx.data+csv")]:
+    rr = s.get(url, headers={"Accept": acc}, timeout=120)
+    print(rr.status_code, len(rr.content), rr.headers.get("content-type"), url)
+    print(rr.text[:1500])
 
-print("\n===== UNdata energy balance structure =====")
-r3 = s.get("https://data.un.org/legacy/ws/rest/dataflow/all/DF_UNData_EnergyBalance/latest?references=all", timeout=90)
-print(r3.status_code, len(r3.content))
-x = r3.text
+print("\n===== DF_UNDATA_ENERGY structure =====")
+rr = s.get(B + "dataflow/all/DF_UNDATA_ENERGY/latest?references=all", timeout=120)
+x = rr.text
+print(rr.status_code, len(rr.content))
 for dim in re.findall(r'<structure:Dimension [^>]*id="([^"]+)"', x):
     print("  dimension", dim)
 for cl_id, body in re.findall(r'<structure:Codelist [^>]*id="([^"]+)"[^>]*>(.*?)</structure:Codelist>', x, re.S):
     codes = re.findall(r'<structure:Code id="([^"]+)"[^>]*>\s*<common:Name[^>]*>([^<]+)', body)
-    print(f"  codelist {cl_id}: {len(codes)} e.g. {codes[:60] if 'COMMOD' in cl_id.upper() or 'TRANS' in cl_id.upper() else codes[:12]}")
+    if "AREA" in cl_id:
+        print(f"  codelist {cl_id}: {len(codes)}"); continue
+    flt = [c for c in codes if re.search(r"coal|coking|bitum|lignite|natural gas|iron|industr|chemical|mineral|paper|food|textile|autoprod|manufact", c[1], re.I)]
+    print(f"  codelist {cl_id}: {len(codes)} codes; relevant: {flt[:90]}")
