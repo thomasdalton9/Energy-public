@@ -8,6 +8,7 @@ on:
     branches: [claude/compassionate-darwin-2khdxe]
     paths:
       - "discovery_archive/asia/SEA_*"
+      - "discovery_archive/subcontinent/SEA_*"
       - ".github/workflows/sea_discovery.yml"
   workflow_dispatch: {}
 

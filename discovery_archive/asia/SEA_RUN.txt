@@ -1,2 +1,3 @@
-SEA_DISCOVERY_TH_VN_PH.py
-SEA_DISCOVERY_MY_ID_BN.py
+# scripts run by .github/workflows/sea_discovery.yml (paths relative to discovery_archive/asia)
+../subcontinent/SEA_DISCOVERY_INDIA.py
+../subcontinent/SEA_DISCOVERY_SOUTH_ASIA.py
