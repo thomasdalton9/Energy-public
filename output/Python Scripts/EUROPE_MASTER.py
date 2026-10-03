@@ -59,11 +59,14 @@ DATASETS = [
     ("IE", "Ireland", "ireland_gas_combined_daily.xlsx", "*", "gas"),
     ("IE", "Ireland", "ireland_gni_transparency_daily.xlsx", "*", "gas by sector"),
     ("EU", "Europe", "europe_gas_flows_daily.xlsx", "*", "ENTSOG"),
+    ("GB", "Great Britain", "gb_gas_nts_daily.xlsx", "Daily", "NTS gas"),
 ]
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
+       ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
+       ("IE", "Ireland (EirGrid)", "ireland_eirgrid_system_data.xlsx", "Daily", "EirGrid"),
        ("TR", "Turkey", "turkey_generation_mix_dashboard_daily.xlsx", "*", "power"),
        ("CY", "Cyprus", "cyprus_generation_mix_daily.xlsx", "*", "power")])
 CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "capacity")
@@ -99,6 +102,12 @@ SOURCES = {
                                         "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "ireland_gni_transparency_daily.xlsx": ("Gas Networks Ireland (GNI) transparency pages",
                                             "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
+    "gb_gas_nts_daily.xlsx": ("National Gas Transmission Data Portal (NTS demand by sector and supply by entry point)",
+                              "https://data.nationalgas.com/find-gas-data"),
+    "ireland_eirgrid_system_data.xlsx": ("EirGrid / SONI System and Renewable Data Reports (Ireland and Northern Ireland system data)",
+                                         "https://www.eirgrid.ie/grid/system-and-renewable-data-reports"),
+    "ember_europe_power_monthly.xlsx": ("Ember monthly electricity data (fallback for Ireland, where the ENTSO-E all-island feed is "
+                                        "incomplete; CC-BY-4.0)", "https://ember-energy.org/data/monthly-electricity-data/"),
     "great_britain_power_generation_daily.xlsx": ("Elexon BMRS (FUELHH) and NESO historic demand data (national demand, "
                                                   "embedded wind and solar)", "https://bmrs.elexon.co.uk/"),
     "ireland_smartgrid_15min.xlsx": ("EirGrid / SONI Smart Grid Dashboard", "https://www.smartgriddashboard.com/"),
@@ -181,6 +190,45 @@ def monthly_gwh(path):
     return add_charts.power_mix(m)
 
 
+def ember_ireland(data_dir):
+    """Ember monthly generation for the Republic of Ireland, GWh, in the dashboard fuel groups."""
+    d = add_charts.by_date(add_charts.read(os.path.join(data_dir, "ember_europe_power_monthly.xlsx"), "Ireland"), "Month")
+    d = d[[c for c in d.columns if str(c).endswith("_GWh") and c not in ("Total_GWh", "Demand_GWh", "NetImports_GWh")]]
+    return add_charts.power_mix(d.apply(pd.to_numeric, errors="coerce"))
+
+
+def ireland_monthly(data_dir):
+    """Republic of Ireland, GWh per month: (generation by fuel group, EirGrid demand). Fuel split from Ember (it agrees with
+    EirGrid's own totals within about 2%); months after Ember's last (it lags 3-4 months) come from EirGrid's monthly summary -
+    its wind and solar, hydro and the bioenergy/other-renewable share of the same month a year earlier, and the thermal
+    remainder split into gas, coal and oil/other fossil by Ember's trailing 12-month shares. Returns (mix, demand, note)."""
+    em = ember_ireland(data_dir)
+    eg = add_charts.by_date(add_charts.read(os.path.join(data_dir, "ireland_eirgrid_system_data.xlsx"), "Monthly"), "Month")
+    gen, dem = eg["IE_Generation"], eg["IE_Demand"]
+    em_last = em.index.max()
+    thermal = [c for c in ("Gas", "Coal", "Other") if c in em]
+    shares = em[thermal].tail(12).sum()
+    shares = shares / shares.sum()
+    rows = {}
+    for d in gen.index[gen.index > em_last]:
+        prev = d - pd.DateOffset(years=1)
+        base = em.loc[prev] if prev in em.index else None
+        if base is None or pd.isna(gen[d]):
+            continue
+        wind, solar = eg["IE_Wind"].get(d, float("nan")), eg["IE_Solar"].get(d, float("nan"))
+        hydro = base.get("Hydro", 0.0)
+        rest = gen[d] - wind - solar - hydro
+        row = {"Hydro": hydro, "Wind": wind, "Solar": solar, "Nuclear": 0.0}
+        for c in thermal:
+            row[c] = rest * shares[c]
+        rows[d] = row
+    ext = pd.DataFrame.from_dict(rows, orient="index").reindex(columns=em.columns).fillna(0.0) if rows else pd.DataFrame(columns=em.columns)
+    mix = pd.concat([em, ext]).sort_index()
+    note = (f"Ireland (Republic of Ireland): fuel split from Ember to {em_last:%b/%y}; later months from EirGrid's monthly system data "
+            f"(wind, solar, total generation; thermal split by Ember's trailing 12-month shares)") if len(ext) else ""
+    return mix, dem.reindex(mix.index), note
+
+
 def europe_generation(data_dir, frames_out=None):
     """Sum of the ENTSO-E countries with a near-complete record, GWh per month, over the months they all have."""
     frames, notes = {}, []
@@ -193,6 +241,21 @@ def europe_generation(data_dir, frames_out=None):
             notes.append(f"NOT INCLUDED: {name} ({type(e).__name__}: {e})")
     if not frames:
         return pd.DataFrame(), notes
+    last_all = max(f.index.max() for f in frames.values())
+    # Great Britain (Elexon + NESO) is not in ENTSO-E generation; Ireland's ENTSO-E all-island feed covers only part of demand,
+    # so Ireland (Republic) comes from Ember, which lags a few months: later months repeat the same month of the previous year.
+    try:
+        frames["Great Britain"] = monthly_gwh(os.path.join(data_dir, GB_FILE))
+    except Exception as e:  # noqa: BLE001
+        notes.append(f"NOT INCLUDED: Great Britain ({type(e).__name__}: {e})")
+    try:
+        mix, _dem, note = ireland_monthly(data_dir)
+        frames.pop("Ireland (all-island SEM)", None)
+        frames["Ireland"] = mix
+        if note:
+            notes.append(note)
+    except Exception as e:  # noqa: BLE001
+        notes.append(f"Ireland from Ember/EirGrid not available ({type(e).__name__}: {e}); ENTSO-E all-island feed used")
     if frames_out is not None:
         frames_out.update(frames)
     keep, months = core_months(frames, START, notes)
@@ -283,6 +346,8 @@ KNOWN_GAPS = {
     "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
     "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
+    "Ireland": "Republic of Ireland only (Northern Ireland is in the UK). Net imports are EirGrid demand less generation, so supply equals load by construction; "
+               "the fuel split is Ember's, with EirGrid's monthly totals after Ember's last month.",
 }
 
 
@@ -485,7 +550,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Great Britain balance ({type(e).__name__}: {e})")
     for name, gen_path, net in inputs:
-        if net is None:
+        if net is None or name == "Ireland (all-island SEM)":   # Ireland comes from EirGrid + Ember below
             continue
         try:
             b = country_balance(gen_path, net)
@@ -496,8 +561,22 @@ def main():
             bal_frames[name] = b
         else:
             power[2].append(f"{name} balance: fewer than 3 months with load and flows")
+    try:   # Republic of Ireland: monthly fuel mix (Ember, then EirGrid) vs EirGrid demand; net imports = demand - generation
+        mix, dem, _note = ireland_monthly(args.data_dir)
+        b = mix.reindex(columns=FUELS).fillna(0.0).copy()
+        b["Net imports"] = dem - b.sum(axis=1)
+        b["Pumped & battery (net)"] = 0.0
+        b["Load"] = dem
+        b = b.dropna()[BALANCE_COLS].astype(float)
+        b = b[b.index >= START]
+        if len(b) >= 3:
+            bal_frames["Ireland"] = b
+            bal_src["Ireland"] = ("EirGrid system data (demand, wind, solar) and Ember (fuel split); net imports = EirGrid demand less generation",
+                                  "https://www.eirgrid.ie/grid/system-and-renewable-data-reports")
+    except Exception as e:  # noqa: BLE001
+        power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = "Elexon BMRS + NESO" if name == "Great Britain" else "ENTSO-E"
+        src_label = {"Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
