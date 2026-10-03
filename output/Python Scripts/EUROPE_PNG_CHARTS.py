@@ -195,11 +195,11 @@ def main():
     jobs = [
         ("Europe generation total data", lambda: fuel_chart(
             xl, "Europe generation total data", "Europe power generation by source", "GWh per month",
-            out("europe_power_generation_by_source.png"), source=ENTSOE + " (actual generation per production type)" + EXTRA),
+            out("europe_power_generation_by_source.png"), source=ENTSOE + " (actual generation per production type)" + EXTRA)),
         ("Europe balance data", lambda: fuel_chart(
             xl, "Europe balance data", "Europe power balance: supply by source and net imports vs load", "GWh per month",
             out("europe_power_balance.png"), lines=("Pumped & battery (net)", "Load"),
-            source=ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA),
+            source=ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA)),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
         ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
         ("EU Prices data", lambda: prices(xl, out("europe_power_prices.png"))),
