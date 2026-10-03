@@ -5,7 +5,7 @@ name: LNG feedgas daily
 # Central, when Enbridge's page rolls its default to the new gas day
 # (the script only reads Enbridge's default day). Pulls yesterday's
 # scheduled deliveries into each LNG terminal and upserts them into
-# americas/feedgas_ebb/lng_feedgas_daily.xlsx - touches nothing else.
+# output/Data and Chart Outputs/lng_feedgas_daily.xlsx - touches nothing else.
 #
 # Two more short runs a day (17:40 and 23:40 UTC) only re-save TC Energy's
 # latest posting (ANR -> Calcasieu Pass, Columbia Gulf -> Cameron): TC keeps
