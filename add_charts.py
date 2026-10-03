@@ -481,7 +481,9 @@ def india_npp_generation(p):
 
 def india_reservoirs(p):
     d = _sheet(p, "Daily", "date")
-    return [{"name": "Storage", "water_year": d["Pct_of_FRL"].dropna().resample("D").interpolate(), "y_decimals": 0,
+    x = d["Pct_of_FRL"].dropna()
+    x = x[(x - x.rolling(7, center=True, min_periods=3).median()).abs() <= 5]   # one-day reporting glitches
+    return [{"name": "Storage", "water_year": x.resample("D").interpolate(), "y_decimals": 0,
              "title": "India hydro reservoirs, energy content (CEA)", "units": "% of energy at full reservoir level"}]
 
 
