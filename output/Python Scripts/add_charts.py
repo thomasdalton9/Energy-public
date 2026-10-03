@@ -365,6 +365,152 @@ def sa_power(p):
     return out
 
 
+def sa_power_annual(p):
+    """EMBER_POWER_BY_TYPE.py --yearly: one chart per country sheet, GWh per year (countries Ember has no
+    monthly data for)."""
+    out = []
+    for sheet in pd.ExcelFile(p).sheet_names:
+        if sheet.lower() in ("units", "notes") or sheet.startswith("Chart"):
+            continue
+        d = read(p, sheet)
+        d = d.set_index(pd.to_datetime(d["Year"].astype(int).astype(str) + "-01-01")).drop(columns="Year")
+        out.append(spec(sheet, power_mix(d), f"{sheet} power generation by type (annual)", "GWh per year",
+                        "stacked_bar", "%Y"))
+    return out
+
+
+def daily_demand(title):
+    """'Demand' sheet (date + Demand_avg_MW / Demand_peak_MW): monthly average of the daily values."""
+    def f(p):
+        d = _sheet(p, "Demand", "date")
+        if d.empty:
+            return []
+        c = cols(d, "Demand_avg_MW", "Demand_peak_MW")
+        return [spec("Demand", monthly_mean(d[c], "2021-01-01").rename(
+            columns={"Demand_avg_MW": "Average demand", "Demand_peak_MW": "Daily peak"}), title,
+            "MW (monthly average of daily values)")]
+    return f
+
+
+def power_and_demand(gen_title, demand_title):
+    """Standard Daily generation chart plus the Demand sheet chart."""
+    return lambda p: power_daily(gen_title)(p) + daily_demand(demand_title)(p)
+
+
+def india_iex(p):
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "MCP_avg_Rs_per_MWh", "MCP_max_Rs_per_MWh", "MCP_min_Rs_per_MWh")
+    m = monthly_mean(d[c], "2021-01-01").rename(columns={"MCP_avg_Rs_per_MWh": "Daily average",
+                                                         "MCP_max_Rs_per_MWh": "Daily max hour",
+                                                         "MCP_min_Rs_per_MWh": "Daily min hour"})
+    return [spec("Prices", m, "India IEX day-ahead market clearing price (monthly average)", "Rs/MWh")]
+
+
+def thailand_reservoirs(p):
+    d = _sheet(p, "Daily", "date")
+    x = d["Pct_full"].dropna()
+    x = x[(x - x.rolling(7, center=True, min_periods=3).median()).abs() <= 3]   # one-dam volume typos in RID's feed
+    return [{"name": "Storage", "water_year": x.resample("D").interpolate(), "y_decimals": 0,
+             "title": "Thailand large-reservoir storage (RID, 35 dams)", "units": "% of normal storage"}]
+
+
+def philippines_dams(p):
+    """PAGASA 08:00 water levels (daily snapshot): water-year charts for the main hydro / water-supply dams."""
+    d = _sheet(p, "Daily", "date")
+    out = []
+    for dam, what in (("Angat", "Metro Manila water supply and hydro"), ("San_Roque", "hydro, Agno river"),
+                      ("Magat", "irrigation and hydro"), ("Pantabangan", "irrigation and hydro")):
+        col = f"{dam}_m"
+        if col in d and d[col].notna().sum() >= 2:
+            out.append({"name": dam.replace("_", " "), "water_year": d[col].dropna().resample("D").interpolate(),
+                        "title": f"{dam.replace('_', ' ')} dam water level ({what}; PAGASA)", "units": "m above sea level",
+                        "y_decimals": 0, "sheet": f"Water year - {dam.replace('_', ' ')}"})
+    return out
+
+
+def thailand_power(p):
+    out = power_daily("Thailand power generation by fuel (EPPO, whole system)")(p)
+    k = _sheet(p, "Peak", "date")
+    if not k.empty and "Peak_MW" in k:
+        out.append(spec("Peak", k.loc[k.index >= "2015-01-01", ["Peak_MW"]].rename(columns={"Peak_MW": "Peak demand"}),
+                        "Thailand monthly peak demand (EGAT system, EPPO)", "MW"))
+    return out
+
+
+def philippines_market(p):
+    out = []
+    d = _sheet(p, "Daily demand", "date")
+    c = [f"{r}_demand_avg_MW" for r in ("Luzon", "Visayas", "Mindanao") if f"{r}_demand_avg_MW" in d]
+    if c:
+        out.append(spec("Demand", d[c].rename(columns=lambda x: x.split("_")[0]),
+                        "Philippines WESM demand by grid (IEMOP, daily average)", "MW", "stacked_area", "%Y-%m-%d"))
+    q = _sheet(p, "Daily prices", "date")
+    c = [f"{r}_SMP_PHP_per_MWh" for r in ("Luzon", "Visayas", "Mindanao") if f"{r}_SMP_PHP_per_MWh" in q]
+    if c:
+        out.append(spec("Prices", q[c].rename(columns=lambda x: x.split("_")[0]),
+                        "Philippines WESM system marginal price by grid (IEMOP, daily average)", "PHP/MWh",
+                        "line", "%Y-%m-%d"))
+    return out
+
+
+def india_gas(p):
+    """PPAC: monthly MMSCM -> mcm/d. Sector groups: Power, Fertiliser, CGD, Refinery & petrochemical, Other."""
+    out = []
+    d = _sheet(p, "Sectoral", "month")
+    if not d.empty:
+        d = d[d.index >= "2019-04-01"].apply(pd.to_numeric, errors="coerce")
+        pick = lambda *k: d[[c for c in d.columns if any(x in str(c).lower() for x in k)  # noqa: E731
+                             and "total" not in str(c).lower()]].sum(axis=1, min_count=1)
+        g = pd.DataFrame({"Power": pick("power"), "Fertiliser": pick("fertili"), "City gas (CGD)": pick("cgd"),
+                          "Refinery & petrochemical": pick("refiner", "petrochem")})
+        known = [c for c in d.columns if any(x in str(c).lower() for x in ("power", "fertili", "cgd", "refiner",
+                                                                          "petrochem", "total"))]
+        g["Other"] = d[[c for c in d.columns if c not in known]].sum(axis=1, min_count=1)
+        out.append(spec("Demand", _per_day(g), "India gas consumption by sector (PPAC)", "mcm/d, monthly average",
+                        "stacked_bar"))
+    b = _sheet(p, "Balance", "month")
+    if not b.empty:
+        b = b[b.index >= "2019-04-01"][cols(b, "Net_production", "LNG_imports")]
+        out.append(spec("Supply", _per_day(b).rename(columns={"Net_production": "Domestic production (net)",
+                                                              "LNG_imports": "LNG imports"}),
+                        "India gas supply: domestic production and LNG imports (PPAC)", "mcm/d, monthly average",
+                        "stacked_bar"))
+    return out
+
+
+def india_npp_generation(p):
+    d = _sheet(p, "Daily", "date")
+    c = [x for x in ("Coal_MWh", "Gas_MWh", "Oil_MWh", "Nuclear_MWh", "Hydro_MWh") if x in d]
+    m = d[c].resample("MS").sum(min_count=1) / 1000
+    return [spec("Generation", m[m.index >= "2021-01-01"].rename(columns=lambda x: x.replace("_MWh", "")),
+                 "India conventional generation by type (CEA daily report; excludes wind/solar)", "GWh per month",
+                 "stacked_bar")]
+
+
+def india_reservoirs(p):
+    d = _sheet(p, "Daily", "date")
+    x = d["Pct_of_FRL"].dropna()
+    x = x[(x - x.rolling(7, center=True, min_periods=3).median()).abs() <= 5]   # one-day reporting glitches
+    return [{"name": "Storage", "water_year": x.resample("D").interpolate(), "y_decimals": 0,
+             "title": "India hydro reservoirs, energy content (CEA)", "units": "% of energy at full reservoir level"}]
+
+
+def india_coal(p):
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "Actual_stock_kt", "Normative_stock_kt")
+    return [spec("Coal stock", d[c].rename(columns={"Actual_stock_kt": "Actual stock", "Normative_stock_kt":
+                                                    "Normative stock"}) / 1000,
+                 "India coal stock at power plants (CEA)", "million tonnes", "line", "%Y-%m-%d")]
+
+
+def malaysia_smp(p):
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "SMP_avg_RM_per_MWh", "SMP_max_RM_per_MWh")
+    return [spec("Prices", monthly_mean(d[c]).rename(columns={"SMP_avg_RM_per_MWh": "Daily average",
+                                                              "SMP_max_RM_per_MWh": "Daily max half-hour"}),
+                 "Malaysia (Peninsular) system marginal price (Single Buyer, monthly average)", "RM/MWh")]
+
+
 def colombia(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     z = lambda *c: d[cols(d, *c)].sum(axis=1, min_count=1)  # noqa: E731
@@ -686,6 +832,14 @@ def singapore_gas(p):
         out.append(spec("Power burn", e[["Gas_for_power_mcm_per_day_est"]].rename(
                             columns={"Gas_for_power_mcm_per_day_est": "Gas for power (estimate)"}),
                         "Singapore gas burn for power, estimated from metered CCGT generation",
+                        "mcm/day (approx)"))
+    dd = _sheet(p, "Power burn daily (est)", "date")
+    if not dd.empty:
+        x = dd["Gas_for_power_mcm_per_day_est"]
+        x = x[x.index >= x.index.max() - pd.Timedelta(days=730)]
+        out.append(spec("Power burn daily", pd.DataFrame({"Daily (estimate)": x,
+                                                           "7-day average": x.rolling(7, min_periods=4).mean().round(2)}),
+                        "Singapore gas burn for power, daily, estimated from metered CCGT generation",
                         "mcm/day (approx)"))
     t = _sheet(p, "Town gas quarterly", "Quarter_start")
     if not t.empty:
@@ -1513,6 +1667,30 @@ REGISTRY = {
     "china_nbs_ppi_monthly.xlsx": china_nbs_series,
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
     "singapore_power.xlsx": singapore_power,
+    # South & Southeast Asia (Ember fallback until each country's raw feed is in)
+    "south_southeast_asia_power_by_type.xlsx": sa_power,
+    "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
+    "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
+                                                             "Malaysia (Peninsular) system demand (GSO)"),
+    "sri_lanka_power_generation_daily.xlsx": power_and_demand("Sri Lanka power generation by source (PUCSL / CEB)",
+                                                              "Sri Lanka total dispatch (PUCSL / CEB)"),
+    "singapore_power_generation_daily.xlsx": power_and_demand("Singapore power generation by type (EMC / NEMS metered)",
+                                                              "Singapore system demand (EMA)"),
+    "bhutan_power_generation_daily.xlsx": power_and_demand("Bhutan power generation (BPSO, hydro)",
+                                                           "Bhutan peak demand (BPSO)"),
+    "india_power_prices.xlsx": india_iex,
+    "india_gas.xlsx": india_gas,
+    "india_npp_generation_daily.xlsx": india_npp_generation,
+    "india_hydro_reservoirs.xlsx": india_reservoirs,
+    "india_coal_stocks.xlsx": india_coal,
+    "bangladesh_power_generation_daily.xlsx": power_and_demand("Bangladesh power generation by fuel (PGCB)",
+                                                               "Bangladesh served demand (PGCB)"),
+    "thailand_hydro_reservoirs.xlsx": thailand_reservoirs,
+    "thailand_power_generation_daily.xlsx": thailand_power,
+    "philippines_dam_levels.xlsx": philippines_dams,
+    "philippines_power_market.xlsx": philippines_market,
+    "malaysia_power_prices.xlsx": malaysia_smp,
+    "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "us_gas.xlsx": us_gas,

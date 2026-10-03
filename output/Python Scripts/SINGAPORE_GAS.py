@@ -12,7 +12,7 @@ What is published (free, no login):
      https://www.ema.gov.sg/resources/singapore-energy-statistics
   2. SingStat M890371 'Piped Gas Sales, Quarterly' (town gas, million kWh = GWh,
      domestic / non-domestic), https://tablebuilder.singstat.gov.sg/table/TS/M890371
-  3. ESTIMATE, monthly: gas burnt for power = NEMS metered CCGT/COGEN/TRIGEN
+  3. ESTIMATE, daily and monthly: gas burnt for power = NEMS metered CCGT/COGEN/TRIGEN
      generation (daily, from the singapore_power.xlsx workbook written by
      asia/SINGAPORE_POWER.py) x a heat-rate factor calibrated each year as
      SES natural gas input to power generation (main power producers +
@@ -22,7 +22,12 @@ What is published (free, no login):
 
 Not published: monthly or daily natural gas consumption, sendout or imports
 (pipeline or LNG). EMA/SES give these annually only; SLNG and the pipeline
-operators do not publish flows. The monthly Enterprise Singapore trade
+operators do not publish flows. Metered offtake data exists (PowerGas meters every
+transmission offtake point and shares readings with shippers over its GTSS system),
+but the Gas Network Code (Section K 4.2.3) makes Metering Data Confidential
+Information; PowerGas publishes only maintenance and network-development plans and a
+monthly shrinkage factor (discovery_archive/asia/SINGAPORE_GAS_DISCOVERY3.py). Town
+gas (City Energy) is published quarterly only (SingStat M890371). The monthly Enterprise Singapore trade
 dataset (SingStat T010002) has no public API.
 
     python3 asia/SINGAPORE_GAS.py --out "output/Data and Chart Outputs/singapore_gas.xlsx"
@@ -164,12 +169,12 @@ def town_gas():
 
 
 def power_burn_estimate(power_xlsx, pg, part):
-    """Monthly gas burn for power, from metered CCGT/cogen generation x a yearly calibrated factor."""
+    """Monthly and daily gas burn for power, from metered CCGT/cogen generation x a yearly calibrated factor."""
     try:
         gen = pd.read_excel(power_xlsx, sheet_name="Daily generation by type", index_col=0)
     except (FileNotFoundError, ValueError) as e:
         out(f"power workbook not available ({e}); skipping the power-burn estimate")
-        return pd.DataFrame(), pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
     gen.index = pd.to_datetime(gen.index)
     ccgt = gen["CCGT_Cogen_Trigen_GWh"]
     # calibration periods: each full SES year, plus the part-year (Jan..month) if SES has one
@@ -188,7 +193,7 @@ def power_burn_estimate(power_xlsx, pg, part):
     cal = pd.DataFrame(cal).set_index("Year") if cal else pd.DataFrame()
     if cal.empty:
         out("no overlapping year between SES gas-for-power and metered generation; no estimate")
-        return pd.DataFrame(), cal
+        return pd.DataFrame(), cal, pd.DataFrame()
     m = ccgt.resample("MS").agg(["sum", "count"])
     m = m[m["count"] >= 0.9 * m.index.days_in_month]   # complete months only
     fac = pd.Series([cal["Factor_TJ_per_GWh"].get(d.year, cal["Factor_TJ_per_GWh"].iloc[-1]) for d in m.index],
@@ -200,7 +205,15 @@ def power_burn_estimate(power_xlsx, pg, part):
     est["Factor_basis"] = ["SES year" if d.year in cal.index else f"latest SES year ({cal.index[-1]})"
                            for d in est.index]
     est.index.name = "Month"
-    return est, cal.round(3)
+    # daily: the same factor on each day's metered CCGT/cogen generation
+    dfac = pd.Series([cal["Factor_TJ_per_GWh"].get(d.year, cal["Factor_TJ_per_GWh"].iloc[-1]) for d in ccgt.index],
+                     index=ccgt.index)
+    day = pd.DataFrame({"CCGT_Cogen_Trigen_GWh": ccgt.round(2), "Factor_TJ_per_GWh": dfac.round(3)})
+    day["Gas_for_power_TJ_est"] = (ccgt * dfac).round(1)
+    day["Gas_for_power_mcm_per_day_est"] = (day["Gas_for_power_TJ_est"] / TJ_PER_MCM).round(2)
+    day = day[day["CCGT_Cogen_Trigen_GWh"].notna()]
+    day.index.name = "date"
+    return est, cal.round(3), day
 
 
 def main():
@@ -215,7 +228,7 @@ def main():
     part = partial_year(pg_note)
     sec, sub = final_consumption(xl)
     tg, tg_updated, tg_unit = town_gas()
-    est, cal = power_burn_estimate(args.power_xlsx, pg, part)
+    est, cal, day = power_burn_estimate(args.power_xlsx, pg, part)
 
     demand = pd.concat([pg[["Power_generation_TJ"]], sec], axis=1)
     demand["Final_consumption_TJ"] = sec.sum(axis=1, min_count=1)
@@ -242,7 +255,8 @@ def main():
         "autoproducers (SES T2.1); the other sectors are final end-use consumption (SES T3.7).",
         f"Town gas quarterly: piped gas (town gas) sales, {tg_unit} per quarter (million kWh = GWh). Town gas in "
         "Singapore is made from natural gas.",
-        "Power burn monthly (estimate): see METHOD.",
+        "Power burn monthly / daily (estimate): see METHOD. Daily = the same calculation on each day's metered "
+        "generation (TJ per day and mcm per day).",
         "",
         "METHOD (power-burn estimate)",
         "Gas_for_power_TJ_est = monthly NEMS metered gross generation of CCGT/COGEN/TRIGEN plants (GWh, from "
@@ -254,10 +268,12 @@ def main():
         "COVERAGE",
         f"Annual SES tables from 2005 (imports, gas for power) / 2009 (final consumption by sector). {ses_title}. "
         f"Part-year: {pg_note or 'none'}",
-        f"Town gas: quarterly from 1994 (SingStat last updated {tg_updated}). Power-burn estimate: monthly from 2021, "
-        "complete months only.",
+        f"Town gas: quarterly from 1994 (SingStat last updated {tg_updated}). Power-burn estimate: daily and monthly "
+        "from 2021 (monthly: complete months only), to the latest NEMS metered day (final about a week after the day).",
         "NOT PUBLISHED: monthly/daily natural gas consumption, sendout or imports (pipeline or LNG) - EMA/SES publish "
-        "these annually only and SLNG / pipeline operators do not publish flows.",
+        "these annually only and SLNG / pipeline operators do not publish flows. PowerGas meters every offtake point, but "
+        "the Gas Network Code (Section K 4.2.3) makes metering data confidential (shippers only); town gas is "
+        "published quarterly only.",
         "Each run re-reads the (small) source tables; the power-burn estimate is rebuilt from the power workbook.",
         "",
         "SOURCES",
@@ -272,6 +288,9 @@ def main():
         est_out = est.copy()
         est_out.index = est_out.index.strftime("%Y-%m")
         sheets["Power burn monthly (est)"] = est_out
+        day_out = day.copy()
+        day_out.index = day_out.index.strftime("%Y-%m-%d")
+        sheets["Power burn daily (est)"] = day_out
         sheets["Calibration"] = cal
     sheets["Town gas quarterly"] = tg_out
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
