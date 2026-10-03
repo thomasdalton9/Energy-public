@@ -46,6 +46,7 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 
 # (country code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 DATASETS = [
+    ("IN", "India", "india_gas.xlsx", ("Sectoral", "Sectoral RLNG", "Balance", "LNG imports"), "gas"),
     ("SG", "Singapore", "singapore_gas.xlsx",
      ("Annual demand by sector", "Annual imports", "Power burn monthly (est)", "Town gas quarterly"), "gas"),
 ]
@@ -69,6 +70,11 @@ EMBER_ANNUAL_FILES = [("SSEA", "South & Southeast Asia (annual)", "south_southea
 EMBER = {f for _, _, f in EMBER_FILES + EMBER_ANNUAL_FILES}
 # Other power workbooks: own layouts, charted through add_charts.REGISTRY
 OTHER_POWER_DATASETS = [
+    ("IN", "India", "india_npp_generation_daily.xlsx", "Daily", "conventional generation"),
+    ("IN", "India", "india_power_prices.xlsx", "Daily", "power prices"),
+    ("IN", "India", "india_coal_stocks.xlsx", "Daily", "coal stocks"),
+    ("MY", "Malaysia", "malaysia_power_prices.xlsx", "Daily", "power prices"),
+    ("PH", "Philippines", "philippines_power_market.xlsx", ("Daily demand", "Daily prices"), "power market"),
     ("SG", "Singapore", "singapore_power.xlsx",
      ("Daily demand", "Daily generation by type", "Monthly generation", "Annual consumption", "Annual fuel mix"),
      "power"),
@@ -76,12 +82,45 @@ OTHER_POWER_DATASETS = [
 CAPACITY_DATASETS = [(code, country, f"{country.lower().replace(' ', '_')}_power_capacity.xlsx", "Monthly",
                       "capacity")
                      for code, country, *_ in RAW_POWER_DATASETS]
-HYDRO_DATASETS = []
-HYDRO_EXTRA = {}
+HYDRO_DATASETS = [
+    ("IN", "India", "india_hydro_reservoirs.xlsx", "Daily", "hydro reservoirs"),
+    ("TH", "Thailand", "thailand_hydro_reservoirs.xlsx", "Daily", "reservoirs"),
+    ("PH", "Philippines", "philippines_dam_levels.xlsx", ("Daily", "Limits"), "dam levels"),
+]
+HYDRO_EXTRA = {"philippines_dam_levels.xlsx": {"San Roque", "Magat", "Pantabangan"}}
 DASHBOARD_ONLY = {}
 MASTER_SPECS = {}
 
 SOURCES = {
+    "india_gas.xlsx": ("PPAC (Petroleum Planning & Analysis Cell, Ministry of Petroleum and Natural Gas)",
+                       "https://ppac.gov.in/natural-gas/sectoral-consumption"),
+    "india_npp_generation_daily.xlsx": ("CEA daily generation report (National Power Portal), conventional plants",
+                                        "https://npp.gov.in/publishedReports"),
+    "india_power_prices.xlsx": ("IEX (Indian Energy Exchange), Day-Ahead Market",
+                                "https://www.iexindia.com/market-data/day-ahead-market/market-snapshot"),
+    "india_coal_stocks.xlsx": ("CEA Fuel Management Division, daily coal stock report (National Power Portal)",
+                               "https://npp.gov.in/publishedReports"),
+    "india_hydro_reservoirs.xlsx": ("CEA daily report of hydro reservoirs (National Power Portal)",
+                                    "https://npp.gov.in/publishedReports"),
+    "bangladesh_power_generation_daily.xlsx": ("PGCB (Power Grid Bangladesh PLC), hourly generation",
+                                               "https://erp.powergrid.gov.bd/w/generations/view_generations"),
+    "sri_lanka_power_generation_daily.xlsx": ("PUCSL GenData (Public Utilities Commission of Sri Lanka), actual "
+                                              "system dispatch", "https://gendata.pucsl.gov.lk/"),
+    "bhutan_power_generation_daily.xlsx": ("BPSO (Bhutan Power System Operator), energy data",
+                                           "https://www.bpso.bt/home/energy"),
+    "thailand_power_generation_daily.xlsx": ("EPPO (Energy Policy and Planning Office), electricity statistics "
+                                             "tables 5.2-4 / 5.2-2 / 5.2-5",
+                                             "https://www.eppo.go.th/epposite/info/stat/electricity"),
+    "thailand_hydro_reservoirs.xlsx": ("Royal Irrigation Department (RID), large-reservoir database",
+                                       "https://app.rid.go.th/reservoir/"),
+    "malaysia_power_generation_daily.xlsx": ("GSO (Grid System Operator), Peninsular Malaysia generation mix and "
+                                             "system demand", "https://www.gso.org.my/SystemData/CurrentGen.aspx"),
+    "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
+                                     "https://www.gso.org.my/SystemData/PowerStation.aspx"),
+    "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),
+    "philippines_power_market.xlsx": ("IEMOP (Independent Electricity Market Operator of the Philippines), WESM "
+                                      "market data", "https://www.iemop.ph/market-data/"),
+    "philippines_dam_levels.xlsx": ("DOST-PAGASA, dam information", "https://www.pagasa.dost.gov.ph/flood"),
     "singapore_gas.xlsx": ("EMA Singapore Energy Statistics (annual); SingStat town gas; power burn ESTIMATED from "
                            "EMC/NEMS metered CCGT generation", "https://www.ema.gov.sg/resources/singapore-energy-statistics"),
     "singapore_power.xlsx": ("EMA half-hourly system demand; EMC/NEMS metered generation by facility type; SingStat; "
@@ -103,6 +142,8 @@ OPERATORS = {"India": "Grid-India / CEA", "Pakistan": "NEPRA / NTDC", "Banglades
 MONTHLY_COUNTRIES = ["India", "Pakistan", "Bangladesh", "Sri Lanka", "Thailand", "Vietnam", "Philippines",
                      "Malaysia", "Singapore"]
 LAG_MONTHS = 6   # a country whose data stops more than this before the latest month is left out of the total
+# raw feeds that cover only part of a country: the regional total keeps Ember's national figure for these
+TOTAL_USE_EMBER = {"Malaysia": "GSO covers Peninsular Malaysia only; Sabah and Sarawak have no public daily feed"}
 
 
 def monthly_gwh(path):
@@ -128,13 +169,14 @@ def regional_generation(data_dir, raw_files, frames_out=None):
     frames, notes = {}, []
     for country in MONTHLY_COUNTRIES:
         try:
-            if country in raw_files:
+            if country in raw_files and country not in TOTAL_USE_EMBER:
                 fname = raw_files[country]
                 m = monthly_gwh(os.path.join(data_dir, fname))
                 src = SOURCES.get(fname, (fname,))[0]
             else:
                 m = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
-                src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})"
+                src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})" + (
+                    f" - {TOTAL_USE_EMBER[country]}" if country in TOTAL_USE_EMBER and country in raw_files else "")
             m = m.apply(pd.to_numeric, errors="coerce")
             m = m[m.sum(axis=1) > 0]
             frames[country] = m
@@ -207,7 +249,7 @@ def main():
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
-        raw_names = sorted(have_raw & set(MONTHLY_COUNTRIES))
+        raw_names = sorted((have_raw & set(MONTHLY_COUNTRIES)) - set(TOTAL_USE_EMBER))
         src = ("Sum of the country series on this dashboard (" +
                (f"raw: {', '.join(raw_names)}; " if raw_names else "") + "Ember for the rest)", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "South & Southeast Asia power generation by "
@@ -229,10 +271,18 @@ def main():
     cf_dash = None
     cap_files = {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS
                  if os.path.exists(os.path.join(args.data_dir, f))}
+    # capacity factors only where generation and capacity come from the same raw source (same coverage)
+    raw_by_country = {d[1]: d[2] for d in raw_power}
+    cf_gen = {}
+    for c in list(cap_files):
+        try:
+            cf_gen[c] = monthly_gwh(os.path.join(args.data_dir, raw_by_country[c]))
+        except Exception:  # noqa: BLE001
+            cap_files.pop(c)
     if cap_files:
         cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
-            wb, used, sam.sheet_name, gen_frames, cap_files, sam.CHART_W, sam.CHART_H,
-            "Country generation (raw feeds, else Ember) / installed capacity (raw feeds)", "South & Southeast Asia")
+            wb, used, sam.sheet_name, cf_gen, cap_files, sam.CHART_W, sam.CHART_H,
+            "Country generation / installed capacity, both from the same raw feed", "South & Southeast Asia")
         if cf_chart:
             power[0].insert(pos + len(cap[0]), cf_chart)
             power[1].insert(pos + len(cap[1]), cf_row)
