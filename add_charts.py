@@ -1610,8 +1610,36 @@ def eu_lng(p):
     return out
 
 
+def gb_gas_nts(p):
+    """GB NTS gas: demand by sector and supply by entry point, monthly TWh (National Gas Transmission)."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+
+    def monthly(cols, names):
+        m = d[[c for c in cols if c in d]].resample("MS").sum(min_count=1) / 1000.0   # GWh/d -> TWh per month
+        if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        return m.dropna(how="all").rename(columns=names)
+    dem = monthly(["ldz_offtake", "powerstations", "industrial_offtake", "interconnector_exports", "storage_injection"],
+                  {"ldz_offtake": "LDZ (homes & small business)", "powerstations": "Power stations",
+                   "industrial_offtake": "Industrial", "interconnector_exports": "Interconnector exports",
+                   "storage_injection": "Storage injection"})
+    sup = monthly(["bacton_ukcs", "barrow", "easington", "st_fergus", "teesside", "storage_withdrawal", "interconnector_iuk",
+                   "interconnector_bbl"],
+                  {"bacton_ukcs": "Bacton UKCS", "barrow": "Barrow", "easington": "Easington (UKCS + Langeled)",
+                   "st_fergus": "St Fergus (UKCS + Norway)", "teesside": "Teesside", "storage_withdrawal": "Storage withdrawal",
+                   "interconnector_iuk": "IUK imports (Belgium)", "interconnector_bbl": "BBL imports (Netherlands)"})
+    out = []
+    if not dem.empty:
+        out.append(spec("Demand", dem, "GB gas demand by sector (National Gas NTS)", "TWh per month", "stacked_bar"))
+    if not sup.empty:
+        out.append(spec("Supply", sup, "GB gas supply by entry point (National Gas NTS)", "TWh per month", "stacked_bar"))
+    return out
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
+    "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "brazil_gas_monthly.xlsx": brazil,
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
