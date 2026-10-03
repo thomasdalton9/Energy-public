@@ -144,9 +144,14 @@ def main():
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
     old, old_dem, old_h = (read_sheet(args.out, s) for s in ("Daily", "Demand", "Hourly"))
-    # read back to the last saved day; all the way to DATA_START while the saved history starts later than that
-    stop = (old.index.max().date() - timedelta(days=REVISION_DAYS)
-            if not old.empty and old.index.min().date() <= DATA_START + timedelta(days=7) else DATA_START)
+    if not old.empty:   # a saved day far above its neighbours (a keying slip PGCB later fixed) is fetched again
+        med = old["Total_MWh"].rolling(15, center=True, min_periods=5).median()
+        old = old[~(old["Total_MWh"] > 1.5 * med)]
+    # read back to the earliest day not saved (or the revision window), so gaps and dropped days are refilled
+    last = date.today() - timedelta(days=1)
+    have = set(old.index.date) if not old.empty else set()
+    missing = [d for d in (DATA_START + timedelta(days=k) for k in range((last - DATA_START).days + 1)) if d not in have]
+    stop = min([last - timedelta(days=REVISION_DAYS)] + missing[:1])
     out(f"{len(old)} days saved; reading pages back to {stop}")
     frames = []
     empty = 0
@@ -176,6 +181,10 @@ def main():
         raise SystemExit("No PGCB rows")
     h = pd.concat(frames).drop_duplicates("time").set_index("time").sort_index()
     h = h[h.index.date >= stop]
+    if "Generation_MW" in h:   # an hourly fuel value above the hour's total generation is a keying slip
+        for f in FUELS:
+            if f in h:
+                h.loc[h[f] > 1.2 * h["Generation_MW"], f] = None
     h["Imports"] = h[[c for c in h.columns if c.startswith("Import_")]].sum(axis=1, min_count=1)
     day = h.index.normalize()
     g = h.groupby(day)
