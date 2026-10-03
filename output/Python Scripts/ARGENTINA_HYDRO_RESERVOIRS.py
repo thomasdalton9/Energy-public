@@ -27,9 +27,11 @@ discovery_archive/south_america/ARGENTINA_HYDRO_DISCOVERY.py):
      Read with mdbtools.
   4. AIC (Autoridad Interjurisdiccional de las Cuencas de los rios Limay,
      Neuquen y Negro) - https://www.aic.gob.ar/sitio/embalses: each lake's
-     page shows today's 'Nivel Actual'. AIC keeps no public history, so
-     each run stores that day's reading (sheet "AIC snapshots") and uses
-     it for days with no CAMMESA daily value.
+     page shows today's 'Nivel Actual'. AIC keeps no public history, so a
+     small DAILY job (--aic-only, .github/workflows/argentina_aic_snapshot.yml)
+     appends that day's reading to south_america/argentina_aic_snapshots.csv;
+     the full pull (1st and 15th of the month) merges that file into the
+     sheet "AIC snapshots" and uses it for days with no CAMMESA daily value.
   5. INA (Instituto Nacional del Agua) a5 database - https://alerta.ina.gob.ar/a5:
      daily mean flow of the Parana entering Yacyreta (series 26684, from
      2006) and of the Uruguay at Salto Grande (26674), and the daily mean
@@ -46,6 +48,7 @@ newest-first within --budget-min minutes per run); INA is re-read from 30
 days before its last stored day; AIC adds today's reading.
 
 Usage: python3 ARGENTINA_HYDRO_RESERVOIRS.py --out PATH [--start YYYY-MM-DD] [--budget-min N]
+       python3 ARGENTINA_HYDRO_RESERVOIRS.py --aic-only      (daily: just store today's AIC reading)
 """
 
 print("STARTING", flush=True)
@@ -74,7 +77,9 @@ ap = argparse.ArgumentParser(description="Argentina hydro reservoir levels and r
 ap.add_argument("--out", default=OUT)
 ap.add_argument("--start", default="2005-01-01", help="first week of the weekly-programme backfill")
 ap.add_argument("--budget-min", type=float, default=15, help="minutes to spend on the weekly-programme backfill")
+ap.add_argument("--aic-only", action="store_true", help="only append today's AIC reading to AIC_CSV and stop")
 ARGS = ap.parse_args()
+AIC_CSV = str(Path(__file__).resolve().parent / "argentina_aic_snapshots.csv")   # daily AIC readings (no history at AIC)
 T0 = time.time()
 
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"}
@@ -383,6 +388,25 @@ def aic_snapshot():
     return out
 
 
+def load_aic_csv():
+    try:
+        df = pd.read_csv(AIC_CSV, index_col=0, parse_dates=True)
+    except FileNotFoundError:
+        return pd.DataFrame()
+    return df[df.index.notna()].sort_index()
+
+
+def store_aic(snap):
+    """Append (or replace) today's AIC reading in AIC_CSV and return the whole file."""
+    arc = load_aic_csv()
+    if snap:
+        row = pd.DataFrame([snap], index=pd.DatetimeIndex([TODAY], name="date"))
+        arc = row if arc.empty else row.combine_first(arc)
+        arc.index.name = "date"
+        arc.sort_index().to_csv(AIC_CSV, date_format="%Y-%m-%d")
+    return arc
+
+
 # ------------------------------------------------------------------ 5. INA
 
 def ina_series(sid, since):
@@ -438,11 +462,12 @@ def main():
     print("AIC...", flush=True)
     try:
         snap = aic_snapshot()
-        if snap:
-            row = pd.DataFrame([snap], index=[TODAY])
-            aic_arc = row if aic_arc.empty else row.combine_first(aic_arc)
     except Exception as e:  # noqa: BLE001
+        snap = {}
         print(f"  AIC FAILED ({type(e).__name__}: {e})", flush=True)
+    daily_aic = store_aic(snap)   # the daily job's readings since the last full pull, plus today's
+    if not daily_aic.empty:
+        aic_arc = daily_aic if aic_arc.empty else daily_aic.combine_first(aic_arc)
 
     print("CAMMESA weekly programmes...", flush=True)
     try:
@@ -601,4 +626,8 @@ def write(daily, levels_arc, flows_arc, weekly_arc, aic_arc, ina_arc):
 
 
 if __name__ == "__main__":
-    main()
+    if ARGS.aic_only:
+        arc = store_aic(aic_snapshot())
+        print(f"{AIC_CSV}: {len(arc)} days of AIC readings", flush=True)
+    else:
+        main()
