@@ -94,6 +94,12 @@ def listing_page(page):
             except ValueError:
                 when = None
         rows.append((when, m.group(0)))
+    # labels are typed by hand: one far from the rest of its page is a typo - treat it as unknown (the PDF's own
+    # date is used once downloaded)
+    dates = sorted(d for d, _ in rows if d)
+    if dates:
+        mid = dates[len(dates) // 2]
+        rows = [(d if d and abs((d - mid).days) <= 20 else None, u) for d, u in rows]
     return rows
 
 
@@ -135,7 +141,7 @@ def parse(text):
     if row["RLNG"] is None:
         row["RLNG"] = row.get("RLNG_sub")
     row.pop("RLNG_sub", None)
-    for f, pat in (("Bibiyana", r"Bibiyana"), ("Jalalabad", r"Jalalabad"), ("Moulavibazar", r"Ma?ou?lavibazar"),
+    for f, pat in (("Bibiyana", r"Bibiyana"), ("Jalalabad", r"Jalalabad"), ("Moulavibazar", r"Ma?o?u?lavibazar"),
                    ("Bangora", r"Bangora")):
         row[f] = nums_after(pat, prod, 2)
     row["Total_supply"] = nums_after(r"Grand Total[^:\n]*:", prod, 2)
@@ -226,7 +232,7 @@ def main():
             break
         todo += [(d, u) for d, u in rows if d is None or (d >= DATA_START and d in missing)]
         dates = [d for d, _ in rows if d]
-        if dates and min(dates) < earliest:
+        if dates and max(dates) < earliest:   # the whole page is older than anything still missing
             break
     out(f"{len(todo)} reports to download (listing read to page {page})")
     done = {}
