@@ -74,7 +74,8 @@ GROUPS = {  # ENTSO-E psrType -> fuel group
     "B11": "hydro", "B12": "hydro",
 }
 ORDER = ["gas", "coal", "nuclear", "wind", "solar", "hydro"]
-W0, W1 = datetime(2026, 5, 4, tzinfo=timezone.utc), datetime(2026, 5, 11, tzinfo=timezone.utc)  # [W0, W1)
+W0 = datetime.strptime(os.environ.get("ACC_START") or "2026-05-04", "%Y-%m-%d").replace(tzinfo=timezone.utc)
+W1 = W0 + timedelta(days=7)  # [W0, W1)
 
 
 def stamp(d):
@@ -251,7 +252,9 @@ def smard_week():
 
 
 def rte_week():
-    base = "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/eco2mix-national-cons-def/records"
+    ds = "eco2mix-national-cons-def" if W1 <= datetime(2026, 6, 30, tzinfo=timezone.utc) else "eco2mix-national-tr"
+    log(f"    RTE dataset: {ds}")
+    base = f"https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/{ds}/records"
     cols = {"gaz": "gas", "charbon": "coal", "nucleaire": "nuclear", "eolien": "wind", "solaire": "solar", "hydraulique": "hydro"}
     g = {k: 0.0 for k in ORDER}
     off, n = 0, 0
@@ -383,13 +386,16 @@ def gie():
 
 def main():
     log(f"ENTSOE_API_KEY: {'set (len ' + str(len(ENTSOE)) + ')' if ENTSOE else 'NOT SET'};  GIE_API_KEY: {'set (len ' + str(len(GIE)) + ')' if GIE else 'NOT SET'}")
+    parts = (os.environ.get("KEYED_PARTS") or "coverage,accuracy,other,gie").split(",")
     if ENTSOE:
-        for fn in (entsoe_coverage, accuracy, other_docs):
+        for name, fn in (("coverage", entsoe_coverage), ("accuracy", accuracy), ("other", other_docs)):
+            if name not in parts:
+                continue
             try:
                 fn()
             except Exception as e:
                 log(f"!! {fn.__name__} failed: {type(e).__name__}: {e}")
-    if GIE:
+    if GIE and "gie" in parts:
         try:
             gie()
         except Exception as e:

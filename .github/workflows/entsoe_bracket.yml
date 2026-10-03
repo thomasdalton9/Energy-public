@@ -1,0 +1,34 @@
+name: ENTSO-E date bracket and accuracy
+
+on:
+  workflow_dispatch:
+    inputs:
+      acc_start:
+        description: "Accuracy week start (YYYY-MM-DD, a Monday)"
+        default: "2026-09-14"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Which dates have ENTSO-E generation data
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+        run: timeout 600 python3 discovery_archive/europe/ENTSOE_DATE_BRACKET.py
+
+      - name: Accuracy week vs national feeds
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+          KEYED_PARTS: accuracy
+          ACC_START: ${{ inputs.acc_start }}
+        run: timeout 1200 python3 discovery_archive/europe/EU_KEYED_PROBE.py
