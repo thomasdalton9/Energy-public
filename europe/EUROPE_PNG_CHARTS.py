@@ -8,7 +8,7 @@ exactly what the Excel charts show (CLAUDE.md: every new or updated PNG chart is
   europe_net_imports.png                  net electricity imports (+) and exports (-) by country
   europe_power_prices.png                 day-ahead prices, selected countries, monthly average
   europe_gas_storage_water_year.png       EU gas storage, AGSI-style water year (Oct-Sep)
-  europe_gas_storage_flows.png            EU storage withdrawals (+) and injections (-)
+  europe_gas_balance.png                  EU gas balance: supply and storage flows vs consumption\n  europe_gas_storage_flows.png            EU storage withdrawals (+) and injections (-)
   europe_lng_sendout.png                  LNG terminal send-out by country
 
 Colours are the repo's fixed categorical order (xlsx_charts.PALETTE) so a fuel keeps its colour on every chart; no
@@ -113,6 +113,20 @@ def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=
     finish(fig, ax, f"{title} (to {latest(d)})", ylabel, source, path, ncol=5 if lines else 8)
 
 
+def gas_balance(xl, path):
+    d = tab(xl, "EU gas balance data")
+    fig, ax = plt.subplots(figsize=(11, 5.6))
+    style(ax)
+    bars = [c for c in d.columns if c != "Consumption"]
+    cols = {c: PAL[i % len(PAL)] for i, c in enumerate(bars)}
+    stacked(ax, d[bars], cols)
+    ax.plot(d.index, d["Consumption"], color=INK, linewidth=2, label="Consumption (final consumers)")
+    date_axis(ax)
+    ax.axhline(0, color="#BBBBBB", linewidth=0.8)
+    finish(fig, ax, f"EU gas balance: supply and storage flows vs consumption (to {latest(d)})", "TWh per month",
+           "ENTSOG physical flows (operational data); Gas Infrastructure Europe ALSI (LNG) and AGSI+ (storage)", path, ncol=4)
+
+
 def water_year(xl, tab_name, title, unit, path, source):
     d = pd.read_excel(xl, tab_name)
     wy = [c for c in d.columns if str(c).startswith("WY")]
@@ -186,6 +200,7 @@ def main():
             out("europe_power_balance.png"), lines=("Pumped & battery (net)", "Load"),
             source=ENTSOE + " (generation, load, cross-border physical flows)")),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
+        ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
         ("EU Prices data", lambda: prices(xl, out("europe_power_prices.png"))),
         ("EU Storage EU data", lambda: water_year(
             xl, "EU Storage EU data", "EU gas storage", "TWh", out("europe_gas_storage_water_year.png"),

@@ -177,6 +177,18 @@ def merge(old, new):
     return out.sort_index()
 
 
+def drop_spikes(bal, ratio=15.0, min_median=20.0, min_value=1500.0):
+    """A single bad ENTSOG value (e.g. Germany final consumers 249,215 GWh on 2025-08-21 against a normal ~350) would swamp
+    a monthly total. A value above `ratio` x the centred 61-day median (median above 20 GWh/d, value above 1,500 GWh/d) is blanked and logged;
+    genuine cold-snap or storage peaks are well inside that."""
+    med = bal.rolling(61, center=True, min_periods=20).median()
+    bad = (bal > ratio * med) & (med > min_median) & (bal > min_value)
+    for col in bal.columns[bad.any()]:
+        for day in bal.index[bad[col]]:
+            print(f"  dropped implausible value {col} {day:%Y-%m-%d}: {bal.at[day, col]:.0f} vs median {med.at[day, col]:.0f}")
+    return bal.mask(bad)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
@@ -230,8 +242,9 @@ def main():
              "to, countries outside the EU27 (the UK counts as outside), by country.",
              "Operational data: restated for recent days (last " + str(RELOAD_DAYS) + " days re-fetched each run) and unreported for "
              "some points; Germany reports aggregated final consumers, Spain has few demand points, so a country's supply and uses do "
-             "not always balance. ENTSOG keeps about 5 years of history; this workbook is the history store.",
+             "not always balance. Single values above 1,500 GWh/d and 15x the local median are dropped as data errors. ENTSOG keeps about 5 years of history; this workbook is the history store.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(bal)} days, {bal.index.min():%Y-%m-%d} to {bal.index.max():%Y-%m-%d}"]
+    bal = drop_spikes(bal)
     sheets = {"Country balance": bal}
     if not org.empty:
         sheets["Imports by origin"] = org
