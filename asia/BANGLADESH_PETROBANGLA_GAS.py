@@ -54,7 +54,7 @@ MON = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "ju
                                    "dec"], start=1)}
 COLS = ["Prod_BGFCL", "Prod_SGFL", "Prod_BAPEX", "Prod_state", "Prod_IOC", "Bibiyana", "Jalalabad", "Moulavibazar",
         "Bangora", "RLNG", "Total_supply", "Power_demand", "Power_supply", "Fertiliser_demand", "Fertiliser_supply",
-        "Others_supply", "Total_distribution"]
+        "Others_supply", "Total_distribution", "Power_nongrid"]
 
 
 def out(*a):
@@ -129,7 +129,26 @@ def nums_after(line_pat, text, k):
     return float(v[k]) if len(v) > k else None
 
 
+def _doubled(tok):
+    return len(tok) >= 2 and len(tok) % 2 == 0 and tok[::2] == tok[1::2]
+
+
+def undouble(text):
+    """Bold rows in the older (2021 - early 2022) reports come out of the PDF with every character doubled
+    ('SSuubb--TToottaall 4444 885511 666600..55' = 'Sub-Total 44 851 660.5'). On a line where most tokens are
+    doubled, collapse them; other lines (where '44' is a real number) are left alone."""
+    lines = []
+    for line in text.split("\n"):
+        toks = line.split(" ")
+        long = [x for x in toks if len(x) >= 2]
+        if long and sum(_doubled(x) for x in long) >= 0.6 * len(long):
+            line = " ".join(x[::2] if _doubled(x) else x for x in toks)
+        lines.append(line)
+    return "\n".join(lines)
+
+
 def parse(text):
+    text = undouble(text)
     prod, _, dist = text.partition("II. Distribution")
     row = {}
     subs = [re.findall(r"-?\d+(?:\.\d+)?", s) for s in re.findall(r"Sub-Total(?!\s*\()([^\n]*)", prod)]
@@ -150,6 +169,15 @@ def parse(text):
     if len(v) >= 6:
         (row["Power_demand"], row["Power_supply"], row["Fertiliser_demand"], row["Fertiliser_supply"],
          row["Others_supply"], row["Total_distribution"]) = map(float, v[:6])
+    # older reports list gas to non-grid (captive / off-grid) power separately, outside 'Total :'
+    row["Power_nongrid"] = nums_after(r"Total Non-Grid Power", dist, 0)
+    # the state companies add up to (1+2+3); state + IOCs + R-LNG add up to the grand total: drop what doesn't
+    comp = [row.get(k) for k in ("Prod_BGFCL", "Prod_SGFL", "Prod_BAPEX")]
+    if row.get("Prod_state") and all(c is not None for c in comp) and abs(sum(comp) - row["Prod_state"]) > 2:
+        row["Prod_BGFCL"] = row["Prod_SGFL"] = row["Prod_BAPEX"] = None
+    parts = [row.get(k) for k in ("Prod_state", "Prod_IOC", "RLNG")]
+    if row.get("Total_supply") and all(p is not None for p in parts) and abs(sum(parts) - row["Total_supply"]) > 3:
+        row["Prod_state"] = row["Prod_IOC"] = row["Prod_BGFCL"] = row["Prod_SGFL"] = row["Prod_BAPEX"] = None
     return row
 
 
@@ -199,7 +227,10 @@ def save(path, new_rows):
         "RLNG = regasified LNG delivered by RPGCL from the FSRUs (imports); Total_supply = Petrobangla's grand total.",
         "Distribution: Power_demand / Power_supply = gas demanded by and supplied to power plants; Fertiliser_demand "
         "(maximum) / Fertiliser_supply; Others_supply = everything else supplied by the distribution companies "
-        "(industry, captive power, CNG, commercial, households); Total_distribution.",
+        "(industry, captive power, CNG, commercial, households); Total_distribution. Power_nongrid = gas to non-grid "
+        "power listed separately in the older reports (2021 - early 2022), not in Power_supply.",
+        "Checks: the state companies must add up to their (1+2+3) sub-total and state + IOCs + R-LNG to the grand total "
+        "(within a few MMCFD); a report that fails keeps its totals but its company split is left blank.",
         "",
         "COVERAGE",
         f"Daily from {d.index.min():%Y-%m-%d} to {d.index.max():%Y-%m-%d} ({len(d)} days; Petrobangla occasionally "
