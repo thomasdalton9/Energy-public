@@ -22,7 +22,7 @@ import argparse
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import pandas as pd
 
@@ -54,17 +54,25 @@ def read_existing(path):
     return d[COLS]
 
 
+_ZONE_OFFSET = {}   # zone EIC -> UTC offset (hours) of its local midnight that worked
+
+
 def zone_year(eic, year):
-    """{psr: MW} for one zone and year, or None if ENTSO-E has nothing."""
-    d0 = datetime(year, 1, 1, tzinfo=timezone.utc)
-    d1 = datetime(year + 1, 1, 1, tzinfo=timezone.utc)
-    res = C.fetch_split({"documentType": "A68", "processType": "A33", "in_Domain": eic}, d0, d1,
-                        C.parse_capacity, C.merge_capacity, min_days=400)
-    time.sleep(0.25)
-    if not res:
-        return None
-    out = {psr: yrs[year] for psr, yrs in res.items() if year in yrs}
-    return out or None
+    """{psr: MW} for one zone and year, or None if ENTSO-E has nothing. Annual documents are aligned to the zone's
+    local midnight (23:00 UTC on 31 December for CET zones), so the window is tried at UTC+0, +1, +2 and +3 until one
+    returns data, and the zone remembers which worked."""
+    offsets = ([_ZONE_OFFSET[eic]] if eic in _ZONE_OFFSET else []) + [o for o in (0, 1, 2, 3) if _ZONE_OFFSET.get(eic) != o]
+    for off in offsets:
+        d0 = datetime(year, 1, 1, tzinfo=timezone.utc) - timedelta(hours=off)
+        d1 = datetime(year + 1, 1, 1, tzinfo=timezone.utc) - timedelta(hours=off)
+        res = C.fetch_split({"documentType": "A68", "processType": "A33", "in_Domain": eic}, d0, d1,
+                            C.parse_capacity, C.merge_capacity, min_days=400)
+        time.sleep(0.25)
+        out = {psr: yrs[year] for psr, yrs in (res or {}).items() if year in yrs}
+        if out:
+            _ZONE_OFFSET[eic] = off
+            return out
+    return None
 
 
 def country_year(zones, year):

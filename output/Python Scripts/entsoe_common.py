@@ -85,12 +85,26 @@ class TooMuch(Exception):
     pass
 
 
-def request(params, key=None, tries=4):
+# ENTSO-E allows 400 requests per minute per API key, shared by every job using it (generation, flows, capacity and
+# prices can run at once), so each process keeps to about 100 a minute.
+MIN_INTERVAL = float(os.environ.get("ENTSOE_MIN_INTERVAL", "0.6"))
+_last_request = [0.0]
+
+
+def _throttle():
+    wait = _last_request[0] + MIN_INTERVAL - time.time()
+    if wait > 0:
+        time.sleep(wait)
+    _last_request[0] = time.time()
+
+
+def request(params, key=None, tries=5):
     """GET with retry. Returns the XML text. Raises NoData for 'no matching data', TooMuch when the platform says
     the window is too large, RuntimeError for anything else after the retries."""
     key = key or api_key()
     last = ""
     for attempt in range(tries):
+        _throttle()
         try:
             r = requests.get(URL, params=dict(params, securityToken=key), headers=UA, timeout=(10, 180))
         except requests.RequestException as e:
@@ -99,7 +113,7 @@ def request(params, key=None, tries=4):
             continue
         if r.status_code == 429 or r.status_code >= 500:
             last = f"HTTP {r.status_code}"
-            time.sleep(15 * (attempt + 1))
+            time.sleep(20 * (attempt + 1))
             continue
         text = r.text
         if "<Acknowledgement_MarketDocument" in text[:600] or r.status_code == 400:
@@ -184,22 +198,32 @@ def _values(n, pts, curve):
     return [pts.get(pos) for pos in range(1, n + 1)]
 
 
+def _daily(slots):
+    """{key: {slot start: (value, hours)}} -> energy and covered hours per UTC day. A slot reported by more than one
+    series (revisions, overlapping periods) counts once - the last one wins."""
+    e, h = {}, {}
+    for key, ts in slots.items():
+        de, dh = e.setdefault(key, {}), h.setdefault(key, {})
+        for t, (v, hrs) in ts.items():
+            d = t.date()
+            de[d] = de.get(d, 0.0) + v * hrs
+            dh[d] = dh.get(d, 0.0) + hrs
+    return e, h
+
+
 def parse_generation(text):
     """A75 XML -> {"e": {(psr, direction): {date: MWh}}, "h": {(psr, direction): {date: hours with data}}} with each
-    slot (MW x hours) summed into its UTC day."""
+    slot (MW x hours) summed into its UTC day. A slot reported twice counts once."""
     root = ET.fromstring(text)
-    e, h = {}, {}
+    slots = {}
     for direction, psr, start, step, n, vals in _periods(root):
         if psr is None:
             continue
-        de, dh = e.setdefault((psr, direction), {}), h.setdefault((psr, direction), {})
-        hrs = step / 60.0
+        d = slots.setdefault((psr, direction), {})
         for i, v in enumerate(vals):
-            if v is None:
-                continue
-            d = (start + timedelta(minutes=step * i)).date()
-            de[d] = de.get(d, 0.0) + v * hrs
-            dh[d] = dh.get(d, 0.0) + hrs
+            if v is not None:
+                d[start + timedelta(minutes=step * i)] = (v, step / 60.0)
+    e, h = _daily(slots)
     return {"e": e, "h": h}
 
 
@@ -219,18 +243,15 @@ def merge_generation(a, b):
 
 def parse_energy(text):
     """Load (A65) or cross-border flow (A11) XML -> {"e": {date: MWh}, "h": {date: hours with data}} per UTC day
-    (series without a psrType: one value per slot, MW)."""
+    (series without a psrType: one value per slot, MW). A slot reported twice counts once."""
     root = ET.fromstring(text)
-    e, h = {}, {}
+    slots = {"x": {}}
     for direction, psr, start, step, n, vals in _periods(root):
-        hrs = step / 60.0
         for i, v in enumerate(vals):
-            if v is None:
-                continue
-            d = (start + timedelta(minutes=step * i)).date()
-            e[d] = e.get(d, 0.0) + v * hrs
-            h[d] = h.get(d, 0.0) + hrs
-    return {"e": e, "h": h}
+            if v is not None:
+                slots["x"][start + timedelta(minutes=step * i)] = (v, step / 60.0)
+    e, h = _daily(slots)
+    return {"e": e["x"], "h": h["x"]}
 
 
 def merge_energy(a, b):
@@ -246,14 +267,17 @@ def merge_energy(a, b):
 
 
 def parse_capacity(text):
-    """A68 XML -> {psr: {year: MW}} (installed capacity at the year in the period)."""
+    """A68 XML -> {psr: {year: MW}} (installed capacity for the year). Annual periods start at the zone's local
+    midnight (23:00 UTC on 31 December for CET zones), so the year is that of the period's midpoint."""
     root = ET.fromstring(text)
     out = {}
     for direction, psr, start, step, n, vals in _periods(root):
         v = next((x for x in vals if x is not None), None)
         if psr is None or v is None:
             continue
-        out.setdefault(psr, {})[start.year] = out.setdefault(psr, {}).get(start.year, 0.0) + v
+        year = (start + timedelta(minutes=step * n / 2)).year
+        d = out.setdefault(psr, {})
+        d[year] = d.get(year, 0.0) + v
     return out
 
 
@@ -269,15 +293,19 @@ def merge_capacity(a, b):
 
 
 def parse_prices(text):
-    """A44 XML -> {date: [price EUR/MWh, ...]} using only the finest resolution present on each day."""
+    """A44 XML -> {date: [price EUR/MWh, ...]} using only the finest resolution present on each day; a slot reported
+    by more than one series (the 15-minute market is published twice) counts once."""
     root = ET.fromstring(text)
-    per_day = {}
+    slots = {}   # step -> {slot start: price}
     for direction, psr, start, step, n, vals in _periods(root):
+        d = slots.setdefault(step, {})
         for i, v in enumerate(vals):
-            if v is None:
-                continue
-            d = (start + timedelta(minutes=step * i)).date()
-            per_day.setdefault(d, {}).setdefault(step, []).append(v)
+            if v is not None:
+                d[start + timedelta(minutes=step * i)] = v
+    per_day = {}
+    for step, ts in slots.items():
+        for t, v in ts.items():
+            per_day.setdefault(t.date(), {}).setdefault(step, []).append(v)
     return {d: v[min(v)] for d, v in per_day.items()}
 
 
