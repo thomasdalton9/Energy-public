@@ -198,22 +198,32 @@ def _values(n, pts, curve):
     return [pts.get(pos) for pos in range(1, n + 1)]
 
 
+def _daily(slots):
+    """{key: {slot start: (value, hours)}} -> energy and covered hours per UTC day. A slot reported by more than one
+    series (revisions, overlapping periods) counts once - the last one wins."""
+    e, h = {}, {}
+    for key, ts in slots.items():
+        de, dh = e.setdefault(key, {}), h.setdefault(key, {})
+        for t, (v, hrs) in ts.items():
+            d = t.date()
+            de[d] = de.get(d, 0.0) + v * hrs
+            dh[d] = dh.get(d, 0.0) + hrs
+    return e, h
+
+
 def parse_generation(text):
     """A75 XML -> {"e": {(psr, direction): {date: MWh}}, "h": {(psr, direction): {date: hours with data}}} with each
-    slot (MW x hours) summed into its UTC day."""
+    slot (MW x hours) summed into its UTC day. A slot reported twice counts once."""
     root = ET.fromstring(text)
-    e, h = {}, {}
+    slots = {}
     for direction, psr, start, step, n, vals in _periods(root):
         if psr is None:
             continue
-        de, dh = e.setdefault((psr, direction), {}), h.setdefault((psr, direction), {})
-        hrs = step / 60.0
+        d = slots.setdefault((psr, direction), {})
         for i, v in enumerate(vals):
-            if v is None:
-                continue
-            d = (start + timedelta(minutes=step * i)).date()
-            de[d] = de.get(d, 0.0) + v * hrs
-            dh[d] = dh.get(d, 0.0) + hrs
+            if v is not None:
+                d[start + timedelta(minutes=step * i)] = (v, step / 60.0)
+    e, h = _daily(slots)
     return {"e": e, "h": h}
 
 
@@ -233,18 +243,15 @@ def merge_generation(a, b):
 
 def parse_energy(text):
     """Load (A65) or cross-border flow (A11) XML -> {"e": {date: MWh}, "h": {date: hours with data}} per UTC day
-    (series without a psrType: one value per slot, MW)."""
+    (series without a psrType: one value per slot, MW). A slot reported twice counts once."""
     root = ET.fromstring(text)
-    e, h = {}, {}
+    slots = {"x": {}}
     for direction, psr, start, step, n, vals in _periods(root):
-        hrs = step / 60.0
         for i, v in enumerate(vals):
-            if v is None:
-                continue
-            d = (start + timedelta(minutes=step * i)).date()
-            e[d] = e.get(d, 0.0) + v * hrs
-            h[d] = h.get(d, 0.0) + hrs
-    return {"e": e, "h": h}
+            if v is not None:
+                slots["x"][start + timedelta(minutes=step * i)] = (v, step / 60.0)
+    e, h = _daily(slots)
+    return {"e": e["x"], "h": h["x"]}
 
 
 def merge_energy(a, b):
