@@ -25,4 +25,4 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          for f in discovery_archive/asia/SINGAPORE_GAS_DISCOVERY2.py; do echo "######## $f"; timeout 1200 python3 "$f" || echo "!! exit $?"; done
+          for f in discovery_archive/asia/SINGAPORE_GAS_DISCOVERY3.py; do echo "######## $f"; timeout 1200 python3 "$f" || echo "!! exit $?"; done
