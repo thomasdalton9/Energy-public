@@ -1,3 +1,2 @@
 # pull commands run by .github/workflows/sea_pull_run.yml (temporary, branch only)
 asia/THAILAND_RID_RESERVOIRS.py
-asia/MALAYSIA_GSO.py
