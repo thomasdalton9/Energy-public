@@ -44,6 +44,15 @@ Standing instructions from the repo owner. Follow these on every change.
   monthly (`south_southeast_asia_power_by_type.xlsx`) and, where Ember has no monthly data, yearly
   (`..._annual.xlsx`, EMBER_POWER_BY_TYPE.py --yearly). GSO covers Peninsular Malaysia only, so the regional total
   keeps Ember's national Malaysia (TOTAL_USE_EMBER).
+- `europe/EUROPE_MASTER.py` -> `europe_master.xlsx`: Europe - the ENTSO-E countries (EU/EEA, UK excluded, plus the Balkans) plus
+  Ireland EirGrid, Turkey, Cyprus and the Rhine at Kaub. Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
+  "Dashboard - Power" (generation, capacity, day-ahead prices, net imports, and a supply/demand balance per country: generation +
+  net imports + pumped storage/batteries vs load) and "Dashboard - Capacity factors". Country list and bidding zones live in
+  `europe/europe_countries.py` (add a country there and the pulls, registry and master pick it up). ENTSO-E is the primary
+  power source for Europe (it is the TSOs' own statutory reporting, and matched SMARD/RTE within 0.5% in a settled-week check),
+  labelled as such; replace it per country with a national feed where that is better (e.g. CGES for Montenegro, Elexon for GB,
+  neither yet pulled). Gas: ENTSOG physical flows (pipeline imports by origin, exports, production, consumption) with ALSI LNG and
+  AGSI+ storage give a gas balance per country and for the EU.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 

@@ -289,10 +289,16 @@ def power_mix(d):
 #   sheet "Daily": date, Hydro_MWh, Gas_MWh, Wind_MWh, Solar_MWh, Coal_MWh, Nuclear_MWh, Oil_MWh,
 #                  Bioenergy_MWh, Other_MWh, Total_MWh   (MWh per day; absent fuels may be omitted)
 # Charted as monthly GWh with the same fuel order/colours as power_mix.
-def power_daily(title):
+def power_daily(title, drop_partial=False):
+    """drop_partial: leave out the month in progress (Europe's daily feeds run to yesterday, so the current month is
+    always a short bar)."""
     def f(p):
         d = by_date(read(p, "Daily"), "date")
         m = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].resample("MS").sum(min_count=1) / 1000
+        if drop_partial:
+            last = d.dropna(how="all").index.max()
+            if last < last + pd.offsets.MonthEnd(0):
+                m = m[m.index < last.to_period("M").to_timestamp()]
         m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
         m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
         return [spec("Generation", power_mix(m), title, "GWh per month", "stacked_bar")]
@@ -1491,6 +1497,110 @@ def generic(p):
     return []
 
 
+# ---- Europe (ENTSO-E / GIE pulls in europe/) ----
+EU_NAMES = {"AT": "Austria", "BE": "Belgium", "BG": "Bulgaria", "HR": "Croatia", "CZ": "Czechia", "DK": "Denmark",
+            "FR": "France", "DE": "Germany", "HU": "Hungary", "IE": "Ireland", "IT": "Italy", "LV": "Latvia",
+            "NL": "Netherlands", "PL": "Poland", "PT": "Portugal", "RO": "Romania", "SK": "Slovakia", "ES": "Spain",
+            "SE": "Sweden", "GB": "United Kingdom", "UA": "Ukraine", "GR": "Greece", "LT": "Lithuania",
+            "FI": "Finland", "EE": "Estonia", "EU": "EU"}
+EU_STORAGE_CHARTS = ["DE", "IT", "FR", "NL", "ES", "AT", "PL", "HU"]   # country water-year charts (% full)
+
+
+def europe_prices(p):
+    """Day-ahead prices (ENTSO-E): monthly averages for two country groups."""
+    d = by_date(read(p, "Daily"), "date")
+    groups = [("Prices", ["Germany", "France", "Spain", "Italy (IT-North)", "Netherlands", "Poland", "Sweden (SE3)",
+                          "Norway (NO2)"], "Europe day-ahead electricity prices: Western and Northern Europe (ENTSO-E)"),
+              ("Prices SEE", ["Hungary", "Romania", "Bulgaria", "Greece", "Serbia", "Croatia"],
+               "Europe day-ahead electricity prices: South-East Europe (ENTSO-E)")]
+    return [spec(name, monthly_mean(d[[c for c in cols if c in d]], "2021-01-01"), title, "EUR/MWh, monthly average")
+            for name, cols, title in groups if any(c in d for c in cols)]
+
+
+def eu_gas_storage(p):
+    """AGSI+ storage: EU stock (TWh) and country % full, all AGSI-style water-year charts."""
+    d = by_date(read(p, "Daily"), "date")
+    out = []
+    if "EU_TWh" in d:
+        out.append({"name": "Storage EU", "water_year": d["EU_TWh"].dropna().resample("D").interpolate(),
+                    "y_decimals": 0, "title": "EU gas storage (GIE AGSI+)", "units": "TWh", "sheet": "Water year EU"})
+    for cc in EU_STORAGE_CHARTS:
+        if f"{cc}_full_pct" in d and d[f"{cc}_full_pct"].notna().any():
+            out.append({"name": f"Storage {cc}", "water_year": d[f"{cc}_full_pct"].dropna().resample("D").interpolate(),
+                        "y_decimals": 0, "title": f"{EU_NAMES[cc]} gas storage, % full (GIE AGSI+)", "units": "% full",
+                        "sheet": f"Water year {cc}"})
+    return out + eu_storage_flows(p)
+
+
+def eu_storage_flows(p):
+    """Net movement of EU storage by month: withdrawals (+, supply to the market) and injections (-)."""
+    d = by_date(read(p, "Daily"), "date")
+    if "EU_injection_GWhd" not in d or "EU_withdrawal_GWhd" not in d:
+        return []
+    last = d.dropna(how="all").index.max()
+    m = pd.DataFrame({"Withdrawals": d["EU_withdrawal_GWhd"], "Injections": -d["EU_injection_GWhd"]}).resample("MS").sum(min_count=1)
+    if last < last + pd.offsets.MonthEnd(0):
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m[m.index >= "2021-01-01"]
+    return [spec("Storage flows", m, "EU gas storage: withdrawals (+) and injections (-) (GIE AGSI+)", "GWh per month", "stacked_bar")]
+
+
+def europe_net_imports(p):
+    """Net electricity imports (+) / exports (-) by country, monthly (ENTSO-E physical flows): the ten largest
+    by absolute volume, the rest folded into Other."""
+    d = by_date(read(p, "Net imports"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1)
+    if last < last + pd.offsets.MonthEnd(0):
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m[m.index >= "2021-01-01"]
+    top = m.abs().mean().sort_values(ascending=False).index[:7]
+    t = m[top].copy()
+    t["Other"] = m.drop(columns=top).sum(axis=1, min_count=1)
+    return [spec("Net imports", t, "Europe net electricity imports (+) and exports (-) by country (ENTSO-E)", "GWh per month", "stacked_bar")]
+
+
+def europe_gas_flows(p):
+    """ENTSOG: pipeline gas entering the EU27 from outside the EU by origin country, TWh per month."""
+    d = _sheet(p, "Imports by origin", "date")
+    if d.empty:
+        return []
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    top = m.sum().sort_values(ascending=False).index[:7]
+    t = m[top].copy()
+    t["Other"] = m.drop(columns=top).sum(axis=1, min_count=1)
+    names = {"NO": "Norway", "RU": "Russia", "DZ": "Algeria", "AZ": "Azerbaijan", "LY": "Libya", "TR": "Turkey",
+             "UA": "Ukraine", "BY": "Belarus", "MA": "Morocco", "CH": "Switzerland", "RS": "Serbia", "MK": "North Macedonia",
+             "BA": "Bosnia and Herzegovina", "MD": "Moldova", "AL": "Albania", "UK": "United Kingdom"}
+    t = t.rename(columns=lambda c: names.get(c, c))
+    return [spec("Imports by origin", t, "Pipeline gas imported into the EU from outside the EU, by origin (ENTSOG)",
+                 "TWh per month", "stacked_bar")]
+
+
+def eu_lng(p):
+    """ALSI: send-out by country per month, and the EU tank inventory (water year)."""
+    d = by_date(read(p, "Daily"), "date")
+    cols = [c for c in d.columns if str(c).endswith("_sendout_GWhd") and not str(c).startswith("EU_")]
+    out = []
+    if cols:
+        last = d.dropna(how="all").index.max()
+        m = d[cols].resample("MS").sum(min_count=1)
+        if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        m = m[m.index >= "2019-01-01"]
+        m = m[m.sum().sort_values(ascending=False).index]
+        m = m.rename(columns=lambda c: EU_NAMES.get(c.split("_")[0], c.split("_")[0]))
+        out.append(spec("Send-out", m, "EU LNG terminal send-out by country (GIE ALSI)", "GWh per month", "stacked_bar"))
+    if "EU_inventory_GWh" in d and d["EU_inventory_GWh"].notna().any():
+        out.append({"name": "LNG inventory", "water_year": d["EU_inventory_GWh"].dropna().resample("D").interpolate(),
+                    "y_decimals": 0, "title": "EU LNG terminal inventory (GIE ALSI)", "units": "GWh",
+                    "sheet": "Water year LNG"})
+    return out
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "brazil_gas_monthly.xlsx": brazil,
@@ -1620,12 +1730,29 @@ REGISTRY = {
     "ecuador_power_capacity.xlsx": power_capacity("Ecuador installed generation capacity (ARCONEL)"),
     "peru_power_capacity.xlsx": power_capacity("Peru installed generation capacity (COES)"),
     "paraguay_power_capacity.xlsx": power_capacity("Paraguay installed generation capacity (ANDE)"),
+    # Europe: ENTSO-E prices and GIE storage / LNG (per-country ENTSO-E workbooks are registered below the dict)
+    "europe_power_prices_daily.xlsx": europe_prices,
+    "eu_gas_storage_daily.xlsx": eu_gas_storage,
+    "eu_lng_terminals_daily.xlsx": eu_lng,
+    "europe_cross_border_flows_daily.xlsx": europe_net_imports,
+    "europe_gas_flows_daily.xlsx": europe_gas_flows,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,
     "eia930_fuel_mix_daily.xlsx": None,
     "lng_feedgas_daily.xlsx": None,
 }
+
+
+# Europe: one generation and one capacity workbook per ENTSO-E country (country list in europe/europe_countries.py)
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "europe"))
+    from europe_countries import COUNTRIES as _EU_COUNTRIES  # noqa: E402
+    for _name, _slug, _zones in _EU_COUNTRIES.values():
+        REGISTRY[f"{_slug}_power_generation_daily.xlsx"] = power_daily(f"{_name} power generation by type (ENTSO-E)", drop_partial=True)
+        REGISTRY[f"{_slug}_power_capacity.xlsx"] = power_capacity(f"{_name} installed generating capacity (ENTSO-E, annual)")
+except ImportError:   # europe/ not alongside this file (e.g. the copy in output/Python Scripts)
+    pass
 
 
 def _drop_old_chart_sheets(path):

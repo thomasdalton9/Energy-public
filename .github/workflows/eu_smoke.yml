@@ -1,0 +1,64 @@
+name: Europe pulls smoke test (manual)
+
+# Small real-API run of the Europe pulls (a few countries, ~1 month) into a temporary folder; prints what came back.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Montenegro load document structure (1-3 Oct 2026)
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import sys, re
+          sys.path.insert(0, "europe")
+          import entsoe_common as C
+          import xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+          d0, d1 = datetime(2026, 10, 1, tzinfo=timezone.utc), datetime(2026, 10, 4, tzinfo=timezone.utc)
+          txt = C.request({"documentType": "A65", "processType": "A16", "outBiddingZone_Domain": "10YCS-CG-TSO---S",
+                           "periodStart": C.stamp(d0), "periodEnd": C.stamp(d1)})
+          root = ET.fromstring(txt)
+          n = 0
+          for ts in root:
+              if C._strip(ts.tag) != "TimeSeries":
+                  continue
+              n += 1
+              kids = {C._strip(c.tag): (c.text or "").strip() for c in ts if len(c) == 0}
+              for per in ts:
+                  if C._strip(per.tag) == "Period":
+                      ti = {C._strip(c.tag): c.text for c in per[0]}
+                      pts = [p for p in per if C._strip(p.tag) == "Point"]
+                      print("TimeSeries", n, kids, "| period", ti, "res", per[1].text, "points", len(pts))
+          print("series:", n)
+          res = C.parse_energy(txt)
+          print({str(k): round(v) for k, v in res["e"].items()}, {str(k): v for k, v in res["h"].items()})
+          PY
+
+      - name: ENTSO-E generation + load (ME, NO) - three days
+        env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/ENTSOE_GENERATION_DAILY.py --out-dir /tmp/smoke --countries ME,NO --start 2026-09-28 --max-minutes 10
+
+      - name: Show results
+        run: |
+          python3 - <<'PY'
+          import pandas as pd, glob
+          pd.set_option("display.width", 250); pd.set_option("display.max_columns", 30)
+          for f in sorted(glob.glob("/tmp/smoke/*.xlsx")):
+              d = pd.read_excel(f, sheet_name="Daily")
+              print("\n==", f.split("/")[-1], d.shape)
+              print(d[["date", "Total_MWh", "Load_MWh"]].tail(6).to_string())
+          PY
