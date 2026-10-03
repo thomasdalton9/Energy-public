@@ -144,7 +144,9 @@ def main():
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
     old, old_dem, old_h = (read_sheet(args.out, s) for s in ("Daily", "Demand", "Hourly"))
-    stop = (old.index.max().date() - timedelta(days=REVISION_DAYS)) if not old.empty else DATA_START
+    # read back to the last saved day; all the way to DATA_START while the saved history starts later than that
+    stop = (old.index.max().date() - timedelta(days=REVISION_DAYS)
+            if not old.empty and old.index.min().date() <= DATA_START + timedelta(days=7) else DATA_START)
     out(f"{len(old)} days saved; reading pages back to {stop}")
     frames = []
     empty = 0
