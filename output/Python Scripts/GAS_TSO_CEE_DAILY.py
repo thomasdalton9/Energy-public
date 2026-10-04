@@ -228,7 +228,7 @@ def lithuania(d0, d1):
     df["v"] = pd.to_numeric(df["v"], errors="coerce")
     df = df.drop_duplicates(["date", "col"], keep="last").pivot(index="date", columns="col", values="v").sort_index()
     df = df[df.index >= pd.Timestamp(d0)]
-    return df.iloc[:-1]                                                  # the latest day is still being filled in
+    return df.iloc[:-3]                                                  # the latest days are still being filled in (direct consumers lag)
 
 
 def read_existing(path):
@@ -301,7 +301,7 @@ def main():
              "CZ_total = NET4GAS system balance: CZ_border_entry (Brandov, Waidhaus, Lanzhot, Cesky Tesin) - CZ_border_exit + CZ_storage_withdrawal "
              "- CZ_storage_injection + CZ_production (virtual production point). NET4GAS publishes no domestic-exit series, so the balance is "
              "consumption plus own use, losses and line-pack change. LT_total = Amber Grid 'domestic consumption' = LT_distribution (gas "
-             "transmitted to distribution systems) + LT_direct (to directly connected consumers); the latest day published is dropped as incomplete. "
+             "transmitted to distribution systems) + LT_direct (to directly connected consumers); the latest 3 days published are dropped as incomplete. "
              "Recent days are preliminary and restated.",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
