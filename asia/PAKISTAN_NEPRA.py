@@ -126,7 +126,8 @@ def month_range(text):
 
 
 def fuel_key(label):
-    """A filing's row label -> detail fuel key (or 'TOTAL' / None)."""
+    """A filing's row label -> detail fuel key (or 'TOTAL' / None). NEPRA's decision PDFs carry an OCR text layer,
+    so the usual misreadings are accepted ('Hyde!', '1-lydel', 'FISD', 'Baggasse', 'RING')."""
     s = re.sub(r"[^a-z ]", " ", str(label).lower())
     words = s.split()
     if not words:
@@ -134,7 +135,7 @@ def fuel_key(label):
     w0, s = words[0], "".join(words)
     if w0.startswith("total") or s.startswith("grandtotal") or s.startswith("gtotal"):
         return "TOTAL"
-    if s.startswith("hyd"):
+    if s.startswith("hyd") or "ydel" in s[:6]:
         return "Hydro"
     if w0.startswith("coal") or w0.startswith("cool"):
         if "local" in s:
@@ -144,13 +145,13 @@ def fuel_key(label):
         return "Coal"
     if w0.startswith("gas"):
         return "Gas_local"
-    if "rlng" in s:
+    if "rlng" in s or w0 == "ring":
         return "RLNG"
-    if "bagasse" in s:
+    if re.search(r"bag+as+e", s):
         return "Bagasse"
-    if w0 in ("hsd", "diesel"):
+    if w0 in ("hsd", "fisd", "isd", "lisd", "diesel"):
         return "HSD"
-    if w0 in ("rfo", "fo", "furnace") or s.startswith("fo"):
+    if w0 in ("rfo", "fo", "furnace", "efo", "rio") or s.startswith("fo"):
         return "RFO"
     if w0.startswith("nuclear"):
         return "Nuclear"
@@ -158,7 +159,7 @@ def fuel_key(label):
         return "Imports"
     if w0.startswith("wind"):
         return "Wind"
-    if w0.startswith("solar"):
+    if w0.startswith("solar") or w0 == "soar":
         return "Solar"
     if w0.startswith("mixed") or w0.startswith("misc"):
         return "Mixed"
@@ -324,12 +325,65 @@ def num(s):
     return float(s)
 
 
+EXPECTED = ["Hydro", "Coal", "HSD", "RFO", "Gas_local", "RLNG", "Nuclear", "Imports", "Mixed", "Wind", "Bagasse",
+            "Solar"]
+
+
+def decision_month(text):
+    """Most frequent 'for the month of <Month> <Year>' in a decision (its pages repeat it as a header)."""
+    found = []
+    for m in re.finditer(r"month\s*of\s*([A-Za-z]{3,9})\s*,?\s*(20\d\d)", text, re.I):
+        found += month_tokens(f"{m.group(1)} {m.group(2)}")
+    return max(set(found), key=found.count) if found else None
+
+
+def parse_annex(block):
+    """Lines of one 'Source Wise Generation' table -> ({fuel: actual GWh}, total GWh, {fuel: actual %})."""
+    rows, pct, total, unlabelled, unparsed = {}, {}, None, [], []
+    for line in block[1:32]:
+        if re.search(r"sale\s*to|transmission|net\s*deliver|fuel\s*cost", line, re.I):
+            break
+        pairs = PAIR.findall(line)
+        pm = PAIR.search(line)
+        label = line[:pm.start()] if pm else re.match(r"[^\d]*", line).group(0)
+        key = fuel_key(label)
+        if key is None:
+            if len(pairs) >= 2 and not re.search(r"[A-Za-z]{2}", label):
+                unlabelled.append(pairs[-1])
+            continue
+        val = None
+        if len(pairs) >= 2:
+            try:
+                val, pc = num(pairs[-1][0]), float(pairs[-1][1].replace(",", "."))
+            except ValueError:
+                val = None
+        if key == "TOTAL":
+            total = val
+            break
+        if val is None:
+            unparsed.append(key)
+            continue
+        add(rows, key, val)
+        pct[key] = pct.get(key, 0.0) + pc
+    have = {("Coal" if k.startswith("Coal") else k) for k in rows}
+    missing = [k for k in EXPECTED if k not in have and k not in unparsed]
+    if len(unlabelled) == 1 and len(missing) == 1:   # a row whose label the OCR lost
+        rows[missing[0]], pct[missing[0]] = num(unlabelled[0][0]), float(unlabelled[0][1].replace(",", "."))
+    if total is None and not unparsed and abs(sum(pct.values()) - 100) < 0.3:
+        total = sum(rows.values())
+    if total and len(unparsed) == 1:   # one row's digits unreadable: the remainder of the stated total
+        rows[unparsed[0]] = max(total - sum(rows.values()), 0.0)
+        pct[unparsed[0]] = 100.0 * rows[unparsed[0]] / total
+    return rows, total, pct
+
+
 def read_decision(url, months=None):
     """'Annex-II Source Wise Generation <Month Year> / Sources Reference Actual / GWh % GWh %' -> actual GWh."""
     with pdfplumber.open(io.BytesIO(get(url).content)) as p:
         text = "\n".join(pg.extract_text() or "" for pg in p.pages)
+    hits = list(re.finditer(r"source\s*-?\s*wise\s*generation", text, re.I))
     res = {}
-    for m in re.finditer(r"source\s*-?\s*wise\s*generation", text, re.I):
+    for m in hits:
         block = text[m.end():m.end() + 3000].splitlines()
         mo = None
         for line in block[:4]:
@@ -337,25 +391,11 @@ def read_decision(url, months=None):
             if t:
                 mo = t[0]
                 break
+        if mo is None and len(hits) == 1:   # month line unreadable ('TUNE 2021'): the decision's own month
+            mo = decision_month(text) or (months[0] if months else None)
         if mo is None or mo in res:
             continue
-        rows, pct, total = {}, {}, None
-        for line in block[1:30]:
-            pairs = PAIR.findall(line)
-            if len(pairs) < 2:
-                continue
-            key = fuel_key(line[:PAIR.search(line).start()])
-            if not key:
-                continue
-            try:
-                v, pc = num(pairs[-1][0]), float(pairs[-1][1].replace(",", "."))
-            except ValueError:
-                continue
-            if key == "TOTAL":
-                total = v
-                break
-            add(rows, key, v)
-            pct[key] = pct.get(key, 0.0) + pc
+        rows, total, pct = parse_annex(block)
         if not rows or not total:
             continue
         c = check(rows, total)
