@@ -58,6 +58,11 @@ def soir_check(out):
                       "own": x["KE_own_MWh"].groupby(fy).sum() / 1000,
                       "from_CPPA": x["KE_from_CPPA_MWh"].groupby(fy).sum() / 1000,
                       "nonCPPA": x["KE_purchases_nonCPPA_MWh"].groupby(fy).sum() / 1000})
+    if "KE_own_decision_MWh" in x:
+        b = x[["KE_own_MWh", "KE_own_decision_MWh"]].dropna()
+        b = b.assign(diff_pct=(b.KE_own_decision_MWh / b.KE_own_MWh - 1) * 100)
+        print("\nKE own: SOIR vs NEPRA decision (GWh):\n" + (b / [1000, 1000, 1]).round(1).to_string())
+        print(f"mean abs diff {b.diff_pct.abs().mean():.1f}%, max {b.diff_pct.abs().max():.1f}%")
     print("\nFiscal years (Jul-Jun, labelled by the June year), GWh, vs State of Industry Report 2025:\n" +
           g.join(ref, how="outer").round(1).to_string())
 
