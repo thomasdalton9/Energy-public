@@ -534,12 +534,13 @@ def gni_daily(data_dir):
     return out
 
 
-def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None):
+def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None, norway_eu=None):
     """EU27 gas balance: production and consumption summed over the countries; extra-EU pipeline imports and exports
     from the origin / destination sheets; LNG and storage from GIE's EU aggregates. Where a TSO's own consumption series exists
     (`tso`: Germany, France, Spain) it replaces ENTSOG's country total (ENTSOG's own value is used on days the TSO series lacks);
     Ireland is taken from GNI (`gni`): its production, Moffat imports from Great Britain and demand replace ENTSOG's
-    incomplete Irish figures."""
+    incomplete Irish figures. Norwegian pipeline imports (`norway_eu`, Gassco: Germany + France + Belgium + other) replace ENTSOG's
+    Norway origin, which captures only about 60% of the flows (632 against 1,032 TWh in 2025)."""
     use_gni = gni is not None and len(gni)
     skip = {"IE"} if use_gni else set()
     tso_cc = [c for c in (tso.columns if tso is not None else []) if c in EU27_GAS]
@@ -548,6 +549,11 @@ def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None):
     day = pd.DataFrame(index=bal.index)
     day["Production"] = bal[cols("production")].sum(axis=1, min_count=1).fillna(0)
     day["Pipeline imports"] = org.reindex(bal.index).sum(axis=1, min_count=1) if len(org) else float("nan")
+    if norway_eu is not None and len(norway_eu) and len(org) and "NO" in org:
+        nrw = norway_eu.reindex(bal.index)
+        nrw = nrw.fillna(nrw.groupby([nrw.index.year, nrw.index.month]).transform("mean"))   # gaps take the month's mean
+        ok = nrw.notna()
+        day.loc[ok, "Pipeline imports"] = day["Pipeline imports"] - org["NO"].reindex(bal.index).fillna(0) + nrw
     cons = bal[cols("distribution", skip_cons) + cols("final_consumers", skip_cons)].sum(axis=1, min_count=1)
     for c in tso_cc:
         own = bal[[f"{c}_distribution_GWhd", f"{c}_final_consumers_GWhd"]].sum(axis=1, min_count=1) if f"{c}_distribution_GWhd" in bal else pd.Series(float("nan"), index=bal.index)
@@ -665,10 +671,14 @@ def main():
         except Exception as e:  # noqa: BLE001
             nor = pd.DataFrame()
             gas[2].append(f"Norway/Gassco flows unavailable ({type(e).__name__}: {e})")
-        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng, gni, tso)
+        nor_eu = None
+        if len(nor) and all(c in nor for c in ("NO_to_DE", "NO_to_FR", "NO_to_BE")):
+            nor_eu = nor[[c for c in ("NO_to_DE", "NO_to_FR", "NO_to_BE", "NO_other") if c in nor]].sum(axis=1, min_count=3)
+        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng, gni, tso, nor_eu)
         if not eu.empty:
             total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG; consumption for Germany (THE), France (ODRE) and Spain (Enagas) from the TSOs' own series; Ireland from Gas Networks Ireland, whose Moffat "
-                                               "imports from Great Britain replace ENTSOG's incomplete Irish figures); pipeline imports/exports "
+                                               "imports from Great Britain replace ENTSOG's incomplete Irish figures; Norwegian pipeline imports from Gassco's flows to "
+                                               "Germany, France, Belgium and other, since ENTSOG's Norway origin captures only about 60% of them); pipeline imports/exports "
                                                "from/to outside the EU; LNG and storage from GIE's EU aggregates"],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
