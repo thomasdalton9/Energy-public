@@ -36,6 +36,7 @@ import xlsx_notes  # noqa: E402
 OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "switzerland_swissgrid_power_daily.xlsx"
 PROD_URL = "https://www.uvek-gis.admin.ch/BFE/ogd/104/ogd104_stromproduktion_swissgrid.csv"
+BAL_URL = "https://www.bfe-ogd.ch/ogd35/ogd35_schweizerische_elektrizitaetsbilanz_monatswerte.csv"
 CONS_URL = "https://www.uvek-gis.admin.ch/BFE/ogd/103/ogd103_stromverbrauch_swissgrid_lv_und_endv.csv"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
            "Accept": "text/csv,application/json,text/html,*/*;q=0.8", "Accept-Language": "en-GB,en;q=0.9", "Referer": "https://www.bfe.admin.ch/"}
@@ -83,22 +84,29 @@ def main():
     for g in ("Hydro", "Nuclear", "Wind", "Solar", "Other"):
         cols = [c for c in by_type.columns if group(c) == g]
         daily[f"{g}_MWh"] = by_type[cols].sum(axis=1, min_count=1) * 1000.0 if cols else 0.0
-    # Speicherkraft is gross of pumped-storage output (BFE does not split it). Take out the pumped-storage generation ENTSO-E reports
-    # for Switzerland (same days) so Hydro is natural inflow only; falls back to unadjusted if that workbook is missing.
-    pumped_note = "NOT adjusted for pumped storage (ENTSO-E workbook not found)"
-    try:
-        e = pd.read_excel(os.path.join(args.out_dir, "switzerland_power_generation_daily.xlsx"), sheet_name="Daily")
-        pump = pd.to_numeric(e.set_index(pd.to_datetime(e["date"]))["PumpedStorage_MWh"], errors="coerce").reindex(daily.index)
-        if pump.notna().mean() > 0.9:
-            stor = by_type["Speicherkraft"] * 1000.0 if "Speicherkraft" in by_type else 0.0
-            daily["Hydro_MWh"] = daily["Hydro_MWh"] - pump.fillna(0).clip(upper=stor)
-            pumped_note = "Hydro = run-of-river + storage hydro minus pumped-storage generation (ENTSO-E, Switzerland): natural inflow only"
-    except Exception as ex:  # noqa: BLE001
-        pumped_note += f" ({type(ex).__name__})"
-    print(pumped_note, flush=True)
     daily["Gas_MWh"] = 0.0
     for c in ("PumpedStorage_MWh", "Coal_MWh", "Oil_MWh", "Bioenergy_MWh", "Storage_MWh", "PumpedStorageConsumption_MWh", "StorageCharging_MWh"):
         daily[c] = 0.0
+    # Pumping: Swissgrid's Speicherkraft is gross of pumped-storage output, and the electricity used for pumping is part of what the grid
+    # supplies. BFE's monthly Swiss electricity balance (ogd35) has the pumping consumption and the physical imports/exports; they are spread
+    # evenly over the days of each month (a monthly figure, labelled as such on the Units sheet).
+    pump_note = "Pumping consumption and net imports not available (BFE ogd35 download failed)"
+    monthly = None
+    try:
+        monthly = read_csv(BAL_URL)
+        monthly["month"] = pd.to_datetime(dict(year=monthly["Jahr"], month=monthly["Monat"], day=1))
+        monthly = monthly.set_index("month").sort_index()
+        dim = pd.Series(daily.index.days_in_month, index=daily.index)
+        mkey = daily.index.to_period("M").to_timestamp()
+        for src, dst, sign in (("Verbrauch_Speicherpumpen_GWh", "PumpedStorageConsumption_MWh", 1.0), ("Einfuhr_GWh", "Imports_MWh", 1.0), ("Ausfuhr_GWh", "Exports_MWh", 1.0)):
+            daily[dst] = (monthly[src].reindex(mkey).to_numpy() * 1000.0 / dim.to_numpy()) * sign
+        daily["NetImports_MWh"] = daily["Imports_MWh"] - daily["Exports_MWh"]
+        daily = daily.drop(columns=["Imports_MWh", "Exports_MWh"])
+        pump_note = ("PumpedStorageConsumption_MWh and NetImports_MWh (physical imports less exports) come from BFE's monthly Swiss electricity "
+                     "balance (ogd35), spread evenly over the days of each month")
+    except Exception as ex:  # noqa: BLE001
+        print("ogd35 failed:", ex, flush=True)
+    print(pump_note, flush=True)
     daily["Total_MWh"] = daily[["Hydro_MWh", "Nuclear_MWh", "Wind_MWh", "Solar_MWh", "Other_MWh"]].sum(axis=1)
     daily["Load_MWh"] = (cons["Landesverbrauch_GWh"] * 1000.0).reindex(daily.index)
     daily = daily.dropna(subset=["Total_MWh"]).round(1)
@@ -116,7 +124,7 @@ def main():
              "Solar = photovoltaics; Other = thermal power stations (incl. waste, biomass); Load_MWh = Landesverbrauch (national consumption, "
              "including grid losses). The 'By type (GWh)' sheet keeps the categories as published. ENTSO-E's Swiss generation is incomplete "
              "(its hydro rose from 10 to 24 TWh between 2022 and 2025 as reporting widened), so this feed replaces it in the Europe balances.",
-             pumped_note + ".",
+             pump_note + ".",
              "Whole-file download each run (the files hold the full history); recent days are restated.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(daily)} days, {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}"]
     xlsx_notes.write_workbook(path, {"Daily": daily, "By type (GWh)": by_type}, lines, {"Source", "Units and definitions", "Last pull"})
