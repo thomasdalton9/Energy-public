@@ -471,7 +471,7 @@ def ke_files():
     r = get(SOIR_LIST)
     for h in sorted(set(re.findall(r'href\s*=\s*["\']([^"\']+\.pdf)["\']', r.text, re.I))):
         y = re.search(r"State of Industry Report\s*(20\d\d)", unquote(h), re.I)
-        if y and int(y.group(1)) > DATA_START.year:   # report Y covers fiscal year Jul Y-1 .. Jun Y
+        if y and int(y.group(1)) >= DATA_START.year:   # report Y covers fiscal year Jul Y-1 .. Jun Y
             fy = int(y.group(1))
             res.append((urljoin(SOIR_LIST, h).replace(" ", "%20"), f"State of Industry Report {fy}", "NEPRA SOIR",
                         list(pd.date_range(f"{fy - 1}-07-01", f"{fy}-06-01", freq="MS"))))
@@ -612,26 +612,22 @@ SOIR_OWN = {"gas": "KE_soir_own_Gas", "rfo": "KE_soir_own_Oil", "hsd": "KE_soir_
 
 
 def soir_key(label, own):
+    """Row label -> field. Scanned editions put header junk before the label ('-- I Octobal ... I RFO'), so the
+    fuel keyword is searched anywhere in the label."""
     l = re.sub(r"[^a-z/ ]", " ", label.lower()).strip()
     if l.startswith("total"):
         return "KE_soir_own" if own else "KE_soir_purch"
     if own:
-        for k, v in SOIR_OWN.items():
-            if l.startswith(k):
+        for k, v in (("rlng", "KE_soir_own_RLNG"), ("hsd", "KE_soir_own_Oil"), ("rfo", "KE_soir_own_Oil"),
+                     ("coal", "KE_soir_own_Coal"), ("gas", "KE_soir_own_Gas")):
+            if k in l:
                 return v
         return "KE_soir_own_Other"
-    if l.startswith("cppa"):
-        return "KE_soir_CPPA"
-    if "rlng" in l or l.startswith("gas"):
-        return "KE_soir_IPP_Gas"
-    if l.startswith(("rfo", "hsd", "furnace", "oil")):
-        return "KE_soir_IPP_Oil"
-    if l.startswith("coal"):
-        return "KE_soir_IPP_Coal"
-    if l.startswith("nuclear"):
-        return "KE_soir_IPP_Nuclear"
-    if l.startswith(("solar", "wind", "net", "renew")):
-        return "KE_soir_IPP_Solar"
+    for pat, v in ((r"cppa", "KE_soir_CPPA"), (r"rlng|gas", "KE_soir_IPP_Gas"), (r"rfo|hsd|furnace|\boil",
+                    "KE_soir_IPP_Oil"), (r"coal", "KE_soir_IPP_Coal"), (r"nuclear", "KE_soir_IPP_Nuclear"),
+                   (r"solar|net|wind|renew", "KE_soir_IPP_Solar")):
+        if re.search(pat, l):
+            return v
     return "KE_soir_IPP_Other"
 
 
@@ -645,7 +641,7 @@ def soir_values(line):
         if t.endswith("%"):
             break
         vals.append(0.0 if t == "-" else float(t.replace(",", "")))
-    return vals[:12] if len(vals) >= 12 else None
+    return vals[:12] or None   # scanned editions: only the first months are on the label's line
 
 
 def parse_soir_table(text, own):
@@ -670,8 +666,9 @@ def parse_soir_table(text, own):
     if not tot:
         return {}
     parts = [v for k, v in rows.items() if k not in ("KE_soir_own", "KE_soir_purch")]
+    n = min(len(v) for v in rows.values())   # months every row has a value for
     out_ = {}
-    for i, mo in enumerate(months):
+    for i, mo in enumerate(months[:n]):
         s_ = sum(p[i] for p in parts)
         if tot[i] and abs(s_ / tot[i] - 1) > 0.02:
             continue   # a month whose fuel rows do not add up (bad text layer): left out
@@ -698,17 +695,15 @@ def _read_soir(url):
                 f.write(ch)
         f.flush()
         doc = pdfium.PdfDocument(f.name)
-        hits = []
-        for i in range(len(doc)):
-            t = doc[i].get_textpage().get_text_range()[:700]
-            m = re.search(r"Fuel-?\s*wise\s*(Own\s*Generation|Power\s*Purchase)", t, re.I)
-            if m and re.search(r"K-?\s*Electric", t, re.I):
-                hits.append((i, "own" in m.group(1).lower()))
-        doc.close()
-        with pdfplumber.open(f.name) as p:
-            for i, own in hits:
-                for mo, row in parse_soir_table(p.pages[i].extract_text() or "", own).items():
-                    res.setdefault(mo, {}).update(row)
+        try:
+            for i in range(len(doc)):
+                t = doc[i].get_textpage().get_text_range().replace("\r", "")
+                m = re.search(r"Fuel-?\s*wise\s*(Own\s*Generation|Power\s*Purchase)", t[:700], re.I)
+                if m and re.search(r"K-?\s*Electric", t[:700], re.I):
+                    for mo, row in parse_soir_table(t, "own" in m.group(1).lower()).items():
+                        res.setdefault(mo, {}).update(row)
+        finally:
+            doc.close()
     return res
 
 
@@ -757,6 +752,8 @@ def ke_monthly(grid_index, ke):
             d["KE_external"] = g(r, "KE_soir_purch")
             row = {f"{c}_MWh": round(v * 1000, 1) for c, v in d.items()}
             row["KE_basis"] = "NEPRA State of Industry Report (KE fuel-wise monthly tables)"
+            if g(r, "KE_own_dec") is not None:
+                row["KE_own_decision_MWh"] = round(g(r, "KE_own_dec") * 1000, 1)   # check: NEPRA's KE decision
             row["KE_included"] = True
             rows[mo] = row
             continue
@@ -781,6 +778,18 @@ def ke_monthly(grid_index, ke):
         else:
             d["KE_own_unsplit"] = tot
             notes.append(f"own: {src}, no fuel split (counted as gas)")
+        if g(r, "KE_soir_purch") is not None:   # SOIR purchase table (own output only from the decision)
+            subs = {c: g(r, c.replace("KE_IPP_", "KE_soir_IPP_")) for c in KE_IPP}
+            subs = {c: v for c, v in subs.items() if v is not None}
+            d.update(subs)
+            d["KE_from_CPPA"] = g(r, "KE_soir_CPPA") or 0.0
+            d["KE_external"] = g(r, "KE_soir_purch")
+            notes.append("IPP purchases by fuel: NEPRA State of Industry Report")
+            row = {f"{c}_MWh": round(v * 1000, 1) for c, v in d.items()}
+            row["KE_basis"] = "; ".join(notes)
+            row["KE_included"] = True
+            rows[mo] = row
+            continue
         ext = g(r, "KE_external_dec")
         if ext is None:
             ext = g(r, "KE_purchases_sum")
