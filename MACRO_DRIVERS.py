@@ -206,30 +206,55 @@ def wb_indicator(code, keep):
     return w[[c for c in ["WLD"] + sorted(c for c in w.columns if c != "WLD") if c in w.columns]]
 
 
-# ---------------------------------------------------------------- IMF DataMapper
+# ---------------------------------------------------------------- IMF
+# imf.org (Akamai) answers 403 to plain Python clients from GitHub, so the DataMapper API is read with curl_cffi's
+# browser impersonation; if that fails too, the WEO is read from the IMF SDMX 3.0 API (api.imf.org, CSV).
+IMF_SDMX = "https://api.imf.org/external/sdmx/3.0/data/dataflow/IMF.RES/WEO/+/*.{code}.A"
+WORLD_CODES = {"WEOWORLD", "WORLD", "WLD", "G001", "W00", "001", "W001"}
+
+
+def imf_get(url, accept="application/json"):
+    last = None
+    try:
+        from curl_cffi import requests as creq
+        for i in range(3):
+            try:
+                r = creq.get(url, impersonate="chrome", timeout=120, headers={"Accept": accept})
+                r.raise_for_status()
+                return r
+            except Exception as exc:  # noqa: BLE001
+                last = exc
+                time.sleep(5 * (i + 1))
+    except ImportError:
+        pass
+    for i in range(2):
+        try:
+            r = requests.get(url, headers={**UA, "Accept": accept}, timeout=120)
+            r.raise_for_status()
+            return r
+        except Exception as exc:  # noqa: BLE001
+            last = exc
+            time.sleep(5)
+    raise RuntimeError(f"{url}: {last}")
+
+
+IMF_LABELS = {}
+
+
 def imf_meta():
     """Country codes (ISO3) IMF lists as countries, and the WEO vintage from the indicator metadata."""
-    countries = set(get_json(f"{IMF}/countries").get("countries", {}).keys())
+    js = imf_get(f"{IMF}/countries").json().get("countries", {})
+    IMF_LABELS.update({k: (v or {}).get("label", "") for k, v in js.items()})
     vintage = ""
     try:
-        ind = get_json(f"{IMF}/indicators").get("indicators", {})
+        ind = imf_get(f"{IMF}/indicators").json().get("indicators", {})
         vintage = (ind.get("NGDP_RPCH") or {}).get("source", "") or ""
     except Exception as exc:  # noqa: BLE001
         print(f"IMF indicators metadata failed: {exc}")
-    return countries, vintage
+    return set(js), vintage
 
 
-def imf_indicator(code, imf_countries, keep):
-    js = get_json(f"{IMF}/{code}")
-    vals = js.get("values", {}).get(code, {})
-    rows = []
-    for c, series in vals.items():
-        iso = "WLD" if c in ("WEOWORLD", "WORLD") else c
-        if iso != "WLD" and not (c in imf_countries or c in keep):
-            continue
-        for y, v in (series or {}).items():
-            if v is not None:
-                rows.append({"iso3": iso, "year": int(y), "value": float(v)})
+def _wide(rows):
     df = pd.DataFrame(rows)
     if df.empty:
         return pd.DataFrame()
@@ -238,6 +263,56 @@ def imf_indicator(code, imf_countries, keep):
     w.index.name = "year"
     w = w[w.index >= 1990]
     return w[[c for c in ["WLD"] + sorted(c for c in w.columns if c != "WLD") if c in w.columns]]
+
+
+def imf_datamapper(code, imf_countries, keep):
+    vals = imf_get(f"{IMF}/{code}").json().get("values", {}).get(code, {})
+    rows = []
+    for c, series in vals.items():
+        iso = "WLD" if c in WORLD_CODES else c
+        if iso != "WLD" and not (c in imf_countries or c in keep):
+            continue
+        for y, v in (series or {}).items():
+            if v is not None:
+                rows.append({"iso3": iso, "year": int(y), "value": float(v)})
+    return _wide(rows), {}
+
+
+def imf_sdmx(code, keep):
+    """WEO from the SDMX 3.0 API as CSV. Returns (wide frame, {iso3: first forecast year}) when the latest-actual
+    attribute is present."""
+    import io
+    r = imf_get(IMF_SDMX.format(code=code), accept="application/vnd.sdmx.data+csv;version=2.0.0")
+    df = pd.read_csv(io.StringIO(r.text), dtype=str)
+    print(f"  SDMX {code}: columns {list(df.columns)[:20]}", flush=True)
+    area = next(c for c in ("COUNTRY", "REF_AREA", "JURISDICTION") if c in df.columns)
+    df["value"] = pd.to_numeric(df["OBS_VALUE"], errors="coerce")
+    df["year"] = pd.to_numeric(df["TIME_PERIOD"].str[:4], errors="coerce")
+    df["iso3"] = df[area].where(~df[area].isin(WORLD_CODES), "WLD")
+    df = df[df["iso3"].isin(keep | {"WLD"}) | (df["iso3"].str.len() == 3)].dropna(subset=["value", "year"])
+    df = df[df["iso3"].str.fullmatch(r"[A-Z]{3}")]
+    if "SCALE" in df.columns and code == "LP":   # population: millions
+        sc = pd.to_numeric(df["SCALE"], errors="coerce")
+        df.loc[sc.notna(), "value"] = df.loc[sc.notna(), "value"] * (10.0 ** sc[sc.notna()]) / 1e6
+    ff = {}
+    lat = next((c for c in df.columns if "LATEST_ACTUAL" in c.upper()), None)
+    if lat:
+        for iso, v in df.groupby("iso3")[lat].first().items():
+            y = pd.to_numeric(str(v)[:4], errors="coerce")
+            if pd.notna(y):
+                ff[iso] = int(y) + 1
+    return _wide(df[["iso3", "year", "value"]].to_dict("records")), ff
+
+
+def imf_indicator(code, imf_countries, keep):
+    try:
+        w, ff = imf_datamapper(code, imf_countries, keep)
+        if not w.empty:
+            return w, ff, "IMF DataMapper API"
+    except Exception as exc:  # noqa: BLE001
+        print(f"  DataMapper {code} failed: {exc}; trying SDMX", flush=True)
+    w, ff = imf_sdmx(code, keep)
+    return w, ff, "IMF SDMX 3.0 API (WEO dataflow)"
 
 
 # ---------------------------------------------------------------- weather
@@ -307,19 +382,14 @@ def update_temps(saved, workers):
             if start <= end:
                 jobs.append((iso, city, lat, lon, start, end))
     print(f"Weather: {len(jobs)} city requests ({sum(j[4] == WEATHER_START for j in jobs)} full-history)", flush=True)
-    out = saved.copy()
+    new = {}
     with ThreadPoolExecutor(max_workers=workers) as ex:
         for i, (c, s) in enumerate(ex.map(fetch_city, jobs), 1):
             if not s.empty:
-                s = s.round(2)
-                if c in out:
-                    out = out.reindex(out.index.union(s.index))
-                    out.loc[s.index, c] = s.values
-                else:
-                    out = out.reindex(out.index.union(s.index))
-                    out[c] = s
+                new[c] = s.round(2)
             if i % 20 == 0:
                 print(f"  {i}/{len(jobs)} cities done", flush=True)
+    out = pd.DataFrame(new).combine_first(saved) if new else saved.copy()   # new values win (revision window)
     out = out.sort_index()
     out.index.name = "date"
     cols = [col_name(iso, city) for iso, cities in CITIES.items() for city, *_ in cities]
@@ -381,14 +451,17 @@ def main():
             failed.append(f"World Bank {code}: {exc}")
             print(f"  {sheet} FAILED: {exc}", flush=True)
 
-    vintage, imf_countries = "", set()
+    vintage, imf_countries, imf_ff, imf_src = "", set(), {}, set()
     try:
         imf_countries, vintage = imf_meta()
     except Exception as exc:  # noqa: BLE001
-        failed.append(f"IMF countries list: {exc}")
+        print(f"IMF DataMapper countries list failed: {exc}")
     for sheet, code in IMF_INDICATORS:
         try:
-            w = imf_indicator(code, imf_countries, keep)
+            w, ff, src = imf_indicator(code, imf_countries, keep)
+            if code == "NGDP_RPCH":
+                imf_ff = ff
+            imf_src.add(src)
             sheets[sheet] = w.round(4)
             print(f"  {sheet}: {w.shape[1]} countries, {w.index.min()}-{w.index.max()}", flush=True)
         except Exception as exc:  # noqa: BLE001
@@ -412,8 +485,8 @@ def main():
     for s in sheets.values():
         iso_all |= set(map(str, s.columns))
     for iso in sorted(iso_all, key=lambda c: (c != "WLD", c)):
-        name, region = countries.get(iso, ("", ""))
-        rows.append({"iso3": iso, "name": name, "region": region, "Forecast_from": forecast_from})
+        name, region = countries.get(iso, (IMF_LABELS.get(iso, ""), ""))
+        rows.append({"iso3": iso, "name": name, "region": region, "Forecast_from": imf_ff.get(iso, forecast_from)})
     sheets["Countries"] = pd.DataFrame(rows).set_index("iso3")
     sheets["City_T2M_daily"] = temps
 
@@ -440,9 +513,11 @@ def main():
         "",
         "COVERAGE",
         "World Bank: 1990 to the latest WDI year, all countries + WLD. IMF: 1990 to the end of the WEO horizon.",
-        f"IMF WEO vintage: {vintage or 'not given by the API'}. Forecast_from (Countries sheet) = {forecast_from}: the "
-        "WEO-wide first projection year - the DataMapper API does not give the last actual year per country, and some "
-        "countries' latest actuals are older (check the WEO country notes).",
+        f"IMF source this run: {', '.join(sorted(imf_src)) or 'FAILED'}. WEO vintage: {vintage or 'not given by the API'}. "
+        + (f"Forecast_from (Countries sheet): first year after each country's latest actual (WEO attribute), "
+           f"{forecast_from} where none is given." if imf_ff else
+           f"Forecast_from (Countries sheet) = {forecast_from}: the WEO-wide first projection year - the API does "
+           "not give the last actual year per country, and some countries' latest actuals are older."),
         f"Degree days: {len(CITIES)} master-workbook countries, from 1991. Annual sheets hold complete calendar years "
         "only (the current, partial year is left out); monthly sheets hold complete months only.",
         f"Latest daily temperature: {last_day}. Weather source this run: {', '.join(srcs)}.",
