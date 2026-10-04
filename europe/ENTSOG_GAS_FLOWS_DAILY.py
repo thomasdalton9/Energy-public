@@ -13,13 +13,17 @@ point, API operationalData / "Physical Flow", daily), one workbook:
         final_consumers   gas leaving directly to large final consumers (industry, power plants)
     sheet "Imports by origin": date, one column per origin country, GWh per day entering EU27 grids from outside the EU (the UK counts as outside)
     sheet "Exports by destination": date, one column per destination country, GWh per day leaving EU27 grids to outside the EU
+    sheet "Border flows": date, then one column per directed border "<from>><to>" (e.g. "NL>DE"), GWh per day; the flow on the border
+        after de-duplication (see below). Lets a combined balance (Germany + Netherlands) cancel the flows between its members.
     sheet "Units": source and definitions
 
 Each flow row is (point, operator, entry|exit). It is classed by the system on the other side of the point, taken from
 ENTSOG's interconnections list: the operator's country is the first two letters of its key, the adjacent system gives
 the type (Transmission / Production / LNG Terminals / Storage / Distribution / Final Consumers) and country.
-Cross-border flows are counted on the reporting country's own side only (its entry = import, its exit = export), so a
-border is not counted twice. ENTSOG reports kWh/d; converted to GWh/d. Empty (unreported) values are left blank.
+A cross-border flow is one number per border and day, credited as an export of the sending country and an import of the receiving one:
+the larger of the sender's exit side and the receiver's entry side (a gap on one side, e.g. Baumgarten on the Austrian side, is filled by
+the other). Within a side, operators that report the same gas at one point are counted once, and a virtual point (VIP) and the physical
+points it aggregates are taken as the larger of the two, not summed (ENTSOG reports both; VIP Brandov = EUGAL + OPAL + Hora Svate Katerina). ENTSOG reports kWh/d; converted to GWh/d. Empty (unreported) values are left blank.
 
 Caveats: ENTSOG data are operational flows (allocations/nominations), restated for recent days (the last 45 days are
 re-fetched each run) and incomplete for some points; the platform keeps about 5 years, so the committed workbook is the
@@ -81,12 +85,17 @@ def get_json(path, params, tries=4):
     raise RuntimeError(f"{path} {params}: failed after {tries} tries ({last})")
 
 
+VIP_KEYS = set()   # pointKeys of virtual interconnection points (label starts with "VIP"), filled by adjacency()
+
+
 def adjacency():
     """(pointKey, operatorKey, direction) -> (adjacent infrastructure type, adjacent country key)."""
     ics = get_json("interconnections", {"limit": -1}).get("interconnections", [])
     adj = {}
     for i in ics:
         pk = i["pointKey"]
+        if str(i.get("pointLabel") or "").strip().upper().startswith("VIP"):
+            VIP_KEYS.add(pk)
         if i.get("toOperatorKey"):
             adj[(pk, i["toOperatorKey"], "entry")] = (i.get("fromInfrastructureTypeLabel"), i.get("fromCountryKey"))
         if i.get("fromOperatorKey"):
@@ -119,11 +128,46 @@ def classify(row, adj):
     return None
 
 
+def _dedupe_operators(vals):
+    """Several operators on one side of a point often report the same gas (e.g. both German TSOs at Ueberackern, 24.2 and 24.1 TWh):
+    values within 1% of one already kept are dropped."""
+    kept = []
+    for v in sorted(vals, reverse=True):
+        if not any(abs(v - k) <= max(0.01 * max(v, k), 1e-3) for k in kept):
+            kept.append(v)
+    return sum(kept)
+
+
+def border_flows(rows):
+    """rows: (day, reporting country, direction, other country, pointKey, operator, GWh). -> {(day, from, to): GWh/d}.
+    Each side of a border is the sum of its points with (1) operators that duplicate each other dropped and (2) the virtual point
+    (VIP) and the physical points it aggregates taken as the larger of the two, not their sum (ENTSOG reports both: e.g. VIP Brandov =
+    EUGAL + OPAL + Hora Svate Katerina, so Czech imports from Germany were counted twice). The flow on a border is the larger of the
+    exporter's exit side and the importer's entry side, so a gap on one side (Baumgarten on the Austrian side) is filled by the other."""
+    by_pt = {}
+    for day, c, d, oc, pk, op, g in rows:
+        by_pt.setdefault((day, c, d, oc, pk), []).append(g)
+    side = {}
+    for (day, c, d, oc, pk), vals in by_pt.items():
+        k = (day, c, d, oc, pk in VIP_KEYS)
+        side[k] = side.get(k, 0.0) + _dedupe_operators(vals)
+    own = {}
+    for (day, c, d, oc, vip), v in side.items():
+        k = (day, c, d, oc)
+        own[k] = max(own.get(k, 0.0), v)      # larger of the VIP sum and the physical-points sum
+    flows = {}
+    for (day, c, d, oc), v in own.items():
+        a, b = (c, oc) if d == "exit" else (oc, c)
+        flows[(day, a, b)] = max(flows.get((day, a, b), 0.0), v)
+    return flows
+
+
 def fetch_window(d0, d1, adj):
-    """Daily GWh/d per (country, category) and per origin for [d0, d1]."""
+    """Daily GWh/d per (country, category), per origin / destination and per border for [d0, d1]."""
     data = get_json("operationalData", {"indicator": "Physical Flow", "periodType": "day", "from": d0.isoformat(),
                                         "to": d1.isoformat(), "limit": -1}).get("operationalData", [])
-    cat, origin, dest, unclassified = {}, {}, {}, 0
+    cat, origin, dest, border, unclassified = {}, {}, {}, {}, 0
+    trans = []
     for r in data:
         v = r.get("value")
         if v in (None, ""):
@@ -138,12 +182,19 @@ def fetch_window(d0, d1, adj):
             continue
         country, category, orig = c
         day = pd.Timestamp(r["periodFrom"][:10])
+        if category in ("imports", "exports"):
+            trans.append((day, country, "entry" if category == "imports" else "exit", orig, r["pointKey"], r.get("operatorKey"), gwh))
+            continue
         cat[(day, f"{country}_{category}_GWhd")] = cat.get((day, f"{country}_{category}_GWhd"), 0.0) + gwh
-        if category == "imports" and orig not in EU27 and country in EU27:
-            origin[(day, orig)] = origin.get((day, orig), 0.0) + gwh
-        if category == "exports" and orig not in EU27 and country in EU27:
-            dest[(day, orig)] = dest.get((day, orig), 0.0) + gwh
-    return cat, origin, dest, len(data), unclassified
+    for (day, a, b), g in border_flows(trans).items():
+        border[(day, f"{a}>{b}")] = g
+        cat[(day, f"{a}_exports_GWhd")] = cat.get((day, f"{a}_exports_GWhd"), 0.0) + g
+        cat[(day, f"{b}_imports_GWhd")] = cat.get((day, f"{b}_imports_GWhd"), 0.0) + g
+        if a not in EU27 and b in EU27:
+            origin[(day, a)] = origin.get((day, a), 0.0) + g
+        if a in EU27 and b not in EU27:
+            dest[(day, b)] = dest.get((day, b), 0.0) + g
+    return cat, origin, dest, border, len(data), unclassified
 
 
 def to_frame(d, name):
@@ -194,14 +245,17 @@ def main():
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--start", default=START_DEFAULT)
     ap.add_argument("--max-minutes", type=float, default=90.0)
+    ap.add_argument("--rebuild", action="store_true", help="ignore the committed workbook and re-pull everything from --start")
     args = ap.parse_args()
     os.makedirs(args.out_dir, exist_ok=True)
     path = os.path.join(args.out_dir, FILE)
     deadline = time.time() + args.max_minutes * 60
     start = date.fromisoformat(args.start)
     end = date.today() - timedelta(days=1)
-    bal, org, dst = (read_sheet(path, "Country balance"), read_sheet(path, "Imports by origin"),
-                     read_sheet(path, "Exports by destination"))
+    bal, org, dst, brd = (read_sheet(path, "Country balance"), read_sheet(path, "Imports by origin"),
+                          read_sheet(path, "Exports by destination"), read_sheet(path, "Border flows"))
+    if args.rebuild or brd.empty:     # workbooks written before the border sheet / VIP de-duplication hold double-counted flows: pull again
+        bal, org, dst, brd = (pd.DataFrame(),) * 4
     fs = start
     if len(bal):
         fs = max(start, (bal.index.max() - timedelta(days=RELOAD_DAYS)).date())
@@ -215,12 +269,13 @@ def main():
             break
         nxt = min(cur + timedelta(days=WINDOW_DAYS - 1), end)
         t0 = time.time()
-        cat, origin, dest, n, unc = fetch_window(cur, nxt, adj)
+        cat, origin, dest, border, n, unc = fetch_window(cur, nxt, adj)
         print(f"  {cur} -> {nxt}: {n} rows, {unc} unclassified, {len(cat)} country-day values in {time.time() - t0:.0f}s", flush=True)
         bal = merge(bal, to_frame(cat, "balance"))
         org = merge(org, to_frame(origin, "origin"))
         dst = merge(dst, to_frame(dest, "dest"))
-        bal.index.name = org.index.name = dst.index.name = "date"
+        brd = merge(brd, to_frame(border, "border"))
+        bal.index.name = org.index.name = dst.index.name = brd.index.name = "date"
         cur = nxt + timedelta(days=1)
         time.sleep(1)
     if bal.empty:
@@ -238,7 +293,7 @@ def main():
              "(exits to distribution networks) and final_consumers (exits to large consumers: industry, power plants). UK = Great Britain "
              "and Northern Ireland.",
              "Each flow row is classed by the system on the other side of the point (ENTSOG interconnections list); cross-border flows "
-             "are counted on the reporting country's own side only. Imports by origin / Exports by destination: pipeline gas entering EU27 grids from, or leaving "
+             "are one flow per border (the larger of the exit and entry sides, VIP and physical points not summed, duplicate operators counted once). Imports by origin / Exports by destination: pipeline gas entering EU27 grids from, or leaving "
              "to, countries outside the EU27 (the UK counts as outside), by country.",
              "Operational data: restated for recent days (last " + str(RELOAD_DAYS) + " days re-fetched each run) and unreported for "
              "some points; Germany reports aggregated final consumers, Spain has few demand points, so a country's supply and uses do "
@@ -246,6 +301,8 @@ def main():
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(bal)} days, {bal.index.min():%Y-%m-%d} to {bal.index.max():%Y-%m-%d}"]
     bal = drop_spikes(bal)
     sheets = {"Country balance": bal}
+    if not brd.empty:
+        sheets["Border flows"] = brd[sorted(brd.columns)].round(3)
     if not org.empty:
         sheets["Imports by origin"] = org
     if not dst.empty:
