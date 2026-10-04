@@ -730,6 +730,28 @@ def denmark_gas_balance(data_dir):
     return _monthly_twh(day.fillna(0.0)) if len(day) else pd.DataFrame()
 
 
+def austria_gas_balance(data_dir):
+    """Austria's gas balance (monthly TWh) from AGGM's own market-area series (GAS_TSO_CEE_DAILY.py): domestic production (OMV, RAG), net border
+    entry and exit, storage withdrawal and injection against the end-customer consumption AGGM determines from metering and allocations (the
+    sum of its customer classes). ENTSOG gave 17-22% too little supply in 2023-24: it has no Austrian production (5 TWh a year), its Austrian-side
+    border rows lack Baumgarten, and AGSI's Austrian storage flows (which include Haidach, fed from the German grid) differ from AGGM's by 5-13 TWh a year.
+    The identity entry - exit + storage + production = consumption closes within 0.4% in 2023-26, which checks the AGGM series against each other."""
+    d = _sheet_or_empty(os.path.join(data_dir, TSO_CEE_FILE), "Daily", "date")
+    if not len(d) or "AT_net_entry" not in d:
+        return pd.DataFrame()
+    day = pd.DataFrame(index=d.index)
+    day["Production"] = _col(d, "AT_production")
+    day["Pipeline imports"] = _col(d, "AT_net_entry")
+    day["LNG send-out"] = 0.0
+    day["Storage withdrawals"] = _col(d, "AT_storage_withdrawal")
+    day["Pipeline exports"] = -_col(d, "AT_net_exit")
+    day["Storage injections"] = -_col(d, "AT_storage_injection")
+    day["Consumption"] = _col(d, "AT_total")
+    day = day.dropna()
+    day = day[day.index >= "2021-10-01"]
+    return _monthly_twh(day[GAS_BAL_COLS]) if len(day) else pd.DataFrame()
+
+
 NORWAY_ENTRIES_FILE = "entsog_norway_entries_daily.xlsx"
 
 
@@ -1022,6 +1044,17 @@ def main():
                         "of these flows.")
                 except Exception as e:  # noqa: BLE001
                     gas[2].append(f"Denmark gas balance from Energinet failed ({type(e).__name__}: {e}); ENTSOG used")
+            if cc == "AT":
+                ab = austria_gas_balance(args.data_dir)
+                if len(ab):
+                    b, note = ab, (
+                        "Austria from AGGM's own market-area series: domestic production (OMV, RAG), net border entry and exit (all border points, "
+                        "including Baumgarten), storage withdrawals and injections against the end-customer consumption AGGM determines from metering and "
+                        "allocations. Biomethane is inside these series and not added. ENTSOG alone left the balance 12-22% short in 2022-24 (no Austrian "
+                        "production, no Austrian-side Baumgarten row, and AGSI's storage flows differ from AGGM's); AGGM's identity closes within 0.4%. "
+                        "Months with fewer than 90% of days are left out.")
+                else:
+                    gas[2].append("Austria gas balance from AGGM unavailable; ENTSOG used")
             if cc == "IE":
                 try:
                     b, note = ireland_gas_balance(args.data_dir), (
