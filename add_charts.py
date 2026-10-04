@@ -1751,6 +1751,15 @@ def eu_lng(p):
     return out
 
 
+def netherlands_cbs_gas(p):
+    """Netherlands gas balance (CBS 86103NED): monthly TWh, supply items and consumption."""
+    d = by_date(read(p, "Monthly"), "month") / 1000.0
+    names = {"Production_GWh": "Production", "Imports_pipeline_GWh": "Pipeline imports", "Imports_LNG_GWh": "LNG imports",
+             "Exports_pipeline_GWh": "Pipeline exports", "Consumption_GWh": "Consumption"}
+    m = d[[c for c in names if c in d]].rename(columns=names).dropna(how="all")
+    return [spec("Balance", m, "Netherlands natural gas balance (CBS)", "TWh per month", "line")] if not m.empty else []
+
+
 def europe_biomethane(p):
     """Biomethane injected into the grids (operator data): monthly TWh, one line per country (France ODRE and Denmark Energinet
     summed from daily, Netherlands CBS monthly)."""
@@ -2142,6 +2151,7 @@ REGISTRY = {
     "norway_gassco_gas_flows_daily.xlsx": norway_gassco,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
     "europe_biomethane_operators.xlsx": europe_biomethane,
+    "netherlands_cbs_gas_monthly.xlsx": netherlands_cbs_gas,
     "europe_biomethane_statistics.xlsx": europe_biomethane_stats,
     "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,

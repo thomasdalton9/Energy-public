@@ -68,6 +68,7 @@ DATASETS = [
     ("EU", "Europe", "eurostat_gas_monthly.xlsx", "Monthly", "Eurostat gas (benchmark)"),
     ("NO", "Norway", "norway_gassco_gas_flows_daily.xlsx", "Daily", "Gassco gas exports"),
     ("EU", "Europe", "europe_biomethane_operators.xlsx", "*", "biomethane injection (FR DK NL)"),
+    ("NL", "Netherlands", "netherlands_cbs_gas_monthly.xlsx", "Monthly", "CBS gas balance"),
     ("EU", "Europe", "europe_biomethane_statistics.xlsx", "*", "biomethane statistics (GB AT SE, EU annual)"),
 ]
 RAW_POWER_DATASETS = (
@@ -142,6 +143,9 @@ SOURCES = {
     "europe_biomethane_operators.xlsx": ("Biomethane injected into the gas grids: ODRE (France, daily), Energinet Gasflow (Denmark, daily), "
                                          "CBS StatLine 86103NED (Netherlands, monthly, includes a little refinery-gas conversion)",
                                          "https://odre.opendatasoft.com/"),
+    "netherlands_cbs_gas_monthly.xlsx": ("Statistics Netherlands (CBS) StatLine 86103NED natural gas balance (monthly): Dutch production and total consumption "
+                                         "replace ENTSOG's in the Netherlands and Germany + Netherlands gas balances",
+                                         "https://opendata.cbs.nl/ODataApi/odata/86103NED"),
     "eurostat_gas_monthly.xlsx": ("Eurostat nrg_cb_gasm monthly natural gas balance (validation benchmark only, not used in the charts)",
                                   "https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_gasm"),
     "ireland_eirgrid_system_data.xlsx": ("EirGrid / SONI System and Renewable Data Reports (Ireland and Northern Ireland system data)",
@@ -481,7 +485,7 @@ def _monthly_twh(day, line_floor=12):
 
 
 def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None,
-                      extra_exports=None, prod_adjust=None):
+                      extra_exports=None, prod_adjust=None, prod_override=None):
     """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
     withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
     final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
@@ -514,6 +518,9 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
     if prod_adjust is not None:         # gas that leaves the grid and re-enters as 'production' (Hungary's blending): taken off production
         adj = prod_adjust.reindex(bal.index).fillna(0).where(day["Production"] > 0, 0.0)    # only on days the production entry is reported
         day["Production"] = (day["Production"] - adj).clip(lower=0)
+    if prod_override is not None:       # national production statistic (Netherlands, CBS) in place of ENTSOG's production entries
+        po = prod_override.reindex(bal.index)
+        day["Production"] = po.where(po.notna(), day["Production"])
     cols = GAS_BAL_COLS
     if biomethane is not None and biomethane.notna().any():
         day["Biomethane"] = biomethane.reindex(bal.index).fillna(0)
@@ -545,7 +552,34 @@ def gb_site_storage(data_dir, nts_sto):
     return out
 
 
-def point_fix_args(data_dir, cc, tso, bio, gni):
+NL_CBS_GAS_FILE = "netherlands_cbs_gas_monthly.xlsx"
+
+
+def nl_cbs_gas(data_dir, bal):
+    """Dutch production and total consumption from CBS StatLine 86103NED (NETHERLANDS_CBS_GAS.py), GWh/d on the days of `bal`, or None.
+    Each CBS month is spread evenly over its days. Days after CBS's last month take ENTSOG's value (production entries; distribution +
+    final-consumer exits) times the CBS/ENTSOG ratio of the last twelve CBS months, so the series carries on without a step."""
+    mon = _sheet_or_empty(os.path.join(data_dir, NL_CBS_GAS_FILE), "Monthly", "month")
+    if not len(mon) or not {"Production_GWh", "Consumption_GWh"} <= set(mon.columns):
+        return None
+    out = pd.DataFrame(index=bal.index)
+    ent = {"Production": _col(bal, "NL_production_GWhd"),
+           "Consumption": pd.concat([_col(bal, "NL_distribution_GWhd"), _col(bal, "NL_final_consumers_GWhd")], axis=1).sum(axis=1, min_count=1)}
+    end = mon.index.max() + pd.offsets.MonthEnd(0)
+    for k, col in (("Production", "Production_GWh"), ("Consumption", "Consumption_GWh")):
+        m = mon[col].dropna()
+        per_day = (m / m.index.days_in_month).reindex(pd.date_range(m.index.min(), m.index.max() + pd.offsets.MonthEnd(0), freq="D"), method="ffill")
+        cbs = per_day.reindex(bal.index)
+        e = ent[k]
+        last12 = per_day.index[per_day.index > end - pd.DateOffset(months=12)]
+        both = pd.DataFrame({"c": per_day.reindex(last12), "e": e.reindex(last12)}).dropna()
+        ratio = both["c"].sum() / both["e"].sum() if len(both) > 90 and both["e"].sum() > 0 else float("nan")
+        tail = (e * ratio).where(bal.index > end)
+        out[k] = cbs.combine_first(tail)
+    return out
+
+
+def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
     GR: TAP's Nea Mesimvria entry (Azerbaijani gas) is added to pipeline imports. HU: the 'Exit for Blending' is taken off production
@@ -555,6 +589,13 @@ def point_fix_args(data_dir, cc, tso, bio, gni):
     industrial exits), which excludes biomethane injected straight into the distribution networks, so that biomethane is added to
     consumption (it is also a supply line)."""
     fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    if cc == "NL":
+        nl = nl_cbs_gas(data_dir, bal_nl)
+        if nl is not None:
+            return {"prod_override": nl["Production"]}, nl["Consumption"], (
+                " Production and consumption are Statistics Netherlands' (CBS 86103NED) gas balance, spread over the days of each month, in place of ENTSOG's "
+                "production entries (15-17 TWh a year above CBS) and distribution + final-consumer exits (about 6 TWh below CBS total consumption); "
+                "months CBS has not yet published use ENTSOG scaled by the last twelve months' CBS/ENTSOG ratio.")
     if cc == "FR" and tso is not None and "FR" in tso and len(bio) and "FR" in bio:
         return {}, tso["FR"].add(bio["FR"].reindex(tso.index).fillna(0)), (
             " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
@@ -922,7 +963,7 @@ def main():
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
-            fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni)
+            fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni, gbal)
             cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
             sto_in = fix_kw.pop("storage", gsto)
             b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
@@ -975,14 +1016,15 @@ def main():
         try:   # Germany + Netherlands: Gassco's Emden gas is split between them in a way the raw data cannot show, so they are combined
             de_b = gas_country_balance(gbal, "DE", gsto, glng, tso["DE"] if "DE" in tso else None, None,
                                        bio["DE"] if (len(bio) and "DE" in bio) else None, emden)
-            nl_b = gas_country_balance(gbal, "NL", gsto, glng, None, None, bio["NL"] if (len(bio) and "NL" in bio) else None)
+            nl_kw, nl_cons, _nl_note = point_fix_args(args.data_dir, "NL", tso, bio, gni, gbal)
+            nl_b = gas_country_balance(gbal, "NL", gsto, glng, nl_cons, None, bio["NL"] if (len(bio) and "NL" in bio) else None, **nl_kw)
             colsb = [c for c in de_b.columns if c in nl_b.columns]
             both = de_b[colsb].add(nl_b[colsb], fill_value=0)
             if len(both) >= 12:
                 total_chart(wb, used, gas, None, both, [
                     "Germany + Netherlands combined. Includes the Norwegian gas that arrives at Emden (Gassco's flow to Germany minus the Dornum "
                     "volume ENTSOG reports and minus the Baltic Pipe gas for Denmark/Poland that Gassco books under Germany); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
-                    "Flows between the two countries are counted on both sides and do not cancel exactly."],
+                    "Flows between the two countries are counted on both sides (ENTSOG's own-side figures differ by under 10 TWh a year). Dutch production and consumption are CBS StatLine 86103NED (national statistics) in place of ENTSOG's."],
                             "Germany Netherlands gas balance data", "Germany + Netherlands gas balance: supply and storage vs consumption",
                             "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Germany + Netherlands", line_cols=("Consumption",))
         except Exception as e:  # noqa: BLE001
