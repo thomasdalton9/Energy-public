@@ -29,7 +29,9 @@ Each report gives
 Monthly reports (NMOR): https://transd.nea.org.np/en/category/monthly-operational-reports, 20 files, Shrawan 2079 ..
   Falgun 2080 BS (Jul 2022 .. Mar 2024), PDFs uploads/shares/Monthly_op_Report/NMOR%20YYYY_MM.pdf ('-rev1' files
   replace originals). Each lists every day of the month with the same energy fields and a peak table. Their daily
-  rows fill days with no daily report (Source 'NMOR'): this extends the series back to 17 Jul 2022. On days both
+  rows fill days with no daily report (Source 'NMOR'): this extends the series back to 17 Jul 2022. The listing
+  links 2080_02..2080_09 to a folder that 404s (those months are covered by the daily reports anyway). Where both
+  exist they agree (Apr 2023 - Mar 2024: one day differs, by 8 MWh). On days both
   exist the daily report is kept and differences are printed. Nothing after Jan 2025 exists in any category.
 
 After the archive: NEA's home page (https://nea.org.np/en, behind the same challenge) shows "Energy Details" for the
