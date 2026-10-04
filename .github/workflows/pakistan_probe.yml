@@ -20,7 +20,9 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib
+        run: |
+          sudo apt-get install -y -qq tesseract-ocr >/dev/null || true
+          pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib pytesseract matplotlib
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"

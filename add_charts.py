@@ -1833,6 +1833,9 @@ REGISTRY = {
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
     "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
                                                              "Malaysia (Peninsular) system demand (GSO)"),
+    "philippines_power_generation_daily.xlsx": power_and_demand("Philippines power generation by fuel (IEMOP WESM "
+                                                                "schedules; geothermal in Other)",
+                                                                "Philippines WESM demand (IEMOP)"),
     "vietnam_power_generation_daily.xlsx": power_and_demand("Vietnam power generation by source (EVN / NSMO daily; "
                                                             "rooftop solar estimated)",
                                                             "Vietnam peak demand (EVN / NSMO)"),
