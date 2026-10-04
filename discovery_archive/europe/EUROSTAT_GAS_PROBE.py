@@ -7,7 +7,7 @@ import sys
 import requests
 
 B = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_gasm"
-r = requests.get(B, params={"format": "JSON", "lang": "EN", "geo": "DE", "sinceTimePeriod": "2025-01", "unit": "GWH"}, timeout=180)
+r = requests.get(B, params={"format": "JSON", "lang": "EN", "geo": "DE", "sinceTimePeriod": "2025-01"}, timeout=180)
 print("status", r.status_code, len(r.content), flush=True)
 if r.status_code != 200:
     print(r.text[:800])
@@ -41,7 +41,7 @@ for b, bi in bal.items():
         v = vals.get(str(pos(c)))
         row.append(None if v is None else round(v))
     print(b, j["dimension"]["nrg_bal"]["category"]["label"].get(b), row)
-r2 = requests.get(B, params={"format": "JSON", "lang": "EN", "nrg_bal": "IC_CAL_MG", "sinceTimePeriod": "2025-06", "unit": "GWH"}, timeout=180)
+r2 = requests.get(B, params={"format": "JSON", "lang": "EN", "nrg_bal": "IC_CAL_MG", "sinceTimePeriod": "2025-06"}, timeout=180)
 print("\nall geos, gross inland consumption:", r2.status_code)
 if r2.status_code == 200:
     k = r2.json()
