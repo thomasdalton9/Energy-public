@@ -66,8 +66,10 @@ Standing instructions from the repo owner. Follow these on every change.
   Cambodia (EAC); capacity factors are blank above physical ceilings (solar 32%/28%, wind 65%/55%: incomplete plant
   lists). Prices: India IEX, Philippines IEMOP (final prices only on charts), Malaysia SMP, Singapore USEP.
   Reservoirs: India CEA, Thailand RID, Philippines PAGASA, Pakistan IRSA/WAPDA (Tarbela, Mangla), Sri Lanka PUCSL.
-  Vietnam's EVN reservoir feed (hochuathuydien.evn.com.vn) answers only from Vietnamese IPs (check-host test,
-  discovery_archive/asia/GEO_DISCOVERY*.py) - needs a runner or proxy in Vietnam.
+  Geo-blocks (check-host test from ~60 countries, discovery_archive/asia/GEO_DISCOVERY*.py): EVN reservoirs
+  (hochuathuydien.evn.com.vn) and NSMO answer only from Vietnam; Grid-India and MERIT only from India; BPS only from
+  Indonesia; web.pln.co.id no longer resolves anywhere. A self-hosted runner or proxy in the country would unlock
+  them (parked by the owner for now).
 - `europe/EUROPE_MASTER.py` -> `europe_master.xlsx`: Europe - the ENTSO-E countries (EU/EEA, UK excluded, plus the Balkans) plus
   Ireland EirGrid, Turkey, Cyprus and the Rhine at Kaub. Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
   "Dashboard - Power" (generation, capacity, day-ahead prices, net imports, and a supply/demand balance per country: generation +
