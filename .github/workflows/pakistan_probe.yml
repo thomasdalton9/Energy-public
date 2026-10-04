@@ -7,13 +7,14 @@ on:
     branches: [claude/compassionate-darwin-2khdxe]
     paths:
       - "discovery_archive/asia/PAKISTAN_DISCOVERY*.py"
+      - "asia/PAKISTAN_NEPRA.py"
       - ".github/workflows/pakistan_probe.yml"
   workflow_dispatch: {}
 
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,4 +29,4 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           f=$(ls discovery_archive/asia/PAKISTAN_DISCOVERY*.py | sort -V | tail -1)
-          echo "######## $f"; timeout 1500 python3 "$f" || echo "!! exit $?"
+          echo "######## $f"; timeout 2400 python3 "$f" || echo "!! exit $?"
