@@ -158,10 +158,16 @@ def border_flows(rows):
     for (day, c, d, oc), v in own.items():
         a, b = (c, oc) if d == "exit" else (oc, c)
         flows.setdefault((day, a, b), {})["exit" if d == "exit" else "entry"] = v
-    # (exports credited to the sender, imports credited to the receiver, border flow): each country keeps its own side; the other
-    # side is used only where its own reports nothing that day (Baumgarten on the Austrian side). Taking the larger of the two sides
-    # instead inflated Bulgaria and Greece (Greece's exit at Sidirokastro reports about 18 TWh where Bulgaria's entry shows 3).
-    return {k: (v.get("exit") or v.get("entry") or 0.0, v.get("entry") or v.get("exit") or 0.0, max(v.values())) for k, v in flows.items()}
+    # (exports credited to the sender, imports credited to the receiver, border flow): each country keeps its own side. The other side is
+    # used only where its own side publishes no point for that border and day (Baumgarten has no Austrian-side row), not where it
+    # publishes a zero: Greece's Kulata exit shows ~30 GWh/d in winter where Bulgaria's entry reports 0, and counting it put Bulgaria's balance
+    # 55 points out; the larger-of-both-sides rule did the same.
+    out = {}
+    for k, v in flows.items():
+        ex = v["exit"] if "exit" in v else v["entry"]
+        im = v["entry"] if "entry" in v else v["exit"]
+        out[k] = (ex, im, max(v.values()))
+    return out
 
 
 def fetch_window(d0, d1, adj):
@@ -295,7 +301,7 @@ def main():
              "(exits to distribution networks) and final_consumers (exits to large consumers: industry, power plants). UK = Great Britain "
              "and Northern Ireland.",
              "Each flow row is classed by the system on the other side of the point (ENTSOG interconnections list); cross-border flows "
-             "are own side per country (other side only to fill a day with no report; VIP and physical points not summed, duplicate operators counted once). Imports by origin / Exports by destination: pipeline gas entering EU27 grids from, or leaving "
+             "are own side per country (other side only where the own side publishes no point; VIP and physical points not summed, duplicate operators counted once). Imports by origin / Exports by destination: pipeline gas entering EU27 grids from, or leaving "
              "to, countries outside the EU27 (the UK counts as outside), by country.",
              "Operational data: restated for recent days (last " + str(RELOAD_DAYS) + " days re-fetched each run) and unreported for "
              "some points; Germany reports aggregated final consumers, Spain has few demand points, so a country's supply and uses do "
