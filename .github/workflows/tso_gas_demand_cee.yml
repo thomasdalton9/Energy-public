@@ -1,0 +1,71 @@
+name: Europe TSO gas demand CEE (AT, CZ, LT)
+
+# National gas consumption from the operators' own series - Austria (AGGM), Czechia (NET4GAS CAMS), Lithuania (Amber Grid) - europe/GAS_TSO_CEE_DAILY.py.
+# All three keep history, so it runs on the 1st and 15th; the committed workbook is the history store.
+on:
+  schedule:
+    - cron: "20 3 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tso-gas-demand-cee
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Pull Austria (AGGM)
+        timeout-minutes: 15
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/GAS_TSO_CEE_DAILY.py --out-dir "output/Data and Chart Outputs" --only AT
+
+      - name: Pull Czechia (NET4GAS)
+        timeout-minutes: 15
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/GAS_TSO_CEE_DAILY.py --out-dir "output/Data and Chart Outputs" --only CZ
+
+      - name: Pull Lithuania (Amber Grid)
+        timeout-minutes: 10
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/GAS_TSO_CEE_DAILY.py --out-dir "output/Data and Chart Outputs" --only LT
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          python3 add_charts.py "output/Data and Chart Outputs/europe_tso_gas_demand_cee_daily.xlsx" || echo "chart step failed"
+          mkdir -p "output/Python Scripts"
+          cp europe/GAS_TSO_CEE_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/europe_tso_gas_demand_cee_daily.xlsx" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe TSO gas demand CEE (AT, CZ, LT): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
