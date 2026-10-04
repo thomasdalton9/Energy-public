@@ -3,8 +3,7 @@ Netherlands electricity production by source from CBS StatLine 84575NED 'Elektri
 as a workbook in the same daily layout as the ENTSO-E country workbooks:
 
   output/Data and Chart Outputs/netherlands_cbs_power_daily.xlsx
-    sheet "Daily":   date, <Fuel>_MWh (each CBS month spread evenly over its days), Total_MWh, Load_MWh (ENTSO-E actual load, copied from
-                     netherlands_power_generation_daily.xlsx)
+    sheet "Daily":   date, <Fuel>_MWh (each CBS month spread evenly over its days), Total_MWh, Load_MWh (CBS net consumption + distribution losses)
     sheet "Monthly (GWh)": the CBS columns as published (net production by source, imports/exports by country, losses, net consumption)
     sheet "Units": source and definitions
 
@@ -70,14 +69,12 @@ def main():
     daily["Total_MWh"] = daily[[c for c in daily.columns if c != "Total_MWh"]].sum(axis=1)
     for c in ("PumpedStorage_MWh", "Storage_MWh", "PumpedStorageConsumption_MWh", "StorageCharging_MWh"):
         daily[c] = 0.0
-    load_note = "Load_MWh not available (ENTSO-E workbook missing)"
-    daily["Load_MWh"] = float("nan")
-    try:
-        e = pd.read_excel(os.path.join(args.out_dir, ENTSOE_FILE), sheet_name="Daily")
-        daily["Load_MWh"] = pd.to_numeric(e.set_index(pd.to_datetime(e["date"]))["Load_MWh"], errors="coerce").reindex(daily.index)
-        load_note = "Load_MWh = ENTSO-E actual total load for the Netherlands (copied from the ENTSO-E workbook, daily)"
-    except Exception as ex:  # noqa: BLE001
-        print("load copy failed:", ex, flush=True)
+    # Load = CBS calculated net consumption + distribution losses (grid demand). ENTSO-E's Dutch load agrees within 1% in 2024-25 but is about
+    # 10% below it in 2021-22 (traced: net imports and production match CBS, only the load differs), so CBS is used for the whole series.
+    cons = (mon["NettoVerbruikBerekend_30"] + mon["Distributieverliezen_29"]).reindex(key).to_numpy() * 1000.0 / dim.to_numpy()
+    daily["Load_MWh"] = cons
+    load_note = ("Load_MWh = CBS calculated net consumption plus distribution losses (production + imports - exports, so the balance against "
+                 "production and flows closes by construction; ENTSO-E's Dutch load agrees within 1% in 2024-25 but is about 10% lower in 2021-22)")
     daily = daily[LAYOUT].round(1)
     ann = (daily.groupby(daily.index.year).sum() / 1e6).round(1)
     print("TWh per year:\n" + ann.T.to_string(), flush=True)

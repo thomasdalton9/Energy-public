@@ -89,7 +89,7 @@ FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
 GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx", "Netherlands": "netherlands_cbs_power_daily.xlsx"}
 CH_BALANCE_SRC = ("Swissgrid via the Swiss Federal Office of Energy (production by carrier, national consumption); physical imports/exports and pumping consumption from the BFE monthly electricity balance",
                   "https://www.energiedashboard.ch")
-NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load and cross-border flows from ENTSO-E",
+NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load = CBS consumption incl. losses; cross-border flows from ENTSO-E (they match CBS imports/exports)",
                   "https://opendata.cbs.nl/ODataApi/odata/84575NED")
 GB_FILE = "great_britain_power_generation_daily.xlsx"
 GB_BALANCE_SRC = ("Elexon BMRS (metered generation, interconnectors) and NESO (national demand, embedded wind and solar)",
@@ -375,7 +375,7 @@ BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Ne
 KNOWN_GAPS = {
     "Switzerland": "Generation is Swissgrid's own production by carrier (storage hydro is gross of pumped-storage output); pumping consumption, "
                    "imports and exports are BFE's monthly electricity balance spread over the days. ENTSO-E's Swiss hydro was incomplete (supply/load ~70%) and is no longer used.",
-    "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days; load and flows are ENTSO-E.",
+    "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days. Load is CBS consumption incl. distribution losses (ENTSO-E load is 10% lower in 2021-22, equal within 1% in 2024-25), so supply vs load closes by construction; flows are ENTSO-E and match CBS.",
     "Germany": "Industrial self-generation and small embedded plants are not in the feed; supply is typically 4-5% below load.",
     "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
@@ -934,7 +934,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (load and flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
+        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
