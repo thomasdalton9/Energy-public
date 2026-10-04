@@ -26,6 +26,12 @@ Each report gives
   Peak (MW): peak time, generation, import, recorded peak availability, export, demand met at peak, interruption,
   deficit, peak demand (requirement), net exchange with India.
 
+Monthly reports (NMOR): https://transd.nea.org.np/en/category/monthly-operational-reports, 20 files, Shrawan 2079 ..
+  Falgun 2080 BS (Jul 2022 .. Mar 2024), PDFs uploads/shares/Monthly_op_Report/NMOR%20YYYY_MM.pdf ('-rev1' files
+  replace originals). Each lists every day of the month with the same energy fields and a peak table. Their daily
+  rows fill days with no daily report (Source 'NMOR'): this extends the series back to 17 Jul 2022. On days both
+  exist the daily report is kept and differences are printed. Nothing after Jan 2025 exists in any category.
+
 After the archive: NEA's home page (https://nea.org.np/en, behind the same challenge) shows "Energy Details" for the
 latest day - NEA / NEA Subsidiary Companies / IPP / Import / Export / Interruption (MWh), Total Energy Demand and
 National Energy Demand (MWh), Total Peak Demand and National Peak Demand (MW) - with no history and no date. Each
@@ -55,7 +61,7 @@ import os
 import re
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 
 import nepali_datetime
@@ -84,11 +90,19 @@ NPT = timezone(timedelta(hours=5, minutes=45))
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "nepal_power_generation_daily.xlsx")
 SRC_PDF = "NDOR"
 SRC_PANEL = "NEA home page (latest day)"
+SRC_NMOR = "NMOR"
+NMOR_LISTING = "/en/category/monthly-operational-reports"
+NMOR_ENERGY = ["NEA_MWh", "NEA_subsidiary_MWh", "IPP_MWh", "Imports_MWh", "Energy_available_MWh", "Exports_MWh",
+               "Energy_met_MWh", "Interruption_MWh", "Deficit_MWh", "Energy_requirement_MWh"]
+# peak rows: time, generation, import, recorded peak availability, export, demand met at peak, interruption,
+# system peak demand, national peak demand, net exchange with India
+NMOR_PEAK = ["Peak_generation_MW", "Peak_import_MW", "Peak_availability_MW", "Peak_export_MW", "Demand_met_peak_MW",
+             "Peak_interruption_MW", "System_peak_MW", "Demand_peak_MW", "Peak_net_exchange_MW"]
 
 DAILY = ["Hydro_MWh", "Total_MWh", "NEA_MWh", "NEA_subsidiary_MWh", "IPP_MWh", "Imports_MWh", "Exports_MWh",
          "Net_imports_MWh", "Energy_available_MWh", "Energy_met_MWh", "Interruption_MWh", "Deficit_MWh",
          "Energy_requirement_MWh", "Source"]
-DEMAND = ["Demand_peak_MW", "Demand_met_peak_MW", "Demand_avg_MW", "Peak_generation_MW", "Peak_import_MW",
+DEMAND = ["Demand_peak_MW", "System_peak_MW", "Demand_met_peak_MW", "Demand_avg_MW", "Peak_generation_MW", "Peak_import_MW",
           "Peak_export_MW", "Peak_interruption_MW", "Peak_deficit_MW", "Peak_time"]
 # header text -> field, first match wins (more specific phrases first)
 ENERGY_KEYS = [("net value", "Net_exchange_MWh"), ("subsidiary", "NEA_subsidiary_MWh"), ("ipp", "IPP_MWh"),
@@ -389,6 +403,111 @@ def fetch_browser(br, g):
         return g, None, "unparsed"
 
 
+# ---------------------------------------------------------------- monthly reports (NMOR)
+def nmor_files(br=None):
+    """{(BS year, month): pdf url} from the monthly-report listing (a '-revN' file replaces the original)."""
+    files, rank = {}, {}
+    for page in range(1, 10):
+        url = f"{MIRROR}{NMOR_LISTING}?page={page}"
+        if br is None:
+            status, body = mirror_get(url)
+            html = body.decode("utf-8", "replace") if status == 200 else ""
+        else:
+            html = br.page(url.replace(MIRROR, TRANSD), "/detail/") or ""
+        slugs = [x for x in dict.fromkeys(re.findall(r'href="[^"]+/detail/(nepal-monthly-operational-report-[^"]+)"',
+                                                    html))]
+        new = [x for x in slugs if all(x not in v for v in rank.values())]
+        if not new:
+            break
+        for slug in new:
+            m = re.search(r"(\d{4})-(\d{2})(?:-rev(\d+))?$", slug)
+            if not m:
+                out(f"  NMOR listing: unrecognised item {slug}")
+                continue
+            key, rev = (int(m.group(1)), int(m.group(2))), int(m.group(3) or 0)
+            if key in rank and rank[key][0] >= rev:
+                continue
+            durl = f"{MIRROR}/en/detail/{slug}"
+            if br is None:
+                status, body = mirror_get(durl)
+                dhtml = body.decode("utf-8", "replace") if status == 200 else ""
+            else:
+                dhtml = br.page(durl.replace(MIRROR, TRANSD), ".pdf") or ""
+            pdfs = re.findall(r'href="([^"]+\.pdf)"', dhtml)
+            if pdfs:
+                files[key] = pdfs[0]
+                rank[key] = (rev, slug)
+    return files
+
+
+def parse_nmor(body, key):
+    """Daily rows of one monthly report: {date: record}. Rows are 'dd/mm/yyyy(BS) dd/mm/yyyy(AD) <10 energy values>'
+    and, in the peak table, 'BS AD hh:mm <9 values>'. The BS date rules (the AD column is typed by hand)."""
+    rows, peaks, total = {}, {}, None
+    with pdfplumber.open(io.BytesIO(body)) as pdf:
+        text = "\n".join((p.extract_text() or "") for p in pdf.pages)
+    dpat = r"(\d{1,2})/(\d{1,2})/(\d{4})\s+(\d{1,2})/(\d{1,2})/(\d{4})\s+"
+    for line in text.split("\n"):
+        m = re.match(r"\s*" + dpat + r"(.*)$", line)
+        if not m:
+            t = re.match(r"\s*Total\s+(.*)$", line)
+            if t and total is None:
+                total = [num(x) for x in re.findall(NUM, t.group(1))]
+            continue
+        bd, bm, by, ad_d, ad_m, ad_y = (int(x) for x in m.groups()[:6])
+        rest = m.group(7)
+        try:
+            when = nepali_datetime.date(by, bm, bd).to_datetime_date()
+        except Exception:  # noqa: BLE001
+            out(f"  NMOR {key}: bad BS date in {line[:60]!r}")
+            continue
+        try:
+            if date(ad_y, ad_m, ad_d) != when:
+                out(f"  NMOR {key}: row {by}/{bm:02d}/{bd:02d} prints AD {ad_y}-{ad_m:02d}-{ad_d:02d}, {when} used")
+        except ValueError:
+            pass
+        pm = re.match(r"(\d{1,2}:\d{2})\s+(.*)$", rest)
+        if pm:
+            v = [num(x) for x in re.findall(NUM, pm.group(2))]
+            if len(v) == len(NMOR_PEAK):
+                peaks[when] = dict(zip(NMOR_PEAK, v), Peak_time=pm.group(1))
+            else:
+                out(f"  NMOR {key}: peak row with {len(v)} values: {line[:90]!r}")
+            continue
+        v = [num(x) for x in re.findall(NUM, rest)]
+        if len(v) in (10, 11):
+            rows[when] = dict(zip(NMOR_ENERGY, v[:10]))
+        else:
+            out(f"  NMOR {key}: energy row with {len(v)} values: {line[:90]!r}")
+    if total and len(total) >= 10 and rows:
+        s = sum(r["Energy_met_MWh"] or 0 for r in rows.values())
+        if abs(s - total[6]) > max(5, 0.005 * total[6]):
+            out(f"  NMOR {key}: daily energy met sums to {s:.0f}, Total row says {total[6]:.0f}")
+    outp = {}
+    for when, rec in rows.items():
+        rec.update(peaks.get(when, {}))
+        if not consistent(rec):
+            out(f"  NMOR {key} {when}: energy identities do not hold - kept, check")
+        if not rec.get("NEA_MWh") and not rec.get("IPP_MWh"):
+            continue
+        rec["Source"] = SRC_NMOR
+        outp[when] = rec
+    return outp
+
+
+def fetch_nmor(item):
+    key, url = item
+    status, body = mirror_get(url)
+    if body[:4] != b"%PDF":
+        out(f"  NMOR {key}: no PDF at {url}")
+        return key, {}
+    try:
+        return key, parse_nmor(body, key)
+    except Exception as e:  # noqa: BLE001
+        out(f"  NMOR {key}: {type(e).__name__}: {e}")
+        return key, {}
+
+
 # ---------------------------------------------------------------- home-page panel
 PANEL = {"nea": "NEA_MWh", "nea subsidiary companies": "NEA_subsidiary_MWh", "ipp": "IPP_MWh",
          "import": "Imports_MWh", "export": "Exports_MWh", "interruption": "Interruption_MWh",
@@ -467,6 +586,7 @@ def save(path, new_rows, rebuild=False):
     demand = demand.dropna(how="all", subset=nd) if nd else demand
     daily.index.name = demand.index.name = "date"
     pdf_days = daily.index[daily["Source"] == SRC_PDF]
+    nmor_days = daily.index[daily["Source"] == SRC_NMOR]
     panel_days = daily.index[daily["Source"] == SRC_PANEL]
     notes = [
         "UNITS",
@@ -481,7 +601,9 @@ def save(path, new_rows, rebuild=False):
         "Demand: MW. Demand_peak_MW = peak demand (requirement) of the day; Demand_met_peak_MW = demand met at the peak "
         "time; Demand_avg_MW = Energy_met_MWh / 24; Peak_generation / import / export / interruption / deficit at the "
         "peak time (Peak_time, NPT).",
-        "Source column: 'NDOR' = the LDC daily operational report (PDF); '" + SRC_PANEL + "' = the 'Energy Details' panel "
+        "Source column: 'NDOR' = the LDC daily operational report (PDF); 'NMOR' = a daily row of the LDC monthly "
+        "operational report (used only for days with no daily report; same fields, no deficit at peak; its "
+        "System_peak_MW = system peak demand, Demand_peak_MW = national peak demand); '" + SRC_PANEL + "' = the 'Energy Details' panel "
         "on NEA's home page, which shows one undated day and keeps no history: saved each run as the previous Nepal "
         "day (an assumption - NEA publishes the previous day's figures). From the panel: Energy_requirement_MWh = its "
         "'National Energy Demand', Demand_peak_MW = 'National Peak Demand', Energy_met_MWh = requirement - "
@@ -495,11 +617,15 @@ def save(path, new_rows, rebuild=False):
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}: {len(pdf_days)} days from reports"
         + (f" ({pdf_days.min():%Y-%m-%d}..{pdf_days.max():%Y-%m-%d})" if len(pdf_days) else "")
+        + f", {len(nmor_days)} from monthly reports"
+        + (f" ({nmor_days.min():%Y-%m-%d}..{nmor_days.max():%Y-%m-%d})" if len(nmor_days) else "")
         + f", {len(panel_days)} from the home-page panel"
         + (f" ({panel_days.min():%Y-%m-%d}..{panel_days.max():%Y-%m-%d})" if len(panel_days) else "") + ". "
         "NEA's published report archive covers 2080-01-01..2081-09-27 BS (14 Apr 2023 - 11 Jan 2025) with a few days "
-        "missing; nothing earlier is online since NEA's site moved, and nothing later has been posted. Days between "
-        "the end of the archive and the first panel snapshot are empty.",
+        "missing; the monthly reports (NMOR, daily rows) cover Shrawan 2079 - Falgun 2080 BS (Jul 2022 - Mar 2024). "
+        "Nothing earlier is online since NEA's site moved, and nothing after Jan 2025 has been posted (checked: daily, "
+        "monthly and yearly categories, Oct 2026). Days between the end of the archive and the first panel snapshot "
+        "are empty.",
         "",
         "SOURCE",
         "Nepal Electricity Authority, System Operation Department, Load Dispatch Centre: Daily Operational Report of "
@@ -541,6 +667,7 @@ def main():
                 last = date.fromisoformat(args.end) if args.end else yesterday
                 todo = [first + timedelta(days=k) for k in range((last - first).days + 1)]
             else:
+                last = yesterday
                 # once reports are saved only the last GAP_DAYS are retried: days NEA never posted (and the long gap
                 # after the archive ends) must not be re-tried on every run
                 first = max(DATA_START, yesterday - timedelta(days=GAP_DAYS)) if have else DATA_START
@@ -570,6 +697,32 @@ def main():
                         done[when] = rec
                 save(target, done, args.rebuild)
             out(f"Reports: {tally}")
+            # monthly reports: their daily rows fill days with no daily report (mostly Jul 2022 - Apr 2023)
+            if use_mirror:
+                files = nmor_files()
+                out(f"Monthly reports listed: {len(files)} ({min(files) if files else ''}..{max(files) if files else ''})")
+                have_ndor = set(have) | set(done)
+                added, diffs = 0, []
+                with ThreadPoolExecutor(max_workers=6) as ex:
+                    for key, recs in ex.map(fetch_nmor, sorted(files.items())):
+                        for when, rec in recs.items():
+                            if when in have_ndor:
+                                ref = done.get(when)
+                                if ref is None and when in saved.index:
+                                    ref = saved.loc[pd.Timestamp(when)].to_dict()
+                                if ref and ref.get("IPP_MWh") is not None and rec.get("IPP_MWh") is not None and \
+                                        abs(ref["IPP_MWh"] - rec["IPP_MWh"]) > 1:
+                                    diffs.append((when, ref["IPP_MWh"], rec["IPP_MWh"]))
+                                continue
+                            if args.start and not (first <= when <= last):
+                                continue
+                            done[when] = rec
+                            added += 1
+                out(f"Monthly reports: {added} days added; {len(diffs)} overlap days where the monthly and daily "
+                    f"reports differ (IPP MWh): {diffs[:10]}")
+                save(target, done, args.rebuild)
+            else:
+                out("Monthly reports skipped (mirror not reachable)")
         if not args.no_panel:
             rec = panel(br)
             if rec:
