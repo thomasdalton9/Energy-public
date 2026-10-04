@@ -126,6 +126,8 @@ SOURCES = {
                                             "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "gb_gas_nts_daily.xlsx": ("National Gas Transmission Data Portal (NTS demand by sector and supply by entry point)",
                               "https://data.nationalgas.com/find-gas-data"),
+    "gb_storage_sites_daily.xlsx": ("National Gas Transmission Data Portal (storage stock, inflow and outflow by site)",
+                                    "https://data.nationalgas.com/find-gas-data"),
     "europe_tso_gas_demand_daily.xlsx": ("Gas TSOs' own series: Trading Hub Europe (DE), ODRE / GRTgaz-Teréga-RTE (FR), Enagás (ES), "
                                          "Energinet (DK), REN DataHub (PT)", "https://www.tradinghub.eu/"),
     "europe_tso_gas_demand_cee_daily.xlsx": ("Gas TSOs' own series: AGGM (AT), NET4GAS CAMS system balance (CZ), Amber Grid (LT)",
@@ -524,6 +526,25 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
 POINT_FIXES_FILE = "entsog_point_fixes_daily.xlsx"
 
 
+def gb_site_storage(data_dir, nts_sto):
+    """GB storage flows, GWh/d, from the National Gas Data Portal's site-level data (GB_STORAGE_SITES_DAILY.py): the nine sites'
+    summed outflow and inflow. The NTS aggregate (`nts_sto`) overstates net withdrawals by about 5 TWh a year (it implies a net
+    withdrawal in 2022-23 when the portal's stock rose 11 TWh), so it is only the last resort. Days before the site items start
+    (Oct 2024) use the day-to-day change in the portal's total stock level (net: a fall is a withdrawal, a rise an injection)."""
+    st = _sheet_or_empty(os.path.join(data_dir, "gb_storage_sites_daily.xlsx"), "Daily", "date")
+    if not len(st) or "portal_total_stock" not in st:
+        return nts_sto
+    idx = nts_sto.index.union(st.index)
+    wd, inj = st["total_outflow"].reindex(idx), st["total_inflow"].reindex(idx)
+    d = -st["portal_total_stock"].reindex(idx).diff()   # stock labelled d is the end-of-day stock, so d - (d-1) is day d's net
+    wd = wd.where(wd.notna(), d.clip(lower=0))
+    inj = inj.where(inj.notna(), (-d).clip(lower=0))
+    out = pd.DataFrame({"GB_withdrawal_GWhd": wd, "GB_injection_GWhd": inj})
+    for c, n in (("GB_withdrawal_GWhd", "GB_withdrawal_GWhd"), ("GB_injection_GWhd", "GB_injection_GWhd")):
+        out[c] = out[c].where(out[c].notna(), nts_sto[n].reindex(idx))
+    return out
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -556,12 +577,13 @@ def point_fix_args(data_dir, cc, tso, bio, gni):
         try:    # National Gas NTS storage flows (the operator's own; ENTSOG lacks the Stublach, Holford and Hill Top entries)
             nts = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
             sto = pd.DataFrame({"GB_withdrawal_GWhd": nts["storage_withdrawal"], "GB_injection_GWhd": nts["storage_injection"]})
+            sto = gb_site_storage(data_dir, sto)
         except Exception:  # noqa: BLE001
             sto = None
         return ({"extra_exports": to_roi} | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi).fillna(0)), (
             " Exports include the Moffat exit to Ireland (the Republic's share is Gas Networks Ireland's Moffat import figure); the remainder of "
             "the Moffat flow (Northern Ireland, Isle of Man, about 19 TWh a year) is added to UK consumption because the National Gas NTS "
-            "offtake covers Great Britain only. Storage withdrawals and injections are National Gas NTS's own figures. ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK).")
+            "offtake covers Great Britain only. Storage withdrawals and injections are the nine storage sites' own daily flows from the National Gas Data Portal (the NTS aggregate overstates net withdrawals by about 5 TWh a year); before Oct 2024 they are the day-to-day change in the portal's total stock (net only). ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK).")
     return {}, None, None
 
 
