@@ -58,6 +58,11 @@ START = "2021-01-01"   # CEA conventional daily data (india_npp_generation_daily
 CONV = ["Coal", "Gas", "Oil", "Nuclear", "Hydro"]
 RE = ["Wind", "Solar", "Other"]
 DAY_RANGE = (2.5e6, 1.2e7)   # plausible all-India total, MWh/day
+# per-series spike check: a value more than SPIKE x its centred SPIKE_WIN-day median is blanked in Daily (and its
+# Total), and flagged in the 'ICED daily' sheet, which keeps the value as published (e.g. Other Res 2026-09-04:
+# 332,820 MWh against ~38,600 on the days around it)
+SPIKE, SPIKE_WIN = 3, 15
+FLAG = "QA_flag"
 
 
 def out(*a):
@@ -126,6 +131,19 @@ def read_sheet(path, sheet):
     return df.sort_index()
 
 
+def spikes(df, cols):
+    """Boolean frame: True where a value is more than SPIKE x its centred SPIKE_WIN-day rolling median."""
+    cols = [c for c in cols if c in df]
+    med = df[cols].rolling(SPIKE_WIN, center=True, min_periods=5).median()
+    return df[cols] > SPIKE * med
+
+
+def flag_text(mask):
+    t = mask.apply(lambda r: "; ".join(f"{c} over {SPIKE}x the {SPIKE_WIN}-day median (blank in Daily)"
+                                       for c in r.index if r[c]), axis=1)
+    return t.where(t != "")
+
+
 def merge(old, new):
     """New values over old; a day the new pull lacks (or has blank) keeps its saved value."""
     if old.empty or new.empty:
@@ -169,10 +187,15 @@ def build_daily(npp, iced):
     d["Oil_MWh"] = d["Oil_MWh"].fillna(0)
     d["Other_MWh"] = d["Other_MWh"].fillna(0)
     d = d[[f"{c}_MWh" for c in CONV + RE]]
-    d["Total_MWh"] = d.sum(axis=1)
-    d = d[d["Total_MWh"].between(*DAY_RANGE)].round(0)
+    d = d[d.sum(axis=1).between(*DAY_RANGE)]
+    bad = spikes(d, [f"{c}_MWh" for c in CONV + RE if c != "Oil"])   # Oil (diesel) is tiny and lumpy
+    for k, r in bad[bad.any(axis=1)].iterrows():
+        out(f"  spike blanked {k:%Y-%m-%d}: " + ", ".join(f"{c} {d.at[k, c]:,.0f}" for c in r.index if r[c]))
+    d[bad.columns] = d[bad.columns].mask(bad)
+    d["Total_MWh"] = d.sum(axis=1, skipna=False)   # blank where a series was blanked
+    d = d.round(0)
     d.index.name = "date"
-    return d, len(fill.intersection(d.index))
+    return d, len(fill.intersection(d.index)), int(bad.values.sum())
 
 
 def check(npp, iced):
@@ -190,6 +213,7 @@ def main():
     args = ap.parse_args()
 
     old_iced, old_dem = read_sheet(args.out, "ICED daily"), read_sheet(args.out, "Demand")
+    old_iced = old_iced.drop(columns=[FLAG], errors="ignore")   # recomputed on every run
     out(f"Saved: ICED daily {len(old_iced)} days, Demand {len(old_dem)} days")
     try:
         new_iced, new_dem = fetch_iced(passphrase())
@@ -204,7 +228,9 @@ def main():
         else "NPP conventional workbook missing: conventional series from ICED's copy of the CEA report")
     if len(npp):
         check(npp, iced)
-    daily, filled = build_daily(npp, iced)
+    daily, filled, n_spikes = build_daily(npp, iced)
+    iced = iced.round(0)
+    iced[FLAG] = flag_text(spikes(iced, list(iced.columns)))
     dem = dem[[c for c in ("Demand_peak_MW", "Energy_met_MWh", "Demand_avg_MW") if c in dem]] if len(dem) else dem
 
     notes = ["UNITS",
@@ -213,7 +239,12 @@ def main():
              "above 25 MW; Hydro = large hydro, excluding imports from Bhutan); Wind, Solar, and Other = ICED's "
              "'Other Res' (biomass, small hydro and other renewables as reported daily). Total = sum. Demand: Demand_peak_MW = "
              "peak demand met (MW), Energy_met_MWh = energy met (MWh/day), Demand_avg_MW = energy met / 24. ICED "
-             "daily: the seven series exactly as ICED publishes them (MU x 1,000).",
+             "daily: the seven series exactly as ICED publishes them (MU x 1,000); QA_flag names any series more than "
+             f"{SPIKE}x its centred {SPIKE_WIN}-day median that day.",
+             "", "VALIDATION",
+             f"In Daily, a series value more than {SPIKE}x its centred {SPIKE_WIN}-day median (all series but Oil) is "
+             f"left blank, and so is that day's Total ({n_spikes} value(s) blanked; e.g. ICED Other Res on 2026-09-04, "
+             "332,820 MWh against ~38,600 around it). The 'ICED daily' sheet keeps the published value and flags it.",
              "", "COVERAGE",
              f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d} ({len(daily)} days; a day "
              "appears once both the CEA conventional report and the renewables figures are out). "
@@ -236,8 +267,8 @@ def main():
              "Grid-India's own daily PSP report is not reachable from the pull's servers, and CEA's daily RE "
              "report stopped on 2025-11-18.",
              "Whole series re-read on every run (one request each) and merged over the saved sheets."]
-    xlsx_notes.write_workbook(args.out, {"Daily": daily, "Demand": dem, "ICED daily": iced.round(0)}, notes,
-                              {"UNITS", "COVERAGE", "SOURCE"})
+    xlsx_notes.write_workbook(args.out, {"Daily": daily, "Demand": dem, "ICED daily": iced}, notes,
+                              {"UNITS", "COVERAGE", "VALIDATION", "SOURCE"})
     out(f"Saved {args.out}: Daily {len(daily)} days, Demand {len(dem)}, ICED daily {len(iced)}")
     if len(daily):
         y = (daily.groupby(daily.index.year).sum() / 1e6).round(1)

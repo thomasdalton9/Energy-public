@@ -53,6 +53,10 @@ WORKERS = 6
 TYPES = {"THERMAL": "Coal", "THER (GT)": "Gas", "THER (DG)": "Oil", "NUCLEAR": "Nuclear", "HYDRO": "Hydro"}
 # plausible all-India conventional generation, MWh/day (catches a wrong column: April-to-date totals are ~100x)
 DAY_RANGE = (1.5e6, 8e6)
+# a day more than SPIKE x the 9-day rolling median of Total_MWh is re-fetched once, then blanked (e.g. 2 April 2021 and
+# 2023 were saved at ~2x: the report gave April-to-date, two days, under 'today's actual')
+SPIKE, SPIKE_WIN = 1.5, 9
+GEN_COLS = ["Hydro_MWh", "Gas_MWh", "Coal_MWh", "Nuclear_MWh", "Oil_MWh", "Total_MWh"]
 
 
 def out(*a):
@@ -201,18 +205,43 @@ def merge(old, new):
     return pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
 
 
-def generation(path):
-    old = read_sheet(path, "Daily")
-    if not old.empty:   # drop implausible saved days (an earlier column mix-up) so they are fetched again
-        old = old[old["Total_MWh"].between(*DAY_RANGE)]
-    days = todo(old, GEN_START)
-    out(f"Generation (dgr2): {len(old)} days saved, fetching {len(days)}")
-    new = pd.DataFrame.from_dict(run(gen_day, days, "dgr2"), orient="index")
+def gen_frame(res):
+    new = pd.DataFrame.from_dict(res, orient="index")
     if not new.empty:
         new = new.reindex(columns=["Hydro", "Gas", "Coal", "Nuclear", "Oil"]).fillna(0).add_suffix("_MWh")
         new["Total_MWh"] = new.sum(axis=1)
         new = new.round(0)
-    d = merge(old, new)
+    return new
+
+
+def spikes(d):
+    """Days whose total is more than SPIKE x the centred SPIKE_WIN-day rolling median (blank days ignored)."""
+    t = d["Total_MWh"]
+    med = t.rolling(SPIKE_WIN, center=True, min_periods=3).median()
+    return list(d.index[t > SPIKE * med])
+
+
+def generation(path):
+    old = read_sheet(path, "Daily")
+    if not old.empty:   # drop implausible saved days (an earlier column mix-up) so they are fetched again;
+        # days blanked by the spike check (Total_MWh empty) are dropped too, so each run tries them again
+        old = old[old["Total_MWh"].between(*DAY_RANGE)]
+    days = todo(old, GEN_START)
+    out(f"Generation (dgr2): {len(old)} days saved, fetching {len(days)}")
+    d = merge(old, gen_frame(run(gen_day, days, "dgr2")))
+    # spike check on the merged history (saved days included): re-fetch each flagged day once, then blank it
+    flagged = spikes(d) if not d.empty else []
+    blanked = []
+    if flagged:
+        out(f"  {len(flagged)} day(s) over {SPIKE}x the {SPIKE_WIN}-day median, re-fetching: "
+            + ", ".join(f"{x:%Y-%m-%d}" for x in flagged))
+        d = merge(d, gen_frame(run(gen_day, [x.date() for x in flagged], "dgr2 re-fetch")))
+        again = set(spikes(d)) & set(flagged)
+        for x in sorted(again):
+            out(f"  {x:%Y-%m-%d}: still {d.at[x, 'Total_MWh'] / d['Total_MWh'].rolling(SPIKE_WIN, center=True, min_periods=3).median()[x]:.2f}x"
+                f" the median after re-fetch ({d.at[x, 'Total_MWh']:,.0f} MWh) - blanked")
+            d.loc[x, GEN_COLS] = float("nan")
+            blanked.append(x)
     d.index.name = "date"
     notes = ["UNITS",
              "MWh per day (CEA publishes MU = GWh; x1,000), all-India, by plant type from the TYPE subtotals of CEA's "
@@ -222,10 +251,15 @@ def generation(path):
              f"Daily from {d.index.min():%Y-%m-%d} to {d.index.max():%Y-%m-%d}. CONVENTIONAL generation only - wind, solar, "
              "biomass and small hydro are not in this report, and imports from Bhutan are excluded. India's full "
              "generation mix on the dashboard is Ember's (compiled from Grid-India) until a raw renewables feed is added.",
+             "", "VALIDATION",
+             f"A day whose total is more than {SPIKE}x the centred {SPIKE_WIN}-day median is re-fetched once and, if still "
+             "out of line, left blank (re-tried on each run). The report for 2 April has given April-to-date (two days) "
+             "under 'today's actual' (2021, 2023). Blank this run: "
+             + (", ".join(f"{x:%Y-%m-%d}" for x in blanked) or "none") + ".",
              "", "SOURCE",
              "CEA (Central Electricity Authority) via the National Power Portal, daily generation report sub-report 2: "
              "https://npp.gov.in/public-reports/cea/daily/dgr/DD-MM-YYYY/dgr2-YYYY-MM-DD.xls"]
-    xlsx_notes.write_workbook(path, {"Daily": d}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    xlsx_notes.write_workbook(path, {"Daily": d}, notes, {"UNITS", "COVERAGE", "VALIDATION", "SOURCE"})
     out(f"Saved {path}: {len(d)} days" + (f"\n{d.tail(3).to_string()}" if len(d) else ""))
 
 
