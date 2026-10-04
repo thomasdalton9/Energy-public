@@ -654,10 +654,8 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
             (" Pipeline imports include Norwegian gas at Emden (EPT1: OGE and GUD entries; the Dutch share, GTS, is in the Netherlands balance), which ENTSOG's country classification drops." if em_raw else "") +
             " Pipeline imports include the Nord Stream 1 gas entering at Greifswald (NEL and OPAL entries, Russian origin, to Sept 2022), which "
             "ENTSOG's country classification drops because it lists no far side for those points (Germany + Netherlands was about 100 TWh a quarter short before).")
-    if cc == "GR" and "GR_tap_imports" in fx:
-        return {"extra_imports": fx["GR_tap_imports"]}, None, (
-            " Pipeline imports include the TAP entry at Nea Mesimvria (Azerbaijani gas), which ENTSOG's country classification drops "
-            "because TAP's operator is listed with country GR.")
+    # Greece: no TAP point fix any more - the rebuilt border-flow pull books the Nea Mesimvria entry as AL>GR (11.1 TWh in 2025), so adding
+    # GR_tap_imports on top counted it twice (balance +16%); the pull's own AL>GR is in GR_imports.
     if cc == "HU" and "HU_production_exit" in fx:
         return {"prod_adjust": fx["HU_production_exit"]}, None, (
             " Production is ENTSOG's 'Aggregated Single Production' entry less the 'Exit for Blending': imported gas leaves the grid, is blended "
