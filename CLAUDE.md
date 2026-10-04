@@ -115,6 +115,9 @@ Standing instructions from the repo owner. Follow these on every change.
   Switzerland power is Swissgrid/BFE (`SWITZERLAND_SWISSGRID_DAILY.py`, replaces ENTSO-E whose Swiss hydro is incomplete): production by carrier is
   gross of pumped-storage output, so pumping consumption and physical imports/exports come from BFE's monthly electricity balance (ogd35,
   spread evenly over the days); the balance then closes within about 3%.
+  Netherlands power is CBS StatLine 84575NED (`NETHERLANDS_CBS_POWER.py`: monthly production by source incl. rooftop solar, spread over the days;
+  ENTSO-E's Dutch solar is under 1 TWh a year). Load is CBS consumption incl. losses (ENTSO-E's Dutch load is ~10% low in 2021-22, within 1% in
+  2024-25), so the Dutch balance closes by construction; cross-border flows stay ENTSO-E (they match CBS imports/exports).
 - Every master has a "Dashboard - Long-term" page (`fundamentals.py`, called from each master): an annual summary per
   country and the region (demand and its 10-year growth vs GDP growth, elasticity, demand and GDP per head, fuel shares,
   wind + solar change, net imports, capacity and fleet utilisation, gas balance and import dependence, IMF 5-year GDP
