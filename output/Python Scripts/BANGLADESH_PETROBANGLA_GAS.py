@@ -11,7 +11,7 @@ One PDF per gas day (08:00 to 08:00), listed newest first, 10 per page. Each rep
       (industry, captive power, CNG, households via the distribution companies), total
 
 Writes output/Data and Chart Outputs/bangladesh_gas.xlsx:
-  Daily   date (end of the gas day, as Petrobangla labels it), MMCFD: Prod_BGFCL, Prod_SGFL, Prod_BAPEX,
+  Daily   date (START of the gas day, 08:00; Petrobangla labels reports by its end, one day later), MMCFD: Prod_BGFCL, Prod_SGFL, Prod_BAPEX,
           Prod_state (1+2+3), Prod_IOC, Bibiyana, Jalalabad, Moulavibazar, Bangora, RLNG, Total_supply,
           Power_demand, Power_supply, Fertiliser_demand, Fertiliser_supply, Others_supply, Total_distribution
 
@@ -198,6 +198,9 @@ def fetch(item):
         when = report_date(text) or label
         if label and when != label:   # the listing label is the same end-of-gas-day date, bar the odd typo
             out(f"  label {label} vs PDF date {when} ({url[-40:]}): PDF date used")
+        # saved by the START of the gas day (08:00 to 08:00 the next day), the ENTSOG convention: most of the gas
+        # flows on that date, so it lines up with the power data (PGCB); Petrobangla's label is the end date
+        when = when - timedelta(days=1) if when else None
         row = parse(text)
         # sanity: the three supply blocks add up to the grand total
         parts = [row.get(k) for k in ("Prod_state", "Prod_IOC", "RLNG")]
@@ -233,8 +236,8 @@ def save(path, new_rows, rebuild=False):
     d.index.name = "date"
     notes = [
         "UNITS",
-        "MMCFD = million cubic feet per day over the gas day (08:00 to 08:00); the date is the end of the gas day, as "
-        "Petrobangla labels its report. 1 MMCFD = 0.0283 million m3 per day (the charts show mcm/d).",
+        "MMCFD = million cubic feet per day over the gas day (08:00 to 08:00); the date is the START of the gas day "
+        "(Petrobangla labels its report by the end date, one day later; the start date lines up with the power data). 1 MMCFD = 0.0283 million m3 per day (the charts show mcm/d).",
         "Supply: Prod_BGFCL / Prod_SGFL / Prod_BAPEX = state companies' production, Prod_state = their sum; Prod_IOC = "
         "international oil companies (Chevron: Bibiyana, Jalalabad, Moulavibazar; Tullow: Bangora - each also shown); "
         "RLNG = regasified LNG delivered by RPGCL from the FSRUs (imports); Total_supply = Petrobangla's grand total.",
@@ -280,7 +283,8 @@ def main():
         rows = listing_page(page)
         if not rows:
             break
-        todo += [(d, u) for d, u in rows if d is None or (d >= DATA_START and d in missing)]
+        # listing labels are end-of-gas-day dates; history is saved by the start date (one day earlier)
+        todo += [(d, u) for d, u in rows if d is None or (d >= DATA_START and d - timedelta(days=1) in missing)]
         dates = [d for d, _ in rows if d]
         if dates and max(dates) < earliest:   # the whole page is older than anything still missing
             break
