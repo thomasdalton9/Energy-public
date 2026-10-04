@@ -1754,10 +1754,23 @@ def gb_gas_nts(p):
     return out
 
 
+def eurostat_gas(p):
+    """Eurostat monthly inland gas consumption, TWh per month for the largest consumers, plus the sector split of the total."""
+    d = by_date(read(p, "Monthly"), "month")
+    ic = d[[c for c in d if c.endswith("_IC")]].dropna(how="all")
+    ic.columns = [c[:-3] for c in ic.columns]
+    out = []
+    big = ic.iloc[-12:].sum().sort_values(ascending=False).index[:8]
+    if len(big):
+        out.append(spec("Consumption", ic[big] / 1000.0, "Gas consumption, largest EU countries (Eurostat)", "TWh per month", "line"))
+    return out
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
+    "eurostat_gas_monthly.xlsx": eurostat_gas,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
