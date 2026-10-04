@@ -98,48 +98,98 @@ def _month(tok_m, tok_y):
 NUM = re.compile(r"^-?[\d,]*\.?\d+$")
 
 
-def parse_mbs(content):
-    """({month: {province/total: MMCFt}}, {month: {field: MMCFt}}) from table 3.2 of one MBS issue."""
-    totals, fields = {}, {}
+DASH = ("-", "–", "—")
+
+
+def _rows(page, tol=3):
+    """Words of a page grouped into text lines (by vertical position), each sorted left to right."""
+    lines = []
+    for w in sorted(page.extract_words(), key=lambda w: (round(w["top"]), w["x0"])):
+        if lines and abs(lines[-1][0] - w["top"]) <= tol:
+            lines[-1][1].append(w)
+        else:
+            lines.append([w["top"], [w]])
+    return [sorted(ws, key=lambda w: w["x0"]) for _, ws in lines]
+
+
+def parse_mbs(content, log=None):
+    """({month: {province/total: MMCFt}}, {month: {field: MMCFt}}) from table 3.2 of one MBS issue.
+    Every figure is placed by its x-position under the month / 'Year Total' column headings (so a '-' or a blank
+    cell never shifts the months); '-' is a missing value. A row is kept only if its months add up to its printed
+    year total (within 1% / 1 MMCFt)."""
+    totals, fields, rejected = {}, {}, []
     with pdfplumber.open(io.BytesIO(content)) as pdf:
         for p in pdf.pages[:60]:
             tx = p.extract_text() or ""
             if not re.search(r"3\.2\s+Production of Natural Gas", tx) or "MMCF" not in tx.upper():
                 continue
-            lines = tx.splitlines()
-            hdr = next((l for l in lines if re.search(r"Company\s+Field", l)), "")
-            months = [_month(m, y) for m, y in re.findall(r"([A-Z][a-z]{2,5})\.?,?\s*(20\d\d)", hdr)]
-            months = [m for m in months if m is not None]
-            if not months:
+            lines = _rows(p)
+            hdr = next((ws for ws in lines if any(w["text"] == "Company" for w in ws)
+                        and any(w["text"].startswith("Field") for w in ws)), None)
+            if not hdr:
                 continue
+            cols = []                       # (x centre, month Timestamp or 'total')
+            for i, w in enumerate(hdr):
+                m = re.match(r"^([A-Z][a-z]{2,5})\.?,?(20\d\d)?$", w["text"])
+                if m and m.group(1)[:3].lower() in MON:
+                    yr, x1 = m.group(2), w["x1"]
+                    if not yr and i + 1 < len(hdr) and re.match(r"^20\d\d$", hdr[i + 1]["text"]):
+                        yr, x1 = hdr[i + 1]["text"], hdr[i + 1]["x1"]
+                    if yr:
+                        cols.append(((w["x0"] + x1) / 2, _month(m.group(1), yr)))
+                elif w["text"].lower() == "total" and i and hdr[i - 1]["text"].lower() == "year":
+                    cols.append(((hdr[i - 1]["x0"] + w["x1"]) / 2, "total"))
+            if len(cols) < 2 or cols[-1][1] != "total":
+                continue
+            xs = [c for c, _ in cols]
+            half = min(b - a for a, b in zip(xs, xs[1:])) / 2
+            first_x = xs[0] - half
             company = None
-            for l in lines:
-                toks = l.split()
-                vals = []
-                for t in reversed(toks):
-                    if NUM.match(t):
-                        vals.append(float(t.replace(",", "")))
-                    else:
-                        break
-                vals = vals[::-1]
-                name = " ".join(toks[:len(toks) - len(vals)])
-                if len(vals) < 2 or not name:
+            for ws in lines:
+                if ws is hdr or ws[0]["top"] <= hdr[0]["top"]:
                     continue
-                mvals = vals[:-1][:len(months)]          # the last figure is the year-to-date total
-                low = name.lower()
+                label = " ".join(w["text"] for w in ws if (w["x0"] + w["x1"]) / 2 < first_x)
+                cells = {}
+                for w in ws:
+                    xc = (w["x0"] + w["x1"]) / 2
+                    if xc < first_x or not (NUM.match(w["text"]) or w["text"] in DASH):
+                        continue
+                    k = min(range(len(xs)), key=lambda j: abs(xs[j] - xc))
+                    if abs(xs[k] - xc) <= half:
+                        cells[cols[k][1]] = None if w["text"] in DASH else float(w["text"].replace(",", ""))
+                months = {d: v for d, v in cells.items() if d != "total"}
+                if not label or not months:
+                    continue
+                tot = cells.get("total")
+                ssum = sum(v for v in months.values() if v is not None)
+                if tot is not None and abs(ssum - tot) > max(1.0, 0.01 * abs(tot)):
+                    rejected.append(f"{label}: months {ssum:.1f} vs total {tot:.1f}")
+                    continue
+                low = label.lower()
                 if low in PROVINCES:
-                    for d, v in zip(months, mvals):
-                        totals.setdefault(d, {})[PROVINCES[low]] = v
+                    for d, v in months.items():
+                        if v is not None:
+                            totals.setdefault(d, {})[PROVINCES[low]] = v
                     continue
-                if "total" in low or low in ("punjab", "sindh", "kpk", "balochistan"):
+                if "total" in low or low in ("punjab", "sindh", "kpk", "k.p.k", "balochistan"):
                     continue
+                name = label
                 for c in COMPANIES:
                     if name.startswith(c + " "):
                         company, name = c.replace("Eni(Pak)", "Eni (Pak)"), name[len(c) + 1:]
                         break
                 key = f"{name} ({company})" if company else name
-                for d, v in zip(months, mvals):
-                    fields.setdefault(d, {})[key] = v
+                for d, v in months.items():
+                    if v is not None:
+                        fields.setdefault(d, {})[key] = v
+    # cross-check: provinces should add up to the Pakistan total
+    for d, v in totals.items():
+        prov = [v.get(k) for k in ("Punjab", "Sindh", "KPK", "Balochistan")]
+        if v.get("Pakistan_total") and None not in prov and abs(sum(prov) - v["Pakistan_total"]) > \
+                max(2.0, 0.01 * v["Pakistan_total"]):
+            rejected.append(f"{d:%Y-%m}: provinces {sum(prov):.0f} vs Pakistan total {v['Pakistan_total']:.0f}")
+    if log is not None:
+        log.extend(rejected)
     return totals, fields
 
 
@@ -162,16 +212,14 @@ def parse_import_xlsx(content):
             break
     if not hdr:
         return res
-    starts = [j for j, _ in hdr]
-    for n, (j, m) in enumerate(hdr):
-        end = min(starts[n + 1] if n + 1 < len(starts) else df.shape[1], j + 3)   # (quantity, Rs, US$)
-        nums = [pd.to_numeric(df.iat[i, c], errors="coerce") for c in range(j, end)]
-        nums = [x for x in nums if pd.notna(x)]
-        # each group is (quantity, Rs million, US$ thousand); LNG has no quantity, so the last two numbers
-        if len(nums) >= 2:
-            d = _month(m.group(1), m.group(2))
-            if d is not None and d not in res:
-                res[d] = (float(nums[-1]), float(nums[-2]))
+    for j, m in hdr:
+        if j + 2 >= df.shape[1]:
+            continue
+        # each period group is (quantity, Rs million, US$ thousand) in fixed column positions
+        rs, usd = (pd.to_numeric(df.iat[i, c], errors="coerce") for c in (j + 1, j + 2))
+        d = _month(m.group(1), m.group(2))
+        if d is not None and d not in res and (pd.notna(rs) or pd.notna(usd)):
+            res[d] = (float(usd) if pd.notna(usd) else None, float(rs) if pd.notna(rs) else None)
     return res
 
 
@@ -189,10 +237,15 @@ def parse_import_pdf(content):
     line = next((l for l in tx.splitlines() if re.search(r"NATURAL\s*GAS,?\s*LIQUI", l, re.I)), None)
     if not line or not seen:
         return res
-    nums = [float(t.replace(",", "")) for t in line.split() if NUM.match(t)]
+    # after the item name comes the unit ('-': LNG has no quantity), then Rs million / US$ thousand per period;
+    # a '-' among the figures is a missing value and keeps its position
+    rest = re.split(r"LIQU\w*", line, maxsplit=1, flags=re.I)[1].split()
+    if rest and rest[0] in DASH:
+        rest = rest[1:]
+    cells = [None if t in DASH else float(t.replace(",", "")) for t in rest if NUM.match(t) or t in DASH]
     for k, d in enumerate(seen[:3]):
-        if len(nums) >= 2 * k + 2:
-            res[d] = (nums[2 * k + 1], nums[2 * k])
+        if len(cells) >= 2 * k + 2 and (cells[2 * k] is not None or cells[2 * k + 1] is not None):
+            res[d] = (cells[2 * k + 1], cells[2 * k])
     return res
 
 
@@ -231,7 +284,10 @@ def main():
         if u in done:
             continue
         try:
-            t, f = parse_mbs(get(u).content)
+            rej = []
+            t, f = parse_mbs(get(u).content, rej)
+            for x in rej[:8]:
+                out(f"    check failed, row dropped: {x}")
         except Exception as e:  # noqa: BLE001
             out(f"  {u.rsplit('/', 1)[-1]}: {type(e).__name__}: {e}")
             continue
@@ -254,7 +310,7 @@ def main():
         except Exception as e:  # noqa: BLE001
             out(f"  {u.rsplit('/', 1)[-1]}: {type(e).__name__}: {e}")
             continue
-        out(f"  {u.rsplit('/', 1)[-1]}: " + ", ".join(f"{d:%Y-%m}=${v[0] / 1000:.0f}m" for d, v in sorted(res.items())))
+        out(f"  {u.rsplit('/', 1)[-1]}: " + ", ".join(f"{d:%Y-%m}=${(v[0] or 0) / 1000:.0f}m" for d, v in sorted(res.items())))
         read.append({"url": u, "kind": "Imports", "months": len(res)})
         if res:
             pi.append((max(res), res))
