@@ -4,6 +4,7 @@ to compare against ENTSO-E actual total load. Prints only.
 """
 import json
 import re
+import signal
 import sys
 
 import requests
@@ -12,14 +13,24 @@ UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
       "Accept": "application/json, text/html, */*"}
 
 
+def _timeout(*_):
+    raise TimeoutError("hard timeout")
+
+
+signal.signal(signal.SIGALRM, _timeout)
+
+
 def get(url, n=300, **kw):
     try:
-        r = requests.get(url, headers=UA, timeout=40, **kw)
+        signal.alarm(45)   # hard cap: requests' timeout is per socket read, a trickling host can hang forever
+        r = requests.get(url, headers=UA, timeout=(10, 25), **kw)
+        signal.alarm(0)
         print(f"GET {url[:150]} -> {r.status_code} {r.headers.get('content-type', '')[:40]} {len(r.content)}b", flush=True)
         if n:
             print("   ", r.text[:n].replace("\n", " "), flush=True)
         return r
-    except Exception as e:  # noqa: BLE001
+    except BaseException as e:  # noqa: BLE001
+        signal.alarm(0)
         print(f"GET {url[:150]} -> ERR {str(e)[:100]}", flush=True)
 
 
