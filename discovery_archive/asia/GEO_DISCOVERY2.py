@@ -1,5 +1,5 @@
 """
-Geo-blocking test, round 1 (owner's option 3): which regions can reach the grid-operator sites that time out or reset from
+Geo-blocking test, round 2 (after round 1: EVN reservoir feed answers only from Vietnam; the rest were rate-limited) (owner's option 3): which regions can reach the grid-operator sites that time out or reset from
 GitHub's US runners? Uses check-host.net's free API (HTTP checks from many countries, no account):
   GET https://check-host.net/check-http?host=<url>&max_nodes=60   (Accept: application/json) -> request_id, nodes
   GET https://check-host.net/check-result/<request_id>             -> per node: [[ok, seconds, message, code, ip]]
@@ -11,14 +11,12 @@ import time
 import requests
 
 TARGETS = [
-    "https://hochuathuydien.evn.com.vn/PageHoChuaThuyDienEmbedEVN.aspx",
     "https://www.nsmo.vn/HeThongDien",
     "https://grid-india.in/en/",
     "https://meritindia.in/",
     "https://web.pln.co.id/",
     "https://www.bps.go.id/",
     "https://cebcare.ceb.lk/GenSum/GetEnergySummary",
-    "https://www.evn.com.vn/",
 ]
 H = {"Accept": "application/json", "User-Agent": "Mozilla/5.0"}
 
@@ -58,11 +56,15 @@ def check(url):
 
 
 def main():
-    for u in TARGETS:
-        try:
-            check(u)
-        except Exception as e:  # noqa: BLE001
-            out(f"!! {u}: {type(e).__name__}: {e}")
+    for u in TARGETS:   # check-host.net rate-limits bursts: one target a minute, with a retry
+        for attempt in range(3):
+            try:
+                check(u)
+                break
+            except Exception as e:  # noqa: BLE001
+                out(f"!! {u} (attempt {attempt + 1}): {type(e).__name__}: {e}")
+                time.sleep(60)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
