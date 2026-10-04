@@ -131,8 +131,9 @@ Standing instructions from the repo owner. Follow these on every change.
   Power balance audit (supply/load by country-year; `country_balance()` in EUROPE_MASTER.py, causes in its KNOWN_GAPS dict): ENTSO-E reports the
   same Ukraine tie-lines under three zones (UA, UA-IPS, UA-BEI), so `ENTSOE_FLOWS_DAILY.py` merges them (largest value, never sum) when building
   Net imports (`--net-only` recomputes from the saved Borders sheet; this fixed Slovakia 0.90 -> 1.00 and Hungary/Romania/Poland). Remaining gaps are
-  documented, not patched: Germany/Italy/Poland (embedded and industrial self-generation not in ENTSO-E), Great Britain (+2-3%, Elexon gross of station
-  load vs NESO demand net), Bulgaria (small solar), Balkans (BA-ME physical flow does not close either side), Denmark (see KNOWN_GAPS).
+  documented, not patched: Italy (ENTSO-E generation and load both omit embedded/self-consumed power; no consistent raw pair), Poland (94-95% before 2024, 98-100% since), Romania (96% in 2025), Great Britain (+2-3%, Elexon gross of station
+  load vs NESO demand net), Bulgaria (Eurostat generation equals ENTSO-E's, so the 2025 gap is load or export flows), Balkans (BA-ME physical flow does not close either side), Denmark (see KNOWN_GAPS).
+  Germany power is Eurostat nrg_cb_pem monthly net generation by fuel (Destatis, all producers incl. industrial self-generation and rooftop PV; `EUROSTAT_POWER_MONTHLY.py` -> `germany_eurostat_power_daily.xlsx`, each month spread over its days, ENTSO-E daily values after Eurostat's latest month about 2.5 months back, pumped storage/load/flows stay ENTSO-E): supply is 98-99.6% of load in 2022-25, was 95-98%.
 - Every master has a "Dashboard - Long-term" page (`fundamentals.py`, called from each master): an annual summary per
   country and the region (demand and its 10-year growth vs GDP growth, elasticity, demand and GDP per head, fuel shares,
   wind + solar change, net imports, capacity and fleet utilisation, gas balance and import dependence, IMF 5-year GDP
