@@ -1,13 +1,13 @@
-name: Philippines discovery (branch only, temporary)
+name: Grid operator data discovery (branch only, temporary)
 
-# One-off source probes. Runs discovery_archive/asia/PH_DISCOVERY*.py on push to the dev branch;
+# One-off source probes. Runs discovery_archive/asia/SCADA_DISCOVERY*.py on push to the dev branch;
 # moved to discovery_archive/workflows/ once done.
 on:
   push:
     branches: [claude/compassionate-darwin-2khdxe]
     paths:
-      - "discovery_archive/asia/PH_DISCOVERY*.py"
-      - ".github/workflows/ph_discovery.yml"
+      - "discovery_archive/asia/SCADA_DISCOVERY*.py"
+      - ".github/workflows/scada_discovery.yml"
   workflow_dispatch: {}
 
 jobs:
@@ -25,5 +25,5 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          f=$(ls discovery_archive/asia/PH_DISCOVERY*.py | sort -V | tail -1)
+          f=$(ls discovery_archive/asia/SCADA_DISCOVERY*.py | sort -V | tail -1)
           echo "######## $f"; timeout 1500 python3 "$f" || echo "!! exit $?"
