@@ -1783,6 +1783,18 @@ def gb_gas_nts(p):
     return out
 
 
+def norway_gassco(p):
+    """Norwegian gas exports by destination (Gassco), monthly TWh stacked."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d[[c for c in ("NO_to_GB", "NO_to_DE", "NO_to_FR", "NO_to_BE", "NO_other") if c in d]].resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m.dropna(how="all").rename(columns={"NO_to_GB": "Great Britain", "NO_to_DE": "Germany", "NO_to_FR": "France",
+                                            "NO_to_BE": "Belgium", "NO_other": "Other (NL, DK, ...)"})
+    return [spec("Exports", m, "Norwegian gas exports by destination (Gassco)", "TWh per month", "stacked_bar")] if len(m) else []
+
+
 def eurostat_gas(p):
     """Eurostat monthly inland gas consumption, TWh per month for the largest consumers, plus the sector split of the total."""
     d = by_date(read(p, "Monthly"), "month")
@@ -1798,6 +1810,7 @@ def eurostat_gas(p):
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
+    "norway_gassco_gas_flows_daily.xlsx": norway_gassco,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
     "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,

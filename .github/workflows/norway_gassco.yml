@@ -1,0 +1,64 @@
+name: Norway gas exports by destination (Gassco)
+
+# Daily Norwegian gas exports by destination (Great Britain, Germany, France, Belgium, other) from Gassco's public gassco.eu feed -
+# europe/NORWAY_GASSCO_DAILY.py. The feed keeps history back to Oct 2020 (realTimeGraphData?year&month&day), so it runs on the 1st
+# and 15th and backfills every missed day; the committed workbook is the history store. Manual runs: the first run backfills from
+# Oct 2020 (about 2,000 requests, an hour or so; progress is saved every 120 days).
+on:
+  schedule:
+    - cron: "40 3 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "First day to backfill, YYYY-MM-DD"
+        required: false
+        default: "2020-10-01"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: norway-gassco
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Pull Gassco flows
+        env:
+          PYTHONUNBUFFERED: "1"
+          START: ${{ inputs.start }}
+        run: python3 europe/NORWAY_GASSCO_DAILY.py --out-dir "output/Data and Chart Outputs" --start "${START:-2020-10-01}"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/norway_gassco_gas_flows_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/norway_gassco_gas_flows_daily.xlsx" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp europe/NORWAY_GASSCO_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        # always: a backfill cut off by the timeout keeps the days it saved
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/norway_gassco_gas_flows_daily.xlsx" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Norway gas exports (Gassco): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
