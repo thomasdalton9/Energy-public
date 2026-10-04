@@ -122,6 +122,8 @@ Standing instructions from the repo owner. Follow these on every change.
   injected into distribution (ODRE equals ENTSOG's distribution + industrial exits, which exclude embedded biomethane). Remaining FR error (~+3%) is network own use/losses
   and ENTSOG missing ~15 TWh of French exports against Eurostat; Hungary 2022 stays -11% (ENTSOG's production entry starts 2023); Greece 2021-22 +5-9%. The EU27 total does not yet
   include these four corrections.
+  Austria's balance is AGGM's own market-area series (`GAS_TSO_CEE_DAILY.py`: domestic production, net border entry/exit, storage withdrawal/injection against the end-customer consumption it determines from metering) in `austria_gas_balance()`: ENTSOG left it 12-22% short in 2022-24 (no Austrian production, 5 TWh a year; no Austrian-side Baumgarten row; AGSI's Austrian storage flows incl. Haidach, fed from the German grid, differ from AGGM's by 5-13 TWh a year) and AGGM's identity closes within 0.4% in 2023-26.
+  Czechia's imports and exports are floored at NET4GAS's own allocated border entries/exits (`import_floor` / `export_floor`): ENTSOG's VIP Brandov was 14 TWh in 2023 and its physical points sum to 63 TWh against NET4GAS's 79 TWh (balance -23% -> -1.6%); consumption there is NET4GAS's own system balance, so that balance closes largely by construction.
   Switzerland power is Swissgrid/BFE (`SWITZERLAND_SWISSGRID_DAILY.py`, replaces ENTSO-E whose Swiss hydro is incomplete): production by carrier is
   gross of pumped-storage output, so pumping consumption and physical imports/exports come from BFE's monthly electricity balance (ogd35,
   spread evenly over the days); the balance then closes within about 3%.
