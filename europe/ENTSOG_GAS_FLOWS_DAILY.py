@@ -146,10 +146,12 @@ def border_flows(rows):
     by_pt = {}
     for day, c, d, oc, pk, op, g in rows:
         by_pt.setdefault((day, c, d, oc, pk), []).append(g)
-    side = {}
+    side, pks, seen = {}, {}, set()
     for (day, c, d, oc, pk), vals in by_pt.items():
         k = (day, c, d, oc, pk in VIP_KEYS)
         side[k] = side.get(k, 0.0) + _dedupe_operators(vals)
+        pks.setdefault((day, c, d, oc), set()).add(pk)
+        seen.add((day, c, d, pk))
     own = {}
     for (day, c, d, oc, vip), v in side.items():
         k = (day, c, d, oc)
@@ -158,15 +160,16 @@ def border_flows(rows):
     for (day, c, d, oc), v in own.items():
         a, b = (c, oc) if d == "exit" else (oc, c)
         flows.setdefault((day, a, b), {})["exit" if d == "exit" else "entry"] = v
-    # (exports credited to the sender, imports credited to the receiver, border flow): each country keeps its own side. The other side is
-    # used only where its own side publishes no point for that border and day (Baumgarten has no Austrian-side row), not where it
-    # publishes a zero: Greece's Kulata exit shows ~30 GWh/d in winter where Bulgaria's entry reports 0, and counting it put Bulgaria's balance
-    # 55 points out; the larger-of-both-sides rule did the same.
+    # (exports credited to the sender, imports credited to the receiver, border flow). Each country keeps its own side. The other side
+    # is used only where the own country publishes no row at all for those points that day (Baumgarten has no Austrian-side row), not
+    # where it publishes a zero (Greece's Kulata exit shows ~30 GWh/d in winter where Bulgaria's entry reports 0) and not where it
+    # books the same point against a different neighbour (Komotini IGB is Bulgaria's entry "from AL" but Greece's exit "to BG"; filling
+    # it counted the gas twice and put Bulgaria 55 points out).
     out = {}
-    for k, v in flows.items():
-        ex = v["exit"] if "exit" in v else v["entry"]
-        im = v["entry"] if "entry" in v else v["exit"]
-        out[k] = (ex, im, max(v.values()))
+    for (day, a, b), v in flows.items():
+        ex = v["exit"] if "exit" in v else (v["entry"] if not any((day, a, "exit", pk) in seen for pk in pks[(day, b, "entry", a)]) else 0.0)
+        im = v["entry"] if "entry" in v else (v["exit"] if not any((day, b, "entry", pk) in seen for pk in pks[(day, a, "exit", b)]) else 0.0)
+        out[(day, a, b)] = (ex, im, max(v.values()))
     return out
 
 
