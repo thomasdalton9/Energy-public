@@ -1749,6 +1749,24 @@ def eu_lng(p):
     return out
 
 
+def europe_biomethane(p):
+    """Biomethane injected into the grids (operator data): monthly TWh, one line per country (France ODRE and Denmark Energinet
+    summed from daily, Netherlands CBS monthly)."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    if pd.notna(last) and last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    try:
+        nl = by_date(read(p, "Monthly"), "month") / 1000.0
+        m = m.join(nl, how="outer")
+    except Exception:  # noqa: BLE001
+        pass
+    names = {"FR_biomethane": "France (ODRE)", "DK_biomethane": "Denmark (Energinet)", "NL_biomethane": "Netherlands (CBS, green gas)"}
+    m = m[[c for c in names if c in m]].dropna(how="all").rename(columns=names)
+    return [spec("Total", m, "Biomethane injected into the gas grids (operator / statistical data)", "TWh per month", "line")] if not m.empty else []
+
+
 def tso_gas_demand_cee(p):
     """Austria (AGGM), Czechia (NET4GAS balance) and Lithuania (Amber Grid) gas consumption: monthly TWh, one line per country."""
     d = by_date(read(p, "Daily"), "date")
@@ -1878,6 +1896,7 @@ REGISTRY = {
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "norway_gassco_gas_flows_daily.xlsx": norway_gassco,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
+    "europe_biomethane_operators.xlsx": europe_biomethane,
     "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,

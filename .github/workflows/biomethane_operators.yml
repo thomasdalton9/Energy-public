@@ -1,0 +1,72 @@
+name: Europe biomethane injection (FR, DK, NL)
+
+# Biomethane injected into the gas grids from operator / statistical sources - europe/BIOMETHANE_DAILY.py.
+# France ODRE and Denmark Energinet keep history, CBS (Netherlands) is monthly, so it runs on the 1st and 15th;
+# the committed workbook is the history store.
+on:
+  schedule:
+    - cron: "50 3 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: biomethane-operators
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Pull France (ODRE)
+        timeout-minutes: 15
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/BIOMETHANE_DAILY.py --out-dir "output/Data and Chart Outputs" --only FR
+
+      - name: Pull Denmark (Energinet)
+        timeout-minutes: 10
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/BIOMETHANE_DAILY.py --out-dir "output/Data and Chart Outputs" --only DK
+
+      - name: Pull Netherlands (CBS)
+        timeout-minutes: 10
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/BIOMETHANE_DAILY.py --out-dir "output/Data and Chart Outputs" --only NL
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          python3 add_charts.py "output/Data and Chart Outputs/europe_biomethane_operators.xlsx" || echo "chart step failed"
+          mkdir -p "output/Python Scripts"
+          cp europe/BIOMETHANE_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/europe_biomethane_operators.xlsx" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe biomethane injection (FR, DK, NL): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
