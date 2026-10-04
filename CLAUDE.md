@@ -58,7 +58,8 @@ Standing instructions from the repo owner. Follow these on every change.
   NSMO data (VIETNAM_EVN.py, from May 2023); Philippines = IEMOP 5-minute dispatch per plant mapped to fuels with DOE's
   plant list (asia/philippines_resource_fuels.csv; IEMOP keeps ~90 days, history grows from Jul 2026); Pakistan =
   CPPA-G / NEPRA monthly FCA filings (national grid) plus K-Electric only for months with a real KE figure
-  (KE_included; others count as gaps); Nepal = NEA LDC daily reports (Apr 2023 - Jan 2025) + the daily home-page panel;
+  (KE_included; others count as gaps); Nepal = NEA LDC daily reports (Apr 2023 - Jan 2025; monthly reports back to Jul 2022) + the daily home-page panel
+  (NEA posted nothing Feb 2025 - Sep 2026, so that span is an Ember-filled gap);
   Cambodia = EAC annual reports (annual rows); Indonesia, Myanmar, Laos, Brunei, Timor-Leste = Ember annual (no public
   official sub-annual data found; Indonesia: ESDM EBTKE monthly renewable capacity only).
   Charts and the regional total use only months a feed covers (>= 80% of days; add_charts.complete_months).
