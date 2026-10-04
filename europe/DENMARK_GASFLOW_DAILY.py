@@ -4,8 +4,8 @@ Denmark's daily commercial gas balance from Energinet's Gasflow dataset (Energi 
   output/Data and Chart Outputs/denmark_energinet_gasflow_daily.xlsx
     sheet "Daily": date (gas day), GWh per day. Sign as published: positive = gas entering the Danish system,
     negative = gas leaving it.
-        DK_from_north_sea     KWhFromNorthSea  gas entering from the North Sea (Danish fields, and Norwegian gas arriving via the
-                                               Danish offshore pipelines that feeds Baltic Pipe)
+        DK_from_north_sea     KWhFromNorthSea  gas entering from the North Sea: zero until Baltic Pipe started (Oct 2022), then mainly
+                                               Norwegian gas arriving for Baltic Pipe (Danish field gas is in DK_from_tyra)
         DK_from_tyra          kWhFromTyra      Tyra hub entry
         DK_biogas             KWhFromBiogas    biomethane injected into the Danish grids
         DK_to_denmark         KWhToDenmark     gas delivered to Danish consumers from the transmission system (negative)
@@ -104,8 +104,8 @@ def main():
              "Source", "Energinet, Energi Data Service dataset Gasflow (https://www.energidataservice.dk/tso-gas/Gasflow). Free, no key.",
              "", "Units and definitions",
              "GWh per gas day (the source is kWh). Positive = gas entering the Danish system, negative = leaving. DK_from_north_sea = North Sea "
-             "entry (Danish fields plus Norwegian gas arriving through the offshore pipelines that supplies Baltic Pipe); DK_from_tyra = Tyra "
-             "hub entry; DK_biogas = biomethane injected; DK_to_denmark = delivered to Danish consumers (negative); DK_storage = withdrawal (+) "
+             "entry (zero until Baltic Pipe started in Oct 2022, then mainly Norwegian gas for Baltic Pipe); DK_from_tyra = Tyra "
+             "hub entry (Danish fields, small until 2024); DK_biogas = biomethane injected; DK_to_denmark = delivered to Danish consumers (negative); DK_storage = withdrawal (+) "
              "or injection (-) at Gas Storage Denmark; DK_germany = imports (+) / exports (-) at the German border; DK_to_sweden and "
              "DK_to_poland = exports. The columns net to about zero each day (linepack and allocation differences remain).",
              f"Re-fetches the last {REVISION_DAYS} days each run; history from {args.start}.",

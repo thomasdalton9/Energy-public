@@ -212,7 +212,7 @@ def main():
             "GIE ALSI (LNG) and AGSI+ (storage)")),
         ("Denmark gas balance data", lambda: gas_balance(
             xl, out("denmark_gas_balance.png"), "Denmark gas balance data", "Denmark gas balance: Energinet entries, Baltic Pipe and deliveries",
-            "Energinet Gasflow (North Sea and Tyra entries incl. Norwegian gas for Baltic Pipe, biomethane, storage, Germany, Sweden, Poland); "
+            "Energinet Gasflow (North Sea entry = mainly Norwegian gas for Baltic Pipe from Oct 2022; Tyra = Danish fields; biomethane, storage, Germany, Sweden, Poland); "
             "consumption = gas delivered to Danish consumers (includes biomethane)")),
         ("Norway gas exports data", lambda: fuel_chart(
             xl, "Norway gas exports data", "Norway gas exports by destination", "TWh per month",
