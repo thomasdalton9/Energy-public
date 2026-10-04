@@ -1,0 +1,26 @@
+name: ENTSOG borders probe (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      pairs:
+        description: 'country pairs, e.g. AT-SK,AT-HU (empty = default list)'
+        default: ''
+      years:
+        description: 'years, e.g. 2022,2023'
+        default: '2022,2023,2024,2025'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: python3 -u discovery_archive/europe/ENTSOG_CEE_MATRIX_PROBE.py
+        env:
+          PAIRS: ${{ github.event.inputs.pairs }}
+          YEARS: ${{ github.event.inputs.years }}
