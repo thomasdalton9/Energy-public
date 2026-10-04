@@ -75,6 +75,7 @@ RAW_POWER_DATASETS = (
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
        ("CH", "Switzerland (Swissgrid)", "switzerland_swissgrid_power_daily.xlsx", "Daily", "power"),
        ("NL", "Netherlands (CBS)", "netherlands_cbs_power_daily.xlsx", "Daily", "power"),
+       ("DK", "Denmark (Energinet load)", "denmark_energinet_load_daily.xlsx", "Daily", "consumption"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
        ("IE", "Ireland (EirGrid)", "ireland_eirgrid_system_data.xlsx", "Daily", "EirGrid"),
@@ -89,8 +90,12 @@ FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
 GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx", "Netherlands": "netherlands_cbs_power_daily.xlsx"}
 CH_BALANCE_SRC = ("Swissgrid via the Swiss Federal Office of Energy (production by carrier, national consumption); physical imports/exports and pumping consumption from the BFE monthly electricity balance",
                   "https://www.energiedashboard.ch")
-NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load and cross-border flows from ENTSO-E",
+NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load = CBS consumption incl. losses; cross-border flows from ENTSO-E (they match CBS imports/exports)",
                   "https://opendata.cbs.nl/ODataApi/odata/84575NED")
+# Raw national load that replaces ENTSO-E's 'actual total load' (generation by fuel and flows stay ENTSO-E)
+LOAD_OVERRIDE = {"Denmark": "denmark_energinet_load_daily.xlsx"}
+DK_BALANCE_SRC = ("ENTSO-E generation and flows; load = Energinet settlement gross consumption (incl. grid losses and power-to-heat), which ENTSO-E's Danish load omits",
+                  "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
 GB_FILE = "great_britain_power_generation_daily.xlsx"
 GB_BALANCE_SRC = ("Elexon BMRS (metered generation, interconnectors) and NESO (national demand, embedded wind and solar)",
                   "https://bmrs.elexon.co.uk/")
@@ -121,6 +126,8 @@ SOURCES = {
                                             "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "gb_gas_nts_daily.xlsx": ("National Gas Transmission Data Portal (NTS demand by sector and supply by entry point)",
                               "https://data.nationalgas.com/find-gas-data"),
+    "gb_storage_sites_daily.xlsx": ("National Gas Transmission Data Portal (storage stock, inflow and outflow by site)",
+                                    "https://data.nationalgas.com/find-gas-data"),
     "europe_tso_gas_demand_daily.xlsx": ("Gas TSOs' own series: Trading Hub Europe (DE), ODRE / GRTgaz-Teréga-RTE (FR), Enagás (ES), "
                                          "Energinet (DK), REN DataHub (PT)", "https://www.tradinghub.eu/"),
     "europe_tso_gas_demand_cee_daily.xlsx": ("Gas TSOs' own series: AGGM (AT), NET4GAS CAMS system balance (CZ), Amber Grid (LT)",
@@ -162,6 +169,9 @@ for _code, (_name, _slug, _zones) in COUNTRIES.items():
     SOURCES[f"{_slug}_power_generation_daily.xlsx"] = ENTSOE
     SOURCES[f"{_slug}_power_capacity.xlsx"] = ("ENTSO-E Transparency Platform: installed capacity per production type",
                                                "https://transparency.entsoe.eu/")
+
+SOURCES["denmark_energinet_load_daily.xlsx"] = ("Energinet, Energi Data Service: ProductionConsumptionSettlement (gross consumption, production, exchanges)",
+                                                "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
 
 
 MIN_COVERAGE = 0.5          # a month whose generation/load ratio is under this share of the country's typical ratio is not usable
@@ -375,9 +385,26 @@ BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Ne
 KNOWN_GAPS = {
     "Switzerland": "Generation is Swissgrid's own production by carrier (storage hydro is gross of pumped-storage output); pumping consumption, "
                    "imports and exports are BFE's monthly electricity balance spread over the days. ENTSO-E's Swiss hydro was incomplete (supply/load ~70%) and is no longer used.",
-    "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days; load and flows are ENTSO-E.",
+    "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days. Load is CBS consumption incl. distribution losses (ENTSO-E load is 10% lower in 2021-22, equal within 1% in 2024-25), so supply vs load closes by construction; flows are ENTSO-E and match CBS.",
     "Germany": "Industrial self-generation and small embedded plants are not in the feed; supply is typically 4-5% below load.",
     "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
+    "Great Britain": "Supply runs 2-3% above load: Elexon FUELHH metered output is gross of power-station own use, while NESO national demand (the load used) is net of it; "
+                     "no raw station-load series is published, so the surplus is left visible.",
+    "Bulgaria": "Supply is 3-7% below load in 2024-25: ENTSO-E generation misses part of the rapidly growing small solar fleet (not TSO-metered) and the load figure includes it; "
+                "the ESO (TSO) site does not answer from GitHub, so there is no raw replacement yet.",
+    "Montenegro": "The ENTSO-E physical flow on the Bosnia-Montenegro border (about 3 TWh a year) does not close either side's balance: Montenegro is oversupplied "
+                  "(2025 +36%) and Bosnia undersupplied (-13%) by roughly the same volume. Montenegro's TSO (CGES) has no machine-readable feed reachable from GitHub (discovery_archive/europe/CGES_PROBE.py), "
+                  "and 2025 generation is low because the Pljevlja coal plant was out Apr-Nov. Treat the Balkan (BA, ME, MK, XK, RS) balances as indicative.",
+    "Bosnia and Herzegovina": "See Montenegro: the Bosnia-Montenegro physical flow looks overstated; supply is 13% below load in 2025 (ratio was 97-102% before).",
+    "North Macedonia": "Small system with unreliable ENTSO-E load/flow reporting (supply 89-91% of load in 2023-24, 100% in 2025).",
+    "Kosovo": "KOSTT generation is metered at the plant and load includes distribution losses and theft; supply is about 5% below load.",
+    "Slovenia": "Supply is about 4% above load every year: ENTSO-E Slovenian load excludes some demand that generation and flows cover (grid losses/closed distribution systems).",
+    "Serbia": "Supply is about 4% above load every year, consistent with a load definition that is net of transmission losses.",
+    "Lithuania": "Supply is 3-4% above load since 2023, after the Baltic synchronisation changed the metered border flows.",
+    "Denmark": "Load is Energinet's settlement gross consumption (incl. grid losses and 2.7 TWh of power-to-heat in 2025). ENTSO-E's Danish load is 4-7% lower, which made supply look 4-7% too high; "
+               "ENTSO-E net imports match Energinet's exchanges (7.4 TWh in 2025). Remaining gap: ENTSO-E generation is about 1 TWh above Energinet's production.",
+    "Poland": "Before 2024 supply is 5-6% below load: small embedded and industrial generation is not in the ENTSO-E feed.",
+    "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
     "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
     "Ireland": "Republic of Ireland only (Northern Ireland is in the UK). Net imports are EirGrid demand less generation, so supply equals load by construction; "
@@ -396,7 +423,7 @@ def coverage_notes(name, b):
     return out
 
 
-def country_balance(gen_path, net_imports):
+def country_balance(gen_path, net_imports, load_override=None):
     """Monthly GWh supply/demand balance for one country: generation by fuel group, net imports, pumped storage and
     batteries (discharge minus pumping/charging) and load - over the days that have load and flows."""
     d = add_charts.by_date(add_charts.read(gen_path, "Daily"), "date").apply(pd.to_numeric, errors="coerce")
@@ -411,6 +438,8 @@ def country_balance(gen_path, net_imports):
         "Pumped & battery (net)": (col("PumpedStorage_MWh").fillna(0) + col("Storage_MWh").fillna(0)
                                    - col("PumpedStorageConsumption_MWh").fillna(0) - col("StorageCharging_MWh").fillna(0)),
         "Load": col("Load_MWh")}) / 1000.0
+    if load_override is not None:   # raw national load (GWh/day) replaces the ENTSO-E load
+        day["Load"] = load_override.reindex(day.index)
     day["Net imports"] = net_imports
     day = day.dropna(subset=["Load", "Net imports", "Gas"]).fillna(0)
     day = day[day.index >= START]
@@ -451,7 +480,8 @@ def _monthly_twh(day, line_floor=12):
     return m.dropna(how="any") if len(m) >= line_floor else pd.DataFrame()
 
 
-def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None):
+def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None,
+                      extra_exports=None, prod_adjust=None):
     """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
     withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
     final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
@@ -479,6 +509,11 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
         day.loc[ok, "Pipeline imports"] = nrw
     if extra_imports is not None:       # Norwegian gas ENTSOG does not report (Emden): added to pipeline imports
         day["Pipeline imports"] = day["Pipeline imports"] + extra_imports.reindex(bal.index).fillna(0)
+    if extra_exports is not None:       # flows the ENTSOG classification drops (e.g. GB -> Ireland at Moffat): added to pipeline exports
+        day["Pipeline exports"] = day["Pipeline exports"] - extra_exports.reindex(bal.index).fillna(0)
+    if prod_adjust is not None:         # gas that leaves the grid and re-enters as 'production' (Hungary's blending): taken off production
+        adj = prod_adjust.reindex(bal.index).fillna(0).where(day["Production"] > 0, 0.0)    # only on days the production entry is reported
+        day["Production"] = (day["Production"] - adj).clip(lower=0)
     cols = GAS_BAL_COLS
     if biomethane is not None and biomethane.notna().any():
         day["Biomethane"] = biomethane.reindex(bal.index).fillna(0)
@@ -486,6 +521,70 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
     day = day.dropna(subset=["Pipeline imports", "Consumption"])
     day = day[day.index >= "2021-10-01"]
     return _monthly_twh(day[cols]) if len(day) else pd.DataFrame()
+
+
+POINT_FIXES_FILE = "entsog_point_fixes_daily.xlsx"
+
+
+def gb_site_storage(data_dir, nts_sto):
+    """GB storage flows, GWh/d, from the National Gas Data Portal's site-level data (GB_STORAGE_SITES_DAILY.py): the nine sites'
+    summed outflow and inflow. The NTS aggregate (`nts_sto`) overstates net withdrawals by about 5 TWh a year (it implies a net
+    withdrawal in 2022-23 when the portal's stock rose 11 TWh), so it is only the last resort. Days before the site items start
+    (Oct 2024) use the day-to-day change in the portal's total stock level (net: a fall is a withdrawal, a rise an injection)."""
+    st = _sheet_or_empty(os.path.join(data_dir, "gb_storage_sites_daily.xlsx"), "Daily", "date")
+    if not len(st) or "portal_total_stock" not in st:
+        return nts_sto
+    idx = nts_sto.index.union(st.index)
+    wd, inj = st["total_outflow"].reindex(idx), st["total_inflow"].reindex(idx)
+    d = -st["portal_total_stock"].reindex(idx).diff()   # stock labelled d is the end-of-day stock, so d - (d-1) is day d's net
+    wd = wd.where(wd.notna(), d.clip(lower=0))
+    inj = inj.where(inj.notna(), (-d).clip(lower=0))
+    out = pd.DataFrame({"GB_withdrawal_GWhd": wd, "GB_injection_GWhd": inj})
+    for c, n in (("GB_withdrawal_GWhd", "GB_withdrawal_GWhd"), ("GB_injection_GWhd", "GB_injection_GWhd")):
+        out[c] = out[c].where(out[c].notna(), nts_sto[n].reindex(idx))
+    return out
+
+
+def point_fix_args(data_dir, cc, tso, bio, gni):
+    """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
+    (keyword arguments for gas_country_balance, consumption override or None, note text or None).
+    GR: TAP's Nea Mesimvria entry (Azerbaijani gas) is added to pipeline imports. HU: the 'Exit for Blending' is taken off production
+    (imported gas blended with high-CO2 domestic gas re-enters at the production entry). UK: the Moffat exit is added to exports - the
+    Republic of Ireland's share is GNI's own Moffat import figure, the rest (Northern Ireland, Isle of Man) is UK consumption that the
+    National Gas NTS offtake series lacks. FR: ODRE consumption is the GRTgaz/Teréga offtake (it equals ENTSOG's distribution plus
+    industrial exits), which excludes biomethane injected straight into the distribution networks, so that biomethane is added to
+    consumption (it is also a supply line)."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    if cc == "FR" and tso is not None and "FR" in tso and len(bio) and "FR" in bio:
+        return {}, tso["FR"].add(bio["FR"].reindex(tso.index).fillna(0)), (
+            " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
+            "ENTSOG's distribution + industrial exits and so excludes it). The balance still runs about 3% long: ENTSOG misses about 15 TWh of "
+            "French exports against Eurostat, and network own use and losses are not in the offtake.")
+    if not len(fx):
+        return {}, None, None
+    if cc == "GR" and "GR_tap_imports" in fx:
+        return {"extra_imports": fx["GR_tap_imports"]}, None, (
+            " Pipeline imports include the TAP entry at Nea Mesimvria (Azerbaijani gas), which ENTSOG's country classification drops "
+            "because TAP's operator is listed with country GR.")
+    if cc == "HU" and "HU_production_exit" in fx:
+        return {"prod_adjust": fx["HU_production_exit"]}, None, (
+            " Production is ENTSOG's 'Aggregated Single Production' entry less the 'Exit for Blending': imported gas leaves the grid, is blended "
+            "with high-CO2 domestic gas and re-enters at the production entry, so that entry double-counts about 14 TWh a year of imports.")
+    if cc == "UK" and "UK_moffat_exit" in fx and tso is not None and "UK" in tso:
+        mof = fx["UK_moffat_exit"]
+        roi = gni["Moffat"].reindex(mof.index) if gni is not None and len(gni) else pd.Series(float("nan"), index=mof.index)
+        to_roi = roi.where(roi.notna(), mof).clip(upper=mof)
+        try:    # National Gas NTS storage flows (the operator's own; ENTSOG lacks the Stublach, Holford and Hill Top entries)
+            nts = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
+            sto = pd.DataFrame({"GB_withdrawal_GWhd": nts["storage_withdrawal"], "GB_injection_GWhd": nts["storage_injection"]})
+            sto = gb_site_storage(data_dir, sto)
+        except Exception:  # noqa: BLE001
+            sto = None
+        return ({"extra_exports": to_roi} | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi).fillna(0)), (
+            " Exports include the Moffat exit to Ireland (the Republic's share is Gas Networks Ireland's Moffat import figure); the remainder of "
+            "the Moffat flow (Northern Ireland, Isle of Man, about 19 TWh a year) is added to UK consumption because the National Gas NTS "
+            "offtake covers Great Britain only. Storage withdrawals and injections are the nine storage sites' own daily flows from the National Gas Data Portal (the NTS aggregate overstates net withdrawals by about 5 TWh a year); before Oct 2024 they are the day-to-day change in the portal's total stock (net only). ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK).")
+    return {}, None, None
 
 
 BIO_FILE = "europe_biomethane_operators.xlsx"
@@ -569,7 +668,7 @@ NORWAY_ENTRIES_FILE = "entsog_norway_entries_daily.xlsx"
 
 
 def emden_gap(data_dir, nor):
-    """Norwegian gas that reaches Germany through Emden, GWh/d: Gassco's flow to Germany minus the part ENTSOG reports at Dornum.
+    """Norwegian gas that reaches Germany through Emden, GWh/d: Gassco's flow to Germany minus the part ENTSOG reports at Dornum and minus the Danish North Sea entry (Baltic Pipe gas, which Gassco books under Germany).
     ENTSOG publishes nothing at Emden (EPT1, EPT2, NPT) under any indicator, so Germany's pipeline imports in the ENTSOG pull miss it.
     Gassco days that are missing take the month's mean."""
     ent = add_charts._sheet(os.path.join(data_dir, NORWAY_ENTRIES_FILE), "Daily", "date")
@@ -579,7 +678,15 @@ def emden_gap(data_dir, nor):
     gass = nor["NO_to_DE"]
     gass = gass.fillna(gass.groupby([gass.index.year, gass.index.month]).transform("mean"))
     seen = ent[de_cols].sum(axis=1, min_count=1).reindex(gass.index).fillna(0)
-    return (gass - seen).clip(lower=0).dropna()
+    # Since Baltic Pipe (Oct 2022) Gassco books the Norwegian gas bound for Denmark/Poland/Sweden under "Germany" too: a daily regression of
+    # Gassco's Germany on Dornum and Energinet's North Sea entry gives a coefficient of 1.0 on the Danish entry (R2 0.66), none on "Other".
+    # That gas never reaches Germany (Denmark's own balance counts it), so it is taken out of the Emden add.
+    try:
+        dk = add_charts._sheet(os.path.join(data_dir, DK_FILE), "Daily", "date")["DK_from_north_sea"]
+    except Exception:  # noqa: BLE001
+        dk = ent[[c for c in ent.columns if c.startswith("DK_")]].sum(axis=1, min_count=1) if any(c.startswith("DK_") for c in ent.columns) else None
+    dk = dk.reindex(gass.index).clip(lower=0).fillna(0) if dk is not None else 0
+    return (gass - seen - dk).clip(lower=0).dropna()
 
 
 NORWAY_FILE = "norway_gassco_gas_flows_daily.xlsx"
@@ -815,9 +922,12 @@ def main():
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
-            b = gas_country_balance(gbal, cc, gsto, glng, tso[cc] if (tso is not None and cc in tso) else None,
+            fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni)
+            cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
+            sto_in = fix_kw.pop("storage", gsto)
+            b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
                                     nor["NO_to_GB"] if (cc == "UK" and len(nor) and "NO_to_GB" in nor) else None,
-                                    bio[cc] if (len(bio) and cc in bio) else None)
+                                    bio[cc] if (len(bio) and cc in bio) else None, **fix_kw)
             note = None
             if tso is not None and cc in tso:
                 note = ("Consumption from the TSO's own series (" + {"DE": "Trading Hub Europe", "FR": "ODRE / GRTgaz-Teréga", "ES": "Enagás", "UK": "National Gas NTS", "DK": "Energinet", "PT": "REN", "AT": "AGGM", "CZ": "NET4GAS (system balance)", "LT": "Amber Grid", "FI": "Gasgrid"}[cc]
@@ -835,6 +945,8 @@ def main():
             if cc == "UK" and len(nor) and "NO_to_GB" in nor:
                 note += (" Pipeline imports are Gassco's Norway-to-Great-Britain flows; the rest of the St Fergus and Easington entry points "
                          "(UK North Sea gas) is counted in production.")
+            if fix_note:
+                note = (note or "Supply less exports and storage injections against consumption.") + fix_note
             if cc == "DK":
                 try:
                     b, note = denmark_gas_balance(args.data_dir), (
@@ -869,7 +981,7 @@ def main():
             if len(both) >= 12:
                 total_chart(wb, used, gas, None, both, [
                     "Germany + Netherlands combined. Includes the Norwegian gas that arrives at Emden (Gassco's flow to Germany minus the Dornum "
-                    "volume ENTSOG reports); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
+                    "volume ENTSOG reports and minus the Baltic Pipe gas for Denmark/Poland that Gassco books under Germany); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
                     "Flows between the two countries are counted on both sides and do not cancel exactly."],
                             "Germany Netherlands gas balance data", "Germany + Netherlands gas balance: supply and storage vs consumption",
                             "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Germany + Netherlands", line_cols=("Consumption",))
@@ -907,11 +1019,18 @@ def main():
         inputs = [(n, g, ch if n == "Switzerland" else x) for n, g, x in inputs]
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Switzerland net imports from BFE not available, ENTSO-E flows used ({type(e).__name__}: {e})")
+    load_ov = {}
+    for n_, f_ in LOAD_OVERRIDE.items():
+        try:
+            load_ov[n_] = pd.to_numeric(add_charts.by_date(add_charts.read(os.path.join(args.data_dir, f_), "Daily"), "date")["Load_MWh"], errors="coerce") / 1000.0
+            bal_src[n_] = DK_BALANCE_SRC
+        except Exception as e:  # noqa: BLE001
+            power[2].append(f"{n_} load override not available, ENTSO-E load used ({type(e).__name__}: {e})")
     for name, gen_path, net in inputs:
         if net is None or name == "Ireland (all-island SEM)":   # Ireland comes from EirGrid + Ember below
             continue
         try:
-            b = country_balance(gen_path, net)
+            b = country_balance(gen_path, net, load_ov.get(name))
         except Exception as e:  # noqa: BLE001
             power[2].append(f"{name} balance ({type(e).__name__}: {e})")
             continue
@@ -934,7 +1053,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (load and flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
+        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Denmark": "ENTSO-E + Energinet load", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
