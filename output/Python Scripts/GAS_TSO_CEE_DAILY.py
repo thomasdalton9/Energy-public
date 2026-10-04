@@ -8,6 +8,10 @@ National gas consumption (daily) for Austria, Czechia and Lithuania from the gas
                        allocations/metering. AT_total = "determined consumption Austria flow"; the rest are its classes
                        (standard-load-profile customers, load-profile customers above / below 300 MW... see Units), AT_power_east =
                        gas-fired power plants in market area East only (the series AGGM publishes).
+        AT_net_entry, AT_net_exit, AT_storage_withdrawal, AT_storage_injection, AT_production
+                       AGGM's market-area balance components: net border entry and exit (all border points, net of flows through the
+                       virtual points), storage withdrawal and injection (all storage in the market area) and domestic production
+                       ("Production East": OMV, RAG). AT_total = net entry - net exit + storage withdrawal - injection + production.
         CZ_total       NET4GAS (CAMS public API) system balance: border entries - border exits + storage withdrawals - storage
                        injections + virtual production point, on allocated daily quantities. NET4GAS publishes no domestic-exit
                        series, so this is consumption plus losses/own use/line-pack change, labelled as a balance.
@@ -47,7 +51,8 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_tso_gas_demand_cee_daily.xlsx"
 REVISION_DAYS = 14
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-AT_COLS = ["AT_total", "AT_slp", "AT_industry_gt300", "AT_industry_lt300", "AT_power_east"]
+AT_COLS = ["AT_total", "AT_slp", "AT_industry_gt300", "AT_industry_lt300", "AT_power_east",
+           "AT_net_entry", "AT_net_exit", "AT_storage_withdrawal", "AT_storage_injection", "AT_production"]
 CZ_COLS = ["CZ_total", "CZ_border_entry", "CZ_border_exit", "CZ_storage_withdrawal", "CZ_storage_injection", "CZ_production"]
 LT_COLS = ["LT_total", "LT_distribution", "LT_direct"]
 COLUMNS = AT_COLS + CZ_COLS + LT_COLS
@@ -83,7 +88,10 @@ def get(url, tries=3, **kw):
 # ---- Austria: AGGM data monitor --------------------------------------------------------------------------------------
 AT_URL = "https://platform.aggm.at/vis-service/api/ts/values"
 AT_SERIES = {"ErmittelterEKVOesterreich": "AT_total", "SummeEKV_SLP_Oesterreich": "AT_slp", "SummeEKV_LPZGR300_Oesterreich": "AT_industry_gt300",
-             "SummeEKV_LPZKL300_Oesterreich": "AT_industry_lt300", "SummeEKV_Kraftwerke_MGO": "AT_power_east"}
+             "SummeEKV_LPZKL300_Oesterreich": "AT_industry_lt300", "SummeEKV_Kraftwerke_MGO": "AT_power_east",
+             "NettoEntryOesterreich": "AT_net_entry", "NettoExitOesterreich": "AT_net_exit",
+             "NettoEntrySpeicherOesterreich": "AT_storage_withdrawal", "NettoExitSpeicherOesterreich": "AT_storage_injection",
+             "Production East": "AT_production"}
 
 
 def austria(d0, d1):
@@ -267,6 +275,8 @@ def main():
         print(f"{label}: start", flush=True)
         have = old[cols].dropna(how="all")
         fs = start if have.empty else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))
+        if any(old[c].notna().sum() == 0 for c in cols):      # a column added later is back-filled from the start
+            fs = start
         try:
             new = fn(fs, today - timedelta(days=1) if code != "LT" else today)
         except Exception as e:  # noqa: BLE001
@@ -297,7 +307,7 @@ def main():
              "", "Units and definitions",
              "GWh per gas day. AT_total = AGGM 'determined consumption Austria flow' (end-customer consumption, allocated/metered; AGGM publishes it from "
              "Oct 2022 in this form); AT_slp = standard-load-profile customers, AT_industry_gt300 / AT_industry_lt300 = load-profile-metered "
-             "customers above / below 300 MW capacity classes (AGGM naming), AT_power_east = gas-fired power plants in market area East only. "
+             "customers above / below 300 MW capacity classes (AGGM naming), AT_power_east = gas-fired power plants in market area East only; AT_net_entry / AT_net_exit / AT_storage_withdrawal / AT_storage_injection / AT_production = AGGM's market-area balance (border, storage and domestic production). "
              "CZ_total = NET4GAS system balance: CZ_border_entry (Brandov, Waidhaus, Lanzhot, Cesky Tesin) - CZ_border_exit + CZ_storage_withdrawal "
              "- CZ_storage_injection + CZ_production (virtual production point). NET4GAS publishes no domestic-exit series, so the balance is "
              "consumption plus own use, losses and line-pack change. LT_total = Amber Grid 'domestic consumption' = LT_distribution (gas "
