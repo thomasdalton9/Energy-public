@@ -6,7 +6,11 @@ name: Europe gas flows (ENTSOG)
 on:
   schedule:
     - cron: "0 7 1,15 * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: 'true = ignore the committed workbook and re-pull everything from 2021-10-04'
+        default: 'false'
 
 permissions:
   contents: write
@@ -32,8 +36,9 @@ jobs:
       - name: Run pull
         env:
           PYTHONUNBUFFERED: "1"
+          REBUILD: ${{ github.event.inputs.rebuild }}
         run: |
-          python3 europe/ENTSOG_GAS_FLOWS_DAILY.py --out-dir "output/Data and Chart Outputs" --max-minutes 85
+          python3 europe/ENTSOG_GAS_FLOWS_DAILY.py --out-dir "output/Data and Chart Outputs" --max-minutes 85 $([ "$REBUILD" = "true" ] && echo --rebuild)
 
       - name: Add Excel charts and copy scripts
         if: always()

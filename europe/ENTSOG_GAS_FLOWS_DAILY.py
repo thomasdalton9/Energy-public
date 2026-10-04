@@ -20,9 +20,8 @@ point, API operationalData / "Physical Flow", daily), one workbook:
 Each flow row is (point, operator, entry|exit). It is classed by the system on the other side of the point, taken from
 ENTSOG's interconnections list: the operator's country is the first two letters of its key, the adjacent system gives
 the type (Transmission / Production / LNG Terminals / Storage / Distribution / Final Consumers) and country.
-A cross-border flow is one number per border and day, credited as an export of the sending country and an import of the receiving one:
-the larger of the sender's exit side and the receiver's entry side (a gap on one side, e.g. Baumgarten on the Austrian side, is filled by
-the other). Within a side, operators that report the same gas at one point are counted once, and a virtual point (VIP) and the physical
+A sender's exports and a receiver's imports use their own side of the border; the other side fills a day on which the own side
+reports nothing (e.g. Baumgarten on the Austrian side). The Border flows sheet shows the larger of the two sides. Within a side, operators that report the same gas at one point are counted once, and a virtual point (VIP) and the physical
 points it aggregates are taken as the larger of the two, not summed (ENTSOG reports both; VIP Brandov = EUGAL + OPAL + Hora Svate Katerina). ENTSOG reports kWh/d; converted to GWh/d. Empty (unreported) values are left blank.
 
 Caveats: ENTSOG data are operational flows (allocations/nominations), restated for recent days (the last 45 days are
@@ -142,8 +141,8 @@ def border_flows(rows):
     """rows: (day, reporting country, direction, other country, pointKey, operator, GWh). -> {(day, from, to): GWh/d}.
     Each side of a border is the sum of its points with (1) operators that duplicate each other dropped and (2) the virtual point
     (VIP) and the physical points it aggregates taken as the larger of the two, not their sum (ENTSOG reports both: e.g. VIP Brandov =
-    EUGAL + OPAL + Hora Svate Katerina, so Czech imports from Germany were counted twice). The flow on a border is the larger of the
-    exporter's exit side and the importer's entry side, so a gap on one side (Baumgarten on the Austrian side) is filled by the other."""
+    EUGAL + OPAL + Hora Svate Katerina, so Czech imports from Germany were counted twice). Each country keeps its own side; the
+    other side fills a day on which its own reports nothing (Baumgarten on the Austrian side)."""
     by_pt = {}
     for day, c, d, oc, pk, op, g in rows:
         by_pt.setdefault((day, c, d, oc, pk), []).append(g)
@@ -158,8 +157,11 @@ def border_flows(rows):
     flows = {}
     for (day, c, d, oc), v in own.items():
         a, b = (c, oc) if d == "exit" else (oc, c)
-        flows[(day, a, b)] = max(flows.get((day, a, b), 0.0), v)
-    return flows
+        flows.setdefault((day, a, b), {})["exit" if d == "exit" else "entry"] = v
+    # (exports credited to the sender, imports credited to the receiver, border flow): each country keeps its own side; the other
+    # side is used only where its own reports nothing that day (Baumgarten on the Austrian side). Taking the larger of the two sides
+    # instead inflated Bulgaria and Greece (Greece's exit at Sidirokastro reports about 18 TWh where Bulgaria's entry shows 3).
+    return {k: (v.get("exit") or v.get("entry") or 0.0, v.get("entry") or v.get("exit") or 0.0, max(v.values())) for k, v in flows.items()}
 
 
 def fetch_window(d0, d1, adj):
@@ -186,14 +188,14 @@ def fetch_window(d0, d1, adj):
             trans.append((day, country, "entry" if category == "imports" else "exit", orig, r["pointKey"], r.get("operatorKey"), gwh))
             continue
         cat[(day, f"{country}_{category}_GWhd")] = cat.get((day, f"{country}_{category}_GWhd"), 0.0) + gwh
-    for (day, a, b), g in border_flows(trans).items():
+    for (day, a, b), (ex, im, g) in border_flows(trans).items():
         border[(day, f"{a}>{b}")] = g
-        cat[(day, f"{a}_exports_GWhd")] = cat.get((day, f"{a}_exports_GWhd"), 0.0) + g
-        cat[(day, f"{b}_imports_GWhd")] = cat.get((day, f"{b}_imports_GWhd"), 0.0) + g
+        cat[(day, f"{a}_exports_GWhd")] = cat.get((day, f"{a}_exports_GWhd"), 0.0) + ex
+        cat[(day, f"{b}_imports_GWhd")] = cat.get((day, f"{b}_imports_GWhd"), 0.0) + im
         if a not in EU27 and b in EU27:
-            origin[(day, a)] = origin.get((day, a), 0.0) + g
+            origin[(day, a)] = origin.get((day, a), 0.0) + im
         if a in EU27 and b not in EU27:
-            dest[(day, b)] = dest.get((day, b), 0.0) + g
+            dest[(day, b)] = dest.get((day, b), 0.0) + ex
     return cat, origin, dest, border, len(data), unclassified
 
 
@@ -293,7 +295,7 @@ def main():
              "(exits to distribution networks) and final_consumers (exits to large consumers: industry, power plants). UK = Great Britain "
              "and Northern Ireland.",
              "Each flow row is classed by the system on the other side of the point (ENTSOG interconnections list); cross-border flows "
-             "are one flow per border (the larger of the exit and entry sides, VIP and physical points not summed, duplicate operators counted once). Imports by origin / Exports by destination: pipeline gas entering EU27 grids from, or leaving "
+             "are own side per country (other side only to fill a day with no report; VIP and physical points not summed, duplicate operators counted once). Imports by origin / Exports by destination: pipeline gas entering EU27 grids from, or leaving "
              "to, countries outside the EU27 (the UK counts as outside), by country.",
              "Operational data: restated for recent days (last " + str(RELOAD_DAYS) + " days re-fetched each run) and unreported for "
              "some points; Germany reports aggregated final consumers, Spain has few demand points, so a country's supply and uses do "
