@@ -191,8 +191,9 @@ def px(table, pick):
     r.raise_for_status()
     j = r.json()
     out = {}
+    names = [dict(zip(v["values"], v["valueTexts"])) for v in meta["variables"]]
     for row in j["data"]:
-        out[tuple(row["key"])] = row["values"][0]
+        out[tuple(names[i].get(k, k) for i, k in enumerate(row["key"]))] = row["values"][0]
     return meta, j, out
 
 
@@ -224,25 +225,33 @@ def read_state(path, force):
     st = {"monthly": {}, "annual": pd.DataFrame(), "annual_nat": pd.DataFrame(), "force": force}
     if not os.path.exists(path):
         return st
+    def sheet(name, idx):
+        try:
+            d = pd.read_excel(path, sheet_name=name)
+            return d.set_index(idx) if idx in d.columns else None
+        except Exception as e:  # noqa: BLE001
+            print(f"could not read sheet {name} ({type(e).__name__})")
     try:
         m = pd.read_excel(path, sheet_name="Monthly")
         m["month"] = pd.to_datetime(m["month"])
-        m = m.set_index("month")
-        for c in m.columns:
-            st["monthly"][c] = m[c].dropna()
-        a = pd.read_excel(path, sheet_name="Annual").set_index("year")
+        for c, v in m.set_index("month").items():
+            st["monthly"][c] = v.dropna()
+    except Exception as e:  # noqa: BLE001
+        print(f"could not read Monthly ({type(e).__name__})")
+    a = sheet("Annual", "year")
+    if a is not None:
         st["annual"] = a
-        try:
-            st["annual_nat"] = pd.read_excel(path, sheet_name="Annual national").set_index("year")
-        except ValueError:
-            pass
+    a = sheet("Annual national", "year")
+    if a is not None:
+        st["annual_nat"] = a
+    try:
         u = pd.read_excel(path, sheet_name="Units")
         for line in u["Notes"].astype(str):
             mm = re.match(r"ET 4\.2 release used: (\S+)", line)
             if mm:
                 st["gb_url"] = mm.group(1)
     except Exception as e:  # noqa: BLE001
-        print(f"could not read existing workbook ({type(e).__name__}: {e}); starting over")
+        print(f"could not read Units ({type(e).__name__})")
     return st
 
 
@@ -290,6 +299,17 @@ def write(path, st, errors):
               "for electricity/heat. UK = United Kingdom (Eurostat has UK data to 2019 only). EU27 = Eurostat aggregate; EU27_sum_of_countries_TWh is the sum of the "
               "member-state columns.",
               "Crosscheck sheet: annual (12-month) sums of the monthly national series next to the Eurostat figure.",
+              "", "Caveats and validation",
+              "Great Britain: the DESNZ monthly values are smooth (a constant daily rate per year, i.e. modelled/estimated from the quarterly and annual "
+              "returns, note 6/7 on the sheet), not metered monthly data. National Gas's data portal carries biomethane for one NTS-connected plant only (Glentham), "
+              "most GB biomethane enters distribution networks, so no operator daily series exists. DESNZ 2019 4.71 TWh vs Eurostat UK 4.89 TWh (gross vs net CV / revisions).",
+              "Austria: AGGM series SummeBioOesterreich exists from 2023; before that the East market area only (Tyrol and Vorarlberg entry series start 2023), so "
+              "2019-2022 are slightly understated. AGGM 2023 = 155 GWh vs Eurostat 121 GWh vs EBA Statistical Report 2024 (131 GWh injected by 14 plants). A zero/low month "
+              "(Nov 2025) is a source gap, not a plant stop.",
+              "EBA Statistical Report (full country tables) is members-only; only a 17-page preview is public, so EBA is not tabulated here. GIE/EBA European Biomethane Map "
+              "2026 (PDF, no data download): installed capacity 8.2 bcm/year at end Q2 2026, 1,974 plants (86% grid-connected) - capacity, not injected volume. Eurostat EU27 "
+              "was 33.2 TWh in 2023 and 37.1 TWh in 2024; Germany starts in 2021 (earlier years not reported, so the 2020-21 EU27 jump is a reporting break).",
+              "Italy: Eurostat annual only (3.2 TWh in 2024) - GSE blocks GitHub (HTTP 403) and Snam's portal is JavaScript-only.",
               "", "Method", "Incremental: DESNZ whole file is downloaded only when a new release URL appears (recorded below); AGGM re-fetched from two months "
               "before the last month saved; Eurostat refreshed in full.",
               "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC"]
@@ -297,7 +317,9 @@ def write(path, st, errors):
         lines.append(f"ET 4.2 release used: {st['gb_url']}")
     for e in errors:
         lines.append(f"Source problem this run: {e}")
-    sheets = {"Monthly": monthly, "Annual": ann}
+    sheets = {"Monthly": monthly}
+    if len(ann):
+        sheets["Annual"] = ann
     if len(st["annual_nat"]):
         sheets["Annual national"] = st["annual_nat"].round(4)
     if not cross.empty:
