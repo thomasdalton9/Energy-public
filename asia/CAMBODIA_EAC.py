@@ -366,11 +366,26 @@ def build(raw):
             src = "Salient"
             g = {f: pick(raw, f"gen_{f}", y, src) for f in FUELS}
             imp = {c: pick(raw, f"imp_{c}", y, src) for c in ("Vietnam", "Thailand", "Laos")}
-            hv, mv, lic, laos_plant = [None], [None], {}, None
+            hv, mv, lic = [None], [None], {}
             ed = int(sf[sf.Year == y].Edition.max())
-            basis[d] = (f"EAC Salient Features of Power Development {ed} (provisional until the annual report); "
-                        "hydro includes EDC's dedicated Lao hydro plant (not split out in this publication)")
+            basis[d] = f"EAC Salient Features of Power Development {ed} (provisional until the annual report)"
             cap = {f: pick(raw, f"cap_{f}", y, src) for f in FUELS}
+            # the salient features count EDC's Lao plant in hydro without splitting it out: take out its last
+            # reported output (and capacity) as an estimate, as for the annual-report years
+            known = raw[(raw.Field == "lic_EDC_Laos_hydro") & raw.Publication.str.startswith("Annual report")
+                        & (raw.Year < y)].dropna(subset=["Value"])
+            laos_plant = None
+            if len(known) and g["Hydro"]:
+                last = known.sort_values(["Year", "Edition"]).iloc[-1]
+                laos_plant = float(last.Value)
+                g["Hydro"] -= laos_plant
+                imp["Laos"] = (imp["Laos"] or 0) + laos_plant
+                lcap = pick(raw, "lcap_EDC_Laos_hydro", int(last.Year), "Annual report")
+                if lcap and cap["Hydro"]:
+                    cap["Hydro"] -= lcap
+                basis[d] += (f"; ESTIMATE: hydro excludes EDC's dedicated Lao hydro plant at its {int(last.Year)} "
+                             f"output ({laos_plant:,.0f} GWh, moved to imports from Laos) - this publication does "
+                             "not split it out")
             rooftop = pick(raw, "gen_Solar_rooftop", y, src)
         if not any(v for v in g.values()):
             continue
@@ -465,7 +480,9 @@ def main():
         "'total energy available').",
         "Imports_Laos_EDC_hydro_MWh: from 2024 EAC counts EDC's dedicated hydro plant in Laos (460 MW, wired to the "
         "Cambodian grid) as EDC generation; here it is moved to imports from Laos so Hydro_MWh is Cambodian plants "
-        "only (until 2023 EAC itself listed this energy as 'import from Laos at HV').",
+        "only (until 2023 EAC itself listed this energy as 'import from Laos at HV'). For a year from the salient "
+        "features (which do not split it out) the plant's last reported output is used - an ESTIMATE, flagged on "
+        "the Basis sheet, replaced when that year's annual report appears (Ember makes the same adjustment).",
         "IPP_MWh / EDC_MWh / Other_licensees_MWh: energy sent out by type of licensee (EDC excludes the Lao plant).",
         "Solar_rooftop_MWh: rooftop solar (EAC salient features, from 2024), not in Total_MWh.",
         "Monthly: installed capacity at the end of each year, MW (one row per year; sheet named for the standard "
