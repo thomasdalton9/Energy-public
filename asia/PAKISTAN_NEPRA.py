@@ -15,16 +15,27 @@ Sources, best first (each month comes from the best one that has it):
      Wise Generation" table gives reference and actual GWh by source (CPPA-G's figures). Used for 2021 - June 2024
      (the scanned CPPA-G filings of those years have no usable text). Coal is split local/imported from mid-2023 only.
 
-What it covers: energy bought by CPPA-G for the national grid (the Ex-WAPDA DISCOs' pool, plus the grid supply to
-K-Electric), i.e. NTDC/NGC-dispatched generation, ~120-135 TWh a year. NOT included: K-Electric's own Karachi plants
-(~8-10 TWh), captive / off-grid generation and rooftop (net-metered) solar. Imports from Iran (Tavanir) are kept apart
-as Imports_MWh and are not in Total_MWh.
+  4. K-Electric (Karachi): KE's monthly 'Provisional request for monthly fuel cost variation' filings (NEPRA
+     Admission Notices, listed on https://nepra.org.pk/news.php): Annexure B gives KE's own sent-out by fuel
+     (furnace oil, indigenous gas, RLNG, HSD) and 'Power Purchase Details' the purchases from CPPA-G and from IPPs on
+     KE's network by fuel; and NEPRA's KE FCA decisions (https://nepra.org.pk/tariff/Distribution%20K-Electric.php,
+     TRF-362), which give KE's own sent-out and external purchases (CPPA-G + IPPs, not split). Found via
+     PAKISTAN_DISCOVERY9-10.py. KE's consumers moved to the uniform national FCA in 2025, so these stop then.
+
+What it covers: Pakistan including K-Electric. The national grid = energy bought by CPPA-G (the Ex-WAPDA DISCOs' pool,
+which also supplies part of KE's load), ~120-135 TWh a year; plus KE's own plants and KE's purchases from plants
+outside the CPPA-G pool (KE's purchases from CPPA-G are NOT added again). Months without a KE figure are estimated
+(see KE_basis). NOT included: captive / off-grid generation and rooftop solar. Imports from Iran (Tavanir) are kept
+apart as Imports_MWh and are not in Total_MWh.
 
 Writes output/Data and Chart Outputs/pakistan_power_generation_daily.xlsx:
-  Daily   one row per month, dated the 1st (MWh in the month): Hydro_MWh, Coal_MWh (Coal_local_MWh, Coal_imported_MWh
-          where split), Gas_MWh = Gas_local_MWh (domestic pipeline gas) + RLNG_MWh, Oil_MWh = RFO_MWh + HSD_MWh,
-          Nuclear_MWh, Wind_MWh, Solar_MWh, Bioenergy_MWh (bagasse), Other_MWh (CPPA-G's 'Mixed'), Total_MWh
-          (domestic, = the sum of the fuel groups), Imports_MWh (Iran)
+  Daily   one row per month, dated the 1st (MWh in the month), PAKISTAN INCL. K-ELECTRIC: Hydro_MWh, Coal_MWh,
+          Gas_MWh, Oil_MWh, Nuclear_MWh, Wind_MWh, Solar_MWh, Bioenergy_MWh (bagasse), Other_MWh, Total_MWh (= their sum)
+          = national grid + KE own + KE non-CPPA purchases; Imports_MWh (Iran); Total_grid_MWh and <fuel>_grid_MWh
+          (national grid alone); grid detail Coal_local / Coal_imported / Gas_local / RLNG / RFO / HSD _MWh; KE detail
+          KE_own_<Gas|RLNG|Oil|unsplit>_MWh, KE_own_MWh, KE_IPP_<Oil|Gas|Coal|Solar|Other>_MWh,
+          KE_purchases_nonCPPA_MWh, KE_from_CPPA_MWh (check only, not added), KE_basis (exact / decision / ESTIMATE)
+  Grid    the national-grid history store (as filed);  KE  the K-Electric history store (GWh, as filed)
   Months  per month: the source used, its file, and the check of the fuel rows against the filing's own total
   Files   every file read (so a file is not downloaded again), with the months it gave
 
@@ -65,7 +76,8 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (20, 180)
 DATA_START = pd.Timestamp("2021-01-01")
 CPPA_LIST = "https://cppa.gov.pk/downloads/xwdiscos-energy-purchase-data"
-NEPRA_LIST = "https://nepra.org.pk/tariff/Distribution%20FESCO.php"   # every XWDISCO page lists the same FCA decisions
+NEPRA_LIST = "https://nepra.org.pk/tariff/Distribution%20FESCO.php"
+NEPRA_KE_LIST = "https://nepra.org.pk/tariff/Distribution%20K-Electric.php"   # every XWDISCO page lists the same FCA decisions
 NEPRA_HOURLY_PAGES = ["https://nepra.org.pk/", "https://nepra.org.pk/news.php"]
 KNOWN_HOURLY = ["https://nepra.org.pk/Admission%20Notices/2026/09%20Sep/01-%20Plant%20wise%20Units.xlsx"]
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
@@ -74,6 +86,8 @@ OUT_HOURLY = os.path.join(OUT_DIR, "pakistan_power_hourly.xlsx")
 RANK = {"CPPA-G workbook": 3, "CPPA-G PDF": 2, "NEPRA FCA decision": 1}
 MON = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov",
                                    "dec"], start=1)}
+FULL_MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october",
+               "november", "december"]
 MONTH_YEAR = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?[\s\-_',]*(20\d\d|\d\d)(?!\d)",
                         re.I)
 DETAIL = ["Hydro", "Coal", "Coal_local", "Coal_imported", "Gas_local", "RLNG", "RFO", "HSD", "Nuclear", "Wind",
@@ -109,6 +123,9 @@ def month_tokens(text):
     """'1st QTR (JUL 25 to SEP 25)' -> [2025-07-01, 2025-09-01]."""
     res = []
     for m in MONTH_YEAR.finditer(text or ""):
+        word = re.match(r"[A-Za-z]+", m.group(0)).group(0).lower()
+        if not FULL_MONTHS[MON[word[:3]] - 1].startswith(word) and word not in ("sept", "sepetember"):
+            continue   # 'separately 32', 'decision 20' ...
         y = int(m.group(2))
         y = y + 2000 if y < 100 else y
         if 2000 <= y <= 2100:
@@ -409,6 +426,246 @@ def read_decision(url, months=None):
     return res
 
 
+# ---------------------------------------------------------------------------------------------------- K-Electric
+KE_RANK = {"KE filing": 2, "NEPRA KE decision": 1}
+KE_KEY = re.compile(r"K-?Electric|\bKE\b|\bKEL\b", re.I)
+KE_OWN = ["KE_own_Oil", "KE_own_Gas", "KE_own_RLNG", "KE_own_unsplit"]
+KE_IPP = ["KE_IPP_Oil", "KE_IPP_Gas", "KE_IPP_Coal", "KE_IPP_Solar", "KE_IPP_Other"]
+NUMS = re.compile(r"\d[\d,]*(?:\.\d+)?")
+
+
+def last_num(line):
+    v = NUMS.findall(line)
+    return float(v[-1].replace(",", "")) if v else 0.0
+
+
+def ke_files():
+    """K-Electric's monthly fuel cost filings (NEPRA Admission Notices) and NEPRA's KE FCA decisions."""
+    res = []
+    r = get("https://nepra.org.pk/news.php")
+    for h in sorted(set(re.findall(r'href\s*=\s*["\']([^"\']+\.pdf)["\']', r.text, re.I))):
+        n = unquote(h).rsplit("/", 1)[-1]
+        if not KE_KEY.search(n) or re.search(r"XWDISCO|petit|tariff|quarter|QTR|licen|write|interven|issues", n, re.I):
+            continue
+        if not re.search(r"fuel cost variation|FCA|FPA data|fuel charges", n, re.I):
+            continue
+        y = re.search(r"/(20\d\d)/", unquote(h))
+        if y and int(y.group(1)) < DATA_START.year:
+            continue
+        res.append((urljoin("https://nepra.org.pk/news.php", h), n, "KE filing", month_range(re.sub(r"\.\w+$", "", n))))
+    r = get(NEPRA_KE_LIST)
+    for h in sorted(set(re.findall(r'href\s*=\s*["\']([^"\']+\.pdf)["\']', r.text, re.I))):
+        name = unquote(h)
+        n = name.rsplit("/", 1)[-1]
+        y = re.search(r"/(?:KESC|K-Electric)/(20\d\d)/", name)
+        if not y or int(y.group(1)) < DATA_START.year:
+            continue
+        if not re.search(r"FCA|MFPA|fuel", n, re.I) or not re.search(r"TRF-362|K-?Electric|\bKE\b", n, re.I) or \
+                re.search(r"PAR-14|TRF-14[678]|FPCL|FFBL|SNPC|QTR|quarter|insurance|corrigendum|JUL-JUN", n, re.I):
+            continue
+        res.append((urljoin(NEPRA_KE_LIST, h), n, "NEPRA KE decision", month_tokens(re.sub(r"\d{1,2}-\d{1,2}-\d{4}", " ", n))[:1]))
+    out(f"K-Electric: {sum(f[2] == 'KE filing' for f in res)} KE filings, {sum(f[2] != 'KE filing' for f in res)} "
+        f"NEPRA KE decisions from {DATA_START.year}")
+    return res
+
+
+def pdf_text(url, pages=None):
+    with pdfplumber.open(io.BytesIO(get(url).content)) as p:
+        return "\n".join(pg.extract_text() or "" for pg in (p.pages[:pages] if pages else p.pages))
+
+
+def parse_ke_filing(text, months=None):
+    """KE's 'Provisional request for monthly fuel cost variation': Annexure B (KE's own sent-out by fuel) and the
+    'Power Purchase Details' (CPPA-G, and IPPs on KE's network by fuel), GWh."""
+    lines = text.splitlines()
+    mo = None
+    m = re.search(r"(?:variation|month)\s*(?:for|of)\s*(?:the\s*month\s*of\s*)?([A-Za-z]{3,9})\s*,?\s*(20\d\d)", text, re.I)
+    if m:
+        t = month_tokens(f"{m.group(1)} {m.group(2)}")
+        mo = t[0] if t else None
+    mo = mo or (months[0] if months else None)
+    if months and len(months) > 1:   # a multi-month filing (one column per month): not parsed
+        return {}
+    mo = months[0] if months else mo
+    if mo is None:
+        return {}
+    pick = {}
+    for ln in lines:
+        l = ln.lower()
+        if not re.search(r"total\s*units\s*sent\s*out", l):
+            continue
+        if re.search(r"sent\s*out\s*on\s*furnace", l):
+            pick.setdefault("fo", last_num(ln))
+        elif re.search(r"sent\s*out\s*on\s*indigenous", l):
+            pick["gas"] = last_num(ln)
+        elif re.search(r"sent\s*out\s*on\s*(r?lng|ing|inc|l\.?n\.?g)\b", l):
+            pick["lng"] = last_num(ln)
+        elif re.search(r"sent\s*out\s*on\s*hsd", l):
+            pick["hsd"] = last_num(ln)
+        elif re.search(r"sent\s*out\s*\W*[xk]e\b", l):
+            pick.setdefault("total", last_num(ln))
+    row = {}
+    if pick:
+        parts = sum(pick.get(k, 0.0) for k in ("fo", "gas", "lng", "hsd"))
+        total = pick.get("total") or parts
+        if total and abs(parts / total - 1) <= 0.03:
+            row.update({"KE_own_Oil": pick.get("fo", 0.0) + pick.get("hsd", 0.0), "KE_own_Gas": pick.get("gas", 0.0),
+                        "KE_own_RLNG": pick.get("lng", 0.0)})
+        elif total:
+            row["KE_own_unsplit"] = total
+    # purchases
+    k = next((i for i, ln in enumerate(lines) if re.search(r"power\s*purchase\s*details", ln, re.I)), None)
+    if k is not None:
+        cat, subs, cppa, total = None, {}, None, None
+        for ln in lines[k:k + 60]:
+            l = ln.lower()
+            if re.search(r"total\s*units\s*purchased", l):
+                total = last_num(ln)
+                break
+            if re.search(r"sub.{0,4}tot|[s5]ub.{0,3}ota", l):
+                if cat:
+                    subs[cat] = subs.get(cat, 0.0) + last_num(ln)
+                continue
+            if re.match(r"\s*cppa\b", l) and re.search(r"g\s*w", l):
+                cppa = last_num(ln)
+            if re.search(r"\bgw|\bgvv|\bcwh|\bgwb", l):   # an item line, not a category header
+                continue
+            if re.search(r"\bmix\b", l):
+                cat = "CPPA"
+            elif re.search(r"furnace|\bfo\b|hsd|diesel", l):
+                cat = "KE_IPP_Oil"
+            elif re.search(r"natural\s*gas|\bng\b|rlng", l):
+                cat = "KE_IPP_Gas"
+            elif "coal" in l:
+                cat = "KE_IPP_Coal"
+            elif re.search(r"re[nr]e[wv]|solar|wind", l):
+                cat = "KE_IPP_Solar"
+            elif re.match(r"\s*[a-h]\s+[a-z]", l):
+                cat = "KE_IPP_Other"
+        cppa = cppa if cppa is not None else subs.pop("CPPA", None)
+        subs.pop("CPPA", None)
+        if cppa is not None and total:
+            other = sum(subs.values())
+            if abs((cppa + other) / total - 1) <= 0.03:
+                row.update(subs)
+                row["KE_from_CPPA"] = cppa
+            else:
+                row["KE_from_CPPA"] = cppa
+                row["KE_purchases_other"] = max(total - cppa, 0.0)
+    return {mo: row} if row else {}
+
+
+def parse_ke_decision(text, months=None):
+    """NEPRA's KE FCA decision: the closing table 'Own Generation / Own sent outs GWh' and 'External Purchases GWh'
+    (external = CPPA-G + IPPs on KE's network, not split), one column per month after the reference column."""
+    lines = text.splitlines()
+    dm = decision_month(text) or (months[0] if months else None)
+    res = {}
+    for i, ln in enumerate(lines):
+        l = ln.lower()
+        if "rs" in l.split() or "rs." in l or "mln" in l or not re.search(r"\bgw", l):
+            continue
+        if "own" in l and re.search(r"generation|sent", l):
+            key = "own"
+        elif "external" in l:
+            key = "ext"
+        else:
+            continue
+        nums = [float(x.replace(",", "")) for x in NUMS.findall(re.split(r"\bGW\S*", ln, flags=re.I)[-1])]
+        if not nums:
+            continue
+        head = " ".join(lines[max(0, i - 12):i])
+        hm = [t for t in month_tokens(re.sub(r"\b(20\d\d)\b", " ", head))]
+        ref = re.search(r"\bref", head, re.I) is not None
+        if ref and len(nums) >= 2:
+            nums, hm = nums[1:], hm[1:] if len(hm) == len(nums) else hm
+        if len(hm) == len(nums) and len(nums) > 1:
+            pairs = list(zip(hm, nums))
+        elif dm is not None:
+            pairs = [(dm, nums[-1])]
+        else:
+            continue
+        for mo, v in pairs:
+            if 50 <= v <= 3000:
+                res.setdefault(mo, {})[key] = v
+    return {mo: {"KE_own_unsplit": d["own"], "KE_external": d["ext"]} for mo, d in res.items() if "own" in d and "ext" in d}
+
+
+def _safe(fn, f):
+    try:
+        return fn(f), None
+    except Exception as e:  # noqa: BLE001
+        return {}, f"{type(e).__name__}: {e}"
+
+
+def read_ke(f):
+    url, name, kind, mos = f
+    if kind == "KE filing":
+        return parse_ke_filing(pdf_text(url, pages=14), mos)
+    return parse_ke_decision(pdf_text(url), mos)
+
+
+def ke_monthly(grid_index, ke):
+    """Exact KE rows + estimates for the other grid months -> MWh frame with KE_basis."""
+    rows = {}
+    full = ke[ke["KE_source"] == "KE filing"] if "KE_source" in ke else ke.iloc[0:0]
+    if "KE_from_CPPA_GWh" in full:
+        full = full[full["KE_from_CPPA_GWh"].notna()]
+
+    def nearest(mo, frame):
+        same = frame[frame.index.month == mo.month]
+        pool = same if not same.empty else frame
+        if pool.empty:
+            return None
+        return pool.index[abs((pool.index - mo).days).argmin()]
+
+    for mo in grid_index:
+        r = ke.loc[mo].to_dict() if mo in ke.index else {}
+        src = r.get("KE_source")
+        g = lambda c: r.get(c + "_GWh")   # noqa: E731
+        out_r, basis = {}, None
+        if src == "KE filing":
+            basis = "KE filing (exact)"
+            for c in KE_OWN + KE_IPP + ["KE_from_CPPA", "KE_purchases_other"]:
+                v = g(c)
+                if v is not None and not pd.isna(v):
+                    out_r[c] = v
+        elif src == "NEPRA KE decision":
+            out_r["KE_own_unsplit"] = g("KE_own_unsplit")
+            src_m = nearest(mo, full)
+            if src_m is not None:
+                e = full.loc[src_m]
+                for c in KE_IPP + ["KE_purchases_other"]:
+                    v = e.get(c + "_GWh")
+                    if v is not None and not pd.isna(v):
+                        out_r[c] = v
+                ipp = sum(out_r.get(c, 0.0) for c in KE_IPP + ["KE_purchases_other"])
+                out_r["KE_from_CPPA"] = max(g("KE_external") - ipp, 0.0)
+                basis = f"NEPRA KE decision (own sent-out exact, unsplit); other-IPP purchases copied from {src_m:%Y-%m}"
+            else:
+                basis = "NEPRA KE decision (own sent-out only)"
+            out_r["KE_external"] = g("KE_external")
+        else:
+            src_m = nearest(mo, full)
+            if src_m is not None:
+                e = full.loc[src_m]
+                for c in KE_OWN + KE_IPP + ["KE_from_CPPA", "KE_purchases_other"]:
+                    v = e.get(c + "_GWh")
+                    if v is not None and not pd.isna(v):
+                        out_r[c] = v
+                basis = f"ESTIMATE: no KE figure for this month; copied from {src_m:%Y-%m} (same calendar month)"
+        if basis:
+            d = {f"{c}_MWh": round(v * 1000, 1) for c, v in out_r.items() if v is not None and not pd.isna(v)}
+            d["KE_basis"] = basis
+            rows[mo] = d
+    k = pd.DataFrame.from_dict(rows, orient="index")
+    if not k.empty:
+        k["KE_own_MWh"] = k[[c + "_MWh" for c in KE_OWN if c + "_MWh" in k]].sum(axis=1, min_count=1)
+        k["KE_purchases_nonCPPA_MWh"] = k[[c + "_MWh" for c in KE_IPP + ["KE_purchases_other"] if c + "_MWh" in k]]\
+            .sum(axis=1, min_count=1)
+    return k
+
+
 # ---------------------------------------------------------------------------------------------------- frames
 def to_row(rows, scale):
     g = {k: rows.get(k) for k in DETAIL}
@@ -435,46 +692,94 @@ def read_sheet(path, sheet, index_col=0):
     return d
 
 
-def save(path, daily, months, files):
-    daily = daily[[c for c in COLS if c in daily]].sort_index()
-    daily.index.name = months.index.name = "date"
+STD = ["Hydro", "Coal", "Gas", "Oil", "Nuclear", "Wind", "Solar", "Bioenergy", "Other"]
+
+
+def combine(grid, kem):
+    """Daily = national grid (CPPA-G) + K-Electric's own plants + KE's purchases from plants outside the CPPA-G pool."""
+    d = pd.DataFrame(index=grid.index)
+    k = kem.reindex(grid.index) if not kem.empty else pd.DataFrame(index=grid.index)
+    kg = lambda *cs: sum(k[c + "_MWh"].fillna(0.0) for c in cs if c + "_MWh" in k) if any(  # noqa: E731
+        c + "_MWh" in k for c in cs) else 0.0
+    add_ke = {"Gas": kg("KE_own_Gas", "KE_own_RLNG", "KE_own_unsplit", "KE_IPP_Gas"),
+              "Oil": kg("KE_own_Oil", "KE_IPP_Oil"), "Coal": kg("KE_IPP_Coal"), "Solar": kg("KE_IPP_Solar"),
+              "Other": kg("KE_IPP_Other", "KE_purchases_other")}
+    for f in STD:
+        g = grid.get(f"{f}_MWh")
+        d[f"{f}_MWh"] = (g.fillna(0.0) if g is not None else 0.0) + add_ke.get(f, 0.0)
+    d["Total_MWh"] = d[[f"{f}_MWh" for f in STD]].sum(axis=1)
+    d["Imports_MWh"] = grid.get("Imports_MWh")
+    d["Total_grid_MWh"] = grid["Total_MWh"]
+    for f in STD:
+        d[f"{f}_grid_MWh"] = grid.get(f"{f}_MWh")
+    for c in COLS[11:]:
+        d[c] = grid.get(c)
+    for c in k.columns:
+        d[c] = k[c]
+    return d.round(1)
+
+
+def save(path, grid, months, files, ke):
+    grid = grid[[c for c in COLS if c in grid]].sort_index()
+    kem = ke_monthly(grid.index, ke)
+    daily = combine(grid, kem)
+    for x in (daily, grid, months, ke):
+        x.index.name = "date"
     first, last = daily.index.min(), daily.index.max()
-    yr = daily["Total_MWh"].groupby(daily.index.year).agg(["sum", "count"])
-    full = {y: round(s / 1e6, 1) for y, (s, n) in yr.iterrows() if n == 12}
+    yr = daily.groupby(daily.index.year).agg({"Total_MWh": ["sum", "count"], "Total_grid_MWh": "sum"})
+    full = {y: (round(r[("Total_MWh", "sum")] / 1e6, 1), round(r[("Total_grid_MWh", "sum")] / 1e6, 1))
+            for y, r in yr.iterrows() if r[("Total_MWh", "count")] == 12}
     src = months["Source"].value_counts().to_dict() if "Source" in months else {}
+    kb = kem["KE_basis"].str.split(" ").str[0].str.strip(":(").value_counts().to_dict() if "KE_basis" in kem else {}
     notes = [
         "UNITS",
-        "Daily: one row per MONTH dated the 1st; MWh in the month (the filings give kWh or GWh). Hydro_MWh (WAPDA and "
-        "IPP hydel), Coal_MWh (= Coal_local_MWh, Thar lignite etc., + Coal_imported_MWh, where the filing splits them; "
-        "NEPRA's decisions before mid-2023 give coal unsplit), Gas_MWh = Gas_local_MWh (domestic pipeline gas) + "
-        "RLNG_MWh (regasified LNG), Oil_MWh = RFO_MWh (furnace oil) + HSD_MWh (diesel), Nuclear_MWh (Chashma C-1..4, "
-        "Karachi K-2/K-3), Wind_MWh, Solar_MWh, Bioenergy_MWh (bagasse), Other_MWh (CPPA-G's 'Mixed'). Total_MWh = the "
-        "sum of those groups (domestic generation bought by CPPA-G). Imports_MWh (Tavanir, Iran) is kept apart.",
-        "Energy is as purchased / metered at the plants' delivery points (net of auxiliary use).",
-        "Months: the source used for each month and Check_pct = (sum of the fuel rows / the filing's own total - 1) "
-        "x 100; Files: every file read.",
+        "Daily: one row per MONTH dated the 1st; MWh in the month. PAKISTAN INCLUDING K-ELECTRIC: each standard fuel "
+        "column (Hydro, Coal, Gas, Oil, Nuclear, Wind, Solar, Bioenergy, Other) = the national grid (CPPA-G pool, "
+        "<fuel>_grid_MWh) + K-Electric's own plants + KE's purchases from plants outside the CPPA-G pool. Total_MWh = "
+        "their sum; Total_grid_MWh = the national grid alone (the energy CPPA-G buys, which already includes what the "
+        "grid supplies to KE). KE's purchases from CPPA-G (KE_from_CPPA_MWh) are a detail column only and are NOT "
+        "added (that would double count). Imports_MWh (Tavanir, Iran, CPPA-G) is kept apart.",
+        "National grid fuels: Hydro (WAPDA and IPP hydel), Coal (Coal_local_MWh, Thar lignite etc., + "
+        "Coal_imported_MWh where the filing splits them; NEPRA's decisions before mid-2023 give coal unsplit), Gas = "
+        "Gas_local_MWh (pipeline gas) + RLNG_MWh, Oil = RFO_MWh + HSD_MWh, Nuclear (Chashma, Karachi K-2/K-3), Wind, "
+        "Solar, Bioenergy (bagasse), Other (CPPA-G's 'Mixed'). Coal_local/Coal_imported/Gas_local/RLNG/RFO/HSD columns "
+        "are national-grid only.",
+        "K-Electric: KE_own_Gas_MWh (indigenous gas), KE_own_RLNG_MWh, KE_own_Oil_MWh (furnace oil at BQPS-I + HSD at "
+        "KCCPP), KE_own_unsplit_MWh (months known only from NEPRA's KE decision, which gives own sent-out without a "
+        "fuel split; counted under Gas, as KE's plants run mainly on gas/RLNG), KE_own_MWh = their sum (sent-out, net "
+        "of auxiliaries); KE_IPP_<fuel>_MWh = purchases from IPPs on KE's network (Oil: Gul Ahmed / Tapal; Gas: SNPC "
+        "I/II, Lucky, ISL; Coal: FPCL; Solar: Oursun, Gharo solar and net metering), KE_purchases_nonCPPA_MWh their "
+        "sum; KE_from_CPPA_MWh = drawn from the national grid (detail / check only); KE_external_MWh = NEPRA's "
+        "'external purchases' (CPPA-G + IPPs) where that is the source.",
+        "KE_basis says how each month's KE figures were obtained. Months without a KE figure (after KE's consumers "
+        "moved to the uniform national FCA in 2025, and the odd gap) are ESTIMATED by copying KE's own generation and "
+        "non-CPPA purchases from the same calendar month of the nearest year with a full KE filing; months known "
+        "only from NEPRA's KE decision have KE's own sent-out exact and the non-CPPA purchases copied the same way.",
+        "Months: the national-grid source used for each month and Check_pct = (sum of the fuel rows / the filing's "
+        "own total - 1) x 100. Grid / KE: the history stores (as filed). Files: every file read.",
         "",
         "COVERAGE",
-        f"Monthly from {first:%b %Y} to {last:%b %Y} ({len(daily)} months; sources: {src}). Calendar-year totals (TWh): "
-        f"{full}.",
-        "Scope: the CPPA-G pool, i.e. the national grid dispatched by NTDC/NGC and ISMO, which also supplies part of "
-        "K-Electric's load. NOT included: K-Electric's own Karachi plants (about 8-10 TWh a year), captive and off-grid "
-        "generation, and rooftop (net-metered) solar - so this is below Ember's national total (about 135-140 TWh).",
-        "Data are CPPA-G's provisional monthly figures as filed for the fuel charges adjustment; the workbooks are "
-        "CPPA-G's later Excel versions and replace the monthly PDFs when published.",
+        f"Monthly from {first:%b %Y} to {last:%b %Y} ({len(daily)} months; national-grid sources: {src}; KE basis: {kb}). "
+        f"Calendar-year totals, TWh (Pakistan incl. KE, national grid alone): {full}.",
+        "Scope: all of Pakistan's utility generation - the national grid (NTDC/NGC, ISMO) and K-Electric (Karachi). "
+        "NOT included: captive / off-grid generation and rooftop solar other than net-metered exports bought by KE.",
         "",
         "SOURCE",
         f"CPPA-G (Central Power Purchasing Agency Guarantee Ltd), XWDISCOs Energy Purchase Data: {CPPA_LIST} "
         "(Excel workbooks and monthly PDFs, July 2024 on).",
         f"NEPRA (National Electric Power Regulatory Authority), monthly Fuel Charges Adjustment decisions for the "
         f"Ex-WAPDA DISCOs, Annex-II 'Source Wise Generation' (actual GWh): {NEPRA_LIST}",
+        "K-Electric's monthly 'Provisional request for monthly fuel cost variation' filings (Annexure B sent-out by "
+        "fuel; power purchase details), NEPRA Admission Notices: https://nepra.org.pk/news.php ; NEPRA's monthly FCA "
+        f"decisions for K-Electric (own sent-out and external purchases): {NEPRA_KE_LIST}",
     ]
     files = files.copy()
     files.index = range(1, len(files) + 1)
     files.index.name = "n"
-    xlsx_notes.write_workbook(path, {"Daily": daily, "Months": months.sort_index(), "Files": files}, notes,
-                              {"UNITS", "COVERAGE", "SOURCE"})
-    out(f"Saved {path}: {len(daily)} months {first:%Y-%m}..{last:%Y-%m}")
+    xlsx_notes.write_workbook(path, {"Daily": daily, "Grid": grid, "KE": ke.sort_index(), "Months": months.sort_index(),
+                                     "Files": files}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    out(f"Saved {path}: {len(daily)} months {first:%Y-%m}..{last:%Y-%m}; TWh (incl. KE, grid only): {full}")
+    return daily
 
 
 # ---------------------------------------------------------------------------------------------------- hourly
@@ -610,7 +915,11 @@ def main():
     ap.add_argument("--no-hourly", action="store_true")
     args = ap.parse_args()
 
-    daily, months = read_sheet(args.out, "Daily"), read_sheet(args.out, "Months")
+    daily, months = read_sheet(args.out, "Grid"), read_sheet(args.out, "Months")
+    if daily.empty:   # first layout (grid only) kept the national grid on the Daily sheet
+        d0 = read_sheet(args.out, "Daily")
+        daily = d0 if "Total_grid_MWh" not in d0 else pd.DataFrame()
+    ke = read_sheet(args.out, "KE")
     try:
         files = pd.read_excel(args.out, sheet_name="Files", index_col=0).reset_index(drop=True)
     except (FileNotFoundError, ValueError, KeyError):
@@ -683,17 +992,49 @@ def main():
         nm = pd.DataFrame.from_dict(new_meta, orient="index")
         daily = pd.concat([daily[~daily.index.isin(nd.index)], nd]) if not daily.empty else nd
         months = pd.concat([months[~months.index.isin(nm.index)], nm]) if not months.empty else nm
+    # K-Electric: KE's own filings first, then NEPRA's KE decisions, for months not saved from a better KE source
+    try:
+        kl = ke_files()
+    except requests.RequestException as e:
+        out(f"  KE listing failed: {e}")
+        kl = []
+    ke_rank = {d: KE_RANK.get(x, 0) for d, x in ke["KE_source"].items()} if "KE_source" in ke else {}
+    new_ke = {}
+    for kind in KE_RANK:
+        cur = {**ke_rank, **{m: KE_RANK[v["KE_source"]] for m, v in new_ke.items()}}
+        todo = [f for f in kl if f[2] == kind and f[0] not in seen and
+                (not f[3] or any(m >= DATA_START and cur.get(m, 0) < KE_RANK[kind] for m in f[3]))]
+        out(f"{kind}: {len(todo)} files to read")
+        with ThreadPoolExecutor(4) as ex:
+            for f, res, err in ex.map(lambda f: (f, *_safe(read_ke, f)), todo):
+                url, name, k, mos = f
+                got = []
+                for mo, row in sorted(res.items()):
+                    if mo < DATA_START or cur.get(mo, 0) > KE_RANK[k] or \
+                            (mo in new_ke and KE_RANK[new_ke[mo]["KE_source"]] >= KE_RANK[k]):
+                        continue
+                    new_ke[mo] = {**{c + "_GWh": v for c, v in row.items()}, "KE_source": k, "KE_file": name[:120]}
+                    got.append(f"{mo:%Y-%m}")
+                status = err or ("ok" if got else "no month parsed")
+                if err or not got:
+                    out(f"  {name[:80]}: {status}")
+                new_files.append({"url": url, "kind": k, "name": name[:150], "months": " ".join(got), "status": status})
+    if new_ke:
+        nk = pd.DataFrame.from_dict(new_ke, orient="index")
+        ke = pd.concat([ke[~ke.index.isin(nk.index)], nk]) if not ke.empty else nk
+    if not ke.empty:
+        ke.index = pd.to_datetime(ke.index)
     files = pd.concat([files, pd.DataFrame(new_files)], ignore_index=True) if new_files else files
     if daily.empty:
         raise SystemExit("No Pakistan monthly generation parsed")
     daily.index = pd.to_datetime(daily.index)
     months.index = pd.to_datetime(months.index)
-    save(args.out, daily.sort_index(), months, files)
+    combined = save(args.out, daily.sort_index(), months, files, ke)
     gaps = pd.date_range(DATA_START, daily.index.max(), freq="MS").difference(daily.index)
     if len(gaps):
         out(f"Months missing: {[f'{g:%Y-%m}' for g in gaps]}")
-    show = daily[["Hydro_MWh", "Coal_MWh", "Gas_MWh", "Oil_MWh", "Nuclear_MWh", "Wind_MWh", "Solar_MWh",
-                  "Bioenergy_MWh", "Total_MWh", "Imports_MWh"]] / 1000
+    show = combined[["Hydro_MWh", "Coal_MWh", "Gas_MWh", "Oil_MWh", "Nuclear_MWh", "Wind_MWh", "Solar_MWh",
+                     "Bioenergy_MWh", "Total_MWh", "Total_grid_MWh", "Imports_MWh"]] / 1000
     out("GWh, last 6 months:\n" + show.tail(6).round(0).to_string())
     if not args.no_hourly:
         try:
