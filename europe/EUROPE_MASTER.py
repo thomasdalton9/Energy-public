@@ -610,6 +610,11 @@ def nl_cbs_gas(data_dir, bal):
         ratio = both["c"].sum() / both["e"].sum() if len(both) > 90 and both["e"].sum() > 0 else float("nan")
         tail = (e * ratio).where(bal.index > end)
         out[k] = cbs.combine_first(tail)
+    if "Imports_via_Denmark_GWh" in mon:   # Danish North Sea gas landed at Den Helder (NOGAT): in no ENTSOG border row and no other country's balance
+        m = mon["Imports_via_Denmark_GWh"].dropna()
+        per_day = (m / m.index.days_in_month).reindex(pd.date_range(m.index.min(), m.index.max() + pd.offsets.MonthEnd(0), freq="D"), method="ffill")
+        tail = pd.Series(per_day[per_day.index > end - pd.DateOffset(months=12)].mean(), index=bal.index).where(bal.index > end)
+        out["Via Denmark"] = per_day.reindex(bal.index).combine_first(tail)
     return out
 
 
@@ -631,6 +636,12 @@ def emden_entsog(data_dir):
     return {"DE": fx[["DE_emden_oge", "DE_emden_gud"]].sum(axis=1, min_count=1), "NL": fx["NL_emden_gts"]}
 
 
+def lu_imports(bal):
+    """Luxembourg's pipeline imports from Belgium (GWh/d): the larger of ENTSOG's Bras-Petange entry and Luxembourg's own delivered volumes."""
+    cons = pd.concat([bal["LU_distribution_GWhd"], bal["LU_final_consumers_GWhd"]], axis=1).sum(axis=1, min_count=1)
+    return pd.concat([bal["LU_imports_GWhd"], cons], axis=1).max(axis=1)
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -645,15 +656,31 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
         nl = nl_cbs_gas(data_dir, bal_nl)
         if nl is not None:
             em_raw = emden_entsog(data_dir)
-            return ({"prod_override": nl["Production"]} | ({"extra_imports": em_raw["NL"]} if em_raw else {})), nl["Consumption"], (
+            nl_extra = nl["Via Denmark"] if "Via Denmark" in nl else None
+            if em_raw:
+                nl_extra = em_raw["NL"].add(nl_extra.reindex(em_raw["NL"].index), fill_value=0) if nl_extra is not None else em_raw["NL"]
+            return ({"prod_override": nl["Production"]} | ({"extra_imports": nl_extra} if nl_extra is not None else {})), nl["Consumption"], (
                 " Production and consumption are Statistics Netherlands' (CBS 86103NED) gas balance, spread over the days of each month, in place of ENTSOG's "
                 "production entries (15-17 TWh a year above CBS) and distribution + final-consumer exits (about 6 TWh below CBS total consumption); "
-                "months CBS has not yet published use ENTSOG scaled by the last twelve months' CBS/ENTSOG ratio.")
+                "months CBS has not yet published use ENTSOG scaled by the last twelve months' CBS/ENTSOG ratio. Pipeline imports add CBS's 'via Denmark' gas "
+                "(Danish North Sea gas landed at Den Helder, 8-14 TWh a year; ENTSOG has no border row for it). The balance still runs a few percent short on the "
+                "Dutch side because ENTSOG reports physical net flows (NL>DE about 10 TWh a year more net export than CBS's commercial figures; the mirror is Germany's surplus), "
+                "ALSI LNG send-out is 4-8 TWh a year below CBS's net LNG imports, and CBS bunkering (5-6 TWh) is not in its consumption.")
     if cc == "FR" and tso is not None and "FR" in tso and len(bio) and "FR" in bio:
         return {}, tso["FR"].add(bio["FR"].reindex(tso.index).fillna(0)), (
             " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
             "ENTSOG's distribution + industrial exits and so excludes it). The balance still runs about 3% long: ENTSOG misses about 15 TWh of "
             "French exports against Eurostat, and network own use and losses are not in the offtake.")
+    if cc in ("LU", "BE") and bal_nl is not None and "LU_imports_GWhd" in bal_nl:
+        lu = lu_imports(bal_nl)
+        if cc == "LU":
+            return {"import_floor": lu}, None, (
+                " Luxembourg's only ENTSOG entry is Bras-Petange from Belgium, which stops reporting flows in 2024 (0.0 TWh against 6.7 TWh of "
+                "metered consumption), so pipeline imports are the larger of that entry and Creos's own delivered volumes (ENTSOG distribution + industrial exits); "
+                "with no production or storage the balance then closes by construction.")
+        return {"extra_exports": lu}, None, (
+            " Pipeline exports add the gas delivered to Luxembourg at Bras-Petange (Luxembourg's imports, as above), which ENTSOG's Belgian exit list lacks "
+            "(it was the whole of Belgium's 2024-25 surplus, 6-7 TWh).")
     if cc == "CZ":
         cee = _sheet_or_empty(os.path.join(data_dir, "europe_tso_gas_demand_cee_daily.xlsx"), "Daily", "date")
         if "CZ_border_entry" in cee:
@@ -890,51 +917,75 @@ def gni_daily(data_dir):
     return out
 
 
-def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None, norway_eu=None, biomethane=None, extra_imports=None):
-    """EU27 gas balance: production and consumption summed over the countries; extra-EU pipeline imports and exports
-    from the origin / destination sheets; LNG and storage from GIE's EU aggregates. Where a TSO's own consumption series exists
-    (`tso`: Germany, France, Spain) it replaces ENTSOG's country total (ENTSOG's own value is used on days the TSO series lacks);
-    Ireland is taken from GNI (`gni`): its production, Moffat imports from Great Britain and demand replace ENTSOG's
-    incomplete Irish figures. Norwegian pipeline imports (`norway_eu`, Gassco: Germany + France + Belgium + other) replace ENTSOG's
-    Norway origin, which captures only about 60% of the flows (632 against 1,032 TWh in 2025)."""
-    use_gni = gni is not None and len(gni)
-    skip = {"IE"} if use_gni else set()
-    tso_cc = [c for c in (tso.columns if tso is not None else []) if c in EU27_GAS]
-    skip_cons = skip | set(tso_cc)
-    cols = lambda cat, sk=skip: [f"{c}_{cat}_GWhd" for c in EU27_GAS if c not in sk and f"{c}_{cat}_GWhd" in bal]   # noqa: E731
-    day = pd.DataFrame(index=bal.index)
-    day["Production"] = bal[cols("production")].sum(axis=1, min_count=1).fillna(0)
-    day["Pipeline imports"] = org.reindex(bal.index).sum(axis=1, min_count=1) if len(org) else float("nan")
-    if norway_eu is not None and len(norway_eu) and len(org) and "NO" in org:
-        nrw = norway_eu.reindex(bal.index)
-        nrw = nrw.fillna(nrw.groupby([nrw.index.year, nrw.index.month]).transform("mean"))   # gaps take the month's mean
-        ok = nrw.notna()
-        day.loc[ok, "Pipeline imports"] = day["Pipeline imports"] - org["NO"].reindex(bal.index).fillna(0) + nrw
-    cons = bal[cols("distribution", skip_cons) + cols("final_consumers", skip_cons)].sum(axis=1, min_count=1)
-    for c in tso_cc:
-        own = bal[[f"{c}_distribution_GWhd", f"{c}_final_consumers_GWhd"]].sum(axis=1, min_count=1) if f"{c}_distribution_GWhd" in bal else pd.Series(float("nan"), index=bal.index)
-        cons = cons.add(tso[c].reindex(bal.index).combine_first(own), fill_value=0)
-    if extra_imports is not None:       # Nord Stream 1 at Greifswald (Russian gas ENTSOG's classification drops)
-        day["Pipeline imports"] = day["Pipeline imports"] + extra_imports.reindex(bal.index).fillna(0)
-    if use_gni:
-        g = gni.reindex(bal.index)
-        day["Production"] = day["Production"] + g["Production"].fillna(0)
-        # ENTSOG's own Irish imports (from Great Britain) are inside the origin sheet; swap them for GNI's Moffat figure
-        day["Pipeline imports"] = day["Pipeline imports"] - _col(bal, "IE_imports_GWhd").fillna(0) + g["Moffat"]
-        cons = cons.add(g["Consumption"], fill_value=0)
-    day["LNG send-out"] = _col(lng, "EU_sendout_GWhd").reindex(bal.index).fillna(0)
-    day["Storage withdrawals"] = _col(storage, "EU_withdrawal_GWhd").reindex(bal.index).fillna(0)
-    day["Pipeline exports"] = -(dst.reindex(bal.index).sum(axis=1, min_count=1) if len(dst) else 0.0)
-    day["Storage injections"] = -_col(storage, "EU_injection_GWhd").reindex(bal.index).fillna(0)
-    day["Consumption"] = cons
-    cols = GAS_BAL_COLS
-    if biomethane is not None and len(biomethane.columns):
-        eu_bio = biomethane[[c for c in biomethane.columns if c in EU27_GAS]].reindex(bal.index).sum(axis=1, min_count=1)
-        day["Biomethane"] = eu_bio.fillna(0)
-        cols = GAS_BAL_COLS[:-1] + ["Biomethane", "Consumption"]
-    day = day.dropna(subset=["Pipeline imports", "Consumption"])
+def _eu_lines(f):
+    """One country's monthly balance frame -> the standard EU lines (Denmark's Energinet frame has its own column names)."""
+    out = pd.DataFrame(index=f.index)
+    pick = lambda pre: [c for c in f.columns if str(c).startswith(pre)]   # noqa: E731
+    prod = [c for c in ["Production"] + pick("North Sea") + pick("Tyra") if c in f]
+    out["Production"] = f[prod].sum(axis=1, min_count=1) if prod else 0.0
+    for k, cols in (("Pipeline imports", ["Pipeline imports"] + pick("Imports from")), ("Pipeline exports", ["Pipeline exports"] + pick("Exports to")),
+                    ("LNG send-out", ["LNG send-out"]), ("Storage withdrawals", ["Storage withdrawals"]), ("Storage injections", ["Storage injections"]),
+                    ("Biomethane", ["Biomethane"]), ("Consumption", ["Consumption"])):
+        have = [c for c in cols if c in f]
+        out[k] = f[have].sum(axis=1, min_count=1) if have else 0.0
+    return out.fillna(0.0)
+
+
+def implied_member_balance(gbal, cc, storage, sweden_from_dk=None):
+    """Balance for an EU27 member with no consumption series of its own (Slovakia: ENTSOG has only its border rows; Sweden: none, the gas
+    arrives from Denmark), so the EU27 sum still carries the neighbours' exports to it. Consumption is the net gas the country takes
+    (imports less exports plus storage), so the balance closes by construction and adds nothing to the EU error; it understates the true consumption
+    (Slovakia about 49 TWh against the 26 TWh ENTSOG shows) and is labelled as implied. Monthly TWh, or an empty frame."""
+    if cc == "SE":
+        if sweden_from_dk is None or not sweden_from_dk.notna().any():
+            return pd.DataFrame()
+        day = pd.DataFrame({"Pipeline imports": -sweden_from_dk})
+    else:
+        if f"{cc}_imports_GWhd" not in gbal:
+            return pd.DataFrame()
+        day = pd.DataFrame(index=gbal.index)
+        day["Pipeline imports"] = _col(gbal, f"{cc}_imports_GWhd")
+        day["Pipeline exports"] = -_col(gbal, f"{cc}_exports_GWhd").fillna(0)
+        day["Storage withdrawals"] = _col(storage, f"{cc}_withdrawal_GWhd").reindex(gbal.index).fillna(0)
+        day["Storage injections"] = -_col(storage, f"{cc}_injection_GWhd").reindex(gbal.index).fillna(0)
+    day = day.dropna(subset=["Pipeline imports"]).fillna(0.0)
     day = day[day.index >= "2021-10-01"]
-    return _monthly_twh(day[cols]) if len(day) else pd.DataFrame()
+    day["Consumption"] = day.sum(axis=1)
+    return _monthly_twh(day) if len(day) else pd.DataFrame()
+
+
+def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8):
+    """EU27 gas balance as the SUM of the corrected country balances (`frames`: monthly TWh frames as charted per country, so every
+    per-country fix - Emden / Nord Stream / Greifswald, Gassco Norway, CBS Netherlands, AGGM Austria, NET4GAS floors, Energinet Denmark, GNI Ireland,
+    biomethane - is in the EU total). Intra-EU pipeline flows are taken out of the imports and exports lines (`border`: the larger-of-both-sides
+    flow per border from the Border flows sheet, both ends in the EU27, capped at the smaller of the summed imports and exports); the net
+    is untouched, so a border one side reports and the other does not shows up as the residual instead of being hidden. Countries with under
+    `min_share` of the months are left out (returned as the second value), and only months every kept country has are shown."""
+    lines = {}
+    for c, f in frames.items():
+        if f is not None and len(f):
+            fb = (fallback or {}).get(c)   # months an operator series lacks (Austria Jan-Apr 2022) take the ENTSOG-based balance of that country
+            if fb is not None and len(fb):
+                f = pd.concat([_eu_lines(f), _eu_lines(fb[~fb.index.isin(f.index)])]).sort_index()
+                lines[c] = f
+            else:
+                lines[c] = _eu_lines(f)
+    span = pd.date_range("2021-10-01", max(f.index.max() for f in lines.values()), freq="MS")
+    keep = {c: f for c, f in lines.items() if f.reindex(span).notna().any(axis=1).mean() >= min_share}
+    left = [c for c in lines if c not in keep]
+    for c, f in keep.items():   # a one- or two-month hole in a small country's feed (Greece Apr 2022, Luxembourg Sep-Oct 2023) is interpolated rather than dropping the EU month
+        g = f.reindex(span)
+        keep[c] = g.interpolate(limit=2, limit_area="inside").dropna(how="all")
+    months = span[[all(m in f.index for f in keep.values()) for m in span]]
+    tot = sum(f.reindex(months).fillna(0.0) for f in keep.values())
+    if border is not None and len(border):
+        pairs = [c for c in border.columns if ">" in c and all(x in EU27_GAS for x in c.split(">"))]
+        intra = _monthly_twh(border[pairs].sum(axis=1, min_count=1).to_frame("x"))["x"].reindex(months).fillna(0.0) if pairs else 0.0
+        intra = pd.concat([intra, tot["Pipeline imports"], -tot["Pipeline exports"]], axis=1).min(axis=1).clip(lower=0)
+        tot["Pipeline imports"] = tot["Pipeline imports"] - intra
+        tot["Pipeline exports"] = tot["Pipeline exports"] + intra
+    cols = [c for c in GAS_BAL_COLS[:-1] + ["Biomethane", "Consumption"]]
+    return tot[cols], left
 
 
 def ireland_gas_balance(data_dir):
@@ -1034,9 +1085,6 @@ def main():
         except Exception as e:  # noqa: BLE001
             nor = pd.DataFrame()
             gas[2].append(f"Norway/Gassco flows unavailable ({type(e).__name__}: {e})")
-        nor_eu = None
-        if len(nor) and all(c in nor for c in ("NO_to_DE", "NO_to_FR", "NO_to_BE")):
-            nor_eu = nor[[c for c in ("NO_to_DE", "NO_to_FR", "NO_to_BE", "NO_other") if c in nor]].sum(axis=1, min_count=3)
         try:
             bio = biomethane_daily(args.data_dir)
         except Exception as e:  # noqa: BLE001
@@ -1047,14 +1095,7 @@ def main():
         except Exception as e:  # noqa: BLE001
             emden = None
             gas[2].append(f"Germany gas balance without the Emden correction ({type(e).__name__}: {e})")
-        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng, gni, tso, nor_eu, bio, extra_imports=nord_stream(args.data_dir))
-        if not eu.empty:
-            total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG; consumption for Germany (THE), France (ODRE) and Spain (Enagas) from the TSOs' own series; Ireland from Gas Networks Ireland, whose Moffat "
-                                               "imports from Great Britain replace ENTSOG's incomplete Irish figures; Norwegian pipeline imports from Gassco's flows to "
-                                               "Germany, France, Belgium and other, since ENTSOG's Norway origin captures only about 60% of them); biomethane injected into the grids is a separate supply line (France, Denmark, Netherlands and Austria from the operators; other EU27 countries from Eurostat's annual figures, spread over the year and held at the last published year); pipeline imports/exports "
-                                               "from/to outside the EU; LNG and storage from GIE's EU aggregates"],
-                        "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
-                        "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
+        eu_frames, eu_fallback = {}, {}
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
             fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni, gbal)
             cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
@@ -1062,6 +1103,7 @@ def main():
             b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
                                     nor["NO_to_GB"] if (cc == "UK" and len(nor) and "NO_to_GB" in nor) else None,
                                     bio[cc] if (len(bio) and cc in bio) else None, **fix_kw)
+            b_entsog = b
             note = None
             if tso is not None and cc in tso:
                 note = ("Consumption from the TSO's own series (" + {"DE": "Trading Hub Europe", "FR": "ODRE / GRTgaz-Teréga", "ES": "Enagás", "UK": "National Gas NTS", "DK": "Energinet", "PT": "REN", "AT": "AGGM", "CZ": "NET4GAS (system balance)", "LT": "Amber Grid", "FI": "Gasgrid"}[cc]
@@ -1108,6 +1150,9 @@ def main():
                         "(from Great Britain, ROI share) against ROI demand. ENTSOG's Irish totals miss most of Moffat.")
                 except Exception as e:  # noqa: BLE001
                     gas[2].append(f"Ireland gas balance from GNI failed ({type(e).__name__}: {e}); ENTSOG used")
+            if cc in EU27_GAS:
+                eu_frames[cc] = b
+                eu_fallback[cc] = b_entsog
             if b.empty:
                 gas[2].append(f"{GAS_NAMES[cc]} gas balance: too little data")
                 continue
@@ -1116,6 +1161,29 @@ def main():
                                                  "the gap is unreported or unclassified flow")],
                         f"{GAS_NAMES[cc]} gas balance data", f"{GAS_NAMES[cc]} gas balance: supply and storage vs consumption",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label=GAS_NAMES[cc], line_cols=("Consumption",))
+    if len(gbal):
+        try:
+            gbord = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Border flows", "date")
+        except Exception:  # noqa: BLE001
+            gbord = None
+        try:   # Slovakia and Sweden have no consumption series: implied from the net gas they take (see implied_member_balance)
+            eu_frames["SK"] = implied_member_balance(gbal, "SK", gsto)
+            dk_raw = add_charts._sheet(os.path.join(args.data_dir, DK_FILE), "Daily", "date")
+            eu_frames["SE"] = implied_member_balance(gbal, "SE", gsto, _col(dk_raw, "DK_to_sweden").reindex(gbal.index))
+        except Exception as e:  # noqa: BLE001
+            gas[2].append(f"EU gas balance without Slovakia/Sweden ({type(e).__name__}: {e})")
+        eu, eu_left = eu_gas_balance(eu_frames, gbord, eu_fallback)
+        if not eu.empty:
+            total_chart(wb, used, gas, 0, eu, [
+                "EU27: the sum of the country balances charted below, each with its own corrections (national consumption series from the TSOs and statistics offices, "
+                "Gas Networks Ireland, Energinet, AGGM and CBS balances, NET4GAS floors, Norwegian gas at Emden / Greifswald and Hungary, Greece, Great Britain fixes, biomethane as a separate "
+                "supply line). Pipeline imports and exports are those from/to outside the EU: flows between two EU countries (larger-of-both-sides border flows) are taken out of both lines, "
+                "which leaves the net unchanged, so a border only one side reports remains in the residual. LNG and storage are the countries' own GIE ALSI / AGSI+ figures. "
+                "Slovakia and Sweden have no consumption series: their consumption is the net gas ENTSOG / Energinet show them taking (implied, so they add nothing to the error and "
+                "understate the true figure, Slovakia by about 20 TWh a year)."
+                + (f" Left out for lack of data: {', '.join(GAS_NAMES.get(c, c) for c in eu_left)}." if eu_left else "")],
+                        "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
+                        "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
     if len(gbal) and emden is not None:
         try:   # Germany + Netherlands: Gassco's Emden gas is split between them in a way the raw data cannot show, so they are combined
             ns, em_raw = nord_stream(args.data_dir), emden_entsog(args.data_dir)
