@@ -2226,6 +2226,8 @@ try:
     for _name, _slug, _zones in _EU_COUNTRIES.values():
         REGISTRY[f"{_slug}_power_generation_daily.xlsx"] = power_daily(f"{_name} power generation by type (ENTSO-E)", drop_partial=True)
         REGISTRY[f"{_slug}_power_capacity.xlsx"] = power_capacity(f"{_name} installed generating capacity (ENTSO-E, annual)")
+    REGISTRY["switzerland_swissgrid_power_daily.xlsx"] = power_daily(
+        "Switzerland power generation by type (Swissgrid / BFE)", drop_partial=True)
     REGISTRY["great_britain_power_generation_daily.xlsx"] = power_daily(
         "Great Britain power generation by type (Elexon BMRS + NESO)", drop_partial=True)
 except ImportError:   # europe/ not alongside this file (e.g. the copy in output/Python Scripts)
