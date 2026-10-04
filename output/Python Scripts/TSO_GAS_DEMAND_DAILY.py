@@ -79,16 +79,19 @@ def germany(d0, d1):
         s = e + timedelta(days=1)
     if not parts:
         return pd.DataFrame()
-    d = pd.concat(parts)
+    d = pd.concat(parts, ignore_index=True)
     d["date"] = pd.to_datetime(d["gastag"]).dt.normalize()
     for c in THE_SLP + THE_RLM:
         d[c] = pd.to_numeric(d.get(c), errors="coerce")
-    out = pd.DataFrame({
-        "DE_distribution": d[THE_SLP].sum(axis=1, min_count=1) / 1e6,
-        "DE_industry_power": d[THE_RLM].sum(axis=1, min_count=1) / 1e6,
-    }, index=d["date"])
+    dup = int(d["date"].duplicated().sum())
+    if dup:
+        print(f"  THE: {dup} repeated gas-day rows (several publication versions per day); the last one is kept", flush=True)
+    d = d.drop_duplicates("date", keep="last").set_index("date").sort_index()
+    out = pd.DataFrame(index=d.index)
+    out["DE_distribution"] = d[THE_SLP].sum(axis=1, min_count=1) / 1e6
+    out["DE_industry_power"] = d[THE_RLM].sum(axis=1, min_count=1) / 1e6
     out["DE_total"] = out["DE_distribution"] + out["DE_industry_power"]
-    return out.groupby(level=0).last()
+    return out
 
 
 # ---- France: ODRE ----------------------------------------------------------------------------------------------------
