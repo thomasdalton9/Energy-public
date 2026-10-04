@@ -153,8 +153,9 @@ SOURCES = {
     "singapore_power_prices.xlsx": ("EMC (Energy Market Company), NEMS - Uniform Singapore Energy Price (USEP)",
                                     "https://www.nems.emcsg.com/nems-prices"),
     "pakistan_power_generation_daily.xlsx": ("CPPA-G XWDISCOs Energy Purchase Data and NEPRA FCA decisions (national "
-                                             "grid), plus K-Electric's own plants and non-CPPA purchases from NEPRA's "
-                                             "KE FCA decisions and KE's monthly filings (KE partly estimated)",
+                                             "grid), plus K-Electric's own plants from NEPRA's KE FCA decisions and "
+                                             "KE filings (real figures only; months without KE are gaps, filled from "
+                                             "Ember)",
                                              "https://cppa.gov.pk/downloads/xwdiscos-energy-purchase-data"),
     "pakistan_hydro_reservoirs.xlsx": ("Indus River System Authority (IRSA), Daily Water Situation; history 2016-2024 "
                                        "from WAPDA's river flows and levels workbook",
