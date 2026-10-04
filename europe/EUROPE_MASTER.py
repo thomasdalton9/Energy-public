@@ -382,6 +382,7 @@ def monthly_cover(daily, min_cover=0.9):
     return out.where(n.div(dim, axis=0) >= min_cover)
 
 
+BAL_ITEM = "Balancing item (implied embedded supply / losses)"
 BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports",
                 "Pumped & battery (net)", "Load"]
 
@@ -426,7 +427,9 @@ def coverage_notes(name, b):
     cols = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports", "Pumped & battery (net)"]
     tail = b.tail(12)
     ratio = tail[cols].sum().sum() / tail["Load"].sum()
-    out = [f"Supply (generation + net imports + pumped/battery net) is {ratio:.1%} of load over the last 12 months shown."]
+    out = [f"Supply (generation + net imports + pumped/battery net) is {ratio:.1%} of load over the last 12 months shown.",
+           f"The '{BAL_ITEM}' bar is load minus that supply: positive = embedded or self-consumed generation the feed does not carry, negative = losses or "
+           "demand the supply side does not cover. It is an implied figure, not measured data, and makes the bars add up to load."]
     if name in KNOWN_GAPS:
         out.append(KNOWN_GAPS[name])
     return out
@@ -1326,6 +1329,13 @@ def main():
                                   "https://www.eirgrid.ie/grid/system-and-renewable-data-reports")
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
+    # Pseudo balancing item = load minus supply: positive = embedded/self-consumed generation the feed does not carry, negative = losses or
+    # demand the supply side does not cover. It is implied, not measured, and makes the bars add up to load exactly.
+    for name, b in list(bal_frames.items()):
+        b2 = b.copy()
+        supply = b2[["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports", "Pumped & battery (net)"]].sum(axis=1)
+        b2.insert(b2.columns.get_loc("Pumped & battery (net)"), BAL_ITEM, b2["Load"] - supply)
+        bal_frames[name] = b2
     for name, b in bal_frames.items():
         src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Denmark": "ENTSO-E + Energinet load", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
