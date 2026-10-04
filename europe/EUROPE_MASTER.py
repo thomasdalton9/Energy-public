@@ -378,6 +378,22 @@ KNOWN_GAPS = {
     "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days. Load is CBS consumption incl. distribution losses (ENTSO-E load is 10% lower in 2021-22, equal within 1% in 2024-25), so supply vs load closes by construction; flows are ENTSO-E and match CBS.",
     "Germany": "Industrial self-generation and small embedded plants are not in the feed; supply is typically 4-5% below load.",
     "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
+    "Great Britain": "Supply runs 2-3% above load: Elexon FUELHH metered output is gross of power-station own use, while NESO national demand (the load used) is net of it; "
+                     "no raw station-load series is published, so the surplus is left visible.",
+    "Bulgaria": "Supply is 3-7% below load in 2024-25: ENTSO-E generation misses part of the rapidly growing small solar fleet (not TSO-metered) and the load figure includes it; "
+                "the ESO (TSO) site does not answer from GitHub, so there is no raw replacement yet.",
+    "Montenegro": "The ENTSO-E physical flow on the Bosnia-Montenegro border (about 3 TWh a year) does not close either side's balance: Montenegro is oversupplied "
+                  "(2025 +36%) and Bosnia undersupplied (-13%) by roughly the same volume. Montenegro's TSO (CGES) has no machine-readable feed reachable from GitHub (discovery_archive/europe/CGES_PROBE.py), "
+                  "and 2025 generation is low because the Pljevlja coal plant was out Apr-Nov. Treat the Balkan (BA, ME, MK, XK, RS) balances as indicative.",
+    "Bosnia and Herzegovina": "See Montenegro: the Bosnia-Montenegro physical flow looks overstated; supply is 13% below load in 2025 (ratio was 97-102% before).",
+    "North Macedonia": "Small system with unreliable ENTSO-E load/flow reporting (supply 89-91% of load in 2023-24, 100% in 2025).",
+    "Kosovo": "KOSTT generation is metered at the plant and load includes distribution losses and theft; supply is about 5% below load.",
+    "Slovenia": "Supply is about 4% above load every year: ENTSO-E Slovenian load excludes some demand that generation and flows cover (grid losses/closed distribution systems).",
+    "Serbia": "Supply is about 4% above load every year, consistent with a load definition that is net of transmission losses.",
+    "Lithuania": "Supply is 3-4% above load since 2023, after the Baltic synchronisation changed the metered border flows.",
+    "Denmark": "Supply is 4-7% above load: ENTSO-E generation and the border flows (Energinet metering) agree with the neighbours, so the surplus sits in the ENTSO-E load definition.",
+    "Poland": "Before 2024 supply is 5-6% below load: small embedded and industrial generation is not in the ENTSO-E feed.",
+    "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
     "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
     "Ireland": "Republic of Ireland only (Northern Ireland is in the UK). Net imports are EirGrid demand less generation, so supply equals load by construction; "
