@@ -485,7 +485,7 @@ def _monthly_twh(day, line_floor=12):
 
 
 def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None,
-                      extra_exports=None, prod_adjust=None, prod_override=None):
+                      extra_exports=None, prod_adjust=None, prod_override=None, import_floor=None, export_floor=None):
     """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
     withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
     final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
@@ -502,6 +502,10 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
     day["Storage injections"] = -in_s.where(in_s.notna(), _col(bal, f"{cc}_storage_in_GWhd")).fillna(0)
     own = pd.concat([_col(bal, f"{cc}_distribution_GWhd"), _col(bal, f"{cc}_final_consumers_GWhd")], axis=1).sum(axis=1, min_count=1)
     day["Consumption"] = cons_override.reindex(bal.index).combine_first(own) if cons_override is not None else own
+    if import_floor is not None:        # the country's own TSO border-entry series, where it exceeds ENTSOG's (points ENTSOG lacks or under-reports)
+        day["Pipeline imports"] = pd.concat([day["Pipeline imports"], import_floor.reindex(bal.index)], axis=1).max(axis=1)
+    if export_floor is not None:
+        day["Pipeline exports"] = -pd.concat([-day["Pipeline exports"], export_floor.reindex(bal.index)], axis=1).max(axis=1)
     if norway_to is not None:
         # ENTSOG's pipeline imports for Great Britain are the St Fergus + Easington entry points, which carry UK North Sea gas as well
         # as Norwegian gas. Gassco's flows to Great Britain become the pipeline-import line; the rest of those terminals is UK
@@ -601,6 +605,13 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
             " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
             "ENTSOG's distribution + industrial exits and so excludes it). The balance still runs about 3% long: ENTSOG misses about 15 TWh of "
             "French exports against Eurostat, and network own use and losses are not in the offtake.")
+    if cc == "CZ":
+        cee = _sheet_or_empty(os.path.join(data_dir, "europe_tso_gas_demand_cee_daily.xlsx"), "Daily", "date")
+        if "CZ_border_entry" in cee:
+            return {"import_floor": cee["CZ_border_entry"], "export_floor": cee["CZ_border_exit"]}, None, (
+                " Pipeline imports and exports are the larger of ENTSOG's Czech-side figures and NET4GAS's own allocated border entries/exits (Brandov, Waidhaus, Lanzhot, Cesky Tesin): "
+                "in 2023 ENTSOG's VIP Brandov was reported at 14 TWh and its physical points (EUGAL, OPAL, Hora Svate Katerina, Olbernhau) sum to only 63 TWh "
+                "against NET4GAS's 79 TWh, which left the balance 23% short. Consumption is NET4GAS's own system balance, so the balance closes largely by construction.")
     if not len(fx):
         return {}, None, None
     if cc == "GR" and "GR_tap_imports" in fx:
