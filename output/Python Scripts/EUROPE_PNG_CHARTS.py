@@ -114,8 +114,13 @@ def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=
     finish(fig, ax, f"{title} (to {latest(d)})", ylabel, source, path, ncol=5 if lines else 8)
 
 
-def gas_balance(xl, path):
-    d = tab(xl, "EU gas balance data")
+GAS_SRC = ("ENTSOG physical flows; consumption from the gas TSOs (DE THE, FR ODRE, ES Enagas, DK Energinet, PT REN, AT AGGM, CZ NET4GAS, LT Amber Grid, "
+           "FI Gasgrid, GB National Gas, IE GNI); Norway from Gassco; GIE ALSI (LNG) and AGSI+ (storage)")
+
+
+def gas_balance(xl, path, tab_name="EU gas balance data", title="EU gas balance: supply and storage flows vs consumption",
+                source=GAS_SRC):
+    d = tab(xl, tab_name)
     fig, ax = plt.subplots(figsize=(11, 5.6))
     style(ax)
     bars = [c for c in d.columns if c != "Consumption"]
@@ -124,8 +129,7 @@ def gas_balance(xl, path):
     ax.plot(d.index, d["Consumption"], color=INK, linewidth=2, label="Consumption (final consumers)")
     date_axis(ax)
     ax.axhline(0, color="#BBBBBB", linewidth=0.8)
-    finish(fig, ax, f"EU gas balance: supply and storage flows vs consumption (to {latest(d)})", "TWh per month",
-           "ENTSOG physical flows; consumption for DE/FR/ES from THE, ODRE and Enagas, Ireland from GNI; GIE ALSI (LNG) and AGSI+ (storage)", path, ncol=4)
+    finish(fig, ax, f"{title} (to {latest(d)})", "TWh per month", source, path, ncol=4)
 
 
 def water_year(xl, tab_name, title, unit, path, source):
@@ -202,6 +206,13 @@ def main():
             source=ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA)),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
         ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
+        ("United Kingdom gas balance data", lambda: gas_balance(
+            xl, out("uk_gas_balance.png"), "United Kingdom gas balance data", "Great Britain gas balance: supply and storage flows vs consumption",
+            "National Gas NTS (consumption, UK terminals); Norway-to-GB flows from Gassco; remaining St Fergus and Easington counted as UK production; "
+            "GIE ALSI (LNG) and AGSI+ (storage)")),
+        ("Norway gas exports data", lambda: fuel_chart(
+            xl, "Norway gas exports data", "Norway gas exports by destination", "TWh per month",
+            out("norway_gas_exports.png"), source="Gassco (daily flows by delivery destination; mcm/d x 11.2 GWh per mcm)", by_order=True)),
         ("EU Prices data", lambda: prices(xl, out("europe_power_prices.png"))),
         ("EU Storage EU data", lambda: water_year(
             xl, "EU Storage EU data", "EU gas storage", "TWh", out("europe_gas_storage_water_year.png"),
