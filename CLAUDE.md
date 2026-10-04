@@ -51,7 +51,10 @@ Standing instructions from the repo owner. Follow these on every change.
   Gas: India (PPAC), Singapore (EMA/SingStat + a daily gas-for-power estimate from NEMS CCGT output), Thailand
   (EPPO tables 3.1-1 / 3.2-2: production by field, Myanmar pipeline, LNG, use by sector, monthly from 1986) and
   Bangladesh (Petrobangla daily gas production & distribution report PDFs, from 2021; dated by the START of the 08:00
-  gas day - owner's decision, it lines up with the power data).
+  gas day - owner's decision, it lines up with the power data), Pakistan (PBS bulletin table 3.2 production by
+  province, to Mar 2024 - PBS stopped posting; LNG import value only), Indonesia (Ditjen Migas Buku Statistik Migas,
+  half-yearly, ~6-18 month lag) and Vietnam (NSO monthly tables, from 2015). Malaysia (DOSM quarterly only) and the
+  Philippines (nothing monthly) have no gas pull.
   Raw power by country (no copied or invented months: a month a raw feed lacks is a gap, and the master's regional
   total fills it from Ember, labelled): India = CEA daily (NPP) for coal/gas/oil/nuclear/hydro + NITI Aayog ICED for
   wind/solar/other RE and demand (INDIA_RE_DAILY.py; Grid-India/MERIT geo-block GitHub); Vietnam = EVN daily posts of
