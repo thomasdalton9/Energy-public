@@ -13,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +24,7 @@ jobs:
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 6000 python3 MACRO_DRIVERS.py || echo "MACRO_DRIVERS.py failed"
+        run: timeout 2400 python3 MACRO_DRIVERS.py || echo "MACRO_DRIVERS.py failed"
 
       - name: Add Excel charts and copy scripts
         if: always()
