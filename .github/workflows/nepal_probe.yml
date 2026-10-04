@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber lxml nepali-datetime
+        run: pip install requests pandas openpyxl xlrd pdfplumber lxml nepali-datetime playwright && python -m playwright install --with-deps chromium
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
