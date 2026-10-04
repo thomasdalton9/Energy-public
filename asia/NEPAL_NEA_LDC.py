@@ -54,7 +54,7 @@ import os
 import re
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 
 import nepali_datetime
@@ -238,7 +238,23 @@ def map_table(table, keys):
     return rec
 
 
-def parse(text, tables):
+def parse_text(text):
+    """The two value rows straight from the text (fast): the energy row has 11 numbers, the peak row a time and 9."""
+    rec = {}
+    for line in text.split("\n"):
+        v = re.findall(NUM, line)
+        if len(v) == len(ENERGY_ORDER) and not re.search(r"\d:\d", line):
+            rec.update({k: num(x) for k, x in zip(ENERGY_ORDER, v)})
+            break
+    m = re.search(r"^\s*(\d{1,2}:\d{2})\s+((?:" + NUM + r"\s+){8}" + NUM + r")\s*$", text, re.M)
+    if m:
+        rec["Peak_time"] = m.group(1)
+        rec.update({k: num(x) for k, x in zip(PEAK_ORDER, m.group(2).split())})
+    return rec
+
+
+def parse_tables(tables):
+    """Columns matched by their header text (slow: only when the text rows do not add up)."""
     rec = {}
     for t in tables:
         flat = " ".join(str(c) for r in t for c in r if c).lower()
@@ -246,18 +262,36 @@ def parse(text, tables):
             rec.update(map_table(t, ENERGY_KEYS))
         elif "peak time" in flat:
             rec.update(map_table(t, PEAK_KEYS))
-    if rec.get("NEA_MWh") is None or rec.get("IPP_MWh") is None:   # tables did not extract: value rows from text
-        for line in text.split("\n"):
-            v = re.findall(NUM, line)
-            if len(v) == len(ENERGY_ORDER) and not re.search(r"\d:\d", line):
-                rec.update({k: num(x) for k, x in zip(ENERGY_ORDER, v)})
-                break
-    if rec.get("Demand_peak_MW") is None:
-        m = re.search(r"^\s*(\d{1,2}:\d{2})\s+((?:" + NUM + r"\s+){8}" + NUM + r")\s*$", text, re.M)
-        if m:
-            rec["Peak_time"] = m.group(1)
-            rec.update({k: num(x) for k, x in zip(PEAK_ORDER, m.group(2).split())})
     return rec
+
+
+def consistent(rec):
+    """The report's own identities: NEA + subsidiary + IPP + import = available; available - export = met;
+    met + interruption + deficit = requirement (each within 1% or 5 MWh)."""
+    def close(a, b):
+        return abs(a - b) <= max(5, 0.01 * abs(b))
+    try:
+        return (close(rec["NEA_MWh"] + rec["NEA_subsidiary_MWh"] + rec["IPP_MWh"] + rec["Imports_MWh"],
+                      rec["Energy_available_MWh"])
+                and close(rec["Energy_available_MWh"] - rec["Exports_MWh"], rec["Energy_met_MWh"])
+                and close(rec["Energy_met_MWh"] + rec["Interruption_MWh"] + rec["Deficit_MWh"],
+                          rec["Energy_requirement_MWh"]))
+    except (KeyError, TypeError):
+        return False
+
+
+def peak_consistent(rec):
+    """Peak row identities: generation + import = availability; availability - export = demand met;
+    met + interruption + deficit = peak demand (within 2% or 5 MW)."""
+    def close(a, b):
+        return abs(a - b) <= max(5, 0.02 * abs(b))
+    try:
+        return (close(rec["Peak_generation_MW"] + rec["Peak_import_MW"], rec["Peak_availability_MW"])
+                and close(rec["Peak_availability_MW"] - rec["Peak_export_MW"], rec["Demand_met_peak_MW"])
+                and close(rec["Demand_met_peak_MW"] + rec["Peak_interruption_MW"] + rec["Peak_deficit_MW"],
+                          rec["Demand_peak_MW"]))
+    except (KeyError, TypeError):
+        return False
 
 
 def check(rec, label):
@@ -275,12 +309,21 @@ def check(rec, label):
 
 
 def read_pdf(body, g):
-    """(date, record) from one report; the PDF's own AD date wins (mismatches are printed)."""
+    """(date, record) from one report; the PDF's own AD date wins (mismatches are printed). Values come from the
+    text rows when they satisfy the report's identities, else from the tables matched by header."""
     with pdfplumber.open(io.BytesIO(body)) as pdf:
         p = pdf.pages[0]
         text = p.extract_text() or ""
-        tables = p.extract_tables()
-    bsd, ad = pdf_date(text)
+        bsd, ad = pdf_date(text)
+        rec = parse_text(text)
+        if not consistent(rec) or not peak_consistent(rec):
+            tab = parse_tables(p.extract_tables())
+            if consistent(tab) or not consistent(rec):
+                rec.update({k: v for k, v in tab.items() if k in ENERGY_ORDER})
+            if peak_consistent(tab) or not peak_consistent(rec):
+                rec.update({k: v for k, v in tab.items() if k not in ENERGY_ORDER})
+            if not (consistent(rec) and peak_consistent(rec)):
+                out(f"  {bs_name(g)}: report identities do not hold after the table read - kept, check")
     when = g
     if ad and ad != g:
         out(f"  file {bs_name(g)} (= {g}) but the report says {bsd} / {ad}: report date used")
@@ -289,7 +332,6 @@ def read_pdf(body, g):
         out(f"  file {bs_name(g)}: report's BS date {bsd} differs (AD date agrees)")
     elif not ad:
         out(f"  file {bs_name(g)}: no 'For Date' line, date from the file name")
-    rec = parse(text, tables)
     if rec.get("NEA_MWh") is None:
         out(f"  {bs_name(g)}: values not found; first lines: {text[:300]!r}")
         return when, None
@@ -488,7 +530,8 @@ def main():
             for b in range(0, len(todo), BATCH):
                 chunk = todo[b:b + BATCH]
                 if use_mirror:
-                    with ThreadPoolExecutor(max_workers=6) as ex:
+                    # one process per core: parsing the PDFs is CPU-bound
+                    with ProcessPoolExecutor(max_workers=max(2, os.cpu_count() or 2)) as ex:
                         res = list(ex.map(fetch_mirror, chunk))
                 else:
                     if b == 0:
