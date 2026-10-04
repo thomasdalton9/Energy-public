@@ -1968,6 +1968,7 @@ REGISTRY = {
     "norway_gassco_gas_flows_daily.xlsx": norway_gassco,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
     "europe_biomethane_operators.xlsx": europe_biomethane,
+    "europe_biomethane_statistics.xlsx": europe_biomethane_stats,
     "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
