@@ -427,7 +427,6 @@ def read_decision(url, months=None):
 
 
 # ---------------------------------------------------------------------------------------------------- K-Electric
-KE_RANK = {"KE filing": 2, "NEPRA KE decision": 1}
 KE_KEY = re.compile(r"K-?Electric|\bKE\b|\bKEL\b", re.I)
 KE_OWN = ["KE_own_Oil", "KE_own_Gas", "KE_own_RLNG", "KE_own_unsplit"]
 KE_IPP = ["KE_IPP_Oil", "KE_IPP_Gas", "KE_IPP_Coal", "KE_IPP_Solar", "KE_IPP_Other"]
@@ -445,7 +444,8 @@ def ke_files():
     r = get("https://nepra.org.pk/news.php")
     for h in sorted(set(re.findall(r'href\s*=\s*["\']([^"\']+\.pdf)["\']', r.text, re.I))):
         n = unquote(h).rsplit("/", 1)[-1]
-        if not KE_KEY.search(n) or re.search(r"XWDISCO|petit|tariff|quarter|QTR|licen|write|interven|issues", n, re.I):
+        if "admission notices" not in unquote(h).lower() or not KE_KEY.search(n) or \
+                re.search(r"XWDISCO|WAPDA|petit|tariff|quarter|QTR|licen|write|interven|issues", n, re.I):
             continue
         if not re.search(r"fuel cost variation|FCA|FPA data|fuel charges", n, re.I):
             continue
@@ -461,7 +461,7 @@ def ke_files():
         if not y or int(y.group(1)) < DATA_START.year:
             continue
         if not re.search(r"FCA|MFPA|fuel", n, re.I) or not re.search(r"TRF-362|K-?Electric|\bKE\b", n, re.I) or \
-                re.search(r"PAR-14|TRF-14[678]|FPCL|FFBL|SNPC|QTR|quarter|insurance|corrigendum|JUL-JUN", n, re.I):
+                re.search(r"PAR-14|TRF-14[678]|FPCL|FFBL|SNPC|QTR|quarter|insurance|corrigendum|JUL-JUN|WAPDA", n, re.I):
             continue
         res.append((urljoin(NEPRA_KE_LIST, h), n, "NEPRA KE decision", month_tokens(re.sub(r"\d{1,2}-\d{1,2}-\d{4}", " ", n))[:1]))
     out(f"K-Electric: {sum(f[2] == 'KE filing' for f in res)} KE filings, {sum(f[2] != 'KE filing' for f in res)} "
@@ -510,9 +510,7 @@ def parse_ke_filing(text, months=None):
         total = pick.get("total") or parts
         if total and abs(parts / total - 1) <= 0.03:
             row.update({"KE_own_Oil": pick.get("fo", 0.0) + pick.get("hsd", 0.0), "KE_own_Gas": pick.get("gas", 0.0),
-                        "KE_own_RLNG": pick.get("lng", 0.0)})
-        elif total:
-            row["KE_own_unsplit"] = total
+                        "KE_own_RLNG": pick.get("lng", 0.0), "KE_own_filed": total})
     # purchases
     k = next((i for i, ln in enumerate(lines) if re.search(r"power\s*purchase\s*details", ln, re.I)), None)
     if k is not None:
@@ -548,10 +546,8 @@ def parse_ke_filing(text, months=None):
             other = sum(subs.values())
             if abs((cppa + other) / total - 1) <= 0.03:
                 row.update(subs)
-                row["KE_from_CPPA"] = cppa
-            else:
-                row["KE_from_CPPA"] = cppa
-                row["KE_purchases_other"] = max(total - cppa, 0.0)
+            row["KE_from_CPPA_filed"] = cppa
+            row["KE_purchases_filed"] = total
     return {mo: row} if row else {}
 
 
@@ -588,7 +584,7 @@ def parse_ke_decision(text, months=None):
         for mo, v in pairs:
             if 50 <= v <= 3000:
                 res.setdefault(mo, {})[key] = v
-    return {mo: {"KE_own_unsplit": d["own"], "KE_external": d["ext"]} for mo, d in res.items() if "own" in d and "ext" in d}
+    return {mo: {"KE_own_dec": d["own"], "KE_external_dec": d["ext"]} for mo, d in res.items() if "own" in d and "ext" in d}
 
 
 def _safe(fn, f):
@@ -606,63 +602,84 @@ def read_ke(f):
 
 
 def ke_monthly(grid_index, ke):
-    """Exact KE rows + estimates for the other grid months -> MWh frame with KE_basis."""
-    rows = {}
-    full = ke[ke["KE_source"] == "KE filing"] if "KE_source" in ke else ke.iloc[0:0]
-    if "KE_from_CPPA_GWh" in full:
-        full = full[full["KE_from_CPPA_GWh"].notna()]
+    """KE history (GWh, as filed) -> MWh per grid month with KE_basis. Per month:
+    own sent-out = NEPRA's KE decision; its fuel split = KE's filing when the filing's parts agree
+    with that total within 5% (else unsplit, counted as gas); purchases from IPPs on KE's network = KE's filing when it
+    is consistent (else copied from the same calendar month of the nearest year with a good filing); KE_from_CPPA =
+    external purchases - those. Months with no KE figure at all: everything copied the same way (ESTIMATE)."""
+    g = lambda r, c: (None if r is None or pd.isna(r.get(c + "_GWh", float("nan"))) else float(r[c + "_GWh"]))  # noqa
+    rec = {mo: ke.loc[mo].to_dict() for mo in ke.index} if not ke.empty else {}
 
-    def nearest(mo, frame):
-        same = frame[frame.index.month == mo.month]
-        pool = same if not same.empty else frame
-        if pool.empty:
+    def own_total(r):   # NEPRA's decision only: the OCR'd filings miss whole plant blocks too often to stand alone
+        return g(r, "KE_own_dec")
+
+    def split_ok(r):
+        tot, parts = own_total(r), [g(r, c) for c in ("KE_own_Oil", "KE_own_Gas", "KE_own_RLNG")]
+        return tot is not None and None not in parts and abs(sum(parts) / tot - 1) <= 0.05
+
+    def ipp(r):
+        subs = {c: g(r, c) for c in KE_IPP if g(r, c) is not None}
+        tot, cppa, ext = g(r, "KE_purchases_filed"), g(r, "KE_from_CPPA_filed"), g(r, "KE_external_dec")
+        if not subs or tot is None or cppa is None:
             return None
-        return pool.index[abs((pool.index - mo).days).argmin()]
+        other = sum(subs.values())
+        if not 10 <= other <= 500 or (ext is not None and abs((cppa + other) / ext - 1) > 0.10):
+            return None
+        return subs
 
+    good_ipp = {mo: ipp(r) for mo, r in rec.items() if ipp(r)}
+    good_own = {mo: own_total(r) for mo, r in rec.items() if own_total(r)}
+
+    def nearest(mo, pool):
+        if not pool:
+            return None
+        same = [m for m in pool if m.month == mo.month] or list(pool)
+        return min(same, key=lambda m: (abs((m - mo).days), -m.toordinal()))
+
+    rows = {}
     for mo in grid_index:
-        r = ke.loc[mo].to_dict() if mo in ke.index else {}
-        src = r.get("KE_source")
-        g = lambda c: r.get(c + "_GWh")   # noqa: E731
-        out_r, basis = {}, None
-        if src == "KE filing":
-            basis = "KE filing (exact)"
-            for c in KE_OWN + KE_IPP + ["KE_from_CPPA", "KE_purchases_other"]:
-                v = g(c)
-                if v is not None and not pd.isna(v):
-                    out_r[c] = v
-        elif src == "NEPRA KE decision":
-            out_r["KE_own_unsplit"] = g("KE_own_unsplit")
-            src_m = nearest(mo, full)
-            if src_m is not None:
-                e = full.loc[src_m]
-                for c in KE_IPP + ["KE_purchases_other"]:
-                    v = e.get(c + "_GWh")
-                    if v is not None and not pd.isna(v):
-                        out_r[c] = v
-                ipp = sum(out_r.get(c, 0.0) for c in KE_IPP + ["KE_purchases_other"])
-                out_r["KE_from_CPPA"] = max(g("KE_external") - ipp, 0.0)
-                basis = f"NEPRA KE decision (own sent-out exact, unsplit); other-IPP purchases copied from {src_m:%Y-%m}"
+        r = rec.get(mo)
+        d, notes = {}, []
+        tot = own_total(r) if r else None
+        if tot is not None:
+            if split_ok(r):
+                f = tot / sum(g(r, c) for c in ("KE_own_Oil", "KE_own_Gas", "KE_own_RLNG"))
+                for c in ("KE_own_Oil", "KE_own_Gas", "KE_own_RLNG"):
+                    d[c] = g(r, c) * f
+                notes.append("own by fuel: KE filing")
             else:
-                basis = "NEPRA KE decision (own sent-out only)"
-            out_r["KE_external"] = g("KE_external")
+                d["KE_own_unsplit"] = tot
+                notes.append("own: NEPRA KE decision (no fuel split)")
         else:
-            src_m = nearest(mo, full)
-            if src_m is not None:
-                e = full.loc[src_m]
-                for c in KE_OWN + KE_IPP + ["KE_from_CPPA", "KE_purchases_other"]:
-                    v = e.get(c + "_GWh")
-                    if v is not None and not pd.isna(v):
-                        out_r[c] = v
-                basis = f"ESTIMATE: no KE figure for this month; copied from {src_m:%Y-%m} (same calendar month)"
-        if basis:
-            d = {f"{c}_MWh": round(v * 1000, 1) for c, v in out_r.items() if v is not None and not pd.isna(v)}
-            d["KE_basis"] = basis
-            rows[mo] = d
+            src = nearest(mo, good_own)
+            if src is not None:
+                d["KE_own_unsplit"] = good_own[src]
+                notes.append(f"own: ESTIMATE copied from {src:%Y-%m}")
+        subs = ipp(r) if r else None
+        if subs:
+            notes.append("IPP purchases: KE filing")
+        else:
+            src = nearest(mo, good_ipp)
+            if src is not None:
+                subs = good_ipp[src]
+                notes.append(f"IPP purchases: ESTIMATE copied from {src:%Y-%m}")
+        if subs:
+            d.update(subs)
+            ext = g(r, "KE_external_dec") if r else None
+            cppa = g(r, "KE_from_CPPA_filed") if r else None
+            if ext is not None:
+                d["KE_external"] = ext
+                d["KE_from_CPPA"] = max(ext - sum(subs.values()), 0.0)
+            elif cppa is not None:
+                d["KE_from_CPPA"] = cppa
+        if d:
+            row = {f"{c}_MWh": round(v * 1000, 1) for c, v in d.items()}
+            row["KE_basis"] = "; ".join(notes)
+            rows[mo] = row
     k = pd.DataFrame.from_dict(rows, orient="index")
     if not k.empty:
         k["KE_own_MWh"] = k[[c + "_MWh" for c in KE_OWN if c + "_MWh" in k]].sum(axis=1, min_count=1)
-        k["KE_purchases_nonCPPA_MWh"] = k[[c + "_MWh" for c in KE_IPP + ["KE_purchases_other"] if c + "_MWh" in k]]\
-            .sum(axis=1, min_count=1)
+        k["KE_purchases_nonCPPA_MWh"] = k[[c + "_MWh" for c in KE_IPP if c + "_MWh" in k]].sum(axis=1, min_count=1)
     return k
 
 
@@ -751,10 +768,14 @@ def save(path, grid, months, files, ke):
         "I/II, Lucky, ISL; Coal: FPCL; Solar: Oursun, Gharo solar and net metering), KE_purchases_nonCPPA_MWh their "
         "sum; KE_from_CPPA_MWh = drawn from the national grid (detail / check only); KE_external_MWh = NEPRA's "
         "'external purchases' (CPPA-G + IPPs) where that is the source.",
-        "KE_basis says how each month's KE figures were obtained. Months without a KE figure (after KE's consumers "
-        "moved to the uniform national FCA in 2025, and the odd gap) are ESTIMATED by copying KE's own generation and "
-        "non-CPPA purchases from the same calendar month of the nearest year with a full KE filing; months known "
-        "only from NEPRA's KE decision have KE's own sent-out exact and the non-CPPA purchases copied the same way.",
+        "KE_basis says how each month's KE figures were obtained. KE's own sent-out comes from NEPRA's KE FCA "
+        "decision; its fuel split from KE's own filing for that month when the filing's plant blocks add up to the "
+        "decision's total within 5% (otherwise KE_own_unsplit, counted under Gas); KE's purchases from IPPs on its "
+        "network from KE's filing when consistent with NEPRA's 'external purchases', otherwise copied from the same "
+        "calendar month of the nearest year with a good filing (ESTIMATE). Months with no KE decision (KE's consumers "
+        "moved to the uniform national FCA in 2025, so none after March 2025, plus the odd gap) are ESTIMATED: KE's "
+        "own sent-out is copied from the same calendar month of the nearest year that has one. KE_from_CPPA_MWh = "
+        "NEPRA's external purchases minus the IPP purchases (blank in estimated months).",
         "Months: the national-grid source used for each month and Check_pct = (sum of the fuel rows / the filing's "
         "own total - 1) x 100. Grid / KE: the history stores (as filed). Files: every file read.",
         "",
@@ -998,30 +1019,30 @@ def main():
     except requests.RequestException as e:
         out(f"  KE listing failed: {e}")
         kl = []
-    ke_rank = {d: KE_RANK.get(x, 0) for d, x in ke["KE_source"].items()} if "KE_source" in ke else {}
     new_ke = {}
-    for kind in KE_RANK:
-        cur = {**ke_rank, **{m: KE_RANK[v["KE_source"]] for m, v in new_ke.items()}}
-        todo = [f for f in kl if f[2] == kind and f[0] not in seen and
-                (not f[3] or any(m >= DATA_START and cur.get(m, 0) < KE_RANK[kind] for m in f[3]))]
-        out(f"{kind}: {len(todo)} files to read")
-        with ThreadPoolExecutor(4) as ex:
-            for f, res, err in ex.map(lambda f: (f, *_safe(read_ke, f)), todo):
-                url, name, k, mos = f
-                got = []
-                for mo, row in sorted(res.items()):
-                    if mo < DATA_START or cur.get(mo, 0) > KE_RANK[k] or \
-                            (mo in new_ke and KE_RANK[new_ke[mo]["KE_source"]] >= KE_RANK[k]):
-                        continue
-                    new_ke[mo] = {**{c + "_GWh": v for c, v in row.items()}, "KE_source": k, "KE_file": name[:120]}
-                    got.append(f"{mo:%Y-%m}")
-                status = err or ("ok" if got else "no month parsed")
-                if err or not got:
-                    out(f"  {name[:80]}: {status}")
-                new_files.append({"url": url, "kind": k, "name": name[:150], "months": " ".join(got), "status": status})
+    todo = [f for f in kl if f[0] not in seen]
+    out(f"K-Electric: {len(todo)} files to read")
+    with ThreadPoolExecutor(4) as ex:
+        for f, res, err in ex.map(lambda f: (f, *_safe(read_ke, f)), todo):
+            url, name, k, mos = f
+            got = []
+            for mo, row in sorted(res.items()):
+                if mo < DATA_START:
+                    continue
+                cur = new_ke.setdefault(mo, {})
+                cur.update({c + "_GWh": v for c, v in row.items() if v is not None})
+                cur["KE_files"] = (cur.get("KE_files", "") + " | " + name[:80]).strip(" |")
+                got.append(f"{mo:%Y-%m}")
+            status = err or ("ok" if got else "no month parsed")
+            if err or not got:
+                out(f"  {name[:80]}: {status}")
+            new_files.append({"url": url, "kind": k, "name": name[:150], "months": " ".join(got), "status": status})
     if new_ke:
-        nk = pd.DataFrame.from_dict(new_ke, orient="index")
-        ke = pd.concat([ke[~ke.index.isin(nk.index)], nk]) if not ke.empty else nk
+        old_ke = {pd.Timestamp(m): {c: v for c, v in r.items() if not pd.isna(v)} for m, r in ke.to_dict("index").items()} \
+            if not ke.empty else {}
+        for mo, row in new_ke.items():
+            old_ke.setdefault(mo, {}).update(row)
+        ke = pd.DataFrame.from_dict(old_ke, orient="index").sort_index()
     if not ke.empty:
         ke.index = pd.to_datetime(ke.index)
     files = pd.concat([files, pd.DataFrame(new_files)], ignore_index=True) if new_files else files

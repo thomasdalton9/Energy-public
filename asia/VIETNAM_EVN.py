@@ -50,7 +50,10 @@ OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "vietnam_power_gene
 SOURCES = [("đmt mái nhà (ước tính đầu cực)", "Solar_rooftop"), ("đmt mái nhà (ước tính thương phẩm)", "Solar_rooftop_delivered"),
            ("đmt mái nhà", "Solar_rooftop"), ("đmt trang trại", "Solar_farm"), ("thủy điện", "Hydro"),
            ("nhiệt điện than", "Coal"), ("tuabin khí", "Gas"), ("nhiệt điện dầu", "Oil"), ("điện gió", "Wind"),
-           ("nhập khẩu", "Imports"), ("khác", "Other")]
+           ("điện mặt trời", "Solar_total"), ("nhập khẩu", "Imports"), ("khác", "Other")]
+# posts before about June 2024 give one 'Điện mặt trời' (all solar) line and state the day's total as 'Sản lượng tiêu
+# thụ trong ngày'; later ones split farm / rooftop solar and state 'Sản lượng điện sản xuất và nhập khẩu'
+
 FUELS = ["Hydro", "Coal", "Gas", "Oil", "Wind", "Solar", "Other"]
 
 
@@ -120,7 +123,8 @@ def parse(page):
     i = t.find("Thông tin chung về vận hành")
     t = t[i:] if i >= 0 else t
     row = {}
-    tot = re.findall(r"Sản lượng điện sản xuất và nhập khẩu\s*:\s*([\d.,]+)", t)
+    tot = re.findall(r"Sản lượng điện sản xuất và nhập khẩu\s*:\s*([\d.,]+)", t) or \
+        re.findall(r"Sản lượng tiêu thụ trong ngày\s*:\s*([\d.,]+)", t)
     peak = re.findall(r"Công suất lớn nhất trong ngày\s*:\s*([\d.,]+)", t)
     if tot:
         row["Total_incl_imports_GWh"] = num(tot[-1])   # the last one is on the at-terminals rooftop basis
@@ -135,6 +139,9 @@ def parse(page):
             if key in label:
                 row.setdefault(col + "_GWh", v)
                 break
+    d = re.search(r"CÔNG SUẤT HUY ĐỘNG NGÀY\s*(\d{1,2})/(\d{1,2})/(\d{4})", table, re.I)
+    if d:   # the day the figures are for (the 31/12/2025 post carries 1/1/2026's figures)
+        row["_table_date"] = date(int(d.group(3)), int(d.group(2)), int(d.group(1)))
     # dispatch table: 'Quốc gia + ĐMT mái nhà (ước tính đầu cực) 50416,8 49855,6'
     m = re.search(r"Quốc gia \+ ĐMT mái nhà \(ước tính đầu cực\)\s+([\d.,]+)\s+([\d.,]+)", table)
     if m:
@@ -148,7 +155,12 @@ def fetch(item):
     if page is None:
         return day, None
     try:
-        return day, parse(page)
+        row = parse(page)
+        td = row.pop("_table_date", None)
+        if td and td != day:   # a post filed under the wrong day: its figures belong to td, not to day
+            out(f"  {day}: post's own table is for {td}; not saved under {day}")
+            return day, {}
+        return day, row
     except Exception as e:  # noqa: BLE001
         out(f"  {day}: {type(e).__name__}: {e}")
         return day, None
@@ -170,16 +182,59 @@ def to_frames(rows):
         return pd.DataFrame(), pd.DataFrame()
     r.index = pd.to_datetime(r.index)
     g = lambda c: r.get(c + "_GWh")   # noqa: E731
-    solar = pd.concat([g("Solar_farm"), g("Solar_rooftop")], axis=1).sum(axis=1, min_count=1) \
-        if g("Solar_farm") is not None else None
+    parts = [x for x in (g("Solar_farm"), g("Solar_rooftop")) if x is not None]
+    solar = pd.concat(parts, axis=1).sum(axis=1, min_count=1) if parts else pd.Series(float("nan"), index=r.index)
+    if g("Solar_total") is not None:
+        solar = solar.fillna(g("Solar_total"))
     daily = pd.DataFrame({"Hydro_MWh": g("Hydro"), "Coal_MWh": g("Coal"), "Gas_MWh": g("Gas"), "Oil_MWh": g("Oil"),
                           "Wind_MWh": g("Wind"), "Solar_MWh": solar, "Other_MWh": g("Other")}, index=r.index) * 1000
     daily["Total_MWh"] = daily.sum(axis=1, min_count=3)
-    for c in ("Imports", "Solar_farm", "Solar_rooftop", "Solar_rooftop_delivered", "Total_incl_imports"):
+    for c in ("Imports", "Solar_farm", "Solar_rooftop", "Solar_rooftop_delivered", "Solar_total", "Total_incl_imports"):
         if g(c) is not None:
             daily[c + "_MWh"] = g(c) * 1000
     demand = r[[c for c in ("Demand_peak_MW", "Midday_MW", "Evening_MW") if c in r]]
     return daily.round(0), demand.round(1)
+
+
+def clean(daily):
+    """Checks on the merged history: (1) a day whose figures repeat the next day's exactly was filed under the wrong
+    date (the 31/12/2025 post carries 1/1/2026's figures) - dropped; (2) a day where Total + Imports misses EVN's
+    stated total by over 1% has a typo in one source (20/9/2025: 'Thủy điện 30,8' for 430,8) - the source whose
+    corrected value is closest to its 15-day median takes the difference, if that lands within 25% of the median;
+    otherwise the day is left as published and flagged. Returns (cleaned frame, list of log lines)."""
+    log, d = [], daily.sort_index().copy()
+    fuels = [c for c in ("Hydro_MWh", "Coal_MWh", "Gas_MWh", "Oil_MWh", "Wind_MWh", "Solar_MWh", "Other_MWh") if c in d]
+    nxt = d[fuels].shift(-1)
+    same = (d[fuels].round(0) == nxt.round(0)).all(axis=1) & d[fuels].notna().all(axis=1) & \
+        ((d.index.to_series().shift(-1) - d.index.to_series()).dt.days == 1)
+    for t in d.index[same]:
+        log.append(f"{t:%Y-%m-%d}: same figures as the next day (post filed under the wrong date) - dropped")
+    d = d[~same]
+    if "Total_incl_imports_MWh" in d:
+        med = d[fuels].rolling(15, center=True, min_periods=5).median()
+        gap = d["Total_incl_imports_MWh"] - (d["Total_MWh"] + d.get("Imports_MWh", 0).fillna(0))
+        bad = gap.abs() > 0.01 * d["Total_incl_imports_MWh"]
+        for t in d.index[bad.fillna(False)]:
+            if d.loc[t, fuels].isna().any():   # a source not parsed (e.g. solar before its label was known): re-read, not fixed
+                log.append(f"{t:%Y-%m-%d}: a source is missing, so Total misses EVN's total - left for a re-read")
+                continue
+            best = None
+            for c in fuels:
+                fixed = d.at[t, c] + gap[t] if pd.notna(d.at[t, c]) else None
+                if fixed is None or not med.at[t, c] or pd.isna(med.at[t, c]) or fixed < 0:
+                    continue
+                err = abs(fixed / med.at[t, c] - 1)
+                if err <= 0.25 and (best is None or err < best[1]):
+                    best = (c, err, fixed)
+            if best:
+                log.append(f"{t:%Y-%m-%d}: {best[0]} {d.at[t, best[0]]:.0f} -> {best[2]:.0f} MWh to match EVN's total")
+                d.at[t, best[0]] = best[2]
+                if best[0] == "Solar_MWh" and "Solar_farm_MWh" in d and pd.notna(d.at[t, "Solar_farm_MWh"]):
+                    pass   # the split columns stay as published
+                d.at[t, "Total_MWh"] = d.loc[t, fuels].sum(min_count=3)
+            else:
+                log.append(f"{t:%Y-%m-%d}: Total + Imports misses EVN's total by {gap[t]:.0f} MWh - left as published")
+    return d, log
 
 
 def merge(old, new):
@@ -189,6 +244,10 @@ def merge(old, new):
 
 
 def save(path, daily, demand, archive_start=None):
+    daily, log = clean(daily)
+    demand = demand[demand.index.isin(daily.index)]
+    for line in log:
+        out("  check: " + line)
     daily.index.name = demand.index.name = "date"
     check = (daily["Total_MWh"] + daily.get("Imports_MWh", 0) - daily.get("Total_incl_imports_MWh")).abs()
     off = int((check > 0.01 * daily["Total_MWh"]).sum()) if "Total_incl_imports_MWh" in daily else 0
@@ -202,7 +261,10 @@ def save(path, daily, demand, archive_start=None):
         "Total_incl_imports_MWh = production + imports as EVN states it (rooftop at the terminals).",
         "Demand: Demand_peak_MW = the day's maximum (rooftop at the terminals); Midday_MW / Evening_MW = national "
         "dispatch at the midday low and at the evening peak.",
-        f"Check: Total_MWh + Imports_MWh matches EVN's stated total within 1% on all but {off} days.",
+        f"Check: Total_MWh + Imports_MWh matches EVN's stated total within 1% on all but {off} days. A day whose "
+        "figures repeat the next day's (a post filed under the wrong date) is dropped; where one source is clearly a "
+        "typo (e.g. 20/9/2025 hydro '30,8' for 430,8) it is corrected to EVN's stated total: "
+        + ("; ".join(log) if log else "none this run") + ".",
         "",
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d} ({len(daily)} days; EVN posts the "
@@ -226,7 +288,9 @@ def main():
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
     old_d, old_m = read_sheet(args.out, "Daily"), read_sheet(args.out, "Demand")
-    have = set(old_d.dropna(subset=["Total_MWh"]).index.date) if "Total_MWh" in old_d else set()
+    # a saved day without solar was parsed before the old 'Điện mặt trời' label was known: read it again
+    need = [c for c in ("Total_MWh", "Solar_MWh") if c in old_d]
+    have = set(old_d.dropna(subset=need).index.date) if "Total_MWh" in old_d else set()
     today = date.today()
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS + 1)}
     # every day from EVN's archive start (recorded once the list has been read to its end) that is not saved yet
@@ -265,7 +329,7 @@ def main():
             for d, row in ex.map(fetch, todo[b:b + 120]):
                 if row and len([k for k in row if k.endswith("_GWh")]) >= 5:
                     rows[d] = row
-                elif row is not None:
+                elif row:
                     out(f"  {d}: too few sources parsed ({sorted(row)})")
         daily, demand = to_frames(rows)
         d_all, m_all = merge(old_d, daily), merge(old_m, demand)

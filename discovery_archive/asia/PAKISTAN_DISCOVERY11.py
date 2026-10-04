@@ -28,7 +28,7 @@ def main():
     x = pd.read_excel(out, sheet_name="Daily", index_col=0)
     ke = pd.read_excel(out, sheet_name="KE", index_col=0)
     f = pd.read_excel(out, sheet_name="Files", index_col=0)
-    print("\nKE sheet (GWh as filed):\n" + ke.drop(columns=["KE_file"], errors="ignore").round(1).to_string())
+    print("\nKE sheet (GWh as filed):\n" + ke.drop(columns=["KE_files"], errors="ignore").round(1).to_string())
     print("\nKE files:\n" + f[f["kind"].str.startswith(("KE", "NEPRA KE"))][["name", "months", "status"]].to_string())
     cols = ["Total_grid_MWh", "KE_own_MWh", "KE_purchases_nonCPPA_MWh", "KE_from_CPPA_MWh", "Total_MWh", "Gas_MWh",
             "Oil_MWh", "Coal_MWh", "Solar_MWh"]
