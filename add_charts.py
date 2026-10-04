@@ -2355,6 +2355,8 @@ try:
     REGISTRY["denmark_energinet_load_daily.xlsx"] = _dk_energinet
     REGISTRY["netherlands_cbs_power_daily.xlsx"] = power_daily(
         "Netherlands power generation by type (CBS)", drop_partial=True)
+    REGISTRY["germany_eurostat_power_daily.xlsx"] = power_daily(
+        "Germany power generation by type (Eurostat/Destatis, ENTSO-E after the latest month)", drop_partial=True)
     REGISTRY["great_britain_power_generation_daily.xlsx"] = power_daily(
         "Great Britain power generation by type (Elexon BMRS + NESO)", drop_partial=True)
 except ImportError:   # europe/ not alongside this file (e.g. the copy in output/Python Scripts)
