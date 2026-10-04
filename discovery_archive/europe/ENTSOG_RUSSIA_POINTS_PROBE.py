@@ -8,6 +8,7 @@ import re
 import sys
 import time
 import collections
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
@@ -16,7 +17,7 @@ H = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
 LAND = re.compile(r"greifswald|lubmin|mallnow|kondratki|wysokoje|vysokoe|tietierowka|teterovka|drozdowicze|sudzha|sudza|velke kapusany|kapusany|"
                   r"uzhgorod|uzhhorod|beregovo|berehovo|isaccea|negru|strandzha|malkoclar|kipoi|kulata|sidirokastro|mediesu|kobrin|imatra|narva|luhamaa|"
                   r"kotlovka|kalvarija|nord ?stream|yamal|jamal|turkstream|eugal|opal|waidhaus|baumgarten|lanzhot|brandov|olbernhau|ceska|"
-                  r"orlen|ukraine|russia|belarus|murfatlar|orlovka|tekovo|kiskundorozsma|beregdaroc|mosonmagyarovar|velke|grenzach", re.I)
+                  r"ukraine|russia|belarus", re.I)
 ADJ_COUNTRIES = {"RU", "BY", "UA", "MD", "TR"}
 
 
@@ -66,8 +67,8 @@ def booked(opk, pk, d):
     return f"adj {typ}/{ac}: " + ("booked non-border" if typ in ("Production", "LNG Terminals", "Storage", "Distribution", "Final Consumers") else "DROPPED")
 
 
-rows = []
-for (opk, pk, d), lab in sorted(cands.items()):
+def one(item):
+    (opk, pk, d), lab = item
     data = get("operationalData", {"indicator": "Physical Flow", "periodType": "day", "from": "2021-01-01", "to": "2025-12-31",
                                    "pointDirection": f"{opk}{pk}{d}", "limit": -1}).get("operationalData", [])
     yr = collections.defaultdict(float)
@@ -78,8 +79,16 @@ for (opk, pk, d), lab in sorted(cands.items()):
             continue
         yr[r["periodFrom"][:4]] += v / 1e9
     if any(yr.values()):
-        rows.append((opk, pk, lab, d, adj.get((pk, opk, d)), booked(opk, pk, d), [round(yr.get(str(y), 0), 1) for y in range(2021, 2026)]))
-print("operator | pointKey | label | dir | adjacency | booking | TWh 2021..2025")
+        row = (opk, pk, lab, d, adj.get((pk, opk, d)), booked(opk, pk, d), [round(yr.get(str(y), 0), 1) for y in range(2021, 2026)])
+        print(" | ".join(str(x) for x in row), flush=True)
+        return row
+
+
+rows = []
+print("operator | pointKey | label | dir | adjacency | booking | TWh 2021..2025", flush=True)
+with ThreadPoolExecutor(6) as ex:
+    rows = [r for r in ex.map(one, sorted(cands.items())) if r]
+print("SORTED")
 for r in sorted(rows, key=lambda x: -sum(x[6])):
     print(" | ".join(str(x) for x in r))
 sys.exit(0)
