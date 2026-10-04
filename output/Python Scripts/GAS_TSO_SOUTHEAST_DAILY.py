@@ -34,7 +34,7 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_tso_gas_demand_extra_daily.xlsx"
 REVISION_DAYS = 45
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "PL_dso_return", "FI_total"]
+COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "PL_dso_return", "RO_final_customers", "RO_distribution", "RO_total", "FI_total"]
 
 
 def get(url, tries=3, **kw):
@@ -138,6 +138,59 @@ def finland(d0, d1):
     return out[(out.index >= pd.Timestamp(d0)) & (out.index <= pd.Timestamp(d1))]
 
 
+# ---- Romania: Transgaz -------------------------------------------------------------------------------------------------
+TG = "https://www.transgaz.ro/new-tabel-transparenta-masuratori_en.php?poz=197"
+TG_REF = "https://www.transgaz.ro/en/clients/operational-data/physical-flows"
+
+
+def romania(d0, d1):
+    """Transgaz 'Physical flows' table (commercial measurements per relevant point, MWh/day at 15C/15C): the Excel export of the
+    page's grid for a date range. Exit 'SM-CF001' = final clients connected directly to the transmission system, 'SM-SD001' =
+    distribution systems; RO_total is their sum (gas reaching consumers through the grid; production consumed outside it is not seen)."""
+    rec = {}
+    s = d0
+    while s <= d1:
+        e = min(s + timedelta(days=30), d1)
+        ses = requests.Session()
+        ses.headers.update({"User-Agent": UA, "Referer": TG_REF})
+        page = ses.get(TG, timeout=(15, 60)).text
+        vs = re.search(r"id='grid_viewstate'[^>]*value='([^']*)'", page)
+        data = {"data_start": s.isoformat(), "data_stop": e.isoformat(), "puncte": "SM", "um": "MW", "Exportbtn": "Export",
+                "IgnorePaging": "on", "grid_cmd": "", "grid_viewstate": vs.group(1) if vs else ""}
+        content = None
+        for i in range(3):
+            try:
+                r = ses.post(TG, data=data, timeout=(15, 120))
+                if r.ok and r.content[:2] == b"PK":
+                    content = r.content
+                    break
+            except requests.RequestException:
+                pass
+            time.sleep(4 * (i + 1))
+        if content is None:
+            raise RuntimeError(f"Transgaz export failed for {s}..{e}")
+        x = pd.read_excel(io.BytesIO(content), header=None)
+        for _, row in x.iterrows():
+            try:
+                day = pd.Timestamp(str(row[0])[:10])
+            except Exception:  # noqa: BLE001
+                continue
+            if not re.match(r"\d{4}-\d\d-\d\d", str(row[0])[:10]):
+                continue
+            code = str(row[1]).strip()
+            if code in ("SM-CF001", "SM-SD001"):
+                rec.setdefault(day, {})[code] = num(row[3])
+        s = e + timedelta(days=1)
+    if not rec:
+        return pd.DataFrame()
+    d = pd.DataFrame.from_dict(rec, orient="index").sort_index() / 1000.0                 # MWh -> GWh
+    out = pd.DataFrame(index=d.index)
+    out["RO_final_customers"] = d.get("SM-CF001")
+    out["RO_distribution"] = d.get("SM-SD001")
+    out["RO_total"] = out["RO_final_customers"] + out["RO_distribution"]
+    return out.dropna(subset=["RO_total"])
+
+
 def read_existing(path):
     if not os.path.exists(path):
         return pd.DataFrame(columns=COLUMNS)
@@ -168,6 +221,7 @@ def main():
     old = read_existing(path)
     combined = old.copy()
     for code, label, fn, cols in (("PL", "Poland (Gaz-System)", poland, [c for c in COLUMNS if c.startswith("PL_")]),
+                                  ("RO", "Romania (Transgaz)", romania, [c for c in COLUMNS if c.startswith("RO_")]),
                                   ("FI", "Finland (Gasgrid)", finland, ["FI_total"])):
         if only and code not in only:
             continue
