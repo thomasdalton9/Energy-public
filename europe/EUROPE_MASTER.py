@@ -808,8 +808,7 @@ def main():
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
             b = gas_country_balance(gbal, cc, gsto, glng, tso[cc] if (tso is not None and cc in tso) else None,
                                     nor["NO_to_GB"] if (cc == "UK" and len(nor) and "NO_to_GB" in nor) else None,
-                                    bio[cc] if (len(bio) and cc in bio) else None,
-                                    emden if cc == "DE" else None)
+                                    bio[cc] if (len(bio) and cc in bio) else None)
             note = None
             if tso is not None and cc in tso:
                 note = ("Consumption from the TSO's own series (" + {"DE": "Trading Hub Europe", "FR": "ODRE / GRTgaz-Teréga", "ES": "Enagás", "UK": "National Gas NTS", "DK": "Energinet", "PT": "REN", "AT": "AGGM", "CZ": "NET4GAS (system balance)", "LT": "Amber Grid", "FI": "Gasgrid"}[cc]
@@ -820,10 +819,10 @@ def main():
                     " Biomethane injected into the grids (separate supply line) is added to supply: it is part of national consumption but "
                     "not of ENTSOG's transmission-level production" + ("; Denmark's consumption figure already includes it, so it is not added to demand"
                                                                       if cc == "DK" else "") + ".")
-            if cc == "DE" and emden is not None:
+            if cc in ("DE", "NL") and emden is not None:
                 note = (note or "Supply less exports and storage injections against consumption.") + (
-                    " Pipeline imports include the Norwegian gas arriving at Emden, which ENTSOG does not report at all (Gassco's flow to "
-                    "Germany minus the Dornum volume ENTSOG does report).")
+                    " Excludes the Norwegian gas that arrives at Emden: ENTSOG publishes nothing at Emden and the gas feeds both the German and "
+                    "the Dutch grids, so this balance is short on its own; see the Germany + Netherlands balance.")
             if cc == "UK" and len(nor) and "NO_to_GB" in nor:
                 note += (" Pipeline imports are Gassco's Norway-to-Great-Britain flows; the rest of the St Fergus and Easington entry points "
                          "(UK North Sea gas) is counted in production.")
@@ -851,6 +850,22 @@ def main():
                                                  "the gap is unreported or unclassified flow")],
                         f"{GAS_NAMES[cc]} gas balance data", f"{GAS_NAMES[cc]} gas balance: supply and storage vs consumption",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label=GAS_NAMES[cc], line_cols=("Consumption",))
+    if len(gbal) and emden is not None:
+        try:   # Germany + Netherlands: Gassco's Emden gas is split between them in a way the raw data cannot show, so they are combined
+            de_b = gas_country_balance(gbal, "DE", gsto, glng, tso["DE"] if "DE" in tso else None, None,
+                                       bio["DE"] if (len(bio) and "DE" in bio) else None, emden)
+            nl_b = gas_country_balance(gbal, "NL", gsto, glng, None, None, bio["NL"] if (len(bio) and "NL" in bio) else None)
+            colsb = [c for c in de_b.columns if c in nl_b.columns]
+            both = de_b[colsb].add(nl_b[colsb], fill_value=0)
+            if len(both) >= 12:
+                total_chart(wb, used, gas, None, both, [
+                    "Germany + Netherlands combined. Includes the Norwegian gas that arrives at Emden (Gassco's flow to Germany minus the Dornum "
+                    "volume ENTSOG reports); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
+                    "Flows between the two countries are counted on both sides and do not cancel exactly."],
+                            "Germany Netherlands gas balance data", "Germany + Netherlands gas balance: supply and storage vs consumption",
+                            "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Germany + Netherlands", line_cols=("Consumption",))
+        except Exception as e:  # noqa: BLE001
+            gas[2].append(f"Germany + Netherlands balance failed ({type(e).__name__}: {e})")
     if len(gbal) and len(nor):
         nm = norway_monthly(nor)
         if len(nm) >= 12:
