@@ -43,6 +43,7 @@ import xlsx_notes  # noqa: E402
 urllib3.disable_warnings()
 IRSA = "http://pakirsa.gov.pk/"            # https does not answer
 CDX = "http://web.archive.org/cdx/search/cdx"
+WAYBACK_PAUSE = 5      # seconds between Internet Archive requests
 WAYBACK_BUDGET = int(os.environ.get("WAYBACK_BUDGET", 900))   # seconds per run for the one-off Internet Archive backfill
 WAPDA_XLS = "https://wapda.gov.pk/wp-content/uploads/2024/12/GRAPH-DG-16-for-MAIL-2.xls"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
@@ -205,10 +206,18 @@ def wayback(have, after):
             continue
         if d <= after or d in have or d in rows:
             continue
-        try:
-            p = requests.get(f"http://web.archive.org/web/{ts}id_/{orig}", headers=H, timeout=(20, 60))
-        except requests.RequestException:
-            continue
+        p = None
+        for wait in (0, 90):   # the archive answers 429 / refuses connections when hit too fast: back off once
+            time.sleep(wait or WAYBACK_PAUSE)
+            try:
+                p = requests.get(f"http://web.archive.org/web/{ts}id_/{orig}", headers=H, timeout=(20, 60))
+                if p.status_code != 429:
+                    break
+            except requests.RequestException:
+                p = None
+        if p is None or p.status_code == 429:
+            out(f"Wayback: rate-limited at {d:%Y-%m-%d}, {len(rows)} new days; the rest next run")
+            return rows, False
         if not p.ok or p.content[:4] != b"%PDF":
             continue
         try:
