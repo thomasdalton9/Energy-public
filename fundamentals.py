@@ -291,7 +291,7 @@ def _chart(wb, used, sheet_name_fn, label, df, title, y_title, kind, chart_w, ch
     df = df.dropna(how="all")
     if df.empty or df.shape[1] == 0:
         return None
-    ws = wb.create_sheet(sheet_name_fn(f"LT {label} data", used))
+    ws = wb.create_sheet(sheet_name_fn(f"Long {label} data", used))
     d, n_bars = xlsx_charts.prepare(_year_index(df))
     if d.empty:
         return None
@@ -306,7 +306,7 @@ def _chart(wb, used, sheet_name_fn, label, df, title, y_title, kind, chart_w, ch
 
 def add_long_term_dashboard(wb, used, sheet_name_fn, region, data_dir, chart_w, chart_h, rows_per_chart=24,
                             cols=("B", "F"), countries=None, degree_days=("CDD_18",), index=None):
-    """Writes 'Dashboard - Long-term' (summary table + charts) and its 'LT ... data' tabs. countries: master
+    """Writes 'Dashboard - Long-term' (summary table + charts) and its 'Long ... data' tabs. countries: master
     names (default REGIONS[region]). Returns a list of notes (missing inputs)."""
     data = load(data_dir)
     notes = []
