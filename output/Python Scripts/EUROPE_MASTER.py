@@ -72,6 +72,7 @@ DATASETS = [
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
+       ("CH", "Switzerland (Swissgrid)", "switzerland_swissgrid_power_daily.xlsx", "Daily", "power"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
        ("IE", "Ireland (EirGrid)", "ireland_eirgrid_system_data.xlsx", "Daily", "EirGrid"),
@@ -82,6 +83,10 @@ CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "cap
 PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "power prices"),
                   ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "flows")]
 FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
+# Raw national generation feeds that replace a country's ENTSO-E workbook (same Daily layout)
+GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx"}
+CH_BALANCE_SRC = ("Swissgrid via the Swiss Federal Office of Energy (production by carrier, national consumption); net imports from ENTSO-E flows",
+                  "https://www.energiedashboard.ch")
 GB_FILE = "great_britain_power_generation_daily.xlsx"
 GB_BALANCE_SRC = ("Elexon BMRS (metered generation, interconnectors) and NESO (national demand, embedded wind and solar)",
                   "https://bmrs.elexon.co.uk/")
@@ -258,7 +263,7 @@ def europe_generation(data_dir, frames_out=None):
     """Sum of the ENTSO-E countries with a near-complete record, GWh per month, over the months they all have."""
     frames, notes = {}, []
     for code, (name, slug, _) in COUNTRIES.items():
-        fname = f"{slug}_power_generation_daily.xlsx"
+        fname = GEN_OVERRIDE.get(name, f"{slug}_power_generation_daily.xlsx")
         try:
             m = monthly_gwh(os.path.join(data_dir, fname))
             frames[name] = m[m.sum(axis=1) > 0]
@@ -364,8 +369,8 @@ BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Ne
 
 # Why reported supply can fall short of load for a country (ENTSO-E reports what TSOs meter; the rest is not in the feed).
 KNOWN_GAPS = {
-    "Switzerland": "ENTSO-E hydro for Switzerland is incomplete before 2025 (reported hydro + pumped storage is well under the "
-                   "country's annual hydro output); supply/load is about 70% until 2024, about 91% from 2025.",
+    "Switzerland": "Generation is Swissgrid's own production by carrier (BFE open data; storage hydro is gross of pumping, so supply runs "
+                   "about 6-12% above load). ENTSO-E's Swiss hydro was incomplete (supply/load ~70%) and is no longer used.",
     "Netherlands": "Embedded and rooftop solar (tens of TWh a year) is not in the ENTSO-E per-type feed: Solar shows under 1 TWh.",
     "Germany": "Industrial self-generation and small embedded plants are not in the feed; supply is typically 4-5% below load.",
     "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
@@ -881,7 +886,7 @@ def main():
         net_all = pd.DataFrame()
         power[2].append(f"balance charts need {FLOWS_FILE} ({type(e).__name__}: {e})")
     bal_frames, bal_src = {}, {}
-    inputs = [(name, os.path.join(args.data_dir, f"{slug}_power_generation_daily.xlsx"), net_all[name] if name in net_all else None)
+    inputs = [(name, os.path.join(args.data_dir, GEN_OVERRIDE.get(name, f"{slug}_power_generation_daily.xlsx")), net_all[name] if name in net_all else None)
               for _, (name, slug, _z) in COUNTRIES.items()]
     gb_path = os.path.join(args.data_dir, GB_FILE)
     try:   # Great Britain is not in ENTSO-E generation: Elexon/NESO workbook carries its own interconnector net imports (MWh -> GWh)
@@ -890,6 +895,7 @@ def main():
         bal_src["Great Britain"] = GB_BALANCE_SRC
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Great Britain balance ({type(e).__name__}: {e})")
+    bal_src["Switzerland"] = CH_BALANCE_SRC
     for name, gen_path, net in inputs:
         if net is None or name == "Ireland (all-island SEM)":   # Ireland comes from EirGrid + Ember below
             continue
@@ -917,7 +923,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = {"Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
+        src_label = {"Switzerland": "Swissgrid/BFE (net imports ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
