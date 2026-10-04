@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib
+        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib cryptography
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
