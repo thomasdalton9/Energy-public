@@ -65,6 +65,18 @@ Standing instructions from the repo owner. Follow these on every change.
   dropped, so the Europe totals start Dec 2021.
   Gas: ENTSOG physical flows (pipeline imports by origin, exports, production, consumption) with ALSI LNG and
   AGSI+ storage give a gas balance per country and for the EU.
+  National consumption comes from the gas operators' own series where ENTSOG's country totals are partial (raw data only, no
+  Eurostat gap-filling; Eurostat `eurostat_gas_monthly.xlsx` is a validation benchmark and not charted): Germany (THE), France
+  (ODRE; industrial + public distribution only - the CCCG power-plant series is a subset of industrial), Spain (Enagas daily from
+  2023, Enagas monthly bulletin spread over the days for 2021-22), Denmark (Energinet), Portugal (REN) in
+  `TSO_GAS_DEMAND_DAILY.py`; Austria (AGGM), Czechia (NET4GAS CAMS, a border/storage/production system balance, not a consumption
+  series), Lithuania (Amber Grid) in `GAS_TSO_CEE_DAILY.py`; Poland (Gaz-System), Romania (Transgaz), Croatia (Plinacro),
+  Finland (Gasgrid), Spain monthly in `GAS_TSO_SOUTHEAST_DAILY.py`; Great Britain NTS and Ireland GNI as above. Poland, Romania
+  and Croatia stay on ENTSOG in the balances: the operators' exits equal ENTSOG's and the 8-10% gap to Eurostat is domestic
+  production consumed off-grid (also absent from ENTSOG production). Italy and the Netherlands stay on ENTSOG (within 4% of
+  Eurostat; Snam blocks GitHub, GTS only mirrors ENTSOG). Bulgaria has no raw national series. Norway: Gassco daily flows by
+  destination (`NORWAY_GASSCO_DAILY.py`, mcm/d x 11.2 GWh, from Oct 2020) give the Great Britain import line; the rest of the
+  St Fergus and Easington terminals is counted as UK production.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
