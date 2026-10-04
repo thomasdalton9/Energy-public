@@ -1,0 +1,16 @@
+name: CBS electricity balance probe (manual)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas
+      - run: python3 -u discovery_archive/europe/CBS_ELECTRICITY_BALANCE_PROBE.py
