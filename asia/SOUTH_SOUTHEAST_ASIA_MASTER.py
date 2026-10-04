@@ -104,6 +104,10 @@ MASTER_SPECS = {"singapore_power.xlsx": lambda p: [s for s in add_charts.singapo
 SOURCES = {
     "india_gas.xlsx": ("PPAC (Petroleum Planning & Analysis Cell, Ministry of Petroleum and Natural Gas)",
                        "https://ppac.gov.in/natural-gas/sectoral-consumption"),
+    "india_power_generation_daily.xlsx": ("CEA daily generation report (National Power Portal) for coal, gas, oil, "
+                                          "nuclear and hydro; NITI Aayog India Climate & Energy Dashboard (ICED) for "
+                                          "wind, solar, other renewables and demand",
+                                          "https://iced.niti.gov.in/energy/electricity/generation"),
     "india_npp_generation_daily.xlsx": ("CEA daily generation report (National Power Portal), conventional plants",
                                         "https://npp.gov.in/publishedReports"),
     "india_power_prices.xlsx": ("IEX (Indian Energy Exchange), Day-Ahead Market",
