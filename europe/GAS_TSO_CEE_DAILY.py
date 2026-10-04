@@ -224,7 +224,9 @@ def lithuania(d0, d1):
         body["queries"][0]["Query"]["Commands"][0]["SemanticQueryDataShapeCommand"]["Query"]["Where"] = where[:1]
         rows = pbi_rows(post(PBI_URL, json=body, headers=h).json())
     recs = [(pd.Timestamp(r[0], unit="ms").normalize(), LT_PAV[r[1]], r[2]) for r in rows if r[0] is not None and r[2] is not None and r[1] in LT_PAV]
-    df = pd.DataFrame(recs, columns=["date", "col", "v"]).drop_duplicates(["date", "col"], keep="last").pivot(index="date", columns="col", values="v").sort_index()
+    df = pd.DataFrame(recs, columns=["date", "col", "v"])
+    df["v"] = pd.to_numeric(df["v"], errors="coerce")
+    df = df.drop_duplicates(["date", "col"], keep="last").pivot(index="date", columns="col", values="v").sort_index()
     df = df[df.index >= pd.Timestamp(d0)]
     return df.iloc[:-1]                                                  # the latest day is still being filled in
 
@@ -274,6 +276,7 @@ def main():
             print(f"{label}: no rows from {fs}", flush=True)
             continue
         new.index = pd.DatetimeIndex(new.index).astype("datetime64[ns]")
+        new = new.astype("float64")
         combined = combined.reindex(combined.index.union(new.index))
         for c in cols:
             if c in new:
