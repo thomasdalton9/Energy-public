@@ -154,7 +154,10 @@ class Browser:
                 pg.goto(url, wait_until="domcontentloaded", timeout=60000)
                 for _ in range(25):
                     pg.wait_for_timeout(1500)
-                    html = pg.content()
+                    try:
+                        html = pg.content()
+                    except Exception:  # noqa: BLE001 - the challenge page is still navigating
+                        continue
                     if marker in html:
                         return html
                 out(f"  {url}: '{marker}' not shown after 37 s (try {k + 1})")
@@ -324,16 +327,33 @@ def read_pdf(body, g):
                 rec.update({k: v for k, v in tab.items() if k not in ENERGY_ORDER})
             if not (consistent(rec) and peak_consistent(rec)):
                 out(f"  {bs_name(g)}: report identities do not hold after the table read - kept, check")
+    # Which date: the report prints 'For Date: <BS> ( <AD> )'. Its AD date is typed by hand and is sometimes a
+    # month or a few days off (e.g. 2080/05/15 printed with 2023/08/01 instead of 2023/09/01), so the BS date rules:
+    #  - report BS = file BS            -> that day (an AD typo is printed and ignored)
+    #  - report BS != file BS, but the report's BS and AD agree -> the report's day (a file posted under the
+    #    wrong name, usually a copy of the previous day; duplicates are resolved by the caller)
+    #  - otherwise                      -> the file's day, printed
     when = g
-    if ad and ad != g:
-        out(f"  file {bs_name(g)} (= {g}) but the report says {bsd} / {ad}: report date used")
-        when = ad
-    elif bsd and bsd != bs(g):
-        out(f"  file {bs_name(g)}: report's BS date {bsd} differs (AD date agrees)")
-    elif not ad:
+    if bsd is None:
         out(f"  file {bs_name(g)}: no 'For Date' line, date from the file name")
+    elif bsd == bs(g):
+        if ad and ad != g:
+            out(f"  file {bs_name(g)} = {g}: report prints AD {ad} (typo), {g} used")
+    else:
+        try:
+            bsd_ad = nepali_datetime.date(*bsd).to_datetime_date()
+        except Exception:  # noqa: BLE001
+            bsd_ad = None
+        if bsd_ad and bsd_ad == ad:
+            out(f"  file {bs_name(g)} = {g} holds the report for {bsd} = {ad}: report date used")
+            when = ad
+        else:
+            out(f"  file {bs_name(g)} = {g}: report prints {bsd} / {ad}, inconsistent - file date used")
     if rec.get("NEA_MWh") is None:
         out(f"  {bs_name(g)}: values not found; first lines: {text[:300]!r}")
+        return when, None
+    if not rec.get("NEA_MWh") and not rec.get("IPP_MWh"):
+        out(f"  {when} ({bs_name(g)}): report shows zero generation - not saved")
         return when, None
     rec["Source"] = SRC_PDF
     check(rec, f"{when} ({bs_name(g)})")
@@ -541,7 +561,8 @@ def main():
                     tally[status] = tally.get(status, 0) + 1
                     if rec:
                         if when in done:
-                            out(f"  two reports for {when}: keeping the later file")
+                            out(f"  two reports for {when}: keeping the first (its file name matches)")
+                            continue
                         done[when] = rec
                 save(target, done, args.rebuild)
             out(f"Reports: {tally}")

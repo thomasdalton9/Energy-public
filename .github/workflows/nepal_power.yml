@@ -1,0 +1,63 @@
+name: Nepal power
+
+# NEA Load Dispatch Centre: daily operational reports (NDOR PDFs; archive Apr 2023 - Jan 2025, backfilled on the
+# 1st and 15th) and the home page's latest-day 'Energy Details' panel, which keeps no history, so this runs daily.
+# *.nea.org.np sits behind an F5 bot challenge: the panel (and the PDFs, if the developer's mirror is down) need
+# headless Chromium.
+on:
+  schedule:
+    - cron: "17 6 * * *"   # 12:02 NPT, after NEA posts the previous day
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "Re-read every report from Apr 2023 (keeps saved home-page panel days)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pandas requests openpyxl xlrd pdfplumber matplotlib nepali-datetime playwright
+          python -m playwright install --with-deps chromium
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          # reports only on the 1st and 15th (or a manual run); the panel every day
+          flags=""
+          d=$(date -u +%d)
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$d" != "01" ] && [ "$d" != "15" ]; then flags="--no-pdfs"; fi
+          timeout 3000 python3 asia/NEPAL_NEA_LDC.py $flags ${{ inputs.rebuild && '--rebuild' || '' }} || echo "asia/NEPAL_NEA_LDC.py failed"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/nepal_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/nepal_power_generation_daily.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/nepal_power_generation_daily.xlsx" || echo "chart step skipped/failed for nepal_power_generation_daily.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp png_charts.py asia/NEPAL_NEA_LDC.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f "output/Data and Chart Outputs/nepal_power_generation_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/nepal_power_generation_daily.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Nepal power: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
