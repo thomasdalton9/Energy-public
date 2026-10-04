@@ -41,11 +41,9 @@ for f, ym in sorted(files.items(), key=lambda kv: kv[1]):
     else:
         bad += 1
         print("BAD", ym, name)
-        if bad <= 5:
+        if ym >= (2021, 1) and bad <= 40 and bad % 4 == 0:
             with pdfplumber.open(io.BytesIO(content)) as pdf:
-                for i, pg in enumerate(pdf.pages[:8]):
+                for i, pg in enumerate(pdf.pages[:6]):
                     t = pg.extract_text() or ""
-                    if re.search(r"(?i)demand", t) and "GWh" in t:
-                        print(f"   --- page {i + 1}: {re.sub(chr(10), ' | ', t[:500])}")
-                        break
+                    print(f"   --- page {i + 1} ({len(t)} chars): {re.sub(chr(10), ' | ', t[:330])}")
 sys.exit(0)
