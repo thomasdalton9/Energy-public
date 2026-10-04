@@ -1973,6 +1973,17 @@ def entsog_norway_entries(p):
     return [spec("Entries", m, "Norwegian-border entry points in ENTSOG (Emden not reported)", "TWh per month", "stacked_bar")] if len(m) else []
 
 
+def entsog_point_fixes(p):
+    """ENTSOG points dropped by the country-balance classification: monthly TWh per point."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m.dropna(how="all")
+    return [spec("Points", m, "ENTSOG points outside the country balance (TAP into Greece, Hungary blending exit, Moffat)", "TWh per month", "line")] if len(m) else []
+
+
 def vietnam_gas(p):
     d = _sheet(p, "Production", "date")
     if d.empty or "Natural_gas_mcm_per_day" not in d:
@@ -2118,6 +2129,7 @@ REGISTRY = {
     "eurostat_gas_monthly.xlsx": eurostat_gas,
     "denmark_energinet_gasflow_daily.xlsx": denmark_gasflow,
     "entsog_norway_entries_daily.xlsx": entsog_norway_entries,
+    "entsog_point_fixes_daily.xlsx": entsog_point_fixes,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
