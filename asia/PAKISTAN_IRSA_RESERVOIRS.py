@@ -29,7 +29,7 @@ import os
 import re
 import sys
 import time
-from datetime import date
+from datetime import date, datetime
 
 import pandas as pd
 import pdfplumber
@@ -42,6 +42,7 @@ import xlsx_notes  # noqa: E402
 
 urllib3.disable_warnings()
 IRSA = "http://pakirsa.gov.pk/"            # https does not answer
+CDX = "http://web.archive.org/cdx/search/cdx"
 WAPDA_XLS = "https://wapda.gov.pk/wp-content/uploads/2024/12/GRAPH-DG-16-for-MAIL-2.xls"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (20, 90)
@@ -145,7 +146,7 @@ def wapda_seed():
         out("WAPDA workbook unavailable")
         return pd.DataFrame(), None
     raw = pd.read_excel(io.BytesIO(r.content), sheet_name="GHRAPH", header=None)
-    raw = raw[pd.to_datetime(raw[0], errors="coerce").notna() & raw[0].map(lambda x: not isinstance(x, (int, float)))]
+    raw = raw[raw[0].map(lambda x: isinstance(x, (pd.Timestamp, datetime)))]
     df = pd.DataFrame({
         "Tarbela_level_ft": pd.to_numeric(raw[1], errors="coerce"),
         "Tarbela_inflow_cusecs": pd.to_numeric(raw[2], errors="coerce") * 1000,
@@ -167,14 +168,51 @@ def wapda_seed():
 
 
 def saved_note(path, key):
+    """Value after `key` on the Units sheet (one note per row), or None."""
     try:
-        u = pd.read_excel(path, sheet_name="Units")
+        u = pd.read_excel(path, sheet_name="Units", header=None)
     except (FileNotFoundError, ValueError):
         return None
-    for v in u.iloc[:, 0].astype(str):
+    for v in u.stack().map(str):
         if v.startswith(key):
             return v[len(key):].strip()
     return None
+
+
+def wayback(have):
+    """IRSA reports the Internet Archive happened to save (a few hundred days since 2019), for dates not saved yet:
+    a one-off backfill of the gap between WAPDA's workbook and IRSA's rolling list."""
+    try:
+        r = requests.get(CDX, params={"url": "pakirsa.gov.pk/Doc/Data*", "output": "json", "collapse": "original",
+                                      "fl": "timestamp,original,statuscode", "limit": 20000}, timeout=(20, 180))
+        caps = r.json()[1:]
+    except (requests.RequestException, ValueError) as e:
+        out(f"Wayback index unavailable: {e}")
+        return {}, False
+    rows = {}
+    for ts, orig, st in caps:
+        m = re.search(r"Data(\d\d)-(\d\d)-(\d{4})\.pdf$", orig, re.I)
+        if st != "200" or not m:
+            continue
+        try:
+            d = pd.Timestamp(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+        except ValueError:
+            continue
+        if d in have or d in rows:
+            continue
+        p = get(f"http://web.archive.org/web/{ts}id_/{orig}")
+        if p is None or not p.ok or p.content[:4] != b"%PDF":
+            continue
+        try:
+            row, _ = parse_pdf(p.content)
+        except Exception:  # noqa: BLE001
+            continue
+        if row.get("Tarbela_level_ft") is not None or row.get("Mangla_level_ft") is not None:
+            row["Source"] = "IRSA (Wayback)"
+            rows[d] = row
+        time.sleep(1)
+    out(f"Wayback: {len(caps)} captures, {len(rows)} new days")
+    return rows, True
 
 
 def main():
@@ -200,8 +238,14 @@ def main():
         seed, seed_mod = wapda_seed()
     rows, dead = irsa(set(old.index) if not old.empty else set())
     new = pd.DataFrame.from_dict(rows, orient="index")
+    wb_done = saved_note(args.out, "Wayback backfill:") == "done"
+    wb = pd.DataFrame()
+    if not wb_done:
+        have = set(old.index) | set(seed.index) | set(new.index)
+        wb_rows, wb_done = wayback(have)
+        wb = pd.DataFrame.from_dict(wb_rows, orient="index")
     daily = old
-    for part in (seed, new):   # later parts win on the same date (IRSA over WAPDA)
+    for part in (wb, seed, new):   # later parts win on the same date (IRSA over WAPDA)
         if not part.empty:
             daily = part if daily.empty else pd.concat([daily[~daily.index.isin(part.index)], part])
     if daily.empty:
@@ -228,14 +272,16 @@ def main():
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}. 2016-03-01 to Dec 2024 from WAPDA's "
         "river-flow workbook (Tarbela and Mangla only); from late Sep 2026 IRSA's daily reports (adds Chashma and the "
-        "rim-station totals). The gap between them has no public source this pull can reach (PMD's Flood Forecasting "
-        "Division is behind a Cloudflare check; IRSA deletes reports after about a week). Tarbela's dead level is "
-        "1,402 ft in IRSA's reports (1,380 ft before the 4th/5th extension works raised the minimum).",
+        "rim-station totals). Between them only the days whose IRSA report the Internet Archive saved (scattered, "
+        "a few a month); IRSA deletes its reports after about a week and WAPDA stopped its workbook. IRSA's reports give "
+        "Tarbela's dead level as 1,402 ft (older WAPDA figures use 1,380 ft).",
         "",
         "SOURCE",
         "Indus River System Authority (IRSA), Daily Water Situation: http://pakirsa.gov.pk/DailyData.aspx",
         "WAPDA, River Flow (river flows and levels workbook): https://wapda.gov.pk/river-flow/",
+        "Internet Archive copies of IRSA reports (Source 'IRSA (Wayback)'): https://web.archive.org/",
         f"WAPDA workbook Last-Modified: {seed_mod or ''}",
+        f"Wayback backfill: {'done' if wb_done else ''}",
     ]
     xlsx_notes.write_workbook(args.out, {"Daily": daily, "Limits": lim}, notes, {"UNITS", "COVERAGE", "SOURCE"})
     out(f"Saved {args.out}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")

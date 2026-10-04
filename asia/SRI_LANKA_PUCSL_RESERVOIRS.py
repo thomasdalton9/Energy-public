@@ -115,6 +115,10 @@ def main():
         out("Nothing new")
         return
     raw = pd.concat(parts)
+    other = raw.loc[~raw.res.isin(RES), "res"].value_counts()
+    if len(other):   # the feed's own 'Total' row and small reservoirs it carried in some years
+        out(f"Left out (not one of the six): {other.to_dict()}")
+    raw = raw[raw.res.isin(RES)]
     st = raw.pivot_table(index="date", columns="res", values="storageInGwh", aggfunc="last")
     rain = raw.pivot_table(index="date", columns="res", values="rainfallInMm", aggfunc="last")
     st = st[(st.fillna(0) > 0).any(axis=1)]   # days the feed carries as all-zero are missing, not empty reservoirs
