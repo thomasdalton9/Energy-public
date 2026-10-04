@@ -66,6 +66,7 @@ RAW_POWER_DATASETS = [
     ("MY", "Malaysia", "malaysia_power_generation_daily.xlsx", "Daily", "power"),
     ("ID", "Indonesia", "indonesia_power_generation_daily.xlsx", "Daily", "power"),
     ("SG", "Singapore", "singapore_power_generation_daily.xlsx", "Daily", "power"),
+    ("KH", "Cambodia", "cambodia_power_generation.xlsx", "Daily", "power"),   # annual rows (EAC)
 ]
 # Ember fallback: monthly release (country sheets named as below) and yearly release
 EMBER_FILES = [("SSEA", "South & Southeast Asia", "south_southeast_asia_power_by_type.xlsx")]
@@ -77,6 +78,8 @@ OTHER_POWER_DATASETS = [
     ("IN", "India", "india_power_prices.xlsx", "Daily", "power prices"),
     ("IN", "India", "india_coal_stocks.xlsx", "Daily", "coal stocks"),
     ("MY", "Malaysia", "malaysia_power_prices.xlsx", "Daily", "power prices"),
+    ("SG", "Singapore", "singapore_power_prices.xlsx", "Daily", "power prices"),
+    ("ID", "Indonesia", "indonesia_renewable_capacity.xlsx", "Monthly", "renewable capacity"),
     ("PH", "Philippines", "philippines_power_market.xlsx", ("Daily demand", "Daily prices"), "power market"),
     ("SG", "Singapore", "singapore_power.xlsx", ("Monthly generation", "Annual consumption", "Annual fuel mix"),
      "power"),
@@ -88,6 +91,8 @@ HYDRO_DATASETS = [
     ("IN", "India", "india_hydro_reservoirs.xlsx", "Daily", "hydro reservoirs"),
     ("TH", "Thailand", "thailand_hydro_reservoirs.xlsx", "Daily", "reservoirs"),
     ("PH", "Philippines", "philippines_dam_levels.xlsx", ("Daily", "Limits"), "dam levels"),
+    ("PK", "Pakistan", "pakistan_hydro_reservoirs.xlsx", ("Daily", "Limits"), "reservoir levels"),
+    ("LK", "Sri Lanka", "sri_lanka_hydro_reservoirs.xlsx", "Daily", "reservoir storage"),
 ]
 HYDRO_EXTRA = {"philippines_dam_levels.xlsx": {"San Roque", "Magat", "Pantabangan"}}
 DASHBOARD_ONLY = {}
@@ -99,6 +104,10 @@ MASTER_SPECS = {"singapore_power.xlsx": lambda p: [s for s in add_charts.singapo
 SOURCES = {
     "india_gas.xlsx": ("PPAC (Petroleum Planning & Analysis Cell, Ministry of Petroleum and Natural Gas)",
                        "https://ppac.gov.in/natural-gas/sectoral-consumption"),
+    "india_power_generation_daily.xlsx": ("CEA daily generation report (National Power Portal) for coal, gas, oil, "
+                                          "nuclear and hydro; NITI Aayog India Climate & Energy Dashboard (ICED) for "
+                                          "wind, solar, other renewables and demand",
+                                          "https://iced.niti.gov.in/energy/electricity/generation"),
     "india_npp_generation_daily.xlsx": ("CEA daily generation report (National Power Portal), conventional plants",
                                         "https://npp.gov.in/publishedReports"),
     "india_power_prices.xlsx": ("IEX (Indian Energy Exchange), Day-Ahead Market",
@@ -111,6 +120,13 @@ SOURCES = {
                                                "https://erp.powergrid.gov.bd/w/generations/view_generations"),
     "sri_lanka_power_generation_daily.xlsx": ("PUCSL GenData (Public Utilities Commission of Sri Lanka), actual "
                                               "system dispatch", "https://gendata.pucsl.gov.lk/"),
+    "philippines_power_generation_daily.xlsx": ("IEMOP (Independent Electricity Market Operator of the Philippines), WESM "
+                                                "5-minute dispatch schedules (DIPC energy results, final where published) "
+                                                "mapped to fuels with DOE's List of Existing Power Plants",
+                                                "https://www.iemop.ph/market-data/dipc-energy-results-final/"),
+    "vietnam_power_generation_daily.xlsx": ("EVN daily national power-system operation summary (data from NSMO); "
+                                            "rooftop solar is NSMO's estimate",
+                                            "https://www.evn.com.vn/vi-VN/news-l/Thong-tin-tom-tat-van-hanh-HTD-Quoc-gia-60-2015"),
     "bhutan_power_generation_daily.xlsx": ("BPSO (Bhutan Power System Operator), energy data",
                                            "https://www.bpso.bt/home/energy"),
     "thailand_power_generation_daily.xlsx": ("EPPO (Energy Policy and Planning Office), electricity statistics "
@@ -120,6 +136,35 @@ SOURCES = {
                                        "https://app.rid.go.th/reservoir/"),
     "malaysia_power_generation_daily.xlsx": ("GSO (Grid System Operator), Peninsular Malaysia generation mix and "
                                              "system demand", "https://www.gso.org.my/SystemData/CurrentGen.aspx"),
+    "indonesia_renewable_capacity.xlsx": ("ESDM (Ministry of Energy and Mineral Resources), Ditjen EBTKE - Data Angka "
+                                          "Kapasitas Pembangkit EBT (renewables only)", "https://ebtke.esdm.go.id/"),
+    "india_power_capacity.xlsx": ("CEA (Central Electricity Authority), All India Installed Capacity monthly report "
+                                  "(National Power Portal)", "https://npp.gov.in/publishedReports"),
+    "bangladesh_power_capacity.xlsx": ("BPDB (Bangladesh Power Development Board), power generation units by fuel type",
+                                       "https://misc.bpdb.gov.bd/power-generation-unit"),
+    "sri_lanka_power_capacity.xlsx": ("PUCSL (Public Utilities Commission of Sri Lanka) GenData, power plant list",
+                                      "https://gendata.pucsl.gov.lk/"),
+    "philippines_power_capacity.xlsx": ("Department of Energy (Philippines), Power Statistics - installed and dependable "
+                                        "capacity", "https://doe.gov.ph/data-and-prices/energy-statistics/"
+                                        "electric-power-industry/2025-power-statistics"),
+    "singapore_power_prices.xlsx": ("EMC (Energy Market Company), NEMS - Uniform Singapore Energy Price (USEP)",
+                                    "https://www.nems.emcsg.com/nems-prices"),
+    "pakistan_power_generation_daily.xlsx": ("CPPA-G XWDISCOs Energy Purchase Data and NEPRA FCA decisions (national "
+                                             "grid), plus K-Electric's own plants and non-CPPA purchases from NEPRA's "
+                                             "KE FCA decisions and KE's monthly filings (KE partly estimated)",
+                                             "https://cppa.gov.pk/downloads/xwdiscos-energy-purchase-data"),
+    "pakistan_hydro_reservoirs.xlsx": ("Indus River System Authority (IRSA), Daily Water Situation; history 2016-2024 "
+                                       "from WAPDA's river flows and levels workbook",
+                                       "http://pakirsa.gov.pk/DailyData.aspx"),
+    "sri_lanka_hydro_reservoirs.xlsx": ("PUCSL (Public Utilities Commission of Sri Lanka) GenData, reservoir storage "
+                                        "(CEB system control centre data)",
+                                        "https://gendata.pucsl.gov.lk/reservoir-storage-level"),
+    "cambodia_power_generation.xlsx": ("EAC (Electricity Authority of Cambodia), Report on Power Sector of the Kingdom of "
+                                       "Cambodia (annual, Annex 2) and Salient Features of Power Development (latest "
+                                       "year, provisional)", "https://eac.gov.kh/site/annualreport?lang=en"),
+    "nepal_power_generation_daily.xlsx": ("NEA (Nepal Electricity Authority) Load Dispatch Centre, Daily Operational "
+                                          "Report of Nepal (Apr 2023 - Jan 2025) and monthly operational reports (from Jul 2022); latest days from the 'Energy Details' "
+                                          "panel on nea.org.np", "https://transd.nea.org.np/en/category/daily-operational-reports-1"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),
@@ -161,13 +206,14 @@ TOTAL_USE_EMBER = {"Malaysia": "GSO covers Peninsular Malaysia only; Sabah and S
 def monthly_gwh(path):
     """Standard Daily sheet (MWh) -> complete months, GWh, in the dashboard fuel groups."""
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
+    if "KE_included" in d:   # Pakistan: a month without a real K-Electric figure is grid-only, so not whole-country -
+        # left out here and filled from Ember (national) by regional_generation
+        d = d[d["KE_included"].astype(str).str.lower().isin(["true", "1", "1.0"])]
     d = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].apply(pd.to_numeric,
                                                                                           errors="coerce")
-    m = d.resample("MS").sum(min_count=1) / 1000.0
-    last = d.dropna(how="all").index.max()
-    monthly_rows = len(d) > 2 and d.index.to_series().diff().median().days > 20   # EPPO-style monthly feeds
-    if not monthly_rows and last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
-        m = m[m.index < last.to_period("M").to_timestamp()]
+    # only months the feed covers (>= 80% of days for daily feeds): a gap or a partial month is left out rather than
+    # counted short; regional_generation fills the gaps from Ember
+    m = add_charts.complete_months(d, d.resample("MS").sum(min_count=1) / 1000.0)
     m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
     m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
     return add_charts.power_mix(m)
@@ -185,12 +231,18 @@ def regional_generation(data_dir, raw_files, frames_out=None):
                 fname = raw_files[country]
                 m = monthly_gwh(os.path.join(data_dir, fname))
                 src = SOURCES.get(fname, (fname,))[0]
-                try:   # months before the raw feed starts (e.g. Sri Lanka's PUCSL data from 2023) come from Ember
+                try:   # months before the raw feed starts (e.g. Sri Lanka's PUCSL data from 2023), and months the raw
+                    # feed is missing (e.g. Pakistan's unreadable NEPRA filings), come from Ember
                     e = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
-                    e = e[(e.index < m.index.min()) & (e.index >= "2021-01-01")]
+                    have = m.index[m.apply(pd.to_numeric, errors="coerce").sum(axis=1) > 0]
+                    e = e[(~e.index.isin(have)) & (e.index <= m.index.max()) & (e.index >= "2021-01-01")]
+                    before, gaps = e[e.index < have.min()], e[e.index > have.min()]
                     if len(e):
-                        m = pd.concat([e, m]).sort_index()
-                        src += f" (Ember before {e.index.max() + pd.offsets.MonthBegin(1):%b/%y})"
+                        m = pd.concat([e, m[m.index.isin(have)]]).sort_index()
+                    if len(before):
+                        src += f" (Ember before {before.index.max() + pd.offsets.MonthBegin(1):%b/%y})"
+                    if len(gaps):
+                        src += f" (Ember for {len(gaps)} missing month{'s' if len(gaps) > 1 else ''})"
                 except Exception:  # noqa: BLE001  (no Ember sheet for this country: raw only)
                     pass
             else:
