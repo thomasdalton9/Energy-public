@@ -43,6 +43,7 @@ import xlsx_notes  # noqa: E402
 urllib3.disable_warnings()
 IRSA = "http://pakirsa.gov.pk/"            # https does not answer
 CDX = "http://web.archive.org/cdx/search/cdx"
+WAYBACK_BUDGET = int(os.environ.get("WAYBACK_BUDGET", 900))   # seconds per run for the one-off Internet Archive backfill
 WAPDA_XLS = "https://wapda.gov.pk/wp-content/uploads/2024/12/GRAPH-DG-16-for-MAIL-2.xls"
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
 T = (20, 90)
@@ -179,9 +180,10 @@ def saved_note(path, key):
     return None
 
 
-def wayback(have):
-    """IRSA reports the Internet Archive happened to save (a few hundred days since 2019), for dates not saved yet:
-    a one-off backfill of the gap between WAPDA's workbook and IRSA's rolling list."""
+def wayback(have, after):
+    """IRSA reports the Internet Archive happened to save, for dates after `after` (the end of WAPDA's workbook) not
+    saved yet: a one-off backfill of the gap between WAPDA's workbook and IRSA's rolling list. The archive is slow, so
+    each run spends at most WAYBACK_BUDGET seconds; -> (rows, finished)."""
     try:
         r = requests.get(CDX, params={"url": "pakirsa.gov.pk/Doc/Data*", "output": "json", "collapse": "original",
                                       "fl": "timestamp,original,statuscode", "limit": 20000}, timeout=(20, 180))
@@ -189,8 +191,11 @@ def wayback(have):
     except (requests.RequestException, ValueError) as e:
         out(f"Wayback index unavailable: {e}")
         return {}, False
-    rows = {}
+    rows, t0 = {}, time.time()
     for ts, orig, st in caps:
+        if time.time() - t0 > WAYBACK_BUDGET:
+            out(f"Wayback: time budget used, {len(rows)} new days; the rest next run")
+            return rows, False
         m = re.search(r"Data(\d\d)-(\d\d)-(\d{4})\.pdf$", orig, re.I)
         if st != "200" or not m:
             continue
@@ -198,10 +203,13 @@ def wayback(have):
             d = pd.Timestamp(int(m.group(3)), int(m.group(2)), int(m.group(1)))
         except ValueError:
             continue
-        if d in have or d in rows:
+        if d <= after or d in have or d in rows:
             continue
-        p = get(f"http://web.archive.org/web/{ts}id_/{orig}")
-        if p is None or not p.ok or p.content[:4] != b"%PDF":
+        try:
+            p = requests.get(f"http://web.archive.org/web/{ts}id_/{orig}", headers=H, timeout=(20, 60))
+        except requests.RequestException:
+            continue
+        if not p.ok or p.content[:4] != b"%PDF":
             continue
         try:
             row, _ = parse_pdf(p.content)
@@ -210,7 +218,6 @@ def wayback(have):
         if row.get("Tarbela_level_ft") is not None or row.get("Mangla_level_ft") is not None:
             row["Source"] = "IRSA (Wayback)"
             rows[d] = row
-        time.sleep(1)
     out(f"Wayback: {len(caps)} captures, {len(rows)} new days")
     return rows, True
 
@@ -242,7 +249,9 @@ def main():
     wb = pd.DataFrame()
     if not wb_done:
         have = set(old.index) | set(seed.index) | set(new.index)
-        wb_rows, wb_done = wayback(have)
+        wapda_days = old.index[old["Source"].eq("WAPDA")] if "Source" in old else []
+        after = max([*seed.index, *wapda_days], default=pd.Timestamp("2016-01-01"))
+        wb_rows, wb_done = wayback(have, after)
         wb = pd.DataFrame.from_dict(wb_rows, orient="index")
     daily = old
     for part in (wb, seed, new):   # later parts win on the same date (IRSA over WAPDA)
