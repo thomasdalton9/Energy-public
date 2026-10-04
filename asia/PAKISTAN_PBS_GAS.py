@@ -325,6 +325,9 @@ def main():
         prov = t[[c for c in ("Punjab", "Sindh", "KPK", "Balochistan") if c in t]].sum(axis=1, min_count=4)
         bad = t.get("Pakistan_total", pd.Series(index=t.index, dtype=float)).fillna(0) <= 0
         t["Pakistan_total"] = t.get("Pakistan_total").where(~bad, prov.round(1))
+        # a printed total more than 2% away from the (row-checked) provinces is replaced by their sum
+        off = prov.notna() & ((t["Pakistan_total"] - prov).abs() > 0.02 * prov)
+        t.loc[off, "Pakistan_total"] = prov[off].round(1)
         prod = merge(prod, t[[c for c in ("Pakistan_total", "Punjab", "Sindh", "KPK", "Balochistan") if c in t]])
     if fld_new:
         f = pd.DataFrame(fld_new).T.sort_index()
