@@ -1688,6 +1688,17 @@ def eu_lng(p):
     return out
 
 
+def tso_gas_demand_cee(p):
+    """Austria (AGGM), Czechia (NET4GAS balance) and Lithuania (Amber Grid) gas consumption: monthly TWh, one line per country."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d[[c for c in ("AT_total", "CZ_total", "LT_total") if c in d]].resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m.dropna(how="all").rename(columns={"AT_total": "Austria (AGGM)", "CZ_total": "Czechia (NET4GAS balance)", "LT_total": "Lithuania (Amber Grid)"})
+    return [spec("Total", m, "Gas consumption: Austria, Czechia, Lithuania (operator data)", "TWh per month", "line")] if not m.empty else []
+
+
 def tso_gas_demand(p):
     """TSO gas consumption (Germany THE, France ODRE, Spain Enagas): monthly TWh, one line per country, plus Germany and France
     split by sector."""
@@ -1771,6 +1782,7 @@ REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
+    "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
@@ -1833,6 +1845,9 @@ REGISTRY = {
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
     "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
                                                              "Malaysia (Peninsular) system demand (GSO)"),
+    "philippines_power_generation_daily.xlsx": power_and_demand("Philippines power generation by fuel (IEMOP WESM "
+                                                                "schedules; geothermal in Other)",
+                                                                "Philippines WESM demand (IEMOP)"),
     "vietnam_power_generation_daily.xlsx": power_and_demand("Vietnam power generation by source (EVN / NSMO daily; "
                                                             "rooftop solar estimated)",
                                                             "Vietnam peak demand (EVN / NSMO)"),
