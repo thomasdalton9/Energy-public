@@ -457,15 +457,27 @@ def parse_nmor(body, key):
         bd, bm, by, ad_d, ad_m, ad_y = (int(x) for x in m.groups()[:6])
         rest = m.group(7)
         try:
-            when = nepali_datetime.date(by, bm, bd).to_datetime_date()
-        except Exception:  # noqa: BLE001
-            out(f"  NMOR {key}: bad BS date in {line[:60]!r}")
-            continue
-        try:
-            if date(ad_y, ad_m, ad_d) != when:
-                out(f"  NMOR {key}: row {by}/{bm:02d}/{bd:02d} prints AD {ad_y}-{ad_m:02d}-{ad_d:02d}, {when} used")
+            ad = date(ad_y, ad_m, ad_d)
         except ValueError:
-            pass
+            ad = None
+        # the BS date rules, but it must belong to the report's month: a row typed '29/11/2080' in the Falgun 2079
+        # report is 29/11/2079 (its AD column confirms it)
+        when = None
+        for y, mo in ([(by, bm)] if (by, bm) == key else [key, (by, bm)]):
+            try:
+                cand = nepali_datetime.date(y, mo, bd).to_datetime_date()
+            except Exception:  # noqa: BLE001
+                continue
+            if (y, mo) == key or cand == ad:
+                when = cand
+                break
+        if when is None:
+            out(f"  NMOR {key}: row {line[:40]!r} is not in the report's month - skipped")
+            continue
+        if (by, bm) != key:
+            out(f"  NMOR {key}: row typed {by}/{bm:02d}/{bd:02d} read as {key[0]}/{key[1]:02d}/{bd:02d} = {when}")
+        elif ad and ad != when:
+            out(f"  NMOR {key}: row {by}/{bm:02d}/{bd:02d} prints AD {ad}, {when} used")
         pm = re.match(r"(\d{1,2}:\d{2})\s+(.*)$", rest)
         if pm:
             v = [num(x) for x in re.findall(NUM, pm.group(2))]
@@ -477,6 +489,8 @@ def parse_nmor(body, key):
         v = [num(x) for x in re.findall(NUM, rest)]
         if len(v) in (10, 11):
             rows[when] = dict(zip(NMOR_ENERGY, v[:10]))
+        elif len(v) == 3:
+            pass   # the 2079 reports add an import / export / net exchange table: already in the energy rows
         else:
             out(f"  NMOR {key}: energy row with {len(v)} values: {line[:90]!r}")
     if total and len(total) >= 10 and rows:
@@ -487,9 +501,12 @@ def parse_nmor(body, key):
     for when, rec in rows.items():
         rec.update(peaks.get(when, {}))
         if not consistent(rec):
-            out(f"  NMOR {key} {when}: energy identities do not hold - kept, check")
+            out(f"  NMOR {key} {when}: energy identities do not hold - row skipped")
+            continue
         if not rec.get("NEA_MWh") and not rec.get("IPP_MWh"):
             continue
+        if not rec.get("System_peak_MW"):   # the 2079 reports leave the system peak column at 0
+            rec.pop("System_peak_MW", None)
         rec["Source"] = SRC_NMOR
         outp[when] = rec
     return outp
@@ -498,6 +515,9 @@ def parse_nmor(body, key):
 def fetch_nmor(item):
     key, url = item
     status, body = mirror_get(url)
+    if body[:4] != b"%PDF":   # some detail pages link a wrong folder ('Annual Report'): try the monthly folder
+        alt = f"{MIRROR}/uploads/shares/Monthly_op_Report/{url.rsplit('/', 1)[-1]}"
+        status, body = mirror_get(alt)
     if body[:4] != b"%PDF":
         out(f"  NMOR {key}: no PDF at {url}")
         return key, {}

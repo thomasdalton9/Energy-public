@@ -1,4 +1,4 @@
-"""Probe 17: full run with the monthly-report (NMOR) backfill; summary as probe 14.
+"""Probe 18: rerun after NMOR fixes (row BS year typos, wrong folder links, rows failing identities skipped).
 asia/NEPAL_NEA_LDC.py (text-first parsing, process pool) with output streamed, and summarise what it saved:
 coverage, annual and monthly totals (compare Ember: ~6-11 TWh/yr generation, imports ~1-2 TWh), gaps, outliers."""
 import io
