@@ -1,0 +1,18 @@
+name: Supply vs load ENTSO-E flows probe (manual)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas openpyxl
+      - env:
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+        run: python3 -u discovery_archive/europe/SUPPLY_LOAD_ENTSOE_PROBE.py 2>&1 | tail -150
