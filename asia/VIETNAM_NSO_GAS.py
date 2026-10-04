@@ -103,10 +103,22 @@ def _status(t):
 
 def parse_workbook(content, url):
     """{(month Timestamp, item): (value, status)} from the industrial-products sheet of one workbook."""
-    try:
-        book = pd.read_excel(io.BytesIO(content), sheet_name=None, header=None)
-    except Exception as e:  # noqa: BLE001
-        out(f"  unreadable {url.rsplit('/', 1)[-1]}: {type(e).__name__}")
+    book = None
+    for how in ("auto", "openpyxl", "xlrd-cp1258", "xlrd-cp1252"):
+        try:
+            if how == "auto":
+                book = pd.read_excel(io.BytesIO(content), sheet_name=None, header=None)
+            elif how == "openpyxl":
+                book = pd.read_excel(io.BytesIO(content), sheet_name=None, header=None, engine="openpyxl")
+            else:   # old .xls whose code page xlrd cannot guess
+                import xlrd
+                wb = xlrd.open_workbook(file_contents=content, encoding_override=how.split("-")[1])
+                book = pd.read_excel(wb, sheet_name=None, header=None, engine="xlrd")
+            break
+        except Exception:  # noqa: BLE001
+            continue
+    if book is None:
+        out(f"  unreadable {url.rsplit('/', 1)[-1]}")
         return {}
     m = re.search(r"/uploads/(\d{4})/", url)
     year_hint = int(m.group(1)) if m else None
