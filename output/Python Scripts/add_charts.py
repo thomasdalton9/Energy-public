@@ -2357,6 +2357,9 @@ try:
         "Netherlands power generation by type (CBS)", drop_partial=True)
     REGISTRY["germany_eurostat_power_daily.xlsx"] = power_daily(
         "Germany power generation by type (Eurostat/Destatis, ENTSO-E after the latest month)", drop_partial=True)
+    for _n, _f in (("Italy", "italy"), ("Poland", "poland"), ("Bulgaria", "bulgaria"), ("Romania", "romania")):
+        REGISTRY[f"{_f}_eurostat_power_daily.xlsx"] = power_daily(
+            f"{_n} power generation by type (Eurostat, ENTSO-E after the latest month)", drop_partial=True)
     REGISTRY["great_britain_power_generation_daily.xlsx"] = power_daily(
         "Great Britain power generation by type (Elexon BMRS + NESO)", drop_partial=True)
 except ImportError:   # europe/ not alongside this file (e.g. the copy in output/Python Scripts)
