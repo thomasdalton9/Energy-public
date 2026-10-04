@@ -1869,6 +1869,52 @@ def gb_gas_nts(p):
     return out
 
 
+def europe_biomethane_stats(p):
+    """Biomethane injected into gas grids: monthly national series (GB DESNZ, AT AGGM) as TWh lines, and an annual stacked bar by
+    country (Eurostat nrg_bal_c biogases blended into natural gas; United Kingdom after 2019 from the DESNZ monthly sums)."""
+    out = []
+    try:
+        m = by_date(read(p, "Monthly"), "month")
+    except Exception:  # noqa: BLE001
+        m = pd.DataFrame()
+    names = {"GB_biomethane_GWh": "Great Britain (DESNZ)", "AT_biomethane_GWh": "Austria (AGGM)"}
+    mm = m[[c for c in names if c in m]] / 1000.0
+    if not mm.empty:
+        mm = mm.rename(columns=names).dropna(how="all")
+        mm = mm[mm.index >= "2019-01-01"]
+        out.append(spec("Monthly", mm, "Biomethane injected into the gas grid, monthly (national sources)", "TWh per month", "line"))
+    try:
+        a = read(p, "Annual")
+        a["year"] = pd.to_numeric(a["year"], errors="coerce")
+        a = a.dropna(subset=["year"]).set_index("year")
+    except Exception:  # noqa: BLE001
+        return out
+    cn = {"FR": "France", "DE": "Germany", "DK": "Denmark", "IT": "Italy", "NL": "Netherlands", "UK": "United Kingdom", "ES": "Spain",
+          "SE": "Sweden", "AT": "Austria", "BE": "Belgium"}
+    cols = {c: a[f"{c}_biomethane_TWh"] for c in cn if f"{c}_biomethane_TWh" in a}
+    if "UK" in cols and "GB_biomethane_GWh" in m:
+        g = m["GB_biomethane_GWh"].dropna()
+        gb_y = g.groupby(g.index.year).agg(["sum", "count"])
+        gb_y = gb_y[gb_y["count"] == 12]["sum"] / 1000.0
+        uk = cols["UK"].copy()
+        last = uk.dropna().index.max() if uk.notna().any() else 0
+        for y, v in gb_y.items():
+            if y > last:
+                uk.loc[y] = v
+        cols["UK"] = uk.sort_index()
+    ann = pd.DataFrame({cn[c]: v for c, v in cols.items()})
+    if "EU27_biomethane_TWh" in a:
+        rest = a["EU27_biomethane_TWh"] - ann.drop(columns=["United Kingdom"], errors="ignore").sum(axis=1)
+        ann["Other EU27"] = rest.clip(lower=0)
+    ann = ann[ann.index >= 2012].dropna(how="all")
+    ann.index = pd.to_datetime(ann.index.astype(int).astype(str), format="%Y")
+    ann = ann[ann.sum().sort_values(ascending=False).index]
+    if not ann.empty:
+        out.append(spec("Annual", ann, "Biomethane blended into / injected in the gas grid, annual by country (Eurostat; UK after 2019 DESNZ)",
+                        "TWh per year", "stacked_bar", date_format="%Y"))
+    return out
+
+
 def norway_gassco(p):
     """Norwegian gas exports by destination (Gassco), monthly TWh stacked."""
     d = by_date(read(p, "Daily"), "date")
@@ -1922,6 +1968,7 @@ REGISTRY = {
     "norway_gassco_gas_flows_daily.xlsx": norway_gassco,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
     "europe_biomethane_operators.xlsx": europe_biomethane,
+    "europe_biomethane_statistics.xlsx": europe_biomethane_stats,
     "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
