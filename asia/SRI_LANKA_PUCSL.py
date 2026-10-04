@@ -11,14 +11,20 @@ API (no key):
         Coal, Wind, Solar, Mini hydro, Biomass ...), used to map plants to fuels
 
 Writes output/Data and Chart Outputs/sri_lanka_power_generation_daily.xlsx:
-  Daily        standard layout, MWh per day by fuel (mean of the day's 15-minute MW x 24 per plant)
-  Demand       daily peak and average of total dispatch, MW
+  Daily        standard layout, MWh per day by fuel (mean of the day's 15-minute MW x 24 per plant); rooftop
+               solar (in the feed from 2025-07-11, CEB estimates) in Solar_rooftop_MWh, outside Solar / Total
+  Demand       daily peak and average of total dispatch (excluding rooftop solar), MW
   By plant     MWh per day per plant (latest 120 days)
   Plants       the plant list with the fuel each is counted under
 
 Timestamps are treated as Sri Lanka local time (the API labels them ...Z but its days run midnight to
 midnight local; see the solar-profile check printed each run). Dispatch covers plants dispatched by the
 system control centre; small rooftop solar is not in it.
+
+Completeness: a day is saved only if every plant reporting that day has (nearly) all its 15-minute intervals
+(PLANT_COVERAGE) and the sum of the plants' daily energy is within GEN_DEMAND_TOL of the integrated total
+dispatch, with no zero-dispatch timestamp; otherwise it is left out and fetched again next run. Saved days are
+re-checked the same way (Total vs Demand_avg x 24, Demand_min > 0).
 
 Incremental: the Daily sheet is the history store; only missing days (plus REVISION_DAYS) are fetched.
 Runs on the 1st and 15th.
@@ -45,6 +51,9 @@ T = (15, 180)
 DATA_START = date(2023, 1, 1)
 CHUNK_DAYS = 7
 REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
+PLANT_COVERAGE = 0.99    # share of the reporting plants' 15-minute intervals present on a complete day
+GEN_DEMAND_TOL = 0.03    # sum of plant MWh vs mean total dispatch x 24
+ROOFTOP_FROM = date(2025, 6, 1)   # rooftop solar enters the feed on 2025-07-11; days from here re-split once
 CHECKPOINT = 25          # write the workbook every 25 chunks during a backfill
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "sri_lanka_power_generation_daily.xlsx")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy", "Other"]
@@ -79,6 +88,9 @@ def plants():
         text = " ".join(str(x) for x in (et.get("name"), et.get("slug"), p.get("technology"), p.get("fuelUsed"),
                                          cx.get("name"), p.get("name"))).lower()
         fuel = next((f for k, f in FUEL_KEYS if k in text), "Other")
+        # rooftop solar (CEB estimates, in the feed from 2025-07-11): kept out of Solar / Total
+        if fuel == "Solar" and "roof" in " ".join(str(x) for x in (et.get("name"), cx.get("name"))).lower():
+            fuel = "Solar_rooftop"
         rows.append({"id": p["id"], "name": p.get("name"), "complex": cx.get("name"), "energy_type": et.get("name"),
                      "technology": p.get("technology"), "fuel_used": p.get("fuelUsed"),
                      "capacity_MW": p.get("capacityData"), "fuel": fuel})
@@ -108,6 +120,18 @@ def read_sheet(path, sheet):
     return df.sort_index()
 
 
+def complete_saved(old, old_dem):
+    """Saved days that pass the completeness check (Total vs Demand_avg x 24, no zero-dispatch timestamp)."""
+    if old_dem.empty:
+        return pd.Series(True, index=old.index)
+    j = old[["Total_MWh"]].join(old_dem[["Demand_avg_MW", "Demand_min_MW"]], how="left")
+    ok = ((j["Total_MWh"] / (24 * j["Demand_avg_MW"]) - 1).abs() <= GEN_DEMAND_TOL) & (j["Demand_min_MW"] > 0)
+    if (~ok).any():
+        out(f"  {(~ok).sum()} saved day(s) fail the completeness check, re-fetching: "
+            + ", ".join(f"{x:%Y-%m-%d}" for x in j.index[~ok]))
+    return ok
+
+
 def merge(old, new):
     if old.empty or new.empty:
         return (new if old.empty else old).sort_index()
@@ -121,18 +145,34 @@ def save(frames, old, old_dem, old_plant, meta, out_path):
     if frames:
         raw = pd.concat(frames, ignore_index=True)
         raw["date"] = raw["time"].dt.normalize()
-        # per plant: mean MW over the day x 24 (bridges missing intervals)
+        # per plant: mean MW over the day x 24 (bridges a missing interval; days missing many are dropped below)
         mwh = raw.groupby(["date", "powerPlantId"])["MW"].mean().mul(24).unstack()
         by_plant = mwh.rename(columns=lambda c: meta["name"].get(c, f"plant {c}"))
         fuel_of = {c: meta["fuel"].get(c, "Other") for c in mwh.columns}
         gen = mwh.T.groupby(fuel_of).sum().T
-        gen = gen.reindex(columns=FUELS, fill_value=0.0).add_suffix("_MWh")
+        gen = gen.reindex(columns=FUELS + ["Solar_rooftop"], fill_value=0.0).add_suffix("_MWh")
         gen.columns.name = by_plant.columns.name = None
-        gen["Total_MWh"] = gen.sum(axis=1)
+        gen["Total_MWh"] = gen[[f"{f}_MWh" for f in FUELS]].sum(axis=1)
         gen["Intervals"] = raw.groupby("date")["time"].nunique()
+        # completeness: intervals per reporting plant, and plant energy vs integrated total dispatch (all plants)
+        n = raw.groupby(["date", "powerPlantId"])["time"].nunique().unstack()
+        gen["Plant_coverage_pct"] = (100 * n.sum(axis=1) / (n.notna().sum(axis=1) * 96)).round(2)
+        tot_all = raw.groupby("time")["MW"].sum()
+        g_all = tot_all.groupby(tot_all.index.normalize())
+        ratio = mwh.sum(axis=1) / (g_all.mean() * 24)
+        nplants = n.notna().sum(axis=1)   # a plant missing all day (e.g. all solar on 2025-12-21)
+        few = nplants < 0.9 * nplants.rolling(15, center=True, min_periods=1).median()
+        ok = (~few & (gen["Plant_coverage_pct"] >= 100 * PLANT_COVERAGE) & ((ratio - 1).abs() <= GEN_DEMAND_TOL)
+              & (g_all.min() > 0) & (gen["Intervals"] >= 96)).reindex(gen.index, fill_value=False)
         gen = gen.round(1)
-        gen = gen[gen["Total_MWh"] > 0]   # days not published yet come back as all-zero rows: fetch them next run
-        tot = raw.groupby("time")["MW"].sum()
+        bad = gen.index[~ok & (gen["Total_MWh"] > 0)]
+        if len(bad):
+            out(f"  {len(bad)} incomplete day(s) left out, fetched again next run: "
+                + ", ".join(f"{x:%Y-%m-%d} (coverage {gen.at[x, 'Plant_coverage_pct']}%, plants/dispatch "
+                            f"{ratio.get(x, float('nan')):.3f})" for x in bad))
+        gen = gen[ok & (gen["Total_MWh"] > 0)]   # all-zero (not yet published) or incomplete: fetch next run
+        rooftop = [c for c, f in fuel_of.items() if f == "Solar_rooftop"]
+        tot = raw[~raw["powerPlantId"].isin(rooftop)].groupby("time")["MW"].sum()
         g = tot.groupby(tot.index.normalize())
         dem = pd.DataFrame({"Demand_avg_MW": g.mean().round(0), "Demand_peak_MW": g.max().round(0),
                             "Demand_min_MW": g.min().round(0)})
@@ -154,24 +194,34 @@ def save(frames, old, old_dem, old_plant, meta, out_path):
     notes = [
         "UNITS",
         "Daily: MWh per day by fuel = for each plant, mean of the day's 15-minute dispatch (MW) x 24, summed by fuel. "
-        "Intervals = 15-minute timestamps returned for the day (96 = complete).",
-        "Demand: total dispatch of all plants, MW - daily average, peak and minimum (a proxy for system demand "
-        "met by dispatched plants).",
+        "Intervals = 15-minute timestamps returned for the day (96 = complete). Plant_coverage_pct = share of the "
+        "reporting plants' 15-minute values present.",
+        "Solar_rooftop_MWh: rooftop solar (CEB's estimates, 'Solar - Rooftop' / 'Rooftop Solar' plants), carried by "
+        "the feed only from 2025-07-11 (~400 MW average). It is kept OUT of Solar_MWh, Total_MWh and Demand so the "
+        "standard series are consistent over time; 0 or blank before 2025-07-11.",
+        "Demand: total dispatch of all plants except rooftop solar, MW - daily average, peak and minimum (a proxy "
+        "for system demand met by dispatched plants).",
         "By plant: MWh per day per plant, last 120 days (the full per-plant history is not kept).",
         "",
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}. Plants dispatched by the CEB system "
         "control centre (major hydro, CEB and IPP thermal, Lakvijaya coal, wind and solar farms, mini hydro where "
-        "reported). Rooftop solar is not included. Fuel per plant from the PUCSL plant list (energy type / "
+        "reported). Rooftop solar is not in Solar / Total (see Solar_rooftop_MWh). Fuel per plant from the PUCSL plant list (energy type / "
         "technology): Hydro includes mini hydro; Oil covers CEB and IPP oil-fired plants (Sri Lanka has no gas "
         "supply - the combined-cycle plants burn oil); see the Plants sheet.",
+        "",
+        "VALIDATION",
+        f"A day is saved only when it is complete: the reporting plants have at least {100 * PLANT_COVERAGE:.0f}% of "
+        f"their 15-minute values, no more than 10% fewer plants report than on the days around it, the plants' daily energy is within {100 * GEN_DEMAND_TOL:.0f}% of the integrated "
+        "total dispatch, and no timestamp has zero total dispatch. Incomplete days (e.g. 2025-12-20/21, partly "
+        "published) are left out and fetched again on each run; saved days are re-checked the same way.",
         "",
         "SOURCE",
         "PUCSL GenData (Public Utilities Commission of Sri Lanka), actual system dispatch: "
         "https://gendata.pucsl.gov.lk/ (API /api/actual-system-dispatch, /api/metadata/power-plants).",
     ]
     xlsx_notes.write_workbook(out_path, {"Daily": daily, "Demand": demand, "By plant": plant_daily,
-                                         "Plants": meta.reset_index()}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+                                         "Plants": meta.reset_index()}, notes, {"UNITS", "COVERAGE", "VALIDATION", "SOURCE"})
     out(f"Saved {out_path}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
     out(daily.tail(3).to_string())
 
@@ -193,6 +243,10 @@ def main():
     old, old_dem, old_plant = (read_sheet(args.out, s) for s in ("Daily", "Demand", "By plant"))
     if not old.empty:   # all-zero days were saved before they were published: fetch them again
         old = old[old["Total_MWh"] > 0]
+        if "Solar_rooftop_MWh" not in old:   # saved before rooftop was split out: re-fetch the days that carry it
+            out(f"  re-splitting rooftop solar: re-fetching days from {ROOFTOP_FROM}")
+            old = old[old.index < pd.Timestamp(ROOFTOP_FROM)]
+        old = old[complete_saved(old, old_dem)]
         old_dem = old_dem[old_dem.index.isin(old.index)] if not old_dem.empty else old_dem
     yesterday = date.today() - timedelta(days=1)
     have = set(old.index.date) if not old.empty else set()
