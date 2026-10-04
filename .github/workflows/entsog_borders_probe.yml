@@ -1,7 +1,14 @@
 name: ENTSOG borders probe (manual)
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      pairs:
+        description: 'country pairs, e.g. AT-SK,AT-HU (empty = default list)'
+        default: ''
+      years:
+        description: 'years, e.g. 2022,2023'
+        default: '2023,2024,2025'
 
 jobs:
   probe:
@@ -14,3 +21,6 @@ jobs:
           python-version: "3.11"
       - run: pip install requests
       - run: python3 -u discovery_archive/europe/ENTSOG_BORDERS_PROBE.py
+        env:
+          PAIRS: ${{ github.event.inputs.pairs }}
+          YEARS: ${{ github.event.inputs.years }}

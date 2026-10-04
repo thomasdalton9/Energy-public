@@ -167,6 +167,45 @@ def fill_for_net(borders_df):
     return out
 
 
+def net_imports(borders_df, pairs, country):
+    """Country net imports: into - out over all valid borders touching the country; blank if any border is missing.
+    ENTSO-E reports the same Ukrainian tie-lines under several Ukraine zones (UA, UA-IPS, UA-BEI) - the values are identical
+    wherever they overlap - so for one neighbour and direction the zones are merged (largest value per day), not summed
+    (summing doubled Slovakia's, Hungary's and Romania's Ukraine flows)."""
+    covered = {name for name, _, _ in C.COUNTRIES.values()}
+    valid = [(x, y) for a, b in pairs for x, y in ((a, b), (b, a)) if f"{x}>{y}" in borders_df]
+    filled = fill_for_net(borders_df)
+    groups = {}
+    for x, y in valid:
+        if country[x] == "Ukraine" or country[y] == "Ukraine":
+            key = (x, "out") if country[y] == "Ukraine" else (y, "in")
+            groups.setdefault(key, []).append((x, y))
+    drop = set()
+    for g in groups.values():
+        if len(g) > 1:
+            cols = [f"{x}>{y}" for x, y in g]
+            filled[cols[0]] = filled[cols].max(axis=1)
+            drop.update(g[1:])
+    valid = [v for v in valid if v not in drop]
+    net = {}
+    for name in sorted(covered):
+        ins = [f"{x}>{y}" for x, y in valid if country[y] == name]
+        outs = [f"{x}>{y}" for x, y in valid if country[x] == name]
+        if not ins and not outs:
+            continue
+        cols = ins + outs
+        full = filled[cols].notna().all(axis=1)
+        v = filled[ins].sum(axis=1, min_count=1) - filled[outs].sum(axis=1, min_count=1)
+        if not ins:
+            v = -filled[outs].sum(axis=1, min_count=1)
+        elif not outs:
+            v = filled[ins].sum(axis=1, min_count=1)
+        net[name] = v.where(full)
+    net_df = pd.DataFrame(net).dropna(how="all").round(3)
+    net_df.index.name = "date"
+    return net_df
+
+
 def flow_days(out_eic, in_eic, d0, d1, deadline):
     """{date: GWh} physical flow out_eic -> in_eic for the complete UTC days in [d0, d1); None if no data at all."""
     got, any_data = {}, False
@@ -190,8 +229,10 @@ def main():
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--start", default="2021-01-01")
     ap.add_argument("--max-minutes", type=float, default=150.0)
+    ap.add_argument("--net-only", action="store_true", help="recompute Net imports from the saved Borders sheet, no API calls")
     args = ap.parse_args()
-    C.api_key()
+    if not args.net_only:
+        C.api_key()
     os.makedirs(args.out_dir, exist_ok=True)
     path = os.path.join(args.out_dir, FILE)
     deadline = time.time() + args.max_minutes * 60
@@ -201,7 +242,7 @@ def main():
     old = read_sheet(path, "Borders")
     new_cols, dead, stopped = {}, [], False
     print(f"{len(pairs)} candidate borders ({2 * len(pairs)} directions)", flush=True)
-    for a, b in pairs:
+    for a, b in ([] if args.net_only else pairs):
         for x, y in ((a, b), (b, a)):
             col = f"{x}>{y}"
             if stopped:
@@ -247,26 +288,7 @@ def main():
         return
     borders_df.index.name = "date"
 
-    # country net imports: into - out over all valid borders touching the country; blank if any border is missing
-    covered = {name for name, _, _ in C.COUNTRIES.values()}
-    valid = [(x, y) for a, b in pairs for x, y in ((a, b), (b, a)) if f"{x}>{y}" in borders_df]
-    filled = fill_for_net(borders_df)
-    net = {}
-    for name in sorted(covered):
-        ins = [f"{x}>{y}" for x, y in valid if country[y] == name]
-        outs = [f"{x}>{y}" for x, y in valid if country[x] == name]
-        if not ins and not outs:
-            continue
-        cols = ins + outs
-        full = filled[cols].notna().all(axis=1)
-        v = filled[ins].sum(axis=1, min_count=1) - filled[outs].sum(axis=1, min_count=1)
-        if not ins:
-            v = -filled[outs].sum(axis=1, min_count=1)
-        elif not outs:
-            v = filled[ins].sum(axis=1, min_count=1)
-        net[name] = v.where(full)
-    net_df = pd.DataFrame(net).dropna(how="all").round(3)
-    net_df.index.name = "date"
+    net_df = net_imports(borders_df, pairs, country)
     lines = ["Europe - cross-border electricity flows and net imports (ENTSO-E Transparency Platform)", "",
              "Source", "ENTSO-E Transparency Platform, Cross-Border Physical Flow [12.1.G] (API document A11). https://transparency.entsoe.eu/",
              "", "Units and definitions",
