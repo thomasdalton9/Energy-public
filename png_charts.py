@@ -127,7 +127,9 @@ def render_sheet(path, sheet, title, units, out_dir=OUT, kind="stacked_bar"):
     stem = os.path.splitext(os.path.basename(path))[0]
     out = os.path.join(out_dir, f"{stem}__{re.sub(r'[^A-Za-z0-9_-]+', '_', sheet).strip('_')}.png")
     os.makedirs(out_dir, exist_ok=True)
-    if series_chart({"df": d, "title": title, "units": units, "kind": kind, "date_format": "%Y-%m"}, out):
+    annual = len(d) > 1 and d.index.to_series().diff().median().days > 300   # annual tabs: years on the axis
+    if series_chart({"df": d, "title": title, "units": units, "kind": kind,
+                     "date_format": "%Y" if annual else "%Y-%m"}, out):
         print(f"{stem}: {out}")
 
 

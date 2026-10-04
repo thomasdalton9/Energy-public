@@ -34,11 +34,17 @@ jobs:
           M="output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
           [ -f "$M" ] && python3 png_charts.py "$M" --sheet "SSEA generation total data" --title "South & Southeast Asia power generation by source" --units "TWh per month" || echo "PNG step skipped/failed"
 
+      - name: Long-term PNG charts
+        if: always()
+        run: |
+          M="output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+          [ -f "$M" ] && python3 fundamentals.py "$M" || echo "long-term PNG step skipped/failed"
+
       - name: Copy scripts
         if: always()
         run: |
           mkdir -p "output/Python Scripts"
-          cp png_charts.py asia/SOUTH_SOUTHEAST_ASIA_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/SOUTH_SOUTHEAST_ASIA_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit master workbook
         if: always()

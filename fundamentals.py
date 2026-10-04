@@ -452,3 +452,33 @@ def add_long_term_dashboard(wb, used, sheet_name_fn, region, data_dir, chart_w, 
         note.font = Font(italic=True, size=8, color="6B6B6B")
     print(f"long-term page: {len(rows) - 1} countries, {len(charts)} charts" + (f"; {notes}" if notes else ""))
     return notes
+
+
+# PNGs of the long-term charts (CLAUDE.md: every chart also as a PNG in output/PNG Charts)
+PNG_TABS = [("gen by fuel", "power generation by source", "TWh per year", "stacked_bar"),
+            ("gen shares", "generation mix", "% of generation", "line"),
+            ("demand vs GDP", "power demand vs real GDP and population", "index", "line"),
+            ("gas balance", "natural gas production vs consumption", "bcm per year", "line"),
+            ("demand per head", "power demand per head", "kWh per person per year", "line"),
+            ("GDP growth", "real GDP growth, history and IMF forecast", "% per year", "line")]
+
+
+def render_pngs(master, out_dir=None):
+    import png_charts
+    out_dir = out_dir or png_charts.OUT
+    names = pd.ExcelFile(master).sheet_names
+    try:
+        region = pd.read_excel(master, sheet_name="Dashboard - Long-term", header=None).iloc[0, 1]
+        region = str(region).split(" - long-term")[0]
+    except Exception:  # noqa: BLE001
+        region = ""
+    for label, title, units, kind in PNG_TABS:
+        tab = next((n for n in names if n in (f"Long {label} data", f"LT {label} data")), None)
+        if tab:
+            png_charts.render_sheet(master, tab, f"{region} {title}".strip(), units, out_dir, kind)
+
+
+if __name__ == "__main__":
+    import sys
+    for m in sys.argv[1:]:
+        render_pngs(m)
