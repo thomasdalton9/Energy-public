@@ -88,8 +88,14 @@ def _long(path, sheet):
     d["year"] = pd.to_numeric(d["year"], errors="coerce")
     d = d.dropna(subset=["year", "value"])
     d["year"] = d["year"].astype(int)
-    return {v: g.pivot_table(index="year", columns="iso3", values="value", aggfunc="sum")
-            for v, g in d.groupby("variable")}
+    out = {}
+    for v, g in d.groupby("variable"):
+        f = g.pivot_table(index="year", columns="iso3", values="value", aggfunc="sum")
+        # a lone zero between two real values is a hole in the source table (e.g. EI's Norway gas production 1998),
+        # not a year of no output: left blank (no invented values; region totals skip that year)
+        f = f.where(~((f == 0) & (f.shift(1) > 1) & (f.shift(-1) > 1)))
+        out[v] = f
+    return out
 
 
 def _wide(path):
