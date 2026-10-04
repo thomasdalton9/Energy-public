@@ -1951,7 +1951,7 @@ def denmark_gasflow(p):
             m = m[m.index < last.to_period("M").to_timestamp()]
         return m.dropna(how="all").rename(columns=names)
     sup = monthly(["DK_from_north_sea", "DK_from_tyra", "DK_biogas"],
-                  {"DK_from_north_sea": "North Sea entry (Danish fields + Norwegian transit)", "DK_from_tyra": "Tyra", "DK_biogas": "Biomethane"})
+                  {"DK_from_north_sea": "North Sea entry (mainly Norwegian gas for Baltic Pipe)", "DK_from_tyra": "Tyra (Danish fields)", "DK_biogas": "Biomethane"})
     use = monthly(["DK_to_denmark", "DK_to_poland", "DK_to_sweden"],
                   {"DK_to_denmark": "Danish consumers", "DK_to_poland": "Poland (Baltic Pipe)", "DK_to_sweden": "Sweden"}, -1)
     out = []
