@@ -38,6 +38,7 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "south_america"))
 import add_charts  # noqa: E402
 import capacity_factors  # noqa: E402
+import fundamentals  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
 
@@ -415,6 +416,11 @@ def main():
 
     sam.draw_dashboard(dash, "South & Southeast Asia energy (excl. Japan, Taiwan, Korea, China) - gas dashboard", *gas)
     sam.draw_dashboard(dash2, "South & Southeast Asia energy - power generation and hydro", *power)
+
+    # long-term fundamentals: annual history (Ember yearly, EI Statistical Review, World Bank, IMF, degree days)
+    fundamentals.add_long_term_dashboard(wb, used, sam.sheet_name, "South & Southeast Asia", args.data_dir, sam.CHART_W, sam.CHART_H,
+                                         rows_per_chart=sam.ROWS_PER_CHART, degree_days=("CDD_18",),
+                                         index=sum(s.startswith("Dashboard") for s in wb.sheetnames))
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])
