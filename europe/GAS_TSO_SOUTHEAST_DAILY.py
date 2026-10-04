@@ -173,7 +173,7 @@ def main():
             continue
         print(f"{label}: start", flush=True)
         have = old[cols].dropna(how="all")
-        fs = start if have.empty else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))
+        fs = start if (have.empty or any(old[c].dropna().empty for c in cols)) else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))
         try:
             new = fn(fs, today)
         except Exception as e:  # noqa: BLE001
