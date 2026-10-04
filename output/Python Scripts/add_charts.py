@@ -1893,6 +1893,29 @@ def eurostat_gas(p):
     return out
 
 
+def denmark_gasflow(p):
+    """Denmark's Energinet gas balance: monthly TWh of North Sea entries, biogas and German imports (supply) against deliveries to
+    Danish consumers, exports to Poland, Sweden and Germany."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+
+    def monthly(cols, names, sign=1):
+        m = (d[[c for c in cols if c in d]].resample("MS").sum(min_count=1) / 1000.0) * sign
+        if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        return m.dropna(how="all").rename(columns=names)
+    sup = monthly(["DK_from_north_sea", "DK_from_tyra", "DK_biogas"],
+                  {"DK_from_north_sea": "North Sea entry (Danish fields + Norwegian transit)", "DK_from_tyra": "Tyra", "DK_biogas": "Biomethane"})
+    use = monthly(["DK_to_denmark", "DK_to_poland", "DK_to_sweden"],
+                  {"DK_to_denmark": "Danish consumers", "DK_to_poland": "Poland (Baltic Pipe)", "DK_to_sweden": "Sweden"}, -1)
+    out = []
+    if not sup.empty:
+        out.append(spec("Supply", sup, "Denmark gas supply by entry (Energinet)", "TWh per month", "stacked_bar"))
+    if not use.empty:
+        out.append(spec("Deliveries", use, "Denmark gas deliveries and exports (Energinet)", "TWh per month", "stacked_bar"))
+    return out
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
@@ -1902,6 +1925,7 @@ REGISTRY = {
     "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
+    "denmark_energinet_gasflow_daily.xlsx": denmark_gasflow,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
