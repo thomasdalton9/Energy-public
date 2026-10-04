@@ -17,7 +17,7 @@ for f in ("MBS_Apr_2023.pdf", "MBS_Apr_2022.pdf", "MBS_Sep_2024.pdf"):
     with pdfplumber.open(io.BytesIO(c)) as pdf:
         for p in pdf.pages[:60]:
             tx = p.extract_text() or ""
-            if not re.search(r"3\.2\s+Production of Natural Gas", tx):
+            if not re.search(r"3\.2\s+Production of Natural Gas", tx) or "MMCF" not in tx.upper():
                 continue
             print(f"\n##### {f} page {p.page_number}", flush=True)
             ws = sorted(p.extract_words(), key=lambda w: (round(w["top"]), w["x0"]))
@@ -26,7 +26,9 @@ for f in ("MBS_Apr_2023.pdf", "MBS_Apr_2022.pdf", "MBS_Sep_2024.pdf"):
                 if w["top"] < 200 or re.match(r"^(Bhalsyedan|Dakhni|Company|Field)$", w["text"]) or shown:
                     pass
             tops = sorted({round(w["top"]) for w in ws})
-            for t in tops[:14]:
+            h = next((i for i, t in enumerate(tops) if any(w["text"] == "Company" for w in ws
+                                                            if abs(round(w["top"]) - t) <= 1)), 0)
+            for t in tops[max(0, h - 2):h + 8]:
                 row = [w for w in ws if abs(round(w["top"]) - t) <= 1]
                 print(f"top {t}: " + " | ".join(f"{w['text']}@{w['x0']:.0f}-{w['x1']:.0f}" for w in row)[:1500], flush=True)
             break
