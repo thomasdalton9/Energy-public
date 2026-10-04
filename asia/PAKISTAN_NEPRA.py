@@ -603,19 +603,15 @@ def read_ke(f):
 
 def ke_monthly(grid_index, ke):
     """KE history (GWh, as filed) -> MWh per grid month with KE_basis. Per month:
-    own sent-out = NEPRA's KE decision (else KE's filing); its fuel split = KE's filing when the filing's parts agree
+    own sent-out = NEPRA's KE decision; its fuel split = KE's filing when the filing's parts agree
     with that total within 5% (else unsplit, counted as gas); purchases from IPPs on KE's network = KE's filing when it
     is consistent (else copied from the same calendar month of the nearest year with a good filing); KE_from_CPPA =
     external purchases - those. Months with no KE figure at all: everything copied the same way (ESTIMATE)."""
     g = lambda r, c: (None if r is None or pd.isna(r.get(c + "_GWh", float("nan"))) else float(r[c + "_GWh"]))  # noqa
     rec = {mo: ke.loc[mo].to_dict() for mo in ke.index} if not ke.empty else {}
 
-    def own_total(r):
-        v = g(r, "KE_own_dec")
-        if v is None:
-            v = g(r, "KE_own_filed")
-            v = v if v is not None and v >= 100 else None
-        return v
+    def own_total(r):   # NEPRA's decision only: the OCR'd filings miss whole plant blocks too often to stand alone
+        return g(r, "KE_own_dec")
 
     def split_ok(r):
         tot, parts = own_total(r), [g(r, c) for c in ("KE_own_Oil", "KE_own_Gas", "KE_own_RLNG")]
@@ -653,8 +649,7 @@ def ke_monthly(grid_index, ke):
                 notes.append("own by fuel: KE filing")
             else:
                 d["KE_own_unsplit"] = tot
-                notes.append("own: " + ("NEPRA KE decision" if g(r, "KE_own_dec") is not None else "KE filing")
-                             + " (no fuel split)")
+                notes.append("own: NEPRA KE decision (no fuel split)")
         else:
             src = nearest(mo, good_own)
             if src is not None:
@@ -773,10 +768,14 @@ def save(path, grid, months, files, ke):
         "I/II, Lucky, ISL; Coal: FPCL; Solar: Oursun, Gharo solar and net metering), KE_purchases_nonCPPA_MWh their "
         "sum; KE_from_CPPA_MWh = drawn from the national grid (detail / check only); KE_external_MWh = NEPRA's "
         "'external purchases' (CPPA-G + IPPs) where that is the source.",
-        "KE_basis says how each month's KE figures were obtained. Months without a KE figure (after KE's consumers "
-        "moved to the uniform national FCA in 2025, and the odd gap) are ESTIMATED by copying KE's own generation and "
-        "non-CPPA purchases from the same calendar month of the nearest year with a full KE filing; months known "
-        "only from NEPRA's KE decision have KE's own sent-out exact and the non-CPPA purchases copied the same way.",
+        "KE_basis says how each month's KE figures were obtained. KE's own sent-out comes from NEPRA's KE FCA "
+        "decision; its fuel split from KE's own filing for that month when the filing's plant blocks add up to the "
+        "decision's total within 5% (otherwise KE_own_unsplit, counted under Gas); KE's purchases from IPPs on its "
+        "network from KE's filing when consistent with NEPRA's 'external purchases', otherwise copied from the same "
+        "calendar month of the nearest year with a good filing (ESTIMATE). Months with no KE decision (KE's consumers "
+        "moved to the uniform national FCA in 2025, so none after March 2025, plus the odd gap) are ESTIMATED: KE's "
+        "own sent-out is copied from the same calendar month of the nearest year that has one. KE_from_CPPA_MWh = "
+        "NEPRA's external purchases minus the IPP purchases (blank in estimated months).",
         "Months: the national-grid source used for each month and Check_pct = (sum of the fuel rows / the filing's "
         "own total - 1) x 100. Grid / KE: the history stores (as filed). Files: every file read.",
         "",
