@@ -684,6 +684,16 @@ def lv_storage_from_stock(data_dir):
     return pd.DataFrame({"LV_withdrawal_GWhd": (-dst).clip(lower=0), "LV_injection_GWhd": dst.clip(lower=0)})
 
 
+def it_storage_from_stock(data_dir):
+    """Italy's storage flows in GWh/d from the day-to-day change in AGSI+'s stock level: AGSI's injection/withdrawal columns imply 28.6 TWh more net
+    injection than the stock rose in 2025 (3.0 and 3.5 TWh in 2023-24), which made the 2025 Italian balance 10 TWh short against +2-3% in other years."""
+    s = _sheet_or_empty(os.path.join(data_dir, "eu_gas_storage_daily.xlsx"), "Daily", "date")
+    if "IT_TWh" not in s:
+        return None
+    dst = s["IT_TWh"].diff() * 1000.0
+    return pd.DataFrame({"IT_withdrawal_GWhd": (-dst).clip(lower=0), "IT_injection_GWhd": dst.clip(lower=0)})
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -693,6 +703,9 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     National Gas NTS offtake series lacks. FR: ODRE consumption is the GRTgaz/Teréga offtake (it equals ENTSOG's distribution plus
     industrial exits), which excludes biomethane injected straight into the distribution networks, so that biomethane is added to
     consumption (it is also a supply line)."""
+    if cc == "IT" and it_storage_from_stock(data_dir) is not None:
+        return {"storage": it_storage_from_stock(data_dir)}, None, (
+            " Storage flows are the day-to-day change in AGSI+'s stock level: AGSI's own injection and withdrawal columns for Italy disagree with the stock by 28.6 TWh in 2025.")
     fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
     if cc == "NL":
         nl = nl_cbs_gas(data_dir, bal_nl)
