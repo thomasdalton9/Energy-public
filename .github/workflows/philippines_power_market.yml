@@ -1,7 +1,8 @@
 name: Philippines power market
 
-# IEMOP WESM regional demand and system marginal prices. IEMOP lists about 90 days of files, so the
-# 1st/15th runs keep the history whole.
+# IEMOP WESM regional demand, system marginal prices and daily generation by fuel (resource schedules mapped
+# to fuels by asia/philippines_resource_fuels.csv). IEMOP lists about 90 days of files, so the 1st/15th runs
+# keep the history whole.
 on:
   schedule:
     - cron: "55 4 1,15 * *"
@@ -30,9 +31,11 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/philippines_power_market.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/philippines_power_market.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/philippines_power_market.xlsx" || echo "chart step skipped/failed for philippines_power_market.xlsx"
+          for f in philippines_power_market.xlsx philippines_power_generation_daily.xlsx; do
+            [ -f "output/Data and Chart Outputs/$f" ] && python3 add_charts.py "output/Data and Chart Outputs/$f" && python3 png_charts.py "output/Data and Chart Outputs/$f" || echo "chart step skipped/failed for $f"
+          done
           mkdir -p "output/Python Scripts"
-          cp png_charts.py asia/PHILIPPINES_IEMOP.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/PHILIPPINES_IEMOP.py asia/philippines_resource_fuels.csv add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
@@ -40,6 +43,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f "output/Data and Chart Outputs/philippines_power_market.xlsx" ] && git add -f "output/Data and Chart Outputs/philippines_power_market.xlsx" || true
+          [ -f "output/Data and Chart Outputs/philippines_power_generation_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/philippines_power_generation_daily.xlsx" || true
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Philippines power market: automated update"

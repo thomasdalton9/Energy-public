@@ -16,8 +16,8 @@ Writes output/Data and Chart Outputs/vietnam_power_generation_daily.xlsx:
   Demand   Demand_peak_MW (day's maximum, rooftop at the terminals), Midday_MW / Evening_MW (dispatch at the midday
            low and the evening peak)
 
-Incremental: the Daily sheet is the history store; the list is walked back only to the earliest day not saved yet
-(plus REVISION_DAYS). Runs on the 1st and 15th.
+Incremental: the Daily sheet is the history store; only posts for days not saved yet (plus REVISION_DAYS) are
+downloaded. The list (~120 pages, from May 2023) is read back to the earliest unsaved day, so gaps are refilled. Runs on the 1st and 15th.
 
     python3 asia/VIETNAM_EVN.py
 """
@@ -44,7 +44,6 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (20, 90)
 DATA_START = date(2021, 1, 1)
 REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare
-GAP_DAYS = 45        # once history is saved, only the last GAP_DAYS count as missing (EVN skips the odd day)
 MAX_PAGES = 600
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "vietnam_power_generation_daily.xlsx")
 # label in the post (lower case, accents kept) -> column; first match wins, so the rooftop lines come first
@@ -230,15 +229,12 @@ def main():
     have = set(old_d.dropna(subset=["Total_MWh"]).index.date) if "Total_MWh" in old_d else set()
     today = date.today()
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS + 1)}
-    first = max(DATA_START, max(have) - timedelta(days=GAP_DAYS)) if have else DATA_START
-    missing = {first + timedelta(days=k) for k in range((today - first).days + 1)} - (have - revise)
-    # EVN's archive start (recorded once the list has been read to its end): until history reaches it, every
-    # earlier day counts as missing too, so a short first run is backfilled later
+    # every day from EVN's archive start (recorded once the list has been read to its end) that is not saved yet
+    # counts as missing, interior gaps included; the whole list (~120 pages) is then read in about 3 minutes
     arch = read_sheet(args.out, "Archive")
     archive_start = arch.index.min().date() if not arch.empty else None   # None: not read to the end yet
-    if have and min(have) > (archive_start or DATA_START) + timedelta(days=3):
-        start = max(DATA_START, archive_start or DATA_START)
-        missing |= {start + timedelta(days=k) for k in range((min(have) - start).days)} - have
+    first = max(DATA_START, archive_start or DATA_START)
+    missing = {first + timedelta(days=k) for k in range((today - first).days + 1)} - (have - revise)
     earliest = min(missing) if missing else today
     out(f"{len(have)} days saved; {len(missing)} candidate days back to {earliest}")
     posts, empty = {}, 0

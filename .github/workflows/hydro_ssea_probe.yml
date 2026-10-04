@@ -1,13 +1,13 @@
-name: Nepal NEA probe (branch only, temporary)
+name: South/SE Asia hydro reservoir discovery (branch only, temporary)
 
-# One-off source probes. Runs discovery_archive/asia/NEPAL_DISCOVERY*.py on push to the dev branch;
+# One-off source probes. Runs the newest discovery_archive/asia/HYDRO_SSEA_DISCOVERY*.py on push to the dev branch;
 # moved to discovery_archive/workflows/ once done.
 on:
   push:
     branches: [claude/compassionate-darwin-2khdxe]
     paths:
-      - "discovery_archive/asia/NEPAL_DISCOVERY*.py"
-      - ".github/workflows/nepal_probe.yml"
+      - "discovery_archive/asia/HYDRO_SSEA_DISCOVERY*.py"
+      - ".github/workflows/hydro_ssea_probe.yml"
   workflow_dispatch: {}
 
 jobs:
@@ -20,10 +20,10 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber lxml nepali-datetime playwright && python -m playwright install --with-deps chromium
+        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          f=$(ls discovery_archive/asia/NEPAL_DISCOVERY*.py | sort -V | tail -1)
+          f=$(ls discovery_archive/asia/HYDRO_SSEA_DISCOVERY*.py | sort -V | tail -1)
           echo "######## $f"; timeout 1500 python3 "$f" || echo "!! exit $?"
