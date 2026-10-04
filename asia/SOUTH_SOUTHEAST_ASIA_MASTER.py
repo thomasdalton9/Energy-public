@@ -203,6 +203,9 @@ TOTAL_USE_EMBER = {"Malaysia": "GSO covers Peninsular Malaysia only; Sabah and S
 def monthly_gwh(path):
     """Standard Daily sheet (MWh) -> complete months, GWh, in the dashboard fuel groups."""
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
+    if "KE_included" in d:   # Pakistan: a month without a real K-Electric figure is grid-only, so not whole-country -
+        # left out here and filled from Ember (national) by regional_generation
+        d = d[d["KE_included"].astype(str).str.lower().isin(["true", "1", "1.0"])]
     d = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].apply(pd.to_numeric,
                                                                                           errors="coerce")
     # only months the feed covers (>= 80% of days for daily feeds): a gap or a partial month is left out rather than
