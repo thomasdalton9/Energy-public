@@ -112,6 +112,9 @@ Standing instructions from the repo owner. Follow these on every change.
   Netherlands balance (Gassco's flow to Germany minus the Dornum volume from `ENTSOG_NORWAY_ENTRIES_DAILY.py` is added to its
   imports) and flags the separate DE and NL balances as excluding it. Belgium (Zeebrugge) and France (Dunkerque) capture 94-95%
   of Gassco's flows. France is about +8% and Austria far off for other, untraced reasons.
+  Switzerland power is Swissgrid/BFE (`SWITZERLAND_SWISSGRID_DAILY.py`, replaces ENTSO-E whose Swiss hydro is incomplete): production by carrier is
+  gross of pumped-storage output, so pumping consumption and physical imports/exports come from BFE's monthly electricity balance (ogd35,
+  spread evenly over the days); the balance then closes within about 3%.
 - Every master has a "Dashboard - Long-term" page (`fundamentals.py`, called from each master): an annual summary per
   country and the region (demand and its 10-year growth vs GDP growth, elasticity, demand and GDP per head, fuel shares,
   wind + solar change, net imports, capacity and fleet utilisation, gas balance and import dependence, IMF 5-year GDP
