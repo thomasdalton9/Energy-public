@@ -13,7 +13,9 @@ biomass fleet are missing (Eurostat 2024: 441 TWh net generation vs 429 TWh in t
 closed at 95-98%.
 
 How the daily layout is filled:
-  - months Eurostat has published (about 2.5 months behind): each Eurostat month spread evenly over its days, by fuel;
+  - months Eurostat has published (about 2.5 months behind): the Eurostat monthly total of each fuel (and of load, where taken from
+    Eurostat) with the day-to-day shape of the same fuel in the ENTSO-E workbook (daily_shape.reshape: daily = ENTSO-E day x Eurostat
+    month / ENTSO-E month; if ENTSO-E has no usable shape for that month, ENTSO-E total generation, else an even spread);
   - later days: the ENTSO-E daily values, unchanged, so the series stays current (the cut-over is on the Units sheet);
   - pumped-storage output and consumption, battery columns and the load always come from the ENTSO-E workbook (Eurostat
     reports no pumping consumption; its hydro lines exclude pumped-storage generation to avoid double counting).
@@ -32,6 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 import xlsx_notes  # noqa: E402
+import daily_shape  # noqa: E402
 
 OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
@@ -94,7 +97,7 @@ def fetch_load(geo, since):
     return wide.sort_index()
 
 
-def build(geo, since, entsoe_path, eu_load=False):
+def build(geo, since, entsoe_path, eu_load=False, name=""):
     mon = fetch(geo, since)
     # a month counts only when Eurostat has the TOTAL and the main lines (partial months are dropped)
     mon = mon[mon["TOTAL"].notna() & mon["C0000"].notna() & mon["G3000"].notna()]
@@ -109,21 +112,33 @@ def build(geo, since, entsoe_path, eu_load=False):
     cut = last_month + pd.offsets.MonthEnd(0)                # last day covered by Eurostat
     days = pd.date_range(mon.index.min(), ent.index.max(), name="date")
     daily = pd.DataFrame(index=days)
-    key = days.to_period("M").to_timestamp()
-    dim = pd.Series(days.days_in_month, index=days)
+    log, devs = [], []
+    ent_total = pd.to_numeric(ent[list(MAP)].sum(axis=1, min_count=1), errors="coerce") if all(c in ent for c in MAP) else ent.get("Total_MWh")
     for col, sieces in MAP.items():
-        gwh = mon.reindex(columns=sieces).fillna(0).sum(axis=1)
-        daily[col] = gwh.reindex(key).to_numpy() * 1000.0 / dim.to_numpy()
+        # official Eurostat month total (MWh) with the day-to-day shape of the same fuel in ENTSO-E (fallback: ENTSO-E total generation)
+        off = mon.reindex(columns=sieces).fillna(0).sum(axis=1) * 1000.0
+        d = daily_shape.reshape(off, ent[col] if col in ent else None, ent_total, label=f"{name} {col}", log=log)
+        daily[col] = d.reindex(days)
+        devs.append(daily_shape.check_monthly(d, off, col))
     for c in ENTSOE_ONLY:
         daily[c] = ent[c].reindex(days) if c in ent else 0.0
-    if eu_load:                                              # load: Eurostat month spread over its days, ENTSO-E after the cut
-        eul = lmon["Load_GWh"].reindex(key).to_numpy() * 1000.0 / dim.to_numpy()
-        daily["Load_MWh"] = pd.Series(eul, index=days).where(days <= cut, ent["Load_MWh"].reindex(days))
+    if eu_load:                                              # load: Eurostat month total with the ENTSO-E load shape, ENTSO-E after the cut
+        offl = lmon["Load_GWh"].reindex(mon.index) * 1000.0
+        dl = daily_shape.reshape(offl, ent["Load_MWh"], None, label=f"{name} Load", log=log)
+        daily["Load_MWh"] = dl.reindex(days).where(days <= cut, ent["Load_MWh"].reindex(days))
+        devs.append(daily_shape.check_monthly(dl, offl, "Load"))
     late = days > cut
     for c in MAP:                                            # days after Eurostat's last month: ENTSO-E as published
         daily.loc[late, c] = ent[c].reindex(days[late]) if c in ent else float("nan")
     daily["Total_MWh"] = daily[list(MAP)].sum(axis=1, min_count=1)
     daily = daily.dropna(subset=["Load_MWh"]).fillna({"Gas_MWh": 0})
+    daily_shape.print_log(log)
+    print(f"  {name}: monthly totals equal Eurostat after reshaping; max deviation {max(devs):.2e} MWh (before rounding)", flush=True)
+    assert max(devs) < 1e-3, f"{name}: monthly totals differ from Eurostat by {max(devs)} MWh"
+    lastm = daily.loc[last_month:cut, "Total_MWh"]
+    nxt = daily.loc[cut + pd.Timedelta(days=1):, "Total_MWh"].head(30)
+    if len(lastm) and len(nxt):
+        print(f"  {name}: mean daily Total_MWh last scaled month {lastm.mean():.0f} / first 30 unscaled ENTSO-E days {nxt.mean():.0f} = {lastm.mean()/nxt.mean():.2f}", flush=True)
     if lmon is not None:
         mon = mon.join(lmon.rename(columns={"AIM": "AIM_load", "DL": "DL_losses"}), how="left")
     return daily[LAYOUT].round(1), mon, last_month
@@ -139,7 +154,7 @@ def main():
     for name, (geo, ent_file, out_file, eu_load) in COUNTRIES.items():
         if args.country and name != args.country:
             continue
-        daily, mon, last_month = build(geo, args.start, os.path.join(args.out_dir, ent_file), eu_load)
+        daily, mon, last_month = build(geo, args.start, os.path.join(args.out_dir, ent_file), eu_load, name)
         ann = (daily.groupby(daily.index.year).sum() / 1e6).round(1)
         print(f"{name} TWh per year:\n" + ann.T.to_string(), flush=True)
         cut = (last_month + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d")
@@ -153,12 +168,12 @@ def main():
                     "(ENTSO-E's load and generation use different definitions here)."] if eu_load else []),
                  f"ENTSO-E Transparency Platform ({ent_file}) for pumped storage, batteries, load and the days after Eurostat's last month.",
                  "", "Units and definitions",
-                 f"MWh per day = Eurostat monthly figure (GWh) / days in the month, for dates to {cut}. Net generation (after the power stations' own use): "
+                 f"MWh per day for dates to {cut} = Eurostat monthly figure (GWh) x the ENTSO-E daily shape of the same fuel (monthly totals equal Eurostat exactly; ENTSO-E total-generation or even spread where ENTSO-E has no usable shape; scale outside 0.2-5 also spreads evenly). Net generation (after the power stations' own use): "
                  "Coal = solid fossil fuels (incl. derived gases), Gas, Oil, Nuclear, Hydro = natural-inflow hydro (pumped-storage generation excluded), Wind, Solar, "
                  "Bioenergy = renewable combustible fuels, Other = non-renewable waste and other combustibles, geothermal, other. "
                  f"From {(last_month + pd.offsets.MonthEnd(0) + pd.Timedelta(days=1)):%Y-%m-%d} (Eurostat is about 2.5 months behind) the fuel columns are the ENTSO-E daily values, "
                  "so those days are on the narrower ENTSO-E definition (supply/load there is the ENTSO-E ratio, not the Eurostat one). PumpedStorage, PumpedStorageConsumption, "
-                 "Storage and StorageCharging are ENTSO-E throughout" + ("; Load_MWh is Eurostat to the same date, ENTSO-E after it." if eu_load else ", and so is Load_MWh.") + " Eurostat figures are revised; the table is re-read whole each run.",
+                 "Storage and StorageCharging are ENTSO-E throughout" + ("; Load_MWh is the Eurostat monthly total with the ENTSO-E load shape to the same date, ENTSO-E after it." if eu_load else ", and so is Load_MWh.") + " Eurostat figures are revised; the table is re-read whole each run.",
                  "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; Eurostat {mon.index.min():%Y-%m} to {last_month:%Y-%m}"]
         monthly = mon.copy()
         monthly.index.name = "date"
