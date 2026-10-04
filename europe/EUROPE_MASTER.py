@@ -416,15 +416,35 @@ KNOWN_GAPS = {
     "Bosnia and Herzegovina": "See Montenegro: the Bosnia-Montenegro physical flow looks overstated; supply is 13% below load in 2025 (ratio was 97-102% before).",
     "North Macedonia": "Small system with unreliable ENTSO-E load/flow reporting (supply 89-91% of load in 2023-24, 100% in 2025).",
     "Kosovo": "KOSTT generation is metered at the plant and load includes distribution losses and theft; supply is about 5% below load.",
-    "Slovenia": "Supply is about 4% above load every year: ENTSO-E Slovenian load excludes some demand that generation and flows cover (grid losses/closed distribution systems).",
-    "Serbia": "Supply is about 4% above load every year, consistent with a load definition that is net of transmission losses.",
-    "Lithuania": "Supply is 3-4% above load since 2023, after the Baltic synchronisation changed the metered border flows.",
+    "Slovenia": (
+        "Supply was 103.5-103.9% of load because ENTSO-E publishes the Avce pumped-storage plant's generation (0.30 / 0.28 / 0.32 TWh in 2023 / 2024 / 2025) but no pumping consumption (zero in every year), "
+        "while its load excludes pumping. The Statistical Office of Slovenia (SiStat 1817602S) gives 0.405 / 0.381 / 0.437 TWh used for pumped storage (a constant 1.346 x the pumped output, i.e. an assumed 74% round trip, "
+        "close to the 1.35-1.37 ENTSO-E measures at Kruonis and Coo); it is subtracted from 'Pumped & battery (net)' (SLOVENIA_SISTAT_PUMPING.py), which leaves supply at 100.3-100.5% of load. "
+        "Krsko is not a cause: ENTSO-E counts the whole plant (5.3-5.6 TWh, SiStat net nuclear 5.33 / 5.55 TWh) in Slovenia and the physical flow to Croatia already carries Croatia's half. "
+        "Generation (14.2 TWh in 2023) and load (12.2) are both about 1 TWh below SiStat's net production (15.1) and final consumption plus network losses (13.2): solar behind the meter (SiStat 0.98 TWh, ENTSO-E 0.31) is in neither."),
+    "Serbia": (
+        "Supply is 103.5-104.0% of load. ENTSO-E publishes the pumped-storage generation of Bajina Basta (0.64 / 0.36 / 0.46 TWh in 2023 / 2024 / 2025) but no pumping consumption (zero in every year), while its load excludes pumping. "
+        "At the 1.35 consumption-to-output ratio ENTSO-E reports for Kruonis and Coo this is 0.86 / 0.49 / 0.62 TWh and would bring supply to 100.9 / 102.6 / 102.2% of load. The remaining 0.3-0.9 TWh (1-2.6%) is not explained: "
+        "EMS publishes no consumption or balance data (ems.rs carries market rules only; checked), so there is no raw pumping figure or national load to put in its place and the ENTSO-E values are kept. Treat Serbia as indicative."),
+    "Lithuania": (
+        "Supply is 103.9 / 104.0 / 103.1% of load in 2023 / 2024 / 2025, a near-constant 0.36-0.49 TWh a year (1.0-1.3 GWh a day, 0.07-0.18 TWh in every quarter 2023-26, unrelated to load, wind or solar), so it is not caused by the Baltic "
+        "synchronisation of February 2025 (0.46 TWh in 2023, 0.36 in 2025). Nor is it Kruonis (pumping consumption is reported: 0.73 / 0.78 / 0.64 TWh, 1.33-1.38 x its output) or the Belarus flows (1.3 TWh imported in 2023, 0.5 in 2024, none in 2025, "
+        "against a gap that does not follow them). Litgrid publishes no machine-readable balance or loss data (its data pages are viewer pages; Statistics Lithuania blocks GitHub), so the cause is not verified; the size is of the order of "
+        "transmission losses, which an ENTSO-E load definition may leave out. Before 2022 imports from Belarus/Russia are not in the ENTSO-E flow data used here."),
+    "Belgium": (
+        "Generation, load and flows are Elia's own open data (ods201, ods001, ods026): 2025 generation 68.81 TWh, total load 80.20, net import 14.09, identical to ENTSO-E, so the surplus sits inside Elia's data. "
+        "Generation plus net imports exceeds Elia's total load by 3.7 / 2.2 / 2.8 TWh in 2023 / 2024 / 2025 before pumping; ENTSO-E's Coo pumping consumption (1.66 / 1.41 / 1.18 TWh) takes it to 2.1 / 0.8 / 1.5 TWh "
+        "(102.7 / 101.0 / 101.9% of load). Of the 2025 figure about 0.3 TWh is battery charging: Elia counts the batteries' discharge (0.29 TWh) in generation but publishes no charging. April-September 2023 carries an extra 2 TWh "
+        "(0.5-0.7 TWh a month in April, May and August against 0.15 normally) in all three Elia datasets together, which neither Elia's documentation nor the flows explain. Not patched."),
+    "Spain": (
+        "ENTSO-E has no bidding zones for Morocco or Andorra, so Spain's ENTSO-E net imports (France and Portugal only) missed the exports Red Electrica reports to Morocco (1.86 / 2.54 / 3.75 TWh in 2023 / 2024 / 2025) and Andorra (0.24 / 0.24 / 0.21 TWh). "
+        "REE's four border balances sum exactly to its published cross-border balance (13.96 / 10.23 / 12.80 TWh net export), and its France and Portugal figures match ENTSO-E's within 0.1 TWh. Adding Morocco and Andorra "
+        "(SPAIN_REE_EXCHANGES.py, REData) took supply from 101.0 / 100.7 / 101.0% to 100.1 / 99.5 / 99.4% of load; the remaining -0.5% (1-1.6 TWh) is not traced."),
     "Denmark": "Load is Energinet's settlement gross consumption (incl. grid losses and 2.7 TWh of power-to-heat in 2025). ENTSO-E's Danish load is 4-7% lower, which made supply look 4-7% too high; "
                "ENTSO-E net imports match Energinet's exchanges (7.4 TWh in 2025). Remaining gap: ENTSO-E generation is about 1 TWh above Energinet's production.",
     "Poland": "ENTSO-E load (164 TWh in 2024) is a gross figure incl. station own use, above Eurostat consumption incl. losses (155 TWh) while generation is close (157 vs 155 TWh); supply is 94-95% of load in 2022-23 and 98-100% since.",
     "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
-    "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
     "Ireland": "Republic of Ireland only (Northern Ireland is in the UK). Net imports are EirGrid demand less generation, so supply equals load by construction; "
                "the fuel split is Ember's, with EirGrid's monthly totals after Ember's last month.",
 }

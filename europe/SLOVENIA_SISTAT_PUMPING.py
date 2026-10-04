@@ -85,7 +85,7 @@ def main():
              "the year (the latest published pumping per unit of pumped-storage output, 1.35, is carried). Annual: SiStat measures in GWh (the latest year is provisional). "
              "ENTSO-E publishes Avce's generation but not its pumping consumption, and its load excludes pumping, so a supply/load balance needs this series.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; daily {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}; SiStat years {ann.index.min()}-{ann.index.max()}"]
-    xlsx_notes.write_workbook(os.path.join(args.out_dir, FILE), {"Daily": daily, "Annual": ann.reset_index()}, lines, {"Source", "Units and definitions", "Last pull"})
+    xlsx_notes.write_workbook(os.path.join(args.out_dir, FILE), {"Daily": daily, "Annual": ann}, lines, {"Source", "Units and definitions", "Last pull"})
     print(f"saved {FILE}")
 
 
