@@ -30,11 +30,17 @@ jobs:
       - name: Render PNG charts from the master
         run: timeout 600 python3 europe/EUROPE_PNG_CHARTS.py --master "output/Data and Chart Outputs/europe_master.xlsx" --out-dir "output/PNG Charts"
 
+      - name: Long-term PNG charts
+        if: always()
+        run: |
+          M="output/Data and Chart Outputs/europe_master.xlsx"
+          [ -f "$M" ] && python3 fundamentals.py "$M" || echo "long-term PNG step skipped/failed"
+
       - name: Copy scripts
         if: always()
         run: |
           mkdir -p "output/Python Scripts"
-          cp europe/EUROPE_PNG_CHARTS.py europe/EUROPE_MASTER.py europe/europe_countries.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp europe/EUROPE_PNG_CHARTS.py europe/EUROPE_MASTER.py europe/europe_countries.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit master workbook
         if: always()
@@ -46,7 +52,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/europe_master.xlsx"
-          git add -f "output/PNG Charts"/europe_*.png || true
+          git add -f "output/PNG Charts"/europe_*.png "output/PNG Charts"/europe_master__Long_*.png || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Europe master: automated update"
           for i in 1 2 3 4 5; do
