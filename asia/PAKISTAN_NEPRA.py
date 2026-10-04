@@ -1174,6 +1174,8 @@ def main():
             status = err or ("ok" if got else "no month parsed")
             if err or not got:
                 out(f"  {name[:80]}: {status}")
+            if k == "NEPRA SOIR" and not got:
+                continue   # not recorded: tried again next run (the table reader still needs work)
             new_files.append({"url": url, "kind": k, "name": name[:150], "months": " ".join(got), "status": status})
     if new_ke:
         old_ke = {pd.Timestamp(m): {c: v for c, v in r.items() if not pd.isna(v)} for m, r in ke.to_dict("index").items()} \
