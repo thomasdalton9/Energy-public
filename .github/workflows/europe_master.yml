@@ -40,7 +40,7 @@ jobs:
         if: always()
         run: |
           mkdir -p "output/Python Scripts"
-          cp europe/EUROPE_PNG_CHARTS.py europe/EUROPE_MASTER.py europe/europe_countries.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp europe/EUROPE_PNG_CHARTS.py europe/EUROPE_MASTER.py europe/europe_countries.py europe/daily_shape.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit master workbook
         if: always()
