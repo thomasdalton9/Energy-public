@@ -83,6 +83,19 @@ def main():
     for g in ("Hydro", "Nuclear", "Wind", "Solar", "Other"):
         cols = [c for c in by_type.columns if group(c) == g]
         daily[f"{g}_MWh"] = by_type[cols].sum(axis=1, min_count=1) * 1000.0 if cols else 0.0
+    # Speicherkraft is gross of pumped-storage output (BFE does not split it). Take out the pumped-storage generation ENTSO-E reports
+    # for Switzerland (same days) so Hydro is natural inflow only; falls back to unadjusted if that workbook is missing.
+    pumped_note = "NOT adjusted for pumped storage (ENTSO-E workbook not found)"
+    try:
+        e = pd.read_excel(os.path.join(args.out_dir, "switzerland_power_generation_daily.xlsx"), sheet_name="Daily")
+        pump = pd.to_numeric(e.set_index(pd.to_datetime(e["date"]))["PumpedStorage_MWh"], errors="coerce").reindex(daily.index)
+        if pump.notna().mean() > 0.9:
+            stor = by_type["Speicherkraft"] * 1000.0 if "Speicherkraft" in by_type else 0.0
+            daily["Hydro_MWh"] = daily["Hydro_MWh"] - pump.fillna(0).clip(upper=stor)
+            pumped_note = "Hydro = run-of-river + storage hydro minus pumped-storage generation (ENTSO-E, Switzerland): natural inflow only"
+    except Exception as ex:  # noqa: BLE001
+        pumped_note += f" ({type(ex).__name__})"
+    print(pumped_note, flush=True)
     daily["Gas_MWh"] = 0.0
     for c in ("PumpedStorage_MWh", "Coal_MWh", "Oil_MWh", "Bioenergy_MWh", "Storage_MWh", "PumpedStorageConsumption_MWh", "StorageCharging_MWh"):
         daily[c] = 0.0
@@ -103,6 +116,7 @@ def main():
              "Solar = photovoltaics; Other = thermal power stations (incl. waste, biomass); Load_MWh = Landesverbrauch (national consumption, "
              "including grid losses). The 'By type (GWh)' sheet keeps the categories as published. ENTSO-E's Swiss generation is incomplete "
              "(its hydro rose from 10 to 24 TWh between 2022 and 2025 as reporting widened), so this feed replaces it in the Europe balances.",
+             pumped_note + ".",
              "Whole-file download each run (the files hold the full history); recent days are restated.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(daily)} days, {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}"]
     xlsx_notes.write_workbook(path, {"Daily": daily, "By type (GWh)": by_type}, lines, {"Source", "Units and definitions", "Last pull"})
