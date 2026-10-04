@@ -73,7 +73,7 @@ def main():
              "GWh per month = CBS mln m3 (Groningen-equivalent gas, 35.17 MJ/m3 gross calorific value) x 9.769 kWh/m3. Production = winning uit de bodem "
              "(gas from Dutch fields); Biomethane = productie uit andere bronnen (chiefly upgraded biogas); Consumption = totaal verbruik (energy companies "
              "incl. power plants, own use at production and transport, flaring, final consumers). Imports/exports are pipeline gas by partner and LNG. "
-             "StockChange: positive = stock build. CBS figures are revised; the table is re-read whole each run.",
+             "StockChange: positive = stock build. The Europe master gives the monthly production and consumption a daily shape from ENTSOG's Dutch entries/exits and keeps the CBS monthly totals exactly. CBS figures are revised; the table is re-read whole each run.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {mon.index.min():%Y-%m} to {mon.index.max():%Y-%m}"]
     xlsx_notes.write_workbook(os.path.join(args.out_dir, FILE), {"Monthly": mon}, lines, {"Source", "Units and definitions", "Last pull"})
     print(f"saved {FILE}")
