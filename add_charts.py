@@ -1688,6 +1688,31 @@ def eu_lng(p):
     return out
 
 
+def tso_gas_demand(p):
+    """TSO gas consumption (Germany THE, France ODRE, Spain Enagas): monthly TWh, one line per country, plus Germany and France
+    split by sector."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+
+    def monthly(cols, names):
+        m = d[[c for c in cols if c in d]].resample("MS").sum(min_count=1) / 1000.0
+        if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        return m.dropna(how="all").rename(columns=names)
+    tot = monthly(["DE_total", "FR_total", "ES_total"], {"DE_total": "Germany", "FR_total": "France", "ES_total": "Spain"})
+    de = monthly(["DE_distribution", "DE_industry_power"], {"DE_distribution": "Distribution (SLP)", "DE_industry_power": "Industry & power (RLM)"})
+    fr = monthly(["FR_industrial", "FR_distribution", "FR_power"], {"FR_industrial": "Industrial", "FR_distribution": "Public distribution",
+                                                                      "FR_power": "Power plants"})
+    out = []
+    if not tot.empty:
+        out.append(spec("Total", tot, "Gas consumption: Germany, France, Spain (TSO data)", "TWh per month", "line"))
+    if not de.empty:
+        out.append(spec("Germany", de, "Germany gas consumption by class (Trading Hub Europe)", "TWh per month", "stacked_bar"))
+    if not fr.empty:
+        out.append(spec("France", fr, "France gas consumption by sector (ODRE)", "TWh per month", "stacked_bar"))
+    return out
+
+
 def ireland_eirgrid(p):
     """EirGrid quarter-hourly system data (Republic of Ireland): monthly GWh by wind, solar, hydro and thermal/other, from the
     Daily sheet."""
@@ -1732,6 +1757,7 @@ def gb_gas_nts(p):
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
+    "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
