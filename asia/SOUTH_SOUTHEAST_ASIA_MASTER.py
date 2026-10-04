@@ -66,6 +66,7 @@ RAW_POWER_DATASETS = [
     ("MY", "Malaysia", "malaysia_power_generation_daily.xlsx", "Daily", "power"),
     ("ID", "Indonesia", "indonesia_power_generation_daily.xlsx", "Daily", "power"),
     ("SG", "Singapore", "singapore_power_generation_daily.xlsx", "Daily", "power"),
+    ("KH", "Cambodia", "cambodia_power_generation.xlsx", "Daily", "power"),   # annual rows (EAC)
 ]
 # Ember fallback: monthly release (country sheets named as below) and yearly release
 EMBER_FILES = [("SSEA", "South & Southeast Asia", "south_southeast_asia_power_by_type.xlsx")]
@@ -154,6 +155,9 @@ SOURCES = {
     "sri_lanka_hydro_reservoirs.xlsx": ("PUCSL (Public Utilities Commission of Sri Lanka) GenData, reservoir storage "
                                         "(CEB system control centre data)",
                                         "https://gendata.pucsl.gov.lk/reservoir-storage-level"),
+    "cambodia_power_generation.xlsx": ("EAC (Electricity Authority of Cambodia), Report on Power Sector of the Kingdom of "
+                                       "Cambodia (annual, Annex 2) and Salient Features of Power Development (latest "
+                                       "year, provisional)", "https://eac.gov.kh/site/annualreport?lang=en"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),
