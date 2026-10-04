@@ -142,6 +142,10 @@ SOURCES = {
                                         "electric-power-industry/2025-power-statistics"),
     "singapore_power_prices.xlsx": ("EMC (Energy Market Company), NEMS - Uniform Singapore Energy Price (USEP)",
                                     "https://www.nems.emcsg.com/nems-prices"),
+    "pakistan_power_generation_daily.xlsx": ("CPPA-G XWDISCOs Energy Purchase Data and NEPRA monthly Fuel Charges "
+                                             "Adjustment decisions (source-wise generation); national grid, excl. "
+                                             "K-Electric's own plants",
+                                             "https://cppa.gov.pk/downloads/xwdiscos-energy-purchase-data"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),
@@ -207,12 +211,18 @@ def regional_generation(data_dir, raw_files, frames_out=None):
                 fname = raw_files[country]
                 m = monthly_gwh(os.path.join(data_dir, fname))
                 src = SOURCES.get(fname, (fname,))[0]
-                try:   # months before the raw feed starts (e.g. Sri Lanka's PUCSL data from 2023) come from Ember
+                try:   # months before the raw feed starts (e.g. Sri Lanka's PUCSL data from 2023), and months the raw
+                    # feed is missing (e.g. Pakistan's unreadable NEPRA filings), come from Ember
                     e = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
-                    e = e[(e.index < m.index.min()) & (e.index >= "2021-01-01")]
+                    have = m.index[m.apply(pd.to_numeric, errors="coerce").sum(axis=1) > 0]
+                    e = e[(~e.index.isin(have)) & (e.index <= m.index.max()) & (e.index >= "2021-01-01")]
+                    before, gaps = e[e.index < have.min()], e[e.index > have.min()]
                     if len(e):
-                        m = pd.concat([e, m]).sort_index()
-                        src += f" (Ember before {e.index.max() + pd.offsets.MonthBegin(1):%b/%y})"
+                        m = pd.concat([e, m[m.index.isin(have)]]).sort_index()
+                    if len(before):
+                        src += f" (Ember before {before.index.max() + pd.offsets.MonthBegin(1):%b/%y})"
+                    if len(gaps):
+                        src += f" (Ember for {len(gaps)} missing month{'s' if len(gaps) > 1 else ''})"
                 except Exception:  # noqa: BLE001  (no Ember sheet for this country: raw only)
                     pass
             else:
