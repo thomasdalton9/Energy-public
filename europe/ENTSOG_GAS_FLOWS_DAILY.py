@@ -20,8 +20,8 @@ point, API operationalData / "Physical Flow", daily), one workbook:
 Each flow row is (point, operator, entry|exit). It is classed by the system on the other side of the point, taken from
 ENTSOG's interconnections list: the operator's country is the first two letters of its key, the adjacent system gives
 the type (Transmission / Production / LNG Terminals / Storage / Distribution / Final Consumers) and country.
-A sender's exports and a receiver's imports use their own side of the border; the other side fills a day on which the own side
-reports nothing (e.g. Baumgarten on the Austrian side). The Border flows sheet shows the larger of the two sides. Within a side, operators that report the same gas at one point are counted once, and a virtual point (VIP) and the physical
+A sender's exports and a receiver's imports use their own side of the border; the other side is used only where the own country
+publishes no row for those points (Baumgarten on the Austrian side). The Border flows sheet shows the larger of the two sides. Within a side, operators that report the same gas at one point are counted once, and a virtual point (VIP) and the physical
 points it aggregates are taken as the larger of the two, not summed (ENTSOG reports both; VIP Brandov = EUGAL + OPAL + Hora Svate Katerina). ENTSOG reports kWh/d; converted to GWh/d. Empty (unreported) values are left blank.
 
 Caveats: ENTSOG data are operational flows (allocations/nominations), restated for recent days (the last 45 days are
@@ -142,7 +142,7 @@ def border_flows(rows):
     Each side of a border is the sum of its points with (1) operators that duplicate each other dropped and (2) the virtual point
     (VIP) and the physical points it aggregates taken as the larger of the two, not their sum (ENTSOG reports both: e.g. VIP Brandov =
     EUGAL + OPAL + Hora Svate Katerina, so Czech imports from Germany were counted twice). Each country keeps its own side; the
-    other side fills a day on which its own reports nothing (Baumgarten on the Austrian side)."""
+    other side only where the own country publishes no row for those points (Baumgarten on the Austrian side)."""
     by_pt = {}
     for day, c, d, oc, pk, op, g in rows:
         by_pt.setdefault((day, c, d, oc, pk), []).append(g)
