@@ -15,8 +15,8 @@ Definitions
   - Hydro = NPSHYD (non-pumped hydro); PumpedStorage = PS output; Gas = CCGT + OCGT; Coal; Oil; Nuclear;
     Bioenergy = BIOMASS; Other = OTHER; Wind = metered WIND + NESO embedded wind; Solar = NESO embedded solar
     (GB solar is almost all embedded, so it is not in FUELHH).
-  - Load_MWh = national demand (ND) + embedded wind + embedded solar (the demand GB generators and imports meet before
-    station load); PumpedStorageConsumption_MWh = NESO pumping.
+  - Load_MWh = national demand (ND) + embedded wind + embedded solar + station load (the power stations' own use, which
+    Elexon's metered output is gross of; = NESO TSD - ND - pumping - interconnector exports, about 4.8 TWh a year); PumpedStorageConsumption_MWh = NESO pumping.
   - NetImports_MWh = sum of the interconnector flows (INTFR, INTIRL, INTNED, INTEW, INTNEM, INTELEC, INTIFA2, INTNSL,
     INTVKL, INTGRNL), positive = import into GB.
   - MWh = MW x 0.5 h per half hour; days are UTC days; a day is kept only if both feeds cover >= 46 of 48 half hours.
@@ -125,7 +125,14 @@ def neso_year(year):
     d["startTime"] = (local_midnight.dt.tz_convert("UTC") + pd.to_timedelta((d["SETTLEMENT_PERIOD"] - 1) * 30, unit="m"))
     d = d.dropna(subset=["startTime"]).drop_duplicates("startTime", keep="last").set_index("startTime")
     cols = ["ND", "EMBEDDED_WIND_GENERATION", "EMBEDDED_SOLAR_GENERATION", "PUMP_STORAGE_PUMPING"]
-    return d[cols].apply(pd.to_numeric, errors="coerce")
+    out = d[cols].apply(pd.to_numeric, errors="coerce")
+    # Station load (power stations' own use, ~4.8 TWh a year): ND excludes it but Elexon's metered output is gross of it.
+    # NESO's TSD includes station load, pumping and exports, so station load = TSD - ND - pumping - interconnector exports.
+    flows = d.reindex(columns=[c for c in d.columns if c.endswith("_FLOW")]).apply(pd.to_numeric, errors="coerce")
+    exports = (-flows.clip(upper=0)).sum(axis=1)
+    tsd = pd.to_numeric(d["TSD"], errors="coerce") if "TSD" in d else float("nan")
+    out["STATION_LOAD"] = (tsd - out["ND"] - out["PUMP_STORAGE_PUMPING"].fillna(0) - exports).clip(lower=0)
+    return out
 
 
 def daily(f, n):
@@ -143,7 +150,7 @@ def daily(f, n):
         out["PumpedStorage_MWh"] = j["PumpedStorage"].clip(lower=0)
     out["Solar_MWh"] = j["EMBEDDED_SOLAR_GENERATION"]
     out["Storage_MWh"] = 0.0
-    out["Load_MWh"] = j["ND"] + j["EMBEDDED_WIND_GENERATION"] + j["EMBEDDED_SOLAR_GENERATION"]
+    out["Load_MWh"] = j["ND"] + j["EMBEDDED_WIND_GENERATION"] + j["EMBEDDED_SOLAR_GENERATION"] + j["STATION_LOAD"]
     out["PumpedStorageConsumption_MWh"] = j["PUMP_STORAGE_PUMPING"]
     out["StorageCharging_MWh"] = 0.0
     out["NetImports_MWh"] = j["NetImports"]
@@ -154,6 +161,17 @@ def daily(f, n):
     days = days[n_per.reindex(days.index) >= MIN_PERIODS]
     days.index = pd.DatetimeIndex(days.index.tz_localize(None), name="date")
     return days[ALL_COLS]
+
+
+STATION_MARK = "station load"
+
+
+def units_text(path):
+    try:
+        u = pd.read_excel(path, sheet_name="Units", header=None)
+        return " ".join(u.astype(str).to_numpy().ravel()).lower()
+    except Exception:  # noqa: BLE001
+        return ""
 
 
 def read_existing(path):
@@ -176,12 +194,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--start", default="2021-01-01")
+    ap.add_argument("--keep", action="store_true", help="do not rebuild an older-definition workbook")
     args = ap.parse_args()
     os.makedirs(args.out_dir, exist_ok=True)
     path = os.path.join(args.out_dir, FILE)
     start = datetime.strptime(args.start, "%Y-%m-%d").date()
     today = datetime.now(timezone.utc).date()
     old = read_existing(path)
+    if len(old) and not args.keep and STATION_MARK not in units_text(path):   # Load definition changed (station load added): rebuild from --start
+        print("workbook predates the station-load definition; rebuilding from", args.start, flush=True)
+        old = pd.DataFrame(columns=ALL_COLS)
     have = set(old.index.date) if len(old) else set()
     fs = start
     if have:
@@ -219,7 +241,7 @@ def main():
              "MWh per UTC day (MW x 0.5 h per half hour). Hydro = non-pumped hydro (NPSHYD); PumpedStorage = pumped storage output (PS, positive half hours only); "
              "Gas = CCGT + OCGT; Bioenergy = BIOMASS; Wind = metered wind + NESO embedded wind; Solar = NESO embedded solar "
              "(almost all GB solar is embedded and not in FUELHH).",
-             "Load_MWh = national demand (ND) + embedded wind + embedded solar. PumpedStorageConsumption_MWh = pumping. "
+             "Load_MWh = national demand (ND) + embedded wind + embedded solar + station load (own use of power stations = NESO TSD - ND - pumping - interconnector exports; Elexon output is gross of it). PumpedStorageConsumption_MWh = pumping. "
              "NetImports_MWh = sum of interconnector flows, positive = import into GB. Total_MWh = all generation columns.",
              f"A day is kept only if both feeds cover >= {MIN_PERIODS} of 48 half hours. Re-fetches the last {REVISION_DAYS} days each run plus gaps "
              f"within 120 days; history from {args.start}.",

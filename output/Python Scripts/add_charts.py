@@ -1966,6 +1966,23 @@ def eurostat_gas(p):
     return out
 
 
+def elering_gas(p):
+    """Estonia's Elering gas flows: monthly TWh of Balticconnector and Karksi net flows (+ into Estonia) and consumption."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    m = m[m.index < last.to_period("M").to_timestamp()].dropna(how="all")
+    flows = m[[c for c in ("EE_balticconnector", "EE_karksi") if c in m]].rename(
+        columns={"EE_balticconnector": "Balticconnector (+ from Finland)", "EE_karksi": "Karksi (+ from Latvia)"})
+    out = []
+    if not flows.empty:
+        out.append(spec("Border flows", flows, "Estonia net gas flows at Balticconnector and Karksi (Elering)", "TWh per month", "line"))
+    if "EE_consumption" in m:
+        out.append(spec("Consumption", m[["EE_consumption"]].rename(columns={"EE_consumption": "Estonian gas consumption"}),
+                        "Estonia gas consumption (Elering)", "TWh per month", "line"))
+    return out
+
+
 def denmark_gasflow(p):
     """Denmark's Energinet gas balance: monthly TWh of North Sea entries, biogas and German imports (supply) against deliveries to
     Danish consumers, exports to Poland, Sweden and Germany."""
@@ -2157,6 +2174,7 @@ REGISTRY = {
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
     "denmark_energinet_gasflow_daily.xlsx": denmark_gasflow,
+    "elering_gas_daily.xlsx": elering_gas,
     "entsog_norway_entries_daily.xlsx": entsog_norway_entries,
     "entsog_point_fixes_daily.xlsx": entsog_point_fixes,
     "ember_europe_power_monthly.xlsx": ember_europe,
