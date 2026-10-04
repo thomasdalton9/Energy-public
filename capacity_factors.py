@@ -32,6 +32,10 @@ MAX_CF = 110.0   # slightly over 100% is real (output above the net / summer rat
                  # means generation and capacity classify the plant differently (e.g. dual-fuel turbines burning
                  # diesel: oil generation, gas capacity) and is left blank
 BACKFILL_MONTHS = 12
+# physical ceilings per fuel (%): utility solar rarely exceeds ~30% in a month or ~25% over a year, wind ~65% / ~55%.
+# Above them the capacity list is incomplete (e.g. GSO's or PUCSL's solar plant lists) and the figure is left blank
+FUEL_MAX_MONTH = {"Solar": 32.0, "Wind": 65.0}
+FUEL_MAX_YEAR = {"Solar": 28.0, "Wind": 55.0}
 
 
 def monthly_capacity(path):
@@ -60,6 +64,9 @@ def capacity_factor(gen_gwh, cap_mw):
     hours = pd.Series(months.days_in_month * 24.0, index=months)
     cf = gen * 1000.0 / cap.mul(hours, axis=0) * 100.0
     cf = cf.where(cap >= MIN_MW).where(cf <= MAX_CF).where(cf >= 0)
+    for f, top in FUEL_MAX_MONTH.items():
+        if f in cf:
+            cf[f] = cf[f].where(cf[f] <= top)
     return cf.dropna(how="all", axis=1).dropna(how="all"), gen, cap
 
 
@@ -74,7 +81,8 @@ def trailing(gen, cap, months=12):
     hrs = pd.Series(window.days_in_month * 24.0, index=window)
     c = cap.loc[window].where(ok.loc[window]).mul(hrs, axis=0)
     out = g.sum() * 1000.0 / c.sum() * 100.0
-    return out.where((out > 0) & (out <= MAX_CF)), (window.min(), window.max())
+    top = pd.Series({f: FUEL_MAX_YEAR.get(f, MAX_CF) for f in out.index}, dtype=float)
+    return out.where((out > 0) & (out <= top)), (window.min(), window.max())
 
 
 def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, chart_w, chart_h, source_note,
