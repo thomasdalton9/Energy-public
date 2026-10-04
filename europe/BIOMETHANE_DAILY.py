@@ -107,13 +107,14 @@ def netherlands():
 
 # ---- storage -------------------------------------------------------------------------------------------------------------
 def read_sheet(path, sheet, cols, idx):
+    empty = pd.DataFrame(columns=cols, index=pd.DatetimeIndex([], name=idx), dtype=float)
     if not os.path.exists(path):
-        return pd.DataFrame(columns=cols)
+        return empty
     try:
         d = pd.read_excel(path, sheet_name=sheet)
     except Exception as e:  # noqa: BLE001
         print(f"could not read {sheet} ({type(e).__name__}: {e}); starting over")
-        return pd.DataFrame(columns=cols)
+        return empty
     d[idx] = pd.to_datetime(d[idx], errors="coerce")
     d = d.dropna(subset=[idx]).set_index(idx).sort_index()
     for c in cols:
