@@ -410,6 +410,15 @@ def power_and_demand(gen_title, demand_title):
     return lambda p: power_daily(gen_title)(p) + daily_demand(demand_title)(p)
 
 
+def singapore_usep(p):
+    """EMC/NEMS Uniform Singapore Energy Price: monthly average of the daily average and daily max half-hour."""
+    d = _sheet(p, "Daily", "date")
+    c = cols(d, "USEP_avg_SGD_per_MWh", "USEP_max_SGD_per_MWh")
+    return [spec("Prices", monthly_mean(d[c]).rename(columns={"USEP_avg_SGD_per_MWh": "Daily average",
+                                                              "USEP_max_SGD_per_MWh": "Daily max half-hour"}),
+                 "Singapore wholesale electricity price - USEP (EMC, monthly average)", "SGD/MWh")]
+
+
 def india_iex(p):
     d = _sheet(p, "Daily", "date")
     c = cols(d, "MCP_avg_Rs_per_MWh", "MCP_max_Rs_per_MWh", "MCP_min_Rs_per_MWh")
@@ -1903,6 +1912,11 @@ REGISTRY = {
     "philippines_power_market.xlsx": philippines_market,
     "malaysia_power_prices.xlsx": malaysia_smp,
     "indonesia_renewable_capacity.xlsx": power_capacity("Indonesia renewable installed capacity (ESDM EBTKE; renewables only)"),
+    "singapore_power_prices.xlsx": singapore_usep,
+    "india_power_capacity.xlsx": power_capacity("India installed capacity (CEA)"),
+    "bangladesh_power_capacity.xlsx": power_capacity("Bangladesh installed capacity (BPDB)"),
+    "sri_lanka_power_capacity.xlsx": power_capacity("Sri Lanka installed capacity (PUCSL plant list)"),
+    "philippines_power_capacity.xlsx": power_capacity("Philippines installed capacity (DOE, year end; on- and off-grid)"),
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
