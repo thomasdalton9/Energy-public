@@ -174,7 +174,7 @@ SOURCES = {
     "europe_cross_border_flows_daily.xlsx": ("ENTSO-E Transparency Platform: cross-border physical flows",
                                              "https://transparency.entsoe.eu/"),
 }
-GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Denmark Energinet, Portugal REN, Austria AGGM, Czechia NET4GAS, Lithuania Amber Grid, Finland Gasgrid, Great Britain National Gas, Ireland GNI), Gassco (Norway to Great Britain), biomethane injection (France ODRE, Denmark Energinet, Netherlands CBS, Austria AGGM, other countries Eurostat annual), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
+GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Denmark Energinet, Portugal REN, Austria AGGM, Czechia NET4GAS, Lithuania Amber Grid, Finland Gasgrid, Great Britain National Gas, Ireland GNI), Elering (Estonia flows incl. Karksi, Balticconnector), Gassco (Norway to Great Britain), biomethane injection (France ODRE, Denmark Energinet, Netherlands CBS, Austria AGGM, other countries Eurostat annual), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
                    "https://transparency.entsog.eu/")
 GAS_FLOWS_FILE = "europe_gas_flows_daily.xlsx"
 BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows (Great Britain: Elexon BMRS + NESO; "
@@ -516,7 +516,7 @@ def _monthly_twh(day, line_floor=12):
 
 
 def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None,
-                      extra_exports=None, prod_adjust=None, prod_override=None, import_floor=None, export_floor=None):
+                      extra_exports=None, prod_adjust=None, prod_override=None, import_floor=None, export_floor=None, until=None):
     """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
     withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
     final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
@@ -562,6 +562,8 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
         cols = GAS_BAL_COLS[:-1] + ["Biomethane", "Consumption"]
     day = day.dropna(subset=["Pipeline imports", "Consumption"])
     day = day[day.index >= "2021-10-01"]
+    if until is not None:               # a correcting feed that ends (Elering's Karksi flow): later days are not balanced
+        day = day[day.index <= until]
     return _monthly_twh(day[cols]) if len(day) else pd.DataFrame()
 
 
@@ -643,6 +645,42 @@ def lu_imports(bal):
     return pd.concat([bal["LU_imports_GWhd"], cons], axis=1).max(axis=1)
 
 
+ELERING_FILE = "elering_gas_daily.xlsx"
+
+
+def estonia_gas_balance(data_dir):
+    """Estonia's gas balance (monthly TWh) from Elering's own flows (ELERING_GAS_DAILY.py): imports and exports at Balticconnector (Finland) and
+    Karksi (Latvia) against the gas delivered to Estonian consumers. ENTSOG has no Karksi row, so its Estonian balance missed the Latvian gas
+    (Estonian consumption plus the Balticconnector exports to Finland) and ran -267% to +52%. Elering stopped publishing Karksi after Nov 2025, so
+    later days are left out."""
+    d = _sheet_or_empty(os.path.join(data_dir, ELERING_FILE), "Daily", "date")
+    if not len(d) or "EE_karksi" not in d:
+        return pd.DataFrame()
+    pts = [c for c in ("EE_balticconnector", "EE_karksi", "EE_narva", "EE_varska") if c in d]
+    f = d[pts].fillna(0.0)
+    day = pd.DataFrame(index=d.index)
+    day["Production"] = 0.0
+    day["Pipeline imports"] = f.clip(lower=0).sum(axis=1)
+    day["LNG send-out"] = 0.0
+    day["Storage withdrawals"] = 0.0
+    day["Pipeline exports"] = f.clip(upper=0).sum(axis=1)
+    day["Storage injections"] = 0.0
+    day["Consumption"] = d["EE_consumption"]
+    day = day[d["EE_karksi"].notna()].dropna(subset=["Consumption"])
+    day = day[day.index >= "2021-10-01"]
+    return _monthly_twh(day) if len(day) else pd.DataFrame()
+
+
+def lv_storage_from_stock(data_dir):
+    """Latvia's (Inčukalns) storage flows in GWh/d from the day-to-day change in AGSI+'s stock level: AGSI's own injection/withdrawal columns
+    disagree with the stock by 8.5 TWh in 2023 and 6.3 in 2024 (the stock is the reliable series)."""
+    s = _sheet_or_empty(os.path.join(data_dir, "eu_gas_storage_daily.xlsx"), "Daily", "date")
+    if "LV_TWh" not in s:
+        return None
+    dst = s["LV_TWh"].diff() * 1000.0
+    return pd.DataFrame({"LV_withdrawal_GWhd": (-dst).clip(lower=0), "LV_injection_GWhd": dst.clip(lower=0)})
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -672,6 +710,26 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
             " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
             "ENTSOG's distribution + industrial exits and so excludes it). The balance still runs about 3% long: ENTSOG misses about 15 TWh of "
             "French exports against Eurostat, and network own use and losses are not in the offtake.")
+    if cc == "LV":
+        el = _sheet_or_empty(os.path.join(data_dir, ELERING_FILE), "Daily", "date")
+        kw, note = {}, ""
+        sto = lv_storage_from_stock(data_dir)
+        if sto is not None:
+            kw["storage"] = sto
+            note += (" Storage flows are the day-to-day change in AGSI+'s Inčukalns stock level: AGSI's injection/withdrawal columns disagree with the stock by 8.5 TWh (2023) "
+                     "and 6.3 TWh (2024).")
+        if "EE_karksi" in el and bal_nl is not None:
+            k = el["EE_karksi"]
+            try:
+                ent = _sheet_or_empty(os.path.join(data_dir, GAS_FLOWS_FILE), "Border flows", "date")["LV>EE"].reindex(k.index).fillna(0)
+            except Exception:  # noqa: BLE001
+                ent = pd.Series(0.0, index=k.index)
+            kw["extra_exports"] = (k.clip(lower=0) - ent).clip(lower=0)      # Karksi is + from Latvia; ENTSOG's own LV>EE share is not counted twice
+            kw["extra_imports"] = (-k).clip(lower=0)
+            kw["until"] = k.dropna().index.max()
+            note += (" Latvia's gas to Estonia (Karksi, Inčukalns gas for Estonian consumers and the Balticconnector) is Elering's own flow, which ENTSOG's Latvian exit list lacks; "
+                     "days after Elering's last Karksi figure (Nov 2025) are left out.")
+        return kw, None, note or None
     if cc in ("LU", "BE") and bal_nl is not None and "LU_imports_GWhd" in bal_nl:
         lu = lu_imports(bal_nl)
         if cc == "LU":
@@ -1124,6 +1182,14 @@ def main():
                          "(UK North Sea gas) is counted in production.")
             if fix_note:
                 note = (note or "Supply less exports and storage injections against consumption.") + fix_note
+            if cc == "EE":
+                eb = estonia_gas_balance(args.data_dir)
+                if len(eb):
+                    b, note = eb, ("Estonia from Elering's own flows: imports and exports at Balticconnector (Finland) and Karksi (Latvia) against the gas delivered to "
+                                   "Estonian consumers. ENTSOG has no Karksi row, so it missed the Latvian gas that supplies Estonia and the Balticconnector exports to Finland "
+                                   "(balance -267% to +52%). Elering stopped publishing Karksi after Nov 2025, so later months are left out.")
+                else:
+                    gas[2].append("Estonia gas balance from Elering unavailable; ENTSOG used")
             if cc == "DK":
                 try:
                     b, note = denmark_gas_balance(args.data_dir), (
