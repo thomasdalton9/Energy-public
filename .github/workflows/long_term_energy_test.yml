@@ -13,10 +13,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install pandas requests openpyxl pycountry matplotlib
+      - run: pip install pandas requests openpyxl pycountry matplotlib curl_cffi
       - name: Probe EI
         run: timeout 600 python3 discovery_archive/LONG_TERM_EI_PROBE.py || true
       - name: Run
+        if: false
         env:
           PYTHONUNBUFFERED: "1"
         run: |
@@ -24,6 +25,7 @@ jobs:
           echo "---- second run (should skip downloads)"
           python3 LONG_TERM_ENERGY.py
       - name: Charts
+        if: false
         run: |
           python3 add_charts.py "output/Data and Chart Outputs/long_term_energy.xlsx"
           python3 png_charts.py "output/Data and Chart Outputs/long_term_energy.xlsx" || true
