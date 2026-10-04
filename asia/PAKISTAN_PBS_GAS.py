@@ -265,6 +265,10 @@ def main():
     if tot_new:
         t = pd.DataFrame(tot_new).T.sort_index()
         t = t.div(t.index.days_in_month, axis=0).round(1)
+        # some issues print a blank / zero 'Pakistan Total': use the sum of the provinces there
+        prov = t[[c for c in ("Punjab", "Sindh", "KPK", "Balochistan") if c in t]].sum(axis=1, min_count=4)
+        bad = t.get("Pakistan_total", pd.Series(index=t.index, dtype=float)).fillna(0) <= 0
+        t["Pakistan_total"] = t.get("Pakistan_total").where(~bad, prov.round(1))
         prod = merge(prod, t[[c for c in ("Pakistan_total", "Punjab", "Sindh", "KPK", "Balochistan") if c in t]])
     if fld_new:
         f = pd.DataFrame(fld_new).T.sort_index()
@@ -272,7 +276,7 @@ def main():
         field = merge(field, f[sorted(f.columns, key=lambda c: -f[c].tail(12).mean())])
     if lng_new:
         n = pd.DataFrame({d: {"LNG_USD_thousand": v[0], "LNG_Rs_million": v[1]} for d, v in lng_new.items()}).T
-        lng = merge(lng, n.sort_index())
+        lng = merge(lng, n.sort_index().round(1))
     if read:
         nf = pd.DataFrame(read).set_index("url")
         files = pd.concat([files, nf]) if not files.empty else nf
@@ -291,7 +295,8 @@ def main():
         "UNITS",
         "Production / By field: MMCFD = million cubic feet per day, monthly average (PBS publishes MMCFt per month; "
         "divided by the days in the month here). 1 MMCFD = 0.0283 million m3 per day (charts show mcm/d). "
-        "Pakistan_total is domestic production only (system gas); RLNG (imported LNG) is not included.",
+        "Pakistan_total is domestic production only (system gas); RLNG (imported LNG) is not included. Where an issue "
+        "prints no Pakistan total, it is the sum of the four provinces.",
         "LNG imports: value of liquefied natural gas imported in the month (PBS external trade), US$ thousand and "
         "Rs million. PBS publishes no LNG quantity; at about $10/MMBtu, $100 million is roughly 10 million MMBtu "
         "(about 0.3 bcf/d over a month).",

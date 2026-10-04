@@ -99,7 +99,9 @@ def main():
     today = date.today()
     have = set(old.index.date) if not old.empty else set()
     want = [DATA_START + timedelta(days=k) for k in range((today - DATA_START).days + 1)]
-    todo = [d for d in want if d not in have or d >= today - timedelta(days=REVISION_DAYS)]
+    # days the feed never had stay missing: only the last year's gaps (and the revision window) are asked for again
+    recent = today - timedelta(days=365) if have else DATA_START
+    todo = [d for d in want if (d not in have and d >= recent) or d >= today - timedelta(days=REVISION_DAYS)]
     years = sorted({d.year for d in todo})
     out(f"{len(have)} days saved; {len(todo)} to fetch in years {years}")
     parts = []

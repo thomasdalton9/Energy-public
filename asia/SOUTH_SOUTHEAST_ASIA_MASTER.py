@@ -90,6 +90,8 @@ HYDRO_DATASETS = [
     ("IN", "India", "india_hydro_reservoirs.xlsx", "Daily", "hydro reservoirs"),
     ("TH", "Thailand", "thailand_hydro_reservoirs.xlsx", "Daily", "reservoirs"),
     ("PH", "Philippines", "philippines_dam_levels.xlsx", ("Daily", "Limits"), "dam levels"),
+    ("PK", "Pakistan", "pakistan_hydro_reservoirs.xlsx", ("Daily", "Limits"), "reservoir levels"),
+    ("LK", "Sri Lanka", "sri_lanka_hydro_reservoirs.xlsx", "Daily", "reservoir storage"),
 ]
 HYDRO_EXTRA = {"philippines_dam_levels.xlsx": {"San Roque", "Magat", "Pantabangan"}}
 DASHBOARD_ONLY = {}
@@ -146,6 +148,12 @@ SOURCES = {
                                              "Adjustment decisions (source-wise generation); national grid, excl. "
                                              "K-Electric's own plants",
                                              "https://cppa.gov.pk/downloads/xwdiscos-energy-purchase-data"),
+    "pakistan_hydro_reservoirs.xlsx": ("Indus River System Authority (IRSA), Daily Water Situation; history 2016-2024 "
+                                       "from WAPDA's river flows and levels workbook",
+                                       "http://pakirsa.gov.pk/DailyData.aspx"),
+    "sri_lanka_hydro_reservoirs.xlsx": ("PUCSL (Public Utilities Commission of Sri Lanka) GenData, reservoir storage "
+                                        "(CEB system control centre data)",
+                                        "https://gendata.pucsl.gov.lk/reservoir-storage-level"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),

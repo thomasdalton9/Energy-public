@@ -101,57 +101,99 @@ def pick_mode(tok, lo, hi):
 NUM = re.compile(r"^(?:-|–|\d[\d.,]*)$")
 
 
+def _num_tail(toks):
+    vals = []
+    for t in reversed(toks):
+        if NUM.match(t):
+            vals.append(t)
+        else:
+            break
+    return vals[::-1]
+
+
 def parse_production(pdf):
-    """{month: {KKKS or 'Total': MMSCFD}} from Table 1.6 pages."""
-    rows, year, months, mode = [], None, None, None
+    """{month: {KKKS or 'Total': MMSCFD}} from Table 1.6 (1.3 in older books) and its continuation page.
+    Handles names wrapped above / below a values-only line, and two-column page layouts (TOTAL found anywhere)."""
+    rows, total, year, months, active = [], None, None, None, False
     for p in pdf.pages:
         tx = p.extract_text() or ""
-        if not re.search(r"Monitoring Produksi Gas Bumi", tx, re.I) or "MMSCFD" not in tx:
+        title = re.search(r"Monitoring (?:Produksi Gas Bumi|of Indonesian Natural Gas Production)", tx, re.I)
+        if not (title or (active and "MMSCFD" in tx)):
+            active = False
             continue
         lines = tx.splitlines()
-        hdr = next((l for l in lines if re.match(r"^\s*Jan\s+Feb", l, re.I)), None)
-        if not hdr:
+        hdr = next((l for l in lines if len([t for t in l.split() if t[:3].lower() in MON]) >= 6), None)
+        if not hdr or "MMSCFD" not in tx:
+            active = False
             continue
-        y = re.search(r"Monitoring Produksi Gas Bumi Indonesia\s+(?:Semester\s+I+\s+)?(\d{4})", tx, re.I)
+        active = True
+        y = re.search(r"Monitoring (?:Produksi Gas Bumi Indonesia|of Indonesian Natural Gas Production)\s+"
+                      r"(?:Semester\s+I+\s+)?(\d{4})", tx, re.I)
         year = int(y.group(1)) if y else year
-        months = [MON[t[:3].lower()] for t in hdr.split() if t[:3].lower() in MON]
-        for l in lines:
+        mon = []
+        for t in hdr.split():
+            m = MON.get(t[:3].lower())
+            if m and m not in mon:
+                mon.append(m)
+        months = mon
+        n = len(months)
+        for k, l in enumerate(lines):
             toks = l.split()
             if not toks:
                 continue
-            vals = []
-            for t in reversed(toks):
-                if NUM.match(t):
-                    vals.append(t)
-                else:
-                    break
-            vals = vals[::-1]
+            up = [t.upper() for t in toks]
+            for word in ("TOTAL", "JUMLAH"):
+                if word in up:
+                    v = [t for t in toks[up.index(word) + 1:] if NUM.match(t)]
+                    if len(v) >= n:
+                        total = v[:n]
+            if "TOTAL" in up or "JUMLAH" in up:
+                continue
+            vals = _num_tail(toks)
             head = toks[:len(toks) - len(vals)]
-            if len(vals) < len(months) or not head:
+            if len(vals) < n:
                 continue
-            if head[0].upper() in ("TOTAL", "JUMLAH"):
-                name = "Total"
-            elif re.match(r"^\d{1,3}$", head[0]) and len(head) > 1:
-                name = " ".join(head[1:])
-            else:
+            if head and re.match(r"^\d{1,3}$", head[0]):
+                head = head[1:]
+            elif not head and re.match(r"^\d{1,3}$", vals[0]) and len(vals) > n + 1:
+                vals = vals[1:]          # row number printed on the values line
+            if len(vals) > n + 1:        # two rows side by side (two-column page): keep the first
+                vals = vals[:n + 1]
+            name = " ".join(head)
+            if not re.search(r"[A-Za-z]", name):
+                # values-only line: the name sits on the text line(s) above and/or below
+                above = lines[k - 1] if k and not _num_tail(lines[k - 1].split()) else ""
+                below = lines[k + 1] if k + 1 < len(lines) and not _num_tail(lines[k + 1].split()) else ""
+                name = re.sub(r"^\d{1,3}\s+", "", f"{above} {below}".strip())
+            if not re.search(r"[A-Za-z]", name):
                 continue
-            rows.append((name, vals[:len(months)]))
-    if not rows or not year:
+            rows.append((name, vals[:n]))
+    if not year or not months:
         return {}
-    tot = next((v for n, v in rows if n == "Total"), None)
-    mode = pick_mode(tot[0], 2500, 12000) if tot else "comma"
+    probe = total[0] if total else (rows[0][1][0] if rows else "0")
+    mode = pick_mode(probe, 2500, 12000) if total else ("dot" if re.search(r",\d{1,2}$", probe) else "comma")
     res = {}
     for name, vals in rows:
         for m, t in zip(months, vals):
             v = number(t, mode)
             if v is not None:
                 res.setdefault(pd.Timestamp(year, m, 1), {})[clean(name)] = v
+    for d in res:
+        res[d]["Total"] = None
+    if total:
+        for m, t in zip(months, total):
+            res.setdefault(pd.Timestamp(year, m, 1), {})["Total"] = number(t, mode)
+    for d, v in res.items():   # no printed total: the sum of the contractors
+        if not v.get("Total"):
+            v["Total"] = round(sum(x for k, x in v.items() if k != "Total" and x), 2)
+            v["Total_is_sum"] = 1
     return res
 
 
 def clean(name):
-    name = re.sub(r"\s+", " ", name).strip(" .")
-    return name.replace("MONTD'OR", "MONTDOR")
+    """Contractor names differ in case and punctuation between books: upper-case, no dots / commas."""
+    name = re.sub(r"[.,]", " ", name.upper().replace("MONTD'OR", "MONTDOR"))
+    return re.sub(r"\s+", " ", name).strip(" -/")
 
 
 def parse_utilisation(pdf):
@@ -178,6 +220,9 @@ def parse_utilisation(pdf):
                     break
                 label = lines[j] + " " + label
                 j -= 1
+            # ... or continues on the next line ('- Total' / 'Pemanfaatan Gas Bumi')
+            if i + 1 < len(lines) and "BBTUD" not in lines[i + 1] and not re.search(r"\d", lines[i + 1]):
+                label = label + " " + lines[i + 1]
             vals = [t for t in rest.split() if NUM.match(t)]
             for key, pat in UTIL:
                 if re.search(pat, label, re.I) and key not in seen:
@@ -246,10 +291,11 @@ def main():
         new_prod.update(res)
     if new_prod:
         nd = pd.DataFrame(new_prod).T.sort_index()
-        cols = ["Total"] + sorted(c for c in nd.columns if c != "Total")
-        nd = nd[cols]
+        lead = [c for c in ("Total", "Total_is_sum") if c in nd]
+        nd = nd[lead + sorted(c for c in nd.columns if c not in lead)]
         prod = pd.concat([prod[~prod.index.isin(nd.index)], nd]) if not prod.empty else nd
-        prod = prod[["Total"] + [c for c in prod.columns if c != "Total"]].sort_index()
+        lead = [c for c in ("Total", "Total_is_sum") if c in prod]
+        prod = prod[lead + [c for c in prod.columns if c not in lead]].sort_index()
     if prod.empty:
         raise SystemExit("No Indonesia gas production table parsed")
     prod.index.name = "date"
@@ -261,7 +307,7 @@ def main():
         books = pd.concat([books[~books.index.isin(nb.index)], nb]) if not books.empty else nb
     books.index.name = "url"
     # sanity: KKKS sum vs Total
-    kk = prod.drop(columns="Total").sum(axis=1, min_count=1)
+    kk = prod.drop(columns=[c for c in ("Total", "Total_is_sum") if c in prod]).sum(axis=1, min_count=1)
     chk = pd.DataFrame({"Total": prod["Total"], "Sum_KKKS": kk.round(0)})
     out(chk.tail(14).to_string())
     out(f"last 12 months average: {prod['Total'].tail(12).mean():.0f} MMSCFD = {prod['Total'].tail(12).mean() / 1000:.2f} "
@@ -272,7 +318,9 @@ def main():
         "UNITS",
         "Production: MMSCFD = million standard cubic feet per day, monthly average (Ditjen Migas / SKK Migas unit). "
         "1 MMSCFD = 0.0283 million m3 per day (the charts show mcm/d). Total = national natural gas production as "
-        "printed in the table (the KKKS columns may not sum exactly to it).",
+        "printed in the table (the KKKS columns may not sum exactly to it); where a book prints no total row "
+        "(Total_is_sum = 1) it is the sum of the contractors read. Contractor names are as printed (upper-cased), so a "
+        "contractor renamed between books appears under both names.",
         "Utilisation: BBTUD = billion British thermal units per day, annual average. At about 1,000-1,100 BTU/scf, "
         "1 BBTUD is roughly 0.9-1.0 MMSCFD. Sectors: Fertiliser (pupuk), Electricity (kelistrikan), Industry, City_gas, "
         "Gas_fuel_BBG (transport), Lifting_own_use (oil lifting), Domestic_LNG / Domestic_LPG (LNG and LPG plants "
