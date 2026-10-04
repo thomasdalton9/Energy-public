@@ -415,8 +415,9 @@ KNOWN_GAPS = {
         "Generation is Eurostat nrg_cb_pem (Terna: 263.5 TWh net in 2024, ENTSO-E only 215-220 TWh because it omits embedded and self-consumed generation) and load is Eurostat nrg_cb_em "
         "'available to internal market' (312 TWh in 2024 = Terna's demand; ENTSO-E's load is 273 TWh), so both sides use the same statistic; supply is 99.8-101.5% of load in 2022-25. "
         "ENTSO-E flows and pumped storage are kept. The 2.5 months after Eurostat's last month are ENTSO-E generation and load (supply about 95%).",),
-    "Great Britain": "Supply runs 2-3% above load: Elexon FUELHH metered output is gross of power-station own use, while NESO national demand (the load used) is net of it; "
-                     "no raw station-load series is published, so the surplus is left visible.",
+    "Great Britain": (
+        "Load now includes station load (power stations' own use, 4.7-4.8 TWh a year = NESO TSD - ND - pumping - interconnector exports, half-hourly): Elexon FUELHH metered output is gross of it while "
+        "NESO national demand excludes it, which had left supply 2-3% above load (8 TWh in 2025). Supply is now 100.2-101.2% of load in 2021-25."),
     "Bulgaria": (
         "Generation is Eurostat nrg_cb_pem (36.7 TWh in 2025, equal to ENTSO-E) but ENTSO-E's load (37.9 TWh in 2025) is 3 TWh above Eurostat's consumption incl. losses (34.9 TWh); the ENTSO-E flows match Eurostat's "
         "net exports (1.3 TWh), so the 2025 gap was the load definition. Load is now Eurostat nrg_cb_em available-to-market + distribution losses: supply is 100.2-101.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 93-95%).",),
