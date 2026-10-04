@@ -11,7 +11,7 @@ B = "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets"
 pat = re.compile(r"perte|propre|bilan|compress|gaz de service|ecart|écart|consommation|export|expédition|frontiere|frontière|interconnexion|physique|flux|stock", re.I)
 off, n = 0, 0
 while True:
-    r = requests.get(B, params={"limit": 100, "offset": off, "where": "search(title,'gaz') OR search(title,'gas')", "select": "dataset_id,metas"}, timeout=90)
+    r = requests.get(B, params={"limit": 100, "offset": off, "where": "search(title,'gaz') OR search(title,'gas')"}, timeout=90)
     if not r.ok:
         print("HTTP", r.status_code, r.text[:200])
         break
