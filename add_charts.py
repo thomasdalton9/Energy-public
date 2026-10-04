@@ -2031,6 +2031,51 @@ def pakistan_gas(p):
                         "stacked_bar"))
     return out
 
+def long_term_energy(p):
+    """LONG_TERM_ENERGY.py: long annual history (Ember power, Energy Institute fuels), long format sheets."""
+    out = []
+
+    def wide(sheet, iso, variables, start):
+        d = read(p, sheet)
+        d = d[(d["iso3"].isin([iso] if isinstance(iso, str) else iso)) & d["variable"].isin(variables)]
+        if d.empty:
+            return pd.DataFrame()
+        key = "variable" if isinstance(iso, str) else "iso3"
+        w = d.pivot_table(index="year", columns=key, values="value", aggfunc="sum")
+        w = w[w.index >= start]
+        w.index = pd.to_datetime(w.index.astype(int).astype(str) + "-01-01")
+        return w
+
+    fuels_src = "Energy Institute Statistical Review"
+    try:
+        units = " ".join(str(x) for x in pd.read_excel(p, sheet_name=0).iloc[:, 0].dropna())
+        if "Fuels source: Our World in Data" in units:
+            fuels_src = "Our World in Data / Energy Institute"
+    except Exception:
+        pass
+    gen = {"Gen_Coal_TWh": "Coal", "Gen_Gas_TWh": "Gas", "Gen_Oil_TWh": "Oil & other fossil",
+           "Gen_Nuclear_TWh": "Nuclear", "Gen_Hydro_TWh": "Hydro", "Gen_Wind_TWh": "Wind", "Gen_Solar_TWh": "Solar",
+           "Gen_Bio_TWh": "Bioenergy & other renewables"}
+    w = wide("Power", "WLD", list(gen), 2000)
+    if not w.empty:
+        w = w[[c for c in gen if c in w]].rename(columns=gen)
+        out.append(spec("World generation", w.round(0), "World electricity generation by fuel (Ember)", "TWh per year",
+                        "stacked_bar", date_format="%Y"))
+    g = wide("Fuels", "WLD", ["Gas_Production_bcm", "Gas_Consumption_bcm"], 1970)
+    if not g.empty:
+        g = g.rename(columns={"Gas_Production_bcm": "Production", "Gas_Consumption_bcm": "Consumption"})
+        out.append(spec("World gas", g.round(1), f"World natural gas production vs consumption ({fuels_src})",
+                        "bcm per year", "line", date_format="%Y"))
+    names = {"CHN": "China", "IND": "India", "JPN": "Japan", "KOR": "South Korea", "USA": "United States",
+             "DEU": "Germany"}
+    c = wide("Fuels", list(names), ["Gas_Consumption_bcm"], 1990)
+    if not c.empty:
+        c = c[[k for k in names if k in c]].rename(columns=names)
+        out.append(spec("Gas consumption", c.round(1), f"Gas consumption: major consumers ({fuels_src})",
+                        "bcm per year", "line", date_format="%Y"))
+    return out
+
+
 def macro_drivers(p):
     """MACRO_DRIVERS.py: IMF GDP growth (incl. WEO forecasts) and annual degree days (base 18 C)."""
     out = []
@@ -2241,6 +2286,7 @@ REGISTRY = {
     "eu_lng_terminals_daily.xlsx": eu_lng,
     "europe_cross_border_flows_daily.xlsx": europe_net_imports,
     "europe_gas_flows_daily.xlsx": europe_gas_flows,
+    "long_term_energy.xlsx": long_term_energy,
     # these build their own charts in their pull scripts:
     "rhine_kaub_level_daily.xlsx": None,
     "gatun_lake_level.xlsx": None,

@@ -2,7 +2,7 @@ name: Long-term energy TEST (temporary)
 on:
   push:
     branches: [claude/compassionate-darwin-2khdxe]
-    paths: [LONG_TERM_ENERGY.py, .github/workflows/long_term_energy_test.yml, discovery_archive/LONG_TERM_EI_PROBE.py]
+    paths: [LONG_TERM_ENERGY.py, .github/workflows/long_term_energy_test.yml]
   workflow_dispatch: {}
 jobs:
   test:
@@ -13,11 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install pandas requests openpyxl pycountry matplotlib curl_cffi
-      - name: Probe EI
-        run: timeout 600 python3 discovery_archive/LONG_TERM_EI_PROBE.py || true
+      - run: pip install pandas requests openpyxl matplotlib pycountry curl_cffi
       - name: Run
-        if: false
         env:
           PYTHONUNBUFFERED: "1"
         run: |
@@ -25,9 +22,21 @@ jobs:
           echo "---- second run (should skip downloads)"
           python3 LONG_TERM_ENERGY.py
       - name: Charts
-        if: false
         run: |
           python3 add_charts.py "output/Data and Chart Outputs/long_term_energy.xlsx"
           python3 png_charts.py "output/Data and Chart Outputs/long_term_energy.xlsx" || true
           ls -la "output/PNG Charts" | grep -i long || true
-          python3 -c "import pandas as pd; x=pd.ExcelFile('output/Data and Chart Outputs/long_term_energy.xlsx'); print(x.sheet_names); print(pd.read_excel(x,'Units').to_string())"
+          python3 - <<'PY'
+          import pandas as pd
+          p = "output/Data and Chart Outputs/long_term_energy.xlsx"
+          x = pd.ExcelFile(p); print(x.sheet_names)
+          for s in x.sheet_names:
+              if s.startswith("Chart"):
+                  print(s); print(pd.read_excel(x, s).iloc[:, :9].tail(4).to_string())
+          f = pd.read_excel(x, "Fuels"); print(f.head(3).to_string())
+          print(f.groupby("variable")["year"].agg(["min", "max", "count"]))
+          print(sorted(f["iso3"].unique()))
+          for iso in ["QAT", "AUS", "USA", "JPN", "CHN", "WLD"]:
+              print(f[(f.iso3 == iso) & (f.year == 2024)].to_string(index=False))
+          print(pd.read_excel(x, "Units").iloc[:, 0].to_string())
+          PY

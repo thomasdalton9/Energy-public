@@ -33,6 +33,7 @@ OWID_URL = "https://raw.githubusercontent.com/owid/energy-data/master/owid-energ
 TWH_PER_BCM = 10.0           # OWID fallback only: gas TWh -> bcm
 EJ_PER_TWH = 0.0036
 POWER_START = 2000
+FUELS_START = 1965
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/126.0 Safari/537.36",
       "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -136,80 +137,152 @@ def parse_ember(content):
 
 # ------------------------------------------------------------------ Energy Institute (Fuels)
 
-# EI panel/narrow variable -> our variable (first match wins; matched case-insensitively on the full name)
-EI_VARS = {
-    "gascons_bcm": "Gas_Consumption_bcm", "gasprod_bcm": "Gas_Production_bcm",
-    "oilcons_kbd": "Oil_Consumption_kbd", "oilprod_kbd": "Oil_Production_kbd",
-    "coalcons_ej": "Coal_Consumption_EJ", "coalprod_ej": "Coal_Production_EJ",
-    "primary_ej": "Primary_Energy_EJ",
-    "lngimp_bcm": "LNG_Imports_bcm", "lngexp_bcm": "LNG_Exports_bcm", "lng_imp_bcm": "LNG_Imports_bcm",
-    "lng_exp_bcm": "LNG_Exports_bcm", "pipeimp_bcm": "Pipeline_Imports_bcm", "pipe_imp_bcm": "Pipeline_Imports_bcm",
-    "gas_lng_imports_bcm": "LNG_Imports_bcm", "gas_lng_exports_bcm": "LNG_Exports_bcm",
-    "gas_pipeline_imports_bcm": "Pipeline_Imports_bcm",
-}
-WORLD_NAMES = {"total world", "world"}
-
-
-def find_ei_link():
-    """The EI downloads page lists the data files; pick the panel-format CSV, else the narrow file."""
-    r = requests.get(EI_PAGE, headers=UA, timeout=(15, 60))
-    print(f"EI page: HTTP {r.status_code}, {len(r.text)} chars", flush=True)
-    r.raise_for_status()
-    links = re.findall(r'href="([^"]+\.(?:csv|xlsx)[^"]*)"', r.text, flags=re.I)
-    links = [requests.compat.urljoin(EI_PAGE, l.replace("&amp;", "&")) for l in links]
-    for l in links:
-        print("  EI link:", l, flush=True)
-    for pat in (r"panel.*\.csv", r"narrow.*\.csv", r"panel", r"narrow"):
-        hit = [l for l in links if re.search(pat, l, re.I)]
-        if hit:
-            return hit[0]
-    raise RuntimeError("no panel/narrow data file linked on the EI downloads page")
+# EI all-data workbook: sheet -> our variable (EI's own units). The 2025 edition renamed primary energy to
+# "Total Energy Supply (TES)"; the old name is kept as a fallback.
+EI_SHEETS = [
+    (r"^Gas Production - Bcm", "Gas_Production_bcm"),
+    (r"^Gas Consumption - Bcm", "Gas_Consumption_bcm"),
+    (r"^Gas - LNG imports bcm", "LNG_Imports_bcm"),
+    (r"^Gas - LNG exports bcm", "LNG_Exports_bcm"),
+    (r"^Oil Production - barrels", "Oil_Production_kbd"),
+    (r"^Oil Consumption - barrels", "Oil_Consumption_kbd"),
+    (r"^Coal Production - EJ", "Coal_Production_EJ"),
+    (r"^Coal Consumption - EJ", "Coal_Consumption_EJ"),
+    (r"^(Total Energy Supply \(TES\)|Primary Energy\s*-?\s*Cons)", "Primary_Energy_EJ"),
+]
+# EI country names pycountry does not resolve
+EI_ISO = {"US": "USA", "Russian Federation": "RUS", "Iran": "IRN", "South Korea": "KOR", "Vietnam": "VNM",
+          "Trinidad & Tobago": "TTO", "China Hong Kong SAR": "HKG", "Turkey": "TUR", "Türkiye": "TUR",
+          "Turkiye": "TUR", "Venezuela": "VEN", "Bolivia": "BOL", "Syria": "SYR", "Taiwan": "TWN",
+          "Czech Republic": "CZE", "Czechia": "CZE", "Moldova": "MDA", "Tanzania": "TZA", "Brunei": "BRN",
+          "Laos": "LAO", "North Macedonia": "MKD", "Republic of Congo": "COG", "Congo": "COG",
+          "Democratic Republic of Congo": "COD", "Ivory Coast": "CIV", "Cote d'Ivoire": "CIV", "Kosovo": "XKX",
+          "Slovakia": "SVK", "United Kingdom": "GBR", "UK": "GBR", "United Arab Emirates": "ARE",
+          "Netherlands": "NLD", "Philippines": "PHL", "China": "CHN", "Ukraine": "UKR", "Egypt": "EGY",
+          "Total World": "WLD", "World": "WLD"}
+NOT_COUNTRY = re.compile(r"^(total|other|of which|non-|rest of|central america|eastern africa|middle africa|"
+                         r"western africa|european union|oecd|cis|ussr|opec|africa|europe|asia|middle east|"
+                         r"north america|s\. & cent|south america|world$)", re.I)
 
 
 def iso_lookup(name):
+    name = re.sub(r"[*#^]+$", "", str(name)).strip()
+    if name in EI_ISO:
+        return EI_ISO[name]
+    if NOT_COUNTRY.match(name):
+        return None
     try:
         import pycountry
         return pycountry.countries.lookup(name).alpha_3
     except Exception:
+        try:
+            import pycountry
+            hits = pycountry.countries.search_fuzzy(name)
+            return hits[0].alpha_3 if len(hits) == 1 else None
+        except Exception:
+            return None
+
+
+def ei_session():
+    """The EI site sits behind Cloudflare, which refuses GitHub runners unless the TLS handshake looks like a
+    browser's: curl_cffi impersonates Chrome."""
+    from curl_cffi import requests as cr
+    return cr
+
+
+def find_ei_link():
+    """Current all-data workbook linked on the EI downloads page (the unversioned 'ALL-data' file)."""
+    cr = ei_session()
+    r = cr.get(EI_PAGE, impersonate="chrome", timeout=60)
+    print(f"EI page: HTTP {r.status_code}, {len(r.text)} chars", flush=True)
+    if r.status_code != 200:
+        raise RuntimeError(f"EI page HTTP {r.status_code}")
+    links = sorted(set(re.findall(r'href="([^"]+\.xlsx[^"]*)"', r.text, flags=re.I)))
+    links = [requests.compat.urljoin(EI_PAGE, l.replace("&amp;", "&")) for l in links]
+    for l in links:
+        print("  EI link:", l, flush=True)
+    data = [l for l in links if re.search(r"all.data", l, re.I)]
+    # the current edition is the unversioned file; past editions carry a year in the name
+    current = [l for l in data if not re.search(r"20\d\d\.xlsx", l)] or data
+    if not current:
+        raise RuntimeError("no all-data workbook linked on the EI downloads page")
+    return current[0]
+
+
+def ei_head(url):
+    try:
+        r = ei_session().head(url, impersonate="chrome", timeout=60, allow_redirects=True)
+        print(f"HEAD {url}: {r.status_code} {dict((k, v) for k, v in r.headers.items() if k.lower() in ('last-modified', 'etag', 'content-length'))}",
+              flush=True)
+        return r if r.status_code == 200 else None
+    except Exception as e:
+        print(f"HEAD {url}: {e}", flush=True)
         return None
 
 
-def parse_ei(content, url):
-    if url.lower().split("?")[0].endswith(".csv"):
-        d = pd.read_csv(io.BytesIO(content), low_memory=False, encoding_errors="replace")
-    else:
-        d = pd.read_excel(io.BytesIO(content), sheet_name=0)
-    print("EI columns:", list(d.columns)[:40], f"... ({d.shape[1]} columns)", flush=True)
-    lc = {c.lower(): c for c in d.columns}
-    country = lc.get("country")
-    year = lc.get("year")
-    iso = next((lc[c] for c in lc if c.startswith("iso")), None)
-    if "var" in lc and "value" in lc:            # narrow: one row per variable
-        d = d.rename(columns={lc["var"]: "var", lc["value"]: "value"})
-    else:                                         # panel: one column per variable
-        idv = [c for c in (country, year, iso) if c]
-        valvars = [c for c in d.columns if c.lower() in EI_VARS]
-        d = d.melt(id_vars=idv, value_vars=valvars, var_name="var", value_name="value")
-    allvars = sorted(d["var"].astype(str).str.lower().unique())
-    print("EI variables (first 200):", allvars[:200], flush=True)
-    d["variable"] = d["var"].astype(str).str.lower().map(EI_VARS)
-    d = d.dropna(subset=["variable"])
-    d = d.rename(columns={country: "country", year: "year"})
-    d["iso3"] = d[iso] if iso else None
-    world = d["country"].astype(str).str.strip().str.lower().isin(WORLD_NAMES)
-    d.loc[world, "iso3"] = "WLD"
-    d.loc[world, "country"] = "World"
-    miss = d["iso3"].isna() | ~d["iso3"].astype(str).str.fullmatch(r"[A-Z]{3}")
-    if miss.any():
-        names = d.loc[miss, "country"].astype(str).unique()
-        m = {n: iso_lookup(n) for n in names if not re.match(r"(total|other|of which|non-|rest of)", n, re.I)}
-        d.loc[miss, "iso3"] = d.loc[miss, "country"].map(m)
-        print("EI names left without ISO3 (aggregates dropped):", [n for n in names if not m.get(n)][:80], flush=True)
-    d = d[d["iso3"].astype(str).str.fullmatch(r"[A-Z]{3}")]
-    d["value"] = pd.to_numeric(d["value"], errors="coerce")
-    d = d.dropna(subset=["value", "year"])
+def ei_stamp(resp):
+    """EI sends no Last-Modified/ETag: Content-Length stands in (the URL itself changes with each new asset)."""
+    s = stamp_of(resp)
+    cl = resp.headers.get("Content-Length", "")
+    return " | ".join(x for x in (s, f"Content-Length {cl}" if cl else "") if x)
+
+
+def ei_sheet(xl, sheet, var):
+    raw = pd.read_excel(xl, sheet_name=sheet, header=None)
+    hdr = None
+    for i in range(min(10, len(raw))):
+        yrs = pd.to_numeric(raw.iloc[i, 1:], errors="coerce")
+        if yrs.between(1900, 2100).sum() >= 5:
+            hdr = i
+            break
+    if hdr is None:
+        print(f"EI {sheet}: no year header found", flush=True)
+        return None
+    cols = []
+    for j in range(1, raw.shape[1]):        # contiguous run of years only (growth/share columns repeat the year)
+        y = pd.to_numeric(raw.iat[hdr, j], errors="coerce")
+        if pd.isna(y) or not 1900 <= y <= 2100 or (cols and int(y) != cols[-1][1] + 1):
+            if cols:
+                break
+            continue
+        cols.append((j, int(y)))
+    body = raw.iloc[hdr + 1:, [0] + [j for j, _ in cols]]
+    body.columns = ["country"] + [y for _, y in cols]
+    body = body.dropna(subset=["country"])
+    body["country"] = body["country"].astype(str).str.strip()
+    body["iso3"] = body["country"].map(iso_lookup)
+    dropped = sorted(set(body.loc[body["iso3"].isna(), "country"]))
+    body = body.dropna(subset=["iso3"]).drop_duplicates("iso3")
+    long = body.melt(id_vars=["country", "iso3"], var_name="year", value_name="value")
+    long["value"] = pd.to_numeric(long["value"], errors="coerce")
+    long = long.dropna(subset=["value"])
+    long["variable"] = var
+    long.loc[long["iso3"] == "WLD", "country"] = "World"
+    long["country"] = long["country"].str.replace(r"[*#^]+$", "", regex=True).str.strip()
+    print(f"EI {sheet} -> {var}: {long['iso3'].nunique()} areas, {cols[0][1]}-{cols[-1][1]}; "
+          f"rows not mapped: {[d for d in dropped if not NOT_COUNTRY.match(d)][:40]}", flush=True)
+    return long
+
+
+def parse_ei(content):
+    xl = pd.ExcelFile(io.BytesIO(content))
+    parts = []
+    for pat, var in EI_SHEETS:
+        sheet = next((s for s in xl.sheet_names if re.search(pat, s.strip(), re.I)), None)
+        if sheet is None:
+            print(f"EI: no sheet for {var} ({pat})", flush=True)
+            continue
+        if var in {p["variable"].iat[0] for p in parts if len(p)}:
+            continue
+        df = ei_sheet(xl, sheet, var)
+        if df is not None and len(df):
+            parts.append(df)
+    if not parts:
+        raise RuntimeError("no EI sheets parsed")
+    d = pd.concat(parts, ignore_index=True)
     d["year"] = d["year"].astype(int)
-    d["value"] = d["value"].round(4)
+    d = d[d["year"] >= FUELS_START]
+    d["value"] = d["value"].astype(float).round(4)
     return d[COLS].drop_duplicates(["year", "iso3", "variable"]).sort_values(["iso3", "variable", "year"]) \
         .reset_index(drop=True)
 
@@ -231,6 +304,7 @@ def parse_owid(content):
             parts.append(p.dropna(subset=["value"]))
     out = pd.concat(parts, ignore_index=True)
     out["year"] = out["year"].astype(int)
+    out = out[out["year"] >= FUELS_START]
     return out[COLS].sort_values(["iso3", "variable", "year"]).reset_index(drop=True)
 
 
@@ -283,34 +357,37 @@ def main():
     # ---- Energy Institute (fallback: OWID)
     fuels, fuels_stamp = saved.get("Fuels"), saved_line(units, "Fuels file: ")
     fuels_src = saved_line(units, "Fuels source: ") or ""
+    owid_src = (f"Fuels source: Our World in Data energy dataset ({OWID_URL}), which compiles the Energy Institute "
+                "Statistical Review (fallback: the EI file could not be read from GitHub)")
     try:
         url = find_ei_link()
-        src = f"Fuels source: Energy Institute Statistical Review of World Energy ({url})"
+        h = ei_head(url)
+        new_stamp = f"Fuels file: {url} | " + (ei_stamp(h) if h is not None else "")
+        if fuels is not None and not args.force and h is not None and ei_stamp(h) and new_stamp == fuels_stamp:
+            print("EI file unchanged - keeping the saved Fuels sheet", flush=True)
+        else:
+            r = ei_session().get(url, impersonate="chrome", timeout=600)
+            if r.status_code != 200:
+                raise RuntimeError(f"EI file HTTP {r.status_code}")
+            print(f"GET {url}: {len(r.content) / 1e6:.1f} MB", flush=True)
+            fuels = parse_ei(r.content)
+            fuels_stamp = f"Fuels file: {url} | " + (ei_stamp(h) if h is not None else ei_stamp(r))
+            fuels_src = (f"Fuels source: Energy Institute, Statistical Review of World Energy, all-data workbook "
+                         f"({url}; downloads page {EI_PAGE})")
     except Exception as e:
-        print(f"EI not reachable ({e}) - falling back to Our World in Data", flush=True)
-        url = OWID_URL
-        src = (f"Fuels source: Our World in Data energy dataset ({OWID_URL}), which compiles the Energy Institute "
-               "Statistical Review (fallback: EI could not be reached from GitHub)")
-    h = head(url)
-    new_stamp = f"Fuels file: {url} | " + (stamp_of(h) if h is not None else "")
-    if fuels is not None and not args.force and h is not None and stamp_of(h) and new_stamp == fuels_stamp:
-        print("Fuels file unchanged - keeping the saved Fuels sheet", flush=True)
-    else:
-        try:
-            r = get(url)
-            fuels = parse_owid(r.content) if url == OWID_URL else parse_ei(r.content, url)
-            fuels_stamp = f"Fuels file: {url} | " + (stamp_of(r) or (stamp_of(h) if h is not None else ""))
-            fuels_src = src
-        except Exception as e:
-            print(f"Fuels download/parse failed from {url}: {e}", flush=True)
-            if url != OWID_URL:
+        print(f"EI failed ({e}) - falling back to Our World in Data", flush=True)
+        if fuels is None or "Our World in Data" in fuels_src:
+            h = head(OWID_URL)
+            new_stamp = f"Fuels file: {OWID_URL} | " + (stamp_of(h) if h is not None else "")
+            if fuels is not None and not args.force and h is not None and stamp_of(h) and new_stamp == fuels_stamp:
+                print("OWID file unchanged - keeping the saved Fuels sheet", flush=True)
+            else:
                 r = get(OWID_URL)
                 fuels = parse_owid(r.content)
                 fuels_stamp = f"Fuels file: {OWID_URL} | {stamp_of(r)}"
-                fuels_src = (f"Fuels source: Our World in Data energy dataset ({OWID_URL}), which compiles the "
-                             "Energy Institute Statistical Review (fallback: the EI file could not be read)")
-            elif fuels is None:
-                raise
+                fuels_src = owid_src
+        else:
+            print("keeping the saved EI Fuels sheet", flush=True)
     if fuels is None:
         fuels = pd.DataFrame(columns=COLS)
 
@@ -329,8 +406,11 @@ def main():
         ("Fuels sheet (Our World in Data fallback): gas converted from TWh to bcm at 10.0 TWh/bcm; coal and primary "
          "energy from TWh to EJ (x 0.0036). OWID gives no oil volumes or LNG/pipeline trade, so those are absent."
          if owid else
-         "Fuels sheet (Energy Institute): Gas_*_bcm in billion cubic metres per year; Oil_*_kbd in thousand barrels "
-         "per day; Coal_*_EJ and Primary_Energy_EJ in exajoules. EI's own units, unconverted."),
+         "Fuels sheet (Energy Institute): Gas_Production_bcm, Gas_Consumption_bcm, LNG_Imports_bcm, LNG_Exports_bcm in "
+         "billion cubic metres per year; Oil_Production_kbd (crude, condensate and NGLs) and Oil_Consumption_kbd in "
+         "thousand barrels per day; Coal_Production_EJ, Coal_Consumption_EJ and Primary_Energy_EJ (EI's Total Energy "
+         "Supply) in exajoules. EI's own units, unconverted. Pipeline imports are not included: EI gives them by "
+         "country only for the latest year (a from/to matrix)."),
         "Countries sheet: iso3 and the name used by the source.",
         "",
         "COVERAGE",
