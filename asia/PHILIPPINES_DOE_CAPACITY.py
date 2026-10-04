@@ -61,7 +61,8 @@ def find_pdf():
             out(f"  {page}: {e}")
             continue
         links = re.findall(r'https://[^"\'\s<>\\]+?\.pdf(?:\?[^"\'\s<>\\]*)?', r.text)
-        hit = [l for l in links if re.search(r"Installed(%20|\s|\+)+and(%20|\s|\+)+Dependable", l, re.I)]
+        sp = r"(?:%20|\s|\+)+"
+        hit = [l for l in links if re.search(rf"Installed{sp}and{sp}Dependable{sp}Capacity{sp}per{sp}Grid", l, re.I)]
         out(f"  {page}: HTTP {r.status_code}, {len(links)} PDFs, capacity PDF {'found' if hit else 'not found'}")
         if hit:
             return hit[0].replace("&amp;", "&"), page
