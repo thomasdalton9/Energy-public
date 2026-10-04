@@ -205,11 +205,9 @@ def monthly_gwh(path):
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
     d = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].apply(pd.to_numeric,
                                                                                           errors="coerce")
-    m = d.resample("MS").sum(min_count=1) / 1000.0
-    last = d.dropna(how="all").index.max()
-    monthly_rows = len(d) > 2 and d.index.to_series().diff().median().days > 20   # EPPO-style monthly feeds
-    if not monthly_rows and last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
-        m = m[m.index < last.to_period("M").to_timestamp()]
+    # only months the feed covers (>= 80% of days for daily feeds): a gap or a partial month is left out rather than
+    # counted short; regional_generation fills the gaps from Ember
+    m = add_charts.complete_months(d, d.resample("MS").sum(min_count=1) / 1000.0)
     m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
     m = m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"})
     return add_charts.power_mix(m)
