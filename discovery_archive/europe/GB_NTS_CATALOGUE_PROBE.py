@@ -2,6 +2,7 @@
 Probe: National Gas Data Portal catalogue items about NTS own use / shrinkage / compressor fuel / total demand / physical flow / actuals
 (to find the gas Great Britain's NTS offtake series leaves out), then the 2025 and 2024 sums (kWh -> GWh) of every match. Prints only.
 """
+import os
 import re
 import sys
 
@@ -14,7 +15,7 @@ items = {}
 for m in re.finditer(r'"name":\s*"([^"]*)",\s*"description":\s*"((?:PUBOB?J?\d+)[^"]*)"', txt):
     items[re.match(r"(PUBOB?J?\d+)", m.group(2)).group(1)] = m.group(1)
 print("catalogue items", len(items), flush=True)
-pat = re.compile(r"shrink|own use|compress|fuel|usage|total demand|physical flow|actual|LNG|embedded|unaccounted|UIG|calorific|demand", re.I)
+pat = re.compile(os.environ.get("PAT") or r"shrink|own use|compress|fuel|usage|total demand|physical flow|actual|LNG|embedded|unaccounted|UIG|calorific|demand", re.I)
 sel = {k: v for k, v in items.items() if pat.search(v)}
 print("matching", len(sel), flush=True)
 for k, v in sorted(sel.items(), key=lambda kv: kv[1]):

@@ -1,7 +1,11 @@
 name: GB NTS catalogue probe (manual)
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      pat:
+        description: regex on item names
+        default: ''
 
 jobs:
   probe:
@@ -14,3 +18,5 @@ jobs:
           python-version: "3.11"
       - run: pip install requests
       - run: python3 -u discovery_archive/europe/GB_NTS_CATALOGUE_PROBE.py
+        env:
+          PAT: ${{ inputs.pat }}
