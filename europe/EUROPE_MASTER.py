@@ -597,6 +597,24 @@ def nl_cbs_gas(data_dir, bal):
     return out
 
 
+def nord_stream(data_dir):
+    """Nord Stream 1 gas entering Germany at Greifswald (NEL + OPAL entries), GWh/d, or None. ENTSOG lists no far side for those points
+    (ENTSOG_POINT_FIXES_DAILY.py), so the main pull drops them: 620 TWh in 2021 and 314 TWh in 2022 of Russian pipeline gas."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    cols = [c for c in ("DE_greifswald_nel", "DE_greifswald_opal") if c in fx]
+    return fx[cols].sum(axis=1, min_count=1) if cols else None
+
+
+def emden_entsog(data_dir):
+    """Norwegian gas entering at Emden (EPT1), GWh/d, from ENTSOG's own entry points: {"DE": OGE + GUD, "NL": GTS} or None. ENTSOG does
+    publish Emden (ENTSOG_POINT_FIXES_DAILY.py) but, with no far side listed, the country classification drops it. Thyssengas reports the
+    same flow as GUD, so it is left out. 2022: 345 TWh against 513 from the Gassco-based emden_gap, which runs too high in 2021-22."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    if not {"DE_emden_oge", "DE_emden_gud", "NL_emden_gts"} <= set(fx.columns):
+        return None
+    return {"DE": fx[["DE_emden_oge", "DE_emden_gud"]].sum(axis=1, min_count=1), "NL": fx["NL_emden_gts"]}
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -610,7 +628,8 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     if cc == "NL":
         nl = nl_cbs_gas(data_dir, bal_nl)
         if nl is not None:
-            return {"prod_override": nl["Production"]}, nl["Consumption"], (
+            em_raw = emden_entsog(data_dir)
+            return ({"prod_override": nl["Production"]} | ({"extra_imports": em_raw["NL"]} if em_raw else {})), nl["Consumption"], (
                 " Production and consumption are Statistics Netherlands' (CBS 86103NED) gas balance, spread over the days of each month, in place of ENTSOG's "
                 "production entries (15-17 TWh a year above CBS) and distribution + final-consumer exits (about 6 TWh below CBS total consumption); "
                 "months CBS has not yet published use ENTSOG scaled by the last twelve months' CBS/ENTSOG ratio.")
@@ -628,6 +647,13 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
                 "against NET4GAS's 79 TWh, which left the balance 23% short. Consumption is NET4GAS's own system balance, so the balance closes largely by construction.")
     if not len(fx):
         return {}, None, None
+    if cc == "DE" and nord_stream(data_dir) is not None:
+        em_raw = emden_entsog(data_dir)
+        ns = nord_stream(data_dir)
+        return {"extra_imports": ns.add(em_raw["DE"].reindex(ns.index).fillna(0), fill_value=0).combine_first(em_raw["DE"]) if em_raw else ns}, None, (
+            (" Pipeline imports include Norwegian gas at Emden (EPT1: OGE and GUD entries; the Dutch share, GTS, is in the Netherlands balance), which ENTSOG's country classification drops." if em_raw else "") +
+            " Pipeline imports include the Nord Stream 1 gas entering at Greifswald (NEL and OPAL entries, Russian origin, to Sept 2022), which "
+            "ENTSOG's country classification drops because it lists no far side for those points (Germany + Netherlands was about 100 TWh a quarter short before).")
     if cc == "GR" and "GR_tap_imports" in fx:
         return {"extra_imports": fx["GR_tap_imports"]}, None, (
             " Pipeline imports include the TAP entry at Nea Mesimvria (Azerbaijani gas), which ENTSOG's country classification drops "
@@ -846,7 +872,7 @@ def gni_daily(data_dir):
     return out
 
 
-def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None, norway_eu=None, biomethane=None):
+def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None, norway_eu=None, biomethane=None, extra_imports=None):
     """EU27 gas balance: production and consumption summed over the countries; extra-EU pipeline imports and exports
     from the origin / destination sheets; LNG and storage from GIE's EU aggregates. Where a TSO's own consumption series exists
     (`tso`: Germany, France, Spain) it replaces ENTSOG's country total (ENTSOG's own value is used on days the TSO series lacks);
@@ -870,6 +896,8 @@ def eu_gas_balance(bal, org, dst, storage, lng, gni=None, tso=None, norway_eu=No
     for c in tso_cc:
         own = bal[[f"{c}_distribution_GWhd", f"{c}_final_consumers_GWhd"]].sum(axis=1, min_count=1) if f"{c}_distribution_GWhd" in bal else pd.Series(float("nan"), index=bal.index)
         cons = cons.add(tso[c].reindex(bal.index).combine_first(own), fill_value=0)
+    if extra_imports is not None:       # Nord Stream 1 at Greifswald (Russian gas ENTSOG's classification drops)
+        day["Pipeline imports"] = day["Pipeline imports"] + extra_imports.reindex(bal.index).fillna(0)
     if use_gni:
         g = gni.reindex(bal.index)
         day["Production"] = day["Production"] + g["Production"].fillna(0)
@@ -1001,7 +1029,7 @@ def main():
         except Exception as e:  # noqa: BLE001
             emden = None
             gas[2].append(f"Germany gas balance without the Emden correction ({type(e).__name__}: {e})")
-        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng, gni, tso, nor_eu, bio)
+        eu = eu_gas_balance(gbal, gorg, gdst, gsto, glng, gni, tso, nor_eu, bio, extra_imports=nord_stream(args.data_dir))
         if not eu.empty:
             total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG; consumption for Germany (THE), France (ODRE) and Spain (Enagas) from the TSOs' own series; Ireland from Gas Networks Ireland, whose Moffat "
                                                "imports from Great Britain replace ENTSOG's incomplete Irish figures; Norwegian pipeline imports from Gassco's flows to "
@@ -1026,7 +1054,7 @@ def main():
                     " Biomethane injected into the grids (separate supply line) is added to supply: it is part of national consumption but "
                     "not of ENTSOG's transmission-level production" + ("; Denmark's consumption figure already includes it, so it is not added to demand"
                                                                       if cc == "DK" else "") + ".")
-            if cc in ("DE", "NL") and emden is not None:
+            if cc in ("DE", "NL") and emden is not None and emden_entsog(args.data_dir) is None:
                 note = (note or "Supply less exports and storage injections against consumption.") + (
                     " Excludes the Norwegian gas that arrives at Emden: ENTSOG publishes nothing at Emden and the gas feeds both the German and "
                     "the Dutch grids, so this balance is short on its own; see the Germany + Netherlands balance.")
@@ -1072,8 +1100,11 @@ def main():
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label=GAS_NAMES[cc], line_cols=("Consumption",))
     if len(gbal) and emden is not None:
         try:   # Germany + Netherlands: Gassco's Emden gas is split between them in a way the raw data cannot show, so they are combined
+            ns, em_raw = nord_stream(args.data_dir), emden_entsog(args.data_dir)
+            em_de = em_raw["DE"] if em_raw else emden           # ENTSOG's own Emden entries where pulled, else the Gassco-based estimate
             de_b = gas_country_balance(gbal, "DE", gsto, glng, tso["DE"] if "DE" in tso else None, None,
-                                       bio["DE"] if (len(bio) and "DE" in bio) else None, emden)
+                                       bio["DE"] if (len(bio) and "DE" in bio) else None,
+                                       em_de.add(ns.reindex(em_de.index).fillna(0), fill_value=0).combine_first(ns) if ns is not None else em_de)
             nl_kw, nl_cons, _nl_note = point_fix_args(args.data_dir, "NL", tso, bio, gni, gbal)
             nl_b = gas_country_balance(gbal, "NL", gsto, glng, nl_cons, None, bio["NL"] if (len(bio) and "NL" in bio) else None, **nl_kw)
             colsb = [c for c in de_b.columns if c in nl_b.columns]
