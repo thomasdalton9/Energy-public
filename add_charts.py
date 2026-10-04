@@ -1699,13 +1699,14 @@ def tso_gas_demand(p):
         if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
             m = m[m.index < last.to_period("M").to_timestamp()]
         return m.dropna(how="all").rename(columns=names)
-    tot = monthly(["DE_total", "FR_total", "ES_total"], {"DE_total": "Germany", "FR_total": "France", "ES_total": "Spain"})
+    tot = monthly(["DE_total", "FR_total", "ES_total", "PT_total", "DK_total"],
+                  {"DE_total": "Germany", "FR_total": "France", "ES_total": "Spain", "PT_total": "Portugal", "DK_total": "Denmark"})
     de = monthly(["DE_distribution", "DE_industry_power"], {"DE_distribution": "Distribution (SLP)", "DE_industry_power": "Industry & power (RLM)"})
     fr = monthly(["FR_industrial", "FR_distribution", "FR_power"], {"FR_industrial": "Industrial", "FR_distribution": "Public distribution",
                                                                       "FR_power": "Power plants"})
     out = []
     if not tot.empty:
-        out.append(spec("Total", tot, "Gas consumption: Germany, France, Spain (TSO data)", "TWh per month", "line"))
+        out.append(spec("Total", tot, "Gas consumption: Germany, France, Spain, Portugal, Denmark (TSO data)", "TWh per month", "line"))
     if not de.empty:
         out.append(spec("Germany", de, "Germany gas consumption by class (Trading Hub Europe)", "TWh per month", "stacked_bar"))
     if not fr.empty:
