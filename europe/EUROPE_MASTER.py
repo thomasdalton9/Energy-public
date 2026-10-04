@@ -383,6 +383,14 @@ def monthly_cover(daily, min_cover=0.9):
 
 
 BAL_ITEM = "Balancing item (implied embedded supply / losses)"
+# Raw cross-border flows ENTSO-E does not publish, added to the country's ENTSO-E net imports (daily GWh = MWh/1000)
+NETIMP_EXTRA = {"Spain": ("spain_ree_exchanges_daily.xlsx", "MA_AD_NetImports_MWh")}
+ES_BALANCE_SRC = ("ENTSO-E generation, load and France/Portugal flows; net imports also include Red Electrica's physical exchanges with Morocco and Andorra "
+                  "(no ENTSO-E bidding zone; 2.1-4.0 TWh a year of exports)", "https://www.ree.es/en/datos/intercambios")
+# Pumping consumption ENTSO-E does not publish (generation is reported, consumption is not), from national statistics; subtracted from 'Pumped & battery (net)'
+PUMP_CONS_OVERRIDE = {"Slovenia": "slovenia_sistat_pumping_daily.xlsx"}
+SI_BALANCE_SRC = ("ENTSO-E generation, load and flows; pumping consumption of the Avce pumped-storage plant (not published by ENTSO-E) from the Statistical Office of Slovenia "
+                  "(SiStat 1817602S, annual, spread over the days with ENTSO-E's pumped output)", "https://pxweb.stat.si/SiStatData/pxweb/en/Data/")
 BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports",
                 "Pumped & battery (net)", "Load"]
 
@@ -1296,6 +1304,20 @@ def main():
         inputs = [(n, g, ch if n == "Switzerland" else x) for n, g, x in inputs]
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Switzerland net imports from BFE not available, ENTSO-E flows used ({type(e).__name__}: {e})")
+    for n_, (f_, c_) in NETIMP_EXTRA.items():   # e.g. Spain: Morocco + Andorra from REE (ENTSO-E has no zone for them)
+        try:
+            ex = pd.to_numeric(add_charts.by_date(add_charts.read(os.path.join(args.data_dir, f_), "Daily"), "date")[c_], errors="coerce") / 1000.0
+            inputs = [(n, g, (x + ex.reindex(x.index)) if (n == n_ and x is not None) else x) for n, g, x in inputs]
+            bal_src[n_] = ES_BALANCE_SRC
+        except Exception as e:  # noqa: BLE001
+            power[2].append(f"{n_} extra net imports not available, ENTSO-E flows only ({type(e).__name__}: {e})")
+    pump_ov = {}
+    for n_, f_ in PUMP_CONS_OVERRIDE.items():
+        try:
+            pump_ov[n_] = pd.to_numeric(add_charts.by_date(add_charts.read(os.path.join(args.data_dir, f_), "Daily"), "date")["PumpedStorageConsumption_MWh"], errors="coerce") / 1000.0
+            bal_src[n_] = SI_BALANCE_SRC
+        except Exception as e:  # noqa: BLE001
+            power[2].append(f"{n_} pumping consumption not available, balance left without it ({type(e).__name__}: {e})")
     load_ov = {}
     for n_, f_ in LOAD_OVERRIDE.items():
         try:
@@ -1308,6 +1330,8 @@ def main():
             continue
         try:
             b = country_balance(gen_path, net, load_ov.get(name))
+            if name in pump_ov and len(b):   # pumping consumption ENTSO-E lacks (GWh per month = sum of the days)
+                b["Pumped & battery (net)"] = b["Pumped & battery (net)"] - pump_ov[name].resample("MS").sum().reindex(b.index).fillna(0.0)
         except Exception as e:  # noqa: BLE001
             power[2].append(f"{name} balance ({type(e).__name__}: {e})")
             continue
