@@ -2371,6 +2371,20 @@ try:
         m = m[[c for c in ("Load_MWh", "Production_MWh", "NetImports_MWh", "PowerToHeat_MWh") if c in m]].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
         return [spec("Load and supply", m, "Denmark consumption, production and net imports (Energinet settlement)", "GWh per month", "line")]
     REGISTRY["denmark_energinet_load_daily.xlsx"] = _dk_energinet
+    def _es_ree(p):
+        d = by_date(read(p, "Daily"), "date")
+        m = complete_months(d, d.resample("MS").sum(min_count=1) / 1000)
+        m = m[m.index >= "2021-01-01"]
+        m = m[[c for c in ("Morocco_MWh", "Andorra_MWh") if c in m]].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+        return [spec("Exchanges", m, "Spain net imports from Morocco and Andorra (REE, negative = export)", "GWh per month", "line")]
+    REGISTRY["spain_ree_exchanges_daily.xlsx"] = _es_ree
+    def _si_pump(p):
+        d = by_date(read(p, "Daily"), "date")
+        m = complete_months(d, d.resample("MS").sum(min_count=1) / 1000)
+        m = m[m.index >= "2021-01-01"]
+        m = m[["PumpedStorageConsumption_MWh"]].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+        return [spec("Pumping", m, "Slovenia electricity used for pumped storage (SiStat annual statistic, daily shape from ENTSO-E)", "GWh per month", "line")]
+    REGISTRY["slovenia_sistat_pumping_daily.xlsx"] = _si_pump
     REGISTRY["netherlands_cbs_power_daily.xlsx"] = power_daily(
         "Netherlands power generation by type (CBS)", drop_partial=True)
     REGISTRY["germany_eurostat_power_daily.xlsx"] = power_daily(
