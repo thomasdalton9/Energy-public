@@ -77,6 +77,7 @@ OTHER_POWER_DATASETS = [
     ("IN", "India", "india_power_prices.xlsx", "Daily", "power prices"),
     ("IN", "India", "india_coal_stocks.xlsx", "Daily", "coal stocks"),
     ("MY", "Malaysia", "malaysia_power_prices.xlsx", "Daily", "power prices"),
+    ("SG", "Singapore", "singapore_power_prices.xlsx", "Daily", "power prices"),
     ("ID", "Indonesia", "indonesia_renewable_capacity.xlsx", "Monthly", "renewable capacity"),
     ("PH", "Philippines", "philippines_power_market.xlsx", ("Daily demand", "Daily prices"), "power market"),
     ("SG", "Singapore", "singapore_power.xlsx", ("Monthly generation", "Annual consumption", "Annual fuel mix"),
@@ -130,6 +131,17 @@ SOURCES = {
                                              "system demand", "https://www.gso.org.my/SystemData/CurrentGen.aspx"),
     "indonesia_renewable_capacity.xlsx": ("ESDM (Ministry of Energy and Mineral Resources), Ditjen EBTKE - Data Angka "
                                           "Kapasitas Pembangkit EBT (renewables only)", "https://ebtke.esdm.go.id/"),
+    "india_power_capacity.xlsx": ("CEA (Central Electricity Authority), All India Installed Capacity monthly report "
+                                  "(National Power Portal)", "https://npp.gov.in/publishedReports"),
+    "bangladesh_power_capacity.xlsx": ("BPDB (Bangladesh Power Development Board), power generation units by fuel type",
+                                       "https://misc.bpdb.gov.bd/power-generation-unit"),
+    "sri_lanka_power_capacity.xlsx": ("PUCSL (Public Utilities Commission of Sri Lanka) GenData, power plant list",
+                                      "https://gendata.pucsl.gov.lk/"),
+    "philippines_power_capacity.xlsx": ("Department of Energy (Philippines), Power Statistics - installed and dependable "
+                                        "capacity", "https://doe.gov.ph/data-and-prices/energy-statistics/"
+                                        "electric-power-industry/2025-power-statistics"),
+    "singapore_power_prices.xlsx": ("EMC (Energy Market Company), NEMS - Uniform Singapore Energy Price (USEP)",
+                                    "https://www.nems.emcsg.com/nems-prices"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),

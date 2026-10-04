@@ -213,7 +213,8 @@ def main():
         f"Department of Energy (Philippines), Power Statistics - Installed and Dependable Capacity per Grid and per "
         f"technology: {page} (PDF {pdf_url.split('?')[0]}).",
     ]
-    cap_std.write(a.out, monthly, {"Dependable": dependable, "By grid": long, "Release": release}, notes,
+    cap_std.write(a.out, monthly, {"Dependable": dependable, "By grid": long.set_index("measure"),
+                                   "Release": release.set_index("read_on")}, notes,
                   {"UNITS", "COVERAGE", "SOURCE"})
 
 
