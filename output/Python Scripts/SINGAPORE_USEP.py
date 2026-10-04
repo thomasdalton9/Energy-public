@@ -62,13 +62,28 @@ def get(url, **kw):
             time.sleep(5 * (i + 1))
 
 
+def parse_dates(col):
+    """NEMS writes dates as '01-Jan-2025'. Parse that format explicitly; any value it does not fit is tried as ISO
+    (YYYY-MM-DD), then day-first (DD/MM/YYYY) - never 'mixed' with dayfirst, which would swap ISO month and day."""
+    s = col.astype(str).str.strip()
+    d = pd.to_datetime(s, format="%d-%b-%Y", errors="coerce")
+    for fmt in ("%Y-%m-%d", "%Y-%m-%d %H:%M:%S", "%d/%m/%Y", "%d-%m-%Y"):
+        miss = d.isna()
+        if not miss.any():
+            break
+        d[miss] = pd.to_datetime(s[miss], format=fmt, errors="coerce")
+    if d.isna().any():
+        out(f"  {int(d.isna().sum())} USEP rows with unreadable dates dropped, e.g. {s[d.isna()].iloc[0]!r}")
+    return d
+
+
 def parse_csv(text):
     """NEMS 'USEP and Demand Forecast' CSV -> frame (time, period, USEP SGD/MWh, demand MW)."""
     df = pd.read_csv(io.StringIO(text))
     df.columns = [c.strip().upper() for c in df.columns]
     usep = next(c for c in df.columns if "USEP" in c)
     dem = next((c for c in df.columns if "DEMAND" in c), None)
-    d = pd.DataFrame({"date": pd.to_datetime(df["DATE"], format="mixed", dayfirst=True),
+    d = pd.DataFrame({"date": parse_dates(df["DATE"]),
                       "period": pd.to_numeric(df["PERIOD"], errors="coerce"),
                       "USEP_SGD_per_MWh": pd.to_numeric(df[usep], errors="coerce")})
     if dem:
