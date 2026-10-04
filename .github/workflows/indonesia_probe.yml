@@ -1,0 +1,29 @@
+name: Indonesia power discovery (branch only, temporary)
+
+# One-off source probes. Runs discovery_archive/asia/INDONESIA_DISCOVERY*.py on push to the dev branch;
+# moved to discovery_archive/workflows/ once done.
+on:
+  push:
+    branches: [claude/compassionate-darwin-2khdxe]
+    paths:
+      - "discovery_archive/asia/INDONESIA_DISCOVERY*.py"
+      - ".github/workflows/indonesia_probe.yml"
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib beautifulsoup4
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          f=$(ls discovery_archive/asia/INDONESIA_DISCOVERY*.py | sort -V | tail -1)
+          echo "######## $f"; timeout 1500 python3 "$f" || echo "!! exit $?"
