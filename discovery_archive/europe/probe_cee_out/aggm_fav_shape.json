@@ -1,0 +1,70 @@
+{
+ "creationTimeForFavorite": "2026-05-27T15:27:07",
+ "lastAccessTimeForFavorite": "2026-10-04T03:34:43",
+ "timeSeriesData": {
+  "chartData": [
+   "list[5]",
+   {
+    "dataSet": [
+     "list[51]",
+     {
+      "x": 1664596800000,
+      "y": 5783169148.741
+     }
+    ],
+    "header": {
+     "decimalPlaces": 3,
+     "displayName": {
+      "de": "Σ ermittelter EKV Österreich Fluss",
+      "en": "Σ determined Consumption Austria Flow",
+      "infoDe": "Prognostizierter/ ermittelter Gesamtverbrauch; verbesserte Qualität mit Zeitverl",
+      "infoEn": "Forecasted/determined total consumption ; improved quality over time (best value"
+     },
+     "name": "ErmittelterEKVOesterreich",
+     "unit": "kWh"
+    }
+   }
+  ],
+  "tableData": {
+   "headers": [
+    "list[5]",
+    {
+     "decimalPlaces": 3,
+     "displayName": {
+      "de": "Σ ermittelter EKV Österreich Fluss",
+      "en": "Σ determined Consumption Austria Flow",
+      "infoDe": "Prognostizierter/ ermittelter Gesamtverbrauch; verbesserte Qualität mit Zeitverl",
+      "infoEn": "Forecasted/determined total consumption ; improved quality over time (best value"
+     },
+     "index": "0",
+     "name": "ErmittelterEKVOesterreich",
+     "unit": "kWh"
+    }
+   ],
+   "rows": [
+    "list[51]",
+    {
+     "ts": 1664596800000,
+     "data": {
+      "0": 5783169148.741,
+      "1": 1114864614.812,
+      "2": 966726118.18,
+      "3": 1882154280.0,
+      "4": 2828137621.0
+     }
+    }
+   ]
+  }
+ },
+ "tsQueryRequest": {
+  "displayType": "line",
+  "from": "2022-10-01T06:00:00",
+  "granularity": "Month",
+  "rangeType": "individual",
+  "timeseries": [
+   "list[5]",
+   "ErmittelterEKVOesterreich"
+  ],
+  "to": "2027-01-01T06:00:00"
+ }
+}

@@ -1,0 +1,52 @@
+allocation_KwhD_day_ipoD ipo=3 entry: n=7 sum=1225802416 first=['163668200', '164890200', '185896200']
+allocation_KwhD_day_ipoD ipo=15 entry: n=1 sum=3600000 first=['3600000']
+allocation_KwhD_day_ipoD ipo=20 entry: n=7 sum=5201976 first=['2568', '2568', '26568']
+allocation_KwhD_day_ipoD ipo=26 entry: n=7 sum=1102438898 first=['128472114', '131055455', '158322656']
+allocation_KwhD_day_ipoD ipo=41 entry: n=7 sum=125462510 first=['29962000', '25632600', '27898910']
+allocation_KwhD_day_ipoD ipo=44 entry: n=7 sum=105881413 first=['13615000', '11987200', '19913341']
+allocation_KwhD_day_ipoD ipo=68 entry: n=2 sum=11400000 first=['5200000', '6200000']
+allocation_KwhD_day_ipoD ipo=33 exit: n=7 sum=48428100 first=['3770000', '1128000', '0']
+allocation_KwhD_day_ipoD ipo=42 exit: n=7 sum=3192000 first=['456000', '456000', '456000']
+allocation_KwhD_day_ipoD ipo=48 exit: n=7 sum=49014920 first=['10219640', '32534393', '3474324']
+allocation_KwhD_day_ipoD ipo=50 exit: n=7 sum=70805 first=['9731', '9330', '9993']
+allocation_KwhD_day_ipoD ipo=52 exit: n=7 sum=398476 first=['37102', '25287', '58590']
+allocation_KwhD_day_ipoD ipo=54 exit: n=7 sum=273949 first=['19829', '20494', '61034']
+allocation_KwhD_day_ipoD ipo=56 exit: n=7 sum=1151542 first=['379333', '298226', '142454']
+allocation_KwhD_day_ipoD ipo=58 exit: n=7 sum=1023549 first=['147904', '138137', '147859']
+allocation_KwhD_day_ipoD ipo=60 exit: n=7 sum=2319334 first=['1084625', '217192', '98384']
+allocation_KwhD_day_ipoD ipo=62 exit: n=7 sum=126668 first=['15625', '18509', '17561']
+allocation_KwhD_day_ipoD ipo=64 exit: n=7 sum=237600 first=['33600', '28800', '57600']
+allocation_KwhD_day_ipoD ipo=69 exit: n=4 sum=71600000 first=['12300000', '17300000', '25000000']
+allocation_KwhD_day_ipoD ipo=74 exit: n=7 sum=762202 first=['179328', '63556', '77725']
+tsDefinition/list: 500 {
+  "uuAppErrorMap" : {
+    "uu-appg01/authorization/authorizationFailed" : {
+      "id" : "67611899768749e2afe565d3e5fcad7a",
+      "timestamp" : "2026-10-04T01:36:48.121Z",
+      "type" : "error",
+      "message" : "Authorization failed.",
+      "cause" : {
+        "uu-businessterritory-maing01/authorization/useCaseDoesNotExist" : {
+          "id" : "da89ce2f307750d4d10c917d5060479d",
+          "timestamp" : "2026-10-04T01:36:48.111Z",
+          "type" : "error",
+          "message" : "Use case does not exist.",
+          "paramMap" : {
+            "useCase" : "publicApi/tsDefinition/list",
+
+tsDefinition/get: 500 {
+  "uuAppErrorMap" : {
+    "uu-appg01/authorization/authorizationFailed" : {
+      "id" : "dfc071a5352b416c8b1103edf5ffed3c",
+      "timestamp" : "2026-10-04T01:36:48.810Z",
+      "type" : "error",
+      "message" : "Authorization failed.",
+      "cause" : {
+        "uu-businessterritory-maing01/authorization/useCaseDoesNotExist" : {
+          "id" : "0ef12ab687c9d1d3732f7642e1a33a54",
+          "timestamp" : "2026-10-04T01:36:48.798Z",
+          "type" : "error",
+          "message" : "Use case does not exist.",
+          "paramMap" : {
+            "useCase" : "publicApi/tsDefinition/get",
+ 
