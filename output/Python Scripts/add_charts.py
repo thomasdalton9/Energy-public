@@ -428,6 +428,28 @@ def india_iex(p):
     return [spec("Prices", m, "India IEX day-ahead market clearing price (monthly average)", "Rs/MWh")]
 
 
+def sri_lanka_reservoirs(p):
+    d = _sheet(p, "Daily", "date")
+    x = d["Total_storage_GWh"].dropna()
+    med = x.rolling(15, center=True, min_periods=5).median()
+    x = x[(x / med - 1).abs() <= 0.15]   # one-day keying errors in the PUCSL feed
+    return [{"name": "Storage", "water_year": x.resample("D").interpolate(limit=31, limit_area="inside"),
+             "title": "Sri Lanka major hydro reservoir storage (PUCSL / CEB, six reservoirs)", "units": "GWh",
+             "y_decimals": 0}]
+
+
+def pakistan_reservoirs(p):
+    d = _sheet(p, "Daily", "date")
+    out = []
+    for dam, river in (("Tarbela", "Indus"), ("Mangla", "Jhelum")):
+        col = f"{dam}_level_ft"
+        if col in d and d[col].notna().sum() >= 2:   # limit=31: a long gap stays blank rather than a straight line
+            out.append({"name": dam, "water_year": d[col].dropna().resample("D").interpolate(limit=31, limit_area="inside"),
+                        "title": f"{dam} reservoir water level ({river}; WAPDA / IRSA)", "units": "ft above sea level",
+                        "y_decimals": 0, "sheet": f"Water year - {dam}"})
+    return out
+
+
 def thailand_reservoirs(p):
     d = _sheet(p, "Daily", "date")
     x = d["Pct_full"].dropna()
@@ -1922,6 +1944,8 @@ REGISTRY = {
     "malaysia_power_prices.xlsx": malaysia_smp,
     "indonesia_renewable_capacity.xlsx": power_capacity("Indonesia renewable installed capacity (ESDM EBTKE; renewables only)"),
     "singapore_power_prices.xlsx": singapore_usep,
+    "sri_lanka_hydro_reservoirs.xlsx": sri_lanka_reservoirs,
+    "pakistan_hydro_reservoirs.xlsx": pakistan_reservoirs,
     "india_power_capacity.xlsx": power_capacity("India installed capacity (CEA)"),
     "bangladesh_power_capacity.xlsx": power_capacity("Bangladesh installed capacity (BPDB)"),
     "sri_lanka_power_capacity.xlsx": power_capacity("Sri Lanka installed capacity (PUCSL plant list)"),
