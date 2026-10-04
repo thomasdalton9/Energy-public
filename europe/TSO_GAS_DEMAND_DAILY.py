@@ -45,10 +45,10 @@ UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 COLUMNS = ["DE_distribution", "DE_industry_power", "DE_total", "FR_industrial", "FR_distribution", "FR_power", "FR_total", "ES_total"]
 
 
-def get(url, tries=4, **kw):
+def get(url, tries=3, **kw):
     for i in range(tries):
         try:
-            r = requests.get(url, timeout=120, **kw)
+            r = requests.get(url, timeout=(15, 60), **kw)
             if r.ok:
                 return r
             if r.status_code in (429, 500, 502, 503, 504):
@@ -165,16 +165,21 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--start", default="2021-01-01")
+    ap.add_argument("--only", default="", help="comma-separated subset of DE,FR,ES (the workbook keeps the other countries' history)")
     args = ap.parse_args()
+    only = {x.strip().upper() for x in args.only.split(",") if x.strip()}
     os.makedirs(args.out_dir, exist_ok=True)
     path = os.path.join(args.out_dir, FILE)
     start = datetime.strptime(args.start, "%Y-%m-%d").date()
     today = datetime.now(timezone.utc).date()
     old = read_existing(path)
     combined = old.copy()
-    for label, fn, cols in (("Germany (THE)", germany, [c for c in COLUMNS if c.startswith("DE_")]),
-                            ("France (ODRE)", france, [c for c in COLUMNS if c.startswith("FR_")]),
-                            ("Spain (Enagas)", spain, ["ES_total"])):
+    for code, label, fn, cols in (("DE", "Germany (THE)", germany, [c for c in COLUMNS if c.startswith("DE_")]),
+                                  ("FR", "France (ODRE)", france, [c for c in COLUMNS if c.startswith("FR_")]),
+                                  ("ES", "Spain (Enagas)", spain, ["ES_total"])):
+        if only and code not in only:
+            continue
+        print(f"{label}: start", flush=True)
         have = old[cols].dropna(how="all")
         fs = start if have.empty else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))
         try:

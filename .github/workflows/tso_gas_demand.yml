@@ -28,11 +28,26 @@ jobs:
       - name: Install dependencies
         run: pip install pandas openpyxl requests
 
-      - name: Run pull
+      - name: Pull Germany (THE)
+        timeout-minutes: 15
+        continue-on-error: true
         env:
           PYTHONUNBUFFERED: "1"
-        run: |
-          python3 europe/TSO_GAS_DEMAND_DAILY.py --out-dir "output/Data and Chart Outputs"
+        run: python3 europe/TSO_GAS_DEMAND_DAILY.py --out-dir "output/Data and Chart Outputs" --only DE
+
+      - name: Pull France (ODRE)
+        timeout-minutes: 15
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/TSO_GAS_DEMAND_DAILY.py --out-dir "output/Data and Chart Outputs" --only FR
+
+      - name: Pull Spain (Enagas)
+        timeout-minutes: 15
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/TSO_GAS_DEMAND_DAILY.py --out-dir "output/Data and Chart Outputs" --only ES
 
       - name: Add Excel charts and copy scripts
         if: always()
