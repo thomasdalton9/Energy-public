@@ -145,7 +145,7 @@ def region_sum(f, min_share=0.97):
     if not len(full) or full.max() == 0:
         return pd.Series(dtype=float)
     # weight of each country = its latest value; a year counts if its reporting countries carry >= min_share of it
-    w = f.ffill().iloc[-1].fillna(0)
+    w = f.ffill().iloc[-1].fillna(0).abs()   # abs: net imports can be negative (exporters)
     rep = f.notna().mul(w, axis=1).sum(axis=1)
     return s[rep >= min_share * w.sum()].dropna()
 
@@ -207,11 +207,13 @@ def summary_row(name, s):
     ppp_y, ppp = _latest(s["ppp"].loc[:year] if year else s["ppp"])
     _, cap = _latest(s["cap"])
     _, gen_tot = _latest(g.sum(axis=1)) if len(g) else (None, None)
-    util = gen_tot * 1000 / (cap * 8760) * 100 if gen_tot and cap else None
+    cap_y = s["cap"].get(g.index.max()) if len(g) else None   # capacity of the same year as the generation
+    util = gen_tot * 1000 / (cap_y * 8760) * 100 if gen_tot and cap_y and not pd.isna(cap_y) else None
     _, nimp = _latest(s["net_imports"])
     gy, gcons = _latest(s["gas_cons"])
     _, gprod = _latest(s["gas_prod"].loc[:gy] if gy else s["gas_prod"])
-    dep = (gcons - (gprod or 0)) / gcons * 100 if gcons else None
+    dep = (gcons - gprod) / gcons * 100 if gcons and gprod is not None else None   # blank where the EI has no
+    # production row for the country (it groups small producers into 'Other')
     # IMF: the five years after the latest actual GDP year
     imf = s["imf_gdp"].dropna()
     act = s["gdp"].dropna()
@@ -237,7 +239,7 @@ def summary_row(name, s):
             cdd.mean() if len(cdd) else None, hdd.mean() if len(hdd) else None]
 
 
-def country_series(data, codes):
+def country_series(data, codes):  # noqa: C901
     """Annual series per country code: dict iso3 -> dict of series / frames, plus the region total."""
     gen = {f: get(data, f"Gen_{f}_TWh", codes) for f in FUELS}
     one = {
@@ -263,7 +265,12 @@ def country_series(data, codes):
         f = one[k]
         reg[k] = (f.mul(pw, axis=1).sum(axis=1, min_count=1) /
                   f.notna().mul(pw, axis=1).sum(axis=1).replace(0, float("nan"))).dropna()
-    reg["gen"] = pd.DataFrame({f: region_sum(gen[f]) for f in FUELS})
+    # region generation: the same years as the region's demand (every country reporting), each fuel summed
+    yrs = reg["demand"].index
+    reg["gen"] = pd.DataFrame({f: gen[f].reindex(yrs).sum(axis=1, min_count=1) for f in FUELS}, index=yrs)
+    capf = {f: get(data, f"Cap_{f}_GW", codes) for f in FUELS}
+    reg["cap_by_fuel"] = pd.DataFrame({f: capf[f].reindex(reg["cap"].index).sum(axis=1, min_count=1) for f in FUELS},
+                                      index=reg["cap"].index)
     return per, reg, gen, one
 
 
@@ -399,8 +406,9 @@ def add_long_term_dashboard(wb, used, sheet_name_fn, region, data_dir, chart_w, 
     imf = imf[imf.index >= 2010]
     gdp_top = _top(one["gdp"].rename(columns=label))
     reg_imf = reg["imf_gdp"][reg["imf_gdp"].index >= 2010]
-    imf_df = pd.concat([reg_imf.rename(f"{region} (GDP-weighted)"), imf[[c for c in gdp_top[:TOP_N - 1] if c in imf]]],
-                       axis=1)
+    imf_df = pd.concat([reg_imf.rename(f"{region} (GDP-weighted)").to_frame(),
+                        imf[[c for c in gdp_top[:TOP_N - 1] if c in imf]]], axis=1) if len(imf.columns) else \
+        pd.DataFrame()
     charts.append((_chart(wb, used, sheet_name_fn, "GDP growth", imf_df.round(1),
                           "Real GDP growth, history and IMF forecast", "% per year", "line", chart_w, chart_h,
                           note="IMF World Economic Outlook: years after the latest actual are forecasts"),
@@ -417,8 +425,7 @@ def add_long_term_dashboard(wb, used, sheet_name_fn, region, data_dir, chart_w, 
                               f"{kind.capitalize()} degree days (base 18°C), population-weighted cities",
                               "degree days per year", "line", chart_w, chart_h),
                        "NASA POWER daily temperature (MERRA-2), population-weighted largest cities"))
-    capf = pd.DataFrame({f: region_sum(get(data, f"Cap_{f}_GW", codes)) for f in FUELS})
-    charts.append((_chart(wb, used, sheet_name_fn, "capacity", yr(capf).dropna(how="all"),
+    charts.append((_chart(wb, used, sheet_name_fn, "capacity", yr(reg["cap_by_fuel"]).dropna(how="all"),
                           f"{region} installed capacity by source", "GW", "stacked_bar", chart_w, chart_h),
                    src_power))
 
