@@ -61,6 +61,10 @@ DATASETS = [
     ("IE", "Ireland", "ireland_gni_transparency_daily.xlsx", "*", "gas by sector"),
     ("EU", "Europe", "europe_gas_flows_daily.xlsx", "*", "ENTSOG"),
     ("GB", "Great Britain", "gb_gas_nts_daily.xlsx", "Daily", "NTS gas"),
+    ("EU", "Europe", "europe_tso_gas_demand_daily.xlsx", "Daily", "TSO gas consumption (DE FR ES DK PT)"),
+    ("EU", "Europe", "europe_tso_gas_demand_cee_daily.xlsx", "Daily", "TSO gas consumption (AT CZ LT)"),
+    ("EU", "Europe", "europe_tso_gas_demand_extra_daily.xlsx", "*", "TSO gas consumption (PL RO HR FI ES)"),
+    ("EU", "Europe", "eurostat_gas_monthly.xlsx", "Monthly", "Eurostat gas (benchmark)"),
 ]
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
@@ -105,6 +109,14 @@ SOURCES = {
                                             "https://www.gasnetworks.ie/corporate/gas-regulation/transparency/"),
     "gb_gas_nts_daily.xlsx": ("National Gas Transmission Data Portal (NTS demand by sector and supply by entry point)",
                               "https://data.nationalgas.com/find-gas-data"),
+    "europe_tso_gas_demand_daily.xlsx": ("Gas TSOs' own series: Trading Hub Europe (DE), ODRE / GRTgaz-Teréga-RTE (FR), Enagás (ES), "
+                                         "Energinet (DK), REN DataHub (PT)", "https://www.tradinghub.eu/"),
+    "europe_tso_gas_demand_cee_daily.xlsx": ("Gas TSOs' own series: AGGM (AT), NET4GAS CAMS system balance (CZ), Amber Grid (LT)",
+                                             "https://platform.aggm.at/"),
+    "europe_tso_gas_demand_extra_daily.xlsx": ("Gas TSOs' own series: Gaz-System (PL), Transgaz (RO), Plinacro (HR), Gasgrid Finland (FI); "
+                                               "Enagás monthly statistical bulletin (ES 2021-22)", "https://www.gasgrid.fi/"),
+    "eurostat_gas_monthly.xlsx": ("Eurostat nrg_cb_gasm monthly natural gas balance (validation benchmark only, not used in the charts)",
+                                  "https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_gasm"),
     "ireland_eirgrid_system_data.xlsx": ("EirGrid / SONI System and Renewable Data Reports (Ireland and Northern Ireland system data)",
                                          "https://www.eirgrid.ie/grid/system-and-renewable-data-reports"),
     "ember_europe_power_monthly.xlsx": ("Ember monthly electricity data (fallback for Ireland, where the ENTSO-E all-island feed is "
@@ -120,7 +132,7 @@ SOURCES = {
     "europe_cross_border_flows_daily.xlsx": ("ENTSO-E Transparency Platform: cross-border physical flows",
                                              "https://transparency.entsoe.eu/"),
 }
-GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Great Britain National Gas, Ireland GNI), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
+GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Denmark Energinet, Portugal REN, Austria AGGM, Czechia NET4GAS, Lithuania Amber Grid, Finland Gasgrid, Great Britain National Gas, Ireland GNI), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
                    "https://transparency.entsog.eu/")
 GAS_FLOWS_FILE = "europe_gas_flows_daily.xlsx"
 BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows (Great Britain: Elexon BMRS + NESO; "
@@ -442,21 +454,45 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None):
 
 
 TSO_GAS_FILE = "europe_tso_gas_demand_daily.xlsx"
+TSO_CEE_FILE = "europe_tso_gas_demand_cee_daily.xlsx"
+TSO_EXTRA_FILE = "europe_tso_gas_demand_extra_daily.xlsx"
+
+
+def _sheet_or_empty(path, sheet, index):
+    try:
+        return add_charts._sheet(path, sheet, index)
+    except Exception:  # noqa: BLE001
+        return pd.DataFrame()
 
 
 def tso_consumption(data_dir):
-    """National gas consumption from the TSOs' own series, GWh/d: Germany (THE), France (ODRE), Spain (Enagas; from 2023), Denmark (Energinet), Portugal (REN). ENTSOG's
-    country totals capture only part of these (Germany reports final consumers as one aggregate, Spain has few demand points)."""
+    """National gas consumption from the operators' own series, GWh/d: Germany (THE), France (ODRE), Spain (Enagas daily from 2023,
+    Enagas monthly bulletin spread evenly over the days before), Denmark (Energinet), Portugal (REN), Austria (AGGM), Czechia
+    (NET4GAS system balance: border + storage + production flows), Lithuania (Amber Grid), Finland (Gasgrid), Great Britain
+    (National Gas NTS). ENTSOG's country totals capture only part of these (Germany reports final consumers as one aggregate, Spain
+    has few demand points, AT/LT/FI/DK have no consumption points). Poland, Romania and Croatia are left on ENTSOG: the operators'
+    own exits equal ENTSOG's, and the remaining gap to Eurostat is domestic production that never enters the grid (missing from
+    ENTSOG production too, so their balances already close)."""
     d = add_charts._sheet(os.path.join(data_dir, TSO_GAS_FILE), "Daily", "date")
+    cee = _sheet_or_empty(os.path.join(data_dir, TSO_CEE_FILE), "Daily", "date")
+    ext = _sheet_or_empty(os.path.join(data_dir, TSO_EXTRA_FILE), "Daily", "date")
     out = pd.DataFrame({"DE": d.get("DE_total"), "FR": d.get("FR_total"), "ES": d.get("ES_total"), "DK": d.get("DK_total"),
                         "PT": d.get("PT_total")})
+    for cc, src, col in (("AT", cee, "AT_total"), ("CZ", cee, "CZ_total"), ("LT", cee, "LT_total"), ("FI", ext, "FI_total")):
+        if len(src) and col in src:
+            out[cc] = src[col].reindex(out.index.union(src.index))
+    mon = _sheet_or_empty(os.path.join(data_dir, TSO_EXTRA_FILE), "Monthly", "month")
+    if len(mon) and "ES_national" in mon:   # Spain before the daily series starts: monthly bulletin spread evenly over the days
+        days = pd.date_range(mon.index.min(), mon.index.max() + pd.offsets.MonthEnd(0), freq="D")
+        per_day = (mon["ES_national"] / mon.index.days_in_month).reindex(days, method="ffill")
+        out["ES"] = out["ES"].reindex(out.index.union(days)).combine_first(per_day)
     out = out.dropna(axis=1, how="all")
     try:   # Great Britain: National Gas NTS offtake (LDZ + power stations + industrial)
         g = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
         out["UK"] = g[["ldz_offtake", "powerstations", "industrial_offtake"]].sum(axis=1, min_count=3)
     except Exception:  # noqa: BLE001
         pass
-    return out
+    return out.sort_index()
 
 
 def gni_daily(data_dir):

@@ -1744,8 +1744,8 @@ def tso_gas_demand(p):
     tot = monthly(["DE_total", "FR_total", "ES_total", "PT_total", "DK_total"],
                   {"DE_total": "Germany", "FR_total": "France", "ES_total": "Spain", "PT_total": "Portugal", "DK_total": "Denmark"})
     de = monthly(["DE_distribution", "DE_industry_power"], {"DE_distribution": "Distribution (SLP)", "DE_industry_power": "Industry & power (RLM)"})
-    fr = monthly(["FR_industrial", "FR_distribution", "FR_power"], {"FR_industrial": "Industrial", "FR_distribution": "Public distribution",
-                                                                      "FR_power": "Power plants"})
+    fr = monthly(["FR_industrial", "FR_distribution"], {"FR_industrial": "Industrial (incl. gas-fired power plants)",
+                                                         "FR_distribution": "Public distribution"})
     out = []
     if not tot.empty:
         out.append(spec("Total", tot, "Gas consumption: Germany, France, Spain, Portugal, Denmark (TSO data)", "TWh per month", "line"))
