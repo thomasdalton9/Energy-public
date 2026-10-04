@@ -571,15 +571,21 @@ def parse_ke_decision(text, months=None):
     res = {}
     for i, ln in enumerate(lines):
         l = ln.lower()
-        if "rs" in l.split() or "rs." in l or "mln" in l or not re.search(r"\bgw", l):
+        if "rs" in l.split() or "rs." in l or "mln" in l or "min rs" in l or "cost" in l:
             continue
-        if "own" in l and re.search(r"generation|sent", l):
+        if re.search(r"own\s*(generation|se\w*\s*outs?)", l):
             key = "own"
-        elif "external" in l:
+        elif re.search(r"ext\w*\W*purchases", l):
             key = "ext"
         else:
             continue
-        nums = [float(x.replace(",", "")) for x in NUMS.findall(re.split(r"\bGW\S*", ln, flags=re.I)[-1])]
+        tail = re.split(r"\bGW\S*", ln, flags=re.I)[-1] if re.search(r"\bgw", l) else \
+            re.split(r"outs?|purchases", ln, flags=re.I)[-1]
+        toks = NUMS.findall(tail)
+        if not re.search(r"\bgw", l) and (len(toks) < 3 or any("." in t for t in toks)):
+            continue   # without a GWh unit only an integer row of several months is taken (the JUL-MAR table)
+        # OCR'd thousands separator read as a decimal point ('1.131' = 1,131 GWh)
+        nums = [float(t.replace(",", "")) * (1000 if re.fullmatch(r"\d\.\d{3}", t) else 1) for t in toks]
         if not nums:
             continue
         head = " ".join(lines[max(0, i - 12):i])
@@ -587,8 +593,10 @@ def parse_ke_decision(text, months=None):
         ref = re.search(r"\bref", head, re.I) is not None
         if ref and len(nums) >= 2:
             nums, hm = nums[1:], hm[1:] if len(hm) == len(nums) else hm
-        if len(hm) == len(nums) and len(nums) > 1:
+        if len(hm) == len(nums) and len(nums) > 2:
             pairs = list(zip(hm, nums))
+        elif dm is not None and dm in hm and len(hm) == len(nums):
+            pairs = [(dm, nums[hm.index(dm)])]
         elif dm is not None:
             pairs = [(dm, nums[-1])]
         else:
@@ -671,7 +679,15 @@ def parse_soir_table(text, own):
     return out_
 
 
+SOIR_LOCK = __import__("threading").Lock()   # pdfium is not thread-safe
+
+
 def read_soir(url):
+    with SOIR_LOCK:
+        return _read_soir(url)
+
+
+def _read_soir(url):
     """NEPRA State of Industry Report: KE's monthly fuel-wise own generation and fuel-wise power purchases tables."""
     import pypdfium2 as pdfium
     res = {}
