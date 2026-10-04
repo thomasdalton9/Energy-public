@@ -2031,6 +2031,36 @@ def pakistan_gas(p):
                         "stacked_bar"))
     return out
 
+def macro_drivers(p):
+    """MACRO_DRIVERS.py: IMF GDP growth (incl. WEO forecasts) and annual degree days (base 18 C)."""
+    out = []
+
+    def annual(sheet, codes, start):
+        try:
+            d = read(p, sheet)
+        except ValueError:
+            return pd.DataFrame()
+        d = d.set_index("year").apply(pd.to_numeric, errors="coerce")
+        d = d[d.index >= start]
+        d = d[[c for c in codes if c in d.columns]]
+        d.index = pd.to_datetime(d.index.astype(int).astype(str), format="%Y")
+        return d
+
+    names = {"WLD": "World", "USA": "United States", "CHN": "China", "IND": "India", "DEU": "Germany",
+             "BRA": "Brazil", "IDN": "Indonesia", "THA": "Thailand", "VNM": "Vietnam", "FRA": "France", "POL": "Poland"}
+    g = annual("GDP_growth_IMF_pct", ["WLD", "USA", "CHN", "IND", "DEU", "BRA"], 2000)
+    if not g.empty:
+        out.append(spec("GDP growth", g.rename(columns=names), "Real GDP growth incl. WEO forecasts (IMF DataMapper)",
+                        "% y/y", "line", date_format="%Y"))
+    c = annual("CDD_18", ["IND", "THA", "VNM", "IDN"], 1991).rename(columns=lambda x: f"{names.get(x, x)} CDD")
+    h = annual("HDD_18", ["DEU", "FRA", "POL"], 1991).rename(columns=lambda x: f"{names.get(x, x)} HDD")
+    dd = pd.concat([c, h], axis=1)
+    if not dd.empty:
+        out.append(spec("Degree days", dd, "Cooling degree days (Asia) vs heating degree days (Europe), base 18 C, "
+                        "population-weighted cities (NASA POWER)", "degree-C days per year", "line", date_format="%Y"))
+    return out
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
@@ -2216,6 +2246,7 @@ REGISTRY = {
     "gatun_lake_level.xlsx": None,
     "eia930_fuel_mix_daily.xlsx": None,
     "lng_feedgas_daily.xlsx": None,
+    "macro_drivers.xlsx": macro_drivers,
 }
 
 

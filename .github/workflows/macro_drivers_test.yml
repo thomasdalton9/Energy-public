@@ -1,0 +1,55 @@
+name: Macro drivers test (temporary)
+
+on:
+  push:
+    branches: [claude/compassionate-darwin-2khdxe]
+    paths: [".github/workflows/macro_drivers_test.yml", "MACRO_DRIVERS.py"]
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas requests openpyxl xlrd matplotlib
+      - name: Run (full history)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          mkdir -p t
+          time python3 MACRO_DRIVERS.py --out t/macro_drivers.xlsx
+      - name: Run again (incremental)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: time python3 MACRO_DRIVERS.py --out t/macro_drivers.xlsx
+      - name: Charts and sanity check
+        if: always()
+        run: |
+          python3 add_charts.py t/macro_drivers.xlsx && python3 png_charts.py t/macro_drivers.xlsx --out t
+          ls -la t
+          python3 - <<'PY'
+          import pandas as pd
+          p = "t/macro_drivers.xlsx"
+          x = pd.ExcelFile(p); print(x.sheet_names)
+          for s in x.sheet_names:
+              if s.startswith("Chart"): continue
+              d = pd.read_excel(p, sheet_name=s, index_col=0)
+              print(f"== {s}: {d.shape}, index {d.index.min()} - {d.index.max()}")
+          for s, cols in [("CDD_18", ["IND","SGP","THA","VNM","IDN","USA","AUS"]), ("HDD_18", ["DEU","FRA","POL","GBR","USA","NZL"]),
+                          ("GDP_growth_IMF_pct", ["WLD","USA","CHN","IND"]), ("GDP_real_USD_bn", ["WLD","USA","CHN"]),
+                          ("Population_IMF_m", ["WLD","IND","CHN"]), ("Electricity_access_pct", ["WLD","IND","MMR"])]:
+              d = pd.read_excel(p, sheet_name=s, index_col=0)
+              print(s); print(d[[c for c in cols if c in d]].tail(8).to_string())
+          print(pd.read_excel(p, sheet_name="CDD_18_monthly", index_col=0)[["IND","DEU"]].tail(4))
+          print(pd.read_excel(p, sheet_name="Countries").head(5).to_string())
+          print(pd.read_excel(p, sheet_name="Units").to_string()[:3000])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macro_drivers
+          path: t/
