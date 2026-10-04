@@ -1962,6 +1962,17 @@ def denmark_gasflow(p):
     return out
 
 
+def entsog_norway_entries(p):
+    """ENTSOG entry points on the Norwegian border: monthly TWh per point."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m.dropna(how="all")
+    return [spec("Entries", m, "Norwegian-border entry points in ENTSOG (Emden not reported)", "TWh per month", "stacked_bar")] if len(m) else []
+
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
@@ -1973,6 +1984,7 @@ REGISTRY = {
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
     "denmark_energinet_gasflow_daily.xlsx": denmark_gasflow,
+    "entsog_norway_entries_daily.xlsx": entsog_norway_entries,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
