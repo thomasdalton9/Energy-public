@@ -1930,6 +1930,10 @@ REGISTRY = {
                                                         "national grid, excl. K-Electric own plants)"),
     "pakistan_power_hourly.xlsx": power_daily("Pakistan power generation by fuel, CPPA-G hourly plant data "
                                               "(Dec 2025 - May 2026 snapshot)"),
+    "india_power_generation_daily.xlsx": power_and_demand("India power generation by source (CEA daily report + NITI "
+                                                          "Aayog ICED renewables)",
+                                                          "India peak demand met and average demand (Grid-India via "
+                                                          "NITI Aayog ICED)"),
     "philippines_power_generation_daily.xlsx": power_and_demand("Philippines power generation by fuel (IEMOP WESM "
                                                                 "schedules; geothermal in Other)",
                                                                 "Philippines WESM demand (IEMOP)"),
