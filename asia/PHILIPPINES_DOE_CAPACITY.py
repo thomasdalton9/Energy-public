@@ -24,6 +24,7 @@ years already saved are kept, so the history grows past the PDF's five-year wind
     python3 asia/PHILIPPINES_DOE_CAPACITY.py [--out PATH]
 """
 import argparse
+import hashlib
 import io
 import os
 import re
@@ -75,11 +76,14 @@ def parse(content):
     with pdfplumber.open(io.BytesIO(content)) as pdf:
         for p in pdf.pages:
             text = p.extract_text() or ""
-            measure = "Installed" if "Installed Capacity" in text else "Dependable" if "Dependable Capacity" in text else None
-            if not measure:
+            # the page title names the measure (the notes mention both, so the title line is used)
+            mt = re.search(r"(Installed|Dependable) Capacity per Grid", text)
+            if not mt:
                 continue
-            scope = ("On + off grid" if re.search(r"On Grid\s*\+\s*Off Grid", text, re.I)
-                     else "Off grid" if re.search(r"\bOff Grid\b", text, re.I) else "On grid")
+            measure = mt.group(1)
+            st = re.search(r"In MW\s*\n\s*(On Grid\s*\+\s*Off Grid|Off Grid|On Grid)", text, re.I)
+            sc = (st.group(1).lower() if st else "on grid").replace(" ", "")
+            scope = "On + off grid" if "+" in sc else "Off grid" if sc.startswith("off") else "On grid"
             grid, years = None, []
             for line in text.splitlines():
                 line = line.strip()
@@ -138,13 +142,18 @@ def main():
     if not pdf_url:
         raise SystemExit("DOE capacity PDF not found")
     head = requests.head(pdf_url, headers=H, timeout=T, allow_redirects=True)
-    lm = head.headers.get("last-modified") or head.headers.get("etag")
+    lm = head.headers.get("last-modified") or head.headers.get("etag") or ""
     rel = cap_std.load_sheet(a.out, "Release")
-    if not rel.empty and str(rel.iloc[-1].get("url")) == pdf_url and str(rel.iloc[-1].get("last_modified")) == str(lm):
-        out(f"No new release ({lm}); workbook unchanged")
+    last = rel.iloc[-1].fillna("").astype(str) if not rel.empty else None
+    if last is not None and lm and last.get("url") == pdf_url and last.get("last_modified") == lm:
+        out(f"No new release (Last-Modified {lm}); workbook unchanged")
         return
     r = requests.get(pdf_url, headers=H, timeout=T)
     r.raise_for_status()
+    md5 = hashlib.md5(r.content).hexdigest()
+    if last is not None and last.get("md5") == md5:
+        out(f"Same PDF as the last release read (md5 {md5}); workbook unchanged")
+        return
     out(f"  PDF {pdf_url} -> {r.headers.get('content-type')} {len(r.content)} bytes")
     long = parse(r.content)
     if long.empty:   # layout changed: show what the PDF holds
@@ -174,8 +183,8 @@ def main():
     long = long.sort_values(["measure", "scope", "grid", "plant_type", "year"]).reset_index(drop=True)
     monthly.index.name = dependable.index.name = "date"
     release = pd.concat([rel, pd.DataFrame([{"read_on": date.today().isoformat(), "url": pdf_url, "page": page,
-                                             "last_modified": lm}])], ignore_index=True) if not rel.empty else \
-        pd.DataFrame([{"read_on": date.today().isoformat(), "url": pdf_url, "page": page, "last_modified": lm}])
+                                             "last_modified": lm, "md5": md5}])], ignore_index=True) if not rel.empty else \
+        pd.DataFrame([{"read_on": date.today().isoformat(), "url": pdf_url, "page": page, "last_modified": lm, "md5": md5}])
     notes = [
         "UNITS",
         "MW. Monthly: installed (nameplate) capacity, Philippines, grid-connected + embedded + off-grid, at the end of "
