@@ -152,7 +152,10 @@ def to_row(v):
     fuels = {"Coal": z("coal") + z("lignite"), "Gas": z("gas"), "Oil": z("diesel"), "Nuclear": z("nuclear"),
              "Hydro": z("hydro") + parts["Small_hydro"], "Wind": parts["Wind"], "Solar": parts["Solar"],
              "Bioenergy": parts["Bio"] + parts["Waste"], "Other": other if other > 1 else 0.0}
-    extra = {"Large_hydro_MW": z("hydro"), "Small_hydro_MW": parts["Small_hydro"], "Lignite_MW": z("lignite"),
+    # Lignite_MW blank where the report has no lignite column (before Dec 2021 lignite sits inside coal)
+    lig = v.get("lignite", float("nan"))
+    extra = {"Large_hydro_MW": z("hydro"), "Small_hydro_MW": parts["Small_hydro"],
+             "Lignite_MW": lig if pd.notna(lig) and lig > 0 else float("nan"),
              "Waste_to_energy_MW": parts["Waste"], "Grand_total_reported_MW": v.get("grand")}
     return fuels, extra
 
@@ -162,6 +165,8 @@ def main():
     ap.add_argument("--out", default=OUT)
     a = ap.parse_args()
     monthly = cap_std.load_monthly(a.out)
+    if "Lignite_MW" in monthly:   # saved before the fix: 0 = no lignite column in that report, not zero capacity
+        monthly["Lignite_MW"] = monthly["Lignite_MW"].mask(monthly["Lignite_MW"] <= 0)
     files = cap_std.load_sheet(a.out, "Files")
     last = pd.Timestamp(date.today().replace(day=1)) - pd.DateOffset(months=1)
     months = pd.date_range(START, last, freq="MS")
@@ -210,7 +215,11 @@ def main():
         "(MNRE, <=25 MW); Wind; Solar (ground-mounted, rooftop and off-grid solar as MNRE reports it); Bioenergy = "
         "biomass/bagasse cogeneration + waste to energy; Other = any RES not covered by the break-up. Total_MW = sum of "
         "fuels; Grand_total_reported_MW = CEA's own grand total (a check). Detail columns split hydro and show lignite "
-        "and waste to energy.",
+        "and waste to energy. Lignite_MW is blank before Dec 2021: earlier reports have no lignite column (lignite "
+        "is inside coal there, so Coal_MW is consistent throughout).",
+        "Mar 2025: CEA's report drops gas by 5.06 GW (25,188 -> 20,132 MW), coal by 2.8 GW and nuclear by 0.1 GW "
+        "while solar / wind / hydro grow, so the total falls 2.6 GW. This is CEA's own revision (retired / "
+        "de-rated units taken out), not a parse error: every month's fuel sum equals CEA's reported grand total.",
         "Files: the NPP file read for each month and its Last-Modified date.",
         "",
         "COVERAGE",

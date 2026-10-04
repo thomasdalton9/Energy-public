@@ -23,8 +23,8 @@ system control centre; small rooftop solar is not in it.
 
 Completeness: a day is saved only if every plant reporting that day has (nearly) all its 15-minute intervals
 (PLANT_COVERAGE) and the sum of the plants' daily energy is within GEN_DEMAND_TOL of the integrated total
-dispatch, with no zero-dispatch timestamp; otherwise it is left out and fetched again next run. Saved days are
-re-checked the same way (Total vs Demand_avg x 24, Demand_min > 0).
+dispatch; otherwise it is left out and fetched again next run. Saved days are
+re-checked the same way (Total vs Demand_avg x 24).
 
 Incremental: the Daily sheet is the history store; only missing days (plus REVISION_DAYS) are fetched.
 Runs on the 1st and 15th.
@@ -121,11 +121,12 @@ def read_sheet(path, sheet):
 
 
 def complete_saved(old, old_dem):
-    """Saved days that pass the completeness check (Total vs Demand_avg x 24, no zero-dispatch timestamp)."""
+    """Saved days that pass the completeness check (Total within GEN_DEMAND_TOL of Demand_avg x 24)."""
     if old_dem.empty:
         return pd.Series(True, index=old.index)
-    j = old[["Total_MWh"]].join(old_dem[["Demand_avg_MW", "Demand_min_MW"]], how="left")
-    ok = ((j["Total_MWh"] / (24 * j["Demand_avg_MW"]) - 1).abs() <= GEN_DEMAND_TOL) & (j["Demand_min_MW"] > 0)
+    j = old[["Total_MWh"]].join(old_dem[["Demand_avg_MW"]], how="left")
+    # (a zero minimum alone is not a fault: the island-wide blackouts of 2023-12-09 and 2025-02-09 are real)
+    ok = (j["Total_MWh"] / (24 * j["Demand_avg_MW"]) - 1).abs() <= GEN_DEMAND_TOL
     if (~ok).any():
         out(f"  {(~ok).sum()} saved day(s) fail the completeness check, re-fetching: "
             + ", ".join(f"{x:%Y-%m-%d}" for x in j.index[~ok]))
@@ -163,7 +164,7 @@ def save(frames, old, old_dem, old_plant, meta, out_path):
         nplants = n.notna().sum(axis=1)   # a plant missing all day (e.g. all solar on 2025-12-21)
         few = nplants < 0.9 * nplants.rolling(15, center=True, min_periods=1).median()
         ok = (~few & (gen["Plant_coverage_pct"] >= 100 * PLANT_COVERAGE) & ((ratio - 1).abs() <= GEN_DEMAND_TOL)
-              & (g_all.min() > 0) & (gen["Intervals"] >= 96)).reindex(gen.index, fill_value=False)
+              & (gen["Intervals"] >= 96)).reindex(gen.index, fill_value=False)
         gen = gen.round(1)
         bad = gen.index[~ok & (gen["Total_MWh"] > 0)]
         if len(bad):
@@ -212,8 +213,9 @@ def save(frames, old, old_dem, old_plant, meta, out_path):
         "",
         "VALIDATION",
         f"A day is saved only when it is complete: the reporting plants have at least {100 * PLANT_COVERAGE:.0f}% of "
-        f"their 15-minute values, no more than 10% fewer plants report than on the days around it, the plants' daily energy is within {100 * GEN_DEMAND_TOL:.0f}% of the integrated "
-        "total dispatch, and no timestamp has zero total dispatch. Incomplete days (e.g. 2025-12-20/21, partly "
+        "their 15-minute values, no more than 10% fewer plants report than on the days around it, and the "
+        f"plants' daily energy is within {100 * GEN_DEMAND_TOL:.0f}% of the integrated total dispatch (a zero "
+        "minimum alone is not a fault: the island-wide blackouts of 2023-12-09 and 2025-02-09 are real). Incomplete days (e.g. 2025-12-20/21, partly "
         "published) are left out and fetched again on each run; saved days are re-checked the same way.",
         "",
         "SOURCE",

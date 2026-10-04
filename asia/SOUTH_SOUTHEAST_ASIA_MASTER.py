@@ -162,6 +162,9 @@ SOURCES = {
     "cambodia_power_generation.xlsx": ("EAC (Electricity Authority of Cambodia), Report on Power Sector of the Kingdom of "
                                        "Cambodia (annual, Annex 2) and Salient Features of Power Development (latest "
                                        "year, provisional)", "https://eac.gov.kh/site/annualreport?lang=en"),
+    "nepal_power_generation_daily.xlsx": ("NEA (Nepal Electricity Authority) Load Dispatch Centre, Daily Operational "
+                                          "Report of Nepal (Apr 2023 - Jan 2025); latest days from the 'Energy Details' "
+                                          "panel on nea.org.np", "https://transd.nea.org.np/en/category/daily-operational-reports-1"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),
@@ -203,6 +206,9 @@ TOTAL_USE_EMBER = {"Malaysia": "GSO covers Peninsular Malaysia only; Sabah and S
 def monthly_gwh(path):
     """Standard Daily sheet (MWh) -> complete months, GWh, in the dashboard fuel groups."""
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date")
+    if "KE_included" in d:   # Pakistan: a month without a real K-Electric figure is grid-only, so not whole-country -
+        # left out here and filled from Ember (national) by regional_generation
+        d = d[d["KE_included"].astype(str).str.lower().isin(["true", "1", "1.0"])]
     d = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].apply(pd.to_numeric,
                                                                                           errors="coerce")
     # only months the feed covers (>= 80% of days for daily feeds): a gap or a partial month is left out rather than

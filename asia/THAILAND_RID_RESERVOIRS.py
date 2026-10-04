@@ -15,6 +15,12 @@ Writes output/Data and Chart Outputs/thailand_hydro_reservoirs.xlsx:
   By dam    volume (million m3) per reservoir, last 400 days
   Water year chart (Oct-Sep) of total % full, via water_year_chart (add_charts.py)
 
+Validation (on the whole merged history, every run): a day whose Pct_full is outside 0-150% or more than
+PCT_JUMP points from the centred 7-day median is blanked (all totals; e.g. 718% on 2021-09-10, 3.1% on
+2026-02-17), and an inflow more than INFLOW_SPIKE x its centred 15-day median is blanked (11,252 mcm/d on
+2023-01-24). The reason is in the Flag column; flagged days are fetched again on each run in case RID corrects
+them.
+
 Incremental: the Daily sheet is the history store; only dates not saved yet (from WY start 2020-10-01)
 are fetched, plus the last REVISION_DAYS. Runs on the 1st and 15th.
 
@@ -40,6 +46,9 @@ T = (15, 60)
 DATA_START = date(2020, 10, 1)
 REVISION_DAYS = 18   # runs are 14-17 days apart: re-read everything since the last run, plus spare (provisional days get final)
 BATCH = 400
+PCT_RANGE, PCT_JUMP, INFLOW_SPIKE = (0, 150), 10, 5
+VALUES = ["Volume_mcm", "Normal_storage_mcm", "Pct_full", "Usable_volume_mcm", "Pct_usable", "Inflow_mcm_per_day",
+          "Outflow_mcm_per_day"]
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "thailand_hydro_reservoirs.xlsx")
 
 
@@ -79,12 +88,37 @@ def read_sheet(path, sheet):
     return df.sort_index()
 
 
+def validate(daily):
+    """Blank corrupt days in the merged history; returns (daily, number of days flagged). Rows are kept, with the
+    reason in Flag."""
+    d = daily.copy()
+    d["Flag"] = None
+    pct = d["Pct_full"].where(d["Pct_full"].between(*PCT_RANGE))
+    med = pct.rolling(7, center=True, min_periods=3).median()
+    bad = d["Pct_full"].notna() & (pct.isna() | ((pct - med).abs() > PCT_JUMP))
+    for k in d.index[bad]:
+        d.at[k, "Flag"] = f"Pct_full {d.at[k, 'Pct_full']} vs 7-day median {med[k]:.1f}: day blanked"
+    d.loc[bad, VALUES] = float("nan")
+    inf = d["Inflow_mcm_per_day"]
+    mi = inf.rolling(15, center=True, min_periods=5).median()
+    spike = inf > INFLOW_SPIKE * mi
+    for k in d.index[spike]:
+        d.at[k, "Flag"] = f"Inflow {inf[k]:,.0f} vs 15-day median {mi[k]:,.0f}: inflow blanked"
+    d.loc[spike, "Inflow_mcm_per_day"] = float("nan")
+    n = int(d["Flag"].notna().sum())
+    if n:
+        out(f"  {n} day(s) flagged:\n" + d.loc[d["Flag"].notna(), "Flag"].to_string())
+    return d, n
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
     old = read_sheet(args.out, "Daily")
     today = date.today()
+    if not old.empty and "Flag" in old:   # flagged (blanked) days: fetch again in case RID has corrected them
+        old = old[old["Flag"].isna()]
     have = set(old.index.date) if not old.empty else set()
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS)}
     todo = [d for d in (DATA_START + timedelta(days=k) for k in range((today - DATA_START).days + 1))
@@ -113,10 +147,18 @@ def run_batch(todo, out_path):
             out(f"  {d}: {len(tot)} days fetched")
         time.sleep(0.2)
     new = pd.DataFrame.from_dict(tot, orient="index").round(2)
+    old_flag = pd.Series(dtype=object)
+    if not old.empty and "Flag" in old:   # flagged days: re-checked below if re-fetched, else keep their flag
+        old_flag = old["Flag"].dropna()
+        old = old.drop(columns="Flag")
     daily = new if old.empty else (old if new.empty else
                                    pd.concat([old[~old.index.isin(new.index)], new]).sort_index())
     if daily.empty:
         raise SystemExit("No RID data")
+    daily, n_flag = validate(daily)
+    keep = old_flag[~old_flag.index.isin(new.index) & daily.reindex(old_flag.index)["Flag"].isna().values]
+    daily.loc[keep.index, "Flag"] = keep
+    n_flag = int(daily["Flag"].notna().sum())
     dam = pd.DataFrame(per_dam).T.rename(columns=lambda c: names.get(c, c)) if per_dam else pd.DataFrame()
     dam = dam if old_dam.empty else (old_dam if dam.empty else
                                      pd.concat([old_dam[~old_dam.index.isin(dam.index)], dam]).sort_index())
@@ -127,18 +169,26 @@ def run_batch(todo, out_path):
         "Million m3 (mcm). Daily: totals of the RID large reservoirs - Volume_mcm (water in storage), "
         "Normal_storage_mcm (storage at normal high water level), Pct_full = Volume / Normal storage; Usable_volume_mcm "
         "= volume above dead storage, Pct_usable = usable / active storage; Inflow / Outflow mcm per day; Reservoirs = "
-        "number reporting that day (35).",
+        "number reporting that day (35). Flag = why a day's values were blanked (see VALIDATION).",
         "By dam: volume per reservoir (names in Thai as published), last 400 days.",
         "",
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}. The 35 large reservoirs (RID and "
         "EGAT), which hold most of Thailand's stored water, including the hydropower reservoirs.",
         "",
+        "VALIDATION",
+        f"A day whose Pct_full is outside {PCT_RANGE[0]}-{PCT_RANGE[1]}% or more than {PCT_JUMP} points from the centred "
+        f"7-day median is blanked (all totals), and an inflow more than {INFLOW_SPIKE}x its centred 15-day median is "
+        f"blanked; the reason is in Flag ({n_flag} day(s) now). RID's daily totals occasionally carry a corrupt day "
+        "(718% full on 2021-09-10, 3.1% on 2026-02-17, inflow 11,252 mcm/d on 2023-01-24). Flagged days are fetched "
+        "again on each run.",
+        "",
         "SOURCE",
         "Royal Irrigation Department (RID), reservoir database: https://app.rid.go.th/reservoir/ "
         "(API https://app.rid.go.th/reservoir/api/dam/public/<date>).",
     ]
-    xlsx_notes.write_workbook(out_path, {"Daily": daily, "By dam": dam}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    xlsx_notes.write_workbook(out_path, {"Daily": daily, "By dam": dam}, notes,
+                              {"UNITS", "COVERAGE", "VALIDATION", "SOURCE"})
     out(f"Saved {out_path}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
     out(daily.tail(3).to_string())
 

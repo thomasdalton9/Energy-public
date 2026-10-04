@@ -63,6 +63,38 @@ OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "philippines_power_
 MIX_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "philippines_power_generation_daily.xlsx")
 FUELS_CSV = os.path.join(ROOT, "asia", "philippines_resource_fuels.csv")
 FUELS = ["Coal", "Gas", "Oil", "Hydro", "Geothermal", "Solar", "Wind", "Bioenergy", "Storage", "Unmapped"]
+# WESM offer cap, PHP/MWh: a daily average above it cannot be a valid price. Raw (DIPCER) prices in Visayas and
+# Mindanao run 3-10x the final (DIPCEF) ones on some days (e.g. 4 Aug 2026 Visayas SMP 79,024 raw vs 7,882 final).
+OFFER_CAP = 32000
+PRICE_COLS = [f"{r}_{k}_PHP_per_MWh" for r in ("Luzon", "Visayas", "Mindanao") for k in ("SMP", "LMP_genweighted")] \
+    + ["Philippines_LMP_genweighted_PHP_per_MWh"]
+
+
+def price_checks(pri):
+    """Price_source per day ('final' = DIPCEF, 'provisional' = DIPCER). On provisional days every price is also kept
+    in <col>_provisional, and the main column is blanked where it exceeds OFFER_CAP (the Philippines average too,
+    when any region is blanked). Idempotent: the main columns are rebuilt from <col>_provisional on every run."""
+    if pri.empty:
+        return pri
+    p = pri.copy()
+    prov = p.get("Price_source", pd.Series(index=p.index, dtype=object)).eq("provisional")
+    cols = [c for c in PRICE_COLS if c in p]
+    for c in cols:
+        pc = f"{c}_provisional"
+        if pc in p:   # restore the raw value saved on an earlier run
+            p.loc[prov, c] = p.loc[prov, c].where(p.loc[prov, pc].isna(), p.loc[prov, pc])
+        p[pc] = p[c].where(prov)
+    over = pd.DataFrame({c: prov & (p[c] > OFFER_CAP) for c in cols if not c.startswith("Philippines")})
+    for c in over:
+        p.loc[over[c], c] = float("nan")
+    if "Philippines_LMP_genweighted_PHP_per_MWh" in p:
+        p.loc[over.any(axis=1), "Philippines_LMP_genweighted_PHP_per_MWh"] = float("nan")
+    if over.values.any():
+        out(f"  provisional prices above the {OFFER_CAP:,} PHP/MWh offer cap blanked on {int(over.any(axis=1).sum())} "
+            "day(s): " + ", ".join(f"{k:%Y-%m-%d} {'/'.join(c.split('_')[0] + '_' + c.split('_')[1] for c in over.columns if over.at[k, c])}"
+                                   for k in over.index[over.any(axis=1)]))
+    order = [c for c in p.columns if not c.endswith("_provisional") and c != "Price_source"]
+    return p[order + ["Price_source"] + [f"{c}_provisional" for c in cols]]
 
 
 def out(*a):
@@ -221,6 +253,7 @@ def merge(old, new):
 def write(out_path, dem, pri):
     if dem.empty and pri.empty:
         raise SystemExit("No IEMOP data")
+    pri = price_checks(pri)
     dem.index.name = pri.index.name = "date"
     notes = [
         "UNITS",
@@ -231,6 +264,12 @@ def write(out_path, dem, pri):
         "Daily prices: PHP/MWh (Philippine pesos). <Region>_SMP = time-weighted average of the 5-minute system "
         "marginal price; <Region>_LMP_genweighted = locational marginal price weighted by each resource's scheduled "
         "generation; Philippines_LMP_genweighted = the same across all regions.",
+        "Price_source = 'final' (DIPCEF, after IEMOP's price review, about 5-6 weeks after the day) or 'provisional' "
+        "(DIPCER, raw; replaced by the final file once listed). Raw Visayas / Mindanao prices can run 3-10x the final "
+        f"ones (4 Aug 2026 Visayas SMP 79,024 raw vs 7,882 final), so on provisional days a price above the "
+        f"{OFFER_CAP:,} PHP/MWh WESM offer cap is left blank (and so is Philippines_LMP_genweighted that day); every "
+        "provisional value is kept as published in <col>_provisional. Provisional prices below the cap can still "
+        "be revised; use final days for analysis.",
         "",
         "COVERAGE",
         (f"Demand from {dem.index.min():%Y-%m-%d} to {dem.index.max():%Y-%m-%d}; " if not dem.empty else "") +
@@ -315,6 +354,12 @@ def main():
     args = ap.parse_args()
     old_d, old_p = read_sheet(args.out, "Daily demand"), read_sheet(args.out, "Daily prices")
     old_m = read_sheet(args.mix_out, "Daily")
+    if not old_p.empty:   # days saved before Price_source existed: same fetch as the mix workbook's Source
+        src_m = old_m["Source"].map({"DIPCEF": "final", "DIPCER": "provisional"}) if "Source" in old_m else None
+        if "Price_source" not in old_p:
+            old_p["Price_source"] = None
+        if src_m is not None:
+            old_p["Price_source"] = old_p["Price_source"].fillna(src_m.reindex(old_p.index))
     yesterday = date.today() - timedelta(days=1)
     revise = {yesterday - timedelta(days=k) for k in range(REVISION_DAYS)}
 
@@ -352,7 +397,8 @@ def main():
         src, ts = source(d), pd.Timestamp(d)
         if d > yesterday or src is None:
             continue
-        need_price = d in revise or old_p.empty or ts not in old_p.index
+        need_price = (d in revise or old_p.empty or ts not in old_p.index
+                      or (src == "DIPCEF" and old_p["Price_source"].get(ts) != "final"))
         need_mix = (ts not in old_m.index or (src == "DIPCEF" and saved_src.get(ts) != "DIPCEF")
                     or (src == "DIPCER" and d in revise) or saved_n.get(ts, 0) < 280)
         if need_price or need_mix:
@@ -387,6 +433,7 @@ def main():
                 row[f"{reg}_LMP_genweighted_PHP_per_MWh"] = y["LMP_w"].sum() / y["MW"].sum() if y["MW"].sum() else None
             row["Philippines_LMP_genweighted_PHP_per_MWh"] = x["LMP_w"].sum() / x["MW"].sum() if x["MW"].sum() else None
             row["Intervals"] = x["t"].nunique()
+            row["Price_source"] = "final" if src == "DIPCEF" else "provisional"
             prow[ts] = row
         if n % 10 == 0 or n == len(todo) - 1:
             out(f"  {d} ({src})")

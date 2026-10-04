@@ -396,6 +396,7 @@ def build(raw):
         for c in ("Vietnam", "Thailand", "Laos"):
             row[f"Imports_{c}_MWh"] = iv[c]
         row["Imports_Laos_EDC_hydro_MWh"] = laos_plant * 1000 if laos_plant else None
+        row["Laos_EDC_hydro_estimated"] = (src == "Salient") if laos_plant else None   # True: last reported output
         row["Imports_HV_MWh"] = sum(v for v in hv if v) * 1000 + (laos_plant or 0) * 1000 if any(hv) else None
         row["Imports_MV_MWh"] = sum(v for v in mv if v) * 1000 if any(mv) else None
         row["Supply_MWh"] = row["Total_MWh"] + row["Imports_MWh"] if row["Imports_MWh"] is not None else None
@@ -467,6 +468,13 @@ def main():
             if abs(diff) > max(1.0, 0.01 * g):
                 out(f"  WARNING {y.year}: types sum {(r['Total_MWh'] + laos) / 1000:,.1f} GWh vs generation in Cambodia "
                     f"{g:,.1f}")
+    # consistency: imports by country, by voltage and supply must agree (all include EDC's Lao plant)
+    for y, r in daily.iterrows():
+        hvmv = r[["Imports_HV_MWh", "Imports_MV_MWh"]]
+        if hvmv.notna().all() and abs(hvmv.sum() - r["Imports_MWh"]) > 1000:
+            out(f"  WARNING {y.year}: HV + MV imports {hvmv.sum() / 1000:,.1f} GWh vs imports {r['Imports_MWh'] / 1000:,.1f}")
+        if pd.notna(r["Supply_MWh"]) and abs(r["Total_MWh"] + r["Imports_MWh"] - r["Supply_MWh"]) > 1000:
+            out(f"  WARNING {y.year}: supply is not generation + imports")
     out((daily[["Total_MWh", "Imports_MWh", "Supply_MWh"]] / 1000).round(1).to_string())
     out(daily.tail(3).T.to_string())
     files = [f"{STAMP}{n} | Last-Modified: {lm}" for n, lm in sorted(stamps.items())]
@@ -477,12 +485,16 @@ def main():
         "Wind and Other are 0 (none in Cambodia). Total_MWh = their sum = domestic generation sent out by licensees.",
         "Imports_MWh = Imports_Vietnam + Imports_Thailand + Imports_Laos (HV grid links plus MV border supplies; "
         "Imports_HV_MWh / Imports_MV_MWh split them), not in Total_MWh. Supply_MWh = Total_MWh + Imports_MWh (EAC's "
-        "'total energy available').",
+        "'total energy available'). Imports_Laos_MWh, Imports_MWh, Imports_HV_MWh and Supply_MWh all INCLUDE EDC's "
+        "Lao hydro plant (e.g. 2024: Laos 2,872 GWh = 16.6 GWh at HV/MV in EAC's import table + 2,855.7 GWh plant; "
+        "imports 4,525 = Vietnam 921 + Thailand 731 + Laos 2,872 = HV 4,052 + MV 472; supply 20,005 = generation "
+        "15,481 + imports 4,525 = EAC's generation in Cambodia 18,336 + table imports 1,669); Total_MWh never does.",
         "Imports_Laos_EDC_hydro_MWh: from 2024 EAC counts EDC's dedicated hydro plant in Laos (460 MW, wired to the "
         "Cambodian grid) as EDC generation; here it is moved to imports from Laos so Hydro_MWh is Cambodian plants "
         "only (until 2023 EAC itself listed this energy as 'import from Laos at HV'). For a year from the salient "
         "features (which do not split it out) the plant's last reported output is used - an ESTIMATE, flagged on "
-        "the Basis sheet, replaced when that year's annual report appears (Ember makes the same adjustment).",
+        "the Basis sheet and by Laos_EDC_hydro_estimated = True, replaced when that year's annual report appears "
+        "(Ember makes the same adjustment). This is why 2025 shows the same plant output as 2024.",
         "IPP_MWh / EDC_MWh / Other_licensees_MWh: energy sent out by type of licensee (EDC excludes the Lao plant).",
         "Solar_rooftop_MWh: rooftop solar (EAC salient features, from 2024), not in Total_MWh.",
         "Monthly: installed capacity at the end of each year, MW (one row per year; sheet named for the standard "
