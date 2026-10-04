@@ -74,7 +74,9 @@ Standing instructions from the repo owner. Follow these on every change.
   (argentina_aic_snapshot.yml; the full Argentina hydro pull is 1st/15th), Canada IESO (rolling 'today' XML),
   Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS ('today' only), Australia gas hub prices
   (au_sttm_prices.yml: AEMO STTM report INT651 holds about a week, DWGM about 14 days), Philippines dam levels
-  (philippines_dam_levels.yml: PAGASA posts only today's and yesterday's readings). Masters rebuild on the
+  (philippines_dam_levels.yml: PAGASA posts only today's and yesterday's readings), Pakistan reservoirs
+  (pakistan_reservoirs.yml: IRSA keeps only ~8 daily reports), Nepal (nepal_power.yml: NEA's home-page energy panel
+  has no history; the NDOR report PDFs are read only on the 1st/15th). Masters rebuild on the
   1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
   source has no history.
 - Incremental: backfill gaps only, don't re-pull complete history each run.

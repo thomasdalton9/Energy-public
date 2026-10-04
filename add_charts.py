@@ -1902,6 +1902,8 @@ REGISTRY = {
                                                           "Aayog ICED renewables)",
                                                           "India peak demand met and average demand (Grid-India via "
                                                           "NITI Aayog ICED)"),
+    "nepal_power_generation_daily.xlsx": power_and_demand("Nepal power generation (NEA Load Dispatch Centre, hydro)",
+                                                          "Nepal peak demand (NEA LDC)"),
     "philippines_power_generation_daily.xlsx": power_and_demand("Philippines power generation by fuel (IEMOP WESM "
                                                                 "schedules; geothermal in Other)",
                                                                 "Philippines WESM demand (IEMOP)"),
