@@ -273,6 +273,7 @@ def main():
         if new.empty:
             print(f"{label}: no rows from {fs}", flush=True)
             continue
+        new.index = pd.DatetimeIndex(new.index).astype("datetime64[ns]")
         combined = combined.reindex(combined.index.union(new.index))
         for c in cols:
             if c in new:
