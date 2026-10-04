@@ -74,6 +74,7 @@ RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
        ("CH", "Switzerland (Swissgrid)", "switzerland_swissgrid_power_daily.xlsx", "Daily", "power"),
+       ("NL", "Netherlands (CBS)", "netherlands_cbs_power_daily.xlsx", "Daily", "power"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
        ("IE", "Ireland (EirGrid)", "ireland_eirgrid_system_data.xlsx", "Daily", "EirGrid"),
@@ -85,9 +86,11 @@ PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "p
                   ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "flows")]
 FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
 # Raw national generation feeds that replace a country's ENTSO-E workbook (same Daily layout)
-GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx"}
+GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx", "Netherlands": "netherlands_cbs_power_daily.xlsx"}
 CH_BALANCE_SRC = ("Swissgrid via the Swiss Federal Office of Energy (production by carrier, national consumption); physical imports/exports and pumping consumption from the BFE monthly electricity balance",
                   "https://www.energiedashboard.ch")
+NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load and cross-border flows from ENTSO-E",
+                  "https://opendata.cbs.nl/ODataApi/odata/84575NED")
 GB_FILE = "great_britain_power_generation_daily.xlsx"
 GB_BALANCE_SRC = ("Elexon BMRS (metered generation, interconnectors) and NESO (national demand, embedded wind and solar)",
                   "https://bmrs.elexon.co.uk/")
@@ -372,7 +375,7 @@ BALANCE_COLS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Ne
 KNOWN_GAPS = {
     "Switzerland": "Generation is Swissgrid's own production by carrier (storage hydro is gross of pumped-storage output); pumping consumption, "
                    "imports and exports are BFE's monthly electricity balance spread over the days. ENTSO-E's Swiss hydro was incomplete (supply/load ~70%) and is no longer used.",
-    "Netherlands": "Embedded and rooftop solar (tens of TWh a year) is not in the ENTSO-E per-type feed: Solar shows under 1 TWh.",
+    "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days; load and flows are ENTSO-E.",
     "Germany": "Industrial self-generation and small embedded plants are not in the feed; supply is typically 4-5% below load.",
     "Italy": "Embedded/self-consumed generation is not in the feed; supply is typically 2-5% below load.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
@@ -897,6 +900,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Great Britain balance ({type(e).__name__}: {e})")
     bal_src["Switzerland"] = CH_BALANCE_SRC
+    bal_src["Netherlands"] = NL_BALANCE_SRC
     try:   # Switzerland: BFE's physical imports less exports (monthly, spread over days) replace the ENTSO-E flow sum
         ch = add_charts.by_date(add_charts.read(os.path.join(args.data_dir, GEN_OVERRIDE["Switzerland"]), "Daily"), "date")["NetImports_MWh"]
         ch = pd.to_numeric(ch, errors="coerce") / 1000.0
@@ -930,7 +934,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = {"Switzerland": "Swissgrid/BFE", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
+        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (load and flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
