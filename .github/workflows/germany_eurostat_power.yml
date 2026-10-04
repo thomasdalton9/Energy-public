@@ -1,6 +1,6 @@
-name: Germany power (Eurostat)
+name: Europe power (Eurostat: DE IT PL BG RO)
 
-# Germany monthly net generation by source (Eurostat nrg_cb_pem, Destatis data) - europe/EUROSTAT_POWER_MONTHLY.py.
+# Germany, Italy, Poland, Bulgaria, Romania monthly net generation (and, except Germany, consumption) by source (Eurostat nrg_cb_pem, Destatis data) - europe/EUROSTAT_POWER_MONTHLY.py.
 # Eurostat keeps the full history, so it runs on the 1st and 15th; the committed workbook is the history store.
 on:
   schedule:
@@ -36,7 +36,9 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          python3 add_charts.py "output/Data and Chart Outputs/germany_eurostat_power_daily.xlsx" || echo "chart step failed"
+          for c in germany italy poland bulgaria romania; do
+            python3 add_charts.py "output/Data and Chart Outputs/${c}_eurostat_power_daily.xlsx" || echo "chart step failed: $c"
+          done
           mkdir -p "output/Python Scripts"
           cp europe/EUROSTAT_POWER_MONTHLY.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
@@ -45,9 +47,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/germany_eurostat_power_daily.xlsx" || true
+          for c in germany italy poland bulgaria romania; do git add -f "output/Data and Chart Outputs/${c}_eurostat_power_daily.xlsx" || true; done
           git add -f "output/Python Scripts" || true
-          git diff --cached --quiet || git commit -m "Germany power (Eurostat): automated update"
+          git diff --cached --quiet || git commit -m "Europe power (Eurostat DE IT PL BG RO): automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))
