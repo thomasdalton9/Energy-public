@@ -50,6 +50,13 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: python3 europe/GAS_TSO_SOUTHEAST_DAILY.py --out-dir "output/Data and Chart Outputs" --only FI
 
+      - name: Pull Spain 2021-22 (Enagas bulletins)
+        timeout-minutes: 30
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/GAS_TSO_SOUTHEAST_DAILY.py --out-dir "output/Data and Chart Outputs" --only ES
+
       - name: Add Excel charts and copy scripts
         if: always()
         run: |

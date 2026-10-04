@@ -191,6 +191,77 @@ def romania(d0, d1):
     return out.dropna(subset=["RO_total"])
 
 
+# ---- Spain 2021-22: Enagas monthly statistical bulletin ------------------------------------------------------------------
+ENAGAS_PAGE = "https://www.enagas.es/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/"
+MONTHS = {"jan": 1, "ene": 1, "feb": 2, "mar": 3, "apr": 4, "abr": 4, "may": 5, "jun": 6, "jul": 7, "aug": 8, "ago": 8, "sep": 9,
+          "oct": 10, "nov": 11, "dec": 12, "dic": 12}
+ES_MONTHLY_COLS = ["ES_national", "ES_conventional", "ES_power", "source_file"]
+
+
+def _gwh(tok):
+    return float(re.sub(r"[.,]", "", tok))                     # whole GWh; '.' or ',' are thousands separators
+
+
+def parse_enagas_bulletin(content):
+    """Month, national market demand, conventional and power-generation demand (GWh) from page 3 of an Enagas monthly bulletin."""
+    import pdfplumber
+    with pdfplumber.open(io.BytesIO(content)) as pdf:
+        for pg in pdf.pages[:8]:
+            t = pg.extract_text() or ""
+            m = re.search(r"National\s+Market\s+demand\s+([\d.,]+)", t, re.I)
+            if not m:
+                continue
+            h = re.search(r"GWh\s+([A-Za-z]{3})[A-Za-z]*[-\s]*(20\d\d)", t)
+            if not h or h.group(1).lower() not in MONTHS:
+                return None
+            conv = re.search(r"^Conventional\s+([\d.,]+)", t, re.M | re.I)
+            pw = re.search(r"^Power\s+generation\s+([\d.,]+)", t, re.M | re.I)
+            return (pd.Timestamp(int(h.group(2)), MONTHS[h.group(1).lower()], 1), _gwh(m.group(1)),
+                    _gwh(conv.group(1)) if conv else float("nan"), _gwh(pw.group(1)) if pw else float("nan"))
+    return None
+
+
+def spain_monthly(start, old):
+    """Monthly national gas demand 2021-22 (and later, for checking against the daily JSON) from the Enagas bulletin archive. The
+    Enagas demand-history JSON used by TSO_GAS_DEMAND_DAILY.py is empty before 2023; the monthly bulletins (PDF) go back to 2018.
+    Bulletins already parsed (source_file) are skipped, except the newest three, which are re-read for revisions."""
+    h = {"User-Agent": UA}
+    files = {}
+    today = datetime.now(timezone.utc).date()
+    for y in range(start.year, today.year + 1):
+        for m in range(1, 13):
+            if (y, m) < (start.year, start.month) or (y, m) > (today.year, today.month):
+                continue
+            try:
+                r = get(ENAGAS_PAGE, params={"category": "", "month": m, "year": y}, headers=h)
+            except Exception as e:  # noqa: BLE001
+                print(f"  Enagas listing {y}-{m:02d}: {type(e).__name__}", flush=True)
+                continue
+            for x in re.findall(r'href="(/content/dam[^"]+\.pdf)"', r.text):
+                files.setdefault(x, (y, m))
+    print(f"  Enagas bulletins listed: {len(files)}", flush=True)
+    known = set(old["source_file"].dropna()) if "source_file" in old else set()
+    newest = {f for f, _ in sorted(files.items(), key=lambda kv: kv[1])[-3:]}
+    rows = {}
+    for f, ym in sorted(files.items(), key=lambda kv: kv[1]):
+        name = f.split("/")[-1]
+        if name in known and f not in newest:
+            continue
+        try:
+            res = parse_enagas_bulletin(get("https://www.enagas.es" + f, headers=h).content)
+        except Exception as e:  # noqa: BLE001
+            print(f"  {name}: {type(e).__name__} {str(e)[:80]}", flush=True)
+            continue
+        if res is None:
+            print(f"  {name}: demand table not found", flush=True)
+            continue
+        month, nat, conv, pw = res
+        if month < pd.Timestamp(start):
+            continue
+        rows[month] = {"ES_national": nat, "ES_conventional": conv, "ES_power": pw, "source_file": name}
+    return pd.DataFrame.from_dict(rows, orient="index", columns=ES_MONTHLY_COLS).sort_index() if rows else pd.DataFrame(columns=ES_MONTHLY_COLS)
+
+
 def read_existing(path):
     if not os.path.exists(path):
         return pd.DataFrame(columns=COLUMNS)
@@ -205,6 +276,17 @@ def read_existing(path):
         if c not in d:
             d[c] = float("nan")
     return d[COLUMNS]
+
+
+def read_monthly(path):
+    if os.path.exists(path):
+        try:
+            d = pd.read_excel(path, sheet_name="Monthly")
+            d["month"] = pd.to_datetime(d["month"], errors="coerce")
+            return d.dropna(subset=["month"]).set_index("month").sort_index()
+        except Exception:  # noqa: BLE001
+            pass
+    return pd.DataFrame(columns=ES_MONTHLY_COLS)
 
 
 def main():
@@ -242,29 +324,57 @@ def main():
                 s = new[c].dropna()
                 combined.loc[s.index, c] = s
         print(f"{label}: {len(new)} days {new.index.min():%Y-%m-%d} .. {new.index.max():%Y-%m-%d} (from {fs})", flush=True)
+    monthly = read_monthly(path)
+    if not only or "ES" in only:
+        print("Spain (Enagas bulletin): start", flush=True)
+        try:
+            new_m = spain_monthly(start, monthly)
+            if not new_m.empty:
+                monthly = monthly.reindex(monthly.index.union(new_m.index))
+                for c in ES_MONTHLY_COLS:
+                    monthly.loc[new_m.index, c] = new_m[c]
+                print(f"Spain (Enagas bulletin): {len(new_m)} months {new_m.index.min():%Y-%m} .. {new_m.index.max():%Y-%m}", flush=True)
+        except Exception as e:  # noqa: BLE001
+            print(f"Spain (Enagas bulletin): FAILED {type(e).__name__}: {e}", flush=True)
+    monthly = monthly.sort_index()
+    monthly.index.name = "month"
     combined = combined.sort_index().round(2).dropna(how="all")
     combined.index.name = "date"
-    if combined.empty:
+    if combined.empty and monthly.empty:
         print("no TSO gas demand data")
         return
     print("days per column:", combined.notna().sum().to_dict())
-    print((combined.resample("YS").sum() / 1000).round(0).T.to_string())
-    lines = ["Europe - national gas consumption from the gas TSOs' / market-area operators' own series", "",
-             "Source", "Germany: Trading Hub Europe aggregated consumption (https://www.tradinghub.eu). France: ODRE open data of GRTgaz, "
-             "Teréga and RTE (https://odre.opendatasoft.com). Spain: Enagás GTS demand history "
-             "(https://www.enagas.es/en/technical-management-system/energy-data/demand/history/). Denmark: Energinet Energi Data Service, "
-             "dataset Gasflow (https://www.energidataservice.dk). Portugal: REN DataHub (https://datahub.ren.pt). Free, no key.",
+    print((combined.resample("YS").sum() / 1000).round(1).T.to_string())
+    if not monthly.empty:
+        print((monthly[["ES_national", "ES_conventional", "ES_power"]].resample("YS").sum() / 1000).round(1).T.to_string())
+    lines = ["Europe - national gas consumption from further gas operators' own series (raw operator data, no Eurostat gap-filling)", "",
+             "Source", "Poland: Gaz-System Market Information Module, 'Actual quantity of gas transmitted' per zone "
+             "(https://swi.gaz-system.pl/mir/#/public/bil/ksp-realization; billing data, operative values for the latest days). "
+             "Romania: Transgaz 'Physical flows' table, exit points to consumers "
+             "(https://www.transgaz.ro/en/clients/operational-data/physical-flows). Finland: Gasgrid Finland 'Gas consumption in Finland' "
+             "workbook (https://gasgrid.fi/en/gas-business/transparency-and-market-information/). Spain 2021-22: Enagas monthly "
+             "statistical bulletin PDFs (https://www.enagas.es/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/); "
+             "the Enagas daily demand-history JSON used in europe_tso_gas_demand_daily.xlsx starts only in 2023. Free, no key.",
              "", "Units and definitions",
-             "GWh per gas day. DE_distribution = THE SLP (standard-profile consumers on distribution networks); DE_industry_power = THE RLM "
-             "(metered large consumers: industry and gas-fired power, not split further); DE_total = both. FR_industrial = direct industrial "
-             "connections, FR_distribution = public distribution (GRD/ELD), FR_power = gas-fired power plants (CCCG), FR_total = the three. "
-             "ES_total = Enagás national demand. DK_total = gas delivered to Denmark from the transmission system plus biogas injected "
-             "(Energinet's definition). PT_total = REN total consumption (whole GWh), split into conventional market, electricity market "
-             "(gas-fired power), distribution (GRMS) and high-pressure clients. Recent days are preliminary and restated.",
-             f"Re-fetches the last {REVISION_DAYS} days each run plus gaps; history from {args.start}.",
-             "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
-             f"{combined.index.min():%Y-%m-%d} to {combined.index.max():%Y-%m-%d}"]
-    xlsx_notes.write_workbook(path, {"Daily": combined}, lines, {"Source", "Units and definitions", "Last pull"})
+             "Sheet Daily: GWh per gas day. PL_distribution = exit to DSO networks (H and L gas); PL_final_customers = aggregated final-customer "
+             "exit points; PL_other = TSO own needs, nitrogen-removal / mixing plants and aggregated PPG points; PL_total = the three; "
+             "PL_dso_return = gas entering the grid back from DSO networks (information only, not netted). Exchange/OTC points, storage, "
+             "interconnectors and compulsory stocks are left out. RO_final_customers = final clients connected directly to the transmission "
+             "system (SM-CF001), RO_distribution = distribution systems (SM-SD001), RO_total = both (MWh at 15C/15C converted to GWh). "
+             "FI_total = Gasgrid's gas consumption in Finland (GCV). These are what the transmission operators deliver to consumers: gas "
+             "produced and consumed without entering the transmission grid is not included, so the totals sit about 8-10% (PL, RO) below "
+             "Eurostat's gross inland consumption; Finland is 20-30% below Eurostat in 2023-25 (biomethane and distribution-connected gas).",
+             "Sheet Monthly: Spain, GWh per month, from the Enagas bulletin table 'Evolution of gas demand' (month column). ES_national = "
+             "national market demand = ES_conventional (conventional market, incl. industry) + ES_power (power generation); LNG vessel "
+             "loading and international exports are excluded. source_file = the bulletin PDF the month was read from.",
+             f"Daily series re-fetch the last {REVISION_DAYS} days each run plus gaps; history from {args.start}. Bulletins already read are not downloaded again.",
+             "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; daily {len(combined)} days"
+             + (f" {combined.index.min():%Y-%m-%d} to {combined.index.max():%Y-%m-%d}" if len(combined) else "")
+             + (f"; Spain monthly {len(monthly)} months {monthly.index.min():%Y-%m} to {monthly.index.max():%Y-%m}" if len(monthly) else "")]
+    sheets = {"Daily": combined}
+    if not monthly.empty:
+        sheets["Monthly"] = monthly
+    xlsx_notes.write_workbook(path, sheets, lines, {"Source", "Units and definitions", "Last pull"})
     print(f"saved {FILE}")
 
 
