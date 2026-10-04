@@ -6,8 +6,15 @@ BPSO's public data endpoint returns one month of daily values per series (JSON, 
   https://www.bpso.bt/publicdata/energy_data/<series>/<YYYY-MM-01>
 Series pulled: generation_mwh (total generation; Bhutan's grid is almost entirely run-of-river hydro),
 energy_met_mwh (domestic consumption met), peak_demand_mw, energy_export_mwh / energy_import_mwh
-(cross-border trade with India), iex_export_mwh / iex_import_mwh (the part traded on India's IEX).
+(cross-border trade with India), iex_export_mwh / iex_import_mwh (trade on India's IEX).
 Daily values start in 2023.
+
+Trade definitions (checked against the balance generation + imports - exports = energy met): energy_export_mwh is
+TOTAL exports (its IEX part is iex_export_mwh; adding iex_export again over-counts, -2.7% vs +0.7% residual on IEX
+export days). energy_import_mwh is bilateral imports only (non-zero on ~19 days): winter imports are bought on
+IEX and appear only in iex_import_mwh. So Imports_MWh = energy_import + iex_import (total imports); the parts are
+kept as Imports_bilateral_MWh and IEX_imports_MWh. With these, generation + imports - exports matches energy met
+(median ratio 1.003 over all days, 1.000 on winter import days, 88% of those within 3%).
 
 Data checks: BPSO's daily figures carry occasional keying slips (e.g. 8,200 for 82,000 MWh). A day below
 30% (or above 4x) the centred 15-day median of its series is blanked and listed on the Flags sheet, not charted.
@@ -132,16 +139,34 @@ def main():
 
     daily = pd.DataFrame({"Hydro_MWh": clean["Generation_MWh"]})
     daily["Total_MWh"] = daily["Hydro_MWh"]
-    for c in ("Energy_met_MWh", "Exports_MWh", "Imports_MWh", "IEX_exports_MWh", "IEX_imports_MWh"):
+    for c in ("Energy_met_MWh", "Exports_MWh"):
         if c in clean:
             daily[c] = clean[c]
+    # total imports = bilateral (energy_import, rare) + IEX (where nearly all winter imports appear)
+    bil, iex = clean.get("Imports_MWh"), clean.get("IEX_imports_MWh")
+    parts = pd.DataFrame({"b": bil, "i": iex}, index=clean.index)
+    daily["Imports_MWh"] = parts.sum(axis=1, min_count=1)
+    daily["Imports_bilateral_MWh"] = parts["b"]
+    daily["IEX_imports_MWh"] = parts["i"]
+    if "IEX_exports_MWh" in clean:
+        daily["IEX_exports_MWh"] = clean["IEX_exports_MWh"]   # part of Exports_MWh, not additional
+    daily["Net_imports_MWh"] = daily["Imports_MWh"].fillna(0) - daily.get("Exports_MWh", 0).fillna(0)
+    if "Energy_met_MWh" in daily:   # generation + imports - exports - energy met (losses, auxiliary, slips)
+        daily["Balance_residual_MWh"] = (daily["Hydro_MWh"] + daily["Net_imports_MWh"] - daily["Energy_met_MWh"]).round(1)
+        q = (daily["Hydro_MWh"] + daily["Net_imports_MWh"]) / daily["Energy_met_MWh"]
+        out(f"balance check (generation + imports - exports) / energy met: median {q.median():.4f}, "
+            f"{((q - 1).abs() <= 0.03).mean():.0%} of days within 3%")
     demand = clean[["Demand_peak_MW"]] if "Demand_peak_MW" in clean else pd.DataFrame(index=clean.index)
     notes = [
         "UNITS",
         "Daily: MWh per day. Hydro_MWh = BPSO total generation (Bhutan's generation is run-of-river hydro apart from "
         "a few MW of solar, which BPSO does not report separately); Total_MWh the same. Energy_met_MWh = domestic "
-        "energy met; Exports_MWh / Imports_MWh = cross-border trade with India (IEX_* = the part traded on India's "
-        "power exchange).",
+        "energy met. Exports_MWh = total exports to India (BPSO energy_export; IEX_exports_MWh is the part sold on "
+        "India's power exchange, already inside Exports_MWh). Imports_MWh = TOTAL imports = Imports_bilateral_MWh "
+        "(BPSO energy_import, rarely non-zero) + IEX_imports_MWh (bought on IEX: nearly all winter imports). "
+        "Net_imports_MWh = Imports - Exports. Balance_residual_MWh = generation + imports - exports - energy met "
+        "(transmission losses, auxiliary use and keying slips; median ratio 1.003, 1.000 on winter import days). "
+        "Before this fix Imports_MWh held only the bilateral part.",
         "Demand: Demand_peak_MW = daily peak demand met, MW.",
         "Raw: every series as published (before the check below).",
         "Flags: values blanked because they fall below 30% (generation, energy met, peak: or above 4x) the centred 15-day median of their series - "
