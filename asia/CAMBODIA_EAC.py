@@ -37,6 +37,7 @@ import io
 import os
 import re
 import sys
+import time
 
 import pandas as pd
 import pdfplumber
@@ -270,12 +271,21 @@ def recorded_stamps(path):
 
 
 def head_lm(url):
-    try:
-        r = requests.head(url, headers=H, timeout=(20, 60), allow_redirects=True)
-        if r.status_code == 200 and "pdf" in (r.headers.get("content-type") or ""):
-            return r.headers.get("last-modified") or "unknown"
-    except requests.RequestException as e:
-        out(f"  HEAD {url}: {e}")
+    """Last-Modified of a published PDF, None if it is not there. HEAD first; a streamed GET (headers only) if the
+    server refuses HEAD or answers it oddly."""
+    for method in ("head", "get"):
+        for i in range(2):
+            try:
+                r = requests.request(method, url, headers=H, timeout=(20, 60), allow_redirects=True, stream=True)
+                r.close()
+                if r.status_code == 200 and "pdf" in (r.headers.get("content-type") or ""):
+                    return r.headers.get("last-modified") or "unknown"
+                if r.status_code == 404:
+                    return None
+                out(f"  {method.upper()} {url.rsplit('/', 1)[-1]}: HTTP {r.status_code} {r.headers.get('content-type')}")
+            except requests.RequestException as e:
+                out(f"  {method.upper()} {url.rsplit('/', 1)[-1]}: {e}")
+            time.sleep(5)
     return None
 
 
@@ -294,13 +304,20 @@ def download(url):
 
 def editions():
     ar, sf = set(), set()
-    try:
-        html = requests.get(LIST, headers=H, timeout=(20, 90)).text
-        ar = {int(y) for y in re.findall(r"Annual-Report-(\d{4})-en\.pdf", html)}
-        sf = {int(y) for y in re.findall(r"salient_feature_(\d{4})_en\.pdf", html)}
-    except requests.RequestException as e:
-        out(f"listing page: {e}")
+    for i in range(3):
+        try:
+            r = requests.get(LIST, headers=H, timeout=(20, 90))
+            ar = {int(y) for y in re.findall(r"Annual-Report-(\d{4})-en\.pdf", r.text)}
+            sf = {int(y) for y in re.findall(r"salient_feature_(\d{4})_en\.pdf", r.text)}
+            if ar:
+                break
+            out(f"listing page: HTTP {r.status_code}, {len(r.text)} chars, no report links")
+        except requests.RequestException as e:
+            out(f"listing page: {e}")
+        time.sleep(10)
     this = pd.Timestamp.today().year
+    if not ar:   # listing unreadable: try every edition's file name (2003 = the first English report)
+        ar = set(range(2003, this + 1))
     for y in (this - 1, this):   # the listing links only the newest salient features; probe the file names too
         if y not in ar:
             ar.add(y)
