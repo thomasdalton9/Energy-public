@@ -112,6 +112,16 @@ Standing instructions from the repo owner. Follow these on every change.
   Netherlands balance (Gassco's flow to Germany minus the Dornum volume from `ENTSOG_NORWAY_ENTRIES_DAILY.py` is added to its
   imports) and flags the separate DE and NL balances as excluding it. Belgium (Zeebrugge) and France (Dunkerque) capture 94-95%
   of Gassco's flows. France is about +8% and Austria far off for other, untraced reasons.
+- Every master has a "Dashboard - Long-term" page (`fundamentals.py`, called from each master): an annual summary per
+  country and the region (demand and its 10-year growth vs GDP growth, elasticity, demand and GDP per head, fuel shares,
+  wind + solar change, net imports, capacity and fleet utilisation, gas balance and import dependence, IMF 5-year GDP
+  and population outlook, degree days) and history charts from 2000 (gas from 1990). Inputs: `long_term_energy.xlsx`
+  (`LONG_TERM_ENERGY.py`: Ember yearly power 2000-, Energy Institute Statistical Review gas/oil/coal/LNG 1965-; EI via
+  curl_cffi, OWID fallback) and `macro_drivers.xlsx` (`MACRO_DRIVERS.py`: World Bank GDP/population/industry/
+  urbanisation/access, IMF WEO growth and population incl. forecasts, CDD/HDD base 18C from NASA POWER daily
+  temperature at population-weighted cities, City_T2M_daily is the incremental store). These are compiled annual
+  statistics, labelled as such: the long consistent history the raw feeds are too short to give. Country lists per
+  region and the name -> ISO3 map are in `fundamentals.py` (REGIONS, ISO3).
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
