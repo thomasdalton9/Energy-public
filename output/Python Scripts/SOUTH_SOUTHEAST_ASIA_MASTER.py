@@ -51,6 +51,9 @@ DATASETS = [
      ("Annual demand by sector", "Annual imports", "Power burn monthly (est)", "Town gas quarterly"), "gas"),
     ("BD", "Bangladesh", "bangladesh_gas.xlsx", "Daily", "gas"),
     ("TH", "Thailand", "thailand_gas.xlsx", ("Supply", "Demand"), "gas"),
+    ("PK", "Pakistan", "pakistan_gas.xlsx", ("Production", "LNG imports"), "gas"),
+    ("ID", "Indonesia", "indonesia_gas.xlsx", ("Production", "Utilisation"), "gas"),
+    ("VN", "Vietnam", "vietnam_gas.xlsx", "Production", "gas"),
 ]
 # Standard 'Daily' generation workbooks (date + <Fuel>_MWh), one per country
 RAW_POWER_DATASETS = [
@@ -150,8 +153,9 @@ SOURCES = {
     "singapore_power_prices.xlsx": ("EMC (Energy Market Company), NEMS - Uniform Singapore Energy Price (USEP)",
                                     "https://www.nems.emcsg.com/nems-prices"),
     "pakistan_power_generation_daily.xlsx": ("CPPA-G XWDISCOs Energy Purchase Data and NEPRA FCA decisions (national "
-                                             "grid), plus K-Electric's own plants and non-CPPA purchases from NEPRA's "
-                                             "KE FCA decisions and KE's monthly filings (KE partly estimated)",
+                                             "grid), plus K-Electric's own plants from NEPRA's KE FCA decisions and "
+                                             "KE filings (real figures only; months without KE are gaps, filled from "
+                                             "Ember)",
                                              "https://cppa.gov.pk/downloads/xwdiscos-energy-purchase-data"),
     "pakistan_hydro_reservoirs.xlsx": ("Indus River System Authority (IRSA), Daily Water Situation; history 2016-2024 "
                                        "from WAPDA's river flows and levels workbook",
@@ -173,6 +177,15 @@ SOURCES = {
     "philippines_dam_levels.xlsx": ("DOST-PAGASA, dam information", "https://www.pagasa.dost.gov.ph/flood"),
     "bangladesh_gas.xlsx": ("Petrobangla, daily gas & condensate production and distribution report",
                             "https://petrobangla.org.bd/pages/reports"),
+    "pakistan_gas.xlsx": ("Pakistan Bureau of Statistics, Monthly Bulletin of Statistics table 3.2 (gas production by "
+                          "field and province, DGPC data) and monthly import statements (LNG import value; no volumes "
+                          "published)", "https://www.pbs.gov.pk/publication-2/"),
+    "indonesia_gas.xlsx": ("Directorate General of Oil and Gas (Ditjen Migas, ESDM), Buku Statistik Migas tables 1.6 / "
+                           "1.7 (production by contractor, utilisation by sector)",
+                           "https://migas.esdm.go.id/post/buku-statistik-migas"),
+    "vietnam_gas.xlsx": ("National Statistics Office of Vietnam (NSO/GSO), monthly socio-economic report statistical "
+                         "tables (natural gas output)",
+                         "https://www.nso.gov.vn/bao-cao-tinh-hinh-kinh-te-xa-hoi-hang-thang/"),
     "thailand_gas.xlsx": ("EPPO (Energy Policy and Planning Office), natural gas statistics tables 3.1-1 / 3.2-2 "
                           "(data from PTT)", "https://www.eppo.go.th/data-energy-statistic/energy-statistic/gas-energy-stat/"),
     "singapore_gas.xlsx": ("EMA Singapore Energy Statistics (annual); SingStat town gas; power burn ESTIMATED from "
