@@ -202,22 +202,42 @@ def _gwh(tok):
     return float(re.sub(r"[.,]", "", tok))                     # whole GWh; '.' or ',' are thousands separators
 
 
+FULL_MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
+
 def parse_enagas_bulletin(content):
-    """Month, national market demand, conventional and power-generation demand (GWh) from page 3 of an Enagas monthly bulletin."""
+    """Month, national market demand, conventional and power-generation demand (GWh) from the 'Evolution of gas demand' table of an
+    Enagas monthly bulletin. Two layouts exist: a clean text table ('National Market demand 26.953 ...', month in the 'GWh May-2021'
+    header) and one whose PDF text comes out letter-spaced in table order; for the latter the month is taken from the title page and
+    the first three numbers after the 'Month' column header are national, conventional and power (checked: national = conv + power)."""
     import pdfplumber
     with pdfplumber.open(io.BytesIO(content)) as pdf:
-        for pg in pdf.pages[:8]:
-            t = pg.extract_text() or ""
-            m = re.search(r"National\s*Market\s*demand\s*([\d.,]+)", t, re.I)
-            if not m:
-                continue
-            h = re.search(r"GWh\s*([A-Za-z]{3})[A-Za-z]*[-\s]*(20\d\d)", t)
-            if not h or h.group(1).lower() not in MONTHS:
-                return None
-            conv = re.search(r"^Conventional\s*([\d.,]+)", t, re.M | re.I)
-            pw = re.search(r"^Power\s*generation\s*([\d.,]+)", t, re.M | re.I)
-            return (pd.Timestamp(int(h.group(2)), MONTHS[h.group(1).lower()], 1), _gwh(m.group(1)),
-                    _gwh(conv.group(1)) if conv else float("nan"), _gwh(pw.group(1)) if pw else float("nan"))
+        pages = [pg.extract_text() or "" for pg in pdf.pages[:8]]
+    for t in pages:
+        m = re.search(r"National\s*Market\s*demand\s*([\d.,]+)", t, re.I)
+        if not m:
+            continue
+        h = re.search(r"GWh\s*([A-Za-z]{3})[A-Za-z]*[-\s]*(20\d\d)", t)
+        if not h or h.group(1).lower() not in MONTHS:
+            break
+        conv = re.search(r"^Conventional\s*([\d.,]+)", t, re.M | re.I)
+        pw = re.search(r"^Power\s*generation\s*([\d.,]+)", t, re.M | re.I)
+        return (pd.Timestamp(int(h.group(2)), MONTHS[h.group(1).lower()], 1), _gwh(m.group(1)),
+                _gwh(conv.group(1)) if conv else float("nan"), _gwh(pw.group(1)) if pw else float("nan"))
+    title = re.search(r"(" + "|".join(FULL_MONTHS) + r")\s*(20\d\d)", pages[0].lower()) if pages else None
+    if not title:
+        return None
+    month = pd.Timestamp(int(title.group(2)), FULL_MONTHS.index(title.group(1)) + 1, 1)
+    for t in pages[1:6]:
+        lines = [re.sub(r"\s+", "", ln) for ln in t.split("\n")]
+        idx = next((i for i, ln in enumerate(lines) if ln.startswith("Month")), None)
+        if idx is None:
+            continue
+        nums = [ln for ln in lines[idx + 1:] if re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*", ln)]
+        if len(nums) >= 3:
+            nat, conv, pw = (_gwh(x) for x in nums[:3])
+            if abs(nat - conv - pw) <= 5:
+                return month, nat, conv, pw
     return None
 
 
