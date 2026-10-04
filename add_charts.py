@@ -1832,6 +1832,9 @@ REGISTRY = {
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
     "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
                                                              "Malaysia (Peninsular) system demand (GSO)"),
+    "vietnam_power_generation_daily.xlsx": power_and_demand("Vietnam power generation by source (EVN / NSMO daily; "
+                                                            "rooftop solar estimated)",
+                                                            "Vietnam peak demand (EVN / NSMO)"),
     "sri_lanka_power_generation_daily.xlsx": power_and_demand("Sri Lanka power generation by source (PUCSL / CEB)",
                                                               "Sri Lanka total dispatch (PUCSL / CEB)"),
     "singapore_power_generation_daily.xlsx": power_and_demand("Singapore power generation by type (EMC / NEMS metered)",

@@ -111,6 +111,9 @@ SOURCES = {
                                                "https://erp.powergrid.gov.bd/w/generations/view_generations"),
     "sri_lanka_power_generation_daily.xlsx": ("PUCSL GenData (Public Utilities Commission of Sri Lanka), actual "
                                               "system dispatch", "https://gendata.pucsl.gov.lk/"),
+    "vietnam_power_generation_daily.xlsx": ("EVN daily national power-system operation summary (data from NSMO); "
+                                            "rooftop solar is NSMO's estimate",
+                                            "https://www.evn.com.vn/vi-VN/news-l/Thong-tin-tom-tat-van-hanh-HTD-Quoc-gia-60-2015"),
     "bhutan_power_generation_daily.xlsx": ("BPSO (Bhutan Power System Operator), energy data",
                                            "https://www.bpso.bt/home/energy"),
     "thailand_power_generation_daily.xlsx": ("EPPO (Energy Policy and Planning Office), electricity statistics "
