@@ -40,6 +40,7 @@ sys.path.insert(0, os.path.join(ROOT, "south_america"))
 sys.path.insert(0, os.path.join(ROOT, "europe"))
 import add_charts  # noqa: E402
 import capacity_factors  # noqa: E402
+import fundamentals  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
 from europe_countries import COUNTRIES  # noqa: E402
@@ -969,6 +970,11 @@ def main():
     cf_dash = wb.create_sheet("Dashboard - Capacity factors", 2)
     sam.draw_dashboard(cf_dash, "Europe - capacity factor by generation type (generation / capacity x hours)",
                        [c for c, _ in cf_countries], [r for _, r in cf_countries], cf_missing)
+
+    # long-term fundamentals: annual history (Ember yearly, EI Statistical Review, World Bank, IMF, degree days)
+    fundamentals.add_long_term_dashboard(wb, used, sam.sheet_name, "Europe", args.data_dir, sam.CHART_W, sam.CHART_H,
+                                         rows_per_chart=sam.ROWS_PER_CHART, degree_days=("HDD_18", "CDD_18"),
+                                         index=sum(s.startswith("Dashboard") for s in wb.sheetnames))
 
     src = wb.create_sheet("Sources")
     src.append(["Country", "Dataset", "Workbook", "Publisher", "Link", "Units and notes (from the source workbook)"])
