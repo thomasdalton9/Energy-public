@@ -77,11 +77,6 @@ RAW_POWER_DATASETS = (
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
        ("CH", "Switzerland (Swissgrid)", "switzerland_swissgrid_power_daily.xlsx", "Daily", "power"),
        ("NL", "Netherlands (CBS)", "netherlands_cbs_power_daily.xlsx", "Daily", "power"),
-       ("DE", "Germany (Eurostat/Destatis)", "germany_eurostat_power_daily.xlsx", "Daily", "power"),
-       ("IT", "Italy (Eurostat/Terna)", "italy_eurostat_power_daily.xlsx", "Daily", "power"),
-       ("PL", "Poland (Eurostat)", "poland_eurostat_power_daily.xlsx", "Daily", "power"),
-       ("BG", "Bulgaria (Eurostat)", "bulgaria_eurostat_power_daily.xlsx", "Daily", "power"),
-       ("RO", "Romania (Eurostat)", "romania_eurostat_power_daily.xlsx", "Daily", "power"),
        ("DK", "Denmark (Energinet load)", "denmark_energinet_load_daily.xlsx", "Daily", "consumption"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
@@ -94,19 +89,13 @@ PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "p
                   ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "flows")]
 FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
 # Raw national generation feeds that replace a country's ENTSO-E workbook (same Daily layout)
-GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx", "Netherlands": "netherlands_cbs_power_daily.xlsx",
-                "Germany": "germany_eurostat_power_daily.xlsx", "Italy": "italy_eurostat_power_daily.xlsx",
-                "Poland": "poland_eurostat_power_daily.xlsx", "Bulgaria": "bulgaria_eurostat_power_daily.xlsx",
-                "Romania": "romania_eurostat_power_daily.xlsx"}
+GEN_OVERRIDE = {"Switzerland": "switzerland_swissgrid_power_daily.xlsx", "Netherlands": "netherlands_cbs_power_daily.xlsx"}
 CH_BALANCE_SRC = ("Swissgrid via the Swiss Federal Office of Energy (production by carrier, national consumption); physical imports/exports and pumping consumption from the BFE monthly electricity balance",
                   "https://www.energiedashboard.ch")
 NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load = CBS consumption incl. losses; cross-border flows from ENTSO-E (they match CBS imports/exports)",
                   "https://opendata.cbs.nl/ODataApi/odata/84575NED")
 # Raw national load that replaces ENTSO-E's 'actual total load' (generation by fuel and flows stay ENTSO-E)
 LOAD_OVERRIDE = {"Denmark": "denmark_energinet_load_daily.xlsx"}
-DE_BALANCE_SRC = ("Eurostat nrg_cb_pem monthly net generation by fuel (Destatis: all producers incl. industrial self-generation and rooftop PV) to the latest published month, ENTSO-E daily values after it; "
-                  "load, pumped storage and cross-border flows from ENTSO-E",
-                  "https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_pem")
 DK_BALANCE_SRC = ("ENTSO-E generation and flows; load = Energinet settlement gross consumption (incl. grid losses and power-to-heat), which ENTSO-E's Danish load omits",
                   "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
 GB_FILE = "great_britain_power_generation_daily.xlsx"
@@ -186,14 +175,6 @@ for _code, (_name, _slug, _zones) in COUNTRIES.items():
     SOURCES[f"{_slug}_power_capacity.xlsx"] = ("ENTSO-E Transparency Platform: installed capacity per production type",
                                                "https://transparency.entsoe.eu/")
 
-SOURCES["germany_eurostat_power_daily.xlsx"] = ("Eurostat nrg_cb_pem net electricity generation by type of fuel, monthly (Destatis for Germany: all producers incl. "
-                                                "industrial self-generation and rooftop PV; ENTSO-E after the latest published month)",
-                                                "https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_pem")
-for _c, _n in (("italy", "Italy (Terna)"), ("poland", "Poland"), ("bulgaria", "Bulgaria"), ("romania", "Romania")):
-    SOURCES[f"{_c}_eurostat_power_daily.xlsx"] = (
-        f"Eurostat nrg_cb_pem net electricity generation by type of fuel and nrg_cb_em monthly balance ({_n}: national statistics compiled by Eurostat); "
-        "load = 'available to internal market' + distribution losses; ENTSO-E after the latest published month",
-        "https://ec.europa.eu/eurostat/databrowser/view/nrg_cb_em")
 SOURCES["denmark_energinet_load_daily.xlsx"] = ("Energinet, Energi Data Service: ProductionConsumptionSettlement (gross consumption, production, exchanges)",
                                                 "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
 
@@ -410,21 +391,13 @@ KNOWN_GAPS = {
     "Switzerland": "Generation is Swissgrid's own production by carrier (storage hydro is gross of pumped-storage output); pumping consumption, "
                    "imports and exports are BFE's monthly electricity balance spread over the days. ENTSO-E's Swiss hydro was incomplete (supply/load ~70%) and is no longer used.",
     "Netherlands": "Generation is CBS monthly production by source (including rooftop solar) spread evenly over the days. Load is CBS consumption incl. distribution losses (ENTSO-E load is 10% lower in 2021-22, equal within 1% in 2024-25), so supply vs load closes by construction; flows are ENTSO-E and match CBS.",
-    "Germany": "Generation is Eurostat's monthly net generation by fuel (Destatis, all producers incl. industrial self-generation and rooftop PV; +3% on ENTSO-E, 441 vs 429 TWh in 2024) up to the latest published month "
-               "(about 2.5 months behind), ENTSO-E after it; supply is 98-99.6% of load in 2022-25 on the Eurostat basis, 95-97% on the ENTSO-E days. Load, pumping and flows are ENTSO-E.",
-    "Italy": (
-        "Generation is Eurostat nrg_cb_pem (Terna: 263.5 TWh net in 2024, ENTSO-E only 215-220 TWh because it omits embedded and self-consumed generation) and load is Eurostat nrg_cb_em "
-        "'available to internal market' (312 TWh in 2024 = Terna's demand; ENTSO-E's load is 273 TWh), so both sides use the same statistic; supply is 99.8-101.5% of load in 2022-25. "
-        "ENTSO-E flows and pumped storage are kept. The 2.5 months after Eurostat's last month are ENTSO-E generation and load (supply about 95%)."),
+    "Germany": "Industrial self-generation and part of the small PV and biomass fleet are not in the ENTSO-E per-type feed (Eurostat/Destatis counts 441 TWh net generation in 2024 against 429 TWh in ENTSO-E), so supply is 95-98% of load; a monthly Eurostat check is in germany_eurostat_power_daily.xlsx but is not used here.",
+    "Italy": "ENTSO-E generation (about 215-220 TWh in 2024) omits embedded and self-consumed generation (Eurostat/Terna count 263.5 TWh) and ENTSO-E load (273 TWh) omits the matching demand (Terna 312 TWh); supply is 95-98% of load. Eurostat checks are in italy_eurostat_power_daily.xlsx but are not used here.",
     "Great Britain": (
         "Load now includes station load (power stations' own use, 4.7-4.8 TWh a year = NESO TSD - ND - pumping - interconnector exports, half-hourly): Elexon FUELHH metered output is gross of it while "
         "NESO national demand excludes it, which had left supply 2-3% above load (8 TWh in 2025). Supply is now 100.2-101.2% of load in 2021-25."),
-    "Bulgaria": (
-        "Generation is Eurostat nrg_cb_pem (36.7 TWh in 2025, equal to ENTSO-E) but ENTSO-E's load (37.9 TWh in 2025) is 3 TWh above Eurostat's consumption incl. losses (34.9 TWh); the ENTSO-E flows match Eurostat's "
-        "net exports (1.3 TWh), so the 2025 gap was the load definition. Load is now Eurostat nrg_cb_em available-to-market + distribution losses: supply is 100.2-101.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 93-95%)."),
-    "Romania": (
-        "Generation is Eurostat nrg_cb_pem (46.7 TWh in 2025; ENTSO-E 47.4) and ENTSO-E's load (53.6 TWh in 2025) is 3 TWh above Eurostat's available-to-market (50.4 TWh, which equals Eurostat generation + net imports). "
-        "Load is now Eurostat nrg_cb_em: supply is 99.6-100.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 96%)."),
+    "Bulgaria": "ENTSO-E load (37.9 TWh in 2025) is about 3 TWh above Eurostat consumption incl. losses (34.9 TWh) while generation (36.7 TWh) equals Eurostat's and net exports match (1.3 TWh), so supply is 93% of load in 2025: a load-definition difference.",
+    "Romania": "ENTSO-E load (53.6 TWh in 2025) is about 3 TWh above Eurostat available-to-market (50.4 TWh) while generation matches (46.7 vs 47.4 TWh), so supply is 96% of load in 2025: a load-definition difference.",
     "Montenegro": (
         "The ENTSO-E physical flow on the Bosnia-Montenegro border (2.96 TWh BA>ME, 0.59 ME>BA in 2025) does not close either side's balance: Montenegro is oversupplied (2025 +36%) and Bosnia undersupplied (-13%). "
         "Checked in a probe (discovery_archive/europe/BALKAN_FLOWS_PROBE.py): the sign and zone mapping are right (A11 is labelled by direction), the finalised SCHEDULES (A09) are lower on BA>ME (2.23 TWh) but higher on RS>ME (1.59 vs 0.47 TWh physical): "
@@ -439,10 +412,7 @@ KNOWN_GAPS = {
     "Lithuania": "Supply is 3-4% above load since 2023, after the Baltic synchronisation changed the metered border flows.",
     "Denmark": "Load is Energinet's settlement gross consumption (incl. grid losses and 2.7 TWh of power-to-heat in 2025). ENTSO-E's Danish load is 4-7% lower, which made supply look 4-7% too high; "
                "ENTSO-E net imports match Energinet's exchanges (7.4 TWh in 2025). Remaining gap: ENTSO-E generation is about 1 TWh above Energinet's production.",
-    "Poland": (
-        "Generation is Eurostat nrg_cb_pem (155 TWh in 2024; ENTSO-E 157) and load is Eurostat nrg_cb_em available-to-market + distribution losses (155 TWh in 2024; ENTSO-E's load, 164 TWh, is a gross figure incl. station own use), "
-        "the same statistic on both sides: supply is 100.0-101.6% of load in 2022-25 (was 94% in 2022, 95% in 2023 on ENTSO-E). The PSE open-data API was not needed: the probe found endpoints his-wlk-cal/kse-load answer but "
-        "reject a 'doba' filter (field names not established), so no PSE history start was confirmed. Months after Eurostat's latest are ENTSO-E."),
+    "Poland": "ENTSO-E load (164 TWh in 2024) is a gross figure incl. station own use, above Eurostat consumption incl. losses (155 TWh) while generation is close (157 vs 155 TWh); supply is 94-95% of load in 2022-23 and 98-100% since.",
     "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
     "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
@@ -1317,7 +1287,6 @@ def main():
         power[2].append(f"Great Britain balance ({type(e).__name__}: {e})")
     bal_src["Switzerland"] = CH_BALANCE_SRC
     bal_src["Netherlands"] = NL_BALANCE_SRC
-    bal_src["Germany"] = DE_BALANCE_SRC
     try:   # Switzerland: BFE's physical imports less exports (monthly, spread over days) replace the ENTSO-E flow sum
         ch = add_charts.by_date(add_charts.read(os.path.join(args.data_dir, GEN_OVERRIDE["Switzerland"]), "Daily"), "date")["NetImports_MWh"]
         ch = pd.to_numeric(ch, errors="coerce") / 1000.0
@@ -1358,7 +1327,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Germany": "Eurostat/Destatis (load, flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Denmark": "ENTSO-E + Energinet load", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
+        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Denmark": "ENTSO-E + Energinet load", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
