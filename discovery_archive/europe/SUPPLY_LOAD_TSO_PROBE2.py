@@ -73,7 +73,7 @@ for ds, field in (("ods001", "totalload"), ("ods003", "eliagridload")):
     q = urllib.parse.urlencode({"select": f"year(datetime) as y, sum({field}) as s, count(*) as n", "group_by": "y", "order_by": "y", "limit": 20})
     j = jget(f"{B}/{ds}/records?{q}")
     print("  ", ds, field, json.dumps(j)[:700] if j else None)
-for ds in ("ods201", "ods026", "ods124", "ods160"):
+for ds in ("ods201", "ods026"):
     j = jget(f"{B}/{ds}/records?limit=2")
     print("  ", ds, json.dumps(j)[:600] if j else None)
     if not j or not j.get("results"):
@@ -91,22 +91,4 @@ for ds in ("ods201", "ods026", "ods124", "ods160"):
             for row in jj["results"]:
                 print("        ", num, row)
 
-print("\n=== SiStat electricity tables")
-r = get("https://pxweb.stat.si/SiStatData/api/v1/en/Data/")
-if r is not None and r.ok:
-    for t in r.json():
-        if re.search(r"electric|electr", t.get("text", ""), re.I):
-            print("  ", t["id"], t["text"][:110], t.get("updated"))
-
-print("\n=== link discovery")
-for u, pat in (("https://ems.rs/en/", r"bilans|balance|annual|report|potro|consum|data|statist|xls|trans"),
-               ("https://www.litgrid.eu/", r"xls|csv|balans|load|sistem|energy|data|api|statist|suvart|gamyb"),
-               ("https://www.eles.si/", r"xls|csv|poraba|podatki|data|transp|bilanc|izgub|letno")):
-    r = get(u)
-    if r is not None and r.ok:
-        seen = set()
-        for m in re.findall(r'href=["\']?([^\s"\'>]+)', r.text):
-            if m not in seen and re.search(pat, m, re.I):
-                seen.add(m)
-                print("      link", m[:150])
 sys.exit(0)
