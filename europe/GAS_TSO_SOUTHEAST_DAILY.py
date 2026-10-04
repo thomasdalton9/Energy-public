@@ -34,7 +34,7 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_tso_gas_demand_extra_daily.xlsx"
 REVISION_DAYS = 45
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "PL_dso_return", "RO_final_customers", "RO_distribution", "RO_total", "FI_total"]
+COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "PL_dso_return", "RO_final_customers", "RO_distribution", "RO_total", "HR_distribution", "HR_final_customers", "HR_total", "FI_total"]
 
 
 def get(url, tries=3, **kw):
@@ -262,6 +262,47 @@ def spain_monthly(start, old):
     return pd.DataFrame.from_dict(rows, orient="index", columns=ES_MONTHLY_COLS).sort_index() if rows else pd.DataFrame(columns=ES_MONTHLY_COLS)
 
 
+# ---- Croatia: Plinacro SUKAP -------------------------------------------------------------------------------------------
+PLIN = "https://www.sukap.plinacro.hr/pub/protoci/search"
+
+
+def croatia(d0, d1):
+    """Plinacro public data portal (SUKAP), 'Realised physical flows' (kWh/d at GCV 25C/0C) aggregated by connection type:
+    DISTRIBUTION = exits to distribution systems, END_BUYER = exits to final customers connected to the transmission system."""
+    out = {}
+    for ptype, col in (("DISTRIBUTION", "HR_distribution"), ("END_BUYER", "HR_final_customers")):
+        rec = {}
+        s = d0
+        while s <= d1:
+            e = min(s + timedelta(days=120), d1)
+            start = 0
+            while True:
+                body = {"gasDayFrom": f"{(s - timedelta(days=1)).isoformat()}T06:00:00.000+00:00", "gasDayTo": f"{e.isoformat()}T06:00:00.000+00:00",
+                        "pointType": ptype, "pointId": None, "sortFieldList": [{"property": "gasDay", "direction": "ASC"}],
+                        "page": start // 500 + 1, "start": start, "limit": 500}
+                for i in range(3):
+                    r = requests.post(PLIN, json=body, headers={"User-Agent": UA}, timeout=(15, 90))
+                    if r.ok:
+                        break
+                    time.sleep(4 * (i + 1))
+                r.raise_for_status()
+                j = r.json()
+                rows = j.get("data", [])
+                for x in rows:
+                    v = x.get("measuredGcv")
+                    if v is not None:
+                        rec[pd.Timestamp(str(x["gasDay"])[:10])] = rec.get(pd.Timestamp(str(x["gasDay"])[:10]), 0.0) + float(v) / 1e6
+                start += len(rows)
+                if not rows or start >= int(j.get("total") or 0):
+                    break
+            s = e + timedelta(days=1)
+        out[col] = pd.Series(rec, dtype=float)
+    d = pd.DataFrame(out).sort_index()
+    d = d[(d.index >= pd.Timestamp(d0)) & (d.index <= pd.Timestamp(d1))]
+    d["HR_total"] = d["HR_distribution"] + d["HR_final_customers"]
+    return d.dropna(subset=["HR_total"])
+
+
 def read_existing(path):
     if not os.path.exists(path):
         return pd.DataFrame(columns=COLUMNS)
@@ -304,6 +345,7 @@ def main():
     combined = old.copy()
     for code, label, fn, cols in (("PL", "Poland (Gaz-System)", poland, [c for c in COLUMNS if c.startswith("PL_")]),
                                   ("RO", "Romania (Transgaz)", romania, [c for c in COLUMNS if c.startswith("RO_")]),
+                                  ("HR", "Croatia (Plinacro)", croatia, [c for c in COLUMNS if c.startswith("HR_")]),
                                   ("FI", "Finland (Gasgrid)", finland, ["FI_total"])):
         if only and code not in only:
             continue
@@ -352,7 +394,8 @@ def main():
              "(https://swi.gaz-system.pl/mir/#/public/bil/ksp-realization; billing data, operative values for the latest days). "
              "Romania: Transgaz 'Physical flows' table, exit points to consumers "
              "(https://www.transgaz.ro/en/clients/operational-data/physical-flows). Finland: Gasgrid Finland 'Gas consumption in Finland' "
-             "workbook (https://gasgrid.fi/en/gas-business/transparency-and-market-information/). Spain 2021-22: Enagas monthly "
+             "workbook (https://gasgrid.fi/en/gas-business/transparency-and-market-information/). Croatia: Plinacro public data portal SUKAP, "
+             "'Realised physical flows' (https://www.sukap.plinacro.hr/pub/flow). Spain 2021-22: Enagas monthly "
              "statistical bulletin PDFs (https://www.enagas.es/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/); "
              "the Enagas daily demand-history JSON used in europe_tso_gas_demand_daily.xlsx starts only in 2023. Free, no key.",
              "", "Units and definitions",
@@ -361,6 +404,8 @@ def main():
              "PL_dso_return = gas entering the grid back from DSO networks (information only, not netted). Exchange/OTC points, storage, "
              "interconnectors and compulsory stocks are left out. RO_final_customers = final clients connected directly to the transmission "
              "system (SM-CF001), RO_distribution = distribution systems (SM-SD001), RO_total = both (MWh at 15C/15C converted to GWh). "
+             "HR_distribution = exits from the Plinacro transmission system to distribution systems, HR_final_customers = exits to final customers "
+             "connected to it, HR_total = both (kWh/d GCV 25C/0C from the Plinacro public data portal SUKAP, converted to GWh). "
              "FI_total = Gasgrid's gas consumption in Finland (GCV). These are what the transmission operators deliver to consumers: gas "
              "produced and consumed without entering the transmission grid is not included, so the totals sit about 8-10% (PL, RO) below "
              "Eurostat's gross inland consumption; Finland is 20-30% below Eurostat in 2023-25 (biomethane and distribution-connected gas).",

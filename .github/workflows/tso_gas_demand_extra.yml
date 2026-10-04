@@ -1,6 +1,6 @@
-name: Europe TSO gas demand extra (PL, FI, RO, ES early)
+name: Europe TSO gas demand extra (PL, RO, HR, FI, ES early)
 
-# National gas consumption from further operators' own series - Poland (Gaz-System), Finland (Gasgrid), Romania (Transgaz),
+# National gas consumption from further operators' own series - Poland (Gaz-System), Finland (Gasgrid), Romania (Transgaz), Croatia (Plinacro),
 # Spain 2021-22 (Enagas bulletin) - europe/GAS_TSO_SOUTHEAST_DAILY.py. All keep history, so it runs on the 1st and 15th;
 # the committed workbook is the history store.
 on:
@@ -42,6 +42,13 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: python3 europe/GAS_TSO_SOUTHEAST_DAILY.py --out-dir "output/Data and Chart Outputs" --only RO
+
+      - name: Pull Croatia (Plinacro)
+        timeout-minutes: 20
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/GAS_TSO_SOUTHEAST_DAILY.py --out-dir "output/Data and Chart Outputs" --only HR
 
       - name: Pull Finland (Gasgrid)
         timeout-minutes: 10
