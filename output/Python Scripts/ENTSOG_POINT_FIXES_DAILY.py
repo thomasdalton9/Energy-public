@@ -15,6 +15,9 @@ ENTSOG points that the main country-balance pull (ENTSOG_GAS_FLOWS_DAILY.py) cla
                               (OPAL Gastransport; also reported as Greifswald / LBTG). ENTSOG lists no far side for these points, so the main pull
                               finds no adjacent system and drops them: 620 TWh in 2021 and 314 TWh in 2022 of Russian gas, which left Germany's
                               (and the Germany + Netherlands) balance about 100 TWh a quarter short until Nord Stream stopped in Sept 2022.
+        DE_emden_oge          Emden (EPT1) entries of OGE, GUD and GTS (Norwegian gas; Thyssengas reports the same flow as GUD and is left out).
+        DE_emden_gud          Kept as a check on the Gassco-based Emden estimate in EUROPE_MASTER.emden_gap; not used by the master.
+        NL_emden_gts
     sheet "Units": source and definitions
 
 Incremental: reads the committed workbook, re-fetches the last 45 days plus any gap; history from 2021-10-04 (ENTSOG keeps ~5 years).
@@ -43,7 +46,10 @@ POINTS = {"GR_tap_imports": ("GR-TSO-0001", "ITP-00427", "entry"),
           "HU_production_exit": ("HU-TSO-0001", "PRD-00235", "exit"),
           "UK_moffat_exit": ("UK-TSO-0001", "ITP-00090", "exit"),
           "DE_greifswald_nel": ("DE-TSO-0017", "ITP-00247", "entry"),
-          "DE_greifswald_opal": ("DE-TSO-0016", "ITP-00251", "entry")}
+          "DE_greifswald_opal": ("DE-TSO-0016", "ITP-00251", "entry"),
+          "DE_emden_oge": ("DE-TSO-0009", "ITP-00080", "entry"),
+          "DE_emden_gud": ("DE-TSO-0005", "ITP-00081", "entry"),
+          "NL_emden_gts": ("NL-TSO-0001", "ITP-00160", "entry")}
 RELOAD_DAYS = 45
 
 
