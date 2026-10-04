@@ -75,6 +75,7 @@ RAW_POWER_DATASETS = (
     + [("GB", "Great Britain", "great_britain_power_generation_daily.xlsx", "Daily", "power"),
        ("CH", "Switzerland (Swissgrid)", "switzerland_swissgrid_power_daily.xlsx", "Daily", "power"),
        ("NL", "Netherlands (CBS)", "netherlands_cbs_power_daily.xlsx", "Daily", "power"),
+       ("DK", "Denmark (Energinet load)", "denmark_energinet_load_daily.xlsx", "Daily", "consumption"),
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
        ("IE", "Ireland (EirGrid)", "ireland_eirgrid_system_data.xlsx", "Daily", "EirGrid"),
@@ -91,6 +92,10 @@ CH_BALANCE_SRC = ("Swissgrid via the Swiss Federal Office of Energy (production 
                   "https://www.energiedashboard.ch")
 NL_BALANCE_SRC = ("Statistics Netherlands (CBS) electricity balance (production by source incl. rooftop solar); load = CBS consumption incl. losses; cross-border flows from ENTSO-E (they match CBS imports/exports)",
                   "https://opendata.cbs.nl/ODataApi/odata/84575NED")
+# Raw national load that replaces ENTSO-E's 'actual total load' (generation by fuel and flows stay ENTSO-E)
+LOAD_OVERRIDE = {"Denmark": "denmark_energinet_load_daily.xlsx"}
+DK_BALANCE_SRC = ("ENTSO-E generation and flows; load = Energinet settlement gross consumption (incl. grid losses and power-to-heat), which ENTSO-E's Danish load omits",
+                  "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
 GB_FILE = "great_britain_power_generation_daily.xlsx"
 GB_BALANCE_SRC = ("Elexon BMRS (metered generation, interconnectors) and NESO (national demand, embedded wind and solar)",
                   "https://bmrs.elexon.co.uk/")
@@ -162,6 +167,9 @@ for _code, (_name, _slug, _zones) in COUNTRIES.items():
     SOURCES[f"{_slug}_power_generation_daily.xlsx"] = ENTSOE
     SOURCES[f"{_slug}_power_capacity.xlsx"] = ("ENTSO-E Transparency Platform: installed capacity per production type",
                                                "https://transparency.entsoe.eu/")
+
+SOURCES["denmark_energinet_load_daily.xlsx"] = ("Energinet, Energi Data Service: ProductionConsumptionSettlement (gross consumption, production, exchanges)",
+                                                "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
 
 
 MIN_COVERAGE = 0.5          # a month whose generation/load ratio is under this share of the country's typical ratio is not usable
@@ -391,7 +399,8 @@ KNOWN_GAPS = {
     "Slovenia": "Supply is about 4% above load every year: ENTSO-E Slovenian load excludes some demand that generation and flows cover (grid losses/closed distribution systems).",
     "Serbia": "Supply is about 4% above load every year, consistent with a load definition that is net of transmission losses.",
     "Lithuania": "Supply is 3-4% above load since 2023, after the Baltic synchronisation changed the metered border flows.",
-    "Denmark": "Supply is 4-7% above load: ENTSO-E generation and the border flows (Energinet metering) agree with the neighbours, so the surplus sits in the ENTSO-E load definition.",
+    "Denmark": "Load is Energinet's settlement gross consumption (incl. grid losses and 2.7 TWh of power-to-heat in 2025). ENTSO-E's Danish load is 4-7% lower, which made supply look 4-7% too high; "
+               "ENTSO-E net imports match Energinet's exchanges (7.4 TWh in 2025). Remaining gap: ENTSO-E generation is about 1 TWh above Energinet's production.",
     "Poland": "Before 2024 supply is 5-6% below load: small embedded and industrial generation is not in the ENTSO-E feed.",
     "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
@@ -412,7 +421,7 @@ def coverage_notes(name, b):
     return out
 
 
-def country_balance(gen_path, net_imports):
+def country_balance(gen_path, net_imports, load_override=None):
     """Monthly GWh supply/demand balance for one country: generation by fuel group, net imports, pumped storage and
     batteries (discharge minus pumping/charging) and load - over the days that have load and flows."""
     d = add_charts.by_date(add_charts.read(gen_path, "Daily"), "date").apply(pd.to_numeric, errors="coerce")
@@ -427,6 +436,8 @@ def country_balance(gen_path, net_imports):
         "Pumped & battery (net)": (col("PumpedStorage_MWh").fillna(0) + col("Storage_MWh").fillna(0)
                                    - col("PumpedStorageConsumption_MWh").fillna(0) - col("StorageCharging_MWh").fillna(0)),
         "Load": col("Load_MWh")}) / 1000.0
+    if load_override is not None:   # raw national load (GWh/day) replaces the ENTSO-E load
+        day["Load"] = load_override.reindex(day.index)
     day["Net imports"] = net_imports
     day = day.dropna(subset=["Load", "Net imports", "Gas"]).fillna(0)
     day = day[day.index >= START]
@@ -923,11 +934,18 @@ def main():
         inputs = [(n, g, ch if n == "Switzerland" else x) for n, g, x in inputs]
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Switzerland net imports from BFE not available, ENTSO-E flows used ({type(e).__name__}: {e})")
+    load_ov = {}
+    for n_, f_ in LOAD_OVERRIDE.items():
+        try:
+            load_ov[n_] = pd.to_numeric(add_charts.by_date(add_charts.read(os.path.join(args.data_dir, f_), "Daily"), "date")["Load_MWh"], errors="coerce") / 1000.0
+            bal_src[n_] = DK_BALANCE_SRC
+        except Exception as e:  # noqa: BLE001
+            power[2].append(f"{n_} load override not available, ENTSO-E load used ({type(e).__name__}: {e})")
     for name, gen_path, net in inputs:
         if net is None or name == "Ireland (all-island SEM)":   # Ireland comes from EirGrid + Ember below
             continue
         try:
-            b = country_balance(gen_path, net)
+            b = country_balance(gen_path, net, load_ov.get(name))
         except Exception as e:  # noqa: BLE001
             power[2].append(f"{name} balance ({type(e).__name__}: {e})")
             continue
@@ -950,7 +968,7 @@ def main():
     except Exception as e:  # noqa: BLE001
         power[2].append(f"Ireland balance ({type(e).__name__}: {e})")
     for name, b in bal_frames.items():
-        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
+        src_label = {"Switzerland": "Swissgrid/BFE", "Netherlands": "CBS (flows ENTSO-E)", "Great Britain": "Elexon BMRS + NESO", "Denmark": "ENTSO-E + Energinet load", "Ireland": "EirGrid + Ember (net imports = demand - generation)"}.get(name, "ENTSO-E")
         total_chart(wb, used, power, None, b, [f"{name}: generation + net imports + pumped storage/batteries net vs load; "
                                                f"months with >= 75% of days (scaled to the month); {src_label}"]
                     + coverage_notes(name, b),
