@@ -4,7 +4,7 @@ Probe: independent figures to reconcile the Germany + Netherlands gas balance (E
   2. Eurostat nrg_cb_gasm balance items for DE, NL, BE (supply, imports, exports, stock change, consumption), TWh per year.
   3. CBS StatLine 86103NED (aardgasbalans, monthly): every column, annual sums.
 """
-import io
+import math
 import sys
 
 import pandas as pd
@@ -15,12 +15,23 @@ pd.set_option("display.width", 250, "display.max_rows", 500, "display.max_column
 
 
 def eurostat(ds, **flt):
-    p = [("format", "SDMX-CSV"), ("lang", "EN"), ("startPeriod", "2023-01"), ("endPeriod", "2024-12")] + [(k, v) for k, vs in flt.items() for v in (vs if isinstance(vs, list) else [vs])]
+    p = [("format", "JSON"), ("lang", "EN"), ("sinceTimePeriod", "2023-01"), ("untilTimePeriod", "2024-12")] + [(k, v) for k, vs in flt.items() for v in (vs if isinstance(vs, list) else [vs])]
     r = requests.get(EU + ds, params=p, timeout=300)
     print(ds, r.status_code, len(r.content), flush=True)
     if not r.ok:
         print(r.text[:300]); return pd.DataFrame()
-    return pd.read_csv(io.StringIO(r.text))
+    j = r.json()
+    dims, size = j["id"], j["size"]
+    idx = {d: list(j["dimension"][d]["category"]["index"]) for d in dims}
+    st = [math.prod(size[i + 1:]) for i in range(len(size))]
+    rows = []
+    for k, v in j["value"].items():
+        k = int(k)
+        c = {d: idx[d][(k // st[i]) % size[i]] for i, d in enumerate(dims)}
+        c["OBS_VALUE"] = float(v)
+        rows.append(c)
+    d = pd.DataFrame(rows)
+    return d.rename(columns={"time": "TIME_PERIOD"})
 
 
 for ds in ("nrg_ti_gasm", "nrg_te_gasm"):
