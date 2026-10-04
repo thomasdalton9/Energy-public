@@ -1735,20 +1735,25 @@ def tso_gas_demand(p):
 
 
 def tso_gas_demand_extra(p):
-    """Further TSO gas consumption (Poland Gaz-System, Romania Transgaz, Spain Enagas early years, Finland Gasgrid): monthly TWh,
-    one line per country, from the Daily sheet."""
+    """Further TSO gas consumption (Poland Gaz-System, Romania Transgaz, Finland Gasgrid, Spain Enagas bulletin): monthly TWh, one line
+    per country, from the Daily sheet (Spain from the Monthly sheet)."""
     d = by_date(read(p, "Daily"), "date")
-    names = {"PL_total": "Poland", "RO_total": "Romania", "FI_total": "Finland", "ES_total_early": "Spain (Enagas bulletin, monthly)",
-             "HR_total": "Croatia"}
+    names = {"PL_total": "Poland", "RO_total": "Romania", "FI_total": "Finland", "HR_total": "Croatia"}
     d = d[[c for c in names if c in d]]
-    if d.empty:
-        return []
-    last = d.dropna(how="all").index.max()
-    m = d.resample("MS").sum(min_count=1) / 1000.0
-    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
-        m = m[m.index < last.to_period("M").to_timestamp()]
-    m = m.dropna(how="all").rename(columns=names)
-    return [spec("Total", m, "Gas consumption: Poland, Romania, Finland (TSO data)", "TWh per month", "line")] if len(m) else []
+    m = pd.DataFrame()
+    if not d.empty:
+        last = d.dropna(how="all").index.max()
+        m = d.resample("MS").sum(min_count=1) / 1000.0
+        if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+            m = m[m.index < last.to_period("M").to_timestamp()]
+        m = m.dropna(how="all").rename(columns=names)
+    try:
+        es = by_date(read(p, "Monthly"), "month")
+        if "ES_national" in es:
+            m = m.join((es["ES_national"] / 1000.0).rename("Spain (Enagas bulletin)"), how="outer")
+    except Exception:  # noqa: BLE001
+        pass
+    return [spec("Total", m, "Gas consumption: Poland, Romania, Finland, Spain (operator data)", "TWh per month", "line")] if len(m) else []
 
 
 def ireland_eirgrid(p):
