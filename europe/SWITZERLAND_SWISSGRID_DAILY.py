@@ -32,9 +32,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 import xlsx_notes  # noqa: E402
+import daily_shape  # noqa: E402
 
 OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "switzerland_swissgrid_power_daily.xlsx"
+FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
 PROD_URL = "https://www.uvek-gis.admin.ch/BFE/ogd/104/ogd104_stromproduktion_swissgrid.csv"
 BAL_URL = "https://www.bfe-ogd.ch/ogd35/ogd35_schweizerische_elektrizitaetsbilanz_monatswerte.csv"
 CONS_URL = "https://www.uvek-gis.admin.ch/BFE/ogd/103/ogd103_stromverbrauch_swissgrid_lv_und_endv.csv"
@@ -88,22 +90,50 @@ def main():
     for c in ("PumpedStorage_MWh", "Coal_MWh", "Oil_MWh", "Bioenergy_MWh", "Storage_MWh", "PumpedStorageConsumption_MWh", "StorageCharging_MWh"):
         daily[c] = 0.0
     # Pumping: Swissgrid's Speicherkraft is gross of pumped-storage output, and the electricity used for pumping is part of what the grid
-    # supplies. BFE's monthly Swiss electricity balance (ogd35) has the pumping consumption and the physical imports/exports; they are spread
-    # evenly over the days of each month (a monthly figure, labelled as such on the Units sheet).
+    # supplies. BFE's monthly Swiss electricity balance (ogd35) has the pumping consumption and the physical imports/exports; their monthly
+    # totals are kept and given a daily shape from ENTSO-E (labelled on the Units sheet).
     pump_note = "Pumping consumption and net imports not available (BFE ogd35 download failed)"
     monthly = None
     try:
         monthly = read_csv(BAL_URL)
         monthly["month"] = pd.to_datetime(dict(year=monthly["Jahr"], month=monthly["Monat"], day=1))
         monthly = monthly.set_index("month").sort_index()
-        dim = pd.Series(daily.index.days_in_month, index=daily.index)
-        mkey = daily.index.to_period("M").to_timestamp()
-        for src, dst, sign in (("Verbrauch_Speicherpumpen_GWh", "PumpedStorageConsumption_MWh", 1.0), ("Einfuhr_GWh", "Imports_MWh", 1.0), ("Ausfuhr_GWh", "Exports_MWh", 1.0)):
-            daily[dst] = (monthly[src].reindex(mkey).to_numpy() * 1000.0 / dim.to_numpy()) * sign
-        daily["NetImports_MWh"] = daily["Imports_MWh"] - daily["Exports_MWh"]
-        daily = daily.drop(columns=["Imports_MWh", "Exports_MWh"])
+        # official BFE monthly totals keep their value exactly; the day-to-day shape comes from daily series (daily_shape.reshape):
+        #   net imports: ENTSO-E physical net imports for Switzerland (europe_cross_border_flows_daily.xlsx, 'Net imports', GWh/day), additive shift;
+        #   pumping consumption: ENTSO-E pumped-storage consumption if reported, else Swissgrid's own storage-hydro (Speicherkraft) output.
+        mon_rng = monthly.index[(monthly.index >= daily.index.min().to_period("M").to_timestamp()) & (monthly.index <= daily.index.max())]
+        full = pd.date_range(mon_rng.min(), mon_rng.max() + pd.offsets.MonthEnd(0))
+        log, devs = [], []
+        try:
+            nf = pd.read_excel(os.path.join(args.out_dir, FLOWS_FILE), sheet_name="Net imports")
+            nf["date"] = pd.to_datetime(nf["date"])
+            ch_net = pd.to_numeric(nf.set_index("date")["Switzerland"], errors="coerce") * 1000.0
+        except Exception as ex:  # noqa: BLE001
+            print("no ENTSO-E net imports shape:", ex, flush=True)
+            ch_net = None
+        try:
+            ent = pd.read_excel(os.path.join(args.out_dir, "switzerland_power_generation_daily.xlsx"), sheet_name="Daily")
+            ent["date"] = pd.to_datetime(ent["date"])
+            ch_pump = pd.to_numeric(ent.set_index("date")["PumpedStorageConsumption_MWh"], errors="coerce")
+        except Exception as ex:  # noqa: BLE001
+            print("no ENTSO-E pumping shape:", ex, flush=True)
+            ch_pump = None
+        stor = [c for c in by_type.columns if "speicher" in str(c).lower()]
+        stor_shape = by_type[stor].sum(axis=1, min_count=1) * 1000.0 if stor else None
+        off = {"PumpedStorageConsumption_MWh": monthly["Verbrauch_Speicherpumpen_GWh"] * 1000.0,
+               "NetImports_MWh": (monthly["Einfuhr_GWh"] - monthly["Ausfuhr_GWh"]) * 1000.0}
+        off = {k: v.reindex(mon_rng) for k, v in off.items()}
+        pump = daily_shape.reshape(off["PumpedStorageConsumption_MWh"], ch_pump, stor_shape, label="Switzerland pumping", log=log)
+        net = daily_shape.reshape(off["NetImports_MWh"], ch_net, None, additive=True, max_shift_ratio=1.0, label="Switzerland net imports", log=log)
+        for k, v in (("PumpedStorageConsumption_MWh", pump), ("NetImports_MWh", net)):
+            daily[k] = v.reindex(daily.index)
+            devs.append(daily_shape.check_monthly(v, off[k], k))
+        daily_shape.print_log(log)
+        print(f"BFE monthly totals kept exactly; max deviation {max(devs):.2e} MWh (before rounding)", flush=True)
+        assert max(devs) < 1e-3, f"monthly totals differ from BFE by {max(devs)} MWh"
         pump_note = ("PumpedStorageConsumption_MWh and NetImports_MWh (physical imports less exports) come from BFE's monthly Swiss electricity "
-                     "balance (ogd35), spread evenly over the days of each month")
+                     "balance (ogd35): the monthly totals are BFE's, the daily shape is ENTSO-E's physical net imports (pumping: ENTSO-E pumped-storage "
+                     "consumption where reported, else Swissgrid storage-hydro output), so each month sums exactly to the BFE figure")
     except Exception as ex:  # noqa: BLE001
         print("ogd35 failed:", ex, flush=True)
     print(pump_note, flush=True)

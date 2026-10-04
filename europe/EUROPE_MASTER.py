@@ -40,6 +40,7 @@ sys.path.insert(0, os.path.join(ROOT, "south_america"))
 sys.path.insert(0, os.path.join(ROOT, "europe"))
 import add_charts  # noqa: E402
 import capacity_factors  # noqa: E402
+import daily_shape  # noqa: E402
 import fundamentals  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
@@ -597,7 +598,8 @@ NL_CBS_GAS_FILE = "netherlands_cbs_gas_monthly.xlsx"
 
 def nl_cbs_gas(data_dir, bal):
     """Dutch production and total consumption from CBS StatLine 86103NED (NETHERLANDS_CBS_GAS.py), GWh/d on the days of `bal`, or None.
-    Each CBS month is spread evenly over its days. Days after CBS's last month take ENTSOG's value (production entries; distribution +
+    Each CBS month keeps its official total and takes its day-to-day shape from ENTSOG's Dutch production entries / consumption exits
+    (daily_shape.reshape; an even spread where ENTSOG has no usable shape). Days after CBS's last month take ENTSOG's value (production entries; distribution +
     final-consumer exits) times the CBS/ENTSOG ratio of the last twelve CBS months, so the series carries on without a step."""
     mon = _sheet_or_empty(os.path.join(data_dir, NL_CBS_GAS_FILE), "Monthly", "month")
     if not len(mon) or not {"Production_GWh", "Consumption_GWh"} <= set(mon.columns):
@@ -608,9 +610,9 @@ def nl_cbs_gas(data_dir, bal):
     end = mon.index.max() + pd.offsets.MonthEnd(0)
     for k, col in (("Production", "Production_GWh"), ("Consumption", "Consumption_GWh")):
         m = mon[col].dropna()
-        per_day = (m / m.index.days_in_month).reindex(pd.date_range(m.index.min(), m.index.max() + pd.offsets.MonthEnd(0), freq="D"), method="ffill")
-        cbs = per_day.reindex(bal.index)
         e = ent[k]
+        per_day = daily_shape.reshape(m, e, None, label=f"CBS NL gas {k}")   # official CBS month total, ENTSOG's daily shape
+        cbs = per_day.reindex(bal.index)
         last12 = per_day.index[per_day.index > end - pd.DateOffset(months=12)]
         both = pd.DataFrame({"c": per_day.reindex(last12), "e": e.reindex(last12)}).dropna()
         ratio = both["c"].sum() / both["e"].sum() if len(both) > 90 and both["e"].sum() > 0 else float("nan")
