@@ -668,7 +668,7 @@ NORWAY_ENTRIES_FILE = "entsog_norway_entries_daily.xlsx"
 
 
 def emden_gap(data_dir, nor):
-    """Norwegian gas that reaches Germany through Emden, GWh/d: Gassco's flow to Germany minus the part ENTSOG reports at Dornum.
+    """Norwegian gas that reaches Germany through Emden, GWh/d: Gassco's flow to Germany minus the part ENTSOG reports at Dornum and minus the Danish North Sea entry (Baltic Pipe gas, which Gassco books under Germany).
     ENTSOG publishes nothing at Emden (EPT1, EPT2, NPT) under any indicator, so Germany's pipeline imports in the ENTSOG pull miss it.
     Gassco days that are missing take the month's mean."""
     ent = add_charts._sheet(os.path.join(data_dir, NORWAY_ENTRIES_FILE), "Daily", "date")
@@ -678,7 +678,15 @@ def emden_gap(data_dir, nor):
     gass = nor["NO_to_DE"]
     gass = gass.fillna(gass.groupby([gass.index.year, gass.index.month]).transform("mean"))
     seen = ent[de_cols].sum(axis=1, min_count=1).reindex(gass.index).fillna(0)
-    return (gass - seen).clip(lower=0).dropna()
+    # Since Baltic Pipe (Oct 2022) Gassco books the Norwegian gas bound for Denmark/Poland/Sweden under "Germany" too: a daily regression of
+    # Gassco's Germany on Dornum and Energinet's North Sea entry gives a coefficient of 1.0 on the Danish entry (R2 0.66), none on "Other".
+    # That gas never reaches Germany (Denmark's own balance counts it), so it is taken out of the Emden add.
+    try:
+        dk = add_charts._sheet(os.path.join(data_dir, DK_FILE), "Daily", "date")["DK_from_north_sea"]
+    except Exception:  # noqa: BLE001
+        dk = ent[[c for c in ent.columns if c.startswith("DK_")]].sum(axis=1, min_count=1) if any(c.startswith("DK_") for c in ent.columns) else None
+    dk = dk.reindex(gass.index).clip(lower=0).fillna(0) if dk is not None else 0
+    return (gass - seen - dk).clip(lower=0).dropna()
 
 
 NORWAY_FILE = "norway_gassco_gas_flows_daily.xlsx"
@@ -973,7 +981,7 @@ def main():
             if len(both) >= 12:
                 total_chart(wb, used, gas, None, both, [
                     "Germany + Netherlands combined. Includes the Norwegian gas that arrives at Emden (Gassco's flow to Germany minus the Dornum "
-                    "volume ENTSOG reports); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
+                    "volume ENTSOG reports and minus the Baltic Pipe gas for Denmark/Poland that Gassco books under Germany); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
                     "Flows between the two countries are counted on both sides and do not cancel exactly."],
                             "Germany Netherlands gas balance data", "Germany + Netherlands gas balance: supply and storage vs consumption",
                             "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Germany + Netherlands", line_cols=("Consumption",))

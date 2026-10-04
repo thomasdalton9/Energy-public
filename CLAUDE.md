@@ -109,8 +109,8 @@ Standing instructions from the repo owner. Follow these on every change.
   Great Britain's is not added because the NTS offtake we use as UK consumption excludes embedded gas. Germany and Ireland have no
   operator biomethane feed. ENTSOG publishes nothing at Emden (EPT1/EPT2/NPT, any indicator, either side), so only Dornum (212 of Gassco's 649 TWh to
   Germany in 2025) is seen; the Emden gas feeds the German and Dutch grids together, so the master shows a combined Germany +
-  Netherlands balance (Gassco's flow to Germany minus the Dornum volume from `ENTSOG_NORWAY_ENTRIES_DAILY.py` is added to its
-  imports) and flags the separate DE and NL balances as excluding it. Belgium (Zeebrugge) and France (Dunkerque) capture 94-95%
+  Netherlands balance (Gassco's flow to Germany minus the Dornum volume from `ENTSOG_NORWAY_ENTRIES_DAILY.py` and minus Energinet's North Sea entry is added to its
+  imports: since Baltic Pipe, Oct 2022, Gassco books the Norwegian gas for Denmark/Poland/Sweden under Germany - a daily regression gives a coefficient of 1.0 on the Danish entry - which took the DE+NL balance from +12% to +4%) and flags the separate DE and NL balances as excluding it. Belgium (Zeebrugge) and France (Dunkerque) capture 94-95%
   of Gassco's flows. France is about +8% and Austria far off for other, untraced reasons.
   Gas balance fixes for points ENTSOG's country classification drops (`ENTSOG_POINT_FIXES_DAILY.py` -> `entsog_point_fixes_daily.xlsx`,
   applied by `point_fix_args()` in the master): Greece adds TAP's Nea Mesimvria entry (TAP's operator is listed with country GR, so it
