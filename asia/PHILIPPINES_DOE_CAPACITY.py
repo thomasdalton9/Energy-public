@@ -11,7 +11,8 @@ Based on DOE's List of Existing Power Plants as of December of each year.
 
 Writes output/Data and Chart Outputs/philippines_power_capacity.xlsx (standard capacity layout,
 south_america/power_capacity_std.py; annual rows dated 1 January of the year, holding the year-end value):
-  Monthly     installed capacity, Philippines, on grid + off grid: Coal, Oil (oil based), Gas, Hydro, Solar, Wind,
+  Monthly     installed capacity, Philippines, on grid + off grid (2021 on; the 'Grid' table, which then included
+              off-grid plant, for 2003-2020): Coal, Oil (oil based), Gas, Hydro, Solar, Wind,
               Bioenergy (biomass), Other (geothermal), Total_MW; Battery_MW (BESS) outside the total;
               Geothermal_MW detail column
   Dependable  the same for dependable capacity
@@ -87,7 +88,7 @@ def parse(content):
             grid, years = None, []
             for line in text.splitlines():
                 line = line.strip()
-                ys = re.findall(r"\b((?:19|20)\d{2})\b", line)
+                ys = re.findall(r"\b((?:19|20)\d{2})\b", re.sub(r"%\s*Share.*$", "", line))
                 head = next((g for g in GRIDS if line.startswith(g)), None)
                 if head and len(ys) >= 2:
                     grid, years = head, [int(y) for y in ys]
@@ -106,8 +107,13 @@ def parse(content):
     return pd.DataFrame(rows)
 
 
-def standard(long, measure, scope="On + off grid"):
-    d = long[(long["measure"] == measure) & (long["scope"] == scope) & (long["grid"] == "Philippines")]
+def standard(long, measure):
+    """National series: 'On + off grid' where DOE gives it (2021 on); earlier years from the 'Grid' pages, which
+    included off-grid plant until DOE separated it in 2021."""
+    nat = long[(long["measure"] == measure) & (long["grid"] == "Philippines")]
+    both = nat[nat["scope"] == "On + off grid"]
+    early = nat[(nat["scope"] == "On grid") & ~nat["year"].isin(both["year"].unique())]
+    d = pd.concat([early, both])
     if d.empty:
         return pd.DataFrame()
     w = d.pivot_table(index="year", columns="plant_type", values="MW", aggfunc="last")
@@ -144,6 +150,7 @@ def main():
     head = requests.head(pdf_url, headers=H, timeout=T, allow_redirects=True)
     lm = head.headers.get("last-modified") or head.headers.get("etag") or ""
     rel = cap_std.load_sheet(a.out, "Release")
+    rel = rel[[c for c in rel.columns if not str(c).startswith("Unnamed")]]
     last = rel.iloc[-1].fillna("").astype(str) if not rel.empty else None
     if last is not None and lm and last.get("url") == pdf_url and last.get("last_modified") == lm:
         out(f"No new release (Last-Modified {lm}); workbook unchanged")
@@ -197,8 +204,10 @@ def main():
         "Release: the PDF read and its Last-Modified date; the file is downloaded again only when these change.",
         "",
         "COVERAGE",
-        f"Annual, {monthly.index.min():%Y} to {monthly.index.max():%Y} (DOE's PDF shows the latest five years; earlier "
-        "years are kept from previous runs). Based on DOE's List of Existing Power Plants as of December of each year.",
+        f"Annual, {monthly.index.min():%Y} to {monthly.index.max():%Y}. From 2021 the national figure is DOE's 'On Grid + "
+        "Off Grid' table; earlier years come from DOE's 'Grid' table (2003 on), which included off-grid plant until DOE "
+        "separated it in 2021 (off-grid is about 0.9 GW installed, mostly oil). Years already saved are kept when DOE's "
+        "file drops them. Based on DOE's List of Existing Power Plants as of December of each year.",
         "",
         "SOURCE",
         f"Department of Energy (Philippines), Power Statistics - Installed and Dependable Capacity per Grid and per "
