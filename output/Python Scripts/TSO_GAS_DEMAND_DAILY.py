@@ -6,8 +6,8 @@ Spain has few demand points, France's and Italy's end-user offtake is not tagged
   output/Data and Chart Outputs/europe_tso_gas_demand_daily.xlsx
     sheet "Daily": date (gas day), GWh per day:
         DE_distribution, DE_industry_power, DE_total   Trading Hub Europe (THE) aggregated consumption, SLP + RLM, H- and L-gas
-        FR_industrial, FR_distribution, FR_power, FR_total   ODRE (GRTgaz / Teréga / RTE open data): industrial offtake,
-                                                              public distribution (GRD/ELD) and gas-fired power plants (CCCG)
+        FR_industrial, FR_distribution, FR_power, FR_total   ODRE (GRTgaz / Teréga / RTE open data): industrial offtake (incl. big gas-fired
+                                                              plants) + public distribution (GRD/ELD); FR_power (CCCG) is a subset of industrial
         ES_total                                     Enagás GTS national demand (the "Demand history" page's data)
         DK_total                                     Energinet: gas delivered to Denmark from the transmission system + biogas injected
         PT_total, PT_conventional, PT_power, PT_distribution, PT_high_pressure   REN DataHub daily consumption by segment
@@ -106,6 +106,13 @@ ODRE_SETS = {"FR_industrial": ("conso-journa-industriel-grtgazterega", "consomma
              "FR_power": ("conso-horaire-cccg-nat", "conso_journaliere_mwh_pcs_0degc")}
 
 
+def fr_total(df):
+    """Industrial + public distribution. The industrial dataset already contains the large gas-fired plants connected to the
+    GRTgaz/Teréga grids, so the separate CCCG series (FR_power) is a subset and is NOT added (adding it double-counted the power
+    plants: 2022 546 vs Eurostat 429 TWh; industrial + distribution gives 425)."""
+    return df[["FR_industrial", "FR_distribution"]].sum(axis=1, min_count=2)
+
+
 def france(d0, d1):
     cols = {}
     for name, (ds, field) in ODRE_SETS.items():
@@ -123,7 +130,7 @@ def france(d0, d1):
             offset += 100
         cols[name] = pd.Series(rec, dtype=float)
     out = pd.DataFrame(cols).sort_index()
-    out["FR_total"] = out[list(ODRE_SETS)].sum(axis=1, min_count=len(ODRE_SETS))
+    out["FR_total"] = fr_total(out)
     return out
 
 
@@ -251,6 +258,7 @@ def main():
                 s = new[c].dropna()
                 combined.loc[s.index, c] = s
         print(f"{label}: {len(new)} days {new.index.min():%Y-%m-%d} .. {new.index.max():%Y-%m-%d} (from {fs})", flush=True)
+    combined["FR_total"] = fr_total(combined)      # recomputed on the whole history (older runs also added FR_power)
     combined = combined.sort_index().round(2).dropna(how="all")
     combined.index.name = "date"
     if combined.empty:
@@ -266,7 +274,7 @@ def main():
              "", "Units and definitions",
              "GWh per gas day. DE_distribution = THE SLP (standard-profile consumers on distribution networks); DE_industry_power = THE RLM "
              "(metered large consumers: industry and gas-fired power, not split further); DE_total = both. FR_industrial = direct industrial "
-             "connections, FR_distribution = public distribution (GRD/ELD), FR_power = gas-fired power plants (CCCG), FR_total = the three. "
+             "connections (including the large gas-fired plants), FR_distribution = public distribution (GRD/ELD), FR_power = gas-fired power plants (CCCG, a subset of FR_industrial, shown for reference), FR_total = FR_industrial + FR_distribution. "
              "ES_total = Enagás national demand. DK_total = gas delivered to Denmark from the transmission system plus biogas injected "
              "(Energinet's definition). PT_total = REN total consumption (whole GWh), split into conventional market, electricity market "
              "(gas-fired power), distribution (GRMS) and high-pressure clients. Recent days are preliminary and restated.",
