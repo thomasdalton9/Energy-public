@@ -1,30 +1,20 @@
-"""One-off probe: can GitHub reach the Energy Institute downloads page (plain requests and curl_cffi browser
-impersonation)? Lists its data links and, if reachable, the panel CSV columns."""
+"""One-off probe: the Energy Institute downloads page answers GitHub only to a browser TLS fingerprint
+(curl_cffi). Lists every data asset linked and the sheets of the all-data workbook (LNG / pipeline trade)."""
 import io
 import re
 import pandas as pd
+from curl_cffi import requests as cr
 PAGE = "https://www.energyinst.org/statistical-review/resources-and-data-downloads"
-try:
-    from curl_cffi import requests as cr
-except ImportError:
-    cr = None
-for imp in ("chrome", "safari", "firefox"):
-    if cr is None:
-        break
-    try:
-        r = cr.get(PAGE, impersonate=imp, timeout=60)
-        print(imp, r.status_code, len(r.text))
-        if r.status_code == 200:
-            links = sorted(set(re.findall(r'href="([^"]+\.(?:csv|xlsx|xls)[^"]*)"', r.text, flags=re.I)))
-            for l in links:
-                print("LINK", l)
-            for l in links:
-                if re.search(r"panel", l, re.I) and l.lower().endswith(".csv"):
-                    x = cr.get(requests_url := ("https://www.energyinst.org" + l if l.startswith("/") else l),
-                               impersonate=imp, timeout=300)
-                    print("PANEL", x.status_code, len(x.content))
-                    d = pd.read_csv(io.BytesIO(x.content), low_memory=False, encoding_errors="replace")
-                    print(list(d.columns))
-            break
-    except Exception as e:
-        print(imp, "error", e)
+r = cr.get(PAGE, impersonate="chrome", timeout=60)
+print(r.status_code)
+for l in sorted(set(re.findall(r'href="([^"]*__data/assets[^"]*)"', r.text))):
+    print("ASSET", l)
+x = cr.get("https://www.energyinst.org/__data/assets/excel_doc/0008/1656215/EI-Stats-Review-ALL-data.xlsx",
+           impersonate="chrome", timeout=300)
+print("ALL", x.status_code, len(x.content), x.headers.get("Last-Modified"), x.headers.get("ETag"))
+xl = pd.ExcelFile(io.BytesIO(x.content))
+print("SHEETS", xl.sheet_names)
+for s in xl.sheet_names:
+    if re.search(r"lng|pipeline|trade|gas.*(prod|cons)", s, re.I):
+        print("=====", s)
+        print(pd.read_excel(xl, sheet_name=s, header=None).iloc[:8, :14].to_string(max_colwidth=30))
