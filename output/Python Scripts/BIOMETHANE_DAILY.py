@@ -102,7 +102,7 @@ def netherlands():
     d = pd.DataFrame(r.json()["value"])
     d["month"] = pd.to_datetime(d["Perioden"].str.replace("MM", "-"), format="%Y-%m")
     d = d.dropna(subset=["ProductieUitAndereBronnen_3"]).set_index("month").sort_index()
-    return pd.DataFrame({"NL_biomethane": d["ProductieUitAndereBronnen_3"].astype(float) * NL_KWH_PER_M3 / 1000.0})   # mln m3 -> GWh
+    return pd.DataFrame({"NL_biomethane": d["ProductieUitAndereBronnen_3"].astype(float) * NL_KWH_PER_M3})   # mln m3 x kWh/m3 = GWh
 
 
 # ---- storage -------------------------------------------------------------------------------------------------------------
