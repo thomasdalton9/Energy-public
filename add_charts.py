@@ -1942,8 +1942,8 @@ REGISTRY = {
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
     "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
                                                              "Malaysia (Peninsular) system demand (GSO)"),
-    "pakistan_power_generation_daily.xlsx": power_daily("Pakistan power generation by fuel (CPPA-G / NEPRA FCA filings; "
-                                                        "national grid, excl. K-Electric own plants)"),
+    "pakistan_power_generation_daily.xlsx": power_daily("Pakistan power generation by fuel, incl. K-Electric (CPPA-G / "
+                                                        "NEPRA FCA filings; KE partly estimated)"),
     "pakistan_power_hourly.xlsx": power_daily("Pakistan power generation by fuel, CPPA-G hourly plant data "
                                               "(Dec 2025 - May 2026 snapshot)"),
     "india_power_generation_daily.xlsx": power_and_demand("India power generation by source (CEA daily report + NITI "

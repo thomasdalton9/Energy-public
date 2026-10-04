@@ -207,7 +207,8 @@ def parse_utilisation(pdf):
         if not yl:
             continue
         years = [int(y) for y in re.findall(r"\b(20[12]\d)\b", yl)]
-        semester = bool(re.search(r"SM\s*T?\s*I\b|Semester", yl, re.I))
+        # a trailing 'SM I 2024' column is a half-year, not a calendar year: drop it
+        semester = bool(re.search(r"(?:SMT?|Semester)\s*I\s*(20\d\d)\s*$", yl.strip(), re.I))
         data, seen = {}, set()
         for i, l in enumerate(lines):
             if "BBTUD" not in l:
@@ -224,6 +225,7 @@ def parse_utilisation(pdf):
             if i + 1 < len(lines) and "BBTUD" not in lines[i + 1] and not re.search(r"\d", lines[i + 1]):
                 label = label + " " + lines[i + 1]
             vals = [t for t in rest.split() if NUM.match(t)]
+            label = re.sub(r"\s+", " ", label)
             for key, pat in UTIL:
                 if re.search(pat, label, re.I) and key not in seen:
                     seen.add(key)
@@ -272,7 +274,7 @@ def main():
             with pdfplumber.open(io.BytesIO(r.content)) as pdf:
                 first = (pdf.pages[0].extract_text() or "") + (pdf.pages[2].extract_text() or "" if len(pdf.pages) > 2 else "")
                 res = parse_production(pdf)
-                ut = parse_utilisation(pdf) if not re.search(r"Semester", first + name, re.I) else pd.DataFrame()
+                ut = parse_utilisation(pdf)
         except Exception as e:  # noqa: BLE001
             out(f"  {name}: {type(e).__name__}: {e}")
             continue
