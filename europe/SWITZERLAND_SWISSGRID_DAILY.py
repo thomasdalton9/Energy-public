@@ -74,7 +74,7 @@ def main():
     prod["Datum"] = pd.to_datetime(prod["Datum"], errors="coerce")
     cons["Datum"] = pd.to_datetime(cons["Datum"], errors="coerce")
     prod = prod.dropna(subset=["Datum"])
-    cons = cons.dropna(subset=["Datum"]).set_index("Datum").sort_index()
+    cons = cons.dropna(subset=["Datum"]).drop_duplicates("Datum", keep="last").set_index("Datum").sort_index()   # the file repeats some dates
     cats = sorted(prod["Energietraeger"].dropna().unique())
     print("categories:", {c: group(c) for c in cats}, flush=True)
     by_type = prod.pivot_table(index="Datum", columns="Energietraeger", values="Produktion_GWh", aggfunc="sum").sort_index()
