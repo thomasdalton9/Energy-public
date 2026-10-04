@@ -17,6 +17,7 @@ Usage: python3 DENMARK_ENERGINET_LOAD.py [--out-dir DIR] [--start 2021-01-01]
 import argparse
 import os
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 
 import pandas as pd
@@ -41,11 +42,16 @@ LOSS = ["GridLossTransmissionMWh", "GridLossInterconnectorsMWh", "GridLossDistri
 def fetch(d0, d1):
     out = []
     t = d0
-    while t < d1:   # one year per request keeps the response small
-        t2 = min(d1, t + timedelta(days=366))
-        r = requests.get(URL, params={"start": f"{t:%Y-%m-%dT00:00}", "end": f"{t2:%Y-%m-%dT00:00}", "limit": 0}, timeout=300)
+    while t < d1:   # quarter-year requests; Energi Data Service answers 429 when called quickly, so retry with a growing pause
+        t2 = min(d1, t + timedelta(days=92))
+        for attempt in range(8):
+            r = requests.get(URL, params={"start": f"{t:%Y-%m-%dT00:00}", "end": f"{t2:%Y-%m-%dT00:00}", "limit": 0}, timeout=300)
+            if r.status_code != 429:
+                break
+            time.sleep(15 * (attempt + 1))
         r.raise_for_status()
         out += r.json().get("records", [])
+        time.sleep(3)
         t = t2
     d = pd.DataFrame(out)
     if d.empty:
