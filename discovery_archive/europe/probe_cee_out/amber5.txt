@@ -1,0 +1,39 @@
+== daily_pav: 200 len=181293
+schema=[{'N': 'G0', 'T': 7}, {'N': 'G1', 'T': 1, 'DN': 'D0'}, {'N': 'M0', 'T': 3}] rows=6297
+[1609459200000, 'Domestic consumption', 84.879158]
+[1609459200000, 'Transmitted to directly connected cons.', 50.399283]
+[1609459200000, 'Transmitted to distribution systems', 34.479875]
+[1609545600000, 'Domestic consumption', 84.992947]
+[1609545600000, 'Transmitted to directly connected cons.', 49.800124]
+[1609545600000, 'Transmitted to distribution systems', 35.192823]
+...
+[1790640000000, 'Transmitted to distribution systems', 15.521357]
+[1790726400000, 'Domestic consumption', 18.408468]
+[1790726400000, 'Transmitted to directly connected cons.', 2.512676]
+[1790726400000, 'Transmitted to distribution systems', 15.895792]
+== daily_nopav: 200 len=69183
+schema=[{'N': 'G0', 'T': 7}, {'N': 'M0', 'T': 3}] rows=2099
+[1609459200000, 169.758316]
+[1609545600000, 169.985894]
+[1609632000000, 173.376922]
+[1609718400000, 178.888028]
+[1609804800000, 176.215966]
+[1609891200000, 178.544588]
+...
+[1790467200000, 63.28709]
+[1790553600000, 52.352184]
+[1790640000000, 36.329784]
+[1790726400000, 36.816936]
+== raw: 200 len=188793
+schema=[{'N': 'G0', 'T': 7}, {'N': 'G1', 'T': 1, 'DN': 'D0'}, {'N': 'G2', 'T': 1, 'DN': 'D1'}, {'N': 'G3', 'T': 3}] rows=6299
+[1609459200000, 'Domestic consumption', 'PSO_DB', 84879158]
+[1609459200000, 'Transmitted to directly connected cons.', 'PSO_DB', 50399283]
+[1609459200000, 'Transmitted to distribution systems', 'PSO_DB', 34479875]
+[1609545600000, 'Domestic consumption', 'PSO_DB', 84992947]
+[1609545600000, 'Transmitted to directly connected cons.', 'PSO_DB', 49800124]
+[1609545600000, 'Transmitted to distribution systems', 'PSO_DB', 35192823]
+...
+[1790726400000, 'Transmitted to directly connected cons.', 'PSO_DB', 2512676]
+[1790726400000, 'Transmitted to distribution systems', 'PSO_DB', 15895792]
+[1790812800000, 'Domestic consumption', 'PSO_DB', 1611935]
+[1790812800000, 'Transmitted to directly connected cons.', 'PSO_DB', 1611935]
