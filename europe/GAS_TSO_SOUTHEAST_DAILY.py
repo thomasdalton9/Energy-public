@@ -4,7 +4,8 @@ One workbook, sheet "Daily" (GWh per gas day), europe/GAS_TSO_SOUTHEAST_DAILY.py
 
   PL  Gaz-System Moduł Informacji Rynkowej, "Actual quantity of gas transmitted" (KspRealization, kWh per zone and gas day, billing
       data since 2018, operative data for the latest days):  https://swi.gaz-system.pl/mir/#/public/bil/ksp-realization
-      PL_distribution = exit to DSO networks (H and L gas) minus entry from DSO networks; PL_final_customers = aggregated
+      PL_distribution = exit to DSO networks (H and L gas; PL_dso_return = gas entering the grid back from DSO networks, shown for
+      information, not netted); PL_final_customers = aggregated
       final-customer exit points; PL_other = TSO own needs, nitrogen removal / mixing plants and aggregated PPG points;
       PL_total = the three. Exchange/OTC points, storage, interconnectors and compulsory stocks are not consumption and are left out.
 
@@ -33,7 +34,7 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_tso_gas_demand_extra_daily.xlsx"
 REVISION_DAYS = 45
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "FI_total"]
+COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "PL_dso_return", "FI_total"]
 
 
 def get(url, tries=3, **kw):
@@ -99,7 +100,8 @@ def poland(d0, d1):
     d = pd.DataFrame.from_dict(rec, orient="index").sort_index()
     g = lambda ids: d[[c for c in ids if c in d]].sum(axis=1, min_count=1) / 1e6          # kWh -> GWh
     out = pd.DataFrame(index=d.index)
-    out["PL_distribution"] = g(PL_DSO_EXIT) - g(PL_DSO_ENTRY).fillna(0)
+    out["PL_distribution"] = g(PL_DSO_EXIT)
+    out["PL_dso_return"] = g(PL_DSO_ENTRY)
     out["PL_final_customers"] = g(PL_FINAL)
     out["PL_other"] = g(PL_OTHER).fillna(0)
     out["PL_total"] = out["PL_distribution"] + out["PL_final_customers"] + out["PL_other"]
