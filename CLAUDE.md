@@ -50,7 +50,27 @@ Standing instructions from the repo owner. Follow these on every change.
   Sarawak Energy blocks GitHub, SESB times out, and the Energy Commission's regional tables stop at 2021.
   Gas: India (PPAC), Singapore (EMA/SingStat + a daily gas-for-power estimate from NEMS CCGT output), Thailand
   (EPPO tables 3.1-1 / 3.2-2: production by field, Myanmar pipeline, LNG, use by sector, monthly from 1986) and
-  Bangladesh (Petrobangla daily gas production & distribution report PDFs, from 2021).
+  Bangladesh (Petrobangla daily gas production & distribution report PDFs, from 2021; dated by the START of the 08:00
+  gas day - owner's decision, it lines up with the power data).
+  Raw power by country (no copied or invented months: a month a raw feed lacks is a gap, and the master's regional
+  total fills it from Ember, labelled): India = CEA daily (NPP) for coal/gas/oil/nuclear/hydro + NITI Aayog ICED for
+  wind/solar/other RE and demand (INDIA_RE_DAILY.py; Grid-India/MERIT geo-block GitHub); Vietnam = EVN daily posts of
+  NSMO data (VIETNAM_EVN.py, from May 2023); Philippines = IEMOP 5-minute dispatch per plant mapped to fuels with DOE's
+  plant list (asia/philippines_resource_fuels.csv; IEMOP keeps ~90 days, history grows from Jul 2026); Pakistan =
+  CPPA-G / NEPRA monthly FCA filings (national grid) plus K-Electric only for months with a real KE figure
+  (KE_included; others count as gaps); Nepal = NEA LDC daily reports (Apr 2023 - Jan 2025; monthly reports back to Jul 2022) + the daily home-page panel
+  (NEA posted nothing Feb 2025 - Sep 2026, so that span is an Ember-filled gap);
+  Cambodia = EAC annual reports (annual rows); Indonesia, Myanmar, Laos, Brunei, Timor-Leste = Ember annual (no public
+  official sub-annual data found; Indonesia: ESDM EBTKE monthly renewable capacity only).
+  Charts and the regional total use only months a feed covers (>= 80% of days; add_charts.complete_months).
+  Capacity: India (CEA monthly), Bangladesh (BPDB), Sri Lanka (PUCSL), Philippines (DOE annual), Malaysia (GSO),
+  Cambodia (EAC); capacity factors are blank above physical ceilings (solar 32%/28%, wind 65%/55%: incomplete plant
+  lists). Prices: India IEX, Philippines IEMOP (final prices only on charts), Malaysia SMP, Singapore USEP.
+  Reservoirs: India CEA, Thailand RID, Philippines PAGASA, Pakistan IRSA/WAPDA (Tarbela, Mangla), Sri Lanka PUCSL.
+  Geo-blocks (check-host test from ~60 countries, discovery_archive/asia/GEO_DISCOVERY*.py): EVN reservoirs
+  (hochuathuydien.evn.com.vn) and NSMO answer only from Vietnam; Grid-India and MERIT only from India; BPS only from
+  Indonesia; web.pln.co.id no longer resolves anywhere. A self-hosted runner or proxy in the country would unlock
+  them (parked by the owner for now).
 - `europe/EUROPE_MASTER.py` -> `europe_master.xlsx`: Europe - the ENTSO-E countries (EU/EEA, UK excluded, plus the Balkans) plus
   Ireland EirGrid, Turkey, Cyprus and the Rhine at Kaub. Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
   "Dashboard - Power" (generation, capacity, day-ahead prices, net imports, and a supply/demand balance per country: generation +

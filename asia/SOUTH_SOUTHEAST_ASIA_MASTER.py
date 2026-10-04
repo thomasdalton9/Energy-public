@@ -163,7 +163,7 @@ SOURCES = {
                                        "Cambodia (annual, Annex 2) and Salient Features of Power Development (latest "
                                        "year, provisional)", "https://eac.gov.kh/site/annualreport?lang=en"),
     "nepal_power_generation_daily.xlsx": ("NEA (Nepal Electricity Authority) Load Dispatch Centre, Daily Operational "
-                                          "Report of Nepal (Apr 2023 - Jan 2025); latest days from the 'Energy Details' "
+                                          "Report of Nepal (Apr 2023 - Jan 2025) and monthly operational reports (from Jul 2022); latest days from the 'Energy Details' "
                                           "panel on nea.org.np", "https://transd.nea.org.np/en/category/daily-operational-reports-1"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),

@@ -130,7 +130,7 @@ def parse_mbs(content, log=None):
                 continue
             cols = []                       # (x centre, month Timestamp or 'total')
             for i, w in enumerate(hdr):
-                m = re.match(r"^([A-Z][a-z]{2,5})\.?,?(20\d\d)?$", w["text"])
+                m = re.match(r"^([A-Za-z]{3,6})\.?,?(20\d\d)?$", w["text"])   # 'Jul.,' 'OcT.,' 'June.,2024'
                 if m and m.group(1)[:3].lower() in MON:
                     yr, x1 = m.group(2), w["x1"]
                     if not yr and i + 1 < len(hdr) and re.match(r"^20\d\d$", hdr[i + 1]["text"]):
