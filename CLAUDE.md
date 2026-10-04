@@ -77,6 +77,14 @@ Standing instructions from the repo owner. Follow these on every change.
   Eurostat; Snam blocks GitHub, GTS only mirrors ENTSOG). Bulgaria has no raw national series. Norway: Gassco daily flows by
   destination (`NORWAY_GASSCO_DAILY.py`, mcm/d x 11.2 GWh, from Oct 2020) give the Great Britain import line; the rest of the
   St Fergus and Easington terminals is counted as UK production.
+  Norway's Gassco flows to Germany, France, Belgium and other also replace ENTSOG's Norway origin in the EU balance (ENTSOG
+  captures only ~60% of Norwegian pipeline gas). Denmark's own balance comes from Energinet Gasflow
+  (`DENMARK_GASFLOW_DAILY.py`: North Sea + Tyra entries incl. Norwegian gas for Baltic Pipe, biogas, storage, Germany, Sweden,
+  Poland; consumption = KWhToDenmark, which already includes the biogas - do not add biogas to it again). Biomethane is its own
+  supply line in the gas balances (not in ENTSOG production): France ODRE, Denmark Energinet, Netherlands CBS, Austria AGGM
+  (`BIOMETHANE_DAILY.py`, `BIOMETHANE_STATS.py`), other EU27 countries from Eurostat's annual figures held at the last year;
+  Great Britain's is not added because the NTS offtake we use as UK consumption excludes embedded gas. Germany and Ireland have no
+  operator biomethane feed. Country balances for DE/FR/BE/AT/NL still use ENTSOG's Norway classification and look short or off.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 

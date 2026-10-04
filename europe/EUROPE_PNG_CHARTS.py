@@ -210,6 +210,10 @@ def main():
             xl, out("uk_gas_balance.png"), "United Kingdom gas balance data", "Great Britain gas balance: supply and storage flows vs consumption",
             "National Gas NTS (consumption, UK terminals); Norway-to-GB flows from Gassco; remaining St Fergus and Easington counted as UK production; "
             "GIE ALSI (LNG) and AGSI+ (storage)")),
+        ("Denmark gas balance data", lambda: gas_balance(
+            xl, out("denmark_gas_balance.png"), "Denmark gas balance data", "Denmark gas balance: Energinet entries, Baltic Pipe and deliveries",
+            "Energinet Gasflow (North Sea and Tyra entries incl. Norwegian gas for Baltic Pipe, biomethane, storage, Germany, Sweden, Poland); "
+            "consumption = gas delivered to Danish consumers (includes biomethane)")),
         ("Norway gas exports data", lambda: fuel_chart(
             xl, "Norway gas exports data", "Norway gas exports by destination", "TWh per month",
             out("norway_gas_exports.png"), source="Gassco (daily flows by delivery destination; mcm/d x 11.2 GWh per mcm)", by_order=True)),
