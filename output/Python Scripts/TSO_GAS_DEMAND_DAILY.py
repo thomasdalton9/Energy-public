@@ -9,7 +9,7 @@ Spain has few demand points, France's and Italy's end-user offtake is not tagged
         FR_industrial, FR_distribution, FR_power, FR_total   ODRE (GRTgaz / Teréga / RTE open data): industrial offtake (incl. big gas-fired
                                                               plants) + public distribution (GRD/ELD); FR_power (CCCG) is a subset of industrial
         ES_total                                     Enagás GTS national demand (the "Demand history" page's data)
-        DK_total                                     Energinet: gas delivered to Denmark from the transmission system + biogas injected
+        DK_total                                     Energinet: gas delivered to Danish consumers (includes biogas injected into the Danish grids)
         PT_total, PT_conventional, PT_power, PT_distribution, PT_high_pressure   REN DataHub daily consumption by segment
     sheet "Units": source and definitions
 
@@ -165,16 +165,16 @@ ENERGINET = "https://api.energidataservice.dk/dataset/Gasflow"
 
 
 def denmark(d0, d1):
-    """Danish consumption = gas delivered to Denmark from the transmission system (KWhToDenmark, reported negative) plus biogas
-    injected into the Danish network (KWhFromBiogas); Energinet's own definition for the dataset."""
+    """Danish consumption = gas delivered to Danish consumers (KWhToDenmark, published negative). Biogas injected into the Danish grids
+    is already inside that figure: the Gasflow columns (North Sea, Tyra, biogas, storage, Germany, Sweden, Poland, deliveries) net to about
+    zero with biogas counted once, so adding KWhFromBiogas to the deliveries would count it twice (the first version of this series did)."""
     r = get(ENERGINET, params={"start": d0.isoformat(), "end": (d1 + timedelta(days=1)).isoformat(), "limit": 100000, "sort": "GasDay ASC"})
     d = pd.DataFrame(r.json().get("records", []))
     if d.empty:
         return pd.DataFrame()
     d["date"] = pd.to_datetime(d["GasDay"]).dt.normalize()
     d = d.drop_duplicates("date", keep="last").set_index("date")
-    tot = (-pd.to_numeric(d["KWhToDenmark"], errors="coerce") + pd.to_numeric(d["KWhFromBiogas"], errors="coerce")) / 1e6
-    return pd.DataFrame({"DK_total": tot})
+    return pd.DataFrame({"DK_total": -pd.to_numeric(d["KWhToDenmark"], errors="coerce") / 1e6})
 
 
 # ---- Portugal: REN DataHub ---------------------------------------------------------------------------------------------
@@ -243,7 +243,7 @@ def main():
             continue
         print(f"{label}: start", flush=True)
         have = old[cols].dropna(how="all")
-        fs = start if have.empty else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))
+        fs = start if (have.empty or code == "DK") else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))   # DK: one cheap call, always rebuilt from the start
         try:
             new = fn(fs, today)
         except Exception as e:  # noqa: BLE001
@@ -275,8 +275,8 @@ def main():
              "GWh per gas day. DE_distribution = THE SLP (standard-profile consumers on distribution networks); DE_industry_power = THE RLM "
              "(metered large consumers: industry and gas-fired power, not split further); DE_total = both. FR_industrial = direct industrial "
              "connections (including the large gas-fired plants), FR_distribution = public distribution (GRD/ELD), FR_power = gas-fired power plants (CCCG, a subset of FR_industrial, shown for reference), FR_total = FR_industrial + FR_distribution. "
-             "ES_total = Enagás national demand. DK_total = gas delivered to Denmark from the transmission system plus biogas injected "
-             "(Energinet's definition). PT_total = REN total consumption (whole GWh), split into conventional market, electricity market "
+             "ES_total = Enagás national demand. DK_total = gas delivered to Danish consumers (Energinet KWhToDenmark; "
+             "includes the biogas injected into the Danish grids). PT_total = REN total consumption (whole GWh), split into conventional market, electricity market "
              "(gas-fired power), distribution (GRMS) and high-pressure clients. Recent days are preliminary and restated.",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
