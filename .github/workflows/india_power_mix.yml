@@ -1,0 +1,55 @@
+name: India power mix (CEA conventional + ICED renewables, demand)
+
+# India's full daily generation mix: CEA conventional generation (india_npp_generation_daily.xlsx, written by the
+# India NPP run earlier the same morning) plus wind / solar / other RE and peak demand / energy met from NITI Aayog's
+# India Climate & Energy Dashboard. The ICED API serves its whole daily history per request; the script merges it
+# over the saved workbook.
+on:
+  schedule:
+    - cron: "35 5 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl cryptography matplotlib
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          git pull --ff-only || true
+          timeout 1800 python3 asia/INDIA_RE_DAILY.py || echo "asia/INDIA_RE_DAILY.py failed"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/india_power_generation_daily.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for $f"
+          mkdir -p "output/Python Scripts"
+          cp png_charts.py asia/INDIA_RE_DAILY.py add_charts.py xlsx_charts.py xlsx_notes.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          f="output/Data and Chart Outputs/india_power_generation_daily.xlsx"
+          [ -f "$f" ] && git add -f "$f" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "India power mix: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

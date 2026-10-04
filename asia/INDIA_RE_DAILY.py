@@ -210,8 +210,8 @@ def main():
     notes = ["UNITS",
              "MWh per day, all-India (sources publish MU = GWh; x1,000). Daily: Coal = coal + lignite steam plants, "
              "Gas = gas turbines / CCGTs, Oil = diesel (CEA daily generation report, gross generation of stations "
-             "above 25 MW; Hydro = large hydro, excluding imports from Bhutan); Wind, Solar and Other = 'Other Res' "
-             "(biomass, small hydro and other renewables as reported daily). Total = sum. Demand: Demand_peak_MW = "
+             "above 25 MW; Hydro = large hydro, excluding imports from Bhutan); Wind, Solar, and Other = ICED's "
+             "'Other Res' (biomass, small hydro and other renewables as reported daily). Total = sum. Demand: Demand_peak_MW = "
              "peak demand met (MW), Energy_met_MWh = energy met (MWh/day), Demand_avg_MW = energy met / 24. ICED "
              "daily: the seven series exactly as ICED publishes them (MU x 1,000).",
              "", "COVERAGE",
@@ -222,8 +222,9 @@ def main():
                                          if len(dem) else ""),
              "'Other' (about 10-12 TWh a year) covers only part of what CEA's monthly RE report counts as small "
              "hydro + biomass + bagasse + other (about 20-25 TWh a year), so Total understates utility generation "
-             "by roughly 1%. Rooftop / behind-the-meter solar and captive plants are not included. Small hydro is "
-             "in Other where reported, not in Hydro.",
+             "by roughly 1%. Daily wind and solar run some 4-12% below CEA's monthly RE report (Dec 2025, Aug 2026 "
+             "checks), which counts more embedded plants. Rooftop / behind-the-meter solar and captive plants are "
+             "not included. Small hydro is in Other where reported, not in Hydro.",
              "", "SOURCE",
              "Conventional: CEA (Central Electricity Authority) daily generation report via the National Power "
              "Portal, https://npp.gov.in/public-reports/cea/daily/dgr/DD-MM-YYYY/dgr2-YYYY-MM-DD.xls "
