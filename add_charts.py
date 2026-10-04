@@ -428,6 +428,20 @@ def india_iex(p):
     return [spec("Prices", m, "India IEX day-ahead market clearing price (monthly average)", "Rs/MWh")]
 
 
+def cambodia_power(p):
+    """CAMBODIA_EAC.py: annual generation by type, supply = domestic + imports by country, capacity (EAC)."""
+    out = power_annual("Cambodia power generation by type (EAC, annual)")(p)
+    d = by_date(read(p, "Daily"), "date")
+    d = d[d.index >= "2010-01-01"]
+    s = pd.DataFrame({"Domestic generation": d.get("Total_MWh"),
+                      "Imports from Vietnam": d.get("Imports_Vietnam_MWh"),
+                      "Imports from Thailand": d.get("Imports_Thailand_MWh"),
+                      "Imports from Laos": d.get("Imports_Laos_MWh")}) / 1000
+    out.append(spec("Supply", s, "Cambodia electricity supply: domestic generation and imports by country (EAC)",
+                    "GWh per year", "stacked_bar", "%Y"))
+    return out + power_capacity("Cambodia installed capacity by type (EAC, end of year)")(p)
+
+
 def sri_lanka_reservoirs(p):
     d = _sheet(p, "Daily", "date")
     x = d["Total_storage_GWh"].dropna()
@@ -1945,6 +1959,7 @@ REGISTRY = {
     "indonesia_renewable_capacity.xlsx": power_capacity("Indonesia renewable installed capacity (ESDM EBTKE; renewables only)"),
     "singapore_power_prices.xlsx": singapore_usep,
     "sri_lanka_hydro_reservoirs.xlsx": sri_lanka_reservoirs,
+    "cambodia_power_generation.xlsx": cambodia_power,
     "pakistan_hydro_reservoirs.xlsx": pakistan_reservoirs,
     "india_power_capacity.xlsx": power_capacity("India installed capacity (CEA)"),
     "bangladesh_power_capacity.xlsx": power_capacity("Bangladesh installed capacity (BPDB)"),
