@@ -67,6 +67,7 @@ DATASETS = [
     ("EU", "Europe", "eurostat_gas_monthly.xlsx", "Monthly", "Eurostat gas (benchmark)"),
     ("NO", "Norway", "norway_gassco_gas_flows_daily.xlsx", "Daily", "Gassco gas exports"),
     ("EU", "Europe", "europe_biomethane_operators.xlsx", "*", "biomethane injection (FR DK NL)"),
+    ("EU", "Europe", "europe_biomethane_statistics.xlsx", "*", "biomethane statistics (GB AT SE, EU annual)"),
 ]
 RAW_POWER_DATASETS = (
     [(code, name, f"{slug}_power_generation_daily.xlsx", "Daily", "power") for code, (name, slug, _) in COUNTRIES.items()]
@@ -119,6 +120,9 @@ SOURCES = {
                                                "Enagás monthly statistical bulletin (ES 2021-22)", "https://www.gasgrid.fi/"),
     "norway_gassco_gas_flows_daily.xlsx": ("Gassco: Norwegian gas flows by delivery destination (daily, mcm/d converted at 11.2 GWh per mcm)",
                                            "https://gassco.eu/"),
+    "europe_biomethane_statistics.xlsx": ("Biomethane: DESNZ Energy Trends (GB), AGGM (AT), Energimyndigheten (SE), Eurostat nrg_bal_c annual "
+                                          "biogases blended into natural gas (all EU27, used where there is no operator series)",
+                                          "https://ec.europa.eu/eurostat/databrowser/view/nrg_bal_c"),
     "europe_biomethane_operators.xlsx": ("Biomethane injected into the gas grids: ODRE (France, daily), Energinet Gasflow (Denmark, daily), "
                                          "CBS StatLine 86103NED (Netherlands, monthly, includes a little refinery-gas conversion)",
                                          "https://odre.opendatasoft.com/"),
@@ -139,7 +143,7 @@ SOURCES = {
     "europe_cross_border_flows_daily.xlsx": ("ENTSO-E Transparency Platform: cross-border physical flows",
                                              "https://transparency.entsoe.eu/"),
 }
-GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Denmark Energinet, Portugal REN, Austria AGGM, Czechia NET4GAS, Lithuania Amber Grid, Finland Gasgrid, Great Britain National Gas, Ireland GNI), Gassco (Norway to Great Britain), biomethane injection (France ODRE, Denmark Energinet, Netherlands CBS), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
+GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Denmark Energinet, Portugal REN, Austria AGGM, Czechia NET4GAS, Lithuania Amber Grid, Finland Gasgrid, Great Britain National Gas, Ireland GNI), Gassco (Norway to Great Britain), biomethane injection (France ODRE, Denmark Energinet, Netherlands CBS, Austria AGGM, other countries Eurostat annual), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
                    "https://transparency.entsog.eu/")
 GAS_FLOWS_FILE = "europe_gas_flows_daily.xlsx"
 BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows (Great Britain: Elexon BMRS + NESO; "
@@ -476,48 +480,51 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
 BIO_FILE = "europe_biomethane_operators.xlsx"
 
 
+BIO_STATS_FILE = "europe_biomethane_statistics.xlsx"
+BIO_OPERATOR_COUNTRIES = ("FR", "DK", "NL", "AT")   # operator series; every other EU27 country comes from Eurostat's annual biomethane figures
+
+
 def biomethane_daily(data_dir):
-    """Biomethane injected into the grids, GWh/d per country (columns FR, DK, NL). France and Denmark are daily; the Netherlands is
-    monthly (CBS), spread evenly over the days. ENTSOG's transmission 'production' does not contain it, but national consumption
-    does, so it is a separate supply line (Denmark's is already inside the Energinet consumption figure, not added to demand)."""
+    """Biomethane injected into the gas grids, GWh/d per country. Operator series: France (ODRE) and Denmark (Energinet) daily; the
+    Netherlands (CBS) and Austria (AGGM) monthly, spread evenly over the days. Every other EU27 country comes from Eurostat's annual
+    'biogases blended into natural gas' figures (Germany 11.5 TWh in 2024, Italy 3.2, ...), spread evenly over the year and held at the
+    last published year afterwards (labelled on the chart notes). Great Britain's biomethane is not added: the NTS offtake that is our UK
+    consumption already excludes gas embedded in the distribution networks. ENTSOG's transmission-level production does not contain
+    biomethane, but national consumption does, so it is a separate supply line (Denmark's is already inside the Energinet delivery
+    figure, not added to demand)."""
     path = os.path.join(data_dir, BIO_FILE)
     dly, mon = _sheet_or_empty(path, "Daily", "date"), _sheet_or_empty(path, "Monthly", "month")
+    stats = os.path.join(data_dir, BIO_STATS_FILE)
+    smon, ann = _sheet_or_empty(stats, "Monthly", "month"), _sheet_or_empty(stats, "Annual", "year")
     out = pd.DataFrame()
     for cc in ("FR", "DK"):
         if f"{cc}_biomethane" in dly:
             out[cc] = dly[f"{cc}_biomethane"]
+    monthly = {}
     if "NL_biomethane" in mon:
-        days = pd.date_range(mon.index.min(), mon.index.max() + pd.offsets.MonthEnd(0), freq="D")
+        monthly["NL"] = mon["NL_biomethane"]
+    if "AT_biomethane_GWh" in smon:
+        monthly["AT"] = smon["AT_biomethane_GWh"].dropna()
+    end = pd.Timestamp.today().normalize()
+    for cc, ser in monthly.items():
+        ser = ser.dropna()
+        days = pd.date_range(ser.index.min(), ser.index.max() + pd.offsets.MonthEnd(0), freq="D")
         out = out.reindex(out.index.union(days))
-        out["NL"] = (mon["NL_biomethane"] / mon.index.days_in_month).reindex(days, method="ffill")
+        out[cc] = (ser / ser.index.days_in_month).reindex(days, method="ffill")
+    if len(ann):
+        yrs = ann.index
+        for col in ann.columns:
+            cc = col.split("_")[0]
+            if not col.endswith("_biomethane_TWh") or cc in BIO_OPERATOR_COUNTRIES or cc in ("EU27", "UK", "NO") or ann[col].fillna(0).sum() <= 0:
+                continue
+            ser = ann[col].dropna()
+            ser.index = [d.year if hasattr(d, "year") else int(d) for d in ser.index]     # the sheet loader turns the year column into dates
+            years = range(int(ser.index.min()), end.year + 1)
+            vals = {y: (ser[y] if y in ser.index else ser.iloc[-1]) for y in years}     # held at the last published year
+            days = pd.date_range(f"{min(years)}-01-01", end, freq="D")
+            out = out.reindex(out.index.union(days))
+            out[cc] = pd.Series([vals[d.year] * 1000.0 / (366 if d.is_leap_year else 365) for d in days], index=days)
     return out.sort_index()
-
-
-DK_FILE = "denmark_energinet_gasflow_daily.xlsx"
-
-
-def denmark_gas_balance(data_dir):
-    """Denmark's gas balance from Energinet's own Gasflow dataset (monthly TWh). Supply: the North Sea entry (Danish fields plus the
-    Norwegian gas that arrives through the Danish offshore pipelines and feeds Baltic Pipe), Tyra, biomethane, storage withdrawals and
-    imports from Germany. Uses: exports to Poland (Baltic Pipe), Sweden and Germany, storage injections. Consumption is gas delivered to
-    Danish consumers (it already includes the biomethane, which is why biomethane is also a supply line). ENTSOG shows only about 15 of the roughly
-    250 GWh/d that pass through the North Sea entries."""
-    d = add_charts._sheet(os.path.join(data_dir, DK_FILE), "Daily", "date")
-    g = _col(d, "DK_germany")
-    day = pd.DataFrame(index=d.index)
-    day["North Sea (Danish fields + Norwegian transit)"] = _col(d, "DK_from_north_sea")
-    day["Tyra"] = _col(d, "DK_from_tyra")
-    day["Biomethane"] = _col(d, "DK_biogas")
-    day["Storage withdrawals"] = _col(d, "DK_storage").clip(lower=0)
-    day["Imports from Germany"] = g.clip(lower=0)
-    day["Exports to Poland"] = _col(d, "DK_to_poland").fillna(0)
-    day["Exports to Sweden"] = _col(d, "DK_to_sweden").fillna(0)
-    day["Exports to Germany"] = g.clip(upper=0)
-    day["Storage injections"] = _col(d, "DK_storage").clip(upper=0)
-    day["Consumption"] = -_col(d, "DK_to_denmark")
-    day = day.dropna(subset=["Consumption", "Biomethane"])
-    day = day[day.index >= "2021-10-01"]
-    return _monthly_twh(day.fillna(0.0)) if len(day) else pd.DataFrame()
 
 
 NORWAY_FILE = "norway_gassco_gas_flows_daily.xlsx"
@@ -743,7 +750,7 @@ def main():
         if not eu.empty:
             total_chart(wb, used, gas, 0, eu, ["EU27: production and consumption summed over the countries (ENTSOG; consumption for Germany (THE), France (ODRE) and Spain (Enagas) from the TSOs' own series; Ireland from Gas Networks Ireland, whose Moffat "
                                                "imports from Great Britain replace ENTSOG's incomplete Irish figures; Norwegian pipeline imports from Gassco's flows to "
-                                               "Germany, France, Belgium and other, since ENTSOG's Norway origin captures only about 60% of them); biomethane injected into the grids is a separate supply line (France, Denmark and the Netherlands so far; other countries' biomethane is not yet counted); pipeline imports/exports "
+                                               "Germany, France, Belgium and other, since ENTSOG's Norway origin captures only about 60% of them); biomethane injected into the grids is a separate supply line (France, Denmark, Netherlands and Austria from the operators; other EU27 countries from Eurostat's annual figures, spread over the year and held at the last published year); pipeline imports/exports "
                                                "from/to outside the EU; LNG and storage from GIE's EU aggregates"],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
