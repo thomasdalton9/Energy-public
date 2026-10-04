@@ -8,22 +8,25 @@ on:
     paths:
       - "discovery_archive/asia/GAS_SSEA_DISCOVERY*.py"
       - ".github/workflows/gas_ssea_probe.yml"
+      - "asia/VIETNAM_NSO_GAS.py"
+      - "asia/INDONESIA_MIGAS_GAS.py"
+      - "asia/PAKISTAN_PBS_GAS.py"
   workflow_dispatch: {}
 
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib
+        run: pip install requests pandas openpyxl xlrd pdfplumber lxml html5lib matplotlib
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
         run: |
           f=$(ls discovery_archive/asia/GAS_SSEA_DISCOVERY*.py | sort -V | tail -1)
-          echo "######## $f"; timeout 1500 python3 "$f" || echo "!! exit $?"
+          echo "######## $f"; timeout 6000 python3 "$f" || echo "!! exit $?"
