@@ -112,6 +112,16 @@ Standing instructions from the repo owner. Follow these on every change.
   Netherlands balance (Gassco's flow to Germany minus the Dornum volume from `ENTSOG_NORWAY_ENTRIES_DAILY.py` is added to its
   imports) and flags the separate DE and NL balances as excluding it. Belgium (Zeebrugge) and France (Dunkerque) capture 94-95%
   of Gassco's flows. France is about +8% and Austria far off for other, untraced reasons.
+  Gas balance fixes for points ENTSOG's country classification drops (`ENTSOG_POINT_FIXES_DAILY.py` -> `entsog_point_fixes_daily.xlsx`,
+  applied by `point_fix_args()` in the master): Greece adds TAP's Nea Mesimvria entry (TAP's operator is listed with country GR, so it
+  looked like a flow inside Greece; error -15% -> ~0); Hungary subtracts the "Exit for Blending" from production (imported gas is blended
+  with domestic gas and re-enters at the production entry, so production was double-counted; +14% -> ~0); Great Britain adds the Moffat exit
+  to exports (ROI share = GNI's Moffat import figure; the rest, Northern Ireland + Isle of Man, is added to UK consumption since the NTS
+  offtake is GB only; ENTSOG omits Moffat because it lists the far side as country UK) and uses National Gas NTS's own storage
+  withdrawals/injections (ENTSOG lacks Stublach, Holford, Hill Top entries; error +6% -> -0.4%); France consumption = ODRE offtake + biomethane
+  injected into distribution (ODRE equals ENTSOG's distribution + industrial exits, which exclude embedded biomethane). Remaining FR error (~+3%) is network own use/losses
+  and ENTSOG missing ~15 TWh of French exports against Eurostat; Hungary 2022 stays -11% (ENTSOG's production entry starts 2023); Greece 2021-22 +5-9%. The EU27 total does not yet
+  include these four corrections.
   Switzerland power is Swissgrid/BFE (`SWITZERLAND_SWISSGRID_DAILY.py`, replaces ENTSO-E whose Swiss hydro is incomplete): production by carrier is
   gross of pumped-storage output, so pumping consumption and physical imports/exports come from BFE's monthly electricity balance (ogd35,
   spread evenly over the days); the balance then closes within about 3%.

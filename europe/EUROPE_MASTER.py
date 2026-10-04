@@ -478,7 +478,8 @@ def _monthly_twh(day, line_floor=12):
     return m.dropna(how="any") if len(m) >= line_floor else pd.DataFrame()
 
 
-def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None):
+def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None,
+                      extra_exports=None, prod_adjust=None):
     """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
     withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
     final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
@@ -506,6 +507,11 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
         day.loc[ok, "Pipeline imports"] = nrw
     if extra_imports is not None:       # Norwegian gas ENTSOG does not report (Emden): added to pipeline imports
         day["Pipeline imports"] = day["Pipeline imports"] + extra_imports.reindex(bal.index).fillna(0)
+    if extra_exports is not None:       # flows the ENTSOG classification drops (e.g. GB -> Ireland at Moffat): added to pipeline exports
+        day["Pipeline exports"] = day["Pipeline exports"] - extra_exports.reindex(bal.index).fillna(0)
+    if prod_adjust is not None:         # gas that leaves the grid and re-enters as 'production' (Hungary's blending): taken off production
+        adj = prod_adjust.reindex(bal.index).fillna(0).where(day["Production"] > 0, 0.0)    # only on days the production entry is reported
+        day["Production"] = (day["Production"] - adj).clip(lower=0)
     cols = GAS_BAL_COLS
     if biomethane is not None and biomethane.notna().any():
         day["Biomethane"] = biomethane.reindex(bal.index).fillna(0)
@@ -513,6 +519,50 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
     day = day.dropna(subset=["Pipeline imports", "Consumption"])
     day = day[day.index >= "2021-10-01"]
     return _monthly_twh(day[cols]) if len(day) else pd.DataFrame()
+
+
+POINT_FIXES_FILE = "entsog_point_fixes_daily.xlsx"
+
+
+def point_fix_args(data_dir, cc, tso, bio, gni):
+    """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
+    (keyword arguments for gas_country_balance, consumption override or None, note text or None).
+    GR: TAP's Nea Mesimvria entry (Azerbaijani gas) is added to pipeline imports. HU: the 'Exit for Blending' is taken off production
+    (imported gas blended with high-CO2 domestic gas re-enters at the production entry). UK: the Moffat exit is added to exports - the
+    Republic of Ireland's share is GNI's own Moffat import figure, the rest (Northern Ireland, Isle of Man) is UK consumption that the
+    National Gas NTS offtake series lacks. FR: ODRE consumption is the GRTgaz/Teréga offtake (it equals ENTSOG's distribution plus
+    industrial exits), which excludes biomethane injected straight into the distribution networks, so that biomethane is added to
+    consumption (it is also a supply line)."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    if cc == "FR" and tso is not None and "FR" in tso and len(bio) and "FR" in bio:
+        return {}, tso["FR"].add(bio["FR"].reindex(tso.index).fillna(0)), (
+            " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
+            "ENTSOG's distribution + industrial exits and so excludes it). The balance still runs about 3% long: ENTSOG misses about 15 TWh of "
+            "French exports against Eurostat, and network own use and losses are not in the offtake.")
+    if not len(fx):
+        return {}, None, None
+    if cc == "GR" and "GR_tap_imports" in fx:
+        return {"extra_imports": fx["GR_tap_imports"]}, None, (
+            " Pipeline imports include the TAP entry at Nea Mesimvria (Azerbaijani gas), which ENTSOG's country classification drops "
+            "because TAP's operator is listed with country GR.")
+    if cc == "HU" and "HU_production_exit" in fx:
+        return {"prod_adjust": fx["HU_production_exit"]}, None, (
+            " Production is ENTSOG's 'Aggregated Single Production' entry less the 'Exit for Blending': imported gas leaves the grid, is blended "
+            "with high-CO2 domestic gas and re-enters at the production entry, so that entry double-counts about 14 TWh a year of imports.")
+    if cc == "UK" and "UK_moffat_exit" in fx and tso is not None and "UK" in tso:
+        mof = fx["UK_moffat_exit"]
+        roi = gni["Moffat"].reindex(mof.index) if gni is not None and len(gni) else pd.Series(float("nan"), index=mof.index)
+        to_roi = roi.where(roi.notna(), mof).clip(upper=mof)
+        try:    # National Gas NTS storage flows (the operator's own; ENTSOG lacks the Stublach, Holford and Hill Top entries)
+            nts = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
+            sto = pd.DataFrame({"GB_withdrawal_GWhd": nts["storage_withdrawal"], "GB_injection_GWhd": nts["storage_injection"]})
+        except Exception:  # noqa: BLE001
+            sto = None
+        return ({"extra_exports": to_roi} | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi).fillna(0)), (
+            " Exports include the Moffat exit to Ireland (the Republic's share is Gas Networks Ireland's Moffat import figure); the remainder of "
+            "the Moffat flow (Northern Ireland, Isle of Man, about 19 TWh a year) is added to UK consumption because the National Gas NTS "
+            "offtake covers Great Britain only. Storage withdrawals and injections are National Gas NTS's own figures. ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK).")
+    return {}, None, None
 
 
 BIO_FILE = "europe_biomethane_operators.xlsx"
@@ -842,9 +892,12 @@ def main():
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
-            b = gas_country_balance(gbal, cc, gsto, glng, tso[cc] if (tso is not None and cc in tso) else None,
+            fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni)
+            cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
+            sto_in = fix_kw.pop("storage", gsto)
+            b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
                                     nor["NO_to_GB"] if (cc == "UK" and len(nor) and "NO_to_GB" in nor) else None,
-                                    bio[cc] if (len(bio) and cc in bio) else None)
+                                    bio[cc] if (len(bio) and cc in bio) else None, **fix_kw)
             note = None
             if tso is not None and cc in tso:
                 note = ("Consumption from the TSO's own series (" + {"DE": "Trading Hub Europe", "FR": "ODRE / GRTgaz-Teréga", "ES": "Enagás", "UK": "National Gas NTS", "DK": "Energinet", "PT": "REN", "AT": "AGGM", "CZ": "NET4GAS (system balance)", "LT": "Amber Grid", "FI": "Gasgrid"}[cc]
@@ -862,6 +915,8 @@ def main():
             if cc == "UK" and len(nor) and "NO_to_GB" in nor:
                 note += (" Pipeline imports are Gassco's Norway-to-Great-Britain flows; the rest of the St Fergus and Easington entry points "
                          "(UK North Sea gas) is counted in production.")
+            if fix_note:
+                note = (note or "Supply less exports and storage injections against consumption.") + fix_note
             if cc == "DK":
                 try:
                     b, note = denmark_gas_balance(args.data_dir), (
