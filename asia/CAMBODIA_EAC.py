@@ -40,6 +40,7 @@ import sys
 
 import pandas as pd
 import pdfplumber
+import pypdfium2 as pdfium
 import requests
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,6 +56,7 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 T = (20, 240)
 OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "cambodia_power_generation.xlsx")
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Oil", "Bioenergy", "Other"]
+ANNEX2 = r"Annex\s*2\s*\(?[abc]\)?"
 STAMP = "Read: "   # Units-sheet line prefix: 'Read: <file> | Last-Modified: <date>'
 
 
@@ -153,12 +155,13 @@ def parse_table(tb):
 
 def parse_annual_report(content, edition):
     vals = {}
+    doc = pdfium.PdfDocument(content)   # fast text pass to find the Annex 2 pages; pdfplumber reads only those
+    pages = [i for i in range(len(doc))
+             if re.search(ANNEX2, " ".join(doc[i].get_textpage().get_text_range().split()[:40]), re.I)]
+    doc.close()
     with pdfplumber.open(io.BytesIO(content)) as pdf:
-        for i, pg in enumerate(pdf.pages):
-            t = pg.extract_text() or ""
-            if not re.search(r"Annex\s*2\s*\(?[abc]\)?", " ".join(t.splitlines()[:5]), re.I):
-                continue
-            for tb in pg.extract_tables():
+        for i in pages:
+            for tb in pdf.pages[i].extract_tables():
                 kind, v = parse_table(tb)
                 if kind:
                     out(f"    p{i + 1}: {kind} {len(v)} values")
@@ -286,7 +289,7 @@ def build(raw):
             if laos_plant:
                 imp["Laos"] = (imp["Laos"] or 0) + laos_plant
             lic = {k: pick(raw, f"lic_{k}", y, src) for k in ("IPP", "EDC", "Other_licensees")}
-            ed = int(ar[(ar.Year == y) & ar.Field.str.startswith("gen_")].Edition.max())
+            ed = int(ar[(ar.Year == y) & ar.Field.isin([f"gen_{f}" for f in FUELS])].Edition.max())
             basis[d] = (f"EAC Report on Power Sector {ed} (Annex 2)" +
                         (f"; hydro excludes EDC's dedicated Lao hydro plant ({laos_plant:,.0f} GWh), counted as "
                          "imports from Laos" if laos_plant else ""))
@@ -350,8 +353,7 @@ def main():
         for y in eds:
             url = url_t.format(y=y)
             name = url.rsplit("/", 1)[-1]
-            have = f"{kind} {y}" in set(raw.Publication)
-            if have and name in stamps:
+            if name in stamps:   # read before (with or without values)
                 lm = head_lm(url) if y >= max(eds) - 1 else stamps[name]   # only recent editions get revised
                 if lm in (None, stamps[name]):
                     continue
@@ -368,7 +370,7 @@ def main():
             if rows:
                 raw = raw[raw.Publication != f"{kind} {y}"]
                 new.extend(rows)
-                stamps[name] = lm
+            stamps[name] = lm   # recorded even when nothing was found, so it is not downloaded every run
     if new:
         raw = pd.concat([raw, pd.DataFrame(new)], ignore_index=True)
     if raw.empty:
