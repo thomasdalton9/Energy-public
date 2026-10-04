@@ -519,11 +519,13 @@ def philippines_market(p):
         out.append(spec("Demand", d[c].rename(columns=lambda x: x.split("_")[0]),
                         "Philippines WESM demand by grid (IEMOP, daily average)", "MW", "stacked_area", "%Y-%m-%d"))
     q = _sheet(p, "Daily prices", "date")
+    if "Price_source" in q:   # final (settlement) prices only: IEMOP's provisional ones can be several times higher
+        q = q[q["Price_source"].astype(str).str.lower() == "final"]
     c = [f"{r}_SMP_PHP_per_MWh" for r in ("Luzon", "Visayas", "Mindanao") if f"{r}_SMP_PHP_per_MWh" in q]
     if c:
-        out.append(spec("Prices", q[c].rename(columns=lambda x: x.split("_")[0]),
-                        "Philippines WESM system marginal price by grid (IEMOP, daily average)", "PHP/MWh",
-                        "line", "%Y-%m-%d"))
+        out.append(spec("Prices", q[c].apply(pd.to_numeric, errors="coerce").rename(columns=lambda x: x.split("_")[0]),
+                        "Philippines WESM system marginal price by grid (IEMOP final prices, daily average)",
+                        "PHP/MWh", "line", "%Y-%m-%d"))
     return out
 
 
