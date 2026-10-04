@@ -9,6 +9,8 @@ Spain has few demand points, France's and Italy's end-user offtake is not tagged
         FR_industrial, FR_distribution, FR_power, FR_total   ODRE (GRTgaz / Teréga / RTE open data): industrial offtake,
                                                               public distribution (GRD/ELD) and gas-fired power plants (CCCG)
         ES_total                                     Enagás GTS national demand (the "Demand history" page's data)
+        DK_total                                     Energinet: gas delivered to Denmark from the transmission system + biogas injected
+        PT_total, PT_conventional, PT_power, PT_distribution, PT_high_pressure   REN DataHub daily consumption by segment
     sheet "Units": source and definitions
 
 Sources (all free, no key)
@@ -16,6 +18,8 @@ Sources (all free, no key)
   FR  https://odre.opendatasoft.com  datasets conso-journa-industriel-grtgazterega, courbe-de-charge-eldgrd-regional-grtgaz-terega,
       conso-horaire-cccg-nat  (MWh -> GWh)
   ES  https://www.enagas.es/en/technical-management-system/energy-data/demand/history/  (GWh)
+  DK  https://api.energidataservice.dk/dataset/Gasflow  (Energinet Gasflow, kWh -> GWh)
+  PT  https://servicebus.ren.pt/datahubapi/gas/GasConsumptionSupplyDaily  (REN DataHub, GWh, one call per day)
 
 The Great Britain (National Gas NTS) and Ireland (Gas Networks Ireland) consumption come from their own workbooks in this repo.
 
@@ -42,7 +46,8 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_tso_gas_demand_daily.xlsx"
 REVISION_DAYS = 14
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-COLUMNS = ["DE_distribution", "DE_industry_power", "DE_total", "FR_industrial", "FR_distribution", "FR_power", "FR_total", "ES_total"]
+COLUMNS = ["DE_distribution", "DE_industry_power", "DE_total", "FR_industrial", "FR_distribution", "FR_power", "FR_total", "ES_total",
+           "DK_total", "PT_total", "PT_conventional", "PT_power", "PT_distribution", "PT_high_pressure"]
 
 
 def get(url, tries=3, **kw):
@@ -148,6 +153,51 @@ def spain(d0, d1):
     return pd.DataFrame({"ES_total": pd.Series(rec, dtype=float)}).sort_index()
 
 
+# ---- Denmark: Energinet ------------------------------------------------------------------------------------------------
+ENERGINET = "https://api.energidataservice.dk/dataset/Gasflow"
+
+
+def denmark(d0, d1):
+    """Danish consumption = gas delivered to Denmark from the transmission system (KWhToDenmark, reported negative) plus biogas
+    injected into the Danish network (KWhFromBiogas); Energinet's own definition for the dataset."""
+    r = get(ENERGINET, params={"start": d0.isoformat(), "end": (d1 + timedelta(days=1)).isoformat(), "limit": 100000, "sort": "GasDay ASC"})
+    d = pd.DataFrame(r.json().get("records", []))
+    if d.empty:
+        return pd.DataFrame()
+    d["date"] = pd.to_datetime(d["GasDay"]).dt.normalize()
+    d = d.drop_duplicates("date", keep="last").set_index("date")
+    tot = (-pd.to_numeric(d["KWhToDenmark"], errors="coerce") + pd.to_numeric(d["KWhFromBiogas"], errors="coerce")) / 1e6
+    return pd.DataFrame({"DK_total": tot})
+
+
+# ---- Portugal: REN DataHub ---------------------------------------------------------------------------------------------
+REN = "https://servicebus.ren.pt/datahubapi/gas/GasConsumptionSupplyDaily"
+REN_TYPES = {"TOTAL_CONSUMPTION": "PT_total", "CONVENTIONAL_MARKET": "PT_conventional", "ELECTRICITY_MARKET": "PT_power",
+             "GRMS_DISTRIBUTION": "PT_distribution", "HIGH_PRESSURE_CLIENTS": "PT_high_pressure"}
+
+
+def portugal(d0, d1):
+    """One call per gas day (GWh, whole numbers). Stops after 8 consecutive failures and returns what it has."""
+    rec, fails, day = {}, 0, d0
+    while day <= d1:
+        try:
+            r = requests.get(REN, params={"culture": "en-US", "date": day.isoformat()}, timeout=(15, 45), headers={"User-Agent": UA})
+            rows = r.json() if r.ok else []
+            vals = {REN_TYPES[x["type"]]: float(x["daily_Accumulation"]) for x in rows if x.get("type") in REN_TYPES}
+            if "PT_total" in vals:
+                rec[pd.Timestamp(day)] = vals
+            fails = 0
+        except (requests.RequestException, ValueError, KeyError):
+            fails += 1
+            if fails >= 8:
+                print(f"  REN: giving up at {day} after repeated errors", flush=True)
+                break
+            time.sleep(3)
+        day += timedelta(days=1)
+        time.sleep(0.15)
+    return pd.DataFrame.from_dict(rec, orient="index").sort_index()
+
+
 def read_existing(path):
     if not os.path.exists(path):
         return pd.DataFrame(columns=COLUMNS)
@@ -168,7 +218,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--start", default="2021-01-01")
-    ap.add_argument("--only", default="", help="comma-separated subset of DE,FR,ES (the workbook keeps the other countries' history)")
+    ap.add_argument("--only", default="", help="comma-separated subset of DE,FR,ES,DK,PT (the workbook keeps the other countries' history)")
     args = ap.parse_args()
     only = {x.strip().upper() for x in args.only.split(",") if x.strip()}
     os.makedirs(args.out_dir, exist_ok=True)
@@ -179,7 +229,9 @@ def main():
     combined = old.copy()
     for code, label, fn, cols in (("DE", "Germany (THE)", germany, [c for c in COLUMNS if c.startswith("DE_")]),
                                   ("FR", "France (ODRE)", france, [c for c in COLUMNS if c.startswith("FR_")]),
-                                  ("ES", "Spain (Enagas)", spain, ["ES_total"])):
+                                  ("ES", "Spain (Enagas)", spain, ["ES_total"]),
+                                  ("DK", "Denmark (Energinet)", denmark, ["DK_total"]),
+                                  ("PT", "Portugal (REN)", portugal, [c for c in COLUMNS if c.startswith("PT_")])):
         if only and code not in only:
             continue
         print(f"{label}: start", flush=True)
@@ -209,12 +261,15 @@ def main():
     lines = ["Europe - national gas consumption from the gas TSOs' / market-area operators' own series", "",
              "Source", "Germany: Trading Hub Europe aggregated consumption (https://www.tradinghub.eu). France: ODRE open data of GRTgaz, "
              "Teréga and RTE (https://odre.opendatasoft.com). Spain: Enagás GTS demand history "
-             "(https://www.enagas.es/en/technical-management-system/energy-data/demand/history/). Free, no key.",
+             "(https://www.enagas.es/en/technical-management-system/energy-data/demand/history/). Denmark: Energinet Energi Data Service, "
+             "dataset Gasflow (https://www.energidataservice.dk). Portugal: REN DataHub (https://datahub.ren.pt). Free, no key.",
              "", "Units and definitions",
              "GWh per gas day. DE_distribution = THE SLP (standard-profile consumers on distribution networks); DE_industry_power = THE RLM "
              "(metered large consumers: industry and gas-fired power, not split further); DE_total = both. FR_industrial = direct industrial "
              "connections, FR_distribution = public distribution (GRD/ELD), FR_power = gas-fired power plants (CCCG), FR_total = the three. "
-             "ES_total = Enagás national demand. Recent days are preliminary and restated.",
+             "ES_total = Enagás national demand. DK_total = gas delivered to Denmark from the transmission system plus biogas injected "
+             "(Energinet's definition). PT_total = REN total consumption (whole GWh), split into conventional market, electricity market "
+             "(gas-fired power), distribution (GRMS) and high-pressure clients. Recent days are preliminary and restated.",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
              f"{combined.index.min():%Y-%m-%d} to {combined.index.max():%Y-%m-%d}"]

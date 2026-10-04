@@ -445,10 +445,12 @@ TSO_GAS_FILE = "europe_tso_gas_demand_daily.xlsx"
 
 
 def tso_consumption(data_dir):
-    """National gas consumption from the TSOs' own series, GWh/d: Germany (THE), France (ODRE), Spain (Enagas; from 2023). ENTSOG's
+    """National gas consumption from the TSOs' own series, GWh/d: Germany (THE), France (ODRE), Spain (Enagas; from 2023), Denmark (Energinet), Portugal (REN). ENTSOG's
     country totals capture only part of these (Germany reports final consumers as one aggregate, Spain has few demand points)."""
     d = add_charts._sheet(os.path.join(data_dir, TSO_GAS_FILE), "Daily", "date")
-    out = pd.DataFrame({"DE": d.get("DE_total"), "FR": d.get("FR_total"), "ES": d.get("ES_total")})
+    out = pd.DataFrame({"DE": d.get("DE_total"), "FR": d.get("FR_total"), "ES": d.get("ES_total"), "DK": d.get("DK_total"),
+                        "PT": d.get("PT_total")})
+    out = out.dropna(axis=1, how="all")
     try:   # Great Britain: National Gas NTS offtake (LDZ + power stations + industrial)
         g = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
         out["UK"] = g[["ldz_offtake", "powerstations", "industrial_offtake"]].sum(axis=1, min_count=3)
