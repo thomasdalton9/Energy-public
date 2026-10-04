@@ -1,0 +1,31 @@
+name: Long-term energy TEST (temporary)
+on:
+  push:
+    branches: [claude/compassionate-darwin-2khdxe]
+    paths: [LONG_TERM_ENERGY.py, .github/workflows/long_term_energy_test.yml, discovery_archive/LONG_TERM_EI_PROBE.py]
+  workflow_dispatch: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas requests openpyxl pycountry matplotlib
+      - name: Probe EI
+        run: timeout 600 python3 discovery_archive/LONG_TERM_EI_PROBE.py || true
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 LONG_TERM_ENERGY.py
+          echo "---- second run (should skip downloads)"
+          python3 LONG_TERM_ENERGY.py
+      - name: Charts
+        run: |
+          python3 add_charts.py "output/Data and Chart Outputs/long_term_energy.xlsx"
+          python3 png_charts.py "output/Data and Chart Outputs/long_term_energy.xlsx" || true
+          ls -la "output/PNG Charts" | grep -i long || true
+          python3 -c "import pandas as pd; x=pd.ExcelFile('output/Data and Chart Outputs/long_term_energy.xlsx'); print(x.sheet_names); print(pd.read_excel(x,'Units').to_string())"
