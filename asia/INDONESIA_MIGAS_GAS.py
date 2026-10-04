@@ -203,6 +203,9 @@ def parse_utilisation(pdf):
         if not re.search(r"Pemanfaatan Gas Bumi Dalam Negeri", tx, re.I) or "BBTUD" not in tx:
             continue
         lines = tx.splitlines()
+        title = next((l for l in lines if re.search(r"Pemanfaatan Gas Bumi Dalam Negeri", l, re.I)), "")
+        if re.search(r"Semester|s\.\s*d\.|Juni|SM\s*T?\s*I\b", title, re.I):
+            return pd.DataFrame()    # a Semester I book: its last column is a half-year, not a calendar year
         yl = next((l for l in lines if len(re.findall(r"\b20[12]\d\b", l)) >= 4), None)
         if not yl:
             continue
