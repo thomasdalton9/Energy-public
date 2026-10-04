@@ -414,19 +414,22 @@ KNOWN_GAPS = {
     "Italy": (
         "Generation is Eurostat nrg_cb_pem (Terna: 263.5 TWh net in 2024, ENTSO-E only 215-220 TWh because it omits embedded and self-consumed generation) and load is Eurostat nrg_cb_em "
         "'available to internal market' (312 TWh in 2024 = Terna's demand; ENTSO-E's load is 273 TWh), so both sides use the same statistic; supply is 99.8-101.5% of load in 2022-25. "
-        "ENTSO-E flows and pumped storage are kept. The 2.5 months after Eurostat's last month are ENTSO-E generation and load (supply about 95%).",),
+        "ENTSO-E flows and pumped storage are kept. The 2.5 months after Eurostat's last month are ENTSO-E generation and load (supply about 95%)."),
     "Great Britain": (
         "Load now includes station load (power stations' own use, 4.7-4.8 TWh a year = NESO TSD - ND - pumping - interconnector exports, half-hourly): Elexon FUELHH metered output is gross of it while "
         "NESO national demand excludes it, which had left supply 2-3% above load (8 TWh in 2025). Supply is now 100.2-101.2% of load in 2021-25."),
     "Bulgaria": (
         "Generation is Eurostat nrg_cb_pem (36.7 TWh in 2025, equal to ENTSO-E) but ENTSO-E's load (37.9 TWh in 2025) is 3 TWh above Eurostat's consumption incl. losses (34.9 TWh); the ENTSO-E flows match Eurostat's "
-        "net exports (1.3 TWh), so the 2025 gap was the load definition. Load is now Eurostat nrg_cb_em available-to-market + distribution losses: supply is 100.2-101.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 93-95%).",),
+        "net exports (1.3 TWh), so the 2025 gap was the load definition. Load is now Eurostat nrg_cb_em available-to-market + distribution losses: supply is 100.2-101.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 93-95%)."),
     "Romania": (
         "Generation is Eurostat nrg_cb_pem (46.7 TWh in 2025; ENTSO-E 47.4) and ENTSO-E's load (53.6 TWh in 2025) is 3 TWh above Eurostat's available-to-market (50.4 TWh, which equals Eurostat generation + net imports). "
-        "Load is now Eurostat nrg_cb_em: supply is 99.6-100.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 96%).",),
-    "Montenegro": "The ENTSO-E physical flow on the Bosnia-Montenegro border (about 3 TWh a year) does not close either side's balance: Montenegro is oversupplied "
-                  "(2025 +36%) and Bosnia undersupplied (-13%) by roughly the same volume. Montenegro's TSO (CGES) has no machine-readable feed reachable from GitHub (discovery_archive/europe/CGES_PROBE.py), "
-                  "and 2025 generation is low because the Pljevlja coal plant was out Apr-Nov. Treat the Balkan (BA, ME, MK, XK, RS) balances as indicative.",
+        "Load is now Eurostat nrg_cb_em: supply is 99.6-100.3% of load in 2022-25. Months after Eurostat's latest are ENTSO-E (supply about 96%)."),
+    "Montenegro": (
+        "The ENTSO-E physical flow on the Bosnia-Montenegro border (2.96 TWh BA>ME, 0.59 ME>BA in 2025) does not close either side's balance: Montenegro is oversupplied (2025 +36%) and Bosnia undersupplied (-13%). "
+        "Checked in a probe (discovery_archive/europe/BALKAN_FLOWS_PROBE.py): the sign and zone mapping are right (A11 is labelled by direction), the finalised SCHEDULES (A09) are lower on BA>ME (2.23 TWh) but higher on RS>ME (1.59 vs 0.47 TWh physical): "
+        "scheduled Serbia-Montenegro energy physically loops through Bosnia, so the physical BA>ME flow is partly transit. Montenegro's 2025 net imports are 2.1 TWh physical against 1.0 TWh scheduled, which would bring it to about 100%, but Bosnia's -13% is unchanged under schedules "
+        "(net -2.2 vs -2.3 TWh), so it is a Bosnian generation/load coverage issue and physical flows are kept (the correct quantity for a physical balance). Montenegro's TSO (CGES) has no feed reachable from GitHub "
+        "(discovery_archive/europe/CGES_PROBE.py), and 2025 generation is low because the Pljevlja coal plant was out Apr-Nov. Treat the Balkan (BA, ME, MK, XK, RS) balances as indicative."),
     "Bosnia and Herzegovina": "See Montenegro: the Bosnia-Montenegro physical flow looks overstated; supply is 13% below load in 2025 (ratio was 97-102% before).",
     "North Macedonia": "Small system with unreliable ENTSO-E load/flow reporting (supply 89-91% of load in 2023-24, 100% in 2025).",
     "Kosovo": "KOSTT generation is metered at the plant and load includes distribution losses and theft; supply is about 5% below load.",
@@ -438,7 +441,7 @@ KNOWN_GAPS = {
     "Poland": (
         "Generation is Eurostat nrg_cb_pem (155 TWh in 2024; ENTSO-E 157) and load is Eurostat nrg_cb_em available-to-market + distribution losses (155 TWh in 2024; ENTSO-E's load, 164 TWh, is a gross figure incl. station own use), "
         "the same statistic on both sides: supply is 100.0-101.6% of load in 2022-25 (was 94% in 2022, 95% in 2023 on ENTSO-E). The PSE open-data API was not needed: the probe found endpoints his-wlk-cal/kse-load answer but "
-        "reject a 'doba' filter (field names not established), so no PSE history start was confirmed. Months after Eurostat's latest are ENTSO-E.",),
+        "reject a 'doba' filter (field names not established), so no PSE history start was confirmed. Months after Eurostat's latest are ENTSO-E."),
     "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
     "Lithuania": "Imports from Belarus/Russia before 2022 are not in the ENTSO-E flow data used here.",
@@ -1034,7 +1037,9 @@ def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8):
     left = [c for c in lines if c not in keep]
     for c, f in keep.items():   # a one- or two-month hole in a small country's feed (Greece Apr 2022, Luxembourg Sep-Oct 2023) is interpolated rather than dropping the EU month
         g = f.reindex(span)
-        keep[c] = g.interpolate(limit=2, limit_area="inside").dropna(how="all")
+        g = g.interpolate(limit=2, limit_area="inside")
+        g = g.where(g.notna().any(axis=1), g.shift(12))   # a feed that stops (Estonia, Latvia after Oct 2025): same month a year earlier, counted as a gap-fill
+        keep[c] = g.dropna(how="all")
     months = span[[all(m in f.index for f in keep.values()) for m in span]]
     tot = sum(f.reindex(months).fillna(0.0) for f in keep.values())
     if border is not None and len(border):
@@ -1233,7 +1238,7 @@ def main():
             gbord = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Border flows", "date")
         except Exception:  # noqa: BLE001
             gbord = None
-        try:   # Slovakia and Sweden have no consumption series: implied from the net gas they take (see implied_member_balance)
+        try:   # Months a small country's feed lacks (Estonia and Latvia after Oct 2025) repeat the same month of the year before. Slovakia and Sweden have no consumption series: implied from the net gas they take (see implied_member_balance)
             eu_frames["SK"] = implied_member_balance(gbal, "SK", gsto)
             dk_raw = add_charts._sheet(os.path.join(args.data_dir, DK_FILE), "Daily", "date")
             eu_frames["SE"] = implied_member_balance(gbal, "SE", gsto, _col(dk_raw, "DK_to_sweden").reindex(gbal.index))
@@ -1246,7 +1251,7 @@ def main():
                 "Gas Networks Ireland, Energinet, AGGM and CBS balances, NET4GAS floors, Norwegian gas at Emden / Greifswald and Hungary, Greece, Great Britain fixes, biomethane as a separate "
                 "supply line). Pipeline imports and exports are those from/to outside the EU: flows between two EU countries (larger-of-both-sides border flows) are taken out of both lines, "
                 "which leaves the net unchanged, so a border only one side reports remains in the residual. LNG and storage are the countries' own GIE ALSI / AGSI+ figures. "
-                "Slovakia and Sweden have no consumption series: their consumption is the net gas ENTSOG / Energinet show them taking (implied, so they add nothing to the error and "
+                "Months a small country's feed lacks (Estonia and Latvia after Oct 2025) repeat the same month of the year before. Slovakia and Sweden have no consumption series: their consumption is the net gas ENTSOG / Energinet show them taking (implied, so they add nothing to the error and "
                 "understate the true figure, Slovakia by about 20 TWh a year)."
                 + (f" Left out for lack of data: {', '.join(GAS_NAMES.get(c, c) for c in eu_left)}." if eu_left else "")],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
