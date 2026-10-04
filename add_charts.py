@@ -1830,6 +1830,65 @@ def eurostat_gas(p):
     return out
 
 
+
+def vietnam_gas(p):
+    d = _sheet(p, "Production", "date")
+    if d.empty or "Natural_gas_mcm_per_day" not in d:
+        return []
+    d = d[d.index >= "2015-01-01"]
+    return [spec("Production", d[["Natural_gas_mcm_per_day"]].apply(pd.to_numeric, errors="coerce")
+                 .rename(columns={"Natural_gas_mcm_per_day": "Natural gas"}),
+                 "Vietnam natural gas production (NSO)", "mcm/d, monthly average", "line")]
+
+
+def indonesia_gas(p):
+    out = []
+    d = _sheet(p, "Production", "date")
+    if not d.empty and "Total" in d:
+        d = d.drop(columns=[c for c in ("Total_is_sum",) if c in d]).apply(pd.to_numeric, errors="coerce")
+        kk = d.drop(columns="Total")
+        top = kk.tail(12).mean().nlargest(6).index
+        g = kk[top].copy()
+        g["Other contractors"] = (d["Total"] - kk[top].sum(axis=1, min_count=1)).clip(lower=0)
+        out.append(spec("Production", (g * MCM_PER_MMSCF).round(1),
+                        "Indonesia gas production by contractor (Ditjen Migas)", "mcm/d, monthly average",
+                        "stacked_bar"))
+    try:
+        u = read(p, "Utilisation")
+    except ValueError:
+        u = pd.DataFrame()
+    if not u.empty:
+        u = u.set_index(u.columns[0])
+        u.index = pd.to_datetime(u.index.astype(str).str[:4], format="%Y", errors="coerce")
+        u = u[u.index.notna()].sort_index().apply(pd.to_numeric, errors="coerce")
+        z = pd.Series(0.0, index=u.index)
+        get = lambda c: u[c] if c in u else z   # noqa: E731
+        g = pd.DataFrame({"Electricity": get("Electricity"), "Fertiliser": get("Fertiliser"),
+                          "Industry": get("Industry"),
+                          "Domestic LNG/LPG": get("Domestic_LNG").fillna(0) + get("Domestic_LPG").fillna(0),
+                          "Other domestic": get("City_gas").fillna(0) + get("Gas_fuel_BBG").fillna(0)
+                          + get("Lifting_own_use").fillna(0),
+                          "Pipeline export": get("Pipeline_export"), "LNG export": get("LNG_export")})
+        out.append(spec("Utilisation", g, "Indonesia gas utilisation by sector (Ditjen Migas)",
+                        "BBTUD, annual average", "stacked_bar", "%Y"))
+    return out
+
+
+def pakistan_gas(p):
+    out = []
+    d = _sheet(p, "Production", "date")
+    if not d.empty:
+        g = d[cols(d, "Sindh", "Balochistan", "KPK", "Punjab")].apply(pd.to_numeric, errors="coerce")
+        out.append(spec("Production", (g * MCM_PER_MMSCF).round(1),
+                        "Pakistan gas production by province (PBS / DGPC)", "mcm/d, monthly average",
+                        "stacked_bar"))
+    lng = _sheet(p, "LNG imports", "date")
+    if not lng.empty and "LNG_USD_thousand" in lng:
+        out.append(spec("LNG imports", (pd.to_numeric(lng["LNG_USD_thousand"], errors="coerce") / 1000).round(1)
+                        .to_frame("LNG imports"), "Pakistan LNG imports by value (PBS)", "US$ million per month",
+                        "stacked_bar"))
+    return out
+
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
@@ -1921,6 +1980,9 @@ REGISTRY = {
     "india_power_prices.xlsx": india_iex,
     "india_gas.xlsx": india_gas,
     "thailand_gas.xlsx": thailand_gas,
+    "vietnam_gas.xlsx": vietnam_gas,
+    "indonesia_gas.xlsx": indonesia_gas,
+    "pakistan_gas.xlsx": pakistan_gas,
     "bangladesh_gas.xlsx": bangladesh_gas,
     "india_npp_generation_daily.xlsx": india_npp_generation,
     "india_hydro_reservoirs.xlsx": india_reservoirs,
