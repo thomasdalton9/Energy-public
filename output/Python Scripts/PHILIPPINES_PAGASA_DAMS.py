@@ -46,7 +46,7 @@ def out(*a):
 def num(x):
     try:
         return float(x.replace(",", ""))
-    except ValueError:
+    except (ValueError, AttributeError):
         return None
 
 
@@ -62,7 +62,8 @@ def parse(page, today):
         raise SystemExit("PAGASA dam table not found")
     cells = [re.sub(r"\s+", " ", htmllib.unescape(re.sub(r"<[^>]+>", " ", c))).strip()
              for c in re.findall(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", tab)]
-    cells = [c for c in cells if c]
+    # empty cells are KEPT: values are read by position within a reading, so a blank (e.g. a missing hour count)
+    # must hold its place rather than shift NHWL / rule curve one column left
     starts = [(i, d) for i, c in enumerate(cells) for d in DAMS if c.lower().startswith(d.lower())]
     levels, limits = {}, {}
     for k, (i, dam) in enumerate(starts):
@@ -74,13 +75,14 @@ def parse(page, today):
             elif DAY.match(c) and cur is not None:
                 rows.append((day_of(DAY.match(c), today), cur))
                 cur = None
-            elif cur is not None and num(c) is not None:
-                cur.append(num(c))
+            elif cur is not None:
+                cur.append(num(c) if c else None)   # blank or non-numeric ('-') keeps its position as None
         for n, (d, vals) in enumerate(rows):
-            if vals:
+            if vals and vals[0]:   # a 0 level is a missing reading, not an empty reservoir
                 levels[(d, dam)] = vals[0]
             if n == 0 and len(vals) >= 6:   # today's row: RWL, hours, change, NHWL, dev, rule curve, ...
-                limits[dam] = (vals[3], vals[5])
+                # PAGASA prints 0 where a dam has no NHWL / rule curve (Caliraya; Ipo and La Mesa rule curve)
+                limits[dam] = tuple(x if x else None for x in (vals[3], vals[5]))
     return levels, limits
 
 
@@ -111,13 +113,18 @@ def main():
                         for d, v in limits.items()]).set_index("dam") if limits else pd.DataFrame()
     try:   # a dam whose limits were not parsed today keeps its saved ones
         saved = pd.read_excel(args.out, sheet_name="Limits", index_col=0)
+        for c in ("NHWL_m", "Rule_curve_m"):   # 0 = not published (saved before 0 was treated as missing)
+            if c in saved:
+                saved[c] = saved[c].mask(saved[c] == 0)
         lim = saved if lim.empty else pd.concat([lim, saved[~saved.index.isin(lim.index)]])
     except (FileNotFoundError, ValueError):
         pass
     notes = [
         "UNITS",
         "Daily: reservoir water level at 08:00, metres above mean sea level, one column per dam. Limits: normal high "
-        "water level (NHWL, full) and the day's rule-curve elevation (the operating guide level) from the latest run.",
+        "water level (NHWL, full) and the day's rule-curve elevation (the operating guide level) from the latest run; "
+        "blank where PAGASA publishes none (it prints 0: Caliraya's NHWL and rule curve, Ipo and La Mesa's rule "
+        "curve).",
         "",
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d} - PAGASA posts only today's and "
