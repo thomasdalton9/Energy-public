@@ -1,4 +1,4 @@
-name: Biomethane probe 2 (manual)
+name: Biomethane probe 3 (manual)
 
 on:
   workflow_dispatch: {}
@@ -13,4 +13,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests openpyxl pypdf
-      - run: python3 discovery_archive/europe/BIOMETHANE_PROBE2.py
+      - run: python3 discovery_archive/europe/BIOMETHANE_PROBE3.py
