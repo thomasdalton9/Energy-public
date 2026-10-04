@@ -208,14 +208,14 @@ def parse_enagas_bulletin(content):
     with pdfplumber.open(io.BytesIO(content)) as pdf:
         for pg in pdf.pages[:8]:
             t = pg.extract_text() or ""
-            m = re.search(r"National\s+Market\s+demand\s+([\d.,]+)", t, re.I)
+            m = re.search(r"National\s*Market\s*demand\s*([\d.,]+)", t, re.I)
             if not m:
                 continue
-            h = re.search(r"GWh\s+([A-Za-z]{3})[A-Za-z]*[-\s]*(20\d\d)", t)
+            h = re.search(r"GWh\s*([A-Za-z]{3})[A-Za-z]*[-\s]*(20\d\d)", t)
             if not h or h.group(1).lower() not in MONTHS:
                 return None
-            conv = re.search(r"^Conventional\s+([\d.,]+)", t, re.M | re.I)
-            pw = re.search(r"^Power\s+generation\s+([\d.,]+)", t, re.M | re.I)
+            conv = re.search(r"^Conventional\s*([\d.,]+)", t, re.M | re.I)
+            pw = re.search(r"^Power\s*generation\s*([\d.,]+)", t, re.M | re.I)
             return (pd.Timestamp(int(h.group(2)), MONTHS[h.group(1).lower()], 1), _gwh(m.group(1)),
                     _gwh(conv.group(1)) if conv else float("nan"), _gwh(pw.group(1)) if pw else float("nan"))
     return None
