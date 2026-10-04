@@ -1,0 +1,24 @@
+POST ts/data: 401 ''
+POST ts/query: 401 ''
+POST ts/chart: 401 ''
+POST ts/timeseries: 401 ''
+POST ts/publication: 401 ''
+POST ts/values: 200 '{"creationTimeForFavorite":null,"lastAccessTimeForFavorite":null,"timeSeriesData":{"chartData":[{"dataSet":[{"x":1788235200000,"y":114585073.000000},{"x":1788321600000,"y":125912623.000000},{"x":17884'
+POST ts/search: 401 ''
+POST ts: 401 ''
+POST ts/table: 401 ''
+POST ts/export: 401 ''
+POST ts/tsdata: 401 ''
+POST ts/series: 401 ''
+POST ts/favorite: 200 'Qq0'
+POST ts/request: 401 ''
+[200] GET https://platform.aggm.at/vis-service/api/ts/favorite/Qo1
+   post=
+   resp={"creationTimeForFavorite":"2026-05-27T15:27:07","lastAccessTimeForFavorite":"2026-10-04T03:39:16","timeSeriesData":{"chartData":[{"dataSet":[{"x":1664596800000,"y":5783169148.741000},{"x":1667278800000,"y":8407994442.339000},{"x":1669870800000,"y":10105734592.914000},{"x":1672549200000,"y":9720153063.877000},{"x":1675227600000,"y":8988855905.896000},{"x":1677646800000,"y":7739514786.942000},{"x":1680321600000,"y":6810446148.009000},{"x":1682913600000,"y":4681920975.334000},{"x":1685592000000,"y":3323307624.476000},{"x":1688184000000,"y":3364767770.391000},{"x":1690862400000,"y":3174159501.778
+clicked text=Alle akzeptieren
+[200] POST https://platform.aggm.at/vis-service/api/ts/values
+   post={"rangeType":"individual","from":"2022-10-01T06:00:00","to":"2027-01-01T06:00:00","granularity":"month","timeseries":["ErmittelterEKVOesterreich","SummeEKV_SLP_Oesterreich","SummeEKV_Kraftwerke_MGO","SummeEKV_LPZGR300_Oesterreich","SummeEKV_LPZKL300_Oesterreich"]}
+   resp={"creationTimeForFavorite":null,"lastAccessTimeForFavorite":null,"timeSeriesData":{"chartData":[{"dataSet":[{"x":1664596800000,"y":5783169148.741000},{"x":1667278800000,"y":8407994442.339000},{"x":1669870800000,"y":10105734592.914000},{"x":1672549200000,"y":9720153063.877000},{"x":1675227600000,"y":8988855905.896000},{"x":1677646800000,"y":7739514786.942000},{"x":1680321600000,"y":6810446148.009000},{"x":1682913600000,"y":4681920975.334000},{"x":1685592000000,"y":3323307624.476000},{"x":1688184000000,"y":3364767770.391000},{"x":1690862400000,"y":3174159501.778000},{"x":1693540800000,"y":388387
+clicked text=Anwenden
+TEXT Kontakt | person Login | language | EN | Marktdaten | One-Stop-Shop | AGGM Data Monitor | info | favorite_border | Favorit wählen (0) | filter_alt | Keine Filter gesetzt |  | Sie haben keine Zeitreihen gewählt. Bitte wählen Sie mindestens eine Zeitreihe und Zeitspanne aus. |  | filter_alt | close | Filter | Granularität  | Tage | Zeitraum | Zeitbereich | Individuell | Startdatum | Enddatum | Zeitreihen wählen  | Zeitreihen filtern | ArchiveFunction | Current | Balancing | Capacities | CapacityUtilization | Consumption | EndConsumer | EntryExitPoint | MarketArea | Production | Storage | Anwenden | Zurücksetzen |  | Austrian Gas Grid Management © 2026 – All Rights Reserved |  | Impressum | Rechtshinweis
+clicked text=Anwenden
