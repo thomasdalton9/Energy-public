@@ -107,7 +107,11 @@ Standing instructions from the repo owner. Follow these on every change.
   supply line in the gas balances (not in ENTSOG production): France ODRE, Denmark Energinet, Netherlands CBS, Austria AGGM
   (`BIOMETHANE_DAILY.py`, `BIOMETHANE_STATS.py`), other EU27 countries from Eurostat's annual figures held at the last year;
   Great Britain's is not added because the NTS offtake we use as UK consumption excludes embedded gas. Germany and Ireland have no
-  operator biomethane feed. Country balances for DE/FR/BE/AT/NL still use ENTSOG's Norway classification and look short or off.
+  operator biomethane feed. ENTSOG publishes nothing at Emden (EPT1/EPT2/NPT, any indicator, either side), so only Dornum (212 of Gassco's 649 TWh to
+  Germany in 2025) is seen; the Emden gas feeds the German and Dutch grids together, so the master shows a combined Germany +
+  Netherlands balance (Gassco's flow to Germany minus the Dornum volume from `ENTSOG_NORWAY_ENTRIES_DAILY.py` is added to its
+  imports) and flags the separate DE and NL balances as excluding it. Belgium (Zeebrugge) and France (Dunkerque) capture 94-95%
+  of Gassco's flows. France is about +8% and Austria far off for other, untraced reasons.
 - Every dashboard chart shows its source. Prefer raw sources (grid operators, ministries, statistics offices);
   Ember is a fallback only for countries with no raw feed, labelled as such.
 

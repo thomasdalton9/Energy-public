@@ -214,6 +214,11 @@ def main():
             xl, out("denmark_gas_balance.png"), "Denmark gas balance data", "Denmark gas balance: Energinet entries, Baltic Pipe and deliveries",
             "Energinet Gasflow (North Sea entry = mainly Norwegian gas for Baltic Pipe from Oct 2022; Tyra = Danish fields; biomethane, storage, Germany, Sweden, Poland); "
             "consumption = gas delivered to Danish consumers (includes biomethane)")),
+        ("Germany Netherlands gas balance", lambda: gas_balance(
+            xl, out("germany_netherlands_gas_balance.png"), "Germany Netherlands gas balance",
+            "Germany + Netherlands gas balance: supply and storage flows vs consumption",
+            "ENTSOG flows plus the Norwegian gas at Emden that ENTSOG does not report (Gassco flow to Germany minus ENTSOG's Dornum); "
+            "consumption: Germany THE, Netherlands ENTSOG; GIE ALSI (LNG) and AGSI+ (storage)")),
         ("Norway gas exports data", lambda: fuel_chart(
             xl, "Norway gas exports data", "Norway gas exports by destination", "TWh per month",
             out("norway_gas_exports.png"), source="Gassco (daily flows by delivery destination; mcm/d x 11.2 GWh per mcm)", by_order=True)),
