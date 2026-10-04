@@ -1,5 +1,5 @@
 """
-Capacity round 6: run asia/PHILIPPINES_DOE_CAPACITY.py twice to a temp file (the second run should find no new
+Capacity round 6 (rerun with debug output): run asia/PHILIPPINES_DOE_CAPACITY.py twice to a temp file (the second run should find no new
 release) and print the sheets.
 """
 import os

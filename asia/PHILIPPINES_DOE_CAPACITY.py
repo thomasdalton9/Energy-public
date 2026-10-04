@@ -144,8 +144,13 @@ def main():
         return
     r = requests.get(pdf_url, headers=H, timeout=T)
     r.raise_for_status()
+    out(f"  PDF {pdf_url} -> {r.headers.get('content-type')} {len(r.content)} bytes")
     long = parse(r.content)
-    if long.empty:
+    if long.empty:   # layout changed: show what the PDF holds
+        import pdfplumber
+        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+            for i, pg in enumerate(pdf.pages[:6]):
+                out(f"=== page {i + 1}\n{(pg.extract_text() or '')[:1500]}")
         raise SystemExit("No capacity tables parsed from the PDF")
     out(long.groupby(["measure", "scope"])["year"].agg(["min", "max", "count"]).to_string())
     inst, dep = standard(long, "Installed"), standard(long, "Dependable")
