@@ -33,7 +33,7 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_tso_gas_demand_extra_daily.xlsx"
 REVISION_DAYS = 45
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total"]
+COLUMNS = ["PL_distribution", "PL_final_customers", "PL_other", "PL_total", "FI_total"]
 
 
 def get(url, tries=3, **kw):
@@ -107,6 +107,35 @@ def poland(d0, d1):
     return out
 
 
+# ---- Finland: Gasgrid Finland ------------------------------------------------------------------------------------------
+GG_PAGE = "https://gasgrid.fi/en/gas-business/transparency-and-market-information/"
+
+
+def finland(d0, d1):
+    """Gasgrid publishes one workbook 'Gas consumption in Finland <date>.xlsx' (a sheet per year, GWh/day, GCV) on its transparency
+    page; the file name changes with each upload, so the link is read from the page."""
+    page = get(GG_PAGE, headers={"User-Agent": UA}).text
+    links = re.findall(r'href="([^"]*[Gg]as-[Cc]onsumption-in-[Ff]inland[^"]*\.xlsx)"', page)
+    if not links:
+        raise RuntimeError("no 'Gas consumption in Finland' xlsx link on the Gasgrid page")
+    url = links[0]
+    print(f"  Gasgrid file: {url}", flush=True)
+    x = pd.ExcelFile(io.BytesIO(get(url, headers={"User-Agent": UA}).content))
+    rec = {}
+    for sh in x.sheet_names:
+        raw = x.parse(sh, header=None)
+        for _, row in raw.iterrows():
+            vals = list(row)
+            for i, v in enumerate(vals):
+                if isinstance(v, (pd.Timestamp, datetime)) and not pd.isna(v):
+                    nums = [w for w in vals[i + 1:] if isinstance(w, (int, float)) and not pd.isna(w)]
+                    if nums:
+                        rec[pd.Timestamp(v).normalize()] = float(nums[0])
+                    break
+    out = pd.DataFrame({"FI_total": pd.Series(rec, dtype=float)}).sort_index()
+    return out[(out.index >= pd.Timestamp(d0)) & (out.index <= pd.Timestamp(d1))]
+
+
 def read_existing(path):
     if not os.path.exists(path):
         return pd.DataFrame(columns=COLUMNS)
@@ -127,7 +156,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--start", default="2021-01-01")
-    ap.add_argument("--only", default="", help="comma-separated subset of DE,FR,ES,DK,PT (the workbook keeps the other countries' history)")
+    ap.add_argument("--only", default="", help="comma-separated subset of PL,FI,... (the workbook keeps the other countries' history)")
     args = ap.parse_args()
     only = {x.strip().upper() for x in args.only.split(",") if x.strip()}
     os.makedirs(args.out_dir, exist_ok=True)
@@ -136,11 +165,8 @@ def main():
     today = datetime.now(timezone.utc).date()
     old = read_existing(path)
     combined = old.copy()
-    for code, label, fn, cols in (("DE", "Germany (THE)", germany, [c for c in COLUMNS if c.startswith("DE_")]),
-                                  ("FR", "France (ODRE)", france, [c for c in COLUMNS if c.startswith("FR_")]),
-                                  ("ES", "Spain (Enagas)", spain, ["ES_total"]),
-                                  ("DK", "Denmark (Energinet)", denmark, ["DK_total"]),
-                                  ("PT", "Portugal (REN)", portugal, [c for c in COLUMNS if c.startswith("PT_")])):
+    for code, label, fn, cols in (("PL", "Poland (Gaz-System)", poland, [c for c in COLUMNS if c.startswith("PL_")]),
+                                  ("FI", "Finland (Gasgrid)", finland, ["FI_total"])):
         if only and code not in only:
             continue
         print(f"{label}: start", flush=True)

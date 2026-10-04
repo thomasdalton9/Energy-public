@@ -1725,6 +1725,23 @@ def tso_gas_demand(p):
     return out
 
 
+def tso_gas_demand_extra(p):
+    """Further TSO gas consumption (Poland Gaz-System, Romania Transgaz, Spain Enagas early years, Finland Gasgrid): monthly TWh,
+    one line per country, from the Daily sheet."""
+    d = by_date(read(p, "Daily"), "date")
+    names = {"PL_total": "Poland", "RO_total": "Romania", "FI_total": "Finland", "ES_total_early": "Spain (Enagas bulletin, monthly)",
+             "HR_total": "Croatia"}
+    d = d[[c for c in names if c in d]]
+    if d.empty:
+        return []
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    if last < last + pd.offsets.MonthEnd(0):   # drop the month in progress
+        m = m[m.index < last.to_period("M").to_timestamp()]
+    m = m.dropna(how="all").rename(columns=names)
+    return [spec("Total", m, "Gas consumption: Poland, Romania, Finland (TSO data)", "TWh per month", "line")] if len(m) else []
+
+
 def ireland_eirgrid(p):
     """EirGrid quarter-hourly system data (Republic of Ireland): monthly GWh by wind, solar, hydro and thermal/other, from the
     Daily sheet."""
@@ -1782,6 +1799,7 @@ REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
+    "europe_tso_gas_demand_extra_daily.xlsx": tso_gas_demand_extra,
     "europe_tso_gas_demand_cee_daily.xlsx": tso_gas_demand_cee,
     "eurostat_gas_monthly.xlsx": eurostat_gas,
     "ember_europe_power_monthly.xlsx": ember_europe,
