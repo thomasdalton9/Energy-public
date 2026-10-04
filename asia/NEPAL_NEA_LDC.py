@@ -16,7 +16,8 @@ Where the reports are
   posted none since. No NDOR file exists for earlier dates on the new site.
 
   BS dates: the `nepali-datetime` package (nepali_datetime.date.from_datetime_date) builds each day's file name;
-  each report also prints its own date ("For Date: 2081/09/27 ( 2025/01/11 )"), which is checked against it.
+  each report also prints its own date ("For Date: 2081/09/27 ( 2025/01/11 )"), which is checked against it (the
+  BS date rules: the printed AD date is hand-typed and wrong in 34 reports - see read_pdf).
 
 Each report gives
   Daily energy (MWh): NEA, NEA Subsidiary, IPP generation, Import, Total Energy Available, Energy Export,
@@ -486,7 +487,10 @@ def save(path, new_rows, rebuild=False):
         "'National Energy Demand', Demand_peak_MW = 'National Peak Demand', Energy_met_MWh = requirement - "
         "interruption (deficit not shown); its 'Total' demand figures include exports and are not kept.",
         "Dates: each report's file name carries the Bikram Sambat date (NDOR 2081_09_27 = 11 Jan 2025); the report "
-        "prints both dates and its own Gregorian date is used. BS->AD conversion: nepali-datetime package.",
+        "prints both dates. The BS date rules: the printed Gregorian date is hand-typed and was a month or two days off "
+        "in Sep 2023 and Sep 2024 (ignored); a file holding another day's report (2080_08_19 = copy of 2080_08_18) "
+        "counts for the day it states. Reports showing zero generation (9-12 Aug 2024) are left out. BS->AD "
+        "conversion: nepali-datetime package.",
         "",
         "COVERAGE",
         f"Daily from {daily.index.min():%Y-%m-%d} to {daily.index.max():%Y-%m-%d}: {len(pdf_days)} days from reports"
