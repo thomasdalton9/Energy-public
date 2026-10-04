@@ -666,15 +666,19 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
         mof = fx["UK_moffat_exit"]
         roi = gni["Moffat"].reindex(mof.index) if gni is not None and len(gni) else pd.Series(float("nan"), index=mof.index)
         to_roi = roi.where(roi.notna(), mof).clip(upper=mof)
+        try:    # ENTSOG's UK exports already hold the Carrickfergus exit (Northern Ireland -> Ireland, 7-9 TWh a year); it is part of the Twynholm take-off
+            ukie = _sheet_or_empty(os.path.join(data_dir, GAS_FLOWS_FILE), "Border flows", "date")["UK>IE"].reindex(mof.index).fillna(0)
+        except Exception:  # noqa: BLE001
+            ukie = pd.Series(0.0, index=mof.index)
         try:    # National Gas NTS storage flows (the operator's own; ENTSOG lacks the Stublach, Holford and Hill Top entries)
             nts = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
             sto = pd.DataFrame({"GB_withdrawal_GWhd": nts["storage_withdrawal"], "GB_injection_GWhd": nts["storage_injection"]})
             sto = gb_site_storage(data_dir, sto)
         except Exception:  # noqa: BLE001
             sto = None
-        return ({"extra_exports": to_roi} | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi).fillna(0)), (
+        return ({"extra_exports": to_roi} | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi - ukie).clip(lower=0).fillna(0)), (
             " Exports include the Moffat exit to Ireland (the Republic's share is Gas Networks Ireland's Moffat import figure); the remainder of "
-            "the Moffat flow (Northern Ireland, Isle of Man, about 19 TWh a year) is added to UK consumption because the National Gas NTS "
+            "the Moffat flow (Northern Ireland and the Isle of Man, about 19 TWh a year, less the 7-9 TWh a year that Northern Ireland sends on to the Republic at Carrickfergus, which ENTSOG already counts in UK exports) is added to UK consumption because the National Gas NTS "
             "offtake covers Great Britain only. Storage withdrawals and injections are the nine storage sites' own daily flows from the National Gas Data Portal (the NTS aggregate overstates net withdrawals by about 5 TWh a year); before Oct 2024 they are the day-to-day change in the portal's total stock (net only). ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK).")
     return {}, None, None
 
