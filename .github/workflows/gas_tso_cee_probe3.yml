@@ -1,0 +1,27 @@
+name: CEE gas probe 3 (manual)
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: python3 discovery_archive/europe/GAS_TSO_CEE_PROBE3.py
+      - name: Commit probe output
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/europe/probe_cee_out
+          git diff --cached --quiet || git commit -m "CEE probe output"
+          for i in 1 2 3 4 5; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep $((i*5)); done
