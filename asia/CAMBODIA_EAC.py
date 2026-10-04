@@ -99,9 +99,9 @@ def licensee_key(label):
 
 def import_key(label):
     s = " ".join(label.lower().split())
-    m = re.search(r"import from (vietnam|thailand|laos) at (hv|mv)", s)
+    m = re.search(r"import from (vietnam|thailand|laos?) at (hv|mv)", s)
     if m:
-        return f"imp_{m.group(1).title()}_{m.group(2).upper()}"
+        return f"imp_{m.group(1).title().replace('Lao', 'Laos').replace('Laoss', 'Laos')}_{m.group(2).upper()}"
     if "generation in cambodia" in s:
         return "gen_in_cambodia"
     if re.match(r"^\W*total", s):
@@ -153,20 +153,67 @@ def parse_table(tb):
     return kind, vals
 
 
+NUM = re.compile(r"^-?\d[\d,]*(?:\.\d+)?$")
+
+
+def parse_annex_text(text, edition):
+    """Text fallback for one Annex 2 page (pypdfium2 text, one table row per line): the energy columns are the
+    edition year and the year before; a row holds [counts], [capacity prev, cur, %], energy prev, cur, %."""
+    vals, kind, carry = {}, None, ""
+    min_full = {"imports": 3, "types": 6, "licensees": 8}
+    for ln in text.splitlines():
+        ln = ln.replace("\x12", " ").strip()
+        if re.search(r"Summary Information", ln, re.I):
+            kind = ("imports" if re.search(r"Import", ln, re.I) else "types" if re.search(r"Generation Type", ln, re.I)
+                    else "licensees" if re.search(r"Sent", ln, re.I) else None)
+            carry = ""
+            continue
+        if not kind:
+            continue
+        toks = re.sub(r"^\d{1,2}\s+(?=[A-Za-z])", "", ln).split()
+        nums = [num(t) for t in toks if NUM.match(t)]
+        label = " ".join(t for t in toks if not NUM.match(t))
+        if not nums:
+            carry = (carry + " " + label).strip()[-120:]
+            continue
+        label, carry = (carry + " " + label).strip(), ""
+        keyf = {"imports": import_key, "types": type_key, "licensees": licensee_key}[kind]
+        k = keyf(label)
+        if not k or len(nums) < 2:
+            continue
+        f = k if kind == "imports" else (f"gen_{k}" if kind == "types" else f"lic_{k}")
+        pairs = [(edition, nums[-2])] + ([(edition - 1, nums[-3])] if len(nums) >= min_full[kind] else [])
+        for y, v in pairs:
+            vals[(f, y)] = vals.get((f, y), 0.0) + v
+        if kind == "types" and len(nums) >= 4:
+            capcur = nums[-5] if len(nums) >= 6 else nums[-4]
+            vals[(f"cap_{k}", edition)] = vals.get((f"cap_{k}", edition), 0.0) + capcur / 1000.0
+            if len(nums) >= 6:
+                vals[(f"cap_{k}", edition - 1)] = vals.get((f"cap_{k}", edition - 1), 0.0) + nums[-6] / 1000.0
+    return vals
+
+
 def parse_annual_report(content, edition):
     vals = {}
     doc = pdfium.PdfDocument(content)   # fast text pass to find the Annex 2 pages; pdfplumber reads only those
-    pages = [i for i in range(len(doc))
-             if re.search(ANNEX2, " ".join(doc[i].get_textpage().get_text_range().split()[:40]), re.I)]
+    texts = {i: doc[i].get_textpage().get_text_range() for i in range(len(doc))}
     doc.close()
+    pages = [i for i, t in texts.items() if re.search(ANNEX2, " ".join(t.split()[:40]), re.I)]
     with pdfplumber.open(io.BytesIO(content)) as pdf:
         for i in pages:
+            found = 0
             for tb in pdf.pages[i].extract_tables():
                 kind, v = parse_table(tb)
                 if kind:
                     out(f"    p{i + 1}: {kind} {len(v)} values")
+                    found += len(v)
                     for k, x in v.items():
                         vals.setdefault(k, x)
+            if not found:   # 2019 / 2020 print these pages rotated: pdfplumber reads them reversed
+                v = parse_annex_text(texts[i], edition)
+                out(f"    p{i + 1}: text fallback {len(v)} values")
+                for k, x in v.items():
+                    vals.setdefault(k, x)
     return [{"Publication": f"Annual report {edition}", "Edition": edition, "Field": f, "Year": y, "Value": v}
             for (f, y), v in sorted(vals.items(), key=lambda kv: (kv[0][1], kv[0][0]))]
 
