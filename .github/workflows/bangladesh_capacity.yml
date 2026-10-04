@@ -1,9 +1,9 @@
-name: Singapore USEP prices
+name: Bangladesh power capacity
 
-# EMC NEMS half-hourly Uniform Singapore Energy Price (USEP). Backfills every missed day (EMC keeps five years).
+# BPDB installed and derated capacity by fuel (current figures only; one row per month).
 on:
   schedule:
-    - cron: "35 6 1,15 * *"
+    - cron: "50 3 1,15 * *"
   workflow_dispatch: {}
 
 permissions:
@@ -24,25 +24,25 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          timeout 2100 python3 asia/SINGAPORE_USEP.py || echo "asia/SINGAPORE_USEP.py failed"
+          timeout 2100 python3 asia/BANGLADESH_BPDB_CAPACITY.py || echo "asia/BANGLADESH_BPDB_CAPACITY.py failed"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          f="output/Data and Chart Outputs/singapore_power_prices.xlsx"
-          [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for singapore_power_prices.xlsx"
+          f="output/Data and Chart Outputs/bangladesh_power_capacity.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for bangladesh_power_capacity.xlsx"
           mkdir -p "output/Python Scripts"
-          cp png_charts.py asia/SINGAPORE_USEP.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py asia/BANGLADESH_BPDB_CAPACITY.py south_america/power_capacity_std.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          [ -f "output/Data and Chart Outputs/singapore_power_prices.xlsx" ] && git add -f "output/Data and Chart Outputs/singapore_power_prices.xlsx" || true
+          [ -f "output/Data and Chart Outputs/bangladesh_power_capacity.xlsx" ] && git add -f "output/Data and Chart Outputs/bangladesh_power_capacity.xlsx" || true
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
-          git diff --cached --quiet || git commit -m "Singapore USEP prices: automated update"
+          git diff --cached --quiet || git commit -m "Bangladesh power capacity: automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))
