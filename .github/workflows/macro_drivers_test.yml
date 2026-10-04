@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install pandas requests openpyxl xlrd matplotlib
+      - run: pip install pandas requests openpyxl xlrd matplotlib curl_cffi
       - name: Run (full history)
         env:
           PYTHONUNBUFFERED: "1"

@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl xlrd matplotlib
+        run: pip install pandas requests openpyxl xlrd matplotlib curl_cffi
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
