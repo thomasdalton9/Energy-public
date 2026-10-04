@@ -1869,6 +1869,24 @@ def gb_gas_nts(p):
     return out
 
 
+def gb_storage_sites(p):
+    """GB gas storage by site (National Gas): month-end stock stacked by site, and monthly net withdrawal (outflow - inflow), TWh."""
+    d = by_date(read(p, "Daily"), "date")
+    sites = sorted({c[:-6] for c in d.columns if c.endswith("_stock") and not c.startswith(("total", "portal"))})
+    stock = d[[f"{s}_stock" for s in sites]].resample("MS").last() / 1000.0
+    stock = stock.dropna(how="all").rename(columns={f"{s}_stock": s for s in sites})
+    out = []
+    if not stock.empty:
+        out.append(spec("Stock", stock, "GB gas storage stock by site, month end (National Gas)", "TWh", "stacked_bar"))
+    net = pd.DataFrame({s: (d[f"{s}_outflow"] - d[f"{s}_inflow"]) for s in sites if f"{s}_outflow" in d and f"{s}_inflow" in d})
+    last = d.dropna(how="all").index.max()
+    m = net.resample("MS").sum(min_count=1) / 1000.0
+    m = m[m.index < last.to_period("M").to_timestamp()].dropna(how="all")
+    if not m.empty:
+        out.append(spec("Net withdrawal", m, "GB gas storage net withdrawal by site (National Gas)", "TWh per month", "stacked_bar"))
+    return out
+
+
 def europe_biomethane_stats(p):
     """Biomethane injected into gas grids: monthly national series (GB DESNZ, AT AGGM) as TWh lines, and an annual stacked bar by
     country (Eurostat nrg_bal_c biogases blended into natural gas; United Kingdom after 2019 from the DESNZ monthly sums)."""
@@ -2120,6 +2138,7 @@ def macro_drivers(p):
 REGISTRY = {
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
+    "gb_storage_sites_daily.xlsx": gb_storage_sites,
     "norway_gassco_gas_flows_daily.xlsx": norway_gassco,
     "europe_tso_gas_demand_daily.xlsx": tso_gas_demand,
     "europe_biomethane_operators.xlsx": europe_biomethane,
