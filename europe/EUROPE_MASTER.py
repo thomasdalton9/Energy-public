@@ -120,7 +120,7 @@ SOURCES = {
     "europe_cross_border_flows_daily.xlsx": ("ENTSO-E Transparency Platform: cross-border physical flows",
                                              "https://transparency.entsoe.eu/"),
 }
-GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
+GAS_BALANCE_SRC = ("ENTSOG (production, pipeline flows, consumption), TSO consumption series (Germany THE, France ODRE, Spain Enagas, Great Britain National Gas, Ireland GNI), GIE ALSI (LNG send-out), GIE AGSI+ (storage)",
                    "https://transparency.entsog.eu/")
 GAS_FLOWS_FILE = "europe_gas_flows_daily.xlsx"
 BALANCE_SRC = ("ENTSO-E Transparency Platform: generation, load and cross-border physical flows (Great Britain: Elexon BMRS + NESO; "

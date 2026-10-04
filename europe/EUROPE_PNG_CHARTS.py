@@ -125,7 +125,7 @@ def gas_balance(xl, path):
     date_axis(ax)
     ax.axhline(0, color="#BBBBBB", linewidth=0.8)
     finish(fig, ax, f"EU gas balance: supply and storage flows vs consumption (to {latest(d)})", "TWh per month",
-           "ENTSOG physical flows (operational data); Gas Infrastructure Europe ALSI (LNG) and AGSI+ (storage)", path, ncol=4)
+           "ENTSOG physical flows; consumption for DE/FR/ES from THE, ODRE and Enagas, Ireland from GNI; GIE ALSI (LNG) and AGSI+ (storage)", path, ncol=4)
 
 
 def water_year(xl, tab_name, title, unit, path, source):
