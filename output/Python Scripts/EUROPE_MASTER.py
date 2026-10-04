@@ -493,6 +493,33 @@ def biomethane_daily(data_dir):
     return out.sort_index()
 
 
+DK_FILE = "denmark_energinet_gasflow_daily.xlsx"
+
+
+def denmark_gas_balance(data_dir):
+    """Denmark's gas balance from Energinet's own Gasflow dataset (monthly TWh). Supply: the North Sea entry (Danish fields plus the
+    Norwegian gas that arrives through the Danish offshore pipelines and feeds Baltic Pipe), Tyra, biomethane, storage withdrawals and
+    imports from Germany. Uses: exports to Poland (Baltic Pipe), Sweden and Germany, storage injections. Consumption is gas delivered to
+    Danish consumers (it already includes the biomethane, which is why biomethane is also a supply line). ENTSOG shows only about 15 of the roughly
+    250 GWh/d that pass through the North Sea entries."""
+    d = add_charts._sheet(os.path.join(data_dir, DK_FILE), "Daily", "date")
+    g = _col(d, "DK_germany")
+    day = pd.DataFrame(index=d.index)
+    day["North Sea (Danish fields + Norwegian transit)"] = _col(d, "DK_from_north_sea")
+    day["Tyra"] = _col(d, "DK_from_tyra")
+    day["Biomethane"] = _col(d, "DK_biogas")
+    day["Storage withdrawals"] = _col(d, "DK_storage").clip(lower=0)
+    day["Imports from Germany"] = g.clip(lower=0)
+    day["Exports to Poland"] = _col(d, "DK_to_poland").fillna(0)
+    day["Exports to Sweden"] = _col(d, "DK_to_sweden").fillna(0)
+    day["Exports to Germany"] = g.clip(upper=0)
+    day["Storage injections"] = _col(d, "DK_storage").clip(upper=0)
+    day["Consumption"] = -_col(d, "DK_to_denmark")
+    day = day.dropna(subset=["Consumption", "Biomethane"])
+    day = day[day.index >= "2021-10-01"]
+    return _monthly_twh(day.fillna(0.0)) if len(day) else pd.DataFrame()
+
+
 NORWAY_FILE = "norway_gassco_gas_flows_daily.xlsx"
 NORWAY_SRC = ("Gassco (Norwegian gas flows by delivery destination, daily; mcm/d x 11.2 GWh per mcm)", "https://gassco.eu/")
 NORWAY_COLS = {"NO_to_GB": "Great Britain", "NO_to_DE": "Germany", "NO_to_FR": "France", "NO_to_BE": "Belgium", "NO_other": "Other"}
@@ -737,6 +764,15 @@ def main():
             if cc == "UK" and len(nor) and "NO_to_GB" in nor:
                 note += (" Pipeline imports are Gassco's Norway-to-Great-Britain flows; the rest of the St Fergus and Easington entry points "
                          "(UK North Sea gas) is counted in production.")
+            if cc == "DK":
+                try:
+                    b, note = denmark_gas_balance(args.data_dir), (
+                        "Denmark from Energinet's own Gasflow dataset: North Sea and Tyra entries (Danish fields plus Norwegian gas "
+                        "passing through to Baltic Pipe), biomethane, storage and the German border against exports to Poland and "
+                        "Sweden; consumption is gas delivered to Danish consumers (including the biomethane). ENTSOG captures only a small part "
+                        "of these flows.")
+                except Exception as e:  # noqa: BLE001
+                    gas[2].append(f"Denmark gas balance from Energinet failed ({type(e).__name__}: {e}); ENTSOG used")
             if cc == "IE":
                 try:
                     b, note = ireland_gas_balance(args.data_dir), (
