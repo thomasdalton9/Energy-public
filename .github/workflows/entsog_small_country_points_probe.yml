@@ -1,0 +1,26 @@
+name: ENTSOG small-country points + operator sites probe (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      countries:
+        description: "comma list of country codes"
+        default: "LU,EE,LV,BG,BE"
+      sites:
+        description: "also probe operator sites (true/false)"
+        default: "true"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: python3 -u discovery_archive/europe/GAS_OPERATOR_SITES_PROBE.py
+        if: ${{ inputs.sites == 'true' }}
+        continue-on-error: true
+      - run: python3 -u discovery_archive/europe/ENTSOG_SMALL_COUNTRY_POINTS_PROBE.py "${{ inputs.countries }}"
