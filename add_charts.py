@@ -1902,6 +1902,7 @@ REGISTRY = {
     "philippines_dam_levels.xlsx": philippines_dams,
     "philippines_power_market.xlsx": philippines_market,
     "malaysia_power_prices.xlsx": malaysia_smp,
+    "indonesia_renewable_capacity.xlsx": power_capacity("Indonesia renewable installed capacity (ESDM EBTKE; renewables only)"),
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,

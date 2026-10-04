@@ -1,4 +1,4 @@
-name: Indonesia power discovery (branch only, temporary)
+name: Indonesia power discovery (branch only, temporary, round 2)
 
 # One-off source probes. Runs discovery_archive/asia/INDONESIA_DISCOVERY*.py on push to the dev branch;
 # moved to discovery_archive/workflows/ once done.

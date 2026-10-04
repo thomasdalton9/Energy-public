@@ -1,0 +1,52 @@
+name: Pakistan power
+
+# CPPA-G / NEPRA fuel charges adjustment filings -> monthly generation by fuel (CPPA-G grid). Backfills every missed month.
+on:
+  schedule:
+    - cron: "44 3 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl xlrd pdfplumber matplotlib
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          timeout 3000 python3 asia/PAKISTAN_NEPRA.py || echo "asia/PAKISTAN_NEPRA.py failed"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/pakistan_power_generation_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/pakistan_power_generation_daily.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/pakistan_power_generation_daily.xlsx" || echo "chart step skipped/failed for pakistan_power_generation_daily.xlsx"
+          [ -f "output/Data and Chart Outputs/pakistan_power_hourly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/pakistan_power_hourly.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/pakistan_power_hourly.xlsx" || echo "chart step skipped/failed for pakistan_power_hourly.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp png_charts.py asia/PAKISTAN_NEPRA.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in pakistan_power_generation_daily.xlsx pakistan_power_hourly.xlsx; do
+            [ -f "output/Data and Chart Outputs/$f" ] && git add -f "output/Data and Chart Outputs/$f" || true
+          done
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Pakistan power: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

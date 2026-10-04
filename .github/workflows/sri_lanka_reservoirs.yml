@@ -1,0 +1,50 @@
+name: Sri Lanka hydro reservoirs
+
+# PUCSL GenData major-reservoir storage (CEB data). The API keeps history from 2013, so this runs on the 1st and 15th
+# and backfills every missed day.
+on:
+  schedule:
+    - cron: "50 4 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl xlrd matplotlib
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          timeout 900 python3 asia/SRI_LANKA_PUCSL_RESERVOIRS.py || echo "asia/SRI_LANKA_PUCSL_RESERVOIRS.py failed"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/sri_lanka_hydro_reservoirs.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/sri_lanka_hydro_reservoirs.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/sri_lanka_hydro_reservoirs.xlsx" || echo "chart step skipped/failed for sri_lanka_hydro_reservoirs.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp png_charts.py asia/SRI_LANKA_PUCSL_RESERVOIRS.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f "output/Data and Chart Outputs/sri_lanka_hydro_reservoirs.xlsx" ] && git add -f "output/Data and Chart Outputs/sri_lanka_hydro_reservoirs.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Sri Lanka hydro reservoirs: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

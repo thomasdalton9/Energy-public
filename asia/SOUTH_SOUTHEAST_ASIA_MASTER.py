@@ -77,6 +77,7 @@ OTHER_POWER_DATASETS = [
     ("IN", "India", "india_power_prices.xlsx", "Daily", "power prices"),
     ("IN", "India", "india_coal_stocks.xlsx", "Daily", "coal stocks"),
     ("MY", "Malaysia", "malaysia_power_prices.xlsx", "Daily", "power prices"),
+    ("ID", "Indonesia", "indonesia_renewable_capacity.xlsx", "Monthly", "renewable capacity"),
     ("PH", "Philippines", "philippines_power_market.xlsx", ("Daily demand", "Daily prices"), "power market"),
     ("SG", "Singapore", "singapore_power.xlsx", ("Monthly generation", "Annual consumption", "Annual fuel mix"),
      "power"),
@@ -127,6 +128,8 @@ SOURCES = {
                                        "https://app.rid.go.th/reservoir/"),
     "malaysia_power_generation_daily.xlsx": ("GSO (Grid System Operator), Peninsular Malaysia generation mix and "
                                              "system demand", "https://www.gso.org.my/SystemData/CurrentGen.aspx"),
+    "indonesia_renewable_capacity.xlsx": ("ESDM (Ministry of Energy and Mineral Resources), Ditjen EBTKE - Data Angka "
+                                          "Kapasitas Pembangkit EBT (renewables only)", "https://ebtke.esdm.go.id/"),
     "malaysia_power_capacity.xlsx": ("GSO (Grid System Operator), power station list (Peninsular Malaysia)",
                                      "https://www.gso.org.my/SystemData/PowerStation.aspx"),
     "malaysia_power_prices.xlsx": ("Single Buyer (Malaysia), system marginal price", "https://www.singlebuyer.com.my/"),
