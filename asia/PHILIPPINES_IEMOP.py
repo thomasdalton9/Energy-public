@@ -295,7 +295,7 @@ def write_mix(out_path, mix, dem):
     xlsx_notes.write_workbook(out_path, {"Daily": mix, "Demand": d.dropna(how="all")}, notes,
                               {"UNITS", "FUEL MAP", "COVERAGE", "SOURCE"})
     out(f"Saved {out_path}: {len(mix)} days")
-    out((mix.tail(3).drop(columns=["Source"], errors="ignore") / 1000).round(1).T.to_string())
+    out("GWh:\n" + (mix.tail(3)[[c for c in mix.columns if c.endswith("_MWh")]] / 1000).round(1).T.to_string())
 
 
 def safe_listing(report):
