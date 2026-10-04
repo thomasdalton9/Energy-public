@@ -289,12 +289,28 @@ def power_mix(d):
 #   sheet "Daily": date, Hydro_MWh, Gas_MWh, Wind_MWh, Solar_MWh, Coal_MWh, Nuclear_MWh, Oil_MWh,
 #                  Bioenergy_MWh, Other_MWh, Total_MWh   (MWh per day; absent fuels may be omitted)
 # Charted as monthly GWh with the same fuel order/colours as power_mix.
+def complete_months(d, m, min_share=0.8):
+    """Monthly totals m (resampled from d) restricted to months d actually covers: for a daily feed, months with at
+    least min_share of their days present (a missing month or a 6-day stub is left out, not drawn as a zero / short
+    bar); for a feed with monthly or annual rows, the months it has rows for."""
+    rows = d.dropna(how="all")
+    if rows.empty:
+        return m.iloc[0:0]
+    if len(rows) > 2 and rows.index.to_series().diff().median().days > 20:
+        have = rows.index.to_period("M").to_timestamp()
+        return m[m.index.isin(have)]
+    n = rows.resample("MS").size()
+    ok = n[n >= min_share * n.index.days_in_month].index
+    return m[m.index.isin(ok)]
+
+
 def power_daily(title, drop_partial=False):
     """drop_partial: leave out the month in progress (Europe's daily feeds run to yesterday, so the current month is
     always a short bar)."""
     def f(p):
         d = by_date(read(p, "Daily"), "date")
-        m = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].resample("MS").sum(min_count=1) / 1000
+        d = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]]
+        m = complete_months(d, d.resample("MS").sum(min_count=1) / 1000)
         if drop_partial:
             last = d.dropna(how="all").index.max()
             if last < last + pd.offsets.MonthEnd(0):
