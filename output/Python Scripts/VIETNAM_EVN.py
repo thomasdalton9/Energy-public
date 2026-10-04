@@ -95,9 +95,20 @@ def listing(page):
     if t is None:
         return None
     posts = {}
-    for u, d in re.findall(r'href="(/d/vi-VN/news/[^"]*?van-hanh-he-thong-dien-Quoc-gia-ngay-(\d{8})[^"]*)"', t, re.I):
+    # the date in the link text ('... ngày 11/1/2026'); the url slug drops leading zeros ('ngay-1112026') so is
+    # ambiguous, and is used only when it has all eight digits (the sidebar's links carry no text)
+    for u, title in re.findall(r'<a[^>]+href="(/d/vi-VN/news/[^"]*?van-hanh-he-thong-dien-Quoc-gia[^"]*)"[^>]*>(.*?)</a>',
+                               t, re.I | re.S):
+        m = re.search(r"ngày\s*(\d{1,2})/(\d{1,2})/(\d{4})", re.sub(r"<[^>]+>", " ", title))
+        s = re.search(r"ngay-(\d{8})-", u)
         try:
-            day = date(int(d[4:]), int(d[2:4]), int(d[:2]))
+            if m:
+                day = date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+            elif s:
+                d = s.group(1)
+                day = date(int(d[4:]), int(d[2:4]), int(d[:2]))
+            else:
+                continue
         except ValueError:
             continue
         posts.setdefault(day, BASE + u)
@@ -178,7 +189,7 @@ def merge(old, new):
     return pd.concat([old[~old.index.isin(new.index)], new]).sort_index()
 
 
-def save(path, daily, demand):
+def save(path, daily, demand, archive_start=None):
     daily.index.name = demand.index.name = "date"
     check = (daily["Total_MWh"] + daily.get("Imports_MWh", 0) - daily.get("Total_incl_imports_MWh")).abs()
     off = int((check > 0.01 * daily["Total_MWh"]).sum()) if "Total_incl_imports_MWh" in daily else 0
@@ -203,7 +214,11 @@ def save(path, daily, demand):
         f"EVN (Vietnam Electricity), 'Thong tin tom tat van hanh HTD Quoc gia' daily posts, data from NSMO (National "
         f"Power System and Market Operator, https://www.nsmo.vn/HeThongDien): {LIST}",
     ]
-    xlsx_notes.write_workbook(path, {"Daily": daily, "Demand": demand}, notes, {"UNITS", "COVERAGE", "SOURCE"})
+    sheets = {"Daily": daily, "Demand": demand}
+    if archive_start:
+        sheets["Archive"] = pd.DataFrame({"note": ["earliest post in EVN's list when last read to its end"]},
+                                         index=pd.DatetimeIndex([pd.Timestamp(archive_start)], name="date"))
+    xlsx_notes.write_workbook(path, sheets, notes, {"UNITS", "COVERAGE", "SOURCE"})
     out(f"Saved {path}: {len(daily)} days {daily.index.min():%Y-%m-%d}..{daily.index.max():%Y-%m-%d}")
 
 
@@ -217,6 +232,13 @@ def main():
     revise = {today - timedelta(days=k) for k in range(REVISION_DAYS + 1)}
     first = max(DATA_START, max(have) - timedelta(days=GAP_DAYS)) if have else DATA_START
     missing = {first + timedelta(days=k) for k in range((today - first).days + 1)} - (have - revise)
+    # EVN's archive start (recorded once the list has been read to its end): until history reaches it, every
+    # earlier day counts as missing too, so a short first run is backfilled later
+    arch = read_sheet(args.out, "Archive")
+    archive_start = arch.index.min().date() if not arch.empty else None   # None: not read to the end yet
+    if have and min(have) > (archive_start or DATA_START) + timedelta(days=3):
+        start = max(DATA_START, archive_start or DATA_START)
+        missing |= {start + timedelta(days=k) for k in range((min(have) - start).days)} - have
     earliest = min(missing) if missing else today
     out(f"{len(have)} days saved; {len(missing)} candidate days back to {earliest}")
     posts, empty = {}, 0
@@ -226,9 +248,9 @@ def main():
             break
         new = {d: u for d, u in p.items() if d not in posts}
         posts.update(new)
-        if not new:   # past the last page the site repeats the final one (or returns nothing)
+        if not new:   # past the last page only the sidebar's links remain
             empty += 1
-            if empty >= 2:
+            if empty >= 3:
                 break
             continue
         empty = 0
@@ -236,6 +258,8 @@ def main():
             break
         if page % 25 == 0:
             out(f"  page {page}: back to {min(posts)}")
+    if empty >= 3 and posts:   # read to the end of the list: record where EVN's archive starts
+        archive_start = min(posts)
     todo = sorted((d, u) for d, u in posts.items() if d in missing and d >= DATA_START)
     out(f"{len(posts)} posts listed ({min(posts) if posts else '-'}..{max(posts) if posts else '-'}, list read to page "
         f"{page}); fetching {len(todo)}")
@@ -250,9 +274,9 @@ def main():
         daily, demand = to_frames(rows)
         d_all, m_all = merge(old_d, daily), merge(old_m, demand)
         if not d_all.empty:
-            save(args.out, d_all, m_all)
+            save(args.out, d_all, m_all, archive_start)
     if not todo and not old_d.empty:
-        save(args.out, old_d, old_m)
+        save(args.out, old_d, old_m, archive_start)
     d = read_sheet(args.out, "Daily")
     if d.empty:
         raise SystemExit("No EVN daily posts parsed")
