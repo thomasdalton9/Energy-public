@@ -190,7 +190,7 @@ def prior_table(out, sheet, keys):
 
 def cap_series(raw, idx):
     """EIA annual underground working-gas capacity (Bcf, 'cap|' columns of the raw store, best-effort pull), held to the next report; None when absent."""
-    cols = [c for c in raw.columns if str(c).startswith("cap|") and "working" in str(c).lower()]
+    cols = [c for c in raw.columns if str(c).strip() == "cap|Working Underground Storage Capacity"]
     if not cols:
         return None
     c = raw[cols[0]].dropna() / 1000.0
