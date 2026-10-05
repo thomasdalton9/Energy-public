@@ -80,7 +80,8 @@ HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
 DASHBOARD_ONLY = {"us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
-                  "ercot_gas_burn_daily.xlsx": {"MISO and ERCOT gas burn"}}
+                  "miso_gas_burn_daily.xlsx": {"MISO gas burn"},
+                  "ercot_gas_burn_daily.xlsx": {"MISO and ERCOT gas burn", "ERCOT gas burn"}}
 
 REGIONS = {"US_Total": "US Lower 48", "ERCOT": "ERCOT (Texas)", "PJM": "PJM (Mid-Atlantic)",
            "MISO": "MISO (Midcontinent)", "SPP": "SPP (Southwest Power Pool)", "CAISO": "CAISO (California)",
@@ -177,9 +178,8 @@ def mexico_demand(path):
 # Chart specs for workbooks whose add_charts REGISTRY entry is None or that the dashboard shows differently
 MASTER_SPECS = {"eia930_fuel_mix_daily.xlsx": eia930, "henry_hub_daily.xlsx": henry_hub,
                 "lng_feedgas_daily.xlsx": lng_feedgas, "mexico_demanda_nacional_daily.xlsx": mexico_demand,
-                # one combined MISO + ERCOT chart (built from the ERCOT workbook's folder); MISO's own charts stay in its workbook
-                "miso_gas_burn_daily.xlsx": lambda p: [],
-                "ercot_gas_burn_daily.xlsx": add_charts.miso_ercot_gas_burn}
+                # combined MISO + ERCOT chart (built from the ERCOT workbook's folder) plus the ERCOT-only chart
+                "ercot_gas_burn_daily.xlsx": lambda p: add_charts.miso_ercot_gas_burn(p) + add_charts.ercot_gas_burn(p)}
 
 EIA_GAS = "https://www.eia.gov/naturalgas/data.php"
 SOURCES = {
