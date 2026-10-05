@@ -1327,6 +1327,40 @@ def us_gas(p):
     return out
 
 
+def texas_gas(p):
+    """Texas gas (americas/TEXAS_GAS.py, EIA): consumption by sector (stacked), exports by route (stacked), Mexico
+    pipeline exports by border crossing (stacked) and the balance (lines), all Bcf/d."""
+    out = []
+    d = _sheet(p, "Consumption by sector", "Month")
+    sec = d[[c for c in ("Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel") if c in d]]
+    sec = sec[sec.index >= "2021-01-01"].dropna(how="all")
+    if not sec.empty:
+        out.append(spec("Consumption", sec, "Texas natural gas consumption by sector (EIA; lease/plant and pipeline fuel withheld by EIA)",
+                        "Bcf/d", "stacked_bar", "%b/%y"))
+    e = _sheet(p, "Exports", "Month")
+    if not e.empty:
+        e = e[e.index >= "2021-01-01"]
+        routes = e[[c for c in e if c.startswith("LNG - ")]].rename(columns=lambda c: c[6:] + " LNG")
+        routes.insert(0, "Pipeline to Mexico", e["Pipeline exports to Mexico (Texas crossings)"])
+        out.append(spec("Exports", routes.dropna(how="all"), "Texas natural gas exports by route: pipeline to Mexico and LNG (EIA)",
+                        "Bcf/d", "stacked_bar", "%b/%y"))
+    m = _sheet(p, "Mexico by crossing", "Month")
+    if not m.empty:
+        m = m[m.index >= "2021-01-01"].dropna(axis=1, how="all")
+        m = m[m.mean().sort_values(ascending=False).index]
+        out.append(spec("Mexico crossings", m, "Texas pipeline exports to Mexico by border crossing (EIA)", "Bcf/d",
+                        "stacked_bar", "%b/%y"))
+    b = _sheet(p, "Balance", "Month")
+    if not b.empty:
+        b = b[b.index >= "2021-01-01"]
+        bb = pd.DataFrame({"Dry production": b["Dry production"], "Consumption": b["Consumption (published sectors)"],
+                           "Exports (Mexico pipeline + LNG)": b["Pipeline exports to Mexico"] + b["LNG exports"],
+                           "Residual (net interstate outflow + withheld fuel)": b["Residual: net interstate outflow + withheld fuel uses"]})
+        out.append(spec("Balance", bb, "Texas gas balance: dry production against consumption, exports and the residual (EIA)",
+                        "Bcf/d", "line", "%b/%y"))
+    return out
+
+
 def mexico_gas(p):
     """Pipeline imports only: EIA's LNG-to-Mexico series (N9133MX2) has implausible months of 2-3.5 Bcf/d among
     months of ~0.1 (as published by EIA, one row per month), so it stays in the sheet but is not charted."""
@@ -2365,6 +2399,7 @@ REGISTRY = {
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "us_gas.xlsx": us_gas,
+    "texas_gas_monthly.xlsx": texas_gas,
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
