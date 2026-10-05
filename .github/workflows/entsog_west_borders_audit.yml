@@ -1,30 +1,24 @@
-name: ENTSOG west dropped audit (manual)
+name: ENTSOG west points list (manual)
 
 on:
   workflow_dispatch:
     inputs:
-      countries:
-        description: 'country list'
-        default: 'UK,IE,FR,ES,PT,BE,NL,DE,LU,CH,IT,AT,DK,NO'
-
-permissions:
-  contents: write
+      keys:
+        default: 'ITP-00188,ITP-00126,ITP-00105,ITP-00081,ITP-00080,ITP-00056,ITP-00006,ITP-00083,ITP-00060,ITP-00066,ITP-00031,ITP-00068,ITP-00026,ITP-00160,ITP-00495,ITP-00090,ITP-00005,ITP-00162,ITP-00062,ITP-00037'
+      pairs:
+        default: 'DK-SE,AT-CZ,DE-LU,DE-RU,NL-NO,IT-GR,FR-LU,FR-IT,ES-MA,IT-TN,IT-MT,DK-UK,NO-BE,UK-FR'
 
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - run: pip install requests pandas openpyxl
-      - run: python3 -u discovery_archive/europe/ENTSOG_WEST_DROPPED_AUDIT.py
+      - run: python3 -u discovery_archive/europe/ENTSOG_WEST_POINTS_LIST.py
         env:
-          COUNTRIES: ${{ github.event.inputs.countries }}
-      - run: |
-          git config user.name "github-actions"; git config user.email "actions@github.com"
-          git add discovery_archive/europe/results
-          git commit -m "ENTSOG west dropped audit results" || exit 0
-          git pull --rebase --autostash origin main && git push origin HEAD:main
+          KEYS: ${{ github.event.inputs.keys }}
+          PAIRS: ${{ github.event.inputs.pairs }}
