@@ -11,4 +11,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests pandas
-      - run: python3 -u discovery_archive/europe/PL_PSE_PROBE4.py
+      - run: python3 -u discovery_archive/europe/PL_PSE_PROBE4.py (earlier probes: PL_GAZSYSTEM_PSE_PROBE.py, PL_PSE_PROBE2/3.py)
