@@ -22,10 +22,10 @@ r = requests.get("https://www.ercot.com/files/docs/2025/12/19/CapacityDemandandR
 print(r.status_code, len(r.content))
 x = pd.ExcelFile(io.BytesIO(r.content)); print(x.sheet_names)
 for s in x.sheet_names:
-    if re.search(r"LoadResource|Load", s):
+    if re.search(r"LoadResource", s):
         d = x.parse(s, header=None)
         print("\n sheet", s, d.shape)
         for i, row in d.iterrows():
-            vals = [str(v)[:22] for v in row.tolist() if str(v) != "nan"]
-            if vals: print("  ", i, " | ".join(vals)[:420])
-            if i > 90: break
+            vals = [str(v)[:26] for v in row.tolist() if str(v) != "nan"]
+            if vals: print("  ", i, " | ".join(vals)[:260])
+            if i > 60: break
