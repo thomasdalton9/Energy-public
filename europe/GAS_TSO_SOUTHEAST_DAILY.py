@@ -263,15 +263,25 @@ def parse_enagas_trucks(content, which="cur"):
     """LNG truck loadings (GWh in the bulletin month, all regasification plants) from section 5 'Regasification plants activity' (the Total row; its last two
     figures are the trucks columns for the same month a year earlier and the bulletin month, in the order the header lists the months). Enagas's national
     demand (conventional market) includes these trucks, which are LNG that never passes the send-out into the grid. which='prev' returns the year-earlier
-    month's figure instead. The 2021-24 bulletins print the table letter-spaced, which only comes out as rows with a wider character tolerance. NaN when the table is not found."""
+    month's figure instead. The 2021-24 bulletins print the table letter-spaced and in column order, which only comes out as rows through word positions. NaN when the table is not found."""
     import pdfplumber
+    def rows_text(pg):      # words with a wide character tolerance, grouped into table rows by vertical position
+        rows = {}
+        for wd in pg.extract_words(x_tolerance=8, y_tolerance=4):
+            rows.setdefault(round(wd["top"] / 4), []).append(wd)
+        return "\n".join(" ".join(x["text"] for x in sorted(v, key=lambda z: z["x0"])) for _, v in sorted(rows.items()))
     with pdfplumber.open(io.BytesIO(content)) as pdf:
-        for tol in (3, 8):
-            text = "\n".join((pg.extract_text(x_tolerance=tol) or "") for pg in pdf.pages[:30])
-            res = _trucks_from_text(text)
-            if res is not None:
-                return res[0] if which == "cur" else res[1]
-    return float("nan")
+        pages = pdf.pages[:30]
+        res = _trucks_from_text("\n".join((pg.extract_text() or "") for pg in pages))
+        if res is None:
+            for pg in pages:            # only pages that mention the table (the words pass is slower)
+                if "SHIPS UNLOADED" in (pg.extract_text() or "").upper():
+                    res = _trucks_from_text(rows_text(pg))
+                    if res is not None:
+                        break
+    if res is None:
+        return float("nan")
+    return res[0] if which == "cur" else res[1]
 
 
 def spain_monthly(start, old):
