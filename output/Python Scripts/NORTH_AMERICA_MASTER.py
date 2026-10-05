@@ -67,6 +67,7 @@ RAW_POWER_DATASETS = [
 OTHER_POWER_DATASETS = [
     ("MX", "Mexico", "mexico_demanda_nacional_daily.xlsx", "Data", "demand"),
     ("US", "United States", "miso_gas_burn_daily.xlsx", "Monthly", "MISO gas burn"),
+    ("US", "United States", "ercot_gas_burn_daily.xlsx", "Monthly", "ERCOT gas burn"),
 ]
 # Installed generating capacity (standard sheet "Monthly"): US monthly, Canada and Mexico annual
 CAPACITY_DATASETS = [
@@ -79,7 +80,8 @@ HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
 DASHBOARD_ONLY = {"us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
-                  "miso_gas_burn_daily.xlsx": {"MISO gas burn"}}
+                  "miso_gas_burn_daily.xlsx": {"MISO gas burn"},
+                  "ercot_gas_burn_daily.xlsx": {"MISO and ERCOT gas burn", "ERCOT gas burn"}}
 
 REGIONS = {"US_Total": "US Lower 48", "ERCOT": "ERCOT (Texas)", "PJM": "PJM (Mid-Atlantic)",
            "MISO": "MISO (Midcontinent)", "SPP": "SPP (Southwest Power Pool)", "CAISO": "CAISO (California)",
@@ -175,7 +177,9 @@ def mexico_demand(path):
 
 # Chart specs for workbooks whose add_charts REGISTRY entry is None or that the dashboard shows differently
 MASTER_SPECS = {"eia930_fuel_mix_daily.xlsx": eia930, "henry_hub_daily.xlsx": henry_hub,
-                "lng_feedgas_daily.xlsx": lng_feedgas, "mexico_demanda_nacional_daily.xlsx": mexico_demand}
+                "lng_feedgas_daily.xlsx": lng_feedgas, "mexico_demanda_nacional_daily.xlsx": mexico_demand,
+                # combined MISO + ERCOT chart (built from the ERCOT workbook's folder) plus the ERCOT-only chart
+                "ercot_gas_burn_daily.xlsx": lambda p: add_charts.miso_ercot_gas_burn(p) + add_charts.ercot_gas_burn(p)}
 
 EIA_GAS = "https://www.eia.gov/naturalgas/data.php"
 SOURCES = {
@@ -196,6 +200,10 @@ SOURCES = {
     "miso_gas_burn_daily.xlsx": ("MISO real-time generation fuel mix (gas MWh) x heat rate calibrated on EIA-923 fuel use "
                                  "of MISO balancing-authority gas plants (estimate; EIA-923 months not yet published "
                                  "carry last year's heat rate)", "https://www.eia.gov/electricity/data/eia923/"),
+    "ercot_gas_burn_daily.xlsx": ("MISO real-time fuel mix (gas MWh) and ERCOT gas MWh (EIA-930) x heat rates calibrated on EIA-923 "
+                                  "fuel use of the MISO and ERCO balancing-authority gas plants (estimates, not metered burn; "
+                                  "EIA-923 months not yet published carry last year's heat rate)",
+                                  "https://www.eia.gov/electricity/data/eia923/"),
     "canada_power_generation_daily.xlsx": ("Statistics Canada, Table 25-10-0015-01 Electric power generation, "
                                            "monthly generation by type of electricity",
                                            "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501"),
