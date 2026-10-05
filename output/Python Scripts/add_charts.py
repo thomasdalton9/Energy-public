@@ -1365,6 +1365,31 @@ def texas_production_forecast(p):
         ob = pd.DataFrame({"Base": f["Implied net interstate outflow, base"], "Takeaway delayed 6 months": f["Implied net interstate outflow, delayed"]})
     out.append(spec("Net outflow", ob, "Implied net outflow, base and LNG-delayed scenarios (dry production - demand incl. LNG; includes withheld fuel)",
                     "Bcf/d", "line", "%b/%y"))
+    v33 = _sheet(p, "Demand to 2033", "Month")
+    if not v33.empty:
+        # americas/TEXAS_DATACENTRE.py: demand to Dec 2033 incl. data centres (BASE stacked, LOW/HIGH totals dashed) and the implied outflow
+        SEC5 = ["Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel"]
+        last_a = v33.index[v33["Type"].eq("Actual")].max()
+        dcl = f"Data centres (BASE, gas burn added after {last_a:%b/%y})"
+        st = v33[SEC5 + ["LNG feedgas (base case)", "Pipeline exports to Mexico"]].copy()
+        st["LNG feedgas (base case)"] = v33["LNG feedgas (base case)"]
+        st[dcl] = v33["Data centres added gas burn, BASE"]
+        tl = "Total incl. data centres, BASE (top of stack)"
+        st[tl] = v33["Total demand incl. data centres, BASE"]
+        st["Total, LOW data-centre case"] = v33["Total demand incl. data centres, LOW"]
+        st["Total, HIGH data-centre case"] = v33["Total demand incl. data centres, HIGH"]
+        fc0 = v33.index[v33["Type"].ne("Actual")].min()
+        sc0 = v33.index[v33["Type"].eq("Scenario")].min()
+        s3 = spec("Demand to 2033", st, "Texas gas demand to 2033: sectors + LNG feedgas + data centres (scenario after Dec/28)", "Bcf/d",
+                  "stacked_bar", "%b/%y", line_cols=(tl, "Total, LOW data-centre case", "Total, HIGH data-centre case"))
+        s3.update({"forecast_from": fc0, "scenario_from": sc0})
+        out.insert(1, s3)
+        og = pd.DataFrame({"LOW data-centre case": v33["Implied net outflow, LOW"], "BASE data-centre case": v33["Implied net outflow, BASE"],
+                           "HIGH data-centre case": v33["Implied net outflow, HIGH"]})
+        o3 = spec("Outflow to 2033", og, "Implied net outflow to other states to 2033 (scenario after Dec/28)",
+                  "Bcf/d", "line", "%b/%y")
+        o3.update({"forecast_from": fc0, "scenario_from": sc0})
+        out.insert(2, o3)
     cap = pd.DataFrame({"STEO Permian marketed": f["STEO Permian marketed (Bcf/d)"],
                         "Takeaway + local demand, base": f["Permian takeaway + local demand, base (Bcf/d)"],
                         "Takeaway + local demand, delayed": f["Permian takeaway + local demand, delayed (Bcf/d)"]}).dropna(how="all")
@@ -2665,7 +2690,7 @@ def _add_in_one_pass(path, specs):
                 continue
             xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
                                         date_format=s["date_format"], line_cols=s.get("line_cols", ()), wb=wb,
-                                        forecast_from=s.get("forecast_from"))
+                                        forecast_from=s.get("forecast_from"), scenario_from=s.get("scenario_from"))
             if s.get("live"):
                 _link_live(wb[sheet], df, s)
         names.append(sheet)

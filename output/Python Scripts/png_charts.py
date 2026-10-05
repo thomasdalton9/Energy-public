@@ -56,6 +56,7 @@ def series_chart(spec, path):
     annual = spec.get("date_format") == "%Y"
     x = df.index
     ff = pd.Timestamp(spec["forecast_from"]) if spec.get("forecast_from") is not None else None
+    sf = pd.Timestamp(spec["scenario_from"]) if spec.get("scenario_from") is not None else None
     line_cols = [c for c in spec.get("line_cols", ()) if c in df.columns] if spec["kind"] != "line" else []
     body = df.drop(columns=line_cols)
     if spec["kind"] == "stacked_bar":
@@ -64,7 +65,7 @@ def series_chart(spec, path):
         for i, c in enumerate(body.columns):
             v = body[c].fillna(0)
             base = pos.where(v >= 0, neg)
-            alphas = [0.5 if (ff is not None and d >= ff) else 1.0 for d in x]
+            alphas = [(0.28 if (sf is not None and d >= sf) else 0.5) if (ff is not None and d >= ff) else 1.0 for d in x]
             bars = ax.bar(x, v, width=width, bottom=base, color=_colour(c, i), label=str(c), align="edge" if not annual else "center")
             for b, al in zip(bars, alphas):
                 b.set_alpha(al)
@@ -81,6 +82,9 @@ def series_chart(spec, path):
     if ff is not None:
         ax.axvline(ff, color="#555555", linewidth=0.9, linestyle=":")
         ax.text(ff, ax.get_ylim()[1], " forecast", fontsize=8, color="#555555", va="top")
+    if sf is not None:
+        ax.axvline(sf, color="#555555", linewidth=0.9, linestyle="--")
+        ax.text(sf, ax.get_ylim()[1], " scenario (not a forecast)", fontsize=8, color="#555555", va="top")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y" if annual else "%b/%y"))
     _style(ax, spec["title"], spec["units"])
     if str(spec["units"]).startswith("Bcf/d") and "MISO" in spec["title"]:

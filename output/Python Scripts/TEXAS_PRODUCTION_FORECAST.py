@@ -37,10 +37,12 @@ sys.path.insert(0, ROOT)
 import xlsx_notes  # noqa: E402
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import TEXAS_SUPPLY_DEMAND as sd  # noqa: E402
+import TEXAS_DATACENTRE as dc  # noqa: E402
 
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 DEFAULT_OUT = os.path.join(OUT_DIR, "texas_production_forecast.xlsx")
 TEXAS_XLSX = os.path.join(OUT_DIR, "texas_gas_monthly.xlsx")
+ERCOT_XLSX = os.path.join(OUT_DIR, "ercot_gas_burn_daily.xlsx")
 END = "2028-12-01"
 STEO_IDS = {"Permian": "NGMPPM", "Eagle Ford": "NGMPEF", "Haynesville": "NGMPHA"}
 
@@ -230,9 +232,26 @@ def run(out):
         "Sanity checks of the last run: " + "; ".join(sd_lines),
         f"Latest history month: {last:%b/%y}. Not an EIA or company forecast of Texas; a transparent scenario tool.",
     ]
+    # --- data centres and the 2033 view (TEXAS_DATACENTRE.py); the editable tab is read BEFORE the workbook is rewritten
+    prior_dc = dc.read_prior(out)
+    dc_view = dc_ctx = None
+    if steo is not None:
+        try:
+            dc_view, dc_ctx = dc.build(df, sdf, tk, params, TEXAS_XLSX, ERCOT_XLSX, prior_dc, ratio, other, delay, last)
+            dc_checks = dc.checks(dc_view, dc_ctx)
+            for l in dc_checks:
+                print("DC check:", l)
+            notes += dc.notes_lines(dc_ctx, dc_checks)
+        except Exception as e:  # noqa: BLE001 - never break the shipped outputs
+            import traceback
+            traceback.print_exc()
+            print(f"data-centre view failed ({type(e).__name__}: {e}) - base workbook written without it", flush=True)
+            dc_view = None
     sheets = {"Summary": pd.DataFrame(summary), "Assumptions": assum, "Takeaway": tk, "Forecast": df.reset_index(),
               sd.SHEET: sdf.reset_index(), "STEO raw": steo_raw}
-    xlsx_notes.write_workbook(out, sheets, notes, ["UNITS", "METHOD"])
+    xlsx_notes.write_workbook(out, sheets, notes, ["UNITS", "METHOD", "DATA CENTRES AND THE 2033 VIEW (americas/TEXAS_DATACENTRE.py; Bcf/d)"])
+    if dc_view is not None:
+        dc.write_sheets(out, dc_view, dc_ctx, dc_checks)
     print(pd.DataFrame(summary).to_string())
     return out
 
