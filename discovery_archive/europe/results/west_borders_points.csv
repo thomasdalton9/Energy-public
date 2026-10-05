@@ -1,0 +1,409 @@
+country,other,dir,point,pointKey,operator,vip,2022,2023,2024,2025
+AL,IT,entry,Melendugno - IT / TAP,ITP-00008,AL-TSO-0001,False,0.0,0.0,0.0,0.0
+AL,IT,exit,Melendugno - IT / TAP,ITP-00008,AL-TSO-0001,False,107.67,104.05,108.48,105.14
+AT,DE,entry,Oberkappel,ITP-00140,AT-TSO-0001,False,56.88,27.76,4.82,69.51
+AT,DE,entry,Überackern ABG (AT) / Überackern (DE),ITP-00019,AT-TSO-0001,False,20.67,5.76,1.11,24.1
+AT,DE,entry,Überackern SUDAL (AT) / Überackern 2 (DE),ITP-00007,AT-TSO-0001,False,1.17,0.01,0.0,0.0
+AT,DE,entry,Kiefersfelden,ITP-00070,AT-TSO-0004,False,0.0,0.0,0.0,0.0
+AT,DE,entry,Pfronten,ITP-00206,AT-TSO-0008,False,0.0,0.0,0.0,0.0
+AT,DE,entry,RC Lindau,ITP-00227,AT-DSO-0001,False,0.0,0.0,0.0,0.0
+AT,DE,exit,Überackern SUDAL (AT) / Überackern 2 (DE),ITP-00007,AT-TSO-0001,False,0.17,0.09,0.2,0.0
+AT,DE,exit,Überackern ABG (AT) / Überackern (DE),ITP-00019,AT-TSO-0001,False,0.78,0.46,0.09,0.0
+AT,DE,exit,Oberkappel,ITP-00140,AT-TSO-0001,False,2.79,2.75,1.1,0.0
+AT,DE,exit,RC Lindau,ITP-00227,AT-DSO-0001,False,0.0,0.0,0.0,0.0
+AT,HU,entry,Mosonmagyarovar,ITP-00043,AT-TSO-0001,False,0.0,0.0,0.0,0.0
+AT,HU,exit,Mosonmagyarovar,ITP-00043,AT-TSO-0001,False,35.79,24.52,0.26,30.12
+AT,IT,entry,Tarvisio (IT) / Arnoldstein (AT),ITP-00040,AT-TSO-0003,False,3.52,13.51,1.3,18.29
+AT,IT,exit,Tarvisio (IT) / Arnoldstein (AT),ITP-00040,AT-TSO-0003,False,116.14,27.16,57.77,7.04
+AT,SI,entry,Murfeld (AT) / Ceršak (SI),ITP-00079,AT-TSO-0001,False,0.0,0.0,0.0,0.0
+AT,SI,exit,Murfeld (AT) / Ceršak (SI),ITP-00079,AT-TSO-0001,False,11.35,6.63,7.1,8.81
+AT,SK,entry,Baumgarten,ITP-00168,AT-TSO-0001,False,0.0,0.0,0.0,0.0
+AT,SK,entry,Baumgarten,ITP-00168,AT-TSO-0003,False,0.0,0.0,0.0,0.0
+AT,SK,exit,Baumgarten,ITP-00168,AT-TSO-0001,False,0.0,0.0,0.0,0.0
+AT,SK,exit,Baumgarten,ITP-00168,AT-TSO-0003,False,0.0,0.0,0.0,0.0
+BE,DE,entry,Eynatten 1 (BE) // Lichtenbusch / Raeren (DE),ITP-00112,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,DE,entry,Eynatten 2 (BE) // Lichtenbusch / Raeren (DE),ITP-00159,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,DE,entry,VIP Belgium - NCG,ITP-00542,BE-TSO-0001,True,0.0,0.0,0.0,0.0
+BE,DE,entry,VIP THE-ZTP,ITP-00614,BE-TSO-0001,True,0.0,0.0,0.0,0.0
+BE,DE,exit,VIP THE-ZTP,ITP-00614,BE-TSO-0001,True,214.82,212.06,154.11,213.43
+BE,DE,exit,Eynatten 1 (BE) // Lichtenbusch / Raeren (DE),ITP-00112,BE-TSO-0001,False,15.98,0.0,0.0,0.0
+BE,DE,exit,Eynatten 2 (BE) // Lichtenbusch / Raeren (DE),ITP-00159,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,DE,exit,VIP Belgium - NCG,ITP-00542,BE-TSO-0001,True,25.6,0.0,0.0,0.0
+BE,FR,entry,VIRTUALYS,ITP-00526,BE-TSO-0001,False,68.08,53.49,53.99,78.04
+BE,FR,entry,Blaregnies L (BE) / Taisnières B (FR),ITP-00115,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,FR,entry,Blaregnies (BE) / Taisnières (H) (FR) (Segeo/Troll),ITP-00152,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,FR,entry,Alveringem,LNG-00005,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,FR,exit,Blaregnies L (BE) / Taisnières B (FR),ITP-00115,BE-TSO-0001,False,30.55,21.28,14.99,11.87
+BE,FR,exit,VIRTUALYS,ITP-00526,BE-TSO-0001,False,0.76,8.86,8.2,0.52
+BE,FR,exit,Blaregnies (BE) / Taisnières (H) (FR) (Segeo/Troll),ITP-00152,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,FR,exit,Alveringem,LNG-00005,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,LU,entry,GDLux (BE) / Bras Petange (LU),ITP-00113,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,LU,exit,GDLux (BE) / Bras Petange (LU),ITP-00113,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,entry,VIP BENE-L,ITP-00648,BE-TSO-0001,True,0.0,31.43,24.92,11.88
+BE,NL,entry,VIP BENE,ITP-00555,BE-TSO-0001,True,0.13,0.43,4.11,6.04
+BE,NL,entry,Hilvarenbeek,ITP-00038,BE-TSO-0001,False,58.03,11.7,0.0,0.0
+BE,NL,entry,Zandvliet H-gas,ITP-00088,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,entry,Zelzate,ITP-00101,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,entry,Zelzate (Zebra Pijpleiding),ITP-00110,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,entry,'s Gravenvoeren Dilsen (BE) // 's Gravenvoeren/Obbicht (NL),ITP-00258,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,exit,VIP BENE,ITP-00555,BE-TSO-0001,True,129.59,87.37,52.55,77.17
+BE,NL,exit,Hilvarenbeek,ITP-00038,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,exit,Zandvliet H-gas,ITP-00088,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,exit,Zelzate,ITP-00101,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,exit,Zelzate (Zebra Pijpleiding),ITP-00110,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,exit,'s Gravenvoeren Dilsen (BE) // 's Gravenvoeren/Obbicht (NL),ITP-00258,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,NL,exit,VIP BENE-L,ITP-00648,BE-TSO-0001,True,0.0,0.0,0.0,0.0
+BE,NO,entry,Zeebrugge ZPT,ITP-00106,BE-TSO-0001,False,170.7,164.53,173.27,161.22
+BE,NO,exit,Zeebrugge ZPT,ITP-00106,BE-TSO-0001,False,0.0,0.0,0.0,0.0
+BE,UK,entry,Zeebrugge IZT,ITP-00061,BE-TSO-0001,False,168.67,107.84,47.17,58.5
+BE,UK,exit,Zeebrugge IZT,ITP-00061,BE-TSO-0001,False,0.47,0.03,1.03,4.13
+CH,DE,entry,RC Basel,ITP-00228,CH-DSO-0001,False,0.0,0.0,0.0,0.0
+CH,DE,entry,RC Thayngen-Fallentor,ITP-00229,CH-DSO-0002,False,0.0,0.0,0.0,0.0
+CH,DE,entry,Wallbach,ITP-00294,CH-TSO-0001,False,0.0,0.0,0.0,0.0
+CH,DE,entry,Wallbach,ITP-00294,CH-TSO-0002,False,0.0,0.0,0.0,0.0
+CH,DE,entry,VIP Germany-CH,ITP-00544,CH-TSO-0001,True,0.0,0.0,0.0,0.0
+CH,DE,exit,RC Basel,ITP-00228,CH-DSO-0001,False,0.0,0.0,0.0,0.0
+CH,DE,exit,RC Thayngen-Fallentor,ITP-00229,CH-DSO-0002,False,0.0,0.0,0.0,0.0
+CH,DE,exit,Wallbach,ITP-00294,CH-TSO-0002,False,0.0,0.0,0.0,0.0
+CH,FR,entry,Oltingue (FR) / Rodersdorf (CH),ITP-00039,CH-TSO-0001,False,0.0,0.0,0.0,0.0
+CH,FR,entry,Oltingue (FR) / Rodersdorf (CH),ITP-00039,CH-TSO-0002,False,0.0,0.0,0.0,0.0
+CH,FR,entry,Jura,ITP-00281,CH-DSO-0003,False,0.0,0.0,0.0,0.0
+CH,FR,exit,Oltingue (FR) / Rodersdorf (CH),ITP-00039,CH-TSO-0001,False,0.0,0.0,0.0,0.0
+CH,FR,exit,Oltingue (FR) / Rodersdorf (CH),ITP-00039,CH-TSO-0002,False,0.0,0.0,0.0,0.0
+CH,FR,exit,Jura,ITP-00281,CH-DSO-0003,False,0.0,0.0,0.0,0.0
+CH,IT,entry,Griespass (CH) / Passo Gries (IT),ITP-00136,CH-TSO-0001,False,0.0,0.0,0.0,0.0
+CH,IT,entry,Griespass (CH) / Passo Gries (IT),ITP-00136,CH-TSO-0002,False,0.0,0.0,0.0,0.0
+CH,IT,exit,Griespass (CH) / Passo Gries (IT),ITP-00136,CH-TSO-0001,False,0.0,0.0,0.0,0.0
+CH,IT,exit,Griespass (CH) / Passo Gries (IT),ITP-00136,CH-TSO-0002,False,0.0,0.0,0.0,0.0
+CZ,DE,entry,VIP Brandov,ITP-00537,CZ-TSO-0001,True,0.0,13.67,32.85,92.06
+CZ,DE,entry,Deutschneudorf EUGAL Brandov ,ITP-00535,CZ-TSO-0001,False,123.24,35.28,22.24,44.85
+CZ,DE,entry,Brandov-OPAL (DE),ITP-00010,CZ-TSO-0001,False,117.53,1.06,1.6,35.07
+CZ,DE,entry,Hora Svaté Kateřiny (CZ) / Deutschneudorf (Sayda) (DE),ITP-00015,CZ-TSO-0001,False,9.63,10.43,8.14,12.13
+CZ,DE,entry,VIP Waidhaus,ITP-00538,CZ-TSO-0001,True,0.0,0.3,0.02,1.03
+CZ,DE,entry,Olbernhau (DE) / Hora Svaté Kateřiny (CZ),ITP-00150,CZ-TSO-0001,False,33.39,16.28,0.74,0.0
+CZ,DE,entry,Brandov STEGAL (CZ) / Stegal (DE),ITP-00123,CZ-TSO-0001,False,0.0,0.0,0.0,0.0
+CZ,DE,exit,VIP Brandov,ITP-00537,CZ-TSO-0001,True,0.0,0.01,0.32,0.08
+CZ,DE,exit,Hora Svaté Kateřiny (CZ) / Deutschneudorf (Sayda) (DE),ITP-00015,CZ-TSO-0001,False,0.01,0.01,0.31,0.07
+CZ,DE,exit,VIP Waidhaus,ITP-00538,CZ-TSO-0001,True,0.0,0.0,1.14,0.02
+CZ,DE,exit,Brandov STEGAL (CZ) / Stegal (DE),ITP-00123,CZ-TSO-0001,False,0.05,0.0,0.0,0.01
+CZ,DE,exit,Brandov-OPAL (DE),ITP-00010,CZ-TSO-0001,False,0.0,0.0,0.0,0.0
+CZ,DE,exit,Deutschneudorf EUGAL Brandov ,ITP-00535,CZ-TSO-0001,False,0.0,0.0,0.0,0.0
+CZ,DE,exit,Olbernhau (DE) / Hora Svaté Kateřiny (CZ),ITP-00150,CZ-TSO-0001,False,0.0,0.0,0.0,0.0
+DE,AT,entry,Überackern SUDAL (AT) / Überackern 2 (DE),ITP-00007,DE-TSO-0010,False,0.17,0.09,0.2,0.0
+DE,AT,entry,Überackern ABG (AT) / Überackern (DE),ITP-00019,DE-TSO-0009,False,0.78,0.46,0.09,0.0
+DE,AT,entry,Überackern ABG (AT) / Überackern (DE),ITP-00019,DE-TSO-0010,False,0.79,0.46,0.09,0.0
+DE,AT,entry,Oberkappel,ITP-00140,DE-TSO-0004,False,0.0,0.0,0.0,0.0
+DE,AT,entry,VIP Oberkappel,ITP-00539,DE-TSO-0009,True,2.79,2.75,1.1,0.0
+DE,AT,entry,RC Lindau,ITP-00227,DE-TSO-0014,False,0.0,0.0,0.0,0.0
+DE,AT,exit,VIP Oberkappel,ITP-00539,DE-TSO-0009,True,56.86,27.76,4.81,69.51
+DE,AT,exit,Überackern ABG (AT) / Überackern (DE),ITP-00019,DE-TSO-0010,False,20.73,5.79,1.11,24.19
+DE,AT,exit,Überackern ABG (AT) / Überackern (DE),ITP-00019,DE-TSO-0009,False,20.67,5.77,1.11,24.1
+DE,AT,exit,VIP Kiefersfelden-Pfronten,ITP-00291,DE-TSO-0010,True,4.09,3.85,3.84,3.91
+DE,AT,exit,RC Lindau,ITP-00227,DE-TSO-0014,False,2.84,2.71,2.72,2.7
+DE,AT,exit,RC Lindau,ITP-00227,DE-TSO-0010,False,2.8,2.64,2.66,2.63
+DE,AT,exit,Überackern SUDAL (AT) / Überackern 2 (DE),ITP-00007,DE-TSO-0010,False,1.17,0.01,0.0,0.0
+DE,AT,exit,Kiefersfelden,ITP-00070,DE-TSO-0010,False,0.0,0.0,0.0,0.0
+DE,AT,exit,Oberkappel,ITP-00140,DE-TSO-0004,False,0.0,0.0,0.0,0.0
+DE,AT,exit,Oberkappel,ITP-00140,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,AT,exit,Pfronten,ITP-00206,DE-TSO-0010,False,0.0,0.0,0.0,0.0
+DE,AT,exit,Kiefersfelden-Kufstein,ITP-00282,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,BE,entry,VIP THE-ZTP,ITP-00614,DE-TSO-0009,True,214.38,212.0,154.11,213.52
+DE,BE,entry,Eynatten 1 (BE) // Lichtenbusch / Raeren (DE),ITP-00112,DE-TSO-0001,False,97.82,92.35,23.89,0.0
+DE,BE,entry,Eynatten 2 (BE) // Lichtenbusch / Raeren (DE),ITP-00159,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,BE,entry,Eynatten 2 (BE) // Lichtenbusch / Raeren (DE),ITP-00159,DE-TSO-0007,False,0.0,0.0,0.0,0.0
+DE,BE,entry,VIP Belgium - NCG,ITP-00542,DE-TSO-0009,True,25.58,0.0,0.0,0.0
+DE,BE,exit,VIP THE-ZTP,ITP-00614,DE-TSO-0009,True,0.0,0.0,0.0,0.09
+DE,BE,exit,Eynatten 1 (BE) // Lichtenbusch / Raeren (DE),ITP-00112,DE-TSO-0001,False,0.0,0.0,0.0,0.0
+DE,BE,exit,Eynatten 2 (BE) // Lichtenbusch / Raeren (DE),ITP-00159,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,BE,exit,Eynatten 2 (BE) // Lichtenbusch / Raeren (DE),ITP-00159,DE-TSO-0007,False,0.0,0.0,0.0,0.0
+DE,BE,exit,VIP Belgium - NCG,ITP-00542,DE-TSO-0009,True,0.0,0.0,0.0,0.0
+DE,CH,entry,VIP Germany-CH,ITP-00544,DE-TSO-0007,True,16.42,5.33,1.57,2.37
+DE,CH,entry,Wallbach,ITP-00294,DE-TSO-0007,False,16.42,5.33,1.57,0.07
+DE,CH,entry,RC Basel,ITP-00228,DE-TSO-0014,False,0.0,0.0,0.0,0.0
+DE,CH,entry,RC Thayngen-Fallentor,ITP-00229,DE-TSO-0014,False,0.0,0.0,0.0,0.0
+DE,CH,entry,Wallbach,ITP-00294,DE-TSO-0019,False,0.0,0.0,0.0,0.0
+DE,CH,exit,VIP Germany-CH,ITP-00544,DE-TSO-0007,True,33.03,21.14,10.26,29.93
+DE,CH,exit,Wallbach,ITP-00294,DE-TSO-0007,False,33.03,21.14,10.26,2.63
+DE,CH,exit,RC Basel,ITP-00228,DE-TSO-0014,False,0.21,0.03,0.05,0.02
+DE,CH,exit,RC Thayngen-Fallentor,ITP-00229,DE-TSO-0014,False,0.0,0.09,0.03,0.0
+DE,CH,exit,Wallbach,ITP-00294,DE-TSO-0009,False,32.94,21.14,0.42,0.0
+DE,CH,exit,Wallbach,ITP-00294,DE-TSO-0019,False,0.0,0.0,0.0,0.0
+DE,CZ,entry,VIP Waidhaus,ITP-00538,DE-TSO-0009,True,116.43,0.0,1.14,0.02
+DE,CZ,entry,Brandov-OPAL (DE),ITP-00010,DE-TSO-0001,False,0.0,0.0,0.0,0.0
+DE,CZ,entry,Brandov-OPAL (DE),ITP-00010,DE-TSO-0016,False,0.0,0.0,0.0,0.0
+DE,CZ,entry,Hora Svaté Kateřiny (CZ) / Deutschneudorf (Sayda) (DE),ITP-00015,DE-TSO-0003,False,0.14,0.0,0.0,0.0
+DE,CZ,entry,Brandov STEGAL (CZ) / Stegal (DE),ITP-00123,DE-TSO-0001,False,0.05,0.0,0.0,0.0
+DE,CZ,entry,Deutschneudorf EUGAL Brandov ,ITP-00535,DE-TSO-0018,False,0.0,0.0,0.0,0.0
+DE,CZ,entry,VIP Brandov,ITP-00537,DE-TSO-0001,True,0.05,0.0,0.3,0.0
+DE,CZ,entry,Waidhaus,ITP-00139,DE-TSO-0004,False,0.0,0.0,0.0,0.0
+DE,CZ,entry,Waidhaus,ITP-00139,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,CZ,entry,Deutschneudorf EUGAL Brandov ,ITP-00535,DE-TSO-0003,False,0.0,0.0,0.0,0.0
+DE,CZ,exit,VIP Brandov,ITP-00537,DE-TSO-0001,True,274.17,63.26,32.82,91.99
+DE,CZ,exit,VIP Waidhaus,ITP-00538,DE-TSO-0009,True,5.74,4.19,0.02,1.03
+DE,CZ,exit,Brandov-OPAL (DE),ITP-00010,DE-TSO-0001,False,0.0,0.0,0.0,0.0
+DE,CZ,exit,Brandov-OPAL (DE),ITP-00010,DE-TSO-0016,False,0.0,0.0,0.0,0.0
+DE,CZ,exit,Brandov-OPAL (DE),ITP-00010,DE-TSO-0020,False,85.0,0.0,0.0,0.0
+DE,CZ,exit,Hora Svaté Kateřiny (CZ) / Deutschneudorf (Sayda) (DE),ITP-00015,DE-TSO-0003,False,9.62,10.41,1.31,0.0
+DE,CZ,exit,Olbernhau (DE) / Hora Svaté Kateřiny (CZ),ITP-00150,DE-TSO-0001,False,33.39,16.28,0.74,0.0
+DE,CZ,exit,Deutschneudorf EUGAL Brandov ,ITP-00535,DE-TSO-0001,False,123.24,27.74,0.0,0.0
+DE,CZ,exit,Deutschneudorf EUGAL Brandov ,ITP-00535,DE-TSO-0003,False,123.18,1.78,0.0,0.0
+DE,CZ,exit,Deutschneudorf EUGAL Brandov ,ITP-00535,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,CZ,exit,Deutschneudorf EUGAL Brandov ,ITP-00535,DE-TSO-0018,False,123.08,0.22,0.1,0.0
+DE,CZ,exit,Waidhaus,ITP-00139,DE-TSO-0004,False,0.0,0.0,0.0,0.0
+DE,DK,entry,VIP DK-THE,ITP-10011,DE-TSO-0005,True,0.04,0.91,1.07,3.58
+DE,DK,entry,Ellund,ITP-00135,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,DK,entry,Ellund,ITP-00135,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,DK,exit,VIP DK-THE,ITP-10011,DE-TSO-0005,True,21.28,5.02,0.84,1.98
+DE,DK,exit,Ellund,ITP-00135,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,DK,exit,Ellund,ITP-00135,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,FR,entry,Obergailbach (FR) / Medelsheim (DE),ITP-00137,DE-TSO-0004,False,0.0,0.0,0.0,0.0
+DE,FR,entry,VIP France - Germany,ITP-00540,DE-TSO-0004,True,3.67,9.27,3.27,0.0
+DE,FR,entry,Obergailbach (FR) / Medelsheim (DE),ITP-00137,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,FR,exit,Obergailbach (FR) / Medelsheim (DE),ITP-00137,DE-TSO-0004,False,0.0,0.0,0.0,0.0
+DE,FR,exit,Obergailbach (FR) / Medelsheim (DE),ITP-00137,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,FR,exit,VIP France - Germany,ITP-00540,DE-TSO-0004,True,14.25,0.0,0.0,0.0
+DE,LU,entry,Remich,ITP-00072,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,LU,exit,Remich,ITP-00072,DE-TSO-0009,False,0.04,0.01,0.01,0.0
+DE,NL,entry,VIP TTF-THE-H,ITP-10012,DE-TSO-0005,True,132.06,178.98,149.13,180.57
+DE,NL,entry,VIP TTF-THE-L,ITP-10010,DE-TSO-0002,True,100.72,73.35,66.26,69.2
+DE,NL,entry,Winterswijk,ITP-00078,DE-TSO-0009,False,39.41,34.62,32.93,5.62
+DE,NL,entry,Bunde (DE) / Oude Statenzijl (L) (NL) (GTG Nord),ITP-00118,DE-TSO-0006,False,12.64,9.4,8.86,4.74
+DE,NL,entry,Bunde (DE) / Oude Statenzijl (H) (NL) (GUD),ITP-00102,DE-TSO-0005,False,27.27,36.89,25.82,1.25
+DE,NL,entry,Bocholtz-Vetschau,ITP-00025,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Haanrade,ITP-00071,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Bunde (DE) / Oude Statenzijl (H) (NL) (GASCADE),ITP-00076,DE-TSO-0001,False,33.34,45.29,2.23,0.0
+DE,NL,entry,Bunde (DE) / Oude Statenzijl (L) (NL) (GUD),ITP-00107,DE-TSO-0005,False,9.22,2.49,0.0,0.0
+DE,NL,entry,Vlieghuis,ITP-00151,DE-ESO-0087,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Bocholtz,ITP-00169,DE-TSO-0007,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Bocholtz,ITP-00169,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Tegelen,ITP-00244,DE-TSO-0009,False,0.0,0.08,0.13,0.0
+DE,NL,entry,Zevenaar,ITP-00259,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Zevenaar,ITP-00259,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Dinxperlo,ITP-00305,DE-ESO-0087,False,0.0,0.0,0.0,0.0
+DE,NL,entry,Bunde (DE) / Oude Statenzijl (H) (NL) (GTG Nord),ITP-00507,DE-TSO-0006,False,1.25,1.12,0.21,0.0
+DE,NL,entry,VIP TTF-NCG H,ITP-00551,DE-TSO-0009,True,17.28,0.0,0.0,0.0
+DE,NL,entry,VIP TTF-GASPOOL H,ITP-00554,DE-TSO-0005,True,1.25,0.0,0.0,0.0
+DE,NL,entry,VIP TTF-NCG L,ITP-00552,DE-TSO-0002,True,0.0,0.0,0.0,0.0
+DE,NL,entry,VIP TTF-GASPOOL L,ITP-00553,DE-TSO-0005,True,0.0,0.0,0.0,0.0
+DE,NL,exit,VIP TTF-THE-H,ITP-10012,DE-TSO-0005,True,19.41,35.34,29.76,16.66
+DE,NL,exit,Bocholtz-Vetschau,ITP-00025,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Haanrade,ITP-00071,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Bunde (DE) / Oude Statenzijl (H) (NL) (GASCADE),ITP-00076,DE-TSO-0001,False,2.05,0.0,0.0,0.0
+DE,NL,exit,Bunde (DE) / Oude Statenzijl (H) (NL) (GUD),ITP-00102,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Bunde (DE) / Oude Statenzijl (L) (NL) (GUD),ITP-00107,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Bunde (DE) / Oude Statenzijl (L) (NL) (GTG Nord),ITP-00118,DE-TSO-0006,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Vlieghuis,ITP-00151,DE-ESO-0087,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Bocholtz,ITP-00169,DE-TSO-0007,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Zone Oude Statenzijl H,ITP-00516,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Zevenaar,ITP-00259,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NL,exit,VIP TTF-THE-L,ITP-10010,DE-TSO-0002,True,0.0,0.0,0.0,0.0
+DE,NL,exit,Dinxperlo,ITP-00305,DE-ESO-0087,False,0.0,0.0,0.0,0.0
+DE,NL,exit,Bunde (DE) / Oude Statenzijl (H) (NL) (GTG Nord),ITP-00507,DE-TSO-0006,False,0.0,0.0,0.0,0.0
+DE,NL,exit,VIP TTF-NCG H,ITP-00551,DE-TSO-0009,True,7.59,0.0,0.0,0.0
+DE,NL,exit,VIP TTF-GASPOOL H,ITP-00554,DE-TSO-0005,True,1.21,0.0,0.0,0.0
+DE,NL,exit,VIP TTF-NCG L,ITP-00552,DE-TSO-0002,True,0.0,0.0,0.0,0.0
+DE,NL,exit,VIP TTF-GASPOOL L,ITP-00553,DE-TSO-0005,True,0.0,0.0,0.0,0.0
+DE,NO,entry,Dornum GASPOOL,ITP-00525,DE-TSO-0009,False,259.61,216.03,191.86,212.25
+DE,NO,entry,Dornum (EPT1 & EPT2),ITP-00208,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NO,entry,Dornum (EPT1 & EPT2),ITP-00208,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NO,entry,Emden (EPT1),ITP-00209,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NO,entry,Emden (EPT1),ITP-00209,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NO,entry,Emden (EPT1),ITP-00209,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NO,entry,Emden (NPT),ITP-00210,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NO,entry,Emden (NPT),ITP-00210,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Dornum GASPOOL,ITP-00525,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Dornum (EPT1 & EPT2),ITP-00208,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Dornum (EPT1 & EPT2),ITP-00208,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Emden (EPT1),ITP-00209,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Emden (EPT1),ITP-00209,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Emden (EPT1),ITP-00209,DE-TSO-0009,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Emden (NPT),ITP-00210,DE-TSO-0002,False,0.0,0.0,0.0,0.0
+DE,NO,exit,Emden (NPT),ITP-00210,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,PL,entry,Mallnow,ITP-00096,DE-TSO-0001,False,2.91,0.0,0.0,0.0
+DE,PL,entry,GCP GAZ-SYSTEM/ONTRAS,ITP-00497,DE-TSO-0003,False,0.0,0.0,0.0,0.0
+DE,PL,exit,GCP GAZ-SYSTEM/ONTRAS,ITP-00497,DE-TSO-0003,False,11.25,9.61,5.49,13.16
+DE,PL,exit,Mallnow,ITP-00096,DE-TSO-0001,False,32.62,4.21,0.41,0.58
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0001,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0015,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0016,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0017,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0018,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Greifswald,ITP-00120,DE-TSO-0020,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Lubmin II,ITP-00501,DE-TSO-0001,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Lubmin II,ITP-00501,DE-TSO-0003,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Lubmin II,ITP-00501,DE-TSO-0005,False,0.0,0.0,0.0,0.0
+DE,RU,entry,Lubmin II,ITP-00501,DE-TSO-0018,False,0.0,0.0,0.0,0.0
+DE,RU,exit,Greifswald,ITP-00120,DE-TSO-0018,False,0.0,0.0,0.0,0.0
+DE,RU,exit,Lubmin II,ITP-00501,DE-TSO-0018,False,0.0,0.0,0.0,0.0
+DK,DE,entry,VIP DK-THE,ITP-10011,DK-TSO-0001,True,23.37,5.01,0.84,1.96
+DK,DE,entry,Ellund,ITP-00135,DK-TSO-0001,False,0.0,0.0,0.0,0.0
+DK,DE,exit,VIP DK-THE,ITP-10011,DK-TSO-0001,True,0.04,0.78,1.12,3.49
+DK,DE,exit,Ellund,ITP-00135,DK-TSO-0001,False,0.0,0.0,0.0,0.0
+DK,NO,entry,North Sea Entry,ITP-00630,DK-TSO-0001,False,3.93,89.92,91.69,98.85
+DK,PL,entry,Faxe,ITP-10009,DK-TSO-0001,False,0.0,0.0,0.0,0.0
+DK,PL,exit,Faxe,ITP-10009,DK-TSO-0001,False,1.91,76.51,79.03,95.29
+ES,DZ,entry,Almería,ITP-00048,ES-TSO-0006,False,103.02,95.9,107.47,108.66
+ES,FR,entry,VIP PIRINEOS,ITP-00304,ES-TSO-0006,True,12.68,7.39,10.58,8.37
+ES,FR,entry,Larrau,ITP-00018,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,FR,entry,Biriatou (FR) / Irun (ES),ITP-00033,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,FR,exit,VIP PIRINEOS,ITP-00304,ES-TSO-0006,True,26.64,29.5,3.05,12.36
+ES,FR,exit,Larrau,ITP-00018,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,FR,exit,Biriatou (FR) / Irun (ES),ITP-00033,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,MA,entry,Tarifa,ITP-00082,ES-TSO-0006,False,0.07,0.0,0.0,0.0
+ES,MA,exit,Tarifa,ITP-00082,ES-TSO-0006,False,1.85,9.42,9.44,10.33
+ES,PT,entry,VIP IBERICO,ITP-00286,ES-TSO-0006,True,3.57,6.84,9.37,4.59
+ES,PT,entry,Valença do Minho (PT) / Tuy (ES),ITP-00052,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,PT,entry,Badajoz (ES) / Campo Maior (PT),ITP-00064,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,PT,exit,VIP IBERICO,ITP-00286,ES-TSO-0006,True,4.78,3.19,1.11,2.8
+ES,PT,exit,Valença do Minho (PT) / Tuy (ES),ITP-00052,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+ES,PT,exit,Badajoz (ES) / Campo Maior (PT),ITP-00064,ES-TSO-0006,False,0.0,0.0,0.0,0.0
+FR,BE,entry,Blaregnies L (BE) / Taisnières B (FR),ITP-00115,FR-TSO-0003,False,30.55,21.28,14.99,11.87
+FR,BE,entry,VIRTUALYS,ITP-00526,FR-TSO-0003,False,0.67,8.56,8.02,0.45
+FR,BE,entry,Blaregnies (BE) / Taisnières (H) (FR) (Segeo/Troll),ITP-00152,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,BE,entry,Alveringem,LNG-00005,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,BE,exit,VIRTUALYS,ITP-00526,FR-TSO-0003,False,67.98,53.19,53.82,77.97
+FR,BE,exit,Blaregnies L (BE) / Taisnières B (FR),ITP-00115,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,BE,exit,Blaregnies (BE) / Taisnières (H) (FR) (Segeo/Troll),ITP-00152,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,BE,exit,Alveringem,LNG-00005,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,CH,entry,Oltingue (FR) / Rodersdorf (CH),ITP-00039,FR-TSO-0003,False,0.32,0.6,0.0,0.0
+FR,CH,entry,Jura,ITP-00281,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,CH,exit,Oltingue (FR) / Rodersdorf (CH),ITP-00039,FR-TSO-0003,False,76.65,68.51,72.79,82.45
+FR,CH,exit,Jura,ITP-00281,FR-TSO-0003,False,0.0,0.0,0.0,0.0
+FR,DE,entry,Obergailbach (FR) / Medelsheim (DE),ITP-00137,FR-TSO-0003,False,14.26,0.02,0.0,0.03
+FR,DE,exit,Obergailbach (FR) / Medelsheim (DE),ITP-00137,FR-TSO-0003,False,3.68,9.14,3.27,0.11
+FR,ES,entry,VIP PIRINEOS,ITP-00304,FR-TSO-0002,True,26.19,30.12,2.99,11.89
+FR,ES,entry,Larrau,ITP-00018,FR-TSO-0002,False,0.0,0.0,0.0,0.0
+FR,ES,entry,Biriatou (FR) / Irun (ES),ITP-00033,FR-TSO-0002,False,0.0,0.0,0.0,0.0
+FR,ES,exit,VIP PIRINEOS,ITP-00304,FR-TSO-0002,True,12.53,7.32,10.43,8.33
+FR,ES,exit,Larrau,ITP-00018,FR-TSO-0002,False,0.0,0.0,0.0,0.0
+FR,ES,exit,Biriatou (FR) / Irun (ES),ITP-00033,FR-TSO-0002,False,0.0,0.0,0.0,0.0
+FR,NO,entry,Dunkerque,ITP-00045,FR-TSO-0003,False,192.52,149.32,172.31,159.25
+GR,IT,exit,IP Greece - Italy,ITP-00531,GR-TSO-0001,False,0.0,0.0,0.0,0.0
+HU,AT,entry,Mosonmagyarovar,ITP-00043,HU-TSO-0001,False,35.67,24.47,0.26,30.06
+HU,AT,exit,Mosonmagyarovar,ITP-00043,HU-TSO-0001,False,0.0,0.0,0.0,0.0
+IE,UK,entry,Moffat,ITP-00090,IE-TSO-0002,False,0.0,0.0,0.0,0.0
+IE,UK,entry,South North CSEP,ITP-00222,IE-TSO-0002,False,0.0,0.0,0.0,0.0
+IE,UK,exit,South North CSEP,ITP-00222,IE-TSO-0002,False,0.16,0.18,0.3,0.12
+IE,UK,exit,Moffat,ITP-00090,IE-TSO-0002,False,0.0,0.0,0.0,0.0
+IT,AL,entry,Melendugno - IT / TAP,ITP-00008,IT-TSO-0001,False,107.67,104.05,108.48,105.14
+IT,AL,exit,Melendugno - IT / TAP,ITP-00008,IT-TSO-0001,False,0.0,0.0,0.0,0.0
+IT,AT,entry,Tarvisio (IT) / Arnoldstein (AT),ITP-00040,IT-TSO-0001,False,116.21,26.87,57.72,6.96
+IT,AT,exit,Tarvisio (IT) / Arnoldstein (AT),ITP-00040,IT-TSO-0001,False,3.5,13.24,1.25,18.21
+IT,CH,entry,Griespass (CH) / Passo Gries (IT),ITP-00136,IT-TSO-0001,False,75.03,67.95,62.1,89.89
+IT,CH,exit,Bizzarone,ITP-00278,IT-TSO-0001,False,1.2,1.1,1.2,1.19
+IT,CH,exit,Griespass (CH) / Passo Gries (IT),ITP-00136,IT-TSO-0001,False,3.37,2.69,0.13,0.0
+IT,DZ,entry,Mazara del Vallo,ITP-00093,IT-TSO-0001,False,249.03,243.59,222.75,212.38
+IT,GR,entry,IP Greece - Italy,ITP-00531,IT-TSO-0001,False,0.0,0.0,0.0,0.0
+IT,LY,entry,Gela,ITP-00074,IT-TSO-0001,False,27.69,26.68,14.87,10.13
+IT,SI,entry,Gorizia (IT) /Šempeter (SI),ITP-00049,IT-TSO-0001,False,0.16,0.01,0.2,0.01
+IT,SI,exit,Gorizia (IT) /Šempeter (SI),ITP-00049,IT-TSO-0001,False,2.09,4.03,0.38,0.38
+IT,SM,exit,Rep. San Marino,ITP-00283,IT-TSO-0001,False,0.51,0.44,0.44,0.47
+LU,BE,entry,GDLux (BE) / Bras Petange (LU),ITP-00113,LU-TSO-0001,False,6.73,2.9,0.0,0.0
+LU,BE,exit,GDLux (BE) / Bras Petange (LU),ITP-00113,LU-TSO-0001,False,0.0,0.0,0.0,0.0
+LU,DE,entry,Remich,ITP-00072,LU-TSO-0001,False,0.04,0.01,0.01,0.0
+LU,DE,exit,Remich,ITP-00072,LU-TSO-0001,False,0.0,0.0,0.0,0.0
+LY,IT,exit,Gela,ITP-00074,LY-TSO-0001,False,0.0,0.0,0.0,0.0
+MA,ES,entry,Tarifa,ITP-00082,MA-TSO-0001,False,0.0,0.0,0.0,0.0
+MA,ES,exit,Tarifa,ITP-00082,MA-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,BE,entry,VIP BENE,ITP-00555,NL-TSO-0001,True,134.01,87.37,52.55,77.17
+NL,BE,entry,Zelzate,ITP-00101,NL-TSO-0001,False,120.33,74.56,50.51,70.59
+NL,BE,entry,Zelzate (Zebra Pijpleiding),ITP-00110,NL-TSO-0001,False,29.46,27.71,15.4,19.41
+NL,BE,entry,Hilvarenbeek,ITP-00038,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,BE,entry,Zandvliet H-gas,ITP-00088,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,BE,entry,'s Gravenvoeren Dilsen (BE) // 's Gravenvoeren/Obbicht (NL),ITP-00258,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,BE,entry,VIP BENE-L,ITP-00648,NL-TSO-0001,True,0.0,0.0,0.0,0.0
+NL,BE,entry,Poppel (BE) / Zandvliet-L (NL),ITP-00254,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,BE,exit,Hilvarenbeek,ITP-00038,NL-TSO-0001,False,58.03,41.72,24.92,11.88
+NL,BE,exit,VIP BENE-L,ITP-00648,NL-TSO-0001,True,0.0,30.05,24.92,11.88
+NL,BE,exit,Zandvliet H-gas,ITP-00088,NL-TSO-0001,False,7.33,7.84,10.7,9.66
+NL,BE,exit,'s Gravenvoeren Dilsen (BE) // 's Gravenvoeren/Obbicht (NL),ITP-00258,NL-TSO-0001,False,7.81,7.48,6.76,8.94
+NL,BE,exit,VIP BENE,ITP-00555,NL-TSO-0001,True,0.96,0.44,4.14,6.04
+NL,BE,exit,Zelzate,ITP-00101,NL-TSO-0001,False,0.0,0.0,0.0,0.27
+NL,BE,exit,Zelzate (Zebra Pijpleiding),ITP-00110,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,BE,exit,Poppel (BE) / Zandvliet-L (NL),ITP-00254,NL-TSO-0001,False,0.0,0.03,0.0,0.0
+NL,DE,entry,Bunde (DE) / Oude Statenzijl (H) (NL) I (OGE),ITP-00103,NL-TSO-0001,False,26.25,35.34,29.9,16.67
+NL,DE,entry,Bocholtz-Vetschau,ITP-00025,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Haanrade,ITP-00071,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Bunde (DE) / Oude Statenzijl (H) (NL) (GASCADE),ITP-00076,NL-TSO-0001,False,2.06,0.0,0.05,0.0
+NL,DE,entry,Bunde (DE) / Oude Statenzijl (H) (NL) (GUD),ITP-00102,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Bunde (DE) / Oude Statenzijl (L) (NL) (GUD),ITP-00107,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Bunde (DE) / Oude Statenzijl (L) (NL) (GTG Nord),ITP-00118,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Vlieghuis,ITP-00151,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Bocholtz,ITP-00169,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Zone Oude Statenzijl H,ITP-00516,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Zevenaar,ITP-00259,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,VIP TTF-THE-L,ITP-10010,NL-TSO-0001,True,0.0,0.0,0.0,0.0
+NL,DE,entry,Dinxperlo,ITP-00305,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,VIP TTF-THE-H,ITP-10012,NL-TSO-0001,True,0.18,0.0,0.01,0.0
+NL,DE,entry,Bunde (DE) / Oude Statenzijl (H) (NL) (GTG Nord),ITP-00507,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,VIP TTF-NCG H,ITP-00551,NL-TSO-0001,True,0.52,0.0,0.0,0.0
+NL,DE,entry,VIP TTF-GASPOOL H,ITP-00554,NL-TSO-0001,True,1.02,0.0,0.0,0.0
+NL,DE,entry,Winterswijk,ITP-00078,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,Tegelen,ITP-00244,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,DE,entry,VIP TTF-NCG L,ITP-00552,NL-TSO-0001,True,0.0,0.0,0.0,0.0
+NL,DE,entry,VIP TTF-GASPOOL L,ITP-00553,NL-TSO-0001,True,0.0,0.0,0.0,0.0
+NL,DE,exit,VIP TTF-THE-H,ITP-10012,NL-TSO-0001,True,112.84,142.16,120.13,164.19
+NL,DE,exit,Bocholtz,ITP-00169,NL-TSO-0001,False,88.53,93.66,86.3,102.38
+NL,DE,exit,VIP TTF-THE-L,ITP-10010,NL-TSO-0001,True,101.7,74.44,66.53,69.13
+NL,DE,exit,Bunde (DE) / Oude Statenzijl (H) (NL) (GASCADE),ITP-00076,NL-TSO-0001,False,33.34,45.3,37.68,46.3
+NL,DE,exit,Winterswijk,ITP-00078,NL-TSO-0001,False,39.42,34.62,32.93,33.65
+NL,DE,exit,Bunde (DE) / Oude Statenzijl (H) (NL) (GUD),ITP-00102,NL-TSO-0001,False,27.27,36.89,25.82,29.58
+NL,DE,exit,Zevenaar,ITP-00259,NL-TSO-0001,False,38.59,25.46,20.07,23.3
+NL,DE,exit,Vlieghuis,ITP-00151,NL-TSO-0001,False,7.24,7.88,6.48,8.78
+NL,DE,exit,Bunde (DE) / Oude Statenzijl (L) (NL) (GTG Nord),ITP-00118,NL-TSO-0001,False,12.65,9.41,8.84,6.12
+NL,DE,exit,Bunde (DE) / Oude Statenzijl (L) (NL) (GUD),ITP-00107,NL-TSO-0001,False,9.22,3.3,4.03,5.75
+NL,DE,exit,Bunde (DE) / Oude Statenzijl (H) (NL) I (OGE),ITP-00103,NL-TSO-0001,False,0.87,0.27,0.25,2.57
+NL,DE,exit,Haanrade,ITP-00071,NL-TSO-0001,False,0.35,0.32,0.31,0.28
+NL,DE,exit,Dinxperlo,ITP-00305,NL-TSO-0001,False,0.01,0.01,0.01,0.01
+NL,DE,exit,Bocholtz-Vetschau,ITP-00025,NL-TSO-0001,False,0.59,1.37,0.0,0.0
+NL,DE,exit,Tegelen,ITP-00244,NL-TSO-0001,False,0.2,0.2,0.13,0.0
+NL,DE,exit,Bunde (DE) / Oude Statenzijl (H) (NL) (GTG Nord),ITP-00507,NL-TSO-0001,False,1.26,1.12,0.21,0.0
+NL,DE,exit,VIP TTF-NCG H,ITP-00551,NL-TSO-0001,True,10.12,0.0,0.0,0.0
+NL,DE,exit,VIP TTF-GASPOOL H,ITP-00554,NL-TSO-0001,True,1.05,0.0,0.0,0.0
+NL,DE,exit,VIP TTF-NCG L,ITP-00552,NL-TSO-0001,True,0.0,0.0,0.0,0.0
+NL,DE,exit,VIP TTF-GASPOOL L,ITP-00553,NL-TSO-0001,True,0.0,0.0,0.0,0.0
+NL,NO,entry,Emden (EPT1),ITP-00209,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,NO,entry,Emden (NPT),ITP-00210,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,NO,exit,Emden (EPT1),ITP-00209,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NL,NO,exit,Emden (NPT),ITP-00210,NL-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,BE,entry,Zeebrugge ZPT,ITP-00106,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,BE,exit,Zeebrugge ZPT,ITP-00106,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,DE,entry,Dornum (EPT1 & EPT2),ITP-00208,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,DE,exit,Dornum (EPT1 & EPT2),ITP-00208,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,FR,exit,Dunkerque,ITP-00045,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,NL,entry,Emden (EPT1),ITP-00209,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,NL,entry,Emden (NPT),ITP-00210,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,NL,exit,Emden (EPT1),ITP-00209,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,NL,exit,Emden (NPT),ITP-00210,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,UK,exit,St. Fergus,ITP-00022,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+NO,UK,exit,Easington,ITP-00091,NO-TSO-0001,False,0.0,0.0,0.0,0.0
+PL,DE,entry,GCP GAZ-SYSTEM/ONTRAS,ITP-00497,PL-TSO-0002,False,11.27,9.62,5.49,13.16
+PL,DE,entry,Mallnow,ITP-00096,PL-TSO-0001,False,32.62,4.21,0.41,0.58
+PL,DE,exit,Mallnow,ITP-00096,PL-TSO-0001,False,2.91,0.0,0.0,0.0
+PL,DE,exit,GCP GAZ-SYSTEM/ONTRAS,ITP-00497,PL-TSO-0002,False,0.01,0.01,0.0,0.0
+PL,DK,entry,Faxe,ITP-10009,PL-TSO-0002,False,7.27,76.15,78.97,96.93
+PL,DK,exit,Faxe,ITP-10009,PL-TSO-0002,False,0.0,0.0,0.0,0.01
+PT,ES,entry,VIP IBERICO,ITP-00286,PT-TSO-0001,True,4.71,3.12,1.08,2.72
+PT,ES,entry,Valença do Minho (PT) / Tuy (ES),ITP-00052,PT-TSO-0001,False,0.0,0.0,0.0,0.0
+PT,ES,entry,Badajoz (ES) / Campo Maior (PT),ITP-00064,PT-TSO-0001,False,0.0,0.0,0.0,0.0
+PT,ES,exit,VIP IBERICO,ITP-00286,PT-TSO-0001,True,3.52,6.7,9.27,4.6
+PT,ES,exit,Valença do Minho (PT) / Tuy (ES),ITP-00052,PT-TSO-0001,False,0.0,0.0,0.0,0.0
+PT,ES,exit,Badajoz (ES) / Campo Maior (PT),ITP-00064,PT-TSO-0001,False,0.0,0.0,0.0,0.0
+RU,DE,entry,Greifswald,ITP-00120,RU-TSO-0002,False,0.0,0.0,0.0,0.0
+RU,DE,exit,Greifswald,ITP-00120,RU-TSO-0002,False,0.0,0.0,0.0,0.0
+RU,DE,exit,Lubmin II,ITP-00501,RU-TSO-0003,False,0.0,0.0,0.0,0.0
+SI,AT,entry,Murfeld (AT) / Ceršak (SI),ITP-00079,SI-TSO-0001,False,11.36,6.63,7.11,8.8
+SI,AT,exit,Murfeld (AT) / Ceršak (SI),ITP-00079,SI-TSO-0001,False,0.0,0.0,0.0,0.0
+SI,IT,entry,Gorizia (IT) /Šempeter (SI),ITP-00049,SI-TSO-0001,False,2.09,4.03,0.38,0.4
+SI,IT,exit,Gorizia (IT) /Šempeter (SI),ITP-00049,SI-TSO-0001,False,0.16,0.01,0.2,0.02
+SK,AT,entry,Baumgarten,ITP-00168,SK-TSO-0001,False,0.0,0.0,0.0,5.22
+SK,AT,exit,Baumgarten,ITP-00168,SK-TSO-0001,False,194.89,84.53,106.74,0.43
+UK,BE,entry,Zeebrugge IZT,ITP-00061,UK-TSO-0003,False,0.47,0.03,1.03,4.13
+UK,BE,exit,Zeebrugge IZT,ITP-00061,UK-TSO-0003,False,168.64,107.85,47.17,58.5
+UK,IE,entry,Moffat,ITP-00090,UK-TSO-0001,False,0.0,0.0,0.0,0.0
+UK,IE,exit,Moffat,ITP-00090,UK-TSO-0001,False,60.45,57.93,62.71,63.29
+UK,NL,entry,Bacton (BBL),ITP-00207,UK-TSO-0001,False,0.0,0.0,0.0,0.0
+UK,NL,exit,Bacton (BBL),ITP-00207,UK-TSO-0001,False,40.25,19.75,21.01,23.89
+UK,NO,entry,Easington,ITP-00091,UK-TSO-0001,False,231.68,190.85,263.42,250.79
+UK,NO,entry,St. Fergus,ITP-00022,UK-TSO-0001,False,233.01,214.54,192.07,181.54
