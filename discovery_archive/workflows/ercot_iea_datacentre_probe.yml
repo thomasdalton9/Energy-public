@@ -1,0 +1,16 @@
+name: ERCOT IEA data centre probe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: timeout 200 python3 discovery_archive/ERCOT_IEA_DATACENTRE_PROBE.py
