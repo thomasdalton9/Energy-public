@@ -154,6 +154,9 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
     chart.title = f"{title} (to {df.index.max().strftime('%Y' if date_format == '%Y' else '%b/%y')})"
     chart.x_axis.number_format = excel_fmt
     chart.y_axis.title = y_title
+    if str(y_title).startswith("Bcf/d") and "MISO" in title:   # MISO gas burn: Bcf/d to 2 decimals
+        chart.y_axis.number_format = "0.00"
+        chart.y_axis.numFmt.sourceLinked = False
     chart.x_axis.tickLblPos = "low"
     rotated_labels(chart.x_axis)
     step = 1 if spacing <= 2 else max(1, len(df) // 12)   # daily: every (mostly blank) label is shown
