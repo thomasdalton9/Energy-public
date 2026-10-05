@@ -657,6 +657,44 @@ def emden_entsog(data_dir):
     return {"DE": fx[["DE_emden_oge", "DE_emden_gud"]].sum(axis=1, min_count=1), "NL": fx["NL_emden_gts"]}
 
 
+def haidach_flows(data_dir):
+    """Gas moved between the German grid and the Haidach storage (GWh/d), bayernets' physical flow at UGS-00274 'Haidach (AT) / Haidach USP (DE)' from ENTSOG
+    (ENTSOG_POINT_FIXES_DAILY.py): {"in": withdrawals from Haidach into the German grid, "out": injections into Haidach} or None. Haidach lies in Austria and is in AGSI+'s
+    Austrian stock, but it is fed from and delivers to the German grid, so neither Germany's AGSI+ storage nor its ENTSOG border rows hold it: Germany + Netherlands
+    ran +5 TWh a month in summer (gas sent to Haidach) and -6 to -9 in winter (gas it delivered) until it was added to Germany's storage lines."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    if not {"DE_haidach_in", "DE_haidach_out"} <= set(fx.columns):
+        return None
+    return {"in": fx["DE_haidach_in"], "out": fx["DE_haidach_out"]}
+
+
+def de_storage_with_haidach(data_dir, sto):
+    """AGSI+ storage frame with Germany's withdrawal / injection columns plus the Haidach flows (see haidach_flows); `sto` unchanged where those are missing."""
+    h = haidach_flows(data_dir)
+    if h is None or "DE_withdrawal_GWhd" not in sto:
+        return sto
+    out = sto.copy()
+    ix = out.index
+    out["DE_withdrawal_GWhd"] = _col(sto, "DE_withdrawal_GWhd").add(h["in"].reindex(ix).fillna(0), fill_value=0)
+    out["DE_injection_GWhd"] = _col(sto, "DE_injection_GWhd").add(h["out"].reindex(ix).fillna(0), fill_value=0)
+    return out
+
+
+def at_storage_without_haidach(data_dir, sto):
+    """AGSI+ storage frame with the Haidach flows that now sit in Germany's storage (see haidach_flows) taken out of Austria's stock change, so the EU sums count
+    them once. Austria's own AGGM balance never had them."""
+    h = haidach_flows(data_dir)
+    if h is None or "AT_withdrawal_GWhd" not in sto:
+        return sto
+    out = sto.copy()
+    ix = out.index
+    net = (_col(sto, "AT_withdrawal_GWhd") - _col(sto, "AT_injection_GWhd")) - (h["in"].reindex(ix).fillna(0) - h["out"].reindex(ix).fillna(0))
+    net = net.where(_col(sto, "AT_withdrawal_GWhd").notna())
+    out["AT_withdrawal_GWhd"] = net.clip(lower=0)
+    out["AT_injection_GWhd"] = (-net).clip(lower=0)
+    return out
+
+
 def de_at_exports(data_dir):
     """German exit flows to Austria (GWh/d) that the ENTSOG border rule leaves out: Ueberackern ABG/SUDAL and RC Lindau (ENTSOG_POINT_FIXES_DAILY.py).
     The rule keeps the larger of the VIP sum and the physical-point sum on a side; VIP Oberkappel (69.5 TWh in 2025) plus VIP Kiefersfelden-Pfronten
@@ -799,7 +837,7 @@ def pl_yamal_imports(data_dir):
     return by + yam
 
 
-def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
+def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
     GR: TAP's Nea Mesimvria entry (Azerbaijani gas) is added to pipeline imports. HU: the 'Exit for Blending' is taken off production
@@ -888,11 +926,14 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
         em_raw = emden_entsog(data_dir)
         ns = nord_stream(data_dir)
         kw = {"extra_imports": ns.add(em_raw["DE"].reindex(ns.index).fillna(0), fill_value=0).combine_first(em_raw["DE"]) if em_raw else ns}
+        if sto is not None and haidach_flows(data_dir) is not None:
+            kw["storage"] = de_storage_with_haidach(data_dir, sto)
         de_at = de_at_exports(data_dir)
         if de_at is not None:
             kw["extra_exports"] = de_at
         return kw, None, (
             (" Pipeline exports add the German exit flows to Austria at Ueberackern and Lindau (24-27 TWh a year), which the border rule drops because the VIP Oberkappel it prefers does not contain them (Germany's exports to Austria were 73 TWh in 2025 against Austria's own 94)." if de_at is not None else "") +
+            (" Storage withdrawals and injections are AGSI+'s stock change plus bayernets' physical flow at the Haidach storage (ENTSOG UGS-00274; Haidach lies in Austria and is in AGSI+'s Austrian stock but is fed from and delivers to the German grid, 10-24 TWh a year each way)." if (sto is not None and haidach_flows(data_dir) is not None) else "") +
             (" Pipeline imports include Norwegian gas at Emden (EPT1: OGE and GUD entries; the Dutch share, GTS, is in the Netherlands balance), which ENTSOG's country classification drops." if em_raw else "") +
             " Pipeline imports include the Nord Stream 1 gas entering at Greifswald (NEL and OPAL entries, Russian origin, to Sept 2022), which "
             "ENTSOG's country classification drops because it lists no far side for those points (Germany + Netherlands was about 100 TWh a quarter short before).")
@@ -1380,7 +1421,7 @@ def main():
             gas[2].append(f"Germany gas balance without the Emden correction ({type(e).__name__}: {e})")
         eu_frames, eu_fallback = {}, {}
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
-            fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni, gbal)
+            fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni, gbal, gsto)
             cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
             sto_in = fix_kw.pop("storage", gsto)
             b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
@@ -1442,7 +1483,7 @@ def main():
                 except Exception as e:  # noqa: BLE001
                     gas[2].append(f"Ireland gas balance from GNI failed ({type(e).__name__}: {e}); ENTSOG used")
             if cc in EU27_GAS or cc == "UK":
-                eu_frames[cc] = agsi_storage_frame(b, gsto, "AT") if (cc == "AT" and len(b)) else b
+                eu_frames[cc] = agsi_storage_frame(b, at_storage_without_haidach(args.data_dir, gsto), "AT") if (cc == "AT" and len(b)) else b
                 eu_fallback[cc] = b_entsog
             if b.empty:
                 gas[2].append(f"{GAS_NAMES[cc]} gas balance: too little data")
@@ -1494,7 +1535,7 @@ def main():
         try:   # Germany + Netherlands: Gassco's Emden gas is split between them in a way the raw data cannot show, so they are combined
             ns, em_raw = nord_stream(args.data_dir), emden_entsog(args.data_dir)
             em_de = em_raw["DE"] if em_raw else emden           # ENTSOG's own Emden entries where pulled, else the Gassco-based estimate
-            de_b = gas_country_balance(gbal, "DE", gsto, glng, tso["DE"] if "DE" in tso else None, None,
+            de_b = gas_country_balance(gbal, "DE", de_storage_with_haidach(args.data_dir, gsto), glng, tso["DE"] if "DE" in tso else None, None,
                                        bio["DE"] if (len(bio) and "DE" in bio) else None,
                                        em_de.add(ns.reindex(em_de.index).fillna(0), fill_value=0).combine_first(ns) if ns is not None else em_de,
                                        extra_exports=de_at_exports(args.data_dir))
