@@ -2,6 +2,10 @@ name: DE NL Eurostat partners monthly probe (manual)
 
 on:
   workflow_dispatch:
+    inputs:
+      args:
+        description: 'e.g. IMP DE'
+        default: 'IMP DE'
 
 jobs:
   probe:
@@ -13,4 +17,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests
-      - run: python3 -u discovery_archive/europe/DENL_EUROSTAT_PARTNERS_MONTHLY_PROBE.py
+      - run: python3 -u discovery_archive/europe/DENL_EUROSTAT_PARTNERS_MONTHLY_PROBE.py ${{ inputs.args }}

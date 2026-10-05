@@ -29,8 +29,12 @@ def fetch(ds, geo):
     return out, sorted(cat["time"], key=lambda t: cat["time"][t])
 
 
+SEL = sys.argv[1:] or ["IMP", "EXP"]
+GEOS = [g for g in ("DE", "NL", "BE") if not len(sys.argv) > 2 or g in sys.argv[2:]]
 for ds, label in (("nrg_ti_gasm", "IMP"), ("nrg_te_gasm", "EXP")):
-    for geo in ("DE", "NL", "BE"):
+    if label not in SEL:
+        continue
+    for geo in GEOS:
         o, months = fetch(ds, geo)
         print(f"## {label} {geo} months {months[0] if months else ''}..{months[-1] if months else ''} n={len(months)}", flush=True)
         for pt in sorted({p for p, _ in o}):
