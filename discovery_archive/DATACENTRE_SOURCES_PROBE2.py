@@ -24,6 +24,8 @@ try:
     show(L, r"load factor|utili[sz]ation|capacity factor", n=20)
     show(L, r"2028", r"TWh|GW", n=20)
     show(L, r"Virginia|state", r"TWh|%", n=15)
+    print("--- LBNL p8:", L[7][:2500]); print("--- LBNL p53:", L[52][:2000])
+    show(L, r"2023", r"TWh", n=10)
 except Exception as e: print("LBNL FAILED", e)
 print("##### IEA")
 try:
@@ -31,6 +33,10 @@ try:
     print(len(I), "pages")
     show(I, r"United States", r"TWh|GW", n=45)
     show(I, r"Texas|ERCOT", n=15)
+    for pg in (259, 260, 261, 262):
+        print(f"--- IEA annex p{pg}:", I[pg-1][:3500])
+    show(I, r"Lift-Off|High Efficiency|Headwinds", r"TWh", n=12)
+    show(I, r"2035", r"United States", n=8)
     show(I, r"load factor|utili[sz]ation rate|capacity factor", r"data cent", n=10)
 except Exception as e: print("IEA FAILED", e)
 print("##### ERCOT files")
