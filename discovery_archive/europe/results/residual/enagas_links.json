@@ -1,0 +1,75 @@
+{
+ "https://www.enagas.es/en/technical-management-system/energy-data/": [
+  "/en/technical-management-system/energy-data/",
+  "/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "/en/technical-management-system/energy-data/demand/forecast/",
+  "/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "/en/technical-management-system/energy-data/publications/",
+  "/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/",
+  "/es/gestion-tecnica-sistema/energy-data/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/demand/forecast/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/publications/",
+  "https://www.enagas.es/es/gestion-tecnica-sistema/energy-data/"
+ ],
+ "https://www.enagas.es/en/technical-management-system/energy-data/demand/history/": [
+  "/en/gestion-tecnica-sistema/energy-data/publicaciones/demanda-gas/?category=enagas:demanda-de-gas/informe-demanda-industrial",
+  "/en/gestion-tecnica-sistema/energy-data/publicaciones/demanda-gas/?category=enagas:demanda-de-gas/informe-mensual",
+  "/en/technical-management-system/energy-data/",
+  "/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "/en/technical-management-system/energy-data/demand/forecast/",
+  "/en/technical-management-system/energy-data/demand/history/",
+  "/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "/en/technical-management-system/energy-data/publications/",
+  "/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/",
+  "/es/gestion-tecnica-sistema/energy-data/demanda/historico/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/demand/history/",
+  "https://www.enagas.es/es/gestion-tecnica-sistema/energy-data/demanda/historico/"
+ ],
+ "https://www.enagas.es/en/technical-management-system/energy-data/publications/": [
+  "/content/dam/enagas/en/files/gestion-tecnica-del-sistema/energy-data/publicaciones/indicadores-incentivos-gts/Gas%20System%20Technical%20Manager%20Incentives%20Indicators%20-%20Gas%20Year%202024.pdf",
+  "/content/dam/enagas/en/files/gestion-tecnica-del-sistema/energy-data/publicaciones/indicadores-incentivos-gts/Incentives%20from%20oct-24%20to%20sep-25.pdf",
+  "/content/dam/enagas/en/files/gestion-tecnica-del-sistema/energy-data/publicaciones/indicadores-incentivos-gts/Incentives-gts-oct22-sep-23.pdf",
+  "/content/dam/enagas/en/files/gestion-tecnica-del-sistema/energy-data/publicaciones/indicadores-incentivos-gts/incentives-gts-oct21-sept22.pdf",
+  "/en/technical-management-system/energy-data/",
+  "/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "/en/technical-management-system/energy-data/demand/forecast/",
+  "/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "/en/technical-management-system/energy-data/publications/",
+  "/en/technical-management-system/energy-data/publications/capacity-development-management/",
+  "/en/technical-management-system/energy-data/publications/gas-demand/",
+  "/en/technical-management-system/energy-data/publications/gas-quality/",
+  "/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/",
+  "/en/technical-management-system/energy-data/publications/markets-balances/",
+  "/en/technical-management-system/energy-data/publications/operation-maintenance/",
+  "/es/gestion-tecnica-sistema/energy-data/publicaciones/",
+  "https://www.enagas.es/en/technical-management-system/energy-data/publications/",
+  "https://www.enagas.es/es/gestion-tecnica-sistema/energy-data/publicaciones/"
+ ],
+ "https://www.enagas.es/en/technical-management-system/energy-data/supply/": [
+  "/en/technical-management-system/energy-data/",
+  "/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "/en/technical-management-system/energy-data/demand/forecast/",
+  "/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "/en/technical-management-system/energy-data/publications/",
+  "/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/"
+ ],
+ "https://www.enagas.es/en/technical-management-system/energy-data/stocks/": [
+  "/en/technical-management-system/energy-data/",
+  "/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "/en/technical-management-system/energy-data/demand/forecast/",
+  "/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "/en/technical-management-system/energy-data/publications/",
+  "/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/"
+ ],
+ "https://www.enagas.es/en/technical-management-system/energy-data/balance/": [
+  "/en/technical-management-system/energy-data/",
+  "/en/technical-management-system/energy-data/commercial-information/predicted-closing-linepack/",
+  "/en/technical-management-system/energy-data/demand/forecast/",
+  "/en/technical-management-system/energy-data/physical-parameters/technical-capacity-physical-flows/",
+  "/en/technical-management-system/energy-data/publications/",
+  "/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/"
+ ]
+}

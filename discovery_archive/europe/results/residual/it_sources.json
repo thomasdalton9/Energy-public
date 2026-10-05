@@ -1,0 +1,191 @@
+{
+ "https://dgsaie.mise.gov.it/": {
+  "status": 200,
+  "final": "https://sisen.mase.gov.it/dgsaie/",
+  "len": 697,
+  "links": []
+ },
+ "https://dgsaie.mise.gov.it/gas_naturale.php": {
+  "status": 200,
+  "final": "https://sisen.mase.gov.it/dgsaie/",
+  "len": 697,
+  "links": []
+ },
+ "https://dgsaie.mise.gov.it/dgsaie_gas_naturale.php": {
+  "status": 200,
+  "final": "https://sisen.mase.gov.it/dgsaie/",
+  "len": 697,
+  "links": []
+ },
+ "https://dgsaie.mise.gov.it/bilancio_gas.php": {
+  "status": 200,
+  "final": "https://sisen.mase.gov.it/dgsaie/",
+  "len": 697,
+  "links": []
+ },
+ "https://dgsaie.mise.gov.it/importazioni_gas.php": {
+  "status": 200,
+  "final": "https://sisen.mase.gov.it/dgsaie/",
+  "len": 697,
+  "links": []
+ },
+ "https://www.mase.gov.it/energia/statistiche-energetiche": {
+  "status": 404,
+  "final": "https://www.mase.gov.it/portale/energia/statistiche-energetiche",
+  "len": 46,
+  "links": []
+ },
+ "https://www.mase.gov.it/energia/gas-naturale": {
+  "status": 404,
+  "final": "https://www.mase.gov.it/portale/energia/gas-naturale",
+  "len": 46,
+  "links": []
+ },
+ "https://www.mase.gov.it/portale/web/guest/gas-naturale": {
+  "status": 200,
+  "final": "https://www.mase.gov.it/portale/web/guest/gas-naturale-1",
+  "len": 207500,
+  "links": [
+   "/portale/dati-monitoraggio-sito",
+   "/portale/documents/d/guest/normativa-gas-26-6-2019-pdf",
+   "/portale/web/guest/-/decreto-interministeriale-a-firma-del-ministro-dell-ambiente-e-del-ministro-delle-infrastrutture-e-trasporti-n.-61-del-6-marzo-2025.-terminale-gnl-adriatico-aumento-capacita-di-rigassificazione",
+   "/portale/web/guest/-/decreto-ministeriale-del-16-dicembre-2025-relativo-alle-modalita-per-la-copertura-dei-costi-del-meccanismo-incentivante-per-il-servizio-di-stoccaggio-del-gas-naturale-per-l-anno-termico-2025-2026",
+   "/portale/web/guest/-/relazioni-quantificazione-emissioni-di-metano-ricevute-dalle-imprese-che-gestiscono-impianti-della-filiera-del-gas-in-italia-ex-art.-12-c.-8.-del-regolamento-ue-2024/1787-",
+   "https://www.mase.gov.it/portale/bonus-gas",
+   "https://www.mase.gov.it/portale/comitato-tecnico-di-emergenza-e-monitoraggio-del-sistema-del-gas",
+   "https://www.mase.gov.it/portale/comunicato-relativo-al-consuntivo-dell-immesso-nella-rete-di-trasporto-gas-naturale-per-l-anno-termico-2020-2021",
+   "https://www.mase.gov.it/portale/comunicato-relativo-al-consuntivo-dell-immesso-nella-rete-di-trasporto-gas-naturale-per-l-anno-termico-2021-2022",
+   "https://www.mase.gov.it/portale/comunicato-relativo-al-consuntivo-dell-immesso-nella-rete-di-trasporto-gas-naturale-per-l-anno-termico-2022-2023",
+   "https://www.mase.gov.it/portale/decreto-del-17-febbraio-2022-aggiornamento-della-rete-nazionale-dei-gasdotti",
+   "https://www.mase.gov.it/portale/gas-effetto-serra",
+   "https://www.mase.gov.it/portale/gas-naturale-1",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=1",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=10",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=11",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=12",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=2",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=3",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=4",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=5",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=6",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=7",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=8",
+   "https://www.mase.gov.it/portale/gas-naturale-1?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz&amp;p_p_lifecycle=0&amp;p_p_state=normal&amp;p_p_mode=view&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_redirect=%2Fportale%2Fweb%2Fguest%2Fgas-naturale-1&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_delta=20&amp;p_r_p_resetCur=false&amp;_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_xbnz_cur=9",
+   "https://www.mase.gov.it/portale/gas-naturale-e-petrolio",
+   "https://www.mase.gov.it/portale/gas-naturale-vendita-controlli",
+   "https://www.mase.gov.it/portale/regole-di-funzionamento-del-mercato-dei-certificati-di-immissione-in-consumo-di-biocarburanti",
+   "https://www.mase.gov.it/portale/responsabile-protezione-dei-dati",
+   "https://www.mase.gov.it/portale/rete-gas",
+   "https://www.mase.gov.it/portale/rigassificatori",
+   "https://www.mase.gov.it/portale/sostenibilit%C3%A0-dei-prodotti-e-dei-consumi-cam-e-certificazioni"
+  ]
+ },
+ "https://www.snam.it/it/trasporto/dati-operativi/": {
+  "status": 200,
+  "final": "https://www.snam.it/it/i-nostri-business/trasporto.html",
+  "len": 46100,
+  "links": []
+ },
+ "https://www.snam.it/en/transportation/operational-data-business/": {
+  "status": 200,
+  "final": "https://www.snam.it/en/our-businesses/transportation/business-information.html",
+  "len": 45999,
+  "links": []
+ },
+ "https://jarvis.snam.it/": {
+  "status": 403,
+  "final": "https://jarvis.snam.it/",
+  "len": 368,
+  "links": []
+ },
+ "https://www.snam.it/it/home/": {
+  "status": 200,
+  "final": "https://www.snam.it/it/home.html",
+  "len": 46021,
+  "links": []
+ },
+ "https://www.snam.it/en/transport/transparency/": {
+  "status": 404,
+  "final": "https://www.snam.it/en/transport/transparency/",
+  "len": 5968,
+  "links": [
+   "/etc.clientlibs/foundation/clientlibs/main.lc-43b8fd8e628e977d5f6ee89ab99cea23-lc.min.css",
+   "/libs/wcm/foundation/components/page/responsive.lc-dd681ee257834c2b1fb20fb9af28568b-lc.min.css"
+  ]
+ },
+ "https://www.arera.it/dati-e-statistiche": {
+  "status": 200,
+  "final": "https://www.arera.it/dati-e-statistiche",
+  "len": 181101,
+  "links": [
+   "/_assets/2401ac606a848af4048de136a4a86111/Stylesheets/boxconsumatore.css?1791102457",
+   "/_assets/b37496beffcb70bd35974b1f58417fd9/Stylesheets/modellodatistatistiche.css?1791102464",
+   "/area-operatori/gas",
+   "/atlante-per-il-consumatore",
+   "/consumatori",
+   "/consumatori/bonus-sociale",
+   "/consumatori/conciliazione",
+   "/consumatori/fine-tutela-ele",
+   "/consumatori/fine-tutela-gas-cosa-fare",
+   "/consumatori/offerte-standard-per-i-clienti-finali-placet",
+   "/dati-e-statistiche",
+   "/per-il-consumatore/acqua",
+   "/per-il-consumatore/elettricita",
+   "/per-il-consumatore/gas",
+   "/per-il-consumatore/rifiuti",
+   "/per-il-consumatore/teleriscaldamento",
+   "https://auth.arera.it/shibboleth-ds/areraDS/index.html?entityID=https%3A%2F%2Frd.arera.it%2F**&return=https%3A%2F%2Fauth.arera.it%2Fcasshib%2Fshib%2Fraccdati%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dhttps%253A%252F%252Fauth.arera.it%252Fcasshib%252Fshib%252Fraccdati%252Flogin%253Fservice%253Dhttps%25253A%25252F%25252Frd.arera.it%25252Fraccolte-dati%25252Fj_spring_cas_security_check%25253Bjsessionid%25253DC70115EA4E9C2C09E410F212B40DDDAB",
+   "https://www.arera.it/dati-e-statistiche",
+   "https://www.consumienergia.it/portaleConsumi/",
+   "https://www.sportelloperilconsumatore.it/"
+  ]
+ },
+ "https://www.arera.it/it/dati/gas.htm": {
+  "status": 200,
+  "final": "https://www.arera.it/dati-e-statistiche",
+  "len": 181101,
+  "links": [
+   "/_assets/2401ac606a848af4048de136a4a86111/Stylesheets/boxconsumatore.css?1791102457",
+   "/_assets/b37496beffcb70bd35974b1f58417fd9/Stylesheets/modellodatistatistiche.css?1791102464",
+   "/area-operatori/gas",
+   "/atlante-per-il-consumatore",
+   "/consumatori",
+   "/consumatori/bonus-sociale",
+   "/consumatori/conciliazione",
+   "/consumatori/fine-tutela-ele",
+   "/consumatori/fine-tutela-gas-cosa-fare",
+   "/consumatori/offerte-standard-per-i-clienti-finali-placet",
+   "/dati-e-statistiche",
+   "/per-il-consumatore/acqua",
+   "/per-il-consumatore/elettricita",
+   "/per-il-consumatore/gas",
+   "/per-il-consumatore/rifiuti",
+   "/per-il-consumatore/teleriscaldamento",
+   "https://auth.arera.it/shibboleth-ds/areraDS/index.html?entityID=https%3A%2F%2Frd.arera.it%2F**&return=https%3A%2F%2Fauth.arera.it%2Fcasshib%2Fshib%2Fraccdati%2FShibboleth.sso%2FLogin%3FSAMLDS%3D1%26target%3Dhttps%253A%252F%252Fauth.arera.it%252Fcasshib%252Fshib%252Fraccdati%252Flogin%253Fservice%253Dhttps%25253A%25252F%25252Frd.arera.it%25252Fraccolte-dati%25252Fj_spring_cas_security_check%25253Bjsessionid%25253DC70115EA4E9C2C09E410F212B40DDDAB",
+   "https://www.arera.it/dati-e-statistiche",
+   "https://www.consumienergia.it/portaleConsumi/",
+   "https://www.sportelloperilconsumatore.it/"
+  ]
+ },
+ "https://www.terna.it/en": {
+  "status": 200,
+  "final": "https://www.terna.it/en",
+  "len": 334180,
+  "links": []
+ },
+ "https://www.gse.it": {
+  "status": 403,
+  "final": "https://www.gse.it/",
+  "len": 364,
+  "links": []
+ },
+ "https://dati.mase.gov.it/": {
+  "err": "ConnectionError"
+ },
+ "https://www.mase.gov.it/portale/bilancio-gas-naturale": {
+  "status": 404,
+  "final": "https://www.mase.gov.it/portale/bilancio-gas-naturale",
+  "len": 46,
+  "links": []
+ }
+}

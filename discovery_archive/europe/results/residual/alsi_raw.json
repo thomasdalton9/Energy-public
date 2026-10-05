@@ -1,0 +1,310 @@
+{
+ "ES": {
+  "last_page": 1,
+  "total": 3,
+  "dataset": "<a href=\"/data-overview/eu\">EU</a> > ES",
+  "gas_day": "2026-10-03",
+  "data": [
+   {
+    "name": "Spain",
+    "code": "ES",
+    "url": "ES",
+    "updatedAt": "2025-06-04 18:25:04",
+    "gasDayStart": "2025-06-03",
+    "gasDayEnd": "2025-06-04",
+    "inventory": {
+     "lng": "2516.53",
+     "gwh": "16936.76"
+    },
+    "sendOut": "554.1",
+    "dtmi": {
+     "lng": "3446.5",
+     "gwh": "23195.65"
+    },
+    "dtrs": "2132.3",
+    "contractedCapacity": "-",
+    "availableCapacity": "-",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   },
+   {
+    "name": "Spain",
+    "code": "ES",
+    "url": "ES",
+    "updatedAt": "2025-06-03 18:20:10",
+    "gasDayStart": "2025-06-02",
+    "gasDayEnd": "2025-06-03",
+    "inventory": {
+     "lng": "2330.82",
+     "gwh": "15684.81"
+    },
+    "sendOut": "551.1",
+    "dtmi": {
+     "lng": "3446.5",
+     "gwh": "23192.57"
+    },
+    "dtrs": "2132.3",
+    "contractedCapacity": "-",
+    "availableCapacity": "-",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   },
+   {
+    "name": "Spain",
+    "code": "ES",
+    "url": "ES",
+    "updatedAt": "2025-06-02 18:20:09",
+    "gasDayStart": "2025-06-01",
+    "gasDayEnd": "2025-06-02",
+    "inventory": {
+     "lng": "2251.5",
+     "gwh": "15140.81"
+    },
+    "sendOut": "409.4",
+    "dtmi": {
+     "lng": "3446.5",
+     "gwh": "23176.91"
+    },
+    "dtrs": "2132.3",
+    "contractedCapacity": "-",
+    "availableCapacity": "-",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   }
+  ]
+ },
+ "IT": {
+  "last_page": 1,
+  "total": 3,
+  "dataset": "<a href=\"/data-overview/eu\">EU</a> > IT",
+  "gas_day": "2026-10-03",
+  "data": [
+   {
+    "name": "Italy",
+    "code": "IT",
+    "url": "IT",
+    "updatedAt": "2025-06-16 09:38:58",
+    "gasDayStart": "2025-06-03",
+    "gasDayEnd": "2025-06-04",
+    "inventory": {
+     "lng": "227.92",
+     "gwh": "1512.8"
+    },
+    "sendOut": "695.5",
+    "dtmi": {
+     "lng": "771.02",
+     "gwh": "5117.58"
+    },
+    "dtrs": "868.1",
+    "contractedCapacity": "673.7772",
+    "availableCapacity": "194.2937",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   },
+   {
+    "name": "Italy",
+    "code": "IT",
+    "url": "IT",
+    "updatedAt": "2025-06-16 09:38:58",
+    "gasDayStart": "2025-06-02",
+    "gasDayEnd": "2025-06-03",
+    "inventory": {
+     "lng": "669.86",
+     "gwh": "1200.85"
+    },
+    "sendOut": "602.8",
+    "dtmi": {
+     "lng": "771.02",
+     "gwh": "1382.2"
+    },
+    "dtrs": "868.1",
+    "contractedCapacity": "580.5978",
+    "availableCapacity": "287.4731",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   },
+   {
+    "name": "Italy",
+    "code": "IT",
+    "url": "IT",
+    "updatedAt": "2025-06-16 09:38:58",
+    "gasDayStart": "2025-06-01",
+    "gasDayEnd": "2025-06-02",
+    "inventory": {
+     "lng": "312.4",
+     "gwh": "2051.61"
+    },
+    "sendOut": "598.5",
+    "dtmi": {
+     "lng": "771.02",
+     "gwh": "5063.48"
+    },
+    "dtrs": "868.1",
+    "contractedCapacity": "576.5084",
+    "availableCapacity": "291.5625",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   }
+  ]
+ },
+ "FR": {
+  "last_page": 1,
+  "total": 3,
+  "dataset": "<a href=\"/data-overview/eu\">EU</a> > FR",
+  "gas_day": "2026-10-03",
+  "data": [
+   {
+    "name": "France",
+    "code": "FR",
+    "url": "FR",
+    "updatedAt": "2025-06-04 08:00:08",
+    "gasDayStart": "2025-06-03",
+    "gasDayEnd": "2025-06-04",
+    "inventory": {
+     "lng": "762.89",
+     "gwh": "5082.95"
+    },
+    "sendOut": "728.7",
+    "dtmi": {
+     "lng": "1485.3",
+     "gwh": "9896.19"
+    },
+    "dtrs": "1426",
+    "contractedCapacity": "1043.1722",
+    "availableCapacity": "70.0011",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   },
+   {
+    "name": "France",
+    "code": "FR",
+    "url": "FR",
+    "updatedAt": "2025-06-03 08:00:13",
+    "gasDayStart": "2025-06-02",
+    "gasDayEnd": "2025-06-03",
+    "inventory": {
+     "lng": "566.24",
+     "gwh": "3771.92"
+    },
+    "sendOut": "684.5",
+    "dtmi": {
+     "lng": "1485.3",
+     "gwh": "9894.1"
+    },
+    "dtrs": "1426",
+    "contractedCapacity": "1043.1722",
+    "availableCapacity": "70.0011",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   },
+   {
+    "name": "France",
+    "code": "FR",
+    "url": "FR",
+    "updatedAt": "2025-06-02 08:00:08",
+    "gasDayStart": "2025-06-01",
+    "gasDayEnd": "2025-06-02",
+    "inventory": {
+     "lng": "693.17",
+     "gwh": "4618.1"
+    },
+    "sendOut": "958.7",
+    "dtmi": {
+     "lng": "1485.3",
+     "gwh": "9895.5"
+    },
+    "dtrs": "1481",
+    "contractedCapacity": "1043.1722",
+    "availableCapacity": "125.0011",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "C"
+   }
+  ]
+ },
+ "GB": {
+  "last_page": 1,
+  "total": 3,
+  "dataset": "<a href=\"/data-overview/eu\">EU</a> > GB",
+  "gas_day": "2026-10-03",
+  "data": [
+   {
+    "name": "United Kingdom (Pre-Brexit)",
+    "code": "GB",
+    "url": "GB",
+    "updatedAt": "2026-09-12 22:02:03",
+    "gasDayStart": "2025-06-03",
+    "gasDayEnd": "2025-06-04",
+    "inventory": {
+     "lng": "-",
+     "gwh": "-"
+    },
+    "sendOut": "-",
+    "dtmi": {
+     "lng": "-",
+     "gwh": "-"
+    },
+    "dtrs": "-",
+    "contractedCapacity": "-",
+    "availableCapacity": "-",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "N"
+   },
+   {
+    "name": "United Kingdom (Pre-Brexit)",
+    "code": "GB",
+    "url": "GB",
+    "updatedAt": "2026-09-12 22:02:03",
+    "gasDayStart": "2025-06-02",
+    "gasDayEnd": "2025-06-03",
+    "inventory": {
+     "lng": "-",
+     "gwh": "-"
+    },
+    "sendOut": "-",
+    "dtmi": {
+     "lng": "-",
+     "gwh": "-"
+    },
+    "dtrs": "-",
+    "contractedCapacity": "-",
+    "availableCapacity": "-",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "N"
+   },
+   {
+    "name": "United Kingdom (Pre-Brexit)",
+    "code": "GB",
+    "url": "GB",
+    "updatedAt": "2026-09-12 22:02:03",
+    "gasDayStart": "2025-06-01",
+    "gasDayEnd": "2025-06-02",
+    "inventory": {
+     "lng": "-",
+     "gwh": "-"
+    },
+    "sendOut": "-",
+    "dtmi": {
+     "lng": "-",
+     "gwh": "-"
+    },
+    "dtrs": "-",
+    "contractedCapacity": "-",
+    "availableCapacity": "-",
+    "coveredCapacity": "-",
+    "info": [],
+    "status": "N"
+   }
+  ]
+ }
+}
