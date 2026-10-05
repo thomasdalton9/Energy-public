@@ -241,18 +241,12 @@ def parse_enagas_bulletin(content):
     return None
 
 
-def parse_enagas_trucks(content, which="cur"):
-    """LNG truck loadings (GWh in the bulletin month, all regasification plants) from section 5 'Regasification plants activity' (the Total row; its last two
-    figures are the trucks columns for the same month a year earlier and the bulletin month, in the order the header lists the months). Enagas's national
-    demand (conventional market) includes these trucks, which are LNG that never passes the send-out into the grid. which='prev' returns the year-earlier
-    month's figure instead. NaN when the table is not found."""
-    import pdfplumber
-    with pdfplumber.open(io.BytesIO(content)) as pdf:
-        text = "\n".join((pg.extract_text() or "") for pg in pdf.pages[:30])
+def _trucks_from_text(text):
+    """(cur, prev) LNG-truck GWh of the Total row, or None; cur/prev follow the order of the month header above the table."""
     lines = text.split("\n")
     k = next((n for n, ln in enumerate(lines) if re.match(r"\s*BARCELONA\s+[\d.,]+\s+[\d.,]+", ln)), None)
     if k is None:
-        return float("nan")
+        return None
     hdr = next((ln for ln in reversed(lines[max(0, k - 4):k]) if re.search(r"[A-Za-z]{3}-\d{2,4}\s+[A-Za-z]{3}-\d{2,4}", ln)), "")
     mm = re.findall(r"([A-Za-z]{3})-(\d{2,4})", hdr)
     cur_first = len(mm) >= 2 and int(mm[0][1]) % 100 > int(mm[1][1]) % 100
@@ -261,23 +255,22 @@ def parse_enagas_trucks(content, which="cur"):
             toks = [x for x in ln.split() if x != "Total" and not x.endswith("%") and re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*|\d+", x)]
             if len(toks) >= 8:
                 a, b = _gwh(toks[6]), _gwh(toks[7])
-                cur, prev = (a, b) if cur_first else (b, a)
-                return cur if which == "cur" else prev
-    return float("nan")
-    seg = text[i:].split("\n")
-    hdr = next((ln for ln in seg if re.search(r"[A-Za-z]{3}-\d{2,4}\s+[A-Za-z]{3}-\d{2,4}", ln)), "")
-    mm = re.findall(r"([A-Za-z]{3})-(\d{2,4})", hdr)
-    cur_first = False
-    if len(mm) >= 2:
-        y = [int(b) % 100 for _, b in mm[:2]]
-        cur_first = y[0] > y[1]
-    for ln in seg:
-        if re.match(r"\s*Total\s+[\d.,]+\s+[\d.,]+", ln):
-            toks = [x for x in ln.split() if x != "Total" and not x.endswith("%") and re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*|\d+", x)]
-            if len(toks) >= 8:
-                a, b = _gwh(toks[6]), _gwh(toks[7])
-                cur, prev = (a, b) if cur_first else (b, a)
-                return cur if which == "cur" else prev
+                return (a, b) if cur_first else (b, a)
+    return None
+
+
+def parse_enagas_trucks(content, which="cur"):
+    """LNG truck loadings (GWh in the bulletin month, all regasification plants) from section 5 'Regasification plants activity' (the Total row; its last two
+    figures are the trucks columns for the same month a year earlier and the bulletin month, in the order the header lists the months). Enagas's national
+    demand (conventional market) includes these trucks, which are LNG that never passes the send-out into the grid. which='prev' returns the year-earlier
+    month's figure instead. The 2021-24 bulletins print the table letter-spaced, which only comes out as rows with a wider character tolerance. NaN when the table is not found."""
+    import pdfplumber
+    with pdfplumber.open(io.BytesIO(content)) as pdf:
+        for tol in (3, 8):
+            text = "\n".join((pg.extract_text(x_tolerance=tol) or "") for pg in pdf.pages[:30])
+            res = _trucks_from_text(text)
+            if res is not None:
+                return res[0] if which == "cur" else res[1]
     return float("nan")
 
 
