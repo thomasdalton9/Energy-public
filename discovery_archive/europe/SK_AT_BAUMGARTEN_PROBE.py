@@ -131,4 +131,21 @@ if "5" in PART:
                         print("   |", ln.strip()[:240], flush=True)
         except Exception as e:  # noqa: BLE001
             print("ERR", u, type(e).__name__, str(e)[:100], flush=True)
+
+print("== PART 6 tis api methods", flush=True)
+if "6" in PART:
+    base = "https://tis.eustream.sk"
+    s = requests.Session()
+    s.headers.update(BR)
+    def dump(label, lines):
+        txt = " ## ".join(x.strip() for x in lines)
+        for i in range(0, len(txt), 1800):
+            print(label, txt[i:i + 1800], flush=True)
+    for u, pat in [("/javascripts/web/services.js", r"function|method|service|Flow|flow|param|from|date"), ("/javascripts/web/main.js", r"[Ff]low|getData|Services\.|TIS\.")]:
+        r = s.get(base + u, timeout=40)
+        ls = [l for l in r.text.splitlines() if re.search(pat, l) and len(l) < 220]
+        dump(u[-12:], ls[:140])
+    r = s.get(base + "/en/online-data/flows/", timeout=40)
+    ls = [l for l in r.text.splitlines() if re.search(r"Services|flows|getFlow|TIS\.", l) and len(l) < 300]
+    dump("page", ls[:60])
 sys.exit(0)
