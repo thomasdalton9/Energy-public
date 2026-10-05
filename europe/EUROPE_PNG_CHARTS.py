@@ -119,10 +119,10 @@ GAS_SRC = ("ENTSOG physical flows; consumption from the gas TSOs (DE THE, FR ODR
 
 
 def gas_summary(xl, path):
-    """EU27 gas balance table in Bcf/d (latest month, month on month, year on year) from the EU gas balance tab."""
+    """EU27 + UK gas balance table in Bcf/d (latest month, month on month, year on year) from the EU27 + UK gas balance tab."""
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import EUROPE_MASTER as M
-    d = tab(xl, "EU gas balance data")
+    d = tab(xl, "EU27 + UK gas balance data")
     out, bcfd = M.gas_summary_table(d)
     fig, ax = plt.subplots(figsize=(11.5, 3.6))
     ax.axis("off")
@@ -137,7 +137,7 @@ def gas_summary(xl, path):
         if r == 0:
             cl.set_facecolor("#F2F2F2")
             cl.set_text_props(fontweight="bold", color=INK)
-    ax.set_title(f"EU27 gas balance, Bcf/d - {bcfd.index.max():%b %Y} with month-on-month and year-on-year change", loc="left", fontsize=13, color=INK, fontweight="bold")
+    ax.set_title(f"EU27 + UK gas balance, Bcf/d - {bcfd.index.max():%b %Y} with month-on-month and year-on-year change", loc="left", fontsize=13, color=INK, fontweight="bold")
     fig.text(0.01, 0.01, "Source: ENTSOG, GIE AGSI+/ALSI, national TSOs. 11.2 GWh per million m3. Storage: net withdrawal positive. Residual = supply less demand.",
              fontsize=8, color=MUTED)
     fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight", pad_inches=0.25)
@@ -233,7 +233,7 @@ def main():
             out("europe_power_balance.png"), lines=("Pumped & battery (net)", "Load"),
             source=ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA)),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
-        ("EU gas balance data", lambda: gas_summary(xl, out("europe_gas_summary_bcfd.png"))),
+        ("EU27 + UK gas balance data", lambda: gas_summary(xl, out("europe_gas_summary_bcfd.png"))),
         ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
         ("United Kingdom gas balance data", lambda: gas_balance(
             xl, out("uk_gas_balance.png"), "United Kingdom gas balance data", "Great Britain gas balance: supply and storage flows vs consumption",
