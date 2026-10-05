@@ -440,7 +440,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
             xlsx_charts.write_table(ws, df, s["date_format"])
             charts.append((xlsx_charts.build_chart(ws, df, n_bars, s["title"], s["units"], s["kind"],
                                                    s["date_format"], width=CHART_W, height=CHART_H, gridlines=False,
-                                                   inner=xlsx_charts.DASHBOARD_INNER), src))
+                                                   inner=xlsx_charts.DASHBOARD_INNER,
+                                                   forecast_from=s.get("forecast_from")), src))
             index_rows.append((s["name"] if raw_sheet == "*" else country, s["title"], df.index.max().strftime("%b/%y"),
                                ws.title, *src))
         # raw_sheet: one sheet, "*" (every data sheet, one per country) or a tuple of sheets

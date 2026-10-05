@@ -49,6 +49,9 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 # (country code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 DATASETS = [
     ("US", "United States", "us_gas.xlsx", ("Demand by sector", "Supply and trade", "Storage weekly"), "gas"),
+    ("US", "United States", "texas_gas_monthly.xlsx", ("Consumption by sector", "Exports", "Mexico by crossing", "Balance", "Forecast values"),
+     "Texas gas"),
+    ("US", "United States", "texas_production_forecast.xlsx", "Supply and demand", "Texas supply and demand"),
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
@@ -78,7 +81,8 @@ CAPACITY_DATASETS = [
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
-DASHBOARD_ONLY = {"us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
+DASHBOARD_ONLY = {"texas_production_forecast.xlsx": {"Supply and demand", "Net outflow"},
+                  "us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
                   "miso_gas_burn_daily.xlsx": {"MISO gas burn"},
                   "ercot_gas_burn_daily.xlsx": {"MISO and ERCOT gas burn", "ERCOT gas burn"}}
@@ -185,6 +189,17 @@ EIA_GAS = "https://www.eia.gov/naturalgas/data.php"
 SOURCES = {
     "us_gas.xlsx": ("EIA (US Energy Information Administration): Natural Gas Monthly (consumption by sector, "
                     "production, trade) and Weekly Natural Gas Storage Report", EIA_GAS),
+    "texas_gas_monthly.xlsx": ("EIA Natural Gas Monthly, Texas (state consumption by sector, marketed production, storage; "
+                               "exports by port of exit: pipeline to Mexico at Texas crossings and LNG from Corpus Christi, "
+                               "Freeport and Golden Pass; Sabine Pass is Louisiana) via EIA API v2; ~2-3 month lag. Forecast to Dec 2028 (lighter bars): "
+                               "LNG feedgas = EIA exports x 1.09, existing plants at nameplate x 3-year utilisation, new trains from company-announced start dates "
+                               "(NextDecade, Sempra, ExxonMobil, Cheniere; several unverified), other sectors a seasonal-trend base",
+                               "https://www.eia.gov/dnav/ng/ng_cons_sum_dcu_STX_m.htm"),
+    "texas_production_forecast.xlsx": ("Texas supply and demand to Dec 2028: demand = EIA consumption by sector, Mexico pipeline exports and LNG feedgas "
+                                       "(EIA exports x 1.09; forecast from texas_gas_monthly.xlsx); production = EIA dry gas (history) and a forecast from "
+                                       "EIA STEO regional marketed production (Permian, Eagle Ford, Haynesville) capped by Permian takeaway capacity "
+                                       "(company-announced pipelines, unverified), less NGL extraction loss; outflow = production - demand (own calculation)",
+                                       "https://www.eia.gov/outlooks/steo/data/browser/#/?v=6&f=M&s=0&start=202401&end=202812&id=&linechart=NGMPPM"),
     "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
     "lng_feedgas_daily.xlsx": ("Interstate pipeline operators' scheduled quantities at each LNG plant (Kinder Morgan, "
                                "Enbridge, Williams, Energy Transfer, Cheniere, ...); EIA monthly LNG exports before "
