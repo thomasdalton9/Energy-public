@@ -1,0 +1,55 @@
+name: Texas demand regression
+
+# Texas gas (by sector) and ERCOT load regressions on weather, population, trend (+ Henry Hub, wind+solar share), weather-normalised
+# forecast to Dec 2033 (americas/TEXAS_DEMAND_REGRESSION.py -> texas_demand_regression.xlsx; standalone workbook).
+# Reads texas_gas_monthly.xlsx, eia930_fuel_mix_daily.xlsx, henry_hub_daily.xlsx from the repo (read only), so it runs after texas_gas
+# (16:20 UTC) and the production forecast (17:40 UTC). Temperature: NASA POWER (Open-Meteo fallback), incremental store in the workbook;
+# population: FRED TXPOP (Census).
+on:
+  schedule:
+    - cron: "10 18 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas numpy openpyxl requests matplotlib
+
+      - name: Run Texas demand regression
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1500 python3 americas/TEXAS_DEMAND_REGRESSION.py --out "output/Data and Chart Outputs/texas_demand_regression.xlsx"
+
+      - name: Add Excel charts, PNG charts and copy scripts
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/texas_demand_regression.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for texas_demand_regression.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp americas/TEXAS_DEMAND_REGRESSION.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/texas_demand_regression.xlsx"
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Texas demand regression: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

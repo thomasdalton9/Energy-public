@@ -1327,6 +1327,44 @@ def us_gas(p):
     return out
 
 
+def texas_demand_regression(p):
+    """Texas demand regressions (americas/TEXAS_DEMAND_REGRESSION.py): actual vs fitted/forecast per sector with +/-1 SE band,
+    regression 'other sectors' vs the existing damped-trend forecast, ERCOT load vs weather+population baseline and the unexplained growth."""
+    f = _sheet(p, "Forecast", "Month")
+    if f.empty:
+        return []
+    f = f[f.index >= "2018-01-01"]
+    ff = f.index[f["Type"].eq("Forecast")].min()
+    out = []
+
+    def line(name, title, cmap, units="Bcf/d", start="2018-01-01"):
+        d = pd.DataFrame({k: f[v] for k, v in cmap.items() if v in f.columns})
+        d = d[d.index >= start].dropna(how="all")
+        s_ = spec(name, d, title, units, "line", "%b/%y")
+        s_["forecast_from"] = ff
+        out.append(s_)
+
+    for sec in ("Electric power", "Residential", "Commercial", "Industrial"):
+        line(sec, f"Texas {sec.lower()} gas demand: actual, regression fit and forecast to 2033 (normal weather, +/-1 std)",
+             {"Actual": f"{sec} actual", "Fitted (actual weather) / forecast (normal weather)": f"{sec} fitted (actual weather) / forecast (normal weather)",
+              "Lower (-1 std)": f"{sec} lower", "Upper (+1 std)": f"{sec} upper"})
+    oc = "Other sectors fitted / forecast (sum of four)"
+    line("Other sectors", "Texas gas demand, four published sectors: regression vs existing damped-trend forecast (Bcf/d)",
+         {"Actual": "Other sectors actual (sum of four)", "Regression fit / forecast (normal weather)": oc,
+          "Regression lower (-1 std)": "Other sectors lower (band in quadrature, sectors independent)",
+          "Regression upper (+1 std)": "Other sectors upper (band in quadrature, sectors independent)",
+          "Existing damped-trend forecast (to Dec 2028)": "Existing damped-trend forecast, four sectors (texas_gas_monthly, to Dec 2028)"})
+    eb = "ERCOT baseline (weather + population, fit on window; actual weather, normal weather in forecast months)"
+    line("ERCOT load", "ERCOT load (GW): actual vs weather + population baseline fitted to the pre-step-up window, forecast to 2033",
+         {"Actual (EIA-930 net generation)": "ERCOT load actual (GW, EIA-930 net generation)", "Baseline: weather + population": eb,
+          "Baseline lower (-1 std)": "ERCOT baseline lower", "Baseline upper (+1 std)": "ERCOT baseline upper",
+          "Baseline + unexplained held flat (reference)": "ERCOT baseline + unexplained held at last-12-month level (reference)"}, "GW")
+    line("ERCOT unexplained", "ERCOT unexplained load growth (GW): actual minus weather + population baseline",
+         {"Monthly": "ERCOT unexplained load growth (GW) = actual - baseline", "12-month average": "ERCOT unexplained, 12-month average (GW)"}, "GW")
+    out[-1]["forecast_from"] = None
+    return out
+
+
 def texas_production_forecast(p):
     """Texas production forecast (americas/TEXAS_PRODUCTION_FORECAST.py): history + base/delayed forecast, implied net
     interstate outflow, Permian cap vs STEO. Bcf/d, mmm/yy."""
@@ -2510,6 +2548,7 @@ REGISTRY = {
     "us_gas.xlsx": us_gas,
     "texas_gas_monthly.xlsx": texas_gas,
     "texas_production_forecast.xlsx": texas_production_forecast,
+    "texas_demand_regression.xlsx": texas_demand_regression,
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
