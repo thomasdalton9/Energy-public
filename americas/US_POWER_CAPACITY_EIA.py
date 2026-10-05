@@ -15,6 +15,13 @@ Writes us_power_capacity.xlsx:
                  out of the fuel columns; Total_MW includes it)
   By technology  MW by EIA technology (e.g. Natural Gas Fired Combined Cycle)
 
+Regional sheets (US_Total, ERCOT, PJM, MISO, SPP, CAISO, NYISO, ISONE, Southern, TVA; the EIA-930 regions used by
+NORTH_AMERICA_MASTER): the API has a balancing_authority_code field/facet, so each generator row is assigned to the
+EIA-930 balancing authority it is registered to (REGION_BA below) and net summer MW are summed by fuel per region,
+same layout as Monthly. US_Total is the Lower 48 (AK and HI left out, as EIA-930 has none). Generators with no BA
+code (mainly AK/HI and a few small plants) fall in no region. A "Gas capacity factor" sheet divides EIA-930 gas
+generation (eia930_fuel_mix_daily.xlsx, complete months only) by gas capacity x hours.
+
 Incremental: fetches only months not saved yet plus the latest two saved
 months (EIA revises the most recent inventory); a new file backfills from
 2021. Saves after every month so a timeout keeps what was fetched.
@@ -51,6 +58,14 @@ SOURCE = {
     **{c: "Bioenergy" for c in ("WDS", "WDL", "BLQ", "AB", "MSW", "OBS", "OBL", "OBG", "LFG", "SLW")},
     "MWH": "Battery_storage",
 }
+
+
+# EIA-930 region sheet -> balancing authority code(s) in the EIA-860M inventory
+REGION_BA = {"ERCOT": ["ERCO"], "PJM": ["PJM"], "MISO": ["MISO"], "SPP": ["SWPP"], "CAISO": ["CISO"],
+             "NYISO": ["NYIS"], "ISONE": ["ISNE"], "Southern": ["SOCO"], "TVA": ["TVA"]}
+REGIONS = ["US_Total"] + list(REGION_BA)
+FUEL_COLS = [f"{f}_MW" for f in FUELS + ["Battery_storage", "Pumped_storage"]]
+EIA930_XLSX = os.path.join(ROOT, "output", "Data and Chart Outputs", "eia930_fuel_mix_daily.xlsx")
 
 
 def get_page(key, month, offset):
@@ -91,7 +106,11 @@ def fetch_month(key, month):
     if len(d) != total:
         print(f"  WARNING {month}: got {len(d)} rows, API total {total}", flush=True)
     print(f"  {month}: {len(d)} of {total} generator rows, {d['mw'].sum() / 1000:.1f} GW", flush=True)
-    return d.groupby("fuel")["mw"].sum(), d.groupby(d["technology"].fillna("Unknown"))["mw"].sum()
+    ba = d["balancing_authority_code"] if "balancing_authority_code" in d else pd.Series(None, index=d.index)
+    regional = {"US_Total": d[~d["stateid"].isin(["AK", "HI"])].groupby("fuel")["mw"].sum()}
+    for reg, codes in REGION_BA.items():
+        regional[reg] = d[ba.isin(codes)].groupby("fuel")["mw"].sum()
+    return (d.groupby("fuel")["mw"].sum(), d.groupby(d["technology"].fillna("Unknown"))["mw"].sum(), regional)
 
 
 def load(path, sheet):
@@ -109,7 +128,37 @@ def latest_month(key):
     return pd.Timestamp(r.json()["response"]["endPeriod"])
 
 
-def save(path, monthly, tech):
+def region_row(fuel, m):
+    row = pd.DataFrame([fuel]).rename(columns=lambda c: f"{c}_MW")
+    row.index = [m]
+    row["Total_MW"] = fuel.sum()
+    return row
+
+
+def gas_capacity_factor(regional, path=EIA930_XLSX):
+    """Gas CF %, per region: EIA-930 Natural_Gas_MWh in complete months / (gas MW x hours in month)."""
+    out = {}
+    for reg in REGIONS:
+        cap = regional.get(reg)
+        if cap is None or cap.empty or "Gas_MW" not in cap:
+            continue
+        try:
+            d = pd.read_excel(path, sheet_name=reg, usecols=["date", "Natural_Gas_MWh"])
+        except (FileNotFoundError, ValueError, KeyError, OSError):
+            continue
+        d["date"] = pd.to_datetime(d["date"].astype(str), errors="coerce")
+        d = d.dropna(subset=["date"]).set_index("date")["Natural_Gas_MWh"].astype(float)
+        g = d.resample("MS").agg(["sum", "count"])
+        g = g[g["count"] >= g.index.days_in_month]          # full months only
+        gen = g["sum"]
+        mw = cap["Gas_MW"].reindex(gen.index)
+        cf = 100.0 * gen / (mw * 24 * gen.index.days_in_month)
+        out[f"{reg}_gas_CF_pct"] = cf
+        out[f"{reg}_gas_GWh"] = gen / 1000.0
+    return pd.DataFrame(out).dropna(how="all")
+
+
+def save(path, monthly, tech, regional=None, with_cf=True):
     notes = [
         "UNITS",
         "Net summer capacity, MW, at the end of each month (EIA-860M generator inventory).",
@@ -119,6 +168,12 @@ def save(path, monthly, tech):
         "waste heat, ...). Battery_storage_MW (batteries, flywheels) and Pumped_storage_MW are kept separate; "
         "Total_MW includes them.",
         "By technology: MW by EIA's technology label.",
+        "Regional sheets (US_Total = Lower 48; ERCOT, PJM, MISO, SPP, CAISO, NYISO, ISONE, Southern, TVA): the same "
+        "columns summed by the balancing authority EIA-860M assigns to each generator (ERCO, PJM, MISO, SWPP, CISO, "
+        "NYIS, ISNE, SOCO, TVA). A BA's registered footprint is not exactly its EIA-930 generation area for every plant "
+        "but is EIA's own mapping. Generators without a BA code (mainly Alaska and Hawaii) are in no region.",
+        "Gas capacity factor: EIA-930 Natural_Gas_MWh (months with every day present) / (Gas_MW x hours in month), %. "
+        "Gas_MW is net summer capacity, so summer factors read slightly high; <Region>_gas_GWh is the generation used.",
         "Generators counted: operating inventory - status OP (operating), SB (standby), OA and OS (out of service), "
         "as on the EIA-860M 'Operating' sheet. All 50 states (EIA-860M covers plants of 1 MW and above).",
         "",
@@ -133,7 +188,18 @@ def save(path, monthly, tech):
     m, t = monthly.copy(), tech.copy()
     for x in (m, t):
         x.index.name = "date"
-    xlsx_notes.write_workbook(path, {"Monthly": m.round(1), "By technology": t.round(1)}, notes,
+    sheets = {"Monthly": m.round(1), "By technology": t.round(1)}
+    for reg, df in (regional or {}).items():
+        if not df.empty:
+            x = df.copy()
+            x.index.name = "date"
+            sheets[reg] = x.round(1)
+    if regional and with_cf:
+        cf = gas_capacity_factor(regional)
+        if not cf.empty:
+            cf.index.name = "date"
+            sheets["Gas capacity factor"] = cf.round(2)
+    xlsx_notes.write_workbook(path, sheets, notes,
                               {"UNITS", "COVERAGE", "SOURCE"})
 
 
@@ -147,9 +213,12 @@ def main():
         raise SystemExit("EIA_API_KEY not set")
 
     monthly, tech = load(args.out, "Monthly"), load(args.out, "By technology")
+    regional = {r: load(args.out, r) for r in REGIONS}
     end = latest_month(key)
     months = pd.date_range(HISTORY_START, end, freq="MS")
     have = set(monthly.index) if not monthly.empty else set()
+    for r in REGIONS:   # a month is saved only when every regional sheet has it (older files had none: backfill)
+        have &= set(regional[r].index)
     todo = [m for m in months if m not in have]
     if have:
         todo += [m for m in sorted(have)[-REFRESH_MONTHS:] if m not in todo]
@@ -162,7 +231,7 @@ def main():
         if res is None:
             print(f"  {m:%Y-%m}: no rows", flush=True)
             continue
-        fuel, by_tech = res
+        fuel, by_tech, by_region = res
         row = pd.DataFrame([fuel]).rename(columns=lambda c: f"{c}_MW")
         row.index = [m]
         row["Total_MW"] = fuel.sum()
@@ -170,10 +239,14 @@ def main():
         trow.index = [m]
         monthly = row.combine_first(monthly) if not monthly.empty else row
         tech = trow.combine_first(tech) if not tech.empty else trow
-        cols = [f"{f}_MW" for f in FUELS + ["Battery_storage", "Pumped_storage"]]
+        cols = FUEL_COLS
+        for r in REGIONS:
+            rr = region_row(by_region[r], m)
+            regional[r] = rr.combine_first(regional[r]) if not regional[r].empty else rr
+            regional[r] = regional[r].reindex(columns=[c for c in cols if c in regional[r]] + ["Total_MW"]).sort_index()
         monthly = monthly.reindex(columns=[c for c in cols if c in monthly] + ["Total_MW"]).sort_index()
         tech = tech[tech.iloc[-1].sort_values(ascending=False).index].sort_index()
-        save(args.out, monthly, tech)
+        save(args.out, monthly, tech, regional, with_cf=m == todo[-1])
         done += 1
     print(f"Saved {args.out}: {done} months fetched, {len(monthly)} months in total", flush=True)
     if monthly.empty:

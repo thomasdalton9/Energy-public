@@ -1391,6 +1391,29 @@ def us_capacity(p):
     for col, label in (("Battery_storage_MW", "Battery storage"), ("Pumped_storage_MW", "Pumped storage")):
         if col in d:
             out[0]["df"][label] = pd.to_numeric(d[col], errors="coerce").fillna(0) / 1000.0
+    # per-EIA-930-region capacity (balancing authority sheets) and the gas-fleet capacity factor
+    for reg in ("US_Total", "ERCOT", "PJM", "MISO", "SPP", "CAISO", "NYISO", "ISONE", "Southern", "TVA"):
+        r = _sheet(p, reg, "date")
+        if r.empty:
+            continue
+        r = r[r.index >= "2021-01-01"]
+        g = capacity_groups(pd.DataFrame({fuel: r.get(f"{fuel}_MW") for fuel in CAPACITY_FUELS}, index=r.index)) / 1000.0
+        for col, label in (("Battery_storage_MW", "Battery storage"), ("Pumped_storage_MW", "Pumped storage")):
+            if col in r:
+                g[label] = pd.to_numeric(r[col], errors="coerce").fillna(0) / 1000.0
+        nm = "Lower 48" if reg == "US_Total" else reg
+        out.append(spec(f"Cap {reg}", g, f"{nm} installed generating capacity (EIA-860M by balancing authority, net summer)",
+                        "GW installed", "stacked_bar"))
+    cf = _sheet(p, "Gas capacity factor", "date")
+    if not cf.empty:
+        c = cf[[x for x in cf.columns if str(x).endswith("_gas_CF_pct")]]
+        c.columns = [str(x).replace("_gas_CF_pct", "").replace("US_Total", "Lower 48") for x in c.columns]
+        out.append(spec("Gas CF", c.dropna(how="all"), "Gas-fired fleet capacity factor (EIA-930 gas generation / EIA-860M gas capacity)",
+                        "% of net summer capacity", "line"))
+        for reg in ("MISO", "ERCOT"):
+            if reg in c:
+                out.append(spec(f"Gas CF {reg}", c[[reg]].dropna(how="all"),
+                                f"{reg} gas-fired fleet capacity factor (EIA-930 / EIA-860M)", "% of net summer capacity", "line"))
     return out
 
 
