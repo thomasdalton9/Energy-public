@@ -79,16 +79,16 @@ def energinet():
     """Energinet ElectricityBalanceNonv: hourly exchange per area (MWh, + = import into DK?). Monthly requests to avoid 429."""
     ds = "ElectricityBalanceNonv"
     rows = []
-    for yr in range(2021, 2027):
+    for yr in range(2023, 2026):
         for mo in range(1, 13):
             a = datetime(yr, mo, 1); b = datetime(yr + (mo == 12), mo % 12 + 1, 1)
             if a > datetime.now():
                 break
-            for t in range(6):
+            for t in range(3):
                 r = requests.get(f"https://api.energidataservice.dk/dataset/{ds}", params={"start": a.strftime("%Y-%m-%dT00:00"), "end": b.strftime("%Y-%m-%dT00:00"), "limit": 0, "columns": "HourUTC,PriceArea,ExchangeContinent,ExchangeGreatBelt,ExchangeNordicCountries,ExchangeGreatBritain"}, timeout=300)
                 if r.status_code == 200:
                     break
-                time.sleep(10 * (t + 1))
+                time.sleep(15); print('energinet', a, r.status_code, flush=True)
             recs = r.json().get("records") or [] if r.status_code == 200 else []
             if recs:
                 rows.append(pd.DataFrame(recs))
