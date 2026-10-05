@@ -174,7 +174,7 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
         chart.title = f"{title} (to {df.index.max().strftime('%b/%y')}; forecast from {pd.Timestamp(forecast_from).strftime('%b/%y')}, lighter bars)"
         if scenario_from is not None:
             chart.title = (f"{title} (to {df.index.max().strftime('%b/%y')}; forecast from {pd.Timestamp(forecast_from).strftime('%b/%y')}, "
-                           f"scenario from {pd.Timestamp(scenario_from).strftime('%b/%y')}, lightest bars)")
+                           f"scenario from {pd.Timestamp(scenario_from).strftime('%b/%y')}" + (", lightest bars)" if kind == "stacked_bar" else ")"))
     chart.x_axis.number_format = excel_fmt
     chart.y_axis.title = y_title
     if str(y_title).startswith("Bcf/d") and "MISO" in title:   # MISO gas burn: Bcf/d to 2 decimals
