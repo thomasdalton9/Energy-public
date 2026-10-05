@@ -19,7 +19,8 @@ Models (ordinary least squares, numpy; no statsmodels needed)
      growing at an editable rate, Henry Hub and wind+solar share held at editable values, +/-1 prediction standard error band.
   4. LOAD BREAKOUT ('Load breakout' + 'Load sources' tabs + chart): the unexplained load set against the one OBSERVED figure ERCOT publishes
      (large loads >=75 MW, monthly peak, all types together) and labelled SOURCED / JUDGEMENT / NOT ATTRIBUTED. No guessed shares; per-category
-     figures (data centres, crypto, oil & gas, industrial) exist only as ERCOT FORECASTS, listed on 'Load sources', never charted as observed.
+     figures (data centres, crypto, oil & gas, industrial) exist only as ERCOT FORECASTS or QUEUE requests, listed on 'Load sources' (with Oncor / CenterPoint /
+     AEP Texas disclosures and named crypto / data-centre sites), never mixed with the observed series; further charts show the ERCOT queue by type and the observed split by zone / connection type (Feb, Mar 2026).
 Edit the yellow cells of the Assumptions tab and the monthly ERCOT large-load column of the Load breakout tab (committed workbook is read back on every run) and re-run.
 
 Usage: python3 TEXAS_DEMAND_REGRESSION.py [--out "output/Data and Chart Outputs/texas_demand_regression.xlsx"]
@@ -314,25 +315,75 @@ CDR_URL = OV + "2025/12/19/CapacityDemandandReservesReport_December2025.xlsx"
 # ERCOT CDR Dec 2025, tab 'LoadResourceScenarios', 'ERCOT Large Load Forecast' by type, summer 2026 cumulative new loads (MW): FORECAST, not observed
 CDR_TYPES = {"Data centres": 2433.2, "Crypto mining": 2102.5, "Oil & gas": 1699.2, "Hydrogen": 1387.5, "Industrial (other)": 5.0}
 DC_PEAK_RATIO = 0.498          # ERCOT 2025 LTLF report: observed data-centre site peak / requested MW, sites in service 2022-24
+QBT, OSV = "Queue by type values", "Observed split values"
+TAC_FEB = OV + "2026/03/05/February-TAC-Report.pdf"
+TAC_MAR = OV + "2026/03/12/March-TAC-Report.pdf"
+TAC_MAR_UPD = OV + "2026/03/27/March-TAC-Report-Updated_03262026.pptx"
+Q_COLS = ["Data centre", "Crypto", "Industrial", "Data centre / crypto (mixed label)", "Hydrogen", "Type not given ('None')"]
+# ERCOT 'Large Load Interconnection Status Update' (TAC), slide 12 'Large Load Project Distribution by Type' (an IMAGE: pie + bar; pymupdf / python-pptx extracted the picture,
+# tesseract read the labels, and the picture was inspected by eye, 5 Oct 2026). The pie prints the data-centre share and its MW; the bar prints the other shares.
+# (key, deck date, data-centre MW printed, printed shares %: DC, None, Crypto, Industrial, DC/Crypto, Hydrogen, url, queue total of the same deck's status chart MW, month shown on the chart or None)
+QUEUE_TYPE = [
+    ("2026-02-25", "25 Feb 2026", 175124, (74.4, 13.2, 7.5, 3.3, 1.1, 0.5), TAC_FEB, 237712, "2026-02"),
+    ("2026-03-13", "13 Mar 2026", 183469, (77.5, 11.3, 6.9, 2.7, 1.1, 0.6), TAC_MAR, 238630, None),
+    ("2026-03-26", "26 Mar 2026 (updated deck, incl. ~140 GW of new submissions)", 355830, (87.6, 6.3, 3.8, 1.3, 0.6, 0.3), TAC_MAR_UPD, None, "2026-03"),
+]
+# ERCOT 'Approved to Energize by Load Zone / by Project Type' (same decks, slide 5, two bar images): observed non-simultaneous peak and approved MW
+# (key, deck date, url, LZ_WEST obs, LZ_WEST approved, other-zones obs, other approved, co-located obs, co-located approved, standalone obs, standalone approved, chart month or None)
+OBS_SPLIT = [
+    ("2026-02-25", "25 Feb 2026", TAC_FEB, 2350, 5136, 1652, 3741, 1243, 1878, 2758, 6999, "2026-02"),
+    ("2026-03-13", "13 Mar 2026", TAC_MAR, 2253, 5136, 1634, 3907, 1238, 2044, 2648, 6999, None),
+    ("2026-03-26", "26 Mar 2026 (updated deck)", TAC_MAR_UPD, 2364, 5136, 1644, 3907, 1329, 2044, 2677, 6999, "2026-03"),
+]
 
-CAT_ROWS = [  # category, status, (what the reference is), forecast reference GW (None = n/a), source
+
+def queue_type_df():
+    """ERCOT queue by type in GW at the snapshots shown on the chart: data-centre MW as printed on the pie; the other types = printed share x (printed DC MW / printed DC share)
+    (DERIVED; shares are rounded to 0.1 point)."""
+    rows = {}
+    for _k, _d, dc, sh, _u, _t, cm in QUEUE_TYPE:
+        if not cm:
+            continue
+        tot = dc / (sh[0] / 100.0)
+        dcg, none, cry, ind, mix, hyd = dc / 1000.0, *[tot * x / 100.0 / 1000.0 for x in sh[1:]]
+        rows[pd.Timestamp(cm + "-01")] = dict(zip(Q_COLS, [dcg, cry, ind, mix, hyd, none]))
+    d = pd.DataFrame(rows).T
+    d.index.name = "Snapshot"
+    return d.sort_index()
+
+
+def observed_split_df():
+    """ERCOT-observed non-simultaneous peak of approved large loads (GW) by load zone and by project type, at the chart snapshots (printed MW)."""
+    rows = {}
+    for _k, _d, _u, wo, _wa, oo, _oa, co, _ca, so, _sa, cm in OBS_SPLIT:
+        if cm:
+            rows[pd.Timestamp(cm + "-01")] = {"LZ_WEST (West Texas)": wo / 1000.0, "All other load zones": oo / 1000.0, "Co-located with generation": co / 1000.0, "Standalone": so / 1000.0}
+    d = pd.DataFrame(rows).T
+    d.index.name = "Snapshot"
+    return d.sort_index()
+
+_Q = queue_type_df().iloc[-1]                 # latest ERCOT queue snapshot by type (26 Mar 2026 updated deck), GW (derived from printed shares)
+CAT_ROWS = [  # category, status, (what the references are), CDR forecast GW (None = n/a), ERCOT queue GW (None = n/a), source
     ("Large loads >=75 MW, all types (data centres, crypto, hydrogen, industrial): ERCOT-observed energised",
-     "SOURCED - observed", "Approved to energise (not necessarily operating): see column F", 9.456,
-     "ERCOT Monthly Operational Overview, 'Loads Approved to Energize - Observations' (monthly series in block D)"),
-    ("Data centres", "NO SOURCED OBSERVED FIGURE", "ERCOT large-load FORECAST for summer 2026 (TSP-reported planned additions, CDR Dec 2025); not observed",
-     CDR_TYPES["Data centres"] / 1000, "ERCOT CDR Dec 2025 'LoadResourceScenarios'"),
-    ("Crypto mining", "NO SOURCED OBSERVED FIGURE", "same forecast, crypto; ERCOT's MORA also assumes crypto self-curtailment of 0.16-4.03 GW (modelled)",
-     CDR_TYPES["Crypto mining"] / 1000, "ERCOT CDR Dec 2025 'LoadResourceScenarios'; MORA Oct 2026"),
-    ("Oil & gas / Permian electrification", "NO SOURCED OBSERVED FIGURE", "same forecast, oil & gas; not observed",
-     CDR_TYPES["Oil & gas"] / 1000, "ERCOT CDR Dec 2025 'LoadResourceScenarios'"),
-    ("Other industrial (incl. hydrogen; LNG terminal load not itemised by ERCOT)", "NO SOURCED OBSERVED FIGURE", "same forecast, hydrogen 1.39 GW + other industrial 0.005 GW; not observed",
-     (CDR_TYPES["Hydrogen"] + CDR_TYPES["Industrial (other)"]) / 1000, "ERCOT CDR Dec 2025 'LoadResourceScenarios'"),
+     "SOURCED - observed", "Observed: monthly peaks, block D. Forecast column here = approved to energise (not necessarily operating). Queue column = total queue implied by the 26 Mar 2026 pie (355,830 MW / 87.6%), all statuses", 9.456, QUEUE_TYPE[-1][2] / (QUEUE_TYPE[-1][3][0] / 100.0) / 1000.0,
+     "ERCOT Monthly Operational Overview, 'Loads Approved to Energize - Observations' (block D); ERCOT TAC report (updated) 26 Mar 2026 slide 12 (queue total)"),
+    ("Data centres", "NO SOURCED OBSERVED FIGURE", "CDR Dec 2025 FORECAST of new load, summer 2026; ERCOT QUEUE (requests, all statuses) Mar 2026",
+     CDR_TYPES["Data centres"] / 1000, _Q["Data centre"], "ERCOT CDR Dec 2025 'LoadResourceScenarios'; ERCOT TAC report (updated) 26 Mar 2026 slide 12 (image)"),
+    ("Crypto mining", "NO SOURCED OBSERVED FIGURE", "same, crypto (ERCOT's MORA also assumes crypto self-curtailment of 0.16-4.03 GW: modelled)",
+     CDR_TYPES["Crypto mining"] / 1000, _Q["Crypto"], "ERCOT CDR Dec 2025; ERCOT TAC report (updated) 26 Mar 2026 slide 12; MORA Oct 2026"),
+    ("Oil & gas / Permian electrification", "NO SOURCED OBSERVED FIGURE", "CDR forecast only: ERCOT's queue chart has no oil & gas label (Oncor's own queue: 4 GW, Feb 2026)",
+     CDR_TYPES["Oil & gas"] / 1000, None, "ERCOT CDR Dec 2025; Oncor 8-K 26 Feb 2026 Ex 99.2 (Sempra Texas slide 22)"),
+    ("Industrial incl. hydrogen (LNG terminal load not itemised by ERCOT)", "NO SOURCED OBSERVED FIGURE", "CDR: hydrogen 1.39 + industrial 0.005 GW; queue: industrial + hydrogen",
+     (CDR_TYPES["Hydrogen"] + CDR_TYPES["Industrial (other)"]) / 1000, _Q["Industrial"] + _Q["Hydrogen"], "ERCOT CDR Dec 2025; ERCOT TAC report (updated) 26 Mar 2026 slide 12"),
+    ("Data centre / crypto (mixed label in the queue)", "NO SOURCED OBSERVED FIGURE", "queue label 'Data Center/Crypto'; no CDR equivalent", None, _Q["Data centre / crypto (mixed label)"],
+     "ERCOT TAC report (updated) 26 Mar 2026 slide 12"),
+    ("Type not given ('None' in the queue)", "NO SOURCED OBSERVED FIGURE", "queue label 'None'", None, _Q["Type not given ('None')"], "ERCOT TAC report (updated) 26 Mar 2026 slide 12"),
 ]
 SPEC_NAMES = ["ERCOT-observed large loads >=75 MW (SOURCED, observed)", "Unexplained - not attributed (no source)", "Unexplained load, 12-month mean (total)"]
 SRC_HDR, SRC0 = 6, 7                     # block A: category status table
-SUM_HDR, SUM0 = 15, 16                   # block B: sourced vs unattributed
-DC_HDR, DC0 = 24, 25                     # block C: data centres
-MON_HDR, MON0 = 36, 37                   # block D: monthly block from Jan 2022
+SUM_HDR, SUM0 = 18, 19                   # block B: sourced vs unattributed
+DC_HDR, DC0 = 28, 29                     # block C: data centres
+MON_HDR, MON0 = 41, 42                   # block D: monthly block from Jan 2022
 MON_START = pd.Timestamp("2022-01-01")
 CHART_FROM = pd.Timestamp("2025-04-01")
 COL_TR = ["G", "H", "I"]                 # chart series columns on 'Load breakout' (add_charts.py links the chart to them)
@@ -420,21 +471,22 @@ def write_breakout(out, m):
     ws["A1"].font = Font(bold=True, size=13)
     ws["A2"] = ("NO GUESSED SHARES. The unexplained load (EIA-930 ERCOT net generation minus a weather + population baseline fitted 2019-22) is split only where a published figure exists. "
                 "ERCOT publishes ONE observed large-load number: the sum of each >=75 MW load's monthly peak consumption (block D, monthly, all types together). It publishes NO observed split by data centre / crypto / "
-                "oil & gas / industrial, only FORECASTS by type (block A, not observed). So: SOURCED = ERCOT-observed large loads; JUDGEMENT = none; the rest is 'Unexplained - not attributed (no source)'. "
-                "Every figure with publisher, date and URL is on the 'Load sources' tab.")
+                "oil & gas / industrial. By type it publishes only FORECASTS (CDR, block A column D) and the QUEUE of requests (TAC decks, an image chart; column E) - plans and requests, not load, so they are shown in "
+                "separate columns and a separate chart ('Queue by type'), never stacked with the observed series. The only OBSERVED splits are by load zone and by connection type (charts 'Observed by zone' / 'Observed by connection'), and an IMM figure for crypto alone (4.6 GW, 2025 peak, Load sources). SOURCED = ERCOT-observed large loads; JUDGEMENT = none; the rest is 'Unexplained - not attributed (no source)'. "
+                "Every figure with publisher, document, URL, as-of date and type (observed / queue / forecast / contract) is on the 'Load sources' tab, including Oncor, CenterPoint and AEP Texas disclosures and named crypto / data-centre sites.")
     ws["A3"] = ("Comparability (not like-for-like, so the remainder can be negative and is never clipped): ERCOT's figure is a PEAK (sum of each load's monthly maximum), the unexplained load is an AVERAGE; "
                 "ERCOT's large loads include some energised before 2023, i.e. inside the 2019-22 baseline; and the unexplained load also holds the baseline's own error and any load below 75 MW.")
     for r in (2, 3):
         ws[f"A{r}"].alignment = Alignment(wrap_text=True, vertical="top")
-        ws.merge_cells(f"A{r}:F{r}")
-        ws.row_dimensions[r].height = 92 if r == 2 else 58
+        ws.merge_cells(f"A{r}:G{r}")
+        ws.row_dimensions[r].height = 110 if r == 2 else 58
     ra, rb = MON0 + (m["last12"].min().year - 2022) * 12 + m["last12"].min().month - 1, MON0 + (m["last12"].max().year - 2022) * 12 + m["last12"].max().month - 1
     a0, a1 = m["last12"].min(), m["last12"].max()
     # A. status by category
     ws.cell(SRC_HDR - 1, 1, "A. Status by category (SOURCED = observed, published; everything else has no observed figure and is NOT apportioned)").font = bold
-    hdr(ws, SRC_HDR, ["Category", "Status", f"Observed GW, latest 12 months ({a0:%b/%y}-{a1:%b/%y})", "Forecast / queue reference, GW (NOT observed, NOT in the chart)", "What the reference is", "Source"])
+    hdr(ws, SRC_HDR, ["Category", "Status", f"Observed GW, latest 12 months ({a0:%b/%y}-{a1:%b/%y})", "ERCOT CDR FORECAST (Dec 2025), GW: planned, NOT observed", "ERCOT QUEUE by type (26 Mar 2026 updated deck), GW: requests under study, NOT load", "What the references are", "Source"])
     ws.row_dimensions[SRC_HDR].height = 48
-    for i, (cat, status, what, ref, src) in enumerate(CAT_ROWS):
+    for i, (cat, status, what, ref, qref, src) in enumerate(CAT_ROWS):
         r = SRC0 + i
         ws.cell(r, 1, cat)
         c = ws.cell(r, 2, status)
@@ -443,18 +495,19 @@ def write_breakout(out, m):
             ws.cell(r, 3, f"=AVERAGE(C{ra}:C{rb})").number_format = "0.00"
         else:
             ws.cell(r, 3, "no sourced figure")
-        ws.cell(r, 4, ref).number_format = "0.00"
-        ws.cell(r, 5, what)
-        ws.cell(r, 6, src)
-        for cc in (1, 5, 6):
+        ws.cell(r, 4, ref if ref is not None else "n/a").number_format = "0.00"
+        ws.cell(r, 5, float(qref) if qref is not None else "n/a").number_format = "0.0"
+        ws.cell(r, 6, what)
+        ws.cell(r, 7, src)
+        for cc in (1, 6, 7):
             ws.cell(r, cc).alignment = Alignment(wrap_text=True, vertical="top")
     r = SRC0 + len(CAT_ROWS)
     ws.cell(r, 1, "Unexplained - not attributed (no source)")
     c = ws.cell(r, 2, "NOT ATTRIBUTED")
     c.font, c.fill = bold, red
     ws.cell(r, 3, f"=C{SUM0}-C{SUM0 + 1}").number_format = "0.00"
-    ws.cell(r, 5, "Unexplained load less the ERCOT-observed large loads; includes the baseline error, sub-75 MW load and the peak-vs-average difference")
-    ws.cell(r, 5).alignment = Alignment(wrap_text=True, vertical="top")
+    ws.cell(r, 6, "Unexplained load less the ERCOT-observed large loads; includes the baseline error, sub-75 MW load and the peak-vs-average difference")
+    ws.cell(r, 6).alignment = Alignment(wrap_text=True, vertical="top")
     # B. sourced vs judgement vs unattributed
     ws.cell(SUM_HDR - 1, 1, f"B. How much of the unexplained load is sourced (latest 12 months {a0:%b/%y}-{a1:%b/%y})").font = bold
     hdr(ws, SUM_HDR, ["Item", "Status", "GW", "Share of unexplained", "Note"])
@@ -489,6 +542,8 @@ def write_breakout(out, m):
               "needs observed data-centre GW; the earlier figure rested on judgement shares and was removed"),
              ("Scenario path, Dec 2026 energised data-centre GW ('Demand to 2033', read only)", "SCENARIO (not data)", None if pd.isna(s[0]) else round(s[0], 2),
               None if pd.isna(s[1]) else round(s[1], 2), None if pd.isna(s[2]) else round(s[2], 2), "scenario LOW/BASE/HIGH from texas_production_forecast.xlsx; not tested against observed data"),
+             ("ERCOT QUEUE: data-centre requests, all statuses, 26 Mar 2026 (updated TAC deck slide 12), GW", "QUEUE (requests, not load)", None, round(float(_Q["Data centre"]), 1), None,
+              "printed on ERCOT's pie as 355,830 MW (87.6% of the queue, after ~140 GW of new submissions); 13 Mar 2026: 183,469 MW; Feb 2026: 175,124 MW"),
              ("ERCOT FORECAST of new data-centre load, summer 2026 (TSP-reported, CDR Dec 2025), GW", "FORECAST (not observed)", None, round(CDR_TYPES["Data centres"] / 1000, 2), None,
               "cumulative new loads in ERCOT's April 2025 adjusted load forecast"),
              (f"... times ERCOT's observed data-centre peak / requested MW ({DC_PEAK_RATIO:.1%}, sites in service 2022-24), GW", "DERIVED from forecast (not observed)", None,
@@ -529,7 +584,7 @@ def write_breakout(out, m):
             ws.cell(r, 7, f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(F{r})),C{r},"")').number_format = "0.00"
             ws.cell(r, 8, f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(F{r})),F{r}-C{r},"")').number_format = "0.00"
             ws.cell(r, 9, f'=IF(AND(ISNUMBER(C{r}),ISNUMBER(F{r})),F{r},"")').number_format = "0.00"
-    for col, w in zip("ABCDEFGHI", (74, 30, 22, 44, 30, 26, 26, 26, 26)):
+    for col, w in zip("ABCDEFGHI", (74, 30, 22, 44, 44, 60, 40, 26, 26)):
         ws.column_dimensions[col].width = w
     ws.freeze_panes = "A5"
 
@@ -563,13 +618,107 @@ def write_breakout(out, m):
          mx("2025/04/08/2025_LTLF_Report.docx"), "An observed ratio, not a GW; used only to scale the S5 forecast (block C). Officer-letter loads: 55.4% of 2024 in-service projects had energised"),
         ("S10", "Crypto mining", "0.16-4.03", "GW", "Oct 2026 MORA", "MODEL ASSUMPTION", "ERCOT", "MORA Oct 2026 (Monthly Outlook): crypto self-curtailment now modelled all year; reduces forecast system load by 160 to 4,026 MW depending on the hour",
          mx("2026/08/07/MORA_October2026.xlsx"), "Implies crypto load of at least that size at those hours, but is a forecast-method assumption, not a measurement"),
-        ("S11", "Large loads (queue)", 140000, "MW", "Mar 2026", "QUEUE", "ERCOT", "March TAC Report: 137 new large-load submissions, ~140,000 MW by 2036 (queue size by type is in chart images only)",
+        ("S11", "Large loads (queue)", 140000, "MW", "Mar 2026", "QUEUE", "ERCOT", "March TAC Report: 137 new large-load submissions, ~140,000 MW by 2036 (not yet in the by-type chart)",
          mx("2026/03/12/March-TAC-Report.pdf"), "Requests under study, not load"),
         ("S12", "Crypto mining", 1530, "MW", "c. Feb 2024", "PROGRAM ENROLMENT", "EIA (Today in Energy)", "'Tracking electricity consumption from US cryptocurrency mining operations': ERCOT Large Flexible Load program enlisted up to 1,530 MW",
          "https://www.eia.gov/todayinenergy/detail.php?id=61364", "Enrolment in a curtailment program, not consumption; same article: ERCOT had 41 GW of crypto requests, 9 GW with planning studies approved (NERC LTRA 2023)"),
         ("S13", "Large loads", 4817, "MW", "Jan 2026 winter peak (forecast)", "FORECAST", "ERCOT", "ERCOT Adjusted Load Forecast Winter 2025-2026, tab Peak: Large Load Additions",
          mx("2025/10/06/ERCOT-Adjusted-Load-Forecast-Winter-2025-2026-for-RS-Magnitude-2025.10.07-.xlsx"), "Forecast addition to base load for the winter peak, not observed"),
     ]
+    # ERCOT queue by type (image chart read by OCR + eye) - one row per type and snapshot
+    qn = 14
+    for key, ddate, dcmw, sh, qurl, qtot, _cm in sorted(QUEUE_TYPE, key=lambda x: x[0], reverse=True):
+        tot = dcmw / (sh[0] / 100.0)
+        for name, share in zip(Q_COLS, (sh[0], sh[2], sh[3], sh[4], sh[5], sh[1])):
+            printed = name == "Data centre"
+            mw = dcmw if printed else round(tot * share / 100.0)
+            rows.append((f"S{qn}", name, mw, "MW", ddate.split(" (")[0], "QUEUE",
+                         "ERCOT", f"Large Load Interconnection Status Update to TAC, {ddate}, slide 12 'Large Load Project Distribution by Type' (an image: pie + bar). Printed share {share}%"
+                         + (f" and printed MW {dcmw:,}" if printed else f" (MW = printed share x {tot:,.0f} MW, the total implied by the printed data-centre MW and share: DERIVED)"),
+                         qurl, "Requests under study at every status (incl. 'No Studies Submitted'), not load and not observed. "
+                         + (f"Pie base is ~1% below the status chart total ({qtot:,} MW) for a reason ERCOT does not state; " if qtot else "This deck adds ~140 GW of 137 new submissions (the 13 Mar deck said they were still being processed); ")
+                         + "shares are rounded to 0.1 point"))
+            qn += 1
+    # observed non-simultaneous peaks by zone / project type (same decks, slide 5)
+    for key, ddate, ourl, wo, wa, oo, oa, co, ca, so, sa, _cm in sorted(OBS_SPLIT, key=lambda x: x[0], reverse=True):
+        for name, obs_, app_, what in (("Large loads in LZ_WEST (West Texas)", wo, wa, "Approved to Energize by Load Zone"), ("Large loads in all other load zones", oo, oa, "Approved to Energize by Load Zone"),
+                                        ("Large loads co-located with generation", co, ca, "Approved to Energize by Project Type"), ("Standalone large loads", so, sa, "Approved to Energize by Project Type")):
+            rows.append((f"S{qn}", name, obs_, "MW", ddate.split(" (")[0], "OBSERVED", "ERCOT", f"Large Load Interconnection Status Update to TAC, {ddate}, slide 5 '{what}' (image): observed non-simultaneous peak; approved to energise {app_:,} MW",
+                         ourl, "Observed split by ZONE or by CONNECTION TYPE, not by load type (no data-centre / crypto label); the two splits cover the same loads, do not add them. 13 Mar values were revised upward in the 26 Mar update"))
+            qn += 1
+    # IMM / ERCOT operations: observed crypto
+    imm = "https://www.potomaceconomics.com/wp-content/uploads/2026/06/2025-State-of-the-Market-Report-for-ERCOT.pdf"
+    for cat, val, unit, asof, typ, pub, doc_, url_, cav in [
+        ("Crypto mining", 4600, "MW", "2025 (peak)", "OBSERVED", "Potomac Economics (ERCOT Independent Market Monitor)", "2025 State of the Market Report for ERCOT, June 2026, p.31 (PDF p.53): 'cryptocurrency mines accounted for a substantial aggregate load, with peak demand reaching 4,600 MW in 2025'; executive summary p.14: 'Aggregate demand from cryptocurrency mines in ERCOT is 4.6 GW'", imm,
+         "Annual peak of crypto load as the IMM measures it (method not stated in the report); not comparable with ERCOT's >=75 MW large-load figure (S1), which is 4.3 GW for ALL types"),
+        ("Crypto mining", 900, "MW", "2024 to 2025 (increase in the annual maximum)", "OBSERVED", "Potomac Economics (ERCOT Independent Market Monitor)", "same report p.28 (PDF p.50): 'the maximum load from cryptocurrency operations increased by more than 900 MW from 2024 to 2025'", imm, "Increase, not a level"),
+        ("Crypto mining (Controllable Load Resources)", 240, "MW", "2025 (monthly average)", "OBSERVED", "Potomac Economics (ERCOT Independent Market Monitor)", "same report p.29: 'CLRs still averaged more than 240 MW of demand in 2025'; all 12 registered CLRs are crypto mines; crypto was ~56% of ERS volume in summer 2025 and 64% by the end of 2025", imm, "Only the part registered as CLR; most mines moved to the Emergency Reserve Service"),
+        ("Crypto mining", 3151, "MW", "Summer 2025 (maximum reduction)", "OBSERVED (curtailment)", "ERCOT", "Summer 2025 Operational and Market Review (15 Sep 2025), p.10: 'maximum reduction from cryptomining loads was about 3,151 MW and the maximum 4CP reduction about 1,501 MW'",
+         OV + "2025/09/15/12-Summer-2025-Operational-and-Market-Review.pdf", "A reduction, i.e. a lower bound on crypto load at that hour; not a level"),
+        ("Large loads, all types (queue)", 238600, "MW", "Dec 2025", "QUEUE", "ERCOT", "2025 Report on Existing and Potential Electric System Constraints and Needs, p.13: 'ERCOT continues to track nearly 238.6 GW of large load interconnection requests'",
+         OV + "2025/12/23/2025-Report-on-Existing-and-Potential-Electric-System-Constraints-and-Needs.pdf", "Requests; same as the TAC deck total"),
+        ("Large loads, all types (queue incl. new submissions)", 410000, "MW", "Mar 2026 (quoted in the IMM's June 2026 report)", "QUEUE", "Potomac Economics (ERCOT Independent Market Monitor)", "2025 State of the Market Report p.27: 'ERCOT's load interconnection queue has grown to more than 410 GW of additional load by 2030, of which 87.6% is data centers' (cites ERCOT's updated March 2026 TAC report)", imm, "Matches the 26 Mar 2026 updated deck (355,830 MW data centres = 87.6%)"),
+    ]:
+        rows.append((f"S{qn}", cat, val, unit, asof, typ, pub, doc_, url_, cav)); qn += 1
+    # utilities (SEC filings): Texas wires companies' own large-load disclosures
+    sec = lambda cik, acc, doc: f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc}/{doc}"  # noqa: E731
+    onc_feb = sec(1193311, "000119312526073624", "d17515dex992.htm")
+    onc_aug = sec(1193311, "000119312526336875", "d171086dex991.htm")
+    onc_aug2 = sec(1193311, "000119312526336875", "d171086dex992.htm")
+    util = [
+        ("Data centres", 255000, "MW", "26 Feb 2026", "QUEUE", "Oncor (Sempra Texas) 8-K, Ex 99.2 slide 'LC&I queue nearly doubled year-over-year to 273 GW': Data Center / IT, 384 active requests", onc_feb,
+         "Oncor service territory only; requests, not load. Same slide: 'at least 38 GW expected in Oncor's 2026 RTP filing'"),
+        ("Oil & gas", 4000, "MW", "26 Feb 2026", "QUEUE", "same slide: Oil + Gas, 114 requests", onc_feb, "Oncor only; requests"),
+        ("Industrial (manufacturing, >100 MW)", 6000, "MW", "26 Feb 2026", "QUEUE", "same slide: Manufacturing, 32 requests", onc_feb, "Oncor only; requests"),
+        ("Utility + government", 3000, "MW", "26 Feb 2026", "QUEUE", "same slide: Utility + Government, 94 requests", onc_feb, "Oncor only; requests"),
+        ("Other", 5000, "MW", "26 Feb 2026", "QUEUE", "same slide: Other, 26 requests; total 650 requests, 273 GW", onc_feb, "Oncor only; requests"),
+        ("Data centres", 282000, "MW", "6 Aug 2026", "QUEUE", "Oncor 8-K Ex 99.1 (Q2 2026 results): 'approximately 282 gigawatts from data centers and over 16 gigawatts of load from various other industrial sectors'", onc_aug,
+         "Oncor only; requests (271 GW in May 2026, 255 GW in Feb 2026). Oncor's overall queue 298 GW (Ex 99.2)"),
+        ("Industrial (other sectors)", 16000, "MW", "6 Aug 2026", "QUEUE", "same sentence: 'over 16 gigawatts' of load from other industrial sectors", onc_aug, "Oncor only; requests (over 18 GW in May and Feb 2026)"),
+        ("Large loads, all types (Batch Zero eligible)", 44000, "MW", "6 Aug 2026", "QUEUE / BATCH ZERO", "Oncor 8-K Ex 99.1: ~44 GW eligible as base (27 GW) or studied (17 GW) load, collateralised by $2B+; includes ~8 GW existing interconnected large load ramping up to its authorised capacity",
+         onc_aug, "Oncor only; 8 GW is authorised capacity of loads already connected (not a measured consumption); no split by type"),
+        ("Large loads, all types (already energised)", 8000, "MW", "6 Aug 2026", "ENERGISED - authorised capacity", "Oncor Ex 99.2 (Sempra slide): '~8 GW already energized and continuing to ramp'", onc_aug2,
+         "Oncor only; authorised capacity, not measured consumption; no split by type"),
+        ("Data centres", 8000, "MW", "23 Apr 2026", "PLANNED (expected energised by 2029)", "CenterPoint Energy 8-K Ex 99.1 Q1 2026: 'expecting to energize 8 gigawatts of [data centre] projects in the Greater Houston area by 2029, with 3.5 gigawatts already under construction'",
+         sec(1130310, "000110465926047123", "tm2612248d1_ex99-1.htm"), "CenterPoint Houston Electric only; plan, not load"),
+        ("Industrial (refining, exports, life sciences, advanced manufacturing)", 12200, "MW", "23 Apr 2026", "CONTRACTED ('firmly committed')", "same release: '12.2 gigawatts of firmly committed industrial load' (7.5 GW in Q4 2025)",
+         sec(1130310, "000110465926047123", "tm2612248d1_ex99-1.htm"), "CenterPoint Houston Electric only; contract/plan, not load"),
+        ("Large loads, all types (Batch Zero)", 17000, "MW", "28 Jul 2026", "QUEUE / BATCH ZERO", "CenterPoint Energy 8-K Ex 99.1 Q2 2026: 'submitted over 17 gigawatts of large load projects through ERCOT's Batch Zero process, of which approximately 14 gigawatts are expected to be eligible'",
+         sec(1130310, "000110465926087279", "tm2621002d1_ex99-1.htm"), "CenterPoint Houston Electric only; no split by type"),
+        ("Data centres and mega-sized developers", 45000, "MW", "30 Jun 2026", "CONTRACT (Letters of Agreement)", "AEP 10-Q: 'AEP Texas has executed Letters of Agreement for approximately 45 gigawatts of incremental load by 2030, including approximately 40 gigawatts ... Batch Zero'",
+         sec(4904, "000000490426000059", "aep-20260630.htm"), "AEP Texas only; 36 GW at Feb 2026 'backed by signed letters of agreement with well-capitalized hyperscalers and mega-sized data center developers' (AEP 8-K 12 Feb 2026 Ex 99.1); contract, not load"),
+    ]
+    named = [  # named sites, SEC filings: company, text, MW, as-of, type, url, caveat
+        ("Crypto / compute - Riot Platforms Rockdale", 700, "10-Q 30 Jun 2026", "DEVELOPED CAPACITY", "Rockdale Facility 'provides up to approximately 700 MW of developed capacity for Bitcoin Mining and data center leasing'; AMD lease 50 MW IT (up to 200); Aug 2026 lease 191 MW critical IT",
+         sec(1167419, "000110465926093448", "riot-20260630x10q.htm"), "Capacity, not metered load; part is being converted to data-centre leasing"),
+        ("Crypto - Riot Platforms Corsicana", 400, "10-Q 30 Jun 2026", "DEVELOPED CAPACITY", "'currently equipped to provide up to approximately 400 MW ... for Bitcoin Mining'; ~1 GW at full build-out",
+         sec(1167419, "000110465926093448", "riot-20260630x10q.htm"), "Capacity, not metered load"),
+        ("Crypto - Cipher Mining Odessa", 207, "10-Q 30 Jun 2026", "OPERATING CAPACITY", "'one wholly owned bitcoin mining data center, a 207 MW site located in Odessa, Texas' (fixed-price PPA); Black Pearl, Wink: 300 MW, previously bitcoin; 700 MW HPC in development over three sites",
+         sec(1819989, "000181998926000041", "cifr-20260630.htm"), "Capacity of an operating site, not metered load"),
+        ("Data centre - Core Scientific Denton", 297, "8-K 10 Sep 2026", "ERCOT-APPROVED (conditional)", "Denton: 297 MW 'conditionally approved by ERCOT as Base Load, Pathway (a)'; 74 MW more to be energised (in ERCOT's 2025 RTP)",
+         sec(1839341, "000183934126000023", "core-20260910.htm"), "Approval/plan, not load"),
+        ("Data centre - Core Scientific Hunt County", 431, "8-K 10 Sep 2026", "ERCOT-APPROVED (Batch Zero)", "Hunt: 431 MW 'conditionally approved in Batch Zero as Base Load, Advancing Large Load, Pathway (e)'; construction started",
+         sec(1839341, "000183934126000023", "core-20260910.htm"), "Approval/plan, not load"),
+        ("Data centre - Galaxy Helios (Haskell/Throckmorton, West Texas)", 133, "10-Q 30 Jun 2026", "DEVELOPED (critical IT load)", "'developed the first 133 MW of critical IT load, utilizing approximately 200 MW of gross power capacity, for CoreWeave'; ERCOT has approved over 1.6 GW gross capacity",
+         sec(1859392, "000185939226000091", "glxy-20260630.htm"), "Critical IT MW built; 1.6 GW is approved gross capacity, not load"),
+        ("Data centre - TeraWulf / Fluidstack Abernathy JV", 168, "10-Q 30 Jun 2026", "UNDER CONSTRUCTION", "JV 'will construct and operate a 168 MW critical IT load datacenter campus in Abernathy, Texas'",
+         sec(1083301, "000108330126000166", "wulf-20260630.htm"), "Plan, not load"),
+        ("Data centre - Hut 8 Beacon Point (Nueces County)", 352, "8-K 20 Jul 2026", "CONTRACTED (lease)", "second phase of the 1 GW Beacon Point campus: 15-year lease for 352 MW of IT capacity; 352 MW critical IT financing in 10-Q 4 Aug 2026",
+         sec(1964789, "000110465926084862", "tm2620835d1_8k.htm"), "Contract/plan, not load"),
+        ("Compute - IREN Childress / Sweetwater 1 / Sweetwater 2", 2750, "10-K FY to 30 Jun 2026", "PLANNED (grid connection agreements)", "'Childress, Texas 750MW; Sweetwater 1, Texas 1,400MW; Sweetwater 2, Texas 600MW' of planned power capacity (gross)",
+         sec(1878848, "000187884826000052", "iren-20260630.htm"), "Plan, not load; 750 + 1,400 + 600 MW"),
+        ("Crypto / compute - MARA (acquisition)", 2000, "10-Q 30 Jun 2026", "CONTRACTED power, conditional", "acquisition may be terminated if 'ERCOT does not approve the allocation of all or a portion of the contracted 2,000 MW of power to the site'",
+         sec(1507605, "000150760526000022", "mara-20260630.htm"), "Contract subject to ERCOT approval; site not named in the extract"),
+        ("Data centre - CleanSpark Brazoria County", 300, "10-Q 31 Mar 2026", "PLANNED (framework)", "'secured a framework for approximately 300 megawatts for power capacity, with potential expansion to approximately 600 megawatts'",
+         sec(827876, "000119312526217036", "clsk-20260331.htm"), "Plan, not load"),
+        ("Data centre - Constellation / CyrusOne, Freestone County", 380, "10-Q 30 Jun 2026", "CONTRACTED", "'signed a new 380 MW agreement with Dallas-based CyrusOne ... to connect and serve a new data center adjacent to the Freestone Energy Center'",
+         sec(1868275, "000186827526000104", "ceg-20260630.htm"), "Contract, not load"),
+    ]
+    for cat, val, unit, asof, typ, doc_, url_, cav in util:
+        pub = "Oncor (SEC filing)" if "Oncor" in doc_ or url_ in (onc_feb, onc_aug, onc_aug2) else ("CenterPoint (SEC filing)" if "CenterPoint" in doc_ else "AEP (SEC filing)")
+        rows.append((f"S{qn}", cat, val, unit, asof, typ, pub, doc_, url_, cav)); qn += 1
+    for cat, val, asof, typ, doc_, url_, cav in named:
+        rows.append((f"S{qn}", cat, val, "MW", asof, typ, "Company (SEC filing)", doc_, url_, cav)); qn += 1
     for i, row in enumerate(rows):
         for j, v in enumerate(row):
             c = wl.cell(5 + i, 1 + j, v)
@@ -583,22 +732,31 @@ def write_breakout(out, m):
     wl.cell(r0, 1, "Tried; nothing usable for a category split (exactly what was found)").font = bold
     hdr(wl, r0 + 1, ["ID", "Source", "Reachable from Actions?", "What was found", "", "", "", "", "URL", "Result"])
     tried = [
-        ("T1", "ERCOT Large Load Integration page and the monthly 'Large Load Interconnection Status' / LLI queue updates", "yes", "Batch Zero forms and RFI documents only; the monthly LLI queue update pdfs stopped being posted separately (2023-24 files exist) and the queue slides now sit inside the TAC report and the Operational Overview, where the by-type and by-zone charts are IMAGES (no text). Only totals are in text.",
-         "https://www.ercot.com/services/rq/large-load-integration", "no by-type observed MW"),
-        ("T2", "ERCOT Batch Zero Load Information Form / Readiness FAQs / Verification RFI exhibit list", "yes", "Blank templates (project-level form lists Data Centers (non-crypto), Hydrogen and Electrofuel, Cryptocurrency Mining as categories); no aggregates.",
+        ("T1", "ERCOT TAC 'Large Load Interconnection Status Update' decks and Monthly Operational Overviews: by-type chart images (OCR + pymupdf)", "yes",
+         "Feb and Mar 2026 TAC decks (February-TAC-Report.pdf, March-TAC-Report.pdf, March-TAC-Report-Updated_03262026.pptx) hold slide 12 'Large Load Project Distribution by Type' and slide 5 'Approved to Energize by Load Zone / Project Type' as pictures: pymupdf / python-pptx extracted them, tesseract read the labels, the pictures were checked by eye. Result = the QUEUE-by-type rows (requests, not load) and the OBSERVED zone / connection-type rows. The Operational Overviews (Jun 2025, Nov 2025, Jan 2026, Jun 2026, Aug 2026 scanned) carry the queue by STATUS and year only, no type; slide 'Loads Approved to Energize - Observations' is all types.",
+         "https://www.ercot.com/files/docs/2026/03/12/March-TAC-Report.pdf", "queue by type for 2 months; no observed by type"),
+        ("T2", "Other months of the TAC deck (Jan 2025 - Sep 2026) and the older 'LLI Queue Status Update' decks", "partly",
+         "Brute-force over file names (Month-TAC-Report.pdf, -Final, TAC-Report-Month-Year; 'LLI Queue Status Update - Y-M-D.pdf', 14,128 candidate URLs): only Feb and Mar 2026 TAC reports (+ the 26 Mar 'Updated' pptx named in the IMM report) and the Jun, Jul and Sep 2024 LLI decks exist under those names. The 2024 decks (8 pages) carry status/zone charts, no by-type slide. The Operational Overviews carry no by-zone / by-type approved-to-energise slide (a text scan of the Apr 2025 - Aug 2026 decks found only credit-by-type charts). Other months are posted under names not guessed or on the TAC meeting pages, which list no documents to scripts.",
+         "https://www.ercot.com/files/docs/2024/09/05/LLI%20Queue%20Status%20Update%20-%202024-9-6.pdf", "2 monthly by-type snapshots only"),
+        ("T3", "ERCOT Capacity, Demand and Reserves reports: prior editions", "yes",
+         "Dec 2023, May 2024 (Revised), May 2025 and Dec 2025 opened. Only Dec 2025 splits new large load by type (data centres, industrial, hydrogen, oil & gas, crypto: S5-S8); the earlier ones give only 'New Contracted Loads' and 'TSP Officer Letter Loads' totals (May 2025: contracted 4,894 MW and officer-letter 2,734 MW for summer 2026). No 'observed / in service' column in any edition. Dec 2024 and the 2026 editions are not under the file names tried (May 2026 not published yet at those names).",
+         "https://www.ercot.com/gridinfo/resource", "forecast by type for one edition"),
+        ("T4", "ERCOT 2025 Long-Term Load Forecast report and adjusted forecast files", "yes",
+         "The docx gives the adjustment factors (data centres 49.8% of requested MW, officer letters 55.4%) and no MW by type; the adjusted-forecast workbooks are .xlsb (not read); the 2026 LTLF is not posted at the listing page.",
+         "https://www.ercot.com/gridinfo/load/forecast", "no MW by type"),
+        ("T5", "ERCOT Batch Zero Load Information Form, Readiness FAQs, Verification RFI exhibit list", "yes",
+         "Blank templates (categories Data Centers (non-crypto), Hydrogen and Electrofuel, Cryptocurrency Mining); no aggregates.",
          "https://www.ercot.com/files/docs/2026/06/18/Batch-Zero-Load-Information-Form-06172026.xlsx", "no figures"),
-        ("T3", "ERCOT MIS public reports (CLR / Large Flexible Load telemetry, ancillary awards); ERCOT demand-response / LFL monthly reports", "partly", "MIS list endpoint answers but the report ids probed returned either nothing or unrelated reports (system load, DAM); ERCOT search found no CLR/LFL MW report; CDR only carries assumed CLR (20 MW in 2026) and load resources in reserves (935 MW responsive reserve).",
-         "https://www.ercot.com/misapp/servlets/IceDocListJsonWS", "no observed CLR/LFL MW"),
-        ("T4", "ERCOT Long-Term Load Forecast / 'adjustments'", "yes", "2025 LTLF report (docx) and CDR Dec 2025 give TSP-reported large loads by type (contracts + officer letters) as FORECAST (S5-S8); no 2026 LTLF file was listed. The 49.8% observed data-centre ratio is S9.",
-         "https://www.ercot.com/gridinfo/load/forecast", "forecast by type only"),
-        ("T5", "Cambridge CBECI mining map (Texas share of hashrate / GW)", "page yes, data no", "The map data load client-side from Firebase/Firestore (REST returned 403 permission denied); no GitHub mirror found; the public methodology gives only China and US-by-state for Dec 2021 and country shares from 2019 to Jan 2022 (US 33-38%).",
-         "https://ccaf.io/cbnsi/cbeci/mining_map", "no Texas GW"),
-        ("T6", "EIA-860M, EIA Today in Energy", "yes", "EIA-860M is a generator inventory (no load, behind-the-meter load or co-location flag). The EIA crypto article gives S12 and a US-wide estimate only.",
-         "https://www.eia.gov/electricity/data/eia860m/", "no load data"),
-        ("T7", "PUCT SB6 project 58317 and large-load filings", "index only", "The filing index page loads; no summary of large-load totals was found in the filing list and individual filings were not read.",
-         "https://interchange.puc.texas.gov/search/filings/?ControlNumber=58317&ItemMatch=Equal&UtilityType=A&ItemNumber=1", "no totals"),
-        ("T8", "Texas Comptroller, Lawrence Berkeley National Laboratory 2024 data-centre report", "no", "Comptroller pages probed returned 404 or no ERCOT data-centre MW; the LBNL report pdf answered HTTP 202 with an empty body from Actions (national and state electricity use, not read).",
-         "https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024-united-states-data-center-energy-usage-report.pdf", "no figures"),
+        ("T6", "ERCOT MIS public reports (CLR / Large Flexible Load telemetry)", "partly",
+         "MIS list endpoint answers but no CLR/LFL MW report was found; CDR only carries assumed CLR.", "https://www.ercot.com/misapp/servlets/IceDocListJsonWS", "no observed CLR/LFL MW"),
+        ("T7", "SEC filings (Oncor, CenterPoint, AEP, Sempra, TXNM, Vistra, NRG, Entergy, Xcel; Riot, Cipher, Core Scientific, TeraWulf, Galaxy, MARA, CleanSpark, Hut 8, IREN, Applied Digital, Constellation)", "yes",
+         "Latest 10-K/10-Q and Ex 99 earnings releases/slides read. Utilities give queues and contracts, with a category split only for Oncor (S-rows). Miners give capacity and contracts, only Cipher Odessa (207 MW) described as operating. None gives metered consumption. Bitdeer files 20-F/6-K and was not opened; Lancium / Crusoe / Stargate are private (no filings); Applied Digital's Texas site text was not matched.",
+         "https://www.sec.gov/cgi-bin/browse-edgar", "queue / contract / capacity"),
+        ("T8", "Cambridge CBECI mining map", "page yes, data no", "Data load client-side from Firestore (403); no Texas GW.", "https://ccaf.io/cbnsi/cbeci/mining_map", "no Texas GW"),
+        ("T9", "EIA-860M, EIA Today in Energy, PUCT SB6 project 58317, Texas Comptroller, LBNL 2024 report", "partly", "EIA-860M is a generator inventory; the EIA crypto article gives S12 only; PUCT index loads but individual filings were not read; Comptroller 404; LBNL pdf answered an empty 202.",
+         "https://www.eia.gov/todayinenergy/detail.php?id=61364", "no usable totals"),
+        ("T10", "Grid Strategies, Brattle, E3, Texas Blockchain Council, Potomac Economics", "see log", "Opened by an Actions probe (discovery_archive/ERCOT_LARGE_LOAD_THINKTANKS_PROBE.py); nothing with MW by type for ERCOT was found beyond the items above. Any number seen only in a search snippet is NOT used.",
+         "https://gridstrategiesllc.com/reports/", "none used"),
     ]
     for i, row in enumerate(tried):
         r = r0 + 2 + i
@@ -607,7 +765,7 @@ def write_breakout(out, m):
             c = wl.cell(r, 1 + j, v)
             c.alignment = Alignment(wrap_text=True, vertical="top")
         wl.merge_cells(start_row=r, start_column=4, end_row=r, end_column=8)
-        wl.row_dimensions[r].height = 62
+        wl.row_dimensions[r].height = 118
     for col, w in zip("ABCDEFGHIJ", (6, 34, 14, 12, 22, 20, 14, 62, 60, 62)):
         wl.column_dimensions[col].width = w
     wl.freeze_panes = "A5"
@@ -915,7 +1073,7 @@ def run(out):
     popdf = pd.DataFrame({"Population_m": annual, "Source": psrc}); popdf.index.name = "Year"
     dd_out = dd.copy()
     sheets = {"Fit summary": fit_df, "Candidates": cand_df, "Assumptions": assum, "Summary": S, "Forecast": F, "Hold-out": hold_df,
-              "Load breakout values": breakout_values_sheet(bm), "Texas degree days": dd_out, "Texas population": popdf, "Texas T2M daily": temps}
+              "Load breakout values": breakout_values_sheet(bm), QBT: queue_type_df(), OSV: observed_split_df(), "Texas degree days": dd_out, "Texas population": popdf, "Texas T2M daily": temps}
     sel = "; ".join(f"{s}: {label(chosen[s])} (R2 {chosen[s]['fit']['r2']:.2f}, hold-out RMSE {chosen[s]['rmse']:.2f} Bcf/d = {chosen[s]['mape']:.1f}%)" for s in SECTORS)
     notes = [
         "Notes", "", "UNITS",
@@ -929,11 +1087,11 @@ def run(out):
         "ERCOT: the baseline is HDD + CDD + population fitted on the window ending at the Assumptions cell (default Dec 2022) and extrapolated at actual weather; actual minus baseline is the 'unexplained load growth', which includes data centres, crypto mining, electrified industry/oil and gas load, and anything else the baseline omits, plus the population coefficient's own error (4 years of data only). The reference full-sample model with a trend is on the Fit summary with its hold-out.",
         f"ERCOT unexplained load growth: last 12 months {unexpl['last12']:.2f} GW above the baseline; fitted trend since Jan 2023 {unexpl['slope']:+.2f} +/- {unexpl['slope_se']:.2f} GW per year (OLS on {unexpl['n']} months from {unexpl['since']:%b/%y}).",
         "Forecast to Dec 2033: normal weather (editable window), population at the editable growth, Henry Hub and wind+solar share at the editable values; the band is the prediction standard error of each model (the 'Other sectors' band adds the four in quadrature assuming independent errors, which understates it if errors are correlated, as common weather misses are). The forecast is a weather-normalised projection of past relationships; it does NOT add new LNG, data-centre or industrial demand, structural change in power supply or price response beyond what is in the fit. The ERCOT baseline excludes the step-up; the 'baseline + unexplained held flat' column is a reference only.",
-        f"LOAD BREAKOUT ('Load breakout', 'Load sources' and 'Load breakout values' tabs, chart 'Load breakout'): NO judgement shares. The only observed split of the unexplained load is ERCOT's own monthly figure for large loads >=75 MW (sum of each load's monthly peak, all types together; ERCOT Operational Overviews Apr 2025 - Aug 2026), a PEAK against an AVERAGE and partly inside the 2019-22 baseline, so the remainder can be negative and is never clipped. Latest 12 months: unexplained {bm['U12']:.2f} GW, SOURCED observed large loads {bm['L12']:.2f} GW ({bm['nL12']} of 12 months), JUDGEMENT 0, UNATTRIBUTED (no source) {bm['U12'] - bm['L12']:.2f} GW. ERCOT publishes no observed GW for data centres, crypto, oil & gas or industrial separately, only FORECASTS by type (CDR Dec 2025) and queue/approval totals; those are listed on 'Load sources' as forecast/queue and are not charted. Data-centre GW and gas burn: no sourced figure, so the scenario-path comparison was removed. Probe: discovery_archive/ERCOT_LOAD_SOURCES_PROBE.py (5 Oct 2026).",
+        f"LOAD BREAKOUT ('Load breakout', 'Load sources' and 'Load breakout values' tabs, chart 'Load breakout'): NO judgement shares. The only observed split of the unexplained load is ERCOT's own monthly figure for large loads >=75 MW (sum of each load's monthly peak, all types together; ERCOT Operational Overviews Apr 2025 - Aug 2026), a PEAK against an AVERAGE and partly inside the 2019-22 baseline, so the remainder can be negative and is never clipped. Latest 12 months: unexplained {bm['U12']:.2f} GW, SOURCED observed large loads {bm['L12']:.2f} GW ({bm['nL12']} of 12 months), JUDGEMENT 0, UNATTRIBUTED (no source) {bm['U12'] - bm['L12']:.2f} GW. ERCOT publishes no observed GW for data centres, oil & gas or industrial separately. By type it gives only FORECASTS (CDR Dec 2025) and the QUEUE of requests (TAC decks, slide 12, an image read by OCR and by eye: data centres 355.8 GW = 87.6% in the 26 Mar 2026 updated deck, crypto ~15 GW; requests, not load), charted separately as 'Queue by type'; its only observed splits are by load zone and connection type ('Observed by zone' / 'Observed by connection', Feb and Mar 2026). Observed crypto alone: the ERCOT IMM puts crypto peak demand at 4.6 GW in 2025 (Load sources, not charted with the ERCOT figure because the definitions differ). Oncor, CenterPoint and AEP Texas queue / contract disclosures by category and named crypto / data-centre sites (SEC filings) are on 'Load sources' with their status. Data-centre GW and gas burn on observed load: no sourced figure, so the scenario-path comparison stays removed. Probes: discovery_archive/ERCOT_LOAD_SOURCES_PROBE.py, ERCOT_LARGE_LOAD_BYTYPE_PROBE*.py, ERCOT_LARGE_LOAD_COMPANIES_PROBE*.py, ERCOT_IMM_LARGE_LOAD_PROBE*.py, ERCOT_APPROVED_BYTYPE_PROBE.py (5 Oct 2026).",
         "Edit the yellow cells on the Assumptions tab and re-run the workflow (texas_demand_regression.yml, 1st/15th) to recompute; a cell left at its auto default follows the new auto value on the next run, an edited cell is kept.",
         f"Latest history: gas {last_gas:%b/%y}, ERCOT {er.index.max():%b/%y}, weather store to {temps.dropna(how='all').index.max():%d %b %Y}. Run time {time.time() - t0:.0f}s.",
         "", "SOURCES",
-        "EIA (gas consumption, via texas_gas_monthly.xlsx); EIA-930 (ERCOT, via eia930_fuel_mix_daily.xlsx); Henry Hub (EIA, via henry_hub_daily.xlsx); NASA POWER / Open-Meteo (temperature); US Census Bureau via FRED TXPOP (population); ERCOT Monthly Operational Overviews, Capacity Demand and Reserves report, LTLF report, MORA (large loads; URLs on 'Load sources'); EIA Today in Energy.",
+        "EIA (gas consumption, via texas_gas_monthly.xlsx); EIA-930 (ERCOT, via eia930_fuel_mix_daily.xlsx); Henry Hub (EIA, via henry_hub_daily.xlsx); NASA POWER / Open-Meteo (temperature); US Census Bureau via FRED TXPOP (population); ERCOT Monthly Operational Overviews, TAC Large Load Interconnection Status Updates, Capacity Demand and Reserves report, LTLF report, MORA, Summer 2025 Operational and Market Review; ERCOT IMM (Potomac Economics) 2025 State of the Market Report; Oncor / Sempra, CenterPoint, AEP and crypto / data-centre company SEC filings (large loads; URLs on 'Load sources'); EIA Today in Energy.",
     ]
     os.makedirs(os.path.dirname(out), exist_ok=True)
     xlsx_notes.write_workbook(out, sheets, notes, ["UNITS", "METHOD", "SOURCES"])
