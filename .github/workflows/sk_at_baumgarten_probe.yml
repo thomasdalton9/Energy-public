@@ -5,6 +5,8 @@ on:
     inputs:
       part:
         default: "1,2,3,4"
+      namepat:
+        default: "Allok|Netto|Physik|Fluss|Flow"
 
 jobs:
   probe:
@@ -19,3 +21,4 @@ jobs:
       - run: python3 -u discovery_archive/europe/SK_AT_BAUMGARTEN_PROBE.py
         env:
           PART: ${{ inputs.part }}
+          NAMEPAT: ${{ inputs.namepat }}

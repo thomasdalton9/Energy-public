@@ -30,6 +30,7 @@ def get(path, params, tries=3):
     return {}
 
 
+NAMEPAT = os.environ.get('NAMEPAT', 'Allok|Netto|Physik|Fluss|Flow')
 PART = os.environ.get("PART", "1,2,3,4").split(",")
 print("== PART 1 ENTSOG", flush=True)
 ics = get("interconnections", {"limit": -1}).get("interconnections", []) if "1" in PART else []
@@ -72,7 +73,7 @@ try:
                 r = requests.post(B + "ts/values", json=body, headers={"User-Agent": "Mozilla/5.0", "Content-Type": "application/json", "Accept": "application/json"}, timeout=120)
                 for cd in r.json()["timeSeriesData"]["chartData"]:
                     ys = [p["y"] for p in cd["dataSet"] if p.get("y") is not None]
-                    if ys and sum(abs(v) for v in ys) > 0 and re.search(r'Allok|Netto|Physik|Fluss|Flow', cd['header']['name'], re.I) and not re.search(r'Speicher|Kapazit', cd['header']['name']):
+                    if ys and sum(abs(v) for v in ys) > 0 and re.search(NAMEPAT, cd['header']['name'], re.I) and not re.search(r'Speicher|Kapazit', cd['header']['name']):
                         print(f"   {cd['header']['name']} n={len(ys)} sumGWh={sum(ys) / 1e6:.0f} unit={cd['header'].get('unit')}", flush=True)
             except Exception as e:  # noqa: BLE001
                 print("   chunk failed", type(e).__name__, str(e)[:100], flush=True)
