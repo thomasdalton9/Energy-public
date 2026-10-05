@@ -1,0 +1,30 @@
+name: ENTSOG west borders audit (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      countries:
+        description: 'country list'
+        default: 'UK,IE,FR,ES,PT,BE,NL,DE,LU,CH,IT,AT,DK,NO'
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas openpyxl
+      - run: python3 -u discovery_archive/europe/ENTSOG_WEST_BORDERS_AUDIT.py
+        env:
+          COUNTRIES: ${{ github.event.inputs.countries }}
+      - run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git add discovery_archive/europe/results
+          git commit -m "ENTSOG west borders audit results" || exit 0
+          git pull --rebase --autostash origin main && git push origin HEAD:main
