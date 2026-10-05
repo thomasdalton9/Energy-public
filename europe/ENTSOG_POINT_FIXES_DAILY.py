@@ -25,6 +25,8 @@ ENTSOG points that the main country-balance pull (ENTSOG_GAS_FLOWS_DAILY.py) cla
         DE_haidach_in         (exit = gas injected into Haidach, entry = gas withdrawn from it). Haidach lies in Austria and is in AGSI+'s Austrian stock, but
                               it is fed from and delivers to the German grid, so Germany's balance lacked about 10-24 TWh a year of injections and
                               withdrawals (the Germany + Netherlands residual was +5 in summer and -6 to -9 TWh a month in winter).
+        DE_haiming_out        Haiming 2-RAGES / bn (ITP-00308), bayernets: physical flow between the German grid and RAG's Haiming 2 storage (Austria, in AGSI+'s Austrian
+        DE_haiming_in         stock, no AGGM market-area East series): exit = injected, entry = withdrawn; same treatment as Haidach (10-15 TWh a year each way).
         IT_srg_other_tsos     "SRG Delivery to other transmission networks" (Snam Rete Gas, ITP-00288): gas handed to the smaller Italian transmission systems, whose own
                               downstream exits ENTSOG does not carry. Both sides are in Italy, so the country classification drops it, and Italy's
                               consumption (distribution + industrial + thermal exits) left out 14.6 TWh in 2025 (the whole +1.2 TWh a month surplus).
@@ -65,6 +67,8 @@ POINTS = {"GR_tap_imports": ("GR-TSO-0001", "ITP-00427", "entry"),
           "DE_at_lindau": ("DE-TSO-0014", "ITP-00227", "exit"),
           "DE_haidach_out": ("DE-TSO-0010", "UGS-00274", "exit"),
           "DE_haidach_in": ("DE-TSO-0010", "UGS-00274", "entry"),
+          "DE_haiming_out": ("DE-TSO-0010", "ITP-00308", "exit"),
+          "DE_haiming_in": ("DE-TSO-0010", "ITP-00308", "entry"),
           "IT_srg_other_tsos": ("IT-TSO-0001", "ITP-00288", "exit")}
 RELOAD_DAYS = 45
 
@@ -139,6 +143,7 @@ def main():
              "DE_greifswald_nel / DE_greifswald_opal = Nord Stream 1 gas entering Germany at Greifswald into the NEL and OPAL pipelines (Russian origin); "
              "DE_at_ueberackern / DE_at_ueberackern2 / DE_at_lindau = German exit flows to Austria (Ueberackern, Lindau) that the border rule leaves out because VIP Oberkappel does not contain them; "
              "DE_haidach_out / DE_haidach_in = bayernets' physical flow into / out of the Haidach storage (UGS-00274, Austria, fed from the German grid); "
+             "DE_haiming_out / DE_haiming_in = bayernets' flow into / out of RAG's Haiming 2 storage (ITP-00308, Austria, fed from the German grid); "
              "IT_srg_other_tsos = Snam Rete Gas delivery to other Italian transmission networks (consumed in Italy, not in ENTSOG's distribution / final-consumer exits).",
              f"Re-fetches the last {RELOAD_DAYS} days each run; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(comb)} days, {comb.index.min():%Y-%m-%d} to {comb.index.max():%Y-%m-%d}"]
