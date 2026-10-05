@@ -241,17 +241,12 @@ def parse_enagas_bulletin(content):
     return None
 
 
-def parse_enagas_trucks(content):
-    """LNG truck loadings (GWh in the bulletin month, all regasification plants) from section 5 'Regasification plants activity' (the Total row; its last two
-    figures are the trucks columns for the same month a year earlier and the bulletin month, in the order the header lists the months). Enagas's national
-    demand (conventional market) includes these trucks, which are LNG that never passes the send-out into the grid. NaN when the table is not found."""
-    import pdfplumber
-    with pdfplumber.open(io.BytesIO(content)) as pdf:
-        text = "\n".join((pg.extract_text() or "") for pg in pdf.pages[:30])
+def _trucks_from_text(text):
+    """(cur, prev) LNG-truck GWh of the Total row, or None; cur/prev follow the order of the month header above the table."""
     lines = text.split("\n")
     k = next((n for n, ln in enumerate(lines) if re.match(r"\s*BARCELONA\s+[\d.,]+\s+[\d.,]+", ln)), None)
     if k is None:
-        return float("nan")
+        return None
     hdr = next((ln for ln in reversed(lines[max(0, k - 4):k]) if re.search(r"[A-Za-z]{3}-\d{2,4}\s+[A-Za-z]{3}-\d{2,4}", ln)), "")
     mm = re.findall(r"([A-Za-z]{3})-(\d{2,4})", hdr)
     cur_first = len(mm) >= 2 and int(mm[0][1]) % 100 > int(mm[1][1]) % 100
@@ -260,21 +255,22 @@ def parse_enagas_trucks(content):
             toks = [x for x in ln.split() if x != "Total" and not x.endswith("%") and re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*|\d+", x)]
             if len(toks) >= 8:
                 a, b = _gwh(toks[6]), _gwh(toks[7])
-                return a if cur_first else b
-    return float("nan")
-    seg = text[i:].split("\n")
-    hdr = next((ln for ln in seg if re.search(r"[A-Za-z]{3}-\d{2,4}\s+[A-Za-z]{3}-\d{2,4}", ln)), "")
-    mm = re.findall(r"([A-Za-z]{3})-(\d{2,4})", hdr)
-    cur_first = False
-    if len(mm) >= 2:
-        y = [int(b) % 100 for _, b in mm[:2]]
-        cur_first = y[0] > y[1]
-    for ln in seg:
-        if re.match(r"\s*Total\s+[\d.,]+\s+[\d.,]+", ln):
-            toks = [x for x in ln.split() if x != "Total" and not x.endswith("%") and re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*|\d+", x)]
-            if len(toks) >= 8:
-                a, b = _gwh(toks[6]), _gwh(toks[7])
-                return a if cur_first else b
+                return (a, b) if cur_first else (b, a)
+    return None
+
+
+def parse_enagas_trucks(content, which="cur"):
+    """LNG truck loadings (GWh in the bulletin month, all regasification plants) from section 5 'Regasification plants activity' (the Total row; its last two
+    figures are the trucks columns for the same month a year earlier and the bulletin month, in the order the header lists the months). Enagas's national
+    demand (conventional market) includes these trucks, which are LNG that never passes the send-out into the grid. which='prev' returns the year-earlier
+    month's figure instead. The 2021-24 bulletins print the table letter-spaced, which only comes out as rows with a wider character tolerance. NaN when the table is not found."""
+    import pdfplumber
+    with pdfplumber.open(io.BytesIO(content)) as pdf:
+        for tol in (3, 8):
+            text = "\n".join((pg.extract_text(x_tolerance=tol) or "") for pg in pdf.pages[:30])
+            res = _trucks_from_text(text)
+            if res is not None:
+                return res[0] if which == "cur" else res[1]
     return float("nan")
 
 
@@ -297,9 +293,14 @@ def spain_monthly(start, old):
             for x in re.findall(r'href="(/content/dam[^"]+\.pdf)"', r.text):
                 files.setdefault(x, (y, m))
     print(f"  Enagas bulletins listed: {len(files)}", flush=True)
-    known = set(old["source_file"][old["ES_lng_trucks"].notna()].dropna()) if ("source_file" in old and "ES_lng_trucks" in old) else set()   # bulletins parsed with their truck figure
+    known = set()    # bulletins already parsed with their truck figure, and whose year-earlier month is filled (or before `start`)
+    if "source_file" in old and "ES_lng_trucks" in old:
+        for mth, row in old.iterrows():
+            py = mth - pd.DateOffset(years=1)
+            if row["ES_lng_trucks"] == row["ES_lng_trucks"] and (py < pd.Timestamp(start) or (py in old.index and old.loc[py, "ES_lng_trucks"] == old.loc[py, "ES_lng_trucks"])):
+                known.add(row["source_file"])
     newest = {f for f, _ in sorted(files.items(), key=lambda kv: kv[1])[-3:]}
-    rows = {}
+    rows, prev_trucks = {}, {}
     for f, ym in sorted(files.items(), key=lambda kv: kv[1]):
         name = f.split("/")[-1]
         if name in known and f not in newest:
@@ -307,7 +308,7 @@ def spain_monthly(start, old):
         try:
             content = get("https://www.enagas.es" + f, headers=h).content
             res = parse_enagas_bulletin(content)
-            trucks = parse_enagas_trucks(content)
+            trucks, trucks_prev = parse_enagas_trucks(content), parse_enagas_trucks(content, "prev")
         except Exception as e:  # noqa: BLE001
             print(f"  {name}: {type(e).__name__} {str(e)[:80]}", flush=True)
             continue
@@ -318,7 +319,13 @@ def spain_monthly(start, old):
         if month < pd.Timestamp(start):
             continue
         rows[month] = {"ES_national": nat, "ES_conventional": conv, "ES_power": pw, "source_file": name, "ES_lng_trucks": trucks}
-    return pd.DataFrame.from_dict(rows, orient="index", columns=ES_MONTHLY_COLS).sort_index() if rows else pd.DataFrame(columns=ES_MONTHLY_COLS)
+        prev_trucks[month - pd.DateOffset(years=1)] = trucks_prev
+    out = pd.DataFrame.from_dict(rows, orient="index", columns=ES_MONTHLY_COLS).sort_index() if rows else pd.DataFrame(columns=ES_MONTHLY_COLS)
+    # a bulletin table also gives the same month a year earlier: fills the months whose own bulletin has no readable truck table (a later bulletin's figure is the revised one)
+    for m, v in prev_trucks.items():
+        if v == v and m >= pd.Timestamp(start) and (m not in out.index or not out.loc[m, "ES_lng_trucks"] == out.loc[m, "ES_lng_trucks"]):
+            out.loc[m, "ES_lng_trucks"] = v
+    return out.sort_index()
 
 
 # ---- Croatia: Plinacro SUKAP -------------------------------------------------------------------------------------------
@@ -433,7 +440,8 @@ def main():
             if not new_m.empty:
                 monthly = monthly.reindex(monthly.index.union(new_m.index))
                 for c in ES_MONTHLY_COLS:
-                    monthly.loc[new_m.index, c] = new_m[c]
+                    sv = new_m[c].dropna()
+                    monthly.loc[sv.index, c] = sv
                 print(f"Spain (Enagas bulletin): {len(new_m)} months {new_m.index.min():%Y-%m} .. {new_m.index.max():%Y-%m}", flush=True)
         except Exception as e:  # noqa: BLE001
             print(f"Spain (Enagas bulletin): FAILED {type(e).__name__}: {e}", flush=True)
