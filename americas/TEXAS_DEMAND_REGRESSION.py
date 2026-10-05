@@ -141,10 +141,10 @@ def degree_days(temps):
     return m
 
 
-def get_population(prev):
+def get_population(prev, prem=0.9):
     """Annual Texas population (million). FRED TXPOP (Census, July 1 estimates); else the saved store; else IMF/World Bank US x share."""
     try:
-        r = requests.get(FRED, headers=UA, timeout=60)
+        r = requests.get(FRED, headers=UA, timeout=20)
         r.raise_for_status()
         d = pd.read_csv(io.StringIO(r.text))
         d.columns = ["date", "v"]
@@ -156,11 +156,18 @@ def get_population(prev):
             return s, "FRED TXPOP (US Census Bureau resident population, July 1 estimates)"
     except Exception as exc:  # noqa: BLE001
         log("population: FRED failed:", exc)
-    if prev is not None and len(prev):
+    if prev is not None and len(prev) and "FRED" in str(prev["Source"].iloc[-1]) and "unreachable" not in str(prev["Source"].iloc[-1]):
         return prev["Population_m"], "saved copy from an earlier run (FRED not reachable): " + str(prev["Source"].iloc[-1])
     try:
         m = pd.read_excel(MACRO_XLSX, sheet_name="Population_IMF_m").set_index("year")["USA"].dropna()
-        return m * TEXAS_SHARE_OF_US_2020, "IMF WEO US population x Texas 2020 share (8.8%); FRED/Census unreachable"
+        g = m.pct_change().fillna(0) + prem / 100
+        lvl = {2020: 29.145}   # Texas 2020 Census, million
+        for y in range(2021, int(m.index.max()) + 1):
+            lvl[y] = lvl[y - 1] * (1 + g[y])
+        for y in range(2019, 1999, -1):
+            lvl[y] = lvl[y + 1] / (1 + g[y + 1])
+        s = pd.Series(lvl).sort_index()
+        return s, f"FALLBACK (FRED/Census unreachable): Texas = 2020 Census 29.145m carried with IMF WEO US population growth + {prem} pp a year (editable Texas premium); NOT Census estimates"
     except Exception as exc:  # noqa: BLE001
         raise SystemExit(f"no population source: {exc}")
 
@@ -323,7 +330,13 @@ def run(out):
 
     prev_p = read_prev(out, "Texas population")
     prev_p = prev_p.set_index("Year") if prev_p is not None else None
-    annual, psrc = get_population(prev_p)
+    prem = 0.9
+    pa = read_prev(out, "Assumptions")
+    if pa is not None:
+        r = pa[pa["Assumption"].astype(str).str.startswith("Texas population growth premium")]
+        if len(r):
+            prem = float(r["Value used (edit)"].iloc[0])
+    annual, psrc = get_population(prev_p, prem)
     cagr = float((annual.iloc[-1] / annual.iloc[-6]) ** (1 / 5) - 1)
 
     hh = pd.read_excel(HH_XLSX, sheet_name="Chart - Monthly")
@@ -346,6 +359,7 @@ def run(out):
     last_full_year = int(ddc.index.year[ddc.groupby(ddc.index.year)["Days"].transform("count") == 12].max())
     auto = {
         "Texas population growth after the last Census year (% per year)": round(cagr * 100, 3),
+        "Texas population growth premium over US, pp a year (used only if Census/FRED unreachable)": 0.9,
         "Henry Hub, forecast months ($/MMBtu)": round(float(hh.iloc[-12:].mean()), 2),
         "ERCOT wind+solar share of generation, forecast months": round(float(er["re"].iloc[-12:].mean()), 3),
         "Normal-weather window, first year": last_full_year - 9,
@@ -541,6 +555,7 @@ def run(out):
     hold_df = pd.DataFrame(hold_rows).set_index("Month")
     notes_a = {
         "Texas population growth after the last Census year (% per year)": ("% per year", f"Applies after the last annual point ({int(annual.index.max())}). Default = 5-year CAGR of the Census series ({cagr * 100:.2f}%). The IMF outlook for the whole US is far lower; Texas has grown faster than the US."),
+        "Texas population growth premium over US, pp a year (used only if Census/FRED unreachable)": ("pp", "Fallback only: Texas grew about 1.4% a year 2015-24 against about 0.5% for the US (from memory, unverified), so the default is 0.9 pp on top of IMF's US growth."),
         "Henry Hub, forecast months ($/MMBtu)": ("$/MMBtu", "Held flat in forecast months; default = mean of the last 12 months of the Henry Hub monthly series. Only the electric-power model uses it, if the chosen candidate includes it."),
         "ERCOT wind+solar share of generation, forecast months": ("share", "Held flat; default = last-12-month mean. Rising wind/solar/battery output would lower gas burn: a flat share is a conservative assumption. Used only if the chosen electric-power candidate includes it."),
         "Normal-weather window, first year": ("year", "Normal weather = average HDD/CDD per day by calendar month over these complete years (default: the last 10)."),
