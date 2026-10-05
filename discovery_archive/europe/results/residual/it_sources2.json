@@ -1,0 +1,56 @@
+{
+ "https://www.snam.it/en/our-businesses/transportation/business-information.html": {
+  "status": 200,
+  "len": 45999,
+  "links": [
+   "/.rum/@adobe/helix-rum-js@%5E2/dist/micro.js",
+   "//assets.adobedtm.com/be222bf082a0/6e8ce34435c3/launch-f0d6095b07a9.min.js",
+   "/etc.clientlibs/core/wcm/components/accordion/v1/accordion/clientlibs/site.lc-743203754cdc204878a47e10ad2a28d5-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/carousel/v1/carousel/clientlibs/site.lc-935e4f9b71a823975466546d99182da6-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/commons/datalayer/v1/clientlibs/core.wcm.components.commons.datalayer.v1.lc-70264651675213ed7f7cc5a02a00f621-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/form/text/v2/text/clientlibs/site.lc-ee38e16a2145e46029c3a9cd2a806054-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/image/v2/image/clientlibs/site.lc-229bd0100d6215b69b6a5534e4889492-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/pdfviewer/v1/pdfviewer/clientlibs/site.lc-a58582a8450eca41c0492450ab6b46bb-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/pdfviewer/v1/pdfviewer/clientlibs/site.lc-c79c6cf22a5b660f493131a4be3ded5f-lc.min.css",
+   "/etc.clientlibs/core/wcm/components/search/v1/search/clientlibs/site.lc-5cd5790fe0e322208efbd7dba3f87b8c-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/tabs/v1/tabs/clientlibs/site.lc-c53b992b35f5ca98e25330a02d295299-lc.min.js",
+   "/etc.clientlibs/shared-components/clientlibs/stylesheet.preload.lc-b5610a5ca7c6f5564ecd2fd19b5e1b86-lc.min.js",
+   "/etc.clientlibs/snam/clientlibs/clientlib-base.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.js",
+   "/etc.clientlibs/snam/clientlibs/clientlib-react.lc-ad228a91e0456aa625fc7c3c6fc35f82-lc.min.js",
+   "https://www.snam.it/en/our-businesses/transportation/business-information.html"
+  ]
+ },
+ "https://www.snam.it/it/i-nostri-business/trasporto.html": {
+  "status": 200,
+  "len": 46100,
+  "links": [
+   "/.rum/@adobe/helix-rum-js@%5E2/dist/micro.js",
+   "//assets.adobedtm.com/be222bf082a0/6e8ce34435c3/launch-f0d6095b07a9.min.js",
+   "/etc.clientlibs/core/wcm/components/accordion/v1/accordion/clientlibs/site.lc-743203754cdc204878a47e10ad2a28d5-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/carousel/v1/carousel/clientlibs/site.lc-935e4f9b71a823975466546d99182da6-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/commons/datalayer/v1/clientlibs/core.wcm.components.commons.datalayer.v1.lc-70264651675213ed7f7cc5a02a00f621-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/form/text/v2/text/clientlibs/site.lc-ee38e16a2145e46029c3a9cd2a806054-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/image/v2/image/clientlibs/site.lc-229bd0100d6215b69b6a5534e4889492-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/pdfviewer/v1/pdfviewer/clientlibs/site.lc-a58582a8450eca41c0492450ab6b46bb-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/pdfviewer/v1/pdfviewer/clientlibs/site.lc-c79c6cf22a5b660f493131a4be3ded5f-lc.min.css",
+   "/etc.clientlibs/core/wcm/components/search/v1/search/clientlibs/site.lc-5cd5790fe0e322208efbd7dba3f87b8c-lc.min.js",
+   "/etc.clientlibs/core/wcm/components/tabs/v1/tabs/clientlibs/site.lc-c53b992b35f5ca98e25330a02d295299-lc.min.js",
+   "/etc.clientlibs/shared-components/clientlibs/stylesheet.preload.lc-b5610a5ca7c6f5564ecd2fd19b5e1b86-lc.min.js",
+   "/etc.clientlibs/snam/clientlibs/clientlib-base.lc-d41d8cd98f00b204e9800998ecf8427e-lc.min.js",
+   "/etc.clientlibs/snam/clientlibs/clientlib-react.lc-ad228a91e0456aa625fc7c3c6fc35f82-lc.min.js",
+   "https://www.snam.it/it/i-nostri-business/trasporto.html"
+  ]
+ },
+ "https://sisen.mase.gov.it/dgsaie/": {
+  "status": 200,
+  "len": 697,
+  "links": []
+ },
+ "https://sisen.mase.gov.it/dgsaie/gas-naturale": {
+  "status": 200,
+  "len": 697,
+  "links": []
+ }
+}

@@ -1,0 +1,2290 @@
+{
+ "emissions-ges-operateurs": [
+  {
+   "annee": "2023",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 431.0,
+   "scope_2_en_kt_eq_co2": 21.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 453.0
+  },
+  {
+   "annee": "2025",
+   "edition": null,
+   "operateur": "Teréga",
+   "scope_1_en_kt_eq_co2": 58.697,
+   "scope_2_en_kt_eq_co2": 2.296,
+   "total_scope_1_et_2_en_kt_eq_co2": 60.993
+  },
+  {
+   "annee": "2018",
+   "edition": "2",
+   "operateur": "RTE",
+   "scope_1_en_kt_eq_co2": 158.0,
+   "scope_2_en_kt_eq_co2": 475.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 633.0
+  },
+  {
+   "annee": "2014",
+   "edition": "1",
+   "operateur": "Teréga",
+   "scope_1_en_kt_eq_co2": 118.7,
+   "scope_2_en_kt_eq_co2": 4.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 122.7
+  },
+  {
+   "annee": "2022",
+   "edition": "3",
+   "operateur": "Teréga",
+   "scope_1_en_kt_eq_co2": 81.6,
+   "scope_2_en_kt_eq_co2": 2.3,
+   "total_scope_1_et_2_en_kt_eq_co2": 83.9
+  },
+  {
+   "annee": "2017",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": null,
+   "scope_2_en_kt_eq_co2": null,
+   "total_scope_1_et_2_en_kt_eq_co2": 754.0
+  },
+  {
+   "annee": "2014",
+   "edition": "1",
+   "operateur": "RTE",
+   "scope_1_en_kt_eq_co2": 137.0,
+   "scope_2_en_kt_eq_co2": 552.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 689.0
+  },
+  {
+   "annee": "2024",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 347.3,
+   "scope_2_en_kt_eq_co2": 16.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 363.3
+  },
+  {
+   "annee": "2022",
+   "edition": null,
+   "operateur": "RTE",
+   "scope_1_en_kt_eq_co2": 103.0,
+   "scope_2_en_kt_eq_co2": 342.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 445.0
+  },
+  {
+   "annee": "2023",
+   "edition": "4",
+   "operateur": "Teréga",
+   "scope_1_en_kt_eq_co2": 83.1,
+   "scope_2_en_kt_eq_co2": 2.5,
+   "total_scope_1_et_2_en_kt_eq_co2": 85.6
+  },
+  {
+   "annee": "2022",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 429.0,
+   "scope_2_en_kt_eq_co2": 12.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 442.0
+  },
+  {
+   "annee": "2018",
+   "edition": "2",
+   "operateur": "Teréga",
+   "scope_1_en_kt_eq_co2": 115.6,
+   "scope_2_en_kt_eq_co2": 3.5,
+   "total_scope_1_et_2_en_kt_eq_co2": 119.1
+  },
+  {
+   "annee": "2024",
+   "edition": null,
+   "operateur": "Teréga",
+   "scope_1_en_kt_eq_co2": 52.376,
+   "scope_2_en_kt_eq_co2": 1.88,
+   "total_scope_1_et_2_en_kt_eq_co2": 54.256
+  },
+  {
+   "annee": "2021",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 342.0,
+   "scope_2_en_kt_eq_co2": 12.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 354.0
+  },
+  {
+   "annee": "2018",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": null,
+   "scope_2_en_kt_eq_co2": null,
+   "total_scope_1_et_2_en_kt_eq_co2": 570.0
+  },
+  {
+   "annee": "2019",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 581.0,
+   "scope_2_en_kt_eq_co2": 18.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 599.0
+  },
+  {
+   "annee": "2024",
+   "edition": null,
+   "operateur": "RTE",
+   "scope_1_en_kt_eq_co2": 95.0,
+   "scope_2_en_kt_eq_co2": 245.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 340.0
+  },
+  {
+   "annee": "2020",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 413.0,
+   "scope_2_en_kt_eq_co2": 15.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 428.0
+  },
+  {
+   "annee": "2025",
+   "edition": null,
+   "operateur": "NaTran",
+   "scope_1_en_kt_eq_co2": 348.0,
+   "scope_2_en_kt_eq_co2": 12.0,
+   "total_scope_1_et_2_en_kt_eq_co2": 360.0
+  }
+ ],
+ "evolution-emissions-directes-de-methane": [
+  {
+   "annee": "2016",
+   "emission_de_methane_mm3": 3.7,
+   "emission_de_methane_tonnes_ch4": 2402,
+   "baisse_des_emissions_de_methane_versus_2016_en": null,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2022",
+   "emission_de_methane_mm3": 9.5,
+   "emission_de_methane_tonnes_ch4": 6200,
+   "baisse_des_emissions_de_methane_versus_2016_en": 69,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2022",
+   "emission_de_methane_mm3": 2.61,
+   "emission_de_methane_tonnes_ch4": 1873,
+   "baisse_des_emissions_de_methane_versus_2016_en": 22,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2023",
+   "emission_de_methane_mm3": 7.904,
+   "emission_de_methane_tonnes_ch4": 5273,
+   "baisse_des_emissions_de_methane_versus_2016_en": 74,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2016",
+   "emission_de_methane_mm3": 30.9,
+   "emission_de_methane_tonnes_ch4": 20166,
+   "baisse_des_emissions_de_methane_versus_2016_en": null,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2018",
+   "emission_de_methane_mm3": 3.5,
+   "emission_de_methane_tonnes_ch4": 2277,
+   "baisse_des_emissions_de_methane_versus_2016_en": 5,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2019",
+   "emission_de_methane_mm3": 3.3,
+   "emission_de_methane_tonnes_ch4": 2179,
+   "baisse_des_emissions_de_methane_versus_2016_en": 9,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2020",
+   "emission_de_methane_mm3": 10.3,
+   "emission_de_methane_tonnes_ch4": 6722,
+   "baisse_des_emissions_de_methane_versus_2016_en": 67,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2023",
+   "emission_de_methane_mm3": 2.5,
+   "emission_de_methane_tonnes_ch4": 1791,
+   "baisse_des_emissions_de_methane_versus_2016_en": 25,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2025",
+   "emission_de_methane_mm3": 1.604,
+   "emission_de_methane_tonnes_ch4": 1151,
+   "baisse_des_emissions_de_methane_versus_2016_en": 52,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2017",
+   "emission_de_methane_mm3": 24.7,
+   "emission_de_methane_tonnes_ch4": 16119,
+   "baisse_des_emissions_de_methane_versus_2016_en": 20,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2020",
+   "emission_de_methane_mm3": 3.1,
+   "emission_de_methane_tonnes_ch4": 2036,
+   "baisse_des_emissions_de_methane_versus_2016_en": 15,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2021",
+   "emission_de_methane_mm3": 10.7,
+   "emission_de_methane_tonnes_ch4": 6983,
+   "baisse_des_emissions_de_methane_versus_2016_en": 65,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2024",
+   "emission_de_methane_mm3": 2.496,
+   "emission_de_methane_tonnes_ch4": 1233,
+   "baisse_des_emissions_de_methane_versus_2016_en": 36,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2019",
+   "emission_de_methane_mm3": 13.4,
+   "emission_de_methane_tonnes_ch4": 8745,
+   "baisse_des_emissions_de_methane_versus_2016_en": 57,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2024",
+   "emission_de_methane_mm3": 5.439,
+   "emission_de_methane_tonnes_ch4": 3902,
+   "baisse_des_emissions_de_methane_versus_2016_en": 81,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2017",
+   "emission_de_methane_mm3": 3.8,
+   "emission_de_methane_tonnes_ch4": 2475,
+   "baisse_des_emissions_de_methane_versus_2016_en": -3,
+   "operateur": "Teréga"
+  },
+  {
+   "annee": "2018",
+   "emission_de_methane_mm3": 16.8,
+   "emission_de_methane_tonnes_ch4": 10964,
+   "baisse_des_emissions_de_methane_versus_2016_en": 45,
+   "operateur": "NaTran"
+  },
+  {
+   "annee": "2021",
+   "emission_de_methane_mm3": 3.2,
+   "emission_de_methane_tonnes_ch4": 2069,
+   "baisse_des_emissions_de_methane_versus_2016_en": 14,
+   "operateur": "Teréga"
+  }
+ ],
+ "evolution-journaliere-stocks-gnl-terminaux-methaniers": [
+  {
+   "gasdaystart": "2025-03-19",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-20 09:03:41",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-04-03",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "320",
+   "type": "LAND",
+   "updatedat": "2025-04-04 08:00:48",
+   "availablecapacity": "16.7",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-22",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-23 09:01:14",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-31",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-31 08:02:32",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-20",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-21 09:01:40",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-10",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-11 09:06:15",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-06",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-07 09:00:30",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-09",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-10 09:00:36",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-04-03",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-04-04 04:35:09",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-19",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-20 05:35:10",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-04-02",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-04-03 04:35:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-13",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-14 05:35:08",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-31",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-04-01 04:35:09",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-04-04",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "340",
+   "type": "LAND",
+   "updatedat": "2025-04-05 08:05:23",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-04-01",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "340",
+   "type": "LAND",
+   "updatedat": "2025-04-02 08:00:58",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-25",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-26 09:01:17",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-27",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-28 09:01:55",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-09",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "383.9",
+   "type": "LAND",
+   "updatedat": "2025-03-10 09:00:31",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-28",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-29 09:00:28",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-18",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-19 09:02:53",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-17",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-18 09:00:30",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-13",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-14 09:00:12",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-04-02",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "50",
+   "type": "LAND",
+   "updatedat": "2025-04-03 08:01:10",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-27",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-28 09:02:24",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-24",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-25 09:01:13",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-21",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-22 09:01:34",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-08",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-09 09:00:39",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-14",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-15 09:03:47",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-26",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-27 09:01:10",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-22",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-23 09:00:57",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-31",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-31 08:01:35",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-08",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "383.9",
+   "type": "LAND",
+   "updatedat": "2025-03-09 23:00:04",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-10",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-11 09:06:07",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-15",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-16 09:00:52",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-25",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-26 09:01:24",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-04-03",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "50",
+   "type": "LAND",
+   "updatedat": "2025-04-04 08:00:35",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-16",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-17 09:01:02",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-23",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-24 09:01:49",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-22",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-23 09:01:02",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-17",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-18 09:00:45",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-10",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-11 09:06:00",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-04-04",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "320",
+   "type": "LAND",
+   "updatedat": "2025-04-05 08:05:16",
+   "availablecapacity": "16.7",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-13",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-14 09:00:27",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-24",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-25 09:01:32",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-12",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-13 05:35:02",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-10",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-11 05:35:02",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-21",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-22 05:35:08",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-09",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-10 05:35:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-07",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-08 05:35:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-16",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-17 05:35:02",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-30",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-31 04:35:05",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-08",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-09 09:00:42",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-23",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-24 09:02:48",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-17",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-18 09:00:40",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-22",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-23 05:35:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-14",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-15 05:35:10",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-04-01",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-04-02 04:35:07",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-23",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-24 05:35:04",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-17",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-18 05:35:04",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-18",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-19 05:35:06",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-26",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-27 05:35:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-24",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-25 23:00:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-04-04",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-04-05 04:35:13",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-04-01",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "50",
+   "type": "LAND",
+   "updatedat": "2025-04-02 08:01:29",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-04-04",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "50",
+   "type": "LAND",
+   "updatedat": "2025-04-04 08:00:35",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-30",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-31 08:01:35",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-19",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-20 09:03:32",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-24",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-25 09:01:20",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-04-02",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "340",
+   "type": "LAND",
+   "updatedat": "2025-04-03 08:00:57",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-21",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-22 09:01:28",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-23",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-24 09:02:25",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-11",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-12 09:00:22",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-14",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-15 09:03:42",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-20",
+   "terminal": "Fos Cavaou",
+   "name": "Fos Cavaou LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "396.8",
+   "type": "LAND",
+   "updatedat": "2025-03-21 09:01:20",
+   "availablecapacity": "0",
+   "latitude": "43.4262",
+   "longitude": "4.9019"
+  },
+  {
+   "gasdaystart": "2025-03-28",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-29 09:00:47",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-29",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-30 08:00:33",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-07",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-08 09:00:09",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-26",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-27 09:01:36",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-11",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-12 09:01:00",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-27",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-28 05:35:04",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-20",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-21 05:35:03",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-03-28",
+   "terminal": "Dunkerque LNG",
+   "name": "Dunkerque LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "519.8",
+   "type": "LAND",
+   "updatedat": "2025-03-29 05:35:09",
+   "availablecapacity": "55",
+   "latitude": "51.0395",
+   "longitude": "2.187"
+  },
+  {
+   "gasdaystart": "2025-04-06",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "50",
+   "type": "LAND",
+   "updatedat": "2025-04-07 08:02:16",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-28",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-29 09:00:54",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-30",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-31 08:01:51",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-09",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-10 09:00:38",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-18",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-19 09:02:50",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-13",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-14 09:00:23",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-19",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "48.4",
+   "type": "LAND",
+   "updatedat": "2025-03-20 09:03:36",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-04-05",
+   "terminal": "Fos Tonkin",
+   "name": "Fos Tonkin LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "50",
+   "type": "LAND",
+   "updatedat": "2025-04-06 08:00:27",
+   "availablecapacity": "0",
+   "latitude": "43.4556",
+   "longitude": "4.8492"
+  },
+  {
+   "gasdaystart": "2025-03-18",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-19 09:02:56",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-27",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-28 09:02:41",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-25",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-26 09:01:39",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-30",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-31 08:02:32",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-15",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-16 09:00:39",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-14",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-15 09:03:58",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-21",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-22 09:01:40",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-16",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-17 09:01:08",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-03-12",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "409.7",
+   "type": "LAND",
+   "updatedat": "2025-03-13 09:00:57",
+   "availablecapacity": "0",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  },
+  {
+   "gasdaystart": "2025-04-02",
+   "terminal": "Montoir de Bretagne",
+   "name": "Montoir de Bretagne LNG Terminal",
+   "inventaire_lng_m3_lng": null,
+   "inventaire_lng_gwh_lng": null,
+   "contractedcapacity": "320",
+   "type": "LAND",
+   "updatedat": "2025-04-03 08:00:51",
+   "availablecapacity": "16.7",
+   "latitude": "47.3034",
+   "longitude": "-2.1368"
+  }
+ ],
+ "evolution-de-lactivite-aux-points-dechange-de-gaz-peg-sur-le-reseau-grtgaz0": [
+  {
+   "annee": "2006",
+   "mois": "2006-03",
+   "quantites_echangees": 5670000,
+   "quantites_echangee_twh": 5.67
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-04",
+   "quantites_echangees": 6030000,
+   "quantites_echangee_twh": 6.03
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-06",
+   "quantites_echangees": 4940000,
+   "quantites_echangee_twh": 4.94
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-07",
+   "quantites_echangees": 5460000,
+   "quantites_echangee_twh": 5.46
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-11",
+   "quantites_echangees": 9090000,
+   "quantites_echangee_twh": 9.09
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-03",
+   "quantites_echangees": 8500000,
+   "quantites_echangee_twh": 8.5
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-06",
+   "quantites_echangees": 9900000,
+   "quantites_echangee_twh": 9.9
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-08",
+   "quantites_echangees": 10000000,
+   "quantites_echangee_twh": 10.0
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-10",
+   "quantites_echangees": 10300000,
+   "quantites_echangee_twh": 10.3
+  },
+  {
+   "annee": "2008",
+   "mois": "2008-05",
+   "quantites_echangees": 11400000,
+   "quantites_echangee_twh": 11.4
+  },
+  {
+   "annee": "2008",
+   "mois": "2008-08",
+   "quantites_echangees": 11900000,
+   "quantites_echangee_twh": 11.9
+  },
+  {
+   "annee": "2009",
+   "mois": "2009-11",
+   "quantites_echangees": 20400000,
+   "quantites_echangee_twh": 20.4
+  },
+  {
+   "annee": "2010",
+   "mois": "2010-02",
+   "quantites_echangees": 21800000,
+   "quantites_echangee_twh": 21.8
+  },
+  {
+   "annee": "2010",
+   "mois": "2010-03",
+   "quantites_echangees": 22800000,
+   "quantites_echangee_twh": 22.8
+  },
+  {
+   "annee": "2010",
+   "mois": "2010-07",
+   "quantites_echangees": 23400000,
+   "quantites_echangee_twh": 23.4
+  },
+  {
+   "annee": "2010",
+   "mois": "2010-10",
+   "quantites_echangees": 25700000,
+   "quantites_echangee_twh": 25.7
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-03",
+   "quantites_echangees": 35060000,
+   "quantites_echangee_twh": 35.06
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-06",
+   "quantites_echangees": 34310000,
+   "quantites_echangee_twh": 34.31
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-07",
+   "quantites_echangees": 37000000,
+   "quantites_echangee_twh": 37.0
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-12",
+   "quantites_echangees": 43440000,
+   "quantites_echangee_twh": 43.44
+  },
+  {
+   "annee": "2012",
+   "mois": "2012-01",
+   "quantites_echangees": 48290000,
+   "quantites_echangee_twh": 48.29
+  },
+  {
+   "annee": "2013",
+   "mois": "2013-09",
+   "quantites_echangees": 48010000,
+   "quantites_echangee_twh": 48.01
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-01",
+   "quantites_echangees": 66510000,
+   "quantites_echangee_twh": 66.51
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-02",
+   "quantites_echangees": 60000000,
+   "quantites_echangee_twh": 60.0
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-03",
+   "quantites_echangees": 59000000,
+   "quantites_echangee_twh": 59.0
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-05",
+   "quantites_echangees": 48940000,
+   "quantites_echangee_twh": 48.94
+  },
+  {
+   "annee": "2015",
+   "mois": "2015-08",
+   "quantites_echangees": 66210000,
+   "quantites_echangee_twh": 66.21
+  },
+  {
+   "annee": "2017",
+   "mois": "2017-04",
+   "quantites_echangees": 76960000,
+   "quantites_echangee_twh": 76.96
+  },
+  {
+   "annee": "2017",
+   "mois": "2017-06",
+   "quantites_echangees": 72020000,
+   "quantites_echangee_twh": 72.02
+  },
+  {
+   "annee": "2018",
+   "mois": "2018-11",
+   "quantites_echangees": 72650815298,
+   "quantites_echangee_twh": 72.650815298
+  },
+  {
+   "annee": "2022",
+   "mois": "2022-10",
+   "quantites_echangees": 85270888638,
+   "quantites_echangee_twh": 85.270888638
+  },
+  {
+   "annee": "2024",
+   "mois": "2024-02",
+   "quantites_echangees": 109028511927,
+   "quantites_echangee_twh": 109.028511927
+  },
+  {
+   "annee": "2022",
+   "mois": "2022-08",
+   "quantites_echangees": 86457063088,
+   "quantites_echangee_twh": 86.457063088
+  },
+  {
+   "annee": "2024",
+   "mois": "2024-11",
+   "quantites_echangees": 116191222008,
+   "quantites_echangee_twh": 116.191222008
+  },
+  {
+   "annee": "2023",
+   "mois": "2023-10",
+   "quantites_echangees": 90869656397,
+   "quantites_echangee_twh": 90.869656397
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-12",
+   "quantites_echangees": 81640314850,
+   "quantites_echangee_twh": 81.64031485
+  },
+  {
+   "annee": "2021",
+   "mois": "2021-08",
+   "quantites_echangees": 67783307090,
+   "quantites_echangee_twh": 67.78330709
+  },
+  {
+   "annee": "2024",
+   "mois": "2024-01",
+   "quantites_echangees": 132009541626,
+   "quantites_echangee_twh": 132.009541626
+  },
+  {
+   "annee": "2025",
+   "mois": "2025-05",
+   "quantites_echangees": 89440456098,
+   "quantites_echangee_twh": 89.440456098
+  },
+  {
+   "annee": "2021",
+   "mois": "2021-01",
+   "quantites_echangees": 98073155118,
+   "quantites_echangee_twh": 98.073155118
+  },
+  {
+   "annee": "2020",
+   "mois": "2020-06",
+   "quantites_echangees": 63291063256,
+   "quantites_echangee_twh": 63.291063256
+  },
+  {
+   "annee": "2024",
+   "mois": "2024-07",
+   "quantites_echangees": 74963970586,
+   "quantites_echangee_twh": 74.963970586
+  },
+  {
+   "annee": "2026",
+   "mois": "2026-07",
+   "quantites_echangees": 90377637163,
+   "quantites_echangee_twh": 90.377637163
+  },
+  {
+   "annee": "2021",
+   "mois": "2021-03",
+   "quantites_echangees": 102557404012,
+   "quantites_echangee_twh": 102.557404012
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-09",
+   "quantites_echangees": 68499126300,
+   "quantites_echangee_twh": 68.4991263
+  },
+  {
+   "annee": "2023",
+   "mois": "2023-11",
+   "quantites_echangees": 121215159600,
+   "quantites_echangee_twh": 121.2151596
+  },
+  {
+   "annee": "2021",
+   "mois": "2021-06",
+   "quantites_echangees": 67582174114,
+   "quantites_echangee_twh": 67.582174114
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-01",
+   "quantites_echangees": 4670000,
+   "quantites_echangee_twh": 4.67
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-02",
+   "quantites_echangees": 5110000,
+   "quantites_echangee_twh": 5.11
+  },
+  {
+   "annee": "2006",
+   "mois": "2006-05",
+   "quantites_echangees": 5520000,
+   "quantites_echangee_twh": 5.52
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-05",
+   "quantites_echangees": 10600000,
+   "quantites_echangee_twh": 10.6
+  },
+  {
+   "annee": "2008",
+   "mois": "2008-03",
+   "quantites_echangees": 11600000,
+   "quantites_echangee_twh": 11.6
+  },
+  {
+   "annee": "2008",
+   "mois": "2008-06",
+   "quantites_echangees": 11300000,
+   "quantites_echangee_twh": 11.3
+  },
+  {
+   "annee": "2008",
+   "mois": "2008-07",
+   "quantites_echangees": 11800000,
+   "quantites_echangee_twh": 11.8
+  },
+  {
+   "annee": "2009",
+   "mois": "2009-03",
+   "quantites_echangees": 21800000,
+   "quantites_echangee_twh": 21.8
+  },
+  {
+   "annee": "2009",
+   "mois": "2009-09",
+   "quantites_echangees": 22500000,
+   "quantites_echangee_twh": 22.5
+  },
+  {
+   "annee": "2009",
+   "mois": "2009-10",
+   "quantites_echangees": 21300000,
+   "quantites_echangee_twh": 21.3
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-01",
+   "quantites_echangees": 33000000,
+   "quantites_echangee_twh": 33.0
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-02",
+   "quantites_echangees": 32600000,
+   "quantites_echangee_twh": 32.6
+  },
+  {
+   "annee": "2011",
+   "mois": "2011-08",
+   "quantites_echangees": 39000000,
+   "quantites_echangee_twh": 39.0
+  },
+  {
+   "annee": "2012",
+   "mois": "2012-02",
+   "quantites_echangees": 49300000,
+   "quantites_echangee_twh": 49.3
+  },
+  {
+   "annee": "2012",
+   "mois": "2012-05",
+   "quantites_echangees": 37500000,
+   "quantites_echangee_twh": 37.5
+  },
+  {
+   "annee": "2012",
+   "mois": "2012-07",
+   "quantites_echangees": 40300000,
+   "quantites_echangee_twh": 40.3
+  },
+  {
+   "annee": "2012",
+   "mois": "2012-09",
+   "quantites_echangees": 41430000,
+   "quantites_echangee_twh": 41.43
+  },
+  {
+   "annee": "2012",
+   "mois": "2012-12",
+   "quantites_echangees": 49060000,
+   "quantites_echangee_twh": 49.06
+  },
+  {
+   "annee": "2013",
+   "mois": "2013-01",
+   "quantites_echangees": 57420000,
+   "quantites_echangee_twh": 57.42
+  },
+  {
+   "annee": "2013",
+   "mois": "2013-05",
+   "quantites_echangees": 46160000,
+   "quantites_echangee_twh": 46.16
+  },
+  {
+   "annee": "2013",
+   "mois": "2013-10",
+   "quantites_echangees": 51000000,
+   "quantites_echangee_twh": 51.0
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-04",
+   "quantites_echangees": 47400000,
+   "quantites_echangee_twh": 47.4
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-06",
+   "quantites_echangees": 40590000,
+   "quantites_echangee_twh": 40.59
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-10",
+   "quantites_echangees": 50870000,
+   "quantites_echangee_twh": 50.87
+  },
+  {
+   "annee": "2014",
+   "mois": "2014-12",
+   "quantites_echangees": 65650000,
+   "quantites_echangee_twh": 65.65
+  },
+  {
+   "annee": "2015",
+   "mois": "2015-03",
+   "quantites_echangees": 71360000,
+   "quantites_echangee_twh": 71.36
+  },
+  {
+   "annee": "2015",
+   "mois": "2015-12",
+   "quantites_echangees": 67510000,
+   "quantites_echangee_twh": 67.51
+  },
+  {
+   "annee": "2017",
+   "mois": "2017-07",
+   "quantites_echangees": 83250000,
+   "quantites_echangee_twh": 83.25
+  },
+  {
+   "annee": "2017",
+   "mois": "2017-08",
+   "quantites_echangees": 81750000,
+   "quantites_echangee_twh": 81.75
+  },
+  {
+   "annee": "2017",
+   "mois": "2017-09",
+   "quantites_echangees": 64535712,
+   "quantites_echangee_twh": 64.5357129
+  },
+  {
+   "annee": "2018",
+   "mois": "2018-03",
+   "quantites_echangees": 97892880,
+   "quantites_echangee_twh": 97.8928809
+  },
+  {
+   "annee": "2022",
+   "mois": "2022-07",
+   "quantites_echangees": 88371786707,
+   "quantites_echangee_twh": 88.371786707
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-03",
+   "quantites_echangees": 90652497294,
+   "quantites_echangee_twh": 90.652497294
+  },
+  {
+   "annee": "2021",
+   "mois": "2021-10",
+   "quantites_echangees": 93633842274,
+   "quantites_echangee_twh": 93.633842274
+  },
+  {
+   "annee": "2026",
+   "mois": "2026-02",
+   "quantites_echangees": 115125905414,
+   "quantites_echangee_twh": 115.125905414
+  },
+  {
+   "annee": "2023",
+   "mois": "2023-01",
+   "quantites_echangees": 123801001925,
+   "quantites_echangee_twh": 123.801001925
+  },
+  {
+   "annee": "2020",
+   "mois": "2020-09",
+   "quantites_echangees": 65714465872,
+   "quantites_echangee_twh": 65.714465872
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-02",
+   "quantites_echangees": 80449783593,
+   "quantites_echangee_twh": 80.449783593
+  },
+  {
+   "annee": "2022",
+   "mois": "2022-06",
+   "quantites_echangees": 75592971014,
+   "quantites_echangee_twh": 75.592971014
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-04",
+   "quantites_echangees": 70099535266,
+   "quantites_echangee_twh": 70.099535266
+  },
+  {
+   "annee": "2023",
+   "mois": "2023-08",
+   "quantites_echangees": 71792855599,
+   "quantites_echangee_twh": 71.792855599
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-06",
+   "quantites_echangees": 69264225797,
+   "quantites_echangee_twh": 69.264225797
+  },
+  {
+   "annee": "2024",
+   "mois": "2024-08",
+   "quantites_echangees": 79482152942,
+   "quantites_echangee_twh": 79.482152942
+  },
+  {
+   "annee": "2019",
+   "mois": "2019-08",
+   "quantites_echangees": 79906342131,
+   "quantites_echangee_twh": 79.906342131
+  },
+  {
+   "annee": "2018",
+   "mois": "2018-12",
+   "quantites_echangees": 80455938044,
+   "quantites_echangee_twh": 80.455938044
+  },
+  {
+   "annee": "2026",
+   "mois": "2026-08",
+   "quantites_echangees": 89976803826,
+   "quantites_echangee_twh": 89.976803826
+  },
+  {
+   "annee": "2021",
+   "mois": "2021-04",
+   "quantites_echangees": 82748105703,
+   "quantites_echangee_twh": 82.748105703
+  },
+  {
+   "annee": "2023",
+   "mois": "2023-06",
+   "quantites_echangees": 74305932216,
+   "quantites_echangee_twh": 74.305932216
+  },
+  {
+   "annee": "2026",
+   "mois": "2026-03",
+   "quantites_echangees": 127727838997,
+   "quantites_echangee_twh": 127.727838997
+  },
+  {
+   "annee": "2023",
+   "mois": "2023-09",
+   "quantites_echangees": 76613331263,
+   "quantites_echangee_twh": 76.613331263
+  },
+  {
+   "annee": "2024",
+   "mois": "2024-12",
+   "quantites_echangees": 115723737584,
+   "quantites_echangee_twh": 115.723737584
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-09",
+   "quantites_echangees": 8700000,
+   "quantites_echangee_twh": 8.7
+  },
+  {
+   "annee": "2007",
+   "mois": "2007-12",
+   "quantites_echangees": 13200000,
+   "quantites_echangee_twh": 13.2
+  }
+ ],
+ "prod-nat-gaz-horaire-def": [
+  {
+   "date": "2018-01-20",
+   "operateur": "NaTran",
+   "statut": "Définitif",
+   "00_00_00": 7.662,
+   "01_00_00": 7.556,
+   "02_00_00": 7.516,
+   "03_00_00": 7.395,
+   "04_00_00": 7.427,
+   "05_00_00": 7.352,
+   "06_00_00": 6.141,
+   "07_00_00": 6.221,
+   "08_00_00": 6.381,
+   "09_00_00": 7.744,
+   "10_00_00": 7.997,
+   "11_00_00": 7.981,
+   "12_00_00": 7.623,
+   "13_00_00": 6.236,
+   "14_00_00": 6.161,
+   "15_00_00": 6.115,
+   "16_00_00": 6.053,
+   "17_00_00": 6.099,
+   "18_00_00": 5.998,
+   "19_00_00": 7.249,
+   "20_00_00": 7.948,
+   "21_00_00": 7.769,
+   "22_00_00": 7.664,
+   "23_00_00": 7.744,
+   "secteur_d_activite": "Producteur",
+   "conso_journaliere_mwh_pcs_0degc": 170.032
+  },
+  {
+   "date": "2018-02-01",
+   "operateur": "NaTran",
+   "statut": "Définitif",
+   "00_00_00": 10.748,
+   "01_00_00": 10.699,
+   "02_00_00": 10.642,
+   "03_00_00": 10.603,
+   "04_00_00": 10.573,
+   "05_00_00": 10.461,
+   "06_00_00": 10.433,
+   "07_00_00": 10.649,
+   "08_00_00": 10.668,
+   "09_00_00": 10.708,
+   "10_00_00": 10.897,
+   "11_00_00": 10.796,
+   "12_00_00": 10.855,
+   "13_00_00": 10.934,
+   "14_00_00": 10.898,
+   "15_00_00": 11.013,
+   "16_00_00": 10.998,
+   "17_00_00": 11.043,
+   "18_00_00": 11.009,
+   "19_00_00": 10.839,
+   "20_00_00": 10.817,
+   "21_00_00": 10.793,
+   "22_00_00": 10.801,
+   "23_00_00": 10.761,
+   "secteur_d_activite": "Producteur",
+   "conso_journaliere_mwh_pcs_0degc": 258.638
+  },
+  {
+   "date": "2018-02-17",
+   "operateur": "NaTran",
+   "statut": "Définitif",
+   "00_00_00": 8.746,
+   "01_00_00": 8.871,
+   "02_00_00": 8.864,
+   "03_00_00": 8.983,
+   "04_00_00": 6.662,
+   "05_00_00": 8.605,
+   "06_00_00": 10.682,
+   "07_00_00": 12.547,
+   "08_00_00": 12.299,
+   "09_00_00": 12.606,
+   "10_00_00": 12.382,
+   "11_00_00": 12.619,
+   "12_00_00": 12.645,
+   "13_00_00": 12.173,
+   "14_00_00": 11.83,
+   "15_00_00": 11.878,
+   "16_00_00": 11.955,
+   "17_00_00": 12.122,
+   "18_00_00": 11.898,
+   "19_00_00": 9.387,
+   "20_00_00": 10.415,
+   "21_00_00": 9.111,
+   "22_00_00": 8.805,
+   "23_00_00": 9.2,
+   "secteur_d_activite": "Producteur",
+   "conso_journaliere_mwh_pcs_0degc": 255.285
+  }
+ ]
+}

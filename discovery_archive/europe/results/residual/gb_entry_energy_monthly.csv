@@ -1,0 +1,2006 @@
+item,month,sum,n
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-01,4051643855.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-02,1652409686.0,28
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-03,113499144.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-04,0.0,30
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-05,0.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-06,0.0,30
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-07,0.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-08,0.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-09,0.0,30
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-10,28120433.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-11,83997560.0,30
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2025-12,150853827.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-01,760971412.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-02,42284026.0,28
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-03,20741461.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-04,0.0,30
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-05,0.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-06,0.0,30
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-07,0.0,31
+"System Entry Energy, Aggregate Physical Energy, Interconnector M+15",2026-08,0.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-01,23258602605.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-02,25142877483.0,28
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-03,18343623132.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-04,5785413489.0,30
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-05,3513203198.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-06,2837712677.0,30
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-07,2320461230.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-08,1827551063.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-09,2088658150.0,30
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-10,7960520490.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-11,18390782105.0,30
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2025-12,18412484899.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-01,30599029180.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-02,28041674167.0,28
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-03,17777547206.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-04,3291221211.0,30
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-05,3039821330.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-06,2240553144.0,30
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-07,2124568323.0,31
+"System Entry Energy, Aggregate Physical Energy, LNG Importation, M+15",2026-08,1750739726.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-01,13320876088.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-02,6162947455.0,28
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-03,3976488782.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-04,5032282684.0,30
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-05,3606673742.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-06,4088009967.0,30
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-07,2574203813.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-08,2877079446.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-09,3611310986.0,30
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-10,1829640851.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-11,4306754235.0,30
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2025-12,3574558979.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-01,7768954205.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-02,5620275355.0,28
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-03,1167066023.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-04,4615080481.0,30
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-05,5052215597.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-06,2705845723.0,30
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-07,824075973.0,31
+"System Entry Energy, Aggregate Physical Energy, Storage Withdrawal, M+15",2026-08,2007361407.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-01,63818387146.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-02,53440288956.0,28
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-03,55624171769.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-04,47702583785.0,30
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-05,43359169603.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-06,37643941255.0,30
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-07,48250552707.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-08,42266671219.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-09,43349620620.0,30
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-10,52626147244.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-11,55791975815.0,30
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2025-12,60567830762.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-01,60940204585.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-02,48138694720.0,28
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-03,54972968374.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-04,46814340366.0,30
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-05,40060388696.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-06,45119883648.0,30
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-07,49115842580.0,31
+"System Entry Energy, Aggregate Physical Energy, Subterminal, M+15",2026-08,44781043297.0,31
+"System Entry Energy, Aldbrough, D+2",2025-01,1608904581.0,31
+"System Entry Energy, Aldbrough, D+2",2025-02,1331558978.0,28
+"System Entry Energy, Aldbrough, D+2",2025-03,544073163.0,31
+"System Entry Energy, Aldbrough, D+2",2025-04,1619425726.0,30
+"System Entry Energy, Aldbrough, D+2",2025-05,740372163.0,31
+"System Entry Energy, Aldbrough, D+2",2025-06,810903334.0,30
+"System Entry Energy, Aldbrough, D+2",2025-07,1028905307.0,31
+"System Entry Energy, Aldbrough, D+2",2025-08,697782348.0,31
+"System Entry Energy, Aldbrough, D+2",2025-09,1943230184.0,30
+"System Entry Energy, Aldbrough, D+2",2025-10,1221095997.0,31
+"System Entry Energy, Aldbrough, D+2",2025-11,646157141.0,30
+"System Entry Energy, Aldbrough, D+2",2025-12,1261959752.0,31
+"System Entry Energy, Aldbrough, D+2",2026-01,1575576593.0,31
+"System Entry Energy, Aldbrough, D+2",2026-02,1339086312.0,28
+"System Entry Energy, Aldbrough, D+2",2026-03,828785797.0,31
+"System Entry Energy, Aldbrough, D+2",2026-04,673663534.0,30
+"System Entry Energy, Aldbrough, D+2",2026-05,1162602906.0,31
+"System Entry Energy, Aldbrough, D+2",2026-06,934207141.0,30
+"System Entry Energy, Aldbrough, D+2",2026-07,192996262.0,31
+"System Entry Energy, Aldbrough, D+2",2026-08,676562152.0,31
+"System Entry Energy, Aldbrough, D+2",2026-09,1451988431.0,30
+"System Entry Energy, Aldbrough, M+15",2025-01,1608904581.0,31
+"System Entry Energy, Aldbrough, M+15",2025-02,1331558978.0,28
+"System Entry Energy, Aldbrough, M+15",2025-03,544073163.0,31
+"System Entry Energy, Aldbrough, M+15",2025-04,1619425726.0,30
+"System Entry Energy, Aldbrough, M+15",2025-05,740372163.0,31
+"System Entry Energy, Aldbrough, M+15",2025-06,810903334.0,30
+"System Entry Energy, Aldbrough, M+15",2025-07,1028905307.0,31
+"System Entry Energy, Aldbrough, M+15",2025-08,697782348.0,31
+"System Entry Energy, Aldbrough, M+15",2025-09,1943230184.0,30
+"System Entry Energy, Aldbrough, M+15",2025-10,1221095997.0,31
+"System Entry Energy, Aldbrough, M+15",2025-11,646157141.0,30
+"System Entry Energy, Aldbrough, M+15",2025-12,1261959752.0,31
+"System Entry Energy, Aldbrough, M+15",2026-01,1575576593.0,31
+"System Entry Energy, Aldbrough, M+15",2026-02,1339086312.0,28
+"System Entry Energy, Aldbrough, M+15",2026-03,828785797.0,31
+"System Entry Energy, Aldbrough, M+15",2026-04,673663534.0,30
+"System Entry Energy, Aldbrough, M+15",2026-05,1162602906.0,31
+"System Entry Energy, Aldbrough, M+15",2026-06,934207141.0,30
+"System Entry Energy, Aldbrough, M+15",2026-07,192996262.0,31
+"System Entry Energy, Aldbrough, M+15",2026-08,676562152.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-01,1415483212.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-02,427148130.0,28
+"System Entry Energy, Bacton - BBL, D+2",2025-03,22892973.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-04,2003003.0,30
+"System Entry Energy, Bacton - BBL, D+2",2025-05,889601.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-06,16690091.0,30
+"System Entry Energy, Bacton - BBL, D+2",2025-07,0.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-08,24.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-09,11771772.0,30
+"System Entry Energy, Bacton - BBL, D+2",2025-10,60976182.0,31
+"System Entry Energy, Bacton - BBL, D+2",2025-11,57657660.0,30
+"System Entry Energy, Bacton - BBL, D+2",2025-12,59579582.0,31
+"System Entry Energy, Bacton - BBL, D+2",2026-01,294081633.0,31
+"System Entry Energy, Bacton - BBL, D+2",2026-02,59808319.0,28
+"System Entry Energy, Bacton - BBL, D+2",2026-03,50828823.0,31
+"System Entry Energy, Bacton - BBL, D+2",2026-04,0.0,30
+"System Entry Energy, Bacton - BBL, D+2",2026-05,0.0,31
+"System Entry Energy, Bacton - BBL, D+2",2026-06,0.0,30
+"System Entry Energy, Bacton - BBL, D+2",2026-07,0.0,31
+"System Entry Energy, Bacton - BBL, D+2",2026-08,0.0,31
+"System Entry Energy, Bacton - BBL, D+2",2026-09,1316520.0,30
+"System Entry Energy, Bacton - BBL, M+15",2025-01,1415483212.0,31
+"System Entry Energy, Bacton - BBL, M+15",2025-02,427148130.0,28
+"System Entry Energy, Bacton - BBL, M+15",2025-03,22892973.0,31
+"System Entry Energy, Bacton - BBL, M+15",2025-04,2003003.0,30
+"System Entry Energy, Bacton - BBL, M+15",2025-05,889601.0,31
+"System Entry Energy, Bacton - BBL, M+15",2025-06,16690091.0,30
+"System Entry Energy, Bacton - BBL, M+15",2025-07,0.0,31
+"System Entry Energy, Bacton - BBL, M+15",2025-08,24.0,31
+"System Entry Energy, Bacton - BBL, M+15",2025-09,11771772.0,30
+"System Entry Energy, Bacton - BBL, M+15",2025-10,60976182.0,31
+"System Entry Energy, Bacton - BBL, M+15",2025-11,57657660.0,30
+"System Entry Energy, Bacton - BBL, M+15",2025-12,59579582.0,31
+"System Entry Energy, Bacton - BBL, M+15",2026-01,294081633.0,31
+"System Entry Energy, Bacton - BBL, M+15",2026-02,59808319.0,28
+"System Entry Energy, Bacton - BBL, M+15",2026-03,50828823.0,31
+"System Entry Energy, Bacton - BBL, M+15",2026-04,0.0,30
+"System Entry Energy, Bacton - BBL, M+15",2026-05,0.0,31
+"System Entry Energy, Bacton - BBL, M+15",2026-06,0.0,30
+"System Entry Energy, Bacton - BBL, M+15",2026-07,0.0,31
+"System Entry Energy, Bacton - BBL, M+15",2026-08,0.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-01,3010487835.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-02,2588583779.0,28
+"System Entry Energy, Bacton - Perenco, D+2",2025-03,2745444946.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-04,2244292080.0,30
+"System Entry Energy, Bacton - Perenco, D+2",2025-05,2565692055.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-06,2430024693.0,30
+"System Entry Energy, Bacton - Perenco, D+2",2025-07,2426252420.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-08,1247415444.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-09,1715819779.0,30
+"System Entry Energy, Bacton - Perenco, D+2",2025-10,2131270278.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2025-11,2404158056.0,30
+"System Entry Energy, Bacton - Perenco, D+2",2025-12,2496116138.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2026-01,2251237918.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2026-02,1951577751.0,28
+"System Entry Energy, Bacton - Perenco, D+2",2026-03,2219243473.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2026-04,2115348749.0,30
+"System Entry Energy, Bacton - Perenco, D+2",2026-05,2400878276.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2026-06,2369140946.0,30
+"System Entry Energy, Bacton - Perenco, D+2",2026-07,2561036698.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2026-08,2440238362.0,31
+"System Entry Energy, Bacton - Perenco, D+2",2026-09,1071699752.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2025-01,3010487835.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2025-02,2588583779.0,28
+"System Entry Energy, Bacton - Perenco, M+15",2025-03,2745444946.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2025-04,2244292080.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2025-05,2565692055.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2025-06,2430024693.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2025-07,2426252420.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2025-08,1247415444.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2025-09,1715819779.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2025-10,2131270278.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2025-11,2404158056.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2025-12,2496116138.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2026-01,2251237918.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2026-02,1951577751.0,28
+"System Entry Energy, Bacton - Perenco, M+15",2026-03,2219243473.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2026-04,2115348749.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2026-05,2400878276.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2026-06,2369140946.0,30
+"System Entry Energy, Bacton - Perenco, M+15",2026-07,2561036698.0,31
+"System Entry Energy, Bacton - Perenco, M+15",2026-08,2440238362.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-01,1412486793.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-02,1137567869.0,28
+"System Entry Energy, Bacton - Shell, D+2",2025-03,1618420166.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-04,1544367575.0,30
+"System Entry Energy, Bacton - Shell, D+2",2025-05,1491102731.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-06,1336065465.0,30
+"System Entry Energy, Bacton - Shell, D+2",2025-07,8606138.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-08,1053412329.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-09,1432795135.0,30
+"System Entry Energy, Bacton - Shell, D+2",2025-10,1565148402.0,31
+"System Entry Energy, Bacton - Shell, D+2",2025-11,1249221972.0,30
+"System Entry Energy, Bacton - Shell, D+2",2025-12,1083280679.0,31
+"System Entry Energy, Bacton - Shell, D+2",2026-01,1092301588.0,31
+"System Entry Energy, Bacton - Shell, D+2",2026-02,1376449268.0,28
+"System Entry Energy, Bacton - Shell, D+2",2026-03,1395192446.0,31
+"System Entry Energy, Bacton - Shell, D+2",2026-04,1425020570.0,30
+"System Entry Energy, Bacton - Shell, D+2",2026-05,902738550.0,31
+"System Entry Energy, Bacton - Shell, D+2",2026-06,1353053159.0,30
+"System Entry Energy, Bacton - Shell, D+2",2026-07,1461896421.0,31
+"System Entry Energy, Bacton - Shell, D+2",2026-08,1247848334.0,31
+"System Entry Energy, Bacton - Shell, D+2",2026-09,1283070548.0,30
+"System Entry Energy, Bacton - Shell, M+15",2025-01,1412486793.0,31
+"System Entry Energy, Bacton - Shell, M+15",2025-02,1137567869.0,28
+"System Entry Energy, Bacton - Shell, M+15",2025-03,1618420166.0,31
+"System Entry Energy, Bacton - Shell, M+15",2025-04,1544367575.0,30
+"System Entry Energy, Bacton - Shell, M+15",2025-05,1491102731.0,31
+"System Entry Energy, Bacton - Shell, M+15",2025-06,1336065465.0,30
+"System Entry Energy, Bacton - Shell, M+15",2025-07,8606138.0,31
+"System Entry Energy, Bacton - Shell, M+15",2025-08,1053412329.0,31
+"System Entry Energy, Bacton - Shell, M+15",2025-09,1432795135.0,30
+"System Entry Energy, Bacton - Shell, M+15",2025-10,1565148402.0,31
+"System Entry Energy, Bacton - Shell, M+15",2025-11,1249221972.0,30
+"System Entry Energy, Bacton - Shell, M+15",2025-12,1083280679.0,31
+"System Entry Energy, Bacton - Shell, M+15",2026-01,1092301588.0,31
+"System Entry Energy, Bacton - Shell, M+15",2026-02,1376449268.0,28
+"System Entry Energy, Bacton - Shell, M+15",2026-03,1395192446.0,31
+"System Entry Energy, Bacton - Shell, M+15",2026-04,1425020570.0,30
+"System Entry Energy, Bacton - Shell, M+15",2026-05,902738550.0,31
+"System Entry Energy, Bacton - Shell, M+15",2026-06,1353053159.0,30
+"System Entry Energy, Bacton - Shell, M+15",2026-07,1461896421.0,31
+"System Entry Energy, Bacton - Shell, M+15",2026-08,1247848334.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-01,2661300308.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-02,1471896558.0,28
+"System Entry Energy, Bacton Interconnector, D+2",2025-03,348215603.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-04,72035250.0,30
+"System Entry Energy, Bacton Interconnector, D+2",2025-05,176430105.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-06,127401292.0,30
+"System Entry Energy, Bacton Interconnector, D+2",2025-07,43526753.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-08,57658059.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-09,83756161.0,30
+"System Entry Energy, Bacton Interconnector, D+2",2025-10,13990090.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2025-11,62726724.0,30
+"System Entry Energy, Bacton Interconnector, D+2",2025-12,155457000.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2026-01,719620420.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2026-02,163200332.0,28
+"System Entry Energy, Bacton Interconnector, D+2",2026-03,172772638.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2026-04,38010810.0,30
+"System Entry Energy, Bacton Interconnector, D+2",2026-05,58266822.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2026-06,143152392.0,30
+"System Entry Energy, Bacton Interconnector, D+2",2026-07,54291267.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2026-08,96136695.0,31
+"System Entry Energy, Bacton Interconnector, D+2",2026-09,136605652.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2025-01,2661300308.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2025-02,1471896558.0,28
+"System Entry Energy, Bacton Interconnector, M+15",2025-03,348215603.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2025-04,72035250.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2025-05,176430105.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2025-06,127401292.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2025-07,43526753.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2025-08,57658059.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2025-09,83756161.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2025-10,13990090.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2025-11,62726724.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2025-12,155457000.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2026-01,719620420.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2026-02,163200332.0,28
+"System Entry Energy, Bacton Interconnector, M+15",2026-03,172772638.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2026-04,38010810.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2026-05,58266822.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2026-06,143152392.0,30
+"System Entry Energy, Bacton Interconnector, M+15",2026-07,54291267.0,31
+"System Entry Energy, Bacton Interconnector, M+15",2026-08,96136695.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-01,1807069445.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-02,1599766667.0,28
+"System Entry Energy, Bacton Seal, D+2",2025-03,1831486113.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-04,1594905555.0,30
+"System Entry Energy, Bacton Seal, D+2",2025-05,1701369441.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-06,1488302773.0,30
+"System Entry Energy, Bacton Seal, D+2",2025-07,1452002777.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-08,175580555.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-09,1439205557.0,30
+"System Entry Energy, Bacton Seal, D+2",2025-10,1711936111.0,31
+"System Entry Energy, Bacton Seal, D+2",2025-11,1644666665.0,30
+"System Entry Energy, Bacton Seal, D+2",2025-12,1603224999.0,31
+"System Entry Energy, Bacton Seal, D+2",2026-01,1557313886.0,31
+"System Entry Energy, Bacton Seal, D+2",2026-02,1473780550.0,28
+"System Entry Energy, Bacton Seal, D+2",2026-03,1184883329.0,31
+"System Entry Energy, Bacton Seal, D+2",2026-04,1480202773.0,30
+"System Entry Energy, Bacton Seal, D+2",2026-05,1331605553.0,31
+"System Entry Energy, Bacton Seal, D+2",2026-06,1346622219.0,30
+"System Entry Energy, Bacton Seal, D+2",2026-07,1580119440.0,31
+"System Entry Energy, Bacton Seal, D+2",2026-08,1312611108.0,31
+"System Entry Energy, Bacton Seal, D+2",2026-09,1579208330.0,30
+"System Entry Energy, Bacton Seal, M+15",2025-01,1807069445.0,31
+"System Entry Energy, Bacton Seal, M+15",2025-02,1599766667.0,28
+"System Entry Energy, Bacton Seal, M+15",2025-03,1831486113.0,31
+"System Entry Energy, Bacton Seal, M+15",2025-04,1594905555.0,30
+"System Entry Energy, Bacton Seal, M+15",2025-05,1701369441.0,31
+"System Entry Energy, Bacton Seal, M+15",2025-06,1488302773.0,30
+"System Entry Energy, Bacton Seal, M+15",2025-07,1452002777.0,31
+"System Entry Energy, Bacton Seal, M+15",2025-08,175580555.0,31
+"System Entry Energy, Bacton Seal, M+15",2025-09,1439205557.0,30
+"System Entry Energy, Bacton Seal, M+15",2025-10,1711936111.0,31
+"System Entry Energy, Bacton Seal, M+15",2025-11,1644666665.0,30
+"System Entry Energy, Bacton Seal, M+15",2025-12,1603224999.0,31
+"System Entry Energy, Bacton Seal, M+15",2026-01,1557313886.0,31
+"System Entry Energy, Bacton Seal, M+15",2026-02,1473780550.0,28
+"System Entry Energy, Bacton Seal, M+15",2026-03,1184883329.0,31
+"System Entry Energy, Bacton Seal, M+15",2026-04,1480202773.0,30
+"System Entry Energy, Bacton Seal, M+15",2026-05,1331605553.0,31
+"System Entry Energy, Bacton Seal, M+15",2026-06,1346622219.0,30
+"System Entry Energy, Bacton Seal, M+15",2026-07,1580119440.0,31
+"System Entry Energy, Bacton Seal, M+15",2026-08,1312611108.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-01,1410068560.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-02,426517402.0,28
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-03,22593397.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-04,0.0,30
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-05,0.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-06,0.0,30
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-07,0.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-08,0.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-09,0.0,30
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-10,28120433.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-11,56968847.0,30
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2025-12,56654568.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-01,293100932.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-02,42284026.0,28
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-03,0.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-04,0.0,30
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-05,0.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-06,0.0,30
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-07,0.0,31
+"System Entry Energy, Bacton-BBLInterconnector, M+15",2026-08,0.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-01,3010487835.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-02,2588583779.0,28
+"System Entry Energy, Bacton-Perenco, M+15",2025-03,2745444946.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-04,2244292080.0,30
+"System Entry Energy, Bacton-Perenco, M+15",2025-05,2565692055.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-06,2430024693.0,30
+"System Entry Energy, Bacton-Perenco, M+15",2025-07,2426252420.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-08,1247415444.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-09,1715819779.0,30
+"System Entry Energy, Bacton-Perenco, M+15",2025-10,2131270278.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2025-11,2404158056.0,30
+"System Entry Energy, Bacton-Perenco, M+15",2025-12,2496116138.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2026-01,2251237918.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2026-02,1951577751.0,28
+"System Entry Energy, Bacton-Perenco, M+15",2026-03,2219243473.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2026-04,2115348749.0,30
+"System Entry Energy, Bacton-Perenco, M+15",2026-05,2400878276.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2026-06,2369140946.0,30
+"System Entry Energy, Bacton-Perenco, M+15",2026-07,2561036698.0,31
+"System Entry Energy, Bacton-Perenco, M+15",2026-08,2440238362.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-01,1413214768.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-02,1137567869.0,28
+"System Entry Energy, Bacton-Shell, M+15",2025-03,1618420166.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-04,1544367575.0,30
+"System Entry Energy, Bacton-Shell, M+15",2025-05,1491102731.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-06,1336065465.0,30
+"System Entry Energy, Bacton-Shell, M+15",2025-07,8606138.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-08,1053412329.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-09,1432795135.0,30
+"System Entry Energy, Bacton-Shell, M+15",2025-10,1565148402.0,31
+"System Entry Energy, Bacton-Shell, M+15",2025-11,1249221972.0,30
+"System Entry Energy, Bacton-Shell, M+15",2025-12,1083280679.0,31
+"System Entry Energy, Bacton-Shell, M+15",2026-01,1092301588.0,31
+"System Entry Energy, Bacton-Shell, M+15",2026-02,1376449268.0,28
+"System Entry Energy, Bacton-Shell, M+15",2026-03,1395192446.0,31
+"System Entry Energy, Bacton-Shell, M+15",2026-04,1425020570.0,30
+"System Entry Energy, Bacton-Shell, M+15",2026-05,902738550.0,31
+"System Entry Energy, Bacton-Shell, M+15",2026-06,1353053159.0,30
+"System Entry Energy, Bacton-Shell, M+15",2026-07,1461896421.0,31
+"System Entry Energy, Bacton-Shell, M+15",2026-08,1247848334.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-01,2641575295.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-02,1225892284.0,28
+"System Entry Energy, BactonInterconnector, M+15",2025-03,90905747.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-04,0.0,30
+"System Entry Energy, BactonInterconnector, M+15",2025-05,0.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-06,0.0,30
+"System Entry Energy, BactonInterconnector, M+15",2025-07,0.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-08,0.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-09,0.0,30
+"System Entry Energy, BactonInterconnector, M+15",2025-10,0.0,31
+"System Entry Energy, BactonInterconnector, M+15",2025-11,27028713.0,30
+"System Entry Energy, BactonInterconnector, M+15",2025-12,94199259.0,31
+"System Entry Energy, BactonInterconnector, M+15",2026-01,467870480.0,31
+"System Entry Energy, BactonInterconnector, M+15",2026-02,0.0,28
+"System Entry Energy, BactonInterconnector, M+15",2026-03,20741461.0,31
+"System Entry Energy, BactonInterconnector, M+15",2026-04,0.0,30
+"System Entry Energy, BactonInterconnector, M+15",2026-05,0.0,31
+"System Entry Energy, BactonInterconnector, M+15",2026-06,0.0,30
+"System Entry Energy, BactonInterconnector, M+15",2026-07,0.0,31
+"System Entry Energy, BactonInterconnector, M+15",2026-08,0.0,31
+"System Entry Energy, BactonSeal, M+15",2025-01,1807069445.0,31
+"System Entry Energy, BactonSeal, M+15",2025-02,1599766667.0,28
+"System Entry Energy, BactonSeal, M+15",2025-03,1831486113.0,31
+"System Entry Energy, BactonSeal, M+15",2025-04,1594905555.0,30
+"System Entry Energy, BactonSeal, M+15",2025-05,1701369441.0,31
+"System Entry Energy, BactonSeal, M+15",2025-06,1488302773.0,30
+"System Entry Energy, BactonSeal, M+15",2025-07,1452002777.0,31
+"System Entry Energy, BactonSeal, M+15",2025-08,175580555.0,31
+"System Entry Energy, BactonSeal, M+15",2025-09,1439205557.0,30
+"System Entry Energy, BactonSeal, M+15",2025-10,1711936111.0,31
+"System Entry Energy, BactonSeal, M+15",2025-11,1644666665.0,30
+"System Entry Energy, BactonSeal, M+15",2025-12,1603224999.0,31
+"System Entry Energy, BactonSeal, M+15",2026-01,1557313886.0,31
+"System Entry Energy, BactonSeal, M+15",2026-02,1473780550.0,28
+"System Entry Energy, BactonSeal, M+15",2026-03,1184883329.0,31
+"System Entry Energy, BactonSeal, M+15",2026-04,1480202773.0,30
+"System Entry Energy, BactonSeal, M+15",2026-05,1331605553.0,31
+"System Entry Energy, BactonSeal, M+15",2026-06,1346622219.0,30
+"System Entry Energy, BactonSeal, M+15",2026-07,1580119440.0,31
+"System Entry Energy, BactonSeal, M+15",2026-08,1312611108.0,31
+"System Entry Energy, Barrow , D+2",2025-01,670724522.0,31
+"System Entry Energy, Barrow , D+2",2025-02,567610653.0,28
+"System Entry Energy, Barrow , D+2",2025-03,432831077.0,31
+"System Entry Energy, Barrow , D+2",2025-04,554860096.0,30
+"System Entry Energy, Barrow , D+2",2025-05,917233926.0,31
+"System Entry Energy, Barrow , D+2",2025-06,848380648.0,30
+"System Entry Energy, Barrow , D+2",2025-07,696006153.0,31
+"System Entry Energy, Barrow , D+2",2025-08,1108190548.0,31
+"System Entry Energy, Barrow , D+2",2025-09,138929694.0,30
+"System Entry Energy, Barrow , D+2",2025-10,0.0,31
+"System Entry Energy, Barrow , D+2",2025-11,0.0,30
+"System Entry Energy, Barrow , D+2",2025-12,71264451.0,31
+"System Entry Energy, Barrow , D+2",2026-01,264474637.0,31
+"System Entry Energy, Barrow , D+2",2026-02,83335211.0,28
+"System Entry Energy, Barrow , D+2",2026-03,519938707.0,31
+"System Entry Energy, Barrow , D+2",2026-04,886580176.0,30
+"System Entry Energy, Barrow , D+2",2026-05,156128222.0,31
+"System Entry Energy, Barrow , D+2",2026-06,0.0,30
+"System Entry Energy, Barrow , D+2",2026-07,326733769.0,31
+"System Entry Energy, Barrow , D+2",2026-08,34413447.0,31
+"System Entry Energy, Barrow , D+2",2026-09,672246342.0,30
+"System Entry Energy, Barrow , M+15",2025-01,670724522.0,31
+"System Entry Energy, Barrow , M+15",2025-02,567610653.0,28
+"System Entry Energy, Barrow , M+15",2025-03,432831077.0,31
+"System Entry Energy, Barrow , M+15",2025-04,554860096.0,30
+"System Entry Energy, Barrow , M+15",2025-05,917233926.0,31
+"System Entry Energy, Barrow , M+15",2025-06,848380648.0,30
+"System Entry Energy, Barrow , M+15",2025-07,696006153.0,31
+"System Entry Energy, Barrow , M+15",2025-08,1108190548.0,31
+"System Entry Energy, Barrow , M+15",2025-09,138929694.0,30
+"System Entry Energy, Barrow , M+15",2025-10,0.0,31
+"System Entry Energy, Barrow , M+15",2025-11,0.0,30
+"System Entry Energy, Barrow , M+15",2025-12,71264451.0,31
+"System Entry Energy, Barrow , M+15",2026-01,264474637.0,31
+"System Entry Energy, Barrow , M+15",2026-02,83335211.0,28
+"System Entry Energy, Barrow , M+15",2026-03,519938707.0,31
+"System Entry Energy, Barrow , M+15",2026-04,886580176.0,30
+"System Entry Energy, Barrow , M+15",2026-05,156128222.0,31
+"System Entry Energy, Barrow , M+15",2026-06,0.0,30
+"System Entry Energy, Barrow , M+15",2026-07,326733769.0,31
+"System Entry Energy, Barrow , M+15",2026-08,34413447.0,31
+"System Entry Energy, Barrow, M+15",2025-01,670724522.0,31
+"System Entry Energy, Barrow, M+15",2025-02,567610653.0,28
+"System Entry Energy, Barrow, M+15",2025-03,432831077.0,31
+"System Entry Energy, Barrow, M+15",2025-04,554860096.0,30
+"System Entry Energy, Barrow, M+15",2025-05,917233926.0,31
+"System Entry Energy, Barrow, M+15",2025-06,848380648.0,30
+"System Entry Energy, Barrow, M+15",2025-07,696006153.0,31
+"System Entry Energy, Barrow, M+15",2025-08,1108190548.0,31
+"System Entry Energy, Barrow, M+15",2025-09,138929694.0,30
+"System Entry Energy, Barrow, M+15",2025-10,0.0,31
+"System Entry Energy, Barrow, M+15",2025-11,0.0,30
+"System Entry Energy, Barrow, M+15",2025-12,71264451.0,31
+"System Entry Energy, Barrow, M+15",2026-01,264474637.0,31
+"System Entry Energy, Barrow, M+15",2026-02,83335211.0,28
+"System Entry Energy, Barrow, M+15",2026-03,519938707.0,31
+"System Entry Energy, Barrow, M+15",2026-04,886580176.0,30
+"System Entry Energy, Barrow, M+15",2026-05,156128222.0,31
+"System Entry Energy, Barrow, M+15",2026-06,0.0,30
+"System Entry Energy, Barrow, M+15",2026-07,326733769.0,31
+"System Entry Energy, Barrow, M+15",2026-08,34413447.0,31
+"System Entry Energy, Burton Point, D+2",2025-01,0.0,31
+"System Entry Energy, Burton Point, D+2",2025-02,0.0,28
+"System Entry Energy, Burton Point, D+2",2025-03,0.0,31
+"System Entry Energy, Burton Point, D+2",2025-04,0.0,30
+"System Entry Energy, Burton Point, D+2",2025-05,0.0,31
+"System Entry Energy, Burton Point, D+2",2025-06,0.0,30
+"System Entry Energy, Burton Point, D+2",2025-07,0.0,31
+"System Entry Energy, Burton Point, D+2",2025-08,0.0,31
+"System Entry Energy, Burton Point, D+2",2025-09,0.0,30
+"System Entry Energy, Burton Point, D+2",2025-10,0.0,31
+"System Entry Energy, Burton Point, D+2",2025-11,0.0,30
+"System Entry Energy, Burton Point, D+2",2025-12,0.0,31
+"System Entry Energy, Burton Point, D+2",2026-01,0.0,31
+"System Entry Energy, Burton Point, D+2",2026-02,0.0,28
+"System Entry Energy, Burton Point, D+2",2026-03,0.0,31
+"System Entry Energy, Burton Point, D+2",2026-04,0.0,30
+"System Entry Energy, Burton Point, D+2",2026-05,0.0,31
+"System Entry Energy, Burton Point, D+2",2026-06,0.0,30
+"System Entry Energy, Burton Point, D+2",2026-07,0.0,31
+"System Entry Energy, Burton Point, D+2",2026-08,0.0,31
+"System Entry Energy, Burton Point, D+2",2026-09,0.0,30
+"System Entry Energy, Burton Point, M+15",2025-01,0.0,31
+"System Entry Energy, Burton Point, M+15",2025-02,0.0,28
+"System Entry Energy, Burton Point, M+15",2025-03,0.0,31
+"System Entry Energy, Burton Point, M+15",2025-04,0.0,30
+"System Entry Energy, Burton Point, M+15",2025-05,0.0,31
+"System Entry Energy, Burton Point, M+15",2025-06,0.0,30
+"System Entry Energy, Burton Point, M+15",2025-07,0.0,31
+"System Entry Energy, Burton Point, M+15",2025-08,0.0,31
+"System Entry Energy, Burton Point, M+15",2025-09,0.0,30
+"System Entry Energy, Burton Point, M+15",2025-10,0.0,31
+"System Entry Energy, Burton Point, M+15",2025-11,0.0,30
+"System Entry Energy, Burton Point, M+15",2025-12,0.0,31
+"System Entry Energy, Burton Point, M+15",2026-01,0.0,31
+"System Entry Energy, Burton Point, M+15",2026-02,0.0,28
+"System Entry Energy, Burton Point, M+15",2026-03,0.0,31
+"System Entry Energy, Burton Point, M+15",2026-04,0.0,30
+"System Entry Energy, Burton Point, M+15",2026-05,0.0,31
+"System Entry Energy, Burton Point, M+15",2026-06,0.0,30
+"System Entry Energy, Burton Point, M+15",2026-07,0.0,31
+"System Entry Energy, Burton Point, M+15",2026-08,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-01,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-02,0.0,28
+"System Entry Energy, BurtonPoint, M+15",2025-03,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-04,0.0,30
+"System Entry Energy, BurtonPoint, M+15",2025-05,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-06,0.0,30
+"System Entry Energy, BurtonPoint, M+15",2025-07,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-08,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-09,0.0,30
+"System Entry Energy, BurtonPoint, M+15",2025-10,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2025-11,0.0,30
+"System Entry Energy, BurtonPoint, M+15",2025-12,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2026-01,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2026-02,0.0,28
+"System Entry Energy, BurtonPoint, M+15",2026-03,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2026-04,0.0,30
+"System Entry Energy, BurtonPoint, M+15",2026-05,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2026-06,0.0,30
+"System Entry Energy, BurtonPoint, M+15",2026-07,0.0,31
+"System Entry Energy, BurtonPoint, M+15",2026-08,0.0,31
+"System Entry Energy, Dragon, M+15",2025-01,7553740401.0,31
+"System Entry Energy, Dragon, M+15",2025-02,6511066445.0,28
+"System Entry Energy, Dragon, M+15",2025-03,6484234101.0,31
+"System Entry Energy, Dragon, M+15",2025-04,1588624409.0,30
+"System Entry Energy, Dragon, M+15",2025-05,0.0,31
+"System Entry Energy, Dragon, M+15",2025-06,85326011.0,30
+"System Entry Energy, Dragon, M+15",2025-07,0.0,31
+"System Entry Energy, Dragon, M+15",2025-08,69016897.0,31
+"System Entry Energy, Dragon, M+15",2025-09,0.0,30
+"System Entry Energy, Dragon, M+15",2025-10,2286899836.0,31
+"System Entry Energy, Dragon, M+15",2025-11,4172025266.0,30
+"System Entry Energy, Dragon, M+15",2025-12,5692903860.0,31
+"System Entry Energy, Dragon, M+15",2026-01,6856139215.0,31
+"System Entry Energy, Dragon, M+15",2026-02,7366814560.0,28
+"System Entry Energy, Dragon, M+15",2026-03,5718862471.0,31
+"System Entry Energy, Dragon, M+15",2026-04,1008781035.0,30
+"System Entry Energy, Dragon, M+15",2026-05,189522535.0,31
+"System Entry Energy, Dragon, M+15",2026-06,14656722.0,30
+"System Entry Energy, Dragon, M+15",2026-07,105661534.0,31
+"System Entry Energy, Dragon, M+15",2026-08,0.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-01,1530533313.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-02,1385602484.0,28
+"System Entry Energy, Easington - Dimlington, D+2",2025-03,1475954385.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-04,1447769433.0,30
+"System Entry Energy, Easington - Dimlington, D+2",2025-05,1522650313.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-06,1080494194.0,30
+"System Entry Energy, Easington - Dimlington, D+2",2025-07,1384822011.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-08,1356951003.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-09,1360713052.0,30
+"System Entry Energy, Easington - Dimlington, D+2",2025-10,1327671666.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2025-11,1376206689.0,30
+"System Entry Energy, Easington - Dimlington, D+2",2025-12,1424268691.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2026-01,1352056685.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2026-02,1248085963.0,28
+"System Entry Energy, Easington - Dimlington, D+2",2026-03,1371934405.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2026-04,1206775069.0,30
+"System Entry Energy, Easington - Dimlington, D+2",2026-05,1222176738.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2026-06,1028309644.0,30
+"System Entry Energy, Easington - Dimlington, D+2",2026-07,1204978639.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2026-08,1289484279.0,31
+"System Entry Energy, Easington - Dimlington, D+2",2026-09,1307741679.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2025-01,1530533313.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2025-02,1385602484.0,28
+"System Entry Energy, Easington - Dimlington, M+15",2025-03,1475954385.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2025-04,1447769433.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2025-05,1522650313.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2025-06,1080494194.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2025-07,1384822011.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2025-08,1356951003.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2025-09,1360713052.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2025-10,1327671666.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2025-11,1376206689.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2025-12,1424268691.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2026-01,1352056685.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2026-02,1248085963.0,28
+"System Entry Energy, Easington - Dimlington, M+15",2026-03,1371934405.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2026-04,1206775069.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2026-05,1222176738.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2026-06,1028309644.0,30
+"System Entry Energy, Easington - Dimlington, M+15",2026-07,1204978639.0,31
+"System Entry Energy, Easington - Dimlington, M+15",2026-08,1289484279.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-01,25015785686.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-02,21630419432.0,28
+"System Entry Energy, Easington - Langeled, D+2",2025-03,22193438296.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-04,16173625143.0,30
+"System Entry Energy, Easington - Langeled, D+2",2025-05,11783383831.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-06,9458687747.0,30
+"System Entry Energy, Easington - Langeled, D+2",2025-07,18076107799.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-08,16839842565.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-09,17288942101.0,30
+"System Entry Energy, Easington - Langeled, D+2",2025-10,20120669775.0,31
+"System Entry Energy, Easington - Langeled, D+2",2025-11,22850237403.0,30
+"System Entry Energy, Easington - Langeled, D+2",2025-12,24519405851.0,31
+"System Entry Energy, Easington - Langeled, D+2",2026-01,24661640550.0,31
+"System Entry Energy, Easington - Langeled, D+2",2026-02,18323561633.0,28
+"System Entry Energy, Easington - Langeled, D+2",2026-03,21048452565.0,31
+"System Entry Energy, Easington - Langeled, D+2",2026-04,15742801900.0,30
+"System Entry Energy, Easington - Langeled, D+2",2026-05,10703782686.0,31
+"System Entry Energy, Easington - Langeled, D+2",2026-06,15352666068.0,30
+"System Entry Energy, Easington - Langeled, D+2",2026-07,18232407123.0,31
+"System Entry Energy, Easington - Langeled, D+2",2026-08,16331355704.0,31
+"System Entry Energy, Easington - Langeled, D+2",2026-09,5064031377.0,30
+"System Entry Energy, Easington - Langeled, M+15",2025-01,25015785686.0,31
+"System Entry Energy, Easington - Langeled, M+15",2025-02,21630419432.0,28
+"System Entry Energy, Easington - Langeled, M+15",2025-03,22193438296.0,31
+"System Entry Energy, Easington - Langeled, M+15",2025-04,16173625143.0,30
+"System Entry Energy, Easington - Langeled, M+15",2025-05,11783383831.0,31
+"System Entry Energy, Easington - Langeled, M+15",2025-06,9458687747.0,30
+"System Entry Energy, Easington - Langeled, M+15",2025-07,18076107799.0,31
+"System Entry Energy, Easington - Langeled, M+15",2025-08,16839842565.0,31
+"System Entry Energy, Easington - Langeled, M+15",2025-09,17288942101.0,30
+"System Entry Energy, Easington - Langeled, M+15",2025-10,20120669775.0,31
+"System Entry Energy, Easington - Langeled, M+15",2025-11,22850237403.0,30
+"System Entry Energy, Easington - Langeled, M+15",2025-12,24519405851.0,31
+"System Entry Energy, Easington - Langeled, M+15",2026-01,24661640550.0,31
+"System Entry Energy, Easington - Langeled, M+15",2026-02,18323561633.0,28
+"System Entry Energy, Easington - Langeled, M+15",2026-03,21048452565.0,31
+"System Entry Energy, Easington - Langeled, M+15",2026-04,15742801900.0,30
+"System Entry Energy, Easington - Langeled, M+15",2026-05,10703782686.0,31
+"System Entry Energy, Easington - Langeled, M+15",2026-06,15352666068.0,30
+"System Entry Energy, Easington - Langeled, M+15",2026-07,18232407123.0,31
+"System Entry Energy, Easington - Langeled, M+15",2026-08,16331355704.0,31
+"System Entry Energy, Easington - York, D+2",2025-01,0.0,31
+"System Entry Energy, Easington - York, D+2",2025-02,0.0,28
+"System Entry Energy, Easington - York, D+2",2025-03,5304482.0,31
+"System Entry Energy, Easington - York, D+2",2025-04,826753.0,30
+"System Entry Energy, Easington - York, D+2",2025-05,0.0,31
+"System Entry Energy, Easington - York, D+2",2025-06,0.0,30
+"System Entry Energy, Easington - York, D+2",2025-07,0.0,31
+"System Entry Energy, Easington - York, D+2",2025-08,1157.0,31
+"System Entry Energy, Easington - York, D+2",2025-09,0.0,30
+"System Entry Energy, Easington - York, D+2",2025-10,710442.0,31
+"System Entry Energy, Easington - York, D+2",2025-11,0.0,30
+"System Entry Energy, Easington - York, D+2",2025-12,0.0,31
+"System Entry Energy, Easington - York, D+2",2026-01,0.0,31
+"System Entry Energy, Easington - York, D+2",2026-02,0.0,28
+"System Entry Energy, Easington - York, D+2",2026-03,0.0,31
+"System Entry Energy, Easington - York, D+2",2026-04,0.0,30
+"System Entry Energy, Easington - York, D+2",2026-05,0.0,31
+"System Entry Energy, Easington - York, D+2",2026-06,0.0,30
+"System Entry Energy, Easington - York, D+2",2026-07,0.0,31
+"System Entry Energy, Easington - York, D+2",2026-08,3541064.0,31
+"System Entry Energy, Easington - York, D+2",2026-09,1844613.0,30
+"System Entry Energy, Easington - York, M+15",2025-01,0.0,31
+"System Entry Energy, Easington - York, M+15",2025-02,0.0,28
+"System Entry Energy, Easington - York, M+15",2025-03,5304482.0,31
+"System Entry Energy, Easington - York, M+15",2025-04,826753.0,30
+"System Entry Energy, Easington - York, M+15",2025-05,0.0,31
+"System Entry Energy, Easington - York, M+15",2025-06,0.0,30
+"System Entry Energy, Easington - York, M+15",2025-07,0.0,31
+"System Entry Energy, Easington - York, M+15",2025-08,1157.0,31
+"System Entry Energy, Easington - York, M+15",2025-09,0.0,30
+"System Entry Energy, Easington - York, M+15",2025-10,710442.0,31
+"System Entry Energy, Easington - York, M+15",2025-11,0.0,30
+"System Entry Energy, Easington - York, M+15",2025-12,0.0,31
+"System Entry Energy, Easington - York, M+15",2026-01,0.0,31
+"System Entry Energy, Easington - York, M+15",2026-02,0.0,28
+"System Entry Energy, Easington - York, M+15",2026-03,0.0,31
+"System Entry Energy, Easington - York, M+15",2026-04,0.0,30
+"System Entry Energy, Easington - York, M+15",2026-05,0.0,31
+"System Entry Energy, Easington - York, M+15",2026-06,0.0,30
+"System Entry Energy, Easington - York, M+15",2026-07,0.0,31
+"System Entry Energy, Easington - York, M+15",2026-08,3541064.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-01,1530533313.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-02,1385602484.0,28
+"System Entry Energy, Easington-Dimlington, M+15",2025-03,1475954385.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-04,1447769433.0,30
+"System Entry Energy, Easington-Dimlington, M+15",2025-05,1522650313.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-06,1080494194.0,30
+"System Entry Energy, Easington-Dimlington, M+15",2025-07,1384822011.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-08,1356951003.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-09,1360713052.0,30
+"System Entry Energy, Easington-Dimlington, M+15",2025-10,1327671666.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2025-11,1376206689.0,30
+"System Entry Energy, Easington-Dimlington, M+15",2025-12,1424268691.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2026-01,1352056685.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2026-02,1248085963.0,28
+"System Entry Energy, Easington-Dimlington, M+15",2026-03,1371934405.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2026-04,1206775069.0,30
+"System Entry Energy, Easington-Dimlington, M+15",2026-05,1222176738.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2026-06,1028309644.0,30
+"System Entry Energy, Easington-Dimlington, M+15",2026-07,1204978639.0,31
+"System Entry Energy, Easington-Dimlington, M+15",2026-08,1289484279.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-01,25038905714.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-02,21630419432.0,28
+"System Entry Energy, Easington-Langeled, M+15",2025-03,22193438296.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-04,16173625143.0,30
+"System Entry Energy, Easington-Langeled, M+15",2025-05,11783383831.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-06,9458687747.0,30
+"System Entry Energy, Easington-Langeled, M+15",2025-07,18075958279.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-08,16839842565.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-09,17288942101.0,30
+"System Entry Energy, Easington-Langeled, M+15",2025-10,20120669775.0,31
+"System Entry Energy, Easington-Langeled, M+15",2025-11,22850237403.0,30
+"System Entry Energy, Easington-Langeled, M+15",2025-12,24519405851.0,31
+"System Entry Energy, Easington-Langeled, M+15",2026-01,24661640550.0,31
+"System Entry Energy, Easington-Langeled, M+15",2026-02,18323561633.0,28
+"System Entry Energy, Easington-Langeled, M+15",2026-03,21048452565.0,31
+"System Entry Energy, Easington-Langeled, M+15",2026-04,15742801900.0,30
+"System Entry Energy, Easington-Langeled, M+15",2026-05,10703782686.0,31
+"System Entry Energy, Easington-Langeled, M+15",2026-06,15352666068.0,30
+"System Entry Energy, Easington-Langeled, M+15",2026-07,18232407123.0,31
+"System Entry Energy, Easington-Langeled, M+15",2026-08,16331355704.0,31
+"System Entry Energy, Easington-York, M+15",2025-01,0.0,31
+"System Entry Energy, Easington-York, M+15",2025-02,0.0,28
+"System Entry Energy, Easington-York, M+15",2025-03,5304482.0,31
+"System Entry Energy, Easington-York, M+15",2025-04,826753.0,30
+"System Entry Energy, Easington-York, M+15",2025-05,0.0,31
+"System Entry Energy, Easington-York, M+15",2025-06,0.0,30
+"System Entry Energy, Easington-York, M+15",2025-07,0.0,31
+"System Entry Energy, Easington-York, M+15",2025-08,1157.0,31
+"System Entry Energy, Easington-York, M+15",2025-09,0.0,30
+"System Entry Energy, Easington-York, M+15",2025-10,710442.0,31
+"System Entry Energy, Easington-York, M+15",2025-11,0.0,30
+"System Entry Energy, Easington-York, M+15",2025-12,0.0,31
+"System Entry Energy, Easington-York, M+15",2026-01,0.0,31
+"System Entry Energy, Easington-York, M+15",2026-02,0.0,28
+"System Entry Energy, Easington-York, M+15",2026-03,0.0,31
+"System Entry Energy, Easington-York, M+15",2026-04,0.0,30
+"System Entry Energy, Easington-York, M+15",2026-05,0.0,31
+"System Entry Energy, Easington-York, M+15",2026-06,0.0,30
+"System Entry Energy, Easington-York, M+15",2026-07,0.0,31
+"System Entry Energy, Easington-York, M+15",2026-08,3541064.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2025-04,2886702.0,30
+"System Entry Energy, Glentham Biomethane , D+2",2025-05,4919205.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2025-06,3782808.0,30
+"System Entry Energy, Glentham Biomethane , D+2",2025-07,4158923.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2025-08,2835853.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2025-09,1415011.0,30
+"System Entry Energy, Glentham Biomethane , D+2",2025-10,2662519.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2025-11,2396622.0,30
+"System Entry Energy, Glentham Biomethane , D+2",2025-12,4726981.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2026-01,3910584.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2026-02,3067244.0,28
+"System Entry Energy, Glentham Biomethane , D+2",2026-03,3730863.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2026-04,4024753.0,30
+"System Entry Energy, Glentham Biomethane , D+2",2026-05,4380035.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2026-06,4045867.0,30
+"System Entry Energy, Glentham Biomethane , D+2",2026-07,4867817.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2026-08,4819759.0,31
+"System Entry Energy, Glentham Biomethane , D+2",2026-09,4358093.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2025-04,2886702.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2025-05,4919205.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2025-06,3782808.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2025-07,4158923.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2025-08,2835853.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2025-09,1415011.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2025-10,2662519.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2025-11,2396622.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2025-12,4726981.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2026-01,3910584.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2026-02,3067244.0,28
+"System Entry Energy, Glentham Biomethane , M+15",2026-03,3730863.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2026-04,4024753.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2026-05,4380035.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2026-06,4045867.0,30
+"System Entry Energy, Glentham Biomethane , M+15",2026-07,4867817.0,31
+"System Entry Energy, Glentham Biomethane , M+15",2026-08,4819759.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2025-04,2291418.0,24
+"System Entry Energy, Glentham Biomethane, M+15",2025-05,4759204.0,30
+"System Entry Energy, Glentham Biomethane, M+15",2025-06,3782808.0,30
+"System Entry Energy, Glentham Biomethane, M+15",2025-07,4158923.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2025-08,2835853.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2025-09,1415011.0,30
+"System Entry Energy, Glentham Biomethane, M+15",2025-10,2662519.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2025-11,2396622.0,30
+"System Entry Energy, Glentham Biomethane, M+15",2025-12,4726981.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2026-01,3910584.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2026-02,3067244.0,28
+"System Entry Energy, Glentham Biomethane, M+15",2026-03,3730863.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2026-04,4024753.0,30
+"System Entry Energy, Glentham Biomethane, M+15",2026-05,4380035.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2026-06,4045867.0,30
+"System Entry Energy, Glentham Biomethane, M+15",2026-07,4867817.0,31
+"System Entry Energy, Glentham Biomethane, M+15",2026-08,4819759.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-01,2457600.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-02,451887104.0,28
+"System Entry Energy, Grain NTS 1, D+2",2025-03,10190848.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-04,655360.0,30
+"System Entry Energy, Grain NTS 1, D+2",2025-05,3342336.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-06,3080192.0,30
+"System Entry Energy, Grain NTS 1, D+2",2025-07,10043392.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-08,1720320.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-09,1654784.0,30
+"System Entry Energy, Grain NTS 1, D+2",2025-10,1998848.0,31
+"System Entry Energy, Grain NTS 1, D+2",2025-11,491520.0,30
+"System Entry Energy, Grain NTS 1, D+2",2025-12,393216.0,31
+"System Entry Energy, Grain NTS 1, D+2",2026-01,456523776.0,31
+"System Entry Energy, Grain NTS 1, D+2",2026-02,151601152.0,28
+"System Entry Energy, Grain NTS 1, D+2",2026-03,2228224.0,31
+"System Entry Energy, Grain NTS 1, D+2",2026-04,0.0,30
+"System Entry Energy, Grain NTS 1, D+2",2026-05,216862016.0,31
+"System Entry Energy, Grain NTS 1, D+2",2026-06,281821184.0,30
+"System Entry Energy, Grain NTS 1, D+2",2026-07,1343488.0,31
+"System Entry Energy, Grain NTS 1, D+2",2026-08,917504.0,31
+"System Entry Energy, Grain NTS 1, D+2",2026-09,819000.0,30
+"System Entry Energy, Grain NTS 1, M+15",2025-01,2457600.0,31
+"System Entry Energy, Grain NTS 1, M+15",2025-02,451887104.0,28
+"System Entry Energy, Grain NTS 1, M+15",2025-03,10190848.0,31
+"System Entry Energy, Grain NTS 1, M+15",2025-04,655360.0,30
+"System Entry Energy, Grain NTS 1, M+15",2025-05,3342336.0,31
+"System Entry Energy, Grain NTS 1, M+15",2025-06,3080192.0,30
+"System Entry Energy, Grain NTS 1, M+15",2025-07,10043392.0,31
+"System Entry Energy, Grain NTS 1, M+15",2025-08,1720320.0,31
+"System Entry Energy, Grain NTS 1, M+15",2025-09,1654784.0,30
+"System Entry Energy, Grain NTS 1, M+15",2025-10,1998848.0,31
+"System Entry Energy, Grain NTS 1, M+15",2025-11,491520.0,30
+"System Entry Energy, Grain NTS 1, M+15",2025-12,393216.0,31
+"System Entry Energy, Grain NTS 1, M+15",2026-01,456523776.0,31
+"System Entry Energy, Grain NTS 1, M+15",2026-02,151601152.0,28
+"System Entry Energy, Grain NTS 1, M+15",2026-03,2228224.0,31
+"System Entry Energy, Grain NTS 1, M+15",2026-04,0.0,30
+"System Entry Energy, Grain NTS 1, M+15",2026-05,216862016.0,31
+"System Entry Energy, Grain NTS 1, M+15",2026-06,281821184.0,30
+"System Entry Energy, Grain NTS 1, M+15",2026-07,1343488.0,31
+"System Entry Energy, Grain NTS 1, M+15",2026-08,917504.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-01,4730517540.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-02,4311865700.0,28
+"System Entry Energy, Grain NTS 2, D+2",2025-03,997042589.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-04,173712742.0,30
+"System Entry Energy, Grain NTS 2, D+2",2025-05,632558047.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-06,961314811.0,30
+"System Entry Energy, Grain NTS 2, D+2",2025-07,176706736.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-08,0.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-09,386350592.0,30
+"System Entry Energy, Grain NTS 2, D+2",2025-10,1451263429.0,31
+"System Entry Energy, Grain NTS 2, D+2",2025-11,965037457.0,30
+"System Entry Energy, Grain NTS 2, D+2",2025-12,1972415630.0,31
+"System Entry Energy, Grain NTS 2, D+2",2026-01,6722399376.0,31
+"System Entry Energy, Grain NTS 2, D+2",2026-02,4636222289.0,28
+"System Entry Energy, Grain NTS 2, D+2",2026-03,1878023248.0,31
+"System Entry Energy, Grain NTS 2, D+2",2026-04,571198522.0,30
+"System Entry Energy, Grain NTS 2, D+2",2026-05,866531214.0,31
+"System Entry Energy, Grain NTS 2, D+2",2026-06,164889129.0,30
+"System Entry Energy, Grain NTS 2, D+2",2026-07,243796632.0,31
+"System Entry Energy, Grain NTS 2, D+2",2026-08,0.0,31
+"System Entry Energy, Grain NTS 2, D+2",2026-09,195466238.0,30
+"System Entry Energy, Grain NTS 2, M+15",2025-01,4730517540.0,31
+"System Entry Energy, Grain NTS 2, M+15",2025-02,4311865700.0,28
+"System Entry Energy, Grain NTS 2, M+15",2025-03,997042589.0,31
+"System Entry Energy, Grain NTS 2, M+15",2025-04,173712742.0,30
+"System Entry Energy, Grain NTS 2, M+15",2025-05,632558047.0,31
+"System Entry Energy, Grain NTS 2, M+15",2025-06,961314811.0,30
+"System Entry Energy, Grain NTS 2, M+15",2025-07,176706736.0,31
+"System Entry Energy, Grain NTS 2, M+15",2025-08,0.0,31
+"System Entry Energy, Grain NTS 2, M+15",2025-09,386350592.0,30
+"System Entry Energy, Grain NTS 2, M+15",2025-10,1451263429.0,31
+"System Entry Energy, Grain NTS 2, M+15",2025-11,965037457.0,30
+"System Entry Energy, Grain NTS 2, M+15",2025-12,1972415630.0,31
+"System Entry Energy, Grain NTS 2, M+15",2026-01,6722399376.0,31
+"System Entry Energy, Grain NTS 2, M+15",2026-02,4636222289.0,28
+"System Entry Energy, Grain NTS 2, M+15",2026-03,1878023248.0,31
+"System Entry Energy, Grain NTS 2, M+15",2026-04,571198522.0,30
+"System Entry Energy, Grain NTS 2, M+15",2026-05,866531214.0,31
+"System Entry Energy, Grain NTS 2, M+15",2026-06,164889129.0,30
+"System Entry Energy, Grain NTS 2, M+15",2026-07,243796632.0,31
+"System Entry Energy, Grain NTS 2, M+15",2026-08,0.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-01,2457600.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-02,451887104.0,28
+"System Entry Energy, GrainNTS1, M+15",2025-03,10190848.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-04,663348574.0,30
+"System Entry Energy, GrainNTS1, M+15",2025-05,3342336.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-06,3080192.0,30
+"System Entry Energy, GrainNTS1, M+15",2025-07,10043392.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-08,1720320.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-09,1654784.0,30
+"System Entry Energy, GrainNTS1, M+15",2025-10,1998848.0,31
+"System Entry Energy, GrainNTS1, M+15",2025-11,491520.0,30
+"System Entry Energy, GrainNTS1, M+15",2025-12,393216.0,31
+"System Entry Energy, GrainNTS1, M+15",2026-01,456523776.0,31
+"System Entry Energy, GrainNTS1, M+15",2026-02,151601152.0,28
+"System Entry Energy, GrainNTS1, M+15",2026-03,2228224.0,31
+"System Entry Energy, GrainNTS1, M+15",2026-04,0.0,30
+"System Entry Energy, GrainNTS1, M+15",2026-05,216862016.0,31
+"System Entry Energy, GrainNTS1, M+15",2026-06,281821184.0,30
+"System Entry Energy, GrainNTS1, M+15",2026-07,1343488.0,31
+"System Entry Energy, GrainNTS1, M+15",2026-08,917504.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-01,4730524000.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-02,4311865700.0,28
+"System Entry Energy, GrainNTS2, M+15",2025-03,997042589.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-04,173712742.0,30
+"System Entry Energy, GrainNTS2, M+15",2025-05,632558047.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-06,961314811.0,30
+"System Entry Energy, GrainNTS2, M+15",2025-07,176706736.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-08,0.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-09,386350592.0,30
+"System Entry Energy, GrainNTS2, M+15",2025-10,1451263429.0,31
+"System Entry Energy, GrainNTS2, M+15",2025-11,965037457.0,30
+"System Entry Energy, GrainNTS2, M+15",2025-12,1972415630.0,31
+"System Entry Energy, GrainNTS2, M+15",2026-01,6722399376.0,31
+"System Entry Energy, GrainNTS2, M+15",2026-02,4636222289.0,28
+"System Entry Energy, GrainNTS2, M+15",2026-03,1878023248.0,31
+"System Entry Energy, GrainNTS2, M+15",2026-04,571198522.0,30
+"System Entry Energy, GrainNTS2, M+15",2026-05,866531214.0,31
+"System Entry Energy, GrainNTS2, M+15",2026-06,164889129.0,30
+"System Entry Energy, GrainNTS2, M+15",2026-07,243796632.0,31
+"System Entry Energy, GrainNTS2, M+15",2026-08,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-01,343693943.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-02,141457527.0,28
+"System Entry Energy, Hatfield Moor , D+2",2025-03,44973445.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-04,0.0,30
+"System Entry Energy, Hatfield Moor , D+2",2025-05,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-06,0.0,30
+"System Entry Energy, Hatfield Moor , D+2",2025-07,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-08,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-09,0.0,30
+"System Entry Energy, Hatfield Moor , D+2",2025-10,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2025-11,0.0,30
+"System Entry Energy, Hatfield Moor , D+2",2025-12,70389429.0,31
+"System Entry Energy, Hatfield Moor , D+2",2026-01,330400265.0,31
+"System Entry Energy, Hatfield Moor , D+2",2026-02,123903697.0,28
+"System Entry Energy, Hatfield Moor , D+2",2026-03,46491306.0,31
+"System Entry Energy, Hatfield Moor , D+2",2026-04,130968854.0,30
+"System Entry Energy, Hatfield Moor , D+2",2026-05,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2026-06,0.0,30
+"System Entry Energy, Hatfield Moor , D+2",2026-07,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2026-08,0.0,31
+"System Entry Energy, Hatfield Moor , D+2",2026-09,537742.0,30
+"System Entry Energy, Hatfield Moor , M+15",2025-01,343693943.0,31
+"System Entry Energy, Hatfield Moor , M+15",2025-02,141457527.0,28
+"System Entry Energy, Hatfield Moor , M+15",2025-03,44973445.0,31
+"System Entry Energy, Hatfield Moor , M+15",2025-04,0.0,30
+"System Entry Energy, Hatfield Moor , M+15",2025-05,0.0,31
+"System Entry Energy, Hatfield Moor , M+15",2025-06,0.0,30
+"System Entry Energy, Hatfield Moor , M+15",2025-07,0.0,31
+"System Entry Energy, Hatfield Moor , M+15",2025-08,0.0,31
+"System Entry Energy, Hatfield Moor , M+15",2025-09,0.0,30
+"System Entry Energy, Hatfield Moor , M+15",2025-10,0.0,31
+"System Entry Energy, Hatfield Moor , M+15",2025-11,0.0,30
+"System Entry Energy, Hatfield Moor , M+15",2025-12,70389429.0,31
+"System Entry Energy, Hatfield Moor , M+15",2026-01,330400265.0,31
+"System Entry Energy, Hatfield Moor , M+15",2026-02,123903697.0,28
+"System Entry Energy, Hatfield Moor , M+15",2026-03,46491306.0,31
+"System Entry Energy, Hatfield Moor , M+15",2026-04,130968854.0,30
+"System Entry Energy, Hatfield Moor , M+15",2026-05,0.0,31
+"System Entry Energy, Hatfield Moor , M+15",2026-06,0.0,30
+"System Entry Energy, Hatfield Moor , M+15",2026-07,0.0,31
+"System Entry Energy, Hatfield Moor , M+15",2026-08,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-01,343693943.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-02,140560583.0,28
+"System Entry Energy, HatfieldMoor, M+15",2025-03,44973445.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-04,0.0,30
+"System Entry Energy, HatfieldMoor, M+15",2025-05,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-06,0.0,30
+"System Entry Energy, HatfieldMoor, M+15",2025-07,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-08,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-09,0.0,30
+"System Entry Energy, HatfieldMoor, M+15",2025-10,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2025-11,0.0,30
+"System Entry Energy, HatfieldMoor, M+15",2025-12,70389429.0,31
+"System Entry Energy, HatfieldMoor, M+15",2026-01,330400265.0,31
+"System Entry Energy, HatfieldMoor, M+15",2026-02,123903697.0,28
+"System Entry Energy, HatfieldMoor, M+15",2026-03,45858076.0,31
+"System Entry Energy, HatfieldMoor, M+15",2026-04,130968854.0,30
+"System Entry Energy, HatfieldMoor, M+15",2026-05,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2026-06,0.0,30
+"System Entry Energy, HatfieldMoor, M+15",2026-07,0.0,31
+"System Entry Energy, HatfieldMoor, M+15",2026-08,0.0,31
+"System Entry Energy, HillTop, D+2",2025-01,579074780.0,31
+"System Entry Energy, HillTop, D+2",2025-02,644560868.0,28
+"System Entry Energy, HillTop, D+2",2025-03,507822029.0,31
+"System Entry Energy, HillTop, D+2",2025-04,474188708.0,30
+"System Entry Energy, HillTop, D+2",2025-05,600466440.0,31
+"System Entry Energy, HillTop, D+2",2025-06,328297098.0,30
+"System Entry Energy, HillTop, D+2",2025-07,111791625.0,31
+"System Entry Energy, HillTop, D+2",2025-08,115683288.0,31
+"System Entry Energy, HillTop, D+2",2025-09,20597214.0,30
+"System Entry Energy, HillTop, D+2",2025-10,247586018.0,31
+"System Entry Energy, HillTop, D+2",2025-11,224883248.0,30
+"System Entry Energy, HillTop, D+2",2025-12,211836031.0,31
+"System Entry Energy, HillTop, D+2",2026-01,271166563.0,31
+"System Entry Energy, HillTop, D+2",2026-02,413116510.0,28
+"System Entry Energy, HillTop, D+2",2026-03,105224960.0,31
+"System Entry Energy, HillTop, D+2",2026-04,199452702.0,30
+"System Entry Energy, HillTop, D+2",2026-05,693066403.0,31
+"System Entry Energy, HillTop, D+2",2026-06,284869338.0,30
+"System Entry Energy, HillTop, D+2",2026-07,217449918.0,31
+"System Entry Energy, HillTop, D+2",2026-08,339416536.0,31
+"System Entry Energy, HillTop, D+2",2026-09,402110957.0,30
+"System Entry Energy, HillTop, M+15",2025-01,579074780.0,31
+"System Entry Energy, HillTop, M+15",2025-02,644560868.0,28
+"System Entry Energy, HillTop, M+15",2025-03,507822029.0,31
+"System Entry Energy, HillTop, M+15",2025-04,474188708.0,30
+"System Entry Energy, HillTop, M+15",2025-05,600466440.0,31
+"System Entry Energy, HillTop, M+15",2025-06,328297098.0,30
+"System Entry Energy, HillTop, M+15",2025-07,111791625.0,31
+"System Entry Energy, HillTop, M+15",2025-08,115683288.0,31
+"System Entry Energy, HillTop, M+15",2025-09,20597214.0,30
+"System Entry Energy, HillTop, M+15",2025-10,247586018.0,31
+"System Entry Energy, HillTop, M+15",2025-11,224883248.0,30
+"System Entry Energy, HillTop, M+15",2025-12,211836031.0,31
+"System Entry Energy, HillTop, M+15",2026-01,271166563.0,31
+"System Entry Energy, HillTop, M+15",2026-02,413116510.0,28
+"System Entry Energy, HillTop, M+15",2026-03,105224960.0,31
+"System Entry Energy, HillTop, M+15",2026-04,199452702.0,30
+"System Entry Energy, HillTop, M+15",2026-05,693066403.0,31
+"System Entry Energy, HillTop, M+15",2026-06,284869338.0,30
+"System Entry Energy, HillTop, M+15",2026-07,217449918.0,31
+"System Entry Energy, HillTop, M+15",2026-08,339416536.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-01,29326933.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-02,1207777.0,28
+"System Entry Energy, Hole House Farm, D+2",2025-03,5856664.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-04,0.0,30
+"System Entry Energy, Hole House Farm, D+2",2025-05,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-06,0.0,30
+"System Entry Energy, Hole House Farm, D+2",2025-07,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-08,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-09,0.0,30
+"System Entry Energy, Hole House Farm, D+2",2025-10,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2025-11,1587499.0,30
+"System Entry Energy, Hole House Farm, D+2",2025-12,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2026-01,1508888.0,31
+"System Entry Energy, Hole House Farm, D+2",2026-02,0.0,28
+"System Entry Energy, Hole House Farm, D+2",2026-03,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2026-04,20721937.0,30
+"System Entry Energy, Hole House Farm, D+2",2026-05,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2026-06,0.0,30
+"System Entry Energy, Hole House Farm, D+2",2026-07,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2026-08,0.0,31
+"System Entry Energy, Hole House Farm, D+2",2026-09,0.0,30
+"System Entry Energy, Hole House Farm, M+15",2025-01,29326933.0,31
+"System Entry Energy, Hole House Farm, M+15",2025-02,1207777.0,28
+"System Entry Energy, Hole House Farm, M+15",2025-03,5856664.0,31
+"System Entry Energy, Hole House Farm, M+15",2025-04,0.0,30
+"System Entry Energy, Hole House Farm, M+15",2025-05,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2025-06,0.0,30
+"System Entry Energy, Hole House Farm, M+15",2025-07,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2025-08,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2025-09,0.0,30
+"System Entry Energy, Hole House Farm, M+15",2025-10,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2025-11,1587499.0,30
+"System Entry Energy, Hole House Farm, M+15",2025-12,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2026-01,1508888.0,31
+"System Entry Energy, Hole House Farm, M+15",2026-02,0.0,28
+"System Entry Energy, Hole House Farm, M+15",2026-03,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2026-04,20721937.0,30
+"System Entry Energy, Hole House Farm, M+15",2026-05,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2026-06,0.0,30
+"System Entry Energy, Hole House Farm, M+15",2026-07,0.0,31
+"System Entry Energy, Hole House Farm, M+15",2026-08,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-01,29326933.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-02,1207777.0,28
+"System Entry Energy, HoleHouseFarm, M+15",2025-03,5856664.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-04,0.0,30
+"System Entry Energy, HoleHouseFarm, M+15",2025-05,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-06,0.0,30
+"System Entry Energy, HoleHouseFarm, M+15",2025-07,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-08,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-09,0.0,30
+"System Entry Energy, HoleHouseFarm, M+15",2025-10,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2025-11,1587499.0,30
+"System Entry Energy, HoleHouseFarm, M+15",2025-12,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2026-01,1508888.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2026-02,0.0,28
+"System Entry Energy, HoleHouseFarm, M+15",2026-03,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2026-04,20721937.0,30
+"System Entry Energy, HoleHouseFarm, M+15",2026-05,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2026-06,0.0,30
+"System Entry Energy, HoleHouseFarm, M+15",2026-07,0.0,31
+"System Entry Energy, HoleHouseFarm, M+15",2026-08,0.0,31
+"System Entry Energy, Holford, D+2",2025-01,1447668614.0,31
+"System Entry Energy, Holford, D+2",2025-02,658611771.0,28
+"System Entry Energy, Holford, D+2",2025-03,360132836.0,31
+"System Entry Energy, Holford, D+2",2025-04,109577110.0,30
+"System Entry Energy, Holford, D+2",2025-05,864160371.0,31
+"System Entry Energy, Holford, D+2",2025-06,331410412.0,30
+"System Entry Energy, Holford, D+2",2025-07,107556409.0,31
+"System Entry Energy, Holford, D+2",2025-08,524969088.0,31
+"System Entry Energy, Holford, D+2",2025-09,161075136.0,30
+"System Entry Energy, Holford, D+2",2025-10,345474823.0,31
+"System Entry Energy, Holford, D+2",2025-11,823558807.0,30
+"System Entry Energy, Holford, D+2",2025-12,242933760.0,31
+"System Entry Energy, Holford, D+2",2026-01,566344804.0,31
+"System Entry Energy, Holford, D+2",2026-02,639773432.0,28
+"System Entry Energy, Holford, D+2",2026-03,20650918.0,31
+"System Entry Energy, Holford, D+2",2026-04,561948314.0,30
+"System Entry Energy, Holford, D+2",2026-05,1407836200.0,31
+"System Entry Energy, Holford, D+2",2026-06,128188589.0,30
+"System Entry Energy, Holford, D+2",2026-07,5911228.0,31
+"System Entry Energy, Holford, D+2",2026-08,16908969.0,31
+"System Entry Energy, Holford, D+2",2026-09,0.0,30
+"System Entry Energy, Holford, M+15",2025-01,1447668614.0,31
+"System Entry Energy, Holford, M+15",2025-02,658611771.0,28
+"System Entry Energy, Holford, M+15",2025-03,360132836.0,31
+"System Entry Energy, Holford, M+15",2025-04,109577110.0,30
+"System Entry Energy, Holford, M+15",2025-05,864160371.0,31
+"System Entry Energy, Holford, M+15",2025-06,331410412.0,30
+"System Entry Energy, Holford, M+15",2025-07,107556409.0,31
+"System Entry Energy, Holford, M+15",2025-08,524969088.0,31
+"System Entry Energy, Holford, M+15",2025-09,161075136.0,30
+"System Entry Energy, Holford, M+15",2025-10,345474823.0,31
+"System Entry Energy, Holford, M+15",2025-11,823558807.0,30
+"System Entry Energy, Holford, M+15",2025-12,242933760.0,31
+"System Entry Energy, Holford, M+15",2026-01,566344804.0,31
+"System Entry Energy, Holford, M+15",2026-02,639773432.0,28
+"System Entry Energy, Holford, M+15",2026-03,20650918.0,31
+"System Entry Energy, Holford, M+15",2026-04,561948314.0,30
+"System Entry Energy, Holford, M+15",2026-05,1407836200.0,31
+"System Entry Energy, Holford, M+15",2026-06,128188589.0,30
+"System Entry Energy, Holford, M+15",2026-07,5911228.0,31
+"System Entry Energy, Holford, M+15",2026-08,16908969.0,31
+"System Entry Energy, Hornsea , M+15",2025-01,1694631786.0,31
+"System Entry Energy, Hornsea , M+15",2025-02,284929237.0,28
+"System Entry Energy, Hornsea , M+15",2025-03,161128039.0,31
+"System Entry Energy, Hornsea , M+15",2025-04,105434116.0,30
+"System Entry Energy, Hornsea , M+15",2025-05,172877766.0,31
+"System Entry Energy, Hornsea , M+15",2025-06,32178022.0,30
+"System Entry Energy, Hornsea , M+15",2025-07,111263080.0,31
+"System Entry Energy, Hornsea , M+15",2025-08,142245975.0,31
+"System Entry Energy, Hornsea , M+15",2025-09,230988015.0,30
+"System Entry Energy, Hornsea , M+15",2025-10,4098543.0,31
+"System Entry Energy, Hornsea , M+15",2025-11,328537216.0,30
+"System Entry Energy, Hornsea , M+15",2025-12,535139139.0,31
+"System Entry Energy, Hornsea , M+15",2026-01,1478811869.0,31
+"System Entry Energy, Hornsea , M+15",2026-02,798821443.0,28
+"System Entry Energy, Hornsea , M+15",2026-03,210123814.0,31
+"System Entry Energy, Hornsea , M+15",2026-04,116626102.0,30
+"System Entry Energy, Hornsea , M+15",2026-05,850641530.0,31
+"System Entry Energy, Hornsea , M+15",2026-06,73386128.0,30
+"System Entry Energy, Hornsea , M+15",2026-07,15740900.0,31
+"System Entry Energy, Hornsea , M+15",2026-08,616.0,31
+"System Entry Energy, Hornsea, D+2",2025-01,1694631786.0,31
+"System Entry Energy, Hornsea, D+2",2025-02,284929237.0,28
+"System Entry Energy, Hornsea, D+2",2025-03,161128039.0,31
+"System Entry Energy, Hornsea, D+2",2025-04,105434116.0,30
+"System Entry Energy, Hornsea, D+2",2025-05,172877766.0,31
+"System Entry Energy, Hornsea, D+2",2025-06,32178022.0,30
+"System Entry Energy, Hornsea, D+2",2025-07,111263080.0,31
+"System Entry Energy, Hornsea, D+2",2025-08,142245975.0,31
+"System Entry Energy, Hornsea, D+2",2025-09,230988015.0,30
+"System Entry Energy, Hornsea, D+2",2025-10,4098543.0,31
+"System Entry Energy, Hornsea, D+2",2025-11,328537216.0,30
+"System Entry Energy, Hornsea, D+2",2025-12,535139139.0,31
+"System Entry Energy, Hornsea, D+2",2026-01,1478811869.0,31
+"System Entry Energy, Hornsea, D+2",2026-02,798821443.0,28
+"System Entry Energy, Hornsea, D+2",2026-03,210123814.0,31
+"System Entry Energy, Hornsea, D+2",2026-04,116626102.0,30
+"System Entry Energy, Hornsea, D+2",2026-05,850641530.0,31
+"System Entry Energy, Hornsea, D+2",2026-06,73386128.0,30
+"System Entry Energy, Hornsea, D+2",2026-07,15740900.0,31
+"System Entry Energy, Hornsea, D+2",2026-08,616.0,31
+"System Entry Energy, Hornsea, D+2",2026-09,59090285.0,30
+"System Entry Energy, Humbly Grove, D+2",2025-01,1782499176.0,31
+"System Entry Energy, Humbly Grove, D+2",2025-02,628396942.0,28
+"System Entry Energy, Humbly Grove, D+2",2025-03,96134444.0,31
+"System Entry Energy, Humbly Grove, D+2",2025-04,0.0,30
+"System Entry Energy, Humbly Grove, D+2",2025-05,0.0,31
+"System Entry Energy, Humbly Grove, D+2",2025-06,0.0,30
+"System Entry Energy, Humbly Grove, D+2",2025-07,0.0,31
+"System Entry Energy, Humbly Grove, D+2",2025-08,0.0,31
+"System Entry Energy, Humbly Grove, D+2",2025-09,0.0,30
+"System Entry Energy, Humbly Grove, D+2",2025-10,0.0,31
+"System Entry Energy, Humbly Grove, D+2",2025-11,408883059.0,30
+"System Entry Energy, Humbly Grove, D+2",2025-12,187333889.0,31
+"System Entry Energy, Humbly Grove, D+2",2026-01,1564717778.0,31
+"System Entry Energy, Humbly Grove, D+2",2026-02,382243611.0,28
+"System Entry Energy, Humbly Grove, D+2",2026-03,0.0,31
+"System Entry Energy, Humbly Grove, D+2",2026-04,114718890.0,30
+"System Entry Energy, Humbly Grove, D+2",2026-05,172832778.0,31
+"System Entry Energy, Humbly Grove, D+2",2026-06,0.0,30
+"System Entry Energy, Humbly Grove, D+2",2026-07,26683889.0,31
+"System Entry Energy, Humbly Grove, D+2",2026-08,26978889.0,31
+"System Entry Energy, Humbly Grove, D+2",2026-09,0.0,30
+"System Entry Energy, Humbly Grove, M+15",2025-01,1782499176.0,31
+"System Entry Energy, Humbly Grove, M+15",2025-02,628396942.0,28
+"System Entry Energy, Humbly Grove, M+15",2025-03,96134444.0,31
+"System Entry Energy, Humbly Grove, M+15",2025-04,0.0,30
+"System Entry Energy, Humbly Grove, M+15",2025-05,0.0,31
+"System Entry Energy, Humbly Grove, M+15",2025-06,0.0,30
+"System Entry Energy, Humbly Grove, M+15",2025-07,0.0,31
+"System Entry Energy, Humbly Grove, M+15",2025-08,0.0,31
+"System Entry Energy, Humbly Grove, M+15",2025-09,0.0,30
+"System Entry Energy, Humbly Grove, M+15",2025-10,0.0,31
+"System Entry Energy, Humbly Grove, M+15",2025-11,408883059.0,30
+"System Entry Energy, Humbly Grove, M+15",2025-12,187333889.0,31
+"System Entry Energy, Humbly Grove, M+15",2026-01,1564717778.0,31
+"System Entry Energy, Humbly Grove, M+15",2026-02,382243611.0,28
+"System Entry Energy, Humbly Grove, M+15",2026-03,0.0,31
+"System Entry Energy, Humbly Grove, M+15",2026-04,114718890.0,30
+"System Entry Energy, Humbly Grove, M+15",2026-05,172832778.0,31
+"System Entry Energy, Humbly Grove, M+15",2026-06,0.0,30
+"System Entry Energy, Humbly Grove, M+15",2026-07,26683889.0,31
+"System Entry Energy, Humbly Grove, M+15",2026-08,26978889.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-01,1732626676.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-02,628396942.0,28
+"System Entry Energy, HumblyGrove, M+15",2025-03,96134444.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-04,0.0,30
+"System Entry Energy, HumblyGrove, M+15",2025-05,0.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-06,0.0,30
+"System Entry Energy, HumblyGrove, M+15",2025-07,0.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-08,0.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-09,0.0,30
+"System Entry Energy, HumblyGrove, M+15",2025-10,0.0,31
+"System Entry Energy, HumblyGrove, M+15",2025-11,408883059.0,30
+"System Entry Energy, HumblyGrove, M+15",2025-12,187333889.0,31
+"System Entry Energy, HumblyGrove, M+15",2026-01,1564717778.0,31
+"System Entry Energy, HumblyGrove, M+15",2026-02,382243611.0,28
+"System Entry Energy, HumblyGrove, M+15",2026-03,0.0,31
+"System Entry Energy, HumblyGrove, M+15",2026-04,114718890.0,30
+"System Entry Energy, HumblyGrove, M+15",2026-05,162832778.0,31
+"System Entry Energy, HumblyGrove, M+15",2026-06,0.0,30
+"System Entry Energy, HumblyGrove, M+15",2026-07,26683889.0,31
+"System Entry Energy, HumblyGrove, M+15",2026-08,26978889.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-01,7553740401.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-02,6511066445.0,28
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-03,6484234101.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-04,1588624409.0,30
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-05,0.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-06,85326011.0,30
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-07,0.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-08,69016897.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-09,0.0,30
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-10,2286899836.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-11,4172025266.0,30
+"System Entry Energy, Milford Haven - Dragon, D+2",2025-12,5692903860.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-01,6856068657.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-02,7366814560.0,28
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-03,5718862471.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-04,1008781035.0,30
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-05,189522535.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-06,14656722.0,30
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-07,105661534.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-08,0.0,31
+"System Entry Energy, Milford Haven - Dragon, D+2",2026-09,0.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-01,7553740401.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-02,6511066445.0,28
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-03,6484234101.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-04,1588624409.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-05,0.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-06,85326011.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-07,0.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-08,69016897.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-09,0.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-10,2286899836.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-11,4172025266.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2025-12,5692903860.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-01,6856068657.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-02,7366814560.0,28
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-03,5718862471.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-04,1008781035.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-05,189522535.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-06,14656722.0,30
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-07,105661534.0,31
+"System Entry Energy, Milford Haven - Dragon, M+15",2026-08,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-01,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-02,0.0,28
+"System Entry Energy, Moffat Entry , D+2",2025-03,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-04,496666.0,30
+"System Entry Energy, Moffat Entry , D+2",2025-05,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-06,0.0,30
+"System Entry Energy, Moffat Entry , D+2",2025-07,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-08,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-09,0.0,30
+"System Entry Energy, Moffat Entry , D+2",2025-10,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2025-11,0.0,30
+"System Entry Energy, Moffat Entry , D+2",2025-12,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2026-01,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2026-02,0.0,28
+"System Entry Energy, Moffat Entry , D+2",2026-03,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2026-04,0.0,30
+"System Entry Energy, Moffat Entry , D+2",2026-05,0.0,31
+"System Entry Energy, Moffat Entry , D+2",2026-06,0.0,30
+"System Entry Energy, Moffat Entry , D+2",2026-07,1.0,31
+"System Entry Energy, Moffat Entry , D+2",2026-08,2020000.0,31
+"System Entry Energy, Moffat Entry , D+2",2026-09,4252334.0,30
+"System Entry Energy, Moffat Entry , M+15",2025-01,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2025-02,0.0,28
+"System Entry Energy, Moffat Entry , M+15",2025-03,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2025-04,496666.0,30
+"System Entry Energy, Moffat Entry , M+15",2025-05,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2025-06,0.0,30
+"System Entry Energy, Moffat Entry , M+15",2025-07,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2025-08,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2025-09,0.0,30
+"System Entry Energy, Moffat Entry , M+15",2025-10,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2025-11,0.0,30
+"System Entry Energy, Moffat Entry , M+15",2025-12,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2026-01,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2026-02,0.0,28
+"System Entry Energy, Moffat Entry , M+15",2026-03,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2026-04,0.0,30
+"System Entry Energy, Moffat Entry , M+15",2026-05,0.0,31
+"System Entry Energy, Moffat Entry , M+15",2026-06,0.0,30
+"System Entry Energy, Moffat Entry , M+15",2026-07,1.0,31
+"System Entry Energy, Moffat Entry , M+15",2026-08,2020000.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-01,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-02,0.0,28
+"System Entry Energy, MoffatInterconnector, M+15",2025-03,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-04,0.0,30
+"System Entry Energy, MoffatInterconnector, M+15",2025-05,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-06,0.0,30
+"System Entry Energy, MoffatInterconnector, M+15",2025-07,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-08,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-09,0.0,30
+"System Entry Energy, MoffatInterconnector, M+15",2025-10,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2025-11,0.0,30
+"System Entry Energy, MoffatInterconnector, M+15",2025-12,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2026-01,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2026-02,0.0,28
+"System Entry Energy, MoffatInterconnector, M+15",2026-03,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2026-04,0.0,30
+"System Entry Energy, MoffatInterconnector, M+15",2026-05,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2026-06,0.0,30
+"System Entry Energy, MoffatInterconnector, M+15",2026-07,0.0,31
+"System Entry Energy, MoffatInterconnector, M+15",2026-08,0.0,31
+"System Entry Energy, Murrow , D+2",2025-01,5654087.0,31
+"System Entry Energy, Murrow , D+2",2025-02,5177267.0,28
+"System Entry Energy, Murrow , D+2",2025-03,5501901.0,31
+"System Entry Energy, Murrow , D+2",2025-04,5331851.0,30
+"System Entry Energy, Murrow , D+2",2025-05,5954665.0,31
+"System Entry Energy, Murrow , D+2",2025-06,4793089.0,30
+"System Entry Energy, Murrow , D+2",2025-07,3749401.0,31
+"System Entry Energy, Murrow , D+2",2025-08,4595638.0,31
+"System Entry Energy, Murrow , D+2",2025-09,5469023.0,30
+"System Entry Energy, Murrow , D+2",2025-10,4251342.0,31
+"System Entry Energy, Murrow , D+2",2025-11,4958412.0,30
+"System Entry Energy, Murrow , D+2",2025-12,6996217.0,31
+"System Entry Energy, Murrow , D+2",2026-01,6644529.0,31
+"System Entry Energy, Murrow , D+2",2026-02,6075030.0,28
+"System Entry Energy, Murrow , D+2",2026-03,6533894.0,31
+"System Entry Energy, Murrow , D+2",2026-04,6237419.0,30
+"System Entry Energy, Murrow , D+2",2026-05,6579669.0,31
+"System Entry Energy, Murrow , D+2",2026-06,6436767.0,30
+"System Entry Energy, Murrow , D+2",2026-07,5999988.0,31
+"System Entry Energy, Murrow , D+2",2026-08,6344573.0,31
+"System Entry Energy, Murrow , D+2",2026-09,4949711.0,30
+"System Entry Energy, Murrow , M+15",2025-01,5654087.0,31
+"System Entry Energy, Murrow , M+15",2025-02,5177267.0,28
+"System Entry Energy, Murrow , M+15",2025-03,5501901.0,31
+"System Entry Energy, Murrow , M+15",2025-04,5331851.0,30
+"System Entry Energy, Murrow , M+15",2025-05,5954665.0,31
+"System Entry Energy, Murrow , M+15",2025-06,4793089.0,30
+"System Entry Energy, Murrow , M+15",2025-07,3749401.0,31
+"System Entry Energy, Murrow , M+15",2025-08,4595638.0,31
+"System Entry Energy, Murrow , M+15",2025-09,5469023.0,30
+"System Entry Energy, Murrow , M+15",2025-10,4251342.0,31
+"System Entry Energy, Murrow , M+15",2025-11,4958412.0,30
+"System Entry Energy, Murrow , M+15",2025-12,6996217.0,31
+"System Entry Energy, Murrow , M+15",2026-01,6644529.0,31
+"System Entry Energy, Murrow , M+15",2026-02,6075030.0,28
+"System Entry Energy, Murrow , M+15",2026-03,6533894.0,31
+"System Entry Energy, Murrow , M+15",2026-04,6237419.0,30
+"System Entry Energy, Murrow , M+15",2026-05,6579669.0,31
+"System Entry Energy, Murrow , M+15",2026-06,6436767.0,30
+"System Entry Energy, Murrow , M+15",2026-07,5999988.0,31
+"System Entry Energy, Murrow , M+15",2026-08,6344573.0,31
+"System Entry Energy, Murrow, M+15",2025-01,5654087.0,31
+"System Entry Energy, Murrow, M+15",2025-02,5177267.0,28
+"System Entry Energy, Murrow, M+15",2025-03,5501901.0,31
+"System Entry Energy, Murrow, M+15",2025-04,5331843.0,30
+"System Entry Energy, Murrow, M+15",2025-05,5954665.0,31
+"System Entry Energy, Murrow, M+15",2025-06,4793089.0,30
+"System Entry Energy, Murrow, M+15",2025-07,3749401.0,31
+"System Entry Energy, Murrow, M+15",2025-08,4595638.0,31
+"System Entry Energy, Murrow, M+15",2025-09,5469023.0,30
+"System Entry Energy, Murrow, M+15",2025-10,4251342.0,31
+"System Entry Energy, Murrow, M+15",2025-11,4958412.0,30
+"System Entry Energy, Murrow, M+15",2025-12,6996217.0,31
+"System Entry Energy, Murrow, M+15",2026-01,6644529.0,31
+"System Entry Energy, Murrow, M+15",2026-02,6075030.0,28
+"System Entry Energy, Murrow, M+15",2026-03,6533894.0,31
+"System Entry Energy, Murrow, M+15",2026-04,6237419.0,30
+"System Entry Energy, Murrow, M+15",2026-05,6579669.0,31
+"System Entry Energy, Murrow, M+15",2026-06,6436767.0,30
+"System Entry Energy, Murrow, M+15",2026-07,5999988.0,31
+"System Entry Energy, Murrow, M+15",2026-08,6344573.0,31
+"System Entry Energy, Rough , M+15",2025-01,1192142503.0,31
+"System Entry Energy, Rough , M+15",2025-02,1261701386.0,28
+"System Entry Energy, Rough , M+15",2025-03,1653670921.0,31
+"System Entry Energy, Rough , M+15",2025-04,1567794165.0,30
+"System Entry Energy, Rough , M+15",2025-05,1664572777.0,31
+"System Entry Energy, Rough , M+15",2025-06,1041066111.0,30
+"System Entry Energy, Rough , M+15",2025-07,1358171944.0,31
+"System Entry Energy, Rough , M+15",2025-08,1358612223.0,31
+"System Entry Energy, Rough , M+15",2025-09,1102280832.0,30
+"System Entry Energy, Rough , M+15",2025-10,1990331945.0,31
+"System Entry Energy, Rough , M+15",2025-11,1163238055.0,30
+"System Entry Energy, Rough , M+15",2025-12,1701886946.0,31
+"System Entry Energy, Rough , M+15",2026-01,1561329442.0,31
+"System Entry Energy, Rough , M+15",2026-02,1664233053.0,28
+"System Entry Energy, Rough , M+15",2026-03,1702668333.0,31
+"System Entry Energy, Rough , M+15",2026-04,1556946109.0,30
+"System Entry Energy, Rough , M+15",2026-05,1453204444.0,31
+"System Entry Energy, Rough , M+15",2026-06,1197466388.0,30
+"System Entry Energy, Rough , M+15",2026-07,907753333.0,31
+"System Entry Energy, Rough , M+15",2026-08,1160750279.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-01,1192142503.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-02,1261701386.0,28
+"System Entry Energy, Rough Subterminal, D+2",2025-03,1653670921.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-04,1567794165.0,30
+"System Entry Energy, Rough Subterminal, D+2",2025-05,1664572777.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-06,1041066111.0,30
+"System Entry Energy, Rough Subterminal, D+2",2025-07,1358171944.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-08,1358612223.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-09,1102280832.0,30
+"System Entry Energy, Rough Subterminal, D+2",2025-10,1990331945.0,31
+"System Entry Energy, Rough Subterminal, D+2",2025-11,1163238055.0,30
+"System Entry Energy, Rough Subterminal, D+2",2025-12,1701886946.0,31
+"System Entry Energy, Rough Subterminal, D+2",2026-01,1561329442.0,31
+"System Entry Energy, Rough Subterminal, D+2",2026-02,1664233053.0,28
+"System Entry Energy, Rough Subterminal, D+2",2026-03,1702668333.0,31
+"System Entry Energy, Rough Subterminal, D+2",2026-04,1556946109.0,30
+"System Entry Energy, Rough Subterminal, D+2",2026-05,1453204444.0,31
+"System Entry Energy, Rough Subterminal, D+2",2026-06,1197466388.0,30
+"System Entry Energy, Rough Subterminal, D+2",2026-07,907753333.0,31
+"System Entry Energy, Rough Subterminal, D+2",2026-08,1160750279.0,31
+"System Entry Energy, Rough Subterminal, D+2",2026-09,623781944.0,30
+"System Entry Energy, Rough Subterminal, M+15",2025-01,1192142503.0,31
+"System Entry Energy, Rough Subterminal, M+15",2025-02,1261701386.0,28
+"System Entry Energy, Rough Subterminal, M+15",2025-03,1653670921.0,31
+"System Entry Energy, Rough Subterminal, M+15",2025-04,1567794165.0,30
+"System Entry Energy, Rough Subterminal, M+15",2025-05,1664572777.0,31
+"System Entry Energy, Rough Subterminal, M+15",2025-06,1041066111.0,30
+"System Entry Energy, Rough Subterminal, M+15",2025-07,1358171944.0,31
+"System Entry Energy, Rough Subterminal, M+15",2025-08,1358612223.0,31
+"System Entry Energy, Rough Subterminal, M+15",2025-09,1102280832.0,30
+"System Entry Energy, Rough Subterminal, M+15",2025-10,1990331945.0,31
+"System Entry Energy, Rough Subterminal, M+15",2025-11,1163238055.0,30
+"System Entry Energy, Rough Subterminal, M+15",2025-12,1701886946.0,31
+"System Entry Energy, Rough Subterminal, M+15",2026-01,1561329442.0,31
+"System Entry Energy, Rough Subterminal, M+15",2026-02,1664233053.0,28
+"System Entry Energy, Rough Subterminal, M+15",2026-03,1702668333.0,31
+"System Entry Energy, Rough Subterminal, M+15",2026-04,1556946109.0,30
+"System Entry Energy, Rough Subterminal, M+15",2026-05,1453204444.0,31
+"System Entry Energy, Rough Subterminal, M+15",2026-06,1197466388.0,30
+"System Entry Energy, Rough Subterminal, M+15",2026-07,907753333.0,31
+"System Entry Energy, Rough Subterminal, M+15",2026-08,1160750279.0,31
+"System Entry Energy, Rough, D+2",2025-01,2274962185.0,31
+"System Entry Energy, Rough, D+2",2025-02,1369570933.0,28
+"System Entry Energy, Rough, D+2",2025-03,1292220613.0,31
+"System Entry Energy, Rough, D+2",2025-04,1090871551.0,30
+"System Entry Energy, Rough, D+2",2025-05,610300328.0,31
+"System Entry Energy, Rough, D+2",2025-06,295497138.0,30
+"System Entry Energy, Rough, D+2",2025-07,345910234.0,31
+"System Entry Energy, Rough, D+2",2025-08,570398599.0,31
+"System Entry Energy, Rough, D+2",2025-09,532485867.0,30
+"System Entry Energy, Rough, D+2",2025-10,4818770.0,31
+"System Entry Energy, Rough, D+2",2025-11,0.0,30
+"System Entry Energy, Rough, D+2",2025-12,0.0,31
+"System Entry Energy, Rough, D+2",2026-01,0.0,31
+"System Entry Energy, Rough, D+2",2026-02,0.0,28
+"System Entry Energy, Rough, D+2",2026-03,0.0,31
+"System Entry Energy, Rough, D+2",2026-04,0.0,30
+"System Entry Energy, Rough, D+2",2026-05,0.0,31
+"System Entry Energy, Rough, D+2",2026-06,0.0,30
+"System Entry Energy, Rough, D+2",2026-07,0.0,31
+"System Entry Energy, Rough, D+2",2026-08,0.0,31
+"System Entry Energy, Rough, D+2",2026-09,0.0,30
+"System Entry Energy, Rough, M+15",2025-01,2274962185.0,31
+"System Entry Energy, Rough, M+15",2025-02,1369570933.0,28
+"System Entry Energy, Rough, M+15",2025-03,1292220613.0,31
+"System Entry Energy, Rough, M+15",2025-04,1090871551.0,30
+"System Entry Energy, Rough, M+15",2025-05,610300328.0,31
+"System Entry Energy, Rough, M+15",2025-06,295497138.0,30
+"System Entry Energy, Rough, M+15",2025-07,345910234.0,31
+"System Entry Energy, Rough, M+15",2025-08,570398599.0,31
+"System Entry Energy, Rough, M+15",2025-09,532485867.0,30
+"System Entry Energy, Rough, M+15",2025-10,4818770.0,31
+"System Entry Energy, Rough, M+15",2025-11,0.0,30
+"System Entry Energy, Rough, M+15",2025-12,0.0,31
+"System Entry Energy, Rough, M+15",2026-01,0.0,31
+"System Entry Energy, Rough, M+15",2026-02,0.0,28
+"System Entry Energy, Rough, M+15",2026-03,0.0,31
+"System Entry Energy, Rough, M+15",2026-04,0.0,30
+"System Entry Energy, Rough, M+15",2026-05,0.0,31
+"System Entry Energy, Rough, M+15",2026-06,0.0,30
+"System Entry Energy, Rough, M+15",2026-07,0.0,31
+"System Entry Energy, Rough, M+15",2026-08,0.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-01,1192142503.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-02,1261701386.0,28
+"System Entry Energy, Rough-Sub, M+15",2025-03,1653670921.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-04,1567794165.0,30
+"System Entry Energy, Rough-Sub, M+15",2025-05,1664572777.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-06,1041066111.0,30
+"System Entry Energy, Rough-Sub, M+15",2025-07,1358171944.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-08,1358612223.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-09,1102280832.0,30
+"System Entry Energy, Rough-Sub, M+15",2025-10,1990331945.0,31
+"System Entry Energy, Rough-Sub, M+15",2025-11,1163238055.0,30
+"System Entry Energy, Rough-Sub, M+15",2025-12,1701886946.0,31
+"System Entry Energy, Rough-Sub, M+15",2026-01,1561329442.0,31
+"System Entry Energy, Rough-Sub, M+15",2026-02,1664233053.0,28
+"System Entry Energy, Rough-Sub, M+15",2026-03,1702668333.0,31
+"System Entry Energy, Rough-Sub, M+15",2026-04,1556946109.0,30
+"System Entry Energy, Rough-Sub, M+15",2026-05,1453204444.0,31
+"System Entry Energy, Rough-Sub, M+15",2026-06,1197466388.0,30
+"System Entry Energy, Rough-Sub, M+15",2026-07,907753333.0,31
+"System Entry Energy, Rough-Sub, M+15",2026-08,1160750279.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-01,3880910648.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-02,3093509920.0,28
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-03,3553045098.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-04,3178814680.0,30
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-05,3025953264.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-06,3693978925.0,30
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-07,3961961544.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-08,3103286768.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-09,2951054032.0,30
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-10,3294633291.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-11,3243549848.0,30
+"System Entry Energy, ST Fergus - Mobil, D+2",2025-12,3229590952.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-01,2753662135.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-02,2605189628.0,28
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-03,2986249029.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-04,2859754603.0,30
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-05,2463106380.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-06,2373628664.0,30
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-07,2738048828.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-08,2134930880.0,31
+"System Entry Energy, ST Fergus - Mobil, D+2",2026-09,2339791960.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-01,3880910648.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-02,3093509920.0,28
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-03,3553045098.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-04,3178814680.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-05,3025953264.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-06,3693978925.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-07,3961961544.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-08,3103286768.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-09,2951054032.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-10,3294633291.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-11,3243549848.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2025-12,3229590952.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-01,2753662135.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-02,2605189628.0,28
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-03,2986249029.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-04,2859754603.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-05,2463106380.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-06,2373628664.0,30
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-07,2738048828.0,31
+"System Entry Energy, ST Fergus - Mobil, M+15",2026-08,2134930880.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-01,10453202906.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-02,6629220234.0,28
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-03,4326145988.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-04,3883769227.0,30
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-05,2983091710.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-06,4339321697.0,30
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-07,4600025973.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-08,3917565788.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-09,4295503236.0,30
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-10,5177282298.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-11,6973026237.0,30
+"System Entry Energy, ST Fergus - NSMP, D+2",2025-12,9596773836.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-01,10279428005.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-02,4077630002.0,28
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-03,6004863925.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-04,5091886952.0,30
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-05,4764497310.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-06,5011790276.0,30
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-07,5279473520.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-08,4054450936.0,31
+"System Entry Energy, ST Fergus - NSMP, D+2",2026-09,4359779126.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-01,10453202906.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-02,6629220234.0,28
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-03,4326145988.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-04,3883769227.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-05,2983091710.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-06,4339321697.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-07,4600025973.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-08,3917565788.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-09,4295503236.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-10,5177282298.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-11,6973026237.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2025-12,9596773836.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-01,10279428005.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-02,4077630002.0,28
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-03,6004863925.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-04,5091886952.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-05,4764497310.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-06,5011790276.0,30
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-07,5279473520.0,31
+"System Entry Energy, ST Fergus - NSMP, M+15",2026-08,4054450936.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-01,6547328858.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-02,5860265052.0,28
+"System Entry Energy, ST Fergus - Shell, D+2",2025-03,6751472854.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-04,6908747105.0,30
+"System Entry Energy, ST Fergus - Shell, D+2",2025-05,6851384448.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-06,5867165263.0,30
+"System Entry Energy, ST Fergus - Shell, D+2",2025-07,5747070576.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-08,4831882750.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-09,4071706580.0,30
+"System Entry Energy, ST Fergus - Shell, D+2",2025-10,6927365896.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2025-11,7059211082.0,30
+"System Entry Energy, ST Fergus - Shell, D+2",2025-12,6965198650.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2026-01,6438696338.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2026-02,6633514273.0,28
+"System Entry Energy, ST Fergus - Shell, D+2",2026-03,7447768517.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2026-04,6647039047.0,30
+"System Entry Energy, ST Fergus - Shell, D+2",2026-05,6136145826.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2026-06,6822360050.0,30
+"System Entry Energy, ST Fergus - Shell, D+2",2026-07,7845221533.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2026-08,7303247752.0,31
+"System Entry Energy, ST Fergus - Shell, D+2",2026-09,8243247885.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2025-01,6547328858.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2025-02,5860265052.0,28
+"System Entry Energy, ST Fergus - Shell, M+15",2025-03,6751472854.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2025-04,6908747105.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2025-05,6851384448.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2025-06,5867165263.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2025-07,5747070576.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2025-08,4831882750.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2025-09,4071706580.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2025-10,6927365896.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2025-11,7059211082.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2025-12,6965198650.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2026-01,6438696338.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2026-02,6633514273.0,28
+"System Entry Energy, ST Fergus - Shell, M+15",2026-03,7447768517.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2026-04,6647039047.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2026-05,6136145826.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2026-06,6822360050.0,30
+"System Entry Energy, ST Fergus - Shell, M+15",2026-07,7845221533.0,31
+"System Entry Energy, ST Fergus - Shell, M+15",2026-08,7303247752.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-01,3880910648.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-02,3093509920.0,28
+"System Entry Energy, STFergus-Mobil, M+15",2025-03,3553045098.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-04,3178814680.0,30
+"System Entry Energy, STFergus-Mobil, M+15",2025-05,3025953264.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-06,3693978925.0,30
+"System Entry Energy, STFergus-Mobil, M+15",2025-07,3961961544.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-08,3103286768.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-09,2951054032.0,30
+"System Entry Energy, STFergus-Mobil, M+15",2025-10,3294633291.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2025-11,3243549848.0,30
+"System Entry Energy, STFergus-Mobil, M+15",2025-12,3229590952.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2026-01,2753662135.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2026-02,2605189628.0,28
+"System Entry Energy, STFergus-Mobil, M+15",2026-03,2986249029.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2026-04,2859754603.0,30
+"System Entry Energy, STFergus-Mobil, M+15",2026-05,2463106380.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2026-06,2373628664.0,30
+"System Entry Energy, STFergus-Mobil, M+15",2026-07,2738048828.0,31
+"System Entry Energy, STFergus-Mobil, M+15",2026-08,2134930880.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-01,10408508072.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-02,6629221540.0,28
+"System Entry Energy, STFergus-NSMP, M+15",2025-03,4326145988.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-04,3874246894.0,30
+"System Entry Energy, STFergus-NSMP, M+15",2025-05,2983091710.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-06,4339321697.0,30
+"System Entry Energy, STFergus-NSMP, M+15",2025-07,4600029918.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-08,3917569538.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-09,4295506736.0,30
+"System Entry Energy, STFergus-NSMP, M+15",2025-10,5177291409.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2025-11,6973026237.0,30
+"System Entry Energy, STFergus-NSMP, M+15",2025-12,9596773836.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2026-01,10279424672.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2026-02,4077633716.0,28
+"System Entry Energy, STFergus-NSMP, M+15",2026-03,6004860650.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2026-04,5091886952.0,30
+"System Entry Energy, STFergus-NSMP, M+15",2026-05,4764497310.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2026-06,5011790276.0,30
+"System Entry Energy, STFergus-NSMP, M+15",2026-07,5279472595.0,31
+"System Entry Energy, STFergus-NSMP, M+15",2026-08,4054449722.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-01,6547328858.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-02,5860265052.0,28
+"System Entry Energy, STFergus-Shell, M+15",2025-03,6751472854.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-04,6908747105.0,30
+"System Entry Energy, STFergus-Shell, M+15",2025-05,6851384448.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-06,5867165263.0,30
+"System Entry Energy, STFergus-Shell, M+15",2025-07,5747070576.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-08,4831882750.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-09,4071706580.0,30
+"System Entry Energy, STFergus-Shell, M+15",2025-10,6927365896.0,31
+"System Entry Energy, STFergus-Shell, M+15",2025-11,7059211082.0,30
+"System Entry Energy, STFergus-Shell, M+15",2025-12,6965198650.0,31
+"System Entry Energy, STFergus-Shell, M+15",2026-01,6541293162.0,31
+"System Entry Energy, STFergus-Shell, M+15",2026-02,6579030314.0,28
+"System Entry Energy, STFergus-Shell, M+15",2026-03,7447768517.0,31
+"System Entry Energy, STFergus-Shell, M+15",2026-04,6647039047.0,30
+"System Entry Energy, STFergus-Shell, M+15",2026-05,6136145826.0,31
+"System Entry Energy, STFergus-Shell, M+15",2026-06,6822360050.0,30
+"System Entry Energy, STFergus-Shell, M+15",2026-07,7845221533.0,31
+"System Entry Energy, STFergus-Shell, M+15",2026-08,7303247752.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-01,48961585.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-02,42750003.0,28
+"System Entry Energy, Saltfleetby , D+2",2025-03,41664443.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-04,36873334.0,30
+"System Entry Energy, Saltfleetby , D+2",2025-05,38643333.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-06,38860288.0,30
+"System Entry Energy, Saltfleetby , D+2",2025-07,31963942.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-08,46136304.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-09,43843552.0,30
+"System Entry Energy, Saltfleetby , D+2",2025-10,47865229.0,31
+"System Entry Energy, Saltfleetby , D+2",2025-11,50243566.0,30
+"System Entry Energy, Saltfleetby , D+2",2025-12,47956764.0,31
+"System Entry Energy, Saltfleetby , D+2",2026-01,43848913.0,31
+"System Entry Energy, Saltfleetby , D+2",2026-02,48415557.0,28
+"System Entry Energy, Saltfleetby , D+2",2026-03,61395554.0,31
+"System Entry Energy, Saltfleetby , D+2",2026-04,57249372.0,30
+"System Entry Energy, Saltfleetby , D+2",2026-05,58811426.0,31
+"System Entry Energy, Saltfleetby , D+2",2026-06,55423279.0,30
+"System Entry Energy, Saltfleetby , D+2",2026-07,37593074.0,31
+"System Entry Energy, Saltfleetby , D+2",2026-08,56200487.0,31
+"System Entry Energy, Saltfleetby , D+2",2026-09,55409010.0,30
+"System Entry Energy, Saltfleetby , M+15",2025-01,48961585.0,31
+"System Entry Energy, Saltfleetby , M+15",2025-02,42750003.0,28
+"System Entry Energy, Saltfleetby , M+15",2025-03,41664443.0,31
+"System Entry Energy, Saltfleetby , M+15",2025-04,36873334.0,30
+"System Entry Energy, Saltfleetby , M+15",2025-05,38643333.0,31
+"System Entry Energy, Saltfleetby , M+15",2025-06,38860288.0,30
+"System Entry Energy, Saltfleetby , M+15",2025-07,31963942.0,31
+"System Entry Energy, Saltfleetby , M+15",2025-08,46136304.0,31
+"System Entry Energy, Saltfleetby , M+15",2025-09,43843552.0,30
+"System Entry Energy, Saltfleetby , M+15",2025-10,47865229.0,31
+"System Entry Energy, Saltfleetby , M+15",2025-11,50243566.0,30
+"System Entry Energy, Saltfleetby , M+15",2025-12,47956764.0,31
+"System Entry Energy, Saltfleetby , M+15",2026-01,43848913.0,31
+"System Entry Energy, Saltfleetby , M+15",2026-02,48415557.0,28
+"System Entry Energy, Saltfleetby , M+15",2026-03,61395554.0,31
+"System Entry Energy, Saltfleetby , M+15",2026-04,57249372.0,30
+"System Entry Energy, Saltfleetby , M+15",2026-05,58811426.0,31
+"System Entry Energy, Saltfleetby , M+15",2026-06,55423279.0,30
+"System Entry Energy, Saltfleetby , M+15",2026-07,37593074.0,31
+"System Entry Energy, Saltfleetby , M+15",2026-08,56200487.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-01,48961585.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-02,42750003.0,28
+"System Entry Energy, Saltfleetby, M+15",2025-03,41664443.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-04,36873334.0,30
+"System Entry Energy, Saltfleetby, M+15",2025-05,38643333.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-06,38860288.0,30
+"System Entry Energy, Saltfleetby, M+15",2025-07,31963942.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-08,46136304.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-09,43843552.0,30
+"System Entry Energy, Saltfleetby, M+15",2025-10,47865229.0,31
+"System Entry Energy, Saltfleetby, M+15",2025-11,50243566.0,30
+"System Entry Energy, Saltfleetby, M+15",2025-12,47956764.0,31
+"System Entry Energy, Saltfleetby, M+15",2026-01,43848913.0,31
+"System Entry Energy, Saltfleetby, M+15",2026-02,48415557.0,28
+"System Entry Energy, Saltfleetby, M+15",2026-03,61395554.0,31
+"System Entry Energy, Saltfleetby, M+15",2026-04,57249372.0,30
+"System Entry Energy, Saltfleetby, M+15",2026-05,58811426.0,31
+"System Entry Energy, Saltfleetby, M+15",2026-06,55423279.0,30
+"System Entry Energy, Saltfleetby, M+15",2026-07,37593074.0,31
+"System Entry Energy, Saltfleetby, M+15",2026-08,56200487.0,31
+"System Entry Energy, South Hook, D+2",2025-01,10971769510.0,31
+"System Entry Energy, South Hook, D+2",2025-02,13868058234.0,28
+"System Entry Energy, South Hook, D+2",2025-03,10852155594.0,31
+"System Entry Energy, South Hook, D+2",2025-04,3359727764.0,30
+"System Entry Energy, South Hook, D+2",2025-05,2877302815.0,31
+"System Entry Energy, South Hook, D+2",2025-06,1787991663.0,30
+"System Entry Energy, South Hook, D+2",2025-07,2133711102.0,31
+"System Entry Energy, South Hook, D+2",2025-08,1756813846.0,31
+"System Entry Energy, South Hook, D+2",2025-09,1700652774.0,30
+"System Entry Energy, South Hook, D+2",2025-10,4220358377.0,31
+"System Entry Energy, South Hook, D+2",2025-11,13253227862.0,30
+"System Entry Energy, South Hook, D+2",2025-12,10746772193.0,31
+"System Entry Energy, South Hook, D+2",2026-01,16563966813.0,31
+"System Entry Energy, South Hook, D+2",2026-02,15887036166.0,28
+"System Entry Energy, South Hook, D+2",2026-03,10178433263.0,31
+"System Entry Energy, South Hook, D+2",2026-04,1711241654.0,30
+"System Entry Energy, South Hook, D+2",2026-05,1766905565.0,31
+"System Entry Energy, South Hook, D+2",2026-06,1779186109.0,30
+"System Entry Energy, South Hook, D+2",2026-07,1773766669.0,31
+"System Entry Energy, South Hook, D+2",2026-08,1749822222.0,31
+"System Entry Energy, South Hook, D+2",2026-09,1720172223.0,30
+"System Entry Energy, South Hook, M+15",2025-01,10971769510.0,31
+"System Entry Energy, South Hook, M+15",2025-02,13868058234.0,28
+"System Entry Energy, South Hook, M+15",2025-03,10852155594.0,31
+"System Entry Energy, South Hook, M+15",2025-04,3359727764.0,30
+"System Entry Energy, South Hook, M+15",2025-05,2877302815.0,31
+"System Entry Energy, South Hook, M+15",2025-06,1787991663.0,30
+"System Entry Energy, South Hook, M+15",2025-07,2133711102.0,31
+"System Entry Energy, South Hook, M+15",2025-08,1756813846.0,31
+"System Entry Energy, South Hook, M+15",2025-09,1700652774.0,30
+"System Entry Energy, South Hook, M+15",2025-10,4220358377.0,31
+"System Entry Energy, South Hook, M+15",2025-11,13253227862.0,30
+"System Entry Energy, South Hook, M+15",2025-12,10746772193.0,31
+"System Entry Energy, South Hook, M+15",2026-01,16563966813.0,31
+"System Entry Energy, South Hook, M+15",2026-02,15887036166.0,28
+"System Entry Energy, South Hook, M+15",2026-03,10178433263.0,31
+"System Entry Energy, South Hook, M+15",2026-04,1711241654.0,30
+"System Entry Energy, South Hook, M+15",2026-05,1766905565.0,31
+"System Entry Energy, South Hook, M+15",2026-06,1779186109.0,30
+"System Entry Energy, South Hook, M+15",2026-07,1773766669.0,31
+"System Entry Energy, South Hook, M+15",2026-08,1749822222.0,31
+"System Entry Energy, SouthHook, M+15",2025-01,10971880604.0,31
+"System Entry Energy, SouthHook, M+15",2025-02,13868058234.0,28
+"System Entry Energy, SouthHook, M+15",2025-03,10852155594.0,31
+"System Entry Energy, SouthHook, M+15",2025-04,3359727764.0,30
+"System Entry Energy, SouthHook, M+15",2025-05,2877302815.0,31
+"System Entry Energy, SouthHook, M+15",2025-06,1787991663.0,30
+"System Entry Energy, SouthHook, M+15",2025-07,2133711102.0,31
+"System Entry Energy, SouthHook, M+15",2025-08,1756813846.0,31
+"System Entry Energy, SouthHook, M+15",2025-09,1700652774.0,30
+"System Entry Energy, SouthHook, M+15",2025-10,4220358377.0,31
+"System Entry Energy, SouthHook, M+15",2025-11,13253227862.0,30
+"System Entry Energy, SouthHook, M+15",2025-12,10746772193.0,31
+"System Entry Energy, SouthHook, M+15",2026-01,16563966813.0,31
+"System Entry Energy, SouthHook, M+15",2026-02,15887036166.0,28
+"System Entry Energy, SouthHook, M+15",2026-03,10178433263.0,31
+"System Entry Energy, SouthHook, M+15",2026-04,1711241654.0,30
+"System Entry Energy, SouthHook, M+15",2026-05,1766905565.0,31
+"System Entry Energy, SouthHook, M+15",2026-06,1779186109.0,30
+"System Entry Energy, SouthHook, M+15",2026-07,1773766669.0,31
+"System Entry Energy, SouthHook, M+15",2026-08,1749822222.0,31
+"System Entry Energy, Stublach , M+15",2025-01,3973607140.0,31
+"System Entry Energy, Stublach , M+15",2025-02,1776669930.0,28
+"System Entry Energy, Stublach , M+15",2025-03,1370130090.0,31
+"System Entry Energy, Stublach , M+15",2025-04,2390588625.0,30
+"System Entry Energy, Stublach , M+15",2025-05,974542909.0,31
+"System Entry Energy, Stublach , M+15",2025-06,3067168014.0,30
+"System Entry Energy, Stublach , M+15",2025-07,1420971168.0,31
+"System Entry Energy, Stublach , M+15",2025-08,1206072432.0,31
+"System Entry Energy, Stublach , M+15",2025-09,1292619200.0,30
+"System Entry Energy, Stublach , M+15",2025-10,1042118462.0,31
+"System Entry Energy, Stublach , M+15",2025-11,2552700112.0,30
+"System Entry Energy, Stublach , M+15",2025-12,1584334017.0,31
+"System Entry Energy, Stublach , M+15",2026-01,2953212855.0,31
+"System Entry Energy, Stublach , M+15",2026-02,2434742543.0,28
+"System Entry Energy, Stublach , M+15",2026-03,1140119383.0,31
+"System Entry Energy, Stublach , M+15",2026-04,3777617382.0,30
+"System Entry Energy, Stublach , M+15",2026-05,1322597142.0,31
+"System Entry Energy, Stublach , M+15",2026-06,1627161731.0,30
+"System Entry Energy, Stublach , M+15",2026-07,610855104.0,31
+"System Entry Energy, Stublach , M+15",2026-08,1525256983.0,31
+"System Entry Energy, Stublach, D+2",2025-01,3973607140.0,31
+"System Entry Energy, Stublach, D+2",2025-02,1776669930.0,28
+"System Entry Energy, Stublach, D+2",2025-03,1370130090.0,31
+"System Entry Energy, Stublach, D+2",2025-04,2390588625.0,30
+"System Entry Energy, Stublach, D+2",2025-05,974542909.0,31
+"System Entry Energy, Stublach, D+2",2025-06,3067168014.0,30
+"System Entry Energy, Stublach, D+2",2025-07,1420971168.0,31
+"System Entry Energy, Stublach, D+2",2025-08,1206072432.0,31
+"System Entry Energy, Stublach, D+2",2025-09,1292619200.0,30
+"System Entry Energy, Stublach, D+2",2025-10,1042118462.0,31
+"System Entry Energy, Stublach, D+2",2025-11,2552700112.0,30
+"System Entry Energy, Stublach, D+2",2025-12,1584334017.0,31
+"System Entry Energy, Stublach, D+2",2026-01,2953212855.0,31
+"System Entry Energy, Stublach, D+2",2026-02,2434742543.0,28
+"System Entry Energy, Stublach, D+2",2026-03,1140119383.0,31
+"System Entry Energy, Stublach, D+2",2026-04,3777617382.0,30
+"System Entry Energy, Stublach, D+2",2026-05,1322597142.0,31
+"System Entry Energy, Stublach, D+2",2026-06,1627161731.0,30
+"System Entry Energy, Stublach, D+2",2026-07,610855104.0,31
+"System Entry Energy, Stublach, D+2",2026-08,1525256983.0,31
+"System Entry Energy, Stublach, D+2",2026-09,2508623303.0,30
+"System Entry Energy, Stublach, M+15",2025-01,3689637114.0,31
+"System Entry Energy, Stublach, M+15",2025-02,1410703286.0,28
+"System Entry Energy, Stublach, M+15",2025-03,1089505282.0,31
+"System Entry Energy, Stublach, M+15",2025-04,1829062447.0,30
+"System Entry Energy, Stublach, M+15",2025-05,837817775.0,31
+"System Entry Energy, Stublach, M+15",2025-06,2491484085.0,30
+"System Entry Energy, Stublach, M+15",2025-07,1040491243.0,31
+"System Entry Energy, Stublach, M+15",2025-08,927044228.0,31
+"System Entry Energy, Stublach, M+15",2025-09,824352616.0,30
+"System Entry Energy, Stublach, M+15",2025-10,444007179.0,31
+"System Entry Energy, Stublach, M+15",2025-11,2036802897.0,30
+"System Entry Energy, Stublach, M+15",2025-12,1288517978.0,31
+"System Entry Energy, Stublach, M+15",2026-01,2145285275.0,31
+"System Entry Energy, Stublach, M+15",2026-02,2037000992.0,28
+"System Entry Energy, Stublach, M+15",2026-03,286082581.0,31
+"System Entry Energy, Stublach, M+15",2026-04,2909087961.0,30
+"System Entry Energy, Stublach, M+15",2026-05,938093059.0,31
+"System Entry Energy, Stublach, M+15",2026-06,1434500143.0,30
+"System Entry Energy, Stublach, M+15",2026-07,450997202.0,31
+"System Entry Energy, Stublach, M+15",2026-08,1102228373.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-01,6258709668.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-02,5787151779.0,28
+"System Entry Energy, Teesside - CATS, D+2",2025-03,6910820528.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-04,6558928251.0,30
+"System Entry Energy, Teesside - CATS, D+2",2025-05,6669965111.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-06,5912998666.0,30
+"System Entry Energy, Teesside - CATS, D+2",2025-07,6626635612.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-08,5048125195.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-09,6149019248.0,30
+"System Entry Energy, Teesside - CATS, D+2",2025-10,5798088639.0,31
+"System Entry Energy, Teesside - CATS, D+2",2025-11,5678821192.0,30
+"System Entry Energy, Teesside - CATS, D+2",2025-12,5008528751.0,31
+"System Entry Energy, Teesside - CATS, D+2",2026-01,5535659749.0,31
+"System Entry Energy, Teesside - CATS, D+2",2026-02,6126856168.0,28
+"System Entry Energy, Teesside - CATS, D+2",2026-03,6041117139.0,31
+"System Entry Energy, Teesside - CATS, D+2",2026-04,5498901193.0,30
+"System Entry Energy, Teesside - CATS, D+2",2026-05,5466619666.0,31
+"System Entry Energy, Teesside - CATS, D+2",2026-06,5853561972.0,30
+"System Entry Energy, Teesside - CATS, D+2",2026-07,5065574972.0,31
+"System Entry Energy, Teesside - CATS, D+2",2026-08,4886978082.0,31
+"System Entry Energy, Teesside - CATS, D+2",2026-09,4921635913.0,30
+"System Entry Energy, Teesside - CATS, M+15",2025-01,6258709668.0,31
+"System Entry Energy, Teesside - CATS, M+15",2025-02,5787151779.0,28
+"System Entry Energy, Teesside - CATS, M+15",2025-03,6910820528.0,31
+"System Entry Energy, Teesside - CATS, M+15",2025-04,6558928251.0,30
+"System Entry Energy, Teesside - CATS, M+15",2025-05,6669965111.0,31
+"System Entry Energy, Teesside - CATS, M+15",2025-06,5912998666.0,30
+"System Entry Energy, Teesside - CATS, M+15",2025-07,6626635612.0,31
+"System Entry Energy, Teesside - CATS, M+15",2025-08,5048125195.0,31
+"System Entry Energy, Teesside - CATS, M+15",2025-09,6149019248.0,30
+"System Entry Energy, Teesside - CATS, M+15",2025-10,5798088639.0,31
+"System Entry Energy, Teesside - CATS, M+15",2025-11,5678821192.0,30
+"System Entry Energy, Teesside - CATS, M+15",2025-12,5008528751.0,31
+"System Entry Energy, Teesside - CATS, M+15",2026-01,5535659749.0,31
+"System Entry Energy, Teesside - CATS, M+15",2026-02,6126856168.0,28
+"System Entry Energy, Teesside - CATS, M+15",2026-03,6041117139.0,31
+"System Entry Energy, Teesside - CATS, M+15",2026-04,5498901193.0,30
+"System Entry Energy, Teesside - CATS, M+15",2026-05,5466619666.0,31
+"System Entry Energy, Teesside - CATS, M+15",2026-06,5853561972.0,30
+"System Entry Energy, Teesside - CATS, M+15",2026-07,5065574972.0,31
+"System Entry Energy, Teesside - CATS, M+15",2026-08,4886978082.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-01,2005236128.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-02,1850961125.0,28
+"System Entry Energy, Teesside - PX, D+2",2025-03,2078970571.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-04,2008909460.0,30
+"System Entry Energy, Teesside - PX, D+2",2025-05,2133412794.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-06,100018888.0,30
+"System Entry Energy, Teesside - PX, D+2",2025-07,1873163069.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-08,2172233349.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-09,1352920288.0,30
+"System Entry Energy, Teesside - PX, D+2",2025-10,2526250300.0,31
+"System Entry Energy, Teesside - PX, D+2",2025-11,2092040016.0,30
+"System Entry Energy, Teesside - PX, D+2",2025-12,2808610856.0,31
+"System Entry Energy, Teesside - PX, D+2",2026-01,3035406135.0,31
+"System Entry Energy, Teesside - PX, D+2",2026-02,2571403634.0,28
+"System Entry Energy, Teesside - PX, D+2",2026-03,2978999470.0,31
+"System Entry Energy, Teesside - PX, D+2",2026-04,2235571681.0,30
+"System Entry Energy, Teesside - PX, D+2",2026-05,2989733915.0,31
+"System Entry Energy, Teesside - PX, D+2",2026-06,2345378349.0,30
+"System Entry Energy, Teesside - PX, D+2",2026-07,1864138350.0,31
+"System Entry Energy, Teesside - PX, D+2",2026-08,2513829465.0,31
+"System Entry Energy, Teesside - PX, D+2",2026-09,2064838903.0,30
+"System Entry Energy, Teesside - PX, M+15",2025-01,2005236128.0,31
+"System Entry Energy, Teesside - PX, M+15",2025-02,1850961125.0,28
+"System Entry Energy, Teesside - PX, M+15",2025-03,2078970571.0,31
+"System Entry Energy, Teesside - PX, M+15",2025-04,2008909460.0,30
+"System Entry Energy, Teesside - PX, M+15",2025-05,2133412794.0,31
+"System Entry Energy, Teesside - PX, M+15",2025-06,100018888.0,30
+"System Entry Energy, Teesside - PX, M+15",2025-07,1873163069.0,31
+"System Entry Energy, Teesside - PX, M+15",2025-08,2172233349.0,31
+"System Entry Energy, Teesside - PX, M+15",2025-09,1352920288.0,30
+"System Entry Energy, Teesside - PX, M+15",2025-10,2526250300.0,31
+"System Entry Energy, Teesside - PX, M+15",2025-11,2092040016.0,30
+"System Entry Energy, Teesside - PX, M+15",2025-12,2808610856.0,31
+"System Entry Energy, Teesside - PX, M+15",2026-01,3035406135.0,31
+"System Entry Energy, Teesside - PX, M+15",2026-02,2571403634.0,28
+"System Entry Energy, Teesside - PX, M+15",2026-03,2978999470.0,31
+"System Entry Energy, Teesside - PX, M+15",2026-04,2235571681.0,30
+"System Entry Energy, Teesside - PX, M+15",2026-05,2989733915.0,31
+"System Entry Energy, Teesside - PX, M+15",2026-06,2345378349.0,30
+"System Entry Energy, Teesside - PX, M+15",2026-07,1864138350.0,31
+"System Entry Energy, Teesside - PX, M+15",2026-08,2513829465.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-01,6258709668.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-02,5787151779.0,28
+"System Entry Energy, Teesside-CATS, M+15",2025-03,6910820528.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-04,6558928251.0,30
+"System Entry Energy, Teesside-CATS, M+15",2025-05,6669965111.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-06,5912998666.0,30
+"System Entry Energy, Teesside-CATS, M+15",2025-07,6626635612.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-08,5048125195.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-09,6149019248.0,30
+"System Entry Energy, Teesside-CATS, M+15",2025-10,5798088639.0,31
+"System Entry Energy, Teesside-CATS, M+15",2025-11,5678821192.0,30
+"System Entry Energy, Teesside-CATS, M+15",2025-12,5008528751.0,31
+"System Entry Energy, Teesside-CATS, M+15",2026-01,5535659749.0,31
+"System Entry Energy, Teesside-CATS, M+15",2026-02,6126856168.0,28
+"System Entry Energy, Teesside-CATS, M+15",2026-03,6041117139.0,31
+"System Entry Energy, Teesside-CATS, M+15",2026-04,5498901193.0,30
+"System Entry Energy, Teesside-CATS, M+15",2026-05,5466619666.0,31
+"System Entry Energy, Teesside-CATS, M+15",2026-06,5853561972.0,30
+"System Entry Energy, Teesside-CATS, M+15",2026-07,5065574972.0,31
+"System Entry Energy, Teesside-CATS, M+15",2026-08,4886978082.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-01,2005236128.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-02,1850961125.0,28
+"System Entry Energy, Teesside-PX, M+15",2025-03,2078970571.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-04,2008909460.0,30
+"System Entry Energy, Teesside-PX, M+15",2025-05,2133412794.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-06,100018888.0,30
+"System Entry Energy, Teesside-PX, M+15",2025-07,1873163069.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-08,2172233349.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-09,1352920288.0,30
+"System Entry Energy, Teesside-PX, M+15",2025-10,2526250300.0,31
+"System Entry Energy, Teesside-PX, M+15",2025-11,2092040016.0,30
+"System Entry Energy, Teesside-PX, M+15",2025-12,2808610856.0,31
+"System Entry Energy, Teesside-PX, M+15",2026-01,3035406135.0,31
+"System Entry Energy, Teesside-PX, M+15",2026-02,2571403634.0,28
+"System Entry Energy, Teesside-PX, M+15",2026-03,2978999470.0,31
+"System Entry Energy, Teesside-PX, M+15",2026-04,2235571681.0,30
+"System Entry Energy, Teesside-PX, M+15",2026-05,2989733915.0,31
+"System Entry Energy, Teesside-PX, M+15",2026-06,2345378349.0,30
+"System Entry Energy, Teesside-PX, M+15",2026-07,1864138350.0,31
+"System Entry Energy, Teesside-PX, M+15",2026-08,2513829465.0,31
+"System Entry Energy,Theddlethorpe,M+15",2026-05,0.0,1
