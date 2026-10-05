@@ -66,6 +66,7 @@ RAW_POWER_DATASETS = [
 ]
 OTHER_POWER_DATASETS = [
     ("MX", "Mexico", "mexico_demanda_nacional_daily.xlsx", "Data", "demand"),
+    ("US", "United States", "miso_gas_burn_daily.xlsx", "Monthly", "MISO gas burn"),
 ]
 # Installed generating capacity (standard sheet "Monthly"): US monthly, Canada and Mexico annual
 CAPACITY_DATASETS = [
@@ -77,7 +78,8 @@ HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
 DASHBOARD_ONLY = {"us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
-                  "henry_hub_daily.xlsx": {"Henry Hub"}}
+                  "henry_hub_daily.xlsx": {"Henry Hub"},
+                  "miso_gas_burn_daily.xlsx": {"Monthly"}}
 
 REGIONS = {"US_Total": "US Lower 48", "ERCOT": "ERCOT (Texas)", "PJM": "PJM (Mid-Atlantic)",
            "MISO": "MISO (Midcontinent)", "SPP": "SPP (Southwest Power Pool)", "CAISO": "CAISO (California)",
@@ -191,6 +193,9 @@ SOURCES = {
                                          "US to Mexico and Mexico to US, MMcf/d)", EIA_GAS),
     "eia930_fuel_mix_daily.xlsx": ("EIA-930 Hourly Electric Grid Monitor (balancing authority data, Lower 48)",
                                    "https://www.eia.gov/electricity/gridmonitor/"),
+    "miso_gas_burn_daily.xlsx": ("MISO real-time generation fuel mix (gas MWh) x heat rate calibrated on EIA-923 fuel use "
+                                 "of MISO balancing-authority gas plants (estimate; EIA-923 months not yet published "
+                                 "carry last year's heat rate)", "https://www.eia.gov/electricity/data/eia923/"),
     "canada_power_generation_daily.xlsx": ("Statistics Canada, Table 25-10-0015-01 Electric power generation, "
                                            "monthly generation by type of electricity",
                                            "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501"),
