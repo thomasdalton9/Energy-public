@@ -6,13 +6,11 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install requests
-      - env:
-          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: python3 discovery_archive/americas/TEXAS_STEO_FERC_PROBE.py
+      - run: pip install requests pypdf pandas openpyxl
+      - run: python3 discovery_archive/americas/TEXAS_FERC_LNG_PDF_PROBE.py
