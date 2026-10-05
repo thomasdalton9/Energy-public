@@ -310,7 +310,7 @@ def spain_monthly(start, old):
             if row["ES_lng_trucks"] == row["ES_lng_trucks"] and (py < pd.Timestamp(start) or (py in old.index and old.loc[py, "ES_lng_trucks"] == old.loc[py, "ES_lng_trucks"])):
                 known.add(row["source_file"])
     newest = {f for f, _ in sorted(files.items(), key=lambda kv: kv[1])[-3:]}
-    rows, prev_trucks = {}, {}
+    rows, prev_trucks, trucks_only = {}, {}, {}
     for f, ym in sorted(files.items(), key=lambda kv: kv[1]):
         name = f.split("/")[-1]
         if name in known and f not in newest:
@@ -324,6 +324,11 @@ def spain_monthly(start, old):
             continue
         if res is None:
             print(f"  {name}: demand table not found", flush=True)
+            if trucks == trucks:      # the truck table still reads: the bulletin listed under month m covers month m-1
+                tm = pd.Timestamp(ym[0], ym[1], 1) - pd.DateOffset(months=1)
+                if tm >= pd.Timestamp(start):
+                    trucks_only[tm] = trucks
+                    prev_trucks[tm - pd.DateOffset(years=1)] = trucks_prev
             continue
         month, nat, conv, pw = res
         if month < pd.Timestamp(start):
@@ -332,6 +337,9 @@ def spain_monthly(start, old):
         prev_trucks[month - pd.DateOffset(years=1)] = trucks_prev
     out = pd.DataFrame.from_dict(rows, orient="index", columns=ES_MONTHLY_COLS).sort_index() if rows else pd.DataFrame(columns=ES_MONTHLY_COLS)
     # a bulletin table also gives the same month a year earlier: fills the months whose own bulletin has no readable truck table (a later bulletin's figure is the revised one)
+    for m, v in trucks_only.items():
+        if m not in out.index:
+            out.loc[m, "ES_lng_trucks"] = v
     for m, v in prev_trucks.items():
         if v == v and m >= pd.Timestamp(start) and (m not in out.index or not out.loc[m, "ES_lng_trucks"] == out.loc[m, "ES_lng_trucks"]):
             out.loc[m, "ES_lng_trucks"] = v
