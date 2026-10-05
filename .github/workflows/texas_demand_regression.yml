@@ -5,9 +5,8 @@ name: Texas demand regression
 # Reads texas_gas_monthly.xlsx, eia930_fuel_mix_daily.xlsx, henry_hub_daily.xlsx from the repo (read only), so it runs after texas_gas
 # (16:20 UTC) and the production forecast (17:40 UTC). Temperature: NASA POWER (Open-Meteo fallback), incremental store in the workbook;
 # population: FRED TXPOP (Census).
+# Experiment: no scheduled refresh (owner's decision); run manually with workflow_dispatch when wanted.
 on:
-  schedule:
-    - cron: "10 18 1,15 * *"
   workflow_dispatch: {}
 
 permissions:
