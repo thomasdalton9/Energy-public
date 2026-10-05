@@ -1342,8 +1342,28 @@ def texas_production_forecast(p):
         prod.loc[last, prod.columns[-1]] = f.loc[last, hcol]       # join the forecast line to the history
     out = [spec("Production", prod.dropna(how="all"), "Texas marketed gas production: history and forecast (EIA STEO regions, Permian takeaway cap)",
                 "Bcf/d", "line", "%b/%y")]
-    ob = pd.DataFrame({"Base": f["Implied net interstate outflow, base"], "Takeaway delayed 6 months": f["Implied net interstate outflow, delayed"]})
-    out.append(spec("Net outflow", ob, "Texas implied net interstate outflow (production - consumption - Mexico - LNG; LNG held flat)",
+    sdm = _sheet(p, "Supply and demand", "Month")
+    if not sdm.empty:
+        # one combined supply-and-demand chart: stacked demand (sectors, LNG feedgas, Mexico), dry production lines, forecast lighter
+        SEC5 = ["Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel"]
+        st = sdm[SEC5 + ["LNG feedgas (base)", "Pipeline exports to Mexico"]].rename(columns={
+            "LNG feedgas (base)": "LNG feedgas (base case)", "Pipeline exports to Mexico": "Pipeline exports to Mexico"})
+        pl = sdm["Dry production, base"].copy()
+        pd_ = sdm["Dry production, takeaway delayed"].where(sdm["Type"].eq("Forecast"))
+        last_act = sdm.index[sdm["Type"].eq("Actual")].max()
+        pd_.loc[last_act] = sdm.loc[last_act, "Dry production, base"]       # join the delayed line to history
+        st["Dry production, base"] = pl
+        st["Dry production, takeaway delayed"] = pd_
+        s1 = spec("Supply and demand", st, "Texas gas supply and demand: dry production vs demand incl. LNG; gap = net outflow",
+                  "Bcf/d", "stacked_bar", "%b/%y", line_cols=("Dry production, base", "Dry production, takeaway delayed"))
+        s1["forecast_from"] = sdm.index[sdm["Type"].eq("Forecast")].min()
+        out.insert(0, s1)
+        ob = pd.DataFrame({"Base (base production, base LNG)": sdm["Implied net outflow, base"],
+                           "Delayed (takeaway delayed 6 months, LNG delayed 6 months)":
+                           sdm["Implied net outflow, delayed (production and LNG both delayed)"]})
+    else:
+        ob = pd.DataFrame({"Base": f["Implied net interstate outflow, base"], "Takeaway delayed 6 months": f["Implied net interstate outflow, delayed"]})
+    out.append(spec("Net outflow", ob, "Implied net outflow, base and LNG-delayed scenarios (dry production - demand incl. LNG; includes withheld fuel)",
                     "Bcf/d", "line", "%b/%y"))
     cap = pd.DataFrame({"STEO Permian marketed": f["STEO Permian marketed (Bcf/d)"],
                         "Takeaway + local demand, base": f["Permian takeaway + local demand, base (Bcf/d)"],
