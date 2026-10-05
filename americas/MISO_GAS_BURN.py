@@ -153,7 +153,7 @@ def update_eia923(saved, meta):
             continue
         t, name = parse_year(content, year)
         print(f"{year}: {name}: {len(t)} MISO gas months, {t['Netgen_MWh'].sum() / 1e6:.1f} TWh")
-        table = pd.concat([table[table.index.year != year], t]).sort_index()
+        table = (t if table.empty else pd.concat([table[table.index.year != year], t])).sort_index()
         meta[year] = f"{url} | Last-Modified: {lm}"
     return table, meta
 
