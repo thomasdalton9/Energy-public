@@ -21,6 +21,10 @@ ENTSOG points that the main country-balance pull (ENTSOG_GAS_FLOWS_DAILY.py) cla
         DE_emden_oge          Emden (EPT1) entries of OGE, GUD and GTS (Norwegian gas; Thyssengas reports the same flow as GUD and is left out).
         DE_emden_gud          Kept as a check on the Gassco-based Emden estimate in EUROPE_MASTER.emden_gap; not used by the master.
         NL_emden_gts
+        DE_haidach_out        Haidach (AT) / Haidach USP (DE), bayernets (DE-TSO-0010, UGS-00274): physical flow between the German grid and the Haidach storage
+        DE_haidach_in         (exit = gas injected into Haidach, entry = gas withdrawn from it). Haidach lies in Austria and is in AGSI+'s Austrian stock, but
+                              it is fed from and delivers to the German grid, so Germany's balance lacked about 10-24 TWh a year of injections and
+                              withdrawals (the Germany + Netherlands residual was +5 in summer and -6 to -9 TWh a month in winter).
     sheet "Units": source and definitions
 
 Incremental: reads the committed workbook, re-fetches the last 45 days plus any gap; history from 2021-10-04 (ENTSOG keeps ~5 years).
@@ -55,7 +59,9 @@ POINTS = {"GR_tap_imports": ("GR-TSO-0001", "ITP-00427", "entry"),
           "NL_emden_gts": ("NL-TSO-0001", "ITP-00160", "entry"),
           "DE_at_ueberackern": ("DE-TSO-0010", "ITP-00019", "exit"),
           "DE_at_ueberackern2": ("DE-TSO-0010", "ITP-00007", "exit"),
-          "DE_at_lindau": ("DE-TSO-0014", "ITP-00227", "exit")}
+          "DE_at_lindau": ("DE-TSO-0014", "ITP-00227", "exit"),
+          "DE_haidach_out": ("DE-TSO-0010", "UGS-00274", "exit"),
+          "DE_haidach_in": ("DE-TSO-0010", "UGS-00274", "entry")}
 RELOAD_DAYS = 45
 
 
@@ -127,7 +133,8 @@ def main():
              "GWh per gas day. GR_tap_imports = Nea Mesimvria entry (TAP gas into Greece); HU_production_exit = Exit for Blending (HU), to be "
              "subtracted from the Aggregated Single Production entry; UK_moffat_exit = Moffat exit from the GB NTS to Ireland (ROI + Northern Ireland + Isle of Man); "
              "DE_greifswald_nel / DE_greifswald_opal = Nord Stream 1 gas entering Germany at Greifswald into the NEL and OPAL pipelines (Russian origin); "
-             "DE_at_ueberackern / DE_at_ueberackern2 / DE_at_lindau = German exit flows to Austria (Ueberackern, Lindau) that the border rule leaves out because VIP Oberkappel does not contain them.",
+             "DE_at_ueberackern / DE_at_ueberackern2 / DE_at_lindau = German exit flows to Austria (Ueberackern, Lindau) that the border rule leaves out because VIP Oberkappel does not contain them; "
+             "DE_haidach_out / DE_haidach_in = bayernets' physical flow into / out of the Haidach storage (UGS-00274, Austria, fed from the German grid).",
              f"Re-fetches the last {RELOAD_DAYS} days each run; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(comb)} days, {comb.index.min():%Y-%m-%d} to {comb.index.max():%Y-%m-%d}"]
     xlsx_notes.write_workbook(path, {"Daily": comb}, lines, {"Source", "Units and definitions", "Last pull"})
