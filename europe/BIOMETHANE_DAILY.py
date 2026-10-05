@@ -32,7 +32,7 @@ OUT_DEFAULT = os.path.join(ROOT, "output", "Data and Chart Outputs")
 FILE = "europe_biomethane_operators.xlsx"
 REVISION_DAYS = 21
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-DAILY_COLS = ["FR_biomethane", "DK_biomethane"]
+DAILY_COLS = ["FR_biomethane", "FR_biomethane_transmission", "DK_biomethane"]
 MONTHLY_COLS = ["NL_biomethane"]
 ANNUAL_COLS = ["DE_biomethane"]
 # Dutch gas is quoted in m3 of 35.17 MJ (Groningen-equivalent standard m3): 35.17 / 3.6 = 9.769 kWh per m3
@@ -61,6 +61,7 @@ ODRE = "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/{ds}/rec
 # 'Meilleur Statut' = definitive value where it exists, else the latest provisional value.
 FR_DS = "prod-def-reg-jour-biom-reseau-grtgrd"
 FR_FIELD = "production_biomethane"
+FR_DS_OP = "odre-prod-grdgrt-operateur-def"     # same production by requesting network operator (grx_demandeur)
 
 
 def france(d0, d1):
@@ -76,7 +77,21 @@ def france(d0, d1):
         if len(res) < 100:
             break
         offset += 100
-    return pd.DataFrame({"FR_biomethane": pd.Series(rec, dtype=float)}).sort_index()
+    # the part injected straight into the transmission networks (sites whose requesting network operator is NaTran/GRTgaz or Teréga): it is inside
+    # the transmission exits ENTSOG measures, while biomethane injected into the distribution networks (GRDF, regional DSOs) is not
+    t, offset = {}, 0
+    while True:
+        r = get(ODRE.format(ds=FR_DS_OP), params={
+            "select": "date,sum(production_biomethane) as v", "group_by": "date", "order_by": "date", "limit": 100, "offset": offset,
+            "where": f"date>=date'{d0.isoformat()}' and date<=date'{d1.isoformat()}' and grx_demandeur in ('NaTran','GRTgaz','Teréga')"})
+        res = r.json().get("results", [])
+        for row in res:
+            if row.get("v") is not None:
+                t[pd.Timestamp(row["date"][:10])] = float(row["v"]) / 1000.0
+        if len(res) < 100:
+            break
+        offset += 100
+    return pd.DataFrame({"FR_biomethane": pd.Series(rec, dtype=float), "FR_biomethane_transmission": pd.Series(t, dtype=float)}).sort_index()
 
 
 # ---- Denmark: Energinet --------------------------------------------------------------------------------------------------
@@ -151,7 +166,8 @@ def main():
         if only and code not in only:
             continue
         col = f"{code}_biomethane"
-        have = old_daily[col].dropna()
+        cols = [c for c in DAILY_COLS if c.startswith(col)]
+        have = old_daily[cols].dropna(how="any")
         fs = start if have.empty else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))
         print(f"{label}: start from {fs}", flush=True)
         try:
@@ -162,7 +178,7 @@ def main():
         if new.empty:
             print(f"{label}: no rows", flush=True)
             continue
-        daily = merge(daily, new, [col])
+        daily = merge(daily, new, cols)
         print(f"{label}: {len(new)} days {new.index.min():%Y-%m-%d}..{new.index.max():%Y-%m-%d}", flush=True)
     if not only or "NL" in only:
         try:
@@ -188,6 +204,9 @@ def main():
         "daily definitive regionalised biomethane production of the sites injecting into the GRTgaz (NaTran), Teréga and distribution "
         "(GRDF, regional DSO) grids, summed over regions; MWh converted to GWh (PCS, gross calorific value). Biomethane only, not raw biogas. "
         "Recent days are provisional ('Meilleur Statut': definitive value where available, else provisional).",
+        "FR_biomethane_transmission (sheet Daily, GWh per gas day): the part of FR_biomethane injected directly into the transmission networks (ODRE dataset "
+        "odre-prod-grdgrt-operateur-def, requesting operator NaTran/GRTgaz or Teréga; 2.9 TWh of 13.6 in 2025). It is inside the transmission exits ENTSOG measures; "
+        "the rest is injected into the distribution networks.",
         "DK_biomethane (sheet Daily, GWh per gas day): Energinet Energi Data Service dataset Gasflow, field KWhFromBiogas "
         "(https://api.energidataservice.dk/dataset/Gasflow) - upgraded biogas injected into the Danish gas network (biomethane, not raw biogas). "
         "It is ALREADY inside DK_total of europe_tso_gas_demand_daily.xlsx (Denmark consumption = gas from the transmission system + biogas).",
