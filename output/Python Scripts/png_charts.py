@@ -18,6 +18,7 @@ import sys
 import matplotlib
 
 matplotlib.use("Agg")
+import matplotlib.ticker  # noqa: E402
 import matplotlib.dates as mdates  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 import pandas as pd  # noqa: E402
@@ -69,6 +70,8 @@ def series_chart(spec, path):
             ax.plot(x, df[c], color=_colour(c, i), label=str(c), linewidth=1.4)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y" if annual else "%b/%y"))
     _style(ax, spec["title"], spec["units"])
+    if str(spec["units"]).startswith("Bcf/d") and "MISO" in spec["title"]:
+        ax.yaxis.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%.2f"))
     ax.legend(fontsize=8, frameon=False, ncol=min(len(df.columns), 4), loc="upper left", bbox_to_anchor=(0, -0.1))
     fig.tight_layout()
     fig.savefig(path, dpi=110)
