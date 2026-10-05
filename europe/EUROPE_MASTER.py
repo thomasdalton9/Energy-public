@@ -527,7 +527,8 @@ def _monthly_twh(day, line_floor=12):
 
 
 def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=None, biomethane=None, extra_imports=None,
-                      extra_exports=None, prod_adjust=None, prod_override=None, import_floor=None, export_floor=None, until=None):
+                      extra_exports=None, prod_adjust=None, prod_override=None, import_floor=None, export_floor=None, until=None,
+                      lng_extra=None, prod_extra=None):
     """Monthly TWh gas balance for one ENTSOG country: production, pipeline imports, LNG send-out (ALSI) and storage
     withdrawals (AGSI+) as supply; pipeline exports and storage injections as negatives; consumption (distribution +
     final consumers) as a line. Supply less the negatives should land near the consumption line; the gap is the
@@ -573,6 +574,10 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
     if prod_override is not None:       # national production statistic (Netherlands, CBS) in place of ENTSOG's production entries
         po = prod_override.reindex(bal.index)
         day["Production"] = po.where(po.notna(), day["Production"])
+    if prod_extra is not None:          # system entries ENTSOG lacks (Great Britain's Rough sub-terminal and small onshore entries): added to production
+        day["Production"] = day["Production"] + prod_extra.reindex(bal.index).fillna(0)
+    if lng_extra is not None:           # LNG that leaves the terminals without passing the send-out into the grid (Spain's LNG truck loadings): added to the LNG line
+        day["LNG send-out"] = day["LNG send-out"] + lng_extra.reindex(bal.index).fillna(0)
     cols = GAS_BAL_COLS
     if biomethane is not None and biomethane.notna().any():
         day["Biomethane"] = biomethane.reindex(bal.index).fillna(0)
@@ -837,6 +842,25 @@ def pl_yamal_imports(data_dir):
     return by + yam
 
 
+def es_lng_trucks(data_dir):
+    """LNG loaded onto trucks at Spain's regasification plants, GWh/d: the monthly total from the Enagas statistical bulletin's 'Regasification plants activity' table
+    (GAS_TSO_SOUTHEAST_DAILY.py, sheet Monthly of the extra TSO workbook), spread evenly over the days of the month. Months without a figure stay blank (not filled)."""
+    mon = _sheet_or_empty(os.path.join(data_dir, TSO_EXTRA_FILE), "Monthly", "month")
+    if not len(mon) or "ES_lng_trucks" not in mon or mon["ES_lng_trucks"].notna().sum() < 12:
+        return None
+    m = mon["ES_lng_trucks"].dropna()
+    parts = [pd.Series(v / d.days_in_month, index=pd.date_range(d, d + pd.offsets.MonthEnd(0), freq="D")) for d, v in m.items()]
+    return pd.concat(parts).sort_index()
+
+
+def fr_bio_transmission(data_dir):
+    """France: the part of the ODRE biomethane series injected straight into the transmission networks (GWh/d), None until BIOMETHANE_DAILY.py has pulled it."""
+    d = _sheet_or_empty(os.path.join(data_dir, BIO_FILE), "Daily", "date")
+    if "FR_biomethane_transmission" not in d or d["FR_biomethane_transmission"].notna().sum() < 365:
+        return None
+    return d["FR_biomethane_transmission"]
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -847,8 +871,16 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
     industrial exits), which excludes biomethane injected straight into the distribution networks, so that biomethane is added to
     consumption (it is also a supply line)."""
     if cc == "IT" and it_storage_from_stock(data_dir) is not None:
-        return {"storage": it_storage_from_stock(data_dir)}, None, (
+        kw, cons, note = {"storage": it_storage_from_stock(data_dir)}, None, (
             " Storage flows are the day-to-day change in AGSI+'s stock level: AGSI's own injection and withdrawal columns for Italy disagree with the stock by 28.6 TWh in 2025.")
+        fx_it = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+        if bal_nl is not None and "IT_srg_other_tsos" in fx_it and "IT_distribution_GWhd" in bal_nl:
+            own = bal_nl[["IT_distribution_GWhd", "IT_final_consumers_GWhd"]].sum(axis=1, min_count=1)
+            cons = own + fx_it["IT_srg_other_tsos"].reindex(own.index).fillna(0)
+            note += (" Consumption adds Snam Rete Gas's 'delivery to other transmission networks' (ENTSOG point ITP-00288, 14.6 TWh in 2025): gas handed to the smaller Italian "
+                     "transmission systems, whose downstream exits ENTSOG does not publish, so it is missing from the distribution + industrial + thermal exits "
+                     "(it was the whole +1.2 TWh a month surplus). What remains (about 0.3 TWh a month) is Snam's compressor fuel and losses, which no published series gives.")
+        return kw, cons, note
     fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
     if cc == "NL":
         nl = nl_cbs_gas(data_dir, bal_nl)
@@ -864,6 +896,24 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
                 "(Danish North Sea gas landed at Den Helder, 8-14 TWh a year; ENTSOG has no border row for it). The balance still runs a few percent short on the "
                 "Dutch side because ENTSOG reports physical net flows (NL>DE about 10 TWh a year more net export than CBS's commercial figures; the mirror is Germany's surplus), "
                 "ALSI LNG send-out is 4-8 TWh a year below CBS's net LNG imports, and CBS bunkering (5-6 TWh) is not in its consumption.")
+    if cc == "ES":
+        tr = es_lng_trucks(data_dir)
+        if tr is not None:
+            return {"lng_extra": tr}, None, (
+                " LNG send-out includes the LNG loaded onto trucks at the seven regasification plants (about 11-12 TWh a year, Enagás statistical bulletin, spread evenly over the days of each month): "
+                "Enagás's national market demand (conventional market) includes it, but it leaves the terminals without passing the send-out into the grid (ALSI send-out counts grid send-out only), "
+                "and it was the whole -0.9 TWh a month shortfall. LNG ship reloads (international market demand) are not in national demand and are not added.")
+    if cc == "FR" and bal_nl is not None and "FR_distribution_GWhd" in bal_nl and len(bio) and "FR" in bio:
+        own = bal_nl[["FR_distribution_GWhd", "FR_final_consumers_GWhd"]].sum(axis=1, min_count=1)
+        t = fr_bio_transmission(data_dir)
+        if t is not None:
+            dn = (bio["FR"] - t.reindex(bio.index).fillna(0)).clip(lower=0)      # biomethane injected into the distribution networks
+            return {"prod_override": pd.Series(0.0, index=bal_nl.index)}, own + dn.reindex(own.index).fillna(0), (
+                " Consumption is the gas that leaves the GRTgaz/Teréga transmission networks (ENTSOG distribution + final-consumer exits, metered) plus the biomethane injected into the distribution "
+                "networks. ODRE's daily consumption series was used before: its distribution part equals ENTSOG's exits (-0.1 TWh a month) but its industrial part is 9.7 TWh a year (8%) below the metered "
+                "industrial exit in 2025 (1.5 TWh a month in winter, 0.3 in summer), i.e. gas the networks deliver for uses ODRE's industrial list does not cover (network, storage and terminal own use among them); "
+                "Eurostat's own French balance carries a 7.9 TWh statistical difference of the same size. ENTSOG's French production entry (GRTgaz and Teréga biomethane producers, from Apr 2025, 2.2 TWh) is "
+                "biomethane already counted in the biomethane line, so it is not counted twice; the biomethane injected into the transmission networks (2.9 TWh in 2025) is inside the exits and is not added to consumption.")
     if cc == "FR" and tso is not None and "FR" in tso and len(bio) and "FR" in bio:
         return {}, tso["FR"].add(bio["FR"].reindex(tso.index).fillna(0)), (
             " Consumption is ODRE's GRTgaz/Teréga offtake plus the biomethane injected into the distribution networks (ODRE's offtake equals "
@@ -958,10 +1008,24 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
             sto = gb_site_storage(data_dir, sto)
         except Exception:  # noqa: BLE001
             sto = None
-        return ({"extra_exports": to_roi} | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi - ukie).clip(lower=0).fillna(0)), (
+        uk_entry, uk_rough, ent = None, None, None
+        try:    # National Gas system entries ENTSOG lacks / double counts (GB_GAS_NTS_DAILY.py entry_* columns)
+            nts_e = add_charts._sheet(os.path.join(data_dir, "gb_gas_nts_daily.xlsx"), "Daily", "date")
+            ec = [c for c in ("entry_rough_subterminal", "entry_saltfleetby", "entry_murrow", "entry_glentham", "entry_burton_point") if c in nts_e]
+            if "entry_rough_subterminal" in nts_e and nts_e["entry_rough_subterminal"].notna().sum() > 30:
+                uk_entry = nts_e[ec].sum(axis=1, min_count=1)
+                uk_rough = nts_e["entry_rough_storage"] if "entry_rough_storage" in nts_e else None
+        except Exception:  # noqa: BLE001
+            pass
+        ukkw = ({"prod_extra": uk_entry} if uk_entry is not None else {}) | ({"prod_adjust": uk_rough} if uk_rough is not None else {})
+        return ({"extra_exports": to_roi} | ukkw | ({"storage": sto} if sto is not None else {})), tso["UK"].add((mof - to_roi - ukie).clip(lower=0).fillna(0)), (
             " Exports include the Moffat exit to Ireland (the Republic's share is Gas Networks Ireland's Moffat import figure); the remainder of "
             "the Moffat flow (Northern Ireland and the Isle of Man, about 19 TWh a year, less the 7-9 TWh a year that Northern Ireland sends on to the Republic at Carrickfergus, which ENTSOG already counts in UK exports) is added to UK consumption because the National Gas NTS "
-            "offtake covers Great Britain only. Storage withdrawals and injections are the nine storage sites' own daily flows from the National Gas Data Portal (the NTS aggregate overstates net withdrawals by about 5 TWh a year); before Oct 2024 they are the day-to-day change in the portal's total stock (net only). ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK).")
+            "offtake covers Great Britain only. Storage withdrawals and injections are the nine storage sites' own daily flows from the National Gas Data Portal (the NTS aggregate overstates net withdrawals by about 5 TWh a year); before Oct 2024 they are the day-to-day change in the portal's total stock (net only). ENTSOG omits Moffat from its UK exports (the point's far side is listed as country UK)."
+            + (" Production adds the National Gas system entries ENTSOG has no row for - the Rough sub-terminal at Easington (1.0-2.0 TWh a month, 17 TWh in 2025) and the small Saltfleetby, Murrow and Glentham biomethane entries - "
+               "and takes off the Rough storage withdrawals that ENTSOG's Easington entry already contains until Sep 2025 (ENTSOG Easington less Langeled and Dimlington equals Rough storage to 0.01 TWh), which the storage line also counts. "
+               "ENTSOG's other UK entries (St Fergus, Easington, Teesside, Bacton, Barrow) match National Gas's own entry allocations within 0.1%. NTS shrinkage (compressor fuel and unaccounted gas, 2-4 TWh a year) is not published as consumption and stays in the remainder."
+               if uk_entry is not None else ""))
     return {}, None, None
 
 
