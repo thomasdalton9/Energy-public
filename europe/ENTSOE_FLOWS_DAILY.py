@@ -52,6 +52,7 @@ EXTERNAL = {"GB": ("Great Britain", "10YGB----------A"), "TR": ("Turkey", "10YTR
             # Candidate links only - those ENTSO-E does not publish are dropped and logged.
             "UA": ("Ukraine", "10Y1001C--00003F"), "UA-IPS": ("Ukraine", "10Y1001C--000182"),
             "UA-BEI": ("Ukraine", "10YUA-WEPS-----0"), "MD": ("Moldova", "10Y1001A1001A990"),
+            "MT": ("Malta", "10Y1001A1001A93C"),   # Malta-Sicily cable (200 MW, 2015): Italy's exports to Malta, 0.5-1.0 TWh a year, were missing from Italy's net imports
             "RU": ("Russia", "10Y1001A1001A49F"), "RU-KGD": ("Russia", "10Y1001A1001A50U"), "BY": ("Belarus", "10Y1001A1001A51S")}
 
 # zone -> neighbouring zones (candidate interconnectors; pairs inside one country are skipped, and a pair with no
@@ -62,6 +63,7 @@ FR: ES IT-North CH BE GB
 ES: PT
 IT-North: CH AT SI
 IT-South: GR
+IT-Sicily: MT
 IT-Centre-South: ME
 NL: BE GB DK1 NO2
 BE: GB
