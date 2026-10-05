@@ -1327,6 +1327,32 @@ def us_gas(p):
     return out
 
 
+def texas_production_forecast(p):
+    """Texas production forecast (americas/TEXAS_PRODUCTION_FORECAST.py): history + base/delayed forecast, implied net
+    interstate outflow, Permian cap vs STEO. Bcf/d, mmm/yy."""
+    f = _sheet(p, "Forecast", "Month")
+    if f.empty:
+        return []
+    f = f[f.index >= "2022-01-01"]
+    hcol = "Texas marketed production (history)"
+    last = f[hcol].dropna().index[-1]
+    prod = pd.DataFrame({"History": f[hcol]})
+    for sc in ("base", "delayed"):
+        prod[f"Forecast - {sc}" if sc == "base" else "Forecast - takeaway delayed 6 months"] = f[f"Texas production forecast, {sc}"]
+        prod.loc[last, prod.columns[-1]] = f.loc[last, hcol]       # join the forecast line to the history
+    out = [spec("Production", prod.dropna(how="all"), "Texas marketed gas production: history and forecast (EIA STEO regions, Permian takeaway cap)",
+                "Bcf/d", "line", "%b/%y")]
+    ob = pd.DataFrame({"Base": f["Implied net interstate outflow, base"], "Takeaway delayed 6 months": f["Implied net interstate outflow, delayed"]})
+    out.append(spec("Net outflow", ob, "Texas implied net interstate outflow (production - consumption - Mexico - LNG; LNG held flat)",
+                    "Bcf/d", "line", "%b/%y"))
+    cap = pd.DataFrame({"STEO Permian marketed": f["STEO Permian marketed (Bcf/d)"],
+                        "Takeaway + local demand, base": f["Permian takeaway + local demand, base (Bcf/d)"],
+                        "Takeaway + local demand, delayed": f["Permian takeaway + local demand, delayed (Bcf/d)"]}).dropna(how="all")
+    out.append(spec("Permian cap", cap, "Permian: STEO marketed production against takeaway capacity plus local demand (takeaway table unverified)",
+                    "Bcf/d", "line", "%b/%y"))
+    return out
+
+
 def texas_gas(p):
     """Texas gas (americas/TEXAS_GAS.py, EIA): consumption by sector (stacked), exports by route (stacked), Mexico
     pipeline exports by border crossing (stacked) and the balance (lines), all Bcf/d."""
@@ -2400,6 +2426,7 @@ REGISTRY = {
     "henry_hub_daily.xlsx": henry_hub,
     "us_gas.xlsx": us_gas,
     "texas_gas_monthly.xlsx": texas_gas,
+    "texas_production_forecast.xlsx": texas_production_forecast,
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
