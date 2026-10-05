@@ -117,7 +117,7 @@ def load_saved(path):
         return pd.DataFrame(), {}
     try:
         mo = pd.read_excel(path, sheet_name="Monthly")
-        units = pd.read_excel(path, sheet_name="Units")["Notes"].astype(str)
+        units = pd.read_excel(path, sheet_name="Units")["Notes"].fillna("").astype(str)
     except Exception as e:  # noqa: BLE001
         print(f"saved workbook unreadable ({type(e).__name__}); rebuilding")
         return pd.DataFrame(), {}
