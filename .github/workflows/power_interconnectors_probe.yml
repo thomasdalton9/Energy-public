@@ -1,0 +1,28 @@
+name: Power interconnectors probe (manual)
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas openpyxl requests
+      - name: Probe
+        env:
+          PYTHONUNBUFFERED: "1"
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
+        run: python3 discovery_archive/europe/POWER_INTERCONNECTORS_PROBE.py
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/europe/data/gb_interconnectors_daily.csv || true
+          git diff --cached --quiet || git commit -m "Power interconnector probe data"
+          for i in 1 2 3; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep 5; done
