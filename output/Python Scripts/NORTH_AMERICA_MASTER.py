@@ -299,9 +299,21 @@ def main():
 
     gen_frames = {}
     total, notes = north_america_generation(args.data_dir, have_raw, gen_frames)
+    cap_total, cap_notes = sam.south_america_capacity(args.data_dir, cfg=cfg)
+    CAP_LINE = "Total installed capacity (TWh at full output)"
+    if not total.empty and not cap_total.empty:
+        # Overlay line on the generation chart: installed GW x hours in the month, so it shares the TWh axis
+        idx = pd.to_datetime(total.index)
+        gw = cap_total.sum(axis=1)
+        gw.index = pd.to_datetime(gw.index)
+        gw = gw.reindex(gw.index.union(idx)).sort_index().ffill().reindex(idx)
+        total = total.copy()
+        total[CAP_LINE] = (gw * idx.days_in_month * 24 / 1000.0).values
+        notes = notes + [f"{CAP_LINE}: installed capacity (storage excluded) x hours in the month; last capacity "
+                         f"month ({cap_total.index.max():%b/%y}) held for later months"]
     if not total.empty:
         ws = wb.create_sheet(sam.sheet_name("NA generation total data", used))
-        df, n_bars = xlsx_charts.prepare(total)
+        df, n_bars = xlsx_charts.prepare(total, (CAP_LINE,))
         xlsx_charts.write_table(ws, df)
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
@@ -318,7 +330,6 @@ def main():
         print("North America generation total:", "; ".join(notes))
 
     # Capacity: combined North America chart (GW) right after the generation total, then each country
-    cap_total, cap_notes = sam.south_america_capacity(args.data_dir, cfg=cfg)
     cap = sam.collect(wb, [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
                       args.data_dir, used, sources, cfg=cfg)
     pos = 1 if not total.empty else 0
