@@ -1,0 +1,14 @@
+name: ENTSOG storage cross probe (manual)
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas
+      - run: python3 -u discovery_archive/europe/ENTSOG_STORAGE_CROSS_PROBE.py > cross.log 2>&1; grep -E "CROSS|FLOW|==" cross.log | cut -c1-260 | head -120
