@@ -41,8 +41,12 @@ df.to_csv("aggm_storage_daily.csv")
 stock = [c for c in df if "Arbeitsgas" in c]
 flow = [c for c in df if c not in stock]
 pd.set_option("display.width", 250, "display.max_columns", 60, "display.max_rows", 200)
+short = {c: re.sub(r"_?(Speicher|Menge|ArbeitsgasVolumen|MGM-Allokationen)", "", c)[:14] for c in df}
 m = df[flow].resample("MS").sum(min_count=1).round(2)
-print("MONTHLY FLOWS TWh\n" + m.T.to_string(), flush=True)
-print("MONTH-END STOCK TWh (units may be TWh*1e? raw/1e9)\n" + df[stock].resample("MS").last().round(2).T.to_string(), flush=True)
-print("CSV_BEGIN"); print(df.round(4).to_csv()); print("CSV_END")
+chg = df[stock].resample("MS").last().diff().round(2)
+pick = [c for c in flow if re.search(r"Austria_|Netto|Haidach|7Fields|SEFE_Speicher(Ein|Aus)|RAG_Speicher(Ein|Aus)|EntrySpeicher(GESAMT)|ExitSpeicher(GESAMT)", c)]
+print("MONTHLY FLOWS TWh (rows=month)\n" + m[pick].rename(columns=short).loc["2023-10":].to_string(), flush=True)
+pk2 = [c for c in stock if re.search(r"Austria|Haidach|7Fields|SEFE_Speicher|RAG_|RAG-Sum|MGOst|OMV", c)]
+print("MONTHLY STOCK CHANGE TWh (rows=month)\n" + chg[pk2].rename(columns=short).loc["2023-10":].to_string(), flush=True)
+print("STOCK NAMES", stock)
 sys.exit(0)

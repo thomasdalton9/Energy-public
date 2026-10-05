@@ -11,13 +11,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests pandas
-      - run: python3 -u discovery_archive/europe/AGGM_STORAGE_FACILITY_PROBE.py > aggm.log 2>&1; grep -v -E "^(CSV|20[0-9][0-9]-)" aggm.log | head -150
-      - run: python3 -u discovery_archive/europe/ENTSOG_STORAGE_CROSS_PROBE.py 2>&1 | grep -E "CROSS|FLOW|==|interconn" | head -120
-      - env:
-          OPS: "AT-"
-          LABELS: "Haidach|7Fields|Oberkappel|Baumgarten"
-        run: python3 -u discovery_archive/europe/ENTSOG_POINT_SEARCH_PROBE.py 2>&1 | head -90
-      - uses: actions/upload-artifact@v4
-        with:
-          name: aggm
-          path: aggm_storage_daily.csv
+      - run: python3 -u discovery_archive/europe/AGGM_STORAGE_FACILITY_PROBE.py > aggm.log 2>&1; cat aggm.log | cut -c1-200 | head -150
