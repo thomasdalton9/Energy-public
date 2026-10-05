@@ -29,7 +29,10 @@ def agsi(params):
 
 
 lst = requests.get("https://agsi.gie.eu/api/about", params={"show": "listing"}, headers=H, timeout=120)
-print("listing", lst.status_code, len(lst.content), flush=True)
+print("listing", lst.status_code, len(lst.content), lst.text[:300], flush=True)
+for u, pr in (("https://agsi.gie.eu/api/about", {}), ("https://agsi.gie.eu/api/about", {"show": "listing", "country": "AT"}), ("https://agsi.gie.eu/api/about", {"show": "companies"}), ("https://agsi.gie.eu/api/about", {"show": "facilities"})):
+    x = requests.get(u, params=pr, headers=H, timeout=120)
+    print("ABOUT", pr, x.status_code, len(x.content), x.text[:1500].replace("\n", " "), flush=True)
 kids = []
 try:
     j = lst.json()
