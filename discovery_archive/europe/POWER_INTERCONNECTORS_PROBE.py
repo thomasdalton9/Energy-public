@@ -76,35 +76,60 @@ def entsoe():
 
 
 def energinet():
-    for ds in ("ElectricityBalanceNonv", "ElectricityBalance"):
-        try:
-            r = requests.get(f"https://api.energidataservice.dk/dataset/{ds}", params={"start": "2024-01-01T00:00", "end": "2024-01-03T00:00", "limit": 3}, timeout=120)
-            print(ds, r.status_code, str(r.json().get("records"))[:900], flush=True)
-        except Exception as e:
-            print(ds, "ERR", e)
+    """Energinet ElectricityBalanceNonv: hourly exchange per area (MWh, + = import into DK?). Monthly requests to avoid 429."""
     ds = "ElectricityBalanceNonv"
-    out = []
+    rows = []
     for yr in range(2021, 2027):
-        r = requests.get(f"https://api.energidataservice.dk/dataset/{ds}", params={"start": f"{yr}-01-01T00:00", "end": f"{yr + 1}-01-01T00:00", "limit": 0}, timeout=300)
-        recs = r.json().get("records") or []
-        if not recs:
-            print(yr, "no records", r.status_code); continue
-        d = pd.DataFrame(recs)
-        ex = [c for c in d.columns if c.lower().startswith("exchange")]
-        print(yr, len(d), "rows; TWh (+ = import into DK):\n", (d[ex].apply(pd.to_numeric, errors="coerce").sum() / 1e6).round(2).to_string(), flush=True)
+        for mo in range(1, 13):
+            a = datetime(yr, mo, 1); b = datetime(yr + (mo == 12), mo % 12 + 1, 1)
+            if a > datetime.now():
+                break
+            for t in range(6):
+                r = requests.get(f"https://api.energidataservice.dk/dataset/{ds}", params={"start": a.strftime("%Y-%m-%dT00:00"), "end": b.strftime("%Y-%m-%dT00:00"), "limit": 0, "columns": "HourUTC,PriceArea,ExchangeContinent,ExchangeGreatBelt,ExchangeNordicCountries,ExchangeGreatBritain"}, timeout=300)
+                if r.status_code == 200:
+                    break
+                time.sleep(10 * (t + 1))
+            recs = r.json().get("records") or [] if r.status_code == 200 else []
+            if recs:
+                rows.append(pd.DataFrame(recs))
+            time.sleep(1.5)
+    d = pd.concat(rows)
+    d["date"] = pd.to_datetime(d["HourUTC"]).dt.normalize()
+    ex = ["ExchangeContinent", "ExchangeGreatBelt", "ExchangeNordicCountries", "ExchangeGreatBritain"]
+    for c in ex:
+        d[c] = pd.to_numeric(d[c], errors="coerce")
+    g = d.groupby(["date", "PriceArea"])[ex].sum().reset_index()
+    g.to_csv(os.path.join(OUT, "energinet_exchanges_daily.csv"), index=False)
+    d["y"] = d["date"].dt.year
+    print("ENERGINET exchange TWh by year and area\n", (d.groupby(["y", "PriceArea"])[ex].sum() / 1e6).round(2).to_string(), flush=True)
 
 
 def elering():
-    for u in ("https://dashboard.elering.ee/api/system?start=2024-01-01T00:00:00.000Z&end=2024-01-02T00:00:00.000Z",
-              "https://dashboard.elering.ee/api/transmission/cross-border?start=2024-01-01T00:00:00.000Z&end=2024-01-02T00:00:00.000Z"):
-        try:
-            r = requests.get(u, timeout=60); print("ELERING", r.status_code, r.text[:600], flush=True)
-        except Exception as e:
-            print("ELERING ERR", e)
+    """Elering dashboard cross-border flows, 5-minute MW per link (Estlink 1/2, Finland total, Latvia, Russia Narva/Pihkva)."""
+    frames = []
+    for yr in range(2021, 2027):
+        for half in (0, 1):
+            a = datetime(yr, 1 + 6 * half, 1); b = datetime(yr + half, 1 + 6 * (1 - half), 1)
+            if a > datetime.now():
+                break
+            r = requests.get("https://dashboard.elering.ee/api/transmission/cross-border", params={"start": a.strftime("%Y-%m-%dT00:00:00.000Z"), "end": b.strftime("%Y-%m-%dT00:00:00.000Z")}, timeout=300)
+            if r.status_code != 200:
+                print("ELERING", yr, half, r.status_code, flush=True); continue
+            d = pd.DataFrame(r.json()["data"])
+            frames.append(d)
+            time.sleep(1)
+    d = pd.concat(frames)
+    d["date"] = pd.to_datetime(d["timestamp"], unit="s").dt.normalize()
+    cols = [c for c in d.columns if c not in ("timestamp", "date")]
+    daily = d.groupby("date")[cols].sum() * 5 / 60 / 1000   # MW x 5 min -> GWh
+    cnt = d.groupby("date")["timestamp"].count()
+    daily = daily[cnt >= 280]
+    daily.to_csv(os.path.join(OUT, "elering_electricity_daily_gwh.csv"))
+    print("ELERING GWh by year (sign as published)\n", (daily.groupby(daily.index.year).sum() / 1000).round(2).to_string(), flush=True)
 
 
 if __name__ == "__main__":
-    for f in (elexon, energinet, elering, entsoe):
+    for f in [globals()[n] for n in (sys.argv[1:] or ['elexon', 'energinet', 'elering', 'entsoe'])]:
         try:
             f()
         except Exception as e:

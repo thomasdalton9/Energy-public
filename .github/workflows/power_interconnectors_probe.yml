@@ -1,6 +1,9 @@
 name: Power interconnectors probe (manual)
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      parts:
+        default: 'energinet elering'
 permissions:
   contents: write
 jobs:
@@ -17,12 +20,12 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
           ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
-        run: python3 discovery_archive/europe/POWER_INTERCONNECTORS_PROBE.py
+        run: python3 discovery_archive/europe/POWER_INTERCONNECTORS_PROBE.py ${{ github.event.inputs.parts }}
       - name: Commit data
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f discovery_archive/europe/data/gb_interconnectors_daily.csv || true
+          git add -f discovery_archive/europe/data/*.csv || true
           git diff --cached --quiet || git commit -m "Power interconnector probe data"
           for i in 1 2 3; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep 5; done
