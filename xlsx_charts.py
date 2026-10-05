@@ -113,7 +113,7 @@ def _lighten(hex_colour, share=0.55):
 
 
 def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m", start_row=1, start_col=1,
-                width=28, height=13, gridlines=True, inner=None, forecast_from=None):
+                width=28, height=13, gridlines=True, inner=None, forecast_from=None, scenario_from=None):
     """Native chart over a table written by write_table on sheet ws (the chart can be placed on any sheet)."""
     n = start_row + len(df)
     excel_fmt = "yyyy" if date_format == "%Y" else "mmm/yy"
@@ -164,11 +164,17 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
         for si, s in enumerate(chart.series):
             colour = OTHER_GREY if str(df.columns[si]) == "Other" else PALETTE[si % len(PALETTE)]
             for i in idxs:
+                # scenario_from: months beyond the forecast horizon (e.g. Texas 2029-33) get a still lighter shade
+                far = scenario_from is not None and df.index[i] >= pd.Timestamp(scenario_from)
                 s.dPt.append(DataPoint(idx=i, invertIfNegative=False,
-                                       spPr=GraphicalProperties(solidFill=_lighten(colour), ln=LineProperties(noFill=True))))
+                                       spPr=GraphicalProperties(solidFill=_lighten(colour, 0.8 if far else 0.55),
+                                                                ln=LineProperties(noFill=True))))
     chart.title = f"{title} (to {df.index.max().strftime('%Y' if date_format == '%Y' else '%b/%y')})"
     if forecast_from is not None:
         chart.title = f"{title} (to {df.index.max().strftime('%b/%y')}; forecast from {pd.Timestamp(forecast_from).strftime('%b/%y')}, lighter bars)"
+        if scenario_from is not None:
+            chart.title = (f"{title} (to {df.index.max().strftime('%b/%y')}; forecast from {pd.Timestamp(forecast_from).strftime('%b/%y')}, "
+                           f"scenario from {pd.Timestamp(scenario_from).strftime('%b/%y')}, lightest bars)")
     chart.x_axis.number_format = excel_fmt
     chart.y_axis.title = y_title
     if str(y_title).startswith("Bcf/d") and "MISO" in title:   # MISO gas burn: Bcf/d to 2 decimals
@@ -218,7 +224,7 @@ def save_atomic(wb, path):
 
 
 def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", date_format="%Y-%m",
-                    width=28, height=13, line_cols=(), wb=None, forecast_from=None):
+                    width=28, height=13, line_cols=(), wb=None, forecast_from=None, scenario_from=None):
     """line_cols: columns of df drawn as lines over the bars/areas, on the same axis (same units only).
     wb: an open workbook to add the sheet to (the caller saves it). openpyxl drops chart formatting (axis
     scaling, titles, number formats) of charts it reads back in, so several charts must be added to one
@@ -234,7 +240,7 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
     ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
     write_table(ws, df, date_format)
     chart = build_chart(ws, df, n_bars, title, y_title, kind, date_format, width=width, height=height,
-                        forecast_from=forecast_from)
+                        forecast_from=forecast_from, scenario_from=scenario_from)
     ws.add_chart(chart, f"{chr(ord('A') + min(df.shape[1] + 2, 20))}2")
     if own:
         save_atomic(wb, path)

@@ -51,7 +51,7 @@ DATASETS = [
     ("US", "United States", "us_gas.xlsx", ("Demand by sector", "Supply and trade", "Storage weekly"), "gas"),
     ("US", "United States", "texas_gas_monthly.xlsx", ("Consumption by sector", "Exports", "Mexico by crossing", "Balance", "Forecast values"),
      "Texas gas"),
-    ("US", "United States", "texas_production_forecast.xlsx", "Supply and demand", "Texas supply and demand"),
+    ("US", "United States", "texas_production_forecast.xlsx", ("Supply and demand", "Demand to 2033"), "Texas supply and demand"),
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
@@ -81,7 +81,7 @@ CAPACITY_DATASETS = [
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
-DASHBOARD_ONLY = {"texas_production_forecast.xlsx": {"Supply and demand", "Net outflow"},
+DASHBOARD_ONLY = {"texas_production_forecast.xlsx": {"Supply and demand", "Net outflow", "Demand to 2033", "Outflow to 2033"},
                   "us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
                   "miso_gas_burn_daily.xlsx": {"MISO gas burn"},
@@ -198,7 +198,12 @@ SOURCES = {
     "texas_production_forecast.xlsx": ("Texas supply and demand to Dec 2028: demand = EIA consumption by sector, Mexico pipeline exports and LNG feedgas "
                                        "(EIA exports x 1.09; forecast from texas_gas_monthly.xlsx); production = EIA dry gas (history) and a forecast from "
                                        "EIA STEO regional marketed production (Permian, Eagle Ford, Haynesville) capped by Permian takeaway capacity "
-                                       "(company-announced pipelines, unverified), less NGL extraction loss; outflow = production - demand (own calculation)",
+                                       "(company-announced pipelines, unverified), less NGL extraction loss; outflow = production - demand (own calculation). "
+                                       "To Dec 2033 (scenario after Dec 2028, lightest bars): data centres = IEA 'Energy and AI' (Apr 2025) US data-centre electricity "
+                                       "(~180 TWh 2024, ~+240 TWh by 2030; endpoints 2030 and 2035, years between interpolated; figures unverified, from memory) x an "
+                                       "assumed Texas share of US growth (ERCOT large-load queue as cross-check, unverified), converted to gas at the calibrated ERCOT "
+                                       "heat rate (ercot_gas_burn_daily.xlsx), load factor and gas share (own assumptions); LNG train table held at steady utilisation; "
+                                       "production extension damped and capped by takeaway (own assumptions, not STEO)",
                                        "https://www.eia.gov/outlooks/steo/data/browser/#/?v=6&f=M&s=0&start=202401&end=202812&id=&linechart=NGMPPM"),
     "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
     "lng_feedgas_daily.xlsx": ("Interstate pipeline operators' scheduled quantities at each LNG plant (Kinder Morgan, "
