@@ -540,7 +540,13 @@ def gas_country_balance(bal, cc, storage, lng, cons_override=None, norway_to=Non
     day["Pipeline exports"] = -_col(bal, f"{cc}_exports_GWhd").fillna(0)
     day["Storage injections"] = -in_s.where(in_s.notna(), _col(bal, f"{cc}_storage_in_GWhd")).fillna(0)
     own = pd.concat([_col(bal, f"{cc}_distribution_GWhd"), _col(bal, f"{cc}_final_consumers_GWhd")], axis=1).sum(axis=1, min_count=1)
-    day["Consumption"] = cons_override.reindex(bal.index).combine_first(own) if cons_override is not None else own
+    if cons_override is not None:
+        # ENTSOG's exits (a partial series for most countries) fill only days BEFORE the national series ends; after its last day the days are left blank
+        # (not backfilled with a partial total), so a month the national feed has not finished is dropped or scaled from its own days, never mixed.
+        last_ok = cons_override.last_valid_index()
+        day["Consumption"] = cons_override.reindex(bal.index).combine_first(own.where(own.index <= last_ok) if last_ok is not None else own)
+    else:
+        day["Consumption"] = own
     if import_floor is not None:        # the country's own TSO border-entry series, where it exceeds ENTSOG's (points ENTSOG lacks or under-reports)
         day["Pipeline imports"] = pd.concat([day["Pipeline imports"], import_floor.reindex(bal.index)], axis=1).max(axis=1)
     if export_floor is not None:
@@ -708,6 +714,62 @@ def it_storage_from_stock(data_dir):
         return None
     dst = s["IT_TWh"].diff() * 1000.0
     return pd.DataFrame({"IT_withdrawal_GWhd": (-dst).clip(lower=0), "IT_injection_GWhd": dst.clip(lower=0)})
+
+
+# Countries whose storage flows stay on their own operator series: Denmark (Energinet) and Great Britain (National Gas site data, AGSI+ stopped for GB).
+STOCK_STORAGE_SKIP = ("EU", "DK", "GB", "UA")
+
+
+def stock_flows(sto, skip=STOCK_STORAGE_SKIP):
+    """AGSI+ daily frame with every country's injection/withdrawal columns REPLACED by the day-to-day change in its AGSI+ stock level (<CC>_TWh),
+    the measured quantity: AGSI's own flow columns disagree with the stock (Italy +28.6 TWh in 2025, Latvia 8.5 TWh in 2023, Austria 6-9 TWh a year because
+    its stock includes Haidach, fed through Germany). Data quality: missing days are carried forward (up to 3), and a one-day spike that reverses the next
+    day (a stock misreport) is replaced by the mean of its neighbours. Countries without a stock column keep AGSI's flows."""
+    out = sto.copy()
+    full = pd.date_range(sto.index.min(), sto.index.max(), freq="D")
+    for col in [c for c in sto.columns if str(c).endswith("_TWh")]:
+        cc = col[:-4]
+        if cc in skip:
+            continue
+        x = sto[col].reindex(full).ffill(limit=3)
+        d = x.diff()
+        md = d.abs().median()
+        spike = (d.abs() > max(8 * md, 0.02 * x.max())) & (d.shift(-1) * d < 0) & ((d + d.shift(-1)).abs() < 0.5 * d.abs())
+        x = x.where(~spike, (x.shift(1) + x.shift(-1)) / 2)
+        dst = (x.diff() * 1000.0).reindex(sto.index)
+        out[f"{cc}_withdrawal_GWhd"] = (-dst).clip(lower=0)
+        out[f"{cc}_injection_GWhd"] = dst.clip(lower=0)
+    return out
+
+
+def storage_stock_vs_flows(sto_raw, sto_stock, years=(2022, 2023, 2024, 2025, 2026)):
+    """Net withdrawal by year (TWh): AGSI+ flow columns less the stock change, per country (positive = the flow columns show more withdrawal than the stock did)."""
+    rows = {}
+    for col in [c for c in sto_raw.columns if str(c).endswith("_withdrawal_GWhd")]:
+        cc = col.split("_")[0]
+        if cc in STOCK_STORAGE_SKIP or f"{cc}_injection_GWhd" not in sto_raw:
+            continue
+        fl = (sto_raw[col].fillna(0) - sto_raw[f"{cc}_injection_GWhd"].fillna(0)) / 1000.0
+        stk = (sto_stock[col].fillna(0) - sto_stock[f"{cc}_injection_GWhd"].fillna(0)) / 1000.0
+        rows[cc] = (fl - stk).groupby(fl.index.year).sum().reindex(list(years))
+    return pd.DataFrame(rows).T.round(1)
+
+
+def agsi_storage_frame(f, sto, cc):
+    """Monthly balance frame with its storage lines replaced by the AGSI+ stock change of `cc` (monthly net). Austria: AGGM's market-area storage series
+    leaves out Haidach (a 2.7 bcm site in Austria fed from the German grid, in AGSI+'s Austrian stock), so the gas Germany sends to Haidach reached no
+    balance (6.5 TWh in 2025, 9.1 TWh in Jan-Sep 2026 in the EU total); the EU sum takes Austria's storage from the AGSI+ stock instead."""
+    if f is None or not len(f) or f"{cc}_withdrawal_GWhd" not in sto:
+        return f
+    d = (_col(sto, f"{cc}_withdrawal_GWhd") - _col(sto, f"{cc}_injection_GWhd")).dropna()
+    m = d.resample("MS").sum() / 1000.0
+    n = d.resample("MS").count()
+    ok = (n / pd.Series(n.index.days_in_month, index=n.index)) >= 0.9
+    m = m.where(ok).reindex(f.index)
+    out = f.copy()
+    out["Storage withdrawals"] = m.clip(lower=0).where(m.notna(), f["Storage withdrawals"])
+    out["Storage injections"] = m.clip(upper=0).where(m.notna(), f["Storage injections"])
+    return out
 
 
 PL_GAZSYSTEM_FILE = "poland_gazsystem_points_daily.xlsx"
@@ -1122,12 +1184,12 @@ def gas_summary_table(eu):
     return out, bcfd
 
 
-def add_gas_summary_sheet(wb, used, eu):
+def add_gas_summary_sheet(wb, used, eu, label="EU27"):
     out, bcfd = gas_summary_table(eu)
     ws = wb.create_sheet(sam.sheet_name("Summary - Gas Bcf per day", used))
-    ws.append(["EU27 gas balance, billion cubic feet per day (Bcf/d)"])
+    ws.append([f"{label} gas balance, billion cubic feet per day (Bcf/d)"])
     ws["A1"].font = Font(bold=True, size=13)
-    ws.append([f"Latest complete month {bcfd.index.max():%b %Y} and the month before; MoM is the change on the month before, YoY the change on the same month a year earlier (Bcf/d). EU27 = the sum of the corrected country balances (see the EU gas balance tab)."])
+    ws.append([f"Latest complete month {bcfd.index.max():%b %Y} and the month before; MoM is the change on the month before, YoY the change on the same month a year earlier (Bcf/d). {label} = the sum of the corrected country balances (see the EU27 + UK gas balance tab)."])
     ws.append([])
     ws.append(["Bcf/d"] + list(out.columns))
     for c in ws[4]:
@@ -1138,7 +1200,8 @@ def add_gas_summary_sheet(wb, used, eu):
     ws.append([f"Conversion: {GWH_PER_MCM} GWh per million m3 (Gassco's factor) and {MCM_PER_BCF} million m3 per Bcf, i.e. {GWH_PER_BCF:.1f} GWh per Bcf; "
                "energy balances are converted at one fixed factor, so Bcf/d figures move about 5% if a gross calorific value of 10.6 rather than 11.2 kWh/m3 is used."])
     ws.append(["Demand is consumption (national TSO and statistics series, ENTSOG exits where none); production is ENTSOG production plus biomethane; net pipeline imports are from/to outside the EU; "
-               "storage is net withdrawal (positive) or injection (negative) from GIE AGSI+; LNG is GIE ALSI send-out. The residual is the unexplained difference."])
+               "storage is net withdrawal (positive) or injection (negative), the change in the GIE AGSI+ stock level; LNG is GIE ALSI send-out. The residual is the unexplained difference "
+               "(network own use, losses and linepack that consumption series leave out, measurement differences); it is shown, not plugged."])
     ws.append(["Sources: ENTSOG, GIE AGSI+ / ALSI, national TSOs (see the Sources tab)."])
     ws.column_dimensions["A"].width = 34
     for col in "BCDEFGHI":
@@ -1147,7 +1210,24 @@ def add_gas_summary_sheet(wb, used, eu):
 
 
 
-def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8):
+def add_storage_check_sheet(wb, used, raw, stock):
+    """Net withdrawal by country and year (TWh): AGSI+'s injection/withdrawal columns less the stock change (what the balances now use)."""
+    t = storage_stock_vs_flows(raw, stock)
+    ws = wb.create_sheet(sam.sheet_name("Storage stock vs flows", used))
+    ws.append(["AGSI+ flow columns less AGSI+ stock change, net withdrawal in TWh per year (positive: the flow columns show more withdrawal than the stock fell)"])
+    ws["A1"].font = Font(bold=True, size=13)
+    ws.append(["The gas balances use the stock change (the measured quantity); Denmark (Energinet) and Great Britain (National Gas sites) keep their own series. 2026 is January to the latest day. Austria: AGGM's market-area storage series (used in the Austria tab) is 1.5 TWh below the AGSI+ stock change in Aug-Dec 2024, 6.5 above in 2025 and 9.1 above in Jan-Sep 2026 (Haidach, fed from the German grid, is in the AGSI+ stock only); the EU totals take Austria's storage from the AGSI+ stock."])
+    ws.append([])
+    ws.append(["Country"] + [str(c) for c in t.columns])
+    for c in ws[4]:
+        c.font = Font(bold=True)
+    for cc, r in t.iterrows():
+        ws.append([GAS_NAMES.get(cc, cc)] + [None if pd.isna(v) else float(v) for v in r])
+    ws.column_dimensions["A"].width = 18
+    return ws
+
+
+def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27_GAS, fill_max_share=0.03):
     """EU27 gas balance as the SUM of the corrected country balances (`frames`: monthly TWh frames as charted per country, so every
     per-country fix - Emden / Nord Stream / Greifswald, Gassco Norway, CBS Netherlands, AGGM Austria, NET4GAS floors, Energinet Denmark, GNI Ireland,
     biomethane - is in the EU total). Intra-EU pipeline flows are taken out of the imports and exports lines (`border`: the larger-of-both-sides
@@ -1163,18 +1243,22 @@ def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8):
                 lines[c] = f
             else:
                 lines[c] = _eu_lines(f)
+    lines = {c: f for c, f in lines.items() if c in block}
     span = pd.date_range("2021-10-01", max(f.index.max() for f in lines.values()), freq="MS")
     keep = {c: f for c, f in lines.items() if f.reindex(span).notna().any(axis=1).mean() >= min_share}
     left = [c for c in lines if c not in keep]
     for c, f in keep.items():   # a one- or two-month hole in a small country's feed (Greece Apr 2022, Luxembourg Sep-Oct 2023) is interpolated rather than dropping the EU month
         g = f.reindex(span)
         g = g.interpolate(limit=2, limit_area="inside")
-        g = g.where(g.notna().any(axis=1), g.shift(12))   # a feed that stops (Estonia, Latvia after Oct 2025): same month a year earlier, counted as a gap-fill
+        # a small country's feed that stops (Estonia, Latvia after Oct 2025; Finland, Lithuania in the latest month): same month a year earlier, counted as a gap-fill.
+        # Only for countries under `fill_max_share` of the block's consumption: a large country's missing month (France's ODRE, Spain's Enagas) drops that month for the block.
+        if f["Consumption"].mean() <= fill_max_share * sum(h["Consumption"].mean() for h in lines.values()):
+            g = g.where(g.notna().any(axis=1), g.shift(12))
         keep[c] = g.dropna(how="all")
     months = span[[all(m in f.index for f in keep.values()) for m in span]]
     tot = sum(f.reindex(months).fillna(0.0) for f in keep.values())
     if border is not None and len(border):
-        pairs = [c for c in border.columns if ">" in c and all(x in EU27_GAS for x in c.split(">"))]
+        pairs = [c for c in border.columns if ">" in c and all(x in block for x in c.split(">"))]
         intra = _monthly_twh(border[pairs].sum(axis=1, min_count=1).to_frame("x"))["x"].reindex(months).fillna(0.0) if pairs else 0.0
         intra = pd.concat([intra, tot["Pipeline imports"], -tot["Pipeline exports"]], axis=1).min(axis=1).clip(lower=0)
         tot["Pipeline imports"] = tot["Pipeline imports"] - intra
@@ -1259,7 +1343,8 @@ def main():
         gbal = add_charts.by_date(add_charts.read(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Country balance"), "date")
         gorg = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Imports by origin", "date")
         gdst = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Exports by destination", "date")
-        gsto = add_charts._sheet(os.path.join(args.data_dir, "eu_gas_storage_daily.xlsx"), "Daily", "date")
+        gsto_raw = add_charts._sheet(os.path.join(args.data_dir, "eu_gas_storage_daily.xlsx"), "Daily", "date")
+        gsto = stock_flows(gsto_raw)      # storage flows = day-to-day change of the AGSI+ stock level, not AGSI's flow columns
         glng = add_charts._sheet(os.path.join(args.data_dir, "eu_lng_terminals_daily.xlsx"), "Daily", "date")
     except Exception as e:  # noqa: BLE001
         gbal = pd.DataFrame()
@@ -1353,8 +1438,8 @@ def main():
                         "(from Great Britain, ROI share) against ROI demand. ENTSOG's Irish totals miss most of Moffat.")
                 except Exception as e:  # noqa: BLE001
                     gas[2].append(f"Ireland gas balance from GNI failed ({type(e).__name__}: {e}); ENTSOG used")
-            if cc in EU27_GAS:
-                eu_frames[cc] = b
+            if cc in EU27_GAS or cc == "UK":
+                eu_frames[cc] = agsi_storage_frame(b, gsto, "AT") if (cc == "AT" and len(b)) else b
                 eu_fallback[cc] = b_entsog
             if b.empty:
                 gas[2].append(f"{GAS_NAMES[cc]} gas balance: too little data")
@@ -1376,6 +1461,7 @@ def main():
         except Exception as e:  # noqa: BLE001
             gas[2].append(f"EU gas balance without Slovakia/Sweden ({type(e).__name__}: {e})")
         eu, eu_left = eu_gas_balance(eu_frames, gbord, eu_fallback)
+        eu_uk, _ = eu_gas_balance(eu_frames, gbord, eu_fallback, block=EU27_GAS + ["UK"])
         if not eu.empty:
             total_chart(wb, used, gas, 0, eu, [
                 "EU27: the sum of the country balances charted below, each with its own corrections (national consumption series from the TSOs and statistics offices, "
@@ -1387,8 +1473,18 @@ def main():
                 + (f" Left out for lack of data: {', '.join(GAS_NAMES.get(c, c) for c in eu_left)}." if eu_left else "")],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
+            if not eu_uk.empty:
+                total_chart(wb, used, gas, 1, eu_uk, [
+                    "EU27 + United Kingdom: the EU27 sum of the country balances (see the EU gas balance tab) plus the Great Britain balance (National Gas NTS consumption and site-level storage, "
+                    "Moffat / Carrickfergus point fixes, ALSI LNG, Norway split from Gassco). Flows between any two members, including Great Britain-Belgium (IUK), Great Britain-Netherlands (BBL) and "
+                    "Great Britain-Ireland, are taken out of both pipeline lines (net unchanged); Norway, Algeria, Azerbaijan, Russia and the rest stay external. Storage in every member is the AGSI+ stock change "
+                    "(Austria incl. Haidach; Great Britain the nine sites' own series; Denmark Energinet). A month is shown only when every large member's national consumption series covers it "
+                    "(France ODRE, Spain Enagas, Germany THE ...); only members under 3% of the block's consumption (Estonia, Latvia, Finland, Lithuania ...) repeat the same month a year earlier when their feed stops."],
+                            "EU27 + UK gas balance data", "EU27 + UK gas balance: supply and storage vs consumption (TWh per month)",
+                            "TWh per month", GAS_BALANCE_SRC, "Notes:", label="EU27 + UK", line_cols=("Consumption",))
             try:
-                add_gas_summary_sheet(wb, used, eu)
+                add_gas_summary_sheet(wb, used, eu_uk, "EU27 + UK")
+                add_storage_check_sheet(wb, used, gsto_raw, gsto)
             except Exception as e:  # noqa: BLE001
                 gas[2].append(f"Gas summary table (Bcf/d) failed ({type(e).__name__}: {e})")
     if len(gbal) and emden is not None:
