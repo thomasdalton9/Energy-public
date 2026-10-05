@@ -46,6 +46,7 @@ ERCOT_XLSX = os.path.join(OUT_DIR, "ercot_gas_burn_daily.xlsx")
 END = "2028-12-01"
 STEO_IDS = {"Permian": "NGMPPM", "Eagle Ford": "NGMPEF", "Haynesville": "NGMPHA"}
 
+STOR_OVERRIDE = sd.STOR_OVERRIDE
 DEFAULT_PARAMS = [
     ("Permian Texas share of STEO Permian", 0.85, "share", "STEO Permian = Texas + southeast New Mexico (NM about 13-15%). Assumption."),
     ("Haynesville Texas share of STEO Haynesville", 0.30, "share", "STEO Haynesville = East Texas + Louisiana. Assumption (unverified)."),
@@ -191,19 +192,35 @@ def run(out):
     ratio = 1 - (bal["Dry production"] / bal["Marketed production"]).dropna().iloc[-12:].mean()
     fv = sd.load_gas(TEXAS_XLSX)
     mkt_b, mkt_d = df["Texas production forecast, base"], df["Texas production forecast, delayed"]
-    sdf = sd.build(idx, bal["Dry production"].where(bal.index <= last), mkt_b, mkt_d, ratio, fv)
+    # storage: gross EIA injections / withdrawals (stor/sum, area STX) in the Raw MMcf store of texas_gas_monthly.xlsx
+    raw = pd.read_excel(TEXAS_XLSX, sheet_name="Raw MMcf", index_col=0)
+    raw.index = pd.to_datetime(raw.index)
+    ov_row = pp[pp["Assumption"].astype(str).eq(STOR_OVERRIDE)] if pp is not None and "Assumption" in pp else None
+    ov_val = float(ov_row["Value"].iloc[0]) if ov_row is not None and len(ov_row) and pd.notna(ov_row["Value"].iloc[0]) else None
+    shist = sd.storage_hist(raw)
+    idx33 = months("2015-01-01", "2033-12-01")
+    stor33, sinfo = sd.storage_path(shist, idx33, ov_val)
+    stor = stor33.reindex(idx)
+    sdf = sd.build(idx, bal["Dry production"].where(bal.index <= last), mkt_b, mkt_d, ratio, fv, stor)
     sd_lines = sd.checks(sdf, last)
     for c in ("Dry production, base", "Dry production, takeaway delayed", "Demand incl. LNG, base", "Demand incl. LNG, LNG delayed",
               "LNG feedgas (base)", "LNG feedgas (delayed)"):
         df[c] = sdf[c].reindex(idx)
     df["Texas consumption, published sectors (history EIA; forecast = TEXAS_GAS_FORECAST)"] = sdf[sd.SECT].sum(axis=1).reindex(idx)
     df["Pipeline exports to Mexico (history EIA; forecast = TEXAS_GAS_FORECAST)"] = sdf["Pipeline exports to Mexico"].reindex(idx)
+    df["Texas storage injection (demand; EIA, forecast = seasonal pattern)"] = sdf["Storage injection (demand)"].reindex(idx)
+    df["Texas storage withdrawal (supply; EIA, forecast = seasonal pattern)"] = sdf["Storage withdrawal (supply)"].reindex(idx)
     df["Implied net interstate outflow, base"] = sdf["Implied net outflow, base"].reindex(idx)
     df["Implied net interstate outflow, delayed"] = sdf["Implied net outflow, delayed (production and LNG both delayed)"].reindex(idx)
     df.index.name = "Month"
 
     # --- workbook
     assum = pd.DataFrame([(a, params[a], u, n) for a, _, u, n in DEFAULT_PARAMS], columns=["Assumption", "Value", "Unit", "Note"])
+    assum = pd.concat([assum, pd.DataFrame([
+        (STOR_OVERRIDE, ov_val, "Bcf/d", "ASSUMPTION (editable; blank = use the last-3-year mean). Texas working-gas capacity additions are NOT assumed."),
+        ("Net storage change used (Bcf/d average, + = net injection)", sinfo["target"], "Bcf/d",
+         f"{'override' if ov_val is not None else 'mean of EIA months ' + sinfo['window']} (last-3-year mean {sinfo['net_def']:+.3f}); applied to the forecast months by holding the annual mean net injection there."),
+        ], columns=assum.columns)], ignore_index=True)
     loss = bal["Dry production"].dropna()
     steo_raw = (steo.reset_index().rename(columns={"index": "Month"}) if steo is not None else pd.DataFrame(columns=["Month"]))
     summary = []
@@ -226,7 +243,9 @@ def run(out):
         f"STEO regional series are already marketed, so no dry-to-marketed conversion is applied; the last-12-month extraction-loss share used in TEXAS_GAS.py is {ratio:.1%} of marketed (dry equivalent = marketed x {1 - ratio:.3f}).",
         "Permian cap: production = min(STEO Permian, existing takeaway + new pipelines in service + local demand) from the Takeaway tab. Delayed scenario shifts every pipeline not yet in service by the delay on the Assumptions tab.",
         "Takeaway table: only Matterhorn (in service) is firm; every other capacity and date is UNVERIFIED (company announcements, from memory) and the existing-takeaway aggregate is a calibration. Edit the tab and re-run to update.",
-        "Net interstate outflow = DRY production (marketed x (1 - extraction-loss share); EIA dry history) - demand incl. LNG (five EIA consumption sectors + LNG feedgas + Mexico pipeline exports). Marketed gas includes NGLs removed at plants, which never reach a pipeline, so the earlier marketed-based outflow (before Oct 2026) ran about 6 Bcf/d too high. It also includes fuel EIA withholds (lease/plant, pipeline) and ignores storage.",
+        "Net interstate outflow = DRY production (marketed x (1 - extraction-loss share); EIA dry history) + storage withdrawal - demand incl. LNG (five EIA consumption sectors + LNG feedgas + Mexico pipeline exports) - storage injection. Marketed gas includes NGLs removed at plants, which never reach a pipeline, so the earlier marketed-based outflow (before Oct 2026) ran about 6 Bcf/d too high. It also includes fuel EIA withholds (lease/plant, pipeline).",
+        "CHANGE (Oct 2026): storage is now in the outflow. Before, outflow = dry production - demand and ignored storage, so its seasonality carried the storage cycle (higher in summer when gas is injected, lower in winter when withdrawn). Gross EIA injections (demand side) and withdrawals (supply side) are now separate series; the old no-storage outflow is kept as the 'before storage' memo columns of the 'Supply and demand' and 'Demand to 2033' tabs.",
+        f"Storage forecast (ASSUMPTION, not an EIA forecast): gross injections and withdrawals = calendar-month mean of the last 36 EIA months ({sinfo['window']}), not smoothed; net annual storage change held at the last-3-year mean ({sinfo['net_def']:+.3f} Bcf/d, + = net injection) unless the editable override on the Assumptions tab is filled (now: {'override ' + format(sinfo['target'], '+.3f') if ov_val is not None else 'none'}). No storage capacity additions are assumed. Latest 12 EIA months: injections {sinfo['inj12']:.2f}, withdrawals {sinfo['wd12']:.2f} Bcf/d. 'Storage' tab: working-gas stock (EIA, then projected from the net injection) as a memo.",
         "Forecast months of consumption, Mexico and LNG feedgas come from the 'Forecast values' tab of texas_gas_monthly.xlsx (TEXAS_GAS_FORECAST.py): base outflow = base production with base LNG; delayed outflow = takeaway-delayed production with LNG-delayed feedgas (both 6-month delays). LNG feedgas = EIA LNG exports x 1.09, so history differs slightly from the Balance tab's residual of texas_gas_monthly.xlsx (which uses exports and adds storage).",
         "'Supply and demand' tab (americas/TEXAS_SUPPLY_DEMAND.py): the stacked demand columns, dry production lines and implied outflow charted on 'Chart - Supply and demand' and 'Chart - Net outflow' and on the North America gas Dashboard. Run after texas_gas.yml (this workflow follows it at 17:40 UTC on the 1st/15th).",
         "Sanity checks of the last run: " + "; ".join(sd_lines),
@@ -237,7 +256,7 @@ def run(out):
     dc_view = dc_ctx = None
     if steo is not None:
         try:
-            dc_view, dc_ctx = dc.build(df, sdf, tk, params, TEXAS_XLSX, ERCOT_XLSX, prior_dc, ratio, other, delay, last)
+            dc_view, dc_ctx = dc.build(df, sdf, tk, params, TEXAS_XLSX, ERCOT_XLSX, prior_dc, ratio, other, delay, last, stor33)
             dc_checks = dc.checks(dc_view, dc_ctx)
             for l in dc_checks:
                 print("DC check:", l)
@@ -247,8 +266,18 @@ def run(out):
             traceback.print_exc()
             print(f"data-centre view failed ({type(e).__name__}: {e}) - base workbook written without it", flush=True)
             dc_view = None
+    sto = stor33[stor33.index >= "2021-01-01"].rename(columns={
+        "inj": "Storage injection (Bcf/d)", "wd": "Storage withdrawal (Bcf/d)", "net_inj": "Net injection (+) (Bcf/d)",
+        "basis": "Flow basis", "stock": "Working gas stock, month end (Bcf)", "stock_basis": "Stock basis"})
+    sto.index.name = "Month"
+    capc = [c for c in raw.columns if str(c).startswith("cap|") and "working" in str(c).lower()]
+    if capc:
+        cap_ = raw[capc[0]].dropna() / 1000.0
+        if len(cap_):
+            sto["Working gas capacity, EIA annual, held to next report (Bcf)"] = cap_.reindex(cap_.index.union(sto.index)).ffill().reindex(sto.index)
+            sto["Stock as % of working gas capacity"] = sto["Working gas stock, month end (Bcf)"] / sto["Working gas capacity, EIA annual, held to next report (Bcf)"] * 100
     sheets = {"Summary": pd.DataFrame(summary), "Assumptions": assum, "Takeaway": tk, "Forecast": df.reset_index(),
-              sd.SHEET: sdf.reset_index(), "STEO raw": steo_raw}
+              sd.SHEET: sdf.reset_index(), "Storage": sto.reset_index(), "STEO raw": steo_raw}
     xlsx_notes.write_workbook(out, sheets, notes, ["UNITS", "METHOD", "DATA CENTRES AND THE 2033 VIEW (americas/TEXAS_DATACENTRE.py; Bcf/d)"])
     if dc_view is not None:
         dc.write_sheets(out, dc_view, dc_ctx, dc_checks)

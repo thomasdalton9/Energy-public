@@ -306,7 +306,7 @@ def extend_production(df, tk, shares, other, local, delay, damp, loss_share):
 
 
 # --------------------------------------------------------------------------- build
-def build(prod_df, sdf, tk, params, texas_xlsx, ercot_xlsx, prior, loss_share, other, delay, last_hist):
+def build(prod_df, sdf, tk, params, texas_xlsx, ercot_xlsx, prior, loss_share, other, delay, last_hist, stor=None):
     """prod_df: 'Forecast' frame of TEXAS_PRODUCTION_FORECAST (Month index); sdf: 'Supply and demand' frame. Returns (view frame,
     context for the Excel tabs and notes)."""
     hr, mcf, hr_txt = ercot_heat_rate(ercot_xlsx)
@@ -366,7 +366,19 @@ def build(prod_df, sdf, tk, params, texas_xlsx, ercot_xlsx, prior, loss_share, o
     v["Dry production, base"] = hist_dry.fillna(mkt["base"].reindex(idx) * k_)
     v["Dry production, takeaway delayed"] = hist_dry.fillna(mkt["delayed"].reindex(idx) * k_)
     for c in CASES:
-        v[f"Implied net outflow, {c}"] = v["Dry production, base"] - v[f"Total demand incl. data centres, {c}"]
+        v[f"Implied net outflow before storage, {c}"] = v["Dry production, base"] - v[f"Total demand incl. data centres, {c}"]
+    if stor is not None:
+        # storage (TEXAS_SUPPLY_DEMAND.storage_path): gross injection on the demand side, withdrawal on the supply side
+        v["Storage injection (demand)"] = stor["inj"].reindex(idx)
+        v["Storage withdrawal (supply)"] = stor["wd"].reindex(idx)
+    else:
+        v["Storage injection (demand)"] = 0.0
+        v["Storage withdrawal (supply)"] = 0.0
+    v["Dry production + storage withdrawal, base"] = v["Dry production, base"] + v["Storage withdrawal (supply)"]
+    v["Dry production + storage withdrawal, takeaway delayed"] = v["Dry production, takeaway delayed"] + v["Storage withdrawal (supply)"]
+    for c in CASES:
+        v[f"Implied net outflow, {c}"] = (v["Dry production + storage withdrawal, base"] - v[f"Total demand incl. data centres, {c}"]
+                                          - v["Storage injection (demand)"])
     v["Permian takeaway + local demand, base (Bcf/d)"] = caps["base"].reindex(idx)
     v["Permian STEO / extension marketed (Bcf/d)"] = steo["Permian"].reindex(idx)
     v["Data-centre inputs"] = anchor_count()[1]
@@ -651,6 +663,6 @@ def notes_lines(c2, check_lines):
         f"Gas = GW x 1000 x load factor {par['lf'][1]:.2f} x gas share x heat rate {c2['hr']:.2f} MMBtu/MWh x 24 / {c2['mcf']:.3f} MMBtu per Mcf / 1e6 = {c2['per_gw']['BASE']:.3f} Bcf/d per GW in BASE (heat rate and MMBtu/Mcf: mean of the last 12 calibrated ERCOT months, {c2['hr_txt']}). {c2['gas_txt']}.",
         "Only burn ADDED after the last EIA actual month is stacked on the sector demand (EIA's electric-power history already includes the present data-centre load); the electric-power sector is held flat after 2028 so the trend and the data-centre layer do not double count.",
         "2029-33 is a SCENARIO (lighter bars): LNG = the existing train table (last train 2031) at steady utilisation; other sectors = the seasonal-trend base extended; production = STEO to Dec 2027, 2028 as in the base forecast, then region growth damped by the editable factor (extension, not STEO) and capped by the takeaway table with capacity held after the last listed pipeline.",
-        "Implied net outflow = dry production (base) - demand incl. LNG feedgas, Mexico and data centres, for LOW / BASE / HIGH data-centre cases; a negative value means Texas production cannot meet Texas demand and gas must flow in from other states - it is shown, never clipped.",
+        "Implied net outflow = dry production (base) + storage withdrawal - demand incl. LNG feedgas, Mexico and data centres - storage injection (storage: gross EIA flows, forecast = seasonal pattern of the last 3 years, see the production workbook's Assumptions; the old no-storage outflow is kept as 'Implied net outflow before storage' columns), for LOW / BASE / HIGH data-centre cases; a negative value means Texas production cannot meet Texas demand and gas must flow in from other states - it is shown, never clipped.",
         "Sanity checks of the last run: " + "; ".join(check_lines),
     ]
