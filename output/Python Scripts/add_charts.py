@@ -1362,6 +1362,21 @@ def texas_demand_regression(p):
     line("ERCOT unexplained", "ERCOT unexplained load growth (GW): actual minus weather + population baseline",
          {"Monthly": "ERCOT unexplained load growth (GW) = actual - baseline", "12-month average": "ERCOT unexplained, 12-month average (GW)"}, "GW")
     out[-1]["forecast_from"] = None
+    bv = _sheet(p, "Load breakout values", "Month")
+    if not bv.empty:
+        # ERCOT unexplained load apportioned by source (judgement shares, live formulas on 'Load breakout'): stacked base case, LOW/HIGH data-centre lines
+        import importlib.util
+        sp_ = importlib.util.spec_from_file_location("TEXAS_DEMAND_REGRESSION", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                                           "americas", "TEXAS_DEMAND_REGRESSION.py"))
+        tr = importlib.util.module_from_spec(sp_)
+        sp_.loader.exec_module(tr)
+        bv = bv[bv.index >= tr.CHART_FROM]
+        d = bv[tr.SPEC_NAMES].dropna(how="all")
+        sb = spec("Load breakout", d, "ERCOT unexplained load by source, GW: base case, low/high data-centre lines (EIA-930; judgement shares)", "GW", "stacked_bar", "%b/%y",
+                  line_cols=tuple(tr.SPEC_NAMES[5:]))
+        rows = {ts: int(r) for ts, r in bv["Row on 'Load breakout'"].items()}
+        sb["live"] = {"sheet": tr.BO, "rows": rows, "cols": dict(zip(tr.SPEC_NAMES, tr.COL_TR))}
+        out.append(sb)
     return out
 
 
