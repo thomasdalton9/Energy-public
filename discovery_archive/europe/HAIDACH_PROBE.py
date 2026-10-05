@@ -28,43 +28,24 @@ def agsi(params):
         page += 1; time.sleep(0.3)
 
 
-lst = requests.get("https://agsi.gie.eu/api/about", params={"show": "listing"}, headers=H, timeout=120)
-print("listing", lst.status_code, len(lst.content), lst.text[:300], flush=True)
-for u, pr in (("https://agsi.gie.eu/api/about", {}), ("https://agsi.gie.eu/api/about", {"show": "listing", "country": "AT"}), ("https://agsi.gie.eu/api/about", {"show": "companies"}), ("https://agsi.gie.eu/api/about", {"show": "facilities"})):
-    x = requests.get(u, params=pr, headers=H, timeout=120)
-    print("ABOUT", pr, x.status_code, len(x.content), x.text[:1500].replace("\n", " "), flush=True)
+lst = requests.get("https://agsi.gie.eu/api/about", params={"show": "listing", "country": "AT"}, headers=H, timeout=120)
+print("listing", lst.status_code, len(lst.content), flush=True)
 kids = []
-try:
-    j = lst.json()
-    at = j.get("Europe", j).get("AT", {}) if isinstance(j, dict) else {}
-    if not at:
-        for k, v in j.items():
-            if isinstance(v, dict) and "AT" in v:
-                at = v["AT"]
-    print("AT listing keys:", list(at.keys()) if isinstance(at, dict) else type(at), flush=True)
-    for comp in (at.values() if isinstance(at, dict) else at):
-        if not isinstance(comp, dict):
-            continue
-        print("company", comp.get("name"), comp.get("eic"), flush=True)
-        for fac in comp.get("facilities", []) or []:
-            print("   facility", fac.get("name"), fac.get("eic"), flush=True)
-            kids.append(("fac", fac.get("name"), fac.get("eic"), comp.get("eic")))
-        kids.append(("co", comp.get("name"), comp.get("eic"), None))
-except Exception as e:
-    print("listing parse failed", type(e).__name__, e, lst.text[:300], flush=True)
+for comp in lst.json():
+    print("company", comp.get("name"), comp.get("eic"), flush=True)
+    for fac in comp.get("facilities", []) or []:
+        print("   facility", fac.get("name"), fac.get("eic"), fac.get("operational_start_date"), fac.get("operational_end_date"), flush=True)
+        kids.append(("fac", fac.get("name"), fac.get("eic"), comp.get("eic")))
 for kind, name, eic, coeic in kids:
-    params = {"country": "AT", "from": "2022-09-30", "to": date.today().isoformat()}
-    params["company" if kind == "co" else "facility"] = eic
-    if kind == "fac":
-        params["company"] = coeic
+    params = {"country": "AT", "company": coeic, "facility": eic, "from": "2022-09-30", "to": date.today().isoformat()}
     rows = agsi(params)
     if not rows:
-        print("no rows for", kind, name, eic, flush=True); continue
+        print("no rows for", name, eic, flush=True); continue
     df = pd.DataFrame(rows)
     df["gasDayStart"] = pd.to_datetime(df["gasDayStart"])
     s = pd.to_numeric(df.set_index("gasDayStart")["gasInStorage"], errors="coerce").sort_index()
+    wgv = pd.to_numeric(df["workingGasVolume"], errors="coerce").max()
     m = s.resample("MS").last()
     ch = m.diff().round(2)
-    print(f"STOCKCHANGE {kind} {name} {eic} monthly TWh from {m.index[1].date()}: " + ",".join(f"{x:.1f}" for x in ch.iloc[1:].values), flush=True)
-    print(f"STOCK {name}: " + ",".join(f"{x:.1f}" for x in m.values), flush=True)
+    print(f"STOCKCHANGE {name} {eic} wgv={wgv} first={s.index.min().date()} last={s.index.max().date()} monthly TWh from {m.index[1].date() if len(m)>1 else ''}: " + ",".join(f"{x:.1f}" for x in ch.iloc[1:].values), flush=True)
 sys.exit(0)
