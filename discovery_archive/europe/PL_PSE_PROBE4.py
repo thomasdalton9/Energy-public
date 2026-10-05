@@ -36,21 +36,21 @@ def num(s):
 
 
 for ep in ("his-wlk-cal", "kse-load", "przeplywy-mocy"):
-    for (a, b) in (("2025-01-01", "2025-12-31"), ("2024-07-01", "2024-12-31")):
-        d = pull(ep, a, b)
-        if d.empty:
-            continue
-        print(ep, "columns", d.columns.tolist(), flush=True)
-        if ep == "przeplywy-mocy":
-            d["value"] = num(d["value"])
-            print((d.groupby("section_code")["value"].sum() * 0.25 / 1e6).round(3).to_dict(), "TWh", flush=True)
-        else:
-            for c in d.columns:
-                if c in ("dtime", "period", "dtime_utc", "period_utc", "business_date", "publication_ts", "publication_ts_utc"):
-                    continue
-                x = num(d[c])
-                print(f"  {c}: TWh={x.sum() * 0.25 / 1e6:.3f} nonnull={x.notna().sum()}/{len(x)}", flush=True)
-d = pull("his-gen-pal", "2025-01-01", "2025-03-31")
+    d = pull(ep, "2024-06-14", "2025-12-31")
+    if d.empty:
+        continue
+    print(ep, "columns", d.columns.tolist(), flush=True)
+    d["month"] = d["business_date"].astype(str).str[:7]
+    if ep == "przeplywy-mocy":
+        d["value"] = num(d["value"])
+        t = d.groupby(["month", "section_code"])["value"].sum().unstack() * 0.25 / 1e6
+    else:
+        keep = [c for c in d.columns if c not in ("dtime", "period", "dtime_utc", "period_utc", "business_date", "publication_ts", "publication_ts_utc", "month")]
+        for c in keep:
+            d[c] = num(d[c])
+        t = d.groupby("month")[keep].sum() * 0.25 / 1e6
+    print(t.round(3).to_string(), flush=True)
+d = pull("his-gen-pal", "2025-01-01", "2025-01-31")
 if not d.empty:
     d["v"] = num(d["value"])
-    print((d.groupby("alias_entsoe")["v"].sum() * 0.25 / 1e6).round(3).to_dict(), "TWh Jan-Mar 2025", flush=True)
+    print((d.groupby("alias_entsoe")["v"].sum() * 0.25 / 1e6).round(3).to_dict(), "TWh Jan 2025", flush=True)

@@ -10,5 +10,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install requests
+      - run: pip install requests pandas
       - run: python3 -u discovery_archive/europe/PL_PSE_PROBE4.py
