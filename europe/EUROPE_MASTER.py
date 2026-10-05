@@ -666,11 +666,17 @@ def haidach_flows(data_dir):
     """Gas moved between the German grid and the Haidach storage (GWh/d), bayernets' physical flow at UGS-00274 'Haidach (AT) / Haidach USP (DE)' from ENTSOG
     (ENTSOG_POINT_FIXES_DAILY.py): {"in": withdrawals from Haidach into the German grid, "out": injections into Haidach} or None. Haidach lies in Austria and is in AGSI+'s
     Austrian stock, but it is fed from and delivers to the German grid, so neither Germany's AGSI+ storage nor its ENTSOG border rows hold it: Germany + Netherlands
-    ran +5 TWh a month in summer (gas sent to Haidach) and -6 to -9 in winter (gas it delivered) until it was added to Germany's storage lines."""
+    ran +5 TWh a month in summer (gas sent to Haidach) and -6 to -9 in winter (gas it delivered) until it was added to Germany's storage lines.
+    RAG's Haiming 2 storage (bayernets ITP-00308) is the same case and is added to the same flows: Austrian AGSI+ stock change minus AGGM's market-area East storage
+    equals Haidach + Haiming within about 0.1 TWh a month (AGGM publishes no Austrian-fed share: SSO Haidach THE/VTP and Ueberackern 7Fields allocations are empty/zero)."""
     fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
     if not {"DE_haidach_in", "DE_haidach_out"} <= set(fx.columns):
         return None
-    return {"in": fx["DE_haidach_in"], "out": fx["DE_haidach_out"]}
+    hin, hout = fx["DE_haidach_in"], fx["DE_haidach_out"]
+    if {"DE_haiming_in", "DE_haiming_out"} <= set(fx.columns):       # RAG's Haiming 2 storage (ITP-00308): same set-up, also in AGSI+'s Austrian stock
+        hin = hin.add(fx["DE_haiming_in"], fill_value=0)
+        hout = hout.add(fx["DE_haiming_out"], fill_value=0)
+    return {"in": hin, "out": hout}
 
 
 def de_storage_with_haidach(data_dir, sto):
@@ -1335,7 +1341,42 @@ def add_storage_check_sheet(wb, used, raw, stock):
     return ws
 
 
-def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27_GAS, fill_max_share=0.03):
+EXTRA_EXPORT_DEST = {"DE": "AT", "BE": "LU", "UK": "IE", "LV": "EE"}   # point-fix exports (extra_exports) and the member that receives them
+WHOLE_FRAME_MEMBERS = ("AT", "DK", "EE", "CZ", "IE", "LU")   # frames built from the operator's own border series (AGGM, Energinet, Elering, NET4GAS floors, GNI, Creos): every pipeline line is a flow with another member
+
+
+def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEMBERS, months=None):
+    """Flows between two members of `block`, as the member frames in `lines` (monthly TWh, positive imports, negative exports) book them: (imports, exports),
+    both positive monthly TWh. The receiving member's entry and the sending member's exit are each member's OWN side from the 'Border flows by side'
+    sheet (ENTSOG pull), so taking the first out of the block's imports and the second out of its exports leaves one consistent figure per
+    border: whatever the two operators measure differently (NL exit 258.7 vs DE entry 249.8 TWh in 2025) no longer sits in the residual. Frames built from an
+    operator's own series (`whole`) are intra in full; exports a point fix adds (`extra_out`: Germany -> Austria, Belgium -> Luxembourg, Great Britain -> Ireland,
+    Latvia -> Estonia) count when the receiving member is in the block."""
+    idx = months if months is not None else sorted(set().union(*[f.index for f in lines.values()]))
+    imp, exp = pd.Series(0.0, index=idx), pd.Series(0.0, index=idx)
+
+    def side_sum(cols):
+        cols = [c for c in cols if c in sides]
+        if not cols:
+            return pd.Series(0.0, index=idx)
+        m = monthly_cover(sides[cols].sum(axis=1, min_count=1).to_frame("x")).dropna(how="all") / 1000.0
+        return m["x"].reindex(idx).fillna(0.0)
+
+    for c, f in lines.items():
+        if c in whole:
+            imp += f["Pipeline imports"].reindex(idx).fillna(0.0)
+            exp += (-f["Pipeline exports"]).reindex(idx).fillna(0.0)
+            continue
+        imp += side_sum([f"{a}>{c} entry" for a in block if a != c])
+        exp += side_sum([f"{c}>{b} exit" for b in block if b != c])
+        dest = EXTRA_EXPORT_DEST.get(c)
+        if extra_out and c in extra_out and dest in block:
+            xo = extra_out[c]
+            exp += (monthly_cover(xo.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
+    return imp, exp
+
+
+def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27_GAS, fill_max_share=0.03, sides=None, extra_out=None):
     """EU27 gas balance as the SUM of the corrected country balances (`frames`: monthly TWh frames as charted per country, so every
     per-country fix - Emden / Nord Stream / Greifswald, Gassco Norway, CBS Netherlands, AGGM Austria, NET4GAS floors, Energinet Denmark, GNI Ireland,
     biomethane - is in the EU total). Intra-EU pipeline flows are taken out of the imports and exports lines (`border`: the larger-of-both-sides
@@ -1365,7 +1406,11 @@ def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27
         keep[c] = g.dropna(how="all")
     months = span[[all(m in f.index for f in keep.values()) for m in span]]
     tot = sum(f.reindex(months).fillna(0.0) for f in keep.values())
-    if border is not None and len(border):
+    if sides is not None and len(sides):    # one consistent figure per intra-block border: each member's own side comes out of its own line (see intra_block_flows)
+        imp, exp = intra_block_flows({c: f.reindex(months) for c, f in keep.items()}, set(keep), sides, extra_out, months=months)
+        tot["Pipeline imports"] = tot["Pipeline imports"] - imp
+        tot["Pipeline exports"] = tot["Pipeline exports"] + exp
+    elif border is not None and len(border):
         pairs = [c for c in border.columns if ">" in c and all(x in block for x in c.split(">"))]
         intra = _monthly_twh(border[pairs].sum(axis=1, min_count=1).to_frame("x"))["x"].reindex(months).fillna(0.0) if pairs else 0.0
         intra = pd.concat([intra, tot["Pipeline imports"], -tot["Pipeline exports"]], axis=1).min(axis=1).clip(lower=0)
@@ -1483,11 +1528,17 @@ def main():
         except Exception as e:  # noqa: BLE001
             emden = None
             gas[2].append(f"Germany gas balance without the Emden correction ({type(e).__name__}: {e})")
-        eu_frames, eu_fallback = {}, {}
+        eu_frames, eu_fallback, eu_extra_out = {}, {}, {}
+        try:
+            gsides = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Border flows by side", "date")
+        except Exception:  # noqa: BLE001
+            gsides = None
         for cc in [c for c in GAS_NAMES if any(col.startswith(f"{c}_") for col in gbal.columns)]:
             fix_kw, fix_cons, fix_note = point_fix_args(args.data_dir, cc, tso, bio, gni, gbal, gsto)
             cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
             sto_in = fix_kw.pop("storage", gsto)
+            if cc in EXTRA_EXPORT_DEST and fix_kw.get("extra_exports") is not None:
+                eu_extra_out[cc] = fix_kw["extra_exports"]
             b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
                                     nor["NO_to_GB"] if (cc == "UK" and len(nor) and "NO_to_GB" in nor) else None,
                                     bio[cc] if (len(bio) and cc in bio) else None, **fix_kw)
@@ -1568,8 +1619,8 @@ def main():
             eu_frames["SE"] = implied_member_balance(gbal, "SE", gsto, _col(dk_raw, "DK_to_sweden").reindex(gbal.index))
         except Exception as e:  # noqa: BLE001
             gas[2].append(f"EU gas balance without Slovakia/Sweden ({type(e).__name__}: {e})")
-        eu, eu_left = eu_gas_balance(eu_frames, gbord, eu_fallback)
-        eu_uk, _ = eu_gas_balance(eu_frames, gbord, eu_fallback, block=EU27_GAS + ["UK"])
+        eu, eu_left = eu_gas_balance(eu_frames, gbord, eu_fallback, sides=gsides, extra_out=eu_extra_out)
+        eu_uk, _ = eu_gas_balance(eu_frames, gbord, eu_fallback, block=EU27_GAS + ["UK"], sides=gsides, extra_out=eu_extra_out)
         if not eu.empty:
             total_chart(wb, used, gas, 0, eu, [
                 "EU27: the sum of the country balances charted below, each with its own corrections (national consumption series from the TSOs and statistics offices, "
@@ -1607,6 +1658,10 @@ def main():
             nl_b = gas_country_balance(gbal, "NL", gsto, glng, nl_cons, None, bio["NL"] if (len(bio) and "NL" in bio) else None, **nl_kw)
             colsb = [c for c in de_b.columns if c in nl_b.columns]
             both = de_b[colsb].add(nl_b[colsb], fill_value=0)
+            if gsides is not None and len(gsides):    # NL>DE and DE>NL are inside the block: each side's own figure comes out of its own line, so the border cancels exactly
+                d_imp, d_exp = intra_block_flows({"DE": de_b, "NL": nl_b}, {"DE", "NL"}, gsides, whole=(), months=both.index)
+                both["Pipeline imports"] = both["Pipeline imports"] - d_imp
+                both["Pipeline exports"] = both["Pipeline exports"] + d_exp
             if len(both) >= 12:
                 total_chart(wb, used, gas, None, both, [
                     "Germany + Netherlands combined. Includes the Norwegian gas that arrives at Emden (Gassco's flow to Germany minus the Dornum "
