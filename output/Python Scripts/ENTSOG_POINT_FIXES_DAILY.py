@@ -70,6 +70,13 @@ POINTS = {"GR_tap_imports": ("GR-TSO-0001", "ITP-00427", "entry"),
           "DE_haiming_out": ("DE-TSO-0010", "ITP-00308", "exit"),
           "DE_haiming_in": ("DE-TSO-0010", "ITP-00308", "entry"),
           "IT_srg_other_tsos": ("IT-TSO-0001", "ITP-00288", "exit")}
+# German storages (AGSI+ Germany) whose caverns are connected straight to the Dutch GTS grid (Oude Statenzijl, Enschede): physical flow at GTS's storage points.
+# entry = gas withdrawn from the German cavern into the Dutch grid, exit = gas injected from the Dutch grid. These flows cross neither a border point nor
+# a German exit, so Germany's balance (AGSI+ withdrawals) and the Netherlands' (ENTSOG border rows) each lacked them.
+NL_STORAGE_POINTS = ("UGS-00001", "UGS-00265", "UGS-00266", "UGS-00267", "UGS-00268", "UGS-00269", "UGS-00270", "UGS-00271", "UGS-00395", "UGS-00396")
+for _pk in NL_STORAGE_POINTS:
+    POINTS[f"NLSTO_{_pk}_in"] = ("NL-TSO-0001", _pk, "entry")
+    POINTS[f"NLSTO_{_pk}_out"] = ("NL-TSO-0001", _pk, "exit")
 RELOAD_DAYS = 45
 
 
@@ -144,6 +151,7 @@ def main():
              "DE_at_ueberackern / DE_at_ueberackern2 / DE_at_lindau = German exit flows to Austria (Ueberackern, Lindau) that the border rule leaves out because VIP Oberkappel does not contain them; "
              "DE_haidach_out / DE_haidach_in = bayernets' physical flow into / out of the Haidach storage (UGS-00274, Austria, fed from the German grid); "
              "DE_haiming_out / DE_haiming_in = bayernets' flow into / out of RAG's Haiming 2 storage (ITP-00308, Austria, fed from the German grid); "
+             "NLSTO_<UGS point>_in / _out = flow between the Dutch GTS grid and German caverns connected to it (Nuettermoor, Etzel, Epe, Jemgum; in = withdrawn into GTS, out = injected from GTS); "
              "IT_srg_other_tsos = Snam Rete Gas delivery to other Italian transmission networks (consumed in Italy, not in ENTSOG's distribution / final-consumer exits).",
              f"Re-fetches the last {RELOAD_DAYS} days each run; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(comb)} days, {comb.index.min():%Y-%m-%d} to {comb.index.max():%Y-%m-%d}"]
