@@ -49,7 +49,7 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 # (country code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 DATASETS = [
     ("US", "United States", "us_gas.xlsx", ("Demand by sector", "Supply and trade", "Storage weekly"), "gas"),
-    ("US", "United States", "texas_gas_monthly.xlsx", ("Consumption by sector", "Exports", "Mexico by crossing", "Balance"),
+    ("US", "United States", "texas_gas_monthly.xlsx", ("Consumption by sector", "Exports", "Mexico by crossing", "Balance", "Forecast values"),
      "Texas gas"),
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
@@ -189,7 +189,9 @@ SOURCES = {
                     "production, trade) and Weekly Natural Gas Storage Report", EIA_GAS),
     "texas_gas_monthly.xlsx": ("EIA Natural Gas Monthly, Texas (state consumption by sector, marketed production, storage; "
                                "exports by port of exit: pipeline to Mexico at Texas crossings and LNG from Corpus Christi, "
-                               "Freeport and Golden Pass; Sabine Pass is Louisiana) via EIA API v2; ~2-3 month lag",
+                               "Freeport and Golden Pass; Sabine Pass is Louisiana) via EIA API v2; ~2-3 month lag. Forecast to Dec 2028 (lighter bars): "
+                               "LNG feedgas = EIA exports x 1.09, existing plants at nameplate x 3-year utilisation, new trains from company-announced start dates "
+                               "(NextDecade, Sempra, ExxonMobil, Cheniere; several unverified), other sectors a seasonal-trend base",
                                "https://www.eia.gov/dnav/ng/ng_cons_sum_dcu_STX_m.htm"),
     "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
     "lng_feedgas_daily.xlsx": ("Interstate pipeline operators' scheduled quantities at each LNG plant (Kinder Morgan, "

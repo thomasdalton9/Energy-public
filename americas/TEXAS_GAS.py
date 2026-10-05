@@ -32,6 +32,8 @@ import requests
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 import xlsx_notes  # noqa: E402
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import TEXAS_GAS_FORECAST as fcst  # noqa: E402
 
 API = "https://api.eia.gov/v2/natural-gas/"
 HISTORY_START = "2015-01"
@@ -285,12 +287,26 @@ def main():
     cons, exports, enp, bal = derive(raw)
     latest = latest_table(cons, exports, enp, bal)
     lines, titles = notes(raw, bal)
+    try:
+        fvals, fctx = fcst.build(args.out, cons, exports, bal)
+        fl, ft = fcst.notes_lines(fctx)
+        lines, titles = lines + fl, titles | ft
+    except Exception as e:  # noqa: BLE001
+        print(f"LNG forecast failed ({type(e).__name__}: {e})", flush=True)
+        fvals = None
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     for n, df in (("Consumption by sector", cons), ("Exports", exports), ("Mexico by crossing", enp), ("Balance", bal)):
         df.index.name = "Month"
     xlsx_notes.write_workbook(args.out, {"Consumption by sector": cons, "Exports": exports, "Mexico by crossing": enp,
-                                         "Balance": bal, "Latest and YoY": latest.set_index("Group"), RAW_SHEET: raw},
+                                         "Balance": bal, "Latest and YoY": latest.set_index("Group"),
+                                         **({"Forecast values": fcst.values_sheet(fvals)} if fvals is not None else {}),
+                                         RAW_SHEET: raw},
                               lines, titles)
+    if fvals is not None:
+        fcst.write_sheets(args.out, fctx["trains"], fctx["par"], fctx["prof"], fctx["over"], fvals, fctx["fs"])
+        pd.set_option("display.width", 250)
+        print(fvals.loc[[m for m in fvals.index if m.month == 12 and m.year >= 2025],
+                        ["lng_b", "lng_d", "cons", "dem_b", "dem_d", "mex"]].astype(float).round(2).to_string())
     pd.set_option("display.width", 250)
     pd.set_option("display.max_columns", 30)
     print(f"Saved {args.out}")

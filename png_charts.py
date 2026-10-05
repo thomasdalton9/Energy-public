@@ -54,20 +54,32 @@ def series_chart(spec, path):
     fig, ax = plt.subplots(figsize=(10, 5))
     annual = spec.get("date_format") == "%Y"
     x = df.index
+    ff = pd.Timestamp(spec["forecast_from"]) if spec.get("forecast_from") is not None else None
+    line_cols = [c for c in spec.get("line_cols", ()) if c in df.columns] if spec["kind"] != "line" else []
+    body = df.drop(columns=line_cols)
     if spec["kind"] == "stacked_bar":
         width = 300 if annual else (25 if len(df) < 400 else 1)
         pos, neg = pd.Series(0.0, index=x), pd.Series(0.0, index=x)
-        for i, c in enumerate(df.columns):
-            v = df[c].fillna(0)
+        for i, c in enumerate(body.columns):
+            v = body[c].fillna(0)
             base = pos.where(v >= 0, neg)
-            ax.bar(x, v, width=width, bottom=base, color=_colour(c, i), label=str(c), align="edge" if not annual else "center")
+            alphas = [0.5 if (ff is not None and d >= ff) else 1.0 for d in x]
+            bars = ax.bar(x, v, width=width, bottom=base, color=_colour(c, i), label=str(c), align="edge" if not annual else "center")
+            for b, al in zip(bars, alphas):
+                b.set_alpha(al)
             pos, neg = pos + v.clip(lower=0), neg + v.clip(upper=0)
     elif spec["kind"] == "stacked_area":
-        ax.stackplot(x, *[df[c].fillna(0) for c in df.columns], labels=[str(c) for c in df.columns],
-                     colors=[_colour(c, i) for i, c in enumerate(df.columns)])
+        ax.stackplot(x, *[body[c].fillna(0) for c in body.columns], labels=[str(c) for c in body.columns],
+                     colors=[_colour(c, i) for i, c in enumerate(body.columns)])
     else:
-        for i, c in enumerate(df.columns):
-            ax.plot(x, df[c], color=_colour(c, i), label=str(c), linewidth=1.4)
+        for i, c in enumerate(body.columns):
+            ax.plot(x, body[c], color=_colour(c, i), label=str(c), linewidth=1.8,
+                    linestyle="--" if "elayed" in str(c) else "-")
+    for j, c in enumerate(line_cols):
+        ax.plot(x, df[c], color="#252525", linewidth=1.6, linestyle="-" if j == 0 else "--", label=str(c))
+    if ff is not None:
+        ax.axvline(ff, color="#555555", linewidth=0.9, linestyle=":")
+        ax.text(ff, ax.get_ylim()[1], " forecast", fontsize=8, color="#555555", va="top")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y" if annual else "%b/%y"))
     _style(ax, spec["title"], spec["units"])
     if str(spec["units"]).startswith("Bcf/d") and "MISO" in spec["title"]:

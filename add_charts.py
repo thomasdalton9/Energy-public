@@ -1384,6 +1384,43 @@ def texas_gas(p):
                            "Residual (net interstate outflow + withheld fuel)": b["Residual: net interstate outflow + withheld fuel uses"]})
         out.append(spec("Balance", bb, "Texas gas balance: dry production against consumption, exports and the residual (EIA)",
                         "Bcf/d", "line", "%b/%y"))
+    fv = _sheet(p, "Forecast values", "Month")
+    if not fv.empty:
+        import importlib.util
+        spec_ = importlib.util.spec_from_file_location("TEXAS_GAS_FORECAST", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                                         "americas", "TEXAS_GAS_FORECAST.py"))
+        tf = importlib.util.module_from_spec(spec_)
+        spec_.loader.exec_module(tf)
+        fv = fv[fv.index >= "2021-01-01"]
+        first_fc = fv.index[fv["Actual / forecast"].eq("Forecast")].min()
+        last_act = fv.index[fv["Actual / forecast"].eq("Actual")].max()
+        rows = {ts: tf.FIRST_ROW + i for i, ts in enumerate(pd.date_range(tf.FIRST, tf.LAST, freq="MS"))}
+        N = tf.NAME
+        lng = "LNG feedgas (exports x 1.09)"
+        SEC5 = ["Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel"]
+        stack = fv[SEC5].copy()
+        stack[lng] = fv[N["lng_b"]]
+        stack["Total incl. LNG, LNG delayed 6 months"] = fv[N["dem_d"]]
+        stack["Pipeline exports to Mexico (not in stack)"] = fv[N["mex"]]
+        cols = {c: tf.COL[k] for c, k in zip(SEC5, ("elec", "ind", "res", "com", "veh"))}
+        cols.update({lng: tf.COL["lng_b"], "Total incl. LNG, LNG delayed 6 months": tf.COL["dem_d"],
+                     "Pipeline exports to Mexico (not in stack)": tf.COL["mex"]})
+        s1 = spec("Demand incl LNG", stack.dropna(subset=SEC5, how="all"),
+                  "Texas gas demand including LNG feedgas: consumption by sector plus LNG (EIA history, forecast to Dec/28)", "Bcf/d",
+                  "stacked_bar", "%b/%y", line_cols=("Total incl. LNG, LNG delayed 6 months", "Pipeline exports to Mexico (not in stack)"))
+        s1.update({"forecast_from": first_fc, "live": {"sheet": "Forecast", "rows": rows, "cols": cols}})
+        s1["sheet"] = "Texas gas demand incl LNG"
+        out.insert(0, s1)
+        h = fv[N["lng_b"]].where(fv.index <= last_act)
+        lg = pd.DataFrame({"History (EIA exports x 1.09)": h,
+                           "Base forecast": fv[N["lng_b"]].where(fv.index >= last_act),
+                           "Delayed forecast (+6 months)": fv[N["lng_d"]].where(fv.index >= last_act)})
+        s2 = spec("LNG forecast", lg, "Texas LNG feedgas: history and forecast, base and 6-month delay", "Bcf/d", "line", "%b/%y")
+        s2["forecast_from"] = first_fc
+        s2["live"] = {"sheet": "Forecast", "rows": rows, "cols": {"History (EIA exports x 1.09)": tf.COL["lng_b"],
+                                                                  "Base forecast": tf.COL["lng_b"],
+                                                                  "Delayed forecast (+6 months)": tf.COL["lng_d"]}}
+        out.insert(1, s2)
     return out
 
 
@@ -2573,6 +2610,19 @@ def _order_chart_sheets(path, names):
             os.remove(tmp)
 
 
+def _link_live(ws, df, s):
+    """Chart-sheet cells -> formulas on a live sheet, so editing the assumptions redraws the native chart.
+    s['live'] = {'sheet': name, 'rows': {month: row}, 'cols': {series name: column letter}}; cells the script left
+    blank (e.g. a history-only or forecast-only series) stay blank."""
+    live = s["live"]
+    d, _ = xlsx_charts.prepare(df, s.get("line_cols", ()))
+    for k, ts in enumerate(d.index):
+        row = live["rows"].get(ts)
+        for j, c in enumerate(d.columns):
+            if row and c in live["cols"] and pd.notna(d.iloc[k, j]):
+                ws.cell(row=2 + k, column=2 + j).value = f"='{live['sheet']}'!{live['cols'][c]}{row}"
+
+
 def _add_in_one_pass(path, specs):
     """All chart sheets in one load/save. openpyxl drops the formatting of charts it reads back in (axis
     min/max and step - e.g. the 0-100% scale of storage charts - axis titles, date formats), so adding charts
@@ -2593,7 +2643,10 @@ def _add_in_one_pass(path, specs):
             if df.empty:
                 continue
             xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
-                                        date_format=s["date_format"], line_cols=s.get("line_cols", ()), wb=wb)
+                                        date_format=s["date_format"], line_cols=s.get("line_cols", ()), wb=wb,
+                                        forecast_from=s.get("forecast_from"))
+            if s.get("live"):
+                _link_live(wb[sheet], df, s)
         names.append(sheet)
     # chart sheets straight after the Units tab, in registry order
     present = [n for n in names if n in wb.sheetnames]

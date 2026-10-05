@@ -1,6 +1,7 @@
 name: Texas gas (EIA)
 
-# Texas natural gas consumption by sector and exports (Mexico pipeline by crossing, LNG by terminal), monthly, Bcf/d.
+# Texas natural gas consumption by sector and exports (Mexico pipeline by crossing, LNG by terminal), monthly, Bcf/d,
+# plus the LNG demand forecast to Dec 2028 (base / delayed) and the demand-incl-LNG chart.
 # EIA state data lag about 2-3 months and keep their history, so 1st/15th is enough (incremental, 3-month revision window).
 on:
   schedule:
@@ -41,7 +42,7 @@ jobs:
           f="output/Data and Chart Outputs/texas_gas_monthly.xlsx"
           [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for texas_gas_monthly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp americas/TEXAS_GAS.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp americas/TEXAS_GAS.py americas/TEXAS_GAS_FORECAST.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
