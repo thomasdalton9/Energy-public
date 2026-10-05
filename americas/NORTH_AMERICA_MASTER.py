@@ -79,7 +79,7 @@ HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
 DASHBOARD_ONLY = {"us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
-                  "miso_gas_burn_daily.xlsx": {"Monthly"}}
+                  "miso_gas_burn_daily.xlsx": {"MISO gas burn"}}
 
 REGIONS = {"US_Total": "US Lower 48", "ERCOT": "ERCOT (Texas)", "PJM": "PJM (Mid-Atlantic)",
            "MISO": "MISO (Midcontinent)", "SPP": "SPP (Southwest Power Pool)", "CAISO": "CAISO (California)",

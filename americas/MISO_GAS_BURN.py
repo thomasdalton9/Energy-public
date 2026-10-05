@@ -325,11 +325,7 @@ def main():
     lines, titles = notes(meta, last_cal, daily.index.max())
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    daily_out = daily.reset_index()
-    daily_out["date"] = daily_out["date"].dt.strftime("%Y-%m-%d")
-    mo_out = mout.reset_index()
-    mo_out["month"] = mo_out["month"].dt.strftime("%Y-%m-%d")
-    xlsx_notes.write_workbook(args.out, {"Daily": daily_out, "Monthly": mo_out}, lines, titles)
+    xlsx_notes.write_workbook(args.out, {"Daily": daily, "Monthly": mout}, lines, titles)
     print(f"Saved {args.out}: {len(daily)} days, EIA-923 calibrated through {last_cal:%b %Y}")
     pd.set_option("display.width", 250)
     print(mout[["Heat_rate_used_MMBtu_per_MWh", "Heat_rate_basis", "Physical_HR_MMBtu_per_MWh", "MMBtu_per_Mcf_used",

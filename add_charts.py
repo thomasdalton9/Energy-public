@@ -920,7 +920,7 @@ def miso_gas_burn(p):
     mm = m[["Gas_burn_Bcf_per_day", "Gas_burn_Bcf_per_day_prior_year"]].rename(
         columns={"Gas_burn_Bcf_per_day": "Bcf/d", "Gas_burn_Bcf_per_day_prior_year": "Prior year"}).dropna(subset=["Bcf/d"])
     hr = m[["Heat_rate_used_MMBtu_per_MWh"]].rename(columns={"Heat_rate_used_MMBtu_per_MWh": "Heat rate (EIA-923 calibrated, else prior year)"})
-    return [spec("Monthly", mm, "MISO gas burn for power (monthly average, estimated from MISO gas MWh and an EIA-923 heat rate)",
+    return [spec("MISO gas burn", mm, "MISO gas burn for power (monthly average, estimated from MISO gas MWh and an EIA-923 heat rate)",
                  "Bcf/d", "line", "%b/%y"),
             spec("Daily", daily(d7, "2025-01-01").dropna(how="all"), "MISO gas burn for power (daily, 7-day average)", "Bcf/d",
                  "line", "%b/%y"),
