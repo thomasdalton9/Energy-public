@@ -1,0 +1,15 @@
+name: EIA state gas-for-power check (manual)
+on:
+  workflow_dispatch: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas requests
+      - env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: python3 discovery_archive/americas/EIA_STATE_GAS_POWER_CHECK.py
