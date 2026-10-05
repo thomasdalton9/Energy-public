@@ -228,11 +228,11 @@ def build_daily(daily, monthly):
 def monthly_output(monthly, daily):
     """Monthly sheet: EIA-923 table + monthly average Bcf/d."""
     m = monthly.copy()
-    bcfd = daily["Gas_burn_Bcf_per_day"].resample("MS").mean()
-    full = daily["Gas_burn_Bcf_per_day"].resample("MS").count() == m["Days_in_month"]
+    bcfd = daily["Gas_burn_Bcf_per_day"].resample("MS").mean().reindex(m.index)
+    full = daily["Gas_burn_Bcf_per_day"].resample("MS").count().reindex(m.index) == m["Days_in_month"]
     m["Gas_burn_Bcf_per_day"] = bcfd.where(full)
     m["Gas_burn_Bcf_per_day_prior_year"] = m["Gas_burn_Bcf_per_day"].shift(12)
-    m["Flat_7.5_Bcf_per_day"] = daily["Flat_7.5_Bcf_per_day"].resample("MS").mean().where(full)
+    m["Flat_7.5_Bcf_per_day"] = daily["Flat_7.5_Bcf_per_day"].resample("MS").mean().reindex(m.index).where(full)
     m["Gas_burn_Bcf_month"] = m["Gas_burn_Bcf_per_day"] * m["Days_in_month"]
     cols = ["Heat_rate_used_MMBtu_per_MWh", "Heat_rate_basis", "MMBtu_per_Mcf_used", "Gas_burn_Bcf_per_day",
             "Gas_burn_Bcf_per_day_prior_year", "Flat_7.5_Bcf_per_day", "Gas_burn_Bcf_month",
