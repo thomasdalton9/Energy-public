@@ -912,6 +912,22 @@ def henry_hub(p):
             spec("Monthly", monthly_mean(d), "Henry Hub natural gas spot price (monthly average)", "USD/MMBtu")]
 
 
+def miso_gas_burn(p):
+    """MISO gas burn for power (Bcf/d): daily 7-day average since 2025, and monthly average with the prior year."""
+    d = by_date(read(p, "Daily"), "date")
+    m = by_date(read(p, "Monthly"), "month")
+    d7 = d[["Gas_burn_Bcf_per_day_7d_avg"]].rename(columns={"Gas_burn_Bcf_per_day_7d_avg": "MISO gas burn, 7-day average"})
+    mm = m[["Gas_burn_Bcf_per_day", "Gas_burn_Bcf_per_day_prior_year"]].rename(
+        columns={"Gas_burn_Bcf_per_day": "Bcf/d", "Gas_burn_Bcf_per_day_prior_year": "Prior year"}).dropna(subset=["Bcf/d"])
+    hr = m[["Heat_rate_used_MMBtu_per_MWh"]].rename(columns={"Heat_rate_used_MMBtu_per_MWh": "Heat rate (EIA-923 calibrated, else prior year)"})
+    return [spec("Monthly", mm, "MISO gas burn for power (monthly average, estimated from MISO gas MWh and an EIA-923 heat rate)",
+                 "Bcf/d", "line", "%b/%y"),
+            spec("Daily", daily(d7, "2025-01-01").dropna(how="all"), "MISO gas burn for power (daily, 7-day average)", "Bcf/d",
+                 "line", "%b/%y"),
+            spec("Heat rate", hr.dropna(), "MISO gas-fired heat rate (MMBtu of gas per MWh reported by MISO)", "MMBtu/MWh",
+                 "line", "%b/%y")]
+
+
 def _sheet(p, name, date_col):
     try:
         return by_date(read(p, name), date_col)
@@ -2233,6 +2249,7 @@ REGISTRY = {
     "ireland_smartgrid_15min.xlsx": ireland_smartgrid,
     "mexico_demanda_nacional_daily.xlsx": mexico,
     "miso_fuel_mix_daily.xlsx": fuel_mix("MISO fuel mix", "MW (daily mean)"),
+    "miso_gas_burn_daily.xlsx": miso_gas_burn,
     "turkey_generation_mix_dashboard_daily.xlsx": fuel_mix("Turkey generation mix", "MW"),
     "south_africa_generation_mix_daily.xlsx": south_africa,
     "puertorico_generation_monthly.xlsx": puertorico,
