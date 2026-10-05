@@ -1348,6 +1348,7 @@ def texas_production_forecast(p):
     cap = pd.DataFrame({"STEO Permian marketed": f["STEO Permian marketed (Bcf/d)"],
                         "Takeaway + local demand, base": f["Permian takeaway + local demand, base (Bcf/d)"],
                         "Takeaway + local demand, delayed": f["Permian takeaway + local demand, delayed (Bcf/d)"]}).dropna(how="all")
+    cap = cap[cap.index >= "2025-01-01"]
     out.append(spec("Permian cap", cap, "Permian: STEO marketed production against takeaway capacity plus local demand (takeaway table unverified)",
                     "Bcf/d", "line", "%b/%y"))
     return out
