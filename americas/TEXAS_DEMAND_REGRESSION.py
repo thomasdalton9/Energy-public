@@ -17,7 +17,13 @@ Models (ordinary least squares, numpy; no statsmodels needed)
      growth' (the data-centre signal). A full-sample model with a trend is reported for reference with a hold-out.
   3. Forecast to Dec 2033 at normal weather (average HDD/CDD by calendar month over an editable window of years), population
      growing at an editable rate, Henry Hub and wind+solar share held at editable values, +/-1 prediction standard error band.
-Edit the yellow cells of the Assumptions tab (committed workbook is read back on every run) and re-run.
+  4. LOAD BREAKOUT ('Load breakout' tab + chart): the ERCOT unexplained load growth APPORTIONED into data centres, crypto mining, oil & gas /
+     Permian electrification, other industrial (incl. LNG terminal load) and an unattributed remainder by EDITABLE yellow shares per
+     case (LOW/BASE/HIGH) and year 2023-26 (live Excel formulas; optional absolute-GW override per category and year). THE SHARES ARE
+     JUDGEMENT (seeded 'unverified, from memory'), NOT MEASUREMENT: nothing in the data splits the residual by source. Data-centre
+     GW is converted to gas burn with the factors read from texas_production_forecast.xlsx 'Assump - Data centres' (read only) and
+     compared with that workbook's LOW/BASE/HIGH data-centre path at Dec 2026.
+Edit the yellow cells of the Assumptions and Load breakout tabs (committed workbook is read back on every run) and re-run.
 
 Usage: python3 TEXAS_DEMAND_REGRESSION.py [--out "output/Data and Chart Outputs/texas_demand_regression.xlsx"]
 """
@@ -280,6 +286,378 @@ def meaning(n):
     return MEANING.get(n, "Bcf/d versus January, all else equal (seasonal shape that weather does not explain)" if n.startswith("Month") else "")
 
 
+# ------------------------------------------------------------------ load breakout (apportioning the ERCOT unexplained load)
+BO, BOV = "Load breakout", "Load breakout values"
+CATS = ["Data centres", "Crypto mining", "Oil & gas / Permian electrification", "Other industrial (incl. LNG terminal load)",
+        "Unattributed (population/baseline error)"]
+BCASES = ["BASE", "LOW", "HIGH"]
+BYEARS = [2023, 2024, 2025, 2026]
+UNV = "unverified (from memory) - judgement, not measurement"
+PROD_XLSX = os.path.join(OUT_DIR, "texas_production_forecast.xlsx")
+ERCOT_BURN_XLSX = os.path.join(OUT_DIR, "ercot_gas_burn_daily.xlsx")
+# sheet layout (rows 1-based); add_charts.py reads these constants to link its chart sheet to the live formulas
+SH_HDR, SH0 = 7, 8                       # share block: 3 cases x (5 categories + sum row + spacer)
+OV_HDR, OV0 = 31, 32                     # override block: 4 categories
+CF = {"lf": 39, "gas": 40, "hr": 41, "mcf": 42, "pavg": 43, "pen": 44, "stock": 45}
+T12_HDR, T12_0 = 48, 49                  # latest-12-month table: 5 categories, total, stack check
+DCR = {"u": 59, "slope": 60, "months": 61, "proj": 62, "share": 63, "avg": 64, "inc": 65, "stock": 66, "imp": 67, "scen": 68,
+       "diff": 69, "burn12": 70, "burn_inc": 71, "burn_imp": 72, "flag": 73}
+MON_HDR, MON0 = 76, 77                   # monthly block from Jan 2022
+MON_START = pd.Timestamp("2022-01-01")
+CHART_FROM = pd.Timestamp("2023-01-01")
+COL_BASE, COL_LOW, COL_HIGH = ["C", "D", "E", "F", "G"], ["H", "I", "J", "K", "L"], ["M", "N", "O", "P", "Q"]
+COL_CHK = "R"
+COL_TR = ["S", "T", "U", "V", "W", "X", "Y"]     # trailing 12-month means: BASE x5, LOW data centres, HIGH data centres
+SPEC_NAMES = ["Data centres (BASE share)", "Crypto mining", "Oil & gas / Permian electrification",
+              "Other industrial (incl. LNG terminal load)", "Unattributed (population/baseline error)",
+              "Data centres, LOW case", "Data centres, HIGH case"]
+
+
+def share_row(ci, k):
+    return SH0 + ci * 7 + k
+
+
+def seed_shares():
+    base = {0: [.20, .28, .35, .40], 1: [.40, .32, .28, .25], 2: [.20, .20, .20, .20], 3: [.10, .10, .10, .10], 4: [.10, .10, .07, .05]}
+    dc = {"BASE": base[0], "LOW": [.12, .20, .25, .30], "HIGH": [.28, .36, .44, .50]}
+    out = {}
+    for c in BCASES:
+        rows = [list(dc[c])]
+        for k in (1, 2, 3):
+            rows.append([round(base[k][j] * (1 - dc[c][j]) / (1 - base[0][j]), 3) for j in range(4)])
+        rows.append([round(1 - sum(rows[k][j] for k in range(4)), 3) for j in range(4)])
+        out[c] = rows
+    return out
+
+
+def read_breakout_prior(out):
+    """Editable cells of the committed workbook ({'shares','override','stock'} or None); read BEFORE the workbook is rewritten."""
+    try:
+        from openpyxl import load_workbook
+        ws = load_workbook(out, data_only=False)[BO]
+        sh = {c: [[ws.cell(share_row(ci, k), 3 + j).value for j in range(4)] for k in range(5)] for ci, c in enumerate(BCASES)}
+        ov = [[ws.cell(OV0 + k, 3 + j).value for j in range(4)] for k in range(4)]
+        ok = all(isinstance(x, (int, float)) for c in sh.values() for r in c for x in r)
+        stock = ws.cell(CF["stock"], 3).value
+        return {"shares": sh if ok else None, "override": ov, "stock": stock if isinstance(stock, (int, float)) else None}
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def dc_factors():
+    """Load factor, gas share, heat rate and MMBtu/Mcf (LOW/BASE/HIGH) read from the data-centre assumption tab of
+    texas_production_forecast.xlsx (not duplicated here); the ERCOT heat-rate mean as a fallback."""
+    want = {"lf": "Load factor", "gas": "Gas share of marginal supply", "hr": "Effective heat rate", "mcf": "MMBtu per Mcf"}
+    default = {"lf": [.85] * 3, "gas": [.4, .5, .6], "hr": [8.5] * 3, "mcf": [1.036] * 3}
+    src = "texas_production_forecast.xlsx 'Assump - Data centres' (read only; set by TEXAS_DATACENTRE.py)"
+    try:
+        a = pd.read_excel(PROD_XLSX, sheet_name="Assump - Data centres", header=None)
+        res = {}
+        for k, lab in want.items():
+            r = a[a[0].astype(str).str.startswith(lab)].iloc[0]
+            res[k] = [float(r[1]), float(r[2]), float(r[3])]
+        return res, src
+    except Exception as exc:  # noqa: BLE001
+        log(f"  data-centre factors unreadable ({type(exc).__name__}: {exc}) - defaults used")
+        try:
+            m = pd.read_excel(ERCOT_BURN_XLSX, sheet_name="Monthly")
+            ok = m[(m["ERCOT_days"] >= 28) & ~m["Heat_rate_basis"].astype(str).str.startswith("estimated")].tail(12)
+            default["hr"] = [float(ok["Heat_rate_used_MMBtu_per_MWh"].mean())] * 3
+        except Exception:  # noqa: BLE001
+            pass
+        return default, "FALLBACK defaults (texas_production_forecast.xlsx unreadable)"
+
+
+def scenario_dec26():
+    try:
+        d = pd.read_excel(PROD_XLSX, sheet_name="Demand to 2033", index_col=0, parse_dates=True)
+        return [float(d.loc[pd.Timestamp("2026-12-01"), f"Data centres GW (year-end path), {c}"]) for c in ("LOW", "BASE", "HIGH")]
+    except Exception as exc:  # noqa: BLE001
+        log(f"  scenario path unreadable ({type(exc).__name__}: {exc})")
+        return [np.nan] * 3
+
+
+def breakout_model(unexp, slope, prior, fac):
+    """Python mirror of the Excel formulas: monthly apportionment, trailing 12-month means, latest-12-month table, Dec 2026 comparison."""
+    shares = (prior or {}).get("shares") or seed_shares()
+    ov = (prior or {}).get("override") or [[None] * 4 for _ in range(4)]
+    stock = (prior or {}).get("stock")
+    stock = 1.0 if stock is None else float(stock)
+    idx = pd.date_range(MON_START, unexp.index.max(), freq="MS")
+    u = unexp.reindex(idx)
+    cat = {}
+    for c in BCASES:
+        for k in range(5):
+            vals = []
+            for m, uv in u.items():
+                if pd.isna(uv):
+                    vals.append(np.nan)
+                elif m.year < 2023:
+                    vals.append(0.0)
+                else:
+                    j = BYEARS.index(min(m.year, 2026))
+                    o = ov[k][j] if k < 4 else None
+                    vals.append(float(o) if isinstance(o, (int, float)) else uv * shares[c][k][j])
+            cat[(c, k)] = pd.Series(vals, index=idx)
+    tr = pd.DataFrame({SPEC_NAMES[0]: cat[("BASE", 0)].rolling(12, min_periods=1).mean()})
+    for k in range(1, 5):
+        tr[SPEC_NAMES[k]] = cat[("BASE", k)].rolling(12, min_periods=1).mean()
+    tr[SPEC_NAMES[5]] = cat[("LOW", 0)].rolling(12, min_periods=1).mean()
+    tr[SPEC_NAMES[6]] = cat[("HIGH", 0)].rolling(12, min_periods=1).mean()
+    tr = tr.where(u.notna())
+    last12 = u.dropna().index[-12:]
+    t12 = pd.DataFrame({c: [cat[(c, k)].loc[last12].mean() for k in range(5)] for c in BCASES}, index=CATS)
+    U12 = float(u.loc[last12].mean())
+    per_avg = 1000 * fac["gas"][1] * fac["hr"][1] * 24 / fac["mcf"][1] / 1e6          # Bcf/d per GW of AVERAGE load, BASE factors
+    per_en = fac["lf"][1] * per_avg                                                       # Bcf/d per GW energised (= TEXAS_DATACENTRE's per-GW)
+    mid = pd.Series(last12).map(pd.Timestamp.toordinal).mean()
+    months = (pd.Timestamp("2026-12-15").toordinal() - mid) / 30.4375
+    proj = U12 + slope * months / 12
+    scen = scenario_dec26()
+    dc = {}
+    for c in BCASES:
+        j = 3
+        o = ov[0][j]
+        avg = float(o) if isinstance(o, (int, float)) else proj * shares[c][0][j]
+        dc[c] = {"avg": avg, "inc": avg / fac["lf"][1], "imp": avg / fac["lf"][1] + stock}
+    return {"shares": shares, "override": ov, "stock": stock, "u": u, "tr": tr, "t12": t12, "U12": U12, "per_avg": per_avg, "per_en": per_en,
+            "months": months, "proj": proj, "scen": scen, "dc": dc, "last12": last12, "idx": idx, "slope": slope,
+            "burn12": float(t12.loc[CATS[0], "BASE"] * per_avg)}
+
+
+def breakout_flag(m):
+    imp = m["dc"]["BASE"]["imp"]
+    lo, ba, hi = m["scen"]
+    if any(pd.isna(x) for x in m["scen"]):
+        return "scenario path not readable - no comparison"
+    if imp < lo:
+        txt = f"Scenario path looks TOO HIGH: apportioned BASE {imp:.1f} GW is below even the scenario LOW case ({lo:.1f} GW)"
+    elif imp > hi:
+        txt = f"Scenario path looks TOO LOW: apportioned BASE {imp:.1f} GW is above even the scenario HIGH case ({hi:.1f} GW)"
+    elif imp > ba * 1.15:
+        txt = f"Scenario BASE path ({ba:.1f} GW) looks somewhat LOW: apportioned BASE {imp:.1f} GW, inside the LOW-HIGH range"
+    elif imp < ba * 0.85:
+        txt = f"Scenario BASE path ({ba:.1f} GW) looks somewhat HIGH: apportioned BASE {imp:.1f} GW, inside the LOW-HIGH range"
+    else:
+        txt = f"Scenario BASE path ({ba:.1f} GW) looks about right: apportioned BASE {imp:.1f} GW is within 15%"
+    return txt + ". Judgement-based shares: only as good as the shares."
+
+
+def breakout_values_sheet(m):
+    d = pd.DataFrame(index=m["idx"])
+    d.index.name = "Month"
+    d["Unexplained, monthly (GW)"] = m["u"]
+    for c in m["tr"].columns:
+        d[c] = m["tr"][c]
+    d["Row on 'Load breakout'"] = [MON0 + i for i in range(len(d))]
+    return d
+
+
+def write_breakout(out, m, fac, fsrc):
+    from openpyxl import load_workbook
+    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.utils import get_column_letter as L
+    yellow = PatternFill(start_color="FFFF99", end_color="FFFF99", fill_type="solid")
+    head = PatternFill(start_color="DDEBF7", end_color="DDEBF7", fill_type="solid")
+    grey = PatternFill(start_color="EDEDED", end_color="EDEDED", fill_type="solid")
+    bold = Font(bold=True)
+    wb = load_workbook(out)
+    if BO in wb.sheetnames:
+        del wb[BO]
+    ws = wb.create_sheet(BO)
+    wb.move_sheet(ws, offset=wb.sheetnames.index("Assumptions") + 1 - wb.sheetnames.index(BO))
+
+    def hdr(r, labels, c0=1):
+        for j, t in enumerate(labels, start=c0):
+            c = ws.cell(r, j, t)
+            c.font, c.fill, c.alignment = bold, head, Alignment(wrap_text=True, vertical="top")
+
+    ws["A1"] = "ERCOT unexplained load growth apportioned by source (GW, average load) - yellow cells are editable, formulas recalculate in Excel"
+    ws["A1"].font = Font(bold=True, size=13)
+    ws["A2"] = ("THE SHARES BELOW ARE JUDGEMENT, NOT MEASUREMENT. Nothing in the repo's data splits the residual by source: 'unexplained' = EIA-930 ERCOT net "
+                "generation minus a weather + population baseline fitted 2019-22, so it also holds the baseline's own error. Every seeded share is " + UNV +
+                ". ERCOT's large-load interconnection / observed large-load reports could not be read by script (Actions probe, 5 Oct 2026, see Units tab): "
+                "paste observed GW per category into the override block (B) and it replaces the share-based value.")
+    ws["A3"] = ("Chart and monthly block use the trailing 12-month mean of each category (monthly residuals are weather-noisy). Shares apply by calendar year "
+                "(2026 applies to every 2026 month); months before 2023 are the baseline fit window, so nothing is apportioned. Delete this tab to re-seed the shares.")
+    for r in (2, 3):
+        ws[f"A{r}"].alignment = Alignment(wrap_text=True, vertical="top")
+        ws.merge_cells(f"A{r}:H{r}")
+        ws.row_dimensions[r].height = 62 if r == 2 else 34
+    ws["A5"] = "A. Share of the unexplained GW by category, case and year (EDITABLE; each case-year must sum to 100%)"
+    ws["A5"].font = bold
+    hdr(SH_HDR, ["Case", "Category"] + BYEARS + ["Status / check"])
+    for ci, c in enumerate(BCASES):
+        for k in range(5):
+            r = share_row(ci, k)
+            ws.cell(r, 1, c)
+            ws.cell(r, 2, CATS[k])
+            for j in range(4):
+                x = ws.cell(r, 3 + j, m["shares"][c][k][j])
+                x.fill, x.number_format = yellow, "0%"
+            ws.cell(r, 7, UNV)
+        rs = share_row(ci, 5)
+        ws.cell(rs, 2, "Sum of shares").font = bold
+        for j in range(4):
+            col = L(3 + j)
+            x = ws.cell(rs, 3 + j, f"=SUM({col}{share_row(ci, 0)}:{col}{share_row(ci, 4)})")
+            x.number_format, x.font = "0%", bold
+        ws.cell(rs, 7, f'=IF(AND(ABS(C{rs}-1)<0.0005,ABS(D{rs}-1)<0.0005,ABS(E{rs}-1)<0.0005,ABS(F{rs}-1)<0.0005),"OK: every year sums to 100%","CHECK: shares do not sum to 100%")').font = bold
+    ws.cell(OV_HDR - 2, 1, "B. Observed override, GW of average load per category and year (OPTIONAL, EDITABLE; blank = use the share; filled = replaces the share-based value in every case)").font = bold
+    ws.cell(OV_HDR - 1, 1, "Paste e.g. ERCOT large-load interconnection / observed large-load or crypto-load GW here. If used, the stack no longer sums to the unexplained load: see 'stack minus unexplained' rows.")
+    hdr(OV_HDR, ["", "Category"] + BYEARS + ["Source of the figure"])
+    for k in range(4):
+        r = OV0 + k
+        ws.cell(r, 2, CATS[k])
+        for j in range(4):
+            ws.cell(r, 3 + j).fill = yellow
+            ws.cell(r, 3 + j).number_format = "0.00"
+    ws.cell(CF["lf"] - 2, 1, f"C. Data-centre conversion factors, read-only copies from {fsrc}").font = bold
+    hdr(CF["lf"] - 1, ["Factor", "", "LOW", "BASE", "HIGH", "Unit", "Note"])
+    for key, lab, unit in (("lf", "Load factor (average load / energised capacity)", "ratio"), ("gas", "Gas share of marginal supply", "share"),
+                           ("hr", "Effective heat rate (ERCOT, last-12-month mean of ercot_gas_burn_daily.xlsx)", "MMBtu/MWh"), ("mcf", "MMBtu per Mcf", "MMBtu/Mcf")):
+        r = CF[key]
+        ws.cell(r, 1, lab)
+        for j in range(3):
+            x = ws.cell(r, 3 + j, fac[key][j])
+            x.fill, x.number_format = grey, "0.000"
+        ws.cell(r, 6, unit)
+    ws.cell(CF["lf"], 7, "Copied at run time; change them on 'Assump - Data centres' in texas_production_forecast.xlsx, not here.")
+    ws.cell(CF["pavg"], 1, "Gas burn per GW of AVERAGE data-centre load, BASE factors (formula)").font = bold
+    ws.cell(CF["pavg"], 4, f"=1000*D{CF['gas']}*D{CF['hr']}*24/D{CF['mcf']}/1000000").number_format = "0.0000"
+    ws.cell(CF["pavg"], 6, "Bcf/d per GW")
+    ws.cell(CF["pavg"], 7, "Formula: 1000 MW/GW x gas share x heat rate x 24 h / MMBtu per Mcf / 1e6; apportioned LOW/HIGH lines use BASE factors so only the share differs")
+    ws.cell(CF["pen"], 1, "Gas burn per GW of ENERGISED capacity, BASE (formula; = 'Assump - Data centres' value)").font = bold
+    ws.cell(CF["pen"], 4, f"=D{CF['lf']}*D{CF['pavg']}").number_format = "0.0000"
+    ws.cell(CF["pen"], 6, "Bcf/d per GW")
+    ws.cell(CF["stock"], 1, "Data-centre energised GW already in the 2019-22 baseline (EDITABLE)")
+    x = ws.cell(CF["stock"], 3, m["stock"])
+    x.fill, x.number_format = yellow, "0.0"
+    ws.cell(CF["stock"], 6, "GW")
+    ws.cell(CF["stock"], 7, "Unexplained load is growth ABOVE the baseline, the scenario path is the whole stock: this adds the pre-2023 stock back. " + UNV)
+    # D. latest 12 months
+    a0, a1 = m["last12"].min(), m["last12"].max()
+    ra, rb = MON0 + (a0.year - 2022) * 12 + a0.month - 1, MON0 + (a1.year - 2022) * 12 + a1.month - 1
+    ws.cell(T12_HDR - 2, 1, f"D. Latest 12 months ({a0:%b/%y}-{a1:%b/%y}), GW of average load by category (live: mean of the monthly block, missing months ignored)").font = bold
+    hdr(T12_HDR, ["Category", "", "LOW", "BASE", "HIGH"])
+    colsets = {"BASE": COL_BASE, "LOW": COL_LOW, "HIGH": COL_HIGH}
+    for k in range(5):
+        r = T12_0 + k
+        ws.cell(r, 1, CATS[k])
+        for j, c in enumerate(("LOW", "BASE", "HIGH")):
+            cl = colsets[c][k]
+            ws.cell(r, 3 + j, f"=AVERAGE({cl}{ra}:{cl}{rb})").number_format = "0.00"
+    rt = T12_0 + 5
+    ws.cell(rt, 1, "Total = ERCOT unexplained load growth, latest-12-month mean").font = bold
+    for j in range(3):
+        x = ws.cell(rt, 3 + j, f"=AVERAGE($B{ra}:$B{rb})")
+        x.number_format, x.font = "0.00", bold
+    ws.cell(rt + 1, 1, "Stack minus unexplained (zero unless an override is used)")
+    for j in range(3):
+        col = L(3 + j)
+        ws.cell(rt + 1, 3 + j, f"=SUM({col}{T12_0}:{col}{T12_0 + 4})-{col}{rt}").number_format = "0.00"
+    # E. data centres
+    ws.cell(DCR["u"] - 2, 1, "E. Data centres: gas burn and the Dec 2026 energised GW against the scenario path (texas_production_forecast.xlsx, read only)").font = bold
+    hdr(DCR["u"] - 1, ["Item", "", "LOW", "BASE", "HIGH", "Unit", "Note"])
+    items = [("u", "Unexplained load, latest-12-month mean", "GW"), ("slope", "Unexplained trend since Jan 2023 (this run's OLS)", "GW per year"),
+             ("months", "Months from the middle of the latest-12 window to Dec 2026", "months"),
+             ("proj", "Unexplained load projected to Dec 2026 (mean + trend x months / 12)", "GW"),
+             ("share", "Data-centre share of the unexplained load, 2026", "share"),
+             ("avg", "Data-centre average load at Dec 2026 (override if filled)", "GW"),
+             ("inc", "Implied energised data-centre GW from the apportioned growth (average load / load factor)", "GW"),
+             ("stock", "plus energised GW already in the baseline", "GW"),
+             ("imp", "IMPLIED ENERGISED DATA-CENTRE GW, DEC 2026", "GW"),
+             ("scen", "Scenario path, Dec 2026 energised GW ('Demand to 2033', year-end path, same case)", "GW"),
+             ("diff", "Apportioned minus scenario, same case", "GW"),
+             ("burn12", "Data-centre gas burn on the growth apportioned to data centres, latest 12 months (BASE factors)", "Bcf/d"),
+             ("burn_inc", "Same, at Dec 2026 (growth only)", "Bcf/d"),
+             ("burn_imp", "Gas burn at the implied total energised level, Dec 2026 (stock included)", "Bcf/d")]
+    for key, lab, unit in items:
+        ws.cell(DCR[key], 1, lab)
+        ws.cell(DCR[key], 6, unit)
+    ws.cell(DCR["imp"], 1).font = bold
+    for j, c in enumerate(("LOW", "BASE", "HIGH")):
+        col = L(3 + j)
+        ci = BCASES.index(c)
+        ws[f"{col}{DCR['u']}"] = f"={col}{rt}"
+        ws[f"{col}{DCR['slope']}"] = round(m["slope"], 3)
+        ws[f"{col}{DCR['months']}"] = round(m["months"], 1)
+        ws[f"{col}{DCR['proj']}"] = f"={col}{DCR['u']}+{col}{DCR['slope']}*{col}{DCR['months']}/12"
+        ws[f"{col}{DCR['share']}"] = f"=F{share_row(ci, 0)}"
+        ws[f"{col}{DCR['avg']}"] = f"=IF(ISNUMBER($F${OV0}),$F${OV0},{col}{DCR['proj']}*{col}{DCR['share']})"
+        ws[f"{col}{DCR['inc']}"] = f"={col}{DCR['avg']}/$D${CF['lf']}"
+        ws[f"{col}{DCR['stock']}"] = f"=$C${CF['stock']}"
+        ws[f"{col}{DCR['imp']}"] = f"={col}{DCR['inc']}+{col}{DCR['stock']}"
+        ws[f"{col}{DCR['scen']}"] = None if pd.isna(m["scen"][j]) else round(float(m["scen"][j]), 3)
+        ws[f"{col}{DCR['diff']}"] = f"={col}{DCR['imp']}-{col}{DCR['scen']}"
+        ws[f"{col}{DCR['burn12']}"] = f"=$D${T12_0}*$D${CF['pavg']}" if c == "BASE" else None
+        ws[f"{col}{DCR['burn_inc']}"] = f"={col}{DCR['avg']}*$D${CF['pavg']}"
+        ws[f"{col}{DCR['burn_imp']}"] = f"={col}{DCR['imp']}*$D${CF['pen']}"
+        for key, fmt in (("u", "0.00"), ("slope", "0.00"), ("months", "0.0"), ("proj", "0.00"), ("share", "0%"), ("avg", "0.00"), ("inc", "0.00"),
+                         ("stock", "0.00"), ("imp", "0.00"), ("scen", "0.00"), ("diff", "+0.00;-0.00"), ("burn12", "0.00"), ("burn_inc", "0.00"), ("burn_imp", "0.00")):
+            ws[f"{col}{DCR[key]}"].number_format = fmt
+    for col in "CDE":
+        ws[f"{col}{DCR['imp']}"].font = bold
+    ws.cell(DCR["scen"], 7, "values read from the other workbook when this script ran; LOW/BASE/HIGH there are Texas data-centre scenarios, here they are apportionment cases")
+    ws.cell(DCR["flag"], 1, "FLAG: scenario path vs the apportioned figure (BASE)").font = bold
+    s = DCR
+    ws.cell(DCR["flag"], 3, (
+        f'=IF(NOT(ISNUMBER(C{s["scen"]})),"scenario path not readable - no comparison",'
+        f'IF(D{s["imp"]}<C{s["scen"]},"Scenario path looks TOO HIGH: apportioned BASE "&TEXT(D{s["imp"]},"0.0")&" GW is below even the scenario LOW case ("&TEXT(C{s["scen"]},"0.0")&" GW)",'
+        f'IF(D{s["imp"]}>E{s["scen"]},"Scenario path looks TOO LOW: apportioned BASE "&TEXT(D{s["imp"]},"0.0")&" GW is above even the scenario HIGH case ("&TEXT(E{s["scen"]},"0.0")&" GW)",'
+        f'IF(D{s["imp"]}>D{s["scen"]}*1.15,"Scenario BASE path ("&TEXT(D{s["scen"]},"0.0")&" GW) looks somewhat LOW: apportioned BASE "&TEXT(D{s["imp"]},"0.0")&" GW, inside the LOW-HIGH range",'
+        f'IF(D{s["imp"]}<D{s["scen"]}*0.85,"Scenario BASE path ("&TEXT(D{s["scen"]},"0.0")&" GW) looks somewhat HIGH: apportioned BASE "&TEXT(D{s["imp"]},"0.0")&" GW, inside the LOW-HIGH range",'
+        f'"Scenario BASE path ("&TEXT(D{s["scen"]},"0.0")&" GW) looks about right: apportioned BASE "&TEXT(D{s["imp"]},"0.0")&" GW is within 15%")))))'
+        f'&". Judgement-based shares: only as good as the shares."')).font = bold
+    # F. monthly block
+    ws.cell(MON_HDR - 2, 1, "F. Monthly apportionment, GW of average load (live formulas; columns S-Y = trailing 12-month means used by the chart)").font = bold
+    labels = ["Month", "ERCOT unexplained load, monthly (GW)"]
+    for c in BCASES:
+        labels += [f"{c}: {n}" for n in ("Data centres", "Crypto mining", "Oil & gas", "Other industrial", "Unattributed")]
+    labels += ["BASE stack minus unexplained"]
+    labels += ["12m mean: " + n for n in SPEC_NAMES]
+    hdr(MON_HDR, labels)
+    ws.row_dimensions[MON_HDR].height = 62
+    for i, mth in enumerate(m["idx"]):
+        r = MON0 + i
+        ws.cell(r, 1, mth.to_pydatetime()).number_format = "mmm/yy"
+        uv = m["u"].iloc[i]
+        if pd.notna(uv):
+            ws.cell(r, 2, float(uv)).number_format = "0.00"
+        mi = f"MATCH(MIN(YEAR($A{r}),2026),$C${SH_HDR}:$F${SH_HDR},0)"
+        for ci, c in enumerate(BCASES):
+            for k in range(5):
+                col = colsets[c][k]
+                sh = f"INDEX($C${share_row(ci, k)}:$F${share_row(ci, k)},{mi})"
+                if k < 4:
+                    ov = f"INDEX($C${OV0 + k}:$F${OV0 + k},{mi})"
+                    core = f"IF(ISNUMBER({ov}),{ov},$B{r}*{sh})"
+                else:
+                    core = f"$B{r}*{sh}"
+                ws[f"{col}{r}"] = f'=IF(ISNUMBER($B{r}),IF(YEAR($A{r})>=2023,{core},0),"")'
+                ws[f"{col}{r}"].number_format = "0.00"
+        ws[f"{COL_CHK}{r}"] = f'=IF(ISNUMBER($B{r}),SUM(C{r}:G{r})-$B{r},"")'
+        ws[f"{COL_CHK}{r}"].number_format = "0.00"
+        if i >= 11:
+            src = COL_BASE + [COL_LOW[0], COL_HIGH[0]]
+            for col, sc in zip(COL_TR, src):
+                ws[f"{col}{r}"] = f'=IF(ISNUMBER($B{r}),AVERAGE({sc}{r - 11}:{sc}{r}),"")'
+                ws[f"{col}{r}"].number_format = "0.00"
+    for col, w in zip("ABCDEFGH", (70, 36, 11, 11, 11, 11, 44, 12)):
+        ws.column_dimensions[col].width = w
+    for cc in range(9, 26):
+        ws.column_dimensions[L(cc)].width = 14
+    ws.freeze_panes = "A5"
+    root, ext = os.path.splitext(out)
+    tmp = f"{root}.tmp{os.getpid()}{ext}"
+    try:
+        wb.save(tmp)
+        os.replace(tmp, out)
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+
 # ------------------------------------------------------------------ main
 def read_prev(out, sheet, **kw):
     try:
@@ -308,6 +686,7 @@ def assumptions_in(out, auto):
 
 def run(out):
     t0 = time.time()
+    bprior = read_breakout_prior(out)   # editable Load breakout cells, read before the workbook is rewritten
     # ---- history inputs
     cons = pd.read_excel(GAS_XLSX, sheet_name="Consumption by sector")
     cons["Month"] = pd.to_datetime(cons["Month"])
@@ -530,6 +909,15 @@ def run(out):
               "peak": float(unexp_roll.dropna().iloc[-1]), "first": float(post.iloc[:12].mean())}
     log(f"ERCOT baseline R2={fa['r2']:.3f} resid std={fa['s']:.2f} GW; unexplained last12={stepup:.2f} GW, trend since 2023 {unexpl['slope']:.2f}+/-{unexpl['slope_se']:.2f} GW/yr; full-sample holdout RMSE {rmse_b:.2f} GW ({mape_b:.1f}%)")
 
+    # ---- load breakout (apportioned unexplained load; the shares are judgement)
+    fac, fsrc = dc_factors()
+    bm = breakout_model(unexp.dropna(), unexpl["slope"], bprior, fac)
+    bflag = breakout_flag(bm)
+    log("load breakout, latest 12 months (GW, average load):\n" + bm["t12"].round(2).to_string())
+    log(f"  unexplained {bm['U12']:.2f} GW; DC gas burn {bm['burn12']:.3f} Bcf/d ({bm['per_avg']:.4f} per average GW); Dec 2026 implied energised DC GW "
+        f"LOW/BASE/HIGH {[round(bm['dc'][c]['imp'], 2) for c in BCASES[1:] + BCASES[:1]]} vs scenario {[round(x, 2) for x in bm['scen']]}")
+    log("  FLAG: " + bflag)
+
     # ---- summary numbers
     def ann(col, yr):
         s_ = F[col][F.index.year == yr]
@@ -567,7 +955,7 @@ def run(out):
     popdf = pd.DataFrame({"Population_m": annual, "Source": psrc}); popdf.index.name = "Year"
     dd_out = dd.copy()
     sheets = {"Fit summary": fit_df, "Candidates": cand_df, "Assumptions": assum, "Summary": S, "Forecast": F, "Hold-out": hold_df,
-              "Texas degree days": dd_out, "Texas population": popdf, "Texas T2M daily": temps}
+              "Load breakout values": breakout_values_sheet(bm), "Texas degree days": dd_out, "Texas population": popdf, "Texas T2M daily": temps}
     sel = "; ".join(f"{s}: {label(chosen[s])} (R2 {chosen[s]['fit']['r2']:.2f}, hold-out RMSE {chosen[s]['rmse']:.2f} Bcf/d = {chosen[s]['mape']:.1f}%)" for s in SECTORS)
     notes = [
         "Notes", "", "UNITS",
@@ -581,6 +969,8 @@ def run(out):
         "ERCOT: the baseline is HDD + CDD + population fitted on the window ending at the Assumptions cell (default Dec 2022) and extrapolated at actual weather; actual minus baseline is the 'unexplained load growth', which includes data centres, crypto mining, electrified industry/oil and gas load, and anything else the baseline omits, plus the population coefficient's own error (4 years of data only). The reference full-sample model with a trend is on the Fit summary with its hold-out.",
         f"ERCOT unexplained load growth: last 12 months {unexpl['last12']:.2f} GW above the baseline; fitted trend since Jan 2023 {unexpl['slope']:+.2f} +/- {unexpl['slope_se']:.2f} GW per year (OLS on {unexpl['n']} months from {unexpl['since']:%b/%y}).",
         "Forecast to Dec 2033: normal weather (editable window), population at the editable growth, Henry Hub and wind+solar share at the editable values; the band is the prediction standard error of each model (the 'Other sectors' band adds the four in quadrature assuming independent errors, which understates it if errors are correlated, as common weather misses are). The forecast is a weather-normalised projection of past relationships; it does NOT add new LNG, data-centre or industrial demand, structural change in power supply or price response beyond what is in the fit. The ERCOT baseline excludes the step-up; the 'baseline + unexplained held flat' column is a reference only.",
+        f"LOAD BREAKOUT ('Load breakout' tab, 'Load breakout values' tab, chart 'Load breakout'): the unexplained load growth split into data centres, crypto mining, oil & gas / Permian electrification, other industrial (incl. LNG terminal load) and an unattributed remainder (population/baseline error) by yellow SHARES per case (LOW/BASE/HIGH) and year 2023-26, live Excel formulas, optional observed-GW override. THE SHARES ARE JUDGEMENT, NOT MEASUREMENT (seeded 'unverified, from memory'); the data cannot tell the sources apart. Latest 12 months, BASE (GW of average load): " + "; ".join(f"{k} {v:.2f}" for k, v in bm["t12"]["BASE"].items()) + f"; total {bm['U12']:.2f}. Data-centre gas burn {bm['burn12']:.3f} Bcf/d (average GW x gas share x ERCOT heat rate x 24 / MMBtu per Mcf, factors read from texas_production_forecast.xlsx 'Assump - Data centres', source: {fsrc}). Dec 2026: " + bflag,
+        "ERCOT large-load interconnection / observed large-load / crypto figures: one Actions probe (discovery_archive/ERCOT_LARGE_LOAD_PROBE.py, 5 Oct 2026), see the repo CLAUDE.md note for the outcome; paste any observed GW into the override block.",
         "Edit the yellow cells on the Assumptions tab and re-run the workflow (texas_demand_regression.yml, 1st/15th) to recompute; a cell left at its auto default follows the new auto value on the next run, an edited cell is kept.",
         f"Latest history: gas {last_gas:%b/%y}, ERCOT {er.index.max():%b/%y}, weather store to {temps.dropna(how='all').index.max():%d %b %Y}. Run time {time.time() - t0:.0f}s.",
         "", "SOURCES",
@@ -589,6 +979,7 @@ def run(out):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     xlsx_notes.write_workbook(out, sheets, notes, ["UNITS", "METHOD", "SOURCES"])
     style(out)
+    write_breakout(out, bm, fac, fsrc)
     log("wrote", out)
     return {"chosen": chosen, "S": S, "unexpl": unexpl, "fa": fa, "rmse_b": rmse_b, "mape_b": mape_b}
 
