@@ -1410,54 +1410,96 @@ def texas_production_forecast(p):
     out = [spec("Production", prod.dropna(how="all"), "Texas marketed gas production: history and forecast (EIA STEO regions, Permian takeaway cap)",
                 "Bcf/d", "line", "%b/%y")]
     sdm = _sheet(p, "Supply and demand", "Month")
+    DRY = "6D4C41"       # supply lines (dry production, dry production + storage withdrawal) in brown, apart from the black demand totals
     if not sdm.empty:
-        # one combined supply-and-demand chart: stacked demand (sectors, LNG feedgas, Mexico), dry production lines, forecast lighter
+        # one combined supply-and-demand chart: stacked demand (sectors, LNG feedgas, Mexico, storage injection), supply lines (dry
+        # production; dry production + storage withdrawal), forecast lighter
         SEC5 = ["Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel"]
-        st = sdm[SEC5 + ["LNG feedgas (base)", "Pipeline exports to Mexico"]].rename(columns={
-            "LNG feedgas (base)": "LNG feedgas (base case)", "Pipeline exports to Mexico": "Pipeline exports to Mexico"})
+        has_st = "Storage injection (demand)" in sdm
+        st = sdm[SEC5 + ["LNG feedgas (base)", "Pipeline exports to Mexico"]].rename(columns={"LNG feedgas (base)": "LNG feedgas (base case)"})
+        last_act = sdm.index[sdm["Type"].eq("Actual")].max()
         pl = sdm["Dry production, base"].copy()
         pd_ = sdm["Dry production, takeaway delayed"].where(sdm["Type"].eq("Forecast"))
-        last_act = sdm.index[sdm["Type"].eq("Actual")].max()
         pd_.loc[last_act] = sdm.loc[last_act, "Dry production, base"]       # join the delayed line to history
-        st["Dry production, base"] = pl
-        st["Dry production, takeaway delayed"] = pd_
-        s1 = spec("Supply and demand", st, "Texas gas supply and demand: dry production vs demand incl. LNG; gap = net outflow",
-                  "Bcf/d", "stacked_bar", "%b/%y", line_cols=("Dry production, base", "Dry production, takeaway delayed"))
+        if has_st:
+            st["Storage injection (demand)"] = sdm["Storage injection (demand)"]
+            sw = sdm["Dry production + storage withdrawal, base"]
+            swd = sdm["Dry production + storage withdrawal, takeaway delayed"].where(sdm["Type"].eq("Forecast"))
+            swd.loc[last_act] = sdm.loc[last_act, "Dry production + storage withdrawal, base"]
+            st["Dry production (base)"] = pl
+            st["Dry prod. + storage withdrawal (base)"] = sw
+            st["Dry prod. + storage withdrawal (takeaway delayed)"] = swd
+            lines = ("Dry production (base)", "Dry prod. + storage withdrawal (base)", "Dry prod. + storage withdrawal (takeaway delayed)")
+            sty = {lines[0]: (DRY, "dash"), lines[1]: (DRY, "solid"), lines[2]: ("252525", "dash")}
+            ttl = "Texas gas supply and demand incl. storage; gap = implied net outflow\nSupply = dry production + storage withdrawal; demand = sectors, LNG feedgas, Mexico + storage injection"
+        else:
+            st["Dry production, base"], st["Dry production, takeaway delayed"] = pl, pd_
+            lines, sty = ("Dry production, base", "Dry production, takeaway delayed"), None
+            ttl = "Texas gas supply and demand: dry production vs demand incl. LNG; gap = net outflow"
+        s1 = spec("Supply and demand", st, ttl, "Bcf/d", "stacked_bar", "%b/%y", line_cols=lines)
         s1["forecast_from"] = sdm.index[sdm["Type"].eq("Forecast")].min()
+        if sty:
+            s1["line_styles"] = sty
         out.insert(0, s1)
         ob = pd.DataFrame({"Base (base production, base LNG)": sdm["Implied net outflow, base"],
                            "Delayed (takeaway delayed 6 months, LNG delayed 6 months)":
                            sdm["Implied net outflow, delayed (production and LNG both delayed)"]})
+        if has_st:
+            ob["Base before storage (memo: old definition)"] = sdm["Implied net outflow before storage, base"]
     else:
         ob = pd.DataFrame({"Base": f["Implied net interstate outflow, base"], "Takeaway delayed 6 months": f["Implied net interstate outflow, delayed"]})
-    out.append(spec("Net outflow", ob, "Implied net outflow, base and LNG-delayed scenarios (dry production - demand incl. LNG; includes withheld fuel)",
+    out.append(spec("Net outflow", ob, "Implied net outflow incl. storage, base and LNG-delayed scenarios\n(dry production + storage withdrawal - demand incl. LNG - storage injection; includes withheld fuel)",
                     "Bcf/d", "line", "%b/%y"))
     v33 = _sheet(p, "Demand to 2033", "Month")
     if not v33.empty:
-        # americas/TEXAS_DATACENTRE.py: demand to Dec 2033 incl. data centres (BASE stacked, LOW/HIGH totals dashed) and the implied outflow
-        SEC5 = ["Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel"]
+        # americas/TEXAS_DATACENTRE.py: demand to Dec 2033 incl. data centres and storage injection (BASE stacked, LOW/HIGH totals dashed),
+        # supply lines (dry production; + storage withdrawal) and the implied outflow
+        has_st = "Storage injection (demand)" in v33
         last_a = v33.index[v33["Type"].eq("Actual")].max()
         dcl = f"Data centres (BASE, gas burn added after {last_a:%b/%y})"
-        st = v33[SEC5 + ["LNG feedgas (base case)", "Pipeline exports to Mexico"]].copy()
-        st["LNG feedgas (base case)"] = v33["LNG feedgas (base case)"]
+        st = pd.DataFrame({"Electric power": v33["Electric power"], "Industrial": v33["Industrial"],
+                           "Res., comm., vehicle": v33[["Residential", "Commercial", "Vehicle fuel"]].sum(axis=1, min_count=1),
+                           "LNG feedgas (base case)": v33["LNG feedgas (base case)"], "Pipeline exports to Mexico": v33["Pipeline exports to Mexico"]})
         st[dcl] = v33["Data centres added gas burn, BASE"]
-        tl = "Total incl. data centres, BASE (top of stack)"
-        st[tl] = v33["Total demand incl. data centres, BASE"]
-        st["Total, LOW data-centre case"] = v33["Total demand incl. data centres, LOW"]
-        st["Total, HIGH data-centre case"] = v33["Total demand incl. data centres, HIGH"]
+        inj = v33["Storage injection (demand)"] if has_st else 0.0
+        if has_st:
+            st["Storage injection (demand)"] = inj
+        tl = "Total demand, BASE (top of stack)"
+        st[tl] = v33["Total demand incl. data centres, BASE"] + inj
+        st["Total, LOW data centres"] = v33["Total demand incl. data centres, LOW"] + inj
+        st["Total, HIGH data centres"] = v33["Total demand incl. data centres, HIGH"] + inj
+        lc = [tl, "Total, LOW data centres", "Total, HIGH data centres"]
+        sty = {tl: ("252525", "solid"), lc[1]: ("252525", "dash"), lc[2]: ("252525", "sysDot")}
+        if has_st:
+            st["Dry production (base)"] = v33["Dry production, base"]
+            st["Dry prod. + storage withdrawal (base)"] = v33["Dry production + storage withdrawal, base"]
+            lc += ["Dry production (base)", "Dry prod. + storage withdrawal (base)"]
+            sty.update({lc[3]: (DRY, "dash"), lc[4]: (DRY, "solid")})
         fc0 = v33.index[v33["Type"].ne("Actual")].min()
         sc0 = v33.index[v33["Type"].eq("Scenario")].min()
         dci = str(v33["Data-centre inputs"].dropna().iloc[0]) if "Data-centre inputs" in v33 and v33["Data-centre inputs"].notna().any() else "input status: see the 'Assump - Data centres' tab"
-        s3 = spec("Demand to 2033", st, f"Texas gas demand to 2033: sectors + LNG feedgas + data centres (scenario after Dec/28)\nData-centre inputs: {dci}", "Bcf/d",
-                  "stacked_bar", "%b/%y", line_cols=(tl, "Total, LOW data-centre case", "Total, HIGH data-centre case"))
-        s3.update({"forecast_from": fc0, "scenario_from": sc0})
+        s3 = spec("Demand to 2033", st, f"Texas gas supply and demand to 2033, incl. data centres and storage (scenario after Dec/28)\nSupply line = dry production + storage withdrawal; demand stack includes storage injection\nData-centre inputs: {dci}", "Bcf/d",
+                  "stacked_bar", "%b/%y", line_cols=tuple(lc))
+        s3.update({"forecast_from": fc0, "scenario_from": sc0, "line_styles": sty})
         out.insert(1, s3)
         og = pd.DataFrame({"LOW data-centre case": v33["Implied net outflow, LOW"], "BASE data-centre case": v33["Implied net outflow, BASE"],
                            "HIGH data-centre case": v33["Implied net outflow, HIGH"]})
-        o3 = spec("Outflow to 2033", og, f"Implied net outflow to other states to 2033 (scenario after Dec/28)\nData-centre inputs: {dci}",
+        if "Implied net outflow before storage, BASE" in v33:
+            og["BASE before storage (memo: old definition)"] = v33["Implied net outflow before storage, BASE"]
+        o3 = spec("Outflow to 2033", og, f"Implied net outflow to other states incl. storage, to 2033 (scenario after Dec/28)\nData-centre inputs: {dci}",
                   "Bcf/d", "line", "%b/%y")
         o3.update({"forecast_from": fc0, "scenario_from": sc0})
         out.insert(2, o3)
+    sto = _sheet(p, "Storage", "Month")
+    if not sto.empty and "Storage injection (Bcf/d)" in sto:
+        sto = sto[sto.index >= "2021-01-01"]
+        sg = pd.DataFrame({"Injection (demand side)": sto["Storage injection (Bcf/d)"], "Withdrawal (supply side, shown negative)": -sto["Storage withdrawal (Bcf/d)"],
+                           "Net injection (+) / withdrawal (-)": sto["Net injection (+) (Bcf/d)"]})
+        s5 = spec("Storage", sg, "Texas underground gas storage: gross injections and withdrawals\n(EIA to the latest month; later months = seasonal pattern of the last 3 years)",
+                  "Bcf/d", "stacked_bar", "%b/%y", line_cols=("Net injection (+) / withdrawal (-)",))
+        fl = sto["Flow basis"].astype(str)
+        s5["forecast_from"] = sto.index[~fl.eq("EIA")].min() if (~fl.eq("EIA")).any() else None
+        out.append(s5)
     cap = pd.DataFrame({"STEO Permian marketed": f["STEO Permian marketed (Bcf/d)"],
                         "Takeaway + local demand, base": f["Permian takeaway + local demand, base (Bcf/d)"],
                         "Takeaway + local demand, delayed": f["Permian takeaway + local demand, delayed (Bcf/d)"]}).dropna(how="all")
@@ -1478,7 +1520,7 @@ def gulf_coast_balance(p):
         flag = f"Louisiana LNG start dates: {n_src} of {n_tr} trains sourced (EIA 2026 Q2, month assumed); {len(t) - n_tr} pre-FID projects not forecast"
     except Exception:  # noqa: BLE001
         flag = "Louisiana LNG start dates: see 'Assump - LA LNG'"
-    ext = "STEO to Dec/27, extension to Dec/28, 2029-30 scenario (lightest)"
+    ext = "STEO to Dec/27, extension to Dec/28, 2029-33 scenario (lightest)"
 
     def put(name, st, title, lines, d):
         s_ = spec(name, st, title, "Bcf/d", "stacked_bar", "%b/%y", line_cols=tuple(lines))
@@ -1487,38 +1529,105 @@ def gulf_coast_balance(p):
         out.append(s_)
 
     cb = _sheet(p, "Combined", "Month")
+    DRY = "6D4C41"       # supply lines in brown, apart from the black demand lines
     if not cb.empty:
+        has_st = "Storage injection (demand)" in cb
         st = cb[["Electric power", "Industrial", "Residential, commercial, vehicle fuel", "Pipeline exports to Mexico (Texas)",
                  "Data centres (Texas, BASE added burn)", "LNG feedgas, Texas (base)", "LNG feedgas, Louisiana (base)"]].copy()
         st.columns = ["Electric power", "Industrial", "Res., comm., vehicle", "Mexico pipeline (Texas)", "Data centres (Texas)", "LNG, Texas", "LNG, Louisiana"]
-        st["Dry production"] = cb["Dry production, base"]
         la_ = cb.index[cb["Type"].eq("Actual")].max()
-        st["Dry prod., takeaway delayed"] = cb["Dry production, takeaway delayed"].where(cb["Type"].ne("Actual"))
-        st.loc[la_, "Dry prod., takeaway delayed"] = cb.loc[la_, "Dry production, base"]
-        st["Demand, LNG delayed"] = cb["Demand incl. LNG, LNG delayed"].where(cb["Type"].ne("Actual"))
-        st.loc[la_, "Demand, LNG delayed"] = cb.loc[la_, "Demand incl. LNG, base"]
-        put("Combined Gulf", st, f"Gulf Coast (Texas + Louisiana) gas supply vs demand incl. LNG; gap = implied net outflow\n{ext}\n{flag}",
-            ("Dry production", "Dry prod., takeaway delayed", "Demand, LNG delayed"), cb)
+        inj = cb["Storage injection (demand)"] if has_st else 0.0
+        if has_st:
+            st["Storage injection"] = inj
+            st["Dry production"] = cb["Dry production, base"]
+            st["Dry prod. + storage withdrawal"] = cb["Dry production + storage withdrawal, base"]
+            st["Dry prod. + withdrawal, takeaway delayed"] = cb["Dry production + storage withdrawal, takeaway delayed"].where(cb["Type"].ne("Actual"))
+            st.loc[la_, "Dry prod. + withdrawal, takeaway delayed"] = cb.loc[la_, "Dry production + storage withdrawal, base"]
+            lines = ("Dry production", "Dry prod. + storage withdrawal", "Dry prod. + withdrawal, takeaway delayed", "Demand, LNG delayed")
+            sty = {lines[0]: (DRY, "dash"), lines[1]: (DRY, "solid"), lines[2]: ("7F7F7F", "dash"), lines[3]: ("252525", "sysDot")}
+        else:
+            st["Dry production"] = cb["Dry production, base"]
+            st["Dry prod., takeaway delayed"] = cb["Dry production, takeaway delayed"].where(cb["Type"].ne("Actual"))
+            st.loc[la_, "Dry prod., takeaway delayed"] = cb.loc[la_, "Dry production, base"]
+            lines, sty = ("Dry production", "Dry prod., takeaway delayed", "Demand, LNG delayed"), None
+        st["Demand, LNG delayed"] = (cb["Demand incl. LNG, LNG delayed"] + inj).where(cb["Type"].ne("Actual"))
+        st.loc[la_, "Demand, LNG delayed"] = cb.loc[la_, "Demand incl. LNG, base"] + (inj.loc[la_] if has_st else 0.0)
+        put("Combined Gulf", st, f"Gulf Coast (Texas + Louisiana) gas supply vs demand incl. LNG and storage; gap = implied net outflow\n{ext}\n{flag}",
+            lines, cb)
+        if sty:
+            out[-1]["line_styles"] = sty
+        lay = [c for c in cb.columns if str(c).startswith("Sensitivity layer: ") and cb[c].abs().sum() > 0]
+        if lay and has_st:
+            sv = cb[cb.index >= "2028-01-01"]
+            ss = pd.DataFrame({"Gulf demand incl. LNG and storage injection, base case": sv["Demand incl. LNG, base"] + sv["Storage injection (demand)"]})
+            for c in lay:
+                ss[str(c).replace("Sensitivity layer: ", "")] = sv[c]
+            ss["Dry prod. + storage withdrawal (base)"] = sv["Dry production + storage withdrawal, base"]
+            ss["Total demand incl. all layers"] = ss.iloc[:, : 1 + len(lay)].sum(axis=1)
+            first_l = sv.index[sv[lay].sum(axis=1) > 0].min()
+            s_ = spec("Louisiana sensitivity", ss, "Gulf demand with ILLUSTRATIVE Louisiana LNG projects stacked on top (not forecasts)\n"
+                      "Layer = nameplate x 1.09 x ramp from an assumed first-LNG month; supply beyond 2028 = damped STEO extension",
+                      "Bcf/d", "stacked_bar", "%b/%y", line_cols=("Dry prod. + storage withdrawal (base)", "Total demand incl. all layers"))
+            s_["forecast_from"] = sv.index[sv["Type"].ne("Actual")].min()
+            s_["scenario_from"] = first_l
+            s_["line_styles"] = {"Dry prod. + storage withdrawal (base)": (DRY, "solid"), "Total demand incl. all layers": ("252525", "dash")}
+            out.append(s_)
+            zz = pd.DataFrame({str(c).replace("Sensitivity layer: ", ""): sv[c] for c in lay})
+            zz["Implied net outflow, base"] = sv["Implied net outflow, base"]
+            zz["Implied net outflow with all layers"] = sv["Implied net outflow, base, with all sensitivity layers"]
+            zz = zz[zz.index >= "2029-01-01"]
+            z_ = spec("Louisiana sensitivity - outflow", zz, "Louisiana sensitivity layers (bars, incremental feedgas) and the Gulf implied net outflow before / after them (lines)\n"
+                      "Below zero = Gulf demand exceeds Gulf supply incl. storage; first-LNG months are ASSUMPTIONS, not forecasts",
+                      "Bcf/d", "stacked_bar", "%b/%y", line_cols=("Implied net outflow, base", "Implied net outflow with all layers"))
+            z_["scenario_from"] = first_l
+            z_["forecast_from"] = zz.index[zz.index >= pd.Timestamp("2029-01-01")].min()
+            z_["line_styles"] = {"Implied net outflow, base": ("252525", "solid"), "Implied net outflow with all layers": ("252525", "dash")}
+            out.append(z_)
     tx = _sheet(p, "Texas", "Month")
     if not tx.empty:
+        has_st = "Storage injection (demand)" in tx
         st = tx[["Electric power", "Industrial", "Residential, commercial, vehicle fuel", "Pipeline exports to Mexico", "Data centres (BASE added gas burn)",
                  "LNG feedgas (base)"]].copy()
         st.columns = ["Electric power", "Industrial", "Res., comm., vehicle", "Mexico pipeline", "Data centres", "LNG feedgas"]
-        st["Dry production"] = tx["Dry production, base"]
         la_ = tx.index[tx["Type"].eq("Actual")].max()
-        st["Dry prod., takeaway delayed"] = tx["Dry production, takeaway delayed"].where(tx["Type"].ne("Actual"))
-        st.loc[la_, "Dry prod., takeaway delayed"] = tx.loc[la_, "Dry production, base"]
-        put("Texas", st, f"Texas gas supply vs demand incl. LNG (Texas workbooks, read only)\n{ext}", ("Dry production", "Dry prod., takeaway delayed"), tx)
+        if has_st:
+            st["Storage injection"] = tx["Storage injection (demand)"]
+            st["Dry production"] = tx["Dry production, base"]
+            st["Dry prod. + storage withdrawal"] = tx["Dry production + storage withdrawal, base"]
+            st["Dry prod. + withdrawal, takeaway delayed"] = tx["Dry production + storage withdrawal, takeaway delayed"].where(tx["Type"].ne("Actual"))
+            st.loc[la_, "Dry prod. + withdrawal, takeaway delayed"] = tx.loc[la_, "Dry production + storage withdrawal, base"]
+            lines = ("Dry production", "Dry prod. + storage withdrawal", "Dry prod. + withdrawal, takeaway delayed")
+            sty = {lines[0]: (DRY, "dash"), lines[1]: (DRY, "solid"), lines[2]: ("7F7F7F", "dash")}
+        else:
+            st["Dry production"] = tx["Dry production, base"]
+            st["Dry prod., takeaway delayed"] = tx["Dry production, takeaway delayed"].where(tx["Type"].ne("Actual"))
+            st.loc[la_, "Dry prod., takeaway delayed"] = tx.loc[la_, "Dry production, base"]
+            lines, sty = ("Dry production", "Dry prod., takeaway delayed"), None
+        put("Texas", st, f"Texas gas supply vs demand incl. LNG and storage (Texas workbooks, read only)\n{ext}", lines, tx)
+        if sty:
+            out[-1]["line_styles"] = sty
     la = _sheet(p, "Louisiana", "Month")
     if not la.empty:
+        has_st = "Storage injection (demand)" in la
         st = la[["Electric power", "Industrial", "Residential, commercial, vehicle fuel", "LNG feedgas (base)"]].copy()
         st.columns = ["Electric power", "Industrial", "Res., comm., vehicle", "LNG feedgas"]
-        st["Dry production"] = la["Dry production"]
         la_ = la.index[la["Type"].eq("Actual")].max()
-        st["Demand, LNG delayed"] = la["Demand incl. LNG, LNG delayed"].where(la["Type"].ne("Actual"))
-        st.loc[la_, "Demand, LNG delayed"] = la.loc[la_, "Demand incl. LNG, base"]
-        put("Louisiana", st, f"Louisiana gas supply vs demand incl. LNG (EIA; production = STEO Haynesville share; consumption seasonal trend)\n{ext}\n{flag}",
-            ("Dry production", "Demand, LNG delayed"), la)
+        inj = la["Storage injection (demand)"] if has_st else 0.0
+        if has_st:
+            st["Storage injection"] = inj
+            st["Dry production"] = la["Dry production"]
+            st["Dry prod. + storage withdrawal"] = la["Dry production + storage withdrawal"]
+            lines = ("Dry production", "Dry prod. + storage withdrawal", "Demand, LNG delayed")
+            sty = {lines[0]: (DRY, "dash"), lines[1]: (DRY, "solid"), lines[2]: ("252525", "sysDot")}
+        else:
+            st["Dry production"] = la["Dry production"]
+            lines, sty = ("Dry production", "Demand, LNG delayed"), None
+        st["Demand, LNG delayed"] = (la["Demand incl. LNG, LNG delayed"] + inj).where(la["Type"].ne("Actual"))
+        st.loc[la_, "Demand, LNG delayed"] = la.loc[la_, "Demand incl. LNG, base"] + (inj.loc[la_] if has_st else 0.0)
+        put("Louisiana", st, f"Louisiana gas supply vs demand incl. LNG and storage\n(EIA; production = STEO Haynesville share; consumption seasonal trend); {ext}\n{flag}",
+            lines, la)
+        if sty:
+            out[-1]["line_styles"] = sty
     kc = _sheet(p, "Key chart data", "Year")
     if not kc.empty:
         s_ = spec("Supply growth vs LNG demand", kc, "Supply growth by basin vs growth in Gulf demand since Dec 2025 (base, Dec of each year)\n"
@@ -2821,7 +2930,8 @@ def _add_in_one_pass(path, specs):
                 continue
             xlsx_charts.add_chart_sheet(path, df, s["title"], s["units"], kind=s["kind"], sheet_name=sheet,
                                         date_format=s["date_format"], line_cols=s.get("line_cols", ()), wb=wb,
-                                        forecast_from=s.get("forecast_from"), scenario_from=s.get("scenario_from"))
+                                        forecast_from=s.get("forecast_from"), scenario_from=s.get("scenario_from"),
+                                        line_styles=s.get("line_styles"))
             if s.get("live"):
                 _link_live(wb[sheet], df, s)
         names.append(sheet)
