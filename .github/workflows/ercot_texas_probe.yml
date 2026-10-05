@@ -1,0 +1,17 @@
+name: ERCOT vs Texas gas-for-power probe
+on:
+  workflow_dispatch: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas openpyxl requests
+      - name: Probe
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: python3 discovery_archive/ERCOT_VS_TEXAS_GAS_POWER_PROBE.py

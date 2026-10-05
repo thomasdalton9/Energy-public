@@ -33,6 +33,12 @@ jobs:
           M="output/Data and Chart Outputs/north_america_master.xlsx"
           [ -f "$M" ] && python3 fundamentals.py "$M" || echo "long-term PNG step skipped/failed"
 
+      - name: MISO and ERCOT gas burn PNG
+        if: always()
+        run: |
+          M="output/Data and Chart Outputs/north_america_master.xlsx"
+          [ -f "$M" ] && python3 png_charts.py "$M" --sheet "US MISO and ERCOT gas burn data" --kind line --title "MISO and ERCOT gas burn for power (monthly average, estimated)" --units "Bcf/d" || echo "gas burn PNG step skipped/failed"
+
       - name: Copy scripts
         if: always()
         run: |

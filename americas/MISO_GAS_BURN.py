@@ -1,4 +1,7 @@
 """
+(Also builds ERCOT: `python3 americas/MISO_GAS_BURN.py --region ERCOT`, or americas/ERCOT_GAS_BURN.py. Same method; ERCOT's daily
+gas MWh come from EIA-930 (eia930_fuel_mix_daily.xlsx, sheet ERCOT, Natural_Gas_MWh) and the EIA-923 balancing authority is ERCO.)
+
 MISO natural gas burn for power (Bcf/d), estimated from MISO's daily gas generation and a heat rate calibrated on
 EIA-923 fuel use.
 
@@ -56,6 +59,21 @@ MONTHS = ["January", "February", "March", "April", "May", "June", "July", "Augus
           "November", "December"]
 DEFAULT_FUELMIX = "output/Data and Chart Outputs/miso_fuel_mix_daily.xlsx"
 DEFAULT_OUT = "output/Data and Chart Outputs/miso_gas_burn_daily.xlsx"
+LABEL = "MISO"             # region label used in column names and notes (set by configure())
+REGION_CFG = {
+    "MISO": dict(ba="MISO", fuelmix=DEFAULT_FUELMIX, out=DEFAULT_OUT, first_year=2021, daily_from=None),
+    "ERCOT": dict(ba="ERCO", fuelmix="output/Data and Chart Outputs/eia930_fuel_mix_daily.xlsx",
+                  out="output/Data and Chart Outputs/ercot_gas_burn_daily.xlsx", first_year=2021,
+                  daily_from="2021-01-01"),
+}
+DAILY_FROM = None
+
+
+def configure(region):
+    global BA, LABEL, FIRST_YEAR, DAILY_FROM
+    c = REGION_CFG[region]
+    BA, LABEL, FIRST_YEAR, DAILY_FROM = c["ba"], region, c["first_year"], c["daily_from"]
+    return c
 FILE_TAG = "EIA923 file"
 
 
@@ -152,30 +170,31 @@ def update_eia923(saved, meta):
             print(f"{year}: download failed; keeping saved months")
             continue
         t, name = parse_year(content, year)
-        print(f"{year}: {name}: {len(t)} MISO gas months, {t['Netgen_MWh'].sum() / 1e6:.1f} TWh")
+        print(f"{year}: {name}: {len(t)} {LABEL} gas months, {t['Netgen_MWh'].sum() / 1e6:.1f} TWh")
         table = (t if table.empty else pd.concat([table[table.index.year != year], t])).sort_index()
         meta[year] = f"{url} | Last-Modified: {lm}"
     return table, meta
 
 
 def monthly_table(eia, daily):
-    """Monthly sheet: EIA-923 burn and net generation, MISO fuel-mix GWh, physical and effective heat rate, MMBtu/Mcf,
+    """Monthly sheet: EIA-923 burn and net generation, fuel-mix GWh, physical and effective heat rate, MMBtu/Mcf,
     and the heat rate/heat content used (calibrated, or the same month a year earlier)."""
     m = pd.DataFrame(index=pd.date_range(eia.index.min() if len(eia) else daily.index.min().replace(day=1),
                                          daily.index.max().replace(day=1), freq="MS"))
     m = m.join(eia)
     g = daily["Gas_GWh"].resample("MS")
-    m["MISO_fuelmix_GWh"] = g.sum(min_count=1)
-    m["MISO_days"] = daily["Gas_GWh"].resample("MS").count()
+    FM, DY, RT = f"{LABEL}_fuelmix_GWh", f"{LABEL}_days", f"{LABEL}_vs_EIA923_GWh_ratio"
+    m[FM] = g.sum(min_count=1)
+    m[DY] = daily["Gas_GWh"].resample("MS").count()
     m["Days_in_month"] = m.index.days_in_month
     # a month with up to 10% of its days missing from the fuel-mix archive is scaled up to the full month
-    full = m["MISO_days"] >= 0.9 * m["Days_in_month"]
-    m["MISO_fuelmix_GWh"] = (m["MISO_fuelmix_GWh"] / m["MISO_days"] * m["Days_in_month"]).where(full)
-    cal = m["Elec_MMBtu"].notna() & m["MISO_fuelmix_GWh"].notna()
+    full = m[DY] >= 0.9 * m["Days_in_month"]
+    m[FM] = (m[FM] / m[DY] * m["Days_in_month"]).where(full)
+    cal = m["Elec_MMBtu"].notna() & m[FM].notna()
     m["EIA923_GWh"] = m["Netgen_MWh"] / 1e3
     m["Physical_HR_MMBtu_per_MWh"] = m["Elec_MMBtu"] / m["Netgen_MWh"]
-    m["Effective_HR_MMBtu_per_MWh"] = m["Elec_MMBtu"] / (m["MISO_fuelmix_GWh"] * 1e3)
-    m["MISO_vs_EIA923_GWh_ratio"] = m["MISO_fuelmix_GWh"] / m["EIA923_GWh"]
+    m["Effective_HR_MMBtu_per_MWh"] = m["Elec_MMBtu"] / (m[FM] * 1e3)
+    m[RT] = m[FM] / m["EIA923_GWh"]
     m["MMBtu_per_Mcf"] = m["Tot_MMBtu"] / m["Mcf"]
     m["Elec_share_of_gas_MMBtu"] = m["Elec_MMBtu"] / m["Tot_MMBtu"]
 
@@ -199,11 +218,11 @@ def monthly_table(eia, daily):
     for ts in m.index:
         prev = ts - pd.DateOffset(years=1)
         if pd.notna(eff.get(ts)):
-            hr[ts], flag[ts] = eff[ts], "calibrated (EIA-923 burn / MISO MWh)"
+            hr[ts], flag[ts] = eff[ts], f"calibrated (EIA-923 burn / {LABEL} MWh)"
         elif pd.notna(phys.get(ts)) and phys.get(ts) > 0:
             f = factor.get(prev, factor.tail(12).mean() if len(factor) else 1.0)
             hr[ts] = phys[ts] * f
-            flag[ts] = ("calibrated, partial plant sample: EIA-923 net-MWh heat rate x %s MISO/EIA factor" % f"{prev:%b/%y}"
+            flag[ts] = ("calibrated, partial plant sample: EIA-923 net-MWh heat rate x %s %s/EIA factor" % (f"{prev:%b/%y}", LABEL)
                         if prev in factor.index else "calibrated, partial plant sample: EIA-923 net-MWh heat rate x trailing-12 factor")
         elif prev in hr:
             hr[ts], flag[ts] = hr[prev], f"estimated: {prev:%b/%y} rate carried"
@@ -219,12 +238,24 @@ def monthly_table(eia, daily):
 
 
 def daily_table(fuelmix_path):
-    d = pd.read_excel(fuelmix_path, sheet_name="Data")
-    d["date"] = pd.to_datetime(d["date"].astype(str), errors="coerce")
-    d = d.dropna(subset=["date"]).set_index("date").sort_index()
-    out = pd.DataFrame({"Gas_MW_avg": pd.to_numeric(d["Natural Gas_MW"], errors="coerce")})
-    out = out[out["Gas_MW_avg"].notna()]
-    out["Gas_GWh"] = out["Gas_MW_avg"] * 24 / 1e3
+    if LABEL == "ERCOT":   # EIA-930 daily MWh by fuel
+        d = pd.read_excel(fuelmix_path, sheet_name="ERCOT", usecols=["date", "Natural_Gas_MWh"])
+        d["date"] = pd.to_datetime(d["date"], errors="coerce")
+        d = d.dropna(subset=["date"]).set_index("date").sort_index()
+        d = d[~d.index.duplicated(keep="last")]
+        out = pd.DataFrame({"Gas_GWh": pd.to_numeric(d["Natural_Gas_MWh"], errors="coerce") / 1e3})
+        out = out[out["Gas_GWh"].notna()]
+        out["Gas_MW_avg"] = out["Gas_GWh"] * 1e3 / 24
+        out = out[["Gas_MW_avg", "Gas_GWh"]]
+    else:
+        d = pd.read_excel(fuelmix_path, sheet_name="Data")
+        d["date"] = pd.to_datetime(d["date"].astype(str), errors="coerce")
+        d = d.dropna(subset=["date"]).set_index("date").sort_index()
+        out = pd.DataFrame({"Gas_MW_avg": pd.to_numeric(d["Natural Gas_MW"], errors="coerce")})
+        out = out[out["Gas_MW_avg"].notna()]
+        out["Gas_GWh"] = out["Gas_MW_avg"] * 24 / 1e3
+    if DAILY_FROM:
+        out = out[out.index >= DAILY_FROM]
     return out
 
 
@@ -256,59 +287,77 @@ def monthly_output(monthly, daily):
     m["Gas_burn_Bcf_month"] = m["Gas_burn_Bcf_per_day"] * m["Days_in_month"]
     cols = ["Heat_rate_used_MMBtu_per_MWh", "Heat_rate_basis", "MMBtu_per_Mcf_used", "Gas_burn_Bcf_per_day",
             "Gas_burn_Bcf_per_day_prior_year", "Flat_7.5_Bcf_per_day", "Gas_burn_Bcf_month",
-            "MISO_fuelmix_GWh", "EIA923_GWh", "Full_plant_census", "MISO_vs_EIA923_GWh_ratio", "Physical_HR_MMBtu_per_MWh",
+            f"{LABEL}_fuelmix_GWh", "EIA923_GWh", "Full_plant_census", f"{LABEL}_vs_EIA923_GWh_ratio", "Physical_HR_MMBtu_per_MWh",
             "Effective_HR_MMBtu_per_MWh", "MMBtu_per_Mcf", "Elec_share_of_gas_MMBtu", "Plants", "Elec_MMBtu",
-            "Tot_MMBtu", "Mcf", "Netgen_MWh", "MISO_days"]
+            "Tot_MMBtu", "Mcf", "Netgen_MWh", f"{LABEL}_days"]
     m = m[cols].copy()
     m.index.name = "month"
     return m.round(4)
 
 
 def notes(meta, last_cal, last_day):
+    er = LABEL == "ERCOT"
+    L = LABEL
+    src_mw = ("ERCOT's daily gas generation (eia930_fuel_mix_daily.xlsx sheet ERCOT, 'Natural_Gas_MWh', EIA-930 balancing authority data); Gas_MW_avg = MWh / 24"
+              if er else "MISO's daily average gas MW (miso_fuel_mix_daily.xlsx, 'Natural Gas_MW')")
     lines = [
         "UNITS",
-        "Daily sheet: Gas_MW_avg = MISO's daily average gas MW (miso_fuel_mix_daily.xlsx, 'Natural Gas_MW'); Gas_GWh = MW x 24 / 1000.",
-        "Heat_rate_MMBtu_per_MWh = MMBtu of gas burned per MWh MISO reports as gas, monthly (see Monthly sheet; same value on every day of the month).",
+        f"Daily sheet: Gas_MW_avg = {src_mw}; Gas_GWh = MW x 24 / 1000.",
+        f"Heat_rate_MMBtu_per_MWh = MMBtu of gas burned per MWh {L} reports as gas, monthly (see Monthly sheet; same value on every day of the month).",
         "Gas_burn_MMBtu_d = Gas_GWh x 1000 x heat rate. Gas_burn_MMcf_d = MMBtu / (MMBtu per Mcf) / 1000. Gas_burn_Bcf_per_day = MMcf_d / 1000.",
-        "1 Mcf = about 1.036 MMBtu on average; the script uses EIA-923's own monthly MMBtu per Mcf for the MISO gas plants (Monthly sheet, MMBtu_per_Mcf_used).",
+        f"1 Mcf = about 1.036 MMBtu on average; the script uses EIA-923's own monthly MMBtu per Mcf for the {L} gas plants (Monthly sheet, MMBtu_per_Mcf_used).",
         "Gas_burn_Bcf_per_day_7d_avg = trailing 7-day mean. Flat_7.5_Bcf_per_day = the earlier quick estimate (7.5 MMBtu/MWh, 1.036 MMBtu/Mcf), for comparison only.",
         "",
         "METHOD",
-        "MISO does not publish gas burn. Burn = MISO gas MWh x heat rate. The heat rate is calibrated on EIA-923 Page 1 (Generation and Fuel Data): all natural-gas (fuel NG) rows",
-        "whose balancing authority code is MISO, every prime mover (combined cycle, gas turbine, steam, engine). Fuel for electricity (Elec_MMBtu, which excludes a CHP plant's",
-        "useful heat) over MISO fuel-mix MWh = effective heat rate (used). Over EIA net generation = physical heat rate (the plants' efficiency; shown for comparison).",
-        "The current year's EIA-923 monthly file covers only the plants that report monthly (about half of MISO's gas plants; the rest arrive with the annual file), so its burn is",
-        "a partial sample. For those months the sample's net-MWh heat rate (representative, within about 0.2 of last year's) is converted to MISO's MWh basis with the same month's",
-        "MISO/EIA factor a year earlier (Heat_rate_basis says 'partial plant sample'); they are recalibrated on the full census when EIA publishes the annual file.",
+        f"{L} does not publish gas burn. Burn = {L} gas MWh x heat rate. The heat rate is calibrated on EIA-923 Page 1 (Generation and Fuel Data): all natural-gas (fuel NG) rows",
+        f"whose balancing authority code is {BA}, every prime mover (combined cycle, gas turbine, steam, engine). Fuel for electricity (Elec_MMBtu, which excludes a CHP plant's",
+        f"useful heat) over {L} fuel-mix MWh = effective heat rate (used). Over EIA net generation = physical heat rate (the plants' efficiency; shown for comparison).",
+        f"The current year's EIA-923 monthly file covers only the plants that report monthly (about half of {L}'s gas plants; the rest arrive with the annual file), so its burn is",
+        "a partial sample. For those months the sample's net-MWh heat rate (representative, within about 0.2 of last year's) is converted to " + f"{L}'s MWh basis with the same month's",
+        f"{L}/EIA factor a year earlier (Heat_rate_basis says 'partial plant sample'); they are recalibrated on the full census when EIA publishes the annual file.",
         "Months EIA-923 has not published (about 2 months lag) carry the heat rate and heat content of the same month a year earlier (Heat_rate_basis says 'estimated').",
         "Seasonality (summer peakers lift the rate) is therefore kept, a changed fleet mix is not.",
         "",
-        "MISO 'NATURAL GAS' CATEGORY",
-        "Gas-fired generation of units in MISO's market footprint (central US plus MISO South: Louisiana, Mississippi, Arkansas, east Texas) as MISO's real-time fuel mix report",
-        "classifies it. EIA's MISO balancing authority code is the nearest EIA footprint but not identical to the market footprint; the ratio of MISO MWh to EIA-923 net MWh",
-        "is shown monthly (MISO_vs_EIA923_GWh_ratio).",
+        f"{L} 'NATURAL GAS' CATEGORY",
+    ]
+    if er:
+        lines += ["Gas-fired generation in the ERCOT balancing authority (most of Texas; EIA-930 'NG' fuel type, which includes gas-fired combined cycle, turbines and steam units).",
+                  "EIA-923's ERCO balancing authority is the same footprint; the ratio of EIA-930 MWh to EIA-923 net MWh is shown monthly (ERCOT_vs_EIA923_GWh_ratio).",
+                  "Texas as a whole (EIA state gas-for-power) is larger than ERCOT: El Paso, the Panhandle and east Texas sit in other balancing authorities (SPP, MISO, WECC)."]
+    else:
+        lines += ["Gas-fired generation of units in MISO's market footprint (central US plus MISO South: Louisiana, Mississippi, Arkansas, east Texas) as MISO's real-time fuel mix report",
+                  "classifies it. EIA's MISO balancing authority code is the nearest EIA footprint but not identical to the market footprint; the ratio of MISO MWh to EIA-923 net MWh",
+                  "is shown monthly (MISO_vs_EIA923_GWh_ratio)."]
+    lines += [
         "",
         "COVERAGE",
-        f"Daily: 2023-01-01 to {last_day:%Y-%m-%d} (limited by the MISO fuel mix archive). EIA-923 calibrated months: through {last_cal:%b %Y}.",
+        (f"Daily: 2021-01-01 to {last_day:%Y-%m-%d} (EIA-930)." if er else f"Daily: 2023-01-01 to {last_day:%Y-%m-%d} (limited by the MISO fuel mix archive).")
+        + f" EIA-923 calibrated months: through {last_cal:%b %Y}.",
         "",
         "SOURCE",
-        "MISO daily real-time generation fuel mix report (docs.misoenergy.org/marketreports/<YYYYMMDD>_sr_gfm.xlsx); EIA-923 Monthly Generation and Fuel Consumption Time Series",
+        ("EIA-930 Hourly Electric Grid Monitor (ERCOT); " if er else
+         "MISO daily real-time generation fuel mix report (docs.misoenergy.org/marketreports/<YYYYMMDD>_sr_gfm.xlsx); ")
+        + "EIA-923 Monthly Generation and Fuel Consumption Time Series",
         "File (https://www.eia.gov/electricity/data/eia923/), Page 1 Generation and Fuel Data. Estimate, not a measured gas burn.",
         "",
         "EIA-923 FILES (incremental: a year is re-downloaded only when its Last-Modified changes)",
     ]
     lines += [f"{FILE_TAG} {y} | {v}" for y, v in sorted(meta.items())]
-    titles = {"UNITS", "METHOD", "MISO 'NATURAL GAS' CATEGORY", "COVERAGE", "SOURCE",
+    titles = {"UNITS", "METHOD", f"{L} 'NATURAL GAS' CATEGORY", "COVERAGE", "SOURCE",
               "EIA-923 FILES (incremental: a year is re-downloaded only when its Last-Modified changes)"}
     return lines, titles
 
 
-def main():
+def main(default_region="MISO"):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=DEFAULT_OUT)
-    ap.add_argument("--fuelmix", default=DEFAULT_FUELMIX)
+    ap.add_argument("--region", default=default_region, choices=sorted(REGION_CFG))
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--fuelmix", default=None)
     ap.add_argument("--offline", action="store_true", help="skip EIA downloads (use the saved monthly table)")
     args = ap.parse_args()
+    cfg = configure(args.region)
+    args.out = args.out or cfg["out"]
+    args.fuelmix = args.fuelmix or cfg["fuelmix"]
 
     saved, meta = load_saved(args.out)
     if args.offline:
@@ -316,7 +365,7 @@ def main():
     else:
         eia, meta = update_eia923(saved, meta)
     if eia.empty:
-        sys.exit("no EIA-923 data for the MISO balancing authority")
+        sys.exit(f"no EIA-923 data for the {LABEL} balancing authority")
     daily0 = daily_table(args.fuelmix)
     mon = monthly_table(eia, daily0)
     daily = build_daily(daily0, mon)
@@ -329,7 +378,7 @@ def main():
     print(f"Saved {args.out}: {len(daily)} days, EIA-923 calibrated through {last_cal:%b %Y}")
     pd.set_option("display.width", 250)
     print(mout[["Heat_rate_used_MMBtu_per_MWh", "Heat_rate_basis", "Physical_HR_MMBtu_per_MWh", "MMBtu_per_Mcf_used",
-                "MISO_vs_EIA923_GWh_ratio", "Gas_burn_Bcf_per_day", "Flat_7.5_Bcf_per_day"]].tail(40).to_string())
+                f"{LABEL}_vs_EIA923_GWh_ratio", "Gas_burn_Bcf_per_day", "Flat_7.5_Bcf_per_day"]].tail(40).to_string())
 
 
 if __name__ == "__main__":
