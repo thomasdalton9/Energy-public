@@ -72,7 +72,7 @@ try:
                 r = requests.post(B + "ts/values", json=body, headers={"User-Agent": "Mozilla/5.0", "Content-Type": "application/json", "Accept": "application/json"}, timeout=120)
                 for cd in r.json()["timeSeriesData"]["chartData"]:
                     ys = [p["y"] for p in cd["dataSet"] if p.get("y") is not None]
-                    if ys and sum(abs(v) for v in ys) > 0:
+                    if ys and sum(abs(v) for v in ys) > 0 and re.search(r'Allok|Netto|Physik|Fluss|Flow', cd['header']['name'], re.I) and not re.search(r'Speicher|Kapazit', cd['header']['name']):
                         print(f"   {cd['header']['name']} n={len(ys)} sumGWh={sum(ys) / 1e6:.0f} unit={cd['header'].get('unit')}", flush=True)
             except Exception as e:  # noqa: BLE001
                 print("   chunk failed", type(e).__name__, str(e)[:100], flush=True)
@@ -109,6 +109,26 @@ if "4" in PART:
                     print("     ", l[:150], flush=True)
                 for m in re.findall(r'(?:api|json|csv|xlsx|ajax)[^"\'\s]{0,100}', r.text)[:20]:
                     print("   hint", m[:120], flush=True)
+        except Exception as e:  # noqa: BLE001
+            print("ERR", u, type(e).__name__, str(e)[:100], flush=True)
+
+print("== PART 5 tis.eustream.sk scripts", flush=True)
+if "5" in PART:
+    base = "https://tis.eustream.sk"
+    s = requests.Session()
+    s.headers.update(BR)
+    for u in ["/en/online-data/flows/", "/javascripts/web/services.js", "/javascripts/web/main.js", "/javascripts/web/constants.js"]:
+        try:
+            r = s.get(base + u, timeout=40)
+            print(r.status_code, u, len(r.content), flush=True)
+            if u.endswith("/"):
+                for ln in r.text.splitlines():
+                    if re.search(r"ajax|json|data-|select|option|csv|xls|\.jsp|form |input", ln, re.I) and len(ln) < 300:
+                        print("   |", ln.strip()[:240], flush=True)
+            else:
+                for ln in r.text.splitlines():
+                    if re.search(r"ajax|\.jsp|url:|/api|download|csv|xls", ln, re.I) and len(ln) < 300:
+                        print("   |", ln.strip()[:240], flush=True)
         except Exception as e:  # noqa: BLE001
             print("ERR", u, type(e).__name__, str(e)[:100], flush=True)
 sys.exit(0)
