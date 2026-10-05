@@ -1281,11 +1281,24 @@ def _eu_lines(f):
     return out.fillna(0.0)
 
 
-def implied_member_balance(gbal, cc, storage, sweden_from_dk=None):
+def austria_slovakia_mab(data_dir):
+    """AGGM's Baumgarten MAB boundary allocations (GAS_TSO_CEE_DAILY.py: AT_exit_baumgarten_mab / AT_entry_baumgarten_mab), daily GWh, as (Austria -> Slovakia, Slovakia -> Austria), or None.
+    Austria's net border exit (AGGM) is 17-22 TWh a year above what its neighbours record entering from Austria (73.2 against 51.3 TWh in 2025). Per border point it is all
+    Baumgarten: AGGM's BOG exit / GESAMT entry equal Eustream's and ENTSOG's Baumgarten allocations (5.8 / 0.9 TWh in 2025) and the Hungarian (Moson 30.1), Italian (Arnoldstein 7.4)
+    and Slovenian (Murfeld 8.8) exits equal their neighbours' entries, but the MAB boundary (exit 20.4, entry 7.7 TWh in 2025) is carried by no ENTSOG or Eustream point. It matches Eurostat's
+    Austria -> Slovakia partner figure (20.7 TWh, benchmark only), and Slovakia's implied consumption was about 20 TWh short, so the gas is booked as Slovakia's import from
+    (and export to) Austria. The destination is inferred, not published; MAB nets to zero in 2024 and is the whole gap in 2024-26 (exit gap after MAB: 3.4 / 1.7 TWh in 2024 / 2025)."""
+    d = _sheet_or_empty(os.path.join(data_dir, TSO_CEE_FILE), "Daily", "date")
+    if not len(d) or "AT_exit_baumgarten_mab" not in d or not d["AT_exit_baumgarten_mab"].notna().any():
+        return None
+    return _col(d, "AT_exit_baumgarten_mab"), _col(d, "AT_entry_baumgarten_mab")
+
+
+def implied_member_balance(gbal, cc, storage, sweden_from_dk=None, extra=None):
     """Balance for an EU27 member with no consumption series of its own (Slovakia: ENTSOG has only its border rows; Sweden: none, the gas
     arrives from Denmark), so the EU27 sum still carries the neighbours' exports to it. Consumption is the net gas the country takes
     (imports less exports plus storage), so the balance closes by construction and adds nothing to the EU error; it understates the true consumption
-    (Slovakia about 49 TWh against the 26 TWh ENTSOG shows) and is labelled as implied. Monthly TWh, or an empty frame."""
+    (Slovakia 49 TWh against the 26 TWh ENTSOG shows, 44 with the Baumgarten MAB gas of `extra` in 2025) and is labelled as implied. Monthly TWh, or an empty frame."""
     if cc == "SE":
         if sweden_from_dk is None or not sweden_from_dk.notna().any():
             return pd.DataFrame()
@@ -1298,6 +1311,9 @@ def implied_member_balance(gbal, cc, storage, sweden_from_dk=None):
         day["Pipeline exports"] = -_col(gbal, f"{cc}_exports_GWhd").fillna(0)
         day["Storage withdrawals"] = _col(storage, f"{cc}_withdrawal_GWhd").reindex(gbal.index).fillna(0)
         day["Storage injections"] = -_col(storage, f"{cc}_injection_GWhd").reindex(gbal.index).fillna(0)
+        if extra is not None:        # flows with a whole-frame member that no ENTSOG point carries (Slovakia: AGGM's Baumgarten MAB, see austria_slovakia_mab)
+            day["Pipeline imports"] = day["Pipeline imports"] + extra[0].reindex(gbal.index).fillna(0.0)
+            day["Pipeline exports"] = day["Pipeline exports"] - extra[1].reindex(gbal.index).fillna(0.0)
     day = day.dropna(subset=["Pipeline imports"]).fillna(0.0)
     day = day[day.index >= "2021-10-01"]
     day["Consumption"] = day.sum(axis=1)
@@ -1384,7 +1400,7 @@ EXTRA_EXPORT_DEST = {"DE": "AT", "BE": "LU", "UK": "IE", "LV": "EE"}   # point-f
 WHOLE_FRAME_MEMBERS = ("AT", "DK", "EE", "CZ", "IE", "LU", "SE")   # frames built from the operator's own border series (AGGM, Energinet, Elering, NET4GAS floors, GNI, Creos): every pipeline line is a flow with another member
 
 
-def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEMBERS, months=None):
+def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEMBERS, months=None, extra_in=None):
     """Flows between two members of `block`, as the member frames in `lines` (monthly TWh, positive imports, negative exports) book them: (imports, exports),
     both positive monthly TWh. The receiving member's entry and the sending member's exit are each member's OWN side from the 'Border flows by side'
     sheet (ENTSOG pull), so taking the first out of the block's imports and the second out of its exports leaves one consistent figure per
@@ -1416,6 +1432,10 @@ def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEM
         if extra_out and c in extra_out and dest in block:
             xo = extra_out[c]
             exp += (monthly_cover(xo.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
+    for c, (xi, xe) in (extra_in or {}).items():      # a side-based member's flows with a whole-frame member that its sides lack (Slovakia <- Austria MAB): (imports, exports) daily GWh
+        if c in lines and c not in whole:
+            imp += (monthly_cover(xi.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
+            exp += (monthly_cover(xe.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
     link = (extra_out or {}).get("DE>NL")        # German caverns connected to GTS: Germany books it as an export, the Netherlands as an import (signed, same figure on both sides)
     if link is not None and "DE" in lines and "NL" in lines:
         lk = (monthly_cover(link.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
@@ -1424,7 +1444,7 @@ def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEM
     return imp, exp
 
 
-def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27_GAS, fill_max_share=0.03, sides=None, extra_out=None):
+def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27_GAS, fill_max_share=0.03, sides=None, extra_out=None, extra_in=None):
     """EU27 gas balance as the SUM of the corrected country balances (`frames`: monthly TWh frames as charted per country, so every
     per-country fix - Emden / Nord Stream / Greifswald, Gassco Norway, CBS Netherlands, AGGM Austria, NET4GAS floors, Energinet Denmark, GNI Ireland,
     biomethane - is in the EU total). Intra-EU pipeline flows are taken out of the imports and exports lines (`border`: the larger-of-both-sides
@@ -1455,7 +1475,7 @@ def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8, block=EU27
     months = span[[all(m in f.index for f in keep.values()) for m in span]]
     tot = sum(f.reindex(months).fillna(0.0) for f in keep.values())
     if sides is not None and len(sides):    # one consistent figure per intra-block border: each member's own side comes out of its own line (see intra_block_flows)
-        imp, exp = intra_block_flows({c: f.reindex(months) for c, f in keep.items()}, set(keep), sides, extra_out, months=months)
+        imp, exp = intra_block_flows({c: f.reindex(months) for c, f in keep.items()}, set(keep), sides, extra_out, months=months, extra_in=extra_in)
         tot["Pipeline imports"] = tot["Pipeline imports"] - imp
         tot["Pipeline exports"] = tot["Pipeline exports"] + exp
     elif border is not None and len(border):
@@ -1663,14 +1683,16 @@ def main():
             gbord = add_charts._sheet(os.path.join(args.data_dir, GAS_FLOWS_FILE), "Border flows", "date")
         except Exception:  # noqa: BLE001
             gbord = None
+        sk_mab = None
         try:   # Months a small country's feed lacks (Estonia and Latvia after Oct 2025) repeat the same month of the year before. Slovakia and Sweden have no consumption series: implied from the net gas they take (see implied_member_balance)
-            eu_frames["SK"] = implied_member_balance(gbal, "SK", gsto)
+            sk_mab = austria_slovakia_mab(args.data_dir)
+            eu_frames["SK"] = implied_member_balance(gbal, "SK", gsto, extra=sk_mab)
             dk_raw = add_charts._sheet(os.path.join(args.data_dir, DK_FILE), "Daily", "date")
             eu_frames["SE"] = implied_member_balance(gbal, "SE", gsto, _col(dk_raw, "DK_to_sweden").reindex(gbal.index))
         except Exception as e:  # noqa: BLE001
             gas[2].append(f"EU gas balance without Slovakia/Sweden ({type(e).__name__}: {e})")
-        eu, eu_left = eu_gas_balance(eu_frames, gbord, eu_fallback, sides=gsides, extra_out=eu_extra_out)
-        eu_uk, _ = eu_gas_balance(eu_frames, gbord, eu_fallback, block=EU27_GAS + ["UK"], sides=gsides, extra_out=eu_extra_out)
+        eu, eu_left = eu_gas_balance(eu_frames, gbord, eu_fallback, sides=gsides, extra_out=eu_extra_out, extra_in={"SK": sk_mab} if sk_mab is not None else None)
+        eu_uk, _ = eu_gas_balance(eu_frames, gbord, eu_fallback, block=EU27_GAS + ["UK"], sides=gsides, extra_out=eu_extra_out, extra_in={"SK": sk_mab} if sk_mab is not None else None)
         if not eu.empty:
             total_chart(wb, used, gas, 0, eu, [
                 "EU27: the sum of the country balances charted below, each with its own corrections (national consumption series from the TSOs and statistics offices, "
@@ -1678,7 +1700,7 @@ def main():
                 "supply line). Pipeline imports and exports are those from/to outside the EU: flows between two EU countries (larger-of-both-sides border flows) are taken out of both lines, "
                 "with each member's own side (sender exit out of its exports, receiver entry out of its imports; Border flows by side sheet), so one figure per border cancels and a measurement difference between the two operators is not left in the residual. LNG and storage are the countries' own GIE ALSI / AGSI+ figures. "
                 "Months a small country's feed lacks (Estonia and Latvia after Oct 2025) repeat the same month of the year before. Slovakia and Sweden have no consumption series: their consumption is the net gas ENTSOG / Energinet show them taking (implied, so they add nothing to the error and "
-                "understate the true figure, Slovakia by about 20 TWh a year)."
+                "understate the true figure; Slovakia's includes the Baumgarten MAB gas AGGM books leaving Austria, 13 TWh net in 2025, and is within 5 TWh of Eurostat's benchmark in 2023-25; in 2025 it was 18 TWh short before)."
                 + (f" Left out for lack of data: {', '.join(GAS_NAMES.get(c, c) for c in eu_left)}." if eu_left else "")],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
