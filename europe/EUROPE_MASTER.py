@@ -1342,7 +1342,7 @@ def add_storage_check_sheet(wb, used, raw, stock):
 
 
 EXTRA_EXPORT_DEST = {"DE": "AT", "BE": "LU", "UK": "IE", "LV": "EE"}   # point-fix exports (extra_exports) and the member that receives them
-WHOLE_FRAME_MEMBERS = ("AT", "DK", "EE", "CZ", "IE", "LU")   # frames built from the operator's own border series (AGGM, Energinet, Elering, NET4GAS floors, GNI, Creos): every pipeline line is a flow with another member
+WHOLE_FRAME_MEMBERS = ("AT", "DK", "EE", "CZ", "IE", "LU", "SE")   # frames built from the operator's own border series (AGGM, Energinet, Elering, NET4GAS floors, GNI, Creos): every pipeline line is a flow with another member
 
 
 def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEMBERS, months=None):
@@ -1354,6 +1354,8 @@ def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEM
     Latvia -> Estonia) count when the receiving member is in the block."""
     idx = months if months is not None else sorted(set().union(*[f.index for f in lines.values()]))
     imp, exp = pd.Series(0.0, index=idx), pd.Series(0.0, index=idx)
+    med = sides.rolling(61, center=True, min_periods=20).median()      # a single bad ENTSOG value (ES>FR exit 12,527 GWh on one day of Mar 2026) would swamp a month
+    sides = sides.mask((sides > 15 * med) & (med > 20) & (sides > 1500))
 
     def side_sum(cols):
         cols = [c for c in cols if c in sides]
@@ -1362,14 +1364,16 @@ def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEM
         m = monthly_cover(sides[cols].sum(axis=1, min_count=1).to_frame("x")).dropna(how="all") / 1000.0
         return m["x"].reindex(idx).fillna(0.0)
 
+    whole = [c for c in whole if not (c == "IE" and "UK" not in block)]      # Ireland's imports are all from Great Britain: intra only when Great Britain is a member
     for c, f in lines.items():
         if c in whole:
             imp += f["Pipeline imports"].reindex(idx).fillna(0.0)
             exp += (-f["Pipeline exports"]).reindex(idx).fillna(0.0)
             continue
         imp += side_sum([f"{a}>{c} entry" for a in block if a != c])
-        exp += side_sum([f"{c}>{b} exit" for b in block if b != c])
         dest = EXTRA_EXPORT_DEST.get(c)
+        # Great Britain -> Ireland: the Moffat extra is Gas Networks Ireland's own import figure and already holds the Carrickfergus gas that ENTSOG's UK>IE exit also shows
+        exp += side_sum([f"{c}>{b} exit" for b in block if b != c and not (c == "UK" and b == "IE" and extra_out and "UK" in extra_out)])
         if extra_out and c in extra_out and dest in block:
             xo = extra_out[c]
             exp += (monthly_cover(xo.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
@@ -1626,7 +1630,7 @@ def main():
                 "EU27: the sum of the country balances charted below, each with its own corrections (national consumption series from the TSOs and statistics offices, "
                 "Gas Networks Ireland, Energinet, AGGM and CBS balances, NET4GAS floors, Norwegian gas at Emden / Greifswald and Hungary, Greece, Great Britain fixes, biomethane as a separate "
                 "supply line). Pipeline imports and exports are those from/to outside the EU: flows between two EU countries (larger-of-both-sides border flows) are taken out of both lines, "
-                "which leaves the net unchanged, so a border only one side reports remains in the residual. LNG and storage are the countries' own GIE ALSI / AGSI+ figures. "
+                "with each member's own side (sender exit out of its exports, receiver entry out of its imports; Border flows by side sheet), so one figure per border cancels and a measurement difference between the two operators is not left in the residual. LNG and storage are the countries' own GIE ALSI / AGSI+ figures. "
                 "Months a small country's feed lacks (Estonia and Latvia after Oct 2025) repeat the same month of the year before. Slovakia and Sweden have no consumption series: their consumption is the net gas ENTSOG / Energinet show them taking (implied, so they add nothing to the error and "
                 "understate the true figure, Slovakia by about 20 TWh a year)."
                 + (f" Left out for lack of data: {', '.join(GAS_NAMES.get(c, c) for c in eu_left)}." if eu_left else "")],
@@ -1666,7 +1670,7 @@ def main():
                 total_chart(wb, used, gas, None, both, [
                     "Germany + Netherlands combined. Includes the Norwegian gas that arrives at Emden (Gassco's flow to Germany minus the Dornum "
                     "volume ENTSOG reports and minus the Baltic Pipe gas for Denmark/Poland that Gassco books under Germany); ENTSOG publishes nothing at Emden, and the gas feeds both grids, so the two countries are shown together. "
-                    "Flows between the two countries are counted on both sides (ENTSOG's own-side figures differ by under 10 TWh a year). Dutch production and consumption are CBS StatLine 86103NED (national statistics) in place of ENTSOG's."],
+                    "Flows between the two countries (NL>DE about 250-259 TWh and DE>NL about 17 TWh a year) are taken out of both pipeline lines with each country's own ENTSOG side (Border flows by side sheet: NL exit 258.7 vs DE entry 249.8 TWh in 2025), so the border cancels exactly and the measurement difference is not in the residual. Dutch production and consumption are CBS StatLine 86103NED (national statistics) in place of ENTSOG's."],
                             "Germany Netherlands gas balance data", "Germany + Netherlands gas balance: supply and storage vs consumption",
                             "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Germany + Netherlands", line_cols=("Consumption",))
         except Exception as e:  # noqa: BLE001
