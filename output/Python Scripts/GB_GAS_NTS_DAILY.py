@@ -47,6 +47,14 @@ WINDOW_DAYS = 60
 DEMAND_IDS = ["PUBOBJ1023", "PUBOBJ1024", "PUBOBJ1025", "PUBOBJ1026", "PUBOBJ1028"]
 SUPPLY_IDS = ["PUBOB3876", "PUBOB16241", "PUBOB3877", "PUBOB3881", "PUBOB3891"]
 FLOW_IDS = ["PUBOB4423", "PUBOB4424", "PUBOB570"]
+# System entry points that ENTSOG's UK entry list lacks or double counts (System Entry Energy, D+2 allocations, kWh): the Rough sub-terminal
+# (gas from the Rough field entering at Easington, 1.0-2.0 TWh a month, in no ENTSOG row), the small beach / onshore entries, and the Rough STORAGE
+# entry, which ENTSOG's Easington entry already includes until Sep 2025 (Easington - Langeled - Dimlington = Rough storage withdrawals to 0.01 TWh).
+ENTRY_IDS = ["PUBOBJ11191", "PUBOB424", "PUBOBJ2251", "PUBOB19002", "PUBOBJ2854", "PUBOB394"]
+ENTRY_NAMES = {"systementryenergy,roughsubterminal,d+2": "entry_rough_subterminal", "systementryenergy,rough,d+2": "entry_rough_storage",
+               "systementryenergy,saltfleetby,d+2": "entry_saltfleetby", "systementryenergy,murrow,d+2": "entry_murrow",
+               "systementryenergy,glenthambiomethane,d+2": "entry_glentham", "systementryenergy,burtonpoint,d+2": "entry_burton_point"}
+ENTRY_COLUMNS = list(ENTRY_NAMES.values())
 
 NAME_TO_COLUMN = {
     "NTS Energy Offtaken, LDZ Offtake Total": "ldz_offtake",
@@ -62,10 +70,10 @@ NAME_TO_COLUMN = {
 }
 COLUMNS = ["ldz_offtake", "powerstations", "industrial_offtake", "interconnector_exports", "storage_injection",
            "bacton_ukcs", "barrow", "easington", "st_fergus", "teesside", "storage_withdrawal", "interconnector_iuk",
-           "interconnector_bbl"]
+           "interconnector_bbl"] + ENTRY_COLUMNS
 # columns where large day-to-day swings are normal (no spike filter)
 NO_SPIKE_FILTER = {"storage_injection", "storage_withdrawal", "interconnector_exports", "interconnector_iuk", "interconnector_bbl",
-                   "barrow", "teesside"}   # small terminals that sit at zero most days: a median-based filter misfires on them
+                   "barrow", "teesside"} | set(ENTRY_COLUMNS)   # small terminals that sit at zero most days: a median-based filter misfires on them
 
 HEADERS = {"Content-Type": "application/json", "Accept": "application/json, text/plain, */*",
            "Referer": "https://data.nationalgas.com/find-gas-data/view",
@@ -85,7 +93,7 @@ def classify_flow(name):
 
 def fetch(d0, d1, tries=5):
     body = {"latestFlag": "Y", "applicableFor": "Y", "dateFrom": d0.isoformat(), "dateTo": d1.isoformat(),
-            "dateType": "GASDAY", "ids": ",".join(DEMAND_IDS + SUPPLY_IDS + FLOW_IDS)}
+            "dateType": "GASDAY", "ids": ",".join(DEMAND_IDS + SUPPLY_IDS + FLOW_IDS + ENTRY_IDS)}
     for i in range(tries):
         try:
             r = requests.post(URL, json=body, headers=HEADERS, timeout=180)
@@ -104,7 +112,7 @@ def to_frame(items, unmatched):
     recs = []
     for it in items:
         name = it.get("itemName", "")
-        col = NAME_TO_COLUMN.get(name) or classify_flow(name)
+        col = NAME_TO_COLUMN.get(name) or ENTRY_NAMES.get(name.replace(" ", "").lower()) or classify_flow(name)
         if col is None:
             unmatched.add(name)
             continue
@@ -172,7 +180,7 @@ def main():
     old = read_existing(path)
     have = set(old.dropna(how="all").index.date) if len(old) else set()
     fs = start
-    if have:
+    if have and all(c in old and old[c].notna().any() for c in ENTRY_COLUMNS if c != "entry_burton_point"):
         fs = max(start, max(have) - timedelta(days=REVISION_DAYS))
         gaps = [start + timedelta(days=i) for i in range((today - start).days)]
         gaps = [g for g in gaps if g >= today - timedelta(days=120) and g not in have and g < fs]
@@ -210,7 +218,9 @@ def main():
              "Norwegian pipeline gas mixed with UKCS production -, plus storage_withdrawal and the interconnector entry points "
              "interconnector_iuk (Belgium) and interconnector_bbl (Netherlands) - the portal returned no data for the IUK, BBL and Teesside items "
              "(columns stay empty), so pipeline imports from Belgium and the Netherlands are not in this workbook. LNG terminals are not "
-             "either (see GIE ALSI). The portal's history starts in Oct 2021.",
+             "either (see GIE ALSI). entry_* columns (System Entry Energy, D+2 allocations): entry_rough_subterminal = Rough sub-terminal (Easington) entry, "
+             "entry_rough_storage = Rough storage withdrawals (inside ENTSOG's Easington entry until Sep 2025), entry_saltfleetby / entry_murrow / entry_glentham / "
+             "entry_burton_point = small onshore and biomethane entries. The portal's history starts in Oct 2021.",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps within 120 days; history from {args.start}. "
              "One-off bad values (more than 6x the local median) are blanked.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
