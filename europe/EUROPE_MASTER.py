@@ -716,6 +716,27 @@ def de_at_exports(data_dir):
     return fx[cols].sum(axis=1, min_count=1) if len(cols) == 3 else None
 
 
+def gts_storage_link(data_dir):
+    """Net gas from German caverns into the Dutch GTS grid, GWh/d (positive = into the Netherlands, negative = injected into the caverns), or None.
+    Nuettermoor, Etzel, Epe and Jemgum are in AGSI+'s German stock but are connected straight to GTS (Oude Statenzijl, Enschede): ENTSOG's physical flow at GTS's storage points
+    (ENTSOG_POINT_FIXES_DAILY.py, NLSTO_*: entry = withdrawn into GTS, exit = injected from GTS). The gas crosses no border point and no German exit, so Germany's balance
+    (AGSI+ withdrawals as supply) and the Netherlands' (border rows) each lacked it: 8 TWh a month in the winter peaks, -4 in summer, +14 TWh net Oct 2024 - Aug 2026."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    ins = [c for c in fx if str(c).startswith("NLSTO_") and str(c).endswith("_in")]
+    outs = [c for c in fx if str(c).startswith("NLSTO_") and str(c).endswith("_out")]
+    if len(ins) < 5 or not outs:
+        return None
+    return fx[ins].sum(axis=1, min_count=1).fillna(0.0) - fx[outs].sum(axis=1, min_count=1).fillna(0.0)
+
+
+def de_extra_exports(data_dir):
+    """Germany's point-fix exports: to Austria (Ueberackern, Lindau) plus the net flow from German caverns into the Dutch grid (`gts_storage_link`)."""
+    at, link = de_at_exports(data_dir), gts_storage_link(data_dir)
+    if link is None:
+        return at
+    return link if at is None else at.add(link, fill_value=0)
+
+
 def lu_imports(bal):
     """Luxembourg's pipeline imports from Belgium (GWh/d): the larger of ENTSOG's Bras-Petange entry and Luxembourg's own delivered volumes."""
     cons = pd.concat([bal["LU_distribution_GWhd"], bal["LU_final_consumers_GWhd"]], axis=1).sum(axis=1, min_count=1)
@@ -902,6 +923,9 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
         if nl is not None:
             em_raw = emden_entsog(data_dir)
             nl_extra = nl["Via Denmark"] if "Via Denmark" in nl else None
+            link = gts_storage_link(data_dir)
+            if link is not None:     # German caverns connected to GTS (withdrawn into the Dutch grid, or injected from it)
+                nl_extra = link.reindex(bal_nl.index).fillna(0.0) if nl_extra is None else nl_extra.add(link.reindex(nl_extra.index), fill_value=0)
             if em_raw:
                 nl_extra = em_raw["NL"].add(nl_extra.reindex(em_raw["NL"].index), fill_value=0) if nl_extra is not None else em_raw["NL"]
             return ({"prod_override": nl["Production"]} | ({"extra_imports": nl_extra} if nl_extra is not None else {})), nl["Consumption"], (
@@ -999,7 +1023,7 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
         kw = {"extra_imports": ns.add(em_raw["DE"].reindex(ns.index).fillna(0), fill_value=0).combine_first(em_raw["DE"]) if em_raw else ns}
         if sto is not None and haidach_flows(data_dir) is not None:
             kw["storage"] = de_storage_with_haidach(data_dir, sto)
-        de_at = de_at_exports(data_dir)
+        de_at = de_extra_exports(data_dir)
         if de_at is not None:
             kw["extra_exports"] = de_at
         return kw, None, (
@@ -1392,6 +1416,11 @@ def intra_block_flows(lines, block, sides, extra_out=None, whole=WHOLE_FRAME_MEM
         if extra_out and c in extra_out and dest in block:
             xo = extra_out[c]
             exp += (monthly_cover(xo.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
+    link = (extra_out or {}).get("DE>NL")        # German caverns connected to GTS: Germany books it as an export, the Netherlands as an import (signed, same figure on both sides)
+    if link is not None and "DE" in lines and "NL" in lines:
+        lk = (monthly_cover(link.to_frame("x")).dropna(how="all")["x"] / 1000.0).reindex(idx).fillna(0.0)
+        imp += lk
+        exp += lk
     return imp, exp
 
 
@@ -1557,7 +1586,9 @@ def main():
             cons_in = fix_cons if fix_cons is not None else (tso[cc] if (tso is not None and cc in tso) else None)
             sto_in = fix_kw.pop("storage", gsto)
             if cc in EXTRA_EXPORT_DEST and fix_kw.get("extra_exports") is not None:
-                eu_extra_out[cc] = fix_kw["extra_exports"]
+                eu_extra_out[cc] = de_at_exports(args.data_dir) if cc == "DE" else fix_kw["extra_exports"]       # Germany's storage link to GTS is DE>NL, below
+            if cc == "DE" and gts_storage_link(args.data_dir) is not None:
+                eu_extra_out["DE>NL"] = gts_storage_link(args.data_dir)
             b = gas_country_balance(gbal, cc, sto_in, glng, cons_in,
                                     nor["NO_to_GB"] if (cc == "UK" and len(nor) and "NO_to_GB" in nor) else None,
                                     bio[cc] if (len(bio) and cc in bio) else None, **fix_kw)
@@ -1672,13 +1703,13 @@ def main():
             de_b = gas_country_balance(gbal, "DE", de_storage_with_haidach(args.data_dir, gsto), glng, tso["DE"] if "DE" in tso else None, None,
                                        bio["DE"] if (len(bio) and "DE" in bio) else None,
                                        em_de.add(ns.reindex(em_de.index).fillna(0), fill_value=0).combine_first(ns) if ns is not None else em_de,
-                                       extra_exports=de_at_exports(args.data_dir))
+                                       extra_exports=de_extra_exports(args.data_dir))
             nl_kw, nl_cons, _nl_note = point_fix_args(args.data_dir, "NL", tso, bio, gni, gbal)
             nl_b = gas_country_balance(gbal, "NL", gsto, glng, nl_cons, None, bio["NL"] if (len(bio) and "NL" in bio) else None, **nl_kw)
             colsb = [c for c in de_b.columns if c in nl_b.columns]
             both = de_b[colsb].add(nl_b[colsb], fill_value=0)
             if gsides is not None and len(gsides):    # NL>DE and DE>NL are inside the block: each side's own figure comes out of its own line, so the border cancels exactly
-                d_imp, d_exp = intra_block_flows({"DE": de_b, "NL": nl_b}, {"DE", "NL"}, gsides, whole=(), months=both.index)
+                d_imp, d_exp = intra_block_flows({"DE": de_b, "NL": nl_b}, {"DE", "NL"}, gsides, ({"DE>NL": gts_storage_link(args.data_dir)} if gts_storage_link(args.data_dir) is not None else None), whole=(), months=both.index)
                 both["Pipeline imports"] = both["Pipeline imports"] - d_imp
                 both["Pipeline exports"] = both["Pipeline exports"] + d_exp
             if len(both) >= 12:
