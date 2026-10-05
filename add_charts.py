@@ -1624,7 +1624,7 @@ def gulf_coast_balance(p):
             lines, sty = ("Dry production", "Demand, LNG delayed"), None
         st["Demand, LNG delayed"] = (la["Demand incl. LNG, LNG delayed"] + inj).where(la["Type"].ne("Actual"))
         st.loc[la_, "Demand, LNG delayed"] = la.loc[la_, "Demand incl. LNG, base"] + (inj.loc[la_] if has_st else 0.0)
-        put("Louisiana", st, f"Louisiana gas supply vs demand incl. LNG and storage\n(EIA; production = STEO Haynesville share; consumption seasonal trend); {ext}\n{flag}",
+        put("Louisiana", st, f"Louisiana gas supply vs demand incl. LNG and storage (EIA; production = STEO Haynesville share)\n{ext}\n{flag}",
             lines, la)
         if sty:
             out[-1]["line_styles"] = sty
