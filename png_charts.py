@@ -78,7 +78,8 @@ def series_chart(spec, path):
             ax.plot(x, body[c], color=_colour(c, i), label=str(c), linewidth=1.8,
                     linestyle="--" if "elayed" in str(c) else "-")
     for j, c in enumerate(line_cols):
-        ax.plot(x, df[c], color="#252525", linewidth=1.6, linestyle="-" if j == 0 else "--", label=str(c))
+        col, ls = (spec.get("line_styles") or {}).get(str(c), ("252525", ("solid", "dash", "sysDot")[j % 3]))
+        ax.plot(x, df[c], color="#" + col, linewidth=1.6, linestyle={"solid": "-", "dash": "--", "sysDot": ":"}[ls], label=str(c))
     if ff is not None:
         ax.axvline(ff, color="#555555", linewidth=0.9, linestyle=":")
         ax.text(ff, ax.get_ylim()[1], " forecast", fontsize=8, color="#555555", va="top")
@@ -91,7 +92,7 @@ def series_chart(spec, path):
     _style(ax, spec["title"], spec["units"])
     if str(spec["units"]).startswith("Bcf/d") and "MISO" in spec["title"]:
         ax.yaxis.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%.2f"))
-    ax.legend(fontsize=8, frameon=False, ncol=min(len(df.columns), 4), loc="upper left", bbox_to_anchor=(0, -0.1))
+    ax.legend(fontsize=8, frameon=False, ncol=min(len(df.columns), 4 if max(len(str(c)) for c in df.columns) <= 30 else 3), loc="upper left", bbox_to_anchor=(0, -0.1))
     fig.tight_layout()
     fig.savefig(path, dpi=110)
     plt.close(fig)

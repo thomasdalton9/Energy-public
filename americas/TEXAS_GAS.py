@@ -88,6 +88,23 @@ def rows(route, facets, start):
             return out
 
 
+def capacity_rows(area):
+    """Best effort: EIA underground storage capacity (route stor/cap, annual; total and working-gas capacity, MMcf) for a state area.
+    Returns [(column name, period 'YYYY', MMcf)]; [] when the route or facets are not as expected (the capacity memo is then left out)."""
+    out = []
+    try:
+        j = get("stor/cap/data/", {"frequency": "annual", "data[0]": "value", "facets[duoarea][0]": area, "start": "2015", "length": 5000,
+                                   "sort[0][column]": "period", "sort[0][direction]": "asc"}, tries=2)
+        for r in j["data"]:
+            nm = str(r.get("process-name") or r.get("series-description") or r.get("process") or "")
+            v = volume(r)
+            if v is not None and "capacity" in nm.lower() and "number" not in nm.lower():
+                out.append((nm.replace("Underground Natural Gas Storage - ", "").replace("Underground Natural Gas Storage ", "").strip(" -"), str(r["period"])[:4], v))
+    except Exception as e:  # noqa: BLE001
+        print(f"    stor/cap {area}: {type(e).__name__}: {str(e)[:120]} - capacity memo skipped", flush=True)
+    return out
+
+
 def volume(r):
     """MMcf value of a data row, None when withheld/blank or not a volume."""
     if not re.search(r"^MMCF$", str(r.get("units", "MMCF")), re.I):
@@ -152,6 +169,8 @@ def fetch(store, full):
         print(f"  {prefix} from {st}: {len(data)} rows", flush=True)
         for r in data:
             put(prefix + names[r["process"]], r["period"], volume(r))
+    for nm, per, v in capacity_rows("STX"):
+        put("cap|" + nm, per, v)
     ids = port_series()
     for kind, prefix in (("ENP", "ENP|"), ("ENG", "ENG|")):
         st = start_for(store, prefix, full)
@@ -207,7 +226,8 @@ def derive(raw):
     bal = pd.DataFrame({"Marketed production": p["Marketed production"],
                         "Dry production": dry,
                         "Dry production basis": loss_basis,
-                        "Net storage withdrawal (+)": s["Net withdrawals"]})
+                        "Net storage withdrawal (+)": s["Net withdrawals"],
+                        "Storage injections (gross)": s["Injections"], "Storage withdrawals (gross)": s["Withdrawals"]})
     bal["Consumption (published sectors)"] = cons["Reported total (delivered to consumers)"]
     bal["Pipeline exports to Mexico"] = exports["Pipeline exports to Mexico (Texas crossings)"]
     bal["LNG exports"] = exports["LNG exports (Texas terminals)"]
@@ -269,6 +289,7 @@ def notes(raw, bal):
         "Plaquemines are in Louisiana and are NOT counted. EIA has no Texas state-to-state movement (move/state is national only).",
         "",
         "BALANCE",
+        "Gross storage injections and withdrawals (EIA stor/sum SAI / SAW, Bcf/d) sit beside the net withdrawal (net = withdrawals - injections); the americas/TEXAS_SUPPLY_DEMAND.py charts use the gross flows (injections on the demand side, withdrawals on the supply side).",
         "Residual = dry production + net storage withdrawal - consumption (published sectors) - Mexico pipeline exports - LNG exports. It is the implied net gas leaving Texas by pipeline to",
         "other states plus the withheld lease/plant/pipeline fuel and any statistical differences. It is shown, never plugged.",
     ]

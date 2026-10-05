@@ -1,5 +1,5 @@
 """
-Gulf Coast gas balance, Texas + Louisiana, monthly Bcf/d, history from 2021 and forecast to Dec 2030 -> gulf_coast_gas_balance.xlsx.
+Gulf Coast gas balance, Texas + Louisiana, monthly Bcf/d, history from 2021 and forecast to Dec 2033 (storage and the Louisiana sensitivity layers included) -> gulf_coast_gas_balance.xlsx.
 Question it answers: is there enough Permian gas for the new Gulf LNG, or does the Gulf need more Haynesville (or other-region) supply?
 Runs in GitHub Actions (.github/workflows/gulf_coast_balance.yml; EIA_API_KEY secret). Reads, never writes, the Texas workbooks.
 
@@ -38,13 +38,15 @@ import xlsx_notes  # noqa: E402
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import TEXAS_GAS as tg  # noqa: E402  (EIA helpers, read-only use)
 import TEXAS_GAS_FORECAST as gf  # noqa: E402  (LNG model, read-only use)
+import TEXAS_SUPPLY_DEMAND as sdm  # noqa: E402  (storage history / seasonal path, read-only use)
+TX_STOR_OVERRIDE = sdm.STOR_OVERRIDE
 
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 DEFAULT_OUT = os.path.join(OUT_DIR, "gulf_coast_gas_balance.xlsx")
 TEXAS_XLSX = os.path.join(OUT_DIR, "texas_gas_monthly.xlsx")
 PROD_XLSX = os.path.join(OUT_DIR, "texas_production_forecast.xlsx")
 LNG_XLSX = os.path.join(OUT_DIR, "lng_feedgas_daily.xlsx")
-START, END = pd.Timestamp("2021-01-01"), pd.Timestamp("2030-12-01")
+START, END = pd.Timestamp("2021-01-01"), pd.Timestamp("2033-12-01")
 EXT_FROM = pd.Timestamp("2029-01-01")          # basin supply beyond the Texas workbook's 2028 horizon: damped extension
 RAW = "Raw MMcf"
 SECT = ["Electric power", "Industrial", "Residential", "Commercial", "Vehicle fuel"]
@@ -52,6 +54,20 @@ RATIO = 1.09                                    # feedgas / LNG exports, as TEXA
 LA_PORTS = {"YSPL": "Sabine Pass", "YCAM": "Cameron", "YCCPL": "Calcasieu Pass", "YPLAQ": "Plaquemines"}
 SRC_EIA = "EIA U.S. liquefaction capacity file 2026 Q2 (opened 5 Oct 2026)"
 AL = "Assump - LA LNG"
+SENS_SHEET = "Assump - LA sensitivity"
+LA_STOR_OVERRIDE = "Louisiana net storage change override (Bcf/d average, + = net injection; blank = last-3-year mean)"
+# Louisiana projects that are NOT in the forecast (UNVERIFIED / pre-FID in 'Assump - LA LNG'): illustrative stacked sensitivity layers.
+# (label, key of the train in LA_TRAINS, flag). The nameplate is the train table's (EIA 2026 Q2 'Approved' tab); the first-LNG month is an
+# illustrative ASSUMPTION (editable on SENS_SHEET), never a forecast.
+SENS = [("Cameron LNG Train 4", ("Cameron LNG", "Train 4"), ""),
+        ("Woodside Louisiana LNG Phase 2", ("Woodside Louisiana LNG", "Phase 2, Trains 4-5"), ""),
+        ("Lake Charles LNG (SUSPENDED)", ("Lake Charles LNG (Energy Transfer)", "Trains 1-3"),
+         "Energy Transfer announced on 18 Dec 2025 that it suspended development; included only as an illustration"),
+        ("Delfin FLNG vessels 2-3", ("Delfin FLNG", "Vessels 2-3"), "")]
+SENS_NO_NAMEPLATE = [("Sabine Pass Stage 5 (Cheniere)", ("Sabine Pass Stage 5 (Cheniere)", "Expansion")),
+                     ("Plaquemines expansion (Venture Global)", ("Plaquemines expansion (Venture Global)", "Expansion"))]
+SENS_FIRST_DEFAULT = "2031-01"
+KQ_YEARS = [2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033]
 FILL_IN = PatternFill("solid", start_color="FFF2CC", end_color="FFF2CC")
 FILL_HEAD = PatternFill("solid", start_color="DDEBF7", end_color="DDEBF7")
 BOLD = Font(bold=True)
@@ -106,6 +122,8 @@ def fetch(store, full):
         print(f"  LA {prefix} from {st}: {len(data)} rows", flush=True)
         for r in data:
             put(prefix + procs[r["process"]], r["period"], tg.volume(r))
+    for nm, per, v in tg.capacity_rows("SLA"):
+        put("cap|" + nm, per, v)
     st = tg.start_for(store, "ENG|", full)
     sids = [f"NGM_EPG0_ENG_{k}-Z00_MMCF" for k in LA_PORTS]
     data = tg.rows("move/poe2/data/", {"series": sids}, st)
@@ -170,6 +188,34 @@ def prior_table(out, sheet, keys):
     return {tuple(r[k] for k in keys): r for _, r in d.iterrows()}
 
 
+def cap_series(raw, idx):
+    """EIA annual underground working-gas capacity (Bcf, 'cap|' columns of the raw store, best-effort pull), held to the next report; None when absent."""
+    cols = [c for c in raw.columns if str(c).startswith("cap|") and "working" in str(c).lower()]
+    if not cols:
+        return None
+    c = raw[cols[0]].dropna() / 1000.0
+    if c.empty:
+        return None
+    c.index = pd.to_datetime(c.index)
+    return c.reindex(c.index.union(idx)).ffill().reindex(idx)
+
+
+def storage_memo(tx, la, idx):
+    """Memo tab: Texas and Louisiana gross storage flows, month-end working gas (EIA, then projected from the net injection) and capacity."""
+    m = pd.DataFrame(index=idx)
+    for nm, d in (("Texas", tx), ("Louisiana", la)):
+        sp, _ = d.attrs["storage"]
+        m[f"{nm}: injection (Bcf/d)"], m[f"{nm}: withdrawal (Bcf/d)"], m[f"{nm}: net injection + / withdrawal - (Bcf/d)"] = sp["inj"], sp["wd"], sp["net_inj"]
+        m[f"{nm}: working gas, month end (Bcf)"], m[f"{nm}: stock basis"] = sp["stock"], sp["stock_basis"]
+        cap = d.attrs.get("cap")
+        if cap is not None:
+            m[f"{nm}: working gas capacity, EIA annual (Bcf)"] = cap
+            m[f"{nm}: stock as % of capacity"] = sp["stock"] / cap * 100
+    m["Gulf: working gas, month end (Bcf)"] = m["Texas: working gas, month end (Bcf)"] + m["Louisiana: working gas, month end (Bcf)"]
+    m.index.name = "Month"
+    return m
+
+
 # --------------------------------------------------------------------------- Texas (read only)
 def texas_inputs():
     sd = read_sheet(PROD_XLSX, "Supply and demand")
@@ -189,7 +235,7 @@ def texas_inputs():
     tx = read_sheet(TEXAS_XLSX, "Balance")
     ratio = 1 - float((tx["Dry production"] / tx["Marketed production"]).dropna().iloc[-12:].mean())
     other = float(fcast["Other Texas / calibration (held flat)"].dropna().iloc[-1])
-    return dict(sd=sd, d33=d33, fcast=fcast, take=take, shares=shares, damp=damp, dc_inputs=dci, loss_tx=ratio, other_tx=other)
+    return dict(par=par, sd=sd, d33=d33, fcast=fcast, take=take, shares=shares, damp=damp, dc_inputs=dci, loss_tx=ratio, other_tx=other)
 
 
 def texas_lng(delay_check):
@@ -221,6 +267,14 @@ def texas_block(T, idx):
     tx["Dry production, takeaway delayed"] = d33["Dry production, takeaway delayed"].reindex(idx).where(
         ~old, sd["Dry production, takeaway delayed"].reindex(idx))
     tx["Type"] = np.where(idx < fs_tx, "Actual", np.where(idx < EXT_FROM, "Forecast", "Scenario"))
+    # storage: Texas gross EIA flows (Raw MMcf of texas_gas_monthly.xlsx) and the production workbook's editable override
+    rawt = pd.read_excel(TEXAS_XLSX, sheet_name=RAW, index_col=0)
+    rawt.index = pd.to_datetime(rawt.index)
+    ov = T["par"].get(TX_STOR_OVERRIDE)
+    sp, info = sdm.storage_path(sdm.storage_hist(rawt), idx, ov)
+    tx["Storage injection (demand)"], tx["Storage withdrawal (supply)"], tx["Storage basis"] = sp["inj"], sp["wd"], sp["basis"]
+    tx.attrs["storage"] = (sp, info)
+    tx.attrs["cap"] = cap_series(rawt, idx)
     return tx, fs_tx
 
 
@@ -359,7 +413,7 @@ def la_lng(eng, trains, idx, fs, delay):
     return out, cap, prof, util, nb
 
 
-def la_block(raw, T, out_path, delay, idx):
+def la_block(raw, T, out_path, delay, idx, st_ov=None):
     cons, eng, prod, stor = la_history(raw)
     trains = la_trains(out_path)
     must = [cons["Electric power"], cons["Industrial"], prod["Marketed production"]] + [eng[p] for p in EXISTING]
@@ -385,8 +439,11 @@ def la_block(raw, T, out_path, delay, idx):
     ratio = (1 - (p["Dry production"] / p["Marketed production"]).dropna().iloc[-12:].mean())
     la["Marketed production (history)"] = p["Marketed production"].where(idx < fs)
     la["Dry production (history)"] = p["Dry production"].where(idx < fs).fillna(p["Marketed production"].where(idx < fs) * (1 - ratio))
-    stor_ = stor.reindex(idx)["Net withdrawals"]
-    la["Net storage withdrawal (memo, not in balance)"] = stor_.where(idx < fs)
+    sp, info = sdm.storage_path(sdm.storage_hist(raw), idx, st_ov)
+    la["Storage injection (demand)"], la["Storage withdrawal (supply)"], la["Storage basis"] = sp["inj"], sp["wd"], sp["basis"]
+    la.attrs["storage"] = (sp, info)
+    la.attrs["cap"] = cap_series(raw, idx)
+    la.attrs["nb"] = nb
     return la, lng, trains, fs, ratio, cons, eng, prod, prof, util, cap, est
 
 
@@ -397,6 +454,40 @@ def la_supply(la, steo_hay, idx, fs, la_share, ratio, s_other_months=6):
     other = float((la["Marketed production (history)"].reindex(ov) - comp.reindex(ov)).mean())
     mk = la["Marketed production (history)"].fillna(comp + other)
     return mk, other
+
+
+# --------------------------------------------------------------------------- illustrative sensitivity layers
+def sens_table(out, trains):
+    """One row per not-forecast Louisiana project: nameplate and ramp from the train table, ILLUSTRATIVE first-LNG month (editable)."""
+    prior = prior_table(out, SENS_SHEET, ["Project"])
+    rows = []
+    for lab, key, flag in SENS + [(l, k, "") for l, k in SENS_NO_NAMEPLATE]:
+        t = trains.get(key)
+        first = pd.Timestamp(SENS_FIRST_DEFAULT + "-01")
+        r = prior.get((lab,))
+        if r is not None:
+            v = pd.to_datetime(r.get("Illustrative first-LNG month"), errors="coerce")
+            if pd.notna(v):
+                first = v
+        peak = t["peak"] if t is not None else np.nan
+        in_base = t is not None and pd.notna(t["first"])
+        rows.append(dict(Project=lab, peak=peak, ramp=t["ramp"] if t else 12, rs=t["rs"] if t else 0.1, st=t["st"] if t else 0.95, first=first,
+                         in_base=in_base, stacked=bool(pd.notna(peak) and not in_base), flag=flag, note=t["note"] if t else ""))
+    return pd.DataFrame(rows)
+
+
+def sens_layers(tbl, nb, idx, fs):
+    """Incremental feedgas (Bcf/d) of each stacked project: peak x 1.09 x ramp x the existing plants' seasonal index, from its illustrative month."""
+    out = {}
+    for _, t in tbl[tbl["stacked"]].iterrows():
+        ser = pd.Series(0.0, index=idx)
+        for m in idx:
+            if m < fs or m < t["first"]:
+                continue
+            n = (m.year - t["first"].year) * 12 + m.month - t["first"].month
+            ser[m] = t["peak"] * RATIO * (t["rs"] + (t["st"] - t["rs"]) * min(1.0, n / max(t["ramp"], 1))) * nb[m.month - 1]
+        out[t["Project"]] = ser
+    return out
 
 
 # --------------------------------------------------------------------------- the whole model
@@ -410,8 +501,10 @@ def run(out, raw):
         r = prior_a.get((item,))
         return float(r["Value"]) if r is not None and pd.notna(r.get("Value")) else default
 
-    la, lng, trains, fs_la, loss_la, cons, eng, prod, prof, util, cap, est = la_block(raw, T, out, delay, idx)
+    la_st_ov = edit(LA_STOR_OVERRIDE, None)
+    la, lng, trains, fs_la, loss_la, cons, eng, prod, prof, util, cap, est = la_block(raw, T, out, delay, idx, la_st_ov)
     tx, fs_tx = texas_block(T, idx)
+    T["st_info"] = {"tx": tx.attrs["storage"][1], "la": la.attrs["storage"][1], "la_override": la_st_ov}
     fs = max(fs_tx, fs_la)
     sh_tx = T["shares"]["hay"]
     la_share = edit("Louisiana share of STEO Haynesville", round(1 - sh_tx, 4))
@@ -432,13 +525,21 @@ def run(out, raw):
     la["Demand excl. LNG"] = la[SECT].sum(axis=1)
     la["Demand incl. LNG, base"] = la["Demand excl. LNG"] + la["LNG feedgas (base)"]
     la["Demand incl. LNG, LNG delayed"] = la["Demand excl. LNG"] + la["LNG feedgas (delayed)"]
-    la["Implied net outflow, base"] = la["Dry production"] - la["Demand incl. LNG, base"]
-    la["Implied net outflow, delayed"] = la["Dry production"] - la["Demand incl. LNG, LNG delayed"]
+    la["Implied net outflow before storage, base"] = la["Dry production"] - la["Demand incl. LNG, base"]
+    la["Implied net outflow before storage, delayed"] = la["Dry production"] - la["Demand incl. LNG, LNG delayed"]
+    la["Dry production + storage withdrawal"] = la["Dry production"] + la["Storage withdrawal (supply)"]
+    la["Implied net outflow, base"] = la["Dry production + storage withdrawal"] - la["Demand incl. LNG, base"] - la["Storage injection (demand)"]
+    la["Implied net outflow, delayed"] = la["Dry production + storage withdrawal"] - la["Demand incl. LNG, LNG delayed"] - la["Storage injection (demand)"]
     tx["Demand excl. LNG"] = tx[SECT].sum(axis=1) + tx["Pipeline exports to Mexico"] + tx["Data centres (BASE added gas burn)"]
     tx["Demand incl. LNG, base"] = tx["Demand excl. LNG"] + tx["LNG feedgas (base)"]
     tx["Demand incl. LNG, LNG delayed"] = tx["Demand excl. LNG"] + tx["LNG feedgas (delayed)"]
-    tx["Implied net outflow, base"] = tx["Dry production, base"] - tx["Demand incl. LNG, base"]
-    tx["Implied net outflow, delayed"] = tx["Dry production, takeaway delayed"] - tx["Demand incl. LNG, LNG delayed"]
+    tx["Implied net outflow before storage, base"] = tx["Dry production, base"] - tx["Demand incl. LNG, base"]
+    tx["Implied net outflow before storage, delayed"] = tx["Dry production, takeaway delayed"] - tx["Demand incl. LNG, LNG delayed"]
+    tx["Dry production + storage withdrawal, base"] = tx["Dry production, base"] + tx["Storage withdrawal (supply)"]
+    tx["Dry production + storage withdrawal, takeaway delayed"] = tx["Dry production, takeaway delayed"] + tx["Storage withdrawal (supply)"]
+    tx["Implied net outflow, base"] = tx["Dry production + storage withdrawal, base"] - tx["Demand incl. LNG, base"] - tx["Storage injection (demand)"]
+    tx["Implied net outflow, delayed"] = (tx["Dry production + storage withdrawal, takeaway delayed"] - tx["Demand incl. LNG, LNG delayed"]
+                                          - tx["Storage injection (demand)"])
     cb = pd.DataFrame(index=idx)
     cb["Type"] = np.where(idx < fs, "Actual", np.where(idx < EXT_FROM, "Forecast", "Scenario"))
     cb["Electric power"] = tx["Electric power"] + la["Electric power"]
@@ -460,8 +561,29 @@ def run(out, raw):
     cb["Dry production, Louisiana"] = la["Dry production"]
     cb["Dry production, base"] = tx["Dry production, base"] + la["Dry production"]
     cb["Dry production, takeaway delayed"] = tx["Dry production, takeaway delayed"] + la["Dry production"]
-    cb["Implied net outflow, base"] = cb["Dry production, base"] - cb["Demand incl. LNG, base"]
-    cb["Implied net outflow, delayed"] = cb["Dry production, takeaway delayed"] - cb["Demand incl. LNG, LNG delayed"]
+    cb["Storage injection (demand), Texas"] = tx["Storage injection (demand)"]
+    cb["Storage injection (demand), Louisiana"] = la["Storage injection (demand)"]
+    cb["Storage injection (demand)"] = cb["Storage injection (demand), Texas"] + cb["Storage injection (demand), Louisiana"]
+    cb["Storage withdrawal (supply), Texas"] = tx["Storage withdrawal (supply)"]
+    cb["Storage withdrawal (supply), Louisiana"] = la["Storage withdrawal (supply)"]
+    cb["Storage withdrawal (supply)"] = cb["Storage withdrawal (supply), Texas"] + cb["Storage withdrawal (supply), Louisiana"]
+    cb["Implied net outflow before storage, base"] = cb["Dry production, base"] - cb["Demand incl. LNG, base"]
+    cb["Implied net outflow before storage, delayed"] = cb["Dry production, takeaway delayed"] - cb["Demand incl. LNG, LNG delayed"]
+    cb["Dry production + storage withdrawal, base"] = cb["Dry production, base"] + cb["Storage withdrawal (supply)"]
+    cb["Dry production + storage withdrawal, takeaway delayed"] = cb["Dry production, takeaway delayed"] + cb["Storage withdrawal (supply)"]
+    cb["Implied net outflow, base"] = cb["Dry production + storage withdrawal, base"] - cb["Demand incl. LNG, base"] - cb["Storage injection (demand)"]
+    cb["Implied net outflow, delayed"] = (cb["Dry production + storage withdrawal, takeaway delayed"] - cb["Demand incl. LNG, LNG delayed"]
+                                          - cb["Storage injection (demand)"])
+    # ---------------- illustrative Louisiana sensitivity layers (projects not in the forecast)
+    sens_tbl = sens_table(out, trains)
+    layers = sens_layers(sens_tbl, la.attrs["nb"], idx, fs)
+    for lab, ser in layers.items():
+        cb[f"Sensitivity layer: {lab}"] = ser
+    lay_cols = [f"Sensitivity layer: {lab}" for lab in layers]
+    cb["Sensitivity layers total (illustrative)"] = cb[lay_cols].sum(axis=1) if lay_cols else 0.0
+    cb["Gulf demand incl. LNG, base, with all sensitivity layers"] = cb["Demand incl. LNG, base"] + cb["Sensitivity layers total (illustrative)"]
+    cb["Implied net outflow, base, with all sensitivity layers"] = cb["Implied net outflow, base"] - cb["Sensitivity layers total (illustrative)"]
+    T["sens_tbl"], T["sens_layers"] = sens_tbl, list(layers)
     # ---------------- key question
     kq, kchart, kmeta = key_question(cb, bs, tx, la, T, out_chg, floor, la_share, loss_la, idx, steo)
     # ---------------- sheets
@@ -472,10 +594,13 @@ def run(out, raw):
 def key_question(cb, bs, tx, la, T, out_chg, floor, la_share, loss_la, idx, steo):
     d0 = pd.Timestamp("2025-12-01")
     rows = []
-    o0 = float(cb.loc[d0, "Implied net outflow, base"])
-    recent = cb[cb["Type"].eq("Actual")]["Implied net outflow, base"].iloc[-12:].mean()
+    # the year-end increments are taken on the BEFORE-STORAGE basis: a Dec-to-Dec comparison of monthly storage flows would only measure
+    # weather noise in the Dec 2025 actual against a seasonal pattern; storage is shown as memo columns instead
+    o0 = float(cb.loc[d0, "Implied net outflow before storage, base"])
+    recent = cb[cb["Type"].eq("Actual")]["Implied net outflow before storage, base"].iloc[-12:].mean()
+    lays = T["sens_layers"]
     for sc, lt, lc, perm in (("Base", "base", "base", "base"), ("LNG and takeaway delayed 6 months", "delayed", "delayed", "delayed")):
-        for y in (2026, 2027, 2028, 2029, 2030):
+        for y in KQ_YEARS:
             m = pd.Timestamp(f"{y}-12-01")
             dl = lambda s: float(s.loc[m] - s.loc[d0])   # noqa: E731
             d_lng_tx = dl(cb[f"LNG feedgas, Texas ({lt})"])
@@ -491,6 +616,17 @@ def key_question(cb, bs, tx, la, T, out_chg, floor, la_share, loss_la, idx, steo
             out_y = o0 + gap
             cap_ = bs[f"Permian marketed capped, {perm}"]
             nm = (1 - T["shares"]["permian"]) * dl(cap_) * (1 - T["loss_tx"])
+            lay_inc = {lab: float(cb[f"Sensitivity layer: {lab}"].loc[m] - cb[f"Sensitivity layer: {lab}"].loc[d0]) for lab in lays}
+            sens_cols, cum = {}, 0.0
+            for lab in lays:
+                cum += lay_inc[lab]
+                sens_cols[f"Sensitivity layer (Dec increment, ILLUSTRATIVE): {lab}"] = lay_inc[lab]
+            cum = 0.0
+            for lab in lays:
+                cum += lay_inc[lab]
+                sens_cols[f"Extra supply required with layers up to {lab} (cumulative, ILLUSTRATIVE)"] = max(0.0, out_chg - (gap - cum))
+            st_net = float((cb["Storage withdrawal (supply)"] - cb["Storage injection (demand)"]).loc[m]
+                           - (cb["Storage withdrawal (supply)"] - cb["Storage injection (demand)"]).loc[d0])
             rows.append({"Scenario": sc, "Year-end": f"Dec {y}", "Incremental LNG feedgas, Texas": d_lng_tx,
                          "Incremental LNG feedgas, Louisiana": d_lng_la, "Incremental LNG feedgas, Gulf total": d_lng_tx + d_lng_la,
                          "Incremental other Gulf demand (sectors, Mexico, data centres)": d_oth, "Incremental total Gulf demand": d_dem,
@@ -502,7 +638,9 @@ def key_question(cb, bs, tx, la, T, out_chg, floor, la_share, loss_la, idx, steo
                          "Implied net outflow at Dec if no extra supply (outflow declines)": out_y,
                          "Fall in outflow vs Dec 2025 (other regions must replace it)": max(0.0, -gap),
                          "Extra supply needed to keep outflow above the floor": max(0.0, floor - out_y),
-                         "Memo: Permian New Mexico growth (not counted)": nm})
+                         "Memo: Permian New Mexico growth (not counted)": nm,
+                         "Memo: change in net storage withdrawal, Dec vs Dec 2025 (not in the balance; seasonal pattern vs one actual month)": st_net,
+                         **sens_cols})
     kq = pd.DataFrame(rows)
     # chart table: Dec of each year, base case, supply stack = demand growth when there is a shortfall
     b = kq[kq["Scenario"].eq("Base")].copy()
@@ -513,7 +651,7 @@ def key_question(cb, bs, tx, la, T, out_chg, floor, la_share, loss_la, idx, steo
         "Extra supply required (Haynesville above STEO or other regions)": b["Extra supply required to hold the outflow (Haynesville above STEO or other regions)"].values,
         "Incremental Gulf LNG feedgas": b["Incremental LNG feedgas, Gulf total"].values,
         "Incremental total Gulf demand (LNG + other)": b["Incremental total Gulf demand"].values},
-        index=[2026, 2027, 2028, 2029, 2030])
+        index=KQ_YEARS)
     kc.index.name = "Year"
     return kq, kc, dict(o0=o0, recent=float(recent))
 
@@ -562,6 +700,18 @@ def assumption_rows(T, la_share, imp12, loss_la, loss_tx, other_la, out_chg, flo
         "EIA Short-Term Energy Outlook via API v2 (NGMPPM / NGMPEF / NGMPHA), as saved in texas_production_forecast.xlsx 'STEO raw'.")
     add("Basin supply Jan 2028 - Dec 2028", "STEO 2027 x STEO growth", "Bcf/d", "DERIVED", False, "Same month of 2027 x STEO 2027/2026 annual growth (Texas workbook).")
     add("Basin supply 2029-2030", "damped extension", "Bcf/d", "ASSUMPTION", False, "Month-on-month growth damped x0.5 a year; Permian capped by the takeaway table.")
+    it, il = T["st_info"]["tx"], T["st_info"]["la"]
+    add("Texas net storage change in the forecast (Bcf/d average, + = net injection)", round(it["target"], 4), "Bcf/d", "ASSUMPTION", False,
+        f"Last-3-year mean of EIA Texas storage ({it['window']}) unless the production workbook's override is filled (edit it in texas_production_forecast.xlsx 'Assumptions'). "
+        "Gross injections / withdrawals follow the same 36-month calendar-month pattern. No storage capacity additions assumed.")
+    R.append((LA_STOR_OVERRIDE, T["st_info"]["la_override"], "Bcf/d", "ASSUMPTION", "yes",
+              "Blank = Louisiana net storage change held at the last-3-year mean of EIA data. Louisiana storage capacity additions are NOT assumed."))
+    add("Louisiana net storage change in the forecast (Bcf/d average, + = net injection)", round(il["target"], 4), "Bcf/d", "ASSUMPTION", False,
+        f"{'Override' if il['override'] is not None else 'Mean of EIA months ' + il['window']}; gross flows follow the 36-month calendar-month pattern ({il['window']}).")
+    sd_ = T["sens_tbl"]
+    add("Louisiana not-forecast projects as illustrative sensitivity layers", f"{int(sd_['stacked'].sum())} of {len(sd_)} stacked", "projects", "ASSUMPTION", False,
+        f"Nameplate from the train table (EIA 2026 Q2 'Approved' tab); first-LNG month = ILLUSTRATIVE ASSUMPTION (default {SENS_FIRST_DEFAULT}, editable on '{SENS_SHEET}'); "
+        "not a forecast. Projects without a sourced nameplate are listed but not stacked.")
     return R
 
 
@@ -639,25 +789,41 @@ def write(out, raw, idx, T, tx, la, cb, bs, steo, kq, kchart, kmeta, trains, pro
         "Permian: Texas share (85%) of STEO Permian, capped by the Texas workbook's takeaway table (all but Matterhorn UNVERIFIED), base and delayed. Dry = marketed x (1 - extraction loss). New Mexico's Permian gas is not counted (memo column on 'Key question').",
         "", "KEY QUESTION",
         "For each year-end: incremental LNG feedgas (Texas, Louisiana) and other Gulf demand since Dec 2025 against incremental supply by basin. Supply growth less demand growth > 0 is a surplus (the outflow to other states rises); < 0 is a shortfall. 'Outflow held': extra supply needed so the combined outflow ends at its Dec 2025 level (+ the editable allowance). 'Outflow declines': the outflow is allowed to fall; the fall is the gas other regions must replace, and extra supply is needed only if it would go below the floor.",
-        f"Combined implied outflow = dry production - demand incl. LNG; Dec 2025 base level {kmeta['o0']:.1f} Bcf/d, last 12 actual months mean {kmeta['recent']:.1f}. It includes lease/plant and pipeline fuel EIA withholds and ignores storage; Louisiana storage net withdrawal is shown on the Louisiana tab as a memo.",
+        f"Combined implied outflow = dry production - demand incl. LNG; Dec 2025 base level {kmeta['o0']:.1f} Bcf/d, last 12 actual months mean {kmeta['recent']:.1f}. It includes lease/plant and pipeline fuel EIA withholds. Since Oct 2026 the outflow also includes storage (see STORAGE); the key-question year-end increments stay on the before-storage basis (see STORAGE).",
+        "", "STORAGE",
+        "Implied net outflow (Texas, Louisiana, Combined) = dry production + storage withdrawal - demand incl. LNG - storage injection. Gross EIA injections / withdrawals by state (stor/sum SAI / SAW, area STX / SLA) are separate series: withdrawals on the supply side, injections on the demand side of the stacked charts. The old no-storage outflow is kept as the 'Implied net outflow before storage' columns (it carried the storage seasonality: higher in summer, lower in winter).",
+        f"Forecast (ASSUMPTION, not an EIA forecast): gross flows = calendar-month mean of the last 36 EIA months (Texas {T['st_info']['tx']['window']}, Louisiana {T['st_info']['la']['window']}), net annual storage change held at the last-3-year mean (Texas {T['st_info']['tx']['target']:+.3f}, Louisiana {T['st_info']['la']['target']:+.3f} Bcf/d; + = net injection), Louisiana override editable on Assumptions. No storage capacity additions assumed (no sourced project list was used).",
+        f"Key question: storage is NOT in the year-end increments. Net storage withdrawal in Dec of each forecast year is a seasonal pattern compared with one actual Dec 2025, so the difference only measures weather noise; it is shown as the memo column (Dec 2030: {kq[(kq['Scenario'] == 'Base') & (kq['Year-end'] == 'Dec 2030')]['Memo: change in net storage withdrawal, Dec vs Dec 2025 (not in the balance; seasonal pattern vs one actual month)'].iloc[0]:+.2f} Bcf/d). Annual net storage change is held at the last-3-year mean, so over a year the storage effect on the outflow is near zero; the outflow difference is seasonal.",
+        "'Storage memo' tab: month-end working gas (EIA, then projected from the net injection) per state, and EIA's annual working-gas capacity where the stor/cap route returned it (best-effort pull; blank if not).",
+        "", "LOUISIANA SENSITIVITY (illustrative, not a forecast)",
+        f"Projects in '{AL}' with no sourced date (Cameron Train 4, Woodside Louisiana Phase 2, Lake Charles LNG - suspended by Energy Transfer on 18 Dec 2025, Delfin vessels 2-3) are stacked as separate layers on top of the base-case Gulf demand: feedgas = EIA peak nameplate x 1.09 x ramp x the existing plants' seasonal index, from an editable ILLUSTRATIVE first-LNG month on '{SENS_SHEET}' (default {SENS_FIRST_DEFAULT} for all, just beyond the sourced trains; ASSUMPTION, NOT a forecast). Sabine Pass Stage 5 and the Plaquemines expansion have no sourced nameplate and are listed, not stacked. 'Key question' has Dec increments and cumulative extra-supply columns 'with sensitivity layers'. LNG is held flat after the last train; the horizon runs to Dec 2033 and basin supply after 2028 is the damped STEO extension.",
         "", "STATUS COUNTS",
         f"Assumptions tab ({len(adf)} items): {cnt_txt}.",
         "", "EDITING",
         "Yellow cells (Assumptions column Value where Editable = yes, and the train table) are read back from the committed workbook on every run; edit them and dispatch gulf_coast_balance.yml. Forecast values are computed by the script (no live Excel formulas).",
         "Beyond Dec 2027 supply is an extension of EIA STEO and beyond Dec 2028 it is a lighter-shaded scenario. Not an EIA or company forecast; a transparent scenario tool.",
     ]
-    sheets = {"Assumptions": adf.set_index("Item"), AL: tdf.set_index("Plant"), "LA existing plants": ex,
+    sdf_ = T["sens_tbl"]
+    sens_df = pd.DataFrame({"Project": sdf_["Project"], "EIA peak nameplate, Bcf/d LNG": sdf_["peak"],
+                            "Feedgas nameplate, Bcf/d (peak x 1.09)": sdf_["peak"] * RATIO,
+                            "Illustrative first-LNG month": sdf_["first"], "Ramp months": sdf_["ramp"],
+                            "Ramp-start utilisation": sdf_["rs"], "Steady utilisation": sdf_["st"],
+                            "Status of the date": "ASSUMPTION - illustrative scenario date, NOT a forecast",
+                            "Stacked on the charts": np.where(sdf_["stacked"], "yes", np.where(sdf_["in_base"], "no - now in the base forecast ('Assump - LA LNG' has a date)",
+                                                                                              "no - no sourced nameplate")),
+                            "Flag": sdf_["flag"], "Source of the nameplate / note": sdf_["note"]}).set_index("Project")
+    sheets = {"Assumptions": adf.set_index("Item"), AL: tdf.set_index("Plant"), SENS_SHEET: sens_df, "LA existing plants": ex,
               "Texas": tx_out, "Louisiana": la_out, "Combined": cb, "Key question": kq.set_index(["Scenario", "Year-end"]),
               "Key chart data": kchart, "Basin supply": pd.concat([steo.add_prefix("STEO (extended) "), bs], axis=1),
-              "Haynesville split": hs, "Haynesville sensitivity": sens, RAW: raw}
-    for n in ("Texas", "Louisiana", "Combined", "Basin supply"):
+              "Haynesville split": hs, "Haynesville sensitivity": sens, "Storage memo": storage_memo(tx, la, idx), RAW: raw}
+    for n in ("Texas", "Louisiana", "Combined", "Basin supply", "Storage memo"):
         sheets[n].index.name = "Month"
     kchart = kchart.rename(columns={"Permian (Texas share, takeaway-capped)": "Permian (Texas, capped)",
                                     "Haynesville (East Texas + Louisiana, STEO)": "Haynesville (STEO)",
                                     "Extra supply required (Haynesville above STEO or other regions)": "Extra supply required",
                                     "Incremental Gulf LNG feedgas": "Incremental Gulf LNG", "Incremental total Gulf demand (LNG + other)": "Incremental Gulf demand"})
     sheets["Key chart data"] = kchart
-    xlsx_notes.write_workbook(out, sheets, notes, {"UNITS", "WHAT IT ANSWERS", "TEXAS", "LOUISIANA", "SUPPLY", "KEY QUESTION", "STATUS COUNTS", "EDITING"})
+    xlsx_notes.write_workbook(out, sheets, notes, {"UNITS", "WHAT IT ANSWERS", "TEXAS", "LOUISIANA", "SUPPLY", "KEY QUESTION", "STORAGE", "LOUISIANA SENSITIVITY (illustrative, not a forecast)", "STATUS COUNTS", "EDITING"})
     wb = load_workbook(out)
     a = wb["Assumptions"]
     style_sheet(a, [70, 22, 9, 13, 9, 140])
@@ -667,13 +833,18 @@ def write(out, raw, idx, T, tx, la, cb, bs, steo, kq, kchart, kmeta, trains, pro
     a["H1"], a["H2"] = "Status counts", cnt_txt
     a["H1"].font = BOLD
     a.column_dimensions["H"].width = 60
+    ts_ = wb[SENS_SHEET]
+    style_sheet(ts_, [34, 14, 14, 14, 9, 12, 11, 40, 36, 60, 150])
+    for r in range(2, ts_.max_row + 1):
+        ts_.cell(r, 4).fill = FILL_IN
+        ts_.cell(r, 4).number_format = "mmm/yy"
     t = wb[AL]
     style_sheet(t, [34, 24, 14, 14, 13, 9, 12, 11, 14, 30, 150])
     for r in range(2, t.max_row + 1):
         for c in (3, 5, 6, 7, 8, 9):
             t.cell(r, c).fill = FILL_IN
         t.cell(r, 5).number_format = "mmm/yy"
-    for n, w in (("Texas", 14), ("Louisiana", 14), ("Combined", 14), ("Basin supply", 14), ("Key question", 18), ("Key chart data", 20)):
+    for n, w in (("Texas", 14), ("Louisiana", 14), ("Combined", 14), ("Basin supply", 14), ("Key question", 18), ("Key chart data", 20), ("Storage memo", 14)):
         ws = wb[n]
         ws.freeze_panes = "C2"
         for c in ws[1]:
@@ -681,7 +852,7 @@ def write(out, raw, idx, T, tx, la, cb, bs, steo, kq, kchart, kmeta, trains, pro
         ws.row_dimensions[1].height = 75
         for j in range(1, ws.max_column + 1):
             ws.column_dimensions[get_column_letter(j)].width = w
-        if n in ("Texas", "Louisiana", "Combined", "Basin supply", "Key chart data"):
+        if n in ("Texas", "Louisiana", "Combined", "Basin supply", "Key chart data", "Storage memo"):
             for r in range(2, ws.max_row + 1):
                 ws.cell(r, 1).number_format = "0" if n == "Key chart data" else "mmm/yy"
     wb["Key question"].column_dimensions["A"].width = 32

@@ -113,7 +113,7 @@ def _lighten(hex_colour, share=0.55):
 
 
 def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m", start_row=1, start_col=1,
-                width=28, height=13, gridlines=True, inner=None, forecast_from=None, scenario_from=None):
+                width=28, height=13, gridlines=True, inner=None, forecast_from=None, scenario_from=None, line_styles=None):
     """Native chart over a table written by write_table on sheet ws (the chart can be placed on any sheet)."""
     n = start_row + len(df)
     excel_fmt = "yyyy" if date_format == "%Y" else "mmm/yy"
@@ -199,9 +199,9 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
                                 min_row=start_row, max_row=n), titles_from_data=True)
         over.set_categories(cats)
         for j, s in enumerate(over.series):
-            # first overlay line solid, further ones dashed so they stay distinguishable
-            s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill="252525", w=28575,
-                                                                          prstDash="solid" if j == 0 else "dash"))
+            # overlay lines: solid, dashed, dotted (then repeat) so they stay distinguishable
+            colour, dash = ((line_styles or {}).get(str(df.columns[n_bars + j])) or ("252525", ("solid", "dash", "sysDot")[j % 3]))
+            s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=colour, w=28575, prstDash=dash))
             s.smooth = False
             s.marker.symbol = "none"
         over.y_axis.delete = True   # shares the bar chart's axis
@@ -224,7 +224,7 @@ def save_atomic(wb, path):
 
 
 def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", date_format="%Y-%m",
-                    width=28, height=13, line_cols=(), wb=None, forecast_from=None, scenario_from=None):
+                    width=28, height=13, line_cols=(), wb=None, forecast_from=None, scenario_from=None, line_styles=None):
     """line_cols: columns of df drawn as lines over the bars/areas, on the same axis (same units only).
     wb: an open workbook to add the sheet to (the caller saves it). openpyxl drops chart formatting (axis
     scaling, titles, number formats) of charts it reads back in, so several charts must be added to one
@@ -240,7 +240,7 @@ def add_chart_sheet(path, df, title, y_title, kind="line", sheet_name="Chart", d
     ws = wb.create_sheet(sheet_name, 1 if len(wb.sheetnames) > 1 else None)
     write_table(ws, df, date_format)
     chart = build_chart(ws, df, n_bars, title, y_title, kind, date_format, width=width, height=height,
-                        forecast_from=forecast_from, scenario_from=scenario_from)
+                        forecast_from=forecast_from, scenario_from=scenario_from, line_styles=line_styles)
     ws.add_chart(chart, f"{chr(ord('A') + min(df.shape[1] + 2, 20))}2")
     if own:
         save_atomic(wb, path)
