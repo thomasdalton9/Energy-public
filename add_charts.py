@@ -1377,6 +1377,12 @@ def texas_demand_regression(p):
         rows = {ts: int(r) for ts, r in bv["Row on 'Load breakout'"].items()}
         sb["live"] = {"sheet": tr.BO, "rows": rows, "cols": dict(zip(tr.SPEC_NAMES, tr.COL_TR))}
         out.append(sb)
+    qb = _sheet(p, "Queue by type values", "Snapshot")
+    if not qb.empty:
+        # ERCOT large-load QUEUE by type (requests under study, NOT load, NOT observed): separate chart, never stacked with the observed series
+        qb = qb.dropna(how="all")
+        out.append(spec("Queue by type", qb, "ERCOT large-load QUEUE by type, GW: requests at every status, NOT load (ERCOT TAC decks 25 Feb and 13 Mar 2026, slide 12)",
+                        "GW", "stacked_bar", "%b/%y"))
     return out
 
 
@@ -1450,6 +1456,67 @@ def texas_production_forecast(p):
     cap = cap[cap.index >= "2025-01-01"]
     out.append(spec("Permian cap", cap, "Permian: STEO marketed production against takeaway capacity plus local demand (takeaway table unverified)",
                     "Bcf/d", "line", "%b/%y"))
+    return out
+
+
+def gulf_coast_balance(p):
+    """Gulf Coast gas balance (americas/GULF_COAST_BALANCE.py): Texas, Louisiana and combined supply vs demand incl. LNG, and the
+    key-question chart (basin supply growth vs incremental Gulf LNG demand). Bcf/d, mmm/yy; forecast lighter, 2029-30 lightest."""
+    out = []
+    try:
+        t = read(p, "Assump - LA LNG")
+        dated = t[pd.to_datetime(t["First-LNG month"], errors="coerce").notna()]
+        n_tr, n_src = len(dated), int(dated["Date status"].astype(str).str.upper().str.startswith("SOURCED").sum())
+        flag = f"Louisiana LNG start dates: {n_src} of {n_tr} trains sourced (EIA 2026 Q2, month assumed); {len(t) - n_tr} pre-FID projects not forecast"
+    except Exception:  # noqa: BLE001
+        flag = "Louisiana LNG start dates: see 'Assump - LA LNG'"
+    ext = "STEO to Dec/27, extension to Dec/28, 2029-30 scenario (lightest)"
+
+    def put(name, st, title, lines, d):
+        s_ = spec(name, st, title, "Bcf/d", "stacked_bar", "%b/%y", line_cols=tuple(lines))
+        s_["forecast_from"] = d.index[d["Type"].ne("Actual")].min()
+        s_["scenario_from"] = d.index[d["Type"].eq("Scenario")].min() if d["Type"].eq("Scenario").any() else None
+        out.append(s_)
+
+    cb = _sheet(p, "Combined", "Month")
+    if not cb.empty:
+        st = cb[["Electric power", "Industrial", "Residential, commercial, vehicle fuel", "Pipeline exports to Mexico (Texas)",
+                 "Data centres (Texas, BASE added burn)", "LNG feedgas, Texas (base)", "LNG feedgas, Louisiana (base)"]].copy()
+        st.columns = ["Electric power", "Industrial", "Res., comm., vehicle", "Mexico pipeline (Texas)", "Data centres (Texas)", "LNG, Texas", "LNG, Louisiana"]
+        st["Dry production"] = cb["Dry production, base"]
+        la_ = cb.index[cb["Type"].eq("Actual")].max()
+        st["Dry prod., takeaway delayed"] = cb["Dry production, takeaway delayed"].where(cb["Type"].ne("Actual"))
+        st.loc[la_, "Dry prod., takeaway delayed"] = cb.loc[la_, "Dry production, base"]
+        st["Demand, LNG delayed"] = cb["Demand incl. LNG, LNG delayed"].where(cb["Type"].ne("Actual"))
+        st.loc[la_, "Demand, LNG delayed"] = cb.loc[la_, "Demand incl. LNG, base"]
+        put("Combined Gulf", st, f"Gulf Coast (Texas + Louisiana) gas supply vs demand incl. LNG; gap = implied net outflow\n{ext}\n{flag}",
+            ("Dry production", "Dry prod., takeaway delayed", "Demand, LNG delayed"), cb)
+    tx = _sheet(p, "Texas", "Month")
+    if not tx.empty:
+        st = tx[["Electric power", "Industrial", "Residential, commercial, vehicle fuel", "Pipeline exports to Mexico", "Data centres (BASE added gas burn)",
+                 "LNG feedgas (base)"]].copy()
+        st.columns = ["Electric power", "Industrial", "Res., comm., vehicle", "Mexico pipeline", "Data centres", "LNG feedgas"]
+        st["Dry production"] = tx["Dry production, base"]
+        la_ = tx.index[tx["Type"].eq("Actual")].max()
+        st["Dry prod., takeaway delayed"] = tx["Dry production, takeaway delayed"].where(tx["Type"].ne("Actual"))
+        st.loc[la_, "Dry prod., takeaway delayed"] = tx.loc[la_, "Dry production, base"]
+        put("Texas", st, f"Texas gas supply vs demand incl. LNG (Texas workbooks, read only)\n{ext}", ("Dry production", "Dry prod., takeaway delayed"), tx)
+    la = _sheet(p, "Louisiana", "Month")
+    if not la.empty:
+        st = la[["Electric power", "Industrial", "Residential, commercial, vehicle fuel", "LNG feedgas (base)"]].copy()
+        st.columns = ["Electric power", "Industrial", "Res., comm., vehicle", "LNG feedgas"]
+        st["Dry production"] = la["Dry production"]
+        la_ = la.index[la["Type"].eq("Actual")].max()
+        st["Demand, LNG delayed"] = la["Demand incl. LNG, LNG delayed"].where(la["Type"].ne("Actual"))
+        st.loc[la_, "Demand, LNG delayed"] = la.loc[la_, "Demand incl. LNG, base"]
+        put("Louisiana", st, f"Louisiana gas supply vs demand incl. LNG (EIA; production = STEO Haynesville share; consumption seasonal trend)\n{ext}\n{flag}",
+            ("Dry production", "Demand, LNG delayed"), la)
+    kc = _sheet(p, "Key chart data", "Year")
+    if not kc.empty:
+        s_ = spec("Supply growth vs LNG demand", kc, "Supply growth by basin vs growth in Gulf demand since Dec 2025 (base, Dec of each year)\n"
+                  "Stack = basin supply growth + extra supply needed to hold the outflow; 2028+ basin supply is a STEO extension\n" + flag,
+                  "Bcf/d", "stacked_bar", "%Y", line_cols=("Incremental Gulf LNG", "Incremental Gulf demand"))
+        out.append(s_)
     return out
 
 
@@ -2565,6 +2632,7 @@ REGISTRY = {
     "texas_gas_monthly.xlsx": texas_gas,
     "texas_production_forecast.xlsx": texas_production_forecast,
     "texas_demand_regression.xlsx": texas_demand_regression,
+    "gulf_coast_gas_balance.xlsx": gulf_coast_balance,
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,

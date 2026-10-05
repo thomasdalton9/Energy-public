@@ -52,6 +52,7 @@ DATASETS = [
     ("US", "United States", "texas_gas_monthly.xlsx", ("Consumption by sector", "Exports", "Mexico by crossing", "Balance", "Forecast values"),
      "Texas gas"),
     ("US", "United States", "texas_production_forecast.xlsx", ("Supply and demand", "Demand to 2033"), "Texas supply and demand"),
+    ("US", "United States", "gulf_coast_gas_balance.xlsx", ("Texas", "Louisiana", "Combined"), "Gulf Coast balance"),
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
@@ -81,7 +82,8 @@ CAPACITY_DATASETS = [
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
-DASHBOARD_ONLY = {"texas_production_forecast.xlsx": {"Supply and demand", "Net outflow", "Demand to 2033", "Outflow to 2033"},
+DASHBOARD_ONLY = {"gulf_coast_gas_balance.xlsx": {"Combined Gulf", "Supply growth vs LNG demand"},
+                  "texas_production_forecast.xlsx": {"Supply and demand", "Net outflow", "Demand to 2033", "Outflow to 2033"},
                   "us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
                   "miso_gas_burn_daily.xlsx": {"MISO gas burn"},
@@ -201,6 +203,12 @@ SOURCES = {
                                        "(company-announced pipelines, unverified), less NGL extraction loss; outflow = production - demand (own calculation). "
                                        "To Dec 2033 (scenario after Dec 2028, lightest bars): data centres = IEA 'Energy and AI' (Apr 2025) US data-centre electricity (183 TWh 2024, 426 TWh 2030 Base Case; LOW / HIGH = IEA Headwinds / Lift-Off world ratios; years between interpolated) x a Texas share of US growth derived from ERCOT's own data-centre forecast (CDR Dec 2025, 22.2 GW for summer 2030) and the IEA US capacity addition, converted to gas at the calibrated ERCOT heat rate, the IEA US load factor and ERCOT's observed gas share of generation (EIA-930, a proxy for the marginal share); each input is labelled SOURCED / DERIVED / PROXY / ASSUMPTION on the 'Assump - Data centres' tab (cross-checks: LBNL 2024 report, EIA AEO2026, ERCOT large-load queue); LNG train table held at steady utilisation; production extension damped and capped by takeaway (own assumptions, not STEO)",
                                        "https://www.eia.gov/outlooks/steo/data/browser/#/?v=6&f=M&s=0&start=202401&end=202812&id=&linechart=NGMPPM"),
+    "gulf_coast_gas_balance.xlsx": ("Gulf Coast (Texas + Louisiana) gas balance: EIA Natural Gas Monthly via API v2 (Louisiana consumption, production, LNG exports of Sabine Pass, "
+                                    "Cameron, Calcasieu Pass and Plaquemines; feedgas = exports x 1.09), the Texas workbooks (texas_gas_monthly, texas_production_forecast), EIA STEO "
+                                    "Permian / Eagle Ford / Haynesville marketed production (extension after Dec 2027, 2029-30 scenario), Permian takeaway table (unverified) and the "
+                                    "EIA U.S. liquefaction capacity file 2026 Q2 for new Louisiana LNG trains (year/half-year sourced, month assumed; pre-FID projects not forecast); "
+                                    "outflow and extra-supply figures are own calculations",
+                                    "https://www.eia.gov/naturalgas/importsexports/liquefactioncapacity/U.S.liquefactioncapacity_2026_Q2.xlsx"),
     "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
     "lng_feedgas_daily.xlsx": ("Interstate pipeline operators' scheduled quantities at each LNG plant (Kinder Morgan, "
                                "Enbridge, Williams, Energy Transfer, Cheniere, ...); EIA monthly LNG exports before "
