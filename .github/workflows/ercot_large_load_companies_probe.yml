@@ -1,0 +1,14 @@
+name: ERCOT large load companies probe
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: timeout 2200 python3 discovery_archive/ERCOT_LARGE_LOAD_COMPANIES_PROBE.py
