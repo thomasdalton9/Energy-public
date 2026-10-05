@@ -195,7 +195,7 @@ def romania(d0, d1):
 ENAGAS_PAGE = "https://www.enagas.es/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/"
 MONTHS = {"jan": 1, "ene": 1, "feb": 2, "mar": 3, "apr": 4, "abr": 4, "may": 5, "jun": 6, "jul": 7, "aug": 8, "ago": 8, "sep": 9,
           "oct": 10, "nov": 11, "dec": 12, "dic": 12}
-ES_MONTHLY_COLS = ["ES_national", "ES_conventional", "ES_power", "source_file"]
+ES_MONTHLY_COLS = ["ES_national", "ES_conventional", "ES_power", "source_file", "ES_lng_trucks"]
 
 
 def _gwh(tok):
@@ -241,6 +241,43 @@ def parse_enagas_bulletin(content):
     return None
 
 
+def parse_enagas_trucks(content):
+    """LNG truck loadings (GWh in the bulletin month, all regasification plants) from section 5 'Regasification plants activity' (the Total row; its last two
+    figures are the trucks columns for the same month a year earlier and the bulletin month, in the order the header lists the months). Enagas's national
+    demand (conventional market) includes these trucks, which are LNG that never passes the send-out into the grid. NaN when the table is not found."""
+    import pdfplumber
+    with pdfplumber.open(io.BytesIO(content)) as pdf:
+        text = "\n".join((pg.extract_text() or "") for pg in pdf.pages[:30])
+    lines = text.split("\n")
+    k = next((n for n, ln in enumerate(lines) if re.match(r"\s*BARCELONA\s+[\d.,]+\s+[\d.,]+", ln)), None)
+    if k is None:
+        return float("nan")
+    hdr = next((ln for ln in reversed(lines[max(0, k - 4):k]) if re.search(r"[A-Za-z]{3}-\d{2,4}\s+[A-Za-z]{3}-\d{2,4}", ln)), "")
+    mm = re.findall(r"([A-Za-z]{3})-(\d{2,4})", hdr)
+    cur_first = len(mm) >= 2 and int(mm[0][1]) % 100 > int(mm[1][1]) % 100
+    for ln in lines[k:k + 12]:
+        if re.match(r"\s*Total\s+[\d.,]+\s+[\d.,]+", ln):
+            toks = [x for x in ln.split() if x != "Total" and not x.endswith("%") and re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*|\d+", x)]
+            if len(toks) >= 8:
+                a, b = _gwh(toks[6]), _gwh(toks[7])
+                return a if cur_first else b
+    return float("nan")
+    seg = text[i:].split("\n")
+    hdr = next((ln for ln in seg if re.search(r"[A-Za-z]{3}-\d{2,4}\s+[A-Za-z]{3}-\d{2,4}", ln)), "")
+    mm = re.findall(r"([A-Za-z]{3})-(\d{2,4})", hdr)
+    cur_first = False
+    if len(mm) >= 2:
+        y = [int(b) % 100 for _, b in mm[:2]]
+        cur_first = y[0] > y[1]
+    for ln in seg:
+        if re.match(r"\s*Total\s+[\d.,]+\s+[\d.,]+", ln):
+            toks = [x for x in ln.split() if x != "Total" and not x.endswith("%") and re.fullmatch(r"\d{1,3}(?:[.,]\d{3})*|\d+", x)]
+            if len(toks) >= 8:
+                a, b = _gwh(toks[6]), _gwh(toks[7])
+                return a if cur_first else b
+    return float("nan")
+
+
 def spain_monthly(start, old):
     """Monthly national gas demand 2021-22 (and later, for checking against the daily JSON) from the Enagas bulletin archive. The
     Enagas demand-history JSON used by TSO_GAS_DEMAND_DAILY.py is empty before 2023; the monthly bulletins (PDF) go back to 2018.
@@ -260,7 +297,7 @@ def spain_monthly(start, old):
             for x in re.findall(r'href="(/content/dam[^"]+\.pdf)"', r.text):
                 files.setdefault(x, (y, m))
     print(f"  Enagas bulletins listed: {len(files)}", flush=True)
-    known = set(old["source_file"].dropna()) if "source_file" in old else set()
+    known = set(old["source_file"][old["ES_lng_trucks"].notna()].dropna()) if ("source_file" in old and "ES_lng_trucks" in old) else set()   # bulletins parsed with their truck figure
     newest = {f for f, _ in sorted(files.items(), key=lambda kv: kv[1])[-3:]}
     rows = {}
     for f, ym in sorted(files.items(), key=lambda kv: kv[1]):
@@ -268,7 +305,9 @@ def spain_monthly(start, old):
         if name in known and f not in newest:
             continue
         try:
-            res = parse_enagas_bulletin(get("https://www.enagas.es" + f, headers=h).content)
+            content = get("https://www.enagas.es" + f, headers=h).content
+            res = parse_enagas_bulletin(content)
+            trucks = parse_enagas_trucks(content)
         except Exception as e:  # noqa: BLE001
             print(f"  {name}: {type(e).__name__} {str(e)[:80]}", flush=True)
             continue
@@ -278,7 +317,7 @@ def spain_monthly(start, old):
         month, nat, conv, pw = res
         if month < pd.Timestamp(start):
             continue
-        rows[month] = {"ES_national": nat, "ES_conventional": conv, "ES_power": pw, "source_file": name}
+        rows[month] = {"ES_national": nat, "ES_conventional": conv, "ES_power": pw, "source_file": name, "ES_lng_trucks": trucks}
     return pd.DataFrame.from_dict(rows, orient="index", columns=ES_MONTHLY_COLS).sort_index() if rows else pd.DataFrame(columns=ES_MONTHLY_COLS)
 
 
