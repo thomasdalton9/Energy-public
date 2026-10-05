@@ -1433,13 +1433,14 @@ def texas_production_forecast(p):
         st["Total, HIGH data-centre case"] = v33["Total demand incl. data centres, HIGH"]
         fc0 = v33.index[v33["Type"].ne("Actual")].min()
         sc0 = v33.index[v33["Type"].eq("Scenario")].min()
-        s3 = spec("Demand to 2033", st, "Texas gas demand to 2033: sectors + LNG feedgas + data centres (scenario after Dec/28)", "Bcf/d",
+        dci = str(v33["Data-centre inputs"].dropna().iloc[0]) if "Data-centre inputs" in v33 and v33["Data-centre inputs"].notna().any() else "input status: see the 'Assump - Data centres' tab"
+        s3 = spec("Demand to 2033", st, f"Texas gas demand to 2033: sectors + LNG feedgas + data centres (scenario after Dec/28)\nData-centre inputs: {dci}", "Bcf/d",
                   "stacked_bar", "%b/%y", line_cols=(tl, "Total, LOW data-centre case", "Total, HIGH data-centre case"))
         s3.update({"forecast_from": fc0, "scenario_from": sc0})
         out.insert(1, s3)
         og = pd.DataFrame({"LOW data-centre case": v33["Implied net outflow, LOW"], "BASE data-centre case": v33["Implied net outflow, BASE"],
                            "HIGH data-centre case": v33["Implied net outflow, HIGH"]})
-        o3 = spec("Outflow to 2033", og, "Implied net outflow to other states to 2033 (scenario after Dec/28)",
+        o3 = spec("Outflow to 2033", og, f"Implied net outflow to other states to 2033 (scenario after Dec/28)\nData-centre inputs: {dci}",
                   "Bcf/d", "line", "%b/%y")
         o3.update({"forecast_from": fc0, "scenario_from": sc0})
         out.insert(2, o3)
