@@ -1095,7 +1095,7 @@ GWH_PER_BCF = GWH_PER_MCM * MCM_PER_BCF
 
 
 def gas_summary_table(eu):
-    """EU27 gas balance in Bcf/d: latest complete month, the month before, the same month a year earlier, with month-on-month and year-on-year changes."""
+    """EU27 gas balance in Bcf/d: latest complete month, the month before, the same month a year earlier, with month-on-month and year-on-year changes (absolute, no percentages)."""
     d = eu.copy()
     g = lambda c: d[c] if c in d else pd.Series(0.0, index=d.index)
     prod = g("Production") + g("Biomethane")
@@ -1116,11 +1116,9 @@ def gas_summary_table(eu):
     if prev in bcfd.index:
         out[f"{prev:%b %Y}"] = bcfd.loc[prev]
         out["MoM change"] = bcfd.loc[last] - bcfd.loc[prev]
-        out["MoM %"] = (bcfd.loc[last] / bcfd.loc[prev] - 1) * 100
     if yago in bcfd.index:
         out[f"{yago:%b %Y}"] = bcfd.loc[yago]
         out["YoY change"] = bcfd.loc[last] - bcfd.loc[yago]
-        out["YoY %"] = (bcfd.loc[last] / bcfd.loc[yago] - 1) * 100
     return out, bcfd
 
 
@@ -1135,7 +1133,7 @@ def add_gas_summary_sheet(wb, used, eu):
     for c in ws[4]:
         c.font = Font(bold=True)
     for name, r in out.iterrows():
-        ws.append([name] + [None if pd.isna(v) else round(float(v), 2 if "%" not in c else 1) for c, v in r.items()])
+        ws.append([name] + [None if pd.isna(v) else round(float(v), 2) for c, v in r.items()])
     ws.append([])
     ws.append([f"Conversion: {GWH_PER_MCM} GWh per million m3 (Gassco's factor) and {MCM_PER_BCF} million m3 per Bcf, i.e. {GWH_PER_BCF:.1f} GWh per Bcf; "
                "energy balances are converted at one fixed factor, so Bcf/d figures move about 5% if a gross calorific value of 10.6 rather than 11.2 kWh/m3 is used."])

@@ -127,7 +127,7 @@ def gas_summary(xl, path):
     fig, ax = plt.subplots(figsize=(11.5, 3.6))
     ax.axis("off")
     cols = list(out.columns)
-    cell = [[f"{v:+.2f}" if c.endswith("change") else (f"{v:+.1f}%" if "%" in c else f"{v:.2f}") if pd.notna(v) else "" for c, v in r.items()] for _, r in out.iterrows()]
+    cell = [[(f"{v:+.2f}" if c.endswith("change") else f"{v:.2f}") if pd.notna(v) else "" for c, v in r.items()] for _, r in out.iterrows()]
     t = ax.table(cellText=cell, rowLabels=list(out.index), colLabels=cols, loc="center", cellLoc="right")
     t.auto_set_font_size(False)
     t.set_fontsize(10)
