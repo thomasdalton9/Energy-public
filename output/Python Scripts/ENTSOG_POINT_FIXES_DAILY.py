@@ -15,6 +15,9 @@ ENTSOG points that the main country-balance pull (ENTSOG_GAS_FLOWS_DAILY.py) cla
                               (OPAL Gastransport; also reported as Greifswald / LBTG). ENTSOG lists no far side for these points, so the main pull
                               finds no adjacent system and drops them: 620 TWh in 2021 and 314 TWh in 2022 of Russian gas, which left Germany's
                               (and the Germany + Netherlands) balance about 100 TWh a quarter short until Nord Stream stopped in Sept 2022.
+        DE_at_ueberackern     German exits to Austria that ENTSOG_GAS_FLOWS_DAILY's border rule drops: Ueberackern ABG (and the small Ueberackern SUDAL) and RC Lindau.
+        DE_at_ueberackern2    The rule takes the larger of the VIP sum (VIP Oberkappel, VIP Kiefersfelden-Pfronten) and the physical-point sum, but here
+        DE_at_lindau          the VIP does not contain Ueberackern (24 TWh in 2025), so Germany's exports to Austria came out 73 TWh against Austria's 94.
         DE_emden_oge          Emden (EPT1) entries of OGE, GUD and GTS (Norwegian gas; Thyssengas reports the same flow as GUD and is left out).
         DE_emden_gud          Kept as a check on the Gassco-based Emden estimate in EUROPE_MASTER.emden_gap; not used by the master.
         NL_emden_gts
@@ -49,7 +52,10 @@ POINTS = {"GR_tap_imports": ("GR-TSO-0001", "ITP-00427", "entry"),
           "DE_greifswald_opal": ("DE-TSO-0016", "ITP-00251", "entry"),
           "DE_emden_oge": ("DE-TSO-0009", "ITP-00080", "entry"),
           "DE_emden_gud": ("DE-TSO-0005", "ITP-00081", "entry"),
-          "NL_emden_gts": ("NL-TSO-0001", "ITP-00160", "entry")}
+          "NL_emden_gts": ("NL-TSO-0001", "ITP-00160", "entry"),
+          "DE_at_ueberackern": ("DE-TSO-0010", "ITP-00019", "exit"),
+          "DE_at_ueberackern2": ("DE-TSO-0010", "ITP-00007", "exit"),
+          "DE_at_lindau": ("DE-TSO-0014", "ITP-00227", "exit")}
 RELOAD_DAYS = 45
 
 
@@ -120,7 +126,8 @@ def main():
              "", "Units and definitions",
              "GWh per gas day. GR_tap_imports = Nea Mesimvria entry (TAP gas into Greece); HU_production_exit = Exit for Blending (HU), to be "
              "subtracted from the Aggregated Single Production entry; UK_moffat_exit = Moffat exit from the GB NTS to Ireland (ROI + Northern Ireland + Isle of Man); "
-             "DE_greifswald_nel / DE_greifswald_opal = Nord Stream 1 gas entering Germany at Greifswald into the NEL and OPAL pipelines (Russian origin).",
+             "DE_greifswald_nel / DE_greifswald_opal = Nord Stream 1 gas entering Germany at Greifswald into the NEL and OPAL pipelines (Russian origin); "
+             "DE_at_ueberackern / DE_at_ueberackern2 / DE_at_lindau = German exit flows to Austria (Ueberackern, Lindau) that the border rule leaves out because VIP Oberkappel does not contain them.",
              f"Re-fetches the last {RELOAD_DAYS} days each run; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(comb)} days, {comb.index.min():%Y-%m-%d} to {comb.index.max():%Y-%m-%d}"]
     xlsx_notes.write_workbook(path, {"Daily": comb}, lines, {"Source", "Units and definitions", "Last pull"})
