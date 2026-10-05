@@ -28,27 +28,40 @@ def agsi(params):
         page += 1; time.sleep(0.3)
 
 
-r = agsi({"country": "AT", "from": "2025-02-01", "to": "2025-02-01"})
-for d in r:
-    for c in d.get("children", []) or []:
-        print("child", c.get("name"), c.get("eic"), c.get("gasInStorage"), c.get("workingGasVolume"), c.get("url"), flush=True)
-        for f in c.get("children", []) or []:
-            print("   facility", f.get("name"), f.get("eic"), f.get("gasInStorage"), f.get("workingGasVolume"), flush=True)
-if r:
-    print({k: v for k, v in r[0].items() if k != "children"})
-# company-level history for every child
-kids = [(c.get("name"), c.get("eic"), c.get("url")) for d in r for c in d.get("children", []) or []]
-for name, eic, url in kids:
-    rows = agsi({"country": "AT", "company": eic, "from": "2022-09-30", "to": date.today().isoformat()})
+lst = requests.get("https://agsi.gie.eu/api/about", params={"show": "listing"}, headers=H, timeout=120)
+print("listing", lst.status_code, len(lst.content), flush=True)
+kids = []
+try:
+    j = lst.json()
+    at = j.get("Europe", j).get("AT", {}) if isinstance(j, dict) else {}
+    if not at:
+        for k, v in j.items():
+            if isinstance(v, dict) and "AT" in v:
+                at = v["AT"]
+    print("AT listing keys:", list(at.keys()) if isinstance(at, dict) else type(at), flush=True)
+    for comp in (at.values() if isinstance(at, dict) else at):
+        if not isinstance(comp, dict):
+            continue
+        print("company", comp.get("name"), comp.get("eic"), flush=True)
+        for fac in comp.get("facilities", []) or []:
+            print("   facility", fac.get("name"), fac.get("eic"), flush=True)
+            kids.append(("fac", fac.get("name"), fac.get("eic"), comp.get("eic")))
+        kids.append(("co", comp.get("name"), comp.get("eic"), None))
+except Exception as e:
+    print("listing parse failed", type(e).__name__, e, lst.text[:300], flush=True)
+for kind, name, eic, coeic in kids:
+    params = {"country": "AT", "from": "2022-09-30", "to": date.today().isoformat()}
+    params["company" if kind == "co" else "facility"] = eic
+    if kind == "fac":
+        params["company"] = coeic
+    rows = agsi(params)
     if not rows:
-        rows = agsi({"company": eic, "from": "2022-09-30", "to": date.today().isoformat()})
-    if not rows:
-        print("no rows for", name, eic); continue
+        print("no rows for", kind, name, eic, flush=True); continue
     df = pd.DataFrame(rows)
     df["gasDayStart"] = pd.to_datetime(df["gasDayStart"])
     s = pd.to_numeric(df.set_index("gasDayStart")["gasInStorage"], errors="coerce").sort_index()
     m = s.resample("MS").last()
-    ch = (m.diff()).round(2)   # TWh (stock change over the month; first month unknown)
-    print(f"STOCKCHANGE {name} {eic} monthly TWh from {m.index[1].date()}: " + ",".join(f"{x:.1f}" for x in ch.iloc[1:].values), flush=True)
+    ch = m.diff().round(2)
+    print(f"STOCKCHANGE {kind} {name} {eic} monthly TWh from {m.index[1].date()}: " + ",".join(f"{x:.1f}" for x in ch.iloc[1:].values), flush=True)
     print(f"STOCK {name}: " + ",".join(f"{x:.1f}" for x in m.values), flush=True)
 sys.exit(0)
