@@ -48,7 +48,8 @@ def _colour(name, i):
 
 
 def series_chart(spec, path):
-    df = xlsx_charts._fold_to_palette(spec["df"].dropna(how="all").apply(pd.to_numeric, errors="coerce"))
+    df = spec["df"].dropna(how="all").apply(pd.to_numeric, errors="coerce")
+    df = xlsx_charts.prepare(df, spec.get("line_cols", ()) if spec["kind"] != "line" else ())[0]   # fold only the bars, not the lines
     if df.empty:
         return False
     fig, ax = plt.subplots(figsize=(10, 5))

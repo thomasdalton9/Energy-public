@@ -1,7 +1,8 @@
 name: Texas production forecast
 
 # Texas marketed gas production forecast to Dec 2028 (EIA STEO regions, Permian takeaway cap, base and delayed).
-# Reads texas_gas_monthly.xlsx (read only); see americas/TEXAS_PRODUCTION_FORECAST.py.
+# Reads texas_gas_monthly.xlsx (read only; its LNG/consumption forecast feeds the 'Supply and demand' tab, so this runs after texas_gas.yml:
+# 16:20 UTC vs 17:40 UTC); see americas/TEXAS_PRODUCTION_FORECAST.py and americas/TEXAS_SUPPLY_DEMAND.py.
 on:
   schedule:
     - cron: "40 17 1,15 * *"
@@ -35,7 +36,7 @@ jobs:
           f="output/Data and Chart Outputs/texas_production_forecast.xlsx"
           [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for texas_production_forecast.xlsx"
           mkdir -p "output/Python Scripts"
-          cp americas/TEXAS_PRODUCTION_FORECAST.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp americas/TEXAS_PRODUCTION_FORECAST.py americas/TEXAS_SUPPLY_DEMAND.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()

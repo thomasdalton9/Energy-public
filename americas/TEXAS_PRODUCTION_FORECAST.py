@@ -14,9 +14,9 @@ runs in GitHub Actions (.github/workflows/texas_production_forecast.yml, 1st and
                 2028 is beyond STEO: each month = same month of 2027 x (STEO 2027 / 2026 annual average) per region.
   Takeaway cap  Permian production = min(STEO Permian, existing takeaway + new pipelines in service + local demand),
                 from the editable 'Takeaway' table. 'Delayed' shifts every new pipeline's in-service month by DELAY_MONTHS.
-  Net outflow   production - Texas consumption (published sectors) - Mexico pipeline exports - LNG exports. For forecast
-                months consumption = same month a year earlier, Mexico = last 12 months mean, LNG = column 'LNG exports
-                (INPUT)' = last-12-month mean held flat; the LNG forecast can overwrite that column.
+  Net outflow   DRY production (marketed x (1 - extraction-loss share)) - demand incl. LNG (consumption sectors, Mexico pipeline,
+                LNG feedgas), all read from texas_gas_monthly.xlsx 'Forecast values' for forecast months: base production with base
+                LNG, takeaway-delayed production with LNG-delayed feedgas. See TEXAS_SUPPLY_DEMAND.py ('Supply and demand' tab).
   Edits         The Assumptions and Takeaway tabs of the committed workbook are read back on every run, so edit them in the
                 workbook (or in the repo file) and the next run (or a manual dispatch) recomputes the forecast.
   Fallback      If STEO cannot be fetched, the last STEO copy saved on the 'STEO raw' tab is used; if there is none,
@@ -35,6 +35,8 @@ import requests
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 import xlsx_notes  # noqa: E402
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import TEXAS_SUPPLY_DEMAND as sd  # noqa: E402
 
 OUT_DIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 DEFAULT_OUT = os.path.join(OUT_DIR, "texas_production_forecast.xlsx")
@@ -181,37 +183,36 @@ def run(out):
             df[f"Texas production forecast, {sc}"] = full.where(df.index > last)
         other = float("nan")
 
-    # --- implied net interstate outflow
-    cons = bal["Consumption (published sectors)"].reindex(idx)
-    mex = bal["Pipeline exports to Mexico"].reindex(idx)
-    lng = bal["LNG exports"].reindex(idx)
-    mex_flat, lng_flat = mex.dropna().iloc[-12:].mean(), lng.dropna().iloc[-12:].mean()
-    cons_f, mex_f, lng_f = cons.copy(), mex.copy(), lng.copy()
-    for m in idx:
-        if m > last:
-            cons_f[m] = cons_f[m - pd.DateOffset(years=1)]
-            mex_f[m] = mex_flat
-            lng_f[m] = lng_flat
-    df["Texas consumption, published sectors (forecast = same month prior year)"] = cons_f
-    df["Pipeline exports to Mexico (forecast = last-12-month mean)"] = mex_f
-    df["LNG exports (INPUT: forecast = last-12-month mean held flat; replace with the LNG forecast)"] = lng_f
-    lng_col = "LNG exports (INPUT: forecast = last-12-month mean held flat; replace with the LNG forecast)"
-    for sc in ("base", "delayed"):
-        prod = df["Texas marketed production (history)"].fillna(df[f"Texas production forecast, {sc}"])
-        df[f"Implied net interstate outflow, {sc}"] = (prod - df["Texas consumption, published sectors (forecast = same month prior year)"]
-                                                        - df["Pipeline exports to Mexico (forecast = last-12-month mean)"] - df[lng_col])
+    # --- implied net interstate outflow (dry production - demand incl. LNG; see TEXAS_SUPPLY_DEMAND.py)
+    # Consumption, Mexico and LNG feedgas (base and delayed) come from the 'Forecast values' tab of texas_gas_monthly.xlsx; where it
+    # is missing the old rule applies (consumption = same month prior year, Mexico = last-12-month mean, LNG flat).
+    ratio = 1 - (bal["Dry production"] / bal["Marketed production"]).dropna().iloc[-12:].mean()
+    fv = sd.load_gas(TEXAS_XLSX)
+    mkt_b, mkt_d = df["Texas production forecast, base"], df["Texas production forecast, delayed"]
+    sdf = sd.build(idx, bal["Dry production"].where(bal.index <= last), mkt_b, mkt_d, ratio, fv)
+    sd_lines = sd.checks(sdf, last)
+    for c in ("Dry production, base", "Dry production, takeaway delayed", "Demand incl. LNG, base", "Demand incl. LNG, LNG delayed",
+              "LNG feedgas (base)", "LNG feedgas (delayed)"):
+        df[c] = sdf[c].reindex(idx)
+    df["Texas consumption, published sectors (history EIA; forecast = TEXAS_GAS_FORECAST)"] = sdf[sd.SECT].sum(axis=1).reindex(idx)
+    df["Pipeline exports to Mexico (history EIA; forecast = TEXAS_GAS_FORECAST)"] = sdf["Pipeline exports to Mexico"].reindex(idx)
+    df["Implied net interstate outflow, base"] = sdf["Implied net outflow, base"].reindex(idx)
+    df["Implied net interstate outflow, delayed"] = sdf["Implied net outflow, delayed (production and LNG both delayed)"].reindex(idx)
     df.index.name = "Month"
 
     # --- workbook
     assum = pd.DataFrame([(a, params[a], u, n) for a, _, u, n in DEFAULT_PARAMS], columns=["Assumption", "Value", "Unit", "Note"])
     loss = bal["Dry production"].dropna()
-    ratio = 1 - (bal["Dry production"] / bal["Marketed production"]).dropna().iloc[-12:].mean()
     steo_raw = (steo.reset_index().rename(columns={"index": "Month"}) if steo is not None else pd.DataFrame(columns=["Month"]))
     summary = []
     for y in (2026, 2027, 2028):
         d = df[df.index == f"{y}-12-01"]
         summary.append({"Month": f"Dec {y}", "Base Bcf/d": d["Texas production forecast, base"].iloc[0],
                         "Delayed Bcf/d": d["Texas production forecast, delayed"].iloc[0],
+                        "Dry production base Bcf/d": d["Dry production, base"].iloc[0],
+                        "Dry production delayed Bcf/d": d["Dry production, takeaway delayed"].iloc[0],
+                        "Demand incl. LNG base Bcf/d": d["Demand incl. LNG, base"].iloc[0],
+                        "Demand incl. LNG delayed Bcf/d": d["Demand incl. LNG, LNG delayed"].iloc[0],
                         "Base net outflow Bcf/d": d["Implied net interstate outflow, base"].iloc[0],
                         "Delayed net outflow Bcf/d": d["Implied net interstate outflow, delayed"].iloc[0]})
     notes = [
@@ -223,12 +224,14 @@ def run(out):
         f"STEO regional series are already marketed, so no dry-to-marketed conversion is applied; the last-12-month extraction-loss share used in TEXAS_GAS.py is {ratio:.1%} of marketed (dry equivalent = marketed x {1 - ratio:.3f}).",
         "Permian cap: production = min(STEO Permian, existing takeaway + new pipelines in service + local demand) from the Takeaway tab. Delayed scenario shifts every pipeline not yet in service by the delay on the Assumptions tab.",
         "Takeaway table: only Matterhorn (in service) is firm; every other capacity and date is UNVERIFIED (company announcements, from memory) and the existing-takeaway aggregate is a calibration. Edit the tab and re-run to update.",
-        "Net interstate outflow = marketed production - consumption (published sectors; EIA withholds Texas lease/plant and pipeline fuel) - Mexico pipeline exports - LNG exports. Forecast months: consumption = same month prior year, Mexico and LNG = last-12-month means.",
-        "LNG column is an INPUT: it holds the last-12-month level flat for now and is meant to be replaced by the LNG forecast.",
+        "Net interstate outflow = DRY production (marketed x (1 - extraction-loss share); EIA dry history) - demand incl. LNG (five EIA consumption sectors + LNG feedgas + Mexico pipeline exports). Marketed gas includes NGLs removed at plants, which never reach a pipeline, so the earlier marketed-based outflow (before Oct 2026) ran about 6 Bcf/d too high. It also includes fuel EIA withholds (lease/plant, pipeline) and ignores storage.",
+        "Forecast months of consumption, Mexico and LNG feedgas come from the 'Forecast values' tab of texas_gas_monthly.xlsx (TEXAS_GAS_FORECAST.py): base outflow = base production with base LNG; delayed outflow = takeaway-delayed production with LNG-delayed feedgas (both 6-month delays). LNG feedgas = EIA LNG exports x 1.09, so history differs slightly from the Balance tab's residual of texas_gas_monthly.xlsx (which uses exports and adds storage).",
+        "'Supply and demand' tab (americas/TEXAS_SUPPLY_DEMAND.py): the stacked demand columns, dry production lines and implied outflow charted on 'Chart - Supply and demand' and 'Chart - Net outflow' and on the North America gas Dashboard. Run after texas_gas.yml (this workflow follows it at 17:40 UTC on the 1st/15th).",
+        "Sanity checks of the last run: " + "; ".join(sd_lines),
         f"Latest history month: {last:%b/%y}. Not an EIA or company forecast of Texas; a transparent scenario tool.",
     ]
     sheets = {"Summary": pd.DataFrame(summary), "Assumptions": assum, "Takeaway": tk, "Forecast": df.reset_index(),
-              "STEO raw": steo_raw}
+              sd.SHEET: sdf.reset_index(), "STEO raw": steo_raw}
     xlsx_notes.write_workbook(out, sheets, notes, ["UNITS", "METHOD"])
     print(pd.DataFrame(summary).to_string())
     return out
