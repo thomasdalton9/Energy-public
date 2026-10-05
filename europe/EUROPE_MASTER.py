@@ -859,6 +859,15 @@ def es_lng_trucks(data_dir):
     return pd.concat(parts).sort_index()
 
 
+def pt_lng_trucks(data_dir):
+    """Gas REN supplies to autonomous gas units (UAG, REN DataHub type AUTONOMOUS_GAS_UNITS), GWh/d, or None: customers off the grid served with LNG loaded onto road tankers
+    at the Sines terminal. REN's total consumption includes it but ALSI's Sines send-out counts grid send-out only (the same gap as Spain's LNG trucks)."""
+    d = _sheet_or_empty(os.path.join(data_dir, TSO_GAS_FILE), "Daily", "date")
+    if "PT_uag" not in d or d["PT_uag"].notna().sum() < 365:
+        return None
+    return d["PT_uag"].dropna()
+
+
 def fr_bio_transmission(data_dir):
     """France: the part of the ODRE biomethane series injected straight into the transmission networks (GWh/d), None until BIOMETHANE_DAILY.py has pulled it."""
     d = _sheet_or_empty(os.path.join(data_dir, BIO_FILE), "Daily", "date")
@@ -909,6 +918,12 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None, sto=None):
                 " LNG send-out includes the LNG loaded onto trucks at the seven regasification plants (about 11-12 TWh a year, Enagás statistical bulletin, spread evenly over the days of each month): "
                 "Enagás's national market demand (conventional market) includes it, but it leaves the terminals without passing the send-out into the grid (ALSI send-out counts grid send-out only), "
                 "and it was the whole -0.9 TWh a month shortfall. LNG ship reloads (international market demand) are not in national demand and are not added.")
+    if cc == "PT":
+        uag = pt_lng_trucks(data_dir)
+        if uag is not None:
+            return {"lng_extra": uag}, None, (
+                " LNG send-out includes the LNG loaded onto road tankers at Sines for REN's autonomous gas units (UAG, about 0.15-0.2 TWh a month, REN DataHub): REN's total "
+                "consumption includes them but ALSI's Sines send-out counts grid send-out only. It was the whole -0.2 TWh a month shortfall.")
     if cc == "FR" and bal_nl is not None and "FR_distribution_GWhd" in bal_nl and len(bio) and "FR" in bio:
         own = bal_nl[["FR_distribution_GWhd", "FR_final_consumers_GWhd"]].sum(axis=1, min_count=1)
         t = fr_bio_transmission(data_dir)
