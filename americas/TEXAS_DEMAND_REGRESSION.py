@@ -915,7 +915,7 @@ def run(out):
     bflag = breakout_flag(bm)
     log("load breakout, latest 12 months (GW, average load):\n" + bm["t12"].round(2).to_string())
     log(f"  unexplained {bm['U12']:.2f} GW; DC gas burn {bm['burn12']:.3f} Bcf/d ({bm['per_avg']:.4f} per average GW); Dec 2026 implied energised DC GW "
-        f"LOW/BASE/HIGH {[round(bm['dc'][c]['imp'], 2) for c in BCASES[1:] + BCASES[:1]]} vs scenario {[round(x, 2) for x in bm['scen']]}")
+        f"LOW/BASE/HIGH {[round(float(bm['dc'][c]['imp']), 2) for c in ('LOW', 'BASE', 'HIGH')]} vs scenario {[round(x, 2) for x in bm['scen']]}")
     log("  FLAG: " + bflag)
 
     # ---- summary numbers
