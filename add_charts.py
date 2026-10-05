@@ -2028,6 +2028,16 @@ def entsog_point_fixes(p):
     return [spec("Points", m, "ENTSOG points outside the country balance (TAP into Greece, Hungary blending exit, Moffat)", "TWh per month", "line")] if len(m) else []
 
 
+def poland_gazsystem_points(p):
+    """Gaz-System entry points: monthly TWh (Belarus Yamal entries, Germany, Ukraine, Czechia, LNG, production)."""
+    d = by_date(read(p, "Daily"), "date")
+    last = d.dropna(how="all").index.max()
+    m = d.resample("MS").sum(min_count=1) / 1000.0
+    m = m[m.index < last.to_period("M").to_timestamp()].dropna(how="all")
+    cols = [c for c in ("BY_wysokoje", "BY_tietierowka", "DE_pwp", "DE_ontras", "UA_gcp", "CZ_cieszyn", "LNG", "PROD") if c in m]
+    return [spec("Entries", m[cols], "Poland gas entry points (Gaz-System)", "TWh per month", "line")] if len(m) and cols else []
+
+
 def vietnam_gas(p):
     d = _sheet(p, "Production", "date")
     if d.empty or "Natural_gas_mcm_per_day" not in d:
@@ -2177,6 +2187,7 @@ REGISTRY = {
     "elering_gas_daily.xlsx": elering_gas,
     "entsog_norway_entries_daily.xlsx": entsog_norway_entries,
     "entsog_point_fixes_daily.xlsx": entsog_point_fixes,
+    "poland_gazsystem_points_daily.xlsx": poland_gazsystem_points,
     "ember_europe_power_monthly.xlsx": ember_europe,
     "ireland_eirgrid_system_data.xlsx": ireland_eirgrid,
     "brazil_gas_monthly.xlsx": brazil,
