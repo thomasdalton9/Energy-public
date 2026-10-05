@@ -707,6 +707,30 @@ def it_storage_from_stock(data_dir):
     return pd.DataFrame({"IT_withdrawal_GWhd": (-dst).clip(lower=0), "IT_injection_GWhd": dst.clip(lower=0)})
 
 
+PL_GAZSYSTEM_FILE = "poland_gazsystem_points_daily.xlsx"
+
+
+def pl_yamal_imports(data_dir):
+    """Poland's Belarus / Yamal gas that ENTSOG has no rows for (GWh per day), from Gaz-System's own entries (GAZSYSTEM_ENTRIES_DAILY.py):
+    the Wysokoje and Tietierowka entries, plus the Yamal-Europe gas that reached Gaz-System at the PWP interconnection (and ONTRAS) beyond ENTSOG's
+    Germany>Poland entry (ENTSOG's Mallnow figure is the net physical flow, so forward Yamal flow is missing from it), plus ENTSOG's Poland>Germany
+    exit flow (Yamal transit through EuRoPol Gaz that never entered Gaz-System). The Yamal terms stop after May 2022 (Russia cut off Poland on 27 April;
+    later days differ only by noise). None when the workbook is missing."""
+    gz = _sheet_or_empty(os.path.join(data_dir, PL_GAZSYSTEM_FILE), "Daily", "date")
+    if not len(gz) or "BY_wysokoje" not in gz:
+        return None
+    brd = _sheet_or_empty(os.path.join(data_dir, GAS_FLOWS_FILE), "Border flows", "date")
+    if not len(brd) or "DE>PL" not in brd:
+        return None
+    ix = gz.index
+    by = gz["BY_wysokoje"].fillna(0) + gz["BY_tietierowka"].fillna(0)
+    entries = gz["DE_pwp"].fillna(0) + gz["DE_ontras"].fillna(0)
+    ent = brd["DE>PL"].reindex(ix).fillna(0)
+    out = brd["PL>DE"].reindex(ix).fillna(0) if "PL>DE" in brd else 0.0
+    yam = ((entries - ent).clip(lower=0) + out).where(ix <= "2022-05-31", 0.0)
+    return by + yam
+
+
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     """Country-specific corrections from ENTSOG points the main pull's classification drops (ENTSOG_POINT_FIXES_DAILY.py), as
     (keyword arguments for gas_country_balance, consumption override or None, note text or None).
@@ -777,10 +801,14 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
                 "in 2023 ENTSOG's VIP Brandov was reported at 14 TWh and its physical points (EUGAL, OPAL, Hora Svate Katerina, Olbernhau) sum to only 63 TWh "
                 "against NET4GAS's 79 TWh, which left the balance 23% short. Consumption is NET4GAS's own system balance, so the balance closes largely by construction.")
     if cc == "PL":
-        return {}, None, (
-            " Border audit (ENTSOG both sides, Eurostat as a benchmark only): every Polish border agrees within 10% except Ukraine in 2025 (exit 22.9, Ukrainian entry 20.9 TWh; the larger is used). "
-            "Poland 2022 runs about 15% short because ENTSOG has no Kondratki / Wysokoje (Yamal, Belarus) entry rows: Eurostat's Belarus partner figure for 2022 is 27.5 TWh, "
-            "the size of the gap. Baltic Pipe (Faxe) matches Energinet within 2%.")
+        pl_in = pl_yamal_imports(data_dir)
+        return ({"extra_imports": pl_in} if pl_in is not None else {}), None, (
+            (" Pipeline imports add the Belarus / Yamal gas of Oct 2021 - May 2022 that ENTSOG has no Kondratki / Wysokoje rows for (Gaz-System's own Market Information Module: the Wysokoje and Tietierowka entries, "
+             "12.8 + 0.4 TWh in 2022, plus the Yamal-Europe gas that entered Gaz-System at the PWP interconnection beyond ENTSOG's Mallnow entry, or left Poland at Mallnow towards Germany, 14.2 TWh in 2022 and about 27 in Q4 2021); "
+             "together 27.5 TWh in 2022, exactly Eurostat's Belarus partner figure, which took the 2022 balance from -15% to +0.5%." if pl_in is not None else
+             " Poland 2022 runs about 15% short because ENTSOG has no Kondratki / Wysokoje (Yamal, Belarus) entry rows: Eurostat's Belarus partner figure for 2022 is 27.5 TWh, the size of the gap.") +
+            " Border audit (ENTSOG both sides, Eurostat as a benchmark only): every other Polish border agrees within 10% except Ukraine in 2025 (exit 22.9, Ukrainian entry 20.9 TWh; the larger is used). "
+            "Baltic Pipe (Faxe) matches Energinet within 2%.")
     if cc == "BG":
         return {}, None, (
             " Border audit: ENTSOG's Bulgarian entries and exits at Negru Voda, Kireevo, Kulata, Kyustendil and Komotini agree with the neighbours' own sides within 1% "
