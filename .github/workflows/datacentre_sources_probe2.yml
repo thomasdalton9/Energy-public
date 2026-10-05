@@ -1,4 +1,4 @@
-name: Data centre sources probe
+name: Data centre sources probe 2
 on:
   workflow_dispatch:
 jobs:
@@ -13,4 +13,4 @@ jobs:
       - run: pip install requests pypdf
       - env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: timeout 500 python3 discovery_archive/DATACENTRE_SOURCES_PROBE.py
+        run: timeout 500 python3 discovery_archive/DATACENTRE_SOURCES_PROBE2.py
