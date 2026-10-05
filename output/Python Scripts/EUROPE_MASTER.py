@@ -442,8 +442,11 @@ KNOWN_GAPS = {
         "(SPAIN_REE_EXCHANGES.py, REData) took supply from 101.0 / 100.7 / 101.0% to 100.1 / 99.5 / 99.4% of load; the remaining -0.5% (1-1.6 TWh) is not traced."),
     "Denmark": "Load is Energinet's settlement gross consumption (incl. grid losses and 2.7 TWh of power-to-heat in 2025). ENTSO-E's Danish load is 4-7% lower, which made supply look 4-7% too high; "
                "ENTSO-E net imports match Energinet's exchanges (7.4 TWh in 2025). Remaining gap: ENTSO-E generation is about 1 TWh above Energinet's production.",
-    "Poland": "ENTSO-E load (164 TWh in 2024) is a gross figure incl. station own use, above Eurostat consumption incl. losses (155 TWh) while generation is close (157 vs 155 TWh); supply is 94-95% of load in 2022-23 and 98-100% since.",
-    "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
+    "Poland": ("ENTSO-E's Polish load is PSE's national demand (KSE): PSE's open-data API (api.raporty.pse.pl, kse-load / his-wlk-cal 'demand') equals the ENTSO-E figure to within 0.2% every month from "
+               "Jul 2024 to Dec 2025, and PSE's generation by fuel (his-gen-pal) equals ENTSO-E's (15.76 TWh in Jan 2025 both). The series steps down on 14 June 2024, the day PSE's new reporting platform starts: the daily gap "
+               "load - (generation + net imports - pumping) falls from +22-28 GWh a day (about 1 GW, 8.8 TWh a year, 5.5% of load) to -1..-4 GWh, i.e. supply was 93.8% / 94.6% / 97.9% of load in 2022 / 2023 / 2024 and 100.1% in 2025. "
+               "Generation is not the cause (ENTSO-E is within 0.8-2 TWh of Eurostat in 2022-23 while load was 11.6-12.7 TWh above Eurostat consumption until June 2024 and level with it afterwards), so PSE changed what its demand "
+               "figure includes (about 1 GW of own use / station load or similar) on that date; the PSE API holds nothing before 14 June 2024, so 2022-23 cannot be restated from a raw PSE series and the balancing item is left as the measure of it."),    "Slovakia": "Net imports exclude double-counted Ukraine flows (ENTSO-E reports the same tie-lines under three Ukraine zones); supply now matches load within 1%.",
     "Finland": "2021-22 imports from Russia are not in the ENTSO-E flow data used here.",
     "Ireland": "Republic of Ireland only (Northern Ireland is in the UK). Net imports are EirGrid demand less generation, so supply equals load by construction; "
                "the fuel split is Ember's, with EirGrid's monthly totals after Ember's last month.",
@@ -645,6 +648,16 @@ def emden_entsog(data_dir):
     return {"DE": fx[["DE_emden_oge", "DE_emden_gud"]].sum(axis=1, min_count=1), "NL": fx["NL_emden_gts"]}
 
 
+def de_at_exports(data_dir):
+    """German exit flows to Austria (GWh/d) that the ENTSOG border rule leaves out: Ueberackern ABG/SUDAL and RC Lindau (ENTSOG_POINT_FIXES_DAILY.py).
+    The rule keeps the larger of the VIP sum and the physical-point sum on a side; VIP Oberkappel (69.5 TWh in 2025) plus VIP Kiefersfelden-Pfronten
+    win, but Ueberackern (24.2) and Lindau (2.7) are not in either VIP, so Germany's exports to Austria came out 73 TWh against Austria's 94.
+    If the rule is ever changed to add complementary points, drop this correction (it would count them twice)."""
+    fx = _sheet_or_empty(os.path.join(data_dir, POINT_FIXES_FILE), "Daily", "date")
+    cols = [c for c in ("DE_at_ueberackern", "DE_at_ueberackern2", "DE_at_lindau") if c in fx]
+    return fx[cols].sum(axis=1, min_count=1) if len(cols) == 3 else None
+
+
 def lu_imports(bal):
     """Luxembourg's pipeline imports from Belgium (GWh/d): the larger of ENTSOG's Bras-Petange entry and Luxembourg's own delivered volumes."""
     cons = pd.concat([bal["LU_distribution_GWhd"], bal["LU_final_consumers_GWhd"]], axis=1).sum(axis=1, min_count=1)
@@ -695,6 +708,30 @@ def it_storage_from_stock(data_dir):
         return None
     dst = s["IT_TWh"].diff() * 1000.0
     return pd.DataFrame({"IT_withdrawal_GWhd": (-dst).clip(lower=0), "IT_injection_GWhd": dst.clip(lower=0)})
+
+
+PL_GAZSYSTEM_FILE = "poland_gazsystem_points_daily.xlsx"
+
+
+def pl_yamal_imports(data_dir):
+    """Poland's Belarus / Yamal gas that ENTSOG has no rows for (GWh per day), from Gaz-System's own entries (GAZSYSTEM_ENTRIES_DAILY.py):
+    the Wysokoje and Tietierowka entries, plus the Yamal-Europe gas that reached Gaz-System at the PWP interconnection (and ONTRAS) beyond ENTSOG's
+    Germany>Poland entry (ENTSOG's Mallnow figure is the net physical flow, so forward Yamal flow is missing from it), plus ENTSOG's Poland>Germany
+    exit flow (Yamal transit through EuRoPol Gaz that never entered Gaz-System). The Yamal terms stop after May 2022 (Russia cut off Poland on 27 April;
+    later days differ only by noise). None when the workbook is missing."""
+    gz = _sheet_or_empty(os.path.join(data_dir, PL_GAZSYSTEM_FILE), "Daily", "date")
+    if not len(gz) or "BY_wysokoje" not in gz:
+        return None
+    brd = _sheet_or_empty(os.path.join(data_dir, GAS_FLOWS_FILE), "Border flows", "date")
+    if not len(brd) or "DE>PL" not in brd:
+        return None
+    ix = gz.index
+    by = gz["BY_wysokoje"].fillna(0) + gz["BY_tietierowka"].fillna(0)
+    entries = gz["DE_pwp"].fillna(0) + gz["DE_ontras"].fillna(0)
+    ent = brd["DE>PL"].reindex(ix).fillna(0)
+    out = brd["PL>DE"].reindex(ix).fillna(0) if "PL>DE" in brd else 0.0
+    yam = ((entries - ent).clip(lower=0) + out).where(ix <= "2022-05-31", 0.0)
+    return by + yam
 
 
 def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
@@ -766,12 +803,31 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
                 " Pipeline imports and exports are the larger of ENTSOG's Czech-side figures and NET4GAS's own allocated border entries/exits (Brandov, Waidhaus, Lanzhot, Cesky Tesin): "
                 "in 2023 ENTSOG's VIP Brandov was reported at 14 TWh and its physical points (EUGAL, OPAL, Hora Svate Katerina, Olbernhau) sum to only 63 TWh "
                 "against NET4GAS's 79 TWh, which left the balance 23% short. Consumption is NET4GAS's own system balance, so the balance closes largely by construction.")
+    if cc == "PL":
+        pl_in = pl_yamal_imports(data_dir)
+        return ({"extra_imports": pl_in} if pl_in is not None else {}), None, (
+            (" Pipeline imports add the Belarus / Yamal gas of Oct 2021 - May 2022 that ENTSOG has no Kondratki / Wysokoje rows for (Gaz-System's own Market Information Module: the Wysokoje and Tietierowka entries, "
+             "12.8 + 0.4 TWh in 2022, plus the Yamal-Europe gas that entered Gaz-System at the PWP interconnection beyond ENTSOG's Mallnow entry, or left Poland at Mallnow towards Germany, 14.2 TWh in 2022 and about 27 in Q4 2021); "
+             "together 27.5 TWh in 2022, exactly Eurostat's Belarus partner figure, which took the 2022 balance from -15% to +0.5%." if pl_in is not None else
+             " Poland 2022 runs about 15% short because ENTSOG has no Kondratki / Wysokoje (Yamal, Belarus) entry rows: Eurostat's Belarus partner figure for 2022 is 27.5 TWh, the size of the gap.") +
+            " Border audit (ENTSOG both sides, Eurostat as a benchmark only): every other Polish border agrees within 10% except Ukraine in 2025 (exit 22.9, Ukrainian entry 20.9 TWh; the larger is used). "
+            "Baltic Pipe (Faxe) matches Energinet within 2%.")
+    if cc == "BG":
+        return {}, None, (
+            " Border audit: ENTSOG's Bulgarian entries and exits at Negru Voda, Kireevo, Kulata, Kyustendil and Komotini agree with the neighbours' own sides within 1% "
+            "(TurkStream enters at Strandzha 2 and Strandzha, 206 TWh in 2025; Serbia's onward flow to Hungary plus its consumption matches Kireevo), and no border is double counted. "
+            "The remaining surplus of about 2-3 TWh a year on 190-215 TWh of transit (about 1%) is compressor fuel gas and transit losses that no published series gives.")
     if not len(fx):
         return {}, None, None
     if cc == "DE" and nord_stream(data_dir) is not None:
         em_raw = emden_entsog(data_dir)
         ns = nord_stream(data_dir)
-        return {"extra_imports": ns.add(em_raw["DE"].reindex(ns.index).fillna(0), fill_value=0).combine_first(em_raw["DE"]) if em_raw else ns}, None, (
+        kw = {"extra_imports": ns.add(em_raw["DE"].reindex(ns.index).fillna(0), fill_value=0).combine_first(em_raw["DE"]) if em_raw else ns}
+        de_at = de_at_exports(data_dir)
+        if de_at is not None:
+            kw["extra_exports"] = de_at
+        return kw, None, (
+            (" Pipeline exports add the German exit flows to Austria at Ueberackern and Lindau (24-27 TWh a year), which the border rule drops because the VIP Oberkappel it prefers does not contain them (Germany's exports to Austria were 73 TWh in 2025 against Austria's own 94)." if de_at is not None else "") +
             (" Pipeline imports include Norwegian gas at Emden (EPT1: OGE and GUD entries; the Dutch share, GTS, is in the Netherlands balance), which ENTSOG's country classification drops." if em_raw else "") +
             " Pipeline imports include the Nord Stream 1 gas entering at Greifswald (NEL and OPAL entries, Russian origin, to Sept 2022), which "
             "ENTSOG's country classification drops because it lists no far side for those points (Germany + Netherlands was about 100 TWh a quarter short before).")
@@ -780,7 +836,8 @@ def point_fix_args(data_dir, cc, tso, bio, gni, bal_nl=None):
     if cc == "HU" and "HU_production_exit" in fx:
         return {"prod_adjust": fx["HU_production_exit"]}, None, (
             " Production is ENTSOG's 'Aggregated Single Production' entry less the 'Exit for Blending': imported gas leaves the grid, is blended "
-            "with high-CO2 domestic gas and re-enters at the production entry, so that entry double-counts about 14 TWh a year of imports.")
+            "with high-CO2 domestic gas and re-enters at the production entry, so that entry double-counts about 14 TWh a year of imports. "
+            "ENTSOG's production entry only starts in Feb 2023 (about 2.2 TWh a month), so the Oct 2021 - Jan 2023 balance is about 13% short of consumption; the borders (Austria, Serbia, Romania, Croatia, Slovakia, Ukraine) agree with both neighbours' sides.")
     if cc == "UK" and "UK_moffat_exit" in fx and tso is not None and "UK" in tso:
         mof = fx["UK_moffat_exit"]
         roi = gni["Moffat"].reindex(mof.index) if gni is not None and len(gni) else pd.Series(float("nan"), index=mof.index)
@@ -1032,6 +1089,66 @@ def implied_member_balance(gbal, cc, storage, sweden_from_dk=None):
     return _monthly_twh(day) if len(day) else pd.DataFrame()
 
 
+GWH_PER_MCM = 11.2           # GWh per million cubic metres (the Gassco conversion used for Norwegian flows; European gas varies roughly 10.5-11.5)
+MCM_PER_BCF = 28.3168        # million cubic metres per billion cubic feet
+GWH_PER_BCF = GWH_PER_MCM * MCM_PER_BCF
+
+
+def gas_summary_table(eu):
+    """EU27 gas balance in Bcf/d: latest complete month, the month before, the same month a year earlier, with month-on-month and year-on-year changes."""
+    d = eu.copy()
+    g = lambda c: d[c] if c in d else pd.Series(0.0, index=d.index)
+    prod = g("Production") + g("Biomethane")
+    rows = pd.DataFrame({
+        "Demand (consumption)": g("Consumption"),
+        "Production (incl. biomethane)": prod,
+        "Net pipeline imports": g("Pipeline imports") + g("Pipeline exports"),   # exports are stored as negatives
+        "LNG send-out": g("LNG send-out"),
+        "Storage net withdrawal": g("Storage withdrawals") + g("Storage injections"),
+    })
+    rows["Supply less demand (residual)"] = rows.drop(columns="Demand (consumption)").sum(axis=1) - rows["Demand (consumption)"]
+    days = pd.Series(d.index.days_in_month, index=d.index)
+    bcfd = rows.mul(1000.0, axis=0).div(days, axis=0) / GWH_PER_BCF       # TWh per month -> GWh -> per day -> Bcf/d
+    last = bcfd.index.max()
+    prev, yago = last - pd.DateOffset(months=1), last - pd.DateOffset(years=1)
+    out = pd.DataFrame(index=bcfd.columns)
+    out[f"{last:%b %Y}"] = bcfd.loc[last]
+    if prev in bcfd.index:
+        out[f"{prev:%b %Y}"] = bcfd.loc[prev]
+        out["MoM change"] = bcfd.loc[last] - bcfd.loc[prev]
+        out["MoM %"] = (bcfd.loc[last] / bcfd.loc[prev] - 1) * 100
+    if yago in bcfd.index:
+        out[f"{yago:%b %Y}"] = bcfd.loc[yago]
+        out["YoY change"] = bcfd.loc[last] - bcfd.loc[yago]
+        out["YoY %"] = (bcfd.loc[last] / bcfd.loc[yago] - 1) * 100
+    return out, bcfd
+
+
+def add_gas_summary_sheet(wb, used, eu):
+    out, bcfd = gas_summary_table(eu)
+    ws = wb.create_sheet(sam.sheet_name("Summary - Gas Bcf per day", used))
+    ws.append(["EU27 gas balance, billion cubic feet per day (Bcf/d)"])
+    ws["A1"].font = Font(bold=True, size=13)
+    ws.append([f"Latest complete month {bcfd.index.max():%b %Y}; month on month and year on year. EU27 = the sum of the corrected country balances (see the EU gas balance tab)."])
+    ws.append([])
+    ws.append(["Bcf/d"] + list(out.columns))
+    for c in ws[4]:
+        c.font = Font(bold=True)
+    for name, r in out.iterrows():
+        ws.append([name] + [None if pd.isna(v) else round(float(v), 2 if "%" not in c else 1) for c, v in r.items()])
+    ws.append([])
+    ws.append([f"Conversion: {GWH_PER_MCM} GWh per million m3 (Gassco's factor) and {MCM_PER_BCF} million m3 per Bcf, i.e. {GWH_PER_BCF:.1f} GWh per Bcf; "
+               "energy balances are converted at one fixed factor, so Bcf/d figures move about 5% if a gross calorific value of 10.6 rather than 11.2 kWh/m3 is used."])
+    ws.append(["Demand is consumption (national TSO and statistics series, ENTSOG exits where none); production is ENTSOG production plus biomethane; net pipeline imports are from/to outside the EU; "
+               "storage is net withdrawal (positive) or injection (negative) from GIE AGSI+; LNG is GIE ALSI send-out. The residual is the unexplained difference."])
+    ws.append(["Sources: ENTSOG, GIE AGSI+ / ALSI, national TSOs (see the Sources tab)."])
+    ws.column_dimensions["A"].width = 34
+    for col in "BCDEFGHI":
+        ws.column_dimensions[col].width = 13
+    return ws
+
+
+
 def eu_gas_balance(frames, border=None, fallback=None, min_share=0.8):
     """EU27 gas balance as the SUM of the corrected country balances (`frames`: monthly TWh frames as charted per country, so every
     per-country fix - Emden / Nord Stream / Greifswald, Gassco Norway, CBS Netherlands, AGGM Austria, NET4GAS floors, Energinet Denmark, GNI Ireland,
@@ -1272,13 +1389,18 @@ def main():
                 + (f" Left out for lack of data: {', '.join(GAS_NAMES.get(c, c) for c in eu_left)}." if eu_left else "")],
                         "EU gas balance data", "EU gas balance: supply and storage vs consumption (TWh per month)",
                         "TWh per month", GAS_BALANCE_SRC, "Notes:", label="Europe", line_cols=("Consumption",))
+            try:
+                add_gas_summary_sheet(wb, used, eu)
+            except Exception as e:  # noqa: BLE001
+                gas[2].append(f"Gas summary table (Bcf/d) failed ({type(e).__name__}: {e})")
     if len(gbal) and emden is not None:
         try:   # Germany + Netherlands: Gassco's Emden gas is split between them in a way the raw data cannot show, so they are combined
             ns, em_raw = nord_stream(args.data_dir), emden_entsog(args.data_dir)
             em_de = em_raw["DE"] if em_raw else emden           # ENTSOG's own Emden entries where pulled, else the Gassco-based estimate
             de_b = gas_country_balance(gbal, "DE", gsto, glng, tso["DE"] if "DE" in tso else None, None,
                                        bio["DE"] if (len(bio) and "DE" in bio) else None,
-                                       em_de.add(ns.reindex(em_de.index).fillna(0), fill_value=0).combine_first(ns) if ns is not None else em_de)
+                                       em_de.add(ns.reindex(em_de.index).fillna(0), fill_value=0).combine_first(ns) if ns is not None else em_de,
+                                       extra_exports=de_at_exports(args.data_dir))
             nl_kw, nl_cons, _nl_note = point_fix_args(args.data_dir, "NL", tso, bio, gni, gbal)
             nl_b = gas_country_balance(gbal, "NL", gsto, glng, nl_cons, None, bio["NL"] if (len(bio) and "NL" in bio) else None, **nl_kw)
             colsb = [c for c in de_b.columns if c in nl_b.columns]

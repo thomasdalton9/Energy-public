@@ -118,6 +118,34 @@ GAS_SRC = ("ENTSOG physical flows; consumption from the gas TSOs (DE THE, FR ODR
            "FI Gasgrid, GB National Gas, IE GNI); Norway from Gassco; GIE ALSI (LNG) and AGSI+ (storage)")
 
 
+def gas_summary(xl, path):
+    """EU27 gas balance table in Bcf/d (latest month, month on month, year on year) from the EU gas balance tab."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import EUROPE_MASTER as M
+    d = tab(xl, "EU gas balance data")
+    out, bcfd = M.gas_summary_table(d)
+    fig, ax = plt.subplots(figsize=(11.5, 3.6))
+    ax.axis("off")
+    cols = list(out.columns)
+    cell = [[f"{v:+.2f}" if c.endswith("change") else (f"{v:+.1f}%" if "%" in c else f"{v:.2f}") if pd.notna(v) else "" for c, v in r.items()] for _, r in out.iterrows()]
+    t = ax.table(cellText=cell, rowLabels=list(out.index), colLabels=cols, loc="center", cellLoc="right")
+    t.auto_set_font_size(False)
+    t.set_fontsize(10)
+    t.scale(1, 1.55)
+    for (r, c), cl in t.get_celld().items():
+        cl.set_edgecolor("#DDDDDD")
+        if r == 0:
+            cl.set_facecolor("#F2F2F2")
+            cl.set_text_props(fontweight="bold", color=INK)
+    ax.set_title(f"EU27 gas balance, Bcf/d - {bcfd.index.max():%b %Y} vs previous month and a year earlier", loc="left", fontsize=13, color=INK, fontweight="bold")
+    fig.text(0.01, 0.01, "Source: ENTSOG, GIE AGSI+/ALSI, national TSOs. 11.2 GWh per million m3. Storage: net withdrawal positive. Residual = supply less demand.",
+             fontsize=8, color=MUTED)
+    fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight", pad_inches=0.25)
+    plt.close(fig)
+    print("wrote", path)
+
+
+
 def gas_balance(xl, path, tab_name="EU gas balance data", title="EU gas balance: supply and storage flows vs consumption",
                 source=GAS_SRC):
     d = tab(xl, tab_name)
@@ -205,6 +233,7 @@ def main():
             out("europe_power_balance.png"), lines=("Pumped & battery (net)", "Load"),
             source=ENTSOE + " (generation, load, cross-border physical flows)" + EXTRA)),
         ("Germany balance data", lambda: major_markets(xl, out("europe_power_balance_major_markets.png"))),
+        ("EU gas balance data", lambda: gas_summary(xl, out("europe_gas_summary_bcfd.png"))),
         ("EU gas balance data", lambda: gas_balance(xl, out("europe_gas_balance.png"))),
         ("United Kingdom gas balance data", lambda: gas_balance(
             xl, out("uk_gas_balance.png"), "United Kingdom gas balance data", "Great Britain gas balance: supply and storage flows vs consumption",
