@@ -143,10 +143,11 @@ def main():
     ap.add_argument("--sheet", help="render this chart-data tab instead of the add_charts specs")
     ap.add_argument("--title", default="")
     ap.add_argument("--units", default="")
+    ap.add_argument("--kind", default="stacked_bar", help="with --sheet: stacked_bar (default) or line")
     args = ap.parse_args()
     for p in args.workbooks:
         if args.sheet:
-            render_sheet(p, args.sheet, args.title or args.sheet, args.units, args.out)
+            render_sheet(p, args.sheet, args.title or args.sheet, args.units, args.out, args.kind)
         else:
             render(p, args.out)
 
