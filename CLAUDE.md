@@ -37,6 +37,7 @@ Standing instructions from the repo owner. Follow these on every change.
   RAW_POWER_DATASETS / OTHER_POWER_DATASETS / CAPACITY_DATASETS lists plus a SOURCES entry.
   US power generation comes from EIA-930 (balancing-authority data, current to yesterday) - owner's decision; don't
   switch the US regions to direct ISO feeds.
+  MISO gas burn for power is in Bcf/d (`americas/MISO_GAS_BURN.py` -> `miso_gas_burn_daily.xlsx`, 1st/15th): MISO's own daily gas MWh x a monthly heat rate calibrated on EIA-923 (balancing authority MISO, fuel NG, fuel for electricity / MISO MWh; the current year's EIA-923 file holds only the monthly-reporting plants, so those months use its net-MWh heat rate x last year's MISO/EIA factor, and unpublished months carry the same month a year earlier, flagged `estimated`); it is an estimate, not a measured burn, and appears on the North America "Dashboard - Power".
 - `asia/SOUTH_SOUTHEAST_ASIA_MASTER.py` -> `south_southeast_asia_master.xlsx`: South Asia (India, Pakistan, Bangladesh,
   Sri Lanka, Nepal, Bhutan) and Southeast Asia (Thailand, Vietnam, Philippines, Indonesia, Malaysia, Singapore,
   Myanmar, Cambodia, Laos, Brunei, Timor-Leste) - NOT Japan, Taiwan, Korea or China. Same layout. Add datasets to its
