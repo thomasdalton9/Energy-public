@@ -1,0 +1,4 @@
+{
+  "error_code": "ODSQLError",
+  "message": "ODSQL query is malformed: Unknown field: m. Clause(s) containing the error(s): group_by."
+}

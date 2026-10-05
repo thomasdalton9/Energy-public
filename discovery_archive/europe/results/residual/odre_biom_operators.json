@@ -1,0 +1,258 @@
+{
+ "2022": [
+  {
+   "grx_demandeur": "Caleo, Gaz de Barr, Gazélec de Peronne, Gédia, Pleudihen Distribution gaz, Séolis",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 22972.680705227,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 4954718.251540829,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 411939.9764534,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "NaTran",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 1262279.638149,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "R-GDS",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 91034.077370669,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "Régaz",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 103121.460504,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "SOREGIES",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 1622.6138556,
+   "n": 61
+  },
+  {
+   "grx_demandeur": "Teréga",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 115030.7172738,
+   "n": 365
+  }
+ ],
+ "2023": [
+  {
+   "grx_demandeur": "Caleo, Gaz de Barr, Gazélec de Peronne, Gédia, Pleudihen Distribution gaz, Séolis",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 60605.9357994,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 6537800.18555726,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 432699.7348446,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "NaTran",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 1683585.947982,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "R-GDS",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 89414.6772852,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "Régaz",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 127321.993719,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "SOREGIES",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 36458.2827162,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "Teréga",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 168610.04727480002,
+   "n": 365
+  }
+ ],
+ "2024": [
+  {
+   "grx_demandeur": "Caleo, Gaz de Barr, Gazélec de Peronne, Gédia, Pleudihen Distribution gaz, Séolis",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 76005.742464,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 8293399.356381517,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 512357.399683,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "NaTran",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 2225307.128429,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "R-GDS",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 85259.8617786,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "Régaz",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 147655.5608952,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "SOREGIES",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 50338.435527,
+   "n": 366
+  },
+  {
+   "grx_demandeur": "Teréga",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 219921.989355,
+   "n": 366
+  }
+ ],
+ "2025": [
+  {
+   "grx_demandeur": "Barr énergies, Caleo, Gazélec de Peronne, Gédia, Pleudihen Distribution gaz, Séolis",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 8241.8111388,
+   "n": 31
+  },
+  {
+   "grx_demandeur": "Caleo, Gaz de Barr, Gazélec de Peronne, Gédia, Pleudihen Distribution gaz, Séolis",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 83577.0879126,
+   "n": 334
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 9662185.476206336,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 632930.777506,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "NaTran",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 2572785.140446,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "R-GDS",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 92994.781417284,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "Régaz",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 152510.6032704,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "SOREGIES",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 56594.2635,
+   "n": 365
+  },
+  {
+   "grx_demandeur": "Teréga",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 296900.5215132,
+   "n": 365
+  }
+ ],
+ "2026": [
+  {
+   "grx_demandeur": "Barr énergies, Caleo, Gazélec de Peronne, Gédia, Pleudihen Distribution gaz, Séolis",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 63022.6078524,
+   "n": 275
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 8010732.824217849,
+   "n": 275
+  },
+  {
+   "grx_demandeur": "GRDF",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 432512.9284086,
+   "n": 243
+  },
+  {
+   "grx_demandeur": "NaTran",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 2022018.823531,
+   "n": 275
+  },
+  {
+   "grx_demandeur": "R-GDS",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 76021.150421578,
+   "n": 275
+  },
+  {
+   "grx_demandeur": "Régaz",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 117978.84252179999,
+   "n": 243
+  },
+  {
+   "grx_demandeur": "SOREGIES",
+   "operateur_de_transport": "Zone NaTran",
+   "v": 48281.713918199996,
+   "n": 243
+  },
+  {
+   "grx_demandeur": "Teréga",
+   "operateur_de_transport": "Zone Teréga",
+   "v": 223203.3708222,
+   "n": 243
+  }
+ ]
+}
