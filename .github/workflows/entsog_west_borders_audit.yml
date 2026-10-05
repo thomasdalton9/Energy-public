@@ -1,4 +1,4 @@
-name: ENTSOG west borders audit (manual)
+name: ENTSOG west dropped audit (manual)
 
 on:
   workflow_dispatch:
@@ -20,11 +20,11 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests pandas openpyxl
-      - run: python3 -u discovery_archive/europe/ENTSOG_WEST_BORDERS_AUDIT.py
+      - run: python3 -u discovery_archive/europe/ENTSOG_WEST_DROPPED_AUDIT.py
         env:
           COUNTRIES: ${{ github.event.inputs.countries }}
       - run: |
           git config user.name "github-actions"; git config user.email "actions@github.com"
           git add discovery_archive/europe/results
-          git commit -m "ENTSOG west borders audit results" || exit 0
+          git commit -m "ENTSOG west dropped audit results" || exit 0
           git pull --rebase --autostash origin main && git push origin HEAD:main
