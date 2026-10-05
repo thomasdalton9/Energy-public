@@ -1,4 +1,4 @@
-"""One-off multi-source probe, run 3 (deep dump; run 1 found ERCOT/EIA/CCAF/PUCT reachable): sourced ERCOT large-load figures (GW by category) for the Load breakout tab of
+"""One-off multi-source probe, run 4 (observed large-load history; run 1 found ERCOT/EIA/CCAF/PUCT reachable): sourced ERCOT large-load figures (GW by category) for the Load breakout tab of
 americas/TEXAS_DEMAND_REGRESSION.py. Crawls ERCOT/PUCT/EIA/CBECI/LBNL/Comptroller pages, lists data/report links, downloads the
 promising ones (pdf/xlsx/csv) and prints sentences / rows with MW/GW near large-load keywords. Output is the log only."""
 import io, re, sys, json
@@ -144,83 +144,70 @@ def xlsx_dump(u, kw=KEY, maxrows=400):
                 print("    |", " ; ".join(v)[:260])
 
 
-def dump_xlsx_sheet(u, sheet_pat, maxrows=130, width=34):
+def dump_xlsx_sheet(u, sheet_pat, r0, r1):
     r = get(u, 120)
     if r is None or r.status_code != 200:
         print("   status", None if r is None else r.status_code, u); return
     from openpyxl import load_workbook
     wb = load_workbook(io.BytesIO(r.content), data_only=True)
-    print(f"\n== XLSX {u}: sheets {wb.sheetnames}")
     for ws in wb.worksheets:
         if not re.search(sheet_pat, ws.title, re.I): continue
         print("  SHEET", ws.title)
         for i, row in enumerate(ws.iter_rows(values_only=True)):
-            if i > maxrows: break
+            if i < r0: continue
+            if i > r1: break
             v = [(str(round(x, 1)) if isinstance(x, float) else str(x).replace("\n", " ")[:300]) for x in row if x is not None]
-            if v: print(f"   {i+1:3d}|", " ; ".join(v)[:700])
-
-
-def pdf_pages(u, pages=None, pat=None):
-    r = get(u, 120)
-    if r is None or r.status_code != 200:
-        print("   status", None if r is None else r.status_code, u); return
-    from pypdf import PdfReader
-    rd = PdfReader(io.BytesIO(r.content))
-    print(f"\n== PDF {u} ({len(rd.pages)} pages)")
-    for i, p in enumerate(rd.pages):
-        tx = p.extract_text() or ""
-        if (pages and (i + 1) in pages) or (pat and re.search(pat, tx, re.I)):
-            print(f"  --- p{i+1}")
-            for ln in tx.split("\n"):
-                if ln.strip(): print("    |", ln.strip()[:240])
+            if v: print(f"   {i+1:3d}|", " ; ".join(v)[:500])
 
 
 E = "https://www.ercot.com/files/docs/"
-# A. CDR Dec 2025: large load table by type + load resources / CLR
-dump_xlsx_sheet(E + "2025/12/19/CapacityDemandandReservesReport_December2025.xlsx", r"Findings|Demand|Load-Resource|Large|Scenario", 125)
-# B. latest MORA: crypto demand response and load resources rows
-dump_xlsx_sheet(E + "2026/10/02/MORA_December2026.xlsx", r".", 70)
-# C. newest operational overview (Aug 2026) and the March 2026 TAC report: queue pages in full
-pdf_pages(E + "2026/09/16/ERCOT-Monthly-Operational-Overview-August-2026.pdf", pat=r"large load|queue|crypto|data cent|load resource|controllable")
-pdf_pages(E + "2026/03/12/March-TAC-Report.pdf", pages={2, 3, 4, 5, 8, 9, 10})
-# D. 2025 LTLF report (docx): large-load categories in the forecast adjustments
-r = get(E + "2025/04/08/2025_LTLF_Report.docx", 120)
-if r is not None and r.status_code == 200:
-    import zipfile
-    z = zipfile.ZipFile(io.BytesIO(r.content))
-    x = z.read("word/document.xml").decode("utf8", "ignore")
-    paras = [re.sub(r"<[^>]+>", "", p) for p in re.split(r"</w:p>", x)]
-    print("\n== LTLF docx paragraphs", len(paras))
-    for t in paras:
-        t = t.strip()
-        if t and re.search(r"large load|crypto|data cent|hydrogen|industrial|officer|adjust|TSP", t, re.I) and re.search(r"\d", t):
-            print("   *", t[:500])
-# E. CBECI: Texas / US numbers inside the JS bundles
-for u in ["https://ccaf.io/cbnsi/js/us-states.js", "https://ccaf.io/cbnsi/js/countries.js"]:
-    r = get(u)
-    print("\n== CBECI js", u, None if r is None else (r.status_code, len(r.text)))
-    if r is not None and r.status_code == 200:
-        for m in list(re.finditer(r"Texas", r.text))[:3]:
-            print("   ", r.text[max(0, m.start() - 100): m.end() + 200].replace("\n", " "))
+MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+OBS = re.compile(r"Of the ([\d,]+) MW that have received Approval to Energize, ERCOT has observed a non-?\s*simultaneous monthly\s*peak consumption of ([\d,]+) MW in (\w+ \d{4})", re.S)
+SIM = re.compile(r"simultaneous monthly peak consumption of ([\d,]+) MW in (\w+ \d{4})")
+import datetime
+found = {}
+for yr, mi in [(2024, m) for m in range(9, 13)] + [(2025, m) for m in range(1, 13)] + [(2026, 1)]:
+    name = f"{MON[mi-1]}-{yr}"
+    ny, nm = (yr + 1, 1) if mi == 12 else (yr, mi + 1)
+    ok = False
+    for d in range(12, 24):
+        for nmv in (f"ERCOT-Monthly-Operational-Overview-{name}.pdf", f"ERCOT-Monthly-Operational-Overview-Final-{name}.pdf"):
+            u = f"{E}{ny}/{nm:02d}/{d:02d}/{nmv}"
+            try:
+                h = requests.head(u, headers=H, timeout=20, allow_redirects=True)
+            except Exception:
+                continue
+            if h.status_code == 200:
+                ok = True
+                r = get(u, 120)
+                from pypdf import PdfReader
+                rd = PdfReader(io.BytesIO(r.content))
+                txt = " ".join((p.extract_text() or "") for p in rd.pages[:20])
+                t2 = re.sub(r"\s+", " ", txt)
+                for m in OBS.finditer(t2):
+                    print(f"OBS|{name}|{u}|approved {m.group(1)}|nonsim {m.group(2)}|{m.group(3)}")
+                for m in SIM.finditer(t2):
+                    print(f"SIM|{name}|simultaneous {m.group(1)}|{m.group(2)}")
+                for m in re.finditer(r"(Observed Energized[^.]{0,200}\d[\d,]* MW[^.]{0,100})", t2):
+                    print(f"QTXT|{name}|{m.group(1)[:300]}")
+                break
+        if ok: break
+    if not ok: print(f"MISSING|{name}")
+
+# MORA crypto demand response rows (latest)
+dump_xlsx_sheet(E + "2026/10/02/MORA_December2026.xlsx", r"Monthly Outlook|Capacity by", 66, 130)
+dump_xlsx_sheet(E + "2026/08/07/MORA_October2026.xlsx", r"Monthly Outlook", 66, 100)
+
+# CBECI Firebase / Firestore REST (the mining-map data is loaded client-side)
+for u in ["https://firestore.googleapis.com/v1/projects/ccaf-afea/databases/(default)/documents/countryProperties",
+          "https://firestore.googleapis.com/v1/projects/ccaf-afea/databases/(default)/documents/mining_map",
+          "https://firestore.googleapis.com/v1/projects/ccaf-afea/databases/(default)/documents/miningMapData",
+          "https://ccaf.io/cbnsi/cbeci/api/countries", "https://ccaf.io/cbnsi/api/cbeci/mining_map/countries"]:
+    r = get(u, 40)
+    print("\n== CBECI api", u[:110], None if r is None else (r.status_code, r.text[:300].replace("\n", " ")))
 r = get("https://ccaf.io/cbnsi/cbeci/mining_map")
 if r is not None:
-    for js in sorted(set(re.findall(r'src=["\']([^"\']*_nuxt[^"\']+\.js)["\']', r.text))):
-        j = get(abs_url("https://ccaf.io/cbnsi/cbeci/mining_map", js), 60)
-        if j is None or j.status_code != 200: continue
-        for m in list(re.finditer(r"(storage\.googleapis|firestore|firebaseio|\.csv|mining_map[a-z_/]*(data|json))", j.text))[:4]:
-            print("   jsref", js[-14:], j.text[max(0, m.start() - 80): m.end() + 120].replace("\n", " "))
-# F. PUCT, LBNL, GridStatus (run 2 crashed before these)
-for u in ["https://interchange.puc.texas.gov/search/filings/?ControlNumber=58317&ItemMatch=Equal&UtilityType=A&ItemNumber=1",
-          "https://www.puc.texas.gov/"]:
-    r = get(u)
-    if r is None: continue
-    print(f"\n== PUCT {u} {r.status_code}")
     t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text))
-    show_text(t, "puct", 12)
-    for l in sorted(set(re.findall(r'href=["\']([^"\']+)["\']', r.text))):
-        if re.search(r"sb.?6|large.?load|58317|data.?cent", l, re.I): print("   link:", abs_url(u, l)[:200])
-r = get("https://www.gridstatus.io/insights/ercot-large-load", 60)
-if r is not None and r.status_code == 200:
-    print("\n== gridstatus"); print(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text))[:2500])
-pdf_pages("https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024-united-states-data-center-energy-usage-report.pdf", pat=r"Texas|ERCOT")
+    for m in list(re.finditer(r"United States[^.]{0,200}%", t))[:5]:
+        print("   CBECI text:", t[m.start(): m.end() + 100][:400])
 print("\nDONE")
