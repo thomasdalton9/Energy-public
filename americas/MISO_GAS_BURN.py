@@ -168,8 +168,9 @@ def monthly_table(eia, daily):
     m["MISO_fuelmix_GWh"] = g.sum(min_count=1)
     m["MISO_days"] = daily["Gas_GWh"].resample("MS").count()
     m["Days_in_month"] = m.index.days_in_month
-    full = m["MISO_days"] == m["Days_in_month"]
-    m["MISO_fuelmix_GWh"] = m["MISO_fuelmix_GWh"].where(full)
+    # a month with up to 10% of its days missing from the fuel-mix archive is scaled up to the full month
+    full = m["MISO_days"] >= 0.9 * m["Days_in_month"]
+    m["MISO_fuelmix_GWh"] = (m["MISO_fuelmix_GWh"] / m["MISO_days"] * m["Days_in_month"]).where(full)
     cal = m["Elec_MMBtu"].notna() & m["MISO_fuelmix_GWh"].notna()
     m["EIA923_GWh"] = m["Netgen_MWh"] / 1e3
     m["Physical_HR_MMBtu_per_MWh"] = m["Elec_MMBtu"] / m["Netgen_MWh"]
@@ -178,20 +179,39 @@ def monthly_table(eia, daily):
     m["MMBtu_per_Mcf"] = m["Tot_MMBtu"] / m["Mcf"]
     m["Elec_share_of_gas_MMBtu"] = m["Elec_MMBtu"] / m["Tot_MMBtu"]
 
-    hr, hc, flag = [], [], []
-    series_hr = m["Effective_HR_MMBtu_per_MWh"].where(cal)
-    series_hc = m["MMBtu_per_Mcf"].where(m["Mcf"] > 0)
-    for ts in m.index:
-        if pd.notna(series_hr.get(ts)):
-            hr.append(series_hr[ts]); hc.append(series_hc.get(ts)); flag.append("calibrated (EIA-923)")
+    # EIA-923's current-year monthly file holds only the plants that report monthly (about 210 of the ~470 MISO gas
+    # plants; the small ones arrive with the annual file), so its burn and net generation are a partial sample
+    # and burn/MISO MWh would be biased low. A month is a full census when its plant count is near the
+    # previous 12 months' maximum.
+    plants = m["Plants"]
+    census = pd.Series(False, index=m.index)
+    for i, ts in enumerate(m.index):
+        if pd.isna(plants.iloc[i]):
             continue
+        prev = plants.iloc[max(0, i - 12):i].dropna()
+        census.iloc[i] = len(prev) == 0 or plants.iloc[i] >= 0.75 * prev.max()
+    m["Full_plant_census"] = census
+    phys = m["Physical_HR_MMBtu_per_MWh"]
+    eff = m["Effective_HR_MMBtu_per_MWh"].where(cal & census)
+    factor = (eff / phys).dropna()      # MISO-MWh basis vs EIA net-MWh basis, by month, from census months
+    series_hc = m["MMBtu_per_Mcf"].where(m["Mcf"] > 0)
+    hr, hc, flag = {}, {}, {}
+    for ts in m.index:
         prev = ts - pd.DateOffset(years=1)
-        if pd.notna(series_hr.get(prev)):
-            hr.append(series_hr[prev]); hc.append(series_hc.get(prev))
-            flag.append(f"estimated: {prev:%b/%y} rate carried")
-        else:   # no same month a year earlier (first months of the series): mean of the calibrated months we have
-            hr.append(series_hr.dropna().tail(12).mean()); hc.append(series_hc.dropna().tail(12).mean())
-            flag.append("estimated: trailing-12-month mean")
+        if pd.notna(eff.get(ts)):
+            hr[ts], flag[ts] = eff[ts], "calibrated (EIA-923 burn / MISO MWh)"
+        elif pd.notna(phys.get(ts)) and phys.get(ts) > 0:
+            f = factor.get(prev, factor.tail(12).mean() if len(factor) else 1.0)
+            hr[ts] = phys[ts] * f
+            flag[ts] = ("calibrated, partial plant sample: EIA-923 net-MWh heat rate x %s MISO/EIA factor" % f"{prev:%b/%y}"
+                        if prev in factor.index else "calibrated, partial plant sample: EIA-923 net-MWh heat rate x trailing-12 factor")
+        elif prev in hr:
+            hr[ts], flag[ts] = hr[prev], f"estimated: {prev:%b/%y} rate carried"
+        else:
+            known = [v for k, v in hr.items() if "estimated" not in flag[k]][-12:]
+            hr[ts], flag[ts] = (np.mean(known) if known else np.nan), "estimated: trailing-12-month mean"
+        hc[ts] = series_hc.get(ts) if pd.notna(series_hc.get(ts)) else hc.get(prev, np.nan)
+    hr, hc, flag = ([d[t] for t in m.index] for d in (hr, hc, flag))
     m["Heat_rate_used_MMBtu_per_MWh"] = hr
     m["MMBtu_per_Mcf_used"] = pd.Series(hc, index=m.index).fillna(FLAT_MMBTU_PER_MCF)
     m["Heat_rate_basis"] = flag
@@ -229,14 +249,14 @@ def monthly_output(monthly, daily):
     """Monthly sheet: EIA-923 table + monthly average Bcf/d."""
     m = monthly.copy()
     bcfd = daily["Gas_burn_Bcf_per_day"].resample("MS").mean().reindex(m.index)
-    full = daily["Gas_burn_Bcf_per_day"].resample("MS").count().reindex(m.index) == m["Days_in_month"]
+    full = daily["Gas_burn_Bcf_per_day"].resample("MS").count().reindex(m.index) >= 0.9 * m["Days_in_month"]
     m["Gas_burn_Bcf_per_day"] = bcfd.where(full)
     m["Gas_burn_Bcf_per_day_prior_year"] = m["Gas_burn_Bcf_per_day"].shift(12)
     m["Flat_7.5_Bcf_per_day"] = daily["Flat_7.5_Bcf_per_day"].resample("MS").mean().reindex(m.index).where(full)
     m["Gas_burn_Bcf_month"] = m["Gas_burn_Bcf_per_day"] * m["Days_in_month"]
     cols = ["Heat_rate_used_MMBtu_per_MWh", "Heat_rate_basis", "MMBtu_per_Mcf_used", "Gas_burn_Bcf_per_day",
             "Gas_burn_Bcf_per_day_prior_year", "Flat_7.5_Bcf_per_day", "Gas_burn_Bcf_month",
-            "MISO_fuelmix_GWh", "EIA923_GWh", "MISO_vs_EIA923_GWh_ratio", "Physical_HR_MMBtu_per_MWh",
+            "MISO_fuelmix_GWh", "EIA923_GWh", "Full_plant_census", "MISO_vs_EIA923_GWh_ratio", "Physical_HR_MMBtu_per_MWh",
             "Effective_HR_MMBtu_per_MWh", "MMBtu_per_Mcf", "Elec_share_of_gas_MMBtu", "Plants", "Elec_MMBtu",
             "Tot_MMBtu", "Mcf", "Netgen_MWh", "MISO_days"]
     m = m[cols].copy()
@@ -257,8 +277,11 @@ def notes(meta, last_cal, last_day):
         "MISO does not publish gas burn. Burn = MISO gas MWh x heat rate. The heat rate is calibrated on EIA-923 Page 1 (Generation and Fuel Data): all natural-gas (fuel NG) rows",
         "whose balancing authority code is MISO, every prime mover (combined cycle, gas turbine, steam, engine). Fuel for electricity (Elec_MMBtu, which excludes a CHP plant's",
         "useful heat) over MISO fuel-mix MWh = effective heat rate (used). Over EIA net generation = physical heat rate (the plants' efficiency; shown for comparison).",
-        "Months EIA-923 has not published (about 2 months lag) carry the heat rate and heat content of the same month a year earlier (Heat_rate_basis says 'estimated');",
-        "they are recalibrated on the next run after EIA publishes them. Seasonality (summer peakers lift the rate) is therefore kept, a changed fleet mix is not.",
+        "The current year's EIA-923 monthly file covers only the plants that report monthly (about half of MISO's gas plants; the rest arrive with the annual file), so its burn is",
+        "a partial sample. For those months the sample's net-MWh heat rate (representative, within about 0.2 of last year's) is converted to MISO's MWh basis with the same month's",
+        "MISO/EIA factor a year earlier (Heat_rate_basis says 'partial plant sample'); they are recalibrated on the full census when EIA publishes the annual file.",
+        "Months EIA-923 has not published (about 2 months lag) carry the heat rate and heat content of the same month a year earlier (Heat_rate_basis says 'estimated').",
+        "Seasonality (summer peakers lift the rate) is therefore kept, a changed fleet mix is not.",
         "",
         "MISO 'NATURAL GAS' CATEGORY",
         "Gas-fired generation of units in MISO's market footprint (central US plus MISO South: Louisiana, Mississippi, Arkansas, east Texas) as MISO's real-time fuel mix report",
