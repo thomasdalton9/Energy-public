@@ -6,29 +6,24 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - run: pip install requests pandas openpyxl
-      - name: Spain
+      - name: Eurostat
         continue-on-error: true
-        env:
-          GIE_API_KEY: ${{ secrets.GIE_API_KEY }}
-        run: timeout 600 python3 discovery_archive/europe/GAS_RESID_ES_PROBE.py
+        run: timeout 600 python3 discovery_archive/europe/GAS_RESID_EUROSTAT_PROBE.py
       - name: GB
         continue-on-error: true
-        run: timeout 1500 python3 discovery_archive/europe/GAS_RESID_GB_PROBE.py
-      - name: France Italy ENTSOG
-        continue-on-error: true
-        run: timeout 2400 python3 discovery_archive/europe/GAS_RESID_FRIT_PROBE.py
+        run: timeout 1800 python3 discovery_archive/europe/GAS_RESID_GB_PROBE2.py
       - name: Commit results
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add discovery_archive/europe/results/residual
-          git commit -m "Gas residual probe results" || exit 0
+          git commit -m "Gas residual probe results (2)" || exit 0
           for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done
