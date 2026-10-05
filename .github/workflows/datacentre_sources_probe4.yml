@@ -1,0 +1,16 @@
+name: Data centre sources probe 4
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pypdf pandas openpyxl
+      - env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: timeout 500 python3 discovery_archive/DATACENTRE_SOURCES_PROBE4.py
