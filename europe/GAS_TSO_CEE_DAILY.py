@@ -9,6 +9,11 @@ National gas consumption (daily) for Austria, Czechia and Lithuania from the gas
                        (standard-load-profile customers, load-profile customers above / below 300 MW... see Units), AT_power_east =
                        gas-fired power plants in market area East only (the series AGGM publishes).
         AT_net_entry, AT_net_exit, AT_storage_withdrawal, AT_storage_injection, AT_production
+        AT_exit_baumgarten_mab, AT_entry_baumgarten_mab, AT_exit_baumgarten_bog, AT_entry_baumgarten_gesamt
+                       AGGM's allocations at the Baumgarten points. BOG exit / GESAMT entry (BOG + GCA) are the Eustream border (Slovakia): they match Eustream's
+                       and ENTSOG's Baumgarten allocations (5.8 / 0.9 TWh in 2025). MAB exit / entry (20.4 / 7.7 TWh in 2025) are a second Baumgarten boundary
+                       that neither ENTSOG nor Eustream's border point carries; they make up the whole gap between AGGM's net border exit and the entries the
+                       neighbours record from Austria (see EUROPE_MASTER.py, austria_slovakia_mab()).
                        AGGM's market-area balance components: net border entry and exit (all border points, net of flows through the
                        virtual points), storage withdrawal and injection (all storage in the market area) and domestic production
                        ("Production East": OMV, RAG). AT_total = net entry - net exit + storage withdrawal - injection + production.
@@ -52,7 +57,8 @@ FILE = "europe_tso_gas_demand_cee_daily.xlsx"
 REVISION_DAYS = 14
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 AT_COLS = ["AT_total", "AT_slp", "AT_industry_gt300", "AT_industry_lt300", "AT_power_east",
-           "AT_net_entry", "AT_net_exit", "AT_storage_withdrawal", "AT_storage_injection", "AT_production"]
+           "AT_net_entry", "AT_net_exit", "AT_storage_withdrawal", "AT_storage_injection", "AT_production",
+           "AT_exit_baumgarten_mab", "AT_entry_baumgarten_mab", "AT_exit_baumgarten_bog", "AT_entry_baumgarten_gesamt"]
 CZ_COLS = ["CZ_total", "CZ_border_entry", "CZ_border_exit", "CZ_storage_withdrawal", "CZ_storage_injection", "CZ_production"]
 LT_COLS = ["LT_total", "LT_distribution", "LT_direct"]
 COLUMNS = AT_COLS + CZ_COLS + LT_COLS
@@ -91,7 +97,9 @@ AT_SERIES = {"ErmittelterEKVOesterreich": "AT_total", "SummeEKV_SLP_Oesterreich"
              "SummeEKV_LPZKL300_Oesterreich": "AT_industry_lt300", "SummeEKV_Kraftwerke_MGO": "AT_power_east",
              "NettoEntryOesterreich": "AT_net_entry", "NettoExitOesterreich": "AT_net_exit",
              "NettoEntrySpeicherOesterreich": "AT_storage_withdrawal", "NettoExitSpeicherOesterreich": "AT_storage_injection",
-             "Production East": "AT_production"}
+             "Production East": "AT_production",
+             "ExitBaumgartenMAB_MGM-Allokationen": "AT_exit_baumgarten_mab", "EntryBaumgartenMAB_MGM-Allokationen": "AT_entry_baumgarten_mab",
+             "ExitBaumgartenBOG_MGM-Allokationen": "AT_exit_baumgarten_bog", "EntryBaumgartenGESAMT_MGM-Allokationen": "AT_entry_baumgarten_gesamt"}
 
 
 def austria(d0, d1):
@@ -307,7 +315,7 @@ def main():
              "", "Units and definitions",
              "GWh per gas day. AT_total = AGGM 'determined consumption Austria flow' (end-customer consumption, allocated/metered; AGGM publishes it from "
              "Oct 2022 in this form); AT_slp = standard-load-profile customers, AT_industry_gt300 / AT_industry_lt300 = load-profile-metered "
-             "customers above / below 300 MW capacity classes (AGGM naming), AT_power_east = gas-fired power plants in market area East only; AT_net_entry / AT_net_exit / AT_storage_withdrawal / AT_storage_injection / AT_production = AGGM's market-area balance (border, storage and domestic production). "
+             "customers above / below 300 MW capacity classes (AGGM naming), AT_power_east = gas-fired power plants in market area East only; AT_net_entry / AT_net_exit / AT_storage_withdrawal / AT_storage_injection / AT_production = AGGM's market-area balance (border, storage and domestic production); AT_exit_baumgarten_mab / AT_entry_baumgarten_mab = allocations at AGGM's Baumgarten MAB boundary, AT_exit_baumgarten_bog / AT_entry_baumgarten_gesamt = the Baumgarten border to Eustream (Slovakia). "
              "CZ_total = NET4GAS system balance: CZ_border_entry (Brandov, Waidhaus, Lanzhot, Cesky Tesin) - CZ_border_exit + CZ_storage_withdrawal "
              "- CZ_storage_injection + CZ_production (virtual production point). NET4GAS publishes no domestic-exit series, so the balance is "
              "consumption plus own use, losses and line-pack change. LT_total = Amber Grid 'domestic consumption' = LT_distribution (gas "
