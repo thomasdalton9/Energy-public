@@ -1381,15 +1381,15 @@ def texas_demand_regression(p):
     if not qb.empty:
         # ERCOT large-load QUEUE by type (requests under study, NOT load, NOT observed): separate chart, never stacked with the observed series
         qb = qb.dropna(how="all")
-        out.append(spec("Queue by type", qb, "ERCOT large-load QUEUE by type, GW: requests at every status, NOT load (ERCOT TAC decks 25 Feb and 26 Mar 2026; Mar includes ~140 GW of new submissions)",
+        out.append(spec("Queue by type", qb, "ERCOT large-load QUEUE by type, GW (requests, NOT load; Mar incl. ~140 GW new submissions)",
                         "GW", "stacked_bar", "%b/%y"))
     ob = _sheet(p, "Observed split values", "Snapshot")
     if not ob.empty:
         # the only OBSERVED splits ERCOT publishes: by load zone and by connection type (same loads, two views); peak of each load, summed
         ob = ob.dropna(how="all")
-        out.append(spec("Observed by zone", ob[["LZ_WEST (West Texas)", "All other load zones"]], "ERCOT-OBSERVED large loads by load zone, GW (sum of each load's non-simultaneous peak; ERCOT TAC decks)",
+        out.append(spec("Observed by zone", ob[["LZ_WEST (West Texas)", "All other load zones"]], "ERCOT-OBSERVED large loads by load zone, GW (sum of each load's peak; TAC decks)",
                         "GW", "stacked_bar", "%b/%y"))
-        out.append(spec("Observed by connection", ob[["Co-located with generation", "Standalone"]], "ERCOT-OBSERVED large loads by connection type, GW (sum of each load's non-simultaneous peak; ERCOT TAC decks)",
+        out.append(spec("Observed by connection", ob[["Co-located with generation", "Standalone"]], "ERCOT-OBSERVED large loads by connection type, GW (sum of each load's peak; TAC decks)",
                         "GW", "stacked_bar", "%b/%y"))
     return out
 
