@@ -1,0 +1,29 @@
+name: ENTSOG point search probe (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ops:
+        description: "operator key prefixes, comma list (e.g. UK-)"
+        default: ""
+      labels:
+        description: "regex on point label"
+        default: ""
+      years:
+        default: "2022,2023,2024,2025"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: python3 -u discovery_archive/europe/ENTSOG_POINT_SEARCH_PROBE.py
+        env:
+          OPS: ${{ inputs.ops }}
+          LABELS: ${{ inputs.labels }}
+          YEARS: ${{ inputs.years }}
