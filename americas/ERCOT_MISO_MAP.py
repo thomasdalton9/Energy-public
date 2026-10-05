@@ -13,6 +13,7 @@ terminal locations (rounded to 0.01 deg). Capacities are approximate, rounded to
 Output: output/PNG Charts/ercot_miso_lng_map.png
 """
 import json
+import sys
 import os
 
 import matplotlib
@@ -26,7 +27,8 @@ from matplotlib.patches import PathPatch
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BA = os.path.join(ROOT, "maps", "us_balancing_authorities.geojson")
 ADMIN = os.path.join(ROOT, "maps", "north_america_admin1.geojson")
-OUT = os.path.join(ROOT, "output", "PNG Charts", "ercot_miso_lng_map.png")
+CLEAN = "--clean" in sys.argv  # no title, no inset: every plant labelled on the main map
+OUT = os.path.join(ROOT, "output", "PNG Charts", "ercot_miso_lng_map_clean.png" if CLEAN else "ercot_miso_lng_map.png")
 
 XLIM, YLIM = (-108.5, -68.0), (21.0, 49.5)
 MISO_C, ERCOT_C = "#2a6fb0", "#d9822b"
@@ -53,6 +55,12 @@ LNG = [
 CLUSTER = (-93.7, 29.77, "Sabine-Cameron\ncluster (5 plants,\nsee inset)", -91.0, 28.95, "right")
 # name, lon, lat, main label x, y, ha, inset label x, y, ha
 # Waha gas hub sits near Waha, Reeves/Pecos Co. (about 31.3N, 103.2W), just outside the ERCOT polygon
+# --clean layout: main-map label x, y, ha for every plant (the five Sabine-Cameron plants labelled in the Gulf)
+CLEAN_LABELS = {  # east-most plant gets the top label, so the leader lines fan out without crossing
+    "Cameron": (-91.0, 27.0, "left"), "Calcasieu Pass": (-91.0, 26.0, "left"),
+    "Sabine Pass": (-91.0, 25.0, "left"), "Golden Pass": (-91.0, 24.0, "left"), "Port Arthur LNG": (-91.0, 23.0, "left"),
+    "Plaquemines": (-88.0, 28.4, "left"), "Rio Grande LNG": (-98.5, 22.6, "left"),
+}
 HUBS = [
     ("Henry Hub\n(Erath, LA)", -92.04, 30.13, -90.4, 32.2, "left", -91.2, 30.55, "left"),
     ("Waha\n(Reeves / Pecos Co., TX)", -103.2, 31.33, -104.3, 28.9, "center", None, None, None),
@@ -112,17 +120,21 @@ def main():
 
     # ---- main map
     for name, x, y, cap, st, lx, ly, ha, *_ in LNG:
+        if CLEAN and name in CLEAN_LABELS:
+            lx, ly, ha = CLEAN_LABELS[name]
         if lx is None:
             continue
         marker(ax, x, y, cap, st == "op", (30, 45))
         mname = name.replace("(Stage 3 under constr.)", "(Stage 3 under\nconstr.)")
-        ax.annotate(f"{mname}\n{cap_txt(cap)}", (x, y), (lx, ly), fontsize=8.5, color=INK, ha=ha, va="center",
+        sep = "  " if CLEAN and name in CLEAN_LABELS else "\n"
+        ax.annotate(f"{mname}{sep}{cap_txt(cap)}", (x, y), (lx, ly), fontsize=8.5, color=INK, ha=ha, va="center",
                     zorder=7, path_effects=halo, arrowprops=lead)
     cx, cy, ctxt, clx, cly, cha = CLUSTER
-    ax.scatter([cx], [cy], s=170, marker="o", facecolor=GREEN, edgecolor="white", lw=1.2, zorder=6)
-    ax.text(cx, cy, "5", color="white", fontsize=8, fontweight="bold", ha="center", va="center", zorder=7)
-    ax.annotate(ctxt, (cx, cy), (clx, cly), fontsize=8.5, color=INK, ha=cha, va="center", zorder=7,
-                path_effects=halo, arrowprops=lead)
+    if not CLEAN:
+        ax.scatter([cx], [cy], s=170, marker="o", facecolor=GREEN, edgecolor="white", lw=1.2, zorder=6)
+        ax.text(cx, cy, "5", color="white", fontsize=8, fontweight="bold", ha="center", va="center", zorder=7)
+        ax.annotate(ctxt, (cx, cy), (clx, cly), fontsize=8.5, color=INK, ha=cha, va="center", zorder=7,
+                    path_effects=halo, arrowprops=lead)
     for name, x, y, lx, ly, ha, *_ in HUBS:
         ax.scatter([x], [y], s=150, marker="*", facecolor="#c0262d", edgecolor="white", lw=0.8, zorder=8)
         ax.annotate(name, (x, y), (lx, ly), fontsize=9.5, fontweight="bold", color="#c0262d", path_effects=halo,
@@ -136,6 +148,7 @@ def main():
     iw = 21.5
     ih = iw * (y1 - y0) / (x1 - x0) * 0.82  # same aspect as the main map
     ins = ax.inset_axes([-89.5, 21.2, iw, ih], transform=ax.transData, zorder=20)
+    ins.set_visible(not CLEAN)
     ins.set_facecolor("#e8f1f8")
     base(ins, miso_lw=1.0)
     ins.set_xlim(x0, x1)
@@ -181,14 +194,15 @@ def main():
               edgecolor="none", framealpha=1.0, fontsize=9, borderpad=0.8,
               title="Marker size scales with\nnameplate capacity (Bcf/d)", title_fontsize=8.5, alignment="left")
 
-    fig.suptitle("ERCOT and MISO footprints, US LNG export plants and the Henry Hub and Waha pricing hubs",
-                 x=0.02, y=0.975, ha="left", fontsize=15, fontweight="bold", color=INK)
+    if not CLEAN:
+        fig.suptitle("ERCOT and MISO footprints, US LNG export plants and the Henry Hub and Waha pricing hubs",
+                     x=0.02, y=0.975, ha="left", fontsize=15, fontweight="bold", color=INK)
     fig.text(0.02, 0.012,
              "Sources: footprints = HIFLD Control Areas (balancing-authority polygons, simplified); states = Natural Earth 1:50m.\n"
              "LNG plants = EIA US liquefaction capacity / export terminals and FERC North American LNG terminal lists; capacities are approximate\n"
              "nameplate (Bcf/d), status as listed there, coordinates rounded to 0.01 deg. Hubs: Henry Hub, Erath LA; Waha, Reeves/Pecos County TX.",
              ha="left", va="bottom", fontsize=7.5, color=MUTED)
-    fig.subplots_adjust(left=0.01, right=0.99, top=0.945, bottom=0.085)
+    fig.subplots_adjust(left=0.01, right=0.99, top=0.99 if CLEAN else 0.945, bottom=0.085)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     fig.savefig(OUT, facecolor="white")
     print("saved", OUT)
