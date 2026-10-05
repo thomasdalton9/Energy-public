@@ -127,7 +127,7 @@ def gas_summary(xl, path):
     fig, ax = plt.subplots(figsize=(11.5, 3.6))
     ax.axis("off")
     cols = list(out.columns)
-    cell = [[(f"{v:+.2f}" if c.endswith("change") else f"{v:.2f}") if pd.notna(v) else "" for c, v in r.items()] for _, r in out.iterrows()]
+    cell = [[(f"{v:+.2f}" if c in ("MoM", "YoY") else f"{v:.2f}") if pd.notna(v) else "" for c, v in r.items()] for _, r in out.iterrows()]
     t = ax.table(cellText=cell, rowLabels=list(out.index), colLabels=cols, loc="center", cellLoc="right")
     t.auto_set_font_size(False)
     t.set_fontsize(10)
@@ -137,7 +137,7 @@ def gas_summary(xl, path):
         if r == 0:
             cl.set_facecolor("#F2F2F2")
             cl.set_text_props(fontweight="bold", color=INK)
-    ax.set_title(f"EU27 gas balance, Bcf/d - {bcfd.index.max():%b %Y} vs previous month and a year earlier", loc="left", fontsize=13, color=INK, fontweight="bold")
+    ax.set_title(f"EU27 gas balance, Bcf/d - {bcfd.index.max():%b %Y} with month-on-month and year-on-year change", loc="left", fontsize=13, color=INK, fontweight="bold")
     fig.text(0.01, 0.01, "Source: ENTSOG, GIE AGSI+/ALSI, national TSOs. 11.2 GWh per million m3. Storage: net withdrawal positive. Residual = supply less demand.",
              fontsize=8, color=MUTED)
     fig.savefig(path, dpi=150, facecolor="white", bbox_inches="tight", pad_inches=0.25)

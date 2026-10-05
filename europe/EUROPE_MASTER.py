@@ -1112,13 +1112,13 @@ def gas_summary_table(eu):
     last = bcfd.index.max()
     prev, yago = last - pd.DateOffset(months=1), last - pd.DateOffset(years=1)
     out = pd.DataFrame(index=bcfd.columns)
-    out[f"{last:%b %Y}"] = bcfd.loc[last]
     if prev in bcfd.index:
         out[f"{prev:%b %Y}"] = bcfd.loc[prev]
-        out["MoM change"] = bcfd.loc[last] - bcfd.loc[prev]
+    out[f"{last:%b %Y}"] = bcfd.loc[last]
+    if prev in bcfd.index:
+        out["MoM"] = bcfd.loc[last] - bcfd.loc[prev]
     if yago in bcfd.index:
-        out[f"{yago:%b %Y}"] = bcfd.loc[yago]
-        out["YoY change"] = bcfd.loc[last] - bcfd.loc[yago]
+        out["YoY"] = bcfd.loc[last] - bcfd.loc[yago]       # change against the same month a year earlier (that month's level is not shown)
     return out, bcfd
 
 
@@ -1127,7 +1127,7 @@ def add_gas_summary_sheet(wb, used, eu):
     ws = wb.create_sheet(sam.sheet_name("Summary - Gas Bcf per day", used))
     ws.append(["EU27 gas balance, billion cubic feet per day (Bcf/d)"])
     ws["A1"].font = Font(bold=True, size=13)
-    ws.append([f"Latest complete month {bcfd.index.max():%b %Y}; month on month and year on year. EU27 = the sum of the corrected country balances (see the EU gas balance tab)."])
+    ws.append([f"Latest complete month {bcfd.index.max():%b %Y} and the month before; MoM is the change on the month before, YoY the change on the same month a year earlier (Bcf/d). EU27 = the sum of the corrected country balances (see the EU gas balance tab)."])
     ws.append([])
     ws.append(["Bcf/d"] + list(out.columns))
     for c in ws[4]:
