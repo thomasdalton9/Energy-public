@@ -47,7 +47,7 @@ FILE = "europe_tso_gas_demand_daily.xlsx"
 REVISION_DAYS = 14
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 COLUMNS = ["DE_distribution", "DE_industry_power", "DE_total", "FR_industrial", "FR_distribution", "FR_power", "FR_total", "ES_total",
-           "DK_total", "PT_total", "PT_conventional", "PT_power", "PT_distribution", "PT_high_pressure"]
+           "DK_total", "PT_total", "PT_conventional", "PT_power", "PT_distribution", "PT_high_pressure", "PT_uag"]
 
 
 def get(url, tries=3, **kw):
@@ -180,7 +180,8 @@ def denmark(d0, d1):
 # ---- Portugal: REN DataHub ---------------------------------------------------------------------------------------------
 REN = "https://servicebus.ren.pt/datahubapi/gas/GasConsumptionSupplyDaily"
 REN_TYPES = {"TOTAL_CONSUMPTION": "PT_total", "CONVENTIONAL_MARKET": "PT_conventional", "ELECTRICITY_MARKET": "PT_power",
-             "GRMS_DISTRIBUTION": "PT_distribution", "HIGH_PRESSURE_CLIENTS": "PT_high_pressure"}
+             "GRMS_DISTRIBUTION": "PT_distribution", "HIGH_PRESSURE_CLIENTS": "PT_high_pressure",
+             "AUTONOMOUS_GAS_UNITS": "PT_uag"}
 
 
 def portugal(d0, d1):
@@ -243,7 +244,8 @@ def main():
             continue
         print(f"{label}: start", flush=True)
         have = old[cols].dropna(how="all")
-        fs = start if (have.empty or code == "DK") else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))   # DK: one cheap call, always rebuilt from the start
+        new_col = code == "PT" and have.get("PT_uag", pd.Series(dtype=float)).notna().sum() < 100       # PT_uag added later: backfill its whole history
+        fs = start if (have.empty or code == "DK" or new_col) else max(start, have.index.max().date() - timedelta(days=REVISION_DAYS))   # DK: one cheap call, always rebuilt from the start
         try:
             new = fn(fs, today)
         except Exception as e:  # noqa: BLE001
@@ -277,7 +279,7 @@ def main():
              "connections (including the large gas-fired plants), FR_distribution = public distribution (GRD/ELD), FR_power = gas-fired power plants (CCCG, a subset of FR_industrial, shown for reference), FR_total = FR_industrial + FR_distribution. "
              "ES_total = Enagás national demand. DK_total = gas delivered to Danish consumers (Energinet KWhToDenmark; "
              "includes the biogas injected into the Danish grids). PT_total = REN total consumption (whole GWh), split into conventional market, electricity market "
-             "(gas-fired power), distribution (GRMS) and high-pressure clients. Recent days are preliminary and restated.",
+             "(gas-fired power), distribution (GRMS) and high-pressure clients; PT_uag = autonomous gas units (UAG: customers supplied with LNG by road tanker from the Sines terminal, inside the conventional market and PT_total). Recent days are preliminary and restated.",
              f"Re-fetches the last {REVISION_DAYS} days each run plus gaps; history from {args.start}.",
              "", "Last pull", f"{datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC; {len(combined)} days, "
              f"{combined.index.min():%Y-%m-%d} to {combined.index.max():%Y-%m-%d}"]
