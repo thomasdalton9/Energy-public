@@ -1364,7 +1364,7 @@ def texas_demand_regression(p):
     out[-1]["forecast_from"] = None
     bv = _sheet(p, "Load breakout values", "Month")
     if not bv.empty:
-        # ERCOT unexplained load apportioned by source (judgement shares, live formulas on 'Load breakout'): stacked base case, LOW/HIGH data-centre lines
+        # ERCOT unexplained load: SOURCED ERCOT-observed large loads + not-attributed remainder (no judgement shares), live formulas on 'Load breakout'
         import importlib.util
         sp_ = importlib.util.spec_from_file_location("TEXAS_DEMAND_REGRESSION", os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                                                                            "americas", "TEXAS_DEMAND_REGRESSION.py"))
@@ -1372,8 +1372,8 @@ def texas_demand_regression(p):
         sp_.loader.exec_module(tr)
         bv = bv[bv.index >= tr.CHART_FROM]
         d = bv[tr.SPEC_NAMES].dropna(how="all")
-        sb = spec("Load breakout", d, "ERCOT unexplained load by source, GW: base case, low/high data-centre lines (EIA-930; judgement shares)", "GW", "stacked_bar", "%b/%y",
-                  line_cols=tuple(tr.SPEC_NAMES[5:]))
+        sb = spec("Load breakout", d, "ERCOT unexplained load, GW: SOURCED large loads (ERCOT) vs NOT ATTRIBUTED; no judgement shares", "GW", "stacked_bar", "%b/%y",
+                  line_cols=tuple(tr.SPEC_NAMES[2:]))
         rows = {ts: int(r) for ts, r in bv["Row on 'Load breakout'"].items()}
         sb["live"] = {"sheet": tr.BO, "rows": rows, "cols": dict(zip(tr.SPEC_NAMES, tr.COL_TR))}
         out.append(sb)
