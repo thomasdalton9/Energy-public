@@ -15,6 +15,9 @@ point, API operationalData / "Physical Flow", daily), one workbook:
     sheet "Exports by destination": date, one column per destination country, GWh per day leaving EU27 grids to outside the EU
     sheet "Border flows": date, then one column per directed border "<from>><to>" (e.g. "NL>DE"), GWh per day; the flow on the border
         after de-duplication (see below). Lets a combined balance (Germany + Netherlands) cancel the flows between its members.
+    sheet "Border flows by side": date, then per directed border "<from>><to> exit" (the sender's own total) and "<from>><to> entry" (the
+        receiver's own total), GWh per day, after the same de-duplication; the two differ by the measurement difference between the operators.
+        Border flows is the larger of the two. Lets a combined balance cancel intra-block flows with one number per border.
     sheet "Units": source and definitions
 
 Each flow row is (point, operator, entry|exit). It is classed by the system on the other side of the point, taken from
@@ -178,6 +181,7 @@ def fetch_window(d0, d1, adj):
     data = get_json("operationalData", {"indicator": "Physical Flow", "periodType": "day", "from": d0.isoformat(),
                                         "to": d1.isoformat(), "limit": -1}).get("operationalData", [])
     cat, origin, dest, border, unclassified = {}, {}, {}, {}, 0
+    border_side = {}      # ("A>B exit" = the sender's own total, "A>B entry" = the receiver's own total), as booked in the country balances
     trans = []
     for r in data:
         v = r.get("value")
@@ -199,13 +203,15 @@ def fetch_window(d0, d1, adj):
         cat[(day, f"{country}_{category}_GWhd")] = cat.get((day, f"{country}_{category}_GWhd"), 0.0) + gwh
     for (day, a, b), (ex, im, g) in border_flows(trans).items():
         border[(day, f"{a}>{b}")] = g
+        border_side[(day, f"{a}>{b} exit")] = ex
+        border_side[(day, f"{a}>{b} entry")] = im
         cat[(day, f"{a}_exports_GWhd")] = cat.get((day, f"{a}_exports_GWhd"), 0.0) + ex
         cat[(day, f"{b}_imports_GWhd")] = cat.get((day, f"{b}_imports_GWhd"), 0.0) + im
         if a not in EU27 and b in EU27:
             origin[(day, a)] = origin.get((day, a), 0.0) + im
         if a in EU27 and b not in EU27:
             dest[(day, b)] = dest.get((day, b), 0.0) + ex
-    return cat, origin, dest, border, len(data), unclassified
+    return cat, origin, dest, border, border_side, len(data), unclassified
 
 
 def to_frame(d, name):
@@ -263,10 +269,11 @@ def main():
     deadline = time.time() + args.max_minutes * 60
     start = date.fromisoformat(args.start)
     end = date.today() - timedelta(days=1)
-    bal, org, dst, brd = (read_sheet(path, "Country balance"), read_sheet(path, "Imports by origin"),
-                          read_sheet(path, "Exports by destination"), read_sheet(path, "Border flows"))
-    if args.rebuild or brd.empty:     # workbooks written before the border sheet / VIP de-duplication hold double-counted flows: pull again
-        bal, org, dst, brd = (pd.DataFrame(),) * 4
+    bal, org, dst, brd, sid = (read_sheet(path, "Country balance"), read_sheet(path, "Imports by origin"),
+                               read_sheet(path, "Exports by destination"), read_sheet(path, "Border flows"),
+                               read_sheet(path, "Border flows by side"))
+    if args.rebuild or brd.empty or sid.empty:     # workbooks written before the border sheets / VIP de-duplication hold double-counted flows: pull again
+        bal, org, dst, brd, sid = (pd.DataFrame(),) * 5
     fs = start
     if len(bal):
         fs = max(start, (bal.index.max() - timedelta(days=RELOAD_DAYS)).date())
@@ -280,13 +287,14 @@ def main():
             break
         nxt = min(cur + timedelta(days=WINDOW_DAYS - 1), end)
         t0 = time.time()
-        cat, origin, dest, border, n, unc = fetch_window(cur, nxt, adj)
+        cat, origin, dest, border, bside, n, unc = fetch_window(cur, nxt, adj)
         print(f"  {cur} -> {nxt}: {n} rows, {unc} unclassified, {len(cat)} country-day values in {time.time() - t0:.0f}s", flush=True)
         bal = merge(bal, to_frame(cat, "balance"))
         org = merge(org, to_frame(origin, "origin"))
         dst = merge(dst, to_frame(dest, "dest"))
         brd = merge(brd, to_frame(border, "border"))
-        bal.index.name = org.index.name = dst.index.name = brd.index.name = "date"
+        sid = merge(sid, to_frame(bside, "side"))
+        bal.index.name = org.index.name = dst.index.name = brd.index.name = sid.index.name = "date"
         cur = nxt + timedelta(days=1)
         time.sleep(1)
     if bal.empty:
@@ -314,6 +322,8 @@ def main():
     sheets = {"Country balance": bal}
     if not brd.empty:
         sheets["Border flows"] = brd[sorted(brd.columns)].round(3)
+    if not sid.empty:
+        sheets["Border flows by side"] = sid[sorted(sid.columns)].round(3)
     if not org.empty:
         sheets["Imports by origin"] = org
     if not dst.empty:
