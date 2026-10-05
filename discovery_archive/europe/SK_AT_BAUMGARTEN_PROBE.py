@@ -3,6 +3,7 @@ Probe: the Austria-Slovakia gas border (Baumgarten). Part 1: every ENTSOG point/
 annual TWh for Physical Flow / Allocation / Renomination. Part 2: AGGM data-monitor series names for border points (Entry/Exit/Grenz/Baumgarten ...) with 2025 sums.
 Part 3: reachability of Eustream transparency pages (browser headers) and the links found on them. Prints only.
 """
+import os
 import re
 import sys
 import time
@@ -29,8 +30,9 @@ def get(path, params, tries=3):
     return {}
 
 
+PART = os.environ.get("PART", "1,2,3,4").split(",")
 print("== PART 1 ENTSOG", flush=True)
-ics = get("interconnections", {"limit": -1}).get("interconnections", [])
+ics = get("interconnections", {"limit": -1}).get("interconnections", []) if "1" in PART else []
 cand = {}
 for i in ics:
     lab = str(i.get("pointLabel") or "")
@@ -54,6 +56,8 @@ for (opk, pk, d), (lab, adjc, adjo, adjl) in sorted(cand.items()):
 
 print("== PART 2 AGGM", flush=True)
 try:
+    if "2" not in PART:
+        raise RuntimeError("skipped")
     B = "https://platform.aggm.at/vis-service/api/"
     t = requests.get(B + "ts/attributes", headers={"User-Agent": "Mozilla/5.0"}, timeout=90).text
     names = sorted(set(re.findall(r'"name":"([^"]+)"', t)))
@@ -80,7 +84,7 @@ urls = ["https://www.eustream.sk/en/transparency", "https://www.eustream.sk/en/t
         "https://www.eustream.sk/en/transparency/business-operational-data/", "https://data.eustream.sk/", "https://transparency.eustream.sk/en/",
         "https://www.eustream.sk/en/transparency/transparency-data", "https://www.eustream.sk/en",
         "https://datacube.statistics.sk/", "https://www.spp-distribucia.sk/en/", "https://www.mhsr.sk/", "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_cb_gasm?format=JSON&geo=SK&lang=en&siec=G3000&nrg_bal=IC_OBS&unit=TJ_GCV&time=2025M01"]
-for u in urls:
+for u in (urls if "3" in PART else []):
     try:
         r = requests.get(u, headers=BR, timeout=40, allow_redirects=True)
         print(r.status_code, u, r.headers.get("content-type", "")[:40], len(r.content), flush=True)
@@ -91,4 +95,20 @@ for u in urls:
                 print("     ", l[:140], flush=True)
     except Exception as e:  # noqa: BLE001
         print("ERR", u, type(e).__name__, str(e)[:100], flush=True)
+
+print("== PART 4 tis.eustream.sk", flush=True)
+if "4" in PART:
+    for u in ["https://tis.eustream.sk/en/", "https://tis.eustream.sk/en/business-data/", "https://tis.eustream.sk/en/business-data/flows/", "https://tis.eustream.sk/en/business-data/energy-content/",
+              "https://tis.eustream.sk/en/business-data/numerical-capacities/", "https://tis.eustream.sk/en/business-data/nominations/", "https://www.eustream.sk/en/transparency/business-operational-data/toky/"]:
+        try:
+            r = requests.get(u, headers=BR, timeout=40)
+            print(r.status_code, u, r.headers.get("content-type", "")[:40], len(r.content), flush=True)
+            if r.ok:
+                links = sorted(set(re.findall(r'(?:href|src|action)="([^"]+)"', r.text)))
+                for l in links[:60]:
+                    print("     ", l[:150], flush=True)
+                for m in re.findall(r'(?:api|json|csv|xlsx|ajax)[^"\'\s]{0,100}', r.text)[:20]:
+                    print("   hint", m[:120], flush=True)
+        except Exception as e:  # noqa: BLE001
+            print("ERR", u, type(e).__name__, str(e)[:100], flush=True)
 sys.exit(0)

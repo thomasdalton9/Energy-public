@@ -1,7 +1,10 @@
 name: SK-AT Baumgarten probe (manual)
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      part:
+        default: "1,2,3,4"
 
 jobs:
   probe:
@@ -14,3 +17,5 @@ jobs:
           python-version: "3.11"
       - run: pip install requests
       - run: python3 -u discovery_archive/europe/SK_AT_BAUMGARTEN_PROBE.py
+        env:
+          PART: ${{ inputs.part }}
