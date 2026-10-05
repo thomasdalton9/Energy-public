@@ -270,7 +270,7 @@ def run(out):
         "inj": "Storage injection (Bcf/d)", "wd": "Storage withdrawal (Bcf/d)", "net_inj": "Net injection (+) (Bcf/d)",
         "basis": "Flow basis", "stock": "Working gas stock, month end (Bcf)", "stock_basis": "Stock basis"})
     sto.index.name = "Month"
-    capc = [c for c in raw.columns if str(c).startswith("cap|") and "working" in str(c).lower()]
+    capc = [c for c in raw.columns if str(c).strip() == "cap|Working Underground Storage Capacity"]
     if capc:
         cap_ = raw[capc[0]].dropna() / 1000.0
         if len(cap_):
