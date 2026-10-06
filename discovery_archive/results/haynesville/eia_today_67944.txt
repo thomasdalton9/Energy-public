@@ -1,0 +1,1301 @@
+URL: https://www.eia.gov/todayinenergy/detail.php?id=67944
+FETCHED: 2026-10-06
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ United States on track for record natural gas production in 2026 -
+ U.S. Energy Information Administration (EIA) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+
+ Skip to sub-navigation 
+ 
+ 
+ U.S. Energy Information Administration - EIA - Independent Statistics and Analysis
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ Menu
+
+ 
+
+ 
+
+ 
+ 
+ Statistics
+
+ 
+
+ 
+ Analysis
+
+ 
+
+ 
+ Tools
+
+ 
+
+ 
+ Education
+
+ 
+
+ 
+ News
+
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Enter Search Term(s): 
+ 
+ 
+ Search 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+ 
+ 
+ 
+ Today in Energy 
+
+ 
+
+ Skip to page content 
+ 
+ 
+ 
+ Recent articles 
+
+ 
+ 
+ Browse by tag 
+ 
+ 
+ 
+ 
+ liquid fuels 
+ 
+
+ 
+ natural gas 
+ 
+
+ 
+ electricity 
+ 
+
+ 
+ oil/petroleum 
+ 
+
+ 
+ production/supply 
+ 
+
+ 
+ crude oil 
+ 
+
+ 
+ consumption/demand 
+ 
+
+ 
+ generation 
+ 
+
+ 
+ prices 
+ 
+
+ 
+ map 
+ 
+
+ 
+ states 
+ 
+
+ 
+ exports/imports 
+ 
+
+ 
+ international 
+ 
+
+ 
+ coal 
+ 
+
+ 
+ renewables 
+ 
+
+ 
+ weather 
+ 
+
+ 
+ forecasts/projections 
+ 
+
+ 
+ gasoline 
+ 
+
+ 
+ capacity 
+ 
+
+ 
+ steo (short-term energy outlook) 
+ 
+
+ 
+ 
+
+ 
+
+ 
+ 
+ Prices 
+ 
+
+ 
+ 
+ Archive 
+ 
+
+ 
+ 
+ About 
+ 
+
+ 
+ 
+
+ 
+ 
+ Glossary 
+ FAQS 
+ 
+
+ 
+
+
+
+ 
+
+
+ 
+
+ 
+ 
+ 
+ 
+ In-brief analysis 
+
+ August 12, 2026 
+ 
+ United States on track for record natural gas production in 2026 
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+ 
+ 
+ Data source: U.S. Energy Information Administration, Short-Term Energy Outlook , August 2026
+
+ Note: 1H2026=first half of 2026
+ 
+
+ 
+
+
+ We forecast U.S. marketed natural gas production will average 122.5 billion cubic feet per day (Bcf/d) in 2026, surpassing the previous record of 118.5 Bcf/d set in 2025, in our August 2026 Short-Term Energy Outlook (STEO). 
+
+
+
+ 
+
+ 
+In the first half of 2026 (1H26), marketed natural gas production averaged 121.3 Bcf/d, 4% (4.6 Bcf/d) more than the same period in 2025. Most of this expansion is concentrated in the Permian region in Texas and New Mexico and the Haynesville region in Louisiana and Texas. 
+
+
+
+ 
+The United States was the world’s largest producer of natural gas from 2009 through 2024, the most recent year for which we have global natural gas production data.
+
+
+
+ 
+
+ 
+ 
+ Data source: U.S. Energy Information Administration, Short-Term Energy Outlook , August 2026
+ 
+
+ 
+
+
+ 
+We forecast Permian gas production will average 29.2 Bcf/d in 2026, 6% more than in 2025. In the Permian region, natural gas production is driven primarily by associated gas produced during crude oil extraction and is supported by crude oil prices. 
+
+
+
+ 
+ West Texas Intermediate (WTI) crude oil prices rose from an average of $65/barrel (b) in 2025 to an average of $84/b through July 2026, exceeding the region’s breakeven price—the minimum price needed for an operation to cover its costs. Oil industry executives responding to the Dallas Fed Energy survey reported the two largest basins in the Permian had breakeven prices of $69/b (Midland Basin) and $63/b (Delaware Basin) in 2026. The relatively high prices support oil-directed drilling in the Permian region and the resulting rise in both crude oil and natural gas production. 
+
+
+
+ 
+In addition to crude oil prices, a steadily increasing gas-to-oil ratio (GOR) in the Permian is contributing to growth in Permian natural gas production. As more oil and natural gas are produced, pressure within the reservoir declines. Natural gas is easier to produce at lower pressures than oil, so the GOR increases.
+
+
+
+ 
+In the Haynesville region, natural gas production increased by 1.1 Bcf/d (7%) in 1H26 compared with 1H25. We forecast Haynesville natural gas production will increase 9% (1.3 Bcf/d) in 2026. Drilling in the Haynesville formation—which, at 10,500 feet to 13,500 feet deep , is one of the deepest in the U.S. Lower 48 states—has higher development costs associated with drilling deeper wells. Unlike Permian operators who drill mostly for oil, Haynesville operators drill mostly for natural gas. So, Haynesville production is driven by the natural gas benchmark Henry Hub price. 
+
+
+
+ 
+We forecast the Henry Hub spot price will fall by 2% (8 cents) to average $3.44 per million British thermal units in 2026. At this forecast price, drilling in the Haynesville remains economical despite the relatively deeper wells and more expensive development costs. In addition, the Haynesville’s proximity to liquefied natural gas export terminals and major industrial natural gas consumers along the U.S. Gulf Coast draws operators to actively drill in the region.
+
+
+
+ Principal contributors: Trinity Manning-Pickett, Naser Ameen
+
+
+
+
+
+
+
+ 
+ 
+ Tags: 
+ natural gas , production/supply , STEO (Short-Term Energy Outlook) 
+
+ 
+
+ 
+
+ 
+ More recent articles › 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ About EIA 
+
+ Open Data 
+
+ Legacy 
+
+ Contact Us 
+
+ 
+ 
+
+ 
+ U.S. Energy Information Administration
+
+ 1000 Independence Ave., SW
+
+ Washington, DC 20585
+
+ 
+
+ 
+
+ 
+ 
+ Policies
+
+ Privacy/Security 
+
+ Copyright & Reuse 
+
+ Accessibility 
+
+ 
+ Information Quality 
+
+ Freedom of Information Act (FOIA) 
+
+ 
+ Related Sites
+
+ usa.gov 
+
+ U.S. Department of Energy 
+
+ 
+ Stay Connected
+
+ Facebook 
+
+ X 
+
+ 
+ Youtube 
+
+ LinkedIn 
+
+ 
+ Email Updates 
+
+ RSS Feeds 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Statistics
+
+ Analysis
+
+ Tools
+
+ Education
+
+ News
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Petroleum & Other Liquids 
+ 
+
+ Crude oil, gasoline, heating oil, diesel, propane, and other liquids including biofuels and natural gas liquids.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Natural Gas 
+ 
+
+ Exploration and reserves, storage, imports and exports, production, prices, sales.
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Electricity 
+ 
+
+ Sales, revenue and prices, power plants, fuel use, stocks, generation, trade, demand & emissions.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Coal 
+ 
+
+ Reserves, production, prices, employment and productivity, distribution, stocks, imports and exports.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Nuclear & Uranium 
+ 
+
+ Uranium fuel, nuclear reactors, generation, spent fuel.
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Renewable & Alternative Fuels 
+ 
+
+ Includes hydropower, solar, wind, geothermal, biomass and ethanol.
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ EIA Survey Forms 
+ 
+
+ Forms EIA uses to collect energy data including descriptions, links to survey instructions, and additional information.
+
+ 
+ 
+
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ Total Energy 
+ 
+
+ Comprehensive data summaries, comparisons, analysis, and projections integrated across all energy sources.
+
+ 
+ 
+ Monthly Energy Review 
+ 
+
+ 
+ Annual Energy Review 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Consumption & Efficiency 
+ 
+
+ Energy use in homes, commercial buildings, manufacturing, and transportation.
+
+ 
+ 
+ Residential Energy Consumption Survey (RECS) 
+ 
+
+ 
+ Commercial Buildings Energy Consumption Survey (CBECS) 
+ 
+
+ 
+ Manufacturing Energy Consumption Survey (MECS) 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ U.S. States 
+ 
+
+ State energy information, including overviews, rankings, data, and analyses.
+
+ 
+ 
+ State Energy Data System (SEDS) 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ International 
+ 
+
+ International energy information, including overviews, rankings, data, and analyses.
+
+ 
+ 
+ International Energy Statistics 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Environment 
+ 
+
+ Greenhouse gas data, voluntary reporting, electric power plant emissions.
+
+ 
+ U.S. Energy-Related Carbon Dioxide Emissions 
+
+ Energy-Related Carbon Dioxide Emissions at the State Level, 2005-2016 
+
+ Energy-Related Carbon Dioxide Emissions at the State Level 
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Analysis and Projections 
+ 
+
+ Monthly and yearly energy forecasts, analysis of energy topics, financial analysis, congressional reports.
+
+ 
+ 
+ Short-Term Energy Outlook 
+ 
+
+ 
+ Annual Energy Outlook 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ Special Reports 
+ 
+
+ Special market analysis and/or data requests.
+
+ 
+ 
+ EIA-112 Residential Utility Disconnections 
+ 
+
+ 
+ SHIP Act 
+ 
+
+ 
+ Energy & Financial Markets: What Drives Crude Oil Prices? 
+ 
+
+ 
+ 
+ 
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ International 
+ 
+
+ International energy analyses.
+
+ 
+ 
+ Regional Analysis Briefs 
+ 
+
+ 
+ Country Analysis Briefs 
+ 
+
+ 
+ World Oil Transit Chokepoints 
+ 
+
+ 
+ OPEC Revenue 
+ 
+
+
+ 
+ Global Energy Security Data 
+ 
+
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Glossary 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ Data Tools, Apps, & Maps 
+ 
+
+ Tools to customize searches, view specific data sets, study detailed documentation, and access time-series data.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Open Data 
+ 
+
+ EIA's free and open data available as API, Excel add-in, bulk files, and widgets
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ EIA Beta 
+ 
+
+ Come test out some of the products still in development and let us know what you think!
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Open Source Code 
+ 
+
+ EIA's open source code, available on GitHub.
+
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ All Reports & Products 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ EIA Survey Forms 
+ 
+
+ Forms EIA uses to collect energy data including descriptions, links to survey instructions, and additional information.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Email Updates 
+ 
+
+ Sign up for email subscriptions to receive messages about specific EIA products
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ RSS Feeds 
+ 
+
+ Subscribe to feeds for updates on EIA products including Today in Energy and What's New.
+
+ 
+ 
+
+ 
+ 
+ 
+ Follow us. . .
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ A-Z Index 
+ 
+
+ 
+ A |
+ B |
+ C |
+ D |
+ E |
+ F |
+ G |
+ H |
+ I |
+ J |
+ K |
+ L |
+ M |
+ N |
+ O |
+ P |
+ Q |
+ R |
+ S |
+ T |
+ U |
+ V |
+ W |
+ XYZ 
+ 
+
+ 
+ 
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Today in Energy 
+ 
+
+ Short, timely articles with graphics on energy, facts, issues, and trends.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Energy Explained 
+ 
+
+ 
+ 
+ 
+ What is Energy? 
+ 
+
+ 
+ Units & Calculators 
+ 
+
+ 
+ U.S. Energy Facts 
+ 
+
+ 
+ Use of Energy 
+ 
+
+ 
+ Energy & Environment 
+ 
+
+ 
+ Petroleum 
+ 
+
+ 
+ Hydrocarbon Gas Liquids 
+ 
+
+ 
+ Natural Gas 
+ 
+
+ 
+ 
+ 
+ Coal 
+ 
+
+ 
+ Nuclear 
+ 
+
+ 
+ Electricity 
+ 
+
+ 
+ Hydrogen 
+ 
+
+ 
+ Hydropower 
+ 
+
+ 
+ Biofuels 
+ 
+
+ 
+ Biomass 
+ 
+
+ 
+ Wind 
+ 
+
+ 
+ Geothermal 
+ 
+
+ 
+ Solar 
+ 
+
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ For Teachers 
+ 
+
+ Lesson plans, science fair experiments, field trips, teacher guide, and career corner.
+
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Glossary 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ FAQs 
+ 
+
+ 
+ 
+ 
+ Coal 
+ 
+
+ 
+ Conversion & Equivalents 
+ 
+
+ 
+ Oil/Petroleum 
+ 
+
+ 
+ Diesel 
+ 
+
+ 
+ Electricity 
+ 
+
+ 
+ Environment 
+ 
+
+ 
+ 
+ 
+ Gasoline 
+ 
+
+ 
+ General Energy 
+ 
+
+ 
+ Natural Gas 
+ 
+
+ 
+ Nuclear 
+ 
+
+ 
+ Prices 
+ 
+
+ 
+ Renewables 
+ 
+
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ What's New? 
+
+ 
+ Quarterly Coal Report—Second Quarter 2026 
+ Oct 01, 2026
+ Wholesale Electricity Market Data 
+ Oct 01, 2026
+ Petroleum Marketing Monthly 
+ Oct 01, 2026
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Press Room 
+ 
+
+ 
+ 
+ Press Releases 
+ 
+
+ 
+ Congressional Testimony 
+ 
+
+ 
+ Presentations 
+ 
+
+ 
+ Events 
+ 
+
+ 
+ 
+ 
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ 
+ 
+ 

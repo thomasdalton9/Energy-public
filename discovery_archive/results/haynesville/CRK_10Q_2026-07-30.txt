@@ -1,0 +1,11702 @@
+URL: https://www.sec.gov/Archives/edgar/data/23194/000119312526326260/crk-20260630.htm
+FETCHED: 2026-10-06
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 10-Q 
+ 
+ 
+ 
+ 0000023194 false --12-31 Q2 three years 0000023194 crk:LeaseOperatingExpenseMember 2025-01-01 2025-06-30 0000023194 us-gaap:OilAndCondensateMember 2025-04-01 2025-06-30 0000023194 us-gaap:RetainedEarningsMember 2025-12-31 0000023194 crk:ShortTermDrillingRigCostsIncludedInNaturalGasAndOilPropertiesMember 2025-01-01 2025-06-30 0000023194 crk:LLCAgreementMember crk:StarvilleEvergreenHoldingsLLCMember crk:PinnacleGasServicesLlcMember 2026-06-15 2026-06-15 0000023194 2026-04-01 2026-06-30 0000023194 crk:PinnacleGasServicesLlcMember 2026-06-30 0000023194 crk:PinnacleGasServicesBankCreditFacilityMember srt:MaximumMember us-gaap:SecuredOvernightFinancingRateSofrMember us-gaap:LineOfCreditMember 2026-01-01 2026-06-30 0000023194 us-gaap:PerformanceSharesMember 2026-04-01 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesMember 2026-01-01 2026-06-30 0000023194 us-gaap:NaturalGasProductionMember 2026-04-01 2026-06-30 0000023194 us-gaap:CommonStockMember 2026-01-01 2026-03-31 0000023194 us-gaap:GeneralAndAdministrativeExpenseMember 2025-01-01 2025-06-30 0000023194 2026-01-01 2026-03-31 0000023194 us-gaap:RetainedEarningsMember 2025-04-01 2025-06-30 0000023194 crk:FairValueInputsLevel2AndLevel3Member 2026-06-30 0000023194 srt:AffiliatedEntityMember 2026-06-30 0000023194 crk:SeniorNotesSixPointSevenFivePercentDueTwoThousandTwentyNineMember us-gaap:FairValueInputsLevel1Member 2025-12-31 0000023194 us-gaap:RetainedEarningsMember 2024-12-31 0000023194 us-gaap:AdditionalPaidInCapitalMember 2026-03-31 0000023194 crk:GasServicesMember 2026-04-01 2026-06-30 0000023194 crk:PinnacleGasServicesBankCreditFacilityMember srt:MinimumMember us-gaap:SecuredOvernightFinancingRateSofrMember us-gaap:LineOfCreditMember 2026-01-01 2026-06-30 0000023194 us-gaap:PerformanceSharesMember 2025-01-01 2025-06-30 0000023194 us-gaap:RetainedEarningsMember 2026-04-01 2026-06-30 0000023194 us-gaap:NoncontrollingInterestMember 2026-04-01 2026-06-30 0000023194 us-gaap:PerformanceSharesMember 2026-01-01 2026-01-31 0000023194 us-gaap:NoncontrollingInterestMember 2025-04-01 2025-06-30 0000023194 crk:CollarContractOneForYearTwoMember crk:NaturalGasCollarContractOneMember 2026-01-01 2026-06-30 0000023194 srt:AffiliatedEntityMember 2025-12-31 0000023194 us-gaap:RestrictedStockMember 2026-04-01 2026-06-30 0000023194 crk:PinnacleGasServicesBankCreditFacilityMember srt:MinimumMember us-gaap:LineOfCreditMember 2026-01-01 2026-06-30 0000023194 crk:ShortTermDrillingRigCostsIncludedInNaturalGasAndOilPropertiesMember 2026-01-01 2026-06-30 0000023194 crk:NaturalGasCollarContractOneMember 2026-01-01 2026-06-30 0000023194 us-gaap:NoncontrollingInterestMember 2026-03-31 0000023194 crk:NaturalGasCollarContractOneMember crk:CollarContractOneForYearOneMember 2026-01-01 2026-06-30 0000023194 crk:OperatingLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2026-01-01 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesNonCurrentAssetMember 2026-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesCurrentAssetMember 2026-06-30 0000023194 us-gaap:CommonStockMember 2026-06-30 0000023194 srt:MaximumMember us-gaap:SecuredOvernightFinancingRateSofrMember us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 us-gaap:BaseRateMember srt:MinimumMember us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 us-gaap:RetainedEarningsMember 2025-03-31 0000023194 2025-01-01 2025-06-30 0000023194 us-gaap:RestrictedStockMember 2025-04-01 2025-06-30 0000023194 crk:GasServicesMember 2025-01-01 2025-06-30 0000023194 srt:MinimumMember 2026-06-30 0000023194 crk:GasServicesMember 2025-04-01 2025-06-30 0000023194 crk:MidstreamAssetsMember 2025-12-31 0000023194 crk:PinnacleGasServicesLlcMember 2025-12-31 0000023194 us-gaap:AdditionalPaidInCapitalMember 2024-12-31 0000023194 2025-03-31 0000023194 2024-12-31 0000023194 2025-12-31 0000023194 crk:NaturalGasAndOilSalesMember 2025-04-01 2025-06-30 0000023194 crk:PartnershipCostsToDrillAndOperateWellsAndOverheadFeesMember srt:AffiliatedEntityMember 2026-04-01 2026-06-30 0000023194 2026-01-01 2026-06-30 0000023194 crk:VariableLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2026-04-01 2026-06-30 0000023194 crk:SeniorNotesSixPointSevenFivePercentDueTwoThousandTwentyNineMember 2026-06-30 0000023194 crk:FairValueInputsLevel2AndLevel3Member 2025-12-31 0000023194 us-gaap:RevolvingCreditFacilityMember crk:PinnacleGasServicesBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 crk:PinnacleGasServicesBankCreditFacilityMember srt:MaximumMember us-gaap:LineOfCreditMember 2026-01-01 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesMember 2026-04-01 2026-06-30 0000023194 crk:PinnacleGasServicesBankCreditFacilityMember us-gaap:LineOfCreditMember 2026-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2025-12-31 0000023194 crk:CollarContractOneForYearTwoMember crk:NaturalGasCollarContractOneMember 2026-06-30 0000023194 crk:ShortTermDrillingRigCostsIncludedInNaturalGasAndOilPropertiesMember 2026-04-01 2026-06-30 0000023194 crk:SeniorNotesSixPointSevenFivePercentDueTwoThousandTwentyNineMember us-gaap:FairValueInputsLevel1Member 2026-06-30 0000023194 us-gaap:NoncontrollingInterestMember 2025-03-31 0000023194 us-gaap:NoncontrollingInterestMember 2025-06-30 0000023194 crk:PinnacleGasServicesLlcMember 2026-06-15 2026-06-15 0000023194 2025-01-01 2025-03-31 0000023194 us-gaap:FairValueInputsLevel1Member crk:SeniorNotesFivePointEightSevenFivePercentDueTwoThousandThirtyMember 2026-06-30 0000023194 crk:GainOnSaleOfAssetsMember 2026-04-01 2026-06-30 0000023194 crk:StarvilleEvergreenHoldingsLLCMember crk:PinnacleGasServicesLlcMember 2026-06-15 2026-06-15 0000023194 us-gaap:LineOfCreditMember 2026-06-30 0000023194 us-gaap:BaseRateMember srt:MaximumMember us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 2025-06-30 0000023194 us-gaap:NaturalGasProductionMember 2025-04-01 2025-06-30 0000023194 crk:GainOnSaleOfAssetsMember 2025-04-01 2025-06-30 0000023194 2026-06-30 0000023194 us-gaap:RevolvingCreditFacilityMember srt:MinimumMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 us-gaap:GeneralAndAdministrativeExpenseMember 2025-04-01 2025-06-30 0000023194 2025-04-01 2025-06-30 0000023194 crk:VariableLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2026-01-01 2026-06-30 0000023194 us-gaap:CommonStockMember 2025-03-31 0000023194 us-gaap:PropertyPlantAndEquipmentOtherTypesMember 2026-06-30 0000023194 us-gaap:PerformanceSharesMember 2025-04-01 2025-06-30 0000023194 crk:LeaseOperatingExpenseMember 2026-01-01 2026-06-30 0000023194 crk:DrillingRigContractsMember 2025-10-01 2025-10-31 0000023194 srt:MinimumMember us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 us-gaap:RestrictedStockMember 2026-01-01 2026-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2025-06-30 0000023194 srt:MaximumMember 2026-01-01 2026-06-30 0000023194 crk:PartnershipCostsToDrillAndOperateWellsAndOverheadFeesMember srt:AffiliatedEntityMember 2026-01-01 2026-06-30 0000023194 us-gaap:RestrictedStockMember 2026-06-30 0000023194 us-gaap:OilAndCondensateMember 2025-01-01 2025-06-30 0000023194 crk:ClassA-2UnitsMember crk:PinnacleGasServicesLlcMember 2026-06-15 2026-06-15 0000023194 2026-07-29 0000023194 crk:PinnacleGasServicesLlcMember 2026-01-01 2026-06-30 0000023194 us-gaap:CommonStockMember 2026-04-01 2026-06-30 0000023194 us-gaap:RestrictedStockMember 2025-12-31 0000023194 us-gaap:OilAndCondensateMember 2026-04-01 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesMember 2025-01-01 2025-06-30 0000023194 us-gaap:PerformanceSharesMember 2026-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2026-04-01 2026-06-30 0000023194 crk:NaturalGasAndOilSalesMember 2025-01-01 2025-06-30 0000023194 crk:MidstreamAssetsMember 2026-06-30 0000023194 crk:DrillingRigContractsMember 2026-06-30 0000023194 us-gaap:RestrictedStockMember 2025-01-01 2025-06-30 0000023194 us-gaap:NoncontrollingInterestMember 2026-06-30 0000023194 crk:VariableLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2025-01-01 2025-06-30 0000023194 srt:MinimumMember 2026-01-01 2026-06-30 0000023194 crk:NaturalGasSwapContractsMember 2026-06-30 0000023194 srt:MinimumMember us-gaap:SecuredOvernightFinancingRateSofrMember us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 srt:MaximumMember us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 crk:OperatingLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2026-04-01 2026-06-30 0000023194 crk:OperatingLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2025-01-01 2025-06-30 0000023194 us-gaap:CommonStockMember 2025-01-01 2025-03-31 0000023194 us-gaap:NoncontrollingInterestMember 2025-01-01 2025-03-31 0000023194 crk:NaturalGasPriceDerivativesCurrentAssetMember 2025-12-31 0000023194 crk:NaturalGasSwapContractsMember crk:SwapContractsForYearOneMember 2026-06-30 0000023194 crk:NaturalGasCollarContractOneMember 2026-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2025-01-01 2025-03-31 0000023194 crk:OperatingLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2025-04-01 2025-06-30 0000023194 crk:ShortTermDrillingRigCostsIncludedInNaturalGasAndOilPropertiesMember 2025-04-01 2025-06-30 0000023194 crk:NaturalGasCollarContractOneMember crk:CollarContractOneForYearOneMember 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesMember 2025-04-01 2025-06-30 0000023194 us-gaap:RestrictedStockMember 2026-01-01 2026-01-31 0000023194 us-gaap:NaturalGasProductionMember 2025-01-01 2025-06-30 0000023194 us-gaap:NoncontrollingInterestMember 2025-12-31 0000023194 us-gaap:AdditionalPaidInCapitalMember 2026-01-01 2026-03-31 0000023194 crk:VariableLeaseCostsIncludedInProvedOilAndGasPropertiesMember 2025-04-01 2025-06-30 0000023194 us-gaap:RestrictedStockMember 2026-06-01 2026-06-30 0000023194 crk:GasServicesMember 2026-01-01 2026-06-30 0000023194 us-gaap:RevolvingCreditFacilityMember crk:ComstockBankCreditFacilityMember 2026-01-01 2026-06-30 0000023194 us-gaap:RevolvingCreditFacilityMember crk:ComstockBankCreditFacilityMember 2026-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2025-04-01 2025-06-30 0000023194 us-gaap:LineOfCreditMember 2025-12-31 0000023194 crk:DrillingRigContractMember 2026-01-01 2026-06-30 0000023194 crk:LeaseOperatingExpenseMember 2026-04-01 2026-06-30 0000023194 us-gaap:RetainedEarningsMember 2025-01-01 2025-03-31 0000023194 srt:AffiliatedEntityMember 2026-01-01 2026-06-30 0000023194 us-gaap:CommonStockMember 2026-03-31 0000023194 crk:NaturalGasSwapContractsMember crk:SwapContractsForYearOneMember 2026-01-01 2026-06-30 0000023194 us-gaap:BaseRateMember crk:PinnacleGasServicesBankCreditFacilityMember srt:MaximumMember us-gaap:LineOfCreditMember 2026-01-01 2026-06-30 0000023194 us-gaap:PerformanceSharesMember 2026-01-01 2026-06-30 0000023194 us-gaap:GeneralAndAdministrativeExpenseMember 2026-04-01 2026-06-30 0000023194 us-gaap:BaseRateMember srt:MinimumMember crk:PinnacleGasServicesBankCreditFacilityMember us-gaap:LineOfCreditMember 2026-01-01 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesCurrentLiabilityMember 2026-06-30 0000023194 us-gaap:CommonStockMember 2024-12-31 0000023194 us-gaap:NoncontrollingInterestMember 2024-12-31 0000023194 crk:PartnershipCostsToDrillAndOperateWellsAndOverheadFeesMember srt:AffiliatedEntityMember 2025-01-01 2025-06-30 0000023194 us-gaap:LineOfCreditMember crk:ComstockBankCreditFacilityMember 2026-06-30 0000023194 us-gaap:OilAndCondensateMember 2026-01-01 2026-06-30 0000023194 us-gaap:NoncontrollingInterestMember 2026-01-01 2026-03-31 0000023194 crk:NaturalGasPriceDerivativesCurrentLiabilityMember 2025-12-31 0000023194 crk:NaturalGasAndOilSalesMember 2026-01-01 2026-06-30 0000023194 crk:SeniorNotesFivePointEightSevenFivePercentDueTwoThousandThirtyMember 2026-06-30 0000023194 us-gaap:CommonStockMember 2025-06-30 0000023194 crk:GainOnSaleOfAssetsMember 2026-01-01 2026-06-30 0000023194 us-gaap:RetainedEarningsMember 2025-06-30 0000023194 us-gaap:AdditionalPaidInCapitalMember 2025-03-31 0000023194 us-gaap:NaturalGasProductionMember 2026-01-01 2026-06-30 0000023194 us-gaap:CommonStockMember 2025-04-01 2025-06-30 0000023194 us-gaap:PropertyPlantAndEquipmentOtherTypesMember 2025-12-31 0000023194 crk:PinnacleGasServicesLlcMember 2025-01-01 2025-12-31 0000023194 us-gaap:CommonStockMember 2025-12-31 0000023194 srt:MaximumMember 2026-06-30 0000023194 crk:DrillingRigContractMember 2026-06-30 0000023194 crk:StarvilleEvergreenHoldingsLLCMember crk:ClassA-2UnitsMember crk:PinnacleGasServicesLlcMember crk:UnitPurchaseAgreementMember 2026-06-15 2026-06-15 0000023194 crk:LeaseOperatingExpenseMember 2025-04-01 2025-06-30 0000023194 us-gaap:RetainedEarningsMember 2026-03-31 0000023194 crk:NaturalGasAndOilSalesMember 2026-04-01 2026-06-30 0000023194 crk:NewYorkStockExchangeTexasMember 2026-01-01 2026-06-30 0000023194 us-gaap:GeneralAndAdministrativeExpenseMember 2026-01-01 2026-06-30 0000023194 us-gaap:FairValueInputsLevel1Member crk:SeniorNotesFivePointEightSevenFivePercentDueTwoThousandThirtyMember 2025-12-31 0000023194 crk:NaturalGasSwapContractsMember 2026-01-01 2026-06-30 0000023194 us-gaap:RetainedEarningsMember 2026-01-01 2026-03-31 0000023194 us-gaap:RevolvingCreditFacilityMember crk:PinnacleGasServicesBankCreditFacilityMember srt:MinimumMember 2026-01-01 2026-06-30 0000023194 crk:NaturalGasPriceDerivativesNonCurrentAssetMember 2025-12-31 0000023194 us-gaap:RetainedEarningsMember 2026-06-30 0000023194 crk:PartnershipCostsToDrillAndOperateWellsAndOverheadFeesMember srt:AffiliatedEntityMember 2025-04-01 2025-06-30 0000023194 crk:GainOnSaleOfAssetsMember 2025-01-01 2025-06-30 0000023194 2026-03-31 iso4217:USD utr:Mcf crk:Contract xbrli:pure iso4217:USD xbrli:shares crk:Product xbrli:shares utr:MMBTU crk:Segment crk:Drillingrig iso4217:USD 
+
+ 
+
+
+ 
+ UNITED STATES 
+ SECURITIES AND EXCHANGE COMMISSION 
+ Washington, D.C. 20549 
+ 
+ FORM 10-Q 
+ 
+ (Mark One) 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ ☒ 
+ 
+ QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 
+ 
+ 
+
+ For the quarterly period ended June 30, 2026 
+ or 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ ☐ 
+ 
+ TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934 
+ 
+ 
+
+ Commission File No. 001-03262 
+ 
+ COMSTOCK RESOURCES, INC. 
+ (Exact name of registrant as specified in its charter) 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Nevada 
+ 
+ 94-1667468 
+ 
+ 
+
+ 
+ (State or other jurisdiction of 
+ incorporation or organization) 
+ 
+ (I.R.S. Employer 
+ Identification Number) 
+ 
+ 
+
+ 
+ 5300 Town and Country Blvd. , Suite 500 , Frisco , Texas 75034 
+ (Address of principal executive offices) 
+ Telephone No.: ( 972 ) 668-8800 
+ 
+ Securities registered pursuant to Section 12(b) of the Act: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Title of each class 
+ 
+ Trading Symbol(s) 
+ 
+ Name of each exchange on which registered 
+ 
+ 
+
+ 
+ Common Stock, par value $0.50 (per share) 
+ 
+ CRK 
+ 
+ New York Stock Exchange 
+ 
+ 
+
+ 
+ 
+ 
+ CRK 
+ 
+ New York Stock Exchange Texas 
+ 
+ 
+
+ 
+ Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days. 
+ Yes ☒ No ☐ 
+ Indicate by check mark whether the registrant has submitted electronically every Interactive Data File required to be submitted pursuant to Rule 405 of Regulation S-T (§232.405 of this chapter) during the preceding 12 months (or for such shorter period that the registrant was required to submit such files). 
+ Yes ☒ No ☐ 
+ Indicate by check mark whether the registrant is a large accelerated filer, an accelerated filer, a non-accelerated filer, a smaller reporting company, or an emerging growth company. See the definitions of "large accelerated filer," "accelerated filer", "smaller reporting company" and "emerging growth company" in Rule 12b-2 of the Exchange Act. (Check one): 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Large accelerated filer ☒ 
+ 
+ Accelerated filer ☐ 
+ 
+ Non-accelerated ☐ 
+ 
+ Smaller reporting company ☐ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Emerging growth company ☐ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐ 
+ Indicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2 of the Exchange Act). 
+ Yes ☐ No ☒ 
+ The number of shares outstanding of the registrant's common stock, par value $0.50, as of July 29, 2026 was 293,620,548 . 
+ 
+
+
+ 
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+ QUARTERLY REPORT 
+ For the Quarter Ended June 30, 2026 
+ INDEX 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ Page 
+ 
+ 
+
+ 
+ PART I. Financial Information 
+ 
+ 
+ 
+ 
+
+ 
+ Item 1. Financial Statements (Unaudited): 
+ 
+ 
+ 
+ 
+
+ 
+ Consolidated Balance Sheets as of June 30, 2026 and December 31, 2025 
+ 
+ 4 
+ 
+ 
+
+ 
+ Consolidated Statements of Operations – for the three months and six months ended June 30, 2026 and 2025 
+ 
+ 5 
+ 
+ 
+
+ 
+ Consolidated Statements of Stockholders' Equity – for the three months and six months ended June 30, 2026 and 2025 
+ 
+ 6 
+ 
+ 
+
+ 
+ Consolidated Statements of Cash Flows – for the six months ended June 30, 2026 and 2025 
+ 
+ 7 
+ 
+ 
+
+ 
+ Notes to Consolidated Financial Statements 
+ 
+ 8 
+ 
+ 
+
+ 
+ Item 2. Management's Discussion and Analysis of Financial Condition and Results of Operations 
+ 
+ 20 
+ 
+ 
+
+ 
+ Item 3. Quantitative and Qualitative Disclosure About Market Risk 
+ 
+ 25 
+ 
+ 
+
+ 
+ Item 4. Controls and Procedures 
+ 
+ 26 
+ 
+ 
+
+ 
+ PART II. Other Information 
+ 
+ 
+ 
+ 
+
+ 
+ Item 1. Legal Proceedings 
+ 
+ 27 
+ 
+ 
+
+ 
+ Item 1A. Risk Factors 
+ 
+ 27 
+ 
+ 
+
+ 
+ Item 2. Unregistered Sales of Equity Securities and Use of Proceeds 
+ 
+ 27 
+ 
+ 
+
+ 
+ Item 3. Defaults upon Senior Securities 
+ 
+ 27 
+ 
+ 
+
+ 
+ Item 4. Mine Safety Disclosures 
+ 
+ 27 
+ 
+ 
+
+ 
+ Item 5. Other Information 
+ 
+ 27 
+ 
+ 
+
+ 
+ Item 6. Exhibits 
+ 
+ 27 
+ 
+ 
+
+ 
+ SIGNATURES 
+ 
+ 28 
+ 
+ 
+
+ 
+
+
+ 2 
+
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ PART 1 — FINANCIAL INFORMATION 
+ ITEM 1. FINANCIAL STATEMENTS (UNAUDITED) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 3 
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+ CONSOLIDATED BALANCE SHEETS 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ As of 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ June 30,
+2026 
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (Unaudited) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ ASSETS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Cash and cash equivalents 
+ 
+ 
+ 
+ $ 
+ 
+ 45,008 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 23,930 
+ 
+ 
+ 
+ 
+
+ 
+ Accounts receivable: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas and oil sales and gas services 
+ 
+ 
+ 
+ 
+ 
+ 133,162 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 203,549 
+ 
+ 
+ 
+ 
+
+ 
+ Joint interest operations 
+ 
+ 
+ 
+ 
+ 
+ 44,200 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 35,400 
+ 
+ 
+ 
+ 
+
+ 
+ From affiliates 
+ 
+ 
+ 
+ 
+ 
+ 3,231 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,596 
+ 
+ 
+ 
+ 
+
+ 
+ Derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 53,156 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 19,206 
+ 
+ 
+ 
+ 
+
+ 
+ Other current assets 
+ 
+ 
+ 
+ 
+ 
+ 59,804 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 75,257 
+ 
+ 
+ 
+ 
+
+ 
+ Total current assets 
+ 
+ 
+ 
+ 
+ 
+ 338,561 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 360,938 
+ 
+ 
+ 
+ 
+
+ 
+ Property and equipment: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas and oil properties, successful efforts method: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Proved 
+ 
+ 
+ 
+ 
+ 
+ 9,719,655 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 8,984,969 
+ 
+ 
+ 
+ 
+
+ 
+ Unproved 
+ 
+ 
+ 
+ 
+ 
+ 414,610 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 391,065 
+ 
+ 
+ 
+ 
+
+ 
+ Other 
+ 
+ 
+ 
+ 
+ 
+ 477,395 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 386,656 
+ 
+ 
+ 
+ 
+
+ 
+ Accumulated depreciation, depletion and amortization 
+ 
+ 
+ 
+ 
+ 
+ ( 3,855,346 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 3,547,196 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net property and equipment 
+ 
+ 
+ 
+ 
+ 
+ 6,756,314 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6,215,494 
+ 
+ 
+ 
+ 
+
+ 
+ Goodwill 
+ 
+ 
+ 
+ 
+ 
+ 335,897 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 335,897 
+ 
+ 
+ 
+ 
+
+ 
+ Derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 22,230 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Operating lease right-of-use assets 
+ 
+ 
+ 
+ 
+ 
+ 71,684 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 94,733 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 7,524,686 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 7,007,062 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ LIABILITIES AND STOCKHOLDERS' EQUITY 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Accounts payable 
+ 
+ 
+ 
+ $ 
+ 
+ 503,111 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 501,695 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued costs 
+ 
+ 
+ 
+ 
+ 
+ 171,187 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 153,248 
+ 
+ 
+ 
+ 
+
+ 
+ Operating leases 
+ 
+ 
+ 
+ 
+ 
+ 37,598 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 46,937 
+ 
+ 
+ 
+ 
+
+ 
+ Derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 27,636 
+ 
+ 
+ 
+ 
+
+ 
+ Total current liabilities 
+ 
+ 
+ 
+ 
+ 
+ 711,896 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 729,516 
+ 
+ 
+ 
+ 
+
+ 
+ Long-term debt 
+ 
+ 
+ 
+ 
+ 
+ 3,098,770 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,809,066 
+ 
+ 
+ 
+ 
+
+ 
+ Deferred income taxes 
+ 
+ 
+ 
+ 
+ 
+ 495,428 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 437,098 
+ 
+ 
+ 
+ 
+
+ 
+ Long-term operating leases 
+ 
+ 
+ 
+ 
+ 
+ 33,570 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 47,692 
+ 
+ 
+ 
+ 
+
+ 
+ Reserve for future abandonment costs 
+ 
+ 
+ 
+ 
+ 
+ 21,444 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 20,787 
+ 
+ 
+ 
+ 
+
+ 
+ Total liabilities 
+ 
+ 
+ 
+ 
+ 
+ 4,361,108 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 4,044,159 
+ 
+ 
+ 
+ 
+
+ 
+ Commitments and contingencies 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Stockholders' equity: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Common stock—$ 0.50 par, 400,000,000 shares authorized, 293,620,548 
+ and 293,054,806 shares issued and outstanding at June 30, 2026 
+ and December 31, 2025, respectively 
+ 
+ 
+ 
+ 
+ 
+ 146,810 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 146,527 
+ 
+ 
+ 
+ 
+
+ 
+ Additional paid-in capital 
+ 
+ 
+ 
+ 
+ 
+ 1,191,881 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,376,053 
+ 
+ 
+ 
+ 
+
+ 
+ Accumulated earnings 
+ 
+ 
+ 
+ 
+ 
+ 1,240,446 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,124,230 
+ 
+ 
+ 
+ 
+
+ 
+ Total stockholders' equity attributable to the Company 
+ 
+ 
+ 
+ 
+ 
+ 2,579,137 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,646,810 
+ 
+ 
+ 
+ 
+
+ 
+ Noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ 584,441 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 316,093 
+ 
+ 
+ 
+ 
+
+ 
+ Total stockholders' equity 
+ 
+ 
+ 
+ 
+ 
+ 3,163,578 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,962,903 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 7,524,686 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 7,007,062 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ The accompanying notes are an integral part of these statements. 
+
+
+ 4 
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+ CONSOLIDATED STATEMENTS OF OPERATIONS 
+ (Unaudited) 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands, except per share amounts) 
+ 
+ 
+ 
+ 
+
+ 
+ Revenues: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas sales 
+ 
+ 
+ 
+ $ 
+ 
+ 287,745 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 339,225 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 706,020 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 751,511 
+ 
+ 
+ 
+ 
+
+ 
+ Oil sales 
+ 
+ 
+ 
+ 
+ 
+ 476 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 741 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,234 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,443 
+ 
+ 
+ 
+ 
+
+ 
+ Total natural gas and oil sales 
+ 
+ 
+ 
+ 
+ 
+ 288,221 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 339,966 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 707,254 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 752,954 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services 
+ 
+ 
+ 
+ 
+ 
+ 63,481 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 130,296 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 229,982 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 230,162 
+ 
+ 
+ 
+ 
+
+ 
+ Gain on sale of assets 
+ 
+ 
+ 
+ 
+ 
+ 1,580 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,400 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Total revenues and other operating income 
+ 
+ 
+ 
+ 
+ 
+ 353,282 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 470,262 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 940,636 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 983,116 
+ 
+ 
+ 
+ 
+
+ 
+ Operating expenses: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Production and ad valorem taxes 
+ 
+ 
+ 
+ 
+ 
+ 7,196 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 10,555 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 17,621 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 21,734 
+ 
+ 
+ 
+ 
+
+ 
+ Gathering and transportation 
+ 
+ 
+ 
+ 
+ 
+ 43,331 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 41,759 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 85,135 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 84,376 
+ 
+ 
+ 
+ 
+
+ 
+ Lease operating 
+ 
+ 
+ 
+ 
+ 
+ 28,150 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 31,109 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 56,431 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 66,109 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration 
+ 
+ 
+ 
+ 
+ 
+ 4,427 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 13,770 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,150 
+ 
+ 
+ 
+ 
+
+ 
+ Depreciation, depletion and amortization 
+ 
+ 
+ 
+ 
+ 
+ 167,432 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 158,379 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 308,964 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 326,270 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services 
+ 
+ 
+ 
+ 
+ 
+ 63,014 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 126,714 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 225,870 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 243,483 
+ 
+ 
+ 
+ 
+
+ 
+ General and administrative 
+ 
+ 
+ 
+ 
+ 
+ 17,151 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 12,300 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 35,373 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 23,380 
+ 
+ 
+ 
+ 
+
+ 
+ Total operating expenses 
+ 
+ 
+ 
+ 
+ 
+ 330,701 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 380,816 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 743,164 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 767,502 
+ 
+ 
+ 
+ 
+
+ 
+ Operating income 
+ 
+ 
+ 
+ 
+ 
+ 22,581 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 89,446 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 197,472 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 215,614 
+ 
+ 
+ 
+ 
+
+ 
+ Other income (expenses): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Gain (loss) from derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 44,365 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 235,847 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 46,761 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 94,492 
+ 
+ ) 
+ 
+ 
+
+ 
+ Other income 
+ 
+ 
+ 
+ 
+ 
+ 259 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,100 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 522 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,439 
+ 
+ 
+ 
+ 
+
+ 
+ Interest expense 
+ 
+ 
+ 
+ 
+ 
+ ( 55,042 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 55,178 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 108,103 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 110,015 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total other income (expenses) 
+ 
+ 
+ 
+ 
+ 
+ ( 10,418 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 182,769 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 60,820 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 202,068 
+ 
+ ) 
+ 
+ 
+
+ 
+ Income before income taxes 
+ 
+ 
+ 
+ 
+ 
+ 12,163 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 272,215 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 136,652 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 13,546 
+ 
+ 
+ 
+ 
+
+ 
+ (Provision for) benefit from income taxes 
+ 
+ 
+ 
+ 
+ 
+ 2,837 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 141,487 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 9,153 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 1,789 
+ 
+ 
+ 
+ 
+
+ 
+ Net income 
+ 
+ 
+ 
+ 
+ 
+ 15,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 130,728 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 127,499 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 15,335 
+ 
+ 
+ 
+ 
+
+ 
+ Net income attributable to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ ( 6,234 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 5,886 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 11,283 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 11,771 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 8,766 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 124,842 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 116,216 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3,564 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Net income per share: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Basic 
+ 
+ 
+ 
+ $ 
+ 
+ 0.03 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.45 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.40 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted 
+ 
+ 
+ 
+ $ 
+ 
+ 0.03 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.44 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.40 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+
+ 
+ Weighted average shares outstanding: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Basic 
+ 
+ 
+ 
+ 
+ 
+ 291,612 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 290,604 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 291,465 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 290,455 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted 
+ 
+ 
+ 
+ 
+ 
+ 291,612 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 294,247 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 291,465 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 294,026 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ The accompanying notes are an integral part of these statements. 
+
+
+ 5 
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+ CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY 
+ (Unaudited) 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Common
+Shares 
+ 
+ 
+ 
+ 
+ 
+ Common
+Stock-
+Par Value 
+ 
+ 
+ 
+ 
+ 
+ Additional
+Paid-in
+Capital 
+ 
+ 
+ 
+ 
+ 
+ Accumulated
+Earnings 
+ 
+ 
+ 
+ 
+ 
+ Noncontrolling Interest 
+ 
+ 
+ 
+ 
+ 
+ Total 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Balance at January 1, 2025 
+ 
+ 
+ 
+ 
+ 
+ 292,261 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 146,130 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,366,274 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 728,619 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 92,521 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2,333,544 
+ 
+ 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 658 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 330 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,422 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,752 
+ 
+ 
+ 
+ 
+
+ 
+ Net income (loss) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 121,278 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 5,885 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 115,393 
+ 
+ ) 
+ 
+ 
+
+ 
+ Contributions from noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 59,500 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 59,500 
+ 
+ 
+ 
+ 
+
+ 
+ Distributions to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 2,219 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 2,219 
+ 
+ ) 
+ 
+ 
+
+ 
+ Balance at March 31, 2025 
+ 
+ 
+ 
+ 
+ 
+ 292,919 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 146,460 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,367,696 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 607,341 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 155,687 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2,277,184 
+ 
+ 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 150 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 75 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 2,803 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 2,728 
+ 
+ ) 
+ 
+ 
+
+ 
+ Stock issuance costs 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 36 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 36 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net income 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 124,842 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,886 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 130,728 
+ 
+ 
+ 
+ 
+
+ 
+ Contributions from noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 33,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 33,000 
+ 
+ 
+ 
+ 
+
+ 
+ Distributions to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 3,281 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 3,281 
+ 
+ ) 
+ 
+ 
+
+ 
+ Balance at June 30, 2025 
+ 
+ 
+ 
+ 
+ 
+ 293,069 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 146,535 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,364,857 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 732,183 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 191,292 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2,434,867 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Balance at January 1, 2026 
+ 
+ 
+ 
+ 
+ 
+ 293,055 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 146,527 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,376,053 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,124,230 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 316,093 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2,962,903 
+ 
+ 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 641 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 321 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,910 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,231 
+ 
+ 
+ 
+ 
+
+ 
+ Net income 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 107,450 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,049 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 112,499 
+ 
+ 
+ 
+ 
+
+ 
+ Distributions to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 8,217 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 8,217 
+ 
+ ) 
+ 
+ 
+
+ 
+ Balance at March 31, 2026 
+ 
+ 
+ 
+ 
+ 
+ 293,696 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 146,848 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,378,963 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,231,680 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 312,925 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3,070,416 
+ 
+ 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ ( 75 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 38 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 7,096 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 7,058 
+ 
+ 
+ 
+ 
+
+ 
+ Net income 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 8,766 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6,234 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 15,000 
+ 
+ 
+ 
+ 
+
+ 
+ Redemption of noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 145,000 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 300,000 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 445,000 
+ 
+ ) 
+ 
+ 
+
+ 
+ Contributions from noncontrolling interest, net of transaction costs 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 581,654 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 581,654 
+ 
+ 
+ 
+ 
+
+ 
+ Deferred tax effect of ownership change in noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 49,178 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 49,178 
+ 
+ ) 
+ 
+ 
+
+ 
+ Distributions to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 16,372 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 16,372 
+ 
+ ) 
+ 
+ 
+
+ 
+ Balance at June 30, 2026 
+ 
+ 
+ 
+ 
+ 
+ 293,621 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 146,810 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,191,881 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,240,446 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 584,441 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3,163,578 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ The accompanying notes are an integral part of these statements. 
+
+
+ 6 
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+ CONSOLIDATED STATEMENTS OF CASH FLOWS 
+ (Unaudited) 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ CASH FLOWS FROM OPERATING ACTIVITIES: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Net income 
+ 
+ 
+ 
+ $ 
+ 
+ 127,499 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 15,335 
+ 
+ 
+ 
+ 
+
+ 
+ Adjustments to reconcile net income to net cash provided by operating activities: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Deferred income taxes 
+ 
+ 
+ 
+ 
+ 
+ 9,153 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 310 
+ 
+ 
+ 
+ 
+
+ 
+ Gain on sale of assets 
+ 
+ 
+ 
+ 
+ 
+ ( 3,400 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Depreciation, depletion and amortization 
+ 
+ 
+ 
+ 
+ 
+ 308,964 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 326,270 
+ 
+ 
+ 
+ 
+
+ 
+ (Gain) loss on derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ ( 46,761 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 94,492 
+ 
+ 
+ 
+ 
+
+ 
+ Cash settlements of derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ ( 37,055 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 3,673 
+ 
+ ) 
+ 
+ 
+
+ 
+ Amortization of debt discount and issuance costs 
+ 
+ 
+ 
+ 
+ 
+ 6,200 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,919 
+ 
+ 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 15,803 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 9,971 
+ 
+ 
+ 
+ 
+
+ 
+ Decrease in accounts receivable 
+ 
+ 
+ 
+ 
+ 
+ 61,952 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,318 
+ 
+ 
+ 
+ 
+
+ 
+ (Increase) decrease in other current assets 
+ 
+ 
+ 
+ 
+ 
+ ( 2,949 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 25,881 
+ 
+ 
+ 
+ 
+
+ 
+ Increase in accounts payable and accrued expenses 
+ 
+ 
+ 
+ 
+ 
+ 2,764 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 46,487 
+ 
+ 
+ 
+ 
+
+ 
+ Net cash provided by operating activities 
+ 
+ 
+ 
+ 
+ 
+ 442,170 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 522,310 
+ 
+ 
+ 
+ 
+
+ 
+ CASH FLOWS FROM INVESTING ACTIVITIES: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Capital expenditures and acquisitions 
+ 
+ 
+ 
+ 
+ 
+ ( 847,738 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 642,327 
+ 
+ ) 
+ 
+ 
+
+ 
+ Prepaid drilling costs 
+ 
+ 
+ 
+ 
+ 
+ 18,191 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,060 
+ 
+ 
+ 
+ 
+
+ 
+ Proceeds from sales of assets 
+ 
+ 
+ 
+ 
+ 
+ 18,400 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Net cash used for investing activities 
+ 
+ 
+ 
+ 
+ 
+ ( 811,147 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 639,267 
+ 
+ ) 
+ 
+ 
+
+ 
+ CASH FLOWS FROM FINANCING ACTIVITIES: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Borrowings on bank credit facilities 
+ 
+ 
+ 
+ 
+ 
+ 712,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 335,000 
+ 
+ 
+ 
+ 
+
+ 
+ Repayments of bank credit facilities 
+ 
+ 
+ 
+ 
+ 
+ ( 427,000 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 275,000 
+ 
+ ) 
+ 
+ 
+
+ 
+ Debt issuance costs 
+ 
+ 
+ 
+ 
+ 
+ ( 1,496 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 36 
+ 
+ ) 
+ 
+ 
+
+ 
+ Income tax withholdings on equity awards 
+ 
+ 
+ 
+ 
+ 
+ ( 5,514 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 10,947 
+ 
+ ) 
+ 
+ 
+
+ 
+ Redemption of noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ ( 445,000 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Contributions from noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ 600,126 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 92,500 
+ 
+ 
+ 
+ 
+
+ 
+ Distributions to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ ( 24,589 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 5,500 
+ 
+ ) 
+ 
+ 
+
+ 
+ Noncontrolling interest transaction costs 
+ 
+ 
+ 
+ 
+ 
+ ( 18,472 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Net cash provided by financing activities 
+ 
+ 
+ 
+ 
+ 
+ 390,055 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 136,017 
+ 
+ 
+ 
+ 
+
+ 
+ Net increase in cash and cash equivalents 
+ 
+ 
+ 
+ 
+ 
+ 21,078 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 19,060 
+ 
+ 
+ 
+ 
+
+ 
+ Cash and cash equivalents, beginning of period 
+ 
+ 
+ 
+ 
+ 
+ 23,930 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6,799 
+ 
+ 
+ 
+ 
+
+ 
+ Cash and cash equivalents, end of period 
+ 
+ 
+ 
+ $ 
+ 
+ 45,008 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 25,859 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ The accompanying notes are an integral part of these statements. 
+
+
+ 7 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ NOTES TO CONSOLIDA TED FINANCIAL STATEMENTS 
+ June 30, 2026 
+ (Unaudited) 
+ 
+ (1) SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES 
+ Basis of Presentation 
+ These unaudited consolidated financial statements include the accounts of Comstock Resources, Inc. and its wholly-owned subsidiaries (collectively, "Comstock" or the "Company"). In management's opinion, the accompanying unaudited consolidated financial statements contain all adjustments necessary to present fairly the financial position of Comstock as of June 30, 2026, and the related results of operations and cash flows for the periods being presented. Net income (loss) and comprehensive income (loss) are the same in all periods presented. All adjustments are of a normal recurring nature unless otherwise disclosed. Certain amounts in prior periods have been reclassified to conform to current period presentation. 
+ The accompanying unaudited consolidated financial statements have been prepared pursuant to the rules and regulations of the Securities and Exchange Commission. Certain information and disclosures normally included in annual financial statements prepared in accordance with accounting principles generally accepted in the United States have been omitted pursuant to those rules and regulations, although Comstock believes that the disclosures made are adequate to make the information presented not misleading. These unaudited consolidated financial statements should be read in conjunction with the financial statements and notes thereto included in Comstock's Annual Report on Form 10-K for the year ended December 31, 2025. The results of operations for the period through June 30, 2026 are not necessarily an indication of the results expected for the full year. 
+ Pinnacle Gas Services ("PGS") is a joint venture entity that provides gathering and treating services for natural gas production in the Company's Western Haynesville area. PGS was formed by the Company and an affiliate of Quantum Capital Solutions, Cactus Midstream (II), LLC ("Cactus") in October 2023. On June 15, 2026, PGS redeemed Cactus' interest in PGS for $ 445 million. The redemption was funded by the issuance of 600,000 Class A-2 Units representing a 27 % ownership interest in PGS for $ 600 million to Starville Evergreen Holdings, LLC ("Starville"), a fund managed by Sixth Street Partners. After certain return hurdles are achieved, Starville's ownership and share of distributable cash reduces to 19.5 %. Starville's share of distributable cash is subject to a minimum annualized return and the Class A-2 Units are also entitled to certain exit provisions. 
+ Comstock operates and manages PGS pursuant to a management services agreement and retains the authority to appoint a majority of the directors on the board of directors of PGS. Accordingly, PGS continues to qualify as a variable interest entity to Comstock. Since the Company continues to direct the activities that most significantly impact the performance of PGS and has the obligation to absorb losses or right to receive benefits that could potentially be significant to PGS, Comstock is still considered the primary beneficiary and consolidates the assets, liabilities and results of operations of PGS in the accompanying consolidated financial statements. 
+ Because the Company retained its controlling interest in PGS before and after the redemption of Cactus' interest and issuance of Class A-2 Units, no gain or loss was recognized in the consolidated statements of operations. The carrying amount of the noncontrolling interest attributable to Cactus was retired with the redemption and the difference in the cash consideration paid to Cactus and the carrying value of the redeemed noncontrolling interest was recorded as an adjustment to additional paid-in capital attributable to Comstock. The related change in deferred income taxes to the change in Comstock's ownership of PGS's assets was also recorded to additional paid-in capital. Starville's ownership interest was recognized as noncontrolling interest in the consolidated balance sheet and transaction costs of $ 18.5 million directly attributable to the issuance of Class A-2 Units were recorded as an adjustment to noncontrolling interest. 
+ PGS assets that cannot be used by Comstock for general corporate purposes include $ 31.7 million and $ 8.4 million of cash and $ 446.8 million and $ 358.9 million of net other property and equipment as of June 30, 2026 and December 31, 2025 , respectively. Other PGS assets that cannot be used by Comstock and PGS liabilities for which creditors do not have recourse to Comstock's assets are not material to the Company's consolidated financial statements. The portions of PGS net income and stockholders' equity not attributable to Comstock's controlling interest are shown separately as noncontrolling interests in the accompanying consolidated statements of operations and statements of stockholders' equity. 
+ 
+ 
+
+
+ 8 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Other Current Assets 
+ Other current assets at June 30, 2026 and December 31, 2025 consisted of the following: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ As of 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ June 30,
+2026 
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Prepaid drilling costs 
+ 
+ 
+ 
+ $ 
+ 
+ 34,943 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 53,134 
+ 
+ 
+ 
+ 
+
+ 
+ Prepaid expenses 
+ 
+ 
+ 
+ 
+ 
+ 19,461 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,684 
+ 
+ 
+ 
+ 
+
+ 
+ Income tax receivable 
+ 
+ 
+ 
+ 
+ 
+ 3,024 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,024 
+ 
+ 
+ 
+ 
+
+ 
+ Production tax refunds receivable 
+ 
+ 
+ 
+ 
+ 
+ 2,307 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,827 
+ 
+ 
+ 
+ 
+
+ 
+ Other 
+ 
+ 
+ 
+ 
+ 
+ 69 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 7,588 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 59,804 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 75,257 
+ 
+ 
+ 
+ 
+
+ 
+ Property and Equipment 
+ The Company follows the successful efforts method of accounting for its natural gas and oil properties. Costs incurred to acquire natural gas and oil leases and to drill and complete developmental wells are capitalized. 
+ Exploratory well costs are initially capitalized as proved property in the consolidated balance sheets but charged to exploration expense if and when the well is determined not to have found commercial proved natural gas and oil reserves. 
+ The changes in capitalized exploratory well costs are as follows: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Beginning capitalized exploratory well costs 
+ 
+ 
+ 
+ $ 
+ 
+ 232,390 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 168,330 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 210,127 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 68,223 
+ 
+ 
+ 
+ 
+
+ 
+ Additions to exploratory well costs pending the determination of proved reserves 
+ 
+ 
+ 
+ 
+ 
+ 174,359 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 130,997 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 349,134 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 231,104 
+ 
+ 
+ 
+ 
+
+ 
+ Determined to have found proved reserves 
+ 
+ 
+ 
+ 
+ 
+ ( 137,198 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 147,354 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 289,710 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 147,354 
+ 
+ ) 
+ 
+ 
+
+ 
+ Ending capitalized exploratory well costs 
+ 
+ 
+ 
+ $ 
+ 
+ 269,551 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 151,973 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 269,551 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 151,973 
+ 
+ 
+ 
+ 
+
+ 
+ As of June 30, 2026 and December 31, 2025, the Company had no exploratory wells for which costs have been capitalized for a period greater than one year. 
+ The Company periodically assesses the need for an impairment of the capitalized costs for its proved natural gas and oil properties. No impairments were recognized to adjust the carrying value of the Company's proved natural gas and oil properties during any of the periods presented. Unproved natural gas and oil properties are also periodically assessed and any impairment in value is charged to expense. The costs related to unproved properties are transferred to proved natural gas and oil properties and amortized on an equivalent unit-of-production basis when they are reflected in proved natural gas and oil reserves. 
+ The Company determines the fair value of its natural gas and oil properties using a discounted cash flow model and proved and risk-adjusted probable natural gas and oil reserves. Undeveloped acreage can also be valued based on sales transactions in comparable areas. Significant Level 3 assumptions associated with the calculation of discounted future cash flows included in the cash flow model include management's outlook for natural gas and oil prices, production costs, capital expenditures, and future production as well as estimated proved natural gas and oil reserves and risk-adjusted probable natural gas and oil reserves. Management's natural gas and oil price outlook is developed based on third-party longer-term price forecasts as of each measurement date. The expected future net cash flows are discounted using an appropriate discount rate in determining a property's fair value. 
+ It is reasonably possible that the Company's estimates of undiscounted future net cash flows attributable to its natural gas and oil properties may change in the future. The primary factors that may affect estimates of future cash flows include future adjustments, both positive and negative, to proved and appropriate risk-adjusted probable natural gas and oil reserves, results of future drilling activities, future prices for natural gas and oil, and increases or decreases in production and capital costs. As a result of these changes, there may be future impairments in the carrying values of these or other properties. 
+ 
+ 
+
+
+ 9 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Other property and equipment consists primarily of pipelines and natural gas treating plants ("midstream assets"), computer equipment, furniture and fixtures, office buildings and an airplane which are depreciated over estimated useful lives ranging from three to 50 years on a straight-line basis. 
+ The following table presents the balance of other property and equipment and accumulated depreciation as of June 30, 2026 and December 31, 2025: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ As of 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ June 30,
+2026 
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (in thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Midstream assets 
+ 
+ 
+ 
+ $ 
+ 
+ 454,482 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 363,855 
+ 
+ 
+ 
+ 
+
+ 
+ Accumulated depreciation 
+ 
+ 
+ 
+ 
+ 
+ ( 7,708 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 4,914 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net midstream assets 
+ 
+ 
+ 
+ 
+ 
+ 446,774 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 358,941 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Other property and equipment 
+ 
+ 
+ 
+ 
+ 
+ 22,913 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 22,801 
+ 
+ 
+ 
+ 
+
+ 
+ Accumulated depreciation 
+ 
+ 
+ 
+ 
+ 
+ ( 2,737 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 1,982 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net other property and equipment 
+ 
+ 
+ 
+ 
+ 
+ 20,176 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 20,819 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Total 
+ 
+ 
+ 
+ $ 
+ 
+ 466,950 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 379,760 
+ 
+ 
+ 
+ 
+
+ 
+ The Company also assesses the need for an impairment of its midstream assets when events or changes in circumstances, such as a significant decline in natural gas volumes gathered and processed, indicate that the Company may not be able to recover its capitalized costs. If impairment is indicated based on undiscounted expected future cash flows attributable to the pipelines and natural gas treating plants, then impairment is recognized to the extent the capitalized costs of the pipelines and natural gas treating plants exceed their estimated fair value. Significant Level 3 assumptions associated with the calculation of discounted future cash flows included in the cash flow model include management's outlook for future natural gas gathering and processing volumes, operation costs and capital expenditures and the expected future net cash flows are discounted at an appropriate rate to determine fair value. 
+ 
+ Goodwill 
+ The Company had goodwill of $ 335.9 million as of June 30, 2026 that was recorded in 2018. The Company is not required to amortize goodwill as a charge to earnings; however, the Company is required to conduct an annual review of goodwill for impairment. The Company performs an annual assessment of goodwill on October 1 of each year and performs interim assessments if indicators of impairment are present. If the carrying value of goodwill exceeds the fair value, an impairment charge would be recorded for the difference between fair value and carrying value. No impairment indicators were identified during the periods presented. 
+ 
+ Leases 
+ The Company has right-of-use lease assets of $ 71.7 million related to its corporate office, certain office equipment, vehicles and drilling rigs with corresponding short-term and long-term liabilities. The value of the lease assets and liabilities are determined based upon discounted future minimum cash flows contained within each of the respective contracts. The Company determines if contracts contain a lease at inception of the contract. To the extent that contract terms representing a lease are identified, leases are identified as being either an operating lease or a finance-type lease. Comstock currently has no finance-type leases. Right-of-use lease assets representing the Company's right to use an underlying asset for the lease term and the related lease liabilities represent the Company's obligation to make lease payments under the terms of the contracts. Short-term leases that have an initial term of one year or less are not capitalized; however, amounts paid for those leases are included as part of its lease cost disclosures. Short-term lease costs exclude expenses related to leases with a lease term of one month or less. Leases for the right to explore for and develop natural gas and oil reserves and the related rights to use the land associated with those leases are reflected as natural gas and oil properties. 
+ Comstock contracts for a variety of equipment used in its natural gas and oil exploration and development activities. Contract terms for this equipment vary broadly, including the contract duration, pricing, scope of services included along with the equipment, cancellation terms, and rights of substitution, among others. The Company's drilling and completion operations routinely change due to changes in commodity prices, demand for natural gas and oil, and the overall operating and economic environment. Accordingly, Comstock manages the terms of its contracts for drilling rigs and completion equipment so as to allow for maximum flexibility in responding to these changing conditions. The Company's hydraulic fracturing fleet contracts are on terms of less than one year and include rights of substitution. The Company has four drilling rig contracts with a three-year term with options to extend the term by mutual agreement at mutually acceptable terms or terminate the contracts at any time without default by the lessor. The terms on the Company's other drilling rig contracts are presently either for periods of one year or less, or they are on terms that provide for cancellation with 30 or 45 days advance notice without a specified expiration date. The costs associated with drilling and completion operations are 
+ 
+ 
+
+
+ 10 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ accounted for under the successful efforts method, which generally require that these costs be capitalized as part of the Company's proved natural gas and oil properties on its balance sheet unless they are incurred on exploration wells that are unsuccessful, in which case they are charged to exploration expense. 
+ Lease costs recognized during the three months and six months ended June 30, 2026 and 2025 were as follows: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Operating lease cost included in general and administrative expense 
+ 
+ 
+ 
+ $ 
+ 
+ 426 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 426 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 845 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 851 
+ 
+ 
+ 
+ 
+
+ 
+ Operating lease cost included in lease operating expense 
+ 
+ 
+ 
+ 
+ 
+ 574 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 527 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,179 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,043 
+ 
+ 
+ 
+ 
+
+ 
+ Operating lease cost included in natural gas and oil properties 
+ 
+ 
+ 
+ 
+ 
+ 12,147 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 12,364 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 24,295 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 23,664 
+ 
+ 
+ 
+ 
+
+ 
+ Variable lease cost (drilling rig costs included in natural gas and oil properties) 
+ 
+ 
+ 
+ 
+ 
+ 3,351 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 877 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 15,650 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,598 
+ 
+ 
+ 
+ 
+
+ 
+ Short-term lease cost (drilling rig costs included in natural gas and oil properties) 
+ 
+ 
+ 
+ 
+ 
+ 13,244 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 9,212 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 25,392 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 14,599 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 29,742 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 23,406 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 67,361 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 42,755 
+ 
+ 
+ 
+ 
+
+ 
+ Cash payments for operating leases associated with right-of-use lease assets included in net cash provided by operating activities were $ 1.0 million for both the three months ended June 30, 2026 and 2025, respectively, and $ 2.0 million and $ 1.9 million for the six months ended June 30, 2026 and 2025, respectively. Cash payments for operating leases associated with right-of-use lease assets included in net cash used for investing activities were $ 28.7 million and $ 22.5 million for the three months ended June 30, 2026 and 2025, respectively, and $ 65.3 million and $ 40.9 million for the six months ended June 30, 2026 and 2025, respectively. 
+ As of June 30, 2026 and December 31, 2025, the operating leases had a weighted-average term of 2.1 years and 2.4 years, respectively, and the weighted-average discount rate used to determine the present value of future operating lease payments was 6.7 % and 6.8 % , respectively. As of June 30, 2026, the Company also had expected future payments for short term leased drilling services of $ 15.9 million . 
+ As of June 30, 2026, expected future payments related to contracts that contain operating leases were as follows: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ July 1 to December 31, 2026 
+ 
+ 
+ 
+ $ 
+ 
+ 25,078 
+ 
+ 
+ 
+ 
+
+ 
+ 2027 
+ 
+ 
+ 
+ 
+ 
+ 29,338 
+ 
+ 
+ 
+ 
+
+ 
+ 2028 
+ 
+ 
+ 
+ 
+ 
+ 14,641 
+ 
+ 
+ 
+ 
+
+ 
+ 2029 
+ 
+ 
+ 
+ 
+ 
+ 7,488 
+ 
+ 
+ 
+ 
+
+ 
+ 2030 
+ 
+ 
+ 
+ 
+ 
+ 4 
+ 
+ 
+ 
+ 
+
+ 
+ Total lease payments 
+ 
+ 
+ 
+ 
+ 
+ 76,549 
+ 
+ 
+ 
+ 
+
+ 
+ Imputed interest 
+ 
+ 
+ 
+ 
+ 
+ ( 5,381 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total lease liability 
+ 
+ 
+ 
+ $ 
+ 
+ 71,168 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Accrued Costs 
+ Accrued costs at June 30, 2026 and December 31, 2025 consisted of the following: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ As of 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ June 30,
+2026 
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued interest payable 
+ 
+ 
+ 
+ $ 
+ 
+ 63,404 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 64,042 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued drilling costs 
+ 
+ 
+ 
+ 
+ 
+ 52,326 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 36,148 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued transportation costs 
+ 
+ 
+ 
+ 
+ 
+ 31,155 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 28,304 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued ad valorem and other taxes 
+ 
+ 
+ 
+ 
+ 
+ 12,600 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 4,000 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued employee compensation 
+ 
+ 
+ 
+ 
+ 
+ 5,877 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 14,926 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued lease operating expenses 
+ 
+ 
+ 
+ 
+ 
+ 2,891 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,744 
+ 
+ 
+ 
+ 
+
+ 
+ Other 
+ 
+ 
+ 
+ 
+ 
+ 2,934 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,084 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 171,187 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 153,248 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+
+ 11 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Reserve for Future Abandonment Costs 
+ Comstock's asset retirement obligations relate to future plugging and abandonment expenses on its natural gas and oil properties and disposal of other facilities. The following table summarizes the changes in Comstock's total estimated liability for such obligations during the periods presented: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Reserve for future abandonment costs at beginning of period 
+ 
+ 
+ 
+ $ 
+ 
+ 20,787 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 33,996 
+ 
+ 
+ 
+ 
+
+ 
+ New wells and facilities placed on production 
+ 
+ 
+ 
+ 
+ 
+ 83 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 51 
+ 
+ 
+ 
+ 
+
+ 
+ Liabilities settled 
+ 
+ 
+ 
+ 
+ 
+ ( 29 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 34 
+ 
+ ) 
+ 
+ 
+
+ 
+ Accretion expense 
+ 
+ 
+ 
+ 
+ 
+ 603 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 995 
+ 
+ 
+ 
+ 
+
+ 
+ Reserve for future abandonment costs at end of period 
+ 
+ 
+ 
+ $ 
+ 
+ 21,444 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 35,008 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Derivative Financial Instruments and Hedging Activities 
+ All of the Company's derivative financial instruments are used for risk management purposes and, by policy, none are held for trading or speculative purposes. Comstock minimizes credit risk to counterparties of its derivative financial instruments through formal credit policies, monitoring procedures, and diversification. The Company is not required to provide any credit support to its counterparties other than cross collateralization with the assets securing its bank credit facility. None of the Company's derivative financial instruments involve payment or receipt of premiums. The Company classifies the fair value amounts of derivative financial instruments as net current or noncurrent assets or liabilities, whichever the case may be, by commodity contract. None of the Company's derivative contracts were designated as cash flow hedges. All of Comstock's outstanding natural gas derivative financial instruments are tied to the Henry Hub-NYMEX price index. 
+ The Company had the following natural gas price derivative financial instruments at June 30, 2026: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Future Production Period 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ending
+December 31, 2026 
+ 
+ 
+ 
+ Year Ending
+December 31, 2027 
+ 
+ 
+ 
+ Total 
+ 
+ 
+
+ 
+ Natural Gas Price Swap Contracts: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Volume (MMBtu) 
+ 
+ 
+ 
+ 58,880,000 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 58,880,000 
+ 
+ 
+
+ 
+ Average Price per MMBtu 
+ 
+ 
+ 
+ $ 3.51 
+ 
+ 
+ 
+ $— 
+ 
+ 
+ 
+ $ 3.51 
+ 
+ 
+
+ 
+ Natural Gas Price Collar Contracts: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Volume (MMBtu) 
+ 
+ 
+ 
+ 84,640,000 
+ 
+ 
+ 
+ 146,000,000 
+ 
+ 
+ 
+ 230,640,000 
+ 
+ 
+
+ 
+ Average Price per MMBtu: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Average Ceiling 
+ 
+ 
+ 
+ $ 4.35 
+ 
+ 
+ 
+ $ 4.44 
+ 
+ 
+ 
+ $ 4.41 
+ 
+ 
+
+ 
+ Average Floor 
+ 
+ 
+ 
+ $ 3.50 
+ 
+ 
+ 
+ $ 3.50 
+ 
+ 
+ 
+ $ 3.50 
+ 
+ 
+
+ 
+ 
+ The classification of derivative financial instruments of assets or liabilities, consists of the following: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ As of 
+ 
+ 
+ 
+ 
+
+ 
+ Type 
+ 
+ 
+ 
+ Consolidated Balance Sheet Location 
+ 
+ 
+ 
+ June 30,
+2026 
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Asset Derivative Financial Instruments: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas price derivatives 
+ 
+ 
+ 
+ Derivative Financial Instruments – current 
+ 
+ 
+ 
+ $ 
+ 
+ 53,156 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 19,206 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas price derivatives 
+ 
+ 
+ 
+ Derivative Financial Instruments – long-term 
+ 
+ 
+ 
+ $ 
+ 
+ 22,230 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Liability Derivative Financial Instruments: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas price derivatives 
+ 
+ 
+ 
+ Derivative Financial Instruments – current 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 27,636 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ The Company recognized cash settlements and changes in the fair value of its derivative financial instruments as a single component of other income (expenses). 
+ 
+ 
+
+
+ 12 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Gains and losses related to cash settlements and changes in the fair value recognized on the Company's derivative contracts recognized in the consolidated statement of operations were as follows: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ Gain (loss) on Derivatives Recognized in Earnings 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas price derivatives 
+ 
+ 
+ 
+ $ 
+ 
+ 44,365 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 235,847 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 46,761 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 94,492 
+ 
+ ) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 44,365 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 235,847 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 46,761 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 94,492 
+ 
+ ) 
+ 
+ 
+
+ 
+ 
+ Stock-Based Compensation 
+ Comstock accounts for employee stock-based compensation under the fair value method. Compensation cost is measured at the grant date based on the fair value of the award and is recognized over the award vesting period and included in general and administrative expenses for awards of restricted stock and performance stock units ("PSUs") to the Company's employees and directors. The Company recognized $ 8.4 million and $ 5.5 million of stock-based compensation expense within general and administrative expenses related to awards of restricted stock and PSUs to its employees and directors during the three months ended June 30, 2026 and 2025, respectively, and $ 15.8 million and $ 10.0 million during the six months ended June 30, 2026 and 2025, respectively. 
+ In January 2026, the Company granted 894,373 shares of restricted stock to its directors and employees, which were valued at $ 22.47 per share. In June 2026, the Company granted an additional 44,610 shares of restricted stock to its directors, which were valued at $ 13.45 per share. As of June 30, 2026, Comstock had 1,848,388 shares of unvested restricted stock outstanding at a weighted average grant date fair value of $ 17.71 per share. Total unrecognized compensation cost related to unvested restricted stock grants of $ 27.1 million as of June 30, 2026 is expected to be recognized over a period of 2.1 years. 
+ In January 2026, the Company granted 596,623 PSUs to its executive officers, which were valued at $ 27.85 per unit. As of June 30, 2026, Comstock had 1,831,896 PSUs outstanding with a weighted average grant date fair value of $ 23.43 per unit. The number of shares of common stock to be issued related to the PSUs is based on the Company's stock price performance as compared to its peers which could result in the issuance of anywhere from zero to 3,663,792 shares of common stock. Total unrecognized compensation cost related to these grants of $ 28.0 million as of June 30, 2026 is expected to be recognized over a period of 2.1 years. 
+ 
+ Segment Reporting 
+ The Company presently operates in one business segment, the exploration and production of North American natural gas and oil, primarily in the Haynesville and Bossier shale. The measure of segment profit or loss used by the chief operating decision maker ("CODM") is consolidated net income, which is provided in the accompanying consolidated statements of operations. The significant segment expenses regularly provided to the CODM are operating expenses and certain significant non-operating items, such as gains or losses from derivative financial instruments, interest expense and income tax expense. These items are also detailed in the accompanying consolidated statements of operations. 
+ 
+ Revenue Recognition 
+ Comstock produces natural gas and oil and reports revenues separately for each of these two primary products in its statements of operations. Revenues are recognized upon the transfer of produced volumes to the Company's customers, who take control of the volumes and receive all the benefits of ownership upon delivery at designated sales points. 
+ Gas services revenues represent sales of natural gas purchased for resale from unaffiliated third parties and fees received for gathering and treating services provided by PGS to third parties. Revenues are recognized upon completion of the gathering and treating of contracted natural gas volumes and delivery of purchased natural gas volumes to the Company's customers. Profits and losses earned from the gathering and treating of natural gas produced by the Company's natural gas wells are eliminated in consolidation. Revenues and expenses associated with natural gas purchased for resale are presented on a gross basis in the Company's consolidated statements of operations as the Company acts as the principal in the transaction by assuming the risks and rewards from ownership of the natural gas volumes purchased and the responsibility to deliver the natural gas volumes to their sales point. 
+ All natural gas and oil and gas services revenues are subject to contracts that have commercial substance, contain specific pricing terms, and define the enforceable rights and obligations of both parties. These contracts typically provide for cash settlement within 25 days following each production month and are cancellable upon 30 days' notice by either party for oil and vary for natural gas based upon the terms set out in the confirmations between both parties. Prices for sales of natural gas and oil are generally based upon terms that are common in the oil and gas industry, including index or spot prices, location and quality differentials, as well as market 
+ 
+ 
+
+
+ 13 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ supply and demand conditions. As a result, prices for natural gas and oil routinely fluctuate based on changes in these factors. Prices for gathering and treating services are generally fixed in nature but can vary due to the quality of the gas being treated. Each unit of production (thousand cubic feet of natural gas and barrel of crude oil) represents a separate performance obligation under the Company's contracts since each unit has economic benefit on its own and each is priced separately according to the terms of the contracts. 
+ Comstock has elected to exclude all taxes from the measurement of transaction prices, and its revenues are reported net of royalties and exclude revenue interests owned by others because the Company acts as an agent when selling natural gas and oil on behalf of royalty owners and working interest owners. Revenue is recorded in the month of production based on an estimate of the Company's share of volumes produced and prices realized. Gas services revenue is recorded in the month the services are performed and purchased gas is sold based on an estimate of natural gas volumes and contract prices. The Company recognizes any differences between estimates and actual amounts received in the month when payment is received. Historically, differences between estimated revenues and actual revenues received have not been significant. The amount of natural gas or oil sold may differ from the amount to which the Company is entitled based on its revenue interests in the properties. The Company did not have any significant imbalance positions at June 30, 2026 or December 31, 2025. 
+ The Company recognized accounts receivable of $ 133.2 million and $ 203.5 million as of June 30, 2026 and December 31, 2025 , respectively, from purchasers for contracts where performance obligations have been satisfied and an unconditional right to consideration exists. 
+ 
+ Credit Losses 
+ Substantially all of the Company's accounts receivable are due from either purchasers of natural gas and oil or participants in natural gas and oil wells for which the Company serves as the operator. Generally, operators of natural gas and oil wells have the right to offset future revenues against unpaid charges related to operated wells. Natural gas and oil sales are generally unsecured. Comstock assesses the collectability of its receivables based upon their age, the credit quality of the purchaser or participant and the potential for revenue offset. The Company has not had any significant credit losses in the past and believes its accounts receivable are fully collectible. Accordingly, no allowance for doubtful accounts has been recorded for the six months ended June 30, 2026 and 2025 . 
+ 
+ Income Taxes 
+ Deferred income taxes are provided to reflect the future tax consequences or benefits of differences between the tax basis of assets and liabilities and their reported amounts in the financial statements using enacted tax rates. 
+ In recording deferred income tax assets, the Company considers whether it is more likely than not that its deferred income tax assets will be realized in the future. The ultimate realization of deferred income tax assets is dependent upon the generation of future taxable income during the periods in which those deferred income tax assets would be deductible. The Company believes that after considering all the available objective evidence, historical and prospective, with greater weight given to historical evidence, management is not able to determine that it is more likely than not that all of its deferred tax assets will be realized. As a result, the Company established valuation allowances for its deferred tax assets and U.S. federal and state net operating loss carryforwards that are not expected to be utilized due to the uncertainty of generating taxable income prior to the expiration of the carryforward periods. The Company will continue to assess the valuation allowances against deferred tax assets considering all available information obtained in future periods. 
+ The following is an analysis of the consolidated income tax provision (benefit): 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Current - Federal 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 1,710 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 1,710 
+ 
+ ) 
+ 
+ 
+
+ 
+ Current - State 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 36 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 36 
+ 
+ 
+ 
+ 
+
+ 
+ Deferred - Federal 
+ 
+ 
+ 
+ 
+ 
+ ( 742 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 66,010 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 18,082 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 80 
+ 
+ 
+ 
+ 
+
+ 
+ Deferred - State 
+ 
+ 
+ 
+ 
+ 
+ ( 2,095 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 77,151 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 8,929 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 195 
+ 
+ ) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 2,837 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 141,487 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 9,153 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 1,789 
+ 
+ ) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+
+ 14 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ The difference between the federal statutory rate of 21% and the effective tax rate is due to the following: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ Tax at statutory rate 
+ 
+ 
+ 
+ 
+ 
+ 21.0 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 21.0 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 21.0 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 21.0 
+ 
+ % 
+ 
+ 
+
+ 
+ Tax effect of: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Research and development and other income tax credits 
+ 
+ 
+ 
+ 
+ 
+ ( 20.8 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 1.0 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 5.9 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 20.3 
+ 
+ ) 
+ 
+ 
+
+ 
+ State income taxes, net of federal benefit 
+ 
+ 
+ 
+ 
+ 
+ ( 23.8 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 28.4 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 5.3 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 1.2 
+ 
+ ) 
+ 
+ 
+
+ 
+ Valuation allowance on deferred tax assets 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 3.1 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 0.8 
+ 
+ 
+ 
+ 
+
+ 
+ Noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ ( 9.1 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 10.4 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 2.1 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ ( 3.4 
+ 
+ ) 
+ 
+ 
+
+ 
+ Nondeductible stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 9.3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 6.6 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 2.1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 7.0 
+ 
+ ) 
+ 
+ 
+
+ 
+ Other 
+ 
+ 
+ 
+ 
+ 
+ 0.1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 0.2 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 3.1 
+ 
+ ) 
+ 
+ 
+
+ 
+ Effective tax rate 
+ 
+ 
+ 
+ 
+ 
+ ( 23.3 
+ 
+ )% 
+ 
+ 
+ 
+ 
+ 
+ 52.0 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 6.7 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ ( 13.2 
+ 
+ )% 
+ 
+ 
+
+ 
+ For the three and six months ended June 30, 2026 , the effective rate differed from the statutory rate due primarily to the impact of federal research and development credits, release of federal valuation allowance and state income taxes resulting from state tax credits. The Company's federal income tax returns for the years subsequent to December 31, 2021 remain subject to examination, with the Company's 2022 and 2023 federal income tax returns currently under examination with the United States Internal Revenue Service. The Company's income tax returns in major state income tax jurisdictions remain subject to examination for various periods subsequent to December 31, 2022. The Company believes that its significant filing positions and deductions will be sustained under audit or the final resolution will not have a material effect on the consolidated financial statements. Therefore, the Company has not established any significant reserves for uncertain tax positions. 
+ 
+ Fair Value Measurements 
+ The Company holds or has held certain financial assets and liabilities that are required to be measured at fair value. These include cash and cash equivalents held in bank accounts and derivative financial instruments. Fair value is defined as the price that would be received to sell an asset or paid to transfer a liability (an exit price) in the principal or most advantageous market for the asset or liability in an orderly transaction between market participants on the measurement date. A three-level hierarchy is followed for disclosure to show the extent and level of judgment used to estimate fair value measurements: 
+ Level 1 — Inputs used to measure fair value are unadjusted quoted prices that are available in active markets for the identical assets or liabilities as of the reporting date. 
+ Level 2 — Inputs used to measure fair value, other than quoted prices included in Level 1, are either directly or indirectly observable as of the reporting date through correlation with market data, including quoted prices for similar assets and liabilities in active markets and quoted prices in markets that are not active. Level 2 also includes assets and liabilities that are valued using models or other pricing methodologies that do not require significant judgment since the input assumptions used in the models, such as interest rates and volatility factors, are corroborated by readily observable data from actively quoted markets for substantially the full term of the financial instrument. 
+ Level 3 — Inputs used to measure fair value are unobservable inputs that are supported by little or no market activity and reflect the use of significant management judgment. These values are generally determined using pricing models for which the assumptions utilize management's estimates of market participant assumptions. 
+ 
+ 
+
+
+ 15 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Fair Values – Reported 
+ The following presents the carrying amounts and the fair values of the Company's financial instruments as of June 30, 2026 and December 31, 2025: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ As of 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ June 30, 2026 
+ 
+ 
+ 
+ 
+ 
+ December 31, 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Carrying Value 
+ 
+ 
+ 
+ 
+ 
+ Fair Value 
+ 
+ 
+ 
+ 
+ 
+ Carrying Value 
+ 
+ 
+ 
+ 
+ 
+ Fair Value 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Assets: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Commodity-based derivatives (1) 
+ 
+ 
+ 
+ $ 
+ 
+ 75,386 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 75,386 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 19,206 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 19,206 
+ 
+ 
+ 
+ 
+
+ 
+ Liabilities: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Commodity-based derivatives (1) 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 27,636 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 27,636 
+ 
+ 
+ 
+ 
+
+ 
+ Bank credit facilities (2) 
+ 
+ 
+ 
+ $ 
+ 
+ 545,000 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 545,000 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 260,000 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 260,000 
+ 
+ 
+ 
+ 
+
+ 
+ 6.75 % senior notes due 2029 (3) 
+ 
+ 
+ 
+ $ 
+ 
+ 1,610,099 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,592,962 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,607,880 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,603,582 
+ 
+ 
+ 
+ 
+
+ 
+ 5.875 % senior notes due 2030 (3) 
+ 
+ 
+ 
+ $ 
+ 
+ 965,000 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 904,688 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 965,000 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 931,225 
+ 
+ 
+ 
+ 
+
+ 
+ (1) The Company's commodity-based derivatives are classified as Level 2 and measured at fair value using third party pricing services and other active markets or broker quotes that are readily available in the public markets. 
+
+ (2) The carrying value of the Company's floating rate debt outstanding approximates fair value. 
+
+ (3) The fair value of the Company's fixed rate debt was based on quoted prices as of June 30, 2026 and December 31, 2025 , respectively, a Level 1 measurement. 
+
+ 
+ 
+ Earnings Per Share 
+ Unvested restricted stock containing non-forfeitable rights to dividends are included in common stock outstanding and are considered to be participating securities and included in the computation of basic and diluted earnings per share pursuant to the two-class method. At June 30, 2026 and December 31, 2025, 1,848,388 and 1,957,381 shares of restricted stock, respectively, are included in common stock outstanding as such shares have a non-forfeitable right to participate in any dividends that might be declared and have the right to vote on matters submitted to the Company's stockholders. 
+ Weighted average shares of unvested restricted stock outstanding were as follows: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Unvested restricted stock 
+ 
+ 
+ 
+ 
+ 
+ 2,057 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,342 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,151 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,330 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ PSUs represent the right to receive a number of shares of the Company's common stock that may range from zero to up to two times the number of PSUs granted on the award date based on the achievement of certain performance measures during a performance period. The number of potentially dilutive shares related to PSUs is based on the number of shares, if any, which would be issuable at the end of the respective period, assuming that date was the end of the performance period. The treasury stock method is used to measure the dilutive effect of PSUs. 
+ 
+ Weighted average unearned PSUs outstanding were as follows: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands, except per unit amounts) 
+ 
+ 
+
+ 
+ Weighted average PSUs 
+ 
+ 
+ 
+ 2,099 
+ 
+ 
+ 
+ 1,411 
+ 
+ 
+ 
+ 2,064 
+ 
+ 
+ 
+ 1,351 
+ 
+ 
+
+ 
+ Weighted average grant date fair value per unit 
+ 
+ 
+ 
+ $ 23.43 
+ 
+ 
+ 
+ $ 19.46 
+ 
+ 
+ 
+ $ 23.43 
+ 
+ 
+ 
+ $ 19.46 
+ 
+ 
+
+ 
+ 
+ For the three and six months ended June 30, 2026, the weighted average shares of unvested restricted stock and PSUs were excluded from the computation of earnings per share because to include them would have been antidilutive to the calculation. 
+ 
+ 
+
+
+ 16 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Basic and diluted income per share for the three months and six months ended June 30, 2026 and 2025 were determined as follows: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Income 
+ 
+ 
+ 
+ 
+ 
+ Shares 
+ 
+ 
+ 
+ 
+ 
+ Per Share 
+ 
+ 
+ 
+ 
+ 
+ Income 
+ 
+ 
+ 
+ 
+ 
+ Shares 
+ 
+ 
+ 
+ 
+ 
+ Per Share 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands, except per share amounts) 
+ 
+ 
+ 
+ 
+
+ 
+ Net income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 8,766 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 130,728 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Income allocable to unvested restricted stock 
+ 
+ 
+ 
+ 
+ 
+ ( 61 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 1,045 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Basic income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 8,705 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 291,612 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.03 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 129,683 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 290,604 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.45 
+ 
+ 
+ 
+ 
+
+ 
+ Effect of Dilutive Securities: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Restricted stock 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,045 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,364 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Performance stock units 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,279 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 8,705 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 291,612 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.03 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 130,728 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 294,247 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.44 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Income 
+ 
+ 
+ 
+ 
+ 
+ Shares 
+ 
+ 
+ 
+ 
+ 
+ Per Share 
+ 
+ 
+ 
+ 
+ 
+ Income 
+ 
+ 
+ 
+ 
+ 
+ Shares 
+ 
+ 
+ 
+ 
+ 
+ Per Share 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands, except per share amounts) 
+ 
+ 
+ 
+ 
+
+ 
+ Net income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 116,216 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 15,335 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Income allocable to unvested restricted stock 
+ 
+ 
+ 
+ 
+ 
+ ( 852 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ( 122 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Basic income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 115,364 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 291,465 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.40 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 15,213 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 290,455 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+
+ 
+ Effect of Dilutive Securities: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Restricted stock 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 122 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,350 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Performance stock units 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,221 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted income available to the Company 
+ 
+ 
+ 
+ $ 
+ 
+ 115,364 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 291,465 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.40 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 15,335 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 294,026 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Supplementary Information with Respect to the Consolidated Statements of Cash Flows 
+ Cash payments made for interest and income taxes and other non-cash investing activities for the six months ended June 30, 2026 and 2025, respectively, were as follows: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Cash payments for: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Interest payments 
+ 
+ 
+ 
+ $ 
+ 
+ 102,541 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 104,733 
+ 
+ 
+ 
+ 
+
+ 
+ Income tax payments (refunds) 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 31,000 
+ 
+ ) 
+ 
+ 
+
+ 
+ Non-cash investing activities include: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Increase (decrease) in accrued capital expenditures 
+ 
+ 
+ 
+ $ 
+ 
+ 16,178 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ ( 2,575 
+ 
+ ) 
+ 
+ 
+
+ 
+ Liabilities assumed in exchange for right-of-use lease assets 
+ 
+ 
+ 
+ $ 
+ 
+ 453 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 36,244 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Recent Accounting Pronouncements 
+ In November 2024, the FASB issued ASU 2024-03 "Disaggregation of Income Statement Expenses". ASU 2024-03 requires additional disclosure, in the notes to the financial statements, of specified information about certain costs and expenses, including purchases of inventory, employee compensation, depreciation, intangible asset amortization and depreciation, depletion and amortization recognized as part of oil and gas-producing activities included in each relevant expense caption. ASU 2024-03 is effective for annual reporting periods beginning after December 15, 2026 and interim reporting periods beginning after December 15, 2027 and will not have an impact on the Company's reported results of operations, financial position or liquidity. The Company is still evaluating the impact of this standard on its financial statement disclosures. 
+ 
+ 
+
+
+ 17 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ (2) LONG-TERM DEBT 
+ At June 30, 2026, long-term debt was comprised of the following: 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ 6.75 % Senior Notes due 2029: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Principal 
+ 
+ 
+ 
+ $ 
+ 
+ 1,623,880 
+ 
+ 
+ 
+ 
+
+ 
+ Discount, net of amortization 
+ 
+ 
+ 
+ 
+ 
+ ( 13,781 
+ 
+ ) 
+ 
+ 
+
+ 
+ 5.875 % Senior Notes due 2030: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Principal 
+ 
+ 
+ 
+ 
+ 
+ 965,000 
+ 
+ 
+ 
+ 
+
+ 
+ Bank Credit Facilities: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Comstock Principal 
+ 
+ 
+ 
+ 
+ 
+ 545,000 
+ 
+ 
+ 
+ 
+
+ 
+ PGS Principal 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Debt issuance costs, net of amortization 
+ 
+ 
+ 
+ 
+ 
+ ( 21,329 
+ 
+ ) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3,098,770 
+ 
+ 
+ 
+ 
+
+ 
+ Comstock Bank Credit Facility 
+ As of June 30, 2026, Comstock had $ 545.0 million outstanding under its bank credit facility. Aggregate commitments under the bank credit facility are $ 1.5 billion, which matures on November 15, 2027. Borrowings under the bank credit facility are subject to a borrowing base that is currently set at $ 2.0 billion. The borrowing base is re-determined on a semi-annual basis and upon the occurrence of certain other events. Borrowings under the bank credit facility are secured by substantially all of the assets of the Company and its subsidiaries, except for PGS, and bear interest at the Company's option, at either adjusted Secured Overnight Financing Rate ("SOFR") plus 2.25 % to 3.25 % or an alternate base rate plus 1.25 % to 2.25 %, in each case depending on the utilization of the borrowing base. The Company also pays a commitment fee of 0.375 % to 0.5 %, which is dependent on the utilization of the borrowing base. The bank credit facility places certain restrictions upon the Company's and its restricted subsidiaries' ability to, among other things, incur additional indebtedness, pay cash dividends, repurchase common stock, make certain loans, investments and divestitures and redeem the senior notes. The only financial covenants are the maintenance of a leverage ratio of less than 3.5 to 1.0 and an adjusted current ratio of at least 1.0 to 1.0. The Company was in compliance with the covenants as of June 30, 2026. 
+ PGS Bank Credit Facility 
+ As of June 30, 2026 , PGS had no borrowings outstanding under its bank credit facility. Aggregate commitments under the bank credit facility are $ 150 million, which matures on March 26, 2030. Borrowings under the bank credit facility bear interest at PGS's option, at either SOFR plus 2.5 % to 3.5 % or an alternate base rate plus 1.5 % to 2.5 %, in each case depending on a consolidated net leverage ratio. PGS also pays a commitment fee of 0.375 % to 0.5 %, which is dependent on the PGS consolidated net leverage ratio. This bank credit facility contains financial covenants for PGS that require the maintenance of an interest coverage ratio of at least 2.5 to 1.0 and a consolidated net leverage ratio of less than 4.0 to 1.0. PGS was in compliance with the covenants as of June 30, 2026 . 
+ 
+ (3) COMMITMENTS AND CONTINGENCIES 
+ In October 2025, the Company entered into an agreement for one new drilling rig, with a pad to pad contract term. Comstock took delivery of this rig in January 2026. Remaining commitments for drilling rigs on pad to pad agreements total $ 15.9 million as of June 30, 2026. 
+ From time to time, the Company is involved in certain litigation that arises in the normal course of its operations. The Company records a loss contingency for these matters when it is probable that a liability has been incurred and the amount of the loss can be reasonably estimated. The Company does not believe the resolution of these matters will have a material effect on the Company's financial position, results of operations or cash flows and no material amounts are accrued relative to these matters at June 30, 2026 or 2025 . 
+ 
+
+
+ 18 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ (4) RELATED PARTY TRANSACTIONS 
+ Comstock operates natural gas and oil properties held by partnerships owned by its majority stockholder. The Company charges the partnerships for the costs incurred to drill, complete and produce wells, as well as drilling and operating overhead fees. Comstock also provides natural gas marketing services to the partnerships, including evaluating potential markets and providing hedging services, in return for a fee equal to $ 0.02 per Mcf for natural gas marketed. The Company received $ 236 thousand and $ 260 thousand for the three months ended June 30, 2026 and 2025, respectively, and $ 475 thousand and $ 599 thousand for the six months ended June 30, 2026 and 2025, respectively, for drilling, operating and marketing services provided to the partnerships. The fees received for the services are reflected as a reduction of general and administrative expenses in the accompanying consolidated statements of operations. 
+ In connection with the operation of the wells, the Company had a $ 3.2 million and $ 3.6 million receivable from the partnerships at June 30, 2026 and December 31, 2025 , respectively. 
+ 
+
+
+ 19 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ ITEM 2. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS 
+ This report contains forward-looking statements that involve risks, uncertainties and assumptions that are made pursuant to the safe harbor provisions of the Private Securities Litigation Reform Act of 1995 including those described under the heading "Risk Factors" in our Annual Report on Form 10-K for the year ended December 31, 2025 (the "Annual Report"). All statements other than statements of historic facts contained, or incorporated by reference, in this report, may be forward-looking statements. Actual results may differ materially from those anticipated in our forward-looking statements due to many factors. Such forward-looking statements are based on management's current expectations and are subject to a number of factors and uncertainties which could cause actual results to differ materially from those described herein. Although we believe the expectations in such statements to be reasonable, there can be no assurance that such expectations will prove to be correct. You are cautioned not to place undue reliance on the forward-looking statements included in this report, which speak only as of the date made. We expressly disclaim any obligation or undertaking to release publicly any updates or revisions to any forward-looking statement to reflect any change in our expectations with regard thereto or any change of events, conditions or circumstances on which any such statement was based, except as required by law. The following discussion should be read in conjunction with the consolidated financial statements and notes thereto included in this report and in our Annual Report as well as with the Risk Factors contained in our Annual Report. 
+ Results of Operations 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands, except per unit amounts) 
+ 
+ 
+ 
+ 
+
+ 
+ Net Production Data: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas (MMcf) 
+ 
+ 
+ 
+ 
+ 
+ 113,069 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 112,164 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 210,924 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 227,193 
+ 
+ 
+ 
+ 
+
+ 
+ Oil (MBbls) 
+ 
+ 
+ 
+ 
+ 
+ 5 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 13 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 16 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 23 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas equivalent (MMcfe) 
+ 
+ 
+ 
+ 
+ 
+ 113,102 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 112,238 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 211,021 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 227,329 
+ 
+ 
+ 
+ 
+
+ 
+ Revenues: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas sales 
+ 
+ 
+ 
+ $ 
+ 
+ 287,745 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 339,225 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 706,020 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 751,511 
+ 
+ 
+ 
+ 
+
+ 
+ Oil sales 
+ 
+ 
+ 
+ 
+ 
+ 476 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 741 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,234 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,443 
+ 
+ 
+ 
+ 
+
+ 
+ Total natural gas and oil sales 
+ 
+ 
+ 
+ $ 
+ 
+ 288,221 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 339,966 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 707,254 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 752,954 
+ 
+ 
+ 
+ 
+
+ 
+ Expenses: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Production and ad valorem taxes 
+ 
+ 
+ 
+ $ 
+ 
+ 7,196 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 10,555 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 17,621 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 21,734 
+ 
+ 
+ 
+ 
+
+ 
+ Gathering and transportation 
+ 
+ 
+ 
+ $ 
+ 
+ 43,331 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 41,759 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 85,135 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 84,376 
+ 
+ 
+ 
+ 
+
+ 
+ Lease operating 
+ 
+ 
+ 
+ $ 
+ 
+ 28,150 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 31,109 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 56,431 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 66,109 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration 
+ 
+ 
+ 
+ $ 
+ 
+ 4,427 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 13,770 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2,150 
+ 
+ 
+ 
+ 
+
+ 
+ Average Sales Price: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas (per Mcf) 
+ 
+ 
+ 
+ $ 
+ 
+ 2.54 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.02 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.35 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.31 
+ 
+ 
+ 
+ 
+
+ 
+ Oil (per Bbl) 
+ 
+ 
+ 
+ $ 
+ 
+ 95.20 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 57.00 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 77.13 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 62.74 
+ 
+ 
+ 
+ 
+
+ 
+ Average equivalent (Mcfe) 
+ 
+ 
+ 
+ $ 
+ 
+ 2.55 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.03 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.35 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.31 
+ 
+ 
+ 
+ 
+
+ 
+ Expenses ($ per Mcfe): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Production and ad valorem taxes 
+ 
+ 
+ 
+ $ 
+ 
+ 0.06 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.09 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.09 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.10 
+ 
+ 
+ 
+ 
+
+ 
+ Gathering and transportation 
+ 
+ 
+ 
+ $ 
+ 
+ 0.38 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.37 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.40 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.37 
+ 
+ 
+ 
+ 
+
+ 
+ Lease operating 
+ 
+ 
+ 
+ $ 
+ 
+ 0.25 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.28 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.27 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.29 
+ 
+ 
+ 
+ 
+
+ 
+ Gas Services: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services revenue 
+ 
+ 
+ 
+ $ 
+ 
+ 63,481 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 130,296 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 229,982 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 230,162 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services expense 
+ 
+ 
+ 
+ $ 
+ 
+ 63,014 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 126,714 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 225,870 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 243,483 
+ 
+ 
+ 
+ 
+
+ Revenues – 
+ Natural gas and oil sales of $288.2 million for the three months ended June 30, 2026 decreased by $51.7 million (15%) as compared to $340.0 million for the second quarter of 2025. The decrease was due to lower natural gas prices realized in the second quarter of 2026 as compared to the same period in 2025. The average realized price for our natural gas was $2.54 per thousand cubic feet ("Mcf"), which decreased 16% from the average realized natural gas price in the second quarter of 2025. Our natural gas production for the second quarter of 2026 increased 1% to 113.1 billion cubic feet ("Bcf") (1.2 Bcf per day). Natural gas production for the second quarter of 2025 was 112.2 Bcf (1.2 Bcf per day) and was sold at an average price of $3.02 per Mcf. 
+
+
+ 20 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Natural gas and oil sales of $707.3 million for the six months ended June 30, 2026 decreased by $45.7 million (6%) as compared to $753.0 million for the six months ended June 30, 2025, which was primarily attributable to lower natural gas production, which decreased 7% to 210.9 Bcf (1.2 Bcf per day) during the first six months of 2026. Natural gas prices increased by 1% during the first six months of 2026 as compared to 2025 natural gas prices. Our natural gas production for the first six months of 2025 was 227.2 Bcf (1.3 Bcf per day) and was sold at an average price of $3.31 per Mcf. 
+ We utilize natural gas price derivative financial instruments to manage our exposure to changes in prices of natural gas and to protect returns on investment from our drilling activities. The following table presents our natural gas prices before and after the effect of cash settlements of our derivative financial instruments: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended June 30, 
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ Average Realized Natural Gas Price: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas, per Mcf 
+ 
+ 
+ 
+ $ 
+ 
+ 2.54 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.02 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.35 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.31 
+ 
+ 
+ 
+ 
+
+ 
+ Cash settlements on derivative financial instruments, per Mcf 
+ 
+ 
+ 
+ 
+ 
+ 0.39 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.04 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (0.18 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (0.02 
+ 
+ ) 
+ 
+ 
+
+ 
+ Price per Mcf, including cash settlements on derivative financial instruments 
+ 
+ 
+ 
+ $ 
+ 
+ 2.93 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.06 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.17 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3.29 
+ 
+ 
+ 
+ 
+
+ Gas service revenues of $63.5 million decreased $66.8 million (51%) for the second quarter of 2026 from $130.3 million in the second quarter of 2025. Gas service revenues of $230.0 million decreased $0.2 million for the first six months of 2025 from $230.2 million for the first six months of 2025. The decreases were primarily due to lower natural gas prices related to sales of natural gas purchased to utilize our excess transport capacity. 
+ Costs and Expenses – 
+ Our production and ad valorem taxes decreased $3.4 million (32%) to $7.2 million for the second quarter of 2026 from $10.6 million in the second quarter of 2025. Production and ad valorem taxes decreased $4.1 million (19%) to $17.6 million during the first six months of 2026 from $21.7 million during the first six months of 2025. The decreases were due primarily to the sale of producing properties in the prior periods and changes in natural gas prices. 
+ Gathering and transportation costs for the second quarter of 2026 increased $1.6 million (4%) to $43.3 million as compared to $41.8 million in the second quarter of 2025. Gathering and transportation costs during the first six months of 2026 increased $0.8 million (1%) to $85.1 million as compared to the first six months of 2025. The increases in both periods were due primarily to production growth in areas with higher average gathering and transportation rates. 
+ Our lease operating expense of $28.2 million ($0.25 per Mcfe) for the second quarter of 2026 decreased $3.0 million (10%) as compared to our lease operating expense of $31.1 million ($0.28 per Mcfe) for the second quarter of 2025. Lease operating expense of $56.4 million ($0.27 per Mcfe) during the first six months of 2026 decreased $9.7 million (15%) from lease operating expense of $66.1 million ($0.29 per Mcfe) during the first six months of 2025. The decreases were due primarily to the sale of producing properties in the prior periods. 
+ Gas service expenses of $63.0 million decreased $63.7 million (50%) for the second quarter of 2026 from $126.7 million in the second quarter of 2025. Gas service expenses of $225.9 million decreased $17.6 million (7%) for the first six months of 2026 from $243.5 million for the first six months of 2025. The decreases were primarily due to lower natural gas prices and volumes related to purchases of third party natural gas for resale. 
+ Depreciation, depletion and amortization ("DD&A") increased $9.1 million to $167.4 million in the second quarter of 2026 from $158.4 million in the second quarter of 2025. Our DD&A per equivalent Mcf produced was $1.48 per Mcfe for the quarter ended June 30, 2026 as compared to $1.41 per Mcfe for the quarter ended June 30, 2025. The increase was due primarily to higher finding and development costs in 2026. DD&A decreased $17.3 million to $309.0 million for the first six months of 2026 from $326.3 million during the first six months of 2025. Our DD&A per equivalent Mcf produced was $1.46 per Mcfe for the six months ended June 30, 2026, which was comparable to $1.44 per Mcfe for the six months ended June 30, 2025. 
+
+
+ 21 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ General and administrative expenses, which are reported net of overhead reimbursements, increased to $17.2 million for the second quarter of 2026 as compared to $12.3 million in the second quarter of 2025. General and administrative expenses increased to $35.4 million for the six months ended June 30, 2026 as compared to $23.4 million for the six months ended June 30, 2025. The increases in both periods were primarily due to higher stock-based compensation, which increased to $8.4 million in the second quarter of 2026 as compared to $5.5 million in the second quarter of 2025, and a reduction in overhead reimbursements resulting from the property divestitures completed in 2025. For the six months ended June 30, 2026, stock-based compensation increased to $15.8 million as compared to $10.0 million for the same period in 2025. 
+ We use derivative financial instruments as part of our price risk management program to protect our capital investments. During the quarter ended June 30, 2026, we had net gains related to our derivative financial instruments of $44.4 million, as compared to net gains on derivative financial instruments of $235.8 million during the quarter ended June 30, 2025, resulting from the decrease in future natural gas prices since June 30, 2025. Realized net gains from our price risk management program were $43.3 million for the quarter ended June 30, 2026 as compared to realized net gains of $4.3 million for the quarter ended June 30, 2025. Net gains on derivative financial instruments were $46.8 million for the first six months of 2026 as compared to net losses of $94.5 million for the first six months of 2025, resulting from a decrease in future natural gas prices since December 31, 2025. Realized net losses from our price risk management program were $37.1 million for the first six months of 2026 as compared to realized net losses of $3.7 million for the first six months of 2025. 
+ Interest expense was $55.0 million and $55.2 million for the quarters ended June 30, 2026 and 2025, respectively, and $108.1 million and $110.0 million for six months ended June 30, 2026 and 2025, respectively. The decrease in interest expense was due primarily to decreased borrowings on our bank credit facility. 
+ Exploration expense was $4.4 million for the second quarter of 2026, and exploration expense was $13.8 million and $2.2 million for the six months ended June 30, 2026 and 2025, respectively, which were related to the acquisition of seismic data in our Western Haynesville area. 
+ Income taxes for the quarters ended June 30, 2026 and 2025 were a benefit of $2.8 million and a provision of $141.5 million, respectively. Income taxes for the six months ended June 30, 2026 and 2025 were a provision of $9.2 million and a benefit of $1.8 million, respectively. Income taxes for the quarters ended June 30, 2026 and 2025 reflect an effective tax rate of (23.3)% and 52.0%, respectively, and income taxes for the six months ended June 30, 2026 and 2025 reflect an effective tax rate of 6.7% and (13.2)%, respectively. The difference between the federal statutory tax rate of 21% and our effective rate is primarily attributable to research and development and other tax credits, release of valuation allowance on deferred tax assets, state income taxes, changes in certain nondeductible items and the income attributable to noncontrolling interest. 
+ We reported net income available to the Company of $8.8 million for the quarter ended June 30, 2026 as compared to net income available to the Company of $124.8 million for the quarter ended June 30, 2025. Income from operations for the second quarter of 2026 was $22.6 million as compared to income from operations of $89.4 million for the second quarter of 2025. In the first six months of 2026, we reported net income available to the Company of $116.2 million as compared to net income available to the Company of $3.6 million for the first six months of 2025. Income from operations for the first six months of 2026 was $197.5 million as compared to income from operations of $215.6 million for the first six months of 2025. 
+
+
+ 22 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Cash Flows, Liquidity and Capital Resources 
+ Cash Flows 
+ The following table summarizes sources and uses of cash and cash equivalents: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Sources of cash and cash equivalents: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Operating activities 
+ 
+ 
+ 
+ $ 
+ 
+ 442,170 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 522,310 
+ 
+ 
+ 
+ 
+
+ 
+ Contributions from noncontrolling interest, net of transaction costs 
+ 
+ 
+ 
+ 
+ 
+ 581,654 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 92,500 
+ 
+ 
+ 
+ 
+
+ 
+ Borrowings on bank credit facilities, net of repayments 
+ 
+ 
+ 
+ 
+ 
+ 285,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 60,000 
+ 
+ 
+ 
+ 
+
+ 
+ Proceeds from asset sales 
+ 
+ 
+ 
+ 
+ 
+ 18,400 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Total 
+ 
+ 
+ 
+ $ 
+ 
+ 1,327,224 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 674,810 
+ 
+ 
+ 
+ 
+
+ 
+ Uses of cash and cash equivalents: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Capital expenditures 
+ 
+ 
+ 
+ $ 
+ 
+ 829,547 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 639,267 
+ 
+ 
+ 
+ 
+
+ 
+ Redemption of noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ 445,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Distributions to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ 24,589 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,500 
+ 
+ 
+ 
+ 
+
+ 
+ Other 
+ 
+ 
+ 
+ 
+ 
+ 7,010 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 10,983 
+ 
+ 
+ 
+ 
+
+ 
+ Total 
+ 
+ 
+ 
+ $ 
+ 
+ 1,306,146 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 655,750 
+ 
+ 
+ 
+ 
+
+ Cash flows from operating activities. Net cash provided by our operating activities decreased $80.1 million (15%) to $442.2 million in the first six months of 2026 from $522.3 million in the same period in 2025. The decrease was due primarily to lower natural gas production and lower realized natural gas prices. 
+ Contributions and redemption of noncontrolling interest. On June 15, 2026, PGS redeemed Cactus' interest in PGS for $445 million. The redemption was funded by the issuance of 600,000 Class A-2 Units representing a 27% ownership interest in PGS for $600 million to Starville, net of $18.5 million in related transaction costs. 
+ Capital expenditures. Our capital expenditures are summarized in the following table: 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Six Months Ended
+June 30, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2026 
+ 
+ 
+ 
+ 
+ 
+ 2025 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ (In thousands) 
+ 
+ 
+ 
+ 
+
+ 
+ Acquisitions: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Unproved property 
+ 
+ 
+ 
+ $ 
+ 
+ 39,449 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 19,616 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration and development: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Development leasehold costs 
+ 
+ 
+ 
+ 
+ 
+ 7,374 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 8,851 
+ 
+ 
+ 
+ 
+
+ 
+ Exploratory drilling and completion costs 
+ 
+ 
+ 
+ 
+ 
+ 349,134 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 231,104 
+ 
+ 
+ 
+ 
+
+ 
+ Development drilling and completion costs 
+ 
+ 
+ 
+ 
+ 
+ 357,915 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 269,569 
+ 
+ 
+ 
+ 
+
+ 
+ Other development costs 
+ 
+ 
+ 
+ 
+ 
+ 19,277 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 8,434 
+ 
+ 
+ 
+ 
+
+ 
+ Asset retirement obligations 
+ 
+ 
+ 
+ 
+ 
+ 83 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 17 
+ 
+ 
+ 
+ 
+
+ 
+ Total exploration and development 
+ 
+ 
+ 
+ 
+ 
+ 773,232 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 537,591 
+ 
+ 
+ 
+ 
+
+ 
+ Midstream property and equipment 
+ 
+ 
+ 
+ 
+ 
+ 90,627 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 102,940 
+ 
+ 
+ 
+ 
+
+ 
+ Other property and equipment 
+ 
+ 
+ 
+ 
+ 
+ 112 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (762 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total capital expenditures 
+ 
+ 
+ 
+ $ 
+ 
+ 863,971 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 639,769 
+ 
+ 
+ 
+ 
+
+ 
+ Change in accrued capital expenditures and other 
+ 
+ 
+ 
+ 
+ 
+ (16,179 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 2,575 
+ 
+ 
+ 
+ 
+
+ 
+ Prepaid drilling costs 
+ 
+ 
+ 
+ 
+ 
+ (18,191 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (3,060 
+ 
+ ) 
+ 
+ 
+
+ 
+ Change in asset retirement obligations 
+ 
+ 
+ 
+ 
+ 
+ (54 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (17 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total cash capital expenditures 
+ 
+ 
+ 
+ $ 
+ 
+ 829,547 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 639,267 
+ 
+ 
+ 
+ 
+
+ 
+ We drilled 34 (30.9 net) wells and completed 29 (24.4 net) Haynesville and Bossier shale operated wells during the first six months of 2026. We currently expect to spend an additional $720 million to $820 million in the remaining six months of 2026 on drilling, completion, infrastructure and other activity. 
+
+
+ 23 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ Liquidity and Capital Resources 
+ As of June 30, 2026, we had $1.2 billion of liquidity, comprised of $1.1 billion of unused borrowing capacity under our bank credit facilities and $45.0 million of cash and cash equivalents on hand. $150 million of unused borrowing capacity under our PGS bank credit facility is restricted to PGS midstream activities. Our short and long-term capital requirements consist primarily of funding our development, exploration and midstream activities, acquisitions, payments of contractual obligations and debt service. 
+ We expect to fund our future development and exploration activities with future operating cash flow and borrowings under our bank credit facilities. The timing of most of our future capital expenditures is discretionary because of our limited number of material long-term capital expenditure commitments. Consequently, we have a significant degree of flexibility to adjust the level of our capital expenditures as circumstances warrant. We believe that our cash provided by operations and borrowings available under our bank credit facilities will be sufficient to satisfy our foreseeable liquidity needs and capital expenditure requirements for at least the next twelve months. If our plans or assumptions change or our assumptions prove to be inaccurate, we may be required to seek additional capital, including debt or equity financing. We cannot provide any assurance that we will be able to obtain such capital, or if such capital is available, that we will be able to obtain it on acceptable terms. 
+ We do not have a specific acquisition budget for the remainder of 2026 because the timing and size of acquisitions are unpredictable. We intend to use our cash flows from operations, borrowings under our bank credit facilities, or other debt or equity financing to the extent available, to finance such acquisitions. The availability and attractiveness of these sources of financing will depend upon a number of factors, some of which will relate to our financial condition and performance and some of which will be beyond our control, such as prevailing interest rates, natural gas and oil prices and other market conditions. Lack of access to the debt or equity markets due to general economic conditions could impede our ability to complete acquisitions. 
+ As of June 30, 2026, we had $545.0 million outstanding under the Comstock bank credit facility. Aggregate commitments under this bank credit facility are $1.5 billion, which matures on November 15, 2027. Borrowings under our bank credit facility are subject to a borrowing base that is currently set at $2.0 billion. The borrowing base is re-determined on a semi-annual basis and upon the occurrence of certain other events. Borrowings under the Comstock bank credit facility are secured by substantially all of our assets and those of our subsidiaries, except for PGS, and bear interest at our option at either adjusted SOFR plus 2.25% to 3.25% or an alternate base rate plus 1.25% to 2.25%, in each case depending on the utilization of the borrowing base. We also pay a commitment fee of 0.375% to 0.5%, which is dependent on the utilization of the borrowing base. Comstock's bank credit facility places certain restrictions upon our and our restricted subsidiaries' ability to, among other things, incur additional indebtedness, pay cash dividends, repurchase common stock, make certain loans, investments and divestitures and redeem the senior notes. The only financial covenants are the maintenance of a leverage ratio of less than 3.5 to 1.0, and an adjusted current ratio of at least 1.0 to 1.0. We were in compliance with the covenants as of June 30, 2026. 
+ As of June 30, 2026, PGS had no borrowings outstanding under its bank credit facility. Aggregate commitments under the PGS bank credit facility are $150 million, which matures on March 26, 2030. Borrowings under the PGS bank credit facility bear interest at our option, at either SOFR plus 2.5% to 3.5% or an alternate base rate plus 1.5% to 2.5%, in each case depending on a consolidated net leverage ratio. PGS also pays a commitment fee of 0.375% to 0.5%, which is dependent on the PGS consolidated net leverage ratio. The PGS bank credit facility contains financial covenants that require the maintenance of an interest coverage ratio of at least 2.5 to 1.0 and a consolidated net leverage ratio of less than 4.0 to 1.0. PGS was in compliance with the covenants as of June 30, 2026. 
+ F ederal and State Taxation 
+ At June 30, 2026, we had $1.5 billion in U.S. federal net operating loss ("NOL") carryforwards and $2.0 billion in certain state NOL carryforwards. As a result of the change of control in August 2018, our ability to use NOLs to reduce taxable income is limited. If we do not generate a sufficient level of taxable income prior to the expiration of the pre-2018 NOL carryforward periods, then we will lose the ability to apply those NOLs as offsets to future taxable income. We estimate that $720.7 million of the U.S. federal NOL carryforwards and $1.2 billion of the estimated state NOL carryforwards will expire unused. 
+ Our federal income tax returns for the years subsequent to December 31, 2021 remain subject to examination. Our income tax returns in major state income tax jurisdictions remain subject to examination for various periods subsequent to December 31, 2022. Currently, we are under examination with the United States Internal Revenue Service and believe that our significant filing positions and deductions will be sustained under audit or the final resolution will not have a material effect on the consolidated financial statements. Therefore, we have not established any significant reserves for uncertain tax positions. 
+ Critical Accounting Policies and Estimates 
+ Our management’s discussion and analysis of our financial condition and results of operations are based on our condensed consolidated financial statements, which have been prepared in accordance with accounting principles generally accepted in the United 
+
+
+ 24 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ States ("GAAP"). The preparation of these financial statements requires us to make estimates and judgments that affect the reported amount of assets, liabilities, and expenses and the disclosure of contingent assets and liabilities as of the date of the financial statements. On an ongoing basis, we evaluate our estimates and judgments. We base our estimates on historical experience, known trends and events, and various other factors that are believed to be reasonable under the circumstances, the results of which form the basis for making judgments about the carrying value of assets and liabilities that are not readily apparent from other sources. Actual results may differ materially from these estimates under different assumptions or conditions. 
+ In Part II, Item 7 of the Annual Report, we disclosed our critical accounting policies and estimates, which are made in accordance with GAAP, involve a significant level of estimation uncertainty and have had or are reasonably likely to have a material impact on our financial condition or results of operation. There have been no significant changes to our critical accounting policies and estimates during the six months ended June 30, 2026, as compared to those disclosed in the Annual Report. 
+ ITEM 3. QUANTITATIVE AND QUALITATIVE DISCLOSURE ABOUT MARKET RISK 
+ Natural Gas and Oil Prices 
+ Our financial condition, results of operations and capital resources are highly dependent upon the prevailing market prices of natural gas and oil. These commodity prices are subject to wide fluctuations and market uncertainties due to a variety of factors, some of which are beyond our control. Factors influencing natural gas and oil prices include the level of global demand for oil, the foreign supply of natural gas and oil, the effect of the wars in Iran and Ukraine, the establishment of and compliance with production quotas by oil exporting countries, weather conditions that determine the demand for natural gas, the price and availability of alternative fuels and overall economic conditions. It is impossible to predict future natural gas and oil prices with any degree of certainty. Sustained weakness in natural gas and oil prices may adversely affect our financial condition and results of operations and may also reduce the amount of natural gas and oil reserves that we can produce economically. Any reduction in our natural gas and oil reserves, including reductions due to price fluctuations, can have an adverse effect on our ability to obtain capital for our exploration and development activities. Similarly, any improvements in natural gas and oil prices can have a favorable impact on our financial condition, results of operations and capital resources. 
+ As of June 30, 2026, we had natural gas price swaps to hedge approximately 58.9 Bcf of our 2026 natural gas production at an average price of $3.51 per MMBtu. We also had natural gas collars to hedge approximately 84.6 Bcf of our 2026 natural gas production at an average ceiling price of $4.35 and an average floor price of $3.50 and 146.0 Bcf of our 2027 natural gas production at an average ceiling price of $4.44 and an average floor price of $3.50. None of our derivative contracts have margin requirements or collateral provisions that could require funding prior to the scheduled cash settlement date. 
+ An increase of 10% in the market price of natural gas on June 30, 2026 would decrease the fair value of our natural gas price swaps and collars by approximately $61.5 million. A decrease of 10% in the market price of natural gas on June 30, 2026 would increase the fair value of our natural gas price swaps and collars by approximately $63.7 million. The impact of hypothetical changes in market prices of natural gas on our natural gas derivative financial instruments does not include the offsetting impact that the same hypothetical changes in market prices of natural gas may have on our physical sales of natural gas. Since our outstanding natural gas derivative financial instruments hedge only a portion of our forecasted physical gas production, a positive or negative impact to the fair value of our natural gas derivative financial instruments would be partially offset by our physical sales of natural gas. 
+ Interest Rates 
+ At June 30, 2026, we had approximately $3.1 billion principal amount of long-term debt outstanding. $965.0 million of our long-term debt bear interest at a fixed rate of 5.875% and $1.62 billion of our long-term debt bear interest at a fixed rate of 6.75%. As of June 30, 2026, the fair market value of the 5.875% senior notes due in 2030 and the 6.75% senior notes due in 2029 was $904.7 million and $1.59 billion, respectively, based on the market price of approximately 94% and 98%, respectively, of the face amount of such debt. At June 30, 2026, we had $545.0 million outstanding under our bank credit facilities, which are subject to variable rates of interest that are tied to SOFR or the corporate base rate, at our option. Any increase in these interest rates would have an adverse impact on our results of operations and cash flow. 
+
+
+ 25 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ ITEM 4. CONTROLS AND PROCEDURES 
+ As of June 30, 2026, we carried out an evaluation, under the supervision and with the participation of our chief executive officer and chief financial officer, of the effectiveness of the design and operation of our disclosure controls and procedures (as defined in Rule 13a-15(e) under the Securities Exchange Act of 1934). Based on this evaluation, our chief executive officer and chief financial officer concluded that our disclosure controls and procedures were effective as of June 30, 2026 to provide reasonable assurance that information required to be disclosed by us in the reports filed or submitted by us under the Securities Exchange Act of 1934 is recorded, processed, summarized and reported within the time periods specified in the SEC's rules and forms, and to provide reasonable assurance that information required to be disclosed by us is accumulated and communicated to our management, including our chief executive officer and chief financial officer, as appropriate, to allow timely decisions regarding required disclosure. In designing and evaluating our disclosure controls and procedures, management recognizes that any controls and procedures, no matter how well designed and operated, can provide only reasonable assurance of achieving the desired control objectives. There were no changes in our internal controls over financial reporting (as such term is defined in Rule 13a-15(f) under the Securities Exchange Act of 1934) that occurred during the three months ended June 30, 2026 that has materially affected, or is reasonably likely to materially affect, our internal controls over financial reporting. 
+
+
+ 26 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ PART II — OTHER INFORMATION 
+ ITE M 1. LEGAL PROCEEDINGS 
+ From time to time, we are involved in certain litigation that arises in the normal course of our operations. We record a loss contingency for these matters when it is probable that a liability has been incurred and the amount of the loss can be reasonably estimated. We do not believe the resolution of these matters will have a material effect on our financial position, results of operations or cash flows and no material amounts are accrued relative to these matters at June 30, 2026 or 2025. 
+ ITE M 1A. RISK FACTORS 
+ We are subject to various risks and uncertainties in the course of our business. For a discussion of such risks and uncertainties, please see "Item 1A. Risk Factors" in the Annual Report. There have been no material changes to the Risk Factors we have disclosed in the Annual Report. 
+ ITE M 2. UNREGISTERED SALES OF EQUITY SECURITIES AND USE OF PROCEEDS 
+ None. 
+ ITE M 3. DEFAULTS UPON SENIOR SECURITIES 
+ None. 
+ ITE M 4. MINE SAFETY DISCLOSURES 
+ Not applicable. 
+ ITE M 5. OTHER INFORMATION 
+ During the three months ended June 30, 2026 , none of our directors or officers adopted, modified or terminated a "Rule 10b5-1 trading arrangement" or "non-Rule 10b5-1 trading arrangement," as those terms are defined in Regulation S-K, Item 408(a). 
+ ITEM 6. EXHIBITS 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Exhibit No. 
+ 
+ 
+ 
+ Description 
+ 
+ 
+
+ 
+ 3.1 
+ 
+ 
+ 
+ Second Amended and Restated Articles of Incorporation of the Company (incorporated by reference to Exhibit 3.1 to our Current Report on Form 8-K dated August 13, 2018). 
+ 
+ 
+
+ 
+ 3.2 
+ 
+ 
+ 
+ Amendment to Second Amended and Restated Articles of Incorporation of the Company dated July 16, 2019 (incorporated by reference to Exhibit 3.1 to our Current Report on Form 8-K dated July 15, 2019). 
+ 
+ 
+
+ 
+ 3.3 
+ 
+ 
+ 
+ Amended and Restated Bylaws (incorporated by reference to Exhibit 3.1 to our Current Report on Form 8-K dated August 21, 2014). 
+ 
+ 
+
+ 
+ 3.4 
+ 
+ 
+ 
+ First Amendment to Amended and Restated Bylaws of the Company (incorporated by reference to Exhibit 3.1 to our Current Report on Form 8-K dated August 17, 2018). 
+ 
+ 
+
+ 
+ 3.5 
+ 
+ 
+ 
+ Amendment No. 2 to the Amended and Restated Bylaws (incorporated by reference to Exhibit 3.2 to our Current Report on Form 8-K dated July 15, 2019). 
+ 
+ 
+
+ 
+ 10.1* 
+ 
+ 
+ 
+ Fourth Amendment to Second Amended and Restated Credit Agreement dated as of June 15, 2026, among the Company, the lenders party thereto and Wells Fargo Bank National Association as Administrative Agent . 
+ 
+ 
+
+ 
+ 31.1* 
+ 
+ 
+ 
+ Section 302 Certification of the Chief Executive Officer. 
+ 
+ 
+
+ 
+ 31.2* 
+ 
+ 
+ 
+ Section 302 Certification of the Chief Financial Officer. 
+ 
+ 
+
+ 
+ 32.1† 
+ 
+ 
+ 
+ Certification for the Chief Executive Officer as required by Section 906 of the Sarbanes-Oxley Act of 2002. 
+ 
+ 
+
+ 
+ 32.2† 
+ 
+ 
+ 
+ Certification for the Chief Financial Officer as required by Section 906 of the Sarbanes-Oxley Act of 2002. 
+ 
+ 
+
+ 
+ 101.INS* 
+ 
+ 
+ 
+ Inline XBRL Instance Document 
+ 
+ 
+
+ 
+ 101.SCH* 
+ 
+ 
+ 
+ Inline XBRL Taxonomy Extension Schema with Embedded Linkbase Documents 
+ 
+ 
+
+ 
+ 104* 
+ 
+ 
+ 
+ Cover Page Interactive Data File (embedded within the Inline XBRL document) 
+ 
+ 
+
+ _____________________________ 
+ * Filed herewith. 
+ † Furnished herewith. 
+
+
+ 27 
+
+
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+
+
+ SIGNATURES 
+ Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned, thereunto duly authorized. 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ COMSTOCK RESOURCES, INC. 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Date: July 30, 2026 
+ 
+ /s/ M. JAY ALLISON 
+ 
+ 
+
+ 
+ 
+ 
+ M. Jay Allison , Chairman and Chief Executive Officer 
+ 
+ 
+
+ 
+ 
+ 
+ (Principal Executive Officer, Duly Authorized Officer) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Date: July 30, 2026 
+ 
+ /s/ ROLAND O. BURNS 
+ 
+ 
+
+ 
+ 
+ 
+ Roland O. Burns , President, Chief Financial Officer and Secretary 
+ 
+ 
+
+ 
+ 
+ 
+ (Principal Financial and Accounting Officer) 
+ 
+ 
+
+ 
+
+
+ 28 
+
+
+ 
+ 
+ 

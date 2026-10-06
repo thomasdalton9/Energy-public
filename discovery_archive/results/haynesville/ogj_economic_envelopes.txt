@@ -1,0 +1,479 @@
+URL: https://ogj.com/general-interest/companies/article/17227022/louisiana-haynesville-shale2-economic-operating-envelopes-characterized-for-haynesville-shale
+FETCHED: 2026-10-06
+
+ LOUISIANA HAYNESVILLE SHALE—2: Economic operating envelopes characterized for Haynesville shale | Oil & Gas Journal Companies"},"section_hierarchy":[{"id":32481,"name":"General Interest","alias":"general-interest"},{"id":32482,"name":"Companies","alias":"general-interest/companies"}],"taxonomy":[{"type":"Bin","name":"primaryBytopSchedule","fullName":"Bin: primaryBytopSchedule (2089713)","id":2089713},{"type":"Category","name":"Companies","fullName":"Category: General Interest > Companies (2089082)","id":2089082},{"type":"Bin","name":"import_pennwell","fullName":"Bin: import_pennwell (2088898)","id":2088898}],"authors":[]}"> 
+ Skip to main content 
+ 
+ 
+ 
+
+ Covering the operations of the oil and gas industry
+
+ General Interest 
+
+ Refining & Processing 
+
+ Drilling & Production 
+
+ Exploration & Development 
+
+ Pipelines & Transportation 
+
+ 
+
+ 
+ 
+ 
+
+ 
+ Sections 
+ General Interest 
+
+ Refining & Processing 
+
+ Drilling & Production 
+
+ Exploration & Development 
+
+ Pipelines & Transportation 
+
+ LNG 
+
+ Energy Transition 
+
+ Industry Statistics 
+
+ Members Only 
+
+ 
+ Special 
+ Webcasts 
+
+ White Papers 
+
+ Podcast 
+
+ Magazine 
+
+ Surveys 
+
+ Research 
+
+ Events 
+
+ Submit an Article 
+
+ Iran war 
+
+ 
+ Contact 
+ About Us 
+
+ Subscribe 
+
+ Newsletters 
+
+ Advertise 
+
+ Contact Us 
+
+ Privacy Policy 
+
+ Terms & Conditions 
+
+ 
+
+ Affiliated Brands 
+ OFFSHORE 
+
+ ENERGYTECH 
+
+ MICROGRID KNOWLEDGE 
+
+ OGJ RESEARCH 
+
+ 
+
+
+ Follow us on http://www.facebook.com/ogjonline
+ 
+ 
+ https://www.linkedin.com/company/oil-&-gas-journal
+ 
+ 
+ http://twitter.com/ogjonline
+ 
+ 
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+
+
+
+ 
+
+ 
+ 
+
+
+ 
+
+ Companies 
+ 
+ 
+ LOUISIANA HAYNESVILLE SHALE—2: Economic operating envelopes characterized for Haynesville shale
+ The Haynesville shale has grown into the largest gas shale play in the US due to favorable geologic conditions and technological improvements in drilling horizontal wells and stimulation treatment.
+ Jan. 9, 2012
+ 
+ 3 min read 
+
+
+ 
+ Add Us On Google 
+ 
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+ 
+
+ 
+ 
+ 
+ 
+ Mark J. Kaiser 
+ Yunke Yu 
+ Louisiana State University 
+ Baton Rouge
+ The Haynesville shale has grown into the largest gas shale play in the US due to favorable geologic conditions and technological improvements in drilling horizontal wells and stimulation treatment. Unconventional gas resources are abundant, but their development is particularly sensitive to technologic risk, geologic uncertainty, and gas price.
+ Misunderstanding aboveground risk, however, can have an unpleasant effect on project economics.
+ The two defining characteristics of shale gas development in Louisiana's Haynesville shale are the high costs of drilling and completion and the high degree of uncertainty surrounding physical and economic parameters that affect project returns. Project risk is caused by uncertainty from unforeseen or unknowable conditions or events that affect costs or performance.
+ The purpose of this article, the second of three parts, is to examine the price sensitivity of Haynesville wells. We characterize the operating envelope under which Haynesville wells are economic and describe the profit space based on a technical review of cost characteristics. Two-variable factor models are combined with type curves to construct before and after-tax profit matrices.
+ The majority of Haynesville wells fail to break even on a full-cycle basis at prevailing gas prices. This harsh economic reality will control future activity after new entrants fulfill their drilling requirements.
+ For $6/Mcf gas, average wells are expected to generate pretax returns between 1% and 11.5% for $1 to $0.50/Mcf operating expenses and $7.5 million capital expenditure. P10 wells are expected to generate a pretax return of 52% for $7.5 million to 25% for $10 million capital expenditures and posttax returns of 20% to 40%. We show that gas prices during the first year of production are an important determinant in profitability.
+ Shale play economics
+ For shale gas wells to be profitable, they must produce at sufficient rates and volumes to recover the high cost of drilling and completion. The tradeoff between perforated length, completion strategy, and production is a key consideration in cost and returns. Shale wells produce smaller volumes per well compared with conventional resources, and typically, per-well profit margins are smaller. Recovery factors are also much lower than in conventional gas plays, typically on the order of 20-30%.
+ Unconventional reservoir systems are governed by a large number of factors and interrelationships that are difficult to accurately discriminate. Geologic and reservoir engineering and economic modeling have lagged the science of hydraulic fracturing, but progress continues to be made.
+ Production risk is higher in shale plays because of the need to use advanced technologies and constraints imposed by the reservoir. Completion technology and geologic controls are considered the primary determinant of production and economic success. Completion strategies involve many factors, including lateral length and number of stages, method of isolation, completion and fracturing techniques, and proppant type and concentration. Strategies evolve with experience and experimentation, and performance are influenced by many interrelated parameters.
+ Cost data 
+ Acquisition
+ Over the past 3 years, lease bonuses on state lands in the Haynesville region have ranged between $5,000 and $25,000/acre and averaged $9,000/acre. The average royalty rate on state land has ranged from 22.5% to 28.5%, while royalty interest and overrides on private land generally range from 20% to 30%.
+ Displaying 1/5 Page 1 , 2 , 3 , 4, 5 Next> 
+ View Article as Single page 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+
+
+
+ 
+
+ Sign up for our eNewsletters Get the latest news and updates
+
+ 
+ Sign Up 
+ 
+ 
+
+
+
+ 
+
+ 
+ Related
+ 
+ 
+ Poll results: Strait of Hormuz disruptions 
+ 
+ 
+
+ Poll results: Strait of Hormuz disruptions
+
+
+ 
+ 
+
+
+ Real-time ESP sensor data optimizes well killing 
+ 
+ 
+
+ Real-time ESP sensor data optimizes well killing
+
+
+ 
+ 
+
+
+ 
+ 
+
+
+
+
+ 
+
+ Power Evaluator: Bankable Curves for Power Plant Valuations 
+ 
+ 
+
+ Sponsored
+ 
+ Power Evaluator: Bankable Curves for Power Plant Valuations
+
+
+ 
+ 
+
+
+ New Gas Indices, Methodology Projects, and Indices Liquidity 
+ 
+ 
+
+ Sponsored
+ 
+ New Gas Indices, Methodology Projects, and Indices Liquidity
+
+
+ 
+ 
+
+
+ 
+ 
+
+
+
+
+ 
+
+ 
+ 
+
+
+ 
+
+
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+ Trending
+ 
+ 
+ Pembina pursues gas-to-power opportunities through Greenlight development
+
+
+ 
+ 
+
+
+ 
+ Long conventional horizontal fracturing produces significant erosion
+
+
+ 
+ 
+
+
+ 
+ The calm before the boom: Pipeline costs appear to fall as project proposals triple
+
+
+ 
+ 
+
+
+ 
+ 
+
+
+
+
+ 
+
+ 
+ 
+
+
+
+ 
+
+ 
+ Sponsored Picks
+ 
+ 
+ Sponsored
+ 
+ Power Evaluator: Bankable Curves for Power Plant Valuations
+
+
+ 
+ 
+
+
+ 
+ Sponsored
+ 
+ New Gas Indices, Methodology Projects, and Indices Liquidity
+
+
+ 
+ 
+
+
+ 
+ Sponsored
+ 
+ How Has the Chemical Industry Evolved Over the Past 40 Years?
+
+
+ 
+ 
+
+
+ 
+ 
+
+
+
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+
+
+ Load More Content 
+ 
+ 
+ 
+ 
+
+ footer logo Oil & Gas Journal Oil & Gas Journal starts where other industry publications stop. It delivers more than information; it delivers context, adding details the others leave out and combining them with analysis, commentary, industry trends, and statistics.
+
+ Newsletters 
+ The top stories, industry insights and relevant research, assembled by our editors and delivered to your inbox.
+ 
+ Sign Up 
+ 
+ 
+ Connect 
+ Follow us for the latest industry news and insights.
+ http://www.facebook.com/ogjonline
+ 
+ 
+ https://www.linkedin.com/company/oil-&-gas-journal
+ 
+ 
+ http://twitter.com/ogjonline
+ 
+ 
+ 
+
+
+
+ Affiliated Brands 
+ OFFSHORE 
+
+ ENERGYTECH 
+
+ MICROGRID KNOWLEDGE 
+
+ OGJ RESEARCH 
+
+ 
+
+
+
+
+ About Us 
+
+ Advertise 
+
+ Do Not Sell or Share 
+
+ Privacy Policy 
+
+ Terms & Conditions 
+
+ © 2026 All rights reserved. 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+ 
+ 
+ 
