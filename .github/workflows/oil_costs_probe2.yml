@@ -1,0 +1,24 @@
+name: Oil costs probe 2 (manual)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pdfplumber pymupdf curl_cffi openpyxl
+      - run: python3 -u discovery_archive/oil/OIL_COSTS_PROBE2.py
+      - name: Commit extracted texts
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/oil
+          git diff --cached --quiet || git commit -m "Oil costs probe: extracted source texts"
+          for i in 1 2 3; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep 5; done
