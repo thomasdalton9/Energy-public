@@ -86,7 +86,7 @@ def main():
     win = cur[cur.index >= START]
     firsts = list(win.groupby(win.index.to_period("M")).head(1).index)
     firsts = [d for d in firsts if d != last]
-    fig, ax = plt.subplots(figsize=(11, 6), dpi=110)
+    fig, ax = plt.subplots(figsize=(7.15, 6), dpi=110)
     style(ax)
     cmap = plt.get_cmap("viridis")
     lab = {}
@@ -110,17 +110,17 @@ def main():
     lat = pd.Series(list(r.values) + list(ext.values), index=pd.DatetimeIndex(list(r.index) + list(ext.index)))
     lab_latest = f"{last:%d %b %Y} (latest)"
     if len(ext):
-        lab_latest += f"; months after {r.index.max():%b %Y} = CME settlement {cme_last:%d %b %Y}"
+        lab_latest += f"; after {r.index.max():%b %Y}: CME {cme_last:%d %b %y}"
     ax.plot(lat.index, lat.values, color="#C0392B", lw=3.5, label=lab_latest)
     XEND = pd.Timestamp("2033-12-31")
     ax.set_xlim(pd.Timestamp("2026-09-01"), XEND)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b/%y"))
     ax.set_ylabel("USD per barrel", fontsize=9)
-    ax.legend(frameon=False, fontsize=7.5, loc="upper right")
-    ax.set_title(f"Brent forward curve: latest and first trade date of each month, {firsts[0]:%b %Y} to {last:%b %Y} (older = fainter)",
-                 loc="left", fontsize=11)
+    ax.legend(frameon=False, fontsize=6.8, loc="upper right")
+    ax.set_title(f"Brent forward curve: latest and first trade date of each month,\n{firsts[0]:%b %Y} to {last:%b %Y} (older = fainter)",
+                 loc="left", fontsize=10)
     fig.text(0.01, 0.012, SRC + " (+ CME Group settlements for later months).\nPast curves show contracts listed today only (expired front months absent).", fontsize=6.5, color="#555", linespacing=1.4)
-    fig.subplots_adjust(left=0.06, right=0.98, top=0.92, bottom=0.12)
+    fig.subplots_adjust(left=0.1, right=0.97, top=0.89, bottom=0.14)
     fig.savefig(os.path.join(OUTDIR, "brent_forward_curve.png"))
     plt.close(fig)
     # PNG 2: calendar spreads
