@@ -5,8 +5,14 @@ name: Turkey generation mix dashboard daily
 # turkey_generation_mix_dashboard.py's "today so far" pull has close to
 # full 24-hour coverage before the script's own completeness threshold
 # is checked.
+# Two runs a day because GitHub often starts scheduled jobs hours late and a run
+# after Turkish midnight sees only the new day (the script then saves nothing:
+# under 18 hourly readings): 19:30 UTC = 22:30 Istanbul (about 22 readings, safe
+# against a delay of about 1.5 h) and 20:45 UTC, which overwrites the day with the
+# fuller set when it runs on time.
 on:
   schedule:
+    - cron: "30 19 * * *"
     - cron: "45 20 * * *"
   workflow_dispatch: {}
 
