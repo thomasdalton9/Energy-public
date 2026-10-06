@@ -53,7 +53,7 @@ def main():
             r = cur.loc[frames[b]].dropna()
             ax.plot(r.index, r.values, color=GREY, lw=1.4, alpha=0.18 + 0.14 * j)
         r = cur.loc[d].dropna()
-        ax.plot(r.index, r.values, color=BLUE, lw=3, marker="o", ms=3.5)
+        ax.plot(r.index, r.values, color=BLUE, lw=3)
         ax.set_xlim(*xl)
         ax.set_ylim(ymin, ymax)
         ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=[1, 7]))
@@ -116,7 +116,7 @@ def main():
         ax.plot(r.index, r.values, color=cmap(0.15 + 0.7 * (1 - age)), lw=1.3, alpha=0.18 + 0.5 * (1 - age),
                 label=f"{d:%d %b %Y} ({lab[d]})" if d in lab else None)
     r = cur.loc[last].dropna()
-    ax.plot(r.index, r.values, color="#C0392B", lw=3.5, marker="o", ms=4, label=f"{last:%d %b %Y} (latest)")
+    ax.plot(r.index, r.values, color="#C0392B", lw=3.5, label=f"{last:%d %b %Y} (latest)")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b/%y"))
     ax.set_ylabel("USD per barrel", fontsize=9)
     ax.legend(frameon=False, fontsize=8, loc="upper right")
