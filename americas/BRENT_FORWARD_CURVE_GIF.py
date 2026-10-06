@@ -39,8 +39,10 @@ def main():
     sp.index = pd.to_datetime(sp.index)
     os.makedirs(OUTDIR, exist_ok=True)
     wk = cur.groupby(cur.index.to_period("W")).tail(1).index
-    frames = list(wk)
-    ymin, ymax = np.floor(cur.min().min() / 10) * 10 - 5, np.ceil(cur.max().max() / 10) * 10 + 5
+    START = pd.Timestamp("2021-01-01")   # owner: from 2021, not 2018-2020
+    frames = [d for d in wk if d >= START]
+    c21 = cur[cur.index >= START]
+    ymin, ymax = np.floor(c21.min().min() / 10) * 10 - 5, np.ceil(c21.max().max() / 10) * 10 + 5
     xl = (cur.columns.min() - pd.Timedelta(days=20), cur.columns.max() + pd.Timedelta(days=20))
     spread_col = "Dec 2026 less Dec 2027"
     n_c = cur.notna().sum(axis=1)
@@ -97,16 +99,16 @@ def main():
     fig.subplots_adjust(left=0.07, right=0.98, top=0.9, bottom=0.12)
     fig.savefig(os.path.join(OUTDIR, "brent_forward_curve.png"))
     plt.close(fig)
-    # PNG: history of curves, first trade date of each month (last 24 months), fading with age, latest bold
+    # PNG: history of curves, first trade date of each month (since Jan 2021), fading with age, latest bold
     last = cur.index.max()
-    win = cur[cur.index >= last - pd.DateOffset(months=24)]
+    win = cur[cur.index >= START]
     firsts = list(win.groupby(win.index.to_period("M")).head(1).index)
     firsts = [d for d in firsts if d != last]
     fig, ax = plt.subplots(figsize=(11, 6), dpi=110)
     style(ax)
     cmap = plt.get_cmap("viridis")
     lab = {}
-    for tgt, nm in ((1, "1 month ago"), (3, "3 months ago"), (6, "6 months ago"), (12, "12 months ago"), (24, "24 months ago")):
+    for tgt, nm in ((1, "1 month ago"), (3, "3 months ago"), (6, "6 months ago"), (12, "12 months ago"), (24, "24 months ago"), (36, "36 months ago"), (48, "48 months ago")):
         c_ = [d for d in firsts if d <= last - pd.DateOffset(months=tgt)]
         if c_:
             lab[c_[-1]] = nm
