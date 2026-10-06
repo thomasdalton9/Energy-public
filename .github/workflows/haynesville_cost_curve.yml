@@ -1,0 +1,80 @@
+name: Haynesville cost curve (manual)
+
+# APPROXIMATE Haynesville supply cost curve + mapping of the Gulf 'Key question' (americas/HAYNESVILLE_COST_CURVE.py). Reads gulf_coast_gas_balance.xlsx and
+# henry_hub_daily.xlsx (read only). Manual only: the inputs are company disclosures that change quarterly, edit the yellow cells on 'Inputs' or the script.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl matplotlib
+
+      - name: Build Haynesville cost curve
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 americas/HAYNESVILLE_COST_CURVE.py --out "output/Data and Chart Outputs/haynesville_cost_curve.xlsx"
+
+      - name: Add Excel charts, PNG charts and copy scripts
+        run: |
+          f="output/Data and Chart Outputs/haynesville_cost_curve.xlsx"
+          python3 add_charts.py "$f" && python3 png_charts.py "$f"
+          mkdir -p "output/Python Scripts"
+          cp americas/HAYNESVILLE_COST_CURVE.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Verify the live formulas against the script values (LibreOffice recalculation)
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y --no-install-recommends libreoffice-calc >/dev/null
+          mkdir -p /tmp/lo && cp "output/Data and Chart Outputs/haynesville_cost_curve.xlsx" /tmp/lo/in.xlsx
+          cd /tmp/lo && soffice --headless --calc --convert-to xlsx:"Calc MS Excel 2007 XML" --outdir out in.xlsx >/dev/null 2>&1
+          python3 - <<'PY'
+          import pandas as pd, openpyxl
+          wb = openpyxl.load_workbook("/tmp/lo/out/in.xlsx", data_only=True)
+          cv = pd.read_excel("/tmp/lo/in.xlsx", "Curve values")
+          ws = wb["Curve"]
+          s0 = [r for r in range(1, ws.max_row + 1) if ws.cell(r, 3).value == "Tier / block"][0] + 1
+          live = [ws.cell(s0 + k, 4).value for k in range(len(cv))]
+          print("sorted breakeven live  :", [round(x, 3) for x in live])
+          print("sorted breakeven script:", [round(x, 3) for x in cv["Breakeven $/MMBtu HH"]])
+          assert all(abs(a - b) < 1e-6 for a, b in zip(live, cv["Breakeven $/MMBtu HH"])), "Curve mismatch"
+          mv = pd.read_excel("/tmp/lo/in.xlsx", "Mapping values")
+          wm = wb["Mapping"]
+          hdr = {wm.cell(5, c).value: c for c in range(1, wm.max_column + 1)}
+          col = hdr["Marginal breakeven - STEO growth + extra"]
+          bad = 0
+          for i in range(len(mv)):
+              a, b = wm.cell(6 + i, col).value, mv["Marginal breakeven - STEO growth + extra"].iloc[i]
+              ok = (a == "-" and pd.isna(b)) or (isinstance(a, (int, float)) and abs(a - b) < 1e-6) or (a == "beyond inventory" and pd.isna(b))
+              bad += not ok
+              print(wm.cell(6 + i, 1).value, wm.cell(6 + i, 2).value, a, b)
+          assert bad == 0, "Mapping mismatch"
+          print("LIVE FORMULAS MATCH THE SCRIPT VALUES")
+          PY
+
+      - name: Commit workbook, charts and scripts
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/haynesville_cost_curve.xlsx"
+          git add -f "output/PNG Charts/haynesville_cost_curve__Cost_curve.png" "output/PNG Charts/haynesville_cost_curve__Marginal_price.png" || true
+          git add -f "output/Python Scripts/HAYNESVILLE_COST_CURVE.py" "output/Python Scripts/png_charts.py" "output/Python Scripts/add_charts.py" || true
+          git diff --cached --quiet || git commit -m "Haynesville cost curve: automated build"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

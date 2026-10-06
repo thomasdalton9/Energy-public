@@ -119,6 +119,67 @@ def water_year(spec, path):
     return True
 
 
+def haynesville_curve(xlsx, path):
+    """Haynesville cost curve (americas/HAYNESVILLE_COST_CURVE.py): step chart of breakeven vs cumulative capacity for two horizons, from the script's
+    'Curve values' tab, with the Henry Hub 12-month average."""
+    c = pd.read_excel(xlsx, "Curve values").set_index("Rank")
+    hh = float(pd.read_excel(xlsx, "Henry Hub", index_col=0).iloc[1, 0])
+    fig, ax = plt.subplots(figsize=(11, 6))
+    for (H, col, ls, lab) in ((5, COLOURS[0], "-", "by Dec 2030 (drilled over 5 years)"), (8, COLOURS[1], "-", "by Dec 2033 (drilled over 8 years)")):
+        cum = pd.concat([pd.Series([0.0]), c[f"Cumulative capacity H={H} (Bcf/d)"].reset_index(drop=True)], ignore_index=True)
+        be = c["Breakeven $/MMBtu HH"].reset_index(drop=True)
+        xs, ys = [], []
+        for k in range(len(be)):
+            xs += [cum[k], cum[k + 1]]
+            ys += [be[k], be[k]]
+        ax.plot(xs, ys, color=col, linewidth=2.2, linestyle=ls, label=f"Supply added {lab}")
+        if H == 8:
+            for k in range(len(be)):
+                ax.text((cum[k] + cum[k + 1]) / 2, be[k] + 0.12, c["Tier (sorted by breakeven)"].iloc[k].replace(" (BEG)", "").replace("Western Haynesville - ", "WH - "),
+                        fontsize=7, ha="center", color="#444444", rotation=0 if cum[k + 1] - cum[k] > 4 else 90, va="bottom")
+    ax.axhline(hh, color="#252525", linestyle="--", linewidth=1.2, label=f"Henry Hub, last 12 months average (${hh:.2f})")
+    ax.set_xlim(left=0)
+    ax.set_ylim(0, 11)
+    ax.set_xlabel("Cumulative capacity, Bcf/d (cost only: NOT constrained by rigs, crews or takeaway)", fontsize=9)
+    _style(ax, "Haynesville supply cost curve - APPROXIMATE, built from company disclosures (pre-tax, 10% discount)", "Breakeven, $/MMBtu Henry Hub")
+    ax.legend(fontsize=8, frameon=False, ncol=3, loc="upper left", bbox_to_anchor=(0, -0.12))
+    fig.text(0.01, 0.005, "Sources: Comstock Oct 2026 deck + Q2 2026 release (inventory, D&C $/ft, opex); Expand 3Q25 deck (productivity); BEG/OGJ Dec 2015 (tiers).\n"
+             "Western Haynesville EUR ASSUMED = Tier 1. Legacy inventory is 2012-vintage (wells since not deducted). See the workbook's Sources tab.", fontsize=6.5, color="#555555")
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fig.savefig(path, dpi=110)
+    plt.close(fig)
+    return True
+
+
+def haynesville_marginal(xlsx, path):
+    """Marginal breakeven at each Gulf 'Key question' date (STEO growth + extra supply), base and delayed, against the Henry Hub 12-month average."""
+    m = pd.read_excel(xlsx, "Mapping values")
+    hh = float(pd.read_excel(xlsx, "Henry Hub", index_col=0).iloc[1, 0])
+    col = "Marginal breakeven - STEO growth + extra"
+    yrs = list(dict.fromkeys(m["Year-end"]))
+    fig, ax = plt.subplots(figsize=(10, 5.5))
+    w = 0.36
+    for i, (sc, lab) in enumerate((("Base", "Base case"), ("LNG and takeaway delayed 6 months", "LNG and takeaway delayed 6 months"))):
+        v = [m[(m["Scenario"] == sc) & (m["Year-end"] == y)][col].iloc[0] for y in yrs]
+        xs = [k + (i - 0.5) * w for k in range(len(yrs))]
+        bars = ax.bar(xs, [0 if pd.isna(x) else x for x in v], width=w, color=COLOURS[i], label=lab)
+        for x, y in zip(xs, v):
+            ax.text(x, (0 if pd.isna(y) else y) + 0.05, "beyond inventory" if pd.isna(y) else f"{y:.2f}", ha="center", fontsize=8)
+    ax.axhline(hh, color="#252525", linestyle="--", linewidth=1.2, label=f"Henry Hub, last 12 months average (${hh:.2f})")
+    ax.set_xticks(range(len(yrs)), yrs)
+    ax.set_ylim(0, max(6, hh + 1.5))
+    _style(ax, "Implied marginal breakeven of Haynesville growth, Gulf 'Key question' (cost only, APPROXIMATE)", "$/MMBtu Henry Hub")
+    ax.legend(fontsize=8, frameon=False, ncol=3, loc="upper left", bbox_to_anchor=(0, -0.08))
+    fig.text(0.01, 0.005, "Cost curve only: no rig, crew or takeaway limit, no base-decline replacement (lower bound). Western Haynesville productivity ASSUMED; see 'Sensitivity values' ($2.8-5.1).", fontsize=6.5, color="#555555")
+    fig.tight_layout(rect=(0, 0.02, 1, 1))
+    fig.savefig(path, dpi=110)
+    plt.close(fig)
+    return True
+
+
+PNG_RENDERERS = {"haynesville_curve": haynesville_curve, "haynesville_marginal": haynesville_marginal}
+
+
 def render(path, out_dir=OUT):
     stem = os.path.splitext(os.path.basename(path))[0]
     build = add_charts.REGISTRY.get(os.path.basename(path))
@@ -131,7 +192,8 @@ def render(path, out_dir=OUT):
         name = re.sub(r"[^A-Za-z0-9_-]+", "_", spec.get("sheet") or spec["name"]).strip("_")
         out = os.path.join(out_dir, f"{stem}__{name}.png")
         try:
-            ok = water_year(spec, out) if "water_year" in spec else series_chart(spec, out)
+            ok = (water_year(spec, out) if "water_year" in spec else PNG_RENDERERS[spec["png"]](path, out) if "png" in spec
+                  else series_chart(spec, out))
         except Exception as e:  # noqa: BLE001
             print(f"  {stem} {name}: {type(e).__name__}: {e}")
             continue

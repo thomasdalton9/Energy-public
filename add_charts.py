@@ -1509,6 +1509,89 @@ def texas_production_forecast(p):
     return out
 
 
+def haynesville_cost_curve(p):
+    """Haynesville cost curve (americas/HAYNESVILLE_COST_CURVE.py): native XY step chart (cumulative Bcf/d vs breakeven $/MMBtu, two horizons + Henry Hub)
+    and marginal breakeven by Key-question date; both read formulas on 'Chart data', so editing 'Inputs' redraws them. PNGs: png_charts."""
+    import importlib.util
+    sp_ = importlib.util.spec_from_file_location("HAYNESVILLE_COST_CURVE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "americas", "HAYNESVILLE_COST_CURVE.py"))
+    hc = importlib.util.module_from_spec(sp_)
+    sp_.loader.exec_module(hc)
+    lay = hc.chart_layout()
+
+    def native(path, sheet):
+        from openpyxl import load_workbook
+        from openpyxl.chart import BarChart, LineChart, Reference, ScatterChart, Series
+        from openpyxl.chart.series import SeriesLabel
+        from openpyxl.chart.data_source import StrRef
+        from openpyxl.chart.shapes import GraphicalProperties
+        from openpyxl.drawing.line import LineProperties
+        wb = load_workbook(path)
+        for n in ("Chart", "Chart - Marginal price"):
+            if n in wb.sheetnames:
+                del wb[n]
+        cd = wb["Chart data"]
+        ws1 = wb.create_sheet("Chart", 1)
+        ws2 = wb.create_sheet("Chart - Marginal price", 2)
+        ws1["A1"] = lay["banner"] + ". Cost curve only: NOT constrained by rigs, crews or takeaway. Step chart data and the editable horizons are on 'Chart data'."
+        ws2["A1"] = lay["banner"] + ". Marginal tier = STEO Haynesville growth + extra supply (Gulf 'Key question'), see 'Mapping'."
+        a, b = lay["step_first"], lay["step_last"]
+        sc = ScatterChart()
+        sc.style = 2
+        sc.scatterStyle = "lineMarker"
+        for k, (xc, yc, tcol, colour, dash) in enumerate(((4, 5, "D", xlsx_charts.PALETTE[0], "solid"), (6, 7, "F", xlsx_charts.PALETTE[1], "solid"), (8, 9, "H", "252525", "dash"))):
+            last = b if k < 2 else a + 1
+            ser = Series(Reference(cd, min_col=yc, min_row=a, max_row=last), Reference(cd, min_col=xc, min_row=a, max_row=last))
+            ser.tx = SeriesLabel(strRef=StrRef(f"'Chart data'!${tcol}$6"))
+            ser.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=colour, w=28575, prstDash=dash))
+            ser.marker.symbol = "none"
+            ser.smooth = False
+            sc.series.append(ser)
+        sc.title = "Haynesville supply cost curve: breakeven vs cumulative capacity (APPROXIMATE, from company disclosures)"
+        sc.x_axis.title = "Cumulative capacity, Bcf/d (cost only; not rig or takeaway constrained)"
+        sc.y_axis.title = "Breakeven, $/MMBtu Henry Hub (pre-tax, 10% discount)"
+        sc.x_axis.number_format = "0"
+        sc.y_axis.number_format = "0.0"
+        sc.x_axis.scaling.min = 0
+        sc.y_axis.scaling.min = 0
+        sc.x_axis.delete = False
+        sc.y_axis.delete = False
+        sc.legend.position = "b"
+        sc.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
+        sc.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
+        sc.width, sc.height = 28, 14
+        xlsx_charts.tidy_layout(sc)
+        sc.x_axis.axPos = "b"
+        ws1.add_chart(sc, "A3")
+        m0 = lay["m0"]
+        bc = BarChart()
+        bc.type, bc.grouping, bc.gapWidth = "col", "clustered", 60
+        bc.add_data(Reference(cd, min_col=2, max_col=3, min_row=m0, max_row=m0 + 4), titles_from_data=True)
+        bc.set_categories(Reference(cd, min_col=1, min_row=m0 + 1, max_row=m0 + 4))
+        for i, s_ in enumerate(bc.series):
+            s_.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.PALETTE[i], ln=LineProperties(noFill=True))
+        ln = LineChart()
+        ln.add_data(Reference(cd, min_col=4, min_row=m0, max_row=m0 + 4), titles_from_data=True)
+        ln.series[0].graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill="252525", w=28575, prstDash="dash"))
+        ln.series[0].marker.symbol = "none"
+        ln.series[0].smooth = False
+        bc += ln
+        bc.title = "Marginal breakeven of the Gulf 'Key question' Haynesville growth (STEO + extra), $/MMBtu Henry Hub - APPROXIMATE"
+        bc.y_axis.title = "$/MMBtu Henry Hub"
+        bc.y_axis.number_format = "0.0"
+        bc.x_axis.delete = False
+        bc.y_axis.delete = False
+        bc.legend.position = "b"
+        bc.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
+        bc.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
+        bc.width, bc.height = 24, 13
+        xlsx_charts.tidy_layout(bc)
+        ws2.add_chart(bc, "A3")
+        xlsx_charts.save_atomic(wb, path)
+
+    return [{"name": "Cost curve", "custom": native, "png": "haynesville_curve"},
+            {"name": "Marginal price", "custom": lambda path, sheet: None, "png": "haynesville_marginal"}]
+
+
 def gulf_coast_balance(p):
     """Gulf Coast gas balance (americas/GULF_COAST_BALANCE.py): Texas, Louisiana and combined supply vs demand incl. LNG, and the
     key-question chart (basin supply growth vs incremental Gulf LNG demand). Bcf/d, mmm/yy; forecast lighter, 2029-30 lightest."""
@@ -2750,6 +2833,7 @@ REGISTRY = {
     "texas_production_forecast.xlsx": texas_production_forecast,
     "texas_demand_regression.xlsx": texas_demand_regression,
     "gulf_coast_gas_balance.xlsx": gulf_coast_balance,
+    "haynesville_cost_curve.xlsx": haynesville_cost_curve,
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
