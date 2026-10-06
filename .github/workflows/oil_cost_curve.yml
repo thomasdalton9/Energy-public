@@ -1,0 +1,80 @@
+name: Oil cost curve (manual)
+# APPROXIMATE US shale oil cost curve from the Dallas Fed Energy Survey + EIA STEO (americas/OIL_COST_CURVE.py). Manual dispatch only.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl matplotlib requests
+
+      - name: Build oil cost curve
+        env:
+          PYTHONUNBUFFERED: "1"
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: python3 americas/OIL_COST_CURVE.py --out "output/Data and Chart Outputs/oil_cost_curve.xlsx"
+
+      - name: Add Excel charts, PNG charts and copy scripts
+        run: |
+          f="output/Data and Chart Outputs/oil_cost_curve.xlsx"
+          python3 add_charts.py "$f" && python3 png_charts.py "$f"
+          mkdir -p "output/Python Scripts"
+          cp americas/OIL_COST_CURVE.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Verify the live formulas against the script values (LibreOffice recalculation)
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y --no-install-recommends libreoffice-calc >/dev/null
+          mkdir -p /tmp/lo && cp "output/Data and Chart Outputs/oil_cost_curve.xlsx" /tmp/lo/in.xlsx
+          cd /tmp/lo && soffice --headless --calc --convert-to xlsx:"Calc MS Excel 2007 XML" --outdir out in.xlsx >/dev/null 2>&1
+          python3 - <<'PY'
+          import pandas as pd, openpyxl
+          wb = openpyxl.load_workbook("/tmp/lo/out/in.xlsx", data_only=True)
+          errs = [(ws.title, c.coordinate, c.value) for ws in wb for r in ws.iter_rows() for c in r if isinstance(c.value, str) and c.value.startswith(("#", "Err:"))]
+          print("formula errors:", errs[:10])
+          assert not errs, "formula errors"
+          cv = pd.read_excel("/tmp/lo/in.xlsx", "Curve values")
+          ws = wb["Curve"]
+          live_v = [ws.cell(5 + k, 4).value for k in range(len(cv))]
+          live_b = [ws.cell(5 + k, 5).value for k in range(len(cv))]
+          print("live   vol:", [round(x, 3) for x in live_v]); print("script vol:", [round(x, 3) for x in cv["Volume (Mb/d)"]])
+          print("live    be:", [round(x, 2) for x in live_b]); print("script  be:", [round(x, 2) for x in cv["Breakeven (USD/bbl WTI)"]])
+          assert all(abs(a - b) < 1e-6 for a, b in zip(live_v, cv["Volume (Mb/d)"])), "volume mismatch"
+          assert all(abs(a - b) < 1e-6 for a, b in zip(live_b, cv["Breakeven (USD/bbl WTI)"])), "breakeven mismatch"
+          mv = pd.read_excel("/tmp/lo/in.xlsx", "Mapping values")
+          wm = wb["Mapping"]
+          hdr = {wm.cell(4, c).value: c for c in range(1, wm.max_column + 1)}
+          col = [c for h, c in hdr.items() if str(h).startswith("Volume in the money")][0]
+          for i in range(len(mv)):
+              a, b = wm.cell(7 + i, col).value, mv["vol_in"].iloc[i] if "vol_in" in mv else None
+              print(wm.cell(7 + i, 1).value, round(wm.cell(7 + i, 2).value, 2), round(a, 3), None if b is None else round(b, 3))
+              if b is not None: assert abs(a - b) < 1e-6, "mapping mismatch"
+          print("LIVE FORMULAS MATCH THE SCRIPT VALUES")
+          PY
+
+      - name: Commit workbook, charts and scripts
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/oil_cost_curve.xlsx"
+          git add -f "output/PNG Charts/oil_cost_curve__Cost_curve.png" "output/PNG Charts/oil_cost_curve__Supply_ladder.png" || true
+          git add -f "output/Python Scripts/OIL_COST_CURVE.py" "output/Python Scripts/png_charts.py" "output/Python Scripts/add_charts.py" || true
+          git diff --cached --quiet || git commit -m "Oil cost curve: automated build"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

@@ -21,6 +21,7 @@ matplotlib.use("Agg")
 import matplotlib.ticker  # noqa: E402
 import matplotlib.dates as mdates  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np
 import pandas as pd  # noqa: E402
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -177,7 +178,66 @@ def haynesville_marginal(xlsx, path):
     return True
 
 
-PNG_RENDERERS = {"haynesville_curve": haynesville_curve, "haynesville_marginal": haynesville_marginal}
+def oil_curve(xlsx, path):
+    """US shale oil cost curve (americas/OIL_COST_CURVE.py): step chart of breakeven vs cumulative volume (Dallas Fed Q1 2026, prior year dashed) with
+    WTI spot, 12-month mean and Brent M12 as WTI, from the script's 'Curve values' / 'Price context' / 'Price forwards' tabs."""
+    c = pd.read_excel(xlsx, "Curve values")
+    ctx = pd.read_excel(xlsx, "Price context", index_col=0)["Value"]
+    spot, m12 = float(ctx["WTI spot, last (USD/bbl)"]), float(ctx["WTI last 12 months mean"])
+    m12f = float(ctx["Brent forward M12 as WTI"])
+    be, vol = c["Breakeven (USD/bbl WTI)"].to_numpy(), c["Volume (Mb/d)"].to_numpy()
+    cum = np.concatenate([[0.0], np.cumsum(vol)])
+    fig, ax = plt.subplots(figsize=(11, 6))
+    xs, ys = [], []
+    for k in range(len(be)):
+        xs += [cum[k], cum[k + 1]]
+        ys += [be[k], be[k]]
+    ax.plot(xs, ys, color=COLOURS[0], linewidth=2.4, label="Breakeven by tier (Dallas Fed Q1 2026 survey)")
+    pri = c["Prior-year breakeven (Dallas Q1 2025)"].to_numpy()
+    ax.plot(xs, [v for v in pri for _ in (0, 1)], color=COLOURS[1], linewidth=1.4, linestyle=":", label="Same tiers, Dallas Fed Q1 2025 survey")
+    ax.axhline(spot, color="#252525", linestyle="--", linewidth=1.2, label=f"WTI spot ${spot:.0f}")
+    ax.axhline(m12, color=COLOURS[2], linestyle="--", linewidth=1.2, label=f"WTI 12-month average ${m12:.0f}")
+    ax.axhline(m12f, color=COLOURS[3], linestyle="--", linewidth=1.2, label=f"Brent forward M12 as WTI ${m12f:.0f}")
+    bases = c[c["Kind"] == "Base"]
+    ax.text(cum[len(be)] / 2.2, be.min() + 2.5, "Base tiers: existing wells, shut-in breakeven ($39-44)", fontsize=8, color="#444444")
+    top = c[c["Kind"] != "Base"]
+    t0 = float(cum[len(bases)])
+    ax.annotate(f"Replacement + growth tiers\n{top['Volume (Mb/d)'].sum():.1f} Mb/d at $62-67 new-well breakeven", xy=(t0 + 0.2, float(top["Breakeven (USD/bbl WTI)"].mean())),
+                xytext=(t0 - 3.5, 52), fontsize=8, color="#444444", arrowprops=dict(arrowstyle="->", color="#888888"))
+    ax.set_xlim(0, cum[-1] * 1.02)
+    ax.set_ylim(0, max(spot * 1.1, 110))
+    ax.set_xlabel("Cumulative volume, Mb/d (maintenance-only drilling, 12-month view; US shale regions, STEO)", fontsize=9)
+    _style(ax, "US shale oil supply cost curve - APPROXIMATE, built from company disclosures and the Dallas Fed survey (WTI basis)", "Breakeven, USD/bbl WTI")
+    ax.legend(fontsize=8, frameon=False, ncol=2, loc="upper left", bbox_to_anchor=(0, -0.12))
+    fig.text(0.01, 0.005, "Sources: Dallas Fed Energy Survey Q1 2026 (basin breakevens, average of responses); EIA STEO (production, decline, growth); Brent/WTI from brent_wti_daily.xlsx and brent_forward_curve.xlsx.\n"
+             "Operator filings give cost per foot and EUR for single assets only. Bakken borrows the 'Other shale' survey line. Growth barrels beyond STEO and above maintenance are not on the curve.", fontsize=6.5, color="#555555")
+    fig.tight_layout(rect=(0, 0.05, 1, 1))
+    fig.savefig(path, dpi=110)
+    plt.close(fig)
+    return True
+
+
+def oil_ladder(xlsx, path):
+    """Volume supported by each WTI price (script copy 'Ladder values'), with spot and the forward marked."""
+    d = pd.read_excel(xlsx, "Ladder values")
+    ctx = pd.read_excel(xlsx, "Price context", index_col=0)["Value"]
+    spot, m12 = float(ctx["WTI spot, last (USD/bbl)"]), float(ctx["WTI last 12 months mean"])
+    fig, ax = plt.subplots(figsize=(10, 5.5))
+    ax.step(d["WTI"], d["supply"], where="post", color=COLOURS[0], linewidth=2.4, label="Volume supported at this WTI price (Mb/d)")
+    ax.axvline(spot, color="#252525", linestyle="--", linewidth=1.2, label=f"WTI spot ${spot:.0f}")
+    ax.axvline(m12, color=COLOURS[2], linestyle="--", linewidth=1.2, label=f"WTI 12-month average ${m12:.0f}")
+    ax.set_ylim(0, d["supply"].max() * 1.12)
+    ax.set_xlabel("WTI, USD/bbl", fontsize=9)
+    _style(ax, "US shale oil volume supported by WTI price (APPROXIMATE, maintenance-only)", "Mb/d")
+    ax.legend(fontsize=8, frameon=False, ncol=3, loc="upper left", bbox_to_anchor=(0, -0.12))
+    fig.text(0.01, 0.005, "Below about $39-44 existing wells are shut in; between $44 and $62-67 base output holds but new-well replacement and growth volumes drop out. Dallas Fed Q1 2026 survey averages.", fontsize=6.5, color="#555555")
+    fig.tight_layout(rect=(0, 0.02, 1, 1))
+    fig.savefig(path, dpi=110)
+    plt.close(fig)
+    return True
+
+
+PNG_RENDERERS = {"haynesville_curve": haynesville_curve, "haynesville_marginal": haynesville_marginal, "oil_curve": oil_curve, "oil_ladder": oil_ladder}
 
 
 def render(path, out_dir=OUT):
