@@ -97,6 +97,35 @@ def main():
     fig.subplots_adjust(left=0.07, right=0.98, top=0.9, bottom=0.12)
     fig.savefig(os.path.join(OUTDIR, "brent_forward_curve.png"))
     plt.close(fig)
+    # PNG: history of curves, first trade date of each month (last 24 months), fading with age, latest bold
+    last = cur.index.max()
+    win = cur[cur.index >= last - pd.DateOffset(months=24)]
+    firsts = list(win.groupby(win.index.to_period("M")).head(1).index)
+    firsts = [d for d in firsts if d != last]
+    fig, ax = plt.subplots(figsize=(11, 6), dpi=110)
+    style(ax)
+    cmap = plt.get_cmap("viridis")
+    lab = {}
+    for tgt, nm in ((1, "1 month ago"), (3, "3 months ago"), (6, "6 months ago"), (12, "12 months ago"), (24, "24 months ago")):
+        c_ = [d for d in firsts if d <= last - pd.DateOffset(months=tgt)]
+        if c_:
+            lab[c_[-1]] = nm
+    for i, d in enumerate(firsts):
+        age = (len(firsts) - i) / len(firsts)          # 1 = oldest
+        r = cur.loc[d].dropna()
+        ax.plot(r.index, r.values, color=cmap(0.15 + 0.7 * (1 - age)), lw=1.3, alpha=0.18 + 0.5 * (1 - age),
+                label=f"{d:%d %b %Y} ({lab[d]})" if d in lab else None)
+    r = cur.loc[last].dropna()
+    ax.plot(r.index, r.values, color="#C0392B", lw=3.5, marker="o", ms=4, label=f"{last:%d %b %Y} (latest)")
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b/%y"))
+    ax.set_ylabel("USD per barrel", fontsize=9)
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    ax.set_title(f"Brent forward curve: latest and first trade date of each month, {firsts[0]:%b %Y} to {last:%b %Y} (older = fainter)",
+                 loc="left", fontsize=11)
+    fig.text(0.01, 0.01, SRC + ". Past curves show contracts listed today only (expired front months absent).", fontsize=7, color="#555")
+    fig.subplots_adjust(left=0.06, right=0.98, top=0.92, bottom=0.1)
+    fig.savefig(os.path.join(OUTDIR, "brent_forward_curve_history.png"))
+    plt.close(fig)
     # PNG 2: calendar spreads
     fig, ax = plt.subplots(figsize=(9.6, 5.4), dpi=110)
     style(ax)

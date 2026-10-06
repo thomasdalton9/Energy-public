@@ -169,6 +169,7 @@ Standing instructions from the repo owner. Follow these on every change.
   1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
   source has no history.
 - Brent and WTI crude spot prices (`americas/BRENT_WTI_DAILY.py` -> `brent_wti_daily.xlsx`, 1st/15th, EIA API v2 petroleum/pri/spt RBRTE/RWTC with EIA's keyless xls fallback, USD/bbl, Brent-WTI spread and monthly means; negative WTI of Apr 2020 is kept) is standalone, not on a dashboard.
+- Brent forward curve (`americas/BRENT_FORWARD_CURVE.py` -> `brent_forward_curve.xlsx`, 1st/15th/28th, USD/bbl; GIF and history PNG by `BRENT_FORWARD_CURVE_GIF.py`) archives daily closes of every NYMEX Brent Last Day Financial (BZ) contract month from Yahoo Finance's unofficial chart API (the only reachable free source: CME settlements JSON, ICE, Stooq, Nasdaq Data Link and Barchart failed in Actions, `discovery_archive/brent/`), which lists only unexpired contracts, so past dates lack their since-expired front months and complete curves build up from the first run on.
 - Incremental: backfill gaps only, don't re-pull complete history each run.
   The committed workbook IS the history store: each run reads it and fetches only periods not saved yet (plus a
   short revision window). Sources that only publish whole files (e.g. MBIE webtables, Hydro Tasmania) are

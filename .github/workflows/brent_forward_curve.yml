@@ -61,7 +61,7 @@ jobs:
           [ -f "$f" ] || { echo "No archive file to commit."; exit 0; }
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "$f" "output/PNG Charts/brent_forward_curve.gif" "output/PNG Charts/brent_forward_curve.png" "output/PNG Charts/brent_calendar_spreads.png" || true
+          git add -f "$f" "output/PNG Charts/brent_forward_curve.gif" "output/PNG Charts/brent_forward_curve.png" "output/PNG Charts/brent_calendar_spreads.png" "output/PNG Charts/brent_forward_curve_history.png" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Brent forward curve: automated update"
           for i in 1 2 3 4 5; do
