@@ -23,7 +23,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -43,7 +43,7 @@ jobs:
           args=""
           [ -n "$START" ] && args="$args --start $START"
           [ -n "$END" ] && args="$args --end $END"
-          timeout 1500 python3 americas/BRENT_FORWARD_CURVE.py $args
+          timeout 2700 python3 americas/BRENT_FORWARD_CURVE.py $args
 
       - name: Add Excel charts, GIF and PNGs, copy scripts
         if: always()

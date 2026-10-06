@@ -99,14 +99,16 @@ def fetch(session, ticker, start, end):
                     r = None
                     time.sleep(2)
                     continue
-                if r.status_code in (200, 404):
+                if r.status_code in (200, 400, 404):
                     break
                 time.sleep(3 * (attempt + 1))
-            if r is not None and r.status_code in (200, 404):
+            if r is not None and r.status_code in (200, 400, 404):
                 break
-        if r is None or r.status_code not in (200, 404):
+        if r is None or r.status_code not in (200, 400, 404):
             raise RuntimeError(f"{ticker}: HTTP {getattr(r, 'status_code', None)}")
-        if r.status_code == 404:
+        if r.status_code == 400:      # window before the contract's first trade date: no data
+            pass
+        elif r.status_code == 404:
             if not known:
                 return None
         else:
