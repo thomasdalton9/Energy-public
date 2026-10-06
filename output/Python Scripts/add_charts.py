@@ -1626,6 +1626,83 @@ def haynesville_cost_curve(p):
             {"name": "Marginal price", "custom": lambda path, sheet: None, "png": "haynesville_marginal"}]
 
 
+def oil_cost_curve(p):
+    """US shale oil cost curve (americas/OIL_COST_CURVE.py): native XY step chart (cumulative Mb/d vs breakeven USD/bbl WTI, Dallas Fed Q1 2026 and Q1 2025,
+    with WTI spot, 12-month mean and Brent M12 as WTI) and the 12-month supply ladder; both read formulas on 'Chart data'. PNGs: png_charts."""
+    import importlib.util
+    sp_ = importlib.util.spec_from_file_location("OIL_COST_CURVE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "americas", "OIL_COST_CURVE.py"))
+    oc = importlib.util.module_from_spec(sp_)
+    sp_.loader.exec_module(oc)
+    lay = oc.chart_layout()
+
+    def native(path, sheet):
+        from openpyxl import load_workbook
+        from openpyxl.chart import Reference, ScatterChart, Series
+        from openpyxl.chart.series import SeriesLabel
+        from openpyxl.chart.data_source import StrRef
+        from openpyxl.chart.shapes import GraphicalProperties
+        from openpyxl.drawing.line import LineProperties
+        wb = load_workbook(path)
+        for n in ("Chart", "Chart - Supply ladder"):
+            if n in wb.sheetnames:
+                del wb[n]
+        cd = wb["Chart data"]
+        ws1 = wb.create_sheet("Chart", 1)
+        ws2 = wb.create_sheet("Chart - Supply ladder", 2)
+        ws1["A1"] = lay["banner"] + ". Maintenance-only 12-month view; breakevens are Dallas Fed survey averages. Data and editable inputs: 'Chart data', 'Inputs'."
+        ws2["A1"] = lay["banner"] + ". Output supported at each WTI price (all tiers with breakeven at or below the price)."
+        a, b = lay["step_first"], lay["step_last"]
+
+        def style(sc, title, xt, yt):
+            sc.title = title
+            sc.x_axis.title = xt
+            sc.y_axis.title = yt
+            sc.x_axis.number_format = "0"
+            sc.y_axis.number_format = "0"
+            sc.x_axis.scaling.min = 0
+            sc.y_axis.scaling.min = 0
+            sc.x_axis.delete = False
+            sc.y_axis.delete = False
+            sc.legend.position = "b"
+            sc.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
+            sc.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
+            sc.width, sc.height = 28, 14
+            xlsx_charts.tidy_layout(sc)
+            sc.x_axis.axPos = "b"
+
+        sc = ScatterChart()
+        sc.style = 2
+        sc.scatterStyle = "lineMarker"
+        for (xc, yc, tcell, colour, dash, hi) in ((4, 5, "E6", xlsx_charts.PALETTE[0], "solid", b), (6, 7, "G6", xlsx_charts.PALETTE[1], "dash", b),
+                                                  (8, 9, "I6", "252525", "dash", a + 1), (8, 10, "J6", xlsx_charts.PALETTE[2], "dash", a + 1), (8, 11, "K6", xlsx_charts.PALETTE[3], "dash", a + 1)):
+            ser = Series(Reference(cd, min_col=yc, min_row=a, max_row=hi), Reference(cd, min_col=xc, min_row=a, max_row=hi))
+            ser.tx = SeriesLabel(strRef=StrRef(f"'Chart data'!${tcell[0]}${tcell[1:]}"))
+            ser.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=colour, w=28575, prstDash=dash))
+            ser.marker.symbol = "none"
+            ser.smooth = False
+            sc.series.append(ser)
+        style(sc, "US shale oil supply cost curve: breakeven vs cumulative volume (APPROXIMATE, Dallas Fed survey + EIA STEO)",
+              "Cumulative volume, Mb/d (maintenance-only, 12-month view)", "WTI breakeven, USD/bbl")
+        ws1.add_chart(sc, "A3")
+        lo, hi = lay["lad_hdr"], lay["lad_last"]
+        s2 = ScatterChart()
+        s2.style = 2
+        s2.scatterStyle = "lineMarker"
+        ser = Series(Reference(cd, min_col=2, min_row=lo + 1, max_row=hi), Reference(cd, min_col=1, min_row=lo + 1, max_row=hi), title="Supported volume (Mb/d)")
+        ser.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=xlsx_charts.PALETTE[0], w=28575))
+        ser.marker.symbol = "circle"
+        ser.smooth = False
+        s2.series.append(ser)
+        style(s2, "US shale oil volume supported by WTI price (APPROXIMATE, maintenance-only)", "WTI, USD/bbl", "Mb/d")
+        s2.x_axis.scaling.min = None
+        s2.y_axis.number_format = "0.0"
+        ws2.add_chart(s2, "A3")
+        xlsx_charts.save_atomic(wb, path)
+
+    return [{"name": "Cost curve", "custom": native, "png": "oil_curve"},
+            {"name": "Supply ladder", "custom": lambda path, sheet: None, "png": "oil_ladder"}]
+
+
 def gulf_coast_balance(p):
     """Gulf Coast gas balance (americas/GULF_COAST_BALANCE.py): Texas, Louisiana and combined supply vs demand incl. LNG, and the
     key-question chart (basin supply growth vs incremental Gulf LNG demand). Bcf/d, mmm/yy; forecast lighter, 2029-30 lightest."""
@@ -2870,6 +2947,7 @@ REGISTRY = {
     "texas_demand_regression.xlsx": texas_demand_regression,
     "gulf_coast_gas_balance.xlsx": gulf_coast_balance,
     "haynesville_cost_curve.xlsx": haynesville_cost_curve,
+    "oil_cost_curve.xlsx": oil_cost_curve,
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
