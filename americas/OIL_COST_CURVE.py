@@ -169,6 +169,7 @@ def fetch_steo(path_prev, tsv=None):
             for x in r.json()["response"]["data"]:
                 rows.append((i, x["period"], x["value"], x.get("seriesDescription", ""), x.get("unit", "")))
         d = pd.DataFrame(rows, columns=["id", "period", "value", "description", "unit"])
+        d["value"] = pd.to_numeric(d["value"], errors="coerce")
         if d.empty:
             raise ValueError("empty STEO")
         return d, f"EIA API v2 steo, fetched {dt.date.today():%d %b %Y}"
