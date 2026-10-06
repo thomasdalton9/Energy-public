@@ -22,6 +22,15 @@ Settlements JSON endpoint (404 'No endpoint', 403 without TLS impersonation),
 ICE report centre (no history endpoint found), Stooq (JS challenge), Nasdaq
 Data Link CHRIS (Incapsula 403) and Barchart (WAF) were not usable.
 
+LONG-DATED MONTHS (added Oct 2026): Yahoo stops at Dec 2029, so cells Yahoo does not list are filled from the CME Group
+Settlements JSON for Brent Last Day Financial futures (productId 424, www.cmegroup.com/CmeWS/mvc/Settlements/Futures/
+Settlements/424/FUT?tradeDate=MM/DD/YYYY; official daily settlements, every month to about Mar 2034). It only serves
+about the last week of trade dates, so each run reads the last 14 days and the archive ('CME settlements' sheet, also
+the check against Yahoo) grows run by run; the workflow runs weekly as well as 1st/15th/28th. Yahoo closes always win
+where both exist; CME fills only blank cells. Discovery: discovery_archive/brent/BRENT_LONGDATED_PROBE5-7.py (Yahoo BZ
+tickers end Dec 2029; Yahoo CL (WTI) reaches Dec 2035 but is not Brent). 'EIA forecast' is a SEPARATE sheet (STEO monthly
+Brent spot forecast and AEO annual projection) and is never merged into the market curve.
+
 Columns of 'Curve' are contract months YYYY-MM (the BZ contract month: the
 Dec 2026 contract is the one that is the front month on 2026-10-06). The
 last bar of the current day is dropped (intraday, not a settlement).
@@ -126,6 +135,128 @@ def fetch(session, ticker, start, end):
     return rows
 
 
+CME_URL = ("https://www.cmegroup.com/CmeWS/mvc/Settlements/Futures/Settlements/424/FUT?tradeDate={d:%m/%d/%Y}"
+           "&strategy=DEFAULT&pageSize=500")
+MON = {m: i + 1 for i, m in enumerate(["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"])}
+CME_DAYS = 14
+
+
+def fetch_cme(session, today, days=CME_DAYS):
+    """CME Brent Last Day Financial settlements for the last `days` calendar days: DataFrame trade_date x 'YYYY-MM' (USD/bbl)."""
+    rows = {}
+    for k in range(1, days + 1):
+        d = today - timedelta(days=k)
+        if d.weekday() > 4:
+            continue
+        j = None
+        for attempt in range(3):
+            try:
+                r = session.get(CME_URL.format(d=d), impersonate="chrome", timeout=40,
+                                headers={**HEAD, "Referer": "https://www.cmegroup.com/"})
+                if r.status_code == 200:
+                    j = r.json()
+                    break
+            except Exception as e:  # noqa: BLE001
+                print(f"  CME {d}: {type(e).__name__}", flush=True)
+            time.sleep(2 * (attempt + 1))
+        rec = {}
+        for x in (j or {}).get("settlements", []):
+            mm = str(x.get("month", "")).split()
+            if len(mm) != 2 or mm[0] not in MON:
+                continue
+            try:
+                rec[f"{2000 + int(mm[1])}-{MON[mm[0]]:02d}"] = float(str(x["settle"]).replace(",", ""))
+            except ValueError:
+                pass
+        if rec:
+            rows[pd.Timestamp(d)] = rec
+        time.sleep(0.5)
+    out = pd.DataFrame.from_dict(rows, orient="index").sort_index()
+    print(f"CME settlements: {len(out)} trade dates" + (f" {out.index.min().date()}..{out.index.max().date()}, "
+          f"{out.shape[1]} months to {out.columns.max()}" if len(out) else ""), flush=True)
+    return out
+
+
+def load_sheet(path, name):
+    try:
+        df = pd.read_excel(path, sheet_name=name, index_col=0)
+    except (FileNotFoundError, ValueError):
+        return pd.DataFrame()
+    df.index = pd.to_datetime(df.index)
+    df.columns = [str(c) for c in df.columns]
+    return df.sort_index()
+
+
+def eia_get(session, path, qs=""):
+    key = os.environ.get("EIA_API_KEY")
+    if not key:
+        return None
+    for attempt in range(5):
+        try:
+            r = session.get(f"https://api.eia.gov/v2/{path}?api_key={key}{qs}", impersonate="chrome", timeout=60)
+        except Exception as e:  # noqa: BLE001
+            print(f"  EIA {path}: {type(e).__name__}", flush=True)
+            time.sleep(10)
+            continue
+        if r.status_code == 429:
+            time.sleep(20 * (attempt + 1))
+            continue
+        return r.json() if r.status_code == 200 else None
+    return None
+
+
+def eia_forecast(session, today):
+    """Separate 'EIA forecast' sheet: STEO BREPUUS monthly Brent spot (to Dec 2027) and AEO annual Brent spot (real and nominal).
+    Not market prices. Returns a DataFrame or None if EIA is unreachable (the sheet from the last run is then kept)."""
+    rows = []
+    j = eia_get(session, "steo/data", "&frequency=monthly&data[0]=value&facets[seriesId][]=BREPUUS&sort[0][column]=period"
+                "&sort[0][direction]=asc&length=5000")
+    if j and j["response"]["data"]:
+        d = [(x["period"], float(x["value"])) for x in j["response"]["data"] if x["period"] >= f"{today.year - 1}-01"]
+        # EIA's route does not name the release month. Estimates carry decimals, projections are whole dollars:
+        # forecast = the trailing run of whole-dollar months (stated on the Units sheet).
+        k = len(d)
+        while k > 0 and d[k - 1][1] == round(d[k - 1][1]):
+            k -= 1
+        for i, (per, v) in enumerate(d):
+            rows.append({"date": pd.Timestamp(per + "-01"), "value": v,
+                         "source": "EIA STEO, series BREPUUS (Brent crude oil spot price), api.eia.gov/v2/steo",
+                         "release_vintage": f"STEO as published at pull date {today} (last month {d[-1][0]})",
+                         "type": "STEO monthly forecast" if i >= k else "STEO monthly estimate/actual",
+                         "unit": "nominal USD/bbl (STEO is nominal)", "scenario": "STEO forecast"})
+    aeo = None
+    for yr in range(today.year + 1, today.year - 3, -1):
+        sc = eia_get(session, f"aeo/{yr}/facet/scenario")
+        if not sc:
+            continue
+        facets = sc["response"]["facets"]
+        pick = [f for f in facets if f["id"].lower().startswith("ref")] or [f for f in facets if f["id"].lower().startswith("cb")]
+        if not pick:
+            continue
+        sid = ["prce_NA_NA_NA_cr_brntsppr_usa_ndlrpbrl", "prce_NA_NA_NA_cr_brntsppr_usa_y13dlrpbbl"]
+        j = eia_get(session, f"aeo/{yr}/data", "&frequency=annual&data[0]=value&facets[tableId][]=12"
+                    f"&facets[scenario][]={pick[0]['id']}&facets[seriesId][]={sid[0]}&facets[seriesId][]={sid[1]}&length=5000")
+        if j and j["response"]["data"]:
+            aeo = (yr, pick[0], j["response"]["data"])
+            break
+    if aeo:
+        yr, sc, data = aeo
+        for x in data:
+            real = x["seriesId"].endswith("y13dlrpbbl")
+            rows.append({"date": pd.Timestamp(f"{x['period']}-07-01"), "value": float(x["value"]),
+                         "source": f"EIA Annual Energy Outlook {yr}, Table 12, {x['seriesName']}, api.eia.gov/v2/aeo/{yr}",
+                         "release_vintage": f"AEO{yr}",
+                         "type": "AEO annual projection, real" if real else "AEO annual projection, nominal",
+                         "unit": x["unit"].replace("$/b", " USD/bbl") + (" (constant dollars)" if real else " (current dollars)"),
+                         "scenario": f"{sc['id']}: {sc['name']}" + (" (history)" if x.get("history") == "HISTORY" else "")})
+    if not rows:
+        return None
+    df = pd.DataFrame(rows).sort_values(["type", "date"]).reset_index(drop=True)
+    df.index.name = "row"
+    print(f"EIA forecast: {len(df)} rows; AEO {aeo[0] if aeo else None}", flush=True)
+    return df
+
+
 def load_archive(path):
     try:
         df = pd.read_excel(path, sheet_name="Curve", index_col=0)
@@ -149,15 +280,24 @@ NOTES = [
     "By M: the same prices numbered from the front month on that date (M1 = front contract). Blank = contract not in the archive.",
     "Snapshots: the curve on selected trade dates (latest, 1/3/6/12 months earlier, first trading day of 2026); rows = contract month. "
     "Past columns hold only contracts still listed today.",
+    "CME settlements: CME Group's own daily settlements (Brent Last Day Financial, productId 424) by contract month, kept as read; "
+    "the Curve cells Yahoo does not list (2028-2034 months and any missed month) are these values. Yahoo wins where both exist.",
+    "EIA forecast: NOT market prices. STEO monthly Brent spot forecast (BREPUUS, nominal USD/bbl, to Dec 2027) and EIA AEO annual Brent spot "
+    "projection (real constant dollars and nominal, to 2050). Columns: date (first of month for STEO; 1 July of the year for AEO), value, source, "
+    "release_vintage, type, unit, scenario. STEO forecast months = the trailing run of whole-dollar values (estimates carry decimals); the "
+    "route does not name the release month. Refreshed every run, latest vintage only.",
     "Spreads: fixed-contract calendar spreads (Dec contract minus the next Dec contract; positive = backwardation) and the M1-M12 spread where both exist.",
     "",
     "SOURCE AND CAVEATS",
     "Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/BZ<month code><yy>.NYM), unofficial and undocumented; its terms restrict "
     "automated and commercial use and it can change or block without notice. Read from GitHub Actions with TLS impersonation.",
     "Yahoo lists only unexpired contracts, so history of a date shows the contracts alive today (front months of past dates are missing). "
-    "Far end listed: all months to Dec 2027, then Jan, Feb, Jun, Dec 2028 and Jun, Dec 2029. The archive keeps everything from the first run on.",
+    "Far end listed by Yahoo: all months to Dec 2027, then Jan, Feb, Jun, Dec 2028 and Jun, Dec 2029; later and missing months come from CME "
+    "settlements (to about Mar 2034, only the last ~week of trade dates is served, so the archive of those months starts Oct 2026 and has "
+    "gaps between runs). Also seen but not used: TradingView's public scanner lists ICE Brent (BRN) and NYMEX BZ to 2038/2033 as a snapshot "
+    "only (no history, unofficial); Yahoo CL (WTI) reaches Dec 2035 (a different commodity).",
     "The current day's bar is dropped (intraday). Runs: 1st, 15th, 28th; a contract's last days before expiry (up to ~2 weeks) may be missing.",
-    "Not reachable: CME Settlements JSON (endpoint 404), ICE report centre history, Stooq, Nasdaq Data Link CHRIS, Barchart. "
+    "Not reachable: ICE report centre (403), Stooq, Nasdaq Data Link CHRIS, Barchart (403), Investing.com (403), MarketWatch/WSJ (401), FT (403). "
     "Details: discovery_archive/brent/BRENT_CURVE_SOURCES_PROBE*.py.",
     "Front-month rule: ICE last trading day = last weekday of the second month before delivery; exchange holidays ignored.",
     "Run log: {runlog}",
@@ -248,6 +388,26 @@ def main():
     # fresh values win over archived ones
     if len(arch):
         comb.update(new)
+    cme_new = fetch_cme(session, today)
+    cme = load_sheet(a.out, "CME settlements")
+    if len(cme_new):
+        cme = cme_new.combine_first(cme) if len(cme) else cme_new
+        cme.update(cme_new)
+    cme = cme[sorted(cme.columns)] if len(cme) else cme
+    cme.index.name = "trade_date"
+    if len(cme):
+        ov = comb.reindex(index=cme.index, columns=cme.columns)
+        dif = (ov - cme).abs().stack()
+        if len(dif):
+            print(f"Yahoo vs CME overlap: {len(dif)} cells, mean abs diff {dif.mean():.3f}, max {dif.max():.3f} USD/bbl", flush=True)
+        comb = comb.combine_first(cme)          # CME fills only cells Yahoo (and the archive) lack
+    eia = eia_forecast(session, today)
+    if eia is None:
+        try:
+            eia = pd.read_excel(a.out, sheet_name="EIA forecast", index_col=0)
+            print("EIA unreachable: kept previous 'EIA forecast' sheet", flush=True)
+        except (FileNotFoundError, ValueError):
+            eia = None
     curve, byM, sp, snaps = build_sheets(comb)
     cnt = curve.notna().sum(axis=1)
     coverage = (f"Brent (NYMEX BZ, tracks ICE Brent) forward curve, {curve.index.min():%d-%b-%Y} to {curve.index.max():%d-%b-%Y}, "
@@ -257,16 +417,29 @@ def main():
     notes = [l.format(coverage=coverage, runlog=f"{today}: requested {start}..{end}, contracts found {len(got)}, "
                       f"not listed {len(missing)}") for l in NOTES]
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    xlsx_notes.write_workbook(a.out, {"Curve": curve, "By M": byM, "Spreads": sp, "Snapshots": snaps}, notes, SECTIONS)
+    sheets = {"Curve": curve, "By M": byM, "Spreads": sp, "Snapshots": snaps}
+    if len(cme):
+        sheets["CME settlements"] = cme
+    if eia is not None:
+        sheets["EIA forecast"] = eia
+    xlsx_notes.write_workbook(a.out, sheets, notes, SECTIONS)
     import openpyxl
     wb = openpyxl.load_workbook(a.out)
-    for n in ("Curve", "By M", "Spreads"):
+    for n in ("Curve", "By M", "Spreads", "CME settlements"):
+        if n not in wb.sheetnames:
+            continue
         ws = wb[n]
         for (c,) in ws.iter_rows(min_row=2, max_col=1):
             c.number_format = "dd-mmm-yyyy"
         ws.column_dimensions["A"].width = 14
     for (c,) in wb["Snapshots"].iter_rows(min_row=2, max_col=1):
         c.number_format = "mmm/yy"
+    if "EIA forecast" in wb.sheetnames:
+        ws = wb["EIA forecast"]
+        for (c,) in ws.iter_rows(min_row=2, min_col=2, max_col=2):
+            c.number_format = "mmm/yy"
+        for col, w in zip("ABCDEFGH", (6, 12, 10, 70, 45, 32, 36, 40)):
+            ws.column_dimensions[col].width = w
     wb.save(a.out)
     print(f"Saved {a.out}: {len(curve)} dates {curve.index.min().date()}..{curve.index.max().date()}, {curve.shape[1]} contracts")
     print("contracts per date (last 5):", cnt.tail().to_dict())
