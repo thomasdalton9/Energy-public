@@ -417,7 +417,7 @@ def write_inputs(ws, A, tiers, rm, steo_note, pr, dflt):
     for j, h in enumerate(heads, 1):
         ws.cell(hdr, j, h)
     style_head(ws, hdr, len(heads))
-    lk = lambda i: f"SUMIFS('STEO raw'!$E:$E,'STEO raw'!$A:$A,\"{i}|\"&$B$5)"
+    lk = lambda i: f"SUMIFS('STEO raw'!$D:$D,'STEO raw'!$A:$A,\"{i}|\"&$B$5)"
     for k, t in enumerate(tiers):
         rr = hdr + 1 + k
         name, prod_parts, dec_id, group, status, loc, comp = TIERS[k]
