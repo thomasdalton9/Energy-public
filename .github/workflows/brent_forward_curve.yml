@@ -1,11 +1,12 @@
 name: Brent forward curve
 
-# 1st, 15th and 28th (a contract's last days before expiry are read on the 28th). Source: Yahoo Finance chart API,
+# 1st, 15th and 28th, plus Saturdays for the CME settlements (a contract's last days before expiry are read on the 28th). Source: Yahoo Finance chart API,
 # NYMEX Brent Last Day Financial (BZ) contracts. The committed workbook is the history store. workflow_dispatch with
 # start/end backfills from the given trade date (default: the whole available history from 2018).
 on:
   schedule:
     - cron: "20 22 1,15,28 * *"
+    - cron: "20 6 * * 6"   # weekly: CME settlements serve only about the last week of trade dates
   workflow_dispatch:
     inputs:
       start:
@@ -37,6 +38,7 @@ jobs:
       - name: Pull Brent forward curve
         env:
           PYTHONUNBUFFERED: "1"
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
           START: ${{ inputs.start }}
           END: ${{ inputs.end }}
         run: |
