@@ -16,6 +16,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -27,6 +28,7 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run Turkey generation mix dashboard pull
+        timeout-minutes: 5
         run: python3 europe/turkey_generation_mix_dashboard.py --out "output/Data and Chart Outputs/turkey_generation_mix_dashboard_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
