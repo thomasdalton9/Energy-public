@@ -940,10 +940,12 @@ def brent_forward_curve(p):
 
 
 def henry_hub(p):
-    d = by_date(read(p, "Data"), "date")[["Henry_Hub_USD_per_MMBtu"]].rename(
-        columns={"Henry_Hub_USD_per_MMBtu": "Henry Hub spot"})
-    return [spec("Daily", daily(d, "2021-01-01"), "Henry Hub natural gas spot price (daily)", "USD/MMBtu"),
-            spec("Monthly", monthly_mean(d), "Henry Hub natural gas spot price (monthly average)", "USD/MMBtu")]
+    raw = by_date(read(p, "Data"), "date")
+    cols = [c for c in ("Henry_Hub_USD_per_MMBtu", "Henry_Hub_front_month_USD_per_MMBtu") if c in raw.columns]
+    d = raw[cols].rename(columns={"Henry_Hub_USD_per_MMBtu": "Henry Hub spot",
+                                  "Henry_Hub_front_month_USD_per_MMBtu": "Front-month futures (NG=F)"})
+    return [spec("Daily", daily(d, "2021-01-01"), "Henry Hub natural gas spot price and front-month futures (daily)", "USD/MMBtu"),
+            spec("Monthly", monthly_mean(d), "Henry Hub natural gas spot price and front-month futures (monthly average)", "USD/MMBtu")]
 
 
 def gas_burn(label, basis):

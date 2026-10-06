@@ -209,7 +209,7 @@ SOURCES = {
                                     "EIA U.S. liquefaction capacity file 2026 Q2 for new Louisiana LNG trains (year/half-year sourced, month assumed; pre-FID projects not forecast); "
                                     "outflow and extra-supply figures are own calculations",
                                     "https://www.eia.gov/naturalgas/importsexports/liquefactioncapacity/U.S.liquefactioncapacity_2026_Q2.xlsx"),
-    "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
+    "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD); front-month futures: NYMEX via Yahoo Finance (NG=F)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
     "lng_feedgas_daily.xlsx": ("Interstate pipeline operators' scheduled quantities at each LNG plant (Kinder Morgan, "
                                "Enbridge, Williams, Energy Transfer, Cheniere, ...); EIA monthly LNG exports before "
                                "the daily pull", "https://www.eia.gov/dnav/ng/ng_move_poe2_a_EPG0_ENG_Mmcf_m.htm"),

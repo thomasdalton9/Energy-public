@@ -24,7 +24,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install pandas openpyxl requests xlrd
+        run: pip install pandas openpyxl requests xlrd curl_cffi
 
       - name: Run Henry Hub pull
         env:

@@ -43,6 +43,9 @@ HEADERS = {
 }
 TIMEOUT = (10, 60)
 COL = "Henry_Hub_USD_per_MMBtu"
+COL_FM = "Henry_Hub_front_month_USD_per_MMBtu"
+YAHOO_FM = "https://{host}.finance.yahoo.com/v8/finance/chart/NG=F?period1={p1}&period2={p2}&interval=1d"
+FM_SEED_START = date(2000, 9, 1)  # first full month of Yahoo's NG=F history
 
 # EIA publishes Henry Hub spot price with a lag of a few business days;
 # a few extra days of slack absorb a holiday weekend before this is
@@ -131,6 +134,34 @@ def fetch_series(start=None):
     raise SystemExit("all Henry Hub sources failed")
 
 
+def fetch_front_month(start=None):
+    """NYMEX Henry Hub front-month futures daily close (USD/MMBtu) from Yahoo Finance's unofficial chart API, ticker NG=F
+    (continuous front month: it jumps at each contract roll, unadjusted). EIA's own futures series stops on 2024-04-05."""
+    import time
+    from curl_cffi import requests as cr
+
+    p1 = int(pd.Timestamp(start or FM_SEED_START).timestamp())
+    p2 = int(time.time()) + 86400
+    last_error = None
+    for host in ("query1", "query2"):
+        for attempt in range(1, FETCH_ATTEMPTS + 1):
+            try:
+                r = cr.get(YAHOO_FM.format(host=host, p1=p1, p2=p2), impersonate="chrome", timeout=40,
+                           headers={"Accept": "application/json"})
+                r.raise_for_status()
+                res = r.json()["chart"]["result"][0]
+                df = pd.DataFrame({"date": pd.to_datetime(res["timestamp"], unit="s").normalize().date,
+                                   COL_FM: res["indicators"]["quote"][0]["close"]})
+                df = df.dropna().set_index("date").sort_index()
+                return df[~df.index.duplicated(keep="last")]
+            except Exception as e:  # noqa: BLE001
+                last_error = e
+                print(f"  Yahoo NG=F {host} attempt {attempt}/{FETCH_ATTEMPTS} failed: {type(e).__name__}: {e}",
+                      file=sys.stderr)
+                time.sleep(RETRY_BACKOFF_SECONDS[min(attempt - 1, 1)])
+    raise last_error
+
+
 def load_archive(path):
     try:
         df = pd.read_excel(path, sheet_name="Data", index_col=0)
@@ -142,11 +173,17 @@ def load_archive(path):
 
 
 def upsert(existing, new_df):
+    """Per-column upsert: days in new_df replace those days in existing for new_df's columns only."""
     if existing.empty:
         combined = new_df
     else:
-        combined = pd.concat([existing, new_df])
-        combined = combined[~combined.index.duplicated(keep="last")]
+        combined = existing.copy()
+        for c in new_df.columns:
+            if c not in combined.columns:
+                combined[c] = float("nan")
+        combined = combined.reindex(combined.index.union(new_df.index))
+        for c in new_df.columns:
+            combined.loc[new_df.index, c] = new_df[c]
     combined.index.name = "date"
     return combined.sort_index()
 
@@ -168,6 +205,9 @@ NOTES_LINES = [
     "UNITS",
     "Henry_Hub_USD_per_MMBtu: US dollars per million British thermal units (MMBtu) - the standard "
     "Henry Hub natural gas spot price quote.",
+    "Henry_Hub_front_month_USD_per_MMBtu: NYMEX Henry Hub natural gas futures, front-month contract, daily close, USD/MMBtu "
+    "(Yahoo Finance NG=F continuous series, from 2000-09; trading days only, so it also has days with no spot row). It is "
+    "unadjusted: the series steps when the front contract rolls to the next month.",
     "",
     "COVERAGE",
     "Daily from 1997-01-07. Published on business days only (no weekend/holiday rows) - gaps in the date "
@@ -181,6 +221,9 @@ NOTES_LINES = [
     f"EIA (US Energy Information Administration), Henry Hub Natural Gas Spot Price, series {EIA_SERIES}: "
     f"EIA API v2 ({EIA_API}, needs an API key), falling back to EIA's keyless history workbook {EIA_XLS}. "
     "Only days a source returns are upserted; existing days are never deleted.",
+    "Front month: Yahoo Finance chart API (query1.finance.yahoo.com/v8/finance/chart/NG=F), unofficial and undocumented, "
+    "used because EIA's futures series (RNGC1) stops on 2024-04-05; if Yahoo fails the run keeps the saved front-month "
+    "history. Re-read: last 14 days.",
     "Source changed 2026-10-01: EIA is now the only source (the earlier third-party re-publication of this "
     "series kept timing out from GitHub Actions and was dropped).",
 ]
@@ -201,6 +244,16 @@ def main():
 
     before_days = set(existing.index) if not existing.empty else set()
     combined = upsert(existing, new_df)
+    # Front-month futures (non-fatal: a Yahoo failure keeps the saved history)
+    try:
+        fm_start = None
+        if COL_FM in combined.columns and combined[COL_FM].notna().any():
+            fm_start = combined[COL_FM].dropna().index.max() - timedelta(days=OVERLAP_DAYS)
+        fm = fetch_front_month(fm_start)
+        combined = upsert(combined, fm)
+        print(f"  Yahoo NG=F front month: {len(fm)} rows, {fm.index.min()} to {fm.index.max()}", file=sys.stderr)
+    except Exception as e:  # noqa: BLE001
+        print(f"  front-month pull failed, keeping saved history: {type(e).__name__}: {e}", file=sys.stderr)
     new_days = sorted(set(combined.index) - before_days)
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
@@ -214,7 +267,7 @@ def main():
           f"Saved to {args.out}")
     print(combined.tail())
 
-    latest = max(combined.index) if not combined.empty else None
+    latest = max(combined[COL].dropna().index) if not combined.empty else None
     age = (date.today() - latest).days if latest else None
     if latest is None or age > STALE_AFTER_DAYS:
         print(f"STALE SOURCE: newest saved day is {latest} ({age} days old) - "
