@@ -1,0 +1,1405 @@
+URL: https://d1io3yog0oux5.cloudfront.net/_44c0a1327e37db57b36e014028684610/texaspacific/db/706/6716/pdf/2Q+2026+TPL+Investor+Presentation+vF.pdf
+CHARS: 53840
+Texas Pacific Land Corporation
+NYSE: TPL
+Investor Presentation – August 2026
+[[page 1]]
+Disclaimers
+This presentation has been designed to provide general information about Texas Pacific Land Corporation and its subsidiaries (“TPL” or the “Company”). Any information contained or referenced herein is suitable only as an
+introduction to the Company. The recipient is strongly encouraged to refer to and supplement this presentation with information the Company has filed with the Securities and Exchange Commission (“SEC”).
+The Company makes no representation or warranty, express or implied, as to the accuracy or completeness of the information contained in this presentation, and nothing contained herein is, or shall be, relied upon as a promise
+or representation, whether as to the past or to the future. This presentation does not purport to include all of the information that may be required to evaluate the subject matter herein and any recipient hereof should conduct
+its own independent analysis of the Company and the data contained or referred to herein.
+Unless otherwise stated, statements in this presentation are made as of the date of this presentation, and nothing shall create an implication that the information contained herein is correct as of any time after such date. TPL
+reserves the right to change any of its opinions expressed herein at any time as it deems appropriate. The Company disclaims any obligations to update the data, information or opinions contained herein or to notify the market
+or any other party of any such changes, other than required by law.
+Industry and Market Data
+The Company has neither sought nor obtained consent from any third party for the use of previously published information. Any such statements or information should not be viewed as indicating the support of such third party
+for the views expressed herein. The Company shall not be responsible or have any liability for any misinformation contained in any third party report, SEC or other regulatory filing. The industry in which the Company operates is
+subject to a high degree of uncertainty and risk due to a variety of factors, which could cause our results to differ materially from those expressed in these third-party publications. Some of the data included in this presentation is
+based on TPL’s good faith estimates, which are derived from TPL’s review of internal sources as well as the third party sources described above. All registered or unregistered service marks, trademarks and trade names referred
+to in this presentation are the property of their respective owners, and TPL’s use herein does not imply an affiliation with, or endorsement by, the owners of these service marks, trademarks and trade names.
+Forward-looking Statements
+This presentation contains certain forward-looking statements within the meaning of the U.S. federal securities laws that are based on TPL’s beliefs, as well as assumptions made by, and information currently available to, TPL,
+and therefore involve risks and uncertainties that are difficult to predict. These statements include, but are not limited to, statements about strategies, plans, objectives, expectations, intentions, expenditures and assumptions
+and other statements that are not historical facts. When used in this document, words such as “anticipate,” “believe,” “estimate,” “expect,” “intend,” “plan” and “project” and similar expressions are intended to identify forward-
+looking statements. You should not place undue reliance on these forward-looking statements. Although we believe our plans, intentions and expectations reflected in or suggested by the forward-looking statements we make
+in this presentation are reasonable, we may be unable to achieve these plans, intentions or expectations and actual results, performance or achievements may vary materially and adversely from those envisaged in this
+document. For more information concerning factors that could cause actual results to differ from those expressed or forecasted, see TPL’s annual report on Form 10-K and quarterly reports on Form 10-Q filed with the SEC. The
+tables, graphs, charts and other analyses provided throughout this document are provided for illustrative purposes only and there is no guarantee that the trends, outcomes or market conditions depicted on them will continue
+in the future. There is no assurance or guarantee with respect to the prices at which the Company’s common stock will trade, and such securities may not trade at prices that may be implied herein.
+TPL’s forecasts and expectations for future periods are dependent upon many assumptions, including the drilling and development plans of our customers, estimates of production and potential drilling locations, which may be
+affected by commodity price declines or other factors that are beyond TPL’s control.
+These materials are provided merely for general informational purposes and are not intended to be, nor should they be construed as 1) investment, financial, tax or legal advice, 2) a recommendation to buy or sell any security, or
+3) an offer or solicitation to subscribe for or purchase any security. These materials do not consider the investment objective, financial situation, suitability or the particular need or circumstances of any specific individual who
+may receive or review this presentation, and may not be taken as advice on the merits of any investment decision. Although TPL believes the information herein to be reliable, the Company and persons acting on its behalf make
+no representation or warranty, express or implied, as to the accuracy or completeness of those statements or any other written or oral communication it makes, safe as provided for by law, and the Company expressly disclaims
+any liability relating to those statements or communications (or any inaccuracies or omissions therein). These cautionary statements qualify all forward-looking statements attributable to us or persons acting on our behalf.
+Non-GAAP Financial Measures
+In addition to amounts presented in accordance with generally accepted accounting principles in the United States of America (“GAAP”), this presentation includes certain supplemental non-GAAP measurements. These non-
+GAAP measurements are not to be considered more relevant or accurate than the measurements presented in accordance with GAAP. In compliance with requirements of the SEC, our non-GAAP measurements are reconciled
+to net income, the most directly comparable GAAP performance measure. In this presentation, TPL utilizes earnings before interest expense, taxes, depreciation, depletion and amortization (“EBITDA”), Adjusted EBITDA and free
+cash flow (“FCF”). TPL believes that EBITDA, Adjusted EBITDA and FCF are useful supplements as an indicator of operating and financial performance. EBITDA, Adjusted EBITDA and FCF are not presented as an alternative to net
+income and they should not be considered in isolation or as a substitute for net income. See Appendix for a reconciliation of these non-GAAP measures to net income, the most directly comparable financial measure calculated
+in accordance with GAAP.
+2
+[[page 2]]
+2Q 2026 Summary Financial and Operating Update
+2025 2026 O&G Royalty Production Total Water Sales Volumes1
+2Q 3Q 4Q 1Q 2Q 45.0 (mboe/d) (mbbl/d) 1,001
+39.7
+Selected consolidated financials ($MM): 40.0 36.3 37.5 37.1 1,000.0
+33.2 819
+Oil and gas royalties $ 9 5.0 $ 108.7 $ 96.7 $ 118.2 $ 145.6 35.0 12.5 800.0 775
+Water sales 25.6 4 4.6 60.7 46.9 39.7 30.0 9.5 11.2 11.7 11.4 663
+Produced water royalties 30.7 32.3 33.5 33.5 37.1
+25.0 600.0
+Easements and other surface income 36.2 16.7 20.6 17.3 23.7 482
+Land sales - 0.8 - 20.9 - 20.0 10.4 11.1 11.5 10.7 13.1
+Total revenues $ 187.5 $ 203.1 $ 2 11.6 $ 236.8 $ 246.1 400.0
+15.0
+Adj. EBITDA $ 1 66.2 $ 1 73.6 $ 178.1 $ 181.4 $ 2 15.6 10.0
+Adjusted EBITDA margin 89% 85% 84% 77% 88% 13.3 14.0 14.4 14.9 14.1 200.0
+5.0
+% inc/(dec) - sequential Q/Q (2%) 4% 3% 2% 19%
+0.0 0.0
+Free cash flow $ 130.1 $ 1 22.9 $ 118.9 $ 136.4 $ 1 55.5 2Q 3Q 4Q 1Q 2Q 2Q 3Q 4Q 1Q 2Q
+2025 2025 2025 2026 2026 2025 2025 2025 2026 2026
+FCF Margin 69% 60% 56% 58% 63% Oil Gas NGL
+% inc/(dec) - sequential Q/Q 3% (6%) (3%) 15% 14%
+Oil Realizations Produced Water Royalty Volumes
+Selected balance sheet data ($MM):
+($/bbl) (mbbl/d)
+Cash and cash equivalents $ 543.9 $ 531.8 $ 1 44.8 $ 247.6 $ 248.6
+$97.55
+Debt - - - - - 100.0 4,822 4,872
+5,000.0
+4,605
+Selected segment data ($MM):
+4,357
+Land and Resource Management 80.0 $70.57 4,500.0 4,248
+$63.99 $65.14
+Revenue $ 128.5 $ 1 22.3 $ 113.4 $ 1 53.6 $ 1 63.9 $59.48
+4,000.0
+Adj. EBITDA 122.2 115.9 1 05.3 1 20.9 1 52.8 60.0
+Net Income 86.6 80.8 69.5 100.9 109.4 3,500.0
+40.0
+Water Services and Operations
+3,000.0
+Revenue $ 5 9.0 $ 80.8 $ 9 8.2 $ 8 3.3 $ 8 2.2
+20.0
+Adj. EBITDA 44.0 57.8 72.8 60.5 62.7 2,500.0
+Net Income 29.6 4 0.5 53.8 4 2.0 4 4.5
+0.0 2,000.0
+2Q 3Q 4Q 1Q 2Q 2Q 3Q 4Q 1Q 2Q
+2025 2025 2025 2026 2026 2025 2025 2025 2026 2026
+Notes: Adjusted EBITDA and Free Cash Flow are non-GAAP measures. See Appendix for reconciliations of these non-GAAP measures to net income.
+mboe/d: thousands of barrels of oil equivalent per day
+mbbl/d: thousands of barrels per day 3
+(1) Reflects sourced, treated produced, and brokered water sales volumes
+[[page 3]]
+Value Creation Culture and Proven Performance
+Average Annual Total Return Since 2017
+(Compounded annual return from 1/1/2017 to 12/31/2025)
+TPL 29%
+Nasdaq 19%
+(Composite)
+SPY 15%
+WTI OWiTlI 1%
+fsfsdfsfs
+S&P Oil & Gas
+(1%)
+E&P Index
+-12% -2% 8% 18% 28%
+Land & Resource Management Water Services & Operations
+Net Income ($ millions) Net Income ($ millions)
+$365 $200
+$307 $315 $322 $180 $159
+$160 $139
+$258
+$140
+$209 $120 $99
+Ctrl + click to play $160 $100 $81
+$128 $80 $60 $61
+$50 $48
+$78 $60
+$37 $40 $19
+$20 $5
+$0
+2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+Note: Annual total return data per Factset.
+Video can be accessed at https://texaspacific.com/tpl-intro 4
+[[page 4]]
+Unique Permian Basin Pure-Play
+Positioned to capture Balance Sheet Strength
+Efficient conversion of
+upside No Debt
+$ revenues to cash
+$687 Million $
+$498 Million Cash Balance of
+2025 Adjusted EBITDA $249 Million
+2025 Free Cash Flow
+~28,000
+Diversified Revenue
+100% Permian Streams: Core Permian Net Royalty
+Royalties, Water, Acres
+Exposure
+~894,000
+and Surface
+Surface Acres
+Decades of Cash
+Robust Inventory of
+~390%
+$ Flow Runway 951 DUCs
+$
+Production growth since
+Across Multiple and
+2018
+547 Permits
+Businesses
+Note: Operating data as of 12/31/2025. Balance sheet and well inventory data as of 6/30/2026. 5
+[[page 5]]
+Texas Pacific Land Corporation (NYSE: TPL)
+ One of the largest landowners in Texas with approximately 894,000 acres located in the Permian Basin TPL by the Numbers1
+ TPL was originally organized in 1888 as a business trust to manage the property of the Texas and
+Market Value ($MM) $28,931
+Pacific Railway Company; for nearly 130 years, this management was mostly passive
+Cash & Equivalents ($MM) $249
+ In 2016, the Company embarked on a new strategy to maximize the value of its footprint through
+active management of surface and royalty interests Debt ($MM) $0
+ Today, the business consists of numerous high-margin, capital-light revenue streams linked to Net Royalty Acres (100% net basis) ~28,000
+Permian oil and gas development
+Normalized to 1/8th ~224,000
+– Oil and Gas Royalties: high-margin royalty revenue derived from oil and gas production with no
+Surface Acres ~894,000
+capital and minimal operating expense burden
+– Surface Leases, Easements and Material (“SLEM”): monetizes 3rd party development activities 2025 Adj. EBITDA Margin 86%
+occurring on surface and royalty acreage
+2025 FCF Margin 62%
+– Texas Pacific Water Resources (“TPWR”): supplies brackish and treated produced water for oil
+Average daily trading volume (1-yr avg) ~444,000
+and gas activities and facilitates produced water disposal solutions
+FY 2025 Revenues ($MM) Adjusted EBITDA ($MM) Free Cash Flow ($MM)
+$498
+$452 $461
+$687
+$415
+$592 $611
+$541
+$278
+38% Land & Resource $388 $234
+Management
+$798M $302 $188
+Water Service & $245 $239 $160
+62% Operations $145 $80
+$63 $40
+2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+Note: Adjusted EBITDA and Free Cash Flow are non-GAAP measures. See Appendix for reconciliations of these non-GAAP measures to net income.
+(1) Balance sheet data as of 6/30/2026. Market value and average daily trading volume as of 7/24/2026. Market value calculated using basic shares outstanding. Royalty acreage figures excludes out of basin assets. 6
+[[page 6]]
+TPL History and Evolution
+1871 1888 1927 2010’s 2016 2017 2021
+$
+Texas & Pacific Railway TPL sub-share certificates
+Texas & Pacific
+bankruptcy leads to the listed on NYSE. TPL is The Permian Basin begins New management
+Railway is created and TPL forms Texas
+formation of Texas among the few to grow production as team hired to focus on TPL’s reorganization
+was granted ~3.5 Pacific Water
+Pacific Land Trust, where Depression Era unconventional modernizing to a C-Corp is
+million acres of land Resources LLC
+land grant assets were companies that continue development unlocks operations to actively completed
+from the State of (“TPWR”)
+placed. Trust certificates trading today, almost a tremendous shale reserves drive value
+Texas
+are listed on NYSE century later
+Bankrupt Railroad to Liquidating Trust Shale Revolution
+Modern Enterprise
+(1871-2009) (2010s)
+1920’s 1954
+Execute on a capital
+Mineral estate was spun-off Professionalize corporate and
+allocation approach Actively pursue “next-gen”
+Texas and Pacific operating functions; employ
+to shareholders (TXL Oil). predicated on maximizing opportunities
+Abrams #1 becomes the talented industry personnel
+TPL reserved royalty shareholder value
+first well to produce oil
+interests on tracts under
+from the Permian Basin,
+lease at the time. Texaco Expand on TPL’s unique
+and a few years later, the Deploy technology, software,
+purchases TXL Oil in 1962 position to consolidate high Ensure shareholders own
+first oil pipeline is built and automation tools to
+(Texaco acquired by quality surface, water, and among the best oil and gas
+in the basin create efficiencies, scale, and
+Chevron in 2001) royalties/minerals in a value assets anywhere in the world
+opportunities
+enhancing manner
+Strengthening TPL for Durable Success Over the Long Term
+7
+[[page 7]]
+Unmatched Permian Footprint Combined With Premier Operators
+Royalty Acreage
+Surface and Easement Acreage
+Combined Royalty & Surface
+Revenue Contribution1
+(FY 2025)
+28%
+37%
+Other
+Super-
+majors
+35%
+Large-cap
+independents
+(1) Permian supermajors include Chevron, Exxon, ConocoPhillips, BP and their respective subsidiaries. Large-cap independents include independent energy companies in the S&P 500. Other
+includes all companies that do not fall under the other two criteria, primarily made up of publicly traded mid-caps and large privates.
+8
+[[page 8]]
+Permian Basin is a World-Class Resource
+Estimated Remaining Well Locations with
+<$60/bbl Breakeven Economics
+Saudia
+10.0
+Arabia
+70,000
+~65,000
+Russia 9.3
+US ex-
+7.2
+Permian 60,000
+Permian 6.7
+50,000
+Iraq 4.1
+UAE 3.4
+40,000
+~34,000
+Iran 3.2
+Kuwait 2.6 30,000
+Nigeria 1.5
+20,000
+~13,000
+OPEC 5.9 10,000
+~5,000
+US ex- ~3,000 ~3,000
+4.4
+Permian
+0
+Permian 3.3 Permian Montney Eagle Ford Williston Anadarko DJ
+Permian is a major contributor to global oil,
+Permian dominates US shale activity due to
+Permian is a top-tier focus area for many
+natural gas, and NGL markets – Permian
+attractive drilling economics combined with
+energy super-major and large-caps with multi-
+production would rank as one of the largest oil
+massive undeveloped well inventory
+basin portfolios
+producing nations globally
+Source: US EIA, OPEC, Baker Hughes, Enverus and Company data. Production figures represent 4Q 2025 averages.
+Note: mmbbl/d: millions of barrels per day
+EDURC
+sLGN
+)d/lbbMM(
+)d/lbbMM(
+Permian vs Major Oil Producer Nations US Rig Counts by Oil Basin
+400 Permian Williston
+DJ-Niobrara Eagle Ford
+Cana Woodford
+350
+300
+250
+200
+Midland
+Delaware 150
+100
+50
+0
+9
+[[page 9]]
+Capital Allocation Framework Focused on Maximizing Shareholder Value
+R C P C I C
+ETURN APITAL ROTECT APITAL NVEST APITAL
+Return substantial amounts of capital Maintain strong balance sheet to Balance capital returns with
+through dividends and repurchases preserve financial flexibility attractive, high-return opportunities
+No
+2025 $156
+2024 $376
+Debt
+2023 $143
+2022 $335
+2021 $105
+2020 $202 $249M
+2019 $51
+2018 $70 Cash
+2017 $45
+2016 $36
+2015 $31
+2014 $25
+2013 $25
+2012 $24
+2011 $18
+2010 $13
+Dividends Share repurchases
+91$ 05$
+06$
+84$
+16$
+18$
+99$
+931$
+951$
+($ in millions) Water Services & Operations capex and
+related surface investments from 2017-2025
+$229
+Capital expenditures
+million
+$213
+Surface and easement
+acquisitions
+million
+Water Services & Operations
+Net Income
+($ in millions)
+Undrawn
+$500M
+Credit Facility
+2017 2018 2019 2020 2021 2022 2023 2024 2025
+$689 MM of cumulative net income since inception
+Also generates significant SLEM cash flow
+Note: Debt and cash balance as of 6/30/2026. 10
+[[page 10]]
+Focused on Allocating Capital Towards Highest Returns
+Growing Free Cash Flow per Share is the Key to Generating Value
+We believe the key to maximizing shareholder value is to TPL FY 2025 Capital Allocation
+maximize intrinsic value per share, which can also be expressed by
+long-term free cash flow per share
+Acquisitions &
+Investments
+Dividends
+Extract maximum value from legacy Share Repurchases
+Share repurchases
+assets
+Capital Expenditures
+Employ highly-capable personnel, cultivate Buyback shares of TPL when intrinsic
+value-add culture, and deploy technology to value is not being fully recognized in the Other
+maximize commercial potential and market
+operating efficiency
+$9.00
+Organic opportunities M&A T $8.00PL Free Cash Flow per Share
+$7.00 $7.22
+Utilize our expertise, personnel, and legacy Buy 3rd party-owned surface, water, and/or
+$6.68
+$6.49
+asset base to make strategic, high-return royalty/mineral assets of similar or better $6.00
+$6.01
+investments quality to TPL’s legacy base at valuations
+$5.00
+that generate attractive returns
+$4.00
+$3.99
+$3.00 $3.34
+$2.69
+$2.00 $2.29
+Growing free cash flow per share would further expand TPL’s capacity
+$1.00
+to return more capital to shareholders via buybacks and dividends
+$-
+2018 2019 2020 2021 2022 2023 2024 2025
+Note: Free Cash Flow is a non-GAAP measure. See Appendix for reconciliation of this non-GAAP measure to net income. 11
+[[page 11]]
+TPL’s Unique Combination of Surface and Royalties
+Comparison of Significant Revenue Generation by Asset Type Performance – FY 2025 versus FY 2022
+100%
+100%
+Substantial surface and
+water related revenue
+80% 72%
+growth despite O&G price
+63% declines since FY 2022
+60%
+SURFACE ― ― ― ―
+40%
+20%
+WATER ― ― ―
+0%
+(20%)
+(31%)
+(40%)
+ROYALTIES ― ― minimal ―
+(<1 mbo/d1) (45%)
+(60%)
+SLEM Produced Water WTI Henry Hub
+Water Sales Oil Natural
+Gas
+Effective commercialization of surface ownership
+provides (i) incremental enterprise cash flow and (ii)
+TPL Revenue Spot Prices
+built-in hedges to oil and gas royalties’ direct exposure
+to commodity price volatility
+(1) mbo/d: thousands of barrels of oil per day 12
+[[page 12]]
+TPL Maintains Top Tier Profitability Margins
+Net Income Margin Comparison
+Consolidated
+TPL
+TPL Water
+60%
+Services &
+Operations
+52%
+18%
+15%
+13%
+8%
+Oilfield Midstream S&P O&G S&P 500 TPL Water TPL
+Services (ENFR) (XOP) Services & consolidated
+(OIH) Operations
+Net Income Margin
+Source: Bloomberg and Company data.
+Note: OIH, ENFR, XOP, and S&P 500 data reflects last-twelve-months actuals as of February 2026.
+Figures for OIH, ENFR, XOP, and S&P 500 represent constituent equal-weighted averages; excludes constituents with negative net income margins.
+Histogram excludes S&P 500 constituents with negative net income margins.
+stneutitsnoC
+fo
+rebmuN
+TPL Land & TPL Water
+60% 66% 52%
+Consolidated
+Resource Services &
+TPL
+FY 2025 net FY 2025 net FY 2025 net
+Management Operations
+income margin income margin income margin
+Net Income Margin Distribution for S&P 500 Constituents
+120
+100
+80
+60
+40
+TPL Water Services
+& Operations
+20
+0
+13
+[[page 13]]
+Capital Efficient Growth Through the Commodity Cyle
++29% +4% +25%
+Oil Prices
+(WTI Cushing Spot, $/bbl)
+2025 YOY Growth 2025 YOY Growth 2025 YOY Growth
+(15%) (12%)
++17% +18% +30%
+40.0 5,000
+900
+2025 YOY Growth 3-yr CAGR
+$100
+4,500
+35.0
+3-yr CAGR 800 3-yr CAGR 3-yr CAGR
+$95 34.6 4,292
+$90 4,000
+763
+30.0 700 736
+$80 3,500
+3,435
+$78 26.8 600
+$76 25.0
+3,000
+$70 563
+23.5
+500
+$65 20.0 21.3 2,500
+$60 462 2,510
+400
+2,000
+$50 15.0 1,957
+300
+1,500
+$40 10.0
+200
+1,000
+$30 5.0
+100 500
+$20
+0.0 0 0
+2022 2023 2024 2025 2022 2023 2024 2025 2022 2023 2024 2025
+TPL O&G Royalty TPL Water Sales Volumes TPL Produced Water
+$10
+Production (mbbl/d) Royalties Volumes
+(mboe/d) (mbbl/d)
+$0
+2022 2023 2024 2025 Countercyclical growth achieved without issuing debt or equity1
+(1) Excluding shares related to employee compensation
+14
+[[page 14]]
+Permian Activity Overview
+Permian Oil Production Permian Horizontal Rig Counts Permian Well Permits
+(mmbbl/d)
+7.0 301 302 294 289 289 1,916 1,924
+273 1,822 1,828 1,750 1,765 1,799 1,834
+238 230 222 224 1,459 1,528
+6.0
+5.0
+1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q 2Q
+1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q 2Q
+2024 2024 2024 2024 2025 2025 2025 2025 2026 2026
+2024 2024 2024 2024 2025 2025 2025 2025 2026 2026
+4.0 Delaware Midland Permian Other
+Permian DUC Counts Permian Completion Counts
+3500
+(Historical counts and grouped by age) (Grouped by DUC age at completion date)
+3.0
+3000
+2,553 2,337 1,523 1,487 1,491 1,454 1,481 1,565 1,504 1,470
+2500
+2,148 1,325
+2.0 2000
+1500
+990
+883
+1.0 1000 705
+547 603
+474
+500
+0
+- ≤ 6 months 6 months < x ≤ 1.5 years 1.5 years < x ≤ 4 years 1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q
+2024 2024 2024 2024 2025 2025 2025 2025 2026
+DUCs as of March 31,
+≤ 6 months 6 months < x ≤ 1.5 years > 1.5 years
+2026 2025 2024
+Source: US EIA, OPEC, Baker Hughes, Enverus and Company data
+Notes: DUC = Drilled-but-Uncompleted Well. DUC counts based on well activity date stamps. 15
+DUC Counts and Completion Counts for 2Q 2026 not shown due to incomplete industry data.
+[[page 15]]
+Investment Highlights
+Permian Basin is a world class resource – Midland and Delaware Basins each possess tens of thousands of future undrilled well
+inventory
+Unique combination of surface and royalty ownership generates revenue throughout the entire lifecycle of a well
+Efficient conversion of revenues to cash flow – FY 2025 EBITDA and FCF margin of 86% and 62%, respectively
+Talented, experienced team of domain experts: land asset managers, water business development and operations, reservoir engineers,
+GIS, information technology, and corporate personnel critical to extract maximum value
+Significant investments into technology enhance productivity and provide platform to scale efficiently
+Disciplined, value-creation approach to capital allocation: focus on maximizing both intrinsic value and free cash flow per share
+Attractive opportunities to extract additional value from legacy asset base and from strategic investments in growth
+Dedication to optimizing capital allocation towards highest-returns, with a commitment to growing capital returns through dividends
+and buybacks
+16
+[[page 16]]
+Jay Gould
+Founder - Texas and Pacific Railway
+17
+[[page 17]]
+Survey team (June 1930)
+Survey marker (northwest corner of Section 39, Block 62, Township 2)
+El Capitan peak – Culberson County
+Orla Field Camp for survey team (June 1930)
+Camp Delaware
+Survey team in sand dunes near Guadalupe Mountains
+“Old Red”
+18
+[[page 18]]
+TPL Currently Has Four Primary Revenue Streams
+SURFACE LEASES, EASEMENTS AND
+O&G ROYALTIES WATER SALES PRODUCED WATER ROYALTIES
+MATERIAL (“SLEM”)
+ Primarily own Non-Participating Royalty Interests  Surface acreage provides multiple income  Surface acreage provides ownership of water  Facilitates disposal of water produced from oil
+(NPRI), which represents a real property right and streams from leases, easements, and rights and opportunities to supply brackish and and gas wells
+is entitled to a fixed percentage of oil and gas caliche/materials, among others treated produced water for use in oil and gas well  By allowing use of its surface acreage for
+production on a property  Opportunity for new revenue streams from development produced water disposal infrastructure, TPL
+ Royalties are not burdened by capital emerging technologies (e.g., solar, wind, and  TPL owns and operates a network of water wells, generates a volumetric royalty fee on produced
+expenditures (e.g., drilling and completions costs), carbon capture) storage/frac ponds and pipelines that can source water barrels
+or most operating expense (e.g., lease operating  Majority of SLEM revenues flow into Land & and deliver water to customers  TPL does not own or operate produced water
+expense) Resource Management segment, with a relatively  Revenue stream contained in Water Services & disposal wells
+ Revenue stream contained in Land & Resource smaller amount in Water Services & Operations Operations  Revenue stream contained in Water Services &
+Management segment Operations
+52% of Consolidated 11% of Consolidated 21% of Consolidated 16% of Consolidated
+Revenues Revenues Revenues Revenues
+(FY 2025) (FY 2025) (FY 2025) (FY 2025)
+O&G Royalties Revenue SLEM Revenue Water Sales Produced Water Royalties Revenue
+($ in millions) ($ in millions) ($ in millions) ($ in millions)
+$170
+$452 $92 $124
+$412 $151
+$357 $373 $71 $76 $71 $73 $104
+$112 $84
+$286
+$72
+$48 $85 $85
+$42 $41 $58
+$38 $64 $68 $51
+$155 $55
+$124 $138 $26 $39
+$58 $26 $17
+$28 $8 $6
+$0
+19
+[[page 19]]
+Oil and Gas Royalties
+Overview and Management
+How TPL is Delivering Value
+Revenue Mechanics and Management TPL Producing Horizontal Wells (Net) by Operator
+Oil and gas royalties represent real property By interfacing directly with operators across
+interests entitling the owner to a portion of the SLEM and Water, TPL incentivizes operators
+Other
+proceeds derived from the production of oil and to accelerate development on TPL’s royalty
+gas acreage
+Advocate for royalty ownership during
+Net
+TPL receives a percentage of gross revenues from disputes (e.g., revenue deductions, pricing
+PDPs:
+oil and gas wells drilled on TPL royalty acreage realization, ad valorem payments, etc)
+131.9
+Experienced reservoir engineers leverage
+Royalties are not burdened by capital costs or most
+TPL’s proprietary data for internal initiatives
+operating expenses (although natural gas and
+and evaluation of external opportunities
+NGLs may have a small set of allowable deductions)
+associated with well development
+Actively monitor check stub accuracy and
+compliance
+Mineral and royalty interests exist into perpetuity
+Overriding royalty interests (“ORRIs”) can be an exception as they FY 2025 Production Volume Splits Internally developed software applications
+are generally tied to leases and may not exist into perpetuity (TPL that integrate proprietary and third-party
+owns de minimis amount of ORRIs)
+data and software, GIS systems and
+NGLs capabilities, and other tools to help drive
+further automation, efficiency, and
+Responsibility of royalty owner to (i) verify 30%
+39% Oil effectiveness
+“decimals” (i.e., revenue interest); (ii) ensure timely
+pay; (iii) inspect check stubs for production, pricing,
+and deductions accuracy, (iv) track development Continuously screening for operator well
+status of pre-production wells, (v) extract and activity updates and utilizing that data to
+analyze well reservoir performance cross-sell TPL services
+31%
+Natural Gas
+Note: Company data as of 6/30/2026.
+PDP: proved developed producing 20
+[[page 20]]
+TPL Royalty Production and Inventory Detail
+TPL Inventory (net) TPL Producing Wells (net)
+TPL Net Royalty Production 24.3 150.0
+25.0 131.9
+22.1 22.6 22.2 124.4
+(mboe/d)
+20.7 130.0 116.1
+20.0 17.6 19.8 3.4 3.0 5.4 5.1 19.0 19.5 18.4 100.5
+34.6 2.2 4.0 3.1 4.0 5.2 3.4 110.0 86.8 90.2 95.4 38.9 45.1 48.0
+15.0 11.8 13.2 12.9 90.0 70.2 73.3 79.2 23.4 24.7 25.7 27.4
+10.0 10.3 9.5 11.1 9.9 9.8 9.6 9.5 70.0 16.8 17.7 18.8
+26.8 5.0 50.0 52.4 54.5 59.3 62.3 64.3 68.4 71.1 74.7 76.6 81.0
+5.1 6.3 6.9 6.4 5.9 6.0 6.1 5.6 5.8 5.6 30.0
+23.5
+0.0 10.0
+1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q 2Q 1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q 2Q
+21.3 2024 2025 2026 2024 2025 2026
+Permits DUCs Completed Delaware Midland Permian Other
+18.6
+16.2 TPL Average Lateral Lengths (feet) – New Spuds1 TPL Commodity Price Realizations vs Benchmarks
+13.7
+140%
+13,637
+12,189 120%
+11,385
+8.8 11,030 10,968
+10,142 10,378 100%
+9,711
+80%
+5.1
+60%
+3.3
+2.7 40%
+1.7
+20%
+0%
+2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q 2Q 3Q 4Q 1Q 2Q
+2023 2024 2025 2026
+2019 2020 2021 2022 2023 2024 2025 2026
+Oil as % of WTI Gas as % of Henry Hub NGLs as % of WTI
+Note: Totals may not foot due to immaterial rounding 21
+(1) Enverus well data as of 06/30/2026.
+[[page 21]]
+TPL source water infrastructure
+22
+[[page 22]]
+TPL source water pond
+23
+[[page 23]]
+RAW LAND DOES NOT MONETIZE ITSELF
+(i) Operational and legal expertise of surface
+Surface Estate Ownership
+estate ownership within the oil and gas
+industry and (ii) proactive execution are
+Leveraging Ownership of Raw Surface into Cash Flow
+requisite towards extracting substantial
+cash flow from raw land
+Surface estate ownership allows for control over surface access, aquifers,
+and sub-surface pore space
+ Unlike O&G royalties, there is no statutory revenue / lease / royalty rate for activities that occur
+within a surface estate
+ Revenue opportunities require continual pursuit, negotiation, and commercialization
+TPL derives three major revenue streams from its surface estate ownership
+1
+ Revenue derived by providing customers access-to or use-of TPL surface
+ Revenue sources include pipeline easements, wellbore easements, commercial
+SLEM leases, and caliche/sand/materials sales
+ Renewables and various “next generation” opportunities, including grid-connected
+batteries and carbon capture, provide additional potential for revenue growth
+2
+ TPL owns and operates infrastructure to provide water for use in oil and gas
+development activities
+Water
+ TPL provides both brackish groundwater and recycled/treated water for customers
+Sales
+both on and off TPL surface
+ Operated model allows for sustainable management of aquifer resource
+$386MM 48%
+3
+ TPL provides surface access to operators and midstream companies for necessary
+FY 2025 Revenue of TPL consolidated revenue
+infrastructure
+Produced  TPL receives a volumetric royalty payment for produced water barrels that move
+Aggregate Contribution From
+Water across or are injected into TPL surface and has offtake rights to treat and resell
+Surface Estate + Active Management
+produced water
+ TPL does not own or operate produced water disposal wells
+24
+[[page 24]]
+Surface, Leases, Easements and Materials (SLEM)
+Overview and Management
+TPL SLEM Revenue Breakdown (FY 2025)
+Revenue Mechanics and Management
+How TPL is Delivering Value
+12% Pipeline easements Leveraging technology such as advanced
+Provide operators/customers access-to or use-
+GIS, satellite imaging, and automation tools
+of TPL surface for infrastructure and materials Wellbore easements
+12% to monitor surface activity
+$78MM 47% Caliche / materials
+Experienced, specialized land asset
+TPL utilizes standardized forms and payment
+Commercial leases managers dedicated to all aspects of
+structures and delivers quick turnaround to
+19%
+surface commercialization provide
+operator customers
+Other consistent operator interaction, contract
+10%
+execution, and trespass monitoring
+TPL easements typically have initial 10-year
+term with additional 10-year renewal options New activity developments on TPL land is
+for the life of the infrastructure shared across business groups for lead
+Term Easement Renewals Schedule (FY 2026-2035)1 generation and revenue opportunities
+($ in millions)
+Easement renewal payments generally the Represents potential Employs numerous personnel focused on
+$50
+greater of 115% or CPI-escalation from the $250+M identifying and developing opportunities
+previous easement payment for new revenue streams
+renewal revenue from term
+easements executed in 2016-2025
+Before active management, operators often
+Installed infrastructure tends to be long-lived
+$25 trespassed and/or underpaid for activities on
+and/or permanent
+TPL land
+Amount of revenue opportunities generally
+correlates to development activity in the
+$-
+Permian
+FY 2036-2045 will feature term easements potential renewals from (i) 2nd 10-
+year extension of 2016-2025 term easement vintages and (ii) 1st 10-year
+extension of 2026-2035 term easement vintages
+(1) Estimated values assumes annual 2% CPI escalator post-2025. Assumes all term easements renew. 25
+[[page 25]]
+Water Sales
+Overview and Management
+Revenue Mechanics and Management TPL Water Sales Volumes1 How TPL is Delivering Value
+(mbbl/d)
+TPL has developed the largest source water
+Surface estate ownership includes access to
+infrastructure network in the northern
+water aquifers
+763 Delaware Basin
+736
+O&G upstream/E&P operators use water to
+TPL deploys professional hydrologists, advanced
+complete (i.e., “frac”) wells
+sensors, and monitoring systems to ensure
+aquifers are managed sustainably
+TPL develops, owns and operates
+563
+infrastructure to extract, store, and transport Sales team competes actively throughout the
+brackish and treated produced water for oil basin to leverage TPL water capabilities, while
+and gas activities
+dedicated operations team ensures delivered
+water assurance and performance
+462
+TPL provides recycled/treated produced water
+414
+for reuse in completion activities Provides water for development of oil and gas
+371 369 wells on TPL royalty acreage, while also securing
+significant water sales outside of TPL acreage
+Sales price per barrel generally ranges from
+$0.50 - $1.00 versus a direct operating expense
+per barrel of $0.10 - $0.20; pricing and expenses 258 Ability to provide both brackish and
+dependent on services provided, location, treated/recycled water solutions
+transportation costs, and other factors
+Water Sales provides substantial incremental
+cash flow to the overall enterprise
+Annual maintenance capital of ~$10 – $20
+million
+44
+2017 2018 2019 2020 2021 2022 2023 2024 2025
+(1) Reflects sourced, treated produced, and brokered sales volumes
+26
+[[page 26]]
+Water Sales
+Asset Map
+TPL Source Water Network
+1,000+
+sourced & produced water
+treatment capacity
+mbbl/d
+~38
+storage capacity
+mmbbl
+~480
+source water pipelines
+miles
+Average Fluid Used per Delaware Well Completion
+(mbbls)
+600
+522
+481 488
+500 455
+426
+413
+393
+400 357
+331
+300
+200
+TPL has developed and currently
+Average O&G well in the Delaware TPL sells substantial
+operates the largest source water 100
+requires an increasing volume of water both on and off of
+infrastructure network in the
+water (~500k bbl water per well) TPL acreage
+northern Delaware -
+2017 2018 2019 2020 2021 2022 2023 2024 2025
+Notes: Enverus and Company data as of 12/31/2025. TPL Source water network as of 6/30/2026.
+27
+[[page 27]]
+Produced Water Royalties
+Overview and Management
+Revenue Mechanics and Management
+TPL Produced Water Royalty Volumes How TPL is Delivering Value
+“Produced water” refers to water that flows from a
+(mbbl/d) Intentionally commercialized to generate high-
+producing O&G well; given solids content and 4,500 4,292 quality, high-margin cash flow stream
+salinity, produced water generally must either be
+injected or treated/recycled
+Facilitating produced water solutions allows
+4,000
+operators to execute on upstream O&G
+The Delaware Basin is characterized by a high water-
+development plans
+oil-ratio: for every crude oil barrel produced from a 3,435
+well, approximately 4 produced water barrels will also 3,500
+TPL undertakes conservative approach to siting
+flow out
+produced water infrastructure on TPL land; focus
+on sustainable management of pore space
+3,000
+TPL receives a volumetric royalty payment on resource and other environmental and geologic
+produced water via negotiated commercial 2,510 factors
+agreements with upstream and midstream
+2,500
+operatorsand has off take rights to treat and resell
+Negotiated agreements with operators covering
+produced water
+1,957 ~450,000-acre dedication allow TPL to capture
+2,000 significant produced water volumes
+TPL does not operate saltwater disposal (“SWD”)
+1,595
+wells Contracts provide TPL with optionality and
+1,500 upside to pursue produced water
+1,206
+recycling/treatment and beneficial reuse
+TPL’s produced water royalties are a commercially
+unique cash flow stream – high-margin, capex-free 922 opportunities
+1,000
+cash flow stream derived from an oil and gas by-
+product Long runway of volumes and cash flow growth,
+433 with minimal capex contributions from TPL
+500
+TPL retains flexibility to provide treatment / recycling
+88
+and beneficial reuse of produced water
+0
+2017 2018 2019 2020 2021 2022 2023 2024 2025
+28
+[[page 28]]
+Produced Water Royalties
+Delaware Upstream Activity + High Water-Cuts to Drive Produced Water Volume Growth
+Water vs Oil Production – Average Well in Delaware Basin1
+(mbbl)
+First 12 months production First 36 months production
+~1,220
+~690
+~310
+~180
+TPL has executed numerous AMI
+TPL also generates significant
+(Area of Mutual Interest)
+revenue from water that
+agreements with operators –
+originates from wells located Produced Oil Produced Oil
+produced water volumes within
+off TPL acreage, including
+the AMI are subject to a royalty fee Water Water
+from New Mexico
+Permian Produced Water
+(mm 28.0bbl/d) 24.9
+24.3
+23.1
+23.0 21.0
+17.8 17.7 18.3
+18.0
+14.6
+11.2
+13.0
+TPL Produced Water AMI
+Drilling Rig
+8.0
+Delaware O&G wells have
+~70% of overall Permian Continued O&G development and
+relatively high water-cuts, ~4 3.0
+produced water comes growth in Delaware will drive
+barrels of produced water per
+from the Delaware produced water volume growth
+barrel of oil on average (2.0) 2017 2018 2019 2020 2021 2022 2023 2024 2025
+Source: Enverus and Company Data. Most recent data as of February 2026.
+(1) Delaware oil and water volumes based on horizontal wells completed since 1/1/2018
+29
+[[page 29]]
+TPL Captures Revenue Over the Well Lifecycle
+E&P/upstream operators procure regulatory permits; prepare future well site
+1 Permit
+and develop infrastructure
+■ Fixed fees for use of TPL’s surface for the construction and
+operation of infrastructure (e.g., well sites, wellbores, pipelines)
+SLEM ■ Sale of materials (caliche) used in the construction of
+infrastructure
+Operators spud/drills new wells. After drilling concludes, next
+2 Development
+step is to frac/complete
+Water ■ Price per barrel for providing brackish groundwater and /
+or treated produced water
+Sales
+Once completed, a well will be placed-on-production (“POP”)
+3 Production
+and begin generating production and revenue
+Produced ■ Royalty per barrel for allowing produced water disposal
+Water related infrastructure on TPL surface
+■ TPL royalty interests generate a fixed percentage of
+O&G
+the oil & gas produced
+Royalties
+■ Contracted payments to TPL as infrastructure on TPL
+SLEM
+land continues to be utilized
+30
+[[page 30]]
+Permian’s Massive Resource Potential
+Enormous Acreage Extent and Stacked Pay Potential
+Enormous Acreage Extent
+Midland and Delaware Basins
+Greater Permian Basin Extent
+~26,000 ~17,000,000
+square miles acres
+Combined Midland and Delaware Footprint
+Stacked Pay Reserves
+10+
+for each Midland and
+Delaware
+geologic formations
+31
+[[page 31]]
+Permian Produced Water Growth Driven by Multiple Factors
+Water-to-Oil Ratio (“WOR”) by Permian Well Vintage
+Permian Produced Water (mmbbl/d)
+5.0
+4.5
+25
+4.0 WOR generally
+increases as wells Permian
+3.5
+2017 2018 2019 2020 age Other
+3.0 2021 2022 2023 2024
+20
+2.5
+0 12 24 36 48 60 72 84 96
+Months on production
+Delaware Water-to-Oil Ratio by Bench Midland
+6.6x 15
+5.7x 5.7x
+Delaware benches
+4.3x
+generally have
+3.7x
+higher WOR
+10
+Delaware
+Current Wolfcamp A Wolfcamp B Wolfcamp C Wolfcamp D
+Permian
+Delaware Basin (12 month WOR)
+Permian Oil Production (mmbbl/d)
+8.0
+5
+6.0 Overall Permian oil
+production growth
+4.0 generates
+produced water
+2.0
+0
+-
+2015 2017 2019 2021 2023 2025
+Source: US EIA, Enverus, and Company data and estimates. 32
+[[page 32]]
+TPL Innovation | Produced Water Desalination and Beneficial Reuse
+Key Milestones
+TPL Desalination Project Overview
+Proof of concept: freeze produced water desalination works
+and pathway to affordable cost
+TPL has developed a process for produced water Collaborating with a top-tier technology and
+desalination that leverages the differing water freeze manufacturing partner in the industrial refrigeration and
+points across salinity levels freezing industry
+Close collaboration with top-tier technology partner in Secured exclusive use-rights for equipment towards
+the industrial freezing industry produced water applications
+Filed a process patent utilizing fractional freeze Phase 1 desalination test unit
+Fractional freezing more energy efficient than alternative
+desalination to treat produced water and surface discharge
+desalination techniques
+Granted Land Application Pilot Permit by RRC to grow
+Continue to make equipment and process optimizations alfalfa from treated water in Midland
+Successful R&D trial at TPL facility in Midland; Research partnership with New Mexico State University &
+constructing larger test facility with capacity of ~10,000 Texas Tech to analyze water quality & process improvement
+barrels of water per day (Phase 2B)
+Validation of water quality acceptability for use with
+aquatic species and agriculture
+Receive 2nd Land Application Permit from RRC for Orla
+Produced Water Desalination Benefits Native grassland restoration & quail habitat enhancement
+TPL beneficial reuse greenhouse
+with TX PW Consortium & Quail Safe
+Reduces produced water subsurface
+Receive draft Texas Pollutant Discharge Elimination System
+injection (“TPDES”) permit through Texas Commission on
+Environmental Quality (“TCEQ”)
+Long-term, sustainable produced water Commission Phase 2 facility (~10k bbl/d capacity)
+solution Evaluate synergies with behind-the-grid gas to electric
+2026
+generation for use in microgrids and/or data centers
+Beneficial reuse and Equipment procurement of commercial-scale facility ~100k
+2027+
+bbl/d facility (Phase 3)
+commercial/industrial applications
+Advance full scale commercial operations throughout the
+2027+ Phase 2 desalination facility (Orla, TX)
+Permian
+33
+[[page 33]]
+West Texas Emerging as a Major Data Center and Power Infrastructure Hub
+Natural gas
+22+ bcf/d of Permian gas production, expected to grow 8+ bcf/d over next 5-10 years; 1 bcf/d of
+natural gas could power ~6 GW of combined cycle gas plants
+Solar
+11+ GW current generation in ERCOT West Texas, with 11+ GW expected online in next 3 years
+Wind
+27+ GW current generation in ERCOT West Texas, with 2+ GW expected online in next 3 years
+Batteries
+4+ GW current generation in ERCOT West Texas, with 5+ GW expected online in next 3 years
+Water
+Availability of local aquifer water that does not compete with large metro or municipalities
+Skilled workforce
+O&G industry has regularly maintained a highly-skilled workforce of hundreds-of-thousands in
+West Texas
+Pro-growth regulatory environment
+State regulators, local ISOs (e.g., ERCOT, SPP) and local industry aligned to develop large scale
+technology infrastructure
+Freeze desalination colocation efficiencies
+TBD
+TPL’s potential commercial scale freeze desalination could provide substantial colocation
+benefits for data centers
+Source: US EIA, ERCOT, Enverus, and Company data and estimates
+34
+[[page 34]]
+35
+[[page 35]]
+Appendix
+[[page 36]]
+Summary of Highest-Visibility Inventory
+100% NRI Permitted Wells 100% NRI DUC Wells 100% NRI Completed Wells
+7% 4%
+3% 17% 5%
+27% 27%
+30%
+23%
+12%
+32%
+6% 6%
+6%
+3%
+2% 6% 5% 17%
+13%
+11% 6% 5% 27%
+2% 3% 3%
+17%
+21%
+41%
+56%
+77%
+80%
+Notes: Per Company data. Permian Basin horizontal locations as of 6/30/26. Percentages may not total to 100% due to immaterial rounding.
+Permitted well conversion rate based on wells permitted from 7/1/24 through 6/30/25 and then drilled through 6/30/26.
+DUC well conversion rate based on wells drilled from 7/1/24 through 6/30/25 and then drilled through 6/30/26.
+Completed well conversion rates based on wells completed between 7/1/24 through 6/30/25.
+DUCs considered to be all wells awaiting completion.
+rotarepO
+yb
+IRN
+noigeR
+yb
+IRN
+~84% of Permits are drilled within 6 months ~45% of DUCs are completed within 6 months ~67% of Completed Wells are listed as producing
+~91% of Permits are drilled within 12 months ~89% of DUCs are completed within 12 months within ~1 month
+Permitted DUC Completed
+Wells: Wells: Wells:
+5.6 9.5 3.4
+Other
+Delaware
+Permitted DUC
+Completed
+Midland
+Wells: Wells: Wells:
+5.6 9.5
+3.4
+Other
+37
+[[page 37]]
+The Basics of Royalties Ownership
+Key Terms and Comparison: Royalties/Minerals vs Lease Interest Illustrative Economic Model – Minerals/Royalties vs
+Lease Interest
+ROYALTIES / MINERALS LEASE INTEREST
+Capital Costs and Revenue /
+Companies that own lease interests are also generally
+Most Operating Expenses Production
+PARTICIPANTS Simply and generally just referred to as referred to as E&P (exploration & production),
+NOMENCLATURE royalty/mineral owners upstream and/or working interest companies (e.g.,
+Occidental, EOG)
+Real property interest/ownership of minerals 25%
+Leases acreage from mineral estate for the right to
+OWNERSHIP Can develop minerals itself or lease the right to
+extract subsurface minerals (e.g., oil and gas)
+extract minerals to an external party
+OWNERSHIP
+Perpetual (though certain exclusions) Expiration subject to lease terms
+DURATION
+In Texas, mineral/royalty estate in aggregate Working interest percentages are expressed before Mineral/Royalties
+REVENUE generally receives 25% of gross production; minerals mineral/royalty-take (i.e., 100% working interest
+INTEREST leased by federal government generally receive owner would only net 75% of total well
+12.5% - 18.5% production/revenue)
+100%
+Generally not responsible for capital costs to drill a Generally responsible for 100% of the capital costs to
+CAPITAL COSTS
+well drill and complete a well (“D&C”)
+75%
+For oil production, generally no operating expense
+OPERATING deductions Responsible for operating expenses such as
+EXPENSES For gas and NGL production, may have limited gathering, transportation, processing, and marketing
+expense deductions
+Lease Operator
+(i.e., E&P)
+Generally incur severance and ad valorem taxes
+OTHER Mineral/royalty estate can be severed from surface
+estate
+38
+[[page 38]]
+Compensation Incentives Aligned With Shareholder Value Creation
+Mix (% of Total)1 Intent Key Performance Dimensions
+ Deliver competitive fixed cash
+ Based on individual role, level of
+Base Salary compensation for day-to-day job
+experience and performance
+performance
+ Incentivize executives to achieve
+ Adjusted EBITDA (25% weight)
+Annual important near-term financial and
+operational goals
+Incentive  Free cash flow per share (50% weight)
+Plan
+ Reward individual and Company
+ Strategic objectives (25% weight)
+performance
+ Reward performance that drives  Three-year cumulative free cash flow
+Performance- long-term value creation per share
+Based Restricted
+Stock Units (PSUs)  Align interests of executives with  Relative TSR vs. SPDR S&P Oil & Gas
+Long-Term shareholders Exploration & Production ETF
+Incentive
+Plan  Incentivize long-term value creation
+Time-Based
+ Align interests of executives with
+Restricted Stock  Long-term stock price appreciation
+shareholders
+Units (RSUs)
+ Retention
+39
+1)%61(
+dexiF
+1)%48(
+elbairaV
+13%
+15%
+36%
+36%
+(1) Reflects target CEO compensation for 2025 as disclosed in the 2025 10-K.
+[[page 39]]
+Sustainability is Embedded in Our Strategy
+Key Opportunities
+ Government policies incentivize sustainable energy projects (e.g., carbon capture, utilization and storage)
+Carbon Management
+and TPL can reposition its business to take advantage of the opportunities created by these policies
+ Produced water recycling capabilities allow operators to minimize freshwater usage; ongoing water asset
+Water Management
+electrification can reduce diesel reliance and manage emissions profile
+ Adoption of new technology can reduce our costs and environmental impact
+Environmental Management
+ Allowance of easements on land to construct electricity infrastructure supports emissions reductions from
+our land operators
+ Expanding efforts to encourage wind and solar development on our surface and exploring all options to
+Renewable Development
+increase our existing renewable footprint
+ Comprehensive, job-specific training and development opportunities; high employee retention and low
+turnover rates, with annual employee satisfaction surveys
+Investing in Our People
+ Demonstrated commitment to enhancing diversity - 39% of workforce are women and continual
+assessment of organizational dynamics to cultivate a more inclusive workforce
+40
+[[page 40]]
+Our Environmental Management Initiatives
+ Implementation of Spill Prevention, Control, and Countermeasure plan and protocol for water
+assets, which are equipped with tech / containment protections
+Incidents and Spill
+ Thorough tracking and monitoring of all spills; information is entered into centralized
+Prevention Control
+database to allow easy tracking and data management
+ Prioritization of continued education and engagement of employees and contractors
+ Prior to acquiring additional surface acreage, on-site Phase 1 Environmental Site Assessments
+Environmental Impact are regularly conducted by environmental consultants to gauge property condition
+Assessments  Regularly scheduled pipeline maintenance checkups of existing pipeline assets; Health,
+Safety and Environment team closely monitors assets for spills, leaks or any other release
+ Partnership with New Mexico Bureau of Land Management to obtain biodiversity impact
+Ecological and Biodiversity guidance
+Partnerships  Contractual requirement for grazing tenants to use proper grazing and stockman standards
+and participate in conservation, range and wildlife improvement programs
+ Prioritization of consistent engagement and communications with operators and lessees on
+Operator and Lessee TPL’s land to ensure maintenance of environmental due diligence
+Requirements  Requirement of reclamation process to verify land has been restored to environmental
+condition stipulated by contractual agreement
+41
+[[page 41]]
+ESG Update
+Key Statistics Emissions vs Revenue
+$900 80
+Category 2021 2022 2023 2024 2025
+Emissions $798
+$800
+70
+Scope 1 CO2 Emissions 16,159 10,590 13,819 14,945 13,361
+Scope 2 CO2 Emissions 6,596 11,492 10,572 14,663 17,314 $706
+$700 $667
+Total Scope 1 + Scope 2 22,755 22,082 24,391 29,608 30,675 60
+$632
+Methane Emissions 0 0 0 0 0
+$600
+Spills
+50
+Produced water spills (bbls) 0 0 0 0 0
+$500
+Other spills (bbls) 45(1) 0 0 0 0 $451
+40
+Energy Management – TPWR Operations
+$400
+Total energy consumed (Gigajoules) 287,140 263,289 304,622 362,562
+$303 30
+Percentage grid – electricity 16% 29% 24% 27%
+$300 30.7
+29.6
+Percentage grid – renewables 6% 13% 11% (2) 14%
+Percentage grid – fuel 78% 58% 65% 59% 24.1 24.4 20
+$200 22.8 22.1
+Safety Incidents
+Employee and Contractor Total 10
+1.59 0 0 0 0 $100
+Recordable Incident Rate –TRIR
+Employee lost time incident rate 0.79 0 0 0 0
+$0 0
+Please visit the TPL Website for our full ESG Disclosures 2020 2021 2022 2023 2024 2025
+TPL Revenue ($ million) Total Scope 1 + Scope 2 Emissions
+(metrics tons of CO2 equivalents)
+(1) These 45 bbls underwent full and successful remediation efforts
+(2) Calculated based on 2023 ERCOT data 42
+[[page 42]]
+Royalty Key Terms
+Gross Royalty Net Royalty Acres Implied Avg Net Revenue
+Focus Area Average Royalty Gross DSU Acres
+Acres (8/8th) Interest per well
+Delaware Basin 396,200 19,700 5.0% 1,066,800 1.9%
+Midland Basin 706,000 6,600 0.9% 1,707,600 0.4%
+Other 34,300 1,700 5.0% 65,900 2.6%
+Total 1,136,500 28,000 2.5% 2,840,300 1.0%
+Description How’s It Calculated
+Gross Royalty Acres ■ An undivided ownership of the oil, gas, and minerals underneath one acre ■ Total Texas Pacific Land Corporation acreage
+of land 1,136,500
+Net Royalty Acres ■ Gross Royalty Acres * Avg. royalty / (1/8)
+■ Gross Royalty Acres standardized to 12.5% (or 1/8) oil and gas lease royalty
+(Normalized to 1/8)
+224,000 = 1,136,500 * 2.5% / (1/8)
+■ Gross Royalty Acres standardized on a 100% (or 8/8) oil and gas lease ■ Gross Royalty Acres * Avg. royalty
+Net Royalty Acres
+royalty basis 28,000 = 1,136,500 * 2.5%
+Drilling Spacing Units ■ Areas designated in a spacing order or unit designation as a unit and ■ Total number of gross DSU acres
+within which operators drill wellbores to develop our oil and natural gas
+(“DSUs”)
+rights 2,840,300
+Implied Average Net ■ Net Royalty Acres / Gross DSU Acres
+■ Number of 100% oil and gas lease royalty acres per gross DSU acre
+Revenue Interest per Well 1.0% = 28,000 / 2,840,300
+Note: Gross DSU acres based on current and projected DSU shapes. Figures as of 12/31/2025.
+Numbers may not foot due to immaterial rounding.
+43
+[[page 43]]
+Non-GAAP Reconciliations - Consolidated
+Source: Company data.
+Note: Numbers may not foot due to immaterial rounding.
+1. Land swap of ~$22 million in 4Q19, and sale to WPX in 1Q19 of ~$100 million.
+2. Costs related to proxy contest to elect a new Trustee, settlement agreement and corporate reorganization.
+3. Excludes land sales deemed significant 44
+[[page 44]]
+Non-GAAP Reconciliations - Segment
+Source: Company data.
+Note: Numbers may not foot due to immaterial rounding. 45
+[[page 45]]
+Historical Financial Summary
+Source: Company data.
+Note: Numbers may not foot due to immaterial rounding. 46
+[[page 46]]
+Texas Pacific Land Corporation
+2699 Howell Street, Suite 800
+Dallas, Texas 75204
+[[page 47]]

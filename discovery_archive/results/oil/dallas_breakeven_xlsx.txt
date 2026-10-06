@@ -1,0 +1,50 @@
+## SHEET Existing Wells
+Special Question: In the top two areas in which your firm is active: What WTI oil price does your firm need to cover operating expenses for existing wells? |  |  |  |  |  |  |  |  |  |  | 
+Last Update: 3/25/26 |  |  |  |  |  |  |  |  |  |  | 
+Average Response |  |  |  |  |  |  |  |  |  |  | 
+Play | 2016:Q1 | 2017:Q1 | 2018:Q1 | 2019:Q1 | 2020:Q1 | 2021:Q1 | 2022:Q1 | 2023:Q1 | 2024:Q1 | 2025:Q1 | 2026:Q1
+Permian Basin – Midland | - | 24.42 | 25.33 | 27.44 | 26.04 | 27.05 | 28.94 | 28.59 | 37.54 | 35.44 | 41.54
+Eagle Ford | - | 28.81 | - | 27.64 | 23.38 | 16.58 | 22.8 | 31 | - | 25.83 | 40
+Permian Basin – Delaware | - | 32.56 | 29.73 | 34.64 | 25.67 | 26.19 | 28.47 | 28.67 | 31.27 | 33.03 | 33.82
+Other U.S. (Shale) | - | 34.88 | 32.29 | 28.45 | 30.44 | 33.11 | 33 | 33.08 | 33.5 | 40.81 | 44.12
+Other U.S. (Nonshale) | - | 37.92 | 40.13 | 35.68 | 35.53 | 34.4 | 38.38 | 44.87 | 45.14 | 44.62 | 47
+Permian Basin – Other | - | - | 37.11 | 36.76 | 31.73 | 32.91 | 35.09 | 40.01 | 43.46 | 45.15 | 43.63
+Permian (Central Platform) | - | 32.73 | - | - | - | - | - | - | - | - | -
+Oklahoma – SCOOP/STACK | - | 27.14 | 27 | 32.7 | - | - | - | - | 34.8 | - | -
+All Responses | 29 | 33 | 35 | 33 | 30 | 31 | 34 | 37 | 39 | 41 | 43
+Permian (all responses) | 29 | 29 | 31 | 33 | 28 | 29 | 31 | 32 | 37 | 39 | 39
+Large Firms (all responses) - Defined as having crude oil production of 10,000 barrels per day |  |  |  |  |  |  |  |  | 26 | 31 | 32
+Small Firms (all responses) - Defined as having crude oil production of less than 10,000 barrels per day |  |  |  |  |  |  |  |  | 44 | 44 | 46
+Louisiana | 34 | - | - | - | - | - | - | - | - | - | -
+Permian Basin | 29 | - | - | - | - | - | - | - | - | - | -
+Eagle Ford | 29 | - | - | - | - | - | - | - | - | - | -
+Other U.S. | 38 | - | - | - | - | - | - | - | - | - | -
+Other Texas | 37 | - | - | - | - | - | - | - | - | - | -
+Oklahoma | 29 | - | - | - | - | - | - | - | - | - | -
+Onshore Gulf Coast | 43 | - | - | - | - | - | - | - | - | - | -
+Dashes (-) indicate that data was not available for that play in that quarter, as the sample size was smaller than 5 responses OR specific category was not used during survey period |  |  |  |  |  |  |  |  |  |  | 
+## SHEET New Wells
+Special Question: In the top two areas in which your firm is active: What WTI oil price does your firm need to profitably drill a new well? |  |  |  |  |  |  |  |  |  |  | 
+Last Update: 3/25/26 |  |  |  |  |  |  |  |  |  |  | 
+Average Response |  |  |  |  |  |  |  |  |  |  | 
+Play | 2016:Q1 | 2017:Q1 | 2018:Q1 | 2019:Q1 | 2020:Q1 | 2021:Q1 | 2022:Q1 | 2023:Q1 | 2024:Q1 | 2025:Q1 | 2026:Q1
+Permian Basin – Midland | - | 46 | 47.33 | 47.5 | 45.57 | 45.8 | 51.29 | 58.33 | 61.61 | 60.56 | 68.57
+Eagle Ford | - | 47.5 | - | 51.27 | 46 | 46.25 | 48 | 56.43 | - | 61.67 | 63
+Permian Basin – Delaware | - | 48 | 48.92 | 48.69 | 51.56 | 49.25 | 49.74 | 60.71 | 63.81 | 62.22 | 63.21
+Other U.S. (Shale) | - | 55.25 | 53.57 | 48.5 | 51 | 58.06 | 68.7 | 60.91 | 59.41 | 63 | 62.38
+Other U.S. (Nonshale) | - | 52.53 | 40.13 | 49.41 | 50.34 | 53.17 | 60.26 | 63.28 | 65.72 | 65.77 | 67.82
+Permian Basin – Other | - | - | 52.33 | 53.63 | 50 | 53.17 | 54.13 | 65.81 | 70 | 69.75 | 70
+Permian (Central Platform) | - | 49.62 | - | - | - | - | - | - | - | - | -
+Oklahoma – SCOOP/STACK | - | 46.88 | 52.86 | 52.6 | - | - | - | - | 65.2 | - | -
+All Responses | 54 | 50 | 52 | 50 | 49 | 52 | 56 | 62 | 64 | 65 | 66
+Permian (all responses) | 51 | 48 | 50 | 50 | 49 | 50 | 52 | 61 | 65 | 65 | 67
+Large Firms (all responses) - Defined as having crude oil production of 10,000 barrels per day |  |  |  |  |  |  | 49 | 55 | 58 | 61 | 59
+Small Firms (all responses) - Defined as having crude oil production of less than 10,000 barrels per day |  |  |  |  |  |  | 59 | 64 | 67 | 66 | 68
+Louisiana | 50 | - | - | - | - | - | - | - | - | - | -
+Permian Basin | 51 | - | - | - | - | - | - | - | - | - | -
+Eagle Ford | 53 | - | - | - | - | - | - | - | - | - | -
+Other U.S. | 55 | - | - | - | - | - | - | - | - | - | -
+Other Texas | 55 | - | - | - | - | - | - | - | - | - | -
+Oklahoma | 56 | - | - | - | - | - | - | - | - | - | -
+Onshore Gulf Coast | 62 | - | - | - | - | - | - | - | - | - | -
+Dashes (-) indicate that data was not available for that play in that quarter, as the sample size was smaller than 5 responses OR specific category was not used during survey period |  |  |  |  |  |  |  |  |  |  | 

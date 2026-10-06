@@ -1,0 +1,1469 @@
+EMCMPUS	Commercial Employment
+ESCMU_MAC	Retail Price of Electricity in Commercial Sector, Middle Atlantic
+ESCMU_WNC	Retail Price of Electricity in Commercial Sector, West North Central
+ESICU_WSC	Retail Price of Electricity in Industrial Sector, West South Central
+EXCCP_WSC	Retail Sales of Electricity in Commercial Sector, West South Central
+GEEPTOT	Electric Power Sector Generation from Geothermal
+IPMFG_MTN	Industrial Output, Manufacturing, Mountain
+MGRARUS	Gasoline Regular Grade Retail Price Incl Taxes, U.S. Average
+NGCCP_NEC	Natural Gas Consumption Commercial Sector, New England
+NGCCU_PAC	Retail Price of Natural Gas in Commercial Sector, Pacific
+NGICU_WNC	Retail Price of Natural Gas in Industrial Sector, W. N. Central
+NGRCP_NEC	Natural Gas Consumption Residential Sector, New England
+OGEPTOT	Electric power sector generation from other fossil gases
+NGINX_NEC	Natural Gas Consumption Industrial Sector, New England
+OHPSPUS	Other HC/Oxygenates Inventory
+OPCEPUS	Commercial Sector Generation from Other Petroleum
+OPCOPUS	Industrial Sector Generation from Other Petroleum
+PAPR_MY	Crude Oil and Liquid Fuels Supply, Malaysia
+PAPR_OPEC	Total OPEC Petroleum Supply
+ZO324IUS	Petroleum and Coal Products Production Index
+T3B_PAPR_R05	Crude Oil and Liquid Fuels Supply, Total Middle East 
+ZWCD_WSC	Cooling Degree Days W. S. Central
+ZO3253IUS	Agricultural Chemicals Production Index
+ZWHD_WSC	Heating Degree Days W. S. Central
+CYRPIC_NEC	Real Personal Income New England
+ESRCU_MTN	Retail Price of Electricity in Residential Sector, Mountain
+ESTCU_US	Retail Price of Electricity for All Sectors, U.S. Total
+EXACP_ESC	Retail Sales of Electricity in Transportation Sector, East South Central
+EXACP_PAC	Retail Sales of Electricity in Transportation Sector, Pacific Contiguous
+LXTCPUS	Propane and Heavier Liquefied Petroleum Gas Product Supplied
+FETCPUS	Petrochemical Feedstocks Product Supplied
+WWCOPUS	Industrial Sector Generation from Wood Biomass
+PARIPUS	Total Refinery Input
+RFCEPUS	Commercial Sector Generation from Residual Fuel Oil
+EXTCP_ENC	Retail Sales of Electricity in All Sectors, East North Central
+BDNIPUS	Biodiesel Net Imports
+CLSKPUS	Coal Secondary Inventories Coke Plants
+PATC_MX	Liquid Fuels Consumption, Mexico
+QHALLC_ENC	Households E. N. Central
+RFTCPUS	Residual Fuel Oil Product Supplied
+JFPSPUS	Jet Fuel Inventory
+EXTCP_ESC	Retail Sales of Electricity in All Sectors, East South Central
+ESCMU_ESC	Retail Price of Electricity in Commercial Sector, East South Central
+MGTSPP4	Total Motor Gasoline PADD 4 (Rocky Mountain) Inventory
+EXACP_ENC	Retail Sales of Electricity in Transportation Sector, East North Central
+CICPIUS	Consumer Price Index (all urban consumers)
+COPRPUS	U.S. Crude Oil Production
+COPR_IR	Crude Oil Production, Iran
+COPR_LY	Crude Oil Production, Libya
+CYRPIC_WSC	Real Personal Income W. S. Central
+EE_WSC	Total Non-Farm Employment W. S. Central
+EONIPUS	Fuel Ethanol Net Imports
+EPEOPUS	Electric Power Sector Total Generation
+ESICU_NEC	Retail Price of Electricity in Industrial Sector, New England
+EXCCP_PAC	Retail Sales of Electricity in Commercial Sector, Pacific Contiguous
+EXRCP_MAC	Retail Sales of Electricity in Residential Sector, Middle Atlantic
+PPFPPUS	Natural Gasoline (Pentanes Plus) Production at Natural Gas Processing Plants
+MGTSPUS	Total Motor Gasoline U.S. Total Inventory
+NGMPPUS	Natural Gas Total Marketed Production
+NGNWPUS	Natural Gas Net Withdrawals from Inventory
+NGRCP_MAC	Natural Gas Consumption Residential Sector, Middle Atlantic
+NGRCU_ESC	Retail Price of Natural Gas in Residential Sector, E. S. Central
+OGCOPUS	Industrial sector generation from other fossil gases
+OPEC_NC	OPEC non-Crude Oil Liquids Production
+PAPR_AJ	Crude Oil and Liquid Fuels Supply, Azerbaijan
+CLWCPUS_TON	Waste Coal Production
+COPC_AG	Algeria Crude Oil Production Capacity
+COPR_IZ	Crude Oil Production, Iraq
+COPR_KU	Crude Oil Production, Kuwait
+COPR_NI	Crude Oil Production, Nigeria
+COSXPUS	Crude Oil Inventory (excluding SPR)
+ESRCU_SAC	Retail Price of Electricity in Residential Sector, South Atlantic
+MGTSPP2	Total Motor Gasoline PADD 2 (Midwest) Inventory
+NGCCP_MAC	Natural Gas Consumption Commercial Sector, Middle Atlantic
+NGINX_MTN	Natural Gas Consumption Industrial Sector, Mountain
+NGMPPAK	Natural Gas Alaska Marketed Production
+NGRCP_WSC	Natural Gas Consumption Residential Sector, W. S. Central
+PAEPTOT	Electric Power Sector Generation from Petroleum (All Types)
+PAPR_OFSU	Crude Oil and Liquid Fuels Supply, Other Eurasia
+PAPR_VM	Crude Oil and Liquid Fuels Supply, Vietnam
+PATC_NON_OECD	Liquid Fuels Consumption, Total non-OECD
+PATC_R03	Liquid Fuels Consumption, Total Europe
+UOTCPUS	Unfinished Oils Product Supplied
+ZWCD_SAC	Cooling Degree Days South Atlantic
+CLHCPUS_TON	Residential and Commercial Coal Consumption
+CYRPIC_WNC	Real Personal Income W. N. Central
+ETROPUS	Ethane/Ethylene Refinery and Blender Net Production
+PAPR_GY	Crude Oil and Liquid Fuels Supply, Guyana
+NLROPUS	Hydrocarbon Gas Liquids Refinery and Blender Net Production
+NGWG_SC	Natural Gas Working Inventory South Central Consuming Region
+CLEPCGW_US	U.S. electric power sector coal net summer generating capacity
+GEEPCGW_US	U.S. electric power sector geothermal net summer generating capacity
+WNEPCGW_US	U.S. electric power sector wind net summer generating capacity
+HVCHCGW_US	U.S. commercial and industrial sectors conventional hydropower net summer generating capacity
+PADI_RS	Unplanned liquid fuel production disruptions, Russia
+EPEOTWH	Total Net Generation of Electricity from Large-Scale Power Plants, Electric Power Sector, United States
+ELNITWH	Net International Imports of Electricity into United States
+ELWHU_MW	Wholesale Electricity Price, MISO (Midcontinent ISO) Illinois hub
+MGRARUS_$	Gasoline retail price incl taxes, U.S. average
+RNTOPUS	Generation from Renewables (excluding Hydro) by All Sectors
+EOTCBUS	Consumption of Energy from Ethanol by All Sectors
+ESRCUUS	Retail price of electricity in residential sector, U.S. average
+OWTCBUS	Consumption of Non-wood Waste Biomass Energy by All Sectors
+NGINX_US	U.S. Natural Gas Industrial Consumption
+EXACPUS	Retail Sales of Electricity in Transportation Sector, U.S. Total
+REECBUS	Electric Power Sector Total Consumption of Renewable Energy
+EXRCPUS	Retail Sales of Electricity in Residential Sector, U.S. Total
+PAPR_WORLD	Total World Petroleum Production
+RDNIPUS	Renwable Diesel Net Imports
+RDPRPUS	Renewable Diesel Production
+OHTCPUS	Other HC/Oxygenates Consumption
+RNPRPUS	Renewable Fuels Except Fuel Ethanol Production
+EXRCH_WNC	Average Residential Electricity Usage Per Customer, West North Central
+ELCUS_ENC	Number of Residential Customers, East North Central
+ELCUS_WNC	Number of Residential Customers, West North Central
+ELCUS_SAC	Number of Residential Customers, South Atlantic
+PADI_SY	Unplanned liquid fuel production disruptions, Syria
+PADI_YM	Unplanned liquid fuel production disruptions, Yemen
+CLSHPUS	Coal Secondary Inventories Commercial and Institutional
+ZWHD_MAC_10YR	Heating Degree Days Middle Atlantic, Prior 10-Year Average
+XXEPGEN_SP	Electric power sector net generation from other energy sources, Central (SPP ISO)
+GEEPGEN_SW	Electric power sector net generation from geothermal, Southwest
+WNEPGEN_TX	Electric power sector net generation from wind, Texas (ERCOT)
+ELLOAD_TX	Net energy for electricity load, Texas (ERCOT)
+NGEPCNS_CA	Electric power sector  consumption of natural gas, California
+NGEPCNS_FL	Electric power sector  consumption of natural gas, Florida (FRCC)
+NGEPCNS_SW	Electric power sector  consumption of natural gas, Southwest
+PAEPCNS_NY	Electric power sector  consumption of petroleum, New York (NYISO)
+NGEPGEN_US	Electric power sector net generation from natural gas, United States
+HPEPGEN_US	Electric power sector net generation from pumped storage hydropower, United States
+OWEPGEN_US	Electric power sector net generation from waste biomass, United States
+NGEPGEN_CA	Electric power sector net generation from natural gas, California
+SOEPGEN_CA	Electric power sector net generation from utility-scale solar, California
+BMEPGEN_FL	Electric power sector net generation from biomass, Florida (FRCC)
+SOEPGEN_HA	Electric power sector net generation from utility-scale solar, Hawaii and Alaska
+NGEPGEN_MW	Electric power sector net generation from natural gas, Midwest (Midcontinent ISO)
+GEEPGEN_MW	Electric power sector net generation from geothermal, Midwest (Midcontinent ISO)
+RTEPGEN_MW	Electric power sector net generation from renewable energy (all types), Midwest (Midcontinent ISO)
+ELLOAD_MW	Net energy for electricity load, Midwest (Midcontinent ISO)
+HVEPGEN_NE	Electric power sector net generation from conventional hydropower, New England (ISO-NE)
+WNEPGEN_NE	Electric power sector net generation from wind, New England (ISO-NE)
+RTEPGEN_NE	Electric power sector net generation from renewable energy (all types), New England (ISO-NE)
+RNEPGEN_NE	Electric power sector net generation from renewables excluding hydropower, New England (ISO-NE)
+CLEPGEN_NW	Electric power sector net generation from coal, Northwest
+ELLOAD_NW	Net energy for electricity load, Northwest
+HPEPGEN_NY	Electric power sector net generation from pumped storage hydropower, New York (NYISO)
+C3ROPUS	Propane Refinery and Blender Net Production
+CLEPGEN_PJ	Electric power sector net generation from coal, Mid-Atlantic (PJM)
+GEEPGEN_PJ	Electric power sector net generation from geothermal, Mid-Atlantic (PJM)
+BMEPGEN_PJ	Electric power sector net generation from biomass, Mid-Atlantic (PJM)
+XXEPGEN_PJ	Electric power sector net generation from other energy sources, Mid-Atlantic (PJM)
+NUEPGEN_SE	Electric power sector net generation from nuclear, Southeast (SERC)
+BMCHCAP_US	Comm. and Indus. Sectors Total Biomass Net Summer Capacity
+SOCHCAP_US	Comm. and Indus. Sectors Large-Scale Solar Net Summer Capacity
+SODRC_US	Residential Sector Small-Scale Solar Photovoltaic Capacity
+SOICBUS	Industrial Sector Consumption of Solar Energy
+ELRCP_ESC	Retail Sales of Electricity in Residential Sector, East South Central
+ELCCP_ENC	Retail Sales of Electricity in Commercial Sector, East North Central
+ELCCP_WNC	Retail Sales of Electricity in Commercial Sector, West North Central
+ELCCP_HAK	Retail Sales of Electricity in Commercial Sector, Alaska and Hawaii
+ELCCP_SAC	Retail Sales of Electricity in Commercial Sector, South Atlantic
+COPS_GB	Gabon Spare Crude Oil Production Capacity
+C3PSPP3	Propane PADD 3 (Gulf Coast) Inventory
+ELICP_NEC	Retail Sales of Electricity in Industrial Sector, New England
+ELACP_ENC	Retail Sales of Electricity in Transportation Sector, East North Central
+ELACP_MAC	Retail Sales of Electricity in Transportation Sector, Middle Atlantic
+ELACP_MTN	Retail Sales of Electricity in Transportation Sector, Mountain
+ELACP_PAC	Retail Sales of Electricity in Transportation Sector, Pacific Contiguous
+ELACP_US	Retail Sales of Electricity in Transportation Sector, U.S. Total
+ELTCP_ENC	Total Retail Sales of Electricity in All Sectors, East North Central
+PAEPGEN_SE	Electric power sector net generation from petroleum, Southeast (SERC)
+SOEPSHR_US	Utility-scale solar share of U.S. electricity generation
+OBCMGEN_US	Commercial sector net generation from other nonrenewable fuels, United States
+TOCMGEN_US	Total commercial sector net generation by all energy sources, United States
+OBEPGEN_CA	Electric power sector  net generation from other nonrenewable fuels, California
+OBEPGEN_SW	Electric power sector  net generation from other nonrenewable fuels, Southwest
+BMINGEN_US	Industrial sector net generation from biomass, United States
+NGINGEN_US	Industrial sector net generation from natural gas, United States
+RNTOGEN_US	Net generation from renewables excluding hydropower, all sectors, United States
+NGEPSHR_US	Natural gas share of U.S. electricity generation
+NONOPEC_NC	Non-OPEC non-Crude Oil Liquids Production
+PAPR_SA	Crude Oil and Liquid Fuels Supply, Saudi Arabia
+TOPRBK	Tight oil production from Bakken formation
+TOPREF	Tight oil production from Eagle Ford formation
+TOPRPM	Tight oil production from Permian formations
+SNGPRFY	Shale natural gas production from Fayetteville formation
+SNGPRNI	Shale natural gas production from Niobrara Codell formation
+HGPRPUS	Hydrocarbon Gas Liquids Total Production
+NWDBK	Bakken New Wells Drilled
+NWDEF	Eagle Ford New Wells Drilled
+NWCPM	Permian New Wells Completed
+CONWAP	Appalachia New-wells Oil Production, One-year Trend
+COEOPPM	Permian Existing Oil Production Change, One-year Trend
+NGNWEF	Eagle Ford New-wells Gas Production, One-year Trend
+NGEOPEF	Eagle Ford Existing Gas Production Change, One-year Trend
+MGRARP1_$	Gasoline Regular Grade Retail Price Incl Taxes, PADD 1 (East Coast)
+NGMPR48	Natural Gas Rest of U.S. Marketed Production
+PRMBUUS_$	Mont Belvieu propane spot price
+ESICU_PAC	Retail Price of Electricity in Industrial Sector, Pacific Contiguous
+ESRCU_PAC	Retail Price of Electricity in Residential Sector, Pacific Contiguous
+ESTCU_MAC	Retail Price of Electricity for All Sectors, Middle Atlantic
+EXCCP_HAK	Retail Sales of Electricity in Commercial Sector, Alaska and Hawaii
+EXICP_PAC	Retail Sales of Electricity in Industrial Sector, Pacific Contiguous
+EXTCP_NEC	Retail Sales of Electricity in All Sectors, New England
+IPMFG_SAC	Industrial Output, Manufacturing, S. Atlantic
+NGRCU_MAC	Retail Price of Natural Gas in Residential Sector, Middle Atlantic
+NGRCU_MTN	Retail Price of Natural Gas in Price Residential Sector, Mountain
+OTCEPUS	Commercial Sector Generation from Other Nonrenewable Fuels
+OGTOPUS	Net generation from other fossil gases by all sectors
+OHRIPUS	Other HC/Oxygenates Adjustment
+PAGLPUS	Refinery Processing Gain
+T3B_PAPR_R04	Crude Oil and Liquid Fuels Supply, Total FSU and Eastern Europe
+DFNIPUS	Distillate Fuel Oil Net Imports
+EE_WNC	Total Non-Farm Employment W. N. Central
+GETOPUS	Generation from Geothermal by All Sectors
+T3B_PAPR_R06	Crude Oil and Liquid Fuels Supply, Total Africa 
+T3_STCHANGE_NOECD	Net Inventory Withdrawals, Total Non-OECD Crude Oil and Other Liquids
+T3_STCHANGE_WORLD	Net Inventory Withdrawals, Total World Crude Oil and Other Liquids
+ZO3252IUS	Resins and Synthetic Rubber Production Index
+EXICP_ESC	Retail Sales of Electricity in Industrial Sector, East South Central
+EXTCP_SAC	Retail Sales of Electricity in All Sectors, South Atlantic
+OXNIPUS	Oxygenates (excluding Fuel Ethanol) Net Imports
+NGTCCO2	Carbon Dioxide Emissions from Natural Gas
+PRIMEUS	U.S. Prime Lending Rate
+PRPSPP3	Propane/Propylene PADD 3 (Gulf Coast) Inventory
+WWEPTOT	Electric Power Sector Generation from Wood Biomass
+ZWCD_WNC	Cooling Degree Days W. N. Central
+ZWHD_ENC	Heating Degree Days E. N. Central
+ZWHD_ESC	Heating Degree Days E. S. Central
+WWCEPUS	Commercial Sector Generation from Wood Biomass
+NGHHUUS	Natural Gas Henry Hub Spot Price ($/mmBtu)
+CLIMPUS_TON	Coal Gross Imports
+EXACP_HAK	Retail Sales of Electricity in Transportation Sector, Alaska and Hawaii
+CYRPIC_ENC	Real Personal Income E. N. Central
+HVCEPUS	Commercial Sector Generation from Conventional Hydropower
+EXACP_SAC	Retail Sales of Electricity in Transportation Sector, South Atlantic
+CGSP_SAC	Real Gross State Product S. Atlantic
+COSQPUS	Strategic Petroleum Reserve
+DFPSPP4	Distillate Fuel Oil PADD 4 (Rocky Mountain) Inventory
+EXTCP_PAC	Retail Sales of Electricity in All Sectors, Pacific Contiguous
+IPMFG_MAC	Industrial Output, Manufacturing, Middle Atlantic
+COPR_OPEC	Crude Oil Production, OPEC Total
+COPS_SA	Saudi Arabia Spare Crude Oil Production Capacity
+DKPS_EP	Distillate Fuel Oil Stocks, Electric Power Sector
+ESCMU_PAC	Retail Price of Electricity in Commercial Sector, Pacific Contiguous
+ESRCU_ENC	Retail Price of Electricity in Residential Sector, East North Central
+ESTCU_ESC	Retail Price of Electricity for All Sectors, East South Central
+ESTCU_PAC	Retail Price of Electricity for All Sectors, Pacific Contiguous
+ESTXPUS	Total Consumption of Electricity in United States
+PATC_R01	Liquid Fuels Consumption, Total North America
+PRPSPP4	Propane/Propylene PADD 4 (Rocky Mountain) Inventory
+QHALLC_MAC	Households Middle Atlantic
+I87RXUS	Real Private Fixed Investment
+JFTCPUS	Jet Fuel Product Supplied
+NGCCP_MTN	Natural Gas Consumption Commercial Sector, Mountain
+NGINX_PAC	Natural Gas Consumption Industrial Sector, Pacific
+CODIPUS	Refinery Distillation Inputs  
+COPC_OPEC	OPEC Total Crude Oil Production Capacity
+EE_PAC	Total Non-Farm Employment Pacific
+EMNFPUS	Non-Farm Employment
+EXICP_ENC	Retail Sales of Electricity in Industrial Sector, East North Central
+EXICP_NEC	Retail Sales of Electricity in Industrial Sector, New England
+INEOPUS	Industrial Sector Total Generation
+JFROPUS	Jet Fuel Refinery Output
+LGPSPUS	Liquefied Petroleum Gas Inventory
+NGBGPUS	Natural Gas Base Gas Inventory
+NGNIPUS	Natural Gas Net Imports
+NGRCP_SAC	Natural Gas Consumption Residential Sector, S. Atlantic
+OHNIPUS	Other HC/Oxygenates Net Imports
+PPPSPUS	Natural Gasoline (Pentanes Plus)Inventory
+PRPSPUS	Propane/Propylene Oil U.S. Total Inventory
+ZWHD_PAC	Heating Degree Days Pacific
+ZO322IUS	Paper and Allied Products Production Index
+BALIT	Natural Gas Balancing Item (Consumption - Supply)
+CLAJPUS_TON	Coal Supply-Demand Discrepancy
+D2RCAUS	Heating Oil Retail Price Including Taxes, U.S. Average
+D2WHUUS	Heating Oil Refiner Wholesale Price
+TRIMRUS	Real Imports of Goods and Services
+ETFPPUS	Ethane Production at Natural Gas Processing Plants
+PRTCPUS	Propane/Propylene Product Supplied
+C4RIPUS	Butanes Refinery and Blender Net Inputs
+BFACBUS	Subtotal Renewable Energy Consumption: Transportation Sector
+BDPSPUS	Biodiesel Inventory
+TETCCO2	Total Energy CO2 Emissions
+NGWG_AK	Natural Gas Working Inventory Alaska
+PAEPCGW_US	U.S. electric power sector petroleum net summer generating capacity
+CLCHCGW_US	U.S. commercial and industrial sectors coal net summer generating capacity
+SODTG_US	U.S. small-scale photovoltaic solar net summer capacity, all sectors total
+COPS_OPEC_ROT	OPEC Other Spare Crude Oil Production Capacity
+ELWHU_SP	Wholesale Electricity Price, SPP (Southwest Power Pool ISO) South hub
+ZWCDPUS_PCT	Cooling Degree Days U.S. Average
+QHALLC_US_PCT	U.S. Households
+EXRCP_US	Retail Sales of Electricity in Residential Sector, U.S. Total
+PATC_OECD_EUROPE	Liquid Fuels Consumption, Europe OECD
+PATC_OTHER_NONOECD	Liquid Fuels Consumption, Other non-OECD
+PAPR_OTHEROECD	Other OECD Petroleum Production
+PASC_US	U.S. End-of-period Commercial Crude Oil and Other Liquids Inventory
+HVTCBUS	Consumption of Conventional Hydroelectric Power Energy by All Sectors
+HVECBUS	Electric Power Sector Consumption of Conventional Hydroelectric Energy
+TETCFUEL	U.S. Total Energy Consumption
+PAPR_FSU	Eurasia Petroleum Production
+EOACBUS	Transportation Sector Consumption of Energy from Ethanol
+WNEPCAPX_US	Electric Power Sector Wind Net Summer Capacity
+EXRCH_ESC	Average Residential Electricity Usage Per Customer, East South Central
+EXRCH_WSC	Average Residential Electricity Usage Per Customer, West South Central
+QSIC_DF	Distillate-weighted Industrial Production Index
+PADI_MX	Unplanned liquid fuel production disruptions, Mexico
+PADI_NI	Unplanned crude oil production disruptions, Nigeria
+PADI_NONOPEC	Unplanned liquid fuel production disruptions, countries outside of the Organization of the Petroleum Exporting Countries
+ZWHD_ENC_10YR	Heating Degree Days E. N. Central, Prior 10-Year Average
+ELLOAD_SE	Net energy for electricity load, Southeast (SERC)
+SOEPGEN_SP	Electric power sector net generation from utility-scale solar, Central (SPP ISO)
+RNEPGEN_SP	Electric power sector net generation from renewables excluding hydropower, Central (SPP ISO)
+CLEPGEN_SW	Electric power sector net generation from coal, Southwest
+ELLOAD_SW	Net energy for electricity load, Southwest
+PAEPGEN_TX	Electric power sector net generation from petroleum, Texas (ERCOT)
+WNCHGEN_US	Industrial and commercial sector net generation from wind, United States
+PACMCNS_US	Commercial sector consumption of petroleum, United States
+CLEPCNS_CA	Electric power sector  consumption of coal, California
+CLEPCNS_MW	Electric power sector  consumption of coal, Midwest (Midcontinent ISO)
+CLEPCNS_NW	Electric power sector  consumption of coal, Northwest
+CLEPCNS_PJ	Electric power sector  consumption of coal, Mid-Atlantic (PJM)
+NGEPCNS_HA	Electric power sector  consumption of natural gas, Hawaii and Alaska
+NGEPCNS_SE	Electric power sector  consumption of natural gas, Southeast (SERC)
+NGEPCNS_TX	Electric power sector  consumption of natural gas, Texas (ERCOT)
+PAEPGEN_US	Electric power sector net generation from petroleum, United States
+COPR_CF	Crude Oil Production, Congo (Brazzaville)
+TOEPGEN_US	Total electric power sector net generation by all energy sources, United States
+ELLOAD_US	Net energy for electricity load, United States
+WNEPGEN_CA	Electric power sector net generation from wind, California
+RNEPGEN_CA	Electric power sector net generation from renewables excluding hydropower, California
+PAEPGEN_CA	Electric power sector net generation from petroleum, California
+RNEPGEN_FL	Electric power sector net generation from renewables excluding hydropower, Florida (FRCC)
+PAPR_OD	Crude Oil and Liquid Fuels Supply, South Sudan
+HPEPGEN_HA	Electric power sector net generation from pumped storage hydropower, Hawaii and Alaska
+XXEPGEN_HA	Electric power sector net generation from other energy sources, Hawaii and Alaska
+HPEPGEN_MW	Electric power sector net generation from pumped storage hydropower, Midwest (Midcontinent ISO)
+NUEPGEN_NE	Electric power sector net generation from nuclear, New England (ISO-NE)
+BMEPGEN_NE	Electric power sector net generation from biomass, New England (ISO-NE)
+WNEPGEN_NW	Electric power sector net generation from wind, Northwest
+SOEPGEN_NW	Electric power sector net generation from utility-scale solar, Northwest
+GEEPGEN_NW	Electric power sector net generation from geothermal, Northwest
+RNEPGEN_NW	Electric power sector net generation from renewables excluding hydropower, Northwest
+PAEPGEN_NW	Electric power sector net generation from petroleum, Northwest
+XXEPGEN_NW	Electric power sector net generation from other energy sources, Northwest
+TOEPGEN_NW	Electric power sector total net generation from all types of energy sources, Northwest
+PAPR_QA	Crude Oil and Liquid Fuels Supply, Qatar
+RTEPGEN_PJ	Electric power sector net generation from renewable energy (all types), Mid-Atlantic (PJM)
+HVEPGEN_SE	Electric power sector net generation from conventional hydropower, Southeast (SERC)
+WWCHCAP_US	Comm. and Indus. Sectors Wood Biomass Net Summer Capacity
+HVCHCAP_US	Comm. and Indus. Sectors Conventional Hydroelectric Net Summer Capacity
+WNCHCAP_US	Comm. and Indus. Sectors Wind Net Summer Capacity
+ELICTWH	Retail Sales of Electricity in Industrial Sector, U.S. Total
+COPC_GB	Gabon Crude Oil Production Capacity
+COPR_EK	Crude Oil Production, Equatorial Guinea
+P3PSPP1	Propylene (refinery-grade) PADD 1 (East Coast) Inventory
+P3PSPP2	Propylene (refinery-grade) PADD 2 (Midwest) Inventory
+ELICP_SAC	Retail Sales of Electricity in Industrial Sector, South Atlantic
+ELTCP_MAC	Total Retail Sales of Electricity in All Sectors, Middle Atlantic
+RNEPGEN_SE	Electric power sector net generation from renewables excluding hydropower, Southeast (SERC)
+OGEPGEN_SE	Electric power sector net generation from other fossil gases, Southeast (SERC)
+PAEPCNS_SE	Electric power sector  consumption of petroleum, Southeast (SERC)
+PAEPCNS_SP	Electric power sector  consumption of petroleum, Central (SPP ISO)
+PAINCNS_US	Industrial sector consumption of petroleum, United States
+HVCMGEN_US	Commercial sector net generation from conventional hydropower, United States
+PACMGEN_US	Commercial sector net generation from petroleum, United States
+OBEPGEN_FL	Electric power sector  net generation from other nonrenewable fuels, Florida (FRCC)
+PAINGEN_US	Industrial sector net generation from petroleum, United States
+PATRPUS	Petroleum products transfers to crude oil supply 
+PAPR_IZ	Crude Oil and Liquid Fuels Supply, Iraq
+PASC_OOECD_T3	Other OECD End-of-period Commercial Crude Oil and Other Liquids Inventory
+COPR_BX	Crude Oil Production, Brunei
+COPR_SU	Crude Oil Production, Sudan
+PAPR_BX	Crude Oil and Liquid Fuels Supply, Brunei
+COPR_MX	Crude Oil Production, Mexico
+COPR_NONOPECPLUS_XUS	Non-OPEC+ exluding United States Crude Oil Production
+SNGPRWF	Shale natural gas production from Woodford formation
+NWDR48	Rest of Lower 48 States, excluding GOA New Wells Drilled
+NWRBK	Bakken  New Wells Drilled Per Rig
+NWRPM	Permian New Wells Drilled Per Rig
+DUCSHA	Haynesville Drilled but Uncompleted Wells 
+CONWBK	Bakken New-wells Oil Production, One-year Trend
+CONWR48	Rest of Lower 48 States, excluding GOA New-wells Oil Production, One-year Trend
+CONWRPM	Permian New-wells Oil Production Per Rig, One-year Trend
+COEOPBK	Bakken Existing Oil Production Change, One-year Trend
+NGNWRAP	Appalachia New-wells Gas Production Per Rig, One-year Trend
+NGNWREF	Eagle Ford New-wells Gas Production Per Rig, One-year Trend
+CMEOTWH	Total Net Generation of Electricity from Large-Scale Power Plants, Commercial and Sector, United States
+DASUPPLY	Total Distillate Fuel Oil Supply
+RDTCPUS_PS	Renewable Diesel Product Supplied
+ESCMU_ENC	Retail Price of Electricity in Commercial Sector, East North Central
+IPMFG_WSC	Industrial Output, Manufacturing, W. S. Central
+KRDRXUS	Business Inventory Change
+MGTSPP1	Total Motor Gasoline PADD 1 (East Coast) Inventory
+NGCCPUS	Natural Gas Consumption Commercial Sector, U.S. Total
+NGCCP_ESC	Natural Gas Consumption Commercial Sector, E. S. Central
+NGCOPUS	Industrial Sector Generation from Natural Gas
+NGRCU_WNC	Retail Price of Natural Gas in Residential Sector, W. N. Central
+NGWGPUS	Natural Gas Working Inventory U.S. Total
+PATC_JA	Liquid Fuels Consumption, Japan
+PATC_R02	Liquid Fuels Consumption, Total Central and South America
+NGRCU_PAC	Retail Price of Natural Gas in Residential Sector, Pacific
+OREPTOT	Electric Power Sector Generation from Other Renewables
+YD87OUS	Real Disposable Personal Income
+ZWCD_MAC	Cooling Degree Days Middle Atlantic
+ZO325IUS	Basic Chemical Manufacturing Production Index
+ZWCD_ESC	Cooling Degree Days E. S. Central
+ZO327IUS	Stone, Clay, Glass, and Concrete Products Production Index
+EE_ESC	Total Non-Farm Employment E. S. Central
+EXACP_NEC	Retail Sales of Electricity in Transportation Sector, New England
+EXACP_WSC	Retail Sales of Electricity in Transportation Sector, West South Central
+MGROPUS	Finished Motor Gasoline Refinery Output
+OXPRPUS	Oxygenates (excluding Fuel Ethanol) Plant Net Production
+SGTCPUS	Still Gas Product Supplied
+MZTCPUS	Other Liquid Fuels Product Supplied
+EORIPUS	Fuel Ethanol Refinery and Blender Net Inputs
+HORIPUS	Hydrogen and Other Hydrocarbons Refinery and Blender Net Inputs
+ESRCU_US	Retail Price of Electricity in Residential Sector, U.S. Average
+PATC_WORLD	Liquid Fuels Consumption, Total World
+QHALLC_WSC	Households W. S. Central
+SOEPTOT	Electric Power Sector Generation from Large-Scale Solar
+T3B_PAPR_R01	Crude Oil and Liquid Fuels Supply, Total North America
+TDLOPUS	Transmission & Distribution Losses and Unaccounted For
+CLEPCON_TON	Electric Power Sector Coal Consumption
+PCCEPUS	Commercial Sector Generation from Petroleum Coke
+ELNIPUS	Net Imports of Electricity to the United States
+CLSTPUS	Coal Secondary Inventories
+ESCMU_WSC	Retail Price of Electricity in Commercial Sector, West South Central
+CLPS_EP	Coal Secondary Inventories Electric Power Sector
+CLEXPUS_TON	Coal Gross Exports
+CLSDPUS	Coal Primary Inventories
+MGFPPUSX	Finished Motor Gasoline Adjustment
+COPC_LY	Libya Crude Oil Production Capacity
+COPR_SA	Crude Oil Production, Saudi Arabia
+DSWHUUS	Diesel Fuel Refiner Wholesale Price
+EOPRPUS	Fuel Ethanol Production
+PAPR_CA	Crude Oil and Liquid Fuels Supply, Canada
+PAPR_EG	Crude Oil and Liquid Fuels Supply, Egypt
+PAPR_NONOECD	Crude Oil and Liquid Fuels Supply, Total Non-OECD
+PAPR_SY	Crude Oil and Liquid Fuels Supply, Syria
+QHALLC_PAC	Households Pacific
+LGROPUS	Liquefied Petroleum Gas Refinery Output
+NGICUUS	Retail Price of Natural Gas in Industrial Sector, U.S. Average
+OXRIPUS	Oxygenates (excluding Fuel Ethanol) Refinery Input
+PAPR48NGOM	Lower 48 States (excl GOA) Crude Oil Production
+COPC_VE	Venezuela Crude Oil Production Capacity
+COPS_OPEC	OPEC Total Spare Crude Oil Production Capacity
+ESICU_MTN	Retail Price of Electricity in Industrial Sector, Mountain
+ESRCU_WNC	Retail Price of Electricity in Residential Sector, West North Central
+ESTCU_MTN	Retail Price of Electricity for All Sectors, Mountain
+EXICP_WSC	Retail Sales of Electricity in Industrial Sector, West South Central
+EXRCP_ENC	Retail Sales of Electricity in Residential Sector, East North Central
+PCPS_EP	Petroleum Coke Stocks, Electric Power Sector
+PRPSPP5	Propane/Propylene PADD 5 (West Coast) Inventory
+CLSOPUS	Coal Secondary Inventories Retail and General Industry
+COPS_LY	Libya Spare Crude Oil Production Capacity
+CYRPIC_PAC	Real Personal Income Pacific
+DFPSPP1	Distillate Fuel Oil PADD 1 (East Coast) Inventory
+DFPSPP3	Distillate Fuel Oil PADD 3 (Gulf Coast) Inventory
+PADI_KU	Unplanned crude oil production disruptions, Kuwait
+NGWG_EAST	Natural Gas Working Inventory East Region
+OGEPCGW_US	U.S. electric power sector other fossil gases net summer generating capacity
+SOCHCGW_US	U.S. commercial and industrial sectors solar net summer generating capacity
+SODRG_US	U.S. small-scale photovoltaic solar net summer capacity, residendential sector
+SODIG_US	U.S. small-scale photovoltaic solar net summer capacity, industrial sector
+ELWHU_NE	Wholesale Electricity Price, ISO-NE (New England ISO) Internal hub
+RACPUUS_$	Refiner Average Crude Oil Acquisition Cost
+COPC_OPEC_R05	OPEC Middle East Crude Oil Production Capacity
+PATC_OTHER_OECD	Liquid Fuels Consumption, Other OECD
+OWCCBUS	Commercial Sector Consumption of Non-wood Waste Biomass Energy
+PAPR_OECD	OECD Petroleum Production
+PASUPPLY	Total Petroleum Product Supply
+GETCBUS	Consumption of Geothermal Energy by All Sectors
+WWICBUS	Industrial Sector Consumption of Wood and Wood Waste Biomass Energy
+HVICBUS	Industrial Sector Consumption of Conventional Hydroelectric Energy
+REACBUS	Transportation Sector Total Consumption of Renewable Energy
+EXRCH_US	Average Residential Electricity Usage Per Customer, United States
+EXRCH_MTN	Average Residential Electricity Usage Per Customer, Mountain
+EXRCH_PAC	Average Residential Electricity Usage Per Customer, Pacific Contiguous
+ELCUS_NEC	Number of Residential Customers, New England
+EOPSPUS	Fuel Ethanol Inventory
+ZWCD_MAC_10YR	Cooling Degree Days Middle Atlantic, Prior 10-Year Average
+ZWCD_MTN_10YR	Cooling Degree Days Mountain, Prior 10-Year Average
+ZWCD_US_10YR	Cooling Degree Days U.S. Average , Prior 10-Year Average
+ZWHD_ESC_10YR	Heating Degree Days E. S. Central, Prior 10-Year Average
+TOEPGEN_SE	Electric power sector total net generation from all types of energy sources, Southeast (SERC)
+HPEPGEN_SP	Electric power sector net generation from pumped storage hydropower, Central (SPP ISO)
+BMEPGEN_SP	Electric power sector net generation from biomass, Central (SPP ISO)
+TOEPGEN_SW	Electric power sector total net generation from all types of energy sources, Southwest
+GEEPGEN_TX	Electric power sector net generation from geothermal, Texas (ERCOT)
+RNEPGEN_TX	Electric power sector net generation from renewables excluding hydropower, Texas (ERCOT)
+XXEPGEN_TX	Electric power sector net generation from other energy sources, Texas (ERCOT)
+TOEPGEN_TX	Electric power sector total net generation from all types of energy sources, Texas (ERCOT)
+BMCHGEN_US	Industrial and commercial sector net generation from biomass (all types), United States
+OWCHGEN_US	Industrial and commercial sector net generation from waste biomass, United States
+CLCMCNS_US	Commercial sector consumption of coal, United States
+CLEPCNS_US	Electric power sector  consumption of coal, United States
+GEEPGEN_US	Electric power sector net generation from geothermal, United States
+COPS_CF	Congo (Brazzaville) Spare Crude Oil Production Capacity
+GEEPGEN_CA	Electric power sector net generation from geothermal, California
+XXEPGEN_CA	Electric power sector net generation from other energy sources, California
+HPEPGEN_FL	Electric power sector net generation from pumped storage hydropower, Florida (FRCC)
+XXEPGEN_FL	Electric power sector net generation from other energy sources, Florida (FRCC)
+TOEPGEN_FL	Electric power sector total net generation from all types of energy sources, Florida (FRCC)
+HVEPGEN_HA	Electric power sector net generation from conventional hydropower, Hawaii and Alaska
+GEEPGEN_HA	Electric power sector net generation from geothermal, Hawaii and Alaska
+RTEPGEN_HA	Electric power sector net generation from renewable energy (all types), Hawaii and Alaska
+RNEPGEN_HA	Electric power sector net generation from renewables excluding hydropower, Hawaii and Alaska
+WNEPGEN_MW	Electric power sector net generation from wind, Midwest (Midcontinent ISO)
+HPEPGEN_NE	Electric power sector net generation from pumped storage hydropower, New England (ISO-NE)
+HVEPGEN_NW	Electric power sector net generation from conventional hydropower, Northwest
+OGEPGEN_NW	Electric power sector net generation from other fossil gases, Northwest
+PAEPGEN_NY	Electric power sector net generation from petroleum, New York (NYISO)
+TOEPGEN_NY	Electric power sector total net generation from all types of energy sources, New York (NYISO)
+WNEPGEN_PJ	Electric power sector net generation from wind, Mid-Atlantic (PJM)
+RNEPGEN_PJ	Electric power sector net generation from renewables excluding hydropower, Mid-Atlantic (PJM)
+TOEPGEN_PJ	Electric power sector total net generation from all types of energy sources, Mid-Atlantic (PJM)
+ELLOAD_PJ	Net energy for electricity load, Mid-Atlantic (PJM)
+SOEPGEN_SE	Electric power sector net generation from utility-scale solar, Southeast (SERC)
+SODCP_US	Commercial Sector Generation from Small-Scale Solar Photovoltaic, United States
+SODIP_US	Industrial Sector Generation from Small-Scale Solar Photovoltaic, United States
+ELRCP_MAC	Retail Sales of Electricity in Residential Sector, Middle Atlantic
+ELRCP_MTN	Retail Sales of Electricity in Residential Sector, Mountain
+ELCCP_MAC	Retail Sales of Electricity in Commercial Sector, Middle Atlantic
+COPC_EK	Equatorial Guinea Crude Oil Production Capacity
+C3PSPP5	Propane PADD 5 (West Coast) Inventory
+ELICP_ENC	Retail Sales of Electricity in Industrial Sector, East North Central
+ELICP_US	Retail Sales of Electricity in Industrial Sector, U.S. Total
+ELACP_WSC	Retail Sales of Electricity in Transportation Sector, West South Central
+ELACP_WNC	Retail Sales of Electricity in Transportation Sector, West North Central
+ELTCP_WNC	Total Retail Sales of Electricity in All Sectors, West North Central
+MGTCPUSX_P	Petroleum-based Gasoline Consumption
+HVEPSHR_US	Conventional hydropower share of U.S. electricity generation
+PAEPCNS_SW	Electric power sector  consumption of petroleum, Southwest
+PAEPCNS_US	Electric power sector  consumption of petroleum, United States
+CLCMGEN_US	Commercial sector net generation from coal, United States
+OBEPGEN_NW	Electric power sector  net generation from other nonrenewable fuels, Northwest
+OBEPGEN_TX	Electric power sector  net generation from other nonrenewable fuels, Texas (ERCOT)
+HVINGEN_US	Industrial sector net generation from conventional hydropower, United States
+NUINGEN_US	Industrial sector net generation from nuclear, United States
+OBINGEN_US	Industrial sector net generation from other nonrenewable fuels, United States
+RNINGEN_US	Industrial sector net generation from renewables excluding hydropower, United States
+TOINGEN_US	Total industrial sector net generation by all energy sources, United States
+PRMBUUS	Mont Belvieu propane spot price
+PAPR_AG	Crude Oil and Liquid Fuels Supply, Algeria
+PAPR_IR	Crude Oil and Liquid Fuels Supply, Iran
+PAPR_NI	Crude Oil and Liquid Fuels Supply, Nigeria
+PAPR_BA	Crude Oil and Liquid Fuels Supply, Bahrain
+COPR_OPECPLUS_OTHER	OPEC+ Other Participants Total
+RIGSPM	Permian Active Rigs
+NWRAP	Appalachia  New Wells Drilled Per Rig
+NWCBK	Bakken New Wells Completed
+DUCSPM	Permian Drilled but Uncompleted Wells 
+CONWRBK	Bakken New-wells Oil Production Per Rig, One-year Trend
+CONWRR48	Rest of Lower 48 States, excluding GOA New-wells Oil Production Per Rig, One-year Trend
+COEOPAP	Appalachia Existing Oil Production Change, One-year Trend
+COEOPEF	Eagle Ford Existing Oil Production Change, One-year Trend
+COEOPR48	Rest of Lower 48 States, excluding GOA Existing Oil Production Change, One-year Trend
+NGEOPHA	Haynesville Existing Gas Production Change, One-year Trend
+MGRARP5_$	Gasoline Regular Grade Retail Price Incl Taxes, PADD 5 (West Coast)
+NGMPEF	Natural Gas Eagle Ford Marketed Production
+NGMPHA	Natural Gas Haynesville Marketed Production
+D2WHUUS_$	Heating Oil Refiner Wholesale Price
+BFPSPUS_DRAW	Biofuel Stock Draw
+BDTCPUS_PS	Biodiesel Product Supplied
+ESICU_MAC	Retail Price of Electricity in Industrial Sector, Middle Atlantic
+HVEPTOT	Electric Power Sector Generation from Conventional Hydroelectric
+MGEIAUS	Gasoline All Grades Retail Price Including Taxes U.S. Average
+MGWHUUS	Refiner Wholesale Gasoline Price
+NGHHMCF	Natural Gas Henry Hub Spot Price ($/mcf)
+NGICU_PAC	Retail Price of Natural Gas in Industrial Sector, Pacific
+NGRCP_WNC	Natural Gas Consumption Residential Sector, W. N. Central
+PAPR_EK	Crude Oil and Liquid Fuels Supply, Equatorial Guinea
+NGCCU_NEC	Retail Price of Natural Gas in Commercial Sector, New England
+NGEUDUS	Cost of Natural Gas Delivered to Electric Generating Plants
+NGEXPUS	Natural Gas Total Gross Exports
+OTEPTOT	Electric Power Sector Generation from Other Nonrenewable Fuels
+OWTOPUS	Generation from Other Renewable Sources by All Sectors
+ZOMNIUS	Manufacturing Production Index
+GDPQXUS	Real Gross Domestic Product
+ZOTOIUS	Total Industrial Production Index
+CGSP_MAC	Real Gross State Product Middle Atlantic
+CGSP_NEC	Real Gross State Product New England
+COUNPUS	Crude Oil Adjustment
+ESCMU_SAC	Retail Price of Electricity in Commercial Sector, South Atlantic
+EXCCP_MAC	Retail Sales of Electricity in Commercial Sector, Middle Atlantic
+EXCCP_NEC	Retail Sales of Electricity in Commercial Sector, New England
+EXTCP_MAC	Retail Sales of Electricity in All Sectors, Middle Atlantic
+MGTSPP5	Total Motor Gasoline PADD 5 (West Coast) Inventory
+NGACPUS	Natural Gas Pipeline and Distribution Use
+HOFPPUS	Hydrogen and Other Hydrocarbons Adjustments
+PCTCPUS	Petroleum Coke Product Supplied
+PATC_RS	Liquid Fuels Consumption, Russia
+PCEPTOT	Electric Power Sector Generation from Petroleum Coke
+WPCPIUS	Producer Price Index: All Commodities
+PADI_AS	Unplanned liquid fuel production disruptions, Australia
+ABRIPUS	Aviation Gasoline Blend Components Refinery Input
+CLTSPUS_TON	Total Coal Supply
+RAIMUUS	Imported  Crude Oil Price
+NGRCU_SAC	Retail Price of Natural Gas in Residential Sector, S. Atlantic
+COPS_KU	Kuwait Spare Crude Oil Production Capacity
+PATC_R06	Liquid Fuels Consumption, Total Africa
+ELDUPUS	Direct Use of Electricity by Commercial and Industrial Facilities
+EE_ENC	Total Non-Farm Employment E. N. Central
+LGFPPUS	Liquefied Petroleum Gas Field Production
+CLCEPUS	Commercial Sector Generation from Coal
+CGSP_WSC	Real Gross State Product W. S. Central
+COPS_IR	Iran Spare Crude Oil Production Capacity
+CYRPIC_SAC	Real Personal Income S. Atlantic
+ESICU_ESC	Retail Price of Electricity in Industrial Sector, East South Central
+EXTCP_MTN	Retail Sales of Electricity in All Sectors, Mountain
+EXTCP_WNC	Retail Sales of Electricity in All Sectors, West North Central
+MGRARP2	Gasoline Regular Grade Retail Price Incl Taxes, PADD 2 (Midwest)
+MGTSPP3	Total Motor Gasoline PADD 3 (Gulf Coast) Inventory
+NGINX_WSC	Natural Gas Consumption Industrial Sector, W. S. Central
+NGVHPUS	Natural Gas Vehicle Use
+PAPRPAK	Alaska Crude Oil Production
+CMEOPUS	Commercial Sector Total Generation
+EXICP_MTN	Retail Sales of Electricity in Industrial Sector, Mountain
+EXRCP_WNC	Retail Sales of Electricity in Residential Sector, West North Central
+MBFPPUSX	Motor Gasoline Blend Comp. Adjustment
+NGCCP_ENC	Natural Gas Consumption Commercial Sector, E. N. Central
+NGCCU_ENC	Retail Price of Natural Gas in Commercial Sector, E. N. Central
+NGICU_MTN	Retail Price of Natural Gas in Industrial Sector, Mountain
+NGINX_ESC	Natural Gas Consumption Industrial Sector, E. S. Central
+NGRCP_MTN	Natural Gas Consumption Residential Sector, Mountain
+NGUSPUS	Natural Gas Total Inventory
+PATC_BR	Liquid Fuels Consumption, Brazil
+PATC_R07	Liquid Fuels Consumption, Total Asia and Oceania
+PRRCAMW	Propane Retail Price Incl Taxes Midwest
+PSPSPUS	Other Oils Inventory
+RFROPUS	Residual Fuel Refinery Output
+TSEOPUS	Total Generation by All Sectors
+CLNSPUS_TON	Total Primary Coal Supply
+CLPRPIR_TON	Coal Production Interior Region
+COPR_VE	Crude Oil Production, Venezuela
+DFPSPP5	Distillate Fuel Oil PADD 5 (West Coast) Inventory
+ZWHD_SAC_10YR	Heating Degree Days South Atlantic, Prior 10-Year Average
+ZWHD_WNC_10YR	Heating Degree Days W. N. Central, Prior 10-Year Average
+GOVXRUS	Real U.S. Government Expenditures
+TREXRUS	Real Exports of Goods and Services
+ETNIPUS	Ethane Net Imports
+C4NIPUS	Butanes/Butylenes Net Imports
+NLNIPUS	Hydrocarbon Gas Liquids Net Imports
+NLTCPUS	Hydrocarbon Gas Liquids Total Consumption 
+PADI_PE	Unplanned liquid fuel production disruptions, Peru
+SOEPCGWX_US	U.S. electric power sector solar net summer generating capacity
+SPEPCGWX_US	U.S. electric power sector solar photovoltaic net summer generating capacity
+STEPCGW_US	U.S. electric power sector solar thermal net summer generating capacity
+WWEPCGW_US	U.S. electric power sector wood biomass net summer generating capacity
+SODCG_US	U.S. small-scale photovoltaic solar net summer capacity, commercial sector
+PADI_UK	Unplanned liquid fuel production disruptions, United Kingdom
+ELWHU_PJ	Wholesale Electricity Price, PJM RTO Western hub
+EXICPUS	Retail Sales of Electricity in Industrial Sector, U.S. Total
+GDPDIUS_PCT	GDP Implicit Price Deflator
+ESCMUUS	Retail Price of Electricity in Commercial Sector, U.S. Average
+GEICBUS	Industrial Sector Consumption of Geothermal Energy
+PATC_UST	Liquid Fuels Consumption, U.S. Territories
+EXCCPUS	Retail Sales of Electricity in Commercial Sector, U.S. Total
+EXRCH_HAK	Average Residential Electricity Usage Per Customer, Hawaii and Alaska
+ELCUS_MAC	Number of Residential Customers, Middle Atlantic
+ELCUS_MTN	Number of Residential Customers, Mountain
+QSIC_CL	Coal-weighted Industrial Production Index
+ZO321IUS	Wood Products Production Index
+PADI_ID	Unplanned liquid fuel production disruptions, Indonesia
+CHEOPUS	Comm. and Indus. Sectors Total Generation
+ZWCD_SAC_10YR	Cooling Degree Days South Atlantic, Prior 10-Year Average
+CLEPGEN_SP	Electric power sector net generation from coal, Central (SPP ISO)
+NUEPGEN_SP	Electric power sector net generation from nuclear, Central (SPP ISO)
+ELLOAD_SP	Net energy for electricity load, Central (SPP ISO)
+OGEPGEN_SW	Electric power sector net generation from other fossil gases, Southwest
+BMEPGEN_TX	Electric power sector net generation from biomass, Texas (ERCOT)
+RTEPGEN_TX	Electric power sector net generation from renewable energy (all types), Texas (ERCOT)
+OGEPGEN_TX	Electric power sector net generation from other fossil gases, Texas (ERCOT)
+SOCHGEN_US	Industrial and commercial sector net generation from utility-scale solar, United States
+NGEPCNS_MW	Electric power sector  consumption of natural gas, Midwest (Midcontinent ISO)
+NGEPCNS_US	Electric power sector  consumption of natural gas, United States
+PAEPCNS_CA	Electric power sector  consumption of petroleum, California
+SOEPGEN_US	Electric power sector net generation from utility-scale solar, United States
+CLEPGEN_CA	Electric power sector net generation from coal, California
+WNEPGEN_FL	Electric power sector net generation from wind, Florida (FRCC)
+NUEPGEN_HA	Electric power sector net generation from nuclear, Hawaii and Alaska
+NGEPGEN_NE	Electric power sector net generation from natural gas, New England (ISO-NE)
+CLEPGEN_NE	Electric power sector net generation from coal, New England (ISO-NE)
+GEEPGEN_NE	Electric power sector net generation from geothermal, New England (ISO-NE)
+ELLOAD_NE	Net energy for electricity load, New England (ISO-NE)
+HPEPGEN_NW	Electric power sector net generation from pumped storage hydropower, Northwest
+NUEPGEN_NY	Electric power sector net generation from nuclear, New York (NYISO)
+HVEPGEN_NY	Electric power sector net generation from conventional hydropower, New York (NYISO)
+RTEPGEN_NY	Electric power sector net generation from renewable energy (all types), New York (NYISO)
+HPEPGEN_PJ	Electric power sector net generation from pumped storage hydropower, Mid-Atlantic (PJM)
+HVEPGEN_PJ	Electric power sector net generation from conventional hydropower, Mid-Atlantic (PJM)
+CLEPGEN_SE	Electric power sector net generation from coal, Southeast (SERC)
+BMEPGEN_SE	Electric power sector net generation from biomass, Southeast (SERC)
+HVEPCAP_US	Electric Power Sector Conventional Hydroelectric Net Summer Capacity
+OWCHCAP_US	Comm. and Indus. Sectors Waste Biomass Net Summer Capacity
+SODTC_US	Total Small-Scale Solar Photovoltaic Capacity
+ELRCTWH	Retail Sales of Electricity in Residential Sector, U.S. Total
+ELCCTWH	Retail Sales of Electricity in Commercial Sector, U.S. Total
+ELCCP_PAC	Retail Sales of Electricity in Commercial Sector, Pacific Contiguous
+C3PSPP2	Propane PADD 2 (Midwest) Inventory
+P3TCPUS	Propylene (refinery-grade) Consumption
+ELICP_ESC	Retail Sales of Electricity in Industrial Sector, East South Central
+ELICP_WSC	Retail Sales of Electricity in Industrial Sector, West South Central
+ELICP_WNC	Retail Sales of Electricity in Industrial Sector, West North Central
+DATCPUS	Total Distillate Fuel Oil Consumption
+DAPSPUS	Total Distillate Fuel Oil Inventories
+CLINCNS_US	Industrial sector consumption of coal, United States
+NGCMGEN_US	Commercial sector net generation from natural gas, United States
+OGCMGEN_US	Commercial sector net generation from other fossil gases, United States
+SOCMGEN_US	Commercial sector net generation from utility-scale solar, United States
+OBEPGEN_MW	Electric power sector  net generation from other nonrenewable fuels, Midwest (Midcontinent ISO)
+OBEPGEN_NE	Electric power sector  net generation from other nonrenewable fuels, New England (ISO-NE)
+OBEPGEN_NY	Electric power sector  net generation from other nonrenewable fuels, New York (NYISO)
+OBEPGEN_SE	Electric power sector  net generation from other nonrenewable fuels, Southeast (SERC)
+BMTOGEN_US	Net generation from biomass, all sectors, United States
+CLTOGEN_US	Net generation from coal, all sectors, United States
+NGTOGEN_US	Net generation from natural gas, all sectors, United States
+OBTOGEN_US	Net generation from other nonrenewable fuels, all sectors, United States
+PAPR_OPECPLUS	Total OPEC+ Petroleum Supply
+COPR_BA	Crude Oil Production, Bahrain
+COPR_OD	Crude Oil Production, South Sudan
+PAPR_NONOPECPLUS	Non-OPEC Liquids Petroleum Production from non-OPEC+
+TOPRL48	Tight oil production
+TOPRMP	Tight oil production from Mississippian formation
+SNGPRMC	Shale natural gas production from Marcellus formation
+SNGPRUA	Shale natural gas production from Utica formation
+SNGPRHA	Shale natural gas production from Haynesville formation
+NWDAP	Appalachia New Wells Drilled
+NWRR48	Rest of Lower 48 States, excluding GOA  New Wells Drilled Per Rig
+NWCR48	Rest of Lower 48 States, excluding GOA New Wells Completed
+CONWRHA	Haynesville New-wells Oil Production Per Rig, One-year Trend
+NGNWHA	Haynesville New-wells Gas Production, One-year Trend
+NGNWRR48	Rest of Lower 48 States, excluding GOA New-wells Gas Production Per Rig, One-year Trend
+MGRARP2_$	Gasoline Regular Grade Retail Price Incl Taxes, PADD 2 (Midwest)
+RFTCUUS_$	No. 6 Residual Fuel Oil Price
+BFTCPUS	Total Biofuels Consumption
+ESTCU_ENC	Retail Price of Electricity for All Sectors, East North Central
+ESTCU_NEC	Retail Price of Electricity for All Sectors, New England
+EXRCP_PAC	Retail Sales of Electricity in Residential Sector, Pacific Contiguous
+EXTCP_HAK	Retail Sales of Electricity in All Sectors, Alaska and Hawaii
+IPMFG_ESC	Industrial Output, Manufacturing, E. S. Central
+NGCCP_PAC	Natural Gas Consumption Commercial Sector, Pacific
+NGCCU_ESC	Retail Price of Natural Gas in Commercial Sector, E. S. Central
+NGCCU_SAC	Retail Price of Natural Gas in Commercial Sector, S. Atlantic
+NGINX	Natural Gas Consumption Industrial Sector, U.S. Total
+NGIMPUS_PIPE	Natural Gas Pipeline Gross Imports
+PACOPUS	Industrial Sector Generation from Petroleum (All Types)
+PAPR_SU	Crude Oil and Liquid Fuels Supply, Sudan
+CYRPIC_ESC	Real Personal Income E. S. Central
+NGRCU_NEC	Retail Price of Natural Gas in Residential Sector, New England
+T3_STCHANGE_US	Net Inventory Withdrawals, Total U.S. (50 States) Crude Oil and Other Liquids
+WP57IUS	Producer Price Index: Petroleum
+QSIC_NG_PCT	Natural Gas-weighted Industrial Production Index
+ZWHD_NEC	Heating Degree Days New England
+CGSP_ESC	Real Gross State Product E. S. Central
+EXACP_WNC	Retail Sales of Electricity in Transportation Sector, West North Central
+EXICP_WNC	Retail Sales of Electricity in Industrial Sector, West North Central
+HONIPUS	Hydrogen and Other Hydrocarbons Net Imports
+OXFPPUS	Oxygenates (excluding Fuel Ethanol) Adjustments
+EOFPPUS	Fuel Ethanol Adjustments
+FFTCCO2	Carbon Dioxide Emissions from Fossil Fuels
+PRPSPP1	Propane/Propylene PADD 1 (East Coast) Inventory
+PADI_CH	Unplanned liquid fuel production disruptions, China
+DKCOPUS	Industrial Sector Generation from Distillate Fuel Oil
+ESTCU_HAK	Retail Price of Electricity for All Sectors, Alaska and Hawaii
+CLEXPSC_TON	Steam Coal Gross Exports
+BDPRPUS	Biodiesel Production
+PADI_CO	Unplanned liquid fuel production disruptions, Colombia
+DKCEPUS	Commercial Sector Generation from Distillate Fuel Oil
+MGRARP1	Gasoline Regular Grade Retail Price Incl Taxes, PADD 1 (East Coast)
+ETXXSUP	Total Supply of Electricity in United States
+HVTOPUS	Generation from Conventional Hydropower by All Sectors
+IPMFG_WNC	Industrial Output, Manufacturing, W. N. Central
+NGINX_ENC	Natural Gas Consumption Industrial Sector, E. N. Central
+CLEUDUS	Cost of Coal Delivered to Electric Generating Plants
+CLSD_DRAW_TON	Coal Primary Inventory Withdrawals
+COPC_IR	Iran Crude Oil Production Capacity
+EXRCP_WSC	Retail Sales of Electricity in Residential Sector, West South Central
+PAPR_KZ	Crude Oil and Liquid Fuels Supply, Kazakhstan
+PAPR_OLA	Crude Oil and Liquid Fuels Supply, Other Central and S. America
+PAPR_RS	Crude Oil and Liquid Fuels Supply, Russia
+PAPR_US	Crude Oil and Liquid Fuels Supply, United States
+PATC_CA	Liquid Fuels Consumption, Canada
+PATC_CH	Liquid Fuels Consumption, China
+PSROPUS	Other Oils Refinery Output
+WTIPUUS	West Texas Intermediate Crude Oil Price
+MGRARP4	Gasoline Regular Grade Retail Price Incl Taxes, PADD 4 (Rocky Mountain)
+MVVMPUS	Vehicle Miles Traveled
+OTCOPUS	Industrial Sector Generation from Other Nonrenewable Fuels
+CONIPUS	Crude Oil Net Imports
+DFROPUS	Distillate Fuel Refinery Output
+EOTCPUS	Fuel Ethanol Consumption
+ESCMU_MTN	Retail Price of Electricity in Commercial Sector, Mountain
+IPMFG_PAC	Industrial Output, Manufacturing, Pacific
+NGEPTOT	Electric Power Sector Generation from Natural Gas
+NGPRPUS	Natural Gas Total Dry Production
+NGRCPUS	Natural Gas Consumption Residential Sector, U.S. Total
+PAPR_CH	Crude Oil and Liquid Fuels Supply, China
+PPTCPUS	Natural Gasoline (Pentanes Plus) Product Supplied
+PSNIPUS	Other Oils Net Imports
+PSTCPUS	Other Oils Product Supplied
+RFEPTOT	Electric Power Sector Generation from Residual Fuel Oil
+UOPSPUS	Unfinished Oils Inventory
+ZWCD_ENC	Cooling Degree Days E. N. Central
+DFEPDEL	Distillate Fuel Oil Delivers to Power Sector
+CLEPTOT	Electric Power Sector Generation from Coal
+CORIPUS	Crude OIl Refinery Input
+CYRPIC_MAC	Real Personal Income Middle Atlantic
+ETPSPUS	Ethane/Ethylene U.S. Inventory
+C4PSPUS	Butanes/Butylenes Inventory
+C4ROPUS	Butanes/Butylenes Refinery and Blender Net Production
+C4TCPUS	Butanes/Butylenes Product Supplied
+NLPSPUS	Hydrocarbon Gas Liquids Inventory
+NGEXPUS_PIPE	Natural Gas Pipeline Gross Exports
+REXCBUS	Total Consumption of Renewable Energy for Electricity and Heat Generation
+PADI_GH	Unplanned liquid fuel production disruptions, Ghana
+BAEPCGW_US	U.S. electric power sector battery storage net summer generating capacity
+HVEPCGW_US	U.S. electric power sector conventional hydropower net summer generating capacity
+BACHCGW_US	U.S. commercial and industrial sectors battery storage net summer generating capacity
+NGCHCGW_US	U.S. commercial and industrial sectors natural gas net summer generating capacity
+PACHCGW_US	U.S. commercial and industrial sectors petroleum net summer generating capacity
+WNCHCGW_US	U.S. commercial and industrial sectors wind net summer generating capacity
+COPC_OPEC_ROT	OPEC Other Crude Oil Production Capacity
+PADI_NORTHSEA	Unplanned liquid fuel production disruptions, North Sea
+ELTCP_HAK	Total Retail Sales of Electricity in All Sectors, Alaska and Hawaii
+TDLOTWH	Total Transmission and Distribution Losses in United States
+ELDUTWH	Total Direct Use of Electricity in United States
+ELWHU_SE	Wholesale Electricity Price, Southeast index, Southeast Reliability (SERC) Into Southern hub
+RAIMUUS_RP	Imported  Crude Oil Real Price
+ESRCUUS_RP	Real Retail Price of Electricity in Residential Sector, U.S. Average
+EMCMPUS_PCT	Commercial Employment
+EXACP_US	Retail Sales of Electricity in Transportation Sector, U.S. Total
+MGRARUS_RP_$	Gasoline Regular Grade Retail Real Price Incl Taxes, U.S. Average,
+COPS_OPEC_R05	OPEC Middle East Surplus Crude Oil Production Capacity
+ZOMNIUS_PCT	Manufacturing Production Index
+EXTCPUS	Retail Sales of Electricity in All Sectors, U.S. Total
+SOECBUS	Electric Power Sector Consumption of Solar Energy
+GDPQXUS_PCT	Real Gross Domestic Product
+GECCBUS	Commercial Sector Consumption of Geothermal Energy
+HVCCBUS	Commercial Sector Consumption of Conventional Hydroelectric Energy
+OHPRPUS	Other HC/Oxygenates Production
+ESICU_US	Retail Price of Electricity in Industrial Sector, U.S. Average
+BDTCBUS	Consumption of Energy from Biomass-based Diesel by All Sectors
+YD87OUS_PCT	Real Disposable Personal Income
+OWICBUS	Industrial Sector Consumption of Non-wood Waste Biomass Energy
+NGSUPP	Total Natural Gas Primary Supply
+SOTCBUS	Consumption of Solar Energy by All Sectors
+GEEPCAP_US	Electric Power Sector Geothermal Net Summer Capacity
+BREPUUS	Brent crude oil spot price
+EXRCH_SAC	Average Residential Electricity Usage Per Customer, South Atlantic
+ELCUS_WSC	Number of Residential Customers, West South Central
+ELCUS_PAC	Number of Residential Customers, Pacific Contiguous
+ELCUS_HAK	Number of Residential Customers, Hawaii and Alaska
+PADI_US	Unplanned liquid fuel production disruptions, United States
+ZWCD_PAC_10YR	Cooling Degree Days Pacific, Prior 10-Year Average
+ZWHD_PAC_10YR	Heating Degree Days Pacific, Prior 10-Year Average
+ZWHD_US_10YR	Heating Degree Days U.S. Average , Prior 10-Year Average
+NGEPGEN_SP	Electric power sector net generation from natural gas, Central (SPP ISO)
+HVEPGEN_SP	Electric power sector net generation from conventional hydropower, Central (SPP ISO)
+HVEPGEN_SW	Electric power sector net generation from conventional hydropower, Southwest
+WNEPGEN_SW	Electric power sector net generation from wind, Southwest
+BMEPGEN_SW	Electric power sector net generation from biomass, Southwest
+CLEPGEN_TX	Electric power sector net generation from coal, Texas (ERCOT)
+HPEPGEN_TX	Electric power sector net generation from pumped storage hydropower, Texas (ERCOT)
+BTTCBUS	Biodiesel, Renewable Diesel, and Other
+CLEPCNS_SP	Electric power sector  consumption of coal, Central (SPP ISO)
+CLEPCNS_SW	Electric power sector  consumption of coal, Southwest
+NGEPCNS_NW	Electric power sector  consumption of natural gas, Northwest
+NGEPCNS_NY	Electric power sector  consumption of natural gas, New York (NYISO)
+NGEPCNS_PJ	Electric power sector  consumption of natural gas, Mid-Atlantic (PJM)
+BMEPGEN_US	Electric power sector net generation from biomass, United States
+RNEPGEN_US	Electric power sector net generation from renewables excluding hydropower, United States
+COPC_CF	Congo (Brazzaville) Crude Oil Production Capacity
+NUEPGEN_CA	Electric power sector net generation from nuclear, California
+RTEPGEN_FL	Electric power sector net generation from renewable energy (all types), Florida (FRCC)
+BMEPGEN_HA	Electric power sector net generation from biomass, Hawaii and Alaska
+PAEPGEN_HA	Electric power sector net generation from petroleum, Hawaii and Alaska
+SOEPGEN_MW	Electric power sector net generation from utility-scale solar, Midwest (Midcontinent ISO)
+RNEPGEN_MW	Electric power sector net generation from renewables excluding hydropower, Midwest (Midcontinent ISO)
+TOEPGEN_MW	Electric power sector total net generation from all types of energy sources, Midwest (Midcontinent ISO)
+CLEPGEN_NY	Electric power sector net generation from coal, New York (NYISO)
+OGEPGEN_NY	Electric power sector net generation from other fossil gases, New York (NYISO)
+ELLOAD_NY	Net energy for electricity load, New York (NYISO)
+PAEPGEN_PJ	Electric power sector net generation from petroleum, Mid-Atlantic (PJM)
+HPEPGEN_SE	Electric power sector net generation from pumped storage hydropower, Southeast (SERC)
+RTEPGEN_SE	Electric power sector net generation from renewable energy (all types), Southeast (SERC)
+BMEPCAP_US	Electric Power Sector Total Biomass Net Summer Capacity
+ELRCP_ENC	Retail Sales of Electricity in Residential Sector, East North Central
+C3TCPUS	Propane Consumption
+P3PSPUS	Propylene (refinery-grade) US Total Inventory
+ELACP_NEC	Retail Sales of Electricity in Transportation Sector, New England
+XXEPGEN_SE	Electric power sector net generation from other energy sources, Southeast (SERC)
+PRRCAP1	Retail PADD 1
+PAEPCNS_PJ	Electric power sector  consumption of petroleum, Mid-Atlantic (PJM)
+NGINCNS_US	Industrial sector consumption of natural gas, United States
+BMCMGEN_US	Commercial sector net generation from biomass, United States
+GECMGEN_US	Commercial sector net generation from geothermal, United States
+HPCMGEN_US	Commercial sector net generation from pumped storage hydropower, United States
+NUCMGEN_US	Commercial sector net generation from nuclear, United States
+RNCMGEN_US	Commercial sector net generation from renewables excluding hydropower, United States
+WNCMGEN_US	Commercial sector net generation from wind, United States
+HVTOGEN_US	Net generation from conventional hydropower, all sectors, United States
+NUTOGEN_US	Net generation from nuclear, all sectors, United States
+OGTOGEN_US	Net generation from other fossil gases, all sectors, United States
+SOTOGEN_US	Net generation from utility-scale solar, all sectors, United States
+PAPR_CF	Crude Oil and Liquid Fuels Supply, Congo (Brazzaville)
+PAPR_KU	Crude Oil and Liquid Fuels Supply, Kuwait
+COPR_MU	Crude Oil Production, Oman
+COPR_RS	Crude Oil Production, Russia
+PAPR_OPECPLUS_OTHER	OPEC+ liquids from Other OPEC+ participants
+SNGPREF	Shale natural gas production from Eagle Ford formation
+SNGPRMP	Shale natural gas production from Mississippian formation
+SNGPRR48	Shale natural gas production from other U.S. formations
+RIGSR48	Rest of Lower 48 States, excluding GOA Active Rigs
+NWREF	Eagle Ford  New Wells Drilled Per Rig
+NWCAP	Appalachia New Wells Completed
+NWCHA	Haynesville New Wells Completed
+DUCSEF	Eagle Ford Drilled but Uncompleted Wells 
+CONWRAP	Appalachia New-wells Oil Production Per Rig, One-year Trend
+NGNWBK	Bakken New-wells Gas Production, One-year Trend
+NGNWR48	Rest of Lower 48 States, excluding GOA New-wells Gas Production, One-year Trend
+NGEOPAP	Appalachia Existing Gas Production Change, One-year Trend
+MGEIAUS_$	Gasoline All Grades Retail Price Including Taxes U.S. Average
+COPRAP	Crude Oil Production: Appalachia
+COPRPM	Crude Oil Production: Permian
+BFSUPPLY	Total Biofuels Supply
+BDRIPUS	Biodiesel Net Inputs
+EE_MTN	Total Non-Farm Employment Mountain
+EXCCP_WNC	Retail Sales of Electricity in Commercial Sector, West North Central
+JFNIPUS	Jet Fuel Net Imports
+JKTCUUS	Jet Fuel Refiner Price to End Users
+LGRIPUS	Liquefied Petroleum Gas Refinery Input
+NGEPCON	Natural Gas Consumption Electric Power Sector, U.S. Total
+NGICU_ENC	Retail Price of Natural Gas in Industrial Sector, E. N. Central
+NGICU_MAC	Retail Price of Natural Gas in Industrial Sector, Middle Atlantic
+NGRCP_PAC	Natural Gas Consumption Residential Sector, Pacific
+PAPR_YM	Crude Oil and Liquid Fuels Supply, Yemen
+PATCPUSX	Total Petroleum and Other Liquids Product Supplied
+ORUTCUS	Refinery Distillation Utilization Factor 
+PAPR_MX	Crude Oil and Liquid Fuels Supply, Mexico
+PAPR_TX	Crude Oil and Liquid Fuels Supply, Turkmenistan
+T3B_PAPR_R02	Crude Oil and Liquid Fuels Supply, Total Central and South America
+ESTCU_WNC	Retail Price of Electricity for All Sectors, West North Central
+EXCCP_ENC	Retail Sales of Electricity in Commercial Sector, East North Central
+PAPR_NO	Crude Oil and Liquid Fuels Supply, Norway
+ESICU_WNC	Retail Price of Electricity in Industrial Sector, West North Central
+ESRCU_MAC	Retail Price of Electricity in Residential Sector, Middle Atlantic
+ESTCU_WSC	Retail Price of Electricity for All Sectors, West South Central
+EXICP_MAC	Retail Sales of Electricity in Industrial Sector, Middle Atlantic
+EXRCP_ESC	Retail Sales of Electricity in Residential Sector, East South Central
+T3_STCHANGE_OOECD	Net Inventory Withdrawals, Total Other OECD Crude Oil and Other Liquids
+QSIC_DF_PCT	Distillate-weighted Industrial Production Index
+CGSP_MTN	Real Gross State Product Mountain
+CLPRPAR_TON	Coal Production Appalachia Region
+PCCOPUS	Industrial Sector Generation from Petroleum Coke
+NGTOPUS	Generation from Natural Gas by All Sectors
+PADI_GB	Unplanned liquid fuel production disruptions, Gabon
+HPTOPUS	Generation from Pumped Storage Hydropower by All Sectors
+CLPRPWR_TON	Coal Production Western Region
+WWTOPUS	Generation from Wood Biomass by All Sectors
+ESTCU_SAC	Retail Price of Electricity for All Sectors, South Atlantic
+DSRTUUS	Diesel Fuel Retail Price Including Taxes, U.S. Average
+RFCOPUS	Industrial Sector Generation from Residual Fuel Oil
+CLTCPUS_TON	Total Coal Consumption 
+PRPSPP2	Propane/Propylene PADD 2 (Midwest) Inventory
+CLEXPMC_TON	Metallurgical Coal Gross Exports
+DFPSPUS	Distillate Fuel Oil U.S. Total Inventory
+ESICU_ENC	Retail Price of Electricity in Industrial Sector, East North Central
+EXRCP_NEC	Retail Sales of Electricity in Residential Sector, New England
+PAPR_IN	Crude Oil and Liquid Fuels Supply, India
+QHALLC_WNC	Households W. N. Central
+MGRARP5	Gasoline Regular Grade Retail Price Incl Taxes, PADD 5 (West Coast)
+NGCCP_SAC	Natural Gas Consumption Commercial Sector, S. Atlantic
+COPC_IZ	Iraq Crude Oil Production Capacity
+EXCCP_MTN	Retail Sales of Electricity in Commercial Sector, Mountain
+EXICP_SAC	Retail Sales of Electricity in Industrial Sector, South Atlantic
+KQHMPUS	Housing Stock, including mobile homes
+NGICU_SAC	Retail Price of Natural Gas in Industrial Sector, S. Atlantic
+NGTCPUS	US Natural Gas Consumption
+RFNIPUS	Residual Fuel Oil Net Imports
+BDTCPUS	Biodiesel Consumption
+CGSP_PAC	Real Gross State Product Pacific
+CLZCPUS_TON	Retail and Other Industry Coal Consumption
+DFTCPUS	Distillate Fuel Oil Product Supplied
+PRNIPUS	Propane/Propylene Net Imports
+C4FPPUS	Butanes Production at Natural Gas Processing Plants
+NLRIPUS	Hydrocarbon Gas Liquids Refinery and Blender Net Inputs
+NGEXPUS_LNG	Natural Gas LNG Gross Exports
+BFLCBUS	Biofuel Losses and Co-products
+NGWG_MW	Natural Gas Working Inventory Midwest Region
+OTEPCGW_US	U.S. electric power sector other non-renewable sources net summer generating capacity
+OWEPCGW_US	U.S. electric power sector waste biomass net summer generating capacity
+OTCHCGW_US	U.S. commercial and industrial sectors other non-renewable sources net summer generating capacity
+OWCHCGW_US	U.S. commercial and industrial sectors waste biomass net summer generating capacity
+ELSUTWH	Total Supply of Electricity in United States
+ELWHU_FL	Wholesale Electricity Price, Florida index, Florida Reliability (FRCC) hub
+NGRCUUS_RP	Real Natural Gas Price Residential Sector, U.S. Average
+EOTCSHR	Ethanol Share of Finished Gasoline Consumption
+EXTCP_US	Retail Sales of Electricity in All Sectors, U.S. Total
+D2RCAUS_$	Heating oil retail price incl taxes, U.S. average
+CLPS_TOT	Coal Total Inventories
+ZWHDPUS_PCT	Heating Degree Days U.S. Average 
+GERCBUS	Residential Sector Consumption of Geothermal Energy
+COSQ_DRAW	Crude Oil Net SPR Withdrawals
+PAPR_ID	Crude Oil and Liquid Fuels Supply, Indonesia
+GEECBUS	Electric Power Sector Consumption of Geothermal Energy
+PATC_FSU	Liquid Fuels Consumption, non-OECD Eurasia
+PANIPUS	Petroleum Product Net Imports
+NGPSUPP	Total Natural Gas Supply
+ESCMU_US	Retail Price of Electricity in Commercial Sector, U.S. Average
+OBPRPUS	Other Biofuels Production
+RDPSPUS	Renewable Diesel Inventory
+RDTCPUS	Renewable Diesel Consumption
+WNTCBUS	Consumption of Wind Energy by All Sectors
+ELCUS_ESC	Number of Residential Customers, East South Central
+PARNPUS	Renewables and Oxygenate Production
+QSIC_NG	Natural Gas-weighted Industrial Production Index
+DFFPPUS	Distillate Fuel Oil Adjustment
+ZWCD_WNC_10YR	Cooling Degree Days W. N. Central, Prior 10-Year Average
+WNEPGEN_SP	Electric power sector net generation from wind, Central (SPP ISO)
+GEEPGEN_SP	Electric power sector net generation from geothermal, Central (SPP ISO)
+SOEPGEN_SW	Electric power sector net generation from utility-scale solar, Southwest
+PAEPGEN_SW	Electric power sector net generation from petroleum, Southwest
+NUEPGEN_TX	Electric power sector net generation from nuclear, Texas (ERCOT)
+HVEPGEN_TX	Electric power sector net generation from conventional hydropower, Texas (ERCOT)
+CLEPSHR_US	Coal share of U.S. electricity generation
+RTEPSHR_US	Renewables share of U.S. electricity generation
+CLEPCNS_NY	Electric power sector  consumption of coal, New York (NYISO)
+NGEPCNS_SP	Electric power sector  consumption of natural gas, Central (SPP ISO)
+PAEPCNS_HA	Electric power sector  consumption of petroleum, Hawaii and Alaska
+WNEPGEN_US	Electric power sector net generation from wind, United States
+WWEPGEN_US	Electric power sector net generation from wood biomass, United States
+RTEPGEN_US	Electric power sector net generation from renewable energy (all types), United States
+OBEPGEN_US	Electric power sector net generation from other nonrenewable fuels, United States
+HVEPGEN_CA	Electric power sector net generation from conventional hydropower, California
+RTEPGEN_CA	Electric power sector net generation from renewable energy (all types), California
+OGEPGEN_CA	Electric power sector net generation from other fossil gases, California
+NGEPGEN_FL	Electric power sector net generation from natural gas, Florida (FRCC)
+CLEPGEN_FL	Electric power sector net generation from coal, Florida (FRCC)
+GEEPGEN_FL	Electric power sector net generation from geothermal, Florida (FRCC)
+PAEPGEN_FL	Electric power sector net generation from petroleum, Florida (FRCC)
+ELLOAD_FL	Net energy for electricity load, Florida (FRCC)
+WNEPGEN_HA	Electric power sector net generation from wind, Hawaii and Alaska
+OGEPGEN_HA	Electric power sector net generation from other fossil gases, Hawaii and Alaska
+TOEPGEN_HA	Electric power sector total net generation from all types of energy sources, Hawaii and Alaska
+PAEPGEN_MW	Electric power sector net generation from petroleum, Midwest (Midcontinent ISO)
+SOEPGEN_NE	Electric power sector net generation from utility-scale solar, New England (ISO-NE)
+ELEXPUS	Gross Exports of Electricity from the United States
+XXEPGEN_NE	Electric power sector net generation from other energy sources, New England (ISO-NE)
+TOEPGEN_NE	Electric power sector total net generation from all types of energy sources, New England (ISO-NE)
+NUEPGEN_NW	Electric power sector net generation from nuclear, Northwest
+BMEPGEN_NW	Electric power sector net generation from biomass, Northwest
+P3ROPUS	Propylene Refinery and Blender Net Production
+XXEPGEN_NY	Electric power sector net generation from other energy sources, New York (NYISO)
+NGEPGEN_PJ	Electric power sector net generation from natural gas, Mid-Atlantic (PJM)
+OGEPGEN_PJ	Electric power sector net generation from other fossil gases, Mid-Atlantic (PJM)
+WNEPGEN_SE	Electric power sector net generation from wind, Southeast (SERC)
+PADI_CD	Unplanned liquid fuel production disruptions, Chad
+SOCCBUS	Commercial Sector Consumption of Solar Energy
+ELRCP_WSC	Retail Sales of Electricity in Residential Sector, West South Central
+ELRCP_WNC	Retail Sales of Electricity in Residential Sector, West North Central
+ELCCP_MTN	Retail Sales of Electricity in Commercial Sector, Mountain
+ELCCP_NEC	Retail Sales of Electricity in Commercial Sector, New England
+ELCCP_WSC	Retail Sales of Electricity in Commercial Sector, West South Central
+ELCCP_US	Retail Sales of Electricity in Commercial Sector, U.S. Total
+C3PSPP4	Propane PADD 4 (Rocky Mountain) Inventory
+P3IMPUS	Propylene (refinery-grade) Gross Imports
+P3PSPP3	Propylene (refinery-grade) PADD 3 (Gulf Coast) Inventory
+ELACP_SAC	Retail Sales of Electricity in Transportation Sector, South Atlantic
+ELTCP_ESC	Total Retail Sales of Electricity in All Sectors, East South Central
+ELTCP_MTN	Total Retail Sales of Electricity in All Sectors, Mountain
+ELTCP_WSC	Total Retail Sales of Electricity in All Sectors, West South Central
+PRRCAP3	Retail PADD 3
+OBEPGEN_SP	Electric power sector  net generation from other nonrenewable fuels, Central (SPP ISO)
+GEINGEN_US	Industrial sector net generation from geothermal, United States
+HPINGEN_US	Industrial sector net generation from pumped storage hydropower, United States
+OGINGEN_US	Industrial sector net generation from other fossil gases, United States
+SOINGEN_US	Industrial sector net generation from utility-scale solar, United States
+HPTOGEN_US	Net generation from pumped storage hydropower, all sectors, United States
+COTRPUS	Transfers to crude oil supply 
+COPR_NONOPEC	Non-OPEC Crude Oil Production
+PAPR_LY	Crude Oil and Liquid Fuels Supply, Libya
+PAPR_NONOPECPLUS_XUS	Non-OPEC Liquids Petroleum Production from non-OPEC+ excluding the US
+PAPR_TC	Crude Oil and Liquid Fuels Supply, United Arab Emirates
+WORLD_NC	World non-Crude Oil Liquids Production
+PAPR_AO	Crude Oil and Liquid Fuels Supply, Angola
+COPR_AJ	Crude Oil Production, Azerbaijan
+COPR_KZ	Crude Oil Production, Kazakhstan
+COPR_WORLD	Total World Crude Oil Production
+TOPRAC	Tight oil production from Austin Chalk formation
+TOPRNI	Tight oil production from Niobrara Codell formation
+TOPRWF	Tight oil production from Woodford formation
+TOPRR48	Tight oil production from other U.S. formations
+SNGPRL48	Shale dry natural gas production
+SNGPRBK	Shale natural gas production from Bakken formation
+SNGPRPM	Shale natural gas production from Permian formations
+RIGSAP	Appalachia Active Rigs
+RIGSHA	Haynesville Active Rigs
+CONWEF	Eagle Ford New-wells Oil Production, One-year Trend
+COEOPHA	Haynesville Existing Oil Production Change, One-year Trend
+NGNWAP	Appalachia New-wells Gas Production, One-year Trend
+NGNWRBK	Bakken New-wells Gas Production Per Rig, One-year Trend
+NGEOPBK	Bakken Existing Gas Production Change, One-year Trend
+MGWHUUS_$	Refiner Wholesale Gasoline Price
+MGRARP3_$	Gasoline Regular Grade Retail Price Incl Taxes, PADD 3 (Gulf Coast)
+MGRARP4_$	Gasoline Regular Grade Retail Price Incl Taxes, PADD 4 (Rocky Mountain)
+NGMPAP	Natural Gas Appalachia Marketed Production
+NGMPBK	Natural Gas Bakken Marketed Production
+COPRBK	Crude Oil Production: Bakken
+COPREF	Crude Oil Production: Eagle Ford
+COPRHA	Crude Oil Production: Haynesville
+CLNIPUS_TON	Coal Net Imports
+DAPSPUS_DRAW	Total Distillate Fuel Stock Draw
+DKEPTOT	Electric Power Sector Generation from Distillate Fuel Oil
+GDPDIUS	GDP Implicit Price Deflator
+LGNIPUS	Liquefied Petroleum Gas Net Imports
+LGTCPUS	Liquefied Petroleum Gas Product Supplied
+MGRARP3	Gasoline Regular Grade Retail Price Incl Taxes, PADD 3 (Gulf Coast)
+NGINX_WNC	Natural Gas Consumption Industrial Sector, W. N. Central
+NGRCP_ESC	Natural Gas Consumption Residential Sector, E. S. Central
+NGSFPUS	Supplemental Gaseous Fuels Supply
+ORCAPUS	Refinery Operable Distillation Capacity  
+PAPR_MU	Crude Oil and Liquid Fuels Supply, Oman
+NGICU_ESC	Retail Price of Natural Gas in Industrial Sector, E. S. Central
+PAIMPORT	Total Petroleum Net Imports
+PAPR_NONOPEC	Total non-OPEC Liquids Petroleum Production
+HPEPTOT	Electric Power Sector Generation from Pumped Storage Hydroelectric
+T3B_PAPR_R07	Crude Oil and Liquid Fuels Supply, Total Asia and Oceania  
+ZWCD_MTN	Cooling Degree Days Mountain
+ZWCD_NEC	Cooling Degree Days New England
+ZWHD_MTN	Heating Degree Days Mountain
+EE_NEC	Total Non-Farm Employment New England
+ESCMU_NEC	Retail Price of Electricity in Commercial Sector, New England
+EXTCP_WSC	Retail Sales of Electricity in All Sectors, West South Central
+PPPRPUS	Natural Gasoline (Pentanes Plus) Renewable Fuels and Oxygenanted Plant Net Production
+RNNIPUS	Renewable Fuels Except Fuel Ethanol Net Imports
+RNFPPUS	Renewable Fuels Except Fuel Ethanol Adjustments
+ETTCPUS	Ethane/Ethylene Product Supplied
+PATCCO2	Carbon Dioxide Emissions from Petroleum and Other Liquid Fuels
+PPRIPUS	Natural Gasoline (Pentanes Plus) Refinery and Blender Net  Input
+RFPSPUS	Residual Fuel Oil Inventory
+RFTCUUS	No. 6 Residual Fuel Oil Price
+UORIPUS	Unfinished Oils Refinery Input
+ZWCDPUS	Cooling Degree Days U.S. Average
+PADI_BR	Unplanned liquid fuel production disruptions, Brazil
+PADI_CA	Unplanned liquid fuel production disruptions, Canada
+CGSP_ENC	Real Gross State Product E. N. Central
+CLTOPUS	Generation from Coal by All Sectors
+SOTOPUS	Generation from Large-Scale Solar by All Sectors
+ESCMU_HAK	Retail Price of Electricity in Commercial Sector, Alaska and Hawaii
+ZWHD_MAC	Heating Degree Days Middle Atlantic
+NGRCU_ENC	Retail Price of Natural Gas in Residential Sector, E. N. Central
+COPS_AG	Algeria Spare Crude Oil Production Capacity
+PASC_OECD_T3	OECD End-of-period Commercial Crude Oil and Other Liquids Inventory
+OGCEPUS	Commercial sector generation from other fossil gases
+COPC_NI	Nigeria Crude Oil Production Capacity
+COPC_SA	Saudi Arabia Crude Oil Production Capacity
+COPS_IZ	Iraq Spare Crude Oil Production Capacity
+CLST_DRAW_TON	Coal Secondary Inventory Withdrawals
+COPS_VE	Venezuela Spare Crude Oil Production Capacity
+EE_SAC	Total Non-Farm Employment S. Atlantic
+ESRCU_ESC	Retail Price of Electricity in Residential Sector, East South Central
+PAPR_CO	Crude Oil and Liquid Fuels Supply, Colombia
+PAPR_GB	Crude Oil and Liquid Fuels Supply, Gabon
+T3B_PAPR_R03	Crude Oil and Liquid Fuels Supply, Total Europe
+NGCCUUS	Retail Price of Natural Gas in Commercial Sector, U.S. Average
+PAPRPGLF	Crude Oil Production Federal Gulf of America
+CLYCPUS_TON	Other Industrial Coal Consumption
+EXCCP_SAC	Retail Sales of Electricity in Commercial Sector, South Atlantic
+HVCOPUS	Industrial Sector Generation from Conventional Hydroelectric
+MGTCPUSX	Motor Gasoline Product Supplied
+NGCCU_MAC	Retail Price of Natural Gas in Commercial Sector, Middle Atlantic
+NGCEPUS	Commercial Sector Generation from Natural Gas
+NGINX_SAC	Natural Gas Consumption Industrial Sector, S. Atlantic
+NGLPPUS	Natural Gas Lease and Plant Fuel
+NGMP48NGOM	Natural Gas Lower 48 States (excl GOA) Marketed Production
+PASXPUS	Total End-of-period Commercial Crude Oil and Other Liquids Inventory
+PATC_US	Liquid Fuels Consumption, United States
+ZWHDPUS	Heating Degree Days U.S. Average 
+CLKCPUS_TON	Coke Plants Coal Consumption
+PRROPUS	Propane/Propylene Refinery and Blender Net Production
+PADI_SA	Unplanned liquid fuel production disruptions, Saudi Arabia
+NGWG_PAC	Natural Gas Working Inventory Pacific Region
+NGWG_MTN	Natural Gas Working Inventory Mountain Region
+HPEPCGW_US	U.S. electric power sector pumped-storage hydropower net summer generating capacity
+NUEPCGW_US	U.S. electric power sector nuclear net summer generating capacity
+GECHCGW_US	U.S. commercial and industrial sectors geothermal net summer generating capacity
+PADI_AJ	Unplanned liquid fuel production disruptions, Azerbaijan
+PADI_NO	Unplanned crude oil production disruptions, Norway
+PADI_VE	Unplanned liquid fuel production disruptions, Venezuela
+TSEOTWH	Total Net Generation of Electricity from Large-Scale Power Plants, All Sectors, United States
+ELWHU_TX	Wholesale Electricity Price, ERCOT (Texas) ISO North hub
+ELWHU_NY	Wholesale Electricity Price, NYISO (New York ISO) Hudson Valley zone
+ELWHU_NW	Wholesale Electricity Price, Northwest index, Mid-Columbia hub
+D2RCAUS_RP_$	Heating Oil Retail Price Incl Taxes, U.S. Average
+WWRCBUS	Residential Sector Consumption of Wood and Wood Waste Biomass Energy
+NLPRPUS	Natural Gas Processing Plant Total Liquids Production
+RERCBUS	Residential Sector Total Consumption of Renewable Energy
+OWEPCONB	Electric Power Sector Consumption of Non-wood Waste Biomass Energy
+PROD_DRAW	Petroleum Product Net Inventory Withdrawals
+PAPR_OTHER_NONOECD	Other Non-OECD Petroleum Production
+PAFPPUS	Petroleum Products Adjustment
+PATC_NONOECD_EUROPE	Liquid Fuels Consumption, Europe non-OECD
+RECCBUS	Commercial Sector Total Consumption of Renewable Energy
+WWTCBUS	Consumption of Wood and Wood Waste Biomass Energy by All Sectors
+ESICUUS	Retail Price of Electricity in Industrial Sector, U.S. Average
+SORCBUS	Residential Sector Consumption of Solar Energy
+OBPSPUS	Other Biofuels Inventory
+XRUNR	Civilian Unemployment Rate
+EXRCH_NEC	Average Residential Electricity Usage Per Customer, New England
+QSIC_EL	Electricity-weighted Industrial Production Index
+PADI_IR	Unplanned crude oil production disruptions, Iran
+PADI_IZ	Unplanned crude oil production disruptions, Iraq
+PADI_LY	Unplanned crude oil production disruptions, Libya
+RTEPGEN_SP	Electric power sector net generation from renewable energy (all types), Central (SPP ISO)
+TOEPGEN_SP	Electric power sector total net generation from all types of energy sources, Central (SPP ISO)
+HPEPGEN_SW	Electric power sector net generation from pumped storage hydropower, Southwest
+RNEPGEN_SW	Electric power sector net generation from renewables excluding hydropower, Southwest
+NUEPSHR_US	Nuclear share of U.S. electricity generation
+HVCHGEN_US	Industrial and commercial sector net generation from conventional hydropower, United States
+WWCHGEN_US	Industrial and commercial sector net generation from wood biomass, United States
+NGCMCNS_US	Commercial sector consumption of natural gas, United States
+CLEPCNS_NE	Electric power sector  consumption of coal, New England (ISO-NE)
+CLEPCNS_SE	Electric power sector  consumption of coal, Southeast (SERC)
+CLEPCNS_TX	Electric power sector  consumption of coal, Texas (ERCOT)
+NGEPCNS_NE	Electric power sector  consumption of natural gas, New England (ISO-NE)
+PAEPCNS_FL	Electric power sector  consumption of petroleum, Florida (FRCC)
+PAEPCNS_MW	Electric power sector  consumption of petroleum, Midwest (Midcontinent ISO)
+PAEPCNS_NE	Electric power sector  consumption of petroleum, New England (ISO-NE)
+CLEPGEN_US	Electric power sector net generation from coal, United States
+NUEPGEN_US	Electric power sector net generation from nuclear, United States
+BMEPGEN_CA	Electric power sector net generation from biomass, California
+TOEPGEN_CA	Electric power sector total net generation from all types of energy sources, California
+NUEPGEN_FL	Electric power sector net generation from nuclear, Florida (FRCC)
+SOEPGEN_FL	Electric power sector net generation from utility-scale solar, Florida (FRCC)
+NGEPGEN_HA	Electric power sector net generation from natural gas, Hawaii and Alaska
+CLEPGEN_HA	Electric power sector net generation from coal, Hawaii and Alaska
+ELLOAD_HA	Net energy for electricity load, Hawaii and Alaska
+NUEPGEN_MW	Electric power sector net generation from nuclear, Midwest (Midcontinent ISO)
+HVEPGEN_MW	Electric power sector net generation from conventional hydropower, Midwest (Midcontinent ISO)
+BMEPGEN_MW	Electric power sector net generation from biomass, Midwest (Midcontinent ISO)
+OGEPGEN_MW	Electric power sector net generation from other fossil gases, Midwest (Midcontinent ISO)
+SOEPCAPX_US	Electric Power Sector Large-Scale Solar Net Summer Capacity
+PAPR_UK	Crude Oil and Liquid Fuels Supply, United Kingdom
+ELIMPUS	Gross Imports of Electricity into the United States
+PAEPGEN_NE	Electric power sector net generation from petroleum, New England (ISO-NE)
+RTEPGEN_NW	Electric power sector net generation from renewable energy (all types), Northwest
+NGEPGEN_NY	Electric power sector net generation from natural gas, New York (NYISO)
+GEEPGEN_NY	Electric power sector net generation from geothermal, New York (NYISO)
+BMEPGEN_NY	Electric power sector net generation from biomass, New York (NYISO)
+GEEPGEN_SE	Electric power sector net generation from geothermal, Southeast (SERC)
+OWEPCAP_US	Electric Power Sector Waste Biomass Net Summer Capacity
+SODIC_US	Industrial Sector Small-Scale Solar Photovoltaic Capacity
+ELRCP_SAC	Retail Sales of Electricity in Residential Sector, South Atlantic
+COPR_GB	Crude Oil Production, Gabon
+C3PSPP1	Propane PADD 1 (East Coast) Inventory
+ELICP_MAC	Retail Sales of Electricity in Industrial Sector, Middle Atlantic
+ELICP_HAK	Retail Sales of Electricity in Industrial Sector, Alaska and Hawaii
+ELICP_PAC	Retail Sales of Electricity in Industrial Sector, Pacific Contiguous
+ELACP_ESC	Retail Sales of Electricity in Transportation Sector, East South Central
+ELTCTWH	Total Retail Sales of Electricity in All Sectors, U.S. Total
+ELTCP_NEC	Total Retail Sales of Electricity in All Sectors, New England
+DFTCPUS_P	Petroleum-based Distillate Consumption
+BFPSPUS	Total Biofuels Inventories
+PRRCAP2	Retail PADD 2
+OBEPGEN_PJ	Electric power sector  net generation from other nonrenewable fuels, Mid-Atlantic (PJM)
+GETOGEN_US	Net generation from geothermal, all sectors, United States
+TOTOGEN_US	Total net generation by all energy sources, all sectors, United States
+WNTOGEN_US	Net generation from wind, all sectors, United States
+PAPR_EC	Crude Oil and Liquid Fuels Supply, Ecuador
+COPR_OPECPLUS_OPEC	OPEC members subject to OPEC+ agreements
+SNGPRBN	Shale natural gas production from Barnett formation
+MGTNIPUS	Total Motor Gasoline Net Imports
+RIGSBK	Bakken Active Rigs
+RIGSEF	Eagle Ford Active Rigs
+NWDPM	Permian New Wells Drilled
+DUCSAP	Appalachia Drilled but Uncompleted Wells 
+DUCSBK	Bakken Drilled but Uncompleted Wells 
+CONWHA	Haynesville New-wells Oil Production, One-year Trend
+NGNWPM	Permian New-wells Gas Production, One-year Trend
+NGMPPM	Natural Gas Permian Marketed Production
+COPRR48	Crude Oil Production: Rest of Lower 48 States
+INEOTWH	Total Net Generation of Electricity from Large-Scale Power Plants, Industrial Sector, United States
+DSWHUUS_$	Diesel Fuel Refiner Wholesale Price
+RDRIPUS	Renewable Diesel Net Inputs
+EXCCP_ESC	Retail Sales of Electricity in Commercial Sector, East South Central
+EXRCP_HAK	Retail Sales of Electricity in Residential Sector, Alaska and Hawaii
+EXRCP_SAC	Retail Sales of Electricity in Residential Sector, South Atlantic
+IPMFG_ENC	Industrial Output, Manufacturing, E. N. Central
+NGCCP_WNC	Natural Gas Consumption Commercial Sector, W. N. Central
+NGICU_NEC	Retail Price of Natural Gas in Industrial Sector, New England
+NGRCP_ENC	Natural Gas Consumption Residential Sector, E. N. Central
+NGRCUUS	Retail price of natural gas in the residential sector, U.S. average
+NUEPTOT	Electric Power Sector Generation from Nuclear
+PAPR_BR	Crude Oil and Liquid Fuels Supply, Brazil
+PAROPUS	Total Refinery Output
+PATC_IN	Liquid Fuels Consumption, India
+PATC_R04	Liquid Fuels Consumption, Total Eurasia
+NGINX_MAC	Natural Gas Consumption Industrial Sector, Middle Atlantic
+NGMPPGLF	Natural Gas Marketed Production Federal Gulf of America
+OTTOPUS	Generation from Other Nonrenewable Fuels by All Sectors
+PACEPUS	Commercial Sector Generation from Petroleum (All Types)
+QHALLC_ESC	Households E. S. Central
+CLCOPUS	Industrial Sector Generation from Coal
+ZO331IUS	Primary Metals Production Index
+PADI_OPEC	Unplanned crude oil production disruptions, Organization of the Petroleum Exporting Countries
+CGSP_WNC	Real Gross State Product W. N. Central
+CYRPIC_MTN	Real Personal Income Mountain
+EXACP_MAC	Retail Sales of Electricity in Transportation Sector, Middle Atlantic
+EXACP_MTN	Retail Sales of Electricity in Transportation Sector, Mountain
+NGCCU_MTN	Retail Price of Natural Gas in Commercial Sector, Mountain
+ARTCPUS	Asphalt and Road Oil Product Supplied
+RNRIPUS	Renewable Fuels Except Fuel Ethanol Refinery and Blender Net Inputs
+CXTCCO2	Carbon Dioxide Emissions from Coal
+PATC_R05	Liquid Fuels Consumption, Total Middle East
+RSPRPUS	Total Raw Steel Production
+ZWCD_PAC	Cooling Degree Days Pacific
+PADI_AR	Unplanned liquid fuel production disruptions, Argentina
+ZWHD_WNC	Heating Degree Days W. N. Central
+PATOPUS	Generation from Petroleum by All Sectors
+CLMRHUS	Coal Miner Productivity
+NUTOPUS	Generation from Nuclear by All Sectors
+PAPR_NONOPEC_I_OPECNC	Non- OPEC + OPEC non-crude Production
+ESICU_HAK	Retail Price of Electricity in Industrial Sector, Alaska and Hawaii
+EXICP_HAK	Retail Sales of Electricity in Industrial Sector, Alaska and Hawaii
+PRRCASO	Propane Retail Price Incl Taxes South
+COPS_NI	Nigeria Spare Crude Oil Production Capacity
+ESRCU_HAK	Retail Price of Electricity in Residential Sector, Alaska and Hawaii
+ZWHD_SAC	Heating Degree Days South Atlantic
+ESRCU_NEC	Retail Price of Electricity in Residential Sector, New England
+UONIPUS	Unfinished Oils Net Imports
+NGICU_WSC	Retail Price of Natural Gas in Industrial Sector, W. S. Central
+ESRCU_WSC	Retail Price of Electricity in Residential Sector, West South Central
+PATC_OECD	Liquid Fuels Consumption, Total OECD
+PRRCAUS	Propane Retail Price Incl Taxes  U.S. Average
+RFEUDUS	Cost of Residual Fuel Oil Delivered to Electric Generating Plants
+PPNIPUS	Natural Gasoline (Pentanes Plus)Net Imports
+QHALLC_MTN	Households Mountain
+QHALLC_NEC	Households New England
+QHALLC_SAC	Households S. Atlantic
+IPMFG_NEC	Industrial Output, Manufacturing, New England
+MBRIPUS	Motor Gasoline Blend Components Refinery Input
+NGCCU_WNC	Retail Price of Natural Gas in Commercial Sector, W. N. Central
+NGCCU_WSC	Retail Price of Natural Gas in Commercial Sector, W. S. Central
+NGIMPUS	Natural Gas Total Gross Imports
+PAPR_AR	Crude Oil and Liquid Fuels Supply, Argentina
+PAPR_AS	Crude Oil and Liquid Fuels Supply, Australia
+COPC_KU	Kuwait Crude Oil Production Capacity
+COPR_AG	Crude Oil Production, Algeria
+DFPSPP2	Distillate Fuel Oil PADD 2 (Midwest) Inventory
+DKEUDUS	Cost of Distillate Fuel Oil Delivered to Electric Generating Plants
+EE_MAC	Total Non-Farm Employment Middle Atlantic
+ESICU_SAC	Retail Price of Electricity in Industrial Sector, South Atlantic
+EXRCP_MTN	Retail Sales of Electricity in Residential Sector, Mountain
+NGCCP_WSC	Natural Gas Consumption Commercial Sector, W. S. Central
+NGIMPUS_LNG	Natural Gas LNG Gross Imports
+NGRCU_WSC	Retail Price of Natural Gas in Residential Sector, W. S. Central
+OPEPTOT	Electric Power Sector Generation from Other Petroleum
+PRRCANE	Propane Retail Price Incl Taxes Northeast
+RACPUUS	Refiner Average Crude Oil Acquisition Cost
+RFPS_EP	Residual Fuel Oil Stocks, Electric Power Sector
+ZO311IUS	Food and Kindred Products Production Index
+CLPRPUS_TON	Coal Production Total U.S.
+ZWHD_WSC_10YR	Heating Degree Days W. S. Central, Prior 10-Year Average
+PRFPPUS	Propane Production at Natural Gas Processing Plants
+BFTCBUS	Biofuel Total Consumption
+NGEPCGW_US	U.S. electric power sector natural gas net summer generating capacity
+OGCHCGW_US	U.S. commercial and industrial sectors other fossil gases net summer generating capacity
+WWCHCGW_US	U.S. commercial and industrial sectors wood biomass net summer generating capacity
+ELTCP_PAC	Total Retail Sales of Electricity in All Sectors, Pacific Contiguous
+ELTCP_SAC	Total Retail Sales of Electricity in All Sectors, South Atlantic
+ELTCP_US	Total Retail Sales of Electricity in All Sectors, U.S. Total
+CHEOTWH	Total Net Generation of Electricity from Large-Scale Power Plants, Commercial and Industrial Sectors, United States
+ELCOTWH	Total Consumption of Electricity in United States
+ELWHU_CA	Wholesale Electricity Price, CAISO (California ISO) SP15 zone
+ELWHU_SW	Wholesale Electricity Price, Southwest index, Palo Verde hub
+CLOTCON_TON	Coal Consumed in non-Power Sectors
+EXCCP_US	Retail Sales of Electricity in Commercial Sector, U.S. Total
+EXICP_US	Retail Sales of Electricity in Industrial Sector, U.S. Total
+DSRTUUS_$	Diesel fuel retail price incl taxes, U.S. average
+DSRTUUS_RP_$	Diesel Fuel Retail Real Prrice Incl Taxes, U.S. Average
+COSX_DRAW	Crude Oil Net Commercial Inventory Withdrawals
+WWEPCONB	Electric Power Sector Consumption of Wood and Wood Waste Biomass Energy
+REICBUS	Industrial Sector Total Consumption of Renewable Energy
+WWCCBUS	Commercial Sector Consumption of Wood and Wood Waste Biomass Energy
+PATC_OTHER_ASIA	Liquid Fuels Consumption, Other Asia
+RETCBUS	Total Consumption of Renewable Energy by All Sectors
+EOPRBUS	Ethanol Energy Supply
+OBNIPUS	Other Biofuels Net Imports
+OBTCPUS	Other Biofuels Consumption
+WWEPCAP_US	Electric Power Sector Wood Biomass Net Summer Capacity
+CONSRUS	Real Personal Consumption Expenditures
+HSTCXUS	Housing Starts
+WNECBUS	Electric Power Sector Consumption of Wind Energy
+EXRCH_MAC	Average Residential Electricity Usage Per Customer, Middle Atlantic
+EXRCH_ENC	Average Residential Electricity Usage Per Customer, East North Central
+ELCUS_US	Number of Residential Customers, United States
+ZO326IUS	Plastics and Rubber Products Production Index
+PADI_SU	Unplanned liquid fuel production disruptions, Sudan and South Sudan
+ZWCD_ENC_10YR	Cooling Degree Days E. N. Central, Prior 10-Year Average
+ZWCD_ESC_10YR	Cooling Degree Days E. S. Central, Prior 10-Year Average
+ZWCD_NEC_10YR	Cooling Degree Days New England, Prior 10-Year Average
+ZWCD_WSC_10YR	Cooling Degree Days W. S. Central, Prior 10-Year Average
+ZWHD_MTN_10YR	Heating Degree Days Mountain, Prior 10-Year Average
+ZWHD_NEC_10YR	Heating Degree Days New England, Prior 10-Year Average
+PAEPGEN_SP	Electric power sector net generation from petroleum, Central (SPP ISO)
+OGEPGEN_SP	Electric power sector net generation from other fossil gases, Central (SPP ISO)
+NGEPGEN_SW	Electric power sector net generation from natural gas, Southwest
+NUEPGEN_SW	Electric power sector net generation from nuclear, Southwest
+RTEPGEN_SW	Electric power sector net generation from renewable energy (all types), Southwest
+XXEPGEN_SW	Electric power sector net generation from other energy sources, Southwest
+NGEPGEN_TX	Electric power sector net generation from natural gas, Texas (ERCOT)
+SOEPGEN_TX	Electric power sector net generation from utility-scale solar, Texas (ERCOT)
+CLEPCNS_FL	Electric power sector  consumption of coal, Florida (FRCC)
+CLEPCNS_HA	Electric power sector  consumption of coal, Hawaii and Alaska
+PAEPCNS_NW	Electric power sector  consumption of petroleum, Northwest
+HVEPGEN_US	Electric power sector net generation from conventional hydropower, United States
+OGEPGEN_US	Electric power sector net generation from other fossil gases, United States
+HPEPGEN_CA	Electric power sector net generation from pumped storage hydropower, California
+ELLOAD_CA	Net energy for electricity load, California
+HVEPGEN_FL	Electric power sector net generation from conventional hydropower, Florida (FRCC)
+OGEPGEN_FL	Electric power sector net generation from other fossil gases, Florida (FRCC)
+CLEPGEN_MW	Electric power sector net generation from coal, Midwest (Midcontinent ISO)
+XXEPGEN_MW	Electric power sector net generation from other energy sources, Midwest (Midcontinent ISO)
+OGEPGEN_NE	Electric power sector net generation from other fossil gases, New England (ISO-NE)
+NGEPGEN_NW	Electric power sector net generation from natural gas, Northwest
+WNEPGEN_NY	Electric power sector net generation from wind, New York (NYISO)
+SOEPGEN_NY	Electric power sector net generation from utility-scale solar, New York (NYISO)
+RNEPGEN_NY	Electric power sector net generation from renewables excluding hydropower, New York (NYISO)
+NUEPGEN_PJ	Electric power sector net generation from nuclear, Mid-Atlantic (PJM)
+SOEPGEN_PJ	Electric power sector net generation from utility-scale solar, Mid-Atlantic (PJM)
+NGEPGEN_SE	Electric power sector net generation from natural gas, Southeast (SERC)
+SODCC_US	Commercial Sector Small-Scale Solar Photovoltaic Capacity
+SODTP_US	Total Generation from Small-Scale Solar Photovoltaic, United States
+SODRP_US	Residential Sector Generation from Small-Scale Solar Photovoltaic, United States
+ELRCP_NEC	Retail Sales of Electricity in Residential Sector, New England
+ELRCP_HAK	Retail Sales of Electricity in Residential Sector, Alaska and Hawaii
+ELRCP_PAC	Retail Sales of Electricity in Residential Sector, Pacific Contiguous
+ELRCP_US	Retail Sales of Electricity in Residential Sector, U.S. Total
+ELCCP_ESC	Retail Sales of Electricity in Commercial Sector, East South Central
+COPS_EK	Equatorial Guinea Spare Crude Oil Production Capacity
+C3PSPUS	Propane US Total Inventory
+ELICP_MTN	Retail Sales of Electricity in Industrial Sector, Mountain
+ELACTWH	Retail Sales of Electricity in Transportation Sector, U.S. Total
+ELACP_HAK	Retail Sales of Electricity in Transportation Sector, Alaska and Hawaii
+PRRCAP4	Retail PADD 4
+WNEPSHR_US	Wind share of U.S. electricity generation
+XXEPSHR_US	Other energy sources share of U.S. electricity generation
+PAEPCNS_TX	Electric power sector  consumption of petroleum, Texas (ERCOT)
+OBEPGEN_HA	Electric power sector  net generation from other nonrenewable fuels, Hawaii and Alaska
+CLINGEN_US	Industrial sector net generation from coal, United States
+WNINGEN_US	Industrial sector net generation from wind, United States
+PATOGEN_US	Net generation from petroleum, all sectors, United States
+COPR_OPECPLUS	OPEC+ Total
+PAPR_OPECPLUS_OPEC	OPEC+ Liquids Petroleum Production from OPEC Members Subject to OPEC+ Agreements
+PAPR_VE	Crude Oil and Liquid Fuels Supply, Venezuela
+COPR_MY	Crude Oil Production, Malaysia
+NWDHA	Haynesville New Wells Drilled
+NWRHA	Haynesville New Wells Drilled Per Rig
+NWCEF	Eagle Ford New Wells Completed
+DUCSR48	Rest of Lower 48 States, excluding GOA Drilled but Uncompleted Wells 
+CONWPM	Permian New-wells Oil Production, One-year Trend
+CONWREF	Eagle Ford New-wells Oil Production Per Rig, One-year Trend
+NGNWRHA	Haynesville New-wells Gas Production Per Rig, One-year Trend
+NGNWRPM	Permian New-wells Gas Production Per Rig, One-year Trend
+NGEOPPM	Permian Existing Gas Production Change, One-year Trend
+NGEOPR48	Rest of Lower 48 States, excluding GOA Existing Gas Production Change, One-year Trend
+JKTCUUS_$	Jet Fuel Refiner Price to End Users
