@@ -1,0 +1,71 @@
+name: Brent forward curve
+
+# 1st, 15th and 28th (a contract's last days before expiry are read on the 28th). Source: Yahoo Finance chart API,
+# NYMEX Brent Last Day Financial (BZ) contracts. The committed workbook is the history store. workflow_dispatch with
+# start/end backfills from the given trade date (default: the whole available history from 2018).
+on:
+  schedule:
+    - cron: "20 22 1,15,28 * *"
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "Backfill from this trade date (YYYY-MM-DD); blank = incremental"
+        required: false
+        default: ""
+      end:
+        description: "Up to this trade date, exclusive (blank = today)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl curl_cffi matplotlib pillow
+
+      - name: Pull Brent forward curve
+        env:
+          PYTHONUNBUFFERED: "1"
+          START: ${{ inputs.start }}
+          END: ${{ inputs.end }}
+        run: |
+          args=""
+          [ -n "$START" ] && args="$args --start $START"
+          [ -n "$END" ] && args="$args --end $END"
+          timeout 1500 python3 americas/BRENT_FORWARD_CURVE.py $args
+
+      - name: Add Excel charts, GIF and PNGs, copy scripts
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/brent_forward_curve.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" || echo "chart step skipped/failed"
+          [ -f "$f" ] && python3 americas/BRENT_FORWARD_CURVE_GIF.py || echo "GIF step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp americas/BRENT_FORWARD_CURVE.py americas/BRENT_FORWARD_CURVE_GIF.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/brent_forward_curve.xlsx"
+          [ -f "$f" ] || { echo "No archive file to commit."; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "$f" "output/PNG Charts/brent_forward_curve.gif" "output/PNG Charts/brent_forward_curve.png" "output/PNG Charts/brent_calendar_spreads.png" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Brent forward curve: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
