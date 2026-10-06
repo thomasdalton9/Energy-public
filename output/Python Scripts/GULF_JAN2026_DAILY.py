@@ -37,6 +37,7 @@ def main():
     ap.add_argument("--start", default="2026-01-12")
     ap.add_argument("--end", default="2026-02-03")
     ap.add_argument("--out", default=OUT)
+    ap.add_argument("--height", type=float, default=6.0, help="figure height in inches")
     ap.add_argument("--width", type=float, default=6.0, help="figure width in inches (fonts scale with it)")
     ap.add_argument("--title", default="January 2026 cold snap: daily data")
     a = ap.parse_args()
@@ -51,7 +52,7 @@ def main():
 
     f = a.width / 13 * 1.55   # font/line scale relative to the original 13-inch layout
     plt.rcParams.update({"font.size": 9 * f})
-    fig, axs2 = plt.subplots(2, 2, figsize=(a.width, a.width * 0.74), sharex=True, dpi=220)
+    fig, axs2 = plt.subplots(2, 2, figsize=(a.width, a.height), sharex=True, dpi=220)
     axs = list(axs2.flatten())
     ink, grid = "#222", "#dcdcdc"
     for ax in axs:
@@ -98,7 +99,7 @@ def main():
                  fontsize=12 * f, fontweight="bold", color=ink)
     fig.text(0.01, 0.005, "Sources: EIA (Henry Hub spot, EIA-930), Yahoo Finance NG=F (NYMEX front month,\nunadjusted at rolls), NASA POWER, own gas-burn estimates (EIA-930 gas MWh x heat rate).\nProduction, storage, sector demand: monthly only. Shaded = weekends.",
              fontsize=6 * f, color="#555")
-    fig.subplots_adjust(left=0.09, right=0.98, top=0.9, bottom=0.15, hspace=0.35, wspace=0.28)
+    fig.subplots_adjust(left=0.09, right=0.98, top=0.92, bottom=0.11, hspace=0.3, wspace=0.28)
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     fig.savefig(a.out, facecolor="white")
     print("saved", a.out)
