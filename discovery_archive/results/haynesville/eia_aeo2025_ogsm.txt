@@ -1,0 +1,933 @@
+URL: https://www.eia.gov/outlooks/aeo/assumptions/pdf/OGSM_Assumptions.pdf
+FETCHED: 2026-10-06
+
+Assumptions to the Annual
+Energy Outlook 2023: Oil
+and Gas Supply Module
+March 2023
+www.eia.gov
+U.S. Department of Energy
+Washington, DC 20585
+[[page 1]]
+The U.S. Energy Information Administration (EIA), the statistical and analytical agency within the
+U.S. Department of Energy (DOE), prepared this report. By law, our data, analyses, and forecasts are
+independent of approval by any other officer or employee of the U.S. Government. The views in this
+report do not represent those of DOE or any other federal agencies.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module i
+[[page 2]]
+March 2023
+Table of Contents
+Oil and Gas Supply Module ........................................................................................................................... 1
+Key Assumptions ........................................................................................................................................... 2
+Domestic crude oil and natural gas technically recoverable resources .................................................. 2
+Onshore Lower 48 states ......................................................................................................................... 8
+Technological improvements ............................................................................................................ 9
+CO enhanced oil recovery .............................................................................................................. 10
+2
+Offshore Lower 48 states ....................................................................................................................... 11
+Alaska crude oil production ................................................................................................................... 13
+Arctic National Wildlife Refuge ....................................................................................................... 15
+Legislation and Regulations ........................................................................................................................ 16
+Oil and Gas Supply Alternative Cases ......................................................................................................... 19
+Oil and Gas Supply cases........................................................................................................................ 19
+Low Oil and Gas Supply case ........................................................................................................... 19
+High Oil and Gas Supply case .......................................................................................................... 20
+Notes and Sources ...................................................................................................................................... 20
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module ii
+[[page 3]]
+March 2023
+Table of Figures
+Figure 1. Oil and Gas Supply Module regions ............................................................................................... 1
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module iii
+[[page 4]]
+March 2023
+Table of Tables
+Table 1. Technically recoverable U.S. crude oil resources as of January 1, 2021 ......................................... 2
+Table 2. Technically recoverable U.S. dry natural gas resources as of January 1, 2021 ............................... 3
+Table 3. U.S. unproved technically recoverable tight and shale oil and natural gas resources by play (as of
+January 1, 2021) ............................................................................................................................................ 5
+Table 4. U.S. unproved technically recoverable coalbed methane resources by play (as of January 1,
+2021) ............................................................................................................................................................. 7
+Table 5. Onshore Lower 48 states technology assumptions ........................................................................ 9
+Table 6. Maximum volume of CO2 available .............................................................................................. 10
+Table 7. CO2 availability assumptions ........................................................................................................ 11
+Table 8. Assumed size and initial production year of major announced deepwater discoveries .............. 12
+Table 9. Offshore exploration and production technology assumptions ................................................... 13
+Table 10. Assumed size and initial production year of major announced discoveries in Alaska................ 13
+Table 11. Assumed field size distribution and technically recoverable crude oil resource, ANWR ........... 16
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module iv
+[[page 5]]
+March 2023
+Oil and Gas Supply Module
+The National Energy Modeling System’s (NEMS) Oil and Gas Supply Module (OGSM) is a comprehensive
+framework used to analyze crude oil and natural gas exploration and development by region (Figure 1).
+The OGSM is organized into four submodules:
+1. Onshore Lower 48 Oil and Gas Supply Submodule
+2. Offshore Oil and Gas Supply Submodule
+3. Oil Shale Supply Submodule1
+4. Alaska Oil and Gas Supply Submodule2
+Our publication, Oil and Gas Supply Module of the National Energy Modeling System: Model
+Documentation 2023, DOE/EIA-M063 (2023) (Washington, DC, 2023), provides a detailed description of
+the OGSM submodules. The OGSM provides crude oil and natural gas short-term supply parameters to
+the Natural Gas Market Module and to the Liquid Fuels Market Module. The OGSM simulates the
+activity of firms that produce oil and natural gas from fields throughout the United States.
+Figure 1. Oil and Gas Supply Module regions
+OGSM encompasses domestic crude oil and natural gas supply by several recovery techniques and
+sources. Crude oil supply includes recovery from highly fractured, continuous zones (for example, Austin
+Chalk, Bakken, Eagle Ford, and Wolfcamp shale formations) that primarily use horizontal drilling
+combined with hydraulic fracturing. In addition, crude oil supply includes improved oil recovery
+processes such as water flooding and infill drilling, as well as enhanced oil recovery (EOR) processes such
+as carbon dioxide (CO ) flooding, steam flooding, and polymer flooding. Natural gas supply includes
+2
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 1
+[[page 6]]
+March 2023
+resources from low-permeability tight sand formations, shale formations, coalbed methane, and other
+sources.
+Key Assumptions
+Domestic crude oil and natural gas technically recoverable resources
+The outlook for domestic crude oil production depends heavily on the production profile of individual
+wells over time, the cost of drilling and operating those wells, and the revenues generated by those
+wells. Every year, we re-estimate initial production (IP) rates and production decline curves, which
+determine estimated ultimate recovery (EUR) per well and total technically recoverable resources
+(TRR).3
+A common measure of the long-term viability of U.S. domestic crude oil and natural gas as energy
+sources is the remaining TRR, which consists of proved reserves4 and unproved resources.5 Estimates of
+TRR are highly uncertain, particularly in emerging plays where relatively few wells have been drilled.
+Early estimates tend to vary and shift significantly over time because:
+1. New geological information is gained through additional drilling.
+2. Long-term productivity is clarified for existing wells.
+3. New well productivity increases with technology improvements and better management practices.
+We base the TRR estimates that we use for each Annual Energy Outlook (AEO) on the latest available
+well production data and information from other federal and state governmental agencies, industries,
+and academia.
+Table 1. Technically recoverable U.S. crude oil resources as of January 1, 2021
+Proved Unproved Total technically
+reserves, resources, recoverable resources,
+Region billion barrels billion barrels billion barrels
+Lower 48 states onshore 31.1 224.6 255.7
+East 0.7 4.8 5.5
+Gulf Coast 4.5 34.6 39.1
+Midcontinent 2.2 7.6 9.8
+Southwest 15.9 122.6 138.5
+Rocky Mountain 2.5 29.4 31.9
+Northern Great Plains 3.9 22.6 26.5
+West Coast 1.4 3.0 4.4
+Lower 48 states offshore 4.7 55.5 60.2
+Gulf (currently available for leasing) 4.4 37.9 42.3
+Eastern/Central Gulf (unavailable for leasing until 2033) 0.0 3.7 3.7
+Pacific 0.3 10.0 10.2
+Atlantic 0.0 4.0 4.0
+Alaska (onshore and offshore) 2.4 41.2 43.6
+Total United States 38.2 321.3 359.5
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 2
+[[page 7]]
+March 2023
+Data source: Lower 48 onshore and state offshore—U.S. Energy Information Administration (EIA); Alaska—U.S. Geological
+Survey (USGS); federal (Outer Continental Shelf) offshore—Bureau of Ocean Energy Management; proved reserves—EIA.
+Table values reflect removal of intervening reserves additions between the date of the latest available assessment and
+January 1, 2021.
+Note: Crude oil resources include lease condensates but do not include natural gas plant liquids or kerogen (oil shale).
+Resources in areas where drilling is officially prohibited are not included in this table. The estimate of 7.3 billion barrels of
+crude oil resources in the Northern Atlantic, in the Northern and Central Pacific, and within a 50-mile buffer off the Mid- and
+Southern Atlantic Outer Continental Shelf (OCS) is also excluded from the technically recoverable volumes because leasing is
+not expected in these areas.
+Table 2. Technically recoverable U.S. dry natural gas resources as of January 1, 2021
+Proved Unproved Total technically
+reserves, resources, recoverable resources,
+trillion cubic feet trillion cubic feet trillion cubic feet
+Lower 48 states onshore 404.4 2,032.8 2,437.2
+East 163.3 796.3 959.6
+Gulf Coast 85.5 519.9 605.4
+Midcontinent 38.1 118.2 156.3
+Southwest 66.8 360.9 427.7
+Rocky Mountain 42.0 199.1 241.1
+Northern Great Plains 7.7 29.2 36.8
+West Coast 1.0 9.2 10.2
+Lower 48 states offshore 4.7 254.2 258.8
+Gulf (currently available) 4.5 194.9 199.4
+Eastern/Central Gulf (unavailable until 2033) 0.0 3.7 3.7
+Pacific 0.2 17.4 17.6
+Atlantic 0.0 38.2 38.2
+Alaska (onshore and offshore) 36.2 240.7 276.9
+Total United States 445.3 2,527.7 2,973.0
+Data source: Lower 48 onshore and state offshore—U.S. Energy Information Administration (EIA); Alaska—U.S. Geological
+Survey (USGS); federal (OCS) offshore—Bureau of Ocean Energy Management; proved reserves—EIA. Table values reflect
+removal of intervening reserve additions between the date of the latest available assessment and January 1, 2021.
+Notes: Resources in other areas where drilling is officially prohibited are not included. The estimate of 32.9 trillion cubic
+feet of natural gas resources in the Northern Atlantic, in the Northern and Central Pacific, and within a 50-mile buffer off
+the Mid- and Southern Atlantic Outer Continental Shelf (OCS) is also excluded from the technically recoverable volumes
+because leasing is not expected in these areas.
+This report’s tables show the starting values for the model. Technology improvements in the model add
+to the unproved TRR, which can be converted to reserves and finally to production. In addition, we base
+the TRR on assumed well spacing to calculate the number of remaining drill sites, and the model allows
+closer spacing if economical, even with diminishing returns per well as a result of increased well
+interference. The tables in this reportt do not include these increases in TRR, so cumulative production
+from 2021 through 2050 could exceed the presented TRR.
+The remaining unproved TRR for a continuous-type shale gas or tight oil area is the product of area with
+potential, well spacing (wells per square mile), and EUR per well. Table 3 and Table 4 summarize the
+assumptions for unproved technically recoverable resources for tight oil, shale gas, tight gas, and
+coalbed methane at the play level. The module uses a distribution of EUR per well in each play and often
+in sub-play areas. Because of the significant variation in well productivity within an area, the wells in
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 3
+[[page 8]]
+March 2023
+each play are further delineated by county. We provide this level of detail for select plays on our
+production decline curve analysis page.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 4
+[[page 9]]
+March 2023
+Table 3. U.S. unproved technically recoverable tight and shale oil and natural gas resources by play (as
+of January 1, 2021)
+Average EUR Technically recoverable resources
+Area with Average Natural
+potentiala spacing Crude oilb Natural gas Crude oil gas NGPL
+Region and basin Play (mi2) (wells/mi2) (MMb/well) (Bcf/well) (Bb) (Tcf) (Bb)
+East
+Appalachian Bradford-Venango-Elk 16,221 8.0 0.003 0.059 0.5 7.7 0.2
+Appalachian Burket-Geneseo 936 5.0 0.020 3.243 0.1 15.2 0.6
+Appalachian Clinton-Medina-Tuscarora 18,989 8.0 0.002 0.052 0.3 7.8 0.1
+Appalachian Devonian 28,458 5.0 0.004 0.254 0.6 36.2 1.4
+Appalachian Huron 5,729 6.4 0.000 0.057 0.0 2.1 0.0
+Appalachian Marcellus Foldbelt 867 4.3 0.000 0.061 0.0 0.2 0.0
+Appalachian Marcellus Interior 23,486 4.3 0.013 3.883 1.4 392.5 20.3
+Appalachian Marcellus Western 2,485 5.5 0.001 0.223 0.0 3.1 0.2
+Appalachian Utica-Gas Zone Core 8,754 5.0 0.008 4.726 0.4 206.9 4.2
+Appalachian Utica-Gas Zone Extension 14,579 3.0 0.006 1.427 0.3 62.6 2.4
+Appalachian Utica-Oil Zone Core 1,355 5.0 0.057 0.342 0.4 2.3 0.0
+Appalachian Utica-Oil-Zone Extension 5,637 3.0 0.011 0.377 0.2 6.4 0.1
+Black Warrior Chattanooga 1,509 8.0 0.000 0.082 0.0 1.0 0.0
+Illinois New Albany 3,011 8.0 0.000 0.010 0.0 0.2 0.0
+Michigan Antrim Shale 12,936 8.0 0.000 0.123 0.0 12.8 1.0
+Michigan Berea Sand 6,741 8.0 0.000 0.116 0.0 6.3 0.1
+Gulf Coast
+Black Warrior Chattanooga 624 8.0 0.000 0.137 0.0 0.7 0.0
+Black Warrior Floyd-Neal 4,316 4.0 0.000 1.003 0.0 17.3 0.0
+Texas-Louisiana-
+Mississippi Salt Cotton Valley 2,764 8.0 0.026 1.966 0.6 43.5 1.2
+Texas-Louisiana-
+Mississippi Salt Haynesville-Bossier, LA 1,935 6.0 0.003 10.532 0.0 121.9 0.3
+Texas-Louisiana-
+Mississippi Salt Haynesville-Bossier, TX 1,561 6.0 0.003 9.248 0.0 86.3 0.6
+Valley and Ridge Conasuaga 1,111 8.0 0.000 0.074 0.0 0.7 0.0
+Western Gulf Austin Chalk-Giddings 2,701 6.4 0.127 1.033 2.2 17.9 1.5
+Western Gulf Austin Chalk-Outlying 9,949 6.4 0.046 0.218 2.9 13.9 0.7
+Western Gulf Buda 7,965 6.4 0.050 0.161 2.5 8.2 0.2
+Western Gulf Eagle Ford-Dry Zone 3,315 6.0 0.239 1.163 4.7 23.1 1.4
+Western Gulf Eagle Ford-Oil Zone 6,538 6.4 0.155 1.175 6.5 49.3 19.0
+Western Gulf Eagle Ford-Wet Zone 3,317 8.7 0.149 0.598 4.3 17.2 2.5
+Western Gulf Olmos 3,873 4.0 0.044 1.412 0.7 21.9 0.4
+Western Gulf Pearsall 1,199 6.0 0.001 0.849 0.0 6.1 0.0
+Western Gulf Tuscaloosa 7,133 6.4 0.073 0.253 3.3 11.6 0.2
+Western Gulf Vicksburg 234 8.0 0.013 0.445 0.0 0.8 0.0
+Western Gulf Wilcox Lobo 350 8.0 0.004 0.401 0.0 1.1 0.0
+Western Gulf Woodbine 1,245 6.4 0.151 0.347 1.2 2.8 0.1
+Midcontinent
+Anadarko Cana Woodford-Dry Zone 377 4.0 0.060 2.423 0.1 3.7 0.2
+Anadarko Cana Woodford-Oil Zone 560 6.7 0.094 0.704 0.4 2.6 0.6
+Anadarko Cana Woodford-Wet Zone 853 4.0 0.088 3.036 0.3 10.4 1.0
+Anadarko Cherokee/Red Fork 1,255 4.0 0.060 0.365 0.3 1.8 0.1
+Anadarko Cleveland 3,049 7.7 0.040 0.311 0.9 7.3 1.0
+Anadarko Granite Wash/Atoka 5,470 4.1 0.023 0.569 0.5 12.8 0.9
+Arkoma Caney 878 4.0 0.011 1.260 0.0 4.4 0.1
+Arkoma Fayetteville-Central 1,259 8.0 0.000 2.340 0.0 23.6 0.0
+Arkoma Fayetteville-West 736 8.0 0.000 1.034 0.0 6.1 0.0
+Arkoma Woodford-Arkoma 373 8.0 0.011 3.360 0.0 10.0 0.9
+Cherokee Platform Excello-Mulky 17,847 4.0 0.000 0.049 0.0 3.5 0.0
+Southwest
+Fort Worth Barnett-Core 46 6.4 0.000 2.315 0.0 0.7 0.1
+Fort Worth Barnett-North 1,906 6.9 0.018 0.647 0.2 8.5 0.3
+Fort Worth Barnett-South 4,907 6.4 0.000 0.349 0.0 11.0 0.4
+Fort Worth Davis 480 4.0 0.035 1.174 0.1 2.3 0.1
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 5
+[[page 10]]
+March 2023
+Table 3. U.S. unproved technically recoverable tight and shale oil and natural gas resources by play (as
+of January 1, 2021) (cont.)
+Area with Average Average EUR Technically recoverable resources
+potentiala spacing Crude oilb Natural gas Crude oil Natural gas NGPL
+Region and basin Play (mi2) (wells/mi2) (MMb/well) (Bcf/well) (Bb) (Tcf) (Bb)
+Southwest
+Permian Abo 2,419 4.1 0.084 0.180 0.8 1.8 0.1
+Permian Alpine High 2,587 4.0 1.111 2.754 11.5 28.5 35.1
+Permian Avalon/Bone Spring 8,431 5.3 0.313 0.892 14.0 39.8 4.8
+Permian Barnett-Woodford 5,483 4.2 0.046 1.230 1.1 28.2 4.0
+Permian Bend 3,516 6.4 0.003 0.095 0.1 2.1 0.1
+Permian Canyon 9,096 8.0 0.032 0.088 2.3 6.4 0.1
+Permian Delaware 4,443 6.4 0.160 0.188 4.6 5.3 1.0
+Permian Glorieta-Yeso 6,738 6.4 0.048 0.004 2.1 0.2 0.0
+Permian Spraberry 8,767 6.4 0.185 0.306 10.4 17.2 2.8
+Permian Wolfcamp 33,870 6.4 0.282 0.835 61.2 181.0 24.5
+Rocky Mountain
+Denver Denver/Jules 12,562 8.0 0.019 0.042 1.9 4.2 0.3
+Denver Niobrara 23,604 7.2 0.083 0.233 14.3 39.8 3.6
+Greater Green River Hilliard-Baxter-Mancos 1,680 8.0 0.001 0.169 0.0 2.3 0.0
+Greater Green River Tight Oil Plays 953 7.3 0.111 0.015 0.8 0.1 0.0
+Paradox Fractured Interbed 1,171 1.6 0.543 0.434 1.0 0.8 0.0
+Powder River Tight Oil Plays 16,114 3.0 0.035 0.040 1.7 1.9 0.1
+San Juan Dakota 1,812 8.0 0.002 0.333 0.0 4.8 0.2
+San Juan Lewis 629 5.0 0.000 2.200 0.0 6.9 0.0
+San Juan Mesaverde 98 6.0 0.003 0.582 0.0 0.3 0.0
+San Juan Pictured Cliffs 278 4.0 0.000 1.703 0.0 1.9 0.0
+Southwestern Wyoming Fort Union-Fox Hills 1,841 8.0 0.032 0.986 0.5 14.5 0.5
+Southwestern Wyoming Frontier 1,232 8.0 0.027 0.394 0.3 3.9 0.1
+Southwestern Wyoming Lance 0 6.0 0.068 3.831 0.0 0.0 0.0
+Southwestern Wyoming Lewis 867 6.0 0.148 0.951 0.8 4.9 0.5
+Southwestern Wyoming Tight Oil Plays 1,240 7.3 0.111 0.015 1.0 0.1 0.0
+Uinta-Piceance Iles-Mesaverde 3,139 6.0 0.003 0.660 0.1 12.4 1.2
+Uinta-Piceance Mancos 727 8.0 0.000 0.222 0.0 1.3 0.0
+Uinta-Piceance Manning Canyon 258 8.0 0.000 0.880 0.0 1.8 0.0
+Uinta-Piceance Tight Oil Plays 309 4.0 0.050 0.112 0.1 0.1 0.0
+Uinta-Piceance Wasatch-Mesaverde 1,817 8.0 0.292 0.667 4.2 9.7 0.5
+Uinta-Piceance Williams Fork 1,282 8.0 0.007 0.778 0.1 8.0 0.4
+Wind River Fort Union-Lance 716 8.0 0.000 1.660 0.0 9.5 0.0
+Northern Great Plains
+Montana Thrust Belt Tight Oil Plays 646 5.7 0.111 0.075 0.4 0.3 0.0
+North-Central Montana Bowdoin-Greenhorn 523 4.0 0.000 0.151 0.0 0.3 0.0
+North-Central Montana Heath 2,186 4.0 0.015 0.139 0.1 1.2 0.1
+Powder River Tight Oil Plays 3,735 3.1 0.033 0.043 0.4 0.5 0.0
+Williston Bakken Central 3,514 4.0 0.267 0.260 3.8 3.6 0.6
+Williston Bakken Eastern Transitional 1,946 4.0 0.276 0.132 2.2 1.0 0.2
+Williston Bakken Elm Coulee-Billings Nose 2,317 3.4 0.205 0.111 1.6 0.9 0.1
+Williston Bakken Nesson-Little Knife 2,357 4.0 0.310 0.240 2.9 2.3 0.5
+Williston Bakken Northwest Transitional 2,285 4.0 0.090 0.024 0.8 0.2 0.0
+Williston Bakken Three Forks 7,491 4.6 0.226 0.213 7.8 7.3 0.9
+Williston Gammon 1,716 4.0 0.000 0.466 0.0 3.2 0.0
+Williston Judith River-Eagle 1,390 4.0 0.000 0.153 0.0 0.9 0.0
+West Coast
+San Joaquin/Los Angeles Monterey/Santos 980 6.4 0.007 0.032 0.0 0.2 0.0
+Total tight and shale 190.7 1,777.9 146.7
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Note: mi2=square miles, MMb=million barrels, Bcf=billion cubic feet, Bb=billion barrels, Tcf=trillion cubic feet, EUR=estimated
+ultimate recovery, NGPL=natural gas plant liquids.
+a Area of play that is expected to have unproved technically recoverable resources remaining.
+b Includes lease condensates.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 6
+[[page 11]]
+March 2023
+Table 4. U.S. unproved technically recoverable coalbed methane resources by play (as of January 1,
+2021)
+Technically recoverable
+Average EUR resources
+Area with Average Natural Crude Natural
+potentiala spacing Crude oilb gas oil gas NGPL
+Region and basin Play (mi2) (wells/mi2) MMb/well) (Bcf/well) (Bb) (Tcf) (Bb)
+East
+Appalachian Central Basin 1,331 8 0.000 0.176 0.0 1.9 0.0
+Appalachian North Appalachian Basin – High 359 12 0.000 0.125 0.0 0.5 0.0
+Appalachian North Appalachian Basin – Mod/Low 490 12 0.000 0.080 0.0 0.5 0.0
+Illinois Central Basin 1,277 8 0.000 0.120 0.0 1.2 0.0
+Gulf Coast
+Black Warrior Extension Area 148 8 0.000 0.080 0.0 0.1 0.0
+Black Warrior Main Area 974 12 0.000 0.206 0.0 2.4 0.0
+Cahaba Cahaba Coal Field 283 8 0.000 0.179 0.0 0.4 0.0
+Midcontinent
+Arkoma Arkoma 2,779 8 0.000 0.216 0.0 4.8 0.0
+Cherokee Platform Cherokee 3,436 8 0.000 0.065 0.0 1.8 0.0
+Southwest
+Raton Southern 1,929 8 0.000 0.188 0.0 2.9 0.0
+Rocky Mountain/Dakotas
+Greater Green River Deep 1,620 4 0.000 0.600 0.0 3.9 0.0
+Greater Green River Shallow 646 8 0.000 0.204 0.0 1.1 0.0
+Piceance Deep 1,534 4 0.000 0.600 0.0 3.7 0.0
+Piceance Divide Creek 123 8 0.000 0.179 0.0 0.2 0.0
+Piceance Shallow 1,692 4 0.000 0.299 0.0 2.0 0.0
+Piceance White River Dome 183 8 0.000 0.410 0.0 0.6 0.0
+Powder River Big George/Lower Fort Union 1,570 16 0.000 0.260 0.0 6.5 0.0
+Powder River Wasatch 206 8 0.000 0.056 0.0 0.1 0.0
+Powder River Wyodak/Upper Fort Union 6,230 20 0.000 0.136 0.0 17.0 0.0
+Raton Northern 310 8 0.000 0.350 0.0 0.9 0.0
+Raton Purgatoire River 161 8 0.000 0.311 0.0 0.4 0.0
+San Juan Fairway, New Mexico 182 4 0.000 1.142 0.0 0.8 0.0
+San Juan North Basin 1,454 4 0.000 0.280 0.0 1.6 0.0
+San Juan North Basin, Colorado 1,746 4 0.000 1.515 0.0 10.6 0.0
+San Juan South Basin 1,098 4 0.000 0.100 0.0 0.4 0.0
+San Juan South Menefee, New Mexico 373 5 0.000 0.048 0.0 0.1 0.0
+Uinta Ferron 539 8 0.000 0.436 0.0 1.8 0.0
+Uinta Sego 341 4 0.000 0.306 0.0 0.4 0.0
+Wyoming Thrust Belt All Plays 5,090 2 0.000 0.454 0.0 5.3 0.0
+West Coast
+Western Washington Bellingham 441 2 0.000 2.391 0.0 2.1 0.0
+Total coalbed methane 0.0 76.0 0.0
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Note: mi2=square miles, MMb=million barrels, Bcf=billion cubic feet, Bb=billion barrels, Tcf=trillion cubic feet, EUR=estimated
+ultimate recovery, NGPL=natural gas plant liquids
+a Area of play that is expected to have unproved technically recoverable resources remaining
+b Includes lease condensates
+The U.S. Geological Survey (USGS) periodically publishes tight and shale resource assessments that we
+use as a guide to select key parameters to calculate the TRR we use in the AEO. The USGS assesses the
+recoverability of shale gas and tight oil based on the wells drilled and technologies deployed at the time
+of the assessment. AEO2015 introduced a contour map-based approach for incorporating geology
+parameters into the resource calculation to recognize that geology can vary significantly within counties.
+To date, we have only applied this new approach to the Marcellus play.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 7
+[[page 12]]
+March 2023
+Starting with AEO2017, we have been using new allocation factors for natural gas plant liquids (NGPLs),
+updating both the gas-to-liquids ratios and the purity splits of the NGPL barrels. AEO2017 included
+improvements to the NGPL factors for the Appalachian and Williston Basins, as well as the Eagle Ford
+formation. We updated allocation factors for the Permian Basin in AEO2018 and the Anadarko Basin in
+AEO2019. For AEO2022, we updated the Denver Basin NGPL factors. Going forward, we will continue to
+update input drivers that generate NGPL production, focusing on plays expected to make increasing
+contributions to total U.S. natural gas production. We derived the allocation factors from a combination
+of public statements and filings from producers, third-party data on production well characteristics, and
+analysis of EIA-collected survey data for NGPL production at the natural gas plant level.
+The AEO TRRs incorporate current drilling, completion, and recovery techniques, which require
+adjustments to some of the assumptions used by the USGS to generate its TRR estimates. The AEO TRRs
+also incorporate shale gas and tight oil resources not yet assessed by the USGS. If well production data
+are available, we analyze the decline curve of producing wells to calculate the expected EUR per well
+from future drilling.
+The underlying resource assumptions for the AEO2023 Reference case are uncertain, particularly as tight
+oil exploration and development continue to move into areas with little or no production history. Many
+wells drilled in tight or shale formations using the latest technologies have less than two years of
+production history, thus, we cannot fully determine the impact of recent technological advancement on
+the estimate of future recovery. Uncertainty also extends to the extent of formations and the number of
+layers in an area that could be drilled within formations. We discuss alternative resource cases at the
+end of this document.
+Onshore Lower 48 states
+The Onshore Lower 48 Oil and Gas Supply Submodule (OLOGSS) is a play-level model we use to analyze
+crude oil and natural gas supply from onshore sources in the Lower 48 states. The methodology includes
+a comprehensive assessment method for determining the relative economics of various prospects based
+on financial considerations, the nature of the resource, and the available technologies. The general
+methodology relies on a detailed economic analysis of potential projects in known fields, EOR projects,
+and undiscovered resources. The economically viable projects are developed in the model when
+resource development constraints are available to simulate the existing and expected infrastructure of
+the oil and natural gas industries. For crude oil projects, the OLOGSS represents advanced secondary or
+improved oil recovery techniques (for example, infill drilling and horizontal drilling) and EOR processes
+(for example, CO flooding, steam flooding, and polymer flooding). For natural gas projects, the OLOGSS
+2
+represents supply from shale formations, tight sands formations, coalbed methane, and other sources.
+The OLOGSS evaluates the economics of future crude oil and natural gas exploration and development
+from the perspective of an operator making an investment decision. An important aspect of the
+economic calculation is the tax treatment, which varies with the type of producer (major, large
+independent, or small independent). The economics of potential future projects reflect the tax
+treatment provided by current laws for large, independent producers. We assume relevant tax
+provisions are unchanged during the life of the investment and costs remain the same during the life of
+the investment based on region, fuel, and process type. Operating losses incurred in the initial
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 8
+[[page 13]]
+March 2023
+investment period are carried forward and used against revenues generated by the project in later
+years.
+Another important assumption that affects the investment decision is the minimum required rate of
+return, or hurdle rate. The hurdle rate is assumed to be the weighted average cost of capital (WACC)
+plus 5%. The WACC is determined as follows:
+WACC = DEBTRATIO*BAA*(1-FEDTXR) + (1.-DEBTRATIO)*(T10YR+OGBETA*OGMRP)
+where
+DEBTRATIO = long-term debt ratio (debt share of total capital) = 0.40
+BAA = Baa bond rate (from the Macroeconomic Activity Module)
+FEDTXR = federal tax rate = 0.21
+T10YR = 10-year Treasury note (from the Macroeconomic Activity Module)
+OGBETA = expected sensitivity to market changes (industry beta) = 1.5
+OGMRP = market risk premium = 7.5
+Technological improvements
+The OLOGSS uses a simplified approach to modeling the impact of technology advancement on U.S.
+crude oil and natural gas costs and productivity to better capture a continually changing technological
+landscape. This approach incorporates assumptions regarding ongoing innovation in upstream
+technologies and reflects the average annual growth rate in crude oil and natural gas resources plus
+cumulative production from 1990 between AEO2000 and AEO2015.
+Areas in tight oil, tight gas, and shale gas plays are divided into two productivity tiers with different
+assumed rates of technology change. Tier 1 encompasses actively developing areas, and Tier 2
+encompasses areas not yet being developed. Once development begins in a Tier 2 area, the rate of
+technological improvement doubles for wells drilled in the early development phase as producers
+determine how to efficiently extract the hydrocarbons and to locate the high productivity areas called
+sweet spots (learning by doing). This area is then converted to Tier 1, so technological improvement for
+continued drilling will reflect the rates assumed for Tier 1 areas. This conversion captures the effects of
+diminishing returns on a per-well basis from decreasing well spacing as a result of development
+progression, the rapid market penetration of technologies, and the ready application of industry
+practices and technologies at the time of development. The specific assumptions for the annual average
+rate of technological improvement are in Table 5.
+Table 5. Onshore Lower 48 states technology assumptions
+Crude oil and EUR-Tier 2
+natural gas Lease equipment drilling ramp-
+resource type Drilling cost and operating cost EUR-Tier 1 EUR-Tier 2 up period
+Tight oil -1.00% -0.50% 1.00% 2.00% 4.00%
+Tight and shale gas -1.00% -0.50% 1.00% 2.00% 4.00%
+All other -0.25% -0.25% 0.25% NA NA
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Note: EUR=estimated ultimate recovery
+NA = not applicable
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 9
+[[page 14]]
+March 2023
+CO enhanced oil recovery
+2
+For CO miscible flooding, the OLOGSS incorporates both industrial and natural sources of CO . The
+2 2
+industrial sources of CO are:
+2
+• Hydrogen plants
+• Ammonia plants
+• Ethanol plants
+• Cement plants
+• Fossil fuel power plants
+• Natural gas processing
+• Coal and biomass-to-liquids (CBTL) processing
+The Electricity Market Module and the Liquid Fuels Market Module determine the volume and cost of
+CO available from fossil fuel power plants and CBTL, respectively. The volume and cost of CO from the
+2 2
+other industrial plants are represented at the plant level (3 ammonia, 84 cement, 152 ethanol, 31
+hydrogen, and 60 natural gas processing plants). Table 6 shows the maximum CO available by region
+2
+from the industrial and natural sources.
+Table 6. Maximum volume of CO2 available
+billion cubic feet
+Hydrogen Ammonia Ethanol Cement Natural gas
+Region Natural plants plants plants plants processing
+East 0 2 0 137 297 4
+Gulf Coast 292 18 15 6 173 69
+Midcontinent 16 6 7 298 164 23
+Southwest 657 1 0 0 4 1
+Rocky Mountain 80 1 0 6 60 25
+Northern Great Plains 0 3 0 40 16 3
+West Coast 0 5 0 1 97 58
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Technology and market constraints prevent the total volumes of CO from the other industrial sources
+2
+from becoming immediately available. CO market development is divided into two phases:
+2
+development and market acceptance. During the development phase, the required capture equipment
+is developed, pipelines and compressors are constructed, and no CO is available. During the market
+2
+acceptance phase, the capture technology is widely implemented and volumes of CO first become
+2
+available. Table 7 shows the number of years in each development period. Since 2016, CO has been
+2
+available from planned carbon capture and storage (CCS) power plants funded by the American
+Recovery and Reinvestment Act of 2009 (ARRA).
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 10
+[[page 15]]
+March 2023
+Table 7. CO2 availability assumptions
+Development phase Market acceptance Ultimate market
+Source type (years) phase (years) acceptance
+Natural 1 10 100%
+Hydrogen 4 10 100%
+plants
+Ammonia 2 10 100%
+plants
+Ethanol plants 4 10 100%
+Cement plants 7 10 100%
+Natural gas 2 10 100%
+processing
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+The cost of CO from natural sources is tied to the crude oil price. For industrial sources of CO , the cost
+2 2
+to the producer includes the cost to capture the CO , compress it to pipeline pressure, and transport the
+2
+CO to the project site via a regional pipeline. Industrial CO is represented by cost curves with the
+2 2
+following cost ranges in 2017$ per million cubic feet:
+• Hydrogen plants: $7.80 to $22.20
+• Ammonia plants: $2.90 to $3.00
+• Ethanol plants: $2.30 to $5.40
+• Cement plants: $6.50 to $15.70
+• Natural gas processing: $2.10 to $4.00
+Interregional transportation costs add $0.40 per thousand cubic feet for every region crossed. The cost
+of CO to the producer from all industrial sources reflects the impact of tax credits for CO capture and
+2 2
+sequestration, if applicable.
+Offshore Lower 48 states
+Most of the Lower 48 states’ offshore crude oil and natural gas production comes from the deepwater
+Federal Offshore Gulf of Mexico (GOM). Production from currently producing fields and industry-
+announced discoveries largely determine the near-term crude oil and natural gas production projection.
+For currently producing oil fields, we assume production has a 10%–15% exponential decline. We
+assume producing natural gas fields have a 30% exponential decline. We assume fields that began
+production after 2019 remained at their peak production levels for two years before declining.
+Table 8 shows the assumed field size and year of initial production for the major announced deepwater
+discoveries that were not brought into production by 2021. We assume a field that is announced as an
+oil field to be 100% oil and a field that is announced as a natural gas field to be 100% natural gas. If a
+field is expected to produce both oil and natural gas, we assume 70% to be oil and 30% to be natural
+gas.
+We assume production to ramp up to a peak level in three years, remain at peak until the ratio of
+cumulative production to initial resource reaches 10%, and then decline at an exponential rate of 30%
+for natural gas fields and 25% for oil fields.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 11
+[[page 16]]
+March 2023
+Table 8. Assumed size and initial production year of major announced deepwater discoveries
+Water Year of Field size Field size Start year of
+Field or project name Block depth (feet) discovery class (MMBOE) production
+Blacktip AC380 6,234 2019 12 90 2027
+Whale AC772 8,799 2017 14 357 2024
+Gotcha AC856 7,713 2006 12 90 2028
+Vicksburg B DC353 7,500 2007 11 44 2026
+Spruance EW877 1,594 2019 11 44 2022
+Sparta GB959 4,498 2012 14 357 2027
+Dothraki GC166 2,234 2020 11 44 2030
+Antrim GC364 3,110 2018 11 44 2036
+Khaleesi GC389 3,602 2017 12 90 2022
+Samurai GC432 3,363 2009 12 90 2022
+Mormont GC478 3,799 2017 12 90 2022
+Wildling Phase 2 GC520 4,117 2017 9 12 2034
+Warrior GC563 4,144 2016 11 44 2030
+Shenzi North GC609 4,295 2015 11 44 2024
+Calpurnia GC727 4,596 2017 12 90 2033
+Mad Dog West & North GC782 4,590 1998 11 44 2025
+Anchor GC807 5,184 2014 14 357 2024
+Parmer GC823 4,127 2003 11 44 2031
+Argos Mad Dog Phase 2 GC825 5,899 2005 15 693 2022
+Heidelberg Phase 2 GC859 5,869 2009 11 44 2040
+Guadalupe KC010 3,990 2014 13 176 2030
+Tiber KC102 4,131 2009 14 357 2040
+Kaskida KC292 5,860 2006 13 176 2034
+Kaskida Phase 2 KC292 5,860 2006 13 176 2035
+Leon KC642 6,119 2014 12 90 2025
+Castile KC736 6,759 2011 10 23 2025
+Buckskin South Phase 2 KC829 6,923 2009 13 176 2027
+Horn Mountain West MC126 5,420 2019 11 44 2022
+Hoffe Park MC166 4,019 2017 11 44 2031
+Herschel Expansion MC520 6,739 1997 10 23 2022
+Rydberg MC525 7,480 2014 12 90 2023
+Fort Sumter MC566 7,060 2016 12 90 2027
+Ballymore MC607 6,562 2018 14 357 2025
+Dover MC612 7,480 2018 12 90 2027
+Taggart MC816 5,741 2013 10 23 2022
+Power Nap MC943 4,173 2015 12 90 2022
+Vito MC984 4,091 2009 14 357 2023
+Shenandoah Phase 1 WR052 6,037 2009 13 176 2024
+Shenandoah Phase 2 WR052 6,037 2009 13 176 2029
+North Yucatan WR095 5,784 2013 12 90 2033
+Coronado WR098 6,129 2013 12 90 2033
+Yeti WR160 5,896 2015 11 44 2033
+Monument WR316 6,512 2020 12 90 2038
+Julia Phase 2 WR627 7,218 2007 11 44 2033
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Note: MMBOE=million barrels of oil equivalent
+Two presidential memorandums issued in September 2020 extended the leasing moratoria another 10
+years on certain areas of the U.S. Outer Continental Shelf.6 We assume leasing is available in 2033 in the
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 12
+[[page 17]]
+March 2023
+Eastern Gulf of Mexico, Mid-Atlantic, South Atlantic, and Florida Straits, and we assume leasing is
+available in 2023 in the Pacific and North Atlantic.
+We assume the discovery of new fields, based on the Bureau of Ocean Energy Management’s (BOEM)
+field size distribution, follows historical patterns. We assume production from these fields follows the
+same profile as the announced discoveries (as described previously). Advances in technology for the
+various activities associated with crude oil and natural gas exploration, development, and production
+can significantly affect the costs associated with these activities. Table 9 presents the specific offshore
+technology assumptions.
+Table 9. Offshore exploration and production technology assumptions
+Technology level Total improvement over 30 years
+Exploration success rates 30%
+Delay to start first exploration and between exploration and development 15%
+Exploration and development drilling costs 30%
+Operating cost 30%
+Time to construct production facility 15%
+Production facility construction costs 30%
+Initial constant production rate 15%
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Alaska crude oil production
+Projected oil production in Alaska includes both producing fields and undiscovered fields that most likely
+exist based on the region’s geology. The existing fields include the expansion fields around the Prudhoe
+Bay and Alpine Fields for which companies have already announced development schedules (Table 10).
+We determine Alaska’s crude oil production from the undiscovered fields by using the estimates of
+available resources in undeveloped areas and the net present value of the cash flow calculated for these
+undiscovered fields based on expected capital costs, operating costs, and projected prices.
+Table 10. Assumed size and initial production year of major announced discoveries in Alaska
+Field or project name Year of discovery Field size (MMb) Start year of production
+Alkaid/Phecda 2019 95 2024
+Greater Mooses Tooth 2 1998 40 2023
+Nuna 2012 75 2024
+Pikka 2013 400 2025
+Willow 2017 580 2027
+Pt. Thomson Phase 2 1977 220 2030
+Horseshoe 2017 90 2032
+Mitqua 2020 300 2032
+Stirrup 2020 190 2033
+Koloa 2 2004 20 2035
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Note: MMb=million barrels
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 13
+[[page 18]]
+March 2023
+The discovery of new oil fields in Alaska is determined by the number of new exploration wells, known
+as wildcat wells, drilled each year and by the average wildcat success rate. The North Slope and South-
+Central wildcat well success rates are based on the success rates reported to the Alaska Oil and Gas
+Conservation Commission for 1977 through 2008.
+New wildcat exploration drilling rates are determined differently for the North Slope and South-Central
+Alaska. We found North Slope wildcat well drilling rates to be generally aligned with the prevailing West
+Texas Intermediate (WTI) crude oil price. Based on this finding, we use an ordinary least squares
+statistical regression to develop an equation that specifies North Slope wildcat exploration well drilling
+rates as a function of prevailing WTI crude oil prices. In contrast, we found South-Central wildcat well
+drilling rates to be uncorrelated with crude oil prices or any other criterion. South-Central wildcat well
+drilling rates, on average, equaled slightly more than three wells per year from 1977 through 2008, so
+we assume three South-Central wildcat exploration wells are drilled every year in the future.
+On the North Slope, we assume the proportion of wildcat exploration wells drilled onshore relative to
+those drilled offshore changes over time. Initially, only a small number of all North Slope wildcat
+exploration wells are drilled offshore. Over time, however, the offshore proportion increases linearly, so
+that after 20 years, 50% of the North Slope wildcat wells are drilled onshore and 50% are drilled
+offshore. The 50/50, onshore/offshore wildcat well apportionment remains constant through the
+remainder of the projection period because offshore North Slope wells and fields are considerably more
+expensive to drill and develop. As a result, producers have an incentive to continue drilling onshore,
+wildcat wells even though the expected onshore field size is considerably smaller than the oil fields likely
+to be discovered offshore.
+The size of the new oil fields discovered by wildcat exploration drilling is based on the expected field
+sizes of the undiscovered Alaska oil resource base, as determined by the USGS for the onshore and state
+offshore regions of Alaska and by BOEM for the federal offshore regions of Alaska. We lowered the
+undiscovered resource assumptions for the offshore North Slope because of Shell Oil Company’s
+marginal results in the Chukchi Sea in 2015, two cancelled Arctic offshore lease sales scheduled under
+BOEM’s 2012–2017 five-year leasing program, and companies relinquishing their leases in the Chukchi
+Sea.
+We assume that the largest undiscovered oil fields will be found and developed first before the small
+and midsize undiscovered fields are found and developed. As exploration and discovery proceed and the
+largest oil fields are discovered and developed, the next-largest set of oil fields begin to be discovered
+and developed. This large-to-small discovery and development process occurs because developing new
+infrastructure in Alaska, particularly on the North Slope, is an expensive undertaking. The largest fields
+enjoy economies of scale, making them more profitable and less risky to develop than the smaller fields.
+Alaska’s oil projections have three uncertainties:
+• The heavy oil deposits located on the North Slope, which exceed 20 billion barrels of oil-in-place,
+may or may not be producible in the foreseeable future at recovery rates exceeding a few
+percent.
+• The oil production potential of the North Slope shale formations is unknown.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 14
+[[page 19]]
+March 2023
+• The North Slope offshore oil resource potential, especially in the Chukchi Sea, is largely
+untested.
+In June 2011, the Alyeska Pipeline Service Company released a report on potential operational problems
+that might occur as the Trans-Alaska Pipeline System (TAPS) throughput declines from current
+production levels. Although the onset of TAPS low-flow problems could begin at about 550,000 barrels
+per day (b/d), absent any preventive measures, the severity of the TAPS operational problems is
+expected to increase significantly as throughput declines. If the types and severity of problems multiply,
+the investment required to lessen those problems is expected to increase significantly. Because of the
+many and diverse operational problems expected to occur when throughput is less than 350,000 b/d,
+considerable investment might be required to keep the pipeline operational once it drops below this
+threshold. As a result, North Slope fields are assumed to be shut down (wells plugged and abandoned)
+when the following two conditions are simultaneously satisfied: TAPS throughput is at or lower than
+350,000 b/d and total North Slope oil production revenues are at or lower than $5 billion per year. The
+remaining resources would become stranded (no economical options to get it to market). The owners
+and operators of the stranded resources would have an incentive to subsidize development of more
+expensive additional resources to keep TAPS operational and, thereby, not strand their resources.
+AEO2023 represents this scenario.
+Arctic National Wildlife Refuge
+The ban on oil and natural gas exploration and production in the coastal plain (1002 Area) of the Arctic
+National Wildlife Refuge (ANWR) was lifted when Public Law 115-97 passed in December 2017.7 Based
+on the most recent (1998) USGS resource assessment, the technically recoverable oil resources in
+federal, state, and native lands in the coastal plain are estimated to be between 5.7 billion barrels and
+16.0 billion barrels (95% and 5% probability range), with a mean value of 10.4 billion barrels.8 AEO2023
+includes the potential of crude oil exploration and development in this area.
+The exploration, discovery, and development of new oil fields in ANWR ultimately will depend on the
+assumed timing of development, the assumed field size distribution and production profile for each field
+size, and the expected profitability of developing each field size.
+Potential production from ANWR fields is based on the size of the discovered field and the production
+profiles of other fields of the same size in Alaska with similar geological characteristics. The assumed
+field size distribution and resulting technically recoverable crude oil resources are based on the mean
+estimates published in the 1998 USGS assessment (Table 11).
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 15
+[[page 20]]
+March 2023
+Table 11. Assumed field size distribution and technically recoverable crude oil resource, ANWR
+Field size Technically recoverable crude
+(million barrels) Number of fields oil resources (billion barrels)
+1,370 1 1.4
+700 3 2.1
+360 8 2.9
+180 12 2.2
+90 14 1.3
+45 11 0.5
+23 4 0.1
+12 0 0.0
+Total 53 10.4
+Data source: U.S. Energy Information Administration, Office of Energy Analysis
+Note: ANWR=Arctic National Wildlife Refuge.
+Additional assumptions drive our projection of crude oil production from the coastal plain of ANWR:
+• The first lease sale took place in 2021. Congress ordered two lease sales in ANWR—the first
+within four years of the law’s enactment and the second within seven years. This requirement
+allows time for the Bureau of Land Management (BLM) to develop a leasing program, which
+includes approving an Environmental Impact Statement as well as collecting and analyzing
+additional seismic data.
+• The first production from ANWR will not occur before 2036, 15 years after the first lease sale.
+This timeline allows exploration, appraisal, permitting, and development, and it assumes no
+legal challenges in approving the BLM’s draft Environmental Impact Statement, the BLM’s
+approval to collect seismic data, or the BLM’s approval of a specific lease-development
+proposal.
+• The largest fields are brought into production first.
+• New fields are sequentially developed every two years after a previous field begins production,
+if production costs and market conditions support their development.
+• Fields are assumed to take three to four years to reach peak production, maintain peak
+production for three to four years, and then decline until they are no longer profitable and are
+abandoned.
+Legislation and Regulations
+The Outer Continental Shelf Deep Water Royalty Act (Public Law 104-58) gave the Secretary of the
+Interior the authority to suspend royalty requirements on new production from qualifying leases, and
+the act required that royalty payments be waived automatically on new leases sold in the five years
+following its November 28, 1995, enactment. No royalties were due for the first five years on (an
+assumed) 17.5 million barrels of oil equivalent (BOE) in water depths of 200 meters to 400 meters, 52.5
+million BOE in water depths of 400 meters to 800 meters, and 87.5 million BOE in water depths greater
+than 800 meters.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 16
+[[page 21]]
+March 2023
+In any year when the average of the closing prices on NYMEX for light, sweet crude oil exceeded $28/b
+or for natural gas exceeded $3.50 per million British thermal units, any crude oil or natural gas
+production was subject to royalties at the lease-stipulated royalty rate. Although automatic relief
+expired on November 28, 2000, the Act gave the Minerals Management Service (MMS) the authority to
+include royalty suspensions as a feature of leases sold in the future. In September 2000, the MMS issued
+proposed rules and regulations that provide a framework for continuing deepwater royalty relief on a
+lease-by-lease basis. The module assumes that relief will be granted at about the same levels as
+provided during the first five years of the Act.
+Section 345 of the Energy Policy Act of 2005 provides royalty relief for crude oil and natural gas
+production in water depths greater than 400 meters in the Gulf of Mexico from any lease sale occurring
+within five years after enactment. The minimum volumes of production with suspended royalty
+payments are:
+• For each lease in water depths of 400 meters to 800 meters, 5 million BOE
+• For each lease in water depths of 800 meters to 1,600 meters, 9 million BOE
+• For each lease in water depths of 1,600 meters to 2,000 meters, 12 million BOE
+• For each lease in water depths greater than 2,000 meters, 16 million BOE
+We adjusted the water depth categories specified in Section 345 to be consistent with the depth
+categories in the Offshore Oil and Gas Supply Submodule. These suspension volumes are:
+• For leases in water depths of 400 meters to 800 meters, 5 million BOE
+• For leases in water depths of 800 meters to 1,600 meters, 9 million BOE
+• For leases in water depths of 1,600 meters to 2,400 meters, 12 million BOE
+• For leases in water depths greater than 2,400 meters, 16 million BOE
+Examination of the resources available at 2,000 meters to 2,400 meters showed that the differences
+between the depths used in the model and those specified in the bill would not significantly affect the
+module result.
+The MMS published its final rule in the Oil and Gas and Sulphur Operations in the Outer Continental Shelf
+Relief or Reduction in Royalty Rates Deep Gas Provisions on January 26, 2004, effective March 1, 2004.
+The rule grants royalty relief for natural gas production from wells drilled to 15,000 feet or deeper on
+leases issued before January 1, 2001, in the shallow waters (less than 200 meters) of the Gulf of Mexico.
+Natural gas production from the completed deep well must begin by March 1, 2009. The minimum
+production volume with suspended royalty payments is 15 billion cubic feet (Bcf) for wells drilled to at
+least 15,000 feet and 25 Bcf for wells drilled to more than 18,000 feet. In addition, unsuccessful wells
+drilled to at least 18,000 feet would receive a royalty credit for 5 Bcf of natural gas. The ruling also
+grants royalty suspension for volumes of no less than 35 Bcf from ultra-deep wells on leases issued
+before January 1, 2001.
+Section 354 of the Energy Policy Act of 2005 established a competitive program to provide grants for
+cost-shared projects to enhance oil and natural gas recovery through CO injection, while at the same
+2
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 17
+[[page 22]]
+March 2023
+time sequestering CO produced from the combustion of fossil fuels in power plants and large industrial
+2
+processes.
+From 1982 through 2008, Congress did not appropriate the funds MMS needed to conduct leasing
+activities on portions of the federal Outer Continental Shelf (OCS), effectively prohibiting leasing in those
+areas. Further, a separate executive ban in effect since 1990 prohibited leasing through 2012 on the
+OCS, except for in the Western Gulf of Mexico and portions of the Central and Eastern Gulf of Mexico.
+When combined, these actions prohibited drilling in most offshore regions, including areas along the
+Atlantic and Pacific coasts, portions of the Eastern Gulf of Mexico, and portions of the Central Gulf of
+Mexico. In 2006, the Gulf of Mexico Energy Security Act imposed a third ban on drilling through 2022 on
+tracts in the Eastern Gulf of Mexico that are within 125 miles of Florida, east of a dividing line known as
+the Military Mission Line, and in the Central Gulf of Mexico that are within 100 miles of Florida.
+On July 14, 2008, President Bush lifted the executive ban and urged Congress to remove the
+congressional ban. On September 30, 2008, Congress allowed the congressional ban to expire. Although
+the Gulf of Mexico Energy Security Act banned drilling through 2022 on areas in the Eastern and Central
+Gulf of Mexico, lifting the executive and congressional bans removed regulatory obstacles to developing
+the Atlantic and Pacific OCS.
+On March 20, 2015, the BLM released regulations on hydraulic fracturing on federal and tribal lands,
+known as the Fracking Rule. Key components of the rule include:
+• Validating well integrity and the strength of cement barriers between the wellbore and water
+zones through which the wellbore passes
+• Publicly disclosing chemicals used in hydraulic fracturing
+• Establishing specific standards for interim storage of recovered waste fluids from hydraulic
+fracturing
+• Disclosing more detailed information on the geology, depth, and location of preexisting wells to
+the BLM
+The impact of this regulation will likely be minimal because many of the provisions are consistent with
+current industry practices and state regulations. In June 2016, this regulation was struck down in federal
+court. BLM appealed the court decision but rescinded the proposed rule in December 2017.
+On December 22, 2017, Public Law 115-97 was signed into law, requiring the Secretary of the Interior to
+establish a program for leasing and developing oil and natural gas from the coastal plain (1002 Area) of
+ANWR. Previously, ANWR was effectively under a drilling moratorium. Congress ordered two lease sales
+in ANWR, the first within four years of the law’s enactment and the second within seven years (Section
+20001). In addition, this law requires a reduced federal corporate tax rate from a graduated rate
+structure, with a top corporate rate of 35% to a flat rate of 21% (Section 13001).
+The Section 45Q sequestration tax credit was amended in the Inflation Reduction Act of 2022.9 The
+legislation provides a financial incentive to industrial entities to capture and sequester CO that would
+2
+otherwise be vented to the atmosphere. The 45Q credits provide additional value for carbon capture
+utilization and storage (CCUS) technologies for the first 12 years of operation for plants that start
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 18
+[[page 23]]
+March 2023
+construction before January 1, 2033. These credits are available to both power and industrial sources
+that capture and permanently sequester CO in geologic storage and for EOR. Credit values are defined
+2
+as follows:
+• The tax credit for CO used for EOR is set at $60.00 per metric ton from 2023 to 2026. After
+2
+2026, credits rise with inflation.
+• The tax credit for CO that is permanently stored in saline aquifers is set at $85.00 per metric ton
+2
+from 2023 to 2026. After 2026, credits rise with inflation.
+On November 23, 2020, the Colorado Oil and Gas Conservation Commission approved revisions to oil
+and natural gas permitting rules in Colorado. Of note is the provision that increased the drilling setback
+from homes and businesses from 500 feet to 2,000 feet. The new setback requirement applies to new
+permit applications and pending applications submitted under the previous rules.
+The Inflation Reduction Act of 2022 was signed into law on August 16, 2022. Sections 50261 and 50262
+change the minimum offshore and onshore oil and natural gas royalty rate on federal leases from 12.5%
+to 16.7% and add a maximum royalty rate (during the 10-year period beginning on the date of
+enactment) of 18.8 %.
+Oil and Gas Supply Alternative Cases
+Oil and Gas Supply cases
+Estimates of technically recoverable tight and shale crude oil and natural gas resources are particularly
+uncertain and change over time as new information is gained through drilling, production, and
+technology experimentation. During the past decade, as more tight and shale formations have gone into
+production, the estimate of technically recoverable tight oil and shale gas resources has increased.
+However, this increase in technically recoverable resources includes many assumptions that may not
+prove to be accurate over the long term and across the entire tight and shale formation. For example,
+these resource estimates assume that crude oil and natural gas production rates achieved in a limited
+portion of the formation represent the entire formation, even though neighboring well production rates
+can vary by as much as a factor of three within the same play. Moreover, the tight and shale formation
+can vary significantly across the petroleum basin with respect to depth, thickness, porosity, carbon
+content, pore pressure, clay content, thermal maturity, and water content. Technological improvements
+and innovations also may allow crude oil and natural gas resource development that are not included in
+the Reference case because they have not yet been identified.
+We examine the sensitivity of AEO2023 projections to changes in assumptions regarding domestic crude
+oil and natural gas resources and technological progress in two cases. These cases do not represent a
+confidence interval for future domestic oil and natural gas supply, but rather they provide a framework
+to examine the effects of higher and lower domestic supply on energy demand, imports, and prices.
+Assumptions associated with these cases are described in the next sections.
+Low Oil and Gas Supply case
+The Low Oil and Gas Supply case assumes that the estimated ultimate recovery per well for tight oil,
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 19
+[[page 24]]
+March 2023
+tight gas, or shale gas in the United States, as well as the undiscovered resources in Alaska and the
+offshore Lower 48 states, are 50% lower than in the Reference case. Technological improvements that
+reduce costs and increase productivity in the United States are also 50% lower than in the Reference
+case. These assumptions increase the per-unit cost of crude oil and natural gas development in the
+United States. The total unproved, technically recoverable crude oil is reduced to 180 billion barrels, and
+natural gas is reduced to 1,393 trillion cubic feet (Tcf), compared with unproved resource estimates of
+321 billion barrels of crude oil and 2,528 Tcf of natural gas as of January 1, 2021, in the Reference case.
+High Oil and Gas Supply case
+The High Oil and Gas Supply case assumes that the estimated ultimate recovery per well for tight oil,
+tight gas, or shale gas in the United States, as well as the undiscovered resources in Alaska and the
+offshore Lower 48 states, are 50% higher than in the Reference case. Technological improvements that
+reduce costs and increase productivity in the United States are also 50% higher than in the Reference
+case. These assumptions decrease the per-unit cost of crude oil and natural gas development in the
+United States. The total unproved, technically recoverable crude oil increases to 463 billion barrels, and
+natural gas increases to 3,663 Tcf, compared with unproved resource estimates of 321 billion barrels of
+crude oil and 2,528 Tcf of natural gas in the Reference case as of the start of 2021.
+Notes and Sources
+1 The current development of tight oil plays has shifted industry focus and investment away from the development
+of U.S. oil shale (kerogen) resources. Considerable technological development is required before the large-scale,
+in-situ production of oil shale becomes economically feasible. Consequently, the Oil Shale Supply Submodule
+assumes that large-scale, in-situ oil shale production is not commercially feasible in the Reference case before
+2050.
+2 The OGSM models only Alaska’s oil production. Alaska’s natural gas production is determined in the Natural Gas
+Market Module.
+3 Technically recoverable resources are resources that can be produced using current recovery technology but
+without reference to economic profitability.
+4 Proved reserves are the estimated quantities that analysis of geological and engineering data demonstrate with
+reasonable certainty to be recoverable in future years from known reservoirs under existing economic and
+operating conditions.
+5 Unproved resources include resources that have been confirmed by exploratory drilling. They include
+undiscovered resources that are located outside oil and natural gas fields where exploratory drilling has confirmed
+the presence of resources. Unproved resources also include resources from undiscovered pools within confirmed
+fields when they occur as unrelated accumulations controlled by distinctly separate structural features or
+stratigraphic conditions.
+6 https://trumpwhitehouse.archives.gov/presidential-actions/memorandum-withdrawal-certain-areas-united-
+states-outer-continental-shelf-leasing-disposition/ and https://www.govinfo.gov/content/pkg/DCPD-
+202000726/pdf/DCPD-202000726.pdf.
+7 Public Law 115-97 (To provide for reconciliation pursuant to titles II and V of the concurrent resolution on the
+budget for fiscal year 2018).
+8 United States Geological Survey, Arctic National Wildlife Refuge, 1002 Area, Petroleum Assessment, 1998,
+Including Economic Analysis.
+9 Inflation Reduction Act, Public Law 117-169, (August 16, 2022), https://www.congress.gov/bill/117th-
+congress/house-bill/5376.
+U.S. Energy Information Administration | Assumptions to the Annual Energy Outlook 2023: Oil and Gas Supply Module 20
+[[page 25]]

@@ -1,0 +1,1205 @@
+URL: https://www.eia.gov/analysis/drilling/curve_analysis/
+FETCHED: 2026-10-06
+
+ 
+ 
+ 
+ Production Decline Curve Analysis - Energy Information Administration 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+ U.S. Energy Information Administration - EIA - Independent Statistics and Analysis 
+ U.S. Energy Information Administration (EIA) 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+
+ Skip to sub-navigation 
+ 
+ 
+ U.S. Energy Information Administration - EIA - Independent Statistics and Analysis
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ Menu
+
+ 
+
+ 
+
+ 
+ 
+ Statistics
+
+ 
+
+ 
+ Analysis
+
+ 
+
+ 
+ Tools
+
+ 
+
+ 
+ Education
+
+ 
+
+ 
+ News
+
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Enter Search Term(s): 
+ 
+ 
+ Search 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+ Analysis & Projections
+
+
+
+
+ 
+ Glossary › FAQS › 
+ 
+ Overview 
+
+ Projection Data 
+
+ 
+ 
+ Monthly short-term forecasts through the next calendar year 
+
+ Annual projections to 2050 
+
+ International projections 
+
+ All projections reports 
+
+ 
+ 
+
+
+ Analysis & Projections 
+
+
+ 
+
+ 
+ Major Topics
+
+ 
+ Most popular 
+
+ AEO (Annual Energy Outlook) 
+
+ Congressional & other requests 
+
+ IEO (International Energy Outlook) 
+
+ STEO (Short-Term Energy Outlook) 
+
+ All reports 
+
+ 
+ 
+
+
+ 
+ Find by
+
+ 
+ Alphabetical 
+
+ Recurring 
+
+ Tag Cloud 
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ Coming soon
+
+ -->
+ Decline curves 
+
+ -->
+ Previous editions: 
+ 2022 
+
+ 2021 
+
+ 2020 
+
+ 
+ 
+
+ 
+ 
+
+
+
+ 
+ Production Decline Curve Analysis in the Annual Energy Outlook 
+
+ Release date: March 16, 2023
+
+ 
+ This analysis was conducted for AEO2022 and has been discontinued.
+
+
+ 
+ A key assumption in evaluating the expected profitability of drilling a well is the estimated ultimate recovery (EUR) of the well. EIA uses an automated routine to analyze the production decline curve of shale and tight oil and natural gas wells. The hyperbolic decline curve gives a general estimate of production for a specific month as
+
+ 
+ 
+
+ 
+
+ The initial production rate, parameter, and initial decline rate are estimated from observed well-level production data. The first observed month of production is excluded from the decline curve estimation because the timing of the start of production in the first calendar month is unknown and could incorporate anywhere from 1 to 31 days of actual production. Production in all other months is normalized to 30.4 days. The decline curve converts from a hyperbolic decline to an exponential decline when the monthly decline rate falls to 0.8% (10% annual decline). An example of a production profile using a hyperbolic decline curve is shown in Figure 1.
+
+ 
+
+ 
+ The routine examines wells drilled since 2008 in tight and shale plays with at least four months of production so that EIA can evaluate the change in EUR over time. For every Annual Energy Outlook (AEO), the assumed EUR per well for each play is updated every summer to reflect the latest technological and operational improvements and is typically based on the production performance of wells drilled within the past two years. Generally, by the time the AEO is released in January, the most recent data are from 10 to 18 months earlier. This annual reevaluation is particularly important in those tight oil and shale gas plays that have been undergoing rapid development. For example, since 2003, drilling in most tight oil and shale gas plays has shifted from vertical wells to horizontal wells. EURs based on vertical well performance in these plays will not accurately estimate production from future drilling because the new wells are expected to be primarily horizontal.
+
+ The EUR for a well is calculated as the sum of the observed monthly production values plus the sum of the monthly production values estimated using the decline curve, starting the month after the last observed production month through month 360 (30 years in total). Because the EUR per well varies widely not only across plays but also within a play, each play within each basin is divided into subplays—first across states (if applicable) and then into counties. The shape of the average county-level EUR per well is determined by the following steps:
+
+ 
+ Grouping the current wells in the county
+
+ Averaging the production
+
+ Fitting the average production to a hyperbolic decline curve using the curve-fitting routine described above
+
+ 
+ However, because the number of months each well has been in production will vary across wells in each county, production for each well is first extended to the maximum number of months a well has produced in the county. This approach reduces the skewing of the average to the older wells.
+
+
+
+ 
+ 
+ 
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ About EIA 
+
+ Open Data 
+
+ Legacy 
+
+ Contact Us 
+
+ 
+ 
+
+ 
+ U.S. Energy Information Administration
+
+ 1000 Independence Ave., SW
+
+ Washington, DC 20585
+
+ 
+
+ 
+
+ 
+ 
+ Policies
+
+ Privacy/Security 
+
+ Copyright & Reuse 
+
+ Accessibility 
+
+ 
+ Information Quality 
+
+ Freedom of Information Act (FOIA) 
+
+ 
+ Related Sites
+
+ usa.gov 
+
+ U.S. Department of Energy 
+
+ 
+ Stay Connected
+
+ Facebook 
+
+ X 
+
+ 
+ Youtube 
+
+ LinkedIn 
+
+ 
+ Email Updates 
+
+ RSS Feeds 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ Statistics
+
+ Analysis
+
+ Tools
+
+ Education
+
+ News
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Petroleum & Other Liquids 
+ 
+
+ Crude oil, gasoline, heating oil, diesel, propane, and other liquids including biofuels and natural gas liquids.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Natural Gas 
+ 
+
+ Exploration and reserves, storage, imports and exports, production, prices, sales.
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Electricity 
+ 
+
+ Sales, revenue and prices, power plants, fuel use, stocks, generation, trade, demand & emissions.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Coal 
+ 
+
+ Reserves, production, prices, employment and productivity, distribution, stocks, imports and exports.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Nuclear & Uranium 
+ 
+
+ Uranium fuel, nuclear reactors, generation, spent fuel.
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Renewable & Alternative Fuels 
+ 
+
+ Includes hydropower, solar, wind, geothermal, biomass and ethanol.
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ EIA Survey Forms 
+ 
+
+ Forms EIA uses to collect energy data including descriptions, links to survey instructions, and additional information.
+
+ 
+ 
+
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ Total Energy 
+ 
+
+ Comprehensive data summaries, comparisons, analysis, and projections integrated across all energy sources.
+
+ 
+ 
+ Monthly Energy Review 
+ 
+
+ 
+ Annual Energy Review 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Consumption & Efficiency 
+ 
+
+ Energy use in homes, commercial buildings, manufacturing, and transportation.
+
+ 
+ 
+ Residential Energy Consumption Survey (RECS) 
+ 
+
+ 
+ Commercial Buildings Energy Consumption Survey (CBECS) 
+ 
+
+ 
+ Manufacturing Energy Consumption Survey (MECS) 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ U.S. States 
+ 
+
+ State energy information, including overviews, rankings, data, and analyses.
+
+ 
+ 
+ State Energy Data System (SEDS) 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ International 
+ 
+
+ International energy information, including overviews, rankings, data, and analyses.
+
+ 
+ 
+ International Energy Statistics 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ Environment 
+ 
+
+ Greenhouse gas data, voluntary reporting, electric power plant emissions.
+
+ 
+ U.S. Energy-Related Carbon Dioxide Emissions 
+
+ Energy-Related Carbon Dioxide Emissions at the State Level, 2005-2016 
+
+ Energy-Related Carbon Dioxide Emissions at the State Level 
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Analysis and Projections 
+ 
+
+ Monthly and yearly energy forecasts, analysis of energy topics, financial analysis, congressional reports.
+
+ 
+ 
+ Short-Term Energy Outlook 
+ 
+
+ 
+ Annual Energy Outlook 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ Special Reports 
+ 
+
+ Special market analysis and/or data requests.
+
+ 
+ 
+ EIA-112 Residential Utility Disconnections 
+ 
+
+ 
+ SHIP Act 
+ 
+
+ 
+ Energy & Financial Markets: What Drives Crude Oil Prices? 
+ 
+
+ 
+ 
+ 
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ International 
+ 
+
+ International energy analyses.
+
+ 
+ 
+ Regional Analysis Briefs 
+ 
+
+ 
+ Country Analysis Briefs 
+ 
+
+ 
+ World Oil Transit Chokepoints 
+ 
+
+ 
+ OPEC Revenue 
+ 
+
+
+ 
+ Global Energy Security Data 
+ 
+
+
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Glossary 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ Data Tools, Apps, & Maps 
+ 
+
+ Tools to customize searches, view specific data sets, study detailed documentation, and access time-series data.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Open Data 
+ 
+
+ EIA's free and open data available as API, Excel add-in, bulk files, and widgets
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ EIA Beta 
+ 
+
+ Come test out some of the products still in development and let us know what you think!
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Open Source Code 
+ 
+
+ EIA's open source code, available on GitHub.
+
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ All Reports & Products 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ EIA Survey Forms 
+ 
+
+ Forms EIA uses to collect energy data including descriptions, links to survey instructions, and additional information.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Email Updates 
+ 
+
+ Sign up for email subscriptions to receive messages about specific EIA products
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ RSS Feeds 
+ 
+
+ Subscribe to feeds for updates on EIA products including Today in Energy and What's New.
+
+ 
+ 
+
+ 
+ 
+ 
+ Follow us. . .
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ A-Z Index 
+ 
+
+ 
+ A |
+ B |
+ C |
+ D |
+ E |
+ F |
+ G |
+ H |
+ I |
+ J |
+ K |
+ L |
+ M |
+ N |
+ O |
+ P |
+ Q |
+ R |
+ S |
+ T |
+ U |
+ V |
+ W |
+ XYZ 
+ 
+
+ 
+ 
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Today in Energy 
+ 
+
+ Short, timely articles with graphics on energy, facts, issues, and trends.
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Energy Explained 
+ 
+
+ 
+ 
+ 
+ What is Energy? 
+ 
+
+ 
+ Units & Calculators 
+ 
+
+ 
+ U.S. Energy Facts 
+ 
+
+ 
+ Use of Energy 
+ 
+
+ 
+ Energy & Environment 
+ 
+
+ 
+ Petroleum 
+ 
+
+ 
+ Hydrocarbon Gas Liquids 
+ 
+
+ 
+ Natural Gas 
+ 
+
+ 
+ 
+ 
+ Coal 
+ 
+
+ 
+ Nuclear 
+ 
+
+ 
+ Electricity 
+ 
+
+ 
+ Hydrogen 
+ 
+
+ 
+ Hydropower 
+ 
+
+ 
+ Biofuels 
+ 
+
+ 
+ Biomass 
+ 
+
+ 
+ Wind 
+ 
+
+ 
+ Geothermal 
+ 
+
+ 
+ Solar 
+ 
+
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ For Teachers 
+ 
+
+ Lesson plans, science fair experiments, field trips, teacher guide, and career corner.
+
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Glossary 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ FAQs 
+ 
+
+ 
+ 
+ 
+ Coal 
+ 
+
+ 
+ Conversion & Equivalents 
+ 
+
+ 
+ Oil/Petroleum 
+ 
+
+ 
+ Diesel 
+ 
+
+ 
+ Electricity 
+ 
+
+ 
+ Environment 
+ 
+
+ 
+ 
+ 
+ Gasoline 
+ 
+
+ 
+ General Energy 
+ 
+
+ 
+ Natural Gas 
+ 
+
+ 
+ Nuclear 
+ 
+
+ 
+ Prices 
+ 
+
+ 
+ Renewables 
+ 
+
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ What's New? 
+
+ 
+ Quarterly Coal Report—Second Quarter 2026 
+ Oct 01, 2026
+ Wholesale Electricity Market Data 
+ Oct 01, 2026
+ Petroleum Marketing Monthly 
+ Oct 01, 2026
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Press Room 
+ 
+
+ 
+ 
+ Press Releases 
+ 
+
+ 
+ Congressional Testimony 
+ 
+
+ 
+ Presentations 
+ 
+
+ 
+ Events 
+ 
+
+ 
+ 
+ 
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+
+ 
+ 

@@ -1,0 +1,6122 @@
+URL: https://www.sec.gov/Archives/edgar/data/23194/000095017025022268/crk-ex99_1.htm
+FETCHED: 2026-10-06
+
+ 
+ EX-99.1
+ 2
+ crk-ex99_1.htm
+ EX-99.1
+ 
+ 
+ 
+ EX-99.1 
+ 
+ 
+ 
+
+
+ Exhibit 99.1 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 5300 Town and Country Blvd., Suite 500 
+ 
+ 
+
+ 
+ Frisco, Texas 75034 
+ 
+ 
+
+ 
+ Telephone: (972) 668-8834 
+ 
+ 
+
+ 
+ Contact: Ron Mills 
+ 
+ 
+
+ 
+ VP of Finance and Investor Relations 
+ 
+ 
+
+ 
+ Web Site: www.comstockresources.com 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ NEWS RELEASE 
+ 
+ 
+
+ 
+ For Immediate Release 
+
+ COMSTOCK RESOURCES, INC. REPORTS 
+
+ FOURTH QUARTER 2024 FINANCIAL AND OPERATING RESULTS 
+
+ FRISCO, TEXAS, February 18, 2025 – Comstock Resources, Inc. ("Comstock" or the "Company") (NYSE: CRK) today reported financial and operating results for the quarter and year ended December 31, 2024. 
+
+ Highlights of 2024 's Fourth Quarter 
+
+ • Natural gas and oil sales, including realized hedging gains, were $336 million. 
+
+
+ • Operating cash flow was $223 million or $0.76 per share. 
+
+
+ • Adjusted EBITDAX for the quarter was $252 million. 
+
+
+ • Adjusted net income was $46.3 million or $0.16 per share for the quarter. 
+
+
+ • Six successful wells were turned to sales in the Western Haynesville with an average daily initial production rate of 40 MMcf per well. 
+
+
+ • Added over 64,000 net acres in the Western Haynesville, increasing total acreage in the play to 518,000 net acres. 
+
+
+ Financial Results for the Three Months Ended December 31, 2024 
+
+ Comstock produced 124.2 Bcfe in the fourth quarter as compared to 140.6 Bcfe in the fourth quarter of 2023. The lower production in the quarter was related to the decision to drop two operated rigs in early 2024 and to defer completion activity in the third quarter of 2024. Comstock's realized natural gas price for the fourth quarter of 2024 averaged $2.32 per Mcf before hedging and $2.70 per Mcf after hedging. Natural gas and oil sales in the fourth quarter of 2024 totaled $336.1 million (including realized hedging gains of $47.8 million). Operating cash flow (excluding changes in working capital) generated in the fourth quarter of 2024 was $222.8 million, and the net loss for the fourth quarter was $55.3 million or $0.19 per share. Net loss in the quarter included a pre-tax $126.9 million unrealized loss on hedging contracts held for natural gas price risk management. Excluding this item, adjusted net income for the fourth quarter of 2024 was $46.3 million, or $0.16 per share. 
+
+ Comstock's production cost per Mcfe in the fourth quarter averaged $0.72 per Mcfe, which was comprised of $0.36 for gathering and transportation costs, $0.25 for lease operating costs, $0.06 for production and other taxes and $0.05 for cash general and administrative expenses. Comstock's unhedged operating margin was 69% in the fourth quarter of 2024 and 73% after hedging. 
+
+ 
+
+ 
+
+
+
+ 
+ 
+
+
+ Financial Results for the Year Ended December 31, 2024 
+
+ Production in 2024 was 527.8 Bcfe as compared to 524.9 Bcfe in 2023. Natural gas and oil sales for the year ended December 31, 2024 totaled $1.3 billion (including realized hedging gains of $207.8 million). Operating cash flow (excluding changes in working capital) generated during the year was $675.2 million, and the net loss was $218.8 million or $0.76 per share. The adjusted net loss excluding a pre-tax $197.6 million unrealized loss on hedging contracts for the year ended December 31, 2024 was $69.0 million or $0.24 per share. 
+
+ Comstock's production cost per Mcfe during the year ended December 31, 2024 averaged $0.78 per Mcfe, which was comprised of $0.37 for gathering and transportation costs, $0.25 for lease operating costs, $0.11 for production and other taxes and $0.05 for cash general and administrative expenses. Comstock's unhedged operating margin was 61% during 2024 and 68% after hedging. 
+
+ 2024 Drilling Results 
+
+ Comstock drilled 50 (42.9 net) operated horizontal Haynesville/Bossier shale wells in 2024, which had an average lateral length of 10,759 feet. Comstock also turned 48 (42.9 net) operated wells to sales in 2024, which had an average initial production rate of 26 MMcf per day. 
+
+ Since its last operational update in October, Comstock turned an additional six (6.0 net) operated Western Haynesville/Bossier shale wells to sales as follows: 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Well 
+ 
+ 
+ 
+ Vertical Depth (feet) 
+ 
+ 
+ 
+ Completed Lateral (feet) 
+ 
+ 
+ 
+ Initial Production Rate (MMcf per day) 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Hodges #1 
+ 
+ 
+ 
+ 16,705 
+ 
+ 
+ 
+ 11,405 
+ 
+ 
+ 
+ 39 
+ 
+ 
+
+ 
+ Powell #1 
+ 
+ 
+ 
+ 18,081 
+ 
+ 
+ 
+ 9,758 
+ 
+ 
+ 
+ 42 
+ 
+ 
+
+ 
+ Hogue #1 
+ 
+ 
+ 
+ 18,872 
+ 
+ 
+ 
+ 12,055 
+ 
+ 
+ 
+ 44 
+ 
+ 
+
+ 
+ Deornellas A #1 
+ 
+ 
+ 
+ 18,975 
+ 
+ 
+ 
+ 10,884 
+ 
+ 
+ 
+ 42 
+ 
+ 
+
+ 
+ Deornellas B #2 
+ 
+ 
+ 
+ 17,552 
+ 
+ 
+ 
+ 9,473 
+ 
+ 
+ 
+ 40 
+ 
+ 
+
+ 
+ Miles #1 
+ 
+ 
+ 
+ 15,921 
+ 
+ 
+ 
+ 10,584 
+ 
+ 
+ 
+ 34 
+ 
+ 
+
+ 
+ These wells had average initial daily production rates of 40 MMcf per day and average completed lateral lengths of 10,693 feet. 
+
+ 2024 Proved Oil and Gas Reserves 
+
+ Comstock also announced that proved natural gas and oil reserves as of December 31, 2024 were estimated at 3.8 trillion cubic feet equivalent ("Tcfe") as compared to 4.9 Tcfe as of December 31, 2023. The reserve estimates were determined under SEC guidelines and were audited by the Company's independent reserve engineering firm. The 3.8 Tcfe of proved reserves at December 31, 2024 were substantially all natural gas, 73% developed and 98% operated by Comstock. The present value, using a 10% discount rate, of the future net cash flows before income taxes of the proved reserves (the "PV-10 Value"), was approximately $1.6 billion using the Company's average first of month 2024 prices of $1.84 per Mcf of natural gas and $71.07 per barrel of oil. The natural gas and oil prices used in determining the December 31, 2024 proved reserve estimates were 23% lower for natural gas and 2% lower for oil as compared to prices used at December 31, 2023. 
+
+ 
+
+
+
+ 
+ 
+
+
+ The very low natural gas prices used to determine proved reserves resulted in many of the Company's proved undeveloped locations being excluded from the year-end proved reserve estimates as they did not generate an adequate return at that natural gas price. Using NYMEX future market prices as of December 31, 2024 of $3.26 per Mcf for natural gas and $59.10 per barrel of oil, as adjusted for the Company's basis differentials, proved reserves would have been 7.0 Tcfe with a PV-10 value of $5.7 billion. 
+
+ The following table reflects the changes in the SEC and NYMEX proved reserve estimates since the end of 2023: 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ SEC 
+ 
+ 
+ 
+ 
+ 
+ NYMEX 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ (Bcfe) 
+ 
+ 
+ 
+ 
+
+ 
+ Proved Reserves: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Proved Reserves at December 31, 2023 
+ 
+ 
+ 
+ 4,943.5 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6,654.4 
+ 
+ 
+ 
+ 
+
+ 
+ Production 
+ 
+ 
+ 
+ (527.8 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (528.0 
+ 
+ ) 
+ 
+ 
+
+ 
+ Extensions and discoveries 
+ 
+ 
+ 
+ 531.3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 899.4 
+ 
+ 
+ 
+ 
+
+ 
+ Divestitures 
+ 
+ 
+ 
+ (2.4 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (3.0 
+ 
+ ) 
+ 
+ 
+
+ 
+ Revisions 
+ 
+ 
+ 
+ (1,180.5 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (0.3 
+ 
+ ) 
+ 
+ 
+
+ 
+ Proved Reserves at December 31, 2024 
+ 
+ 
+ 
+ 3,764.1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 7,022.5 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ Comstock replaced 101% of its 2024 production excluding revisions under SEC pricing and replaced 170% of its 2024 production under NYMEX pricing. 
+
+ 2025 Budget 
+
+ In response to improved natural gas prices, the Company plans to increase the number of operating drilling rigs it is running from five to seven during 2025. Four of the rigs will be devoted to the Western Haynesville to continue to delineate the new play. As a result, Comstock plans to spend approximately $1.0 billion to $1.1 billion in 2025 on its development and exploration projects to drill 46 (40.3 net) operated horizontal wells and to turn 46 (39.7 net) operated wells to sales in 2025. Comstock expects to spend $130 million to $150 million on its Western Haynesville midstream system, which will be funded by its midstream partnership. 
+
+ Earnings Call Information 
+
+ Comstock has planned a conference call for 10:00 a.m. Central Time on February 19, 2025, to discuss the fourth quarter 2024 operational and financial results. Investors wishing to listen should visit the Company's website at www.comstockresources.com for a live webcast. Investors wishing to participate in the conference call telephonically will need to register at: 
+
+ https://register.vevent.com/register/BI6e0b4d6ba76e49049b0b8093ff4a87a6 
+
+ Upon registering to participate in the conference call, participants will receive the dial-in number and a personal PIN number to access the conference call. On the day of the call, please dial in at least 15 minutes in advance to ensure a timely connection to the call. The conference call will also be broadcast live in listen-only mode and can be accessed via the website URL: https://edge.media-server.com/mmc/p/siuhk9j5 . 
+
+ If you are unable to participate in the original conference call, a web replay will be available for twelve months beginning at 1:00 p.m. CT on February 19, 2025. The replay of the conference can be accessed using the webcast link: https://edge.media-server.com/mmc/p/siuhk9j5 . 
+
+ 
+
+
+
+ 
+ 
+
+
+ This press release may contain "forward-looking statements" as that term is defined in the Private Securities Litigation Reform Act of 1995. Such statements are based on management's current expectations and are subject to a number of factors and uncertainties which could cause actual results to differ materially from those described herein. Although the Company believes the expectations in such statements to be reasonable, there can be no assurance that such expectations will prove to be correct. Information concerning the assumptions, uncertainties and risks that may affect the actual results can be found in the Company's filings with the Securities and Exchange Commission ("SEC") available on the Company's website or the SEC's website at sec.gov. 
+
+ Comstock Resources, Inc. is a leading independent natural gas producer with operations focused on the development of the Haynesville shale in North Louisiana and East Texas. The Company's stock is traded on the New York Stock Exchange under the symbol CRK. 
+
+ 
+
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+
+ CONSOLIDATED STATEMENTS OF OPERATIONS 
+
+ (In thousands, except per share amounts) 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+December 31, 
+ 
+ 
+ 
+ 
+ 
+ Year Ended
+December 31, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+
+ 
+ Revenues: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas sales 
+ 
+ 
+ 
+ $ 
+ 
+ 287,626 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 348,385 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,043,886 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,259,450 
+ 
+ 
+ 
+ 
+
+ 
+ Oil sales 
+ 
+ 
+ 
+ 
+ 
+ 672 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,050 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,597 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,161 
+ 
+ 
+ 
+ 
+
+ 
+ Total natural gas and oil sales 
+ 
+ 
+ 
+ 
+ 
+ 288,298 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 349,435 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,047,483 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,264,611 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services 
+ 
+ 
+ 
+ 
+ 
+ 78,208 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 61,148 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 206,097 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 300,498 
+ 
+ 
+ 
+ 
+
+ 
+ Total revenues 
+ 
+ 
+ 
+ 
+ 
+ 366,506 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 410,583 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,253,580 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,565,109 
+ 
+ 
+ 
+ 
+
+ 
+ Operating expenses: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Production and ad valorem taxes 
+ 
+ 
+ 
+ 
+ 
+ 7,707 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 31,912 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 57,437 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 91,803 
+ 
+ 
+ 
+ 
+
+ 
+ Gathering and transportation 
+ 
+ 
+ 
+ 
+ 
+ 44,434 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 46,925 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 194,890 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 184,906 
+ 
+ 
+ 
+ 
+
+ 
+ Lease operating 
+ 
+ 
+ 
+ 
+ 
+ 31,379 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 31,678 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 130,504 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 132,203 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,775 
+ 
+ 
+ 
+ 
+
+ 
+ Depreciation, depletion and amortization 
+ 
+ 
+ 
+ 
+ 
+ 202,116 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 185,558 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 795,397 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 607,908 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services 
+ 
+ 
+ 
+ 
+ 
+ 72,611 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 57,733 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 205,407 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 282,050 
+ 
+ 
+ 
+ 
+
+ 
+ General and administrative 
+ 
+ 
+ 
+ 
+ 
+ 10,164 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 39,435 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 37,992 
+ 
+ 
+ 
+ 
+
+ 
+ Loss (gain) on sale of assets 
+ 
+ 
+ 
+ 
+ 
+ 35 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (875 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (125 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total operating expenses 
+ 
+ 
+ 
+ 
+ 
+ 368,446 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 359,806 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,422,195 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,338,512 
+ 
+ 
+ 
+ 
+
+ 
+ Operating income (loss) 
+ 
+ 
+ 
+ 
+ 
+ (1,940 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 50,777 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (168,615 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 226,597 
+ 
+ 
+ 
+ 
+
+ 
+ Other income (expenses): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Gain (loss) from derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ (79,022 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 111,449 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 10,196 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 187,639 
+ 
+ 
+ 
+ 
+
+ 
+ Other income 
+ 
+ 
+ 
+ 
+ 
+ 284 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 304 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,211 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,771 
+ 
+ 
+ 
+ 
+
+ 
+ Interest expense 
+ 
+ 
+ 
+ 
+ 
+ (54,616 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (47,936 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (210,621 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (169,018 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total other income (expenses) 
+ 
+ 
+ 
+ 
+ 
+ (133,354 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 63,817 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (199,214 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 20,392 
+ 
+ 
+ 
+ 
+
+ 
+ Income (loss) before income taxes 
+ 
+ 
+ 
+ 
+ 
+ (135,294 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 114,594 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (367,829 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 246,989 
+ 
+ 
+ 
+ 
+
+ 
+ (Provision for) benefit from income taxes 
+ 
+ 
+ 
+ 
+ 
+ 79,981 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (6,217 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 149,075 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (35,095 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net income (loss) 
+ 
+ 
+ 
+ 
+ 
+ (55,313 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 108,377 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (218,754 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 211,894 
+ 
+ 
+ 
+ 
+
+ 
+ Net income attributable to noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ (2,816 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (777 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (10,897 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (777 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net income (loss) attributable to Comstock 
+ 
+ 
+ 
+ $ 
+ 
+ (58,129 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 107,600 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (229,651 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 211,117 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Net income (loss) per share: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Basic 
+ 
+ 
+ 
+ $ 
+ 
+ (0.19 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.39 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (0.76 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.76 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted 
+ 
+ 
+ 
+ $ 
+ 
+ (0.19 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.39 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (0.76 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.76 
+ 
+ 
+ 
+ 
+
+ 
+ Weighted average shares outstanding: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Basic 
+ 
+ 
+ 
+ 
+ 
+ 290,170 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 276,999 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 287,010 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 276,806 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted 
+ 
+ 
+ 
+ 
+ 
+ 290,170 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 276,999 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 287,010 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 276,806 
+ 
+ 
+ 
+ 
+
+ 
+ Dividends per share 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.125 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.500 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+
+ OPERATING RESULTS 
+
+ (In thousands, except per unit amounts) 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+December 31, 
+ 
+ 
+ 
+ 
+ 
+ Year Ended
+December 31, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas production (MMcf) 
+ 
+ 
+ 
+ 
+ 
+ 124,128 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 140,565 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 527,548 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 524,467 
+ 
+ 
+ 
+ 
+
+ 
+ Oil production (Mbbls) 
+ 
+ 
+ 
+ 
+ 
+ 10 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 13 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 50 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 70 
+ 
+ 
+ 
+ 
+
+ 
+ Total production (MMcfe) 
+ 
+ 
+ 
+ 
+ 
+ 124,185 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 140,649 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 527,847 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 524,890 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas sales 
+ 
+ 
+ 
+ $ 
+ 
+ 287,626 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 348,385 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,043,886 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,259,450 
+ 
+ 
+ 
+ 
+
+ 
+ Natural gas hedging settlements (1) 
+ 
+ 
+ 
+ 
+ 
+ 47,847 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 4,107 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 207,803 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 80,328 
+ 
+ 
+ 
+ 
+
+ 
+ Total natural gas including hedging 
+ 
+ 
+ 
+ 
+ 
+ 335,473 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 352,492 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,251,689 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,339,778 
+ 
+ 
+ 
+ 
+
+ 
+ Oil sales 
+ 
+ 
+ 
+ 
+ 
+ 672 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,050 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,597 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,161 
+ 
+ 
+ 
+ 
+
+ 
+ Total natural gas and oil sales including hedging 
+ 
+ 
+ 
+ $ 
+ 
+ 336,145 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 353,542 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,255,286 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,344,939 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Average natural gas price (per Mcf) 
+ 
+ 
+ 
+ $ 
+ 
+ 2.32 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.48 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1.98 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.40 
+ 
+ 
+ 
+ 
+
+ 
+ Average natural gas price including hedging (per Mcf) 
+ 
+ 
+ 
+ $ 
+ 
+ 2.70 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.51 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.37 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.55 
+ 
+ 
+ 
+ 
+
+ 
+ Average oil price (per barrel) 
+ 
+ 
+ 
+ $ 
+ 
+ 67.20 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 80.77 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 71.94 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 73.73 
+ 
+ 
+ 
+ 
+
+ 
+ Average price (per Mcfe) 
+ 
+ 
+ 
+ $ 
+ 
+ 2.32 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.48 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1.98 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.41 
+ 
+ 
+ 
+ 
+
+ 
+ Average price including hedging (per Mcfe) 
+ 
+ 
+ 
+ $ 
+ 
+ 2.71 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.51 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.38 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 2.56 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Production and ad valorem taxes 
+ 
+ 
+ 
+ $ 
+ 
+ 7,707 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 31,912 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 57,437 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 91,803 
+ 
+ 
+ 
+ 
+
+ 
+ Gathering and transportation 
+ 
+ 
+ 
+ 
+ 
+ 44,434 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 46,925 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 194,890 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 184,906 
+ 
+ 
+ 
+ 
+
+ 
+ Lease operating 
+ 
+ 
+ 
+ 
+ 
+ 31,379 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 31,678 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 130,504 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 132,203 
+ 
+ 
+ 
+ 
+
+ 
+ Cash general and administrative (2) 
+ 
+ 
+ 
+ 
+ 
+ 6,282 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,141 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 24,174 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 28,125 
+ 
+ 
+ 
+ 
+
+ 
+ Total production costs 
+ 
+ 
+ 
+ $ 
+ 
+ 89,802 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 113,656 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 407,005 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 437,037 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Production and ad valorem taxes (per Mcfe) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.06 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.23 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.11 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.18 
+ 
+ 
+ 
+ 
+
+ 
+ Gathering and transportation (per Mcfe) 
+ 
+ 
+ 
+ 
+ 
+ 0.36 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.33 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.37 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.35 
+ 
+ 
+ 
+ 
+
+ 
+ Lease operating (per Mcfe) 
+ 
+ 
+ 
+ 
+ 
+ 0.25 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.23 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.25 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.25 
+ 
+ 
+ 
+ 
+
+ 
+ Cash general and administrative (per Mcfe) 
+ 
+ 
+ 
+ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.02 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 0.05 
+ 
+ 
+ 
+ 
+
+ 
+ Total production costs (per Mcfe) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.72 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.81 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.78 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.83 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Unhedged operating margin 
+ 
+ 
+ 
+ 
+ 
+ 69 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 67 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 61 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 65 
+ 
+ % 
+ 
+ 
+
+ 
+ Hedged operating margin 
+ 
+ 
+ 
+ 
+ 
+ 73 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 68 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 68 
+ 
+ % 
+ 
+ 
+ 
+ 
+ 
+ 68 
+ 
+ % 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services revenues 
+ 
+ 
+ 
+ $ 
+ 
+ 78,208 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 61,148 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 206,097 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 300,498 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services expenses 
+ 
+ 
+ 
+ 
+ 
+ 72,611 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 57,733 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 205,407 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 282,050 
+ 
+ 
+ 
+ 
+
+ 
+ Gas services margin 
+ 
+ 
+ 
+ $ 
+ 
+ 5,597 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 3,415 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 690 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 18,448 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Natural Gas and Oil Capital Expenditures: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Unproved property acquisitions 
+ 
+ 
+ 
+ $ 
+ 
+ 18,448 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 21,907 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 106,386 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 98,553 
+ 
+ 
+ 
+ 
+
+ 
+ Total natural gas and oil properties acquisitions 
+ 
+ 
+ 
+ $ 
+ 
+ 18,448 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 21,907 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 106,386 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 98,553 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration and Development: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Development leasehold 
+ 
+ 
+ 
+ $ 
+ 
+ 1,308 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 8,818 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 13,461 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 27,905 
+ 
+ 
+ 
+ 
+
+ 
+ Exploratory drilling and completion 
+ 
+ 
+ 
+ 
+ 
+ 134,779 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 65,079 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 354,557 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 244,129 
+ 
+ 
+ 
+ 
+
+ 
+ Development drilling and completion 
+ 
+ 
+ 
+ 
+ 
+ 96,021 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 233,856 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 503,550 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 974,664 
+ 
+ 
+ 
+ 
+
+ 
+ Other development costs 
+ 
+ 
+ 
+ 
+ 
+ 8,325 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 6,262 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 30,500 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 25,130 
+ 
+ 
+ 
+ 
+
+ 
+ Total exploration and development capital expenditures 
+ 
+ 
+ 
+ $ 
+ 
+ 240,433 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 314,015 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 902,068 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,271,828 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ (1) Included in gain (loss) from derivative financial instruments in operating results. 
+
+
+ (2) Excludes stock-based compensation. 
+
+
+ 
+
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+
+ NON-GAAP FINANCIAL MEASURES 
+
+ (In thousands, except per share amounts) 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+December 31, 
+ 
+ 
+ 
+ 
+ 
+ Year Ended
+December 31, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+
+ 
+ ADJUSTED NET INCOME (LOSS): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Net income (loss) 
+ 
+ 
+ 
+ $ 
+ 
+ (55,313 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 108,377 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (218,754 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 211,894 
+ 
+ 
+ 
+ 
+
+ 
+ Unrealized loss (gain) from derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 126,869 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (107,342 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 197,607 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (107,311 
+ 
+ ) 
+ 
+ 
+
+ 
+ Exploration expense 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,775 
+ 
+ 
+ 
+ 
+
+ 
+ Loss (gain) on sale of assets 
+ 
+ 
+ 
+ 
+ 
+ 35 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (875 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (125 
+ 
+ ) 
+ 
+ 
+
+ 
+ Adjustment to income taxes 
+ 
+ 
+ 
+ 
+ 
+ (25,333 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 26,868 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (46,981 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 26,450 
+ 
+ 
+ 
+ 
+
+ 
+ Adjusted net income (loss) (1) 
+ 
+ 
+ 
+ $ 
+ 
+ 46,258 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 27,903 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (69,003 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 132,683 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Adjusted net income (loss) per share (2) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.16 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 0.10 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (0.24 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 0.47 
+ 
+ 
+ 
+ 
+
+ 
+ Diluted shares outstanding 
+ 
+ 
+ 
+ 
+ 
+ 292,983 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 276,999 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 287,010 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 276,806 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ ADJUSTED EBITDAX: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Net income (loss) 
+ 
+ 
+ 
+ $ 
+ 
+ (55,313 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 108,377 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (218,754 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 211,894 
+ 
+ 
+ 
+ 
+
+ 
+ Interest expense 
+ 
+ 
+ 
+ 
+ 
+ 54,616 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 47,936 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 210,621 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 169,018 
+ 
+ 
+ 
+ 
+
+ 
+ Income taxes 
+ 
+ 
+ 
+ 
+ 
+ (79,981 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 6,217 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (149,075 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 35,095 
+ 
+ 
+ 
+ 
+
+ 
+ Depreciation, depletion, and amortization 
+ 
+ 
+ 
+ 
+ 
+ 202,116 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 185,558 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 795,397 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 607,908 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,775 
+ 
+ 
+ 
+ 
+
+ 
+ Unrealized loss (gain) from derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 126,869 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (107,342 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 197,607 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (107,311 
+ 
+ ) 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 3,881 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,861 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 15,261 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 9,867 
+ 
+ 
+ 
+ 
+
+ 
+ Loss (gain) on sale of assets 
+ 
+ 
+ 
+ 
+ 
+ 35 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (875 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (125 
+ 
+ ) 
+ 
+ 
+
+ 
+ Total Adjusted EBITDAX (3) 
+ 
+ 
+ 
+ $ 
+ 
+ 252,223 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 243,607 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 850,182 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 928,121 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ (1) Adjusted net income (loss) is presented because of its acceptance by investors and by Comstock management as an indicator of the Company's profitability excluding, non-cash unrealized gains and losses on derivative financial instruments, gains and losses on sales of assets and other unusual items. 
+
+
+ (2) Adjusted net income (loss) per share is calculated to include the dilutive effects of unvested restricted stock pursuant to the two-class method and performance stock units and preferred stock pursuant to the treasury stock method. 
+
+
+ (3) Adjusted EBITDAX is presented in the earnings release because management believes that adjusted EBITDAX, which represents Comstock's results from operations before interest, income taxes, and certain non-cash items, including depreciation, depletion and amortization, unrealized (gain) loss from derivative financial instruments and exploration expense, is a common alternative measure of operating performance used by certain investors and financial analysts. 
+
+
+ 
+
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+
+ NON-GAAP FINANCIAL MEASURES 
+
+ (In thousands) 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+December 31, 
+ 
+ 
+ 
+ 
+ 
+ Year Ended
+December 31, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+
+ 
+ OPERATING CASH FLOW (1) : 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Net income (loss) 
+ 
+ 
+ 
+ $ 
+ 
+ (55,313 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 108,377 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ (218,754 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ 211,894 
+ 
+ 
+ 
+ 
+
+ 
+ Reconciling items: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Unrealized loss (gain) from derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 126,869 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (107,342 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 197,607 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (107,311 
+ 
+ ) 
+ 
+ 
+
+ 
+ Deferred income taxes 
+ 
+ 
+ 
+ 
+ 
+ (57,754 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 15,423 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (124,919 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 44,301 
+ 
+ 
+ 
+ 
+
+ 
+ Depreciation, depletion and amortization 
+ 
+ 
+ 
+ 
+ 
+ 202,116 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 185,558 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 795,397 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 607,908 
+ 
+ 
+ 
+ 
+
+ 
+ Amortization of debt discount and issuance costs 
+ 
+ 
+ 
+ 
+ 
+ 2,957 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,984 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 11,476 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 7,964 
+ 
+ 
+ 
+ 
+
+ 
+ Stock-based compensation 
+ 
+ 
+ 
+ 
+ 
+ 3,881 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,861 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 15,261 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 9,867 
+ 
+ 
+ 
+ 
+
+ 
+ Loss (gain) on sale of assets 
+ 
+ 
+ 
+ 
+ 
+ 35 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (875 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (125 
+ 
+ ) 
+ 
+ 
+
+ 
+ Operating cash flow 
+ 
+ 
+ 
+ $ 
+ 
+ 222,791 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 206,861 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 675,193 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 774,498 
+ 
+ 
+ 
+ 
+
+ 
+ (Increase) decrease in accounts receivable 
+ 
+ 
+ 
+ 
+ 
+ (18,989 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (16,626 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 56,584 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 278,697 
+ 
+ 
+ 
+ 
+
+ 
+ (Increase) decrease in other current assets 
+ 
+ 
+ 
+ 
+ 
+ (22,144 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 1,369 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (22,893 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ 745 
+ 
+ 
+ 
+ 
+
+ 
+ Increase (decrease) in accounts payable and other accrued expenses 
+ 
+ 
+ 
+ 
+ 
+ 85,395 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 36,603 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (88,547 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (37,094 
+ 
+ ) 
+ 
+ 
+
+ 
+ Net cash provided by operating activities 
+ 
+ 
+ 
+ $ 
+ 
+ 267,053 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 228,207 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 620,337 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 1,016,846 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Three Months Ended
+December 31, 
+ 
+ 
+ 
+ 
+ 
+ Year Ended
+December 31, 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+ 
+ 2024 
+ 
+ 
+ 
+ 
+ 
+ 2023 
+ 
+ 
+ 
+ 
+
+ 
+ FREE CASH FLOW (2) : 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Operating cash flow 
+ 
+ 
+ 
+ $ 
+ 
+ 222,791 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 206,861 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 675,193 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 774,498 
+ 
+ 
+ 
+ 
+
+ 
+ Less: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Exploration and development capital expenditures 
+ 
+ 
+ 
+ 
+ 
+ (240,433 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (314,015 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (902,068 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (1,271,828 
+ 
+ ) 
+ 
+ 
+
+ 
+ Midstream capital expenditures 
+ 
+ 
+ 
+ 
+ 
+ (38,638 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (14,098 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (85,377 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (35,694 
+ 
+ ) 
+ 
+ 
+
+ 
+ Other capital expenditures 
+ 
+ 
+ 
+ 
+ 
+ (558 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (11 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (2,264 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (491 
+ 
+ ) 
+ 
+ 
+
+ 
+ Contributions from midstream partnership 
+ 
+ 
+ 
+ 
+ 
+ 24,500 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 24,000 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 60,500 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 24,000 
+ 
+ 
+ 
+ 
+
+ 
+ Free cash deficit from operations 
+ 
+ 
+ 
+ $ 
+ 
+ (32,338 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ (97,263 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ (254,016 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ (509,515 
+ 
+ ) 
+ 
+ 
+
+ 
+ Acquisitions 
+ 
+ 
+ 
+ 
+ 
+ (18,448 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (21,907 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (106,386 
+ 
+ ) 
+ 
+ 
+ 
+ 
+ 
+ (98,553 
+ 
+ ) 
+ 
+ 
+
+ 
+ Proceeds from divestitures 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,214 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 41,295 
+ 
+ 
+ 
+ 
+
+ 
+ Free cash deficit after acquisition and divestiture activity 
+ 
+ 
+ 
+ $ 
+ 
+ (50,786 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ (119,170 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ (359,188 
+ 
+ ) 
+ 
+ 
+ 
+ $ 
+ 
+ (566,773 
+ 
+ ) 
+ 
+ 
+
+ 
+ 
+
+ (1) Operating cash flow is presented in the earnings release because management believes it to be useful to investors as a common alternative measure of cash flows which excludes changes to other working capital accounts. 
+
+
+ (2) Free cash flow from operations and free cash flow after acquisition and divestiture activity are presented in the earnings release because management believes them to be useful indicators of the Company's ability to internally fund acquisitions and debt maturities after exploration and development capital expenditures, midstream and other capital expenditures, proved and unproved property acquisitions, and proceeds from divestitures of natural gas and oil properties. 
+
+
+ 
+
+ 
+
+
+
+ 
+ 
+
+
+ COMSTOCK RESOURCES, INC. 
+
+ CONSOLIDATED BALANCE SHEETS 
+
+ (In thousands) 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2024 
+ 
+ 
+ 
+ 
+ 
+ December 31,
+2023 
+ 
+ 
+ 
+ 
+
+ 
+ ASSETS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Cash and cash equivalents 
+ 
+ 
+ 
+ $ 
+ 
+ 6,799 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 16,669 
+ 
+ 
+ 
+ 
+
+ 
+ Accounts receivable 
+ 
+ 
+ 
+ 
+ 
+ 174,846 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 231,430 
+ 
+ 
+ 
+ 
+
+ 
+ Derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 4,865 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 126,775 
+ 
+ 
+ 
+ 
+
+ 
+ Other current assets 
+ 
+ 
+ 
+ 
+ 
+ 97,524 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 86,619 
+ 
+ 
+ 
+ 
+
+ 
+ Total current assets 
+ 
+ 
+ 
+ 
+ 
+ 284,034 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 461,493 
+ 
+ 
+ 
+ 
+
+ 
+ Property and equipment, net 
+ 
+ 
+ 
+ 
+ 
+ 5,688,389 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 5,384,771 
+ 
+ 
+ 
+ 
+
+ 
+ Goodwill 
+ 
+ 
+ 
+ 
+ 
+ 335,897 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 335,897 
+ 
+ 
+ 
+ 
+
+ 
+ Operating lease right-of-use assets 
+ 
+ 
+ 
+ 
+ 
+ 73,777 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 71,462 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 6,382,097 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 6,253,623 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ LIABILITIES AND STOCKHOLDERS' EQUITY 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Accounts payable 
+ 
+ 
+ 
+ $ 
+ 
+ 421,814 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 523,260 
+ 
+ 
+ 
+ 
+
+ 
+ Accrued costs 
+ 
+ 
+ 
+ 
+ 
+ 146,173 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 134,466 
+ 
+ 
+ 
+ 
+
+ 
+ Operating leases 
+ 
+ 
+ 
+ 
+ 
+ 35,927 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 23,765 
+ 
+ 
+ 
+ 
+
+ 
+ Derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 8,940 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Total current liabilities 
+ 
+ 
+ 
+ 
+ 
+ 612,854 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 681,491 
+ 
+ 
+ 
+ 
+
+ 
+ Long-term debt 
+ 
+ 
+ 
+ 
+ 
+ 2,952,090 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,640,391 
+ 
+ 
+ 
+ 
+
+ 
+ Deferred income taxes 
+ 
+ 
+ 
+ 
+ 
+ 345,116 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 470,035 
+ 
+ 
+ 
+ 
+
+ 
+ Derivative financial instruments 
+ 
+ 
+ 
+ 
+ 
+ 66,757 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ — 
+ 
+ 
+ 
+ 
+
+ 
+ Long-term operating leases 
+ 
+ 
+ 
+ 
+ 
+ 37,740 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 47,742 
+ 
+ 
+ 
+ 
+
+ 
+ Asset retirement obligation 
+ 
+ 
+ 
+ 
+ 
+ 33,996 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 30,773 
+ 
+ 
+ 
+ 
+
+ 
+ Total liabilities 
+ 
+ 
+ 
+ 
+ 
+ 4,048,553 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3,870,432 
+ 
+ 
+ 
+ 
+
+ 
+ Stockholders' Equity: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ Common stock 
+ 
+ 
+ 
+ 
+ 
+ 146,130 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 139,214 
+ 
+ 
+ 
+ 
+
+ 
+ Additional paid-in capital 
+ 
+ 
+ 
+ 
+ 
+ 1,366,274 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 1,260,930 
+ 
+ 
+ 
+ 
+
+ 
+ Accumulated earnings 
+ 
+ 
+ 
+ 
+ 
+ 728,619 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 958,270 
+ 
+ 
+ 
+ 
+
+ 
+ Total stockholders' equity attributable to Comstock 
+ 
+ 
+ 
+ 
+ 
+ 2,241,023 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,358,414 
+ 
+ 
+ 
+ 
+
+ 
+ Noncontrolling interest 
+ 
+ 
+ 
+ 
+ 
+ 92,521 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 24,777 
+ 
+ 
+ 
+ 
+
+ 
+ Total stockholders' equity 
+ 
+ 
+ 
+ 
+ 
+ 2,333,544 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2,383,191 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 6,382,097 
+ 
+ 
+ 
+ 
+ 
+ $ 
+ 
+ 6,253,623 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 

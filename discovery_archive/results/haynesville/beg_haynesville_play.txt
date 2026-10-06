@@ -1,0 +1,588 @@
+URL: https://www.beg.utexas.edu/files/content/beg/research/shale/Haynesville%20Shale%20Gas%20Play.pdf
+FETCHED: 2026-10-06
+
+10-itdJGO702151
+TYPICAL HAYNESVILLE PAY ZONE CROSS SECTION*
+FIG. 1
+NPHI NPHI NPHI NPHI NPHI
+0.3 -0.1 0.3 -0.1 0.3 -0.1 0.3 -0.1 0.3 -0.1
+GR GR GR GR GR
+0 300 0.3 -0.1 0 300 0.3 -0.1 0 300 0.3 -0.1 0 300 0.3 -0.1 0 300 0.3 -0.1
+*GR = gamma ray log, NPHI = neutron porosity, DPHI = density porosity. Gray shaded areas on DPHI black line are porosity values. Pay zone is highlighted in blue.
+tf
+,htpeD
+tf
+,htpeD
+tf
+,htpeD
+tf
+,htpeD
+tf
+,htpeD
+DPHI DPHI DPHI DPHI DPHI
+000,01
+001,01
+002,01
+003,01
+004,01
+005,01
+006,01
+000,21
+003,11
+004,11
+005,11
+006,11
+007,11
+008,11
+003,11
+004,11
+005,11
+006,11
+007,11
+008,11
+009,11
+009,11
+000,21
+001,21
+002,21
+003,21
+004,21
+007,11
+008,11
+009,11
+000,21
+001,21
+002,21
+TECHNOLOGY
+Study forecasts gradual Haynesville
+production recovery before final decline
+John Browning geology, and economics into a simulation model capable
+Svetlana Ikonnikova of forecasting drilling and production scenarios based on
+Frank Male several technical and economic parameters.
+Gürcan Gülen The article determines base cases for the remaining
+Katie Smye technically recoverable gas resources, total-field estimated
+Susan Horvath ultimate recovery, potential future drilling activity, and
+DRILLING &
+Carl Grote PRODUCTION the play’s production peak. All of these are dependent on
+Tad Patzek natural gas prices.
+Eric Potter In a base-case scenario using $4/MMbtu Henry Hub
+Scott W. Tinker pricing and other conservative parameters, we estimate
+Bureau of Economic Geology 46 tcf of cumulative Haynesville production by existing
+University of Texas and new wells, to be drilled through 2045 and producing
+Austin through 2064.
+The Haynesville’s annual production has declined from
+Low natural gas prices have slowed development of the a 2012 plateau of about 6 bcfd to roughly 4 bcfd in 2015.
+Haynesville shale in east Texas and northwest Louisiana. Production will recover slowly to 5 bcfd in the early 2020s,
+Despite this, the play remains promising under the right before starting its permanent decline to 1.7 bcfd by 2045.
+economic conditions. This article summarizes a study by Even using a constant $4/MMbtu Henry Hub price
+the Bureau of Economic Geology (BEG) of the Haynesville’s assumption, the formation will continue to be a significant
+resource and production potential. It integrates engineering, contributor to US natural gas production for at least 30 years.
+[[page 1]]
+HAYNESVILLE SHALE NET POROSITY, THICKNESS*
+Fig. 2
+Harrison
+Gregg
+Caddo
+Bossier
+Bienville
+Rusk
+Panola
+Red River
+De Soto
+Porosity thickness, ft
+2 4 6 8 10 12 14 16
+Shelby Natchitoches
+Nacogdoches Louisiana
+San Augustine
+Angelina
+0 20 miles Sabine Texas
+* Corrected for clay content and calibrated to gas-filled core porosity. Porosity is net from density logs.
+Source: Bureau of Economic Geology
+20-itdJGO702151
+HAYNESVILLE ESTIMATED ORIGINAL FREE GAS IN PLACE
+Fig. 3
+Harrison
+Gregg
+Caddo
+Bossier
+Bienville
+Rusk Panola Red River
+Bcf/sq mile block De Soto
+36678293 101 110 122 139 160
+Shelby Natchitoches
+Nacogdoches
+San Augustine
+Sabine
+0 20 miles
+Source: Bureau of Economic Geology
+30-itdJGO702151
+TECHNOLOGY
+This article identifies areas where
+future drilling is likely to occur, when
+and under what economic conditions
+drilling will occur, what the drilling
+and production profile will look like,
+and the economic reserve additions
+that will result.
+Study parameters, methods
+The study underlying this article used
+production data from all individual
+Haynesville wells drilled 2008-12,
+starting with the production history
+of all wells and then determining
+what remains to be drilled under
+various economic, geologic, and
+technologic scenarios. The result is a
+comprehensive view of the field.
+The study assesses production
+potential in six geographic tiers and
+estimates future production scenarios
+according to these tiers.
+Well economics vary across the
+basin because of productivity and
+cost differences caused by geology
+and other factors. The article accounts
+for these variances, as well as for
+distributions around natural gas price,
+drilling cost, economic limit of each
+well, advances in technology, and
+many other geologic, engineering, and
+economic parameters. Including these
+variables allows determination of how
+much gas can be extracted from future
+wells under different economic and
+technical conditions.
+The study includes a method of
+estimating ultimate production for
+each well based on the physics of
+the system, rather than using just
+the mathematical decline curve. This
+Louisiana
+method has successfully predicted
+shale-well production declines in
+Angelina
+other basins and was used by BEG in
+Texas
+previous studies of the Barnett and
+Fayetteville shales (OGJ, Aug. 5, 2013;
+Jan. 6, 2014).1
+To tier productivity and analyze
+decline curves, the study looked at all 2,527 wells drilled actual 2012 drilling and production results.
+through 2012 and analyzed declines for 2,131 wells with at The Haynesville play is particularly sensitive to price
+least 12 months’ production history. variations. Breakeven costs are near or above Henry Hub gas
+The production outlook model covers field development prices of 2011-12 because of higher well costs in this deep,
+from 2013-45, then extends production through 2064, high-pressure reservoir.
+allowing the 2045 wells to deplete. While wells developed in Many high-quality well sites have been drilled only to
+2012 provide incomplete results for a stable decline analysis, the extent necessary to meet acreage commitments. These
+they allow benchmarking predictions for that year against locations will become economically attractive when a
+[[page 2]]
+Fig. 4
+40-itdJGO702151
+HAYNESVILLE WELL DATA, SIMULATION PREDICTION
+rotcaf
+yrevoceR
+1.0
+0.8
+0.6
+0.4
+Simulation
+Actual well RFs
+0.2
+0.0
+0.0 0.5 1.0 1.5 2.0 2.5 3.0
+Square root scaled time
+HAYNESVILLE 20-YEAR GAS PRODUCTIVITY
+Fig. 5
+Harrison
+Gregg
+CCaaddddoo
+BBoossssiieerr
+BBiieennvviillllee
+Rusk
+PPaannoollaa
+RReedd RRiivveerr
+DDee SSoottoo
+SShheellbbyy Natchitoches
+Nacogdoches
+Louisiana
+SSaann AAuugguussttiinnee
+0 20 miles Sabine Texas
+*Each sq mile colored based on estimated average productivity of 4,800-ft horizontal well.
+Source: Bureau of Economic Geology
+50-itdJGO702151
+TECHNOLOGY
+chosen to maximize spatial coverage
+of the field. Major stratigraphic tops
+were picked in all wells. The pay zone
+was selected primarily on the basis of
+gamma ray values, which are higher
+than in underlying carbonate units,
+and NPhi and DPhi log curves.
+A gas effect appeared in the
+porosity log responses (Fig. 1), shown
+by higher apparent DPhi (as the bulk
+density is reduced by the presence of
+gas) and lower apparent NPhi (as the
+hydrogen content is lower for gas than
+for oil or water).
+Structure, net pay-zone thickness
+(H), and density porosity (DPhi) maps
+were produced, and Phi and H maps
+were combined to create a net porosity-
+thickness (Phi-H) map (Fig. 2).3
+Porosity-thickness mapping initial-
+ly showed an area of high Phi-H in the
+northern part of the play that did not
+correspond with good well productiv-
+ity. The poor performance of wells in
+this area is related to lithology. Higher
+clay content from ancestral river dilu-
+tion to the north affects production,
+making hydraulic fracturing more dif-
+ficult.4 Proppant becomes embedded
+more easily and connectivity is lost
+Bcf recovery/4,800-ft well*
+more readily than in harder, more cal-
+2.0 3.0 4.0 5.5 7.0 15.0 cite-rich rock.5
+High clay content is reflected in the
+logs as a greater separation between
+DPhi and NPhi (Fig. 1).6 Clay-volume
+calculations based on NPhi-DPhi
+separation have been used in the
+Angelina Haynesville shale.7 DPhi log curves
+modulated on the basis of reservoir
+quality produced a Phi-H map that
+accurately represents areas of good
+porosity and thickness. Separation
+sustained increase in gas prices or a decline in drilling and between NPhi and DPhi log curves
+completion costs leads to resumed development of the field. determined reservoir quality.
+Net pay-zone calculations excluded areas too clay-rich
+Geologic characterization (>5% separation between NPhi and DPhi) to correspond to
+The BEG study encompasses the extent of all previous drilling good production. The resultant net porosity-thickness map
+within the known geologic boundaries of the field. A total of provided a good correlation to well productivity, a key driver
+5,212 sq miles was included, though only 2,068 sq miles had in predicting future production from undeveloped areas of
+been tested by drilling through 2011. the field.
+Researchers performed a log-based assessment of key The study divided the play into square-mile grids, or blocks,
+geological parameters influencing production.2 Digitized and calculated original free gas in place (OGIPfree), excluding
+logs were deep enough to reach the base of the Haynesville, adsorbed gas, for the entire play on a block-by-block basis,
+including gamma ray, density porosity (DPhi), and neutron using a conventional volumetric approach (Fig. 3).
+porosity (NPhi) logs. When calculating OGIPfree, density-log porosity was
+The study’s data set consisted of logs from 115 wells adjusted to equivalent gas-filled core porosity by applying a
+[[page 3]]
+on
+,slleW
+DRILLED, POTENTIAL WELLS/GAS PRICES
+Fig. 6
+8,000
+7,000
+6,000
+5,000
+4,000
+3,000
+2,000
+1,000
+0
+Tier 1 Tier 2 Tier 3 Tier 4 Tier 5 Tier 6
+60-itdJGO702151
+TECHNOLOGY TECHNOLOGY
+field-wide factor of log = 0.60 × core.
+BEG’s experience in the Fayetteville
+and Barnett shales and core data from Potential, undrilled blocks 2013-45 potential drilling;
+Henry Hub pricing, $/MMbtu
+additional sources provided the basis Potential, partly drilled blocks
+for this step.8 Cumulative drilling through 2012 3 4 6 10
+Temperature and pressure calcu-
+lations were a function of reservoir
+depth. Gas properties were assumed to
+be typical of similar reservoirs. Total
+OGIPfree was estimated at 489 tcf, with
+227 tcf underlying blocks that were
+penetrated by at least one well by the
+end of 2011. BEG identified pressure
+as another important driver of OGIP-
+free. The Haynesville exhibits abnor-
+mally high pressure, with a gradient of
+about 0.95 psi/ft. Pressure increases as
+the formation deepens to 14,000 ft in
+the south from 10,000 ft in the north.
+Production-decline analysis
+The study analyzed the decline of
+all 2,527 wells drilled through 2012,
+determining their individual expected
+ultimate recoveries (EURs).9 Key input variables in the a uniform of 4,800 lateral ft, reflecting common drilling
+study included base-well declines; the effects of late-life practices at the time.
+deterioration from interfracture interference within the Length-normalized EUR/ft values were mapped along
+well’s drainage area; and an assumed maximum 25-year life. well-drilling paths, using directional surveys for all wells.
+Decline analysis predicted an EUR of 10.3 tcf for the 2,527 Each 1-sq mile block was assigned a weighted average EUR/
+wells drilled through 2012. ft, based on the well segments penetrating the block.10
+The study used a well-production decline method based The resulting average productivity values allowed ranking
+on linear-transient flow in the reservoir.1 Per-well production the blocks in six productivity tiers. The undrilled blocks, not
+decline was inversely proportional to the square root of penetrated by any existing well, were assigned tiers using
+total time over the first 1 to 2 years of well lifes, depending mathematical interpolation and following the geological
+on reservoir properties and completions. An exponential features of the play, yielding a full-field productivity-tier
+decline followed, as interfracture interference affected map (Fig. 5).
+production. High reservoir pressures prevented absorbed Tiering reveals areas of higher and lower productivity.
+gas from contributing to production. The tier map shows considerable reservoir heterogeneity,
+A theoretical linear flow solution yields a straight-line with better-performing blocks interspersed with poorer-
+increase of cumulative production versus log time until performing blocks. In some cases, better-performing wells
+interfracture-boundary conditions are reached within the and poorer-performing wells exist next to each other in the
+well-fracture pattern, resulting in the predicted decline. same block. The field flanks, where the reservoir thins, have
+In addition to this theoretical model, BEG divided relatively low productivity.
+production for each well by the fitted value of gas within
+the stimulated reservoir volume, then plotted cumulative Reservoir drainage
+production against the square root of time divided by the We combined EUR values with reservoir volumetrics to
+time to interfracture interference (Fig. 4). Wells that had not quantify the volume of the reservoir drained by each well.
+yet experienced interfracture interference had their time-to- Reservoir volumetrics are calculated using:
+interference estimated from reservoir properties, and then • Calibrated gas-filled porosity values.
+used it to forecast production. • Pay-zone thickness.
+• Reservoir pressure and temperature for each well as a
+Reservoir-quality tiers function of well depth.
+BEG found the EUR of Haynesville wells increasing with • Typical gas properties, from which we derive the gas-
+lateral well length, but the average incremental EUR per expansion factor (Bg).
+unit of lateral length slightly decreasing with length. The A rectangle represents the volume-drainage area.
+study normalized EURs as if all wells had been drilled to Actual drainage areas are not ideal rectangles and the
+[[page 4]]
+Fig. 7
+70-itdJGO702151
+HAYNESVILLE TYPE CURVE, ESTIMATED ULTIMATE RECOVERY*
+dfcMM
+7
+EUR, bcf
+6 Tier 1- 7.9
+Tier 2- 5.9
+5 Tier 3- 4.5
+Tier 4- 3.3
+4 Tier 5- 2.4
+Tier 6- 1.4
+3
+2
+1
+0
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+Years
+*Average 4,800-ft well.
+Fig. 8
+17
+16
+15
+14
+13
+12
+11
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+Tier 1 Tier 2 Tier 3 Tier 4 Tier 5 Tier 6
+80-itdJGO702151
+HAYNESVILLE BREAKEVEN GAS PRICE, INTERNAL RATE OF RETURN
+utbMM/$
+;1102
+,buH
+yrneH
+TECHNOLOGY
+estimated the amount of drained and
+undrained acreage for each 1-sq mile
+block of the reservoir. Assuming that
+the acreage left undrained by the wells
+in each block was known, we then
+created an inventory of future feasible
+drilling sites based on expected RFs,
+EUR, and estimated OGIPfree by tier
+for every location (Fig. 6). This study
+estimates a remaining technically
+recoverable resource (TRR) of 177 Tcf. In
+this projection, the higher-productivity
+tiers are more developed and the lower-
+productivity tiers remain uneconomic
+at almost any foreseeable gas price.
+Well economics
+The study looked at average EUR/well/
+tier, assuming a 20-year well life (Fig.
+7). More than 80% of EUR is recovered
+in the first 5 years, except for Tier 1,
+IRR where an average well recovers 78%
+20% of EUR during that period. Most wells
+10% will be nearly depleted by year 10,
+0%
+with more than 90% of EUR produced.
+The average EUR for all wells is likely
+to be lower because of attrition and
+economic limits.
+The study’s production model
+includes historical attrition rates, which
+increase as rock-quality tier decreases.
+BEG applied the average well profile
+in each tier to estimate average well
+economics. Input from operators in the
+Haynesville validated a representative
+set of well-economic parameters (Table
+1). A comprehensive well cash-flow
+combination of hydraulic and natural fractures can model determined the internal rate of return (IRR) for an
+cause gas to flow from outside this idealized drainage average well in each tier (Fig. 8).
+area. Rectangles, however, provide an acceptable shape
+somewhat consistent with microseismic results, as well as Production outlook
+a means of accounting for the drained volume. The study modeled the pace of future Haynesville
+It was unclear initially if wells drained a large volume development using the productivity-tier map, inventory
+with a small recovery factor (RF) or a small volume with a of future well locations available in each tier, and an
+large RF to achieve their calculated EUR. understanding of the economics of an average new well in
+To estimate RF, BEG observed closely spaced wells that, each tier.
+based on changes in the original well-decline pattern as An activity-based model predicts new drilling based on
+nearby wells were added, appeared to interfere with each available-location inventory and well economics. The pace
+other. Many closely spaced wells exhibited some degree of activity is adjusted annually in the model, driven by the
+of interference, indicating drainage areas about equal to economics of the average well in a given tier. The model
+current well spacing in closely spaced blocks. distinguishes six productivity tiers based on economic
+We next developed 3D well-simulations of specific, incentives to drill. The historical pace of drilling is used to
+closely spaced blocks and adjusted recovery factor until help scale the model’s reaction to future prices.
+the RF, drainage area, and predicted well-declines matched BEG’s model tracks the number of wells/year drilled in
+actual well performance. each tier and totals the production effect using average well
+Using drainage-area calculations for every well, BEG profiles by tier.
+[[page 5]]
+HAYNESVILLE PRODUCTION OUTLOOK, PRICE SCENARIOS
+dfcb
+,noitcudorP
+Fig. 9
+90-itdJGO702151
+TECHNOLOGY TECHNOLOGY
+New drilling production is next
+layered on top of extrapolated
+production decline of all existing 11
+wells. The model accounts for Henry Hub pricing, $/MMbtu
+10
+observed drilling inertia to predict 4
+how the pace of drilling will increase 9 4, $8 million CAPEX
+or decrease, based on reservoir 3
+quality, as a function of price (change 8 6
+in IRR) and the size of the remaining 10
+7
+well inventory.. AEO 2014 price forecast
+The model can restrict the 6
+developable area, simulating,
+5
+for example, surface limitations
+or spacing inefficiencies such as
+4
+leasing obstacles, among many other
+such adjustments. The result is an 3
+outlook of future completions from
+2
+the field through 2045, and a full-
+field EUR through 2064 for any set 1
+of assumed parameters.
+The model’s key assumptions 0
+2008 2011 2014 2017 2020 2023 2026 2029 2032 2035 2038 2041 2044
+include average well declines, effects
+of late-life deterioration on decline,
+effects of attrition, and a maximum
+20-year life for all wells.
+HAYNESVILLE WELL ECONOMICS
+Table 1
+The base-case scenario allows development of a maximum
+Well shut-in economic limit 0.05 MMcfd
+of 80% of the acreage in currently producing blocks, but Basis, Henry Hub –$0.07/MMbtu
+only 40% of the acreage in undeveloped blocks. It also Royalty rate 25%
+Severance tax rate 4%, 2 years exempt
+sets minimum activity levels in each tier, reflecting past Marginal tax rate 40.2% (32.2% federal, 8%
+state)
+performance in low price periods, and incorporates several Inflation rate 2.5%
+Drilling cost, 12,000-ft total vertical depth $10.5 million, 20% tangible
+other assumptions (Table 2).
+Related capital expenditures 13%
+The model generates a production outlook (Fig. 9). Expense/well/year $82,500, +13% overhead
+Gathering, compression, treatment $0.49/Mcf
+With $4/MMbtu natural gas at Henry Hub, Haynesville Lease cost/acre $3,000
+Spacing, acres 80
+production peaked in 2012 and declined rapidly as annual Depletion $0.03-0.40/Mcf
+well count decreased in response to lower prices in 2013. Abandonment cost $140,000
+Production recovered somewhat as prices rebounded
+above $3.5 in 2012-13, encouraging drilling in the better
+locations, before declining steadily as the number of high-
+quality drilling sites dwindled. The better locations in Tiers HAYNESVILLE PRODUCTION ASSUMPTIONS Table 2
+1 through 3 are developed, and the lower tiers do not justify Henry Hub gas price $4.00/MMbtu
+Development ceiling, partly drained acreage 80%
+development at prevailing prices. Development ceiling, undrilled acreage 40%
+Annual technology improvement 0.39%
+Our study forecasts full-field cumulative production in
+Annual well-cost improvement 0.24%
+the Haynesville of 46 tcf, including the 10.3 tcf from 2,527 Well shut-in economic limit 0.05 MMcfd
+Minimum completions/year 30, Tiers 1-3; 10, Tiers
+wells drilled through 2012. The production outlook and 4-6
+resulting EUR are sensitive to natural gas price (Fig. 9).
+A substantial portion of the reservoir has breakeven gas
+prices of $4–6/MMbtu. Higher prices will extend both the
+production buildup and the subsequent plateau period. At Reducing capital expenditure to $8 million/well drops
+$6 Henry Hub pricing, the Haynesville would produce 56.9 breakeven prices, leading to more drilling sooner at $4/
+tcf with more Tier 2 and 3 locations drilled. At $10 Henry MMbtu. In this scenario, field EUR reaches 51.9 tcf from
+Hub, full-field EUR reaches 72.3 tcf, boosted by significant 9,674 wells, about 6 tcf and 1,275 wells more than in the
+drilling in Tiers 4 and 5. base case. Peak production occurs in 2020 at about 7 bcfd
+Drilling and completion costs have declined in the and is sustained for 3 years. Ultimately, the better locations
+Haynesville. Even before the recent reduction in service fees in Tiers 1-3 are developed and the lower tiers do not justify
+following the oil price collapse, Haynesville capital expenditures development at prevailing prices.
+sank as low as $8 million/well (OGJ, Feb. 3, 2014).
+[[page 6]]
+TECHNOLOGY
+References Frank Male (frank.male@beg.utexas.edu) is a postdoctoral fellow at
+1. Patzek, T.W., Male, F., and Marder, M., “Gas production in BEG. He holds a BS in physics and a BA in political science from
+the Barnett Shale obeys a simple scaling theory,” Proceedings of Kansas State University, and a PhD in physics from the University
+the National Academy of Sciences, Vol. 110, No. 49, Dec. 3, 2013, of Texas, Austin. As an undergraduate he was a research intern
+pp. 19731-19736. at the Max Planck Institute for Dynamics and Self-Organization in
+2. Fu, Q., Horvath, S., Potter, E. C., and Roberts, F., “Log- Goettingen, Germany. He is an SPE member.
+derived thickness and porosity of the Barnett Shale, Fort Worth
+basin, Texas: Implications for assessment of gas shale resources,” Gürcan Gülen (gurcan.gulen@beg.utexas.edu) is a research scientist
+AAPG Bulletin, Vol. 99, No. 1, January 2015, pp. 119-141, and senior energy economist at BEG’s Center for Energy Economics.
+3. Ver Hoeve, M., Meyer, C., Preusser, J., and Makowitz, A., He holds a PhD in economics from Boston College, and a BA in
+“Basin-wide delineation of gas shale “sweet spots” using density economics from Bosphorus University, Istanbul. He is a member
+and neutron logs: Implications for qualitative and quantitative of USAEE, SPE, the American Economic Association, and the Gulf
+assessment of gas shale resources,” AAPG Hedberg Conference, Coast Power Association.
+Austin, Tex., Dec. 5–10, 2010.
+4. Hammes, U., Hamlin, H., Ewing, S.,, and Thomas, E., Katie Smye (katie.smye@beg.utexas.edu) is a research associate at
+“Geologic analysis of the Upper Jurassic Haynesville Shale in east BEG, joining as a postdoctoral fellow in 2013. She holds a PhD in
+Texas and west Louisiana,” AAPG Bulletin, Vol. 95, No. 10, October earth sciences from the University of Cambridge, and BS degrees in
+2011, pp. 1643-1666, geology and chemistry from the University of Oklahoma, Norman.
+5. Thompson, J.W., Fan, L., Grant, D., Martin, R.B.,
+Kanneganti, K.T., and Lindsay, G.J., “An Overview of Horizontal- Susan Horvath (Susan.Horvath@gs.com) is an associate with
+Well Completions in the Haynesville Shale,” Journal of Canadian Goldman Sach’s global natural resources group. She was previously
+Petroleum Technology, June 2011, pp. 22-34, a research scientist associate at BEG and a senior GIS analyst for
+6. Bhuyan, K. and Passy, Q.R., “Clay estimation from GR and Rosetta Resources and the Arkansas Geologic Survey. She holds
+neutron-density porosity logs,” SPWLA Logging Symposium, Tulsa, a BS and an MS in geographic information systems from Eastern
+Okla., June 19-22, 1994. Michigan University, Ypsilanti. She is a member of AAPG, the
+7. Eastwood, R. and Hammes, U., “Log model development Houston Geological Society and ESRI’s Petroleum Users Group.
+for Bossier and Haynesville shales,” SPWLA Logging Symposium,
+Colorado Springs, Colo., May 14-18, 2011. Carl Grote (carlgroteiv@gmail.com) is an analyst with Robert W.
+8. Stoneburner, R. K., “The Haynesville Shale: What We Have Baird & Co.’s energy investment banking group. He was previously a
+Learned in the First Two Years,” SIPES Quarterly, Vol. 46, No. 3, graduate research assistant at BEG, and holds an MS in energy and
+February 2010. earth resources from the University of Texas, Austin. He also holds a
+9. Male, F., Islam, A., Patzek, T., Ikonnikova, S., Browning, J., BA in economics from Washington and Lee University, Lexington, Va.
+and Marder, M., “Analysis of gas production from hydraulically
+fractured wells in the Haynesville Shale using scaling methods,” Tadeusz Patzek (tadeusz.patzek@kaust.edu.sa) is a professor of
+The Journal of Unconventional Oil and Gas Resources, Vol. 10, chemical and petroleum engineering and director of the upstream
+June 2015, pp. 11-17. petroleum engineering research center at the King Abdullah
+10. Ikonnikova, S., Browning, J., Horvath, S., and Tinker, University of Science & Technology in Saudi Arabia. Patzek holds
+S.W., “Well recovery, drainage area, and future drill-well inventory: an MS and PhD in chemical engineering from the Silesian Technical
+empirical study of the Barnett Shale gas play,” SPE Reservoir University in Poland, and is a full professor there. Patzek is a
+Evaluation & Engineering, Vol. 17, No. 4, November 2014, pp. distinguished member of SPE.
+484–496.
+Eric Potter (pottere@beg.utexas.edu) is program director for energy
+The authors research at BEG after working for 25 years with Marathon Oil Co. as
+John Browning (txbrowning@gmail.com) is a senior research fellow at an exploration geologist and geoscience technology manager. He
+the Bureau of Economic Geology (BEG). He retired from ExxonMobil holds a BA in earth science from Dartmouth College, Hanover, NH,
+after 33 years. He holds a BS in mechanical engineering from the and an MS in geology from Oregon State University, Corvalis.
+University of Tennessee, Knoxville.
+Scott W. Tinker (scott.tinker@beg.utexas.edu) is director of the
+Svetlana Ikonnikova (svetlana.ikonnikova@beg.utexas.edu) is a Bureau of Economic Geology at the University of Texas, Austin, the
+research associate and energy economist at BEG. She holds an State Geologist of Texas, and is acting associate dean of research in
+MS in applied mathematics and physics from Moscow Institute of the Jackson School of Geosciences at the UT. Tinker holds a PhD
+Physics and Technology and a PhD in economics and management in geological sciences from the University of Colorado, Boulder,
+from Humboldt University, Berlin. She is a member of the United an MS in geological sciences from the University of Michigan, Ann
+States Association for Energy Economics (USAEE), and an associated Arbor, and a BS in geology and business administration from Trinity
+member of AAPG and SPE. University, San Antonio, Tex.
+Eprinted and posted with permission to University of Texas at Austin from Oil & Gas Journal
+December © 2015 PennWell Corporation
+[[page 7]]
