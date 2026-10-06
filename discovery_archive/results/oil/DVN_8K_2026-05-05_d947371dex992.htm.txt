@@ -1,0 +1,3 @@
+URL: https://www.sec.gov/Archives/edgar/data/1090012/000119312526206689/d947371dex992.htm
+CHARS: 103318
+,815 &nbsp; &nbsp; $ 1,434 &nbsp; &nbsp; $ 1,278 &nbsp; &nbsp; $ 1,759 &nbsp; &nbsp; $ 1,234 &nbsp; Accounts receivable &nbsp;&nbsp; &nbsp; 2,250 &nbsp; &nbsp; &nbsp; 1,792 &nbsp; &nbsp; &nbsp; 1,835 &nbsp; &nbsp; &nbsp; 1,853 &nbsp; &nbsp; &nbsp; 2,036 &nbsp; Inventory &nbsp;&nbsp; &nbsp; 319 &nbsp; &nbsp; &nbsp; 336 &nbsp; &nbsp; &nbsp; 361 &nbsp; &nbsp; &nbsp; 327 &nbsp; &nbsp; &nbsp; 332 &nbsp; Other current assets &nbsp;&nbsp; &nbsp; 378 &nbsp; &nbsp; &nbsp; 444 &nbsp; &nbsp; &nbsp; 393 &nbsp; &nbsp; &nbsp; 384 &nbsp; &nbsp; 
