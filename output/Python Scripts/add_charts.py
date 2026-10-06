@@ -916,6 +916,22 @@ def brent_wti(p):
                  "Brent-WTI spread (daily)", "USD/bbl")]
 
 
+def brent_forward_curve(p):
+    """Brent forward curve (americas/BRENT_FORWARD_CURVE.py): latest curve vs earlier dates, Dec-contract history, calendar spreads."""
+    snap = by_date(read(p, "Snapshots"), "contract_month").apply(pd.to_numeric, errors="coerce")
+    cur = by_date(read(p, "Curve"), "trade_date").apply(pd.to_numeric, errors="coerce")
+    sp = by_date(read(p, "Spreads"), "trade_date").apply(pd.to_numeric, errors="coerce")
+    out = [spec("Curve now vs earlier", snap[snap.index <= "2027-12-31"].dropna(how="all"),
+                "Brent forward curve by contract month: latest vs 1, 3, 6, 12 months earlier (contracts listed today)", "USD/bbl")]
+    decs = cur[[c for c in cur.columns if str(c).endswith("-12")]].dropna(how="all")
+    decs.columns = [pd.Timestamp(f"{c}-01").strftime("Dec %Y") for c in decs.columns]
+    out.append(spec("Dec contracts", decs, "Brent December futures by contract year (daily close, BZ)", "USD/bbl"))
+    sp = sp.dropna(how="all", axis=1)
+    if len(sp):
+        out.append(spec("Spreads", sp, "Brent calendar spreads (positive = backwardation)", "USD/bbl"))
+    return out
+
+
 def henry_hub(p):
     d = by_date(read(p, "Data"), "date")[["Henry_Hub_USD_per_MMBtu"]].rename(
         columns={"Henry_Hub_USD_per_MMBtu": "Henry Hub spot"})
@@ -2840,6 +2856,7 @@ REGISTRY = {
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
     "brent_wti_daily.xlsx": brent_wti,
+    "brent_forward_curve.xlsx": brent_forward_curve,
     "us_gas.xlsx": us_gas,
     "texas_gas_monthly.xlsx": texas_gas,
     "texas_production_forecast.xlsx": texas_production_forecast,
