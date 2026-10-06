@@ -36,6 +36,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--start", default="2026-01-12")
     ap.add_argument("--end", default="2026-02-03")
+    ap.add_argument("--out", default=OUT)
+    ap.add_argument("--title", default="January 2026 cold snap: what the repo has daily (shaded = weekends)")
     a = ap.parse_args()
     s, e = pd.Timestamp(a.start), pd.Timestamp(a.end)
     hh = series("henry_hub_daily.xlsx", "Data", "Henry_Hub_USD_per_MMBtu")
@@ -82,18 +84,18 @@ def main():
     axs[3].set_ylabel("TWh/day")
     axs[3].set_title("US gas-fired generation, Lower 48 (EIA-930)", loc="left", fontsize=9.5)
     for ax in axs:
-        ax.xaxis.set_major_locator(mdates.DayLocator(interval=3))
+        ax.xaxis.set_major_locator(mdates.DayLocator(interval=3 if (e - s).days <= 35 else 7))
         ax.xaxis.set_major_formatter(mdates.DateFormatter("%d %b"))
         ax.tick_params(labelbottom=True)
-    fig.suptitle("January 2026 cold snap: what the repo has daily (shaded = weekends)", x=0.01, ha="left",
+    fig.suptitle(a.title, x=0.01, ha="left",
                  fontsize=12, fontweight="bold", color=ink)
     fig.text(0.01, 0.005, "Sources: EIA (Henry Hub, EIA-930), NASA POWER, own gas-burn estimates. Production, storage and "
              "consumption by sector exist only monthly;\nno daily pipeline, production or LNG feedgas data.",
              fontsize=7, color="#555")
     fig.subplots_adjust(left=0.06, right=0.98, top=0.9, bottom=0.09, hspace=0.32, wspace=0.16)
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    fig.savefig(OUT, facecolor="white")
-    print("saved", OUT)
+    os.makedirs(os.path.dirname(a.out), exist_ok=True)
+    fig.savefig(a.out, facecolor="white")
+    print("saved", a.out)
 
 
 if __name__ == "__main__":
