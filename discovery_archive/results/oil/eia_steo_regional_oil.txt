@@ -1,0 +1,1296 @@
+COPRPM	2024-01	5.9480079	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-02	6.185999178	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-03	6.247838464	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-04	6.250262664	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-05	6.264458149	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-06	6.308667083	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-07	6.319049323	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-08	6.438647386	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-09	6.424055126	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-10	6.516272313	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-11	6.513113488	Crude Oil Production: Permian	million barrels per day
+COPRPM	2024-12	6.446748854	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-01	6.267037895	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-02	6.356523699	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-03	6.495038972	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-04	6.513277699	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-05	6.507772496	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-06	6.515732331	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-07	6.642495456	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-08	6.66541779	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-09	6.714492408	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-10	6.750376811	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-11	6.760062212	Crude Oil Production: Permian	million barrels per day
+COPRPM	2025-12	6.67140531	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-01	6.362111001	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-02	6.74858646	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-03	6.718287604	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-04	6.819432393	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-05	6.823423755	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-06	6.735286088	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-07	6.75337689	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-08	6.79001279	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-09	6.834065554	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-10	6.84341534	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-11	6.868104866	Crude Oil Production: Permian	million barrels per day
+COPRPM	2026-12	6.887998863	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-01	6.869544268	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-02	6.95544268	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-03	7.00091871	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-04	7.03583526	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-05	7.070569161	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-06	7.103520228	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-07	7.134023137	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-08	7.161545921	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-09	7.186272942	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-10	7.207899359	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-11	7.224091995	Crude Oil Production: Permian	million barrels per day
+COPRPM	2027-12	7.235838597	Crude Oil Production: Permian	million barrels per day
+COPRBK	2024-01	1.142376002	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-02	1.298105054	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-03	1.278060427	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-04	1.291473658	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-05	1.247399878	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-06	1.235007818	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-07	1.218902628	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-08	1.234195177	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-09	1.25743587	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-10	1.239306432	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-11	1.289135952	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2024-12	1.250602163	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-01	1.238320455	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-02	1.216598924	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-03	1.249965438	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-04	1.22879138	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-05	1.18583506	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-06	1.230704286	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-07	1.243853596	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-08	1.232930275	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-09	1.232634692	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-10	1.241933893	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-11	1.259142128	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2025-12	1.188242134	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-01	1.183804514	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-02	1.182419769	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-03	1.184460933	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-04	1.195575082	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-05	1.176568921	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-06	1.207861855	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-07	1.196378645	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-08	1.202213453	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-09	1.206417703	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-10	1.209469472	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-11	1.200284646	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2026-12	1.19441061	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-01	1.181769365	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-02	1.188769365	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-03	1.195808564	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-04	1.199358441	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-05	1.202729804	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-06	1.206126332	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-07	1.21016884	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-08	1.214745678	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-09	1.218783997	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-10	1.221758194	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-11	1.224637876	Crude Oil Production: Bakken	million barrels per day
+COPRBK	2027-12	1.22690578	Crude Oil Production: Bakken	million barrels per day
+COPREF	2024-01	1.038469005	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-02	1.088632105	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-03	1.103818321	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-04	1.148830741	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-05	1.186054218	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-06	1.181217572	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-07	1.155978705	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-08	1.190369068	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-09	1.205868908	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-10	1.217122902	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-11	1.172876612	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2024-12	1.140194309	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-01	1.107449676	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-02	1.169087803	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-03	1.181333344	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-04	1.197795	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-05	1.193542074	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-06	1.191418703	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-07	1.205998983	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-08	1.187634285	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-09	1.147020332	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-10	1.106165401	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-11	1.137	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2025-12	1.133	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-01	1.127	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-02	1.138	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-03	1.143829693	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-04	1.15585008	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-05	1.14635167	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-06	1.131632615	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-07	1.144854077	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-08	1.147220762	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-09	1.152855494	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-10	1.158720159	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-11	1.166765248	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2026-12	1.176581454	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-01	1.181965328	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-02	1.189965328	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-03	1.195138433	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-04	1.201117877	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-05	1.206600158	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-06	1.21165409	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-07	1.215958912	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-08	1.219194374	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-09	1.221864555	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-10	1.224107372	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-11	1.225236354	Crude Oil Production: Eagle Ford	million barrels per day
+COPREF	2027-12	1.225003002	Crude Oil Production: Eagle Ford	million barrels per day
+COPRR48	2024-01	2.064570672	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-02	2.17055572	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-03	2.1568157	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-04	2.154390931	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-05	2.155073282	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-06	2.120140671	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-07	2.107512875	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-08	2.128974594	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-09	2.139119157	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-10	2.16671365	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-11	2.2120633	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2024-12	2.19099718	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-01	2.100925588	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-02	2.104028222	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-03	2.146079646	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-04	2.134423295	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-05	2.14459247	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-06	2.133601282	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-07	2.115039397	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-08	2.102938156	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-09	2.111183215	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-10	2.106149357	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-11	2.059945	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2025-12	2.069296177	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-01	1.93498244	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-02	2.015148931	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-03	2.044020023	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-04	2.038198542	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-05	2.053961293	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-06	2.064534225	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-07	2.051606963	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-08	2.051983053	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-09	2.053792004	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-10	2.049007319	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-11	2.049220391	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2026-12	2.060530929	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-01	2.057326755	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-02	2.06993581	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-03	2.082114472	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-04	2.094164006	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-05	2.10596423	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-06	2.116659087	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-07	2.126379596	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-08	2.135590934	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-09	2.144140539	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-10	2.150780121	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-11	2.155350812	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRR48	2027-12	2.15894052	Crude Oil Production: Rest of Lower 48 States	million barrels per day
+COPRAP	2024-01	.140404534	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-02	.136135431	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-03	.134152331	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-04	.146572411	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-05	.145215642	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-06	.142373785	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-07	.152296074	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-08	.150497444	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-09	.148636459	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-10	.165444669	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-11	.161265905	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2024-12	.159121653	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-01	.170310042	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-02	.175641006	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-03	.171991782	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-04	.18385645	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-05	.192007284	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-06	.187269337	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-07	.198752746	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-08	.200320212	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-09	.204065692	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-10	.194335112	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-11	.189213261	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2025-12	.193714754	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-01	.177419176	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-02	.193672561	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-03	.194570072	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-04	.194589728	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-05	.197287704	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-06	.210135945	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-07	.202348398	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-08	.204103041	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-09	.205112788	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-10	.205773975	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-11	.206080459	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2026-12	.205835919	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-01	.204276279	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-02	.204176279	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-03	.20353763	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-04	.202457926	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-05	.201494988	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-06	.200670751	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-07	.199974259	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-08	.199389825	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-09	.198751639	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-10	.198052283	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-11	.197676142	Crude Oil Production: Appalachia	million barrels per day
+COPRAP	2027-12	.197577144	Crude Oil Production: Appalachia	million barrels per day
+COPRHA	2024-01	.034612033	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-02	.036892533	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-03	.035775221	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-04	.035165935	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-05	.033845657	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-06	.033453213	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-07	.033275145	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-08	.033080769	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-09	.033594627	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-10	.034396218	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-11	.03501163	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2024-12	.03569278	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-01	.03444414	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-02	.03464892	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-03	.034230758	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-04	.033919565	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-05	.033045557	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-06	.033237251	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-07	.033380609	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-08	.033617818	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-09	.03342954	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-10	.033633922	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-11	.033352924	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2025-12	.032807126	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-01	.031662064	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-02	.032683619	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-03	.032481902	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-04	.032601639	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-05	.032489784	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-06	.032269963	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-07	.03195746	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-08	.032149305	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-09	.032370358	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-10	.032624795	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-11	.032911318	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2026-12	.03322679	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-01	.033550857	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-02	.033800942	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-03	.034216626	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-04	.03453805	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-05	.034846758	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-06	.035146817	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-07	.035438501	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-08	.035723261	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-09	.036002158	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-10	.036284834	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-11	.036559977	Crude Oil Production: Haynesville	million barrels per day
+COPRHA	2027-12	.036806759	Crude Oil Production: Haynesville	million barrels per day
+COPRPUS	2024-01	12.550957	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-02	13.165798	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-03	13.195932	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-04	13.317164	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-05	13.252792	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-06	13.242561	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-07	13.229061	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-08	13.415734	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-09	13.228142	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-10	13.58273	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-11	13.490922	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2024-12	13.530359	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-01	13.166617	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-02	13.269042	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-03	13.526669	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-04	13.557859	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-05	13.535255	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-06	13.656373	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-07	13.724	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-08	13.834921	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-09	13.916611	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-10	13.994841	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-11	13.92661	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2025-12	13.809601	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-01	13.304875	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-02	13.710508	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-03	13.725603	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-04	13.981377	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-05	13.755334	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-06	13.79194	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-07	13.81051981	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-08	13.88071235	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-09	13.95828	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-10	13.94988	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-11	14.03148	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2026-12	14.07436	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-01	14.03772	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-02	14.13057	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-03	14.19123	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-04	14.23278	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-05	14.27903	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-06	14.3093	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-07	14.29865	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-08	14.30712	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-09	14.20566	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-10	14.29559	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-11	14.41739	U.S. Crude Oil Production	million barrels per day
+COPRPUS	2027-12	14.46082	U.S. Crude Oil Production	million barrels per day
+TOPRPM	2024-01	5.341	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-02	5.553	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-03	5.627	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-04	5.65	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-05	5.671	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-06	5.715	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-07	5.724	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-08	5.846	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-09	5.821	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-10	5.909	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-11	5.906	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2024-12	5.834	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-01	5.667	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-02	5.763	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-03	5.906	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-04	5.922	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-05	5.919	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-06	5.926	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-07	6.034	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-08	6.035	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-09	6.072	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-10	6.118	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-11	6.142	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2025-12	6.081	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-01	5.756	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-02	6.125	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-03	6.15	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-04	6.165	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-05	6.177	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-06	6.097	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-07	6.204	Tight oil production from Permian formations	million barrels per day
+TOPRPM	2026-08	6.176	Tight oil production from Permian formations	million barrels per day
+TOPRBK	2024-01	1.116	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-02	1.27	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-03	1.249	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-04	1.262	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-05	1.219	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-06	1.207	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-07	1.192	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-08	1.206	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-09	1.23	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-10	1.212	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-11	1.26	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2024-12	1.223	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-01	1.212	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-02	1.191	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-03	1.223	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-04	1.201	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-05	1.159	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-06	1.203	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-07	1.217	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-08	1.206	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-09	1.207	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-10	1.217	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-11	1.232	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2025-12	1.162	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-01	1.161	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-02	1.166	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-03	1.173	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-04	1.175	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-05	1.156	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-06	1.179	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-07	1.183	Tight oil production from Bakken formation	million barrels per day
+TOPRBK	2026-08	1.191	Tight oil production from Bakken formation	million barrels per day
+TOPREF	2024-01	.909	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-02	.951	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-03	.967	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-04	1.008	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-05	1.041	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-06	1.039	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-07	1.017	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-08	1.048	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-09	1.065	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-10	1.078	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-11	1.037	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2024-12	1.007	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-01	.981	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-02	1.04	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-03	1.048	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-04	1.055	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-05	1.059	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-06	1.062	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-07	1.075	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-08	1.051	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-09	1.005	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-10	.97	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-11	.984	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2025-12	.981	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-01	.991	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-02	.99	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-03	.995	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-04	1.011	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-05	1.012	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-06	.999	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-07	1.005	Tight oil production from Eagle Ford formation	million barrels per day
+TOPREF	2026-08	1.018	Tight oil production from Eagle Ford formation	million barrels per day
+TOPRNI	2024-01	.449	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-02	.474	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-03	.475	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-04	.457	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-05	.46	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-06	.448	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-07	.447	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-08	.454	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-09	.473	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-10	.498	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-11	.526	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2024-12	.515	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-01	.477	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-02	.471	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-03	.475	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-04	.454	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-05	.475	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-06	.454	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-07	.465	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-08	.467	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-09	.463	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-10	.472	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-11	.461	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2025-12	.448	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-01	.434	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-02	.441	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-03	.452	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-04	.45	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-05	.437	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-06	.43	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-07	.435	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRNI	2026-08	.443	Tight oil production from Niobrara Codell formation	million barrels per day
+TOPRAC	2024-01	.111	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-02	.123	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-03	.125	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-04	.128	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-05	.129	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-06	.128	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-07	.127	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-08	.128	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-09	.126	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-10	.13	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-11	.127	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2024-12	.126	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-01	.119	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-02	.118	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-03	.12	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-04	.126	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-05	.119	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-06	.114	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-07	.113	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-08	.116	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-09	.125	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-10	.128	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-11	.127	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2025-12	.125	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-01	.123	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-02	.122	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-03	.125	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-04	.122	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-05	.117	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-06	.117	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-07	.12	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRAC	2026-08	.118	Tight oil production from Austin Chalk formation	million barrels per day
+TOPRMP	2024-01	.121	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-02	.132	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-03	.127	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-04	.126	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-05	.118	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-06	.114	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-07	.113	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-08	.113	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-09	.119	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-10	.119	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-11	.119	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2024-12	.115	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-01	.113	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-02	.103	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-03	.12	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-04	.118	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-05	.119	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-06	.121	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-07	.121	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-08	.115	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-09	.118	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-10	.121	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-11	.117	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2025-12	.113	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-01	.098	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-02	.11	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-03	.105	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-04	.098	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-05	.1	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-06	.098	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-07	.096	Tight oil production from Mississippian formation	million barrels per day
+TOPRMP	2026-08	.094	Tight oil production from Mississippian formation	million barrels per day
+TOPRWF	2024-01	.078	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-02	.081	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-03	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-04	.084	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-05	.086	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-06	.081	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-07	.079	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-08	.084	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-09	.09	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-10	.091	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-11	.093	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2024-12	.092	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-01	.09	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-02	.083	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-03	.085	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-04	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-05	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-06	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-07	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-08	.078	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-09	.077	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-10	.079	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-11	.078	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2025-12	.078	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-01	.069	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-02	.073	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-03	.075	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-04	.077	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-05	.081	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-06	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-07	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRWF	2026-08	.08	Tight oil production from Woodford formation	million barrels per day
+TOPRR48	2024-01	.31	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-02	.313	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-03	.313	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-04	.317	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-05	.329	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-06	.334	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-07	.335	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-08	.346	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-09	.359	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-10	.35	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-11	.359	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2024-12	.355	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-01	.343	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-02	.355	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-03	.373	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-04	.363	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-05	.379	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-06	.386	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-07	.37	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-08	.384	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-09	.385	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-10	.354	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-11	.351	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2025-12	.367	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-01	.343	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-02	.36	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-03	.369	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-04	.366	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-05	.375	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-06	.38	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-07	.372	Tight oil production from other U.S. formations	million barrels per day
+TOPRR48	2026-08	.38	Tight oil production from other U.S. formations	million barrels per day
+TOPRL48	2024-01	8.435	Tight oil production	million barrels per day
+TOPRL48	2024-02	8.897	Tight oil production	million barrels per day
+TOPRL48	2024-03	8.963	Tight oil production	million barrels per day
+TOPRL48	2024-04	9.032	Tight oil production	million barrels per day
+TOPRL48	2024-05	9.053	Tight oil production	million barrels per day
+TOPRL48	2024-06	9.066	Tight oil production	million barrels per day
+TOPRL48	2024-07	9.034	Tight oil production	million barrels per day
+TOPRL48	2024-08	9.225	Tight oil production	million barrels per day
+TOPRL48	2024-09	9.283	Tight oil production	million barrels per day
+TOPRL48	2024-10	9.387	Tight oil production	million barrels per day
+TOPRL48	2024-11	9.427	Tight oil production	million barrels per day
+TOPRL48	2024-12	9.267	Tight oil production	million barrels per day
+TOPRL48	2025-01	9.002	Tight oil production	million barrels per day
+TOPRL48	2025-02	9.124	Tight oil production	million barrels per day
+TOPRL48	2025-03	9.35	Tight oil production	million barrels per day
+TOPRL48	2025-04	9.319	Tight oil production	million barrels per day
+TOPRL48	2025-05	9.309	Tight oil production	million barrels per day
+TOPRL48	2025-06	9.346	Tight oil production	million barrels per day
+TOPRL48	2025-07	9.475	Tight oil production	million barrels per day
+TOPRL48	2025-08	9.452	Tight oil production	million barrels per day
+TOPRL48	2025-09	9.452	Tight oil production	million barrels per day
+TOPRL48	2025-10	9.459	Tight oil production	million barrels per day
+TOPRL48	2025-11	9.492	Tight oil production	million barrels per day
+TOPRL48	2025-12	9.355	Tight oil production	million barrels per day
+TOPRL48	2026-01	8.975	Tight oil production	million barrels per day
+TOPRL48	2026-02	9.387	Tight oil production	million barrels per day
+TOPRL48	2026-03	9.444	Tight oil production	million barrels per day
+TOPRL48	2026-04	9.464	Tight oil production	million barrels per day
+TOPRL48	2026-05	9.455	Tight oil production	million barrels per day
+TOPRL48	2026-06	9.38	Tight oil production	million barrels per day
+TOPRL48	2026-07	9.495	Tight oil production	million barrels per day
+TOPRL48	2026-08	9.5	Tight oil production	million barrels per day
+COEOPPM	2024-01	-410.0382853	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-02	-420.8528049	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-03	-430.0374261	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-04	-430.6891618	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-05	-427.89393	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-06	-435.8717731	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-07	-430.7582319	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-08	-433.0089166	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-09	-432.9949296	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-10	-431.3424935	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-11	-427.8936638	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2024-12	-427.486876	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-01	-431.8810585	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-02	-437.2248584	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-03	-437.0535679	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-04	-430.0453715	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-05	-424.1256063	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-06	-423.5037347	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-07	-427.617813	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-08	-433.8027777	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-09	-443.9456071	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-10	-450.0002832	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-11	-453.7307433	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2025-12	-456.3802819	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-01	-458.7776818	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-02	-460.3982172	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-03	-458.3953519	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-04	-461.5852785	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-05	-466.8415345	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-06	-473.5213852	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-07	-481.2656462	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPPM	2026-08	-490.913796	Permian Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-01	-58.69351822	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-02	-60.30863769	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-03	-60.5332683	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-04	-56.58243318	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-05	-58.32755972	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-06	-63.47567027	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-07	-67.20676344	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-08	-71.15500017	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-09	-72.10733431	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-10	-70.83043081	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-11	-68.43091576	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2024-12	-66.67406061	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-01	-66.22617992	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-02	-64.31499151	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-03	-61.90378453	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-04	-60.84300047	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-05	-61.65699664	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-06	-63.24702789	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-07	-65.00153383	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-08	-68.09203165	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-09	-70.30650167	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-10	-71.16792535	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-11	-71.25007571	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2025-12	-70.07115209	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-01	-69.70807409	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-02	-70.05161526	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-03	-69.75271234	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-04	-69.62894099	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-05	-69.66575738	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-06	-70.06651797	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-07	-70.79015763	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPBK	2026-08	-71.79397539	Bakken Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-01	-67.88535156	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-02	-66.15416124	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-03	-65.46720601	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-04	-63.18133577	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-05	-66.19995925	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-06	-71.5646976	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-07	-75.36729835	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-08	-79.89612833	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-09	-82.16365521	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-10	-81.35737682	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-11	-79.58610469	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2024-12	-77.94793406	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-01	-77.10255633	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-02	-76.14322	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-03	-75.03103644	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-04	-75.4010382	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-05	-78.41416328	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-06	-82.68678771	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-07	-85.84168148	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-08	-86.2742891	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-09	-85.72994744	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-10	-84.60841997	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-11	-83.29726218	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2025-12	-81.52239624	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-01	-79.4016371	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-02	-79.04763219	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-03	-80.42465404	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-04	-81.68274144	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-05	-82.79247504	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-06	-83.82943195	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-07	-84.73232527	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+COEOPEF	2026-08	-85.57281183	Eagle Ford Existing Oil Production Change, One-year Trend	thousand barrels per day
+CONWRPM	2024-01	1.436470266	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-02	1.452327455	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-03	1.474771502	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-04	1.481542807	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-05	1.480205133	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-06	1.501732577	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-07	1.503353752	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-08	1.509455231	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-09	1.48897679	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-10	1.454251114	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-11	1.422935265	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2024-12	1.433391737	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-01	1.44812915	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-02	1.461919613	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-03	1.487885273	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-04	1.501044008	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-05	1.540149539	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-06	1.607616648	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-07	1.652933396	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-08	1.698883393	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-09	1.725941385	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-10	1.739106155	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-11	1.725276582	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2025-12	1.73159067	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-01	1.712050814	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-02	1.734478202	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-03	1.769088085	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-04	1.804636977	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-05	1.877502789	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-06	1.901600579	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-07	1.936729168	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRPM	2026-08	1.939404964	Permian New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-01	1.714684292	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-02	1.629053261	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-03	1.558483644	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-04	1.549456532	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-05	1.651579129	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-06	1.720611332	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-07	1.814508197	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-08	1.836937499	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-09	1.816145413	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-10	1.781771564	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-11	1.767048343	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2024-12	1.672945184	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-01	1.544201804	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-02	1.450586794	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-03	1.529895956	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-04	1.688384155	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-05	1.798723028	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-06	1.91818806	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-07	2.063674952	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-08	2.217283781	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-09	2.229141382	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-10	2.219415757	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-11	2.23932044	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2025-12	2.110067724	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-01	2.115112754	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-02	2.118444057	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-03	2.156437758	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-04	2.194283851	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-05	2.244431132	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-06	2.261417548	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-07	2.320793243	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWRBK	2026-08	2.362279878	Bakken New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-01	1.197503382	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-02	1.266956274	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-03	1.295297748	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-04	1.425044439	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-05	1.412081058	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-06	1.474092476	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-07	1.568841068	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-08	1.558107831	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-09	1.52539854	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-10	1.472124213	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-11	1.483176224	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2024-12	1.481210129	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-01	1.471717773	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-02	1.486948782	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-03	1.577440012	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-04	1.536541491	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-05	1.544385435	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-06	1.506617291	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-07	1.465565025	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-08	1.447164154	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-09	1.358483931	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-10	1.315346855	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-11	1.202725609	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2025-12	1.126545284	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-01	1.216201123	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-02	1.312034718	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-03	1.406432308	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-04	1.425881303	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-05	1.423648028	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-06	1.385360614	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-07	1.400137633	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWREF	2026-08	1.363276465	Eagle Ford New-wells Oil Production Per Rig, One-year Trend	thousand barrels per day
+CONWPM	2024-01	446.0240175	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-02	451.0929076	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-03	456.0730869	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-04	462.9821272	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-05	466.264617	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-06	476.0492268	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-07	470.2490536	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-08	464.9122111	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-09	453.7656768	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-10	442.3831889	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-11	435.7739249	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2024-12	435.7510881	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-01	438.7831324	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-02	444.4235622	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-03	450.2340837	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-04	456.3173784	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-05	462.8149366	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-06	466.6107322	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-07	466.4578043	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-08	462.5210038	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-09	454.3540696	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-10	445.2111756	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-11	437.7889326	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2025-12	433.9366219	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-01	431.8648179	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-02	430.5842136	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-03	432.0113103	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-04	440.6923497	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-05	449.661918	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-06	459.2365397	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-07	468.6884586	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWPM	2026-08	478.6451452	Permian New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-01	55.72723949	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-02	52.78132566	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-03	52.20920207	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-04	52.6815221	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-05	56.15369038	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-06	58.50078528	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-07	61.6932787	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-08	63.37434371	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-09	64.01912581	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-10	62.71835906	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-11	60.07964368	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2024-12	56.88013625	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-01	54.04706315	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-02	52.58377128	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-03	53.24037925	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-04	56.13877316	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-05	59.80754068	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-06	63.30020599	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-07	66.45033347	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-08	68.7357972	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-09	69.10338285	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-10	67.470239	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-11	64.94029275	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2025-12	62.88001818	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-01	61.86704806	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-02	61.43487765	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-03	61.24283233	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-04	61.9885188	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-05	62.84407169	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-06	63.88504573	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-07	64.98221081	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWBK	2026-08	66.14383658	Bakken New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-01	65.86268599	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-02	69.93598632	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-03	73.83197163	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-04	80.15874972	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-05	82.18311755	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-06	87.33997918	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-07	86.60002697	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-08	83.74829594	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-09	79.3207241	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-10	76.84488394	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-11	76.75436958	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2024-12	76.6526242	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-01	75.9406371	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-02	76.20612508	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-03	77.92553661	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-04	80.66842827	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-05	81.85242805	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-06	79.4740621	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-07	75.33004228	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-08	70.91104353	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-09	67.24495457	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-10	64.18892654	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-11	61.94036885	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2025-12	61.28406345	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-01	62.02625725	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-02	64.28970117	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-03	66.6648914	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-04	67.58677375	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-05	68.33510534	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-06	68.92169056	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-07	69.30681282	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+CONWEF	2026-08	69.52709972	Eagle Ford New-wells Oil Production, One-year Trend	thousand barrels per day
+NWCPM	2024-01	495	Permian New Wells Completed	None
+NWCPM	2024-02	551	Permian New Wells Completed	None
+NWCPM	2024-03	517	Permian New Wells Completed	None
+NWCPM	2024-04	555	Permian New Wells Completed	None
+NWCPM	2024-05	524	Permian New Wells Completed	None
+NWCPM	2024-06	482	Permian New Wells Completed	None
+NWCPM	2024-07	592	Permian New Wells Completed	None
+NWCPM	2024-08	532	Permian New Wells Completed	None
+NWCPM	2024-09	482	Permian New Wells Completed	None
+NWCPM	2024-10	526	Permian New Wells Completed	None
+NWCPM	2024-11	512	Permian New Wells Completed	None
+NWCPM	2024-12	456	Permian New Wells Completed	None
+NWCPM	2025-01	527	Permian New Wells Completed	None
+NWCPM	2025-02	524	Permian New Wells Completed	None
+NWCPM	2025-03	506	Permian New Wells Completed	None
+NWCPM	2025-04	579	Permian New Wells Completed	None
+NWCPM	2025-05	492	Permian New Wells Completed	None
+NWCPM	2025-06	457	Permian New Wells Completed	None
+NWCPM	2025-07	421	Permian New Wells Completed	None
+NWCPM	2025-08	542	Permian New Wells Completed	None
+NWCPM	2025-09	487	Permian New Wells Completed	None
+NWCPM	2025-10	470	Permian New Wells Completed	None
+NWCPM	2025-11	525	Permian New Wells Completed	None
+NWCPM	2025-12	467	Permian New Wells Completed	None
+NWCPM	2026-01	432	Permian New Wells Completed	None
+NWCPM	2026-02	451	Permian New Wells Completed	None
+NWCPM	2026-03	452	Permian New Wells Completed	None
+NWCPM	2026-04	475	Permian New Wells Completed	None
+NWCPM	2026-05	462	Permian New Wells Completed	None
+NWCPM	2026-06	475	Permian New Wells Completed	None
+NWCPM	2026-07	484	Permian New Wells Completed	None
+NWCPM	2026-08	488	Permian New Wells Completed	None
+NWCBK	2024-01	40	Bakken New Wells Completed	None
+NWCBK	2024-02	73	Bakken New Wells Completed	None
+NWCBK	2024-03	57	Bakken New Wells Completed	None
+NWCBK	2024-04	79	Bakken New Wells Completed	None
+NWCBK	2024-05	102	Bakken New Wells Completed	None
+NWCBK	2024-06	81	Bakken New Wells Completed	None
+NWCBK	2024-07	93	Bakken New Wells Completed	None
+NWCBK	2024-08	99	Bakken New Wells Completed	None
+NWCBK	2024-09	87	Bakken New Wells Completed	None
+NWCBK	2024-10	81	Bakken New Wells Completed	None
+NWCBK	2024-11	55	Bakken New Wells Completed	None
+NWCBK	2024-12	69	Bakken New Wells Completed	None
+NWCBK	2025-01	40	Bakken New Wells Completed	None
+NWCBK	2025-02	37	Bakken New Wells Completed	None
+NWCBK	2025-03	69	Bakken New Wells Completed	None
+NWCBK	2025-04	83	Bakken New Wells Completed	None
+NWCBK	2025-05	73	Bakken New Wells Completed	None
+NWCBK	2025-06	84	Bakken New Wells Completed	None
+NWCBK	2025-07	72	Bakken New Wells Completed	None
+NWCBK	2025-08	67	Bakken New Wells Completed	None
+NWCBK	2025-09	80	Bakken New Wells Completed	None
+NWCBK	2025-10	75	Bakken New Wells Completed	None
+NWCBK	2025-11	63	Bakken New Wells Completed	None
+NWCBK	2025-12	62	Bakken New Wells Completed	None
+NWCBK	2026-01	55	Bakken New Wells Completed	None
+NWCBK	2026-02	58	Bakken New Wells Completed	None
+NWCBK	2026-03	75	Bakken New Wells Completed	None
+NWCBK	2026-04	80	Bakken New Wells Completed	None
+NWCBK	2026-05	70	Bakken New Wells Completed	None
+NWCBK	2026-06	75	Bakken New Wells Completed	None
+NWCBK	2026-07	69	Bakken New Wells Completed	None
+NWCBK	2026-08	69	Bakken New Wells Completed	None
+NWCEF	2024-01	134	Eagle Ford New Wells Completed	None
+NWCEF	2024-02	136	Eagle Ford New Wells Completed	None
+NWCEF	2024-03	132	Eagle Ford New Wells Completed	None
+NWCEF	2024-04	136	Eagle Ford New Wells Completed	None
+NWCEF	2024-05	124	Eagle Ford New Wells Completed	None
+NWCEF	2024-06	123	Eagle Ford New Wells Completed	None
+NWCEF	2024-07	133	Eagle Ford New Wells Completed	None
+NWCEF	2024-08	116	Eagle Ford New Wells Completed	None
+NWCEF	2024-09	126	Eagle Ford New Wells Completed	None
+NWCEF	2024-10	93	Eagle Ford New Wells Completed	None
+NWCEF	2024-11	89	Eagle Ford New Wells Completed	None
+NWCEF	2024-12	94	Eagle Ford New Wells Completed	None
+NWCEF	2025-01	129	Eagle Ford New Wells Completed	None
+NWCEF	2025-02	101	Eagle Ford New Wells Completed	None
+NWCEF	2025-03	139	Eagle Ford New Wells Completed	None
+NWCEF	2025-04	126	Eagle Ford New Wells Completed	None
+NWCEF	2025-05	123	Eagle Ford New Wells Completed	None
+NWCEF	2025-06	112	Eagle Ford New Wells Completed	None
+NWCEF	2025-07	100	Eagle Ford New Wells Completed	None
+NWCEF	2025-08	69	Eagle Ford New Wells Completed	None
+NWCEF	2025-09	105	Eagle Ford New Wells Completed	None
+NWCEF	2025-10	100	Eagle Ford New Wells Completed	None
+NWCEF	2025-11	86	Eagle Ford New Wells Completed	None
+NWCEF	2025-12	95	Eagle Ford New Wells Completed	None
+NWCEF	2026-01	100	Eagle Ford New Wells Completed	None
+NWCEF	2026-02	105	Eagle Ford New Wells Completed	None
+NWCEF	2026-03	105	Eagle Ford New Wells Completed	None
+NWCEF	2026-04	98	Eagle Ford New Wells Completed	None
+NWCEF	2026-05	117	Eagle Ford New Wells Completed	None
+NWCEF	2026-06	111	Eagle Ford New Wells Completed	None
+NWCEF	2026-07	117	Eagle Ford New Wells Completed	None
+NWCEF	2026-08	118	Eagle Ford New Wells Completed	None
+NWDBK	2024-01	68	Bakken New Wells Drilled	None
+NWDBK	2024-02	69	Bakken New Wells Drilled	None
+NWDBK	2024-03	69	Bakken New Wells Drilled	None
+NWDBK	2024-04	69	Bakken New Wells Drilled	None
+NWDBK	2024-05	69	Bakken New Wells Drilled	None
+NWDBK	2024-06	70	Bakken New Wells Drilled	None
+NWDBK	2024-07	72	Bakken New Wells Drilled	None
+NWDBK	2024-08	72	Bakken New Wells Drilled	None
+NWDBK	2024-09	69	Bakken New Wells Drilled	None
+NWDBK	2024-10	69	Bakken New Wells Drilled	None
+NWDBK	2024-11	71	Bakken New Wells Drilled	None
+NWDBK	2024-12	74	Bakken New Wells Drilled	None
+NWDBK	2025-01	71	Bakken New Wells Drilled	None
+NWDBK	2025-02	68	Bakken New Wells Drilled	None
+NWDBK	2025-03	68	Bakken New Wells Drilled	None
+NWDBK	2025-04	68	Bakken New Wells Drilled	None
+NWDBK	2025-05	66	Bakken New Wells Drilled	None
+NWDBK	2025-06	64	Bakken New Wells Drilled	None
+NWDBK	2025-07	64	Bakken New Wells Drilled	None
+NWDBK	2025-08	63	Bakken New Wells Drilled	None
+NWDBK	2025-09	61	Bakken New Wells Drilled	None
+NWDBK	2025-10	63	Bakken New Wells Drilled	None
+NWDBK	2025-11	62	Bakken New Wells Drilled	None
+NWDBK	2025-12	62	Bakken New Wells Drilled	None
+NWDBK	2026-01	61	Bakken New Wells Drilled	None
+NWDBK	2026-02	61	Bakken New Wells Drilled	None
+NWDBK	2026-03	61	Bakken New Wells Drilled	None
+NWDBK	2026-04	61	Bakken New Wells Drilled	None
+NWDBK	2026-05	61	Bakken New Wells Drilled	None
+NWDBK	2026-06	61	Bakken New Wells Drilled	None
+NWDBK	2026-07	58	Bakken New Wells Drilled	None
+NWDBK	2026-08	58	Bakken New Wells Drilled	None
+NWDEF	2024-01	98	Eagle Ford New Wells Drilled	None
+NWDEF	2024-02	97	Eagle Ford New Wells Drilled	None
+NWDEF	2024-03	101	Eagle Ford New Wells Drilled	None
+NWDEF	2024-04	102	Eagle Ford New Wells Drilled	None
+NWDEF	2024-05	99	Eagle Ford New Wells Drilled	None
+NWDEF	2024-06	99	Eagle Ford New Wells Drilled	None
+NWDEF	2024-07	97	Eagle Ford New Wells Drilled	None
+NWDEF	2024-08	98	Eagle Ford New Wells Drilled	None
+NWDEF	2024-09	101	Eagle Ford New Wells Drilled	None
+NWDEF	2024-10	102	Eagle Ford New Wells Drilled	None
+NWDEF	2024-11	103	Eagle Ford New Wells Drilled	None
+NWDEF	2024-12	103	Eagle Ford New Wells Drilled	None
+NWDEF	2025-01	101	Eagle Ford New Wells Drilled	None
+NWDEF	2025-02	106	Eagle Ford New Wells Drilled	None
+NWDEF	2025-03	107	Eagle Ford New Wells Drilled	None
+NWDEF	2025-04	107	Eagle Ford New Wells Drilled	None
+NWDEF	2025-05	105	Eagle Ford New Wells Drilled	None
+NWDEF	2025-06	99	Eagle Ford New Wells Drilled	None
+NWDEF	2025-07	102	Eagle Ford New Wells Drilled	None
+NWDEF	2025-08	101	Eagle Ford New Wells Drilled	None
+NWDEF	2025-09	106	Eagle Ford New Wells Drilled	None
+NWDEF	2025-10	113	Eagle Ford New Wells Drilled	None
+NWDEF	2025-11	107	Eagle Ford New Wells Drilled	None
+NWDEF	2025-12	105	Eagle Ford New Wells Drilled	None
+NWDEF	2026-01	101	Eagle Ford New Wells Drilled	None
+NWDEF	2026-02	102	Eagle Ford New Wells Drilled	None
+NWDEF	2026-03	106	Eagle Ford New Wells Drilled	None
+NWDEF	2026-04	106	Eagle Ford New Wells Drilled	None
+NWDEF	2026-05	109	Eagle Ford New Wells Drilled	None
+NWDEF	2026-06	115	Eagle Ford New Wells Drilled	None
+NWDEF	2026-07	121	Eagle Ford New Wells Drilled	None
+NWDEF	2026-08	122	Eagle Ford New Wells Drilled	None
+NWDPM	2024-01	467	Permian New Wells Drilled	None
+NWDPM	2024-02	472	Permian New Wells Drilled	None
+NWDPM	2024-03	476	Permian New Wells Drilled	None
+NWDPM	2024-04	477	Permian New Wells Drilled	None
+NWDPM	2024-05	473	Permian New Wells Drilled	None
+NWDPM	2024-06	467	Permian New Wells Drilled	None
+NWDPM	2024-07	463	Permian New Wells Drilled	None
+NWDPM	2024-08	465	Permian New Wells Drilled	None
+NWDPM	2024-09	468	Permian New Wells Drilled	None
+NWDPM	2024-10	468	Permian New Wells Drilled	None
+NWDPM	2024-11	469	Permian New Wells Drilled	None
+NWDPM	2024-12	472	Permian New Wells Drilled	None
+NWDPM	2025-01	473	Permian New Wells Drilled	None
+NWDPM	2025-02	479	Permian New Wells Drilled	None
+NWDPM	2025-03	487	Permian New Wells Drilled	None
+NWDPM	2025-04	475	Permian New Wells Drilled	None
+NWDPM	2025-05	472	Permian New Wells Drilled	None
+NWDPM	2025-06	457	Permian New Wells Drilled	None
+NWDPM	2025-07	444	Permian New Wells Drilled	None
+NWDPM	2025-08	436	Permian New Wells Drilled	None
+NWDPM	2025-09	434	Permian New Wells Drilled	None
+NWDPM	2025-10	439	Permian New Wells Drilled	None
+NWDPM	2025-11	444	Permian New Wells Drilled	None
+NWDPM	2025-12	444	Permian New Wells Drilled	None
+NWDPM	2026-01	440	Permian New Wells Drilled	None
+NWDPM	2026-02	436	Permian New Wells Drilled	None
+NWDPM	2026-03	442	Permian New Wells Drilled	None
+NWDPM	2026-04	444	Permian New Wells Drilled	None
+NWDPM	2026-05	457	Permian New Wells Drilled	None
+NWDPM	2026-06	477	Permian New Wells Drilled	None
+NWDPM	2026-07	484	Permian New Wells Drilled	None
+NWDPM	2026-08	500	Permian New Wells Drilled	None
+RIGSPM	2024-01	309.25	Permian Active Rigs	None
+RIGSPM	2024-02	312.5	Permian Active Rigs	None
+RIGSPM	2024-03	315	Permian Active Rigs	None
+RIGSPM	2024-04	317	Permian Active Rigs	None
+RIGSPM	2024-05	312.8	Permian Active Rigs	None
+RIGSPM	2024-06	308	Permian Active Rigs	None
+RIGSPM	2024-07	304.75	Permian Active Rigs	None
+RIGSPM	2024-08	304.2	Permian Active Rigs	None
+RIGSPM	2024-09	306.25	Permian Active Rigs	None
+RIGSPM	2024-10	304	Permian Active Rigs	None
+RIGSPM	2024-11	303	Permian Active Rigs	None
+RIGSPM	2024-12	304	Permian Active Rigs	None
+RIGSPM	2025-01	302.6	Permian Active Rigs	None
+RIGSPM	2025-02	304	Permian Active Rigs	None
+RIGSPM	2025-03	300.5	Permian Active Rigs	None
+RIGSPM	2025-04	290.25	Permian Active Rigs	None
+RIGSPM	2025-05	282.2	Permian Active Rigs	None
+RIGSPM	2025-06	272.25	Permian Active Rigs	None
+RIGSPM	2025-07	263.25	Permian Active Rigs	None
+RIGSPM	2025-08	256	Permian Active Rigs	None
+RIGSPM	2025-09	253.75	Permian Active Rigs	None
+RIGSPM	2025-10	250.6	Permian Active Rigs	None
+RIGSPM	2025-11	252.25	Permian Active Rigs	None
+RIGSPM	2025-12	248.25	Permian Active Rigs	None
+RIGSPM	2026-01	244.2	Permian Active Rigs	None
+RIGSPM	2026-02	239.5	Permian Active Rigs	None
+RIGSPM	2026-03	241.5	Permian Active Rigs	None
+RIGSPM	2026-04	242	Permian Active Rigs	None
+RIGSPM	2026-05	246.8	Permian Active Rigs	None
+RIGSPM	2026-06	256.75	Permian Active Rigs	None
+RIGSPM	2026-07	258.8	Permian Active Rigs	None
+RIGSPM	2026-08	265.5	Permian Active Rigs	None
+RIGSBK	2024-01	33.5	Bakken Active Rigs	None
+RIGSBK	2024-02	34	Bakken Active Rigs	None
+RIGSBK	2024-03	34	Bakken Active Rigs	None
+RIGSBK	2024-04	34	Bakken Active Rigs	None
+RIGSBK	2024-05	34	Bakken Active Rigs	None
+RIGSBK	2024-06	34.5	Bakken Active Rigs	None
+RIGSBK	2024-07	35.25	Bakken Active Rigs	None
+RIGSBK	2024-08	35.2	Bakken Active Rigs	None
+RIGSBK	2024-09	34	Bakken Active Rigs	None
+RIGSBK	2024-10	34	Bakken Active Rigs	None
+RIGSBK	2024-11	35	Bakken Active Rigs	None
+RIGSBK	2024-12	36.25	Bakken Active Rigs	None
+RIGSBK	2025-01	34.8	Bakken Active Rigs	None
+RIGSBK	2025-02	33.25	Bakken Active Rigs	None
+RIGSBK	2025-03	33.25	Bakken Active Rigs	None
+RIGSBK	2025-04	33	Bakken Active Rigs	None
+RIGSBK	2025-05	32.2	Bakken Active Rigs	None
+RIGSBK	2025-06	31	Bakken Active Rigs	None
+RIGSBK	2025-07	31	Bakken Active Rigs	None
+RIGSBK	2025-08	30.4	Bakken Active Rigs	None
+RIGSBK	2025-09	29	Bakken Active Rigs	None
+RIGSBK	2025-10	29.8	Bakken Active Rigs	None
+RIGSBK	2025-11	29.25	Bakken Active Rigs	None
+RIGSBK	2025-12	29	Bakken Active Rigs	None
+RIGSBK	2026-01	28.4	Bakken Active Rigs	None
+RIGSBK	2026-02	28.25	Bakken Active Rigs	None
+RIGSBK	2026-03	28	Bakken Active Rigs	None
+RIGSBK	2026-04	28.25	Bakken Active Rigs	None
+RIGSBK	2026-05	28	Bakken Active Rigs	None
+RIGSBK	2026-06	28	Bakken Active Rigs	None
+RIGSBK	2026-07	27	Bakken Active Rigs	None
+RIGSBK	2026-08	27	Bakken Active Rigs	None
+RIGSEF	2024-01	57	Eagle Ford Active Rigs	None
+RIGSEF	2024-02	56.25	Eagle Ford Active Rigs	None
+RIGSEF	2024-03	58.2	Eagle Ford Active Rigs	None
+RIGSEF	2024-04	59.25	Eagle Ford Active Rigs	None
+RIGSEF	2024-05	55.2	Eagle Ford Active Rigs	None
+RIGSEF	2024-06	53.75	Eagle Ford Active Rigs	None
+RIGSEF	2024-07	52	Eagle Ford Active Rigs	None
+RIGSEF	2024-08	52.2	Eagle Ford Active Rigs	None
+RIGSEF	2024-09	51.75	Eagle Ford Active Rigs	None
+RIGSEF	2024-10	51.75	Eagle Ford Active Rigs	None
+RIGSEF	2024-11	51.6	Eagle Ford Active Rigs	None
+RIGSEF	2024-12	51.25	Eagle Ford Active Rigs	None
+RIGSEF	2025-01	49.4	Eagle Ford Active Rigs	None
+RIGSEF	2025-02	52.5	Eagle Ford Active Rigs	None
+RIGSEF	2025-03	53	Eagle Ford Active Rigs	None
+RIGSEF	2025-04	52.75	Eagle Ford Active Rigs	None
+RIGSEF	2025-05	51.4	Eagle Ford Active Rigs	None
+RIGSEF	2025-06	49	Eagle Ford Active Rigs	None
+RIGSEF	2025-07	49.5	Eagle Ford Active Rigs	None
+RIGSEF	2025-08	48.8	Eagle Ford Active Rigs	None
+RIGSEF	2025-09	51.5	Eagle Ford Active Rigs	None
+RIGSEF	2025-10	54.4	Eagle Ford Active Rigs	None
+RIGSEF	2025-11	51	Eagle Ford Active Rigs	None
+RIGSEF	2025-12	49	Eagle Ford Active Rigs	None
+RIGSEF	2026-01	47.4	Eagle Ford Active Rigs	None
+RIGSEF	2026-02	48	Eagle Ford Active Rigs	None
+RIGSEF	2026-03	49.75	Eagle Ford Active Rigs	None
+RIGSEF	2026-04	49.5	Eagle Ford Active Rigs	None
+RIGSEF	2026-05	51	Eagle Ford Active Rigs	None
+RIGSEF	2026-06	53.75	Eagle Ford Active Rigs	None
+RIGSEF	2026-07	56.2	Eagle Ford Active Rigs	None
+RIGSEF	2026-08	56.5	Eagle Ford Active Rigs	None
+RIGSR48	2024-01	105.75	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-02	105.25	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-03	102	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-04	100.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-05	98	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-06	91	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-07	91.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-08	98.4	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-09	100	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-10	104.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-11	104	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2024-12	108.25	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-01	107.8	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-02	110.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-03	116.25	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-04	117.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-05	115.8	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-06	107.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-07	100	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-08	104.4	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-09	106	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-10	112.6	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-11	112.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2025-12	114.25	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-01	121.6	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-02	121	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-03	114.75	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-04	108.5	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-05	111.2	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-06	112.25	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-07	123.4	Rest of Lower 48 States, excluding GOA Active Rigs	None
+RIGSR48	2026-08	121.75	Rest of Lower 48 States, excluding GOA Active Rigs	None
+DUCSPM	2024-01	1949	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-02	1870	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-03	1830	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-04	1752	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-05	1701	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-06	1686	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-07	1557	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-08	1490	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-09	1475	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-10	1417	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-11	1374	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2024-12	1390	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-01	1336	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-02	1291	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-03	1272	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-04	1168	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-05	1148	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-06	1149	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-07	1172	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-08	1066	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-09	1012	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-10	982	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-11	901	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2025-12	878	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-01	886	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-02	871	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-03	861	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-04	831	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-05	826	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-06	828	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-07	828	Permian Drilled but Uncompleted Wells 	None
+DUCSPM	2026-08	839	Permian Drilled but Uncompleted Wells 	None
+DUCSEF	2024-01	621	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-02	582	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-03	550	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-04	517	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-05	492	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-06	469	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-07	432	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-08	414	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-09	389	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-10	398	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-11	413	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2024-12	422	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-01	394	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-02	399	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-03	368	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-04	349	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-05	331	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-06	318	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-07	321	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-08	352	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-09	354	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-10	366	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-11	388	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2025-12	397	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-01	398	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-02	395	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-03	397	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-04	405	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-05	396	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-06	401	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-07	405	Eagle Ford Drilled but Uncompleted Wells 	None
+DUCSEF	2026-08	409	Eagle Ford Drilled but Uncompleted Wells 	None
