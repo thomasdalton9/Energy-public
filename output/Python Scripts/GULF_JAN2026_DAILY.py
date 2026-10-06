@@ -62,9 +62,8 @@ def main():
                 ax.axvspan(d - pd.Timedelta(hours=12), d + pd.Timedelta(hours=12), color="#f0eee8", lw=0, zorder=0)
     h = hh.loc[s:e]
     axs[0].plot(h.index, h.values, color="#C0392B", lw=2.4, label="Spot")
-    fm_path = os.path.join(ROOT, "discovery_archive", "results", "henry_hub", "hh_front_month_daily.csv")
-    if os.path.exists(fm_path):
-        fm = pd.read_csv(fm_path, parse_dates=["date"]).set_index("date")["HH_front_month_USD_per_MMBtu"].loc[s:e]
+    fm = series("henry_hub_daily.xlsx", "Data", "Henry_Hub_front_month_USD_per_MMBtu").loc[s:e]
+    if len(fm):
         axs[0].plot(fm.index, fm.values, color="#1F5FBF", lw=1.8, label="Front-month futures")
         axs[0].legend(frameon=False, fontsize=8, loc="upper right")
     pk = h.idxmax()
