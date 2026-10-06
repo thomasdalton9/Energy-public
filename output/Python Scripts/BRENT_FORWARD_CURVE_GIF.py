@@ -100,14 +100,40 @@ def main():
         ax.plot(r.index, r.values, color=cmap(0.15 + 0.7 * (1 - age)), lw=1.3, alpha=0.18 + 0.5 * (1 - age),
                 label=f"{d:%d %b %Y} ({lab[d]})" if d in lab else None)
     r = cur.loc[last].dropna()
-    ax.plot(r.index, r.values, color="#C0392B", lw=3.5, label=f"{last:%d %b %Y} (latest)")
+    # months beyond the last Yahoo-listed contract come from CME's own settlements (latest settlement date)
+    cme = pd.read_excel(XLSX, sheet_name="CME settlements", index_col=0)
+    cme.index = pd.to_datetime(cme.index)
+    cme.columns = pd.to_datetime([f"{c}-01" for c in cme.columns])
+    cme_last = cme.index.max()
+    ext = cme.loc[cme_last].dropna()
+    ext = ext[ext.index > r.index.max()]
+    lat = pd.Series(list(r.values) + list(ext.values), index=pd.DatetimeIndex(list(r.index) + list(ext.index)))
+    lab_latest = f"{last:%d %b %Y} (latest)"
+    if len(ext):
+        lab_latest += f"; months after {r.index.max():%b %Y} = CME settlement {cme_last:%d %b %Y}"
+    ax.plot(lat.index, lat.values, color="#C0392B", lw=3.5, label=lab_latest)
+    # EIA forecasts: spot-price forecasts, NOT futures; drawn dashed, separate from the market curves
+    eia = pd.read_excel(XLSX, sheet_name="EIA forecast")
+    eia["date"] = pd.to_datetime(eia["date"])
+    steo = eia[eia["type"].str.contains("STEO monthly forecast")].sort_values("date")
+    aeo = eia[eia["type"].str.contains("AEO annual projection, nominal")].sort_values("date")
+    XEND = pd.Timestamp("2033-12-31")
+    aeo = aeo[(aeo["date"] >= pd.Timestamp("2026-07-01")) & (aeo["date"] <= XEND)]
+    if len(steo):
+        ax.plot(steo["date"], steo["value"], color="#1F5FBF", lw=2.4, ls="--",
+                label=f"EIA STEO Brent spot forecast ({steo['date'].min():%b %y}-{steo['date'].max():%b %y}, nominal)")
+    if len(aeo):
+        vint = str(aeo["release_vintage"].iloc[0])
+        ax.plot(aeo["date"], aeo["value"], color="#7B3FA0", lw=2.4, ls=(0, (1, 1.5)),
+                label=f"EIA {vint} Brent spot projection (annual, nominal; {str(aeo['scenario'].iloc[0]).split(':')[-1].strip()})")
+    ax.set_xlim(pd.Timestamp("2026-09-01"), XEND)
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b/%y"))
     ax.set_ylabel("USD per barrel", fontsize=9)
-    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    ax.legend(frameon=False, fontsize=7.5, loc="upper right")
     ax.set_title(f"Brent forward curve: latest and first trade date of each month, {firsts[0]:%b %Y} to {last:%b %Y} (older = fainter)",
                  loc="left", fontsize=11)
-    fig.text(0.01, 0.01, SRC + ". Past curves show contracts listed today only (expired front months absent).", fontsize=7, color="#555")
-    fig.subplots_adjust(left=0.06, right=0.98, top=0.92, bottom=0.1)
+    fig.text(0.01, 0.012, SRC + " (+ CME Group settlements for later months).\nPast curves show contracts listed today only (expired front months absent). EIA lines are forecasts of the spot price, not market prices.", fontsize=6.5, color="#555", linespacing=1.4)
+    fig.subplots_adjust(left=0.06, right=0.98, top=0.92, bottom=0.12)
     fig.savefig(os.path.join(OUTDIR, "brent_forward_curve.png"))
     plt.close(fig)
     # PNG 2: calendar spreads
