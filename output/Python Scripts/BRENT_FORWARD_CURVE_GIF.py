@@ -81,24 +81,6 @@ def main():
     imgs[0].save(path, save_all=True, append_images=imgs[1:], duration=durs, loop=0, optimize=True, disposal=1)
     print(f"GIF {path}: {len(imgs)} frames, {os.path.getsize(path) / 1e6:.1f} MB, {frames[0]:%Y-%m-%d} to {frames[-1]:%Y-%m-%d}")
 
-    # PNG 1: latest vs earlier snapshots (contracts through Dec 2027)
-    snap = pd.read_excel(XLSX, sheet_name="Snapshots", index_col=0)
-    snap.index = pd.to_datetime(snap.index)
-    snap = snap[snap.index <= "2027-12-31"].dropna(how="all")
-    fig, ax = plt.subplots(figsize=(9.6, 5.4), dpi=110)
-    style(ax)
-    cols = [BLUE, ORANGE, "#2E9E6B", "#8E5CC4", GREY]
-    for c, colr in zip([c for c in snap.columns if not c.startswith("first")], cols):
-        s_ = snap[c].dropna()
-        ax.plot(s_.index, s_.values, color=colr, lw=3 if c.startswith("latest") else 1.8, label=c)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b/%y"))
-    ax.set_ylabel("USD per barrel", fontsize=9)
-    ax.legend(frameon=False, fontsize=8, loc="upper right")
-    ax.set_title("Brent forward curve by contract month: latest vs earlier dates", loc="left", fontsize=12)
-    fig.text(0.01, 0.01, SRC, fontsize=7, color="#555")
-    fig.subplots_adjust(left=0.07, right=0.98, top=0.9, bottom=0.12)
-    fig.savefig(os.path.join(OUTDIR, "brent_forward_curve.png"))
-    plt.close(fig)
     # PNG: history of curves, first trade date of each month (since Jan 2021), fading with age, latest bold
     last = cur.index.max()
     win = cur[cur.index >= START]
@@ -126,9 +108,10 @@ def main():
                  loc="left", fontsize=11)
     fig.text(0.01, 0.01, SRC + ". Past curves show contracts listed today only (expired front months absent).", fontsize=7, color="#555")
     fig.subplots_adjust(left=0.06, right=0.98, top=0.92, bottom=0.1)
-    fig.savefig(os.path.join(OUTDIR, "brent_forward_curve_history.png"))
+    fig.savefig(os.path.join(OUTDIR, "brent_forward_curve.png"))
     plt.close(fig)
     # PNG 2: calendar spreads
+    cols = [BLUE, ORANGE, "#2E9E6B", "#8E5CC4", GREY]
     fig, ax = plt.subplots(figsize=(9.6, 5.4), dpi=110)
     style(ax)
     for c, colr in zip(sp.columns, cols):
