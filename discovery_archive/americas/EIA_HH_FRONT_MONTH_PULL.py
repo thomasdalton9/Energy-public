@@ -16,6 +16,12 @@ while True:
     if len(d) < 5000:
         break
     off += 5000
+if not rows:
+    r = requests.get("https://api.eia.gov/v2/natural-gas/pri/fut/data", timeout=60, params={
+        "api_key": KEY, "frequency": "daily", "data[0]": "value", "facets[series][]": "RNGC1",
+        "sort[0][column]": "period", "sort[0][direction]": "desc", "length": 5})
+    print("no rows since 2024-12-01; latest available:", r.status_code, r.text[:800])
+    sys.exit(1)
 df = pd.DataFrame(rows)[["period", "value"]].rename(columns={"period": "date", "value": "HH_front_month_USD_per_MMBtu"})
 df["HH_front_month_USD_per_MMBtu"] = pd.to_numeric(df["HH_front_month_USD_per_MMBtu"])
 out = "discovery_archive/results/henry_hub/hh_front_month_daily.csv"
