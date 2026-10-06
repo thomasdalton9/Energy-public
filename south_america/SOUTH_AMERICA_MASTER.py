@@ -23,7 +23,7 @@ add_charts.py's registry, so the master and each country workbook always
 show the same charts. A missing input is listed on the Dashboard and
 skipped rather than stopping the rest.
 
-Usage: python3 SOUTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/south_and_central_america_master.xlsx"]
+Usage: python3 SOUTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/south_and_central_america_master.xlsx"]
 """
 import argparse
 import os
@@ -501,7 +501,7 @@ def draw_dashboard(dash, heading, charts, index_rows, missing):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "south_and_central_america_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "south_and_central_america_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
 

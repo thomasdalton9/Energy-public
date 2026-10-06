@@ -23,7 +23,7 @@ Reads (doesn't refetch) the workbooks the scheduled pulls write to
 "output/Data and Chart Outputs/". A missing input is listed on the
 Dashboard and skipped rather than stopping the rest.
 
-Usage: python3 NORTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/north_america_master.xlsx"]
+Usage: python3 NORTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx"]
 """
 import argparse
 import os
@@ -291,7 +291,7 @@ def north_america_generation(data_dir, have_raw, frames_out=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "north_america_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "north_america_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]

@@ -24,7 +24,7 @@ GB is not in the ENTSO-E generation set (no GB data after 2020); it needs its ow
 Reads (doesn't refetch) the workbooks the scheduled pulls write to "output/Data and Chart Outputs/". A missing input
 is listed on the Dashboard and skipped rather than stopping the rest.
 
-Usage: python3 EUROPE_MASTER.py [--out "output/Data and Chart Outputs/europe_master.xlsx"]
+Usage: python3 EUROPE_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/europe_master.xlsx"]
 """
 import argparse
 import os
@@ -1511,7 +1511,7 @@ def ireland_gas_balance(data_dir):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "europe_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "europe_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]

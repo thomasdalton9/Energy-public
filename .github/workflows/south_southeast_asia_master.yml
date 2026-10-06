@@ -26,18 +26,18 @@ jobs:
       - name: Build master workbook
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 600 python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py --out "output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+        run: timeout 600 python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py --out "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx"
 
       - name: PNG charts
         if: always()
         run: |
-          M="output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+          M="output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx"
           [ -f "$M" ] && python3 png_charts.py "$M" --sheet "SSEA generation total data" --title "South & Southeast Asia power generation by source" --units "TWh per month" || echo "PNG step skipped/failed"
 
       - name: Long-term PNG charts
         if: always()
         run: |
-          M="output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+          M="output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx"
           [ -f "$M" ] && python3 fundamentals.py "$M" || echo "long-term PNG step skipped/failed"
 
       - name: Copy scripts
@@ -49,13 +49,13 @@ jobs:
       - name: Commit master workbook
         if: always()
         run: |
-          if [ ! -f "output/Data and Chart Outputs/south_southeast_asia_master.xlsx" ]; then
+          if [ ! -f "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx" ]; then
             echo "No master workbook written."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/south_southeast_asia_master.xlsx"
+          git add -f "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx"
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "South and Southeast Asia master: automated update"

@@ -20,7 +20,7 @@ Reads (doesn't refetch) the workbooks the scheduled pulls write to
 "output/Data and Chart Outputs/". A missing input is listed on the Dashboard
 and skipped rather than stopping the rest.
 
-Usage: python3 AUSTRALIA_NZ_MASTER.py [--out "output/Data and Chart Outputs/australia_nz_master.xlsx"]
+Usage: python3 AUSTRALIA_NZ_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/australia_nz_master.xlsx"]
 """
 import argparse
 import os
@@ -192,7 +192,7 @@ def total_chart(wb, used, power, pos, df_total, notes, sheet, title, units, src_
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "australia_nz_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "australia_nz_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]

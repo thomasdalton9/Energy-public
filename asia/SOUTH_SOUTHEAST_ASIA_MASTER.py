@@ -23,7 +23,7 @@ from Ember's yearly release until a raw feed exists.
 Reads (doesn't refetch) the workbooks the scheduled pulls write to "output/Data and Chart Outputs/".
 A workbook a pull has not written yet is skipped; one that fails to chart is listed on the Dashboard.
 
-Usage: python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py [--out "output/Data and Chart Outputs/south_southeast_asia_master.xlsx"]
+Usage: python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx"]
 """
 import argparse
 import os
@@ -304,7 +304,7 @@ def malaysia_split(data_dir, raw_files):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "south_southeast_asia_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "south_southeast_asia_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]

@@ -27,6 +27,7 @@ Standing instructions from the repo owner. Follow these on every change.
 - Units/notes tab via `xlsx_notes.write_workbook()` (atomic write).
 
 ## Master workbooks
+- All master workbooks (`*_master.xlsx`) live in `output/Data and Chart Outputs/Master Outputs/` (their scripts and workflows write there).
 - `south_america/SOUTH_AMERICA_MASTER.py` -> `south_and_central_america_master.xlsx`: South America plus Central
   America (Guatemala-Panama + Belize; NOT Mexico) and the Caribbean: Trinidad & Tobago, Puerto Rico, Jamaica,
   Dominican Republic. Gas Dashboard + "Dashboard - Power & Hydro", a data tab per

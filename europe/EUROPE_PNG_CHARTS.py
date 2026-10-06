@@ -14,7 +14,7 @@ exactly what the Excel charts show (CLAUDE.md: every new or updated PNG chart is
 Colours are the repo's fixed categorical order (xlsx_charts.PALETTE) so a fuel keeps its colour on every chart; no
 chart or plot-area borders; dates mmm/yy.
 
-Usage: python3 EUROPE_PNG_CHARTS.py [--master "output/Data and Chart Outputs/europe_master.xlsx"]
+Usage: python3 EUROPE_PNG_CHARTS.py [--master "output/Data and Chart Outputs/Master Outputs/europe_master.xlsx"]
                                     [--out-dir "output/PNG Charts"]
 """
 import argparse
@@ -217,7 +217,7 @@ def major_markets(xl, path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--master", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "europe_master.xlsx"))
+    ap.add_argument("--master", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "europe_master.xlsx"))
     ap.add_argument("--out-dir", default=os.path.join(ROOT, "output", "PNG Charts"))
     args = ap.parse_args()
     os.makedirs(args.out_dir, exist_ok=True)

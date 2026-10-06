@@ -25,18 +25,18 @@ jobs:
       - name: Build master workbook
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 600 python3 americas/NORTH_AMERICA_MASTER.py --out "output/Data and Chart Outputs/north_america_master.xlsx"
+        run: timeout 600 python3 americas/NORTH_AMERICA_MASTER.py --out "output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx"
 
       - name: Long-term PNG charts
         if: always()
         run: |
-          M="output/Data and Chart Outputs/north_america_master.xlsx"
+          M="output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx"
           [ -f "$M" ] && python3 fundamentals.py "$M" || echo "long-term PNG step skipped/failed"
 
       - name: MISO and ERCOT gas burn PNG
         if: always()
         run: |
-          M="output/Data and Chart Outputs/north_america_master.xlsx"
+          M="output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx"
           [ -f "$M" ] && python3 png_charts.py "$M" --sheet "US MISO and ERCOT gas burn data" --kind line --title "MISO and ERCOT gas burn for power (monthly average, estimated)" --units "Bcf/d" || echo "gas burn PNG step skipped/failed"
 
       - name: Copy scripts
@@ -48,13 +48,13 @@ jobs:
       - name: Commit master workbook
         if: always()
         run: |
-          if [ ! -f "output/Data and Chart Outputs/north_america_master.xlsx" ]; then
+          if [ ! -f "output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx" ]; then
             echo "No master workbook written."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/north_america_master.xlsx"
+          git add -f "output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx"
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "North America master: automated update"
