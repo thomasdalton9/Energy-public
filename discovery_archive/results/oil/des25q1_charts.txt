@@ -1,0 +1,165 @@
+## SHEET Activity
+Dallas Fed Energy Survey's Activity Index | 
+Quarter | Index
+2016:Q1 | -42.1
+2016:Q2 | 13.8
+2016:Q3 | 26.7
+2016:Q4 | 40.1
+2017:Q1 | 41.8
+2017:Q2  | 37.3
+2017:Q3 | 27.3
+2017:Q4 | 38.1
+2018:Q1 | 40.7
+2018:Q2 | 44.5
+2018:Q3 | 43.3
+2018:Q4 | 2.3
+2019:Q1 | 10.8
+2019:Q2 | -0.6
+2019:Q3 | -6.4
+2019:Q4 | -4.2
+2020:Q1 | -50.9
+2020:Q2 | -66.1
+2020:Q3 | -6.6
+2020:Q4 | 18.5
+2021:Q1 | 53.6
+2021:Q2 | 53
+2021:Q3 | 44.3
+2021:Q4 | 42.6
+2022:Q1 | 56
+2022:Q2 | 57.7
+2022:Q3 | 46
+2022:Q4 | 30.3
+2023:Q1 | 2.1
+2023:Q2 | 0
+2023:Q3 | 10.9
+2023:Q4 | 3.6
+2024:Q1 | 2
+2024:Q2 | 12.5
+2024:Q3 | -5.9
+2024:Q4 | 6
+2025:Q1 | 3.8
+## SHEET WTI
+What do you expect the WTI crude oil price to be at the end of 2025? | 
+Dollars per barrel | Percent reporting
+< 60 | 6.98
+60.00–64.99 | 12.4
+65.00–69.99 | 25.58
+70.00–74.99 | 36.43
+75.00–79.99 | 12.4
+≥ 80.00 | 6.2
+## SHEET Henry Hub
+What do you expect the Henry Hub natural gas price to be at the end of 2025? | 
+Dollars per MMBtu | Percent reporting
+< 3.00 | 4.72
+3.00–3.49 | 20.47
+3.50–3.99 | 25.2
+4.00–4.49 | 33.07
+4.50–4.99 | 11.02
+≥ 5.00 | 5.51
+## SHEET Special Question 1
+ | In the top two areas in which your firm is active: What WTI oil price does your firm need to cover operating expenses for existing wells? |  |  |  |  | 
+ | Play | Average | Minimum | Maximum | Upper Band for Chart | Number of Responses
+ | Eagle Ford | 25.83 | 10 | 50 | 40 | 6
+ | Permian Basin – Delaware | 33.03 | 9 | 70 | 61 | 18
+ | Permian Basin – Midland | 35.44 | 14 | 70 | 56 | 9
+ | Other U.S. (Shale) | 40.81 | 6 | 75 | 69 | 16
+ | Other U.S. (Nonshale) | 44.62 | 10 | 75 | 65 | 50
+ | Permian Basin – Other | 45.15 | 15 | 75 | 60 | 20
+ | Total |  |  |  |  | 119
+## SHEET Special Question 2
+ | In the top two areas in which your firm is active: What WTI oil price does your firm need to profitably drill a new well? |  |  |  |  | 
+ | Play | Average | Minimum | Maximum | Upper Band for Chart | Number of Responses
+ | Permian Basin – Midland | 60.56 | 45 | 75 | 30 | 9
+ | Eagle Ford | 61.67 | 45 | 80 | 35 | 6
+ | Permian Basin – Delaware | 62.22 | 45 | 90 | 45 | 18
+ | Other U.S. (Shale) | 63 | 35 | 80 | 45 | 16
+ | Other U.S. (Nonshale) | 65.77 | 30 | 90 | 60 | 48
+ | Permian Basin – Other | 69.75 | 50 | 90 | 40 | 20
+ | Total |  |  |  |  | 117
+## SHEET Special Question 3
+On a net production basis, how much do you estimate is your firm’s cost of regulatory compliance, broadly defined, on a dollar-per-barrel basis?  |  | 
+Table |  | 
+ | Percent of respondents | 
+$0–$1.99 | 48.53 | 
+$2–$3.99 | 27.94 | 
+$4–$5.99 | 14.71 | 
+≥$6 | 8.82 | 
+NOTES: Executives from 68 exploration and production firms answered this question during the survey collection period, March 12–20, 2025. Percentages may not sum to 100 due to rounding. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 4
+Which of the following is the main cost component for regulatory compliance for your firm? |  | 
+Table |  | 
+ | Percent of respondents | 
+Legal and administrative | 60.27 | 
+Monitoring  | 20.55 | 
+Abatement | 10.96 | 
+Other | 8.22 | 
+Financial penalties  | 0 | 
+NOTES: Executives from 73 exploration and production firms answered this question during the survey collection period, March 12–20, 2025. Percentages may not sum to 100 due to rounding. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 5
+How much do you expect your firm’s cost of regulatory compliance to change in 2025 versus 2024? |  | 
+Table |  | 
+ | Percent of respondents | 
+Decrease significantly | 6.25 | 
+Decrease slightly | 20 | 
+Remain close to 2024 levels | 40 | 
+Increase slightly  | 21.25 | 
+Increase significantly  | 12.5 | 
+NOTES: Executives from 80 exploration and production firms answered this question during the survey collection period, March 12–20, 2025. Percentages may not sum to 100 due to rounding. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 6
+How do you expect the number of employees at your company to change from December 2024 to December 2025? |  |  | 
+Table |  |  | 
+Percent of respondents | All | E&P | Services
+Decrease significantly | 3.23 | 1.22 | 7.14
+Decrease slightly | 13.71 | 12.2 | 16.67
+Remain the same | 57.26 | 67.07 | 38.1
+Increase slightly  | 20.97 | 15.85 | 30.95
+Increase significantly  | 4.84 | 3.66 | 7.14
+NOTES: Executives from 82 exploration and production firms and 42 oil and gas support services firms answered this question during the survey collection period, March 12–20, 2025. The “All” column reports the percentage out of the total 124 responses. Percentages may not sum to 100 due to rounding. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Special Question 7
+What are your expectations for the total merger and acquisition deal value for the U.S. upstream oil and gas sector in 2025 versus 2024?  |  | 
+Table |  | 
+ | Percent of respondents | 
+Decrease significantly | 17.86 | 
+Decrease slightly | 22.32 | 
+Remain close to 2024 levels | 17.86 | 
+Increase slightly  | 36.61 | 
+Increase significantly  | 5.36 | 
+NOTES: Executives from 112 oil and gas firms answered this question during the survey collection period, March 12–20, 2025. Percentages may not sum to 100 due to rounding. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 8
+What impact do you expect the 25 percent steel import tariffs to have on your customer demand for 2025?  |  | 
+Table |  | 
+ | Percent of respondents | 
+Decrease significantly | 7.5 | 
+Decrease slightly | 55 | 
+No impact | 27.5 | 
+Increase slightly  | 7.5 | 
+Increase significantly  | 2.5 | 
+NOTES: Executives from 40 oil and gas support services firms answered this question during the survey collection period, March 12–20, 2025. Percentages may not sum to 100 due to rounding. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Price Expectations
+What do you expect WTI prices to be in six months, one year, two years and five years? |  |  |  |  |  |  | 
+ | Min | Average | Max |  |  |  | 
+Price expected in 6 months | 50 | 67.78 | 90 |  |  |  | 
+Price expected in 1 year | 50 | 69.53 | 100 |  |  |  | 
+Price expected in 2 years | 45 | 73.93 | 100 |  |  |  | 
+Price expected in 5 years | 55 | 82.46 | 125 |  |  |  | 
+What do you expect Henry Hub natural gas prices to be in six months, one year, two years and five years?  |  |  |  |  |  |  | 
+ | Min | Average | Max |  |  |  | 
+Price expected in 6 months | 1.5 | 3.71 | 5 |  |  |  | 
+Price expected in 1 year | 2 | 3.98 | 6 |  |  |  | 
+Price expected in 2 years | 2 | 4.3 | 6.25 |  |  |  | 
+Price expected in 5 years | 2 | 4.83 | 10 |  |  |  | 
+Chart |  |  |  |  |  |  | 
+50 | 17.78 | 22.22 |  |  |  |  | 
+50 | 19.53 | 30.47 |  |  |  |  | 
+45 | 28.930000000000007 | 26.069999999999993 |  |  |  |  | 
+55 | 27.459999999999994 | 42.540000000000006 |  |  |  |  | 
+1.5 | 2.21 | 1.29 |  |  |  |  | 
+2 | 1.98 | 2.02 |  |  |  |  | 
+2 | 2.3 | 1.9500000000000002 |  |  |  |  | 
+2 | 2.83 | 5.17 |  |  |  |  | 

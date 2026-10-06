@@ -1,0 +1,169 @@
+## SHEET Activity
+Dallas Fed Energy Survey's Activity Index | 
+Quarter | Index
+2016:Q1 | -42.1
+2016:Q2 | 13.8
+2016:Q3 | 26.7
+2016:Q4 | 40.1
+2017:Q1 | 41.8
+2017:Q2  | 37.3
+2017:Q3 | 27.3
+2017:Q4 | 38.1
+2018:Q1 | 40.7
+2018:Q2 | 44.5
+2018:Q3 | 43.3
+2018:Q4 | 2.3
+2019:Q1 | 10.8
+2019:Q2 | -0.6
+2019:Q3 | -6.4
+2019:Q4 | -4.2
+2020:Q1 | -50.9
+2020:Q2 | -66.1
+2020:Q3 | -6.6
+2020:Q4 | 18.5
+2021:Q1 | 53.6
+2021:Q2 | 53
+2021:Q3 | 44.3
+2021:Q4 | 42.6
+2022:Q1 | 56
+2022:Q2 | 57.7
+2022:Q3 | 46
+2022:Q4 | 30.3
+2023:Q1 | 2.1
+2023:Q2 | 0
+2023:Q3 | 10.9
+2023:Q4 | 3.6
+2024:Q1 | 2
+2024:Q2 | 12.5
+2024:Q3 | -5.9
+2024:Q4 | 6
+2025:Q1 | 3.8
+2025:Q2 | -8.1
+2025:Q3 | -6.5
+2025:Q4 | -6.2
+2026:Q1 | 21
+2026:Q2 | 46.1
+2026:Q3 | 
+2026:Q4 | 
+## SHEET WTI
+What do you expect the WTI crude oil price to be at the end of 2026? | 
+Dollars per barrel | Percent reporting
+< 70 | 5.65
+70.00–79.99 | 36.29
+80.00–89.99 | 45.97
+90.00–99.99 | 6.45
+100.00–109.99 | 1.61
+≥ 110.00 | 4.03
+## SHEET Henry Hub
+What do you expect the Henry Hub natural gas price to be at the end of 2026? | 
+Dollars per MMBtu | Percent reporting
+< 2.50 | 2.44
+2.50–2.99 | 8.13
+3.00–3.49 | 47.15
+3.50–3.99 | 26.02
+4.00–4.49 | 10.57
+≥ 4.50 | 5.69
+## SHEET Special Question 1
+How much U.S. crude oil production growth do you foresee in 2027 if WTI prices hold at $100, $125 or $150 per barrel? |  |  | 
+Table |  |  | 
+Response | Percent of respondents |  | 
+ | $100 per barrel | $125 per barrel | $150 per barrel
+No change or decline | 12.4 | 5 | 8.26
+More than 0 but not more than 0.25 mb/d | 31.4 | 15 | 4.96
+More than 0.25 but not more than 0.50 mb/d | 33.88 | 42.5 | 30.58
+More than 0.50 but not more than 0.75 mb/d | 2.48 | 15 | 18.18
+More than 0.75 but not more than 1.0 mb/d | 2.48 | 7.5 | 22.31
+More than 1 mb/d | 17.36 | 15 | 15.7
+NOTE: Executives from 121 oil and gas firms answered this question during the survey collection period, June 9–17, 2026. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Special Question 2
+At what price in dollars per barrel do you expect WTI crude oil to peak this year if the military conflict in Iran continues through year‑end?  |  | 
+Table |  | 
+ | Percent of respondents | 
+$125 or less | 65.49 | 
+More than $125 but not more than $150 | 22.12 | 
+More than $150 but not more than $175 | 7.96 | 
+More than $175 but not more than $200 | 2.65 | 
+More than $200 | 1.77 | 
+NOTE: Executives from 113 oil and gas firms answered this question during the survey collection period, June 9–17, 2026. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 3
+When do you expect the military conflict with Iran to end? |  | 
+Table |  | 
+ | Percent of respondents | 
+ | Before MOU | After MOU
+Q2 2026 | 2.22 | 35.38
+Q3 2026 | 60 | 38.46
+Q4 2026 | 28.89 | 12.31
+Q1 2027 | 4.44 | 6.15
+Q2 2027 | 2.22 | 3.08
+Q3 2027 | 0 | 3.08
+Q4 2027 | 0 | 0
+2028 or later | 2.22 | 1.54
+Executives from 110 oil and gas firms answered this question during the survey collection period, June 9–17, 2026. Of these, 45 responses were submitted before the peace agreement (defined as June 14 or earlier), and 65 were submitted after the agreement (defined as June 15 and later). MoU stands for memorandum of understanding. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 4
+How likely is it that Iran permanently restricts crude oil exports from the Persian Gulf?  |  | 
+Table |  | 
+ | Percent of respondents | 
+Unlikely | 56.67 | 
+Somewhat likely | 33.33 | 
+Very likely | 10 | 
+NOTE: Executives from 120 oil and gas firms answered this question during the survey collection period, June 9–17, 2026. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 5
+When do you expect natural gas takeaway constraints in the Permian Basin to be fully alleviated such that Waha natural gas (fixed) prices remain positive even during pipeline maintenance? |  | 
+Table |  | 
+ | Percent of respondents | 
+Q3 2026 | 0 | 
+Q4 2026 | 12.5 | 
+Q1 2027 | 25 | 
+Q2 2027 | 16.67 | 
+Q3 2027 | 16.67 | 
+Q4 2027 | 8.33 | 
+2028 or later | 12.5 | 
+Never | 8.33 | 
+NOTE: Executives from 24 exploration and production firms answered this question during the survey collection period, June 9–17, 2026. Only executives whose firms primarily focus on the Permian Basin were asked this question. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 6
+To what extent might the following constraints hinder your firm’s drilling activity in the Permian Basin in the next 12 months? |  |  |  |  | 
+Table |  |  |  |  | 
+Response | Percent of respondents |  |  |  | 
+ | Produced water management | Natural gas takeaway capacity | Labor | Availability of rigs | Policy/regulatory
+Significant constraint | 26.32 | 45 | 5.26 | 15 | 45
+Slight constraint | 31.58 | 40 | 47.37 | 45 | 20
+No impact | 42.11 | 15 | 47.37 | 40 | 35
+NOTE: Executives from 20 exploration and production firms answered this question during the survey collection period, June 9–17, 2026. Only executives whose firms primarily focus on the Permian Basin and who reported drilling or completing a horizontal well within the past two years were included. |  |  |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  |  |  | 
+## SHEET Special Question 7
+To what extent might the following constraints hinder your firm’s drilling activity in basins outside the Permian Basin in the next 12 months? |  |  |  |  | 
+Table |  |  |  |  | 
+Response | Percent of respondents |  |  |  | 
+ | Produced water management | Natural gas takeaway capacity | Labor | Availability of rigs | Policy/regulatory
+Significant constraint | 7.14 | 13.33 | 14.29 | 13.33 | 6.67
+Slight constraint | 35.71 | 40 | 35.71 | 53.33 | 33.33
+No impact | 57.14 | 46.67 | 50 | 33.33 | 60
+NOTE: Executives from 15 exploration and production firms answered this question during the survey collection period, June 9–17, 2026. Only executives whose firms primarily focus on basins other than the Permian and who reported drilling or completing a horizontal well within the past two years were included. |  |  |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  |  |  | 
+## SHEET Price Expectations
+What do you expect WTI prices to be in six months, one year, two years and five years? |  |  |  |  |  |  | 
+ | Min | Average | Max |  |  |  | 
+Price expected in 6 months | 65 | 82.90654205607477 | 150 |  |  |  | 
+Price expected in 1 year | 60 | 78.4 | 125 |  |  |  | 
+Price expected in 2 years | 50 | 77.9126213592233 | 125 |  |  |  | 
+Price expected in 5 years | 40 | 81.7864077669903 | 150 |  |  |  | 
+What do you expect Henry Hub natural gas prices to be in six months, one year, two years and five years?  |  |  |  |  |  |  | 
+ | Min | Average | Max |  |  |  | 
+Price expected in 6 months | 2 | 3.3546391752577325 | 4.5 |  |  |  | 
+Price expected in 1 year | 2 | 3.4510526315789476 | 5 |  |  |  | 
+Price expected in 2 years | 2 | 3.74936170212766 | 6.5 |  |  |  | 
+Price expected in 5 years | 2 | 4.144408602150539 | 8.5 |  |  |  | 
+Chart |  |  |  |  |  |  | 
+65 | 17.90654205607477 | 67.09345794392523 |  |  |  |  | 
+60 | 18.400000000000006 | 46.599999999999994 |  |  |  |  | 
+50 | 27.912621359223294 | 47.087378640776706 |  |  |  |  | 
+40 | 41.786407766990294 | 68.2135922330097 |  |  |  |  | 
+2.5 | 1.3546391752577325 | 1.1453608247422675 |  |  |  |  | 
+2.5 | 1.4510526315789476 | 1.5489473684210524 |  |  |  |  | 
+2.75 | 1.74936170212766 | 2.75063829787234 |  |  |  |  | 
+2.75 | 2.1444086021505386 | 4.355591397849461 |  |  |  |  | 

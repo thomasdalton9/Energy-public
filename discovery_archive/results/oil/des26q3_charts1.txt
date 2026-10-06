@@ -1,0 +1,175 @@
+## SHEET Activity
+Dallas Fed Energy Survey's Activity Index | 
+Quarter | Index
+2016:Q1 | -42.1
+2016:Q2 | 13.8
+2016:Q3 | 26.7
+2016:Q4 | 40.1
+2017:Q1 | 41.8
+2017:Q2  | 37.3
+2017:Q3 | 27.3
+2017:Q4 | 38.1
+2018:Q1 | 40.7
+2018:Q2 | 44.5
+2018:Q3 | 43.3
+2018:Q4 | 2.3
+2019:Q1 | 10.8
+2019:Q2 | -0.6
+2019:Q3 | -6.4
+2019:Q4 | -4.2
+2020:Q1 | -50.9
+2020:Q2 | -66.1
+2020:Q3 | -6.6
+2020:Q4 | 18.5
+2021:Q1 | 53.6
+2021:Q2 | 53
+2021:Q3 | 44.3
+2021:Q4 | 42.6
+2022:Q1 | 56
+2022:Q2 | 57.7
+2022:Q3 | 46
+2022:Q4 | 30.3
+2023:Q1 | 2.1
+2023:Q2 | 0
+2023:Q3 | 10.9
+2023:Q4 | 3.6
+2024:Q1 | 2
+2024:Q2 | 12.5
+2024:Q3 | -5.9
+2024:Q4 | 6
+2025:Q1 | 3.8
+2025:Q2 | -8.1
+2025:Q3 | -6.5
+2025:Q4 | -6.2
+2026:Q1 | 21
+2026:Q2 | 46.1
+2026:Q3 | 38.8
+2026:Q4 | 
+## SHEET WTI
+What do you expect the WTI crude oil price to be at the end of 2026? | 
+Dollars per barrel | Percent reporting
+< 80 | 10.4
+80.00–89.99 | 48.8
+90.00–99.99 | 24.8
+100.00–109.99 | 10.4
+110.00–119.99 | 1.6
+≥ 120.00 | 4
+## SHEET Henry Hub
+What do you expect the Henry Hub natural gas price to be at the end of 2026? | 
+Dollars per MMBtu | Percent reporting
+< 2.60 | 3.33
+2.60–2.99 | 10
+3.00–3.39 | 48.33
+3.40–3.79 | 30
+3.80–4.19 | 5
+≥ 4.20 | 3.33
+## SHEET Special Question 1
+What do you believe is the absolute minimum inventory level for the U.S. Strategic Petroleum Reserve, defined as the point at which no more oil can be practically withdrawn? |  | 
+Table |  | 
+ | Percent of respondents | 
+50 million barrels (mb) or less | 0 | 
+More than 50 mb but not more than 100 mb | 20.83 | 
+More than 100 mb but not more than 150 mb | 30.56 | 
+More than 150 mb but not more than 200 mb | 18.06 | 
+More than 200 mb but not more than 250 mb | 11.11 | 
+More than 250 mb but not more than 300 mb | 19.44 | 
+NOTE: Executives from 72 oil and gas firms answered this question during the survey collection period, Sept. 16–24, 2026. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 2
+By the end of which quarter do you expect crude oil exports from the Persian Gulf to return to normal levels? |  | 
+Table |  | 
+ | Percent of respondents | 
+Q4 2026 | 6.54 | 
+Q1 2027 | 18.69 | 
+Q2 2027 | 28.04 | 
+Q3 2027 | 11.21 | 
+Q4 2027 | 14.95 | 
+2028 or later | 20.56 | 
+NOTE: Executives from 107 oil and gas firms answered this question during the survey collection period, Sept. 16–24, 2026. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 3
+How many quarters do you expect it will take for the spread between fuel prices and crude oil prices to return to 2025 levels? |  | 
+Table |  | 
+ | Percent of respondents | 
+ | Gasoline | Diesel
+1 quarter or less | 6.73 | 2
+More than 1 quarter but not more than 2 quarters | 14.42 | 6
+More than 2 quarters but not more than 3 quarters | 25.96 | 21
+More than 3 quarters but not more than 4 quarters | 17.31 | 23
+More than 4 quarters | 35.58 | 48
+NOTE: For gasoline, executives from 104 oil and gas firms answered this question during the survey collection period, Sept. 16–24, 2026. For diesel, executives from 100 oil and gas firms answered this question during the survey collection period. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 4
+Free cash flow for many exploration and production firms increased in the first three quarters of 2026 compared to the first three quarters of 2025. Where do you primarily expect your firm to allocate this additional cash flow in the coming quarters? |  |  | 
+Table |  |  | 
+ | Percent of respondents (among each group) |  | 
+ | All E&P | Large E&P | Small E&P
+Return capital to shareholders and/or owners | 25 | 50 | 19.35
+Capital expenditures | 28.95 | 21.43 | 30.65
+Acquisitions | 13.16 | 14.29 | 12.9
+Debt reduction | 21.05 | 14.29 | 22.58
+Retain as cash | 7.89 | 0 | 9.68
+Other  | 3.95 | 0 | 4.84
+NOTE: Executives from 76 exploration and production firms answered this question during the survey collection period, Sept. 16–24, 2026. Small E&P firms produced fewer than 10,000 barrels per day (b/d) in fourth quarter 2025, while large E&P firms produced 10,000 b/d or more. Responses came from 62 small firms and 14 large firms. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Special Question 5
+In the past year, have your operations been impacted by theft in the oil field? |  |  | 
+Table |  |  | 
+ | Firms with operations primarily focused on the Permian | Firms with operations primarily focused outside the Permian | 
+Yes | 46.15 | 14.29 | 
+No | 53.85 | 85.71 | 
+NOTE: Executive from 75 exploration and production firms answered this question during the survey collection period, Sept. 16-24, 2026. Responses came from 26 firms with operations primarily focused on the Permian and 49 firms with operations primarily focused outside the Permian. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Special Question 6
+If so, compared with the prior 12 months, how has the extent of theft changed? | 
+Table | 
+ | Percent of respondents
+Significantly decreased | 10.53
+Slightly decreased | 10.53
+Remained the same | 47.37
+Slightly increased | 31.58
+Significantly increased | 0
+NOTES: Executives from 19 exploration and production firms answered this question during the survey collection period, Sept. 16–24, 2026. This question was only posed to E&P executives who said their operations have been impacted by theft in the oil field in the past year. | 
+SOURCE: Federal Reserve Bank of Dallas. | 
+## SHEET Special Question 7
+How would you describe the most common nature of the theft? |  |  | 
+Table |  |  | 
+ | Percent of respondents |  | 
+Targeted, organized theft | 47.37 |  | 
+Opportunistic petty theft | 42.11 |  | 
+Vandalism with theft component | 5.26 |  | 
+Other | 5.26 |  | 
+NOTES: Executives from 19 exploration and production firms answered this question during the survey collection period, Sept. 16–24, 2026. This question was only posed to E&P executives who said their operations have been impacted by theft in the oil field in the past year. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Special Question 8
+How would you rate the financial impact of the theft on your firm? |  |  | 
+Table |  |  | 
+Response | Percent of respondents (among each group) |  | 
+ | All E&P | Large E&P | Small E&P
+High | 0 | 0 | 0
+Medium | 15.79 | 0 | 21.43
+Low | 84.21 | 100 | 78.57
+NOTES: Executives from 19 exploration and production firms answered this question during the survey collection period, Sept. 16–24, 2026. Small E&P firms produced fewer than 10,000 barrels per day (b/d) in fourth quarter 2025, while large E&P firms produced 10,000 b/d or more. Responses came from 14 small firms and 5 large firms. This question was only posed to E&P executives who said their operations have been impacted by theft in the oil field in the past year. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Price Expectations
+What do you expect WTI prices to be in six months, one year, two years and five years? |  |  |  |  |  |  | 
+ | Min | Average | Max |  |  |  | 
+Price expected in 6 months | 65 | 87.62 | 130 |  |  |  | 
+Price expected in 1 year | 60 | 81.66 | 130 |  |  |  | 
+Price expected in 2 years | 60 | 79.15 | 150 |  |  |  | 
+Price expected in 5 years | 55 | 82.46 | 150 |  |  |  | 
+What do you expect Henry Hub natural gas prices to be in six months, one year, two years and five years?  |  |  |  |  |  |  | 
+ | Min | Average | Max |  |  |  | 
+Price expected in 6 months | 2.2 | 3.29 | 6 |  |  |  | 
+Price expected in 1 year | 2.3 | 3.46 | 7 |  |  |  | 
+Price expected in 2 years | 2.3 | 3.82 | 8 |  |  |  | 
+Price expected in 5 years | 2.3 | 4.28 | 8 |  |  |  | 
+Chart |  |  |  |  |  |  | 
+65 | 22.620000000000005 | 42.379999999999995 |  |  |  |  | 
+60 | 21.659999999999997 | 48.34 |  |  |  |  | 
+60 | 19.150000000000006 | 70.85 |  |  |  |  | 
+55 | 27.459999999999994 | 67.54 |  |  |  |  | 
+2.2 | 1.0899999999999999 | 2.71 |  |  |  |  | 
+2.3 | 1.1600000000000001 | 3.54 |  |  |  |  | 
+2.3 | 1.52 | 4.18 |  |  |  |  | 
+2.3 | 1.9800000000000004 | 3.7199999999999998 |  |  |  |  | 

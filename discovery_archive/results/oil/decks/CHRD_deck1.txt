@@ -1,0 +1,807 @@
+URL: https://ir.chordenergy.com/image/CHRD-2Q26-Earnings-Presentation.pdf
+CHARS: 34344
+Aug 5, 2026
+Premier Williston Basin Operator
+Positioned to Thrive, Delivering Value
+[[page 1]]
+Important Disclosures
+Forward-Looking and Cautionary Statements
+Certain statements in this presentation, other than statements of historical facts, that address activities, events or developments that Chord expects, believes or anticipates will or may occur in the future, including any statements regarding future opportunities for Chord,
+future financial performance and condition, guidance and statements regarding Chord’s expectations, beliefs, plans, financial condition, objectives, assumptions or future events or performance are forward-looking statements based on assumptions currently believed to
+be valid. Forward-looking statements are all statements other than statements of historical facts. The words “anticipate,” “believe,” “ensure,” “expect,” “if,” “intend,” “estimate,” “probable,” “project,” “forecasts,” “predict,” “outlook,” “aim,” “will,” “could,” “should,” “would,”
+“potential,” “may,” “might,” “likely,” “plan,” “positioned,” “strategy” and similar expressions or other words of similar meaning, and the negatives thereof, are intended to identify forward-looking statements. Specific forward-looking statements include statements regarding
+Chord’s plans and expectations with respect to the return of capital plan, advancement of its extended lateral program and production levels, anticipated financial and operating results and other guidance. The forward-looking statements are intended to be subject to the
+safe harbor provided by Section 27A of the Securities Act of 1933, Section 21E of the Securities Exchange Act of 1934 and the Private Securities Litigation Reform Act of 1995.
+These forward-looking statements are based on certain assumptions made by Chord based on management’s experience and perception of historical trends, current conditions, anticipated future developments and other factors believed to be appropriate. Such
+statements are subject to a number of assumptions, risks and uncertainties, many of which are beyond the control of Chord, which may cause actual results to differ materially from those implied or expressed by the forward-looking statements. These include, but are not
+limited to, changes in crude oil, NGL and natural gas realized prices, uncertainty regarding the future actions of foreign oil producers and the related impacts such actions have on the balance between the supply of and demand for crude oil, NGLs and natural gas, the
+actions taken by OPEC+ with respect to oil production levels and announcements of potential changes in such levels, including the ability of the OPEC+ countries to agree on and comply with production levels, changes in trade policies and regulations, including
+increases or change in duties, current and potentially new tariffs or quotas and other similar measures, as well as the potential impact of retaliatory tariffs and other actions, war between Russia and Ukraine, military conflicts in the Red Sea Region, Iran, and the wider
+Middle East and their effect on commodity prices, changes or uncertainty in general economic and geopolitical conditions, inflation rates and the impact of associated monetary policy responses, including fluctuating interest rates, logistical challenges and supply chain
+disruptions, our business strategy, including the continued implementation of our 4-mile well program, the geographic concentration of our operations, uncertainties in estimating proved reserves and forecasting production results, drilling and completion of wells,
+operational factors affecting the commencement or maintenance of producing wells, the availability of infrastructure and midstream service providers, our ability to realize the anticipated benefits from acquisitions, the condition of the capital markets generally, as well as
+Chord’s ability to access them, the proximity to and capacity of transportation facilities, uncertainties regarding environmental regulations or litigation and other legal or regulatory developments affecting Chord’s business and other important factors that could cause
+actual results to differ materially from those projected as described in Chord’s reports filed with the U.S. Securities and Exchange Commission (the “SEC”).
+Any forward-looking statement speaks only as of the date on which such statement is made and Chord undertakes no obligation to correct or update any forward-looking statement, whether as a result of new information, future events or otherwise, except as required by
+applicable law. As forward-looking statements involve significant risks and uncertainties, caution should be exercised against placing undue reliance on such statements. Additional information concerning other risk factors is also contained in Chord’s most recently filed
+Annual Report on Form 10-K for the year ended December 31, 2025, subsequent Quarterly Reports on Form 10-Q, Current Reports on Form 8-K and other SEC filings.
+Non-GAAP Financial Measures
+This presentation includes supplemental financial metrics that are not presented in accordance with generally accepted accounting principles in the United States (“GAAP”). These non-GAAP measures should not be considered in isolation or as a substitute for the
+nearest comparable measures prepared under GAAP. Because these non-GAAP measures exclude some but not all items that affect the comparable GAAP measure, such as net income (loss) or net cash provided by (used in) operating activities, and may vary among
+companies, the amounts presented may not be comparable to similar metrics of other companies.
+Reconciliations of these non-GAAP financial measures to their most comparable GAAP measure can be found on Chord’s website at https://ir.chordenergy.com/non-gaap. From time to time, Chord provides forward-looking forecasts of these measures; however, Chord is
+unable to provide a quantitative reconciliation of the forward-looking non-GAAP measures to the most directly comparable forward-looking GAAP measures because management cannot reliably quantify certain of the necessary components of such forward-looking
+GAAP measures. The reconciling items in future periods could be significant.
+Cautionary Statement Regarding Oil and Gas Quantities
+The SEC requires oil and gas companies, in their filings with the SEC, to disclose proved reserves, which are those quantities of oil and gas, which, by analysis of geoscience and engineering data, can be estimated with reasonable certainty to be economically
+producible— from a given date forward, from known reservoirs, and under existing economic conditions (using unweighted average 12-month first day of the month prices), operating methods, and government regulations—prior to the time at which contracts providing
+the right to operate expire, unless evidence indicates that renewal is reasonably certain, regardless of whether deterministic or probabilistic methods are used for the estimation. The accuracy of any reserve estimate depends on the quality of available data, the
+interpretation of such data and price and cost assumptions made by reserve engineers. In addition, the results of drilling, testing and production activities of the exploration and development companies may justify revisions of estimates that were made previously. If
+significant, such revisions could impact Chord’s strategy and future prospects. Accordingly, reserve estimates may differ significantly from the quantities of oil and natural gas that are ultimately recovered. The SEC also permits the disclosure of separate estimates of
+probable or possible reserves that meet SEC definitions for such reserves; however, Chord has not disclosed probable or possible reserves in its SEC filings. The production forecasts and expectations of the combined company for future periods are dependent upon
+many assumptions, including estimates of production decline rates from existing wells and the undertaking and outcome of future drilling activity, which may be affected by significant commodity price declines or drilling cost increases.
+2
+[[page 2]]
+Disciplined, Oil-Focused Williston Operator Delivering Strong Returns
+Premier Williston Operator Williston Basin Acreage Commodity Mix1
+• Size & scale with high quality assets
+18%
+• >1.3MM net acres
+• ~280 MBoepd
+Production 6:1
+• ~58% oil; >90% revenue1
+58%
+24%
+• 10+ yrs of low-breakeven inventory2
+Enhancing FCF
+Oil Gas NGL
+• Lowered inventory breakeven >10% Y/Y
+• Capital discipline; maintenance program
+Marcellus Non-Op Acreage
+• Low base declines & reinvestment rate
+• Growing FCF/share
+Disciplined Return of Capital &
+Balance Sheet Management
+• Significant shareholder returns
+• Compelling base dividend ($5.20/share)
+• Share repurchases
+• Strong balance sheet; ~0.3x leverage3
+3
+(1) Reflects FY26 midpoint guidance; (2) Management estimate based on normalized activity pace; (3) CHRD net leverage as of 6/30/26 using LTM EBITDA
+[[page 3]]
+Chord’s Capital Allocation Approach
+Capital Allocation Starts with Strong
+Cash Flow From Operations
+Allocation Options
+Strong Return of Capital
+Attractive E&P Investments Opportunistic M&A Balance Sheet Management
+Program
+• Proven 3-mi/4-mi development • Impressive shareholder returns • Disciplined approach • Financial strength essential
+track record
+Conservative spacing • Five Williston deals since ’21 • Maintained low leverage profile
+o
+• Attractive base dividend
+• Basin leading rig/frac • Enhanced scale ~0.3x at 2Q261
+o
+performance • Favor share buybacks currently
+Oil volumes +300% from ’21 • Net debt of $0.9B at 2Q26
+o
+• Strong base performance with • Avoiding pro-cyclical buying
+>1.3MM acres • No revolver borrowings, $2B of
+o
+lower oil decline rate vs peers
+• Targeting 75%+ return of capital elected commitments at 2Q26
+• Significant synergy capture
+• Continued innovation driving starting in 3Q26
+• Improving credit ratings
+down breakevens
+Capital Allocation Focus Delivers Strong Returns Through Commodity Cycles
+4
+(1) CHRD net leverage as of 6/30/26 using LTM EBITDA.
+[[page 4]]
+Premier Williston Basin Operator, Driving Efficiencies
+Highlights Williston Basin Oil Production, MBopd1
+• Williston Basin largest acreage holder & producer
+216
+• Scale drives operational efficiency
+156
+150
+• High oil cut provides upside to oil upcycle
+123
+111
+88
+• Deep subsurface expertise
+59
+43
+39
+• Significantly reducing costs
+Chord Peers
+Operational Efficiency Enhancement2 Long-Lateral Inventory Expansion3
+• Increasing production w/ fewer rigs and crews • Chord’s long-lateral competitive advantage
+• Achieved ~80% long-lateral inventory faster than expected
++14%
+-25% -21% 161.0
+6.0 1.9
+~4.5 ~1.5 141.5
+YE23 Inventory YE24 Inventory YE25 Inventory
+FY22 FY26 FY22 FY26 FY22 FY26
+Drilling Completion Oil Production
+~40% >50% ~80%
+Rigs Crews (MBopd)
+2-Mile 3-Mile 4-Mile
+5
+(1) Source: Enverus as of 7/21/26. Reflects Jan-May 2026 gross operated oil production. Peers include CVX, COP, CLR, DVN, XOM, Kraken, Petro-Hunt, and Slawson; (2) FY22 reflects OAS, WLL and ERF pro-forma; (3) Net 10K’ equivalent operated locations.
+[[page 5]]
+Base Production Investment
+Base Production Represents a Sizable Opportunity
+• Chord - largest producer in the Williston w/ most operated wells
+• Enhanced focus on base production
+• Base production investment:
+• Favorable risk/reward & attractive return potential
+• Capitalizing on higher oil pricing to trial new technologies
+• Accelerating volumes with potential EUR upside
+• Further lowers oil decline rate vs. peers
+Jan-25 Jul-25 Jan-26 Jul-26
+Robust Opportunity Set
+• Initiatives driving production uplift
+Accelerating Workovers Reducing Cycle Times Chemical Jobs
+Surface Optimization Optimizing AL w/AI Lower Failure Rate
+High Pressure Gas Lift Pump Placement 24-Hour Workover Rigs
+BHA Design Change AI Driven Logistics Rod-less Pumping
+6
+dpoB
+Investment Driving Incremental Volumes From Base1
+• Outperforming original outlook
+Volumes Original Outlook
+Expanding Chemical Workover Program
+• Various treatments over hundreds of wells
+• Acidizing/Solvents – clean debris, enhance flow & recovery
+• Surfactants – reduce interfacial tension and improve mobility
+• Combo Treatments - removing scale, paraffins, polymers, biofilm
+• Potential upside largely not factored into latest volume outlook
+(1) Subset of well population targeted for optimization.
+[[page 6]]
+65
+61
+56
+YE23 YE24 2Q26
+)MM(
+tnuoc
+erahS
+Share Buyback Program Reducing Share Count
+Track Record of Share Buybacks1 Delivering Strong Shareholder Returns
+• Aggressive share count reduction
+• Buybacks preferred in current environment
+-14% FDSO +26% Base Dividend
+Reduction since YE23 CAGR since Feb-21
+14%
+Reduction
+(Since YE23)
+10% Oil Growth2 ~30% FCF Growth2
+Per share CAGR since 2021 Per share since FY24
+7
+(1) Reflects fully-diluted shares outstanding, including dilutive effect of outstanding warrants as applicable; YE23 & FY24 pro-forma for Enerplus; (2) See slide 8 for details.
+[[page 7]]
+Delivering Per Share Growth
+Oil Production Per Share1
+Strong Capital Allocation
+~10%
+1.05
+• Maximizing efficient FCF generation
+CAGR vs ‘21
+• Counter-cyclical share repurchases
+0.65
+• Disciplined M&A
+Operational Excellence
+2021 2022 2023 2024 2025 2026 • Reducing controllable costs
+• Improving efficiencies
+Free Cash Flow Per Share2
+• Leveraging new technologies
+Significant Shareholder Returns
+~30%
+$22.00 • 14% share reduction since YE233
+Growth
+$17.10
+• $5.20/share base dividend annually
+Financial Strength
+• Maintained strong balance sheet
+2024 2026
+8
+(1) Calculated as oil production / wtd. avg. diluted shares outstanding. 2025 production includes XTO on a pro-forma basis of 159
+MBopd; (2) Reflects FY24 pricing ($75.70/$2.28), normalizes differentials & cash taxes for both periods. FY24 are actuals pro-forma
+for Enerplus. FY26 reflects midpoint guidance; (3) Pro-forma for Enerplus.
+[[page 8]]
+$100
+$75
+$50
+$25
+$0
+10%
+5%
+0%
+(5%)
+(10%)
+dpoB
+egdeW
+/
+xEpaC
+Peer Leading Capital Efficiency
+Highlights 2026 Program Capital Efficiency vs Peers1
+• Wide spacing and long-laterals enhance economics
+Top Quartile In 2026 • 4-mile laterals and alternate shape wells further improve returns
+• Continuing to drive operational efficiencies
+• Optimizing large production base
+Chord Peers
+Reducing Capital, Increasing Production2 Capital Efficiency Change 2025 vs 20263
+• CapEx ~$100MM lower, oil production +8 MBopd higher
+Leading Rate of Change Y/Y
+161
+MBopd
+~$1.5B
+153
+MBopd
+Oil Production
+$1.4B
+CapEx
+Chord Peers
+2024
+2026
+(Enerplus Announcement)
+9
+(1) Peers based on consensus estimates in Feb. 2026. Chord based on Feb. 2026 midpoint FY26 guidance. Capital efficiency calculated as CapEx divided by wedge production. Decline rates from Enverus; Peers include APA, CRGY, DVN, EOG, FANG, MGY, MTDR, NOG,
+OVV, PR and SM; (2) 2024 reflects CHRD and Enerplus pro forma at announcement date. 2026 reflects midpoint of guidance. (3) Source: Enverus 2026 Capital Efficiency report 2/11/26. Peers include APA, CRGY, DVN, EOG, FANG, MGY, MTDR, NOG, OVV, PR and SM.
+[[page 9]]
+Improving Capital Productivity
+Flowing Capital Efficiency1
+• Normalizing well productivity for relative capital cost
+• Increased long-laterals in ‘26 - better economics, lower CapEx per ft
+• 2026 reflects increase in 4-mile TIL activity to ~40%
+10
+tf
+rep
+C&D
+/
+tf
+rep
+dpoB
+Future F&D2
+• Future F&D trending -22% lower since 2023
+• Longer laterals, wider spacing improving capital efficiency
+2026 Program
+$16.75
+2025 Program
+-22%
+$14.88
+>10%
+Capital Efficiency
+Improvement
+$13.04
+2025 2026
+D&C/ft $680 D&C/ft $566
+~45% long-laterals ~80% long-laterals
+2023 2024 2025
+Cum. Bopd per ft / D&C per ft
+(1) Flowing capital efficiency measured as Bopd per ft / capex per ft, reflects initial Feb 2026 outlook (2) Future F&D calculated as future development costs / PUD reserves.
+[[page 10]]
+15
+10
+5
+-
+Chord Bakken Midland DJ Delaware Eagle
+Ford
+)s000(
+htgneL
+laretaL
+1,000 18
+901
+900
+830
+16
+800
+703
+680
+700 14
+566
+600
+12
+500
+400 10
+2022 2023 2024 2025 2026
+tf/$
+htgneL
+laretaL
+.gvA
+)s000(
+Bakken/Chord Uniquely Positioned for Long-Laterals
+Significant Improvement in Program D&C $/ft1
+Bakken Competitive Advantages
+• Supportive regulatory process
+• Favorable land layout – clearly established DSUs -37%
+• Stress regime allows N/S & E/W lateral orientation
+• Generally targeting single zone (Middle Bakken)
+• Rock homogeneity, less faulting vs other basins
+• Consistent pressure regimes simplify mud-weight
+$/ft Avg. Lateral Length
+Bakken / Chord Favorable Long-Lateral Positioning2 Industry Leader in Long-Lateral Development2
+15
+10
+5
+-
+Chord Chord 2026 Plan Chord Chord 2026 Plan Peers
+11
+(1) Based on Feb 2026 guidance (2) Source: Enverus 2025 spuds. Chord 2026 plan reflects TILs. Peers include APA, COP, CVX, DVN, EOG, FANG, MTDR, OXY, PR, SM and XOM (Bakken, Delaware, DJ, Eagle Ford and Midland).
+)s000(
+htgneL
+laretaL
+[[page 11]]
+4-Mile Lateral Program Progressing
+Cost of Supply Improvement1
+$10-$12/Bbl
+$8-$10/Bbl $8-$10/Bbl
+Superior returns on
+long-lateral development
+3-Mile 4-Mile 4-Mile
+(Base Case) (Upside Case)
+~5% ~40%
+4-Mile Highlights
+of 2025 TIL activity of 2026 TIL activity
+• Organically improves inventory quality
+• Lowers breakevens, extends inventory life
+• >50 Drilled and 26 TIL’d2
+• D&C execution and early performance meeting
+expectations
++90% - 100% +40% - 60% $8/Bbl - $12/Bbl • Cleanouts consistently reaching total depth
+EUR1 CapEx1 Lower Breakeven1 • Pad drilling & trimulfrac supporting efficiencies
+• ~50% of long-term inventory3
+1122
+(1) Compared to 2-mile analog; (2) As of early 3Q26; (3) Net 10K’ equivalent operated locations.
+[[page 12]]
+Enhancing Economics With Long-Laterals
+Highlights Capital and Recoveries (per ft)1
+• Williston Basin contiguous acreage advantaged for long-laterals
+45 45
+43
+• Organically improves inventory quality
+• Lowers breakevens and enhances economics
+$710
+• Reconfigured DSU spacing to 3 & 4-mile development
+$568
+$532
+2-Mile 3-Mile 4-Mile
+Bo per ft Well cost per ft
+Western Extension Case Study2 Well Costs vs YE24 (% Change)
+• Longer-laterals significantly improve economics in Western Extension • 4-mile well cost reduction – improving efficiencies
+2-Mile vs 2-Mile vs
+2-Mile 3-Mile 4-Mile
+2-Mile 3-Mile 4-Mile 3-Mile 4-Mile
+CapEx
+Well Cost ($MM) $7.1 $8.5 $10.7 +20% +50%
+-2%
+$ per ft $710 $568 $532 -20% -25%
+Expected Ultimate Recovery1
+-4%
+Oil EUR (000s) 450 675 855 +50% +90%
+Bo per ft 45 45 43 - -5%
+Economics
+F&D/bo $15.78 $12.62 $12.46 -20% -21% -9%
+13
+(1) 4-mile EUR assumes 80% contribution from 4th mile; (2) Capital assumptions based on Feb 2026 disclosure
+[[page 13]]
+Enhancing Inventory Quality and Duration
+15
+72
+207
+3
+Added 294 Net Operated 10K’ Inventory
+Low-Breakeven Locations Added in 2025
+>10% Wtd. Avg. Breakeven Improvement
+(125)
+YE25 vs YE24 operated inventory portfolio
+Net 10K' TILs Organic XTO Ground Game
+'K01
+teN
+detarepO
+Highlights
+• 10+ years low-breakeven inventory1
+• Improving inventory quality and duration
+• Organically improving inventory – longer laterals, wider spacing
+• Long-lateral inventory increased to ~80% at YE252
+Ahead of schedule
+o
+10K’ Net Operated Locations3
+Low-Breakeven 2025 Activity
+200
+150
+100
+50
+>2X 0
+Inventory
+-50
+Replacement
+-100
+-150
+14
+(1) Management estimate based on normalized activity pace; (2) Net 10K’ equivalent operated locations; (3) Reflects net 10K’
+equivalent operated low-breakeven locations.
+[[page 14]]
+180 1.5x
+150
+120 1.0x
+90
+60 0.5x
+30
+- 0.0x
+2021 2026
+)dpoBM(
+noitcudorP
+liO
+egareveL
+teN
+Disciplined M&A Track Record
+Highlights Enhanced Scale, Strong Balance Sheet1,2
+• Williston Basin focus • Grown oil production >4x, maintained strong balance sheet
+• Balanced approach - corporate mergers, bolt-ons and ground game
+• Significant synergy capture with enhanced scale and lower cost structure
+• Maintained strong balance sheet and shareholder returns focus
+Oil Production Net Leverage
+QEP Bolt-on Whiting Merger XTO Bolt-on Enerplus Merger XTO Bolt-on
+• Closed 4Q21 • Closed 3Q22 • Closed 2Q23 • Closed 2Q24 • Closed 4Q25
+• $745MM cash • ~23MM shares • $375MM cash • ~21MM shares • $550MM cash
+• ~$245MM cash • ~$376MM cash
+2021 2022 2023 2024 2025
+Permian Basin Oasis Midstream Partners Non-Core Assets DJ Basin
+• Closed 2Q21 • Closed 1Q22 • Series of transactions • Closed 4Q24
+• $480MM cash • ~21MM units / ~$160MM cash • ~$40MM cash • $42.5MM cash
+15
+(1) FY21 reflects OAS standalone and excludes Permian Basin production. FY26 reflects midpoint guidance; (2) CHRD net leverage as of 6/30/26 using LTM EBITDA.
+snoitisiuqcA
+serutitseviD
+[[page 15]]
+1.3x
+0.3x
+Peers
+egareveL
+teN
+E7202
+Peer Leading Balance Sheet Supports Organization Resiliency
+Low Leverage Strong Credit Profile Robust Liquidity
+• ~0.3x leverage1 • Moody’s Ba1 • $2.75B borrowing base/$2B ECA
+• Target sub-1x in normalized price environment2 • S&P BB • Revolver maturity Nov. 2029
+• Financial strength supports org. resiliency • No near-term debt maturities • No revolver borrowings at 2Q26
+• Provides optionality for strategic actions • Cash balance of $612MM at 2Q26
+• $2.6B of liquidity4 at 2Q26
+Debt Maturities and Balances
+Peer Leading Balance Sheet1,3
+• No near-term debt maturities
+$2B ECA,
+undrawn
+$750MM $750MM
+6.00% 6.75%
+2026 2027 2028 2029 2030 2031 2032 2033
+16
+(1) CHRD net leverage as of 6/30/26 using either LTM EBITDA or ‘27E EBITDA; (2) Based on NTM EBITDA at midpoint guidance run at $65 WTI/$3 HH, excluding hedges; (3) Reflects ’27E net leverage. Peer debt levels estimated from FactSet as of 7/28/26 with
+adjustments made for pending M&A. Peers include APA, MGY, MTDR, OVV, PR, SM. (4) Calculated as of 6/30/26, $2B elected commitment less $30.4MM letters of credit plus $612MM of cash;
+[[page 16]]
+Long-Term Outperformance, Attractive Valuation
+Total Shareholder Return1 EV / EBITDA Multiple2
+• Strong capital allocation / execution track record • High-quality assets at attractive valuation vs peers
+• Sustainable free cash flow generation • 10+ yrs of low-breakeven inventory3
+4.4x
+476%
+3.7x
+3.0x
+322%
+228%
+Peers XOP Peers XOP
+High-quality oil-focused assets trading at an attractive valuation vs. peers
+17
+(1) Source: FactSet total return 12/31/20 – 7/27/26; peers include APA, MGY, MTDR, OVV, SM. (2) Source: FactSet as of 7/27/26; EBITDA reflects FY27 consensus estimates with adjustments made for pending M&A; peers include APA, MGY, MTDR, OVV, SM.
+(3) Management estimate based on normalized activity pace.
+[[page 17]]
+Chord Energy = Premier Williston Basin Operator
+Top Tier Oil Assets in Strong Financial Position Durable, Low-Breakeven Inventory
+Williston Basin Supports Resiliency at Compelling Valuation
+• Williston size and scale with high quality assets • Peer-leading balance sheet, strong liquidity • Strong inventory, discounted valuation vs peers
+across >1.3MM net acres
+• No near-term debt maturities • Improving inventory quality and duration
+• Long-laterals and conservative spacing support
+• Enhancing FCF w/ continuous improvement • ~80% long-lateral inventory at YE251
+deep, low-cost inventory and reduce asset
+variability
+• Attractive non-op asset in core of Marcellus
+• Strong oil leverage (>90% of revenue)
+Capital Efficiency Continues to Enhancing Generation of Peer Leading Return of Capital
+Improve Free Cash Flow Program
+• Multi-year track record of strong execution, • Shallow base declines, low reinvestment rate • Significant track record of shareholder returns
+focus on innovation & efficiency
+• Delivering per share growth • Attractive base dividend, durable in low
+• Basin leading cycle times and performance commodity prices
+• Attractive FCF yield vs peers
+• 4-mile laterals further enhance economics • Disciplined M&A track record
+18
+(1) Net 10K’ equivalent operated locations.
+[[page 18]]
+Supplementary Information
+[[page 19]]
+Continuous Improvement Initiatives Delivering FCF Enhancement
+Category Continuous Improvement Initiatives 2025 Run-Rate Results
+• 4-mile well adoption • Faster cycle times • TIL’d seven 4-mile wells
+~$45MM
+Operated D&C • Continuous pumping • Modular facility designs Annual Run- • Leader in lateral footage drilled
+Rate Savings
+• Dual fuel utilization • Continuous pumping
+• Lower failure rates and • AI-driven machine • >50% ESP cycle time reduction
+~$50MM
+improved uptime learning on rod lift wells
+Production and LOE Annual Run- • 25% failure rate improvement
+Rate Savings
+• Rod-less pumping • 24-hr workover rigs
+• Scaled AI to 99% of rod lift wells
+• Active marketing team • Proactive contract
+$30-$50MM
+• Renegotiated several contracts
+improving netbacks renegotiation
+Marketing Annual Run-
+oil, gas and water
+Rate Savings
+• Evaluate midstream • Consolidating o
+opportunities agreements
+• Resource utilization • Rapid AI adoption • Scaled corporate AI adoption
+~$25MM
+Corporate • Opportunity discovery • Lowering cost of capital Annual Run- • Optimized production tax
+Rate Savings
+• Attractive debt cost of capital
+$160MM Annual Run-Rate Savings (~12% of 2026 FCF)1
+20
+(1) FCF reflects FY26 midpoint guidance (1H26A Continuous Improvement Initiatives Achieved in 2025
+& $75 WTI/$3.00 Henry Hub 2H26)
+[[page 20]]
+Marketing Overview
+Delivering $30-$50MM FCF savings 2026+
+Williston Basin Oil Takeaway1 Williston Basin Gas Takeaway
+2,000 LNG Canada
+• ~2 Bcf/d
+• Phase I cargoes began shipping June 2025
+1,500
+AECO Hub
+1,000
+WBI Energy Bakken East
+• ~1.0 Bcf/d
+• In-service 2029/2030
+500
+Northern Border
+• ~2.2 Bcf/d
+• Midwest market access
+Bison Xpress
+• ~0.3 Bcf/d
+-
+• In-service 2026
+2020 2021 2022 2023 2024 2025 2026
+Ventura Hub
+21
+(1) Source: Enverus.
+dpoBM
+Marketing Highlights Marketing Optimization
+• Marketing team maximizes netbacks and flow assurance • $30-$50MM annual FCF savings 2026+
+• Optimize diffs with pricing diversification and flexibility • Numerous agreements executed in 2025
+• Ample oil takeaway capacity has improved basin diffs Crude, gas, water
+o
+• Expanding gas takeaway anticipated to support stronger realizations • Opportunity to drive further optimization
+• Stable gas-oil ratios
+• Improving gas capture / flow assurance
+Local Refining Pipeline Rail Production
+[[page 21]]
+140
+124 124
+115
+120
+100
+80
+60
+40
+20
+-
+FY24 FY25 1H26
+dpfCMM
+High Quality Non-Operated Marcellus Position
+Highlights Marcellus Acreage – NE Pennsylvania
+• Dry gas window in core of the Marcellus
+• Strong operator with top-tier well productivity
+• Large PDP base with low declines
+• Deep inventory with attractive economics
+Marcellus Realized Prices / Production
+• $3.15/Mcf in FY25
+• $6.40/Mcf in 1Q26, $2.10/Mcf in 2Q26
+22
+[[page 22]]
+Return of Capital
+Return of capital framework: 2Q26 Return of Capital ($MM)1
+• Target return of capital (RoC) determined at quarter-end based on:
+$414 Adjusted Free Cash Flow2
+— Estimated forward leverage
+— Percentage of Adjusted FCF less Acquisition / Leasehold - $4 Acquisition / Leasehold
+ Below 0.5x leverage: 75%+
+x 54% Target 50%+ at Current Leverage3
+ Below 1.0x leverage: 50%+
+= $220 Actual Return of Capital
+ >1.0x leverage: Base dividend+ ($5.20/share annual)
+- $73 Base Quarterly Dividend of $1.30/share
+Calculation:
+• Base dividend subtracted from Target RoC = $147 Return of Capital After Base Dividend
+• Remainder of Target RoC focused on share repurchases
+- $147 Share Repurchases
+— May taper repurchases cadence at higher oil prices to avoid
+= $- No Variable Dividend
+pro-cyclical buybacks
+• Do not expect to pay variable dividends in current environment;
+balance of FCF goes to balance sheet
+Share
+Base
+• Dividends are declared with earnings results; expected cash Buybacks Dividend
+distribution in following qtr (e.g. 2Q26 base dividend paid in 3Q26) $147MM
+2Q26 $1.30/share
+• Leverage Calculation: Return of
+Capital
+— Net Debt: Debt less cash measured at quarter-end
+— EBITDA: Estimate for next twelve months run at $65 WTI and
+$3 HH, excluding the impact of hedges
+23
+(1) Amounts rounded to nearest million; (2) Excludes $0.7MM of reimbursable non-op CapEx. (3) Net debt to NTM EBITDA at $65/$3 on 3/31/26 was >0.5x. Expect target of 75%+ based on leverage on 6/30/26
+[[page 23]]
+2026 Outlook
+2026 Development Activity Guidance Highlights
+• Oil volumes unchanged at 161.0 MBopd
+• 3Q26 163.0 MBopd at midpoint, with a decline into 4Q26
+• CapEx unchanged, $1.4B at midpoint
+Wild
+Woods
+Red
+• 3Q26 $375MM at midpoint, decreasing further in 4Q
+Bank
+Wheelock • Includes ~$30MM midstream CapEx
+Painted
+Woods
+Montana
+Sanish
+2026 Guidance Ranges
+3Q26 4Q26 FY26
+Wild
+Tarpon Oil volumes (MBopd) 161.5 - 164.5 156.0 - 159.0 160.2 - 161.8
+NGL volumes (MBblpd) 50.0 - 52.0 49.0 - 51.0 50.2 - 51.4
+Indian
+Natural gas volumes (MMcfpd) 397.0 - 405.0 410.0 - 418.0 406.6 - 410.6
+Butte
+FBIR Total volumes (MBoepd) 277.7 - 284.0 273.3 - 279.7 278.2 - 281.8
+CapEx ($MM) $360 - $390 $242 - $292 $1,360 - $1,440
+Little Murphy Oil Premium/(Discount) to WTI ($/Bbl) $(0.70) - $0.30 $(1.50) - $0.50 $(0.80) - $(0.00)
+Knife Creek NGL realization (% of WTI) 4% - 10% 4% - 14% 7% - 11%
+Natural gas realization (% of Henry Hub) 20% - 30% 35% - 45% 38% - 44%
+2026 Development Area
+LOE ($/Boe) $10.00 - $11.00 $10.00 - $11.00 $10.05 - $10.55
+1
+Cash GPT ($/Boe) $2.75 - $3.15 $2.80 - $3.20 $2.80 - $3.00
+Development Highlights
+1
+Cash G&A ($MM) $25 - $27 $25 - $27 $98 - $103
+• 4 – 5 rigs, 1 – 2 frac crews
+Production taxes (% of oil, NGL and gas sales) 8.0% - 8.4% 8.0% - 8.4% 8.0% - 8.2%
+• 140 – 160 gross operated TILs, ~75% WI Cash Interest ($MM) 1 $25 - $27 $25 - $27 $102 - $106
+2
+Cash taxes (% of Adjusted EBITDA) 3% - 9% 4% - 12% 5% - 8%
+• ~80% long-lateral
+24
+(1) Non-GAAP financial measure. See https://ir.chordenergy.com/non-gaap for more information; (2) 3Q26, 4Q26, and FY26 reflect $70/Bbl - $100/Bbl WTI.
+[[page 24]]
+$2,000 25%
+20%
+$1,500
+15%
+$1,000
+10%
+$500
+5%
+$0 0%
+$60 $80 $100
+)MM$(
+wolF
+hsaC
+eerF
+dleiY
+FCF
+Strong Free Cash Flow Generation
+Sources & Uses1 2026 Free Cash Flow Yield2
+22%
+Significant Cash Generation FCF Yield
+~$3.0B EBITDA
+18%
+FCF Yield
+14%
+FCF Yield
+~$1.3B Adjusted FCF
+~$1.4B CapEx
+Return of Capital (“ROC”)
+Investment in Business
+Cash to Balance Sheet
+~90% Op/Non-Op D&C
+Acquisition / Leasehold
+• Flat+ organic growth • ROC framework
+• Delivering strong returns • Preference for buybacks, while
+avoiding pro-cyclical buying
+• Low reinvestment rate
+Free Cash Flow Free Cash Flow Yield
+25
+(1) EBITDA and FCF reflect FY26 midpoint guidance (1H26A & $75 WTI/$3.00 Henry Hub 2H26). (2) FCF Yield calculated as FCF / market cap. Market cap as of 8/3/26; assumes $3.00 NYMEX gas; Reflects hedge book as of 8/3/26
+[[page 25]]
+Chord Financial and Operational Results
+Financial Highlights ($MM) Q3 2025 Q4 2025 Q1 2026 Q2 2026 Key Operating Statistics Q3 2025 Q4 2025 Q1 2026 Q2 2026
+Oil revenues 911 801 996 1,415 Oil production (MBopd) 155.7 153.0 158.0 165.4
+NGL revenues 25 24 38 45 NGL production (MBpd) 55.1 52.4 49.0 53.0
+Gas revenues 31 52 116 35 Gas production (MMcfpd) 420.1 404.2 411.4 408.0
+Total revenues $967 $877 $1,150 $1,494 Total production (MBoepd) 280.9 272.8 275.6 286.4
+Operating Costs Operating Costs (per boe)
+LOE 249 244 245 268 LOE $9.62 $9.72 $9.87 $10.28
+1 1
+Cash GP&T 74 71 69 74 Cash GP&T 2.86 2.82 2.79 2.83
+1 1
+Cash G&A 17 27 27 21 Cash G&A 0.64 1.07 1.09 0.81
+Production tax 80 69 87 126 Production tax 3.08 2.74 3.50 4.83
+Total operating costs $418 $411 $427 $489 Total operating costs $16.19 $16.35 $17.25 $18.75
+Realized hedges 20 30 (18) (93)
+Distributions from investment in affiliate 2 2 2 2
+Other 7 8 6 9
+1 1
+Adjusted EBITDA $578 $506 $713 $923 Adjusted EBITDA per boe $22.35 $20.18 $28.76 $35.42
+2
+CapEx 322 305 342 416 Other Operating Statistics
+1
+Cash Interest 18 26 26 26 Gross operated TILs 25 30 37 66
+Cash tax paid 7 - 21 67 Net operated TILs 17 27 30 47
+1
+Adjusted Free Cash Flow $230 $175 $324 $414 NYMEX WTI ($/Bbl) $65.00 $59.14 $72.40 $92.72
+Return of Capital NYMEX Henry Hub ($/MMBtu) 3.12 3.57 4.93 2.90
+Base dividend 75 74 74 73 Realized oil price 63.59 56.90 70.05 93.99
+Share repurchases 83 10 71 147 Realized NGL price 4.89 4.88 8.66 9.25
+Total Return of Capital $158 $84 $145 $220 Realized gas price $0.81 $1.40 $3.14 $0.94
+Balance Sheet ($MM)
+Borrowing base $2,750
+Elected commitments 2,000
+Revolver borrowings -
+Senior notes 1,500
+Total debt 1,500
+Cash 612
+Liquidity 2,581
+Net debt to LTM Adjusted EBITDA 0.3x
+Letters of credit $30
+26
+(1) Non-GAAP financial measure. A reconciliation of this non-GAAP financial measure to the most comparable GAAP measure can be found at https://ir.chordenergy.com/non-gaap;
+(2) 3Q25, 4Q25, 1Q26 and 2Q26 exclude $11.7MM, $8.0MM, $3.0MM, and $0.7MM of reimbursable non-op CapEx, respectively.
+[[page 26]]
+Hedge Book Overview1
+3Q26 4Q26 1Q27 2Q27 3Q27 4Q27 1Q28 2Q28 3Q28 2H26 FY27 FY28
+WTI Collars
+Volume (Bbl/d) 20,000 24,750 9,000 4,000 4,000 - - - - 22,375 4,225 -
+Floor ($/Bbl) $ 68.00 $ 67.54 $ 64.94 $ 62.50 $ 63.75 $ - $ - $ - $ - $ 67.74 $ 64.08 $ -
+Cap ($/Bbl) $ 78.35 $ 76.09 $ 71.49 $ 72.18 $ 70.10 $ - $ - $ - $ - $ 77.10 $ 71.32 $ -
+WTI 3-Way Collars
+Volume (Bbl/d) 28,000 18,500 27,000 26,500 21,000 16,000 10,000 5,000 1,000 23,250 22,590 3,981
+Sub-floor ($/Bbl) $ 58.21 $ 54.05 $ 50.00 $ 50.00 $ 49.29 $ 49.06 $ 49.50 $ 50.00 $ 50.00 $ 56.56 $ 49.67 $ 49.69
+Floor ($/Bbl) $ 75.18 $ 70.54 $ 65.19 $ 64.91 $ 65.00 $ 64.30 $ 64.93 $ 66.00 $ 65.00 $ 73.33 $ 64.90 $ 65.27
+Cap ($/Bbl) $ 89.89 $ 82.67 $ 78.29 $ 78.57 $ 78.35 $ 77.03 $ 77.40 $ 80.16 $ 79.15 $ 87.02 $ 78.16 $ 78.37
+WTI Fixed Price Swaps
+Volume (Bbl/d) 20,000 11,000 6,000 2,000 1,000 1,000 - - - 15,500 2,482 -
+Strike ($/Bbl) $ 67.85 $ 64.94 $ 67.58 $ 73.82 $ 72.45 $ 72.45 $ - $ - $ - $ 66.82 $ 69.82 $ -
+WTI-Brent Basis Swaps
+Volume (Bbl/d) 14,000 14,000 - - - - - - - 14,000 - -
+Strike ($/Bbl) $ (5.30) $ (5.58) $ - $ - $ - $ - $ - $ - $ - $ (5.44) $ - $ -
+Henry Hub Collars
+Volume (MMBtu/d) 35,000 35,000 25,000 25,000 - - - - - 35,000 12,397 -
+Floor ($/MMBtu) $ 3.82 $ 3.82 $ 3.75 $ 3.75 $ - $ - $ - $ - $ - $ 3.82 $ 3.75 $ -
+Cap ($/MMBtu) $ 4.33 $ 4.33 $ 4.18 $ 4.18 $ - $ - $ - $ - $ - $ 4.33 $ 4.18 $ -
+Henry Hub Fixed Price Swaps
+Volume (MMBtu/d) 80,000 80,000 40,000 40,000 25,000 25,000 10,000 10,000 - 80,000 32,438 4,973
+Strike ($/MMBtu) $ 3.93 $ 3.93 $ 4.01 $ 4.01 $ 3.83 $ 3.83 $ 3.56 $ 3.56 $ - $ 3.93 $ 3.94 $ 3.56
+Crude % Volume Hedged 42% 34% 26% 20% 16% 11% 6% 3% 1% 38% 18% 2%
+Gas % Volume Hedged 28% 28% 16% 16% 6% 6% 2% 2% 0% 28% 11% 1%
+27
+(1) Hedge book as of 8/3/26. Percentage hedged for all periods based on midpoint FY26 guidance and excludes WTI-Brent basis swaps.
+[[page 27]]

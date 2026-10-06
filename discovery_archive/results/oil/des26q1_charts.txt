@@ -1,0 +1,166 @@
+## SHEET Activity
+Dallas Fed Energy Survey's Activity Index | 
+Quarter | Index
+2016:Q1 | -42.1
+2016:Q2 | 13.8
+2016:Q3 | 26.7
+2016:Q4 | 40.1
+2017:Q1 | 41.8
+2017:Q2  | 37.3
+2017:Q3 | 27.3
+2017:Q4 | 38.1
+2018:Q1 | 40.7
+2018:Q2 | 44.5
+2018:Q3 | 43.3
+2018:Q4 | 2.3
+2019:Q1 | 10.8
+2019:Q2 | -0.6
+2019:Q3 | -6.4
+2019:Q4 | -4.2
+2020:Q1 | -50.9
+2020:Q2 | -66.1
+2020:Q3 | -6.6
+2020:Q4 | 18.5
+2021:Q1 | 53.6
+2021:Q2 | 53
+2021:Q3 | 44.3
+2021:Q4 | 42.6
+2022:Q1 | 56
+2022:Q2 | 57.7
+2022:Q3 | 46
+2022:Q4 | 30.3
+2023:Q1 | 2.1
+2023:Q2 | 0
+2023:Q3 | 10.9
+2023:Q4 | 3.6
+2024:Q1 | 2
+2024:Q2 | 12.5
+2024:Q3 | -5.9
+2024:Q4 | 6
+2025:Q1 | 3.8
+2025:Q2 | -8.1
+2025:Q3 | -6.5
+2025:Q4 | -6.2
+2026:Q1 | 21
+2026:Q2 | 
+2026:Q3 | 
+2026:Q4 | 
+## SHEET WTI
+What do you expect the WTI crude oil price to be at the end of 2026? | 
+Dollars per barrel | Percent reporting
+< 60 | 2.29
+60.00–69.99 | 26.72
+70.00–79.99 | 41.22
+80.00–89.99 | 22.14
+90.00–99.99 | 3.82
+≥ 100.00 | 3.82
+## SHEET Henry Hub
+What do you expect the Henry Hub natural gas price to be at the end of 2026? | 
+Dollars per MMBtu | Percent reporting
+< 3.00 | 3.91
+3.00–3.49 | 30.47
+3.50–3.99 | 35.16
+4.00–4.49 | 22.66
+4.50–4.99 | 7.03
+≥ 5.00 | 0.78
+## SHEET Special Question 1
+ | In the top two areas in which your firm is active: What WTI oil price does your firm need to cover operating expenses for existing wells? |  |  |  |  | 
+ | Play | Average | Minimum | Maximum | Upper Band for Chart | Number of Responses
+ | Permian Basin – Delaware | 33.82 | 3.5 | 70 | 66.5 | 19
+ | Eagle Ford | 40 | 15 | 55 | 40 | 5
+ | Permian Basin – Midland | 41.54 | 15 | 65 | 50 | 13
+ | Permian Basin – Other | 43.63 | 3.5 | 70 | 66.5 | 12
+ | Other U.S. (Shale) | 44.12 | 15 | 75 | 60 | 17
+ | Other U.S. (Nonshale) | 47 | 10 | 75 | 65 | 52
+ | Total |  |  |  |  | 118
+## SHEET Special Question 2
+ | In the top two areas in which your firm is active: What WTI oil price does your firm need to profitably drill a new well? |  |  |  |  | 
+ | Play | Average | Minimum | Maximum | Upper Band for Chart | Number of Responses
+ | Other U.S. (Shale) | 62.38 | 35 | 85 | 50 | 17
+ | Eagle Ford | 63 | 50 | 70 | 20 | 5
+ | Permian Basin – Delaware | 63.21 | 50 | 85 | 35 | 19
+ | Other U.S. (Nonshale) | 67.82 | 25 | 100 | 75 | 53
+ | Permian Basin – Midland | 68.57 | 50 | 90 | 40 | 14
+ | Permian Basin – Other | 70 | 50 | 85 | 35 | 12
+ | Total |  |  |  |  | 120
+## SHEET Special Question 3
+In light of the recent increase in oil prices, how has the number of wells your firm expects to drill in 2026 changed since the start of the year? |  |  | 
+Table |  |  | 
+ | Percent of respondents (among each group) |  | 
+ | All E&P | Large E&P | Small E&P
+Decreased significantly  | 2.94 | 0 | 4.76
+Decreased slightly  | 0 | 0 | 0
+No change | 50 | 69.23 | 38.1
+Increased slightly  | 26.47 | 23.08 | 28.57
+Increased significantly  | 20.59 | 7.69 | 28.57
+NOTES: Executives from 34 exploration and production firms answered this question during the survey collection period, March 11–19, 2026. Small E&P firms produced fewer than 10,000 barrels per day (b/d) in fourth quarter 2025, while large E&P firms produced 10,000 b/d or more. Responses came from 21 small firms and 13 large firms. This question was posed only to executives who each said their firm drilled or completed a horizontal well in the past two years. |  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  |  | 
+## SHEET Special Question 4
+There remain about 30 publicly listed independent exploration and production (E&P) firms in the U.S. with market capitalizations of over $1 billion each. How many such firms do you think will remain by the end of this decade? |  | 
+Table |  | 
+ | Percent of respondents | 
+0–6 | 1.87 | 
+7–12 | 8.41 | 
+13–18 | 26.17 | 
+19–24 | 46.73 | 
+≥25 | 16.82 | 
+NOTE: Executives from 107 oil and gas firms answered this question during the survey collection period, March 11–19, 2026.  |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 5
+Do you expect upstream firms will be able to increase oil recovery rates from U.S. shale wells over the next 10 years? How about for natural gas?  |  | 
+Table |  | 
+Response | Percent of respondents | 
+ | Crude oil | Natural Gas
+Yes, significantly  | 16.13 | 18.33
+Yes, slightly | 59.68 | 60.83
+No change | 7.26 | 15
+Recovery rates will decline | 16.94 | 5.83
+NOTE: For crude oil, executives from 124 oil and gas firms answered this question during the survey collection period, March 11–19, 2026. For natural gas, executives from 120 oil and gas firms answered this question during the survey collection period. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 6
+In which basins or regions do you expect U.S. oil production to increase from December 2025 to December 2026? (Check all that apply.) |  | 
+Table |  | 
+ | Percent of respondents | 
+Permian | 82.14 | 
+Eagle Ford | 28.57 | 
+Utica (Ohio) | 28.57 | 
+U.S. offshore | 27.68 | 
+Uinta (Utah) | 20.54 | 
+Alaska | 18.75 | 
+Williston | 8.93 | 
+Denver-Julesburg | 5.36 | 
+NOTE: Executives from 112 oil and gas firms answered this question during the survey collection period, March 11–19, 2026. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Special Question 7
+How have your expectations changed for Venezuelan oil production over the next 24 months when compared with your expectations three months ago?  |  | 
+Table |  | 
+ | Percent of respondents | 
+Expect significantly less | 1.8 | 
+Expect slightly less | 2.7 | 
+Expectations unchanged | 28.83 | 
+Expect slightly more | 54.95 | 
+Expect significantly more | 11.71 | 
+NOTE: Executives from 111 oil and gas firms answered this question during the survey collection period, March 11–19, 2026. |  | 
+SOURCE: Federal Reserve Bank of Dallas. |  | 
+## SHEET Price Expectations
+What do you expect WTI prices to be in six months, one year, two years and five years? |  |  | 
+ | Min | Average | Max
+Price expected in 6 months | 50 | 78.47 | 150
+Price expected in 1 year | 50 | 73.24 | 135
+Price expected in 2 years | 35 | 73.11 | 120
+Price expected in 5 years | 35 | 79.32 | 150
+What do you expect Henry Hub natural gas prices to be in six months, one year, two years and five years?  |  |  | 
+ | Min | Average | Max
+Price expected in 6 months | 2.5 | 3.53 | 8
+Price expected in 1 year | 2.5 | 3.72 | 8
+Price expected in 2 years | 2.75 | 4.03 | 8
+Price expected in 5 years | 2.75 | 4.42 | 8.25
+Chart |  |  | 
+50 | 28.47 | 71.53 | 
+50 | 23.239999999999995 | 61.760000000000005 | 
+35 | 38.11 | 46.89 | 
+35 | 44.31999999999999 | 70.68 | 
+2.5 | 1.0299999999999998 | 4.470000000000001 | 
+2.5 | 1.2200000000000002 | 4.279999999999999 | 
+2.75 | 1.2800000000000002 | 3.9699999999999998 | 
+2.75 | 1.67 | 3.83 | 
