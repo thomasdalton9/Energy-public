@@ -923,6 +923,13 @@ def brent_forward_curve(p):
     sp = by_date(read(p, "Spreads"), "trade_date").apply(pd.to_numeric, errors="coerce")
     out = [spec("Curve now vs earlier", snap[snap.index <= "2027-12-31"].dropna(how="all"),
                 "Brent forward curve by contract month: latest vs 1, 3, 6, 12 months earlier (contracts listed today)", "USD/bbl")]
+    m1 = cur[cur.index >= cur.index.max() - pd.DateOffset(months=12)]
+    firsts = m1.groupby(m1.index.to_period("M")).head(1)
+    hist = pd.concat([firsts, cur.tail(1)]).T
+    hist.columns = [d.strftime("%d-%b-%y") for d in pd.concat([firsts, cur.tail(1)]).index]
+    hist.index = pd.to_datetime([f"{c}-01" for c in hist.index])
+    hist = hist[hist.index <= "2027-12-31"]
+    out.append(spec("Monthly curves", hist, "Brent forward curve: first trade date of each month, last 12 months, and latest (bold = latest)", "USD/bbl"))
     decs = cur[[c for c in cur.columns if str(c).endswith("-12")]].dropna(how="all")
     decs.columns = [pd.Timestamp(f"{c}-01").strftime("Dec %Y") for c in decs.columns]
     out.append(spec("Dec contracts", decs, "Brent December futures by contract year (daily close, BZ)", "USD/bbl"))
