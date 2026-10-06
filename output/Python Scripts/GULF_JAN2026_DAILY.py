@@ -65,7 +65,7 @@ def main():
     fm = series("henry_hub_daily.xlsx", "Data", "Henry_Hub_front_month_USD_per_MMBtu").loc[s:e]
     if len(fm):
         axs[0].plot(fm.index, fm.values, color="#1F5FBF", lw=1.8, label="Front-month futures")
-        axs[0].legend(frameon=False, fontsize=8, loc="upper right")
+        axs[0].legend(frameon=False, fontsize=8, loc="upper left")
     pk = h.idxmax()
     axs[0].annotate(f"${h.max():.2f} on {pk:%d %b}", (pk, h.max()), (pk + pd.Timedelta(days=1.2), h.max() * 0.93),
                     fontsize=8.5, color=ink)
