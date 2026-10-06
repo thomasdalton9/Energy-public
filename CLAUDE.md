@@ -168,6 +168,7 @@ Standing instructions from the repo owner. Follow these on every change.
   has no history; the NDOR report PDFs are read only on the 1st/15th). Masters rebuild on the
   1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
   source has no history.
+- Brent and WTI crude spot prices (`americas/BRENT_WTI_DAILY.py` -> `brent_wti_daily.xlsx`, 1st/15th, EIA API v2 petroleum/pri/spt RBRTE/RWTC with EIA's keyless xls fallback, USD/bbl, Brent-WTI spread and monthly means; negative WTI of Apr 2020 is kept) is standalone, not on a dashboard.
 - Incremental: backfill gaps only, don't re-pull complete history each run.
   The committed workbook IS the history store: each run reads it and fetches only periods not saved yet (plus a
   short revision window). Sources that only publish whole files (e.g. MBIE webtables, Hydro Tasmania) are

@@ -905,6 +905,17 @@ def south_africa(p):
     return fuel_mix("South Africa generation mix (Eskom)", "MW (daily mean)")(p)
 
 
+def brent_wti(p):
+    """Brent and WTI spot (americas/BRENT_WTI_DAILY.py): daily since 2015, Brent monthly mean full history, Brent-WTI spread."""
+    d = by_date(read(p, "Data"), "date")
+    d = d[["Brent_USD_per_bbl", "WTI_USD_per_bbl", "Brent_less_WTI"]].apply(pd.to_numeric, errors="coerce")
+    px = d[["Brent_USD_per_bbl", "WTI_USD_per_bbl"]].rename(columns={"Brent_USD_per_bbl": "Brent", "WTI_USD_per_bbl": "WTI"})
+    return [spec("Daily", daily(px, "2015-01-01"), "Brent and WTI crude oil spot prices (daily)", "USD/bbl"),
+            spec("Brent monthly", monthly_mean(px[["Brent"]].dropna()), "Brent crude oil spot price (monthly average, since 1987)", "USD/bbl"),
+            spec("Spread", daily(d[["Brent_less_WTI"]].rename(columns={"Brent_less_WTI": "Brent less WTI"}).dropna(), "2015-01-01"),
+                 "Brent-WTI spread (daily)", "USD/bbl")]
+
+
 def henry_hub(p):
     d = by_date(read(p, "Data"), "date")[["Henry_Hub_USD_per_MMBtu"]].rename(
         columns={"Henry_Hub_USD_per_MMBtu": "Henry Hub spot"})
@@ -2828,6 +2839,7 @@ REGISTRY = {
     "malaysia_power_capacity.xlsx": power_capacity("Malaysia (Peninsular) installed capacity (GSO plant list)"),
     "singapore_gas.xlsx": singapore_gas,
     "henry_hub_daily.xlsx": henry_hub,
+    "brent_wti_daily.xlsx": brent_wti,
     "us_gas.xlsx": us_gas,
     "texas_gas_monthly.xlsx": texas_gas,
     "texas_production_forecast.xlsx": texas_production_forecast,
