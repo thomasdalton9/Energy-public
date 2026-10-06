@@ -440,7 +440,7 @@ def write_inputs(ws, A, tiers, rm, steo_note, pr, dflt):
         ws.cell(rr, 15, f'=IF(ISNUMBER(N{rr}),M{rr}/N{rr},"n/a")')
         ws.cell(rr, 16, status)
         ws.cell(rr, 17, "D1-D10, E1-E3, T1")
-        ws.cell(rr, 18, f"={lk(prod_parts[0])}-C{rr}" if False else (f'=SUMIFS(\'STEO raw\'!$E:$E,\'STEO raw\'!$A:$A,"{prod_parts[0]}|"&$B${pos[ASSUME[4][0]]})-C{rr}' if len(prod_parts) == 1 else 0))
+        ws.cell(rr, 18, f"={lk(prod_parts[0])}-C{rr}" if False else (f'=SUMIFS(\'STEO raw\'!$D:$D,\'STEO raw\'!$A:$A,"{prod_parts[0]}|"&$B${pos[ASSUME[4][0]]})-C{rr}' if len(prod_parts) == 1 else 0))
         ws.cell(rr, 18).number_format = "0.000"
         ws.cell(rr, 3).number_format = "0.000"
         ws.cell(rr, 4).number_format = "0.000"
