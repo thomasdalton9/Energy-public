@@ -1,0 +1,23 @@
+name: EIA Henry Hub front-month pull (one-off)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas
+      - env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+        run: python3 discovery_archive/americas/EIA_HH_FRONT_MONTH_PULL.py
+      - run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git add discovery_archive/results/henry_hub/hh_front_month_daily.csv
+          git commit -m "HH front-month daily (EIA RNGC1)" || exit 0
+          git pull --rebase --autostash -X theirs origin main && git push
