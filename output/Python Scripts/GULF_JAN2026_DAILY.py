@@ -61,12 +61,17 @@ def main():
             if d.weekday() >= 5:
                 ax.axvspan(d - pd.Timedelta(hours=12), d + pd.Timedelta(hours=12), color="#f0eee8", lw=0, zorder=0)
     h = hh.loc[s:e]
-    axs[0].plot(h.index, h.values, color="#C0392B", lw=2.4)
+    axs[0].plot(h.index, h.values, color="#C0392B", lw=2.4, label="Spot")
+    fm_path = os.path.join(ROOT, "discovery_archive", "results", "henry_hub", "hh_front_month_daily.csv")
+    if os.path.exists(fm_path):
+        fm = pd.read_csv(fm_path, parse_dates=["date"]).set_index("date")["HH_front_month_USD_per_MMBtu"].loc[s:e]
+        axs[0].plot(fm.index, fm.values, color="#1F5FBF", lw=1.8, label="Front-month futures")
+        axs[0].legend(frameon=False, fontsize=8, loc="upper right")
     pk = h.idxmax()
     axs[0].annotate(f"${h.max():.2f} on {pk:%d %b}", (pk, h.max()), (pk + pd.Timedelta(days=1.2), h.max() * 0.93),
                     fontsize=8.5, color=ink)
     axs[0].set_ylabel("USD/MMBtu")
-    axs[0].set_title("Henry Hub spot (Friday's price covers the weekend gas days)", loc="left", fontsize=9.5)
+    axs[0].set_title("Henry Hub spot and front-month futures (Friday's spot covers the weekend gas days)", loc="left", fontsize=9.5)
     cols = ["#1F5FBF", "#7B3FA0", "#2E9E6B", "#E07B00", "#888888"]
     for c, col in zip(t.columns, cols):
         x = t[c].loc[s:e]
@@ -89,7 +94,7 @@ def main():
         ax.tick_params(labelbottom=True)
     fig.suptitle(a.title, x=0.01, ha="left",
                  fontsize=12, fontweight="bold", color=ink)
-    fig.text(0.01, 0.005, "Sources: EIA (Henry Hub, EIA-930), NASA POWER, own gas-burn estimates. Production, storage and "
+    fig.text(0.01, 0.005, "Sources: EIA (Henry Hub spot, EIA-930), Yahoo Finance NG=F (NYMEX front month, unadjusted at rolls), NASA POWER, own gas-burn estimates. Production, storage and "
              "consumption by sector exist only monthly;\nno daily pipeline, production or LNG feedgas data.",
              fontsize=7, color="#555")
     fig.subplots_adjust(left=0.06, right=0.98, top=0.9, bottom=0.09, hspace=0.32, wspace=0.16)
