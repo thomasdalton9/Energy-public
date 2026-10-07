@@ -23,5 +23,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add maps/us_balancing_authorities.geojson
           git diff --cached --quiet || git commit -m "US balancing authority boundaries (HIFLD Control Areas, simplified)"
-          for i in 1 2 3 4 5; do git pull --rebase --autostash -X theirs && git push && exit 0; sleep $((i * 5)); done
+          for i in 1 2 3 4 5; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep $((i * 5)); done
           exit 1
