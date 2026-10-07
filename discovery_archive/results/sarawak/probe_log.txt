@@ -1,0 +1,21 @@
+[listing] direct: ERR Failed to perform, curl: (28) Operation timed out after 60760 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+[listing] wayback: 200 49764B
+  pdf links: 6
+    https://web.archive.org/web/20251230063910/https://www.sarawakenergy.com/assets/pdf/ASR21-Interactive.pdf
+    https://web.archive.org/web/20251230063910/https://www.sarawakenergy.com/assets/pdf/INTERACTIVE-PDF-Sarawak-Energy-ASR2023.pdf
+    https://web.archive.org/web/20251230063910/https://www.sarawakenergy.com/assets/pdf/INTERACTIVE-Sarawak-Energy-ASR20.pdf
+    https://web.archive.org/web/20251230063910/https://www.sarawakenergy.com/assets/pdf/SEASR-2019.pdf
+    https://web.archive.org/web/20251230063910/https://www.sarawakenergy.com/assets/pdf/SarawakEnergy-ARSR2022.pdf
+    https://www.sarawakenergy.com/assets/pdf/Application-of-Electricity-Supply-Handbook.pdf
+[ASR2024] direct: 200 75136793B application/pdf
+  ASR2024: 125 pages via direct
+  ASR2024: 28 pages with generation/capacity keywords: [5, 6, 7, 8, 9, 11, 13, 14, 16, 45, 51, 52, 55, 57, 58, 59, 66, 80, 81, 82]
+[ASR2023] direct: 200 18233174B application/pdf
+  ASR2023: 137 pages via direct
+  ASR2023: 16 pages with generation/capacity keywords: [5, 6, 7, 16, 51, 61, 65, 80, 83, 86, 88, 89, 94, 95, 112, 113]
+[SEASR2019] direct: 200 60401573B application/pdf
+  SEASR2019: 98 pages via direct
+  SEASR2019: 24 pages with generation/capacity keywords: [6, 7, 8, 9, 10, 12, 14, 28, 42, 43, 52, 53, 54, 57, 59, 60, 61, 64, 67, 68]
+[AR2018] direct: 200 6374903B application/pdf
+  AR2018: 78 pages via direct
+  AR2018: 3 pages with generation/capacity keywords: [14, 15, 22]
