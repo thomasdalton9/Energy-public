@@ -236,12 +236,36 @@ def fetch_sources():
     return out
 
 
+def unchanged(out_path):
+    """True when every known report still has the size saved on 'Sources' and the next year's report does not exist yet
+    (HEAD requests only, no download). Any doubt (no workbook, HEAD fails, size differs) -> False, so the run re-reads."""
+    if not os.path.exists(out_path):
+        return False
+    try:
+        from curl_cffi import requests as cr
+        saved = pd.read_excel(out_path, sheet_name="Sources").set_index("Report")["PDF size (bytes)"].to_dict()
+        s = cr.Session()
+        for label, url, _ in SOURCES:
+            r = s.head(url, impersonate="chrome", timeout=60, allow_redirects=True)
+            if r.status_code != 200 or int(r.headers.get("content-length", -1)) != int(saved.get(label, -2)):
+                return False
+        nxt = s.head(BASE + f"Sarawak-Energy-ASR{NEXT_YEAR}.pdf", impersonate="chrome", timeout=60, allow_redirects=True)
+        return nxt.status_code != 200
+    except Exception as e:  # noqa: BLE001
+        print(f"unchanged-check failed ({type(e).__name__}: {str(e)[:80]}); re-reading", file=sys.stderr)
+        return False
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=DEFAULT_OUT)
+    ap.add_argument("--force", action="store_true", help="re-read the PDFs even if their sizes are unchanged")
     ap.add_argument("--from-text", nargs="*", help="parse saved page-text files instead of downloading (testing)")
     a = ap.parse_args()
 
+    if not a.from_text and not a.force and unchanged(a.out):
+        print("Reports unchanged (same PDF sizes, no newer report): workbook left as it is.", file=sys.stderr)
+        return
     meta = []
     gen = {}
     cap = pd.DataFrame()
