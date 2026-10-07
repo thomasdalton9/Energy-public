@@ -1,0 +1,9 @@
+[ASR2020] direct: 200 17031522B application/pdf
+  ASR2020: 113 pages via direct
+  ASR2020: 23 pages with generation/capacity keywords: [3, 5, 6, 7, 8, 13, 15, 36, 37, 50, 52, 53, 54, 61, 63, 65, 69, 71, 72, 90]
+[ASR2021] direct: 200 10909659B application/pdf
+  ASR2021: 120 pages via direct
+  ASR2021: 28 pages with generation/capacity keywords: [4, 5, 7, 8, 9, 11, 12, 17, 42, 43, 50, 52, 53, 54, 56, 57, 67, 69, 70, 71]
+[ASR2022] direct: 200 36813814B application/pdf
+  ASR2022: 122 pages via direct
+  ASR2022: 32 pages with generation/capacity keywords: [5, 6, 7, 8, 10, 11, 12, 15, 16, 17, 20, 45, 46, 54, 56, 57, 63, 68, 70, 72]
