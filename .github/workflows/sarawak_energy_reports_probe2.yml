@@ -1,0 +1,23 @@
+name: Sarawak Energy reports probe 2 (manual)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install curl_cffi pypdf
+      - run: timeout 600 python3 discovery_archive/asia/SARAWAK_ENERGY_REPORTS_PROBE2.py | tee /tmp/sarawak_log2.txt
+      - if: always()
+        run: |
+          mkdir -p discovery_archive/results/sarawak && cp /tmp/sarawak_log2.txt discovery_archive/results/sarawak/probe2_log.txt || true
+          git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/sarawak
+          git commit -m "Sarawak Energy reports probe results" || exit 0
+          git pull --rebase --autostash -X theirs origin main && git push
