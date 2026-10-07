@@ -2819,6 +2819,7 @@ def macro_drivers(p):
 
 
 REGISTRY = {
+    "us_petroleum_stocks_weekly.xlsx": None,   # week-1-to-52 and water-year charts drawn by EIA_BIG_FOUR_STORAGE.py itself
     "sarawak_energy_annual.xlsx": sarawak_energy,
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
