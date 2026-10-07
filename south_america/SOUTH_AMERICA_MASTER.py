@@ -421,15 +421,18 @@ def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
             if s["name"] in skip:
                 continue
             src = source_of(fname, s["name"], cfg)
-            if "water_year" in s:
-                table, meta = water_year_chart.water_year_table(s["water_year"])
+            if "water_year" in s or "week_year" in s:
+                weekly = "week_year" in s
+                table, meta = (water_year_chart.week_year_table(s["week_year"]) if weekly
+                               else water_year_chart.water_year_table(s["water_year"]))
                 ws = wb.create_sheet(sheet_name(f"{code} {s['name']} data", used))
                 water_year_chart.write_table(ws, table)
                 charts.append((water_year_chart.build_chart(ws, table, meta, s["title"], s["units"],
                                                             width=CHART_W, height=CHART_H, gridlines=False,
                                                             inner=xlsx_charts.DASHBOARD_INNER, short_title=True,
                                                             y_decimals=s.get("y_decimals")), src))
-                index_rows.append((country, f"{s['title']} (water year)", pd.Timestamp(meta["last"]).strftime("%d/%m/%y"),
+                index_rows.append((country, f"{s['title']} ({'calendar-year weeks' if weekly else 'water year'})",
+                                   pd.Timestamp(meta["last"]).strftime("%d/%m/%y"),
                                    ws.title, *src))
                 continue
             df, n_bars = xlsx_charts.prepare(s["df"].dropna(how="all"), s.get("line_cols", ()))

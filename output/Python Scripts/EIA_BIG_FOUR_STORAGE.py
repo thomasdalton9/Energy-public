@@ -4,7 +4,7 @@ piece, drawn year-on-year like the usual week-1-to-52 chart: 5-year average, the
 
 Output: output/Data and Chart Outputs/us_petroleum_stocks_weekly.xlsx
   Data               weekly stocks, thousand barrels (EIA week ending Friday), one column per series
-  <Name> by week     week 1-52 table (5-year average, last 4 years, current year) + native line chart (calendar weeks)
+  <Name> by week     week 1-52 table (5-year min-max band, 5-year average, last year, current year) + native chart (calendar weeks)
   WY <Name>          the repo's Oct-Sep water-year chart (5-year band, average, previous and current water year)
 PNG charts (6 x 3.6 in): output/PNG Charts/us_<name>_storage.png
 
@@ -12,8 +12,8 @@ Source: EIA weekly petroleum status report, EIA API v2 route petroleum/stoc/wstk
 WCSSTUS1 SPR crude, WGTSTUS1 total motor gasoline, WDISTUS1 distillate fuel oil, WKJSTUS1 kerosene-type jet fuel; needs
 EIA_API_KEY), falling back to EIA's keyless history workbooks https://www.eia.gov/dnav/pet/hist_xls/<series>w.xls.
 Incremental: once the archive exists only the last 6 weeks are re-read (EIA revises the latest week).
-Week number = (day of year - 1) // 7 + 1 of the report date, 53 folded into 52; '5-Year' = mean of the five complete years
-before the current one (2021-2025 for 2026).
+Week number = (day of year - 1) // 7 + 1 of the report date, 53 folded into 52; the band and average use the five complete
+years before the current one (2021-2025 for 2026).
 Usage: python3 americas/EIA_BIG_FOUR_STORAGE.py [--out PATH] [--png-dir DIR] [--synthetic]   (--synthetic = fake data, charts testing only)
 """
 import argparse
@@ -60,7 +60,6 @@ CHARTS = {
     "Distillate": ("Distillate", "us_distillate_storage.png", "U.S. Distillate Fuel Oil Storage"),
     "Jet fuel": ("Jet fuel", "us_jet_fuel_storage.png", "U.S. Jet Fuel Storage"),
 }
-YEAR_COLOURS = ["A8A8A8", "8DB763", "BDBDBD", "1F3A93", "D62828", "0B4A3C"]   # 5-Year, then oldest -> current year
 FETCH_ATTEMPTS = 3
 
 
@@ -155,104 +154,36 @@ def load_archive(path):
     return d[[c for c in SERIES if c in d.columns]]
 
 
-def week_table(s):
-    """Week 1-52 table: '5-Year' (mean of the five years before the current one) and the current year plus the 4 before it."""
-    s = s.dropna()
-    s.index = pd.DatetimeIndex(s.index)
-    cur = int(s.index.max().year)
-    wk = np.minimum(52, (s.index.dayofyear - 1) // 7 + 1)
-    piv = pd.DataFrame({"v": s.values, "year": s.index.year, "wk": wk}).groupby(["wk", "year"]).v.last().unstack("year")
-    piv = piv.reindex(range(1, 53))
-    hist = [y for y in range(cur - 5, cur) if y in piv.columns]
-    t = pd.DataFrame({"Week": range(1, 53)})
-    t["5-Year"] = piv[hist].mean(axis=1).round(0).values if hist else np.nan
-    for y in range(cur - 4, cur + 1):
-        t[str(y)] = piv[y].values if y in piv.columns else np.nan
-    return t, cur, hist
-
-
-def write_week_chart(wb, name, table, title, last):
-    from openpyxl.chart import LineChart, Reference
-    from openpyxl.chart.shapes import GraphicalProperties
-    from openpyxl.drawing.line import LineProperties
-    sheet = f"{name} by week"[:31]
-    if sheet in wb.sheetnames:
-        del wb[sheet]
-    ws = wb.create_sheet(sheet)
-    ws.append(list(table.columns) + ["Axis label"])
-    for i, row in enumerate(table.itertuples(index=False), start=2):
-        vals = [None if (isinstance(v, float) and pd.isna(v)) else (float(v) if not isinstance(v, (int,)) else int(v)) for v in row]
-        ws.append(vals + [f"Week {int(row[0])}" if (int(row[0]) - 1) % 4 == 0 else None])
-    ncols = table.shape[1]
-    n = len(table) + 1
-    ch = LineChart()
-    ch.add_data(Reference(ws, min_col=2, max_col=ncols, min_row=1, max_row=n), titles_from_data=True)
-    ch.set_categories(Reference(ws, min_col=ncols + 1, min_row=2, max_row=n))
-    for i, s in enumerate(ch.series):
-        cur = i == len(ch.series) - 1
-        s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=YEAR_COLOURS[min(i, 5)], w=44450 if cur else 19050,
-                                                                       prstDash=None if cur else "dash"))
-        s.smooth = False
-        s.marker.symbol = "none"
-    ch.title = f"{title} - thousand barrels (EIA weekly, to {pd.Timestamp(last):%d %b %Y})"
-    ch.y_axis.title = "Thousand barrels"
-    ch.y_axis.number_format = "#,##0"
-    ch.y_axis.numFmt.sourceLinked = False
-    vals = table.iloc[:, 1:].stack()
-    lo, hi = float(vals.min()), float(vals.max())
-    step = water_year_chart._nice_step((hi - lo) or 1.0)
-    import math
-    ch.y_axis.scaling.min = math.floor(lo / step) * step
-    ch.y_axis.scaling.max = math.ceil(hi / step) * step
-    ch.y_axis.majorUnit = step
-    ch.x_axis.tickLblSkip = 1
-    ch.x_axis.tickMarkSkip = 1
-    ch.x_axis.tickLblPos = "low"
-    xlsx_charts.rotated_labels(ch.x_axis)
-    ch.x_axis.delete = False
-    ch.y_axis.delete = False
-    ch.legend.position = "b"
-    ch.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
-    ch.plot_area.graphicalProperties = GraphicalProperties(ln=LineProperties(noFill=True))
-    ch.height, ch.width = 12, 26
-    xlsx_charts.tidy_layout(ch, True, None)
-    ws.add_chart(ch, f"{chr(ord('A') + ncols + 2)}2")
-    ws.column_dimensions["A"].width = 7
-
-
-def draw_png(table, cur, title, path, last):
+def draw_png(series, title, path):
+    """Calendar-week chart in the 5-year-range style: shaded min-max band of the 5 years before this one, 5-year average,
+    last year and current year."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    t, meta = water_year_chart.week_year_table(series)
+    cur = int(pd.Timestamp(meta["last"]).year)
     f = 6 / 13 * 1.55
     fig, ax = plt.subplots(figsize=(6, 3.6), dpi=220)
     fig.subplots_adjust(left=0.15, right=0.975, top=0.80, bottom=0.12)
-    ax.plot(table["Week"], table["5-Year"], color="#" + YEAR_COLOURS[0], lw=1.3 * f * 1.6, ls=(0, (4, 3)), label="5-Year")
-    cols = table.columns[2:]
-    for i, c in enumerate(cols):
-        is_cur = i == len(cols) - 1
-        ax.plot(table["Week"], table[c], color="#" + YEAR_COLOURS[min(i + 1, 5)], lw=(3.2 if is_cur else 1.3) * f * 1.6,
-                ls="-" if is_cur else (0, (4, 3)), label=c, zorder=5 if is_cur else 3)
-    lastrow = table[str(cur)].last_valid_index()
-    if lastrow is not None:
-        x, y = table.loc[lastrow, "Week"], table.loc[lastrow, str(cur)]
-        ax.annotate("We are here", xy=(x, y), xytext=(x + 5.5, y), fontsize=7.5, color="#D62828", fontweight="bold", va="center",
-                    arrowprops=dict(arrowstyle="<-", color="#D62828", lw=1.3, shrinkA=0, shrinkB=2))
+    wk = np.arange(1, 53)
+    ax.fill_between(wk, t["5Y min"], t["5Y max"], color="#" + water_year_chart.BAND_FILL, lw=0, label=f"5-year range ({meta['hist']})")
+    ax.plot(wk, t["5Y average"], color="#" + water_year_chart.AVG_LINE, lw=1.4 * f * 1.6, ls=(0, (4, 3)), label="5-year average")
+    ax.plot(wk, t[str(cur - 1)], color="#" + water_year_chart.PREV_LINE, lw=1.6 * f * 1.6, label=str(cur - 1))
+    ax.plot(wk, t[str(cur)], color="#0B4A3C", lw=3.2 * f * 1.6, label=str(cur), zorder=5)
     for sp in ax.spines.values():
         sp.set_visible(False)
     ax.grid(axis="y", color="#e3e3e3", lw=0.7)
     ax.set_axisbelow(True)
     ax.tick_params(length=0, labelsize=6.5)
     ax.set_xticks(range(1, 53, 4))
-    ax.set_xticklabels([f"Week {w}" for w in range(1, 53, 4)], rotation=0, fontsize=5.5)
+    ax.set_xticklabels([f"Week {w}" for w in range(1, 53, 4)], fontsize=5.5)
     ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, p: f"{v:,.0f}"))
-    ax.set_xlim(1, 58)
+    ax.set_xlim(1, 52)
     ax.set_ylabel("Thousand barrels", fontsize=7, loc="top")
-    leg = ax.legend(frameon=False, fontsize=6, ncol=6, loc="lower center", bbox_to_anchor=(0.5, 1.0), columnspacing=1.0, handlelength=2.2)
+    ax.legend(frameon=False, fontsize=6, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.0), columnspacing=1.2, handlelength=2.2)
     fig.patches.append(matplotlib.patches.Rectangle((0, 0.88), 1, 0.12, transform=fig.transFigure, color="#0B4A3C", zorder=0))
     fig.text(0.02, 0.94, title, color="white", fontsize=8.5, fontweight="bold", va="center")
-    fig.text(0.02, 0.02, f"Source: EIA weekly petroleum status report, to {pd.Timestamp(last):%d %b %Y}. 5-Year = 2021-2025 average." if False else
-             f"Source: EIA (weekly, to {pd.Timestamp(last):%d %b %Y}). 5-Year = average of the five years before {cur}.", fontsize=5.5, color="#555")
+    fig.text(0.02, 0.02, f"Source: EIA weekly petroleum status report, to {pd.Timestamp(meta['last']):%d %b %Y}. Calendar-year weeks.", fontsize=5.5, color="#555")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     fig.savefig(path, facecolor="white")
     plt.close(fig)
@@ -289,7 +220,7 @@ def main():
     notes = [
         "UNITS", "Thousand barrels (MBBL) of stocks at week end, US total. Big Four = crude oil incl. SPR + total motor gasoline + distillate fuel oil + kerosene-type jet fuel.", "",
         "COVERAGE", f"Weekly, EIA week ending Friday, from {data.index.min().date()}. Charts use week 1-52 = (day of year - 1) // 7 + 1 of the report date (53 folded into 52).",
-        "5-Year = mean of the five complete years before the current one; the chart shows it with the previous four years and the current year.",
+        "The band is the min-max of the five complete years before the current one, with their average, last year and the current year.",
         "Calendar-year weeks as in EIA / trade charts; the 'WY' sheets give the repo's Oct-Sep water-year view of the same data.", "",
         "SOURCE", f"EIA weekly petroleum status report via EIA API v2 petroleum/stoc/wstk (series {', '.join(SERIES.values())}); fallback EIA's keyless history workbooks. Last run's source: {source}.",
     ]
@@ -299,10 +230,9 @@ def main():
     from openpyxl import load_workbook
     wb = load_workbook(a.out)
     for key, (label, png, title) in CHARTS.items():
-        t, cur, hist = week_table(full[key])
-        write_week_chart(wb, label, t, title, last)
+        water_year_chart.add_water_year_chart(a.out, full[key], title, "thousand barrels", sheet_name=f"{label} by week"[:31], y_decimals=0, wb=wb, weekly=True)
         water_year_chart.add_water_year_chart(a.out, full[key], title, "thousand barrels", sheet_name=f"WY {label}"[:31], y_decimals=0, wb=wb)
-        draw_png(t, cur, title, os.path.join(a.png_dir, png), last)
+        draw_png(full[key], title, os.path.join(a.png_dir, png))
     root, ext = os.path.splitext(a.out)
     tmp = f"{root}.tmp{os.getpid()}{ext}"
     wb.save(tmp)

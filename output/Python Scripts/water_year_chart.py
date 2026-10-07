@@ -15,6 +15,7 @@ where `series` is a pandas Series of daily values indexed by date.
 import math
 import os
 
+import numpy as np
 import pandas as pd
 
 import xlsx_charts
@@ -68,6 +69,32 @@ def water_year_table(series):
     return t, meta
 
 
+def week_year_table(series):
+    """Same layout as water_year_table but one row per WEEK (1-52) of the calendar year, for weekly series (US petroleum
+    stocks): shaded band = min-max of the 5 complete calendar years before the current one, 5-year average, last year and
+    current year (to the latest week). Week = (day of year - 1) // 7 + 1, week 53 folded into 52."""
+    s = series.dropna().sort_index()
+    s.index = pd.DatetimeIndex(s.index)
+    last = s.index.max()
+    cur = int(last.year)
+    wk = pd.Series(np.minimum(52, (s.index.dayofyear - 1) // 7 + 1), index=s.index)
+    df = pd.DataFrame({"v": s.values, "year": s.index.year, "wk": wk.values}).groupby(["wk", "year"]).v.last().unstack("year")
+    df = df.reindex(range(1, 53))
+    hist = [y for y in range(cur - 5, cur) if y in df.columns]
+    h = df[hist]
+    t = pd.DataFrame({
+        "Day": [f"Week {w}" for w in range(1, 53)],
+        "5Y min": h.min(axis=1).round(2).values,
+        "5Y range (max-min)": (h.max(axis=1) - h.min(axis=1)).round(2).values,
+        "5Y max": h.max(axis=1).round(2).values,
+        "5Y average": h.mean(axis=1).round(2).values,
+        str(cur - 1): df[cur - 1].round(2).values if (cur - 1) in df.columns else np.nan,
+        str(cur): df[cur].round(2).values if cur in df.columns else np.nan,
+    })
+    meta = {"hist": f"{hist[0]}-{hist[-1]}" if hist else "", "last": last.date(), "weekly": True}
+    return t, meta
+
+
 def _nice_step(span, ticks=7):
     """A 1/2/2.5/5 x 10^k step giving about `ticks` gridlines over span."""
     raw = span / ticks
@@ -100,7 +127,11 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     label_col = table.shape[1] + 1
     ws.cell(row=1, column=label_col, value="Axis label")
     for i, day in enumerate(table["Day"], start=2):
-        ws.cell(row=i, column=label_col, value=day if str(day).startswith("01-") else None)
+        if meta.get("weekly"):   # label weeks 1, 5, 9 ... (every 4th)
+            keep = (i - 2) % 4 == 0
+        else:
+            keep = str(day).startswith("01-")
+        ws.cell(row=i, column=label_col, value=day if keep else None)
     cats = Reference(ws, min_col=label_col, min_row=2, max_row=n)
     # Band: stacked area of (min, max-min) with the min part invisible.
     area = AreaChart()
@@ -124,7 +155,8 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     if short_title:   # dashboards: keep the title to one line so it never runs into the plot
         area.title = f"{title} (to {pd.Timestamp(meta['last']):%d/%m/%y})"
     else:
-        area.title = f"{title} - water year (Oct-Sep), data to {meta['last']}"
+        basis = "calendar-year weeks" if meta.get("weekly") else "water year (Oct-Sep)"
+        area.title = f"{title} - {basis}, data to {meta['last']}"
     area.y_axis.title = unit
     area.x_axis.tickLblSkip = 1
     area.x_axis.tickMarkSkip = 1
@@ -163,12 +195,12 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     area += lines
     return xlsx_charts.tidy_layout(area, gridlines, inner)
 
-def add_water_year_chart(path, series, title, unit, sheet_name=SHEET, y_decimals=None, wb=None):
+def add_water_year_chart(path, series, title, unit, sheet_name=SHEET, y_decimals=None, wb=None, weekly=False):
     """sheet_name: pass a different name to put several water-year charts in one workbook.
     wb: an open workbook to add the sheet to (the caller saves it). openpyxl drops the formatting of charts it
     reads back in (axis min/max and step, axis titles), so several charts must go into one workbook in a single
     load/save - add_charts.py does that."""
-    table, meta = water_year_table(series)
+    table, meta = week_year_table(series) if weekly else water_year_table(series)
     own = wb is None
     if own:
         wb = load_workbook(path)
