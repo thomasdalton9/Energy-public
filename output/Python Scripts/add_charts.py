@@ -744,6 +744,15 @@ def power_annual(title):
     return f
 
 
+def sarawak_energy(p):
+    """SARAWAK_ENERGY_ASR.py: Sarawak Energy main-grid net generation by fuel, annual (company annual reports)."""
+    d = by_date(read(p, "Annual by fuel"), "date")
+    y = pd.DataFrame({"Hydro_GWh": d["Hydro (GWh)"], "Gas_GWh": d["Natural gas (GWh)"], "Coal_GWh": d["Coal (GWh)"],
+                      "Other Fossil_GWh": d["Diesel (GWh)"].clip(lower=0)})
+    return [spec("Generation", power_mix(y), "Sarawak Energy main-grid net generation by fuel (annual, Sarawak Energy reports)",
+                 "GWh per year", "stacked_bar", "%Y")]
+
+
 def paraguay_power(p):
     """PARAGUAY_POWER.py: Paraguay's 50% share of Itaipu + Yacyreta by month (standard 'Daily' layout, monthly
     rows), then where that energy went: Paraguay's own use vs the shares ceded to Brazil and Argentina."""
@@ -2810,6 +2819,7 @@ def macro_drivers(p):
 
 
 REGISTRY = {
+    "sarawak_energy_annual.xlsx": sarawak_energy,
     "argentina_gas_monthly.xlsx": argentina,
     "gb_gas_nts_daily.xlsx": gb_gas_nts,
     "gb_storage_sites_daily.xlsx": gb_storage_sites,
