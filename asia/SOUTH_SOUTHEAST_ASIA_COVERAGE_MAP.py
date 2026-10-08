@@ -68,16 +68,16 @@ OUT_OF_SCOPE = {"China", "Taiwan", "Afghanistan", "Iran", "Tajikistan", "Turkmen
                 "Oman", "United Arab Emirates", "Papua New Guinea", "Australia", "Japan", "South Korea", "North Korea"}
 # label position overrides (lon, lat) for in-country labels
 LABEL_AT = {"India": (78.5, 21.5), "Indonesia": (114.0, -1.0), "Myanmar": (95.8, 21.5),
-            "Thailand": (100.9, 15.6), "Pakistan": (69.5, 28.5), "Laos": (103.0, 19.9), "Philippines": (122.5, 12.4)}
+            "Thailand": (100.9, 15.6), "Pakistan": (69.5, 28.5), "Laos": (103.0, 19.9)}
 # small countries: label beside them with a leader line -> (label lon, label lat)
 CALLOUTS = {"Sri Lanka": (85.5, 5.0), "Bhutan": (92.5, 30.0), "Nepal": (82.0, 31.5), "Bangladesh": (86.5, 19.5),
             "Cambodia": (100.0, 9.0), "Vietnam": (110.5, 17.5), "Brunei": (110.0, 9.0), "Timor-Leste": (128.5, -12.0),
-            "Malaysia": (109.0, 6.3)}
+            "Malaysia": (109.0, 6.3), "Philippines": (132.0, 17.0)}
 DOT_AT = {"India": (78.5, 19.4), "Indonesia": (114.0, -3.0), "Malaysia": (101.9, 3.2), "Myanmar": (95.8, 19.6),
           "Thailand": (100.3, 14.0), "Pakistan": (69.5, 26.6), "Philippines": (122.8, 10.6), "Bangladesh": (90.2, 23.8),
           "Vietnam": (106.6, 11.2), "Brunei": (114.7, 4.4)}
 CALLOUT_TEXT = {"Malaysia": "Malaysia (Peninsular)"}
-CALLOUT_XY = {"Malaysia": (102.3, 4.5)}
+CALLOUT_XY = {"Malaysia": (102.3, 4.5), "Philippines": (121.5, 16.0)}
 HYDRO_AT = {"India": (80.5, 19.4), "Thailand": (102.2, 14.0), "Philippines": (124.6, 10.6)}
 
 
@@ -154,6 +154,20 @@ def main():
     ax.legend(handles=handles, loc="upper left", frameon=False, fontsize=9.5, bbox_to_anchor=(0.0, -0.01), ncol=2,
               labelspacing=1.0, columnspacing=3.0)
     ax.set_title("South and Southeast Asia: Gas and Power Data Coverage", fontsize=15, fontweight="bold", loc="left")
+    import datetime
+    import textwrap
+    order = {"green": 0, "blue": 1, "amber": 2}
+    notes = []
+    for name in sorted(COVERAGE, key=lambda n: (order[COVERAGE[n][0]], n)):
+        what = COVERAGE[name][1]
+        if name == "Malaysia":
+            what += "; Sabah + Sarawak: Ember national total minus GSO (estimate)"
+        wrapped = textwrap.wrap(f"{name}: {what}", 190, subsequent_indent="    ")
+        notes.append("\u2022 " + wrapped[0])
+        notes += ["   " + w for w in wrapped[1:]]
+    notes += ["", f"Coverage as of {datetime.date.today():%d %B %Y}. Map: Natural Earth 1:110m."]
+    ax.text(0.0, -0.30, "\n".join(notes), fontsize=8.3, color="#444444", transform=ax.transAxes, va="top",
+            linespacing=1.45)
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")

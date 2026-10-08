@@ -40,6 +40,7 @@ from openpyxl.styles import Font
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "south_america"))
+import add_charts  # noqa: E402
 import fundamentals  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
@@ -48,6 +49,7 @@ DATA_DIR = sam.DATA_DIR
 
 PROD = "china_nbs_energy_production_monthly.xlsx"
 IND = "china_nbs_industrial_output_monthly.xlsx"
+GAS = "china_ndrc_gas_monthly.xlsx"
 PRICES = "china_nbs_market_prices_10day.xlsx"
 PPI = "china_nbs_ppi_monthly.xlsx"
 CAPU = "china_nbs_capacity_utilization_quarterly.xlsx"
@@ -59,7 +61,9 @@ POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
           {"power generation by sou", "electricity generation "}),
          ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"})]
 FUELS = [("CN", "China", PROD, (), "energy production",
-          {"raw coal output", "coke output", "crude oil output and re", "natural gas output"})]
+          {"raw coal output", "coke output", "crude oil output and re"})]
+GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", None),
+            ("CN", "China", PROD, (), "energy production", {"natural gas output"})]
 INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
              {"iron and steel output", "cement output", "plate glass output", "non-ferrous metals outp",
               "chemicals output", "vehicle output"}),
@@ -72,6 +76,8 @@ PRICE = [("CN", "China", PRICES, ("Data",), "market prices",
 
 NBS = "National Bureau of Statistics of China (NBS)"
 SOURCES = {
+    GAS: ("National Development and Reform Commission (NDRC), Operation Bureau, national natural gas operation "
+          "bulletin (全国天然气运行快报): apparent consumption", "https://www.ndrc.gov.cn/fggz/jjyxtj/"),
     PROD: (f"{NBS}, monthly 'industrial added value' release, table of output of major industrial products "
            "(industrial enterprises above designated size)", "https://www.stats.gov.cn/sj/zxfb/"),
     IND: (f"{NBS}, monthly 'industrial added value' release, table of output of major industrial products",
@@ -112,6 +118,27 @@ def collect(wb, datasets, data_dir, used, sources):
     return charts, rows, missing
 
 
+def gas_combined(wb, used, data_dir):
+    """Apparent consumption (NDRC) next to NBS output on one chart, over the months NDRC covers. The gap between the
+    two is imports plus the output NBS does not count; it is not computed, because neither bulletin gives imports."""
+    try:
+        cons = add_charts.by_date(add_charts.read(os.path.join(data_dir, GAS), "Data"), "month")["Apparent_Consumption_Bcm"]
+        out = add_charts.by_date(add_charts.read(os.path.join(data_dir, PROD), "Data"), "month")["Natural_Gas_Bcm"]
+    except Exception as e:  # noqa: BLE001
+        return None, f"gas consumption vs output ({type(e).__name__}: {e})"
+    df = pd.DataFrame({"Apparent consumption (NDRC)": cons, "Output of enterprises above designated size (NBS)": out})
+    df = df[df.iloc[:, 0].notna()]
+    title = "China natural gas: apparent consumption (NDRC) and output (NBS)"
+    df, n_bars = xlsx_charts.prepare(df, tuple(df.columns))
+    ws = wb.create_sheet(sam.sheet_name("CN gas consumption vs output data", used))
+    xlsx_charts.write_table(ws, df)
+    src = ("NDRC national natural gas operation bulletin (consumption); NBS monthly industrial output release (output)",
+           "https://www.ndrc.gov.cn/fggz/jjyxtj/")
+    chart = xlsx_charts.build_chart(ws, df, n_bars, title, "bcm per month", "line", width=sam.CHART_W,
+                                    height=sam.CHART_H, gridlines=False, inner=xlsx_charts.DASHBOARD_INNER)
+    return (chart, src, ("China", title, df.index.max().strftime("%b/%y"), ws.title, *src)), None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "china_master.xlsx"))
@@ -121,18 +148,26 @@ def main():
     wb = Workbook()
     dash_power = wb.active
     dash_power.title = "Dashboard - Power"
-    names = ["Dashboard - Fuels", "Dashboard - Industry", "Dashboard - Prices"]
+    names = ["Dashboard - Gas", "Dashboard - Fuels", "Dashboard - Industry", "Dashboard - Prices"]
     dashes = [wb.create_sheet(n) for n in names]
     used = {"Dashboard - Power", *names, "Dashboard - Long-term", "Sources"}
     sources = []
 
     sections = [(dash_power, "China - power generation (NBS, average GW)", POWER),
-                (dashes[0], "China - fuel output: coal, coke, crude oil and natural gas (NBS)", FUELS),
-                (dashes[1], "China - energy-intensive industrial output and capacity utilisation (NBS)", INDUSTRY),
-                (dashes[2], "China - producer-goods prices and PPI (NBS)", PRICE)]
+                (dashes[0], "China - natural gas: apparent consumption (NDRC) and output (NBS)", GAS_SETS),
+                (dashes[1], "China - fuel output: coal, coke and crude oil (NBS)", FUELS),
+                (dashes[2], "China - energy-intensive industrial output and capacity utilisation (NBS)", INDUSTRY),
+                (dashes[3], "China - producer-goods prices and PPI (NBS)", PRICE)]
     counts = []
     for dash, heading, datasets in sections:
         charts, rows, missing = collect(wb, datasets, args.data_dir, used, sources)
+        if datasets is GAS_SETS:
+            both, why = gas_combined(wb, used, args.data_dir)
+            if both:
+                charts.insert(0, both[:2])
+                rows.insert(0, both[2])
+            else:
+                missing.append(why)
         sam.draw_dashboard(dash, heading, charts, rows, missing)
         counts.append(len(charts))
         if missing:
