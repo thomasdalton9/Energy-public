@@ -1084,6 +1084,36 @@ def brazil_hydro(p):
              "sheet": f"Water year - {a.replace('_', '-')}"} for a, t in areas if f"{a}_pct" in d]
 
 
+def _cum_since_oct(x):
+    """Daily rain (mm) -> cumulative mm since 1 October of each water year. A water year's cumulative stops at its first
+    missing day (a gap would understate it); days after the last published day are simply absent."""
+    last = x.last_valid_index()
+    if last is None:
+        return x.iloc[0:0]
+    x = x.loc[:last]
+    full = x.reindex(pd.date_range(x.index.min(), last, freq="D"))
+    wy = pd.Series([d.year if d.month >= 10 else d.year - 1 for d in full.index], index=full.index)
+    out = full.groupby(wy).cumsum()
+    gap = full.isna().groupby(wy).cummax()
+    return out.where(~gap).dropna()
+
+
+def south_america_rainfall(p):
+    """NASA POWER daily rain at one point per hydro catchment (south_america/RAINFALL_NASA_POWER.py): one AGSI-style
+    Oct-Sep water-year chart per point of CUMULATIVE rainfall since 1 October (5-year band, 5-year average, previous and
+    current water year)."""
+    d = by_date(read(p, "Daily"), "date")
+    pts = read(p, "Points").set_index("column")
+    specs = []
+    for k in d.columns:
+        if k not in pts.index or not d[k].notna().any():
+            continue
+        specs.append({"name": k, "water_year": _cum_since_oct(d[k]),
+                      "title": f"Rainfall since 1 Oct: {pts.loc[k, 'country']} {pts.loc[k, 'catchment']} vs 5-year (NASA POWER)",
+                      "units": "mm, cumulative since 1 Oct", "y_decimals": 0, "sheet": f"Rain WY - {k}"})
+    return specs
+
+
 def colombia_hydro(p):
     d = by_date(read(p, "Daily"), "date")
     return [{"name": "Storage", "water_year": d["Storage_pct"], "title": "Colombia reservoirs (national)",
@@ -3006,6 +3036,7 @@ REGISTRY = {
     "peru_hydro_reservoirs.xlsx": peru_hydro,
     "ecuador_hydro_reservoirs.xlsx": ecuador_hydro,
     "uruguay_hydro_reservoirs.xlsx": uruguay_hydro,
+    "south_america_rainfall_daily.xlsx": south_america_rainfall,
     # installed generation capacity by technology (standard sheet "Monthly")
     "brazil_power_capacity.xlsx": power_capacity("Brazil installed generation capacity (ANEEL)"),
     "argentina_power_capacity.xlsx": power_capacity("Argentina installed generation capacity (CAMMESA)"),
