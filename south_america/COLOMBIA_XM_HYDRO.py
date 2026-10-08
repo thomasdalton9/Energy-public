@@ -212,6 +212,15 @@ daily = fresh if cached is None else fresh.combine_first(cached[["StoredEnergy",
 daily = daily.sort_index()
 daily.index.name = "Date"
 
+# XM sometimes publishes a PARTIAL latest day (7 Oct 2026: 104 GWh stored = 0.6% against 74.9% the day before). Stored energy
+# cannot halve in a day, so a day below half of the median of the previous 7 days is dropped; the next run re-fetches
+# the last REFRESH_DAYS and a corrected value replaces it.
+_prev = daily["StoredEnergy"].shift(1).rolling(7, min_periods=3).median()
+_partial = daily["StoredEnergy"] < 0.5 * _prev
+if _partial.any():
+    print("Dropping implausible partial days:", ", ".join(f"{d:%Y-%m-%d}" for d in daily.index[_partial]), flush=True)
+    daily = daily[~_partial]
+
 
 def write_out_workbook(path):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
