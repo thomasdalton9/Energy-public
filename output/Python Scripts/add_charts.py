@@ -902,6 +902,13 @@ def china_nbs_series(p, who="NBS"):
     return out
 
 
+def china_fx_usd(p):
+    """Yuan per US dollar (Fed H.10 noon buying rates, asia/CHINA_FX_USD.py), daily since 2021."""
+    d = by_date(read(p, "Data"), "date")
+    return [spec("Daily", daily(d[["CNY_per_USD"]].rename(columns={"CNY_per_USD": "Yuan per US$ (Fed H.10)"}).dropna(), "2021-01-01"),
+                 "China yuan per US dollar (Federal Reserve H.10, daily)", "CNY per US$", "line", "%b/%y")]
+
+
 def giignl(p):
     d = read(p, "Data")
     d = d.set_index(pd.to_datetime(d["report_year"].astype(int).astype(str) + "-01-01"))
@@ -2926,6 +2933,7 @@ REGISTRY = {
     "china_nbs_market_prices_10day.xlsx": china_nbs_series,
     "china_nbs_capacity_utilization_quarterly.xlsx": china_nbs_series,
     "china_nbs_ppi_monthly.xlsx": china_nbs_series,
+    "china_fx_usd_daily.xlsx": china_fx_usd,
     "china_ndrc_gas_monthly.xlsx": lambda p: china_nbs_series(p, "NDRC"),
     "china_nea_capacity_monthly.xlsx": lambda p: china_nbs_series(p, "NEA"),
     "china_nea_consumption_monthly.xlsx": lambda p: china_nbs_series(p, "NEA"),
