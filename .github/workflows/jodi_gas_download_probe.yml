@@ -17,4 +17,4 @@ jobs:
       - run: pip install -q pandas requests pypdf
       - env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 800 python3 discovery_archive/rest_of_world/JODI_GAS_DOWNLOAD_PROBE6.py
+        run: timeout 800 python3 discovery_archive/rest_of_world/JODI_GAS_DOWNLOAD_PROBE7.py
