@@ -170,8 +170,28 @@ def lng_feedgas(path):
     plants = [c for c in d.columns if c not in ("Total", "Source") and pd.api.types.is_numeric_dtype(d[c])]
     m = add_charts.monthly_mean(d[plants], "2021-01-01")
     m = complete_months(m, d.index.max())
-    return [add_charts.spec("LNG feedgas", m, "US LNG feedgas by plant (pipeline nominations; EIA before metering)",
-                            "Bcf/d, monthly average", "stacked_bar")]
+    specs = [add_charts.spec("LNG feedgas", m, "US LNG feedgas by plant (pipeline nominations; EIA before metering)",
+                             "Bcf/d, monthly average", "stacked_bar")]
+    return specs + lng_vs_nameplate(path)
+
+
+def lng_vs_nameplate(path):
+    """US LNG feedgas against nameplate feedgas capacity: nameplate by plant stacked (each train counts from its FERC
+    feed-gas date; trains still to start are the workbook's expected dates and are drawn in lighter bars), total feedgas
+    (best estimate) as a line. Same data as the 'Feedgas vs capacity' chart of lng_feedgas_daily.xlsx, as monthly means."""
+    c = add_charts.by_date(add_charts.read(path, "Chart data"), "gas_day")
+    feed_col = "Total feedgas"
+    if feed_col not in c.columns:
+        return []
+    caps = [x for x in c.columns if x != feed_col and pd.api.types.is_numeric_dtype(c[x])]
+    last = c[feed_col].dropna().index.max()
+    cap = add_charts.monthly_mean(c[caps], "2021-01-01")
+    feed = complete_months(add_charts.monthly_mean(c[[feed_col]], "2021-01-01"), last)
+    df = cap.join(feed, how="left")
+    sp = add_charts.spec("LNG vs nameplate", df, "US LNG feedgas vs nameplate capacity (FERC feed-gas dates; later trains expected)",
+                         "Bcf/d, monthly average", "stacked_bar", line_cols=(feed_col,))
+    sp["forecast_from"] = (last + pd.offsets.MonthBegin(1)).normalize() if last.day != 1 else last
+    return [sp]
 
 
 def mexico_demand(path):
