@@ -2893,6 +2893,7 @@ REGISTRY = {
     "china_nbs_capacity_utilization_quarterly.xlsx": china_nbs_series,
     "china_nbs_ppi_monthly.xlsx": china_nbs_series,
     "china_ndrc_gas_monthly.xlsx": lambda p: china_nbs_series(p, "NDRC"),
+    "china_gacc_energy_imports_monthly.xlsx": lambda p: china_nbs_series(p, "GACC customs"),
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
     "singapore_power.xlsx": singapore_power,
     # South & Southeast Asia (Ember fallback until each country's raw feed is in)
