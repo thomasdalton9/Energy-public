@@ -18,6 +18,7 @@ Standing instructions from the repo owner. Follow these on every change.
     previous and current water year).
   - Other time series: line or stacked chart of the main columns on a chart sheet.
   - Charts have **no borders** (no chart-area or plot-area outline).
+  - Chart titles are **12 pt bold** on every chart (`xlsx_charts.set_title_size`, applied in `tidy_layout`).
   - Chart dates are formatted **mmm/yy** (e.g. Jan/26); annual series show the year.
   - `add_charts.py` holds the per-workbook chart registry; each scheduled workflow runs it after the pull.
 - Storage/level/seasonal charts use an **Oct-Sep water year**, not Jan-Dec.

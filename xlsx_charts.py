@@ -82,6 +82,20 @@ def rotated_labels(axis, degrees=-45):
                                       endParaRPr=CharacterProperties())])
 
 
+TITLE_SIZE = 1200   # chart titles are 12 pt on every chart (owner, Oct 2026)
+
+
+def set_title_size(title, size=TITLE_SIZE):
+    """Chart title text at a fixed point size (hundredths of a point), bold as before."""
+    from openpyxl.drawing.text import CharacterProperties
+    rich = getattr(getattr(title, "tx", None), "rich", None)
+    if rich is None:
+        return
+    for p in rich.p:
+        for r in (p.r or []):
+            r.rPr = CharacterProperties(sz=size, b=True)
+
+
 def tidy_layout(chart, gridlines=True, inner=None):
     """Excel-safe layout: title, legend and axis titles never overlay the plot (openpyxl leaves <c:overlay>
     unset, which newer Excel draws on top of the plot), the category axis sits at the bottom, optional
@@ -90,6 +104,7 @@ def tidy_layout(chart, gridlines=True, inner=None):
     from openpyxl.chart.layout import Layout, ManualLayout
     if chart.title is not None:
         chart.title.overlay = False
+        set_title_size(chart.title)
     if chart.legend is not None:
         chart.legend.overlay = False
     chart.x_axis.axPos = "b"
