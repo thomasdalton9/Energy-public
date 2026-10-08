@@ -50,6 +50,7 @@ DATA_DIR = sam.DATA_DIR
 PROD = "china_nbs_energy_production_monthly.xlsx"
 IND = "china_nbs_industrial_output_monthly.xlsx"
 GAS = "china_ndrc_gas_monthly.xlsx"
+IMPORTS = "china_gacc_energy_imports_monthly.xlsx"
 PRICES = "china_nbs_market_prices_10day.xlsx"
 PPI = "china_nbs_ppi_monthly.xlsx"
 CAPU = "china_nbs_capacity_utilization_quarterly.xlsx"
@@ -62,8 +63,9 @@ POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
          ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"})]
 FUELS = [("CN", "China", PROD, (), "energy production",
           {"raw coal output", "coke output", "crude oil output and re"})]
-GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas consumption y/y"}),
-            ("CN", "China", PROD, (), "energy production", {"natural gas output"})]
+GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas consumption y-y"}),
+            ("CN", "China", PROD, (), "energy production", {"natural gas output"}),
+            ("CN", "China", IMPORTS, (), "energy imports", {"natural gas imports"})]
 INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
              {"iron and steel output", "cement output", "plate glass output", "non-ferrous metals outp",
               "chemicals output", "vehicle output"}),
@@ -76,6 +78,8 @@ PRICE = [("CN", "China", PRICES, ("Data",), "market prices",
 
 NBS = "National Bureau of Statistics of China (NBS)"
 SOURCES = {
+    IMPORTS: ("General Administration of Customs of China (GACC), monthly bulletin table (14) Major Import Commodities in "
+              "Quantity and Value (English site)", "http://english.customs.gov.cn/Statistics/Statistics?ColumnId=2"),
     GAS: ("National Development and Reform Commission (NDRC), Operation Bureau, national natural gas operation "
           "bulletin (全国天然气运行快报): apparent consumption", "https://www.ndrc.gov.cn/fggz/jjyxtj/"),
     PROD: (f"{NBS}, monthly 'industrial added value' release, table of output of major industrial products "
@@ -95,7 +99,35 @@ OPERATORS = {}
 DASHBOARD_ONLY = {}
 
 # Sources checked and NOT built (filled in from the probe runs, discovery_archive/china/ and results/china/).
-NOT_AVAILABLE = []
+NOT_AVAILABLE = [
+    ("China", "Natural gas: production, imports, sector demand, storage, LNG terminals",
+     "No official source reachable beyond the three built here", "Not built",
+     "https://www.ndrc.gov.cn/fggz/jjyxtj/",
+     "NDRC's bulletin gives apparent consumption only (no production, import or sector split); GACC gives imports as "
+     "weight (tonnes), not volume. No gas balance is built and nothing is estimated or converted."),
+    ("China", "Installed capacity by type and electricity consumption by sector (monthly)",
+     "National Energy Administration (NEA) 'national power industry statistics' and 'electricity consumption' releases",
+     "Reachable, but not built",
+     "https://www.nea.gov.cn/",
+     "Releases are individual news articles. The paged list reaches only May 2023 - July 2024 and the current list page is "
+     "script-rendered, so Aug 2024 - Aug 2026 cannot be enumerated; only the newest items on the home page are "
+     "linkable. A series with a two-year hole is not built."),
+    ("China", "Power industry statistics (China Electricity Council)", "cec.org.cn", "Not reachable",
+     "https://www.cec.org.cn/", "www.cec.org.cn timed out from GitHub Actions (connect timeout); english.cec.org.cn "
+     "answers with a near-empty page."),
+    ("China", "Customs trade statistics, Chinese site / query engine",
+     "customs.gov.cn, stats.customs.gov.cn", "Not reachable",
+     "http://stats.customs.gov.cn/",
+     "HTTP 412 (JavaScript challenge) and a TLS certificate error from GitHub Actions. The English site works and is "
+     "used (table 14)."),
+    ("China", "NBS data portal (data.stats.gov.cn)", "National Bureau of Statistics", "Not reachable",
+     "https://data.stats.gov.cn/", "HTTP 403 'UrlACL' for every automated request (discovery_archive/asia/"
+     "CHINA_NBS_DISCOVERY*.py); the press releases on stats.gov.cn are used instead. The statistical yearbook pages "
+     "(stats.gov.cn/sj/ndsj/) answer but are annual and are not read."),
+    ("China", "CNPC ETRI, CNOOC, CCTD", "company / trade-body sites", "Not used",
+     "https://www.cctd.com.cn/", "ETRI answered HTTP 504; CNOOC an empty page; CCTD's home page loads but its coal data "
+     "is a commercial database."),
+]
 
 
 def collect(wb, datasets, data_dir, used, sources):
