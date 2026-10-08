@@ -162,9 +162,9 @@ def main():
         raise SystemExit("No data at all - nothing to save.")
     series = pd.DataFrame([
         ("Apparent_Consumption_Bcm", "Natural gas apparent consumption", "bcm per month",
-         "natural gas apparent consumption", "line"),
+         "gas apparent consumption", "line"),
         ("Consumption_YoY_pct", "Natural gas apparent consumption, y/y", "% y/y",
-         "natural gas apparent consumption y/y", "line")],
+         "gas consumption y/y", "line")],
         columns=["column", "label", "unit", "chart", "kind"]).set_index("column")
     out["Series"] = series
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
