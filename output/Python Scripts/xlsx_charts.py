@@ -136,6 +136,10 @@ def gas_volume_to_bcfd(df, units, title):
     u = str(units)
     if "gas" not in str(title).lower() or df is None or df.empty:
         return df, units
+    mm = _re.match(r"^bcm per month$", u)
+    if mm:   # monthly volume -> average daily rate: bcm x 35.3147 Bcf per bcm / days in the month
+        days = pd.Series(pd.to_datetime(df.index).days_in_month, index=df.index)
+        return df.apply(pd.to_numeric, errors="coerce").mul(35.3147).div(days, axis=0), "Bcf/d (monthly average)"
     m = _re.match(r"^(million m3/day|mcm/day|mcm/d|MMscf/d)(.*)$", u)
     if not m:
         return df, units

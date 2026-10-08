@@ -191,7 +191,7 @@ def collect(wb, datasets, data_dir, used, sources):
     for code, country, fname, raw, short, only in datasets:
         cfg = SimpleNamespace(**{k: getattr(sys.modules[__name__], k) for k in (
             "SOURCES", "MASTER_SPECS", "HYDRO_DATASETS", "HYDRO_EXTRA", "EMBER", "OPERATORS")},
-            DASHBOARD_ONLY={fname: only} if only else {})
+            DASHBOARD_ONLY={fname: only} if only else {}, GAS_BCFD=True)   # gas volumes in Bcf/d (owner, Oct 2026)
         before = set(wb.sheetnames)
         c, r, m = sam.collect(wb, [(code, country, fname, raw, short)], data_dir, used, sources, cfg=cfg)
         for ws in wb.worksheets:   # 'CN Data raw 2' -> 'CN industrial output Data raw': say which dataset it is
@@ -216,12 +216,13 @@ def gas_combined(wb, used, data_dir):
     df = pd.DataFrame({"Apparent consumption (NDRC)": cons, "Output of enterprises above designated size (NBS)": out})
     df = df[df.iloc[:, 0].notna()]
     title = "China natural gas: apparent consumption (NDRC) and output (NBS)"
+    df, gas_units = xlsx_charts.gas_volume_to_bcfd(df, "bcm per month", title)   # bcm per month -> Bcf/d
     df, n_bars = xlsx_charts.prepare(df, tuple(df.columns))
     ws = wb.create_sheet(sam.sheet_name("CN gas consumption vs output data", used))
     xlsx_charts.write_table(ws, df)
     src = ("NDRC national natural gas operation bulletin (consumption); NBS monthly industrial output release (output)",
            "https://www.ndrc.gov.cn/fggz/jjyxtj/")
-    chart = xlsx_charts.build_chart(ws, df, n_bars, title, "bcm per month", "line", width=sam.CHART_W,
+    chart = xlsx_charts.build_chart(ws, df, n_bars, title, gas_units, "line", width=sam.CHART_W,
                                     height=sam.CHART_H, gridlines=False, inner=xlsx_charts.DASHBOARD_INNER)
     return (chart, src, ("China", title, df.index.max().strftime("%b/%y"), ws.title, *src)), None
 
