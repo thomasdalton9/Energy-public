@@ -3,6 +3,9 @@ name: NEA hunt 4
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -14,4 +17,12 @@ jobs:
           python-version: "3.11"
       - run: pip install requests
       - name: Run probe
-        run: timeout 600 python3 discovery_archive/nea/NEA_HUNT4.py
+        run: |
+          mkdir -p discovery_archive/results/nea
+          timeout 560 python3 discovery_archive/nea/NEA_HUNT4.py 2>&1 | tee discovery_archive/results/nea/hunt4.txt | tail -5
+      - name: Commit result
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git add discovery_archive/results/nea
+          git commit -m "NEA hunt 4 result" || exit 0
+          for i in 1 2 3; do git pull --rebase origin main -q; git push origin HEAD:main && break; sleep 5; done

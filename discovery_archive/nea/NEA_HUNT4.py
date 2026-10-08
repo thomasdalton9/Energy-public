@@ -27,6 +27,7 @@ def get(url, quiet=False):
 
 def text(html):
     html = re.sub(r"(?s)<(script|style).*?</\1>", " ", html)
+    html = re.sub(r"\s+", " ", html)
     html = re.sub(r"</(p|div|tr|li|h\d)>", "\n", html)
     html = re.sub(r"</t[dh]>", " | ", html)
     t = re.sub(r"<[^>]+>", "", html)
