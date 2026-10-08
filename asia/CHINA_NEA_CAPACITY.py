@@ -67,10 +67,10 @@ def period_of(title, release_date):
 # ------------------------------------------------------------------ HTML table (as text, cells separated by ' | ')
 def rows_from_text(text):
     """[(label, [cells])] of the first '一览表' table of a page's text (row starts are cells that begin on a new line)."""
-    i = text.find("一览表")
-    if i < 0:
+    m = re.search(r"指\s*标\s*名\s*称", text) or re.search("一览表", text)
+    if not m:
         return []
-    toks = text[i:].split("|")
+    toks = text[m.start():].split("|")
     rows, cur = [], None
     for tok in toks:
         s = tok.strip()
@@ -148,8 +148,22 @@ def _cell(g, x0, x1, y0, y1, scale=3):
     return cv2.copyMakeBorder(c, 20, 20, 20, 20, cv2.BORDER_CONSTANT, value=255)
 
 
+def _vote(g, x0, x1, y0, y1):
+    """Digits of a value cell read three ways (scale / page-segmentation); a value must come out the same at least twice,
+    otherwise '' (a blank is retried by the other variants, never guessed)."""
+    got = []
+    for scale, psm in ((3, 7), (4, 7), (5, 8)):
+        c = _cell(g, x0, x1, y0, y1, scale)
+        got.append(re.sub(r"[^0-9.\-]", "", _ocr(c, "eng", psm, "0123456789.-*")))
+    for v in got:
+        if v and got.count(v) >= 2:
+            return v
+    return ""
+
+
 def ocr_rows(path):
-    """[(label, value_str)] for every grid row of a table image: label cell by chi_sim, value cell (column 3) as digits."""
+    """[(label, value_str)] of a table image: grid found with OpenCV, label cells by chi_sim, and (only for the installed
+    and added capacity blocks) the cumulative value cell - the second-to-last column - voted over three readings."""
     import cv2
     import numpy as np
     g = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
@@ -163,31 +177,59 @@ def ocr_rows(path):
     xs = _cluster(np.where(vk.sum(axis=0) > 0.15 * h * 255)[0])
     if len(xs) < 5 or len(ys) < 3:
         return []
+    vi = len(xs) - 3          # columns: name | unit | [month | y/y |] cumulative | y/y -> the cumulative one
+    bands = [(y0, y1) for y0, y1 in zip(ys[:-1], ys[1:]) if y1 - y0 >= 20]
+    labels = [re.sub(r"\s+", "", _ocr(_cell(g, xs[0], xs[1], y0, y1), "chi_sim", 7)) for y0, y1 in bands]
+    need = set()
+    for pred in (is_cap_label, is_add_label):
+        i = next((k for k, l in enumerate(labels) if pred(l)), None)
+        if i is not None:
+            need.update(range(i, min(i + 6, len(labels))))
+    ic = next((k for k, l in enumerate(labels) if is_cap_label(l)), None)
+    if ic is not None:       # an added-capacity header damaged by OCR: the next capacity-like row after the type rows
+        ia = next((k for k, l in enumerate(labels) if k > ic + 5 and ("机容" in l or "装机" in l) and "千伏" not in l), None)
+        if ia is not None:
+            need.update(range(ia, min(ia + 6, len(labels))))
+    return [(labels[k], _vote(g, xs[vi], xs[vi + 1], *bands[k]) if k in need else "") for k in range(len(bands))]
+
+
+def docx_rows(data):
+    """[(label, value_str)] of the first table of a .docx attachment (python-docx)."""
+    import io
+    from docx import Document
+    doc = Document(io.BytesIO(data))
     out = []
-    for y0, y1 in zip(ys[:-1], ys[1:]):
-        if y1 - y0 < 20:
-            continue
-        label = re.sub(r"\s+", "", _ocr(_cell(g, xs[0], xs[1], y0, y1), "chi_sim", 7))
-        val = ""
-        for scale, psm in ((3, 7), (4, 8), (5, 10)):          # a blank cell is retried, never guessed
-            c = _cell(g, xs[2], xs[3], y0, y1, scale)
-            val = re.sub(r"[^0-9.\-]", "", _ocr(c, "eng", psm, "0123456789.-*"))
-            if val:
-                break
-        out.append((label, val))
+    for tbl in doc.tables[:1]:
+        for row in tbl.rows:
+            cells = [re.sub(r"\s+", "", c.text) for c in row.cells]
+            vals = cells[2:]
+            while vals and vals[-1] == "":
+                vals.pop()
+            out.append((cells[0], vals[-2] if len(vals) >= 2 else ""))
     return out
 
 
 # ------------------------------------------------------------------ rows -> capacity record
-def record_from_rows(rows, strict=True):
+def is_cap_label(l):
+    """Installed-capacity header row (tolerates OCR damage: '机容' / '装机' / '设备容量' is enough)."""
+    return ("机容" in l or "装机" in l or "设备容量" in l) and "新增" not in l and "千伏" not in l
+
+
+def is_add_label(l):
+    return ("机容" in l or "装机" in l) and "新增" in l
+
+
+def record_from_rows(rows, strict=True, tol_frac=0.0):
     """-> ({'cap': {...}, 'add': {...}, 'note': ...}, None) in 万千瓦, or (None, reason). strict: the types must add up to
     the total (OCR); for a parsed HTML table the published total is kept even where NEA's own rows leave a residual
     (up to 1% in 2023), which then shows as 'Other' in the workbook."""
     labels = [r[0] for r in rows]
-    i_cap = next((i for i, l in enumerate(labels) if ("装机" in l or "机容" in l) and not l.startswith("新增") and "发电" in l), None)
+    i_cap = next((i for i, l in enumerate(labels) if is_cap_label(l)), None)
     if i_cap is None:
         return None, "no installed-capacity row"
-    i_add = next((i for i, l in enumerate(labels) if l.startswith("新增") and ("机容" in l or "装机" in l or "发电" in l)), None)
+    i_add = next((i for i, l in enumerate(labels) if is_add_label(l)), None)
+    if i_add is None:      # header damaged by OCR: the next capacity-like row after the five type rows
+        i_add = next((i for i, l in enumerate(labels) if i > i_cap + 5 and ("机容" in l or "装机" in l) and "千伏" not in l), None)
     rec = {"total": num(rows[i_cap][1])}
     for k, t in enumerate(TYPES, 1):
         rec[t] = num(rows[i_cap + k][1]) if i_cap + k < len(rows) else None
@@ -196,7 +238,7 @@ def record_from_rows(rows, strict=True):
             pass      # a garbled OCR label is tolerated: the order of the rows and the sum check decide
     if any(v is None for v in rec.values()):
         return None, "capacity row(s) unreadable"
-    if strict and abs(sum(rec[t] for t in TYPES) - rec["total"]) > SUM_TOL:
+    if strict and abs(sum(rec[t] for t in TYPES) - rec["total"]) > max(SUM_TOL, tol_frac * rec["total"]):
         return None, f"types sum to {sum(rec[t] for t in TYPES):.0f} vs total {rec['total']:.0f} 万千瓦"
     add = {"total": None, **{t: None for t in TYPES}}
     note = None
@@ -207,7 +249,7 @@ def record_from_rows(rows, strict=True):
         vals = [add[t] for t in TYPES]
         if add["total"] is None:
             add, note = {"total": None, **{t: None for t in TYPES}}, "added-capacity total unreadable"
-        elif strict and all(v is not None for v in vals) and abs(sum(vals) - add["total"]) > SUM_TOL:
+        elif strict and all(v is not None for v in vals) and abs(sum(vals) - add["total"]) > max(SUM_TOL, tol_frac * add["total"]):
             add, note = {"total": None, **{t: None for t in TYPES}}, "added capacity left out: types do not add up to its total"
         elif any(v is None for v in vals):
             note = "an added-capacity cell unreadable (left blank)"
@@ -244,8 +286,18 @@ def read_release(r, ocr_ok):
     if rec is None:
         imgs = [x for x in re.findall(r'<img[^>]+src="([^"]+)"', html) if not re.search(r"logo|icon|ewm|qr|1\.gif", x, re.I)]
         if not imgs:
-            att = re.findall(r'href="([^"]+\.(?:xlsx?|docx?|pdf))"', html, re.I)
-            return period, None, "", f"no table ({why})" + (f"; attachments: {att[:3]}" if att else "")
+            att = re.findall(r'href="([^"]+\.docx)"', html, re.I)
+            if att:
+                data = nc.fetch(urljoin(r["url"], att[0]), binary=True)
+                try:
+                    rows = docx_rows(data) if data else []
+                except Exception as e:      # noqa: BLE001
+                    return period, None, "", f"attachment unreadable ({type(e).__name__})"
+                rec, why = record_from_rows(rows, strict=False) if rows else (None, "empty attachment")
+                if rec is not None:
+                    bad = text_check(rec, text)
+                    return (period, None, "Word attachment", f"check failed: {bad}") if bad else (period, rec, "Word attachment", "ok")
+            return period, None, "", f"no table ({why})"
         if not ocr_ok:
             return period, None, "OCR", "image table, OCR tools missing"
         data = nc.fetch(urljoin(r["url"], imgs[0]), binary=True)
@@ -263,7 +315,8 @@ def read_release(r, ocr_ok):
         finally:
             os.unlink(path)
         method = "OCR of image table"
-        rec, why = record_from_rows(rows) if rows else (None, "no grid found in image")
+        rec, why = (record_from_rows(rows, tol_frac=0.0 if period >= pd.Timestamp(2024, 1, 1) else 0.012)
+                    if rows else (None, "no grid found in image"))
     if rec is None:
         return period, None, method, f"check failed: {why}"
     bad = text_check(rec, text)
