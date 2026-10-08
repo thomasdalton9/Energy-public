@@ -883,8 +883,9 @@ def china_nbs(p):
     return out
 
 
-def china_nbs_series(p):
-    """China NBS workbooks: the pull writes a 'Series' sheet (column, label, unit, chart, kind); one chart per group."""
+def china_nbs_series(p, who="NBS"):
+    """China NBS workbooks: the pull writes a 'Series' sheet (column, label, unit, chart, kind); one chart per group.
+    who: publisher shown in the chart title (NBS; NDRC for the gas bulletin workbook)."""
     d = read(p, "Data")
     d = by_date(d, d.columns[0])
     s = pd.read_excel(p, sheet_name="Series", index_col=0)
@@ -897,7 +898,7 @@ def china_nbs_series(p):
             name = name if name not in used else f"{name[:20]} {len(used)}"
             used.add(name)
             out.append(spec(name, d[c].rename(columns=rows["label"].to_dict()),
-                            f"China {group} (NBS)", rows["unit"].iloc[0], rows["kind"].iloc[0]))
+                            f"China {group} ({who})", rows["unit"].iloc[0], rows["kind"].iloc[0]))
     return out
 
 
@@ -1155,10 +1156,8 @@ def _category_stacked_bar(path, sheet, t, title, y_title):
     ch.add_data(Reference(ws, min_col=2, max_col=1 + t.shape[1], min_row=1, max_row=n), titles_from_data=True)
     ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
     for i, s in enumerate(ch.series):
-        grey = str(t.columns[i]).startswith("Other")
-        s.graphicalProperties = GraphicalProperties(
-            solidFill=xlsx_charts.OTHER_GREY if grey else xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
-            ln=LineProperties(noFill=True))
+        s.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.fuel_colour(t.columns[i], i),
+                                                    ln=LineProperties(noFill=True))
     ch.title = title
     ch.y_axis.title = y_title
     ch.x_axis.delete = False
@@ -2893,6 +2892,7 @@ REGISTRY = {
     "china_nbs_market_prices_10day.xlsx": china_nbs_series,
     "china_nbs_capacity_utilization_quarterly.xlsx": china_nbs_series,
     "china_nbs_ppi_monthly.xlsx": china_nbs_series,
+    "china_ndrc_gas_monthly.xlsx": lambda p: china_nbs_series(p, "NDRC"),
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
     "singapore_power.xlsx": singapore_power,
     # South & Southeast Asia (Ember fallback until each country's raw feed is in)

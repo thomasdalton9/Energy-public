@@ -27,6 +27,39 @@ from openpyxl.drawing.line import LineProperties
 PALETTE = ["2A78D6", "EB6834", "1BAF7A", "EDA100", "E87BA4", "008300", "4A3AA7", "E34948"]
 OTHER_GREY = "9A9A9A"
 
+# One colour per power type, the same on every master chart, PNG and workbook (the first seven are the order the
+# generation charts always used: Hydro, Gas, Wind, Solar, Coal, Nuclear, Other grey). A name outside this map falls
+# back to its position in PALETTE, as before.
+FUEL_COLOURS = {"Hydro": PALETTE[0], "Gas": PALETTE[1], "Wind": PALETTE[2], "Solar": PALETTE[3], "Coal": PALETTE[4],
+                "Nuclear": PALETTE[5], "Other": OTHER_GREY, "Net imports": PALETTE[7], "Storage": PALETTE[6],
+                "Oil": "6E4B2A", "Bioenergy": "8A9A2B", "Rooftop solar": "F5C75A", "Geothermal": "A0522D",
+                "Thermal": "5E5E5E"}
+
+
+def fuel_colour(name, i=0):
+    """Colour for a series name: the fixed power-type colour where the name is a power type (incl. variants such as
+    'Other Fossil', 'Solar (utility)', 'Battery discharge', 'Net imports (- = exports)'), else PALETTE[i]."""
+    n = str(name).strip()
+    if n in FUEL_COLOURS:
+        return FUEL_COLOURS[n]
+    low = n.lower()
+    if low.startswith("other") or low.startswith("balancing item"):
+        return OTHER_GREY
+    if low.startswith(("thermal", "fossil")):   # grouped fossil series ('Thermal (oil + coal)', 'Fossil fuels ...')
+        return FUEL_COLOURS["Thermal"]
+    if low.startswith("rooftop solar"):
+        return FUEL_COLOURS["Rooftop solar"]
+    if low.startswith("net imports"):
+        return FUEL_COLOURS["Net imports"]
+    if low.startswith(("battery", "storage", "pumped")):
+        return FUEL_COLOURS["Storage"]
+    for key, fuel in (("solar", "Solar"), ("hydro", "Hydro"), ("wind", "Wind"), ("coal", "Coal"), ("lignite", "Coal"),
+                      ("nuclear", "Nuclear"), ("biomass", "Bioenergy"), ("bioenergy", "Bioenergy"),
+                      ("geothermal", "Geothermal"), ("oil", "Oil")):
+        if low.startswith(key):
+            return FUEL_COLOURS[fuel]
+    return PALETTE[i % len(PALETTE)]
+
 
 def _fold_to_palette(df):
     """More series than palette slots -> keep the largest, fold the rest into 'Other'."""
@@ -178,7 +211,7 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
                    titles_from_data=True)
     chart.set_categories(cats)
     for i, s in enumerate(chart.series):
-        colour = OTHER_GREY if str(df.columns[i]) == "Other" else PALETTE[i % len(PALETTE)]
+        colour = fuel_colour(df.columns[i], i)
         if kind == "line":
             s.graphicalProperties = GraphicalProperties(ln=LineProperties(solidFill=colour, w=22225))
             s.smooth = False
@@ -190,7 +223,7 @@ def build_chart(ws, df, n_bars, title, y_title, kind="line", date_format="%Y-%m"
         from openpyxl.chart.marker import DataPoint
         idxs = [i for i, d in enumerate(df.index) if d >= pd.Timestamp(forecast_from)]
         for si, s in enumerate(chart.series):
-            colour = OTHER_GREY if str(df.columns[si]) == "Other" else PALETTE[si % len(PALETTE)]
+            colour = fuel_colour(df.columns[si], si)
             for i in idxs:
                 # scenario_from: months beyond the forecast horizon (e.g. Texas 2029-33) get a still lighter shade
                 far = scenario_from is not None and df.index[i] >= pd.Timestamp(scenario_from)
