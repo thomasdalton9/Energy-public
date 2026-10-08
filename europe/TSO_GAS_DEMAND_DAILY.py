@@ -143,6 +143,7 @@ def spain(d0, d1):
     h = {"Accept": "application/json, text/javascript, */*; q=0.01", "User-Agent": UA, "X-Requested-With": "XMLHttpRequest",
          "Referer": "https://www.enagas.es/en/technical-management-system/energy-data/demand/history/"}
     rec = {}
+    d1 = min(d1, date.today() - timedelta(days=1))   # the endpoint rejects today's date ("the date must be prior to the current date") and returns no rows at all
     q = min(d0 + timedelta(days=55), d1)
     while True:
         j = get(ENAGAS, params={"date": q.strftime("%d/%m/%Y")}, headers=h).json()
