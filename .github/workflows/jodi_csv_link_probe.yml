@@ -1,0 +1,24 @@
+name: JODI gas CSV link probe (manual)
+# One-off: find the direct URL of the JODI-Gas "GAS_world_NewFormat.zip" CSV listed by the JS file-list on
+# jodidata.org/gas/database/data-downloads.aspx. Prints to the job log. Move to discovery_archive/workflows/ when done.
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: |
+          for u in "https://www.jodidata.org/_resources/files/downloads/gas-data/GAS_world_NewFormat.zip" \
+                   "https://www.jodidata.org/_resources/files/downloads/gas-data/gas_world_NewFormat.zip" \
+                   "https://www.jodidata.org/_resources/files/downloads/gas-data/world_NewFormat.zip" \
+                   "https://www.jodidata.org/_resources/files/downloads/gas-data/GAS_world.zip" \
+                   "https://www.jodidata.org/_resources/files/downloads/gas-data/STAGING_world_NewFormat.zip" \
+                   "https://www.jodidata.org/_resources/files/downloads/gas-data/world_gas_NewFormat.zip"; do
+            echo "== $u"; curl -sS -o /dev/null -I -A "Mozilla/5.0 energy-data/1.0" -w "%{http_code} %{size_download} %{content_type}\n" --max-time 60 "$u" || true
+          done
+          echo "== file-list component source"
+          curl -sS -A "Mozilla/5.0 energy-data/1.0" "https://www.jodidata.org/assets/FileList-8t2jo0qY.js" | head -c 6000; echo
+          for a in $(curl -sS -A "Mozilla/5.0 energy-data/1.0" "https://www.jodidata.org/gas/database/data-downloads.aspx" | grep -o '/assets/[A-Za-z0-9_-]*\.js' | sort -u); do
+            echo "== $a"; curl -sS -A "Mozilla/5.0 energy-data/1.0" "https://www.jodidata.org$a" | grep -o '.\{0,120\}\(api\|\.zip\|\.csv\|files\).\{0,160\}' | head -20
+          done
