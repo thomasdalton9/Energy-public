@@ -20,7 +20,7 @@ Reads (doesn't refetch) the workbooks the scheduled pulls write to
 "output/Data and Chart Outputs/". A missing input is listed on the Dashboard
 and skipped rather than stopping the rest.
 
-Usage: python3 AUSTRALIA_NZ_MASTER.py [--out "output/Data and Chart Outputs/australia_nz_master.xlsx"]
+Usage: python3 AUSTRALIA_NZ_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/australia_nz_master.xlsx"]
 """
 import argparse
 import os
@@ -176,6 +176,7 @@ def anz_capacity(data_dir):
 
 def total_chart(wb, used, power, pos, df_total, notes, sheet, title, units, src_text, note_head):
     ws = wb.create_sheet(sam.sheet_name(sheet, used))
+    df_total, units = xlsx_charts.monthly_energy_to_gw(df_total, units, title)
     df, n_bars = xlsx_charts.prepare(df_total)
     xlsx_charts.write_table(ws, df)
     ws.cell(row=1, column=df.shape[1] + 4, value=note_head)
@@ -192,7 +193,7 @@ def total_chart(wb, used, power, pos, df_total, notes, sheet, title, units, src_
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "australia_nz_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "australia_nz_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]
