@@ -176,6 +176,7 @@ def anz_capacity(data_dir):
 
 def total_chart(wb, used, power, pos, df_total, notes, sheet, title, units, src_text, note_head):
     ws = wb.create_sheet(sam.sheet_name(sheet, used))
+    df_total, units = xlsx_charts.monthly_energy_to_gw(df_total, units, title)
     df, n_bars = xlsx_charts.prepare(df_total)
     xlsx_charts.write_table(ws, df)
     ws.cell(row=1, column=df.shape[1] + 4, value=note_head)

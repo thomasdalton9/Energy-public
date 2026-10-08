@@ -78,6 +78,20 @@ def tidy_layout(chart, gridlines=True, inner=None):
 DASHBOARD_INNER = (0.12, 0.15, 0.83, 0.52)
 
 
+def monthly_energy_to_gw(df, units, title):
+    """Generation charts: a monthly energy total (GWh or TWh per month) -> average power in GW (energy / hours in the
+    month), so months of different length are comparable. Other charts are returned unchanged. Returns (df, units)."""
+    import re as _re
+    m = _re.match(r"^([GT])Wh per month$", str(units))
+    if not m or not any(k in str(title).lower() for k in ("generation", "production by technology")) or df is None or df.empty:
+        return df, units
+    idx = pd.to_datetime(df.index)
+    hours = pd.Series(idx.days_in_month * 24.0, index=df.index)
+    out = df.apply(pd.to_numeric, errors="coerce").div(hours, axis=0) * (1000.0 if m.group(1) == "T" else 1.0)
+    out = out.rename(columns=lambda c: str(c).replace("(TWh at full output)", "(GW)"))   # capacity line = GW itself
+    return out, "GW (monthly average)"
+
+
 def prepare(df, line_cols=()):
     """Clean a wide frame for charting; returns (frame, number of bar/area series before overlay lines)."""
     df = df.copy()

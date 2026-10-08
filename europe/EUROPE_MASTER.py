@@ -355,6 +355,7 @@ def total_chart(wb, used, power, pos, df_total, notes, sheet, title, units, src,
                 label="Europe", line_cols=()):
     """Chart + data tab; pos=None appends to the dashboard lists, otherwise inserts at pos."""
     ws = wb.create_sheet(sam.sheet_name(sheet, used))
+    df_total, units = xlsx_charts.monthly_energy_to_gw(df_total, units, title)
     df, n_bars = xlsx_charts.prepare(df_total, line_cols)
     xlsx_charts.write_table(ws, df, date_format)
     ws.cell(row=1, column=df.shape[1] + 4, value=note_head)

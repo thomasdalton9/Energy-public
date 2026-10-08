@@ -435,13 +435,14 @@ def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
                                    pd.Timestamp(meta["last"]).strftime("%d/%m/%y"),
                                    ws.title, *src))
                 continue
-            df, n_bars = xlsx_charts.prepare(s["df"].dropna(how="all"), s.get("line_cols", ()))
+            s_df, s_units = xlsx_charts.monthly_energy_to_gw(s["df"].dropna(how="all"), s["units"], s["title"])
+            df, n_bars = xlsx_charts.prepare(s_df, s.get("line_cols", ()))
             if df.empty:
                 continue
             label = f"{s['name']} {short} data" if raw_sheet == "*" else f"{code} {s['name']} data"
             ws = wb.create_sheet(sheet_name(label, used))
             xlsx_charts.write_table(ws, df, s["date_format"])
-            charts.append((xlsx_charts.build_chart(ws, df, n_bars, s["title"], s["units"], s["kind"],
+            charts.append((xlsx_charts.build_chart(ws, df, n_bars, s["title"], s_units, s["kind"],
                                                    s["date_format"], width=CHART_W, height=CHART_H, gridlines=False,
                                                    inner=xlsx_charts.DASHBOARD_INNER,
                                                    forecast_from=s.get("forecast_from"),
@@ -547,14 +548,15 @@ def main():
     sa_total, sa_notes = south_america_generation(args.data_dir, have_raw, gen_frames)
     if not sa_total.empty:
         ws = wb.create_sheet(sheet_name("SA generation total data", used))
-        df, n_bars = xlsx_charts.prepare(sa_total)
+        sa_gw, gen_units = xlsx_charts.monthly_energy_to_gw(sa_total, "TWh per month", "South America power generation by source")
+        df, n_bars = xlsx_charts.prepare(sa_gw)
         xlsx_charts.write_table(ws, df)
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(sa_notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
         src = ("Sum of the country series on this dashboard (grid operators; Ember where no raw feed yet)", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "South America power generation by source",
-                                                    "TWh per month", "stacked_bar", width=CHART_W, height=CHART_H,
+                                                    gen_units, "stacked_bar", width=CHART_W, height=CHART_H,
                                                     gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
         missing = [n.split(":", 1)[1].split(" in ")[0].strip() for n in sa_notes if n.startswith("NOT INCLUDED")]
         name = f"South America power generation by source ({len(SA_POWER_COUNTRIES)} countries" + (

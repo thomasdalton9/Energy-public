@@ -345,14 +345,16 @@ def main():
                          f"month ({cap_total.index.max():%b/%y}) held for later months"]
     if not total.empty:
         ws = wb.create_sheet(sam.sheet_name("NA generation total data", used))
-        df, n_bars = xlsx_charts.prepare(total, (CAP_LINE,))
+        total, gen_units = xlsx_charts.monthly_energy_to_gw(total, "TWh per month", "power generation")
+        cap_line = CAP_LINE.replace("(TWh at full output)", "(GW)")
+        df, n_bars = xlsx_charts.prepare(total, (cap_line,))
         xlsx_charts.write_table(ws, df)
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
         src = ("Sum of the country series on this dashboard (EIA-930, StatCan; Ember for Mexico)", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "North America power generation by source",
-                                                    "TWh per month", "stacked_bar", width=sam.CHART_W,
+                                                    gen_units, "stacked_bar", width=sam.CHART_W,
                                                     height=sam.CHART_H, gridlines=False,
                                                     inner=xlsx_charts.DASHBOARD_INNER), src))
         missing = [n.split(":", 1)[1].split(" in ")[0].strip() for n in notes if n.startswith("NOT INCLUDED")]
