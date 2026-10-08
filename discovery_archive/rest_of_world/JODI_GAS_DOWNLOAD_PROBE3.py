@@ -4,6 +4,16 @@ import re
 import requests
 
 H = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) energy-data/1.0"}
+import time
+_get = requests.get
+def get_retry(url, **kw):
+    for i in range(4):
+        try:
+            return _get(url, **kw)
+        except requests.exceptions.ConnectionError as e:
+            print("  retry", i + 1, url[:80], type(e).__name__); time.sleep(5 * (i + 1))
+    return _get(url, **kw)
+requests.get = get_retry
 B = "https://www.jodidata.org"
 t = requests.get(B + "/gas/database/data-downloads.aspx", headers=H, timeout=60).text
 scripts = re.findall(r"<script[^>]*>.*?</script>", t, flags=re.S | re.I)
