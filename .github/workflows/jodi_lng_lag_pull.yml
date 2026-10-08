@@ -3,7 +3,7 @@ name: JODI LNG lag study pull (manual)
 # One-off: JODI Gas world database (monthly LNG imports by country), JKM daily (Yahoo), IMF/World Bank prices and
 # OECD industrial production for the JKM -> LNG demand lag study (analysed in the private repo).
 # Commits CSVs to discovery_archive/rest_of_world/data/. Run 1 (JODI_LNG_LAG_PULL.py) got JKM + World Bank;
-# run 2 (JODI_LNG_LAG_PULL2.py) pulls the current JODI gas table from jodidb.org. Move to discovery_archive/workflows/ when done.
+# run 2 (JODI_LNG_LAG_PULL3.py) pulls the current JODI gas table from jodidb.org. Move to discovery_archive/workflows/ when done.
 on:
   workflow_dispatch:
 
@@ -24,7 +24,7 @@ jobs:
       - name: Pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1600 python3 discovery_archive/rest_of_world/JODI_LNG_LAG_PULL2.py
+        run: timeout 1600 python3 discovery_archive/rest_of_world/JODI_LNG_LAG_PULL3.py
       - name: Commit data
         if: always()
         run: |
