@@ -30,7 +30,7 @@ def req(method, url, **kw):
 
 def inputs(t):
     out = {}
-    for m in re.finditer(r"<(input|select|textarea)\b([^>]*)>", t, flags=re.I | re.S):
+    for m in re.finditer(r"<(input|select|textarea)\b((?:[^>\"]|\"[^\"]*\")*)>", t, flags=re.I | re.S):
         attrs = dict(re.findall(r'(\w+)\s*=\s*"([^"]*)"', m.group(2)))
         if "name" in attrs:
             out[attrs["name"]] = html.unescape(attrs.get("value", ""))
@@ -72,9 +72,36 @@ for src in re.findall(r'<script[^>]+src="([^"]+)"', pt):
             if "Download" in m or "download" in m:
                 print("     ", re.sub(r"\s+", " ", m)[:1200], flush=True)
 
-# 2. final download: prompt's fields + WD_Command=Download
+# 2a. the prompt page generates the file and offers OnDownload('<url>') or OnDownloadIvt(mime, name, path)
 saved = False
-for extra in ({"WD_Command": "Download"}, {"WD_Command": "Download", "WD_DownloadFormat": "CSV"}):
+for url in re.findall(r"OnDownload\(\s*['\"]([^'\"]+)['\"]\s*\)", pt):
+    u = url if url.startswith("http") else B + (url if url.startswith("/") else "/TableViewer/" + url)
+    r = req("GET", u, headers={"Referer": f"{B}/TableViewer/downloadPrompt.aspx"})
+    ct = r.headers.get("content-type", ""); body = r.content.decode("utf-8-sig", "replace")
+    print(f"\n== OnDownload GET {u}: {r.status_code} {ct} {r.headers.get('content-disposition', '')} {len(r.content)}B", flush=True)
+    if body.lstrip()[:1] != "<" and len(body) > 5000:
+        lines = body.splitlines(); print("   lines:", len(lines)); print("\n".join(l[:300] for l in lines[:12]), flush=True)
+        with gzip.open(os.path.join(OUT, "jodi_gas_world_jodidb.csv.gz"), "wt") as f:
+            f.write(body)
+        print("   SAVED", flush=True); saved = True
+    else:
+        print("   ", text(body, 600), flush=True)
+for mime, name, path in re.findall(r"OnDownloadIvt\(\s*['\"]([^'\"]*)['\"]\s*,\s*['\"]([^'\"]*)['\"]\s*,\s*['\"]([^'\"]*)['\"]\s*\)", pt):
+    if saved:
+        break
+    data = dict(pf); data.update({"WD_Command": "Download", "WD_DownloadMimeType": mime, "WD_DownloadFilename": name, "WD_DownloadFilePath": path})
+    r = req("POST", f"{B}/TableViewer/download.aspx", data=data, headers={"Referer": f"{B}/TableViewer/downloadPrompt.aspx"})
+    ct = r.headers.get("content-type", ""); body = r.content.decode("utf-8-sig", "replace")
+    print(f"\n== OnDownloadIvt POST ({mime}, {name}, {path}): {r.status_code} {ct} {r.headers.get('content-disposition', '')} {len(r.content)}B", flush=True)
+    if body.lstrip()[:1] != "<" and len(body) > 5000:
+        lines = body.splitlines(); print("   lines:", len(lines)); print("\n".join(l[:300] for l in lines[:12]), flush=True)
+        with gzip.open(os.path.join(OUT, "jodi_gas_world_jodidb.csv.gz"), "wt") as f:
+            f.write(body)
+        print("   SAVED", flush=True); saved = True
+    else:
+        print("   ", text(body, 600), flush=True)
+# 2b. blind final download: prompt's fields + WD_Command=Download
+for extra in ([] if saved else [{"WD_Command": "Download"}, {"WD_Command": "Download", "WD_DownloadFormat": "CSV"}]):
     data = dict(pf); data.update(extra)
     r = req("POST", f"{B}/TableViewer/download.aspx", data=data, headers={"Referer": f"{B}/TableViewer/downloadPrompt.aspx"})
     ct = r.headers.get("content-type", ""); body = r.content.decode("utf-8-sig", "replace")
