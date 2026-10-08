@@ -1,0 +1,33 @@
+name: NEA capacity dev run
+
+# Development run of asia/CHINA_NEA_CAPACITY.py into a scratch workbook, keeping the table images it OCRs and the log.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          sudo apt-get install -y -q tesseract-ocr tesseract-ocr-chi-sim > /dev/null
+          pip install pandas openpyxl requests opencv-python-headless numpy
+      - name: Run
+        run: |
+          mkdir -p discovery_archive/results/nea/dev
+          timeout 2000 python3 asia/CHINA_NEA_CAPACITY.py --out /tmp/cap_dev.xlsx --save-images discovery_archive/results/nea/dev/img 2>&1 | tee discovery_archive/results/nea/dev/capacity_log.txt | tail -5
+          cp /tmp/cap_dev.xlsx discovery_archive/results/nea/dev/ || true
+      - name: Commit result
+        if: always()
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git add discovery_archive/results/nea/dev
+          git commit -m "NEA capacity dev run result" || exit 0
+          for i in 1 2 3; do git pull --rebase origin main -q; git push origin HEAD:main && break; sleep 5; done
