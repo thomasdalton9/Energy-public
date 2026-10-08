@@ -6,6 +6,7 @@ their text, to see whether the monthly tables can be parsed:
   - GACC English statistics pages (imports of crude oil / natural gas / coal)
 """
 import re
+import signal
 import time
 
 import requests
@@ -16,10 +17,24 @@ S = requests.Session()
 S.headers.update(H)
 
 
+class Hard(Exception):
+    pass
+
+
+def _alarm(*_):
+    raise Hard("hard 45 s limit")
+
+
+signal.signal(signal.SIGALRM, _alarm)
+
+
 def get(url):
+    signal.alarm(45)   # requests' timeouts do not bound a slowly trickling body
     try:
-        r = S.get(url, timeout=(10, 40))
-    except requests.RequestException as e:
+        r = S.get(url, timeout=(10, 30))
+        signal.alarm(0)
+    except (requests.RequestException, Hard) as e:
+        signal.alarm(0)
         print(f"  ERROR {url}: {type(e).__name__}: {str(e)[:120]}", flush=True)
         return None
     if r.encoding in (None, "ISO-8859-1"):
