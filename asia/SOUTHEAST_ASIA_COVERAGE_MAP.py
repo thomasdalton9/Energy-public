@@ -122,8 +122,20 @@ def main():
     ax.legend(handles=handles, loc="upper left", frameon=False, fontsize=9.5, bbox_to_anchor=(0.0, -0.01), ncol=2,
               labelspacing=1.0, columnspacing=3.0)
     ax.set_title("Southeast Asia data coverage", fontsize=16, fontweight="bold", loc="left")
-    ax.text(0.0, -0.29, f"Coverage as of {datetime.date.today():%d %B %Y}. Classification as in "
-             "SOUTH_SOUTHEAST_ASIA_COVERAGE_MAP.py. Map: Natural Earth 1:110m.", fontsize=8.5, color="#666666", transform=ax.transAxes)
+    import textwrap
+    order = {"green": 0, "blue": 1, "amber": 2}
+    lines = []
+    for name in sorted((n for n in SE_ASIA if n in cov), key=lambda n: (order[cov[n][0]], SE_ASIA.index(n))):
+        what = cov[name][1]
+        if name == "Malaysia":
+            what += "; Sabah + Sarawak: Ember national total minus GSO (estimate)"
+        wrapped = textwrap.wrap(f"{name}: {what}", 165, subsequent_indent="    ")
+        lines.append("\u2022 " + wrapped[0])
+        lines += ["   " + w for w in wrapped[1:]]
+    lines += ["", f"Coverage as of {datetime.date.today():%d %B %Y}. Classification as in SOUTH_SOUTHEAST_ASIA_COVERAGE_MAP.py. "
+                  "Map: Natural Earth 1:110m."]
+    ax.text(0.0, -0.285, "\n".join(lines), fontsize=8.3, color="#444444", transform=ax.transAxes, va="top",
+            linespacing=1.45)
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")
