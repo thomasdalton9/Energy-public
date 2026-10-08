@@ -51,8 +51,18 @@ if r is not None and r.status_code == 200:
 r = get("ecb_hist", "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.csv")
 if r is not None and r.status_code == 200:
     l = r.text.splitlines(); say("  ecb", l[0][:200], l[1][:100])
-get("ecb_sdmx", "https://data-api.ecb.europa.eu/service/data/EXR/D.CNY.EUR.SP00.A?lastNObservations=3&format=csvdata")
-get("h10", "https://www.federalreserve.gov/releases/h10/hist/dat00_ch.htm")
+r = get("ecb_sdmx", "https://data-api.ecb.europa.eu/service/data/EXR/D.CNY.EUR.SP00.A?lastNObservations=3&format=csvdata")
+if r is not None: say("  ", r.text[:600])
+r = get("ecb_hist2", "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.csv")
+if r is not None and r.status_code == 200:
+    l = r.text.splitlines(); say("  ecb hist last/first rows", l[1][:60], l[-1][:60])
+r = get("h10", "https://www.federalreserve.gov/releases/h10/hist/dat00_ch.htm")
+if r is not None and r.status_code == 200:
+    t = r.text
+    open(os.path.join(OUT, "h10_dat00_ch_head.txt"), "w").write(t[:6000] + "\n.....\n" + t[-6000:])
+    say("  h10 len", len(t))
+for yy in ("dat00_ch", "dat25_ch", "dat26_ch"):
+    get("h10_" + yy, f"https://www.federalreserve.gov/releases/h10/hist/{yy}.htm")
 get("pboc", "http://www.pbc.gov.cn/en/3688006/index.html")
 
 # 2. NBS wording
@@ -79,18 +89,14 @@ except Exception as e:  # noqa: BLE001
 
 # 3. conversion-factor documents
 DOCS = {
- "bp_conv_2022": "https://www.bp.com/content/dam/bp/business-sites/en/global/corporate/pdfs/energy-economics/statistical-review/bp-stats-review-2022-approximate-conversion-factors.pdf",
- "bp_conv_2021": "https://www.bp.com/content/dam/bp/business-sites/en/global/corporate/pdfs/energy-economics/statistical-review/bp-stats-review-2021-approximate-conversion-factors.pdf",
- "bp_conv_2020": "https://www.bp.com/content/dam/bp/business-sites/en/global/corporate/pdfs/energy-economics/statistical-review/bp-stats-review-2020-approximate-conversion-factors.pdf",
- "ei_resources": "https://www.energyinst.org/statistical-review/resources-and-data-downloads",
- "eia_btu": "https://www.eia.gov/energyexplained/units-and-calculators/british-thermal-units.php",
- "eia_units": "https://www.eia.gov/energyexplained/units-and-calculators/",
- "eia_mer_appA": "https://www.eia.gov/totalenergy/data/monthly/pdf/sec_a.pdf",
- "eia_conv_ng": "https://www.eia.gov/tools/faqs/faq.php?id=45&t=8",
- "giignl_home": "https://giignl.org/publications/",
- "giignl_report": "https://giignl.org/wp-content/uploads/2024/07/GIIGNL2024_Annual_Report_July23.pdf",
- "iea_conv": "https://www.iea.org/data-and-statistics/data-tools/unit-converter-and-glossary",
- "doe_conv": "https://www.eia.gov/dnav/pet/TblDefs/pet_cons_psup_tbldef2.asp",
+ "un_yearbook_2023_conv": "https://unstats.un.org/unsd/energystats/pubs/yearbook/2023/09ii.pdf",
+ "un_yearbook_2022_conv": "https://unstats.un.org/unsd/energystats/pubs/yearbook/2022/09ii.pdf",
+ "cer_conv": "https://apps.cer-rec.gc.ca/Conversion/conversion-tables.aspx",
+ "giignl_annual": "https://giignl.org/annual-report/",
+ "giignl_2026": "https://www.giignl.org/annual-report/2026",
+ "gasgrid_conv": "https://gasgrid.fi/wp-content/uploads/Annex-13-Conversion-table-2.pdf",
+ "eia_mer_pdf": "https://www.eia.gov/totalenergy/data/monthly/pdf/mer.pdf",
+ "eia_psm_append": "http://www.eia.gov/petroleum/supply/monthly/pdf/append.pdf",
 }
 for k, u in DOCS.items():
     r = get(k, u)
