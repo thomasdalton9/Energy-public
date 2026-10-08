@@ -93,9 +93,10 @@ def bulletins():
 
 
 def body_text(html):
-    html = re.sub(r"(?s)<(script|style).*?</\1>", " ", html)
-    t = re.sub(r"<[^>]+>", " ", html)
-    return re.sub(r"[\s　]+", " ", t.replace("&nbsp;", " "))
+    """Page text with every tag and all whitespace removed (some bulletins split a sentence over several tags)."""
+    html = re.sub(r"(?s)<(script|style).*?</\1>", "", html)
+    t = re.sub(r"<[^>]+>", "", html).replace("&nbsp;", "").replace("&emsp;", "")
+    return re.sub(r"[\s\u3000\xa0]+", "", t)
 
 
 def parse(text):
@@ -139,9 +140,11 @@ def main():
         if period in have and period not in redo:
             continue
         html = fetch(url)
-        parsed = parse(body_text(html or ""))
+        text = body_text(html or "")
+        parsed = parse(text)
         if parsed is None or parsed[0] != period:
-            log(f"  [{period:%Y-%m}] not parsed - skipped ({url})")
+            i = text.find("全国天然气表观消费量")
+            log(f"  [{period:%Y-%m}] not parsed - skipped ({url}): ...{text[max(0, i - 40):i + 80]}")
             continue
         _, jan_feb, row = parsed
         new["Jan-Feb" if jan_feb else "Data"][period] = row
