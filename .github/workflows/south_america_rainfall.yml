@@ -24,7 +24,7 @@ jobs:
       - name: Pull NASA POWER rainfall
         env:
           PYTHONUNBUFFERED: "1"
-        run: python3 south_america/RAINFALL_NASA_POWER.py --out "output/Data and Chart Outputs/south_america_rainfall_daily.xlsx"
+        run: timeout 900 python3 south_america/RAINFALL_NASA_POWER.py --out "output/Data and Chart Outputs/south_america_rainfall_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
