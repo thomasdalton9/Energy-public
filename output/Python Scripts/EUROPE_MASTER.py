@@ -44,6 +44,12 @@ import daily_shape  # noqa: E402
 import fundamentals  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
+
+# Owner asked for a bigger plot area on the Europe charts, as on the crude and products master: the plot inside each chart
+# is 0.5 cm longer at the bottom, the chart box itself staying CHART_H cm (plot-area height fraction + 0.5 / CHART_H).
+# Set on the shared module for this process only.
+_x, _y, _w, _h = xlsx_charts.DASHBOARD_INNER
+xlsx_charts.DASHBOARD_INNER = (_x, _y, _w, _h + 0.5 / sam.CHART_H)
 from europe_countries import COUNTRIES  # noqa: E402
 
 DATA_DIR = sam.DATA_DIR
