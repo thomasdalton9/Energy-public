@@ -1,8 +1,12 @@
 """
 One-off pull for the JKM -> LNG-demand lag study (private repo analysis). Writes raw CSVs to
 discovery_archive/rest_of_world/data/ (public, keyless sources):
-  jodi_gas_lng.csv.gz        JODI Gas World Database (monthly, by country): LNG imports (IMPLNG), pipeline imports,
-                             total imports, production, demand, stock change, closing stocks; all units as published
+  jodi_gas_world_NewFormat.csv.gz  JODI Gas World Database (monthly, by country, 2009-01 to the latest month): all flows
+                             (IMPLNG = LNG imports, IMPPIP, TOTIMPSB, INDPROD, TOTDEMO, STOCKCH, CLOSTLV ...), units M3/TJ/KTONS.
+                             Direct file: https://www.jodidata.org/_resources/files/downloads/gas-data/GAS_world_NewFormat.zip
+                             (the downloads page lists it through a JavaScript file-list, served from /jodi-publisher/gas/<id>/;
+                             the older jodi_gas_csv_beta.zip at the same path is frozen at 2018-08 - do not use it).
+                             JODI_LNG_LAG_PULL4.py is the fallback that scrapes the same table from the jodidb.org viewer.
   jkm_daily_yahoo.csv        JKM front-month futures, daily closes (Yahoo Finance JKM=F) -> monthly means in the analysis
   jkm_monthly_yahoo.csv      same, Yahoo 1mo bars (fallback / cross-check)
   lag_prices_fred_monthly.csv  FRED (IMF): Japan LNG import price (oil-indexed contract proxy), Europe gas, Henry Hub,
@@ -27,7 +31,7 @@ FLOWS = {"IMPLNG", "IMPPIP", "TOTIMPSB", "INDPROD", "TOTDEMO", "TOTDEMC", "EXPLN
 
 # ---------------------------------------------------------------- 1. JODI Gas
 def jodi_candidates():
-    urls = ["https://www.jodidata.org/_resources/files/downloads/gas-data/jodi_gas_csv_beta.zip"]
+    urls = ["https://www.jodidata.org/_resources/files/downloads/gas-data/GAS_world_NewFormat.zip"]
     for page in ["https://www.jodidata.org/gas/database/data-downloads.aspx", "https://www.jodidata.org/gas/"]:
         try:
             t = requests.get(page, headers=H, timeout=60).text
@@ -72,9 +76,9 @@ for url in jodi_candidates():
             print(f"  kept flows {sorted(keep[fb[0]].unique())}: {keep.shape}", flush=True)
         else:
             keep = d
-        with gzip.open(os.path.join(OUT, "jodi_gas_lng.csv.gz"), "wt") as f:
+        with gzip.open(os.path.join(OUT, "jodi_gas_world_NewFormat.csv.gz"), "wt") as f:
             keep.to_csv(f, index=False)
-        print("  wrote jodi_gas_lng.csv.gz", os.path.getsize(os.path.join(OUT, "jodi_gas_lng.csv.gz")), "B", flush=True)
+        print("  wrote jodi_gas_world_NewFormat.csv.gz", os.path.getsize(os.path.join(OUT, "jodi_gas_world_NewFormat.csv.gz")), "B", flush=True)
         got = True
         break
     except Exception as e:  # noqa: BLE001
