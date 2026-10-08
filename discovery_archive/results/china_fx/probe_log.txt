@@ -1,0 +1,24 @@
+[fred_csv] https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXCHUS -> ReadTimeout: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=40)
+[fred_csv_cosd] https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXCHUS&cosd=2021-01-01 -> ReadTimeout: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=40)
+[ecb_hist] https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.csv -> 200 text/csv 733262 bytes
+  ecb Date,USD,JPY,BGN,CYP,CZK,DKK,EEK,GBP,HUF,LTL,LVL,MTL,PLN,ROL,RON,SEK,SIT,SKK,CHF,ISK,NOK,HRK,RUB,TRL,TRY,AUD,BRL,CAD,CNY,HKD,IDR,INR,KRW,MXN,MYR,NZD,PHP,SGD,THB,ZAR 2010-02-14,2,1,2,N/A,1,2,1,2,1,2,1,N/A,2,N/A,1,2,N/A,N/A,1,2.6,2,1,2,N/A,1,2,1.1,1.2,1.3,1.4,1.5,1.6
+[ecb_sdmx] https://data-api.ecb.europa.eu/service/data/EXR/D.CNY.EUR.SP00.A?lastNObservations=3&format=csvdata -> 200 text/csv 1022 bytes
+[h10] https://www.federalreserve.gov/releases/h10/hist/dat00_ch.htm -> 200 text/html 1129844 bytes
+[pboc] http://www.pbc.gov.cn/en/3688006/index.html -> 200 text/html 106258 bytes
+NBS part failed ModuleNotFoundError No module named 'openpyxl'
+[bp_conv_2022] https://www.bp.com/content/dam/bp/business-sites/en/global/corporate/pdfs/energy-economics/statistical-review/bp-stats-review-2022-approximate-conversion-factors.pdf -> 403 text/html 3939 bytes
+[bp_conv_2021] https://www.bp.com/content/dam/bp/business-sites/en/global/corporate/pdfs/energy-economics/statistical-review/bp-stats-review-2021-approximate-conversion-factors.pdf -> 403 text/html 3939 bytes
+[bp_conv_2020] https://www.bp.com/content/dam/bp/business-sites/en/global/corporate/pdfs/energy-economics/statistical-review/bp-stats-review-2020-approximate-conversion-factors.pdf -> 403 text/html 3939 bytes
+[ei_resources] https://www.energyinst.org/statistical-review/resources-and-data-downloads -> 403 text/html; charset=UTF-8 5678 bytes
+[eia_btu] https://www.eia.gov/energyexplained/units-and-calculators/british-thermal-units.php -> 200 text/html; charset=UTF-8 77385 bytes
+[eia_units] https://www.eia.gov/energyexplained/units-and-calculators/ -> 200 text/html; charset=UTF-8 78997 bytes
+    link https://www.eia.gov/totalenergy/data/monthly/pdf/mer.pdf
+[eia_mer_appA] https://www.eia.gov/totalenergy/data/monthly/pdf/sec_a.pdf -> 404 text/html; charset=UTF-8 46401 bytes
+[eia_conv_ng] https://www.eia.gov/tools/faqs/faq.php?id=45&t=8 -> 200 text/html; charset=UTF-8 52084 bytes
+    link https://www.eia.gov/totalenergy/data/monthly/pdf/sec12_5.pdf
+[giignl_home] https://giignl.org/publications/ -> 404 text/html; charset=utf-8 11462 bytes
+[giignl_report] https://giignl.org/wp-content/uploads/2024/07/GIIGNL2024_Annual_Report_July23.pdf -> 404 text/html; charset=utf-8 11462 bytes
+[iea_conv] https://www.iea.org/data-and-statistics/data-tools/unit-converter-and-glossary -> 403 text/html; charset=UTF-8 5704 bytes
+[doe_conv] https://www.eia.gov/dnav/pet/TblDefs/pet_cons_psup_tbldef2.asp -> 200 text/html 27178 bytes
+    link http://www.eia.gov/petroleum/supply/monthly/pdf/append.pdf
+    link http://www.eia.gov/petroleum/supply/monthly/pdf/psmnotes.pdf

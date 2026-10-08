@@ -1,0 +1,800 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+	<title>Table Definitions, Sources, and Explanatory Notes</title>
+    <link rel="StyleSheet" href="../Styles/pet_wrapper3.css" TYPE="text/css">
+    <link rel="StyleSheet" href="../Styles/tabledefs.css" TYPE="text/css">
+	<link rel="stylesheet" href="/styles/Eia_sitewideF.css" type="text/css" />		
+
+	  <!-- Header Script -->
+    <script language="JavaScript" src="/styles/eia_header.js" type="text/javascript"></script>
+  <!--/ Header Script -->
+ 
+  <!-- Footer Script -->
+    <script src="/styles/eia_footer.js" type="text/javascript"></script>
+  <!--/ Footer Script -->
+	
+</head>
+
+<body>
+
+<script language="JavaScript" type="text/javascript">InsertEIAHeaderCode();</script>
+
+<div id="align_w">	
+
+
+
+<br clear="all">
+<table width="960" border="0" cellspacing="0" cellpadding="0" align="left">
+<tr>	
+	<td align="left">
+      <table width="960" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+	    <td height="2" class="Title_Page3"><img src="../img/spacer_transp.gif" alt="" width="1" height="1" border="0"></td>
+	  </tr>
+      <tr>
+	    <td class="Title_Page3">&nbsp;Definitions, Sources and Explanatory Notes</td>
+	  </tr>
+      <tr>
+	    <td height="2" class="Title_Page3"><img src="../img/spacer_transp.gif" alt="" width="1" height="1" border="0"></td>
+	  </tr>
+	  <tr>
+	    <td height="8"></td>
+	  </tr>
+	  </table>
+	</td>
+</tr>
+</table>	  
+		  
+<br clear="all">
+<table width="300" border="0" cellspacing="0" cellpadding="0" align="left">
+
+
+
+  
+
+	      <tr>
+		    <td width="50" valign="top" class="Title_Cat">&nbsp;Category:&nbsp;&nbsp;</td>
+			<td width="250" class="Title_Cat">
+<a class="cat" href="../pet_cons_top.asp">Petroleum Consumption/Sales</a>
+</td>
+	      </tr>
+          <tr>
+            <td colspan="2" height="2"></td>
+          </tr>	
+	      <tr>
+		    <td valign="top" class="Title_Cat">&nbsp;Topic:&nbsp;&nbsp;</td>
+	        <td class="Title_Cat">
+<a class="cat" href="../pet_cons_psup_dc_nus_mbbl_m.htm">Products Supplied</a>
+  </td>
+</tr>
+</table>			  		
+<br clear="all">
+
+<table width="960" border="0" cellspacing="0" cellpadding="0" align="left">
+<tr>
+	<td colspan="2" height="12"></td>
+</tr>
+<tr>
+	<td align="left" class="SubHead"><img src="../img/Bullet_redsq1.gif" alt="" width="9" height="15" border="0">&nbsp;&nbsp;Definitions</td>
+	<td align="right" class="D"></td>
+</tr>
+<tr>
+	<td colspan="2" height="5"></td>
+</tr>
+</table>
+<br clear="all"><table width="960" border="1" cellspacing="0" cellpadding="3" align="left" bordercolor="#3366CC">
+<tr bgcolor="#3366CC">
+  <th class="C1" width="20%">Key Terms</th>
+  <th class="C1" width="80%">Definition</th>
+</tr>
+
+
+<tr class="Row">
+  <td class="B1">Asphalt</td>
+  <td class="B2">A dark-brown-to-black cement-like material containing bitumens as the predominant constituent 
+obtained by petroleum processing; used primarily for road construction. It includes crude 
+asphalt as well as the following finished products: cements, fluxes, the asphalt content of 
+emulsions (exclusive of water), and petroleum distillates blended with asphalt to make 
+cutback asphalts. Note: The conversion factor for asphalt is 5.5 barrels per short ton.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Aviation Gasoline Blending Components</td>
+  <td class="B2">Naphthas which will be used for blending or compounding into finished aviation gasoline 
+(e.g., straight-run gasoline, alkylate, reformate, benzene, toluene, and xylene). 
+Excludes oxygenates (alcohols, ethers), butane, and pentanes plus. Oxygenates are reported as 
+other hydrocarbons, hydrogen, and oxygenates.
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Barrel</td>
+  <td class="B2">A unit of volume equal to 42 U.S. gallons.
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Butane (C<sub>4</sub>H<sub>10</sub>)</td>
+  <td class="B2">A normally gaseous straight-chain or branch-chain hydrocarbon extracted from natural gas or refinery 
+gas streams. It includes isobutane and normal butane and is designated in ASTM Specification 
+D1835 and Gas Processors Association Specifications for commercial butane.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Butylene (C<sub>4</sub>H<sub>8</sub>)</td>
+  <td class="B2">An olefinic hydrocarbon recovered from refinery processes.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Conventional Gasoline</td>
+  <td class="B2">Finished motor gasoline not included in the oxygenated or reformulated gasoline categories. 
+Excludes reformulated gasoline blendstock for oxygenate blending (RBOB) 
+as well as other blendstock. 
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Crude Oil</td>
+  <td class="B2">A mixture of hydrocarbons that exists in liquid phase in natural underground 
+reservoirs and remains liquid at atmospheric pressure after passing through 
+surface separating facilities. Depending upon the characteristics of the crude 
+stream, it may also include: 
+<br>
+<li>Small amounts of hydrocarbons that exist in gaseous phase in natural 
+underground reservoirs but are liquid at atmospheric pressure after being 
+recovered from oil well (casinghead) gas in lease separators and are subsequently 
+commingled with the crude stream without being separately measured. Lease 
+condensate recovered as a liquid from natural gas wells in lease or field 
+separation facilities and later mixed into the crude stream is also included;  </li>
+<li>Small amounts of nonhydrocarbons produced with the oil, such as sulfur and 
+various metals;</li>
+<li>Drip gases, and liquid hydrocarbons produced from tar sands, oil sands, 
+gilsonite, and oil shale.</li>
+<br><br>
+Liquids produced at natural gas processing plants are excluded. Crude oil is refined to produce 
+a wide array of petroleum products, including heating oils; gasoline, diesel and jet fuels; 
+lubricants; asphalt; ethane, propane, and butane; and many other products used for their 
+energy or chemical content. 
+ 
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Distillate Fuel Oil</td>
+  <td class="B2">A general classification for one of the petroleum fractions produced in conventional 
+distillation operations. It includes diesel fuels and fuel oils. Products known as No. 1, 
+No. 2, and No. 4 diesel fuel are used in on-highway diesel engines, such as those in trucks 
+and automobiles, as well as off-highway engines, such as those in railroad locomotives and 
+agricultural machinery. Products known as No. 1, No. 2, and No. 4 fuel oils are used primarily 
+for space heating and electric power generation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Ethane (C<sub>2</sub>H<sub>6</sub>)</td>
+  <td class="B2">A normally gaseous straight-chain hydrocarbon.  It is a colorless paraffinic gas that boils at 
+a temperature of -127.48&ordm; F.  It is extracted from natural gas and refinery gas streams.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Ethylene (C<sub>2</sub>H<sub>4</sub>)</td>
+  <td class="B2">An olefinic hydrocarbon recovered from refinery processes or petrochemical processes.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Finished Aviation Gasoline</td>
+  <td class="B2">A complex mixture of relatively volatile hydrocarbons with or without small quantities of 
+additives, blended to form a fuel suitable for use in aviation reciprocating engines. Fuel 
+specifications are provided in ASTM Specification D 910 and Military Specification MIL-G-5572. 
+Note: Data on blending components are not counted in data on finished aviation gasoline. 
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Finished Motor Gasoline</td>
+  <td class="B2">A complex mixture of relatively volatile hydrocarbons with or without small quantities of 
+additives, blended to form a fuel suitable for use in spark-ignition engines. Motor gasoline, 
+as defined in ASTM Specification D 4814 or Federal Specification VV-G-1690C, is characterized 
+as having a boiling range of 122 to 158 degrees Fahrenheit at the 10 percent recovery point to 
+365 to 374 degrees Fahrenheit at the 90 percent recovery point. Motor Gasoline includes 
+conventional gasoline; all types of oxygenated gasoline, including gasohol; and 
+reformulated gasoline, but excludes aviation gasoline. Note: Volumetric data on blending 
+components, such as oxygenates, are not counted in data on finished motor gasoline until 
+the blending components are blended into the gasoline.</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Hydrocarbon</td>
+  <td class="B2">An organic chemical compound of hydrogen and carbon in the gaseous, liquid, or solid phase. 
+The molecular structure of hydrocarbon compounds varies from the simplest (methane, a 
+constituent of natural gas) to the very heavy and very complex. 
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Isobutane (C<sub>4</sub>H<sub>10</sub>)</td>
+  <td class="B2">A normally gaseous branch-chain hydrocarbon. It is a colorless paraffinic gas that boils at a 
+temperature of 10.9&ordm; F. It is extracted from natural gas or refinery gas streams.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Isobutylene (C<sub>4</sub>H<sub>8</sub>)</td>
+  <td class="B2">An olefinic hydrocarbon recovered from refinery processes or petrochemical processes.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Kerosene-Type Jet Fuel</td>
+  <td class="B2">A kerosene-based product having a maximum distillation temperature of 400 degrees Fahrenheit at 
+the 10-percent recovery point and a final maximum boiling point of 572 degrees Fahrenheit 
+and meeting ASTM Specification D 1655 and Military Specifications MIL-T-5624P and MIL-T-83133D
+(Grades JP-5 and JP-8). It is used for commercial
+ and military turbojet and turboprop aircraft engines. 
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Kerosene</td>
+  <td class="B2">A light petroleum distillate that is used in space heaters, cook stoves, and water heaters 
+and is suitable for use as a light source when burned in wick-fed lamps. Kerosene has a 
+maximum distillation temperature of 400 degrees Fahrenheit at the 10-percent recovery point, 
+a final boiling point of 572 degrees Fahrenheit, and a minimum flash point of 100 degrees 
+Fahrenheit. Included are No. 1-K and No. 2-K, the two grades recognized by ASTM Specification 
+D 3699 as well as all other grades of kerosene called range or stove oil, which have properties 
+similar to those of No. 1 fuel oil. See Kerosene-Type Jet Fuel. 
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Liquefied Petroleum Gases (LPG)</td>
+  <td class="B2">A group of hydrocarbon-based gases derived from crude oil refining or nautral gas fractionation. For convenience of transportation, these gases are liquefied through pressurization.  Historical EIA published LPG series includes: ethane, ethylene, propane, propylene, normal butane, butylene, isobutane, and isobutylene. This may not be consistent with other definitions of LPG which only include propane, normal butane, and isobutane.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Lubricants</td>
+  <td class="B2">Substances used to reduce friction between bearing surfaces or as process materials 
+either incorporated into other materials used as processing aids in the manufacture of 
+other products, or used as carriers of other materials. Petroleum lubricants may be produced
+either from distillates or residues. Lubricants include all grades of lubricating oils from 
+spindle oil to cylinder oil and those used in greases.</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Motor Gasoline Blending Components</td>
+  <td class="B2">Naphthas (e.g., straight-run gasoline, alkylate, reformate, benzene, toluene, xylene) used for 
+blending or compounding into finished motor gasoline.  These components include reformulated 
+gasoline blendstock for oxygenate blending (RBOB) but exclude oxygenates (alcohols, ethers), 
+butane, and pentanes plus. Note: Oxygenates are reported as individual components and are 
+included in the total for other hydrocarbons, hydrogens, and oxygenates.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Miscellaneous Products</td>
+  <td class="B2">Includes all finished products not classified elsewhere (e.g., petrolatum, lube refining 
+byproducts (aromatic extracts and tars), absorption oils, ram-jet fuel, petroleum rocket 
+fuels, synthetic natural gas feedstocks, and specialty oils).
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Naphtha</td>
+  <td class="B2">A generic term applied to a petroleum fraction with an approximate boiling range between
+ 122&ordm; and 400&ordm; F.
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Naphtha Less Than 401&ordm; F</td>
+  <td class="B2">A naphtha with a boiling range of less than 401&ordm; F that is intended for use as a petrochemical feedstock.
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Natural Gas Liquids</td>
+  <td class="B2">Those hydrocarbons in natural gas that are separated from the gas as liquids through the process 
+of absorption, condensation, adsorption, or other methods in gas processing or cycling plants. 
+Generally such liquids consist of propane and heavier hydrocarbons and are commonly referred 
+to as lease condensate, natural gasoline, and liquefied petroleum gases.  Natural gas liquids 
+include natural gas plant liquids (primarily ethane, propane, butane, and isobutane; 
+see Natural Gas Plant Liquids) and lease condensate (primarily pentanes produced from 
+natural gas at lease separators and field facilities; see Lease Condensate).
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Normal Butane (C<sub>4</sub>H<sub>10</sub>)</td>
+  <td class="B2">A normally gaseous straight chain hydrocarbon that is a colorless paraffinic gas which boils at a 
+temperature of 31.1 degrees Fahrenheit.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">OPRG</td>
+  <td class="B2">"Oxygenated Fuels Program Reformulated Gasoline" is reformulated gasoline which is intended
+for use in an oxygenated fuels program control area during an oxygenated fuels program
+control period.
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Other Hydrocarbons</td>
+  <td class="B2">Materials received by a refinery and consumed as a raw material. Includes hydrogen, coal tar 
+derivatives, gilsonite, and natural gas received by the refinery for reforming into hydrogen. 
+Natural gas to be used as fuel is excluded.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Other Oils Equal To or Greater Than 401&ordm; F</td>
+  <td class="B2">Oils with a boiling range equal to or greater than 401&ordm; F that are intended for use as 
+a petrochemical feedstock. </td>
+</tr>
+<tr class="Row">
+  <td class="B1">Oxygenates</td>
+  <td class="B2">Substances which, when added to gasoline, increase the amount of oxygen in that gasoline blend.  
+Ethanol, Methyl Tertiary Butyl Ether (MTBE), Ethyl Tertiary Butyl Ether (ETBE), and methanol 
+are common oxygenates.
+
+<li>
+<strong>Fuel Ethanol</strong>: Blends of up to 10 percent by volume anhydrous ethanol (200 proof) (commonly referred to as the 
+"gasohol waiver").
+</li>
+<li>
+<strong>Methanol</strong>: Blends of methanol and gasoline-grade tertiary butyl alcohol (GTBA) such that the total oxygen content
+does not exceed 3.5 percent by weight and the ratio of methanol to GTBA is less than or equal to 1. It is also 
+specified that this blended fuel must meet ASTM volatility specifications (commonly referred to as the "ARCO" 
+waiver).
+<br>
+Blends of up to 5.0 percent by volume methanol with a minimum of 2.5 percent by volume cosolvent alcohols having a carbon number of 4 or less (i.e., ethanol, propanol, butanol, and/or GTBA). The total oxygen must not exceed 3.7 percent by weight, and the blend must meet ASTM volatility specifications as well as phase separation and alcohol purity specifications (commonly referred to as the "DuPont" waiver).
+</li>
+<li>
+<strong>MTBE (Methyl tertiary butyl ether)</strong>: Blends up to 15.0 percent by volume MTBE which must meet the ASTM D4814 
+specifications.  Blenders must take precautions that the blends are not used as base gasolines for other 
+oxygenated blends (commonly referred to as the "Sun" waiver).
+</li>
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Petroleum Products</td>
+  <td class="B2">Petroleum products are obtained from the processing of crude oil (including lease condensate), 
+natural gas, and other hydrocarbon compounds. Petroleum products include unfinished oils, 
+liquefied petroleum gases, pentanes plus, aviation gasoline, motor gasoline, naphtha-type jet 
+fuel, kerosene-type jet fuel, kerosene, distillate fuel oil, residual fuel oil, petrochemical 
+feedstocks, special naphthas, lubricants, waxes, petroleum coke, asphalt, road oil, still gas, 
+and miscellaneous products.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Petroleum Administration for Defense (PAD) Districts</td>
+  <td class="B2">Geographic aggregations of the 50 States and the District of Columbia into five districts 
+by the Petroleum Administration for Defense in 1950. These districts were originally defined 
+during World War II for purposes of administering oil allocation. 
+<a href="http://www.eia.gov/petroleum/supply/monthly/pdf/append.pdf" class="reg">
+Description and maps of PAD Districts and Refining Districts</a>.
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Petrochemical Feedstocks</td>
+  <td class="B2">Chemical feedstocks derived from petroleum principally for the manufacture of chemicals, 
+synthetic rubber, and a variety of plastics. The categories reported are "Naphtha Less 
+Than 401&ordm; F" and "Other Oils Equal To or Greater Than 401&ordm; F."
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Petroleum Coke</td>
+  <td class="B2">A residue high in carbon content and low in hydrogen that is the final product of 
+thermal decomposition in the condensation process in cracking.  This product is reported 
+as marketable coke or catalyst coke.  The conversion is 5 barrels 
+(of 42 U.S. gallons each) per short ton. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Pentanes Plus</td>
+  <td class="B2">A mixture of hydrocarbons, mostly pentanes and heavier, extracted from natural gas. 
+Includes isopentane, natural gasoline, and plant condensate.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Ppm</td>
+  <td class="B2">Parts per million.
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Products Supplied</td>
+  <td class="B2">Approximately represents consumption of petroleum products because it measures the 
+disappearance of these products from primary sources, i.e., refineries, natural gas 
+processing plants, blending plants, pipelines, and bulk terminals.
+In general, product supplied of each product in any given period is computed as follows: field production, plus transfers to crude oil supply, plus biofuels plant net production, plus refinery and blender net production, plus imports, plus net receipts, plus adjustments, minus stock change, minus refinery and blender net inputs, minus exports.
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Products Supplied, Crude Oil</td>
+  <td class="B2">Crude oil burned on leases and by pipelines as fuel.
+</td>
+</tr>
+
+<tr class="Row">
+  <td class="B1">Propane (C<sub>3</sub>H<sub>8</sub>)</td>
+  <td class="B2">A normally gaseous straight-chain hydrocarbon. It is a colorless paraffinic gas that boils 
+at a temperature of -43.67o<D> F. It is extracted from natural gas or refinery gas streams. 
+It includes all products designated in ASTM Specification D1835 and Gas Processors Association 
+Specifications for commercial propane and HD-5 propane.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Propylene (C<sub>3</sub>H<sub>6</sub>)</td>
+  <td class="B2">An olefinic hydrocarbon recovered from refinery processes or petrochemical processes. 
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Reformulated Gasoline (RFG)</td>
+  <td class="B2">Finished motor gasoline formulated for use in motor vehicles, the composition and properties 
+of which meet the requirements of the reformulated gasoline regulations promulgated by the 
+U.S. Environmental Protection Agency under Section 211(k) of the Clean Air Act. 
+This category includes oxygenated fuels program reformulated gasoline (OPRG) but excludes 
+reformulated gasoline blendstock for oxygenate blending (RBOB). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+
+<tr class="Row">
+  <td class="B1">RBOB</td>
+  <td class="B2">"Reformulated Gasoline Blendstock for Oxygenate Blending" is motor gasoline blending components 
+intended for blending with oxygenates to produce finished reformulated gasoline. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Road Oil</td>
+  <td class="B2">Any heavy petroleum oil, including residual asphaltic oil used as a dust pallative and surface 
+treatment on roads and highways. It is generally produced in six grades from 0, the most liquid, 
+to 5, the most viscous.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Residual Fuel Oil</td>
+  <td class="B2">A general classification for the heavier oils, known as No. 5 and No. 6 fuel oils, that remain 
+after the distillate fuel oils and lighter hydrocarbons are distilled away in refinery operations. 
+It conforms to ASTM Specifications D396 and D975 and Federal Specification VV-F-815C. 
+No. 5, a residual fuel oil of medium viscosity, is also known as Navy Special and is defined in 
+Military Specification MIL-F-859E, including Amendment 2 (NATO Symbol F-770). It is used in 
+steam-powered vessels in government service and inshore powerplants. No. 6 fuel oil includes 
+Bunker C fuel oil and is used for the production of electric power, space heating, vessel 
+bunkering, and various industrial purposes. 
+ 
+
+
+
+
+
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Special Naphthas</td>
+  <td class="B2">All finished products within the naphtha boiling range that are used as paint thinners, cleaners, or solvents. These products are refined to a specified flash point. Special naphthas include all commercial hexane and cleaning solvents conforming to ASTM Specification D1836 and D484, respectively. Naphthas to be blended or marketed as motor gasoline or aviation gasoline, or that are to be used as petrochemical and synthetic natural gas (SNG) feedstocks are excluded.</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Still Gas</td>
+  <td class="B2">Any form or mixture of gases produced in refineries by distillation, cracking, reforming, 
+and other processes. The principal constituents are methane, ethane, ethylene, normal butane, 
+butylene, propane, propylene, etc. Still gas is used as a refinery fuel and a petrochemical 
+feedstock. The conversion factor is 6 million BTU's per fuel oil equivalent barrel.
+
+
+</td>
+</tr>
+<tr class="Row">
+  <td class="B1">Sulfur</td>
+  <td class="B2">A yellowish nonmetallic element, sometimes known as "brimstone." It is present at various 
+levels of concentration in many fossil fuels.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</td>
+</tr>
+
+<tr class="Row">
+  <td class="B1">Unfinished Oils</td>
+  <td class="B2">All oils requiring further processing, except those requiring only mechanical blending.  
+Unfinished oils are produced by partial refining of crude oil and include naphthas and 
+lighter oils, kerosene and light gas oils, heavy gas oils, and residuum.
+
+
+</td>
+</tr>
+
+<tr class="Row">
+  <td class="B1">Wax</td>
+  <td class="B2">A solid or semi-solid material at 77 degrees Fahrenheit consisting of a mixture of 
+hydrocarbons obtained or derived from petroleum fractions, or through a Fischer-Tropsch 
+type process, in which the straight-chained paraffin series predominates. This 
+includes all marketable wax, whether crude or refined, with a congealing point 
+(ASTM D 938) between 80 (or 85) and 240 degrees Fahrenheit and a maximum oil content 
+(ASTM D 3235) of 50 weight percent.
+
+</td>
+</tr>
+
+</table>
+<br clear="all"><table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
+<tr>
+  <td height="5"></td>
+</tr>
+<tr>
+  <td class="Notes">
+   For definitions of related energy terms, refer to the
+   <a href="http://www.eia.doe.gov/glossary/index.html" class="reg">EIA Energy Glossary</a>. 
+  </td>
+</tr>
+</table>
+<br clear="all">
+<table width="960" border="0" cellspacing="0" cellpadding="3" align="left">
+<tr>
+	<td class="SubHead"><img src="../img/Bullet_redsq1.gif" alt="" width="9" height="15" border="0">&nbsp;
+	Sources</td>
+</tr>
+</table>
+<br clear="all">
+<table width="960" border="0" cellspacing="0" cellpadding="0" align="left">
+<tr>
+  <td height="5" colspan="2"></td>
+</tr>
+<tr>
+  <td width="22"></td>
+  <td width="938" class="B2">
+
+<li>Energy Information Administration, Form EIA-810, 
+"Monthly Refinery Report".
+</li>
+<li>Energy Information Administration, Form EIA-811, 
+"Monthly Bulk Terminal Report".
+</li>
+<li>Energy Information Administration, Form EIA-812, "Monthly Product Pipeline Report".
+
+</li>
+<li>Energy Information Administration, Form EIA-813, "Monthly Crude Oil Report".
+
+</li>
+<li>Energy Information Administration, Form EIA-814, "Monthly Imports Report".
+</li>
+<li>Energy Information Administration, Form EIA-816, "Monthly Natural Gas Liquids Report".
+</li>
+<li>Energy Information Administration, Form EIA-817, "Monthly Tanker and Barge Movements Report".
+
+</li>
+<li>Bureau of the Census.</li>
+<li><a href="http://www.eia.gov/survey/" class="reg">
+EIA Forms & Instructions
+</a>.
+
+
+</li>
+<li><a href="http://www.eia.gov/petroleum/supply/monthly/pdf/psmnotes.pdf" class="reg">
+Background, Survey Methodology and Statistical Details
+</a>.
+
+</li>
+
+   </td>
+</tr>
+</table><br clear="all">
+<table width="960" border="0" cellspacing="0" cellpadding="0" align="left">
+<tr>
+	<td height="15"></td>
+</tr>
+<tr>
+	<td class="SubHead"><img src="../img/Bullet_redsq1.gif" alt="" width="9" height="15" border="0">&nbsp;
+	Explanatory Notes</td>
+</tr>
+<tr>
+	<td height="5"></td>
+</tr>
+</table>
+<br clear="all">
+
+<table width="960" border="0" cellspacing="0" cellpadding="0" align="left">
+<tr>
+<td width="22"></td>
+<td width="938">
+
+	<table width="938" border="0" cellspacing="0" cellpadding="0" align="left">
+	<tr>
+	  <td height="5" colspan="2"></td>
+	</tr>
+	<tr>
+	  <td width="5"></td>  
+	  <td width="933"></td>
+	</tr> <tr>
+  <td class="Notes" align="center" valign="top"><li></td>  
+  <td class="Notes">
+  Data may not add to total due to independent rounding.
+  </td>
+</tr> 
+
+  </table>
+  </td>
+</tr>
+</table>
+<br clear="all">
+
+</div> <!-- align_w -->
+
+ <script type="text/javascript">InsertEIAFooterCode();</script>
+
+</body>
+</html>
