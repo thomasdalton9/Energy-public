@@ -149,10 +149,12 @@ def spain(d0, d1):
         j = {}
         for back in range(0, 8):   # the newest days are not posted yet: an empty / non-JSON / 'Invalid date' reply -> step back a day
             try:
-                j = get(ENAGAS, params={"date": (q - timedelta(days=back)).strftime("%d/%m/%Y")}, headers=h).json()
-            except ValueError:
+                j = get(ENAGAS, tries=1 if back < 7 else 3, params={"date": (q - timedelta(days=back)).strftime("%d/%m/%Y")}, headers=h).json()
+            except (ValueError, RuntimeError) as e:   # empty body, HTTP error or invalid date for a day Enagas has not posted yet
+                print(f"  Enagas {q - timedelta(days=back):%Y-%m-%d}: {type(e).__name__}, stepping back", flush=True)
                 continue
             if j.get("actual"):
+                print(f"  Enagas window ends {q - timedelta(days=back):%Y-%m-%d}: {len(j['actual'])} rows to {j['actual'][-1].get('fecha_demanda')}", flush=True)
                 break
         for e in j.get("actual", []):
             try:
