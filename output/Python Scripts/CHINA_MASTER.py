@@ -2,7 +2,9 @@
 China master workbook: every China dataset this repo pulls in one file, with Dashboard front pages carrying all their
 charts - the same layout and chart code as the other masters (south_america/SOUTH_AMERICA_MASTER.py).
 
-  Dashboard - Power      power generation by source (average GW), total generation, solar cell / generator-set output
+  Dashboard - Power      power generation by source (average GW), total generation, solar cell / generator-set output;
+                         NEA installed capacity by type (GW), NEA electricity consumption by sector (TWh) and y/y,
+                         capacity factors (NBS generation / NEA capacity)
   Dashboard - Fuels      raw coal, coke, crude oil and refinery runs, natural gas output (NBS monthly)
   Dashboard - Industry   energy-intensive output (steel, cement, glass, non-ferrous, chemicals, vehicles) and capacity
                          utilisation by industry
@@ -54,13 +56,18 @@ IMPORTS = "china_gacc_energy_imports_monthly.xlsx"
 PRICES = "china_nbs_market_prices_10day.xlsx"
 PPI = "china_nbs_ppi_monthly.xlsx"
 CAPU = "china_nbs_capacity_utilization_quarterly.xlsx"
+CAP = "china_nea_capacity_monthly.xlsx"
+CONS = "china_nea_consumption_monthly.xlsx"
 # china_nbs_clean_energy_products_monthly.xlsx is a subset of the industrial-output workbook (same Data columns), so
 # it is not read again.
 
 # (dashboard, [(code, country, workbook, raw sheets, short name, charts to show (None = all))])
 POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
           {"power generation by sou", "electricity generation "}),
-         ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"})]
+         ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"}),
+         ("CN", "China", CAP, ("Data", "Releases"), "NEA capacity", {"installed capacity by t"}),
+         ("CN", "China", CONS, ("Data", "Jan-Feb", "YTD", "Releases"), "NEA consumption",
+          {"electricity use by sect", "electricity use growth"})]
 FUELS = [("CN", "China", PROD, (), "energy production",
           {"raw coal output", "coke output", "crude oil output and re"}),
          ("CN", "China", IMPORTS, ("Data",), "energy imports", {"crude oil and product i", "coal imports"})]
@@ -82,6 +89,11 @@ PRICE = [("CN", "China", PRICES, ("Data",), "market prices",
 
 NBS = "National Bureau of Statistics of China (NBS)"
 SOURCES = {
+    CAP: ("National Energy Administration (NEA), monthly 'national power industry statistics' releases (全国电力工业统计数据; "
+          "table read as HTML, Word attachment or, where NEA posts a picture, by OCR with sum and text checks): installed "
+          "capacity by type", "https://www.nea.gov.cn/xwfb/"),
+    CONS: ("National Energy Administration (NEA), monthly 'electricity consumption of the whole society' releases "
+           "(全社会用电量): consumption by sector", "https://www.nea.gov.cn/xwfb/"),
     IMPORTS: ("General Administration of Customs of China (GACC), monthly bulletin table (14) Major Import Commodities in "
               "Quantity and Value (English site)", "http://english.customs.gov.cn/Statistics/Statistics?ColumnId=2"),
     GAS: ("National Development and Reform Commission (NDRC), Operation Bureau, national natural gas operation "
@@ -138,13 +150,16 @@ NOT_AVAILABLE = [
      "https://www.ndrc.gov.cn/fggz/jjyxtj/",
      "NDRC's bulletin gives apparent consumption only (no production, import or sector split); GACC gives imports as "
      "weight (tonnes), not volume. No gas balance is built and nothing is estimated or converted."),
-    ("China", "Installed capacity by type and electricity consumption by sector (monthly)",
-     "National Energy Administration (NEA) 'national power industry statistics' and 'electricity consumption' releases",
-     "Reachable, but not built",
-     "https://www.nea.gov.cn/",
-     "Releases are individual news articles. The paged list reaches only May 2023 - July 2024 and the current list page is "
-     "script-rendered, so Aug 2024 - Aug 2026 cannot be enumerated; only the newest items on the home page are "
-     "linkable. A series with a two-year hole is not built."),
+    ("China", "NEA monthly capacity and consumption: what is NOT in the series",
+     "National Energy Administration (NEA) releases, now built (china_nea_capacity_monthly.xlsx, china_nea_consumption_monthly.xlsx)",
+     "Built, with gaps",
+     "https://www.nea.gov.cn/xwfb/",
+     "The list page is script-rendered, but the ds_*.json behind it holds the whole list, so the series run from Dec 2020 "
+     "(capacity) and Mar 2021 (consumption). Gaps are shown, never filled: capacity has no January (NEA publishes "
+     "January-February together) and no end-April 2024 or end-March 2026 stock (no release in NEA's list); consumption has "
+     "no January/February month (combined figure on the Jan-Feb tab; 2021-23 and 2025 releases also give February alone), "
+     "no December month (only the full year is released), and no May 2023 or May 2026 (no release in NEA's list). "
+     "NEA's 2023 monthly capacity rows leave up to 26 GW outside the five types (shown as 'Other')."),
     ("China", "Power industry statistics (China Electricity Council)", "cec.org.cn", "Not reachable",
      "https://www.cec.org.cn/", "www.cec.org.cn timed out from GitHub Actions (connect timeout); english.cec.org.cn "
      "answers with a near-empty page."),
@@ -204,6 +219,34 @@ def gas_combined(wb, used, data_dir):
     return (chart, src, ("China", title, df.index.max().strftime("%b/%y"), ws.title, *src)), None
 
 
+def capacity_factor_chart(wb, used, data_dir):
+    """NBS generation by type / (NEA installed capacity x hours in the month), months where both exist. NBS covers
+    industrial enterprises above designated size (distributed solar and small plants are not in it) while NEA's capacity
+    is the whole country's, so solar and wind factors are understated; the end-of-month stock is used, and months either
+    series lacks (January/February NBS; January, Apr 2024 and Mar 2026 NEA) are gaps."""
+    try:
+        cap = add_charts.by_date(add_charts.read(os.path.join(data_dir, CAP), "Data"), "month")
+        gen = add_charts.by_date(add_charts.read(os.path.join(data_dir, PROD), "Data"), "month")
+    except Exception as e:  # noqa: BLE001
+        return None, f"capacity factors ({type(e).__name__}: {e})"
+    out = {}
+    for t in ("Hydro", "Thermal", "Nuclear", "Wind", "Solar"):
+        hours = pd.Series(cap.index.days_in_month * 24.0, index=cap.index)
+        g = gen[f"{t}_Generation_TWh"].reindex(cap.index) * 1000.0
+        out[t] = (g / (pd.to_numeric(cap[f"{t}_GW"], errors="coerce") * hours) * 100.0).round(1)
+    df = pd.DataFrame(out).dropna(how="all")
+    df = df[df.index >= "2021-03-01"]
+    title = "China capacity factors: NBS generation / NEA installed capacity (NBS covers enterprises above designated size)"
+    df, n_bars = xlsx_charts.prepare(df, tuple(df.columns))
+    ws = wb.create_sheet(sam.sheet_name("CN capacity factors data", used))
+    xlsx_charts.write_table(ws, df)
+    src = ("NBS monthly industrial output release (generation); NEA national power industry statistics (capacity)",
+           "https://www.nea.gov.cn/xwfb/")
+    chart = xlsx_charts.build_chart(ws, df, n_bars, title, "% of installed capacity (monthly)", "line", width=sam.CHART_W,
+                                    height=sam.CHART_H, gridlines=False, inner=xlsx_charts.DASHBOARD_INNER)
+    return (chart, src, ("China", title, df.index.max().strftime("%b/%y"), ws.title, *src)), None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "china_master.xlsx"))
@@ -231,6 +274,13 @@ def main():
             if both:
                 charts.insert(0, both[:2])
                 rows.insert(0, both[2])
+            else:
+                missing.append(why)
+        if datasets is POWER:
+            cf, why = capacity_factor_chart(wb, used, args.data_dir)
+            if cf:
+                charts.append(cf[:2])
+                rows.append(cf[2])
             else:
                 missing.append(why)
         sam.draw_dashboard(dash, heading, charts, rows, missing)
