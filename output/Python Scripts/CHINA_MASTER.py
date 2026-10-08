@@ -9,7 +9,9 @@ charts - the same layout and chart code as the other masters (south_america/SOUT
   Dashboard - Industry   energy-intensive output (steel, cement, glass, non-ferrous, chemicals, vehicles) and capacity
                          utilisation by industry
   Dashboard - Prices     10-day producer-goods prices (coal, coke, LNG, fuels, steel, metals, chemicals, solar and
-                         battery materials, building materials) and PPI y/y by industry
+                         battery materials, building materials) in US$ per tonne (US$ per kg for polysilicon and
+                         live hogs), converted from NBS's yuan at the Federal Reserve H.10 yuan/US$ rate of each price
+                         date (last published rate on or before it), and PPI y/y by industry
   Dashboard - Long-term  annual summary and history from 2000 (fundamentals.py)
   <chart> data           the table each Dashboard chart plots
   <dataset> raw          the full data sheet(s) from each source workbook
@@ -55,6 +57,7 @@ GAS = "china_ndrc_gas_monthly.xlsx"
 IMPORTS = "china_gacc_energy_imports_monthly.xlsx"
 PRICES = "china_nbs_market_prices_10day.xlsx"
 PPI = "china_nbs_ppi_monthly.xlsx"
+FX = "china_fx_usd_daily.xlsx"
 CAPU = "china_nbs_capacity_utilization_quarterly.xlsx"
 CAP = "china_nea_capacity_monthly.xlsx"
 CONS = "china_nea_consumption_monthly.xlsx"
@@ -80,12 +83,13 @@ INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
               "industrial robot output", "service robot output", "electronics output",
               "integrated circuit outp"}),
             ("CN", "China", CAPU, ("Data",), "capacity utilisation", None)]
-PRICE = [("CN", "China", PRICES, ("Data",), "market prices",
-          {"coal and coke prices", "oil and gas product pri", "steel prices", "non-ferrous metal price",
-           "basic chemical prices", "polysilicon prices", "lithium iron phosphate ", "polymer and fibre price",
-           "building material price", "fertiliser and agrochem", "farm product prices", "live hog prices",
-           "forest product prices"}),
-         ("CN", "China", PPI, ("Data",), "PPI", None)]
+# NBS 10-day prices are converted to US$ by price_usd_charts() below (charts named here); PPI is plain collect().
+PRICE_CHARTS = {"coal and coke prices", "oil and gas product pri", "steel prices", "non-ferrous metal price",
+                "basic chemical prices", "polysilicon prices", "lithium iron phosphate ", "polymer and fibre price",
+                "building material price", "fertiliser and agrochem", "farm product prices", "live hog prices",
+                "forest product prices"}
+PRICE = [("CN", "China", PPI, ("Data",), "PPI", None)]
+FED_URL = "https://www.federalreserve.gov/releases/h10/hist/dat00_ch.htm"
 
 NBS = "National Bureau of Statistics of China (NBS)"
 SOURCES = {
@@ -104,6 +108,9 @@ SOURCES = {
           "https://www.stats.gov.cn/sj/zxfb/"),
     PRICES: (f"{NBS}, 10-day market prices of important means of production in the circulation sector",
              "https://www.stats.gov.cn/sj/zxfb/"),
+    FX: ("Board of Governors of the Federal Reserve System, H.10 Foreign Exchange Rates: noon buying rates in New York, "
+         "Chinese renminbi per US dollar (the series FRED republishes as DEXCHUS); used to convert the NBS 10-day prices to US$",
+         FED_URL),
     PPI: (f"{NBS}, monthly producer price (PPI) release, by industry", "https://www.stats.gov.cn/sj/zxfb/"),
     CAPU: (f"{NBS}, quarterly industrial capacity utilisation release", "https://www.stats.gov.cn/sj/zxfb/"),
 }
@@ -247,6 +254,79 @@ def capacity_factor_chart(wb, used, data_dir):
     return (chart, src, ("China", title, df.index.max().strftime("%b/%y"), ws.title, *src)), None
 
 
+def fx_for(dates, fx):
+    """Rate for each date = the last published rate on or before it (no other filling); returns (rate, rate date)."""
+    left = pd.DataFrame({"d": pd.to_datetime(list(dates))}).sort_values("d")
+    right = fx.rename("rate").rename_axis("rate_date").reset_index()
+    m = pd.merge_asof(left, right, left_on="d", right_on="rate_date", direction="backward").set_index("d")
+    return m["rate"], m["rate_date"]
+
+
+def price_usd_charts(wb, used, data_dir, sources):
+    """NBS 10-day prices (yuan per tonne or kg) in US$ per tonne / per kg: price / (yuan per US$), with the Fed H.10 rate
+    of the price date (period start: the 1st, 11th or 21st) or, when the Fed published none that day (weekends, US
+    holidays), the last rate published before it. Data tabs carry the rate, the date it is from and the yuan prices."""
+    charts, rows, missing = [], [], []
+    ppath, fpath = os.path.join(data_dir, PRICES), os.path.join(data_dir, FX)
+    if not (os.path.exists(ppath) and os.path.exists(fpath)):
+        return charts, rows, [f"China market prices in US$ ({PRICES} or {FX} missing)"]
+    try:
+        fx = add_charts.by_date(add_charts.read(fpath, "Data"), "date")["CNY_per_USD"].dropna()
+        specs = [sp for sp in add_charts.china_nbs_series(ppath) if sp["name"] in PRICE_CHARTS]
+    except Exception as e:  # noqa: BLE001
+        return charts, rows, [f"China market prices in US$ ({type(e).__name__}: {e})"]
+    src = (f"{NBS} (10-day circulation-sector prices); converted at the Federal Reserve H.10 yuan per US$ rate", FED_URL)
+    for sp in specs:
+        yuan = sp["df"].dropna(how="all")
+        unit = "US$ per kg" if sp["units"].endswith("/kg") else "US$ per tonne"
+        rate, rdate = fx_for(yuan.index, fx)
+        usd = yuan.div(rate.reindex(yuan.index), axis=0)
+        usd = usd[rate.reindex(yuan.index).notna().values]
+        df, n_bars = xlsx_charts.prepare(usd.round(2), ())
+        if df.empty:
+            continue
+        ws = wb.create_sheet(sam.sheet_name(f"CN {sp['name']} US$ data", used))
+        xlsx_charts.write_table(ws, df, "%Y-%m")
+        c0 = len(df.columns) + 3
+        ws.cell(row=1, column=c0, value="Rate date used")
+        ws.cell(row=1, column=c0 + 1, value="Yuan per US$ (Fed H.10)")
+        for j, c in enumerate(yuan.columns):
+            ws.cell(row=1, column=c0 + 2 + j, value=f"{c} ({sp['units']}, as published by NBS)")
+        for i, ts in enumerate(df.index, start=2):
+            ws.cell(row=i, column=c0, value=rdate[ts].to_pydatetime()).number_format = "dd/mm/yy"
+            ws.cell(row=i, column=c0 + 1, value=float(rate[ts]))
+            for j, c in enumerate(yuan.columns):
+                v = yuan.at[ts, c]
+                ws.cell(row=i, column=c0 + 2 + j, value=None if pd.isna(v) else float(v))
+        for k in range(c0, c0 + 2 + len(yuan.columns)):
+            ws.cell(row=1, column=k).font = Font(bold=True)
+            ws.column_dimensions[ws.cell(row=1, column=k).column_letter].width = 24
+        title = sp["title"]
+        charts.append((xlsx_charts.build_chart(ws, df, n_bars, title, unit, "line", sp["date_format"], width=sam.CHART_W,
+                                               height=sam.CHART_H, gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
+        rows.append(("China", title, df.index.max().strftime("%b/%y"), ws.title, *src))
+    # raw tabs (yuan as published) and the exchange-rate workbook
+    sam.write_frame(wb.create_sheet(sam.sheet_name("CN market prices Data raw", used)), add_charts.read(ppath, "Data"))
+    sam.write_frame(wb.create_sheet(sam.sheet_name("CN FX Data raw", used)), add_charts.read(fpath, "Data"))
+    sources.append(("China", "market prices", PRICES, *SOURCES[PRICES], sam.notes_text(ppath)))
+    sources.append(("China", "yuan per US dollar", FX, *SOURCES[FX], sam.notes_text(fpath)))
+    ws = wb.create_sheet(sam.sheet_name("Conversion factors", used))
+    last = fx.index.max()
+    for line in ("Currency conversion of the NBS 10-day prices (the only conversion applied)",
+                 "Prices: NBS 10-day market prices of important means of production, yuan per tonne (yuan per kg for polysilicon and live hogs), as published; the yuan series are on the 'CN market prices Data raw' tab.",
+                 "US$ price = yuan price / (yuan per US$). Units: US$ per tonne, US$ per kg. No other unit conversion (no energy-content, volume or barrel factors) is made.",
+                 "Exchange rate: Board of Governors of the Federal Reserve System, H.10 Foreign Exchange Rates, Historical Rates for the Chinese Renminbi (noon buying rates in New York, yuan per US dollar; the series FRED republishes as DEXCHUS): " + FED_URL,
+                 "Rate used for each price: the rate of the price's date (each NBS 10-day period is dated its first day: the 1st, 11th or 21st), or, where the Fed published none that day (weekends, US holidays), the last rate published before it. Nothing else is used to fill days.",
+                 "The rate and the date it is from are beside each chart's data on the 'US$ data' tabs, next to the yuan prices.",
+                 f"Rate series: {fx.index.min():%d %b %Y} to {last:%d %b %Y}, latest {fx.iloc[-1]:.4f} yuan per US$ (a price dated after the latest Fed date would use that last rate).",
+                 "NBS circulation-sector prices are as reported by NBS (tax treatment not stated by NBS).",
+                 "Workbook: china_fx_usd_daily.xlsx (asia/CHINA_FX_USD.py, 1st and 15th); an ECB cross-rate column in it is validation only."):
+        ws.append([line])
+    ws["A1"].font = Font(bold=True, size=14)
+    ws.column_dimensions["A"].width = 180
+    return charts, rows, missing
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "china_master.xlsx"))
@@ -265,7 +345,7 @@ def main():
                 (dashes[0], "China - natural gas: apparent consumption (NDRC) and output (NBS)", GAS_SETS),
                 (dashes[1], "China - fuel output: coal, coke and crude oil (NBS)", FUELS),
                 (dashes[2], "China - energy-intensive industrial output and capacity utilisation (NBS)", INDUSTRY),
-                (dashes[3], "China - producer-goods prices and PPI (NBS)", PRICE)]
+                (dashes[3], "China - producer-goods prices in US$ (NBS, converted at the Federal Reserve H.10 rate) and PPI (NBS)", PRICE)]
     counts = []
     for dash, heading, datasets in sections:
         charts, rows, missing = collect(wb, datasets, args.data_dir, used, sources)
@@ -283,6 +363,9 @@ def main():
                 rows.append(cf[2])
             else:
                 missing.append(why)
+        if datasets is PRICE:
+            pc, pr, pm = price_usd_charts(wb, used, args.data_dir, sources)
+            charts, rows, missing = pc + charts, pr + rows, pm + missing
         sam.draw_dashboard(dash, heading, charts, rows, missing)
         counts.append(len(charts))
         if missing:
