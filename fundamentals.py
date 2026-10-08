@@ -57,6 +57,8 @@ ISO3 = {
     "Cyprus": "CYP", "Luxembourg": "LUX", "Malta": "MLT",
     # Australia & New Zealand
     "Australia": "AUS", "New Zealand": "NZL",
+    # China
+    "China": "CHN",
 }
 
 REGIONS = {
@@ -69,6 +71,7 @@ REGIONS = {
         "Trinidad and Tobago", "Puerto Rico", "Jamaica", "Dominican Republic"],
     "North America": ["United States", "Canada", "Mexico"],
     "Australia & New Zealand": ["Australia", "New Zealand"],
+    "China": ["China"],
     "Europe": ["Germany", "France", "United Kingdom", "Italy", "Spain", "Poland", "Netherlands", "Turkey", "Belgium",
                "Austria", "Switzerland", "Czechia", "Slovakia", "Hungary", "Romania", "Bulgaria", "Greece", "Portugal",
                "Croatia", "Slovenia", "Denmark", "Sweden", "Norway", "Finland", "Ireland", "Estonia", "Latvia",

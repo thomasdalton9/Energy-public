@@ -35,7 +35,7 @@ import xlsx_charts  # noqa: E402
 
 PAL = ["#" + c for c in xlsx_charts.PALETTE]
 GREY, INK, MUTED = "#9A9A9A", "#222222", "#6B6B6B"
-FUEL_COLOURS = dict(zip(["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other", "Net imports"], PAL))
+FUEL_COLOURS = {k: "#" + v for k, v in xlsx_charts.FUEL_COLOURS.items()}   # one colour per power type, as in the workbooks
 ENTSOE = "ENTSO-E Transparency Platform"
 EXTRA = "; Great Britain: Elexon BMRS + NESO; Ireland: EirGrid + Ember"
 
@@ -100,10 +100,10 @@ def fuel_chart(xl, tab_name, title, ylabel, path, lines=(), source=ENTSOE, drop=
     d = tab(xl, tab_name).drop(columns=list(drop), errors="ignore")
     fig, ax = plt.subplots(figsize=(11, 5.6))
     style(ax)
-    cols = {c: FUEL_COLOURS.get(c, GREY) for c in d.columns}
+    cols = {c: ("#" + xlsx_charts.fuel_colour(c, 0) if c in FUEL_COLOURS else GREY) for c in d.columns}
     if by_order:   # series are countries, not fuels: the repo's fixed categorical order, "Other" last in grey
-        cols = {c: (GREY if c == "Other" else PAL[i % len(PAL)]) for i, c in enumerate(d.columns)}
-    cols.update({"Pumped & battery (net)": "#4A3AA7", "Load": INK})
+        cols = {c: ("#" + xlsx_charts.fuel_colour(c, i)) for i, c in enumerate(d.columns)}
+    cols.update({"Pumped & battery (net)": "#" + xlsx_charts.FUEL_COLOURS["Storage"], "Load": INK})
     stacked(ax, d, cols, lines=lines)
     if "Load" in lines:
         ax.plot(d.index, d["Load"], color=INK, linewidth=2, label="Load (demand)")
@@ -193,7 +193,7 @@ def prices(xl, path):
 def major_markets(xl, path):
     names = ["Germany", "France", "Italy", "Spain"]
     fig, axes = plt.subplots(2, 2, figsize=(14, 8.4), sharex=False)
-    cols = {**FUEL_COLOURS, "Pumped & battery (net)": "#4A3AA7", "Load": INK}
+    cols = {**FUEL_COLOURS, "Pumped & battery (net)": "#" + xlsx_charts.FUEL_COLOURS["Storage"], "Load": INK}
     for ax, name in zip(axes.flat, names):
         d = tab(xl, f"{name} balance data")
         style(ax)

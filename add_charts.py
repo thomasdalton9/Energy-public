@@ -1155,10 +1155,8 @@ def _category_stacked_bar(path, sheet, t, title, y_title):
     ch.add_data(Reference(ws, min_col=2, max_col=1 + t.shape[1], min_row=1, max_row=n), titles_from_data=True)
     ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=n))
     for i, s in enumerate(ch.series):
-        grey = str(t.columns[i]).startswith("Other")
-        s.graphicalProperties = GraphicalProperties(
-            solidFill=xlsx_charts.OTHER_GREY if grey else xlsx_charts.PALETTE[i % len(xlsx_charts.PALETTE)],
-            ln=LineProperties(noFill=True))
+        s.graphicalProperties = GraphicalProperties(solidFill=xlsx_charts.fuel_colour(t.columns[i], i),
+                                                    ln=LineProperties(noFill=True))
     ch.title = title
     ch.y_axis.title = y_title
     ch.x_axis.delete = False
