@@ -74,7 +74,7 @@ POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
 FUELS = [("CN", "China", PROD, (), "energy production",
           {"raw coal output", "coke output", "crude oil output and re"}),
          ("CN", "China", IMPORTS, ("Data",), "energy imports", {"crude oil and product i", "coal imports"})]
-GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas consumption y-y"}),
+GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas apparent consumptio", "gas consumption y-y"}),
             ("CN", "China", PROD, (), "energy production", {"natural gas output"}),
             ("CN", "China", IMPORTS, (), "energy imports", {"natural gas imports"})]
 INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
