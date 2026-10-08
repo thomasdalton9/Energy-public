@@ -883,8 +883,9 @@ def china_nbs(p):
     return out
 
 
-def china_nbs_series(p):
-    """China NBS workbooks: the pull writes a 'Series' sheet (column, label, unit, chart, kind); one chart per group."""
+def china_nbs_series(p, who="NBS"):
+    """China NBS workbooks: the pull writes a 'Series' sheet (column, label, unit, chart, kind); one chart per group.
+    who: publisher shown in the chart title (NBS; NDRC for the gas bulletin workbook)."""
     d = read(p, "Data")
     d = by_date(d, d.columns[0])
     s = pd.read_excel(p, sheet_name="Series", index_col=0)
@@ -897,7 +898,7 @@ def china_nbs_series(p):
             name = name if name not in used else f"{name[:20]} {len(used)}"
             used.add(name)
             out.append(spec(name, d[c].rename(columns=rows["label"].to_dict()),
-                            f"China {group} (NBS)", rows["unit"].iloc[0], rows["kind"].iloc[0]))
+                            f"China {group} ({who})", rows["unit"].iloc[0], rows["kind"].iloc[0]))
     return out
 
 
@@ -2891,6 +2892,7 @@ REGISTRY = {
     "china_nbs_market_prices_10day.xlsx": china_nbs_series,
     "china_nbs_capacity_utilization_quarterly.xlsx": china_nbs_series,
     "china_nbs_ppi_monthly.xlsx": china_nbs_series,
+    "china_ndrc_gas_monthly.xlsx": lambda p: china_nbs_series(p, "NDRC"),
     "giignl_contracted_vs_spot_annual.xlsx": giignl,
     "singapore_power.xlsx": singapore_power,
     # South & Southeast Asia (Ember fallback until each country's raw feed is in)
