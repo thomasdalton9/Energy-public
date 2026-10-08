@@ -23,7 +23,7 @@ from Ember's yearly release until a raw feed exists.
 Reads (doesn't refetch) the workbooks the scheduled pulls write to "output/Data and Chart Outputs/".
 A workbook a pull has not written yet is skipped; one that fails to chart is listed on the Dashboard.
 
-Usage: python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py [--out "output/Data and Chart Outputs/south_southeast_asia_master.xlsx"]
+Usage: python3 asia/SOUTH_SOUTHEAST_ASIA_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_master.xlsx"]
 """
 import argparse
 import os
@@ -304,7 +304,7 @@ def malaysia_split(data_dir, raw_files):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "south_southeast_asia_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "south_southeast_asia_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]
@@ -348,7 +348,8 @@ def main():
     total, notes = regional_generation(args.data_dir, {d[1]: d[2] for d in raw_power}, gen_frames)
     if not total.empty:
         ws = wb.create_sheet(sam.sheet_name("SSEA generation total data", used))
-        df, n_bars = xlsx_charts.prepare(total)
+        gw_total, gen_units = xlsx_charts.monthly_energy_to_gw(total, "TWh per month", "power generation")
+        df, n_bars = xlsx_charts.prepare(gw_total)
         xlsx_charts.write_table(ws, df)
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
@@ -357,7 +358,7 @@ def main():
         src = ("Sum of the country series on this dashboard (" +
                (f"raw: {', '.join(raw_names)}; " if raw_names else "") + "Ember for the rest)", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "South & Southeast Asia power generation by "
-                                                    "source", "TWh per month", "stacked_bar", width=sam.CHART_W,
+                                                    "source", gen_units, "stacked_bar", width=sam.CHART_W,
                                                     height=sam.CHART_H, gridlines=False,
                                                     inner=xlsx_charts.DASHBOARD_INNER), src))
         missing = [n.split(":", 1)[1].split("(")[0].strip() for n in notes if n.startswith("NOT INCLUDED")]
@@ -372,12 +373,13 @@ def main():
     my = malaysia_split(args.data_dir, {d[1]: d[2] for d in raw_power})
     if not my.empty:
         ws = wb.create_sheet(sam.sheet_name("MY regions data", used))
-        df, n_bars = xlsx_charts.prepare(my)
+        my_gw, my_units = xlsx_charts.monthly_energy_to_gw(my, "TWh per month", "power generation")
+        df, n_bars = xlsx_charts.prepare(my_gw)
         xlsx_charts.write_table(ws, df)
         src = ("GSO (Peninsular grid, raw); Sabah + Sarawak ESTIMATED as Ember's national Malaysia minus GSO, so it "
                "also holds Peninsular generation outside the GSO grid (captive / embedded)", None)
         power[0].insert(lead, (xlsx_charts.build_chart(ws, df, n_bars, "Malaysia power generation: Peninsular (GSO) "
-                                                       "and Sabah + Sarawak (estimate)", "TWh per month", "stacked_bar",
+                                                       "and Sabah + Sarawak (estimate)", my_units, "stacked_bar",
                                                        width=sam.CHART_W, height=sam.CHART_H, gridlines=False,
                                                        inner=xlsx_charts.DASHBOARD_INNER), src))
         power[1].insert(lead, ("Malaysia", "Malaysia generation: Peninsular (GSO) and Sabah + Sarawak (estimate)",
