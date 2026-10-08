@@ -2,7 +2,8 @@ name: JODI LNG lag study pull (manual)
 
 # One-off: JODI Gas world database (monthly LNG imports by country), JKM daily (Yahoo), IMF/World Bank prices and
 # OECD industrial production for the JKM -> LNG demand lag study (analysed in the private repo).
-# Commits CSVs to discovery_archive/rest_of_world/data/. Move to discovery_archive/workflows/ when done.
+# Commits CSVs to discovery_archive/rest_of_world/data/. Run 1 (JODI_LNG_LAG_PULL.py) got JKM + World Bank;
+# run 2 (JODI_LNG_LAG_PULL2.py) pulls the current JODI gas table from jodidb.org. Move to discovery_archive/workflows/ when done.
 on:
   workflow_dispatch:
 
@@ -23,13 +24,13 @@ jobs:
       - name: Pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1600 python3 discovery_archive/rest_of_world/JODI_LNG_LAG_PULL.py
+        run: timeout 1600 python3 discovery_archive/rest_of_world/JODI_LNG_LAG_PULL2.py
       - name: Commit data
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f discovery_archive/rest_of_world/data/jodi_gas_lng.csv.gz discovery_archive/rest_of_world/data/jkm_*.csv discovery_archive/rest_of_world/data/lag_prices_*.csv || true
+          git add -f discovery_archive/rest_of_world/data/jodi_gas_lng.csv.gz discovery_archive/rest_of_world/data/jodi_gas_world_jodidb.csv.gz discovery_archive/rest_of_world/data/jkm_*.csv discovery_archive/rest_of_world/data/lag_prices_*.csv || true
           git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
           git commit -m "JODI LNG lag study: JODI gas, JKM and price data (one-off pull)"
           for i in 1 2 3 4 5; do
