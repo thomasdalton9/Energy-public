@@ -45,21 +45,23 @@ COVERAGE = {
     "Sri Lanka": ("blue", "Power PUCSL (no gas market)"),
     "Bhutan": ("blue", "Power BPSO (no gas)"),
     "Malaysia": ("blue", "Power GSO, Peninsular Malaysia only; Single Buyer prices; no gas data"),
-    "Pakistan": ("amber", "Power: Ember monthly"),
-    "Vietnam": ("amber", "Power: Ember monthly"),
-    "Philippines": ("amber", "Power: Ember monthly; IEMOP market demand and prices; PAGASA dam levels"),
-    "Indonesia": ("amber", "Power: Ember yearly"),
+    "Pakistan": ("blue", "Power: CPPA-G / NEPRA monthly filings (national grid); gas production by province (PBS, to Mar 2024); "
+                         "reservoirs IRSA/WAPDA"),
+    "Vietnam": ("blue", "Power: EVN / NSMO daily (from May 2023); gas: NSO monthly tables (from 2015)"),
+    "Philippines": ("blue", "Power: IEMOP plant dispatch by fuel (Ember shown in the master until a year of history); DOE capacity; "
+                             "prices; PAGASA dam levels; no gas data"),
+    "Indonesia": ("blue", "Gas production by contractor + use by sector (Ditjen Migas); power: Ember yearly"),
     "Myanmar": ("amber", "Power: Ember yearly"),
-    "Cambodia": ("amber", "Power: Ember yearly"),
+    "Cambodia": ("blue", "Power: EAC annual reports (raw, annual rows); EAC capacity; no gas"),
     "Laos": ("amber", "Power: Ember yearly"),
     "Brunei": ("amber", "Power: Ember yearly"),
-    "Nepal": ("amber", "Power: Ember yearly"),
+    "Nepal": ("blue", "Power: NEA load dispatch daily reports (Apr 2023 - Jan 2025, gap Feb 2025 - Sep 2026, filled from Ember); no gas"),
     "Timor-Leste": ("amber", "Power: Ember yearly"),
 }
 SABAH_SARAWAK = "amber"     # Malaysia east of 105E: no GSO feed, Ember (national) only
-GAS_PRODUCERS = {"India": True, "Bangladesh": True, "Thailand": True, "Pakistan": False, "Malaysia": False,
-                 "Indonesia": False, "Myanmar": False, "Brunei": False, "Vietnam": False, "Philippines": False}
-HYDRO = {"India", "Thailand", "Philippines"}
+GAS_PRODUCERS = {"India": True, "Bangladesh": True, "Thailand": True, "Pakistan": True, "Malaysia": False,
+                 "Indonesia": True, "Myanmar": False, "Brunei": False, "Vietnam": True, "Philippines": False}
+HYDRO = {"India", "Thailand", "Philippines", "Pakistan", "Sri Lanka"}   # CEA, RID, PAGASA, IRSA/WAPDA, PUCSL
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
 SINGAPORE = (103.82, 1.35)
 OUT_OF_SCOPE = {"China", "Taiwan", "Afghanistan", "Iran", "Tajikistan", "Turkmenistan", "Uzbekistan", "Kyrgyzstan",

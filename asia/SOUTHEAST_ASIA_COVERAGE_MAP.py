@@ -31,12 +31,12 @@ SE_ASIA = ["Thailand", "Vietnam", "Philippines", "Indonesia", "Malaysia", "Singa
            "Brunei", "Timor-Leste"]
 XMIN, XMAX, YMIN, YMAX = 92, 142, -12, 29
 # in-country labels (lon, lat); dots sit below/beside them
-LABEL_AT = {"Thailand": (101.0, 16.6), "Myanmar": (96.3, 21.8), "Laos": (102.9, 19.9), "Indonesia": (114.5, -1.2),
-            "Philippines": (122.6, 13.3)}
+LABEL_AT = {"Thailand": (101.0, 16.6), "Myanmar": (96.3, 21.8), "Laos": (102.9, 19.9), "Indonesia": (114.5, -1.2)}
 # callouts: name -> (label lon, label lat, target lon, target lat)
 CALLOUTS = {"Vietnam": (112.5, 17.0, 108.3, 15.5), "Cambodia": (103.0, 8.3, 104.5, 12.6),
             "Malaysia": (97.0, 5.0, 101.9, 4.2), "Brunei": (118.5, 7.6, 114.7, 4.6),
-            "Timor-Leste": (130.5, -10.6, 125.9, -8.8), "Singapore": (99.5, -1.5, 103.82, 1.35)}
+            "Timor-Leste": (130.5, -10.6, 125.9, -8.8),
+            "Philippines": (132.0, 15.5, 123.0, 15.0), "Singapore": (99.5, -1.5, 103.82, 1.35)}
 DOT_AT = {"Thailand": (100.3, 14.3), "Myanmar": (95.8, 19.8), "Indonesia": (114.5, -3.2), "Philippines": (122.9, 11.3),
           "Vietnam": (106.4, 11.0), "Malaysia": (102.2, 3.0), "Brunei": (114.7, 4.4)}
 HYDRO_AT = {"Thailand": (102.4, 14.3), "Philippines": (124.8, 11.3)}
