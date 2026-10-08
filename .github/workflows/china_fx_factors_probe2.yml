@@ -1,0 +1,33 @@
+name: China FX and conversion factors probe 2
+
+# Manual, one-off: FRED/ECB reachability, NBS 10-day price table wording (calorific values), conversion-factor documents.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas pymupdf openpyxl
+      - name: Probe
+        run: timeout 1200 python3 discovery_archive/china/CHINA_FX_FACTORS_PROBE2.py
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/china_fx
+          git diff --cached --quiet || git commit -m "China FX/factors probe results"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
