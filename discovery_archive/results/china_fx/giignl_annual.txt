@@ -1,0 +1,192 @@
+<!DOCTYPE html><!-- Last Published: Thu Sep 17 2026 09:30:33 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="www.giignl.org" data-wf-page="67cea84288f3a9a6e81ed678" data-wf-site="67bdb9fc993751711c5f54fd" lang="en"><head><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>GIIGNL Annual Report</title><meta content="GIIGNL published its 2024 Annual Report which compiles the key figures and trends of the LNG market in 2023." name="description"/><meta content="GIIGNL Annual Report" property="og:title"/><meta content="GIIGNL published its 2024 Annual Report which compiles the key figures and trends of the LNG market in 2023." property="og:description"/><meta content="GIIGNL Annual Report" name="twitter:title"/><meta content="GIIGNL published its 2024 Annual Report which compiles the key figures and trends of the LNG market in 2023." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><link href="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/css/giignl.webflow.shared.1e5683b99.min.css" rel="stylesheet" type="text/css" integrity="sha384-HlaDuZGWo6gcy4Kr8mqMpyLtLqDUnSg1i3Kv6hXys3yVAzz/jMp1IzTwlA8LRHkF" crossorigin="anonymous"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["DM Sans:300,400,500,600,700"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67c94d822d05cd9d66c41a66_favicon-32x32.png" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67c94d467854b18ca791c237_favicon-256x256.png" rel="apple-touch-icon"/><!-- Memberstack webflow package -->
+<script data-memberstack-app="app_cm7khjna6005u0trzcubg4vuv" src="https://static.memberstack.com/scripts/v2/memberstack.js" type="text/javascript"></script>
+
+<style>
+  .giignl-loading {
+    opacity: 0.7;
+    cursor: wait !important;
+    pointer-events: none;
+    position: relative; /* ancre le spinner */
+  }
+  .giignl-loading::after {
+    content: "";
+    position: absolute;        /* hors flux → n'affecte pas la hauteur */
+    top: 50%;
+    right: 0.8em;
+    width: 0.9em;
+    height: 0.9em;
+    margin-top: -0.45em;       /* recentre verticalement (moitié de la hauteur) */
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: giignl-spin 0.6s linear infinite;
+  }
+  @keyframes giignl-spin { to { transform: rotate(360deg); } }
+</style>
+<style>
+  .p-relative .tooltip { display: none; }
+  .p-relative:hover .tooltip { display: block; }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll('.w-dropdown');
+
+    dropdowns.forEach(dropdown => {
+      const toggle = dropdown.querySelector('.w-dropdown-toggle');
+      const arrow = dropdown.querySelector('.faq-arrow');
+
+      toggle.addEventListener('click', function (e) {
+        const isOpen = dropdown.classList.contains('w--open');
+
+        // Close all other dropdowns
+        dropdowns.forEach(d => {
+          if (d !== dropdown) {
+            d.classList.remove('w--open');
+            const a = d.querySelector('.faq-arrow');
+            if (a) a.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        // Toggle this dropdown
+        if (!isOpen) {
+          dropdown.classList.add('w--open');
+          if (arrow) arrow.style.transform = 'rotate(90deg)';
+        } else {
+          dropdown.classList.remove('w--open');
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', function (event) {
+      dropdowns.forEach(dropdown => {
+        if (!dropdown.contains(event.target)) {
+          dropdown.classList.remove('w--open');
+          const arrow = dropdown.querySelector('.faq-arrow');
+          if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+  });
+</script>
+</head><body><header class="header"><div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="header-navbar w-nav"><div class="wrapper-large"><div class="header-flex"><a href="/" class="w-nav-brand"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67c9f7b87897d727d2f978c9_logo-giignl-dark.svg" loading="lazy" width="Auto" alt="Logo GIIGNL, Groupe international des importateurs de GNL" class="logo"/></a><div class="header-flex-nav"><nav role="navigation" class="header-nav w-nav-menu"><div data-hover="false" data-delay="0" class="header-dropdown w-dropdown"><div class="dropdown-toggle w-dropdown-toggle"><div class="w-icon-dropdown-toggle"></div><div class="dropdown-label">About</div></div><nav class="dropdown-list w-dropdown-list"><a href="/about-us" class="dropdown-link w-dropdown-link">About GIIGNL</a><a href="/about-lng" class="dropdown-link w-dropdown-link">About LNG</a></nav></div><a href="/members" class="header-nav-link w-nav-link">Our members</a><a href="/resources" class="header-nav-link w-nav-link">Resources</a><a href="/events" class="header-nav-link w-nav-link">Events</a><a href="/annual-report" aria-current="page" class="header-nav-link w-nav-link w--current">Annual report</a><a href="/news" class="header-nav-link w-nav-link">News</a><div class="w-layout-hflex header-buttons"><a data-ms-content="!members" href="/become-a-member" class="button is-filled w-button">Become a member</a><a data-ms-content="!members" href="/login" class="button w-button">Login</a></div></nav><div class="header-menu w-nav-button"><div class="w-icon-nav-menu"></div></div><div data-hover="false" data-delay="0" data-ms-content="members" class="dropdown-user w-dropdown"><div class="dropdown-user-btn w-dropdown-toggle"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67dc1079b6e5f1c6d1106640_member-icon.svg" loading="lazy" alt="Icône représentant un profil"/></div><nav class="dropdown-list w-dropdown-list"><a data-ms-action="logout" href="#" class="dropdown-link w-dropdown-link">Logout</a></nav></div></div></div></div></div></header><main><main class="section-hero-annual-report"><div class="wrapper-large"><div class="grid-2-2 is-align-center"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/6a0da0f59d69ca1ab96f950c_GIIGNL-AR2026-Post_under_1MB.jpg" loading="lazy" sizes="(max-width: 1600px) 100vw, 1600px" srcset="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/6a0da0f59d69ca1ab96f950c_GIIGNL-AR2026-Post_under_1MB-p-500.jpg 500w, https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/6a0da0f59d69ca1ab96f950c_GIIGNL-AR2026-Post_under_1MB-p-800.jpg 800w, https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/6a0da0f59d69ca1ab96f950c_GIIGNL-AR2026-Post_under_1MB-p-1080.jpg 1080w, https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/6a0da0f59d69ca1ab96f950c_GIIGNL-AR2026-Post_under_1MB.jpg 1600w" alt=""/><div><h1>GIIGNL Annual Report</h1><p class="text-size-lg mb-16"><strong>GIIGNL has published its 2026 Annual Report, highlighting the key figures, developments, and trends shaping the LNG market in 2025.</strong></p><p class="mb-40">Recognized as a leading industry reference, the report provides insights into global LNG trade, infrastructure, supply, demand, and market evolution.<br/>‍<br/>The 2026 Annual Reportis publicly available for download in PDF format. Detailed Excel tables are available exclusively to GIIGNL members.</p><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><div class="w-layout-hflex flex-block"><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/giignl-2026-annual-report.pdf" target="_blank" class="w-button">Consult our annual report</a><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2026-major-flows.pdf" target="_blank" class="w-button">See Major LNG Flow in 2025</a></div></div></div></div></div></div></div></main><section class="p-relative"><div class="bg-primary"></div><div class="wrapper-large"><div class="grid-4-4"><div class="card-lng-data"><div class="heading-style-h2 mb-0 key-number">428 MT (+5%)</div><div class="text-wrapper"><div class="card-text-bold">Imported</div><div class="card-text">35% on a spot basis</div></div></div><div class="card-lng-data is-bg-primary"><div class="heading-style-h2 mb-0 key-number is-white">524 MTPA</div><div class="text-wrapper"><div class="card-text-bold">Liquefaction capacity</div><div class="card-text">inc. 16.5 MTPA of FLNG</div></div></div><div class="card-lng-data is-bg-secondary"><div class="heading-style-h2 mb-0 key-number">1,247 MTPA</div><div class="text-wrapper"><div class="card-text-bold">Regasification capacity</div><div class="card-text">9 new terminals / 9 expansions</div></div></div><div class="card-lng-data"><div class="heading-style-h2 mb-0 key-number">899</div><div class="text-wrapper"><div class="card-text-bold">Vessels</div><div class="card-text">+8% fleet growth</div></div></div><div class="card-lng-data is-bg-secondary"><div class="heading-style-h2 mb-0 key-number">+22 MT Global</div><div class="text-wrapper"><div class="card-text-bold">+28 MT in Europe</div><div class="card-text">-11 MT in Asia</div></div></div><div class="card-lng-data"><div class="heading-style-h2 mb-0 key-number">3 new projects</div><div class="text-wrapper"><div class="card-text-bold">1 expansion</div><div class="card-text">9 FIDs taken</div></div></div><div class="card-lng-data is-bg-primary"><div class="heading-style-h2 mb-0 key-number is-white">+25 MTPA in Asia</div><div class="text-wrapper"><div class="card-text-bold">3rd terminal in Taiwan</div><div class="card-text">8th terminal in India</div></div></div><div class="card-lng-data is-bg-secondary"><div class="heading-style-h2 mb-0 key-number">4 MT (+38%)</div><div class="text-wrapper"><div class="card-text-bold">LNG bunkering</div><div class="card-text">+3 LNGBV</div></div></div></div></div></section><div class="wrapper-large"><section class="section-padding"><h2>Detailed Maps and Tables</h2><div class="section-cta-member"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/685bc6981dbddfdb930f83c2_log-in.svg" loading="lazy" alt="" class="icon-login"/><div class="heading-style-h4 is-align-center">these documents are for members only</div><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><a href="/annual-report/2026" class="w-inline-block"><div>Click here to access all files</div></a></div></div></div></div></section></div><section class="section-padding bg-lines"><div class="wrapper-large"><div class="grid-2-2 is-align-top"><h2>Latest annual report</h2><div id="w-node-_170fbda5-7d44-275e-936e-6b7319612c4c-e81ed678" class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><div data-hover="false" data-delay="0" class="accordion w-dropdown"><div class="_w-dropdown w-dropdown-toggle"><div class="heading-style-h3">2025</div><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cde59a4404379459cdb237_arrow-right-dark.svg" loading="lazy" alt="Flèche bleue vers la droite" class="faq-arrow"/></div><nav class="accordion-body w-dropdown-list"><div class="card-file"><div class="w-layout-hflex h-flex-center-gap-16"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67ceab478d6b38012a07ef37_table-icon.svg" loading="lazy" alt="Icône représentant un tableau excel sur un fond rond bleu clair"/><div>GIIGNL Annual Report 2025</div></div><div class="w-layout-hflex h-flex-center-gap-16"><div class="badge is-green">Annual Report</div><div class="text-size-small text-color-light">June 3, 2024</div><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2025-annual-report.pdf" target="_blank" class="button is-download-fix is-full-width-on-mobile w-inline-block"><div class="w-layout-hflex button-flex"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cc7fe59a604cd43f9f7bf3_download-icon.svg" loading="lazy" width="20" alt="Icône invitant au téléchargement d&#x27;un fichier"/><div>Download</div></div></a></div></div><a href="/annual-report/2025" class="w-inline-block"><div>Access all files</div></a></nav></div></div><div role="listitem" class="w-dyn-item"><div data-hover="false" data-delay="0" class="accordion w-dropdown"><div class="_w-dropdown w-dropdown-toggle"><div class="heading-style-h3">2024</div><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cde59a4404379459cdb237_arrow-right-dark.svg" loading="lazy" alt="Flèche bleue vers la droite" class="faq-arrow"/></div><nav class="accordion-body w-dropdown-list"><div class="card-file"><div class="w-layout-hflex h-flex-center-gap-16"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67ceab478d6b38012a07ef37_table-icon.svg" loading="lazy" alt="Icône représentant un tableau excel sur un fond rond bleu clair"/><div>GIIGNL Annual Report 2024</div></div><div class="w-layout-hflex h-flex-center-gap-16"><div class="badge is-green">Annual Report</div><div class="text-size-small text-color-light">June 3, 2024</div><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2024-annual-report.pdf" target="_blank" class="button is-download-fix is-full-width-on-mobile w-inline-block"><div class="w-layout-hflex button-flex"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cc7fe59a604cd43f9f7bf3_download-icon.svg" loading="lazy" width="20" alt="Icône invitant au téléchargement d&#x27;un fichier"/><div>Download</div></div></a></div></div><a href="/annual-report/2024" class="w-inline-block"><div>Access all files</div></a></nav></div></div><div role="listitem" class="w-dyn-item"><div data-hover="false" data-delay="0" class="accordion w-dropdown"><div class="_w-dropdown w-dropdown-toggle"><div class="heading-style-h3">2023</div><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cde59a4404379459cdb237_arrow-right-dark.svg" loading="lazy" alt="Flèche bleue vers la droite" class="faq-arrow"/></div><nav class="accordion-body w-dropdown-list"><div class="card-file"><div class="w-layout-hflex h-flex-center-gap-16"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67ceab478d6b38012a07ef37_table-icon.svg" loading="lazy" alt="Icône représentant un tableau excel sur un fond rond bleu clair"/><div>GIIGNL Annual Report 2023</div></div><div class="w-layout-hflex h-flex-center-gap-16"><div class="badge is-green">Annual Report</div><div class="text-size-small text-color-light">June 3, 2024</div><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2023-annual-report.pdf" target="_blank" class="button is-download-fix is-full-width-on-mobile w-inline-block"><div class="w-layout-hflex button-flex"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cc7fe59a604cd43f9f7bf3_download-icon.svg" loading="lazy" width="20" alt="Icône invitant au téléchargement d&#x27;un fichier"/><div>Download</div></div></a></div></div><a href="/annual-report/2023" class="w-inline-block"><div>Access all files</div></a></nav></div></div><div role="listitem" class="w-dyn-item"><div data-hover="false" data-delay="0" class="accordion w-dropdown"><div class="_w-dropdown w-dropdown-toggle"><div class="heading-style-h3">2022</div><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cde59a4404379459cdb237_arrow-right-dark.svg" loading="lazy" alt="Flèche bleue vers la droite" class="faq-arrow"/></div><nav class="accordion-body w-dropdown-list"><div class="card-file"><div class="w-layout-hflex h-flex-center-gap-16"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67ceab478d6b38012a07ef37_table-icon.svg" loading="lazy" alt="Icône représentant un tableau excel sur un fond rond bleu clair"/><div>GIIGNL Annual Report 2022</div></div><div class="w-layout-hflex h-flex-center-gap-16"><div class="badge is-green">Annual Report</div><div class="text-size-small text-color-light">June 3, 2024</div><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2022-annual-report.pdf" target="_blank" class="button is-download-fix is-full-width-on-mobile w-inline-block"><div class="w-layout-hflex button-flex"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cc7fe59a604cd43f9f7bf3_download-icon.svg" loading="lazy" width="20" alt="Icône invitant au téléchargement d&#x27;un fichier"/><div>Download</div></div></a></div></div><a href="/annual-report/2022" class="w-inline-block"><div>Access all files</div></a></nav></div></div><div role="listitem" class="w-dyn-item"><div data-hover="false" data-delay="0" class="accordion w-dropdown"><div class="_w-dropdown w-dropdown-toggle"><div class="heading-style-h3">2021</div><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cde59a4404379459cdb237_arrow-right-dark.svg" loading="lazy" alt="Flèche bleue vers la droite" class="faq-arrow"/></div><nav class="accordion-body w-dropdown-list"><div class="card-file"><div class="w-layout-hflex h-flex-center-gap-16"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67ceab478d6b38012a07ef37_table-icon.svg" loading="lazy" alt="Icône représentant un tableau excel sur un fond rond bleu clair"/><div>GIIGNL Annual Report 2021</div></div><div class="w-layout-hflex h-flex-center-gap-16"><div class="badge is-green">Annual Report</div><div class="text-size-small text-color-light">June 3, 2024</div><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2021-annual-report.pdf" target="_blank" class="button is-download-fix is-full-width-on-mobile w-inline-block"><div class="w-layout-hflex button-flex"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cc7fe59a604cd43f9f7bf3_download-icon.svg" loading="lazy" width="20" alt="Icône invitant au téléchargement d&#x27;un fichier"/><div>Download</div></div></a></div></div><a href="/annual-report/2021" class="w-inline-block"><div>Access all files</div></a></nav></div></div><div role="listitem" class="w-dyn-item"><div data-hover="false" data-delay="0" class="accordion w-dropdown"><div class="_w-dropdown w-dropdown-toggle"><div class="heading-style-h3">2020</div><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cde59a4404379459cdb237_arrow-right-dark.svg" loading="lazy" alt="Flèche bleue vers la droite" class="faq-arrow"/></div><nav class="accordion-body w-dropdown-list"><div class="card-file"><div class="w-layout-hflex h-flex-center-gap-16"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67ceab478d6b38012a07ef37_table-icon.svg" loading="lazy" alt="Icône représentant un tableau excel sur un fond rond bleu clair"/><div>GIIGNL Annual Report 2020</div></div><div class="w-layout-hflex h-flex-center-gap-16"><div class="badge is-green">Annual Report</div><div class="text-size-small text-color-light">June 3, 2024</div><a href="https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2020-annual-report.pdf" target="_blank" class="button is-download-fix is-full-width-on-mobile w-inline-block"><div class="w-layout-hflex button-flex"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/67cc7fe59a604cd43f9f7bf3_download-icon.svg" loading="lazy" width="20" alt="Icône invitant au téléchargement d&#x27;un fichier"/><div>Download</div></div></a></div></div><a href="/annual-report/2020" class="w-inline-block"><div>Access all files</div></a></nav></div></div></div></div></div></div></section></main><div class="wrapper-large"><footer class="footer"><div class="grid-footer"><div id="w-node-_20037d1f-895c-50dc-aa05-22885953f1df-5953f1dc"><img src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/684ae20890cb758365b89bcc_logo-baseline-white.png" loading="lazy" width="280" sizes="(max-width: 479px) 100vw, 280px" alt="" srcset="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/684ae20890cb758365b89bcc_logo-baseline-white-p-500.png 500w, https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/684ae20890cb758365b89bcc_logo-baseline-white-p-800.png 800w, https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/684ae20890cb758365b89bcc_logo-baseline-white-p-1080.png 1080w, https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/684ae20890cb758365b89bcc_logo-baseline-white.png 1692w" class="mb-24"/><address class="text-address"><div>2, rue de l&#x27;Eglise<br/>92200 Neuilly-sur-Seine – France</div></address><a href="mailto:central-office@giignl.org" class="text-color-white">central-office@giignl.org</a></div><div><div class="footer-title">giignl</div><a href="/members" class="footer-link">Our members</a><a data-ms-content="members" href="/directory" class="footer-link">Directory</a><a href="/events" class="footer-link">Events</a><a href="/about-us" class="footer-link">About Us</a><a href="/annual-report" aria-current="page" class="footer-link w--current">Annual Report</a><a href="https://incidents-giignl.org/login" target="_blank" class="footer-link">Incident database</a></div><div><div class="footer-title">About lng</div><a href="/about-lng" class="footer-link">About LNG</a><a href="/news" class="footer-link">Latest News</a></div><div><div class="footer-title">Membership</div><a href="/become-a-member" class="footer-link">Become a member</a><a href="mailto:central-office@giignl.org" class="footer-link">Contact Us</a></div></div><div class="footer-copyright"><div>© <span class="this-year">2025</span> GIIGNL</div><div>•</div><a href="/terms-of-use" class="text-color-white">Terms of Use</a></div></footer></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=67bdb9fc993751711c5f54fd" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript" integrity="sha384-4abIlA5/v7XaW1HMXKBgnUuhnjBYJ/Z9C1OSg4OhmVw9O3QeHJ/qJqFBERCDPv7G" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/js/webflow.schunk.e469db96ce52d058.js" type="text/javascript" integrity="sha384-u9vF9alenmPK7v96BGr0ahvlSUTZqIdOn5gDIEM39YDnYxVSWsORDyMkLAFb3RPH" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/67bdb9fc993751711c5f54fd/js/webflow.e81060d6.b1a1c077cea9136c.js" type="text/javascript" integrity="sha384-OT9pqo4MZ39yo9szxntKKMUtQhGc8s2mHIwIij6AuEcc8dlGJzMGZBB/IjC53FTU" crossorigin="anonymous"></script><script>
+  $(function () {
+    $('.this-year').text(new Date().getFullYear());
+  });
+
+(function () {
+  const ENDPOINT = 'https://giignlfunctionseba7mjuw-get-pdf-url.functions.fnc.fr-par.scw.cloud'
+  const PUBLIC_BASE = 'https://giignl-documents.s3.fr-par.scw.cloud/'
+
+  function getMemberstackToken() {
+    try {
+      const token = window.$memberstackDom.getMemberCookie()
+      return token || null
+    } catch (_) {
+      return null
+    }
+  }
+
+  async function handleDownload(btn) {
+    const fileKey = btn.getAttribute('data-pdf-key')
+    if (!fileKey) return
+
+    // Nom affiché optionnel (ex: data-filename="GIIGNL Annual Report 2026.pdf")
+    const filename = btn.getAttribute('data-filename') || undefined
+
+    // État chargement — on préserve le HTML interne (icône incluse) au lieu de l'écraser
+    const originalHTML = btn.innerHTML
+    btn.classList.add('giignl-loading')
+    btn.disabled = true
+
+    try {
+      const token = await getMemberstackToken()
+      if (!token) {
+        alert('Vous devez être connecté pour télécharger ce document.')
+        return
+      }
+
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filename ? { fileKey, filename } : { fileKey }),
+      })
+
+      if (res.status === 401 || res.status === 403) {
+        alert('Accès non autorisé. Veuillez vous reconnecter.')
+        return
+      }
+
+      if (!res.ok) {
+        alert('Une erreur est survenue. Veuillez réessayer.')
+        return
+      }
+
+      const { url } = await res.json()
+      window.open(url, '_blank')
+
+    } catch (err) {
+      alert('Une erreur est survenue. Veuillez réessayer.')
+      console.error('[GIIGNL] Erreur download:', err)
+    } finally {
+      btn.innerHTML = originalHTML
+      btn.classList.remove('giignl-loading')
+      btn.disabled = false
+    }
+  }
+
+  // Documents PRIVÉS — délégation sur le document plutôt que binding au chargement.
+  // Les listes rendues par Finsweet CMS Load (pagination, filtres du listing Resources)
+  // remplacent leurs éléments après le DOMContentLoaded : un listener posé une seule fois
+  // sur chaque bouton disparaîtrait avec eux. La délégation survit à ces re-rendus.
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('[data-pdf-key]')
+    if (!btn) return
+    e.preventDefault()
+    handleDownload(btn)
+  })
+
+  // Documents PUBLICS — l'objet est lisible anonymement sous le préfixe `public/` du bucket
+  // (bucket policy posée le 5 sept. 2026). Pas de jeton, pas d'URL pré-signée, pas d'appel
+  // serveur : on reconstruit l'URL depuis la clé et on ouvre dans un nouvel onglet.
+  // Aucun Content-Disposition n'est posé à l'upload, donc le PDF s'affiche dans la
+  // visionneuse du navigateur plutôt que de se télécharger (arbitrage client du 1er sept.).
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('[data-public-key]')
+    if (!a) return
+    e.preventDefault()
+    window.open(PUBLIC_BASE + a.getAttribute('data-public-key'), '_blank')
+  })
+})()
+</script><style>
+  /* Smooth arrow rotation (already handled by JS, this just animates it) */
+  .faq-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  /* Animate the dropdown content */
+  .w-dropdown-list {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+  }
+
+  /* When dropdown is open (Webflow adds .w--open to the wrapper) */
+  .w-dropdown.w--open .w-dropdown-list {
+    max-height: 1000px; /* Adjust to fit your longest content */
+    opacity: 1;
+  }
+</style>
+
+
+<style>
+	.footer {margin-top: 0;}
+</style>
+
+
+</body></html>

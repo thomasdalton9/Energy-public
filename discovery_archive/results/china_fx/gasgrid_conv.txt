@@ -1,0 +1,141 @@
+=== page 1 ===
+Conversion table 
+ 
+1 (2) 
+Annex 13 
+ 
+30/11/2022 
+ 
+Floating LNG Terminal Finland Oy 
+Keilaranta 19 D 
+FI- 02150 Espoo, Finland 
+Business ID 3285669-8 
+Reg. Domicile, Espoo 
+www.gasgrid.fi  
+Annex 13 
+Conversion table 
+ 
+From / To 
+Multiply by 
+Tonnes 
+of LNG 
+ 
+Cubic 
+meters 
+(m3) of 
+LNG 
+Normal 
+cubic 
+meters 
+(Nm3) of 
+Natural Gas 
+Normal 
+Cubic feet 
+(Nft3) of 
+Natural 
+Gas 
+ 
+Standard 
+cubic 
+meters 
+(Sm3) of 
+Natural 
+Gas 
+Million 
+British 
+Thermal 
+Units 
+(mmBtu) 
+ 
+Barrel of 
+oil 
+equivale
+nt (BOE) 
+Tonnes of LNG  
+1 
+2.222 
+1,300 
+45,909 
+1,372 
+53.38 
+9.203 
+Cubic meters 
+(m3) of LNG 
+0.450 
+1 
+585 
+20,659 
+617 
+24.02 
+4.141 
+Normal cubic 
+meters (Nm3) of 
+Natural Gas 
+7.692 x 
+10-4 
+0.0017 
+1 
+35.31 
+1.0553 
+0.0411 
+0.0071 
+Normal Cubic 
+feet (Nft3) of 
+Natural Gas  
+2.178 x 
+10-5 
+4.8 x     
+10-5 
+0.0283 
+1 
+0.0299 
+0.0012 
+2.005 x 
+10-4 
+Standard cubic 
+meters (Sm3) of 
+Natural Gas 
+7.289 x 
+10-4 
+0.0016 
+0.9476 
+33.46 
+1 
+0.0389 
+0.0067 
+Million British 
+Thermal Units 
+(mmBtu) 
+0.0187 
+0.0416 
+24.36 
+860.1 
+25.71 
+1 
+0.1724 
+Barrel of oil 
+equivalent 
+(BOE) 
+0.1087 
+0.2415 
+141.3 
+4,989 
+149.1 
+5.8 
+1 
+ 
+Note: In this conversion table, Natural Gas is assumed at Normal conditions (N) defined at a temperature of 0 oC and a pressure of 1 atm (Nm3 are m3 
+at Normal conditions). 
+
+=== page 2 ===
+ 
+ 
+2 (2) 
+www.gasgrid.fi 
+Note: In this conversion table, Standard Conditions (S) of Natural Gas are defined at a temperature of 15 oC and a pressure of 1 atm (Sm3 are m3 at 
+Standard conditions). Conversion factor Sm3 -> Nm3 is 0,9476 (ISO 13443:1996, Annex A, Table A.1). 
+ 
+Note: This conversion table is provided for illustrative purposes. The actual relevant parameters of LNG and/or Natural Gas are measured according to 
+the provisions of the Terminal Rules. 
+ 
+Source: Natural Gas Conversion Pocketbook, International Gas Union (IGU). 
