@@ -23,7 +23,7 @@ Reads (doesn't refetch) the workbooks the scheduled pulls write to
 "output/Data and Chart Outputs/". A missing input is listed on the
 Dashboard and skipped rather than stopping the rest.
 
-Usage: python3 NORTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/north_america_master.xlsx"]
+Usage: python3 NORTH_AMERICA_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/north_america_master.xlsx"]
 """
 import argparse
 import os
@@ -52,6 +52,7 @@ DATASETS = [
     ("US", "United States", "texas_gas_monthly.xlsx", ("Consumption by sector", "Exports", "Mexico by crossing", "Balance", "Forecast values"),
      "Texas gas"),
     ("US", "United States", "texas_production_forecast.xlsx", ("Supply and demand", "Demand to 2033"), "Texas supply and demand"),
+    ("US", "United States", "gulf_coast_gas_balance.xlsx", ("Texas", "Louisiana", "Combined"), "Gulf Coast balance"),
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
@@ -81,7 +82,8 @@ CAPACITY_DATASETS = [
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
-DASHBOARD_ONLY = {"texas_production_forecast.xlsx": {"Supply and demand", "Net outflow", "Demand to 2033", "Outflow to 2033"},
+DASHBOARD_ONLY = {"gulf_coast_gas_balance.xlsx": {"Combined Gulf", "Supply growth vs LNG demand"},
+                  "texas_production_forecast.xlsx": {"Supply and demand", "Net outflow", "Demand to 2033", "Outflow to 2033"},
                   "us_gas.xlsx": {"Demand", "Production", "Trade", "Storage"},
                   "henry_hub_daily.xlsx": {"Henry Hub"},
                   "miso_gas_burn_daily.xlsx": {"MISO gas burn"},
@@ -199,13 +201,15 @@ SOURCES = {
                                        "(EIA exports x 1.09; forecast from texas_gas_monthly.xlsx); production = EIA dry gas (history) and a forecast from "
                                        "EIA STEO regional marketed production (Permian, Eagle Ford, Haynesville) capped by Permian takeaway capacity "
                                        "(company-announced pipelines, unverified), less NGL extraction loss; outflow = production - demand (own calculation). "
-                                       "To Dec 2033 (scenario after Dec 2028, lightest bars): data centres = IEA 'Energy and AI' (Apr 2025) US data-centre electricity "
-                                       "(~180 TWh 2024, ~+240 TWh by 2030; endpoints 2030 and 2035, years between interpolated; figures unverified, from memory) x an "
-                                       "assumed Texas share of US growth (ERCOT large-load queue as cross-check, unverified), converted to gas at the calibrated ERCOT "
-                                       "heat rate (ercot_gas_burn_daily.xlsx), load factor and gas share (own assumptions); LNG train table held at steady utilisation; "
-                                       "production extension damped and capped by takeaway (own assumptions, not STEO)",
+                                       "To Dec 2033 (scenario after Dec 2028, lightest bars): data centres = IEA 'Energy and AI' (Apr 2025) US data-centre electricity (183 TWh 2024, 426 TWh 2030 Base Case; LOW / HIGH = IEA Headwinds / Lift-Off world ratios; years between interpolated) x a Texas share of US growth derived from ERCOT's own data-centre forecast (CDR Dec 2025, 22.2 GW for summer 2030) and the IEA US capacity addition, converted to gas at the calibrated ERCOT heat rate, the IEA US load factor and ERCOT's observed gas share of generation (EIA-930, a proxy for the marginal share); each input is labelled SOURCED / DERIVED / PROXY / ASSUMPTION on the 'Assump - Data centres' tab (cross-checks: LBNL 2024 report, EIA AEO2026, ERCOT large-load queue); LNG train table held at steady utilisation; production extension damped and capped by takeaway (own assumptions, not STEO)",
                                        "https://www.eia.gov/outlooks/steo/data/browser/#/?v=6&f=M&s=0&start=202401&end=202812&id=&linechart=NGMPPM"),
-    "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
+    "gulf_coast_gas_balance.xlsx": ("Gulf Coast (Texas + Louisiana) gas balance: EIA Natural Gas Monthly via API v2 (Louisiana consumption, production, LNG exports of Sabine Pass, "
+                                    "Cameron, Calcasieu Pass and Plaquemines; feedgas = exports x 1.09), the Texas workbooks (texas_gas_monthly, texas_production_forecast), EIA STEO "
+                                    "Permian / Eagle Ford / Haynesville marketed production (extension after Dec 2027, 2029-30 scenario), Permian takeaway table (unverified) and the "
+                                    "EIA U.S. liquefaction capacity file 2026 Q2 for new Louisiana LNG trains (year/half-year sourced, month assumed; pre-FID projects not forecast); "
+                                    "outflow and extra-supply figures are own calculations",
+                                    "https://www.eia.gov/naturalgas/importsexports/liquefactioncapacity/U.S.liquefactioncapacity_2026_Q2.xlsx"),
+    "henry_hub_daily.xlsx": ("EIA, Henry Hub natural gas spot price (RNGWHHD); front-month futures: NYMEX via Yahoo Finance (NG=F)", "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm"),
     "lng_feedgas_daily.xlsx": ("Interstate pipeline operators' scheduled quantities at each LNG plant (Kinder Morgan, "
                                "Enbridge, Williams, Energy Transfer, Cheniere, ...); EIA monthly LNG exports before "
                                "the daily pull", "https://www.eia.gov/dnav/ng/ng_move_poe2_a_EPG0_ENG_Mmcf_m.htm"),
@@ -287,7 +291,7 @@ def north_america_generation(data_dir, have_raw, frames_out=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "north_america_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "north_america_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]
@@ -341,14 +345,16 @@ def main():
                          f"month ({cap_total.index.max():%b/%y}) held for later months"]
     if not total.empty:
         ws = wb.create_sheet(sam.sheet_name("NA generation total data", used))
-        df, n_bars = xlsx_charts.prepare(total, (CAP_LINE,))
+        total, gen_units = xlsx_charts.monthly_energy_to_gw(total, "TWh per month", "power generation")
+        cap_line = CAP_LINE.replace("(TWh at full output)", "(GW)")
+        df, n_bars = xlsx_charts.prepare(total, (cap_line,))
         xlsx_charts.write_table(ws, df)
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
         src = ("Sum of the country series on this dashboard (EIA-930, StatCan; Ember for Mexico)", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "North America power generation by source",
-                                                    "TWh per month", "stacked_bar", width=sam.CHART_W,
+                                                    gen_units, "stacked_bar", width=sam.CHART_W,
                                                     height=sam.CHART_H, gridlines=False,
                                                     inner=xlsx_charts.DASHBOARD_INNER), src))
         missing = [n.split(":", 1)[1].split(" in ")[0].strip() for n in notes if n.startswith("NOT INCLUDED")]
