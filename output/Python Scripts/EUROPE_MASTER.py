@@ -24,7 +24,7 @@ GB is not in the ENTSO-E generation set (no GB data after 2020); it needs its ow
 Reads (doesn't refetch) the workbooks the scheduled pulls write to "output/Data and Chart Outputs/". A missing input
 is listed on the Dashboard and skipped rather than stopping the rest.
 
-Usage: python3 EUROPE_MASTER.py [--out "output/Data and Chart Outputs/europe_master.xlsx"]
+Usage: python3 EUROPE_MASTER.py [--out "output/Data and Chart Outputs/Master Outputs/europe_master.xlsx"]
 """
 import argparse
 import os
@@ -355,6 +355,7 @@ def total_chart(wb, used, power, pos, df_total, notes, sheet, title, units, src,
                 label="Europe", line_cols=()):
     """Chart + data tab; pos=None appends to the dashboard lists, otherwise inserts at pos."""
     ws = wb.create_sheet(sam.sheet_name(sheet, used))
+    df_total, units = xlsx_charts.monthly_energy_to_gw(df_total, units, title)
     df, n_bars = xlsx_charts.prepare(df_total, line_cols)
     xlsx_charts.write_table(ws, df, date_format)
     ws.cell(row=1, column=df.shape[1] + 4, value=note_head)
@@ -1511,7 +1512,7 @@ def ireland_gas_balance(data_dir):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(DATA_DIR, "europe_master.xlsx"))
+    ap.add_argument("--out", default=os.path.join(DATA_DIR, "Master Outputs", "europe_master.xlsx"))
     ap.add_argument("--data-dir", default=DATA_DIR)
     args = ap.parse_args()
     cfg = sys.modules[__name__]
