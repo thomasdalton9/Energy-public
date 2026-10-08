@@ -208,8 +208,8 @@ def main():
         ("LNG_Mt", "LNG", "Mt per month", "natural gas imports", "stacked_bar"),
         ("Natural_Gas_Other_Than_LNG_Mt", "Pipeline and other non-liquefied gas (total less LNG)", "Mt per month",
          "natural gas imports", "stacked_bar"),
-        ("Crude_Oil_Mt", "Crude oil", "Mt per month", "crude oil and refined product imports", "line"),
-        ("Refined_Products_Mt", "Refined petroleum products", "Mt per month", "crude oil and refined product imports",
+        ("Crude_Oil_Mt", "Crude oil", "Mt per month", "crude oil and product imports", "line"),
+        ("Refined_Products_Mt", "Refined petroleum products", "Mt per month", "crude oil and product imports",
          "line"),
         ("Coal_Mt", "Coal and lignite", "Mt per month", "coal imports", "line")],
         columns=["column", "label", "unit", "chart", "kind"]).set_index("column")
