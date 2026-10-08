@@ -181,7 +181,7 @@ def draw_png(series, title, path):
     ax.set_xlim(1, 52)
     ax.set_ylabel("Thousand barrels", fontsize=7, loc="top")
     ax.legend(frameon=False, fontsize=6, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.0), columnspacing=1.2, handlelength=2.2)
-    fig.patches.append(matplotlib.patches.Rectangle((0, 0.88), 1, 0.12, transform=fig.transFigure, color="#0B4A3C", zorder=0))
+    fig.patches.append(matplotlib.patches.Rectangle((0, 0.88), 1, 0.12, transform=fig.transFigure, color="#17365D", zorder=0))
     fig.text(0.02, 0.94, title, color="white", fontsize=8.5, fontweight="bold", va="center")
     fig.text(0.02, 0.02, f"Source: EIA weekly petroleum status report, to {pd.Timestamp(meta['last']):%d %b %Y}. Calendar-year weeks.", fontsize=5.5, color="#555")
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -194,7 +194,14 @@ def main():
     ap.add_argument("--out", default=DEFAULT_OUT)
     ap.add_argument("--png-dir", default=DEFAULT_PNG)
     ap.add_argument("--synthetic", action="store_true", help="fake data, for testing the charts only")
+    ap.add_argument("--png-only", action="store_true", help="redraw the PNGs from the saved workbook (no download, workbook untouched)")
     a = ap.parse_args()
+    if a.png_only:
+        full = add_totals(load_archive(a.out).dropna(subset=list(SERIES)))
+        for key, (label, png, title) in CHARTS.items():
+            draw_png(full[key], title, os.path.join(a.png_dir, png))
+        print(f"Redrew {len(CHARTS)} PNGs from {a.out} (to {full.index.max().date()})", file=sys.stderr)
+        return
 
     if a.synthetic:
         new, source = synthetic(), "synthetic (TEST ONLY)"
