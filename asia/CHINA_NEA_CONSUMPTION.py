@@ -181,9 +181,9 @@ def main():
     out["Releases"] = pd.DataFrame(log_rows, columns=["Release_Date", "Title", "URL", "Status"]).set_index("Release_Date")
     labels = {"Primary": "Primary industry", "Secondary": "Secondary industry", "Tertiary": "Tertiary industry",
               "Residential": "Urban and rural residential"}
-    ser = [(f"{k}_TWh", labels[k], "TWh per month", "electricity consumption by sector", "stacked_bar") for k, _ in SECTORS]
-    ser += [("Total_YoY_pct", "Total", "% y/y", "electricity consumption growth y/y", "line")]
-    ser += [(f"{k}_YoY_pct", labels[k], "% y/y", "electricity consumption growth y/y", "line") for k, _ in SECTORS]
+    ser = [(f"{k}_TWh", labels[k], "TWh per month", "electricity use by sector", "stacked_bar") for k, _ in SECTORS]
+    ser += [("Total_YoY_pct", "Total", "% y/y", "electricity use growth y/y", "line")]
+    ser += [(f"{k}_YoY_pct", labels[k], "% y/y", "electricity use growth y/y", "line") for k, _ in SECTORS]
     out["Series"] = pd.DataFrame(ser, columns=["column", "label", "unit", "chart", "kind"]).set_index("column")
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, out, NOTES_LINES, NOTES_SECTION_TITLES)

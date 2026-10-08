@@ -42,7 +42,7 @@ import xlsx_notes  # noqa: E402
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "china_nea_capacity_monthly.xlsx")
 TYPES = ["Hydro", "Thermal", "Nuclear", "Wind", "Solar"]
-STOCK_COLS = ["Total_GW"] + [f"{t}_GW" for t in TYPES]
+STOCK_COLS = ["Total_GW"] + [f"{t}_GW" for t in TYPES] + ["Other_GW"]
 ADD_COLS = ["Added_YTD_Total_GW"] + [f"Added_YTD_{t}_GW" for t in TYPES]
 COLS = STOCK_COLS + ADD_COLS + ["Method", "Release_Date", "Release_URL"]
 TYPE_CHARS = {"Hydro": "水", "Thermal": "火", "Nuclear": "核", "Wind": "风", "Solar": "太阳"}
@@ -362,6 +362,7 @@ def main():
         if rec is not None and st.startswith("ok"):
             row = {f"{t}_GW": rec["cap"][t] / 100.0 for t in TYPES}
             row["Total_GW"] = rec["cap"]["total"] / 100.0
+            row["Other_GW"] = round(row["Total_GW"] - sum(row[f"{t}_GW"] for t in TYPES), 2)   # total less the five types, as published
             row.update({f"Added_YTD_{t}_GW": (None if rec["add"][t] is None else rec["add"][t] / 100.0) for t in TYPES})
             row["Added_YTD_Total_GW"] = None if rec["add"]["total"] is None else rec["add"]["total"] / 100.0
             row.update({"Method": method, "Release_Date": r["date"], "Release_URL": r["url"]})
@@ -376,7 +377,7 @@ def main():
     if d.empty:
         raise SystemExit("No data at all - nothing to save.")
     out = {"Data": d, "Releases": pd.DataFrame(log_rows, columns=["Release_Date", "Title", "URL", "Period", "Method", "Status"]).set_index("Release_Date")}
-    ser = [(f"{t}_GW", t, "GW installed", "installed capacity by type", "stacked_bar") for t in TYPES]
+    ser = [(f"{t}_GW", t, "GW installed", "installed capacity by type", "stacked_bar") for t in TYPES + ["Other"]]
     out["Series"] = pd.DataFrame(ser, columns=["column", "label", "unit", "chart", "kind"]).set_index("column")
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, out, NOTES_LINES, NOTES_SECTION_TITLES)
@@ -390,7 +391,8 @@ NOTES_LINES = [
     "UNITS",
     "*_GW: cumulative installed generating capacity at the end of the month, GW (source unit 万千瓦, 10,000 kW, / 100): "
     "Total, Hydro (incl. pumped storage), Thermal (coal, gas, biomass etc.), Nuclear, Wind, Solar (NEA's categories; the "
-    "five types add up to the total within a few 万千瓦, checked on every release). Added_YTD_*_GW: capacity added in the "
+    "five types add up to the total within a few 万千瓦 in 2020-22 and from Dec 2023; in 2023 NEA's own monthly rows left up "
+    "to 26 GW unallocated, shown as Other_GW = total less the five types, as published; OCR releases must add up). Added_YTD_*_GW: capacity added in the "
     "year to date (January to the statistics month) by type as published; blank where the release has no such rows "
     "(some 2026 releases) or a cell could not be read.",
     "One row per month for which NEA published a release. January has no row of its own: NEA publishes January-February "
