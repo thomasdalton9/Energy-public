@@ -104,10 +104,15 @@ HYDRO_DATASETS = [
     ("PA", "Panama", "gatun_lake_level.xlsx", "Daily", "hydro"),
     ("PE", "Peru", "peru_hydro_reservoirs.xlsx", "Daily", "hydro"),
     ("UY", "Uruguay", "uruguay_hydro_reservoirs.xlsx", "Daily", "hydro"),
+    # NASA POWER rainfall at one point per catchment, cumulative since 1 Oct vs the 5 previous water years
+    ("RF", "South America", "south_america_rainfall_daily.xlsx", ("Monthly", "Daily"), "rainfall"),
 ]
 # The Power & Hydro dashboard shows one national hydro chart per country (each workbook's first water-year
 # spec) plus these extra regional charts by spec name; the full sets stay in each country workbook.
-HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"}}
+HYDRO_EXTRA = {"brazil_hydro_reservoirs.xlsx": {"N"},
+               # every catchment's rainfall chart, not just the first
+               "south_america_rainfall_daily.xlsx": {"BR_SECO", "BR_S", "BR_NE", "BR_N", "CO", "EC", "PE", "CL_LAJA",
+                                                     "CL_MAULE", "AR_COMAHUE", "UY", "PY_PARANA", "PA"}}
 # Installed generation capacity by technology (standard <country>_power_capacity.xlsx, sheet "Monthly")
 CAPACITY_DATASETS = [(code, country, f"{country.lower()}_power_capacity.xlsx", "Monthly", "capacity")
                      for code, country in [("AR", "Argentina"), ("BO", "Bolivia"), ("BR", "Brazil"), ("CL", "Chile"),
@@ -179,6 +184,10 @@ SOURCES = {
                                    "https://www.coes.org.pe/Portal/PostOperacion/Informes/EvaluacionSemanal"),
     "ecuador_hydro_reservoirs.xlsx": ("CELEC EP - CELEC SUR, Gráficas de Producción (Mazar / Amaluza SCADA levels)",
                                       "https://generacioncsr.celec.gob.ec/graficasproduccion/"),
+    "south_america_rainfall_daily.xlsx": ("NASA POWER (Langley Research Center) daily PRECTOTCORR rainfall - a satellite/"
+                                          "reanalysis-derived (MERRA-2 / IMERG) value for the grid cell at ONE point of each "
+                                          "catchment, NOT a rain gauge or a basin average",
+                                          "https://power.larc.nasa.gov/docs/services/api/temporal/daily/"),
     "uruguay_hydro_reservoirs.xlsx": ("ADME Uruguay (Río Negro lake levels, SCADA); INA Argentina (Salto Grande lake level)",
                                       "https://pronos.adme.com.uy/seriesbonete.php"),
     "belize_power_generation_daily.xlsx": ("Belize Electricity Ltd (BEL)", "https://www.bel.com.bz/"),
