@@ -126,6 +126,23 @@ def tidy_layout(chart, gridlines=True, inner=None):
 DASHBOARD_INNER = (0.12, 0.15, 0.83, 0.52)
 
 
+BCF_PER_MCM = 0.0353147   # billion cubic feet per million cubic metres
+
+
+def gas_volume_to_bcfd(df, units, title):
+    """Gas volume flows in mcm/d (million m3/day) or MMscf/d -> Bcf/d, keeping any suffix of the unit label
+    ('(monthly average)', '(1,030 Btu/cf)', ', annual average'). Only charts whose title says gas; returns (df, units)."""
+    import re as _re
+    u = str(units)
+    if "gas" not in str(title).lower() or df is None or df.empty:
+        return df, units
+    m = _re.match(r"^(million m3/day|mcm/day|mcm/d|MMscf/d)(.*)$", u)
+    if not m:
+        return df, units
+    k = 0.001 if m.group(1) == "MMscf/d" else BCF_PER_MCM
+    return df.apply(pd.to_numeric, errors="coerce") * k, "Bcf/d" + m.group(2)
+
+
 GW_TITLE_KEYS = ("generation", "production by technology", "power balance", "net electricity imports",
                  "grid batteries", "hydro: domestic use")
 

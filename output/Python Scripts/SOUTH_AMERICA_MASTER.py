@@ -368,6 +368,7 @@ def source_of(fname, spec_name=None, cfg=None):
         publisher = f"Ember, compiled from {cfg.OPERATORS[spec_name]} (no raw feed yet)"
     return publisher, url
 
+GAS_BCFD = True   # collect() shows gas volume charts in Bcf/d for this master only (other masters pass their own cfg)
 CHART_W, CHART_H = 21.0, 11.0      # cm - room for the title, rotated date labels and axis titles
 ROWS_PER_CHART = 24                # 11 cm is ~21 default rows, plus the source line and a gap
 COLS = ("B", "F")                  # two charts per row (B-E are sized to ~21 cm, so F starts the second)
@@ -445,6 +446,8 @@ def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
                                    ws.title, *src))
                 continue
             s_df, s_units = xlsx_charts.monthly_energy_to_gw(s["df"].dropna(how="all"), s["units"], s["title"])
+            if getattr(cfg, "GAS_BCFD", False):   # South America master: gas volumes in Bcf/d (owner's choice, Oct 2026)
+                s_df, s_units = xlsx_charts.gas_volume_to_bcfd(s_df, s_units, s["title"])
             df, n_bars = xlsx_charts.prepare(s_df, s.get("line_cols", ()))
             if df.empty:
                 continue
