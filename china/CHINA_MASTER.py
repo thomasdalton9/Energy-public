@@ -67,7 +67,7 @@ POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
          ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"}),
          ("CN", "China", CAP, ("Data", "Releases"), "NEA capacity", {"installed capacity by t"}),
          ("CN", "China", CONS, ("Data", "Jan-Feb", "YTD", "Releases"), "NEA consumption",
-          {"electricity use by sect", "electricity use growth y"})]
+          {"electricity use by sect", "electricity use growth"})]
 FUELS = [("CN", "China", PROD, (), "energy production",
           {"raw coal output", "coke output", "crude oil output and re"}),
          ("CN", "China", IMPORTS, ("Data",), "energy imports", {"crude oil and product i", "coal imports"})]
