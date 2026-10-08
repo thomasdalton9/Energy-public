@@ -129,6 +129,7 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     for i, day in enumerate(table["Day"], start=2):
         if meta.get("weekly"):   # label weeks 1, 5, 9 ... (every 4th)
             keep = (i - 2) % 4 == 0
+            day = str(day).replace("Week ", "Wk ")   # short, so the labels stay horizontal and are never cut off
         else:
             keep = str(day).startswith("01-")
         ws.cell(row=i, column=label_col, value=day if keep else None)
@@ -161,7 +162,9 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     area.x_axis.tickLblSkip = 1
     area.x_axis.tickMarkSkip = 1
     area.x_axis.tickLblPos = "low"   # dates below the plot, not on the zero line
-    xlsx_charts.rotated_labels(area.x_axis)   # same angled date labels as the monthly power/gas charts
+    # same angled date labels as the monthly power/gas charts; the short week labels stay horizontal (angled
+    # "Week n" labels were truncated to "We..." and ran into the legend)
+    xlsx_charts.rotated_labels(area.x_axis, 0 if meta.get("weekly") else -45)
     area.x_axis.delete = False
     area.y_axis.delete = False
     if "%" in str(unit):   # percent full: fixed 0-100 scale, gridline/label every 20%

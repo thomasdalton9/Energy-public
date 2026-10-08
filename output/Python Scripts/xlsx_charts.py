@@ -78,6 +78,34 @@ def tidy_layout(chart, gridlines=True, inner=None):
 DASHBOARD_INNER = (0.12, 0.15, 0.83, 0.52)
 
 
+GW_TITLE_KEYS = ("generation", "production by technology", "power balance", "net electricity imports",
+                 "grid batteries", "hydro: domestic use")
+
+
+def monthly_energy_to_gw(df, units, title):
+    """Power charts: an energy total per month or per year (GWh or TWh) -> average power in GW (energy / hours in the
+    period), so periods of different length are comparable. Gas and other charts (title without a power keyword) are
+    returned unchanged. Returns (df, units)."""
+    import calendar
+    import re as _re
+    m = _re.match(r"^([GT])Wh per (month|year)$", str(units))
+    if not m or not any(k in str(title).lower() for k in GW_TITLE_KEYS) or df is None or df.empty:
+        return df, units
+    if pd.api.types.is_integer_dtype(df.index):   # annual frames indexed by calendar year
+        years = pd.Index(df.index)
+        idx = pd.to_datetime(years.astype(str), format="%Y")
+    else:
+        idx = pd.to_datetime(df.index)
+    if m.group(2) == "month":
+        hours = idx.days_in_month * 24.0
+    else:
+        hours = pd.Index([(366 if calendar.isleap(y) else 365) * 24.0 for y in idx.year])
+    out = df.apply(pd.to_numeric, errors="coerce").div(pd.Series(hours, index=df.index), axis=0) * (
+        1000.0 if m.group(1) == "T" else 1.0)
+    out = out.rename(columns=lambda c: str(c).replace("(TWh at full output)", "(GW)"))   # capacity line = GW itself
+    return out, "GW (monthly average)" if m.group(2) == "month" else "GW (annual average)"
+
+
 def prepare(df, line_cols=()):
     """Clean a wide frame for charting; returns (frame, number of bar/area series before overlay lines)."""
     df = df.copy()
