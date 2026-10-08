@@ -69,12 +69,15 @@ GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas c
             ("CN", "China", IMPORTS, (), "energy imports", {"natural gas imports"})]
 INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
              {"iron and steel output", "cement output", "plate glass output", "non-ferrous metals outp",
-              "chemicals output", "vehicle output"}),
+              "chemicals output", "vehicle output", "cloth output", "machine tool output",
+              "industrial robot output", "service robot output", "electronics output",
+              "integrated circuit outp"}),
             ("CN", "China", CAPU, ("Data",), "capacity utilisation", None)]
 PRICE = [("CN", "China", PRICES, ("Data",), "market prices",
           {"coal and coke prices", "oil and gas product pri", "steel prices", "non-ferrous metal price",
-           "basic chemical prices", "polysilicon prices", "lithium iron phosphate ", "building material price",
-           "fertiliser and agrochem"}),
+           "basic chemical prices", "polysilicon prices", "lithium iron phosphate ", "polymer and fibre price",
+           "building material price", "fertiliser and agrochem", "farm product prices", "live hog prices",
+           "forest product prices"}),
          ("CN", "China", PPI, ("Data",), "PPI", None)]
 
 NBS = "National Bureau of Statistics of China (NBS)"
@@ -92,7 +95,36 @@ SOURCES = {
     PPI: (f"{NBS}, monthly producer price (PPI) release, by industry", "https://www.stats.gov.cn/sj/zxfb/"),
     CAPU: (f"{NBS}, quarterly industrial capacity utilisation release", "https://www.stats.gov.cn/sj/zxfb/"),
 }
-MASTER_SPECS = {}
+
+
+def ppi_specs(path):
+    """The PPI workbook's own chart groups, plus the series it leaves unplotted (consumer goods, light and equipment
+    industries, other purchaser materials) and the headline month-on-month series, in groups of at most 8 lines."""
+    specs = add_charts.china_nbs_series(path)
+    d = add_charts.by_date(add_charts.read(path, "Data"), "month")
+    lab = pd.read_excel(path, sheet_name="Series", index_col=0)["label"].to_dict()
+    groups = [
+        ("PPI consumer goods y/y", "% y/y", ["PPI_Food", "PPI_Clothing", "PPI_Daily_Goods", "PPI_Durables"], "_YoY_pct"),
+        ("PPI other purchaser prices", "% y/y", ["PPIRM_Timber_Pulp", "PPIRM_Other_Materials", "PPIRM_Farm_Products",
+                                                 "PPIRM_Textile_Materials"], "_YoY_pct"),
+        ("PPI food and textile ind.", "% y/y", ["Agri_Food_Processing", "Food_Manufacturing", "Beverages", "Tobacco",
+                                                "Textiles", "Apparel"], "_YoY_pct"),
+        ("PPI light industries y/y", "% y/y", ["Wood_Products", "Paper", "Printing", "Pharmaceuticals", "Rubber_Plastics",
+                                               "Non_Metallic_Mining", "Water_Supply"], "_YoY_pct"),
+        ("PPI equipment industries", "% y/y", ["Metal_Products", "General_Equipment", "Automobiles",
+                                               "Other_Transport_Equipment", "Electronics"], "_YoY_pct"),
+        ("PPI headline m/m", "% m/m", ["PPI", "PPI_Producer_Goods", "PPI_Mining", "PPI_Raw_Materials", "PPI_Processing",
+                                       "PPI_Consumer_Goods", "PPIRM"], "_MoM_pct"),
+    ]
+    for name, unit, stems, suffix in groups:
+        cols = [st + suffix for st in stems if st + suffix in d.columns and d[st + suffix].notna().any()]
+        if cols:
+            title = {"PPI headline m/m": "China PPI headline m/m (NBS)"}.get(name, f"China {name} (NBS)")
+            specs.append(add_charts.spec(name, d[cols].rename(columns=lab), title, unit, "line"))
+    return specs
+
+
+MASTER_SPECS = {PPI: ppi_specs}
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 EMBER = set()
