@@ -169,7 +169,7 @@ def water_year(xl, tab_name, title, unit, path, source):
     style(ax)
     ax.fill_between(x, d["5Y min"], d["5Y max"], color="#AFC6D9", alpha=0.7, linewidth=0, label="5-year min-max")
     ax.plot(x, d["5Y average"], color="#6E6E6E", linewidth=1.5, linestyle=(0, (4, 3)), label="5-year average")
-    ax.plot(x, d[prev], color="#EB6834", linewidth=2, label=str(prev).replace("WY ", "Water year "))
+    ax.plot(x, d[prev], color="#2A78D6", linewidth=2, label=str(prev).replace("WY ", "Water year "))
     ax.plot(x, d[cur], color="#0B3A66", linewidth=2.4, label=str(cur).replace("WY ", "Water year "))
     ticks = [i for i, lab in enumerate(d["Axis label"]) if isinstance(lab, str) and lab.strip()]
     ax.set_xticks(ticks)

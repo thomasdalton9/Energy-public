@@ -108,7 +108,7 @@ def water_year(spec, path):
     ax.fill_between(x, lo, hi, color="#d9e4f2", label=f"5-year range ({meta['hist']})")
     ax.plot(x, table["5Y average"], color="#7f7f7f", linestyle="--", linewidth=1.2, label="5-year average")
     wy = [c for c in table.columns if str(c).startswith("WY ")]
-    for c, col, lw in zip(wy, ("#EB6834", "#2A78D6"), (1.4, 2.2)):
+    for c, col, lw in zip(wy, ("#2A78D6", "#0B3A66"), (1.4, 2.2)):
         ax.plot(x, table[c], color=col, linewidth=lw, label=str(c))
     ticks = [i for i, d in enumerate(table["Day"]) if str(d).startswith("01-")]
     ax.set_xticks(ticks, [pd.Timestamp(f"2001-{str(table['Day'][i])[3:]}-01").strftime("%b") for i in ticks])

@@ -3,7 +3,7 @@ Shared helper: add an AGSI-style "water year" sheet with a native Excel
 chart to a workbook - the same look as the gas storage charts:
   - shaded band = min-max of the 5 complete water years before this one
   - dashed grey = 5-year average
-  - orange      = previous water year
+  - mid blue    = previous water year
   - dark blue   = current water year (to the latest day)
 Water year runs Oct-Sep (storage/level charts in this repo use Oct-Sep).
 
@@ -28,7 +28,7 @@ from openpyxl.drawing.line import LineProperties
 SHEET = "Water year chart"
 BAND_FILL = "AFC6D9"
 AVG_LINE = "6E6E6E"
-PREV_LINE = "EB6834"
+PREV_LINE = "2A78D6"   # previous year: mid blue (owner, Oct 2026; was orange)
 CURR_LINE = "0B3A66"
 
 
