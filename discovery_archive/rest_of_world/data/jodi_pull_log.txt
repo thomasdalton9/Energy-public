@@ -1,0 +1,255 @@
+table page 200 fields 89 counts 95,1,14,3,211 rows 0,2 cols 4,3 others 1
+=== discovery 1 (country 0, product 0, all flows, all units, time 0-2):
+"Product - Natural Gas"
+
+,TIME,"Jan2009","Jan2009","Jan2009","Feb2009","Feb2009","Feb2009","Mar2009","Mar2009","Mar2009"
+,Unit,"Million Standard Cubic Metres","Terajoules","1000 Metric Tons","Million Standard Cubic Metres","Terajoules","1000 Metric Tons","Million Standard Cubic Metres","Terajoules","1000 Metric Tons"
+"Country","BALANCE",
+"Albania","Production","-","-","-","-","-","-","-","-","-"
+"Albania"," Receipts from Other Sources","-","-","-","-","-","-","-","-","-"
+"Albania","Imports","-","-","-","-","-","-","-","-","-"
+"Albania","   LNG","-","-","-","-","-","-","-","-","-"
+"Albania","   Pipeline","-","-","-","-","-","-","-","-","-"
+"Albania","Exports","-","-","-","-","-","-","-","-","-"
+"Albania","   LNG","-","-","-","-","-","-","-","-","-"
+"Albania","   Pipeline","-","-","-","-","-","-","-","-","-"
+"Albania","Stock Change","-","-","-","-","-","-","-","-","-"
+"Albania","Gross Inland Deliveries (Calculated)","-","-","-","-","-","-","-","-","-"
+"Albania","Statistical Difference (Calculated)","-","-","-","-","-","-","-","-","-"
+"Albania","Gross Inland Deliveries (Observed)","-","-","-","-","-","-","-","-","-"
+"Albania","   of which: Electricity and Heat Generation","-","-","-","-","-","-","-","-","-"
+"Albania","Closing Stocks","-","-","-","-","-","-","-","-","-"
+
+--- BALANCE handle 0: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- BALANCE handle 1: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania"," Receipts from Other Sources","-"
+--- BALANCE handle 2: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Imports","-"
+--- BALANCE handle 3: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","   LNG","-"
+--- BALANCE handle 4: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","   Pipeline","-"
+--- BALANCE handle 5: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Exports","-"
+--- BALANCE handle 6: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","   LNG","-"
+--- BALANCE handle 7: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","   Pipeline","-"
+--- BALANCE handle 8: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Stock Change","-"
+--- BALANCE handle 9: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Gross Inland Deliveries (Calculated)","-"
+--- BALANCE handle 10: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Statistical Difference (Calculated)","-"
+--- BALANCE handle 11: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Gross Inland Deliveries (Observed)","-"
+--- BALANCE handle 12: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","   of which: Electricity and Heat Generation","-"
+--- BALANCE handle 13: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Closing Stocks","-"
+--- BALANCE handle 14: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres"
+--- BALANCE handle 15: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres"
+--- BALANCE handle 16: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres"
+--- BALANCE handle 17: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres"
+--- Unit handle 0: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- Unit handle 1: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Terajoules" || "Country","BALANCE", || "Albania","Production","-"
+--- Unit handle 2: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"1000 Metric Tons" || "Country","BALANCE", || "Albania","Production","-"
+--- Unit handle 3: "Product - Natural Gas" || "Country","BALANCE", || "Albania","Production",
+--- Unit handle 4: "Product - Natural Gas" || "Country","BALANCE", || "Albania","Production",
+--- Product handle 0: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+  apply failed Product[1]  Beyond 20/20 WDS - Table view TBODY.DataTable TD.CellColoring0 { background: #7ACCC8; color: #000000; border-top-color: #7ACCC8; border-left-color: #7ACCC8; } TBODY.DataTable TD.CellColoring1 { background: #FFF200; color: #000000; border-top-color: #FFF200; border-left-color: #FFF200; } TBODY.DataT
+--- Product handle 1: no data
+  apply failed Product[2]  Beyond 20/20 WDS - Table view TBODY.DataTable TD.CellColoring0 { background: #7ACCC8; color: #000000; border-top-color: #7ACCC8; border-left-color: #7ACCC8; } TBODY.DataTable TD.CellColoring1 { background: #FFF200; color: #000000; border-top-color: #FFF200; border-left-color: #FFF200; } TBODY.DataT
+--- Product handle 2: no data
+  apply failed Product[3]  Beyond 20/20 WDS - Table view TBODY.DataTable TD.CellColoring0 { background: #7ACCC8; color: #000000; border-top-color: #7ACCC8; border-left-color: #7ACCC8; } TBODY.DataTable TD.CellColoring1 { background: #FFF200; color: #000000; border-top-color: #FFF200; border-left-color: #FFF200; } TBODY.DataT
+--- Product handle 3: no data
+--- TIME handle 0: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- TIME handle 1: "Product - Natural Gas" || ,TIME,"Feb2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- TIME handle 2: "Product - Natural Gas" || ,TIME,"Mar2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- TIME handle 105: "Product - Natural Gas" || ,TIME,"Oct2017" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production",7.91
+--- TIME handle 106: "Product - Natural Gas" || ,TIME,"Nov2017" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production",7.36
+--- TIME handle 209: "Product - Natural Gas" || ,TIME,"Jun2026" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- TIME handle 210: "Product - Natural Gas" || ,TIME,"Jul2026" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- TIME handle 211: "Product - Natural Gas" || "Country","BALANCE", || "Albania","Production",
+--- TIME handle 212: "Product - Natural Gas" || "Country","BALANCE", || "Albania","Production",
+--- Country handle 0: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Albania","Production","-"
+--- Country handle 1: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Algeria","Production","-"
+--- Country handle 2: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Angola","Production","-"
+--- Country handle 93: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Venezuela","Production","-"
+--- Country handle 94: "Product - Natural Gas" || ,TIME,"Jan2009" || ,Unit,"Million Standard Cubic Metres" || "Country","BALANCE", || "Vietnam","Production","-"
+  prompt gave no link Country[95] counts 1,1,1,1,1 |  Beyond 20/20 WDS - Download Beyond 20/20 WDS - Error page &nbsp; &nbsp; Error message: Description: No description available (Id: C4E3DC63-25FF-4017-8636-34BE76DD7A44) Technical support information: If this error persists, please contact the site administrator and provide the following error number
+--- Country handle 95: no data
+  prompt gave no link Country[96] counts 1,1,1,1,1 |  Beyond 20/20 WDS - Download Beyond 20/20 WDS - Error page &nbsp; &nbsp; Error message: Description: No description available (Id: 7B57B021-A90D-4CCD-9DD0-6BA1D189004E) Technical support information: If this error persists, please contact the site administrator and provide the following error number
+--- Country handle 96: no data
+=== TIME all (first 2500 chars):
+"Product - Natural Gas"
+
+,TIME,"Jan2009","Feb2009","Mar2009","Apr2009","May2009","Jun2009","Jul2009","Aug2009","Sep2009","Oct2009","Nov2009","Dec2009","Jan2010","Feb2010","Mar2010","Apr2010","May2010","Jun2010","Jul2010","Aug2010","Sep2010","Oct2010","Nov2010","Dec2010","Jan2011","Feb2011","Mar2011","Apr2011","May2011","Jun2011","Jul2011","Aug2011","Sep2011","Oct2011","Nov2011","Dec2011","Jan2012","Feb2012","Mar2012","Apr2012","May2012","Jun2012","Jul2012","Aug2012","Sep2012","Oct2012","Nov2012","Dec2012","Jan2013","Feb2013","Mar2013","Apr2013","May2013","Jun2013","Jul2013","Aug2013","Sep2013","Oct2013","Nov2013","Dec2013","Jan2014","Feb2014","Mar2014","Apr2014","May2014","Jun2014","Jul2014","Aug2014","Sep2014","Oct2014","Nov2014","Dec2014","Jan2015","Feb2015","Mar2015","Apr2015","May2015","Jun2015","Jul2015","Aug2015","Sep2015","Oct2015","Nov2015","Dec2015","Jan2016","Feb2016","Mar2016","Apr2016","May2016","Jun2016","Jul2016","Aug2016","Sep2016","Oct2016","Nov2016","Dec2016","Jan2017","Feb2017","Mar2017","Apr2017","May2017","Jun2017","Jul2017","Aug2017","Sep2017","Oct2017","Nov2017","Dec2017","Jan2018","Feb2018","Mar2018","Apr2018","May2018","Jun2018","Jul2018","Aug2018","Sep2018","Oct2018","Nov2018","Dec2018","Jan2019","Feb2019","Mar2019","Apr2019","May2019","Jun2019","Jul2019","Aug2019","Sep2019","Oct2019","Nov2019","Dec2019","Jan2020","Feb2020","Mar2020","Apr2020","May2020","Jun2020","Jul2020","Aug2020","Sep2020","Oct2020","Nov2020","Dec2020","Jan2021","Feb2021","Mar2021","Apr2021","May2021","Jun2021","Jul2021","Aug2021","Sep2021","Oct2021","Nov2021","Dec2021","Jan2022","Feb2022","Mar2022","Apr2022","May2022","Jun2022","Jul2022","Aug2022","Sep2022","Oct2022","Nov2022","Dec2022","Jan2023","Feb2023","Mar2023","Apr2023","May2023","Jun2023","Jul2023","Aug2023","Sep2023","Oct2023","Nov2023","Dec2023","Jan2024","Feb2024","Mar2024","Apr2024","May2024","Jun2024","Jul2024","Aug2024","Sep2024","Oct2024","Nov2024","Dec2024","Jan2025","Feb2025","Mar2025","Apr2025","May2025","Jun2025","Jul2025","Aug2025","Sep2025","Oct2025","Nov2025","Dec2025","Jan2026","Feb2026","Mar2026","Apr2026","May2026","Jun2026","Jul2026"
+,Unit,"Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres","Million Standard Cubic Metres
+=== Country all (first 2500 chars):
+"Product - Natural Gas"
+
+,TIME,"Jan2009"
+,Unit,"Million Standard Cubic Metres"
+"Country","BALANCE",
+"Albania","Production","-"
+"Algeria","Production","-"
+"Angola","Production","-"
+"Argentina","Production",3291
+"Armenia","Production","-"
+"Australia","Production","-"
+"Austria","Production","-"
+"Azerbaijan","Production","-"
+"Bahrain","Production","-"
+"Bangladesh","Production","-"
+"Barbados","Production","-"
+"Belarus","Production","-"
+"Belgium","Production","-"
+"Belize","Production","-"
+"Bolivia","Production","-"
+"Brazil","Production","-"
+"Brunei Darussalam","Production",1033
+"Bulgaria","Production","-"
+"Canada","Production","-"
+"Chile","Production","-"
+"China","Production",7349
+"Chinese Taipei","Production",27
+"Colombia","Production","-"
+"Croatia","Production","-"
+"Czech Republic","Production","-"
+"Denmark","Production","-"
+"Dominican Republic","Production","-"
+"Ecuador","Production","-"
+"Egypt (Arab Rep.)","Production","-"
+"Equatorial Guinea","Production","-"
+"Estonia","Production","-"
+"Finland","Production","-"
+"France","Production","-"
+"Gabon","Production","-"
+"Georgia","Production","-"
+"Germany","Production","-"
+"Greece","Production","-"
+"Guatemala","Production","-"
+"Honduras","Production","-"
+"Hong Kong China","Production",0
+"Hungary","Production","-"
+"India","Production","-"
+"Indonesia","Production",7110
+"Iran (Islamic Rep.)","Production","-"
+"Iraq","Production","-"
+"Ireland","Production","-"
+"Italy","Production","-"
+"Japan","Production","-"
+"Kazakhstan","Production","-"
+"Korea","Production","-"
+"Kuwait","Production","-"
+"Latvia","Production","-"
+"Libya","Production","-"
+"Lithuania","Production","-"
+"Luxembourg","Production","-"
+"North Macedonia","Production","-"
+"Malaysia","Production",5384
+"Malta","Production","-"
+"Mexico","Production","-"
+"Moldova","Production","-"
+"Morocco","Production","-"
+"Myanmar","Production","-"
+"Netherlands","Production","-"
+"New Zealand","Production","-"
+"Nigeria","Production","-"
+"Norway","Production","-"
+"Oman","Production","-"
+"Panama","Production","-"
+"Papua New Guinea","Production","-"
+"Peru","Production",358
+"Philippines","Production",249
+"Poland","Production","-"
+"Portugal","Production","-"
+"Qatar","Production","-"
+"Romania","Production","-"
+"Russian Federation","Production",54012
+"Serbia","Production","-"
+"Singapore","Production","-"
+"Slovak Republic","Production","-"
+"Slovenia","Production","-"
+"South Africa","Production","-"
+"Spain
+=== handle counts: product 1, unit 5, balance 18, time 213
+product 0 unit 0 flow 0: ok 2 fail 0
+product 0 unit 0 flow 1: ok 4 fail 0
+product 0 unit 0 flow 2: ok 6 fail 0
+product 0 unit 0 flow 3: ok 8 fail 0
+product 0 unit 0 flow 4: ok 10 fail 0
+product 0 unit 0 flow 5: ok 12 fail 0
+product 0 unit 0 flow 6: ok 14 fail 0
+product 0 unit 0 flow 7: ok 16 fail 0
+product 0 unit 0 flow 8: ok 18 fail 0
+product 0 unit 0 flow 9: ok 20 fail 0
+product 0 unit 0 flow 10: ok 22 fail 0
+product 0 unit 0 flow 11: ok 24 fail 0
+product 0 unit 0 flow 12: ok 26 fail 0
+product 0 unit 0 flow 13: ok 28 fail 0
+product 0 unit 0 flow 14: ok 30 fail 0
+product 0 unit 0 flow 15: ok 32 fail 0
+product 0 unit 0 flow 16: ok 34 fail 0
+product 0 unit 0 flow 17: ok 36 fail 0
+product 0 unit 1 flow 0: ok 38 fail 0
+product 0 unit 1 flow 1: ok 40 fail 0
+product 0 unit 1 flow 2: ok 42 fail 0
+product 0 unit 1 flow 3: ok 44 fail 0
+product 0 unit 1 flow 4: ok 46 fail 0
+product 0 unit 1 flow 5: ok 48 fail 0
+product 0 unit 1 flow 6: ok 50 fail 0
+product 0 unit 1 flow 7: ok 52 fail 0
+product 0 unit 1 flow 8: ok 54 fail 0
+product 0 unit 1 flow 9: ok 56 fail 0
+product 0 unit 1 flow 10: ok 58 fail 0
+product 0 unit 1 flow 11: ok 60 fail 0
+product 0 unit 1 flow 12: ok 62 fail 0
+product 0 unit 1 flow 13: ok 64 fail 0
+product 0 unit 1 flow 14: ok 66 fail 0
+product 0 unit 1 flow 15: ok 68 fail 0
+product 0 unit 1 flow 16: ok 70 fail 0
+product 0 unit 1 flow 17: ok 72 fail 0
+product 0 unit 2 flow 0: ok 74 fail 0
+product 0 unit 2 flow 1: ok 76 fail 0
+product 0 unit 2 flow 2: ok 78 fail 0
+product 0 unit 2 flow 3: ok 80 fail 0
+product 0 unit 2 flow 4: ok 82 fail 0
+product 0 unit 2 flow 5: ok 84 fail 0
+product 0 unit 2 flow 6: ok 86 fail 0
+product 0 unit 2 flow 7: ok 88 fail 0
+product 0 unit 2 flow 8: ok 90 fail 0
+product 0 unit 2 flow 9: ok 92 fail 0
+product 0 unit 2 flow 10: ok 94 fail 0
+product 0 unit 2 flow 11: ok 96 fail 0
+product 0 unit 2 flow 12: ok 98 fail 0
+product 0 unit 2 flow 13: ok 100 fail 0
+product 0 unit 2 flow 14: ok 102 fail 0
+product 0 unit 2 flow 15: ok 104 fail 0
+product 0 unit 2 flow 16: ok 106 fail 0
+product 0 unit 2 flow 17: ok 108 fail 0
+product 0 unit 3 flow 0: ok 110 fail 0
+product 0 unit 3 flow 1: ok 112 fail 0
+product 0 unit 3 flow 2: ok 114 fail 0
+product 0 unit 3 flow 3: ok 116 fail 0
+product 0 unit 3 flow 4: ok 118 fail 0
+product 0 unit 3 flow 5: ok 120 fail 0
+product 0 unit 3 flow 6: ok 122 fail 0
+product 0 unit 3 flow 7: ok 124 fail 0
+product 0 unit 3 flow 8: ok 126 fail 0
+product 0 unit 3 flow 9: ok 128 fail 0
+product 0 unit 3 flow 10: ok 130 fail 0
+product 0 unit 3 flow 11: ok 132 fail 0
+product 0 unit 3 flow 12: ok 134 fail 0
+product 0 unit 3 flow 13: ok 136 fail 0
+product 0 unit 3 flow 14: ok 138 fail 0
+product 0 unit 3 flow 15: ok 140 fail 0
+product 0 unit 3 flow 16: ok 142 fail 0
+product 0 unit 3 flow 17: ok 144 fail 0
+product 0 unit 4 flow 0: ok 146 fail 0
+product 0 unit 4 flow 1: ok 148 fail 0
+product 0 unit 4 flow 2: ok 150 fail 0
+product 0 unit 4 flow 3: ok 152 fail 0
+product 0 unit 4 flow 4: ok 154 fail 0
+product 0 unit 4 flow 5: ok 156 fail 0
+product 0 unit 4 flow 6: ok 158 fail 0
+product 0 unit 4 flow 7: ok 160 fail 0
+product 0 unit 4 flow 8: ok 162 fail 0
+product 0 unit 4 flow 9: ok 164 fail 0
+product 0 unit 4 flow 10: ok 166 fail 0
+product 0 unit 4 flow 11: ok 168 fail 0
+product 0 unit 4 flow 12: ok 170 fail 0
+product 0 unit 4 flow 13: ok 172 fail 0
+product 0 unit 4 flow 14: ok 174 fail 0
+product 0 unit 4 flow 15: ok 176 fail 0
+product 0 unit 4 flow 16: ok 178 fail 0
+product 0 unit 4 flow 17: ok 180 fail 0
+DONE members 180 failed 0 zip bytes 780789
