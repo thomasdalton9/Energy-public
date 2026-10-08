@@ -76,14 +76,14 @@ POINTS = [
 ]
 
 
-def fetch_point(lat, lon, start, end, tries=4):
+def fetch_point(lat, lon, start, end, tries=3):
     """Daily PRECTOTCORR (mm/day) as a Series; NASA's -999 (not yet available) -> NaN."""
     params = {"parameters": "PRECTOTCORR", "community": "AG", "latitude": lat, "longitude": lon,
               "start": start.strftime("%Y%m%d"), "end": end.strftime("%Y%m%d"), "format": "JSON"}
     last = None
     for i in range(tries):
         try:
-            r = requests.get(URL, params=params, headers=UA, timeout=300)
+            r = requests.get(URL, params=params, headers=UA, timeout=(15, 90))
             if r.status_code == 429:
                 time.sleep(30 * (i + 1))
                 continue
@@ -93,6 +93,7 @@ def fetch_point(lat, lon, start, end, tries=4):
             return s.where(s > -998)
         except Exception as exc:  # noqa: BLE001
             last = exc
+            print(f"    attempt {i + 1} failed: {type(exc).__name__}: {exc}", flush=True)
             time.sleep(5 * (i + 1))
     raise RuntimeError(f"{lat},{lon}: {last}")
 
@@ -166,14 +167,21 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--start", type=dt.date.fromisoformat, default=START)
+    ap.add_argument("--budget-min", type=float, default=12, help="stop fetching further points after this many minutes")
     args = ap.parse_args()
     today = dt.date.today()
     daily = load_daily(args.out)
     failed = []
+    t0 = time.time()
     for key, country, name, lat, lon, _ in POINTS:
         have = daily[key].dropna() if key in daily else pd.Series(dtype=float)
         start = (have.index.max().date() - dt.timedelta(days=REVISION_DAYS)) if len(have) else args.start
         start = max(start, args.start)
+        if time.time() - t0 > args.budget_min * 60:
+            print(f"  {key}: skipped, time budget used up", flush=True)
+            failed.append(key)
+            continue
+        print(f"  {key}: fetching from {start} ...", flush=True)
         try:
             s = fetch_point(lat, lon, start, today).dropna()
         except Exception as exc:  # noqa: BLE001
