@@ -45,7 +45,7 @@ def _style(ax, title, units):
 
 
 def _colour(name, i):
-    return GREY if str(name) == "Other" else COLOURS[i % len(COLOURS)]
+    return "#" + xlsx_charts.fuel_colour(name, i)
 
 
 def series_chart(spec, path):

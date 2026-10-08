@@ -152,6 +152,8 @@ CITIES = {
     # Australia & New Zealand
     "AUS": [("Sydney", -33.87, 151.21, 5.5), ("Melbourne", -37.81, 144.96, 5.3), ("Brisbane", -27.47, 153.03, 2.7)],
     "NZL": [("Auckland", -36.85, 174.76, 1.7), ("Wellington", -41.29, 174.78, 0.43)],
+    # China (3 largest cities: a coarse proxy for a country of this climatic range)
+    "CHN": [("Shanghai", 31.23, 121.47, 24.9), ("Beijing", 39.90, 116.41, 21.5), ("Guangzhou", 23.13, 113.26, 18.7)],
 }
 
 
