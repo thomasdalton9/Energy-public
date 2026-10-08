@@ -297,6 +297,7 @@ def _chart(wb, used, sheet_name_fn, label, df, title, y_title, kind, chart_w, ch
     df = df.dropna(how="all")
     if df.empty or df.shape[1] == 0:
         return None
+    df, y_title = xlsx_charts.monthly_energy_to_gw(df, y_title, title)   # generation: TWh per year -> average GW
     ws = wb.create_sheet(sheet_name_fn(f"Long {label} data", used))
     d, n_bars = xlsx_charts.prepare(_year_index(df))
     if d.empty:
@@ -461,7 +462,7 @@ def add_long_term_dashboard(wb, used, sheet_name_fn, region, data_dir, chart_w, 
 
 
 # PNGs of the long-term charts (CLAUDE.md: every chart also as a PNG in output/PNG Charts)
-PNG_TABS = [("gen by fuel", "power generation by source", "TWh per year", "stacked_bar"),
+PNG_TABS = [("gen by fuel", "power generation by source", "GW (annual average)", "stacked_bar"),
             ("gen shares", "generation mix", "% of generation", "line"),
             ("demand vs GDP", "power demand vs real GDP and population", "index", "line"),
             ("gas balance", "natural gas production vs consumption", "bcm per year", "line"),
