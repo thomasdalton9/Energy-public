@@ -31,10 +31,10 @@ import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
 
 DATA_DIR = sam.DATA_DIR
-# Owner asked for the charts 0.5 cm taller (the extra length is at the bottom: charts keep their top-left anchor); one more
-# row per chart keeps the next row of charts and the source line clear. Only this master: set on the shared module before use.
-sam.CHART_H = sam.CHART_H + 0.5
-sam.ROWS_PER_CHART = sam.ROWS_PER_CHART + 1
+# Owner asked for the plot inside each chart to be 0.5 cm longer at the bottom, the chart box itself staying the same size
+# (CHART_H cm): the plot-area height fraction grows by 0.5 / CHART_H. Set on the shared module for this process only.
+_x, _y, _w, _h = xlsx_charts.DASHBOARD_INNER
+xlsx_charts.DASHBOARD_INNER = (_x, _y, _w, _h + 0.5 / sam.CHART_H)
 
 # (code, name, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 STOCK_DATASETS = [
