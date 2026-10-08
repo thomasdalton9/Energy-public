@@ -2320,6 +2320,10 @@ def eu_gas_storage(p):
     if "EU_TWh" in d:
         out.append({"name": "Storage EU", "water_year": d["EU_TWh"].dropna().resample("D").interpolate(),
                     "y_decimals": 0, "title": "EU gas storage (GIE AGSI+)", "units": "TWh", "sheet": "Water year EU"})
+    if "EU_full_pct" in d and d["EU_full_pct"].notna().any():   # same EU stock as a share of working capacity
+        out.append({"name": "Storage EU pct", "water_year": d["EU_full_pct"].dropna().resample("D").interpolate(),
+                    "y_decimals": 0, "title": "EU gas storage, % full (GIE AGSI+)", "units": "% full",
+                    "sheet": "Water year EU pct"})
     for cc in EU_STORAGE_CHARTS:
         if f"{cc}_full_pct" in d and d[f"{cc}_full_pct"].notna().any():
             out.append({"name": f"Storage {cc}", "water_year": d[f"{cc}_full_pct"].dropna().resample("D").interpolate(),
