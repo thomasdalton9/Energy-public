@@ -1,0 +1,90 @@
+capacity releases: 52
+2021-05-20 国家能源局发布1-4月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/2021-05/20/c_139958706.htm
+2021-06-18 国家能源局发布1-5月份全国电力工业统计数据 tables 2 imgs 0 https://www.nea.gov.cn/2021-06/18/c_1310015716.htm
+2021-07-16 国家能源局发布1-6月份全国电力工业统计数据 tables 1 imgs 2 https://www.nea.gov.cn/2021-07/16/c_1310065397.htm
+2021-10-21 国家能源局发布1-9月份全国电力工业统计数据 tables 1 imgs 2 https://www.nea.gov.cn/2021-10/21/c_1310652583.htm
+2021-12-17 国家能源局发布1-11月份全国电力工业统计数据 tables 2 imgs 0 https://www.nea.gov.cn/2021-12/17/c_1310378945.htm
+2022-01-26 国家能源局发布2021年全国电力工业统计数据 tables 1 imgs 1 https://www.nea.gov.cn/2022-01/26/c_1310441589.htm
+2022-04-20 国家能源局发布1-3月份全国电力工业统计数据 tables 1 imgs 2 https://www.nea.gov.cn/2022-04/20/c_1310566276.htm
+2022-05-18 国家能源局发布1-4月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2022-05/18/c_1310597238.htm
+2022-07-19 国家能源局发布1-6月份全国电力工业统计数据 tables 1 imgs 2 https://www.nea.gov.cn/2022-07/19/c_1310643468.htm
+2022-08-19 国家能源局发布1-7月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2022-08/19/c_1310653994.htm
+2022-09-21 国家能源局发布1-8月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2022-09/21/c_1310664624.htm
+2022-10-24 国家能源局发布1-9月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2022-10/24/c_1310670890.htm
+2022-11-22 国家能源局发布1-10月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2022-11/22/c_1310678885.htm
+2022-12-16 国家能源局发布1-11月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2022-12/16/c_1310684452.htm
+2023-01-18 国家能源局发布2022年全国电力工业统计数据 tables 1 imgs 2 https://www.nea.gov.cn/2023-01/18/c_1310691509.htm
+2023-03-21 国家能源局发布1-2月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-03/21/c_1310704448.htm
+2023-04-23 国家能源局发布1-3月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-04/23/c_1310713239.htm
+2023-05-19 国家能源局发布1-4月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-05/19/c_1310720047.htm
+2023-06-20 国家能源局发布1-5月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-06/20/c_1310728898.htm
+2023-07-19 国家能源局发布1-6月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-07/19/c_1310733272.htm
+2023-08-17 国家能源局发布1-7月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-08/17/c_1310737383.htm
+2023-09-19 国家能源局发布1-8月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-09/19/c_1310742036.htm
+2023-10-23 国家能源局发布1-9月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-10/23/c_1310746885.htm
+2023-11-20 国家能源局发布1-10月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-11/20/c_1310751368.htm
+2023-12-20 国家能源局发布1-11月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2023-12/20/c_1310756286.htm
+2024-01-26 国家能源局发布2023年全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-01/26/c_1310762246.htm
+2024-03-25 国家能源局发布1-2月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-03/25/c_1310768833.htm
+2024-04-22 国家能源局发布1-3月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-04/22/c_1310772067.htm
+2024-06-28 国家能源局发布1-5月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-06/28/c_1310779865.htm
+2024-07-20 国家能源局发布2024年1-6月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-07/20/c_1310782235.htm
+2024-08-23 国家能源局发布2024年1-7月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-08/23/c_1310785026.htm
+2024-09-23 国家能源局发布2024年1-8月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-09/23/c_1212399359.htm
+2024-10-21 国家能源局发布2024年1-9月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-10/21/c_1212405574.htm
+2024-11-22 国家能源局发布2024年1-10月份全国电力工业统计数据 tables 2 imgs 1 https://www.nea.gov.cn/2024-11/22/c_1310787342.htm
+2024-12-20 国家能源局发布2024年1-11月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20241220/73f189cc6e6540caafac2b819623fc08/c.html
+2025-01-21 国家能源局发布2024年全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20250121/097bfd7c1cd3498897639857d86d5dac/c.html
+2025-03-20 国家能源局发布2025年1-2月份全国电力工业统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20250320/977e24cb6295485fb6283d656c70bcc3/c.html
+2025-04-20 国家能源局发布2025年1-3月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20250420/ea90b16331c446a1bad218c4b3c0df7d/c.html
+2025-05-22 国家能源局发布2025年1-4月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20250522/ba33708cb5e749378a21c955170069c1/c.html
+2025-06-23 国家能源局发布2025年1-5月份全国电力工业统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20250623/6a557ee5ad944062a6c01d6e8417474e/c.html
+2025-07-23 国家能源局发布2025年1-6月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20250723/d7a5d6cc916e40bcb04c7d7e74d03213/c.html
+2025-08-23 国家能源局发布2025年1-7月份全国电力工业统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20250823/7e111f0a60ac44438346bd8332db345e/c.html
+2025-09-26 国家能源局发布2025年1-8月份全国电力工业统计数据，风光装机约17亿千瓦 tables 1 imgs 0 https://www.nea.gov.cn/20250926/2e8ea0184702461f8531527b015964d5/c.html
+2025-10-26 国家能源局发布2025年1-9月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20251026/70d3b88f62f1401bbe47a8212e06ad8e/c.html
+2025-11-25 国家能源局发布2025年1-10月份全国电力工业统计数据 tables 1 imgs 0 https://www.nea.gov.cn/20251125/c08a5f9b4a54481696a432ecd6c70dd3/c.html
+2025-12-26 国家能源局发布2025年1-11月份全国电力工业统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20251226/640306962d7d421b921b902f48a04b47/c.html
+2026-01-29 国家能源局发布2025年全国电力统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20260129/6874f211acd0417eab7ac10c3061a7c2/c.html
+2026-03-25 国家能源局发布2026年1-2月份全国电力统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20260325/a1515f414588445bbc6cc8c65ba6293e/c.html
+2026-05-25 国家能源局发布2026年1-4月份全国电力统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20260525/c509435a0f09497cb3d2ca361fa262de/c.html
+2026-06-25 国家能源局发布2026年1-5月份全国电力统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20260625/24f752fd199c4632b7dc7762462585de/c.html
+2026-07-22 国家能源局发布2026年1-6月份全国电力统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20260722/3b678308556b4df0a574537b59a28731/c.html
+2026-08-25 国家能源局发布2026年1-7月份全国电力统计数据 tables 0 imgs 1 https://www.nea.gov.cn/20260825/1430d07985474c5b8110552785f1c74b/c.html
+=== OCR ===
+--- 2021-07-16 https://www.nea.gov.cn/2021-07/16/1310065397_16264317717931n.png 199471 bytes
+全国电力工业统计数据一览表
+Te
+[se ee
+[|
+[aas |
+EEC
+EEC
+[|
+ER
+[|
+ECG有本IE
+ECIREZ3EE
+[sa |
+[ER
+ET大本天本到本到本到本划
+[|
+人
+EC了正本2
+EC和本2本2
+
+  ERROR https://webd.home.news.cn/1.gif?z=1&_wdxid=010090050000000000000000011100001310751368: SSLError: HTTPSConnectionPool(host='webd.home.news.cn', port=443): Max retries exceeded with url: /1.gif?z=1&_
+img ERR https://webd.home.news.cn/1.gif?z=1&_wdxid=010090050000000000000000011100001310751368
+--- 2026-08-25 https://www.nea.gov.cn/20260825/1430d07985474c5b8110552785f1c74b/202608251430d07985474c5b8110552785f1c74b_2026082553f8a0bad18f4cefa28a6b9338cb0cfa.png 66018 bytes
+全国电力统计数据一览表 (截至 2026 年7月)
+2
+轩计
+[EC
+EC
+ET
+人
+EC
+EC本本
+注: 1全国发电美机容吧及其中的分项指戴至统计月的累计装机容圣。
+2*同比增长*列中，标*的指标为绝对时，标4的指标为百分点。
+
