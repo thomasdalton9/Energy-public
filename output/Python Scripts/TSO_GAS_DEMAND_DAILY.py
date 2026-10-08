@@ -146,7 +146,14 @@ def spain(d0, d1):
     d1 = min(d1, date.today() - timedelta(days=1))   # the endpoint rejects today's date ("the date must be prior to the current date") and returns no rows at all
     q = min(d0 + timedelta(days=55), d1)
     while True:
-        j = get(ENAGAS, params={"date": q.strftime("%d/%m/%Y")}, headers=h).json()
+        j = {}
+        for back in range(0, 8):   # the newest days are not posted yet: an empty / non-JSON / 'Invalid date' reply -> step back a day
+            try:
+                j = get(ENAGAS, params={"date": (q - timedelta(days=back)).strftime("%d/%m/%Y")}, headers=h).json()
+            except ValueError:
+                continue
+            if j.get("actual"):
+                break
         for e in j.get("actual", []):
             try:
                 day = date.fromisoformat(e["fecha_demanda"])
