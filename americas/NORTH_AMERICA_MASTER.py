@@ -188,7 +188,7 @@ def lng_vs_nameplate(path):
     cap = add_charts.monthly_mean(c[caps], "2021-01-01")
     feed = complete_months(add_charts.monthly_mean(c[[feed_col]], "2021-01-01"), last)
     df = cap.join(feed, how="left")
-    sp = add_charts.spec("LNG vs nameplate", df, "US LNG feedgas vs nameplate capacity (FERC feed-gas dates; later trains expected)",
+    sp = add_charts.spec("LNG vs nameplate", df, "US feedgas vs nameplate",
                          "Bcf/d, monthly average", "stacked_bar", line_cols=(feed_col,))
     sp["forecast_from"] = (last + pd.offsets.MonthBegin(1)).normalize() if last.day != 1 else last
     return [sp]
