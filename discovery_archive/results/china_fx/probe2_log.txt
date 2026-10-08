@@ -1,0 +1,186 @@
+h10 200 1129844
+tables 1 first table at 65985
+<table class="pubtables" data-sticky-columns="1" data-sticky-rows="1" data-other-sticky-ids="t4_nav,navbar-mobile" title="Historical Rates for the Chinese Renminbi                                       ">
+<thead>
+<th scope=col>Date</th>
+<th scope=col>Rate</th>
+</thead>
+<tr>
+<th id="r1" headers="a1"> 3-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2798                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 4-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2799                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 5-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2798                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 6-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2797                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 7-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2794                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">10-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2794                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">11-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2795                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">12-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2796                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">13-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2798                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">14-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2797                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">17-JAN-00 </th>
+<td headers="a2 a1 r1">                  ND                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">18-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2793                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">19-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2797                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">20-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2794                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">21-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2795                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">24-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2789                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">25-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2786                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">26-JAN-00 </th>
+<td headers="a2 a1 r1">              8.2782                                                  </td>
+</tr>
+<tr>
+<th id=
+....TAIL....
+ders="a1"> 7-SEP-26 </th>
+<td headers="a2 a1 r1">                  ND                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 8-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7105                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 9-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7059                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">10-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7061                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">11-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7080                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">14-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7082                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">15-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7112                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">16-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7060                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">17-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7074                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">18-SEP-26 </th>
+<td headers="a2 a1 r1">              6.6975                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">21-SEP-26 </th>
+<td headers="a2 a1 r1">              6.6947                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">22-SEP-26 </th>
+<td headers="a2 a1 r1">              6.6996                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">23-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7111                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">24-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7128                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">25-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7110                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">28-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7103                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">29-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7030                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1">30-SEP-26 </th>
+<td headers="a2 a1 r1">              6.7045                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 1-OCT-26 </th>
+<td headers="a2 a1 r1">              6.7038                                                  </td>
+</tr>
+<tr>
+<th id="r1" headers="a1"> 2-OCT-26 </th>
+<td headers="a2 a1 r1">              6.7038                                                  </td>
+</tr>
+</table>
+</div>
+
+
+<a id="back-top" class="icon__backTop icon-backtop" href="#" title="Scroll To Top"><span class="sr-only">Back to Top</span></a>
+<div class="row">
+    <div class="lastUpdate" id="last
+TXT: Notes
+TXT: Notes
+TXT: notes/feds-notes/default.htm">FEDS Notes
+TXT: note -->
+
+TXT: Note for Release Changes -->
+
+TXT: note">
+    
+TXT: Renminbi                                       
+TXT: yuan per U.S. dollar)                                         
+TXT: Renminbi                                       ">
+
+giignl2026 200 8355455
+  giignl2026 @71526: NL Annual Report 2026 Edition - 27 | 26 - GIIGNL Annual Report 2026 Edition | Liquefaction plants | Liquefaction plants |  | === page 16 === | the crisis, but rose sharply in early March, reaching  | around USD 25/MMBtu at the peak and remaining  | mostly above USD 18/MMBtu through late March  | and early April. The premium of Asian LNG spot prices  | over European TTF also widened materially, showing  | that Asian buyers w
+  giignl2026 @71579:  Report 2026 Edition | Liquefaction plants | Liquefaction plants |  | === page 16 === | the crisis, but rose sharply in early March, reaching  | around USD 25/MMBtu at the peak and remaining  | mostly above USD 18/MMBtu through late March  | and early April. The premium of Asian LNG spot prices  | over European TTF also widened materially, showing  | that Asian buyers were pricing in the greatest volume  | exposure to a pro
+  giignl2026 @84492: Hormuz.  | The price reaction shows that the shock rapidly moved  | beyond physical supply concerns and into global LNG  | price formation. Spot Asian LNG prices were relatively  | stable around the USD 9–11/MMBtu range before  | FIDs were taken on five U.S. liquefaction projects in 2025,  | representing a total capacity of around 54.5 MTPA. | The GTA Tortue project  | marked Mauritania and  | Senegal’s entry into the  | 
+giignl2025 200 5890801
