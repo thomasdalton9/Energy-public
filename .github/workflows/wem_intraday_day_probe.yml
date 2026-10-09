@@ -1,0 +1,25 @@
+name: WEM intraday day probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Calendar day (YYYY-MM-DD, AWST)"
+        required: false
+        default: "2026-01-14"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 discovery_archive/australia_nz/WEM_INTRADAY_DAY_PROBE.py "${{ github.event.inputs.day }}"
