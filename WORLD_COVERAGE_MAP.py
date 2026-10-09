@@ -13,7 +13,8 @@ light blue = hydro reservoir / dam-level data.
 
 COVERAGE is maintained by hand: update it when a pull is added (South & Central America is read from
 south_america/COVERAGE_MAP.py so the two stay in step). Country shapes: Natural Earth 1:110m (bundled with
-geopandas 0.14), Equal Earth projection.
+geopandas 0.14), Equal Earth projection centred on the Pacific (150°E), so the Atlantic is the map's
+edge; countries crossing 30°W (Greenland) are cut there.
 
 Usage: python3 WORLD_COVERAGE_MAP.py [--out "output/PNG Charts/world_coverage_map.png"]
 """
@@ -24,6 +25,7 @@ import warnings
 
 import geopandas as gpd
 import matplotlib
+from shapely.geometry import box
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -31,7 +33,8 @@ from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CRS = "EPSG:8857"   # Equal Earth
+CRS = "+proj=robin +lon_0=150 +datum=WGS84 +units=m +no_defs"   # Robinson, Pacific-centred
+SEAM = -30.0   # the map's edge (150°E - 180°): shapes crossing it are cut there so they do not smear across the map
 GREEN, BLUE, AMBER, GREY, EDGE = "#1BAF7A", "#2A78D6", "#EDA100", "#D9D9D9", "#FFFFFF"
 FILL = {"green": GREEN, "blue": BLUE, "amber": AMBER}
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
@@ -116,6 +119,14 @@ HYDRO_OFFSET = (3.5, 0.0)   # hydro dot sits to the right of the gas dot (degree
 SMALL = {"Singapore": (103.82, 1.35, "green"), "Trinidad and Tobago": (-61.3, 10.45, "green"),
          "Malta": (14.4, 35.9, None)}
 EUROPE_BOX = (-12.0, 34.0, 33.0, 71.5)   # lon_min, lat_min, lon_max, lat_max for the inset
+INSET_AT = [0.585, 0.12, 0.20, 0.30]   # figure fraction: left, bottom, width, height
+
+
+def cut_at_seam(g, eps=1e-6):
+    """Split a shape that crosses the map's edge (SEAM) into its two sides."""
+    if not g.intersects(box(SEAM - eps, -90, SEAM + eps, 90)):
+        return g
+    return g.intersection(box(-180, -90, SEAM - eps, 90)).union(g.intersection(box(SEAM + eps, -90, 180, 90)))
 
 
 def load_world():
@@ -125,6 +136,7 @@ def load_world():
     world = world[world["name"] != "Antarctica"].copy()
     world.loc[world["name"] == "N. Cyprus", "name"] = "Cyprus"
     world.loc[world["name"] == "Somaliland", "name"] = "Somalia"
+    world["geometry"] = world.geometry.map(cut_at_seam)
     world["fill"] = world["name"].map(lambda n: FILL[COVERAGE[n][0]] if n in COVERAGE else GREY)
     return world
 
@@ -182,8 +194,8 @@ def main():
     ax.set_axis_off()
     ax.set_title("World: Gas and Power Data Coverage", fontsize=18, fontweight="bold", loc="left", x=0.01)
 
-    # Europe inset (bottom left, over the South Pacific)
-    ins = fig.add_axes([0.005, 0.10, 0.25, 0.36])
+    # Europe inset (bottom, over the South Pacific between New Zealand and South America)
+    ins = fig.add_axes(INSET_AT)
     draw(ins, world, small_dots=11)
     lo, la, hi_lo, hi_la = EUROPE_BOX
     a, b = pt(lo, la), pt(hi_lo, hi_la)
