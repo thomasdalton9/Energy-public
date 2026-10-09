@@ -13,10 +13,10 @@ light blue = hydro reservoir / dam-level data.
 
 COVERAGE is maintained by hand: update it when a pull is added (South & Central America is read from
 south_america/COVERAGE_MAP.py so the two stay in step). Country shapes: Natural Earth 1:110m (bundled with
-geopandas 0.14), Equal Earth projection centred on the Pacific (150°E), so the Atlantic is the map's
-edge; countries crossing 30°W (Greenland) are cut there.
+geopandas 0.14). Two views per run: Robinson centred on the Pacific (150°E; countries crossing its edge at 30°W
+are cut there) -> world_coverage_map.png, and Equal Earth centred on Greenwich -> world_coverage_map_atlantic.png.
 
-Usage: python3 WORLD_COVERAGE_MAP.py [--out "output/PNG Charts/world_coverage_map.png"]
+Usage: python3 WORLD_COVERAGE_MAP.py [--view pacific|atlantic|both] [--out PATH (one view only)]
 """
 import argparse
 import importlib.util
@@ -33,8 +33,16 @@ from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CRS = "+proj=robin +lon_0=150 +datum=WGS84 +units=m +no_defs"   # Robinson, Pacific-centred
-SEAM = -30.0   # the map's edge (150°E - 180°): shapes crossing it are cut there so they do not smear across the map
+VIEWS = {   # name: (projection, edge longitude where shapes are cut, Europe inset position as figure fraction)
+    "pacific": ("+proj=robin +lon_0=150 +datum=WGS84 +units=m +no_defs", -30.0, [0.562, 0.10, 0.228, 0.34]),
+    "atlantic": ("EPSG:8857", 180.0, [0.005, 0.10, 0.25, 0.36]),   # Equal Earth on Greenwich, inset over the S Pacific
+}
+CRS, SEAM, INSET_AT = VIEWS["pacific"]
+
+
+def set_view(name):
+    global CRS, SEAM, INSET_AT
+    CRS, SEAM, INSET_AT = VIEWS[name]
 GREEN, BLUE, AMBER, GREY, EDGE = "#1BAF7A", "#2A78D6", "#EDA100", "#D9D9D9", "#FFFFFF"
 FILL = {"green": GREEN, "blue": BLUE, "amber": AMBER}
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
@@ -119,12 +127,11 @@ HYDRO_OFFSET = (3.5, 0.0)   # hydro dot sits to the right of the gas dot (degree
 SMALL = {"Singapore": (103.82, 1.35, "green"), "Trinidad and Tobago": (-61.3, 10.45, "green"),
          "Malta": (14.4, 35.9, None)}
 EUROPE_BOX = (-12.0, 34.0, 33.0, 71.5)   # lon_min, lat_min, lon_max, lat_max for the inset
-INSET_AT = [0.585, 0.12, 0.20, 0.30]   # figure fraction: left, bottom, width, height
 
 
 def cut_at_seam(g, eps=1e-6):
-    """Split a shape that crosses the map's edge (SEAM) into its two sides."""
-    if not g.intersects(box(SEAM - eps, -90, SEAM + eps, 90)):
+    """Split a shape that crosses the map's edge (SEAM) into its two sides (Natural Earth is already split at 180)."""
+    if SEAM >= 180 or not g.intersects(box(SEAM - eps, -90, SEAM + eps, 90)):
         return g
     return g.intersection(box(-180, -90, SEAM - eps, 90)).union(g.intersection(box(SEAM + eps, -90, 180, 90)))
 
@@ -181,10 +188,7 @@ def draw(ax, world, dots=True, small_dots=9, extent=None):
                 markeredgewidth=0.7, zorder=7)
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "world_coverage_map.png"))
-    args = ap.parse_args()
+def render(out):
     world = load_world().to_crs(CRS)
 
     fig = plt.figure(figsize=(18, 10.5), dpi=150)
@@ -194,9 +198,9 @@ def main():
     ax.set_axis_off()
     ax.set_title("World: Gas and Power Data Coverage", fontsize=18, fontweight="bold", loc="left", x=0.01)
 
-    # Europe inset (bottom, over the South Pacific between New Zealand and South America)
+    # Europe inset over open ocean (South Pacific; where depends on the view)
     ins = fig.add_axes(INSET_AT)
-    draw(ins, world, small_dots=11)
+    draw(ins, world, small_dots=11 * INSET_AT[2] / 0.25)   # markers scale with the inset
     lo, la, hi_lo, hi_la = EUROPE_BOX
     a, b = pt(lo, la), pt(hi_lo, hi_la)
     c, d = pt(lo, hi_la), pt(hi_lo, la)
@@ -224,9 +228,20 @@ def main():
     fig.text(0.995, 0.005, "Singapore, Trinidad & Tobago shown as markers (below map resolution). Regional detail: "
              "the South & Central America, North America and South & Southeast Asia coverage maps.", ha="right",
              fontsize=8, color="#6B6B6B")
-    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
-    fig.savefig(args.out, facecolor="white", bbox_inches="tight", pad_inches=0.15)
-    print(f"Saved {args.out}: {counts}")
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    fig.savefig(out, facecolor="white", bbox_inches="tight", pad_inches=0.15)
+    print(f"Saved {out}: {counts}")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--view", choices=["pacific", "atlantic", "both"], default="both")
+    ap.add_argument("--out", default=None, help="output path (one view only); default world_coverage_map[_atlantic].png")
+    args = ap.parse_args()
+    base = os.path.join(ROOT, "output", "PNG Charts", "world_coverage_map")
+    for view in (["pacific", "atlantic"] if args.view == "both" else [args.view]):
+        set_view(view)
+        render(args.out if args.out and args.view != "both" else base + ("" if view == "pacific" else "_atlantic") + ".png")
 
 
 if __name__ == "__main__":
