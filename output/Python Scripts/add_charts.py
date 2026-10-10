@@ -3071,6 +3071,64 @@ REGISTRY = {
 }
 
 
+# ---- South Korea (KPX EPSIS pulls, south_korea/SOUTH_KOREA_EPSIS.py) ----
+def south_korea_generation(p):
+    d = by_date(read(p, "Data"), "month")
+    d = d[d.index >= "2015-01-01"]
+    d = d[d["Total_GWh"].notna()]
+    g = pd.DataFrame({"Nuclear": d["Nuclear_GWh"], "Coal": d["Coal_GWh"], "Gas": d["Gas_GWh"], "Oil": d["Oil_GWh"],
+                      "Hydro": d["Hydro_GWh"], "Solar": d["Solar_GWh"], "Wind": d["Wind_GWh"],
+                      "Bioenergy": d["Bioenergy_GWh"] + d["Waste_GWh"], "Pumped storage": d["Pumped_Storage_GWh"],
+                      "Other": d[["Fuel_Cell_GWh", "IGCC_GWh", "Ocean_GWh", "Other_GWh"]].sum(axis=1)}).fillna(0)
+    return [spec("Generation", g, "South Korea power generation by fuel (KPX EPSIS, market + PPA)", "GWh per month",
+                 "stacked_bar")]
+
+
+def south_korea_smp(p):
+    m = by_date(read(p, "Monthly"), "month")
+    out = [spec("SMP", m[["SMP_Land_KRW_per_kWh", "SMP_Jeju_KRW_per_kWh"]].rename(
+        columns={"SMP_Land_KRW_per_kWh": "Mainland", "SMP_Jeju_KRW_per_kWh": "Jeju"}).dropna(how="all"),
+        "South Korea system marginal price, monthly (KPX EPSIS)", "KRW per kWh")]
+    h = by_date(read(p, "Marginal fuel"), "month")
+    mf = pd.DataFrame({"Gas": h["LNG_hours"], "Oil": h["Oil_hours"], "Coal": h["Anthracite_hours"] + h["Bituminous_hours"],
+                       "Nuclear": h["Nuclear_hours"], "Other / none": h["None_hours"]}).fillna(0)
+    out.append(spec("Marginal fuel", mf, "South Korea: hours each fuel set the mainland SMP (KPX EPSIS)", "hours per month",
+                    "stacked_bar"))
+    d = by_date(read(p, "Daily"), "date")
+    out.append(spec("Daily", d[["Weighted_avg"]].rename(columns={"Weighted_avg": "Mainland SMP, daily weighted average"}).dropna(),
+                    "South Korea mainland SMP, daily weighted average (KPX EPSIS)", "KRW per kWh", "line", "%b/%y"))
+    return out
+
+
+def south_korea_demand(p):
+    d = by_date(read(p, "Daily"), "date")
+    m = pd.DataFrame({"Peak demand": d["Peak_Demand_MW"].resample("MS").max() / 1000,
+                      "Minimum demand": d["Min_Demand_MW"].resample("MS").min() / 1000,
+                      "Supply capability": d["Supply_Capability_MW"].resample("MS").mean() / 1000})
+    m = complete_months(d, m)
+    return [spec("Demand", m[m.index >= "2018-01-01"].dropna(how="all"),
+                 "South Korea monthly peak and minimum demand and supply capability (KPX EPSIS)", "GW", "line")]
+
+
+def south_korea_gas(p):
+    d = by_date(read(p, "Annual"), "year")
+    g = d[["Gas_kt"]].rename(columns={"Gas_kt": "LNG burned by power generators"}).dropna()
+    return [spec("Gas for power", g[g.index >= "2000-01-01"], "South Korea LNG used for power generation (KPX EPSIS)",
+                 "1,000 tonnes per year", "stacked_bar", "%Y")]
+
+
+REGISTRY.update({
+    "south_korea_power_generation_monthly.xlsx": south_korea_generation,
+    "south_korea_power_capacity.xlsx": power_capacity("South Korea installed capacity by fuel (KPX EPSIS)"),
+    "south_korea_smp.xlsx": south_korea_smp,
+    "south_korea_demand_daily.xlsx": south_korea_demand,
+    "south_korea_gas_power_use.xlsx": south_korea_gas,
+    "south_korea_fx_usd_daily.xlsx": lambda p: [spec("Daily", daily(by_date(read(p, "Data"), "date")[["KRW_per_USD"]].rename(
+        columns={"KRW_per_USD": "Won per US$ (Fed H.10)"}).dropna(), "2021-01-01"),
+        "South Korea won per US dollar (Federal Reserve H.10, daily)", "KRW per US$", "line", "%b/%y")],
+})
+
+
 # Europe: one generation and one capacity workbook per ENTSO-E country (country list in europe/europe_countries.py)
 try:
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "europe"))
