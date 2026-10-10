@@ -1,0 +1,21 @@
+202102 CDX status 200 0 urls
+  not on the release list: 0
+202103 CDX status 200 0 urls
+  not on the release list: 0
+202202 CDX status 200 0 urls
+  not on the release list: 0
+202203 CDX status 200 0 urls
+  not on the release list: 0
+202302 CDX status 200 366 urls
+  not on the release list: 273
+202303 CDX status 200 44 urls
+  not on the release list: 29
+202402 CDX status 200 8 urls
+  not on the release list: 2
+202403 CDX status 200 18 urls
+  not on the release list: 14
+  FOUND https://www.stats.gov.cn/sj/zxfb/202403/t20240304_1948066.html 2024年2月下旬流通领域重要生产资料市场价格变动情况-国家统计局
+202501 CDX status 200 24 urls
+  not on the release list: 1
+202502 CDX status 200 8 urls
+  not on the release list: 0
