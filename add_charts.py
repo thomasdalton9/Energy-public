@@ -1365,6 +1365,26 @@ def sa_gas_balance(p):
     return out
 
 
+def sa_gas_burn_power(p):
+    """SA_GAS_BURN_POWER.py: power-sector gas burn by country (published, then estimated from gas-fired output) stacked
+    with the estimated part as a line; published vs estimate per calibrated country; effective heat rates."""
+    d = by_date(read(p, "Monthly (Bcf per day)"), "date")
+    out = [spec("Burn", d.drop(columns=cols(d, "Total")),
+                "Gas burn for power by country, South & Central America + Caribbean (latest months estimated)",
+                "Bcf/d", "stacked_bar", line_cols=("Of which estimated",))]
+    bt = _sheet(p, "Back-test series", "date")
+    for country in dict.fromkeys(str(c).split(" | ")[0] for c in bt.columns):
+        b = bt[[c for c in bt.columns if str(c).startswith(f"{country} | ")]].rename(columns=lambda c: c.split(" | ")[1])
+        out.append(spec(country, b, f"{country} gas burn for power: published vs estimate from gas-fired output",
+                        "Bcf/d", "line"))
+    hr = _sheet(p, "Heat rates", "date")
+    if not hr.empty:
+        out.append(spec("Heat rates", hr.dropna(axis=1, how="all"),
+                        "Effective heat rate of gas-fired power by country (published gas / gas-fired MWh)",
+                        "MMBtu per MWh", "line"))
+    return out
+
+
 # North America (americas/US_GAS_EIA.py, americas/CANADA_STATCAN.py) - gas in Bcf/d, the North American convention
 BCF_TO_MCM = 28.3168   # 1 Bcf = 28.3168 million m3
 
@@ -3039,6 +3059,7 @@ REGISTRY = {
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
     "south_america_power_prices_daily.xlsx": sa_power_prices,
     "south_america_gas_balance.xlsx": sa_gas_balance,
+    "south_america_gas_burn_power.xlsx": sa_gas_burn_power,
     "south_america_prices_vs_hydro.xlsx": None,   # two-panel charts drawn by SA_PRICES_VS_HYDRO.py itself
     "brazil_hydro_reservoirs.xlsx": brazil_hydro,
     "colombia_hydro_reservoirs.xlsx": colombia_hydro,

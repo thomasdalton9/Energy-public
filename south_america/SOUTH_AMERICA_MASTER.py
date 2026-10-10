@@ -48,6 +48,8 @@ DARK_BLUE = "17365D"
 # (country code, country, workbook, raw sheet to copy, short dataset name)
 DATASETS = [
     ("SA", "South America", "south_america_gas_balance.xlsx", "Balance (long)", "gas balance"),
+    ("SA", "South & Central America", "south_america_gas_burn_power.xlsx", ("Monthly (Bcf per day)", "Countries"),
+     "gas burn for power"),
     ("AR", "Argentina", "argentina_gas_monthly.xlsx", "National", "gas"),
     ("BR", "Brazil", "brazil_gas_monthly.xlsx", "Demand by segment", "gas"),
     ("BO", "Bolivia", "bolivia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
@@ -121,7 +123,8 @@ CAPACITY_DATASETS = [(code, country, f"{country.lower()}_power_capacity.xlsx", "
 
 # Workbooks with several charts where the dashboard shows only some (by spec name); the rest stay in the
 # country workbook. Honduras: the monthly ODS history (2021 on) rather than the daily feed (June 2026 on).
-DASHBOARD_ONLY = {"honduras_power_generation_daily.xlsx": {"History"}}
+DASHBOARD_ONLY = {"honduras_power_generation_daily.xlsx": {"History"},
+                  "south_america_gas_burn_power.xlsx": {"Burn"}}   # per-country checks stay in that workbook
 
 
 def gatun(path):
@@ -224,6 +227,11 @@ SOURCES = {
                                             "https://www.mset.gov.jm/document-category/statistics-data/"),
     "jamaica_gas.xlsx": ("Ministry of Energy (MSET), Jamaica Energy Statistics Table 3 natural gas, ANNUAL only",
                          "https://www.mset.gov.jm/document-category/statistics-data/"),
+    "south_america_gas_burn_power.xlsx": ("Published power-sector gas (SE/ENARGAS, MME, INE Bolivia, BMC Colombia, "
+                                          "MINEM Peru, SIE, EIA-923) and, for months not yet published, an ESTIMATE = "
+                                          "grid-operator gas-fired output x calibrated heat rate (flat assumed rate "
+                                          "for Chile, Panama, El Salvador) - SA_GAS_BURN_POWER.py",
+                                          "see each country's row"),
     "south_america_gas_balance.xlsx": ("Built from the country workbooks above (each official source: SE/ENARGAS, INE "
                                        "Bolivia, ANP, CNE Chile, Colombia supply report, Petroecuador/ARCERNNR, "
                                        "Perupetro/MINEM, MEEI Trinidad, URSEA) - no estimates",
