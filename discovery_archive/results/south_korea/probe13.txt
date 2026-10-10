@@ -1,0 +1,35 @@
+POST selectStatsSrvcTblList {} -> 500 446 :: {"timestamp":"2026-10-10 10:16:51","status":500,"error":"Internal Server Error","exception":"org.mybatis.spring.MyBatisSystemException","message":"nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error querying database. Cause: java.lang.NullPointerException: target is null for method equals\n### Cause: java.lang.NullPointerException: target is null for method equals","
+POST selectStatsSrvcTblList {'mid': 'a10101000000'} -> 500 446 :: {"timestamp":"2026-10-10 10:16:51","status":500,"error":"Internal Server Error","exception":"org.mybatis.spring.MyBatisSystemException","message":"nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error querying database. Cause: java.lang.NullPointerException: target is null for method equals\n### Cause: java.lang.NullPointerException: target is null for method equals","
+POST selectStatsSrvcTblList {'mid': 'a10101000000', 'statsId': '', 'type': 'M'} -> 500 446 :: {"timestamp":"2026-10-10 10:16:52","status":500,"error":"Internal Server Error","exception":"org.mybatis.spring.MyBatisSystemException","message":"nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error querying database. Cause: java.lang.NullPointerException: target is null for method equals\n### Cause: java.lang.NullPointerException: target is null for method equals","
+POST getStatsInfo {} -> 200 18 :: {"statsInfo":null}
+POST getStatsInfo {'mid': 'a10101000000'} -> 200 18 :: {"statsInfo":null}
+POST getStatsInfo {'mid': 'a10101000000', 'statsId': '', 'type': 'M'} -> 200 18 :: {"statsInfo":null}
+POST getStatsListInfo {} -> 200 66 :: {"statsTblCmmtInfo":[],"statsTblItmInfo":[],"statsTblStblInfo":[]}
+POST getStatsListInfo {'mid': 'a10101000000'} -> 200 66 :: {"statsTblCmmtInfo":[],"statsTblItmInfo":[],"statsTblStblInfo":[]}
+POST getStatsListInfo {'mid': 'a10101000000', 'statsId': '', 'type': 'M'} -> 200 66 :: {"statsTblCmmtInfo":[],"statsTblItmInfo":[],"statsTblStblInfo":[]}
+POST searchStats {} -> 200 2 :: []
+POST searchStats {'mid': 'a10101000000'} -> 200 2 :: []
+POST searchStats {'mid': 'a10101000000', 'statsId': '', 'type': 'M'} -> 200 2 :: []
+DATASET %ED%95%9C%EA%B5%AD%E 15049906 fileData 한국가스공사 _월별 천연가스 생산량
+DATASET %ED%95%9C%EA%B5%AD%E 15052154 fileData 한국가스공사 _천연가스요금정보
+DATASET %ED%95%9C%EA%B5%AD%E 15088508 fileData 한국가스공사 _한국의 대륙별 천연가스 수입 현황
+DATASET %ED%95%9C%EA%B5%AD%E 15066880 fileData 한국가스공사 _ LNG  저장탱크용 9퍼센트 Ni Steel Plate 규격표준
+DATASET %ED%95%9C%EA%B5%AD%E 15068184 fileData 한국가스공사 _ LNG  1차 펌프 규격표준
+DATASET LNG+%EB%8F%84%EC%9E% 15117762 fileData 한국가스공사_아시아국  LNG  수입단가
+DATASET LNG+%EB%8F%84%EC%9E% 15068373 fileData 한국가스공사_ LNG  저장탱크용 리프트 규격표준
+DATASET LNG+%EB%8F%84%EC%9E% 15083392 fileData 한국서부발전(주)_연료 도입 실적
+DATASET LNG+%EB%8F%84%EC%9E% 15140017 fileData 한국중부발전(주)_연료  도입  및 사용량
+DATASET LNG+%EB%8F%84%EC%9E% 15131514 fileData 한국남동발전㈜_연료  도입  실적
+DATASET LNG+%EB%8F%84%EC%9E% 3083406 openapi 연료 도입  현황
+DATASET LNG+%EB%8F%84%EC%9E% 15119634 openapi 한국남동발전㈜_연료  도입  실적 현황
+DATASET LNG+%EB%8F%84%EC%9E% 15125322 openapi 한국남부발전(주)_연료 도입 실적조회 서비스_GW
+DATASET %EC%A0%84%EB%A0%A5%E 15065269 fileData 한국전력거래소_지역별 시간별 태양광 및 풍력  발전량
+DATASET %EC%A0%84%EB%A0%A5%E 15065387 fileData 한국전력거래소_시간별  발전량
+DATASET %EC%A0%84%EB%A0%A5%E 15069337 fileData 한국전력거래소_신재생  발전량  및 설비용량
+DATASET %EC%A0%84%EB%A0%A5%E 15127502 fileData 한국전력거래소_제주지역 태양광_풍력 시간대별  발전량
+DATASET %EC%A0%84%EB%A0%A5%E 15069334 fileData 한국전력거래소_제주 시간대별  발전량
+DATASET %EC%A0%84%EB%A0%A5%E 15103243 openapi 한국전력거래소_지역별 시간별 태양광  발전량  정보
+DATASET %EC%A0%84%EB%A0%A5%E 15106744 openapi 한국전력거래소_발전원별  발전량
+DATASET %EC%A0%84%EB%A0%A5%E 15113384 openapi 한국전력거래소_발전원별  발전량 (계통기준)
+DATASET %EC%A0%84%EB%A0%A5%E 15142651 openapi 한국전력거래소_발전원별  발전량  현황조회
+DATASET %EC%A0%84%EB%A0%A5%E 15158491 openapi 한국전력거래소_발전원별  발전량  현황조회_GW
