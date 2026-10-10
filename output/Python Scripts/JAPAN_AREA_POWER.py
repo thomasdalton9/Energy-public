@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 import xlsx_notes  # noqa: E402
 
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
-START = pd.Timestamp("2021-04-01")
+START = pd.Timestamp("2024-04-01")   # the operators' monthly eria_jukyu files start Oct 2023 - Apr 2024 (older data is in other formats)
 DEFAULT_OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output",
                            "Data and Chart Outputs", "japan_power_generation_daily.xlsx")
 
@@ -71,28 +71,49 @@ RETRY_404_MONTHS = 3
 
 
 def listing_urls(kind, sess):
-    """{YYYYMM: url} for the two operators whose monthly files are listed by a script-built page (Chubu: JSON from
-    getFilesInfo.php; Kansai: /yamasou/jisseki.json)."""
-    import json
+    """{YYYYMM: (url, zip member or None)} for the two operators whose files are listed by a script-built page.
+    Chubu: getFilesInfo.php (JSON) lists one zip per year (eria_jukyu_YYYY.zip, holding the monthly eria_jukyu_YYYYMM_04.csv)
+    and the two most recent months as plain CSVs; its monthly *_keito.zip packages hold only total demand and generation, not
+    by source. Kansai: /interchange/denkiyoho/area-performance/filelist.json lists eria_jukyu_YYYYMM_06.csv."""
     import re
     found = {}
     if kind == "chubu":
         base = "https://powergrid.chuden.co.jp"
         r = sess.get(base + "/denkiyoho/resource/php/getFilesInfo.php", headers=UA, timeout=(10, 60))
         r.raise_for_status()
-        for e in r.json():
-            ref = str(e.get("path") or "") + " " + str(e.get("filename") or "")
-            m = re.search(r"eria_jukyu_(\d{6})_04\.csv", ref)
+        entries = r.json()
+        for e in entries:   # one zip per calendar year holding the monthly eria_jukyu_YYYYMM_04.csv files
+            m = re.match(r"^eria_jukyu_(\d{4})\.zip$", str(e.get("filename") or ""))
             if m and e.get("path"):
-                found[m.group(1)] = e["path"] if str(e["path"]).startswith("http") else base + e["path"]
+                for mm in range(1, 13):
+                    found[f"{m.group(1)}{mm:02d}"] = (base + e["path"], f"eria_jukyu_{m.group(1)}{mm:02d}_04")
+        for e in entries:   # the two most recent months as plain CSVs
+            m = re.match(r"^eria_jukyu_(\d{6})_04\.csv$", str(e.get("filename") or ""))
+            if m and e.get("path"):
+                found[m.group(1)] = (base + str(e["path"]), None)
     else:
-        base = "https://www.kansai-td.co.jp"
-        r = sess.get(base + "/yamasou/jisseki.json", headers=UA, timeout=(10, 60))
+        base = "https://www.kansai-td.co.jp/interchange/denkiyoho/area-performance/"
+        r = sess.get(base + "filelist.json", headers=UA, timeout=(10, 60))
         r.raise_for_status()
-        for m in re.finditer(r"([\w./-]*eria_jukyu_(\d{6})_06\.csv)", r.text):
-            ref = m.group(1)
-            found[m.group(2)] = ref if ref.startswith("http") else (base + (ref if ref.startswith("/") else "/yamasou/" + ref.rsplit("/", 1)[-1]))
+        for m in re.finditer(r"eria_jukyu_(\d{6})_06\.csv", r.text):
+            found[m.group(1)] = (base + m.group(0), None)
     return found
+
+
+def unzip_text(content, member=None):
+    import zipfile
+    z = zipfile.ZipFile(io.BytesIO(content))
+    names = [n for n in z.namelist() if n.lower().endswith(".csv")]
+    pick = [n for n in names if member and member in n] if member else ([n for n in names if "eria_jukyu" in n.lower()] or names)
+    if not pick:
+        raise ValueError("no CSV in zip: " + ", ".join(z.namelist()[:6]))
+    b = z.read(pick[0])
+    for enc in ("cp932", "utf-8-sig"):
+        try:
+            return b.decode(enc)
+        except UnicodeDecodeError:
+            pass
+    raise ValueError("undecodable")
 
 
 def parse(text):
@@ -100,6 +121,7 @@ def parse(text):
     lines = text.splitlines()
     hdr = next(i for i, l in enumerate(lines[:6]) if "DATE" in l and "TIME" in l)
     d = pd.read_csv(io.StringIO("\n".join(lines[hdr:])), dtype=str)
+    d = d.dropna(subset=["DATE", "TIME"])
     d.columns = [unicodedata.normalize("NFKC", str(c)).strip() for c in d.columns]
     d["t"] = pd.to_datetime(d["DATE"].str.strip().str.replace("/", "-"), errors="coerce", format="mixed") \
         + pd.to_timedelta(d["TIME"].str.strip().apply(lambda s: s + ":00" if s.count(":") == 1 else s), errors="coerce")
@@ -118,20 +140,30 @@ def parse(text):
     return day.loc[n[n == 48].index]
 
 
-def fetch(url, sess):
+_ZIPS = {}
+
+
+def fetch(url, sess, member=None):
     last = None
     for i in range(3):
         try:
-            r = sess.get(url, headers=UA, timeout=(10, 60))
+            if url.lower().endswith(".zip") and url in _ZIPS:
+                return unzip_text(_ZIPS[url], member), 200
+            r = sess.get(url, headers=UA, timeout=(10, 120))
             if r.status_code == 404:
                 return None, 404
             r.raise_for_status()
+            if url.lower().endswith(".zip"):
+                _ZIPS[url] = r.content
+                return unzip_text(r.content, member), 200
             for enc in ("cp932", "utf-8-sig"):
                 try:
                     return r.content.decode(enc), 200
                 except UnicodeDecodeError:
                     pass
             raise ValueError("undecodable")
+        except ValueError as e:   # member missing from the zip: not worth retrying
+            return None, str(e)[:60]
         except Exception as e:  # noqa: BLE001
             last = e
             time.sleep(3 * (i + 1))
@@ -160,7 +192,7 @@ def main():
         have = c.to_dict()
     missing_log = {}
     if old_cov is not None:
-        missing_log = {(r.area, str(r.month)): r.status for r in old_cov.itertuples() if str(r.status) != "ok"}
+        missing_log = {(r.area, str(r.month)): r.status for r in old_cov.itertuples() if str(r.status) == "404"}
     sess = requests.Session()
     new_rows, cov = [], {}
     n_req = 0
@@ -169,7 +201,7 @@ def main():
         if tpl.startswith("listing:"):
             try:
                 listed = listing_urls(tpl.split(":")[1], sess)
-                print(f"  {area}: {len(listed)} monthly files listed", listed and (min(listed), max(listed)))
+                print(f"  {area}: {len(listed)} monthly files listed", (min(listed), max(listed)) if listed else "")
             except Exception as e:  # noqa: BLE001
                 print(f"  {area}: file list failed ({type(e).__name__}: {e})", file=sys.stderr)
                 continue
@@ -184,7 +216,10 @@ def main():
             if listed is not None and ym not in listed:
                 cov[(area, ym)] = "not listed"
                 continue
-            text, status = fetch(listed[ym] if listed is not None else tpl.format(ym=ym), sess)
+            if listed is not None:
+                text, status = fetch(listed[ym][0], sess, listed[ym][1])
+            else:
+                text, status = fetch(tpl.format(ym=ym), sess)
             n_req += 1
             if text is None:
                 cov[(area, ym)] = str(status)
