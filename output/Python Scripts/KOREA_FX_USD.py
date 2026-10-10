@@ -14,7 +14,7 @@ Cross-check column KRW_per_USD_ECB_cross = ECB euro reference rate KRW per EUR /
 
 Incremental: the committed workbook is the history store. Each run downloads the one Fed page (it holds the whole
 history), keeps stored rows older than a 30-day revision window and takes the page's rows from there on.
-History kept from 2020-12-01 (the KPX SMP series used start in 2021).
+History kept from 2014-12-01 (the KPX monthly SMP series starts in Jan 2015).
 
     python3 south_korea/KOREA_FX_USD.py --out "output/Data and Chart Outputs/south_korea_fx_usd_daily.xlsx"
 """
@@ -34,7 +34,7 @@ import xlsx_notes  # noqa: E402
 H10 = "https://www.federalreserve.gov/releases/h10/hist/dat00_ko.htm"
 ECB = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.csv"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
-START = pd.Timestamp("2020-12-01")
+START = pd.Timestamp("2014-12-01")
 REVISION_DAYS = 30
 COL, COL_ECB = "KRW_per_USD", "KRW_per_USD_ECB_cross"
 DEFAULT_OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output",
@@ -103,7 +103,8 @@ def main():
     if old is not None and COL in old:
         cut = fed.index.max() - pd.Timedelta(days=REVISION_DAYS)
         keep = old[COL].dropna()
-        fed = pd.concat([keep[keep.index < cut], fed[fed.index >= cut]]).sort_index()
+        older = fed[fed.index < keep.index.min()]   # history before the stored range (START moved back): backfill it
+        fed = pd.concat([older, keep[keep.index < cut], fed[fed.index >= cut]]).sort_index()
     data = pd.concat([fed.rename(COL), ecb.rename(COL_ECB)], axis=1).sort_index()
     data = data[data[COL].notna() | data[COL_ECB].notna()]
     both = data.dropna()
