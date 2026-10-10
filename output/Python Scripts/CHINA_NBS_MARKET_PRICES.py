@@ -57,6 +57,8 @@ PRODUCTS = [
     (r"液化石油气|LPG", "LPG", "LPG", "oil and gas product prices"),
     (r"^汽油.*95", "Gasoline_95", "Gasoline 95#", "oil and gas product prices"),
     (r"^汽油.*92", "Gasoline_92", "Gasoline 92#", "oil and gas product prices"),
+    (r"^汽油.*93", "Gasoline_93", "Gasoline 93# (to 2019)", "oil and gas product prices"),
+    (r"^汽油.*97", "Gasoline_97", "Gasoline 97# (to 2019)", "oil and gas product prices"),
     (r"^柴油", "Diesel_0", "Diesel 0#", "oil and gas product prices"),
     (r"^石蜡", "Paraffin_Wax", "Paraffin wax", "oil and gas product prices"),
     (r"^螺纹钢", "Rebar", "Rebar (HRB400E, 16-25mm)", "steel prices"),
@@ -86,6 +88,10 @@ PRODUCTS = [
     (r"^涤纶长丝", "Polyester_Filament", "Polyester filament (POY)", "polymer and fibre prices"),
     (r"^普通硅酸盐水泥.*袋装", "Cement_Bagged", "Cement P.O 42.5, bagged", "building material prices"),
     (r"^普通硅酸盐水泥.*散装", "Cement_Bulk", "Cement P.O 42.5, bulk", "building material prices"),
+    (r"^复合硅酸盐水泥.*32\.5R", "Cement_Composite_325R_Bagged", "Composite cement P.C 32.5R, bagged (to 2019)",
+     "building material prices"),
+    (r"^复合硅酸盐水泥.*32\.5袋装", "Cement_Composite_325_Bagged", "Composite cement P.C 32.5, bagged (to 2019)",
+     "building material prices"),
     (r"^浮法平板玻璃", "Float_Glass", "Float glass (4.8/5mm)", "building material prices"),
     (r"^尿素", "Urea", "Urea", "fertiliser and agrochemical prices"),
     (r"^复合肥", "Compound_Fertiliser", "Compound fertiliser (potassium sulphate, 45%)", "fertiliser and agrochemical prices"),
@@ -159,6 +165,9 @@ def main():
     nbs.log(f"  {len(releases)} release(s) to fetch")
     new, unit_of, unmatched_all = {}, {}, set()
     for title, url in releases:
+        if nbs.over_budget():
+            nbs.log("  time budget reached - the remaining releases are picked up by the next run")
+            break
         p = period_of(title)
         try:
             html = nbs.fetch(url)
