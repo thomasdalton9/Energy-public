@@ -1,0 +1,58 @@
+name: Japan master workbook
+
+# Japan power (TSO area data), JEPX prices, LNG and fuel imports, METI statistics and the Long-term page in one master file with Dashboard front pages.
+# 1st and 15th, evening - after that day's Japan pulls and before the 23:50 private-repo sync.
+on:
+  schedule:
+    - cron: '52 21 1,15 * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl matplotlib
+      - name: Build master workbook
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 japan/JAPAN_MASTER.py --out "output/Data and Chart Outputs/Master Outputs/japan_master.xlsx"
+
+      - name: Long-term PNG charts
+        if: always()
+        run: |
+          M="output/Data and Chart Outputs/Master Outputs/japan_master.xlsx"
+          [ -f "$M" ] && python3 fundamentals.py "$M" || echo "long-term PNG step skipped/failed"
+
+      - name: Copy scripts
+        if: always()
+        run: |
+          mkdir -p "output/Python Scripts"
+          cp japan/JAPAN_MASTER.py japan/japan_charts.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py capacity_factors.py fundamentals.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit master workbook
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/Master Outputs/japan_master.xlsx" ]; then
+            echo "No master workbook written."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/Master Outputs/japan_master.xlsx"
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Japan master: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

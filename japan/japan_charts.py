@@ -78,10 +78,36 @@ def mof_imports(path):
     return out
 
 
-def lng_stock(path):
-    """Weekly power-utility LNG stock (ANRE) as an Oct-Sep water-year chart, kt."""
+def lng_stock_weekly(path):
+    """Weekly power-utility LNG stock (ANRE), thousand tonnes."""
     d = add_charts.by_date(add_charts.read(path, "Weekly"), "date")
-    s = (d["Stock_kt"].dropna()).rename("LNG stock")
-    return [{"name": "LNG stock", "title": "Japan power-utility LNG stock (ANRE, weekly)", "units": "kt",
-             "water_year": s, "df": s.to_frame(), "kind": "line", "date_format": "%Y-%m", "line_cols": ()}] if len(s) > 60 else \
-        [add_charts.spec("LNG stock", s.to_frame(), "Japan power-utility LNG stock (ANRE, weekly)", "kt", "line", "%b/%y")]
+    return [add_charts.spec("LNG stock", d[["Stock_kt"]].rename(columns={"Stock_kt": "LNG stock"}).dropna(),
+                            "Japan power-company LNG stock (ANRE, weekly)", "kt", "line", "%b/%y")]
+
+
+CAP_GROUPS = {"Hydro": ["Hydro_kW"], "Pumped hydro": ["Pumped hydro_kW"], "Gas": ["LNG_kW", "LPG_kW", "Other gas_kW"],
+              "Wind": ["Wind_kW"], "Solar": ["Solar_kW"], "Coal": ["Coal_kW"], "Nuclear": ["Nuclear_kW"],
+              "Oil": ["Oil_kW"], "Geothermal": ["Geothermal_kW"], "Battery": ["Battery_kW"],
+              "Other": ["Other thermal_kW", "Bituminous mixture_kW", "Other_kW"]}
+
+
+def meti_stats(path):
+    """METI/ANRE electric power statistics: installed capacity (GW) and LNG at power stations (kt)."""
+    out = []
+    c = add_charts.by_date(add_charts.read(path, "Capacity"), "month")
+    g = pd.DataFrame({k: c[[x for x in v if x in c.columns]].sum(axis=1, min_count=1) for k, v in CAP_GROUPS.items()}) / 1e6
+    g = g.dropna(how="all", axis=1)
+    if len(g):
+        out.append(add_charts.spec("Capacity", g, "Japan installed capacity by type (METI electric power statistics)",
+                                   "GW installed", "stacked_bar"))
+    f = add_charts.by_date(add_charts.read(path, "Fuel"), "month")
+    if "LNG_stock_t" in f and f["LNG_stock_t"].notna().sum() > 12:
+        stock = (f["LNG_stock_t"].dropna() / 1000.0)
+        stock.index = stock.index + pd.offsets.MonthEnd(0)   # month-end stock dated on its last day
+        out.append({"name": "LNG stock", "water_year": stock.resample("D").interpolate(limit=31, limit_area="inside"),
+                    "title": "Japan LNG stock at power stations, month-end (METI)", "units": "kt"})
+    cons = pd.DataFrame({"Receipts": f.get("LNG_receipts_t"), "Consumption": f.get("LNG_consumption_t")}) / 1000.0
+    if cons.notna().any().any():
+        out.append(add_charts.spec("LNG use", cons.dropna(how="all"),
+                                   "Japan LNG receipts and consumption at power stations (METI)", "kt per month", "line"))
+    return out

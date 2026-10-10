@@ -3295,6 +3295,25 @@ def add_charts(path):
     return len(specs)
 
 
+# ---- Japan (japan/) ----
+def _japan(fn):
+    def f(p):
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "japan"))
+        import japan_charts
+        return getattr(japan_charts, fn)(p)
+    return f
+
+
+REGISTRY.update({
+    "japan_power_generation_daily.xlsx": _japan("power"),
+    "japan_jepx_spot_prices.xlsx": _japan("jepx"),
+    "japan_fx_usd_daily.xlsx": _japan("fx"),
+    "japan_mof_energy_imports_monthly.xlsx": _japan("mof_imports"),
+    "japan_lng_stock_weekly.xlsx": _japan("lng_stock_weekly"),
+    "japan_meti_electric_power_stats.xlsx": _japan("meti_stats"),
+})
+
+
 if __name__ == "__main__":
     for p in sys.argv[1:]:
         if os.path.exists(p):

@@ -49,9 +49,9 @@ AREAS = {
     "Hokkaido": "https://www.hepco.co.jp/network/con_service/public_document/supply_demand_results/csv/eria_jukyu_{ym}_01.csv",
     "Tohoku": "https://setsuden.nw.tohoku-epco.co.jp/common/demand/eria_jukyu_{ym}_02.csv",
     "Tokyo": "https://www.tepco.co.jp/forecast/html/images/eria_jukyu_{ym}_03.csv",
-    "Chubu": None,
+    "Chubu": "listing:chubu",
     "Hokuriku": "https://www.rikuden.co.jp/nw/denki-yoho/csv/eria_jukyu_{ym}_05.csv",
-    "Kansai": None,
+    "Kansai": "listing:kansai",
     "Chugoku": "https://www.energia.co.jp/nw/jukyuu/sys/eria_jukyu_{ym}_07.csv",
     "Shikoku": "https://www.yonden.co.jp/nw/supply_demand/csv/eria_jukyu_{ym}_08.csv",
     "Kyushu": "https://www.kyuden.co.jp/td_area_jukyu/csv/eria_jukyu_{ym}_09.csv",
@@ -68,6 +68,31 @@ GEN = ["Hydro_MWh", "Gas_MWh", "Wind_MWh", "Solar_MWh", "Coal_MWh", "Nuclear_MWh
        "Geothermal_MWh", "Other_MWh"]
 LAST_MONTHS_REFETCH = 2
 RETRY_404_MONTHS = 3
+
+
+def listing_urls(kind, sess):
+    """{YYYYMM: url} for the two operators whose monthly files are listed by a script-built page (Chubu: JSON from
+    getFilesInfo.php; Kansai: /yamasou/jisseki.json)."""
+    import json
+    import re
+    found = {}
+    if kind == "chubu":
+        base = "https://powergrid.chuden.co.jp"
+        r = sess.get(base + "/denkiyoho/resource/php/getFilesInfo.php", headers=UA, timeout=(10, 60))
+        r.raise_for_status()
+        for e in r.json():
+            ref = str(e.get("path") or "") + " " + str(e.get("filename") or "")
+            m = re.search(r"eria_jukyu_(\d{6})_04\.csv", ref)
+            if m and e.get("path"):
+                found[m.group(1)] = e["path"] if str(e["path"]).startswith("http") else base + e["path"]
+    else:
+        base = "https://www.kansai-td.co.jp"
+        r = sess.get(base + "/yamasou/jisseki.json", headers=UA, timeout=(10, 60))
+        r.raise_for_status()
+        for m in re.finditer(r"([\w./-]*eria_jukyu_(\d{6})_06\.csv)", r.text):
+            ref = m.group(1)
+            found[m.group(2)] = ref if ref.startswith("http") else (base + (ref if ref.startswith("/") else "/yamasou/" + ref.rsplit("/", 1)[-1]))
+    return found
 
 
 def parse(text):
@@ -140,9 +165,14 @@ def main():
     new_rows, cov = [], {}
     n_req = 0
     for area, tpl in AREAS.items():
-        if tpl is None:
-            print(f"  {area}: no reachable URL pattern", file=sys.stderr)
-            continue
+        listed = None
+        if tpl.startswith("listing:"):
+            try:
+                listed = listing_urls(tpl.split(":")[1], sess)
+                print(f"  {area}: {len(listed)} monthly files listed", listed and (min(listed), max(listed)))
+            except Exception as e:  # noqa: BLE001
+                print(f"  {area}: file list failed ({type(e).__name__}: {e})", file=sys.stderr)
+                continue
         for k, m in enumerate(months):
             ym = m.strftime("%Y%m")
             recent = (today.to_period("M") - m.to_period("M")).n < LAST_MONTHS_REFETCH
@@ -151,7 +181,10 @@ def main():
             if (area, ym) in missing_log and (today.to_period("M") - m.to_period("M")).n >= RETRY_404_MONTHS:
                 cov[(area, ym)] = missing_log[(area, ym)]
                 continue
-            text, status = fetch(tpl.format(ym=ym), sess)
+            if listed is not None and ym not in listed:
+                cov[(area, ym)] = "not listed"
+                continue
+            text, status = fetch(listed[ym] if listed is not None else tpl.format(ym=ym), sess)
             n_req += 1
             if text is None:
                 cov[(area, ym)] = str(status)
@@ -192,7 +225,7 @@ def main():
         cov_rows[(area, ym)] = "ok"
     coverage = pd.DataFrame([(a, m, s) for (a, m), s in sorted(cov_rows.items())], columns=["area", "month", "status"])
     # national daily
-    need = [a for a, t in AREAS.items() if t]
+    need = list(AREAS)
     cnt = areas.groupby("date")["area"].nunique()
     full = cnt[cnt == len(need)].index
     a = areas[areas["date"].isin(full)].drop(columns="area").groupby("date").sum(min_count=1)
