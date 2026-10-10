@@ -1,0 +1,17 @@
+name: South Korea sources probe 4
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - name: Run probe
+        run: timeout 560 python3 discovery_archive/south_korea/KOREA_SOURCES_PROBE4.py
