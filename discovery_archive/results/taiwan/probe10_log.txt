@@ -1,0 +1,28 @@
+WARN 200 [
+    {
+        "createdatatime": "2018-06-08T15:33:00",
+        "fileext": "kml",
+        "filename": "水利署水庫警告設施設置圖-石岡壩",
+        "sourceurl": "https:\/\/opendata.wra.gov.tw\/cloud\/45495WaterResourcesAgencyWarningFacilityInReservoir\/295-%E6%B0%B4%E5%88%A9%E7%BD%B2%E6%B0%B4%E5%BA%AB%E8%AD%A6%E5%91%8A%E8%A8%AD%E6%96%BD%E8%A8%AD%E7%BD%AE%E5%9C%96-%E7%9F%B3%E5%B2%A1%E5%A3%A9.kml",
+        "type": "文件"
+    },
+    {
+        "createdatatime": "2018-06-08T15:33:00",
+        "fileext": "kml",
+        "filename": "水利署水庫警告設施設置圖-石門水庫",
+        "sourceurl": "https:\/\/opendata.wra.gov.tw\/cloud\/45495WaterResourcesAgencyWarningFacilityInReservoir\/295-%E6%B0%B4%E5%88%A9%E7%BD%B2%E6%B0%B4%E5%BA%AB%E8%AD%A6%E5%91%8A%E8%A8%AD%E6%96%BD%E8%A8%AD%E7%BD%AE%E5%9C%96-%E7%9F%B3%E9%96%80%E6%B0%B4%E5%BA%AB.kml",
+        "type": "文件"
+    },
+    {
+        "createdatatime": "2018-06-08T15:33:00",
+        "fileex
+TRY 404 303810 /openapi/swagger/js/swagger-initializer.js <!DOCTYPE html><html  lang="zh-Hant-TW" dir="ltr" aria-live="polite" data-capo=""><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" type="text/css" crossorigin="anonymous" data-hid="316d93a"><link rel="stylesheet" href="ht
+TRY 200 2317 /openapi/swagger/index.html <!DOCTYPE html> <html lang="zh-Hant-TW"> <head>   <meta charset="UTF-8">   <title>水利資料整合雲平台Open API</title>   <link rel="stylesheet" href="./css/swagger-ui.css">   <style>     html, body { margin: 0; padding: 0; height: 100%; }     #swagger-ui { height: 100%; }     .visually-hidden {       position: absolute;       width: 1px;       overflow: hidden;       white-space: nowrap;       border: 0;     }   </style>   <!-- swagger-ui 依賴 -->   <script src="./js/swagger-ui-bundle.js" preload></script>  
+TRY 404 217 /openapi/v1/swagger.json {"url":"/openapi/v1/swagger.json","statusCode":404,"statusMessage":"Page not found: /openapi/v1/swagger.json","message":"Page not found: /openapi/v1/swagger.json","stack":"","data":{"path":"/openapi/v1/swagger.json"}}
+TRY 404 221 /openapi/swagger/doc.json {"url":"/openapi/swagger/doc.json","statusCode":404,"statusMessage":"Page not found: /openapi/swagger/doc.json","message":"Page not found: /openapi/swagger/doc.json","stack":"","data":{"path":"/openapi/swagger/doc.json"}}
+TRY 404 225 /openapi/docs/openapi.json {"url":"/openapi/docs/openapi.json","statusCode":404,"statusMessage":"Page not found: /openapi/docs/openapi.json","message":"Page not found: /openapi/docs/openapi.json","stack":"","data":{"path":"/openapi/docs/openapi.json"}}
+TRY 404 205 /openapi/openapi.json {"url":"/openapi/openapi.json","statusCode":404,"statusMessage":"Page not found: /openapi/openapi.json","message":"Page not found: /openapi/openapi.json","stack":"","data":{"path":"/openapi/openapi.json"}}
+TRY 200 70 /api/v1/datasets?topic_name=%E6%B0%B4%E5%BA%AB%E8%88%87%E5%A0%B0%E5%A3%A9&page=1 {"success":false,"code":401,"s_message":"NO_AUTH","payload":"NO_AUTH"}
+TRY 200 70 /api/v1/datasets?query=%E6%B0%B4%E5%BA%AB%E6%AF%8F%E6%97%A5&page=1 {"success":false,"code":401,"s_message":"NO_AUTH","payload":"NO_AUTH"}
+TRY 200 70 /api/v1/topics {"success":false,"code":401,"s_message":"NO_AUTH","payload":"NO_AUTH"}
+DG []
