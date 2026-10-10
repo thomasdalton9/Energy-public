@@ -12,7 +12,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -26,7 +26,7 @@ jobs:
       - name: Run pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1000 python3 japan/JAPAN_METI_ELECTRIC.py --out "output/Data and Chart Outputs/japan_meti_electric_power_stats.xlsx"
+        run: timeout 2400 python3 japan/JAPAN_METI_ELECTRIC.py --out "output/Data and Chart Outputs/japan_meti_electric_power_stats.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
