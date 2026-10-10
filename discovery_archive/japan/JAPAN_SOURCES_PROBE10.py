@@ -20,9 +20,9 @@ def zipinfo(u):
     except Exception as e:  # noqa: BLE001
         print("   not a zip:", e, r.content[:80])
         return
-    for n in z.namelist():
-        print("   member", n, z.getinfo(n).file_size)
-    for n in z.namelist()[:4]:
+    names = z.namelist()
+    print("   members:", len(names), names[:6])
+    for n in z.namelist()[:2]:
         b = z.read(n)
         for enc in ("cp932", "utf-8-sig"):
             try:
@@ -38,5 +38,3 @@ def zipinfo(u):
 for base in ("https://www.kansai-td.co.jp/yamasou/", "https://www.kansai-td.co.jp/interchange/denkiyoho/area-performance/",
              "https://www.kansai-td.co.jp/denkiyoho/download/"):
     zipinfo(base + "202608_jisseki.zip")
-zipinfo("https://powergrid.chuden.co.jp/denki_yoho_content_data/download_csv/202608_keito.zip")
-zipinfo("https://powergrid.chuden.co.jp/denki_yoho_content_data/eria_jukyu_202609_04.csv")
