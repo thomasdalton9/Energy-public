@@ -110,9 +110,16 @@ NOT_AVAILABLE = [
      "Reachable, member service", "https://www.petronet.co.kr/v4/eng/main.jsp",
      "Prices on the home page are public; the import, production and stock tables are inside a menu form (POST) that returns a "
      "page shell without tables, and the site lists them as a fee-based information service. Not built."),
-    ("South Korea", "Real-time and hourly generation by fuel", "KPX data portal / data.go.kr open API", "Needs an API key",
-     "https://www.data.go.kr/", "The open APIs require a free service key, which this repo does not hold; EPSIS monthly and "
-     "daily tables are used instead."),
+    ("South Korea", "Hourly generation by fuel (to roll up to daily and monthly)", "KPX data portal / data.go.kr, EPSIS",
+     "No keyless hourly series for all fuels", "https://www.data.go.kr/data/15069337/fileData.do",
+     "Opened from GitHub Actions on 10 Oct 2026 (discovery_archive/results/south_korea/hourly_probe.txt, hourly_probe2.txt): "
+     "the open APIs (generation by source, 15106744 / 15113384 / 15142651) need a service key this repo does not hold. The free "
+     "file datasets are (a) 15065387 hourly traded volume, TOTAL only (no fuel), 2017-2021, one-off; (b) 15069337 hourly "
+     "renewables by fuel (13 renewable categories) with capacity, calendar 2025 only, replaced once a year; (c) 15065269 hourly "
+     "solar and wind by region, calendar 2025 only; (d) 15127502 Jeju solar/wind 2019-2023 (zip). None has hourly nuclear, coal, "
+     "gas, oil or hydro. EPSIS offers year/month only on the trading-volume page (040501), day only on the demand page "
+     "(030100, no fuel), and its real-time page (030300) shows the current day with no history. A rolled-up daily/monthly "
+     "generation by fuel series for all fuels therefore cannot be built; the monthly EPSIS series is used."),
     ("South Korea", "Ember monthly electricity data", "ember-energy.org", "Blocked (Cloudflare challenge, HTTP 403)",
      "https://ember-energy.org/data/monthly-electricity-data/",
      "Not needed: KPX provides the raw series. Ember appears only through the Long-term page."),
