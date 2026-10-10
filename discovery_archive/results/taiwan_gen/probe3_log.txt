@@ -1,0 +1,14 @@
+CDX d006010/001.json 200 captures 2
+    20241113022434 application/json len 7612130
+    20260312072455 application/json len 191977
+CDX d006010/001.csv 504 captures 0
+CDX d006009/001.json 200 captures 6
+    20241115224915 application/json len 301789
+    20250222044950 application/json len 256919
+    20250712072109 application/json len 307377
+    20260218184401 application/json len 320283
+    20260606081834 application/json len 319304
+    20260929233846 application/json len 321352
+CDX d006001/001.json None captures 0
+CAPTURE 20241113022434 200 None 2024-05-01T00:00:00 2024-07-31T23:50:00
+CAPTURE 20260312072455 200 None 2025-09-01T00:00:00 2025-11-30T23:50:00
