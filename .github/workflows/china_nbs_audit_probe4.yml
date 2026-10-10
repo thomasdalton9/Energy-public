@@ -1,0 +1,64 @@
+name: China NBS audit probe 4
+
+# Manual, one-off: old-release table dumps (2015-2020) + ID scan of 2021 and of the 10-day price gaps (moved to discovery_archive/workflows after use).
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [A, B, C]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas openpyxl
+      - name: Dump
+        run: timeout 4800 python3 discovery_archive/china/CHINA_NBS_AUDIT_PROBE4.py ${{ matrix.group }}
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/china_nbs_audit
+          git diff --cached --quiet || git commit -m "China NBS audit probe 4 old dump ${{ matrix.group }}"
+          for i in 1 2 3 4 5 6; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 7))
+          done
+          exit 1
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        range: ["1900961 1901110", "1901111 1901260", "1901366 1901395", "1901733 1901830"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas
+      - name: Scan
+        run: timeout 3000 python3 discovery_archive/china/CHINA_NBS_AUDIT_PROBE5.py ${{ matrix.range }}
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/china_nbs_audit
+          git diff --cached --quiet || git commit -m "China NBS audit probe 5 idscan"
+          for i in 1 2 3 4 5 6; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 7))
+          done
+          exit 1
