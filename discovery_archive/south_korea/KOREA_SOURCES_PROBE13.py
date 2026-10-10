@@ -31,7 +31,8 @@ for kw in ("%ED%95%9C%EA%B5%AD%EA%B0%80%EC%8A%A4%EA%B3%B5%EC%82%AC+LNG", "LNG+%E
     t = S.get(D + kw, timeout=(10, 60)).text
     items = re.findall(r'<a[^>]+href="[^"]*/data/(\d+)/(fileData|openapi)\.do"[^>]*>(.*?)</a>', t, re.S)
     for ident, kind, title in items[:15]:
-        line = f"DATASET {kw[:20]} {ident} {kind} {re.sub(r'<[^>]+>|\\s+', ' ', title).strip()[:120]}"
+        clean = re.sub(r"<[^>]+>|\s+", " ", title).strip()[:120]
+        line = f"DATASET {kw[:20]} {ident} {kind} {clean}"
         print(line, flush=True)
         log.append(line)
 open(os.path.join(OUT, "probe13.txt"), "w", encoding="utf-8").write("\n".join(log))
