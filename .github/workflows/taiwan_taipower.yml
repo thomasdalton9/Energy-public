@@ -1,0 +1,53 @@
+name: Taiwan Taipower generation and peak load
+
+# Taipower 10-minute unit file (rolling three-month window, replaced monthly) and daily peak/reserve file (previous + current year): the committed workbook is the history store. 1st and 15th so every monthly window is caught.
+on:
+  schedule:
+    - cron: "20 3 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run pull
+        run: timeout 1500 python3 taiwan/TAIWAN_TAIPOWER.py --out "output/Data and Chart Outputs/taiwan_taipower.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/taiwan_taipower.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/taiwan_taipower.xlsx" || echo "chart step skipped/failed for taiwan_taipower.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp taiwan/TAIWAN_TAIPOWER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/taiwan_taipower.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/taiwan_taipower.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Taiwan Taipower: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          exit 1
