@@ -1,0 +1,13 @@
+GUID 1602ca19-b224-4cc3-aa31-11b1b124530f 200 {"success":false,"code":500,"s_message":"Exception happend: 未預期的錯誤。1602ca19-b224-4cc3-aa31-11b1b124530f 查無資料"}
+GUID 50c8256d-30c5-4b8d-9b84-2e14d5c6df71 200 {"success":false,"code":500,"s_message":"Exception happend: 未預期的錯誤。50c8256d-30c5-4b8d-9b84-2e14d5c6df71 查無資料"}
+ERR http://data.wra.gov.tw/Service/OpenData.aspx?format=json&id=1602CA19-B224-4CC3-AA31-11B1B124530F ConnectionError HTTPConnectionPool(host='data.wra.gov.tw', port=80): Max retries exceeded with url: /Service/OpenDat
+URL http://data.wra.gov.tw/Service/OpenData.aspx?format=json&id=1602CA19-B224-4CC3-AA31-11B1B124530F None  
+ERR https://data.wra.gov.tw/ ConnectionError HTTPSConnectionPool(host='data.wra.gov.tw', port=443): Max retries exceeded with url: / (Caused by N
+URL https://data.wra.gov.tw/ None  
+URL https://fhy.wra.gov.tw/fhyv2/monitor/reservoir 200 1690 <!doctype html><html lang="zh-Hant-TW"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="icon" type="image/x-icon" href="static/favicon.ico"/>
+fhy scripts ['/fhyv2/js/Reservoir/svg.rain.min.js', '/fhyv2/js/Reservoir/svg.water.min.js', '/fhyv2/js/Reservoir/snap.svg-min.js', '/fhyv2/js/chunk-vendors.4edb8c79.js', '/fhyv2/js/app.8496b7f3.js']
+JS /fhyv2/js/Reservoir/svg.rain.min.js 2809 has10501=False 石門=False
+JS /fhyv2/js/Reservoir/svg.water.min.js 7435 has10501=False 石門=False
+JS /fhyv2/js/Reservoir/snap.svg-min.js 76665 has10501=False 石門=False
+JS /fhyv2/js/chunk-vendors.4edb8c79.js 187566 has10501=False 石門=False
+JS /fhyv2/js/app.8496b7f3.js 8936 has10501=False 石門=False
