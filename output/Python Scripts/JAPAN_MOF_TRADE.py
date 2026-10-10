@@ -46,7 +46,7 @@ ITEMS = {
     r"　石炭": ("Coal_kt", None),
     r"（一般炭）": ("Steam_coal_kt", None),
 }
-BOUNDS = {"LNG_kt": (1500, 10000), "Crude_oil_thousand_kl": (6000, 20000), "LPG_kt": (200, 2500), "Coal_kt": (7000, 22000)}
+BOUNDS = {"LNG_kt": (1500, 10000), "Crude_oil_thousand_kl": (1500, 20000), "LPG_kt": (200, 2500), "Coal_kt": (7000, 22000)}
 
 
 def get(url, tries=3):
