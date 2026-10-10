@@ -141,9 +141,12 @@ def collect(wb, datasets, data_dir, used, sources):
     """sam.collect per dataset so each can show a chosen subset of its charts (names = spec names; None = all)."""
     charts, rows, missing = [], [], []
     for code, country, fname, raw, short, only in datasets:
-        cfg = SimpleNamespace(**{k: getattr(sys.modules[__name__], k) for k in (
-            "SOURCES", "MASTER_SPECS", "HYDRO_DATASETS", "HYDRO_EXTRA", "EMBER", "OPERATORS")},
-            DASHBOARD_ONLY={fname: only} if only else {}, GAS_BCFD=True)
+        base = {k: getattr(sys.modules[__name__], k) for k in ("SOURCES", "HYDRO_DATASETS", "HYDRO_EXTRA", "EMBER", "OPERATORS")}
+        specs_for = dict(MASTER_SPECS)
+        if only:   # exactly these charts of the workbook (none if they are missing - no fall-back to all of them)
+            build = add_charts.REGISTRY[fname]
+            specs_for[fname] = lambda p, b=build, o=only: [sp for sp in b(p) if sp["name"] in o]
+        cfg = SimpleNamespace(MASTER_SPECS=specs_for, DASHBOARD_ONLY={}, GAS_BCFD=True, **base)
         before = set(wb.sheetnames)
         c, r, m = sam.collect(wb, [(code, country, fname, raw, short)], data_dir, used, sources, cfg=cfg)
         for ws in wb.worksheets:   # 'JP Data raw 2' -> 'JP industrial output Data raw': say which dataset it is
