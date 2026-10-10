@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests
-      - run: python3 discovery_archive/taiwan/TAIWAN_PROBE8.py
+      - run: python3 discovery_archive/taiwan/TAIWAN_PROBE9.py
       - name: Commit results
         if: always()
         run: |
