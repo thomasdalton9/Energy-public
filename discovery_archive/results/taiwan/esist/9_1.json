@@ -1,0 +1,1187 @@
+{
+  "油價": [
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "期間",
+      "Column2": "九二無鉛汽油\n(新臺幣元/公升)",
+      "Column3": "九五無鉛汽油\n(新臺幣元/公升)",
+      "Column4": "九八無鉛汽油\n(新臺幣元/公升)",
+      "Column5": "液化石油氣\n(新臺幣元/公斤)",
+      "Column6": "超級/高級柴油\n(新臺幣元/公升)",
+      "Column7": "甲種低硫燃料油/\n低硫鍋爐用油(S:0.5%)\n(新臺幣元/公秉)",
+      "Column8": "低硫燃料油(S:0.5%)\n(新臺幣元/公秉)",
+      "Column9": "甲種漁船用油\n(新臺幣元/公秉)",
+      "Column10": "乙種漁船用油\n(新臺幣元/公秉)",
+      "Column11": "Period"
+    },
+    {
+      "Column2": "Unleaded Gasoline #92\n(NT$/l)",
+      "Column3": "Unleaded Gasoline #95\n(NT$/l)",
+      "Column4": "Unleaded Gasoline #98\n(NT$/l)",
+      "Column5": "LPG\n(NT$/kg)",
+      "Column6": "Super/Premium Diesel Oil\n(NT$/l)",
+      "Column7": "Low Sulphur Fuel Oil (A)/\nLow Sulphur Boiler Fuel Oil 0.5%\n(NT$/kl)",
+      "Column8": "Low Sulphur Fuel Oil 0.5%\n(NT$/kl)",
+      "Column9": "Fishing Boat Fuel Oil (A)\n(NT$/kl)",
+      "Column10": "Fishing Boat Fuel Oil (B)\n(NT$/kl)"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "96年",
+      "Column2": 30,
+      "Column3": 30.7,
+      "Column4": 32.2,
+      "Column5": 23.81,
+      "Column6": 27.5,
+      "Column7": 15158,
+      "Column8": 14708,
+      "Column9": 20293,
+      "Column10": 15378,
+      "Column11": 2007
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "97年",
+      "Column2": 20.4,
+      "Column3": 21.1,
+      "Column4": 22.6,
+      "Column5": 16.46,
+      "Column6": 17.1,
+      "Column7": 11092,
+      "Column8": 9595,
+      "Column9": 9893,
+      "Column10": 4978,
+      "Column11": 2008
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "98年",
+      "Column2": 29.2,
+      "Column3": 29.9,
+      "Column4": 31.4,
+      "Column5": 24.46,
+      "Column6": 26.8,
+      "Column7": 18031,
+      "Column8": 16443,
+      "Column9": 19593,
+      "Column10": 14678,
+      "Column11": 2009
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "99年",
+      "Column2": 30.8,
+      "Column3": 31.5,
+      "Column4": 33,
+      "Column5": 28.46,
+      "Column6": 28.6,
+      "Column7": 19044,
+      "Column8": 17778,
+      "Column9": 21393,
+      "Column10": 16478,
+      "Column11": 2010
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "100年",
+      "Column2": 30.6,
+      "Column3": 31.3,
+      "Column4": 32.8,
+      "Column5": 27.86,
+      "Column6": 28.8,
+      "Column7": 21562,
+      "Column8": 20653,
+      "Column9": 21593,
+      "Column10": 16678,
+      "Column11": 2011
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "101年",
+      "Column2": 33.3,
+      "Column3": 34.8,
+      "Column4": 36.8,
+      "Column5": 30.06,
+      "Column6": 32.1,
+      "Column7": 22559,
+      "Column8": 20874,
+      "Column9": 24893,
+      "Column10": 19978,
+      "Column11": 2012
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "102年",
+      "Column2": 34.3,
+      "Column3": 35.8,
+      "Column4": 37.8,
+      "Column5": 34.91,
+      "Column6": 33.2,
+      "Column7": 22539,
+      "Column8": 20852,
+      "Column9": 25993,
+      "Column10": 21078,
+      "Column11": 2013
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "103年",
+      "Column2": 25,
+      "Column3": 26.5,
+      "Column4": 28.5,
+      "Column5": 28.46,
+      "Column6": 23,
+      "Column7": 21532,
+      "Column8": 20010,
+      "Column9": 15793,
+      "Column10": 10878,
+      "Column11": 2014
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "104年",
+      "Column2": 19.9,
+      "Column3": 21.4,
+      "Column4": 23.4,
+      "Column5": 24.86,
+      "Column6": 17.4,
+      "Column7": 13999,
+      "Column8": 13834,
+      "Column9": 10193,
+      "Column10": 5278,
+      "Column11": 2015
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "105年",
+      "Column2": 24.9,
+      "Column3": 26.4,
+      "Column4": 28.4,
+      "Column5": 18.76,
+      "Column6": 22.6,
+      "Column7": 12933,
+      "Column8": 12147,
+      "Column9": 15393,
+      "Column10": 10478,
+      "Column11": 2016
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "106年",
+      "Column2": 26.4,
+      "Column3": 27.9,
+      "Column4": 29.9,
+      "Column5": 26.96,
+      "Column6": 24.2,
+      "Column7": 13993,
+      "Column8": 12812,
+      "Column9": 16993,
+      "Column10": 12078,
+      "Column11": 2017
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "107年",
+      "Column2": 24.5,
+      "Column3": 26,
+      "Column4": 28,
+      "Column5": 22.36,
+      "Column6": 22.2,
+      "Column7": 18646,
+      "Column8": 17367,
+      "Column9": 14993,
+      "Column10": 10078,
+      "Column11": 2018
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "108年",
+      "Column2": 27.7,
+      "Column3": 29.2,
+      "Column4": 31.2,
+      "Column5": 20.46,
+      "Column6": 25.7,
+      "Column7": 16705,
+      "Column8": 16030,
+      "Column9": 18493,
+      "Column10": 13578,
+      "Column11": 2019
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "109年",
+      "Column2": 24,
+      "Column3": 25.5,
+      "Column4": 27.5,
+      "Column5": 16.86,
+      "Column6": 21.3,
+      "Column7": 0,
+      "Column8": 12617,
+      "Column9": 14093,
+      "Column10": 10178,
+      "Column11": 2020
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "110年",
+      "Column2": 27.5,
+      "Column3": 29,
+      "Column4": 31,
+      "Column5": 16.86,
+      "Column6": 25.5,
+      "Column7": 0,
+      "Column8": 19127,
+      "Column9": 18293,
+      "Column10": 14378,
+      "Column11": 2021
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "111年",
+      "Column2": 29.1,
+      "Column3": 30.6,
+      "Column4": 32.6,
+      "Column5": 16.86,
+      "Column6": 27.9,
+      "Column7": 0,
+      "Column8": 25239,
+      "Column9": 20693,
+      "Column10": 16778,
+      "Column11": 2022
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "112年",
+      "Column2": 29.6,
+      "Column3": 31.1,
+      "Column4": 33.1,
+      "Column5": 16.86,
+      "Column6": 28,
+      "Column7": 0,
+      "Column8": 21862,
+      "Column9": 20793,
+      "Column10": 16878,
+      "Column11": 2023
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "113年",
+      "Column2": 28.6,
+      "Column3": 30.1,
+      "Column4": 32.1,
+      "Column5": 16.86,
+      "Column6": 27.3,
+      "Column7": 0,
+      "Column8": 19887,
+      "Column9": 20093,
+      "Column10": 16178,
+      "Column11": 2024
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "114年",
+      "Column2": 26.8,
+      "Column3": 28.3,
+      "Column4": 30.3,
+      "Column5": 17.31,
+      "Column6": 25.2,
+      "Column7": 0,
+      "Column8": 18014,
+      "Column9": 17993,
+      "Column10": 14078,
+      "Column11": 2025
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "01月",
+      "Column2": 29.6,
+      "Column3": 31.1,
+      "Column4": 33.1,
+      "Column5": 16.86,
+      "Column6": 28.2,
+      "Column7": 0,
+      "Column8": 19486,
+      "Column9": 20993,
+      "Column10": 17078,
+      "Column11": "2025/01"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "02月",
+      "Column2": 29.8,
+      "Column3": 31.3,
+      "Column4": 33.3,
+      "Column5": 16.86,
+      "Column6": 29,
+      "Column7": 0,
+      "Column8": 19651,
+      "Column9": 21793,
+      "Column10": 17878,
+      "Column11": "2025/02"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "03月",
+      "Column2": 28.7,
+      "Column3": 30.2,
+      "Column4": 32.2,
+      "Column5": 16.86,
+      "Column6": 27.9,
+      "Column7": 0,
+      "Column8": 19626,
+      "Column9": 20693,
+      "Column10": 16778,
+      "Column11": "2025/03"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "04月",
+      "Column2": 28.3,
+      "Column3": 29.8,
+      "Column4": 31.8,
+      "Column5": 16.86,
+      "Column6": 27.1,
+      "Column7": 0,
+      "Column8": 20037,
+      "Column9": 19893,
+      "Column10": 15978,
+      "Column11": "2025/04"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "05月",
+      "Column2": 26.1,
+      "Column3": 27.6,
+      "Column4": 29.6,
+      "Column5": 16.86,
+      "Column6": 24.5,
+      "Column7": 0,
+      "Column8": 20116,
+      "Column9": 17293,
+      "Column10": 13378,
+      "Column11": "2025/05"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "06月",
+      "Column2": 27.1,
+      "Column3": 28.6,
+      "Column4": 30.6,
+      "Column5": 16.86,
+      "Column6": 25.9,
+      "Column7": 0,
+      "Column8": 19854,
+      "Column9": 18693,
+      "Column10": 14778,
+      "Column11": "2025/06"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "07月",
+      "Column2": 26.9,
+      "Column3": 28.4,
+      "Column4": 30.4,
+      "Column5": 16.86,
+      "Column6": 25.7,
+      "Column7": 0,
+      "Column8": 19350,
+      "Column9": 18493,
+      "Column10": 14578,
+      "Column11": "2025/07"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "08月",
+      "Column2": 27.3,
+      "Column3": 28.8,
+      "Column4": 30.8,
+      "Column5": 16.86,
+      "Column6": 26.2,
+      "Column7": 0,
+      "Column8": 18803,
+      "Column9": 18993,
+      "Column10": 15078,
+      "Column11": "2025/08"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "09月",
+      "Column2": 27.2,
+      "Column3": 28.7,
+      "Column4": 30.7,
+      "Column5": 16.86,
+      "Column6": 26.1,
+      "Column7": 0,
+      "Column8": 18195,
+      "Column9": 18893,
+      "Column10": 14978,
+      "Column11": "2025/09"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "10月",
+      "Column2": 27,
+      "Column3": 28.5,
+      "Column4": 30.5,
+      "Column5": 16.86,
+      "Column6": 25.5,
+      "Column7": 0,
+      "Column8": 18047,
+      "Column9": 18293,
+      "Column10": 14378,
+      "Column11": "2025/10"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "11月",
+      "Column2": 27.1,
+      "Column3": 28.6,
+      "Column4": 30.6,
+      "Column5": 17.31,
+      "Column6": 25.5,
+      "Column7": 0,
+      "Column8": 18026,
+      "Column9": 18293,
+      "Column10": 14378,
+      "Column11": "2025/11"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "12月",
+      "Column2": 26.8,
+      "Column3": 28.3,
+      "Column4": 30.3,
+      "Column5": 17.31,
+      "Column6": 25.2,
+      "Column7": 0,
+      "Column8": 18014,
+      "Column9": 17993,
+      "Column10": 14078,
+      "Column11": "2025/12"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "115年",
+      "Column11": 2026
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "01月",
+      "Column2": 27.1,
+      "Column3": 28.6,
+      "Column4": 30.6,
+      "Column5": 20.01,
+      "Column6": 25.7,
+      "Column7": 0,
+      "Column8": 17800,
+      "Column9": 18493,
+      "Column10": 14578,
+      "Column11": "2026/01"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "02月",
+      "Column2": 27.2,
+      "Column3": 28.7,
+      "Column4": 30.7,
+      "Column5": 20.01,
+      "Column6": 26.6,
+      "Column7": 0,
+      "Column8": 17304,
+      "Column9": 19393,
+      "Column10": 15478,
+      "Column11": "2026/02"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "03月",
+      "Column2": 32.4,
+      "Column3": 33.9,
+      "Column4": 35.9,
+      "Column5": 20.01,
+      "Column6": 31,
+      "Column7": 0,
+      "Column8": 16890,
+      "Column9": 23993,
+      "Column10": 20078,
+      "Column11": "2026/03"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "04月",
+      "Column2": 32.4,
+      "Column3": 33.9,
+      "Column4": 35.9,
+      "Column5": 20.01,
+      "Column6": 31,
+      "Column7": 0,
+      "Column8": 16695,
+      "Column9": 23993,
+      "Column10": 20078,
+      "Column11": "2026/04"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "05月",
+      "Column2": 32.4,
+      "Column3": 33.9,
+      "Column4": 35.9,
+      "Column5": 20.01,
+      "Column6": 31,
+      "Column7": 0,
+      "Column8": 17895,
+      "Column9": 23993,
+      "Column10": 20078,
+      "Column11": "2026/05"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "06月",
+      "Column2": 30.4,
+      "Column3": 31.9,
+      "Column4": 33.9,
+      "Column5": 20.01,
+      "Column6": 29.5,
+      "Column7": 0,
+      "Column8": 20402,
+      "Column9": 22493,
+      "Column10": 18578,
+      "Column11": "2026/06"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "07月",
+      "Column2": 30.5,
+      "Column3": 32,
+      "Column4": 34,
+      "Column5": 20.01,
+      "Column6": 29.3,
+      "Column7": 0,
+      "Column8": 24014,
+      "Column9": 22293,
+      "Column10": 18378,
+      "Column11": "2026/07"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "08月",
+      "Column2": 30.5,
+      "Column3": 32,
+      "Column4": 34,
+      "Column5": 20.01,
+      "Column6": 29.3,
+      "Column7": 0,
+      "Column8": 25339,
+      "Column9": 22293,
+      "Column10": 18378,
+      "Column11": "2026/08"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "註：1.本表油品價格係指中油公司零售價格。"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "　　2.本表油品價格含營業稅，除甲、乙種漁船用油不含營業稅及貨物稅。"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "　　3.各項油品調價時間視市場供需而定，本表每月價格以當月底油價為準；年度資料則以當年度12月數值為準。"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "　　4.低硫鍋爐用油(S:1.0%)自96年5月起改為低硫鍋爐用油(S:0.5%)。"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "　　5.自103/07/01起中油公司供應之超級柴油為不含生質燃料之柴油，原高級柴油取消不再供應。"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "資料來源：中油公司。"
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "Note: 1.The prices of petroleum products in this table refer to the retail prices set by CPC Corporation."
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "            2.The prices in this table include business tax, except for Fishing Boat Fuel Oil (A) and (B), which do not include business tax and commodity tax."
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "            3.The timing of price adjustments for petroleum products is determined by market supply and demand. Monthly price in this table is based on the end-of-month price; annual data reflects the December value of the given year."
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "            4.Low Sulfur Fuel Oil (S:1.0%) was changed to Low Sulfur Fuel Oil (S:0.5%) starting in May 2007."
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "            5.From July 1, 2014, CPC Corporation's super diesel no longer contains biofuels, and premium diesel is no longer supplied."
+    },
+    {
+      "9-01國內能源價格（油品）_ Domestic Energy Prices (Petroleum Products)": "Source: CPC Corporation."
+    }
+  ],
+  "氣價": [
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "期間",
+      "Column2": "天然氣(1)工業用戶\n(新臺幣元/立方公尺)",
+      "Column3": "天然氣(1)公用天然氣用戶\n(新臺幣元/立方公尺)",
+      "Column4": "天然氣(2)電業用戶\n(新臺幣元/立方公尺)",
+      "Column5": "Period"
+    },
+    {
+      "Column2": "Nature Gas (1) Industrial\n(NT$/m3)",
+      "Column3": "Nature Gas (1) Gas Supply\n(NT$/m3)",
+      "Column4": "Nature Gas (2) Electricity Plants\n(NT$/m3)"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "96年",
+      "Column2": 14.31,
+      "Column3": 12.89,
+      "Column4": 12.26,
+      "Column5": 2007
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "97年",
+      "Column2": 15.11,
+      "Column3": 14.69,
+      "Column4": 15.18,
+      "Column5": 2008
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "98年",
+      "Column2": 15,
+      "Column3": 14.58,
+      "Column4": 15.06,
+      "Column5": 2009
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "99年",
+      "Column2": 14.64,
+      "Column3": 14.22,
+      "Column4": 14.66,
+      "Column5": 2010
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "100年",
+      "Column2": 17.25,
+      "Column3": 16.83,
+      "Column4": 17.37,
+      "Column5": 2011
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "101年",
+      "Column2": 20.35,
+      "Column3": 19.92,
+      "Column4": 20.55,
+      "Column5": 2012
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "102年",
+      "Column2": 19.15,
+      "Column3": 18.73,
+      "Column4": 19.25,
+      "Column5": 2013
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "103年",
+      "Column2": 17.38,
+      "Column3": 16.95,
+      "Column4": 17.31,
+      "Column5": 2014
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "104年",
+      "Column2": 11.01,
+      "Column3": 10.58,
+      "Column4": 10.37,
+      "Column5": 2015
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "105年",
+      "Column2": 9.7,
+      "Column3": 9.28,
+      "Column4": 8.95,
+      "Column5": 2016
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "106年",
+      "Column2": 11.66,
+      "Column3": 11.24,
+      "Column4": 11.09,
+      "Column5": 2017
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "107年",
+      "Column2": 12.68,
+      "Column3": 12.25,
+      "Column4": 12.2,
+      "Column5": 2018
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "108年",
+      "Column2": 10.96,
+      "Column3": 10.53,
+      "Column4": 10.32,
+      "Column5": 2019
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "109年",
+      "Column2": 8.35,
+      "Column3": 7.93,
+      "Column4": 7.48,
+      "Column5": 2020
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "110年",
+      "Column2": 8.6,
+      "Column3": 8.15,
+      "Column4": 10.49,
+      "Column5": 2021
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "111年",
+      "Column2": 8.6,
+      "Column3": 8.15,
+      "Column4": 21.38,
+      "Column5": 2022
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "112年",
+      "Column2": 8.6,
+      "Column3": 8.15,
+      "Column4": 16.8,
+      "Column5": 2023
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "113年",
+      "Column2": 13.19,
+      "Column3": 12.74,
+      "Column4": 15.02,
+      "Column5": 2024
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "114年",
+      "Column2": 14.06,
+      "Column3": 13.61,
+      "Column4": 12.99,
+      "Column5": 2025
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "01月",
+      "Column2": 13.19,
+      "Column3": 12.74,
+      "Column4": 15.24,
+      "Column5": "2025/01"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "02月",
+      "Column2": 13.19,
+      "Column3": 12.74,
+      "Column4": 15.7,
+      "Column5": "2025/02"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "03月",
+      "Column2": 14.48,
+      "Column3": 14.03,
+      "Column4": 16.17,
+      "Column5": "2025/03"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "04月",
+      "Column2": 14.91,
+      "Column3": 14.45,
+      "Column4": 16.17,
+      "Column5": "2025/04"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "05月",
+      "Column2": 14.91,
+      "Column3": 14.45,
+      "Column4": 16.17,
+      "Column5": "2025/05"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "06月",
+      "Column2": 14.91,
+      "Column3": 14.45,
+      "Column4": 14.55,
+      "Column5": "2025/06"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "07月",
+      "Column2": 14.91,
+      "Column3": 14.45,
+      "Column4": 14.55,
+      "Column5": "2025/07"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "08月",
+      "Column2": 14.57,
+      "Column3": 14.12,
+      "Column4": 13.41,
+      "Column5": "2025/08"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "09月",
+      "Column2": 14.57,
+      "Column3": 14.12,
+      "Column4": 13.41,
+      "Column5": "2025/09"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "10月",
+      "Column2": 14.57,
+      "Column3": 14.12,
+      "Column4": 13.41,
+      "Column5": "2025/10"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "11月",
+      "Column2": 14.27,
+      "Column3": 13.82,
+      "Column4": 12.99,
+      "Column5": "2025/11"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "12月",
+      "Column2": 14.06,
+      "Column3": 13.61,
+      "Column4": 12.99,
+      "Column5": "2025/12"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "115年",
+      "Column5": 2026
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "01月",
+      "Column2": 12.78,
+      "Column3": 12.33,
+      "Column4": 12.85,
+      "Column5": "2026/01"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "02月",
+      "Column2": 12.78,
+      "Column3": 12.33,
+      "Column4": 12.85,
+      "Column5": "2026/02"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "03月",
+      "Column2": 13.14,
+      "Column3": 12.69,
+      "Column4": 13.24,
+      "Column5": "2026/03"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "04月",
+      "Column2": 13.78,
+      "Column3": 13.33,
+      "Column4": 18.74,
+      "Column5": "2026/04"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "05月",
+      "Column2": 13.78,
+      "Column3": 13.33,
+      "Column4": 20.49,
+      "Column5": "2026/05"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "06月",
+      "Column2": 14.46,
+      "Column3": 14,
+      "Column4": 20.49,
+      "Column5": "2026/06"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "07月",
+      "Column2": 14.46,
+      "Column3": 14,
+      "Column4": 19.52,
+      "Column5": "2026/07"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "08月",
+      "Column2": 15.16,
+      "Column3": 14.71,
+      "Column4": 21.46,
+      "Column5": "2026/08"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "註：1.本表天然氣價格係指中油公司銷售價格。"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "　　2.本表天然氣價格無累計值；年度資料為當年度12月數值。"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "　　3.本表天然氣(2)電業用戶價格於109年前分別依中油公司公告冬月(12~3月)、夏月(6~9月)、其他月(4、5、10、11月)價格衡量。"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "資料來源：中油公司。"
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "Note: 1.Natural gas prices in this table refer to the sales prices set by CPC Corporation."
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "            2.There are no cumulative values for natural gas prices; annual data reflects the December value of the given year."
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "            3.For electricity plants, the natural gas prices (2) before 2020 were based on CPC Corporation's announced prices for winter months (December to March), summer months (June to September), and other months (April, May, October, November)."
+    },
+    {
+      "9-01國內能源價格（天然氣）_ Domestic Energy Prices (Natural Gas)": "Source: CPC Corporation."
+    }
+  ],
+  "電價": [
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "期間",
+      "Column2": "台電電燈用電 \n(新臺幣元/度)(平均)",
+      "Column3": "台電電力用電 \n(新臺幣元/度)(平均)",
+      "Column4": "台電平均售價\n(新臺幣元/度)",
+      "Column5": "Period"
+    },
+    {
+      "Column2": "Light\n(NT$/kWh)",
+      "Column3": "Power\n(NT$/kWh)",
+      "Column4": "Average\n(NT$/kWh)"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "96年",
+      "Column2": 2.63,
+      "Column3": 1.93,
+      "Column4": 2.15,
+      "Column5": 2007
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "97年",
+      "Column2": 2.7,
+      "Column3": 2.12,
+      "Column4": 2.3,
+      "Column5": 2008
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "98年",
+      "Column2": 2.91,
+      "Column3": 2.46,
+      "Column4": 2.61,
+      "Column5": 2009
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "99年",
+      "Column2": 2.95,
+      "Column3": 2.46,
+      "Column4": 2.61,
+      "Column5": 2010
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "100年",
+      "Column2": 2.94,
+      "Column3": 2.45,
+      "Column4": 2.6,
+      "Column5": 2011
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "101年",
+      "Column2": 2.97,
+      "Column3": 2.62,
+      "Column4": 2.72,
+      "Column5": 2012
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "102年",
+      "Column2": 3.12,
+      "Column3": 2.8,
+      "Column4": 2.89,
+      "Column5": 2013
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "103年",
+      "Column2": 3.17,
+      "Column3": 3.03,
+      "Column4": 3.07,
+      "Column5": 2014
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "104年",
+      "Column2": 3.1,
+      "Column3": 2.86,
+      "Column4": 2.93,
+      "Column5": 2015
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "105年",
+      "Column2": 2.79,
+      "Column3": 2.54,
+      "Column4": 2.62,
+      "Column5": 2016
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "106年",
+      "Column2": 2.71,
+      "Column3": 2.48,
+      "Column4": 2.55,
+      "Column5": 2017
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "107年",
+      "Column2": 2.75,
+      "Column3": 2.54,
+      "Column4": 2.6,
+      "Column5": 2018
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "108年",
+      "Column2": 2.76,
+      "Column3": 2.56,
+      "Column4": 2.62,
+      "Column5": 2019
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "109年",
+      "Column2": 2.76,
+      "Column3": 2.53,
+      "Column4": 2.6,
+      "Column5": 2020
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "110年",
+      "Column2": 2.72,
+      "Column3": 2.53,
+      "Column4": 2.59,
+      "Column5": 2021
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "111年",
+      "Column2": 2.76,
+      "Column3": 2.71,
+      "Column4": 2.72,
+      "Column5": 2022
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "112年",
+      "Column2": 2.83,
+      "Column3": 3.17,
+      "Column4": 3.07,
+      "Column5": 2023
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "113年",
+      "Column2": 3,
+      "Column3": 3.69,
+      "Column4": 3.48,
+      "Column5": 2024
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "114年",
+      "Column2": 3.12,
+      "Column3": 4.23,
+      "Column4": 3.9,
+      "Column5": 2025
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "01月",
+      "Column2": 2.65,
+      "Column3": 3.67,
+      "Column4": 3.38,
+      "Column5": "2025/01"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "02月",
+      "Column2": 2.74,
+      "Column3": 3.82,
+      "Column4": 3.5,
+      "Column5": "2025/02"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "03月",
+      "Column2": 2.75,
+      "Column3": 3.85,
+      "Column4": 3.55,
+      "Column5": "2025/03"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "04月",
+      "Column2": 2.84,
+      "Column3": 3.85,
+      "Column4": 3.59,
+      "Column5": "2025/04"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "05月",
+      "Column2": 2.7,
+      "Column3": 4.18,
+      "Column4": 3.79,
+      "Column5": "2025/05"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "06月",
+      "Column2": 2.9,
+      "Column3": 4.65,
+      "Column4": 4.15,
+      "Column5": "2025/06"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "07月",
+      "Column2": 3.22,
+      "Column3": 4.76,
+      "Column4": 4.29,
+      "Column5": "2025/07"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "08月",
+      "Column2": 3.58,
+      "Column3": 4.61,
+      "Column4": 4.29,
+      "Column5": "2025/08"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "09月",
+      "Column2": 3.53,
+      "Column3": 4.75,
+      "Column4": 4.34,
+      "Column5": "2025/09"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "10月",
+      "Column2": 3.48,
+      "Column3": 4.16,
+      "Column4": 3.93,
+      "Column5": "2025/10"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "11月",
+      "Column2": 3.16,
+      "Column3": 3.75,
+      "Column4": 3.55,
+      "Column5": "2025/11"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "12月",
+      "Column2": 3.24,
+      "Column3": 4.45,
+      "Column4": 4.07,
+      "Column5": "2025/12"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "115年",
+      "Column5": 2026
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "01月",
+      "Column2": 2.77,
+      "Column3": 3.77,
+      "Column4": 3.5,
+      "Column5": "2026/01"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "02月",
+      "Column2": 2.92,
+      "Column3": 3.7,
+      "Column4": 3.48,
+      "Column5": "2026/02"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "03月",
+      "Column2": 2.75,
+      "Column3": 3.88,
+      "Column4": 3.58,
+      "Column5": "2026/03"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "04月",
+      "Column2": 2.95,
+      "Column3": 3.93,
+      "Column4": 3.67,
+      "Column5": "2026/04"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "05月",
+      "Column2": 2.86,
+      "Column3": 4.18,
+      "Column4": 3.82,
+      "Column5": "2026/05"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "06月",
+      "Column2": 3.13,
+      "Column3": 4.72,
+      "Column4": 4.27,
+      "Column5": "2026/06"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "07月",
+      "Column2": 3.3493,
+      "Column3": 4.8551,
+      "Column4": 4.3768,
+      "Column5": "2026/07"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "08月",
+      "Column2": 3.72,
+      "Column3": 4.66,
+      "Column4": 4.36,
+      "Column5": "2026/08"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "資料來源：台電公司。"
+    },
+    {
+      "9-01國內能源價格（電力）_ Domestic Energy Prices (Electricity)": "Source: Taiwan Power Company."
+    }
+  ]
+}

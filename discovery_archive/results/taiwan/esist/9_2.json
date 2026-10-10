@@ -1,0 +1,350 @@
+{
+  "平均價格": [
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "期間",
+      "Column2": "原油\n(美元/桶：FOB)",
+      "Column3": "進口液化天然氣\n(美元/公噸：CIF)",
+      "Column4": "煙煤-煉焦煤\n(美元/公噸：CIF)",
+      "Column5": "煙煤-燃料煤\n(美元/公噸：CIF)",
+      "Column6": "Period"
+    },
+    {
+      "Column2": "Crude Oil\n(US$/Barrel)",
+      "Column3": "LNG\n(US$/MT)",
+      "Column4": "Coking Coal\n(US$/MT)",
+      "Column5": "Steam Coal\n(US$/MT)"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "96年",
+      "Column2": 66.160281,
+      "Column3": 516.4427036744858,
+      "Column4": 111.885143,
+      "Column5": 72.311243,
+      "Column6": 2007
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "97年",
+      "Column2": 96.728246,
+      "Column3": 743.4890724350837,
+      "Column4": 239.434957,
+      "Column5": 120.537192,
+      "Column6": 2008
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "98年",
+      "Column2": 59.359719,
+      "Column3": 435.745814300863,
+      "Column4": 173.167813,
+      "Column5": 90.890255,
+      "Column6": 2009
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "99年",
+      "Column2": 76.628909,
+      "Column3": 511.43006498437506,
+      "Column4": 197.423593,
+      "Column5": 105.910466,
+      "Column6": 2010
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "100年",
+      "Column2": 106.923703,
+      "Column3": 689.8796111231596,
+      "Column4": 292.422242,
+      "Column5": 128.026451,
+      "Column6": 2011
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "101年",
+      "Column2": 111.119868,
+      "Column3": 778.1424541248625,
+      "Column4": 218.958423,
+      "Column5": 119.149181,
+      "Column6": 2012
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "102年",
+      "Column2": 106.828387,
+      "Column3": 761.0197872787779,
+      "Column4": 167.059254,
+      "Column5": 102.274399,
+      "Column6": 2013
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "103年",
+      "Column2": 101.566396,
+      "Column3": 730.9142199126701,
+      "Column4": 133.319033,
+      "Column5": 91.717563,
+      "Column6": 2014
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "104年",
+      "Column2": 51.715593,
+      "Column3": 443.58641724686885,
+      "Column4": 108.322026,
+      "Column5": 74.602045,
+      "Column6": 2015
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "105年",
+      "Column2": 39.52982,
+      "Column3": 326.01126981588806,
+      "Column4": 131.803547,
+      "Column5": 67.474492,
+      "Column6": 2016
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "106年",
+      "Column2": 52.020309,
+      "Column3": 387.65674312145484,
+      "Column4": 219.874535,
+      "Column5": 94.305285,
+      "Column6": 2017
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "107年",
+      "Column2": 70.482323,
+      "Column3": 477.08867152393833,
+      "Column4": 217.017392,
+      "Column5": 111.307807,
+      "Column6": 2018
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "108年",
+      "Column2": 63.848729,
+      "Column3": 452.606198099493,
+      "Column4": 196.062572,
+      "Column5": 97.507555,
+      "Column6": 2019
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "109年",
+      "Column2": 45.143282,
+      "Column3": 312.99451863428743,
+      "Column4": 131.175376,
+      "Column5": 73.887083,
+      "Column6": 2020
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "110年",
+      "Column2": 68.673273,
+      "Column3": 574.8822035425181,
+      "Column4": 196.967626,
+      "Column5": 119.315941,
+      "Column6": 2021
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "111年",
+      "Column2": 101.055329,
+      "Column3": 988.8444839034782,
+      "Column4": 380.330196,
+      "Column5": 270.637203,
+      "Column6": 2022
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "112年",
+      "Column2": 83.38484,
+      "Column3": 628.978614805588,
+      "Column4": 285.67348,
+      "Column5": 201.0273,
+      "Column6": 2023
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "113年",
+      "Column2": 81.356721,
+      "Column3": 552.5181893275266,
+      "Column4": 263.557427,
+      "Column5": 153.73395,
+      "Column6": 2024
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "114年",
+      "Column2": 70.938087,
+      "Column3": 528.0450010366136,
+      "Column4": 190.113526,
+      "Column5": 114.773146,
+      "Column6": 2025
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "01月",
+      "Column2": 74.010168,
+      "Column3": 544.5861949640846,
+      "Column4": 208.857455,
+      "Column5": 130.471761,
+      "Column6": "2025/01"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "02月",
+      "Column2": 79.00597,
+      "Column3": 574.8687501924499,
+      "Column4": 201.149215,
+      "Column5": 127.397404,
+      "Column6": "2025/02"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "03月",
+      "Column2": 76.839443,
+      "Column3": 587.5122875696234,
+      "Column4": 192.586182,
+      "Column5": 118.790702,
+      "Column6": "2025/03"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "04月",
+      "Column2": 75.033172,
+      "Column3": 581.6455963979989,
+      "Column4": 182.048137,
+      "Column5": 119.259785,
+      "Column6": "2025/04"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "05月",
+      "Column2": 69.595746,
+      "Column3": 528.824385747616,
+      "Column4": 185.472185,
+      "Column5": 110.421573,
+      "Column6": "2025/05"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "06月",
+      "Column2": 65.56622,
+      "Column3": 484.17067862419674,
+      "Column4": 185.621024,
+      "Column5": 111.171902,
+      "Column6": "2025/06"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "07月",
+      "Column2": 69.834768,
+      "Column3": 515.0475393462889,
+      "Column4": 182.688275,
+      "Column5": 110.74648,
+      "Column6": "2025/07"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "08月",
+      "Column2": 70.218408,
+      "Column3": 527.0268745918064,
+      "Column4": 176.857905,
+      "Column5": 111.598262,
+      "Column6": "2025/08"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "09月",
+      "Column2": 69.621726,
+      "Column3": 502.78558167375405,
+      "Column4": 182.059427,
+      "Column5": 106.831951,
+      "Column6": "2025/09"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "10月",
+      "Column2": 69.812894,
+      "Column3": 518.4605714993886,
+      "Column4": 192.077376,
+      "Column5": 109.220357,
+      "Column6": "2025/10"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "11月",
+      "Column2": 66.61217,
+      "Column3": 492.74651112792355,
+      "Column4": 194.584442,
+      "Column5": 115.45526,
+      "Column6": "2025/11"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "12月",
+      "Column2": 65.240172,
+      "Column3": 498.6169024812391,
+      "Column4": 192.381989,
+      "Column5": 115.013608,
+      "Column6": "2025/12"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "115年1-8月",
+      "Column2": 88.53723,
+      "Column3": 715.9064925628959,
+      "Column4": 230.45874,
+      "Column5": 126.632458,
+      "Column6": "2026/01-08"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "01月",
+      "Column2": 61.857718,
+      "Column3": 474.7939780394383,
+      "Column4": 198.542461,
+      "Column5": 113.75944,
+      "Column6": "2026/01"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "02月",
+      "Column2": 62.641155,
+      "Column3": 467.19411499220166,
+      "Column4": 232.569868,
+      "Column5": 116.547977,
+      "Column6": "2026/02"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "03月",
+      "Column2": 66.886605,
+      "Column3": 575.3943027773834,
+      "Column4": 234.766572,
+      "Column5": 118.950435,
+      "Column6": "2026/03"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "04月",
+      "Column2": 96.492067,
+      "Column3": 871.4682176615547,
+      "Column4": 233.974629,
+      "Column5": 131.445988,
+      "Column6": "2026/04"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "05月",
+      "Column2": 115.230043,
+      "Column3": 830.6775571140118,
+      "Column4": 229.030884,
+      "Column5": 130.256654,
+      "Column6": "2026/05"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "06月",
+      "Column2": 112.006528,
+      "Column3": 825.9964345768557,
+      "Column4": 233.342493,
+      "Column5": 130.33063,
+      "Column6": "2026/06"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "07月",
+      "Column2": 101.789075,
+      "Column3": 823.1334683151091,
+      "Column4": 235.373766,
+      "Column5": 132.049654,
+      "Column6": "2026/07"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "08月",
+      "Column2": 86.064981,
+      "Column3": 777.7465285187385,
+      "Column4": 235.954376,
+      "Column5": 132.957428,
+      "Column6": "2026/08"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "註：1.本表係進口能源當月加權平均價格。"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "        2.本表「煙煤-煉焦煤」價格不含無煙煤；「煙煤-燃料煤」價格因資料限制，106年10月前包含「亞煙煤」，自106年11月起則不含。"
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "Note: 1.This table shows the weighted average prices of imported energy for the month."
+    },
+    {
+      "9-02進口能源價格_ Imported Energy Prices": "            2.The \"Coking Coal\" price presented in this table excludes anthracite. Owing to data limitations, the \"Steam Coal\" price incorporates \"sub-bituminous coal\" prior to October 2017, but excludes it from November 2017 onward."
+    }
+  ]
+}

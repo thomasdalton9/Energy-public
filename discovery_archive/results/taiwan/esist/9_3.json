@@ -1,0 +1,302 @@
+{
+  "油價": [
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "單位：美元/桶(US$/Barrel)"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "期間",
+      "Column2": "西德州",
+      "Column3": "北海布蘭特",
+      "Column4": "杜拜",
+      "Column5": "Period"
+    },
+    {
+      "Column2": "WTI",
+      "Column3": "BRENT",
+      "Column4": "DUBAI"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "96年",
+      "Column2": 72.29,
+      "Column3": 72.81,
+      "Column4": 68.47,
+      "Column5": 2007
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "97年",
+      "Column2": 100.04,
+      "Column3": 97.57,
+      "Column4": 93.95,
+      "Column5": 2008
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "98年",
+      "Column2": 61.9,
+      "Column3": 61.73,
+      "Column4": 61.86,
+      "Column5": 2009
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "99年",
+      "Column2": 79.46,
+      "Column3": 79.77,
+      "Column4": 78.14,
+      "Column5": 2010
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "100年",
+      "Column2": 95.13,
+      "Column3": 111.16,
+      "Column4": 105.92,
+      "Column5": 2011
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "101年",
+      "Column2": 94.18,
+      "Column3": 111.67,
+      "Column4": 109.07,
+      "Column5": 2012
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "102年",
+      "Column2": 98.02,
+      "Column3": 108.69,
+      "Column4": 105.28,
+      "Column5": 2013
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "103年",
+      "Column2": 92.99,
+      "Column3": 99.09,
+      "Column4": 96.52,
+      "Column5": 2014
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "104年",
+      "Column2": 48.7,
+      "Column3": 52.62,
+      "Column4": 51.1,
+      "Column5": 2015
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "105年",
+      "Column2": 43.3,
+      "Column3": 44.14,
+      "Column4": 41.32,
+      "Column5": 2016
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "106年",
+      "Column2": 50.85,
+      "Column3": 54.33,
+      "Column4": 53.06,
+      "Column5": 2017
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "107年",
+      "Column2": 64.98,
+      "Column3": 71.47,
+      "Column4": 69.24,
+      "Column5": 2018
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "108年",
+      "Column2": 56.92,
+      "Column3": 64.35,
+      "Column4": 63.21,
+      "Column5": 2019
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "109年",
+      "Column2": 39.1,
+      "Column3": 41.88,
+      "Column4": 42.65,
+      "Column5": 2020
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "110年",
+      "Column2": 67.99,
+      "Column3": 70.81,
+      "Column4": 69.21,
+      "Column5": 2021
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "111年",
+      "Column2": 94.62,
+      "Column3": 100.81,
+      "Column4": 95.34,
+      "Column5": 2022
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "112年",
+      "Column2": 77.54,
+      "Column3": 82.48,
+      "Column4": 81.87,
+      "Column5": 2023
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "113年",
+      "Column2": 76.51,
+      "Column3": 80.52,
+      "Column4": 80.98,
+      "Column5": 2024
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "114年",
+      "Column2": 65.41,
+      "Column3": 69.08,
+      "Column4": 69.27,
+      "Column5": 2025
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "01月",
+      "Column2": 75.69,
+      "Column3": 79.3,
+      "Column4": 81.03,
+      "Column5": "2025/01"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "02月",
+      "Column2": 71.53,
+      "Column3": 75.42,
+      "Column4": 76.31,
+      "Column5": "2025/02"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "03月",
+      "Column2": 68.24,
+      "Column3": 72.76,
+      "Column4": 73.12,
+      "Column5": "2025/03"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "04月",
+      "Column2": 63.13,
+      "Column3": 67.54,
+      "Column4": 66.46,
+      "Column5": "2025/04"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "05月",
+      "Column2": 62.25,
+      "Column3": 64.52,
+      "Column4": 63.76,
+      "Column5": "2025/05"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "06月",
+      "Column2": 68.17,
+      "Column3": 71.54,
+      "Column4": 69.44,
+      "Column5": "2025/06"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "07月",
+      "Column2": 68.47,
+      "Column3": 71.35,
+      "Column4": 71.24,
+      "Column5": "2025/07"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "08月",
+      "Column2": 64.69,
+      "Column3": 67.73,
+      "Column4": 69.25,
+      "Column5": "2025/08"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "09月",
+      "Column2": 63.96,
+      "Column3": 67.99,
+      "Column4": 69.86,
+      "Column5": "2025/09"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "10月",
+      "Column2": 60.81,
+      "Column3": 64.53,
+      "Column4": 64.65,
+      "Column5": "2025/10"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "11月",
+      "Column2": 60.06,
+      "Column3": 63.77,
+      "Column4": 64.34,
+      "Column5": "2025/11"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "12月",
+      "Column2": 57.86,
+      "Column3": 62.54,
+      "Column4": 61.75,
+      "Column5": "2025/12"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "115年",
+      "Column5": 2026
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "01月",
+      "Column2": 60.04,
+      "Column3": 66.67,
+      "Column4": 62.88,
+      "Column5": "2026/01"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "02月",
+      "Column2": 64.51,
+      "Column3": 70.99,
+      "Column4": 68.58,
+      "Column5": "2026/02"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "03月",
+      "Column2": 91.38,
+      "Column3": 103.25,
+      "Column4": 122.96,
+      "Column5": "2026/03"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "04月",
+      "Column2": 100.24,
+      "Column3": 117.3,
+      "Column4": 104.44,
+      "Column5": "2026/04"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "05月",
+      "Column2": 101.96,
+      "Column3": 106.41,
+      "Column4": 100.59,
+      "Column5": "2026/05"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "06月",
+      "Column2": 84.25,
+      "Column3": 84.7,
+      "Column4": 78.96,
+      "Column5": "2026/06"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "07月",
+      "Column2": 80.98,
+      "Column3": 84.79,
+      "Column4": 77.94,
+      "Column5": "2026/07"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "08月",
+      "Column2": 83.9,
+      "Column3": 90.88,
+      "Column4": 88.49,
+      "Column5": "2026/08"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "資料來源：經濟部能源署「油價資訊管理與分析系統」。"
+    },
+    {
+      "9-03國際原油現貨價格_Crude Oil Prices ": "Source：Petroleum Price Information Management and Analysis System, Energy Administration."
+    }
+  ]
+}

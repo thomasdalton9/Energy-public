@@ -1,0 +1,488 @@
+{
+  "原油供給與煉製": [
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "單位：千公噸油當量(103TOE)"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "期間",
+      "Column2": "原油供給 Crude Oil Supply",
+      "Column5": "煉製投入\nRefinery Intake",
+      "Column6": "Period"
+    },
+    {
+      "Column2": "合計",
+      "Column3": "自產",
+      "Column4": "進口"
+    },
+    {
+      "Column2": "Total",
+      "Column3": "Indigenous Production",
+      "Column4": "Import"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "96年",
+      "Column2": 51742.0098,
+      "Column3": 16.0002,
+      "Column4": 51726.0096,
+      "Column5": 51819.264,
+      "Column6": 2007
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "97年",
+      "Column2": 47664.9063,
+      "Column3": 14.4873,
+      "Column4": 47650.419,
+      "Column5": 47135.7603,
+      "Column6": 2008
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "98年",
+      "Column2": 49405.4298,
+      "Column3": 14.3964,
+      "Column4": 49391.0334,
+      "Column5": 49907.2527,
+      "Column6": 2009
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "99年",
+      "Column2": 45777.5532,
+      "Column3": 12.8061,
+      "Column4": 45764.7471,
+      "Column5": 45764.7129,
+      "Column6": 2010
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "100年",
+      "Column2": 41526.4446,
+      "Column3": 10.2096,
+      "Column4": 41516.235,
+      "Column5": 42235.3206,
+      "Column6": 2011
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "101年",
+      "Column2": 46234.0134,
+      "Column3": 10.2402,
+      "Column4": 46223.7732,
+      "Column5": 46974.8574,
+      "Column6": 2012
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "102年",
+      "Column2": 43733.619,
+      "Column3": 9.4617,
+      "Column4": 43724.1573,
+      "Column5": 44257.4649,
+      "Column6": 2013
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "103年",
+      "Column2": 45083.0547,
+      "Column3": 8.1486,
+      "Column4": 45074.9061,
+      "Column5": 44372.0682,
+      "Column6": 2014
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "104年",
+      "Column2": 43947.9288,
+      "Column3": 8.298,
+      "Column4": 43939.6308,
+      "Column5": 43761.1959,
+      "Column6": 2015
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "105年",
+      "Column2": 44852.7816,
+      "Column3": 7.6014,
+      "Column4": 44845.1802,
+      "Column5": 45067.7493,
+      "Column6": 2016
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "106年",
+      "Column2": 44530.0056,
+      "Column3": 4.8681,
+      "Column4": 44525.1375,
+      "Column5": 44300.5569,
+      "Column6": 2017
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "107年",
+      "Column2": 45971.7914457,
+      "Column3": 4.2093,
+      "Column4": 45967.5821457,
+      "Column5": 46454.9398506,
+      "Column6": 2018
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "108年",
+      "Column2": 46416.8032623,
+      "Column3": 3.465369,
+      "Column4": 46413.3378933,
+      "Column5": 46507.2312384,
+      "Column6": 2019
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "109年",
+      "Column2": 38626.2977652,
+      "Column3": 1.952892,
+      "Column4": 38624.3448732,
+      "Column5": 37995.1741872,
+      "Column6": 2020
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "110年",
+      "Column2": 39835.0141587,
+      "Column3": 2.213523,
+      "Column4": 39832.8006357,
+      "Column5": 40192.0612533,
+      "Column6": 2021
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "111年",
+      "Column2": 42494.1728445,
+      "Column3": 1.681191,
+      "Column4": 42492.4916535,
+      "Column5": 42581.1253941,
+      "Column6": 2022
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "112年",
+      "Column2": 42161.8343382,
+      "Column3": 1.473543,
+      "Column4": 42160.3607952,
+      "Column5": 42139.1608686,
+      "Column6": 2023
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "113年",
+      "Column2": 38804.0049991638,
+      "Column3": 1.3380872571,
+      "Column4": 38802.6669119067,
+      "Column5": 38992.8327937038,
+      "Column6": 2024
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "114年",
+      "Column2": 40322.0576803374,
+      "Column3": 1.241718984,
+      "Column4": 40320.8159613534,
+      "Column5": 40296.4502029452,
+      "Column6": 2025
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "01月",
+      "Column2": 3933.4706788806,
+      "Column3": 0.1194726456,
+      "Column4": 3933.351206235,
+      "Column5": 3666.9484177821,
+      "Column6": "2025/01"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "02月",
+      "Column2": 2815.5918110463,
+      "Column3": 0.100418967,
+      "Column4": 2815.4913920793,
+      "Column5": 3411.6283097523,
+      "Column6": "2025/02"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "03月",
+      "Column2": 3807.5256247545,
+      "Column3": 0.2179157904,
+      "Column4": 3807.3077089641,
+      "Column5": 3468.4000698204,
+      "Column6": "2025/03"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "04月",
+      "Column2": 3482.8734738798,
+      "Column3": 0.104630724,
+      "Column4": 3482.7688431558,
+      "Column5": 3241.6859690028,
+      "Column6": "2025/04"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "05月",
+      "Column2": 2861.2538941041,
+      "Column3": 0.090023076,
+      "Column4": 2861.1638710281,
+      "Column5": 3337.6806687312,
+      "Column6": "2025/05"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "06月",
+      "Column2": 3759.4824683724,
+      "Column3": 0.086543424,
+      "Column4": 3759.3959249484,
+      "Column5": 3485.962943199,
+      "Column6": "2025/06"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "07月",
+      "Column2": 3869.567488314,
+      "Column3": 0.080858844,
+      "Column4": 3869.48662947,
+      "Column5": 3666.4496570394,
+      "Column6": "2025/07"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "08月",
+      "Column2": 3419.5529992734,
+      "Column3": 0.09293427,
+      "Column4": 3419.4600650034,
+      "Column5": 3843.8422522632,
+      "Column6": "2025/08"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "09月",
+      "Column2": 3062.9659580289,
+      "Column3": 0.076879638,
+      "Column4": 3062.8890783909,
+      "Column5": 3100.8756718566,
+      "Column6": "2025/09"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "10月",
+      "Column2": 2526.1994131506,
+      "Column3": 0.088059312,
+      "Column4": 2526.1113538386,
+      "Column5": 2632.2973617006,
+      "Column6": "2025/10"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "11月",
+      "Column2": 3555.0642627225,
+      "Column3": 0.081814887,
+      "Column4": 3554.9824478355,
+      "Column5": 3147.6919606506,
+      "Column6": "2025/11"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "12月",
+      "Column2": 3228.5096078103,
+      "Column3": 0.102167406,
+      "Column4": 3228.4074404043,
+      "Column5": 3292.986921147,
+      "Column6": "2025/12"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "115年",
+      "Column6": 2026
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "01月",
+      "Column2": 3819.3941329038,
+      "Column3": 0.094837743,
+      "Column4": 3819.2992951608,
+      "Column5": 3303.4408629057,
+      "Column6": "2026/01"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "02月",
+      "Column2": 2786.926040811,
+      "Column3": 0.086405616,
+      "Column4": 2786.839635195,
+      "Column5": 3401.4453717321,
+      "Column6": "2026/02"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "03月",
+      "Column2": 2802.3198645024,
+      "Column3": 0.094329576,
+      "Column4": 2802.2255349264,
+      "Column5": 3110.8098259557,
+      "Column6": "2026/03"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "04月",
+      "Column2": 2332.936318086,
+      "Column3": 0.128290635,
+      "Column4": 2332.808027451,
+      "Column5": 2445.6075626763,
+      "Column6": "2026/04"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "05月",
+      "Column2": 3459.9678196545,
+      "Column3": 0.119617344,
+      "Column4": 3459.8482023105,
+      "Column5": 3184.1503779492,
+      "Column6": "2026/05"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "06月",
+      "Column2": 3896.1802810953,
+      "Column3": 0.100160577,
+      "Column4": 3896.0801205183,
+      "Column5": 3301.7692062168,
+      "Column6": "2026/06"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "07月",
+      "Column2": 3149.3343779271,
+      "Column3": 0.068938452,
+      "Column4": 3149.2654394751,
+      "Column5": 3420.8794865421,
+      "Column6": "2026/07"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "08月",
+      "Column2": 3668.3164817244,
+      "Column3": 0.075983886,
+      "Column4": 3668.2404978384,
+      "Column5": 3569.7172254381,
+      "Column6": "2026/08"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "114年01-08月",
+      "Column2": 27949.3184386251,
+      "Column3": 0.892797741,
+      "Column4": 27948.4256408841,
+      "Column5": 28122.5982875904,
+      "Column6": "2025/01-08"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "115年01-08月",
+      "Column2": 25915.3753167045,
+      "Column3": 0.768563829,
+      "Column4": 25914.6067528755,
+      "Column5": 25737.819919416,
+      "Column6": "2026/01-08"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "較上月(%)",
+      "Column2": 16.47910451918717,
+      "Column3": 10.21989005497252,
+      "Column4": 16.47924153544198,
+      "Column5": 4.35086180268947,
+      "Column6": "Compared with last month(％)"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "較上年同月(%)",
+      "Column2": 7.27473685899467,
+      "Column3": -18.239110287303067,
+      "Column4": 7.27543027570794,
+      "Column5": -7.131536853878415,
+      "Column6": "Compared with the same month of last year(％)"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "較上年累計(%)",
+      "Column2": -7.277254815307963,
+      "Column3": -13.915123918307495,
+      "Column4": -7.277042772074604,
+      "Column5": -8.479936113252842,
+      "Column6": "Compared with the same period of last year (％)"
+    }
+  ],
+  "原油供給與煉製 (季)": [
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "單位：千公噸油當量(103TOE)"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "期間",
+      "Column2": "原油供給 Crude Oil Supply",
+      "Column5": "煉製投入\nRefinery Intake",
+      "Column6": "Period"
+    },
+    {
+      "Column2": "合計",
+      "Column3": "自產",
+      "Column4": "進口"
+    },
+    {
+      "Column2": "Total",
+      "Column3": "Indigenous Production",
+      "Column4": "Import"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "114年第1季",
+      "Column2": 10556.5881146814,
+      "Column3": 0.437807403,
+      "Column4": 10556.1503072784,
+      "Column5": 10546.9767973548,
+      "Column6": "2025 Q1"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "第2季",
+      "Column2": 10103.6098363563,
+      "Column3": 0.281197224,
+      "Column4": 10103.3286391323,
+      "Column5": 10065.329580933,
+      "Column6": "           Q2"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "第3季",
+      "Column2": 10352.0864456163,
+      "Column3": 0.250672752,
+      "Column4": 10351.8357728643,
+      "Column5": 10611.1675811592,
+      "Column6": "           Q3"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "第4季",
+      "Column2": 9309.7732836834,
+      "Column3": 0.272041605,
+      "Column4": 9309.5012420784,
+      "Column5": 9072.9762434982,
+      "Column6": "           Q4"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "115年第1季",
+      "Column2": 9408.6400382172,
+      "Column3": 0.275572935,
+      "Column4": 9408.3644652822,
+      "Column5": 9815.6960605935,
+      "Column6": "2026 Q1"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "第2季",
+      "Column2": 9689.0844188358,
+      "Column3": 0.348068556,
+      "Column4": 9688.7363502798,
+      "Column5": 8931.5271468423,
+      "Column6": "           Q2"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "114年第1-2季",
+      "Column2": 20660.1979510377,
+      "Column3": 0.719004627,
+      "Column4": 20659.4789464107,
+      "Column5": 20612.3063782878,
+      "Column6": "2025/Q1-Q2"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "115年第1-2季",
+      "Column2": 19097.724457053,
+      "Column3": 0.623641491,
+      "Column4": 19097.100815562,
+      "Column5": 18747.2232074358,
+      "Column6": "2026/Q1-Q2"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "較上季(%)",
+      "Column2": 2.98071112806373,
+      "Column3": 26.30723550554772,
+      "Column4": 2.98002788935525,
+      "Column5": -9.007704683326757,
+      "Column6": "Compared with last quarter(％)"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "較上年同季(%)",
+      "Column2": -4.102745694206166,
+      "Column3": 23.78093604508698,
+      "Column4": -4.103521756648576,
+      "Column5": -11.264434263916112,
+      "Column6": "Compared with the same quarter of last year(％)"
+    },
+    {
+      "5-01原油供給與煉製_Crude Oil Supply & Refinery Intake": "較上年累計(%)",
+      "Column2": -7.562722766197979,
+      "Column3": -13.263215898609232,
+      "Column4": -7.562524373927355,
+      "Column5": -9.048396315400218,
+      "Column6": "Compared with the same period of last year (％)"
+    }
+  ]
+}
