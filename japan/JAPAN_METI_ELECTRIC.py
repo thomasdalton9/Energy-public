@@ -55,8 +55,9 @@ def nf(x):
     return unicodedata.normalize("NFKC", str(x)).strip() if x is not None else ""
 
 
-def get_wb(fy, table):
-    for suffix in ("n", ""):
+def get_wb(fy, table, cur_fy):
+    suffixes = ("n", "") if fy >= cur_fy else ("", "n")   # the current year's files are published as ...n.xlsx
+    for suffix in suffixes:
         url = f"{BASE}{fy}/{table}-{fy}{suffix}.xlsx"
         for i in range(3):
             try:
@@ -65,12 +66,13 @@ def get_wb(fy, table):
                 print(f"  {url}: {type(e).__name__}: {str(e)[:100]}", file=sys.stderr)
                 time.sleep(8 * (i + 1))
                 continue
-            if r.status_code == 404:
-                print(f"  {url}: 404", file=sys.stderr)
-                break
             if r.status_code == 200:
                 return openpyxl.load_workbook(io.BytesIO(r.content), read_only=True, data_only=True), url
-            time.sleep(3)
+            print(f"  {url}: HTTP {r.status_code}", file=sys.stderr)
+            if r.status_code in (403, 404):
+                break
+            time.sleep(8 * (i + 1))
+        time.sleep(2)
     return None, None
 
 
@@ -139,8 +141,8 @@ def main():
         fuel = {k: v.dropna().to_dict() for k, v in old_fuel.iterrows()}
     for fy in range(first, cur_fy + 1):
         for table, store, parse in (("1-1", cap, parse_capacity), ("4", fuel, parse_fuel)):
-            time.sleep(2)
-            wb, url = get_wb(fy, table)
+            time.sleep(3)
+            wb, url = get_wb(fy, table, cur_fy)
             if wb is None:
                 print(f"  FY{fy} table {table}: not available", file=sys.stderr)
                 continue
