@@ -50,7 +50,12 @@ def fetch_year(fy):
             r.raise_for_status()
             if len(r.content) < 1000:
                 raise RuntimeError(f"short response ({len(r.content)} bytes)")
-            return pd.read_csv(io.StringIO(r.content.decode("cp932")))
+            for enc in ("utf-8-sig", "cp932"):
+                try:
+                    return pd.read_csv(io.StringIO(r.content.decode(enc)))
+                except UnicodeDecodeError:
+                    continue
+            raise ValueError("undecodable (neither UTF-8 nor Shift-JIS)")
         except Exception as e:  # noqa: BLE001
             last = e
             print(f"  FY{fy} attempt {i + 1}/3: {type(e).__name__}: {e}", file=sys.stderr)
@@ -97,12 +102,12 @@ def main():
         try:
             d = daily_from(fetch_year(fy))
         except Exception as e:  # noqa: BLE001
-            if old is None:
-                raise
-            print(f"  FY{fy} failed ({type(e).__name__}); keeping the stored history", file=sys.stderr)
+            print(f"  FY{fy} failed ({type(e).__name__}: {e}); skipped", file=sys.stderr)
             continue
         print(f"  FY{fy}: {len(d)} days {d.index.min():%Y-%m-%d}..{d.index.max():%Y-%m-%d}")
         frames.append(d)
+    if not frames and old is None:
+        raise SystemExit("no fiscal-year file could be read")
     new = pd.concat(frames) if frames else pd.DataFrame()
     if keep is not None:
         new = new[new.index >= keep.index.max() + pd.Timedelta(days=1)] if len(keep) else new
