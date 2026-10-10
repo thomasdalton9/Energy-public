@@ -1,0 +1,29 @@
+meta 37331 200
+meta 8931 200
+URL https://data.gov.tw/api/v2/rest/dataset?keyword=%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%8A%9B%E5%85%AC%E5%8F%B8%20%E7%9 405 text/html;charset=UTF-8 556
+    <html>     <head>         <title>Method not allowed</title>         <style>             body{                 margin:0;                 padding:30px;                 font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;             }             h1{                 margin:0;                 font-size:48px;                 font-weight:normal;                 line-height:48px;             }         </style>     </head>     <body>         <h1>Method not allowed</h1>         <p>Method not allowed. Must be one of: <strong>POST</strong></p>     </body> </html>
+URL https://data.gov.tw/api/front/dataset/list?q=%E7%99%BC%E8%B3%BC%E9%9B%BB 405 text/html;charset=UTF-8 556
+    <html>     <head>         <title>Method not allowed</title>         <style>             body{                 margin:0;                 padding:30px;                 font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;             }             h1{                 margin:0;                 font-size:48px;                 font-weight:normal;                 line-height:48px;             }         </style>     </head>     <body>         <h1>Method not allowed</h1>         <p>Method not allowed. Must be one of: <strong>POST</strong></p>     </body> </html>
+URL https://data.gov.tw/api/front/dataset/search?q=%E7%99%BC%E8%B3%BC%E9%9B%BB 404 text/html;charset=UTF-8 876
+    <html>     <head>         <title>Page Not Found</title>         <style>             body{                 margin:0;                 padding:30px;                 font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;             }             h1{                 margin:0;                 font-size:48px;                 font-weight:normal;                 line-height:48px;             }             strong{                 display:inline-block;                 width:65px;             }         </style>     </head>     <body>         <h1>Page Not Found</h1>         <p>             The page you are looking for could not be found. Check the address bar             to ensure your URL is spelled correct
+URL https://data.gov.tw/datasets/search?query=%E7%99%BC%E8%B3%BC%E9%9B%BB 200 text/html;charset=utf-8 748673
+    <!DOCTYPE html><html  lang="zh-Hant-TW" dir="ltr" class="" style="" aria-live="polite"><head><meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>查詢資料集：全部資料 ｜ 政府資料開放平臺</title> <style>@import"https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap";@layer reset,ui,vendor,variations,components,utilities,print;:root{--font-family:"Noto Sans TC",system-ui,Arial,sans-serif;--font-size:1rem;--header-bg:var(--el-color-white);--banner-height:300px;--banner-mobile-height:160px;--spotlight-box-bg:#e9edf2;--footer-bg:#404050;--color-traffic-1:#ffc42e;--color-traffic-2:#efb72b;--color-traffic-3:#ffebb9;--color-traffic-4:#f9e0a2;--
+URL http://archive.org/wayback/available?url=service.taipower.com.tw/data/opendata/apply/file/d006010/001.json 200 application/json 306
+    {"url": "service.taipower.com.tw/data/opendata/apply/file/d006010/001.json", "archived_snapshots": {"closest": {"status": "200", "available": true, "url": "http://web.archive.org/web/20260312072455/https://service.taipower.com.tw/data/opendata/apply/file/d006010/001.json", "timestamp": "20260312072455"}}}
+URL http://web.archive.org/cdx/search/cdx?url=service.taipower.com.tw/data/opendata/apply/file/d006010/*&output=js 503 text/html 11832
+    <html><head><meta charset="UTF-8"><title>Internet Archive: Temporarily Offline</title><style>p{font-size:24px;}img{margin-bottom:2rem;}</style></head> <body style="padding:30px 0;"> <div style="float:left;width:260px;text-align:center;"> <img xsrc="logo_ia.jpg" src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAKsAAACmCAAAAACAHSAbAAAOuklEQVR42t2d2bmsqhKAIQcyIRQyIQ+SIAOeiYAIyIAYePHrW1WgOCC6etp9bi2n3SL8lMUMbvbYynSQ6JXUccI7s6NktZJcKqVje4SejkYJIZWemn9GC2HpWku3CsYbeN64hP/MsBslVSx3g1oRKSmlgj/pjqxHWM0FBLJizdFIZkJQQocNawAvc9CS2eaft4J5ut78POUgmfKp/BP2aIQI5a5es3oIxXlrhWFWaztmfVjOdMY769iygJ4KtTyBD2tGoThUZBPJXXmGr/WKfpi1syBYuZ/k6ndyhrExnknlc1e18z/gUcUksM73q47IeybWrI4JTw+ZXWChntesEDNu53+R74ZpsobAw/rx6i
+URL http://web.archive.org/cdx/search/cdx?url=www.taipower.com.tw/d006/loadGraph/loadGraph/data/genary.json&output 200 application/json 4478
+    [["urlkey","timestamp","original","mimetype","statuscode","digest","length"], ["tw,com,taipower)/d006/loadgraph/loadgraph/data/genary.json","20210513072430","https://www.taipower.com.tw/d006/loadGraph/loadGraph/data/genary.json","application/json","200","XWDXOWZKYC6JRTMZO3P4Z64AQ4BCMGI7","4453"], ["tw,com,taipower)/d006/loadgraph/loadgraph/data/genary.json","20210513143812","https://www.taipower.com.tw/d006/loadGraph/loadGraph/data/genary.json","application/json","200","5U3MV63QRWHQ5M3LY3VXE5MZF2ZGKXLC","4048"], ["tw,com,taipower)/d006/loadgraph/loadgraph/data/genary.json","20210514015650","https://www.taipower.com.tw/d006/loadGraph/loadGraph/data/genary.json","application/json","200","DWI7M
+d006001 200 36159
+window 2026-03-01T00:00:00 2026-05-31T23:50:00 {'2026-03': 682992, '2026-04': 682992, '2026-05': 682992}
+LABEL 太陽能 units 27 sum of unit means MW 44.0
+LABEL 抽蓄發電 units 10 sum of unit means MW 327.0
+LABEL 抽蓄電 units 1 sum of unit means MW 176.0
+LABEL 核能 units 2 sum of unit means MW 0.0
+LABEL 水力 units 43 sum of unit means MW 262.0
+LABEL 汽電共生 units 1 sum of unit means MW 1138.0
+LABEL 燃氣 units 25 sum of unit means MW 8560.0
+LABEL 燃油 units 2 sum of unit means MW 272.0
+LABEL 燃煤 units 20 sum of unit means MW 6235.0
+LABEL 輕油 units 8 sum of unit means MW 0.0
+LABEL 風力 units 17 sum of unit means MW 100.0

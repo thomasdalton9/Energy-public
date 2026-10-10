@@ -1,0 +1,97 @@
+{
+ "help": "",
+ "success": true,
+ "result": {
+  "categoryService": "I00",
+  "categoryDataset": "A",
+  "datasetId": 8931,
+  "identifier": "313310000K-000004",
+  "title": "台灣電力公司各機組發電量即時資訊(含外購電力)",
+  "description": "提供台電自有及外購電力之各機組(含水、火力、再生能源、核能等)發電量即時資訊。",
+  "type": "rawData",
+  "license": "1",
+  "cost": "free",
+  "dataProvider": "marsduck",
+  "publisherOID": "2.16.886.101.20003.20007.20127",
+  "publisherContactName": "黃先生",
+  "publisherContactPhone": "02-23666639",
+  "publisherContactEmail": "u778605@taipower.com.tw",
+  "updateFrequency": {
+   "regularupdate": "1",
+   "Frequency": "10",
+   "unittime": "分"
+  },
+  "dataQuality": "G",
+  "coverageStartedDate": "",
+  "coverageEndedDate": "",
+  "publishedDate": "2016-01-01",
+  "modifiedDate": "2026-06-16 14:28:50",
+  "spatialCoverage": "",
+  "language": "zh",
+  "relatedUrl": "",
+  "notes": "",
+  "apiDocUrl": "",
+  "distribution": [
+   {
+    "resourceDescription": "",
+    "resourceField": [
+     {
+      "name": "機組類型",
+      "description": ""
+     },
+     {
+      "name": "機組名稱",
+      "description": ""
+     },
+     {
+      "name": "裝置容量(MW)",
+      "description": ""
+     },
+     {
+      "name": "淨發電量(MW)",
+      "description": ""
+     },
+     {
+      "name": "淨發電量/裝置容量比(%)",
+      "description": ""
+     },
+     {
+      "name": "備註",
+      "description": ""
+     }
+    ],
+    "qcLevel": "",
+    "resourceFormat": "JSON",
+    "resourceCharacterEncoding": "UTF-8",
+    "resourceQualityCheckTime": "2026-06-16 14:28:52",
+    "resourceDownloadUrl": "https://service.taipower.com.tw/data/opendata/apply/file/d006001/001.json",
+    "resourceAmount": 216,
+    "resourceNotes": "",
+    "resourceRequestMethod": "",
+    "resourceOasUrl": "",
+    "resourceRequestParameters": [],
+    "resourcePathParameters": []
+   }
+  ],
+  "keyword": [
+   "AI-Ready Data 詮釋資料框架指標",
+   "機組",
+   "發電量"
+  ],
+  "en": {
+   "title": "Taiwan Power Company_ Real-time Information on Power Generation of Each Unit (Including Purchased Power)",
+   "description": "Provide real-time information on the power generation of each unit of Taipower's self-owned and externally purchased electricity (including hydro, thermal, renewable energy, nuclear, etc.)",
+   "publisherContactName": "周先生",
+   "publisherContactPhone": "02-23666639",
+   "publisherContactEmail": [
+    "u124053@taipower.com.tw"
+   ],
+   "updateFrequency": "Every 10 minutes",
+   "cost": "free",
+   "keyword": [
+    "Control panel",
+    "Power generation"
+   ]
+  }
+ }
+}
