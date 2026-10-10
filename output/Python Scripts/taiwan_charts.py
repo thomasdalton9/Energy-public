@@ -16,9 +16,9 @@ TAIPOWER = "taiwan_taipower.xlsx"
 RESERVOIRS = "taiwan_reservoirs_daily.xlsx"
 GEN_COLS = {"Hydro": "Renewable Energy - Hydro", "Gas": "Thermal - LNG-Fired", "Wind": "Renewable Energy - Wind",
             "Solar": "Renewable Energy - Solar PV", "Coal": "Thermal - Coal-Fired", "Nuclear": "Nuclear",
-            "Oil": "Thermal - Oil-Fired", "Bioenergy": ("Renewable Energy - Biomass", "Renewable Energy - Waste"),
-            "Geothermal": "Renewable Energy - Geothermal", "Pumped storage": "Pumped Storage"}
-CAP_ORDER = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Geothermal", "Pumped storage"]
+            "Oil": "Thermal - Oil-Fired",
+            "Other": ("Renewable Energy - Biomass", "Renewable Energy - Waste", "Renewable Energy - Geothermal", "Pumped Storage")}
+CAP_ORDER = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Other"]   # Other = biomass, waste, geothermal, pumped storage
 
 
 def _sheet(path, name, dates):
@@ -40,6 +40,18 @@ def _pick(d, mapping, scale=1.0):
     return pd.DataFrame(out, index=d.index)
 
 
+def _top(d, n=6, drop=("Total", "Grand Total")):
+    """Keep the n largest columns (by mean), fold the rest, and any 'Others' column, into 'Others'."""
+    d = d[[c for c in d.columns if c not in drop]].apply(pd.to_numeric, errors="coerce")
+    named = [c for c in d.columns if c != "Others"]
+    keep = list(d[named].mean().sort_values(ascending=False).index[:n])
+    out = d[keep].copy()
+    rest = [c for c in d.columns if c not in keep]
+    if rest:
+        out["Others"] = d[rest].sum(axis=1, min_count=1)
+    return out
+
+
 def _bar(ac, name, df, title, units, kind="stacked_bar", fmt="%Y-%m"):
     df = df.dropna(how="all")
     return ac.spec(name, df, title, units, kind, fmt) if not df.empty else None
@@ -56,7 +68,7 @@ def esist_specs(ac):
         out.append(_bar(ac, "Generation annual", _pick(ga, GEN_COLS), "Taiwan annual power generation by source (Energy Administration)",
                         "GWh per year", fmt="%Y"))
         cm, ca = M("CAP"), A("CAP")
-        cap = {k: v for k, v in GEN_COLS.items()}
+        cap = GEN_COLS
         out.append(_bar(ac, "Capacity", _pick(cm, cap, 0.001)[CAP_ORDER], "Taiwan installed generating capacity by source, end of month (Energy Administration)",
                         "GW installed"))
         out.append(_bar(ac, "Capacity annual", _pick(ca, cap, 0.001)[CAP_ORDER], "Taiwan installed generating capacity by source, end of year (Energy Administration)",
@@ -103,10 +115,9 @@ def esist_specs(ac):
                                 "Energy sector own use": gsa.get("Natural Gas Consumption - Energy Sector Own Use") * k})
             out.append(_bar(ac, "Gas use annual", use, "Taiwan natural gas use by sector, annual (Energy Administration)", "bcm per year", fmt="%Y"))
         lm, la = M("LNG"), A("LNG")
-        origins = ["Qatar", "Australia", "United States", "Papua New Guinea", "Malaysia", "Brunei Darussalam", "Indonesia", "Russia", "Nigeria", "Others"]
         for nm, d, units, fmt in (("LNG imports", lm, "Mt per month", "%Y-%m"), ("LNG imports annual", la, "Mt per year", "%Y")):
             if not d.empty:
-                x = d[[c for c in origins if c in d.columns]] / 1000.0
+                x = _top(d / 1000.0, 6)
                 out.append(_bar(ac, nm, x, "Taiwan LNG imports by origin" + (", annual" if "annual" in nm else "") + " (Energy Administration)", units, fmt=fmt))
         ip, op = M("IMPPRICE"), M("OILPRICE")
         if not ip.empty:
@@ -117,16 +128,14 @@ def esist_specs(ac):
             out.append(_bar(ac, "Oil price", op.rename(columns={"WTI": "WTI", "BRENT": "Brent", "DUBAI": "Dubai"}), "International crude oil prices (Energy Administration)", "US$ per barrel", "line"))
         cr = M("CRUDESRC")
         if not cr.empty:
-            top = [c for c in cr.columns if c != "Total"]
-            out.append(_bar(ac, "Crude imports", cr[top] / 1000.0, "Taiwan crude oil imports by origin (Energy Administration)", "million barrels per month"))
+            out.append(_bar(ac, "Crude imports", _top(cr / 1000.0, 6), "Taiwan crude oil imports by origin (Energy Administration)", "million barrels per month"))
         cv = M("CRUDE")
         if not cv.empty:
             out.append(_bar(ac, "Refinery intake", cv[["Refinery Intake"]].rename(columns={"Refinery Intake": "Refinery intake"}) / 1000.0,
                             "Taiwan refinery crude intake (Energy Administration)", "Mtoe per month", "line"))
         co = M("COALSRC")
         if not co.empty:
-            top = [c for c in co.columns if c != "Grand Total"]
-            out.append(_bar(ac, "Coal imports", co[top] / 1000.0, "Taiwan coal imports by origin (Energy Administration)", "Mt per month"))
+            out.append(_bar(ac, "Coal imports", _top(co / 1000.0, 6), "Taiwan coal imports by origin (Energy Administration)", "Mt per month"))
         sa = A("SUP")
         if not sa.empty:
             cols = {"Coal": "Coal and Coal Products", "Oil": "Crude Oil and Petroleum Products", "Gas": "Natural Gas", "Nuclear": "Nuclear",
@@ -166,6 +175,10 @@ def reservoir_specs(ac):
         if vol.empty:
             return out
         big = vol.max().sort_values(ascending=False).index[:12]
+        top = vol[list(big[:7])] / 100.0
+        top.columns = [str(names.get(int(c), c)) for c in top.columns]
+        out.append(ac.spec("Storage daily", top.dropna(how="all"), "Taiwan largest reservoirs: daily storage (Water Resources Agency)",
+                           "million m3", "line", "%Y-%m-%d"))
         for rid in big:
             nm = names.get(int(rid) if str(rid).isdigit() else rid, str(rid))
             s = vol[rid].dropna()
