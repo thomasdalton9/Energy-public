@@ -64,23 +64,25 @@ def nf(x):
 
 
 def get_wb(fy, table, cur_fy):
+    """Workbook for a fiscal year and table. The site answers HTTP 202 (accepted, no file) to requests that come too fast, so
+    requests are spaced and a 202 is retried after a growing pause."""
     suffixes = ("n", "") if fy >= cur_fy else ("", "n")   # the current year's files are published as ...n.xlsx
     for suffix in suffixes:
         url = f"{BASE}{fy}/{table}-{fy}{suffix}.xlsx"
-        for i in range(3):
+        for i in range(5):
+            time.sleep(6)
             try:
                 r = requests.get(url, headers=UA, timeout=(10, 60))
             except requests.RequestException as e:
                 note(f"  {url}: {type(e).__name__}: {str(e)[:100]}")
-                time.sleep(8 * (i + 1))
+                time.sleep(10 * (i + 1))
                 continue
-            if r.status_code == 200:
+            if r.status_code == 200 and r.content[:2] == b"PK":
                 return openpyxl.load_workbook(io.BytesIO(r.content), read_only=True, data_only=True), url
-            note(f"  {url}: HTTP {r.status_code}")
+            note(f"  {url}: HTTP {r.status_code} ({len(r.content)} bytes), attempt {i + 1}")
             if r.status_code in (403, 404):
                 break
-            time.sleep(8 * (i + 1))
-        time.sleep(2)
+            time.sleep(15 * (i + 1))
     return None, None
 
 
@@ -153,7 +155,6 @@ def main():
         fuel = {k: v.dropna().to_dict() for k, v in old_fuel.iterrows()}
     for fy in range(first, cur_fy + 1):
         for table, store, parse in (("1-1", cap, parse_capacity), ("4", fuel, parse_fuel)):
-            time.sleep(3)
             wb, url = get_wb(fy, table, cur_fy)
             if wb is None:
                 note(f"  FY{fy} table {table}: not available")
@@ -182,11 +183,13 @@ def main():
     fueldf = pd.DataFrame.from_dict(fuel, orient="index").sort_index()
     fueldf.index.name = "month"
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
-    xlsx_notes.write_workbook(args.out, {"Capacity": capdf, "Fuel": fueldf}, NOTES, TITLES)
-    c = capdf.iloc[-1]
-    print(f"Saved capacity {len(capdf)} months ({capdf.index.min():%Y-%m}..{capdf.index.max():%Y-%m}), total "
-          f"{c.get('Total_kW', float('nan')) / 1e6:.1f} GW; fuel {len(fueldf)} months; latest LNG stock "
-          f"{fueldf['LNG_stock_t'].iloc[-1] / 1e6:.2f} Mt -> {args.out}")
+    log = pd.DataFrame({"This run's fetch log": LOG or ["(nothing logged)"]})
+    xlsx_notes.write_workbook(args.out, {"Capacity": capdf, "Fuel": fueldf, "Log": log}, NOTES, TITLES)
+    cap_txt = (f"capacity {len(capdf)} months ({capdf.index.min():%Y-%m}..{capdf.index.max():%Y-%m}), total "
+               f"{capdf['Total_kW'].iloc[-1] / 1e6:.1f} GW") if len(capdf) and "Total_kW" in capdf else "capacity: none"
+    fuel_txt = (f"fuel {len(fueldf)} months, latest LNG stock {fueldf['LNG_stock_t'].iloc[-1] / 1e6:.2f} Mt"
+                if len(fueldf) else "fuel: none")
+    print(f"Saved {cap_txt}; {fuel_txt} -> {args.out}")
 
 
 NOTES = [
