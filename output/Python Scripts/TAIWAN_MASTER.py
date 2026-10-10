@@ -4,6 +4,8 @@ charts - the same layout and chart code as the other masters (south_america/SOUT
 
   Dashboard - Power      generation by source (average GW) and annual, installed capacity (GW), renewable generation,
                          electricity consumption by sector, Taipower daily peak load, supply capacity and reserve margin
+                         Taipower generation by fuel rolled up from 10-minute data: daily and monthly average GW (Taipower units +
+                         IPPs 2017-22 from Zenodo; EMS units from Taipower's rolling file and archive copies; hourly live snapshots)
   Dashboard - Gas        natural gas supply (LNG imports + domestic) and use by sector (Bcf/d), LNG imports by origin (Mt),
                          LNG import price
   Dashboard - Fuels      crude oil imports by origin, refinery intake, coal imports by origin, crude/coal prices,
@@ -48,13 +50,18 @@ DATA_DIR = sam.DATA_DIR
 ESIST = "taiwan_esist_monthly.xlsx"
 TAIPOWER = "taiwan_taipower.xlsx"
 RESERVOIRS = "taiwan_reservoirs_daily.xlsx"
+ROLLUP = "taiwan_generation_rollup.xlsx"
+LIVE = "taiwan_live_daily.xlsx"
 ES_RAW = tuple(f"{t} {k}" for t in ("GEN", "CAP", "CONS", "REN", "GAS", "LNG", "SUP", "CRUDE", "CRUDESRC", "COAL", "COALSRC",
                                     "IMPPRICE", "OILPRICE") for k in ("M", "A")) + ("Series", "Releases")
 
 # (code, country, workbook, raw sheets, short name, charts to show (None = all))
 POWER = [("TW", "Taiwan", ESIST, ES_RAW, "EA monthly statistics",
           {"Generation", "Generation annual", "Capacity", "Capacity annual", "Renewables", "Consumption"}),
-         ("TW", "Taiwan", TAIPOWER, ("Peak", "Daily"), "Taipower", None)]
+         ("TW", "Taiwan", TAIPOWER, ("Peak", "Daily"), "Taipower", None),
+         ("TW", "Taiwan", ROLLUP, ("Coverage", "Windows", "Daily Zenodo", "Monthly Zenodo", "Daily EMS", "Monthly EMS"),
+          "Taipower 10-minute roll-up", None),
+         ("TW", "Taiwan", LIVE, ("Live daily", "Coverage"), "Taipower live snapshots", None)]
 GAS_SETS = [("TW", "Taiwan", ESIST, (), "EA monthly statistics",
              {"Gas supply", "Gas use", "Gas use annual", "LNG imports", "LNG imports annual", "LNG price"})]
 FUELS = [("TW", "Taiwan", ESIST, (), "EA monthly statistics",
@@ -69,6 +76,16 @@ SOURCES = {
     TAIPOWER: ("Taiwan Power Company (Taipower) open data: past electricity supply and demand (peak load, supply capacity, "
                "reserve margin; d006005) and 10-minute generation by unit (d006010; raw tab only)",
                "https://data.gov.tw/dataset/19995"),
+    ROLLUP: ("Taipower open data, generation by fuel from the 10-minute unit file (data.gov.tw 37331) rolled up to daily and monthly "
+              "average GW: (1) Jan 2017 - Jul 2022, Taipower units plus independent power producers and cogeneration, from the "
+              "Zenodo copy (doi 10.5281/zenodo.7537890, CC BY 4.0, Open Government Data License v1.0); (2) Taipower EMS-dispatched "
+              "units only (no IPPs, little wind and solar) from Taipower's current file and Internet Archive copies of earlier "
+              "windows. Two separate series, not mixed; coverage against the Energy Administration's national totals is on the "
+              "'Coverage' tab",
+              "https://data.gov.tw/dataset/37331"),
+    LIVE: ("Taipower open data d006001, live generation of every unit incl. purchased power (IPPs, solar, wind, storage), polled "
+           "hourly; daily mean of the polls actually made, from the first poll on (no history is published)",
+           "https://data.gov.tw/dataset/8931"),
     RESERVOIRS: ("Water Resources Agency, Ministry of Economic Affairs: reservoir water-regime open data (dataset 45501)",
                  "https://data.gov.tw/dataset/45501"),
 }
@@ -81,15 +98,16 @@ DASHBOARD_ONLY = {}
 
 # Sources checked and NOT built (probes: discovery_archive/taiwan/, results discovery_archive/results/taiwan/, 10 Oct 2026).
 NOT_AVAILABLE = [
-    ("Taiwan", "Taipower real-time generation by fuel and unit (today)", "service.taipower.com.tw/data/opendata d006001",
-     "Reachable, not used", "https://service.taipower.com.tw/data/opendata/apply/file/d006001/001.json",
-     "Today's 10-minute snapshot by unit with no history; the 10-minute past-generation file (d006010) is pulled instead."),
-    ("Taiwan", "Taipower past generation by unit (10-minute)", "service.taipower.com.tw d006010 (data.gov.tw 37331)",
-     "Reachable, raw tab only", "https://data.gov.tw/dataset/37331",
-     "A rolling three-month window (about 200 MB), replaced monthly and ending about three months back, so history only builds "
-     "from the first run (window on 10 Oct 2026: 1 Mar - 31 May 2026). It covers Taipower-dispatched (EMS) units only - about 16 GW "
-     "average against about 33 GW nationwide, wind and solar far below the national totals - so it is kept as the 'Daily' raw "
-     "tab and not charted; the Energy Administration series is the national total."),
+    ("Taiwan", "Taipower past generation by unit (10-minute), all history", "service.taipower.com.tw d006010 (data.gov.tw 37331)",
+     "Reachable; rolling window only", "https://data.gov.tw/dataset/37331",
+     "A rolling three-month window (about 200 MB) replaced monthly and ending about three months back; it covers Taipower-dispatched "
+     "(EMS) units only. It is rolled up in taiwan_generation_rollup.xlsx (daily and monthly 'Taipower EMS units' charts). Earlier "
+     "windows: only those the Internet Archive holds complete copies of (see the 'Windows' tab); the Zenodo copy covers Jan 2017 - "
+     "Jul 2022; every other period (e.g. Aug 2022 onward outside the windows listed) has no free source found and is a gap."),
+    ("Taiwan", "Taipower history of net power generated and purchased by energy type", "www.taipower.com.tw/2764/2826/2828",
+     "Blocked (HTTP 403)", "https://www.taipower.com.tw/2764/2826/2828/",
+     "CloudFront 403 from GitHub Actions, as are the page's genary.json files; no data.gov.tw open-data file with that history was "
+     "found among Taipower's d006001-d006023 files (probe 1)."),
     ("Taiwan", "Taipower website (taipower.com.tw pages and genary.json)", "www.taipower.com.tw", "Blocked (HTTP 403)",
      "https://www.taipower.com.tw/", "CloudFront 403 from GitHub Actions; service.taipower.com.tw/data/opendata answers."),
     ("Taiwan", "Water Resources Agency reservoir history and names", "fhy.wra.gov.tw, data.wra.gov.tw, opendata.wra.gov.tw",
