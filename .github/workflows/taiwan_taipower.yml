@@ -31,7 +31,7 @@ jobs:
         run: |
           [ -f "output/Data and Chart Outputs/taiwan_taipower.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/taiwan_taipower.xlsx" || echo "chart step skipped/failed for taiwan_taipower.xlsx"
           mkdir -p "output/Python Scripts"
-          cp taiwan/TAIWAN_TAIPOWER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp taiwan/TAIWAN_TAIPOWER.py taiwan/taiwan_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()

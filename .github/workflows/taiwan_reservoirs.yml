@@ -1,9 +1,9 @@
-name: Taiwan Energy Administration monthly statistics
+name: Taiwan reservoirs (WRA, daily)
 
-# Energy Administration (MOEA) E-STAT open API: last ~24 months plus annual rows in every call; the committed workbook is the history store. Released about the 2nd of each month; pulled on the 1st and 15th.
+# WRA open data keeps only the last ~24 hours of readings, so this runs daily and the committed workbook is the history store.
 on:
   schedule:
-    - cron: "35 3 1,15 * *"
+    - cron: "40 16 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -24,27 +24,27 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run pull
-        run: timeout 600 python3 taiwan/TAIWAN_ESIST_MONTHLY.py --out "output/Data and Chart Outputs/taiwan_esist_monthly.xlsx"
+        run: timeout 600 python3 taiwan/TAIWAN_WRA_RESERVOIRS.py --out "output/Data and Chart Outputs/taiwan_reservoirs_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/taiwan_esist_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/taiwan_esist_monthly.xlsx" || echo "chart step skipped/failed for taiwan_esist_monthly.xlsx"
+          [ -f "output/Data and Chart Outputs/taiwan_reservoirs_daily.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/taiwan_reservoirs_daily.xlsx" || echo "chart step skipped/failed for taiwan_reservoirs_daily.xlsx"
           mkdir -p "output/Python Scripts"
-          cp taiwan/TAIWAN_ESIST_MONTHLY.py taiwan/taiwan_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp taiwan/TAIWAN_WRA_RESERVOIRS.py taiwan/taiwan_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f "output/Data and Chart Outputs/taiwan_esist_monthly.xlsx" ]; then
+          if [ ! -f "output/Data and Chart Outputs/taiwan_reservoirs_daily.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/taiwan_esist_monthly.xlsx"
+          git add -f "output/Data and Chart Outputs/taiwan_reservoirs_daily.xlsx"
           git add -f "output/Python Scripts" || true
-          git diff --cached --quiet || git commit -m "Taiwan ESIST monthly: automated update"
+          git diff --cached --quiet || git commit -m "Taiwan reservoirs: automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             git rebase --abort 2>/dev/null || true
