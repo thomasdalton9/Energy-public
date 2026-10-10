@@ -7,11 +7,14 @@ charts - the same layout and chart code as the other masters (south_america/SOUT
                          capacity factors (NBS generation / NEA capacity)
   Dashboard - Fuels      raw coal, coke, crude oil and refinery runs, natural gas output (NBS monthly)
   Dashboard - Industry   energy-intensive output (steel, cement, glass, non-ferrous, chemicals, vehicles) and capacity
-                         utilisation by industry
+                         utilisation by industry, y/y growth of output and of industrial value added by sector/industry
   Dashboard - Prices     10-day producer-goods prices (coal, coke, LNG, fuels, steel, metals, chemicals, solar and
                          battery materials, building materials) in US$ per tonne (US$ per kg for polysilicon and
                          live hogs), converted from NBS's yuan at the Federal Reserve H.10 yuan/US$ rate of each price
-                         date (last published rate on or before it), and PPI y/y by industry
+                         date (last published rate on or before it), PPI y/y by industry and CPI y/y (incl. housing utilities
+                         and vehicle fuel)
+  Dashboard - Economy    NBS industrial profits (year to date, by sector and energy industry), fixed-asset investment growth
+                         by sector and industry, retail sales growth (incl. petroleum products and automobiles)
   Dashboard - Long-term  annual summary and history from 2000 (fundamentals.py)
   <chart> data           the table each Dashboard chart plots
   <dataset> raw          the full data sheet(s) from each source workbook
@@ -20,8 +23,8 @@ charts - the same layout and chart code as the other masters (south_america/SOUT
 All series are China's National Bureau of Statistics (NBS) releases (asia/CHINA_NBS_*.py), the national statistics
 office. NBS output covers industrial enterprises above designated size, so distributed solar and small plants are not
 in the generation split, and 'Thermal' is NBS's own category (coal, gas, oil, biomass and waste). January and February
-are published only combined, so the monthly series start in March 2021 and every January/February is a gap (the
-combined figures are on the 'Jan-Feb' raw tabs). Ember is used only for the annual Long-term page.
+are published only combined, so every January/February is a gap in the monthly series (the combined figures are on
+the 'Jan-Feb' raw tabs); the NBS monthly history starts in Sep 2013 (the earliest release still online). Ember is used only for the annual Long-term page.
 
 Gas: only natural gas OUTPUT (NBS) is built. Gas consumption, imports (pipeline and LNG), storage and sector demand
 have no official source reachable from GitHub Actions (see the Sources tab), so there is no gas balance and nothing
@@ -205,6 +208,26 @@ NOT_AVAILABLE = [
      "https://data.stats.gov.cn/", "HTTP 403 'UrlACL' for every automated request (discovery_archive/asia/"
      "CHINA_NBS_DISCOVERY*.py); the press releases on stats.gov.cn are used instead. The statistical yearbook pages "
      "(stats.gov.cn/sj/ndsj/) answer but are annual and are not read."),
+    ("China", "NBS 10-day prices: five periods published but not online", "stats.gov.cn release list, migrated archive",
+     "Not reachable", "https://www.stats.gov.cn/sj/zxfb/",
+     "2021 Feb 11-20, 2022 Feb 1-10, 2023 Jan 21-31, 2024 Feb 11-20 and 2025 Jan 21-31 were published (the next release "
+     "compares with them) but are on neither the release list nor the migrated archive (every id scanned); 2025 Oct 1-10 and "
+     "2026 Feb 11-20 were not published (the next release compares with the period before). The gaps stay blank."),
+    ("China", "NBS energy production release (能源生产情况): prose items", "stats.gov.cn", "Read, partly built",
+     "https://www.stats.gov.cn/sj/zxfb/",
+     "The release is prose with no table; its monthly levels equal the industrial product table (read there, unrounded). "
+     "Built: coal/crude/gas imports (customs flash, Mar 2022 - Dec 2024 only, on the energy workbook's Imports sheet). Not built: "
+     "daily averages (month / days), two-year average growth (2021-22 releases only), Qinhuangdao port coal prices and Brent "
+     "spot price (Oct-Dec 2021 releases only; irregular dates, third-party sources)."),
+    ("China", "NBS PMI, 70-city housing prices, real-estate development, GDP", "stats.gov.cn", "Not built",
+     "https://www.stats.gov.cn/sj/zxfb/",
+     "Released monthly or quarterly but not energy series (diffusion indices, housing, GDP). Asked of the owner whether the "
+     "energy-intensive-industry PMI and real-estate investment (a cement/steel driver) should be added."),
+    ("China", "NBS industrial products not in the monthly table", "stats.gov.cn", "Not published",
+     "https://www.stats.gov.cn/sj/zxfb/",
+     "The release table holds 38 products (626 products exist in NBS's database, reachable only through data.stats.gov.cn, "
+     "403). No wind-turbine, heat-pump, LNG, refined-product (gasoline, diesel, kerosene) or coal-by-grade output is in any "
+     "NBS release found; solar cells appear from the Jan-Feb 2023 release, service robots from Jan-Feb 2025."),
     ("China", "CNPC ETRI, CNOOC, CCTD", "company / trade-body sites", "Not used",
      "https://www.cctd.com.cn/", "ETRI answered HTTP 504; CNOOC an empty page; CCTD's home page loads but its coal data "
      "is a commercial database."),
