@@ -5,7 +5,8 @@ their charts - the same layout and chart code as the other masters (south_americ
   Dashboard - Power      generation by fuel (average GW, electricity traded on the KPX market + PPAs), installed capacity by
                          fuel (GW), capacity factors (generation / capacity), peak and minimum demand (GW), system
                          marginal price (SMP) monthly and daily in US$/MWh, hours each fuel set the SMP
-  Dashboard - Gas        LNG burned by power generators (annual)
+  Dashboard - Gas        LNG imports by origin region (Mt per month) and import unit price (KOGAS), LNG burned by power
+                         generators (annual, KPX EPSIS)
   Dashboard - Long-term  annual summary and history from 2000 (fundamentals.py)
   <chart> data           the table each Dashboard chart plots
   <dataset> raw          the full data sheet(s) from each source workbook
@@ -17,9 +18,10 @@ self-generation and small behind-the-meter systems (so solar is understated). Th
 with the Federal Reserve H.10 won per US$ rate (south_korea/KOREA_FX_USD.py): daily SMP at the rate of the day (or the last
 rate published before it), monthly SMP at the mean of the month's published rates.
 
-Gas: there is no raw national gas feed reachable from GitHub Actions (KOGAS publishes no statistics tables on its site; KESIS,
-the customs portals and Petronet are script-rendered or member services - see the Sources tab), so the only gas series is
-EPSIS's annual LNG burned by power generators. Nothing is estimated and no LNG import figures are shown on the dashboards.
+Gas: LNG imports by origin region are the Korea Gas Corporation (KOGAS) file dataset on the Public Data Portal (monthly,
+tonnes, about an 8-month lag); LNG burned for power is EPSIS's annual table. KOGAS's own site, KESIS, the customs portals and
+Petronet publish no tables reachable from GitHub Actions (see the Sources tab), so there is no sector demand, storage or
+terminal-inventory series and no gas balance; nothing is estimated and no energy or volume conversion of LNG is made.
 
 Reads (doesn't refetch) the workbooks the scheduled pulls write to "output/Data and Chart Outputs/". A missing input is listed on
 its Dashboard and skipped.
@@ -57,7 +59,9 @@ POWER = [("KR", "South Korea", GEN, ("Data", "Annual"), "generation", {"Generati
          ("KR", "South Korea", CAP, ("Monthly",), "capacity", None),
          ("KR", "South Korea", DEM, ("Daily",), "demand", None),
          ("KR", "South Korea", SMP, ("Monthly", "Marginal fuel", "Daily"), "SMP", {"Marginal fuel"})]
-GAS_SETS = [("KR", "South Korea", GAS, ("Annual",), "gas use for power", None)]
+LNG = "south_korea_lng_imports_monthly.xlsx"
+GAS_SETS = [("KR", "South Korea", LNG, ("Data",), "LNG imports", None),
+            ("KR", "South Korea", GAS, ("Annual",), "gas use for power", None)]
 
 KPX = "Korea Power Exchange (KPX), Electric Power Statistics Information System (EPSIS)"
 FED_URL = "https://www.federalreserve.gov/releases/h10/hist/dat00_ko.htm"
@@ -70,6 +74,8 @@ SOURCES = {
     SMP: (f"{KPX}: system marginal price (monthly, hourly) and SMP-setting fuel",
           "https://epsis.kpx.or.kr/epsisnew/selectEkmaSmpSmpChart.do?menuId=040201"),
     GAS: (f"{KPX}: generation fuel consumption (annual)", "https://epsis.kpx.or.kr/epsisnew/selectEkgeFfuChart.do?menuId=060200"),
+    LNG: ("Korea Gas Corporation (KOGAS), 'Korea's natural gas imports by continent', Public Data Portal (data.go.kr) file dataset "
+          "15088508 (CSV, free download, monthly from 1988)", "https://www.data.go.kr/data/15088508/fileData.do"),
     FX: ("Board of Governors of the Federal Reserve System, H.10 Foreign Exchange Rates: noon buying rates in New York, "
          "South Korean won per US dollar (the series FRED republishes as DEXKOUS); used to convert the SMP to US$", FED_URL),
 }
@@ -81,16 +87,19 @@ OPERATORS = {}
 DASHBOARD_ONLY = {}
 
 NOT_AVAILABLE = [
-    ("South Korea", "Natural gas / LNG: KOGAS sales and supply by sector, LNG imports and inventory",
-     "Korea Gas Corporation (kogas.or.kr)", "Reachable, no data tables",
+    ("South Korea", "Natural gas / LNG: KOGAS sales and supply by sector, inventory, terminal send-out",
+     "Korea Gas Corporation (kogas.or.kr) and its Public Data Portal file datasets", "Site reachable, no data tables; LNG imports by origin built",
      "https://www.kogas.or.kr/site/koGas/1030302000000",
-     "The site answers (HTTP 200) but its import/transport, sales and production pages are descriptive text; the statistics boards "
-     "list quarterly 'Gas Industry' PDFs and expert articles only. No monthly or daily volumes are published as tables. Not built."),
+     "kogas.or.kr answers (HTTP 200) but its import/transport, sales and production pages are descriptive text; its boards list "
+     "quarterly 'Gas Industry' PDFs and articles only. The free file datasets on data.go.kr give LNG imports by continent (built) "
+     "and monthly domestic production (15049906: a count with no unit stated in the file, so not charted) and Japan/China/Taiwan "
+     "import prices to Jun 2023 (15117762, not charted). No sector sales, storage or terminal inventory table found "
+     "(searches in discovery_archive/results/south_korea/probe13.txt, probe15.txt)."),
     ("South Korea", "Energy statistics monthly / national energy balance (KEEI)", "KESIS, kesis.net", "Reachable, script-rendered",
      "https://www.kesis.net/menu.es?mid=a10101000000",
-     "The statistics tables are loaded by script from /stat/list/*.es; see discovery_archive/results/south_korea/probe13.txt for "
-     "what the endpoints returned. The monthly bulletin (energy statistics monthly) is a board of publications; the board needs "
-     "a login for downloads. Not built."),
+     "The statistics tables are loaded by script from /stat/list/*.es; plain requests to those endpoints returned an HTTP 500 or "
+     "empty answers (discovery_archive/results/south_korea/probe13.txt), and the monthly bulletin is a board of publications "
+     "with no attachment links for an anonymous visitor. Not built."),
     ("South Korea", "LNG and crude imports by origin (customs)", "Korea Customs Service UNI-PASS trade statistics (unipass.customs.go.kr), "
      "KITA K-stat (stat.kita.net), data.go.kr", "Reachable, query tools need a browser session or key",
      "https://unipass.customs.go.kr/ets/index_eng.do",
@@ -256,7 +265,7 @@ def main():
     counts = []
     for dash, heading, datasets in (
             (dash_power, "South Korea - power: generation, capacity, demand and system marginal price (KPX EPSIS)", POWER),
-            (dash_gas, "South Korea - gas: LNG burned for power (KPX EPSIS)", GAS_SETS)):
+            (dash_gas, "South Korea - gas: LNG imports (KOGAS) and LNG burned for power (KPX EPSIS)", GAS_SETS)):
         charts, rows, missing = collect(wb, datasets, args.data_dir, used, sources)
         if datasets is POWER:
             cf, why = capacity_factor_chart(wb, used, args.data_dir)

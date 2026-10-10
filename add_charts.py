@@ -3118,7 +3118,20 @@ def south_korea_gas(p):
                  "1,000 tonnes per year", "stacked_bar", "%Y")]
 
 
+def south_korea_lng(p):
+    d = by_date(read(p, "Data"), "month")
+    d = d[d.index >= "2015-01-01"]
+    names = {"Oceania": "Oceania", "North_America": "North America", "Latin_America": "Latin America",
+             "Middle_East": "Middle East", "Asia": "Asia", "Africa": "Africa", "Europe": "Europe", "Russia": "Russia",
+             "Other": "Other"}
+    mt = pd.DataFrame({v: d[f"{k}_Weight_t"] / 1e6 for k, v in names.items()}).dropna(how="all")
+    px = d[["Total_Price_USD_per_t"]].rename(columns={"Total_Price_USD_per_t": "Import unit price (value / weight)"}).dropna()
+    return [spec("LNG imports", mt, "South Korea LNG imports by origin region (KOGAS)", "million tonnes per month", "stacked_bar"),
+            spec("LNG price", px, "South Korea LNG import unit price (KOGAS, value / weight)", "US$ per tonne", "line")]
+
+
 REGISTRY.update({
+    "south_korea_lng_imports_monthly.xlsx": south_korea_lng,
     "south_korea_power_generation_monthly.xlsx": south_korea_generation,
     "south_korea_power_capacity.xlsx": power_capacity("South Korea installed capacity by fuel (KPX EPSIS)"),
     "south_korea_smp.xlsx": south_korea_smp,
