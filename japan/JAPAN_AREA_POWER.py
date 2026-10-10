@@ -40,7 +40,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 import xlsx_notes  # noqa: E402
 
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
-START = pd.Timestamp("2021-04-01")
+START = pd.Timestamp("2024-04-01")   # the operators' monthly eria_jukyu files start Oct 2023 - Apr 2024 (older data is in other formats)
 DEFAULT_OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output",
                            "Data and Chart Outputs", "japan_power_generation_daily.xlsx")
 
@@ -100,6 +100,7 @@ def parse(text):
     lines = text.splitlines()
     hdr = next(i for i, l in enumerate(lines[:6]) if "DATE" in l and "TIME" in l)
     d = pd.read_csv(io.StringIO("\n".join(lines[hdr:])), dtype=str)
+    d = d.dropna(subset=["DATE", "TIME"])
     d.columns = [unicodedata.normalize("NFKC", str(c)).strip() for c in d.columns]
     d["t"] = pd.to_datetime(d["DATE"].str.strip().str.replace("/", "-"), errors="coerce", format="mixed") \
         + pd.to_timedelta(d["TIME"].str.strip().apply(lambda s: s + ":00" if s.count(":") == 1 else s), errors="coerce")
