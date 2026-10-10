@@ -98,6 +98,9 @@ def imports_extra(out_path):
         nbs.log(f"  energy-production releases to read for imports: {len(releases)}")
         new, new_jf, new_chk = {}, {}, {}
         for title, url in releases:
+            if nbs.over_budget():
+                nbs.log("  time budget reached - the remaining releases are picked up by the next run")
+                break
             period, is_jf = nbs.month_period(title)
             try:
                 html = nbs.fetch(url)

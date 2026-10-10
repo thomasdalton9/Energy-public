@@ -19,19 +19,43 @@ for f in glob.glob(os.path.join(RES, "idscan_*.tsv")):
 ids = sorted(rows)
 
 
-def year_near(i):
-    """Year of the nearest dated neighbours (by id) if both agree, else None."""
-    prev = next((int(m.group(1)) for j in reversed([k for k in ids if k < i][-12:])
-                 if (m := re.match(r"(\d{4})年", rows[j]))), None)
-    nxt = next((int(m.group(1)) for j in [k for k in ids if k > i][:12] if (m := re.match(r"(\d{4})年", rows[j]))), None)
-    return prev if prev == nxt else None
+YEAR_OF = re.compile(r"(\d{4})年\d{1,2}月")   # only monthly / 10-day data releases date their neighbours (annual reports are
+                                              # published a year late, e.g. '2014年我国文化...' in Nov 2015)
+
+
+def year_of(j):
+    m = YEAR_OF.search(rows[j])
+    return int(m.group(1)) if m else None
+
+
+def neighbours(i):
+    prev = next((y for j in reversed([k for k in ids if k < i][-12:]) if (y := year_of(j))), None)
+    nxt = next((y for j in [k for k in ids if k > i][:12] if (y := year_of(j))), None)
+    return prev, nxt
+
+
+def first_month(t):
+    m = re.match(r"(?:\d{4}年)?1[-—－](\d{1,2})月", t) or re.match(r"(?:\d{4}年)?(\d{1,2})月", t)
+    return int(m.group(1)) if m else None
+
+
+def year_near(i, t):
+    """Year for a title without one: the nearest dated neighbours' year if both agree; at a year boundary the next year for
+    a release of months 1-6 and the previous year for months 7-12."""
+    prev, nxt = neighbours(i)
+    if prev == nxt:
+        return prev
+    mth = first_month(t)
+    if prev and nxt and mth:
+        return nxt if mth <= 6 else prev
+    return None
 
 
 TYPES = {
     "industrial": r"规模以上工业增加值",
     "energy": r"能源生产",
     "cpi": r"^\d{4}年\d{1,2}月份居民消费价格|居民消费价格",
-    "ppi": r"工业生产者出厂价格",
+    "ppi": r"工业生产者(出厂)?价格",
     "capacity": r"工业产能利用率",
     "profits": r"规模以上工业企业利润",
     "fai": r"全国固定资产投资",
@@ -54,7 +78,7 @@ for i in ids:
         if k == "fai" and "民间" in t:
             continue
         if not re.match(r"\d{4}年", t):
-            y = year_near(i)
+            y = year_near(i, t)
             if y is None:
                 skipped.append((i, t))
                 continue

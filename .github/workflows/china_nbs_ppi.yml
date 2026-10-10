@@ -13,7 +13,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
 
@@ -25,7 +25,7 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run China NBS PPI monthly pull
-        run: timeout 2700 python3 asia/CHINA_NBS_PPI.py --out "output/Data and Chart Outputs/china_nbs_ppi_monthly.xlsx"
+        run: timeout 8400 python3 asia/CHINA_NBS_PPI.py --out "output/Data and Chart Outputs/china_nbs_ppi_monthly.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
