@@ -1,0 +1,100 @@
+===== 15065269 192628
+  link atchFileId=FILE_000000003630221&fileDetailSn=1
+  ctx fileDetailSn "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003630221&fileDetailSn=1&insertDataPrcus=N" } ] } </script> <div class="contents data"> <input type="hidden" id="publicDataDeta
+  ctx fileDetailSn 'json', data: { atchFileId: $('#limitAtchFileId').val(), fileDetailSn: $('#limitFileDetailSn').val() }, success: function(res) { if (res.success) { alert("인증이 완료되었습니다. 다시 다운로드 시도해주세요.");
+  ctx atchFileId , "contentUrl": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003630221&fileDetailSn=1&insertDataPrcus=N" } ] } </script> <div class="contents data"> <input 
+  ctx atchFileId set.json', type: 'POST', dataType: 'json', data: { atchFileId: $('#limitAtchFileId').val(), fileDetailSn: $('#limitFileDetailSn').val() }, success: function(res) { if (res.success) 
+  ctx 파일데이터명 pe2"> <ul class="info-ul row"> <li> <strong class="key">파일데이터명</strong> <div class="value">한국전력거래소_지역별 시간별 태양광 및 풍력 발전량_20251231</div> </li> <li class="half"> <strong class="key">분
+  ctx 파일데이터명 ass="info-ul row"> <li> <strong class="key">파일데이터명</strong> <div class="value">한국전력거래소_지역별 시간별 태양광 및 풍력 발전량_20251231</div> </li> <li class="half"> 
+===== 15069337 191686
+  link atchFileId=FILE_000000007622846&fileDetailSn=1
+  ctx fileDetailSn "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007622846&fileDetailSn=1&insertDataPrcus=N" } ] } </script> <div class="contents data"> <input type="hidden" id="publicDataDeta
+  ctx fileDetailSn 'json', data: { atchFileId: $('#limitAtchFileId').val(), fileDetailSn: $('#limitFileDetailSn').val() }, success: function(res) { if (res.success) { alert("인증이 완료되었습니다. 다시 다운로드 시도해주세요.");
+  ctx atchFileId , "contentUrl": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000007622846&fileDetailSn=1&insertDataPrcus=N" } ] } </script> <div class="contents data"> <input 
+  ctx atchFileId set.json', type: 'POST', dataType: 'json', data: { atchFileId: $('#limitAtchFileId').val(), fileDetailSn: $('#limitFileDetailSn').val() }, success: function(res) { if (res.success) 
+  ctx 파일데이터명 pe2"> <ul class="info-ul row"> <li> <strong class="key">파일데이터명</strong> <div class="value">한국전력거래소_신재생 발전량 및 설비용량_20251231</div> </li> <li class="half"> <strong class="key">분류체계</s
+  ctx 파일데이터명 ass="info-ul row"> <li> <strong class="key">파일데이터명</strong> <div class="value">한국전력거래소_신재생 발전량 및 설비용량_20251231</div> </li> <li class="half"> 
+===== 15065387 186726
+  link atchFileId=FILE_000000002575939&fileDetailSn=1
+  ctx fileDetailSn "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002575939&fileDetailSn=1&insertDataPrcus=N" } ] } </script> <div class="contents data"> <input type="hidden" id="publicDataDeta
+  ctx fileDetailSn 'json', data: { atchFileId: $('#limitAtchFileId').val(), fileDetailSn: $('#limitFileDetailSn').val() }, success: function(res) { if (res.success) { alert("인증이 완료되었습니다. 다시 다운로드 시도해주세요.");
+  ctx atchFileId , "contentUrl": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000002575939&fileDetailSn=1&insertDataPrcus=N" } ] } </script> <div class="contents data"> <input 
+  ctx atchFileId set.json', type: 'POST', dataType: 'json', data: { atchFileId: $('#limitAtchFileId').val(), fileDetailSn: $('#limitFileDetailSn').val() }, success: function(res) { if (res.success) 
+  ctx 파일데이터명 pe2"> <ul class="info-ul row"> <li> <strong class="key">파일데이터명</strong> <div class="value">한국전력거래소_시간별 발전량_20211231</div> </li> <li class="half"> <strong class="key">분류체계</strong> 
+  ctx 파일데이터명 ass="info-ul row"> <li> <strong class="key">파일데이터명</strong> <div class="value">한국전력거래소_시간별 발전량_20211231</div> </li> <li class="half"> 
+===== 15065386 2474
+===== 15065388 2474
+===== /epsisnew/selectEkmaPtdBftChart.do?menuId=040501 200 315554
+  select vChartKind [('column', '누적그래프'), ('line', '개별그래프')] 
+  select selDate [('year', '년'), ('month', '월')] 
+  select pieSelDate [('year', '년'), ('month', '월')] 
+  select pieSelBeginDate [] 
+  select pieSelBeginDateMonth [] 
+  select selDateGrid [('year', '년'), ('month', '월')] 
+  select selRegion [('1', '지역합계'), ('0', '지역별'), ('110', '서울'), ('120', '부산'), ('130', '대구'), ('140', '인천'), ('150', '광주'), ('160', '대전'), ('170', '울산'), ('180', '경기'), ('190', '강원'), ('200', '충북')] ...
+  select selCount [('0', '없음'), ('1', '한자리'), ('2', '두자리'), ('3', '세자리')] 
+  select siteOpen1 [('', '전력산업기관'), ('https://www.korec.go.kr', '전기위원회'), ('https://www.kpx.or.kr', '전력거래소'), ('https://www.kepco.co.kr', '한국전력공사'), ('https://www.etep.or.kr', '전력기금사업단'), ('https://www.koenergy.kr', '한국남동발전'), ('https://www.komipo.co.kr', '한국중부발전'), ('https://www.iwest.co.kr/sites/iwest/index.do', '한국서부발전'), ('https://www.kospo.co.kr', '한국남부발전'), ('https://www.ewp.co.kr', '한국동서발전'), ('https://www.khnp.co.kr', '한수원(주)'), ('https://www.kwater.or.kr', '한국수자원공사')] ...
+  select siteOpen2 [('', '공공기관'), ('https://www.molit.go.kr', '국토교통부'), ('https://www.mof.go.kr', '해양수산부'), ('https://www.police.go.kr', '경찰청'), ('https://www.ftc.go.kr', '공정거래위원회'), ('https://www.moe.go.kr', '교육부'), ('https://www.mpva.go.kr', '국가보훈부'), ('https://www.acrc.go.kr', '국민권익위원회'), ('https://www.mnd.go.kr', '국방부'), ('https://www.nts.go.kr', '국세청'), ('https://www.nis.go.kr', '국가정보원'), ('https://www.assembly.go.kr', '국회')] ...
+  select popSelDate [('year', '년'), ('month', '월')] 
+  select popSelBeginDate [] 
+  select popSelBeginDateMonth [('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'), ('05', '05'), ('06', '06'), ('07', '07'), ('08', '08'), ('09', '09'), ('10', '10'), ('11', '11'), ('12', '12')] 
+  select popKind [('c8', '종합'), ('c1', '원자력'), ('c2', '유연탄'), ('c3', '무연탄'), ('c4', '유류'), ('c5', 'LNG'), ('c6', '양수'), ('c9', '신재생'), ('c7', '기타')] 
+  input <input type="hidden" id="menuIdTop" name="menuId" value="090206">
+  input <input type="radio" name="export_type" value="xlsx" checked="checked" title="xlsx"/>
+  ajax changePc
+  ajax insertCommExcount
+  ajax selectCommEkmaPpaCheck
+  ajax selectEkmaPtdBft
+  ajax selectEkmaPtdBftChart
+  ajaxurl /epsisnew/changePc.ajax
+  ajaxurl /epsisnew/insertCommExcount.ajax
+  ajaxurl /epsisnew/selectCommEkmaPpaCheck.ajax
+  ajaxurl /epsisnew/selectEkmaPtdBft.ajax
+  ajaxurl /epsisnew/selectEkmaPtdBftChart.ajax
+===== /epsisnew/selectEkgeEpsMepChart.do?menuId=030100 200 3068223
+  select selDate [('year', '년'), ('month', '월'), ('day', '일')] 
+  select selBeginDate [] 
+  select selBeginDateMonth [('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'), ('05', '05'), ('06', '06'), ('07', '07'), ('08', '08'), ('09', '09'), ('10', '10'), ('11', '11'), ('12', '12')] 
+  select selBeginDateDay [('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'), ('05', '05'), ('06', '06'), ('07', '07'), ('08', '08'), ('09', '09'), ('10', '10'), ('11', '11'), ('12', '12')] ...
+  select selEndDate [] 
+  select selEndDateMonth [('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'), ('05', '05'), ('06', '06'), ('07', '07'), ('08', '08'), ('09', '09'), ('10', '10'), ('11', '11'), ('12', '12')] 
+  select selEndDateDay [('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'), ('05', '05'), ('06', '06'), ('07', '07'), ('08', '08'), ('09', '09'), ('10', '10'), ('11', '11'), ('12', '12')] ...
+  select selCount [('0', '없음'), ('1', '한자리'), ('2', '두자리'), ('3', '세자리')] 
+  select siteOpen1 [('', '전력산업기관'), ('https://www.korec.go.kr', '전기위원회'), ('https://www.kpx.or.kr', '전력거래소'), ('https://www.kepco.co.kr', '한국전력공사'), ('https://www.etep.or.kr', '전력기금사업단'), ('https://www.koenergy.kr', '한국남동발전'), ('https://www.komipo.co.kr', '한국중부발전'), ('https://www.iwest.co.kr/sites/iwest/index.do', '한국서부발전'), ('https://www.kospo.co.kr', '한국남부발전'), ('https://www.ewp.co.kr', '한국동서발전'), ('https://www.khnp.co.kr', '한수원(주)'), ('https://www.kwater.or.kr', '한국수자원공사')] ...
+  select siteOpen2 [('', '공공기관'), ('https://www.molit.go.kr', '국토교통부'), ('https://www.mof.go.kr', '해양수산부'), ('https://www.police.go.kr', '경찰청'), ('https://www.ftc.go.kr', '공정거래위원회'), ('https://www.moe.go.kr', '교육부'), ('https://www.mpva.go.kr', '국가보훈부'), ('https://www.acrc.go.kr', '국민권익위원회'), ('https://www.mnd.go.kr', '국방부'), ('https://www.nts.go.kr', '국세청'), ('https://www.nis.go.kr', '국가정보원'), ('https://www.assembly.go.kr', '국회')] ...
+  input <input type="hidden" id="menuIdTop" name="menuId" value="090206">
+  ajax changePc
+  ajax insertCommExcount
+  ajax selectEkgeEpsMep
+  ajax selectEkgeEpsMepEdit
+  ajaxurl /epsisnew/changePc.ajax
+  ajaxurl /epsisnew/insertCommExcount.ajax
+  ajaxurl /epsisnew/selectEkgeEpsMep.ajax
+  ajaxurl /epsisnew/selectEkgeEpsMepEdit.ajax
+===== /epsisnew/selectEkgeEpsMepRealChart.do?menuId=030300 200 69260
+  select siteOpen1 [('', '전력산업기관'), ('https://www.korec.go.kr', '전기위원회'), ('https://www.kpx.or.kr', '전력거래소'), ('https://www.kepco.co.kr', '한국전력공사'), ('https://www.etep.or.kr', '전력기금사업단'), ('https://www.koenergy.kr', '한국남동발전'), ('https://www.komipo.co.kr', '한국중부발전'), ('https://www.iwest.co.kr/sites/iwest/index.do', '한국서부발전'), ('https://www.kospo.co.kr', '한국남부발전'), ('https://www.ewp.co.kr', '한국동서발전'), ('https://www.khnp.co.kr', '한수원(주)'), ('https://www.kwater.or.kr', '한국수자원공사')] ...
+  select siteOpen2 [('', '공공기관'), ('https://www.molit.go.kr', '국토교통부'), ('https://www.mof.go.kr', '해양수산부'), ('https://www.police.go.kr', '경찰청'), ('https://www.ftc.go.kr', '공정거래위원회'), ('https://www.moe.go.kr', '교육부'), ('https://www.mpva.go.kr', '국가보훈부'), ('https://www.acrc.go.kr', '국민권익위원회'), ('https://www.mnd.go.kr', '국방부'), ('https://www.nts.go.kr', '국세청'), ('https://www.nis.go.kr', '국가정보원'), ('https://www.assembly.go.kr', '국회')] ...
+  input <input type="hidden" id="menuIdTop" name="menuId" value="090206">
+  input <input type="radio" name="export_type" value="xlsx" checked="checked" title="xlsx"/>
+  ajax changePc
+  ajax insertCommExcount
+  ajax selectEkgeEpsMepRealChartAjax
+  ajax selectEkgeEpsMepRealGridAjax
+  ajaxurl /epsisnew/changePc.ajax
+  ajaxurl /epsisnew/insertCommExcount.ajax
+  ajaxurl /epsisnew/selectEkgeEpsMepRealChartAjax.ajax
+  ajaxurl /epsisnew/selectEkgeEpsMepRealGridAjax.ajax
+===== /epsisnew/selectEkgeGepTotChart.do?menuId=060101 200 554081
+  select vChartKind [('column', '누적그래프'), ('line', '개별그래프')] 
+  select vChartUnit [('c17', '총발전량'), ('c4', '사업자'), ('c18', '상용자가'), ('c1', '수력'), ('c5', '기력'), ('c10', '복합화력')] 
+  select selBeginDate [] 
+  select selEndDate [] 
+  select selCount [('0', '없음'), ('1', '한자리'), ('2', '두자리'), ('3', '세자리')] 
+  select siteOpen1 [('', '전력산업기관'), ('https://www.korec.go.kr', '전기위원회'), ('https://www.kpx.or.kr', '전력거래소'), ('https://www.kepco.co.kr', '한국전력공사'), ('https://www.etep.or.kr', '전력기금사업단'), ('https://www.koenergy.kr', '한국남동발전'), ('https://www.komipo.co.kr', '한국중부발전'), ('https://www.iwest.co.kr/sites/iwest/index.do', '한국서부발전'), ('https://www.kospo.co.kr', '한국남부발전'), ('https://www.ewp.co.kr', '한국동서발전'), ('https://www.khnp.co.kr', '한수원(주)'), ('https://www.kwater.or.kr', '한국수자원공사')] ...
+  select siteOpen2 [('', '공공기관'), ('https://www.molit.go.kr', '국토교통부'), ('https://www.mof.go.kr', '해양수산부'), ('https://www.police.go.kr', '경찰청'), ('https://www.ftc.go.kr', '공정거래위원회'), ('https://www.moe.go.kr', '교육부'), ('https://www.mpva.go.kr', '국가보훈부'), ('https://www.acrc.go.kr', '국민권익위원회'), ('https://www.mnd.go.kr', '국방부'), ('https://www.nts.go.kr', '국세청'), ('https://www.nis.go.kr', '국가정보원'), ('https://www.assembly.go.kr', '국회')] ...
+  input <input type="hidden" id="menuIdTop" name="menuId" value="090206">
+  ajax changePc
+  ajax insertCommExcount
+  ajaxurl /epsisnew/changePc.ajax
+  ajaxurl /epsisnew/insertCommExcount.ajax
+POST selectEkgeEpsMepRealList 404 1499    <!doctype html> <html lang="ko"> <head> 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>   	<meta http-equiv="X-UA-Compatible" content="IE=edge"/> 	<meta name="viewport" content="width=device-width, user-scalable=yes"> 	<link rel="apple-touch-icon" type="image/x-ic
