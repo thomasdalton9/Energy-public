@@ -198,6 +198,7 @@ def jepx_usd_chart(wb, used, data_dir, sources):
                                     inner=xlsx_charts.DASHBOARD_INNER)
     sam.write_frame(wb.create_sheet(sam.sheet_name("JP FX Data raw", used)), add_charts.read(fpath, "Data"))
     sources.append(("Japan", "yen per US dollar", FX, *SOURCES[FX], sam.notes_text(fpath)))
+    data_tab = ws.title
     ws = wb.create_sheet(sam.sheet_name("Conversion factors", used))
     for line in ("Currency conversion of the JEPX prices (the only conversion applied)",
                  "Prices: JEPX day-ahead (spot) market, simple average of the day's 48 half-hourly prices, yen per kWh, as published; "
@@ -212,7 +213,7 @@ def jepx_usd_chart(wb, used, data_dir, sources):
         ws.append([line])
     ws["A1"].font = Font(bold=True, size=14)
     ws.column_dimensions["A"].width = 180
-    return [(chart, src)], [("Japan", title, df.index.max().strftime("%b/%y"), ws.title, *src)], []
+    return [(chart, src)], [("Japan", title, df.index.max().strftime("%b/%y"), data_tab, *src)], []
 
 
 def main():
