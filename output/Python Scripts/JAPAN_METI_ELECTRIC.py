@@ -132,8 +132,12 @@ def main():
     old_cap = old_fuel = None
     if os.path.exists(args.out):
         try:
-            old_cap = pd.read_excel(args.out, sheet_name="Capacity", index_col=0, parse_dates=True)
-            old_fuel = pd.read_excel(args.out, sheet_name="Fuel", index_col=0, parse_dates=True)
+            old_cap = pd.read_excel(args.out, sheet_name="Capacity", index_col=0)
+            old_fuel = pd.read_excel(args.out, sheet_name="Fuel", index_col=0)
+            for frame in (old_cap, old_fuel):
+                frame.index = pd.to_datetime(frame.index, errors="coerce")
+            old_cap = old_cap[old_cap.index.notna()]
+            old_fuel = old_fuel[old_fuel.index.notna()]
         except Exception as e:  # noqa: BLE001
             print(f"  stored workbook unreadable ({type(e).__name__}); starting again", file=sys.stderr)
             old_cap = old_fuel = None
