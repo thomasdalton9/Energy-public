@@ -43,7 +43,7 @@ NOTES_LINES = [
     "Solar cells / power generation equipment are manufactured capacity (GW), not generation.",
     "",
 ] + out.COMMON_NOTES
-NOTES_SECTION_TITLES = {"UNITS", "SCOPE", "JANUARY AND FEBRUARY", "SOURCE", "UPDATES"}
+NOTES_SECTION_TITLES = {"UNITS", "SCOPE", "JANUARY AND FEBRUARY", "Y/Y AND YEAR-TO-DATE COLUMNS", "SOURCE", "UPDATES"}
 
 
 def main():
