@@ -1,0 +1,33 @@
+name: China NBS audit probe 6
+
+# Manual, one-off: look for the unlisted 10-day price releases via the Wayback CDX index (moved to discovery_archive/workflows after use).
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas
+      - name: Probe
+        run: timeout 3000 python3 discovery_archive/china/CHINA_NBS_AUDIT_PROBE6.py | tee discovery_archive/results/china_nbs_audit/probe6_log.txt
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/china_nbs_audit
+          git diff --cached --quiet || git commit -m "China NBS audit probe 6 results"
+          for i in 1 2 3 4 5 6; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 7))
+          done
+          exit 1
