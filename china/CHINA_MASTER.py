@@ -208,11 +208,12 @@ NOT_AVAILABLE = [
      "https://data.stats.gov.cn/", "HTTP 403 'UrlACL' for every automated request (discovery_archive/asia/"
      "CHINA_NBS_DISCOVERY*.py); the press releases on stats.gov.cn are used instead. The statistical yearbook pages "
      "(stats.gov.cn/sj/ndsj/) answer but are annual and are not read."),
-    ("China", "NBS 10-day prices: five periods published but not online", "stats.gov.cn release list, migrated archive",
+    ("China", "NBS 10-day prices: ten periods published but not online", "stats.gov.cn release list, migrated archive",
      "Not reachable", "https://www.stats.gov.cn/sj/zxfb/",
-     "2021 Feb 11-20, 2022 Feb 1-10, 2023 Jan 21-31, 2024 Feb 11-20 and 2025 Jan 21-31 were published (the next release "
-     "compares with them) but are on neither the release list nor the migrated archive (every id scanned); 2025 Oct 1-10 and "
-     "2026 Feb 11-20 were not published (the next release compares with the period before). The gaps stay blank."),
+     "The Spring Festival periods 2015 Feb 11-20, 2016 Feb 1-10, 2017 Jan 21-31, 2018 Feb 11-20, 2019 Feb 1-10, 2021 Feb 11-20, "
+     "2022 Feb 1-10, 2023 Jan 21-31, 2024 Feb 11-20 and 2025 Jan 21-31 were published (the next release compares with them) but "
+     "are on neither the release list nor the migrated archive (every id around them scanned; Wayback found nothing). 2025 Oct "
+     "1-10 and 2026 Feb 11-20 were not published (the next release compares with the period before). The gaps stay blank."),
     ("China", "NBS energy production release (能源生产情况): prose items", "stats.gov.cn", "Read, partly built",
      "https://www.stats.gov.cn/sj/zxfb/",
      "The release is prose with no table; its monthly levels equal the industrial product table (read there, unrounded). "
