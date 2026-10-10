@@ -3076,11 +3076,10 @@ def south_korea_generation(p):
     d = by_date(read(p, "Data"), "month")
     d = d[d.index >= "2015-01-01"]
     d = d[d["Total_GWh"].notna()]
-    g = pd.DataFrame({"Hydro": d["Hydro_GWh"], "Gas": d["Gas_GWh"], "Wind": d["Wind_GWh"], "Solar": d["Solar_GWh"],
-                      "Coal": d["Coal_GWh"], "Nuclear": d["Nuclear_GWh"],
-                      "Bioenergy": d["Bioenergy_GWh"] + d["Waste_GWh"],
-                      "Other (oil, fuel cells, pumped storage, other)": d[["Oil_GWh", "Fuel_Cell_GWh", "IGCC_GWh", "Ocean_GWh",
-                                                                           "Pumped_Storage_GWh", "Other_GWh"]].sum(axis=1)}).fillna(0)
+    g = pd.DataFrame({"Nuclear": d["Nuclear_GWh"], "Coal": d["Coal_GWh"], "Gas": d["Gas_GWh"], "Oil": d["Oil_GWh"],
+                      "Hydro": d["Hydro_GWh"], "Solar": d["Solar_GWh"], "Wind": d["Wind_GWh"],
+                      "Bioenergy": d["Bioenergy_GWh"] + d["Waste_GWh"], "Pumped storage": d["Pumped_Storage_GWh"],
+                      "Other": d[["Fuel_Cell_GWh", "IGCC_GWh", "Ocean_GWh", "Other_GWh"]].sum(axis=1)}).fillna(0)
     return [spec("Generation", g, "South Korea power generation by fuel (KPX EPSIS, market + PPA)", "GWh per month",
                  "stacked_bar")]
 
