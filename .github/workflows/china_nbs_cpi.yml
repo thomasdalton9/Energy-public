@@ -32,7 +32,7 @@ jobs:
         run: |
           [ -f "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_cpi_monthly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/CHINA_NBS_CPI.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp asia/CHINA_NBS_CPI.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
