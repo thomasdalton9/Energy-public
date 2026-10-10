@@ -154,6 +154,9 @@ CITIES = {
     "NZL": [("Auckland", -36.85, 174.76, 1.7), ("Wellington", -41.29, 174.78, 0.43)],
     # China (3 largest cities: a coarse proxy for a country of this climatic range)
     "CHN": [("Shanghai", 31.23, 121.47, 24.9), ("Beijing", 39.90, 116.41, 21.5), ("Guangzhou", 23.13, 113.26, 18.7)],
+    # Japan (greater-metropolitan populations, approximate)
+    "JPN": [("Tokyo", 35.68, 139.69, 37.0), ("Osaka", 34.69, 135.50, 19.0), ("Nagoya", 35.18, 136.91, 9.5),
+            ("Sapporo", 43.06, 141.35, 2.6)],
     # South Korea (four largest metropolitan cities, populations approximate city-proper figures, millions)
     "KOR": [("Seoul", 37.57, 126.98, 9.4), ("Busan", 35.18, 129.08, 3.3), ("Incheon", 37.46, 126.71, 3.0), ("Daegu", 35.87, 128.60, 2.4)],
     # Taiwan (Greater Taipei, Kaohsiung, Taichung; approximate metropolitan populations, million)
