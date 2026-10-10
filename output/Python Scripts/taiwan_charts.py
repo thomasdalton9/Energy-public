@@ -3,6 +3,8 @@
   taiwan_esist_monthly.xlsx    Energy Administration monthly statistics (taiwan/TAIWAN_ESIST_MONTHLY.py)
   taiwan_taipower.xlsx         Taipower daily peak load / reserve margin and EMS-unit generation (taiwan/TAIWAN_TAIPOWER.py)
   taiwan_reservoirs_daily.xlsx WRA reservoir storage (taiwan/TAIWAN_WRA_RESERVOIRS.py)
+  taiwan_generation_rollup.xlsx 10-minute generation by fuel rolled up to daily / monthly (taiwan/TAIWAN_GEN_ROLLUP.py)
+  taiwan_live_daily.xlsx       daily means of Taipower's hourly-polled live snapshot (taiwan/TAIWAN_LIVE_SNAPSHOT.py)
 
 Power types use the fixed names of xlsx_charts.FUEL_COLOURS (Hydro, Gas, Wind, Solar, Coal, Nuclear, Oil, Bioenergy,
 Geothermal, Pumped storage).
@@ -14,6 +16,8 @@ import pandas as pd
 ESIST = "taiwan_esist_monthly.xlsx"
 TAIPOWER = "taiwan_taipower.xlsx"
 RESERVOIRS = "taiwan_reservoirs_daily.xlsx"
+ROLLUP = "taiwan_generation_rollup.xlsx"
+LIVE = "taiwan_live_daily.xlsx"
 GEN_COLS = {"Hydro": "Renewable Energy - Hydro", "Gas": "Thermal - LNG-Fired", "Wind": "Renewable Energy - Wind",
             "Solar": "Renewable Energy - Solar PV", "Coal": "Thermal - Coal-Fired", "Nuclear": "Nuclear",
             "Oil": "Thermal - Oil-Fired",
@@ -190,7 +194,63 @@ def reservoir_specs(ac):
     return f
 
 
+ROLL_FUELS = [("Hydro", "Hydro"), ("Gas", "Gas"), ("Wind", "Wind"), ("Solar", "Solar"), ("Coal", "Coal"), ("Nuclear", "Nuclear"),
+              ("Oil", "Oil"), ("Cogeneration", "Cogeneration"), ("Pumped_storage", "Pumped storage"),
+              ("Other_renewables", "Other renewables")]
+
+
+def _roll_gw(d, flag, last_days=None, freq=None):
+    """Average-GW columns of a roll-up sheet, charted periods only (flag column = 1), a gap row for every missing period."""
+    d = d[d[flag] == 1]
+    if d.empty:
+        return pd.DataFrame()
+    if last_days:
+        d = d[d.index >= d.index.max() - pd.Timedelta(days=last_days)]
+    out = pd.DataFrame({new: d[f"{old}_GW"] for old, new in ROLL_FUELS if f"{old}_GW" in d.columns}, index=d.index)
+    out = out.loc[:, out.abs().sum() > 0]
+    return out.reindex(pd.date_range(out.index.min(), out.index.max(), freq=freq)) if freq else out
+
+
+def rollup_specs(ac):
+    def f(p):
+        out = []
+        for tag, who, what in (("Zenodo", "Taipower units + IPPs", "2017-22"), ("EMS", "Taipower EMS units", "")):
+            dd, mm = _sheet(p, f"Daily {tag}", True), _sheet(p, f"Monthly {tag}", True)
+            if not mm.empty:
+                m = _roll_gw(mm, "charted", None, "MS")
+                if not m.empty:
+                    out.append(ac.spec(f"Generation monthly {tag}", m, f"Taiwan generation by fuel, monthly, {who} (Taipower open data)",
+                                       "GW (monthly average)", "stacked_bar", "%Y-%m"))
+            if not dd.empty:
+                d = _roll_gw(dd, "complete", 730, "D")
+                if not d.empty:
+                    out.append(ac.spec(f"Generation daily {tag}", d, f"Taiwan generation by fuel, daily, {who} (Taipower open data)",
+                                       "GW (daily average)", "stacked_area", "%Y-%m-%d"))
+        return out
+    return f
+
+
+def live_specs(ac):
+    def f(p):
+        d = _sheet(p, "Live daily", True)
+        if d.empty:
+            return []
+        d = d[d["charted"] == 1]
+        if d.empty:
+            return []
+        names = [("Hydro", "Hydro"), ("Gas", "Gas"), ("Wind", "Wind"), ("Solar", "Solar"), ("Coal", "Coal"), ("Oil", "Oil"),
+                 ("Cogeneration", "Cogeneration"), ("Other_renewables", "Other renewables"),
+                 ("Storage_discharge", "Pumped storage and batteries")]
+        g = pd.DataFrame({new: d[f"{old}_GW"] for old, new in names}, index=d.index)
+        g = g.loc[:, g.abs().sum() > 0].reindex(pd.date_range(d.index.min(), d.index.max(), freq="D"))
+        return [ac.spec("Generation daily live", g, "Taiwan generation by fuel, daily mean of hourly snapshots (Taipower live data)",
+                        "GW (daily average)", "stacked_area", "%Y-%m-%d")]
+    return f
+
+
 def register(registry, ac):
+    registry[ROLLUP] = rollup_specs(ac)
+    registry[LIVE] = live_specs(ac)
     registry[ESIST] = esist_specs(ac)
     registry[TAIPOWER] = taipower_specs(ac)
     registry[RESERVOIRS] = reservoir_specs(ac)
