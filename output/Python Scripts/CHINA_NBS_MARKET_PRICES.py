@@ -13,7 +13,9 @@ coal, gasoline 92#, styrene, PVC and bagged cement; hot-rolled sheet
 (2021) was replaced by hot-rolled coil from 2022.
 
 Each release is an HTML table [product (spec) | unit | price (yuan) |
-change vs previous period (yuan) | change %]; only the price is kept.
+change vs previous period (yuan) | change %]; the price and NBS's change %
+(<column>_Chg_pct, computed on comparable prices when the basket changes)
+are kept.
 Chinese release list www.stats.gov.cn/sj/zxfb/ (back to Oct 2021, see
 china_nbs_common.py). An English version exists only from Apr 2024.
 
@@ -32,45 +34,15 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))                   # asia/, for china_nbs_common
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root, for xlsx_notes
 
+import china_nbs_archive_ids as arch  # noqa: E402
 import china_nbs_common as nbs  # noqa: E402
 import xlsx_notes  # noqa: E402
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "china_nbs_market_prices_10day.xlsx")
 TITLE_RE = r"\d{4}年\d{1,2}月[上中下]旬流通领域重要生产资料市场价格"
-HISTORY_START = "2021-01-01"
-# Releases that still exist but are no longer on the (~1000-item) release list, found by
-# CHINA_NBS_DISCOVERY5.py's ID scan of the Feb-2023 site migration.
-_OLD = "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_{}.html"
-EXTRA_RELEASES = [(t + "流通领域重要生产资料市场价格变动情况", _OLD.format(i)) for t, i in [
-    ("2021年10月上旬", 1901236),
-    ("2021年9月下旬", 1901235),
-    ("2021年9月中旬", 1901229),
-    ("2021年9月上旬", 1901214),
-    ("2021年8月下旬", 1901210),
-    ("2021年8月中旬", 1901201),
-    ("2021年8月上旬", 1901187),
-    ("2021年7月下旬", 1901183),
-    ("2021年7月中旬", 1901176),
-    ("2021年7月上旬", 1901151),
-    ("2021年6月下旬", 1901144),
-    ("2021年6月中旬", 1901139),
-    ("2021年6月上旬", 1901124),
-    ("2021年5月下旬", 1901119),
-    ("2021年5月中旬", 1901112),
-    ("2021年5月上旬", 1901095),
-    ("2021年4月下旬", 1901076),
-    ("2021年4月中旬", 1901066),
-    ("2021年4月上旬", 1901043),
-    ("2021年3月下旬", 1901039),
-    ("2021年3月中旬", 1901034),
-    ("2021年3月上旬", 1901021),
-    ("2021年2月下旬", 1901008),
-    ("2021年2月上旬", 1900996),
-    ("2021年1月下旬", 1900991),
-    ("2021年1月中旬", 1900984),
-    ("2021年1月上旬", 1900961),
-]]
+HISTORY_START = "2013-01-01"
+EXTRA_RELEASES = arch.PRICES   # releases no longer on the list, from the ID scan
 
 # (regex on "name(spec)" as printed, column, English label, chart group). First match wins.
 PRODUCTS = [
@@ -143,7 +115,7 @@ def period_of(title):
 
 
 def parse_release(html):
-    """({column: price}, {column: unit}, [unmatched product names])."""
+    """({column: price, column_Chg_pct: NBS's change vs the previous period in %}, {column: unit}, [unmatched names])."""
     prices, units, unmatched = {}, {}, []
     for cells in nbs.table_rows(html):
         if len(cells) < 3 or cells[0] in ("产品名称",) or cells[0].isdigit():
@@ -156,6 +128,9 @@ def parse_release(html):
             if re.search(rx, name):
                 if col not in prices:
                     prices[col], units[col] = price, UNITS[unit]
+                    chg = nbs.num(cells[4]) if len(cells) > 4 else None
+                    if chg is not None:
+                        prices[f"{col}_Chg_pct"] = chg
                 break
         else:
             unmatched.append(name)
@@ -166,11 +141,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=DEFAULT_OUT)
     args = parser.parse_args()
-    cols = [p[1] for p in PRODUCTS]
+    base = [p[1] for p in PRODUCTS]
+    cols = base + [f"{c}_Chg_pct" for c in base]
 
     data = nbs.read_sheet(args.out, "Data") if nbs.has_sheet(args.out, "Series") else None
     data = pd.DataFrame(columns=cols, dtype=float) if data is None else data.reindex(columns=cols)
-    held = set(data.index[data.notna().any(axis=1)]) if len(data) else set()
+    held = set(data.index[data["Rebar_Chg_pct"].notna()]) if len(data) else set()   # a period is held once its change column is in
     gaps = nbs.recent_gaps(held, "10D")
     deep = (not held) or bool(gaps)
     nbs.log(f"  held {len(held)} periods, {len(gaps)} gaps -> {'full' if deep else 'shallow'} crawl")
@@ -196,7 +172,7 @@ def main():
         new[p] = prices
         unit_of.update(units)
         unmatched_all.update(unmatched)
-        nbs.log(f"  [{p:%Y-%m-%d}] {len(prices)} prices")
+        nbs.log(f"  [{p:%Y-%m-%d}] {sum(not k.endswith('_Chg_pct') for k in prices)} prices (expected 50 per release)")
     if unmatched_all:
         nbs.log(f"  products not mapped (left out): {sorted(unmatched_all)}")
 
@@ -209,10 +185,13 @@ def main():
     data.index.name = "period_start"
     old_series = pd.read_excel(args.out, sheet_name="Series", index_col=0) if nbs.has_sheet(args.out, "Series") else None
     unit_rows = []
+    chg_rows = []
     for _rx, col, label, group in PRODUCTS:
         u = unit_of.get(col) or (old_series.loc[col, "unit"] if old_series is not None and col in old_series.index
                                  else ("yuan/kg" if col == "Live_Hogs" else "yuan/tonne"))
         unit_rows.append((col, label, u, group, "line"))
+        chg_rows.append((f"{col}_Chg_pct", f"{label}, change vs previous period", "% vs previous 10-day period (NBS)", "", "line"))
+    unit_rows += chg_rows
     series = nbs.series_sheet(unit_rows)
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Data": data, "Series": series}, NOTES_LINES, NOTES_SECTION_TITLES)
@@ -234,7 +213,11 @@ NOTES_LINES = [
     "National Bureau of Statistics of China, 'YYYY年M月X旬流通领域重要生产资料市场价格变动情况' (Market Prices of "
     "Important Means of Production in Circulation), Chinese release list https://www.stats.gov.cn/sj/zxfb/ "
     "(reaches back to Oct 2021; English version only from Apr 2024). Only the price column is kept (the "
-    "release also gives the change vs the previous period).",
+    "release also gives the change vs the previous period: its % is kept in the <name>_Chg_pct columns, computed by NBS on "
+    "comparable prices when the basket changes; the yuan change is not kept). NBS published no release for 2025 "
+    "10月上旬 (10-day period starting 1 Oct 2025) and 2026 2月中旬 (starting 11 Feb 2026): the following release "
+    "compares with the period before the gap. Other periods missing from the workbook were published (the next release "
+    "compares with them) but are on neither the release list nor the migrated archive.",
     "",
     "UPDATES",
     "Incremental: periods already held are not re-fetched; each run adds new periods and fills gaps still "
