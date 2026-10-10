@@ -18,4 +18,4 @@ jobs:
           python-version: "3.11"
       - run: pip install requests pandas pymupdf openpyxl
       - name: Probe
-        run: timeout 1000 python3 discovery_archive/japan/JAPAN_SOURCES_PROBE3.py
+        run: timeout 1000 python3 discovery_archive/japan/JAPAN_SOURCES_PROBE4.py
