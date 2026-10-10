@@ -26,7 +26,10 @@ def _monthly_gwh(path, cols, start="2021-04-01"):
 
 def power(path):
     g = _monthly_gwh(path, [f"{f}_MWh" for f in FUEL_ORDER]).rename(columns=lambda c: c.replace("_MWh", ""))
-    g = g[[f for f in FUEL_ORDER if f in g.columns]]
+    # the shared chart palette holds 8 series: oil and geothermal (about 2 GW together) are folded into 'Other' here; the
+    # 'Daily' sheet keeps them separate
+    g["Other"] = g[[c for c in ("Oil", "Geothermal", "Other") if c in g.columns]].sum(axis=1, min_count=1)
+    g = g[[f for f in FUEL_ORDER if f in g.columns and f not in ("Oil", "Geothermal")]]
     out = [add_charts.spec("Generation", g, "Japan power generation by source (TSO area data)", "GWh per month",
                            "stacked_bar")]
     dem = _monthly_gwh(path, ["Demand_MWh"]).rename(columns={"Demand_MWh": "Area demand"})
