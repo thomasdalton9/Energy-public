@@ -3345,6 +3345,8 @@ REGISTRY.update({
     "taiwan_esist_monthly.xlsx": _taiwan("esist_specs"),
     "taiwan_taipower.xlsx": _taiwan("taipower_specs"),
     "taiwan_reservoirs_daily.xlsx": _taiwan("reservoir_specs"),
+    "taiwan_generation_rollup.xlsx": _taiwan("rollup_specs"),
+    "taiwan_live_daily.xlsx": _taiwan("live_specs"),
 })
 
 
