@@ -17,7 +17,7 @@ jobs:
           python-version: "3.11"
       - run: pip install requests
       - name: Run probe
-        run: timeout 560 python3 discovery_archive/south_korea/KOREA_SOURCES_PROBE11.py
+        run: timeout 560 python3 discovery_archive/south_korea/KOREA_SOURCES_PROBE12.py
       - name: Commit results
         if: always()
         run: |
