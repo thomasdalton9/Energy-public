@@ -82,13 +82,14 @@ def pull_units(have_until):
     print(f"  10-minute file window {start} .. {end}; stored days to {have_until}")
     if end is None:
         raise RuntimeError("could not read the window of the 10-minute file")
-    if have_until is not None and end.normalize() <= have_until:
+    if have_until is not None and end.normalize() <= have_until and os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch":
         print("  nothing new in the 10-minute file")
         return None
     mwh = defaultdict(float)
     stamps = defaultdict(set)
     blanks = defaultdict(int)
     labels = {}
+    seen = set()   # the file repeats the first day of a month in the previous month's block: count each (unit, stamp) once
     r = requests.get(UNITS_URL, headers=UA, timeout=(15, 600), stream=True)
     r.raise_for_status()
     buf = ""
@@ -99,6 +100,9 @@ def pull_units(have_until):
         part, buf = buf[:last + 1], buf[last + 1:]
         for lab, unit, dt, v in REC.findall(part):
             n += 1
+            if (lab, unit, dt) in seen:
+                continue
+            seen.add((lab, unit, dt))
             day = dt[:10]
             fuel = labels.setdefault(lab, fuel_of(lab))
             stamps[day].add(dt)
