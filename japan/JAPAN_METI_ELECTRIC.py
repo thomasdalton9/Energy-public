@@ -67,9 +67,9 @@ def get_wb(fy, table, cur_fy):
     suffixes = ("n", "") if fy >= cur_fy else ("", "n")   # the current year's files are published as ...n.xlsx
     for suffix in suffixes:
         url = f"{BASE}{fy}/{table}-{fy}{suffix}.xlsx"
-        for i in range(3):
+        for i in range(2):
             try:
-                r = requests.get(url, headers=UA, timeout=(10, 60))
+                r = requests.get(url, headers=UA, timeout=(10, 45))
             except requests.RequestException as e:
                 note(f"  {url}: {type(e).__name__}: {str(e)[:100]}")
                 time.sleep(8 * (i + 1))
@@ -182,11 +182,13 @@ def main():
     fueldf = pd.DataFrame.from_dict(fuel, orient="index").sort_index()
     fueldf.index.name = "month"
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
-    xlsx_notes.write_workbook(args.out, {"Capacity": capdf, "Fuel": fueldf}, NOTES, TITLES)
-    c = capdf.iloc[-1]
-    print(f"Saved capacity {len(capdf)} months ({capdf.index.min():%Y-%m}..{capdf.index.max():%Y-%m}), total "
-          f"{c.get('Total_kW', float('nan')) / 1e6:.1f} GW; fuel {len(fueldf)} months; latest LNG stock "
-          f"{fueldf['LNG_stock_t'].iloc[-1] / 1e6:.2f} Mt -> {args.out}")
+    log = pd.DataFrame({"This run's fetch log": LOG or ["(nothing logged)"]})
+    xlsx_notes.write_workbook(args.out, {"Capacity": capdf, "Fuel": fueldf, "Log": log}, NOTES, TITLES)
+    cap_txt = (f"capacity {len(capdf)} months ({capdf.index.min():%Y-%m}..{capdf.index.max():%Y-%m}), total "
+               f"{capdf['Total_kW'].iloc[-1] / 1e6:.1f} GW") if len(capdf) and "Total_kW" in capdf else "capacity: none"
+    fuel_txt = (f"fuel {len(fueldf)} months, latest LNG stock {fueldf['LNG_stock_t'].iloc[-1] / 1e6:.2f} Mt"
+                if len(fueldf) else "fuel: none")
+    print(f"Saved {cap_txt}; {fuel_txt} -> {args.out}")
 
 
 NOTES = [
