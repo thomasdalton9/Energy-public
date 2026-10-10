@@ -97,6 +97,19 @@ NOT_AVAILABLE = [
      "Not reachable", "https://www.okinawa-epco.co.jp/",
      "okinawa-epco.co.jp does not resolve and okiden.co.jp answers HTTP 403 from GitHub Actions. Okinawa is an island grid of "
      "about 1 GW (around 1% of Japan) and is left out of the area sum; nothing is added for it."),
+    ("Japan", "Power generation by source before April 2024", "the nine operators' older supply-demand files (HEPCO sup_dem_results_*q.csv, Kyushu area_jyukyu_jisseki_*Q.csv, "
+     "Shikoku jukyuYYYY.xlsx, TEPCO yearly files, Tohoku juyo_YYYY_tohoku.csv)", "Reachable, not built",
+     "https://www.hepco.co.jp/network/con_service/public_document/supply_demand_results/index.html",
+     "The common monthly eria_jukyu_YYYYMM_NN.csv format exists from Oct 2023 (Tokyo, Kyushu) to Apr 2024 (Hokkaido, Chubu, Kansai), so the "
+     "raw power series starts in April 2024. Earlier files use a different layout per operator (and some only list demand); they were not "
+     "parsed. The annual history back to 2000 is on the Long-term page (Ember yearly, labelled)."),
+    ("Japan", "Chubu and Kansai monthly by-source files", "Chubu Electric Power Grid (getFilesInfo.php annual zips eria_jukyu_YYYY.zip), "
+     "Kansai T&D (area-performance/filelist.json)", "Built (script-listed)",
+     "https://powergrid.chuden.co.jp/denkiyoho/eriajukyu_data/",
+     "Both operators' pages build their download lists with JavaScript; the master's pull reads the same JSON lists. Chubu's monthly "
+     "'keito' zips hold only total demand and generation (not by source) and are not used. A month a feed lacks (Chubu Jul and Sep 2025 and "
+     "Aug 2026 were not in its annual zips on 10 Oct 2026; Tohoku's September file was not yet posted) is a gap in the nine-area total: "
+     "months with fewer than 80% of days are left out of the charts, nothing is filled."),
     ("Japan", "TEPCO Power Grid area supply-demand page", "tepco.co.jp/forecast/html/area_jukyu-j.html", "Page 403; CSV reachable",
      "https://www.tepco.co.jp/forecast/html/area_jukyu-j.html",
      "The HTML page answers HTTP 403 from GitHub Actions but the monthly CSV files (forecast/html/images/eria_jukyu_YYYYMM_03.csv) "
