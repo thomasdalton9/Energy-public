@@ -3,6 +3,9 @@ name: South Korea sources probe
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -14,4 +17,16 @@ jobs:
           python-version: "3.11"
       - run: pip install requests
       - name: Run probe
-        run: timeout 560 python3 discovery_archive/south_korea/KOREA_SOURCES_PROBE8.py
+        run: timeout 560 python3 discovery_archive/south_korea/KOREA_SOURCES_PROBE10.py
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/south_korea || true
+          git diff --cached --quiet || git commit -m "South Korea probe results"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
