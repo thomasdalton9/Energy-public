@@ -51,6 +51,14 @@ CAP = {
 }
 
 
+LOG = []
+
+
+def note(msg):
+    LOG.append(msg)
+    print(msg, file=sys.stderr)
+
+
 def nf(x):
     return unicodedata.normalize("NFKC", str(x)).strip() if x is not None else ""
 
@@ -61,14 +69,14 @@ def get_wb(fy, table, cur_fy):
         url = f"{BASE}{fy}/{table}-{fy}{suffix}.xlsx"
         for i in range(3):
             try:
-                r = requests.get(url, headers=UA, timeout=(10, 120))
+                r = requests.get(url, headers=UA, timeout=(10, 60))
             except requests.RequestException as e:
-                print(f"  {url}: {type(e).__name__}: {str(e)[:100]}", file=sys.stderr)
+                note(f"  {url}: {type(e).__name__}: {str(e)[:100]}")
                 time.sleep(8 * (i + 1))
                 continue
             if r.status_code == 200:
                 return openpyxl.load_workbook(io.BytesIO(r.content), read_only=True, data_only=True), url
-            print(f"  {url}: HTTP {r.status_code}", file=sys.stderr)
+            note(f"  {url}: HTTP {r.status_code}")
             if r.status_code in (403, 404):
                 break
             time.sleep(8 * (i + 1))
@@ -144,7 +152,7 @@ def main():
             time.sleep(3)
             wb, url = get_wb(fy, table, cur_fy)
             if wb is None:
-                print(f"  FY{fy} table {table}: not available", file=sys.stderr)
+                note(f"  FY{fy} table {table}: not available")
                 continue
             n = 0
             for ws in wb.worksheets:
@@ -154,12 +162,15 @@ def main():
                 try:
                     vals = parse(ws)
                 except Exception as e:  # noqa: BLE001
-                    print(f"  {url} {ws.title}: {type(e).__name__}: {e}", file=sys.stderr)
+                    note(f"  {url} {ws.title}: {type(e).__name__}: {str(e)[:150]}")
                     continue
                 if vals:
                     store[month] = vals
                     n += 1
-            print(f"  FY{fy} table {table}: {n} months from {url}")
+            note(f"  FY{fy} table {table}: {n} months from {url}")
+    print("SUMMARY (this run):")
+    for line in LOG[-40:]:
+        print(line)
     if not cap and not fuel:
         raise SystemExit("no data")
     capdf = pd.DataFrame.from_dict(cap, orient="index").sort_index()

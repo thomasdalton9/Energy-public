@@ -94,9 +94,12 @@ CAP_GROUPS = {"Hydro": ["Hydro_kW"], "Pumped hydro": ["Pumped hydro_kW"], "Gas":
 def meti_stats(path):
     """METI/ANRE electric power statistics: installed capacity (GW) and LNG at power stations (kt)."""
     out = []
-    c = add_charts.by_date(add_charts.read(path, "Capacity"), "month")
-    g = pd.DataFrame({k: c[[x for x in v if x in c.columns]].sum(axis=1, min_count=1) for k, v in CAP_GROUPS.items()}) / 1e6
-    g = g.dropna(how="all", axis=1)
+    cap = add_charts.read(path, "Capacity")
+    g = pd.DataFrame()
+    if "month" in cap.columns and len(cap):
+        c = add_charts.by_date(cap, "month")
+        g = pd.DataFrame({k: c[[x for x in v if x in c.columns]].sum(axis=1, min_count=1) for k, v in CAP_GROUPS.items()}) / 1e6
+        g = g.dropna(how="all", axis=1)
     if len(g):
         out.append(add_charts.spec("Capacity", g, "Japan installed capacity by type (METI electric power statistics)",
                                    "GW installed", "stacked_bar"))
