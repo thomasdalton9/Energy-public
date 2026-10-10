@@ -3081,7 +3081,7 @@ def south_korea_generation(p):
                       "Bioenergy": d["Bioenergy_GWh"] + d["Waste_GWh"],
                       "Other (oil, fuel cells, pumped storage, other)": d[["Oil_GWh", "Fuel_Cell_GWh", "IGCC_GWh", "Ocean_GWh",
                                                                            "Pumped_Storage_GWh", "Other_GWh"]].sum(axis=1)}).fillna(0)
-    return [spec("Generation", g, "South Korea power generation by fuel (KPX EPSIS, market + PPA)", "GWh per month",
+    return [spec("Generation", g, "South Korea power generation by fuel (KPX EPSIS, KPX power market)", "GWh per month",
                  "stacked_bar")]
 
 

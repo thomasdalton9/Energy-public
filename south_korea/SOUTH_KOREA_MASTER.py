@@ -2,7 +2,7 @@
 South Korea master workbook: every South Korea dataset this repo pulls in one file, with Dashboard front pages carrying all
 their charts - the same layout and chart code as the other masters (south_america/SOUTH_AMERICA_MASTER.py).
 
-  Dashboard - Power      generation by fuel (average GW, electricity traded on the KPX market + PPAs), installed capacity by
+  Dashboard - Power      generation by fuel (average GW, electricity traded on the KPX power market), installed capacity by
                          fuel (GW), capacity factors (generation / capacity), peak and minimum demand (GW), system
                          marginal price (SMP) monthly and daily in US$/MWh, hours each fuel set the SMP
   Dashboard - Gas        LNG imports by origin region (Mt per month) and import unit price (KOGAS), LNG burned by power
@@ -12,9 +12,10 @@ their charts - the same layout and chart code as the other masters (south_americ
   <dataset> raw          the full data sheet(s) from each source workbook
   Sources                where each dataset comes from, units and notes, and the sources checked but not built
 
-Power data are Korea Power Exchange (KPX) statistics from EPSIS (south_korea/SOUTH_KOREA_EPSIS.py). 'Generation' is the
-electricity traded through the KPX market and PPAs by fuel: it is about 96% of all generation in 2025 and leaves out
-self-generation and small behind-the-meter systems (so solar is understated). The SMP is converted from KRW/kWh to US$/MWh
+Power data are Korea Power Exchange (KPX) statistics from EPSIS (south_korea/SOUTH_KOREA_EPSIS.py). The fuel split covers the
+electricity traded on the KPX power market (547 TWh in 2025, 92% of the 593.6 TWh EPSIS reports for the business generators;
+PPA volumes, 25 TWh in 2025, are not split by fuel in the source and are not charted) and leaves out self-generation and small
+behind-the-meter systems (so solar is understated). The SMP is converted from KRW/kWh to US$/MWh
 with the Federal Reserve H.10 won per US$ rate (south_korea/KOREA_FX_USD.py): daily SMP at the rate of the day (or the last
 rate published before it), monthly SMP at the mean of the month's published rates.
 
@@ -66,7 +67,7 @@ GAS_SETS = [("KR", "South Korea", LNG, ("Data",), "LNG imports", None),
 KPX = "Korea Power Exchange (KPX), Electric Power Statistics Information System (EPSIS)"
 FED_URL = "https://www.federalreserve.gov/releases/h10/hist/dat00_ko.htm"
 SOURCES = {
-    GEN: (f"{KPX}: electricity trading volume by fuel (power market and PPA), monthly; annual generation table",
+    GEN: (f"{KPX}: electricity trading volume by fuel (KPX power market; PPA volume unsplit), monthly; annual generation table",
           "https://epsis.kpx.or.kr/epsisnew/selectEkmaPtdBftChart.do?menuId=040501"),
     CAP: (f"{KPX}: installed capacity by fuel", "https://epsis.kpx.or.kr/epsisnew/selectEkpoBftChart.do?menuId=020100"),
     DEM: (f"{KPX}: power supply and demand results (daily peak and minimum demand)",
@@ -218,10 +219,11 @@ def smp_usd_charts(wb, used, data_dir, sources):
                  f"Rate series: {fx.index.min():%d %b %Y} to {last:%d %b %Y}, latest {fx.iloc[-1]:.2f} won per US$.",
                  "Workbook: south_korea_fx_usd_daily.xlsx (south_korea/KOREA_FX_USD.py, 1st and 15th); the ECB cross-rate column in it "
                  "is validation only.",
-                 "Generation: GWh per month traded on the KPX market + PPAs, shown as average GW = GWh / hours in the month. The KPX "
-                 "traded volume was 96% of the 2025 total generation reported by EPSIS (572 of 593 TWh for the generators alone; the "
-                 "rest is energy not traded through the market); solar and wind are understated because small and behind-the-meter "
-                 "systems are outside it.",
+                 "Generation: GWh per month traded on the KPX power market, shown as average GW = GWh / hours in the month. The market "
+                 "volume by fuel was 92% of the 2025 generation EPSIS reports for the business generators (547 of 593.6 TWh); the "
+                 "difference is mainly PPA volumes (25 TWh in 2025, reported to Jun 2026 and not split by fuel, in the "
+                 "'KR generation Data raw' tab) and energy not traded through the market. Solar and wind are understated because "
+                 "small and behind-the-meter systems are outside the market data.",
                  "Capacity factor = traded generation / (end-of-month installed capacity x hours in the month); the same coverage "
                  "caveat applies, so the solar and wind factors are understated."):
         ws.append([line])
@@ -244,7 +246,7 @@ def capacity_factor_chart(wb, used, data_dir):
         out[name] = (gen[g].reindex(cap.index) * 1000.0 / (pd.to_numeric(cap[c], errors="coerce") * hours) * 100.0).round(1)
     df = pd.DataFrame(out).dropna(how="all")
     df, n = xlsx_charts.prepare(df, tuple(df.columns))
-    title = "South Korea capacity factors: traded generation / installed capacity (KPX EPSIS)"
+    title = "South Korea capacity factors: KPX market generation / installed capacity (KPX EPSIS)"
     src = (f"{KPX}: generation (trading volume) and installed capacity", SOURCES[CAP][1])
     ws, ch = _chart(wb, used, "KR capacity factors data", df, n, title, "% of installed capacity (monthly)", "line", "%Y-%m", src)
     return (ch, src, ("South Korea", title, df.index.max().strftime("%b/%y"), ws.title, *src)), None

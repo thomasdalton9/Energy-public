@@ -214,11 +214,13 @@ def pull_generation(out_dir):
     annual = annual[annual.index >= "1990-01-01"]
     write(path, {"Data": data, "Annual": annual}, [
         "UNITS",
-        "Data: GWh per month of electricity traded through the KPX electricity market and PPAs, by fuel (EPSIS menu 'Electricity "
-        "trading volume (power market and PPA)', all regions). Months are dated the 1st. Total_GWh = market + PPA total; "
-        "Coal_GWh = bituminous + anthracite; Renewables_Total_GWh = fuel cell + IGCC + solar + wind + hydro + ocean + bio + waste "
-        "(the grid-connected renewable plants that trade on the market; small behind-the-meter systems and self-generation are "
-        "not in it). Pumped_Storage_GWh is the output of pumped-storage plants.",
+        "Data: GWh per month of electricity traded through the KPX electricity market, by fuel (EPSIS menu 'Electricity trading "
+        "volume (power market and PPA)', all regions). Months are dated the 1st. Market_Total_GWh is the sum of the fuel columns. "
+        "PPA_Total_GWh is the volume traded under PPAs, which the source does not split by fuel (reported Jan 2020 - Jun 2026, "
+        "about 2.5 TWh a month; blank elsewhere); Total_GWh = market + PPA (equal to the market where the PPA is blank). Coal_GWh = "
+        "bituminous + anthracite; Renewables_Total_GWh = fuel cell + IGCC + solar + wind + hydro + ocean + bio + waste (the "
+        "grid-connected renewable plants that trade on the market; small behind-the-meter systems and self-generation are not in "
+        "it). Pumped_Storage_GWh is the output of pumped-storage plants.",
         "Annual: EPSIS 'Generation' table in MWh per year, all generators plus the commercial self-generators' purchases and own use "
         "(Total_Generators_MWh = business operators only; Total_Generators_plus_Self_Gen_MWh adds the self-generators). Used to "
         "check the monthly market series.",
