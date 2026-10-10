@@ -29,25 +29,15 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))                   # asia/, for china_nbs_common
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root, for xlsx_notes
 
+import china_nbs_archive_ids as arch  # noqa: E402
 import china_nbs_common as nbs  # noqa: E402
 import xlsx_notes  # noqa: E402
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "china_nbs_ppi_monthly.xlsx")
 TITLE_RE = r"\d{4}年\d{1,2}月份?工业生产者(出厂)?价格"
-HISTORY_START = "2021-01-01"
-_OLD = "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_{}.html"
-EXTRA_RELEASES = [(t, _OLD.format(i)) for t, i in [
-    ("2021年1月份工业生产者出厂价格同比上涨0.3%", 1900993),
-    ("2021年2月份工业生产者出厂价格同比上涨1.7%", 1901016),
-    ("2021年3月份工业生产者出厂价格同比上涨4.4%", 1901041),
-    ("2021年4月份工业生产者出厂价格同比上涨6.8%", 1901078),
-    ("2021年5月份工业生产者出厂价格同比上涨9.0%", 1901121),
-    ("2021年6月份工业生产者出厂价格同比上涨8.8%", 1901147),
-    ("2021年7月份工业生产者出厂价格同比上涨9.0%", 1901185),
-    ("2021年8月份工业生产者出厂价格同比上涨9.5%", 1901212),
-    ("2021年9月份工业生产者出厂价格同比上涨10.7%", 1901238),
-]]
+HISTORY_START = "2013-01-01"
+EXTRA_RELEASES = arch.PPI   # releases no longer on the list, from the ID scan
 
 # (Chinese series name, column stem, English label, chart group or None = data only)
 SERIES = [
@@ -112,18 +102,19 @@ BY_NAME = {cn: stem for cn, stem, *_ in SERIES}
 
 
 def columns():
-    return [f"{stem}_{k}" for _cn, stem, *_ in SERIES for k in ("YoY_pct", "MoM_pct")]
+    return [f"{stem}_{k}" for _cn, stem, *_ in SERIES for k in ("YoY_pct", "MoM_pct", "YTD_YoY_pct")]
 
 
 def parse_release(html):
     """{column: value} using the header row to find the m/m and y/y columns."""
     row, unmatched = {}, []
-    yoy_i = mom_i = None
+    yoy_i = mom_i = ytd_i = None
     for cells in nbs.table_rows(html):
         if any("环比" in c for c in cells) and any("同比" in c for c in cells):
             hdr = cells[1:] if not re.search(r"环比|同比", cells[0]) else cells
             mom_i = next(i for i, c in enumerate(hdr) if "环比" in c)
             yoy_i = next(i for i, c in enumerate(hdr) if "同比" in c and not re.search(r"\d月|累计", c))
+            ytd_i = next((i for i, c in enumerate(hdr) if "同比" in c and re.search(r"\d月|累计", c)), None)
             continue
         if yoy_i is None or len(cells) < 2:
             continue
@@ -141,6 +132,8 @@ def parse_release(html):
             row[f"{stem}_YoY_pct"] = vals[yoy_i]
         if mom_i < len(vals) and vals[mom_i] is not None:
             row[f"{stem}_MoM_pct"] = vals[mom_i]
+        if ytd_i is not None and ytd_i < len(vals) and vals[ytd_i] is not None:   # absent from the January release
+            row[f"{stem}_YTD_YoY_pct"] = vals[ytd_i]
     return row, unmatched
 
 
@@ -151,7 +144,8 @@ def main():
     cols = columns()
     data = nbs.read_sheet(args.out, "Data") if nbs.has_sheet(args.out, "Series") else None
     data = pd.DataFrame(columns=cols, dtype=float) if data is None else data.reindex(columns=cols)
-    held = {(d.year, d.month) for d in data.index[data.notna().any(axis=1)]} if len(data) else set()
+    # a month is held once its year-to-date column is in (January's release has none: the month's y/y is the YTD)
+    held = {(d.year, d.month) for d in data.index[data["PPI_YoY_pct"].notna() & (data["PPI_YTD_YoY_pct"].notna() | (data.index.month == 1))]} if len(data) else set()
     gaps = nbs.recent_gaps(data.index[data.notna().any(axis=1)] if len(data) else [], "MS")
     deep = (not held) or bool(gaps)
 
@@ -189,6 +183,7 @@ def main():
     for _cn, stem, label, group in SERIES:
         rows.append((f"{stem}_YoY_pct", f"{label}, y/y", "% y/y", group or "", "line"))
         rows.append((f"{stem}_MoM_pct", f"{label}, m/m", "% m/m", "", "line"))
+        rows.append((f"{stem}_YTD_YoY_pct", f"{label}, year-to-date y/y", "% y/y (year to date)", "", "line"))
     series = nbs.series_sheet(rows)
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Data": data, "Series": series}, NOTES_LINES, NOTES_SECTION_TITLES)
@@ -205,7 +200,7 @@ NOTES_LINES = [
     "",
     "SOURCE",
     "National Bureau of Statistics of China, monthly release 'YYYY年M月份工业生产者出厂价格...', Chinese release "
-    "list https://www.stats.gov.cn/sj/zxfb/. The release also gives year-to-date y/y changes (not kept).",
+    "list https://www.stats.gov.cn/sj/zxfb/. *_YTD_YoY_pct = the release's year-to-date y/y change (none in January's release).",
     "",
     "UPDATES",
     "Incremental: months already held are not re-fetched.",
