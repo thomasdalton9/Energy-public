@@ -7,11 +7,14 @@ charts - the same layout and chart code as the other masters (south_america/SOUT
                          capacity factors (NBS generation / NEA capacity)
   Dashboard - Fuels      raw coal, coke, crude oil and refinery runs, natural gas output (NBS monthly)
   Dashboard - Industry   energy-intensive output (steel, cement, glass, non-ferrous, chemicals, vehicles) and capacity
-                         utilisation by industry
+                         utilisation by industry, y/y growth of output and of industrial value added by sector/industry
   Dashboard - Prices     10-day producer-goods prices (coal, coke, LNG, fuels, steel, metals, chemicals, solar and
                          battery materials, building materials) in US$ per tonne (US$ per kg for polysilicon and
                          live hogs), converted from NBS's yuan at the Federal Reserve H.10 yuan/US$ rate of each price
-                         date (last published rate on or before it), and PPI y/y by industry
+                         date (last published rate on or before it), PPI y/y by industry and CPI y/y (incl. housing utilities
+                         and vehicle fuel)
+  Dashboard - Economy    NBS industrial profits (year to date, by sector and energy industry), fixed-asset investment growth
+                         by sector and industry, retail sales growth (incl. petroleum products and automobiles)
   Dashboard - Long-term  annual summary and history from 2000 (fundamentals.py)
   <chart> data           the table each Dashboard chart plots
   <dataset> raw          the full data sheet(s) from each source workbook
@@ -20,8 +23,8 @@ charts - the same layout and chart code as the other masters (south_america/SOUT
 All series are China's National Bureau of Statistics (NBS) releases (asia/CHINA_NBS_*.py), the national statistics
 office. NBS output covers industrial enterprises above designated size, so distributed solar and small plants are not
 in the generation split, and 'Thermal' is NBS's own category (coal, gas, oil, biomass and waste). January and February
-are published only combined, so the monthly series start in March 2021 and every January/February is a gap (the
-combined figures are on the 'Jan-Feb' raw tabs). Ember is used only for the annual Long-term page.
+are published only combined, so every January/February is a gap in the monthly series (the combined figures are on
+the 'Jan-Feb' raw tabs); the NBS monthly history starts in Sep 2013 (the earliest release still online). Ember is used only for the annual Long-term page.
 
 Gas: only natural gas OUTPUT (NBS) is built. Gas consumption, imports (pipeline and LNG), storage and sector demand
 have no official source reachable from GitHub Actions (see the Sources tab), so there is no gas balance and nothing
@@ -57,6 +60,10 @@ GAS = "china_ndrc_gas_monthly.xlsx"
 IMPORTS = "china_gacc_energy_imports_monthly.xlsx"
 PRICES = "china_nbs_market_prices_10day.xlsx"
 PPI = "china_nbs_ppi_monthly.xlsx"
+CPI = "china_nbs_cpi_monthly.xlsx"
+PROFITS = "china_nbs_industrial_profits_monthly.xlsx"
+FAI = "china_nbs_fixed_asset_investment_monthly.xlsx"
+RETAIL = "china_nbs_retail_sales_monthly.xlsx"
 FX = "china_fx_usd_daily.xlsx"
 CAPU = "china_nbs_capacity_utilization_quarterly.xlsx"
 CAP = "china_nea_capacity_monthly.xlsx"
@@ -64,15 +71,23 @@ CONS = "china_nea_consumption_monthly.xlsx"
 # china_nbs_clean_energy_products_monthly.xlsx is a subset of the industrial-output workbook (same Data columns), so
 # it is not read again.
 
+
+
+def cn(group):
+    """Chart (sheet) name add_charts.china_nbs_series gives a Series chart group: '/' -> '-', 23 characters."""
+    import re
+    return re.sub(r"[\\/*?:\[\]]", "-", group)[:23]
+
+
 # (dashboard, [(code, country, workbook, raw sheets, short name, charts to show (None = all))])
-POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
-          {"power generation by sou", "electricity generation "}),
+POWER = [("CN", "China", PROD, ("Data", "Jan-Feb", "Imports", "Imports Jan-Feb"), "energy production",
+          {"power generation by sou", "electricity generation ", cn("power generation y/y by source")}),
          ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"}),
          ("CN", "China", CAP, ("Data", "Releases"), "NEA capacity", {"installed capacity by t"}),
          ("CN", "China", CONS, ("Data", "Jan-Feb", "YTD", "Releases"), "NEA consumption",
           {"electricity use by sect", "electricity use growth"})]
 FUELS = [("CN", "China", PROD, (), "energy production",
-          {"raw coal output", "coke output", "crude oil output and re"}),
+          {"raw coal output", "coke output", "crude oil output and re", cn("fuel output y/y")}),
          ("CN", "China", IMPORTS, ("Data",), "energy imports", {"crude oil and product i", "coal imports"})]
 GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas apparent consumptio", "gas consumption y-y"}),
             ("CN", "China", PROD, (), "energy production", {"natural gas output"}),
@@ -81,14 +96,20 @@ INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
              {"iron and steel output", "cement output", "plate glass output", "non-ferrous metals outp",
               "chemicals output", "vehicle output", "cloth output", "machine tool output",
               "industrial robot output", "service robot output", "electronics output",
-              "integrated circuit outp"}),
+              "integrated circuit outp", cn("heavy industry output y/y"), cn("equipment output y/y"),
+              cn("industrial value added y/y"), cn("energy industries value added y/y"),
+              cn("heavy industry value added y/y")}),
             ("CN", "China", CAPU, ("Data",), "capacity utilisation", None)]
+ECONOMY = [("CN", "China", PROFITS, ("Data",), "industrial profits", None),
+           ("CN", "China", FAI, ("Data",), "fixed-asset investment", None),
+           ("CN", "China", RETAIL, ("Data", "Jan-Feb"), "retail sales", None)]
 # NBS 10-day prices are converted to US$ by price_usd_charts() below (charts named here); PPI is plain collect().
 PRICE_CHARTS = {"coal and coke prices", "oil and gas product pri", "steel prices", "non-ferrous metal price",
                 "basic chemical prices", "polysilicon prices", "lithium iron phosphate ", "polymer and fibre price",
                 "building material price", "fertiliser and agrochem", "farm product prices", "live hog prices",
                 "forest product prices"}
-PRICE = [("CN", "China", PPI, ("Data",), "PPI", None)]
+PRICE = [("CN", "China", PPI, ("Data",), "PPI", None),
+         ("CN", "China", CPI, ("Data",), "CPI", None)]
 FED_URL = "https://www.federalreserve.gov/releases/h10/hist/dat00_ch.htm"
 
 NBS = "National Bureau of Statistics of China (NBS)"
@@ -112,6 +133,14 @@ SOURCES = {
          "Chinese renminbi per US dollar (the series FRED republishes as DEXCHUS); used to convert the NBS 10-day prices to US$",
          FED_URL),
     PPI: (f"{NBS}, monthly producer price (PPI) release, by industry", "https://www.stats.gov.cn/sj/zxfb/"),
+    CPI: (f"{NBS}, monthly consumer price (CPI) release, main data table (incl. housing utilities and vehicle fuel)",
+          "https://www.stats.gov.cn/sj/zxfb/"),
+    PROFITS: (f"{NBS}, monthly industrial profit release (year to date, by sector, ownership and industry)",
+              "https://www.stats.gov.cn/sj/zxfb/"),
+    FAI: (f"{NBS}, monthly fixed-asset investment release (year-to-date growth by sector and industry)",
+          "https://www.stats.gov.cn/sj/zxfb/"),
+    RETAIL: (f"{NBS}, monthly retail sales of consumer goods release (incl. petroleum products and automobiles)",
+             "https://www.stats.gov.cn/sj/zxfb/"),
     CAPU: (f"{NBS}, quarterly industrial capacity utilisation release", "https://www.stats.gov.cn/sj/zxfb/"),
 }
 
@@ -179,6 +208,26 @@ NOT_AVAILABLE = [
      "https://data.stats.gov.cn/", "HTTP 403 'UrlACL' for every automated request (discovery_archive/asia/"
      "CHINA_NBS_DISCOVERY*.py); the press releases on stats.gov.cn are used instead. The statistical yearbook pages "
      "(stats.gov.cn/sj/ndsj/) answer but are annual and are not read."),
+    ("China", "NBS 10-day prices: five periods published but not online", "stats.gov.cn release list, migrated archive",
+     "Not reachable", "https://www.stats.gov.cn/sj/zxfb/",
+     "2021 Feb 11-20, 2022 Feb 1-10, 2023 Jan 21-31, 2024 Feb 11-20 and 2025 Jan 21-31 were published (the next release "
+     "compares with them) but are on neither the release list nor the migrated archive (every id scanned); 2025 Oct 1-10 and "
+     "2026 Feb 11-20 were not published (the next release compares with the period before). The gaps stay blank."),
+    ("China", "NBS energy production release (能源生产情况): prose items", "stats.gov.cn", "Read, partly built",
+     "https://www.stats.gov.cn/sj/zxfb/",
+     "The release is prose with no table; its monthly levels equal the industrial product table (read there, unrounded). "
+     "Built: coal/crude/gas imports (customs flash, Mar 2022 - Dec 2024 only, on the energy workbook's Imports sheet). Not built: "
+     "daily averages (month / days), two-year average growth (2021-22 releases only), Qinhuangdao port coal prices and Brent "
+     "spot price (Oct-Dec 2021 releases only; irregular dates, third-party sources)."),
+    ("China", "NBS PMI, 70-city housing prices, real-estate development, GDP", "stats.gov.cn", "Not built",
+     "https://www.stats.gov.cn/sj/zxfb/",
+     "Released monthly or quarterly but not energy series (diffusion indices, housing, GDP). Asked of the owner whether the "
+     "energy-intensive-industry PMI and real-estate investment (a cement/steel driver) should be added."),
+    ("China", "NBS industrial products not in the monthly table", "stats.gov.cn", "Not published",
+     "https://www.stats.gov.cn/sj/zxfb/",
+     "The release table holds 38 products (626 products exist in NBS's database, reachable only through data.stats.gov.cn, "
+     "403). No wind-turbine, heat-pump, LNG, refined-product (gasoline, diesel, kerosene) or coal-by-grade output is in any "
+     "NBS release found; solar cells appear from the Jan-Feb 2023 release, service robots from Jan-Feb 2025."),
     ("China", "CNPC ETRI, CNOOC, CCTD", "company / trade-body sites", "Not used",
      "https://www.cctd.com.cn/", "ETRI answered HTTP 504; CNOOC an empty page; CCTD's home page loads but its coal data "
      "is a commercial database."),
@@ -337,7 +386,7 @@ def main():
     wb = Workbook()
     dash_power = wb.active
     dash_power.title = "Dashboard - Power"
-    names = ["Dashboard - Gas", "Dashboard - Fuels", "Dashboard - Industry", "Dashboard - Prices"]
+    names = ["Dashboard - Gas", "Dashboard - Fuels", "Dashboard - Industry", "Dashboard - Prices", "Dashboard - Economy"]
     dashes = [wb.create_sheet(n) for n in names]
     used = {"Dashboard - Power", *names, "Dashboard - Long-term", "Sources"}
     sources = []
@@ -346,7 +395,8 @@ def main():
                 (dashes[0], "China - natural gas: apparent consumption (NDRC) and output (NBS)", GAS_SETS),
                 (dashes[1], "China - fuel output: coal, coke and crude oil (NBS)", FUELS),
                 (dashes[2], "China - energy-intensive industrial output and capacity utilisation (NBS)", INDUSTRY),
-                (dashes[3], "China - producer-goods prices in US$ (NBS, converted at the Federal Reserve H.10 rate) and PPI (NBS)", PRICE)]
+                (dashes[3], "China - producer-goods prices in US$ (NBS, converted at the Federal Reserve H.10 rate), PPI and CPI (NBS)", PRICE),
+                (dashes[4], "China - industrial profits, fixed-asset investment and retail sales (NBS, year to date as published)", ECONOMY)]
     counts = []
     for dash, heading, datasets in sections:
         charts, rows, missing = collect(wb, datasets, args.data_dir, used, sources)
