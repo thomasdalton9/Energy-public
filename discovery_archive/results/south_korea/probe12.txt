@@ -1,0 +1,30 @@
+PETRONET EngKDXQ0800 200 29039
+  text:  한국석유공사 PETRONET KO Login Petronet Introduction Korea Oil Price Oil Products Price LPG Price Korea Supply & Demand Import & Export Production & Stock Demand KMOS Related Information Korea Oil Company Government Organization Related Laws Foreign Embassies Customer Center Subscription Question & Answer (Q&A) User&#039;s Guide Contact US Etc. Sitemap View Download Site Map Shortcut full menu Close Home Introduction Korea Oil Price Oil Products Price Overview Refineries Dealer Service Station LPG Pr
+  ajax: [] []
+  iframes/includes: ['/v4/eng/print.jsp'] []
+  tables: 0  numbers: []
+PETRONET EngKDPQ0100 200 28826
+  text:  한국석유공사 PETRONET KO Login Petronet Introduction Korea Oil Price Oil Products Price LPG Price Korea Supply & Demand Import & Export Production & Stock Demand KMOS Related Information Korea Oil Company Government Organization Related Laws Foreign Embassies Customer Center Subscription Question & Answer (Q&A) User&#039;s Guide Contact US Etc. Sitemap View Download Site Map Shortcut full menu Close Home Introduction Korea Oil Price Oil Products Price Overview Refineries Dealer Service Station LPG Pr
+  ajax: [] []
+  iframes/includes: ['/v4/eng/print.jsp'] []
+  tables: 0  numbers: []
+KESIS /menu.es?mid=a10301010000 200 834319
+  text: 전체메뉴 닫기 --> 에너지통계월보 홈Home 연구·발간물 수급·소비통계 에너지통계월보 연구·발간물 수급·소비통계 에너지통계월보 에너지통계연보 지역에너지통계연보 자주 찾는 에너지통계 Energy Info. Korea 에너지총조사 가구에너지패널조사 수급동향·전망 에너지수급동향 에너지브리프 단기 에너지수요전망 중기 에너지수요전망 장기 에너지수요전망 시나리오 분석 국제유가 및 시장 동향 국제 원유 시황과 유가 전망 에너지인포그래픽 재생에너지 발전단가 (LCOE) 재생에너지 LCOE 통계 LCOE 시뮬레이션 에너지통계월보 --> 전체 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012 2011 이전 다음 게시판 검색 Title Content All Search 전체 222 건 페이지 1 / 23 발간물 에너지통계월보 (2026.07)_2026년 9월호 등록일 2026/10/08 다운로드수 138 다중 파일 다운로드 다중 파일 다운로드 전체 파일 다운로드 닫기 발간물 에너지통계월보 (2026.06)_2026년 8월호 등록일 2026/08/24 다운로드수 2,793 다중 파일 다운로드 다중 파일 다운로드 전체 파일 다운로드 닫기 발간물 에너지통계월보 (2026.5)_2026년 7월호 등록일 2026/07/24 다운로드수 1,980 다중 파일 다운로드 다중 파일 다
+  files: []
+  data: ['/logInsert.es?mid=a10301010000']
+KESIS /menu.es?mid=a10101000000 200 65858
+  text: 전체메뉴 닫기 --> 국가에너지 홈Home 에너지수급통계 국가에너지 에너지수급통계 국가에너지 지역에너지 광역시도 에너지수급통계 시군구 에너지수급통계 기관별 국가에너지 --> 검색 전체 통계표명 통계목록 검색 통계목록 이전 다음 국가에너지수급통계(간이 에너지밸런스) 국가에너지수급통계(확장 에너지밸런스) 에너지주요지표(연도별) 에너지주요지표(월별) 통계표명 : 에 대한 검색결과가 건 입니다. 검색결과 닫기 통계목록 : 에 대한 검색결과가 건 입니다. 검색결과 닫기 에 대한 검색결과가 존재하지 않습니다. 검색결과 닫기 닫기 즐겨찾기 문의하기 TOP 이용약관 개인정보처리방침 이메일무단수집거부 관리자메일 통계작성기관 한국전력공사 한국석유공사 한국가스공사 전력거래소 한국에너지공단 한국도시가스협회 대한석탄협회 상호 : 에너지경제연구원 주소 : (44543) 울산광역시 중구 종가로 405-11 (성안동, 에너지경제연구원) 전화 : 052)714-2114 팩스 : 052)714-2028 &copy; 2024 by Korea Energy Economics Institute. All rights reserved. 기후에너지환경부 에너지경제연구원 
+  files: []
+  data: ['/stat/list/selectStatsSrvcTblList.es', '/stat/list/getStatsInfo.es', '/stat/list/getStatsListInfo.es', '/stat/list/searchStats.es', '/stat/list/searchStatsAll.es', '/logInsert.es?mid=a10101000000']
+GET https://stat.kita.net/stat/kts/pum/PumItemList.screen 200 1680
+  text:  무역통계정보시스템 서비스 이용에 불편을 드려 대단히 죄송합니다. 요청하신 서비스가 정상 처리되지 않았습니다. 여러분에게 보다 정확하고 편리한 서비스를 제공할 수 있도록 최선을 다하겠습니다. 기타 문의사항은 아래 연락처를 이용해 주시기 바랍니다. 감사합니다. 트레이드콜센터 : 1566-5114 
+  datasets: []
+GET https://stat.kita.net/stat/kts/ctr/CtrTotalList.screen 200 1680
+  text:  무역통계정보시스템 서비스 이용에 불편을 드려 대단히 죄송합니다. 요청하신 서비스가 정상 처리되지 않았습니다. 여러분에게 보다 정확하고 편리한 서비스를 제공할 수 있도록 최선을 다하겠습니다. 기타 문의사항은 아래 연락처를 이용해 주시기 바랍니다. 감사합니다. 트레이드콜센터 : 1566-5114 
+  datasets: []
+GET https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=%ED%95%9C%EA%B5%AD%EA%B0%80%EC%8A%A4%EA%B3%B5%EC%8 200 420179
+  text:  공공데이터포털 콘텐츠 바로가기 푸터 바로가기 이 누리집은 대한민국 공식 전자정부 누리집입니다. --> 이 누리집은 대한민국 공식 전자정부 누리집입니다. DATA.GO.KR 공공데이터포털 English 로그인 회원가입 전체메뉴 전체메뉴 열기 공공데이터 공공데이터 AI 검색 데이터목록 데이터 큐레이션 국가중점데이터 공공데이터 제공신청 분쟁조정 신청 데이터활용 데이터활용 공공데이터맵 공공데이터 시각화 국민참여지도 위치정보 시각화 공공데이터 활용사례 공공데이터 우수사례 기업공공데이터 문제해결지원센터 정보공유 정보공유 공공 Git저장소 데이터 공유하기 공지사항 자료실 포털뉴스 이용안내 이용안내 문의하기 소개 이용가이드 정책 품질관리 홈 회원가입 English 로그인을 해주세요 공공데이터 데이터활용 기업공공데이터 문제해결지원센터 정보공유 이용안내 공공데이터 AI 검색 데이터목록 데이터 큐레이션 국가중점데이터 공공데이터 제공신청 분쟁조정 신청 데이터활용 공공데이터맵 공공데이터 시각화 국민참여지
+  datasets: ['15049906', '15052154', '15088508', '15066880', '15068184']
+GET https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=LNG+%EB%8F%84%EC%9E%85 200 429526
+  text:  공공데이터포털 콘텐츠 바로가기 푸터 바로가기 이 누리집은 대한민국 공식 전자정부 누리집입니다. --> 이 누리집은 대한민국 공식 전자정부 누리집입니다. DATA.GO.KR 공공데이터포털 English 로그인 회원가입 전체메뉴 전체메뉴 열기 공공데이터 공공데이터 AI 검색 데이터목록 데이터 큐레이션 국가중점데이터 공공데이터 제공신청 분쟁조정 신청 데이터활용 데이터활용 공공데이터맵 공공데이터 시각화 국민참여지도 위치정보 시각화 공공데이터 활용사례 공공데이터 우수사례 기업공공데이터 문제해결지원센터 정보공유 정보공유 공공 Git저장소 데이터 공유하기 공지사항 자료실 포털뉴스 이용안내 이용안내 문의하기 소개 이용가이드 정책 품질관리 홈 회원가입 English 로그인을 해주세요 공공데이터 데이터활용 기업공공데이터 문제해결지원센터 정보공유 이용안내 공공데이터 AI 검색 데이터목록 데이터 큐레이션 국가중점데이터 공공데이터 제공신청 분쟁조정 신청 데이터활용 공공데이터맵 공공데이터 시각화 국민참여지
+  datasets: ['15117762', '15068373', '15083392', '15140017', '15131514', '3083406', '15119634', '15125322']
