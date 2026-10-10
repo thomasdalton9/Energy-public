@@ -61,10 +61,12 @@ def get_wb(fy, table):
         for i in range(3):
             try:
                 r = requests.get(url, headers=UA, timeout=(10, 120))
-            except requests.RequestException:
-                time.sleep(3)
+            except requests.RequestException as e:
+                print(f"  {url}: {type(e).__name__}: {str(e)[:100]}", file=sys.stderr)
+                time.sleep(8 * (i + 1))
                 continue
             if r.status_code == 404:
+                print(f"  {url}: 404", file=sys.stderr)
                 break
             if r.status_code == 200:
                 return openpyxl.load_workbook(io.BytesIO(r.content), read_only=True, data_only=True), url
@@ -79,7 +81,9 @@ def month_of(sheet):
 
 def parse_capacity(ws):
     rows = list(ws.iter_rows(values_only=True))
-    hdr = next(i for i, r in enumerate(rows[:12]) if r and nf(r[0]) == "時間軸コード")
+    hdr = next((i for i, r in enumerate(rows[:14]) if r and len(r) > 2 and "事業者名" in nf(r[2])), None)
+    if hdr is None:
+        raise ValueError("header row not found; first rows: " + " | ".join(str([nf(c) for c in r[:5]]) for r in rows[:7]))
     cat, sub, item = rows[hdr - 3], rows[hdr - 2], rows[hdr - 1]
     tot = next(r for r in rows[hdr + 1:] if r and nf(r[2]) == "合計")
     out = {}
@@ -135,6 +139,7 @@ def main():
         fuel = {k: v.dropna().to_dict() for k, v in old_fuel.iterrows()}
     for fy in range(first, cur_fy + 1):
         for table, store, parse in (("1-1", cap, parse_capacity), ("4", fuel, parse_fuel)):
+            time.sleep(2)
             wb, url = get_wb(fy, table)
             if wb is None:
                 print(f"  FY{fy} table {table}: not available", file=sys.stderr)
