@@ -40,7 +40,7 @@ PRODUCTS = [
     (r"^太阳能发电量$", "Solar_Generation_TWh", "Solar", "TWh", "亿千瓦时", 0.1, "power generation by source"),
     (r"^原煤$", "Raw_Coal_Mt", "Raw coal", "Mt", "万吨", 0.01, "raw coal output"),
     (r"^焦炭$", "Coke_Mt", "Coke", "Mt", "万吨", 0.01, "coke output"),
-    (r"^原油$", "Crude_Oil_Mt", "Crude oil", "Mt", "万吨", 0.01, "crude oil output and refinery runs"),
+    (r"^(天然)?原油$", "Crude_Oil_Mt", "Crude oil", "Mt", "万吨", 0.01, "crude oil output and refinery runs"),
     (r"^原油加工量$", "Crude_Oil_Processing_Mt", "Crude oil processed (refinery runs)", "Mt", "万吨", 0.01,
      "crude oil output and refinery runs"),
     (r"^天然气$", "Natural_Gas_Bcm", "Natural gas", "bcm", "亿立方米", 0.1, "natural gas output"),
@@ -62,6 +62,7 @@ PRODUCTS = [
     (r"^十种有色金属$", "Ten_Nonferrous_Metals_Mt", "Ten non-ferrous metals", "Mt", "万吨", 0.01, "non-ferrous metals output"),
     (r"^原铝|^电解铝", "Primary_Aluminium_Mt", "Primary aluminium (electrolytic)", "Mt", "万吨", 0.01,
      "non-ferrous metals output"),
+    (r"^氧化铝", "Alumina_Mt", "Alumina (to 2015)", "Mt", "万吨", 0.01, "non-ferrous metals output"),
     (r"^乙烯$", "Ethylene_Mt", "Ethylene", "Mt", "万吨", 0.01, "chemicals output"),
     (r"^硫酸", "Sulfuric_Acid_Mt", "Sulfuric acid (100%)", "Mt", "万吨", 0.01, "chemicals output"),
     (r"^烧碱", "Caustic_Soda_Mt", "Caustic soda (100%)", "Mt", "万吨", 0.01, "chemicals output"),
@@ -98,6 +99,7 @@ VA_ROWS = [
     ("外商及港澳台商投资企业", "VA_Foreign_HMT", "Foreign, Hong Kong, Macao and Taiwan invested", ""),
     ("外商及港澳台投资企业", "VA_Foreign_HMT", "Foreign, Hong Kong, Macao and Taiwan invested", ""),
     ("私营企业", "VA_Private", "Private enterprises", ""),
+    ("集体企业", "VA_Collective", "Collective enterprises (to 2015)", ""),
     ("煤炭开采和洗选业", "VA_Coal_Mining", "Coal mining and washing", "energy industries value added y/y"),
     ("石油和天然气开采业", "VA_Oil_Gas_Extraction", "Oil and gas extraction", "energy industries value added y/y"),
     ("电力、热力生产和供应业", "VA_Power_Heat", "Power and heat production and supply", "energy industries value added y/y"),
@@ -163,7 +165,7 @@ def parse_tables(rows):
         if len(cells) < 3:
             continue
         name, unit = nbs.norm_label(cells[0])
-        name = name.replace("其中:", "")
+        name = re.sub(r"^[一二三四五六七八九十]+、", "", name.replace("其中:", ""))
         if not started:
             stem = VA_BY_NAME.get(name)
             if stem and stem not in va:
