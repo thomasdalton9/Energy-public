@@ -192,7 +192,7 @@ def main():
         have = c.to_dict()
     missing_log = {}
     if old_cov is not None:
-        missing_log = {(r.area, str(r.month)): r.status for r in old_cov.itertuples() if str(r.status) != "ok"}
+        missing_log = {(r.area, str(r.month)): r.status for r in old_cov.itertuples() if str(r.status) == "404"}
     sess = requests.Session()
     new_rows, cov = [], {}
     n_req = 0
