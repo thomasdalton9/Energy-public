@@ -185,8 +185,8 @@ def stream_window(url, label):
     stamps = defaultdict(set)
     units = defaultdict(set)
     recs = defaultdict(int)
-    seen = set()
-    dup = blank = n = 0
+    seen = {}
+    dup = conflict = blank = n = 0
     r = requests.get(url, headers=UA, timeout=(20, 900), stream=True)
     r.raise_for_status()
     buf, tail = "", ""
@@ -201,8 +201,9 @@ def stream_window(url, label):
             key = hash((lab, unit, dt))
             if key in seen:
                 dup += 1
+                conflict += seen[key] != v
                 continue
-            seen.add(key)
+            seen[key] = v
             day = dt[:10]
             stamps[day].add(dt)
             units[day].add(unit)
@@ -212,7 +213,7 @@ def stream_window(url, label):
                 continue
             mwh[(day, fuel_of(lab))] += float(v) * 10.0 / 60.0
     complete = tail.rstrip().endswith("]}}")
-    log(f"  {label}: {n} records ({dup} duplicates, {blank} blank), {len(stamps)} days, closing brackets present: {complete}")
+    log(f"  {label}: {n} records ({dup} duplicates, {conflict} of them with a different value, {blank} blank), {len(stamps)} days, closing brackets present: {complete}")
     if n == 0 or not complete:
         raise RuntimeError(f"file incomplete or empty (records {n}, closing brackets {complete})")
     rows = {}
@@ -222,7 +223,7 @@ def stream_window(url, label):
             if dd == day:
                 row[f"{f}_MWh"] = v
         rows[day] = row
-    return finish_daily(rows), {"records": n, "duplicates": dup, "blank": blank}
+    return finish_daily(rows), {"records": n, "duplicates": dup, "dup_different_value": int(conflict), "blank": blank}
 
 
 def archive_captures():
@@ -270,7 +271,7 @@ def ems_pull(windows, daily):
         have.add((str(s)[:10], str(e)[:10]))
         rows.append({"window_start": s, "window_end": e, "source": source, "capture": capture, "days": len(d),
                      "days_complete": int(d["complete"].sum()), "records": st["records"], "duplicates": st["duplicates"],
-                     "status": "ok", "note": "", "run_date": pd.Timestamp.utcnow().strftime("%Y-%m-%d")})
+                     "dup_different_value": st["dup_different_value"], "status": "ok", "note": "", "run_date": pd.Timestamp.utcnow().strftime("%Y-%m-%d")})
         lines.append(f"{label}: ingested {s:%Y-%m-%d}..{e:%Y-%m-%d}, {len(d)} days ({int(d['complete'].sum())} complete)")
 
     for ts, dig in archive_captures():
@@ -348,6 +349,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default=DEFAULT_OUT)
     ap.add_argument("--skip-ems", action="store_true")
+    ap.add_argument("--reingest-official", action="store_true", help="read Taipower's current file again even if its window is stored")
     args = ap.parse_args()
     out = args.out
     zd, ed = read_sheet(out, "Daily Zenodo"), read_sheet(out, "Daily EMS")
@@ -355,6 +357,8 @@ def main():
     if win is not None:
         win = win.reset_index()
         win = win.rename(columns={win.columns[0]: "window_start"})
+        if args.reingest_official:
+            win = win[win["capture"].astype(str) != "official"]
     zen_info = None
     if zd is None:
         zd, zen_info = zenodo_daily()

@@ -5,7 +5,12 @@ name: Taiwan generation roll-up
 on:
   schedule:
     - cron: "50 3 1,15 * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      reingest:
+        description: read Taipower's current 10-minute file again even if its window is stored
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -25,7 +30,7 @@ jobs:
         run: pip install pandas openpyxl requests
 
       - name: Run pull
-        run: timeout 3000 python3 taiwan/TAIWAN_GEN_ROLLUP.py --out "output/Data and Chart Outputs/taiwan_generation_rollup.xlsx"
+        run: timeout 3000 python3 taiwan/TAIWAN_GEN_ROLLUP.py --out "output/Data and Chart Outputs/taiwan_generation_rollup.xlsx" $([ "${{ github.event.inputs.reingest }}" = "true" ] && echo --reingest-official)
 
       - name: Add Excel charts and copy scripts
         if: always()
