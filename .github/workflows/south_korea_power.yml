@@ -1,0 +1,61 @@
+name: South Korea power (KPX EPSIS)
+
+# KPX EPSIS: generation by fuel (monthly), installed capacity, SMP (monthly, marginal fuel, daily), daily peak/minimum demand,
+# fuel burned for power, plus the Federal Reserve H.10 won per US$ rate. EPSIS keeps its history, so 1st and 15th; each run
+# keeps the stored rows and re-reads only a revision window (daily series: days after the last stored day).
+on:
+  schedule:
+    - cron: "20 3 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests matplotlib
+      - name: KPX EPSIS pulls
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1800 python3 south_korea/SOUTH_KOREA_EPSIS.py
+
+      - name: Won per US$ (Fed H.10)
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 south_korea/KOREA_FX_USD.py --out "output/Data and Chart Outputs/south_korea_fx_usd_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          for f in south_korea_power_generation_monthly south_korea_power_capacity south_korea_smp south_korea_demand_daily south_korea_gas_power_use south_korea_fx_usd_daily; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+          done
+          mkdir -p "output/Python Scripts"
+          cp south_korea/SOUTH_KOREA_EPSIS.py south_korea/KOREA_FX_USD.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbooks
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in south_korea_power_generation_monthly south_korea_power_capacity south_korea_smp south_korea_demand_daily south_korea_gas_power_use south_korea_fx_usd_daily; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
+          done
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "South Korea power (KPX EPSIS): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
