@@ -80,6 +80,9 @@ def pull(out_path, *, title_re, near_re, period_fn, extra, parse_fn, columns, se
     nbs.log(f"  {len(releases)} release(s) to fetch")
     new, new_jf = {}, {}
     for title, url in releases:
+        if nbs.over_budget():
+            nbs.log("  time budget reached - the remaining releases are picked up by the next run")
+            break
         period, is_jf = period_fn(title)
         try:
             html = nbs.fetch(url)

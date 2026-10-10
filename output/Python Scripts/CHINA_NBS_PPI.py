@@ -157,6 +157,9 @@ def main():
     nbs.log(f"  held {len(held)} months; {len(releases)} release(s) to fetch")
     new, unmatched_all = {}, set()
     for title, url in releases:
+        if nbs.over_budget():
+            nbs.log("  time budget reached - the remaining releases are picked up by the next run")
+            break
         p, _ = nbs.month_period(title)
         try:
             html = nbs.fetch(url)

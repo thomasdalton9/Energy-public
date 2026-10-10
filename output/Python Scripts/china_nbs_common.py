@@ -53,6 +53,16 @@ PAUSE_SECONDS = 0.8           # between requests - the site challenges fast craw
 MAX_INDEX_PAGES = 80          # list is ~67 pages (capped at ~1000 items)
 CHALLENGE_MARK = "Please enable JavaScript"
 
+# A run stops fetching after this many minutes and saves what it has (the rest is picked up by the next run), so a first
+# backfill of a long history never loses its progress to the Actions time limit.
+_T0 = time.time()
+BUDGET_SECONDS = float(os.environ.get("NBS_BUDGET_MIN", "110")) * 60
+
+
+def over_budget():
+    return time.time() - _T0 > BUDGET_SECONDS
+
+
 _session = requests.Session()
 _session.headers.update(HEADERS)
 _last = [0.0]
