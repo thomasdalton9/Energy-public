@@ -3328,6 +3328,22 @@ REGISTRY.update({
 })
 
 
+# ---- Taiwan (taiwan/taiwan_charts.py) ----
+def _taiwan(fn):
+    def f(p):
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "taiwan"))
+        import taiwan_charts
+        return getattr(taiwan_charts, fn)(sys.modules[__name__])(p)
+    return f
+
+
+REGISTRY.update({
+    "taiwan_esist_monthly.xlsx": _taiwan("esist_specs"),
+    "taiwan_taipower.xlsx": _taiwan("taipower_specs"),
+    "taiwan_reservoirs_daily.xlsx": _taiwan("reservoir_specs"),
+})
+
+
 if __name__ == "__main__":
     for p in sys.argv[1:]:
         if os.path.exists(p):
