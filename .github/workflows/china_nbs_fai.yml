@@ -1,0 +1,54 @@
+name: China NBS fixed-asset investment monthly
+
+# 1st and 15th (NBS publishes investment mid-month.) - the release list keeps its history, so each run backfills every missed month.
+# Incremental: only releases not yet in the workbook are fetched (see the script's docstring).
+on:
+  schedule:
+    - cron: "20 6 1,15 * *"  # 1st/15th, before the evening master rebuild
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+
+      - name: Run China NBS fixed-asset investment monthly pull
+        run: timeout 2700 python3 asia/CHINA_NBS_FAI.py --out "output/Data and Chart Outputs/china_nbs_fixed_asset_investment_monthly.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/china_nbs_fixed_asset_investment_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_fixed_asset_investment_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_fixed_asset_investment_monthly.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp asia/CHINA_NBS_FAI.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/china_nbs_fixed_asset_investment_monthly.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/china_nbs_fixed_asset_investment_monthly.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "China NBS fixed-asset investment monthly: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          exit 1

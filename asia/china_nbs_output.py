@@ -20,26 +20,15 @@ import re
 
 import pandas as pd
 
+import china_nbs_archive_ids as arch
 import china_nbs_common as nbs
 import xlsx_notes
 
 TITLE_RE = r"\d{4}年((\d{1,2}|1[—\-－～~]\d{1,2})月份?|上半年|前三季度)(规模以上|规上)工业(增加值|生产)"
 NEAR_RE = r"(月份?|半年|季度).*工业(增加值|生产(?!者))"
-HISTORY_START = "2021-01-01"
-
-# Releases that still exist but are no longer on the (~1000-item) release list,
-# found by CHINA_NBS_DISCOVERY5.py's ID scan of the Feb-2023 site migration.
-_OLD = "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_{}.html"
-EXTRA_RELEASES = [(t, _OLD.format(i)) for t, i in [
-    ("2021年1—2月份规模以上工业增加值增长35.1%", 1901025),
-    ("2021年3月份规模以上工业增加值增长14.1%", 1901047),
-    ("2021年4月份规模以上工业增加值增长9.8%", 1901099),
-    ("2021年5月份规模以上工业增加值增长8.8%", 1901126),
-    ("2021年6月份规模以上工业增加值增长8.3%", 1901155),
-    ("2021年7月份规模以上工业增加值增长6.4%", 1901191),
-    ("2021年8月份规模以上工业增加值增长5.3%", 1901218),
-    ("2021年9月份规模以上工业增加值增长3.1%", 1901241),
-]]
+HISTORY_START = "2013-01-01"
+EXTRA_RELEASES = arch.INDUSTRIAL   # releases no longer on the list, from the ID scan
+ENERGY_EXTRA = arch.ENERGY   # energy-production (能源生产情况) releases no longer on the list
 
 # (regex on the product name with any "其中：" prefix and unit removed, column, English label,
 #  output unit, source unit, factor source->output, chart group)
@@ -87,52 +76,193 @@ PRODUCTS = [
     (r"^智能手机$", "Smartphones_M_units", "Smartphones", "million units", "万台", 0.01, "electronics output"),
     (r"^集成电路$", "Integrated_Circuits_bn_units", "Integrated circuits", "billion units", "亿块", 0.1,
      "integrated circuit output"),
+    (r"^产品销售率", "Sales_Rate_pct", "Product sales rate", "%", "%", 1, "product sales rate"),
+    (r"^出口交货值", "Export_Delivery_Value_bn_yuan", "Export delivery value", "bn yuan", "亿元", 0.1,
+     "export delivery value"),
 ]
+
+
+
 STACKED_GROUPS = {"power generation by source"}
 
 
-def parse_release(html):
-    """{column: value} from the product-output table of one release."""
-    row, started = {}, False
-    for cells in nbs.table_rows(html):
+VA_ROWS = [
+    # (Chinese name exactly as in the release, column stem, English label, chart group)
+    ("规模以上工业增加值", "VA_Industry", "Industry (all, above designated size)", "industrial value added y/y"),
+    ("采矿业", "VA_Mining", "Mining", "industrial value added y/y"),
+    ("制造业", "VA_Manufacturing", "Manufacturing", "industrial value added y/y"),
+    ("高技术制造业", "VA_High_Tech_Manufacturing", "High-tech manufacturing", ""),
+    ("电力、热力、燃气及水生产和供应业", "VA_Utilities", "Power, heat, gas and water supply", "industrial value added y/y"),
+    ("国有控股企业", "VA_State_Controlled", "State-controlled enterprises", ""),
+    ("股份制企业", "VA_Joint_Stock", "Joint-stock enterprises", ""),
+    ("外商及港澳台商投资企业", "VA_Foreign_HMT", "Foreign, Hong Kong, Macao and Taiwan invested", ""),
+    ("外商及港澳台投资企业", "VA_Foreign_HMT", "Foreign, Hong Kong, Macao and Taiwan invested", ""),
+    ("私营企业", "VA_Private", "Private enterprises", ""),
+    ("煤炭开采和洗选业", "VA_Coal_Mining", "Coal mining and washing", "energy industries value added y/y"),
+    ("石油和天然气开采业", "VA_Oil_Gas_Extraction", "Oil and gas extraction", "energy industries value added y/y"),
+    ("电力、热力生产和供应业", "VA_Power_Heat", "Power and heat production and supply", "energy industries value added y/y"),
+    ("农副食品加工业", "VA_Agri_Food_Processing", "Agricultural food processing", ""),
+    ("食品制造业", "VA_Food_Manufacturing", "Food manufacturing", ""),
+    ("酒、饮料和精制茶制造业", "VA_Beverages", "Liquor, beverages and tea", ""),
+    ("纺织业", "VA_Textiles", "Textiles", ""),
+    ("化学原料和化学制品制造业", "VA_Chemicals", "Chemical raw materials and products", "heavy industry value added y/y"),
+    ("医药制造业", "VA_Pharmaceuticals", "Pharmaceuticals", ""),
+    ("橡胶和塑料制品业", "VA_Rubber_Plastics", "Rubber and plastics", ""),
+    ("非金属矿物制品业", "VA_Non_Metallic_Minerals", "Non-metallic mineral products", "heavy industry value added y/y"),
+    ("黑色金属冶炼和压延加工业", "VA_Ferrous_Smelting", "Ferrous metal smelting and rolling (steel)",
+     "heavy industry value added y/y"),
+    ("有色金属冶炼和压延加工业", "VA_Non_Ferrous_Smelting", "Non-ferrous metal smelting and rolling",
+     "heavy industry value added y/y"),
+    ("金属制品业", "VA_Metal_Products", "Metal products", ""),
+    ("通用设备制造业", "VA_General_Equipment", "General-purpose equipment", ""),
+    ("专用设备制造业", "VA_Special_Equipment", "Special-purpose equipment", ""),
+    ("汽车制造业", "VA_Automobiles", "Automobiles", ""),
+    ("铁路、船舶、航空航天和其他运输设备制造业", "VA_Other_Transport_Equipment", "Rail, ship, aerospace and other transport", ""),
+    ("电气机械和器材制造业", "VA_Electrical_Machinery", "Electrical machinery and equipment", ""),
+    ("计算机、通信和其他电子设备制造业", "VA_Electronics", "Computers, communication and electronics", ""),
+]
+VA_BY_NAME = {cn: stem for cn, stem, *_ in VA_ROWS}
+VA_LABEL = {stem: (label, group) for _cn, stem, label, group in VA_ROWS}
+VA_STEMS = list(dict.fromkeys(stem for _cn, stem, *_ in VA_ROWS))
+ENERGY_VA = ["VA_Industry", "VA_Mining", "VA_Manufacturing", "VA_Utilities", "VA_Coal_Mining", "VA_Oil_Gas_Extraction",
+             "VA_Power_Heat"]
+# product groups of the y/y charts (products not listed here have y/y data but no chart)
+YOY_GROUPS = {
+    "power generation y/y by source": ["Total_Generation_TWh", "Thermal_Generation_TWh", "Hydro_Generation_TWh",
+                                       "Nuclear_Generation_TWh", "Wind_Generation_TWh", "Solar_Generation_TWh"],
+    "fuel output y/y": ["Raw_Coal_Mt", "Coke_Mt", "Crude_Oil_Mt", "Crude_Oil_Processing_Mt", "Natural_Gas_Bcm"],
+    "heavy industry output y/y": ["Crude_Steel_Mt", "Pig_Iron_Mt", "Finished_Steel_Mt", "Cement_Mt", "Plate_Glass_M_cases",
+                                  "Primary_Aluminium_Mt", "Ten_Nonferrous_Metals_Mt", "Ethylene_Mt"],
+    "equipment output y/y": ["Solar_Cells_GW", "Power_Generation_Equipment_GW", "Motor_Vehicles_k_units",
+                             "New_Energy_Vehicles_k_units", "Integrated_Circuits_bn_units", "Industrial_Robots_k_sets"],
+}
+SUFFIXES = ("YoY_pct", "YTD", "YTD_YoY_pct")
+UNIT_ALIAS = {"台/套": "套"}   # industrial robots were reported in 台/套 (units/sets) until 2020
+
+
+def _pct(s):
+    """'-0.1(percentage points)' / '…' / '-' -> float or None."""
+    if s is None:
+        return None
+    s = re.sub(r"[（(].*?[）)]", "", str(s)).strip()
+    return nbs.num(s)
+
+
+def parse_tables(rows):
+    """{'prod': {col: (value, yoy, ytd, ytd_yoy)}, 'va': {stem: (yoy, ytd_yoy)}} from the release's table rows.
+    Month release rows: [name, month value, month y/y, YTD value, YTD y/y]; January-February release: [name, value, y/y]."""
+    prod, va, started = {}, {}, False
+    for cells in rows:
         periods = [c for c in cells if re.fullmatch(r"(1[—\-－~～])?\d{1,2}月", c)]
         if not started and periods and re.match(r"1[—\-－~～]([3-9]|1[0-2])月", periods[0]):
             nbs.log(f"    table holds only year-to-date columns ({periods}) - no monthly figures")
-            return {}
+            return {"prod": {}, "va": {}}
         if any("主要产品产量" in c for c in cells):
             started = True
             continue
-        if not started or len(cells) < 2:
+        if len(cells) < 3:
             continue
         name, unit = nbs.norm_label(cells[0])
+        name = name.replace("其中:", "")
+        if not started:
+            stem = VA_BY_NAME.get(name)
+            if stem and stem not in va:
+                va[stem] = (_pct(cells[2]), _pct(cells[4]) if len(cells) > 4 else None)
+            continue
         value = nbs.num(cells[1])
         if value is None:
             continue
         for rx, col, _label, _u, src_unit, factor, _g in PRODUCTS:
-            if col in row or not re.search(rx, name):
+            if col in prod or not re.search(rx, name):
                 continue
-            if unit and unit != src_unit:
+            if unit and unit != src_unit and UNIT_ALIAS.get(unit) != src_unit:
                 nbs.log(f"    {col}: unexpected unit {unit!r} (expected {src_unit!r}) - skipped")
                 break
-            row[col] = round(value * factor, 6)
+            ytd = nbs.num(cells[3]) if len(cells) > 3 else None
+            prod[col] = (round(value * factor, 6), _pct(cells[2]), None if ytd is None else round(ytd * factor, 6),
+                         _pct(cells[4]) if len(cells) > 4 else None)
             break
+    return {"prod": prod, "va": va}
+
+
+def parse_release(html):
+    """{column: monthly value} (kept for callers that only need the level)."""
+    return {c: v[0] for c, v in parse_tables(nbs.table_rows(html))["prod"].items()}
+
+
+def flatten(parsed, cols, with_va):
+    """One wide row: product value columns as before, plus <col>_YoY_pct / _YTD / _YTD_YoY_pct and VA_<x>_YoY_pct."""
+    row = {}
+    for col, (v, y, ytd, ytd_y) in parsed["prod"].items():
+        if col not in cols:
+            continue
+        row[col] = v
+        if col == "Sales_Rate_pct":   # NBS gives its change in percentage points, not a y/y rate: only the monthly level is kept
+            y = ytd = ytd_y = None
+        for suf, val in zip(SUFFIXES, (y, ytd, ytd_y)):
+            if val is not None:
+                row[f"{col}_{suf}"] = val
+    if with_va:
+        for stem, (y, ytd_y) in parsed["va"].items():
+            if stem in with_va:
+                if y is not None:
+                    row[f"{stem}_YoY_pct"] = y
+                if ytd_y is not None:
+                    row[f"{stem}_YTD_YoY_pct"] = ytd_y
     return row
 
 
-def pull(out_path, columns, notes_lines, notes_titles):
+def all_columns(cols, with_va):
+    out = list(cols)
+    for c in cols:
+        out += [f"{c}_{s}" for s in SUFFIXES if c != "Sales_Rate_pct"]
+    for stem in with_va or ():
+        out += [f"{stem}_YoY_pct", f"{stem}_YTD_YoY_pct"]
+    return out
+
+
+def series_rows(cols, with_va):
+    """Series sheet rows (column, label, unit, chart group, kind) for the base, y/y, YTD and value-added columns."""
+    rows = []
+    for p in PRODUCTS:
+        if p[1] not in cols:
+            continue
+        rows.append((p[1], p[2], f"{p[3]} per month", p[6], "stacked_bar" if p[6] in STACKED_GROUPS else "line"))
+    for p in PRODUCTS:
+        if p[1] not in cols or p[1] == "Sales_Rate_pct":   # NBS gives only a percentage-point change for the sales rate
+            continue
+        grp = next((g for g, members in YOY_GROUPS.items() if p[1] in members), "")
+        rows.append((f"{p[1]}_YoY_pct", f"{p[2]}, y/y", "% y/y", grp, "line"))
+        rows.append((f"{p[1]}_YTD", f"{p[2]}, year to date", f"{p[3]} year to date", "", "line"))
+        rows.append((f"{p[1]}_YTD_YoY_pct", f"{p[2]}, year-to-date y/y", "% y/y (as published by NBS)", "", "line"))
+    for stem in with_va or ():
+        label, grp = VA_LABEL[stem]
+        rows.append((f"{stem}_YoY_pct", f"Value added: {label}, y/y", "% y/y", grp, "line"))
+        rows.append((f"{stem}_YTD_YoY_pct", f"Value added: {label}, year-to-date y/y", "% y/y",
+                     "", "line"))
+    return rows
+
+
+def pull(out_path, columns, notes_lines, notes_titles, with_va=None, extra=None):
+    """with_va: value-added stems to keep (None = none). extra: optional hook(releases_state) for subclasses (unused)."""
     cols = [p[1] for p in PRODUCTS if p[1] in columns]
+    wide = all_columns(cols, with_va)
     data = janfeb = None
     if nbs.has_sheet(out_path, "Series"):   # earlier (English-release) layout -> rebuild from scratch
         data = nbs.read_sheet(out_path, "Data")
         janfeb = nbs.read_sheet(out_path, "Jan-Feb")
     # reindex: a workbook written with older column names is simply re-pulled in full
-    data = pd.DataFrame(columns=cols, dtype=float) if data is None else data.reindex(columns=cols)
-    janfeb = pd.DataFrame(columns=cols, dtype=float) if janfeb is None else janfeb.reindex(columns=cols)
-    held = {(p.year, p.month) for p in data.index[data.notna().any(axis=1)]} if len(data) else set()
-    held_jf = {p.year for p in janfeb.index[janfeb.notna().any(axis=1)]} if len(janfeb) else set()
+    data = pd.DataFrame(columns=wide, dtype=float) if data is None else data.reindex(columns=wide)
+    janfeb = pd.DataFrame(columns=wide, dtype=float) if janfeb is None else janfeb.reindex(columns=wide)
+    probe = [c for c in wide if c.endswith("_YoY_pct") and not c.startswith("VA_")]
+    # a month counts as held once any y/y column is in (workbooks written before the y/y columns held levels only)
+    held = {(p.year, p.month) for p in data.index[data[probe].notna().any(axis=1)]} if len(data) else set()
+    held_jf = {p.year for p in janfeb.index[janfeb[probe].notna().any(axis=1)]} if len(janfeb) else set()
     gaps = [g for g in nbs.recent_gaps(data.index[data.notna().any(axis=1)], "MS") if g.month not in (1, 2)]
-    deep = (not held) or bool(gaps)
-    nbs.log(f"  held {len(held)} months + {len(held_jf)} Jan-Feb; gaps {len(gaps)} -> {'full' if deep else 'shallow'} crawl")
+    old_levels = len(data) and data.index[data[cols].notna().any(axis=1) & data[probe].isna().all(axis=1)].size > 0
+    deep = (not held) or bool(gaps) or bool(old_levels)
+    nbs.log(f"  held {len(held)} months + {len(held_jf)} Jan-Feb; gaps {len(gaps)}; levels-only {bool(old_levels)} -> "
+            f"{'full' if deep else 'shallow'} crawl")
 
     def wanted(title):
         period, is_jf = nbs.month_period(title)
@@ -150,12 +280,13 @@ def pull(out_path, columns, notes_lines, notes_titles):
         except Exception as e:  # noqa: BLE001 - keep going, the next run retries
             nbs.log(f"  [{period:%Y-%m}] fetch failed ({type(e).__name__}) - skipped")
             continue
-        row = parse_release(html or "")
-        row = {k: v for k, v in row.items() if k in cols}
-        if not row:
+        parsed = parse_tables(nbs.table_rows(html or ""))
+        row = flatten(parsed, cols, set(with_va or ()))
+        if not any(k in row for k in cols):
             nbs.log(f"  [{period:%Y-%m}] no product rows matched - skipped ({url})")
             continue
-        nbs.log(f"  [{period:%Y-%m}{' Jan-Feb' if is_jf else ''}] {len(row)}/{len(cols)} products")
+        nbs.log(f"  [{period:%Y-%m}{' Jan-Feb' if is_jf else ''}] {sum(k in row for k in cols)}/{len(cols)} products, "
+                f"{sum(k.startswith('VA_') and k.endswith('_YoY_pct') for k in row)} value-added rows")
         (new_jf if is_jf else new_rows)[period] = row
 
     if new_rows:
@@ -166,15 +297,16 @@ def pull(out_path, columns, notes_lines, notes_titles):
             pd.DataFrame.from_dict(new_jf, orient="index")
     if data.dropna(how="all").empty:
         raise SystemExit("No data at all - nothing to save.")
-    data = data.reindex(columns=cols).sort_index()
+    data = data.reindex(columns=wide).sort_index()
     data = data[data.index >= pd.Timestamp(HISTORY_START)]
-    janfeb = janfeb.reindex(columns=cols).sort_index()
+    janfeb = janfeb.reindex(columns=wide).sort_index()
     data.index.name = janfeb.index.name = "month"
-    series = nbs.series_sheet([(p[1], p[2], f"{p[3]} per month", p[6], "stacked_bar" if p[6] in STACKED_GROUPS else "line")
-                               for p in PRODUCTS if p[1] in cols])
+    series = nbs.series_sheet(series_rows(cols, with_va))
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
-    xlsx_notes.write_workbook(out_path, {"Data": data, "Jan-Feb": janfeb, "Series": series},
-                              notes_lines, notes_titles)
+    sheets = {"Data": data, "Jan-Feb": janfeb, "Series": series}
+    if extra:
+        sheets.update(extra(data, janfeb))
+    xlsx_notes.write_workbook(out_path, sheets, notes_lines, notes_titles)
     print(f"Saved {len(data)} month(s) ({data.index.min():%Y-%m}..{data.index.max():%Y-%m}), "
           f"{len(janfeb)} Jan-Feb total(s), {len(new_rows) + len(new_jf)} new, to {out_path}")
 
@@ -194,6 +326,16 @@ COMMON_NOTES = [
     "NBS does not publish separate January or February output: it releases one combined January-February "
     "figure (around mid-March). The monthly Data sheet therefore leaves January and February blank; the "
     "combined totals are on the 'Jan-Feb' sheet (dated 1 Feb of each year).",
+    "",
+    "Y/Y AND YEAR-TO-DATE COLUMNS",
+    "Beside each level the release's own month-on-year growth (<name>_YoY_pct, %), the year-to-date total "
+    "(<name>_YTD, same unit as the level) and the year-to-date growth (<name>_YTD_YoY_pct) are kept exactly as NBS "
+    "publishes them. NBS computes growth on a like-for-like enterprise sample, so it differs from the change between the "
+    "levels shown. VA_* columns (industrial workbook and the energy-production workbook's energy subset) are NBS's "
+    "real value-added growth, % y/y, by sector, ownership and industry. The product sales rate is a level in %; NBS gives "
+    "its change in percentage points, which is not kept. Industry rows (e.g. coal mining, oil and gas) appear in the "
+    "release from the January-February 2022 issue and the solar-cell row from January-February 2023 (service robots: "
+    "January-February 2025); earlier months are blank because NBS did not publish those rows.",
     "",
     "SOURCE",
     "National Bureau of Statistics of China, monthly industrial production release ('YYYY年M月份规模以上工业增加值"

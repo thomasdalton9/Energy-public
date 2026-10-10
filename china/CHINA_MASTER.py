@@ -57,6 +57,10 @@ GAS = "china_ndrc_gas_monthly.xlsx"
 IMPORTS = "china_gacc_energy_imports_monthly.xlsx"
 PRICES = "china_nbs_market_prices_10day.xlsx"
 PPI = "china_nbs_ppi_monthly.xlsx"
+CPI = "china_nbs_cpi_monthly.xlsx"
+PROFITS = "china_nbs_industrial_profits_monthly.xlsx"
+FAI = "china_nbs_fixed_asset_investment_monthly.xlsx"
+RETAIL = "china_nbs_retail_sales_monthly.xlsx"
 FX = "china_fx_usd_daily.xlsx"
 CAPU = "china_nbs_capacity_utilization_quarterly.xlsx"
 CAP = "china_nea_capacity_monthly.xlsx"
@@ -64,15 +68,23 @@ CONS = "china_nea_consumption_monthly.xlsx"
 # china_nbs_clean_energy_products_monthly.xlsx is a subset of the industrial-output workbook (same Data columns), so
 # it is not read again.
 
+
+
+def cn(group):
+    """Chart (sheet) name add_charts.china_nbs_series gives a Series chart group: '/' -> '-', 23 characters."""
+    import re
+    return re.sub(r"[\\/*?:\[\]]", "-", group)[:23]
+
+
 # (dashboard, [(code, country, workbook, raw sheets, short name, charts to show (None = all))])
-POWER = [("CN", "China", PROD, ("Data", "Jan-Feb"), "energy production",
-          {"power generation by sou", "electricity generation "}),
+POWER = [("CN", "China", PROD, ("Data", "Jan-Feb", "Imports", "Imports Jan-Feb"), "energy production",
+          {"power generation by sou", "electricity generation ", cn("power generation y/y by source")}),
          ("CN", "China", IND, (), "industrial output", {"solar cell and power eq"}),
          ("CN", "China", CAP, ("Data", "Releases"), "NEA capacity", {"installed capacity by t"}),
          ("CN", "China", CONS, ("Data", "Jan-Feb", "YTD", "Releases"), "NEA consumption",
           {"electricity use by sect", "electricity use growth"})]
 FUELS = [("CN", "China", PROD, (), "energy production",
-          {"raw coal output", "coke output", "crude oil output and re"}),
+          {"raw coal output", "coke output", "crude oil output and re", cn("fuel output y/y")}),
          ("CN", "China", IMPORTS, ("Data",), "energy imports", {"crude oil and product i", "coal imports"})]
 GAS_SETS = [("CN", "China", GAS, ("Data", "Jan-Feb"), "gas consumption", {"gas apparent consumptio", "gas consumption y-y"}),
             ("CN", "China", PROD, (), "energy production", {"natural gas output"}),
@@ -81,14 +93,20 @@ INDUSTRY = [("CN", "China", IND, ("Data", "Jan-Feb"), "industrial output",
              {"iron and steel output", "cement output", "plate glass output", "non-ferrous metals outp",
               "chemicals output", "vehicle output", "cloth output", "machine tool output",
               "industrial robot output", "service robot output", "electronics output",
-              "integrated circuit outp"}),
+              "integrated circuit outp", cn("heavy industry output y/y"), cn("equipment output y/y"),
+              cn("industrial value added y/y"), cn("energy industries value added y/y"),
+              cn("heavy industry value added y/y")}),
             ("CN", "China", CAPU, ("Data",), "capacity utilisation", None)]
+ECONOMY = [("CN", "China", PROFITS, ("Data",), "industrial profits", None),
+           ("CN", "China", FAI, ("Data",), "fixed-asset investment", None),
+           ("CN", "China", RETAIL, ("Data", "Jan-Feb"), "retail sales", None)]
 # NBS 10-day prices are converted to US$ by price_usd_charts() below (charts named here); PPI is plain collect().
 PRICE_CHARTS = {"coal and coke prices", "oil and gas product pri", "steel prices", "non-ferrous metal price",
                 "basic chemical prices", "polysilicon prices", "lithium iron phosphate ", "polymer and fibre price",
                 "building material price", "fertiliser and agrochem", "farm product prices", "live hog prices",
                 "forest product prices"}
-PRICE = [("CN", "China", PPI, ("Data",), "PPI", None)]
+PRICE = [("CN", "China", PPI, ("Data",), "PPI", None),
+         ("CN", "China", CPI, ("Data",), "CPI", None)]
 FED_URL = "https://www.federalreserve.gov/releases/h10/hist/dat00_ch.htm"
 
 NBS = "National Bureau of Statistics of China (NBS)"
@@ -112,6 +130,14 @@ SOURCES = {
          "Chinese renminbi per US dollar (the series FRED republishes as DEXCHUS); used to convert the NBS 10-day prices to US$",
          FED_URL),
     PPI: (f"{NBS}, monthly producer price (PPI) release, by industry", "https://www.stats.gov.cn/sj/zxfb/"),
+    CPI: (f"{NBS}, monthly consumer price (CPI) release, main data table (incl. housing utilities and vehicle fuel)",
+          "https://www.stats.gov.cn/sj/zxfb/"),
+    PROFITS: (f"{NBS}, monthly industrial profit release (year to date, by sector, ownership and industry)",
+              "https://www.stats.gov.cn/sj/zxfb/"),
+    FAI: (f"{NBS}, monthly fixed-asset investment release (year-to-date growth by sector and industry)",
+          "https://www.stats.gov.cn/sj/zxfb/"),
+    RETAIL: (f"{NBS}, monthly retail sales of consumer goods release (incl. petroleum products and automobiles)",
+             "https://www.stats.gov.cn/sj/zxfb/"),
     CAPU: (f"{NBS}, quarterly industrial capacity utilisation release", "https://www.stats.gov.cn/sj/zxfb/"),
 }
 
@@ -337,7 +363,7 @@ def main():
     wb = Workbook()
     dash_power = wb.active
     dash_power.title = "Dashboard - Power"
-    names = ["Dashboard - Gas", "Dashboard - Fuels", "Dashboard - Industry", "Dashboard - Prices"]
+    names = ["Dashboard - Gas", "Dashboard - Fuels", "Dashboard - Industry", "Dashboard - Prices", "Dashboard - Economy"]
     dashes = [wb.create_sheet(n) for n in names]
     used = {"Dashboard - Power", *names, "Dashboard - Long-term", "Sources"}
     sources = []
@@ -346,7 +372,8 @@ def main():
                 (dashes[0], "China - natural gas: apparent consumption (NDRC) and output (NBS)", GAS_SETS),
                 (dashes[1], "China - fuel output: coal, coke and crude oil (NBS)", FUELS),
                 (dashes[2], "China - energy-intensive industrial output and capacity utilisation (NBS)", INDUSTRY),
-                (dashes[3], "China - producer-goods prices in US$ (NBS, converted at the Federal Reserve H.10 rate) and PPI (NBS)", PRICE)]
+                (dashes[3], "China - producer-goods prices in US$ (NBS, converted at the Federal Reserve H.10 rate), PPI and CPI (NBS)", PRICE),
+                (dashes[4], "China - industrial profits, fixed-asset investment and retail sales (NBS, year to date as published)", ECONOMY)]
     counts = []
     for dash, heading, datasets in sections:
         charts, rows, missing = collect(wb, datasets, args.data_dir, used, sources)

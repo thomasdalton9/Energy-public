@@ -1,10 +1,10 @@
-name: China NBS market prices 10-day
+name: China NBS CPI monthly
 
-# Every 10 days - NBS publishes each 10-day period's prices ~3-4 days after it ends.
+# 1st and 15th (NBS publishes CPI around the 9th-10th.) - the release list keeps its history, so each run backfills every missed month.
 # Incremental: only releases not yet in the workbook are fetched (see the script's docstring).
 on:
   schedule:
-    - cron: "30 5 1,15 * *"  # 1st/15th (backfills every missed period), before the evening master rebuild
+    - cron: "0 6 1,15 * *"  # 1st/15th, before the evening master rebuild
   workflow_dispatch: {}
 
 permissions:
@@ -24,28 +24,28 @@ jobs:
       - name: Install dependencies
         run: pip install pandas openpyxl requests
 
-      - name: Run China NBS market prices 10-day pull
-        run: timeout 2700 python3 asia/CHINA_NBS_MARKET_PRICES.py --out "output/Data and Chart Outputs/china_nbs_market_prices_10day.xlsx"
+      - name: Run China NBS CPI monthly pull
+        run: timeout 2700 python3 asia/CHINA_NBS_CPI.py --out "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/china_nbs_market_prices_10day.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_market_prices_10day.xlsx" || echo "chart step skipped/failed for china_nbs_market_prices_10day.xlsx"
+          [ -f "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_cpi_monthly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/CHINA_NBS_MARKET_PRICES.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp asia/CHINA_NBS_CPI.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
         run: |
-          if [ ! -f "output/Data and Chart Outputs/china_nbs_market_prices_10day.xlsx" ]; then
+          if [ ! -f "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx" ]; then
             echo "No archive file to commit (pull failed before writing it)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f "output/Data and Chart Outputs/china_nbs_market_prices_10day.xlsx"
+          git add -f "output/Data and Chart Outputs/china_nbs_cpi_monthly.xlsx"
           git add -f "output/Python Scripts" || true
-          git diff --cached --quiet || git commit -m "China NBS market prices 10-day: automated update"
+          git diff --cached --quiet || git commit -m "China NBS CPI monthly: automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             git rebase --abort 2>/dev/null || true

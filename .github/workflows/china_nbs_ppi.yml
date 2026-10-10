@@ -4,7 +4,7 @@ name: China NBS PPI monthly
 # Incremental: only releases not yet in the workbook are fetched (see the script's docstring).
 on:
   schedule:
-    - cron: "0 10 13 * *"  # 13th of the month - after NBS's PPI release
+    - cron: "40 5 1,15 * *"  # 1st/15th (backfills every missed period), before the evening master rebuild
   workflow_dispatch: {}
 
 permissions:
@@ -32,7 +32,7 @@ jobs:
         run: |
           [ -f "output/Data and Chart Outputs/china_nbs_ppi_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_ppi_monthly.xlsx" || echo "chart step skipped/failed for china_nbs_ppi_monthly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/CHINA_NBS_PPI.py asia/china_nbs_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp asia/CHINA_NBS_PPI.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()

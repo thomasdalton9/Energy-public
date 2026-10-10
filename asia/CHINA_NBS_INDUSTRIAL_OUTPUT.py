@@ -13,6 +13,10 @@ designated size) into one workbook, from 2021 on:
               cars, SUVs, new energy vehicles, metal-cutting machine
               tools, industrial and service robots, microcomputers,
               mobile phones, smartphones, integrated circuits
+  plus, for every product, the release's month y/y, year-to-date value and
+  year-to-date y/y (columns <name>_YoY_pct / _YTD / _YTD_YoY_pct), the product
+  sales rate and export delivery value, and value-added growth by sector,
+  ownership and industry (VA_* columns, % y/y, real).
 
 Source, history and parsing: see china_nbs_common.py / china_nbs_output.py
 (Chinese release list www.stats.gov.cn/sj/zxfb/, which reaches back to
@@ -39,14 +43,14 @@ NOTES_LINES = [
     "Every value is that calendar month's output. " + out.units_line(COLUMNS) + ".",
     "",
 ] + out.COMMON_NOTES
-NOTES_SECTION_TITLES = {"UNITS", "SCOPE", "JANUARY AND FEBRUARY", "SOURCE", "UPDATES"}
+NOTES_SECTION_TITLES = {"UNITS", "SCOPE", "JANUARY AND FEBRUARY", "Y/Y AND YEAR-TO-DATE COLUMNS", "SOURCE", "UPDATES"}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=DEFAULT_OUT)
     args = parser.parse_args()
-    out.pull(args.out, COLUMNS, NOTES_LINES, NOTES_SECTION_TITLES)
+    out.pull(args.out, COLUMNS, NOTES_LINES, NOTES_SECTION_TITLES, with_va=out.VA_STEMS)
 
 
 if __name__ == "__main__":

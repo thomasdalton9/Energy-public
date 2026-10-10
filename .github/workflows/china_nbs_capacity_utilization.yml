@@ -4,7 +4,7 @@ name: China NBS capacity utilization quarterly
 # Incremental: only releases not yet in the workbook are fetched (see the script's docstring).
 on:
   schedule:
-    - cron: "0 10 25 1,4,7,10 *"  # 25th of Jan/Apr/Jul/Oct - after the quarterly release
+    - cron: "50 5 1,15 * *"  # 1st/15th (backfills every missed period), before the evening master rebuild
   workflow_dispatch: {}
 
 permissions:
@@ -32,7 +32,7 @@ jobs:
         run: |
           [ -f "output/Data and Chart Outputs/china_nbs_capacity_utilization_quarterly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/china_nbs_capacity_utilization_quarterly.xlsx" || echo "chart step skipped/failed for china_nbs_capacity_utilization_quarterly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp asia/CHINA_NBS_CAPACITY_UTILIZATION.py asia/china_nbs_common.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp asia/CHINA_NBS_CAPACITY_UTILIZATION.py asia/china_nbs_common.py asia/china_nbs_archive_ids.py asia/china_nbs_tables.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()

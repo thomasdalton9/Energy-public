@@ -26,19 +26,15 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))                   # asia/, for china_nbs_common
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root, for xlsx_notes
 
+import china_nbs_archive_ids as arch  # noqa: E402
 import china_nbs_common as nbs  # noqa: E402
 import xlsx_notes  # noqa: E402
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs", "china_nbs_capacity_utilization_quarterly.xlsx")
 TITLE_RE = r"\d{4}年[一二三四]季度全国(规模以上)?工业产能利用率"
-HISTORY_START = "2021-01-01"
-_OLD = "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_{}.html"
-EXTRA_RELEASES = [(t, _OLD.format(i)) for t, i in [
-    ("2021年一季度全国工业产能利用率为77.2%", 1901053),
-    ("2021年二季度全国工业产能利用率为78.4%", 1901161),
-    ("2021年三季度全国工业产能利用率为77.1%", 1901247),
-]]
+HISTORY_START = "2013-01-01"
+EXTRA_RELEASES = arch.CAPACITY   # releases no longer on the list, from the ID scan
 QUARTER = {"一": 1, "二": 4, "三": 7, "四": 10}
 
 # (Chinese industry name, column, English label, chart group)
@@ -89,6 +85,10 @@ def parse_release(html):
             unmatched.append(name)
         elif col not in row:
             row[col] = value
+            for suf, i in (("YoY_pp", 2), ("YTD", 3), ("YTD_YoY_pp", 4)):
+                v = nbs.num(cells[i]) if len(cells) > i else None
+                if v is not None:
+                    row[f"{col}_{suf}"] = v
     return row, unmatched
 
 
@@ -96,10 +96,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=DEFAULT_OUT)
     args = parser.parse_args()
-    cols = [i[1] for i in INDUSTRIES]
+    base = [i[1] for i in INDUSTRIES]
+    cols = base + [f"{c}_{s}" for c in base for s in ("YoY_pp", "YTD", "YTD_YoY_pp")]
     data = nbs.read_sheet(args.out, "Data") if nbs.has_sheet(args.out, "Series") else None
     data = pd.DataFrame(columns=cols, dtype=float) if data is None else data.reindex(columns=cols)
-    held = set(data.index[data.notna().any(axis=1)]) if len(data) else set()
+    held = set(data.index[data["Industry_Total_YoY_pp"].notna()]) if len(data) else set()   # held once the y/y columns are in
     gaps = nbs.recent_gaps(held, "QS")
     deep = (not held) or bool(gaps)
 
@@ -136,7 +137,12 @@ def main():
         raise SystemExit("No data at all - nothing to save.")
     data = data.reindex(columns=cols).sort_index()
     data.index.name = "quarter_start"
-    series = nbs.series_sheet([(col, label, "%", group, "line") for _cn, col, label, group in INDUSTRIES])
+    rows = [(col, label, "%", group, "line") for _cn, col, label, group in INDUSTRIES]
+    for _cn, col, label, _g in INDUSTRIES:
+        rows += [(f"{col}_YoY_pp", f"{label}, change vs a year earlier", "percentage points", "", "line"),
+                 (f"{col}_YTD", f"{label}, year-to-date rate", "%", "", "line"),
+                 (f"{col}_YTD_YoY_pp", f"{label}, year-to-date change vs a year earlier", "percentage points", "", "line")]
+    series = nbs.series_sheet(rows)
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, {"Data": data, "Series": series}, NOTES_LINES, NOTES_SECTION_TITLES)
     print(f"Saved {len(data)} quarter(s) ({data.index.min():%Y-%m}..{data.index.max():%Y-%m}), {len(new)} new, "
@@ -154,8 +160,10 @@ NOTES_LINES = [
     "",
     "SOURCE",
     "National Bureau of Statistics of China, quarterly release 'YYYY年X季度全国规模以上工业产能利用率为X%', "
-    "Chinese release list https://www.stats.gov.cn/sj/zxfb/. Only the quarter's rate is kept (the release also "
-    "gives the change vs a year earlier and the year-to-date rate).",
+    "Chinese release list https://www.stats.gov.cn/sj/zxfb/. Beside the quarter's rate: <name>_YoY_pp (change vs the "
+    "same quarter a year earlier, percentage points), <name>_YTD (rate for the year to date: first half, first three "
+    "quarters, full year) and <name>_YTD_YoY_pp, all as published. NBS's quarterly releases found online start with "
+    "2017 Q4.",
     "",
     "UPDATES",
     "Incremental: quarters already held are not re-fetched.",
