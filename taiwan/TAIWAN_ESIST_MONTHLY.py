@@ -181,6 +181,11 @@ def main():
         try:
             j = get_json(f"{API}/v1/zone/monthly/{path}")
             new_m, new_a = parse_section(j[section])
+            if tag == "IMPPRICE":   # header cells carry Chinese punctuation debris
+                ren = {c: next(v for k, v in (("Crude", "Crude oil (US$ per barrel, FOB)"), ("LNG", "LNG (US$ per tonne, CIF)"),
+                                              ("Coking", "Coking coal (US$ per tonne, CIF)"), ("Steam", "Steam coal (US$ per tonne, CIF)"))
+                               if k in c) for c in new_m.columns}
+                new_m, new_a = new_m.rename(columns=ren), new_a.rename(columns=ren)
             mf, af = merge(om, new_m), merge(oa, new_a)
             print(f"  {tag}: {len(new_m)} monthly / {len(new_a)} annual rows; {len(new_m.columns)} columns; latest "
                   f"{new_m.index.max():%Y-%m}")
