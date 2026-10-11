@@ -20,11 +20,16 @@ por Tipo de Tecnologia"); pickers FechaConsulta / FechaInicial / FechaFinal,
 minDate 2016-04-30, maxDate 2026-08-17 (~55 days behind); button
 ctl00$ContentPlaceHolder1$DescargarReportes. No generation links in the
 SIM menu; the other candidate URLs return CENACE's error page.
+RUN 2: POSTing the live form with DescargarReportes returned the HTML
+page (65-72 KB), not a ZIP, for 3-day, 2-day and full-year ranges ->
+run 3 dumps the form controls and the reply's visible text and tries a
+real click with expect_download.
 
 Workflow (manual): discovery_archive/workflows/mexico_cenace_generation_probe.yml.
 """
 
 import io
+import os
 import re
 import zipfile
 from datetime import date, timedelta
@@ -145,11 +150,72 @@ def groups_for(pickers, buttons):
     return out
 
 
+def diagnose_tipotec(page, context):
+    url = BASE + "EnergiaGeneradaTipoTec.aspx"
+    page.goto(url, timeout=90000, wait_until="load")
+    page.wait_for_timeout(2000)
+    ctrls = page.evaluate("""() => Array.from(document.forms[0].elements).filter(e => e.name && !e.name.startsWith('__'))
+        .map(e => [e.tagName, e.type, e.name, (e.value || '').slice(0, 60), e.checked === undefined ? '' : String(e.checked),
+                   e.tagName === 'SELECT' ? Array.from(e.options).map(o => o.value + '=' + o.text.trim()).join('|').slice(0, 300) : ''])""")
+    log("\n=== TipoTec form controls:")
+    for c in ctrls:
+        log(f"  {c}")
+    onclick = page.evaluate("""() => { const b = document.querySelector('[name="ctl00$ContentPlaceHolder1$DescargarReportes"]');
+        return b ? [b.outerHTML.slice(0, 600)] : null; }""")
+    log(f"  button html: {onclick}")
+    text = page.evaluate("() => document.querySelector('#aspnetForm, form').innerText.replace(/\\s+/g, ' ')")
+    i = text.find("Tecnolog")
+    log(f"  page text near title: {text[max(0, i - 200):i + 1500]!r}")
+    links = page.evaluate("""() => Array.from(document.querySelectorAll('a[href]')).map(a => a.href)
+        .filter(h => /zip|csv|xls|Descarg|Archivo/i.test(h))""")
+    log(f"  file-like links on page: {links[:20]}")
+    # real click on a 2-day range
+    for _ in range(2):
+        set_picker(page, "ctl00_ContentPlaceHolder1_FechaConsulta", date(2026, 8, 10))
+        set_picker(page, "ctl00_ContentPlaceHolder1_FechaInicial", date(2026, 8, 10))
+        set_picker(page, "ctl00_ContentPlaceHolder1_FechaFinal", date(2026, 8, 11))
+        page.wait_for_timeout(2500)
+    responses = []
+    page.on("response", lambda r: responses.append((r.status, r.url[:150], r.headers.get("content-type"),
+                                                     r.headers.get("content-disposition"))))
+    try:
+        with page.expect_download(timeout=90000) as dl:
+            page.click('[name="ctl00$ContentPlaceHolder1$DescargarReportes"]')
+        d = dl.value
+        path = d.path()
+        log(f"  CLICK -> download {d.suggested_filename!r} {os.path.getsize(path):,} bytes")
+        body = open(path, "rb").read()
+        if body[:2] == b"PK":
+            with zipfile.ZipFile(io.BytesIO(body)) as zf:
+                for n in zf.namelist()[:20]:
+                    log(f"    {n} ({zf.getinfo(n).file_size:,} bytes)")
+                n = zf.namelist()[0]
+                for line in zf.read(n).decode("latin-1", errors="replace").splitlines()[:40]:
+                    log(f"      {line}")
+        else:
+            for line in body.decode("latin-1", errors="replace").splitlines()[:40]:
+                log(f"      {line}")
+    except Exception as e:
+        log(f"  CLICK -> no download: {e}")
+        page.wait_for_timeout(3000)
+        t = page.evaluate("() => document.body.innerText.replace(/\\s+/g, ' ')")
+        i = t.find("Tecnolog")
+        log(f"  page text after click: {t[max(0, i - 200):i + 2500]!r}")
+    for r in responses[:30]:
+        log(f"  resp {r}")
+
+
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         context = browser.new_context()
         page = context.new_page()
+        try:
+            diagnose_tipotec(page, context)
+        except Exception as e:
+            log(f"diagnose failed: {e}")
+        browser.close()
+        return
         urls = [BASE + c for c in CANDIDATES]
         try:
             urls += [u for u in menu_links(page) if u not in urls]
