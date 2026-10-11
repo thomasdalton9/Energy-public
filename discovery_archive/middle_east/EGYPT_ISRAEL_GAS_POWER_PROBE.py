@@ -23,6 +23,21 @@ ElectricityObservatory.aspx, GenEvaluation.aspx, annualReport.aspx,
 PeriodicalBooks2022.aspx; egas.com.eg 200 (Liferay, no statistics links);
 petroleum.gov.eg 200 (SharePoint; gas.aspx); capmas.gov.eg and idsc.gov.eg
 200 but 1.4 KB JS shells; egypt-odp.portaljs.com has no energy datasets.
+RUN 2 (Playwright): Noga sitemap has /systemoperationunit/demand-curve/,
+/piechartspage/, /co2/, /demandforecastnew/. Pages call JSON endpoints
+/umbraco/Noga/DemandGraph/Get?date=YYYY-MM-DD, /umbraco/Noga/CityTotalConsumption/Get,
+/umbraco/Noga/CityElectricityUsage/Get - all 403 (1.5 KB html) even in the
+browser (reCAPTCHA v3 key on the page). SMP API (APIM) needs sign-up + token,
+Israeli users only. gov.il: Cloudflare challenge / "you have been blocked" in
+Playwright too; page calls openapi-gc.digital.gov.il/pub/cio/govil/rest/landingpage/...
+iec.co.il statistics -> pageNotFound. CBS energy page reachable (SharePoint).
+EGYPT: EgyptERA ElectricityObservatory.aspx = MONTHLY "electricity observatory"
+PDFs, Aug 2020 .. May 2023 (AR page; EN page to Aug 2022), URLs like
+/ar/download/Report/Elec_ob_May2023.pdf (irregular names). Annual reports
+2011-2021 PDFs (/en/download/report/AnnualRep2021.pdf). EEHC portal is a
+landing page -> /CMSeehc/. EETC times out again. CAPMAS is a React app over
+a JSON API at https://www.capmas.gov.eg:8080/api/ (Subject, PublicationDetail,
+Calendar ...). EGAS: only a 2025 company-profile PDF, no statistics.
 
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
@@ -307,5 +322,119 @@ def round2():
     ])
 
 
+def js_endpoints(page_url, pat):
+    """Fetch a page, then its scripts, and print lines matching pat."""
+    out(f"\n=== JS-SCAN {page_url}")
+    r = get(page_url)
+    if r is None:
+        return
+    srcs = re.findall(r'<script[^>]+src=["\']([^"\']+)', r.text, re.I)
+    inline = re.findall(r"<script[^>]*>(.*?)</script>", r.text, re.S | re.I)
+    blobs = [("inline", "\n".join(inline))]
+    for src in srcs:
+        u = urljoin(r.url, src)
+        if re.search(r"google|jquery|bootstrap|gtag|recaptcha|cookie|nagich|userway", u, re.I):
+            continue
+        rr = get(u)
+        if rr is not None and rr.status_code == 200:
+            blobs.append((u, rr.text))
+    for name, txt in blobs:
+        hits = [m.start() for m in re.finditer(pat, txt)]
+        if hits:
+            out(f"  [{name[:110]}] {len(txt)}B {len(hits)} hits")
+        for h in hits[:8]:
+            out("     ...", " ".join(txt[max(0, h - 250):h + 350].split()))
+
+
+def try_api(url, headers=None, n=500):
+    hh = dict(H)
+    hh.update(headers or {})
+    try:
+        r = requests.get(url, headers=hh, timeout=T)
+    except requests.RequestException as e:
+        out(f"  API {url[:150]} ERROR {type(e).__name__}")
+        return None
+    out(f"  API {r.status_code} {r.headers.get('content-type','')[:30]} {len(r.content)}B {url[:160]}")
+    out("      ", " ".join(r.text[:n].split()))
+    return r
+
+
+def noga_pw():
+    """Accept cookies, then load the data pages and log every XHR (incl. request headers)."""
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        ctx = b.new_context(user_agent=H["User-Agent"], locale="he-IL")
+        for url in ["https://www.noga-iso.co.il/systemoperationunit/demand-curve/",
+                    "https://www.noga-iso.co.il/systemoperationunit/piechartspage/",
+                    "https://www.noga-iso.co.il/systemoperationunit/co2/",
+                    "https://www.noga-iso.co.il/systemoperationunit/demandforecastnew/"]:
+            pg = ctx.new_page()
+            xhr = []
+            pg.on("response", lambda resp, xhr=xhr: xhr.append(resp)
+                  if "noga-iso" in resp.url and resp.request.resource_type in ("xhr", "fetch") else None)
+            out(f"\n=== NOGA-PW {url}")
+            try:
+                pg.goto(url, wait_until="domcontentloaded", timeout=60000)
+                for sel in ["text=קבלת עוגיות", "button:has-text('קבל')"]:
+                    try:
+                        pg.click(sel, timeout=4000)
+                        out("  clicked cookie accept")
+                        break
+                    except Exception:
+                        pass
+                pg.wait_for_timeout(9000)
+                txt = " ".join(pg.inner_text("main")[:1200].split()) if pg.query_selector("main") else ""
+                out("  main text:", txt[:700])
+                for resp in xhr[:12]:
+                    try:
+                        bb = resp.body()
+                    except Exception:
+                        bb = b""
+                    rh = resp.request.headers
+                    out(f"  XHR {resp.status} {resp.request.method} {resp.url[:160]} {len(bb)}B "
+                        f"reqhdr={ {k: v[:60] for k, v in rh.items() if k.lower() not in ('user-agent','accept-language','sec-ch-ua','sec-ch-ua-mobile','sec-ch-ua-platform')} }")
+                    out("      ", " ".join(bb[:400].decode("utf-8", "replace").split()))
+            except Exception as e:
+                out(f"  ERROR {type(e).__name__}: {str(e)[:200]}")
+            pg.close()
+        b.close()
+
+
+def round3():
+    out("##### ISRAEL")
+    js_endpoints("https://www.noga-iso.co.il/systemoperationunit/demand-curve/", r"umbraco/Noga|recaptcha|grecaptcha\.execute")
+    js_endpoints("https://www.noga-iso.co.il/systemoperationunit/piechartspage/", r"umbraco/Noga")
+    for path in ["DemandGraph/Get?date=2026-10-10", "PieCharts/Get?date=2026-10-10",
+                 "ProductionMix/Get?date=2026-10-10"]:
+        try_api("https://www.noga-iso.co.il/umbraco/Noga/" + path,
+                {"Referer": "https://www.noga-iso.co.il/systemoperationunit/demand-curve/",
+                 "X-Requested-With": "XMLHttpRequest", "Accept": "application/json"})
+    noga_pw()
+    out("\n--- CBS series API")
+    for u in ["https://apis.cbs.gov.il/series/catalog/level?id=1&format=json&download=false",
+              "https://apis.cbs.gov.il/series/catalog/level?id=2&format=json&download=false&subject=",
+              "https://apis.cbs.gov.il/series/catalog/subjects?format=json"]:
+        try_api(u, n=1500)
+    out("\n--- gov.il open API host")
+    for u in ["https://openapi-gc.digital.gov.il/pub/cio/govil/rest/landingpage/v1/he/api/topics/get/natural_gas_sector",
+              "https://openapi-gc.digital.gov.il/pub/cio/govil/rest/landingpage/v1/en/api/departments/get/ministry_of_energy",
+              "https://www.gov.il/CollectorsWebApi/api/DataCollector/GetResults?CollectorType=reports&officeId=4c3b0a6f-5ac8-4b6c-a0a0-0b2b1d2d5b5c&skip=0&limit=10"]:
+        try_api(u, n=800)
+
+    out("\n##### EGYPT")
+    pdf_text("https://egyptera.org/ar/download/Report/Elec_ob_May2023.pdf", pages=5)
+    pdf_text("https://egyptera.org/en/download/Report/Elec_Ob_August2022.pdf", pages=5)
+    pdf_text("https://egyptera.org/en/download/report/AnnualRep2021.pdf", pages=0)
+    for u in ["https://www.capmas.gov.eg:8080/api/Subject",
+              "https://www.capmas.gov.eg:8080/api/PublicationDetail/HomePublicationDetail"]:
+        try_api(u, n=3000)
+    js_endpoints("https://www.capmas.gov.eg/", r"[\"'`]/?api/[A-Za-z/]+")
+    pw_pages(["https://www.eehc.gov.eg/CMSeehc/", "http://www.moee.gov.eg/english_new/home.aspx",
+              "https://www.capmas.gov.eg/data"])
+    for u in ["https://www.eetc.net.eg/", "http://eetc.net.eg/"]:
+        page(u)
+
+
 if __name__ == "__main__":
-    round2()
+    round3()
