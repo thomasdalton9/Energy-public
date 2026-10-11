@@ -243,7 +243,39 @@ def maya():
                 print("     |", s)
 
 
+MAYA_IDS = {  # Tamar Petroleum (MAYA company 1689) periodic and quarterly reports, from the round-2 list
+    1439425: "FY2021", 1452131: "Q1 2022", 1471381: "H1 2022", 1487746: "Q3 2022", 1512794: "FY2022",
+    1523849: "Q1 2023", 1542518: "H1 2023", 1559274: "Q3 2023", 1581015: "FY2023", 1593830: "Q1 2024",
+    1611624: "H1 2024", 1628348: "Q3 2024", 1652267: "FY2024", 1412039: "Q3 2021"}
+
+
+def maya_files():
+    for rid, lab in MAYA_IDS.items():
+        lo = (rid - 1) // 1000 * 1000 + 1
+        for k in range(0, 6):
+            url = f"https://mayafiles.tase.co.il/rpdf/{lo}-{lo + 999}/P{rid}-{k:02d}.pdf"
+            try:
+                r = requests.get(url, headers=UA, timeout=240)
+            except Exception as e:  # noqa: BLE001
+                print("   ERR", url, e)
+                break
+            if r.status_code != 200 or not r.content.startswith(b"%PDF"):
+                print(f"   {lab} {url}: HTTP {r.status_code} {r.content[:60]!r}")
+                break
+            try:
+                t = pdf_text(r.content)
+            except Exception as e:  # noqa: BLE001
+                print("   PDF ERR", url, e)
+                continue
+            save(f"maya_{lab.replace(' ', '_')}_P{rid}-{k:02d}", t)
+            print(f"\n  == {lab} {url} ({len(r.content):,} B, {len(t):,} chars)")
+            for sn in snippets(t):
+                print("     |", sn)
+
+
 if __name__ == "__main__":
+    if ROUND == 4:
+        maya_files()
     if ROUND in (1, 2):
         try:
             maya()
