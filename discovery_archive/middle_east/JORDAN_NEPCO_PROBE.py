@@ -298,6 +298,109 @@ def round4():
                     print(f"  p{i+1} hits {h}: " + re.sub(r'\s+', ' ', t)[:160])
 
 
+def page_targets(html):
+    return {int(n): t for t, n in re.findall(r"__doPostBack\(&#39;([^&]+)&#39;,&#39;&#39;\)[\"']>\s*(\d+)\s*<", html)}
+
+
+def month_rows2(sess, y, m, verbose=False):
+    r = maxload_query(sess, 1, m, y, 31, m, y)
+    html = r.text
+    got = dict(rows(html))
+    pg = 1
+    while True:
+        t = page_targets(html)
+        if verbose:
+            print("   targets", sorted(t)[:12])
+        if pg + 1 not in t:
+            break
+        f = hidden(html)
+        f.update({"__EVENTTARGET": t[pg + 1], "__EVENTARGUMENT": ""})
+        for k, v in [("txtDayFrom", 1), ("fromMonth", m), ("txtYearFrom", y), ("txtDayTo", 31), ("toMonth", m), ("txtYearTo", y)]:
+            f[P + k] = str(v)
+        r = sess.post(ML, data=f, headers=H, timeout=60, verify=False)
+        html = r.text
+        new = dict(rows(html))
+        if verbose:
+            print("   page", pg + 1, list(new.items())[:3])
+        if not set(new) - set(got):
+            break
+        got.update(new)
+        pg += 1
+    return got
+
+
+def pages_text(fn, pagelist, n=3500):
+    import pdfplumber
+    with pdfplumber.open(fn) as pdf:
+        for i in pagelist:
+            if i - 1 < len(pdf.pages):
+                print(f"\n----- {fn} p{i}\n" + (pdf.pages[i - 1].extract_text() or "")[:n])
+
+
+def kw_pages(fn, kw, minhits=3, maxshow=8, n=2500):
+    import pdfplumber
+    shown = 0
+    with pdfplumber.open(fn) as pdf:
+        print(f"\n##### {fn} pages {len(pdf.pages)}")
+        for i, pg in enumerate(pdf.pages):
+            t = pg.extract_text() or ""
+            h = len(re.findall(kw, t, re.I))
+            if h >= minhits and shown < maxshow:
+                shown += 1
+                print(f"\n----- p{i+1} hits {h}\n" + t[:n])
+
+
+def save(url, fn, timeout=180):
+    import os
+    os.makedirs("probe_out", exist_ok=True)
+    r, how = fetch(url, timeout=timeout)
+    print("SAVE", url, how if r is None else (len(r.content), r.headers.get("content-type"), r.headers.get("last-modified")), flush=True)
+    if r is None:
+        return None
+    open("probe_out/" + fn, "wb").write(r.content)
+    return "probe_out/" + fn
+
+
+def round5():
+    s = requests.Session()
+    g = month_rows2(s, 2026, 9, verbose=True)
+    print("2026-09", len(g), sorted(g)[:40])
+    for y, m in [(2019, 11), (2019, 12), (2020, 1), (2023, 8), (2025, 8)]:
+        g = month_rows2(s, y, m)
+        ks = sorted(g, key=lambda d: d[6:] + d[3:5] + d[:2])
+        print(f"{y}-{m:02d}: {len(g)} days; {[k[:2] for k in ks]}; max {max(map(float, g.values())) if g else None}", flush=True)
+    # NEPCO annual report tables
+    f24 = save("https://www.nepco.com.jo/store/DOCS/web/2024_EN.pdf", "n24.pdf")
+    pages_text(f24, [25, 29, 30, 37])
+    kw_pages(f24, r'January|February|Monthly|monthly', minhits=3, maxshow=4, n=1500)
+    f10 = save("https://www.nepco.com.jo/store/docs/web/2010_en.pdf", "n10.pdf")
+    pages_text(f10, [19, 20, 21], n=2000)
+    r = page("https://nepco.com.jo/AnnualReports.aspx", n=100, nl=0)
+    if r is not None:
+        print("  AR links", sorted(set(re.findall(r'href="([^"]*store[^"]+)"', r.text, re.I))))
+    # MEMR
+    base = "https://www.memr.gov.jo/ebv4.0/root_storage/en/eb_list_page/"
+    for fn in ["jordan_energy_balance.pdf", "electricity_consumption.pdf", "general_indecators.pdf"]:
+        f = save(base + fn, fn)
+        if f:
+            kw_pages(f, r'GWh|ktoe|gas|electric|Egypt|LNG|generat', minhits=2, maxshow=4, n=2500)
+    f = save(base + "annual_report_2024.pdf", "memr24.pdf")
+    if f:
+        kw_pages(f, r'natural gas|LNG|Egypt|Aqaba|MMSCF|BCM|GWh|generat|Leviathan|Israel|Noble', minhits=4, maxshow=8, n=2200)
+    for u in ["https://www.memr.gov.jo/En/List/Energy_Balance", "https://www.memr.gov.jo/En/Pages/Energy_Balance",
+              "https://www.memr.gov.jo/En/List/Open_Data", "https://www.memr.gov.jo/Ar/List/الدراسات_والاحصائيات"]:
+        page(u, n=300, nl=40)
+    # EMRC
+    for u in ["https://www.emrc.gov.jo/EN/Pages/Electricity_Sector", "https://www.emrc.gov.jo/En/List/Open_Data",
+              "https://www.emrc.gov.jo/En/List/Annual_Reports", "https://www.emrc.gov.jo/En/Pages/Open_Data",
+              "https://www.emrc.gov.jo/Ar/List/التقارير_السنوية"]:
+        page(u, n=300, nl=50)
+    # DOS
+    for u in ["https://jorinfo.dos.gov.jo/Databank/pxweb/en/DOS_Database/", "https://dosweb.dos.gov.jo/industry/industry-and-energy/",
+              "https://jorinfo.dos.gov.jo/View_ind/ind_en.aspx", "https://jorinfo.dos.gov.jo/Databank/pxweb/en/Environment/"]:
+        page(u, n=800, nl=50)
+
+
 if __name__ == "__main__":
     rnd = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     globals()[f"round{rnd}"]()
