@@ -432,10 +432,14 @@ def round6():
     miss = [dt.date(2025, 1, 1) + dt.timedelta(i) for i in range(365)]
     miss = [d for d in miss if d.strftime("%d/%m/%Y") not in have]
     print("2025 missing", len(miss), collections.Counter(d.strftime("%a") for d in miss))
+    round6b()
+
+
+def round6b():
     # NEPCO annual reports: 2025, Arabic
     for u in ["https://www.nepco.com.jo/store/DOCS/web/2025_EN.pdf", "https://www.nepco.com.jo/store/DOCS/web/2025_AR.pdf",
               "https://www.nepco.com.jo/store/DOCS/web/2024_AR.pdf", "https://www.nepco.com.jo/store/docs/web/2024_ar.pdf"]:
-        r, how = fetch(u, method="HEAD") if False else fetch(u, timeout=60)
+        r, how = fetch(u, timeout=60)
         print("AR?", u, how if r is None else (len(r.content), r.headers.get("content-type"), r.headers.get("last-modified")))
     f24 = save("https://www.nepco.com.jo/store/DOCS/web/2024_EN.pdf", "n24.pdf")
     kw_pages(f24, r'Export|Exported|Lebanon|Palestin|Iraq|Syria', minhits=3, maxshow=5, n=1800)
@@ -482,6 +486,49 @@ def round6():
     f = save("https://opendata.gov.jo/dataset/MIGRATED-2170-2023/resource/6e1f8110-cb08-46ac-98fd-1200b5754d04/download/-2023.pdf", "od_system.pdf")
     if f:
         pages_text(f, [1, 2, 3], n=1200)
+
+
+def round7():
+    """Run the document checks first, then a THROTTLED daily-peak scan (3 s between requests)."""
+    import calendar, collections
+    try:
+        round6b()
+    except Exception as e:
+        print("round6b ERR", e)
+    s = requests.Session()
+    allrows = {}
+    t0 = time.time()
+    for y in range(2020, 2027):
+        for m in range(1, 13):
+            if (y, m) > (2026, 10) or time.time() - t0 > 2400:
+                continue
+            nd = calendar.monthrange(y, m)[1]
+            got = {}
+            note = ""
+            for d1, d2 in [(1, 9), (10, 18), (19, 27), (28, nd)]:
+                time.sleep(3)
+                try:
+                    r = maxload_query(s, d1, m, y, d2, m, y)
+                    rr = dict(rows(r.text))
+                    if "Max Load" not in r.text:
+                        note += " NOTABLE"
+                    if len(rr) >= 10:
+                        note += " FULL"
+                    got.update(rr)
+                except Exception as e:
+                    note += " ERR:" + type(e).__name__
+                    time.sleep(20)
+            allrows.update(got)
+            ks = sorted(got)
+            vals = [float(v) for v in got.values()]
+            print(f"{y}-{m:02d}: {len(got)}/{nd} days, max {max(vals) if vals else None} min {min(vals) if vals else None}{note} ({time.time()-t0:.0f}s)", flush=True)
+    import datetime as dt
+    for y in (2024, 2025):
+        days = [dt.date(y, 1, 1) + dt.timedelta(i) for i in range(366 if y == 2024 else 365)]
+        miss = [d for d in days if d.strftime("%d/%m/%Y") not in allrows]
+        print(y, "missing", len(miss), collections.Counter(d.strftime("%a") for d in miss))
+    big = {k: v for k, v in allrows.items() if float(v) > 5000 or float(v) < 1000}
+    print("outliers", big)
 
 
 if __name__ == "__main__":

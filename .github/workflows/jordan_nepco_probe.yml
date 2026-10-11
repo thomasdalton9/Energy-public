@@ -10,7 +10,7 @@ on:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,7 +22,7 @@ jobs:
           playwright install --with-deps chromium
           sudo apt-get install -y -q tesseract-ocr tesseract-ocr-ara >/dev/null
       - name: Run probe
-        run: timeout 2100 python3 discovery_archive/middle_east/JORDAN_NEPCO_PROBE.py ${{ github.event.inputs.round }}
+        run: timeout 3900 python3 discovery_archive/middle_east/JORDAN_NEPCO_PROBE.py ${{ github.event.inputs.round }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
