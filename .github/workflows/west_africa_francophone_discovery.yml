@@ -1,0 +1,22 @@
+name: West Africa francophone discovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [west-africa-francophone-discovery]
+    paths: [discovery_archive/rest_of_world/WEST_AFRICA_FRANCOPHONE_DISCOVERY*.py]
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - name: Run probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1100 python3 discovery_archive/rest_of_world/WEST_AFRICA_FRANCOPHONE_DISCOVERY.py
