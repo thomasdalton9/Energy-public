@@ -33,6 +33,11 @@ Combinado, Combustion Interna, Geotermoelectrica, Hidroelectrica,
 Nucleoelectrica, Termica Convencional, Turbo Gas. L0 for August 2026
 was published 14/09/2026. Run 4 downloads multi-month ranges to see
 settlements and old layouts.
+RUN 4: a range click returns every month in it (Apr 2016-Dec 2017 and
+Jan 2025-Aug 2026 each in ~1 s; 2.2 MB for 20 months). Settlements L0-L3
+per month (2016-17 also partial L4-L6 for single days); one header
+layout throughout. Sep-Dec 2025 were MISSING from the Jan 2025-Aug 2026
+ZIP. Production: americas/MEXICO_CENACE_GENERATION.py.
 
 Workflow (manual): discovery_archive/workflows/mexico_cenace_generation_probe.yml.
 """
