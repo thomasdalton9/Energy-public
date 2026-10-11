@@ -1,0 +1,233 @@
+STARTING
+Year pages: [(2022, '47-2022'), (2023, '67-2023'), (2024, '69-2024'), (2025, '72-2025'), (2026, '76-2026')]
+214 PDFs listed, 214 to read
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+  [7s] 421 Weekly Electricity Statistics Analysis (April 2022) - Week 1.pdf: 19 plants x 7 days 2022-04-01..2022-04-07
+  [8s] 422 Weekly Electricity Statistics Analysis (April 2022) - Week 2.pdf: 19 plants x 7 days 2022-04-08..2022-04-14
+  423: FAILED ValueError: no generation table
+  [9s] 424 Weekly Electricity Statistics Analysis (April 2022) - Week 4.pdf: 19 plants x 9 days 2022-04-22..2022-04-30
+  [10s] 425 Weekly Electricity Statistics Analysis (August 2022) - Week 1.pdf: 19 plants x 7 days 2022-08-01..2022-08-07
+  [10s] 426 Weekly Electricity Statistics Analysis (August 2022) - Week 2.pdf: 19 plants x 7 days 2022-08-08..2022-08-14
+  427: FAILED ValueError: no generation table
+  [11s] 428 Weekly Electricity Statistics Analysis (August 2022) - Week 4.pdf: 19 plants x 10 days 2022-08-22..2022-08-31
+  [12s] 429 Weekly Electricity Statistics Analysis (December 2022) - Week 1.pdf: 19 plants x 7 days 2022-12-01..2022-12-07
+  [13s] 430 Weekly Electricity Statistics Analysis (December 2022) - Week 2.pdf: 19 plants x 7 days 2022-12-08..2022-12-14
+  431: FAILED ValueError: no generation table
+  432: FAILED ValueError: Can only compare identically-labeled Series objects
+  [14s] 433 Weekly Electricity Statistics Analysis (February 2022) - Week 1.pdf: 19 plants x 7 days 2021-02-01..2021-02-07
+  [15s] 434 Weekly Electricity Statistics Analysis (February 2022) - Week 2.pdf: 19 plants x 7 days 2021-02-08..2021-02-14
+  435: FAILED ValueError: no generation table
+  [16s] 436 Weekly Electricity Statistics Analysis (February 2022) - Week 4.pdf: 1 plants x 7 days 2022-02-22..2022-02-28
+  [17s] 437 Weekly Electricity Statistics Analysis (January 2022) - Week 1.pdf: 19 plants x 7 days 2021-01-01..2021-01-07
+  [17s] 438 Weekly Electricity Statistics Analysis (January 2022) - Week 2.pdf: 19 plants x 7 days 2021-01-08..2021-01-14
+  439: FAILED ValueError: no generation table
+  [19s] 440 Weekly Electricity Statistics Analysis (January 2022) - Week 4.pdf: 19 plants x 10 days 2022-01-22..2022-01-31
+  [20s] 441 Weekly Electricity Statistics Analysis (July 2022) - Week 1.pdf: 19 plants x 7 days 2022-07-01..2022-07-07
+  [21s] 442 Weekly Electricity Statistics Analysis (July 2022) - Week 2.pdf: 19 plants x 7 days 2022-07-08..2022-07-14
+  443: FAILED ValueError: no generation table
+  444: FAILED ValueError: Can only compare identically-labeled Series objects
+  [23s] 445 Weekly Electricity Statistics Analysis (June 2022) - Week 1.pdf: 19 plants x 7 days 2022-06-01..2022-06-07
+  [24s] 446 Weekly Electricity Statistics Analysis (June 2022) - Week 2.pdf: 19 plants x 7 days 2022-06-08..2022-06-14
+  447: FAILED ValueError: no generation table
+  [25s] 448 Weekly Electricity Statistics Analysis (June 2022) - Week 4.pdf: 19 plants x 9 days 2022-06-22..2022-06-30
+  [25s] 449 Weekly Electricity Statistics Analysis (March 2022) - Week 1.pdf: 19 plants x 7 days 2022-03-01..2022-03-07
+  [26s] 450 Weekly Electricity Statistics Analysis (March 2022) - Week 2.pdf: 19 plants x 7 days 2022-03-08..2022-03-14
+  451: FAILED ValueError: no generation table
+  [27s] 452 Weekly Electricity Statistics Analysis (March 2022) - Week 4.pdf: 19 plants x 10 days 2022-03-22..2022-03-31
+  453: FAILED ValueError: Can only compare identically-labeled Series objects
+  454: FAILED ValueError: no generation table
+  [29s] 455 Weekly Electricity Statistics Analysis (May 2022) - Week 4.pdf: 19 plants x 10 days 2022-05-22..2022-05-31
+  [31s] 456 Weekly Electricity Statistics Analysis (November 2022) - Week 1.pdf: 19 plants x 7 days 2022-11-01..2022-11-07
+  [31s] 457 Weekly Electricity Statistics Analysis (November 2022) - Week 2.pdf: 19 plants x 7 days 2022-11-08..2022-11-14
+  458: FAILED ValueError: no generation table
+  [32s] 459 Weekly Electricity Statistics Analysis (November 2022) - Week 4.pdf: 19 plants x 9 days 2022-11-22..2022-11-30
+  [33s] 460 Weekly Electricity Statistics Analysis (October 2022) - Week 1.pdf: 19 plants x 7 days 2022-10-01..2022-10-07
+  [33s] 461 Weekly Electricity Statistics Analysis (October 2022) - Week 2.pdf: 19 plants x 7 days 2022-10-08..2022-10-14
+  462: FAILED ValueError: no generation table
+  463: FAILED ValueError: Can only compare identically-labeled Series objects
+  [35s] 464 Weekly Electricity Statistics Analysis (September 2022) - Week 1.pdf: 19 plants x 7 days 2022-09-01..2022-09-07
+  [35s] 465 Weekly Electricity Statistics Analysis (September 2022) - Week 2.pdf: 19 plants x 7 days 2022-09-08..2022-09-14
+  466: FAILED ValueError: no generation table
+  [36s] 645 Weekly Electricity Statistics Analysis (January 2024) - pdf week 1.pdf: 19 plants x 7 days 2024-01-01..2024-01-07
+  [37s] 646 Weekly Electricity Statistics Analysis (January 2023) - Week 2.pdf: 19 plants x 7 days 2023-01-08..2023-01-14
+  647: FAILED ValueError: no generation table
+  648: FAILED ValueError: Can only compare identically-labeled Series objects
+  [38s] 649 Weekly Electricity Statistics Analysis (February 2023) - Week 1.pdf: 19 plants x 7 days 2023-02-01..2023-02-07
+  [39s] 650 Weekly Electricity Statistics Analysis (February 2023) - Week 2.pdf: 19 plants x 7 days 2023-02-08..2023-02-14
+  651: FAILED ValueError: no generation table
+  [40s] 652 Weekly Electricity Statistics Analysis (February 2023) - Week 4.pdf: 19 plants x 7 days 2023-02-22..2023-02-28
+  [41s] 653 Weekly Electricity Statistics Analysis (March 2023) - Week 1.pdf: 19 plants x 7 days 2023-03-01..2023-03-07
+  [41s] 654 Weekly Electricity Statistics Analysis (March 2023) - Week 2.pdf: 19 plants x 7 days 2023-03-08..2023-03-14
+  655: FAILED ValueError: no generation table
+  [42s] 656 Weekly Electricity Statistics Analysis (March 2023) - Week 4.pdf: 19 plants x 10 days 2023-03-22..2023-03-31
+  [43s] 657 Weekly Electricity Statistics Analysis (April 2023) - Week 1.pdf: 19 plants x 7 days 2023-04-01..2023-04-07
+  [43s] 658 Weekly Electricity Statistics Analysis (April 2023) - Week 2.pdf: 19 plants x 7 days 2023-04-08..2023-04-14
+  659: FAILED ValueError: no generation table
+  [44s] 660 Weekly Electricity Statistics Analysis (April 2023) - Week 4.pdf: 19 plants x 9 days 2023-04-22..2023-04-30
+  [44s] 661 Weekly Electricity Statistics Analysis (May 2023) - Week 1.pdf: 19 plants x 7 days 2023-05-01..2023-05-07
+  [45s] 662 Weekly Electricity Statistics Analysis (May 2023) - Week 2.pdf: 19 plants x 7 days 2023-05-08..2023-05-14
+  663: FAILED ValueError: no generation table
+  [46s] 664 Weekly Electricity Statistics Analysis (May 2023) - Week 4.pdf: 19 plants x 10 days 2023-05-22..2023-05-31
+  [47s] 665 Weekly Electricity Statistics Analysis (June 2023) - Week 1.pdf: 19 plants x 7 days 2023-06-01..2023-06-07
+  [47s] 666 Weekly Electricity Statistics Analysis (June 2023) - Week 2.pdf: 19 plants x 7 days 2023-06-08..2023-06-14
+  667: FAILED ValueError: no generation table
+  [48s] 668 Weekly Electricity Statistics Analysis (June 2023) - Week 4.pdf: 19 plants x 9 days 2023-06-22..2023-06-30
+  [48s] 669 Weekly Electricity Statistics Analysis (July 2023) - Week 1.pdf: 19 plants x 7 days 2023-07-01..2023-07-07
+  [49s] 670 Weekly Electricity Statistics Analysis (July 2023) - Week 2.pdf: 19 plants x 7 days 2023-07-08..2023-07-14
+  671: FAILED ValueError: no generation table
+  [50s] 672 Weekly Electricity Statistics Analysis (July 2023) - Week 4.pdf: 19 plants x 10 days 2023-07-22..2023-07-31
+  [50s] 673 Weekly Electricity Statistics Analysis (August 2023) - Week 1.pdf: 19 plants x 7 days 2023-08-01..2023-08-07
+  [51s] 674 Weekly Electricity Statistics Analysis (August 2023) - Week 2.pdf: 19 plants x 7 days 2023-08-08..2023-08-14
+  675: FAILED ValueError: no generation table
+  [51s] 676 Weekly Electricity Statistics Analysis (August 2023) - Week 4.pdf: 19 plants x 10 days 2023-08-22..2023-08-31
+  [52s] 677 Weekly Electricity Statistics Analysis (Sept 2023) - Week 1.pdf: 19 plants x 7 days 2023-09-01..2023-09-07
+  [52s] 678 Weekly Electricity Statistics Analysis (Sept 2023) - Week 2.pdf: 19 plants x 7 days 2023-09-08..2023-09-14
+  679: FAILED ValueError: no generation table
+  680: FAILED ValueError: no generation table
+  [54s] 681 Weekly Electricity Statistics Analysis (October 2023) - Week 1.pdf: 19 plants x 7 days 2023-10-01..2023-10-07
+  [54s] 682 Weekly Electricity Statistics Analysis (October 2023) - Week 2.pdf: 19 plants x 7 days 2023-10-08..2023-10-14
+  683: FAILED ValueError: no generation table
+  [55s] 684 Weekly Electricity Statistics Analysis (October 2023) - Week 4.pdf: 19 plants x 10 days 2023-10-22..2023-10-31
+  [55s] 685 Weekly Electricity Statistics Analysis (Nov 2023) - Week 1.pdf: 19 plants x 7 days 2023-11-01..2023-11-07
+  [56s] 686 Weekly Electricity Statistics Analysis (Nov 2023) - Week 2.pdf: 19 plants x 7 days 2023-11-08..2023-11-14
+  687: FAILED ValueError: no generation table
+  [57s] 688 Weekly Electricity Statistics Analysis (Nov 2023) - Week 4.pdf: 19 plants x 9 days 2023-11-22..2023-11-30
+  [57s] 689 Weekly Electricity Statistics Analysis (Dec 2023) - Week 1.pdf: 19 plants x 7 days 2023-12-01..2023-12-07
+  [58s] 690 Weekly Electricity Statistics Analysis (Dec 2023) - Week 2.pdf: 19 plants x 7 days 2023-12-08..2023-12-14
+  691: FAILED ValueError: no generation table
+  [59s] 692 Weekly Electricity Statistics Analysis (Dec 2023) - Week 4.pdf: 19 plants x 10 days 2023-12-22..2023-12-31
+  [59s] 698 Weekly Electricity Statistics Analysis (January 2024) - pdf week 2.pdf: 19 plants x 7 days 2024-01-08..2024-01-14
+  699: FAILED ValueError: no generation table
+  700: FAILED ValueError: Can only compare identically-labeled Series objects
+  [61s] 701 Weekly Electricity Statistics Analysis (February 2024) - pdf week 1.pdf: 19 plants x 7 days 2024-02-01..2024-02-07
+  [61s] 702 Weekly Electricity Statistics Analysis (February 2024) - pdf week 2.pdf: 19 plants x 7 days 2024-02-08..2024-02-14
+  703: FAILED ValueError: no generation table
+  [62s] 704 Weekly Electricity Statistics Analysis (February 2024) - pdf week 4.pdf: 19 plants x 7 days 2024-02-22..2024-02-29
+  [63s] 705 Weekly Electricity Statistics Analysis (March 2024) - pdf week 1.pdf: 19 plants x 7 days 2024-03-01..2024-03-07
+  [64s] 706 Weekly Electricity Statistics Analysis (March 2024) - pdf week 2.pdf: 19 plants x 7 days 2024-03-08..2024-03-14
+  707: FAILED ValueError: no generation table
+  [65s] 708 Weekly Electricity Statistics Analysis (March 2024) - pdf week 4.pdf: 19 plants x 10 days 2024-03-22..2024-03-31
+  [65s] 709 Weekly Electricity Statistics Analysis (April 2024) - pdf week 1.pdf: 19 plants x 7 days 2024-04-01..2024-04-07
+  [66s] 710 Weekly Electricity Statistics Analysis (April 2024) - pdf week 2.pdf: 19 plants x 7 days 2024-04-08..2024-04-14
+  711: FAILED ValueError: no generation table
+  [67s] 712 Weekly Electricity Statistics Analysis (April 2024) - pdf week 4.pdf: 19 plants x 9 days 2024-04-22..2024-04-30
+  [67s] 713 Weekly Electricity Statistics Analysis (May 2024) - pdf week 1.pdf: 19 plants x 7 days 2024-05-01..2024-05-07
+  [68s] 714 Weekly Electricity Statistics Analysis (May 2024) - pdf week 2.pdf: 19 plants x 7 days 2024-05-08..2024-05-14
+  715: FAILED ValueError: no generation table
+  [69s] 716 Weekly Electricity Statistics Analysis (May 2024) - pdf week 4.pdf: 19 plants x 10 days 2024-05-22..2024-05-31
+  744: FAILED ValueError: no generation table
+  [70s] 745 Weekly Electricity Statistics Analysis (June 2024) - week 2.pdf: 19 plants x 7 days 2024-06-08..2024-06-14
+  746: FAILED ValueError: no generation table
+  [71s] 747 Weekly Electricity Statistics Analysis (June 2024) - week 4.pdf: 19 plants x 9 days 2024-06-22..2024-06-30
+  [71s] 748 Weekly Electricity Statistics Analysis (July 2024) - week 1.pdf: 19 plants x 7 days 2024-07-01..2024-07-07
+  [72s] 749 Weekly Electricity Statistics Analysis (July 2024) - week 2.pdf: 19 plants x 7 days 2024-07-08..2024-07-14
+  [72s] 750 Weekly Electricity Statistics Analysis (July 2024) - week 3.pdf: 19 plants x 6 days 2024-07-15..2024-07-21
+  [73s] 751 Weekly Electricity Statistics Analysis (July 2024) - week 4.pdf: 19 plants x 10 days 2024-07-22..2024-07-31
+  [73s] 752 Weekly Electricity Statistics Analysis (August 2024) - week 1.pdf: 19 plants x 7 days 2024-08-01..2024-08-07
+  [74s] 753 Weekly Electricity Statistics Analysis (August 2024) - week 2.pdf: 19 plants x 7 days 2024-08-08..2024-08-14
+  754: FAILED ValueError: no generation table
+  [75s] 755 Weekly Electricity Statistics Analysis (August 2024) - week 4.pdf: 19 plants x 10 days 2024-08-22..2024-08-31
+  [75s] 756 Weekly Electricity Statistics Analysis (Sept 2024) - week 1.pdf: 19 plants x 7 days 2024-09-01..2024-09-07
+  [76s] 757 Weekly Electricity Statistics Analysis (Sept 2024) - week 2.pdf: 19 plants x 6 days 2024-09-08..2024-09-14
+  758: FAILED ValueError: no generation table
+  [77s] 759 Weekly Electricity Statistics Analysis (Sept 2024) - week 4.pdf: 19 plants x 9 days 2024-09-22..2024-09-30
+  [77s] 760 Weekly Electricity Statistics Analysis (Oct 2024) - week 1.pdf: 19 plants x 7 days 2024-10-01..2024-10-07
+  [78s] 761 Weekly Electricity Statistics Analysis (Oct 2024) - week 2.pdf: 19 plants x 7 days 2024-10-08..2024-10-14
+  762: FAILED ValueError: no generation table
+  [79s] 763 Weekly Electricity Statistics Analysis (Oct 2024) - week 4.pdf: 19 plants x 10 days 2024-10-22..2024-10-31
+  [79s] 764 Weekly Electricity Statistics Analysis (Nov 2024) - week 1.pdf: 19 plants x 7 days 2024-11-01..2024-11-07
+  [80s] 765 Weekly Electricity Statistics Analysis (Nov 2024) - week 2.pdf: 19 plants x 7 days 2024-11-08..2024-11-14
+  766: FAILED ValueError: no generation table
+  [81s] 767 Weekly Electricity Statistics Analysis (Nov 2024) - week 4.pdf: 19 plants x 9 days 2024-11-22..2024-11-30
+  [81s] 768 Weekly Electricity Statistics Analysis (Nov 2024) - week 4.pdf: 19 plants x 9 days 2024-11-22..2024-11-30
+  [82s] 769 Weekly Electricity Statistics Analysis (Dec 2024) - week 1.pdf: 19 plants x 7 days 2024-12-01..2024-12-07
+  [82s] 770 Weekly Electricity Statistics Analysis (Dec 2024) - week 2.pdf: 19 plants x 7 days 2024-12-08..2024-12-14
+  771: FAILED ValueError: no generation table
+  [84s] 772 Weekly Electricity Statistics Analysis (Dec 2024) - week 4.pdf: 19 plants x 10 days 2024-12-22..2024-12-31
+  [84s] 785 Weekly Statistics January 2025 - Week 1.pdf: 20 plants x 7 days 2025-01-01..2025-01-07
+  [85s] 786 Weekly statistics January 2025 - Week 2.pdf: 20 plants x 7 days 2025-01-08..2025-01-14
+  787: FAILED ValueError: no generation table
+  [86s] 788 Weekly Statistics January 2025 - Week 4.pdf: 20 plants x 10 days 2025-01-22..2025-01-31
+  [86s] 789 Weekly Statistics February 2025 Week 1.pdf: 20 plants x 7 days 2025-02-01..2025-02-07
+  [87s] 790 weekly statistics February 2025 Week 2.pdf: 20 plants x 7 days 2025-02-08..2025-02-14
+  791: FAILED ValueError: no generation table
+  [88s] 792 Weekly Statistics February 2025 Week 4.pdf: 20 plants x 7 days 2025-02-22..2025-02-28
+  [88s] 793 Weekly Statistics March 2025 Week 1.pdf: 20 plants x 7 days 2025-03-01..2025-03-07
+  [89s] 794 Weekly Statistics March 2025 Week 2.pdf: 20 plants x 7 days 2025-03-08..2025-03-14
+  795: FAILED ValueError: no generation table
+  [90s] 796 Weekly statistics March 2025 Week 4.pdf: 20 plants x 10 days 2025-03-22..2025-03-31
+  [90s] 797 Weekly Statistics April 2025 Week 1.pdf: 20 plants x 7 days 2025-04-01..2025-04-07
+  [91s] 798 Weekly statistics April 2025 week 2.pdf: 20 plants x 7 days 2025-04-08..2025-04-14
+  799: FAILED ValueError: no generation table
+  [92s] 800 Weekly statistics April 2025 week 4.pdf: 20 plants x 9 days 2025-04-22..2025-04-30
+  [93s] 801 Weekly statistics May 2025 Week 1.pdf: 20 plants x 7 days 2025-05-01..2025-05-07
+  [93s] 802 Weekly statistics May 2025 Week 2.pdf: 20 plants x 7 days 2025-05-08..2025-05-14
+  803: FAILED ValueError: no generation table
+  804: FAILED ValueError: Can only compare identically-labeled Series objects
+  [95s] 805 Weekly Statistics June 2025 Week 1.pdf: 19 plants x 7 days 2025-06-01..2025-06-07
+  [95s] 806 Weekly Statistics June 2025 Week 2.pdf: 19 plants x 7 days 2025-06-08..2025-06-14
+  807: FAILED ValueError: no generation table
+  808: FAILED ValueError: Can only compare identically-labeled Series objects
+  [96s] 809 Weekly Statistics July 2025 Week 1.pdf: 19 plants x 7 days 2025-07-01..2025-07-07
+  [97s] 810 Weekly Statistics July 2025 Week 2.pdf: 19 plants x 7 days 2025-07-08..2025-07-14
+  811: FAILED ValueError: no generation table
+  [98s] 812 Weekly Statistics July 2025 Week 4.pdf: 19 plants x 10 days 2025-07-22..2025-07-31
+  [98s] 828 Weekly Statistics August 2025 - week 1.pdf: 19 plants x 7 days 2025-08-01..2025-08-07
+  [99s] 829 Weekly Statistics August 2025 - week 2.pdf: 19 plants x 7 days 2025-08-08..2025-08-14
+  830: FAILED ValueError: no generation table
+  [99s] 831 Weekly Statistics August 2025 - week 4.pdf: 19 plants x 10 days 2025-08-22..2025-08-31
+  [100s] 832 Weekly Statistics September 2025 - week 1 (revised).pdf: 19 plants x 7 days 2025-09-01..2025-09-07
+  833: FAILED ValueError: Can only compare identically-labeled Series objects
+  834: FAILED ValueError: no generation table
+  [101s] 835 Weekly Statistics September 2025 - week 4.pdf: 19 plants x 9 days 2025-09-22..2025-09-30
+  [102s] 836 Weekly Statistics October 2025 - week 1.pdf: 19 plants x 7 days 2025-10-01..2025-10-07
+  [102s] 837 Weekly Statistics October 2025 - week 2.pdf: 19 plants x 7 days 2025-10-08..2025-10-14
+  838: FAILED ValueError: no generation table
+  [103s] 839 Weekly Statistics October 2025 - week 4.pdf: 19 plants x 10 days 2025-10-22..2025-10-31
+  [104s] 840 Weekly Statistics November 2025 - week 1.pdf: 20 plants x 7 days 2025-11-01..2025-11-07
+  [104s] 841 Weekly Statistics November 2025 - week 2.pdf: 20 plants x 7 days 2025-11-08..2025-11-14
+  [105s] 842 Weekly Statistics November 2025 - week 3.pdf: 20 plants x 7 days 2025-11-08..2025-11-14
+  [105s] 843 Weekly Statistics November 2025 - week 4.pdf: 20 plants x 6 days 2025-11-15..2025-11-21
+  [106s] 844 Weekly Statistics December 2025 - week 1.pdf: 19 plants x 7 days 2025-12-01..2025-12-07
+  [106s] 845 Weekly Statistics December 2025 - week 2.pdf: 19 plants x 7 days 2025-10-08..2025-10-14
+  846: FAILED ValueError: no generation table
+  [107s] 847 Weekly Statistics December 2025 - week 4.pdf: 19 plants x 10 days 2025-12-22..2025-12-31
+  [108s] 860 Weekly Statistics January 2026 - Week 1.pdf: 21 plants x 7 days 2026-01-01..2026-01-07
+  [108s] 861 Weekly Statistics January 2026 - Week 2.pdf: 21 plants x 7 days 2026-01-08..2026-01-14
+  862: FAILED ValueError: no generation table
+  [109s] 863 Weekly Statistics January 2026 Week 4.pdf: 21 plants x 10 days 2026-01-22..2026-01-31
+  [110s] 864 Weekly Statistics February 2026 - Week 1.pdf: 21 plants x 7 days 2026-02-01..2026-02-07
+  [110s] 865 Weekly Statistics February 2026 - Week 2.pdf: 21 plants x 7 days 2026-02-08..2026-02-14
+  866: FAILED ValueError: no generation table
+  [111s] 867 Weekly Statistics February 2026 - Week 4.pdf: 21 plants x 7 days 2026-02-22..2026-02-28
+  [112s] 868 Weekly Statistics March 2026 - Week 1.pdf: 21 plants x 7 days 2026-03-01..2026-03-07
+  [112s] 869 Weekly Statistics March 2026 - Week 2.pdf: 21 plants x 7 days 2026-03-08..2026-03-14
+  870: FAILED ValueError: no generation table
+  [113s] 871 Weekly Statistics March 2026 -Week 4.pdf: 21 plants x 10 days 2026-03-22..2026-03-31
+  [113s] 872 Weekly Statistics April 2026 - Week 1.pdf: 21 plants x 7 days 2026-04-01..2026-04-07
+  [114s] 873 Weekly Statistics April 2026 - Week 2.pdf: 21 plants x 7 days 2026-04-08..2026-04-14
+  874: FAILED ValueError: no generation table
+  [115s] 875 Weekly Statistics April 2026 - Week 4.pdf: 21 plants x 9 days 2026-04-22..2026-04-30
+  [115s] 876 Weekly Statistics May 2026 - Week 1.pdf: 21 plants x 7 days 2026-05-01..2026-05-07
+  [116s] 877 Weekly Statistics May 2026 - Week 2.pdf: 21 plants x 7 days 2026-05-08..2026-05-14
+  878: FAILED ValueError: no generation table
+  879: FAILED ValueError: Can only compare identically-labeled Series objects
+  [117s] 880 Weekly Statistics June 2026 - Week 1.pdf: 21 plants x 7 days 2026-06-01..2026-06-07
+  [118s] 881 Weekly Statistics June 2026 - Week 2.pdf: 21 plants x 7 days 2026-06-08..2026-06-14
+  882: FAILED ValueError: no generation table
+  [119s] 883 Weekly Statistics June 2026 -Week 4.pdf: 21 plants x 9 days 2026-06-22..2026-06-30
+Saved 1126 days 2021-01-01..2026-06-30; files ok 150, failed 64, check failed 0
+            Hydro_GWh  Thermal_GWh  Solar_GWh  Import_GWh  Total_GWh
+date                                                                
+2025-07-01      487.0       1086.0        7.0         0.0     1580.0
+2025-08-01      459.0       1069.0        6.0         0.0     1534.0
+2025-09-01      334.0        767.0        6.0         0.0     1108.0
+2025-10-01      530.0       1076.0       14.0         0.0     1620.0
+2025-11-01      489.0       1021.0       17.0         0.0     1527.0
+2025-12-01      431.0        876.0       10.0         0.0     1316.0
+2026-01-01      570.0       1436.0       14.0         0.0     2019.0
+2026-02-01      533.0       1222.0       13.0        15.0     1782.0
+2026-03-01      628.0       1410.0       15.0         0.0     2053.0
+2026-04-01      448.0       1422.0       13.0         0.0     1883.0
+2026-05-01      318.0        853.0        9.0         1.0     1181.0
+2026-06-01      449.0       1366.0       14.0         0.0     1828.0
