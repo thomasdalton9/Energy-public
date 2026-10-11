@@ -2067,6 +2067,132 @@ def canada_power(p):
     return out
 
 
+def _monthly_gwh(d, cols_map, start="2019-01-01", gw=False):
+    """Daily MWh columns -> complete months, columns renamed by cols_map {source column: label}. GWh per month, or with
+    gw=True the month's average power in GW (energy / hours in the month)."""
+    d = d[cols(d, *cols_map)].apply(pd.to_numeric, errors="coerce")
+    m = complete_months(d, d.resample("MS").sum(min_count=1) / 1000)
+    m = m[m.index >= start].rename(columns=cols_map).dropna(how="all")
+    return m.div(m.index.days_in_month * 24.0, axis=0) if gw else m
+
+
+def canada_provinces(p):
+    """Provincial grid-operator pulls (canada_provinces_power.py): Quebec generation by source and demand (Hydro-Quebec),
+    Alberta net generation by group (AESO) with pool price and demand, BC Hydro control-area load, NB Power load and net
+    exports, Quebec reservoir levels (daily line until a year of history exists, then the Oct-Sep water-year chart)."""
+    out = []
+    q = _sheet(p, "Quebec", "date")
+    if not q.empty:
+        names = {"Hydro_MWh": "Hydro", "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Thermal_MWh": "Thermal",
+                 "Other_MWh": "Other", "Demand_MWh": "Demand"}
+        g = _monthly_gwh(q, names, gw=True)
+        if not g.empty:
+            out.append(spec("Quebec generation", g, "Quebec power generation by source and demand (Hydro-Quebec)",
+                            "GW (monthly average)", "stacked_bar", line_cols=("Demand",) if "Demand" in g else ()))
+    a = _sheet(p, "Alberta", "date")
+    snaps = _sheet(p, "Alberta snapshots", "utc")
+    hourly = _sheet(p, "Alberta hourly", "hour_ending")
+    names = {"Gas_MW": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MW": "Hydro",
+             "Wind_MW": "Wind", "Solar_MW": "Solar", "Other_MW": "Other"}
+    if not a.empty and "Coal_MW" in a:
+        names["Coal_MW"] = "Coal"
+    dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 1000 if not a.empty else pd.DataFrame()
+    dd = dd.dropna(how="all").tail(120)
+    if len(dd) >= 2:   # one AESO snapshot a day (instantaneous MW), not a daily mean
+        out.append(spec("Alberta generation", dd,
+                        "Alberta net generation by group, one AESO snapshot a day (not a daily mean)", "GW",
+                        "stacked_bar", date_format="%Y-%m-%d"))
+    if len(hourly) >= 2:
+        h = hourly.apply(pd.to_numeric, errors="coerce").tail(168)
+        ail = (h[["AIL_MW"]] / 1000).rename(columns={"AIL_MW": "Demand (AIL), GW"})
+        out.append(spec("Alberta demand", ail, "Alberta internal load, hourly (AESO)", "GW", "line",
+                        date_format="%Y-%m-%d %H:%M"))
+        pr = h[["Pool price (CAD per MWh)"]].rename(columns={"Pool price (CAD per MWh)": "Pool price"})
+        out.append(spec("Alberta price", pr, "Alberta pool price, hourly (AESO)", "CAD per MWh", "line",
+                        date_format="%Y-%m-%d %H:%M"))
+    lv = _sheet(p, "Quebec reservoirs", "date")
+    if not lv.empty:
+        lvn = lv.apply(pd.to_numeric, errors="coerce")
+        deep = [c for c in lvn.columns if lvn[c].dropna().size >= 365]
+        for c in deep:   # a year of days: Oct-Sep water-year chart
+            label = str(c).replace(" level_m", "")
+            out.append({"name": f"Quebec {label}", "water_year": lvn[c].dropna().resample("D").interpolate(),
+                        "y_decimals": 1, "title": f"Quebec, {label} reservoir level (Hydro-Quebec)",
+                        "units": "m above sea level", "sheet": f"Water year - {label}"[:31]})
+        rest = lvn.drop(columns=deep).dropna(how="all", axis=1)
+        if len(rest.dropna(how="all")) >= 2:
+            out.append(spec("Quebec reservoirs", rest.rename(columns=lambda c: str(c).replace(" level_m", "")),
+                            "Quebec reservoir levels, daily mean (Hydro-Quebec; water-year charts start with a year of history)",
+                            "m above sea level", "line", date_format="%Y-%m-%d"))
+    b = _sheet(p, "British Columbia", "date")
+    if not b.empty:
+        m = _monthly_gwh(b, {"Load_MWh": "BC Hydro control-area load"}, "2021-01-01", gw=True)
+        if not m.empty:
+            out.append(spec("BC load", m, "British Columbia electricity load (BC Hydro balancing authority)",
+                            "GW (monthly average)", "line"))
+    n = _sheet(p, "New Brunswick", "date")
+    if not n.empty:
+        m = _monthly_gwh(n, {"NB load_MWh": "NB load"}, "2021-01-01", gw=True)
+        xp = n[cols(n, "ISO-NE_MWh", "Northern Maine_MWh", "Quebec_MWh", "Nova Scotia_MWh", "PEI_MWh")]
+        if not xp.empty:
+            net = _monthly_gwh(xp.assign(net=xp.sum(axis=1, min_count=1)), {"net": "Net exports (+) / imports (-)"},
+                               "2021-01-01", gw=True)
+            m = m.join(net, how="left")
+        if not m.empty:
+            out.append(spec("NB load", m, "New Brunswick electricity load and net exports (NB Power)",
+                            "GW (monthly average)", "line"))
+    return out
+
+
+def canada_ieso(p):
+    """IESO (Ontario) daily mean MW by fuel: monthly means once there are three months of days, else the daily series."""
+    d = by_date(read(p, "Data"), "date")
+    c = [x for x in d.columns if str(x).endswith("_MW") and x != "Total_MW"]
+    d = d[c].apply(pd.to_numeric, errors="coerce").rename(columns=lambda x: str(x).replace("_MW", "").title())
+    if d.empty:
+        return []
+    if d.index.max() - d.index.min() >= pd.Timedelta(days=90):
+        m = complete_months(d, d.resample("MS").mean())
+        return [spec("Ontario generation", m, "Ontario power generation by source (IESO)", "MW (monthly average)",
+                     "stacked_bar")]
+    return [spec("Ontario generation", d.tail(120), "Ontario power generation by source (IESO, daily mean)",
+                 "MW (daily mean)", "stacked_bar", date_format="%Y-%m-%d")] if len(d) >= 2 else []
+
+
+def canada_cer_gas(p):
+    """CER monthly natural gas trade: exports by CER region (stacked) and total exports / imports."""
+    d = by_date(read(p, "Gas trade monthly"), "Month")
+    d = d[d.index >= "2019-01-01"].rename(columns=lambda c: str(c).replace(" (mcm/d)", ""))
+    ex = d[[c for c in d.columns if c.startswith("Exports - ") and not c.endswith("Total")]].dropna(how="all")
+    out = []
+    if not ex.empty:
+        out.append(spec("Exports by region", ex.rename(columns=lambda c: c.replace("Exports - ", "")),
+                        "Canada natural gas exports to the US by region (CER)", "mcm/d", "stacked_bar"))
+    tot = d[cols(d, "Exports - Total", "Imports - Total")].dropna(how="all")
+    if not tot.empty:
+        out.append(spec("Exports and imports", tot.rename(columns=lambda c: c.replace(" - Total", "")),
+                        "Canada natural gas exports and imports (CER)", "mcm/d"))
+    return out
+
+
+def canada_cer_power(p):
+    """CER monthly electricity exports and imports (Canada total, GWh per month)."""
+    d = by_date(read(p, "Electricity trade monthly"), "Month")
+    d = d[d.index >= "2019-01-01"]
+    t = d[cols(d, "Exports - Canada_GWh", "Imports - Canada_GWh")].rename(
+        columns={"Exports - Canada_GWh": "Exports", "Imports - Canada_GWh": "Imports"}).dropna(how="all")
+    out = [spec("Electricity trade", t, "Canada electricity exports and imports (CER)", "GWh per month")] if not t.empty else []
+    ex = d[[c for c in d.columns if c.startswith("Exports - ") and not c.endswith(("Total_GWh", "Canada_GWh"))]]
+    ex = ex.loc[:, ex.sum() > 0].rename(columns=lambda c: c.replace("Exports - ", "").replace("_GWh", ""))
+    if not ex.empty:
+        top = list(ex.sum().sort_values(ascending=False).index[:6])
+        g = ex[top].copy()
+        g["Other provinces"] = ex.drop(columns=top).sum(axis=1)
+        out.append(spec("Exports by province", g.dropna(how="all"), "Canada electricity exports by province (CER)",
+                        "GWh per month", "stacked_bar"))
+    return out
+
+
 def us_capacity(p):
     """EIA-860M monthly capacity in the standard groups, plus battery storage (kept out of the fuel columns)."""
     out = power_capacity("US installed generating capacity (EIA-860M, net summer)")(p)
@@ -3073,6 +3199,10 @@ REGISTRY = {
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
+    "canada_ieso_generation_daily.xlsx": canada_ieso,
+    "canada_provincial_power_daily.xlsx": canada_provinces,
+    "canada_cer_gas.xlsx": canada_cer_gas,
+    "canada_cer_power.xlsx": canada_cer_power,
     # Australia and New Zealand
     "nz_power_generation_daily.xlsx": power_daily("New Zealand power generation by source (Electricity Authority EMI)"),
     "au_nem_power_generation_daily.xlsx": au_nem_power,
