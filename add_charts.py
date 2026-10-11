@@ -3371,6 +3371,21 @@ REGISTRY.update({
 })
 
 
+# ---- Ghana (africa/ghana_charts.py) ----
+def _ghana(fn):
+    def f(p):
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "africa"))
+        import ghana_charts
+        return getattr(ghana_charts, fn)(sys.modules[__name__])(p)
+    return f
+
+
+REGISTRY.update({
+    "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
+    "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
+})
+
+
 if __name__ == "__main__":
     for p in sys.argv[1:]:
         if os.path.exists(p):
