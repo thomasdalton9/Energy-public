@@ -7,6 +7,23 @@ content type, size, <title>, and the links on each page that look like data
 inline scripts. Also queries Israel's CKAN open-data portal (data.gov.il) for
 gas and electricity datasets.
 
+RUN 1 (2026-10-11, requests): ISRAEL - noga-iso.co.il reachable (200, Hebrew
+only, /en/ paths 404); links: /statistics/, /pdt/highvoltageproduction/,
+/pdt/power-consumption/, /systemoperationunit/demand-curve/,
+/statistics/annual-consumption-data/, /statistics/annual-hourly-consumption-data/;
+sitemap.xml 64 KB. apim-portal.noga-iso.co.il = Azure APIM sign-in (SMP API,
+developer guide PDF /media/smsdo1bd/api-smp-developer-guide-v2.pdf). gov.il
+(Ministry of Energy, Electricity Authority) and energean.com: 403 Cloudflare
+"Just a moment". iec.co.il 200 (JS shell). cbs.gov.il Energy page 200.
+data.gov.il CKAN works but has no gas/electricity datasets. newmedenergy.com
+200 (quarterly/financial reports, Leviathan bond reports).
+EGYPT - eehc.gov.eg 200 (tiny shell page); moee.gov.eg http 200 (2 KB), https
+refused; eetc.net.eg connect TIMEOUT (both http/https); egyptera.org 200 with
+ElectricityObservatory.aspx, GenEvaluation.aspx, annualReport.aspx,
+PeriodicalBooks2022.aspx; egas.com.eg 200 (Liferay, no statistics links);
+petroleum.gov.eg 200 (SharePoint; gas.aspx); capmas.gov.eg and idsc.gov.eg
+200 but 1.4 KB JS shells; egypt-odp.portaljs.com has no energy datasets.
+
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
 
@@ -145,7 +162,7 @@ EGYPT = [
     "https://www.idsc.gov.eg/",
 ]
 
-if __name__ == "__main__":
+def round1():
     out("##### ISRAEL")
     for u in ISRAEL:
         page(u)
@@ -157,3 +174,138 @@ if __name__ == "__main__":
         page(u)
     for q in ["electricity", "natural gas"]:
         ckan("https://egypt-odp.portaljs.com", q)
+
+
+# ---------------------------------------------------------------- round 2
+def body(url, n=600):
+    out(f"\n=== BODY {url}")
+    r = get(url)
+    if r is None:
+        return None
+    r.encoding = r.apparent_encoding or r.encoding
+    out(f"  {r.status_code} {r.headers.get('content-type','')[:40]} {len(r.content)}B final={r.url[:120]}")
+    out("  ", " ".join(r.text[:n].split()))
+    for m in re.findall(r'(?:location(?:\.href)?\s*=|href=|src=|url=)\s*["\']?([^"\'\s>;]+)', r.text, re.I)[:15]:
+        out("   ->", m[:150])
+    return r
+
+
+def sitemap_filter(url, pat):
+    out(f"\n=== SITEMAP {url}")
+    r = get(url)
+    if r is None:
+        return
+    locs = re.findall(r"<loc>(.*?)</loc>", r.text)
+    out(f"  {len(locs)} urls")
+    from urllib.parse import unquote
+    for l in locs:
+        u = unquote(l)
+        if re.search(pat, u, re.I):
+            out("   ", u[:170])
+
+
+def pw_pages(urls, show_links=True):
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        ctx = b.new_context(user_agent=H["User-Agent"], locale="en-US")
+        for url in urls:
+            pg = ctx.new_page()
+            xhr = []
+            pg.on("response", lambda resp, xhr=xhr: xhr.append(resp)
+                  if resp.request.resource_type in ("xhr", "fetch") else None)
+            out(f"\n=== PW {url}")
+            try:
+                pg.goto(url, wait_until="domcontentloaded", timeout=60000)
+                try:
+                    pg.wait_for_load_state("networkidle", timeout=25000)
+                except Exception:
+                    pg.wait_for_timeout(8000)
+                out(f"  title={pg.title()[:90]!r} final={pg.url[:120]}")
+                txt = " ".join(pg.inner_text("body")[:1500].split())
+                out("  text:", txt[:900])
+                if show_links:
+                    links = pg.eval_on_selector_all(
+                        "a[href]", "els => els.map(e => [e.href, (e.innerText||'').trim().slice(0,60)])")
+                    seen = set()
+                    k = 0
+                    for h, t in links:
+                        if h in seen or not (KEY.search(h) or KEY.search(t)):
+                            continue
+                        if re.search(r"facebook|twitter|linkedin|youtube|instagram|whatsapp|mailto", h):
+                            continue
+                        seen.add(h)
+                        out(f"   - {h[:160]} | {' '.join(t.split())}")
+                        k += 1
+                        if k > 70:
+                            break
+                for resp in xhr[:25]:
+                    try:
+                        b2 = resp.body()
+                    except Exception:
+                        b2 = b""
+                    out(f"  XHR {resp.status} {resp.request.method} {resp.url[:170]} "
+                        f"{resp.headers.get('content-type','')[:30]} {len(b2)}B")
+                    if b2 and len(b2) < 400000 and resp.status == 200:
+                        out("      ", " ".join(b2[:300].decode('utf-8', 'replace').split()))
+            except Exception as e:
+                out(f"  PW ERROR {type(e).__name__}: {str(e)[:200]}")
+            pg.close()
+        b.close()
+
+
+def pdf_text(url, pages=4):
+    out(f"\n=== PDF {url}")
+    r = get(url)
+    if r is None:
+        return
+    out(f"  {r.status_code} {r.headers.get('content-type','')[:30]} {len(r.content)}B")
+    if r.status_code != 200 or not r.content.startswith(b"%PDF"):
+        return
+    import io
+    import pdfplumber
+    with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+        out(f"  pages={len(pdf.pages)}")
+        for i, pgx in enumerate(pdf.pages[:pages]):
+            out(f"  -- p{i+1}:", " ".join((pgx.extract_text() or "")[:1500].split()))
+
+
+def round2():
+    out("##### ISRAEL")
+    sitemap_filter("https://www.noga-iso.co.il/sitemap.xml",
+                   r"stat|pdt|production|consum|demand|data|report|xls|csv|media/|systemoperation")
+    pdf_text("https://www.noga-iso.co.il/media/smsdo1bd/api-smp-developer-guide-v2.pdf", pages=6)
+    pw_pages([
+        "https://www.noga-iso.co.il/pdt/highvoltageproduction/",
+        "https://www.noga-iso.co.il/pdt/power-consumption/",
+        "https://www.noga-iso.co.il/statistics/",
+        "https://www.noga-iso.co.il/statistics/annual-consumption-data/",
+        "https://www.noga-iso.co.il/statistics/annual-hourly-consumption-data/",
+        "https://www.noga-iso.co.il/systemoperationunit/demand-curve/",
+        "https://www.gov.il/en/departments/ministry_of_energy/govil-landing-page",
+        "https://www.gov.il/he/departments/topics/natural_gas_sector/govil-landing-page",
+        "https://www.iec.co.il/en/about/statistics",
+        "https://www.cbs.gov.il/en/subjects/Pages/Energy.aspx",
+    ])
+    out("\n##### EGYPT")
+    for u in ["https://www.eehc.gov.eg/eehcportal/", "https://www.eehc.gov.eg/", "http://www.moee.gov.eg/",
+              "https://www.capmas.gov.eg/", "https://www.idsc.gov.eg/"]:
+        body(u)
+    pw_pages([
+        "https://www.eehc.gov.eg/eehcportal/",
+        "http://www.moee.gov.eg/",
+        "http://www.eetc.net.eg/",
+        "https://egyptera.org/en/ElectricityObservatory.aspx",
+        "https://egyptera.org/ar/ElectricityObservatory.aspx",
+        "https://egyptera.org/en/GenEvaluation.aspx",
+        "https://egyptera.org/en/annualReport.aspx",
+        "https://egyptera.org/en/PeriodicalBooks2022.aspx",
+        "https://www.egas.com.eg/w/production-and-development",
+        "https://www.egas.com.eg/egas-company-profile",
+        "https://www.petroleum.gov.eg/en/gas-and-petrol/discovery-search-production/Pages/gas.aspx",
+        "https://www.capmas.gov.eg/",
+    ])
+
+
+if __name__ == "__main__":
+    round2()
