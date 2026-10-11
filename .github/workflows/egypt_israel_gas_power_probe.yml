@@ -14,7 +14,7 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: |
-          pip install requests playwright pdfplumber openpyxl
+          pip install requests playwright pdfplumber openpyxl pandas lxml
           playwright install --with-deps chromium
       - name: Run probe
         run: timeout 1200 python3 discovery_archive/middle_east/EGYPT_ISRAEL_GAS_POWER_PROBE.py

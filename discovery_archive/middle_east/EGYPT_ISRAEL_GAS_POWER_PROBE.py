@@ -52,6 +52,19 @@ Evening Peak" (daily snapshot) and links Statistics (St_main.aspx) and EEHC
 annual reports (report.aspx). EgyptERA observatory PDFs are scanned images
 (no text layer, 10 MB, 20 pages). CAPMAS data menu has subSubject 30 Energy
 (/data/mainSubject/3/subSubject/30). EETC still times out.
+RUN 4: Noga 403 body = Azure Front Door WAF "Service unavailable - The request
+is blocked" (x-azure-ref header): the data endpoints are blocked for GitHub
+runner IPs (pages themselves load) -> Noga NOT usable from Actions.
+CBS series catalog under 42: 42,1 electricity (production by fuel: total, diesel,
+fossil total, fuel oil, coal, natural gas, renewables, wind, hydro, biogas,
+solar, oil shale, waste heat), 42,2 energy balance, 42,3 indicators, 42,4
+sources & uses.
+EGYPT: MOEE statistics pages (http, English): ST_load (peak load MW),
+ST_taka (energy consumption), ST_energy2 (energy sold by purpose), ST_fuel
+(fuel consumption ktoe), ST_capacity, ST_energy (generation GWh by type),
+ST_gas (gas share of fuel). CAPMAS energy sub-subject 30 lists ~70 indicator
+visualisations via api/Subject/SubSubjectWithIndicator/30 and
+api/Indicator/IndicatorDetails.
 
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
@@ -505,5 +518,73 @@ def round4():
     pw_pages(["https://www.capmas.gov.eg/data/mainSubject/3/subSubject/30"])
 
 
+def html_tables(url, maxrows=25):
+    out(f"\n=== TABLES {url}")
+    r = get(url)
+    if r is None:
+        return
+    out(f"  {r.status_code} {len(r.content)}B")
+    import pandas as pd
+    from io import StringIO
+    try:
+        tabs = pd.read_html(StringIO(r.text))
+    except Exception as e:
+        out(f"  no tables: {e}")
+        return
+    for i, t in enumerate(tabs):
+        if t.shape[0] < 2 and t.shape[1] < 2:
+            continue
+        out(f"  table {i} shape={t.shape}")
+        out(t.head(maxrows).to_string(max_colwidth=28)[:3500])
+
+
+def capmas():
+    api = "https://www.capmas.gov.eg:8080/api/"
+    r = get(api + "Subject/SubSubjectWithIndicator/30")
+    if r is None:
+        return
+    js = r.json()
+    d = js.get("data") or {}
+    keys = list(d.keys())
+    out("  keys:", keys)
+    inds = d.get("indicators") or d.get("publicationIndicators") or []
+    if not inds:
+        for k in keys:
+            if isinstance(d[k], list) and d[k] and isinstance(d[k][0], dict):
+                inds = d[k]
+                out("  using list key", k)
+                break
+    out(f"  {len(inds)} indicators; first keys: {list(inds[0].keys()) if inds else None}")
+    for it in inds[:90]:
+        tr = it.get("indicatorTranslations") or it.get("publicationIndicatorTranslations") or []
+        en = next((t.get("title") or t.get("name") for t in tr if t.get("locale") == "en"), "")
+        out(f"   {it.get('id')} | {(it.get('title') or it.get('name') or '')[:70]} | {en[:90]} | "
+            f"{ {k: it.get(k) for k in ('periodicity','periodic','unit','studyPeriod','year','lastUpdate') if k in it} }")
+    for iid in ["3092", "9487", "3153", "4800"]:
+        try_api(api + "Indicator/IndicatorDetails/" + iid, n=2500)
+
+
+def round5():
+    out("##### EGYPT")
+    for st in ["ST_energy", "ST_load", "ST_taka", "ST_energy2", "ST_fuel", "ST_gas", "ST_capacity"]:
+        html_tables(f"http://www.moee.gov.eg/english_new/{st}.aspx")
+    r = get("http://www.moee.gov.eg/english_new/report.aspx")
+    if r is not None:
+        out("  report.aspx pdf/doc refs:", sorted(set(re.findall(r'["\']([^"\']+\.(?:pdf|PDF|xlsx?|docx?))["\']', r.text)))[:60])
+    r = get("http://www.moee.gov.eg/test_new/report.aspx")
+    if r is not None:
+        out("  test_new/report.aspx refs:", sorted(set(re.findall(r'["\']([^"\']+\.(?:pdf|PDF|xlsx?))["\']', r.text)))[:60])
+    capmas()
+    out("\n##### ISRAEL (CBS)")
+    base = "https://apis.cbs.gov.il/series/"
+    for u in [base + "catalog/level?id=3&subject=42&format=json&download=false",
+              base + "catalog/level?id=4&subject=42&format=json&download=false",
+              base + "catalog/path?id=42,1,1,1,4060&format=json&download=false",
+              base + "data/path?id=42,1,1,1,4060&startPeriod=01-2020&endPeriod=12-2026&format=json&download=false",
+              base + "data/path?id=42,2,1,1,4173&startPeriod=01-2013&endPeriod=12-2026&format=json&download=false",
+              base + "catalog/path?id=42,4&format=json&download=false"]:
+        try_api(u, n=2500)
+
+
 if __name__ == "__main__":
-    round4()
+    round5()
