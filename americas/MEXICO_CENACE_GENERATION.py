@@ -74,6 +74,7 @@ DOWNLOAD_BUTTON = '[name="ctl00$ContentPlaceHolder1$DescargarReportes"]'
 DATA_START = date(2016, 4, 1)   # first month in the report (minDate 2016-04-30)
 CHUNK_MONTHS = 6                # months per range request
 REVISION_MONTHS = 10            # L3 arrives ~8 months after the month
+DOWNLOAD_TIMEOUT_MS = 90000     # a whole range downloads in ~1 s; no file by then means none is coming
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs")
@@ -160,9 +161,11 @@ def read_pickers(page):
     )
 
 
-def download_months(page, first, last, attempts=3):
-    """ZIP bytes for operating months first..last (month starts, inclusive)."""
+def download_months(page, first, last, attempts=2):
+    """ZIP bytes for operating months first..last (month starts, inclusive), or None if CENACE sends no file."""
     want = [[last.year, last.month], [first.year, first.month], [last.year, last.month]]
+    dialogs = []
+    page.on("dialog", lambda dlg: (dialogs.append(dlg.message), dlg.dismiss()))
     for attempt in range(1, attempts + 1):
         load_page(page)
         for _ in range(2):  # second pass undoes the postback reset
@@ -175,17 +178,24 @@ def download_months(page, first, last, attempts=3):
             log(f"  pickers read back {got}, wanted {want} (attempt {attempt}) - retrying")
             continue
         try:
-            with page.expect_download(timeout=280000) as dl:
+            with page.expect_download(timeout=DOWNLOAD_TIMEOUT_MS) as dl:
                 page.click(DOWNLOAD_BUTTON)
             with open(dl.value.path(), "rb") as fh:
                 body = fh.read()
         except Exception as e:  # noqa: BLE001 - CENACE answered with the page instead of a file
-            log(f"  {first:%Y-%m}..{last:%Y-%m}: no download ({type(e).__name__}: {e}) (attempt {attempt})")
+            text = ""
+            try:
+                text = page.evaluate("() => document.body.innerText.replace(/\\s+/g, ' ')")
+            except Exception:  # noqa: BLE001
+                pass
+            i = text.find("Mes de Operaci")
+            log(f"  {first:%Y-%m}..{last:%Y-%m}: no download ({type(e).__name__}) (attempt {attempt}); "
+                f"dialogs {dialogs[-3:]}; page: {text[max(0, i):i + 400]!r}")
             continue
         if body[:2] == b"PK":
             return body
         log(f"  {first:%Y-%m}..{last:%Y-%m}: download is not a ZIP ({len(body):,} bytes) (attempt {attempt})")
-    raise RuntimeError(f"CENACE did not return a ZIP for {first:%Y-%m}..{last:%Y-%m} after {attempts} attempts")
+    return None
 
 
 def parse_csv(text, month):
@@ -376,10 +386,11 @@ def main():
 
         for run in chunks(todo):
             body = download_months(page, run[0], run[-1])
-            days, seen = parse_zip(body, set(run))
+            days, seen = parse_zip(body, set(run)) if body else ({}, set())
             for m in [m for m in run if m not in seen]:
-                log(f"  {m:%Y-%m} not in the {run[0]:%Y-%m}..{run[-1]:%Y-%m} ZIP - requesting it on its own")
-                d2, s2 = parse_zip(download_months(page, m, m), {m})
+                log(f"  {m:%Y-%m} not in the {run[0]:%Y-%m}..{run[-1]:%Y-%m} download - requesting it on its own")
+                b2 = download_months(page, m, m)
+                d2, s2 = parse_zip(b2, {m}) if b2 else ({}, set())
                 days.update(d2)
                 if m not in s2:
                     absent.append(m)
@@ -402,13 +413,13 @@ def main():
 
         browser.close()
 
-    if absent:
-        log(f"WARNING: CENACE returned nothing for {', '.join(f'{m:%Y-%m}' for m in absent)}")
     if updated:
         print(f"Saved {updated} new/revised day(s). Archive: {len(archive)} days, "
               f"{min(archive.index)} to {max(archive.index)} -> {args.xlsx_out}")
     else:
         print("No new or revised days this run.")
+    if absent:   # everything else is saved; fail the job so the gap is seen
+        sys.exit(f"CENACE returned no file for {', '.join(f'{m:%Y-%m}' for m in absent)}")
 
 
 if __name__ == "__main__":
