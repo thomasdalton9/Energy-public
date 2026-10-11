@@ -18,9 +18,9 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: |
-          pip install requests pdfplumber pandas openpyxl xlrd playwright curl_cffi
+          pip install requests pdfplumber pandas openpyxl xlrd playwright curl_cffi pypdfium2 pytesseract
           playwright install --with-deps chromium
           playwright install chrome || true
-          sudo apt-get install -y xvfb >/dev/null
+          sudo apt-get install -y xvfb tesseract-ocr >/dev/null
       - name: Run probe
         run: timeout 2200 xvfb-run -a python3 discovery_archive/asia/PAKISTAN_GAS_SOURCES_PROBE.py "${{ github.event.inputs.round }}"

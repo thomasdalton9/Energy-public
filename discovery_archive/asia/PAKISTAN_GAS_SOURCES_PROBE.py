@@ -532,5 +532,79 @@ def round4():
     out(f"\nSBP LNG row label={row[0]!r}; last 6: " + ", ".join(f"{h}: {v}" for h, v in list(zip(hdr, row))[-6:]))
 
 
+MONTHS = r"\b(Jul|Aug|Sep|Oct|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun)[a-z]*\b"
+
+
+def ocr_pdf(body, pages=2, chars=2500):
+    import pypdfium2 as pdfium
+    import pytesseract
+    doc = pdfium.PdfDocument(body)
+    for i in range(min(pages, len(doc))):
+        img = doc[i].render(scale=2.5).to_pil()
+        tx = pytesseract.image_to_string(img)
+        out(f"  --- OCR page {i + 1} ({len(tx)} chars):\n" + tx[:chars])
+
+
+def round5():
+    import pdfplumber
+    # ---- OGRA State of the Regulated Petroleum Industry 2024-25: gas / LNG section tables
+    r = cf_get("https://www.ogra.org.pk/download/14125?lang=en")
+    if r is not None:
+        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+            for i, pg in enumerate(pdf.pages):
+                tx = pg.extract_text() or ""
+                nm = len(re.findall(MONTHS, tx))
+                key = re.search(r"MMCF|BCF|MMBTU|cargo|sector|field|province|Table|Figure", tx, re.I)
+                if 20 <= i <= 105 and key:
+                    head = " / ".join(l for l in tx.splitlines()[:3])
+                    out(f"PIR p{i + 1}: months={nm} chars={len(tx)} :: {head[:160]}")
+                    if nm >= 6 or re.search(r"sector.?wise|field.?wise|company.?wise|cargo", tx, re.I):
+                        out("      " + tx[:1400].replace("\n", "\n      "))
+    # ---- OGRA RLNG provisional price determinations: text layer / OCR (cargo volumes?)
+    for doc in ("16628", "13151"):
+        r = cf_get(f"https://www.ogra.org.pk/download/{doc}?lang=en")
+        if r is None:
+            continue
+        out(f"\nRLNG determination {doc}: {r.headers.get('content-disposition')} {len(r.content)}b")
+        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+            n = len(pdf.pages)
+            tx = "\n".join((p.extract_text() or "") for p in pdf.pages[:6])
+        out(f"  pages={n} text chars={len(tx)}")
+        if len(tx) > 200:
+            out(tx[:4000])
+        else:
+            ocr_pdf(r.content, pages=min(n, 4), chars=3000)
+    # ---- PQA daily statements: LNG berths (EETL / PGPCL) over the last ~2 months; oldest album page
+    files = []
+    for pgn in range(0, 7):
+        u = "https://pqa.gov.pk/en/documents/album/daily-shipping-and-cargo-handling-reports" + (f"?page={pgn}" if pgn else "")
+        try:
+            rr = requests.get(u, headers=H, timeout=T, verify=False)
+            files += [f for f in re.findall(r"""["']([^"']*dailyShippingCargoStat_[^"']+)["']""", rr.text) if f not in files]
+        except Exception as e:  # noqa: BLE001
+            out(f"PQA {u}: {e}")
+    for pgn in (100, 200, 245, 246):
+        rr = requests.get(f"https://pqa.gov.pk/en/documents/album/daily-shipping-and-cargo-handling-reports?page={pgn}",
+                          headers=H, timeout=T, verify=False)
+        f = re.findall(r"""["']([^"']*\.(?:PDF|pdf|xlsx?))["']""", rr.text)
+        dates = re.findall(r"\d{1,2} [A-Z][a-z]{2} 20\d\d", text_of(rr.text, 100000))
+        out(f"PQA album page {pgn}: {rr.status_code} files={len(f)} first={f[:1]} dates={dates[:3]}..{dates[-2:]}")
+    out(f"PQA: {len(files)} daily files on pages 0-6")
+    for f in files:
+        u = urljoin("https://www.pqa.gov.pk/", f)
+        try:
+            rr = requests.get(u, headers=H, timeout=(15, 90), verify=False)
+            with pdfplumber.open(io.BytesIO(rr.content)) as pdf:
+                tx = (pdf.pages[0].extract_text() or "")
+            lines = tx.splitlines()
+            hit = [f"{ln[:150]} || {lines[k + 1][:60] if k + 1 < len(lines) else ''}" for k, ln in enumerate(lines)
+                   if re.match(r"\s*(EETL|PGPCL)\b", ln) and "VACANT" not in ln]
+            d = re.search(r"dailyShippingCargoStat_([0-9A-Z-]+?)-[0-9a-f]{20,}", f)
+            if hit:
+                out(f"  {d.group(1) if d else f}: " + " ## ".join(hit))
+        except Exception as e:  # noqa: BLE001
+            out(f"  {f}: {type(e).__name__}")
+
+
 if __name__ == "__main__":
-    {"1": round1, "2": round2, "3": round3, "4": round4}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
+    {"1": round1, "2": round2, "3": round3, "4": round4, "5": round5}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
