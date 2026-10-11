@@ -46,7 +46,11 @@ def fetch(path):
     r.raise_for_status()
     if "html" in r.headers.get("content-type", "") or r.content[:1] == b"<":
         raise ValueError(f"{path}: server returned an HTML page, not a CSV")
-    return r.content.decode("utf-8-sig", "replace"), r.headers.get("last-modified", "")
+    try:
+        text = r.content.decode("utf-8-sig")
+    except UnicodeDecodeError:   # the electricity file is Windows-1252 (Qu\xe9bec)
+        text = r.content.decode("cp1252", "replace")
+    return text, r.headers.get("last-modified", "")
 
 
 def last_modified(path):
@@ -102,7 +106,8 @@ def gas_trade(text):
     d = d.dropna(subset=["month", "v"])
     d["month"] = d["month"].dt.to_period("M").dt.to_timestamp()
     if flow:
-        d["flow"] = d[flow].astype(str).str.title()
+        # "Imports" and "Imports (See Disclaimer)" are the same flow under two labels in different years
+        d["flow"] = d[flow].astype(str).str.replace(r"\s*\(.*?\)", "", regex=True).str.strip().str.title()
     else:
         d["flow"] = "Exports"
     key = d[reg].astype(str) if reg else "Total"
