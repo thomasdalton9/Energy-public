@@ -18,8 +18,7 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: |
-          pip install requests curl_cffi pandas openpyxl xlrd lxml pdfplumber pymupdf playwright
-          playwright install --with-deps chromium
+          pip install requests curl_cffi pandas openpyxl xlrd lxml pdfplumber pymupdf
       - name: Run probe
         env:
           ROUND: ${{ github.event.inputs.round }}

@@ -360,7 +360,7 @@ def xlsx_scan(url, maxrows=25):
         return None
     out("  sheets:", list(xl.keys())[:80])
     for name, df in xl.items():
-        txt = df.astype(str)
+        txt = df.apply(lambda col: col.map(lambda x: "nan" if pd.isna(x) else str(x)))
         hits = [i for i in range(len(df)) if GASPAT.search(" ".join(txt.iloc[i].tolist()))]
         title = " ".join(x for x in txt.iloc[:4].values.ravel() if x != "nan")[:160]
         if hits or GASPAT.search(name + title):
@@ -587,12 +587,17 @@ def comtrade2():
         out("   ", h)
 
 
+def safe(*fns):
+    import traceback
+    for fn in fns:
+        try:
+            fn()
+        except Exception:  # noqa: BLE001
+            out("SECTION FAILED", fn.__name__, traceback.format_exc()[-600:])
+
+
 def run2():
-    cbe2()
-    capmas2()
-    egpc_mop()
-    egas2()
-    comtrade2()
+    safe(cbe2, capmas2, egpc_mop, egas2, comtrade2)
 
 
 if __name__ == "__main__":
