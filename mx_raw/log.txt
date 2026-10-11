@@ -1,0 +1,128 @@
+=========== https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos.csv
+[plain] HTTP 403 502B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;sener&#47;prontuario&#95;gas&#95;natural&#95;petroquimicos&#47;prontuario&#95;datos&#95;abiertos&#46;csv"  | server: None
+[browser] HTTP 403 502B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;sener&#47;prontuario&#95;gas&#95;natural&#95;petroquimicos&#47;prontuario&#95;datos&#95;abiertos&#46;csv"  | server: None
+=========== https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos_jul26.csv
+[plain] HTTP 403 512B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;sener&#47;prontuario&#95;gas&#95;natural&#95;petroquimicos&#47;prontuario&#95;datos&#95;abiertos&#95;jul26 | server: None
+[browser] HTTP 403 512B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;sener&#47;prontuario&#95;gas&#95;natural&#95;petroquimicos&#47;prontuario&#95;datos&#95;abiertos&#95;jul26 | server: None
+=========== https://repodatos.atdt.gob.mx/api_update/cenagas/extracciones_inyecciones_gas_natural_sistrangas/CENEGAS_4_Capacidad_Historica_de_Extracciones_SISTRANGAS.csv
+[plain] HTTP 403 566B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;cenagas&#47;extracciones&#95;inyecciones&#95;gas&#95;natural&#95;sistrangas&#47;CENEGAS&#95;4&#95;Capacida | server: None
+[browser] HTTP 403 566B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;cenagas&#47;extracciones&#95;inyecciones&#95;gas&#95;natural&#95;sistrangas&#47;CENEGAS&#95;4&#95;Capacida | server: None
+=========== https://repodatos.atdt.gob.mx/api_update/sener/informacion_transporte_almacenamiento_gas_natural_2026/bd_volumen_gas_natural_ta.csv
+[plain] HTTP 403 536B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;sener&#47;informacion&#95;transporte&#95;almacenamiento&#95;gas&#95;natural&#95;2026&#47;bd&#95;volumen&#9 | server: None
+[browser] HTTP 403 536B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;sener&#47;informacion&#95;transporte&#95;almacenamiento&#95;gas&#95;natural&#95;2026&#47;bd&#95;volumen&#9 | server: None
+=========== https://repodatos.atdt.gob.mx/api_update/cne/gas_natural/gn_pre_hist_2017_2025.csv
+[plain] HTTP 403 471B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;cne&#47;gas&#95;natural&#47;gn&#95;pre&#95;hist&#95;2017&#95;2025&#46;csv" on this server.<P> Reference&#3 | server: None
+[browser] HTTP 403 471B last-modified=None
+   body: <HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1> You don't have permission to access "http&#58;&#47;&#47;repodatos&#46;atdt&#46;gob&#46;mx&#47;api&#95;update&#47;cne&#47;gas&#95;natural&#47;gn&#95;pre&#95;hist&#95;2017&#95;2025&#46;csv" on this server.<P> Reference&#3 | server: None
+=========== catalogue searches: every dataset and resource
+--- 'demanda gas natural': 12 datasets
+  [Comisión Nacional de Energía (CNE)] Gas Natural
+      CSV | Índice de Precios de Gas Natural (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_natural/gn_ipgn_feb26.csv
+      CSV | Índice de Precios de Gas Natural (actualización a diciembre de 2025) | https://repodatos.atdt.gob.mx/api_update/cne/gas_natural/gn_pre_122025.csv
+      CSV | Índice de Precios de Gas Natural: histórico (2017-2025) | https://repodatos.atdt.gob.mx/api_update/cne/gas_natural/gn_pre_hist_2017_2025.csv
+  [Secretaría de Energía (SENER)] Prontuario de Gas Natural y Petroquímicos
+      CSV | Prontuario estadístico de gas natural y petroquímicos (julio 2026) | https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos_jul26.csv
+      CSV | Prontuario estadístico de gas natural y petroquímicos (junio 2026) | https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos_Jun26.csv
+      CSV | Prontuario estadístico de gas natural y petroquímicos (mayo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos_may26.csv
+      CSV | Prontuario estadístico de gas natural y petroquímicos (abril 2026) | https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos_abril.csv
+      CSV | Prontuario estadístico de gas natural y petroquímicos (marzo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos_marzo.csv
+      CSV | Prontuario estadístico de gas natural y petroquímicos (enero-febrero 2026) | https://repodatos.atdt.gob.mx/api_update/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos.csv
+  [Centro Nacional de Control del Gas Natural (CENAGAS)] Extracciones e Inyecciones de Gas Natural SISTRANGAS
+      CSV | Inyecciones de Gas Natural SISTRANGAS | https://www.datos.gob.mx/dataset/fb4e4083-f3c8-49a3-9baf-91ce815b0633/resource/b8774b00-e7d5-46c7-9176-8a59bde302fd/download/cenegas_3_capacidad_historica_de_inyecciones_sistrangas.csv
+      CSV | Extracciones de Gas Natural SISTRANGAS | https://repodatos.atdt.gob.mx/api_update/cenagas/extracciones_inyecciones_gas_natural_sistrangas/CENEGAS_4_Capacidad_Historica_de_Extracciones_SISTRANGAS.csv
+  [Petróleos Mexicanos (PEMEX)] Producción de gas natural de Petróleos Mexicanos
+      CSV | Producción de gas natural de Petróleos Mexicanos (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/produccion_gas_natural_petroleos_mexicanos/32_DAPROGN.csv
+  [Centro Nacional de Control del Gas Natural (CENAGAS)] Tarifas de transporte de gas natural a partir del 1° de Octubre 2018
+      CSV | Tarifas de transporte de gas natural por puntos de inyección y extracción | https://repodatos.atdt.gob.mx/api_update/cenagas/tarifas_transporte_gas_natural_a_partir_1_octubre_2018/CENEGAS_1_Tarifas_por_puntos.csv
+      CSV | Tarifas de transporte de gas natural por nuevas zonas tarifarias | https://www.datos.gob.mx/dataset/42dff460-415b-4026-ad5b-6a5b686393db/resource/67c1946c-e65b-4a3a-b3e4-b7f41579f125/download/cenegas_2_tarifas_por_zonas.csv
+  [Secretaría de Energía (SENER)] Información de transporte y almacenamiento de Gas Natural (2026)
+      CSV | Información de transporte y almacenamiento de Gas Natural (segundo trimestre 2026) | https://repodatos.atdt.gob.mx/api_update/sener/informacion_transporte_almacenamiento_gas_natural_2026/bd_volumen_gas_natural_ta_2dotrim26.csv
+      CSV | Información de transporte y almacenamiento de Gas Natural (primer trimestre 2026) | https://repodatos.atdt.gob.mx/api_update/sener/informacion_transporte_almacenamiento_gas_natural_2026/bd_volumen_gas_natural_ta.csv
+  [Comisión Nacional de Energía (CNE)] Gas Licuado de Petróleo
+      CSV | Volúmenes vendidos, en kilogramos, de Gas LP por permisos de comercialización (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_licuado_de_petroleo/lp_com_vol_feb26.csv
+      CSV | Precios diarios del Gas LP comercializado mediante plantas de distribución, reportados por los permisionarios (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_licuado_de_petroleo/lp_dis_pre_feb26.csv
+      CSV | Volúmenes vendidos, en kilogramos, de Gas LP por permisos de planta de distribución por medio de autotanque (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_licuado_de_petroleo/lp_dis_vol_aut_feb26.csv
+      CSV | Volúmenes vendidos, en kilogramos, de Gas LP por permisos de planta de distribución por medio de cilindro (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_licuado_de_petroleo/lp_dis_vol_cil_feb26.csv
+      CSV | Volúmenes vendidos, en kilogramos, de Gas LP por permisos de expendio (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_licuado_de_petroleo/lp_exp_vol_feb26.csv
+      CSV | Permisos vigentes otorgados por la CNE en materia de Gas LP (actualización a febrero de 2026) | https://repodatos.atdt.gob.mx/api_update/cne/gas_licuado_de_petroleo/lp_per_vig_feb26.csv
+  [Petróleos Mexicanos (PEMEX)] Valor de ventas internas de productos elaborados en los Complejos Procesadores de Gas
+      CSV | Valor de ventas internas de productos elaborados en los Complejos Procesadores de Gas (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/valor_ventas_internas_productos_elaborados_complejos_procesadores_gas/30_DAVAVIPGPB.csv
+  [Secretaría de Energía (SENER)] Reservas de Hidrocarburos al 1 de enero de cada año (2024)
+      CSV | Reservas de Hidrocarburos por modalidad | https://repodatos.atdt.gob.mx/api_update/sener/reservas_hidrocarburos_1_enero_cada_anio_2024/1_DGRH_reservas_modalidad.csv
+      CSV | Reservas de Hidrocarburos por categoría | https://repodatos.atdt.gob.mx/api_update/sener/reservas_hidrocarburos_1_enero_cada_anio_2024/2_DGRH_reservas_categoria.csv
+      CSV | Reservas de Hidrocarburos por campo | https://repodatos.atdt.gob.mx/api_update/sener/reservas_hidrocarburos_1_enero_cada_anio_2024/3_DGRH_reservas_campo.csv
+      CSV | Volumen de las Reservas de petróleo crudo, condensados y gas natural | https://repodatos.atdt.gob.mx/api_update/sener/reservas_hidrocarburos_1_enero_cada_anio_2024/4_DGRH_reservas_totalidad.csv
+      CSV | La relación entre producción y Reservas | https://repodatos.atdt.gob.mx/api_update/sener/reservas_hidrocarburos_1_enero_cada_anio_2024/5_DGRH_reservas_produccion.csv
+  [Secretaría de Energía (SENER)] Actividades que derivan de la Exploración de hidrocarburos. Pozos (2026)
+      CSV | Base de datos de las autorizaciones otorgadas para la perforación de pozos exploratorios (enero a agosto 2026) | https://repodatos.atdt.gob.mx/api_update/sener/actividades_derivan_exploracion_hidrocarburos_pozos_2026/base_datos_autorizaciones_otorgadas_perforacion_pozos_exploratorios.csv
+      CSV | Base de datos del Histórico de pozos perforados (enero a agosto 2026) | https://repodatos.atdt.gob.mx/api_update/sener/actividades_derivan_exploracion_hidrocarburos_pozos_2026/base_datos_historico_pozos_perforados_agosto26.csv
+      CSV | Base de datos del Histórico de pozos perforados (mayo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/actividades_derivan_exploracion_hidrocarburos_pozos_2026/base_datos_historico_pozos_perforados_mayo.csv
+  [Secretaría de Energía (SENER)] Producción de Hidrocarburos (2026)
+      CSV | Volumen de producción nacional de hidrocarburos (julio 2026) | https://repodatos.atdt.gob.mx/api_update/sener/produccion_hidrocarburos_2026/dgmpb_produccion_nacional_jul.csv
+      CSV | Volumen de producción nacional de hidrocarburos (junio 2026) | https://repodatos.atdt.gob.mx/api_update/sener/produccion_hidrocarburos_2026/dgmpb_produccion_nacional_jun.csv
+      CSV | Volumen de producción nacional de hidrocarburos (mayo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/produccion_hidrocarburos_2026/dgmpb_produccion_nacional_may.csv
+      CSV | Volumen de producción nacional de hidrocarburos (abril 2026) | https://repodatos.atdt.gob.mx/api_update/sener/produccion_hidrocarburos_2026/dgmpb_produccion_nacional_abr.csv
+      CSV | Volumen de producción nacional de hidrocarburos (marzo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/produccion_hidrocarburos_2026/01_DGMPB_produccion_nacional_mar26.csv
+      CSV | Volumen de producción nacional de hidrocarburos (enero-febrero 2026) | https://repodatos.atdt.gob.mx/api_update/sener/produccion_hidrocarburos_2026/DGMPB_produccion_nacional_ene_feb.csv
+  [Secretaría de Energía (SENER)] Actividades que derivan de la Exploración de hidrocarburos. Reconocimiento y exploración (2026)
+      CSV | Base de datos de ARES autorizados (enero a agosto 2026) | https://repodatos.atdt.gob.mx/api_update/sener/actividades_derivan_exploracion_hidrocarburos_reconocimiento_exploracion_2026/base_datos_ares_autorizados_agosto26.csv
+      CSV | Base de datos de los Operadores Petroleros inscritos al Padrón ARES (enero a agosto 2026) | https://repodatos.atdt.gob.mx/api_update/sener/actividades_derivan_exploracion_hidrocarburos_reconocimiento_exploracion_2026/base_datos_operadores_petroleros_inscritos_padron_ares_agosto26.csv
+      CSV | Base de datos de ARES autorizados (mayo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/actividades_derivan_exploracion_hidrocarburos_reconocimiento_exploracion_2026/base_datos_ares_autorizados.csv
+--- 'consumo gas natural': 13 datasets
+  [Petróleos Mexicanos (PEMEX)] Donaciones en especie
+      CSV | Donaciones en especie (2do semestre, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/donaciones_especie/donaciones_2_semestre_2025.csv
+--- 'balance nacional gas natural': 7 datasets
+--- 'prospectiva gas natural': 12 datasets
+--- 'ventas gas natural': 22 datasets
+  [Petróleos Mexicanos (PEMEX)] Valor de las ventas internas de productos petrolíferos y gas licuado
+      CSV | Valor de las ventas internas de productos petrolíferos y gas licuado (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/valor_ventas_internas_productos_petroliferos_gas_licuado/20_DAVAVIPPGL.csv
+  [Petróleos Mexicanos (PEMEX)] Volumen de las ventas internas de productos petrolíferos y gas licuado
+      CSV | Volumen de las ventas internas de productos petrolíferos y gas licuado (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/volumen_ventas_internas_productos_petroliferos_gas_licuado/19_DAVOVIPPGL.csv
+  [Petróleos Mexicanos (PEMEX)] Proceso de gas y condensados en Complejos Procesadores de Gas
+      CSV | Proceso de gas y condensados en Complejos Procesadores de Gas (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/proceso_gas_condensados_complejos_procesadores_gas/28_DAPRGCOCPG.csv
+  [Petróleos Mexicanos (PEMEX)] Elaboración de productos petroquímicos en el Sistema Nacional de Refinación
+      CSV | Elaboración de productos petroquímicos en el Sistema Nacional de Refinación (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/elaboracion_productos_petroquimicos_sistema_nacional_refinacion/34_DAELPRPQPR.csv
+  [Petróleos Mexicanos (PEMEX)] Valor de las ventas internas de productos elaborados en el Sistema Nacional de Refinación
+      CSV | Valor de las ventas internas de productos elaborados en el Sistema Nacional de Refinación (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/valor_ventas_internas_productos_elaborados_sistema_nacional_refinacion/26_DAVAVIPR.csv
+  [Petróleos Mexicanos (PEMEX)] Volumen de las ventas internas de productos elaborados en el Sistema Nacional de Refinación
+      CSV | Volumen de las ventas internas de productos petrolíferos elaborados en el Sistema Nacional de Refinación (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/volumen_ventas_internas_productos_elaborados_sistema_nacional_refinacion/27_DAVOVIPR.csv
+  [Petróleos Mexicanos (PEMEX)] Balanza de divisas de productos elaborados en los Complejos Procesadores de Gas
+      CSV | Balanza de divisas de productos elaborados en los Complejos Procesadores de Gas (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/balanza_divisas_productos_elaborados_complejos_procesadores_gas/03_DABADIPGPB.csv
+  [Comisión Reguladora de Energía (CRE)] Historial de precios promedio al público de gas LP reportados por los distribuidores
+      CSV | Historial de precios promedio al público, de gas LP, reportados por los distribuidores durante el 2025. | https://repodatos.atdt.gob.mx/CRE/precios_gas_lp/Historico_Precios_Expendios.csv_2025.csv
+      CSV | Historial de precios promedio al público, de gas LP, reportados por los distribuidores durante el 2024. | https://repodatos.atdt.gob.mx/CRE/precios_gas_lp/Historico_Precios_Expendios.csv_2024.csv
+      CSV | Precios promedio al público, de gas LP, reportados por los distribuidores durante el 2023 | https://repodatos.atdt.gob.mx/CRE/precios_gas_lp/Historico_Precios_Expendios.csv_2023.csv
+  [Petróleos Mexicanos (PEMEX)] Elaboración de productos petrolíferos en el Sistema Nacional de Refinación
+      CSV | Elaboración de productos petrolíferos en el Sistema Nacional de Refinación (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/elaboracion_productos_petroliferos_sistema_nacional_refinacion/25_DAELPRPPR.csv
+--- 'usuarios gas natural': 12 datasets
+--- 'generacion electrica gas natural': 1 datasets
+--- 'gas natural industria': 27 datasets
+  [Petróleos Mexicanos (PEMEX)] Elaboración de productos petrolíferos y gas licuado
+      CSV | Elaboración de productos petrolíferos y gas licuado (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/elaboracion_productos_petroliferos_gas_licuado/18_DAELPROPGL.csv
+  [Petróleos Mexicanos (PEMEX)] Elaboración de productos en Complejos Procesadores de Gas
+      CSV | Elaboración de productos en Complejos Procesadores de Gas (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/elaboracion_productos_complejos_procesadores_gas/24_DAELPRCPG.csv
+  [Petróleos Mexicanos (PEMEX)] Número de pozos terminados
+      CSV | Número de pozos terminados (enero a mayo, 2025) | https://repodatos.atdt.gob.mx/api_update/pemex/numero_pozos_terminados/17_DANPZST.csv
+  [Secretaría de Energía (SENER)] Comercio exterior de hidrocarburos; importaciones y exportaciones (2026)
+      CSV | Permisos otorgados para la importación y exportación de hidrocarburos, petroquímicos y petrolíferos (agosto 2026) | https://repodatos.atdt.gob.mx/api_update/sener/comercio_exterior_hidrocarburos_importaciones_exportaciones_2026/permisos_importacion_exportacion_hpp_ago_2026.csv
+      CSV | Permisos otorgados para la importación y exportación de hidrocarburos, petroquímicos y petrolíferos (julio 2026) | https://repodatos.atdt.gob.mx/api_update/sener/comercio_exterior_hidrocarburos_importaciones_exportaciones_2026/permisos_importacion_exportacion_hpp_jul26.csv
+      CSV | Permisos otorgados para la importación y exportación de hidrocarburos, petroquímicos y petrolíferos (junio 2026) | https://repodatos.atdt.gob.mx/api_update/sener/comercio_exterior_hidrocarburos_importaciones_exportaciones_2026/permisos_importacion_exportacion_hpp_jun_2026.csv
+      CSV | Permisos otorgados para la importación y exportación de hidrocarburos, petroquímicos y petrolíferos (mayo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/comercio_exterior_hidrocarburos_importaciones_exportaciones_2026/permisos_importacion_exportacion_hpp_mayo.csv
+      CSV | Permisos otorgados para la importación y exportación de hidrocarburos, petroquímicos y petrolíferos (abril 2026) | https://repodatos.atdt.gob.mx/api_update/sener/comercio_exterior_hidrocarburos_importaciones_exportaciones_2026/permisos_importacion_exportacion_hpp_abril.csv
+      CSV | Permisos otorgados para la importación y exportación de hidrocarburos, petroquímicos y petrolíferos (marzo 2026) | https://repodatos.atdt.gob.mx/api_update/sener/comercio_exterior_hidrocarburos_importaciones_exportaciones_2026/permisos_importacion_exportacion_hpp_marzo.csv
+  [Secretaría de Agricultura y Desarrollo Rural (SADER)] Atención a zonas vulnerables por Riesgos Climatológicos - Reconversión productiva y/o Rastreo fitosanitario
+      CSV | Listado 1 de productores con dictamen positivo y negativo, con o sin suficiencia presupuestaria del Concepto de Apoyo Atención a zonas vulnerables por Riesgos Climatológicos (Reconversión productiva y/o Rastreo fitosanitario) del Programa de Fomento a la Agricultura, Ganadería, Pesca y Acuicultura 2025, en Sonora | https://repodatos.atdt.gob.mx/api_update/sader/atencion_zonas_vulnerables_riesgos_climatologicos_reconversion_rastreo_fitosanitario/listado_1_riesgos_climatologicos_092025_son.csv
+      CSV | Listado 2 de productores con dictamen positivo y negativo, con o sin suficiencia presupuestaria del Concepto de Apoyo Atención a zonas vulnerables por Riesgos Climatológicos (Reconversión productiva y/o Rastreo fitosanitario) del Programa de Fomento a la Agricultura, Ganadería, Pesca y Acuicultura 2025, en Sonora | https://repodatos.atdt.gob.mx/api_update/sader/atencion_zonas_vulnerables_riesgos_climatologicos_reconversion_rastreo_fitosanitario/listado_2_riesgos_climatologicos_092025_son.csv
+      CSV | Listado 3 de productores con dictamen positivo y negativo, con o sin suficiencia presupuestaria del Concepto de Apoyo Atención a zonas vulnerables por Riesgos Climatológicos (Reconversión productiva y/o Rastreo fitosanitario) del Programa de Fomento a la Agricultura, Ganadería, Pesca y Acuicultura 2025, en Sonora | https://repodatos.atdt.gob.mx/api_update/secretaria_agricultura/atencion_zonas_vulnerables_riesgos_climatologicos_reconversion_rastreo_fitosanitario/listado_3_riesgos_climatologicos_2025_son.csv
+      CSV | Listado 4 de productores con dictamen positivo y negativo, con o sin suficiencia presupuestaria del Concepto de Apoyo Atención a zonas vulnerables por Riesgos Climatológicos (Reconversión productiva y/o Rastreo fitosanitario) del Programa de Fomento a la Agricultura, Ganadería, Pesca y Acuicultura 2025, en Sonora | https://repodatos.atdt.gob.mx/api_update/secretaria_agricultura/atencion_zonas_vulnerables_riesgos_climatologicos_reconversion_rastreo_fitosanitario/listado_4_riesgos_climatologicos_2025_son.csv
+      CSV | Listado 5 de productores con dictamen positivo y negativo, con o sin suficiencia presupuestaria del Concepto de Apoyo Atención a zonas vulnerables por Riesgos Climatológicos (Reconversión productiva y/o Rastreo fitosanitario) del Programa de Fomento a la Agricultura, Ganadería, Pesca y Acuicultura 2025, en Sonora | https://repodatos.atdt.gob.mx/api_update/secretaria_agricultura/atencion_zonas_vulnerables_riesgos_climatologicos_reconversion_rastreo_fitosanitario/listado_5_riesgos_climatologicos_2025_son.csv
+      CSV | Listado 6 de productores con dictamen positivo y negativo, con o sin suficiencia presupuestaria del Concepto de Apoyo Atención a zonas vulnerables por Riesgos Climatológicos (Reconversión productiva y/o Rastreo fitosanitario) del Programa de Fomento a la Agricultura, Ganadería, Pesca y Acuicultura 2025, en Sonora | https://repodatos.atdt.gob.mx/api_update/secretaria_agricultura/atencion_zonas_vulnerables_riesgos_climatologicos_reconversion_rastreo_fitosanitario/listado_6_riesgos_climatologicos_2025_son.csv
