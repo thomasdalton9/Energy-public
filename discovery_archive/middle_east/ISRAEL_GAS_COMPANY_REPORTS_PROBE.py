@@ -438,8 +438,93 @@ def round3():
     # 5. Natural Gas Authority / Ministry annual review quoted in NewMed reports ('BCM, of which'): done in 2
 
 
+def round4():
+    NM = "https://newmedenergy.com/wp-content/uploads/"
+    print("\n##### A. NewMed FS: Leviathan quantities by customer location (table text)")
+    for f in ["2026/08/FS330062026ACCESSIBLE.pdf", "2026/03/FS31122025ACCESSIBLE.pdf", "2025/11/FS30092025ENGACCESSIBLE.pdf",
+              "2024/03/NM_FS31122023_ACCESSIBLE.pdf", "2022/03/NewMedFS31122021EN.pdf", "2021/12/FS-Q1-2021-English.pdf"]:
+        rr = get(NM + f)
+        if rr is None or rr.status_code != 200:
+            continue
+        for eng, fn in (("pypdf", fast_text), ("pdfplumber", pdf_text)):
+            try:
+                t = fn(rr.content, 400) if eng == "pypdf" else fn(rr.content, 400)
+            except Exception as e:  # noqa: BLE001
+                print("    err", e)
+                continue
+            m = re.search(r"geographic location", t) or re.search(r"customer location", t)
+            if m:
+                print(f"   [{eng}] {f}:\n" + t[m.start() - 200: m.start() + 1300])
+            m2 = re.search(r"sold by Energean in [QH]", t)
+            if m2:
+                print(f"   [{eng}] Karish royalty note: " + re.sub(r"\s+", " ", t[m2.start() - 900: m2.start() + 400]))
+            m3 = re.search(r"BCM, of which", t)
+            if m3:
+                print(f"   [{eng}] national review: " + re.sub(r"\s+", " ", t[m3.start() - 500: m3.start() + 300]))
+            break
+
+    print("\n##### B. Tamar Petroleum: full media list (paged)")
+    tamar = []
+    for page in range(1, 8):
+        rr = get(f"https://www.tamarpetroleum.co.il/wp-json/wp/v2/media?per_page=100&page={page}")
+        if rr is None or rr.status_code != 200:
+            break
+        print("      total pages", rr.headers.get("X-WP-TotalPages"), "total", rr.headers.get("X-WP-Total"))
+        try:
+            js = rr.json()
+        except Exception:  # noqa: BLE001
+            break
+        tamar += [(m.get("date"), m.get("source_url")) for m in js]
+        if len(js) < 100:
+            break
+    rep = sorted(x for x in tamar if x[1] and x[1].lower().endswith(".pdf") and
+                 re.search(r"report|רבעון|תקופתי|FS|Financial|Interim|Quarterly|Annual", x[1], re.I) and
+                 not re.search(r"שכר|immediate|Reserve|NSAI|עתודות", x[1], re.I))
+    for d, u in rep:
+        print("        ", d, u)
+    print("\n##### B2. Tamar sales sentences per report")
+    for d, u in rep[-30:]:
+        rr = get(u)
+        if rr is None or rr.status_code != 200 or not rr.content.startswith(b"%PDF"):
+            continue
+        try:
+            t = re.sub(r"\s+", " ", fast_text(rr.content, 200))
+        except Exception as e:  # noqa: BLE001
+            print("    err", e)
+            continue
+        hits = re.findall(r"[^()]{0,160}BCM \(100%\)[^()]{0,200}", t)
+        hits += re.findall(r"[^ ]{0,10}.{0,120}(?:Egypt|Jordan|export|יצוא|מצרים|ירדן).{0,40}BCM.{0,120}", t)[:3]
+        hits += re.findall(r".{0,60}BCM.{0,20}100%.{0,140}", t)[:4]
+        print("    ", d, u.rsplit("/", 1)[-1])
+        for h in hits[:8]:
+            print("        |", h[:380])
+
+    print("\n##### C. Energean RNS: Israel gas bcm per period (all trading updates and results)")
+    allann = []
+    for page in range(1, 8):
+        r = get(f"https://www.investegate.co.uk/company/ENOG?page={page}")
+        allann += links(r, pat=r"/announcement/")
+    allann = sorted(set(a for a in allann if re.search(r"trading-statement|results|9-months|production-and", a)))
+    print("    ", len(allann))
+    for l in allann:
+        r = get(l)
+        if r is None or r.status_code != 200:
+            continue
+        txt = re.sub(r"<[^>]+>", " ", r.text)
+        txt = re.sub(r"&nbsp;|&#160;", " ", txt).replace("&#8209;", "-")
+        txt = re.sub(r"\s+", " ", txt)
+        date = re.search(r"\b(\d{1,2} \w+ 20\d\d)\b", txt)
+        hits = re.findall(r"[^.]{0,160}\d\.\d+ bcm[^.]{0,160}(?:Q[1-4]|H[12]|20\d\d|month)[^.]{0,80}", txt)
+        hits = [h for h in hits if re.search(r"Israel|includes|sold|equivalent", h, re.I)]
+        print("    ", l.rsplit("energean--enog/", 1)[-1], date.group(1) if date else "")
+        for h in hits[:6]:
+            print("        |", h.strip()[:360])
+
+
 if __name__ == "__main__":
-    if ROUND == 3:
+    if ROUND == 4:
+        round4()
+    elif ROUND == 3:
         round3()
     elif ROUND == 2:
         round2()
