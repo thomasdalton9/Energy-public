@@ -3550,19 +3550,19 @@ def _ghana(fn):
 
 
 def mexico_generation(p):
-    """CENACE settled generation (MEXICO_CENACE_GENERATION.py): the standard fuel groups, then CENACE's own
-    technologies (combined cycle, conventional steam, open-cycle gas turbines ... kept apart), monthly GWh from 2021."""
+    """CENACE settled generation (MEXICO_CENACE_GENERATION.py): the standard fuel groups, then the thermal fleet by
+    CENACE technology (combined cycle and gas turbines apart from conventional steam units, which burn fuel oil and
+    gas), monthly GWh from 2021."""
     out = power_daily("Mexico power generation by type (CENACE)")(p)
     d = by_date(read(p, "Daily by technology"), "date")
     names = {"Ciclo Combinado_MWh": "Combined cycle (gas)", "Turbo Gas_MWh": "Gas turbines",
              "Termica Convencional_MWh": "Conventional steam (fuel oil / gas)",
-             "Combustion Interna_MWh": "Internal combustion", "Carboelectrica_MWh": "Coal",
-             "Hidroelectrica_MWh": "Hydro", "Nucleoelectrica_MWh": "Nuclear", "Eolica_MWh": "Wind",
-             "Fotovoltaica_MWh": "Solar", "Geotermoelectrica_MWh": "Geothermal", "Biomasa_MWh": "Biomass"}
+             "Combustion Interna_MWh": "Internal combustion engines", "Carboelectrica_MWh": "Coal"}
     t = d[cols(d, *names)].apply(pd.to_numeric, errors="coerce")
     m = complete_months(t, t.resample("MS").sum(min_count=1) / 1000)
     m = m[m.index >= "2021-01-01"].rename(columns=names)
-    out.append(spec("By technology", m, "Mexico power generation by CENACE technology", "GWh per month", "stacked_bar"))
+    out.append(spec("Thermal by technology", m, "Mexico thermal generation by CENACE technology", "GWh per month",
+                    "stacked_bar"))
     return out
 
 
