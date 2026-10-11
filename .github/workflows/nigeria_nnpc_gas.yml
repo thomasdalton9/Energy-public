@@ -1,0 +1,51 @@
+name: Nigeria NNPC gas
+
+# NNPC Ltd posts one monthly report summary (PDF) each month with the trailing 12 months; the committed
+# workbook is the history store, so 1st/15th is enough.
+on:
+  schedule:
+    - cron: "20 6 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl pypdf
+
+      - name: Run Nigeria NNPC gas pull
+        run: |
+          mkdir -p "output/Data and Chart Outputs"
+          python3 rest_of_world/NIGERIA_NNPC_GAS.py --out "output/Data and Chart Outputs/nigeria_nnpc_gas_monthly.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          [ -f "output/Data and Chart Outputs/nigeria_nnpc_gas_monthly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/nigeria_nnpc_gas_monthly.xlsx" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp rest_of_world/NIGERIA_NNPC_GAS.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f "output/Data and Chart Outputs/nigeria_nnpc_gas_monthly.xlsx" ] && git add -f "output/Data and Chart Outputs/nigeria_nnpc_gas_monthly.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Nigeria NNPC gas: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

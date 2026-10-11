@@ -365,6 +365,15 @@ def honduras_power(p):
     return out
 
 
+def nigeria_power(p):
+    """NERC quarterly grid generation (hydro vs thermal/gas) in average GW; dates are quarter starts (mmm/yy)."""
+    d = by_date(read(p, "Quarterly"), "date")
+    g = pd.DataFrame({"Hydro": d.get("Hydro_GW"), "Gas": d.get("Gas_GW")}).dropna(how="all")
+    g = g.reindex(pd.date_range(g.index.min(), g.index.max(), freq="QS"))   # a quarter with no report stays a blank gap
+    return [spec("Generation", g, "Nigeria grid generation by source (NERC, quarterly average)", "GW (quarterly average)",
+                 "stacked_bar", "%b/%y")]
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
     return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
@@ -730,6 +739,17 @@ def trinidad(p):
          "PERENCO": "PERENCO (ex-BHP/Woodside)"})
     pw = pr.pivot_table(index=pd.to_datetime(pr["date"]), columns="company", values="mmscfd", aggfunc="sum")
     out.append(spec("Production", pw, "Trinidad & Tobago gas production by company", "MMscf/d", "stacked_bar"))
+    return out
+
+
+def nigeria_nnpc(p):
+    d = by_date(read(p, "Monthly"), "date")
+    g = pd.DataFrame({"Gas production": d["gas_production_mmscfd"] / 1000, "Gas sales": d["gas_sales_mmscfd"] / 1000})
+    out = [spec("Gas", g, "Nigeria gas production and sales (NNPC Ltd)", "Bcf/d", "line")]
+    o = d[["crude_mmbopd", "condensate_mmbopd"]].dropna(how="all")
+    if not o.empty:
+        o = o.rename(columns={"crude_mmbopd": "Crude", "condensate_mmbopd": "Condensate"})
+        out.append(spec("Oil", o, "Nigeria crude oil and condensate production (NNPC Ltd)", "mmb/d", "stacked_bar"))
     return out
 
 
@@ -2878,7 +2898,22 @@ def macro_drivers(p):
     return out
 
 
+def cameroon_arsel(p):
+    """Cameroon ARSEL / SONATREL-ENEO monthly energy balance (rest_of_world/cameroon_arsel_energy_balance.py)."""
+    inj = by_date(read(p, "Plant injections"), "month")
+    plants = inj.drop(columns=[c for c in ["Total plant injections"] if c in inj.columns]) / 1000
+    off = by_date(read(p, "Substation off-take"), "month")
+    cust = by_date(read(p, "HT customers"), "month")
+    cust = cust.drop(columns=[c for c in ["HT customers total"] if c in cust.columns]) / 1000
+    bal = pd.DataFrame({"Plant injections": inj["Total plant injections"] / 1000,
+                        "Substation off-take": off["Off-take total"] / 1000})
+    return [spec("Plant injections", plants, "Cameroon grid injections by plant (ARSEL / SONATREL-ENEO)", "GWh per month", "stacked_bar"),
+            spec("Injections vs off-take", bal, "Cameroon transmission balance: plant injections and substation off-take (ARSEL)", "GWh per month", "line"),
+            spec("HT customers", cust, "Cameroon direct HT customer off-take (ARSEL / SONATREL-ENEO)", "GWh per month", "stacked_bar")]
+
+
 REGISTRY = {
+    "cameroon_arsel_energy_balance.xlsx": cameroon_arsel,
     "us_petroleum_stocks_weekly.xlsx": None,   # week-1-to-52 and water-year charts drawn by EIA_BIG_FOUR_STORAGE.py itself
     "sarawak_energy_annual.xlsx": sarawak_energy,
     "argentina_gas_monthly.xlsx": argentina,
@@ -2920,6 +2955,7 @@ REGISTRY = {
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
     "honduras_power_generation_daily.xlsx": honduras_power,
+    "nigeria_power_generation_quarterly.xlsx": nigeria_power,
     "el_salvador_power_generation_daily.xlsx": power_daily("El Salvador power generation by type (SIGET, monthly net)"),
     # Caribbean
     "puerto_rico_power_generation_daily.xlsx": power_daily("Puerto Rico power generation by type (EIA-923)"),
@@ -2934,6 +2970,7 @@ REGISTRY = {
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,
     "trinidad_gas.xlsx": trinidad,
+    "nigeria_nnpc_gas_monthly.xlsx": nigeria_nnpc,
     "el_salvador_gas.xlsx": el_salvador_gas,
     "ireland_gas_demand_daily.xlsx": ireland_demand,
     "ireland_gas_supply_daily.xlsx": ireland_supply,
@@ -2967,6 +3004,8 @@ REGISTRY = {
     # South & Southeast Asia (Ember fallback until each country's raw feed is in)
     "south_southeast_asia_power_by_type.xlsx": sa_power,
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
+    "west_africa_power_by_type.xlsx": sa_power,
+    "west_africa_power_by_type_annual.xlsx": sa_power_annual,
     "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
                                                              "Malaysia (Peninsular) system demand (GSO)"),
     "pakistan_power_generation_daily.xlsx": power_daily("Pakistan power generation by fuel, national grid + K-Electric "
@@ -3368,6 +3407,21 @@ REGISTRY.update({
     "taiwan_reservoirs_daily.xlsx": _taiwan("reservoir_specs"),
     "taiwan_generation_rollup.xlsx": _taiwan("rollup_specs"),
     "taiwan_live_daily.xlsx": _taiwan("live_specs"),
+})
+
+
+# ---- Ghana (africa/ghana_charts.py) ----
+def _ghana(fn):
+    def f(p):
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "africa"))
+        import ghana_charts
+        return getattr(ghana_charts, fn)(sys.modules[__name__])(p)
+    return f
+
+
+REGISTRY.update({
+    "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
+    "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
 })
 
 

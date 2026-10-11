@@ -1,0 +1,17 @@
+name: Nigeria gas probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [nigeria-gas]
+    paths: [".github/workflows/nigeria_gas_probe.yml", "discovery_archive/nigeria/NIGERIA_GAS_PROBE*.py"]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas openpyxl
+      - run: timeout 600 python3 discovery_archive/nigeria/NIGERIA_GAS_PROBE5.py

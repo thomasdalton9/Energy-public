@@ -1,0 +1,55 @@
+name: Nigeria power generation (NERC, quarterly)
+
+# NERC quarterly reports (PDF): average hourly generation by grid-connected plant, quarterly.
+# The system operator (NISO) has no public feed. Reports appear about once a quarter, the list keeps its history,
+# so the 1st/15th schedule backfills; PDFs already read are not downloaded again (workbook = history store).
+on:
+  schedule:
+    - cron: "41 12 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl pymupdf matplotlib
+      - name: Run
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 rest_of_world/NIGERIA_NERC_POWER.py --out "output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for nigeria_power_generation_quarterly.xlsx"
+          mkdir -p "output/Python Scripts"
+          cp rest_of_world/NIGERIA_NERC_POWER.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx" ]; then
+            echo "No archive file to commit (pull failed before writing it)."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx"
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Nigeria power generation (NERC): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

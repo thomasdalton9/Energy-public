@@ -1,0 +1,21 @@
+name: Nigeria NISO / NERC discovery
+
+# Manual discovery probes for Nigerian grid data (copy to .github/workflows/ to run; results in
+# discovery_archive/results/nigeria/README.txt). Conclusion: no public NISO feed; NERC quarterly report PDFs only.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pymupdf pandas openpyxl
+      - run: |
+          for s in NIGERIA_NISO_DISCOVERY NIGERIA_NISO_DISCOVERY2 NIGERIA_NISO_DISCOVERY3 NIGERIA_NERC_PDF_PROBE NIGERIA_NERC_PDF_PROBE2 NIGERIA_NERC_PDF_PROBE3 NIGERIA_NERC_PDF_PROBE4; do
+            timeout 300 python3 discovery_archive/nigeria/$s.py || true
+          done
