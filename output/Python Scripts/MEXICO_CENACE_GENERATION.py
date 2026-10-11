@@ -14,8 +14,11 @@ archivo .zip" button is CLICKED and the download caught. (POSTing the
 form as mexico_demanda_real.py does returns the HTML page here, not the
 ZIP - discovery_archive/americas/MEXICO_CENACE_GENERATION_PROBE.py.)
 
-An FechaInicial..FechaFinal month range returns one ZIP holding a CSV
-per month per settlement:
+Each month is requested on its own (FechaInicial = FechaFinal = the
+month). Multi-month ranges are unreliable: some return every month in
+about a second, others send no file at all or leave months out (Sep-Dec
+2025 missing from a Jan 2025-Aug 2026 ZIP), while single-month requests
+have always worked (~7 s each). A month's ZIP holds a CSV per settlement:
     "Generacion Liquidada_L<N> SEN <mes> <yyyy> v<published>.csv"
 with columns Sistema, Dia (dd/mm/yyyy), Hora (1-24, 25 on the autumn
 clock change), then MWh for Eolica, Fotovoltaica, Biomasa,
@@ -24,9 +27,10 @@ Hidroelectrica, Nucleoelectrica, Termica Convencional, Turbo Gas.
 N is the settlement: L0 is published about 14 days after the month
 ends, L1 ~6 weeks later, L2 ~4 months, L3 ~8 months. 2016-2017 months
 also have partial L4-L6 files re-settling single days. Each day uses
-the highest settlement that holds it. A multi-month range has been seen
-to leave months out (Sep-Dec 2025 missing from a Jan 2025-Aug 2026 ZIP),
-so any month a range doesn't return is requested on its own.
+the highest settlement that holds it. The month in a file NAME can be
+wrong (December 2018's L1 is named "diciembre 2019"), so a file's month
+is taken from its rows' dates, which must all fall in one month, the
+month requested.
 
 COVERAGE: from 2016-04-30 (the pickers' minDate). The latest month is
 the pickers' maxDate: a month appears ~14 days after it ends, so data
@@ -72,9 +76,8 @@ PICKER_FF = "ctl00_ContentPlaceHolder1_FechaFinal"
 DOWNLOAD_BUTTON = '[name="ctl00$ContentPlaceHolder1$DescargarReportes"]'
 
 DATA_START = date(2016, 4, 1)   # first month in the report (minDate 2016-04-30)
-CHUNK_MONTHS = 6                # months per range request
 REVISION_MONTHS = 10            # L3 arrives ~8 months after the month
-DOWNLOAD_TIMEOUT_MS = 90000     # a whole range downloads in ~1 s; no file by then means none is coming
+DOWNLOAD_TIMEOUT_MS = 90000     # a month downloads in seconds; no file by then means none is coming
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(REPO_ROOT, "output", "Data and Chart Outputs")
@@ -161,11 +164,10 @@ def read_pickers(page):
     )
 
 
-def download_months(page, first, last, attempts=2):
-    """ZIP bytes for operating months first..last (month starts, inclusive), or None if CENACE sends no file."""
+def download_month(page, month, dialogs, attempts=3):
+    """ZIP bytes for one operating month, or None if CENACE sends no file."""
+    first = last = month
     want = [[last.year, last.month], [first.year, first.month], [last.year, last.month]]
-    dialogs = []
-    page.on("dialog", lambda dlg: (dialogs.append(dlg.message), dlg.dismiss()))
     for attempt in range(1, attempts + 1):
         load_page(page)
         for _ in range(2):  # second pass undoes the postback reset
@@ -189,17 +191,17 @@ def download_months(page, first, last, attempts=2):
             except Exception:  # noqa: BLE001
                 pass
             i = text.find("Mes de Operaci")
-            log(f"  {first:%Y-%m}..{last:%Y-%m}: no download ({type(e).__name__}) (attempt {attempt}); "
+            log(f"  {month:%Y-%m}: no download ({type(e).__name__}) (attempt {attempt}); "
                 f"dialogs {dialogs[-3:]}; page: {text[max(0, i):i + 400]!r}")
             continue
         if body[:2] == b"PK":
             return body
-        log(f"  {first:%Y-%m}..{last:%Y-%m}: download is not a ZIP ({len(body):,} bytes) (attempt {attempt})")
+        log(f"  {month:%Y-%m}: download is not a ZIP ({len(body):,} bytes) (attempt {attempt})")
     return None
 
 
-def parse_csv(text, month):
-    """{day: DataFrame(hora + TECHS)} from one monthly CSV; every row must fall in `month`."""
+def parse_csv(text):
+    """(month, {day: DataFrame(hora + TECHS)}) from one monthly CSV; all rows must fall in one month."""
     lines = text.splitlines()
     head = next((i for i, l in enumerate(lines) if "Sistema" in l and "Hora" in l), None)
     if head is None:
@@ -216,18 +218,19 @@ def parse_csv(text, month):
             continue
         dd, mm, yy = (int(x) for x in rec[ix["Dia"]].strip().split("/"))
         day = date(yy, mm, dd)
-        if month_start(day) != month:
-            raise RuntimeError(f"row dated {day} in the file for {month:%Y-%m}")
         rows.append([day, int(rec[ix["Hora"]])] + [float(rec[ix[t]] or 0) for t in TECHS])
     df = pd.DataFrame(rows, columns=["date", "hora", *TECHS])
-    return {d: g.drop(columns="date").reset_index(drop=True) for d, g in df.groupby("date")}
+    months = {month_start(d) for d in df["date"]}
+    if len(months) != 1:
+        raise RuntimeError(f"rows span {len(months)} months")
+    return months.pop(), {d: g.drop(columns="date").reset_index(drop=True) for d, g in df.groupby("date")}
 
 
-def parse_zip(body, months):
-    """{day: (liquidacion, hourly DataFrame)} using, per day, the highest settlement holding it.
-    Files for months outside `months` are rejected."""
+def parse_zip(body, month):
+    """{day: (liquidacion, hourly DataFrame)} for `month`, using per day the highest settlement holding it.
+    A file whose rows are for another month is left out (logged); one whose NAME gives another month but whose
+    rows are for `month` is kept (CENACE has mislabelled some)."""
     best = {}
-    seen_months = set()
     with zipfile.ZipFile(io.BytesIO(body)) as zf:
         for name in zf.namelist():
             m = FILE_RE.search(name)
@@ -235,16 +238,16 @@ def parse_zip(body, months):
                 log(f"  skipping unrecognised file {name!r}")
                 continue
             liq, mes, yy = int(m.group(1)), m.group(2).lower(), int(m.group(3))
-            if mes not in MESES:
-                raise RuntimeError(f"unknown month name in {name!r}")
-            month = date(yy, MESES[mes], 1)
-            if month not in months:
-                raise RuntimeError(f"ZIP holds {name!r} - outside the requested months")
-            seen_months.add(month)
-            for day, df in parse_csv(zf.read(name).decode("latin-1", errors="replace"), month).items():
+            rows_month, days = parse_csv(zf.read(name).decode("latin-1", errors="replace"))
+            if rows_month != month:
+                log(f"  {name!r}: rows are for {rows_month:%Y-%m}, not the requested {month:%Y-%m} - left out")
+                continue
+            if MESES.get(mes) != month.month or yy != month.year:
+                log(f"  {name!r}: file name says {mes} {yy} but its rows are {month:%Y-%m} - kept as {month:%Y-%m}")
+            for day, df in days.items():
                 if day not in best or liq > best[day][0]:
                     best[day] = (liq, df)
-    return best, seen_months
+    return best
 
 
 # --------------------------------------------------------------- archive
@@ -352,19 +355,6 @@ def months_to_fetch(archive, latest, start):
     return out
 
 
-def chunks(months):
-    """Runs of consecutive months, each at most CHUNK_MONTHS long."""
-    out, run = [], []
-    for m in months:
-        if run and (m != add_months(run[-1], 1) or len(run) == CHUNK_MONTHS):
-            out.append(run)
-            run = []
-        run.append(m)
-    if run:
-        out.append(run)
-    return out
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--xlsx-out", default=DEFAULT_XLSX_OUT)
@@ -384,16 +374,26 @@ def main():
         log(f"CENACE latest published month: {latest:%Y-%m}. Months to fetch: {len(todo)} "
             f"({todo[0]:%Y-%m}..{todo[-1]:%Y-%m})" if todo else f"CENACE latest month {latest:%Y-%m}; nothing to fetch.")
 
-        for run in chunks(todo):
-            body = download_months(page, run[0], run[-1])
-            days, seen = parse_zip(body, set(run)) if body else ({}, set())
-            for m in [m for m in run if m not in seen]:
-                log(f"  {m:%Y-%m} not in the {run[0]:%Y-%m}..{run[-1]:%Y-%m} download - requesting it on its own")
-                b2 = download_months(page, m, m)
-                d2, s2 = parse_zip(b2, {m}) if b2 else ({}, set())
-                days.update(d2)
-                if m not in s2:
-                    absent.append(m)
+        dialogs = []
+
+        def on_dialog(dlg):
+            dialogs.append(dlg.message)
+            try:
+                dlg.dismiss()
+            except Exception:  # noqa: BLE001 - already handled
+                pass
+
+        page.on("dialog", on_dialog)
+        for month in todo:
+            body = download_month(page, month, dialogs)
+            days = parse_zip(body, month) if body else {}
+            if not days and body:   # a file for the wrong month: one more try
+                body = download_month(page, month, dialogs)
+                days = parse_zip(body, month) if body else {}
+            if not days:
+                absent.append(month)
+                log(f"  {month:%Y-%m}: nothing returned")
+                continue
             changed = {}
             for day, (liq, df) in days.items():
                 if day in archive.index and pd.notna(archive.at[day, "Liquidacion"]) \
@@ -402,14 +402,11 @@ def main():
                 archive.loc[day] = pd.Series(day_row(liq, df))
                 changed[day] = (liq, df)
             if changed:
-                by_year = {}
-                for day, v in changed.items():
-                    by_year.setdefault(day.year, {})[day] = v
-                for year, frames in sorted(by_year.items()):
-                    write_hourly_year(args.hourly_dir, year, frames)
+                write_hourly_year(args.hourly_dir, month.year, changed)
                 save(args.xlsx_out, archive)
                 updated += len(changed)
-            log(f"  {run[0]:%Y-%m}..{run[-1]:%Y-%m}: {len(days)} day(s) returned, {len(changed)} new/revised")
+            liqs = sorted({v[0] for v in days.values()})
+            log(f"  {month:%Y-%m}: {len(days)} day(s), settlements {liqs}, {len(changed)} new/revised")
 
         browser.close()
 
