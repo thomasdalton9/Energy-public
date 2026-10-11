@@ -65,6 +65,8 @@ ISO3 = {
     "Taiwan": "TWN",
     # Japan
     "Japan": "JPN",
+    # East Mediterranean
+    "Israel": "ISR", "Egypt": "EGY", "Jordan": "JOR", "Lebanon": "LBN",
 }
 
 REGIONS = {
@@ -81,6 +83,7 @@ REGIONS = {
     "Japan": ["Japan"],
     "South Korea": ["South Korea"],
     "Taiwan": ["Taiwan"],
+    "East Med": ["Israel", "Egypt", "Cyprus", "Jordan", "Lebanon"],
     "Europe": ["Germany", "France", "United Kingdom", "Italy", "Spain", "Poland", "Netherlands", "Turkey", "Belgium",
                "Austria", "Switzerland", "Czechia", "Slovakia", "Hungary", "Romania", "Bulgaria", "Greece", "Portugal",
                "Croatia", "Slovenia", "Denmark", "Sweden", "Norway", "Finland", "Ireland", "Estonia", "Latvia",
