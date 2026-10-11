@@ -3594,8 +3594,19 @@ def israel_gas_fields(p):
                  "Bcf/d (quarterly average)", "stacked_bar")]
 
 
+def cyprus_generation(p):
+    """TSOC daily mean MW by source (europe/cyprus_generation_mix.py): monthly average MW, stacked."""
+    d = by_date(read(p, "Cyprus"), "date").apply(pd.to_numeric, errors="coerce")
+    g = d[cols(d, "oil", "wind", "solar", "biomass")].rename(
+        columns={"oil": "Oil", "wind": "Wind", "solar": "Solar", "biomass": "Bioenergy"})
+    m = complete_months(g, g.resample("MS").mean())
+    return [spec("Generation", m, "Cyprus power generation by source (TSOC; solar = distributed generation estimate)",
+                 "MW (monthly average)", "stacked_bar")]
+
+
 REGISTRY.update({
     "mexico_power_generation_daily.xlsx": mexico_generation,
+    "cyprus_generation_mix_daily.xlsx": cyprus_generation,
     "israel_gas_fields_quarterly.xlsx": israel_gas_fields,
     "egypt_grid_load_daily.xlsx": egypt_grid_load,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
