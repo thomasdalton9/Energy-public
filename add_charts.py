@@ -2047,68 +2047,90 @@ def canada_power(p):
     return out
 
 
-def _monthly_gwh(d, cols_map, start="2019-01-01"):
-    """Daily MWh columns -> complete months in GWh, columns renamed by cols_map {source column: label}."""
+def _monthly_gwh(d, cols_map, start="2019-01-01", gw=False):
+    """Daily MWh columns -> complete months, columns renamed by cols_map {source column: label}. GWh per month, or with
+    gw=True the month's average power in GW (energy / hours in the month)."""
     d = d[cols(d, *cols_map)].apply(pd.to_numeric, errors="coerce")
     m = complete_months(d, d.resample("MS").sum(min_count=1) / 1000)
-    return m[m.index >= start].rename(columns=cols_map).dropna(how="all")
+    m = m[m.index >= start].rename(columns=cols_map).dropna(how="all")
+    return m.div(m.index.days_in_month * 24.0, axis=0) if gw else m
 
 
 def canada_provinces(p):
-    """Provincial grid-operator pulls (canada_provinces_power.py): Quebec generation by source (Hydro-Quebec), Alberta
-    net generation by group (AESO) and pool price, BC Hydro control-area load, NB Power load and net exports."""
+    """Provincial grid-operator pulls (canada_provinces_power.py): Quebec generation by source and demand (Hydro-Quebec),
+    Alberta net generation by group (AESO) with pool price and demand, BC Hydro control-area load, NB Power load and net
+    exports, Quebec reservoir levels (daily line until a year of history exists, then the Oct-Sep water-year chart)."""
     out = []
     q = _sheet(p, "Quebec", "date")
     if not q.empty:
-        g = _monthly_gwh(q, {"Hydro_MWh": "Hydro", "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Thermal_MWh": "Thermal",
-                             "Other_MWh": "Other"})
+        names = {"Hydro_MWh": "Hydro", "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Thermal_MWh": "Thermal",
+                 "Other_MWh": "Other", "Demand_MWh": "Demand"}
+        g = _monthly_gwh(q, names, gw=True)
         if not g.empty:
-            out.append(spec("Quebec generation", g, "Quebec power generation by source (Hydro-Quebec)", "GWh per month",
-                            "stacked_bar"))
+            out.append(spec("Quebec generation", g, "Quebec power generation by source and demand (Hydro-Quebec)",
+                            "GW (monthly average)", "stacked_bar", line_cols=("Demand",) if "Demand" in g else ()))
     a = _sheet(p, "Alberta", "date")
-    if not a.empty:
-        names = {"Gas_MWh": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MWh": "Hydro",
-                 "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Other_MWh": "Other"}
-        if "Coal_MWh" in a:
-            names["Coal_MWh"] = "Coal"
-        m = _monthly_gwh(a, names)
-        if len(m) >= 3:
-            out.append(spec("Alberta generation", m, "Alberta power generation by source (AESO)", "GWh per month",
-                            "stacked_bar"))
-        else:   # the pull is young: show the daily series so far
-            dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 1000
-            dd = dd.dropna(how="all").tail(120)
-            if len(dd) >= 2:
-                out.append(spec("Alberta generation", dd, "Alberta power generation by source (AESO, daily)",
-                                "GWh per day", "stacked_bar", date_format="%Y-%m-%d"))
-        if "Pool price avg (CAD per MWh)" in a and a["Pool price avg (CAD per MWh)"].notna().sum() >= 2:
-            pr = a[["Pool price avg (CAD per MWh)"]].dropna().rename(columns={"Pool price avg (CAD per MWh)": "Pool price"})
-            out.append(spec("Alberta price", pr.tail(120), "Alberta pool price, daily average (AESO)", "CAD per MWh",
-                            "line", date_format="%Y-%m-%d"))
+    snaps = _sheet(p, "Alberta snapshots", "utc")
+    hourly = _sheet(p, "Alberta hourly", "hour_ending")
+    names = {"Gas_MWh": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MWh": "Hydro",
+             "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Other_MWh": "Other"}
+    if not a.empty and "Coal_MWh" in a:
+        names["Coal_MWh"] = "Coal"
+    m = _monthly_gwh(a, names, gw=True) if not a.empty else pd.DataFrame()
+    if len(m) >= 3:
+        out.append(spec("Alberta generation", m, "Alberta power generation by source (AESO)", "GW (monthly average)",
+                        "stacked_bar"))
+    else:   # young pull: the daily series, else the individual AESO snapshots
+        dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 24000 if not a.empty else pd.DataFrame()
+        dd = dd.dropna(how="all").tail(120)
+        if len(dd) >= 2:
+            out.append(spec("Alberta generation", dd, "Alberta power generation by source (AESO, daily mean)",
+                            "GW (daily mean)", "stacked_bar", date_format="%Y-%m-%d"))
+        elif len(snaps) >= 2:
+            sn = snaps[[c for c in snaps.columns if str(c).endswith("TNG_MW") and not str(c).startswith("TNG")]]
+            sn = sn.apply(pd.to_numeric, errors="coerce").rename(columns=lambda c: str(c).replace(" TNG_MW", "")) / 1000
+            sn = sn.loc[:, sn.abs().sum() > 0].tail(240)
+            out.append(spec("Alberta generation", sn, "Alberta net generation by group (AESO, snapshots)", "GW",
+                            "stacked_bar", date_format="%Y-%m-%d %H:%M"))
+    if len(hourly) >= 2:
+        h = hourly.apply(pd.to_numeric, errors="coerce").tail(168)
+        ail = (h[["AIL_MW"]] / 1000).rename(columns={"AIL_MW": "Demand (AIL), GW"})
+        out.append(spec("Alberta demand", ail, "Alberta internal load, hourly (AESO)", "GW", "line",
+                        date_format="%Y-%m-%d %H:%M"))
+        pr = h[["Pool price (CAD per MWh)"]].rename(columns={"Pool price (CAD per MWh)": "Pool price"})
+        out.append(spec("Alberta price", pr, "Alberta pool price, hourly (AESO)", "CAD per MWh", "line",
+                        date_format="%Y-%m-%d %H:%M"))
     lv = _sheet(p, "Quebec reservoirs", "date")
-    for c in lv.columns:   # water-year charts once a station has a week of days
-        ser = pd.to_numeric(lv[c], errors="coerce").dropna()
-        if len(ser) >= 7:
+    if not lv.empty:
+        lvn = lv.apply(pd.to_numeric, errors="coerce")
+        deep = [c for c in lvn.columns if lvn[c].dropna().size >= 365]
+        for c in deep:   # a year of days: Oct-Sep water-year chart
             label = str(c).replace(" level_m", "")
-            out.append({"name": f"Quebec {label}", "water_year": ser.resample("D").interpolate(), "y_decimals": 1,
-                        "title": f"Quebec, {label} reservoir level (Hydro-Quebec)", "units": "m above sea level"})
+            out.append({"name": f"Quebec {label}", "water_year": lvn[c].dropna().resample("D").interpolate(),
+                        "y_decimals": 1, "title": f"Quebec, {label} reservoir level (Hydro-Quebec)",
+                        "units": "m above sea level", "sheet": f"Water year - {label}"[:31]})
+        rest = lvn.drop(columns=deep).dropna(how="all", axis=1)
+        if len(rest.dropna(how="all")) >= 2:
+            out.append(spec("Quebec reservoirs", rest.rename(columns=lambda c: str(c).replace(" level_m", "")),
+                            "Quebec reservoir levels, daily mean (Hydro-Quebec; water-year charts start with a year of history)",
+                            "m above sea level", "line", date_format="%Y-%m-%d"))
     b = _sheet(p, "British Columbia", "date")
     if not b.empty:
-        m = _monthly_gwh(b, {"Load_MWh": "BC Hydro control-area load"}, "2021-01-01")
+        m = _monthly_gwh(b, {"Load_MWh": "BC Hydro control-area load"}, "2021-01-01", gw=True)
         if not m.empty:
             out.append(spec("BC load", m, "British Columbia electricity load (BC Hydro balancing authority)",
-                            "GWh per month", "line"))
+                            "GW (monthly average)", "line"))
     n = _sheet(p, "New Brunswick", "date")
     if not n.empty:
-        m = _monthly_gwh(n, {"NB load_MWh": "NB load"}, "2021-01-01")
+        m = _monthly_gwh(n, {"NB load_MWh": "NB load"}, "2021-01-01", gw=True)
         xp = n[cols(n, "ISO-NE_MWh", "Northern Maine_MWh", "Quebec_MWh", "Nova Scotia_MWh", "PEI_MWh")]
         if not xp.empty:
             net = _monthly_gwh(xp.assign(net=xp.sum(axis=1, min_count=1)), {"net": "Net exports (+) / imports (-)"},
-                               "2021-01-01")
+                               "2021-01-01", gw=True)
             m = m.join(net, how="left")
         if not m.empty:
-            out.append(spec("NB load", m, "New Brunswick electricity load and net exports (NB Power)", "GWh per month",
-                            "line"))
+            out.append(spec("NB load", m, "New Brunswick electricity load and net exports (NB Power)",
+                            "GW (monthly average)", "line"))
     return out
 
 

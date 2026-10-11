@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas openpyxl requests
+        run: pip install pandas openpyxl requests matplotlib
       - name: Run StatCan pull
         env:
           PYTHONUNBUFFERED: "1"
@@ -32,10 +32,10 @@ jobs:
         if: always()
         run: |
           for f in canada_power_generation_daily canada_gas canada_power_capacity; do
-            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp americas/CANADA_STATCAN.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py americas/CANADA_STATCAN.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbooks
         if: always()
@@ -45,6 +45,7 @@ jobs:
           for f in canada_power_generation_daily canada_gas canada_power_capacity; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
+          git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
           git commit -m "Canada power and gas (StatCan): automated update"

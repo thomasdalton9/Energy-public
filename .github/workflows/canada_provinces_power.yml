@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas openpyxl requests xlrd
+        run: pip install pandas openpyxl requests xlrd matplotlib
       - name: Run provincial pulls
         env:
           PYTHONUNBUFFERED: "1"
@@ -31,9 +31,9 @@ jobs:
         if: always()
         run: |
           F="output/Data and Chart Outputs/canada_provincial_power_daily.xlsx"
-          [ -f "$F" ] && python3 add_charts.py "$F" || echo "chart step skipped/failed"
+          [ -f "$F" ] && python3 add_charts.py "$F" && python3 png_charts.py "$F" || echo "chart step skipped/failed"
           mkdir -p "output/Python Scripts"
-          cp americas/canada_provinces_power.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp png_charts.py americas/canada_provinces_power.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbook
         if: always()
@@ -41,6 +41,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           [ -f "output/Data and Chart Outputs/canada_provincial_power_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/canada_provincial_power_daily.xlsx"
+          git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
           git commit -m "Canada provincial power: automated update"
