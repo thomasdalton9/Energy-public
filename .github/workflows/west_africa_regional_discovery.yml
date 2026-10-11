@@ -1,0 +1,18 @@
+name: West Africa regional discovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [west-africa-regional-discovery]
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: timeout 600 python3 discovery_archive/rest_of_world/WEST_AFRICA_REGIONAL_DISCOVERY.py
