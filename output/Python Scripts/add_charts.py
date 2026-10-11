@@ -2878,7 +2878,22 @@ def macro_drivers(p):
     return out
 
 
+def cameroon_arsel(p):
+    """Cameroon ARSEL / SONATREL-ENEO monthly energy balance (rest_of_world/cameroon_arsel_energy_balance.py)."""
+    inj = by_date(read(p, "Plant injections"), "month")
+    plants = inj.drop(columns=[c for c in ["Total plant injections"] if c in inj.columns]) / 1000
+    off = by_date(read(p, "Substation off-take"), "month")
+    cust = by_date(read(p, "HT customers"), "month")
+    cust = cust.drop(columns=[c for c in ["HT customers total"] if c in cust.columns]) / 1000
+    bal = pd.DataFrame({"Plant injections": inj["Total plant injections"] / 1000,
+                        "Substation off-take": off["Off-take total"] / 1000})
+    return [spec("Plant injections", plants, "Cameroon grid injections by plant (ARSEL / SONATREL-ENEO)", "GWh per month", "stacked_bar"),
+            spec("Injections vs off-take", bal, "Cameroon transmission balance: plant injections and substation off-take (ARSEL)", "GWh per month", "line"),
+            spec("HT customers", cust, "Cameroon direct HT customer off-take (ARSEL / SONATREL-ENEO)", "GWh per month", "stacked_bar")]
+
+
 REGISTRY = {
+    "cameroon_arsel_energy_balance.xlsx": cameroon_arsel,
     "us_petroleum_stocks_weekly.xlsx": None,   # week-1-to-52 and water-year charts drawn by EIA_BIG_FOUR_STORAGE.py itself
     "sarawak_energy_annual.xlsx": sarawak_energy,
     "argentina_gas_monthly.xlsx": argentina,
