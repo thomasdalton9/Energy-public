@@ -71,7 +71,7 @@ RAW_POWER_DATASETS = [
     ("CA", "Canada", "canada_power_generation_daily.xlsx", ("Daily", "Provinces"), "power"),
 ]
 OTHER_POWER_DATASETS = [
-    ("CA", "Canada", "canada_provincial_power_daily.xlsx", ("Quebec", "Alberta", "British Columbia", "New Brunswick"),
+    ("CA", "Canada", "canada_provincial_power_daily.xlsx", ("Quebec", "Alberta", "British Columbia", "New Brunswick", "Quebec reservoirs"),
      "provincial power"),
     ("CA", "Canada", "canada_cer_power.xlsx", ("Electricity trade monthly", "Fossil shares"), "electricity trade"),
     ("MX", "Mexico", "mexico_demanda_nacional_daily.xlsx", "Data", "demand"),

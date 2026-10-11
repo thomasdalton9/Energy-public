@@ -12,6 +12,8 @@ Canada provincial grid-operator pulls (raw sources, no key), one daily workbook 
                    first ran.
   British Columbia BC Hydro balancing-authority hourly control-area load (BCHA), yearly .xls files (2024 on) and the
                    current-month file. BC Hydro publishes load only, not generation by fuel.
+  Quebec reservoirs daily mean water level (m) at eight large Hydro-Quebec reservoirs, saved day by day from the
+                   rolling ~10-day hydrometeorological open-data table.
   New Brunswick    NB Power TSO system information archive (hourly NB load / demand and net scheduled interchange,
                    monthly CSV, 2019 on). Load and interchange only.
 
@@ -168,6 +170,35 @@ def pull_quebec(saved, state):
               "  Quebec live feed empty", flush=True)
     except Exception as e:  # noqa: BLE001
         print(f"  Quebec live FAILED: {type(e).__name__}: {e}", flush=True)
+    return upsert(saved, new)
+
+
+# Hydro-Quebec hydrometeorological dataset: hourly water levels (m) at its facilities, a rolling ~10-day window.
+RESERVOIRS = {"Caniapiscau": "Caniapiscau Sud (CMCS)", "Gouin": "Gouin Barrage amont",
+              "Eastmain": "Eastmain Barrage amont", "Manic-5 (Daniel-Johnson)": "Manic-5 Est",
+              "La Grande-4": "La Grande-4 Centrale amont", "La Grande-3": "La Grande-3 Centrale amont",
+              "La Grande-2-A (Robert-Bourassa)": "La Grande-2-A Centrale amont", "Bersimis-1": "Bersimis-1 Centrale amont"}
+
+
+def pull_quebec_levels(saved):
+    since = (pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=14)).strftime("%Y-%m-%d")
+    ds = HQ_ODS.format(ds="donnees-hydrometeorologiques")
+    r = get(ds + "/exports/csv", params={"select": "nom,date,valeur", "delimiter": ",", "timezone": "America/Toronto",
+                                         "where": f'composition_depil_type_point_donnee = "Niveau" and date >= "{since}"'})
+    d = pd.read_csv(io.StringIO(r.text))
+    d["date"] = pd.to_datetime(d["date"].astype(str).str[:19])
+    d["valeur"] = pd.to_numeric(d["valeur"], errors="coerce")
+    out = {}
+    for label, nom in RESERVOIRS.items():
+        x = d[d["nom"] == nom].dropna(subset=["valeur"])
+        if x.empty:
+            continue
+        h = x.groupby("date")["valeur"].mean()
+        g = h.groupby(h.index.normalize())
+        out[f"{label} level_m"] = g.mean().where(g.count() >= 20)
+    new = pd.DataFrame(out).dropna(how="all")
+    new.index.name = "date"
+    print(f"  Quebec reservoir levels: {len(new)} days, {list(new.columns)}", flush=True)
     return upsert(saved, new)
 
 
@@ -365,6 +396,8 @@ NOTES = [
     "Alberta: Gas_MWh = cogeneration + combined cycle + gas fired steam + simple cycle (AESO net generation, TNG). "
     "AESO's report has no coal group any more (Alberta's coal units are gas-fired or retired). Storage_MWh is net "
     "battery output. AIL = Alberta Internal Load (demand). Alberta (Mountain) day.",
+    "Quebec reservoirs: daily mean water level in metres above sea level (Hydro-Quebec hydrometeorological dataset; the "
+    "open-data table holds only about the last 10 days, so history builds from the first run).",
     "British Columbia: Load_MWh = BC Hydro balancing-authority (BCHA) control-area load, not generation: BC Hydro does "
     "not publish generation by fuel.",
     "New Brunswick: NB load / NB demand are load, not generation. Interchange columns: positive = export from New "
@@ -409,9 +442,14 @@ def main():
     qc, ab_d = load(out, "Quebec"), load(out, "Alberta")
     snaps, hourly = load(out, "Alberta snapshots"), load(out, "Alberta hourly")
     bc, nb = load(out, "British Columbia"), load(out, "New Brunswick")
+    qlev = load(out, "Quebec reservoirs")
 
     print("Quebec (Hydro-Quebec open data)", flush=True)
     qc = pull_quebec(qc, state)
+    try:
+        qlev = pull_quebec_levels(qlev)
+    except Exception as e:  # noqa: BLE001
+        print(f"  Quebec reservoir levels FAILED: {type(e).__name__}: {e}", flush=True)
     print("Alberta (AESO)", flush=True)
     snaps, hourly = pull_alberta(snaps, hourly)
     ab_d = upsert(ab_d, alberta_daily(snaps, hourly)) if not snaps.empty or not hourly.empty else ab_d
@@ -427,14 +465,14 @@ def main():
         print(f"  NB FAILED: {type(e).__name__}: {e}", flush=True)
 
     sheets = {"Quebec": qc, "Alberta": ab_d, "British Columbia": bc, "New Brunswick": nb,
-              "Alberta snapshots": snaps, "Alberta hourly": hourly}
+              "Quebec reservoirs": qlev, "Alberta snapshots": snaps, "Alberta hourly": hourly}
     sheets = {k: v for k, v in sheets.items() if not v.empty}
     if not sheets:
         raise SystemExit("Nothing pulled")
     for k, v in sheets.items():
         v.index.name = v.index.name or "date"
         print(f"  {k}: {len(v)} rows, {v.index.min()} to {v.index.max()}", flush=True)
-    for k in ("Quebec", "Alberta", "British Columbia", "New Brunswick"):
+    for k in ("Quebec", "Alberta", "British Columbia", "New Brunswick", "Quebec reservoirs"):
         if k in sheets:
             sheets[k].index = pd.to_datetime(sheets[k].index).strftime("%Y-%m-%d")
             sheets[k].index.name = "date"

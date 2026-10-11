@@ -2085,6 +2085,13 @@ def canada_provinces(p):
             pr = a[["Pool price avg (CAD per MWh)"]].dropna().rename(columns={"Pool price avg (CAD per MWh)": "Pool price"})
             out.append(spec("Alberta price", pr.tail(120), "Alberta pool price, daily average (AESO)", "CAD per MWh",
                             "line", date_format="%Y-%m-%d"))
+    lv = _sheet(p, "Quebec reservoirs", "date")
+    for c in lv.columns:   # water-year charts once a station has a week of days
+        ser = pd.to_numeric(lv[c], errors="coerce").dropna()
+        if len(ser) >= 7:
+            label = str(c).replace(" level_m", "")
+            out.append({"name": f"Quebec {label}", "water_year": ser.resample("D").interpolate(), "y_decimals": 1,
+                        "title": f"Quebec, {label} reservoir level (Hydro-Quebec)", "units": "m above sea level"})
     b = _sheet(p, "British Columbia", "date")
     if not b.empty:
         m = _monthly_gwh(b, {"Load_MWh": "BC Hydro control-area load"}, "2021-01-01")
