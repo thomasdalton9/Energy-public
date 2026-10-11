@@ -202,5 +202,107 @@ def round1():
     browser(retry)
 
 
+def cf_page(ctx, url, wait=25):
+    """Open url in a fresh page, wait for a Cloudflare challenge to clear; return (status, html, page)."""
+    pg = ctx.new_page()
+    try:
+        resp = pg.goto(url, timeout=60000, wait_until="domcontentloaded")
+        st = resp.status if resp else None
+        for _ in range(wait):
+            t = pg.title()
+            if "just a moment" not in t.lower() and "security verification" not in t.lower():
+                break
+            pg.wait_for_timeout(1000)
+        pg.wait_for_timeout(1500)
+        return st, pg.content(), pg
+    except Exception as e:  # noqa: BLE001
+        out(f"  ERROR {type(e).__name__}: {str(e)[:160]}")
+        return None, "", pg
+
+
+def ctx_pdf(ctx, name, url, pages=3, chars=1800, pat=r"natural gas|MMCF|MMBTU|RLNG|LNG|cargo"):
+    out(f"\n{'-' * 100}\nPDF {name}: {url}")
+    try:
+        r = ctx.request.get(url, timeout=180000)
+        body = r.body()
+        out(f"  -> {r.status} {r.headers.get('content-type')} {len(body)}b LM={r.headers.get('last-modified')}")
+        if not body.startswith(b"%PDF"):
+            out("  not a PDF: " + re.sub(r"\s+", " ", body[:200].decode("latin1")))
+            return
+        import pdfplumber
+        with pdfplumber.open(io.BytesIO(body)) as pdf:
+            out(f"  pages={len(pdf.pages)}")
+            hits = 0
+            for i, p in enumerate(pdf.pages[:250]):
+                tx = p.extract_text() or ""
+                if i == 0 or (re.search(pat, tx, re.I) and hits < pages):
+                    hits += i > 0
+                    out(f"  --- page {i + 1} ({len(tx)} chars):\n" + tx[:chars])
+    except Exception as e:  # noqa: BLE001
+        out(f"  ERROR {type(e).__name__}: {str(e)[:200]}")
+
+
+def round2():
+    # PBS: every MBS upload (newest issue?), production / trade pages
+    js = []
+    for s in ("MBS", "Bulletin_of_Stat"):
+        for pgn in (1, 2, 3):
+            try:
+                r = requests.get("https://www.pbs.gov.pk/wp-json/wp/v2/media", headers=H, timeout=T, verify=False,
+                                 params={"search": s, "per_page": 100, "page": pgn, "_fields": "date,source_url"})
+                if r.status_code != 200:
+                    break
+                js += r.json()
+            except Exception:  # noqa: BLE001
+                break
+    names = sorted({m["source_url"].rsplit("/", 1)[1] for m in js if m["source_url"].lower().endswith(".pdf")})
+    out(f"PBS MBS-like PDFs ({len(names)}): " + ", ".join(n for n in names if re.search(r"202[4-6]", n)))
+    for u in ("https://www.pbs.gov.pk/pakistan-bureau-of-statistics-economic-statistics-production/",
+              "https://www.pbs.gov.pk/publication-2", "https://www.pbs.gov.pk/external-trade-statistics/"):
+        probe("PBS", u, links=80, kw=4, pat=re.compile(r"\.pdf|\.xls|bulletin|mbs|energy|trade|import|quantum", re.I))
+    # SBP import payments / trade files
+    r, ls = probe("SBP economic data", "https://www.sbp.org.pk/economic-data", links=0, kw=0)
+    for l in ls:
+        if re.search(r"import|export|commod|trade|petrol|oil|IP_|payment", l, re.I):
+            out(f"    SBP: {l}")
+    # Petroleum Division, PPIS, Mari
+    for u in ("https://petroleum.gov.pk/Publications", "https://petroleum.gov.pk/Download",
+              "https://ppisonline.com/data-review", "https://hdip.gov.pk/", "https://www.hdip.gov.pk/",
+              "https://hdip.org.pk/"):
+        probe("misc", u, links=80, kw=6)
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch(args=["--disable-blink-features=AutomationControlled"])
+        ctx = b.new_context(user_agent=H["User-Agent"], ignore_https_errors=True, locale="en-GB")
+        pdfs = {}
+        pages = ["https://www.ogra.org.pk/", "https://www.ogra.org.pk/ogra-annual-reports",
+                 "https://www.ogra.org.pk/other-reports", "https://www.ogra.org.pk/natural-gas-3",
+                 "https://www.ogra.org.pk/gas-9", "https://www.ogra.org.pk/gas-16", "https://www.ogra.org.pk/lng-10",
+                 "https://www.ogra.org.pk/lng-9", "https://www.ogra.org.pk/rlng-3",
+                 "https://www.ogra.org.pk/rlng-notified-prices-3", "https://www.ogra.org.pk/rlng-notified-prices-for-pll",
+                 "https://www.ogra.org.pk/finalactual-monthly-rlng-sale-price",
+                 "https://www.ogra.org.pk/actual-rlng-notified-sale-price-decisions-ssgc-dated-august-2026",
+                 "https://www.paklng.com/", "https://www.isgs.com.pk/", "https://psopk.com/",
+                 "https://www.ogdcl.com/", "https://www.ppl.com.pk/", "https://www.pol.com.pk/",
+                 "https://www.marienergies.com.pk/what-we-do/production-and-sales",
+                 "https://www.finance.gov.pk/survey_2526.html", "https://www.finance.gov.pk/survey_2425.html",
+                 "https://pqa.gov.pk/en"]
+        for u in pages:
+            out(f"\n{'=' * 100}\nBROWSER {u}")
+            st, html, pg = cf_page(ctx, u)
+            out(f"  -> {st} final={pg.url}")
+            ls = show_html(html, pg.url, kw=5, links=70) if html else []
+            pdfs[u] = [l for l in ls if l.lower().endswith((".pdf", ".xlsx", ".xls"))]
+            pg.close()
+        # sample documents: newest RLNG price notifications, other reports, annual report
+        for u in ("https://www.ogra.org.pk/finalactual-monthly-rlng-sale-price",
+                  "https://www.ogra.org.pk/rlng-notified-prices-for-pll", "https://www.ogra.org.pk/rlng-notified-prices-3",
+                  "https://www.ogra.org.pk/other-reports", "https://www.ogra.org.pk/ogra-annual-reports",
+                  "https://www.ogra.org.pk/natural-gas-3"):
+            for l in pdfs.get(u, [])[:2]:
+                ctx_pdf(ctx, u.rsplit("/", 1)[1], l)
+        b.close()
+
+
 if __name__ == "__main__":
-    {"1": round1}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
+    {"1": round1, "2": round2}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
