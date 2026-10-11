@@ -609,8 +609,66 @@ def round5():
                 print("        head:", rr.text[:200].replace("\n", " "))
 
 
+def round6():
+    print("\n##### A. Tamar FY2025: domestic/export table 2025 + 2024")
+    rr = get("https://www.tamarpetroleum.co.il/wp-content/uploads/2026/03/Tamar-Petroleum-Financial-Information-2025-Final.pdf")
+    t = re.sub(r"\s+", " ", fast_text(rr.content))
+    m = re.search(r"broken down by domestic market and export", t)
+    print("   ", t[m.start(): m.start() + 700] if m else "not found")
+
+    print("\n##### B. gov.il Natural Gas Authority annual reviews: supply-by-source and export rows")
+    for y, u in [(2022, "ng-2022/he/ng-2022.pdf"), (2023, "ng-2023/he/ng-2023.pdf"), (2024, "ng-2024/he/ng-2024.pdf"),
+                 (2025, "ng-2025/he/ng-2025.pdf")]:
+        rr = get("https://www.gov.il/BlobFolder/reports/" + u, "cffi")
+        if rr is None or rr.status_code != 200:
+            continue
+        t = re.sub(r"\s+", " ", fast_text(rr.content, 120))
+        print("   ", y, f"{len(t):,} chars")
+        for pat in [r".{0,80}(?:סה\"כ|סה״כ).{0,20}(?:אספקת|הפקת).{0,200}", r".{0,150}(?:למצרים|לירדן).{0,40}BCM.{0,150}",
+                    r".{0,150}BCM.{0,40}(?:למצרים|לירדן).{0,150}", r".{0,100}(?:כריש).{0,30}\d+\.\d+ ?BCM.{0,100}"]:
+            for mm in list(re.finditer(pat, t))[:4]:
+                print("        |", mm.group(0)[:330])
+
+    print("\n##### C. Energean: text after 'Israel (kboed)' / 'Israel average W.I.'")
+    for i in ["trading-statement-operational-update/9576511", "trading-statement-operational-update/9388069",
+              "trading-statement-operational-update/9257244", "trading-statement-operational-update/8891249"]:
+        r = get("https://www.investegate.co.uk/announcement/rns/energean--enog/" + i)
+        if r is None:
+            continue
+        txt = re.sub(r"<(?:td|th)[^>]*>", " | ", r.text)
+        txt = re.sub(r"<[^>]+>", " ", txt)
+        txt = re.sub(r"&nbsp;|&#160;", " ", txt)
+        txt = re.sub(r"\s+", " ", txt)
+        for mm in list(re.finditer(r"(?:Israel average W\.I\. production|Israel \(kboed\))", txt))[:2]:
+            print("   ", i, "|", txt[max(0, mm.start() - 250): mm.end() + 250])
+
+    print("\n##### D. MAYA via Playwright: all tase.co.il requests for Tamar Petroleum / Energean pages")
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(locale="he-IL")
+        seen = []
+        pg.on("response", lambda resp: seen.append((resp.status, resp.request.method, resp.url)))
+        for u in ["https://maya.tase.co.il/he/reports/companies?q=%7B%22Page%22:1,%22Q%22:%22%D7%AA%D7%9E%D7%A8%20%D7%A4%D7%98%D7%A8%D7%95%D7%9C%D7%99%D7%95%D7%9D%22%7D",
+                  "https://maya.tase.co.il/he/companies/1919/reports"]:
+            try:
+                pg.goto(u, timeout=60000, wait_until="networkidle")
+                pg.wait_for_timeout(5000)
+            except Exception as e:  # noqa: BLE001
+                print("   goto", e)
+            print("   page", u[:90], "|", pg.inner_text("body")[:800].replace("\n", " | "))
+            hrefs = pg.eval_on_selector_all("a", "els => els.map(e => e.href)")
+            print("   report links:", [h for h in hrefs if "reports/details" in h][:20])
+        for st, me, url in seen:
+            if "tase.co.il" in url and not re.search(r"\.(js|css|woff2?|png|svg|ico|jpg)(\?|$)", url):
+                print("    ", st, me, url[:220])
+        b.close()
+
+
 if __name__ == "__main__":
-    if ROUND == 5:
+    if ROUND == 6:
+        round6()
+    elif ROUND == 5:
         round5()
     elif ROUND == 4:
         round4()
