@@ -1,0 +1,54 @@
+name: Africa master workbook
+
+# Combines the South Africa, Ghana and Nigeria pulls' workbooks into one master file
+# with Dashboard front pages of every chart (same layout as the South &
+# Central America master). 1st and 15th evening, after the pulls.
+on:
+  schedule:
+    - cron: '12 22 1,15 * *'   # 1st and 15th, evening - after that day's pulls
+  workflow_dispatch: {}
+  push:   # TEMPORARY test trigger - remove
+    branches: [africa-master]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl matplotlib
+      - name: Build master workbook
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 africa/AFRICA_MASTER.py --out "output/Data and Chart Outputs/Master Outputs/africa_master.xlsx"
+
+      - name: Copy scripts
+        if: always()
+        run: |
+          mkdir -p "output/Python Scripts"
+          cp africa/AFRICA_MASTER.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit master workbook
+        if: always()
+        run: |
+          if [ ! -f "output/Data and Chart Outputs/Master Outputs/africa_master.xlsx" ]; then
+            echo "No master workbook written."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/Master Outputs/africa_master.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Africa master: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
