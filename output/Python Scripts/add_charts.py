@@ -3549,7 +3549,25 @@ def _ghana(fn):
     return f
 
 
+def mexico_generation(p):
+    """CENACE settled generation (MEXICO_CENACE_GENERATION.py): the standard fuel groups, then CENACE's own
+    technologies (combined cycle, conventional steam, open-cycle gas turbines ... kept apart), monthly GWh from 2021."""
+    out = power_daily("Mexico power generation by type (CENACE)")(p)
+    d = by_date(read(p, "Daily by technology"), "date")
+    names = {"Ciclo Combinado_MWh": "Combined cycle (gas)", "Turbo Gas_MWh": "Gas turbines",
+             "Termica Convencional_MWh": "Conventional steam (fuel oil / gas)",
+             "Combustion Interna_MWh": "Internal combustion", "Carboelectrica_MWh": "Coal",
+             "Hidroelectrica_MWh": "Hydro", "Nucleoelectrica_MWh": "Nuclear", "Eolica_MWh": "Wind",
+             "Fotovoltaica_MWh": "Solar", "Geotermoelectrica_MWh": "Geothermal", "Biomasa_MWh": "Biomass"}
+    t = d[cols(d, *names)].apply(pd.to_numeric, errors="coerce")
+    m = complete_months(t, t.resample("MS").sum(min_count=1) / 1000)
+    m = m[m.index >= "2021-01-01"].rename(columns=names)
+    out.append(spec("By technology", m, "Mexico power generation by CENACE technology", "GWh per month", "stacked_bar"))
+    return out
+
+
 REGISTRY.update({
+    "mexico_power_generation_daily.xlsx": mexico_generation,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
     "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
 })
