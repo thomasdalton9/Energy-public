@@ -61,7 +61,9 @@ def series_chart(spec, path):
     line_cols = [c for c in spec.get("line_cols", ()) if c in df.columns] if spec["kind"] != "line" else []
     body = df.drop(columns=line_cols)
     if spec["kind"] == "stacked_bar":
-        width = 300 if annual else (25 if len(df) < 400 else 1)
+        step = df.index.to_series().diff().median()
+        step = step.days if pd.notna(step) else 30
+        width = 300 if annual else (25 if step >= 20 else max(step * 0.9, 0.8))   # bar width follows the date spacing (daily/weekly bars no longer overlap)
         pos, neg = pd.Series(0.0, index=x), pd.Series(0.0, index=x)
         for i, c in enumerate(body.columns):
             v = body[c].fillna(0)
