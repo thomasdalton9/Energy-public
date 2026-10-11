@@ -6,9 +6,6 @@ on:
   schedule:
     - cron: "20 6 1,15 * *"
   workflow_dispatch: {}
-  push:
-    branches: [nigeria-gas]
-    paths: [".github/workflows/nigeria_nnpc_gas.yml", "rest_of_world/NIGERIA_NNPC_GAS.py"]
 
 permissions:
   contents: write
