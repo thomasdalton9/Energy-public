@@ -202,7 +202,7 @@ def main():
                 out.index = pd.to_datetime(out.index)
                 if not saved.empty:
                     saved.index = pd.to_datetime(saved.index)
-                    out = out.combine_first(saved)
+                    out = out.combine_first(saved[[c for c in saved.columns if c in out.columns]])   # retired columns drop out
                 out = out[out.index >= "2015-01-01"]
                 out.index = out.index.strftime("%Y-%m")
                 out.index.name = "Month"

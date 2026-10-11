@@ -2112,6 +2112,21 @@ def canada_provinces(p):
     return out
 
 
+def canada_ieso(p):
+    """IESO (Ontario) daily mean MW by fuel: monthly means once there are three months of days, else the daily series."""
+    d = by_date(read(p, "Data"), "date")
+    c = [x for x in d.columns if str(x).endswith("_MW") and x != "Total_MW"]
+    d = d[c].apply(pd.to_numeric, errors="coerce").rename(columns=lambda x: str(x).replace("_MW", "").title())
+    if d.empty:
+        return []
+    if d.index.max() - d.index.min() >= pd.Timedelta(days=90):
+        m = complete_months(d, d.resample("MS").mean())
+        return [spec("Ontario generation", m, "Ontario power generation by source (IESO)", "MW (monthly average)",
+                     "stacked_bar")]
+    return [spec("Ontario generation", d.tail(120), "Ontario power generation by source (IESO, daily mean)",
+                 "MW (daily mean)", "stacked_bar", date_format="%Y-%m-%d")] if len(d) >= 2 else []
+
+
 def canada_cer_gas(p):
     """CER monthly natural gas trade: exports by CER region (stacked) and total exports / imports."""
     d = by_date(read(p, "Gas trade monthly"), "Month")
@@ -3133,6 +3148,7 @@ REGISTRY = {
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
+    "canada_ieso_generation_daily.xlsx": canada_ieso,
     "canada_provincial_power_daily.xlsx": canada_provinces,
     "canada_cer_gas.xlsx": canada_cer_gas,
     "canada_cer_power.xlsx": canada_cer_power,
