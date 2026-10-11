@@ -65,6 +65,23 @@ ST_taka (energy consumption), ST_energy2 (energy sold by purpose), ST_fuel
 ST_gas (gas share of fuel). CAPMAS energy sub-subject 30 lists ~70 indicator
 visualisations via api/Subject/SubSubjectWithIndicator/30 and
 api/Indicator/IndicatorDetails.
+RUN 5: MOEE statistics pages are plain HTML tables (pandas.read_html works),
+ANNUAL by Egyptian fiscal year (Jul-Jun), latest 2023/2022 (FY2022/23):
+ST_energy generation GWh Thermal/Hydro/Wind/Solar/total from 1999/2000;
+ST_load peak load MW from 1995/96 (gaps 2018-2020); ST_taka energy consumption
+GWh; ST_energy2 energy sold by purpose (industry, agriculture, residential,
+commercial, government, interconnection) from ~2000; ST_fuel fuel used in power
+(HFO kt, natural gas million m3, ...) from 1998/99 = gas demand of the power
+sector; ST_gas gas share (to 2020/21); ST_capacity MW by type to 2021/22.
+report.aspx no longer lists EEHC annual report PDFs (only NEAP 2026-29).
+CAPMAS api/Subject/SubSubjectWithIndicator/30 -> key publicationWithIndicators
+(structure to inspect); api/Indicator/IndicatorDetails/<id> 404.
+CBS series API works fully: catalog/level?id=3&subject=42 lists 42,1,1 electricity
+production by producer and energy type, 42,1,2 fuel use for power, 42,1,3
+supply by use, 42,1,5 capacity, 42,1,6 peak; 42,2 energy balance (natural gas
+42,2,2,11). data/path?id=42,1,1,1,4060 -> JSON series 650046 (GWh, gas-fired
+generation) ANNUAL, 2013-2023, updated 2025-02-25; energy balance to 2024
+(updated 2026-01-19). Annual and ~1-2 years behind.
 
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
@@ -586,5 +603,63 @@ def round5():
         try_api(u, n=2500)
 
 
+def round6():
+    out("##### EGYPT CAPMAS")
+    r = get("https://www.capmas.gov.eg:8080/api/Subject/SubSubjectWithIndicator/30")
+    if r is not None:
+        pubs = (r.json().get("data") or {}).get("publicationWithIndicators") or []
+        out(f"  {len(pubs)} publications")
+        for pb in pubs[:30]:
+            if not isinstance(pb, dict):
+                continue
+            small = {k: v for k, v in pb.items() if not isinstance(v, (list, dict))}
+            out("  PUB", json.dumps(small, ensure_ascii=False)[:400])
+            for k, v in pb.items():
+                if isinstance(v, list):
+                    for it in v[:40]:
+                        if isinstance(it, dict):
+                            sm = {kk: vv for kk, vv in it.items() if not isinstance(vv, (list, dict))}
+                            out("     -", k, json.dumps(sm, ensure_ascii=False)[:260])
+                elif isinstance(v, dict):
+                    out("     *", k, json.dumps(v, ensure_ascii=False)[:300])
+    pw_pages(["https://www.capmas.gov.eg/data/mainSubject/3/subSubject/30/data-visualization/3092",
+              "https://www.capmas.gov.eg/data/mainSubject/3/subSubject/30/data-visualization/9487"],
+             show_links=False)
+
+    out("\n##### ISRAEL")
+    out("--- CBS: search all subjects (levels 2-3) for electricity / gas")
+    base = "https://apis.cbs.gov.il/series/catalog/"
+    r = get(base + "level?id=1&format=json&download=false")
+    subs = (r.json().get("catalogs") or {}).get("catalog") or [] if r is not None else []
+    pat = re.compile("\u05d7\u05e9\u05de\u05dc|\u05d2\u05d6|\u05d0\u05e0\u05e8\u05d2|\u05d3\u05dc\u05e7")
+    for sb in subs:
+        sid = sb["path"][0]
+        if sid == 42:
+            continue
+        for lv in (2, 3, 4):
+            try:
+                rr = requests.get(f"{base}level?id={lv}&subject={sid}&format=json&download=false",
+                                  headers=H, timeout=T)
+                cat = (rr.json().get("catalogs") or {}).get("catalog") or []
+            except Exception:
+                cat = []
+            for c in cat:
+                if pat.search(c.get("name") or ""):
+                    out(f"  subj {sid} {sb['name'][:30]} L{lv} {c['path']} {c['name']}")
+    for path in ["42,1,3", "42,1,6"]:
+        try_api(f"https://apis.cbs.gov.il/series/data/path?id={path}&startPeriod=01-2013&endPeriod=12-2026"
+                f"&format=json&download=false", n=700)
+    out("\n--- gov.il files / alternatives")
+    for u in ["https://www.gov.il/BlobFolder/reports/natural_gas_sector_data/he/test.pdf",
+              "https://www.gov.il/he/api/PublicationApi/Index?limit=10&OfficeId=ministry_of_energy"]:
+        try_api(u, n=200)
+    for u in ["https://newmedenergy.com/investor-relations/financial-reports/",
+              "https://newmedenergy.com/investor-relations/presentations/",
+              "https://newmedenergy.com/investor-relations/leviathan-bond-reports/",
+              "https://www.energean.com/investors/results-reports-and-presentations/",
+              "https://www.tamarpetroleum.co.il/en/"]:
+        page(u, max_links=25)
+
+
 if __name__ == "__main__":
-    round5()
+    round6()
