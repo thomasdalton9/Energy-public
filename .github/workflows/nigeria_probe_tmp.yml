@@ -2,7 +2,7 @@ name: Nigeria probe tmp
 on:
   push:
     branches: [nigeria-power-niso]
-    paths: [".github/workflows/nigeria_probe_tmp.yml"]
+    paths: [".github/workflows/nigeria_probe_tmp.yml", "discovery_archive/nigeria/NIGERIA_NERC_PDF_PROBE4.py"]
 jobs:
   d:
     runs-on: ubuntu-latest
