@@ -1,8 +1,6 @@
 name: Jordan discovery 3
 on:
   workflow_dispatch:
-  push:
-    branches: [jordan-power]
 jobs:
   probe:
     runs-on: ubuntu-latest
