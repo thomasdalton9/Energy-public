@@ -11,7 +11,7 @@ Candidates checked here:
   Both  UN Comtrade public preview API (HS 271111 monthly; MY exports 458, PH imports 608) as an official
         mirror of the national customs data
 Round 1 functions: malaysia(), philippines(), comtrade(); round 2: meih2, dosm2, mets2, petronas2, comtrade2,
-doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3; round 4: doe4, psa4, ipi4, bnm4; round 5: psa5, myes5 (run with function names as arguments; default = latest round).
+doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3; round 4: doe4, psa4, ipi4, bnm4; round 5: psa5, myes5; round 6: psa6 (run with function names as arguments; default = latest round).
 Prints status, size, data-like links and text around gas keywords. Nothing is written.
 """
 import io
@@ -712,8 +712,38 @@ def myes5():
         b.close()
 
 
+
+# ================================================================== ROUND 6
+def psa6():
+    out("\n================ PSA OpenSTAT: query the hidden commodity dimension for LNG ================")
+    import itertools
+    for tab in ("GKI/0012L4DMKD5.px", "CIF/0012L4DMVD5.px", "GKI/0042L4DMKD2.px"):
+        for code in ("27111100", "2711110000", "271111", "27111100000", "2711"):
+            q = {"query": [{"code": "Commodity Code", "selection": {"filter": "item", "values": [code]}},
+                           {"code": "Country", "selection": {"filter": "all", "values": ["*"]}}],
+                 "response": {"format": "json-stat2"}}
+            try:
+                pr = S.post(f"{PX}/{tab}", json=q, timeout=T, verify=False)
+            except Exception as e:  # noqa: BLE001
+                out(f"  {tab} {code}: {type(e).__name__}")
+                continue
+            if not pr.ok:
+                out(f"  {tab} {code}: HTTP {pr.status_code} {pr.text[:120]}")
+                continue
+            js = pr.json()
+            dims = js["id"]
+            labels = [list(js["dimension"][d]["category"]["label"].values()) for d in dims]
+            rows = [(c, x) for c, x in zip(itertools.product(*labels), js["value"]) if x not in (None, 0)]
+            out(f"  {tab} {code}: OK dims {dims} sizes {js['size']}; non-zero {len(rows)}; "
+                f"commodity label {labels[0][:2]}")
+            for c, x in rows[:30]:
+                out(f"      {c} = {x}")
+            if rows:
+                break
+
+
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["psa5", "myes5"]
+    which = sys.argv[1:] or ["psa6"]
     for w in which:
         try:
             globals()[w]()
