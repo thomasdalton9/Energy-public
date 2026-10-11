@@ -82,6 +82,20 @@ supply by use, 42,1,5 capacity, 42,1,6 peak; 42,2 energy balance (natural gas
 42,2,2,11). data/path?id=42,1,1,1,4060 -> JSON series 650046 (GWh, gas-fired
 generation) ANNUAL, 2013-2023, updated 2025-02-25; energy balance to 2024
 (updated 2026-01-19). Annual and ~1-2 years behind.
+RUN 6: CAPMAS energy sub-subject 30 holds 4 publications: Energy Balance (id 57;
+indicators 3092-3168, 8812: transformation output, gross inland consumption of
+gas / oil / renewables, final consumption of electricity / gas / oil products,
+primary production of gas (3112), gas imports (3121), gas exports (3124),
+electricity exports (3168), final consumption by sector (3155) ...) and
+Electricity and Energy Statistics (id 77, mostly company finance tables).
+Data API: https://www.capmas.gov.eg:8080/api/Indicator/IndicatorFilter?IndicatorId=<id>&SubSubjectId=30
+-> JSON {data:[{name, filterTranslations, data:[{value, year, quarter, month}]}]},
+ANNUAL (energy balance from 2014); metadata api/Indicator/IndicatorDetails?indicatorId=&publicationId=.
+CBS: no monthly electricity/gas series anywhere in the catalog (all subject-42
+series are annual). gov.il BlobFolder file URLs are NOT behind the Cloudflare
+challenge (unknown file -> plain 404), but the listing pages/APIs are, so file
+URLs cannot be discovered from Actions. NewMed (Leviathan) and Tamar Petroleum
+IR pages reachable (quarterly/annual PDFs); energean.com Cloudflare 403.
 
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
@@ -661,5 +675,29 @@ def round6():
         page(u, max_links=25)
 
 
+def round7():
+    out("##### EGYPT CAPMAS indicator data")
+    api = "https://www.capmas.gov.eg:8080/api/Indicator/IndicatorFilter?IndicatorId={}&SubSubjectId=30"
+    for iid in [3112, 3102, 3108, 3121, 3124, 3155, 3097, 3109, 3168]:
+        r = get(api.format(iid))
+        if r is None:
+            continue
+        try:
+            rows = r.json().get("data") or []
+        except Exception:
+            out(f"  {iid}: {r.status_code} not json")
+            continue
+        out(f"\n  indicator {iid}: {len(rows)} filters")
+        for f in rows[:12]:
+            en = next((t.get("name") for t in f.get("filterTranslations", []) if t.get("locale") == "en"), "")
+            pts = sorted((d.get("year"), d.get("month"), d.get("value")) for d in f.get("data", []))
+            out(f"    {f.get('name')[:40]} | {en[:40]} | n={len(pts)} first={pts[:1]} last={pts[-2:]}")
+    out("\n##### ISRAEL gov.il BlobFolder direct file")
+    for u in ["https://www.gov.il/BlobFolder/generalpage/freedom_of_information_energy/he/dov_196_2025.pdf"]:
+        r = get(u)
+        if r is not None:
+            out(f"  {r.status_code} {r.headers.get('content-type')} {len(r.content)}B {r.content[:8]!r}")
+
+
 if __name__ == "__main__":
-    round6()
+    round7()
