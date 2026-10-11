@@ -434,5 +434,103 @@ def round3():
                 break
 
 
+def anchors(html, base, pat=r"/download/|\.pdf|\.xlsx?"):
+    """(url, anchor text / table-row text) for document links."""
+    res = []
+    for m in re.finditer(r"<tr.*?</tr>|<li.*?</li>|<a\b[^>]*>.*?</a>", html, re.S | re.I):
+        blk = m.group(0)
+        for h in re.findall(r"""href=["']([^"']+)["']""", blk, re.I):
+            if re.search(pat, h, re.I):
+                txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", blk)).strip()
+                u = urljoin(base, h)
+                if u not in [x for x, _ in res]:
+                    res.append((u, txt[:160]))
+    return res
+
+
+def cf_get(url, **kw):
+    from curl_cffi import requests as cr
+    for i in range(3):
+        try:
+            r = cr.get(url, impersonate="chrome", timeout=180, **kw)
+            if r.status_code == 200:
+                return r
+            out(f"  cf_get {url}: {r.status_code}")
+        except Exception as e:  # noqa: BLE001
+            out(f"  cf_get {url}: {type(e).__name__}: {str(e)[:120]}")
+    return None
+
+
+def pdf_text(name, body, pat=r"natural gas|MMCF|MMBTU|RLNG|LNG|cargo|sector", pages=4, chars=2000, first=1):
+    import pdfplumber
+    if not body[:5].startswith(b"%PDF"):
+        out(f"  {name}: not a PDF: {body[:120]!r}")
+        return
+    with pdfplumber.open(io.BytesIO(body)) as pdf:
+        out(f"  {name}: pages={len(pdf.pages)} size={len(body)}b")
+        hits = 0
+        for i, p in enumerate(pdf.pages[:400]):
+            tx = p.extract_text() or ""
+            if i < first or (re.search(pat, tx, re.I) and hits < pages):
+                hits += i >= first
+                out(f"  --- page {i + 1} ({len(tx)} chars):\n" + tx[:chars])
+
+
+def round4():
+    # ---- OGRA documents (curl_cffi passes Cloudflare)
+    lists = {}
+    for slug in ("petroleum-industry-reports", "annual-reports-2", "ogra-annual-reports", "other-reports",
+                 "rlng-notified-prices-for-pll", "rlng-notified-prices-3", "finalactual-monthly-rlng-sale-price",
+                 "natural-gas-3", "lng-9", "lng-10", "gas-9", "gas-16", "rlng-3"):
+        u = f"https://www.ogra.org.pk/{slug}"
+        r = cf_get(u)
+        if r is None:
+            continue
+        a = anchors(r.text, u)
+        lists[slug] = a
+        out(f"\nOGRA {slug}: {len(a)} documents")
+        for x, t in a[:25]:
+            out(f"    {x}  ::  {t}")
+    # samples: newest petroleum industry report, newest PLL RLNG price notification, natural gas doc
+    for slug, n, pat in (("petroleum-industry-reports", 1, r"natural gas|gas (supply|consumption|sales)|sector|MMCF"),
+                         ("rlng-notified-prices-for-pll", 2, r"cargo|MMBTU|quantity|volume|LNG"),
+                         ("finalactual-monthly-rlng-sale-price", 1, r"cargo|MMBTU|quantity|volume|LNG"),
+                         ("natural-gas-3", 1, r"MMCF|sector|consumption|sales")):
+        for x, t in lists.get(slug, [])[:n]:
+            out(f"\n{'-' * 100}\nOGRA DOC {slug}: {x} :: {t}")
+            r = cf_get(x)
+            if r is not None:
+                out(f"  ct={r.headers.get('content-type')} cd={r.headers.get('content-disposition')}")
+                pdf_text(slug, r.content, pat=pat, pages=5)
+    # ---- Mari Energies production page via curl_cffi
+    r = cf_get("https://www.marienergies.com.pk/what-we-do/production-and-sales")
+    if r is not None:
+        out("\nMARI TEXT: " + text_of(r.text, 3000))
+    # ---- PQA daily shipping & cargo report: LNG lines, history depth
+    r = requests.get("https://pqa.gov.pk/en/documents/album/daily-shipping-and-cargo-handling-reports?page=245",
+                     headers=H, timeout=T, verify=False)
+    old = re.findall(r"dailyShippingCargoStat_[^\"']+", r.text)
+    out(f"\nPQA page 245: {r.status_code} oldest files: {old[-3:]}")
+    for f in ("https://www.pqa.gov.pk/Content/Media//daily-shipping-and-cargo-handling-reports/"
+              "dailyShippingCargoStat_10-OCT-2026-484958aebe2341e5a83f88097913ded5.PDF",):
+        rr = requests.get(f, headers=H, timeout=(15, 120), verify=False)
+        out(f"PQA daily PDF {rr.status_code} {len(rr.content)}b")
+        pdf_text("PQA", rr.content, pat=r"LNG|EETL|PGPC", pages=4, chars=3500)
+        import pdfplumber
+        with pdfplumber.open(io.BytesIO(rr.content)) as pdf:
+            for i, pg in enumerate(pdf.pages):
+                for ln in (pg.extract_text() or "").splitlines():
+                    if re.search(r"LNG|EETL|PGPC", ln):
+                        out(f"    LNG line p{i + 1}: {ln[:200]}")
+    # ---- SBP LNG import payments: last columns
+    import pandas as pd
+    rr = requests.get("https://www.sbp.org.pk/assets/document/Import_Payments_by_Commodities_and_Groups_Arch.xls",
+                      headers=H, timeout=(15, 180), verify=False)
+    df = pd.read_excel(io.BytesIO(rr.content), sheet_name="Groups (Jul-23 onwards)", header=None)
+    hdr = df.iloc[3].tolist()
+    row = df[df[0].astype(str).str.contains("Natural Ga", na=False)].iloc[0].tolist()
+    out(f"\nSBP LNG row label={row[0]!r}; last 6: " + ", ".join(f"{h}: {v}" for h, v in list(zip(hdr, row))[-6:]))
+
+
 if __name__ == "__main__":
-    {"1": round1, "2": round2, "3": round3}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
+    {"1": round1, "2": round2, "3": round3, "4": round4}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
