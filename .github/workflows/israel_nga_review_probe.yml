@@ -3,6 +3,9 @@ name: Israel NGA review probe
 on:
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -14,7 +17,12 @@ jobs:
           python-version: "3.11"
       - run: pip install curl_cffi pdfplumber
       - run: python3 discovery_archive/middle_east/ISRAEL_NGA_REVIEW_PROBE.py
-      - uses: actions/upload-artifact@v4
-        with:
-          name: nga-pdfs
-          path: probe_out/
+      - name: Push PDFs to a temporary branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan tmp-nga-pdfs
+          git rm -rfq --cached .
+          git add -f probe_out
+          git commit -qm "temporary: NGA review PDFs"
+          git push -f origin tmp-nga-pdfs
