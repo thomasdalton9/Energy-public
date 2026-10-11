@@ -2,9 +2,6 @@ name: Canada provinces probe
 
 on:
   workflow_dispatch:
-  push:
-    branches: [canada-provinces]
-    paths: ["discovery_archive/CANADA_PROVINCES_PROBE.py"]
 
 jobs:
   probe:

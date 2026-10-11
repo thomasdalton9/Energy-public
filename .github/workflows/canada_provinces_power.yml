@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: "25 */3 * * *"
   workflow_dispatch: {}
-  push:
-    branches: [canada-provinces]
-    paths: ["americas/canada_provinces_power.py"]   # TEMPORARY test trigger - remove before finishing
 
 permissions:
   contents: write
