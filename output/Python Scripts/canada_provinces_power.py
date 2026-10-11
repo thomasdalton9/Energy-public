@@ -374,7 +374,10 @@ def pull_nb(saved):
     months = pd.period_range(START, today.to_period("M"), freq="M")
     if not saved.empty:
         last = saved.index.max().to_period("M")
-        months = [m for m in months if m >= last - 1]    # last saved month and the one before (revisions)
+        have = saved.index.to_period("M").value_counts()
+        # the last saved month and the one before (revisions), and any earlier month that is short of days (a failed
+        # or missing pull) so gaps heal
+        months = [m for m in months if m >= last - 1 or have.get(m, 0) < min(27, m.days_in_month - 2)]
     new = pd.DataFrame()
     for m in months:
         try:
