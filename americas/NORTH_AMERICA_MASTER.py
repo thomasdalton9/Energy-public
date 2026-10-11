@@ -56,6 +56,7 @@ DATASETS = [
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
+    ("CA", "Canada", "canada_gas_by_province.xlsx", ("Power burn (derived)", "Annual check"), "gas by province"),
     ("MX", "Mexico", "mexico_gas.xlsx", "Imports from US", "gas"),
     ("MX", "Mexico", "mexico_gas_demand_by_sector.xlsx", "Demand by sector", "gas demand by sector"),
     ("MX", "Mexico", "us_mexico_pipeline_capacity.xlsx", ("Export capacity by line", "Import capacity by line"),
@@ -236,6 +237,10 @@ SOURCES = {
                                "the daily pull", "https://www.eia.gov/dnav/ng/ng_move_poe2_a_EPG0_ENG_Mmcf_m.htm"),
     "canada_gas.xlsx": ("Statistics Canada, Table 25-10-0055-01 Supply and disposition of natural gas, monthly",
                         "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510005501"),
+    "canada_gas_by_province.xlsx": ("Statistics Canada, Tables 25-10-0086-01 (gas by province, monthly), 25-10-0029-01 "
+                                    "(annual gas for electricity, reported) and 25-10-0015-01 (monthly generation); "
+                                    "monthly gas for power is derived from the annual reported figure",
+                                    "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510002901"),
     "mexico_gas.xlsx": ("EIA, US natural gas exports to Mexico (pipeline N9132MX2, LNG N9133MX2) - Mexico's "
                         "imports from the US as measured on the US side", "https://www.eia.gov/dnav/ng/ng_move_expc_s1_m.htm"),
     "mexico_gas_demand_by_sector.xlsx": ("Pemex ventas internas de gas natural por sector / SENER SIE Balance nacional de gas natural (via datos.gob.mx)",

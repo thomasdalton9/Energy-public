@@ -28,21 +28,27 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: timeout 900 python3 americas/CANADA_STATCAN.py --power-out "output/Data and Chart Outputs/canada_power_generation_daily.xlsx" --gas-out "output/Data and Chart Outputs/canada_gas.xlsx" --capacity-out "output/Data and Chart Outputs/canada_power_capacity.xlsx"
 
+      - name: Run Canada gas by province / gas-for-power pull
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 americas/CANADA_GAS_BY_PROVINCE.py --out "output/Data and Chart Outputs/canada_gas_by_province.xlsx"
+
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          for f in canada_power_generation_daily canada_gas canada_power_capacity; do
+          for f in canada_power_generation_daily canada_gas canada_power_capacity canada_gas_by_province; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp americas/CANADA_STATCAN.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp americas/CANADA_STATCAN.py americas/CANADA_GAS_BY_PROVINCE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbooks
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in canada_power_generation_daily canada_gas canada_power_capacity; do
+          for f in canada_power_generation_daily canada_gas canada_power_capacity canada_gas_by_province; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
           git add -f "output/Python Scripts" || true

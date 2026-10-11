@@ -2102,6 +2102,39 @@ def canada_gas(p):
     return out or generic(p)
 
 
+def canada_gas_province(p):
+    """Canada gas by province (americas/CANADA_GAS_BY_PROVINCE.py): derived gas for power by province (monthly),
+    each big province's sector demand with its power burn overlaid as a line (power may sit inside 'Industrial', so it
+    is not stacked), and StatCan's REPORTED annual gas burned for electricity by province."""
+    out = []
+    burn = _sheet(p, "Power burn (derived)", "Month").apply(pd.to_numeric, errors="coerce")
+    gas = _sheet(p, "Raw gas by province", "Month").apply(pd.to_numeric, errors="coerce")
+    recent_b = burn[burn.index >= "2021-01-01"] / BCF_TO_MCM
+    if not recent_b.empty:
+        top = list(recent_b.mean().sort_values(ascending=False).index[:6])
+        out.append(spec("Power burn", recent_b[top], "Canada natural gas burned for electricity by province "
+                        "(derived from StatCan annual reported gas-for-power)", "Bcf/d", "stacked_bar"))
+    for prov in ("Alberta", "Ontario", "Saskatchewan", "British Columbia"):
+        d = gas[cols(gas, *[f"{prov}|{s}" for s in ("Residential", "Commercial", "Industrial")])]
+        d = (d[d.index >= "2021-01-01"] / BCF_TO_MCM).rename(columns=lambda c: c.split("|")[1])
+        if d.empty:
+            continue
+        line = ()
+        if prov in burn.columns:
+            d["Power burn (derived)"] = (burn[prov].reindex(d.index)) / BCF_TO_MCM
+            line = ("Power burn (derived)",)
+        out.append(spec(prov, d, f"{prov} natural gas demand by sector (StatCan); power burn derived, may be inside "
+                        "Industrial", "Bcf/d", "stacked_bar", line_cols=line))
+    ann = _sheet(p, "Raw annual power gas", "Year").apply(pd.to_numeric, errors="coerce")
+    if not ann.empty:
+        tot = pd.DataFrame({pv: ann[[c for c in ann.columns if c.startswith(pv + "|")]].sum(axis=1, min_count=1)
+                            for pv in sorted({c.split("|")[0] for c in ann.columns})}) / 1000
+        tot = tot[tot.sum().sort_values(ascending=False).index[:6]]
+        out.append(spec("Annual reported", tot, "Natural gas burned for electricity by province, reported (StatCan "
+                        "25-10-0029, utilities + industry)", "PJ per year", "stacked_bar", "%Y"))
+    return out or generic(p)
+
+
 def canada_power(p):
     """StatCan monthly generation: non-combustible plants by type, fuel-burning plants as fossil and biomass."""
     d = by_date(read(p, "Daily"), "date")
@@ -3137,6 +3170,7 @@ REGISTRY = {
     "mexico_gas.xlsx": mexico_gas,
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
+    "canada_gas_by_province.xlsx": canada_gas_province,
     "canada_power_generation_daily.xlsx": canada_power,
     # Australia and New Zealand
     "nz_power_generation_daily.xlsx": power_daily("New Zealand power generation by source (Electricity Authority EMI)"),
