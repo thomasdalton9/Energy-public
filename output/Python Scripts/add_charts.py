@@ -733,6 +733,17 @@ def trinidad(p):
     return out
 
 
+def nigeria_nnpc(p):
+    d = by_date(read(p, "Monthly"), "date")
+    g = pd.DataFrame({"Gas production": d["gas_production_mmscfd"] / 1000, "Gas sales": d["gas_sales_mmscfd"] / 1000})
+    out = [spec("Gas", g, "Nigeria gas production and sales (NNPC Ltd)", "Bcf/d", "line")]
+    o = d[["crude_mmbopd", "condensate_mmbopd"]].dropna(how="all")
+    if not o.empty:
+        o = o.rename(columns={"crude_mmbopd": "Crude", "condensate_mmbopd": "Condensate"})
+        out.append(spec("Oil", o, "Nigeria crude oil and condensate production (NNPC Ltd)", "mmb/d", "stacked_bar"))
+    return out
+
+
 def power_annual(title):
     """Standard 'Daily' layout holding one row per YEAR (Jamaica): annual GWh bars labelled by year."""
     def f(p):
@@ -2934,6 +2945,7 @@ REGISTRY = {
     "ecuador_gas.xlsx": ecuador,
     "panama_gas.xlsx": panama_gas,
     "trinidad_gas.xlsx": trinidad,
+    "nigeria_nnpc_gas_monthly.xlsx": nigeria_nnpc,
     "el_salvador_gas.xlsx": el_salvador_gas,
     "ireland_gas_demand_daily.xlsx": ireland_demand,
     "ireland_gas_supply_daily.xlsx": ireland_supply,
