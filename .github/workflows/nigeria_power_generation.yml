@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: "41 12 1,15 * *"
   workflow_dispatch: {}
-  push:
-    branches: [nigeria-power-niso]
-    paths: [".github/workflows/nigeria_power_generation.yml", "rest_of_world/NIGERIA_NERC_POWER.py"]
 
 permissions:
   contents: write
