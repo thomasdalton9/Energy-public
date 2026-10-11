@@ -15,7 +15,7 @@ PAGES = [
 pdfs = []
 for u in PAGES:
     try:
-        r = requests.get(u, headers=H, timeout=40)
+        r = requests.get(u, headers=H, timeout=(8,25))
         print("\n###", u, r.status_code, len(r.text))
         links = set(re.findall(r'https?://[^"\'\s<>\\]+\.(?:pdf|xlsx?|csv)', r.text.replace("\\/", "/"), re.I))
         for m in re.findall(r'href=["\']([^"\']+)["\']', r.text):
@@ -36,7 +36,7 @@ for l in pdfs:
     seen.add(l)
     if not re.search(r'arsel|snh|sonatrel|eneo', l, re.I): continue
     try:
-        r = requests.get(l, headers=H, timeout=90)
+        r = requests.get(l, headers=H, timeout=(8,60))
         print("\n=== PDF", l, r.status_code, len(r.content), r.headers.get("Last-Modified"))
         with pdfplumber.open(io.BytesIO(r.content)) as p:
             print("pages", len(p.pages))
