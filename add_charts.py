@@ -3585,7 +3585,8 @@ def israel_gas_fields(p):
     exp = bcfd({"Leviathan_Egypt_bcm": "Leviathan to Egypt", "Leviathan_Jordan_bcm": "Leviathan to Jordan",
                 "Tamar_Export_bcm": "Tamar exports (Egypt + Jordan)"})
     exp = exp[exp.notna().all(axis=1)]
-    return [spec("By field", fields.dropna(how="all"), "Israel gas sales by field (company reports, 100% of field)",
+    fields = fields[fields.notna().all(axis=1)]   # only quarters all three fields report (Q1 2024 on)
+    return [spec("By field", fields, "Israel gas sales by field (company reports, 100% of field)",
                  "Bcf/d (quarterly average)", "stacked_bar"),
             spec("Leviathan by destination", lev.dropna(how="all"), "Leviathan gas sales by destination (NewMed)",
                  "Bcf/d (quarterly average)", "stacked_bar"),
