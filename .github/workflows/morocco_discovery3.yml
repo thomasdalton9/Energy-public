@@ -1,4 +1,4 @@
-name: Morocco discovery 2
+name: Morocco discovery 3
 on:
   workflow_dispatch:
   push:
@@ -12,4 +12,4 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: pip install requests
-      - run: timeout 800 python3 discovery_archive/africa/MOROCCO_DISCOVERY2.py
+      - run: timeout 800 python3 discovery_archive/africa/MOROCCO_DISCOVERY3.py
