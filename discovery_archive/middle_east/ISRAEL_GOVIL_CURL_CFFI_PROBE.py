@@ -5,6 +5,12 @@ For each page / API: status, title, size, whether it is a challenge page, GUIDs 
 (BlobFolder, .xlsx/.xls/.pdf/.csv) found. EGYPT_ISRAEL_GAS_POWER_PROBE.py found plain requests and Playwright
 blocked; files under gov.il/BlobFolder download without a challenge.
 
+RUN 1 (2026-10-11): BLOCKED. Every page and API (ministry/topic landing pages, natural_gas_economy, collectors,
+PublicationApi) answers 403 'Just a moment...' / 'Attention Required! | Cloudflare' with impersonate chrome,
+chrome124, safari17_0 and edge101 (safari got one 200, itself a challenge stub). BlobFolder files still download
+(control PDF 200, 2.2 MB). So gov.il listings need a real browser outside GitHub Actions; a pull can only fetch
+BlobFolder file URLs supplied to it.
+
 Workflow (manual): discovery_archive/workflows/israel_govil_curl_cffi_probe.yml.
 """
 import json
