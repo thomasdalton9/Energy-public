@@ -96,6 +96,30 @@ series are annual). gov.il BlobFolder file URLs are NOT behind the Cloudflare
 challenge (unknown file -> plain 404), but the listing pages/APIs are, so file
 URLs cannot be discovered from Actions. NewMed (Leviathan) and Tamar Petroleum
 IR pages reachable (quarterly/annual PDFs); energean.com Cloudflare 403.
+RUN 7: CAPMAS IndicatorFilter works with plain requests: gas primary production
+(3112) 2014-2022 (59,322 in 2022, ktoe), gross inland gas consumption (3102)
+to 2019, final gas consumption (3108), gas imports (3121) and exports (3124)
+2014-2022, final energy consumption by sector (3155: households, industry,
+transport, other) 2016-2022; units mix (electricity 3097 jumps 153252 -> 15465,
+GWh vs ktoe). Annual, ~3-4 years behind. A known gov.il BlobFolder PDF
+(/BlobFolder/generalpage/freedom_of_information_energy/he/dov_196_2025.pdf)
+downloads 200 application/pdf from Actions with plain requests.
+
+CONCLUSIONS
+Egypt: best raw = MOEE statistics HTML tables (annual FY, generation by type,
+peak load, consumption, sales by sector, fuel incl. gas for power, capacity;
+to FY2022/23) + MOEE home-page daily grid load (yesterday peak/min MW, today's
+expected peak; no history -> daily snapshot pull) + CAPMAS energy-balance API
+(annual gas production/imports/exports/final use, to 2022). No monthly raw
+gas or LNG source found (EGAS/petroleum.gov.eg publish none); EgyptERA monthly
+observatory PDFs are scanned and stop May 2023; EETC unreachable.
+Israel: Noga (the only sub-annual power source) is blocked for Actions IPs by
+Azure Front Door WAF; Ministry of Energy / Electricity Authority / Natural Gas
+Authority pages on gov.il are behind Cloudflare (only known BlobFolder file
+URLs download). CBS series API gives annual electricity by fuel, fuel for
+power, supply by use and the energy balance (gas production/consumption).
+Monthly gas by field / exports: only company reports (NewMed, Tamar
+Petroleum quarterly PDFs) or JODI as fallback.
 
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
