@@ -24,6 +24,15 @@ RUN 2: POSTing the live form with DescargarReportes returned the HTML
 page (65-72 KB), not a ZIP, for 3-day, 2-day and full-year ranges ->
 run 3 dumps the form controls and the reply's visible text and tries a
 real click with expect_download.
+RUN 3: the pickers are MONTH pickers ("Mes de Operacion"); a real
+page.click() on DescargarReportes with expect_download works ->
+"Generacion Liquidada_L0 SEN agosto 2026 v2026 09 14_05 00 01.zip"
+(43 KB) holding one CSV (112 KB): Sistema, Dia (dd/mm/yyyy), Hora 1-24,
+then MWh for Eolica, Fotovoltaica, Biomasa, Carboelectrica, Ciclo
+Combinado, Combustion Interna, Geotermoelectrica, Hidroelectrica,
+Nucleoelectrica, Termica Convencional, Turbo Gas. L0 for August 2026
+was published 14/09/2026. Run 4 downloads multi-month ranges to see
+settlements and old layouts.
 
 Workflow (manual): discovery_archive/workflows/mexico_cenace_generation_probe.yml.
 """
@@ -205,15 +214,59 @@ def diagnose_tipotec(page, context):
         log(f"  resp {r}")
 
 
+def click_range(page, first, last):
+    url = BASE + "EnergiaGeneradaTipoTec.aspx"
+    page.goto(url, timeout=90000, wait_until="load")
+    page.wait_for_timeout(1500)
+    for _ in range(2):
+        set_picker(page, "ctl00_ContentPlaceHolder1_FechaConsulta", last)
+        set_picker(page, "ctl00_ContentPlaceHolder1_FechaInicial", first)
+        set_picker(page, "ctl00_ContentPlaceHolder1_FechaFinal", last)
+        page.wait_for_timeout(2500)
+    grid = page.evaluate("() => (document.querySelector('[id*=GridRadResultado]') || {innerText: ''}).innerText.replace(/\\s+/g, ' ').slice(0, 800)")
+    log(f"\n=== range {first}..{last}; grid: {grid!r}")
+    import time
+    t0 = time.time()
+    with page.expect_download(timeout=280000) as dl:
+        page.click('[name="ctl00$ContentPlaceHolder1$DescargarReportes"]')
+    d = dl.value
+    body = open(d.path(), "rb").read()
+    log(f"  {d.suggested_filename!r} {len(body):,} bytes in {time.time() - t0:.0f}s")
+    if body[:2] != b"PK":
+        log(f"  not a zip: {body[:300]!r}")
+        return
+    with zipfile.ZipFile(io.BytesIO(body)) as zf:
+        names = zf.namelist()
+        log(f"  {len(names)} file(s)")
+        headers = {}
+        for n in names:
+            raw = zf.read(n)
+            if raw[:2] == b"PK":
+                inner = zipfile.ZipFile(io.BytesIO(raw))
+                log(f"    {n} is a zip of {inner.namelist()[:5]}")
+                n2 = inner.namelist()[0]
+                raw = inner.read(n2)
+            lines = raw.decode("latin-1", errors="replace").splitlines()
+            hdr = next((l for l in lines if "Hora" in l), None)
+            datarows = [l for l in lines if re.match(r'^\s*"?[A-Z]{2,4}"?\s*,', l) and "Sistema" not in l]
+            sistemas = sorted({l.split(",")[0].strip('" ') for l in datarows})
+            log(f"    {n}: {len(raw):,} bytes, {len(datarows)} rows, sistemas {sistemas}, "
+                f"first {datarows[0][:60] if datarows else None!r}")
+            headers.setdefault(hdr, n)
+        for hdr, n in headers.items():
+            log(f"  HEADER first seen in {n}: {hdr}")
+
+
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         context = browser.new_context()
         page = context.new_page()
-        try:
-            diagnose_tipotec(page, context)
-        except Exception as e:
-            log(f"diagnose failed: {e}")
+        for first, last in [(date(2016, 4, 30), date(2017, 12, 31)), (date(2025, 1, 1), date(2026, 8, 17))]:
+            try:
+                click_range(page, first, last)
+            except Exception as e:
+                log(f"range {first}..{last} failed: {e}")
         browser.close()
         return
         urls = [BASE + c for c in CANDIDATES]
