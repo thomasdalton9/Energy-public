@@ -21,19 +21,11 @@ for i, pg in enumerate(d):
         print(" | ".join(lines[:150]))
         break
 
-for tag, u in [("2024Q2", url_of("2024/Q2")), ("2023Q2", url_of("2023/Q2")), ("2021Q3", url_of("2021/Q3")), ("2019Q2", url_of("2019/Q2"))]:
-    if not u:
-        continue
-    try:
-        d = doc(u)
-    except Exception as e:
-        print(tag, "ERR", e); continue
-    print(f"\n######## {tag}: {len(d)} pages; p1: {re.sub(chr(10), ' ', d[0].get_text())[:160]}")
-    n = 0
-    for i, pg in enumerate(d):
-        t = pg.get_text()
-        if re.search(r"(?i)(average hourly generation|energy generated|generation \(GWh\)|MWh/h|Kainji)", t) and n < 3:
-            n += 1
-            tt = re.sub(r"[ \t]+", " ", t)
-            tt = re.sub(r"\n\s*\n+", "\n", tt)
-            print(f"--- {tag} p{i+1} ---\n{tt[:1500]}")
+for tag in ["2024/Q2", "2023/Q2", "2022/Q2", "2021/Q3", "2020/Q2", "2019/Q2"]:
+    d = doc(url_of(tag))
+    txt = " ".join(p.get_text() for p in d)
+    txt = re.sub(r"\s+", " ", txt)
+    print(f"\n## {tag}: {len(d)} pages")
+    for pat in [r"[^.]{0,120}(?:total|Total)[^.]{0,40}(?:generation|generated)[^.]{0,120}", r"[^.]{0,80}(?:hydro|Hydro)[^.]{0,30}(?:share|mix|contribut)[^.]{0,120}"]:
+        for m in list(re.finditer(pat, txt))[:3]:
+            print("   >", m.group(0)[:300])
