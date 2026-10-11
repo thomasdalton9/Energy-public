@@ -2,6 +2,9 @@ name: Ghana power probe (manual)
 
 on:
   workflow_dispatch: {}
+  push:
+    branches: [ghana-power]
+    paths: ["discovery_archive/ghana/**", ".github/workflows/ghana_power_probe.yml"]
 
 jobs:
   probe:
