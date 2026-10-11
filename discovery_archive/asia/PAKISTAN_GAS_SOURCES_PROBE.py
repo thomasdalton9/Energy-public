@@ -304,5 +304,135 @@ def round2():
         b.close()
 
 
+def text_of(html, n=2500):
+    plain = re.sub(r"<script.*?</script>|<style.*?</style>|<nav.*?</nav>|<header.*?</header>", " ", html, flags=re.S | re.I)
+    plain = re.sub(r"<[^>]+>", " ", plain)
+    return re.sub(r"\s+", " ", plain)[:n]
+
+
+def xls_rows(name, content, pat=r"LNG|LIQUEFIED|LIQUIFIED|natural gas", n=12):
+    import pandas as pd
+    try:
+        sheets = pd.read_excel(io.BytesIO(content), sheet_name=None, header=None)
+    except Exception as e:  # noqa: BLE001
+        out(f"  {name}: read error {type(e).__name__}: {str(e)[:150]}")
+        return
+    for sh, df in list(sheets.items())[:6]:
+        out(f"  [{name}] sheet {sh!r} shape={df.shape}")
+        for i in range(min(8, len(df))):
+            out("    hdr " + " | ".join(str(v)[:18] for v in df.iloc[i].tolist()[:16] if str(v) != "nan"))
+        hits = [i for i in range(len(df)) if re.search(pat, " ".join(map(str, df.iloc[i, :6])), re.I)]
+        for i in hits[:n]:
+            out(f"    row {i}: " + " | ".join(str(v)[:14] for v in df.iloc[i].tolist()[:24]))
+
+
+def round3():
+    # ---- Cloudflare sites through curl_cffi (Chrome TLS fingerprint)
+    cf_urls = ["https://www.ogra.org.pk/", "https://www.ogra.org.pk/other-reports", "https://www.ogra.org.pk/ogra-annual-reports",
+               "https://www.ogra.org.pk/rlng-notified-prices-for-pll", "https://www.ogra.org.pk/natural-gas-3",
+               "https://www.paklng.com/", "https://www.isgs.com.pk/", "https://www.ogdcl.com/", "https://www.ppl.com.pk/",
+               "https://www.finance.gov.pk/survey_2425.html"]
+    try:
+        from curl_cffi import requests as cr
+        for u in cf_urls:
+            try:
+                r = cr.get(u, impersonate="chrome", timeout=40)
+                t = re.search(r"<title>(.*?)</title>", r.text, re.S | re.I)
+                out(f"curl_cffi {u}: {r.status_code} {len(r.content)}b title={t.group(1).strip()[:80] if t else None}")
+            except Exception as e:  # noqa: BLE001
+                out(f"curl_cffi {u}: ERROR {type(e).__name__}: {str(e)[:120]}")
+    except ImportError:
+        out("curl_cffi missing")
+    # ---- Wayback: which OGRA / PLL documents exist (names, dates)
+    for q in ("ogra.org.pk/images/data/downloads/*", "ogra.org.pk/images/*", "ogra.org.pk/*", "paklng.com/*"):
+        try:
+            r = requests.get("http://web.archive.org/cdx/search/cdx", timeout=(15, 120),
+                             params={"url": q, "output": "json", "filter": "original:.*\\.(pdf|xlsx?)$",
+                                     "collapse": "urlkey", "limit": 4000, "fl": "timestamp,original"})
+            rows = r.json()[1:] if r.status_code == 200 and r.text.strip() else []
+            out(f"\nWAYBACK {q}: {r.status_code} {len(rows)} docs")
+            keep = [x for x in rows if re.search(r"gas|lng|rlng|state|industry|annual|report|price|sngpl|ssgc|cargo|year", x[1], re.I)]
+            for ts, o in sorted(keep, key=lambda x: x[0])[-80:]:
+                out(f"    {ts[:8]} {o[:170]}")
+        except Exception as e:  # noqa: BLE001
+            out(f"WAYBACK {q}: ERROR {type(e).__name__}: {str(e)[:150]}")
+    # ---- HDIP Pakistan Energy Yearbook
+    r, ls = probe("HDIP yearbook", "https://hdip.gov.pk/pakistan-energy-yearbook", links=60, kw=6)
+    if r is not None and r.status_code == 200:
+        out("  TEXT: " + text_of(r.text, 2000))
+        for l in [l for l in ls if l.lower().endswith(".pdf")][:2]:
+            pdf_peek("HDIP", l, pages=5, chars=1600)
+    # ---- PBS energy & mining page
+    r, ls = probe("PBS energy-mining", "https://www.pbs.gov.pk/energy-mining-2/", links=60, kw=4,
+                  pat=re.compile(r"\.pdf|\.xls", re.I))
+    # ---- PQA daily shipping / berth-wise cargo (LNG terminals)
+    for u in ("https://pqa.gov.pk/pqa/portoperation/DailyShippingProgram", "https://pqa.gov.pk/pqa/portoperation/BerthWiseCargoHandling",
+              "https://pqa.gov.pk/en/documents/album/daily-shipping-and-cargo-handling-reports"):
+        r, ls = probe("PQA", u, links=40, kw=6, pat=re.compile(r"\.pdf|\.xls|report|album|page", re.I))
+        if r is not None and r.status_code == 200:
+            t = text_of(r.text, 200000)
+            for m in list(re.finditer(r"LNG|EETL|EETPL|PGPC|Elengy|GasPort", t))[:8]:
+                out(f"  LNGCTX: ...{t[max(0, m.start() - 200):m.end() + 250]}...")
+    # ---- SBP import payments by commodity (LNG row) and import-of-goods workbook
+    for u in ("https://www.sbp.org.pk/assets/document/Import_Payments_by_Commodities_and_Groups_Arch.xls",
+              "https://www.sbp.org.pk/assets/document/Import_Payments_by_all_Commodities_Arch.xls",
+              "https://www.sbp.org.pk/assets/document/import-Jan24-Onward.xlsx"):
+        try:
+            r = requests.get(u, headers=H, timeout=(15, 180), verify=False)
+            out(f"\nSBP {u}: {r.status_code} {r.headers.get('content-type')} {len(r.content)}b LM={r.headers.get('last-modified')}")
+            if r.status_code == 200:
+                xls_rows(u.rsplit("/", 1)[1], r.content)
+        except Exception as e:  # noqa: BLE001
+            out(f"SBP {u}: ERROR {e}")
+    # ---- Mari production page, PSO LNG page (text)
+    for u in ("https://www.marienergies.com.pk/what-we-do/production-and-sales",
+              "https://psopk.com/en/fuels/gaseous-fuels/liquefied-natural-gas"):
+        r, ls = probe("text", u, links=20, kw=0)
+        if r is not None and r.status_code == 200:
+            out("  TEXT: " + text_of(r.text, 3000))
+    # ---- headful Chromium (xvfb) through Cloudflare: OGRA home, then follow links in the same tab
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return
+    with sync_playwright() as p:
+        for chan in ("chrome", None):
+            try:
+                b = p.chromium.launch(headless=False, channel=chan,
+                                      args=["--disable-blink-features=AutomationControlled"])
+            except Exception as e:  # noqa: BLE001
+                out(f"launch {chan}: {e}")
+                continue
+            ctx = b.new_context(viewport={"width": 1366, "height": 900}, locale="en-GB")
+            ctx.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            pg = ctx.new_page()
+            out(f"\n#### headful channel={chan}")
+            ok = 0
+            for u in ("https://www.ogra.org.pk/", "https://www.ogra.org.pk/other-reports",
+                      "https://www.ogra.org.pk/rlng-notified-prices-for-pll", "https://www.ogra.org.pk/natural-gas-3",
+                      "https://www.ogra.org.pk/ogra-annual-reports", "https://www.paklng.com/", "https://www.isgs.com.pk/",
+                      "https://www.ogdcl.com/"):
+                try:
+                    pg.goto(u, timeout=60000, wait_until="domcontentloaded")
+                    for _ in range(40):
+                        if "just a moment" not in pg.title().lower():
+                            break
+                        pg.wait_for_timeout(1000)
+                    pg.wait_for_timeout(2000)
+                    t = pg.title()
+                    out(f"\nHEADFUL {u}: title={t[:90]}")
+                    if "just a moment" not in t.lower():
+                        ok += 1
+                        ls = show_html(pg.content(), pg.url, kw=4, links=60)
+                        docs = [l for l in ls if re.search(r"\.(pdf|xlsx?)$", l, re.I)]
+                        for l in docs[:1]:
+                            ctx_pdf(ctx, "doc", l, pages=3)
+                except Exception as e:  # noqa: BLE001
+                    out(f"HEADFUL {u}: ERROR {type(e).__name__}: {str(e)[:150]}")
+            b.close()
+            if ok > 2:
+                break
+
+
 if __name__ == "__main__":
-    {"1": round1, "2": round2}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
+    {"1": round1, "2": round2, "3": round3}[sys.argv[1] if len(sys.argv) > 1 else "1"]()

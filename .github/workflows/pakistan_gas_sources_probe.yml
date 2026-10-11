@@ -18,7 +18,9 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: |
-          pip install requests pdfplumber pandas openpyxl xlrd playwright
+          pip install requests pdfplumber pandas openpyxl xlrd playwright curl_cffi
           playwright install --with-deps chromium
+          playwright install chrome || true
+          sudo apt-get install -y xvfb >/dev/null
       - name: Run probe
-        run: timeout 2200 python3 discovery_archive/asia/PAKISTAN_GAS_SOURCES_PROBE.py "${{ github.event.inputs.round }}"
+        run: timeout 2200 xvfb-run -a python3 discovery_archive/asia/PAKISTAN_GAS_SOURCES_PROBE.py "${{ github.event.inputs.round }}"
