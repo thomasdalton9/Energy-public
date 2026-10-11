@@ -368,7 +368,8 @@ def honduras_power(p):
 def nigeria_power(p):
     """NERC quarterly grid generation (hydro vs thermal/gas) in average GW; dates are quarter starts (mmm/yy)."""
     d = by_date(read(p, "Quarterly"), "date")
-    g = pd.DataFrame({"Hydro": d.get("Hydro_GW"), "Gas": d.get("Gas_GW")}).dropna(how="all").fillna(0)
+    g = pd.DataFrame({"Hydro": d.get("Hydro_GW"), "Gas": d.get("Gas_GW")}).dropna(how="all")
+    g = g.reindex(pd.date_range(g.index.min(), g.index.max(), freq="QS"))   # a quarter with no report stays a blank gap
     return [spec("Generation", g, "Nigeria grid generation by source (NERC, quarterly average)", "GW (quarterly average)",
                  "stacked_bar", "%b/%y")]
 

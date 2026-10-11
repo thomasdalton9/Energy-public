@@ -221,10 +221,12 @@ def read_report(url, diag=False):
     q = quarter_of(doc)
     if q is None:
         return None, "quarter not found"
+    if q[0] < 2019:
+        return {"quarter": q}, "skipped: pre-2019 layout, quarter not reliably identified"
     parsed = parse_plants(doc)
     if parsed is None:
         tot, share = keyfacts(doc)
-        if tot:
+        if tot and 5000 < tot < 14000:
             note = f"key facts text: total {tot:,.2f} GWh, hydro share {share if share is not None else 'n/a'}%"
             return {"quarter": q, "kf": (tot, share), "note": note}, "ok (key facts)"
         return {"quarter": q}, "no plant table"
@@ -321,7 +323,7 @@ def main():
         y, q = res["quarter"]
         cur_d = qstart(y, q)
         if "kf" in res:
-            if basis.get(cur_d) != "report":
+            if cur_d not in plants_d:
                 kf[cur_d] = res["kf"]
                 basis[cur_d] = "key facts (report text)"
             continue

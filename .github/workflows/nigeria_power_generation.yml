@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas requests openpyxl pymupdf
+        run: pip install pandas requests openpyxl pymupdf matplotlib
       - name: Run
         env:
           PYTHONUNBUFFERED: "1"
@@ -33,9 +33,10 @@ jobs:
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          [ -f "output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx" || echo "chart step skipped/failed for nigeria_power_generation_quarterly.xlsx"
+          f="output/Data and Chart Outputs/nigeria_power_generation_quarterly.xlsx"
+          [ -f "$f" ] && python3 add_charts.py "$f" && python3 png_charts.py "$f" || echo "chart step skipped/failed for nigeria_power_generation_quarterly.xlsx"
           mkdir -p "output/Python Scripts"
-          cp rest_of_world/NIGERIA_NERC_POWER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp rest_of_world/NIGERIA_NERC_POWER.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated archive
         if: always()
