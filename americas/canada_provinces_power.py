@@ -121,14 +121,13 @@ def hq_live():
     if not p.empty:
         p["date"] = pd.to_datetime(p["date"])
         p = p.set_index("date").apply(pd.to_numeric, errors="coerce").dropna(how="all")
-        out = pd.DataFrame({new: daily_energy(p[old], 20) for old, new in HQ_MAP.items() if old in p})
-        # a trailing run of null readings (future hours) must not pass as zero output
+        out = pd.DataFrame({new: daily_energy(p[old], 23) for old, new in HQ_MAP.items() if old in p})
     dem = get(HQ_JSON.format(name="demande")).json()
     q = pd.DataFrame([{"date": x["date"], "v": x["valeurs"].get("demandeTotal")} for x in dem.get("details", [])])
     if not q.empty:
         q["date"] = pd.to_datetime(q["date"])
         q = q.set_index("date")["v"].astype(float).dropna()
-        out["Demand_MWh"] = daily_energy(q, 80)
+        out["Demand_MWh"] = daily_energy(q, 92)
     out.index.name = "date"
     return out.dropna(how="all")
 
@@ -196,10 +195,10 @@ def aeso_snapshot():
                      ("AIL", r"Alberta Internal Load \(AIL\)"), ("NetToGrid", r"Net-To-Grid Generation")):
         mm = re.search(lab + r"\s+(-?\d+)", t)
         row[key] = float(mm.group(1)) if mm else None
-    seg = t[t.find("GENERATION GROUP"):t.find("INTERCHANGE PATH")]
+    seg = t[t.find("GENERATION GROUP MC TNG DCR") + len("GENERATION GROUP MC TNG DCR"):t.find("INTERCHANGE PATH")]
     for name, mc, tng, _dcr in re.findall(r"([A-Z][A-Z ]*?[A-Z])\s+(-?\d+)\s+(-?\d+)\s+(-?\d+)", seg):
         name = name.strip()
-        if name in ("TOTAL", "GENERATION GROUP MC TNG DCR"):
+        if name == "TOTAL":
             continue
         col = GROUP_COL.get(name, name.title())
         row[f"{col} TNG_MW"], row[f"{col} MC_MW"] = float(tng), float(mc)

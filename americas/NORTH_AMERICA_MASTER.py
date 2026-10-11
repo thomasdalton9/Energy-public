@@ -12,7 +12,8 @@ this reuses).
   Dashboard - Power  - North America generation by source (sum of the three
                        countries) and installed capacity (EIA-860M, StatCan,
                        Ember for Mexico), then US Lower 48 and each ISO/RTO region
-                       (EIA-930), Canada (StatCan), Mexico (Ember fallback:
+                       (EIA-930), Canada (StatCan, provincial grid operators, CER; fossil split
+                       by province on StatCan's fuel mix, no Ember), Mexico (Ember fallback:
                        no raw CENACE generation feed yet) and Mexico demand
                        (CENACE)
   <CC> <chart> data  - the table each Dashboard chart plots
@@ -56,6 +57,7 @@ DATASETS = [
     ("US", "United States", "henry_hub_daily.xlsx", "Data", "Henry Hub"),
     ("US", "United States", "lng_feedgas_daily.xlsx", "Best estimate daily", "LNG feedgas"),
     ("CA", "Canada", "canada_gas.xlsx", "Supply and disposition", "gas"),
+    ("CA", "Canada", "canada_cer_gas.xlsx", "Gas trade monthly", "gas trade"),
     ("MX", "Mexico", "mexico_gas.xlsx", "Imports from US", "gas"),
     ("MX", "Mexico", "us_mexico_pipeline_capacity.xlsx", ("Export capacity by line", "Import capacity by line"),
      "pipeline capacity"),
@@ -69,6 +71,9 @@ RAW_POWER_DATASETS = [
     ("CA", "Canada", "canada_power_generation_daily.xlsx", ("Daily", "Provinces"), "power"),
 ]
 OTHER_POWER_DATASETS = [
+    ("CA", "Canada", "canada_provincial_power_daily.xlsx", ("Quebec", "Alberta", "British Columbia", "New Brunswick"),
+     "provincial power"),
+    ("CA", "Canada", "canada_cer_power.xlsx", ("Electricity trade monthly", "Fossil shares"), "electricity trade"),
     ("MX", "Mexico", "mexico_demanda_nacional_daily.xlsx", "Data", "demand"),
     ("US", "United States", "miso_gas_burn_daily.xlsx", "Monthly", "MISO gas burn"),
     ("US", "United States", "ercot_gas_burn_daily.xlsx", "Monthly", "ERCOT gas burn"),
@@ -133,27 +138,95 @@ def eia930(path):
     return out
 
 
-def canada_monthly(path, ember_path):
+FOSSIL_ROWS = ("Coal", "Gas", "Oil", "Other fossil")
+
+
+def _fuel_shares(fuel, cer, province, year):
+    """(coal, gas, other) share of a province's fossil generation in `year`: StatCan table 25-10-0084 (annual fuel mix)
+    where it has the year, else the CER Energy Futures share for that year (its latest historical / projected year),
+    else StatCan's last year. None when neither source knows the province."""
+    def row(df, key):
+        if df is None or df.empty:
+            return None
+        cols_ = [f"{province}|{g}" for g in key]
+        if not all(c in df.columns for c in cols_):
+            return None
+        return df[cols_]
+    sc = row(fuel, FOSSIL_ROWS)
+    if sc is not None:
+        have = sc[sc.sum(axis=1) > 0]
+        if year in have.index.year:
+            r = have[have.index.year == year].iloc[0]
+            t = r.sum()
+            return r["Coal"] / t, r["Gas"] / t, (r["Oil"] + r["Other fossil"]) / t
+    ce = None
+    if cer is not None and not cer.empty and all(f"{province}|{g}" in cer.columns for g in ("Coal", "Gas", "Oil")):
+        ce = cer[[f"{province}|{g}" for g in ("Coal", "Gas", "Oil")]].dropna()
+        ce.columns = ["Coal", "Gas", "Oil"]
+        if year in ce.index:
+            r = ce.loc[year]
+            return r["Coal"], r["Gas"], r["Oil"]
+    if sc is not None:
+        have = sc[sc.sum(axis=1) > 0]
+        if not have.empty:
+            r = have.iloc[-1]
+            t = r.sum()
+            return r["Coal"] / t, r["Gas"] / t, (r["Oil"] + r["Other fossil"]) / t
+    return None
+
+
+def canada_monthly(path, cer_path=None):
     """StatCan monthly generation (GWh) in the dashboard's fuel groups. StatCan does not split fossil generation by
-    fuel monthly, so it is shared out into gas, coal and other fossil (-> Other) on Ember's Canada mix for that month
-    (the average share of Ember's latest 12 months where Ember has not published the month yet)."""
+    fuel monthly, so each province's monthly fossil total (Provinces fossil sheet) is shared out into coal, gas and
+    other fossil on that province's annual fuel mix: StatCan table 25-10-0084 where it has the year, else the CER
+    Energy Futures share for the year (canada_cer_power.xlsx). Whatever the provinces do not add up to (suppressed
+    provinces) and any province without a fuel mix goes to Other. No Ember data."""
     d = add_charts.by_date(add_charts.read(path, "Daily"), "date").apply(pd.to_numeric, errors="coerce") / 1000.0
     g = pd.DataFrame({f: d.get(f"{f}_MWh") for f in ("Hydro", "Wind", "Solar", "Nuclear")}, index=d.index)
     other = d[add_charts.cols(d, "Bioenergy_MWh", "Other_MWh")].sum(axis=1)
     fossil = d.get("Fossil_MWh", pd.Series(0.0, index=d.index)).fillna(0)
+    gas, coal, oth = (pd.Series(0.0, index=d.index) for _ in range(3))
     try:
-        e = add_charts.by_date(add_charts.read(ember_path, "Canada"), "Month")
-        parts = pd.DataFrame({"Gas": e.get("Gas_GWh"), "Coal": e.get("Coal_GWh"),
-                              "Other": e.get("Other Fossil_GWh")}).fillna(0)
-        share = parts.div(parts.sum(axis=1), axis=0)
-        share = share.reindex(share.index.union(d.index)).sort_index()
-        share = share.fillna(share.dropna().tail(12).mean()).reindex(d.index)
-    except Exception:  # noqa: BLE001 - no Ember Canada sheet: fossil stays unsplit, under Other
-        share = pd.DataFrame({"Gas": 0.0, "Coal": 0.0, "Other": 1.0}, index=d.index)
-    g["Gas"] = fossil * share["Gas"]
-    g["Coal"] = fossil * share["Coal"]
-    g["Other"] = other + fossil * share["Other"]
+        pf = add_charts.by_date(add_charts.read(path, "Provinces fossil"), "date").apply(pd.to_numeric, errors="coerce") / 1000.0
+    except Exception:  # noqa: BLE001 - workbook from before the provincial fossil sheet
+        pf = pd.DataFrame(index=d.index)
+    try:
+        fuel = add_charts.by_date(add_charts.read(path, "Fuel mix annual"), "date").apply(pd.to_numeric, errors="coerce")
+    except Exception:  # noqa: BLE001
+        fuel = None
+    try:
+        cer = add_charts.read(cer_path, "Fossil shares").set_index("Year") if cer_path and os.path.exists(cer_path) else None
+    except Exception:  # noqa: BLE001
+        cer = None
+    covered = pd.Series(0.0, index=d.index)
+    for col in pf.columns:
+        prov = str(col).replace("_MWh", "")
+        series = pf[col].reindex(d.index).fillna(0)
+        for year in sorted(set(d.index.year)):
+            sh = _fuel_shares(fuel, cer, prov, year)
+            if sh is None:
+                continue
+            m = d.index.year == year
+            coal[m] += series[m] * sh[0]
+            gas[m] += series[m] * sh[1]
+            oth[m] += series[m] * sh[2]
+            covered[m] += series[m]
+    rest = (fossil - covered).clip(lower=0)
+    g["Gas"], g["Coal"] = gas, coal
+    g["Other"] = other + oth + rest
     return g[FUELS].fillna(0)
+
+
+def canada_power_specs(path):
+    """Canada generation by source in the dashboard's fuel groups (fossil split by province, see canada_monthly) plus
+    StatCan's generation by province."""
+    cer = os.path.join(os.path.dirname(path), "canada_cer_power.xlsx")
+    m = canada_monthly(path, cer)
+    m = m[m.index >= "2021-01-01"]
+    specs = [add_charts.spec("Generation", m, "Canada power generation by source (StatCan; fossil split by province)",
+                             "GWh per month", "stacked_bar")]
+    specs += [s for s in add_charts.canada_power(path) if s["name"] == "Provinces"]
+    return specs
 
 
 def henry_hub(path):
@@ -202,7 +275,7 @@ def mexico_demand(path):
 
 
 # Chart specs for workbooks whose add_charts REGISTRY entry is None or that the dashboard shows differently
-MASTER_SPECS = {"eia930_fuel_mix_daily.xlsx": eia930, "henry_hub_daily.xlsx": henry_hub,
+MASTER_SPECS = {"canada_power_generation_daily.xlsx": canada_power_specs, "eia930_fuel_mix_daily.xlsx": eia930, "henry_hub_daily.xlsx": henry_hub,
                 "lng_feedgas_daily.xlsx": lng_feedgas, "mexico_demanda_nacional_daily.xlsx": mexico_demand,
                 # combined MISO + ERCOT chart (built from the ERCOT workbook's folder) plus the ERCOT-only chart
                 "ercot_gas_burn_daily.xlsx": lambda p: add_charts.miso_ercot_gas_burn(p) + add_charts.ercot_gas_burn(p)}
@@ -249,8 +322,19 @@ SOURCES = {
                                   "EIA-923 months not yet published carry last year's heat rate)",
                                   "https://www.eia.gov/electricity/data/eia923/"),
     "canada_power_generation_daily.xlsx": ("Statistics Canada, Table 25-10-0015-01 Electric power generation, "
-                                           "monthly generation by type of electricity",
+                                           "monthly generation by type of electricity; fossil generation split by fuel with "
+                                           "Table 25-10-0084-01 (annual electricity generated by fuel, by province) and, for "
+                                           "years it does not cover yet, CER Canada's Energy Future 2026 provincial shares",
                                            "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2510001501"),
+    "canada_provincial_power_daily.xlsx": ("Provincial grid operators: Hydro-Quebec open data (generation by source), "
+                                           "AESO Current Supply and Demand report (Alberta), BC Hydro balancing-authority "
+                                           "load, NB Power system information archive (New Brunswick load)",
+                                           "https://donnees.hydroquebec.com/explore/dataset/historique-production-electricite-quebec/"),
+    "canada_cer_gas.xlsx": ("Canada Energy Regulator, natural gas exports and imports by month (open data)",
+                            "https://www.cer-rec.gc.ca/en/data-analysis/energy-commodities/natural-gas/index.html"),
+    "canada_cer_power.xlsx": ("Canada Energy Regulator, electricity exports and imports by month (open data); "
+                              "Canada's Energy Future 2026 generation by province (fuel shares)",
+                              "https://www.cer-rec.gc.ca/en/data-analysis/energy-commodities/electricity/index.html"),
     "mexico_demanda_nacional_daily.xlsx": ("CENACE (Centro Nacional de Control de Energía), Demanda Real del Sistema",
                                            "https://www.cenace.gob.mx/Paginas/SIM/Reportes/EstimacionDemandaReal.aspx"),
     "us_power_capacity.xlsx": ("EIA-860M monthly generator inventory (net summer capacity), via EIA API v2",
@@ -263,7 +347,7 @@ SOURCES = {
     **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
 }
 # The grid operator / statistics office Ember compiles each country from (named on Ember-fed charts)
-OPERATORS = {"Mexico": "CENACE / SENER", "Canada": "Statistics Canada"}
+OPERATORS = {"Mexico": "CENACE / SENER"}
 
 NA_POWER_COUNTRIES = ["United States", "Canada", "Mexico"]
 
@@ -282,8 +366,9 @@ def north_america_generation(data_dir, have_raw, frames_out=None):
                 src = SOURCES[fname][0] + " (Alaska and Hawaii not included)"
             elif country in have_raw:
                 fname = "canada_power_generation_daily.xlsx"
-                m = canada_monthly(os.path.join(data_dir, fname), ember)
-                src = SOURCES[fname][0] + " (fossil split into gas/coal/oil on Ember's Canada shares - estimate)"
+                m = canada_monthly(os.path.join(data_dir, fname), os.path.join(data_dir, "canada_cer_power.xlsx"))
+                src = (SOURCES[fname][0] + " (fossil split into gas / coal / other by province on StatCan table 25-10-0084's "
+                       "annual fuel mix, CER Energy Futures shares for later years - estimate)")
             else:
                 m = add_charts.power_mix(add_charts.by_date(add_charts.read(ember, country), "Month"))
                 src = f"Ember (compiled from {OPERATORS.get(country, 'the grid operator')})"
@@ -336,7 +421,7 @@ def main():
         if not os.path.exists(path):
             continue
         days = sam.raw_history_days(path) if d[2] != "eia930_fuel_mix_daily.xlsx" else sam.MIN_RAW_DAYS
-        if days >= sam.MIN_RAW_DAYS or d[1] not in ember_countries:
+        if days >= sam.MIN_RAW_DAYS or d[1] not in ember_countries or d[1] == "Canada":   # Canada: no Ember fallback
             raw_power.append(d)
         else:
             building.append(f"{d[1]} raw feed has {days} days so far - Ember shown until it has {sam.MIN_RAW_DAYS}")
@@ -372,7 +457,7 @@ def main():
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
-        src = ("Sum of the country series on this dashboard (EIA-930, StatCan; Ember for Mexico)", None)
+        src = ("Sum of the country series on this dashboard (EIA-930, StatCan + CER; Ember for Mexico)", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "North America power generation by source",
                                                     gen_units, "stacked_bar", width=sam.CHART_W,
                                                     height=sam.CHART_H, gridlines=False,
