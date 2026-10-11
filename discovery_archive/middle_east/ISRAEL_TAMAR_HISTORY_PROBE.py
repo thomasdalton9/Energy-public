@@ -187,27 +187,23 @@ def maya():
         if cid is None:
             b.close()
             return
+        # the list POST stops after ~50 reports; the report page's own 'siblings' call pages through the whole
+        # company history: GET /api/v1/reports/<any report id>/siblings?offset=N&limit=M
         allrep, ids = [], set()
-        mode = "page"
-        for page in range(1, 200):
-            if mode == "page":
-                st, txt = reports(cid, page, 30)
-            else:
-                body = json.dumps({"pageNumber": 1, "limit": 30, "companyId": cid, "offset": (page - 1) * 30})
-                st, txt = pg.evaluate("""async (body) => { const r = await fetch('/api/v1/reports/companies',
-                    {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body});
-                    return [r.status, await r.text()]; }""", body)
+        for off in range(0, 1500, 25):
+            st, txt = pg.evaluate("""async (u) => { const r = await fetch(u); return [r.status, await r.text()]; }""",
+                                  f"/api/v1/reports/1575974/siblings?offset={off}&limit=25")
+            if off == 0:
+                print("   siblings head:", st, txt[:800])
             if st != 200:
-                print("   page", page, st, txt[:200])
+                print("   siblings", off, st, txt[:300])
                 break
             js = json.loads(txt)
-            lst = js if isinstance(js, list) else next((v for v in js.values() if isinstance(v, list)), [])
+            lst = js if isinstance(js, list) else next((v for v in js.values() if isinstance(v, list)), []) \
+                if isinstance(js, dict) else []
             new_items = [x for x in lst if x.get("id") not in ids]
-            if lst and not new_items and mode == "page" and page == 2:
-                print("   pageNumber does not page; switching to offset")
-                mode = "offset"
-                continue
             if not new_items:
+                print("   siblings: nothing new at offset", off)
                 break
             for x in new_items:
                 ids.add(x.get("id"))
