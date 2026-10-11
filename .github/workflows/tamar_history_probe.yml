@@ -1,0 +1,26 @@
+name: Tamar history probe (temporary)
+
+on:
+  workflow_dispatch:
+    inputs:
+      round:
+        description: probe round
+        default: "1"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pypdf playwright
+      - run: playwright install --with-deps chromium
+      - run: timeout 2700 python3 discovery_archive/middle_east/ISRAEL_TAMAR_HISTORY_PROBE.py ${{ github.event.inputs.round }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: probe_out
+          path: probe_out/
