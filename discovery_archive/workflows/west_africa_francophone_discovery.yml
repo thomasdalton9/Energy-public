@@ -19,4 +19,4 @@ jobs:
       - name: Run probe
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1100 python3 discovery_archive/rest_of_world/WEST_AFRICA_FRANCOPHONE_DISCOVERY2.py
+        run: timeout 1100 python3 discovery_archive/rest_of_world/WEST_AFRICA_FRANCOPHONE_DISCOVERY3.py
