@@ -54,11 +54,13 @@ DATASETS = [
     ("BR", "Brazil", "brazil_gas_monthly.xlsx", "Demand by segment", "gas"),
     ("BO", "Bolivia", "bolivia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("CL", "Chile", "chile_gas_imports.xlsx", "Gas imports", "gas imports"),
+    ("CL", "Chile", "chile_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("CO", "Colombia", "colombia_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("EC", "Ecuador", "ecuador_gas.xlsx", "Gas by use", "gas"),
     ("PA", "Panama", "panama_gas.xlsx", "Gas use", "gas"),
     ("PE", "Peru", "peru_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
     ("UY", "Uruguay", "uruguay_gas_demand_by_sector.xlsx", "Demand by sector", "gas"),
+    ("VE", "Venezuela", "venezuela_gas.xlsx", "Monthly flows", "gas (JODI total, no sector split)"),
     ("TT", "Trinidad & Tobago", "trinidad_gas.xlsx", "Utilization by sector", "gas"),
     ("SV", "El Salvador", "el_salvador_gas.xlsx", "Gas use", "gas"),
     # Caribbean
@@ -151,6 +153,10 @@ SOURCES = {
                                "data; ENAP + CEOP gas production, Ministerio de Energía data); Reporte Mensual "
                                "(imports for months after the workbook)",
                                "https://www.cne.cl/estadisticas/hidrocarburo/"),
+    "chile_gas_demand_by_sector.xlsx": ("DERIVED (no official sector split from 2021): power = CNE/Coordinador Eléctrico Nacional "
+                                        "gas-fired generation x 7.5 MMBtu/MWh (estimate); petrochemical and supply from the CNE "
+                                        "import workbook and ENAP/CEOP production; other demand = residual",
+                                        "https://www.cne.cl/estadisticas/hidrocarburo/"),
     "colombia_gas_demand_by_sector.xlsx": ("Gestor del Mercado de Gas (BMC)", "https://www.bmcbec.com.co/informes/informes-mensuales"),
     "ecuador_gas.xlsx": ("EP Petroecuador (domestic gas); UN Comtrade, Ecuador customs HS 2711.11 (LNG imports)",
                          "https://www.eppetroecuador.ec/?p=3721"),
@@ -163,6 +169,8 @@ SOURCES = {
     "uruguay_gas_demand_by_sector.xlsx": ("MIEM Uruguay, VisualPEB energy balance", "https://visualpeb.miem.gub.uy/visualPEB/gas_natural"),
     "peru_gas_demand_by_sector.xlsx": ("MINEM Peru (DGH), Informes Estadisticos Upstream - Downstream",
                                        "https://www.gob.pe/institucion/minem/colecciones/17643-informes-estadisticos-upstream-downstream"),
+    "venezuela_gas.xlsx": ("JODI-Gas World Database, Venezuela submissions - FALLBACK: no raw (PDVSA / ministry) gas-by-sector feed is published",
+                           "https://www.jodidata.org/gas/database/data-downloads.aspx"),
     "argentina_power_generation_daily.xlsx": ("CAMMESA", "https://cammesaweb.cammesa.com/"),
     "bolivia_power_generation_daily.xlsx": ("CNDC Bolivia", "https://www.cndc.bo/"),
     "brazil_power_generation_daily.xlsx": ("ONS Brazil open data", "https://dados.ons.org.br/"),

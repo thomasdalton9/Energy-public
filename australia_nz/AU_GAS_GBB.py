@@ -38,7 +38,8 @@ import xlsx_notes  # noqa: E402
 GBB = "https://nemweb.com.au/Reports/Current/GBB/"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0"}
 DEFAULT_OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "au_gas.xlsx")
-SECTORS = {"BBGPG": "Gas_power_generation", "BBLARGE": "Large_industrial", "LNGEXPORT": "LNG_export_plants"}
+SECTORS = {"BBGPG": "Gas_power_generation", "BBLARGE": "Large_industrial", "LNGEXPORT": "LNG_export_plants",
+           "BDIST": "Distribution_network"}   # BDIST only appears if AEMO publishes it (column dropped when empty)
 SECTOR_START = "2023-03-15"
 
 
@@ -73,6 +74,7 @@ def tables(d):
     s = d[d["FacilityType"].isin(SECTORS)]
     demand = s.pivot_table(index="date", columns="FacilityType", values="Demand", aggfunc="sum").rename(columns=SECTORS)
     demand = demand[demand.index >= SECTOR_START].reindex(columns=list(SECTORS.values()))
+    demand = demand.dropna(axis=1, how="all")
     demand["Total"] = demand.sum(axis=1, min_count=1)
     p = d[d["FacilityType"].eq("PROD")]
     prod = p.pivot_table(index="date", columns="State", values="Supply", aggfunc="sum")
@@ -140,8 +142,12 @@ def main():
         "LNG shipments: PJ loaded per month by plant (latest version of each cargo record); Cargoes = number "
         "of cargoes.",
         "Demand by sector: end-use facility types - gas-powered generation (BBGPG), large industrial users "
-        "(BBLARGE), LNG export plants (LNGEXPORT: feed gas to the Curtis Island plants). Residential and "
-        "commercial (distribution network) demand is not a Bulletin Board facility type and is not included.",
+        "(BBLARGE), LNG export plants (LNGEXPORT: feed gas to the Curtis Island plants)"
+        + ("; Distribution_network = blended distribution (BDIST) facilities."
+           if "Distribution_network" in out["Demand by sector"] else
+           ". Residential and commercial (distribution network) demand is not reported as a Bulletin Board "
+           "facility type, so it is not included here; see au_gas_distribution.xlsx (DWGM Victoria, STTM hubs, "
+           "annual AES)."),
         "",
         "COVERAGE",
         f"East coast market and Northern Territory (no WA). Demand by sector {cover(out['Demand by sector'])} - AEMO "

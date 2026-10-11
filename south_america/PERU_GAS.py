@@ -27,7 +27,9 @@ Sectors written (mcm/d = million m3 per day; MMPCD x 0.0283168):
   Power                  = Generacion Electrica (category GE)
   Industrial             = Industrial (incl. Talara refinery and fishmeal in Gasnorp / Quavii)
   Vehicle_CNG            = GNV (CNG filling stations)
-  Residential_commercial = Residencial + Comercial + Instituciones publicas
+  Residential            = Residencial
+  Commercial             = Comercial + Instituciones publicas
+  Residential_commercial = Residential + Commercial (kept for continuity; not in the Total check)
   Total                  = sum of the concessions' TOTAL rows
 No petrochemical use is published (Peru has no gas petrochemical plant).
 
@@ -73,7 +75,7 @@ MES3 = {"ene": 1, "feb": 2, "mar": 3, "abr": 4, "may": 5, "jun": 6, "jul": 7, "a
         "oct": 10, "nov": 11, "dic": 12}
 SECTOR_MAP = {"residencial": "Residential", "comercial": "Commercial", "instituciones publicas": "Public_institutions",
               "industrial": "Industrial", "gnv": "Vehicle_CNG", "generacion electrica": "Power"}
-SECTORS = ["Power", "Industrial", "Vehicle_CNG", "Residential_commercial"]
+SECTORS = ["Power", "Industrial", "Vehicle_CNG", "Residential", "Commercial"]
 CONCESSIONS = {"calidda": "Calidda", "contugas": "Contugas", "quavii": "Quavii", "petroperu": "Petroperu",
                "gasnorp": "Gasnorp"}
 DEMAND_SHEET, RAW_SHEET = "Demand by sector", "By concession (MMPCD)"
@@ -310,8 +312,9 @@ def sectors(raw):
     s["Power"] = total("Power")
     s["Industrial"] = total("Industrial")
     s["Vehicle_CNG"] = total("Vehicle_CNG")
-    s["Residential_commercial"] = (total("Residential").fillna(0) + total("Commercial").fillna(0)
-                                   + total("Public_institutions").fillna(0))
+    s["Residential"] = total("Residential")
+    s["Commercial"] = total("Commercial").fillna(0) + total("Public_institutions").fillna(0)  # public institutions with commercial
+    s["Residential_commercial"] = s["Residential"].fillna(0) + s["Commercial"]
     s["Total"] = total("Total")
     s["Sector_sum_check"] = s[SECTORS].sum(axis=1) - s["Total"]
     return s
@@ -487,8 +490,9 @@ def main():
     out(f"{len(sec)} months {sec.index.min():%Y-%m}..{sec.index.max():%Y-%m}; max |sector sum - total| = {gap:.3f} MMPCD")
     out(sec.tail(4).round(1).to_string())
 
-    table = pd.concat([(sec[SECTORS + ["Total"]] * MCF_TO_M3).round(4).add_suffix("_mcm_per_day"),
-                       sec[SECTORS + ["Total"]].round(3).add_suffix("_MMPCD")], axis=1)
+    cols_out = SECTORS + ["Residential_commercial", "Total"]
+    table = pd.concat([(sec[cols_out] * MCF_TO_M3).round(4).add_suffix("_mcm_per_day"),
+                       sec[cols_out].round(3).add_suffix("_MMPCD")], axis=1)
     check, coes_daily = power_check(sec, coes)
     if not check.empty:
         out(check.tail(6).round(1).to_string())
@@ -542,7 +546,9 @@ def main():
         "Industrial: 'Industrial' (categories B-industrial, C, D, E; Gasnorp also Talara refinery REF and fishmeal "
         "PESCA; Quavii and Petroperu supply industry by truck-borne LNG/CNG).",
         "Vehicle_CNG: 'GNV' (CNG filling stations).",
-        "Residential_commercial: 'Residencial' + 'Comercial' + 'Instituciones publicas'.",
+        "Residential: 'Residencial'. Commercial: 'Comercial' + 'Instituciones publicas' (public institutions are "
+        "tiny, about 1 MMPCD, and are published only from 2022; they are grouped with commercial). "
+        "Residential_commercial: the sum of the two (kept for continuity).",
         "Petrochemical/other: not published - Peru has no gas-based petrochemical plant; no separate line exists.",
         "Total: sum of the concessions' published TOTAL rows (Calidda, Contugas, Quavii, Petroperu, Gasnorp); the "
         "four sector columns add up to it exactly (checked every run). Gasnorp (Piura) starts in 2022 (tiny until "
@@ -574,7 +580,7 @@ def main():
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "SECTORS", "COVERAGE", "SOURCE"})
     chart = (sec[SECTORS] * MCF_TO_M3).rename(columns={"Vehicle_CNG": "Vehicle CNG",
-                                                       "Residential_commercial": "Residential & commercial"})
+                                                       "Commercial": "Commercial & public institutions"})
     xlsx_charts.add_chart_sheet(args.out, chart, "Peru gas demand by sector", "million m3/day", kind="stacked_bar")
     out(f"Saved {args.out}")
 

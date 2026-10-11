@@ -6,7 +6,7 @@ America masters (south_america/SOUTH_AMERICA_MASTER.py, whose
 table/chart/dashboard code this reuses).
 
   Dashboard                  - gas: Australia east coast demand by sector, production, storage (water year), LNG
-                               cargoes, STTM hub prices (AEMO); New Zealand production, stock change and
+                               cargoes, STTM hub prices, residential/commercial demand (DWGM Victoria, STTM hubs) (AEMO); New Zealand production, stock change and
                                consumption (MBIE)
   Dashboard - Power & Hydro  - Australia + NZ generation by source (sum of NEM, WEM and NZ) and installed
                                capacity; then NEM by fuel and by state, WA (WEM), New Zealand (Electricity
@@ -45,6 +45,8 @@ FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Other"]   # same o
 # (country code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 DATASETS = [
     ("AU", "Australia", "au_gas.xlsx", ("Demand by sector", "Production", "Storage", "LNG shipments"), "gas"),
+    ("AU", "Australia", "au_gas_distribution.xlsx", ("DWGM demand", "STTM hub demand", "Annual by sector"),
+     "gas residential and commercial"),
     ("AU", "Australia", "au_gas_prices.xlsx", "Daily", "gas prices"),
     ("AU", "Australia", "au_gas_hub_prices.xlsx", "Daily", "gas hub prices"),
     ("WA", "Western Australia", "au_wa_gas.xlsx", ("Production", "Consumption", "Storage", "By zone"), "gas"),
@@ -75,6 +77,9 @@ OPERATORS = {}
 SOURCES = {
     "au_gas.xlsx": ("AEMO Gas Bulletin Board (actual flows and storage, LNG shipments)",
                     "https://aemo.com.au/energy-systems/gas/gas-bulletin-board-gbb"),
+    "au_gas_distribution.xlsx": ("AEMO DWGM (Victoria) and STTM (Sydney, Adelaide, Brisbane) demand reports; DCCEEW "
+                                 "Australian Energy Statistics Table F (annual supplement)",
+                                 "https://aemo.com.au/energy-systems/gas/declared-wholesale-gas-market-dwgm"),
     "au_gas_prices.xlsx": ("AEMO Short Term Trading Market, INT651 ex-ante market price",
                            "https://aemo.com.au/energy-systems/gas/short-term-trading-market-sttm"),
     "nz_gas.xlsx": ("MBIE (NZ Ministry of Business, Innovation and Employment), gas statistics webtables",

@@ -1,6 +1,6 @@
 name: Australia gas hub prices (STTM, DWGM, Wallumbilla)
 
-# AEMO STTM ex-ante prices (INT651). The report only holds about a week of gas days, so this runs daily and
+# AEMO STTM ex-ante prices (INT651) and DWGM/STTM demand (au_gas_distribution.xlsx). The report only holds about a week of gas days, so this runs daily and
 # merges into the saved sheet.
 on:
   schedule:
@@ -32,21 +32,27 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: timeout 900 python3 australia_nz/AU_GAS_HUB_PRICES.py
 
+      - name: Residential/commercial gas demand (DWGM Victoria, STTM hubs, AES annual)
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 australia_nz/AU_GAS_DISTRIBUTION.py
+
       - name: Add Excel charts and copy scripts
         if: always()
         run: |
-          for f in au_gas_prices au_gas_hub_prices; do
+          for f in au_gas_prices au_gas_hub_prices au_gas_distribution; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
           done
           mkdir -p "output/Python Scripts"
-          cp australia_nz/AU_STTM_PRICES.py australia_nz/AU_GAS_HUB_PRICES.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp australia_nz/AU_STTM_PRICES.py australia_nz/AU_GAS_HUB_PRICES.py australia_nz/AU_GAS_DISTRIBUTION.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbooks
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in au_gas_prices au_gas_hub_prices; do
+          for f in au_gas_prices au_gas_hub_prices au_gas_distribution; do
             [ -f "output/Data and Chart Outputs/$f.xlsx" ] && git add -f "output/Data and Chart Outputs/$f.xlsx"
           done
           git add -f "output/Python Scripts" || true

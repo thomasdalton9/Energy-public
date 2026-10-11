@@ -213,7 +213,10 @@ def bolivia(p):
 def peru(p):
     d = by_date(read(p, "Demand by sector"), "Month")
     names = {"Power": "Power", "Industrial": "Industrial", "Vehicle_CNG": "Vehicle CNG",
-             "Residential_commercial": "Residential & commercial"}
+             "Residential": "Residential", "Commercial": "Commercial & public institutions"}
+    if "Residential_mcm_per_day" not in d.columns:   # workbook from before the residential / commercial split
+        names = {"Power": "Power", "Industrial": "Industrial", "Vehicle_CNG": "Vehicle CNG",
+                 "Residential_commercial": "Residential & commercial"}
     out = [spec("Demand", d[cols(d, *[f"{k}_mcm_per_day" for k in names])].rename(
         columns=lambda x: names[x.replace("_mcm_per_day", "")]), "Peru gas demand by sector", "million m3/day",
         "stacked_bar")]
@@ -236,6 +239,23 @@ def peru(p):
                         "Peru gas supply vs demand + LNG", "million m3/day",
                         "stacked_bar", line_cols=lines))
     return out
+
+
+def mexico_gas_sector(p):
+    d = by_date(read(p, "Demand by sector"), "Month")
+    names = {"Power": "Power", "Industrial": "Industrial", "Residential": "Residential", "Commercial": "Commercial",
+             "Transport_CNG": "Transport (CNG)", "Distribution_companies": "Distribution companies (Pemex)",
+             "Pemex_own_use": "Pemex own use", "Other": "Other"}
+    c = [f"{k}_mcm_per_day" for k in names]
+    g = d[cols(d, *c)].rename(columns=lambda x: names[x.replace("_mcm_per_day", "")])
+    return [spec("Demand", g.dropna(how="all"), "Mexico gas demand by sector", "million m3/day", "stacked_bar")]
+
+
+def venezuela_gas(p):
+    d = by_date(read(p, "Monthly flows"), "Month")
+    g = d.rename(columns=lambda x: x.replace("_mcm_per_day", ""))
+    g = g.loc[:, g.notna().sum() > 3].dropna(how="all")
+    return [spec("Flows", g, "Venezuela gas flows (JODI-Gas, Venezuela submissions)", "million m3/day", "line")]
 
 
 def uruguay(p):
@@ -274,6 +294,18 @@ def chile_imports(p):
         specs.append(spec("Production", q, "Chile domestic gas production (Magallanes)", "million m3/day",
                           "stacked_bar"))
     return specs
+
+
+def chile_demand(p):
+    """Chile gas demand by sector (CHILE_GAS_DEMAND.py): power = estimate (CEN gas generation x heat rate),
+    petrochemical = Argentine pipeline gas to Magallanes (CNE customs), other = residual of imports + production."""
+    d = by_date(read(p, "Demand by sector"), "Month")
+    g = pd.DataFrame({"Power (estimate: gas generation x heat rate)": d.get("Power_est_mcm_per_day"),
+                      "Petrochemical, Magallanes (imports only)": d.get("Petrochemical_Magallanes_imports_mcm_per_day"),
+                      "Other demand (residual: supply - power - petrochemical)": d.get("Other_demand_residual_mcm_per_day")})
+    g = g.loc[:, g.notna().any()]
+    return [spec("Demand", g, "Chile natural gas demand by sector (CNE, CEN; power and residual derived)",
+                 "million m3/day", "stacked_bar")]
 
 
 def power_mix(d):
@@ -721,7 +753,13 @@ def trinidad(p):
     pick = lambda pat: w[[c for c in w.columns if re.search(pat, c, re.I)]].sum(axis=1, min_count=1)  # noqa: E731
     g = pd.DataFrame({"LNG": pick(r"^LNG"), "Methanol": pick("methanol"), "Ammonia & derivatives": pick("ammonia|urea"),
                       "Power": pick("power")})
-    g["Other"] = w.sum(axis=1) - g.sum(axis=1)
+    # MEEI's own remaining categories, shown separately rather than lumped. "Small consumers" is the only
+    # residential / commercial / CNG-type line MEEI has; it is not split further in any bulletin.
+    g["Iron & steel"] = pick("iron")
+    g["Cement"] = pick("cement")
+    g["Gas processing"] = pick("processing")
+    g["Small consumers (residential/commercial/CNG, not split)"] = pick("small consumers")
+    g["Other (GTL, bpTT sales)"] = w.sum(axis=1) - g.sum(axis=1)
     out.append(spec("Use", g, "Trinidad & Tobago gas use by sector", "MMscf/d", "stacked_bar"))
     pr = read(p, "Production by company")
     pr = pr[pr["company"].astype(str).str.upper() != "TOTAL"].copy()
@@ -1078,6 +1116,41 @@ def singapore_gas(p):
                             columns={"Domestic_GWh": "Domestic", "Non_domestic_GWh": "Non-domestic"}),
                         "Singapore town gas sales", "GWh per quarter", "stacked_bar"))
     return out
+
+
+def eurostat_gas(p):
+    """Eurostat gas by sector (europe/EUROSTAT_GAS_BY_SECTOR.py): EU-27 annual by sector, the largest
+    consumers' annual sector stacks, and the EU-27 monthly balance items Eurostat returns."""
+    out = []
+    raw = read(p, "Annual raw")
+    raw["period"] = raw["period"].astype(str)
+    groups = {"Power and heat generation (transformation input)": ["TI_EHG_E"], "Industry (energy use)": ["FC_IND_E"],
+              "Households": ["FC_OTH_HH_E"], "Commerce and public services": ["FC_OTH_CP_E"],
+              "Transport": ["FC_TRA_E"], "Agriculture, fishing, other": ["FC_OTH_AF_E", "FC_OTH_FISH_E", "FC_OTH_NSP_E"],
+              "Non-energy use": ["FC_NE"], "Energy sector own use and losses": ["NRG_E", "DL_E"]}
+    names = {"EU27_2020": "EU-27", "DE": "Germany", "IT": "Italy", "FR": "France", "NL": "Netherlands", "ES": "Spain",
+             "PL": "Poland", "UK": "United Kingdom (to 2019)"}
+    for geo, name in names.items():
+        w = raw[raw["geo"] == geo].pivot_table(index="period", columns="code", values="value", aggfunc="first")
+        if w.empty:
+            continue
+        g = pd.DataFrame({k: w[[c for c in v if c in w.columns]].sum(axis=1, min_count=1) for k, v in groups.items()
+                          if any(c in w.columns for c in v)}) / 1000
+        g.index = pd.to_datetime(g.index + "-01-01")
+        out.append(spec(f"Annual {geo}", g, f"{name} natural gas consumption by sector (Eurostat)", "PJ per year",
+                        "stacked_bar", "%Y"))
+    if "EU27 monthly" in pd.ExcelFile(p).sheet_names:
+        m = by_date(read(p, "EU27 monthly"), "Month")
+        m = m[m.notna().sum().sort_values(ascending=False).index[:8]] / 1000
+        m.columns = [c.split(" [")[0] for c in m.columns]
+        out.append(spec("Monthly EU27", m, "EU-27 natural gas balance items, monthly (Eurostat)", "PJ per month"))
+    return out
+
+
+def india_ppac_gas(p):
+    d = by_date(read(p, "Monthly by sector"), "Month")
+    parts = d.drop(columns=[c for c in ["Total"] if c in d.columns])
+    return [spec("Monthly", parts, "India natural gas consumption by sector (PPAC)", "MMSCM per month", "stacked_bar")]
 
 
 def brazil_hydro(p):
@@ -2011,7 +2084,8 @@ def canada_gas(p):
     pick = lambda pat: {k: v for k, v in flow.items() if re.search(pat, k, re.I)}  # noqa: E731
     out = []
     recent = d[d.index >= "2021-01-01"]
-    use = pick(r"^(residential|commercial|industrial) consumption$|^pipeline fuel$|^deliveries to natural gas processing")
+    use = pick(r"^(residential|commercial|industrial) consumption$|^pipeline fuel$|^deliveries to natural gas processing"
+               r"|electric|thermal")   # an electric-power item, if StatCan's table carries one (25-10-0086 had none)
     if use:
         out.append(spec("Demand", recent[list(use.values())].rename(columns={v: k for k, v in use.items()}),
                         "Canada natural gas consumption by sector (StatCan)", "Bcf/d", "stacked_bar"))
@@ -2189,7 +2263,7 @@ def au_gas(p):
     d = _sheet(p, "Demand by sector", "date")
     if not d.empty:
         names = {"Gas_power_generation": "Power generation", "Large_industrial": "Large industrial",
-                 "LNG_export_plants": "LNG export plants"}
+                 "LNG_export_plants": "LNG export plants", "Distribution_network": "Distribution network"}
         out.append(spec("Demand", monthly_mean(d[cols(d, *names)].rename(columns=names)) * MMCF_PER_TJ,
                         "Australia east coast gas demand: power, large industry, LNG (AEMO GBB)",
                         f"{MMCFD}, monthly average", "stacked_bar"))
@@ -2212,6 +2286,31 @@ def au_gas(p):
         s = _per_day(s[s.index >= "2021-01-01"] * 1000 * MMCF_PER_TJ)   # PJ per month -> MMcf/d
         out.append(spec("LNG", s, "Australia east coast LNG exports by plant (AEMO GBB cargoes)",
                         f"{MMCFD}, monthly average", "stacked_bar"))
+    return out
+
+
+def au_gas_distribution(p):
+    """Residential/commercial (distribution network) demand: DWGM Victoria and STTM hubs (monthly average MMcf/d), and
+    AES Table F annual residential/commercial rows (PJ per year). Sheets hold TJ/day; skipped when a sheet is absent."""
+    out = []
+    d = _sheet(p, "DWGM demand", "date")
+    if "DWGM_withdrawals_last_interval" in d:
+        out.append(spec("Victoria", monthly_mean(d[["DWGM_withdrawals_last_interval"]].rename(
+            columns={"DWGM_withdrawals_last_interval": "Victoria DWGM withdrawals"})) * MMCF_PER_TJ,
+            "Victoria gas demand, DWGM distribution network (AEMO)", f"{MMCFD}, monthly average", "line"))
+    h = _sheet(p, "STTM hub demand", "date")
+    if not h.empty:
+        out.append(spec("STTM hubs", monthly_mean(h.drop(columns=["Total"], errors="ignore")) * MMCF_PER_TJ,
+                        "Sydney, Adelaide and Brisbane STTM hub gas demand (AEMO)", f"{MMCFD}, monthly average",
+                        "stacked_bar"))
+    a = _sheet(p, "Annual by sector", "year")
+    if not a.empty:
+        keep = [c for c in a.columns if re.search(r"resident|commercial", str(c), re.I)
+                and re.search(r"australia|total", str(c), re.I)] or \
+               [c for c in a.columns if re.search(r"resident|commercial", str(c), re.I)][:4]
+        if keep:
+            out.append(spec("Annual", a[keep], "Australia residential and commercial gas consumption, annual "
+                            "(DCCEEW Australian Energy Statistics Table F)", "PJ per year", "line", "%Y"))
     return out
 
 
@@ -2903,7 +3002,10 @@ REGISTRY = {
     "bolivia_gas_demand_by_sector.xlsx": bolivia,
     "uruguay_gas_demand_by_sector.xlsx": uruguay,
     "peru_gas_demand_by_sector.xlsx": peru,
+    "venezuela_gas.xlsx": venezuela_gas,
+    "mexico_gas_demand_by_sector.xlsx": mexico_gas_sector,
     "chile_gas_imports.xlsx": chile_imports,
+    "chile_gas_demand_by_sector.xlsx": chile_demand,
     "chile_power_by_type.xlsx": chile_power,
     "brazil_power_generation_daily.xlsx": power_daily("Brazil power generation by type (ONS)"),
     "colombia_power_generation_daily.xlsx": power_daily("Colombia power generation by type (XM)"),
@@ -2940,6 +3042,8 @@ REGISTRY = {
     "ireland_gas_combined_daily.xlsx": ireland_combined,
     "ireland_gni_transparency_daily.xlsx": ireland_gni,
     "ireland_smartgrid_15min.xlsx": ireland_smartgrid,
+    "eurostat_gas_by_sector.xlsx": eurostat_gas,
+    "india_ppac_gas_by_sector.xlsx": india_ppac_gas,
     "mexico_demanda_nacional_daily.xlsx": mexico,
     "miso_fuel_mix_daily.xlsx": fuel_mix("MISO fuel mix", "MW (daily mean)"),
     "miso_gas_burn_daily.xlsx": miso_gas_burn,
@@ -3043,6 +3147,7 @@ REGISTRY = {
     "nz_power_capacity.xlsx": capacity_with_storage("New Zealand installed generating capacity (MBIE)"),
     "au_gas.xlsx": au_gas,
     "au_gas_prices.xlsx": au_gas_prices,
+    "au_gas_distribution.xlsx": au_gas_distribution,
     # one-off future workbooks (future/*.py)
     "north_america_future.xlsx": future_workbook,
     "south_america_future.xlsx": future_workbook,
