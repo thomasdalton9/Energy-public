@@ -1,50 +1,47 @@
-"""Probe 2: ARE Benin documents API params (manual). Compact output."""
-import json, re, requests
-H = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36", "Accept": "application/json, text/html, */*"}
+"""Probe 3: ARE Benin - paginate all documents, list categories, SBPE files, download+parse samples (manual)."""
+import io, json, re, collections, requests
+H = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36", "Accept": "application/json, */*"}
 API = "https://backoffice.are.bj/api/documents"
-SLUG = "rapports-de-production-journalier-de-la-sbpe"
-
-def get(url, **kw):
-    try: return requests.get(url, headers=H, timeout=40, **kw)
-    except Exception as e: print("ERR", url, e)
-
-r = get(API)
-j = r.json()
-print("top keys", list(j.keys()), "n", len(j["data"]))
-for k in j:
-    if k != "data": print(k, json.dumps(j[k])[:700])
-print("first item keys", list(j["data"][0].keys()))
-
-# bundles: find api usage
-page = get("https://www.are.bj/documents/categorie/" + SLUG).text
-srcs = sorted(set(re.findall(r'/_next/static/chunks/[0-9a-f]+\.js', page)))
-print(len(srcs), "chunks")
-for s in srcs:
-    t = get("https://www.are.bj" + s)
-    if t is None: continue
-    t = t.text
-    for m in re.finditer(r'(api/documents|/documents|categorie|category_slug|per_page|backoffice)', t):
-        a = max(0, m.start() - 150); print("JS", s[-14:], t[a:m.start()+250].replace("\n", " ")); 
-        break
-    for m in re.finditer(r'api/documents', t):
-        a = max(0, m.start() - 300); print("JSDOC", s[-14:], t[a:m.start()+500].replace("\n", " "))
-# RSC data in html around SBPE docs
-for m in re.finditer(r'category_slug', page):
-    print("HTMLCAT", page[max(0, m.start()-400):m.start()+200].replace("\\", ""))
-    break
-
-def trial(params):
-    r = get(API, params=params)
-    if r is None: return
+items = []
+p = 1
+while True:
     try:
-        j = r.json(); d = j.get("data", [])
-        cats = sorted({x.get("category_slug") for x in d})
-        print("TRY", params, r.status_code, "n", len(d), "cats", cats[:4], "meta", json.dumps(j.get("meta"))[:200], "links", json.dumps(j.get("links"))[:200])
+        j = requests.get(API, params={"page": p}, headers=H, timeout=40).json()
     except Exception as e:
-        print("TRY", params, r.status_code, r.text[:200])
+        print("ERR page", p, e); break
+    items += j["data"]
+    if p >= j["meta"]["last_page"]: break
+    p += 1
+print("pages", p, "items", len(items))
+cats = collections.Counter((i["category_slug"], i["category"]) for i in items)
+for (s, n), c in cats.most_common(): print("CAT", c, s, "|", n)
+for i in items:
+    if "sbee" in (i["title"] + i["description"]).lower() or "ceb" in i["title"].lower() or "statist" in (i["title"]+i["category"]).lower() or "ceb" in i["category_slug"]:
+        print("OTHER", i["created_at_raw"], i["category_slug"], "|", i["title"][:70], "|", i["file"]["mime"], i["file"]["size_formatted"])
+sb = [i for i in items if "sbpe" in i["category_slug"]]
+print("SBPE n", len(sb))
+for i in sb:
+    print("SB", i["created_at_raw"], i["title"][:60], "|", i["file"]["mime"], i["file"]["size"], i["file"]["url"].replace("https://backoffice.are.bj/uploads/documents/", ""))
+json.dump(sb, open("sbpe_list.json", "w"))
 
-cands = []
-for k in ["category", "category_slug", "categorie", "categorie_slug", "category_id", "categories", "slug", "type", "filter[category]", "filter[category_slug]", "filters[category][slug]", "cat"]:
-    cands.append({k: SLUG}); cands.append({k: SLUG + "-documents"})
-cands += [{"page": 2}, {"per_page": 100}, {"limit": 100}, {"perPage": 100}, {"page_size": 100}, {"search": "SBPE"}, {"q": "SBPE"}, {"query": "SBPE"}, {"keyword": "SBPE"}, {"s": "SBPE"}, {"title": "SBPE"}]
-for c in cands: trial(c)
+import pdfplumber
+n = len(sb)
+idx = sorted({round(k * (n - 1) / 11) for k in range(12)}) if n else []
+for k in idx:
+    i = sb[k]; u = i["file"]["url"].replace("\\/", "/")
+    try:
+        r = requests.get(u, headers=H, timeout=90)
+        b = r.content
+        print("\nDL", k, i["created_at_raw"], i["title"][:50], r.status_code, len(b), b[:8])
+        if b[:4] == b"%PDF":
+            with pdfplumber.open(io.BytesIO(b)) as pdf:
+                print("PAGES", len(pdf.pages))
+                t = "\n".join((pg.extract_text() or "") for pg in pdf.pages)
+                print("TEXTLEN", len(t)); print(t[:1800] if k in (idx[0], idx[len(idx)//2], idx[-1]) else t[:300])
+                tb = pdf.pages[0].extract_tables(); print("TABLES p1", len(tb), [len(x) for x in tb])
+        else:
+            import openpyxl
+            wb = openpyxl.load_workbook(io.BytesIO(b), data_only=True)
+            for ws in wb: print("SHEET", ws.title, ws.dimensions)
+    except Exception as e:
+        print("DLERR", k, u, repr(e)[:200])
