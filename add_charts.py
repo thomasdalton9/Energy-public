@@ -3575,8 +3575,27 @@ def egypt_grid_load(p):
                  "%Y-%m-%d")]
 
 
+def israel_gas_fields(p):
+    """Israel gas sales by field from company reports (middle_east/ISRAEL_GAS_FIELDS.py), quarterly, Bcf/d."""
+    d = by_date(read(p, "Quarterly"), "date").apply(pd.to_numeric, errors="coerce")
+    days = (d.index + pd.offsets.QuarterBegin(startingMonth=1) - d.index).days.values
+    bcfd = lambda cols_map: (d[cols(d, *cols_map)].mul(35.3147).div(days, axis=0)).rename(columns=cols_map)
+    fields = bcfd({"Leviathan_bcm": "Leviathan", "Tamar_bcm": "Tamar", "Karish_bcm": "Karish"})
+    lev = bcfd({"Leviathan_Israel_bcm": "Israel", "Leviathan_Jordan_bcm": "Jordan", "Leviathan_Egypt_bcm": "Egypt"})
+    exp = bcfd({"Leviathan_Egypt_bcm": "Leviathan to Egypt", "Leviathan_Jordan_bcm": "Leviathan to Jordan",
+                "Tamar_Export_bcm": "Tamar exports (Egypt + Jordan)"})
+    exp = exp[exp.notna().all(axis=1)]
+    return [spec("By field", fields.dropna(how="all"), "Israel gas sales by field (company reports, 100% of field)",
+                 "Bcf/d (quarterly average)", "stacked_bar"),
+            spec("Leviathan by destination", lev.dropna(how="all"), "Leviathan gas sales by destination (NewMed)",
+                 "Bcf/d (quarterly average)", "stacked_bar"),
+            spec("Exports", exp, "Israel gas exports: Leviathan by country and Tamar (company reports)",
+                 "Bcf/d (quarterly average)", "stacked_bar")]
+
+
 REGISTRY.update({
     "mexico_power_generation_daily.xlsx": mexico_generation,
+    "israel_gas_fields_quarterly.xlsx": israel_gas_fields,
     "egypt_grid_load_daily.xlsx": egypt_grid_load,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
     "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
