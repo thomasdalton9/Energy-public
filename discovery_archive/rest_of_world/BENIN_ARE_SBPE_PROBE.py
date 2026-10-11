@@ -1,47 +1,37 @@
-"""Probe 3: ARE Benin - paginate all documents, list categories, SBPE files, download+parse samples (manual)."""
-import io, json, re, collections, requests
+"""Probe 4: ARE Benin - SBPE (3) and CEB hourly-load documents: list, download, parse (manual)."""
+import io, json, requests, pdfplumber
 H = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36", "Accept": "application/json, */*"}
 API = "https://backoffice.are.bj/api/documents"
-items = []
-p = 1
+items = []; p = 1
 while True:
-    try:
-        j = requests.get(API, params={"page": p}, headers=H, timeout=40).json()
-    except Exception as e:
-        print("ERR page", p, e); break
+    j = requests.get(API, params={"page": p}, headers=H, timeout=40).json()
     items += j["data"]
     if p >= j["meta"]["last_page"]: break
     p += 1
-print("pages", p, "items", len(items))
-cats = collections.Counter((i["category_slug"], i["category"]) for i in items)
-for (s, n), c in cats.most_common(): print("CAT", c, s, "|", n)
-for i in items:
-    if "sbee" in (i["title"] + i["description"]).lower() or "ceb" in i["title"].lower() or "statist" in (i["title"]+i["category"]).lower() or "ceb" in i["category_slug"]:
-        print("OTHER", i["created_at_raw"], i["category_slug"], "|", i["title"][:70], "|", i["file"]["mime"], i["file"]["size_formatted"])
-sb = [i for i in items if "sbpe" in i["category_slug"]]
-print("SBPE n", len(sb))
-for i in sb:
-    print("SB", i["created_at_raw"], i["title"][:60], "|", i["file"]["mime"], i["file"]["size"], i["file"]["url"].replace("https://backoffice.are.bj/uploads/documents/", ""))
-json.dump(sb, open("sbpe_list.json", "w"))
-
-import pdfplumber
-n = len(sb)
-idx = sorted({round(k * (n - 1) / 11) for k in range(12)}) if n else []
-for k in idx:
-    i = sb[k]; u = i["file"]["url"].replace("\\/", "/")
+sel = [i for i in items if "sbpe" in i["category_slug"] or "ceb" in i["category_slug"] or "statistique" in (i["title"] + i["category"]).lower() or "rapport" in i["title"].lower()]
+nofile = [i for i in items if not i["file"]]
+print("RESULT items", len(items), "without file", len(nofile))
+for i in sel:
+    f = i["file"] or {}
+    print("RESULT SEL", i["created_at_raw"], i["category_slug"][:30], "|", i["title"][:60], "|", i["slug"], "|", f.get("mime"), f.get("size"), (f.get("url") or "").replace("https://backoffice.are.bj/uploads/documents/", ""))
+dates = sorted(i["created_at_raw"] for i in items)
+print("RESULT date range all docs", dates[0], dates[-1])
+for i in sel:
+    f = i["file"]
+    if not f or not ("sbpe" in i["category_slug"] or "ceb" in i["category_slug"]): continue
     try:
-        r = requests.get(u, headers=H, timeout=90)
-        b = r.content
-        print("\nDL", k, i["created_at_raw"], i["title"][:50], r.status_code, len(b), b[:8])
+        r = requests.get(f["url"], headers=H, timeout=120); b = r.content
+        print("RESULT DL", i["title"][:50], r.status_code, len(b), b[:6])
         if b[:4] == b"%PDF":
             with pdfplumber.open(io.BytesIO(b)) as pdf:
-                print("PAGES", len(pdf.pages))
+                print("RESULT PAGES", len(pdf.pages))
                 t = "\n".join((pg.extract_text() or "") for pg in pdf.pages)
-                print("TEXTLEN", len(t)); print(t[:1800] if k in (idx[0], idx[len(idx)//2], idx[-1]) else t[:300])
-                tb = pdf.pages[0].extract_tables(); print("TABLES p1", len(tb), [len(x) for x in tb])
-        else:
+                print("RESULT TEXTLEN", len(t)); print("RESULT TEXT", t[:1500].replace("\n", " // "))
+        elif b[:2] == b"PK":
             import openpyxl
             wb = openpyxl.load_workbook(io.BytesIO(b), data_only=True)
-            for ws in wb: print("SHEET", ws.title, ws.dimensions)
+            for ws in wb:
+                print("RESULT SHEET", ws.title, ws.dimensions)
+                for row in list(ws.iter_rows(values_only=True))[:25]: print("RESULT ROW", row[:14])
     except Exception as e:
-        print("DLERR", k, u, repr(e)[:200])
+        print("RESULT DLERR", repr(e)[:200])
