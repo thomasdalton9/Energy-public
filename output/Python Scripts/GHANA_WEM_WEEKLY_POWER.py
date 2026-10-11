@@ -95,6 +95,33 @@ def in_window(first, last, year):
     return (first >= pd.Timestamp(year - 1, 12, 20)) and (last <= pd.Timestamp(year + 1, 1, 10))
 
 
+MONTH_NAMES = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+
+
+def fix_year(df, name, year):
+    """Some weeks print a wrong year in every header day (e.g. February 2022 headed '1-Feb-21'). When the file name names
+    the month (and the days are not already inside the page's year window) the year of the headers is replaced by the
+    year in the file name, or the page's year. Returns (df, True) when changed."""
+    if in_window(df.columns.min(), df.columns.max(), year):
+        return df, False
+    low = name.lower()
+    mon = [i + 1 for i, m in enumerate(MONTH_NAMES) if m in low]
+    if len(mon) != 1:
+        raise ValueError(f"days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d} outside the {year} page")
+    yr = re.search(r"(20\d\d)", name)
+    target = int(yr.group(1)) if yr else year
+    fixed = []
+    for d in df.columns:
+        if d.month != mon[0]:
+            raise ValueError(f"header month {d:%b} does not match file name month")
+        fixed.append(pd.Timestamp(target, d.month, d.day))
+    out = df.copy()
+    out.columns = pd.DatetimeIndex(fixed)
+    if not in_window(out.columns.min(), out.columns.max(), year):
+        raise ValueError("days still outside the page's year after correction")
+    return out, True
+
+
 def categories():
     """[(year, category path)] from the landing page."""
     r = requests.get(LANDING, headers=H, timeout=(10, 60))
@@ -204,7 +231,7 @@ def main():
             print("Time budget reached; the next run continues.", flush=True)
             break
         url = EC + u if u.startswith("/") else u
-        r = None
+        r, name = None, ""
         try:
             r = requests.get(url, headers=H, timeout=(10, 60))
             r.raise_for_status()
@@ -216,8 +243,8 @@ def main():
             df.index = [canon(x) for x in df.index]
             df, n_fix = repair_dates(df)
             tot = pd.Series(tot.values, index=df.columns) if (tot is not None and len(tot) == df.shape[1]) else tot
-            if not in_window(df.columns.min(), df.columns.max(), y):
-                raise ValueError(f"days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d} outside the {y} page")
+            df, yfix = fix_year(df, name, y)
+            tot = pd.Series(tot.values, index=df.columns) if (tot is not None and len(tot) == df.shape[1]) else tot
             if df.index.duplicated().any():
                 raise ValueError("duplicate plant rows")
             s = df.sum()
@@ -235,10 +262,10 @@ def main():
             for d in df.columns:
                 rows.setdefault(d, {}).update({p: df.at[p, d] for p in df.index})
             rec[i] = {"year": y, "file": name, "first_day": df.columns.min(), "last_day": df.columns.max(),
-                      "status": "ok", "note": "; ".join(([f"{n_fix} header day(s) repaired"] if n_fix else []) + warns)[:200]}
+                      "status": "ok", "note": "; ".join(([f"{n_fix} header day(s) repaired"] if n_fix else []) + (["header year corrected from the file name"] if yfix else []) + warns)[:200]}
             print(f"  [{time.time()-t0:.0f}s] {i} {name}: {df.shape[0]} plants x {df.shape[1]} days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d}", flush=True)
         except Exception as e:  # noqa: BLE001
-            rec[i] = {"year": y, "file": "", "first_day": pd.NaT, "last_day": pd.NaT, "status": "failed",
+            rec[i] = {"year": y, "file": name, "first_day": pd.NaT, "last_day": pd.NaT, "status": "failed",
                       "note": f"{type(e).__name__}: {str(e)[:150]}"}
             print(f"  {i}: FAILED {type(e).__name__}: {str(e)[:150]}", flush=True)
             if args.dump_failed:
