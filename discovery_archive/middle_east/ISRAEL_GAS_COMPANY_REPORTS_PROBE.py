@@ -521,8 +521,98 @@ def round4():
             print("        |", h.strip()[:360])
 
 
+SENT = r"(?:[^.]|\.\d)"  # sentence char: anything but a full stop, decimals allowed
+
+
+def round5():
+    NM = "https://newmedenergy.com/wp-content/uploads/"
+    print("\n##### A. Energean RNS: Israel table rows and bcm sentences")
+    ids = ["trading-statement-operational-update/9576511", "results-for-half-year-ended-30-june-2026/9761841",
+           "trading-statement-operational-update/9388069", "trading-statement-operational-update/9257244",
+           "results-for-half-year-ended-30-june-2025/9100543", "trading-statement-operational-update/8891249",
+           "trading-statement-operational-update/8701793", "trading-statement-operational-update/8577177",
+           "trading-statement-operational-update/8215919", "2023-full-year-results/8098916"]
+    for i in ids:
+        r = get("https://www.investegate.co.uk/announcement/rns/energean--enog/" + i)
+        if r is None or r.status_code != 200:
+            continue
+        txt = re.sub(r"<(?:td|th)[^>]*>", " | ", r.text)
+        txt = re.sub(r"</tr>", "\n", txt)
+        txt = re.sub(r"<[^>]+>", " ", txt)
+        txt = re.sub(r"&nbsp;|&#160;", " ", txt).replace("&#183;", "*").replace("&amp;", "&").replace("&#8209;", "-")
+        txt = re.sub(r"[ \t]+", " ", txt)
+        print("   ", i)
+        rows = [l.strip() for l in txt.split("\n") if re.search(r"Israel|Q[1-4] 20\d\d|H[12] 20\d\d|kboed", l)
+                and l.count("|") >= 3]
+        for l in rows[:10]:
+            print("        row|", l[:300])
+        flat = re.sub(r"\s+", " ", txt)
+        for m in list(re.finditer(SENT + r"{0,200}\d+\.\d+ bcm" + SENT + r"{0,200}", flat))[:8]:
+            if re.search(r"Israel|includes|sold|equivalent|Karish", m.group(0)):
+                print("        bcm|", m.group(0).strip()[:380])
+
+    print("\n##### B. NewMed FS: Karish royalty volumes + national review + offtake")
+    for f in ["2026/08/FS330062026ACCESSIBLE.pdf", "2026/05/FS31032026ACCESSIBLE.pdf", "2026/03/FS31122025ACCESSIBLE.pdf",
+              "2025/11/FS30092025ENGACCESSIBLE.pdf", "2025/03/FS31122024ENGACCESSIBLE.pdf", "2024/03/NM_FS31122023_ACCESSIBLE.pdf"]:
+        rr = get(NM + f)
+        if rr is None or rr.status_code != 200:
+            continue
+        t = re.sub(r"\s+", " ", fast_text(rr.content))
+        print("   ", f)
+        for pat in [SENT + r"{0,300}sold by Energean in" + SENT + r"{0,300}",
+                    SENT + r"{0,200}(?:Karish|Tanin)" + SENT + r"{0,80}royalt" + SENT + r"{0,80}\d+\.\d+ BCM" + SENT + r"{0,200}",
+                    SENT + r"{0,300}\d+\.\d+ BCM, of which" + SENT + r"{0,400}",
+                    r"Total Offtake \(BCM\).{0,200}",
+                    r"gov\.il/BlobFolder[^ ]{0,120}"]:
+            for m in list(re.finditer(pat, t))[:3]:
+                print("        |", m.group(0).strip()[:600])
+
+    print("\n##### C. Tamar Petroleum EN: export/domestic split sentences")
+    for u in ["https://www.tamarpetroleum.co.il/wp-content/uploads/2026/09/Tamar-Petroleum-FS-Q2_2026.pdf",
+              "https://www.tamarpetroleum.co.il/wp-content/uploads/2026/03/Tamar-Petroleum-Financial-Information-2025-Final.pdf"]:
+        rr = get(u)
+        if rr is None or rr.status_code != 200:
+            continue
+        t = re.sub(r"\s+", " ", fast_text(rr.content))
+        print("   ", u.rsplit("/", 1)[-1])
+        for m in list(re.finditer(SENT + r"{0,250}(?:export|Egypt|Jordan|domestic market)" + SENT + r"{0,250}", t))[:40]:
+            if re.search(r"\d+\.\d+ ?BCM|BCM ?\d|%", m.group(0)) and re.search(r"sold|sales|quantit", m.group(0)):
+                print("        |", m.group(0).strip()[:450])
+
+    print("\n##### D. gov.il BlobFolder: Natural Gas Authority annual reviews")
+    cands = []
+    for y in range(2019, 2026):
+        cands += [f"https://www.gov.il/BlobFolder/reports/ng_{y}/he/ng_{y}.pdf",
+                  f"https://www.gov.il/BlobFolder/reports/ng_{y}/he/ng_{y}_summary.pdf",
+                  f"https://www.gov.il/BlobFolder/reports/natural_gas_{y}/he/natural_gas_{y}.pdf",
+                  f"https://www.gov.il/BlobFolder/reports/ng-{y}/he/ng-{y}.pdf"]
+    for u in cands:
+        rr = get(u) if creq is None else get(u, "cffi")
+        if rr is not None and rr.status_code == 200 and rr.content.startswith(b"%PDF"):
+            try:
+                t = re.sub(r"\s+", " ", fast_text(rr.content, 80))
+            except Exception as e:  # noqa: BLE001
+                print("    err", e)
+                continue
+            for m in list(re.finditer(r".{0,120}(?:תמר|לוויתן|כריש).{0,40}BCM.{0,120}|.{0,120}BCM.{0,40}(?:תמר|לוויתן|כריש).{0,120}", t))[:10]:
+                print("        |", m.group(0)[:300])
+
+    print("\n##### E. MAYA files direct (report ids used by NewMed site)")
+    for rid in ["1742160", "1764416", "1663875"]:
+        lo = (int(rid) - 1) // 1000 * 1000 + 1
+        for u in [f"https://mayafiles.tase.co.il/rpdf/{lo}-{lo + 999}/P{rid}-00.pdf",
+                  f"https://mayafiles.tase.co.il/RPdf/{lo}-{lo + 999}/P{rid}-00.pdf",
+                  f"https://maya.tase.co.il/reports/details/{rid}",
+                  f"https://mayaapi.tase.co.il/api/report/details/{rid}"]:
+            rr = fetch(u)
+            if rr is not None and rr.status_code == 200 and not rr.content.startswith(b"%PDF"):
+                print("        head:", rr.text[:200].replace("\n", " "))
+
+
 if __name__ == "__main__":
-    if ROUND == 4:
+    if ROUND == 5:
+        round5()
+    elif ROUND == 4:
         round4()
     elif ROUND == 3:
         round3()
