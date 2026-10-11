@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head id="ctl00_ctl00_Head1"><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta property="og:image" content="http://www.jodidata.org/_resources/files/template/jodi-ext.png" /><title>
+	JODI-Gas World Database, Available Data Downloads | JODI
+</title><link rel="stylesheet" href="https://use.typekit.net/kip0eub.css" />
+    <script type="text/javascript" src="/_resources/js/otcAnim.js"></script>
+    <script type="text/javascript" src="/_resources/js/common.js?v=3"></script>
+    <script type="text/javascript" src="/_resources/js/modules/menus.js"></script>
+    <script type="text/javascript" src="/_resources/js/modules/wcform.js"></script>
+    <script type="text/javascript" src="/_resources/js/MicrosoftAjax.js"></script>
+    <script type="text/javascript">
+        wcbs.ajax.path = "/gas/database/data-downloads.aspx";
+    </script>
+    <link rel="stylesheet" type="text/css" href="/_resources/css/common-j.css?v=4" />
+    <link rel="stylesheet" type="text/css" href="/_resources/css/main-j.css" />
+    <link rel="stylesheet" type="text/css" href="/_resources/css/gas-j.css" />
+    
+    <script type="module" crossorigin src="/assets/index-BTM4UJLo.js"></script>
+
+<link rel="shortcut icon" href="/favicon.ico" /><link rel="apple-touch-icon" href="/_resources/files/template/jodi-iphone-57.png" /><link rel="apple-touch-icon" sizes="114x114" href="/_resources/files/template/jodi-iphone-114.png" /><link rel="apple-touch-icon" sizes="72x72" href="/_resources/files/template/jodi-iphone-72.png" /><meta name="apple-mobile-web-app-title" content="jodidata.org" />
+    <!-- Google tag (gtag.js) -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-XV8QC3WKFJ"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XV8QC3WKFJ');
+    </script>
+<meta property="og:type" content="article" /><meta name="description" content="The JODI-Gas World Database contains complete data from January 2009 to one month old for all products, flows and countries involved in JODI-Gas." /><meta property="og:title" content="JODI-Gas World Database, Available Data Downloads | JODI" /><meta property="og:description" content="The JODI-Gas World Database contains complete data from January 2009 to one month old for all products, flows and countries involved in JODI-Gas." /><meta property="og:image" content="https://www.jodidata.org/_resources/files/template/jodi-data-450.png" /><meta property="og:image:alt" content="JODI Data Logo" /><meta property="og:site_name" content="Joint Organizations Data Initiative (JODI)" /><meta property="og:locale" content="en_GB" /><meta property="og:url" content="https://www.jodidata.org/gas/database/data-downloads.aspx" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="JODI-Gas World Database, Available Data Downloads | JODI" /><meta name="twitter:description" content="The JODI-Gas World Database contains complete data from January 2009 to one month old for all products, flows and countries involved in JODI-Gas." /><meta name="twitter:image" content="https://www.jodidata.org/_resources/files/template/jodi-data-450.png" /><meta name="twitter:image:alt" content="JODI Data Logo" /><meta name="twitter:domain" content="www.jodidata.org" /><link type="application/rss+xml" rel="alternate" href="https://www.jodidata.org/rss/news?i=115" title="News Items" /><link type="application/rss+xml" rel="alternate" href="https://www.jodidata.org/rss/news?i=115" title="News Items" /></head>
+<body id="top">
+<div>
+    <header>
+        <nav class="spotlight">
+            <div>
+                <div class="right">
+                    <a href="/sign-in.aspx" class="login">Login</a>
+                    <a href="javascript:;" class="n" id="navicon"><span></span></a>
+                    <a href="https://www.linkedin.com/company/jodi" target="_blank" class="social li">
+                        <picture class="hover">
+                            <source type="image/svg+xml" srcset="/_resources/files/icons/li.svg" />
+                            <img srcset="/_resources/files/icons/li.png 1x,/_resources/files/icons/li2x.png 2x" src="/_resources/files/icons/li.png" alt="LinkedIn" />
+                        </picture>
+                        <picture>
+                            <source type="image/svg+xml" srcset="/_resources/files/icons/li.svg" />
+                            <img srcset="/_resources/files/icons/li.png 1x,/_resources/files/icons/li2x.png 2x" src="/_resources/files/icons/li.png" alt="LinkedIn" />
+                        </picture>
+                    </a>
+                    <a href="https://x.com/jodi_data" target="_blank" class="social tw">
+                        <picture class="hover">
+                            <source type="image/svg+xml" srcset="/_resources/files/icons/x.svg" />
+                            <img srcset="/_resources/files/icons/x.png 1x,/_resources/files/icons/x2x.png 2x" src="/_resources/files/icons/x.png" alt="X" />
+                        </picture>
+                        <picture>
+                            <source type="image/svg+xml" srcset="/_resources/files/icons/x.svg" />
+                            <img srcset="/_resources/files/icons/txw.png 1x,/_resources/files/icons/x2x.png 2x" src="/_resources/files/icons/x.png" alt="X" />
+                        </picture>
+                    </a>
+                </div>
+                <a href="/" class="logo">
+                    <picture>
+                        <source type="image/svg+xml" srcset="/_resources/files/template/jodi-logo.svg" />
+                        <img srcset="/_resources/files/template/jodi-logo.png 1x,/_resources/files/template/jodi-logo2x.png 2x" src="/_resources/files/template/jodi-logo.png" alt="JODI - Joint Organizations Data Initiative" />
+                    </picture>
+                </a>
+                <a href="https://www.ief.org" class="ief">
+                    <picture>
+                        <source type="image/svg+xml" srcset="/_resources/files/template/ief-coord.svg" />
+                        <img srcset="/_resources/files/template/ief-coord.png 1x,/_resources/files/template/ief-coord2x.png 2x" src="/_resources/files/template/ief-coord.png" alt="JODI is coordinated by the IEF" />
+                    </picture>
+                </a>
+            </div>
+        </nav>
+
+        <nav class="mn">
+  <div>
+    <ul id="mainnav">
+      <li class="s">
+        <a title="About the Joint Organisations Data Initiative | JODI" href="javascript:;">About</a>
+        <ul>
+          <li>
+            <a href="/about-jodi/what-is-jodi.aspx" title="What is JODI?">What is JODI?</a>
+          </li>
+          <li>
+            <a href="/about-jodi/history.aspx" title="History of the Joint Organizations Data Initiative | JODI">History</a>
+          </li>
+          <li>
+            <a href="/about-jodi/partners.aspx" title="Joint Organisations Data Initiative Partner Organisations | JODI">Partners</a>
+          </li>
+          <li>
+            <a href="/about-jodi/faqs.aspx" title="FAQs about the Joint Organisations Data Initiative | JODI">JODI FAQs</a>
+          </li>
+          <li>
+            <a href="/about-jodi/capacity-building.aspx" title="Capacity Building | JODI">Capacity Building</a>
+          </li>
+        </ul>
+      </li>
+      <li class="oil s m ">
+        <a title="JODI-Oil World Database | JODI" href="javascript:;">Oil Data</a>
+        <ul>
+          <li class="s">
+            <button href="/oil" class="mobile" onclick="window.location.href='/oil'">Oil Home</button>
+            <button class="desktop group">Oil Home</button>
+            <button type="button" class="desktop" onclick="window.location.href='/oil'">Home</button>
+            <a title="Participants to JODI-Oil and participation assessment | JODI" href="javascript:;">Participants</a>
+            <ul>
+              <li>
+                <a href="/oil/participants/participating-economies.aspx" title="Participating Economies of JODI-Oil | JODI">Participating Economies</a>
+              </li>
+              <li>
+                <a href="/oil/participants/participation-assessment.aspx" title="JODI-Oil Member Participation Assessment | JODI">Participation Assessment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="s">
+            <a title="JODI-Oil Support | JODI" href="javascript:;">Support</a>
+            <ul>
+              <li>
+                <a href="/oil/support/user-guide.aspx" title="How to use the JODI-Oil World Database | JODI">User Guide</a>
+              </li>
+              <li>
+                <a href="/oil/support/update-calendar.aspx" title="JODI-Oil World Database Update Calendar | JODI">Update Calendar</a>
+              </li>
+              <li>
+                <a href="/oil/support/definitions.aspx" title="JODI-Oil Definitions, Acronyms and Abbreviations | JODI-Oil">Definitions</a>
+              </li>
+              <li>
+                <a href="/oil/support/jodi-oil-manual.aspx" title="JODI-Oil Manual - Improving Oil Data Transparency | JODI">Manual</a>
+              </li>
+              <li>
+                <a href="/oil/support/questionnaire.aspx" title="JODI-Oil Questionnaire - Gathering Global Oil Data | JODI">Questionnaire</a>
+              </li>
+            </ul>
+          </li>
+          <li class="s">
+            <a title="JODI-Oil Database | Joint Organisations Data Initiative" href="javascript:;">Database</a>
+            <ul>
+              <li>
+                <a href="/oil/database/overview.aspx" title="JODI-Oil World Database Overview | JODI">Overview</a>
+              </li>
+              <li>
+                <a href="/oil/database/customisable-charts/jodi-highlights" title="Customisable Data Dashboards for the JODI-Oil Database | JODI">Customisable Charts</a>
+              </li>
+              <li>
+                <a href="/oil/database/country-by-country-review.aspx" title="Country by Country Review of Oil Data | JODI">Country By Country Review</a>
+              </li>
+              <li>
+                <a href="/oil/database/data-downloads.aspx" title="Data Available to Download from the JODI-Oil World Database | JODI">Data Downloads</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="gas s m c">
+        <a title="JODI-Gas World Database | JODI" href="javascript:;">Natural Gas Data</a>
+        <ul>
+          <li class="s">
+            <button href="/gas" class="mobile" onclick="window.location.href='/gas'">Gas Home</button>
+            <button class="desktop group">Natural Gas Home</button>
+            <button type="button" class="desktop" onclick="window.location.href='/gas'">Home</button>
+            <a title="Participants of JODI-Gas | JODI" href="javascript:;">Participants</a>
+            <ul>
+              <li>
+                <a href="/gas/participants/participating-economies.aspx" title="JODI-Gas Participating Economies | JODI">Participating Economies</a>
+              </li>
+              <li>
+                <a href="/gas/participants/participation-assessment.aspx" title="JODI-Gas Member Participation Assessment | JODI">Participation Assessment</a>
+              </li>
+            </ul>
+          </li>
+          <li class="s">
+            <a title="JODI-Gas Support | JODI" href="javascript:;">Support</a>
+            <ul>
+              <li>
+                <a href="/gas/support/user-guide.aspx" title="JODI-Gas User Guide - How to use the JODI-Gas Database | JODI">User Guide</a>
+              </li>
+              <li>
+                <a href="/gas/support/update-calendar.aspx" title="JODI-Gas World Database Update Calendar | JODI">Update Calendar</a>
+              </li>
+              <li>
+                <a href="/gas/support/definitions.aspx" title="JODI-Gas Definitions - Acronyms and Abbreviations | JODI-Gas">Definitions</a>
+              </li>
+              <li>
+                <a href="/gas/support/jodi-gas-manual.aspx" title="JODI-Gas Manual - Promoting Energy Data Transparency | JODI">Manual</a>
+              </li>
+              <li>
+                <a href="/gas/support/questionnaire.aspx" title="JODI-Gas Questionnaire - Gathering Global Gas Data | JODI">Questionnaire</a>
+              </li>
+            </ul>
+          </li>
+          <li class="s">
+            <a title="JODI-Gas Database | JODI Data" href="javascript:;">Database</a>
+            <ul>
+              <li>
+                <a href="/gas/database/overview.aspx" title="Overview of the JODI-Gas World Database | JODI">Overview</a>
+              </li>
+              <li class="c">
+                <a href="/gas/database/data-downloads.aspx" title="JODI-Gas World Database, Available Data Downloads | JODI">Data Downloads</a>
+              </li>
+              <li>
+                <a href="/gas/database/data-review.aspx" title="JODI Gas Data Review">Data Review</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/contacts.aspx" title="Contact the Joint Organizations Data Initiative | JODI">Contacts</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<nav class="mn sn">
+  <div>
+    <ul id="sectionnav" class="gas" />
+  </div>
+</nav>
+
+        <nav class="prtnrs">
+            <p>Jodi is made possible by the contributions of our partners</p>
+            <div>
+                <ul>
+  <li class="apec">
+    <a href="https://www.egeda.ewg.apec.org/" target="_blank">
+      <img src="/_resources/files/partners/apec.svg" alt="APEC" />
+    </a>
+  </li>
+  <li class="eurostat">
+    <a href="https://ec.europa.eu/eurostat/web/main/home" target="_blank">
+      <img src="/_resources/files/partners/eurostat.svg" alt="Eurostat" />
+    </a>
+  </li>
+  <li class="gecf">
+    <a href="https://www.gecf.org/" target="_blank">
+      <img src="/_resources/files/partners/gecf.svg" alt="GECF" />
+    </a>
+  </li>
+  <li class="iea">
+    <a href="https://www.iea.org/" target="_blank">
+      <img src="/_resources/files/partners/iea.svg" alt="IEA" />
+    </a>
+  </li>
+  <li class="olacde">
+    <a href="https://www.olade.org/" target="_blank">
+      <img src="/_resources/files/partners/olacde.png" alt="OLACDE" />
+    </a>
+  </li>
+  <li class="opec">
+    <a href="https://www.opec.org/" target="_blank">
+      <img src="/_resources/files/partners/opec.svg" alt="OPEC" />
+    </a>
+  </li>
+  <li class="unsd">
+    <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
+      <img src="/_resources/files/partners/unsd.svg" alt="UNSD" />
+    </a>
+  </li>
+</ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div>
+            <div>
+                
+    <header>
+        <div id="ocms_cphheading">
+            <h1>Data Downloads</h1>
+        </div>
+        
+    </header>
+    <div class="cntnt">
+        <div id="maincontent">
+            <div id="ocms_cphbody">
+                <p>Complete data series for all products, flows and countries, from January 2009 to one month-old can be downloaded, for free, in a beta version of .csv format.</p>
+
+<div id="app">
+    <file-list type="gas"></file-list>
+</div>
+
+<h2>JODI REST API</h2>
+<p>JODI-Gas data is also available programmatically through the JODI REST API, providing an alternative way to access data and integrate into your own systems.</p>
+<p>To use the API you will need a JODI website account. If you do not already have one, you can <a href="/sign-up.aspx">register for a free account</a>.</p>
+<p>For details of the available endpoints, authentication, data queries, response formats and code examples, please download the <a href="/_resources/files/downloads/jodi-rest-api-v1.2.pdf" target="_blank">JODI REST API Manual</a>.</p>
+
+<h2>Other Downloads</h2>
+<ul class="download-list gas">
+    <li><a class="download-button link" href="/gas/jodi-gas-support/jodi-gas-manual.aspx">JODI-Gas Manual</a></li>
+    <li><a class="download-button"title="List of short names and their corresponding full names in the JODI-Gas World Dabtabase" href="/_resources/files/downloads/gas-data/jodi-gas-wdb-short--long-names-ver2025.pdf" download="jodi-gas-wdb-short-long-names-ver2025.pdf">JODI-Gas World Database Item Names</a></li>
+    <li><a class="download-button link" title="List of JODI-Gas participating economies" href="/gas/participants/participating-economies.aspx">List of JODI-Gas participating economies</a></li>
+    <li><a class="download-button" href="/_resources/files/downloads/ivt/b2020browser.exe" download="b2020browser.exe">Beyond 20/20 Browser (to read .ivt file)</a></li>
+</ul>
+            </div>
+            
+            
+        </div>
+        <aside id="sidebar" class="spotlight">
+            <section class="media">
+                <h1>JODI in the Media</h1>
+                <div>
+  <article>
+    <h1>
+      <a href="https://news.sky.com/video/ed-conway-on-the-huge-spike-in-diesel-prices-and-why-the-uk-is-vulnerable-13591501?startTime=344" target="_blank">
+        <img src="/_resources/files/news/logos/sky-news.png" alt="sky-news" />
+      </a>
+    </h1>
+    <div>
+      <p>
+        <a href="https://news.sky.com/video/ed-conway-on-the-huge-spike-in-diesel-prices-and-why-the-uk-is-vulnerable-13591501?startTime=344" target="_blank">Ed Conway on the huge spike in diesel prices - and why the UK is vulnerable</a>
+      </p>
+      <time datetime="2026-09-28">
+        <a href="https://news.sky.com/video/ed-conway-on-the-huge-spike-in-diesel-prices-and-why-the-uk-is-vulnerable-13591501?startTime=344" target="_blank">28 September 2026</a>
+      </time>
+    </div>
+  </article>
+  <article>
+    <h1>
+      <a href="https://www.reuters.com/business/energy/saudi-crude-oil-exports-hit-four-month-high-july-data-shows-2026-09-22/" target="_blank">
+        <img src="/_resources/files/news/logos/reuters.png" alt="reuters" />
+      </a>
+    </h1>
+    <div>
+      <p>
+        <a href="https://www.reuters.com/business/energy/saudi-crude-oil-exports-hit-four-month-high-july-data-shows-2026-09-22/" target="_blank">Saudi crude oil exports hit four-month high in July, data shows</a>
+      </p>
+      <time datetime="2026-09-22">
+        <a href="https://www.reuters.com/business/energy/saudi-crude-oil-exports-hit-four-month-high-july-data-shows-2026-09-22/" target="_blank">22 September 2026</a>
+      </time>
+    </div>
+  </article>
+  <article>
+    <h1>
+      <a href="https://www.reuters.com/world/middle-east/gulf-markets-rise-oil-gains-lift-sentiment-2026-08-23/" target="_blank">
+        <img src="/_resources/files/news/logos/reuters.png" alt="reuters" />
+      </a>
+    </h1>
+    <div>
+      <p>
+        <a href="https://www.reuters.com/world/middle-east/gulf-markets-rise-oil-gains-lift-sentiment-2026-08-23/" target="_blank">Gulf markets rise as oil gains lift sentiment</a>
+      </p>
+      <time datetime="2026-08-23">
+        <a href="https://www.reuters.com/world/middle-east/gulf-markets-rise-oil-gains-lift-sentiment-2026-08-23/" target="_blank">23 August 2026</a>
+      </time>
+    </div>
+  </article>
+</div>
+            </section>
+        </aside>
+    </div>
+   
+            </div>
+        </div>
+        
+            
+           
+    </main>
+
+    <footer>
+        <nav class="prtnrs">
+            <h1>Jodi is made possible by the contributions of our partners</h1>
+            <div>
+                <ul>
+  <li class="apec">
+    <a href="https://www.egeda.ewg.apec.org/" target="_blank">
+      <img src="/_resources/files/partners/apec.svg" alt="APEC" />
+    </a>
+  </li>
+  <li class="eurostat">
+    <a href="https://ec.europa.eu/eurostat/web/main/home" target="_blank">
+      <img src="/_resources/files/partners/eurostat.svg" alt="Eurostat" />
+    </a>
+  </li>
+  <li class="gecf">
+    <a href="https://www.gecf.org/" target="_blank">
+      <img src="/_resources/files/partners/gecf.svg" alt="GECF" />
+    </a>
+  </li>
+  <li class="iea">
+    <a href="https://www.iea.org/" target="_blank">
+      <img src="/_resources/files/partners/iea.svg" alt="IEA" />
+    </a>
+  </li>
+  <li class="ief">
+    <a href="https://www.ief.org/" target="_blank">
+      <img src="/_resources/files/partners/ief.svg" alt="IEF" />
+    </a>
+  </li>
+  <li class="olacde">
+    <a href="https://www.olade.org/" target="_blank">
+      <img src="/_resources/files/partners/olacde.png" alt="OLACDE" />
+    </a>
+  </li>
+  <li class="opec">
+    <a href="https://www.opec.org/" target="_blank">
+      <img src="/_resources/files/partners/opec.svg" alt="OPEC" />
+    </a>
+  </li>
+  <li class="unsd">
+    <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
+      <img src="/_resources/files/partners/unsd.svg" alt="UNSD" />
+    </a>
+  </li>
+</ul>
+            </div>
+        </nav>
+        <section>
+            <div>
+                <div>
+                    <picture class="logo">
+                        <source type="image/svg+xml" srcset="/_resources/files/template/jodi-logo.svg" />
+                        <img srcset="/_resources/files/template/jodi-logo.png 1x,/_resources/files/template/jodi-logo2x.png 2x" src="/_resources/files/template/jodi-logo.png" alt="JODI - Joint Organizations Data Initiative" />
+                    </picture>
+
+                    <p class="strap">Better Data Better Decisions</p>
+
+                    <div class="socials">
+                        <a href="https://www.linkedin.com/company/jodi" target="_blank" class="social li">
+                            <picture class="hover">
+                                <source type="image/svg+xml" srcset="/_resources/files/icons/li.svg" />
+                                <img srcset="/_resources/files/icons/li.png 1x,/_resources/files/icons/li2x.png 2x" src="/_resources/files/icons/li.png" alt="LinkedIn" />
+                            </picture>
+                            <picture>
+                                <source type="image/svg+xml" srcset="/_resources/files/icons/li.svg" />
+                                <img srcset="/_resources/files/icons/li.png 1x,/_resources/files/icons/li2x.png 2x" src="/_resources/files/icons/li.png" alt="LinkedIn" />
+                            </picture>
+                        </a>
+                        <a href="https://x.com/jodi_data" target="_blank" class="social tw">
+                            <picture class="hover">
+                                <source type="image/svg+xml" srcset="/_resources/files/icons/x.svg" />
+                                <img srcset="/_resources/files/icons/x.png 1x,/_resources/files/icons/x2x.png 2x" src="/_resources/files/icons/x.png" alt="X" />
+                            </picture>
+                            <picture>
+                                <source type="image/svg+xml" srcset="/_resources/files/icons/x.svg" />
+                                <img srcset="/_resources/files/icons/txw.png 1x,/_resources/files/icons/x2x.png 2x" src="/_resources/files/icons/x.png" alt="X" />
+                            </picture>
+                        </a>
+                    </div>
+
+                    <p class="copyright">Joint Organizations Data Initiative (Jodi) <a href="/site-map.aspx">Site Map</a> <span>&copy; Copyright JODI 2026</span></p>
+                </div>
+            </div>
+		</section>
+    </footer>
+</div>
+<nav id="mobnav">
+    <article>
+  <h1>
+    <a href="https://news.sky.com/video/ed-conway-on-the-huge-spike-in-diesel-prices-and-why-the-uk-is-vulnerable-13591501?startTime=344" target="_blank">
+      <img src="/_resources/files/news/logos/sky-news.png" alt="sky-news" />
+    </a>
+  </h1>
+  <div>
+    <p>
+      <a href="https://news.sky.com/video/ed-conway-on-the-huge-spike-in-diesel-prices-and-why-the-uk-is-vulnerable-13591501?startTime=344" target="_blank">Ed Conway on the huge spike in diesel prices - and why the UK is vulnerable</a>
+    </p>
+    <time datetime="2026-09-28">
+      <a href="https://news.sky.com/video/ed-conway-on-the-huge-spike-in-diesel-prices-and-why-the-uk-is-vulnerable-13591501?startTime=344" target="_blank">28 September 2026</a>
+    </time>
+  </div>
+</article>
+</nav>
+    <script type="text/javascript">
+        new menus();
+    </script>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; visibility: hidden;">
+        <defs>
+            <filter id="aqua">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values="0 0 0 0 0
+                0 0.65 0 0 0
+                0 0 0.7 0 0
+                0 0 0 1 0" />
+            </filter>
+            <filter id="grey">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values="0.7 0 0 0 0
+                0 0.7 0 0 0
+                0 0 0.7 0 0
+                0 0 0 1 0" />
+            </filter>
+            <filter id="verydarkgrey50">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.5 0" />
+            </filter>
+            <filter id="oillight">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values="0 0 0 0 0
+                0 0.65 0 0 0
+                0 0 0.7 0 0
+                0 0 0 1 0" />
+            </filter>
+            <filter id="gaslight">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values="0.5 0 0 0 0
+                0 0.7 0 0 0
+                0 0 0.38 0 0
+                0 0 0 1 0" />
+            </filter>
+            <filter id="black">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix" values="0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 1 0" />
+            </filter>
+        </defs>
+    </svg>
+</body>
+</html>

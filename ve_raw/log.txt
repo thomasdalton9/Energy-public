@@ -1,0 +1,18 @@
+200    26330 https://www.jodidata.org/gas/database/data-downloads.aspx
+     link: /_resources/files/downloads/gas-data/jodi-gas-wdb-short--long-names-ver2025.pdf
+     link: /_resources/files/downloads/jodi-rest-api-v1.2.pdf
+403     5691 https://www.opec.org/opec_web/en/publications/202.htm
+ERR ConnectionError https://www.pdvsa.com/index.php?option=com_content&view=article&id=6648&Itemid=1220&lang=es
+ERR ConnectionError https://www.pdvsa.com/index.php/es/informe-de-gestion-anual
+ERR SSLError https://www.mppee.gob.ve/
+403     5676 https://www.energyinst.org/statistical-review
+200   303513 https://ourworldindata.org/grapher/gas-consumption-by-country.csv
+200     734872 Thu, 18 Oct 2018 12:03:06 GMT https://www.jodidata.org/_resources/files/downloads/gas-data/jodi_gas_csv_beta.zip
+zip members: ['jodi_gas_beta.csv']
+columns: ['REF_AREA', 'TIME_PERIOD', 'ENERGY_PRODUCT', 'FLOW_BREAKDOWN', 'UNIT_MEASURE', 'OBS_VALUE', 'ASSESSMENT_CODE']
+Venezuela rows: 1330
+  ENERGY_PRODUCT: ['LNG', 'NATGAS']
+  FLOW_BREAKDOWN: ['EXPLNG', 'EXPPIP', 'IMPLNG', 'IMPPIP', 'INDPROD', 'MAINTOT', 'OSOURCES', 'STATDIFF', 'STOCKCH', 'TOTDEMC', 'TOTDEMO', 'TOTEXPSB', 'TOTIMPSB']
+  UNIT_MEASURE: ['KTONS', 'M3', 'TJ']
+  ASSESSMENT_CODE: ['1', '2', '3']
+  months: 2011-01 .. 2018-06
