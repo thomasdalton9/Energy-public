@@ -88,7 +88,7 @@ def parse(text):
     """-> DataFrame indexed by month with COLS, or raises ValueError."""
     t = text.replace(" ", " ")
     data = {}
-    gp = block(t, r"Gas Production \(mmscf/d\)", r"Crude Oil & Condensate Production")
+    gp = block(t, r"(?<!Natural )Gas Production \(mmscf/d\)", r"Crude Oil & Condensate Production")
     gs = block(t, r"Gas Sales \(mmscf/d\)", r"Crude Oil & Condensate Sales")
     oil = block(t, r"Crude Oil & Condensate Production \(mmbopd\)", r"Upstream Pipeline|Gas Sales")
     for key, seg, pat in (("gas_production_mmscfd", gp, r"\b\d{4,5}\b"), ("gas_sales_mmscfd", gs, r"\b\d{4,5}\b")):
@@ -129,6 +129,7 @@ def main():
     if os.path.exists(args.out) and not args.full:
         monthly = pd.read_excel(args.out, sheet_name="Monthly", index_col=0, parse_dates=True)
         rel = pd.read_excel(args.out, sheet_name="Releases")
+        rel = rel[[c for c in rel.columns if not str(c).startswith("Unnamed")]]
         rel["report_month"] = pd.to_datetime(rel["report_month"])
         print(f"archive: {len(monthly)} months, {len(rel)} releases", flush=True)
 
@@ -199,7 +200,7 @@ def main():
         "NBS elibrary (no gas production table; petroleum price watches and product distribution only), JODI-Gas "
         "(CSV/API need a login).",
     ]
-    xlsx_notes.write_workbook(args.out, {"Monthly": monthly, "Releases": rel}, notes, {"UNITS", "SOURCE", "COVERAGE"})
+    xlsx_notes.write_workbook(args.out, {"Monthly": monthly, "Releases": rel.set_index("report_month")}, notes, {"UNITS", "SOURCE", "COVERAGE"})
     print(f"Saved {args.out}", flush=True)
 
 
