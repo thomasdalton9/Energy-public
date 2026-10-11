@@ -16,4 +16,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests
-      - run: timeout 400 python3 -u discovery_archive/ghana/GHANA_POWER_PROBE2.py
+      - run: timeout 400 python3 -u discovery_archive/ghana/GHANA_POWER_PROBE3.py
