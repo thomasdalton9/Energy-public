@@ -38,6 +38,20 @@ PDFs, Aug 2020 .. May 2023 (AR page; EN page to Aug 2022), URLs like
 landing page -> /CMSeehc/. EETC times out again. CAPMAS is a React app over
 a JSON API at https://www.capmas.gov.eg:8080/api/ (Subject, PublicationDetail,
 Calendar ...). EGAS: only a 2025 company-profile PDF, no statistics.
+RUN 3: Noga's JS (sb/noga-js-bundle.js, production-mix-js-bundle.js) calls
+/umbraco/Noga/ProductionMixGraph/Get?date=, DemandGraph/Get?date=, Co2Graph/Get?date=
+and Excel exports /umbraco/Noga/<graphType>/Get?fromDate=&toDate= (blob), all
+with header X-Recaptcha-Token (reCAPTCHA v3). From Actions they return 403
+(same IIS page) with and without a fresh token in headless Chromium.
+CBS series API (apis.cbs.gov.il/series) reachable: catalog level 1 lists
+subject 42 "Energy (data from 2013 on)". gov.il CollectorsWebApi: Cloudflare 403;
+openapi-gc.digital.gov.il landing-page API: 500.
+EGYPT: moee.gov.eg/english_new/home.aspx (http) shows "Grid Loads <date>:
+Yesterday Peak Load 33300 MW, Min Load 23129 MW, Temperature, Today Expected
+Evening Peak" (daily snapshot) and links Statistics (St_main.aspx) and EEHC
+annual reports (report.aspx). EgyptERA observatory PDFs are scanned images
+(no text layer, 10 MB, 20 pages). CAPMAS data menu has subSubject 30 Energy
+(/data/mainSubject/3/subSubject/30). EETC still times out.
 
 Workflow (manual): discovery_archive/workflows/egypt_israel_gas_power_probe.yml.
 """
@@ -436,5 +450,60 @@ def round3():
         page(u)
 
 
+def cbs_walk():
+    base = "https://apis.cbs.gov.il/series/catalog/"
+    out("\n--- CBS energy catalog (subject 42)")
+    def lvl(level, subject):
+        u = f"{base}level?id={level}&subject={subject}&format=json&download=false"
+        try:
+            r = requests.get(u, headers=H, timeout=T)
+            js = r.json()
+        except Exception as e:
+            out(f"  {u} -> {type(e).__name__}")
+            return []
+        cat = (js.get("catalogs") or {}).get("catalog") or []
+        return cat
+    for c2 in lvl(2, "42"):
+        p2 = ",".join(map(str, c2["path"]))
+        out(f"  L2 {p2} {c2['name']}")
+        for c3 in lvl(3, p2):
+            p3 = ",".join(map(str, c3["path"]))
+            out(f"    L3 {p3} {c3['name']}")
+            for c4 in lvl(4, p3)[:20]:
+                p4 = ",".join(map(str, c4["path"]))
+                out(f"      L4 {p4} {c4['name']}")
+    for path in ["42,1", "42,1,1", "42,2,1", "42,3,1"]:
+        u = f"{base}path?id={path}&format=json&download=false"
+        try:
+            r = requests.get(u, headers=H, timeout=T)
+            out(f"  PATH {path}: {r.status_code} {len(r.content)}B", " ".join(r.text[:1500].split()))
+            sid = re.findall(r'"id"\s*:\s*"?(\d{4,})', r.text)
+            if sid:
+                du = (f"https://apis.cbs.gov.il/series/data/list?id={sid[0]}&startPeriod=01-2013"
+                      f"&endPeriod=12-2026&format=json&download=false")
+                try_api(du, n=1200)
+        except Exception as e:
+            out(f"  PATH {path} {type(e).__name__}")
+
+
+def round4():
+    out("##### ISRAEL")
+    r = get("https://www.noga-iso.co.il/umbraco/Noga/ProductionMixGraph/Get?date=2026-10-10")
+    if r is not None:
+        out("  Noga 403 page text:", " ".join(re.sub(r"<[^>]+>", " ", r.text).split())[:600])
+        out("  headers:", dict(r.headers))
+    cbs_walk()
+    out("\n##### EGYPT")
+    r = get("http://www.moee.gov.eg/english_new/home.aspx")
+    if r is not None:
+        i = r.text.find("Peak Load")
+        out("  MOEE grid-load html:", " ".join(r.text[max(0, i - 1500):i + 1500].split()))
+    for u in ["http://www.moee.gov.eg/english_new/St_main.aspx", "http://www.moee.gov.eg/english_new/report.aspx",
+              "http://www.moee.gov.eg/arabic/home.aspx", "http://www.moee.gov.eg/test_new/home.aspx"]:
+        page(u, max_links=80)
+    js_endpoints("https://www.capmas.gov.eg/", r"[A-Z_]+:\"api/(?:Publication|Subject|Indicator|Data|Bulletin|Release)[A-Za-z/]*\"")
+    pw_pages(["https://www.capmas.gov.eg/data/mainSubject/3/subSubject/30"])
+
+
 if __name__ == "__main__":
-    round3()
+    round4()
