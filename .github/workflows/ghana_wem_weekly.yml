@@ -1,5 +1,5 @@
 name: Ghana power generation by plant (Energy Commission weekly WEM statistics)
-# (test run 4)
+# (test run 5)
 
 # Daily GWh per plant from the Energy Commission's weekly WEM statistics PDFs. The site keeps all weeks online, so this follows the 1st/15th rule; the committed workbook is the history store (only new PDFs are read).
 on:
