@@ -92,7 +92,7 @@ def maya():
         pg.on("response", on_resp)
         pg.goto("https://maya.tase.co.il/he/companies/475/reports", timeout=90000, wait_until="networkidle")
         pg.wait_for_timeout(4000)
-        cid = None
+        cid = 1689   # found in round 2 via /api/v1/reports/1575974 (reporterId; name 'תמר פטרוליום')
         for k, (_, js) in got.items():
             print("   captured", k, json.dumps(js, ensure_ascii=False)[:300])
             if "companies" in k and "GET" in k:
@@ -105,7 +105,7 @@ def maya():
                         print("      MATCH", s[:300])
 
         def reports(company, page=1, limit=20):
-            body = json.dumps({"pageNumber": page, "limit": limit, "companyId": company, "offset": (page - 1) * limit})
+            body = json.dumps({"pageNumber": page, "limit": limit, "companyId": company, "offset": 0})
             return pg.evaluate("""async (body) => { const r = await fetch('/api/v1/reports/companies',
                 {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body});
                 return [r.status, await r.text()]; }""", body)
@@ -122,7 +122,7 @@ def maya():
                 mm = re.search(r'"(?:id|companyId|value)"\s*:\s*"?(\d+)', m.group(0))
                 if mm and cid is None:
                     cid = int(mm.group(1))
-        if cid is None:
+        if cid is None:  # noqa
             # a MAYA report of Tamar Petroleum's that its own site links (P1575974-00.pdf, Mar 2024): its details page
             # names the reporter
             got.clear()
@@ -187,18 +187,32 @@ def maya():
         if cid is None:
             b.close()
             return
-        allrep = []
-        for page in range(1, 80):
-            st, txt = reports(cid, page, 50)
+        allrep, ids = [], set()
+        mode = "page"
+        for page in range(1, 200):
+            if mode == "page":
+                st, txt = reports(cid, page, 30)
+            else:
+                body = json.dumps({"pageNumber": 1, "limit": 30, "companyId": cid, "offset": (page - 1) * 30})
+                st, txt = pg.evaluate("""async (body) => { const r = await fetch('/api/v1/reports/companies',
+                    {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body});
+                    return [r.status, await r.text()]; }""", body)
             if st != 200:
                 print("   page", page, st, txt[:200])
                 break
             js = json.loads(txt)
             lst = js if isinstance(js, list) else next((v for v in js.values() if isinstance(v, list)), [])
-            if not lst:
+            new_items = [x for x in lst if x.get("id") not in ids]
+            if lst and not new_items and mode == "page" and page == 2:
+                print("   pageNumber does not page; switching to offset")
+                mode = "offset"
+                continue
+            if not new_items:
                 break
-            allrep += lst
-            if min(str(x.get("publishDate", "")) for x in lst) < "2017-01":
+            for x in new_items:
+                ids.add(x.get("id"))
+            allrep += new_items
+            if min(str(x.get("publishDate", "")) for x in lst) < "2021-12":
                 break
         print(f"   {len(allrep)} reports listed")
         with open(os.path.join(OUT, "maya_reports.json"), "w", encoding="utf-8") as f:
