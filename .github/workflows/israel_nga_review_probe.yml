@@ -1,0 +1,20 @@
+name: Israel NGA review probe
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install curl_cffi pdfplumber
+      - run: python3 discovery_archive/middle_east/ISRAEL_NGA_REVIEW_PROBE.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nga-pdfs
+          path: probe_out/
