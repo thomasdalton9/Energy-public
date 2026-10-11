@@ -1,0 +1,44 @@
+name: World gas by sector - source probe (manual)
+
+# Manual only. Runs the reachability probe from GitHub Actions (the Claude sandbox blocks nearly every host), then
+# dry-runs the Eurostat and PPAC pulls into /tmp (nothing is committed) so their logs show the real API/layout.
+# Download the log from the run page and paste it back into discovery_archive/world/GAS_DEMAND_BY_SECTOR_WORLD_SURVEY.md.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl xlrd
+      - name: Reachability probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1200 python3 discovery_archive/world/GAS_SECTOR_WORLD_PROBE.py | tee probe.txt
+      - name: PPAC dry run
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 600 python3 asia/INDIA_PPAC_GAS_BY_SECTOR.py --out /tmp/ppac_probe.xlsx | tee ppac.txt
+      - name: Eurostat dry run
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1800 python3 europe/EUROSTAT_GAS_BY_SECTOR.py --out /tmp/eurostat_probe.xlsx | tee eurostat.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: world-gas-probe-logs
+          path: |
+            probe.txt
+            ppac.txt
+            eurostat.txt
