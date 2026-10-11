@@ -11,7 +11,7 @@ Candidates checked here:
   Both  UN Comtrade public preview API (HS 271111 monthly; MY exports 458, PH imports 608) as an official
         mirror of the national customs data
 Round 1 functions: malaysia(), philippines(), comtrade(); round 2: meih2, dosm2, mets2, petronas2, comtrade2,
-doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3; round 4: doe4, psa4, ipi4, bnm4 (run with function names as arguments; default = latest round).
+doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3; round 4: doe4, psa4, ipi4, bnm4; round 5: psa5, myes5 (run with function names as arguments; default = latest round).
 Prints status, size, data-like links and text around gas keywords. Nothing is written.
 """
 import io
@@ -641,8 +641,79 @@ def bnm4():
             ctx(plain(r.text), r"natural gas|LNG", n=3, w=150)
 
 
+
+# ================================================================== ROUND 5
+PX = "https://openstat.psa.gov.ph/PXWeb/api/v1/en/DB/2L/IMT"
+
+
+def psa5():
+    out("\n================ PSA OpenSTAT monthly imports by commodity: LNG ================")
+    for tab in ("GKI/0012L4DMKD5.px", "CIF/0012L4DMVD5.px", "GKI/0022L4DMKD4.px", "CIF/0042L4DMVD2.px"):
+        r = get(f"{PX}/{tab}", quiet=True)
+        if r is None or not r.ok:
+            out(f"  {tab}: {r.status_code if r is not None else None}")
+            continue
+        meta = r.json()
+        out(f"\n  {tab}: {meta.get('title')}")
+        sel = []
+        for v in meta.get("variables", []):
+            vals, txt = v.get("values", []), v.get("valueTexts", [])
+            out(f"    var {v.get('code')} ({v.get('text')}): {len(vals)} values; first {list(zip(vals, txt))[:4]}")
+            hit = [(a, b) for a, b in zip(vals, txt) if re.search(r"271111|liquefied natural|natural gas, liquefied|^2711", a + " " + b, re.I)]
+            if hit:
+                out(f"      LNG-like: {hit[:10]}")
+            if re.search(r"commod", v.get("text", ""), re.I):
+                codes = [a for a, _ in hit if "271111" in a] or [a for a, _ in hit][:1]
+                sel.append({"code": v["code"], "selection": {"filter": "item", "values": codes}})
+            elif re.search(r"country|origin", v.get("text", ""), re.I):
+                sel.append({"code": v["code"], "selection": {"filter": "all", "values": ["*"]}})
+            else:
+                sel.append({"code": v["code"], "selection": {"filter": "all", "values": ["*"]}})
+        if not any(s_["selection"]["values"] and s_["selection"]["filter"] == "item" for s_ in sel):
+            continue
+        q = {"query": sel, "response": {"format": "json-stat2"}}
+        pr = S.post(f"{PX}/{tab}", json=q, timeout=T, verify=False)
+        out(f"    POST -> {pr.status_code} {len(pr.content)}b")
+        if not pr.ok:
+            out(f"    {pr.text[:300]}")
+            continue
+        js = pr.json()
+        dims, size, val = js["id"], js["size"], js["value"]
+        labels = [list(js["dimension"][d]["category"]["label"].values()) for d in dims]
+        import itertools
+        rows = [(combo, x) for combo, x in zip(itertools.product(*labels), val) if x not in (None, 0)]
+        out(f"    dims {dims} sizes {size}; non-zero cells {len(rows)}")
+        for combo, x in rows[:40]:
+            out(f"      {combo} = {x}")
+    r = get("https://openstat.psa.gov.ph/PXWeb/api/v1/en/DB/3G/ELE/ES/0012F2BPES1.px", quiet=True)
+    if r is not None and r.ok:
+        for v in r.json().get("variables", []):
+            out(f"  TPES var {v.get('code')}: {v.get('valueTexts')[:30]}")
+
+
+def myes5():
+    out("\n================ MyEnergyStats / ST publications (energy balance, handbook) ================")
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(user_agent=H["User-Agent"])
+        for u in ("https://myenergystats.st.gov.my/en/", "https://www.st.gov.my/en/web/general/publications",
+                  "https://www.st.gov.my/web/general/publication"):
+            try:
+                pg.goto(u, timeout=60000, wait_until="networkidle")
+            except Exception as e:  # noqa: BLE001
+                out(f"  {u}: {type(e).__name__}")
+                continue
+            hrefs = pg.eval_on_selector_all("a", "els => els.map(e => [e.innerText.trim(), e.href])")
+            out(f"\n### {u} -> {pg.url}: {len(hrefs)} links")
+            for t, h in hrefs:
+                if re.search(r"publication|resource|balance|handbook|statistic|\.pdf|\.xlsx|documents/d", t + h, re.I):
+                    out(f"    [{t[:70]}] {h[:200]}")
+        b.close()
+
+
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["doe4", "psa4", "ipi4", "bnm4"]
+    which = sys.argv[1:] or ["psa5", "myes5"]
     for w in which:
         try:
             globals()[w]()
