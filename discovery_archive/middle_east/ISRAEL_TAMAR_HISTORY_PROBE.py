@@ -123,24 +123,25 @@ def maya():
                 if mm and cid is None:
                     cid = int(mm.group(1))
         if cid is None:
-            print("   scanning company ids 1-2600 for 'תמר פטרוליום'")
+            print("   scanning /api/v1/companies/<id>/details 1-3000 for 'תמר'")
             found = pg.evaluate("""async () => {
-                const hits = [];
-                for (let start = 1; start <= 2600; start += 25) {
-                  const ids = []; for (let i = start; i < start + 25; i++) ids.push(i);
+                const hits = []; let errs = 0;
+                for (let start = 1; start <= 3000; start += 20) {
+                  const ids = []; for (let i = start; i < start + 20; i++) ids.push(i);
                   const res = await Promise.all(ids.map(async (i) => {
-                    try { const r = await fetch('/api/v1/reports/companies', {method: 'POST',
-                      headers: {'Content-Type': 'application/json'},
-                      body: JSON.stringify({pageNumber: 1, limit: 1, companyId: i, offset: 0})});
-                      const t = await r.text(); return [i, r.status, t.slice(0, 600)]; } catch (e) { return [i, 0, ''] } }));
-                  for (const [i, s, t] of res) if (t.includes('תמר פטרוליום') || t.includes('Tamar Petroleum')) hits.push([i, t]);
-                  if (hits.length) break;
+                    try { const r = await fetch('/api/v1/companies/' + i + '/details');
+                      return [i, r.status, (await r.text()).slice(0, 400)]; } catch (e) { return [i, 0, ''] } }));
+                  for (const [i, s, t] of res) {
+                    if (s !== 200 && s !== 404 && s !== 204) errs++;
+                    if (t.includes('תמר') || t.includes('Tamar')) hits.push([i, s, t]);
+                  }
                 }
-                return hits; }""")
-            for i, t in found:
-                print("      HIT", i, t[:600])
-            if found:
-                cid = found[0][0]
+                return [hits, errs]; }""")
+            print("   non-200 answers:", found[1])
+            for i, st, t in found[0]:
+                print("      HIT", i, st, t[:400])
+                if "פטרו" in t and cid is None:
+                    cid = i
         print("   Tamar Petroleum company id:", cid)
         if cid is None:
             b.close()
@@ -172,7 +173,7 @@ def maya():
     for r in allrep:
         title = str(r.get("title", ""))
         d = str(r.get("publishDate", ""))[:10]
-        if not keep.search(title) or not ("2021-06" <= d <= "2025-09"):
+        if not keep.search(title) or not ("2022-03" <= d <= "2025-07"):
             continue
         for a in (r.get("attachments") or []):
             u = a.get("url") or ""
