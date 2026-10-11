@@ -34,7 +34,7 @@ seen = set()
 for l in pdfs:
     if l in seen: continue
     seen.add(l)
-    if not re.search(r'arsel|snh|sonatrel|eneo', l, re.I): continue
+    continue
     try:
         r = requests.get(l, headers=H, timeout=(8,60))
         print("\n=== PDF", l, r.status_code, len(r.content), r.headers.get("Last-Modified"))
