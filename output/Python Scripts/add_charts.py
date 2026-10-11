@@ -2072,16 +2072,17 @@ def canada_provinces(p):
     a = _sheet(p, "Alberta", "date")
     snaps = _sheet(p, "Alberta snapshots", "utc")
     hourly = _sheet(p, "Alberta hourly", "hour_ending")
-    names = {"Gas_MW": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MW": "Hydro",
-             "Wind_MW": "Wind", "Solar_MW": "Solar", "Other_MW": "Other"}
-    if not a.empty and "Coal_MW" in a:
-        names["Coal_MW"] = "Coal"
-    dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 1000 if not a.empty else pd.DataFrame()
+    names = {"Gas_MWh": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MWh": "Hydro",
+             "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Other_MWh": "Other"}
+    if not a.empty and "Coal_MWh" in a:
+        names["Coal_MWh"] = "Coal"
+    if not a.empty and "Polls" in a:   # days with fewer than 2 AESO snapshots are not charted
+        a = a[pd.to_numeric(a["Polls"], errors="coerce") >= 2]
+    dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 24000 if not a.empty else pd.DataFrame()
     dd = dd.dropna(how="all").tail(120)
-    if len(dd) >= 2:   # one AESO snapshot a day (instantaneous MW), not a daily mean
-        out.append(spec("Alberta generation", dd,
-                        "Alberta net generation by group, one AESO snapshot a day (not a daily mean)", "GW",
-                        "stacked_bar", date_format="%Y-%m-%d"))
+    if len(dd) >= 2:
+        out.append(spec("Alberta generation", dd, "Alberta net generation by group, mean of up to 3 AESO snapshots a day",
+                        "GW (daily mean of snapshots)", "stacked_bar", date_format="%Y-%m-%d"))
     if len(hourly) >= 2:
         h = hourly.apply(pd.to_numeric, errors="coerce").tail(168)
         ail = (h[["AIL_MW"]] / 1000).rename(columns={"AIL_MW": "Demand (AIL), GW"})

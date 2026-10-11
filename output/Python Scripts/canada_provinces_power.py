@@ -274,22 +274,25 @@ GAS_GROUPS = ("Cogeneration", "Combined cycle", "Gas fired steam", "Simple cycle
 
 
 def alberta_daily(snaps, hourly):
-    """Daily table. Generation: the LAST AESO snapshot of each Alberta day, in MW (one instantaneous reading a day, not
-    a daily mean - the report has no history and the pull runs once a day). Pool price and AIL: daily means of the hourly
-    rows (complete days only)."""
+    """Daily table. Generation: mean MW of up to 3 AESO snapshots a day (the pull runs 3 times a day; the report has no
+    history), as MW and MWh (mean x 24), with `Polls` = snapshots that day (a missed run leaves fewer). Days with fewer
+    than 2 polls are flagged `Charted` = 0 and not charted. Pool price and AIL: daily means of the hourly rows
+    (complete days only)."""
     out = pd.DataFrame()
     if not snaps.empty:
         loc = snaps.copy()
         loc.index = loc.index.tz_localize("UTC").tz_convert(AB_TZ).tz_localize(None)
-        last = loc.groupby(loc.index.normalize()).tail(1)
-        last.index = last.index.normalize()
-        tng = lambda grp: last[[f"{x} TNG_MW" for x in grp if f"{x} TNG_MW" in last]].sum(axis=1, min_count=1)  # noqa: E731
+        g = loc.groupby(loc.index.normalize())
+        mean, n = g.mean(), g.count()["TNG_total"]
+        tng = lambda grp: mean[[f"{x} TNG_MW" for x in grp if f"{x} TNG_MW" in mean]].sum(axis=1, min_count=1)  # noqa: E731
         out = pd.DataFrame({
-            "Gas_MW": tng(GAS_GROUPS), "Coal_MW": tng(["Coal"]), "Hydro_MW": tng(["Hydro"]), "Wind_MW": tng(["Wind"]),
-            "Solar_MW": tng(["Solar"]), "Storage_MW": tng(["Energy storage"]),
-            "Other_MW": tng(["Other", "Biomass", "Dual fuel"]), "Total_MW": last["TNG_total"]})
-        if "Coal_MW" in out and (out["Coal_MW"].fillna(0) == 0).all():
-            out = out.drop(columns="Coal_MW")
+            "Gas_MWh": tng(GAS_GROUPS) * 24, "Coal_MWh": tng(["Coal"]) * 24, "Hydro_MWh": tng(["Hydro"]) * 24,
+            "Wind_MWh": tng(["Wind"]) * 24, "Solar_MWh": tng(["Solar"]) * 24,
+            "Storage_MWh": tng(["Energy storage"]) * 24,
+            "Other_MWh": tng(["Other", "Biomass", "Dual fuel"]) * 24,
+            "Total_MWh": mean["TNG_total"] * 24, "Polls": n, "Charted": (n >= 2).astype(int)})
+        if "Coal_MWh" in out and (out["Coal_MWh"].fillna(0) == 0).all():
+            out = out.drop(columns="Coal_MWh")
     if not hourly.empty:
         h = hourly.copy()
         day = (h.index - pd.Timedelta(hours=1)).normalize()   # hour ending 24 belongs to the same day
@@ -388,14 +391,15 @@ def pull_nb(saved):
 NOTES = [
     "UNITS",
     "Daily energy in MWh = mean hourly MW x 24 (a day needs most of its readings: 20 of 24 hours for Quebec generation, "
-    "80 of 96 for Quebec demand, 23 of 24 for New Brunswick and BC Hydro). Alberta generation is NOT a daily "
-    "mean: it is one instantaneous AESO snapshot per day in MW (the last snapshot of the Alberta day; the earlier "
-    "3-hourly averaging was dropped, the pull runs once a day). Pool price: CAD per MWh, daily mean of hourly prices; "
+    "80 of 96 for Quebec demand, 23 of 24 for New Brunswick and BC Hydro). Alberta generation is the mean of up to 3 AESO "
+    "snapshots a day (see Alberta snapshots) x 24; `Polls` = snapshots that day, days with fewer than 2 polls are "
+    "flagged (Charted = 0) and not charted. "
+    "Pool price: CAD per MWh, daily mean of hourly prices; "
     "AIL_MWh = daily energy from hourly AIL.",
     "Quebec: Hydro_MWh (hydraulique), Wind_MWh (eolien), Solar_MWh, Thermal_MWh, Other_MWh (autres), Total_MWh, "
     "Demand_MWh. Local (Eastern) day.",
-    "Alberta: Gas_MW = cogeneration + combined cycle + gas fired steam + simple cycle (AESO net generation, TNG). "
-    "AESO's report has no coal group any more (Alberta's coal units are gas-fired or retired). Storage_MW is net "
+    "Alberta: Gas_MWh = cogeneration + combined cycle + gas fired steam + simple cycle (AESO net generation, TNG). "
+    "AESO's report has no coal group any more (Alberta's coal units are gas-fired or retired). Storage_MWh is net "
     "battery output. AIL = Alberta Internal Load (demand). Alberta (Mountain) day.",
     "Quebec reservoirs: daily mean water level in metres above sea level (Hydro-Quebec hydrometeorological dataset; the "
     "open-data table holds only about the last 10 days, so history builds from the first run).",
