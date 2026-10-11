@@ -13,6 +13,68 @@ Candidates checked here:
 Round 1 functions: malaysia(), philippines(), comtrade(); round 2: meih2, dosm2, mets2, petronas2, comtrade2,
 doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3; round 4: doe4, psa4, ipi4, bnm4; round 5: psa5, myes5; round 6: psa6 (run with function names as arguments; default = latest round).
 Prints status, size, data-like links and text around gas keywords. Nothing is written.
+
+FINDINGS (runs 1-6, Oct 2026, all from GitHub Actions; workflow discovery_archive/workflows/malaysia_philippines_gas_probe.yml)
+RUN 1
+  - UN Comtrade public preview API (comtradeapi.un.org/public/v1/preview/C/M/HS, no key) answers from Actions, but
+    only ONE period per call ("Maximum number of periods for preview is 1") and ~1 call / 3 s (HTTP 429 otherwise).
+    getDA (data availability): Malaysia (458) monthly HS 2010-01..2026-08; Philippines (608) 2010-01..2026-06.
+  - data.gov.my API: trade_sitc_1d only (SITC section 3 = all mineral fuels, no LNG split); ipi / ipi_1d monthly.
+  - MEIH (meih.st.gov.my/statistics): Liferay portlet, plain HTML, reachable. Natural gas menu = Reserves,
+    Production, Import & Export, Final Consumption (by sector) + Gas Distribution Statistics (consumption, consumers).
+  - DOSM 'Mining of Petroleum and Natural Gas Statistics' release page reachable (quarterly).
+  - METS online (metsonline.dosm.gov.my, HS-level trade) is a React SPA; bundle has no usable API endpoint (run 2).
+  - Petronas IR: quarterly/half-year 'Financial & Operational Report' PDFs, direct links on
+    /investor-relations/financial-results.
+  - DOE (doe.gov.ph) energy-statistics: only 'Electric Power Industry'; every natural-gas URL guessed renders the
+    Next.js shell (no content). PSA web pages (psa.gov.ph) 403 from Actions; OpenSTAT PXWeb API answers.
+RUN 2
+  - MEIH tables are annual only, years 1978/1980 .. 2021 (latest option). Form POSTs to
+    /STOASPublicPortlet/energystatistic/searchStatistic.oas; excel export = same URL + ?rptOutput=excel&<form>.
+  - MyEnergyStats (myenergystats.st.gov.my) natural-gas page is narrative only; 'Energy Database' = GSO-style
+    electricity dashboard (2025), no gas data.
+  - DOSM Q2 2026 release PDF (2 pages, text extractable): gas production 763.5 bcf in Q2 2026 (+19.1% y/y),
+    LNG exports RM16.1 bn, LNG imports RM1.6 bn - quarterly totals in text only, no monthly table.
+  - Petronas FY2025 FOR PDF (16 pages, text extractable): group-level gross LNG sales 36.62 Mt (FY), cargo counts,
+    sales gas 2,171 MMscfd Peninsular - annual/half-year group KPIs, not a national series.
+  - Comtrade: one period per call works (rows per partner, netWgt in kg = LNG tonnes x1000).
+  - DOE Payload CMS media API (d24qbtp4vooyzi.cloudfront.net/api/media?where[filename][like]=..) works: only 3
+    'Natural Gas' files (auction notices, NGMD org chart). No gas statistics files.
+RUN 3
+  - Comtrade HS 271111 rows: partnerCode 0 = world total, netWgt (kg), primaryValue (USD), FOB/CIF. Several
+    reporters / flows per call allowed (reporterCode=458,608 & flowCode=X,M) - still one period.
+      MY exports Aug 2026 2.38 Mt (USD 1.50 bn; CN, JP, KR, TH, TW, ...), Jun 2026 2.78 Mt; Jan 2015 2.43 Mt;
+      Jan 2010 has value but no weight. MY imports Aug 2026 0.127 Mt (AU), Jun 2026 0.246 Mt.
+      PH imports Jun 2026 0.264 Mt (AU, CA, ID, OM); first LNG cargo Apr 2023 (66.2 kt, UAE), May 2023 nil,
+      then ~1 cargo a month in 2023 (ID, MY, AU, OM, US), 2 in Dec 2023. PH reports no LNG exports.
+  - OpenDOSM energy balance (storage.data.gov.my/energy/*.csv, Energy Commission data, ktoe, ANNUAL 1978/1980-2024):
+    energy_supply_commodity (natural_gas primary supply), energy_consumption_commodity (natural_gas final
+    consumption), energy_consumption_sector (all fuels by sector, no gas split).
+  - IPI 5-digit (storage.dosm.gov.my/ipi/ipi_5d.csv): item 06201 'natural gas' monthly volume INDEX (2015=100),
+    2015-01..2026-08 (built from Petronas monthly production data); 06101 crude oil.
+  - DOE media search for supply/demand/statistics/energy plan/Malampaya files: nothing gas-statistical.
+  - PSA OpenSTAT tree: 3G/ELE/ES Table 14.1a TPES by source (natural gas indigenous) and 14.1b TFEC by sector,
+    annual 2014-2022/24 (kTOE); 2L/IMT monthly CIF value (CIF) and gross kilo (GKI) of imports by commodity and
+    country, 1991..2026 (2026 table updated 2026-09-30, Jan-Aug).
+RUN 4
+  - DOE Payload pages API (/api/pages?where[title][like]=..) works: no natural gas statistics page exists on the
+    new site (only power statistics, NGMD division page, press releases e.g. Malampaya maintenance).
+  - BNM (bnm.gov.my) 403 from Actions.
+RUN 5-6
+  - PSA OpenSTAT GKI/CIF tables: the 'Commodity Code' variable lists 0 values in the metadata and item queries for
+    27111100 / 2711110000 / 271111 return nothing (11-digit PSCC codes, hidden dimension) - not usable via API.
+  - st.gov.my publications pages render empty (3 links) - no Energy Commission handbook/NEB file found.
+
+CONCLUSIONS
+  MY production   monthly: DOSM IPI item 06201 index (OpenDOSM CSV, 2015-01.., ~6 weeks lag) - index only; scale
+                  to DOSM quarterly bcf (release text) or to OpenDOSM annual ktoe. Annual: OpenDOSM energy balance.
+  MY consumption  by sector: annual only (MEIH to 2021 with sectors; OpenDOSM to 2024 totals). Nothing monthly.
+  MY LNG exp/imp  UN Comtrade HS 271111 (Malaysian customs/DOSM data) monthly 2010-.. (tonnes from ~2011),
+                  current to 2026-08, by partner.
+  PH LNG imports  UN Comtrade HS 271111 reporter 608 monthly, Apr 2023 .., current to 2026-06, by origin.
+  PH production / consumption (Malampaya): no DOE gas statistics on the current site; PSA annual TPES (natural
+                  gas indigenous) via OpenSTAT; gas-for-power is already covered by IEMOP plant dispatch.
+  Fallback for both: JODI Gas (jodidb.org Beyond 20/20, see discovery_archive/rest_of_world/JODI_LNG_LAG_PULL4.py).
 """
 import io
 import json
