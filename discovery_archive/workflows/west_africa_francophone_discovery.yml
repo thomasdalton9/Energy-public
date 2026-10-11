@@ -2,9 +2,6 @@ name: West Africa francophone discovery
 
 on:
   workflow_dispatch:
-  push:
-    branches: [west-africa-francophone-discovery]
-    paths: [discovery_archive/rest_of_world/WEST_AFRICA_FRANCOPHONE_DISCOVERY*.py]
 
 jobs:
   probe:
