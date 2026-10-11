@@ -1,0 +1,24 @@
+name: Jordan NEPCO probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      round:
+        description: probe round
+        default: "1"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install requests curl_cffi pdfplumber pypdf openpyxl pandas lxml playwright
+          playwright install --with-deps chromium
+      - name: Run probe
+        run: timeout 2100 python3 discovery_archive/middle_east/JORDAN_NEPCO_PROBE.py ${{ github.event.inputs.round }}
