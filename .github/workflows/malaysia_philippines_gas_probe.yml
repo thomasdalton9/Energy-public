@@ -13,6 +13,6 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pdfplumber openpyxl pandas
+        run: pip install requests pdfplumber openpyxl pandas lxml playwright && playwright install --with-deps chromium
       - name: Run probe
         run: timeout 1200 python3 discovery_archive/asia/MALAYSIA_PHILIPPINES_GAS_PROBE.py
