@@ -109,4 +109,4 @@ def parse_words(words):
         raise ValueError("table header found but no plant rows")
     df = pd.DataFrame(data).T
     df.columns = pd.DatetimeIndex(df.columns)
-    return df.sort_index(axis=1), totals, warns
+    return df, totals, warns   # columns in header (left-to-right) order
