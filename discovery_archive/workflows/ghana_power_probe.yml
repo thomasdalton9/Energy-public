@@ -1,16 +1,21 @@
 name: Ghana power probe (manual)
 
+# Runs the Ghana discovery probes in discovery_archive/ghana/ (GHANA_POWER_PROBE.py .. PROBE6.py; results in
+# discovery_archive/results/ghana/). Edit the script name to run another one.
 on:
   workflow_dispatch: {}
+
+permissions:
+  contents: write
 
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - run: pip install requests
-      - run: python3 -u discovery_archive/ghana/GHANA_POWER_PROBE.py
+      - run: timeout 500 python3 -u discovery_archive/ghana/GHANA_POWER_PROBE6.py
