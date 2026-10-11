@@ -1,5 +1,4 @@
 name: Ghana power generation by plant (Energy Commission weekly WEM statistics)
-# (test run 5)
 
 # Daily GWh per plant from the Energy Commission's weekly WEM statistics PDFs. The site keeps all weeks online, so this follows the 1st/15th rule; the committed workbook is the history store (only new PDFs are read).
 on:
@@ -16,7 +15,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,10 +26,7 @@ jobs:
       - name: Run pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: |
-          mkdir -p discovery_archive/results/ghana
-          set -o pipefail
-          timeout 3000 python3 -u africa/GHANA_WEM_WEEKLY_POWER.py --budget-min 35 --out "output/Data and Chart Outputs/ghana_wem_weekly_generation_daily.xlsx" 2>&1 | tee discovery_archive/results/ghana/wem_weekly_run.log
+        run: timeout 3000 python3 -u africa/GHANA_WEM_WEEKLY_POWER.py --budget-min 40 --out "output/Data and Chart Outputs/ghana_wem_weekly_generation_daily.xlsx"
 
       - name: Add Excel charts and copy scripts
         if: always()
@@ -50,7 +46,6 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/ghana_wem_weekly_generation_daily.xlsx"
           git add -f "output/Python Scripts" || true
-          git add -f discovery_archive/results/ghana/wem_weekly_run.log || true   # TEMPORARY test log
           git diff --cached --quiet || git commit -m "Ghana weekly WEM generation: automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0

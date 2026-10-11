@@ -210,6 +210,7 @@ def main():
         good = [i for i, r in okf.iterrows()
                 if pd.notna(r["first_day"]) and in_window(pd.Timestamp(r["first_day"]), pd.Timestamp(r["last_day"]), int(r["year"]))]
         done = set(good)   # files saved with days outside their year (mistyped headers) are read again
+    plants = plants[[c for c in plants.columns if re.search(r"[A-Za-z]", str(c)) and not str(c).endswith("%")]]   # chart-axis labels read as plants by an earlier version
     if not plants.empty:   # drop days from the same mistyped headers saved by an earlier run
         plants = plants[(plants.index >= pd.Timestamp(args.from_year - 1, 12, 20)) & (plants.index <= pd.Timestamp.now().normalize())]
     cats = [(y, c) for y, c in categories() if y >= args.from_year]
