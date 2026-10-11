@@ -308,6 +308,8 @@ def main():
     lev = read_sheet(args.out, "Leviathan", ["date", "Israel_bcm", "Jordan_bcm", "Egypt_bcm", "Total_bcm", "Source"])
     tam = read_sheet(args.out, "Tamar", ["date", "Domestic_bcm", "Export_bcm", "Total_bcm", "Source"])
     kar = read_sheet(args.out, "Karish YTD", ["Year", "Months", "Israel_kboed", "Gas_bcm", "Source"])
+    if len(kar):   # same plausibility rule as parse_karish, applied to stored rows too
+        kar = kar[(kar["Year"] >= 2022) & (pd.to_numeric(kar["Israel_kboed"], errors="coerce").fillna(0) <= 180)]
     reps = read_sheet(args.out, "Reports", ["Source", "Field", "Read_utc", "Rows"])
     reps = reps[reps["Field"] != "Karish"] if len(reps) else reps   # Karish announcements are re-read every run
     seen = set(reps["Source"])
