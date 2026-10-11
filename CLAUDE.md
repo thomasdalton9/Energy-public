@@ -186,7 +186,10 @@ Standing instructions from the repo owner. Follow these on every change.
   (au_sttm_prices.yml: AEMO STTM report INT651 holds about a week, DWGM about 14 days), Philippines dam levels
   (philippines_dam_levels.yml: PAGASA posts only today's and yesterday's readings), Pakistan reservoirs
   (pakistan_reservoirs.yml: IRSA keeps only ~8 daily reports), Nepal (nepal_power.yml: NEA's home-page energy panel
-  has no history; the NDOR report PDFs are read only on the 1st/15th). Masters rebuild on the
+  has no history; the NDOR report PDFs are read only on the 1st/15th), Egypt grid load (egypt_grid_load.yml, twice a
+  day: the MOEE home-page 'Grid Loads' panel shows only yesterday's peak/minimum and today's expected peak;
+  `africa/EGYPT_MOEE_GRID_LOAD.py` -> `egypt_grid_load_daily.xlsx`, keyed by operating day, on the Africa master's
+  power dashboard; Egypt's other MOEE / CAPMAS series are annual and not built). Masters rebuild on the
   1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
   source has no history.
 - Mexico power generation by technology (`americas/MEXICO_CENACE_GENERATION.py` -> `mexico_power_generation_daily.xlsx`, 1st/15th, MWh/day, from 2016-04-30; hourly detail in `mexico_generacion_hourly/YYYY.csv.gz`): CENACE 'Energía Generada por Tipo de Tecnología' (settled generation, whole SEN), one month per request (multi-month ranges are unreliable), the month taken from the rows' dates (some file names carry the wrong year); each day uses the highest settlement L0-L3 (L0 ~14 days after month end, L3 ~8 months), trailing 10 months re-fetched. Replaces Ember for Mexico on the North America power dashboard; Gas = combined cycle + gas turbines, conventional steam (fuel oil and gas) is in Oil/Other. Lags 6-8 weeks, so it does not hold back the North America total (NA_LAGGING).

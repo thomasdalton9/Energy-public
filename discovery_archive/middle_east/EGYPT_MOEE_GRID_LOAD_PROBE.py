@@ -3,6 +3,10 @@ Probe (Oct 2026): is the Egyptian Ministry of Electricity (MOEE) home-page 'Grid
 Prints every span whose id starts ctl00_content_h_ (date, peak, min, temperature, expected peak) on the
 English and Arabic home pages, plus the HTTP Last-Modified/Date headers.
 
+RUN 1 (2026-10-11 14:03 UTC): current - page dated 2026/10/11 (h_load_day), yesterday peak 33300 MW, min 23129 MW,
+30 C, today's expected peak 33100 MW (h_exp_load); no Last-Modified header; the Arabic home page is a server error.
+Production: africa/EGYPT_MOEE_GRID_LOAD.py.
+
 Workflow (manual): discovery_archive/workflows/egypt_moee_grid_load_probe.yml.
 """
 import re

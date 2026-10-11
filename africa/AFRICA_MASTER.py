@@ -8,7 +8,8 @@ whose table/chart/dashboard code this reuses).
   Dashboard - Power  - generation by source, then lake levels and capacity where a raw feed exists:
                        South Africa (Eskom), Ghana (Energy Commission: weekly WEM statistics, annual statistics with
                        Akosombo / Bui water-year level charts), Nigeria (NERC quarterly report), Cameroon (ARSEL
-                       monthly energy balance, 2025 so far). Where raw data has gaps, Ember fills them as a labelled
+                       monthly energy balance, 2025 so far), Egypt daily peak / minimum grid load (MOEE, from Oct
+                       2026). Where raw data has gaps, Ember fills them as a labelled
                        fallback: every Ember series is named "... - Ember (fallback)" (tables, charts, Sources).
   <CC> <chart> data  - the table each Dashboard chart plots (CC = ZA, GH, NG ... : one tab group per country)
   <CC> <dataset> raw - the full data sheet(s) from each source workbook
@@ -60,6 +61,8 @@ RAW_POWER_DATASETS = [
 OTHER_POWER_DATASETS = [
     # annual generation by type plus Akosombo / Bui water-year level charts
     ("GH", "Ghana", "ghana_energy_commission_power.xlsx", ("Annual", "Akosombo", "Bui"), "annual statistics and lake levels"),
+    # daily peak / minimum load from the Ministry of Electricity's home page (no history at source: builds from Oct 2026)
+    ("EG", "Egypt", "egypt_grid_load_daily.xlsx", "Daily", "grid load"),
     # EMBER (FALLBACK) gap fills: only where the raw feed above has a hole (see ember_* below)
     ("NG", "Nigeria", "west_africa_power_by_type.xlsx", ("Nigeria",), "Ember fallback monthly"),
     ("NG", "Nigeria", "west_africa_power_by_type_annual.xlsx", ("Nigeria",), "Ember fallback annual"),
@@ -147,6 +150,10 @@ SOURCES = {
     "ghana_energy_commission_power.xlsx": (
         "Energy Commission of Ghana, National Energy Statistics (GRIDCo, VRA, ECG and IPP returns)",
         "https://www.energycom.gov.gh/index.php/planning/energy-statistics"),
+    "egypt_grid_load_daily.xlsx": (
+        "Ministry of Electricity and Renewable Energy (MOEE), Egypt: home-page 'Grid Loads' panel (yesterday's peak and "
+        "minimum load, today's expected peak; the page keeps no history, so the series starts Oct 2026)",
+        "http://www.moee.gov.eg/english_new/home.aspx"),
     "nigeria_power_generation_quarterly.xlsx": (
         "NERC (Nigerian Electricity Regulatory Commission), Quarterly Reports: NISO-metered generation of grid-connected plants only "
         "(QUARTERLY average, 2019Q1-; embedded/captive generation not included; thermal booked to gas)",

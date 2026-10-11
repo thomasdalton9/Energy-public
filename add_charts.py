@@ -3566,8 +3566,18 @@ def mexico_generation(p):
     return out
 
 
+def egypt_grid_load(p):
+    """MOEE home-page Grid Loads panel (EGYPT_MOEE_GRID_LOAD.py): daily peak and minimum load and the expected peak."""
+    d = by_date(read(p, "Daily"), "date")
+    names = {"Peak_Load_MW": "Peak load", "Min_Load_MW": "Minimum load", "Expected_Peak_MW": "Expected peak (same morning)"}
+    g = d[cols(d, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names)
+    return [spec("Grid load", g, "Egypt daily peak and minimum grid load (Ministry of Electricity)", "MW", "line",
+                 "%Y-%m-%d")]
+
+
 REGISTRY.update({
     "mexico_power_generation_daily.xlsx": mexico_generation,
+    "egypt_grid_load_daily.xlsx": egypt_grid_load,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
     "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
 })
