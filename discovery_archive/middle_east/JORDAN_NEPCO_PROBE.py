@@ -159,6 +159,68 @@ def round2():
         pdf_text(u, showpages=6)
 
 
+ML = "https://www.nepco.com.jo/en/MaxLoadArchive.aspx"
+P = "ctl00$ContentPlaceHolder1$"
+
+
+def hidden(html):
+    return {k: v for k, v in re.findall(r'<input[^>]+type="hidden"[^>]+name="([^"]+)"[^>]*value="([^"]*)"', html)}
+
+
+def rows(html):
+    return re.findall(r'(\d{2}/\d{2}/\d{4})\s*</[^>]+>\s*<[^>]+>\s*(\d+(?:\.\d+)?)', html) or \
+        re.findall(r'(\d{2}/\d{2}/\d{4})\D{1,200}?(\d{3,4})\b', text_of(html))
+
+
+def maxload_query(sess, d1, m1, y1, d2, m2, y2):
+    r = sess.get(ML, headers=H, timeout=40, verify=False)
+    f = hidden(r.text)
+    f.update({P + "txtDayFrom": str(d1), P + "fromMonth": str(m1), P + "txtYearFrom": str(y1),
+              P + "txtDayTo": str(d2), P + "toMonth": str(m2), P + "txtYearTo": str(y2), P + "btnSearch": "Search"})
+    r2 = sess.post(ML, data=f, headers=H, timeout=60, verify=False)
+    return r2
+
+
+def round3():
+    s = requests.Session()
+    r = s.get(ML, headers=H, timeout=40, verify=False)
+    print("GET rows", rows(r.text)[:12])
+    pagers = sorted(set(re.findall(r"__doPostBack\(&#39;([^&]+)&#39;", r.text)))
+    print("pager targets", pagers)
+    for (y) in [1995, 2000, 2003, 2005, 2008, 2010, 2012, 2015, 2018, 2020, 2022, 2024, 2025]:
+        try:
+            r2 = maxload_query(s, 1, 7, y, 31, 7, y)
+            rr = rows(r2.text)
+            print(f"Jul {y}: status {r2.status_code} {len(r2.content)}B rows {len(rr)} {rr[:10]}", flush=True)
+        except Exception as e:
+            print("ERR", y, e)
+    # whole range, then follow 'Last' pager to the oldest
+    r2 = maxload_query(s, 1, 1, 1990, 31, 12, 2026)
+    rr = rows(r2.text)
+    print("ALL first page", rr[:10])
+    txt = text_of(r2.text)
+    m = re.search(r'Start.{0,300}', txt)
+    print("pager text", m.group(0) if m else None)
+    last = [t for t in re.findall(r"__doPostBack\(&#39;([^&]+)&#39;", r2.text)]
+    print("pager targets after search", sorted(set(last))[-6:])
+    if last:
+        f = hidden(r2.text)
+        f.update({"__EVENTTARGET": sorted(set(last))[-1], "__EVENTARGUMENT": ""})
+        for k in ["txtDayFrom", "fromMonth", "txtYearFrom", "txtDayTo", "toMonth", "txtYearTo"]:
+            m2 = re.search(r'name="' + re.escape(P + k) + r'"[^>]*value="([^"]*)"', r2.text)
+            if m2: f[P + k] = m2.group(1)
+        f[P + "fromMonth"] = "1"; f[P + "toMonth"] = "12"
+        r3 = s.post(ML, data=f, headers=H, timeout=60, verify=False)
+        print("LAST page rows", rows(r3.text)[:12])
+    # Stats page raw content
+    r = requests.get("https://www.nepco.com.jo/en/Stats.aspx", headers=H, timeout=40, verify=False)
+    i = r.text.find("Statistical Info", r.text.find("<body"))
+    seg = r.text[i:i + 6000]
+    print("STATS RAW:", re.sub(r'\s+', ' ', seg)[:4000])
+    for m in re.findall(r'<(?:iframe|img|embed|object|canvas)[^>]+>', r.text):
+        print("  EMBED", m[:200])
+
+
 if __name__ == "__main__":
     rnd = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     globals()[f"round{rnd}"]()
