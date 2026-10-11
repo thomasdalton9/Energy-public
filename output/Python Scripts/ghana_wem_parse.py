@@ -88,26 +88,23 @@ def parse_words(words):
         if not label and not nums:
             continue
         if not label or len(nums) < len(cols):
-            if data:   # past the table (footer text)
-                if label.lower().startswith(("disclaimer", "the ")):
-                    break
+            if data and label.lower().startswith(("disclaimer", "the ")):   # past the table (footer text)
+                break
             continue
-        vals = {}
-        for w in nums:
-            x = _cx(w)
-            if abs(x - total_x) < pitch * 0.45 and x > cols[-1][0] + pitch * 0.4:
-                vals["Total"] = float(w[4])
-                continue
-            j = min(range(len(cols)), key=lambda i: abs(cols[i][0] - x))
-            if abs(cols[j][0] - x) <= pitch * 0.5:
-                vals[cols[j][1]] = float(w[4])
+        # values are matched to the day headers by ORDER along the row (some issues print the header row with a
+        # different column spacing from the data rows): n days, optionally followed by the row total
+        nums = sorted(nums, key=_cx)
+        n = len(cols)
+        if len(nums) not in (n, n + 1):
+            warns.append(f"row '{label}' has {len(nums)} numbers for {n} days")
+            continue
+        vals = {cols[j][1]: float(nums[j][4]) for j in range(n)}
+        if len(nums) == n + 1:
+            vals["Total"] = float(nums[n][4])
         if label.lower() == "total":
             totals = pd.Series({d: vals.get(d) for _, d in cols}, dtype=float)
             break
-        if sum(1 for _, d in cols if d in vals) >= len(cols) - 1:
-            data[label] = {d: vals.get(d) for _, d in cols}
-        else:
-            warns.append(f"row '{label}' has {len(vals)} values")
+        data[label] = {d: vals.get(d) for _, d in cols}
     if not data:
         raise ValueError("table header found but no plant rows")
     df = pd.DataFrame(data).T
