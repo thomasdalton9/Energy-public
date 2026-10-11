@@ -2085,13 +2085,6 @@ def canada_provinces(p):
             pr = a[["Pool price avg (CAD per MWh)"]].dropna().rename(columns={"Pool price avg (CAD per MWh)": "Pool price"})
             out.append(spec("Alberta price", pr.tail(120), "Alberta pool price, daily average (AESO)", "CAD per MWh",
                             "line", date_format="%Y-%m-%d"))
-    lv = _sheet(p, "Quebec reservoirs", "date")
-    for c in lv.columns:   # water-year charts once a station has a week of days
-        ser = pd.to_numeric(lv[c], errors="coerce").dropna()
-        if len(ser) >= 7:
-            label = str(c).replace(" level_m", "")
-            out.append({"name": f"Quebec {label}", "water_year": ser.resample("D").interpolate(), "y_decimals": 1,
-                        "title": f"Quebec, {label} reservoir level (Hydro-Quebec)", "units": "m above sea level"})
     b = _sheet(p, "British Columbia", "date")
     if not b.empty:
         m = _monthly_gwh(b, {"Load_MWh": "BC Hydro control-area load"}, "2021-01-01")
@@ -2110,21 +2103,6 @@ def canada_provinces(p):
             out.append(spec("NB load", m, "New Brunswick electricity load and net exports (NB Power)", "GWh per month",
                             "line"))
     return out
-
-
-def canada_ieso(p):
-    """IESO (Ontario) daily mean MW by fuel: monthly means once there are three months of days, else the daily series."""
-    d = by_date(read(p, "Data"), "date")
-    c = [x for x in d.columns if str(x).endswith("_MW") and x != "Total_MW"]
-    d = d[c].apply(pd.to_numeric, errors="coerce").rename(columns=lambda x: str(x).replace("_MW", "").title())
-    if d.empty:
-        return []
-    if d.index.max() - d.index.min() >= pd.Timedelta(days=90):
-        m = complete_months(d, d.resample("MS").mean())
-        return [spec("Ontario generation", m, "Ontario power generation by source (IESO)", "MW (monthly average)",
-                     "stacked_bar")]
-    return [spec("Ontario generation", d.tail(120), "Ontario power generation by source (IESO, daily mean)",
-                 "MW (daily mean)", "stacked_bar", date_format="%Y-%m-%d")] if len(d) >= 2 else []
 
 
 def canada_cer_gas(p):
@@ -3148,7 +3126,6 @@ REGISTRY = {
     "us_mexico_pipeline_capacity.xlsx": us_mexico_pipeline_capacity,
     "canada_gas.xlsx": canada_gas,
     "canada_power_generation_daily.xlsx": canada_power,
-    "canada_ieso_generation_daily.xlsx": canada_ieso,
     "canada_provincial_power_daily.xlsx": canada_provinces,
     "canada_cer_gas.xlsx": canada_cer_gas,
     "canada_cer_power.xlsx": canada_cer_power,
