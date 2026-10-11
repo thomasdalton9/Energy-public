@@ -44,8 +44,12 @@ Output: cyprus_generation_mix_daily.csv/.xlsx - daily mean MW per
 category (wind, oil, biomass, solar) plus installed capacity as of the
 most recent successful fetch.
 
-Run standalone (edit FROM_DATE/TO_DATE below to change scope):
-    python3 cyprus_generation_mix.py
+INCREMENTAL (Oct 2026): the committed workbook (output/Data and Chart Outputs/cyprus_generation_mix_daily.xlsx,
+sheet 'Cyprus') is the history store: each run fetches the days after the last saved day (plus the last
+REVISION_DAYS again) and at most --max-days of new history, so the backfill from 2016-10-26 completes over a
+couple of runs. Scheduled 1st/15th (.github/workflows/cyprus_generation_mix.yml).
+
+    python3 europe/cyprus_generation_mix.py [--max-days 2500]
 """
 
 import os
@@ -65,8 +69,9 @@ import xlsx_notes
 FROM_DATE = date(2016, 10, 26)  # confirmed via binary search (CYPRUS_HISTORY_DEPTH_PROBE.py): no
                                  # data any earlier, real data every day sampled from here on
 TO_DATE = date.today()
-OUT_FILE = "cyprus_generation_mix_daily.xlsx"
-HISTORY_CSV = "cyprus_generation_mix_daily.csv"
+OUT_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "output", "Data and Chart Outputs",
+                        "cyprus_generation_mix_daily.xlsx")
+REVISION_DAYS = 3
 
 REALTIME_SOURCE = "https://tsoc.org.cy/electrical-system/total-daily-system-generation-on-the-transmission-system/"
 HISTORICAL_SOURCE = "https://tsoc.org.cy/electrical-system/archive-total-daily-system-generation-on-the-transmission-system/"
@@ -237,16 +242,42 @@ def build_notes(capacity, day_count):
     return lines
 
 
+def load_archive(path):
+    try:
+        df = pd.read_excel(path, sheet_name="Cyprus", index_col=0)
+    except (FileNotFoundError, ValueError):
+        return pd.DataFrame(columns=CATEGORIES)
+    df.index = pd.to_datetime(df.index).date
+    return df
+
+
 def main():
-    df, capacity = build_daily_dataframe(FROM_DATE, TO_DATE)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--max-days", type=int, default=2500, help="max days of new history fetched this run")
+    ap.add_argument("--out", default=OUT_FILE)
+    args = ap.parse_args()
+
+    archive = load_archive(args.out)
+    yesterday = date.today() - timedelta(days=1)
+    start = FROM_DATE if archive.empty else max(FROM_DATE, max(archive.index) - timedelta(days=REVISION_DAYS))
+    end = min(yesterday, start + timedelta(days=args.max_days - 1))
+    if start > end:
+        print("Nothing to fetch.")
+        return
+    print(f"Fetching {start} to {end} ({(end - start).days + 1} days)", file=sys.stderr)
+    df, capacity = build_daily_dataframe(start, end)
     if df.empty:
         print("No data returned for any date.", file=sys.stderr)
         sys.exit(1)
-
-    df.to_csv(HISTORY_CSV)
-    notes_lines = build_notes(capacity, len(df))
-    xlsx_notes.write_workbook(OUT_FILE, {"Cyprus": df}, notes_lines, NOTES_SECTION_TITLES, notes_sheet_name="Notes")
-    print(f"Saved {len(df)} days to {HISTORY_CSV} and {OUT_FILE}")
+    df.index = pd.to_datetime(df.index).date
+    archive = pd.concat([archive[~archive.index.isin(df.index)], df]).sort_index()
+    archive.index.name = "date"
+    notes_lines = build_notes(capacity, len(archive))
+    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    xlsx_notes.write_workbook(args.out, {"Cyprus": archive[CATEGORIES]}, notes_lines, NOTES_SECTION_TITLES,
+                              notes_sheet_name="Notes")
+    print(f"Saved {len(df)} fetched day(s); archive {len(archive)} days, {min(archive.index)} to {max(archive.index)}")
 
 
 if __name__ == "__main__":
