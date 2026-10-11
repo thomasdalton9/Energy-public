@@ -8,8 +8,20 @@ a snippet, level-related keywords and data-file links. Nothing committed; no Emb
 Writes west_africa_hydro_levels_output.txt (uploaded as artifact).
 """
 import re
+import signal
 import sys
 import requests
+
+
+class Hard(Exception):
+    pass
+
+
+def _alarm(*a):
+    raise Hard('hard 45s deadline')
+
+
+signal.signal(signal.SIGALRM, _alarm)
 
 OUT = open("west_africa_hydro_levels_output.txt", "w", encoding="utf-8")
 
@@ -90,8 +102,11 @@ def probe(name, url):
     log("=" * 100)
     log(f"## {name}\n{url}")
     try:
+        signal.alarm(45)
         r = requests.get(url, headers=H, timeout=(10, 30), allow_redirects=True)
-    except Exception as e:
+        signal.alarm(0)
+    except BaseException as e:
+        signal.alarm(0)
         log("  ERROR", type(e).__name__, str(e)[:200])
         return
     ct = r.headers.get("content-type", "")
