@@ -665,8 +665,55 @@ def round6():
         b.close()
 
 
+def round7():
+    """MAYA through Playwright: company ids, the reports POST body and a replay for Tamar Petroleum / Energean."""
+    from playwright.sync_api import sync_playwright
+    want = re.compile(r"תמר|ניו-?מד|אנרג'?יאן|Energean|רציו|ישראמקו|Tamar|NewMed|Ratio|Isramco", re.I)
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(locale="he-IL")
+        got = {}
+
+        def on_resp(resp):
+            u = resp.url
+            if "/api/v1/" in u:
+                try:
+                    got[u + " " + resp.request.method] = (resp.request.post_data, resp.json())
+                except Exception:  # noqa: BLE001
+                    pass
+        pg.on("response", on_resp)
+        pg.goto("https://maya.tase.co.il/he/companies/475/reports", timeout=60000, wait_until="networkidle")
+        pg.wait_for_timeout(5000)
+        post_body = None
+        for k, (pd, js) in got.items():
+            print("   ", k, "| post:", (pd or "")[:400])
+            sj = json.dumps(js, ensure_ascii=False)
+            print("      json head:", sj[:600])
+            if "metadata/companies" in k:
+                items = js if isinstance(js, list) else next((v for v in js.values() if isinstance(v, list)), [])
+                print(f"      {len(items)} companies; matches:")
+                for it in items:
+                    if want.search(json.dumps(it, ensure_ascii=False)):
+                        print("        ", json.dumps(it, ensure_ascii=False)[:200])
+            if k.endswith("reports/companies POST"):
+                post_body = pd
+        if post_body:
+            body = json.loads(post_body)
+            print("   reports POST body keys:", list(body))
+            for cid in ["475", "1983", "1141", "2109", "1100"]:
+                b2 = json.loads(post_body)
+                txt = json.dumps(b2).replace('"475"', f'"{cid}"').replace(": 475", f": {cid}")
+                res = pg.evaluate("""async (body) => { const r = await fetch('/api/v1/reports/companies',
+                    {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body});
+                    return [r.status, (await r.text()).slice(0, 2500)]; }""", txt)
+                print(f"   replay company {cid}: HTTP {res[0]} {res[1][:1500]}")
+        b.close()
+
+
 if __name__ == "__main__":
-    if ROUND == 6:
+    if ROUND == 7:
+        round7()
+    elif ROUND == 6:
         round6()
     elif ROUND == 5:
         round5()
