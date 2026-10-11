@@ -94,15 +94,21 @@ def num(tokens):
     return float(s + "." + fp)
 
 
-def parse_pdf(content):
+def parse_pdf(content, hint=None):
     import pdfplumber
     with pdfplumber.open(io.BytesIO(content)) as pdf:
         pages = [(p.extract_text() or "") for p in pdf.pages]
     text = "\n".join(pages)
-    m = re.search(r"energetique\s+de\s+([a-z]+)\s+(20\d\d)", ascii_lower(pages[0]).replace("\n", " "))
+    m = re.search(r"energetique\s+d(?:e\s+|\W\s*)([a-z]+)\s+(20\d\d)", ascii_lower(pages[0]).replace("\n", " "))
     month = None
     if m and ascii_lower(m.group(1)) in MONTHS:
         month = pd.Timestamp(int(m.group(2)), MONTHS[ascii_lower(m.group(1))], 1)
+    if month is None and hint:
+        base = re.sub(r"[^a-z0-9]", "", ascii_lower(os.path.basename(hint)))
+        ym = re.search(r"(20\d\d)", base)
+        mm = [v for k, v in MONTHS.items() if k in base]
+        if ym and len(mm) == 1:
+            month = pd.Timestamp(int(ym.group(1)), mm[0], 1)
     sect = None
     ipp_after_E = False
     rows = {"A": [], "C": [], "D": [], "E": [], "IPPi": [], "IPPs": []}
@@ -238,7 +244,7 @@ def main():
             if r.status_code != 200 or not r.content.startswith(b"%PDF"):
                 print("skip", url, r.status_code)
                 continue
-            month, rows, printed, _ = parse_pdf(r.content)
+            month, rows, printed, _ = parse_pdf(r.content, url)
             if month is None or not rows["E"]:
                 print("could not parse month/tables:", url)
                 continue
