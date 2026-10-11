@@ -57,8 +57,27 @@ COVERAGE.update({
     # North America
     "United States of America": ("green", "Gas demand by sector, supply, storage (EIA); power by type per balancing "
                                           "authority (EIA-930); LNG feedgas"),
-    "Canada": ("green", "Gas supply and disposition (StatCan); power by type (StatCan, IESO)"),
+    "Canada": ("green", "Gas supply and disposition (StatCan), gas and electricity trade (CER); power by type (StatCan, "
+                        "fossil split by province), IESO Ontario, Hydro-Quebec, AESO Alberta, BC Hydro and NB Power load"),
     "Mexico": ("blue", "Gas imports from the US, pipeline capacity; CENACE demand; power by type Ember only"),
+    # Africa: raw pulls (Ghana Energy Commission, Nigeria NERC + NNPC, Cameroon ARSEL) and Ember-only fallback
+    "Ghana": ("blue", "Power by plant daily (Energy Commission weekly WEM PDFs); annual by type; Akosombo/Bui lake levels"),
+    "Nigeria": ("blue", "Power NERC quarterly reports (grid-connected plants, hydro/thermal); gas NNPC monthly report summary"),
+    "Cameroon": ("blue", "Power ARSEL monthly energy balance, 2025 only (8+ month lag)"),
+    "Senegal": ("amber", "Power Ember yearly"),
+    "Côte d'Ivoire": ("amber", "Power Ember yearly"),
+    "Mauritania": ("amber", "Power Ember yearly"),
+    "Mali": ("amber", "Power Ember yearly"),
+    "Burkina Faso": ("amber", "Power Ember yearly"),
+    "Guinea": ("amber", "Power Ember yearly"),
+    "Sierra Leone": ("amber", "Power Ember yearly"),
+    "Liberia": ("amber", "Power Ember yearly"),
+    "Benin": ("amber", "Power Ember yearly"),
+    "Togo": ("amber", "Power Ember yearly"),
+    "Niger": ("amber", "Power Ember yearly"),
+    "Gambia": ("amber", "Power Ember yearly"),
+    "Guinea-Bissau": ("amber", "Power Ember yearly"),
+    "Eq. Guinea": ("amber", "Power Ember yearly"),
     # South & Southeast Asia
     "India": ("green", "Gas (PPAC); power CEA daily + NITI Aayog ICED; reservoirs; IEX prices"),
     "Bangladesh": ("green", "Gas production and distribution (Petrobangla daily); power PGCB"),
@@ -112,12 +131,12 @@ GAS_PRODUCERS.update({
     "United Kingdom": True, "Norway": True, "Netherlands": True, "Germany": True, "Romania": True, "Italy": True,
     "Poland": True, "Denmark": True, "Hungary": True, "Croatia": True, "Ireland": True, "Ukraine": False,
     "Russia": False, "Qatar": False, "Iran": False, "Saudi Arabia": False, "United Arab Emirates": False,
-    "Algeria": False, "Egypt": False, "Nigeria": False, "Turkmenistan": False, "Uzbekistan": False,
+    "Algeria": False, "Egypt": False, "Nigeria": True, "Turkmenistan": False, "Uzbekistan": False,
     "Kazakhstan": False, "Oman": False, "Azerbaijan": False, "Iraq": False, "Kuwait": False, "Libya": False,
     "Israel": False, "Mozambique": False, "Japan": None, "Angola": False,
 })
 GAS_PRODUCERS = {k: v for k, v in GAS_PRODUCERS.items() if v is not None}
-HYDRO = set(sa.HYDRO) | {"India", "Thailand", "Philippines", "Pakistan", "Sri Lanka", "Australia"}
+HYDRO = set(sa.HYDRO) | {"India", "Thailand", "Philippines", "Pakistan", "Sri Lanka", "Australia", "Ghana"}
 # dot positions (lon, lat) where the representative point is awkward
 DOT_AT = {"Chile": (-71.0, -36.0), "Norway": (9.0, 61.5), "Croatia": (16.0, 45.3), "Denmark": (9.3, 56.0),
           "United Kingdom": (-1.5, 53.0), "Indonesia": (114.0, -1.5), "Malaysia": (102.0, 4.0),

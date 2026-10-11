@@ -13,9 +13,10 @@ light blue = hydro reservoir / dam-level data.
 
 COVERAGE is maintained by hand: update it when a pull is added (South & Central America is read from
 south_america/COVERAGE_MAP.py so the two stay in step). Country shapes: Natural Earth 1:110m (bundled with
-geopandas 0.14), Equal Earth projection.
+geopandas 0.14). Two views per run: Robinson centred on the Pacific (150°E; countries crossing its edge at 30°W
+are cut there) -> world_coverage_map.png, and Equal Earth centred on Greenwich -> world_coverage_map_atlantic.png.
 
-Usage: python3 WORLD_COVERAGE_MAP.py [--out "output/PNG Charts/world_coverage_map.png"]
+Usage: python3 WORLD_COVERAGE_MAP.py [--view pacific|atlantic|both] [--out PATH (one view only)]
 """
 import argparse
 import importlib.util
@@ -24,6 +25,7 @@ import warnings
 
 import geopandas as gpd
 import matplotlib
+from shapely.geometry import box
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -31,7 +33,16 @@ from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-CRS = "EPSG:8857"   # Equal Earth
+VIEWS = {   # name: (projection, edge longitude where shapes are cut, Europe inset position as figure fraction)
+    "pacific": ("+proj=robin +lon_0=150 +datum=WGS84 +units=m +no_defs", -30.0, [0.562, 0.10, 0.228, 0.34]),
+    "atlantic": ("EPSG:8857", 180.0, [0.005, 0.10, 0.25, 0.36]),   # Equal Earth on Greenwich, inset over the S Pacific
+}
+CRS, SEAM, INSET_AT = VIEWS["pacific"]
+
+
+def set_view(name):
+    global CRS, SEAM, INSET_AT
+    CRS, SEAM, INSET_AT = VIEWS[name]
 GREEN, BLUE, AMBER, GREY, EDGE = "#1BAF7A", "#2A78D6", "#EDA100", "#D9D9D9", "#FFFFFF"
 FILL = {"green": GREEN, "blue": BLUE, "amber": AMBER}
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
@@ -46,8 +57,27 @@ COVERAGE.update({
     # North America
     "United States of America": ("green", "Gas demand by sector, supply, storage (EIA); power by type per balancing "
                                           "authority (EIA-930); LNG feedgas"),
-    "Canada": ("green", "Gas supply and disposition (StatCan); power by type (StatCan, IESO)"),
+    "Canada": ("green", "Gas supply and disposition (StatCan), gas and electricity trade (CER); power by type (StatCan, "
+                        "fossil split by province), IESO Ontario, Hydro-Quebec, AESO Alberta, BC Hydro and NB Power load"),
     "Mexico": ("blue", "Gas imports from the US, pipeline capacity; CENACE demand; power by type Ember only"),
+    # Africa: raw pulls (Ghana Energy Commission, Nigeria NERC + NNPC, Cameroon ARSEL) and Ember-only fallback
+    "Ghana": ("blue", "Power by plant daily (Energy Commission weekly WEM PDFs); annual by type; Akosombo/Bui lake levels"),
+    "Nigeria": ("blue", "Power NERC quarterly reports (grid-connected plants, hydro/thermal); gas NNPC monthly report summary"),
+    "Cameroon": ("blue", "Power ARSEL monthly energy balance, 2025 only (8+ month lag)"),
+    "Senegal": ("amber", "Power Ember yearly"),
+    "Côte d'Ivoire": ("amber", "Power Ember yearly"),
+    "Mauritania": ("amber", "Power Ember yearly"),
+    "Mali": ("amber", "Power Ember yearly"),
+    "Burkina Faso": ("amber", "Power Ember yearly"),
+    "Guinea": ("amber", "Power Ember yearly"),
+    "Sierra Leone": ("amber", "Power Ember yearly"),
+    "Liberia": ("amber", "Power Ember yearly"),
+    "Benin": ("amber", "Power Ember yearly"),
+    "Togo": ("amber", "Power Ember yearly"),
+    "Niger": ("amber", "Power Ember yearly"),
+    "Gambia": ("amber", "Power Ember yearly"),
+    "Guinea-Bissau": ("amber", "Power Ember yearly"),
+    "Eq. Guinea": ("amber", "Power Ember yearly"),
     # South & Southeast Asia
     "India": ("green", "Gas (PPAC); power CEA daily + NITI Aayog ICED; reservoirs; IEX prices"),
     "Bangladesh": ("green", "Gas production and distribution (Petrobangla daily); power PGCB"),
@@ -101,12 +131,12 @@ GAS_PRODUCERS.update({
     "United Kingdom": True, "Norway": True, "Netherlands": True, "Germany": True, "Romania": True, "Italy": True,
     "Poland": True, "Denmark": True, "Hungary": True, "Croatia": True, "Ireland": True, "Ukraine": False,
     "Russia": False, "Qatar": False, "Iran": False, "Saudi Arabia": False, "United Arab Emirates": False,
-    "Algeria": False, "Egypt": False, "Nigeria": False, "Turkmenistan": False, "Uzbekistan": False,
+    "Algeria": False, "Egypt": False, "Nigeria": True, "Turkmenistan": False, "Uzbekistan": False,
     "Kazakhstan": False, "Oman": False, "Azerbaijan": False, "Iraq": False, "Kuwait": False, "Libya": False,
     "Israel": False, "Mozambique": False, "Japan": None, "Angola": False,
 })
 GAS_PRODUCERS = {k: v for k, v in GAS_PRODUCERS.items() if v is not None}
-HYDRO = set(sa.HYDRO) | {"India", "Thailand", "Philippines", "Pakistan", "Sri Lanka", "Australia"}
+HYDRO = set(sa.HYDRO) | {"India", "Thailand", "Philippines", "Pakistan", "Sri Lanka", "Australia", "Ghana"}
 # dot positions (lon, lat) where the representative point is awkward
 DOT_AT = {"Chile": (-71.0, -36.0), "Norway": (9.0, 61.5), "Croatia": (16.0, 45.3), "Denmark": (9.3, 56.0),
           "United Kingdom": (-1.5, 53.0), "Indonesia": (114.0, -1.5), "Malaysia": (102.0, 4.0),
@@ -118,6 +148,13 @@ SMALL = {"Singapore": (103.82, 1.35, "green"), "Trinidad and Tobago": (-61.3, 10
 EUROPE_BOX = (-12.0, 34.0, 33.0, 71.5)   # lon_min, lat_min, lon_max, lat_max for the inset
 
 
+def cut_at_seam(g, eps=1e-6):
+    """Split a shape that crosses the map's edge (SEAM) into its two sides (Natural Earth is already split at 180)."""
+    if SEAM >= 180 or not g.intersects(box(SEAM - eps, -90, SEAM + eps, 90)):
+        return g
+    return g.intersection(box(-180, -90, SEAM - eps, 90)).union(g.intersection(box(SEAM + eps, -90, 180, 90)))
+
+
 def load_world():
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -125,6 +162,7 @@ def load_world():
     world = world[world["name"] != "Antarctica"].copy()
     world.loc[world["name"] == "N. Cyprus", "name"] = "Cyprus"
     world.loc[world["name"] == "Somaliland", "name"] = "Somalia"
+    world["geometry"] = world.geometry.map(cut_at_seam)
     world["fill"] = world["name"].map(lambda n: FILL[COVERAGE[n][0]] if n in COVERAGE else GREY)
     return world
 
@@ -169,10 +207,7 @@ def draw(ax, world, dots=True, small_dots=9, extent=None):
                 markeredgewidth=0.7, zorder=7)
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "world_coverage_map.png"))
-    args = ap.parse_args()
+def render(out):
     world = load_world().to_crs(CRS)
 
     fig = plt.figure(figsize=(18, 10.5), dpi=150)
@@ -182,9 +217,9 @@ def main():
     ax.set_axis_off()
     ax.set_title("World: Gas and Power Data Coverage", fontsize=18, fontweight="bold", loc="left", x=0.01)
 
-    # Europe inset (bottom left, over the South Pacific)
-    ins = fig.add_axes([0.005, 0.10, 0.25, 0.36])
-    draw(ins, world, small_dots=11)
+    # Europe inset over open ocean (South Pacific; where depends on the view)
+    ins = fig.add_axes(INSET_AT)
+    draw(ins, world, small_dots=11 * INSET_AT[2] / 0.25)   # markers scale with the inset
     lo, la, hi_lo, hi_la = EUROPE_BOX
     a, b = pt(lo, la), pt(hi_lo, hi_la)
     c, d = pt(lo, hi_la), pt(hi_lo, la)
@@ -212,9 +247,20 @@ def main():
     fig.text(0.995, 0.005, "Singapore, Trinidad & Tobago shown as markers (below map resolution). Regional detail: "
              "the South & Central America, North America and South & Southeast Asia coverage maps.", ha="right",
              fontsize=8, color="#6B6B6B")
-    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
-    fig.savefig(args.out, facecolor="white", bbox_inches="tight", pad_inches=0.15)
-    print(f"Saved {args.out}: {counts}")
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    fig.savefig(out, facecolor="white", bbox_inches="tight", pad_inches=0.15)
+    print(f"Saved {out}: {counts}")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--view", choices=["pacific", "atlantic", "both"], default="both")
+    ap.add_argument("--out", default=None, help="output path (one view only); default world_coverage_map[_atlantic].png")
+    args = ap.parse_args()
+    base = os.path.join(ROOT, "output", "PNG Charts", "world_coverage_map")
+    for view in (["pacific", "atlantic"] if args.view == "both" else [args.view]):
+        set_view(view)
+        render(args.out if args.out and args.view != "both" else base + ("" if view == "pacific" else "_atlantic") + ".png")
 
 
 if __name__ == "__main__":
