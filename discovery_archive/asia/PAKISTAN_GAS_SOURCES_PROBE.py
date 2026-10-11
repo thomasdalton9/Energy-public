@@ -606,5 +606,36 @@ def round5():
             out(f"  {f}: {type(e).__name__}")
 
 
+def round6():
+    import pdfplumber
+    # ---- OGRA PIR: monthly LNG terminal tables (EETPL + PGPCL) in the newest and an old edition
+    for doc, fy in (("14125", "2024-25"), ("8161", "2020-21"), ("3266", "2015-16")):
+        r = cf_get(f"https://www.ogra.org.pk/download/{doc}?lang=en")
+        if r is None:
+            continue
+        with pdfplumber.open(io.BytesIO(r.content)) as pdf:
+            out(f"\nPIR {fy}: pages={len(pdf.pages)}")
+            for i, pg in enumerate(pdf.pages):
+                tx = pg.extract_text() or ""
+                if re.search(r"(EETPL|EETL|PGPCL|Elengy|GasPort).{0,80}(MT|MMBTU|cargo)|LNG (data|received|imports?)", tx, re.I | re.S) \
+                        and len(re.findall(MONTHS, tx)) >= 6:
+                    out(f"  --- p{i + 1}:\n" + tx[:1800])
+                if re.search(r"Sector.?wise Gas Consumption", tx, re.I) and fy != "2024-25":
+                    out(f"  --- sector table p{i + 1}:\n" + tx[:900])
+    # ---- PSX data portal: company announcements (OGDCL / PPL / MARI production updates?)
+    for u in ("https://dps.psx.com.pk/announcements/companies", "https://dps.psx.com.pk/company/OGDC",
+              "https://dps.psx.com.pk/company/PPL"):
+        r, ls = probe("PSX", u, links=30, kw=4, pat=re.compile(r"\.pdf|announce|download", re.I))
+    try:
+        r = requests.post("https://dps.psx.com.pk/announcements", headers=H, timeout=T, verify=False,
+                          data={"type": "C", "symbol": "OGDC", "query": "", "count": 20, "offset": 0,
+                                "date_from": "", "date_to": "", "page": "annc"})
+        out(f"PSX announcements POST: {r.status_code} {len(r.content)}b")
+        t = text_of(r.text, 3000)
+        out("  " + t)
+    except Exception as e:  # noqa: BLE001
+        out(f"PSX POST error {e}")
+
+
 if __name__ == "__main__":
-    {"1": round1, "2": round2, "3": round3, "4": round4, "5": round5}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
+    {"1": round1, "2": round2, "3": round3, "4": round4, "5": round5, "6": round6}[sys.argv[1] if len(sys.argv) > 1 else "1"]()
