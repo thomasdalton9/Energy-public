@@ -1,13 +1,12 @@
 name: Canada provincial power (Hydro-Quebec, AESO, BC Hydro, NB Power)
 
-# Three runs a day (02:40, 10:40, 18:40 UTC): AESO's Current Supply and Demand report is an
-# instantaneous snapshot with no history, so the Alberta daily mean is built from up to 3
-# snapshots a day. Hydro-Quebec's 2-day feeds are covered; BC Hydro and NB Power are incremental.
+# Hydro-Quebec's open-data JSON feeds hold two days (reservoir table ~10 days), so a daily
+# run keeps them gap-free. AESO's Current Supply and Demand report is an instantaneous
+# snapshot with no history: one snapshot a day is saved. BC Hydro and NB Power keep
+# history and are topped up incrementally.
 on:
   schedule:
-    - cron: "40 2 * * *"
-    - cron: "40 10 * * *"
-    - cron: "40 18 * * *"
+    - cron: "40 6 * * *"
   workflow_dispatch: {}
 
 permissions:
