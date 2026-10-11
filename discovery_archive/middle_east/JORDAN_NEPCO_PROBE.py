@@ -401,6 +401,89 @@ def round5():
         page(u, n=800, nl=50)
 
 
+def round6():
+    import calendar, collections
+    s = requests.Session()
+    # daily peak via <=9-day windows (each answer fits the 10-row first page)
+    peryear = collections.defaultdict(dict)
+    t0 = time.time()
+    for y in range(2019, 2027):
+        for m in range(1, 13):
+            if (y, m) < (2019, 10) or (y, m) > (2026, 10):
+                continue
+            nd = calendar.monthrange(y, m)[1]
+            for d1, d2 in [(1, 9), (10, 18), (19, 27), (28, nd)]:
+                try:
+                    r = maxload_query(s, d1, m, y, d2, m, y)
+                    rr = dict(rows(r.text))
+                    if len(rr) >= 10:
+                        print("  WARN window full", y, m, d1, d2)
+                    peryear[y].update(rr)
+                except Exception as e:
+                    print("  ERR", y, m, d1, e)
+        if peryear[y]:
+            ks = sorted(peryear[y], key=lambda d: d[6:] + d[3:5] + d[:2])
+            vals = [float(peryear[y][k]) for k in ks]
+            bym = collections.Counter(k[3:5] for k in ks)
+            print(f"{y}: {len(ks)} days, first {ks[0]} last {ks[-1]}, max {max(vals)} on {ks[vals.index(max(vals))]}, min {min(vals)}; days/month {dict(sorted(bym.items()))} ({time.time()-t0:.0f}s)", flush=True)
+    # weekday of missing days in 2025
+    import datetime as dt
+    have = set(peryear[2025])
+    miss = [dt.date(2025, 1, 1) + dt.timedelta(i) for i in range(365)]
+    miss = [d for d in miss if d.strftime("%d/%m/%Y") not in have]
+    print("2025 missing", len(miss), collections.Counter(d.strftime("%a") for d in miss))
+    # NEPCO annual reports: 2025, Arabic
+    for u in ["https://www.nepco.com.jo/store/DOCS/web/2025_EN.pdf", "https://www.nepco.com.jo/store/DOCS/web/2025_AR.pdf",
+              "https://www.nepco.com.jo/store/DOCS/web/2024_AR.pdf", "https://www.nepco.com.jo/store/docs/web/2024_ar.pdf"]:
+        r, how = fetch(u, method="HEAD") if False else fetch(u, timeout=60)
+        print("AR?", u, how if r is None else (len(r.content), r.headers.get("content-type"), r.headers.get("last-modified")))
+    f24 = save("https://www.nepco.com.jo/store/DOCS/web/2024_EN.pdf", "n24.pdf")
+    kw_pages(f24, r'Export|Exported|Lebanon|Palestin|Iraq|Syria', minhits=3, maxshow=5, n=1800)
+    kw_pages(f24, r'Peak Load|peak load|MW', minhits=4, maxshow=3, n=1500)
+    # MEMR annual report: gas volumes by source
+    f = save("https://www.memr.gov.jo/ebv4.0/root_storage/en/eb_list_page/annual_report_2024.pdf", "memr24.pdf")
+    kw_pages(f, r'cubic feet|MMSCF|mmscf|Egyptian gas|Northern gas|LNG|Risha', minhits=3, maxshow=8, n=2500)
+    f = save("https://www.memr.gov.jo/ebv4.0/root_storage/en/eb_list_page/annual_report_2019.pdf", "memr19.pdf")
+    kw_pages(f, r'cubic feet|MMSCF|mmscf|Egyptian gas|LNG|Risha|GWh', minhits=3, maxshow=5, n=2000)
+    for fn in ["abc1-0.pdf", "aghihj2025_v2-0.pdf", "import_of_crude_oil_and_petroleum_products.pdf"]:
+        f = save("https://www.memr.gov.jo/ebv4.0/root_storage/en/eb_list_page/" + fn, fn)
+        if f:
+            pages_text(f, [1, 2], n=1200)
+    # MEMR Arabic statistics list (energy facts and figures)
+    for u in ["https://www.memr.gov.jo/Ar/List/الدراسات_والإحصائيات", "https://www.memr.gov.jo/Ar/List/Studies_and_Statistics",
+              "https://www.memr.gov.jo/Ar/List/التقارير_السنوية", "https://www.memr.gov.jo/Ar/List/Annual_Reports"]:
+        r = page(u, n=200, nl=0)
+        if r is not None:
+            for l in sorted(set(re.findall(r'href="([^"]+\.pdf)"', r.text, re.I))):
+                if "eb_list_page" in l.lower():
+                    print("   PDF", l)
+    # EMRC electricity sector list
+    r = page("https://www.emrc.gov.jo/EN/List/Electricity_Sector", n=200, nl=0)
+    if r is not None:
+        for l in sorted(set(re.findall(r'href="([^"]+\.(?:pdf|xlsx?))"', r.text, re.I))):
+            print("   DOC", l)
+    r = page("https://www.emrc.gov.jo/Ar/List/قطاع_الكهرباء", n=200, nl=0)
+    # DOS
+    page("https://jorinfo.dos.gov.jo/Databank/pxweb/en/DOS_Database/START__10__1001__1101/", n=1500, nl=40)
+    for u in ["https://jorinfo.dos.gov.jo/Databank/api/v1/en/DOS_Database", "https://jorinfo.dos.gov.jo/Databank/api/v1/en/",
+              "https://jorinfo.dos.gov.jo/PXWeb/api/v1/en/"]:
+        r, how = fetch(u)
+        print("PXAPI", u, how if r is None else (r.status_code, r.text[:600]))
+    f = save("https://dosweb.dos.gov.jo/Databank/Metadata/Industry _Energy .xlsx", "dos_ind_energy.xlsx")
+    if f:
+        import openpyxl
+        wb = openpyxl.load_workbook(f, read_only=True)
+        for ws in wb.worksheets[:3]:
+            print("SHEET", ws.title)
+            for i, row in enumerate(ws.iter_rows(values_only=True)):
+                if i > 25: break
+                print("  ", [c for c in row if c is not None][:8])
+    # opendata NEPCO 'Jordanian electrical system 2023'
+    f = save("https://opendata.gov.jo/dataset/MIGRATED-2170-2023/resource/6e1f8110-cb08-46ac-98fd-1200b5754d04/download/-2023.pdf", "od_system.pdf")
+    if f:
+        pages_text(f, [1, 2, 3], n=1200)
+
+
 if __name__ == "__main__":
     rnd = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     globals()[f"round{rnd}"]()
