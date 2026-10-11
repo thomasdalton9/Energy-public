@@ -365,6 +365,14 @@ def honduras_power(p):
     return out
 
 
+def nigeria_power(p):
+    """NERC quarterly grid generation (hydro vs thermal/gas) in average GW; dates are quarter starts (mmm/yy)."""
+    d = by_date(read(p, "Quarterly"), "date")
+    g = pd.DataFrame({"Hydro": d.get("Hydro_GW"), "Gas": d.get("Gas_GW")}).dropna(how="all").fillna(0)
+    return [spec("Generation", g, "Nigeria grid generation by source (NERC, quarterly average)", "GW (quarterly average)",
+                 "stacked_bar", "%b/%y")]
+
+
 def chile_power(p):
     d = by_date(read(p, "Generation by type"), "Month")
     return [spec("Generation", power_mix(d), "Chile power generation by type", "GWh per month", "stacked_bar")]
@@ -2920,6 +2928,7 @@ REGISTRY = {
     "central_america_power_by_type.xlsx": sa_power,
     "guatemala_power_generation_daily.xlsx": power_daily("Guatemala power generation by type (AMM)"),
     "honduras_power_generation_daily.xlsx": honduras_power,
+    "nigeria_power_generation_quarterly.xlsx": nigeria_power,
     "el_salvador_power_generation_daily.xlsx": power_daily("El Salvador power generation by type (SIGET, monthly net)"),
     # Caribbean
     "puerto_rico_power_generation_daily.xlsx": power_daily("Puerto Rico power generation by type (EIA-923)"),
