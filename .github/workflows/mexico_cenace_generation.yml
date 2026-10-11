@@ -15,7 +15,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +31,7 @@ jobs:
       - name: Run Mexico generation pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 1200 python3 americas/MEXICO_CENACE_GENERATION.py
+        run: timeout 2400 python3 americas/MEXICO_CENACE_GENERATION.py
 
       - name: Add Excel charts, PNGs and copy scripts
         if: always()
