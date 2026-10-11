@@ -4,8 +4,6 @@ name: West Africa other discovery 2
 # Gambia, Guinea-Bissau, Cape Verde). Output in run log + artifact; nothing committed.
 on:
   workflow_dispatch:
-  push:
-    branches: [west-africa-other-discovery]
 
 jobs:
   discover:
