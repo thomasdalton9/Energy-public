@@ -341,5 +341,259 @@ def run1():
     wayback()
 
 
+# ------------------------------------------------------------------ round 2
+GASPAT = re.compile(r"(natural gas|\bgas\b|petroleum|LNG|غاز|بترول|بوتاجاز)", re.I)
+
+
+def xlsx_scan(url, maxrows=25):
+    import pandas as pd
+    out(f"\n=== XLSX {url}")
+    r = get(url)
+    if r is None or r.status_code != 200:
+        out("  failed", None if r is None else r.status_code)
+        return None
+    out(f"  {len(r.content)}B {r.headers.get('content-type','')[:40]}")
+    try:
+        xl = pd.read_excel(io.BytesIO(r.content), sheet_name=None, header=None)
+    except Exception as e:  # noqa: BLE001
+        out("  read error", type(e).__name__, str(e)[:150])
+        return None
+    out("  sheets:", list(xl.keys())[:80])
+    for name, df in xl.items():
+        txt = df.astype(str)
+        hits = [i for i in range(len(df)) if GASPAT.search(" ".join(txt.iloc[i].tolist()))]
+        title = " ".join(x for x in txt.iloc[:4].values.ravel() if x != "nan")[:160]
+        if hits or GASPAT.search(name + title):
+            out(f"  -- sheet {name!r} shape {df.shape} title: {title}")
+            for i in range(min(6, len(df))):
+                out("     hdr", [x[:18] for x in txt.iloc[i].tolist() if x != "nan"][:16])
+            for i in hits[:maxrows]:
+                out("     row", i, [x[:16] for x in txt.iloc[i].tolist() if x != "nan"][:18])
+    return xl
+
+
+def cbe2():
+    out("\n################ CBE monthly statistical bulletin xlsx")
+    base = "https://www.cbe.org.eg/-/media/project/cbe/listing/monthly-statistical-bulletin/"
+    xlsx_scan(base + "real/real-sector-352.xlsx")
+    xlsx_scan(base + "external/external-sector-352.xlsx", maxrows=12)
+    out("\n--- CBE time series lists")
+    for cat in ["F0324992E95741438C789A669E5194F4", "232131B16F15454BB1E1933B2BFEB041", "DEF6421CA1354B128A1113D7A5BBFC66"]:
+        page(f"https://www.cbe.org.eg/en/economic-research/time-series/downloadlist?category={cat}", max_links=40,
+             pat=re.compile(r"(xls|pdf|csv|media)", re.I))
+
+
+def wb_get(ts, url):
+    w = f"http://web.archive.org/web/{ts}id_/{url}"
+    for att in range(3):
+        try:
+            r = requests.get(w, headers=H, timeout=(20, 120))
+            if r.status_code in (429, 503):
+                time.sleep(15 * (att + 1))
+                continue
+            return r
+        except Exception as e:  # noqa: BLE001
+            out("  WB ERROR", type(e).__name__, str(e)[:100])
+            time.sleep(8)
+    return None
+
+
+def text_of(r):
+    t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", r.text, flags=re.S | re.I)
+    return " ".join(re.sub(r"<[^>]+>", " ", t).split())
+
+
+def pdf_text(content, maxpages=400):
+    import fitz
+    doc = fitz.open(stream=content, filetype="pdf")
+    return doc, [doc[i].get_text() for i in range(min(len(doc), maxpages))]
+
+
+def pdf_scan(name, content, pat=GASPAT, ctx=220, maxhits=25):
+    try:
+        doc, pages = pdf_text(content)
+    except Exception as e:  # noqa: BLE001
+        out("  pdf error", type(e).__name__, str(e)[:120])
+        return
+    nchars = sum(len(p) for p in pages)
+    out(f"  PDF {name}: {len(doc)} pages, {nchars} text chars")
+    n = 0
+    for i, t in enumerate(pages):
+        for m in re.finditer(r"(bcf|billion cubic|BCM|mmscf|million cubic|مليار متر|مليون متر|قدم مكعب|شحن|cargo)", t, re.I):
+            s = " ".join(t[max(0, m.start() - ctx):m.end() + ctx].split())
+            out(f"   p{i+1}: ...{s}...")
+            n += 1
+            if n >= maxhits:
+                return
+
+
+def egpc_mop():
+    out("\n################ EGPC (http) live + Wayback")
+    for u in ["http://www.egpc.com.eg/", "http://www.egpc.com.eg/Production.aspx", "http://www.egpc.com.eg/Production_2.aspx",
+              "http://www.egpc.com.eg/Gas_Production.aspx", "http://www.egpc.com.eg/Annual_Reports.aspx",
+              "http://www.egpc.com.eg/AnnualReportYears.aspx", "http://www.egpc.com.eg/E/Default.aspx",
+              "http://www.egpc.com.eg/DistMainProducts.aspx"]:
+        r = page(u, max_links=40)
+        if r is not None and r.status_code == 200 and "html" in r.headers.get("content-type", ""):
+            t = text_of(r)
+            for m in list(re.finditer(r"(bcf|cubic|مكعب|gas|غاز)", t, re.I))[:6]:
+                out("    txt:", t[max(0, m.start() - 150):m.end() + 200])
+    for ts, u in [("20260309121026", "http://www.egpc.com.eg/Production.aspx"),
+                  ("20260309120813", "http://www.egpc.com.eg/Production_2.aspx"),
+                  ("20180731141455", "http://www.egpc.com.eg:80/Gas_Production.aspx"),
+                  ("20180602225604", "http://www.egpc.com.eg:80/Annual_Reports.aspx"),
+                  ("20210419000604", "http://egpc.com.eg/Annual_Reports_14.aspx")]:
+        out(f"\n=== WB {ts} {u}")
+        r = wb_get(ts, u)
+        if r is None:
+            continue
+        out("  ", r.status_code, len(r.content))
+        t = text_of(r)
+        out("   text:", t[:1500])
+        links = sorted(set(re.findall(r'href=["\']([^"\']+\.(?:pdf|xlsx?))["\']', r.text, re.I)))
+        out("   file links:", links[:40])
+    for ts, u in [("20250503172442", "http://www.egpc.com.eg/E/PDF/production/Oil%20%20Gas5-2-2017.pdf"),
+                  ("20191213184725", "http://www.egpc.com.eg/PDF/production/Production%20Activity.pdf")]:
+        r = wb_get(ts, u)
+        out(f"\n=== WB PDF {u} -> {None if r is None else r.status_code} {0 if r is None else len(r.content)}")
+        if r is not None and r.status_code == 200 and r.content[:4] == b"%PDF":
+            pdf_scan(u, r.content)
+
+    out("\n################ Ministry of Petroleum info-indicators")
+    for u in ["https://www.petroleum.gov.eg/ar-eg/gas-and-petrol/Pages/info-indicators.aspx",
+              "https://www.petroleum.gov.eg/en/gas-and-petrol/Pages/info-indicators.aspx",
+              "https://www.petroleum.gov.eg/ar-eg/gasand-petrol/Pages/info-indicators.aspx",
+              "https://www.petroleum.gov.eg/ar-eg/Pages/default.aspx",
+              "https://www.petroleum.gov.eg/ar-eg/media-center/news/Pages/default.aspx"]:
+        r = page(u, max_links=30)
+        if r is not None and r.status_code == 200:
+            t = text_of(r)
+            for m in list(re.finditer(r"(مليار قدم|مليون قدم|bcf|مكعب|cubic)", t, re.I))[:10]:
+                out("    txt:", t[max(0, m.start() - 200):m.end() + 200])
+    for ts, u in [("20200422020132", "https://www.petroleum.gov.eg/ar-eg/gas-and-petrol/Pages/info-indicators.aspx"),
+                  ("20240831190814", "https://www.petroleum.gov.eg/ar-eg/gasand-petrol/Pages/info-indicators.aspx")]:
+        r = wb_get(ts, u)
+        out(f"\n=== WB {ts} {u} -> {None if r is None else r.status_code}")
+        if r is not None and r.status_code == 200:
+            t = text_of(r)
+            i = max(t.find("مؤشر"), 0)
+            out("   text:", t[i:i + 2500])
+    rows = cdx("www.petroleum.gov.eg/*", limit=400, filt="urlkey:.*(indicator|statistic|ehsa|production|gas-and-petrol/pages).*")
+    for row in rows[:60]:
+        out("   ", row[1], row[3][:22], row[2][:170])
+
+
+def egas2():
+    out("\n################ EGAS annual reports")
+    for u in ["https://www.egas.com.eg/annual-report", "https://www.egas.com.eg/ar/annual-report",
+              "https://www.egas.com.eg/en/annual-report", "https://www.egas.com.eg/activities/production-and-field-development",
+              "https://www.egas.com.eg/w/production-and-development", "https://www.egas.com.eg/ar/w/production-and-development"]:
+        r = page(u, max_links=40, pat=re.compile(r"(annual|report|documents|pdf|تقرير|سنوي)", re.I))
+        if r is not None and r.status_code == 200:
+            t = text_of(r)
+            for m in list(re.finditer(r"(bcf|cubic|مكعب|billion)", t, re.I))[:8]:
+                out("    txt:", t[max(0, m.start() - 200):m.end() + 200])
+    for ts, u in [("20191022142621", "https://www.egas.com.eg/annual-reports/2018"),
+                  ("20191115075205", "https://www.egas.com.eg/annual-reports/2019"),
+                  ("20220628211320", "https://www.egas.com.eg/annual-report"),
+                  ("20260912065513", "https://egas.com.eg/ar/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9/-/asset_publisher/fezn/content/annual-report-2022?p_r_p_assetEntryId=96751"),
+                  ("20220628211319", "https://www.egas.com.eg/activities/production")]:
+        out(f"\n=== WB {ts} {u}")
+        r = wb_get(ts, u)
+        if r is None:
+            continue
+        out("  ", r.status_code, len(r.content))
+        t = text_of(r)
+        for m in list(re.finditer(r"(bcf|cubic|مكعب|billion|BCM)", t, re.I))[:10]:
+            out("    txt:", t[max(0, m.start() - 200):m.end() + 200])
+        links = sorted(set(re.findall(r'(?:href|src)=["\']([^"\']+(?:\.pdf|/documents/[^"\']+))["\']', r.text, re.I)))
+        out("   file links:", links[:30])
+    for ts, u in [("20160610162620", "http://egas.com.eg/docs/pdf/Egas_EN_2015_Final%20@3-9-2015.pdf"),
+                  ("20160902095431", "http://www.egas.com.eg/docs/pdf/AR_mid.pdf"),
+                  ("20150202113402", "http://www.egas.com.eg/docs/pdf/EN_mid.pdf")]:
+        r = wb_get(ts, u)
+        out(f"\n=== WB PDF {u} -> {None if r is None else r.status_code} {0 if r is None else len(r.content)}")
+        if r is not None and r.status_code == 200 and r.content[:4] == b"%PDF":
+            pdf_scan(u, r.content)
+    rows = cdx("egas.com.eg/documents/*", limit=300)
+    for row in rows[:80]:
+        out("   ", row[1], row[3][:22], row[2][:200])
+
+
+def capmas2():
+    out("\n################ CAPMAS indicator data (energy statistics pub 77, trade pubs)")
+    api = "https://www.capmas.gov.eg:8080/api/Indicator/IndicatorFilter?IndicatorId={}&SubSubjectId={}"
+    for iid, ss in [(1665706, 30), (1664307, 30), (1664313, 30), (1664212, 30), (1664348, 30), (1664275, 30),
+                    (962760, 30), (962821, 30), (963034, 30), (962673, 30), (908278, 10), (908592, 10)]:
+        r = get(api.format(iid, ss), quiet=True)
+        if r is None:
+            out(f"  {iid}: no response")
+            continue
+        try:
+            rows = r.json().get("data") or []
+        except Exception:  # noqa: BLE001
+            out(f"  {iid}: {r.status_code} not json {r.text[:120]}")
+            continue
+        out(f"\n  indicator {iid}: {len(rows)} filters")
+        for f in rows[:40]:
+            en = next((t.get("name") for t in f.get("filterTranslations", []) if t.get("locale") == "en"), "")
+            pts = sorted((d.get("year") or 0, d.get("quarter") or 0, d.get("month") or 0, d.get("value")) for d in f.get("data", []))
+            out(f"    {str(f.get('name'))[:45]} | {str(en)[:45]} | n={len(pts)} first={pts[:1]} last={pts[-2:]}")
+    out("\n  -- all indicators of trade pubs 22 / 100 and production pub 18")
+    for ss in (10, 12):
+        rr = get(f"https://www.capmas.gov.eg:8080/api/Subject/SubSubjectWithIndicator/{ss}", quiet=True)
+        try:
+            pubs = (rr.json().get("data") or {}).get("publicationWithIndicators") or []
+        except Exception:  # noqa: BLE001
+            continue
+        for pb in pubs:
+            if pb.get("id") not in (22, 100, 18):
+                continue
+            for k, v in pb.items():
+                if isinstance(v, list):
+                    for it in v[:120]:
+                        if isinstance(it, dict) and (it.get("name") or it.get("title")):
+                            tr = it.get("indicatorTranslations") or []
+                            en = next((t.get("name") for t in tr if isinstance(t, dict) and t.get("locale") == "en"), "")
+                            out(f"    pub{pb.get('id')} ind {it.get('id')} {str(it.get('name'))[:60]} | {str(en)[:70]}")
+
+
+def comtrade2():
+    out("\n################ Comtrade partner detail (includeDesc)")
+    for y in [2016, 2024, 2025]:
+        rows = comtrade("A", reporterCode=818, period=y, cmdCode="271111,271121", flowCode="M,X", includeDesc="true")
+        for x in sorted(rows or [], key=lambda x: -(x.get("netWgt") or 0))[:10]:
+            out(f"   {y} {x.get('flowCode')} {x.get('cmdCode')} {x.get('partnerDesc')} t={(x.get('netWgt') or 0)/1000:,.0f} "
+                f"USD_m={(x.get('primaryValue') or 0)/1e6:,.1f} qtyUnit={x.get('qtyUnitAbbr')} qty={x.get('qty')}")
+    for p in ["202501", "202604", "202605", "202606", "202607", "202608"]:
+        rows = comtrade("M", reporterCode=818, period=p, cmdCode="271111,271121", flowCode="M,X", includeDesc="true")
+        out(f"  {p}: {None if rows is None else len(rows)} rows")
+        for x in sorted(rows or [], key=lambda x: -(x.get("netWgt") or 0))[:6]:
+            out(f"   {p} {x.get('flowCode')} {x.get('cmdCode')} {x.get('partnerDesc')} t={(x.get('netWgt') or 0)/1000:,.0f}")
+    out("  -- monthly availability scan 2010-2026 (271111 only, one call per month, M+X world)")
+    have = []
+    for y in range(2010, 2027):
+        for m in range(1, 13):
+            p = f"{y}{m:02d}"
+            if p > "202608":
+                break
+            if m not in (1, 7):
+                continue
+            rows = comtrade("M", reporterCode=818, period=p, cmdCode="271111", flowCode="M,X", partnerCode=0)
+            have.append((p, None if rows is None else len(rows),
+                         sum((x.get("netWgt") or 0) for x in rows or [] if x.get("flowCode") == "M") / 1000,
+                         sum((x.get("netWgt") or 0) for x in rows or [] if x.get("flowCode") == "X") / 1000))
+    for h in have:
+        out("   ", h)
+
+
+def run2():
+    cbe2()
+    capmas2()
+    egpc_mop()
+    egas2()
+    comtrade2()
+
+
 if __name__ == "__main__":
-    {"1": run1}[ROUND]()
+    {"1": run1, "2": run2}[ROUND]()
