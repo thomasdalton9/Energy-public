@@ -74,11 +74,12 @@ SOURCES = {
         "Energy Commission of Ghana, National Energy Statistics (GRIDCo, VRA, ECG and IPP returns)",
         "https://www.energycom.gov.gh/index.php/planning/energy-statistics"),
     "nigeria_power_generation_quarterly.xlsx": (
-        "NERC (Nigerian Electricity Regulatory Commission), Quarterly Reports: NISO-metered generation of grid-connected plants",
+        "NERC (Nigerian Electricity Regulatory Commission), Quarterly Reports: NISO-metered generation of grid-connected plants only "
+        "(QUARTERLY average, 2019Q1-; embedded/captive generation not included; thermal booked to gas)",
         "https://nerc.gov.ng/resource-category/nerc-reports/"),
     "nigeria_nnpc_gas_monthly.xlsx": (
-        "NNPC Ltd, Monthly Report Summary (gas production and sales, crude and condensate production)",
-        "https://nnpcgroup.com/insights"),
+        "NNPC Ltd, Monthly Report Summary (gas production and sales, crude and condensate production; SHORT HISTORY, from Feb-2025)",
+        "https://www.nnpcgroup.com/insights"),
 }
 
 
