@@ -1,0 +1,54 @@
+name: Canada provincial power (Hydro-Quebec, AESO, BC Hydro, NB Power)
+
+# Hydro-Quebec's open-data JSON feeds hold two days and AESO's Current Supply and
+# Demand report is an instantaneous snapshot (no history), so this runs every 3 hours;
+# BC Hydro and NB Power keep history and are topped up incrementally on each run.
+on:
+  schedule:
+    - cron: "25 */3 * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [canada-provinces]
+    paths: ["americas/canada_provinces_power.py"]   # TEMPORARY test trigger - remove before finishing
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests xlrd
+      - name: Run provincial pulls
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 900 python3 americas/canada_provinces_power.py --out "output/Data and Chart Outputs/canada_provincial_power_daily.xlsx"
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          F="output/Data and Chart Outputs/canada_provincial_power_daily.xlsx"
+          [ -f "$F" ] && python3 add_charts.py "$F" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp americas/canada_provinces_power.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          [ -f "output/Data and Chart Outputs/canada_provincial_power_daily.xlsx" ] && git add -f "output/Data and Chart Outputs/canada_provincial_power_daily.xlsx"
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Canada provincial power: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
