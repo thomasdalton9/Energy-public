@@ -2967,6 +2967,8 @@ REGISTRY = {
     # South & Southeast Asia (Ember fallback until each country's raw feed is in)
     "south_southeast_asia_power_by_type.xlsx": sa_power,
     "south_southeast_asia_power_by_type_annual.xlsx": sa_power_annual,
+    "west_africa_power_by_type.xlsx": sa_power,
+    "west_africa_power_by_type_annual.xlsx": sa_power_annual,
     "malaysia_power_generation_daily.xlsx": power_and_demand("Malaysia (Peninsular) power generation by fuel (GSO)",
                                                              "Malaysia (Peninsular) system demand (GSO)"),
     "pakistan_power_generation_daily.xlsx": power_daily("Pakistan power generation by fuel, national grid + K-Electric "
