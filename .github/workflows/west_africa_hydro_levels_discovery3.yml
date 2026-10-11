@@ -1,0 +1,27 @@
+name: West Africa hydro levels discovery 3
+
+# Manual one-off discovery; output in run log + artifact; nothing committed.
+on:
+  workflow_dispatch:
+  push:
+    branches: [west-africa-hydro-discovery]
+    paths: [.github/workflows/west_africa_hydro_levels_discovery3.yml]
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - name: Run discovery
+        run: python3 discovery_archive/rest_of_world/WEST_AFRICA_HYDRO_LEVELS_DISCOVERY3.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: west-africa-hydro-levels-output3
+          path: west_africa_hydro_levels_output3.txt
+          if-no-files-found: ignore
