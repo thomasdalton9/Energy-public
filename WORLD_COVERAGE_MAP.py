@@ -59,7 +59,8 @@ COVERAGE.update({
                                           "authority (EIA-930); LNG feedgas"),
     "Canada": ("green", "Gas supply and disposition (StatCan), gas and electricity trade (CER); power by type (StatCan, "
                         "fossil split by province), IESO Ontario, Hydro-Quebec, AESO Alberta, BC Hydro and NB Power load"),
-    "Mexico": ("blue", "Gas imports from the US, pipeline capacity; CENACE demand; power by type Ember only"),
+    "Mexico": ("blue", "Gas imports from the US, pipeline capacity; power by technology (CENACE settled, hourly); "
+                       "CENACE demand; no gas demand split"),
     # Africa: raw pulls (Ghana Energy Commission, Nigeria NERC + NNPC, Cameroon ARSEL) and Ember-only fallback
     "Ghana": ("blue", "Power by plant daily (Energy Commission weekly WEM PDFs); annual by type; Akosombo/Bui lake levels"),
     "Nigeria": ("blue", "Power NERC quarterly reports (grid-connected plants, hydro/thermal); gas NNPC monthly report summary"),
