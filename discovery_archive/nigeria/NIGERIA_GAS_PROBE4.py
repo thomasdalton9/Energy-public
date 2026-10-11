@@ -70,6 +70,6 @@ if rr is not None:
     print("rows", len(rows))
     for row in rows:
         t = strip(row)
-        if re.search(r'oil|gas|petrol|crude|energy|fuel|mining', t, re.I):
+        if re.search(r'oil|gas|petrol|crude|energy|fuel|mining', t, re.I) and not re.search(r'Price Watch', t):
             href = re.findall(r'href=["\']([^"\']+)', row)
             print("  ", t[:150], href[:2])

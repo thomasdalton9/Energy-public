@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests pandas openpyxl
-      - run: timeout 600 python3 discovery_archive/nigeria/NIGERIA_GAS_PROBE3.py
+      - run: timeout 600 python3 discovery_archive/nigeria/NIGERIA_GAS_PROBE4.py
