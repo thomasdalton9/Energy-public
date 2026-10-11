@@ -1,4 +1,4 @@
-"""Probe 3: AESO downloads, NB Power archive, BC Hydro xls/reservoirs, CER CSV heads, StatCan fuel tables."""
+"""Probe 4."""
 import io
 import re
 import zipfile
@@ -25,125 +25,101 @@ def links(r, pat=r"."):
             re.findall(r'href="([^"#]+)"[^>]*>(.*?)</a>', r.text, re.S | re.I) if re.search(pat, h, re.I)]
 
 
-print("=== AESO pages")
-for p in ["historical-generation-data", "hourly-metered-volumes-by-generation-type", "hourly-metered-volumes-by-generating-asset",
-          "historical-hourly-aggregated-load-rate-dts-and-generation-rate-sts-mwh-data", "hourly-outage-by-fuel-type", "planning-area-hourly-load-and-generation"]:
-    r = get(f"https://www.aeso.ca/market/market-and-system-reporting/data-requests/{p}/")
-    if r is None:
-        continue
-    print("--", p, r.status_code)
-    body = txt(r.text)
-    i = body.find("Data Requests")
-    print(body[i:i + 900])
-    for l in links(r, r"\.(csv|xlsx?|zip)|download|assets")[:15]:
-        print("   LINK", l)
-r = get("https://www.aeso.ca/market/market-and-system-reporting/aeso-application-programming-interface-api/")
-print("-- API page", r.status_code, txt(r.text)[400:1500])
 
-print("=== NB Power archive")
-s = requests.Session()
-s.headers.update(H)
-r = s.get("https://tso.nbpower.com/Public/en/system_information_archive.aspx", timeout=60)
-body = txt(r.text)
-i = body.find("Columns")
-print(body[i:i + 2500])
-vs = {k: (re.search(rf'id="{k}" value="([^"]*)"', r.text) or [None, ""])[1] for k in ["__VIEWSTATE", "__VIEWSTATEGENERATOR", "__EVENTVALIDATION"]}
-print({k: len(v) for k, v in vs.items()})
-print(re.findall(r'<select[^>]*name="([^"]+)"', r.text), re.findall(r'<input[^>]*name="([^"]+)"', r.text)[:10])
-sel = re.findall(r'<select[^>]*name="([^"]+)"', r.text)
-data = dict(vs)
-data["__EVENTTARGET"] = "ctl00$cphMainContent$lbGetData"
-data["__EVENTARGUMENT"] = ""
-if len(sel) >= 2:
-    data[sel[0]] = "9"
-    data[sel[1]] = "2026"
-r2 = s.post("https://tso.nbpower.com/Public/en/system_information_archive.aspx", data=data, timeout=60)
-print("NB POST", r2.status_code, r2.headers.get("content-type"), r2.headers.get("content-disposition"), len(r2.content))
-print(r2.text[:700])
-r3 = get("https://tso.nbpower.com/Public/en/SystemInformation_realtime.asp")
-print(txt(r3.text)[:1500])
-
-print("=== BC Hydro xls")
-base = "https://www.bchydro.com/content/dam/BCHydro/customer-portal/documents/corporate/suppliers/transmission-system/balancing_authority_load_data/"
-for p in ["CurrentHourlyBALoad.xls", "BalancingAuthorityLoad 2026.xls"]:
-    r = get(base + p)
+print("=== AESO xlsx")
+for u in ["https://www.aeso.ca/assets/Uploads/Hourly-Metered-Volumes-by-Generation-Type.xlsx"]:
+    r = get(u)
+    print(u, r.status_code, len(r.content), r.headers.get("last-modified"))
     try:
         x = pd.read_excel(io.BytesIO(r.content), sheet_name=None, header=None)
         for k, v in x.items():
-            print(p, "sheet", k, v.shape)
-            print(v.head(8).to_string()[:1200])
-            print(v.tail(3).to_string()[:500])
+            print("  sheet", k, v.shape)
+            print(v.head(8).to_string()[:1800])
+            print(v.tail(4).to_string()[:900])
     except Exception as e:  # noqa: BLE001
-        print(p, "parse fail", type(e).__name__, str(e)[:200])
-for u in ["https://www.bchydro.com/energy-in-bc/operations/transmission-reservoir-data.html",
-          "https://www.bchydro.com/energy-in-bc/operations/transmission-reservoir-data/previous-reservoir-elevations.html",
-          "https://www.bchydro.com/energy-in-bc/operations/transmission-reservoir-data/reservoir-discharges.html"]:
+        print("  parse fail", type(e).__name__, str(e)[:200], r.content[:200])
+r = requests.get("https://www.aeso.ca/assets/Uploads/Hourly-Metered-Volumes-by-Generating-Asset.csv", headers=H, stream=True, timeout=60)
+print("asset csv", r.status_code, r.headers.get("content-length"), r.headers.get("last-modified"))
+print(next(r.iter_lines()), next(r.iter_lines()))
+r.close()
+r = get("https://www.aeso.ca/market/market-and-system-reporting/data-requests/historical-generation-data/")
+b = txt(r.text)
+i = b.find("Historical Generation Data (CSD)", 3000)
+print(b[i:i + 1800])
+for l in links(r, r"csd|generation|api|apimanagement|developer")[:20]:
+    print("   LINK", l)
+for u in ["https://api.aeso.ca/report/v1/csd/summary/current", "https://developer-apim.aeso.ca/", "https://apimgw.aeso.ca/public/v1/csd/summary/current"]:
     r = get(u)
     if r is not None:
-        print(u, r.status_code, txt(r.text)[900:1900])
-        for l in links(r, r"\.(csv|xlsx?|pdf|json|xml)|reservoir|elevation")[:25]:
-            print("   LINK", l)
+        print(u, r.status_code, r.text[:200])
 
-print("=== Manitoba")
-for u in ["https://www.hydro.mb.ca/corporate/operations/", "https://www.hydro.mb.ca/corporate/operations/water-levels/",
-          "https://www.hydro.mb.ca/corporate/operations/water_regimes/"]:
-    r = get(u)
+print("=== BC reservoir")
+for reg in ["columbia", "peace", "lower-mainland", "vancouver_island"]:
+    r = get(f"https://www.bchydro.com/energy-in-bc/operations/transmission-reservoir-data/previous-reservoir-elevations/{reg}.html")
     if r is not None:
-        print(u, r.status_code, txt(r.text)[300:900])
-        for l in links(r, r"operat|water|level|export|market|data|reservoir|csv|xls")[:30]:
-            print("   LINK", l)
-
-print("=== NS dispatch / sask")
-for u in ["https://www.nspower.ca/oasis/system-reports-messages", "https://www.nspower.ca/oasis/dispatch-dashboard", "https://www.nspower.ca/oasis/monthly-reports"]:
-    r = get(u)
-    if r is not None:
-        print(u, r.status_code)
-        for l in links(r, r"\.(csv|xlsx?|json)|docs/default|api|report|data|load")[:20]:
-            print("   LINK", l)
         b = txt(r.text)
-        j = b.find("Access Information")
-        print(b[j:j + 700])
-r = get("https://www.saskpower.com/about-us/our-company/power-system")
-print("SK", r and r.status_code)
-for u in ["https://www.saskpower.com/en/about-us/our-company/blog/", "https://www.saskpower.com/our-power-future/infrastructure-projects/power-supply",
-          "https://www.saskpower.com/about-us/our-company/power-system/system-data"]:
+        i = b.find("Reservoir")
+        print(reg, r.status_code, len(r.text))
+        for m in re.finditer(r"(Arrow|Williston|Kinbasket|Revelstoke|Upper Campbell)", b):
+            print("   ", b[max(0, m.start() - 100):m.start() + 300])
+            break
+        print("   tables:", len(re.findall("<table", r.text)), [h for h, _ in links(r, r"\.(csv|xls|json)|chart|data")[:10]])
+        print("   scripts:", re.findall(r'src="([^"]*(?:chart|reservoir|data)[^"]*)"', r.text)[:10])
+
+print("=== MB water")
+for u in ["https://www.hydro.mb.ca/corporate/operations/water-levels/hydrological-data/", "https://www.hydro.mb.ca/corporate/operations/generation/", "https://www.hydro.mb.ca/corporate/operations/transmission/"]:
     r = get(u)
     if r is not None:
-        print(u, r.status_code, txt(r.text)[1200:1700])
+        b = txt(r.text)
+        i = b.find("Skip to content")
+        print(u, r.status_code, len(r.text))
+        j = b.find("Hydrological data", 1500)
+        print("  ", b[j:j + 1200])
+        print("  links", [l for l in links(r, r"\.(csv|xlsx?|json|pdf)|data|gauge|levels")[:15]])
 
-print("=== CER csv heads")
-for u in ["https://www.cer-rec.gc.ca/open/energy/electricity-capacity-dataset.csv",
-          "https://www.cer-rec.gc.ca/open/imports-exports/natural-gas-exports-and-imports-monthly.csv",
-          "https://www.cer-rec.gc.ca/open/imports-exports/electricity-exports-and-imports-monthly.csv",
-          "https://www.cer-rec.gc.ca/open/energy/energyfutures2026/electricity-generation-2026.csv",
-          "https://www.cer-rec.gc.ca/open/energy/energyfutures2026/electricity-generation-capacity-2026.csv",
-          "https://www.cer-rec.gc.ca/open/energy/energyfutures2026/natural-gas-production-2026.csv",
-          "https://www.cer-rec.gc.ca/open/energy/energyfutures2026/benchmark-prices-2026.csv"]:
-    r = get(u)
-    if r is not None:
-        print(u, r.status_code, r.headers.get("content-type"), len(r.content), r.headers.get("last-modified"))
-        if r.status_code == 200 and "html" not in r.headers.get("content-type", ""):
-            print("   ", r.content[:600].decode("utf-8", "replace").replace("\n", " | "))
-r = get("https://open.canada.ca/data/api/3/action/package_search", params={"q": "Energy Future 2026", "rows": 5})
-for p in r.json()["result"]["results"]:
-    t = (p.get("title_translated") or {}).get("en", p.get("title"))
-    if "2026" in t:
-        for x in p["resources"]:
-            if (x.get("format") or "").upper() == "CSV" and "/open/energy" in x["url"] and "ouvert" not in x["url"]:
-                print("  EF2026", x["url"])
-for q in ["reservoir storage hydro", "hydroelectric water levels", "Saskatchewan electricity generation", "Alberta electricity generation by fuel"]:
-    r = get("https://open.canada.ca/data/api/3/action/package_search", params={"q": q, "rows": 6})
-    for p in r.json()["result"]["results"]:
-        print(f"  OC[{q}]", ((p.get("title_translated") or {}).get("en") or p.get("title"))[:90])
+print("=== NS daily / SK")
+r = get("https://www.nspower.ca/oasis/system-reports-messages/daily-report")
+if r is not None:
+    print(r.status_code, [l for l in links(r, r"docs|report|csv|xls|pdf")[:12]])
+r = get("https://www.saskpower.com/about-us/our-company/power-system/system-data")
+b = txt(r.text)
+i = b.find("System Data")
+print("SK", len(b), b[i:i + 600])
+print(sorted(set(re.findall(r'["\'(]([^"\'()\s]*(?:\.json|api/|\.csv|powerdata|generation)[^"\'()\s]*)', r.text)))[:30])
 
-print("=== StatCan fuel tables")
-for pid in (25100084, 25100015, 25100020):
-    r = get(f"https://www150.statcan.gc.ca/n1/tbl/csv/{pid}-eng.zip")
-    z = zipfile.ZipFile(io.BytesIO(r.content))
-    nm = [n for n in z.namelist() if n.endswith(".csv") and "MetaData" not in n][0]
-    d = pd.read_csv(z.open(nm), low_memory=False)
-    print(pid, d.shape, list(d.columns))
+print("=== CER electricity")
+for f in ["electricity-generation-2026", "electricity-capacity-2026", "electricity-interchange-2026"]:
+    r = get(f"https://www.cer-rec.gc.ca/open/energy/energyfutures2026/{f}.csv")
+    d = pd.read_csv(io.BytesIO(r.content))
+    print(f, d.shape, list(d.columns))
     for c in d.columns:
-        if c in ("Geography", "Fuel type", "Type of electricity generation", "Class of electricity producer", "UOM", "SCALAR_FACTOR", "North American Industry Classification System (NAICS)"):
-            print("   ", c, sorted(d[c].dropna().unique())[:90])
-    print(d.tail(3).to_string()[:600])
+        if c not in ("Value", "Year"):
+            print("   ", c, sorted(d[c].dropna().unique())[:40])
+    print("   years", d["Year"].min(), d["Year"].max())
+d = pd.read_csv(io.BytesIO(get("https://www.cer-rec.gc.ca/open/energy/energyfutures2026/electricity-generation-2026.csv").content))
+x = d[(d.Scenario == d.Scenario.iloc[0]) & (d.Year.isin([2022, 2023, 2024, 2025])) & (d.Region == "Alberta")]
+print(x.to_string()[:2500])
+r = get("https://www.cer-rec.gc.ca/open/energy/energyfutures2026/EF2026-data-dictionary.csv")
+print(r.text[:2500])
+
+print("=== StatCan")
+r = get("https://www150.statcan.gc.ca/n1/tbl/csv/25100084-eng.zip")
+z = zipfile.ZipFile(io.BytesIO(r.content))
+d = pd.read_csv(z.open([n for n in z.namelist() if "MetaData" not in n and n.endswith(".csv")][0]), low_memory=False)
+print(sorted(d["Fuel type"].unique()))
+print(sorted(d.GEO.unique()))
+x = d[(d["Fuel type"].str.contains("electricity generated")) & (d.REF_DATE == 2024) & (d.GEO == "Alberta")]
+print(x[["North American Industry Classification System (NAICS)", "Fuel type", "UOM", "SCALAR_FACTOR", "VALUE"]].to_string())
+r = get("https://www150.statcan.gc.ca/n1/tbl/csv/25100015-eng.zip")
+z = zipfile.ZipFile(io.BytesIO(r.content))
+d = pd.read_csv(z.open([n for n in z.namelist() if "MetaData" not in n and n.endswith(".csv")][0]), low_memory=False)
+print(sorted(d["Type of electricity generation"].unique()), sorted(d["Class of electricity producer"].unique()), d.REF_DATE.max())
+x = d[(d.REF_DATE == d.REF_DATE.max())]
+print(x[x["Class of electricity producer"].str.startswith("Total")].pivot_table(index="Type of electricity generation", columns="GEO", values="VALUE").iloc[:, :8].to_string())
+
+print("=== HQ levels")
+base = "https://donnees.hydroquebec.com/api/explore/v2.1/catalog/datasets/donnees-hydrometeorologiques/records"
+r = get(base, params={"limit": 5, "where": "composition_depil_type_mesure like \"niveau\"", "order_by": "date desc"})
+print(r.status_code, r.text[:1500])
+r = get(base, params={"limit": 0, "group_by": "composition_depil_type_mesure"})
+print(r.status_code, r.text[:800])
