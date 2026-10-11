@@ -48,6 +48,21 @@ ALIAS = {"SAPP": "SEAP", "AKSA ANWOMASO": "AKSA Anwomaso"}   # 'SAPP' (2022 typo
 KEEP_LATEST = 2
 
 
+def get(url, timeout=(10, 60), tries=5):
+    """GET with retries: the Commission's site answers 409 / 5xx / resets now and then (seen: HTTP 409 on the list page)."""
+    last = None
+    for k in range(tries):
+        try:
+            r = requests.get(url, headers=H, timeout=timeout)
+            if r.status_code < 400:
+                return r
+            last = f"HTTP {r.status_code}"
+        except requests.RequestException as e:
+            last = f"{type(e).__name__}"
+        time.sleep(4 * (k + 1))
+    raise RuntimeError(f"{last} for {url}")
+
+
 def canon(name):
     """Plant name as published, whitespace-normalised, with fixed spellings for the hydro / solar / import rows."""
     n = " ".join(name.split())
@@ -124,8 +139,7 @@ def fix_year(df, name, year):
 
 def categories():
     """[(year, category path)] from the landing page."""
-    r = requests.get(LANDING, headers=H, timeout=(10, 60))
-    r.raise_for_status()
+    r = get(LANDING)
     found = {}
     for m in re.finditer(r"weekly-wholesale-electricity-market-wem-statistics/category/(\d+)-(\d{4})", r.text):
         found[int(m.group(2))] = f"{m.group(1)}-{m.group(2)}"
@@ -134,8 +148,7 @@ def categories():
 
 def list_year(cat):
     url = f"{LANDING}/category/{cat}?limit=100"
-    r = requests.get(url, headers=H, timeout=(10, 60))
-    r.raise_for_status()
+    r = get(url)
     seen, out = set(), []
     for m in re.finditer(r'href="([^"]*\?download=(\d+):[^"]*)"', r.text):
         i = int(m.group(2))
@@ -234,8 +247,7 @@ def main():
         url = EC + u if u.startswith("/") else u
         r, name = None, ""
         try:
-            r = requests.get(url, headers=H, timeout=(10, 60))
-            r.raise_for_status()
+            r = get(url, timeout=(10, 90))
             name = re.findall(r'filename="?([^";]+)', r.headers.get("content-disposition", ""))
             name = name[0] if name else ""
             if r.content[:4] != b"%PDF":

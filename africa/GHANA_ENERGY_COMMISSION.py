@@ -25,6 +25,7 @@ import io
 import os
 import re
 import sys
+import time
 
 import pandas as pd
 import requests
@@ -40,10 +41,24 @@ H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 
+def get(url, timeout=(10, 60), tries=5):
+    """GET with retries (the Commission's site answers 409 / 5xx now and then)."""
+    last = None
+    for k in range(tries):
+        try:
+            r = requests.get(url, headers=H, timeout=timeout)
+            if r.status_code < 400:
+                return r
+            last = f"HTTP {r.status_code}"
+        except requests.RequestException as e:
+            last = type(e).__name__
+        time.sleep(4 * (k + 1))
+    raise RuntimeError(f"{last} for {url}")
+
+
 def list_booklets():
     """[(edition year, download id, slug)] newest edition first, from the list page."""
-    r = requests.get(LIST_URL, headers=H, timeout=(10, 60))
-    r.raise_for_status()
+    r = get(LIST_URL)
     found = set(re.findall(r"energy-statistics\?download=(\d+):(\d{4})-energy-statistics", r.text))
     out = sorted({(int(y), int(i)) for i, y in found}, reverse=True)
     return [(y, i, f"{i}:{y}-energy-statistics") for y, i in out]
@@ -164,8 +179,7 @@ def main():
         print(f"Booklet {edition} (id {dl_id}) already saved - nothing to download.", flush=True)
         return
     url = f"{LIST_URL}?download={slug}"
-    r = requests.get(url, headers=H, timeout=(10, 180))
-    r.raise_for_status()
+    r = get(url, timeout=(10, 180))
     if r.content[:4] != b"%PDF":
         print("Download is not a PDF:", r.headers.get("content-type"), flush=True)
         sys.exit(1)
