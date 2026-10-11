@@ -87,6 +87,8 @@ def parse_words(words):
         label = " ".join(w[4] for w in label_ws).strip()
         if not label and not nums:
             continue
+        if label and (not re.search(r"[A-Za-z]", label) or label.endswith("%")):   # chart axis labels such as '100%'
+            continue
         if not label or len(nums) < len(cols):
             if data and label.lower().startswith(("disclaimer", "the ")):   # past the table (footer text)
                 break
