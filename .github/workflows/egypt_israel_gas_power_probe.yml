@@ -1,0 +1,20 @@
+name: Egypt Israel gas power probe
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install requests playwright pdfplumber openpyxl
+          playwright install --with-deps chromium
+      - name: Run probe
+        run: timeout 1200 python3 discovery_archive/middle_east/EGYPT_ISRAEL_GAS_POWER_PROBE.py
