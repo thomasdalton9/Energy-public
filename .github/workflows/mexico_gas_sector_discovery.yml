@@ -24,7 +24,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           mkdir -p mx_raw
-          timeout 2100 python3 discovery_archive/americas/MEXICO_GAS_SECTOR_DISCOVERY.py 2>&1 | tee mx_raw/log.txt
+          timeout 2100 python3 discovery_archive/americas/MEXICO_GAS_SECTOR_DISCOVERY2.py 2>&1 | tee mx_raw/log.txt
       - name: Push raw files to a throwaway branch for offline inspection
         if: always()
         run: |
