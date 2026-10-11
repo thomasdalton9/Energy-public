@@ -22,7 +22,7 @@ column only fills a quarter no report of its own was read for (basis column).
 Incremental: the committed workbook is the history store; a PDF already read is not downloaded again except the
 newest report (NERC revises the prior-quarter column).
 
-Usage: python3 NIGERIA_NERC_POWER.py [--out PATH] [--diag]
+Usage: python3 NIGERIA_NERC_POWER.py [--out PATH] [--diag]   (--diag re-reads every report)
 """
 
 import argparse
