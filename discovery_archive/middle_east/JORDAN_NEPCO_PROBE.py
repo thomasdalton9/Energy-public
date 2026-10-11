@@ -221,6 +221,83 @@ def round3():
         print("  EMBED", m[:200])
 
 
+def month_rows(sess, y, m, maxpages=6):
+    """All rows of one month via the search form plus DataPager page-number postbacks."""
+    r = maxload_query(sess, 1, m, y, 31, m, y)
+    got = dict(rows(r.text))
+    html = r.text
+    for pg in range(2, maxpages + 1):
+        targets = re.findall(r"__doPostBack\(&#39;([^&]+)&#39;,&#39;&#39;\)\">\s*" + str(pg) + r"\s*<", html)
+        if not targets:
+            break
+        f = hidden(html)
+        f.update({"__EVENTTARGET": targets[0], "__EVENTARGUMENT": ""})
+        for k, v in [("txtDayFrom", 1), ("fromMonth", m), ("txtYearFrom", y), ("txtDayTo", 31), ("toMonth", m), ("txtYearTo", y)]:
+            f[P + k] = str(v)
+        r = sess.post(ML, data=f, headers=H, timeout=60, verify=False)
+        html = r.text
+        new = dict(rows(html))
+        if not set(new) - set(got):
+            break
+        got.update(new)
+    return got
+
+
+def round4():
+    s = requests.Session()
+    r = s.get(ML, headers=H, timeout=40, verify=False)
+    i = r.text.find("DataPager1")
+    print("PAGER HTML:", re.sub(r'\s+', ' ', r.text[i - 200:i + 1500]))
+    for y, m in [(2019, 1), (2019, 6), (2019, 12), (2020, 1), (2020, 2), (2020, 3), (2020, 6), (2021, 1), (2023, 8), (2025, 8), (2026, 9), (2026, 10)]:
+        try:
+            g = month_rows(s, y, m)
+            ks = sorted(g, key=lambda d: d[6:] + d[3:5] + d[:2])
+            print(f"{y}-{m:02d}: {len(g)} days; first {ks[:1]} last {ks[-1:]}; max {max(map(float, g.values())) if g else None}; days {[k[:2] for k in ks]}", flush=True)
+        except Exception as e:
+            print("ERR", y, m, e)
+    # Stats images: save for OCR / artifact
+    import os
+    os.makedirs("probe_out", exist_ok=True)
+    for lang in ["en", "ar"]:
+        for k in range(1, 7):
+            u = f"https://www.nepco.com.jo/assets/img/stats/{lang}/stat-{k}.png?V=2026.2"
+            rr, how = fetch(u)
+            if rr is None:
+                print("IMG", u, how); continue
+            fn = f"probe_out/stat_{lang}_{k}.png"
+            open(fn, "wb").write(rr.content)
+            print("IMG", u, len(rr.content), rr.headers.get("last-modified"))
+            try:
+                o = subprocess.run(["tesseract", fn, "-", "--psm", "6"], capture_output=True, text=True, timeout=120).stdout
+                print("  OCR:", re.sub(r'\s+', ' ', o)[:1500])
+            except Exception as e:
+                print("  OCR ERR", e)
+    # NEPCO annual reports: size / pages, and the statistics pages of 2024
+    for y in ["2024_EN", "2023_EN", "2019_en"]:
+        u = f"https://www.nepco.com.jo/store/DOCS/web/{y}.pdf"
+        rr, how = fetch(u, timeout=180)
+        if rr is not None:
+            open(f"probe_out/nepco_{y}.pdf", "wb").write(rr.content)
+    for y in ["2010_en", "2015_en"]:
+        u = f"https://www.nepco.com.jo/store/docs/web/{y}.pdf"
+        rr, how = fetch(u, timeout=180)
+        print("AR", y, how if rr is None else (len(rr.content), rr.headers.get("last-modified")))
+        if rr is not None:
+            open(f"probe_out/nepco_{y}.pdf", "wb").write(rr.content)
+    import pdfplumber
+    kw = r'GWh|Generated|Generation|Natural Gas|Imported|Exported|Peak Load|Fuel|MMSCF|Egypt|Interconnect'
+    for fn in sorted(os.listdir("probe_out")):
+        if not fn.endswith(".pdf"):
+            continue
+        with pdfplumber.open("probe_out/" + fn) as pdf:
+            print(f"\n##### {fn} pages {len(pdf.pages)}")
+            for i, pg in enumerate(pdf.pages):
+                t = pg.extract_text() or ""
+                h = len(re.findall(kw, t))
+                if h >= 4:
+                    print(f"  p{i+1} hits {h}: " + re.sub(r'\s+', ' ', t)[:160])
+
+
 if __name__ == "__main__":
     rnd = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     globals()[f"round{rnd}"]()

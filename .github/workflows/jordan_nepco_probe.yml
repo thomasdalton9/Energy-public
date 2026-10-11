@@ -20,5 +20,12 @@ jobs:
         run: |
           pip install requests curl_cffi pdfplumber pypdf openpyxl pandas lxml playwright
           playwright install --with-deps chromium
+          sudo apt-get install -y -q tesseract-ocr tesseract-ocr-ara >/dev/null
       - name: Run probe
         run: timeout 2100 python3 discovery_archive/middle_east/JORDAN_NEPCO_PROBE.py ${{ github.event.inputs.round }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: probe_out
+          path: probe_out
+          if-no-files-found: ignore
