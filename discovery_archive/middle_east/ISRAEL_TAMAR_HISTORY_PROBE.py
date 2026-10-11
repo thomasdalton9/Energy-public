@@ -13,7 +13,11 @@ import os
 import re
 import sys
 
+import logging
+
 import requests
+
+logging.getLogger("pypdf").setLevel(logging.ERROR)
 
 ROUND = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}

@@ -18,9 +18,12 @@ jobs:
           python-version: "3.11"
       - run: pip install requests pypdf playwright
       - run: playwright install --with-deps chromium
-      - run: timeout 2700 python3 discovery_archive/middle_east/ISRAEL_TAMAR_HISTORY_PROBE.py ${{ github.event.inputs.round }}
-      - uses: actions/upload-artifact@v4
+      - run: mkdir -p probe_out
+      - run: timeout 2700 python3 discovery_archive/middle_east/ISRAEL_TAMAR_HISTORY_PROBE.py ${{ github.event.inputs.round }} 2>&1 | tee probe_out/log.txt
+      - name: Push probe output to a temporary branch
         if: always()
-        with:
-          name: probe_out
-          path: probe_out/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan tmp-tamar-probe-${{ github.run_id }}
+          git rm -rq --cached . && git add -f probe_out && git commit -qm "probe output" && git push -q origin HEAD
