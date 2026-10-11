@@ -306,8 +306,142 @@ def maya_playwright():
         b.close()
 
 
+def fast_text(content, maxpages=400):
+    from pypdf import PdfReader
+    rd = PdfReader(io.BytesIO(content))
+    return "\n".join((pg.extract_text() or "") for pg in rd.pages[:maxpages])
+
+
+def ctx(t, pat, before=200, after=700, maxn=4):
+    out = []
+    for m in list(re.finditer(pat, t))[:maxn]:
+        out.append(re.sub(r"\s+", " ", t[max(0, m.start() - before): m.end() + after]))
+    return out
+
+
+def round3():
+    # 1. NewMed quarterly presentations: Leviathan sales by destination table
+    r = fetch("https://newmedenergy.com/investor-relations/presentations/")
+    pres = [l for l in links(r, pat=r"\.pdf") if re.search(r"/20(2[0-6])/", l)]
+    print(f"\n##### NewMed presentations 2020+: {len(pres)}")
+    for u in pres:
+        rr = get(u)
+        if rr is None or rr.status_code != 200 or not rr.content.startswith(b"%PDF"):
+            continue
+        try:
+            t = pdf_text(rr.content, 60)
+        except Exception as e:  # noqa: BLE001
+            print("    pdf err", e)
+            continue
+        rows = re.findall(r"[^\n]{0,60}\(BCM\)[^\n]{0,80}", t)
+        rows += re.findall(r"[^\n]{0,80}(?:sales|Sales)[^\n]{0,20}(?:MMcf/d|M Mcf/d|bcf/d)[^\n]{0,60}", t)
+        print("   ", u.rsplit("/", 1)[-1], "|", " || ".join(x.strip() for x in rows[:12]))
+        if u.endswith("2Q-2026-Financial-Results-Presentation.pdf"):
+            for c in ctx(t, r"\(BCM\)", 900, 300, 3):
+                print("      CTX:", c[:1300])
+
+    # 2. NewMed financial statements: Leviathan quarterly sentences + Karish royalty volumes
+    r = fetch("https://newmedenergy.com/investor-relations/financial-reports/")
+    fs = [l for l in links(r, pat=r"\.pdf") if re.search(r"/20(2[0-6])/", l)]
+    print(f"\n##### NewMed FS 2020+: {len(fs)}")
+    for u in fs:
+        rr = get(u)
+        if rr is None or rr.status_code != 200 or not rr.content.startswith(b"%PDF"):
+            continue
+        try:
+            t = fast_text(rr.content)
+        except Exception as e:  # noqa: BLE001
+            print("    pdf err", e)
+            continue
+        t1 = re.sub(r"\s+", " ", t)
+        print("   ", u.rsplit("/", 1)[-1], f"{len(t1):,} chars")
+        for pat in [r"quantit[^.]{0,80}sold from the Leviathan[^.]{0,400}",
+                    r"Leviathan reservoir in Q[1-4][^.]{0,250}",
+                    r"[^.]{0,200}sold by Energean in [QH][^.]{0,250}",
+                    r"[^.]{0,120}Tamar reservoir[^.]{0,60}BCM[^.]{0,200}",
+                    r"Total Offtake \(BCM\)[^A-Za-z]{0,60}",
+                    r"[^.]{0,250}BCM, of which[^.]{0,300}"]:
+            for m in list(re.finditer(pat, t1))[:3]:
+                print("        |", m.group(0)[:420])
+
+    # 3. Tamar Petroleum: sales table context
+    for u in ["https://www.tamarpetroleum.co.il/wp-content/uploads/2026/09/Tamar-Petroleum-FS-Q2_2026.pdf",
+              "https://www.tamarpetroleum.co.il/wp-content/uploads/2026/03/Tamar-Petroleum-Financial-Information-2025-Final.pdf",
+              "https://www.tamarpetroleum.co.il/wp-content/uploads/2025/11/Tamar-Petroleum-Q32025-Report-final-clean.pdf"]:
+        print(f"\n##### Tamar {u.rsplit('/', 1)[-1]}")
+        rr = get(u)
+        if rr is None or rr.status_code != 200:
+            continue
+        t = pdf_text(rr.content, 120)
+        for c in ctx(t, r"\(in BCM\)|in BCM\)|BCM \(100%\)", 300, 900, 4):
+            print("      CTX:", c[:1300])
+    print("\n##### Tamar Petroleum: wp-json media / older report URLs")
+    for u in ["https://www.tamarpetroleum.co.il/wp-json/wp/v2/media?per_page=100&mime_type=application/pdf",
+              "https://www.tamarpetroleum.co.il/wp-json/wp/v2/media?per_page=100&search=Report",
+              "https://newmedenergy.com/wp-json/wp/v2/media?per_page=5&mime_type=application/pdf",
+              "https://ratioenergies.com/wp-json/wp/v2/media?per_page=100"]:
+        rr = get(u)
+        if rr is not None and rr.status_code == 200 and "json" in str(rr.headers.get("content-type")):
+            try:
+                js = rr.json()
+                print(f"      {len(js)} items")
+                for m in js[:100]:
+                    print("        ", m.get("date"), m.get("source_url"))
+            except Exception as e:  # noqa: BLE001
+                print("      json err", e)
+    # Playwright for Tamar's tabbed report archive
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            b = p.chromium.launch()
+            pg = b.new_page()
+            for u in ["https://www.tamarpetroleum.co.il/en/investors-relations/financial-reports/",
+                      "https://www.tamarpetroleum.co.il/investors/%d7%93%d7%95%d7%97%d7%95%d7%aa-%d7%9b%d7%a1%d7%a4%d7%99%d7%99%d7%9d/",
+                      "https://ratioenergies.com/"]:
+                pg.goto(u, timeout=60000, wait_until="networkidle")
+                for el in pg.query_selector_all("[role=tab], .elementor-tab-title, .e-n-tab-title, button")[:40]:
+                    try:
+                        el.click(timeout=1500)
+                        pg.wait_for_timeout(300)
+                    except Exception:  # noqa: BLE001
+                        pass
+                hrefs = pg.eval_on_selector_all("a", "els => els.map(e => e.href)")
+                pdfs = sorted(set(h for h in hrefs if ".pdf" in h.lower()))
+                print(f"   PW {u}: {len(pdfs)} pdf links")
+                for h in pdfs[:120]:
+                    print("        ", h)
+            b.close()
+    except Exception as e:  # noqa: BLE001
+        print("   PW err", e)
+
+    # 4. Energean RNS: Israel production lines
+    ids = ["results-for-half-year-ended-30-june-2026/9761841", "trading-statement-operational-update/9576511",
+           "2025-full-year-results/9481429", "trading-statement-operational-update/9388069",
+           "9-months-2025-production-and-adjusted-ebitdax/9196364", "results-for-half-year-ended-30-june-2025/9100543",
+           "trading-statement-operational-update/9257244", "2024-full-year-results/8788032"]
+    print("\n##### Energean RNS Israel lines")
+    for i in ids:
+        r = fetch("https://www.investegate.co.uk/announcement/rns/energean--enog/" + i)
+        if r is None or r.status_code != 200:
+            continue
+        txt = re.sub(r"<(?:td|th)[^>]*>", " | ", r.text)
+        txt = re.sub(r"</tr>", "\n", txt)
+        txt = re.sub(r"<[^>]+>", " ", txt)
+        txt = re.sub(r"&nbsp;|&#160;", " ", txt).replace("&#183;", "*").replace("&amp;", "&")
+        txt = re.sub(r"[ \t]+", " ", txt)
+        print("   ", i)
+        for m in re.finditer(r"[^\n]{0,200}(?:Israel|Karish)[^\n]{0,250}", txt):
+            line = m.group(0).strip()
+            if re.search(r"kboe|bcm|mmscf|\d{2,3}\s*\|", line, re.I):
+                print("        |", line[:400])
+
+    # 5. Natural Gas Authority / Ministry annual review quoted in NewMed reports ('BCM, of which'): done in 2
+
+
 if __name__ == "__main__":
-    if ROUND == 2:
+    if ROUND == 3:
+        round3()
+    elif ROUND == 2:
         round2()
         maya_playwright()
     else:
