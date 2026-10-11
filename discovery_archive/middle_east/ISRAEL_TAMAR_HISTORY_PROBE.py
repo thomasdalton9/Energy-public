@@ -126,6 +126,42 @@ def maya():
             # a MAYA report of Tamar Petroleum's that its own site links (P1575974-00.pdf, Mar 2024): its details page
             # names the reporter
             got.clear()
+            allx = []
+            pg.on("response", lambda resp: allx.append((resp.status, resp.request.method, resp.url,
+                                                        resp.request.post_data)))
+            for u in ["/api/v1/reports/1575974", "/api/v1/reports/details/1575974", "/api/v1/report/1575974",
+                      "/api/v1/reports/1575974/details"]:
+                res = pg.evaluate("""async (u) => { const r = await fetch(u); return [r.status, (await r.text())]; }""", u)
+                print("   GET", u, res[0], res[1][:600])
+                mm = re.search(r'"(?:reporterId|companyId)"\s*:\s*(\d+)', res[1])
+                if mm and cid is None and res[0] == 200:
+                    cid = int(mm.group(1))
+            for u in ["https://maya.tase.co.il/he/reports/1575974", "https://maya.tase.co.il/he/companies",
+                      "https://maya.tase.co.il/he/reports/companies"]:
+                try:
+                    pg.goto(u, timeout=90000, wait_until="networkidle")
+                    pg.wait_for_timeout(3000)
+                    print("   page", u, pg.inner_text("body")[:600].replace("\n", " | "))
+                    inp = pg.query_selector("input")
+                    if inp and "companies" in u:
+                        inp.fill("תמר פטרו")
+                        pg.wait_for_timeout(4000)
+                        print("   after typing:", pg.inner_text("body")[:1500].replace("\n", " | "))
+                        hrefs = pg.eval_on_selector_all("a", "els => els.map(e => e.href)")
+                        print("   links:", [h for h in hrefs if "compan" in h][:40])
+                except Exception as e:  # noqa: BLE001
+                    print("   goto", u, e)
+            for st, me, url, pdata in allx:
+                if "tase.co.il" in url and not re.search(r"\.(js|css|woff2?|png|svg|ico|jpg|gif)(\?|$)", url):
+                    print("    XHR", st, me, url[:200], (pdata or "")[:200])
+            for k, (_, js) in got.items():
+                sj = json.dumps(js, ensure_ascii=False)
+                if "תמר" in sj:
+                    for m in re.finditer(r"\{[^{}]*תמר[^{}]*\}", sj):
+                        print("    TAMAR JSON", k[:80], m.group(0)[:400])
+                        mm = re.search(r'"(?:companyId|id|value|key)"\s*:\s*"?(\d+)', m.group(0))
+                        if mm and "פטרו" in m.group(0) and cid is None:
+                            cid = int(mm.group(1))
             for rid in (1575974, 1273577):
                 try:
                     pg.goto(f"https://maya.tase.co.il/he/reports/details/{rid}", timeout=90000, wait_until="networkidle")
