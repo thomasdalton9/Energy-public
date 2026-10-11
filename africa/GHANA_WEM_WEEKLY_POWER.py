@@ -190,12 +190,14 @@ def main():
                 raise ValueError("duplicate plant rows")
             s = df.sum()
             if tot is not None:
-                bad = ((s - tot).abs() > 0.1 + 0.005 * tot.abs()).any()
+                tot = tot[~tot.index.duplicated()]
+                diff = (s.reindex(tot.index) - tot).abs()
+                bad = bool((diff > 0.1 + 0.005 * tot.abs()).any() or diff.isna().any())
             else:
-                bad = False
+                bad, diff = False, pd.Series([0.0])
             if bad:
                 rec[i] = {"year": y, "file": name, "first_day": df.columns.min(), "last_day": df.columns.max(),
-                          "status": "check failed", "note": f"max diff vs Total row {(s - tot).abs().max():.2f} GWh"}
+                          "status": "check failed", "note": f"max diff vs Total row {diff.max():.2f} GWh"}
                 print(f"  {i} {name}: check failed", flush=True)
                 continue
             for d in df.columns:
