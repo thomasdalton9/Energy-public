@@ -187,8 +187,17 @@ PERIODS = [  # (regex giving the year, months covered)
     (r"Nine[- ]months? (?:to|ended) 30 September,? (20\d\d)|9M (20\d\d)", 9),
     (r"(?:FY|Full[- ]year|Year (?:to|ended) 31 December,?) (20\d\d)", 12),
 ]
-ISRAEL_ROW = re.compile(r"Israel(?: average W\.I\. production)?(?: \(kboed\))?(?: \(\d\))? \| (\d+)"
-                        r"(?: \(inc\. (\d+(?:\.\d+)?) bcm of gas\))? \| (\d+)(?: \(inc\. (\d+(?:\.\d+)?) bcm of gas\))? \|")
+_INC = r"(?: \(inc\. (\d+(?:\.\d+)?) bcm of (?:sales )?gas\))?"
+ISRAEL_ROW = re.compile(r"Israel(?: average W\.I\. production)?(?: \(kboed\))?(?: \(\d\))? \| (\d+(?:\.\d+)?)" + _INC
+                        + r" \| (\d+(?:\.\d+)?)" + _INC + r" \|")
+# 'Q1 2026: ... 0.96 bcm of gas in Q1 2026 and 1.19 bcm in Q1 2025'
+PERIOD_BCM = re.compile(r"(\d+\.\d+) bcm(?: of (?:sales )?gas)? in (Q1|H1|9M|FY) (20\d\d)")
+# Energean Israel accounts: '... for six months ended 30 June 2025 totaled approximately 2.3 bcm (billion cubic metres)
+# and for six months ended 30 June 2024 totaled approximately 2.5 bcm'; '... between 26 October 2022 and 31 December
+# 2022 totaled approximately 0.x'
+ACCOUNTS_BCM = re.compile(r"(six months ended 30 June|nine months ended 30 September|three months ended 31 March|"
+                          r"year ended 31 December|between 26 October 2022 and 31 December)?,?\s*(20\d\d)\)?,?\s+"
+                          r"totaled approximately\s+(\d+(?:\.\d+)?)\s*(?:bcm)?", re.I)
 
 
 def rns_text(html):
@@ -203,30 +212,42 @@ def parse_karish(text):
     out = []
     for m in ISRAEL_ROW.finditer(text):
         before = text[max(0, m.start() - 2500): m.start()]
-        if not re.search(r"kboed|production", before[-400:] + m.group(0)):
+        if not re.search(r"kboed|production", before[-400:] + m.group(0), re.I):
             continue   # an Israel row of a cost / capex table, not production
         heads = []
+        window = before[-600:]
         for pat, months in PERIODS:
-            for h in re.finditer(pat, before):
+            for h in re.finditer(pat, window):
+                if re.match(r"\s*(?:Kboed\s*)?guidance", window[h.end(): h.end() + 25], re.I):
+                    continue   # 'FY 2023 guidance' column, not a reported period
                 heads.append((h.start(), int(next(g for g in h.groups() if g)), months))
         if not heads:
             continue
-        pos, _, months = max(heads)
-        # tables put 'current | year before' headings side by side: the current year is the larger one nearby
-        yr = max(y for p, y, mo in heads if mo == months and pos - p < 300)
-        out.append((yr, months, int(m.group(1)), float(m.group(2)) if m.group(2) else None))
-        out.append((yr - 1, months, int(m.group(3)), float(m.group(4)) if m.group(4) else None))
-    # 'H1 2026 2.13 bcm sold'-style sentences
-    for s in re.finditer(r"(\d+\.\d+) bcm(?: of gas)? (?:sold|of gas sales)[^.|]{0,80}?(H1|first half|six months|9M|nine months|Q1|first quarter)[^.|]{0,20}?(20\d\d)", text, re.I):
-        months = {"h1": 6, "first half": 6, "six months": 6, "9m": 9, "nine months": 9, "q1": 3, "first quarter": 3}[s.group(2).lower()]
-        out.append((int(s.group(3)), months, None, float(s.group(1))))
+        # the row's first value belongs to the table's first period heading ('current | year before | ...')
+        pos, _, months = min(heads)
+        yr = max(y for p, y, mo in heads if mo == months and p - pos < 300)
+        out.append((yr, months, float(m.group(1)), float(m.group(2)) if m.group(2) else None))
+        out.append((yr - 1, months, float(m.group(3)), float(m.group(4)) if m.group(4) else None))
+    for s in PERIOD_BCM.finditer(text):
+        out.append((int(s.group(3)), {"Q1": 3, "H1": 6, "9M": 9, "FY": 12}[s.group(2)], None, float(s.group(1))))
+    if re.search(r"natural gas sold|quantit(?:y|ies) of (?:natural )?gas", text, re.I):
+        for s in ACCOUNTS_BCM.finditer(text):
+            if "bcm" not in text[s.end() - 4: s.end() + 30] and "billion cubic" not in text[s.end(): s.end() + 40]:
+                continue
+            lead = (s.group(1) or "").lower()
+            months = 6 if "six" in lead else 9 if "nine" in lead else 3 if "three" in lead else 12
+            out.append((int(s.group(2)), months, None, float(s.group(3))))
     return out
 
 
 def karish_quarters(ytd):
     """Quarterly BCM from year-to-date BCM: Q1 = 3M, Q2 = 6M - 3M, Q3 = 9M - 6M, Q4 = 12M - 9M."""
     rows = []
+    ytd = dict(ytd)
+    ytd.setdefault((2022, 9), 0.0)   # Karish first gas 26 Oct 2022: nothing sold before Q4 2022
     for (yr, months), v in sorted(ytd.items()):
+        if yr < 2022:
+            continue
         if v is None or pd.isna(v):
             continue
         prev = 0.0 if months == 3 else ytd.get((yr, months - 3))
@@ -246,7 +267,7 @@ def read_sheet(path, sheet, cols):
         df = pd.read_excel(path, sheet_name=sheet)
     except (FileNotFoundError, ValueError):
         return pd.DataFrame(columns=cols)
-    return df
+    return df.drop(columns=[c for c in df.columns if str(c).startswith("Unnamed")])
 
 
 NOTES_LINES = [
@@ -286,6 +307,7 @@ def main():
     tam = read_sheet(args.out, "Tamar", ["date", "Domestic_bcm", "Export_bcm", "Total_bcm", "Source"])
     kar = read_sheet(args.out, "Karish YTD", ["Year", "Months", "Israel_kboed", "Gas_bcm", "Source"])
     reps = read_sheet(args.out, "Reports", ["Source", "Field", "Read_utc", "Rows"])
+    reps = reps[reps["Field"] != "Karish"] if len(reps) else reps   # Karish announcements are re-read every run
     seen = set(reps["Source"])
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
     new_reports, failures = [], []
@@ -325,7 +347,7 @@ def main():
         new_reports.append((url, "Tamar", now, len(rows)))
         log(f"  Tamar {url.rsplit('/', 1)[-1]}: {len(rows)} quarter row(s)")
 
-    for url in energean_announcements(seen):
+    for url in energean_announcements(set()):
         try:
             found = parse_karish(rns_text(get(url).text))
         except Exception as e:  # noqa: BLE001
@@ -336,13 +358,18 @@ def main():
             if mask is not None and mask.any():
                 i = kar.index[mask][0]
                 if bcm is not None:
-                    kar.loc[i, ["Gas_bcm", "Source"]] = [bcm, url]
+                    old = kar.loc[i, "Gas_bcm"]
+                    if pd.notna(old) and abs(old - bcm) > 0.15:
+                        log(f"  Karish {yr} {months}M: {old} -> {bcm} bcm ({url})")
+                    if pd.isna(old) or len(str(bcm)) > len(str(old)):   # keep the more precise figure
+                        kar.loc[i, ["Gas_bcm", "Source"]] = [bcm, url]
                 if kb is not None and pd.isna(kar.loc[i, "Israel_kboed"]):
                     kar.loc[i, "Israel_kboed"] = kb
             else:
                 kar = pd.concat([kar, pd.DataFrame([{"Year": yr, "Months": months, "Israel_kboed": kb, "Gas_bcm": bcm,
                                                      "Source": url}])], ignore_index=True)
-        new_reports.append((url, "Karish", now, len(found)))
+        if url not in seen:
+            new_reports.append((url, "Karish", now, len(found)))
         log(f"  Karish {url.rsplit('/', 2)[-2]}: {[(y, m, k, b) for y, m, k, b in found]}")
 
     if new_reports:
@@ -373,10 +400,10 @@ def main():
     for f in failures:
         log("FAILED: " + f)
     xlsx_notes.write_workbook(args.out, {"Quarterly": q.sort_index(),
-                                         "Leviathan": lev.sort_values("date"),
-                                         "Tamar": tam.sort_values("date"),
-                                         "Karish YTD": kar,
-                                         "Reports": reps}, NOTES_LINES, NOTES_TITLES)
+                                         "Leviathan": lev.sort_values("date").set_index("date"),
+                                         "Tamar": tam.sort_values("date").set_index("date"),
+                                         "Karish YTD": kar.set_index("Year"),
+                                         "Reports": reps.set_index("Source")}, NOTES_LINES, NOTES_TITLES)
     full = q.dropna(subset=["Total_bcm"])
     print(f"Saved {args.out}: {len(new_reports)} new report(s); quarters with all three fields: "
           f"{full.index.min():%Y-%m} to {full.index.max():%Y-%m}" if len(full) else
