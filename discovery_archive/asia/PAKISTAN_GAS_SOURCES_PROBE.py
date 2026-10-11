@@ -8,7 +8,66 @@ production (field / province / company), consumption by sector and LNG import vo
 requests first; pages that fail (403 / JS) are retried with Playwright (Chromium). Prints status, DNS, title,
 gas keywords and data-like links. Nothing is written.
 
-    python3 discovery_archive/asia/PAKISTAN_GAS_SOURCES_PROBE.py [round]
+    python3 discovery_archive/asia/PAKISTAN_GAS_SOURCES_PROBE.py [round]     (rounds 1-6)
+
+WHY THE PBS SERIES STOPS AT MAR-2024: PBS posted its last Monthly Bulletin of Statistics as MBS_Sep_2024.pdf; table
+3.2 (gas production by field) lags ~6 months, so that issue ends at Mar-2024. The full media-library listing (round 2)
+holds no MBS issue after Sep 2024, and the old MBS pages 404. PBS has stopped the MBS (or stopped posting it); the
+monthly imports workbooks (Import_<Month>-<Year>.xlsx, to Aug-2026) continue, LNG by value only.
+
+RUN 1 (2026-10-11): requests from GitHub Actions.
+  PBS media API OK. OGRA, paklng.com (PLL's real site), isgs.com.pk, ogdcl.com, ppl.com.pk, pol.com.pk,
+  marienergies.com.pk, finance.gov.pk: Cloudflare 403 'Just a moment'. pll.com.pk, dgpc.gov.pk, ppis.gov.pk,
+  mope.gov.pk, pgpc(l).com.pk, mari.com.pk: no DNS. mpnr.gov.pk: connection refused/timeout. hdip.com.pk is now a
+  hijacked betting site (HDIP moved to hdip.gov.pk). petroleum.gov.pk OK (IIS). sngpl.com.pk / ssgc.com.pk OK but only
+  forms / notices. ppisonline.com (PPIS) is a Next.js marketing site (data is a paid service). PQA (pqa.gov.pk) OK.
+  SBP economic-data page OK. Headless Playwright passed OGRA's home page once, nothing else.
+RUN 2: PBS: newest MBS = MBS_Sep_2024.pdf (34 MBS-like PDFs, none later). Petroleum Division: Year Book 2019-20 is
+  the newest (petroleum.gov.pk/SiteImage/Downloads/yearbook2019-20.pdf), plus UFG reports - stale. hdip.gov.pk:
+  'Pakistan Energy Yearbook 2024-25 is now available' - SALE ONLY (PDF USD 60 via request form), not downloadable.
+  SBP: Import_Payments_by_Commodities_and_Groups(_Arch).xls, import-Jan24-Onward.xlsx (country x HS4) found.
+  Headless Chromium stuck on Cloudflare for all OGRA sub-pages.
+RUN 3: curl_cffi (impersonate='chrome') PASSES OGRA (every page 200); still 403 for paklng.com, isgs.com.pk,
+  ogdcl.com, ppl.com.pk, marienergies.com.pk. Headful Chrome under xvfb also passes OGRA (not PLL/ISGS/OGDCL).
+  Wayback CDX has only old OGRA determinations. PBS energy-mining page: annual 'Mineral production' only.
+  PQA: daily 'Daily Shipping and Cargo Handling Reports' album (PDF per day, 0800 hrs statement) back to 31 May 2019
+  (245 album pages x 10). SBP 'Import Payments by Commodities and Groups' row '24. Natural Gas, Liquified',
+  US$ thousand, monthly Jul-2003 .. Aug-2026 (P) - payments basis, value only (Apr-26 = 0).
+RUN 4: OGRA document lists (links are /download/<id>, PDF attachments):
+  - petroleum-industry-reports: 'State of the Regulated Petroleum Industry' FY 2015-16 .. 2024-25 (download/14125,
+    112 pp, text layer OK).
+  - rlng-notified-prices-3: 124 monthly 'Determination of RLNG Weighted Average Sale Provisional Price' (to Sep-2026);
+    rlng-notified-prices-for-pll (PLL->K-Electric, to Jul-2026); finalactual-monthly-rlng-sale-price (to Jun-2022).
+    All SCANNED (no text layer).
+  - annual-reports-2: OGRA annual reports to 2024-25. natural-gas-3 / lng-9 / lng-10: licences, not data.
+  PQA daily PDF (text layer OK): one row per berth; LNG FSRU berths 'EETL' and 'PGPCL' show vessel, agent,
+  'L.N.G', manifest qty, unloaded last 24 h, previous, balance - in cubic metres ('C.Met').
+RUN 5: PIR 2024-25 tables (text): Table 3.29 sector-wise consumption FY (MMCFD; SNGPL / SSGCL / independent:
+  residential 750, commercial 34, general industry 213, fertilizer 779, captive 266, cement 0.2, power 1008,
+  CNG 54, T&D losses 181, total 3,335); Appendix-IV field-wise supplies (MMCFD, 3 FYs); Table 3.31 RLNG and
+  province-wise supplies; Table 3.13 SNGPL monthly transmission utilisation; Table 4.2 PGPCL LNG received MONTHLY
+  (MT and MMBTU, Jul-24..Jun-25, 44 cargoes); Table 4.1 EETPL monthly (72 cargoes) is an image in 2024-25.
+  RLNG provisional determinations (OCR with tesseract): Annex A (SNGPL) / B (SSGC) give 'No. of Cargos',
+  'Quantity Received' (MMBTU), DES price, losses - forward-month planned volumes, OCR columns scrambled.
+  PQA: in 60 daily statements (2 Aug .. 11 Oct 2026) only one LNG cargo (AL MARROUNA at EETL, 10-12 Sep 2026,
+  142,158 m3); PGPCL vacant throughout.
+RUN 6: PIR 2020-21 / 2015-16 have no text-layer monthly LNG table (2015-16 sector table is in a two-column text
+  layout). PSX data portal (dps.psx.com.pk/company/OGDC, /PPL) reachable, lists company announcement PDFs
+  (quarterly reports carry quarterly production only).
+
+CONCLUSIONS
+  Production (field/province/company), monthly: NO fresher reachable official source. DGPC/PPIS (the compiler)
+    has no DNS / is paid; OGDCL, PPL, Mari, POL behind Cloudflare (not passed). Annual field-wise supplies (MMCFD,
+    by province) are in OGRA's PIR Appendix-IV. Keep PBS (dormant) and add the OGRA PIR annual tables.
+  Consumption by sector: OGRA PIR Table 3.29, annual FY (MMCFD), FY 2015-16 .. 2024-25, released ~Oct-Nov.
+    No monthly source (HDIP yearbook is for sale; SNGPL/SSGC publish nothing).
+  LNG imports: (a) PQA daily statements: daily, from 31 May 2019, cargo arrivals + m3 at EETL/PGPCL, free, text
+    PDFs - best fresh volume source (convert m3 LNG -> t / bcf); (b) OGRA PIR monthly MT/MMBTU per terminal (annual
+    release; PGPCL text, EETPL image); (c) SBP import payments, monthly US$ value since Jul-2003 (to Aug-2026);
+    (d) PBS imports statement (value, already pulled); (e) OGRA RLNG determinations (scanned, OCR, planned volumes).
+
+Workflow (manual): discovery_archive/workflows/pakistan_gas_sources_probe.yml (round input 1-6; installs curl_cffi,
+Playwright + Chrome, xvfb, tesseract).
 """
 import io
 import re
