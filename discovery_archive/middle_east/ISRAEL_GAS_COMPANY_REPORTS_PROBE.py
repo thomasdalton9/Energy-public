@@ -2,9 +2,87 @@
 Probe (Oct 2026): can Israel's natural gas production / sales by field (Leviathan, Tamar, Karish) and exports to
 Egypt / Jordan be built from the field owners' periodic company reports, fetched from GitHub Actions?
 
-Usage: python3 ISRAEL_GAS_COMPANY_REPORTS_PROBE.py <round>
+Usage: python3 ISRAEL_GAS_COMPANY_REPORTS_PROBE.py <round 1-7>
+Workflow (manual): discovery_archive/workflows/israel_gas_reports_probe.yml (input `round`).
 
-Findings are recorded below per run.
+RUN 1 (2026-10-11, discovery): plain requests reach newmedenergy.com (financial reports 2018-H1 2026, presentations,
+Leviathan Bond reports, immediate reports: all wp-content PDFs), tamarpetroleum.co.il, ratioenergies.com (Hebrew only),
+delek-group.com, investegate.co.uk (Energean ENOG RNS, 5+ pages of announcements), api.londonstockexchange.com.
+Blocked: energean.com (Cloudflare 403, also with curl_cffi), isramco.co.il / isramconegev.co.il (DNS), dor-alon (timeout),
+dorgas (403), mayaapi.tase.co.il and api.tase.co.il (403 to requests and curl_cffi), SEC data.sec.gov (403 until a
+'Name email' User-Agent was sent in RUN 2).
+
+RUN 2: text extraction works (pdfplumber / pypdf) on NewMed FS, presentations, Tamar Petroleum reports. Chevron EDGAR
+reachable with a contact User-Agent: 10-K 'Israel' row of the net production table (net natural gas 581 MMcf/d 2025,
+592 2024; liquids 1 kb/d) - NET, ANNUAL, both fields together; 10-Qs have no Israel volumes. MAYA site HTML loads
+(SPA), its API is 403 outside a browser.
+
+RUN 3/4 (history and tables):
+ * LEVIATHAN (100%): every NewMed quarterly/annual FS (English, 'ACCESSIBLE' PDFs) has the table "gas quantities (100%)
+   sold from the Leviathan reservoir ... according to the customers' geographic location": columns Israel | Jordan |
+   Egypt | Total (+ average price $/MMBtu from 2023), one row per quarter, rounded to 0.1 BCM, current year and the same
+   period last year. Annual FS hold 4 quarters x 2 years, so the five annual reports 2021-2025 + H1 2026 cover Q1 2020 -
+   Q2 2026 (pypdf text, simple row regex ^Q[1-4] a b c d). Values (Israel/Jordan/Egypt/Total BCM):
+     2020 Q1 0.7/0.6/0.3/1.6  Q2 1.2/0.2/0.1/1.5  Q3 1.1/0.5/0.7/2.3  Q4 0.5/0.6/0.8/1.9  FY 3.5/1.9/1.9/7.3
+     2021 Q1 1.2/0.7/0.8/2.7  Q2 1.4/0.6/0.8/2.8  Q3 1.1/0.8/0.9/2.8  Q4 0.9/0.6/0.9/2.4  FY 4.6/2.7/3.4/10.7
+     2022 Q1 0.9/0.7/1.1/2.7  Q2 0.8/0.6/1.4/2.8  Q3 1.2/0.7/1.1/3.0  Q4 0.9/0.7/1.3/2.9  FY 3.8/2.7/4.9/11.4
+     2023 Q1 0.6/0.7/1.5/2.8  Q2 0.3/0.6/1.6/2.5  Q3 0.4/0.8/1.7/2.9  Q4 0.7/0.6/1.5/2.8  FY 2.0/2.7/6.3/11.0
+     2024 Q1 0.2/0.6/1.8/2.6  Q2 0.4/0.6/1.8/2.8  Q3 0.5/0.8/1.8/3.1  Q4 0.4/0.7/1.6/2.7  FY 1.5/2.7/7.0/11.2
+     2025 Q1 0.4/0.8/1.7/2.9  Q2 0.2/0.5/1.3/2.0  Q3 0.5/0.8/1.8/3.1  Q4 0.6/0.8/1.4/2.8  FY 1.8/2.9/6.2/10.9
+     2026 Q1 0.2/0.6/1.1/1.9 (33-41 day shut-in)  Q2 0.3/0.7/1.7/2.7
+   The quarterly results presentation repeats the quarter (columns Israel | Egypt | Jordan | Total - different order)
+   and gives MMcf/d (Q2 2026 1,051 MMcf/d, FY 2025 1,063). The 'Leviathan Bond' sponsor section gives Total Offtake to
+   3 decimals (Q1 2026 1.912, Q2 2026 2.714). Older presentations (2022-25) extract no table text (images).
+ * TAMAR (100%): Tamar Petroleum (16.75%) English reports, 'Additional Information' section: "a total quantity of ~X
+   BCM (100%) of natural gas was sold from the Tamar reservoir" for the period and the same period last year, and from
+   2024 a table "broken down by domestic market and export, in each of the quarters" (BCM, 2 decimals):
+     2024 Q1 1.77/0.87/2.64  Q2 1.48/0.78/2.26  Q3 2.00/0.72/2.72  Q4 1.43/1.04/2.47  FY 6.68/3.41/10.09 (domestic/export/total)
+     2025 Q1 1.67/0.94/2.61  Q2 1.70/0.89/2.59  Q3 2.11/0.59/2.70  Q4 1.30/0.85/2.15  FY 6.78/3.27/10.05
+     2026 Q1 2.07/0.69/2.76  Q2 1.71/1.00/2.71
+   Export is not split Egypt/Jordan. Site archive (wp-json/wp/v2/media, 183 items, keyless JSON) has English reports
+   2017-Q1 2020 and Q3 2025 on, Hebrew reports 2020-Q3 2021 (sold quantities and domestic/export in Hebrew prose, e.g.
+   2020 8.25 BCM, 9M 2021 domestic 5.5 / export 0.7), and NOTHING for Q4 2021 - H1 2025 (those reports are on MAYA).
+ * KARISH (Energean 100%): investegate.co.uk RNS pages (plain requests, HTML tables): trading updates (Jan/May/Sep-Nov),
+   half-year and full-year results give 'Israel average W.I. production (kboed)' per quarter/half/year and often the gas
+   in bcm: Q1 2026 78 kboed incl. 0.96 bcm (Q1 2025 98 kboed, 1.19 bcm); H1 2026 2.13 bcm sold (H1 2025 2.29); 9M 2025
+   109 kboed incl. 4.0 bcm (9M 2024 115, 4.2 bcm); FY 2025 113 kboed incl. 5.6 bcm (FY 2024 112, 5.5 bcm). Conversion
+   stated: 153.78 scm per boe (bcm = kboed x gas share x days x 153.78e-6). Quarterly gas bcm is not given every
+   quarter, so Q2/Q4 come from differences of H1/9M/FY figures. NewMed FS (Karish/Tanin royalty note) also gives
+   Energean's quantity sold, but as NewMed's ESTIMATE (Q1 2026 ~0.9 BCM, H1 2026 ~2.2 BCM) - cross-check only.
+ * Ratio (Leviathan 15%): Hebrew only, home page links just the latest report/presentation; nothing NewMed lacks.
+   Delek Group: Hebrew presentations, nothing extra. Isramco Negev 2 (Tamar 28.75%): site does not resolve.
+
+RUN 5/6 (official annual check and MAYA):
+ * gov.il BlobFolder Natural Gas Authority annual reviews download with curl_cffi (no Cloudflare on BlobFolder):
+   reports/ng_2019/he/ng_2019.pdf, ng_2020, ng_2021 (underscore) and reports/ng-2022/he/ng-2022.pdf ... ng-2025 (hyphen),
+   Hebrew. 2025: total 26.8 BCM (14.4 domestic, 12.4 export: Egypt 8.9, Jordan 3.5), Leviathan 11, Tamar 10, Karish 5.8;
+   2024 Leviathan 11.3, Tamar 10.1, Egypt ~10, Jordan 3.1; 2023 Leviathan 11.1, Tamar 9.1, Egypt 8.6, Jordan 2.9;
+   2022 Leviathan 11.5 (3.8 domestic / 7.6 export), Tamar 10.1 (8.6 / 1.5); 2020 Leviathan 7.24, Tamar 8.2, exports 4.25.
+   Annual only (published around the following spring); the URL must be guessed (pattern changed in 2022).
+ * Sanity 2025: Leviathan 10.9 + Tamar 10.05 + Karish 5.6 = 26.6 BCM vs 26.8 official; exports Leviathan
+   (Egypt 6.2 + Jordan 2.9) + Tamar export 3.27 = 12.4 = official 12.4. Official Egypt 8.9 / Jordan 3.5 means Tamar's
+   export is ~2.7 Egypt + ~0.6 Jordan (Leviathan's 'Jordan' column is NEPCO; Egypt-bound gas through Jordan is 'Egypt').
+ * MAYA files: mayafiles.tase.co.il/rpdf/<lo>-<lo+999>/P<id>-00.pdf download with PLAIN requests (2.6-9 MB PDFs) when
+   the report id is known.
+
+RUN 7 (MAYA list via Playwright): after loading maya.tase.co.il/he/companies/475/reports in Chromium (Incapsula
+cookie), an in-page fetch POST /api/v1/reports/companies with {"pageNumber":1,"limit":20,"companyId":<id>,"offset":0}
+returns JSON reports (id, title, publishDate, formId, attachments[].url = rpdf/...pdf). NewMed = company 475, Ratio =
+394; Tamar Petroleum's / Energean Israel Finance's ids were not found in this run (1983 is Medipress). This is the
+route to the Tamar Petroleum quarterly reports missing from its site (Q4 2021 - H1 2025), Hebrew text.
+
+CONCLUSIONS
+ * Quarterly national series from company reports is credible: Leviathan (NewMed table, 100%, by Israel/Jordan/Egypt,
+   from Q1 2020) + Tamar (Tamar Petroleum, 100%, domestic/export, 2024 on in English; 2020-21 in Hebrew; 2022-23 needs
+   MAYA or the annual gov.il review) + Karish (Energean RNS, 100%, bcm from kboed). Q2 2026 ~ 2.7 + 2.71 + ~1.2 = 6.6
+   BCM. No company publishes MONTHLY volumes; the cadence is quarterly with ~6-10 weeks lag (NewMed and Energean late
+   May / late Aug / late Nov / March; Tamar Petroleum a little later, Q2 2026 posted 6 Sep).
+ * Exports: Egypt and Jordan quarterly only for Leviathan; Tamar export total quarterly; country split for all
+   fields annually from the Natural Gas Authority review.
+ * Suggested pull (1st/15th, incremental, skip already-stored reports): NewMed financial-reports page -> new FS PDF ->
+   Leviathan quarterly rows; Tamar Petroleum wp-json media list -> new report -> sentence/table regex; investegate ENOG
+   list -> new trading update/results -> Israel kboed and bcm; gov.il ng-<year> review once a year as the annual
+   check. MAYA via Playwright only if the Tamar 2022-23 backfill is wanted.
 """
 import json
 import re
