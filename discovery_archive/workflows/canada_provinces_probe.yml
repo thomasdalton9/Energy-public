@@ -15,5 +15,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install requests
+      - run: pip install requests pandas xlrd openpyxl
       - run: timeout 700 python3 discovery_archive/CANADA_PROVINCES_PROBE.py
