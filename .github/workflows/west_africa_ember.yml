@@ -1,0 +1,57 @@
+name: West Africa power by type (Ember fallback)
+
+# Ember monthly generation by fuel exists only for Nigeria in West Africa; every other country is in Ember's yearly
+# release (2000-2024). Ember re-publishes whole files: 1st and 15th.
+on:
+  schedule:
+    - cron: "20 5 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl matplotlib
+      - name: Run (monthly)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 400 python3 africa/WEST_AFRICA_EMBER.py monthly
+      - name: Run (yearly)
+        if: always()
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 400 python3 africa/WEST_AFRICA_EMBER.py annual
+
+      - name: Add Excel charts and copy scripts
+        if: always()
+        run: |
+          for f in west_africa_power_by_type west_africa_power_by_type_annual; do
+            [ -f "output/Data and Chart Outputs/$f.xlsx" ] && python3 add_charts.py "output/Data and Chart Outputs/$f.xlsx" && python3 png_charts.py "output/Data and Chart Outputs/$f.xlsx" || echo "chart step skipped/failed for $f.xlsx"
+          done
+          mkdir -p "output/Python Scripts"
+          cp png_charts.py africa/WEST_AFRICA_EMBER.py south_america/EMBER_POWER_BY_TYPE.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated archive
+        if: always()
+        run: |
+          ls "output/Data and Chart Outputs/"west_africa_power_by_type*.xlsx >/dev/null 2>&1 || { echo "No archive file to commit."; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/"west_africa_power_by_type*.xlsx
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "West Africa power by type (Ember): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
