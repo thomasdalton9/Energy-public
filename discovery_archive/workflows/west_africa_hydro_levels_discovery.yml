@@ -3,9 +3,6 @@ name: West Africa hydro levels discovery
 # Manual one-off discovery; output in run log + artifact; nothing committed.
 on:
   workflow_dispatch:
-  push:
-    branches: [west-africa-hydro-discovery]
-    paths: [.github/workflows/west_africa_hydro_levels_discovery.yml]
 
 jobs:
   discover:
