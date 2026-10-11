@@ -1,9 +1,8 @@
 name: Taiwan live generation snapshot
 
 # Taipower live per-unit snapshot (d006001, refreshed every 10 minutes, no history): polled hourly, kept as a daily roll-up with the number of polls. Needs its own schedule because the source keeps nothing.
+# SCHEDULE DISABLED 11 Oct 2026 at the owner's request (the hourly poll failed on a pandas int64 error); re-add the cron "7 * * * *" to resume.
 on:
-  schedule:
-    - cron: "7 * * * *"
   workflow_dispatch: {}
 
 permissions:
