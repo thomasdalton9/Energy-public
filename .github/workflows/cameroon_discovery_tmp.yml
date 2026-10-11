@@ -13,4 +13,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests pdfplumber
-      - run: timeout 500 python3 -u discovery_archive/rest_of_world/CAMEROON_DISCOVERY3.py
+      - run: timeout 500 python3 -u discovery_archive/rest_of_world/CAMEROON_DISCOVERY4.py
