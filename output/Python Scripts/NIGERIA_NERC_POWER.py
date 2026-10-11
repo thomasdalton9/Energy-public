@@ -101,7 +101,7 @@ def num(tok):
 
 
 def quarter_of(doc):
-    head = " ".join(doc[i].get_text() for i in range(min(6, len(doc))))
+    head = " ".join(doc[i].get_text() for i in range(min(2, len(doc))))
     m = re.search(r"(FIRST|SECOND|THIRD|FOURTH)\s+QUARTER\s+(\d{4})", head, re.I)
     if m:
         return int(m.group(2)), ORD[m.group(1).upper()]
@@ -109,42 +109,94 @@ def quarter_of(doc):
     return (int(m.group(1)), int(m.group(2))) if m else None
 
 
+def canon(name):
+    """Plant name: footnote digit glued to the unit number removed (Alaoji_17 -> Alaoji_1), spacing/case normalised."""
+    name = re.sub(r"_([12])\d$", r"_\1", name.strip())
+    base, unit = name.rsplit("_", 1)
+    base = " ".join(base.replace("Dadin Kowa", "Dadin-Kowa").split())
+    return f"{base.title() if base.islower() else base}_{unit}".replace("Ibom power", "Ibom Power")
+
+
+def parse_lines(lines):
+    recs, total, k = {}, None, 0
+    while k < len(lines):
+        ln = lines[k]
+        if PLANT.match(ln) or ln == "Total":
+            vals, j = [], k + 1
+            while j < len(lines):
+                toks = lines[j].split() if lines[j] else []
+                nv = [num(t) for t in toks]
+                if toks and all(v is not None for v in nv):
+                    vals.extend(nv)
+                elif re.fullmatch(r"\d{1,2}", lines[j] or "x") and not vals:
+                    pass                      # footnote marker between name and values
+                else:
+                    break
+                j += 1
+                if len(vals) >= 4:
+                    break
+            if len(vals) >= 2:
+                prev = 0.0 if vals[0] == "dash" else vals[0]
+                cur = 0.0 if vals[1] == "dash" else vals[1]
+                if ln == "Total":
+                    total = (prev, cur)
+                else:
+                    recs.setdefault(canon(ln), (prev, cur))
+            k = j
+        else:
+            k += 1
+    return recs, total
+
+
 def parse_plants(doc):
-    """(rows {plant: (prev, cur)}, total (prev, cur), page) from the 'Average Hourly Generation' table page."""
+    """(rows {plant: (prev, cur)}, total (prev, cur), page) from the 'Average Hourly Generation' table, which may run
+    over two or three pages (the page holding the Total row is tried alone, then with the pages before it)."""
     for i, pg in enumerate(doc):
         t = pg.get_text()
         if "Average Hourly Generation" not in t or not re.search(r"(?m)^Total\s*$", t):
             continue
-        lines = [ln.strip() for ln in t.split("\n")]
-        recs, total, k = {}, None, 0
-        while k < len(lines):
-            ln = lines[k]
-            if PLANT.match(ln) or ln == "Total":
-                vals, j = [], k + 1
-                while j < len(lines):
-                    v = num(lines[j]) if lines[j] else None
-                    if v is None:
-                        if re.fullmatch(r"\d{1,2}", lines[j]) and not vals:
-                            j += 1          # footnote marker between name and values
-                            continue
-                        break
-                    vals.append(v)
-                    j += 1
-                    if len(vals) == 4:
-                        break
-                if len(vals) >= 2:
-                    prev = 0.0 if vals[0] == "dash" else vals[0]
-                    cur = 0.0 if vals[1] == "dash" else vals[1]
-                    if ln == "Total":
-                        total = (prev, cur)
-                    else:
-                        recs.setdefault(ln, (prev, cur))
-                k = j
-            else:
-                k += 1
+        for back in (0, 1, 2):
+            if i - back < 0:
+                break
+            lines = []
+            for n in range(i - back, i + 1):
+                lines += [ln.strip() for ln in doc[n].get_text().split("\n")]
+            recs, total = parse_lines(lines)
+            if len(recs) >= 8 and total and total[1]:
+                cur_sum = sum(v[1] for v in recs.values())
+                if abs(cur_sum - total[1]) / total[1] < 0.005:
+                    return recs, total, i + 1
+        recs, total = parse_lines([ln.strip() for ln in t.split("\n")])
         if len(recs) >= 8 and total:
             return recs, total, i + 1
     return None
+
+
+def keyfacts(doc):
+    """Total quarterly generation (GWh) and hydro share (%) from the report's text, for reports without the plant table."""
+    txt = re.sub(r"\s+", " ", " ".join(p.get_text() for p in doc[: min(len(doc), 40)]))
+    tot = share = None
+    pats = [r"total generation of ([\d,]+\.\d+) ?GWh",
+            r"([\d,]+\.\d+) ?GWh,? Total quarterly (?:energy )?generation",
+            r"Total (?:quarterly )?(?:energy |electricity )?generat\w+[^.\d]{0,80}?(?:was|of|stood at) ([\d,]+\.\d+) ?GWh",
+            r"total generation was ([\d,]+\.\d+) ?GWh"]
+    for pt in pats:
+        m = re.search(pt, txt, re.I)
+        if m:
+            tot = float(m.group(1).replace(",", ""))
+            break
+    if tot is None:
+        m = re.search(r"total electric energy generated (?:in [\d/Q]+ )?was ([\d,]{7,}) ?MWh", txt, re.I)
+        if m:
+            tot = float(m.group(1).replace(",", "")) / 1000
+    for pt in (r"([\d.]+)% Share of total quarterly generation from Hydro ?power Plants",
+               r"([\d.]+)% Share of Hydro ?Power plants in the energy mix",
+               r"contribution of hydro ?power plants to the energy mix in [\d/Q]+ was ([\d.]+)%"):
+        m = re.search(pt, txt, re.I)
+        if m:
+            share = float(m.group(1))
+            break
+    return tot, share
 
 
 def qstart(y, q):
@@ -171,6 +223,10 @@ def read_report(url, diag=False):
         return None, "quarter not found"
     parsed = parse_plants(doc)
     if parsed is None:
+        tot, share = keyfacts(doc)
+        if tot:
+            note = f"key facts text: total {tot:,.2f} GWh, hydro share {share if share is not None else 'n/a'}%"
+            return {"quarter": q, "kf": (tot, share), "note": note}, "ok (key facts)"
         return {"quarter": q}, "no plant table"
     recs, total, page = parsed
     cur_sum = sum(v[1] for v in recs.values())
@@ -222,20 +278,23 @@ NOTES = [
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", default=OUT)
-    ap.add_argument("--diag", action="store_true", help="re-read every report and print details")
+    ap.add_argument("--diag", action="store_true", help="re-read every report")
     args = ap.parse_args()
 
     reports = load(args.out, "Reports")
-    done = set(reports.loc[reports.get("status", pd.Series(dtype=str)) == "ok", "url"]) if not reports.empty else set()
+    done = set(reports.loc[reports["status"].astype(str).str.startswith("ok"), "url"]) if not reports.empty else set()
     plants = load(args.out, "Plants")
     if not plants.empty:
         plants["date"] = pd.to_datetime(plants["date"])
         plants = plants.set_index("date")
-    basis = {}
+    basis, kf = {}, {}
     qs = load(args.out, "Quarterly")
     if not qs.empty:
         qs["date"] = pd.to_datetime(qs["date"])
         basis = dict(zip(qs["date"], qs["basis"]))
+        for r in qs.itertuples():
+            if str(r.basis).startswith("key facts"):
+                kf[r.date] = (r.Total_GWh, (100 * r.Hydro_GWh / r.Total_GWh) if r.Total_GWh and pd.notna(r.Hydro_GWh) else None)
 
     urls = list_reports()
     if not urls:
@@ -257,44 +316,58 @@ def main():
             rec["note"] = res.get("note", "")
         print(f"  -> {rec['quarter']} {status} {rec['note']}", flush=True)
         rows[u] = rec
-        if status != "ok":
+        if not status.startswith("ok"):
             continue
         y, q = res["quarter"]
         cur_d = qstart(y, q)
+        if "kf" in res:
+            if basis.get(cur_d) != "report":
+                kf[cur_d] = res["kf"]
+                basis[cur_d] = "key facts (report text)"
+            continue
         py, pq = prev_q(y, q)
         prv_d = qstart(py, pq)
         plants_d[cur_d] = {k: v[1] for k, v in res["recs"].items()}
         basis[cur_d] = "report"
+        kf.pop(cur_d, None)
         if prv_d not in plants_d or basis.get(prv_d) != "report":
             plants_d[prv_d] = {k: v[0] for k, v in res["recs"].items()}
             basis[prv_d] = "prior-quarter column"
+            kf.pop(prv_d, None)
 
-    if not plants_d:
+    if not plants_d and not kf:
         print("Nothing parsed.", flush=True)
         sys.exit(1)
-    pl = pd.DataFrame.from_dict(plants_d, orient="index").sort_index()
+    pl = pd.DataFrame.from_dict(plants_d, orient="index").sort_index() if plants_d else pd.DataFrame()
     pl.index.name = "date"
     pl = pl.dropna(axis=1, how="all")
     hyd = [c for c in pl.columns if c.rsplit("_", 1)[0] in HYDRO]
     th = [c for c in pl.columns if c not in hyd]
     print("Plants classed hydro:", hyd, "\nThermal:", th, flush=True)
-    q = pd.DataFrame(index=pl.index)
+    recs = {}
+    for d in pl.index:
+        h = hours(d)
+        hy, tt = pl.loc[d, hyd].fillna(0).sum(), pl.loc[d, th].fillna(0).sum()
+        recs[d] = {"Hydro_GWh": hy * h / 1000, "Gas_GWh": tt * h / 1000, "basis": basis.get(d, "report")}
+    for d, (tot, share) in kf.items():
+        if d in recs:
+            continue
+        recs[d] = {"Hydro_GWh": tot * share / 100 if share is not None else None,
+                   "Gas_GWh": tot * (1 - share / 100) if share is not None else None,
+                   "Total_GWh": tot, "basis": basis.get(d, "key facts (report text)")}
+    q = pd.DataFrame.from_dict(recs, orient="index").sort_index()
+    q.index.name = "date"
+    q["Total_GWh"] = q["Total_GWh"].fillna(q["Hydro_GWh"] + q["Gas_GWh"]) if "Total_GWh" in q else q["Hydro_GWh"] + q["Gas_GWh"]
     q["hours"] = [hours(d) for d in q.index]
-    hy = pl[hyd].fillna(0).sum(axis=1)
-    tt = pl[th].fillna(0).sum(axis=1)
-    q["Hydro_GW"] = (hy / 1000).round(4)
-    q["Gas_GW"] = (tt / 1000).round(4)
-    q["Total_GW"] = ((hy + tt) / 1000).round(4)
-    q["Hydro_GWh"] = (hy * q["hours"] / 1000).round(2)
-    q["Gas_GWh"] = (tt * q["hours"] / 1000).round(2)
-    q["Total_GWh"] = (q["Hydro_GWh"] + q["Gas_GWh"]).round(2)
-    q["basis"] = [basis.get(d, "report") for d in q.index]
+    for c in ("Hydro", "Gas", "Total"):
+        q[f"{c}_GW"] = q[f"{c}_GWh"] / q["hours"]
     q = q[["Hydro_GWh", "Gas_GWh", "Total_GWh", "Hydro_GW", "Gas_GW", "Total_GW", "hours", "basis"]]
+    q = q.round({"Hydro_GWh": 2, "Gas_GWh": 2, "Total_GWh": 2, "Hydro_GW": 4, "Gas_GW": 4, "Total_GW": 4})
     rp = pd.DataFrame(list(rows.values())).sort_values("quarter", ascending=False).reset_index(drop=True)
     xlsx_notes.write_workbook(args.out, {"Quarterly": q, "Plants": pl.round(2), "Reports": rp},
                               NOTES, {ln for ln in NOTES if ln and ln.isupper()})
-    print(f"Saved {args.out}: {len(q)} quarters {q.index.min():%Y-Q} to {q.index.max():%Y-%m}", flush=True)
-    print(q.tail(12).to_string(), flush=True)
+    print(f"Saved {args.out}: {len(q)} quarters {q.index.min():%Y-%m} to {q.index.max():%Y-%m}", flush=True)
+    print(q.to_string(), flush=True)
 
 
 if __name__ == "__main__":
