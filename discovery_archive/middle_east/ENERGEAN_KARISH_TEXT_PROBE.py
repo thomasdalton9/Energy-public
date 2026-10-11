@@ -3,6 +3,10 @@ Probe (Oct 2026) for middle_east/ISRAEL_GAS_FIELDS.py: how do Energean's announc
 Israel / Karish gas volumes? Prints, per announcement since 2022, every table row or sentence with 'bcm' or an
 Israel production row, so the Karish year-to-date parser can cover Q1 updates and 2022-23 wording.
 
+RUN 1 (2026-10-11): Q1 trading updates put the gas in the table ('Israel | 59.0 (inc. 0.7 bcm of sales gas)'),
+Q1 2026 only in a sentence ('0.96 bcm of gas in Q1 2026 and 1.19 bcm in Q1 2025'); Energean Israel half/full-year
+accounts state '... six months ended 30 June 2025 totaled approximately 2.3 bcm'. Parser updated accordingly.
+
 Workflow (manual): discovery_archive/workflows/energean_karish_text_probe.yml.
 """
 import importlib.util

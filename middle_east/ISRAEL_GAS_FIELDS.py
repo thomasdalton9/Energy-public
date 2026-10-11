@@ -226,8 +226,10 @@ def parse_karish(text):
         # the row's first value belongs to the table's first period heading ('current | year before | ...')
         pos, _, months = min(heads)
         yr = max(y for p, y, mo in heads if mo == months and p - pos < 300)
-        out.append((yr, months, float(m.group(1)), float(m.group(2)) if m.group(2) else None))
-        out.append((yr - 1, months, float(m.group(3)), float(m.group(4)) if m.group(4) else None))
+        for y, kb, bcm in ((yr, m.group(1), m.group(2)), (yr - 1, m.group(3), m.group(4))):
+            # Karish produces from Oct 2022 at up to ~150 kboed: anything else is a row of another table
+            if y >= 2022 and float(kb) <= 180:
+                out.append((y, months, float(kb), float(bcm) if bcm else None))
     for s in PERIOD_BCM.finditer(text):
         out.append((int(s.group(3)), {"Q1": 3, "H1": 6, "9M": 9, "FY": 12}[s.group(2)], None, float(s.group(1))))
     if re.search(r"natural gas sold|quantit(?:y|ies) of (?:natural )?gas", text, re.I):
