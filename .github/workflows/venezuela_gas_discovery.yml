@@ -1,0 +1,41 @@
+name: Venezuela gas discovery
+
+# Manual-only probe for Venezuela gas sources
+# (discovery_archive/south_america/VENEZUELA_GAS_DISCOVERY.py).
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pandas openpyxl
+      - name: Run discovery
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          mkdir -p ve_raw
+          timeout 2100 python3 discovery_archive/south_america/VENEZUELA_GAS_DISCOVERY.py 2>&1 | tee ve_raw/log.txt
+      - name: Push raw files to a throwaway branch for offline inspection
+        if: always()
+        run: |
+          [ -d ve_raw ] || exit 0
+          mv ve_raw /tmp/ve_raw
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan ve-gas-discovery-raw
+          git rm -rfq --cached . >/dev/null
+          git clean -fdxq
+          mv /tmp/ve_raw ve_raw
+          git add ve_raw
+          git commit -qm "Venezuela gas discovery raw files (throwaway)"
+          git push -f origin ve-gas-discovery-raw
