@@ -123,7 +123,9 @@ def main():
     args = ap.parse_args()
 
     monthly = pd.DataFrame()
-    rel = pd.DataFrame(columns=["report_month", "slug", "pdf_url", "status", "months_read"])
+    rel = pd.DataFrame({"report_month": pd.Series(dtype="datetime64[ns]"), "slug": pd.Series(dtype=object),
+                        "pdf_url": pd.Series(dtype=object), "status": pd.Series(dtype=object),
+                        "months_read": pd.Series(dtype="int64")})
     if os.path.exists(args.out) and not args.full:
         monthly = pd.read_excel(args.out, sheet_name="Monthly", index_col=0, parse_dates=True)
         rel = pd.read_excel(args.out, sheet_name="Releases")
