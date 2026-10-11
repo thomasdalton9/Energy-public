@@ -26,7 +26,10 @@ jobs:
       - name: Run pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: timeout 3000 python3 africa/GHANA_WEM_WEEKLY_POWER.py --out "output/Data and Chart Outputs/ghana_wem_weekly_generation_daily.xlsx"
+        run: |
+          mkdir -p discovery_archive/results/ghana
+          set -o pipefail
+          timeout 3000 python3 -u africa/GHANA_WEM_WEEKLY_POWER.py --budget-min 35 --out "output/Data and Chart Outputs/ghana_wem_weekly_generation_daily.xlsx" 2>&1 | tee discovery_archive/results/ghana/wem_weekly_run.log
 
       - name: Add Excel charts and copy scripts
         if: always()
@@ -46,6 +49,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/ghana_wem_weekly_generation_daily.xlsx"
           git add -f "output/Python Scripts" || true
+          git add -f discovery_archive/results/ghana/wem_weekly_run.log || true   # TEMPORARY test log
           git diff --cached --quiet || git commit -m "Ghana weekly WEM generation: automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0

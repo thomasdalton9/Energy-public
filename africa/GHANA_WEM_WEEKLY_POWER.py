@@ -176,8 +176,9 @@ def main():
             print("Time budget reached; the next run continues.", flush=True)
             break
         url = EC + u if u.startswith("/") else u
+        r = None
         try:
-            r = requests.get(url, headers=H, timeout=(10, 120))
+            r = requests.get(url, headers=H, timeout=(10, 60))
             r.raise_for_status()
             name = re.findall(r'filename="?([^";]+)', r.headers.get("content-disposition", ""))
             name = name[0] if name else ""
@@ -201,7 +202,7 @@ def main():
                 rows.setdefault(d, {}).update({p: df.at[p, d] for p in df.index})
             rec[i] = {"year": y, "file": name, "first_day": df.columns.min(), "last_day": df.columns.max(),
                       "status": "ok", "note": "; ".join(warns)[:200]}
-            print(f"  {i} {name}: {df.shape[0]} plants x {df.shape[1]} days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d}", flush=True)
+            print(f"  [{time.time()-t0:.0f}s] {i} {name}: {df.shape[0]} plants x {df.shape[1]} days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d}", flush=True)
         except Exception as e:  # noqa: BLE001
             rec[i] = {"year": y, "file": "", "first_day": pd.NaT, "last_day": pd.NaT, "status": "failed",
                       "note": f"{type(e).__name__}: {str(e)[:150]}"}
@@ -209,7 +210,7 @@ def main():
             if args.dump_failed:
                 os.makedirs(args.dump_failed, exist_ok=True)
                 try:
-                    open(os.path.join(args.dump_failed, f"{i}.pdf"), "wb").write(r.content)
+                    open(os.path.join(args.dump_failed, f"{i}.pdf"), "wb").write(r.content)  # noqa
                 except Exception:  # noqa: BLE001
                     pass
 
