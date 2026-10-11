@@ -11,7 +11,7 @@ Candidates checked here:
   Both  UN Comtrade public preview API (HS 271111 monthly; MY exports 458, PH imports 608) as an official
         mirror of the national customs data
 Round 1 functions: malaysia(), philippines(), comtrade(); round 2: meih2, dosm2, mets2, petronas2, comtrade2,
-doe2, doe2_render (run with function names as arguments; default = latest round).
+doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3 (run with function names as arguments; default = latest round).
 Prints status, size, data-like links and text around gas keywords. Nothing is written.
 """
 import io
@@ -386,8 +386,181 @@ def doe2_render():
         b.close()
 
 
+
+# ================================================================== ROUND 3
+def comtrade3():
+    import time
+    out("\n================ UN Comtrade preview: fields, partners, PH start, multi-flow calls ================")
+    base = "https://comtradeapi.un.org/public/v1/preview/C/M/HS"
+    keys = ("period", "reporterCode", "flowCode", "partnerCode", "partner2Code", "motCode", "customsCode", "cmdCode",
+            "netWgt", "qty", "qtyUnitCode", "altQty", "primaryValue", "cifvalue", "fobvalue", "isAggregate")
+    calls = [("458", "X", "202608", "271111"), ("458", "X", "202606", "271111"), ("458", "M", "202608", "271111"),
+             ("608", "M", "202606", "271111"), ("458", "X", "202001", "271111"), ("458", "X", "201501", "271111")]
+    calls += [("608", "M", f"2023{m:02d}", "271111") for m in range(3, 13)]
+    calls += [("608", "M", "202306", "2711"), ("608", "M", "202306", "271121"), ("458", "X,M", "202606", "271111"),
+              ("458,608", "M", "202606", "271111"), ("608", "X", "202606", "271111")]
+    for rep, flow, per, cmd in calls:
+        time.sleep(3.5)
+        r = get(f"{base}?reporterCode={rep}&period={per}&cmdCode={cmd}&flowCode={flow}", quiet=True)
+        if r is None:
+            continue
+        if not r.ok:
+            out(f"  {rep} {flow} {per} {cmd}: HTTP {r.status_code} {r.text[:150]}")
+            continue
+        d = r.json().get("data", [])
+        tot = [x for x in d if x.get("partnerCode") == 0]
+        out(f"  {rep} {flow} {per} {cmd}: rows {len(d)}; partners {sorted(x.get('partnerCode') for x in d)}; "
+            f"mot {sorted(set(x.get('motCode') for x in d))}; total kg {[x.get('netWgt') for x in tot]} "
+            f"USD {[x.get('primaryValue') for x in tot]}")
+        if per in ("202608", "202606") and cmd == "271111" and "," not in rep + flow:
+            for x in d[:12]:
+                out("    " + " ".join(f"{k}={x.get(k)}" for k in keys))
+    r = get("https://comtradeapi.un.org/files/v1/app/reference/partnerAreas.json", quiet=True)
+    if r is not None and r.ok:
+        out(f"  partnerAreas.json ok ({len(r.content)}b)")
+
+
+def opendosm3():
+    out("\n================ OpenDOSM energy datasets ================")
+    import pandas as pd
+    for ds in ("energy_supply_commodity", "energy_consumption_sector", "energy_consumption_commodity", "ipi_5d",
+               "ipi_3d", "trade_sitc_1d"):
+        r = get(f"https://api.data.gov.my/data-catalogue?id={ds}&limit=5&sort=-date", quiet=True)
+        out(f"\n  api {ds}: {r.status_code if r is not None else None} {(r.text[:500] if r is not None else '')}")
+        pg = get(f"https://open.dosm.gov.my/data-catalogue/{ds}", quiet=True)
+        if pg is None or not pg.ok:
+            continue
+        files = sorted(set(re.findall(r"https://storage\.(?:dosm|data)\.gov\.my/[^\"'\\\s]+\.(?:csv|parquet)", pg.text)))
+        out(f"  files: {files}")
+        ctx(plain(pg.text), r"frequency|data as of|next update|monthly|annual", n=3, w=150)
+        csvs = [f for f in files if f.endswith(".csv")] or files
+        if csvs:
+            try:
+                f = csvs[0]
+                df = pd.read_parquet(f) if f.endswith(".parquet") else pd.read_csv(f)
+                out(f"  {f}: shape {df.shape}; cols {list(df.columns)}")
+                if "date" in df:
+                    out(f"  dates {df['date'].min()}..{df['date'].max()}")
+                for c in df.columns:
+                    if df[c].dtype == object and c != "date":
+                        u = df[c].unique()
+                        out(f"  {c} values ({len(u)}): {list(u)[:40]}")
+                if ds in ("ipi_5d", "ipi_3d"):
+                    col = [c for c in df.columns if df[c].dtype == object and c != "date"]
+                    out(df[df[col[0]].astype(str).str.startswith(("06", "062", "0620", "B"))].tail(8).to_string())
+                elif ds != "trade_sitc_1d":
+                    gas = df[df.astype(str).apply(lambda x: x.str.contains("gas|lng", case=False)).any(axis=1)]
+                    out(gas.tail(12).to_string()[:2500])
+            except Exception as e:  # noqa: BLE001
+                out(f"  read failed: {type(e).__name__}: {e}")
+
+
+def meih3():
+    out("\n================ MEIH: POST a natural gas table; MyEnergyStats dashboard ================")
+    r = get("https://meih.st.gov.my/statistics", quiet=True)
+    if r is None or not r.ok:
+        return
+    stat = [(t, u) for t, u in anchors(r) if "Eng_Statistic_WAR" in u and re.search(r"categoryId=(2|9)&", u)]
+    for t, u in stat[:6]:
+        rr = get(u, quiet=True)
+        if rr is None or not rr.ok:
+            continue
+        m = re.search(r'<form method="POST" id="parameterForm"(.*?)</form>', rr.text, re.S)
+        acts = re.findall(r"""(?:action|url)\s*[:=]\s*["']([^"']+)["']""", rr.text)
+        out(f"\n  [{t}] {u.split('_eventId=')[-1]} form len {len(m.group(1)) if m else None}; actions {acts[:6]}")
+        if m:
+            names = re.findall(r'name="([^"]+)"', m.group(1))
+            out(f"    fields {names}")
+            opts = {n: re.findall(r'<option[^>]*value="([^"]*)"', blk)
+                    for n, blk in re.findall(r'<select[^>]*name="([^"]+)"[^>]*>(.*?)</select>', m.group(1), re.S)}
+            out(f"    last year option {[(k, v[-1] if v else None) for k, v in opts.items()]}")
+            for s_ in re.findall(r"<script[^>]*>(.*?)</script>", rr.text, re.S):
+                if "parameterForm" in s_ or "submit" in s_:
+                    out("    script: " + " ".join(s_.split())[:900])
+                    break
+            data = {k: (v[-1] if k.lower().endswith("to") else (v[1] if len(v) > 1 else (v[0] if v else "")))
+                    for k, v in opts.items()}
+            for n in names:
+                data.setdefault(n, "")
+            for k in data:
+                if k.lower().endswith("from") and opts.get(k):
+                    data[k] = opts[k][-10] if len(opts[k]) > 10 else opts[k][0]
+            pr = S.post(rr.url, data=data, timeout=T, verify=False)
+            out(f"    POST {data} -> {pr.status_code} {len(pr.content)}b")
+            tables(pr.text, n=2, rows=25)
+            for at, au in anchors(pr):
+                if re.search(r"excel|xls|csv|export|download", at + au, re.I):
+                    out(f"    dl [{at}] {au[:250]}")
+    out("\n  MyEnergyStats dashboard (rendered)")
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            b = p.chromium.launch()
+            pg = b.new_page(user_agent=H["User-Agent"])
+            reqs = []
+            pg.on("request", lambda q: reqs.append(q.url))
+            pg.goto("https://myenergystats.st.gov.my/en/dashboard", timeout=90000, wait_until="networkidle")
+            out(f"    title {pg.title()}; frames {[f.url[:150] for f in pg.frames]}")
+            for t_, h_ in pg.eval_on_selector_all("a", "els => els.map(e => [e.innerText.trim(), e.href])"):
+                if re.search(r"gas|download|\.xlsx|\.csv|\.pdf|balance|database", t_ + h_, re.I):
+                    out(f"    [{t_[:70]}] {h_[:200]}")
+            out(f"    text: {pg.inner_text('body')[:1500]}")
+            out(f"    data-like requests: {[q for q in reqs if re.search(r'api|json|powerbi|tableau|xlsx|csv', q, re.I)][:30]}")
+            b.close()
+    except Exception as e:  # noqa: BLE001
+        out(f"    playwright: {type(e).__name__}: {e}")
+
+
+def doe3():
+    out("\n================ DOE Payload media: wider search ================")
+    import urllib.parse
+    host = "https://d24qbtp4vooyzi.cloudfront.net"
+    found = {}
+    for term in ("Gas", "Statistic", "Supply", "Demand", "Energy Plan", "PEP", "Upstream", "Petroleum", "Indigenous",
+                 "Production", "Consumption", "Fact", "Highlights", "Energy Sector", "Accomplishment", "Import"):
+        q = urllib.parse.urlencode({"limit": 300, "depth": 0, "where[filename][like]": term, "sort": "-updatedAt"})
+        r = get(f"{host}/api/media?{q}", quiet=True)
+        if r is not None and r.ok and "json" in (r.headers.get("content-type") or ""):
+            j = r.json()
+            out(f"  '{term}': totalDocs {j.get('totalDocs')}")
+            for d in j.get("docs") or []:
+                found[d.get("filename")] = ((d.get("updatedAt") or "")[:10], d.get("url") or "")
+    keep = {k: v for k, v in found.items()
+            if re.search(r"gas|lng|malampaya|supply|demand|statistic|energy plan|situationer|balance|indigenous|"
+                         r"upstream|production|consumption|import|highlight|fact", k or "", re.I)
+            and not re.search(r"bid|auction|advisory|invitation|award|notice|circular|order|memorandum|tor\b", k or "", re.I)}
+    out(f"  {len(found)} files, {len(keep)} kept")
+    for fn, (t, u) in sorted(keep.items(), key=lambda x: x[1][0], reverse=True)[:200]:
+        out(f"    {t} {fn}")
+    for coll in ("pages", "posts", "articles"):
+        for fld in ("title", "slug"):
+            q = urllib.parse.urlencode({"limit": 20, "depth": 0, f"where[{fld}][like]": "gas"})
+            r = get(f"{host}/api/{coll}?{q}", quiet=True)
+            ct = (r.headers.get("content-type") or "") if r is not None else ""
+            out(f"  {host}/api/{coll} {fld}~gas: {r.status_code if r is not None else None} {ct} "
+                f"{(r.text[:400] if r is not None else '')}")
+
+
+def psa3():
+    out("\n================ PSA OpenSTAT trade tables ================")
+    r = get("https://openstat.psa.gov.ph/PXWeb/api/v1/en/DB", quiet=True)
+    if r is None or not r.ok:
+        return
+    for db in r.json():
+        out(f"  DB {db.get('id')}: {db.get('text')}")
+    for q in ("imports", "foreign trade", "commodity imports", "mineral fuels", "fuel"):
+        r = get(f"https://openstat.psa.gov.ph/PXWeb/api/v1/en/DB?query={q}", quiet=True)
+        if r is not None and r.ok:
+            hits = r.json()
+            out(f"  query '{q}': {len(hits)} hits")
+            for h in hits[:15]:
+                out(f"    {h.get('path')}/{h.get('id')}: {h.get('title')[:140]} ({h.get('published')})")
+    for u in ("https://psa.gov.ph/statistics/export-import", "https://openstat.psa.gov.ph/"):
+        r = get(u)
+
+
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["meih2", "dosm2", "mets2", "petronas2", "comtrade2", "doe2", "doe2_render"]
+    which = sys.argv[1:] or ["comtrade3", "opendosm3", "meih3", "doe3", "psa3"]
     for w in which:
         try:
             globals()[w]()
