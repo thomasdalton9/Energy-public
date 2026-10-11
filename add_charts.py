@@ -2072,26 +2072,16 @@ def canada_provinces(p):
     a = _sheet(p, "Alberta", "date")
     snaps = _sheet(p, "Alberta snapshots", "utc")
     hourly = _sheet(p, "Alberta hourly", "hour_ending")
-    names = {"Gas_MWh": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MWh": "Hydro",
-             "Wind_MWh": "Wind", "Solar_MWh": "Solar", "Other_MWh": "Other"}
-    if not a.empty and "Coal_MWh" in a:
-        names["Coal_MWh"] = "Coal"
-    m = _monthly_gwh(a, names, gw=True) if not a.empty else pd.DataFrame()
-    if len(m) >= 3:
-        out.append(spec("Alberta generation", m, "Alberta power generation by source (AESO)", "GW (monthly average)",
-                        "stacked_bar"))
-    else:   # young pull: the daily series, else the individual AESO snapshots
-        dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 24000 if not a.empty else pd.DataFrame()
-        dd = dd.dropna(how="all").tail(120)
-        if len(dd) >= 2:
-            out.append(spec("Alberta generation", dd, "Alberta power generation by source (AESO, daily mean)",
-                            "GW (daily mean)", "stacked_bar", date_format="%Y-%m-%d"))
-        elif len(snaps) >= 2:
-            sn = snaps[[c for c in snaps.columns if str(c).endswith("TNG_MW") and not str(c).startswith("TNG")]]
-            sn = sn.apply(pd.to_numeric, errors="coerce").rename(columns=lambda c: str(c).replace(" TNG_MW", "")) / 1000
-            sn = sn.loc[:, sn.abs().sum() > 0].tail(240)
-            out.append(spec("Alberta generation", sn, "Alberta net generation by group (AESO, snapshots)", "GW",
-                            "stacked_bar", date_format="%Y-%m-%d %H:%M"))
+    names = {"Gas_MW": "Gas (cogeneration, combined cycle, steam, simple cycle)", "Hydro_MW": "Hydro",
+             "Wind_MW": "Wind", "Solar_MW": "Solar", "Other_MW": "Other"}
+    if not a.empty and "Coal_MW" in a:
+        names["Coal_MW"] = "Coal"
+    dd = a[cols(a, *names)].apply(pd.to_numeric, errors="coerce").rename(columns=names) / 1000 if not a.empty else pd.DataFrame()
+    dd = dd.dropna(how="all").tail(120)
+    if len(dd) >= 2:   # one AESO snapshot a day (instantaneous MW), not a daily mean
+        out.append(spec("Alberta generation", dd,
+                        "Alberta net generation by group, one AESO snapshot a day (not a daily mean)", "GW",
+                        "stacked_bar", date_format="%Y-%m-%d"))
     if len(hourly) >= 2:
         h = hourly.apply(pd.to_numeric, errors="coerce").tail(168)
         ail = (h[["AIL_MW"]] / 1000).rename(columns={"AIL_MW": "Demand (AIL), GW"})
