@@ -1,13 +1,9 @@
-# rerun 2
 name: Cameroon ARSEL energy balance
 
 on:
   schedule:
     - cron: "20 6 1,15 * *"
   workflow_dispatch: {}
-  push:
-    branches: [cameroon-power]
-    paths: [".github/workflows/cameroon_arsel_energy_balance.yml"]
 
 permissions:
   contents: write
