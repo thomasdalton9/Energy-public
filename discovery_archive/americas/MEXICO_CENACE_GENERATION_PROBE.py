@@ -15,6 +15,12 @@ Same mechanism as americas/mexico_demanda_real.py (pickers set through
 window.$find(...).set_selectedDate twice, then the live form POSTed with
 the button's name/value).
 
+RUN 1 (2026-10-11): EnergiaGeneradaTipoTec.aspx exists ("Energia Generada
+por Tipo de Tecnologia"); pickers FechaConsulta / FechaInicial / FechaFinal,
+minDate 2016-04-30, maxDate 2026-08-17 (~55 days behind); button
+ctl00$ContentPlaceHolder1$DescargarReportes. No generation links in the
+SIM menu; the other candidate URLs return CENACE's error page.
+
 Workflow (manual): discovery_archive/workflows/mexico_cenace_generation_probe.yml.
 """
 
@@ -123,7 +129,7 @@ def groups_for(pickers, buttons):
     ids = [p[0] for p in pickers]
     out = []
     for pid in ids:
-        if "FI" not in pid:
+        if "FI" not in pid or pid.endswith("_dateInput"):
             continue
         ff = pid.replace("FI", "FF", 1)
         if ff not in ids:
@@ -161,14 +167,22 @@ def main():
             except Exception as e:
                 log(f"  load failed: {e}")
                 continue
-            for g in groups_for(pickers, buttons):
+            groups = groups_for(pickers, buttons)
+            ids = [q[0] for q in pickers]
+            if "ctl00_ContentPlaceHolder1_FechaInicial" in ids:  # EnergiaGeneradaTipoTec.aspx naming
+                groups.append({"fi": "ctl00_ContentPlaceHolder1_FechaInicial", "ff": "ctl00_ContentPlaceHolder1_FechaFinal",
+                               "gen": ["ctl00_ContentPlaceHolder1_FechaConsulta"], "suffix": "Fecha*",
+                               "buttons": [("ctl00$ContentPlaceHolder1$DescargarReportes", "Descargar en archivo .zip")],
+                               "max": next(q[3] for q in pickers if q[0] == "ctl00_ContentPlaceHolder1_FechaInicial")})
+            for g in groups:
                 log(f"  group suffix {g['suffix']!r}: FI {g['fi']} FF {g['ff']} gen {g['gen']} max {g['max']} "
                     f"buttons {g['buttons']}")
                 if not g["buttons"] or not g["max"]:
                     continue
                 latest = date.fromisoformat(g["max"])
-                for first, last in [(latest - timedelta(days=40), latest - timedelta(days=38)),
-                                    (date(2018, 3, 1), date(2018, 3, 2))]:
+                for first, last in [(latest - timedelta(days=2), latest),
+                                    (date(2018, 3, 1), date(2018, 3, 2)),
+                                    (date(2025, 1, 1), date(2025, 12, 31))]:
                     try:
                         try_download(page, context, url, g, g["buttons"][0], first, last)
                     except Exception as e:
