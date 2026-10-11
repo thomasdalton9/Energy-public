@@ -16,6 +16,8 @@ import pandas as pd
 import requests
 
 H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"}
+HB = dict(H, Accept="text/csv,application/csv,text/html;q=0.9,*/*;q=0.8", Referer="https://www.datos.gob.mx/",
+          **{"Accept-Language": "es-MX,es;q=0.9,en;q=0.8"})
 BASE = "https://repodatos.atdt.gob.mx/api_update"
 FILES = [
     f"{BASE}/sener/prontuario_gas_natural_petroquimicos/prontuario_datos_abiertos.csv",
@@ -47,9 +49,14 @@ os.makedirs("mx_raw", exist_ok=True)
 for u in FILES:
     out(f"=========== {u}")
     try:
-        r = requests.get(u, headers=H, timeout=(10, 180))
-        out(f"HTTP {r.status_code} {len(r.content)}B last-modified={r.headers.get('Last-Modified')}")
-        if r.status_code != 200:
+        r = None
+        for label, hh in (("plain", H), ("browser", HB)):
+            r = requests.get(u, headers=hh, timeout=(10, 180))
+            out(f"[{label}] HTTP {r.status_code} {len(r.content)}B last-modified={r.headers.get('Last-Modified')}")
+            if r.status_code == 200:
+                break
+            out("   body:", re.sub(r"\s+", " ", r.text[:300]), "| server:", r.headers.get("Server"))
+        if r is None or r.status_code != 200:
             continue
         name = re.sub(r"[^A-Za-z0-9_.-]", "_", u.split("/")[-1])
         if len(r.content) <= MAX_SAVE:
