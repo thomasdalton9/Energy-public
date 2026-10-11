@@ -19,20 +19,34 @@ URLS = [
  "https://www.wapp-ecowas.org/", "https://www.ecowapp.org/en/publications",
  "https://www.irena.org/", "https://opendata.gridcogh.com/",
 ]
-for u in URLS:
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import time
+
+def probe(u):
+    out = []
+    t0 = time.time()
     try:
-        r = requests.get(u, headers=H, timeout=25, allow_redirects=True)
+        r = requests.get(u, headers=H, timeout=(8, 12), allow_redirects=True, stream=True)
+        content = b""
+        for chunk in r.iter_content(65536):
+            content += chunk
+            if len(content) > 400000 or time.time() - t0 > 25:
+                break
         t = r.headers.get("content-type", "")
-        txt = r.text[:3000] if "text" in t or "json" in t or "xml" in t else ""
+        txt = content.decode("utf-8", "ignore") if ("text" in t or "json" in t or "xml" in t) else ""
         title = re.search(r"<title[^>]*>(.*?)</title>", txt, re.S | re.I)
-        print(f"{r.status_code} {len(r.content):>8} {t[:40]:40} {u} -> {r.url} | {title.group(1).strip()[:80] if title else ''}", flush=True)
+        out.append(f"{r.status_code} {len(content):>8} {t[:40]:40} {u} -> {r.url} | {title.group(1).strip()[:80] if title else ''}")
         if r.status_code == 200 and "text/html" in t:
-            full = r.text
-            links = set(re.findall(r'href=["\']([^"\']+)["\']', full))
+            links = set(re.findall(r'href=["\']([^"\']+)["\']', txt))
             keep = [l for l in links if re.search(r"(?i)(dispatch|generat|statist|report|\.xls|\.pdf|dashboard|data|hydro|akosombo|lake|reservoir|outlook|load)", l)]
             for l in sorted(keep)[:60]:
-                print("      link:", l, flush=True)
+                out.append("      link: " + l)
         if r.status_code == 200 and ("json" in t or "xml" in t):
-            print("      body:", r.text[:600].replace("\n", " "), flush=True)
+            out.append("      body: " + txt[:600].replace("\n", " "))
     except Exception as e:
-        print(f"ERR {u} {type(e).__name__}: {str(e)[:100]}", flush=True)
+        out.append(f"ERR {u} {type(e).__name__}: {str(e)[:100]}")
+    return "\n".join(out)
+
+with ThreadPoolExecutor(8) as ex:
+    for f in as_completed([ex.submit(probe, u) for u in URLS]):
+        print(f.result(), flush=True)
