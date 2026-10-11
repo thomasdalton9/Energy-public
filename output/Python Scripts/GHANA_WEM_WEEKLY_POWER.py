@@ -74,6 +74,27 @@ def group(plant):
     return "Thermal"
 
 
+def repair_dates(df):
+    """The header days of a table are consecutive; a mistyped year or day in one header (seen: 2021, 2027, 2028 in a
+    2025 file) is replaced by the day implied by the other headers. Returns (df, number repaired); ValueError when the
+    headers do not agree on any anchor."""
+    cols = list(df.columns)
+    offs = pd.Series([d - pd.Timedelta(days=i) for i, d in enumerate(cols)])
+    anchor = offs.mode().iloc[0]
+    if (offs == anchor).sum() < max(4, len(cols) // 2 + 1):
+        raise ValueError("header days not consecutive")
+    fixed = [anchor + pd.Timedelta(days=i) for i in range(len(cols))]
+    n = sum(1 for a, b in zip(cols, fixed) if a != b)
+    out = df.copy()
+    out.columns = pd.DatetimeIndex(fixed)
+    return out, n
+
+
+def in_window(first, last, year):
+    """A weekly file belongs to its year's page, give or take the week across New Year."""
+    return (first >= pd.Timestamp(year - 1, 12, 20)) and (last <= pd.Timestamp(year + 1, 1, 10))
+
+
 def categories():
     """[(year, category path)] from the landing page."""
     r = requests.get(LANDING, headers=H, timeout=(10, 60))
@@ -156,7 +177,14 @@ def main():
 
     files = load(args.out, "Files", dates=False)
     plants = load(args.out, "Plants_GWh")
-    done = set(files.index[files["status"] == "ok"]) if not files.empty else set()
+    done = set()
+    if not files.empty:
+        okf = files[files["status"] == "ok"]
+        good = [i for i, r in okf.iterrows()
+                if pd.notna(r["first_day"]) and in_window(pd.Timestamp(r["first_day"]), pd.Timestamp(r["last_day"]), int(r["year"]))]
+        done = set(good)   # files saved with days outside their year (mistyped headers) are read again
+    if not plants.empty:   # drop days from the same mistyped headers saved by an earlier run
+        plants = plants[(plants.index >= pd.Timestamp(args.from_year - 1, 12, 20)) & (plants.index <= pd.Timestamp.now().normalize())]
     cats = [(y, c) for y, c in categories() if y >= args.from_year]
     print("Year pages:", cats, flush=True)
     todo, order = [], []
@@ -186,6 +214,10 @@ def main():
                 raise ValueError("not a PDF")
             df, tot, warns = read_pdf(r.content)
             df.index = [canon(x) for x in df.index]
+            df, n_fix = repair_dates(df)
+            tot = pd.Series(tot.values, index=df.columns) if (tot is not None and len(tot) == df.shape[1]) else tot
+            if not in_window(df.columns.min(), df.columns.max(), y):
+                raise ValueError(f"days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d} outside the {y} page")
             if df.index.duplicated().any():
                 raise ValueError("duplicate plant rows")
             s = df.sum()
@@ -203,7 +235,7 @@ def main():
             for d in df.columns:
                 rows.setdefault(d, {}).update({p: df.at[p, d] for p in df.index})
             rec[i] = {"year": y, "file": name, "first_day": df.columns.min(), "last_day": df.columns.max(),
-                      "status": "ok", "note": "; ".join(warns)[:200]}
+                      "status": "ok", "note": "; ".join(([f"{n_fix} header day(s) repaired"] if n_fix else []) + warns)[:200]}
             print(f"  [{time.time()-t0:.0f}s] {i} {name}: {df.shape[0]} plants x {df.shape[1]} days {df.columns.min():%Y-%m-%d}..{df.columns.max():%Y-%m-%d}", flush=True)
         except Exception as e:  # noqa: BLE001
             rec[i] = {"year": y, "file": "", "first_day": pd.NaT, "last_day": pd.NaT, "status": "failed",

@@ -1,84 +1,39 @@
 STARTING
 Year pages: [(2022, '47-2022'), (2023, '67-2023'), (2024, '69-2024'), (2025, '72-2025'), (2026, '76-2026')]
-214 PDFs listed, 65 to read
+214 PDFs listed, 20 to read
 warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
-  [7s] 423 Weekly Electricity Statistics Analysis (April 2022) - Week 3.pdf: 19 plants x 7 days 2022-04-15..2022-04-21
-  [8s] 427 Weekly Electricity Statistics Analysis (August 2022) - Week 3.pdf: 19 plants x 7 days 2022-08-15..2022-08-21
-  [9s] 431 Weekly Electricity Statistics Analysis (December 2022) - Week 3.pdf: 19 plants x 7 days 2022-12-15..2022-12-21
-  [10s] 432 Weekly Electricity Statistics Analysis (December 2022) - Week 4.pdf: 19 plants x 10 days 2021-12-31..2022-12-30
-  [11s] 435 Weekly Electricity Statistics Analysis (February 2022) - Week 3.pdf: 19 plants x 7 days 2021-02-15..2021-02-21
-  [12s] 439 Weekly Electricity Statistics Analysis (January 2022) - Week 3.pdf: 19 plants x 7 days 2021-01-15..2021-01-21
-  [13s] 443 Weekly Electricity Statistics Analysis (July 2022) - Week 3.pdf: 19 plants x 7 days 2022-07-15..2022-07-21
-  [13s] 444 Weekly Electricity Statistics Analysis (July 2022) - Week 4.pdf: 19 plants x 10 days 2021-07-31..2022-07-30
-  [14s] 447 Weekly Electricity Statistics Analysis (June 2022) - Week 3.pdf: 19 plants x 7 days 2022-06-15..2022-06-21
-  [14s] 451 Weekly Electricity Statistics Analysis (March 2022) - Week 3.pdf: 19 plants x 7 days 2022-03-15..2022-03-21
-  [15s] 453 Weekly Electricity Statistics Analysis (May 2022) - Week 2.pdf: 19 plants x 7 days 2022-04-10..2022-05-09
-  [16s] 454 Weekly Electricity Statistics Analysis (May 2022) - Week 3.pdf: 19 plants x 7 days 2022-05-15..2022-05-21
-  [17s] 458 Weekly Electricity Statistics Analysis (November 2022) - Week 3.pdf: 19 plants x 7 days 2022-11-15..2022-11-21
-  [17s] 462 Weekly Electricity Statistics Analysis (October 2022) - Week 3.pdf: 19 plants x 7 days 2022-10-15..2022-10-21
-  [18s] 463 Weekly Electricity Statistics Analysis (October 2022) - Week 4.pdf: 19 plants x 10 days 2021-10-31..2022-10-30
-  [19s] 466 Weekly Electricity Statistics Analysis (September 2022) - Week 3.pdf: 19 plants x 7 days 2022-09-15..2022-09-21
-  [19s] 647 Weekly Electricity Statistics Analysis (January 2023) - Week 3.pdf: 19 plants x 7 days 2023-01-15..2023-01-21
-  [20s] 648 Weekly Electricity Statistics Analysis (January 2023) - Week 4.pdf: 19 plants x 10 days 2023-01-22..2023-10-26
-  [21s] 651 Weekly Electricity Statistics Analysis (February 2023) - Week 3.pdf: 19 plants x 7 days 2023-02-15..2023-02-21
-  [21s] 655 Weekly Electricity Statistics Analysis (March 2023) - Week 3.pdf: 19 plants x 7 days 2023-03-15..2023-03-21
-  [22s] 659 Weekly Electricity Statistics Analysis (April 2023) - Week 3.pdf: 19 plants x 7 days 2023-04-15..2023-04-21
-  [23s] 663 Weekly Electricity Statistics Analysis (May 2023) - Week 3.pdf: 19 plants x 7 days 2023-05-15..2023-05-21
-  [23s] 667 Weekly Electricity Statistics Analysis (June 2023) - Week 3.pdf: 19 plants x 7 days 2023-06-15..2029-06-21
-  [24s] 671 Weekly Electricity Statistics Analysis (July 2023) - Week 3.pdf: 19 plants x 7 days 2023-07-15..2023-07-21
-  [24s] 675 Weekly Electricity Statistics Analysis (August 2023) - Week 3.pdf: 19 plants x 7 days 2023-08-15..2023-08-21
-  [25s] 679 Weekly Electricity Statistics Analysis (Sept 2023) - Week 3.pdf: 19 plants x 7 days 2023-09-15..2023-09-21
+  433: FAILED ValueError: days 2021-02-01..2021-02-07 outside the 2022 page
+  434: FAILED ValueError: days 2021-02-08..2021-02-14 outside the 2022 page
+  435: FAILED ValueError: days 2021-02-15..2021-02-21 outside the 2022 page
+  437: FAILED ValueError: days 2021-01-01..2021-01-07 outside the 2022 page
+  438: FAILED ValueError: days 2021-01-08..2021-01-14 outside the 2022 page
+  439: FAILED ValueError: days 2021-01-15..2021-01-21 outside the 2022 page
+  [10s] 444 Weekly Electricity Statistics Analysis (July 2022) - Week 4.pdf: 19 plants x 10 days 2022-07-22..2022-07-31
+  [10s] 463 Weekly Electricity Statistics Analysis (October 2022) - Week 4.pdf: 19 plants x 10 days 2022-10-22..2022-10-31
+  667: FAILED ValueError: header days not consecutive
   680: FAILED ValueError: no generation table
   683 Weekly Electricity Statistics Analysis (October 2023) - Week 3.pdf: check failed
-  [27s] 687 Weekly Electricity Statistics Analysis (Nov 2023) - Week 3.pdf: 19 plants x 7 days 2023-11-15..2023-11-21
-  [27s] 691 Weekly Electricity Statistics Analysis (Dec 2023) - Week 3.pdf: 19 plants x 7 days 2023-12-15..2023-12-21
-  [28s] 699 Weekly Electricity Statistics Analysis (January 2024) - pdf week 3.pdf: 19 plants x 7 days 2023-01-15..2023-01-21
-  [29s] 700 Weekly Electricity Statistics Analysis (January 2024) - pdf week 4.pdf: 19 plants x 10 days 2023-01-22..2023-10-26
-  [30s] 703 Weekly Electricity Statistics Analysis (February 2024) - pdf week 3.pdf: 19 plants x 7 days 2024-02-15..2024-02-21
-  [30s] 707 Weekly Electricity Statistics Analysis (March 2024) - pdf week 3.pdf: 19 plants x 7 days 2024-03-15..2024-03-21
-  [31s] 711 Weekly Electricity Statistics Analysis (April 2024) - pdf week 3.pdf: 19 plants x 7 days 2024-04-15..2024-04-21
-  [32s] 715 Weekly Electricity Statistics Analysis (May 2024) - pdf week 3.pdf: 19 plants x 7 days 2024-05-15..2024-05-21
+  699: FAILED ValueError: days 2023-01-15..2023-01-21 outside the 2024 page
+  700: FAILED ValueError: days 2023-01-22..2023-01-31 outside the 2024 page
   744: FAILED ValueError: no generation table
-  [33s] 746 Weekly Electricity Statistics Analysis (June 2024) - week 3.pdf: 19 plants x 7 days 2024-06-15..2024-06-21
-  [33s] 754 Weekly Electricity Statistics Analysis (August 2024) - week 3.pdf: 19 plants x 7 days 2024-08-15..2024-08-21
-  [34s] 758 Weekly Electricity Statistics Analysis (Sept 2024) - week 3.pdf: 19 plants x 7 days 2024-09-15..2024-09-21
-  [35s] 762 Weekly Electricity Statistics Analysis (Oct 2024) - week 3.pdf: 19 plants x 7 days 2024-10-15..2024-10-21
-  [36s] 766 Weekly Electricity Statistics Analysis (Nov 2024) - week 3.pdf: 19 plants x 7 days 2024-11-15..2024-11-21
-  [36s] 771 Weekly Electricity Statistics Analysis (Dec 2024) - week 3.pdf: 19 plants x 7 days 2024-12-15..2024-12-21
-  [37s] 787 Weekly Statistics January 2025 - Week 3.pdf: 20 plants x 7 days 2025-01-15..2025-01-21
-  [37s] 791 Weekly Statistics February 2025 Week 3.pdf: 20 plants x 7 days 2025-02-15..2025-02-21
   795: FAILED ValueError: no generation table
-  [39s] 799 weekly statistics April 2025 week 3.pdf: 20 plants x 7 days 2024-04-15..2024-04-21
-  [40s] 803 Weekly Statistics May 2025 week 3.pdf: 20 plants x 7 days 2025-05-15..2025-05-21
-  [40s] 804 Weekly Statistics May 2025 Week 4.pdf: 20 plants x 10 days 2024-05-25..2025-05-31
-  [41s] 807 Weekly Statistics June 2025 Week 3.pdf: 19 plants x 7 days 2025-06-15..2025-06-21
-  [41s] 808 Weekly Statistics June 2025 Week 4.pdf: 19 plants x 9 days 2025-06-05..2025-06-30
-  [42s] 811 Weekly Statistics July 2025 Week 3.pdf: 19 plants x 7 days 2025-07-15..2025-07-21
-  [42s] 830 Weekly Statistics August 2025 - week 3.pdf: 19 plants x 7 days 2025-08-15..2025-08-21
-  [43s] 833 Weekly Statistics September 2025 - week 2.pdf: 19 plants x 7 days 2024-09-11..2025-09-14
-  [43s] 834 Weekly Statistics September 2025 - week 3.pdf: 19 plants x 7 days 2025-09-15..2025-09-21
-  [44s] 838 Weekly Statistics October 2025 - week 3.pdf: 19 plants x 7 days 2025-10-15..2025-10-21
-  [44s] 846 Weekly Statistics December 2025 - week 3.pdf: 19 plants x 7 days 2025-12-15..2025-12-21
-  [45s] 862 Weekly Statistics January 2026 - Week 3.pdf: 21 plants x 7 days 2026-01-15..2026-01-21
-  [45s] 866 Weekly Statistics February 2026 - Week 3.pdf: 21 plants x 7 days 2026-02-15..2026-02-21
-  [46s] 870 Weekly Statistics March 2026 - Week 3.pdf: 21 plants x 7 days 2026-03-15..2026-03-21
-  [47s] 874 Weekly Statistics April 2026 - Week 3.pdf: 21 plants x 7 days 2026-04-15..2026-04-21
-  [48s] 878 Weekly Statistics May 2026- Week 3.pdf: 21 plants x 7 days 2026-05-15..2026-05-21
-  [49s] 879 Weekly Statistics May 2026 - Week 4.pdf: 21 plants x 10 days 2026-03-25..2026-05-31
-  [49s] 882 Weekly Statistics June 2026 - Week 3.pdf: 21 plants x 7 days 2026-06-15..2026-06-21
-  [50s] 883 Weekly Statistics June 2026 -Week 4.pdf: 21 plants x 9 days 2026-06-22..2026-06-30
-Saved 1532 days 2021-01-01..2029-06-21; files ok 210, failed 3, check failed 1
+  799: FAILED ValueError: days 2024-04-15..2024-04-21 outside the 2025 page
+  [14s] 804 Weekly Statistics May 2025 Week 4.pdf: 20 plants x 10 days 2025-05-22..2025-05-31
+  [14s] 833 Weekly Statistics September 2025 - week 2.pdf: 19 plants x 7 days 2025-09-08..2025-09-14
+  [14s] 882 Weekly Statistics June 2026 - Week 3.pdf: 21 plants x 7 days 2026-06-15..2026-06-21
+  [14s] 883 Weekly Statistics June 2026 -Week 4.pdf: 21 plants x 9 days 2026-06-22..2026-06-30
+Saved 1489 days 2021-12-31..2026-06-30; files ok 200, failed 13, check failed 1
             Hydro_GWh  Thermal_GWh  Solar_GWh  Import_GWh  Total_GWh
 date                                                                
-2028-07-01        0.0          0.0        0.0         0.0        0.0
-2028-08-01        0.0          0.0        0.0         0.0        0.0
-2028-09-01        0.0          0.0        0.0         0.0        0.0
-2028-10-01        0.0          0.0        0.0         0.0        0.0
-2028-11-01        0.0          0.0        0.0         0.0        0.0
-2028-12-01        0.0          0.0        0.0         0.0        0.0
-2029-01-01        0.0          0.0        0.0         0.0        0.0
-2029-02-01        0.0          0.0        0.0         0.0        0.0
-2029-03-01        0.0          0.0        0.0         0.0        0.0
-2029-04-01        0.0          0.0        0.0         0.0        0.0
-2029-05-01        0.0          0.0        0.0         0.0        0.0
-2029-06-01       17.0         42.0        0.0         0.0       60.0
+2025-07-01      626.0       1418.0        9.0         0.0     2053.0
+2025-08-01      602.0       1359.0        8.0         0.0     1969.0
+2025-09-01      614.0       1426.0       11.0         0.0     2051.0
+2025-10-01      694.0       1376.0       18.0         0.0     2088.0
+2025-11-01      489.0       1021.0       17.0         0.0     1527.0
+2025-12-01      613.0       1243.0       14.0         0.0     1870.0
+2026-01-01      756.0       1847.0       17.0         0.0     2620.0
+2026-02-01      707.0       1629.0       17.0        15.0     2368.0
+2026-03-01      800.0       1816.0       21.0         0.0     2637.0
+2026-04-01      628.0       1850.0       17.0         0.0     2494.0
+2026-05-01      615.0       1749.0       18.0         3.0     2385.0
+2026-06-01      583.0       1790.0       18.0         0.0     2391.0
