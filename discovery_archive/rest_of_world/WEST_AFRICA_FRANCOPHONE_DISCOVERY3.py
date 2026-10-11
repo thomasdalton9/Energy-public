@@ -34,7 +34,8 @@ def tables(url, maxrows=14, maxtab=8):
         return None
     for i, t in enumerate(re.findall(r"<table.*?</table>", r.text, re.S | re.I)[:maxtab]):
         rows = re.findall(r"<tr.*?</tr>", t, re.S | re.I)
-        print(f"  -- table {i}: {len(rows)} rows; id={re.search(r'id=.([\w-]+)', t).group(1) if re.search(r'id=.([\w-]+)', t) else ''}")
+        mid = re.search(r"id=.([\w-]+)", t)
+        print("  -- table", i, ":", len(rows), "rows; id=", mid.group(1) if mid else "")
         for row in rows[:maxrows]:
             cells = [clean(c) for c in re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", row, re.S | re.I)]
             print("    ", " | ".join(cells)[:260])
