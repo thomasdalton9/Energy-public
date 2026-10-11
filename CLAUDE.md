@@ -204,8 +204,6 @@ Standing instructions from the repo owner. Follow these on every change.
   The committed workbook IS the history store: each run reads it and fetches only periods not saved yet (plus a
   short revision window). Sources that only publish whole files (e.g. MBIE webtables, Hydro Tasmania) are
   downloaded only when a new release/Last-Modified appears (recorded on the Units sheet).
-- LNG imports / LNG trade by country: the owner is getting Kpler (Oct 2026), so do NOT build or probe new LNG
-  import/export pulls (customs, Comtrade, port reports, central-bank values). Existing LNG pulls stay as they are.
 - South America gas demand by sector: data from 2021 only.
 - Ireland gas: GNI transparency pages from 2026-03-31 on (open data covers earlier);
   ENTSOG is for validation only.
