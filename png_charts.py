@@ -35,7 +35,7 @@ GREY = "#" + xlsx_charts.OTHER_GREY
 
 
 def _style(ax, title, units):
-    ax.set_title(title, fontsize=11, loc="left")
+    ax.set_title(title, fontsize=12, fontweight="bold", loc="left")
     ax.set_ylabel(units, fontsize=9)
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
