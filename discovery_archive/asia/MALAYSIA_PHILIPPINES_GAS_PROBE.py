@@ -11,7 +11,7 @@ Candidates checked here:
   Both  UN Comtrade public preview API (HS 271111 monthly; MY exports 458, PH imports 608) as an official
         mirror of the national customs data
 Round 1 functions: malaysia(), philippines(), comtrade(); round 2: meih2, dosm2, mets2, petronas2, comtrade2,
-doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3 (run with function names as arguments; default = latest round).
+doe2, doe2_render; round 3: comtrade3, opendosm3, meih3, doe3, psa3; round 4: doe4, psa4, ipi4, bnm4 (run with function names as arguments; default = latest round).
 Prints status, size, data-like links and text around gas keywords. Nothing is written.
 """
 import io
@@ -559,8 +559,90 @@ def psa3():
         r = get(u)
 
 
+
+# ================================================================== ROUND 4
+def doe4():
+    out("\n================ DOE Payload pages by title; gas pages' files ================")
+    import urllib.parse
+    host = "https://d24qbtp4vooyzi.cloudfront.net"
+    r = get(f"{host}/api/media?limit=1", quiet=True)
+    if r is not None and r.ok:
+        out(f"  media total: {r.json().get('totalDocs')}")
+    pages = {}
+    for term in ("Natural Gas", "Statistic", "Situationer", "Energy Plan", "Malampaya", "Supply", "Upstream",
+                 "Compendium", "Energy Balance", "LNG", "Gas", "Petroleum", "Downstream", "Data"):
+        q = urllib.parse.urlencode({"limit": 100, "depth": 0, "where[title][like]": term})
+        r = get(f"{host}/api/pages?{q}", quiet=True)
+        if r is None or not r.ok:
+            out(f"  pages ~{term}: {r.status_code if r is not None else None}")
+            continue
+        j = r.json()
+        out(f"  pages ~{term}: {j.get('totalDocs')}")
+        for d in j.get("docs") or []:
+            pages[d.get("path")] = ((d.get("updatedAt") or "")[:10], d.get("title"))
+    for pth, (t, ti) in sorted(pages.items(), key=lambda x: x[1][0], reverse=True)[:120]:
+        out(f"    {t} {pth} | {ti}")
+    gas = [p_ for p_, (t, ti) in pages.items()
+           if p_ and re.search(r"gas|statistic|situationer|upstream|compendium|balance|malampaya|lng", (ti or "") + p_, re.I)
+           and not re.search(r"bid|auction|procure|contingency|invitation", (ti or "") + p_, re.I)]
+    for p_ in gas[:15]:
+        rr = get("https://doe.gov.ph" + (p_ if p_.startswith("/") else "/" + p_))
+        if rr is not None and rr.ok:
+            fl = sorted(set(re.findall(r'https://[^"\'\s<>\\]+?\.(?:pdf|xlsx?|csv)', rr.text)))
+            out(f"    files ({len(fl)}): {[urllib.parse.unquote(f.rsplit('/', 1)[-1]) for f in fl][:40]}")
+            ctx(plain(rr.text), r"natural gas|LNG|Malampaya", n=2, w=200)
+
+
+def psa4():
+    out("\n================ PSA OpenSTAT Energy (3G) and trade (2L) trees ================")
+    def walk(path, depth=0):
+        r = get(f"https://openstat.psa.gov.ph/PXWeb/api/v1/en/{path}", quiet=True)
+        if r is None or not r.ok:
+            out(f"  {path}: {r.status_code if r is not None else None}")
+            return
+        for it in r.json():
+            out(f"  {'  ' * depth}{path}/{it.get('id')} [{it.get('type')}] {it.get('text')[:120]} {it.get('updated', '')}")
+            if it.get("type") == "l" and depth < 2:
+                walk(f"{path}/{it.get('id')}", depth + 1)
+    walk("DB/3G")
+    walk("DB/2L")
+
+
+def ipi4():
+    out("\n================ DOSM IPI items: natural gas ================")
+    import pandas as pd
+    for f, col in (("https://storage.dosm.gov.my/ipi/ipi_5d.csv", "item"), ("https://storage.dosm.gov.my/ipi/ipi_3d.csv", "group")):
+        df = pd.read_csv(f, dtype={col: str})
+        out(f"  {f}: series {df['series'].unique()}; {col}s {sorted(df[col].unique())[:60]}")
+        g = df[df[col].str.startswith("06") & (df["series"] == "abs")]
+        for k, d in g.groupby(col):
+            out(f"   {k}: {d['date'].min()}..{d['date'].max()}; last {d.tail(4)[['date', 'index']].values.tolist()}")
+    pg = get("https://open.dosm.gov.my/data-catalogue/ipi_5d", quiet=True)
+    if pg is not None:
+        ctx(plain(pg.text), r"natural gas|06200|0620", n=4, w=200)
+    for u in ("https://www.dosm.gov.my/portal-main/release-content/index-of-industrial-production-malaysia-august-2026",
+              "https://www.dosm.gov.my/site/downloadrelease?id=index-of-industrial-production-malaysia-august-2026&lang=English&admin_view="):
+        r = get(u)
+        if r is not None and r.ok and r.content[:4] == b"%PDF":
+            pdf_text(r.content, r"natural gas", maxp=2, chars=1500)
+        elif r is not None and r.ok:
+            ctx(plain(r.text), r"natural gas", n=3, w=200)
+
+
+def bnm4():
+    out("\n================ BNM Monthly Highlights & Statistics ================")
+    for u in ("https://www.bnm.gov.my/monthly-highlights-statistics", "https://www.bnm.gov.my/statistics",
+              "https://www.bnm.gov.my/-/monthly-highlights-and-statistics-in-august-2026"):
+        r = get(u)
+        if r is not None and r.ok:
+            for at, au in anchors(r):
+                if re.search(r"\.xlsx?|\.pdf|msb|statistic|highlight", at + au, re.I) and len(at) < 120:
+                    out(f"    [{at}] {au[:200]}")
+            ctx(plain(r.text), r"natural gas|LNG", n=3, w=150)
+
+
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["comtrade3", "opendosm3", "meih3", "doe3", "psa3"]
+    which = sys.argv[1:] or ["doe4", "psa4", "ipi4", "bnm4"]
     for w in which:
         try:
             globals()[w]()
