@@ -123,25 +123,30 @@ def maya():
                 if mm and cid is None:
                     cid = int(mm.group(1))
         if cid is None:
-            print("   scanning /api/v1/companies/<id>/details 1-3000 for 'תמר'")
-            found = pg.evaluate("""async () => {
-                const hits = []; let errs = 0;
-                for (let start = 1; start <= 3000; start += 20) {
-                  const ids = []; for (let i = start; i < start + 20; i++) ids.push(i);
-                  const res = await Promise.all(ids.map(async (i) => {
-                    try { const r = await fetch('/api/v1/companies/' + i + '/details');
-                      return [i, r.status, (await r.text()).slice(0, 400)]; } catch (e) { return [i, 0, ''] } }));
-                  for (const [i, s, t] of res) {
-                    if (s !== 200 && s !== 404 && s !== 204) errs++;
-                    if (t.includes('תמר') || t.includes('Tamar')) hits.push([i, s, t]);
-                  }
-                }
-                return [hits, errs]; }""")
-            print("   non-200 answers:", found[1])
-            for i, st, t in found[0]:
-                print("      HIT", i, st, t[:400])
-                if "פטרו" in t and cid is None:
-                    cid = i
+            # a MAYA report of Tamar Petroleum's that its own site links (P1575974-00.pdf, Mar 2024): its details page
+            # names the reporter
+            got.clear()
+            for rid in (1575974, 1273577):
+                try:
+                    pg.goto(f"https://maya.tase.co.il/he/reports/details/{rid}", timeout=90000, wait_until="networkidle")
+                    pg.wait_for_timeout(4000)
+                except Exception as e:  # noqa: BLE001
+                    print("   goto", rid, e)
+                for k, (_, js) in got.items():
+                    sj = json.dumps(js, ensure_ascii=False)
+                    print("   details", rid, k, sj[:700])
+                    for mm in re.finditer(r'"(?:reporterId|companyId|issuerId)"\s*:\s*(\d+)', sj):
+                        if cid is None and int(mm.group(1)) not in (475, 394):
+                            cid = int(mm.group(1))
+                hrefs = pg.eval_on_selector_all("a", "els => els.map(e => e.href)")
+                print("   company links:", sorted({h for h in hrefs if "/companies/" in h})[:10])
+                for h in hrefs:
+                    mm = re.search(r"/companies/(\d+)", h)
+                    if mm and cid is None:
+                        cid = int(mm.group(1))
+                got.clear()
+                if cid:
+                    break
         print("   Tamar Petroleum company id:", cid)
         if cid is None:
             b.close()
