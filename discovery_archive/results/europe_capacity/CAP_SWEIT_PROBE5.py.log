@@ -1,0 +1,4 @@
+  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE5.py", line 41
+    qs = "&".join(f"{k}={quote(v, safe='(),*=<>\\'')}" for k, v in kw.items())
+                                                       ^^^
+SyntaxError: f-string expression part cannot include a backslash
