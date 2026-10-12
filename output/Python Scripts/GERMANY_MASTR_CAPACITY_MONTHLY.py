@@ -153,8 +153,10 @@ def read_catalogue(z):
 
 def catalogue_maps(vals):
     """Id sets resolved by NAME so a renumbered catalogue does not silently misclassify."""
-    onshore = {i for i, (w, c) in vals.items() if "wind" in c.lower() and ("land" in w.lower())}
-    offshore = {i for i, (w, c) in vals.items() if "wind" in c.lower() and ("see" in w.lower().split() or w.lower().endswith("see"))}
+    onshore = {i for i, (w, c) in vals.items() if w.lower().startswith("windenergie an land") or w.lower() == "windkraft an land"}
+    offshore = {i for i, (w, c) in vals.items() if w.lower().startswith("windenergie auf see") or w.lower() == "windkraft auf see"}
+    if not offshore:
+        raise RuntimeError("catalogue: no 'Windenergie auf See' value found, the classification would be wrong")
     pumped_hydro = {i for i, (w, c) in vals.items() if "pumpspeicher" in w.lower()}
     battery = {i for i, (w, c) in vals.items() if c == "StromspeicherOhneWasserkraft" and w == "Batterie"}
     other_storage = {i: w for i, (w, c) in vals.items() if c == "StromspeicherOhneWasserkraft" and w != "Batterie"}
