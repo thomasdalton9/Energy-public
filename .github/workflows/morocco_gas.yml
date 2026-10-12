@@ -1,0 +1,61 @@
+name: Morocco gas (Tarifa flow, plant gas burn)
+
+# 1st and 15th: every source keeps history (ENTSOG a rolling 5 years, so the committed workbook is the history store);
+# each run fetches only new days / files: ENTSOG from the last stored day minus 30, Enagas bulletins, HCP yearbooks and
+# ministry PDFs only when a new file appears (hashes on 'Releases'), Comtrade only months not stored, Ember only on a new
+# Last-Modified, JODI the last 12 months.
+on:
+  schedule:
+    - cron: "27 8 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "comma list of sources to fetch (entsog,enagas,hcp,ministry,comtrade,jodi,ember); empty = all"
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl requests lxml pdfplumber xlrd matplotlib
+          sudo apt-get install -y -q unrar >/dev/null 2>&1 || sudo apt-get install -y -q unrar-free >/dev/null 2>&1 || true
+          which unrar 7z bsdtar || true
+      - name: Run Morocco gas pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS=""
+          [ -n "${{ github.event.inputs.only }}" ] && ARGS="--only ${{ github.event.inputs.only }}"
+          timeout 3600 python3 africa/MOROCCO_GAS.py $ARGS
+      - name: Add Excel charts, PNGs and copy scripts
+        if: always()
+        run: |
+          F="output/Data and Chart Outputs/morocco_gas_daily.xlsx"
+          [ -f "$F" ] && python3 add_charts.py "$F" && python3 png_charts.py "$F" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp africa/MOROCCO_GAS.py africa/morocco_charts.py middle_east/EGYPT_GAS.py add_charts.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/morocco_gas_daily.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Morocco gas: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

@@ -4,12 +4,14 @@ regulator, ministry, national oil company, statistics office - NO Ember), and Da
 their charts. Same layout as the North America / South & Central America masters (south_america/SOUTH_AMERICA_MASTER.py,
 whose table/chart/dashboard code this reuses).
 
-  Dashboard          - gas and oil: Nigeria (NNPC Ltd monthly report)
+  Dashboard          - gas and oil: Nigeria (NNPC Ltd monthly report); Morocco (GME flow at Tarifa = gas burned at
+                       Tahaddart and Ain Beni Mathar from 2023, ministry gas-for-power, plant heat rates, import price)
   Dashboard - Power  - generation by source, then lake levels and capacity where a raw feed exists:
                        South Africa (Eskom), Ghana (Energy Commission: weekly WEM statistics, annual statistics with
                        Akosombo / Bui water-year level charts), Nigeria (NERC quarterly report), Cameroon (ARSEL
                        monthly energy balance, 2025 so far), Egypt daily peak / minimum grid load (MOEE, from Oct
-                       2026). Where raw data has gaps, Ember fills them as a labelled
+                       2026), Morocco gas-fired generation by plant (HCP, annual) and a monthly ESTIMATE from the
+                       Tarifa gas flow against Ember (fallback). Where raw data has gaps, Ember fills them as a labelled
                        fallback: every Ember series is named "... - Ember (fallback)" (tables, charts, Sources).
   <CC> <chart> data  - the table each Dashboard chart plots (CC = ZA, GH, NG ... : one tab group per country)
   <CC> <dataset> raw - the full data sheet(s) from each source workbook
@@ -49,6 +51,9 @@ DATA_DIR = sam.DATA_DIR
 # (country code, country, workbook, raw sheet / tuple of raw sheets / "*", short dataset name)
 DATASETS = [
     ("NG", "Nigeria", "nigeria_nnpc_gas_monthly.xlsx", "Monthly", "NNPC gas and oil"),
+    # Morocco gas (africa/MOROCCO_GAS.py): the gas charts here, the generation charts on Dashboard - Power (MA_* below)
+    ("MA", "Morocco", "morocco_gas_daily.xlsx", ("Tarifa monthly", "Ministry YTD", "Comtrade monthly", "JODI (fallback)", "Checks"),
+     "gas"),
 ]
 RAW_POWER_DATASETS = [
     ("ZA", "South Africa", "south_africa_generation_mix_daily.xlsx",
@@ -63,6 +68,8 @@ OTHER_POWER_DATASETS = [
     ("GH", "Ghana", "ghana_energy_commission_power.xlsx", ("Annual", "Akosombo", "Bui"), "annual statistics and lake levels"),
     # daily peak / minimum load from the Ministry of Electricity's home page (no history at source: builds from Oct 2026)
     ("EG", "Egypt", "egypt_grid_load_daily.xlsx", "Daily", "grid load"),
+    # Morocco gas-fired plants: HCP per-plant generation, monthly ESTIMATE from Tarifa gas vs Ember (FALLBACK)
+    ("MA", "Morocco", "morocco_gas_daily.xlsx", ("Plants annual", "Estimate", "Estimate annual"), "gas-fired plants"),
     # EMBER (FALLBACK) gap fills: only where the raw feed above has a hole (see ember_* below)
     ("NG", "Nigeria", "west_africa_power_by_type.xlsx", ("Nigeria",), "Ember fallback monthly"),
     ("NG", "Nigeria", "west_africa_power_by_type_annual.xlsx", ("Nigeria",), "Ember fallback annual"),
@@ -136,6 +143,39 @@ def ember_monthly(path):
                             "GWh per month", "stacked_bar")]
 
 
+# Morocco: one workbook feeds both dashboards; these chart names go to Dashboard - Power, the rest to the gas Dashboard
+MA_POWER_CHARTS = ("Plants generation", "Estimate vs Ember")
+MA_GAS_CHARTS = ("Tarifa daily", "Gas to power YTD", "Tarifa monthly", "Nm3 per MWh", "Comtrade price")
+MA_WB = "morocco_gas_daily.xlsx"
+ENTSOG_URL = "https://transparency.entsog.eu/#/points/data?points=ITP-00082"
+SPEC_SOURCES = {   # per-chart source line where one workbook combines several publishers
+    (MA_WB, "Tarifa daily"): ("ENTSOG transparency platform: Enagas physical flow at Tarifa (ITP-00082); Bcf/d DERIVED at "
+                              "11.7 GWh per million Nm3", ENTSOG_URL),
+    (MA_WB, "Gas to power YTD"): ("Ministry of Energy Transition 'Chiffres cles' (ONEE fuel use) vs Tarifa exit (ENTSOG / Enagas, "
+                                  "DERIVED)", "https://www.mem.gov.ma/Pages/rapports.html"),
+    (MA_WB, "Tarifa monthly"): ("ENTSOG (Enagas) and Enagas monthly statistical bulletin",
+                                "https://www.enagas.es/en/technical-management-system/energy-data/publications/gas-statistical-bulletin/"),
+    (MA_WB, "Nm3 per MWh"): ("HCP Annuaire statistique du Maroc (ONEE tables); Nm3/MWh DERIVED",
+                             "https://www.hcp.ma/downloads/Annuaires-statistiques-du-Maroc-Format-Excel_t22392.html"),
+    (MA_WB, "Comtrade price"): ("UN Comtrade, Morocco imports HS 271121 (quantity = kWh); US$/MMBtu DERIVED",
+                                "https://comtradeplus.un.org/"),
+    (MA_WB, "Plants generation"): ("HCP Annuaire statistique du Maroc (ONEE: thermal generation by plant)",
+                                   "https://www.hcp.ma/downloads/Annuaires-statistiques-du-Maroc-Format-Excel_t22392.html"),
+    (MA_WB, "Estimate vs Ember"): ("ESTIMATE: Tarifa gas (ENTSOG / Enagas) / HCP heat rate; Ember (fallback) for comparison",
+                                   ENTSOG_URL),
+}
+_sam_source_of = sam.source_of
+
+
+def _source_of(fname, spec_name=None, cfg=None):
+    """The shared source line, or this master's per-chart source (SPEC_SOURCES) where one workbook has several."""
+    if spec_name is not None and (fname, spec_name) in SPEC_SOURCES:
+        return SPEC_SOURCES[(fname, spec_name)]
+    return _sam_source_of(fname, spec_name, cfg)
+
+
+sam.source_of = _source_of   # this process only: collect() looks the function up in its own module
+
 MASTER_SPECS = {"west_africa_power_by_type_annual.xlsx": ember_annual,
                 "west_africa_power_by_type.xlsx": ember_monthly}
 DASHBOARD_ONLY = {}
@@ -165,6 +205,12 @@ SOURCES = {
         "ARSEL (Agence de Regulation du Secteur de l'Electricite, Cameroon) / SONATREL-ENEO monthly energy balance "
         "(plant injections, substation off-take, HT customers). Jan-Dec 2025 so far, published with an 8+ month lag",
         "https://arsel-cm.org/bilan-energetique-mensuel/"),
+    "morocco_gas_daily.xlsx": (
+        "ENTSOG / Enagas (GME flow at Tarifa, daily) and Enagas monthly statistical bulletin; HCP Annuaire statistique (ONEE "
+        "per-plant generation and gas burn); Ministry of Energy Transition and Sustainable Development ('Chiffres cles', annual "
+        "key figures); UN Comtrade (import value); JODI Gas (FALLBACK); Ember (FALLBACK). DERIVED = computed here (11.7 GWh "
+        "per million Nm3, Nm3/MWh, Bcf/d, US$/MMBtu); ESTIMATE = monthly gas-fired generation from Tarifa gas",
+        "https://transparency.entsog.eu/#/points/data?points=ITP-00082"),
     "west_africa_power_by_type.xlsx": (
         "Ember (fallback) monthly electricity data - gap fill only where the raw feed is missing or coarser (Nigeria monthly)",
         "https://ember-energy.org/data/monthly-electricity-data/"),
@@ -175,6 +221,10 @@ SOURCES = {
 }
 
 CAVEATS = [
+    "Morocco: from 2023 the GME flow at Tarifa (Spain -> Morocco, regasified LNG) = the gas burned at Tahaddart and Ain Beni Mathar "
+    "(within 1% of the ministry's gas-for-power a year); before Nov 2021 Tarifa carried Algerian transit gas to Spain. Monthly "
+    "gas-fired generation is an ESTIMATE (Tarifa gas / the HCP heat rate, about 190 Nm3 per MWh); Ember (fallback) runs 14-18% below "
+    "the official HCP figures",
     "Cameroon ARSEL data is raw but covers Jan-Dec 2025 only and is published with an 8+ month lag; Ember (fallback) fills earlier years",
     "Nigeria NERC data is QUARTERLY (grid-connected plants only, from 2019Q1); Ember (fallback) gives the monthly view",
     "Ember (fallback) series are labelled '- Ember (fallback)' and never replace raw data where raw exists",
@@ -195,7 +245,7 @@ def main():
     used = {"Dashboard", "Dashboard - Power", "Dashboard - Power (Ember)", "Sources"}
     sources = []
 
-    gas = sam.collect(wb, DATASETS, args.data_dir, used, sources, cfg=cfg)
+    gas = sam.collect(wb, DATASETS, args.data_dir, used, sources, skip=MA_POWER_CHARTS, cfg=cfg)
     # one block per country (dashboard order = order of first appearance in the lists), generation then levels/capacity
     pd_all = RAW_POWER_DATASETS + OTHER_POWER_DATASETS + CAPACITY_DATASETS
     order = {}
@@ -204,7 +254,7 @@ def main():
     power = ([], [], [])
     for d in sorted(pd_all, key=lambda d: order[d[1]]):   # stable: keeps list order within a country
         CTX["country"] = d[1]
-        part = sam.collect(wb, [d], args.data_dir, used, sources, cfg=cfg)
+        part = sam.collect(wb, [d], args.data_dir, used, sources, skip=MA_GAS_CHARTS if d[2] == MA_WB else (), cfg=cfg)
         for i in range(3):
             power[i].extend(part[i])
     power[2].extend(CAVEATS)
@@ -219,8 +269,8 @@ def main():
     emb[2].append("ALL charts on this dashboard are Ember (fallback, annual): these countries have no raw source in the repo "
                   "yet; each is replaced by a raw section when a grid operator / ministry feed is found")
 
-    sam.draw_dashboard(dash, "Africa energy - gas and oil dashboard", *gas)
-    sam.draw_dashboard(dash2, "Africa energy - power generation (South Africa, Ghana, Nigeria)", *power)
+    sam.draw_dashboard(dash, "Africa energy - gas and oil dashboard (Nigeria, Morocco)", *gas)
+    sam.draw_dashboard(dash2, "Africa energy - power generation (South Africa, Ghana, Nigeria, Cameroon, Egypt, Morocco)", *power)
 
     dash3 = wb.create_sheet("Dashboard - Power (Ember)", 2)
     sam.draw_dashboard(dash3, "Africa - Ember (fallback, annual) power generation: countries without a raw source yet", *emb)

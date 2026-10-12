@@ -3726,6 +3726,16 @@ REGISTRY.update({
 })
 
 
+# ---- Morocco (africa/morocco_charts.py) ----
+def _morocco(p):
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "africa"))
+    import morocco_charts
+    return morocco_charts.specs(sys.modules[__name__])(p)
+
+
+REGISTRY["morocco_gas_daily.xlsx"] = _morocco
+
+
 if __name__ == "__main__":
     for p in sys.argv[1:]:
         if os.path.exists(p):
