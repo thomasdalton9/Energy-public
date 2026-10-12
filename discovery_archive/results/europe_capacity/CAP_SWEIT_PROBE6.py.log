@@ -1,0 +1,40 @@
+/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py:46: UserWarning: Parsing dates in %Y-%m-%d format when dayfirst=True was specified. Pass `dayfirst=False` or specify a format to silence this warning.
+  d["d_ms"] = pd.to_datetime(d["datemiseenservice"], dayfirst=True, errors="coerce")
+/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py:47: UserWarning: Parsing dates in %Y-%m-%d format when dayfirst=True was specified. Pass `dayfirst=False` or specify a format to silence this warning.
+  d["d_rac"] = pd.to_datetime(d["dateraccordement"], dayfirst=True, errors="coerce")
+#### A. France register: pandas comparison
+registre-national-installation-production-stockage-electricite-agrege 140539 agg rows 33759 missing ms 226 missing rac 9
+registre-national-installation-production-stockage-electricite-agrege-311220 54671 agg rows 16932 missing ms 436 missing rac 118
+registre-national-installation-production-stockage-electricite-agrege-311221 63410 agg rows 18204 missing ms 409 missing rac 129
+registre-national-installation-production-stockage-electricite-agrege-311222 72790 agg rows 20126 missing ms 368 missing rac 159
+registre-national-installation-production-stockage-electricite-agrege-311223 84944 agg rows 23715 missing ms 319 missing rac 168
+registre-national-installation-production-stockage-electricite-agrege-311224 101097 agg rows 25892 missing ms 265 missing rac 138
+registre-national-installation-production-stockage-electricite-agrege-311225 125930 agg rows 31462 missing ms 235 missing rac 9
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 374, in na_logical_op
+    result = op(x, y)
+             ^^^^^^^^
+TypeError: unsupported operand type(s) for &: 'bool' and 'method'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py", line 57, in <module>
+    row = dict(filiere=f, snap=s[s.filiere == f].mw.sum(), snap_agg=s[(s.filiere == f) & s.agg].mw.sum(),
+                                                                      ~~~~~~~~~~~~~~~~~^~~~~~~
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/common.py", line 85, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/arraylike.py", line 72, in __and__
+    return self._logical_method(other, operator.and_)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/series.py", line 6746, in _logical_method
+    res_values = ops.logical_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 464, in logical_op
+    res_values = na_logical_op(lvalues, rvalues, op)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 384, in na_logical_op
+    assert lib.is_scalar(y)
+           ^^^^^^^^^^^^^^^^
+AssertionError
