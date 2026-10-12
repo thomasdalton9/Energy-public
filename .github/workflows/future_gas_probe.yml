@@ -18,7 +18,7 @@ jobs:
         env:
           GIE_API_KEY: ${{ secrets.GIE_API_KEY }}
           PYTHONUNBUFFERED: "1"
-        run: python3 discovery_archive/future_capacity/${{ github.event.inputs.script }}
+        run: set -o pipefail; python3 discovery_archive/future_capacity/${{ github.event.inputs.script }} 2>&1 | tee discovery_archive/results/future_capacity/${{ github.event.inputs.script }}.log
       - name: Commit results
         if: always()
         run: |

@@ -53,7 +53,7 @@ r = get("https://opendata-nstauthority.hub.arcgis.com/api/v3/datasets?q=fields&p
 if r is not None and r.status_code == 200:
     for d in r.json().get("data", []):
         a = d.get("attributes", {})
-        print("   D", d.get("id"), "|", a.get("name"), "|", (a.get("url") or "")[:110])
+        pass
 # operator pages
 DOCS = {
  "https://www.tap-ag.com/news/news-stories/tap-triggers-the-first-level-of-capacity-expansion": [r"1\.2 ?bcm", r"2027", r"1 January 2026"],
