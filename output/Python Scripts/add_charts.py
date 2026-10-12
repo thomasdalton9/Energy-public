@@ -419,6 +419,23 @@ def tr_capacity(p):
                  "MW per month", "stacked_bar")]
 
 
+def pt_capacity(p):
+    """Portugal (europe/capacity/SWEIT_CAPACITY_MONTHLY.py): DGEG renewables fleet only (no thermal) - 31 December rows to 2023, monthly
+    from January 2024; stacked capacity by renewable fuel and net additions of solar and wind for the monthly rows."""
+    full = by_date(read(p, "Monthly"), "date")
+    d = full[full.index >= "2021-01-01"]
+    names = [("Hydro", "Hydro_MW"), ("Pumped storage", "PumpedStorage_MW"), ("Wind", "Wind_MW"), ("Solar", "Solar_MW"),
+             ("Bioenergy", "Bioenergy_MW"), ("Other (geothermal)", "Other_MW")]
+    g = pd.DataFrame({n: d[c] for n, c in names if c in d and d[c].notna().any()}) / 1000.0
+    m = full[full.index >= "2024-01-01"]
+    adds = pd.DataFrame({"Solar": m["Solar_MW"].diff(), "Wind": m["Wind_MW"].diff()}).dropna(how="all")
+    out = [spec("Capacity", g, "Portugal renewable installed capacity (DGEG; 31 Dec to 2023, month-end from 2024; no thermal)",
+                "GW installed", "stacked_bar")]
+    if len(adds):
+        out.append(spec("Net additions", adds, "Portugal net additions of solar and wind per month (DGEG)", "MW per month", "stacked_bar"))
+    return out
+
+
 def gb_capacity(p):
     """United Kingdom (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): month-end capacity (solar = DESNZ ET 6.3, wind / bioenergy /
     storage = REPD rebuild), net additions, official quarterly renewables (ET 6.1) and DUKES 5.12 on 1 January (all fuels)."""
@@ -3351,6 +3368,10 @@ REGISTRY = {
     "czechia_power_capacity_monthly.xlsx": cee_capacity("Czechia installed capacity, month-end (ERU; coal = all steam plant)"),
     "switzerland_power_capacity_monthly.xlsx": cee_capacity("Switzerland installed capacity, month-end (BFE / Pronovo register, rebuilt)"),
     "poland_power_capacity_quarterly.xlsx": cee_capacity("Poland renewable capacity at quarter end (URE register, partial)", quarterly=True),
+    "france_power_capacity_monthly.xlsx": cee_capacity("France installed capacity, month-end (ODRE register, rebuilt)"),
+    "spain_power_capacity_monthly.xlsx": cee_capacity("Spain installed capacity, month-end (Red Electrica REData)"),
+    "portugal_power_capacity_monthly.xlsx": pt_capacity,
+    "italy_power_capacity_monthly.xlsx": cee_capacity("Italy installed capacity, month-end (Terna)"),
     "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
     "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
