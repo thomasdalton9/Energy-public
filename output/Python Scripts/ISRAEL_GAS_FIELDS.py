@@ -189,9 +189,9 @@ PERIODS = [  # (regex giving the year, months covered)
     (r"Nine[- ]months? (?:to|ended) 30 September,? (20\d\d)|9M (20\d\d)", 9),
     (r"(?:FY|Full[- ]year|Year (?:to|ended) 31 December,?) (20\d\d)", 12),
 ]
-_INC = r"(?: \(inc\. (\d+(?:\.\d+)?) bcm of (?:sales )?gas\))?"
+_INC = r"(?: \((?:inc\.|including) (\d+(?:\.\d+)?) bcm of (?:sales )?gas\))?"
 ISRAEL_ROW = re.compile(r"Israel(?: average W\.I\. production)?(?: \(kboed\))?(?: \(\d\))? \| (\d+(?:\.\d+)?)" + _INC
-                        + r" \| (\d+(?:\.\d+)?)" + _INC + r" \|")
+                        + r" \| (\d+(?:\.\d+)?|-)" + _INC + r" \|")   # '-': no prior-year figure
 # 'Q1 2026: ... 0.96 bcm of gas in Q1 2026 and 1.19 bcm in Q1 2025'
 PERIOD_BCM = re.compile(r"(\d+\.\d+) bcm(?: of (?:sales )?gas)? in (Q1|H1|9M|FY) (20\d\d)")
 # Energean Israel accounts: '... for six months ended 30 June 2025 totaled approximately 2.3 bcm (billion cubic metres)
@@ -199,7 +199,7 @@ PERIOD_BCM = re.compile(r"(\d+\.\d+) bcm(?: of (?:sales )?gas)? in (Q1|H1|9M|FY)
 # 2022 totaled approximately 0.x'
 ACCOUNTS_BCM = re.compile(r"(six months ended 30 June|nine months ended 30 September|three months ended 31 March|"
                           r"year ended 31 December|between 26 October 2022 and 31 December)?,?\s*(20\d\d)\)?,?\s+"
-                          r"totaled approximately\s+(\d+(?:\.\d+)?)\s*(?:bcm)?", re.I)
+                          r"totaled approximately\s+\(?(\d+(?:\.\d+)?)\s*(?:bcm)?", re.I)
 
 
 def rns_text(html):
@@ -230,11 +230,11 @@ def parse_karish(text):
         yr = max(y for p, y, mo in heads if mo == months and p - pos < 300)
         for y, kb, bcm in ((yr, m.group(1), m.group(2)), (yr - 1, m.group(3), m.group(4))):
             # Karish produces from Oct 2022 at up to ~150 kboed: anything else is a row of another table
-            if y >= 2022 and float(kb) <= 180:
+            if kb != "-" and y >= 2022 and float(kb) <= 180:
                 out.append((y, months, float(kb), float(bcm) if bcm else None))
     for s in PERIOD_BCM.finditer(text):
         out.append((int(s.group(3)), {"Q1": 3, "H1": 6, "9M": 9, "FY": 12}[s.group(2)], None, float(s.group(1))))
-    if re.search(r"natural gas sold|quantit(?:y|ies) of (?:natural )?gas", text, re.I):
+    if re.search(r"natural gas sold|quantit(?:y|ies) of (?:natural )?gas|Sales gas", text, re.I):
         for s in ACCOUNTS_BCM.finditer(text):
             if "bcm" not in text[s.end() - 4: s.end() + 30] and "billion cubic" not in text[s.end(): s.end() + 40]:
                 continue
