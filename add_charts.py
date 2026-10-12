@@ -353,6 +353,35 @@ def _storage_sum(d):
     return d.get("Storage_MW", 0).fillna(0) + d.get("PumpedStorage_MW", 0).fillna(0)
 
 
+def dk_capacity(p):
+    """Denmark (europe/capacity/NORDIC_CAPACITY_MONTHLY.py): Energinet / Danish Energy Agency monthly capacity. Wind and solar by
+    fuel; thermal plant is not split by fuel at source."""
+    d = by_date(read(p, "Monthly"), "date")
+    d = d[d.index >= "2021-01-01"]
+    g = pd.DataFrame({"Wind": d.get("Wind_MW"), "Solar": d.get("Solar_MW"),
+                      "Thermal (all fuels, not split at source)": d.get("Thermal_unsplit_MW")}) / 1000.0
+    full = by_date(read(p, "Monthly"), "date")
+    adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff()})
+    return [spec("Capacity", g, "Denmark installed capacity, start of month: wind, solar, thermal (Energinet / Danish Energy Agency)",
+                 "GW installed", "stacked_bar"),
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Denmark net capacity additions per month: solar and wind (Energinet)",
+                 "MW per month", "stacked_bar")]
+
+
+def no_capacity(p):
+    """Norway (europe/capacity/NORDIC_CAPACITY_MONTHLY.py): NVE register rebuild, hydro / pumped storage / wind only."""
+    d = by_date(read(p, "Monthly"), "date")
+    full = d
+    d = d[d.index >= "2021-01-01"]
+    g = pd.DataFrame({"Hydro": d.get("Hydro_MW"), "Wind": d.get("Wind_MW"),
+                      "Pumped storage": d.get("PumpedStorage_MW")}) / 1000.0
+    adds = pd.DataFrame({"Hydro": full["Hydro_MW"].diff(), "Wind": full["Wind_MW"].diff()})
+    return [spec("Capacity", g, "Norway installed capacity, start of month: hydro, wind, pumped storage (NVE registers, rebuilt from dates)",
+                 "GW installed", "stacked_bar"),
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Norway net capacity additions per month: hydro and wind (NVE registers)",
+                 "MW per month", "stacked_bar")]
+
+
 def gb_capacity(p):
     """United Kingdom (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): month-end capacity (solar = DESNZ ET 6.3, wind / bioenergy /
     storage = REPD rebuild), net additions, official quarterly renewables (ET 6.1) and DUKES 5.12 on 1 January (all fuels)."""
@@ -3278,6 +3307,8 @@ REGISTRY = {
     "us_power_capacity.xlsx": us_capacity,
     "united_kingdom_power_capacity_monthly.xlsx": gb_capacity,
     "ireland_power_capacity_monthly.xlsx": ie_capacity,
+    "denmark_power_capacity_monthly.xlsx": dk_capacity,
+    "norway_power_capacity_monthly.xlsx": no_capacity,
     "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
     "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
