@@ -1,0 +1,80 @@
+name: East Med and Africa capacity - complete monthly series
+
+# 1) africa/AFRICA_CAPACITY_ANNUAL.py: official annual capacity (Ghana Energy Commission booklet, Morocco HCP/ONEE yearbooks);
+# 2) middle_east/capacity/EAST_MED_AFRICA_CAPACITY_COMPLETE.py: combines those, Jordan's NEPCO table (jordan_power_annual.xlsx) and
+# Ember yearly capacity (long_term_energy.xlsx, 04:47 UTC) into one gap-free monthly dataset per country and fuel with every filled
+# cell flagged (rules in capacity_fill.py). No other downloads. Runs before the East Med (22:16) and Africa (22:12) master rebuilds.
+on:
+  schedule:
+    - cron: "37 20 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Re-read the Ghana booklet and the Moroccan yearbooks (true/false)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl requests pdfplumber xlrd matplotlib
+          sudo apt-get install -y -q unrar >/dev/null 2>&1 || sudo apt-get install -y -q unrar-free >/dev/null 2>&1 || true
+
+      - name: Official annual capacity (Ghana, Morocco)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS=""
+          [ "${{ github.event.inputs.force }}" = "true" ] && ARGS="--force"
+          timeout 1200 python3 africa/AFRICA_CAPACITY_ANNUAL.py $ARGS || echo "annual pull failed"
+
+      - name: Annual workbooks - Excel charts
+        if: always()
+        run: |
+          for f in ghana_capacity_annual morocco_capacity_annual; do
+            w="output/Data and Chart Outputs/$f.xlsx"
+            [ -f "$w" ] && python3 add_charts.py "$w" || true
+          done
+
+      - name: Build complete capacity workbooks (with Excel charts)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 middle_east/capacity/EAST_MED_AFRICA_CAPACITY_COMPLETE.py
+
+      - name: PNG charts and copy scripts
+        if: always()
+        run: |
+          for f in east_med_capacity_monthly_complete africa_capacity_monthly_complete ghana_capacity_annual morocco_capacity_annual; do
+            w="output/Data and Chart Outputs/$f.xlsx"
+            [ -f "$w" ] && python3 png_charts.py "$w" || echo "PNG step skipped/failed for $f"
+          done
+          mkdir -p "output/Python Scripts"
+          cp africa/AFRICA_CAPACITY_ANNUAL.py middle_east/capacity/EAST_MED_AFRICA_CAPACITY_COMPLETE.py capacity_fill.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in east_med_capacity_monthly_complete africa_capacity_monthly_complete ghana_capacity_annual morocco_capacity_annual; do
+            git add -f "output/Data and Chart Outputs/$f.xlsx" || true
+          done
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "East Med and Africa capacity (complete monthly series): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
