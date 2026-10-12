@@ -3371,7 +3371,6 @@ REGISTRY = {
     "france_power_capacity_monthly.xlsx": cee_capacity("France installed capacity, month-end (ODRE register, rebuilt)"),
     "spain_power_capacity_monthly.xlsx": cee_capacity("Spain installed capacity, month-end (Red Electrica REData)"),
     "portugal_power_capacity_monthly.xlsx": pt_capacity,
-    "italy_power_capacity_monthly.xlsx": cee_capacity("Italy installed capacity, month-end (Terna)"),
     "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
     "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
