@@ -48,10 +48,11 @@ def mem():
         print("rapports page failed")
         return
     pdfs = []
-    for h in re.findall(r'href="([^"]+\.pdf)"', r.text, re.I):
+    html = r.content.decode("utf-8", errors="replace")      # the static mirror is UTF-8 but sends no charset: r.text gives mojibake links (404)
+    for h in re.findall(r'href="([^"]+\.pdf)"', html, re.I):
         u = requests.compat.urljoin(r.url, h)
         name = requests.utils.unquote(u.split("/")[-1])
-        if re.search(r"chiffres|TDB|conjoncture", name, re.I):
+        if re.search(r"chiffres|conjoncture", name, re.I):
             pdfs.append((u, name))
     print(len(pdfs), "candidate PDFs")
     for u, name in pdfs:
