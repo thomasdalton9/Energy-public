@@ -9,7 +9,8 @@ official sources. Nothing is interpolated: a period a source does not cover is a
 
 Date convention (same as the ENTSO-E annual files, dated 1 January, and the Nordic / GB workbooks): the row dated
 1 May holds the capacity installed at 00:00 on 1 May, i.e. at the END of April. Total_MW excludes pumped storage
-(and batteries), as in the ENTSO-E workbooks. Sheet 'Check_ENTSOE' sets every 1 January row against ENTSO-E A68.
+(and batteries), as in the ENTSO-E workbooks. Sheet 'Check_ENTSOE' sets every 1 January row against ENTSO-E A68 and 'Check_Ember' against Ember's yearly capacity
+(long_term_energy.xlsx; Ember has the Swiss and Polish solar and wind that ENTSO-E lacks or understates).
 
 HUNGARY - MAVIR (the TSO), 'Energy MIX - Power Plants - Installed Capacity Data' page: the PDF 'Gross / net installed
   capacity per production type, MAVIR 2000-2020-2026' with GROSS installed capacity per production type, annual to
@@ -167,6 +168,28 @@ def entsoe_check(out_dir, country, monthly, mapping):
     return pd.DataFrame(rows).set_index("date") if rows else pd.DataFrame()
 
 
+def ember_check(out_dir, iso3, monthly, mapping):
+    """1 January rows (stock at the end of the previous year) against Ember's yearly capacity in long_term_energy.xlsx
+    ({our column: Ember variable}); Ember is a compiled secondary source (it has Swiss and Polish solar that ENTSO-E lacks)."""
+    e = read_sheet(os.path.join(out_dir, "long_term_energy.xlsx"), "Power")
+    if e is None or monthly.empty:
+        return pd.DataFrame()
+    e = e[(e["iso3"] == iso3) & (e["variable"].isin(mapping.values()))]
+    rows = []
+    for d in monthly.index:
+        if d.month != 1:
+            continue
+        for ours, var in mapping.items():
+            v = e[(e["variable"] == var) & (e["year"] == d.year - 1)]["value"]
+            a = monthly.at[d, ours] if ours in monthly else np.nan
+            if v.empty or pd.isna(a):
+                continue
+            b = float(v.iloc[0]) * 1000.0
+            rows.append({"date": d, "series": ours, "this_file_MW": round(float(a), 1), "Ember_year_end_MW": round(b, 1),
+                         "difference_MW": round(float(a) - b, 1), "difference_pct": round((float(a) - b) / b * 100, 1) if b else np.nan})
+    return pd.DataFrame(rows).set_index("date") if rows else pd.DataFrame()
+
+
 def releases_frame(rows):
     return pd.DataFrame(rows, columns=["source", "checked_utc", "detail", "sha256"]).set_index("source")
 
@@ -213,7 +236,7 @@ def hu_parse(content):
         for k, ws in lines.items():
             ws = sorted(ws, key=lambda w: w[0])
             t = " ".join(w[4] for w in ws)
-            m = re.match(r"^(\d{4})\.\s+\S+\s+I\s+([A-Za-z]+)\s+(\d{4})", t)
+            m = re.match(r"^(\d{4})\.?\s+\S+\s+I\s+([A-Za-z]+)\s+(\d{4})", t)
             if m and m.group(2)[:3].lower() in HU_MONTH:
                 y = sum((w[1] + w[3]) / 2 for w in ws[:2]) / 2
                 labels.append((y, int(m.group(3)), HU_MONTH[m.group(2)[:3].lower()]))
@@ -274,7 +297,8 @@ def run_hu(out_dir):
     head = SES.head(url, timeout=60, allow_redirects=True)
     detail = f"Last-Modified {head.headers.get('Last-Modified')}; size {head.headers.get('Content-Length')}"
     sha, content = "", None
-    if old.empty or stored_release(path, "MAVIR PDF") != detail:
+    gaps = (not old.empty) and len(pd.date_range(old.index.min(), old.index.max(), freq="MS")) != len(old)
+    if old.empty or gaps or stored_release(path, "MAVIR PDF") != detail:
         content = fetch(url).content
         sha = hashlib.sha256(content).hexdigest()
     else:
@@ -299,6 +323,9 @@ def run_hu(out_dir):
     sheets = {"Monthly": monthly}
     if len(chk):
         sheets["Check_ENTSOE"] = chk
+    ce = ember_check(out_dir, "HUN", monthly, {"Solar_MW": "Cap_Solar_GW", "Wind_MW": "Cap_Wind_GW", "Hydro_MW": "Cap_Hydro_GW"})
+    if len(ce):
+        sheets["Check_Ember"] = ce
     sheets["Releases"] = releases_frame([(a, b, c, d) for a, b, c, d in rel])
     notes = ["Hungary - monthly installed (gross) generation capacity by fuel, MW, MAVIR (TSO).",
              "",
@@ -413,6 +440,9 @@ def run_cz(out_dir):
     sheets = {"Monthly": monthly}
     if len(chk):
         sheets["Check_ENTSOE"] = chk
+    ce = ember_check(out_dir, "CZE", monthly, {"Solar_MW": "Cap_Solar_GW", "Wind_MW": "Cap_Wind_GW", "Hydro_MW": "Cap_Hydro_GW"})
+    if len(ce):
+        sheets["Check_Ember"] = ce
     sheets["Releases"] = releases_frame(rel_rows)
     notes = ["Czechia - monthly installed generation capacity by technology, MW, ERU (energy regulator).",
              "",
@@ -501,6 +531,9 @@ def run_ch(out_dir):
     sheets = {"Monthly": monthly}
     if len(chk):
         sheets["Check_ENTSOE"] = chk
+    ce = ember_check(out_dir, "CHE", monthly, {"Solar_MW": "Cap_Solar_GW", "Wind_MW": "Cap_Wind_GW"})
+    if len(ce):
+        sheets["Check_Ember"] = ce
     sheets["Snapshots"] = snap
     sheets["Releases"] = releases_frame([("BFE plant register zip", now_s(), detail, sha)])
     write(path, sheets, notes, ["Source", "Limits", "Method"])
@@ -614,6 +647,9 @@ def run_pl(out_dir):
              "", "Method",
              "Releases already stored are not downloaded again except the two newest (revisions); sheet Releases lists every file and its hash."]
     sheets = {"Quarterly": monthly}
+    ce = ember_check(out_dir, "POL", monthly, {"Solar_MW": "Cap_Solar_GW", "Wind_MW": "Cap_Wind_GW", "Hydro_MW": "Cap_Hydro_GW"})
+    if len(ce):
+        sheets["Check_Ember"] = ce
     if len(chk):
         sheets["Check_ENTSOE"] = chk
     sheets["Releases"] = releases_frame(rel_rows)
