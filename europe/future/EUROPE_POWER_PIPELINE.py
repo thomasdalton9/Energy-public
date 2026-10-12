@@ -360,6 +360,10 @@ def de_fuel(s):
     return "Other"
 
 
+def first_name(x):
+    return next(sn for sn in x.sheet_names if "Allgemein" in sn)
+
+
 def collect_bnetza(ctx, key):
     html = http("GET", BNETZA_START).text
     links = re.findall(r'href="([^"]*ZuUndRueckbau\.xlsx[^"]*)"', html)
@@ -430,7 +434,27 @@ def collect_bnetza(ctx, key):
                                  expected_online=yr.group(1) if yr else "", source_publisher="Bundesnetzagentur", source_document=doc, source_url=url, as_of_date=asof,
                                  evidence="SOURCED", notes=f"closure / exit from the market; BNetzA category: {cat}" + ("" if yr else " (no year in the list)"), source_key=key))
         r_ += 1
-    note = "closure categories: " + "; ".join(f"{k} x{v}" for k, v in cats.items())
+    # national yearly totals of the KVBG lignite reduction path (the unit list carries no year)
+    first = next((x.parse(sn, header=None) for sn in x.sheet_names if "Allgemein" in sn), None)
+    kv = 0
+    if first is not None:
+        yr_row = next(i for i in range(len(first)) if sum(num(first.iat[i, j]) in (2026, 2027, 2028, 2029) for j in range(first.shape[1])) >= 3)
+        yr_col = {int(num(first.iat[yr_row, j])): j for j in range(first.shape[1]) if num(first.iat[yr_row, j]) in (2026, 2027, 2028, 2029)}
+        lr = next((i for i in range(len(first)) if str(first.iat[i, 1]).strip().startswith("davon gesetzlicher")), None)
+        if lr is not None:
+            for yy, j in sorted(yr_col.items()):
+                v = num(first.iat[lr, j])
+                if v:
+                    kv += 1
+                    rows.append(make_row(country="Germany", asset_type="power_aggregate", project=f"KVBG lignite reduction path: closures {yy}", fuel_or_type="Coal", capacity_mw=-round(v, 1),
+                                         status="FID", expected_online=str(yy), source_publisher="Bundesnetzagentur", source_document=doc.replace(sheet, first_name(x)), source_url=url,
+                                         as_of_date=asof, evidence="SOURCED", notes="statutory closure of the large lignite units under KVBG, national total for the year as published; the unit list gives no year per unit, so the unit rows (same MW) are kept undated with sum_flag N",
+                                         source_key=key))
+            for r in rows:
+                if r["asset_type"] == "power_plant" and r["notes"].find("Reduktionspfad") >= 0:
+                    r["sum_flag"] = "N"
+                    r["notes"] += " | counted in the dated KVBG national-total rows, not here"
+    note = f"{kv} KVBG year totals; closure categories: " + "; ".join(f"{k} x{v}" for k, v in cats.items())
     return rows, fp + "|" + url[-12:], note
 
 
@@ -898,7 +922,7 @@ def chart_tables(df, scope, statuses):
     add = pd.DataFrame(0.0, index=idx, columns=CHART_FUELS)
     ret = pd.DataFrame(0.0, index=idx, columns=CHART_FUELS)
     for r in d.itertuples():
-        t = pd.Timestamp(f"{r.y}-01-01")
+        t = pd.Timestamp(f"{int(r.y)}-01-01")
         f = r.fuel_or_type if r.fuel_or_type in CHART_FUELS else "Other"
         (add if r.mw > 0 else ret).at[t, f] += r.mw / 1000.0
     add = add.loc[:, add.abs().sum() > 0]
