@@ -1,5 +1,26 @@
 """
-Probe 1 for monthly installed capacity, group PL CZ SK HU RO BG AT CH.
+Probe 1 for monthly installed capacity, group PL CZ SK HU RO BG AT CH (probes 1-9 in this folder; run 12 Oct 2026).
+
+FINDINGS (details and results in discovery_archive/results/europe_capacity/cee/):
+  Energy-Charts installed_power: monthly only for Germany ("monthly data is only available for the following countries: de");
+    yearly for the others. Not a fallback for this group.
+  HU  MAVIR 'Energy MIX - Power Plants - Installed Capacity Data' PDF 'Gross/Net installed capacity per production type
+      MAVIR 2000-2020-2026': GROSS capacity by type, MONTHLY from Jan 2020 (annual before), current to Aug 2026. BUILT.
+  CZ  ERU quarterly 'Zprava o provozu elektrizacni soustavy CR' xlsx (eru.gov.cz/<slug>), sheet 5: capacity by technology for each
+      month of the year to the report's quarter; Q4 2020 on. BUILT. (OTE monthly report has claims only; CEPS has no installed capacity.)
+  CH  BFE/Pronovo plant register (data.geo.admin.ch, csv zip, monthly): plants with BeginningOfOperation and power -> month-end
+      capacity REBUILT. BUILT. (BFE ogd22/33/34/56 URLs of the first probe do not exist; ogd104/ogd35 are generation / balance.)
+  PL  PSE: no installed-capacity entity in api.raporty.pse.pl (his-bil-mocy is the power balance); monthly KSE reports are not listed.
+      URE 'Instalacje OZE' quarterly xlsx (Dec 2019 on parse; Mar 2019 and older layouts differ): renewables only, excludes
+      micro-installations. BUILT quarterly, PARTIAL. ARE: annual statistics only.
+  SK  SEPS installedpower.sepsas.sk is a Power BI public report (key in the page, API on wabi-west-europe-api.analysis.windows.net
+      reachable from Actions although api.powerbi.com routing answers 403) but it holds ALLOCATED grid-connection capacity
+      (Pridelený / Vyčerpaný / Voľný, FVE+VTE limit 7,300 MW, used 3,590 MW), not installed capacity, and no history. NOT BUILT.
+  RO  ANRE anre.ro/puteri-instalate embeds a Power BI report whose public key answers 401 UnableToFindKeyInDBorCacheException (dead).
+      Transelectrica pages hold production xls only. NOT AVAILABLE.
+  BG  ESO (eso.bg) 'Statisticheska knizhka' is annual; EWRC (dker.bg) general-information PDF has no capacity table. NOT AVAILABLE.
+  AT  E-Control Bestandsstatistik xlsx (BeStGes-2025_KW1EPLKls etc.) and APG 'Installierte Erzeugungskapazitaet' xlsx are ANNUAL
+      (APG repeats ENTSO-E A68). NOT AVAILABLE monthly.
 Fetches candidate URLs from Actions, prints status / type / size / head, and for JSON/CSV/XLS tries to show structure.
 Findings are recorded in the docstring of the follow-up probes and the build script.
 Usage: python3 EU_CAPACITY_CEE_PROBE1.py
