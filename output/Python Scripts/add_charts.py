@@ -4000,9 +4000,26 @@ except Exception as _e:  # noqa: BLE001
     print("de_nl_be_lu capacity charts not registered:", _e)
 
 
+
+# ---- Weather: population-weighted degree days per region (weather/degree_days.py, weather/weather_charts.py) ----
+def _weather(p):
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "weather"))
+    import weather_charts
+    return weather_charts.specs(p)
+
+
+try:
+    import json
+    for _r in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "weather", "regions.json"))):
+        REGISTRY[f"{_r}_degree_days.xlsx"] = _weather
+except Exception:  # noqa: BLE001
+    pass
+
+
 if __name__ == "__main__":
     for p in sys.argv[1:]:
         if os.path.exists(p):
             add_charts(p)
         else:
             print(f"{p}: not found, skipped")
+

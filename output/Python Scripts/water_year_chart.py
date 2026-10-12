@@ -32,40 +32,47 @@ PREV_LINE = "2A78D6"   # previous year: mid blue (owner, Oct 2026; was orange)
 CURR_LINE = "0B3A66"
 
 
-def _day_of_water_year(idx):
-    start = pd.DatetimeIndex([pd.Timestamp(y if m >= 10 else y - 1, 10, 1) for y, m in zip(idx.year, idx.month)])
+def _day_of_water_year(idx, sm=10):
+    start = pd.DatetimeIndex([pd.Timestamp(y if m >= sm else y - 1, sm, 1) for y, m in zip(idx.year, idx.month)])
     return (idx - start).days + 1
 
 
 def water_year_table(series):
-    """One row per day of the water year (1-365): label, band, average, previous and current year."""
+    """One row per day of the water year (1-365): label, band, average, previous and current year.
+    Optional attributes on the series (series.attrs): "season_start_month" (default 10 = Oct-Sep; weather charts of
+    southern regions start in April) and "normal" (a Series indexed by day of season 1-365, drawn as an extra last
+    column '1991-2020 normal')."""
+    sm = int(series.attrs.get("season_start_month", 10))
+    normal = series.attrs.get("normal")
     s = series.dropna().sort_index()
     s.index = pd.DatetimeIndex(s.index)
     last = s.index.max()
-    wy_start = pd.Timestamp(last.year if last.month >= 10 else last.year - 1, 10, 1)
+    wy_start = pd.Timestamp(last.year if last.month >= sm else last.year - 1, sm, 1)
     prev_start = wy_start - pd.DateOffset(years=1)
     hist_start = wy_start - pd.DateOffset(years=5)
+    tag = (lambda t: f"{t.year}/{str(t.year + 1)[2:]}") if sm != 1 else (lambda t: f"{t.year}")
 
     def by_day(part):
-        d = part.groupby(_day_of_water_year(part.index)).mean()
-        return d.reindex(range(1, 366))   # Feb 29 (day 152 in leap years) folds into its neighbours' days
+        d = part.groupby(_day_of_water_year(part.index, sm)).mean()
+        return d.reindex(range(1, 366))   # Feb 29 folds into its neighbours' days
 
     hist = s[(s.index >= hist_start) & (s.index < wy_start)]
-    hday = pd.Series(hist.values, index=_day_of_water_year(hist.index))
+    hday = pd.Series(hist.values, index=_day_of_water_year(hist.index, sm))
     hday = hday[hday.index <= 365]
     band = hday.groupby(level=0).agg(["min", "max", "mean"]).reindex(range(1, 366)).interpolate().ffill().bfill()
-    labels = [(pd.Timestamp(2001, 10, 1) + pd.Timedelta(days=d - 1)).strftime("%d-%b") for d in range(1, 366)]
+    labels = [(pd.Timestamp(2001, sm, 1) + pd.Timedelta(days=d - 1)).strftime("%d-%b") for d in range(1, 366)]
     t = pd.DataFrame({
         "Day": labels,
         "5Y min": band["min"].round(2).values,
         "5Y range (max-min)": (band["max"] - band["min"]).round(2).values,
         "5Y max": band["max"].round(2).values,
         "5Y average": band["mean"].round(2).values,
-        f"WY {prev_start.year}/{str(prev_start.year + 1)[2:]}": by_day(s[(s.index >= prev_start) & (s.index < wy_start)]).round(2).values,
-        f"WY {wy_start.year}/{str(wy_start.year + 1)[2:]}": by_day(s[s.index >= wy_start]).round(2).values,
+        f"WY {tag(prev_start)}": by_day(s[(s.index >= prev_start) & (s.index < wy_start)]).round(2).values,
+        f"WY {tag(wy_start)}": by_day(s[s.index >= wy_start]).round(2).values,
     })
-    meta = {"hist": f"{hist_start.year}/{str(hist_start.year + 1)[2:]}-{prev_start.year}/{str(prev_start.year + 1)[2:]}",
-            "last": last.date()}
+    if normal is not None:
+        t["1991-2020 normal"] = pd.Series(normal).reindex(range(1, 366)).round(2).values
+    meta = {"hist": f"{tag(hist_start)}-{tag(prev_start)}", "last": last.date(), "season_start_month": sm}
     return t, meta
 
 
@@ -152,11 +159,18 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     _line(avg, AVG_LINE, 19050, "dash")
     _line(prev, PREV_LINE, 19050)
     _line(curr, CURR_LINE, 38100)
+    if table.shape[1] > 7:   # optional extra reference line (e.g. the 1991-2020 normal), last column of the table
+        from openpyxl.chart import Series
+        ex = Series(Reference(ws, min_col=8, min_row=1, max_row=n), title_from_data=True)
+        _line(ex, "C8501E", 25400, "sysDash")
+        lines.series.append(ex)
 
     if short_title:   # dashboards: keep the title to one line so it never runs into the plot
         area.title = f"{title} (to {pd.Timestamp(meta['last']):%d/%m/%y})"
     else:
-        basis = "calendar-year weeks" if meta.get("weekly") else "water year (Oct-Sep)"
+        basis = "calendar-year weeks" if meta.get("weekly") else (
+            "water year (Oct-Sep)" if meta.get("season_start_month", 10) == 10 else
+            f"season from {pd.Timestamp(2001, meta['season_start_month'], 1):%b}")
         area.title = f"{title} - {basis}, data to {meta['last']}"
     area.y_axis.title = unit
     area.x_axis.tickLblSkip = 1
@@ -170,7 +184,8 @@ def build_chart(ws, table, meta, title, unit, width=26, height=12, gridlines=Tru
     if "%" in str(unit):   # percent full: fixed 0-100 scale, gridline/label every 20%
         area.y_axis.scaling.min, area.y_axis.scaling.max, area.y_axis.majorUnit = 0.0, 100.0, 20.0
     else:
-        vals = pd.concat([table["5Y min"], table["5Y max"], table.iloc[:, 5], table.iloc[:, 6]]).dropna()
+        vals = pd.concat([table["5Y min"], table["5Y max"], table.iloc[:, 5], table.iloc[:, 6]]
+                         + ([table.iloc[:, 7]] if table.shape[1] > 7 else [])).dropna()
         lo, hi = float(vals.min()), float(vals.max())
         step = _nice_step((hi - lo) or 1.0)   # round axis ends and gridline step (Excel ticks start at the min)
         area.y_axis.scaling.min = math.floor(lo / step) * step
