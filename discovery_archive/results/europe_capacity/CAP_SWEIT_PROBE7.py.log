@@ -1,0 +1,306 @@
+#### A. France technologies
+['nominstallation', 'codeeicresourceobject', 'codeiris', 'codeinseecommune', 'commune', 'codeepci', 'epci', 'codedepartement', 'departement', 'coderegion', 'region', 'codeiriscommuneimplantation', 'codeinseecommuneimplantation', 'codes3renr', 'dateraccordement', 'datederaccordement', 'datemiseenservice', 'datedebutversion', 'postesource', 'tensionraccordement', 'moderaccordement', 'codefiliere', 'filiere', 'codecombustible', 'combustible', 'codescombustiblessecondaires', 'combustiblessecondaires', 'codetechnologie', 'technologie', 'typestockage', 'puismaxinstallee', 'puismaxraccharge', 'puismaxcharge', 'puismaxrac', 'puismaxinstalleedischarge', 'nbgroupes', 'nbinstallations', 'regime', 'energiestockable', 'capacitereservoir', 'hauteurchute', 'productible', 'debitmaximal', 'codegestionnaire', 'gestionnaire', 'energieannuelleglissanteinjectee', 'energieannuelleglissanteproduite', 'energieannuelleglissantesoutiree', 'energieannuelleglissantestockee', 'maxpuis', 'datemiseenservice_date', 'mw', 'agg']
+                                                                                        n       mw    agg
+filiere                    technologie               codecombustible typestockage                        
+Autre                      Batterie                  NaN             BATTE              1      0.9      0
+                           Cogénération à combustion B.MET           NaN                1      0.1      0
+                                                     GAZ             NaN                1      0.2      0
+                           Photovoltaïque            NaN             NaN                1      1.0      0
+                           Turbine à combustion      FIOUL           NaN                1      0.8      0
+                           NaN                       NaN             NaN               32     29.2      5
+Bioénergies                Autre                     B.EPU           NaN                1      0.7      0
+                                                     B.MET           NaN              267    221.0      1
+                                                     B.STO           NaN               10     12.0      0
+                                                     BOIS            NaN               21    128.8      0
+                                                     D.MEN           NaN               44    353.0      0
+                                                     NaN             NaN                2      0.1      0
+                           Cogénération à combustion B.EPU           NaN                5     10.7      0
+                                                     B.MET           NaN              471    155.2      5
+                                                     B.STO           NaN                9      7.5      0
+                                                     BAGAS           NaN               15      6.8      0
+                                                     BOIS            NaN                4     56.5      0
+                                                     D.IND           NaN                1      3.8      0
+                                                     D.MEN           NaN               10     50.4      0
+                                                     D.PAP           NaN                1      0.0      0
+                                                     NaN             NaN                2      0.4      0
+                           Cogénération à vapeur     B.MET           NaN               35     24.6      0
+                                                     BOIS            NaN               25    308.6      0
+                                                     D.IND           NaN                1      1.2      0
+                                                     D.MEN           NaN               16    210.8      0
+                           Cycle combiné             B.EPU           NaN                1      1.8      0
+                                                     B.MET           NaN                1      0.5      0
+                                                     BOIS            NaN                1      4.6      0
+                           Moteur à piston           B.EPU           NaN                4      1.0      0
+                                                     B.MET           NaN               36     22.2      0
+                                                     B.STO           NaN                6      4.0      0
+                                                     BOIS            NaN                1      4.2      0
+                                                     D.MEN           NaN                2      7.3      0
+                                                     NaN             NaN                1      1.0      0
+                           Turbine à combustion      B.MET           NaN               46     50.1      1
+                                                     B.STO           NaN                2      1.4      0
+                                                     BOIS            NaN                2     12.5      0
+                                                     D.MEN           NaN                9     98.6      0
+                           Turbine à vapeur          B.MET           NaN                9      9.3      0
+                                                     B.STO           NaN                1      0.9      0
+                                                     BOIS            NaN               10    276.9      0
+                                                     D.IND           NaN                1      0.8      0
+                                                     D.MEN           NaN               24    275.1      0
+                                                     D.PAP           NaN                3     56.6      0
+                                                     NaN             NaN                2     65.0      0
+                           NaN                       B.MET           NaN              108     81.3      0
+                                                     B.STO           NaN                1      1.1      0
+                                                     BOIS            NaN                9     47.3      0
+                                                     D.MEN           NaN                9     35.9      0
+                                                     NaN             NaN               27    595.1      0
+Energies Marines           Hydrolienne en mer        NaN             NaN                2      3.0      0
+                           Marémotrice               NaN             NaN                1    240.0      0
+                           NaN                       NaN             NaN                1      0.5      0
+Eolien                     Autre                     NaN             NaN                1      0.8      0
+                           En mer flottant           NaN             NaN                4     35.2      0
+                           En mer posé               NaN             NaN               13   2261.0      0
+                           Terrestre                 NaN             BATTE              1     11.6      0
+                                                                     NaN             2402  24460.1      9
+                           NaN                       NaN             NaN               25    180.4      0
+Géothermie                 Cogénération à vapeur     AUTRE           NaN                1      1.8      0
+                           NaN                       NaN             NaN                1     14.6      0
+Hydraulique                Autre                     NaN             NaN                3      0.9      0
+                           Eclusée                   NaN             NaN              177   3750.3      0
+                           Fil de l'eau              AUTRE           NaN               18      6.1      0
+                                                     NaN             BATTE              1      1.7      0
+                                                                     HDRGN              1      0.1      0
+                                                                     NaN             2286   7841.2     10
+                           Hydrolien fluvial         NaN             NaN               45     22.3      1
+                           Lac                       NaN             NaN              107   8803.3      0
+                           Pompage turbinage         NaN             V.INE              1      0.0      0
+                                                                     NaN               33   5060.4      1
+                           NaN                       AUTRE           NaN                6      9.2      0
+                                                     NaN             NaN               79    529.3      3
+Nucléaire                  Fission nucléaire         URANI           NaN               57  62990.0      0
+Solaire                    Autre                     AUTRE           NaN                1      0.1      0
+                                                     NaN             NaN               31      6.6      3
+                           Batterie                  NaN             BATTE              1      1.2      0
+                           Photovoltaïque            AUTRE           NaN             1494    298.9    384
+                                                     FIOUL           NaN                1      9.5      0
+                                                     NaN             BATTE             33     38.7      0
+                                                                     V.INE              4      0.2      0
+                                                                     NaN           126880  33488.7  33079
+                           Thermodynamique           NaN             NaN                5     10.9      1
+                           NaN                       AUTRE           NaN               22      3.4      7
+                                                     NaN             NaN             3360   1026.9    248
+Stockage non hydraulique   Autre                     AUTRE           NaN                4      5.0      0
+                                                     NaN             NaN                2      2.5      0
+                           Batterie                  NaN             BATTE            792   1900.9      0
+                                                                     V.INE             10     13.1      0
+                                                                     NaN               91    299.5      0
+                           NaN                       NaN             NaN                7     42.2      0
+Thermique non renouvelable Autre                     CHARB           NaN                4     38.5      0
+                                                     FIOUL           NaN               50    308.5      0
+                                                     GAZ             NaN              238   1044.2      0
+                           Cogénération à combustion D.MEN           NaN                1     20.0      0
+                                                     FIOUL           NaN                2      5.1      0
+                                                     GAZ             NaN              254   1599.1      1
+                                                     NaN             NaN                3     10.0      0
+                           Cogénération à vapeur     CHARB           NaN                1     12.0      0
+                                                     FIOUL           NaN               29    385.9      0
+                                                     GAZ             NaN              116   1223.6      0
+                           Cycle combiné             FIOUL           NaN                1      1.0      0
+                                                     GAZ             NaN               24   6820.5      0
+                           Moteur à piston           B.MET           NaN                1      0.2      0
+                                                     FIOUL           NaN               69    276.7      0
+                                                     GAZ             BATTE              1      5.4      0
+                                                                     NaN               51    185.5      0
+                           Photovoltaïque            NaN             NaN                1     24.0      0
+                           Turbine à combustion      FIOUL           NaN               29   1539.8      0
+                                                     GAZ             NaN               67    978.9      0
+                           Turbine à vapeur          CHARB           NaN                8   2760.2      0
+                                                     FIOUL           NaN                7     86.5      0
+                                                     GAZ             NaN               25    226.9      0
+                           NaN                       FIOUL           NaN               15     75.3      0
+                                                     GAZ             NaN              185    558.8      0
+                                                     NaN             NaN               60   1646.1      0
+                                                   size      sum
+filiere                    regime                               
+Autre                      En service                32     31.4
+                           NaN                        5      0.7
+Bioénergies                En service              1249   3202.6
+                           NaN                        7      4.2
+Energies Marines           En service                 4    243.5
+Eolien                     En service              2437  26943.5
+                           NaN                        9      5.7
+Géothermie                 En service                 2     16.5
+Hydraulique                En retrait provisoire      1      1.4
+                           En service              2741  25999.1
+                           NaN                       15     24.4
+Nucléaire                  En service                57  62990.0
+Solaire                    En service             98111  28733.3
+                           NaN                    33721   6151.9
+Stockage non hydraulique   En service               906   2263.2
+Thermique non renouvelable En retrait provisoire      5   1006.0
+                           En service              1236  18826.4
+                           NaN                        1      0.3
+                                  size      sum
+combustible      codecombustible               
+Charbon          CHARB              13   2810.7
+Déchets ménagers D.MEN               1     20.0
+Fioul            FIOUL             202   2678.7
+Gaz              GAZ               961  12642.9
+NaN              B.MET               1      0.2
+                 NaN                64   1680.1
+date samples: ['14/12/2021', '18/02/2026', '23/05/2024'] ['14/12/2021', '18/02/2026', '23/05/2024']
+
+#### A2. SDES national rows
+9714 solaire PV (125, 175)
+                                                                                                                              0                        1      2
+0    Installations solaires photovoltaïques raccordées au réseau : résultats trimestriels par département et région depuis 2005                      NaN    NaN
+1                                                                                                       Unité : puissance en MW                      NaN    NaN
+2                                                                                                                           NaN                      NaN    NaN
+3                                                                                                                           NaN                      NaN    NaN
+4                                                                                                                     Grand Est                      NaN    NaN
+5                                                                                                                           NaN                 Ardennes    8.0
+6                                                                                                                           NaN                     Aube   10.0
+7                                                                                                                           NaN                    Marne   51.0
+8                                                                                                                           NaN              Haute-Marne   52.0
+9                                                                                                                           NaN       Meurthe-et-Moselle   54.0
+10                                                                                                                          NaN                    Meuse   55.0
+11                                                                                                                          NaN                  Moselle   57.0
+12                                                                                                                          NaN                 Bas-Rhin   67.0
+13                                                                                                                          NaN                Haut-Rhin   68.0
+14                                                                                                                          NaN                   Vosges   88.0
+15                                                                                                           Nouvelle-Aquitaine                      NaN    NaN
+16                                                                                                                          NaN                 Charente   16.0
+17                                                                                                                      
+last header cells: [datetime.datetime(2025, 12, 31, 0, 0), datetime.datetime(2025, 12, 31, 0, 0), datetime.datetime(2026, 3, 31, 0, 0), datetime.datetime(2026, 3, 31, 0, 0), datetime.datetime(2026, 6, 30, 0, 0), datetime.datetime(2026, 6, 30, 0, 0)] ['nombre', 'puissance', 'nombre', 'puissance', 'nombre', 'puissance']
+ROW 63 Île-de-France [42039, 497.01891, 43111, 529.41939, 44011, 561.57372, 44937, 576.5375099999999]
+ROW 86 Hauts-de-France [66550, 994.335899, 68495, 1052.407319, 69791, 1102.542709, 71527, 1234.206014]
+ROW 111 Total métropole [1299900, 28745.943831999997, 1337827, 30310.617459, 1370692, 31836.072060999995, 1403727, 33292.19248500001]
+ROW 118 Total DOM [14708, 646.08249, 15459, 658.51107, 16421, 670.17205, 16798, 672.59694]
+ROW 120 Total France [1314608, 29392.026321999998, 1353286, 30969.128529, 1387113, 32506.244110999996, 1420525, 33964.78942500001]
+9715 éolien_terrestre (125, 175)
+                                                                                                               0                        1      2
+0    Installations éoliennes raccordées au réseau : résultats trimestriels par département et région depuis 2005                      NaN    NaN
+1                                                                                        Unité : puissance en MW                      NaN    NaN
+2                                                                                                            NaN                      NaN    NaN
+3                                                                                                            NaN                      NaN    NaN
+4                                                                                                      Grand Est                      NaN    NaN
+5                                                                                                            NaN                 Ardennes    8.0
+6                                                                                                            NaN                     Aube   10.0
+7                                                                                                            NaN                    Marne   51.0
+8                                                                                                            NaN              Haute-Marne   52.0
+9                                                                                                            NaN       Meurthe-et-Moselle   54.0
+10                                                                                                           NaN                    Meuse   55.0
+11                                                                                                           NaN                  Moselle   57.0
+12                                                                                                           NaN                 Bas-Rhin   67.0
+13                                                                                                           NaN                Haut-Rhin   68.0
+14                                                                                                           NaN                   Vosges   88.0
+15                                                                                            Nouvelle-Aquitaine                      NaN    NaN
+16                                                                                                           NaN                 Charente   16.0
+17                                                                                                           NaN        Charente-Maritime   17.0
+18                                                                                                           NaN                  Corrèze   19.0
+19                                                                                                  
+last header cells: [datetime.datetime(2025, 12, 31, 0, 0), datetime.datetime(2025, 12, 31, 0, 0), datetime.datetime(2026, 3, 31, 0, 0), datetime.datetime(2026, 3, 31, 0, 0), datetime.datetime(2026, 6, 30, 0, 0), datetime.datetime(2026, 6, 30, 0, 0)] ['nombre', 'puissance', 'nombre', 'puissance', 'nombre', 'puissance']
+ROW 63 Île-de-France [14, 127.3384, 15, 139.9384, 15, 139.9384, 16, 146.5384]
+ROW 86 Hauts-de-France [644, 6576.9907, 646, 6623.5507, 652, 6675.9307, 654, 6695.2807]
+ROW 111 Total métropole [2515, 23531.597650000003, 2544, 23886.74365, 2553, 24057.34155, 2572, 24272.47655]
+ROW 118 Total DROM [15, 105.75, 15, 105.75, 15, 105.75, 16, 114.55]
+ROW 120 Total France [2530, 23637.347650000003, 2559, 23992.49365, 2568, 24163.09155, 2588, 24387.02655]
+9715 éolien_offshore (125, 175)
+                                                                                                               0                        1      2
+0    Installations éoliennes raccordées au réseau : résultats trimestriels par département et région depuis 2005                      NaN    NaN
+1                                                                                        Unité : puissance en MW                      NaN    NaN
+2                                                                                                            NaN                      NaN    NaN
+3                                                                                                            NaN                      NaN    NaN
+4                                                                                                      Grand Est                      NaN    NaN
+5                                                                                                            NaN                 Ardennes    8.0
+6                                                                                                            NaN                     Aube   10.0
+7                                                                                                            NaN                    Marne   51.0
+8                                                                                                            NaN              Haute-Marne   52.0
+9                                                                                                            NaN       Meurthe-et-Moselle   54.0
+10                                                                                                           NaN                    Meuse   55.0
+11                                                                                                           NaN                  Moselle   57.0
+12                                                                                                           NaN                 Bas-Rhin   67.0
+13                                                                                                           NaN                Haut-Rhin   68.0
+14                                                                                                           NaN                   Vosges   88.0
+15                                                                                            Nouvelle-Aquitaine                      NaN    NaN
+16                                                                                                           NaN                 Charente   16.0
+17                                                                                                           NaN        Charente-Maritime   17.0
+18                                                                                                           NaN                  Corrèze   19.0
+19                                                                                                  
+last header cells: [datetime.datetime(2025, 12, 31, 0, 0), datetime.datetime(2025, 12, 31, 0, 0), datetime.datetime(2026, 3, 31, 0, 0), datetime.datetime(2026, 3, 31, 0, 0), datetime.datetime(2026, 6, 30, 0, 0), datetime.datetime(2026, 6, 30, 0, 0)] ['nombre', 'puissance', 'nombre', 'puissance', 'nombre', 'puissance']
+ROW 63 Île-de-France [0, 0, 0, 0, 0, 0, 0, 0]
+ROW 86 Hauts-de-France [0, 0, 0, 0, 0, 0, 0, 0]
+ROW 111 Total métropole [10, 1508.2, 12, 2008.2, 12, 2008.2, 19, 2316.2]
+ROW 118 Total DROM [0, 0, 0, 0, 0, 0, 0, 0]
+ROW 120 Total France [10, 1508.2, 12, 2008.2, 12, 2008.2, 19, 2316.2]
+
+#### B. Spain alternatives
+ERR https://datos.gob.es/apidata/catalog/dataset?q=potencia+instalada+electrica&_pageSize=20 <html>
+<head>
+<title>unknown shortname</title>
+
+<style> 
+
+body { 
+    background-color: pink 
+} 
+
+pre {
+    margin: 1ex
+    ; padding: 1ex
+    ; background-color: #ffaaaa
+    ; border-radius: 1ex
+    
+ERR https://datos.gob.es/apidata/catalog/dataset?q=RAIPEE&_pageSize=20 <html>
+<head>
+<title>unknown shortname</title>
+
+<style> 
+
+body { 
+    background-color: pink 
+} 
+
+pre {
+    margin: 1ex
+    ; padding: 1ex
+    ; background-color: #ffaaaa
+    ; border-radius: 1ex
+    
+ERR https://datos.gob.es/apidata/catalog/dataset?q=registro+administrativo+instalaciones+produccion+energia+electrica&_pageSize=20 <html>
+<head>
+<title>unknown shortname</title>
+
+<style> 
+
+body { 
+    background-color: pink 
+} 
+
+pre {
+    margin: 1ex
+    ; padding: 1ex
+    ; background-color: #ffaaaa
+    ; border-radius: 1ex
+    
+Installed capacity from renewable energy generation in the Spanish electricity system increased by 6.3 GW in 2022, by 6.7 GW in 2023, and by 7.9 GW in 2024. In 2025, installed capacity from renewable energy generation experienced the highest increase recorded to date, with an additional 10 GW, bringing the total installed capacity from renewable energy generation sources in the Spanish electricity system to 95.6 GW. The integration of this new renewable capacity, mostly wind and power solar photovoltaic, represented a significant boost to the energy transition and the fulfilment of the integration roadmap set out in Spain’s National Energy and Climate Plan (NECP), with a 2030 deadline. As for the Spanish electricity system’s installed storage capacity in 2025, it stands at 3,427 MW, of which 3,331 MW correspond to pumped-storage and 96 MW to batteries, nearly quadrupling the capacity they had in 2024. The power generation fleet of the peninsular electricity system is also becoming increasingly cleaner, as there was an 11.7% increase in installed capacity from renewable energy generation in 2025 compared to the previous year. Over the course of 2025, installed solar photovoltaic power capacity experienced the greatest increase within the peninsular electricity system, adding almost 9,000 MW to the power generation fleet. Solar photovoltaic remained the leading technology in the peninsular electricity system in terms of installed capacity at 40,952 MW, surpassing wind power, which accounted for 30.0% of the total installed capacity in the peninsular system (compared to 25.3% in 2024). The increase in installed wind power capacity in 2025 was 3.5%, once again making it the second-largest generation source in the ranking of installed capacity in the peninsular system. With a total of 32,593 MW, wind power represents 23.8% of the total installed capacity in the peninsular electricity system. In contrast, non-renewable generation capacity on the Spanish Peninsula decreased by 0.9% in 2025, mainly due to the modification of the conventional Aboño 2 generator, which removed its coal-burning capacity in favour of gas, as well as the reduction in installed capacity for cogeneration and non-renewable waste. In the non-peninsular systems, there was an increase of 1.3% in installed capacity by the end of 2025. This increase is due to the 4.5% growth in installed wind power capacity, the 8.6% increase in solar photovoltaic and the 12.4% uptake in other renewables compar
+tables: 1 csv/xls refs: []
+drupal settings snippet: []
+fetch urls: ['/en/datos/generation/installed-capacity?all_ccaa=allCcaa&amp', '/en/datos/generation/installed-capacity?end_date=2025-12-31T23', '/en/datos/generation/power-renewable-structure?end_date=2025-12-31T23', '/en/datos/generation/power-structure-associated-emissions?end_date=2025-12-31T23', '/en/datos/todate']
+
+#### C. Terna JS
+['/-/media/base-themes/core-libraries/scripts/ie-origin-fix.js', '/-/media/base-themes/core-libraries/scripts/xaquery.js', '/-/media/base-themes/core-libraries/scripts/moment.js', '/-/media/base-themes/core-libraries/scripts/lo-dash.js', '/-/media/base-themes/core-libraries/scripts/modernizr.js', '/-/media/base-themes/core-libraries/scripts/galleria-161.js', '/-/media/base-themes/core-libraries/scripts/fullcalendar.js', '/-/media/base-themes/core-libraries/scripts/gcal.js', '/-/media/base-themes/core-libraries/scripts/jqueryuitouch-punchmin.js', '/-/media/base-themes/core-libraries/scripts/hammer.js', '/-/media/base-themes/core-libraries/scripts/backbone-min.js', '/-/media/base-themes/core-libraries/scripts/typeahead.js', '/-/media/base-themes/core-libraries/scripts/jquerymcustomscrollbar.js', '/-/media/base-themes/core-libraries/scripts/flash-polyfill.js', '/-/media/base-themes/core-libraries/scripts/mediaelement-and-player.js', '/-/media/base-themes/core-libraries/scripts/dailymotion.js', '/-/media/base-themes/core-libraries/scripts/facebook.js', '/-/media/base-themes/core-libraries/scripts/soundcloud.js', '/-/media/base-themes/core-libraries/scripts/twitch.js', '/-/media/base-themes/core-libraries/scripts/vimeo.js', '/-/media/base-themes/xa-api/scripts/xa.js', '/-/media/base-themes/main-theme/scripts/observer.js', '/-/media/base-themes/main-theme/scripts/partial-design-highlight.js', '/-/media/base-themes/google-maps-js-connector/scripts/google-maps-connector.js', '/-/media/base-themes/maps/scripts/component-location-service.js', '/-/media/base-themes/maps/scripts/component-map.js', '/-/media/base-themes/searchtheme/scripts/component-location-service.js', '/-/media/base-themes/searchtheme/scripts/component-search.js', '/-/media/base-themes/searchtheme/scripts/component-search-ajax.js', '/-/media/base-themes/searchtheme/scripts/component-search-base-model.js', '/-/media/base-themes/searchtheme/scripts/component-search-base-view.js', '/-/media/base-themes/searchtheme/scripts/component-search-box.js', '/-/media/base-themes/searchtheme/scripts/component-search-facet-data.js', '/-/media/base-themes/searchtheme/scripts/component-search-facet-summary.js', '/-/media/base-themes/searchtheme/scripts/component-search-facet-dropdown.js', '/-/media/base-themes/searchtheme/scripts/component-search-facet-managed-range.js', '/-/media/base-themes/searchtheme/scripts/component-search-facet-range-slider.js', '/-/media/base-themes/searchtheme/scripts/component-search-facet-slider.js', '/-/media/base-themes/searchtheme/scripts/component-search-load-more.js', '/-/media/base-themes/searchtheme/scripts/component-search-location-filter.js']
+inline scripts 1 [338]
+SCRIPT /-/media/base-themes/foundation/bootstrap/scripts/bootstrapmin.js 78130 -1
+SCRIPT /-/media/base-themes/foundation/bootstrapdatepicker/scripts/bootstrap-datepickermin.js 33872 -1
+SCRIPT /-/media/base-themes/foundation/bootstrapdatepicker/scripts/bootstrap-datepickeritmin.js 1231 -1
+SCRIPT /-/media/base-themes/foundation/bootstraptable/scripts/bootstraptablemin.js 137326 -1
+SCRIPT /-/media/base-themes/foundation/bootstraptable/scripts/bootstrap-table-sticky-headermin.js 22120 -1
+SCRIPT /-/media/base-themes/foundation/vueglobal/scripts/vueglobalprod.js 147177 -1
+SCRIPT /-/media/themes/terna/dati/dati-theme/scripts/pre-optimized-min.js?t= 97791 49911
+elected(){return this.selectedMonths.length==12||this.selectedMonths.length==0},showCount(){return Object.keys(this.content.Columns).length>0},autoFetchMonths(){return this.selectedMonths.toString()},urlSearchParamsNoPaging(){let n=new URLSearchParams(this.urlSearchParams);return n.delete("pageSize"),n.delete("pageIndex"),n}},watch:{selectedCluster(t,i){if(t!=i){(this.selectedCluster=="LoadInternationalComparisons"||this.selectedCluster=="GenerationInternationalComparisons"||t=="OpenSeason")&&(this.selectedYear="All",this.selectedMonth="",this.selectedDay="");let r="",u="",f=this.selectedDataset,e=this.selectedCluster;n.each(c.items,function(n,t){t.cluster.value.toLowerCase()==e.toLowerCase()&&(r=t.cluster.label);t.dataset.value.toLowerCase()==f.toLowerCase()&&(u=t.dataset.label)});history.replaceState(undefined,undefined,`#/${r||e}/${u||f}`)}},selectedDataset(t,i){if(t!=i){let r=new Date;if(!this.selectedYear&&(this.selectedYear=r.getFullYear(),Array.isArray(this.selectedMonths)&&this.selectedMonths.length==0)){let n=this.selectedYear==r.getFullYear()?r.getMonth()+1:12;this.selectedMonths=this.selectedDataset=="SecondaryAdjustmentLevels"||this.selectedDataset=="ProjectPicassoConnections"?n:[n]}this.selectedDataset!="RenewableSources"||this.selectedFinalTrendType||(this.selectedFinalTrendType=this.renewableSources_finalTrendTypes[0].value);this.selectedCluster!="FCRInput"&&this.selectedCluster!="FCROutput"||this.selectedFcrZone||(this.selectedFcrZone=this.fcr_zones[0].value,this.selectedYear="",this.selectedMonth="",this.selectedDay="");(this.selectedCluster=="LoadInternationalComparisons"||this.selectedCluster=="GenerationInternationalComparisons")&&(this.selectedYear="All",this.selectedMonth="",this.selectedDay="");let u="",f="",e=this.selectedDataset,o=this.selectedCluster;n.each(c.items,function(n,t){t.cluster.value.toLowerCase()==o.toLowerCase()&&(u=t.cluster.label);t.dataset.value.toLowerCase()==e.toLowerCase()&&(f=t.dataset.label)});history.replaceState(undefined,undefined,`#/${u||o}/${f||e}`)}},selectedYear(){(this.selectedCluster=="FCRInput"||this.selectedCluster=="FCROutput")&&(this.selectedMonth="",this.selectedDay="")},autoFetchMonths(n,t){if(r&&(t!=""||n!="")&&n!=t){this.enqueueFetch(0,!0,!1,!1,!1);return}},isMonthsOverFlow(n,t){n!=t&&(this.selectedMonths=this.selectedMonths.filter(n=>n<=(new Date).getMonth()+1))}},methods:{readHashFromUrl(){let t=window.location.hash;t.startsWith("#")&&(t=t.substring(1));t.startsWith("/")&&(t=t.substring(1));t.endsWith("/")&&(t=t.substring(0,t.length-1));let i=t?t.split("/"):[];if(i.length>1){let t="",r="";return n.each(c.items,function(n,u){u.cluster.label.toLowerCase()==decodeURI(i[0]).toLowerCase()&&(t=u.cluster.value,u.dataset.label.toLowerCase()==decodeURI(i[1]).toLowerCase()&&(r=u.dataset.value))}),{cluster:t,dataset:r}}return null},async onchangeFcrMonth(){r=!1;this.selectedDay="";await this.enqueueFetch(0,!0,!1,!1,!0);r=!0},async onchangeMarketSection(){r=!1;this.selectedDataset=this.selectedMarketSection;this.selectedMonths=[];let n=new Date;this.selectedYear=n.getFullYear();await this.enqueueFetch(0,!0,!1,!1,!0);r=!0},async selectClusterAndDataset(n,t){r=!1;this.selectedCluster=n;this.selectedDataset=t;this.selectedMarketSection=t=="SecondaryAdjustmentLevels"||t=="ProjectPicassoConnections"?t:"";(this.selectedCluster=="LoadInternationalComparisons"||this.selectedCluster=="GenerationInternationalComparisons"||n=="OpenSeason")&&(this.selectedMonth="");await this.enqueueFetch(0,!0,!1,!1,!0);r=!0},selectAllMonths(){this.selectedMonths=[];return},getReportTitle(){let f=document.querySelector(i.sideMenu),n=[],t=f.querySelector("strong");n.unshift(t?.textContent);let r=t?.closest(".
+
+#### D. PT older PDFs
+2024-01 no Potência instalada MW table; pages 23
+2024-02 no Potência instalada MW table; pages 23
+2023-12 no Potência instalada MW table; pages 23
+2021-08 no Potência instalada MW table; pages 23
+2025-12 no Potência instalada MW table; pages 25
