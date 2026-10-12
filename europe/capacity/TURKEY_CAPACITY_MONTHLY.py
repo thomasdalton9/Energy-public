@@ -4,8 +4,8 @@ Monthly installed generation capacity for Turkey from EPDK's monthly Electricity
   output/Data and Chart Outputs/turkey_power_capacity_monthly.xlsx
 
 Source: EPDK (Enerji Piyasasi Duzenleme Kurumu, the energy regulator), 'Elektrik Piyasasi Aylik Sektor Raporu', one PDF per
-month from https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar (the list page links a PDF and an Excel
-annex per month; the PDF is read). Each report carries the table '<Y-1> <Month>-<Y> <Month> Elektrik Kurulu Gucu ve Uretim
+month from https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar (reports to Dec 2025 are Word .docx files, the
+2026 ones PDF with an Excel annex; both are read). Each report carries the table '<Y-1> <Month>-<Y> <Month> Elektrik Kurulu Gucu ve Uretim
 Miktari': TOTAL installed capacity (MW) by source, LICENSED AND UNLICENSED plants together, at the end of the report month
 and of the same month a year earlier (the report text says licensed capacity and generation come from TEIAS's YTBS and are
 provisional until TEIAS publishes). RAW official source, MONTHLY, all fuels. About 6-8 weeks lag.
@@ -13,7 +13,10 @@ provisional until TEIAS publishes). RAW official source, MONTHLY, all fuels. Abo
 Date convention (same as the ENTSO-E annual files and the other monthly capacity files): the row dated 1 May holds the
 capacity at the end of April.
 
-Each report gives two month-end points (this year and the same month last year). A period takes the value from the LATEST
+Two table layouts exist. 2022 and later: one table of TOTAL capacity (licensed + unlicensed) at the report month and the same month a
+year earlier (two points per report). Up to 2021: the LICENSED capacity table (previous and current year) plus a separate table of
+UNLICENSED capacity (current month only); the file then sums the two for the current month only ('basis' column on Reports).
+Each report therefore gives up to two month-end points. A period takes the value from the LATEST
 report that contains it (the next year's report revises the previous year's figure); 'Revisions' lists the differences.
 Hence the history reaches back one year before the oldest report read (2016 reports -> from Jan 2015 if the table exists in that
 layout; reports whose table cannot be parsed or whose parts do not add up to the reported total within 0.3% are left out and
@@ -87,6 +90,15 @@ def get(url, tries=2, **kw):
     return None
 
 
+def is_docx(c):
+    import io
+    import zipfile
+    try:
+        return "word/document.xml" in zipfile.ZipFile(io.BytesIO(c)).namelist()
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def list_reports():
     r = get(LIST_URL)
     if r is None:
@@ -132,17 +144,121 @@ def parse_pdf(content):
     return None, "table not found"
 
 
+UNLIC = {"GÜNEŞ": "Solar_MW", "GÜNEŞ (FOTOVOLTAİK)": "Solar_MW", "GÜNEŞ (YOĞUNLAŞTIRILMIŞ)": "Solar_MW", "DOĞAL GAZ": "Gas_MW",
+         "BİYOKÜTLE": "Bioenergy_MW", "RÜZGÂR": "Wind_MW", "RÜZGAR": "Wind_MW", "HİDROLİK": "Hydro_MW", "JEOTERMAL": "Geothermal_MW"}
+LIC_ALIASES = {"BARAJLI HİDROLİK": "Hydro_MW", "AKARSU": "Hydro_MW"}
+
+
+def _upper(x):
+    return re.sub(r"\s+", " ", x.replace("i", "İ").replace("ı", "I").upper()).strip()
+
+
+def _tonum(x):
+    x = x.strip()
+    if re.fullmatch(r"-?\d{1,3}(?:\.\d{3})*,\d+|-?\d+,\d+|-?\d+", x):
+        return float(x.replace(".", "").replace(",", "."))
+    return None
+
+
+def docx_tables(content):
+    import io
+    import docx
+    d = docx.Document(io.BytesIO(content))
+    out = []
+    for tb in d.tables:
+        rows = []
+        for row in tb.rows:
+            cells, prev = [], None
+            for c in row.cells:
+                if prev is not None and c._tc is prev:
+                    continue
+                prev = c._tc
+                cells.append(re.sub(r"\s+", " ", c.text).strip())
+            rows.append(cells)
+        out.append(rows)
+    return out
+
+
+def parse_docx(content):
+    """-> (rows [(label, col, cap_prev|None, share_prev|None, cap_cur, share_cur)], basis, note) or (None, '', why)."""
+    tabs = docx_tables(content)
+    # A: combined table 'TOPLAM KURULU GUC' (licensed + unlicensed), previous and current month
+    for ti, rows in enumerate(tabs):
+        flat = _upper(" ".join(" ".join(r) for r in rows))
+        if "TOPLAM KURULU" in flat and ("HİDROLİK" in flat or "HIDROLIK" in flat) and "TOPLAM" in flat:
+            out = []
+            for r in rows:
+                if not r:
+                    continue
+                lab = _upper(r[0])
+                key = next((k for k in LABELS if _upper(k) == lab), None)
+                nums = [_tonum(x) for x in r[1:]]
+                nums = [x for x in nums if x is not None]
+                if key and len(nums) >= 4:
+                    out.append((key, LABELS[key], nums[0], nums[1], nums[2], nums[3]))
+            if len(out) >= 8:
+                return out, "combined table (licensed + unlicensed)", f"table {ti}"
+    # B: licensed table (KAYNAK TURU, prev, cur, change) + unlicensed table (Kaynak Turu | Kurulu Guc | Oran)
+    lic = unl = None
+    for ti, rows in enumerate(tabs):
+        flat = _upper(" ".join(" ".join(r) for r in rows))
+        if lic is None and "KAYNAK TÜRÜ" in flat and "KURULU GÜÇ (MW)" in flat and "BARAJLI" in flat and "TOPLAM" in flat:
+            out = []
+            for r in rows:
+                if not r:
+                    continue
+                lab = _upper(r[0])
+                nums = [_tonum(x) for x in r[1:]]
+                nums = [x for x in nums if x is not None]
+                if len(nums) < 4:
+                    continue
+                col = LIC_ALIASES.get(lab)
+                if col is None:
+                    key = next((k for k in LABELS if _upper(k) == lab), None)
+                    col = LABELS.get(key) if key else None
+                if col is not None:
+                    out.append((lab, col, None, None, nums[2], nums[3]))
+            lic = (out, ti)
+        if unl is None and len(rows) >= 4 and all(len(r) == 3 for r in rows if r) and "GENEL TOPLAM" in flat and "GÜNEŞ" in flat \
+                and "KURULU GÜÇ" in flat and "KAYNAK TÜRÜ" in flat:
+            out = []
+            for r in rows:
+                lab = _upper(r[0])
+                v = _tonum(r[1])
+                if lab == "GENEL TOPLAM" and v is not None:
+                    out.append(("GENEL TOPLAM", "UNL_TOTAL", None, None, v, 100.0))
+                elif lab in UNLIC and v is not None:
+                    out.append(("LİSANSSIZ " + lab, UNLIC[lab], None, None, v, None))
+            unl = (out, ti)
+    if lic and unl:
+        lrows, urows = lic[0], unl[0]
+        ltot = [r for r in lrows if r[1] == "TOTAL"]
+        utot = [r for r in urows if r[1] == "UNL_TOTAL"]
+        if not ltot or not utot:
+            return None, "", "licensed/unlicensed totals missing"
+        out = [r for r in lrows if r[1] not in ("TOTAL", "")]
+        out += [r for r in urows if r[1] != "UNL_TOTAL"]
+        out.append(("TOPLAM (lisanslı + lisanssız)", "TOTAL", None, None, ltot[0][4] + utot[0][4], 100.0))
+        chk = [("licensed", sum(r[4] for r in lrows if r[1] not in ("TOTAL", "")), ltot[0][4]),
+               ("unlicensed", sum(r[4] for r in urows if r[1] != "UNL_TOTAL"), utot[0][4])]
+        bad = [f"{n}: parts {a:.1f} vs total {b:.1f}" for n, a, b in chk if b <= 0 or abs(a - b) / b > 0.003]
+        if bad:
+            return None, "", "; ".join(bad)
+        return out, "licensed table + unlicensed table (summed)", f"tables {lic[1]}+{unl[1]}"
+    return None, "", "no capacity table found"
+
+
 def validate(rows):
     tot = [r for r in rows if r[1] == "TOTAL"]
     if not tot:
         return "no TOPLAM row"
     parts = [r for r in rows if r[1] not in ("", "TOTAL")]
     for k, nm in ((2, "prev"), (4, "cur")):
+        if tot[0][k] is None:
+            continue
         s, t = sum(r[k] for r in parts), tot[0][k]
         if t <= 0 or abs(s - t) / t > 0.003:
             return f"{nm}: parts {s:.1f} vs total {t:.1f}"
-        if abs(tot[0][k] - tot[0][k]) > 0:
-            pass
     return ""
 
 
@@ -213,10 +329,10 @@ def entsoe_check(out_dir, monthly):
 NOTES = ["Turkey - monthly installed generation capacity (MW) from EPDK monthly Electricity Market Sector Reports", "",
          "Source",
          "EPDK (Energy Market Regulatory Authority) 'Elektrik Piyasasi Aylik Sektor Raporu', one PDF a month: https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar",
-         "Table 'Elektrik Kurulu Gucu ve Uretim Miktari': TOTAL installed capacity by source, licensed AND unlicensed plants, end of the report month and of the same month a year earlier. Licensed capacity comes from TEIAS (YTBS) and is provisional until TEIAS publishes (EPDK's own note).",
+         "Reports to Dec 2025 are Word files, 2026 PDF. Table 'Elektrik Kurulu Gucu ve Uretim Miktari' (2022 on): TOTAL installed capacity by source, licensed AND unlicensed plants, end of the report month and of the same month a year earlier. Licensed capacity comes from TEIAS (YTBS) and is provisional until TEIAS publishes (EPDK's own note).",
          "Raw official source, monthly, all fuels. The row dated 1 May is the capacity at the end of April. About 6-8 weeks lag.",
          "", "Method",
-         "A period takes the value of the latest report that contains it (next year's report revises it). Reports whose parts do not add to EPDK's total within 0.3%, or whose table cannot be read, are left out and listed on Releases. Nothing is interpolated or filled.",
+         "Up to 2021 only a LICENSED table and a separate UNLICENSED table exist: the current month is their sum (basis column on Reports). A period takes the value of the latest report that contains it (next year's report revises it). Reports whose parts do not add to EPDK's total within 0.3%, or whose table cannot be read, are left out and listed on Releases. Nothing is interpolated or filled.",
          "Incremental: the Reports sheet is the history store; stored report months are not downloaded again except the last three; failed ones are retried only with --retry.",
          "", "Columns",
          "Hydro_MW = dam + river. Coal_MW = imported + hard coal; Lignite_MW = lignite + asphaltite; Gas_MW = natural gas + LNG; Oil_MW = fuel oil + naphtha + diesel; Bioenergy_MW = biomass (incl. biogas); Geothermal_MW; Nuclear_MW (none before Akkuyu). Other_MW = any source EPDK lists that is not mapped. Total_MW = EPDK's TOPLAM.",
@@ -250,13 +366,13 @@ def main():
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--retry", action="store_true")
     ap.add_argument("--max-reports", type=int, default=400)
-    ap.add_argument("--budget-min", type=float, default=35.0)
+    ap.add_argument("--budget-min", type=float, default=55.0)
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
     path = os.path.join(a.out_dir, FILE)
     rep = read_sheet(path, "Reports")
     rel = read_sheet(path, "Releases")
-    rep = rep if rep is not None else pd.DataFrame(columns=["report_month", "period", "label", "col", "MW", "share_pct"])
+    rep = rep if rep is not None else pd.DataFrame(columns=["report_month", "period", "label", "col", "MW", "share_pct", "basis"])
     rel = rel if rel is not None else pd.DataFrame(columns=["report_month", "status", "detail", "bytes", "sha256", "checked_utc"])
     rel["report_month"] = pd.to_datetime(rel["report_month"])
     listing = list_reports()
@@ -267,49 +383,71 @@ def main():
     failed = set(rel.loc[rel["status"] != "ok", "report_month"])
     todo = [m for m in months if (m not in done and (m not in failed or a.retry)) or m in last3]
     print(f"to fetch: {len(todo)}")
-    n = 0
     t0 = time.time()
-    for m in sorted(todo, reverse=True):
-        if n >= a.max_reports or (time.time() - t0) / 60 > a.budget_min:
-            print("budget reached, stopping; the next run continues")
-            break
-        if n and n % 8 == 0 and not rep.empty:
-            save(path, rep, rel, a.out_dir)
-        n += 1
-        content, used = None, None
+    stop = {"flag": False}
+
+    def fetch(m):
+        if stop["flag"]:
+            return m, None, None
         for u in listing[m]:
             r = get(u)
-            if r is not None and r.content[:4] == b"%PDF":
-                content, used = r.content, u
-                break
-            time.sleep(1)
+            if r is None:
+                continue
+            c = r.content
+            if c[:4] == b"%PDF":
+                return m, "pdf", c
+            if c[:2] == b"PK" and is_docx(c):
+                return m, "docx", c
+            time.sleep(0.5)
+        return m, "none", None
+
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    ex = ThreadPoolExecutor(max_workers=4)
+    futs = [ex.submit(fetch, m) for m in sorted(todo, reverse=True)[:a.max_reports]]
+    n = 0
+    for fu in as_completed(futs):
+        m, kind, content = fu.result()
+        if kind is None:
+            continue
+        if (time.time() - t0) / 60 > a.budget_min and not stop["flag"]:
+            stop["flag"] = True
+            print("budget reached, stopping; the next run continues")
+        n += 1
+        if n % 10 == 0 and not rep.empty:
+            save(path, rep, rel, a.out_dir)
         now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
         rel = rel[rel["report_month"] != m]
         if content is None:
-            rel.loc[len(rel)] = [m, "no-pdf", f"{len(listing[m])} links, none a PDF", 0, "", now]
-            print(f"{m:%Y-%m}: no PDF")
+            rel.loc[len(rel)] = [m, "no-file", f"{len(listing[m])} links, none a PDF or Word file", 0, "", now]
+            print(f"{m:%Y-%m}: no usable file")
             continue
-        rows, note = parse_pdf(content)
+        basis = "combined table (licensed + unlicensed)"
+        if kind == "pdf":
+            rows, note = parse_pdf(content)
+            bad = "table not found" if rows is None else validate(rows)
+        else:
+            rows, basis, note = parse_docx(content)
+            bad = note if rows is None else validate(rows)
         sha = hashlib.sha256(content).hexdigest()[:16]
-        bad = "table not found" if rows is None else validate(rows)
         if rows is None or bad:
-            rel.loc[len(rel)] = [m, "parse-failed", bad or note, len(content), sha, now]
-            print(f"{m:%Y-%m}: parse failed ({bad or note})")
+            rel.loc[len(rel)] = [m, "parse-failed", f"{kind}: {bad or note}", len(content), sha, now]
+            print(f"{m:%Y-%m}: parse failed ({kind}: {bad or note})")
             continue
         per_cur = m
         per_prev = m - pd.DateOffset(years=1)
-        rep = rep[rep["report_month"].pipe(pd.to_datetime) != m]
+        rep = rep[pd.to_datetime(rep["report_month"]) != m]
         new = []
         for lab, col, cp, sp, cc, sc in rows:
             if col == "":
                 continue
-            new.append({"report_month": m, "period": per_prev, "label": lab, "col": col, "MW": cp, "share_pct": sp})
-            new.append({"report_month": m, "period": per_cur, "label": lab, "col": col, "MW": cc, "share_pct": sc})
+            if cp is not None:
+                new.append({"report_month": m, "period": per_prev, "label": lab, "col": col, "MW": cp, "share_pct": sp, "basis": basis})
+            new.append({"report_month": m, "period": per_cur, "label": lab, "col": col, "MW": cc, "share_pct": sc, "basis": basis})
         rep = pd.concat([rep, pd.DataFrame(new)], ignore_index=True)
-        rel.loc[len(rel)] = [m, "ok", note, len(content), sha, now]
+        rel.loc[len(rel)] = [m, "ok", f"{kind}; {basis}; {note}", len(content), sha, now]
         tot = [r for r in rows if r[1] == "TOTAL"][0]
-        print(f"{m:%Y-%m}: [{time.time() - t0:.0f}s] ok total {tot[4]:.0f} MW (prev-year {tot[2]:.0f}) {note}")
-        time.sleep(1)
+        print(f"{m:%Y-%m}: [{time.time() - t0:.0f}s] ok {kind} total {tot[4]:.0f} MW (prev-year {tot[2]}) {basis}")
+    ex.shutdown(wait=False, cancel_futures=True)
     save(path, rep, rel, a.out_dir)
 
 
