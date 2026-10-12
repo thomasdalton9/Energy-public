@@ -857,7 +857,7 @@ def regas_rows(terms, cards, ver, ok, tyndp):
     if ok("snam_piombino", "reloc"):
         pub, title, url = p("snam_piombino")
         t = tk.get("piombino")
-        add("Italy", "Piombino FSRU (Italis LNG): shutdown / relocation window", "Snam", "FSRU", 5.0, "bcm/y", bcmy_to_bcfd(5.0), "PLANNED", "2026-10", "SOURCED_MONTH", pub, title, url,
+        add("Italy", "Piombino FSRU (Italis LNG): shutdown / relocation window", "Snam", "FSRU", -5.0, "bcm/y", bcmy_to_bcfd(-5.0), "PLANNED", "2026-10", "SOURCED_MONTH", pub, title, url,
             "2025-06-11", "SOURCED",
             "REMOVAL RISK: Snam's regasification code says shutdown, relocation and recommissioning (to Vado Ligure) last at most twelve months from 1 Oct 2026 or the 36th month after "
             "start-up, whichever is earlier. Relocation authorisation was unresolved in 2025 (ARERA resolution 88/2025 called the move inefficient); the GIE map (Aug 2026) still lists "
