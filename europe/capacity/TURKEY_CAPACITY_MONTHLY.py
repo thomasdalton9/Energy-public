@@ -28,7 +28,7 @@ LINYIT + ASFALTIT -> Lignite_MW, FUEL OIL + NAFTA + MOTORIN -> Oil_MW, nuclear -
 else unmapped -> Other_MW. Total_MW is EPDK's own TOPLAM. Pumped storage and batteries are not listed separately by EPDK.
 
 Incremental: the committed workbook is the history store ('Reports' sheet, one row per report month, period, source). Report
-months stored with status ok are not downloaded again except the last 3 (revisions); failed ones are retried only with --retry.
+months stored with status ok are not downloaded again except the last 3 (revisions); parse failures are retried only with --retry (download failures every run).
 
 Usage: python3 TURKEY_CAPACITY_MONTHLY.py [--out-dir DIR] [--retry] [--max-reports N]
 """
@@ -77,10 +77,10 @@ def num(s):
     return float(s.replace(".", "").replace(",", "."))
 
 
-def get(url, tries=2, **kw):
+def get(url, tries=3, **kw):
     for i in range(tries):
         try:
-            r = requests.get(url, headers=UA, timeout=(15, 60), **kw)
+            r = requests.get(url, headers=UA, timeout=(15, 120), **kw)
             if r.status_code == 200:
                 return r
             print(f"  http {r.status_code} {url[:90]}")
@@ -100,19 +100,22 @@ def is_docx(c):
 
 
 def list_reports():
+    """{report month: [download urls]} from the link titles (title wording varies by year: '2025 Yili Elektrik Piyasasi Ocak Ayi
+    Sektor Raporu', '2017 Yili Ocak Ayi Elektrik Piyasasi Sektor Raporu', 'Elektrik Piyasasi Sektor Raporu Mayis 2022', ...)."""
     r = get(LIST_URL)
     if r is None:
         raise RuntimeError("EPDK list page not reachable")
     t = r.text
     out = {}
-    for m in re.finditer(r'href="([^"]*DownloadDocument\?id=[^"]+)"', t):
-        pre = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t[max(0, m.start() - 700):m.start()])))
-        mm = re.findall(r"(\d{4}) Yılı Elektrik Piyasası (\w+) Ayı Sektör Raporu", pre)
-        if not mm or mm[-1][1] not in MONTHS:
+    for m in re.finditer(r'<a[^>]*href="([^"]*DownloadDocument\?id=[^"]+)"[^>]*?title="([^"]*)"', t):
+        title = html.unescape(m.group(2))
+        yr = re.findall(r"(?<!\d)(20\d\d)(?!\d)", title)
+        mo = [k for k in MONTHS if k in title]
+        if len(yr) != 1 or len(mo) != 1 or not re.search(r"Elektrik|Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık", title):
             continue
-        key = pd.Timestamp(int(mm[-1][0]), MONTHS[mm[-1][1]], 1)
-        out.setdefault(key, [])
+        key = pd.Timestamp(int(yr[0]), MONTHS[mo[0]], 1)
         u = BASE + html.unescape(m.group(1)).lstrip("/")
+        out.setdefault(key, [])
         if u not in out[key]:
             out[key].append(u)
     return out
@@ -286,6 +289,9 @@ def build_monthly(rep):
     tot = latest[latest["col"] == "TOTAL"].set_index("period")["MW"]
     wide["Total_MW"] = tot
     wide = wide[COLS].round(2)
+    src = latest.groupby("period")["report_month"].max()
+    wide["source_report"] = src.reindex(wide.index).dt.strftime("%Y-%m")
+    wide["source_lag_months"] = ((src.reindex(wide.index).dt.year - wide.index.year) * 12 + (src.reindex(wide.index).dt.month - wide.index.month))
     wide.index = wide.index + pd.DateOffset(months=1)
     wide.index.name = "date"
     return wide.sort_index()
@@ -333,7 +339,7 @@ NOTES = ["Turkey - monthly installed generation capacity (MW) from EPDK monthly 
          "Raw official source, monthly, all fuels. The row dated 1 May is the capacity at the end of April. About 6-8 weeks lag.",
          "", "Method",
          "Up to 2021 only a LICENSED table and a separate UNLICENSED table exist: the current month is their sum (basis column on Reports). A period takes the value of the latest report that contains it (next year's report revises it). Reports whose parts do not add to EPDK's total within 0.3%, or whose table cannot be read, are left out and listed on Releases. Nothing is interpolated or filled.",
-         "Incremental: the Reports sheet is the history store; stored report months are not downloaded again except the last three; failed ones are retried only with --retry.",
+         "Incremental: the Reports sheet is the history store; stored report months are not downloaded again except the last three; parse failures are retried only with --retry (download failures every run).",
          "", "Columns",
          "Hydro_MW = dam + river. Coal_MW = imported + hard coal; Lignite_MW = lignite + asphaltite; Gas_MW = natural gas + LNG; Oil_MW = fuel oil + naphtha + diesel; Bioenergy_MW = biomass (incl. biogas); Geothermal_MW; Nuclear_MW (none before Akkuyu). Other_MW = any source EPDK lists that is not mapped. Total_MW = EPDK's TOPLAM.",
          "Pumped storage and batteries are not listed by EPDK.",
@@ -380,7 +386,7 @@ def main():
     months = sorted(listing)
     last3 = set(months[-3:])
     done = set(rel.loc[rel["status"] == "ok", "report_month"])
-    failed = set(rel.loc[rel["status"] != "ok", "report_month"])
+    failed = set(rel.loc[rel["status"] == "parse-failed", "report_month"])
     todo = [m for m in months if (m not in done and (m not in failed or a.retry)) or m in last3]
     print(f"to fetch: {len(todo)}")
     t0 = time.time()
@@ -402,7 +408,7 @@ def main():
         return m, "none", None
 
     from concurrent.futures import ThreadPoolExecutor, as_completed
-    ex = ThreadPoolExecutor(max_workers=4)
+    ex = ThreadPoolExecutor(max_workers=3)
     futs = [ex.submit(fetch, m) for m in sorted(todo, reverse=True)[:a.max_reports]]
     n = 0
     for fu in as_completed(futs):

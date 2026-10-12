@@ -414,8 +414,11 @@ def tr_capacity(p):
                       "Geothermal": d.get("Geothermal_MW")}) / 1000.0
     fc = full.copy()
     adds = pd.DataFrame({"Solar": fc["Solar_MW"].diff(), "Wind": fc["Wind_MW"].diff()})
+    if "source_lag_months" in fc:   # a month taken from a revised (next-year) report next to one from its first release: not new build
+        brk = fc["source_lag_months"] != fc["source_lag_months"].shift()
+        adds[brk] = float("nan")
     return [spec("Capacity", g, "Turkey installed capacity, month-end (EPDK sector reports)", "GW installed", "stacked_bar"),
-            spec("Net additions", adds[adds.index >= "2021-02-01"], "Turkey net capacity additions per month: solar and wind (EPDK)",
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Turkey net capacity additions per month: solar and wind (EPDK; revision breaks left blank)",
                  "MW per month", "stacked_bar")]
 
 
