@@ -1,0 +1,2469 @@
+#### A. France register stats
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=filiere,count(*) as n,sum(puismaxinstallee) as p,sum(nbinstallations) as ni&group_by=filiere&limit=50 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=regime,count(*) as n&group_by=regime&limit=20 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=count(*) as n&where=datederaccordement is not null&limit=5 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=filiere,combustible,sum(puismaxinstallee) as p&group_by=filiere,combustible&limit=100 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=filiere,sum(puismaxinstallee) as p&where=datemiseenservice_date<=date'2024-12-31'&group_by=filiere&limit=50 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=filiere,sum(puismaxinstallee) as p&where=datemiseenservice_date<=date'2020-12-31'&group_by=filiere&limit=50 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=count(*) as n&where=datemiseenservice_date is null&limit=5 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=filiere,count(*) as n,sum(puismaxinstallee) as p&where=datemiseenservice_date is null&group_by=filiere&limit=20 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=min(datemiseenservice_date) as a,max(datemiseenservice_date) as b&limit=2 | #HTTP 000  0
+ 
+SNAPSHOT registre-national-installation-production-stockage-electricite-agrege-311224
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege-311224/records?select=filiere,count(*) as n,sum(puismaxinstallee) as p&group_by=filiere&limit=50 | #HTTP 000  0
+ 
+SNAPSHOT registre-national-installation-production-stockage-electricite-agrege-311220
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege-311220/records?select=filiere,count(*) as n,sum(puismaxinstallee) as p&group_by=filiere&limit=50 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=filiere,sum(puismaxinstallee) as p&where=filiere='Nucléaire'&group_by=filiere&limit=5 | #HTTP 000  0
+ 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?select=nominstallation,puismaxinstallee,datemiseenservice,filiere,codecombustible&where=puismaxinstallee>1000&order_by=puismaxinstallee desc&limit=8 | #HTTP 000  0
+ 
+
+#### B. Spain
+
+===== https://apidatos.ree.es/en/datos | #HTTP 404 text/html; charset=UTF-8 951
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Not Found</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "404 Not Found".</h
+
+===== https://apidatos.ree.es/en/datos/generacion | #HTTP 404 text/html; charset=UTF-8 951
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Not Found</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "404 Not Found".</h
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada-renovable?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <st
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada-tecnologia?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <st
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <st
+
+===== https://apidatos.ree.es/en/datos/generacion/capacidad-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <st
+https://www.sistemaelectrico-ree.es/en/spanish-electrical-system/installed-capacity 92147 Error 404 Página no encontrada | System reports Skip to main content Search terms System reports Glossary ES EN Go to Data Main navigation Electricity system report Renewable energies report Previous 
+    /en/spanish-electricity-system/installed-capacity | Installed capacity
+    /en/electricity-system-report/storage/installed-storage-capacity | Installed storage capacity
+    /en/electricity-system-report/self-consumption/installed-self-consumption-power-capacity | Installed self-consumption power capacity
+    /en/spanish-electricity-system/exchanges/exchange-capacity | Exchange capacity
+    /en/renewable-energies-report/wind/installed-capacity-wind | Installed capacity
+    /en/renewable-energies-report/water/installed-capacity-water | Installed capacity
+    /en/renewable-energies-report/sun/installed-capacity/photovoltaic-solar-sunpower | Photovoltaic solar
+    /en/renewable-energies-report/sun/installed-capacity/solar-thermal-sunpower | Solar thermal
+    /en/renewable-energies-report/earth-and-sea/installed-capacity-earth-and-sea | Installed capacity
+https://www.sistemaelectrico-ree.es/en/generation/installed-capacity 92088 Error 404 Página no encontrada | System reports Skip to main content Search terms System reports Glossary ES EN Go to Data Main navigation Electricity system report Renewable energies report Previous 
+    /en/spanish-electricity-system/installed-capacity | Installed capacity
+    /en/electricity-system-report/storage/installed-storage-capacity | Installed storage capacity
+    /en/electricity-system-report/self-consumption/installed-self-consumption-power-capacity | Installed self-consumption power capacity
+    /en/spanish-electricity-system/exchanges/exchange-capacity | Exchange capacity
+    /en/renewable-energies-report/wind/installed-capacity-wind | Installed capacity
+    /en/renewable-energies-report/water/installed-capacity-water | Installed capacity
+    /en/renewable-energies-report/sun/installed-capacity/photovoltaic-solar-sunpower | Photovoltaic solar
+    /en/renewable-energies-report/sun/installed-capacity/solar-thermal-sunpower | Solar thermal
+    /en/renewable-energies-report/earth-and-sea/installed-capacity-earth-and-sea | Installed capacity
+https://www.sistemaelectrico-ree.es/en/spanish-electrical-system 92091 Error 404 Página no encontrada | System reports Skip to main content Search terms System reports Glossary ES EN Go to Data Main navigation Electricity system report Renewable energies report Previous 
+    /en/spanish-electricity-system/installed-capacity | Installed capacity
+    /en/electricity-system-report/storage/installed-storage-capacity | Installed storage capacity
+    /en/electricity-system-report/self-consumption/installed-self-consumption-power-capacity | Installed self-consumption power capacity
+    /en/spanish-electricity-system/exchanges/exchange-capacity | Exchange capacity
+    /en/renewable-energies-report/wind/installed-capacity-wind | Installed capacity
+    /en/renewable-energies-report/water/installed-capacity-water | Installed capacity
+    /en/renewable-energies-report/sun/installed-capacity/photovoltaic-solar-sunpower | Photovoltaic solar
+    /en/renewable-energies-report/sun/installed-capacity/solar-thermal-sunpower | Solar thermal
+    /en/renewable-energies-report/earth-and-sea/installed-capacity-earth-and-sea | Installed capacity
+https://www.miteco.gob.es/es/energia/energia-electrica/registro-administrativo-instalaciones-produccion-energia-electrica.html 46514 404 Skip to content Castellano Castellano Català Galego Euskera Valencià English Français Buscar Menú Cerrar Ministerio Energía Medio Ambiente Medio Ambiente Agua Cambio Climático Costas y medio marin
+    https://www.aepd.es/sites/default/files/2020-07/guia-cookies.pdf | Guía sobre el uso de las cookies de la Agencia Española de Protección de Datos
+    https://cdn.cms-twdigitalassets.com/content/dam/help-twitter/rules-and-policies/cookie-description-lists/cookie-description-list-en.pdf | Privacidad en red social X
+https://energia.gob.es/electricidad/Paginas/estadisticas-sistema-electrico.aspx 1 
+https://www.cnmc.es/ambitos-de-actuacion/energia/registro-instalaciones-energia-electrica 66166 Hemos actualizado la página web | CNMC Pasar al contenido principal ES ES EN CA EU GL Actuaciones Sede Electrónica Search Introduzca su búsqueda Buscar Buscador avanzado ● ES ES EN CA EU GL " class="w
+    https://rgi.cnmc.es/ | Registro de Grupos de Interés
+
+#### C. Portugal
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+PDF pages 25
+--- page 3
+ ÍNDICE
+Nota introdutória
+4
+Destaque
+5
+Energia elétrica
+6
+Produção global
+6
+Produção por região
+7
+Produção mensal
+8
+Potência instalada
+9
+Potência instalada por região
+10
+Produção descentralizada
+11
+Unidades de pequena produção
+13
+Hídrica
+16
+Eólica
+17
+Biomassa
+18
+Fotovoltaica
+19
+Comparação internacional
+20
+Biocombustíveis
+21
+Contributo das fontes de energia renováveis
+22
+Conceitos e abreviaturas
+24
+Estatísticas Rápidas das Renováveis - agosto de 2026
+   3
+___________________________________________________________________________________________________
+
+--- page 5
+Destaque
+ 
+32%
+32%
+29%
+25%
+23%
+22%
+12%
+15%
+14%
+6%
+6%
+5%
+24%
+24%
+29%
+2024
+2025
+2026
+  ago
+Não renovável
++ saldo
+importador
+Biomassa
+Fotovoltaica
+Eólica
+Hídrica
+Produção de eletricidade (%)
+8.2
+8.3
+8.3
+6.0
+6.0
+6.2
+5.7
+6.8
+7.4
+0.9
+0.8
+0.8
+2024
+2025
+2026
+Biomassa
+Fotovoltaica
+Eólica
+Hídrica
+Potência  instalada  renovável 
+por tecnologia (GW)
+63.0%
+65.8%
+65.6%
+63.0%
+93%
+2023
+2024
+2025
+2026
+  ago
+2027
+2028
+2029
+2030
+% FER- Eletricidade 
+de acordo com a Diretiva das Renováveis
+Potência  instalada na 
+Produção descentralizada (GW)
+Estatísticas Rápidas das Renováveis - agosto de 2026
+No ano-móvel de setembro 
+2025 a agosto 2026 a  
+produção de eletricidade a 
+partir de FER foi de 44 501 
+GWh, correspondendo a 
+uma diminuição de 1% face 
+a 2025.
+Estima-se que a %FER de 
+acordo com a metodologia 
+de cálculo da Diretiva das 
+Renováveis atinja 63%, que 
+corresponde a uma redução 
+de 2.6 p.p face a 2025.
+Estima-se que no ano-móvel 
+de 2026, 71.6% da produção 
+de eletricidade FER foi 
+obtida através das 
+tecnologias eólica e hídrica.
+Em agosto de 2026, a potência 
+instalada em unidades de 
+produção de eletricidade FER 
+totalizou 22,7 GW, dos quais
+3,4 GW correspondem a 
+instalações de produção 
+descentralizada, que 
+registaram um aumento de 
+827 MW desde 2024.
+2.6
+3.1
+3.4
+2024
+2025
+2026
+Meta PNEC 2030
+   5
+___________________________________________________________________________________________________
+
+--- page 9
+Potência instalada
+MW
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+Total Renovável
+13 757
+13 990
+14 414
+14 639
+15 496
+17 445
+18 822
+20 794
+21 935
+22 739
+Hídrica
+7 086
+7 098
+7 129
+7 129
+7 126
+8 128
+8 126
+8 254
+8 255
+8 255
+da qual em bombagem
+2 737
+2 737
+2 767
+2 767
+2 767
+3 649
+3 649
+3 649
+3 649
+3 649
+> 30 MW
+6 417
+6 417
+6 447
+6 447
+6 447
+7 448
+7 448
+7 581
+7 581
+7 581
+> 10 e 30 MW
+258
+270
+270
+270
+270
+266
+266
+266
+266
+266
+ 10 MW
+410
+410
+412
+412
+409
+413
+412
+406
+407
+407
+Eólica
+5 313
+5 379
+5 459
+5 502
+5 643
+5 731
+5 901
+5 960
+5 964
+6 240
+Biomassa
+564
+629
+693
+682
+679
+679
+678
+684
+664
+664
+c/ cogeração
+434
+484
+467
+465
+452
+452
+451
+457
+443
+443
+s/ cogeração
+130
+144
+226
+217
+227
+227
+227
+227
+221
+221
+Resíduos Sólidos Urbanos
+89
+89
+89
+89
+89
+89
+89
+89
+89
+89
+Biogás
+92
+93
+94
+93
+98
+94
+94
+94
+94
+94
+Geotérmica
+34
+34
+34
+34
+34
+34
+34
+34
+34
+34
+Fotovoltaica
+579
+669
+916
+1 109
+1 826
+2 690
+3 899
+5 678
+6 835
+7 363
+Convencional
+293
+331
+472
+594
+1 063
+1 493
+1 960
+3 083
+3 709
+3 940
+UPAC
+85
+123
+214
+280
+522
+956
+1 597
+2 115
+2 443
+2 594
+UPP
+18
+31
+46
+50
+56
+56
+159
+295
+498
+644
+Micro/Mini
+169
+169
+169
+169
+169
+169
+168
+168
+168
+167
+Concentração
+14
+15
+15
+15
+15
+15
+15
+17
+17
+18
+Potência instalada por região NUTS II
+MW
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+Portugal
+13 757
+13 990
+14 414
+14 639
+15 496
+17 445
+18 822
+20 794
+21 935
+22 739
+Continente
+13 550
+13 783
+14 171
+14 379
+15 234
+17 179
+18 555
+20 519
+21 649
+22 453
+Norte
+7 719
+7 790
+7 849
+7 875
+8 017
+9 147
+9 521
+9 840
+10 198
+10 536
+Centro
+4 037
+4 137
+4 293
+4 336
+4 564
+4 883
+5 510
+6 145
+6 464
+6 664
+Lisboa
+405
+412
+427
+437
+475
+604
+762
+883
+958
+1 041
+Alentejo
+1 097
+1 148
+1 303
+1 428
+1 621
+1 777
+1 966
+2 787
+3 116
+3 255
+Algarve
+291
+296
+299
+303
+557
+766
+795
+863
+912
+957
+R.A. Açores
+80
+80
+85
+85
+86
+87
+87
+94
+98
+98
+R.A. Madeira
+127
+127
+156
+174
+174
+178
+178
+181
+187
+187
+Não especificado
+1
+0
+1
+0
+1
+1
+1
+1
+1
+1
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+GW
+Hídrica
+Eólica
+Biomassa+RSU+Biogás
+Fotovoltaica
+Geotérmica
+De 2017 a 2026, as 
+tecnologias com maior 
+crescimento em potência 
+instalada foi a fotovoltaica 
+com 6,8 GW e a hídrica 
+com 1,2 GW.
+No ano de 2026, a 
+potência instalada em 
+tecnologia eólica e 
+fotovoltaica, aumentou 
+275 MW e 476 MW, 
+respetivamente.
+Estatísticas Rápidas das Renováveis - agosto de 2026
+   9
+___________________________________________________________________________________________________
+
+--- page 10
+Distribuição da potência instalada por tecnologia e NUTS II em 2026
+0.0
+2.0
+4.0
+6.0
+8.0
+GW
+Norte
+Hídrica
+Eólica
+Biomassa
+Fotovoltaica
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+GW
+Centro
+Hídrica
+Eólica
+Biomassa
+Fotovoltaica
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+GW
+Alentejo
+Hídrica
+Eólica
+Biomassa
+Fotovoltaica
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+GW
+Lisboa
+Eólica
+Biomassa
+Fotovoltaica
+0.0
+0.2
+0.4
+0.6
+0.8
+GW
+Algarve
+Hídrica
+Eólica
+Biomassa
+Fotovoltaica
+0
+20
+40
+60
+80
+100
+MW
+Madeira
+Hídrica
+Eólica
+Biomassa
+Fotovoltaica
+0
+10
+20
+30
+40
+MW
+Açores
+Hídrica
+Eólica
+Geotérmica
+Biomassa
+Estatísticas Rápidas das Renováveis - agosto de 2026
+   10
+___________________________________________________________________________________________________
+
+--- page 11
+Produção descentralizada
+MWh
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026    
+ago
+Total Produção
+541 923
+675 140
+694 889
+1 320 240
+2 028 088
+2 878 023
+3 700 124
+4 120 869
+UPAC2
+206 530
+334 041
+358 888
+1 016 421
+1 637 278
+2 361 730
+2 846 369
+3 039 708
+da qual vendida à rede
+16 568
+21 375
+29 523
+64 681
+138 799
+231 623
+305 313
+321 848
+Eólica
+2 187
+4 287
+4 300
+4 619
+4 188
+1 582
+8 712
+11 700
+Fotovoltaica
+188 404
+304 321
+328 080
+975 629
+1 600 902
+2 337 518
+2 807 771
+3 008 674
+Biomassa/Biogás
+15 939
+25 433
+26 508
+36 173
+32 188
+22 631
+29 886
+19 334
+UPP
+63 174
+79 152
+85 377
+84 998
+178 232
+325 193
+663 169
+925 249
+Fotovoltaica
+62 097
+78 066
+84 266
+83 086
+176 440
+322 986
+658 639
+922 151
+Outras fontes3
+1 077
+1 086
+1 111
+1 912
+1 792
+2 207
+4 530
+3 098
+Mini/Micro
+272 219
+261 947
+250 624
+218 821
+212 578
+191 099
+190 586
+155 912
+Hídrica
+862
+1 085
+705
+539
+553
+554
+495
+548
+Eólica
+319
+296
+287
+193
+203
+150
+122
+51
+Fotovoltaica
+268 099
+258 104
+247 031
+215 013
+208 820
+188 705
+188 166
+154 251
+Biomassa/Biogas
+2 939
+2 462
+2 601
+3 076
+3 003
+1 690
+1 803
+1 063
+1 Ano-móvel: setembro de 2025 a agosto de 2026.
+2 Produção estimada de acordo com as potências certificadas pela DSEE/DGEG e o nº de horas de funcionamento da respectiva tecnologia.
+3 Inclui hídrica, eólica, biomassa e biogás.
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+GWh
+UPAC - Fornecido à rede
+UPAC - Autoconsumo
+UPP
+Mini/Micro
+O Decreto-Lei 76/2019 de 3 de junho retira as Unidades de Pequena Produção 
+(UPP) do decreto-Lei 153/2014 de 20 de Outubro e enquadra-as no novo decreto-
+lei que simplifica os procedimentos de registo prévio, certificação e integração da 
+capacidade de injeção na RESP.
+O Decreto-Lei n.º 162/2019 de 25 de outubro, aprova o regime jurídico aplicável 
+ao autoconsumo de energia renovável, transpondo parcialmente a Diretiva 
+2018/2001, revogando o Decreto-Lei 153/2014 de 20 de Outubro. Estabelece o 
+regime jurídico aplicável à produção de eletricidade para autoconsumo, UPAC, a 
+partir de recursos renováveis ou não renováveis, sem prejuízo do excedente de 
+energia produzido ser injetado na rede.
+Estatísticas Rápidas das Renováveis - agosto de 2026
+1
+   11
+___________________________________________________________________________________________________
+
+--- page 12
+Potência instalada descentralizada
+kW
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+Total Potência
+434 478
+479 482
+580 461
+1 195 385
+1 940 995
+2 596 144
+3 127 544
+3 423 437
+UPAC1
+215 704
+256 433
+352 451
+966 958
+1 610 636
+2 128 994
+2 456 458
+2 607 419
+Eólica
+3 647
+3 647
+3 648
+3 622
+5 722
+5 717
+5 717
+5 717
+Fotovoltaica
+204 878
+245 606
+341 624
+956 158
+1 597 087
+2 115 450
+2 442 915
+2 593 876
+Biomassa/Biogás
+7 179
+7 179
+7 179
+7 179
+7 827
+7 827
+7 827
+7 827
+UPP
+44 760
+49 036
+55 203
+57 068
+159 562
+296 353
+500 288
+646 313
+Fotovoltaica
+44 083
+48 359
+54 526
+56 172
+158 667
+294 648
+498 083
+644 107
+Outras fontes2
+677
+677
+677
+896
+896
+1 706
+2 206
+2 206
+Mini/Micro
+174 013
+174 013
+172 807
+171 359
+170 797
+170 797
+170 797
+169 705
+Hídrica
+237
+237
+237
+249
+249
+249
+249
+249
+Eólica
+379
+379
+379
+427
+427
+427
+427
+427
+Fotovoltaica
+171 363
+171 363
+170 157
+168 649
+168 087
+168 087
+168 087
+166 995
+Biomassa/Biogás
+2 034
+2 034
+2 034
+2 034
+2 034
+2 034
+2 034
+2 034
+1 Inclui potências licenciadas ou certificadas pela DSEE/DGEG, assim como meras comunicações prévias.
+2 Inclui hídrica, eólica, biomassa e biogás.
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+MW
+UPAC
+UPP
+Mini/Micro
+O Decreto-Lei n.º 363/2007 de 2 de Novembro estabeleceu o regime simplificado 
+de microprodução com possibilidade de entrega de toda a eletricidade produzida à 
+rede, com uma limitação de 150 kW de potência. O Decreto-Lei n.º 34/2011 de 8 
+de Março enquadra o regime de miniprodução limitando a potência das 
+instalações a 250 kW.
+O Decreto-Lei 153/2014 de 20 de Outubro, revoga os Decretos-Lei anteriores e 
+estabelece o regime de produção de eletricidade em autoconsumo (UPAC) e o 
+regime de produção de eletricidade e venda na totalidade à rede (UPP).
+O Decreto-Lei n.º 15/2022 de 14 de janeiro, estabelece a organização e o 
+funcionamento do Sistema Elétrico Nacional e procede ainda à transposição parcial 
+da Diretiva (UE) 2018/2001 do Parlamento Europeu e do Conselho, de 11 de 
+dezembro de 2018, relativa à promoção da utilização de energia de fontes 
+renováveis.
+Estatísticas Rápidas das Renováveis - agosto de 2026
+   12
+___________________________________________________________________________________________________
+
+--- page 15
+Evolução da produção eólica e equipamentos instalados
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026    
+ago
+Produção (GWh)
+12 248
+12 617
+13 667
+12 299
+13 216
+13 244
+13 145
+14 419
+13 803
+13 815
+Potência instalada (MW)
+5 313
+5 379
+5 459
+5 502
+5 643
+5 731
+5 901
+5 960
+5 964
+6 240
+Horas de produção equivalente
+2 305
+2 345
+2 503
+2 235
+2 342
+2 311
+2 228
+2 419
+2 314
+2 214
+Nº de parques
+257
+258
+260
+263
+265
+267
+267
+268
+269
+270
+Nº de aerogeradores
+2 743
+2 746
+2 767
+2 769
+2 779
+2 836
+2 874
+2 885
+2 892
+3 017
+Produção normalizada (GWh)
+12 752
+12 608
+12 814
+12 767
+13 040
+13 577
+13 622
+13 663
+14 114
+14 612
+Potência instalada2 (MW)
+5 313
+5 346
+5 407
+5 456
+5 548
+5 687
+5 816
+5 930
+5 962
+6 102
+Horas de produção equivalente
+2 400
+2 358
+2 370
+2 340
+2 350
+2 387
+2 342
+2 304
+2 367
+2 395
+1 Ano-móvel: setembro de 2025 a agosto de 2026.
+2 Média da potência instalada dos últimos 2 anos.
+Nota: O número de aerogeradores exclui a produção descentralizada.
+Horas de produção equivalente (HPE) 3
+Potência instalada eólica (MW)
+Produção eólica (GWh)
+2019
+2020
+2021
+2022
+2023
+2024
+2019
+2020
+2021
+2022
+2023
+2024
+Total
+5 293
+5 357
+5 544
+5 632
+4 663
+5 926
+13 382
+12 054
+13 001
+13 033
+10 654
+14 360
+HPE > 3000
+607
+77
+373
+209
+132
+425
+1 972
+253
+1 201
+678
+430
+1 384
+2750 < HPE   3000
+626
+283
+580
+370
+327
+732
+1 799
+801
+1 663
+1 061
+929
+2 104
+2500 < HPE  2750
+883
+825
+833
+870
+726
+1 224
+2 328
+2 142
+2 185
+2 254
+1 882
+3 153
+2250 < HPE  2500
+2 159
+1 321
+1 629
+1 615
+1 046
+1 543
+5 171
+3 163
+3 877
+3 832
+2 500
+3 657
+2000 < HPE  2250
+816
+1 597
+1 321
+1 633
+1 361
+1 151
+1 740
+3 391
+2 814
+3 472
+2 926
+2 471
+1750 < HPE  2000
+185
+978
+625
+874
+979
+797
+353
+1 844
+1 149
+1 645
+1 850
+1 517
+HPE 1750
+16
+276
+184
+61
+91
+54
+19
+462
+111
+92
+137
+74
+3 Valores apurados apenas para o Continente e cujos parques funcionaram todo o ano, com a potencia estabilizada.
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+5 000
+5 500
+6 000
+6 500
+7 000
+7 500
+8 000
+0
+1 000
+2 000
+3 000
+4 000
+5 000
+6 000
+7 000
+8 000
+9 000
+10 000
+11 000
+12 000
+13 000
+14 000
+15 000
+16 000
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+MW / #
+GWh
+Produção (GWh)
+Produção normalizada (GWh)
+Potência instalada (MW)
+Nº de aerogeradores (#)
+Grande parte dos 
+aerogeradores 
+atualmente existentes, 
+cerca de 4000 MW, 
+foram instalados entre 
+2005 e 2012. 
+Atualmente, esta 
+tecnologia é responsável 
+pela produção de 14 
+TWh/ano.
+Estatísticas Rápidas das Renováveis - agosto de 2026
+1
+   15
+__________________________________
+--- page 16
+Produção eólica por região
+GWh
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026    
+ago
+Portugal
+12 248
+12 617
+13 667
+12 299
+13 216
+13 244
+13 145
+14 419
+13 803
+13 815
+Continente
+12 089
+12 447
+13 501
+12 142
+13 001
+13 035
+12 955
+14 191
+13 587
+13 609
+Norte
+4 695
+4 999
+5 393
+5 021
+5 047
+5 124
+5 214
+5 413
+5 279
+5 315
+Centro
+5 926
+5 998
+6 577
+5 831
+6 475
+6 610
+6 383
+7 265
+6 926
+6 790
+Lisboa
+269
+263
+278
+236
+262
+226
+244
+269
+242
+254
+Alentejo
+600
+589
+621
+529
+594
+526
+536
+599
+541
+575
+Algarve
+600
+598
+632
+525
+623
+548
+579
+644
+599
+674
+R.A. Açores
+72
+67
+70
+72
+79
+68
+73
+66
+70
+62
+R.A. Madeira
+87
+103
+96
+86
+136
+142
+117
+162
+146
+144
+1 Ano-móvel: setembro de 2025 a agosto de 2026.
+Potência eólica instalada por região
+MW
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+Portugal
+5 313
+5 379
+5 459
+5 502
+5 643
+5 731
+5 901
+5 960
+5 964
+6 240
+Continente
+5 236
+5 302
+5 378
+5 403
+5 545
+5 633
+5 802
+5 862
+5 862
+6 138
+Norte
+2 169
+2 210
+2 235
+2 235
+2 241
+2 254
+2 360
+2 366
+2 366
+2 639
+Centro
+2 518
+2 543
+2 594
+2 619
+2 754
+2 817
+2 880
+2 934
+2 934
+2 934
+Lisboa
+103
+103
+103
+103
+103
+103
+103
+103
+103
+103
+Alentejo
+222
+222
+222
+222
+222
+222
+222
+222
+222
+222
+Algarve
+225
+225
+225
+225
+225
+237
+237
+237
+237
+239
+R.A. Açores
+31
+31
+35
+35
+35
+35
+35
+35
+39
+39
+R.A. Madeira
+46
+46
+45
+63
+63
+63
+63
+63
+63
+63
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+GWh
+Norte
+Centro
+Lisboa
+Alentejo
+Algarve
+A região Centro é 
+responsável por 49% da 
+produção eólica 
+nacional. Juntando a 
+região Norte este peso 
+eleva-se para 87%.
+Estatísticas Rápidas das Renováveis - agosto de 2026
+1
+   16
+___________________________________________________________________________________________________
+
+--- page 17
+Produção eólica por região
+Distribuição das horas de produção equivalente (HPE) de agosto/2025 a agosto/2026
+HPE1
+Nº de
+parques
+Potência
+[MW]
+Continente
+2 240
+249
+6 137
+R.A. Açores
+1 516
+10
+39
+R.A. Madeira
+2 140
+12
+63
+1 HPE referente à produção no ano-móvel setembro de 2025 a 
+agosto de 2026.
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+A
+S
+O N D
+J
+F M A M J
+J
+A
+horas
+Norte
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+A
+S
+O
+N
+D
+J
+F
+M A M
+J
+J
+A
+horas
+Centro
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+A
+S
+O N D
+J
+F M A M J
+J
+A
+horas
+Lisboa
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+A
+S
+O
+N
+D
+J
+F
+M A M
+J
+J
+A
+horas
+Alentejo
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+A
+S
+O
+N
+D
+J
+F
+M A M
+J
+J
+A
+horas
+Algarve
+HPE: 2117
+Nº de parques: 103
+Potência instalada: 2639 MW
+HPE: 2442
+Nº de parques: 17
+Potência Instalada:  103 MW
+HPE: 2582
+Nº de parques: 7
+Potência instalada:  222 MW
+HPE: 2269
+Nº de parques: 110
+Potência instalada:  2934 MW
+HPE: 2777
+Nº de parques: 12
+Potência instalada:  239 MW
+0
+500
+1 000
+1 500
+2 000
+2 500
+3 000
+3 500
+4 000
+4 500
+A
+S
+O
+N
+D
+J
+F
+M
+A
+M
+J
+J
+A
+horas
+Continente
+R.A. Açores
+R.A. Madeira
+Estatísticas Rápidas das Renováveis - agosto de 2026
+   17
+___________________________________________________________________________________________________
+
+--- page 18
+Produção de eletricidade a partir de  biomassa por região
+GWh
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026    
+ago
+Portugal
+3 220
+3 156
+3 363
+3 791
+4 007
+4 114
+3 800
+3 752
+3 389
+3 164
+Continente
+3 177
+3 117
+3 320
+3 746
+3 968
+4 067
+3 762
+3 704
+3 340
+3 117
+Norte
+416
+423
+444
+466
+452
+447
+372
+418
+356
+327
+Centro
+1 959
+1 935
+2 115
+2 558
+2 719
+2 917
+2 798
+2 585
+2 328
+2 120
+Lisboa
+778
+736
+732
+694
+765
+674
+560
+670
+628
+644
+Alentejo
+10
+7
+9
+8
+12
+8
+12
+10
+9
+6
+Algarve
+15
+16
+21
+20
+19
+21
+20
+21
+20
+21
+R.A. Açores
+8
+11
+11
+12
+12
+10
+15
+13
+12
+11
+R.A. Madeira
+35
+26
+30
+30
+27
+37
+24
+35
+36
+36
+Não especificado
+1
+2
+2
+3
+0
+0
+0
+0
+0
+0
+1 Ano-móvel: setembro de 2025 a agosto de 2026.
+Nota: A biomassa inclui o biogás e a fração renovável de RSU
+Potência elétrica instalada nas unidades de biomassa por região
+MW
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+Portugal
+745
+810
+876
+864
+866
+862
+861
+867
+847
+847
+Continente
+729
+794
+859
+847
+849
+849
+847
+854
+833
+833
+Norte
+103
+118
+119
+118
+120
+119
+117
+117
+117
+117
+Centro
+436
+485
+550
+534
+532
+532
+532
+538
+532
+532
+Lisboa
+182
+183
+183
+183
+185
+186
+186
+186
+171
+171
+Alentejo
+4
+4
+4
+8
+8
+8
+9
+9
+9
+9
+Algarve
+4
+4
+4
+4
+4
+4
+4
+4
+4
+4
+R.A. Açores
+4
+4
+4
+4
+4
+4
+4
+4
+4
+4
+R.A. Madeira
+9
+9
+9
+9
+9
+9
+9
+9
+9
+9
+Não especificado
+2
+3
+3
+3
+3
+0
+0
+0
+0
+0
+Norte
+Centro
+Lisboa
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+GWh
+Norte
+Centro
+Lisboa
+Cerca de 68% da 
+produção de energia 
+elétrica a partir de 
+biomassa, situa-se na 
+região centro.
+Estatísticas Rápidas das Renováveis - agosto de 2026
+1
+   18
+___________________________________________________________________________________________________
+
+--- page 19
+Produção fotovoltaica por região
+GWh
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026    
+ago
+Portugal
+993
+1 006
+1 343
+1 716
+2 238
+3 519
+5 160
+7 088
+8 712
+9 305
+Continente
+959
+972
+1 306
+1 684
+2 201
+3 483
+5 123
+7 043
+8 655
+9 240
+Norte
+133
+136
+184
+235
+336
+514
+703
+1 004
+1 335
+1 603
+Centro
+160
+159
+206
+274
+303
+506
+971
+1 863
+2 377
+2 382
+Lisboa
+190
+180
+203
+221
+232
+287
+652
+843
+915
+1 018
+Alentejo
+371
+391
+594
+831
+1 195
+1 534
+1 794
+2 353
+3 057
+3 329
+Algarve
+105
+107
+119
+122
+135
+642
+1 003
+980
+970
+909
+R.A. Açores
+1
+1
+1
+2
+3
+3
+3
+5
+9
+9
+R.A. Madeira
+34
+33
+35
+30
+34
+32
+33
+38
+47
+55
+Não especificado
+0
+0
+0
+0
+0
+2
+1
+2
+2
+2
+1 Ano-móvel: setembro de 2025 a agosto de 2026.
+Potência instalada em fotovoltaica por região
+MW
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+Portugal
+579
+669
+916
+1 109
+1 826
+2 690
+3 899
+5 678
+6 835
+7 363
+Continente
+555
+645
+890
+1 083
+1 800
+2 659
+3 869
+5 640
+6 790
+7 319
+Norte
+88
+104
+137
+162
+297
+482
+752
+946
+1 304
+1 368
+Centro
+102
+116
+156
+188
+284
+461
+1 025
+1 601
+1 926
+2 126
+Lisboa
+106
+112
+126
+136
+172
+315
+474
+595
+684
+767
+Alentejo
+197
+248
+403
+524
+721
+877
+1 066
+1 878
+2 207
+2 346
+Algarve
+61
+66
+69
+73
+327
+524
+553
+621
+670
+713
+R.A. Açores
+2
+2
+3
+3
+4
+4
+4
+11
+11
+11
+R.A. Madeira
+21
+21
+21
+21
+21
+25
+25
+25
+31
+31
+Não especificado
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+Média de horas equivalentes de produção das centrais fotovoltaicas 2
+2023
+2024
+2025
+Média
+Norte
+1 386
+1 354
+1 345
+1 362
+Centro
+1 789
+1 721
+1 660
+1 723
+Lisboa
+1 807
+1 780
+1 782
+1 790
+Alentejo
+1 882
+1 726
+1 685
+1 764
+Algarve
+1 797
+1 780
+1 758
+1 778
+R.A. Açores
+1 008
+1 074
+1 034
+1 039
+R.A. Madeira
+1 730
+1 793
+1 730
+1 751
+2 Média dos últimos três anos nas centrais sujeitas a licenciamento.
+2017
+2018
+2019
+2020
+2021
+2022
+2023
+2024
+2025
+2026
+GWh
+Norte
+Centro
+Lisboa
+Alentejo
+Algarve
+No ano móvel de 
+setembro 2025 a agosto 
+2026, a região do 
+Alentejo  foi responsável 
+por 36% da produção 
+fotovoltaica nacional.
+Desde 2014 entraram 
+em funcionamento 14  
+centrais fotovoltaicas de 
+concentração, 
+totalizando uma 
+potência de 18.1 MW.
+Norte
+Centro
+Lisboa
+Alentejo
+Algarve
+R.A. Açores
+R.A. Madeira
+0
+200
+400
+600
+800
+1 000
+1 200
+1 400
+1 600
+1 800
+2 000
+Estatísticas Rápidas das Renováveis - agosto de 2026
+1
+   19
+___________________________________________________________________________________________________
+
+--- page 24
+Conceitos
+Siglas/abreviaturas
+AM - Ano Móvel
+CEP - Consumo de Energia Primária
+CEF - Consumo de Energia Final 
+CFBE - Consumo Final Bruto de Energia 
+FAME - Fatty Acid Methyl Esters (ésteres metílicos de ácidos gordos)
+FER - Fontes de Energia Renováveis
+HPE - Horas de Produção Equivalentes
+HVO - Óleo Vegetal Hidrogenado (Hydrotreated Vegetable Oil )
+INE - Instituto Nacional de Estatística
+NUTS II -Nomenclatura das Unidades Territoriais para Fins Estatísticos (Versão V00521 de 2002 do INE)
+OCDE - Organização para a Cooperação e Desenvolvimento Económico
+RESP - Rede Elétrica de Serviço Público
+RSU - Resíduos Sólidos Urbanos
+UE - União Europeia
+UPAC - Unidade de produção para autoconsumo
+UPP - Unidade de pequena produção
+Unidades de medida
+Fontes
+Horas de produção equivalentes - Número de horas que uma central de produção de energia elétrica necessita funcionar num 
+regime equivalente à potência nominal, para produzir determinada quantidade de energia elétrica.
+Micro/Mini produção - é a atividade de produção de eletricidade em baixa tensão para consumo próprio, com possibilidade de 
+entrega de energia à rede elétrica pública. Esta produção de eletricidade tem por base as chamadas energias renováveis.
+Central hidroelétrica a fio de água - Central hidroelétrica num curso de água, sem albufeira reguladora de volume significativo. 
+Localizam-se normalmente em cursos de água de declive pouco acentuado, nos quais os caudais disponíveis são elevados.
+Potência instalada estabilizada - Corresponde à potência instalada, quando a produção de energia elétrica provém de uma ou 
+mais centrais cuja potência instalada não variou no período em análise.
+Hídrica/Eólica corrigida - No cálculo da contribuição da energia hidroeléctrica e eólica para os fins da Diretiva 2009/28/CE, os 
+efeitos das variações climáticas deverão ser atenuados através da utilização da metodologia de normalização constante dos anexos 
+da Diretiva.  
+Potência instalada - Valor correspondente à soma das potências nominais dos equipamentos.
+Ano Móvel - É o período que compreende doze meses, independente do mês de início. Quando um evento acontece num mês do 
+ano atual, os resultados do mesmo mês no ano anterior são eliminados. 
+Central hidroelétrica de albufeira - Central hidroelétrica cuja alimentação pode ser regulada graças a uma albufeira. São 
+habitualmente implantadas nos rios das regiões montanhosas.
+Central fotovoltaica convencional - Todas as centrais fotovoltaicas sujeitas a licenciamento com a e
+SHEET DGEG 36 14
+   ['', '', '', '', '', '', '', '', '', '']
+   ['Direcção Geral de ', '', '', '', '', '', '', '', '', '']
+   ['Direção de Serviço', '', '', '', '', '', '', '', '', '']
+   ['Divisão de Estatís', 'Dados Mensais de E', '', '', '', '', '', '', '', '']
+   ['', 'Portugal Continent', '', '', '', '', '', '', '', '']
+   ['', '(dados provisórios', '', '', '', '', '', '', '', '']
+   ['', '', '', '', '', '', '', '', '', '']
+   ['', 'janeiro ', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro']
+   ['', '', '', '', '', '', '', '', '', '']
+   ['Produção bruta (GW', '5693.0', '5424.0', '5013.0', '3932.0', '4063.0', '3784.0', '4075.0', '3782.0', '0.0']
+   ['Térmica ', '1087.0', '1245.0', '988.0', '894.0', '815.0', '787.0', '939.0', '923.0', '']
+   ['Hídrica ', '2328.0', '2149.0', '2085.0', '1383.0', '1386.0', '962.0', '1239.0', '980.0', '']
+
+#### D. Italy Terna
+
+ https://dati.terna.it/en/generation/installed-capacity 40413
+TEXT: Page not found | Terna Driving Energy data Go to menu Go to main content Go to footer Welcome to the Terna Dati portal For the first time, the Italian national transmission grid operator is publishing its operating data, market data and statistics on the electricity system on a single integrated digital platform . By making this wealth of information available to all, technicians and otherwise, Terna is providing tools for management, analysis, work and study , as well as promoting understanding of the world of energy. You’ll find different sections on the portal, each with its own specific focus ( Load, Generation, Transmission, Market and Adequacy, Fees, Outages ) and you can even download all the data from the download centre. Have fun! Continue Load Load Statistical Data Monthly index of industrial electricity consumption (IMCEI) Monthly index of services electricity consumption (IMSER) International comparisons Generation Generation Statistical data Unavailability UP International comparisons Transmission Transmission REMIT Network Unavailability Market & Adequacy Market & Adequacy Transit limits between market zones Connections Econnextion Fees Download Center Ita | Eng Notifications Remove all No notification 404 Page not found Useful links Accessibility PRIVACY COOKIE DECLARATION LEGAL NOTES Portals MY TERNA TERNA.IT BUY SUPPLIER QUALIFICATION GAUDI GSTAT DISTRIBUTION COMPANIES LIGHTBOX TERNA4GREEN CIELO TERRA MARE RTN HOLDERS OPEN AND TRANSPARENT PORTAL SETTLEMENT CERTIFICATION WHISTLEBLOWING TERNA S.p.A. - Capitale sociale € 442.198.240 interamente versato - Sede Legale in Italia, Viale Egidio Galbani, 70 - 00156 Roma - Tel +39 06 83138111 Registro delle Imprese di Roma - Codice fiscale e Partita IVA 05779661007 - R.E.A. di Roma 922416 - info@pec.terna.it
+SCRIPTS: ['/ruxitagentjs_ICA7NVfqrux_10347260902154543.js', 'https://www.googletagmanager.com/gtm.js?id=GTM-K2X4VLLZ', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js', '/-/media/base-themes/core-libraries/scripts/ie-origin-fix.js', '/-/media/base-themes/core-libraries/scripts/xaquery.js', '/-/media/base-themes/core-libraries/scripts/moment.js', '/-/media/base-themes/core-libraries/scripts/lo-dash.js', '/-/media/base-themes/core-libraries/scripts/modernizr.js', '/-/media/base-themes/core-libraries/scripts/galleria-161.js', '/-/media/base-themes/core-libraries/scripts/fullcalendar.js', '/-/media/base-themes/core-libraries/scripts/gcal.js', '/-/media/base-themes/core-libraries/scripts/jqueryuitouch-punchmin.js', '/-/media/base-themes/core-libraries/scripts/hammer.js', '/-/media/base-themes/core-libraries/scripts/backbone-min.js', '/-/media/base-themes/core-libraries/scripts/typeahead.js']
+API-ish: []
+    /en/download-center | Download Center
+
+ https://dati.terna.it/en/download-center 248880
+TEXT: Download Center | Terna Driving Energy data Go to menu Go to main content Go to footer Welcome to the Terna Dati portal For the first time, the Italian national transmission grid operator is publishing its operating data, market data and statistics on the electricity system on a single integrated digital platform . By making this wealth of information available to all, technicians and otherwise, Terna is providing tools for management, analysis, work and study , as well as promoting understanding of the world of energy. You’ll find different sections on the portal, each with its own specific focus ( Load, Generation, Transmission, Market and Adequacy, Fees, Outages ) and you can even download all the data from the download centre. Have fun! Continue Load Load Statistical Data Monthly index of industrial electricity consumption (IMCEI) Monthly index of services electricity consumption (IMSER) International comparisons Generation Generation Statistical data Unavailability UP International comparisons Transmission Transmission REMIT Network Unavailability Market & Adequacy Market & Adequacy Transit limits between market zones Connections Econnextion Fees Download Center Ita | Eng Notifications Remove all No notification Hub Download Center Download Center In this section, you can download all data on Requirements, Generation, Transmission, Market, Adequacy, Fees and Outages, in table and Excel format. All data are updated in real time, except for some sections that are updated on day D-1 (Italian Demand, Market Demand, Daily Data Comparison, Maximum/Minimum Demand, Net Generation, Renewable Generation, Energy Balance, Foreign Trade, Domestic Trade, Foreign Physical Trade, Domestic Physical Trade). { "TotalLoad_Zones": [ { "value": "Centre-North", "label": "Centre-North" },
+SCRIPTS: ['/ruxitagentjs_ICA7NVfqrux_10347260902154543.js', 'https://www.googletagmanager.com/gtm.js?id=GTM-K2X4VLLZ', 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js', '/-/media/base-themes/core-libraries/scripts/ie-origin-fix.js', '/-/media/base-themes/core-libraries/scripts/xaquery.js', '/-/media/base-themes/core-libraries/scripts/moment.js', '/-/media/base-themes/core-libraries/scripts/lo-dash.js', '/-/media/base-themes/core-libraries/scripts/modernizr.js', '/-/media/base-themes/core-libraries/scripts/galleria-161.js', '/-/media/base-themes/core-libraries/scripts/fullcalendar.js', '/-/media/base-themes/core-libraries/scripts/gcal.js', '/-/media/base-themes/core-libraries/scripts/jqueryuitouch-punchmin.js', '/-/media/base-themes/core-libraries/scripts/hammer.js', '/-/media/base-themes/core-libraries/scripts/backbone-min.js', '/-/media/base-themes/core-libraries/scripts/typeahead.js']
+API-ish: []
+    /en/download-center | Download Center
+    /download-center | Ita
+    /en/download-center | Download Center
+    `/api/sitecore/dati/downloadcenter/records?f=xlsx&${this.urlSearchParamsNoPaging.toString()}&pageSize=${Math.min(this.recordCount, this.maxPageSize)}` | Download Data
+
+ https://www.terna.it/en/electric-system/statistics/statistical-publications 377277
+TEXT: Electric System | Terna Driving Energy - Terna spa Vedi sul CMS 1. Production Electrical energy does not occur naturally: it must be generated, by transforming energy from primary sources — which may be renewable (sun, wind, water) or traditional (fossil fuels) — into electricity. 2. Transmission: our role Terna is at the very centre of the supply chain: being responsible for transmission, it is also responsible for the management, maintenance and development of Italy’s high and extra-high-voltage electricity grid. 3. Distribution Electricity reaches its end users — namely towns, homes, businesses and companies — through extensive medium and low-voltage infrastructure and thanks to primary and secondary cabins. 4. Sale The users are the final link in the electricity system’s supply chain. Sales companies market electricity to agricultural, industrial and tertiary enterprises and to households. Vedi sul CMS
+SCRIPTS: ['/ruxitagentjs_ICA7NVfghqrux_10347260902154543.js', '/DependencyHandler.axd/0bdfdd8e23720ddd9ec7209ae521d21a/24/js', '/WebResource.axd?d=pynGkmcFUV3FsoqFqfdH9kX3G5cd4wRBf1CNAuxQLHKBqt0akD4YIhSfb5g1&amp;t=639190905332169432', '/ScriptResource.axd?d=NJmAwtEo3IpAVljAgHRmf4BL-uHVkRpY8RTxE1W1cKTFv8phCWdSAf5L_my4jqLzUMu_2TwFddF-aDo0NaX01-G8XczGvye19ZeFKVnv5hkx5XQ6LHVBz64R9mHpk1eWZ1ERUQ2&amp;t=ffffffffbec1863d', '/ScriptResource.axd?d=dwY9oWetJoI0rSSk0Z3kpX3aIdX7i2HqCLR6nYZ9UYo1oF4ltQlntzwSuCI-WV_b0uTHCF2pl0PxN6l9it_1Lxly8gOT-OKsrcZrfh8d7FKbOU27jLgDN_VrIOwsmLKmGUDafuAATXsKLO7Q0&amp;t=ffffffffbec1863d', '/DependencyHandler.axd/59d60664514c0ef35f2afde55525c5f7/24/js', '/Portals/_default/skins/terna/Js/vendor.bundle.js?v=20260618.02', '/Portals/_default/skins/terna/Js/vendors-main.bundle.js?v=20260618.02', '/Portals/_default/skins/terna/Js/main.bundle.js?v=20260618.02', '/Portals/0/Resources/assets/t-components-v2/t-components.js', '/Portals/0/Resources/kpi-slider/assets/index.js']
+API-ish: ['/DesktopModules/AdactoBackend/API/download/get?image=27383\\', '/DesktopModules/AdactoBackend/API/download/get?image=27446\\', '/DesktopModules/AdactoBackend/API/download/get?image=27448\\', '/DesktopModules/AdactoBackend/API/download/get?image=27451\\', '/DesktopModules/AdactoBackend/API/download/get?image=27453\\', '/DesktopModules/AdactoBackend/API/download/get?image=27454\\', '/DesktopModules/AdactoBackend/API/download/get?image=27455\\', '/DesktopModules/AdactoBackend/API/download/get?image=27456\\', '/DesktopModules/AdactoBackend/API/generic/cogito']
+
+ https://www.terna.it/it/sistema-elettrico/statistiche/rapporto-mensile 246827
+TEXT: Statistiche | Terna Driving Energy - Terna spa Vedi sul CMS Vedi sul CMS
+SCRIPTS: ['/ruxitagentjs_ICA7NVfghqrux_10347260902154543.js', '/DependencyHandler.axd/0bdfdd8e23720ddd9ec7209ae521d21a/24/js', '/WebResource.axd?d=pynGkmcFUV3FsoqFqfdH9kX3G5cd4wRBf1CNAuxQLHKBqt0akD4YIhSfb5g1&amp;t=639190905332169432', '/ScriptResource.axd?d=uHIkleVeDJfYVu_BSVJYrwxp_FG4sbTG9Q4eEbK3NjR4rfGM8L62y48qC7g3YGg1X7Vyo6ONOXaDdcN78xw50wuJD6m5zADAEVLxsT7SXZ3RhbhaUj-efQKCBWxzgPdVje1NWw2&amp;t=ffffffffbec1863d', '/ScriptResource.axd?d=Jw6tUGWnA14dIq8Nlu9xIbg67OhW-asBHMCKdGwfLdhcNZjCGNJhultmqC-7hCaB38182xNYZOQ3SMlneOJTj7lCW0YnxBv0eF8POAYArFkiHPMGs3zgifRXOB2lfNP-qO3irFRk1b58UMfT0&amp;t=ffffffffbec1863d', '/DependencyHandler.axd/59d60664514c0ef35f2afde55525c5f7/24/js', '/Portals/_default/skins/terna/Js/vendor.bundle.js?v=20260618.02', '/Portals/_default/skins/terna/Js/vendors-main.bundle.js?v=20260618.02', '/Portals/_default/skins/terna/Js/main.bundle.js?v=20260618.02', '/Portals/0/Resources/navigazione/navigazione.js']
+API-ish: ['/DesktopModules/AdactoBackend/API/download/get?image=15651\\', '/DesktopModules/AdactoBackend/API/download/get?image=15652\\', '/DesktopModules/AdactoBackend/API/generic/cogito', '/DesktopModules/AdactoBackend/API/generic/cogito\\']
