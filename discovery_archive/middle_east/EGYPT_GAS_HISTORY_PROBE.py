@@ -5,7 +5,87 @@ from Israel, LNG imports/exports, pipeline exports to Jordan) automatable from G
 Starts from EGYPT_ISRAEL_GAS_POWER_PROBE.py (CAPMAS energy balance annual 2014-2022, MOEE fuel for power annual,
 EGAS / petroleum.gov.eg no statistics pages).
 
-RUN findings: see bottom of this docstring (filled in after the Actions runs).
+Rounds: ROUND=1 JODI zip, Comtrade overview, CBE pages, EGAS/EGPC/ministry pages, CAPMAS subject scan, Wayback CDX;
+ROUND=2 CBE bulletin xlsx, CAPMAS ids, EGPC http pages, ministry indicators, EGAS reports, Comtrade partners;
+ROUND=3 CAPMAS energy-statistics series, ministry page text, EGAS/EGPC reports via Wayback, Comtrade monthly scan.
+Workflow (manual): discovery_archive/workflows/egypt_gas_history_probe.yml (input `round`).
+
+RUN 1 (2026-10-11, Actions runs 38184903305):
+- JODI static zip https://www.jodidata.org/_resources/files/downloads/gas-data/GAS_world_NewFormat.zip: 200, 1.5 MB,
+  Last-Modified 23 Jun 2025, member STAGING_world_NewFormat.csv; Egypt (REF_AREA EG) 2011-01 .. 2025-04 ONLY (stale),
+  unit M3 (million m3), flows INDPROD, IMPLNG, IMPPIP, EXPLNG, EXPPIP, TOTIMPSB, TOTEXPSB, TOTDEMO, TOTDEMC, MAINTOT
+  (= electricity and heat generation), STOCKCH, STATDIFF, OSOURCES; no other sector split.
+  The jodidb.org Beyond 20/20 viewer (method of discovery_archive/rest_of_world/JODI_LNG_LAG_PULL4.py, raw extract
+  committed Oct 2026 in discovery_archive/rest_of_world/data/jodi_gas_world_jodidb_raw.zip) is CURRENT: Egypt
+  Jan 2011 .. Jul 2026 (~2.5 month lag), same flows. Annual sums from that extract, bcm:
+    year  prod  impLNG impPipe expLNG expPipe GIDobs power
+    2015  44.3   3.5    0      0      0      47.8   30.6
+    2019  67.5   0      0      5.9    0      60.6   37.2
+    2021  70.4   0      4.2    10.0   0.6    63.5   37.9
+    2023  59.3   0      8.6    5.2    0.5    61.9   35.2
+    2024  49.4   4.5   10.2    0.9    0.5    62.6   36.1
+    2025  42.4  13.1    9.2    0.8    0.4    63.1   36.2
+    Jan-Jul 2026: prod 22.7, LNG 11.1, pipe 5.3; Jun 2026 prod 3,140 mcm (= 3.7 bcf/d), LNG 1,753, pipe 841 mcm.
+  Pipeline imports (Israel) start Jul 2020; LNG imports Apr 2015 - 2018 and again 2024+; pipeline exports 2011-13 (Arab
+  Gas Pipeline / EMG) and from 2020 (Jordan, ~30 mcm/month).
+- UN Comtrade public preview (comtradeapi.un.org/public/v1/preview/C/{A|M}/HS, keyless, one period per call): Egypt
+  (818) reports MONTHLY; every month Jan 2015 .. Jun 2026 present (Jul/Aug 2026 not yet, ~3-4 month lag). Egypt books
+  ALL gas under HS 271111 (no 271121 rows), incl. the Israeli PIPELINE gas, with partner Israel (from 2022; 2020-21 the
+  partner is not named Israel) - so partner Israel = pipeline imports, other partners = LNG cargoes (USA, Qatar,
+  Nigeria, Trinidad, Senegal/Mauritania GTA, Norway, Guinea...), partner Jordan exports = Arab Gas Pipeline exports.
+  netWgt (kt): imports 2015 3,108; 2016 7,216; 2017 6,668; 2018 value only (weights 0); 2019 none; 2020 1,416;
+  2021 2,183; 2022 1,648 (Israel); 2023 3,525 (Israel 3,249); 2024 9,287 (Israel 5,355, USA 3,208); 2025 13,700
+  (USA 9,266, Israel 3,507); Jan-Jun 2026 9,311 (Israel 1,774; USA 1,806 kt in Jun 2026 alone).
+  LNG (non-Israel) 2025 10,193 kt ~ 13.9 bcm vs JODI LNG 13.1 bcm (good); Israel 2025 3,507 kt is far below JODI's
+  9.2 bcm pipeline imports (customs weight of pipeline gas is partial/differently measured - not usable as volume).
+  Exports 271111: 2019 3,557 kt, 2021 8,111, 2022 7,696, 2023 3,688, 2024 526, 2025 351 kt; Jordan ~7.5 kt/month.
+  Mirrors: Israel (376) reports no exports to Egypt (0 rows, confidential); Jordan (400) only 2019 271121 1,564 kt;
+  USA (842) X to Egypt 2024 1,096 kt, 2025 4,695 kt.
+- CBE (cbe.org.eg, plain requests OK): Monthly Statistical Bulletin (no. 352 = Jul 2026) xlsx per sector
+  (/-/media/project/cbe/listing/monthly-statistical-bulletin/{real,external,fiscal,financial}/<sector>-<n>.xlsx);
+  time series download lists (Foreign Trade, BOP ...). Gas content is VALUES only: BOP petroleum exports/imports
+  quarterly (US$ mn, fiscal years), sheet 30 'Main Merchandise Balances' natural gas exports/imports US$ mn
+  (Jul-Mar FY cumulative: imports 5,146.9 in 2024/25, 7,741.1 in 2025/26), GDP gas extraction (LE, FY), investment.
+  NO volumes, no production series.
+- EGAS (egas.com.eg, Liferay, 200): no statistics or annual-report section now (/annual-report 404); only a 2025
+  company profile PDF and news. EGPC: https times out, http://www.egpc.com.eg/ answers (old ASP.NET site: Annual
+  Reports pages for 2012/13-2014/15 only, Gas_Production.aspx no numbers). Ministry of Petroleum (petroleum.gov.eg,
+  SharePoint, 200): 'info-indicators.aspx' (Arabic) and 'sector performance indicators' are image/iframe shells with
+  no numbers; gas.aspx text gives only '4 bcf/d in 2015 -> 7.1 bcf/d' prose; news list is script-rendered.
+  idsc.gov.eg JS shell; ganope.com unreachable; echem.com.eg no DNS.
+- CAPMAS subject scan: energy sub-subject 30 has pub 57 'Energy Balance' and pub 77 'Electricity and Energy
+  Statistics'; trade pubs 22 (Foreign Trade monthly bulletin) and 100 (annual) expose only aggregate VALUE indicators.
+- Wayback CDX works (EGAS annual-report URLs 2018/2019/2022, EGAS 2015 annual report PDF, EGPC production PDFs,
+  CBE bulletins back to 2011); snapshot downloads from Actions are unreliable (http/https connect timeouts).
+RUN 2/3 (2026-10-12, runs 38186072313, 38188274535):
+- CAPMAS IndicatorFilter takes the item's `indicatorId` (not its `id`). Pub 77 (petroleum-sector statistics),
+  ANNUAL 2010-2022 (unit not stated in the API): 9543 'natural gas sold by use' (total 31,205 in 2010 -> 47,260 in
+  2022; houses 2,582, industry 7,112, 'other' 37,479, car service/CNG 87 in 2022; categories change over the years),
+  9544 sold by governorate, 9545 extracted quantity (natural gas 6,686 in 2010?! -> 51,395 in 2022; oil, condensate,
+  LPG), 5937 export quantities (natural gas and LNG 7,196 in 2022), 5939 import quantities (natural gas 4,060 in 2022),
+  9553 values. Energy balance 3112 production 52,241 (2014) .. 59,322 (2022) ktoe, 3121 imports, 3124 exports.
+- EGAS Annual Report 2014/15 PDF (Wayback, egas.com.eg/docs/pdf/Egas_EN_2015_Final...pdf, 35 pages, text layer):
+  FY2014/15 sales gas 1.65 TCF (4,526 MMSCFD; 2009/10-2014/15 history 6,006 -> 4,526), local consumption 1,660 BCF
+  (4,547 MMSCFD) = electricity 1,039 BCF (63%), industry 379 (fertilizer 104, iron & steel 45, cement 31, other 199),
+  petroleum sector 160, residential 65, CNG 17; pipeline exports 8.7 BCF, LNG export 3.7 BCF (1 cargo), LNG imports
+  1,462 mcm (10 cargoes) from 17 Apr 2015. Later EGAS annual-report pages (2018, 2019 on Wayback) carry no text
+  figures; nothing newer was found.
+- EGPC 'Production Activity.pdf' (Wayback) is a scanned image (28 text chars).
+
+CONCLUSIONS
+- No official Egyptian source publishes MONTHLY gas statistics that Actions can reach: EGAS, EGPC and the ministry
+  publish no statistics tables (only prose figures in news/annual reports); CBE has trade VALUES only (quarterly/FY);
+  CAPMAS gives ANNUAL series to 2022 (energy balance 2014-2022; petroleum-sector statistics 2010-2022 incl. gas sold by
+  use/governorate, extracted quantity, export/import quantities); MOEE gives gas for power annually by FY (to 2022/23,
+  EGYPT_ISRAEL_GAS_POWER_PROBE.py).
+- Best monthly series: JODI Gas via the jodidb.org viewer (production, LNG and pipeline imports, LNG and pipeline
+  exports, gross inland deliveries, electricity and heat generation use; Jan 2011 - Jul 2026; the static zip stops at
+  Apr 2025) = labelled fallback; UN Comtrade monthly (Jan 2015 - Jun 2026) for LNG imports by origin (tonnes, US$)
+  and pipeline exports to Jordan, as validation/origin split; its Israel pipeline weights are incomplete.
+- Recommendation for a production pull (1st/15th): JODI viewer Egypt rows (monthly mcm -> Bcf/d), labelled 'JODI
+  (Egypt submission, fallback)'; Comtrade monthly Egypt 271111 by partner for LNG by origin (kt) with a 'customs'
+  label; CAPMAS annual (pub 77 gas sold by use, energy balance) and MOEE gas-for-power as the official annual layer;
+  sector split beyond power is annual only (CAPMAS / EGAS 2014/15 report).
 """
 
 import io
