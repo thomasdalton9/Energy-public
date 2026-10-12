@@ -1,7 +1,3 @@
-/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py:46: UserWarning: Parsing dates in %Y-%m-%d format when dayfirst=True was specified. Pass `dayfirst=False` or specify a format to silence this warning.
-  d["d_ms"] = pd.to_datetime(d["datemiseenservice"], dayfirst=True, errors="coerce")
-/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py:47: UserWarning: Parsing dates in %Y-%m-%d format when dayfirst=True was specified. Pass `dayfirst=False` or specify a format to silence this warning.
-  d["d_rac"] = pd.to_datetime(d["dateraccordement"], dayfirst=True, errors="coerce")
 #### A. France register: pandas comparison
 registre-national-installation-production-stockage-electricite-agrege 140539 agg rows 33759 missing ms 226 missing rac 9
 registre-national-installation-production-stockage-electricite-agrege-311220 54671 agg rows 16932 missing ms 436 missing rac 118
@@ -10,6 +6,96 @@ registre-national-installation-production-stockage-electricite-agrege-311222 727
 registre-national-installation-production-stockage-electricite-agrege-311223 84944 agg rows 23715 missing ms 319 missing rac 168
 registre-national-installation-production-stockage-electricite-agrege-311224 101097 agg rows 25892 missing ms 265 missing rac 138
 registre-national-installation-production-stockage-electricite-agrege-311225 125930 agg rows 31462 missing ms 235 missing rac 9
+
+== year-end 2020 (GW)
+                              snap  snap_agg  cur_ms_all  cur_ms_nonagg  cur_undated  cur_rac_all  cur_rac_agg  cur_total
+filiere                                                                                                                  
+Autre                        0.167     0.000       0.014          0.014        0.000        0.014        0.001      0.032
+Bioénergies                  2.233     0.001       2.625          2.621        0.257        2.888        0.004      3.207
+Energies Marines             0.243     0.000       0.244          0.244        0.000        0.244        0.000      0.244
+Eolien                      16.678     0.001      17.247         17.242        0.464       17.607        0.006     26.949
+Géothermie                   0.016     0.000       0.016          0.016        0.000        0.016        0.000      0.016
+Hydraulique                 25.570     0.041      19.857         19.833        5.970       25.887        0.024     26.025
+Nucléaire                   61.370     0.000      61.370         61.370        0.000       61.370        0.000     62.990
+Solaire                     10.379     1.939      15.106          8.964        0.121       15.229        6.142     34.885
+Stockage non hydraulique     0.021     0.000       0.095          0.095        0.104        0.105        0.000      2.263
+Thermique non renouvelable  20.857     0.001      14.002         14.001        5.047       19.047        0.000     19.833
+
+== year-end 2021 (GW)
+                              snap  snap_agg  cur_ms_all  cur_ms_nonagg  cur_undated  cur_rac_all  cur_rac_agg  cur_total
+filiere                                                                                                                  
+Autre                        0.193     0.000       0.016          0.015        0.000        0.016        0.001      0.032
+Bioénergies                  2.471     0.003       2.760          2.756        0.257        3.018        0.004      3.207
+Energies Marines             0.243     0.000       0.244          0.244        0.000        0.244        0.000      0.244
+Eolien                      19.546     0.026      18.452         18.447        0.464       18.922        0.006     26.949
+Géothermie                   0.016     0.000       0.016          0.016        0.000        0.016        0.000      0.016
+Hydraulique                 25.770     0.054      19.895         19.871        5.970       25.917        0.024     26.025
+Nucléaire                   61.370     0.000      61.370         61.370        0.000       61.370        0.000     62.990
+Solaire                     14.079     2.418      17.647         11.500        0.121       17.781        6.147     34.885
+Stockage non hydraulique     0.180     0.000       0.314          0.314        0.104        0.267        0.000      2.263
+Thermique non renouvelable  33.587     0.001      14.477         14.477        5.047       19.525        0.000     19.833
+
+== year-end 2022 (GW)
+                              snap  snap_agg  cur_ms_all  cur_ms_nonagg  cur_undated  cur_rac_all  cur_rac_agg  cur_total
+filiere                                                                                                                  
+Autre                        0.182     0.000       0.016          0.016        0.000        0.016        0.001      0.032
+Bioénergies                  2.550     0.004       2.821          2.817        0.257        3.079        0.004      3.207
+Energies Marines             0.243     0.000       0.244          0.244        0.000        0.244        0.000      0.244
+Eolien                      21.800     0.018      20.675         20.670        0.464       21.127        0.006     26.949
+Géothermie                   0.016     0.000       0.016          0.016        0.000        0.016        0.000      0.016
+Hydraulique                 25.897     0.052      19.925         19.900        5.970       25.947        0.024     26.025
+Nucléaire                   61.370     0.000      61.370         61.370        0.000       61.370        0.000     62.990
+Solaire                     16.652     2.824      19.880         13.731        0.121       20.005        6.149     34.885
+Stockage non hydraulique     0.573     0.000       0.526          0.526        0.104        0.498        0.000      2.263
+Thermique non renouvelable  20.281     0.000      14.581         14.580        5.047       19.627        0.000     19.833
+
+== year-end 2023 (GW)
+                              snap  snap_agg  cur_ms_all  cur_ms_nonagg  cur_undated  cur_rac_all  cur_rac_agg  cur_total
+filiere                                                                                                                  
+Autre                        0.189     0.000       0.023          0.022        0.000        0.023        0.001      0.032
+Bioénergies                  2.715     0.004       2.875          2.870        0.257        3.132        0.004      3.207
+Energies Marines             0.243     0.000       0.244          0.244        0.000        0.244        0.000      0.244
+Eolien                      24.007     0.027      22.977         22.971        0.464       23.386        0.006     26.949
+Géothermie                   0.016     0.000       0.016          0.016        0.000        0.016        0.000      0.016
+Hydraulique                 25.928     0.050      19.997         19.972        5.970       25.966        0.024     26.025
+Nucléaire                   61.370     0.000      61.370         61.370        0.000       61.370        0.000     62.990
+Solaire                     19.880     3.668      22.305         16.154        0.121       22.432        6.151     34.885
+Stockage non hydraulique     0.935     0.000       0.888          0.888        0.104        0.788        0.000      2.263
+Thermique non renouvelable  20.253     0.000      14.628         14.628        5.047       19.675        0.000     19.833
+
+== year-end 2024 (GW)
+                              snap  snap_agg  cur_ms_all  cur_ms_nonagg  cur_undated  cur_rac_all  cur_rac_agg  cur_total
+filiere                                                                                                                  
+Autre                        0.127     0.000       0.031          0.031        0.000        0.031        0.001      0.032
+Bioénergies                  3.107     0.004       2.903          2.899        0.257        3.160        0.004      3.207
+Energies Marines             0.243     0.000       0.244          0.244        0.000        0.244        0.000      0.244
+Eolien                      25.203     0.027      24.239         24.233        0.464       24.647        0.006     26.949
+Géothermie                   0.016     0.000       0.016          0.016        0.000        0.016        0.000      0.016
+Hydraulique                 25.949     0.043      20.026         20.002        5.970       25.996        0.024     26.025
+Nucléaire                   61.370     0.000      62.990         62.990        0.000       62.990        0.000     62.990
+Solaire                     25.040     4.783      26.268         20.117        0.121       26.399        6.151     34.885
+Stockage non hydraulique     1.120     0.000       1.120          1.120        0.104        1.015        0.000      2.263
+Thermique non renouvelable  20.046     0.000      14.718         14.718        5.047       19.765        0.000     19.833
+
+== year-end 2025 (GW)
+                              snap  snap_agg  cur_ms_all  cur_ms_nonagg  cur_undated  cur_rac_all  cur_rac_agg  cur_total
+filiere                                                                                                                  
+Autre                        0.036     0.004       0.031          0.031        0.000        0.031        0.001      0.032
+Bioénergies                  3.194     0.004       2.940          2.936        0.257        3.198        0.004      3.207
+Energies Marines             0.243     0.000       0.244          0.244        0.000        0.244        0.000      0.244
+Eolien                      26.466     0.018      25.699         25.693        0.464       26.119        0.006     26.949
+Géothermie                   0.016     0.000       0.016          0.016        0.000        0.016        0.000      0.016
+Hydraulique                 26.006     0.025      20.041         20.016        5.970       26.011        0.024     26.025
+Nucléaire                   62.990     0.000      62.990         62.990        0.000       62.990        0.000     62.990
+Solaire                     31.255     5.741      31.475         25.323        0.121       31.608        6.152     34.885
+Stockage non hydraulique     1.573     0.000       1.604          1.604        0.104        1.499        0.000      2.263
+Thermique non renouvelable  19.987     0.000      14.777         14.777        5.047       19.824        0.000     19.833
+
+snapshot 2024: rows by agg and filiere (solar)            n            mw      ni
+isagg                             
+False  66989  20256.553434   66989
+True   25858   4783.377479  973268
+current: agg solar by date-year (MW):
 Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 374, in na_logical_op
     result = op(x, y)
@@ -19,9 +105,9 @@ TypeError: unsupported operand type(s) for &: 'bool' and 'method'
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py", line 57, in <module>
-    row = dict(filiere=f, snap=s[s.filiere == f].mw.sum(), snap_agg=s[(s.filiere == f) & s.agg].mw.sum(),
-                                                                      ~~~~~~~~~~~~~~~~~^~~~~~~
+  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py", line 68, in <module>
+    c = cur[(cur.filiere == "Solaire") & cur.agg]
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
   File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/common.py", line 85, in new_method
     return method(self, other)
            ^^^^^^^^^^^^^^^^^^^
