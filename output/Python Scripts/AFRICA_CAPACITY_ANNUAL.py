@@ -153,25 +153,30 @@ MA_LABELS = [   # (regex on the label, item)
 
 
 def morocco_sheet(df, yearbook=None):
-    """ONEE table 5-4 frame -> {year: {item: MW}} (the three years of the yearbook), first block only (not the autoproducers)."""
-    hdr, years = None, None
-    for i in range(min(len(df), 15)):
+    """ONEE table 5-4 frame -> {year: {item: MW}} (the three years of the yearbook), first block only (not the autoproducers).
+    The year header is read from the sheet when it holds as many consecutive years as the 'Puissances installees' row has values;
+    otherwise (the 2019-2023 yearbooks) the columns are taken as the years before the edition, newest first (checked against the
+    neighbouring yearbooks, whose headers are printed: 2023 = 2022, 2021, 2020)."""
+    prow = next((i for i in range(min(len(df), 20)) if re.search(
+        r"(?i)puissances? install", " ".join(str(v) for v in df.iloc[i].values)) and
+        sum(isinstance(v, (int, float)) and not pd.isna(v) for v in df.iloc[i].values) >= 2), None)
+    if prow is None:
+        return {}
+    n = sum(isinstance(v, (int, float)) and not pd.isna(v) for v in df.iloc[prow].values)
+    hdr, years = prow - 1, None
+    for i in range(prow):
         vals = []
         for v in df.iloc[i].values:
             if isinstance(v, (int, float)) and not pd.isna(v) and 1990 < v < 2100:
                 vals.append(int(v))
             elif isinstance(v, str) and re.fullmatch(r"\s*(?:19|20)\d\d(?:\.0)?\s*\*{0,3}\s*", v):
                 vals.append(int(float(v.strip(" *"))))
-        if len(vals) >= 2:
-            hdr, years = i, vals
+        if len(vals) == n and all(abs(a - b) == 1 for a, b in zip(vals, vals[1:])):
+            years = vals
             break
-    if hdr is None and yearbook and yearbook >= 2022:
-        # the 2022 and 2023 yearbooks print no year header on this sheet: columns are the three years before the edition,
-        # newest first (checked against the neighbouring yearbooks, whose headers are printed: 2023 = 2022, 2021, 2020 ...)
-        years = [yearbook - 1, yearbook - 2, yearbook - 3]
-        hdr = next((i for i in range(min(len(df), 15)) if re.search(r"(?i)puissances? install",
-                                                                      " ".join(str(v) for v in df.iloc[i].values))), 0) - 1
-    if hdr is None:
+    if years is None and yearbook and yearbook >= 2019:
+        years = [yearbook - 1 - k for k in range(n)]
+    if years is None:
         return {}
     out = {y: {} for y in years}
     for i in range(hdr + 1, len(df)):
