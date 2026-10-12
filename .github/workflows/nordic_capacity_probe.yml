@@ -4,7 +4,7 @@ on:
     inputs:
       script:
         description: probe script name in discovery_archive/europe/capacity
-        default: NORDIC_CAPACITY_PROBE3.py
+        default: NORDIC_CAPACITY_PROBE4.py
 permissions:
   contents: write
 jobs:
