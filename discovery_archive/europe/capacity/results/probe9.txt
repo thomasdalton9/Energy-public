@@ -1,0 +1,82 @@
+=== SK Power BI
+sections ['report_web']
+TABLE 'dátum a čas' ['DIM_Update.Dátum poslednej aktualizácie']
+   ValueDicts {}
+    DM0 [{"S": [{"N": "M0", "T": 7}], "M0": 1791210945147}]
+TABLE 'Matica' ['DIM_Prevadzkovatel.Prevádzkovateľ', 'Prideleny_Vykon_LZ.Prideleny_Externy', 'Prideleny_Vykon_LZ.Vycerpany_Externy', 'Prideleny_Vykon_LZ.Volny_Externy', 'DIM_Roky.Alignment']
+   ValueDicts {"D0": ["ZSD", "SSD", "VSD", "SEPS", "DS iná ako RDS"], "D1": ["                         2022 a 2023", "                         2024 a neskôr"], "D2": ["'-'"], "D3": ["'-'"], "D4": ["'-'"]}
+    DM0 [{"S": [{"N": "G0", "T": 1, "DN": "D0"}, {"N": "G1", "T": 1, "DN": "D1"}, {"N": "M0", "T": 13, "DN": "D2"}, {"N": "M1", "T": 13, "DN": "D3"}, {"N": "M2", "T": 13, "DN": "D4"}], "C": [0, "20D", "-20D"], "Ø": 5}, {"C": [1, 0, 0], "R": 1, "Ø": 8}, {"C": [0, 0, "200D", "373.28631999999982D", "-173.28631999999982D"]}, {"C": [1, 0, "811.44085899999959D", 0], "R": 1}, {"C": [1, 0, "209D", "438.63455999999917D", "-229.63455999999917D"]}, {"C": [1, 0, "645.38689500000021D", 0], "R": 1}, {"C": [2, 0, "110D", "347.88554999999917D", "-237.88554999999917D"]}, {"C": [1, 0, "411.76634400000006D", 0], "R": 1}, {"C": [3, 0, "20D", "-20D"], "Ø": 4}, {"C": [1, 0, 0], "R": 1, "Ø": 8}, {"C": [4, 0, "20D", "20D", "0D"]}, {"C": [1, 0, 0, 0], "R": 1}]
+TABLE 'ESSR tabuľka' ['DS_Spolu.Total', 'DIM_Technologia_Vyroby.table_category', 'Prideleny_Vykon_DS.Prideleny', 'DS_Spolu.Vycerpany', 'DS_Spolu.Volny_ESSR']
+   ValueDicts {"D0": ["Total"], "D1": ["FVE/VTE", "iné"]}
+    DM0 [{"S": [{"N": "G0", "T": 1, "DN": "D0"}, {"N": "G1", "T": 1, "DN": "D1"}, {"N": "M0", "T": 3}, {"N": "M1", "T": 3}, {"N": "M2", "T": 3}], "C": [0, 0, 0], "Ø": 6}, {"C": [0, 7300, 3589.57183], "R": 17}, {"C": [1, 9034, "1282.0766259999998", "400.92337400000019"], "R": 1}]
+TABLE 'SUMAR spolu' ['Prideleny_Vykon_ESSR.Prideleny_ESSR']
+   ValueDicts {}
+    DM0 [{"S": [{"N": "M0", "T": 3}], "M0": 2600}]
+TABLE 'SUMAR FVE/VTE' ['Prideleny_Vykon_ESSR.Prideleny_ESSR']
+   ValueDicts {}
+    DM0 [{"S": [{"N": "M0", "T": 3}], "M0": 2600}]
+TABLE 'ZSD tabuľka' ['DS_Spolu.Total', 'DIM_Technologia_Vyroby.table_category', 'Prideleny_Vykon_DS.Prideleny', 'DS_Spolu.Vycerpany', 'DS_Spolu.Volny']
+   ValueDicts {"D0": ["Total"], "D1": ["FVE/VTE", "iné"]}
+    DM0 [{"S": [{"N": "G0", "T": 1, "DN": "D0"}, {"N": "G1", "T": 1, "DN": "D1"}, {"N": "M0", "T": 3}, {"N": "M1", "T": 3}, {"N": "M2", "T": 3}], "C": [0, 0, 0], "Ø": 6}, {"C": [0, 7300, 3589.57183, 3710.42817], "R": 1}, {"C": [1, 9034, "1282.0766259999998", 7751.923374], "R": 1}]
+TABLE 'SSD tabuľka' ['DS_Spolu.Total', 'DIM_Technologia_Vyroby.table_category', 'Prideleny_Vykon_DS.Prideleny', 'DS_Spolu.Vycerpany', 'DS_Spolu.Volny']
+   ValueDicts {"D0": ["Total"], "D1": ["FVE/VTE", "iné"]}
+    DM0 [{"S": [{"N": "G0", "T": 1, "DN": "D0"}, {"N": "G1", "T": 1, "DN": "D1"}, {"N": "M0", "T": 3}, {"N": "M1", "T": 3}, {"N": "M2", "T": 3}], "C": [0, 0, 0], "Ø": 6}, {"C": [0, 7300, 3589.57183, 3710.42817], "R": 1}, {"C": [1, 9034, "1282.0766259999998", 7751.923374], "R": 1}]
+TABLE 'VSD tabuľka' ['DS_Spolu.Total', 'DIM_Technologia_Vyroby.table_category', 'Prideleny_Vykon_DS.Prideleny', 'DS_Spolu.Vycerpany', 'DS_Spolu.Volny']
+   ValueDicts {"D0": ["Total"], "D1": ["FVE/VTE", "iné"]}
+    DM0 [{"S": [{"N": "G0", "T": 1, "DN": "D0"}, {"N": "G1", "T": 1, "DN": "D1"}, {"N": "M0", "T": 3}, {"N": "M1", "T": 3}, {"N": "M2", "T": 3}], "C": [0, 0, 0], "Ø": 6}, {"C": [0, 7300, 3589.57183, 3710.42817], "R": 1}, {"C": [1, 9034, "1282.0766259999998", 7751.923374], "R": 1}]
+TABLE 'SEPS tabuľka' ['DS_Spolu.Total', 'DIM_Technologia_Vyroby.table_category', 'Prideleny_Vykon_DS.Prideleny', 'DS_Spolu.Vycerpany', 'DS_Spolu.Volny']
+   ValueDicts {"D0": ["Total"], "D1": ["FVE/VTE", "iné"]}
+    DM0 [{"S": [{"N": "G0", "T": 1, "DN": "D0"}, {"N": "G1", "T": 1, "DN": "D1"}, {"N": "M0", "T": 3}, {"N": "M1", "T": 3}, {"N": "M2", "T": 3}], "C": [0, 0, 0], "Ø": 6}, {"C": [0, 7300, 3589.57183, 3710.42817], "R": 1}, {"C": [1, 9034, "1282.0766259999998", 7751.923374], "R": 1}]
+=== CH register reconcile
+detail rows 406676 matched plants 406676
+PV plants with detail rows 230664 of 337455 ; sum Total (MW) 8829 sum Initial 8259 sum detail 7797
+   among plants with detail: Total 6110 Initial 5895 detail 7797 | |detail-Total|<=1kW: 223167 of 230664
+   plants with Total != Initial 14991 with detail 4696 ; Total-Initial 571 MW
+   detail rows dated >31d after plant start: 0 sum MW 0 ; rows total 406676
+   detail Date year hist: {1989: 1, 2005: 1, 2006: 1, 2007: 9, 2008: 16, 2009: 22, 2010: 42, 2011: 77, 2012: 70, 2013: 194, 2014: 92, 2015: 267, 2016: 99, 2017: 173, 2018: 503, 2019: 1213, 2020: 11667, 2021: 33684, 2022: 56452, 2023: 110249, 2024: 107407, 2025: 70601, 2026: 13836}
+   plant start year hist (PV): {2015: 13252, 2016: 10630, 2017: 13208, 2018: 13139, 2019: 14548, 2020: 19496, 2021: 23329, 2022: 33763, 2023: 61765, 2024: 57736, 2025: 37174, 2026: 7340}
+   Initial+late detail vs Total (MW): 8259 vs 8829
+hydro n 1325 Total 12876 Initial 12876 Total!=Initial 2 start years {2018: 33, 2019: 35, 2020: 18, 2021: 9, 2022: 18, 2023: 12, 2024: 7, 2025: 6}
+wind n 64 Total 110 Initial 110 Total!=Initial 0 start years {2012: 5, 2013: 6, 2015: 2, 2016: 8, 2020: 5, 2022: 1, 2024: 6, 2025: 5}
+biomass n 434 Total 245 Initial 242 Total!=Initial 55 start years {2019: 9, 2020: 21, 2021: 9, 2022: 15, 2023: 9, 2024: 16, 2025: 28, 2026: 8}
+gas n 188 Total 299 Initial 299 Total!=Initial 0 start years {2017: 11, 2018: 10, 2019: 5, 2020: 3, 2021: 2, 2022: 6, 2023: 2, 2024: 2}
+waste n 28 Total 354 Initial 354 Total!=Initial 0 start years {2001: 1, 2003: 1, 2006: 1, 2008: 3, 2010: 1, 2012: 3, 2013: 1, 2016: 2}
+nuclear n 4 Total 3015 Initial 3015 Total!=Initial 0 start years {1969: 1, 1971: 1, 1979: 1, 1984: 1}
+   PlantCategory pumped (plantcat_6) start years: {1955: 1, 1957: 1, 1960: 2, 1961: 1, 1962: 1, 1963: 2, 1968: 1, 1971: 1, 1977: 1, 1993: 1, 2013: 1, 2022: 1}
+=== PL older URE
+https://www.ure.gov.pl/download/9/13999/MAPAna30-06-2023.xlsx 200 348358 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    ['mapa na 30-06-2023'] (6235, 8)
+     0      1                                   2             3            4                  5                  6           7
+0  Lp.  DKN**  Miejscwość lokalizacja instalacji*  Województwo*      Powiat*             Gmina*  Moc elektryczna**  Rodzaj OZE
+1    1     42                            Niedzica   małopolskie   nowotarski       Łapsze Niżne              92.75          WO
+2    2     42                      Sromowce Wyżne   małopolskie   nowotarski          Czorsztyn               2.08          WO
+3    3     42                             Smolice   małopolskie  oświęcimski  Zator – gm. m.-w.                2.2          WO
+https://www.ure.gov.pl/download/9/13797/MAPAna31-12-2022nastronezprzypisem.xlsx 200 314212 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    ['mapa na 31-12-2022'] (5422, 11)
+    0      1                                   2             3            4                  5                  6           7   8   9    10
+0  Lp.  DKN**  Miejscwość lokalizacja instalacji*  Województwo*      Powiat*             Gmina*  Moc elektryczna**  Rodzaj OZE NaN NaN  NaN
+1  Lp.     42                            Niedzica   małopolskie   nowotarski       Łapsze Niżne              92.75          WO NaN NaN    *
+2    1     42                      Sromowce Wyżne   małopolskie   nowotarski          Czorsztyn               2.08          WO NaN NaN  NaN
+3    2     42                             Smolice   małopolskie  oświęcimski  Zator – gm. m.-w.                2.2          WO NaN NaN  NaN
+https://www.ure.gov.pl/download/9/12809/file.file 200 184211 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    ['stan na 31-12-2021'] (4882, 5)
+                                                                             0            1           2           3                       4
+0  instalacje odnawialnych źródeł energii wg stanu na dzień 31 grudnia 2021 r.          NaN         NaN         NaN                     NaN
+1                                                                          NaN          NaN         NaN         NaN                     NaN
+2                                                                          Lp.  Województwo      Powiat  Rodzaj OZE  Moc zainstalowana [MW]
+3                                                                           1.  małopolskie  nowotarski          WO                   92.75
+https://www.ure.gov.pl/download/9/11882/MapaOZEnastroneURE31-12-2020.xlsx 200 138669 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    ['stan na 31-12-2020'] (3978, 5)
+                                                                             0            1            2           3                       4
+0  instalacje odnawialnego źródła energii wg stanu na dzień 31 grudnia 2020 r.          NaN          NaN         NaN                     NaN
+1                                                                          NaN          NaN          NaN         NaN                     NaN
+2                                                                          Lp.  Województwo       Powiat  Rodzaj_OZE  Moc zainstalowana [MW]
+3                                                                            1  Małopolskie  chrzanowski          WO                    
+=== PL PSE report map
+    Informacja o&nbsp;procentowym udziale energii elektrycznej z&nbsp;OZE | https://www.pse.pl/dane-systemowe/praca-kse/informacja-o-procentowym-udziale-energii-elektrycznej-z-oze
+    Raporty miesięczne z&nbsp;funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse
+    Raporty miesięczne | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse/raporty-miesieczne
+    Raporty miesięczne z&nbsp;funkcjonowania RB | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-rb
+    Raporty miesięczne | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-rb/raporty-miesieczne
+    Raporty miesięczne | /dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse/raporty-miesieczne
+    Raporty miesięczne | /dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-rb/raporty-miesieczne
