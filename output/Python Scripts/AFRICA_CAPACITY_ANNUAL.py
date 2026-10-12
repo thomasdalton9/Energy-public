@@ -1,7 +1,7 @@
 """
 Official ANNUAL installed generating capacity for Ghana and Morocco (input to middle_east/capacity/EAST_MED_AFRICA_CAPACITY_COMPLETE.py).
 
-  Ghana    Energy Commission 'National Energy Statistics' booklet, Table 3.1 'Grid Installed and Dependable Capacity (MW)':
+  Ghana    Energy Commission 'National Energy Statistics' booklet, the 'Grid Installed and Dependable Capacity (MW)' table (3.1 in the 2025 edition, 3.4 in the 2026 edition; the title is matched, not the number):
            hydro, thermal, other renewables (solar and waste) at year end, 2000 - last year, excluding off-grid and distributed
            generation (the same booklet as GHANA_ENERGY_COMMISSION.py; the list page names the newest edition).
            -> output/Data and Chart Outputs/ghana_capacity_annual.xlsx
@@ -75,7 +75,7 @@ def ghana_parse(pages):
     """Table 3.1 rows 'YEAR hydro thermal other|- total | dependable ...' -> {year: (hydro, thermal, other, total)}."""
     rows = {}
     for text in pages:
-        if not re.search(r"Table 3\.1:\s*Grid Installed and Dependable Capacity", text or "") or "....." in (text or "")[:400]:
+        if not re.search(r"Table 3\.\d+:\s*Grid Installed and Dependable Capacity", text or "") or "....." in (text or "")[:400]:
             continue
         for line in text.split("\n"):
             m = re.match(r"^((?:19|20)\d\d)\*?\s+(.*)$", line.strip())
@@ -115,14 +115,14 @@ def ghana(data_dir, force):
     with pdfplumber.open(io.BytesIO(g.content)) as pdf:
         pages = [p.extract_text() or "" for p in pdf.pages]
     rows = ghana_parse(pages)
-    log(f"Ghana: {len(pages)} pages; pages naming Table 3.1: {[i + 1 for i, t in enumerate(pages) if 'Grid Installed and Dependable' in (t or '')]}; rows parsed {len(rows)}")
+    log(f"Ghana: {len(pages)} pages; pages naming the table: {[i + 1 for i, t in enumerate(pages) if 'Grid Installed and Dependable' in (t or '')]}; rows parsed {len(rows)}")
     for i, t in enumerate(pages):
         if 'Grid Installed and Dependable' in (t or '') and '.....' not in t[:400]:
             log("  sample: " + repr(t[:260]))
             break
     rows = {y: v for y, v in rows.items() if y >= FIRST_YEAR}
     if not rows:
-        log("Ghana: Table 3.1 not found / not parsed")
+        log("Ghana: installed-capacity table not found / not parsed")
         return False
     d = pd.DataFrame(rows, index=["Hydro_MW", "Thermal_MW", "Other_renewables_MW", "Total_MW"]).T.sort_index()
     d.insert(0, "Year", d.index)
@@ -133,13 +133,13 @@ def ghana(data_dir, force):
     release = pd.DataFrame([{"Edition": ed, "Download_id": did, "URL": url, "Bytes": len(g.content),
                              "SHA256": hashlib.sha256(g.content).hexdigest()[:16], "Years": f"{d['Year'].min()}-{d['Year'].max()}"}])
     notes = ["Ghana installed generating capacity, year end, MW (annual; rows are dated 1 January of the year whose END the stock is)", "",
-             "Source", f"Energy Commission of Ghana, National Energy Statistics {ed} (data to {d['Year'].max()}), Table 3.1 'Grid Installed and Dependable "
-             f"Capacity (MW)': {url}",
+             "Source", f"Energy Commission of Ghana, National Energy Statistics {ed} (data to {d['Year'].max()}), 'Grid Installed and Dependable "
+             f"Capacity (MW)' table: {url}",
              "Grid-connected capacity only (excludes off-grid and distributed generation). Gas_MW = the Commission's 'Thermal' (gas, light crude oil, "
              "dual-fuel plants; not split by fuel). Solar_MW = 'Other Renewables' (solar and waste: 132.5 MW solar + 0.1 MW biogas in 2024). Hydro = "
-             "Akosombo, Kpong, Bui, Tsatsadu. 'Thermal_MW' and 'Other_renewables_MW' on the Table 3.1 sheet keep the source names.",
+             "Akosombo, Kpong, Bui, Tsatsadu. 'Thermal_MW' and 'Other_renewables_MW' on the 'Source table' sheet keep the source names.",
              "Dependable capacity (also in the table) is not used."]
-    xlsx_notes.write_workbook(out, {"Monthly": monthly, "Table 3.1": d.drop(columns="Year"), "Release": release}, notes,
+    xlsx_notes.write_workbook(out, {"Monthly": monthly, "Source table": d.drop(columns="Year"), "Release": release}, notes,
                               ["Source"])
     log(f"Ghana: {len(d)} years {d['Year'].min()}-{d['Year'].max()} saved")
     return True
