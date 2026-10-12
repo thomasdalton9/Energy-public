@@ -7,8 +7,8 @@ all their charts - the same layout as the South & Central America, North America
                                  terminal send-out / inventory (GIE ALSI); Ireland gas demand, supply and sector use (GNI)
   Dashboard - Power            - Europe power generation by source and installed capacity (sum of the countries below),
                                  day-ahead prices, net imports/exports by country, then one generation chart and one
-                                 capacity chart per country (ENTSO-E), Ireland (EirGrid), Turkey (EPIAS), Cyprus
-                                 (TSOC), the Rhine at Kaub, and finally a supply/demand BALANCE chart per country
+                                 capacity chart per country (ENTSO-E), Ireland (EirGrid), Turkey (EPIAS), the Rhine
+                                 at Kaub, and finally a supply/demand BALANCE chart per country
                                  (generation by fuel + net imports + pumped storage/batteries net, against load)
   Dashboard - Capacity factors - capacity factor by generation type, Europe and per country
   <CC> <chart> data            - the table each Dashboard chart plots
@@ -17,8 +17,8 @@ all their charts - the same layout as the South & Central America, North America
 
 Sources: ENTSO-E Transparency Platform (the TSOs' own statutory reporting) is the primary source for power across
 Europe - in a settled-week check it matched SMARD (Germany) and RTE (France) to within 0.5% - labelled as such on
-every chart's source line. National feeds replace it where they are better (Ireland EirGrid, Turkey EPIAS, Cyprus
-TSOC are national). Gas storage and LNG are GIE's aggregation of the operators' own reports.
+every chart's source line. National feeds replace it where they are better (Ireland EirGrid, Turkey EPIAS are
+national; Cyprus TSOC is on the East Med master). Gas storage and LNG are GIE's aggregation of the operators' own reports.
 GB is not in the ENTSO-E generation set (no GB data after 2020); it needs its own feed (Elexon BMRS).
 
 Reads (doesn't refetch) the workbooks the scheduled pulls write to "output/Data and Chart Outputs/". A missing input
@@ -87,8 +87,8 @@ RAW_POWER_DATASETS = (
        ("IE-EG", "Ireland (EirGrid)", "ireland_smartgrid_15min.xlsx", (), "power"),
        ("IE", "Ireland (Ember)", "ember_europe_power_monthly.xlsx", "*", "Ember"),
        ("IE", "Ireland (EirGrid)", "ireland_eirgrid_system_data.xlsx", "Daily", "EirGrid"),
-       ("TR", "Turkey", "turkey_generation_mix_dashboard_daily.xlsx", "*", "power"),
-       ("CY", "Cyprus", "cyprus_generation_mix_daily.xlsx", "*", "power")])
+       ("TR", "Turkey", "turkey_generation_mix_dashboard_daily.xlsx", "*", "power")])
+# Cyprus (TSOC) is on the East Med master, not here (owner's choice, Oct 2026)
 CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "capacity")
                      for code, (name, slug, _) in COUNTRIES.items()]
 PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "power prices"),
@@ -163,7 +163,6 @@ SOURCES = {
                                                   "embedded wind and solar)", "https://bmrs.elexon.co.uk/"),
     "ireland_smartgrid_15min.xlsx": ("EirGrid / SONI Smart Grid Dashboard", "https://www.smartgriddashboard.com/"),
     "turkey_generation_mix_dashboard_daily.xlsx": ("EPIAS Transparency Platform (Turkey)", "https://seffaflik.epias.com.tr/"),
-    "cyprus_generation_mix_daily.xlsx": ("Transmission System Operator Cyprus (TSOC)", "https://tsoc.org.cy/"),
     "rhine_kaub_level_daily.xlsx": ("PEGELONLINE (German federal waterways administration), Kaub gauge",
                                     "https://www.pegelonline.wsv.de/"),
     "europe_power_prices_daily.xlsx": ("ENTSO-E Transparency Platform: day-ahead prices", "https://transparency.entsoe.eu/"),

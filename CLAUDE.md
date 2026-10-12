@@ -105,13 +105,13 @@ Standing instructions from the repo owner. Follow these on every change.
 - `middle_east/EAST_MED_MASTER.py` -> `east_med_master.xlsx` (1st/15th evening, 22:16 UTC, reuses SOUTH_AMERICA_MASTER's code):
   East Mediterranean - Israel, Egypt, Cyprus (+ Jordan and Lebanon on the long-term page). 'Dashboard - Gas' (Israel gas
   sales by field from the owners' quarterly reports, Leviathan by destination, exports), 'Dashboard - Power' (Egypt
-  daily grid load - also on the Africa master; Cyprus TSOC generation mix - also in the Europe master, from
-  `europe/cyprus_generation_mix.py`, see Pull scripts) and 'Dashboard -
+  daily grid load - also on the Africa master; Cyprus TSOC generation mix from `europe/cyprus_generation_mix.py`,
+  see Pull scripts - East Med master only, NOT the Europe master: owner's choice) and 'Dashboard -
   Long-term' (`fundamentals.py` region 'East Med'; degree-day cities in `MACRO_DRIVERS.py`: Tel Aviv/Jerusalem/Haifa,
   Cairo/Alexandria, Nicosia, Amman, Beirut, populations approximate). Add datasets to its GAS_DATASETS /
   POWER_DATASETS lists plus a SOURCES entry.
 - `europe/EUROPE_MASTER.py` -> `europe_master.xlsx`: Europe - the ENTSO-E countries (EU/EEA, UK excluded, plus the Balkans) plus
-  Ireland EirGrid, Turkey, Cyprus and the Rhine at Kaub. Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
+  Ireland EirGrid, Turkey and the Rhine at Kaub (Cyprus is on the East Med master). Gas Dashboard (GIE AGSI+ storage and ALSI LNG, Ireland GNI),
   "Dashboard - Power" (generation, capacity, day-ahead prices, net imports, and a supply/demand balance per country: generation +
   net imports + pumped storage/batteries vs load) and "Dashboard - Capacity factors". Country list and bidding zones live in
   `europe/europe_countries.py` (add a country there and the pulls, registry and master pick it up). ENTSO-E is the primary
@@ -220,7 +220,7 @@ Standing instructions from the repo owner. Follow these on every change.
   `cyprus_generation_mix.yml`; daily mean MW by oil, wind, biomass, solar from 2016-10-26): TSOC's daily archive pages (one
   request per day; the committed workbook is the history store, each run fetches days after the last saved one minus 3,
   at most 2,500 per run; 5 days empty at source). Biomass/solar are TSOC's 'estimated distributed generation' split by the
-  night-time baseline (see the script). On the Europe and East Med masters. `cyprus_chart_pull.yml` is the old one-off.
+  night-time baseline (see the script). On the East Med master only (owner's choice: not on the Europe master). `cyprus_chart_pull.yml` is the old one-off.
 - Henry Hub daily (`americas/HENRY_HUB_DAILY.py` -> `henry_hub_daily.xlsx`, 1st/15th) holds EIA spot (`Henry_Hub_USD_per_MMBtu`) and the NYMEX front-month futures close (`Henry_Hub_front_month_USD_per_MMBtu`, Yahoo Finance NG=F from 2000-09, unofficial and unadjusted at contract rolls; EIA's own futures series stops Apr 2024); both are charted together.
 - US petroleum stocks, weekly (`americas/EIA_BIG_FOUR_STORAGE.py` -> `us_petroleum_stocks_weekly.xlsx`, 1st/15th, EIA API v2 petroleum/stoc/wstk with keyless xls fallback, thousand barrels): crude excl. SPR, SPR, motor gasoline, distillate, jet fuel and the Big Four total (crude incl. SPR + the three products), each drawn as week 1-52 (calendar weeks, as in the EIA/trade charts the owner asked for: shaded min-max band of the five years before the current one, their average, last year and current year; no 'we are here' label; native Excel chart + PNG `us_*_storage.png`) and as the repo's Oct-Sep water-year chart (`WY ...` sheets). The charts are drawn by the script itself (registry entry None in add_charts.py).
 - Brent and WTI crude spot prices (`americas/BRENT_WTI_DAILY.py` -> `brent_wti_daily.xlsx`, 1st/15th, EIA API v2 petroleum/pri/spt RBRTE/RWTC with EIA's keyless xls fallback, USD/bbl, Brent-WTI spread and monthly means; negative WTI of Apr 2020 is kept) is standalone, not on a dashboard.
