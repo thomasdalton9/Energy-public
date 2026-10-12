@@ -1,0 +1,295 @@
+### MaStR
+RANGE0 206 bytes 0-0/3232259365 Mon, 12 Oct 2026 01:31:32 GMT
+member EinheitenSolar_1.xml 380210492 18638220 8 697924829
+member EinheitenWind.xml 207625806 8219191 8 2307113409
+member EinheitenStromSpeicher_1.xml 319648930 16412450 8 1824161500
+member EinheitenVerbrennung.xml 285509146 15501212 8 2290101395
+
+-- EinheitenWind.xml 207625806 
+ <EinheitenWind><EinheitWind><EinheitMastrNummer>SEE940146675093</EinheitMastrNummer><DatumLetzteAktualisierung>2024-12-13T10:28:30.8118541</DatumLetzteAktualisierung><LokationMaStRNummer>SEL911577226093</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2025-01-09</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR930129817008</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1405</Bundesland><Landkreis>Werra-Meißner-Kreis</Landkreis><Gemeinde>Gutsbezirk Kaufunger Wald</Gemeinde><Gemeindeschluessel>06636200</Gemeindeschluessel><Postleitzahl>34298</Postleitzahl><Gemarkung>Großalmerode</Gemarkung><FlurFlurstuecknummern>Flur 51: Flurstück 28</FlurFlurstuecknummern><StrasseNichtGefunden>0</StrasseNichtGefunden><Hausnummer_nv>0</Hausnummer_nv><HausnummerNichtGefunden>0</HausnummerNichtGefunden><Ort>Helsa</Ort><Laengengrad>9.739374</Laengengrad><Breitengrad>51.270068</Breitengrad><Registrierungsdatum>2019-02-13</Registrierungsdatum><Inbetriebnahmedatum>2017-09-01</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>WEA 5</NameStromerzeugungseinheit><Weic_nv>0</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2497</Energietraeger><Bruttoleistung>3000.000</Bruttoleistung><Nettonennleistung>3000.000</Nettonennleistung><FernsteuerbarkeitNb>1</FernsteuerbarkeitNb><FernsteuerbarkeitDv>1</FernsteuerbarkeitDv><Einspeisungsart>688</Einspeisungsart><GenMastrNummer>SGE961876398816</GenMastrNummer><NameWindpark>Windpark Kreuzstein</NameWindpark><WindAnLandOderAufSee>888</WindAnLandOderAufSee><Hersteller>1586</Hersteller><Technologie>691</Technologie><Typenbezeichnung>E-115</Typenbezeichnung><Nabenhoehe>149.080</Nabenhoehe><Rotordurchmesser>115.710</Rotordurchmesser><Rotorblattenteisungssystem>1</Rotorblattenteisungssystem><AuflageAbschaltungLeistungsbegrenzung>1</AuflageAbschaltungLeistungsbegrenzung><AuflagenAbschaltungSchallimmissionsschutzNachts>1</AuflagenAbschaltungSchallimmissionsschutzNachts><AuflagenAbschaltungSchallimmissionsschutzTagsueber>0</AuflagenAbschaltungSchallimmissionsschutzTagsueber><AuflagenAbschaltungSchattenwurf>0</AuflagenAbschaltungSchattenwurf><AuflagenAbschaltungTierschutz>1</AuflagenAbschaltungTierschutz><AuflagenAbschaltungEiswurf>1</AuflagenAbschaltungEiswurf><AuflagenAbschaltungSonstige>0</AuflagenAbschaltungSonstige><Nachtkennzeichnung>1</Nachtkennzeichnung><Buergerenergie>0</Buerger
+
+-- EinheitenVerbrennung.xml 285509146 
+ <EinheitenVerbrennung><EinheitVerbrennung><EinheitMastrNummer>SEE904354457438</EinheitMastrNummer><DatumLetzteAktualisierung>2019-05-28T08:26:38.0316692</DatumLetzteAktualisierung><LokationMaStRNummer>SEL921485852253</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2019-11-05</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR956068553166</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1409</Bundesland><Landkreis>Rheinisch-Bergischer Kreis</Landkreis><Gemeinde>Bergisch Gladbach</Gemeinde><Gemeindeschluessel>05378004</Gemeindeschluessel><Postleitzahl>51429</Postleitzahl><Ort>Bergisch Gladbach</Ort><Registrierungsdatum>2019-01-31</Registrierungsdatum><Inbetriebnahmedatum>2018-08-15</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>Bensberg</NameStromerzeugungseinheit><Weic_nv>0</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2410</Energietraeger><Bruttoleistung>5.500</Bruttoleistung><Nettonennleistung>5.500</Nettonennleistung><FernsteuerbarkeitNb>0</FernsteuerbarkeitNb><Einspeisungsart>689</Einspeisungsart><NameKraftwerk>Bensberg</NameKraftwerk><NameKraftwerksblock>Bensberg</NameKraftwerksblock><Hauptbrennstoff>2473</Hauptbrennstoff><KwkMaStRNummer>KWK983900822036</KwkMaStRNummer><Technologie>542</Technologie></EinheitVerbrennung><EinheitVerbrennung><EinheitMastrNummer>SEE953421396545</EinheitMastrNummer><DatumLetzteAktualisierung>2020-10-13T07:09:12.1529014</DatumLetzteAktualisierung><LokationMaStRNummer>SEL994616259368</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2021-05-03</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR956068553166</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1408</Bundesland><Landkreis>Stade</Landkreis><Gemeinde>Jork</Gemeinde><Gemeindeschluessel>03359028</Gemeindeschluessel><Postleitzahl>21635</Postleitzahl><Strasse>Osterjork</Strasse><StrasseNichtGefunden>0</StrasseNichtGefunden><Hausnummer>58</Hausnummer><Hausnummer_nv>0</Hausnummer_nv><HausnummerNichtGefunden>0</HausnummerNichtGefunden><Ort>Jork</Ort><Laengengrad>9.690000</Laengengrad><Breitengrad>53.530000</Breitengrad><Registrierungsdatum>2019-01-31</Registrierungsdatum><Inbetriebnahmedatum>2017-09-04</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVor
+
+-- EinheitenKernkraft.xml 21220 
+ <EinheitenKernkraft><EinheitKernkraft><EinheitMastrNummer>SEE930752846949</EinheitMastrNummer><DatumLetzteAktualisierung>2022-04-05T15:55:51.4288364</DatumLetzteAktualisierung><LokationMaStRNummer>SEL965786852505</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2022-04-05</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR955740229108</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1408</Bundesland><Landkreis>Hameln-Pyrmont</Landkreis><Gemeinde>Emmerthal</Gemeinde><Gemeindeschluessel>03252005</Gemeindeschluessel><Postleitzahl>31860</Postleitzahl><Strasse>Kraftwerksgelände</Strasse><StrasseNichtGefunden>1</StrasseNichtGefunden><Hausnummer_nv>1</Hausnummer_nv><HausnummerNichtGefunden>1</HausnummerNichtGefunden><Ort>Emmerthal</Ort><Laengengrad>9.413333</Laengengrad><Breitengrad>52.035200</Breitengrad><Registrierungsdatum>2020-06-24</Registrierungsdatum><Inbetriebnahmedatum>1984-09-05</Inbetriebnahmedatum><DatumEndgueltigeStilllegung>2021-12-31</DatumEndgueltigeStilllegung><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>38</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><AltAnlagenbetreiberMastrNummer>ABR905189420710</AltAnlagenbetreiberMastrNummer><DatumDesBetreiberwechsels>2020-09-18</DatumDesBetreiberwechsels><DatumRegistrierungDesBetreiberwechsels>2020-09-18</DatumRegistrierungDesBetreiberwechsels><NameStromerzeugungseinheit>Grohnde</NameStromerzeugungseinheit><Weic_nv>0</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2494</Energietraeger><Bruttoleistung>1430000.000</Bruttoleistung><Nettonennleistung>1360000.000</Nettonennleistung><Einspeisungsart>688</Einspeisungsart><NameKraftwerk>Grohnde</NameKraftwerk><NameKraftwerksblock>KWG</NameKraftwerksblock><Technologie>1444</Technologie></EinheitKernkraft><EinheitKernkraft><EinheitMastrNummer>SEE951462745445</EinheitMastrNummer><DatumLetzteAktualisierung>2022-05-11T11:26:34.4855024</DatumLetzteAktualisierung><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2022-05-11</NetzbetreiberpruefungDatum><Land>84</Land><Bundesland>1411</Bundesland><Landkreis>Steinburg</Landkreis><Gemeinde>Brokdorf</Gemeinde><Gemeindeschluessel>01061018</Gemeindeschluessel><Postleitzahl>25576</Postleitzahl><Strasse>Osterende</Strasse><StrasseNichtGefunden>0</StrasseNichtGefunden><Hausnummer_nv>1</Hausnummer_nv><HausnummerNichtGefunden>0</HausnummerNichtGefunden><Ort>Brokdorf</Ort><Laengengrad>9.344720</Laengengrad><Breitengrad
+
+-- EinheitenWasser.xml 29413686 
+ <EinheitenWasser><EinheitWasser><EinheitMastrNummer>SEE919711277116</EinheitMastrNummer><DatumLetzteAktualisierung>2020-12-14T21:17:22.0469154</DatumLetzteAktualisierung><LokationMaStRNummer>SEL905392063544</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2020-12-14</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR982917417495</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1403</Bundesland><Landkreis>Forchheim</Landkreis><Gemeinde>Pretzfeld</Gemeinde><Gemeindeschluessel>09474161</Gemeindeschluessel><Postleitzahl>91362</Postleitzahl><Ort>Pretzfeld</Ort><Registrierungsdatum>2019-01-31</Registrierungsdatum><Inbetriebnahmedatum>1963-09-01</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>Wasserkraftanlage</NameStromerzeugungseinheit><Weic_nv>0</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2498</Energietraeger><Bruttoleistung>11.000</Bruttoleistung><Nettonennleistung>11.000</Nettonennleistung><FernsteuerbarkeitNb>0</FernsteuerbarkeitNb><Einspeisungsart>689</Einspeisungsart><NameKraftwerk>Turbine</NameKraftwerk><ArtDerWasserkraftanlage>890</ArtDerWasserkraftanlage><MinderungStromerzeugung>1</MinderungStromerzeugung><ArtDesZuflusses>724</ArtDesZuflusses><EegMaStRNummer>EEG962561538302</EegMaStRNummer></EinheitWasser><EinheitWasser><EinheitMastrNummer>SEE922224016349</EinheitMastrNummer><DatumLetzteAktualisierung>2020-06-24T12:01:06.3268074</DatumLetzteAktualisierung><LokationMaStRNummer>SEL994784773338</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2021-02-04</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR987598509781</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1403</Bundesland><Landkreis>Aichach-Friedberg</Landkreis><Gemeinde>Kissing</Gemeinde><Gemeindeschluessel>09771142</Gemeindeschluessel><Postleitzahl>86438</Postleitzahl><Gemarkung>Kissing</Gemarkung><FlurFlurstuecknummern>2114</FlurFlurstuecknummern><StrasseNichtGefunden>0</StrasseNichtGefunden><Hausnummer_nv>0</Hausnummer_nv><HausnummerNichtGefunden>0</HausnummerNichtGefunden><Ort>Kissing</Ort><Laengengrad>10.987414</Laengengrad><Breitengrad>48.293639</Breitengrad><Registrierungsdatum>2019-02-25</Registrierungsdatum><Inbetriebnahmedatum>1973-03-01</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</Einhe
+
+-- EinheitenBiomasse.xml 87675046 
+ <EinheitenBiomasse><EinheitBiomasse><EinheitMastrNummer>SEE956830609244</EinheitMastrNummer><DatumLetzteAktualisierung>2025-11-07T15:47:11.8935059</DatumLetzteAktualisierung><LokationMaStRNummer>SEL936128752890</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2025-11-18</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR925533509823</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1403</Bundesland><Landkreis>Traunstein</Landkreis><Gemeinde>Fridolfing</Gemeinde><Gemeindeschluessel>09189118</Gemeindeschluessel><Postleitzahl>83413</Postleitzahl><Strasse>Nilling</Strasse><StrasseNichtGefunden>0</StrasseNichtGefunden><Hausnummer>7</Hausnummer><Hausnummer_nv>0</Hausnummer_nv><HausnummerNichtGefunden>0</HausnummerNichtGefunden><Ort>Fridolfing</Ort><Laengengrad>12.813629</Laengengrad><Breitengrad>48.024513</Breitengrad><Registrierungsdatum>2019-02-15</Registrierungsdatum><Inbetriebnahmedatum>2005-11-02</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>BHKW 1 Deutz 180 kW</NameStromerzeugungseinheit><Weic_nv>1</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2493</Energietraeger><Bruttoleistung>180.000</Bruttoleistung><Nettonennleistung>180.000</Nettonennleistung><FernsteuerbarkeitNb>1</FernsteuerbarkeitNb><FernsteuerbarkeitDv>1</FernsteuerbarkeitDv><Einspeisungsart>689</Einspeisungsart><GenMastrNummer>SGE922998552593</GenMastrNummer><Hauptbrennstoff>2445</Hauptbrennstoff><Biomasseart>721</Biomasseart><Technologie>542</Technologie><EegMaStRNummer>EEG986030691107</EegMaStRNummer><KwkMaStRNummer>KWK989785049209</KwkMaStRNummer></EinheitBiomasse><EinheitBiomasse><EinheitMastrNummer>SEE958039600145</EinheitMastrNummer><DatumLetzteAktualisierung>2024-01-26T11:32:47.1960263</DatumLetzteAktualisierung><LokationMaStRNummer>SEL905383114057</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2024-01-26</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR986467985015</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1415</Bundesland><Landkreis>Kyffhäuserkreis</Landkreis><Gemeinde>Mönchpfiffel-Nikolausrieth</Gemeinde><Gemeindeschluessel>16065046</Gemeindeschluessel><Postleitzahl>06556</Postleitzahl><Strasse>Triftweg</Strasse><StrasseNichtGefunden>0</StrasseNichtGefunden><Hausnummer>1</Hausnummer><Hausnummer_nv>0</Hausnummer_nv><Hausnummer
+
+-- EinheitenGasErzeuger.xml 1072972 
+ <EinheitenGasErzeuger><EinheitGasErzeuger><EinheitMastrNummer>GEE995046355477</EinheitMastrNummer><DatumLetzteAktualisierung>2026-06-25T06:11:57.6866667</DatumLetzteAktualisierung><LokationMaStRNummer>GEL903981660167</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2026-04-24</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR920698896597</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1409</Bundesland><Landkreis>Borken</Landkreis><Gemeinde>Gronau (Westf.)</Gemeinde><Gemeindeschluessel>05554020</Gemeindeschluessel><Postleitzahl>48599</Postleitzahl><Ort>Gronau</Ort><Registrierungsdatum>2019-05-20</Registrierungsdatum><Inbetriebnahmedatum>2012-10-01</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameGaserzeugungseinheit>MET-Speicher Epe</NameGaserzeugungseinheit><SpeicherMaStRNummer>GSE917820127322</SpeicherMaStRNummer></EinheitGasErzeuger><EinheitGasErzeuger><EinheitMastrNummer>GEE996332632210</EinheitMastrNummer><DatumLetzteAktualisierung>2026-06-25T06:11:57.6866667</DatumLetzteAktualisierung><LokationMaStRNummer>GEL963638601943</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2026-04-24</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR902615707070</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1409</Bundesland><Landkreis>Borken</Landkreis><Gemeinde>Gronau (Westf.)</Gemeinde><Gemeindeschluessel>05554020</Gemeindeschluessel><Postleitzahl>48599</Postleitzahl><Ort>Gronau</Ort><Registrierungsdatum>2019-07-19</Registrierungsdatum><Inbetriebnahmedatum>2008-10-01</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameGaserzeugungseinheit>Trianel Gasspeicher Epe</NameGaserzeugungseinheit><SpeicherMaStRNummer>GSE944490355694</SpeicherMaStRNummer></EinheitGasErzeuger><EinheitGasErzeuger><EinheitMastrNummer>GEE996968189478</EinheitMastrNummer><DatumLetzteAktualisierung>2026-06-25T06:11:57.6866667</DatumLetzteAktualisierung><LokationMaStRNummer>GEL962513159623</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2023-10-25</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR939152027583</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1409</Bundesland
+
+-- EinheitenSolar_1.xml 380210492 
+ <EinheitenSolar><EinheitSolar><EinheitMastrNummer>SEE984033548619</EinheitMastrNummer><DatumLetzteAktualisierung>2020-02-20T16:28:35.2508122</DatumLetzteAktualisierung><LokationMaStRNummer>SEL948991715391</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2020-02-25</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR949444220202</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1409</Bundesland><Landkreis>Münster</Landkreis><Gemeinde>Münster</Gemeinde><Gemeindeschluessel>05515000</Gemeindeschluessel><Postleitzahl>48147</Postleitzahl><Ort>Münster</Ort><Registrierungsdatum>2019-02-01</Registrierungsdatum><Inbetriebnahmedatum>2007-07-20</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>Photovoltaikanlage ERWin4</NameStromerzeugungseinheit><Weic_nv>0</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2495</Energietraeger><Bruttoleistung>3.960</Bruttoleistung><Nettonennleistung>3.960</Nettonennleistung><FernsteuerbarkeitNb>0</FernsteuerbarkeitNb><Einspeisungsart>688</Einspeisungsart><ZugeordneteWirkleistungWechselrichter>4.000</ZugeordneteWirkleistungWechselrichter><AnzahlModule>22</AnzahlModule><ArtDerSolaranlage>853</ArtDerSolaranlage><Leistungsbegrenzung>802</Leistungsbegrenzung><EinheitlicheAusrichtungUndNeigungswinkel>1</EinheitlicheAusrichtungUndNeigungswinkel><Hauptausrichtung>699</Hauptausrichtung><HauptausrichtungNeigungswinkel>809</HauptausrichtungNeigungswinkel><Nutzungsbereich>713</Nutzungsbereich><EegMaStRNummer>EEG920083771065</EegMaStRNummer><SpeicherAmGleichenOrt>0</SpeicherAmGleichenOrt><SolaranlagenKategorie>3177</SolaranlagenKategorie></EinheitSolar><EinheitSolar><EinheitMastrNummer>SEE901901460125</EinheitMastrNummer><DatumLetzteAktualisierung>2021-07-15T07:54:37.8637095</DatumLetzteAktualisierung><LokationMaStRNummer>SEL982068309366</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2019-01-31</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR930055871044</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1402</Bundesland><Landkreis>Ostalbkreis</Landkreis><Gemeinde>Schwäbisch Gmünd</Gemeinde><Gemeindeschluessel>08136065</Gemeindeschluessel><Postleitzahl>73529</Postleitzahl><Ort>Schwäbisch Gmünd</Ort><Registrierungsdatum>2019-01-31</Registrierungsdatum><Inbetriebnahmedatum>2013-01-31</Inbetriebnahmedatum><
+
+-- EinheitenStromSpeicher_1.xml 319648930 
+ <EinheitenStromSpeicher><EinheitStromSpeicher><EinheitMastrNummer>SEE973635767818</EinheitMastrNummer><DatumLetzteAktualisierung>2019-07-23T20:31:15.7783226</DatumLetzteAktualisierung><LokationMaStRNummer>SEL925647427891</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2019-10-17</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR981072560428</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1403</Bundesland><Landkreis>Main-Spessart</Landkreis><Gemeinde>Karlstadt</Gemeinde><Gemeindeschluessel>09677148</Gemeindeschluessel><Postleitzahl>97753</Postleitzahl><Ort>Karlstadt</Ort><Registrierungsdatum>2019-01-31</Registrierungsdatum><Inbetriebnahmedatum>2019-02-13</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>Stromspeicher_nieland_01</NameStromerzeugungseinheit><Weic_nv>0</Weic_nv><Kraftwerksnummer_nv>0</Kraftwerksnummer_nv><Energietraeger>2496</Energietraeger><Bruttoleistung>1.500</Bruttoleistung><Nettonennleistung>1.500</Nettonennleistung><FernsteuerbarkeitNb>0</FernsteuerbarkeitNb><Einspeisungsart>689</Einspeisungsart><AcDcKoppelung>694</AcDcKoppelung><Batterietechnologie>727</Batterietechnologie><ZugeordnenteWirkleistungWechselrichter>4.600</ZugeordnenteWirkleistungWechselrichter><SpeMastrNummer>SSE951549344691</SpeMastrNummer><EegMaStRNummer>EEG922149729522</EegMaStRNummer><EegAnlagentyp>8</EegAnlagentyp><Technologie>524</Technologie></EinheitStromSpeicher><EinheitStromSpeicher><EinheitMastrNummer>SEE996055954996</EinheitMastrNummer><DatumLetzteAktualisierung>2026-04-30T06:22:24.8136803</DatumLetzteAktualisierung><LokationMaStRNummer>SEL905770483094</LokationMaStRNummer><NetzbetreiberpruefungStatus>2954</NetzbetreiberpruefungStatus><NetzbetreiberpruefungDatum>2020-07-16</NetzbetreiberpruefungDatum><AnlagenbetreiberMastrNummer>ABR966560341420</AnlagenbetreiberMastrNummer><Land>84</Land><Bundesland>1409</Bundesland><Landkreis>Rhein-Sieg-Kreis</Landkreis><Gemeinde>Swisttal</Gemeinde><Gemeindeschluessel>05382064</Gemeindeschluessel><Postleitzahl>53913</Postleitzahl><Ort>Swisttal</Ort><Registrierungsdatum>2019-02-03</Registrierungsdatum><Inbetriebnahmedatum>2018-07-04</Inbetriebnahmedatum><EinheitSystemstatus>472</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><NichtVorhandenInMigriertenEinheiten>0</NichtVorhandenInMigriertenEinheiten><NameStromerzeugungseinheit>Sonnenspeicher</NameStromerzeu
+
+-- GeloeschteUndDeaktivierteEinheiten_1.xml 77706420 
+ <GeloeschteUndDeaktivierteEinheiten><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2026-04-16T06:15:22.5496983</DatumLetzteAktualisierung><EinheitMastrNummer>SEE923764706769</EinheitMastrNummer><Einheittyp>1</Einheittyp><EinheitSystemstatus>572</EinheitSystemstatus><EinheitBetriebsstatus>31</EinheitBetriebsstatus><DatumDerLoeschung>2020-02-06</DatumDerLoeschung><EinheitLoeschgrund>3235</EinheitLoeschgrund></GeloeschteUndDeaktivierteEinheit><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2026-04-16T06:15:22.5496983</DatumLetzteAktualisierung><EinheitMastrNummer>SEE916191337255</EinheitMastrNummer><Einheittyp>6</Einheittyp><EinheitSystemstatus>572</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><DatumDerLoeschung>2019-08-19</DatumDerLoeschung><EinheitLoeschgrund>3234</EinheitLoeschgrund></GeloeschteUndDeaktivierteEinheit><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2023-06-30T06:41:08.1181555</DatumLetzteAktualisierung><EinheitMastrNummer>SEE984398885992</EinheitMastrNummer><Einheittyp>6</Einheittyp><EinheitSystemstatus>473</EinheitSystemstatus><EinheitBetriebsstatus>38</EinheitBetriebsstatus></GeloeschteUndDeaktivierteEinheit><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2026-04-16T06:15:22.5496983</DatumLetzteAktualisierung><EinheitMastrNummer>SEE949360444485</EinheitMastrNummer><Einheittyp>1</Einheittyp><EinheitSystemstatus>572</EinheitSystemstatus><EinheitBetriebsstatus>35</EinheitBetriebsstatus><DatumDerLoeschung>2022-02-15</DatumDerLoeschung><EinheitLoeschgrund>3234</EinheitLoeschgrund></GeloeschteUndDeaktivierteEinheit><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2026-01-08T06:27:46.6766667</DatumLetzteAktualisierung><EinheitMastrNummer>SEE970183890623</EinheitMastrNummer><Einheittyp>6</Einheittyp><EinheitSystemstatus>473</EinheitSystemstatus><EinheitBetriebsstatus>38</EinheitBetriebsstatus></GeloeschteUndDeaktivierteEinheit><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2026-04-16T06:15:22.5496983</DatumLetzteAktualisierung><EinheitMastrNummer>SEE945697199708</EinheitMastrNummer><Einheittyp>8</Einheittyp><EinheitSystemstatus>572</EinheitSystemstatus><EinheitBetriebsstatus>38</EinheitBetriebsstatus><DatumDerLoeschung>2019-06-27</DatumDerLoeschung><EinheitLoeschgrund>3235</EinheitLoeschgrund></GeloeschteUndDeaktivierteEinheit><GeloeschteUndDeaktivierteEinheit><DatumLetzteAktualisierung>2026-04-16T06:15:22.5496983</DatumLetzteAktualisierung><EinheitMastrNummer>SEE924904511274</EinheitMastrNummer><Einheittyp>1</Einheittyp><EinheitSystemstatus>5
+
+-- Einheitentypen.xml 1892 
+ <Einheitentypen><Einheitentyp><Id>1</Id><Wert>Solareinheit</Wert></Einheitentyp><Einheitentyp><Id>2</Id><Wert>Windeinheit</Wert></Einheitentyp><Einheitentyp><Id>3</Id><Wert>Biomasse</Wert></Einheitentyp><Einheitentyp><Id>4</Id><Wert>Wasser</Wert></Einheitentyp><Einheitentyp><Id>5</Id><Wert>Geothermie</Wert></Einheitentyp><Einheitentyp><Id>6</Id><Wert>Verbrennung</Wert></Einheitentyp><Einheitentyp><Id>7</Id><Wert>Kernenergie</Wert></Einheitentyp><Einheitentyp><Id>8</Id><Wert>Stromspeichereinheit</Wert></Einheitentyp><Einheitentyp><Id>9</Id><Wert>Stromverbrauchseinheit</Wert></Einheitentyp><Einheitentyp><Id>10</Id><Wert>Gasverbrauchseinheit</Wert></Einheitentyp><Einheitentyp><Id>11</Id><Wert>Gaserzeugungseinheit</Wert></Einheitentyp><Einheitentyp><Id>12</Id><Wert>Gasspeichereinheit</Wert></Einheitentyp><Einheitentyp><Id>13</Id><Wert>Stromerzeugungseinheit</Wert></Einheitentyp></Einheitentypen> 
+
+-- Katalogwerte head: <?xml version='1.0' encoding='UTF-16'?><Katalogwerte><Katalogwert><Id>1</Id><Wert>andere Gase</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>2</Id><Wert>Biomasse</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>3</Id><Wert>Braunkohle</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>5</Id><Wert>Erdgas</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>6</Id><Wert>Geothermie</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>7</Id><Wert>Grubengas</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>8</Id><Wert>Kernenergie</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>9</Id><Wert>Klärschlamm</Wert><KatalogKategorieId>1</KatalogKategorieId></Katalogwert><Katalogwert><Id>12</Id><Wert>Miner
+1738 entries [{'Id': '1', 'Wert': 'andere Gase', 'KatalogKategorieId': '1'}, {'Id': '2', 'Wert': 'Biomasse', 'KatalogKategorieId': '1'}]
+categories {'1': 19, '2': 2, '3': 10, '4': 4, '5': 9, '6': 226, '7': 6, '14': 16, '15': 7, '16': 57, '18': 5, '19': 5, '20': 7, '21': 2, '22': 3, '23': 2, '25': 2, '27': 2, '28': 3, '29': 5, '30': 11, '31': 14, '32': 18, '35': 3, '36': 9, '39': 2, '41': 5, '42': 2, '46': 3, '48': 4, '51': 3, '52': 2, '53': 3, '55': 2, '34': 10, '56': 16, '57': 6, '58': 3, '59': 2, '61': 3, '62': 6, '63': 28, '66': 3, '68': 2, '69': 2, '40': 8, '76': 5, '33': 7, '77': 3, '78': 3, '79': 2, '80': 5, '81': 3, '82': 4, '83': 14, '87': 2, '88': 6, '90': 11, '91': 3, '92': 6, '93': 162, '94': 38, '95': 22, '96': 88, '100': 3, '101': 17, '102': 10, '103': 2, '104': 2, '105': 3, '106': 80, '67': 3, '107': 7, '108': 14, '74': 156, '131': 2, '26': 2, '132': 6, '133': 8, '134': 25, '135': 9, '136': 5, '138': 4, '139': 6, '140': 7, '141': 1, '142': 5, '143': 2, '144': 3, '145': 8, '146': 1, '147': 1, '148': 1, '149': 1, '150': 1, '151': 1, '155': 2, '156': 3, '159': 307, '163': 2, '164': 2, '165': 2, '166': 2, '171': 2, '175': 3, '187': 1, '194': 3, '195': 2, '198': 1, '199': 4, '201': 4, '203': 3, '204': 37, '205': 4, '208': 6, '209': 1, '210': 1, '65': 4}
+cat 1 [('1', 'andere Gase'), ('2', 'Biomasse'), ('3', 'Braunkohle'), ('5', 'Erdgas'), ('6', 'Geothermie'), ('7', 'Grubengas'), ('8', 'Kernenergie'), ('9', 'Klärschlamm'), ('12', 'Mineralölprodukte'), ('13', 'nicht biogener Abfall'), ('14', 'Solare Strahlungsenergie'), ('15', 'Solarthermie'), ('16', 'Speicher'), ('17', 'Steinkohle'), ('18', 'Wärme'), ('19', 'Wind'), ('1539', 'Wasser'), ('2959', 'Druck aus Gasleitungen'), ('2960', 'Druck aus Wasserleitungen')]
+cat 4 [('31', 'In Planung'), ('35', 'In Betrieb'), ('37', 'Vorübergehend stillgelegt'), ('38', 'Endgültig stillgelegt')]
+timeparse Wind (44268, 207625806, 12.3)
+timeparse Solar_1 (range streamed) (100000, 380210492, 25.4)
+### Elia
+ods031 2021-01-01 []
+ods031 2023-01-01 [(('Federal', 'Elia', 'Offshore'), 2254.4), (('Flanders', 'Dso', 'Onshore'), 1353.86), (('Flanders', 'Elia', 'Onshore'), 373.25), (('Wallonia', 'Dso', 'Onshore'), 1071.88), (('Wallonia', 'Elia', 'Onshore'), 158.6)]
+ods031 2025-01-01 [(('Federal', 'Elia', 'Offshore'), 2262.1), (('Flanders', 'Dso', 'Onshore'), 1493.41), (('Flanders', 'Elia', 'Onshore'), 331.05), (('Wallonia', 'Dso', 'Onshore'), 1026.93), (('Wallonia', 'Elia', 'Onshore'), 211.1)]
+ods031 2026-01-01 [(('Federal', 'Elia', 'Offshore'), 2262.1), (('Flanders', 'Dso', 'Onshore'), 1700.58), (('Flanders', 'Elia', 'Onshore'), 333.4), (('Wallonia', 'Dso', 'Onshore'), 1353.77), (('Wallonia', 'Elia', 'Onshore'), 188.2)]
+ods031 2026-10-01 [(('Federal', 'Elia', 'Offshore'), 2262.1), (('Flanders', 'Dso', 'Onshore'), 1732.07), (('Flanders', 'Elia', 'Onshore'), 324.5), (('Wallonia', 'Dso', 'Onshore'), 1515.82), (('Wallonia', 'Elia', 'Onshore'), 156.2)]
+ods032 2021-01-01 [(('Antwerp',), 776.794), (('Belgium',), 4787.558), (('Brussels',), 54.585), (('East-Flanders',), 800.367), (('Flanders',), 3469.961), (('Flemish-Brabant',), 425.326), (('Hainaut',), 367.193), (('Limburg',), 709.68), (('Liège',), 448.452), (('Luxembourg',), 137.644), (('Namur',), 188.727), (('Wallonia',), 1263.012), (('Walloon-Brabant',), 120.996), (('West-Flanders',), 757.794)]
+ods032 2023-01-01 [(('Antwerp',), 1203.13), (('Belgium',), 6474.961), (('Brussels',), 217.091), (('East-Flanders',), 1186.236), (('Flanders',), 4576.242), (('Flemish-Brabant',), 555.629), (('Hainaut',), 486.373), (('Limburg',), 649.33), (('Liège',), 705.054), (('Luxembourg',), 155.919), (('Namur',), 204.489), (('Wallonia',), 1681.628), (('Walloon-Brabant',), 129.793), (('West-Flanders',), 981.917)]
+ods032 2025-01-01 [(('Antwerp',), 1843.697), (('Belgium',), 10696.214), (('Brussels',), 334.285), (('East-Flanders',), 1860.677), (('Flanders',), 7920.246), (('Flemish-Brabant',), 1052.251), (('Hainaut',), 811.581), (('Limburg',), 1446.178), (('Liège',), 760.066), (('Luxembourg',), 234.029), (('Namur',), 367.378), (('Wallonia',), 2441.683), (('Walloon-Brabant',), 268.629), (('West-Flanders',), 1717.443)]
+ods032 2026-01-01 [(('Antwerp',), 1973.366), (('Belgium',), 11763.732), (('Brussels',), 317.743), (('East-Flanders',), 1981.022), (('Flanders',), 8473.002), (('Flemish-Brabant',), 1134.119), (('Hainaut',), 1021.082), (('Limburg',), 1528.223), (('Liège',), 803.236), (('Luxembourg',), 354.805), (('Namur',), 449.188), (('Wallonia',), 2972.987), (('Walloon-Brabant',), 344.676), (('West-Flanders',), 1856.272)]
+ods032 2026-10-01 [(('Antwerp',), 2028.959), (('Belgium',), 12128.284), (('Brussels',), 331.387), (('East-Flanders',), 2039.709), (('Flanders',), 8713.757), (('Flemish-Brabant',), 1167.976), (('Hainaut',), 1058.257), (('Limburg',), 1565.206), (('Liège',), 854.138), (('Luxembourg',), 367.991), (('Namur',), 444.557), (('Wallonia',), 3083.14), (('Walloon-Brabant',), 358.197), (('West-Flanders',), 1911.907)]
+### Luxembourg ILR xlsx
+SHEET Sommaire 57
+    []
+    []
+    []
+    []
+    []
+    []
+    ["TABLEAU DE BORD DU SECTEUR D'ELECTRICITE"]
+    []
+    []
+    []
+    ['1. Consommation']
+    []
+    ['2. Production']
+    []
+SHEET 1. Consommation 60
+    []
+    ['Nombre de clients au 31/12']
+    []
+    []
+    ['Clients industriels \n(>2GWh/an)', 'Clients professionnels \n(≤2GWh/an)', 'Clients résidentiels', 'Total']
+    ['2017', 214, 63768, 242595, 306577]
+    ['2018', 204, 63752, 248867, 312823]
+    ['2019', 212, 64402, 258132, 322746]
+    ['2020', 194, 61811, 262258, 324263]
+    ['2021', 202, 63665, 270811, 334678]
+    ['2022', 194, 63591, 273819, 337604]
+    ['2023', 190, 65124, 280607, 345921]
+    ['2024', 200, 65250, 285662, 351112]
+    [2025, 188, 66042, 288697, 354927]
+SHEET 2. Production 54
+    []
+    ["Puissance installée par source d'énergie en kW"]
+    []
+    []
+    ['2022', '2023', '2024', '2025']
+    ['Biogaz', 11000, 11000, 9790, 9930]
+    ['Biomasse', 36000, 73000, 75055, 75275]
+    ['Cogénération à gaz naturel', 81000, 75000, 71222.8, 59676]
+    ['Eolienne', 166000, 208000, 213735.77000000002, 230715.77000000002]
+    ['Hydroélectrique', 34000, 34000, 33994, 34042]
+    ['Photovoltaïque', 317000, 394000, 549796.9380000001, 746353.813]
+    ["Usine d'incinération", 21000, 21000, 21328, 21328]
+    ['Total', 666000, 816000, 974922.5080000001, 1177320.583]
+    []
+SHEET 3. Autoconsommation et gdp 60
+    []
+    ["Nombre d'autoconsommateurs ou partageurs d'énergie"]
+    []
+    []
+    []
+    ['2022', '2023', '2024', '2025']
+    ['Biogaz', 1, 5, 7, 6]
+    ['Biomasse', 2, 3, 4]
+    ['Cogénération à gaz naturel', 8, 8, 11, 9]
+    ['Eolienne', 2, 2, 2, 2]
+    ['Hydroélectrique', 3, 3, 4, 6]
+    ['Photovoltaïque', 1241, 4249, 12744, 23459]
+    ["Usine d'incinération", 1, 1, 1]
+    ['Total', 1255, 4270, 12772, 23487]
+SHEET 4. Batteries de stockage 16
+    []
+    ['Centrales de stockage']
+    []
+    [2025]
+    ['Capacité (kWh)']
+    ['<= 30 kWh', 88850.659999999]
+    ['30 - 1000 kWh', 12252.9]
+    ['Nombre']
+    ['<= 30 kWh', 9655]
+    ['30 - 1000 kWh', 188]
+    ['Nombre planifié']
+    ['<= 30 kWh', 5]
+    ['30 - 1000 kWh', 0]
+    ['Puissance (kVA)']
+SHEET 5. Infrastructure 115
+    []
+    []
+    ['Longueur du réseau des gestionnaires en km']
+    []
+    []
+    ['2017', '2018', '2019', '2020', '2021', '2022', '2023', 2024, 2025]
+    ['Circuits']
+    ['Gestionnaire de transport']
+    ['Aérien']
+    ['≥ 5 kV', 275, 275, 275, 282, 282, 285.74, 280.663, 280.855, 280.55]
+    ['Souterrain']
+    ['≥ 5 kV', 22.9, 26.6, 26.6, 26.6, 27.4, 28.26, 28.562, 28.86, 28.86]
+    ['Gestionnaire industriel']
+    ['Aérien']
+SHEET 6. Parts du marché 111
+    []
+    []
+    ["Parts de marché - fourniture d'électricité "]
+    []
+    ['kWh']
+    ['2017', '2018', '2019', '2020', '2021', '2022', '2023', 2024, 2025]
+    ['Clients industriels (> 2GWh/an)']
+    ['ArcelorMittal Energy S.C.A.', 0.43166423069386217, 0.38693984116419294, 0.37708001904032173, 0.3696953961827661, 0.36351481574011174, 0.37597977474336103, 0.40940506830608836, 0.38690815301567105, 0.3858205554504573]
+    ['Eida S.A.', 0.0004030149108925341, 0.0003117889759405218, 0.014551015757637209, 0.015823579201272777, 0.00665871627010898]
+    ['Electrabel S.A.', 0.018891395088553125, 0.022742393954893792, 0.004747084892990988]
+    ['EnergyRevolt S.C.', 0, 0, 0]
+    ['Enovos Luxembourg S.A.', 0.45881478869255715, 0.5050217222735185, 0.5091148519465991, 0.5215667318339362, 0.5289765806806098, 0.5207384845452705, 0.5029661703380724, 0.5320429752051542, 0.5381130928588675]
+    ['Fournisseur du dernier recours', 9.393591063989124e-05, 0.00011476745522352987]
+    ['Fournisseur par défaut', 0, 0.00016377259557489993, 0.00011397536144470992, 0.0002478956866392946, 0.0002084237280323275]
+SHEET 7. Import_Export 31
+    []
+    ['Données annuelles: Import - Export en kWh']
+    []
+    ['Données annuelles']
+    []
+    ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', 2025]
+    ['Export']
+    ['Allemagne', 0, 0, 0, 0, 0, 0, 0, 0, 6216434]
+    ['Belgique', 51713344, 146807586, 94842581, 74756029, 57773942, 109129660, 39301954, 86174091, 66345818]
+    ['France', 580, 0, 0, 0, 8330, 60, 0, 800, 0]
+    ['Import']
+    ['Allemagne', 4302310735, 4136596336, 4029095550, 3584263664, 3110051364, 3187539769, 2546431494, 2813862707, 2627257804]
+    ['Belgique', 531680142, 386196141, 240084431, 389934300, 1141441187, 1927255283, 2210749596, 1209248132, 939461689]
+    ['France', 888213933, 1302194363, 1337831143, 1155119173, 1146247473, 134409250, 107133990, 892295010, 1209016886]
+SHEET 8. Changement fournisseur 13
+    []
+    ['Changement Fournisseur']
+    []
+    []
+    ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', 2025]
+    ['Nombre Clients >2GWh', 0.028037383177570093, 0.00980392156862745, 0.03773584905660377, 0.010309278350515464, 0.034653465346534656, 0.05154639175257732, 0.06315789473684211, 0.07, 0.02127659574468085]
+    ['Nombre Clients ≤2GWh', 0.0053004641826621506, 0.0019920943656669596, 0.009922052110182914, 0.008412742068563848, 0.007916437603078615, 0.0051579626047711154, 0.005804311774461028, 0.03143295019157088, 0.010599315587050665]
+    ['Nombre clients résidentiels', 0.0017807456872565386, 0.0011451900010849168, 0.0013675173942014163, 0.002001845510909105, 0.00163213458832913, 0.0012051756817459708, 0.0023199706350875066, 0.005292968613256226, 0.006013224938257065]
+    ['Nombre Total', 0.0025311748761322602, 0.0013234321005808397, 0.0030984117541348307, 0.0032288605237106916, 0.0028475131320254096, 0.001978649542067037, 0.0030093576278976994, 0.010187632436373578, 0.006874653097679241]
+    ['Volume Clients >2GWh', 0.009935016871718525, 0.03436907786151467, 0.01772444694554614, 0.002448389225726713, 0.034239312364370784, 0.0300067030691765, 0.03608511599498586, 0.015942568648524853, 0.0038514495227950185]
+    ['Volume Clients ≤2GWh', 0.01970545388856943, 0.00747037910286417, 0.02950271555847229, 0.019683020201453624, 0.0249207641468592, 0.015255756164456333, 0.012649246444146734, 0.05229904381489265, 0.019075873761411836]
+    ['Volume Clients Résidentiels', 0.0029922554283584426, 0.001120441795544547, 0.002059861400995717, 0.002815746789330127, 0.0012824419620916028, 0.0010094518845202023, 0.001454090674317248, 0.005050482898077275, 0.00442000535662426]
+    ['Volume total', 0.011480261491124235, 0.02255318462618006, 0.018607802342545453, 0.0071442439143918806, 0.026652439408637502, 0.021264415919278343, 0.023454591271703754, 0.02433711056513524, 0.008346225112854256]
+SHEET 9. Clients 58
+    []
+    ['Clients - Défaillances de paiement']
+    []
+    []
+    ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', 2025]
+    ['Déconnexion des clients en défaillance de paiement', 1064, 946, 978, 870, 969, 1514, 1812, 2164, 2315]
+    ['Demandes de déconnexion de clients en défaillance de paiement', 3565, 2575, 2793, 2567, 1051, 1652, 1821, 2214, 2345]
+    ['Reconnexion des clients après paiement intégral de la dette', 930, 828, 845, 710, 819, 1355, 1594, 1957, 2097]
+    []
+    []
+    []
+    []
+    []
+    ['% du produit le plus demandé par rapport au total des produits']
+SHEET 10. Points et sta. de recharge 28
+    []
+    []
+    ['Points et stations de recharge pour voitures électriques']
+    []
+    []
+    ['Stations de recharge - situation le 31.12.2025']
+    []
+    []
+    ['Basse tension', 'Moyenne tension', 'non-défini', 'Total']
+    ['Kilowatt']
+    ['Privés', 143343, 32172, 175515]
+    ['Publics', 2111, 1640, 207909, 211660]
+    ['Nombre']
+    ['Privés', 12224, 368, 12592]
+SHEET 11. Organisation du marché 72
+    []
+    ["Chiffre d'affaires total de la fourniture d'électricité (marché de détail)"]
+    []
+    ['Clients non-résidentiels', 'Clients résidentiels']
+    ['2017', 217886527.3367418, 57055003.70999941]
+    ['2018', 228418635.8277534, 49817673.1199971]
+    ['2019', 244194855.16049677, 53444355.020000234]
+    ['2020', 245422713.21388006, 65184032.69000071]
+    ['2021', 346470108.4333871, 67560168.24999939]
+    ['2022', 687921950.3349446, 81993456.7399997]
+    ['2023', 787160381.4099998, 135760447.66]
+    [2024, 621930230.3599999, 173120949.13]
+    ['2025', 562290976.05, 154389164.23]
+    []
+SHEET 12. Prix 14
+    []
+    ["Prix moyen de la fourniture d'électricité par type de client (hors taxe) en EUR"]
+    []
+    []
+    ['Total - tous les clients', 'Clients résidentiels', 'Clients non-résidentiels <2GWH', 'Clients non-résidentiels >2GWHP']
+    ['2017', 42.76721204403293, 62.79028897182107, 49.76680982780984, 34.98693253835404]
+    ['2018', 42.24879038472256, 53.88103308737342, 46.55125928734276, 37.54298113784422]
+    ['2019', 47.12379285237872, 57.50344640133541, 53.38274328997862, 41.44609737943195]
+    ['2020', 51.37272345627478, 69.96423476278369, 59.28002885671619, 42.491029285261874]
+    ['2021', 66.69913319170074, 72.730478235826, 61.266004531850015, 67.74851690321374]
+    ['2022', 128.36737912070086, 85.88365599945197, 107.07415481178369, 151.96432190848958]
+    ['2023', 158.64662141863778, 140.1503293207894, 194.17883916358133, 143.54791232835825]
+    ['2024', 129.30038897949228, 194.50217251943474, 163.4645995260951, 94.57935276880659]
+    [2025, 115.41586149995948, 159.62961765120684, 140.96906045975592, 89.68319135314697]
+SHEET 13. auto. et on-site PPAs 16
+    []
+    ['Les niveaux d’autoconsommation et les on-site PPAs en 2025 (kWh)']
+    []
+    []
+    []
+    [' On-site PPAs ', ' Volume AC1 ', ' Volume ACI ', ' Volume ACR ', ' Volume CEL ', ' Volumes CER, APS et CEN ', 'Total']
+    ['Biogaz', '                                -  ', '                     -  ', 604344, 414034, '                    -  ', '                                                 -  ', 1018378]
+    ['Biomasse solide', '                                -  ', '                     -  ', '                            -  ', '                          -  ', '                    -  ', '                                                 -  ', '                            -  ']
+    ['Bois de rebut', 233926834, '                     -  ', 4235880, '                          -  ', '                    -  ', '                                                 -  ', 238162714]
+    ['Centrale à gaz de décharge', '                                -  ', '                     -  ', '                            -  ', '                          -  ', '                    -  ', '                                                 -  ', '                            -  ']
+    ['Cogénération', '                                -  ', '                     -  ', 1138017, '                          -  ', '                    -  ', 588295, 1726312]
+    ['Eolienne', '                                -  ', '                     -  ', 1706, '                          -  ', '                    -  ', 127, 1833]
+    ['Épuration eaux usées', '                                -  ', '                     -  ', 1500292, '                          -  ', '                    -  ', '                                                 -  ', 1500292]
+    ['Hydroélectrique', '                                -  ', '                     -  ', 265372, '                          -  ', '                    -  ', '                                                 -  ', 265372]
+SHEET 14. Planification capacité 79
+    []
+    []
+    ["La planification de la capacité par source d'énergie en 2025"]
+    []
+    []
+    []
+    ['Autres', 'MVA', 'Nombre', 'Photovoltaïques', 'MVA', 'Nombre', 'Éoliennes', 'MVA', 'Nombre']
+    ['Réservations de puissance accordées', 'Réservations de puissance accordées', 'Réservations de puissance accordées']
+    ['HT', 140, 2, 'HT', 0, 0, 'HT', 39, 2]
+    ['MT', 3, 1, 'MT', 254, 69, 'MT', 325, 38]
+    ['Réservations de puissance accordées (cumul le 31.12.)', 'Réservations de puissance accordées (cumul le 31.12.)', 'Réservations de puissance accordées (cumul le 31.12.)']
+    ['HT', 140, 2, 'HT', 40, 1, 'HT', 128, 4]
+    ['MT', 5, 2, 'MT', 255, 70, 'MT', 858, 106]
+    ['Réservations de puissance annulées et expirées', 'Réservations de puissance annulées et expirées', 'Réservations de puissance annulées et expirées']
+energie renouvelable [('Territoire environnement et énergie - Energie - Energies ren', 'annual'), ('Aides communales rénovation énergétique, énergie renouvelabl', 'punctual')]
+installations de production []
+Creos production []
+énergie solaire []
+énergie éolienne []
+Production d'électricité []
+### NL leads
+https://www.netbeheernederland.nl/ 200 622930  Samen aan de slag met het energiesysteem | Netbeheer Nederland // Define dataLayer and the gtag function. window.dataLayer = window.dataLayer || []; 
+https://energieopwek.nl/ 200 94808  window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-690013770'); Energi
+https://api.energieopwek.nl/ ERR ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\'api.energieopwek.nl\', port=443): Max retr
+https://www.certiq.nl/ ERR ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\'www.certiq.nl\', port=443): Max retries ex
+https://www.tennet.org/english/operational_management/export_data.aspx ERR ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\'www.tennet.org\', port=443): Max retries e
+https://opendata.cbs.nl/ODataApi/odata/85005NED/Perioden 200 816 { "odata.metadata":"https://opendata.cbs.nl/ODataApi/OData/85005NED/$metadata#Cbs.OData.WebAPI.Perioden","value":[ { "Key":"2019JJ00","Title":"2019","
+https://www.rvo.nl/onderwerpen/duurzaam-ondernemen/energie-en-milieu-innovaties/zon-pv 404 56105  (self.__next_f=self.__next_f||[]).push([0]) self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[36994,[],\"\"]\n3:I[42512,[],\"\"]\n6:I[55691,[],\"Out
+https://klimaatmonitor.databank.nl/ 200 47702  Regionale klimaatmonitor | Klimaatmonitor window.jQuery || document.write(' \x3C/script>') --> .btnRequestCancel_popup, .login-link_popup { display: 
