@@ -12,12 +12,16 @@ on:
       force:
         description: "Rebuild Germany even if the export file is the one already processed"
         default: "false"
+      only:
+        description: "germany, benelux or all"
+        default: "all"
 
 permissions:
   contents: write
 
 jobs:
   germany:
+    if: github.event.inputs.only != 'benelux'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -40,7 +44,7 @@ jobs:
           w="output/Data and Chart Outputs/germany_power_capacity_monthly.xlsx"
           [ -f "$w" ] && python3 add_charts.py "$w" && python3 png_charts.py "$w" || echo "chart step skipped/failed"
           mkdir -p "output/Python Scripts"
-          cp europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py europe/capacity/de_nl_be_lu_capacity_charts.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit updated workbook
         if: always()
@@ -51,6 +55,49 @@ jobs:
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
           git diff --cached --quiet || git commit -m "Europe capacity (Germany, MaStR): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
+
+  benelux:
+    if: github.event.inputs.only != 'germany'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests matplotlib
+      - name: Run pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/capacity/BENELUX_CAPACITY.py
+
+      - name: Add Excel charts, PNGs and copy scripts
+        if: always()
+        run: |
+          for f in belgium_power_capacity_monthly netherlands_power_capacity_annual luxembourg_power_capacity_annual; do
+            w="output/Data and Chart Outputs/${f}.xlsx"
+            [ -f "$w" ] && python3 add_charts.py "$w" && python3 png_charts.py "$w" || echo "chart step skipped/failed for $w"
+          done
+          mkdir -p "output/Python Scripts"
+          cp europe/capacity/BENELUX_CAPACITY.py europe/capacity/de_nl_be_lu_capacity_charts.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbooks
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in belgium_power_capacity_monthly netherlands_power_capacity_annual luxembourg_power_capacity_annual; do
+            git add -f "output/Data and Chart Outputs/${f}.xlsx" || true
+          done
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe capacity (Belgium, Netherlands, Luxembourg): automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
             sleep $((i * 5))
