@@ -42,7 +42,7 @@ CHECKS (logged; a failed one stops the run before anything is written)
 Result (Oct 2026): 2016 9.3, 2017 9.6 (company 9.7), 2018 10.4 (10.3), 2019 10.4, 2020 8.25, 2021 8.66, 2022 10.25,
 2023 9.12 BCM; gov.il gaps 0.05 / 0.15 / 0.02.
 
-Run once by discovery_archive/workflows/israel_tamar_history.yml, then ISRAEL_GAS_FIELDS.py rebuilds 'Quarterly'.
+Run once (12 Oct 2026) by discovery_archive/workflows/israel_tamar_history.yml, then ISRAEL_GAS_FIELDS.py rebuilds 'Quarterly'.
 """
 
 import argparse
