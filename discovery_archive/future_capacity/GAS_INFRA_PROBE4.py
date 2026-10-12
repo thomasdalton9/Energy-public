@@ -24,6 +24,19 @@ if r is not None and r.status_code == 200:
     open("/tmp/tyndp_map.pdf", "wb").write(r.content)
     subprocess.run(["pdftotext", "-layout", "/tmp/tyndp_map.pdf", OUT + "/tyndp2024_a0_map.txt"])
     print("  map text bytes", os.path.getsize(OUT + "/tyndp2024_a0_map.txt"))
+for u in ["https://tyndp2024.entsog.eu/downloads/", "https://tyndp2024.entsog.eu/infrastructure-report-introduction/annex/"]:
+    r = get(u)
+    if r is not None and r.status_code == 200:
+        for l in sorted(set(re.findall(r'href="([^"]+\.(?:xlsx?|csv|pdf|zip))"', r.text, re.I))): print("  X", l[:200])
+for name, u in [("btg_tyndp_2026.txt", "https://bulgartransgaz.bg/public/files/useruploads/%D0%BD%D0%BE%D0%B2%D0%B8%D0%BD%D0%B8_%D1%81%D0%B0%D0%B9%D1%82/27042026/TYNDP%20BTG%202026-2035%20%D0%B3.%20-%20public%20consultation%20EN.pdf"),
+                ("transgaz_dp_2026.txt", "https://www.transgaz.ro/sites/default/files/DEVELOPMENT%20PLAN%20FOR%20THE%20NATIONAL%20GAS%20TRANSMISSION%20SYSTEM%202026-2035.pdf")]:
+    r = get(u)
+    if r is not None and r.status_code == 200 and r.content[:4] == b"%PDF":
+        open("/tmp/x.pdf", "wb").write(r.content)
+        subprocess.run(["pdftotext", "-layout", "/tmp/x.pdf", OUT + "/" + name]); print("  saved", name, os.path.getsize(OUT + "/" + name))
+for u in ["https://www.norskpetroleum.no/en/facts/field/", "https://www.norskpetroleum.no/en/developments-and-operations/recent-activity/", "https://www.norskpetroleum.no/en/production-and-exports/exports-of-oil-and-gas/"]:
+    r = get(u)
+    if r is not None and r.status_code == 200: open(OUT + "/" + re.sub(r"\W+", "_", u[8:])[:60] + ".html", "w").write(r.text)
 # PCI
 r = get("https://energy.ec.europa.eu/topics/infrastructure/projects-common-interest-and-projects-mutual-interest/pci-and-pmi-selection-process_en")
 if r is not None:
