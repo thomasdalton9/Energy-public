@@ -1,0 +1,16 @@
+name: C3S energy probe (manual)
+on:
+  workflow_dispatch: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - env:
+          CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
+        run: python3 discovery_archive/weather/C3S_ENERGY_PROBE.py
