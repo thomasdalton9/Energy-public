@@ -390,7 +390,7 @@ def gb_capacity(p):
     d = d[(d.index >= "2021-01-01") & d["Wind_MW"].notna()]   # months after the REPD cutoff have solar only
     g = pd.DataFrame({"Wind": d.get("Wind_MW"), "Solar": d.get("Solar_MW"), "Bioenergy": d.get("Bioenergy_MW"),
                       "Storage (batteries + pumped)": _storage_sum(d).where(d.get("Storage_MW").notna())}) / 1000.0
-    out.append(spec("Capacity", g, "UK installed capacity, month-end: solar (DESNZ ET 6.3), wind, bioenergy, storage (REPD rebuild)",
+    out.append(spec("Capacity", g, "UK installed capacity, month-end: solar (DESNZ ET 6.3), others (REPD rebuild)",
                     "GW installed", "stacked_bar"))
     full = by_date(read(p, "Monthly"), "date")
     adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff()})
@@ -425,9 +425,9 @@ def ie_capacity(p):
     g = pd.DataFrame({"Wind": d.get("Wind_MW"), "Solar": d.get("Solar_MW"), "Hydro": d.get("Hydro_MW"),
                       "Bioenergy": d.get("Bioenergy_MW"), "Storage (batteries + pumped)": _storage_sum(d)}) / 1000.0
     adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff(), "Storage (batteries)": full["Storage_MW"].diff()})
-    return [spec("Capacity", g, "Ireland installed capacity, month-end: wind (EirGrid series), solar / hydro / bioenergy / storage (registers)",
+    return [spec("Capacity", g, "Ireland installed capacity, month-end: wind (EirGrid), others (registers)",
                  "GW installed", "stacked_bar"),
-            spec("Net additions", adds[adds.index >= "2021-02-01"], "Ireland net capacity additions per month: wind (EirGrid), solar and batteries (registers)",
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Ireland net additions per month: wind (EirGrid), solar, batteries (registers)",
                  "MW per month", "stacked_bar")]
 
 
