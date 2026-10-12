@@ -256,7 +256,10 @@ def write_region(data_dir, region, results, end, extra):
         c = cf.coverage(r.flags)
         c.name = n
         cov_rows.append(c)
-    coverage = pd.DataFrame(cov_rows).round(1)
+    coverage = pd.DataFrame(cov_rows)
+    main = [f for f in FUELS if f not in ("PumpedStorage", "Storage")]
+    coverage["NONE main fuels"] = [float((results[n][2].flags[main] == "NONE").values.mean() * 100) for n in members]
+    coverage = coverage.round(1)
     coverage.index.name = "country"
     tot = sum(results[n][2].values.fillna(0) for n in members)
     anyv = sum(results[n][2].values.notna().astype(int) for n in members)
@@ -303,7 +306,7 @@ def write_region(data_dir, region, results, end, extra):
         f"checked and not usable), Coverage, Coverage by month, {REGION_NAME[region]} total, one sheet per country and '<country> flags'.",
         "", "Caveats",
         "Ember's yearly capacity comes from IRENA / national statistics and is rounded; 'Oil' is Ember's 'Other Fossil', 'Other' is 'Other Renewables'. "
-        "Ember's Hydro may include pumped storage and its Solar usually includes distributed PV, where an official transmission-network series does not. "
+        "Ember's Solar can include distributed PV where an official transmission-network series does not, and Ember lists no pumped storage or batteries (blank, NONE). A fuel Ember has no row for (e.g. coal or nuclear in a country without any) is NONE, not zero. "
         "A held or interpolated value is not an observation.",
     ]
     if region == "AF":
@@ -315,7 +318,7 @@ def write_region(data_dir, region, results, end, extra):
     all_sheets.update(flag_sheets)
     xlsx_notes.write_workbook(out, all_sheets, notes, titles)
     print(f"{out}: {len(sheets)} countries, {START[:7]} - {end:%Y-%m}")
-    print(coverage[["OBSERVED", "FILLED", "FALLBACK_EMBER", "NONE"]].to_string())
+    print(coverage[["OBSERVED", "FILLED", "FALLBACK_EMBER", "NONE", "NONE main fuels"]].to_string())
     return out
 
 
@@ -331,6 +334,91 @@ def main():
         import add_charts
         for o in outs:
             add_charts.add_charts(o)
+
+
+# ---------------------------------------------------------------- master wiring (East Med and Africa masters)
+OFFICIAL_URL = {"Jordan": JORDAN_URL, "Ghana": "https://www.energycom.gov.gh/index.php/planning/energy-statistics",
+                "Morocco": "https://www.hcp.ma/downloads/Annuaires-statistiques-du-Maroc-Format-Excel_t22392.html", "South Africa": ESKOM_URL}
+OFFICIAL_SHORT = {"Jordan": "NEPCO annual reports", "Ghana": "Energy Commission National Energy Statistics (Table 3.1)",
+                  "Morocco": "ONEE via HCP Annuaire statistique du Maroc (table 5-4)",
+                  "South Africa": "Eskom Integrated Report 2025 (Koeberg, pumped storage)"}
+
+
+def source_line(path, country, workbook):
+    """(text, url) for a country's capacity chart: which fuels are official annual and which Ember fallback, from the Basis sheet."""
+    try:
+        b = pd.read_excel(path, sheet_name="Basis")
+        b = b[b["country"] == country]
+        off = [f for f, r in zip(b["fuel"], b["rule"]) if str(r).startswith("ANNUAL")]
+        emb = [f for f, r in zip(b["fuel"], b["rule"]) if str(r).startswith("FALLBACK_EMBER")]
+    except Exception:  # noqa: BLE001
+        off, emb = [], []
+    parts = []
+    if off:
+        parts.append(f"official annual - {OFFICIAL_SHORT.get(country, 'national source')} for {', '.join(off)}")
+    if emb:
+        parts.append(f"Ember yearly installed capacity (FALLBACK, year-end) for {', '.join(emb)}")
+    txt = (f"{country} installed capacity, monthly series filled from annual stocks: " + "; ".join(parts) if parts else
+           f"{country} installed capacity: no source") + (
+        f". Wind, solar, bioenergy linear between annual stocks, other fuels held, flat after the last stock; every filled cell is flagged in "
+        f"{workbook}")
+    return txt, OFFICIAL_URL.get(country, EMBER_URL) if off else EMBER_URL
+
+
+def cap_spec(sheet_name, title):
+    def f(p):
+        import add_charts
+        d = add_charts.by_date(add_charts.read(p, sheet_name), "date")
+        d = d[d.index >= START]
+        g = add_charts.capacity_groups(pd.DataFrame({fu: d.get(f"{fu}_MW") for fu in add_charts.CAPACITY_FUELS}, index=d.index)) / 1000.0
+        return [add_charts.spec("Capacity", g, title, "GW installed", "stacked_bar", "%Y-%m")]
+    return f
+
+
+def _full_months(daily, min_share=0.9):
+    """Daily frame (index = date) -> (monthly mean, share of days present) for months with >= min_share of their days."""
+    m = daily.resample("MS")
+    mean, n = m.mean(), m.count().max(axis=1)
+    ok = n >= min_share * mean.index.days_in_month
+    last = daily.index.max()
+    ok &= (mean.index + pd.offsets.MonthEnd(0)) <= last
+    return mean[ok]
+
+
+def generation_frames(data_dir, region):
+    """Monthly GWh by capacity_factors fuel group for the countries of the region with a monthly generation feed:
+    East Med: Cyprus (TSOC daily MW); Africa: Ghana (Energy Commission WEM, daily GWh), Cameroon (ARSEL plant injections, 2025),
+    Morocco (monthly gas-fired ESTIMATE from Tarifa gas). Months must be complete; nothing is filled."""
+    out = {}
+    if region == "EM":
+        d = sheet(data_dir, "cyprus_generation_mix_daily.xlsx", "Cyprus")
+        if d is not None:
+            d = d.set_index(pd.to_datetime(d["date"])).drop(columns="date").apply(pd.to_numeric, errors="coerce")
+            mw = _full_months(d)
+            hrs = pd.Series(mw.index.days_in_month * 24.0, index=mw.index)
+            gwh = mw.mul(hrs, axis=0) / 1000.0
+            out["Cyprus"] = pd.DataFrame({"Wind": gwh["wind"], "Solar": gwh["solar"], "Other": gwh["oil"] + gwh["biomass"]})
+    else:
+        d = sheet(data_dir, "ghana_wem_weekly_generation_daily.xlsx", "Daily")
+        if d is not None:
+            d = d.set_index(pd.to_datetime(d["date"]))[["Hydro_GWh", "Thermal_GWh", "Solar_GWh"]].apply(pd.to_numeric, errors="coerce")
+            m = d.resample("MS").sum(min_count=1)
+            n = d.resample("MS").count().max(axis=1)
+            ok = (n >= 0.9 * m.index.days_in_month) & ((m.index + pd.offsets.MonthEnd(0)) <= d.index.max())
+            m = m[ok]
+            out["Ghana"] = pd.DataFrame({"Hydro": m["Hydro_GWh"], "Gas": m["Thermal_GWh"], "Solar": m["Solar_GWh"]})
+        d = sheet(data_dir, "cameroon_arsel_energy_balance.xlsx", "Plant injections")
+        if d is not None:
+            d = d.set_index(pd.to_datetime(d["month"])).drop(columns="month").apply(pd.to_numeric, errors="coerce") / 1000.0
+            hyd = [c for c in ("Songloulou", "Edea 3", "Lagdo", "Nachtigal", "Memve'ele", "Lom Pangar") if c in d]
+            oth = [c for c in ("Limbe HFO", "Oyomabang", "Dibamba") if c in d]
+            out["Cameroon"] = pd.DataFrame({"Hydro": d[hyd].sum(axis=1, min_count=1), "Gas": d["Kribi (gas)"] if "Kribi (gas)" in d else np.nan,
+                                           "Other": d[oth].sum(axis=1, min_count=1)}).dropna(how="all")
+        d = sheet(data_dir, "morocco_gas_daily.xlsx", "Estimate")
+        if d is not None and "Gas_fired_GWh_ESTIMATE" in d:
+            d = d.set_index(pd.to_datetime(d["month"]))["Gas_fired_GWh_ESTIMATE"].apply(pd.to_numeric, errors="coerce").dropna()
+            out["Morocco"] = pd.DataFrame({"Gas": d})
+    return {k: v[v.index >= START] for k, v in out.items() if not v.empty}
 
 
 # ---------------------------------------------------------------- charts (registered in add_charts.REGISTRY)
