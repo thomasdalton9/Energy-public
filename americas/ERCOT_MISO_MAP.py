@@ -10,7 +10,7 @@ LNG plants: nameplate (peak/liquefaction) capacity in Bcf/d and status from EIA 
 "Natural gas export terminals" tables and FERC "North American LNG Export Terminals" lists; site coordinates are the
 terminal locations (rounded to 0.01 deg). Capacities are approximate, rounded to 0.1.
 
-Output: output/PNG Charts/ercot_miso_lng_map.png
+Output: output/Data and Chart Outputs/Master Outputs/ercot_miso_lng_map.png
 """
 import json
 import sys
@@ -28,7 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BA = os.path.join(ROOT, "maps", "us_balancing_authorities.geojson")
 ADMIN = os.path.join(ROOT, "maps", "north_america_admin1.geojson")
 CLEAN = "--clean" in sys.argv  # no title, no inset: every plant labelled on the main map
-OUT = os.path.join(ROOT, "output", "PNG Charts", "ercot_miso_lng_map_clean.png" if CLEAN else "ercot_miso_lng_map.png")
+OUT = os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "ercot_miso_lng_map_clean.png" if CLEAN else "ercot_miso_lng_map.png")
 
 XLIM, YLIM = (-108.5, -68.0), (21.0, 49.5)
 MISO_C, ERCOT_C = "#2a6fb0", "#d9822b"

@@ -24,6 +24,8 @@ Standing instructions from the repo owner. Follow these on every change.
 - Storage/level/seasonal charts use an **Oct-Sep water year**, not Jan-Dec.
 - Outputs: xlsx in `output/Data and Chart Outputs/`; PNG charts in `output/PNG Charts/`; a copy of each producing
   script in `output/Python Scripts/` (refreshed by the workflow on every run).
+  Exception (owner's choice, Oct 2026): MAP PNGs (world/regional coverage and capacity maps, the ERCOT/MISO LNG map, the
+  Latin America industrial gas users map) go in `output/Data and Chart Outputs/Master Outputs/` beside the masters.
 - Every new or updated PNG chart is committed to `output/PNG Charts/` on main and sent to the owner.
 - Units/notes tab via `xlsx_notes.write_workbook()` (atomic write).
 

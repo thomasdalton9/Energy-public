@@ -59,7 +59,8 @@ COVERAGE.update({
                                           "authority (EIA-930); LNG feedgas"),
     "Canada": ("green", "Gas supply and disposition (StatCan), gas and electricity trade (CER); power by type (StatCan, "
                         "fossil split by province), IESO Ontario, Hydro-Quebec, AESO Alberta, BC Hydro and NB Power load"),
-    "Mexico": ("blue", "Gas imports from the US, pipeline capacity; CENACE demand; power by type Ember only"),
+    "Mexico": ("blue", "Gas imports from the US, pipeline capacity; power by technology (CENACE settled, hourly); "
+                       "CENACE demand; no gas demand split"),
     # Africa: raw pulls (Ghana Energy Commission, Nigeria NERC + NNPC, Cameroon ARSEL) and Ember-only fallback
     "Ghana": ("blue", "Power by plant daily (Energy Commission weekly WEM PDFs); annual by type; Akosombo/Bui lake levels"),
     "Nigeria": ("blue", "Power NERC quarterly reports (grid-connected plants, hydro/thermal); gas NNPC monthly report summary"),
@@ -257,7 +258,7 @@ def main():
     ap.add_argument("--view", choices=["pacific", "atlantic", "both"], default="both")
     ap.add_argument("--out", default=None, help="output path (one view only); default world_coverage_map[_atlantic].png")
     args = ap.parse_args()
-    base = os.path.join(ROOT, "output", "PNG Charts", "world_coverage_map")
+    base = os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "world_coverage_map")
     for view in (["pacific", "atlantic"] if args.view == "both" else [args.view]):
         set_view(view)
         render(args.out if args.out and args.view != "both" else base + ("" if view == "pacific" else "_atlantic") + ".png")

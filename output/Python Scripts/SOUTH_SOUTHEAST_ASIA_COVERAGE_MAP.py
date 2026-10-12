@@ -14,7 +14,7 @@ only, so Sabah and Sarawak are coloured as Ember-only.
 The classification below is maintained by hand: update COVERAGE when a pull is added. Country shapes are Natural
 Earth 1:110m (bundled with geopandas 0.14); Singapore is too small for that scale and is drawn as a marker.
 
-Usage: python3 SOUTH_SOUTHEAST_ASIA_COVERAGE_MAP.py [--out "output/PNG Charts/south_southeast_asia_coverage_map.png"]
+Usage: python3 SOUTH_SOUTHEAST_ASIA_COVERAGE_MAP.py [--out "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_coverage_map.png"]
 """
 import argparse
 import os
@@ -45,43 +45,45 @@ COVERAGE = {
     "Sri Lanka": ("blue", "Power PUCSL (no gas market)"),
     "Bhutan": ("blue", "Power BPSO (no gas)"),
     "Malaysia": ("blue", "Power GSO, Peninsular Malaysia only; Single Buyer prices; no gas data"),
-    "Pakistan": ("amber", "Power: Ember monthly"),
-    "Vietnam": ("amber", "Power: Ember monthly"),
-    "Philippines": ("amber", "Power: Ember monthly; IEMOP market demand and prices; PAGASA dam levels"),
-    "Indonesia": ("amber", "Power: Ember yearly"),
+    "Pakistan": ("blue", "Power: CPPA-G / NEPRA monthly filings (national grid); gas production by province (PBS, to Mar 2024); "
+                         "reservoirs IRSA/WAPDA"),
+    "Vietnam": ("blue", "Power: EVN / NSMO daily (from May 2023); gas: NSO monthly tables (from 2015)"),
+    "Philippines": ("blue", "Power: IEMOP plant dispatch by fuel (Ember shown in the master until a year of history); DOE capacity; "
+                             "prices; PAGASA dam levels; no gas data"),
+    "Indonesia": ("blue", "Gas production by contractor + use by sector (Ditjen Migas); power: Ember yearly"),
     "Myanmar": ("amber", "Power: Ember yearly"),
-    "Cambodia": ("amber", "Power: Ember yearly"),
+    "Cambodia": ("blue", "Power: EAC annual reports (raw, annual rows); EAC capacity; no gas"),
     "Laos": ("amber", "Power: Ember yearly"),
     "Brunei": ("amber", "Power: Ember yearly"),
-    "Nepal": ("amber", "Power: Ember yearly"),
+    "Nepal": ("blue", "Power: NEA load dispatch daily reports (Apr 2023 - Jan 2025, gap Feb 2025 - Sep 2026, filled from Ember); no gas"),
     "Timor-Leste": ("amber", "Power: Ember yearly"),
 }
 SABAH_SARAWAK = "amber"     # Malaysia east of 105E: no GSO feed, Ember (national) only
-GAS_PRODUCERS = {"India": True, "Bangladesh": True, "Thailand": True, "Pakistan": False, "Malaysia": False,
-                 "Indonesia": False, "Myanmar": False, "Brunei": False, "Vietnam": False, "Philippines": False}
-HYDRO = {"India", "Thailand", "Philippines"}
+GAS_PRODUCERS = {"India": True, "Bangladesh": True, "Thailand": True, "Pakistan": True, "Malaysia": False,
+                 "Indonesia": True, "Myanmar": False, "Brunei": False, "Vietnam": True, "Philippines": False}
+HYDRO = {"India", "Thailand", "Philippines", "Pakistan", "Sri Lanka"}   # CEA, RID, PAGASA, IRSA/WAPDA, PUCSL
 DOT_HAVE, DOT_MISSING, DOT_HYDRO = "#0B3A66", "#E34948", "#8FD3FF"
 SINGAPORE = (103.82, 1.35)
 OUT_OF_SCOPE = {"China", "Taiwan", "Afghanistan", "Iran", "Tajikistan", "Turkmenistan", "Uzbekistan", "Kyrgyzstan",
                 "Oman", "United Arab Emirates", "Papua New Guinea", "Australia", "Japan", "South Korea", "North Korea"}
 # label position overrides (lon, lat) for in-country labels
 LABEL_AT = {"India": (78.5, 21.5), "Indonesia": (114.0, -1.0), "Myanmar": (95.8, 21.5),
-            "Thailand": (100.9, 15.6), "Pakistan": (69.5, 28.5), "Laos": (103.0, 19.9), "Philippines": (122.5, 12.4)}
+            "Thailand": (100.9, 15.6), "Pakistan": (69.5, 28.5), "Laos": (103.0, 19.9)}
 # small countries: label beside them with a leader line -> (label lon, label lat)
 CALLOUTS = {"Sri Lanka": (85.5, 5.0), "Bhutan": (92.5, 30.0), "Nepal": (82.0, 31.5), "Bangladesh": (86.5, 19.5),
             "Cambodia": (100.0, 9.0), "Vietnam": (110.5, 17.5), "Brunei": (110.0, 9.0), "Timor-Leste": (128.5, -12.0),
-            "Malaysia": (109.0, 6.3)}
+            "Malaysia": (109.0, 6.3), "Philippines": (132.0, 17.0)}
 DOT_AT = {"India": (78.5, 19.4), "Indonesia": (114.0, -3.0), "Malaysia": (101.9, 3.2), "Myanmar": (95.8, 19.6),
           "Thailand": (100.3, 14.0), "Pakistan": (69.5, 26.6), "Philippines": (122.8, 10.6), "Bangladesh": (90.2, 23.8),
           "Vietnam": (106.6, 11.2), "Brunei": (114.7, 4.4)}
 CALLOUT_TEXT = {"Malaysia": "Malaysia (Peninsular)"}
-CALLOUT_XY = {"Malaysia": (102.3, 4.5)}
+CALLOUT_XY = {"Malaysia": (102.3, 4.5), "Philippines": (121.5, 16.0)}
 HYDRO_AT = {"India": (80.5, 19.4), "Thailand": (102.2, 14.0), "Philippines": (124.6, 10.6)}
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "south_southeast_asia_coverage_map.png"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "south_southeast_asia_coverage_map.png"))
     args = ap.parse_args()
 
     with warnings.catch_warnings():
@@ -152,6 +154,20 @@ def main():
     ax.legend(handles=handles, loc="upper left", frameon=False, fontsize=9.5, bbox_to_anchor=(0.0, -0.01), ncol=2,
               labelspacing=1.0, columnspacing=3.0)
     ax.set_title("South and Southeast Asia: Gas and Power Data Coverage", fontsize=15, fontweight="bold", loc="left")
+    import datetime
+    import textwrap
+    order = {"green": 0, "blue": 1, "amber": 2}
+    notes = []
+    for name in sorted(COVERAGE, key=lambda n: (order[COVERAGE[n][0]], n)):
+        what = COVERAGE[name][1]
+        if name == "Malaysia":
+            what += "; Sabah + Sarawak: Ember national total minus GSO (estimate)"
+        wrapped = textwrap.wrap(f"{name}: {what}", 190, subsequent_indent="    ")
+        notes.append("\u2022 " + wrapped[0])
+        notes += ["   " + w for w in wrapped[1:]]
+    notes += ["", f"Coverage as of {datetime.date.today():%d %B %Y}. Map: Natural Earth 1:110m."]
+    ax.text(0.0, -0.30, "\n".join(notes), fontsize=8.3, color="#444444", transform=ax.transAxes, va="top",
+            linespacing=1.45)
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")

@@ -178,7 +178,7 @@ def main():
     ap.add_argument("--view", choices=["pacific", "atlantic", "both"], default="both")
     ap.add_argument("--out", default=None, help="output path (one view only); default world_capacity_map[_atlantic].png")
     args = ap.parse_args()
-    base = os.path.join(ROOT, "output", "PNG Charts", "world_capacity_map")
+    base = os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "world_capacity_map")
     for view in (["pacific", "atlantic"] if args.view == "both" else [args.view]):
         wcm.set_view(view)
         render(args.out if args.out and args.view != "both" else base + ("" if view == "pacific" else "_atlantic") + ".png")

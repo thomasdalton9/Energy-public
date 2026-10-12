@@ -15,7 +15,7 @@ The classification below is maintained by hand: update COVERAGE when a pull
 is added. Country shapes are Natural Earth 1:110m (bundled with geopandas
 0.14), so no download is needed.
 
-Usage: python3 COVERAGE_MAP.py [--out "output/PNG Charts/south_central_america_coverage_map.png"]
+Usage: python3 COVERAGE_MAP.py [--out "output/Data and Chart Outputs/Master Outputs/south_central_america_coverage_map.png"]
 """
 import argparse
 import os
@@ -83,7 +83,7 @@ LABEL_NAME = {"Dominican Rep.": "Dominican Rep.", "Trinidad and Tobago": "Trinid
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "south_central_america_coverage_map.png"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "south_central_america_coverage_map.png"))
     args = ap.parse_args()
 
     with warnings.catch_warnings():

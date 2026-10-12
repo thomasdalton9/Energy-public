@@ -14,7 +14,7 @@ only, so Sabah and Sarawak are coloured as Ember-only.
 The classification below is maintained by hand: update COVERAGE when a pull is added. Country shapes are Natural
 Earth 1:110m (bundled with geopandas 0.14); Singapore is too small for that scale and is drawn as a marker.
 
-Usage: python3 SOUTH_SOUTHEAST_ASIA_COVERAGE_MAP.py [--out "output/PNG Charts/south_southeast_asia_coverage_map.png"]
+Usage: python3 SOUTH_SOUTHEAST_ASIA_COVERAGE_MAP.py [--out "output/Data and Chart Outputs/Master Outputs/south_southeast_asia_coverage_map.png"]
 """
 import argparse
 import os
@@ -83,7 +83,7 @@ HYDRO_AT = {"India": (80.5, 19.4), "Thailand": (102.2, 14.0), "Philippines": (12
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "south_southeast_asia_coverage_map.png"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "south_southeast_asia_coverage_map.png"))
     args = ap.parse_args()
 
     with warnings.catch_warnings():

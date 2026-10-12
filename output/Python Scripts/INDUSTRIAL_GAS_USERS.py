@@ -303,7 +303,8 @@ def render_pngs(p, png_dir):
                  "(marker size = nameplate capacity; locations approximate)", loc="left", fontsize=12,
                  fontweight="bold")
     fig.text(0.02, 0.01, src + " Mexico out of scope.", fontsize=7, color="#666666")
-    map_png = os.path.join(png_dir, f"{STEM}_map.png")
+    map_png = os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", f"{STEM}_map.png")  # maps live with the masters
+    os.makedirs(os.path.dirname(map_png), exist_ok=True)
     fig.savefig(map_png, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     out.append(map_png)

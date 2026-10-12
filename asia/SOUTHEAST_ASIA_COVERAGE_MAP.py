@@ -6,7 +6,7 @@ Natural Earth 1:110m via geopandas; Singapore is drawn as a marker (below that r
 get callouts. Neighbouring non-SE-Asia land is drawn in light grey and left unlabelled except for the names needed
 for orientation.
 
-Usage: python3 SOUTHEAST_ASIA_COVERAGE_MAP.py [--out "output/PNG Charts/southeast_asia_coverage_map.png"]
+Usage: python3 SOUTHEAST_ASIA_COVERAGE_MAP.py [--out "output/Data and Chart Outputs/Master Outputs/southeast_asia_coverage_map.png"]
 """
 import argparse
 import datetime
@@ -45,7 +45,7 @@ CONTEXT = {"China": (104.0, 26.5), "India": (94.5, 26.8), "Bangladesh": (94.2, 2
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "southeast_asia_coverage_map.png"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "southeast_asia_coverage_map.png"))
     args = ap.parse_args()
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")

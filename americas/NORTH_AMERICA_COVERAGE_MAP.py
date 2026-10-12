@@ -16,7 +16,7 @@ added. Shapes:
                                           from discovery_archive/FETCH_US_BALANCING_AUTHORITIES.py
   maps/north_america_admin1.geojson      Natural Earth 1:50m states/provinces (simplified)
 
-Usage: python3 NORTH_AMERICA_COVERAGE_MAP.py [--out "output/PNG Charts/north_america_coverage_map.png"]
+Usage: python3 NORTH_AMERICA_COVERAGE_MAP.py [--out "output/Data and Chart Outputs/Master Outputs/north_america_coverage_map.png"]
 """
 import argparse
 import os
@@ -64,7 +64,7 @@ LNG_PLANTS = {"Sabine Pass": (-93.87, 29.73), "Cameron": (-93.33, 30.03), "Calca
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(ROOT, "output", "PNG Charts", "north_america_coverage_map.png"))
+    ap.add_argument("--out", default=os.path.join(ROOT, "output", "Data and Chart Outputs", "Master Outputs", "north_america_coverage_map.png"))
     args = ap.parse_args()
 
     admin = gpd.read_file(os.path.join(MAPS, "north_america_admin1.geojson"))

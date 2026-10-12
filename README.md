@@ -6,7 +6,7 @@ Scheduled pulls of gas and power data, run in GitHub Actions. Workbooks (with na
 
 ## South & Central America coverage
 
-![South & Central America data coverage](output/PNG%20Charts/south_central_america_coverage_map.png)
+![South & Central America data coverage](output/Data%20and%20Chart%20Outputs/Master%20Outputs/south_central_america_coverage_map.png)
 
 Green: gas demand by sector, gas production/supply and power generation by type. Blue: power by type or a gas
 demand split only. Grey: no data. Dark blue dots: gas producers with production data; red dots: gas producers
@@ -15,7 +15,7 @@ without. All of it feeds `south_and_central_america_master.xlsx`; the map is red
 
 ## North America coverage
 
-![North America data coverage](output/PNG%20Charts/north_america_coverage_map.png)
+![North America data coverage](output/Data%20and%20Chart%20Outputs/Master%20Outputs/north_america_coverage_map.png)
 
 The USA is split by power market (ISO/RTO and the big utility balancing areas EIA-930 reports). Redrawn by
 `americas/NORTH_AMERICA_COVERAGE_MAP.py`.
