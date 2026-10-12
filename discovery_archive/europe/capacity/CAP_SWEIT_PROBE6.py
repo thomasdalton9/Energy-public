@@ -41,11 +41,11 @@ def load(ds):
     p = f"/tmp/{ds[-8:]}.csv"
     get(f"{B}{ds}/exports/csv?delimiter=%3B&use_labels=false", show=False, out=p)
     d = pd.read_csv(p, sep=";", low_memory=False, usecols=lambda c: c in ("nominstallation", "filiere", "combustible", "puismaxinstallee", "dateraccordement", "datemiseenservice", "datederaccordement", "nbinstallations", "regime", "codeeicresourceobject", "codefiliere"))
-    d["agg"] = d["nominstallation"].astype(str).str.startswith("Agr")
+    d["isagg"] = d["nominstallation"].astype(str).str.startswith("Agr")
     d["mw"] = pd.to_numeric(d["puismaxinstallee"], errors="coerce") / 1000
-    d["d_ms"] = pd.to_datetime(d["datemiseenservice"], dayfirst=True, errors="coerce")
-    d["d_rac"] = pd.to_datetime(d["dateraccordement"], dayfirst=True, errors="coerce")
-    print(ds, len(d), "agg rows", int(d["agg"].sum()), "missing ms", int(d["d_ms"].isna().sum()), "missing rac", int(d["d_rac"].isna().sum()))
+    d["d_ms"] = pd.to_datetime(d["datemiseenservice"], errors="coerce", format="mixed")
+    d["d_rac"] = pd.to_datetime(d["dateraccordement"], errors="coerce", format="mixed")
+    print(ds, len(d), "agg rows", int(d["isagg"].sum()), "missing ms", int(d["d_ms"].isna().sum()), "missing rac", int(d["d_rac"].isna().sum()))
     return d
 cur = load(R)
 snaps = {y: load(f"{R}-3112{str(y)[2:]}") for y in (2020, 2021, 2022, 2023, 2024, 2025)}
@@ -54,16 +54,16 @@ for y, s in snaps.items():
     rows = []
     for f in sorted(cur["filiere"].dropna().unique()):
         c = cur[cur.filiere == f]
-        row = dict(filiere=f, snap=s[s.filiere == f].mw.sum(), snap_agg=s[(s.filiere == f) & s.agg].mw.sum(),
-                   cur_ms_all=c[(c.d_ms <= ye)].mw.sum(), cur_ms_nonagg=c[(c.d_ms <= ye) & ~c.agg].mw.sum(),
+        row = dict(filiere=f, snap=s[s.filiere == f].mw.sum(), snap_agg=s[(s.filiere == f) & s.isagg].mw.sum(),
+                   cur_ms_all=c[(c.d_ms <= ye)].mw.sum(), cur_ms_nonagg=c[(c.d_ms <= ye) & ~c.isagg].mw.sum(),
                    cur_undated=c[c.d_ms.isna()].mw.sum(), cur_rac_all=c[(c.d_rac <= ye)].mw.sum(),
-                   cur_rac_agg=c[(c.d_rac <= ye) & c.agg].mw.sum(), cur_total=c.mw.sum())
+                   cur_rac_agg=c[(c.d_rac <= ye) & c.isagg].mw.sum(), cur_total=c.mw.sum())
         rows.append(row)
     print("\n== year-end", y, "(GW)")
     t = pd.DataFrame(rows).set_index("filiere") / 1000
     print(t.round(3).to_string())
 s = snaps[2024]
-print("\nsnapshot 2024: rows by agg and filiere (solar)", s[s.filiere == "Solaire"].groupby("agg").agg(n=("mw", "size"), mw=("mw", "sum"), ni=("nbinstallations", "sum")).to_string())
+print("\nsnapshot 2024: rows by agg and filiere (solar)", s[s.filiere == "Solaire"].groupby("isagg").agg(n=("mw", "size"), mw=("mw", "sum"), ni=("nbinstallations", "sum")).to_string())
 print("current: agg solar by date-year (MW):")
 c = cur[(cur.filiere == "Solaire") & cur.agg]
 print(c.groupby(c.d_rac.dt.year).mw.sum().round(0).to_string())
