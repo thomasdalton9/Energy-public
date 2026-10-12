@@ -85,9 +85,12 @@ def ua_cities():
             continue
         for f in g["features"]:
             code = f["properties"]["URAU_CODE"]
-            if re.match(r"^[A-Z]{2}\d{3}C\d$", code):   # the 2020 vintage appends a version digit (UK001C1)
+            if re.match(r"^[A-Z]{2}\d{3}[CK]\d$", code):   # the 2020 vintage appends a version digit (UK001C1)
                 code = code[:6]
             coords.setdefault(code, f["geometry"]["coordinates"])
+    for code in list(pop):   # a city with no label point of its own takes its greater-city (K) point (London)
+        if code not in coords and code[:5] + "K" in coords:
+            coords[code] = coords[code[:5] + "K"]
     for code, (lon, lat) in FALLBACK_COORDS.items():
         coords.setdefault(code, [lon, lat])
     return pop, lab, coords
