@@ -1,0 +1,340 @@
+=== Energy-Charts
+404 https://api.energy-charts.info/installed_power?country=pl&time_step=monthly&installation_decommission=false text/plain; charset=utf-8 monthly data is only available for the following countries: de 
+404 https://api.energy-charts.info/installed_power?country=pl&time_step=monthly text/plain; charset=utf-8 monthly data is only available for the following countries: de 
+200 https://api.energy-charts.info/installed_power?country=de&time_step=monthly application/json {"time":["01.2002","02.2002","03.2002","04.2002","05.2002","06.2002","07.2002","08.2002","09.2002","10.2002","11.2002","12.2002","01.2003","02.2003","03.2003","04.2003","05.2003","06.2003","07.2003","08.2003","09.2003","10.2003","11.2003","12.2003","01.2004","02.2004","03.2004","04.2004","05.2004","
+   keys ['time', 'production_types', 'last_update', 'deprecated'] n 298 ['01.2002', '02.2002'] ['09.2026', '10.2026'] ['Biomass', 'Wind offshore', 'Wind onshore', 'Solar DC', 'Solar AC', 'Battery storage (power)', 'Battery storage (capacity)']
+200 https://api.energy-charts.info/installed_power?country=de&time_step=yearly application/json {"time":["2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030"],"production_types":[{"name":"Nuclear","data":[23.614,22.114,21.471,21.405,21.227,21.333
+   keys ['time', 'production_types', 'last_update', 'deprecated'] n 29 ['2002', '2003'] ['2029', '2030'] ['Nuclear', 'Fossil brown coal / lignite', 'Fossil hard coal', 'Fossil gas', 'Fossil oil', 'Other, non-renewable', 'Hydro', 'Hydro pumped storage', 'Battery storage (power)', 'Battery storage (capacity)', 'Biomass', 'Wind offshore', 'Wind offshore planned (WindSeeG)', 'Wind onshore', 'Wind onshore planned (EEG 2023)', 'Solar DC', 'Solar AC', 'Solar planned (EEG 2023)']
+200 https://api.energy-charts.info/installed_power?country=pl application/json {"time":["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"production_types":[{"name":"Hydro Run-of-River","data":[0.38,0.39,0.4,0.46,0.44,0.45,0.45,0.32,0.32,0.32,0.32,0.32]},{"name":"Biomass","data":[0.38,0.43,0.5,0.6,0.85,0.88,0.88,0.65,0.66,0.66,0.64,0.7]},{"n
+   keys ['time', 'production_types', 'last_update', 'deprecated'] n 12 ['2014', '2015'] ['2024', '2025'] ['Hydro Run-of-River', 'Biomass', 'Fossil brown coal / lignite', 'Fossil coal-derived gas', 'Fossil hard coal', 'Fossil oil', 'Fossil gas', 'Hydro water reservoir', 'Hydro pumped storage', 'Others', 'Wind onshore', 'Solar AC']
+200 https://api.energy-charts.info/openapi.json application/json {"openapi":"3.1.0","info":{"title":"Energy-Charts API","description":"\n \n\n<h4>Timestamp Format Options</h4>\n <p>When specifying timestamps, you can choose from the following three formats:</p>\n <ol>\n <li><strong>ISO 8601 Format</strong>:\n <ul>\n <li>This format includes the full date and time
+   paths ['/v2/public_power', '/v2/public_power_forecast', '/v2/total_power', '/v2/installed_power', '/public_power', '/public_power_forecast', '/total_power', '/installed_power']
+   installed_power params {"get": {"tags": ["power"], "summary": "Installed Power", "description": "Returns the installed power for a specified country in GW except for battery storage capacity, which is given in GWh. Monthly installation / decommission numbers are returned in MW instead of GW. \"last_update\" is the time of the last data update, expressed as seconds since the Unix epoch (UTC). Note: unlike all other endpoints, the entries in \"time\" label the reporting year or month and the values represent the installed power at the <b>end</b> of that period (or, with installation_decommission=true, the net change during the period).\n    \n\n\n    \n\n<b>time_step:</b> Time step can be either \"yearly\" or \"monthly\" (only for Germany)\n    <br><b>installation_decommission:</b> If true, the net installation / decommission numbers are returned instead of total installed power\n    \n\n\n    \n\nResponse schem
+=== PSE
+404 https://api.raporty.pse.pl/api application/json; charset=utf-8 {"error":{"code":"EntityNotFound","message":"Invalid Entity path: .","status":404}}
+404 https://api.raporty.pse.pl/api/ application/json; charset=utf-8 {"error":{"code":"EntityNotFound","message":"Invalid Entity path: .","status":404}}
+404 https://api.raporty.pse.pl/api/$metadata application/json; charset=utf-8 {"error":{"code":"EntityNotFound","message":"Invalid Entity path: $metadata.","status":404}}
+200 https://api.raporty.pse.pl/ text/html <!doctype html> <html lang="en"> <head> <meta charset="UTF-8" /> <link rel="icon" type="image/svg+xml" href="/PSE_logo.svg" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>PSE S.A. - Raporty OSP / Market Data</title> <script type="module" crossorigin src="/assets/index-D9OvjZ5P.js"></script> <link rel="stylesheet" crossorigin href="/assets/index-COsgPhQo.css"> </head> <body> <div id="root"></div> </body> </html> 
+200 https://www.pse.pl/web/pse-eng/ text/html;charset=UTF-8 <!DOCTYPE html> <html class="aui ltr" dir="ltr" lang="en-US"> <head> <title>Main Page - PSE eng</title> <meta content="initial-scale=1.0, width=device-width" name="viewport" /> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1"> <meta content="text/html; charset=UTF-8" http-equiv="content-type" /> <link href="https://www.pse.pl/pse-intErnet-theme/images/favicon.ico" rel="Shortcut Icon" /> <link href="https:
+200 https://www.pse.pl/dane-systemowe text/html;charset=UTF-8 <!DOCTYPE html> <html class="aui ltr" dir="ltr" lang="pl-PL"> <head> <title>Dane systemowe - PSE</title> <meta content="initial-scale=1.0, width=device-width" name="viewport" /> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1"> <meta content="text/html; charset=UTF-8" http-equiv="content-type" /> <link href="https://www.pse.pl/pse-intErnet-theme/images/favicon.ico" rel="Shortcut Icon" /> <link href="https
+404 https://www.pse.pl/en/data text/html <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns="http://www.w3.org/1999/xhtml"> <head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <title>STRONA NIE ZOSTAÅA ODNALEZIONA / PAGE NOT FOUND</title> <link href="/error/tls.css" rel="stylesheet" type="text/css" /> </head> <body class="oneColFixCtrHdr"> <br> <div id="container"> <div id="header"> <h1><img src="/error/logo.gif" width="92" heig
+== pse.pl en https://www.pse.pl/web/pse-eng/ -> 200 99960
+    Read more | https://www.pse.pl/web/pse-eng/-/successful-go-live-of-day-ahead-and-intraday-capacity-calculation-for-hansa-phase-2a?safeargs=696e686572697452656469726563743d7
+    Read more | https://www.pse.pl/web/pse-eng/-/publication-of-the-manual-on-submitting-a-declaration-on-demonstrating-the-ability-to-perform-the-capacity-obligation-for-the-t
+    Announcement of PSE S.A. on unilateral monthly auction of the transmission capac | https://www.pse.pl/web/pse-eng/-/announcement-of-pse-s-a-on-unilateral-monthly-auction-of-the-transmission-capacities-on-the-polish-ukrainian-radial-interconnec
+    Announcement of PSE S.A. on unilateral monthly auction of the transmission capac | https://www.pse.pl/web/pse-eng/-/announcement-of-pse-s-a-on-unilateral-monthly-auction-of-the-transmission-capacities-on-the-polish-ukrainian-radial-interconnec
+    Announcement by Polskie Sieci Elektroenergetyczne S.A. regarding the amendments  | https://www.pse.pl/web/pse-eng/-/announcement-by-polskie-sieci-elektroenergetyczne-s-a-regarding-the-amendments-to-the-capacity-market-rules-arising-from-the-re
+    Capacity Market system stress events announcement | https://www.pse.pl/web/pse-eng/-/capacity-market-system-stress-events-announceme-2?safeargs=696e686572697452656469726563743d747275652672656469726563743d25324677
+    Capacity Market system stress events announcement | https://www.pse.pl/web/pse-eng/-/capacity-market-system-stress-events-announceme-1?safeargs=696e686572697452656469726563743d747275652672656469726563743d25324677
+    Announcement of PSE S.A. on unilateral monthly auction of the transmission capac | https://www.pse.pl/web/pse-eng/-/announcement-of-pse-s-a-on-unilateral-monthly-auction-of-the-transmission-capacities-on-the-polish-ukrainian-radial-interconnec
+    Draft of Revision Sheet No. RRM/Z/16/2026 to the Capacity Market Rules | https://www.pse.pl/web/pse-eng/-/draft-of-revision-sheet-no-rrm-z-16-2026-to-the-capacity-market-rules?safeargs=696e686572697452656469726563743d7472756526726564
+    Capacity Market system stress event announcement | https://www.pse.pl/web/pse-eng/-/capacity-market-system-stress-event-announcement?safeargs=696e686572697452656469726563743d747275652672656469726563743d253246776
+    Capacity Market system stress events announcement | https://www.pse.pl/web/pse-eng/-/capacity-market-system-stress-events-announcement?safeargs=696e686572697452656469726563743d747275652672656469726563743d25324677
+    Announcement of PSE S.A. on unilateral monthly auction of the transmission capac | https://www.pse.pl/web/pse-eng/-/announcement-of-pse-s-a-on-unilateral-monthly-auction-of-the-transmission-capacities-on-the-polish-ukrainian-radial-interconnec
+    Announcement of PSE S.A. on unilateral monthly auction of the transmission capac | https://www.pse.pl/web/pse-eng/-/announcement-of-pse-s-a-on-unilateral-monthly-auction-of-the-transmission-capacities-on-the-polish-ukrainian-radial-interconnec
+    Transmission capacity forecasts | /web/pse-eng/cross-border-electricity-exchange/transmission-capacities-forecasts
+== pse.pl dane https://www.pse.pl/dane-systemowe -> 200 54672
+    Informacja o&nbsp;dostępności mocy przyłączeniowej | https://www.pse.pl/dane-systemowe/praca-kse/informacje-ogolne/informacja-o-dostepnosci-mocy-przylaczeniowej
+    Zapotrzebowanie mocy KSE | https://raporty.pse.pl/report/kse-load
+== URE potencjal https://www.ure.gov.pl/pl/oze/potencjal-krajowy-oze -> 200 44850
+    Rynek mocy | /pl/energia-elektryczna/rynek-mocy
+    Prawo | /pl/energia-elektryczna/rynek-mocy/prawo
+    Informacje Prezesa URE | /pl/energia-elektryczna/rynek-mocy/informcjepure
+    Ankieta 2024 – funkcjonowanie rynku mocy | /pl/energia-elektryczna/rynek-mocy/ankieta-2024-funkcjonowanie-ry
+    Przydatne adresy | /pl/energia-elektryczna/rynek-mocy/przydatne-adresy
+    Rejestr wytwórców energii w małej instalacji | https://bip.ure.gov.pl/bip/rejestry-i-bazy/wytworcy-energii-w-male/2138,Rejestr-wytworcow-energii-w-malej-instalacji.html
+    Moc zainstalowana (MW) | /pl/oze/potencjal-krajowy-oze/5753,Moc-zainstalowana-MW.html
+    Instalacje odnawialnych źródeł energii - stan na 30 czerwca 2026 r. | /pl/oze/potencjal-krajowy-oze/8108,Instalacje-odnawialnych-zrodel-energii-stan-na-30-czerwca-2026-r.html
+== ARE https://www.are.waw.pl/ -> 200 248021
+=== CZ
+== ERU home https://www.eru.gov.cz/ -> 200 94911
+    Pravomocná rozhodnutí ERÚ | /pravomocna-rozhodnuti
+    Kalkulátor kapacity plynu | /kalkulator-kapacity-plynu
+== ERU en https://www.eru.gov.cz/en -> 200 65804
+== CEPS all-data https://www.ceps.cz/en/all-data -> 200 177257
+    Hosting Capacity Map | /en/hosting-capacity-map
+    Capacity mechanism | /en/capacity-mechanism
+== OTE https://www.ote-cr.cz/en/statistics/yearly-market-report -> 200 25628
+    Monthly Report Electricity | https://www.ote-cr.cz/en/statistics/monthly-report-electricity
+    Monthly Report Gas | https://www.ote-cr.cz/en/statistics/monthly-report-gas
+=== SK
+== SEPS en https://www.sepsas.sk/en/ -> 200 193390
+    Profiles SK/CZ, PL, HU | https://www.sepsas.sk/en/services/auctions/profiles-sk-cz-sk-pl-sk-hu/yearly-and-monthly-auctions/
+    Plan of outages | https://www.sepsas.sk/en/for-partners/control-centre/plan-of-outages/monthly-plan-of-outages/
+    Installed power | https://installedpower.sepsas.sk/#new_tab
+== SEPS sk https://www.sepsas.sk/ -> 200 228380
+    Zoznam držiteľov autorizácie na vykonávanie certifikácií PpS | https://www.sepsas.sk/sluzby/podporne-sluzby/zoznam-drzitelov-autorizacie-na-vykonavanie-certifikacii-pps/
+    Inštalovaný výkon a limity pre OZE | https://installedpower.sepsas.sk/#new_tab
+== URSO https://www.urso.gov.sk/ -> 200 49043
+    Odkazy na jednotlivé webové sídla orgánov verejnej moci nájdete na tomto odkaze | https://www.slovensko.sk/sk/agendy/agenda/_organy-verejnej-moci
+=== HU
+== MAVIR https://www.mavir.hu/ https://www.mavir.hu/ -> 200 179696
+== MAVIR https://www.mavir.hu/en https://www.mavir.hu/en -> 200 179696
+== MAVIR https://www.mavir.hu/web/mavir/adatok https://www.mavir.hu/web/mavir/adatok -> 404 36979
+== MAVIR https://www.mavir.hu/web/mavir-en/home https://www.mavir.hu/web/mavir-en/home -> 200 178716
+    Hungarian Power System Daily / Weekly / Monthly / Annual Data | https://mavir.hu/web/mavir-en/hungarian-power-system-daily-weekly-monthly-annual-data
+    Stakeholder consultation on the Action Plan pursuant to Article 15 (1) of Regula | https://mavir.hu/web/mavir-en/stakeholder-consultation-on-the-action-plan-pursuant-to-article-15-1-of-regulation-eu-2019/943-to-achieve-the-cep-70-capacity-thre
+    Renewable and Cogeneration Energy Sources | https://mavir.hu/web/mavir-en/renewable-energy-sources
+    Monthly Report | https://mavir.hu/web/mavir-en/monthly-reports
+ERR https://mekh.hu/ ConnectTimeout HTTPSConnectionPool(host='mekh.hu', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSCon
+=== RO
+== Transelectrica https://www.transelectrica.ro/en/web/tel/productie -> 200 53053
+    Background Data | https://www.transelectrica.ro/en/web/tel/procesul-de-alocare-a-capacitatii-retelei-electrice;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    Capacity Calculation | https://www.transelectrica.ro/en/web/tel/calcul-capacitati;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    Capacity Forecast | https://www.transelectrica.ro/en/web/tel/prognoza-capacitati;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    Capacity Auction and Use Data | https://www.transelectrica.ro/en/web/tel/alocare-capacitati;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    Generation | https://www.transelectrica.ro/en/web/tel/productie;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    Capacity Allocation Market | https://www.transelectrica.ro/en/web/tel/piata-alocare-capacitati;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    High efficiency cogeneration | https://www.transelectrica.ro/en/web/tel/cogenerare;jsessionid=B250D7027CE8C3F59AE28731EC556ACA
+    COMMISSION REGULATION (EU) 2015/1222 of 24 July 2015 establishing a guideline on | https://www.transelectrica.ro/en/web/tel/regulamentul-ue-nr.-1222/2015-al-comisiei-de-stabilire-a-unor-linii-directoare-privind-alocarea-capacitatilor-si-gestio
+    COMMISSION REGULATION (EU) establishing a guideline on forward capacity allocati | https://www.transelectrica.ro/en/web/tel/reglementarea-europeana-linii-directoare-privind-alocarea-capacitatilor-pe-termen-lung-nc-fca-;jsessionid=B250D7027CE8C
+    Capacity Calculation | /en/web/tel/calcul-capacitati
+    Capacity Forecast | /en/web/tel/prognoza-capacitati
+    Capacity Auction and Use Data | /en/web/tel/alocare-capacitati
+    Generation | /en/web/tel/productie
+     | /documents/10179/45094/weekly_production_2023/b2798599-9f03-4a02-9552-d0663ece9ae8
+     | /documents/10179/45094/7productie3.xls/fb9f0516-a9a2-4633-baaf-620ba0e95dcf
+     | /documents/10179/45096/7productie4.xls/560ff5f2-513b-4b4f-83b1-7059a5c96c3f
+    In situatia nefunctionarii va rugam sa accesati datele pe platforma EMFIP. In ca | https://transparency.entsoe.eu/outage-domain/r2/unavailabilityOfProductionAndGenerationUnits/show
+     | /documents/10179/45094/7productie6.xls/7560c5b0-59ee-4c31-a82e-4ce81d9c880e
+     | /documents/10179/45094/7productie17a.xls/43229333-2c94-4f22-bed8-d3f398d10ad1
+     | /documents/10179/45094/7productie9.xls/88e2951a-5571-48ce-9bc1-fb75a07bf334
+     | /documents/10179/45094/7productie11.xls/13a34158-d6a2-4ce3-9b01-c3150f304310
+     | /documents/10179/45096/7productie12a.xls/6adbfeed-6dac-4780-85bc-fccfd3570f03
+     | /documents/10179/45094/7productie12b.xls/b7c2aa59-7a7c-44ed-a670-e81d7e9bfa95
+     | /documents/10179/45096/7productie13.xls/c3761157-9de4-42cf-8544-c70fc297d712
+     | /documents/10179/45094/7productie14.xls/fc7997ed-94bd-480b-a9e6-78cb3f5e0c8a
+     | /documents/10179/45094/7productie17b.xls/a7f8f6aa-2dd4-47ab-b613-c1e5af42c8aa
+     | /documents/10179/45096/7productie23.xls/235f8702-9890-4109-9403-36c7fa59ce16
+== Transelectrica home https://www.transelectrica.ro/ -> 200 108519
+    Procesul de alocare a capacității rețelei electrice | https://www.transelectrica.ro/ro/web/tel/procesul-de-alocare-a-capacitatii-retelei-electrice;jsessionid=9DEA4E6D4416841372E693E74F5D4C83
+    Management Calcul Capacități de Transport | https://www.transelectrica.ro/ro/web/tel/calcul-capacitati;jsessionid=9DEA4E6D4416841372E693E74F5D4C83
+    Prognoză Capacități de Transport | https://www.transelectrica.ro/ro/web/tel/prognoza-capacitati;jsessionid=9DEA4E6D4416841372E693E74F5D4C83
+    Alocare Capacități-Rezultate/Utilizare | https://www.transelectrica.ro/ro/web/tel/alocare-capacitati;jsessionid=9DEA4E6D4416841372E693E74F5D4C83
+    Piața de alocare a capacităților pe liniile de interconexiuni | https://www.transelectrica.ro/ro/web/tel/piata-alocare-capacitati;jsessionid=9DEA4E6D4416841372E693E74F5D4C83
+    Regulamentul european de stabilire a unor linii directoare privind alocarea capa | https://www.transelectrica.ro/ro/web/tel/regulamentul-ue-nr.-1222/2015-al-comisiei-de-stabilire-a-unor-linii-directoare-privind-alocarea-capacitatilor-si-gestio
+    Regulamentul european de stabilire a unor linii directoare privind alocarea capa | https://www.transelectrica.ro/ro/web/tel/reglementarea-europeana-linii-directoare-privind-alocarea-capacitatilor-pe-termen-lung-nc-fca-;jsessionid=9DEA4E6D44168
+    Anunț privind publicarea Procedurii privind alocarea capacității rețelei electri | /procesul-de-alocare-a-capacitatii-retelei-electrice
+== ANRE https://www.anre.ro/ -> 200 311706
+    PUTEREA INSTALATĂ ÎN CAPACITĂȚILE DE PRODUCȚIE ENERGIE ELECTRICĂ ÎN TIMP REAL | https://anre.ro/puteri-instalate
+=== BG
+== ESO https://www.eso.bg/ -> 200 50600
+    Исторически данни за генерация на ЕЕС | /doc/?generation_per_day
+200 https://www.dker.bg/ 54281
+404 https://www.dker.bg/bg/ 195
+404 https://www.dker.bg/en/ 195
+404 https://www.dker.bg/uploads/_CKFinder_/ 195
+=== AT
+    /documents/1785851/1811756/BeStOeN-2025_Netz.xlsx
+    /documents/1785851/1811756/BeStOeN-JR_Netz.xlsx
+    /documents/1785851/1811756/BeStGes-2025_KW1EPLKls.xlsx
+    /documents/1785851/1811756/BeStGes-2025_KW2EPLTyp.xlsx
+    /documents/1785851/1811756/BeStGes-JR_KWEPL.xlsx
+== econtrol strom https://www.e-control.at/statistik/strom -> 404 598511
+    Übersicht Energie effektiv erzeugen | https://www.e-control.at/energie-effektiv-erzeugen
+    Gemeinschaftliche Erzeugungsanlagen | https://www.e-control.at/gemeinschaftliche-erzeugungsanlagen
+    Erhebungen für Erzeuger | https://www.e-control.at/marktteilnehmer/erhebungen/erhebungen-im-rahmen-der-bundesstatistiken/elektrizitaetsbereich/erhebungen-erzeuger
+    Übersicht Erhebungen zur Qualität der Netzdienstleistung | https://www.e-control.at/marktteilnehmer/erhebungen/erhebungen-zur-qualitaet-der-netzdienstleistung
+    Unterlagen für Stromnetzbetreiber | https://www.e-control.at/marktteilnehmer/erhebungen/erhebungen-zur-qualitaet-der-netzdienstleistung/unterlagen-fur-stromnetzbetreiber
+    Unterlagen für Gasnetzbetreiber | https://www.e-control.at/marktteilnehmer/erhebungen/erhebungen-zur-qualitaet-der-netzdienstleistung/unterlagen-fur-gasnetzbetreiber
+    Kommerzielle Qualität der Netzdienstleistung | https://www.e-control.at/kommerzielle-qualitaet-der-netzdienstleistung
+    Bestandsstatistik | https://www.e-control.at/statistik/e-statistik/archiv/bestandsstatistik
+    Bestandsstatistik | https://www.e-control.at/statistik/g-statistik/archiv/bestandsstatistik
+== APG installed de https://markttransparenz.apg.at/de/markt/Markttransparenz/Erzeugung/Installierte-Leistung -> 200 82391
+    Netz | /netz/nicht-frequenzgebundene-systemdienstleistungen/
+    Spannungsregelung | /netz/nicht-frequenzgebundene-systemdienstleistungen/spannungsregelung/
+    Schwarzstartfähigkeit | /netz/nicht-frequenzgebundene-systemdienstleistungen/schwarzstartfaehigkeit/
+    Engpassmanagement | /netz/engpassmanagement/
+    Redispatch | /netz/engpassmanagement/redispatch/
+    Erzeugung | /transparenz/erzeugung/
+    Erzeugung pro Produktionstyp | /transparenz/erzeugung/erzeugung-pro-produktionstyp/
+    Prognose über die Erzeugung | /transparenz/erzeugung/prognose-ueber-die-erzeugung/
+    Installierte Erzeugungskapazität pro Produktionstyp | /transparenz/erzeugung/installierte-erzeugungskapazitaet-pro-produktionstyp/
+    Nichtverfügbarkeiten von Erzeugung | /transparenz/erzeugung/nichtverfuegbarkeiten-von-erzeugung/
+    Aktuelle Erzeugung &gt; 100 MW | /transparenz/erzeugung/aktuelle-erzeugung-100-mw/
+    Pumpspeicherfüllstände | /transparenz/erzeugung/pumpspeicherfuellstaende/
+    Zugeschlagene Regelleistungsgebote | /transparenz/netzregelung/zugeschlagene-regelleistungsgebote/
+    Engpassmanagementkosten | /transparenz/uebertragung/engpassmanagementkosten/
+    Blindleistungskosten | /transparenz/uebertragung/blindleistungskosten/
+    EN | /en/transparency/generation/installed-power-plant-capacity/
+    Historische Werte der installierten Erzeugungskapazität pro Produktionstyp   X-O | https://pb1-medien.apg.at/im/dl/apg-680580447/Installierte Erzeugungskapazität pro Produktionstyp.xlsx
+    Erzeugung | https://markt.apg.at/transparenz/erzeugung/
+dl ok https://www.e-control.at/documents/1785851/1811756/BeStGes-2025_KW1EPLKls.xlsx 430677 Tue, 19 May 2026 07:31:28 GMT
+   sheets ['Summe', 'Wa', 'Wae', 'WiPvGeo']
+   -- Summe (65, 10)
+                                       0                     1                       2                      3                    4                   5                          6                          7                    8             9
+0        Betriebs- und Bestandsstatistik                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+1   Gesamte Stromerzeugung in Österreich                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+2                    Kraftwerkspark 2025                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+3                 (Datenstand: Mai 2026)                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+4                                    NaN                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+5                                    NaN                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+6                                    NaN                   NaN                     NaN                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+7                 Engpassleistungsklasse                   NaN  Brutto-Engpassleistung                    NaN                  NaN                 NaN                        NaN                        NaN                  NaN           NaN
+8                            von\n... MW  bis einschl.\n... MW       Lauf-\nkraftwerke  Speicher-\nkraftwerke  Wasser-\nkraftwerke  Wärme-\nkraftwerke  Windkraft-\nwerke (2) (3)  Photovoltaik\n(2) (4) (5)  Geothermie\n(2) (3)         Summe
+9                                    NaN               Einheit                      MW              
+   -- Wa (44, 9)
+                                       0                     1                    2                        3                         4                    5                    6                        7                         8
+0        Betriebs- und Bestandsstatistik                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+1   Gesamte Stromerzeugung in Österreich                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+2                    Kraftwerkspark 2025                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+3                 (Datenstand: Mai 2026)                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+4                                    NaN                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+5                                    NaN                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+6                       Wasserkraftwerke                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+7                 Engpassleistungsklasse                   NaN       Jahresergebnis                      NaN                       NaN                  NaN               Anteil                      NaN                       NaN
+8                            von\n... MW  bis einschl.\n... MW  Anzahl der\nAnlagen  Brutto-Eng-passleistung  Brutto-Strom-\nerzeugung  Ausnut-\nzungsdauer  Anzahl der\nAnlagen  Brutto-Eng-passleistung  Brutto-Strom-\nerzeugung
+9                                    NaN               Einheit                  [1]                       MW                       GWh                    h                    %                        %                   
+   -- Wae (24, 9)
+                                       0                     1                    2                        3                         4                    5                    6                        7                         8
+0        Betriebs- und Bestandsstatistik                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+1   Gesamte Stromerzeugung in Österreich                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+2                    Kraftwerkspark 2025                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+3                 (Datenstand: Mai 2026)                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+4                                    NaN                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+5                                    NaN                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+6                        Wärmekraftwerke                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+7                 Engpassleistungsklasse                   NaN       Jahresergebnis                      NaN                       NaN                  NaN               Anteil                      NaN                       NaN
+8                            von\n... MW  bis einschl.\n... MW  Anzahl der\nAnlagen  Brutto-Eng-passleistung  Brutto-Strom-\nerzeugung  Ausnut-\nzungsdauer  Anzahl der\nAnlagen  Brutto-Eng-passleistung  Brutto-Strom-\nerzeugung
+9                                    NaN               Einheit                  [1]                       MW                       GWh                    h                    %                        %                   
+   -- WiPvGeo (47, 9)
+                                       0                     1                    2                        3                         4                    5                    6                        7                         8
+0        Betriebs- und Bestandsstatistik                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+1   Gesamte Stromerzeugung in Österreich                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+2                    Kraftwerkspark 2025                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+3                 (Datenstand: Mai 2026)                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+4                                    NaN                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+5                                    NaN                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+6                 Windkraftwerke (2) (3)                   NaN                  NaN                      NaN                       NaN                  NaN                  NaN                      NaN                       NaN
+7                 Engpassleistungsklasse                   NaN       Jahresergebnis                      NaN                       NaN                  NaN               Anteil                      NaN                       NaN
+8                            von\n... MW  bis einschl.\n... MW  Anzahl der\nAnlagen  Brutto-Eng-passleistung  Brutto-Strom-\nerzeugung  Ausnut-\nzungsdauer  Anzahl der\nAnlagen  Brutto-Eng-passleistung  Brutto-Strom-\nerzeugung
+9                                    NaN               Einheit                  [1]                       MW                       GWh                    h                    %                        %                   
+dl ok https://www.e-control.at/documents/1785851/1811756/BeStGes-2025_KW2EPLTyp.xlsx 20156 Tue, 19 May 2026 07:31:34 GMT
+   sheets ['EPL_KWTyp', 'Ezg_KWTyp']
+   -- EPL_KWTyp (57, 8)
+                                                  0                      1           2        3           4                              5                               6                    7
+0                   Betriebs- und Bestandsstatistik                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+1   Kraftwerkspark für Stromerzeugung in Österreich                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+2                              Kraftwerkstypen 2025                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+3                            (Datenstand: Mai 2026)                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+4                                               NaN                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+5                                               NaN                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+6                                               NaN                    NaN         NaN      NaN         NaN                            NaN                             NaN                  NaN
+7              Kraftwerkstyp / Erzeugungskomponente                    NaN         NaN      NaN  Kraftwerke                            NaN                             NaN                  NaN
+8                                               NaN                    NaN         NaN      NaN  Anzahl (a)  Brutto-Engpass-\nleistung (a)  Brutto-\nStrom-\nerzeugung (a)  Ausnut-\nzungsdauer
+9                                               NaN                    NaN         NaN  Einheit         [1]                             MW                             GWh                    h
+10                              Wasser-\nkraftwerke      Lauf-\nkraftwerke   bis 10 MW      NaN        3217                    1382.125093                     4595.523826          3324.969534
+11                                              NaN                    NaN  über 10 MW      NaN          96                       4764.072                    19828.318788          4162.052712
+12  
+   -- Ezg_KWTyp (55, 10)
+                                                  0                      1           2        3                            4                                 5             6   7   8   9
+0                   Betriebs- und Bestandsstatistik                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+1   Kraftwerkspark für Stromerzeugung in Österreich                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+2                              Kraftwerkstypen 2025                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+3                            (Datenstand: Mai 2026)                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+4                                               NaN                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+5                                               NaN                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+6                                               NaN                    NaN         NaN      NaN                          NaN                               NaN           NaN NaN NaN NaN
+7              Kraftwerkstyp / Erzeugungskomponente                    NaN         NaN      NaN        Brutto-Stromerzeugung                               NaN           NaN NaN NaN NaN
+8                                               NaN                    NaN         NaN      NaN  zuordenbare\nKraftwerke (a)  Verschiebungen bei Mischfeuerung      Insgeamt NaN NaN NaN
+9                                               NaN                    NaN         NaN  Einheit                          GWh                               GWh           GWh NaN NaN NaN
+10                                Wasser-kraftwerke      Lauf-\nkraftwerke   bis 10 MW      NaN                  4595.523826                                 0   4595.523826 NaN NaN NaN
+11                                              NaN                    NaN  über 10 MW      NaN                 19828.318788                                 0  19828.318788 NaN NaN NaN
+12                                              NaN                    NaN       Summe      NaN
+dl ok https://www.e-control.at/documents/1785851/1811756/BeStGes-JR_KWEPL.xlsx 39085 Tue, 19 May 2026 07:31:40 GMT
+   sheets ['Leistung', 'Anzahl', 'SP_KW']
+   -- Leistung (61, 31)
+                                                 0                              1                               2                  3                                  4                               5                                   6                               7                      8                               9                      10                                11             12             13                14                     15                                         16                          17                             18                               19                    20                               21                      22                    23                           24                     25                                       26                    27               28                                                     29      30
+0                                 Bestandsstatistik                            NaN                             NaN                NaN                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN                    NaN                               NaN            NaN            NaN               NaN                    NaN                                        NaN                         NaN                            NaN                              NaN                   NaN                              NaN                     NaN                   NaN                          NaN                    NaN                                      NaN                   NaN              NaN                                                    NaN     NaN
+1   Kraftwerkspark für Stromerzeugung in Österreich                            NaN                             NaN                NaN                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN                    NaN                               NaN            NaN            NaN               NaN                    NaN                                        NaN                         NaN                            NaN                              NaN                   NaN                              NaN                     NaN                   NaN                          NaN                  
+   -- Anzahl (62, 31)
+                                                 0                                  1                               2                  3                                  4                               5                                   6                               7                      8                               9                      10                                11             12             13                14                     15                                         16                          17                             18                               19                    20                               21                      22                    23                           24                     25                                       26                    27               28                                                     29      30
+0                                 Bestandsstatistik                                NaN                             NaN                NaN                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN                    NaN                               NaN            NaN            NaN               NaN                    NaN                                        NaN                         NaN                            NaN                              NaN                   NaN                              NaN                     NaN                   NaN                          NaN                    NaN                                      NaN                   NaN              NaN                                                    NaN     NaN
+1   Kraftwerkspark für Stromerzeugung in Österreich                                NaN                             NaN                NaN                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN                    NaN                               NaN            NaN            NaN               NaN                    NaN                                        NaN                         NaN                            NaN                              NaN                   NaN                              NaN                     NaN                   NaN                          NaN      
+   -- SP_KW (51, 8)
+                                                  0                                  1                               2                                   3                               4                      5                               6                7
+0                                 Bestandsstatistik                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+1   Kraftwerkspark für Stromerzeugung in Österreich                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+2                                Speicherkraftwerke                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+3                            (Datenstand: Mai 2026)                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+4                                               NaN                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+5                                               NaN                                NaN                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+6                                               NaN             Speicherkraftwerke (1)                             NaN                                 NaN                             NaN                    NaN                             NaN              NaN
+7                                               NaN                   Engpass-Leistung                             NaN                                 NaN                             NaN                    NaN                             NaN  Pump-\nleistung
+8                                               NaN  Speicher-\nkraftwerke\nbis\n10 MW  davon Pump-speicher-kraftwerke  Speicher-\nkraftwerke\nüber\n10 MW  davon Pump-sp
+dl ok https://pb1-medien.apg.at/im/dl/apg-680580447/Installierte Erzeugungskapazität pro Produktionstyp.xlsx 11328 None
+   sheets ['Sheet1']
+   -- Sheet1 (21, 12)
+                                                     0                        1     2     3     4     5     6     7     8     9     10    11
+0   Installierte Erzeugungskapazität pro Produktionstyp                      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+1                Installed Capacity per Production Type                      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+2                   01.01.2015 00:00 - 01.01.2025 00:00                      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+3                                                   NaN                      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+4                                       Production Type           Produktionstyp  2015  2016  2017  2018  2019  2020  2021  2022  2023  2024
+5                                                   NaN                      NaN  [MW]  [MW]  [MW]  [MW]  [MW]  [MW]  [MW]  [MW]  [MW]  [MW]
+6                                               Biomass                 Biomasse   464   474   474   491   500   497   497   482   482   549
+7                                      Coal-derived gas                 Kohlegas     0     0     0     0     0     0     0     0     0     0
+8                                                   Gas                   Erdgas  4501  4466  4466  4468  4463  4015  4449  4350  4206  4225
+9                                                  Coal               Steinkohle  1171   766   598   598   598   246     0     0     0     0
+10                                                  Oil                       Öl   178   178   178   178   178   178   164   164   120   125
+11                                           Geothermal               Geothermie     1     1     1     1     1     0     1     0     0     0
+12                                 Hydro Pumped Storage             Pumpspeicher  2971  2971  3401  3401  3120  3120  3459  3503  3363  3485
+13                      Hydro Run-of-river and poundage  Lauf- und Schwellwasser  5543  5575  5581  5605  5558  5724  5941  5837  5902  5817
+=== CH CKAN
+   Elektrizitätsproduktionsanlagen | ['https://www.bfe.admin.ch/elektrizitaetsproduktionsanlagen', 'https://data.geo.admin.ch/ch.bfe.elektrizitaetsproduktionsanlagen/csv/2056/ch.bfe.elektrizitaetsproduktionsanlagen.zip', 'https://data.geo.admin.ch/ch.bfe.elektrizitaetsproduktionsanlagen/gpkg/2056/ch.bfe.elektrizitaetsproduktionsanlagen.gpkg']
+   energiedashboard.ch: Tägliche Flüsse in die und aus der Schweiz (Strom) | ['https://www.bfe-ogd.ch/ogd107_strom_import_export.csv']
+   energiedashboard.ch: Stromproduktion Swissgrid | ['https://www.bfe-ogd.ch/ogd104_stromproduktion_swissgrid.csv']
+   energiedashboard.ch - Strompreis Spotmarkt «Day Ahead» Base | ['https://www.bfe-ogd.ch/ogd106_preise_strom_boerse.csv']
+   energiedashboard.ch - Stromverbrauch Prognose SDSC | ['https://www.bfe-ogd.ch/ogd110_strom_verbrauch_prognose.csv']
+   energiedashboard.ch: Füllstände Gasspeicher EU | ['https://www.bfe-ogd.ch/ogd102_fuellstand_gasspeicher.csv']
+   Beliebteste vollelektrische LNF-Modelle (BEV) | ['https://www.bfe-ogd.ch/ogd93_data-models-bev_lnf.csv']
+   Beliebteste vollelektrische PW-Modelle (BEV) | ['https://www.bfe-ogd.ch/ogd92_data-models-bev.csv']
+   Kennzahlen alternativ angetriebene PW - Anteil Elektrofahrzeuge | ['https://www.bfe-ogd.ch/ogd21_data_t6.csv']
+   Kennzahlen alternativ angetriebene LNF - Anteil Elektrofahrzeuge | ['https://www.bfe-ogd.ch/ogd95_data_t6_lnf.csv']
+   ENSTAT: Wochenstatistik Elektrizitätsbilanz - Erzeugung und Abgabe elektrischer Energie in | ['https://pubdb.bfe.admin.ch/de/sammlungen/elektrizitaetsstatistik', 'https://www.bfe-ogd.ch/ogd51/ogd51_wochenstatistik_elektrizitaetsbilanz.csv']
+   ENSTAT: Füllungsgrad der Speicherseen, Sonntag 24h, Wochenbericht Speicherinhalt | ['https://www.bfe-ogd.ch/ogd17/ogd17_fuellungsgrad_speicherseen.csv', 'https://www.bfe.admin.ch/de/fuellungsgrad-speicherseen']
+   ENSTAT: Elektrizitätsbilanz der Schweiz - Monatswerte-CSV | ['https://www.bfe-ogd.ch/ogd35/ogd35_schweizerische_elektrizitaetsbilanz_monatswerte.csv']
+   Windatlas Schweiz: Jahresmittel der modellierten Windgeschwindigkeit und Windrichtung in 1 | ['https://www.bfe.admin.ch/windgeschwindigkeit', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://data.geo.admin.ch/ch.bfe.windenergie-geschwindigkeit_h150/windenergie-geschwindigkeit_h150/windenergie-geschwindigkeit_h150_2056.gpkg.zip']
+   Windatlas Schweiz: Jahresmittel der modellierten Windgeschwindigkeit und Windrichtung in 5 | ['https://www.bfe.admin.ch/windgeschwindigkeit', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://data.geo.admin.ch/ch.bfe.windenergie-geschwindigkeit_h50/windenergie-geschwindigkeit_h50/windenergie-geschwindigkeit_h50_2056.gpkg.zip']
+   Baulinien Starkstromanlagen V2.0 OeREB | ['https://www.bfe.admin.ch/baulinien', 'https://data.geo.admin.ch/ch.bfe.baulinien-starkstromanlagen_v2_0.oereb/data.zip', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de']
+   Statistik der Wasserkraftanlagen (WASTA) | ['https://www.bfe.admin.ch/statistik-wasserkraft', 'https://data.geo.admin.ch/ch.bfe.statistik-wasserkraftanlagen/statistik-wasserkraftanlagen/statistik-wasserkraftanlagen_2056.csv.zip', 'https://data.geo.admin.ch/ch.bfe.statistik-wasserkraftanlagen/statistik-wasserkraftanlagen/statistik-wasserkraftanlagen_2056.gpkg']
+   Kehrichtverbrennungsanlagen (KVA) | ['https://www.bfe.admin.ch/kehrichtverbrennungsanlagen', 'https://data.geo.admin.ch/ch.bfe.kehrichtverbrennungsanlagen/kehrichtverbrennungsanlagen/kehrichtverbrennungsanlagen_2056.csv.zip', 'https://data.geo.admin.ch/ch.bfe.kehrichtverbrennungsanlagen/kehrichtverbrennungsanlagen/kehrichtverbrennungsanlagen_2056.gpkg']
+   Windatlas Schweiz: Häufigkeit meteorologischer Vereisung in 100 m Höhe über Grund | ['https://www.bfe.admin.ch/vereisungshaeufigkeit', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml?lang=de']
+   Ladebedarf: Strombedarf in der Ladewelt "Bequem" für Steckerfahrzeuge für das Jahr 2035 | ['https://data.geo.admin.ch/browser/index.html#/collections/ch.bfe.ladebedarfswelt/items/ladebedarfswelt', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml?lang=de']
+   Biogasanlagen | ['https://www.bfe.admin.ch/biogasanlagen', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://map.geo.admin.ch/?topic=energie&lang=de&bgLayer=ch.swisstopo.pixelkarte-grau&catalogNodes=2419,2420,2427,2480,2429,2431,2434,2436,2767,2441,3206&layers=ch.bfe.biogasanlagen']
+   Windenergieanlagen | ['https://www.bfe.admin.ch/windenergieanlagen', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml?lang=de']
+   Stauanlagen unter Bundesaufsicht | ['https://www.bfe.admin.ch/stauanlagen', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml?lang=de']
+   Elektrische Anlagen mit einer Nennspannung von über 36 kV | ['https://www.bfe.admin.ch/elektrische-anlagen', 'https://geodienste.ch/downloads/elektrische_anlagen_ueber_36kv?data_format=gpkg', 'https://geodienste.ch/downloads/interlis/elektrische_anlagen_ueber_36kv/Broker/elektrische_anlagen_ueber_36kv_v1_0_Broker_lv95.zip']
+   Konzept Windenergie – Grundlagenkarte des Bundes betreffend die hauptsächlichen Windpotenz | ['https://www.bfe.admin.ch/windpotenzialgebiete', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://data.geo.admin.ch/ch.bfe.windenergie-potenzialgebiete/windenergie-potenzialgebiete/windenergie-potenzialgebiete_2056.tif.zip']
+   Potenzial der Abwasserreinigungsanlagen für Wärmenutzung | ['https://www.bfe.admin.ch/potenzial-waermenutzung-ara', 'https://data.geo.admin.ch/ch.bfe.fernwaerme-angebot/fernwaerme-angebot/fernwaerme-angebot_2056.csv.zip', 'https://data.geo.admin.ch/ch.bfe.fernwaerme-angebot/fernwaerme-angebot/fernwaerme-angebot_2056.gpkg']
+   Windatlas Schweiz: Jahresmittel der modellierten Windgeschwindigkeit und Windrichtung in 1 | ['https://www.bfe.admin.ch/windgeschwindigkeit', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://data.geo.admin.ch/ch.bfe.windenergie-geschwindigkeit_h125/windenergie-geschwindigkeit_h125/windenergie-geschwindigkeit_h125_2056.gpkg.zip']
+   Windatlas Schweiz: Jahresmittel der modellierten Windgeschwindigkeit und Windrichtung in 1 | ['https://www.bfe.admin.ch/windgeschwindigkeit', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://data.geo.admin.ch/ch.bfe.windenergie-geschwindigkeit_h100/windenergie-geschwindigkeit_h100/windenergie-geschwindigkeit_h100_2056.gpkg.zip']
+   Projektierungszonen Starkstromanlagen V2.0 OeREB | ['https://www.bfe.admin.ch/projektierungszonen', 'https://data.geo.admin.ch/ch.bfe.projektierungszonen-starkstromanlagen_v2_0.oereb/data.zip', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de']
+   Windatlas Schweiz: Jahresmittel der modellierten Windgeschwindigkeit und Windrichtung in 7 | ['https://www.bfe.admin.ch/windgeschwindigkeit', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://data.geo.admin.ch/ch.bfe.windenergie-geschwindigkeit_h75/windenergie-geschwindigkeit_h75/windenergie-geschwindigkeit_h75_2056.gpkg.zip']
+   Thermische Netze: Nachfrage Wohn- und Dienstleistungsgebäude | ['https://www.bfe.admin.ch/waerme-kaeltenachfrage-wohnen-und-dl', 'https://data.geo.admin.ch/ch.bfe.fernwaerme-nachfrage_wohn_dienstleistungsgebaeude/fernwaerme-nachfrage_wohn_dienstleistungsgebaeude/fernwaerme-nachfrage_wohn_dienstleistungsgebaeude_2056.gpkg', 'https://data.geo.admin.ch/ch.bfe.fernwaerme-nachfrage_wohn_dienstleistungsgebaeude/fernwaerme-nachfrage_wohn_dienstleistungsgebaeude/fernwaerme-nachfrage_wohn_dienstleistungsgebaeude_2056.tif.zip']
+   Abgeltung von Einbussen der Wasserkraftnutzung (VAEW) | ['https://www.bfe.admin.ch/verzicht-wasserkraftnutzung', 'https://data.geo.admin.ch/ch.bfe.abgeltung-wasserkraftnutzung/abgeltung-wasserkraftnutzung/abgeltung-wasserkraftnutzung_2056.gpkg', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de']
+   Photovoltaik Grossanlagen in der Schweiz | ['https://www.bfe.admin.ch/bfe/de/home/versorgung/erneuerbare-energien/solarenergie/photovoltaik-grossanlagen.html', 'https://data.geo.admin.ch/ch.bfe.photovoltaik-grossanlagen/csv/2056/ch.bfe.photovoltaik-grossanlagen.zip', 'https://data.geo.admin.ch/ch.bfe.photovoltaik-grossanlagen/gpkg/2056/ch.bfe.photovoltaik-grossanlagen.gpkg']
+   Kleinwasserkraftpotentiale der Schweizer Gewässer | ['https://www.bfe.admin.ch/kleinwasserkraftpotentiale', 'https://data.geo.admin.ch/ch.bfe.kleinwasserkraftpotentiale/kleinwasserkraftpotentiale/kleinwasserkraftpotentiale_2056.gpkg.zip', 'https://map.geo.admin.ch/?topic=energie&lang=rm&layers=ch.bfe.kleinwasserkraftpotentiale']
+   Lage und angrenzende Bereiche gemäss Störfallverordnung im Bereich Rohrleitungsanlagen | ['https://www.bfe.admin.ch/konsultationsbereiche-rohrleitungen', 'https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities&lang=de', 'https://wmts.geo.admin.ch/EPSG/3857/1.0.0/WMTSCapabilities.xml?lang=de']
+   Kennzahlen öffentliche Ladeinfrastruktur Elektromobilität | ['https://www.uvek-gis.admin.ch/BFE/ogd/57/ich_tanke_strom_Kennzahlen_monatlich.csv', 'https://www.uvek-gis.admin.ch/BFE/ogd/57/datapackage.json']
+   Ladestationen für Elektroautos | ['https://data.geo.admin.ch/ch.bfe.ladestellen-elektromobilitaet/data/oicp/ch.bfe.ladestellen-elektromobilitaet.json', 'https://data.geo.admin.ch/ch.bfe.ladestellen-elektromobilitaet/status/oicp/ch.bfe.ladestellen-elektromobilitaet.json']
+   Absatz- und Stromverbrauchswerte von Elektro- und elektronischen Geräte in der Schweiz | ['https://www.uvek-gis.admin.ch/BFE/ogd/109/ogd109_catalog_geraetekategorien.csv', 'https://www.uvek-gis.admin.ch/BFE/ogd/109/ogd109_absatz_verbrauch_elektrogeraete.csv', 'https://www.uvek-gis.admin.ch/BFE/ogd/109/ogd109_catalog_quellen.csv']
+   Karte der Wasserkraftanlagen der Schweiz | ['https://www.uvek-gis.admin.ch/BFE/ogd/120/ogd120_wasserkraftanlagen_karte.zip']
+   Stromlandschaft Schweiz | ['https://www.uvek-gis.admin.ch/BFE/ogd/85/ogd85_stromlandschaft.csv']
+   Preisszenarien für die Investitionsbeiträge Wasserkraft und Biomasse | ['https://www.uvek-gis.admin.ch/BFE/ogd/94/ogd94_preisszenarien_inv_wasserkraft_biomasse.csv', 'https://pubdb.bfe.admin.ch/suche?keywords=740']
+   Verteilnetzkosten Strom | ['https://www.uvek-gis.admin.ch/BFE/ogd/113/ogd113_kosten_netznutzung_endverbraucher.csv', 'https://www.uvek-gis.admin.ch/BFE/ogd/113/ogd113_investitionskosten.csv', 'https://www.uvek-gis.admin.ch/BFE/ogd/113/ogd113_kosten_netznutzung_vor_waelzung.csv']
+   Preisszenarien für die Einmalvergütung von Photovoltaik-Grossanlagen | ['https://www.uvek-gis.admin.ch/BFE/ogd/121/ogd121_preisszenarien_einmalvergütung_photovoltaik_grossanlagen.csv', 'https://www.bfe.admin.ch/bfe/de/home/news-und-medien/publikationen.exturl.html/aHR0cHM6Ly9wdWJkYi5iZmUuYWRtaW4uY2gvZGUvc3VjaGU=.html?keywords=&q=Kurzbericht+Preisszenarien+Einmalverg%C3%BCtungen+2023&from=&to=&nr=']
+   Schweizerische Elektrizitätsstatistik: Schweizerische Elektrizitätsbilanz - Jahreswerte | [' https://www.uvek-gis.admin.ch/BFE/ogd/32/ogd32_elektrizitaetbilanz_jahreswerte.csv']
+   Einmalvergütung für Photovoltaikanlagen | ['https://www.uvek-gis.admin.ch/BFE/ogd/84/ogd84_einmalverguetung_fuer_photovoltaikanlagen.csv', 'https://lindas.admin.ch/sparql/?query=SELECT%20%2A%20FROM%20%3Chttps%3A%2F%2Flindas.admin.ch%2Fsfoe%2Fcube%3E%20WHERE%20%7B%3Chttps%3A%2F%2Fenergy.ld.admin.ch%2Fsfoe%2Fbfe_ogd84_einmalverguetung_fuer_photovoltaikanlagen%2F2%2Fobservation%2F2021%2FBE%3E%20%3Fp%20%3Fobs%20.%7D']
+   Gesamte Erzeugung und Abgabe elektrischer Energie in der Schweiz | ['https://pubdb.bfe.admin.ch/de/suche?keywords=390']
+   Studie Winterstrom aus Photovoltaik - Produktionsprofile aller Schweizer Gemeinden | ['https://s3-eu-west-1.amazonaws.com/data.geo.admin.ch/ch.bfe.solarenergie-eignung-daecher/StudieWinterstromSzenarien/csv/Szenario5_FA.zip', 'https://s3-eu-west-1.amazonaws.com/data.geo.admin.ch/ch.bfe.solarenergie-eignung-daecher/StudieWinterstromSzenarien/csv/Szenario1_ZWB.zip', 'https://s3-eu-west-1.amazonaws.com/data.geo.admin.ch/ch.bfe.solarenergie-eignung-daecher/StudieWinterstromSzenarien/csv/Szenario4_GP.zip']
+   Wettbewerbliche Ausschreibungen für Stromeffizienzmassnahmen geförderte Programme und Proj | ['https://pubdb.bfe.admin.ch/de/suche?keywords=396']
+   Verkaufszahlenbasierte Energieeffizienzanalyse von Elektrogeräten | ['https://pubdb.bfe.admin.ch/de/suche?keywords=410']
+   Thermische Stromproduktion inklusive Wärmekraftkopplung (WKK) in der Schweiz | ['https://pubdb.bfe.admin.ch/de/suche?keywords=409']
+   Schweizerische Elektrizitätsstatistik: Physikalische Einfuhr und Ausfuhr der Schweiz von E | ['https://pubdb.bfe.admin.ch/de/suche?keywords=332']
+   Schweizerische Elektrizitätsstatistik: Aussenhandel der Schweiz mit Elektrizität nach Länd | ['https://pubdb.bfe.admin.ch/de/suche?keywords=687']
+   Schweizerische Elektrizitätsstatistik: Aufteilung des Endverbrauchs nach Verbrauchergruppe | ['https://pubdb.bfe.admin.ch/de/suche?keywords=400']
+   Rückerstattung nach Art. 15b EnG für stromintensive Endverbraucher | ['https://pubdb.bfe.admin.ch/de/suche?keywords=397']
+   Kontrollen Energieetiketten und Mindestanforderungen bei Elektrogeräten in der Schweiz | ['https://pubdb.bfe.admin.ch/de/suche?keywords=393']
+   Energieverbrauchsstatistik in der Industrie und im Dienstleistungssektor | ['https://pubdb.bfe.admin.ch/de/suche?keywords=386']
+   Statistik Elektrizitätsverbrauch Widerstandsheizungen bei den Haushalten | ['https://pubdb.bfe.admin.ch/de/suche?keywords=384']
