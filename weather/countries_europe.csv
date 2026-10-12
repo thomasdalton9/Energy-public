@@ -1,0 +1,38 @@
+country_code,country,population,population_year,source,url,aggregates
+AT,Austria,9197213.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+BE,Belgium,11883495.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+BG,Bulgaria,6437360.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+HR,Croatia,3874350.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+CY,Cyprus,982966.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+CZ,Czechia,10909500.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+DK,Denmark,5992734.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+EE,Estonia,1369995.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+FI,Finland,5635971.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+FR,France,68882600.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+DE,Germany,83577140.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+GR,Greece,10372335.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+HU,Hungary,9539502.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+IE,Ireland,5440278.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+IT,Italy,58943464.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+LV,Latvia,1860565.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+LT,Lithuania,2890664.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+LU,Luxembourg,681973.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+MT,Malta,574250.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+NL,Netherlands,18044027.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+PL,Poland,36497495.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+PT,Portugal,10749635.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+RO,Romania,19043151.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+SK,Slovakia,5419451.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+SI,Slovenia,2130850.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+ES,Spain,49128297.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+SE,Sweden,10587710.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,EUROPE
+GB,United Kingdom,69483900.0,2025.0,"ONS mid-2025 population estimates, United Kingdom (series UKPOP)",https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/timeseries/ukpop/pop,EUROPE
+NO,Norway,5594340.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+CH,Switzerland,9051029.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+TR,Turkey,85664944.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+RS,Serbia,6567783.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+MK,North Macedonia,1822612.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+AL,Albania,2363314.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+ME,Montenegro,623327.0,2025.0,"Eurostat demo_pjan, population on 1 January 2025",https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+BA,Bosnia and Herzegovina,,,,https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
+XK,Kosovo,,,,https://ec.europa.eu/eurostat/databrowser/view/demo_pjan/default/table,
