@@ -404,6 +404,21 @@ def cee_capacity(title, quarterly=False, note=""):
 
 
 
+def tr_capacity(p):
+    """Turkey (europe/capacity/TURKEY_CAPACITY_MONTHLY.py): EPDK monthly sector reports, month-end capacity by source (licensed + unlicensed)."""
+    full = by_date(read(p, "Monthly"), "date")
+    d = full[full.index >= "2021-01-01"]
+    coal = d.get("Coal_MW", 0).fillna(0) + d.get("Lignite_MW", 0).fillna(0)
+    g = pd.DataFrame({"Hydro": d.get("Hydro_MW"), "Gas": d.get("Gas_MW"), "Wind": d.get("Wind_MW"), "Solar": d.get("Solar_MW"),
+                      "Coal (imported, hard, lignite)": coal, "Oil": d.get("Oil_MW"), "Bioenergy": d.get("Bioenergy_MW"),
+                      "Geothermal": d.get("Geothermal_MW")}) / 1000.0
+    fc = full.copy()
+    adds = pd.DataFrame({"Solar": fc["Solar_MW"].diff(), "Wind": fc["Wind_MW"].diff()})
+    return [spec("Capacity", g, "Turkey installed capacity, month-end (EPDK sector reports)", "GW installed", "stacked_bar"),
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Turkey net capacity additions per month: solar and wind (EPDK)",
+                 "MW per month", "stacked_bar")]
+
+
 def gb_capacity(p):
     """United Kingdom (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): month-end capacity (solar = DESNZ ET 6.3, wind / bioenergy /
     storage = REPD rebuild), net additions, official quarterly renewables (ET 6.1) and DUKES 5.12 on 1 January (all fuels)."""
@@ -3331,6 +3346,7 @@ REGISTRY = {
     "ireland_power_capacity_monthly.xlsx": ie_capacity,
     "denmark_power_capacity_monthly.xlsx": dk_capacity,
     "norway_power_capacity_monthly.xlsx": no_capacity,
+    "turkey_power_capacity_monthly.xlsx": tr_capacity,
     "hungary_power_capacity_monthly.xlsx": cee_capacity("Hungary installed capacity, month-end (MAVIR, gross incl. rooftop PV)"),
     "czechia_power_capacity_monthly.xlsx": cee_capacity("Czechia installed capacity, month-end (ERU; coal = all steam plant)"),
     "switzerland_power_capacity_monthly.xlsx": cee_capacity("Switzerland installed capacity, month-end (BFE / Pronovo register, rebuilt)"),
@@ -3901,6 +3917,19 @@ def _morocco(p):
 
 
 REGISTRY["morocco_gas_daily.xlsx"] = _morocco
+
+
+# ---- Germany / Belgium / Netherlands / Luxembourg monthly-annual capacity (europe/capacity/de_nl_be_lu_capacity_charts.py) ----
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "europe", "capacity"))
+    import de_nl_be_lu_capacity_charts as _bnl
+    for _f, _t, _a in (("germany_power_capacity_monthly.xlsx", "Germany installed generating capacity, month end (MaStR, Bundesnetzagentur)", False),
+                       ("belgium_power_capacity_monthly.xlsx", "Belgium installed generating capacity, month end (Elia; wind, solar and nuclear complete, other fuels = units contracted by Elia)", False),
+                       ("netherlands_power_capacity_annual.xlsx", "Netherlands installed generating capacity, year end (CBS, annual only)", True),
+                       ("luxembourg_power_capacity_annual.xlsx", "Luxembourg installed generating capacity, year end (ILR, annual only)", True)):
+        REGISTRY[_f] = _bnl.specs(sys.modules[__name__], _t, _a)
+except Exception as _e:  # noqa: BLE001
+    print("de_nl_be_lu capacity charts not registered:", _e)
 
 
 if __name__ == "__main__":
