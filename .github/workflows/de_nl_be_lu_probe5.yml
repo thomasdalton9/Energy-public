@@ -1,14 +1,14 @@
-name: DE NL BE LU capacity probe 4 (manual)
+name: DE NL BE LU capacity probe 5 (manual)
 on:
   workflow_dispatch: {}
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install requests
-      - run: python3 -u discovery_archive/europe/capacity/DE_NL_BE_LU_CAPACITY_PROBE4.py
+      - run: pip install requests openpyxl
+      - run: python3 -u discovery_archive/europe/capacity/DE_NL_BE_LU_CAPACITY_PROBE5.py
