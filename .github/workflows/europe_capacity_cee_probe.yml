@@ -1,0 +1,25 @@
+name: Europe capacity CEE probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "probe script in discovery_archive/europe/capacity/"
+        required: true
+        default: "EU_CAPACITY_CEE_PROBE1.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas openpyxl xlrd lxml beautifulsoup4 curl_cffi pymupdf
+      - name: Run probe
+        run: timeout 1500 python3 "discovery_archive/europe/capacity/${{ inputs.script }}"
