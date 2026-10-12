@@ -1,0 +1,282 @@
+#### A. REData variants
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=year | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=year | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-03-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-03-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741 | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741 | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=day | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=day | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 In
+
+#### B. ODRE catalogue (parc / capacit / puissance / registre / installation)
+{'dataset_id': 'registre-biomethane-trimestre', 'records_count': 60, 'data_processed': '2026-09-16T13:05:48+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311217', 'records_count': 41237, 'data_processed': '2025-11-13T13:53:26+00:00'}
+{'dataset_id': 'parc-national-annuel-prod-eolien-solaire', 'records_count': 25, 'data_processed': '2026-02-25T13:48:13+00:00'}
+{'dataset_id': 'parc-regional-annuel-prod-eolien-solaire', 'records_count': 325, 'data_processed': '2026-02-17T14:17:02+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311224', 'records_count': 101097, 'data_processed': '2025-03-17T14:40:20+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311220', 'records_count': 54671, 'data_processed': '2024-10-09T12:51:27+00:00'}
+{'dataset_id': 'capacites-annuelles-d-injection-de-biomethane-reservees-par-departement', 'records_count': 94, 'data_processed': '2026-07-21T13:05:46+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311222', 'records_count': 72790, 'data_processed': '2026-09-22T14:25:05+00:00'}
+{'dataset_id': 'registre-garanties-capacite', 'records_count': 2900, 'data_processed': '2026-08-20T07:32:42+00:00'}
+{'dataset_id': 'parc-prod-par-filiere', 'records_count': 19, 'data_processed': '2026-02-25T13:43:29+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311218', 'records_count': 44598, 'data_processed': '2024-10-09T08:47:03+00:00'}
+{'dataset_id': 'registre-national-installation-production-electricite-rte-2016', 'records_count': 890, 'data_processed': '2024-07-18T09:45:09+00:00'}
+{'dataset_id': 'registre-biomethane-region', 'records_count': 156, 'data_processed': '2026-07-21T13:20:36+00:00'}
+{'dataset_id': 'registre-national-installation-production-electricite-rte-2015', 'records_count': 889, 'data_processed': '2024-07-18T09:51:18+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311219', 'records_count': 49043, 'data_processed': '2024-10-09T12:26:10+00:00'}
+{'dataset_id': 'installations-regionales-de-biomethane', 'records_count': 121, 'data_processed': '2026-02-06T14:55:31+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311221', 'records_count': 63410, 'data_processed': '2024-10-09T13:08:46+00:00'}
+{'dataset_id': 'parc-region-annuel-production-filiere', 'records_count': 234, 'data_processed': '2026-02-17T14:26:56+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege', 'records_count': 140539, 'data_processed': '2026-09-10T14:01:40+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311223', 'records_count': 84944, 'data_processed': '2025-02-03T10:02:39+00:00'}
+{'dataset_id': 'registre-national-installation-production-stockage-electricite-agrege-311225', 'records_count': 125930, 'data_processed': '2026-03-19T11:45:54+00:00'}
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege-311224 | #HTTP 200 application/json; charset=utf-8 56022
+{"visibility": "domain", "fields": [{"name": "idpeps", "description": "Identifiant unique PEPS de l'installation", "annotations": {"sortable": true}, "label": "idPEPS", "type": "text", "label_fr": "id
+FIELDS [('idpeps', 'text'), ('nominstallation', 'text'), ('codeeicresourceobject', 'text'), ('codeiris', 'text'), ('codeinseecommune', 'text'), ('commune', 'text'), ('codeepci', 'text'), ('epci', 'text'), ('codedepartement', 'text'), ('departement', 'text'), ('coderegion', 'text'), ('region', 'text'), ('codeiriscommuneimplantation', 'text'), ('codeinseecommuneimplantation', 'text'), ('codes3renr', 'text'), ('dateraccordement', 'text'), ('datederaccordement', 'text'), ('datemiseenservice', 'text'), ('datedebutversion', 'text'), ('postesource', 'text'), ('tensionraccordement', 'text'), ('moderaccordement', 'text'), ('codefiliere', 'text'), ('filiere', 'text'), ('codecombustible', 'text'), ('combustible', 'text'), ('codescombustiblessecondaires', 'text'), ('combustiblessecondaires', 'text'), ('codetechnologie', 'text'), ('technologie', 'text'), ('typestockage', 'text'), ('puismaxinstallee', 'double'), ('puismaxraccharge', 'double'), ('puismaxcharge', 'double'), ('puismaxrac', 'double'), ('puismaxinstalleedischarge', 'double'), ('nbgroupes', 'int'), ('nbinstallations', 'int'), ('regime', 'text'), ('energiestockable', 'double'), ('capacitereservoir', 'double'), ('hauteurchute', 'double'), ('productible', 'double'), ('debitmaximal', 'double'), ('codegestionnaire', 'text'), ('gestionnaire', 'text'), ('energieannuelleglissanteinjectee', 'int'), ('energieannuelleglissanteproduite', 'int'), ('energieannuelleglissantesoutiree', 'int'), ('energieannuelleglissantestockee', 'int'), ('maxpuis', 'double'), ('datemiseenservice_date', 'date')]
+META Registre national des installations de production et de stockage d'électricité (au 31/12/2024) 2025-03-17T14:40:20+00:00
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege-311224/records?limit=3 | #HTTP 200 application/json; charset=utf-8 4689
+{"total_count": 101097, "results": [{"idpeps": "17X100A100A0001A-50089111077919", "nominstallation": "Confidentiel", "codeeicresourceobject": "17W000000236731X", "codeiris": "661361101", "codeinseecommune": "66136", "commune": "Perpignan", "codeepci": "200027183", "epci": "CU Perpignan M\u00e9diterran\u00e9e M\u00e9tropole", "codedepartement": "66", "departement": "Pyr\u00e9n\u00e9es-Orientales", "coderegion": "76", "region": "Occitanie", "codeiriscommuneimplantation": null, "codeinseecommuneimplantation": "66136", "codes3renr": null, "dateraccordement": "09/04/2014", "datederaccordement": null, "datemiseenservice": "09/04/2014", "datedebutversion": "20/04/2021", "postesource": "CABES", "tensionraccordement": "BT", "moderaccordement": "Direct", "codefiliere": "SOLAI", "filiere": "Solaire", "codecombustible": null, "combustible": null, "codescombustiblessecondaires": null, "combustiblessecondaires": null, "codetechnologie": "PHOTV", "technologie": "Photovolta\u00efque", "typestockage": null, "puismaxinstallee": 90.0, "puismaxraccharge": null, "puismaxcharge": null, "puismaxrac": 90.0, "puismaxinstalleedischarge": null, "nbgroupes": null, "nbinstallations": 1, "regime": "En service", "energiestockable": 0.0, "capacitereservoir": 0.0, "hauteurchute": 0.0, "productible": 0.0, "debitmaximal": 0.0, "codegestionnaire": "17X100A100A0001A", "gestionnaire": "Enedis", "energieannuelleglissanteinjectee": 111321, "energieannuelleglissanteproduite": null, "energieannuelleglissantesoutiree"
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/parc-prod-par-filiere | #HTTP 200 application/json; charset=utf-8 11517
+{"visibility": "domain", "fields": [{"name": "annee", "description": "Ann\u00e9e\nYear", "annotations": {"facet": true, "sortable": true, "timeserie_precision": "year", "facetsort": "-alphanum"}, "lab
+FIELDS [('annee', 'date'), ('parc_nucleaire', 'int'), ('parc_thermique_fossile', 'double'), ('parc_fioul', 'text'), ('parc_charbon', 'text'), ('parc_gaz', 'text'), ('parc_hydraulique', 'double'), ('parc_solaire', 'int'), ('parc_eolien', 'int'), ('parc_bioenergie', 'double')]
+META Parc national annuel de production par filière 2026-02-25T13:43:29+00:00
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/parc-prod-par-filiere/records?limit=3 | #HTTP 200 application/json; charset=utf-8 765
+{"total_count": 19, "results": [{"annee": "2007", "parc_nucleaire": 63260, "parc_thermique_fossile": 24055.0, "parc_fioul": "NC", "parc_charbon": "NC", "parc_gaz": "NC", "parc_hydraulique": 25413.0, "parc_solaire": 7, "parc_eolien": 2252, "parc_bioenergie": 953.0}, {"annee": "2009", "parc_nucleaire": 63130, "parc_thermique_fossile": 26154.6, "parc_fioul": "NC", "parc_charbon": "NC", "parc_gaz": "NC", "parc_hydraulique": 25356.9, "parc_solaire": 190, "parc_eolien": 4573, "parc_bioenergie": 1029.0}, {"annee": "2015", "parc_nucleaire": 63130, "parc_thermique_fossile": 23216.024, "parc_fioul": "8381,71", "parc_charbon": "3978,004", "parc_gaz": "10856,31", "parc_hydraulique": 25590.332, "parc_solaire": 6206, "parc_eolien": 10313, "parc_bioenergie": 1733.858}]} 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/parc-national-annuel-prod-par-filiere | #HTTP 404 application/json 130
+{   "error_code": "NotFoundResource",   "message": "The requested dataset parc-national-annuel-prod-par-filiere does not exist." } 
+FIELDS []
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/parc-national-annuel-prod-par-filiere/records?limit=3 | #HTTP 404 application/json 130
+{   "error_code": "NotFoundResource",   "message": "The requested dataset parc-national-annuel-prod-par-filiere does not exist." } 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/parc-annuel-prod-par-filiere | #HTTP 404 application/json 121
+{   "error_code": "NotFoundResource",   "message": "The requested dataset parc-annuel-prod-par-filiere does not exist." } 
+FIELDS []
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/parc-annuel-prod-par-filiere/records?limit=3 | #HTTP 404 application/json 121
+{   "error_code": "NotFoundResource",   "message": "The requested dataset parc-annuel-prod-par-filiere does not exist." } 
+
+#### C. DGEG links
+https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/ 47431
+   /pt/areas-setoriais/energia/energia-eletrica/
+   /pt/areas-setoriais/energia/energia-eletrica/atividades-e-profissoes/
+   /pt/estatistica/energia/eletricidade/
+   /pt/estatistica/energia/eletricidade/consumo-por-municipio-e-setor-de-atividade/
+   /pt/estatistica/energia/eletricidade/consumo-por-municipio-e-tipo-de-consumidor/
+   /pt/estatistica/energia/eletricidade/numero-de-consumidores/
+   /pt/estatistica/energia/eletricidade/producao-anual-e-potencia-instalada/
+   /pt/estatistica/energia/eletricidade/producao-mensal-de-eletricidade/
+   /pt/estatistica/energia/publicacoes/estatisticas-rapidas-das-renovaveis/
+   /pt/estatistica/energia/publicacoes/estatisticas-rapidas-dos-combustiveis-fosseis/
+   /pt/estatistica/energia/renovaveis/
+   /pt/estatistica/energia/renovaveis/contribuicao-para-o-balanco-energetico/
+   /pt/estatistica/energia/renovaveis/estatisticas-rapidas-das-renovaveis/
+   /pt/estatistica/energia/renovaveis/potencia-instalada-fer/
+   /pt/estatistica/energia/renovaveis/producao-de-energia-eletrica-a-partir-de-fer/
+   https://www.dgeg.gov.pt/pt/areas-setoriais/energia/energia-eletrica/producao-de-energia-eletrica/producao-descentralizada-autoconsumo-e-upp-mp-mn/autoconsumo-e-cer/
+https://dgeg.gov.pt/pt/estatistica/energia/estatisticas-rapidas/ 68696
+   /pt/areas-setoriais/energia/energia-eletrica/
+   /pt/areas-setoriais/energia/energia-eletrica/atividades-e-profissoes/
+   /pt/destaques/estatisticas-rapidas-das-renovaveis-agosto-2026/
+   /pt/destaques/estatisticas-rapidas-dos-combustiveis-agosto-2026/
+   https://www.dgeg.gov.pt/media/qpbhppdp/dgeg-bes-2024.pdf
+   https://www.dgeg.gov.pt/pt/areas-setoriais/energia/energia-eletrica/producao-de-energia-eletrica/producao-descentralizada-autoconsumo-e-upp-mp-mn/autoconsumo-e-cer/
+
+#### D. Terna
+https://dati.terna.it/en/generation/installed-capacity 40379
+   /en/download-center
+   https://developer.terna.it/API_Terms_of_Use
+https://www.terna.it/en/electric-system/statistics/statistical-publications 377277
+   https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Oswald:400,500,600,700&display=swap
+  URL https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Oswald:400,500,600,700&display=swap
+  URL https://www.terna.it/DesktopModules/AdactoBackend/API/download/get?image=12132
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+https://www.terna.it/it/sistema-elettrico/statistiche/pubblicazioni-statistiche 274631
+   https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Oswald:400,500,600,700&display=swap
+  URL https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Oswald:400,500,600,700&display=swap
+  URL https://www.terna.it/DesktopModules/AdactoBackend/API/download/get?image=12133
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+https://www.terna.it/it/sistema-elettrico/statistiche/rapporto-mensile 246827
+   https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Oswald:400,500,600,700&display=swap
+  URL https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Oswald:400,500,600,700&display=swap
+  URL https://www.terna.it/DesktopModules/AdactoBackend/API/download/get?image=12133
+  URL https://download.terna.it/terna/Nota_metodologica_8da42531c0ff392.pdf\\\
+  URL https://download.terna.it/terna/GSTAT_FAQ_8da424df0665816.pdf\\\
+  URL https://download.terna.it/terna/Nota_metodologica_8da42531c0ff392.pdf\\\
+  URL https://download.terna.it/terna/GSTAT_FAQ_8da424df0665816.pdf\\\
+  URL https://download.terna.it/terna/Methodological_note_8da42e00ff80ef2.pdf\\\
+  URL https://download.terna.it/terna/GSTAT_FAQ_8da424df0665816.pdf\\\
+  URL https://download.terna.it/terna/0000/1100/35.PDF\\\
+  URL https://download.terna.it/terna/0000/1100/35.PDF\\\
+  URL https://download.terna.it/terna/0000/1100/35.PDF\\\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+  URL https://download.terna.it/terna/\
+
+#### E. REN datahub
+   https://twitter.com/share?text=REN Data Hub Breakdown of Electricity Production&url=https%3a%2f%2fdatahub.ren.pt%3a443%2fen%2fhomepage%2felectricity%2fproduction%2fdetailed%2f%3fdate%3d2026-10-12
+   https://twitter.com/share?text=REN Data Hub Solar Generation Forecast&url=https%3a%2f%2fdatahub.ren.pt%3a443%2fen%2fhomepage%2felectricity%2fproduction-forecast%2fsolar-forecast%2f%3fdate%3d2026-10-12
+   https://twitter.com/share?text=REN Data Hub Wind Generation Forecast&url=https%3a%2f%2fdatahub.ren.pt%3a443%2fen%2fhomepage%2felectricity%2fproduction-forecast%2fwind-forecast%2f%3fdate%3d2026-10-12
+   https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fdatahub.ren.pt%3a443%2fen%2fhomepage%2felectricity%2fproduction%2fdetailed%2f%3fdate%3d2026-10-12
+   https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fdatahub.ren.pt%3a443%2fen%2fhomepage%2felectricity%2fproduction-forecast%2fsolar-forecast%2f%3fdate%3d2026-10-12
+   https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fdatahub.ren.pt%3a443%2fen%2fhomepage%2felectricity%2fproduction-forecast%2fwind-forecast%2f%3fdate%3d2026-10-12
+   mailto:?subject=REN Data Hub Breakdown of Electricity Production&body=https://datahub.ren.pt:443/en/homepage/electricity/production/detailed/?date=2026-10-12
+   mailto:?subject=REN Data Hub Solar Generation Forecast&body=https://datahub.ren.pt:443/en/homepage/electricity/production-forecast/solar-forecast/?date=2026-10-12
+   mailto:?subject=REN Data Hub Wind Generation Forecast&body=https://datahub.ren.pt:443/en/homepage/electricity/production-forecast/wind-forecast/?date=2026-10-12
+
+===== https://servicebus.ren.pt/datahubapi/electricity/InstalledCapacity | #HTTP 404 text/html; charset=UTF-8 9
+Not Found 
+
+===== https://servicebus.ren.pt/datahubapi/electricity/ElectricityGenerationInstalledCapacity | #HTTP 404 text/html; charset=UTF-8 9
+Not Found 
+
+===== https://servicebus.ren.pt/datahubapi/electricity/InstalledPower?culture=en | #HTTP 404 text/html; charset=UTF-8 9
+Not Found 
+
+#### F. GSE / SDES (curl_cffi)
+
+===== 403 402 https://www.gse.it/dati-e-scenari/statistiche
+
+===== 403 420 https://www.gse.it/servizi-per-te/fotovoltaico/osservatorio
+
+===== 200 107626 https://www.statistiques.developpement-durable.gouv.fr/publications?rubrique=22&thematique=104
+   /caracteristiques-du-parc-immobilier-residentiel?rubrique=406
+   /parc-et-circulation-des-vehicules-routiers?rubrique=58
+   /parcours-professionnels-des-conducteurs-routiers-plus-de-mobilite-en-debut-de-carriere
+   /principaux-leviers-de-lelectrification-du-parc-automobile-lhorizon-2050
+   /sites/default/files/css/css_J-kPo7PQ16P5nNnnECxLix0vluWxGsmg0E6M48zAyzM.css
+   /sites/default/files/css/css_b41fd3D2W0plliWnXc1ANr0dJ8kD1l305FuXGBE7lTM.css
+
+===== 200 90660 https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2025
+   /caracteristiques-du-parc-immobilier-residentiel?rubrique=406
+   /parc-et-circulation-des-vehicules-routiers?rubrique=58
+   /sites/default/files/css/css_J-kPo7PQ16P5nNnnECxLix0vluWxGsmg0E6M48zAyzM.css
+   /sites/default/files/css/css_Yo9gaIXCg9PZvRZdg86KLM6nTkAKFsrmEoAi5HAt5R8.css
+   /tableau-de-bord-biogaz-pour-la-production-delectricite-quatrieme-trimestre-2025
+   /tableau-de-bord-biomethane-injecte-dans-les-reseaux-de-gaz-quatrieme-trimestre-2025
+   /tableau-de-bord-eolien-quatrieme-trimestre-2025
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2022-0
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2023-0
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2025-0
+   /tableau-de-bord-solaire-photovoltaique-deuxième-trimestre-2019
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2019
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2022
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2025-0
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2019
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2022-0
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2023-0
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2022-0
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2023-0
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2025-0
+   /tableau-de-bord-solaire-photovoltaique-troisième-trimestre-2019
+   https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2024-0
+   https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2025
+   tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2024-0
+   tableau-de-bord-solaire-photovoltaique-premier-trimestre-2023-0
+   tableau-de-bord-solaire-photovoltaique-premier-trimestre-2024-0
+   tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2024
+
+===== 404 62818 https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-eolien-troisieme-trimestre-2026
+   /caracteristiques-du-parc-immobilier-residentiel?rubrique=406
+   /parc-et-circulation-des-vehicules-routiers?rubrique=58
+   /sites/default/files/css/css_3LBkqoypy1tH3Z3-2wzRRX2SsGYikUuPe4isEIR2f4k.css
+   /sites/default/files/css/css_no9gZfrhrRc5st88s6j5ccxEFW0AB4DV_F1qmxEFGOg.css
+   https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-eolien-troisieme-trimestre-2026
+
+===== 200 93107 https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2026
+   /caracteristiques-du-parc-immobilier-residentiel?rubrique=406
+   /parc-et-circulation-des-vehicules-routiers?rubrique=58
+   /sites/default/files/css/css_J-kPo7PQ16P5nNnnECxLix0vluWxGsmg0E6M48zAyzM.css
+   /sites/default/files/css/css_Yo9gaIXCg9PZvRZdg86KLM6nTkAKFsrmEoAi5HAt5R8.css
+   /tableau-de-bord-biogaz-pour-la-production-delectricite-deuxieme-trimestre-2026
+   /tableau-de-bord-biomethane-injecte-dans-les-reseaux-de-gaz-deuxieme-trimestre-2026
+   /tableau-de-bord-eolien-deuxieme-trimestre-2026
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2022-0
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2023-0
+   /tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2025-0
+   /tableau-de-bord-solaire-photovoltaique-deuxième-trimestre-2019
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2019
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2022
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2025-0
+   /tableau-de-bord-solaire-photovoltaique-premier-trimestre-2026
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2019
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2022-0
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2023-0
+   /tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2025
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2017
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2018
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2020
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2021
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2022-0
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2023-0
+   /tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2025-0
+   /tableau-de-bord-solaire-photovoltaique-troisième-trimestre-2019
+   https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2026
+   https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-quatrieme-trimestre-2024-0
+   tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2024-0
+   tableau-de-bord-solaire-photovoltaique-premier-trimestre-2023-0
+   tableau-de-bord-solaire-photovoltaique-premier-trimestre-2024-0
+   tableau-de-bord-solaire-photovoltaique-troisieme-trimestre-2024
