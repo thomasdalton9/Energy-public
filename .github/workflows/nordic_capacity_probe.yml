@@ -1,0 +1,23 @@
+name: Nordic capacity probe (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: probe script name in discovery_archive/europe/capacity
+        default: NORDIC_CAPACITY_PROBE1.py
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas openpyxl requests xlrd lxml curl_cffi
+      - run: python3 "discovery_archive/europe/capacity/${{ inputs.script }}"
+        env:
+          PYTHONUNBUFFERED: "1"
+          ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
