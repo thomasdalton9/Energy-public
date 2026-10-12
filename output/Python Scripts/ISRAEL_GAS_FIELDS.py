@@ -293,6 +293,12 @@ NOTES_LINES = [
     "published earlier); Karish from Q4 2022 (first gas). The national total is given only for quarters all three "
     "fields have (Q1-Q2 2023 and Q1 2024 on: Karish lacks Q4 2022 and Q3-Q4 2023). Reported 6-10 weeks after each quarter; the pull runs on 15 Jan/Apr/Jul/Oct.",
     "",
+    "BALANCE",
+    "Exports_bcm = Leviathan to Egypt + Leviathan to Jordan + Tamar exports (Karish sells only in Israel); "
+    "Domestic_bcm = total sales of the three fields less exports. Exports from Q3 2020, domestic use from Q4 2022. "
+    "Company sales leave out minor supply such as the LNG buoy, so domestic use runs 0.1-0.3 BCM a year below the "
+    "Natural Gas Authority's consumption (2023-25); exports match its figures within 0.1 BCM.",
+    "",
     "CHECK",
     "Natural Gas Authority (gov.il) annual review: 2025 total 26.8 BCM (Leviathan 11, Tamar 10, Karish 5.8), exports "
     "12.4 (Egypt 8.9, Jordan 3.5). Sum of the company figures for 2025: 10.9 + 10.05 + 5.6 = 26.6 BCM.",
@@ -301,7 +307,7 @@ NOTES_LINES = [
     f"NewMed: {NEWMED_LIST} | Tamar Petroleum: https://www.tamarpetroleum.co.il/ | Energean via "
     "https://www.investegate.co.uk/company/ENOG",
 ]
-NOTES_TITLES = {"UNITS", "FIELDS AND SOURCES", "COVERAGE", "CHECK", "SOURCE LINKS"}
+NOTES_TITLES = {"UNITS", "FIELDS AND SOURCES", "COVERAGE", "BALANCE", "CHECK", "SOURCE LINKS"}
 
 
 def main():
@@ -400,8 +406,17 @@ def main():
         if c not in q:
             q[c] = float("nan")
     q["Total_bcm"] = q[["Leviathan_bcm", "Tamar_bcm", "Karish_bcm"]].sum(axis=1, min_count=3)
+    # Quarterly balance: exports = Leviathan to Egypt and Jordan + Tamar exports (Karish sells only in Israel);
+    # domestic use = total sales less exports. Only quarters with every part (exports from Q3 2020, when Tamar's
+    # split starts; domestic from Q4 2022, Karish's first gas). Company sales leave out minor supply (LNG buoy), so
+    # domestic use runs 0.1-0.3 BCM a year below the Natural Gas Authority's consumption (2023-25 check).
+    for c in ["Leviathan_Egypt_bcm", "Leviathan_Jordan_bcm", "Tamar_Export_bcm"]:
+        if c not in q:
+            q[c] = float("nan")
+    q["Exports_bcm"] = q[["Leviathan_Egypt_bcm", "Leviathan_Jordan_bcm", "Tamar_Export_bcm"]].sum(axis=1, min_count=3)
+    q["Domestic_bcm"] = (q["Total_bcm"] - q["Exports_bcm"]).round(3)
     days = (q.index + pd.offsets.QuarterBegin(startingMonth=1) - q.index).days
-    for c in ["Leviathan_bcm", "Tamar_bcm", "Karish_bcm", "Total_bcm"]:
+    for c in ["Leviathan_bcm", "Tamar_bcm", "Karish_bcm", "Total_bcm", "Exports_bcm", "Domestic_bcm"]:
         q[c.replace("_bcm", "_Bcf_d")] = (q[c] * BCF_PER_BCM / days).round(3)
     q.index.name = "date"
 
