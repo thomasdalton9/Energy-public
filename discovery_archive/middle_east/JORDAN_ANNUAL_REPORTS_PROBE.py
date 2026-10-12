@@ -22,7 +22,15 @@ OUT = "probe_out"
 KEEP = {"nepco_2024_en", "nepco_2025_ar", "nepco_2024_ar", "nepco_2010_en", "nepco_2005_en", "nepco_2016_en"}
 
 
-def get(url, timeout=180):
+def get(url, timeout=180, tries=1):
+    for t in range(tries):
+        r = _get(url, timeout)
+        if r is not None:
+            return r
+    return None
+
+
+def _get(url, timeout):
     try:
         r = requests.get(url, headers=H, timeout=(15, timeout), verify=False)
         print("GET", url, r.status_code, len(r.content), r.headers.get("content-type"), r.headers.get("last-modified"), flush=True)
@@ -34,7 +42,7 @@ def get(url, timeout=180):
 
 def dump(name, url):
     import pdfplumber
-    r = get(url)
+    r = get(url, tries=3)
     if r is None or not r.content.startswith(b"%PDF"):
         return
     pages = []
@@ -56,11 +64,18 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
     if which in ("all", "memr"):
-        r = get("https://www.memr.gov.jo/En/List/Annual_Reports", timeout=60)
-        links = sorted(set(re.findall(r'href="([^"]+\.pdf)"', r.text, re.I))) if r is not None else []
+        links = []
+        for k, lu in enumerate(["https://www.memr.gov.jo/En/List/Annual_Reports",
+                                "https://www.memr.gov.jo/Ar/List/التقارير_السنوية"]):
+            r = get(lu, timeout=60)
+            if r is None:
+                continue
+            open(f"{OUT}/memr_list_{k}.html", "w").write(r.text)
+            links += re.findall(r'[^"\'\s<>()]+\.pdf', r.text, re.I)
+        links = sorted(set(links))
         print("MEMR links", links)
         for y in range(2013, 2026):
-            cand = [l for l in links if str(y) in l and "annual" in l.lower()]
+            cand = [l for l in links if str(y) in l]
             url = cand[0] if cand else f"https://www.memr.gov.jo/ebv4.0/root_storage/en/eb_list_page/annual_report_{y}.pdf"
             if url.startswith("/"):
                 url = "https://www.memr.gov.jo" + url
@@ -78,5 +93,20 @@ def main():
         dump("nepco_2025_ar", "https://www.nepco.com.jo/store/DOCS/web/2025_AR.pdf")
 
 
+def pack():
+    import gzip
+    allt = {}
+    for fn in sorted(os.listdir(OUT)):
+        if fn.endswith(".json"):
+            allt[fn[:-5]] = json.load(open(f"{OUT}/{fn}"))
+    os.makedirs("discovery_archive/results/jordan_annual", exist_ok=True)
+    with gzip.open("discovery_archive/results/jordan_annual/report_text.json.gz", "wt") as f:
+        json.dump(allt, f, ensure_ascii=False)
+    for fn in os.listdir(OUT):
+        if fn.endswith(".html"):
+            open(f"discovery_archive/results/jordan_annual/{fn}", "w").write(open(f"{OUT}/{fn}").read())
+
+
 if __name__ == "__main__":
     main()
+    pack()

@@ -7,6 +7,9 @@ on:
         description: all / nepco / memr
         default: "all"
 
+permissions:
+  contents: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -26,3 +29,11 @@ jobs:
           name: probe_out
           path: probe_out
           if-no-files-found: ignore
+      - name: Commit text dump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/jordan_annual || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Jordan annual reports probe: text dump"
+          for i in 1 2 3 4 5; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep $((i*5)); done
