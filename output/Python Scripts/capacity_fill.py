@@ -11,10 +11,12 @@ closes (`shift_months=1`) BEFORE passing them in. Values are MW.
 INTERFACE
   Series(pts, res, kind=None, source="", url="", note="")
       pts   pandas Series, index = month starts (convention above), values MW; NaN rows are ignored
+      native optional {month start: flag}: the native flag of single points that differ from the series' resolution (e.g. the
+            annual December stocks at the start of a monthly series: ANCHOR_A)
       res   resolution of the source: "M" monthly, "Q" quarterly, "A" annual, "EMBER" Ember yearly fallback
       kind  for res "M": "RAW" (published monthly) or "REBUILT" (register rebuilt to month-end)
   FuelCfg(primary=[Series, ...], ref=None, scale_to=None, linear=None, included_in=None, note="", band=(0.7, 1.3),
-          memo=None)
+          memo=None, lead_hold=0)
       primary     ordered candidates; the FIRST that holds any point is used for the whole span (one basis per fuel)
       ref         annual (or quarterly) reference series used to back-fill months before a late-starting primary (splice)
                   and to report the level ratio; None = no splice
@@ -23,6 +25,9 @@ INTERFACE
       linear      True/False to override the fuel class (default: LINEAR_FUELS grow continuously, all others change in steps)
       included_in name of another fuel column that already contains this one (flag INCLUDED_IN_<FUEL>, value blank)
       memo        unflagged pass-through Series (e.g. Lignite, Wind_Onshore) kept as memo columns
+      lead_hold   N > 0: up to N months before the first point of a MONTHLY primary are held at that first value (HELD_BACK), for
+                  sources whose first row is the span's first month and, shifted by the 1st-of-month convention, leaves one month
+                  without a stock; used before the ref splice, which then only covers what is left
   fill_country(name, fuels, start, end, fuel_cfg, linear_fuels=LINEAR_FUELS) -> Result
       fuel_cfg  {fuel: FuelCfg}; fuels absent from the dict, or with no usable source, are left blank and flagged NONE
       Result.values  DataFrame (index = month starts start..end, one column per fuel, MW)
@@ -41,13 +46,14 @@ FILL RULES (in order of preference, per fuel)
      consecutive stocks (INTERP_A); every other fuel is held at the last stock until the next one (HELD_A).
      Short holes inside a monthly source (<= 6 months) are filled the same way: INTERP_GAP / HELD_GAP.
   4. after the last point: held flat to `end` (HELD_LATEST), no trend.
+  4b. lead_hold (optional, default off): HELD_BACK, see FuelCfg.
   5. splice: months before a monthly primary that starts after `start` are back-filled from `ref` by rules 3, multiplied by the
      ratio primary/ref at the first overlapping 1 January (SPLICED). A ratio outside `band` is not applied (SPLICED_UNSCALED)
      and is listed in Breaks.
   6. EMBER: a series from Ember's yearly data (res "EMBER") is filled like an annual one but every cell is FALLBACK_EMBER.
   7. no source at all: NONE (blank).
 FLAGS  RAW REBUILT REBUILT_SCALED ANCHOR_Q ANCHOR_A INTERP_Q INTERP_A HELD_A INTERP_GAP HELD_GAP HELD_LATEST SPLICED
-       SPLICED_UNSCALED FALLBACK_EMBER NONE INCLUDED_IN_<FUEL>
+       SPLICED_UNSCALED FALLBACK_EMBER NONE INCLUDED_IN_<FUEL>   (+ HELD_BACK only when a config sets lead_hold)
 OBSERVED = RAW, REBUILT, REBUILT_SCALED, ANCHOR_Q, ANCHOR_A (a published stock at its own date); everything else is filled.
 """
 from dataclasses import dataclass, field
@@ -62,6 +68,7 @@ BAND = (0.7, 1.3)
 MAX_GAP_MONTHS = 6          # hole inside a monthly source that counts as a gap rather than an annual step
 MAX_Q_GAP_MONTHS = 4        # distance between points of a quarterly source
 OBSERVED = ("RAW", "REBUILT", "REBUILT_SCALED", "ANCHOR_Q", "ANCHOR_A")
+EXTRA_FLAGS = ["HELD_BACK"]   # only produced when a FuelCfg sets lead_hold; shown in coverage() only when present
 FLAGS = ["RAW", "REBUILT", "REBUILT_SCALED", "ANCHOR_Q", "ANCHOR_A", "INTERP_Q", "INTERP_A", "HELD_A", "INTERP_GAP", "HELD_GAP",
          "HELD_LATEST", "SPLICED", "SPLICED_UNSCALED", "FALLBACK_EMBER", "NONE"]
 
@@ -74,6 +81,7 @@ class Series:
     source: str = ""
     url: str = ""
     note: str = ""
+    native: Optional[dict] = None  # {month start: flag} overriding the native flag of single points
 
     def clean(self):
         p = pd.to_numeric(self.pts, errors="coerce").dropna().sort_index()
@@ -91,6 +99,7 @@ class FuelCfg:
     note: str = ""
     band: tuple = BAND
     memo: Optional[dict] = None
+    lead_hold: int = 0
 
 
 @dataclass
@@ -115,9 +124,10 @@ def expand(s, fuel_linear, idx):
         return out, fl
     dates = pts.index
     native = {"M": s.kind or "RAW", "Q": "ANCHOR_Q", "A": "ANCHOR_A", "EMBER": "FALLBACK_EMBER"}[s.res]
+    over = {pd.Timestamp(k).to_period("M").to_timestamp(): v for k, v in (s.native or {}).items()}
     for m in idx:
         if m in pts.index:
-            out[m], fl[m] = pts[m], native
+            out[m], fl[m] = pts[m], over.get(m, native)
         elif m < dates[0]:
             continue
         elif m > dates[-1]:
@@ -215,9 +225,17 @@ def fill_fuel(country, fuel, cfg, idx, linear_fuels):
                 use = cfg.scale_to
                 basis["ratio"] = rr
         vals, flg = expand(use, linear, idx)
+        if cfg.lead_hold and use.res == "M" and not use.clean().empty:
+            first = use.clean().index[0]
+            for m in [x for x in idx if x < first][-cfg.lead_hold:]:
+                vals[m], flg[m] = use.clean().iloc[0], "HELD_BACK"
         basis.update(source=use.source or prim.source, resolution=use.res,
                      rule=use.kind if use.res == "M" else {"Q": "QUARTERLY", "A": "ANNUAL", "EMBER": "FALLBACK_EMBER"}[use.res])
         pts = use.clean()
+        if (flg == "HELD_BACK").any():
+            basis["rule"] += " + HELD_BACK"
+            basis["caveat"] = (basis["caveat"] + " " if basis["caveat"] else "") + \
+                f"{int((flg == 'HELD_BACK').sum())} month(s) before {pts.index[0]:%Y-%m} held at the first stock"
         if cfg.ref is not None and use.res in ("M", "Q") and cfg.scale_to is None:
             r, d = first_overlap_ratio(use, cfg.ref)
             if r is not None:
@@ -282,6 +300,10 @@ def coverage(flags):
     cells = cells[~pd.isna(cells)]
     n = len(cells)
     out = {f: float((cells == f).sum()) / n * 100 if n else 0.0 for f in FLAGS}
+    for f in EXTRA_FLAGS:
+        v = float((cells == f).sum()) / n * 100 if n else 0.0
+        if v:
+            out[f] = v
     out["INCLUDED"] = float(np.char.startswith(cells.astype(str), "INCLUDED_IN_").sum()) / n * 100 if n else 0.0
     out["OBSERVED"] = sum(out[f] for f in OBSERVED)
     out["FILLED"] = 100.0 - out["OBSERVED"] - out["NONE"] - out["INCLUDED"]
