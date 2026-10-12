@@ -1,0 +1,25 @@
+hydro 2010
+Kraftverkstatus [('Idrift', 1863), ('Ute av drift', 107), ('Under bygging', 40)]
+ErIDrift [('True', 1863), ('False', 147)]
+UnderBygging [('False', 1970), ('True', 40)]
+VannKVType [('Kraftverk', 1967), ('Pumpe', 33), ('Pumpekraftverk', 10)]
+VannKVTypeID [('K', 1967), ('P', 33), ('PK', 10)]
+UteAvDrift examples [('None', 1903), ('2017', 13), ('2024', 9), ('2007', 7), ('1995', 6), ('2009', 5), ('2022', 5), ('2013', 4)]
+{'Navn': 'Adamselv II', 'VannKVType': 'Kraftverk', 'MaksYtelse': 0.4, 'IDriftDato': '2007-01-01T00:00:00', 'UteAvDrift': 2024, 'UnderBygging': False, 'Kraftverkstatus': 'Ute av drift', 'ForsteUtnyttelseAvFalletDato': 2007, 'DatoForEldsteKraftproduserendeDel': 2007}
+{'Navn': 'Aspevik', 'VannKVType': 'Kraftverk', 'MaksYtelse': 7.4, 'IDriftDato': None, 'UteAvDrift': None, 'UnderBygging': True, 'Kraftverkstatus': 'Under bygging', 'ForsteUtnyttelseAvFalletDato': -1, 'DatoForEldsteKraftproduserendeDel': -1}
+{'Navn': 'Auli Mølle', 'VannKVType': 'Kraftverk', 'MaksYtelse': 0.024, 'IDriftDato': '1909-01-01T00:00:00', 'UteAvDrift': 1985, 'UnderBygging': False, 'Kraftverkstatus': 'Ute av drift', 'ForsteUtnyttelseAvFalletDato': 1909, 'DatoForEldsteKraftproduserendeDel': 1909}
+{'Navn': 'Bergelva', 'VannKVType': 'Kraftverk', 'MaksYtelse': 0.3, 'IDriftDato': '2008-05-09T00:00:00', 'UteAvDrift': 2026, 'UnderBygging': False, 'Kraftverkstatus': 'Ute av drift', 'ForsteUtnyttelseAvFalletDato': 2008, 'DatoForEldsteKraftproduserendeDel': 2008}
+{'Navn': 'Bjelland I', 'VannKVType': 'Kraftverk', 'MaksYtelse': 0.03, 'IDriftDato': '1997-01-01T00:00:00', 'UteAvDrift': 2017, 'UnderBygging': False, 'Kraftverkstatus': 'Ute av drift', 'ForsteUtnyttelseAvFalletDato': 1997, 'DatoForEldsteKraftproduserendeDel': 1997}
+{'Navn': 'Blåfalli Fjellhaugen', 'VannKVType': 'Kraftverk', 'MaksYtelse': 185.0, 'IDriftDato': None, 'UteAvDrift': None, 'UnderBygging': True, 'Kraftverkstatus': 'Under bygging', 'ForsteUtnyttelseAvFalletDato': -1, 'DatoForEldsteKraftproduserendeDel': -1}
+not in operation with IDriftDato: 106 of 147 MW 1578.7810000000004
+wind plants 72 turbine rows 425 with DatoUtavdrift 29
+[('Fjeldskår', 5, 750, '1998-07-01T00:00:00', '2019-02-27T00:00:00'), ('Havøygavlen', 15, 2500, '2002-10-15T00:00:00', '2021-06-18T00:00:00'), ('Havøygavlen', 1, 2500, '2002-10-15T00:00:00', '2009-01-01T00:00:00'), ('Hovden, Vesterålen', 1, 400, '1991-08-01T00:00:00', '2017-01-01T00:00:00'), ('Hundhammerfjellet', 1, 3000, '2011-08-01T00:00:00', '2019-03-26T00:00:00'), ('Hundhammerfjellet', 1, 2550, '2003-11-01T00:00:00', '2009-09-01T00:00:00'), ('Hundhammerfjellet', 1, 3000, '2011-09-01T00:00:00', '2019-02-11T00:00:00'), ('Hundhammerfjellet', 1, 3500, '2007-09-01T00:00:00', '2019-03-26T00:00:00')]
+no DatoIdriftsatt: 0
+plants with offshore-like names []
+2021-01-01 hydro rebuild/ENTSOE 31578 33360 | pumped 1344 1065 | wind 3972 5105
+2022-01-01 hydro rebuild/ENTSOE 31992 33360 | pumped 1344 1065 | wind 4698 5105
+2023-01-01 hydro rebuild/ENTSOE 32157 33403 | pumped 1344 1065 | wind 5072 5130
+2024-01-01 hydro rebuild/ENTSOE 32417 33536 | pumped 1344 1065 | wind 5082 5133
+2025-01-01 hydro rebuild/ENTSOE 32558 33942 | pumped 1344 1065 | wind 5082 5139
+2026-01-01 hydro rebuild/ENTSOE 32740 34029 | pumped 1344 1076 | wind 5082 5139
+recent wind [('2024-01-01 00:00:00', 5082), ('2024-07-01 00:00:00', 5082), ('2025-01-01 00:00:00', 5082), ('2025-07-01 00:00:00', 5082), ('2026-01-01 00:00:00', 5082), ('2026-07-01 00:00:00', 5082)]
