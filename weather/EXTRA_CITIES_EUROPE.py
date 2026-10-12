@@ -33,7 +33,7 @@ def kosovo():
         mk, yk = r["key"]
         if yk == last and r["values"][0] not in ("", "-", ".."):
             rows.append((var["Municipality"][mk], float(r["values"][0])))
-    rows = [(n, p) for n, p in rows if n.strip().lower() not in ("kosovo", "total")]
+    rows = [(n, p) for n, p in rows if not n.strip().lower().startswith(("kosov", "total"))]
     rows.sort(key=lambda x: -x[1])
     out = []
     for n, p in rows[:4]:

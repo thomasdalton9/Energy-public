@@ -52,6 +52,10 @@ CY_NAMES = {"Λεμεσός": "Lemesos", "Στρόβολος": "Strovolos", "Λ�
             "Λακατάμεια": "Lakatamia"}
 SKOPJE = ["Аеродром", "Гази Баба", "Карпош", "Чаир", "Кисела Вода", "Ѓорче Петров", "Центар", "Сарај", "Бутел", "Шуто Оризари"]
 MK_NAMES = {"Куманово": "Kumanovo", "Тетово": "Tetovo", "Битола": "Bitola", "Гостивар": "Gostivar", "Прилеп": "Prilep"}
+# Urban Audit cities without a GISCO label point (Turkey is not in URAU; Jelgava was dropped in the 2021 vintage): approximate
+# city-centre coordinates (lon, lat) - geographic facts, not populations.
+FALLBACK_COORDS = {"TR012C": (28.9784, 41.0082), "TR001C": (32.8597, 39.9334), "TR013C": (27.1428, 38.4237), "TR005C": (29.0610, 40.1885),
+                   "TR002C": (35.3213, 37.0000), "LV003C": (23.7213, 56.6500)}
 OUT_COLS = ["country_code", "country", "city", "lat", "lon", "population", "population_year", "population_source", "url", "note"]
 
 
@@ -80,7 +84,12 @@ def ua_cities():
             print("URAU", yr, e)
             continue
         for f in g["features"]:
-            coords.setdefault(f["properties"]["URAU_CODE"], f["geometry"]["coordinates"])
+            code = f["properties"]["URAU_CODE"]
+            if re.match(r"^[A-Z]{2}\d{3}C\d$", code):   # the 2020 vintage appends a version digit (UK001C1)
+                code = code[:6]
+            coords.setdefault(code, f["geometry"]["coordinates"])
+    for code, (lon, lat) in FALLBACK_COORDS.items():
+        coords.setdefault(code, [lon, lat])
     return pop, lab, coords
 
 
