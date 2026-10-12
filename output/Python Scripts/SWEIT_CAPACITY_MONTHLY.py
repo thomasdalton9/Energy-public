@@ -1,11 +1,10 @@
 """
-Monthly installed generation capacity for France, Spain, Portugal and Italy from the official sources. Nothing is
+Monthly installed generation capacity for France, Spain and Portugal (Italy: no monthly source, see below) from the official sources. Nothing is
 copied from ENTSO-E and no month is invented: a period a source does not cover is absent.
 
   output/Data and Chart Outputs/france_power_capacity_monthly.xlsx
   output/Data and Chart Outputs/spain_power_capacity_monthly.xlsx
   output/Data and Chart Outputs/portugal_power_capacity_monthly.xlsx      (renewables only: PARTIAL)
-  output/Data and Chart Outputs/italy_power_capacity_monthly.xlsx         (see ITALY below)
 
 Date convention (same as the ENTSO-E annual files, dated 1 January, and the Nordic / GB / CEE workbooks): the row dated
 1 May holds the capacity installed at 00:00 on 1 May, i.e. at the END of April. Total_MW excludes pumped storage and
@@ -36,9 +35,13 @@ PORTUGAL - DGEG 'Estatisticas Rapidas das Renovaveis' monthly PDF (dgeg.gov.pt),
   the report month); the Dec PDFs and the year-end columns of the latest PDF give 31 December of 2016-2023. No gas, coal or
   other thermal capacity (REN and DGEG publish those annually only): PARTIAL, renewables only.
 
-ITALY - see run_it().
+ITALY - NOT AVAILABLE monthly (probed 12 Oct 2026, discovery_archive/europe/capacity/CAP_SWEIT_PROBE1-14): Terna's Download Center datasets
+  CapacityRenewableSources / CapacityThermal / GenerationPlants are annual statistics and their records endpoint
+  (/api/sitecore/dati/downloadcenter/recordsv2) answers HTTP 500 outside the page session; the Terna monthly report page publishes no files
+  we can reach; GSE (Atlaimpianti, statistical reports) answers HTTP 403 (Akamai) even with a browser fingerprint; Energy-Charts
+  installed_power has monthly data for Germany only (yearly for Italy). Italy therefore keeps only ENTSO-E's annual A68 figures.
 
-Usage: python3 SWEIT_CAPACITY_MONTHLY.py [--out-dir DIR] [--only fr,es,pt,it]
+Usage: python3 SWEIT_CAPACITY_MONTHLY.py [--out-dir DIR] [--only fr,es,pt]
 """
 import argparse
 import hashlib
@@ -697,19 +700,14 @@ def run_pt(out_dir):
     return mon
 
 
-# ------------------------------------------------------------------------------------------------ Italy
-def run_it(out_dir):
-    print("  Italy: not built yet")
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
-    ap.add_argument("--only", default="fr,es,pt,it")
+    ap.add_argument("--only", default="fr,es,pt")
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
     failed = []
-    for key, fn in (("fr", run_fr), ("es", run_es), ("pt", run_pt), ("it", run_it)):
+    for key, fn in (("fr", run_fr), ("es", run_es), ("pt", run_pt)):
         if key not in a.only.split(","):
             continue
         try:
