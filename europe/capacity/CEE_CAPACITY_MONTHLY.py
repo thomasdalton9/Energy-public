@@ -430,6 +430,9 @@ def run_cz(out_dir):
     extra = [c for c in monthly.columns if c not in STD]
     monthly = pd.concat([standardise(monthly, STD), monthly[extra]], axis=1)
     monthly = monthly[monthly.index >= "2021-01-01"]
+    # ERU's solar coverage widened in the 2024 reports (+1.2 GW between the Q4 2023 report's Dec 2023 and the 2024 reports' Jan 2024,
+    # against about +10 MW a month before; Ember has no such jump): flagged, and left out of the net-additions chart
+    monthly["solar_series_break"] = monthly.index == pd.Timestamp("2024-02-01")
     # the series starts with the December 2020 stock in the row dated 1 Jan 2021 (from the 2020 reports)
     chk = entsoe_check(out_dir, "czechia", monthly, {"Nuclear_MW": "Nuclear_MW", "Hydro_MW": "Hydro_MW", "Wind_MW": "Wind_MW",
                                                       "Solar_MW": "Solar_MW", "Gas_MW": "Gas_MW", "Coal_MW": "Coal_MW",
@@ -451,6 +454,7 @@ def run_cz(out_dir):
              "", "Technologies (ERU's own categories)",
              "Nuclear_MW = JE; Coal_MW = Steam_all_fuels_MW = PE (steam plant: coal, lignite AND biomass steam units, not split by fuel); Gas_MW = PPE combined cycle + PSE gas / combustion turbines and engines (on any fuel);",
              "Hydro_MW = VE; PumpedStorage_MW = PVE; Wind_MW = VTE; Solar_MW = FVE. No oil, bioenergy, other or battery split at source (blank, not zero). Total_MW = sum of the available fuels, excluding pumped storage.",
+             "SERIES BREAK: solar jumps by 1.2 GW between Dec 2023 (2023 report) and Jan 2024 (2024 reports), against about +10 MW a month before: ERU's coverage widened, it is not new build (Ember: +0.7 GW in 2024). The row dated 1 Feb 2024 is flagged in solar_series_break and left out of the net-additions chart.",
              "ERU excludes licence-exempt plants above 100 kW not yet reported to the market operator (463.9 MW at 30 Jun 2026, 453.3 MW of it PV): solar is slightly understated.",
              "", "Method",
              "Reports are whole files: a report is read again only when its Last-Modified / size changes (sheet Releases). Months a report has not reached yet are blank in its sheet and are skipped."]
