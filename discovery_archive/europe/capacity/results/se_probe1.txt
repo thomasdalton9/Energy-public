@@ -1,0 +1,318 @@
+== https://www.teias.gov.tr/kurulu-guc-raporlari -> 200 90722B text/html; charset=utf-8 title=Kurulu Güç Raporları
+    Yük Tevzi Bilgi Sistemi (YTBS) -> https://ytbsbilgi.teias.gov.tr/ytbsbilgi/frm_istatistikler.jsf
+== https://www.teias.gov.tr/turkiye-elektrik-uretim-iletim-istatistikleri -> 200 216295B text/html; charset=utf-8 title=TÜRKİYE ELEKTRİK ÜRETİM-İLETİM İSTATİSTİKLERİ
+== https://www.epdk.gov.tr/Detay/Icerik/3-0-0-98/elektrik-piyasasi-sektor-raporlari -> 200 93301B text/html; charset=utf-8 title=EPDK | Enerji Piyasası Düzenleme Kurumu
+    Kurumun Yapısı -> https://www.epdk.gov.tr/Detay/Icerik/1-1050/kurumumuzkurumun-yapisi
+    Aylık Sekt&#246;r Raporlar -> https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar
+    &#220;retim Kapasite Projeksiyonları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-66-3/elektrikuretim-kapasite-projeksiyonlari
+    Aylık Sekt&#246;r Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-95-1007/dogal-gazaylik-sektor-raporu
+    Spot Kapasite -> https://www.epdk.gov.tr/Detay/Icerik/3-0-32-1007/dogal-gazspot-kapasite
+    Aylık Sekt&#246;r Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-104-1008/petrolaylik-sektor-raporu
+    Aylık Sekt&#246;r Raporları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-105-1002/lpgaylik-sektor-raporlari
+    Şarj Hizmeti Piyasası İstatistikleri -> https://www.epdk.gov.tr/Detay/Icerik/3-0-222-1040/enerji-donusumusarj-hizmeti-piyasasi--istatistik
+    Şarj Ağı Altyapısı Projeksiyonu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-234-1040/enerji-donusumusarj-agi-altyapisi-projeksiyonu-
+== https://www.epdk.gov.tr/ -> 200 192198B text/html; charset=utf-8 title=EPDK | T.C. Enerji Piyasası Düzenleme Kurumu
+    Kurumun Yapısı -> https://www.epdk.gov.tr/Detay/Icerik/1-1050/kurumumuzkurumun-yapisi
+    Aylık Sekt&#246;r Raporlar -> https://www.epdk.gov.tr/Detay/Icerik/3-0-23/elektrikaylik-sektor-raporlar
+    &#220;retim Kapasite Projeksiyonları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-66/elektrikuretim-kapasite-projeksiyonlari
+    Aylık Sekt&#246;r Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-95/dogal-gazaylik-sektor-raporu
+    Spot Kapasite -> https://www.epdk.gov.tr/Detay/Icerik/3-0-32/dogal-gazspot-kapasite
+    Aylık Sekt&#246;r Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-104/petrolaylik-sektor-raporu
+    Aylık Sekt&#246;r Raporları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-105/lpgaylik-sektor-raporlari
+    Şarj Hizmeti Piyasası İstatistikleri -> https://www.epdk.gov.tr/Detay/Icerik/3-0-222/enerji-donusumusarj-hizmeti-piyasasi--istatistik
+    Şarj Ağı Altyapısı Projeksiyonu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-234/enerji-donusumusarj-agi-altyapisi-projeksiyonu-
+     -> https://www.epdk.gov.tr/Detay/Icerik/2-16435/enerji-piyasasi-duzenleme-kurulundan-bakan-bayrak
+    Enerji Piyasası D&#252;zenleme Kuruluna ilişkin atama kararları Resmi Gazete&#39;de yayıml -> https://www.epdk.gov.tr/Detay/Icerik/2-16419/epdkya-yonelik-atama-kararlari
+    Depolamalı RES ve GES’ler ile T&#252;rkiye&#39;nin Enerji Altyapısında Stratejik Bir D&#24 -> https://www.epdk.gov.tr/Detay/Icerik/2-16299/depolamali-res-ve-gesler-ile-turkiyenin-enerji-
+    Spot boru gazı ithalatına konu edilecek olan 2026 Gaz Yılı Kasım Ayı (A11) kapasite &#252; -> https://www.epdk.gov.tr/Detay/Icerik/4-16459/spot-boru-gazi-ithalatina-konu-edilecek-olan-2026
+    Spot boru gazı ithalatı 2026/10 Talep &#199;ağrısı metni kapsamında sunulan spot kapasite  -> https://www.epdk.gov.tr/Detay/Icerik/4-16455/spot-boru-gazi-ithalati-202610-talep-cagrisi-met
+     -> https://www.epdk.gov.tr/Detay/Icerik/4-16452/sarj-hizmeti-piyasasi-aylik-istatistikleri-agusto
+    Spot boru gazı ithalatına konu edilecek olan 2026 Gaz Yılı Kasım Ayı (A11) kapasite &#252; -> https://www.epdk.gov.tr/Detay/Icerik/5-16459/spot-boru-gazi-ithalatina-konu-edilecek-olan-2026
+    Spot boru gazı ithalatı 2026/10 Talep &#199;ağrısı metni kapsamında sunulan spot kapasite  -> https://www.epdk.gov.tr/Detay/Icerik/5-16455/spot-boru-gazi-ithalati-202610-talep-cagrisi-met
+    Şarj Hizmeti Piyasası Aylık İstatistikleri-Ağustos 2026 raporu yayımlanmıştır. -> https://www.epdk.gov.tr/Detay/Icerik/5-16452/sarj-hizmeti-piyasasi-aylik-istatistikleri-agusto
+    Bakanlar Kurulu Kararları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-0-2255/bakanlar-kurulu-kararlari
+     -> https://www.epdk.gov.tr/Detay/Icerik/3-0-167/resmi-istatistikler
+     -> https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar
+    AYLIK TOPLU LİSANSLAR -> https://www.epdk.gov.tr/#collapse8
+    Elektrik Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/21-1-3/aylik-toplu-lisanslar
+    Doğal Gaz Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/21-1-1007/aylik-toplu-lisanslar
+    Petrol Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/21-1-1008/aylik-toplu-lisanslar
+    LPG Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/21-1-1002/aylik-toplu-lisanslar
+    Enerji D&#246;n&#252;ş&#252;m&#252; -> https://www.epdk.gov.tr/Detay/Icerik/21-1-1040/aylik-toplu-lisanslar
+== https://seffaflik.epias.com.tr/ -> 200 4026B text/html; charset=utf-8 title=EPiAŞ | Şeffaflık
+== https://seffaflik.epias.com.tr/electricity-service/v1/dashboard/installed-capacity -> 404 93B text/plain;charset=utf-8 title=
+== https://seffaflik.epias.com.tr/electricity-service/v1/dashboard/realtime-generation -> 200 2148B application/json title=
+== https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html -> 200 3416572B text/html title=transparency-electricity
+    5.12. AylÄ±k Endeks Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_monthly-index
+    5.34. AylÄ±k Endeks DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_monthly-index-export
+    5.52. Debi ve Kurulu GÃ¼Ã§ Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_flow-rate-and-installed-power
+    5.60. Debi ve Kurulu GÃ¼Ã§ DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_flow-rate-and-installed-power-export
+    5.70. Emre Amade Kapasite (EAK) Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_aic
+    5.86. Emre Amade Kapasite (EAK) DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_aic-export
+    5.96. Primer Frekans Rezerv MiktarÄ± Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_primary-frequency-capacity-amount
+    5.97. Primer Frekans KontrolÃ¼ (PFK) Fiyat Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_primary-frequency-capacity-price
+    5.98. Sekonder Frekans Rezerv MiktarÄ± Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_secondary-frequency-capacity-amount
+    5.99. Sekonder Frekans KontrolÃ¼ (SFK) Fiyat Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_secondary-frequency-capacity-price
+    5.100. Primer Frekans Rezerv MiktarÄ± DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_primary-frequency-capacity-amount-export
+    5.101. Primer Frekans KontrolÃ¼ (PFK) Fiyat DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_primary-frequency-capacity-price-export
+    5.102. Sekonder Frekans Rezerv MiktarÄ± DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_secondary-frequency-capacity-amount-export
+    5.103. Sekonder Frekans KontrolÃ¼ (SFK) Fiyat DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_secondary-frequency-capacity-price-export
+    5.246. Kurulu GÃ¼Ã§ YEKDEM Son Tarih SonrasÄ± Veri Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_new-installed-capacity
+    5.247. Kurulu GÃ¼Ã§ YEKDEM Son Tarih ve Ãncesi Veri Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_old-installed-capacity
+    5.264. Kurulu GÃ¼Ã§ YEKDEM Son Tarih SonrasÄ± Veri Ä°Ã§in DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_new-installed-capacity-export
+    5.265. Kurulu GÃ¼Ã§ YEKDEM Son Tarih ve Ãncesi Verisi Ä°Ã§in DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_old-installed-capacity-export
+    5.276. Kapasite Talepleri Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacity-demand
+    5.277. Kapasite talepleri yÃ¶n servisleri -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacity-demand-direction
+    5.283. Hat Kapasiteleri listeleme servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_line-capacities
+    5.284. Hat kapasiteleri yÃ¶n listeleme servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_line-capacities-direction
+    5.285. Nomine Kapasite Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_nominal-capacity
+    5.287. Enterkonneksiyon Kapasitesine Ä°liÅkin Ay Ãncesi Tahminler Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_tcat-pre-month-forecast
+    5.288. Enterkonneksiyon Kapasitesine Ä°liÅkin YÄ±l Ãncesi Tahminler Listeleme Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_tcat-pre-year-forecast
+    5.290. Kapasite Talepleri DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacity-demand-export
+    5.296. Hat Kapasiteleri DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_line-capacities-export
+    5.297. Nomine Kapasite DÄ±Åa AktarÄ±m Servisi -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_nominal-capacity-export
+    5.299. Enterkonneksiyon Kapasitesine Ä°liÅkin Ay Ãncesi Tahminler DÄ±Åa AktarÄ±m Servis -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_tcat-pre-month-forecast-export
+    5.300. Enterkonneksiyon Kapasitesine Ä°liÅkin YÄ±l Ãncesi Tahminler DÄ±Åa AktarÄ±m Serv -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_tcat-pre-year-forecast-export
+    6.13. AmountOfBilateralContractsStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_amountofbilateralcontractsstatisticsdto
+    6.18. AmountOfBlockBuyingStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_amountofblockbuyingstatisticsdto
+    6.23. AmountOfBlockSellingStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_amountofblocksellingstatisticsdto
+    6.33. BilateralContractAmountStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_bilateralcontractamountstatisticsdto
+    6.38. BilateralContractBuyStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_bilateralcontractbuystatisticsdto
+    6.43. BilateralContractSellStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_bilateralcontractsellstatisticsdto
+    6.45. CapacityDemandDataDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacitydemanddatadto
+    6.46. CapacityDemandExportRequestDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacitydemandexportrequestdto
+    6.47. CapacityDemandRequestDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacitydemandrequestdto
+    6.48. CapacityDemandResponseDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_capacitydemandresponsedto
+    6.56. ClearingQuantityStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_clearingquantitystatisticsdto
+    6.74. ContractPriceSummaryStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_contractpricesummarystatisticsdto
+    6.79. DailyIndexPriceStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_dailyindexpricestatisticsdto
+    6.109. DayAheadMarketTradeVolumeStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_dayaheadmarkettradevolumestatisticsdto
+    6.130. DsgImbalanceQuantityStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_dsgimbalancequantitystatisticsdto
+    6.137. EakStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_eakstatisticsdto
+    6.158. FlexibleOfferBuyQuantityStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_flexibleofferbuyquantitystatisticsdto
+    6.163. FlexibleOfferSellQuantityStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_flexibleoffersellquantitystatisticsdto
+    6.165. FlowRateAndInstalledPowerResponse -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_flowrateandinstalledpowerresponse
+    6.166. FlowRateAndInstalledPowerResponseDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_flowrateandinstalledpowerresponsedto
+    6.167. FrequencyCapacityAmountAndPriceExportRequestDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_frequencycapacityamountandpriceexportrequestdto
+    6.168. FrequencyCapacityAmountAndPriceRequestDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_frequencycapacityamountandpricerequestdto
+    6.169. FrequencyCapacityAmountStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_frequencycapacityamountstatisticsdto
+    6.170. FrequencyCapacityPriceStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_frequencycapacitypricestatisticsdto
+    6.181. ImbalanceAmountStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_imbalanceamountstatisticsdto
+    6.191. ImbalanceQuantityStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_imbalancequantitystatisticsdto
+    6.197. InjectionQuantityStatisticsDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_injectionquantitystatisticsdto
+    6.198. InstalledCapacityExportRequest -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_installedcapacityexportrequest
+    6.199. InstalledCapacityNewDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_installedcapacitynewdto
+    6.200. InstalledCapacityOldDto -> https://seffaflik.epias.com.tr/electricity-service/technical/tr/index.html#_installedcapacityolddto
+== https://enerji.gov.tr/bilgi-merkezi-enerji-elektrik -> 504 0B  title=
+== https://enerji.gov.tr/ -> 504 0B  title=
+   (curl_cffi used after RuntimeError http 403)
+== https://www.admie.gr/en/market/market-statistics/detailed-monthly-reports -> 403 3704B text/html title=Error 403
+   (curl_cffi used after RuntimeError http 403)
+== https://www.admie.gr/en/market/market-statistics/monthly-energy-balance -> 403 3702B text/html title=Error 403
+ERR https://www.dapeep.gr/en/ RuntimeError http 403 | ConnectionError Failed to perform, curl: (56) Connection closed abruptly. See https://curl.se/li
+ERR https://www.dapeep.gr/category/statistika/ ConnectionError ('Connection aborted.', RemoteDisconnected('Remote end closed connection without | ConnectionError Failed to perform, curl: (56) Connection closed abruptly. See https://curl.se/li
+== https://deddie.gr/en/ -> 200 125037B text/html; charset=UTF-8 title=ΔΕΔΔHΕ | Home
+    Fault report -> https://www.deddie.gr/en/faults-and-outages/fault-report/
+    Fault report -> https://apps.deddie.gr/PowerCutReportWebapp/index.html
+    Fault report -> https://deddie.gr/en/
+    I want to report a fault -> https://deddie.gr/en/faults-and-outages/fault-report/
+    Electromobility       Installation of recharging infrastructure   Technical specifications -> https://deddie.gr/en/services/electromobility/
+    Non-Interconnected islands       Announcements   Statistics   Special projects etc.        -> https://deddie.gr/en/services/non-interconnected-islands/
+    Possibilities of absorbing RES stations capacity -> https://apps.deddie.gr/WebAPE/index.html
+     -> https://www.deddie.gr/en/issuance-of-power-generation-informative-report-for-the-non-interconnected-islands-april-2026/
+     -> https://www.deddie.gr/en/hedno-announcement-on-the-possibility-of-extending-the-installation-period-and-grid-capacity-reservation-for-stations-under-the-photovoltaics-on-
+== https://www.rae.gr/ -> 200 96531B text/html; charset=utf-8 title=ΡΑΑΕΥ
+    Skip to content -> https://www.rae.gr/#content
+    Linkedin -> https://linkedin.com/company/regulatory-authority-for-energy-rae/
+    Ολομέλεια -> https://www.raaey.gr/energeia/sxetika-me-ti-rae/olomeleia/
+    Κλάδος Ενέργειας -> https://my.rae.gr/
+    Κλάδος Αποβλήτων &#8211; Υδάτων -> https://my.raaey.gr/auth/realms/complaints-portal/protocol/openid-connect/auth?client_id=django-main-api&#038;response_type=code&#038;redirect_uri=https://my.raaey.gr/api
+    Σχετικά με τη ΡΑΑΕΥ -> https://www.raaey.gr/energeia/sxetika-me-ti-rae/
+    Στατιστικά -> https://www.raaey.gr/energeia/statistika/
+    Προκηρύξεις -> https://www.raaey.gr/energeia/sxetika-me-ti-rae/prokirikseis/
+== https://geo.rae.gr/ -> 200 825B text/html; charset=UTF-8 title=RAE GeoPortal
+ERR https://www.henex.gr/ ConnectionError HTTPSConnectionPool(host='www.henex.gr', port=443): Max retries exceeded with ur | DNSError Failed to perform, curl: (6) Could not resolve host: www.henex.gr. See https://c
+== https://www.hops.hr/ -> 200 71969B text/html; charset=utf-8 title=HOPS
+    Pravila nadmetanja za osiguravanje aFRR i mFRR rezervu snage i/ili energije uravnote&#x17E -> https://www.hops.hr/obavijesti/pravila-nadmetanja-za-osiguravanje-afrr-i-mfrr-rezervu-snage-iili-energije-uravnotezenja-rujan-2026
+    Rezultati Natje&#x10D;aja za dodjelu stipendija redovitim studentima u akademskoj godini 2 -> https://www.hops.hr/obavijesti/rezultati-natjecaja-za-dodjelu-stipendija-redovitim-studentima-u-akademskoj-godini-20252026
+    Javno savjetovanje o prijedlogu Pravila nadmetanja za osiguravanje aFRR i mFRR rezerve sna -> https://www.hops.hr/obavijesti/javno-savjetovanje-o-prijedlogu-pravila-nadmetanja-za-osiguravanje-afrr-i-mfrr-rezerve-snage-iili-energije-uravnotezenja
+    Proizvodnja vjetroelektrana -> https://www.hops.hr/izvjestaji-o-proizvodnji-ve-u-rh
+    ENTSO-E podatkovni portal -> https://docstore.entsoe.eu/data/statistics/Pages/default.aspx
+    Godi&#x161;nji izvje&#x161;taji -> https://www.hops.hr/godisnji-izvjestaji
+    Izvje&#x161;taji o uravnote&#x17E;enju -> https://www.hops.hr/izvjestaji-uravnotezenje
+    Pomo&#x107;ne usluge -> https://www.hops.hr/pomocne-usluge-ees
+== https://www.hrote.hr/ -> 200 42792B text/html; charset=utf-8 title=HROTE - Hrvatski operator tržišta energije d.o.o.
+    Izvještaji -> https://www.hrote.hr/izvjestaji
+    Izvještaji -> https://www.hrote.hr/izvjestaji-310
+    Izvještaji -> https://www.hrote.hr/izvjestaji-499
+    Obnovljivi izvori energije i viskoučinkovita kogeneracija -> https://www.hrote.hr/obnovljivi-izvori-energije-i-viskoucinkovita-kogeneracija
+== https://www.hera.hr/ -> 200 25148B text/html title=HERA - Novosti
+    Odluku o popustima, mnoÅ¾iteljima i sezonskim faktorima za 2027. godinu -> https://www.hera.hr/docs/2026/Odluka_2026-06-03_01.pdf
+== https://www.hrote.hr/statistika-oie -> 200 42792B text/html; charset=utf-8 title=HROTE - Hrvatski operator tržišta energije d.o.o.
+    Preskočite na glavni sadržaj -> https://www.hrote.hr/statistika-oie#main
+    Izvještaji -> https://www.hrote.hr/izvjestaji
+    Izvještaji -> https://www.hrote.hr/izvjestaji-310
+    Izvještaji -> https://www.hrote.hr/izvjestaji-499
+     -> https://www.hrote.hr/statistika-oie
+    Izbornik -> https://www.hrote.hr/statistika-oie#mobile-menu
+    Obnovljivi izvori energije i viskoučinkovita kogeneracija -> https://www.hrote.hr/obnovljivi-izvori-energije-i-viskoucinkovita-kogeneracija
+    Vrh -> https://www.hrote.hr/statistika-oie#0
+== https://www.eles.si/ -> 200 307965B text/html; charset=utf-8 title=ELES, d. o. o., operater kombiniranega prenosnega in distribucijskega elektroene
+    Možni obseg in lokacije  priključevanja OVE -> https://www.eles.si/Portals/0/Documents/Hosting%20capacity%20ELESovih%20RTP.pdf
+    Raziskovalna dejavnost -> https://www.eles.si/raziskovalna-dejavnost
+== https://www.agen-rs.si/ -> 200 37377B text/html;charset=UTF-8 title=Domov - Agencija za energijo
+== https://www.borzen.si/en-us/Home -> 200 107794B text/html; charset=utf-8 title=Home
+    Data and Reports -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports
+    Data and Reports -> https://www.borzen.si/en-us/support-for-electricity-production-support-scheme-/data-and-reports
+    Data and Reports -> https://www.borzen.si/en-us/support-for-electricity-production-support-scheme/data-and-reports/data-and-reports
+== https://www.sodo.si/ -> 200 44956B text/html; charset=UTF-8 title=Domov | SODO | Sistemski operater distribucijskega omrežja z električno energijo
+    Piškotki -> https://www.sodo.si/sl/kdo-smo/pravilnik-o-piskotkih
+    Napredne nastavitve -> https://www.sodo.si/kdo-smo/pravilnik-o-piskotkih
+== https://pxweb.stat.si/SiStatData/pxweb/en/Data/ -> 200 7596445B text/html; charset=utf-8 title=PxWeb - Select table
+    Average annual and monthly air temperatures [°C] by meteorological stations, Slovenia, 198 -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0156101S.px/
+    Annual and monthly precipitations [mm] by meteorological stations, Slovenia, 1981 - 2014 -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0156102S.px/
+    Average annual and monthly precipitations [mm], Slovenia, 1981 - 2014 -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0156104S.px/
+    Territorial units and house numbers by the statistical regions, Slovenia, 2004H2 - 2018H2 -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0214819S.px/
+    Territorial units and house numbers by the statistical regions, Slovenia, 1996 - 2018 -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0214821S.px/
+    Gross capital formation by activity and by type, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0301950S.px/
+    Gross domestic product, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0309250S.px/
+    Gross value added at basic prices by activities, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0309254S.px/
+    Employment by activities, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0309258S.px/
+    Household accounts, cohesion and statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0309270S.px/
+    Gross fixed capital formation, cohesion regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0309275S.px/
+    Gross fixed capital formation, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0309276S.px/
+    Consumption of fixed capital (NACE Rev. 2), Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0329102S.px/
+    Consumption of fixed capital for dwellings (NACE Rev. 2), Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0329104S.px/
+    Gross fixed capital formation in education industry (ISIC 85) by type of investment and se -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0383503S.px/
+    Labour and capital productivity indicators by activity (NACE Rev. 2), Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0386601S.px/
+    Capital productivity indicators by main asset types, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0386602S.px/
+    Nominal labour productivity per person employed, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0386605S.px/
+    Use table for culture by culture sector, Slovenia, multiannually, experimental statistics -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0387904S.px/
+    Supply table for culture by culture sector, Slovenia, multiannually, experimental statisti -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0387905S.px/
+    Consumer price indices (ECOICOP ver. 2), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0400608S.px/
+    Harmonised index of consumer prices (ECOICOP ver. 2), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0400609S.px/
+    Import price indices (CPA 2015), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0425001S.px/
+    Import price indices, by main industrial groups (CPA 2015), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0425002S.px/
+    Import price indices euro area (CPA 2015), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0425004S.px/
+    Import price indices non-euro area (CPA 2015), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0425005S.px/
+    Producer price indices, by activities (NACE Rev. 2), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0457101S.px/
+    Producer price indices, by main industrial groups (NACE Rev. 2), Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0457102S.px/
+    The construction material cost index, Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0457204S.px/
+    Dwellings by installations and utility spaces, recalculation according to municipalities,  -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/0558868S.px/
+    Population by age and sex, statistical regions, Slovenia, half-yearly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C2001S.px/
+    Population by large and 5-year age groups and sex, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C2002S.px/
+    Population by large and 5-year age groups and sex, statistical regions, Slovenia, half-yea -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C2004S.px/
+    Population by selected age groups and sex, statistical regions, Slovenia, half-yearly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C2006S.px/
+    Population - selected indicators, statistical regions, Slovenia, half-yearly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C2008S.px/
+    Population density and femininity index, statistical regions, Slovenia, half-yearly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C2010S.px/
+    Basic population groups by sex, statistical regions, Slovenia, half-yearly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05E1016S.px/
+    Foreigners by groups of citizenship, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05E1018S.px/
+    Population aged 15 or more by 5-year age groups, sex and marital status, statistical regio -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05E2006S.px/
+    Foreign-born population by year of first immigration and sex, statistical regions, Sloveni -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05E4020S.px/
+    Population by region/country of birth and sex, statistical regions, Slovenia, multiannuall -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05E4021S.px/
+    Population by statistical region of residence and statistical region of first residence an -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05E4022S.px/
+    Population, households and families, statistical regions, Slovenia, multiannually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05F2005S.px/
+    Households by number of members and type of household, statistical regions, Slovenia, mult -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05F2010S.px/
+    Households by type and number of men and women in household, statistical regions, Slovenia -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05F2015S.px/
+    Families by number of children and type of family, statistical regions, Slovenia, multiann -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05F6010S.px/
+    Families with children by age of children and type of family, statistical regions, Sloveni -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05F6012S.px/
+    Population aged 15 years or more by education, 5-year age groups and sex, statistical regi -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05G2010S.px/
+    Population aged 15 years or more by activity status, sex and age, statistical regions, Slo -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05G3011S.px/
+    Population aged 15 years or more by activity status, sex and education, statistical region -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05G3012S.px/
+    Measures of activity of the population by sex, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05G3014S.px/
+    Employed persons by activity (NACE Rev. 2) and sex, statistical regions, Slovenia multiann -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05G3060S.px/
+    Employed persons by occupational groups and sex, statistical regions, Slovenia, multiannua -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05G3062S.px/
+    Natural change of population, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05I1004S.px/
+    Migration change of population, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05I2004S.px/
+    Total increase of population, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05I3004S.px/
+    Live births by day of birth, Slovenia, monthly -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05J1031S.px/
+    Basic data on live births, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05J2008S.px/
+    Live births by age of mother, statistical regions, Slovenia, annually -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05J2010S.px/
+    Live births within or outside marriage by order of birth, statistical regions, Slovenia, a -> https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05J2012S.px/
+== https://ems.rs/ -> 200 138039B text/html; charset=UTF-8 title=Електромрежа Србије &#8211; ЕМС АД
+    Прагови максималне снаге за производне модуле типа Б, Ц и Д -> https://ems.rs/pragovi-maksimalne-snage-za-proizvodne-module-tipa-b-c-i-d/
+    Годишњи план рада преносног система -> https://ems.rs/godisnji-plan-rada-prenosnog-sistema/
+    Помоћне услуге -> https://ems.rs/pomocne_usluge/
+     -> https://ems.rs/u-skladu-sa-uredbom-o-uslovima-isporuke-i-snabdevanja-elektricnom-energijom-1-septembra-pocinje-naredni-interval-za-izradu-studija-prikljucenja-koji-traje-
+== https://www.mre.gov.rs/ -> 200 110395B text/html; charset=UTF-8 title=Министарство рударства и енергетике
+    Државни секретари и помоћници министра -> https://www.mre.gov.rs/tekst/69/drzavni-sekretari-i-pomocnici-ministra.php
+     -> https://www.mre.gov.rs/vest/17557/djedovic-handanovic-na-dobrom-smo-putu-da-do-2030-godine-imamo-35-gigavata-novih-kapaciteta-iz-obnovljivih-izvora-energije.php
+     -> https://www.mre.gov.rs/vest/17497/djedovic-handanovic-intenzivirane-aktivnosti-na-projektu-rhe-bistrica-pocetak-pripremnih-radova-u-narednim-mesecima.php
+     -> https://www.mre.gov.rs/vest/16696/djedovic-handanovic-cilj-je-da-srbija-do-sredine-naredne-godine-zavrsi-prvu-fazu-nuklearnog-programa-a-do-2035-pocne-izgradnja-postrojen
+     -> https://www.mre.gov.rs/vest/18031/odrzan-treci-sastanak-nadzornog-odbora-visegodisnjeg-operativnog-programa-za-zivotnu-sredinu-i-energetiku-ipa-iii.php
+== https://www.stat.gov.rs/ -> 200 66405B text/html; charset=utf-8 title=ПОЧЕТНА | Републички завод за статистику Србије
+    Структурне пословне статистике -> https://www.stat.gov.rs/oblasti/strukturne-poslovne-statistike/
+     -> https://twitter.com/StatistikaSrb
+     -> https://www.instagram.com/republicki_zavod_za_statistiku/
+    05.10.2026. - В. д. директора РЗС-а, Бранко Јосиповић, на IV Међународном статистичком фор -> https://www.stat.gov.rs/vesti/20261005-medjunarodni-statisticki-forum-u-jerevanu/
+    01.10.2026. - Бруто домаћи производ, 2025. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18062&amp;a=09&amp;s=090201
+    30.09.2026. - Индекси индустријске производње, август 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18052&amp;a=06&amp;s=0602
+    30.09.2026. - Промет робе у трговини на мало, август 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18060&amp;a=21&amp;s=2101
+    30.09.2026. - Туристички промет, август 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18061&amp;a=22&amp;s=2202
+    29.09.2026. - Укупан превоз путника и робе, I полугодиште 2026. -> https://www.stat.gov.rs/vesti/20260929-ukupan-prevoz-putnika-i-robe-i-polugodiste-2026/
+    Индекси цена угоститељских услуга, септембар 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18070&a=03&s=0301
+    Индекси цена произвођача индустријских производа из увоза, септембар 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18071&a=03&s=0302
+    Индекси цена произвођача индустријских производа – укупно, септембар 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18068&a=03&s=0302
+    Цене на мало пољопривредних производа, трећа недеља претходног месеца 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18066&a=03&s=0301
+    Индекси цена произвођача индустријских производа за извоз, септембар 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18067&a=03&s=0302
+    Индекси цена произвођача индустријских производа за домаће тржиште, септембар 2026. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18065&a=03&s=0302
+    Бруто домаћи производ, 2025. -> https://www.stat.gov.rs/vesti/statisticalrelease/?p=18062&a=09&s=090201
+    Статистички систем Србије -> https://www.stat.gov.rs/o-nama/statisticki-sistem-srbije-nss/
+    Савет за статистику -> https://www.stat.gov.rs/o-nama/savet-za-statistiku/
+    Европски статистички систем -> https://ec.europa.eu/eurostat/web/european-statistical-system
+   (curl_cffi used after ConnectionError HTTPSConnectionPool(host='www.nosbih.ba', port=443)
+== https://www.nosbih.ba/ -> 200 17588B text/html; charset=UTF-8 title=NOSBiH &#8211; Nezavisni operator sistema u Bosni i Hercegovini
+== https://www.derk.ba/ -> 200 122211B text/html; charset=utf-8 title=Državna regulatorna komisija za električnu energiju
+    Godišnji izvještaji DERK-a -> https://www.derk.ba/ba/godisnji-izvjestaji-derk-a
+== https://www.cges.me/ -> 200 459832B text/html; charset=UTF-8 title=CGES - Crnogorski elektroprenosni sistem a.d.
+    Izvještaj o sprovedenoj javnoj raspravi o tekstu Nacrta Pravila za funkcionisanje prenosno -> https://cges.me/vijest-i-dogadjaj/izvjestaj-o-sprovedenoj-javnoj-raspravi-o-tekstu-nacrta-pravila-za-funkcionisanje-prenosnog-sistema-elektricne-energije/
+== https://www.mepso.com.mk/ -> 200 57376B text/html; charset=utf-8 title=А.Д. МЕПСО - Дома
+    Планови -> https://www.mepso.com.mk/index.php/mk/doma/za-nas/godishen-plan-za-rabota
+    Годишен план за јавни набавки -> https://www.mepso.com.mk/index.php/mk/tenderi/godishen-plan-za-javni-nabavki
+ERR https://www.ere.gov.mk/ ConnectionError HTTPSConnectionPool(host='www.ere.gov.mk', port=443): Max retries exceeded with  | DNSError Failed to perform, curl: (6) Could not resolve host: www.ere.gov.mk. See https:/
+   (curl_cffi used after RuntimeError http 403)
+== https://www.ost.al/ -> 403 5806B text/html; charset=UTF-8 title=Just a moment...
+== https://www.ere.gov.al/ -> 200 204189B text/html; charset=utf-8 title=Enti Rregullator i Energjisë
+    Raporte dhe të dhëna të tregut të energjisë elektrike -> https://www.ere.gov.al/sq/tregu-i-energjise/raporte-dhe-te-dhena-te-tregut-te-energjise-elektrike
+    Raporte dhe të Dhëna të Tregu Rajonal të Energjisë Elektrike -> https://www.ere.gov.al/sq/tregu-i-energjise/raporte-dhe-te-dhena-te-tregu-rajonal-te-energjise-elektrike
+    Format e Raportimit ne ERE -> https://www.ere.gov.al/sq/tregu-i-energjise/format-e-raportimit-ne-ere
+    Raporte Vjetore -> https://www.ere.gov.al/sq/publikime/raporte-vjetore
+    Raportim -> https://www.ere.gov.al/sq/publikime/raportim
+    Shiko raportin -> https://www.ere.gov.al/images/files/2026/07/14/RAPORTI_VJETOR_2025.pdf
+ERR https://www.kostt.com/ SSLError HTTPSConnectionPool(host='www.kostt.com', port=443): Max retries exceeded with u | CertificateVerifyError Failed to perform, curl: (60) SSL: no alternative certificate subject name match
+== https://www.ero-ks.org/ -> 200 73689B text/html; charset=UTF-8 title=Ballina | ZRRE
+    Raportet Vjetore -> https://www.ero-ks.org/zrre/sq/publikimet/raportet-vjetore
+    Monitorimi -> https://www.ero-ks.org/zrre/raportet-e-monitorimit
+    Kujt i raporton Rregullatori? -> https://www.ero-ks.org/#accordion-lqljp-5
+== https://www.rews.org.mt/ -> 200 88007B text/html; charset=UTF-8 title=Home - REWS
+   (curl_cffi used after RuntimeError http 403)
+== https://nso.gov.mt/ -> 200 412524B text/html; charset=UTF-8 title=NSO Malta – Your gateway to Malta's official statistics.
+    NSO Reports -> https://nso.gov.mt/
+    Annual reports -> https://nso.gov.mt/annual-reports/
+    Statistical Databases from other International Organisations -> https://nso.gov.mt/statistical-databases-from-other-organisations-2/
+    Statistical Portals -> https://nso.gov.mt/statistics-portals/
+    Statistical Reports -> https://nso.gov.mt/statistical-reports/
+    Historical Statistics -> https://nso.gov.mt/malta-blue-books/
+    Peer Review -> https://nso.gov.mt/peer-review-report/
+    General Information -> https://nso.gov.mt/statistical-system-general-information/
+    European Statistical System -> https://nso.gov.mt/european-statistical-system/
+    Malta&#039;s Statistical System -> https://nso.gov.mt/statistical-system-maltas-statistical-system/
+     -> https://nso.gov.mt/events/ipa-and-ipat-as-other-national-authorities-for-official-statistics/
+     -> https://nso.gov.mt/events/statistical-article-on-public-perception-and-experiences-of-gender-roles-tolerance-and-discrimination-2025/
+    Glossary of Statistical Terms -> https://nso.gov.mt/glossary/
+     -> https://www.linkedin.com/company/national-statistics-office---malta/
+    Quality Service Charter -> https://qualityofservice.gov.mt/media/A_QSC/National%20Statistics%20Office/QSC%20National%20Statistics%20Office%20_EN.pdf
+    Request for Statistical Information -> https://workflow.gov.mt/Runtime/Runtime/Form/01+NSO+Request+for+Statistical+Information/?language=en
+=== EPIAS guesses
+GET dashboard/installed-capacity 404 [8420f051-829b-478f-89dc-2f78f8362c0c], [ERR-006], [Method not found or disabled!], [404], []
+POST dashboard/installed-capacity 404 [be3894aa-61f0-455f-b026-ed612fb13461], [ERR-006], [Method not found or disabled!], [404], []
+GET dashboard/realtime-generation 200 {"items":[{"date":"2026-10-12T00:00:00+03:00","hour":"00:00","total":31680.66,"naturalGas":1789.06,"dammedHydro":9230.65,"lignite":4917.94,"river":1813.19,"importCoal":7552.14,"wind":4109.27,"sun":0.01,"fueloil":70.21,"geothermal":1132.43,"asphaltiteCoal":220.79,"blackCoal":437.64,"biomass":826.52,"naphta":0,"lng":0,"importExport":-532.93,"wasteheat":113.74},{"date":"2026-10-12T01:00:00+03:00","ho
+POST dashboard/realtime-generation 404 [14317b5b-79d6-4887-a899-cef012cc745d], [ERR-006], [Method not found or disabled!], [404], []
+GET generation/data/installed-capacity 404 [0f463639-0564-43c0-86a5-51395937c09d], [ERR-006], [Method not found or disabled!], [404], []
+POST generation/data/installed-capacity 404 [11f4a5b8-4bd1-44ae-bf6f-3714fa21652b], [ERR-006], [Method not found or disabled!], [404], []
+GET generation/data/installed-capacity-group 404 [947f066b-3715-48a8-92cc-3adfb0e2831a], [ERR-006], [Method not found or disabled!], [404], []
+POST generation/data/installed-capacity-group 404 [8a85817b-ef96-4fbc-9d7a-e318dbe7e9ae], [ERR-006], [Method not found or disabled!], [404], []
+GET generation/data/license-based-installed-capacity 404 [943e784e-d659-49d0-9359-d5e919b06b53], [ERR-006], [Method not found or disabled!], [404], []
+POST generation/data/license-based-installed-capacity 404 [bc3c4ce2-f9c7-4427-86fc-039e572150d2], [ERR-006], [Method not found or disabled!], [404], []
+GET dashboard/installed-power 404 [93f5f494-f934-44d5-90b9-8328b24a3a2c], [ERR-006], [Method not found or disabled!], [404], []
+POST dashboard/installed-power ERR ReadTimeout HTTPSConnectionPool(host='seffaflik.epias.com.tr', port=443): Read timed out. (r
