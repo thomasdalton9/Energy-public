@@ -3707,9 +3707,10 @@ def jordan_peak_load(p):
     m = by_date(read(p, "Monthly"), "month")
     m = m[m["Charted"].astype(str) == "yes"]
     mx = pd.to_numeric(m["Max_Peak_MW"], errors="coerce").rename("Monthly maximum of daily peaks").to_frame()
+    # bars, so months left out (fewer than 20 days posted) show as gaps instead of being bridged by a line
     return [spec("Daily peak", g, "Jordan daily peak load, days posted by NEPCO (Max Load Archive)", "MW", "line"),
             spec("Monthly maximum", mx, "Jordan monthly maximum load, months with 20+ days posted (NEPCO)", "MW",
-                 "line")]
+                 "stacked_bar")]
 
 
 REGISTRY.update({
