@@ -1,0 +1,101 @@
+### HYDRO (EinheitenWasser) MW by Art / status
+   ('Laufwasseranlage', '35') 3693
+   ('Speicherwasseranlage', '35') 1071
+   ('Speicherwasseranlage', '38') 97
+   ('Laufwasseranlage', '38') 87
+   ('Wasserkraftanlage in Trinkwassersystem', '35') 11
+   ('Wasserkraftanlage in Brauchwassersystem', '35') 5
+   ('Abwasserkraftanlage', '35') 2
+   ('Speicherwasseranlage', '37') 2
+   ('?', '31') 1
+### largest hydro units
+   96 illwerke vkw Kopswerk I M1 illwerke vkw Kopswerk I Speicherwasseranlage 35 206
+   96 illwerke vkw Kopswerk I M2 illwerke vkw Kopswerk I Speicherwasseranlage 35 206
+   96 illwerke vkw Kopswerk I M3 illwerke vkw Kopswerk I Speicherwasseranlage 35 206
+   85 illwerke vkw Vermuntwerk M1 illwerke vkw Vermuntwerk Speicherwasseranlage 35 206
+   85 illwerke vkw Vermuntwerk M2 illwerke vkw Vermuntwerk Speicherwasseranlage 35 206
+   50 illwerke vkw Rodundwerk I M3 illwerke vkw Rodundwerk I Speicherwasseranlage 35 206
+   50 illwerke vkw Rodundwerk I M4 illwerke vkw Rodundwerk I Speicherwasseranlage 35 206
+   50 illwerke vkw Rodundwerk I M1 illwerke vkw Rodundwerk I Speicherwasseranlage 35 206
+   40 TögingNeu MS1 TögingNeu Laufwasseranlage 35 84
+   40 TögingNeu MS2 Kraftwerk Töging Neu Laufwasseranlage 35 84
+   40 TögingNeu MS3 Kraftwerk Töging Neu Laufwasseranlage 35 84
+   39 RKI Iffezheim M5 Rheinkraftwerk Iffezheim Laufwasseranlage 35 84
+   37 illwerke vkw Vermuntwerk M5 illwerke vkw Vermuntwerk Speicherwasseranlage 38 206
+   30 Kraftwerk Oberaudorf-Ebbs MS1 Kraftwerk Oberaudorf-Ebbs Laufwasseranlage 35 84
+   30 illwerke vkw Vermuntwerk M3 illwerke vkw Vermuntwerk Speicherwasseranlage 38 206
+### STORAGE MW by Technologie / status
+   ('Batterie', '31') 12651
+   ('Pumpspeicher', '35') 9900
+   ('Batterie', '35') 4446
+   ('Pumpspeicher', '38') 100
+   ('Batterie', '37') 19
+   ('Batterie', '38') 15
+   ('Pumpspeicher', '37') 1
+   ('Wasserstoffspeicher', '31') 1
+### largest storage units
+   1000 GigaBattery Jänschwalde 1000 Batterie 31 84 None
+   1000 GigaBattery Boxberg 1000 Batterie 31 84 None
+   1000 GigaBattery Jänschwalde 2000 Batterie 31 84 None
+   1000 GigaBattery Lippendorf 1000 Batterie 31 84 None
+   538 Batteriespeicher Westfalen 3 Batterie 31 84 None
+   400 GigaBattery Boxberg 400 Batterie 31 84 None
+   391 Batteriespeicher Gundremmingen 1 Batterie 31 84 None
+   300 ECO POWER FOUR Batterie 31 84 None
+   300 ECO POWER SIX Batterie 31 84 None
+   300 ECO POWER THREE Batterie 31 84 None
+   295 illwerke vkw Rodundwerk II M1 Pumpspeicher 35 206 2011-03-01
+   263 PSW Goldisthal PSS A Pumpspeicher 35 84 2004-04-27
+   263 PSW Goldisthal PSS B Pumpspeicher 35 84 2003-07-10
+   263 PSW Goldisthal PSS C Pumpspeicher 35 84 2003-02-03
+   263 PSW Goldisthal PSS D Pumpspeicher 35 84 2004-06-28
+   250 KW Silz - Maschine 1 Pumpspeicher 35 206 1981-04-06
+   250 KW Silz - Maschine 2 Pumpspeicher 35 206 1981-04-06
+   240 Waldeck 2 F1 Pumpspeicher 35 84 1974-01-01
+   240 Waldeck 2 F2 Pumpspeicher 35 84 1974-01-01
+   236 Batteriespeicher Hambach 1 Batterie 31 84 None
+   228 KW Wehr MS A9 Pumpspeicher 35 84 1975-05-12
+   228 KW Wehr MS A10 Pumpspeicher 35 84 1975-07-04
+   228 KW Wehr MS B9 Pumpspeicher 35 84 1976-09-20
+   228 KW Wehr MS B10 Pumpspeicher 35 84 1976-09-29
+   210 BESS_Sabel Batterie 31 84 None
+### OIL (Energietraeger 2409) by size band, status 35/37 only
+  band 0 0.1 units 5329 MW 64
+  band 0.1 1 units 3325 MW 1376
+  band 1 10 units 1654 MW 3074
+  band 10 1000000000.0 units 48 MW 3045
+  name pattern (no pattern) units 4993 MW 4954
+  name pattern nea units 1544 MW 1294
+  name pattern notstrom units 1193 MW 813
+  name pattern netzersatz units 405 MW 244
+  name pattern diesel units 61 MW 80
+  name pattern aggregat units 82 MW 72
+  name pattern bhkw units 2049 MW 66
+  name pattern usv units 20 MW 29
+  name pattern ersatzstrom units 9 MW 7
+  einspeisung/technologie ('Teileinspeisung (einschließlich Eigenverbrauch)', 'Verbrennungsmotor') 4197
+  einspeisung/technologie ('Volleinspeisung', 'Gasturbinen ohne Abhitzekessel') 1032
+  einspeisung/technologie ('Volleinspeisung', 'Kondensationsmaschine mit Entnahme') 818
+  einspeisung/technologie ('Teileinspeisung (einschließlich Eigenverbrauch)', 'Kondensationsmaschine mit Entnahme') 389
+  einspeisung/technologie ('Volleinspeisung', 'Verbrennungsmotor') 290
+  einspeisung/technologie ('Teileinspeisung (einschließlich Eigenverbrauch)', 'Sonstige') 224
+  einspeisung/technologie ('Teileinspeisung (einschließlich Eigenverbrauch)', 'Gasturbinen ohne Abhitzekessel') 136
+  einspeisung/technologie ('Teileinspeisung (einschließlich Eigenverbrauch)', 'Kondensationsmaschine ohne Entnahme') 135
+  einspeisung/technologie ('?', 'Verbrennungsmotor') 129
+  einspeisung/technologie ('Teileinspeisung (einschließlich Eigenverbrauch)', 'Gegendruckmaschine mit Entnahme') 87
+### largest oil units
+   365 Ingolstadt 4 | Ingolstadt
+   355 Ingolstadt 3 | Ingolstadt
+   306 Kraftwerk Marbach MAR 4 | Kraftwerk Marbach
+   136 Kraftwerk Walheim GTD | Kraftwerk Walheim
+   106 1MKA | IKS
+   106 2MKA | IKS
+   98 Kraftwerk Werdohl-Elverlingsen E1 | Kraftwerk Werdohl-Elverlingsen E1
+   98 Kraftwerk Werdohl Elverlingsen E2 | Kraftwerk Werdohl Elverlingsen E2
+   92 Shell Energy and Chemicals Park, Kraftwerk Godorf | RLR Kraftwerk Godorf
+   90 Kraftwerk Basell Wesseling | Kraftwerk Basell Wesseling
+   90 Audorf GT | Gasturbinenkraftwerk Audorf
+   87 Itzehoe GT | Gasturbinenkraftwerk Itzehoe
+   86 SWD KWF GTKW | None
+   86 Mittelsbüren GT3 | Mittelsbüren
+   85 Kraftwerk Marbach MAR 3 GT (solo) | Kraftwerk Marbach
