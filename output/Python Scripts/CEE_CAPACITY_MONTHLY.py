@@ -602,7 +602,7 @@ def run_pl(out_dir):
             continue
         d = pd.Timestamp(yr, mo, 1)
         latest = k < 2
-        if d in done and not latest:
+        if d + pd.offsets.MonthBegin(1) in done and not latest:
             continue
         url = "https://www.ure.gov.pl" + href
         try:
