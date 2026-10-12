@@ -1,0 +1,56 @@
+name: Egypt gas balance (JODI fallback + CAPMAS/MOEE annual)
+
+# 1st and 15th: JODI keeps its history (Egypt's month arrives ~2.5 months late), so each run re-fetches the last 12
+# stored months plus anything new; CAPMAS and MOEE (annual) are re-parsed only when their response changes.
+on:
+  schedule:
+    - cron: "05 6 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "re-fetch every JODI month (true/false)"
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests lxml matplotlib
+      - name: Run Egypt gas pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS=""
+          [ "${{ github.event.inputs.full }}" = "true" ] && ARGS="--full"
+          timeout 1500 python3 middle_east/EGYPT_GAS.py $ARGS
+      - name: Add Excel charts, PNGs and copy scripts
+        if: always()
+        run: |
+          F="output/Data and Chart Outputs/egypt_gas_monthly.xlsx"
+          [ -f "$F" ] && python3 add_charts.py "$F" && python3 png_charts.py "$F" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp middle_east/EGYPT_GAS.py add_charts.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/egypt_gas_monthly.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Egypt gas balance: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

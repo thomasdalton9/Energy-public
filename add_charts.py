@@ -3634,6 +3634,60 @@ def israel_gas_annual(p):
                  "BCM per year", "stacked_bar", "%Y")]
 
 
+def egypt_gas(p):
+    """Egypt gas balance (middle_east/EGYPT_GAS.py): JODI (fallback) monthly in Bcf/d with LNG IMPLIED from the balance
+    (owner's decision: JODI's reported LNG rows are not charted), plus the official annual layer (CAPMAS, MOEE)."""
+    d = by_date(read(p, "Monthly - JODI (fallback)"), "date").apply(pd.to_numeric, errors="coerce")
+    j = lambda stem: f"{stem}_JODI_fallback_Bcf_d"
+    imp = "Implied net LNG (+ imports / - exports)"
+    bal = d[cols(d, j("Production"), j("Pipeline_imports"), "Implied_net_LNG_imports_Bcf_d",
+                 j("Consumption_plus_pipeline_exports"))].rename(columns={
+        j("Production"): "Production (JODI fallback)", j("Pipeline_imports"): "Pipeline imports (JODI fallback)",
+        "Implied_net_LNG_imports_Bcf_d": imp,
+        j("Consumption_plus_pipeline_exports"): "Consumption + pipeline exports (JODI fallback)"})
+    bal = bal.dropna(how="any")
+    prod = d[cols(d, j("Production"))].rename(columns={j("Production"): "Production (JODI fallback)"}).dropna()
+    pw = d[cols(d, j("Consumption_GID_observed"), j("Power_electricity_and_heat"))].rename(columns={
+        j("Consumption_GID_observed"): "Total consumption, gross inland deliveries (JODI fallback)",
+        j("Power_electricity_and_heat"): "Of which electricity and heat generation (JODI fallback)"}).dropna(how="all")
+    lng = d["Implied_net_LNG_imports_Bcf_d"].dropna() if "Implied_net_LNG_imports_Bcf_d" in d else pd.Series(dtype=float)
+    lng = pd.DataFrame({"Implied net LNG imports": lng.clip(lower=0), "Implied net LNG exports": lng.clip(upper=0)})
+    out = [spec("Balance", bal, "Egypt gas balance (JODI fallback; LNG implied from the balance)", "Bcf/d (monthly average)", "stacked_bar",
+                line_cols=("Consumption + pipeline exports (JODI fallback)",)),
+           spec("Production", prod, "Egypt gas production (JODI fallback)", "Bcf/d (monthly average)", "line"),
+           spec("Power vs consumption", pw, "Egypt gas for power vs total gas consumption (JODI fallback)",
+                "Bcf/d (monthly average)", "line"),
+           spec("Implied net LNG", lng, "Egypt implied net LNG imports (+) / exports (-) (JODI fallback balance)", "Bcf/d (monthly average)", "stacked_bar")]
+    try:
+        a = read(p, "Annual official")
+    except ValueError:
+        a = pd.DataFrame()
+    if len(a) and {"Source", "Indicator_id", "Year", "Value", "Unit_as_stated"} <= set(a.columns):
+        a["Value"] = pd.to_numeric(a["Value"], errors="coerce")
+        cap = a[(a["Source"] == "CAPMAS") & (a["Unit_as_stated"] == "Million cubic meter")]
+        names = {3112: "Primary production", 3102: "Gross domestic consumption", 3108: "Final consumption",
+                 3121: "Imports", 3124: "Exports"}
+        cap = cap[cap["Indicator_id"].isin(list(names))]
+        if len(cap):
+            t = cap.pivot_table(index="Year", columns="Indicator_id", values="Value", aggfunc="sum")
+            t = t.rename(columns=names)[[n for n in names.values() if n in t.rename(columns=names).columns]]
+            t.index = pd.to_datetime(t.index.astype(int).astype(str) + "-01-01")
+            out.append(spec("CAPMAS energy balance", t, "Egypt natural gas, CAPMAS energy balance (official, annual; "
+                            "year basis not stated by CAPMAS)", "million m3 per year", "line", "%Y"))
+    try:
+        f = by_date(read(p, "Checks FY"), "date")
+        f = f[cols(f, "MOEE_gas_for_power_million_m3", "JODI_power_electricity_and_heat_mcm")].apply(
+            pd.to_numeric, errors="coerce").rename(columns={
+                "MOEE_gas_for_power_million_m3": "MOEE gas used in power stations (official)",
+                "JODI_power_electricity_and_heat_mcm": "JODI (fallback) electricity and heat, Jul-Jun sum"}).dropna(how="all")
+        if len(f):
+            out.append(spec("Gas for power FY", f, "Egypt gas for power by fiscal year ending June: MOEE vs JODI "
+                            "(fallback)", "million m3 per year", "line", "%Y"))
+    except ValueError:
+        pass
+    return out
+
+
 def cyprus_generation(p):
     """TSOC daily mean MW by source (europe/cyprus_generation_mix.py): monthly average MW, stacked."""
     d = by_date(read(p, "Cyprus"), "date").apply(pd.to_numeric, errors="coerce")
@@ -3650,6 +3704,7 @@ REGISTRY.update({
     "israel_gas_fields_quarterly.xlsx": israel_gas_fields,
     "israel_gas_annual_nga.xlsx": israel_gas_annual,
     "egypt_grid_load_daily.xlsx": egypt_grid_load,
+    "egypt_gas_monthly.xlsx": egypt_gas,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
     "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
 })

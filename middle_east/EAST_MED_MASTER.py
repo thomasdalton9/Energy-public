@@ -6,7 +6,7 @@ layout as the other masters (south_america/SOUTH_AMERICA_MASTER.py, whose table/
   Dashboard - Gas        Israel gas sales by field (Leviathan, Tamar, Karish; company reports, quarterly), Leviathan
                          sales by destination, exports to Egypt and Jordan; annual balance from the Natural Gas
                          Authority reviews (supply by source, domestic use by sector, exports by country, power by
-                         producer)
+                         producer); Egypt monthly balance from JODI (fallback) with implied net LNG, CAPMAS/MOEE annual
   Dashboard - Power      Egypt daily peak / minimum grid load (Ministry of Electricity, from Oct 2026), Cyprus
                          generation mix (TSOC)
   Dashboard - Long-term  annual fundamentals (fundamentals.py region 'East Med': Ember yearly power, Energy Institute
@@ -42,6 +42,8 @@ DATA_DIR = sam.DATA_DIR
 GAS_DATASETS = [
     ("IL", "Israel", "israel_gas_fields_quarterly.xlsx", ("Quarterly", "Leviathan", "Tamar", "Karish YTD"), "gas by field"),
     ("IL", "Israel", "israel_gas_annual_nga.xlsx", ("Annual", "Checks"), "annual gas balance"),
+    ("EG", "Egypt", "egypt_gas_monthly.xlsx", ("Monthly - JODI (fallback)", "JODI (fallback) raw", "Annual official",
+                                               "Checks", "Checks FY"), "gas balance (JODI fallback)"),
 ]
 POWER_DATASETS = [
     ("EG", "Egypt", "egypt_grid_load_daily.xlsx", "Daily", "grid load"),
@@ -55,6 +57,11 @@ SOURCES = {
         "Israel Natural Gas Authority (Ministry of Energy and Infrastructure): annual 'Natural Gas Sector Review' "
         "(Hebrew PDF, gov.il BlobFolder) - supply by source, domestic use by sector, exports by country, BCM per year, "
         "read from the reviews' tables and chart data labels", "https://www.gov.il/BlobFolder/reports/ng-2025/he/ng-2025.pdf"),
+    "egypt_gas_monthly.xlsx": (
+        "JODI Gas World database (FALLBACK: Egypt's own JODI submission, no official monthly Egyptian gas statistics are "
+        "reachable; LNG IMPLIED from the balance, not JODI's reported LNG) + official annual layer: CAPMAS (energy "
+        "balance, petroleum-sector statistics) and Ministry of Electricity (MOEE, gas used in power stations, fiscal years)",
+        "http://www.jodidb.org/TableViewer/tableView.aspx?ReportId=38673"),
     "egypt_grid_load_daily.xlsx": (
         "Ministry of Electricity and Renewable Energy (MOEE), Egypt: home-page 'Grid Loads' panel (no history at source; "
         "series from Oct 2026)", "http://www.moee.gov.eg/english_new/home.aspx"),
@@ -72,8 +79,11 @@ CAVEATS = [
     "all three fields report; no monthly Israeli gas source is reachable (gov.il is Cloudflare-blocked). Annual balance "
     "from the Natural Gas Authority reviews (2004-latest; segments a review prints no label for are drawn as "
     "'Not labelled in the review')",
-    "Egypt: grid load only (daily peak and minimum); Egypt's generation by type and gas balance are annual "
-    "(MOEE, CAPMAS) and not yet built",
+    "Egypt gas: MONTHLY from JODI (fallback - Egypt's own JODI submission; no official monthly source is reachable); "
+    "net LNG is IMPLIED = consumption (gross inland deliveries) + pipeline exports - production - pipeline imports "
+    "(positive = net imports), not JODI's reported LNG rows; it carries JODI's statistical difference (large in 2011-13). "
+    "Official annual layer: CAPMAS (to 2022; units as the API states them) and MOEE gas for power (fiscal years to 2022/23)",
+    "Egypt power: grid load only (daily peak and minimum); generation by type is annual (MOEE) and not yet built",
 ]
 
 
@@ -93,9 +103,9 @@ def main():
 
     gas = sam.collect(wb, GAS_DATASETS, args.data_dir, used, sources, cfg=cfg)
     power = sam.collect(wb, POWER_DATASETS, args.data_dir, used, sources, cfg=cfg)
-    gas[2].extend(CAVEATS[:1])
-    power[2].extend(CAVEATS[1:])
-    sam.draw_dashboard(dash, "East Mediterranean - gas (Israel by field, exports to Egypt and Jordan)", *gas)
+    gas[2].extend(CAVEATS[:2])
+    power[2].extend(CAVEATS[2:])
+    sam.draw_dashboard(dash, "East Mediterranean - gas (Israel by field, exports to Egypt and Jordan; Egypt balance, JODI fallback)", *gas)
     sam.draw_dashboard(dash2, "East Mediterranean - power (Egypt grid load, Cyprus generation)", *power)
 
     notes = fundamentals.add_long_term_dashboard(wb, used, sam.sheet_name, "East Med", args.data_dir, sam.CHART_W,
