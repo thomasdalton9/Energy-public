@@ -1,0 +1,30 @@
+name: Weather cities Europe
+
+# Manual: builds weather/cities_europe.csv and weather/countries_europe.csv from Eurostat (Urban Audit urb_cpop1, demo_pjan),
+# GISCO (URAU label points, LAU municipalities), the Kosovo Agency of Statistics and ONS, and commits them. Copy for other regions.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas requests shapely
+      - run: python3 weather/BUILD_CITIES_EUROPE.py
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add weather/cities_europe.csv weather/countries_europe.csv || true
+          git diff --cached --quiet || git commit -m "Weather: Europe city and country population lists (automated)"
+          for i in 1 2 3 4 5; do { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0; sleep $((i*5)); done
+          exit 1
