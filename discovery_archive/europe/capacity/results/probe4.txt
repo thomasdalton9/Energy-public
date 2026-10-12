@@ -1,0 +1,459 @@
+=== CH register
+rows 339499 no start date 0 range 1863-01-01 00:00:00 2026-07-30 00:00:00
+TotalPower unit assumed kW; sum by Sub/Plant category (MW):
+                                         count         sum          MW
+MainCategory SubCategory PlantCategory                                
+maincat_1    subcat_1    plantcat_1         15     4070.26     4.07026
+                         plantcat_2        407  2102785.90  2102.78590
+                         plantcat_3         48    42701.40    42.70140
+                         plantcat_4        327  1517356.20  1517.35620
+                         plantcat_5        410    51943.57    51.94357
+                         plantcat_6         20  6501678.00  6501.67800
+                         plantcat_7         97  2655264.80  2655.26480
+                         NaN                 1        5.81     0.00581
+maincat_2    subcat_10   plantcat_12        28   353819.60   353.81960
+             subcat_2    plantcat_10      1405    58053.45    58.05345
+                         plantcat_8     283574  7740506.38  7740.50638
+                         plantcat_9      42205   728862.76   728.86276
+                         NaN             10271   301785.66   301.78566
+             subcat_3    NaN                64   109676.90   109.67690
+             subcat_4    plantcat_11       267   215438.80   215.43880
+                         plantcat_13       167    29420.60    29.42060
+maincat_3    subcat_6    NaN                 4  3014600.00  3014.60000
+maincat_4    subcat_7    NaN                 1        5.30     0.00530
+             subcat_8    NaN               188   298738.90   298.73890
+detail rows 406676 date range 1989-10-20 00:00:00 2026-07-30 00:00:00 Power sum (kW?) 7797270.090000001
+Initial vs Total power: plants where Total != Initial 15048
+subcat_1 [11797, 11825, 11844, 12801, 12816, 12863, 12876]
+subcat_2 [2477, 2931, 3501, 4281, 5826, 7493, 8606]
+subcat_3 [72, 84, 84, 84, 84, 98, 110]
+subcat_4 [186, 200, 214, 230, 238, 239, 244]
+subcat_6 [3015, 3015, 3015, 3015, 3015, 3015, 3015]
+subcat_7 [0, 0, 0, 0, 0, 0, 0]
+subcat_8 [294, 294, 294, 298, 298, 299, 299]
+subcat_9 [0, 0, 0, 0, 0, 0, 0]
+subcat_10 [354, 354, 354, 354, 354, 354, 354]
+PV by detail Jan-1 (MW): [220, 897, 2783, 3481, 4910, 6499, 7578]
+PV plants InitialPower Jan-1: [2128, 2534, 3054, 3788, 5292, 6928, 8035]
+PV monthly additions 2025 by plant start (MW): {1: 70.0, 2: 100.0, 3: 145.0, 4: 89.0, 5: 90.0, 6: 86.0, 7: 102.0, 8: 77.0, 9: 93.0, 10: 90.0, 11: 89.0, 12: 77.0}
+Detail monthly additions 2025 (MW): {1: 69.0, 2: 96.0, 3: 137.0, 4: 87.0, 5: 88.0, 6: 85.0, 7: 99.0, 8: 74.0, 9: 92.0, 10: 88.0, 11: 87.0, 12: 75.0}
+=== PL
+== URE OZE page https://www.ure.gov.pl/pl/oze/potencjal-krajowy-oze/8108,Instalacje-odnawialnych-zrodel-energii-stan-na-30-czerwca-2026-r.html -> 200 52950
+      Instalacje OZE - stan na 30 czerwca 2026 r. xlsx, 573.94 KB, 06.08.2026  | /download/9/16383/mapaozena30-06-2026.xlsx
+      Instalacje OZE - stan na 31 marca 2026 r. xlsx, 564.62 KB, 25.05.2026  | /download/9/16263/mapaozena31-03-2026nastroneURE.xlsx
+      Instalacje OZE - stan na 31 grudnia 2025 r. xlsx, 547.06 KB, 27.02.2026  | /download/9/16120/mapaozena31-12-2025nastroneURE.xlsx
+      Instalacje OZE - stan na 30 września 2025 r. xlsx, 531.21 KB, 25.11.2025  | /download/9/15842/MapaOZEna30-09-2025nastrURE.xlsx
+      Instalacje OZE - stan na 30 czerwca 2025 r. xlsx, 511.06 KB, 25.09.2025  | /download/9/15727/Mapana30-06-2025nastroneURE.xlsx
+      Instalacje OZE - stan na 31 marca 2025 r. xlsx, 493.78 KB, 25.09.2025  | /download/9/15413/Mapana31-03-2025nastroneUREuaktualnienie.xlsx
+      Instalacje OZE - stan na 31 grudnia 2024 r. xlsx, 471.26 KB, 10.02.2025  | /download/9/15225/MapaOZEnastrURE.xlsx
+      Instalacje OZE - stan na 30 czerwca 2024 r. xlsx, 423.77 KB, 04.11.2024  | /download/9/14986/Mapaozenastrinternetowa.xlsx
+      Instalacje OZE - stan na 31 grudnia 2023 r. xlsx, 390.28 KB, 22.04.2024  | /download/9/14587/2023-12-31mapanastroneURE.xlsx
+      Instalacje OZE - stan na 30 czerwca 2023 r. xlsx, 340.19 KB, 20.09.2023  | /download/9/13999/MAPAna30-06-2023.xlsx
+      Instalacje OZE - stan na 31 grudnia 2022 r. xlsx, 306.85 KB, 29.06.2023  | /download/9/13797/MAPAna31-12-2022nastronezprzypisem.xlsx
+      Instalacje OZE - stan na 31 grudnia 2021 r. xlsx, 179.89 KB, 29.06.2023  | /download/9/12809/file.file
+      Instalacje OZE - stan na 30 czerwca 2021 r. xlsx, 146.96 KB, 12.10.2021  | /download/9/12287/file.file
+      Instalacje OZE - stan na 31 grudnia 2020 r. xlsx, 135.42 KB, 02.09.2021  | /download/9/11882/MapaOZEnastroneURE31-12-2020.xlsx
+      Instalacje OZE - stan na 31 grudnia 2019 r. xlsx, 115.13 KB, 25.03.2021  | /download/9/10922/Instalacjeodnawialnychzrodelenergiiwgstanunadzien31grudnia2019r.xlsx
+      Instalacje OZE - stan na 31 marca 2019 r. xlsx, 115.29 KB, 28.06.2019  | /download/9/10221/MapaOZE31032019.xlsx
+      Instalacje OZE - stan na 31 grudnia 2017 r. xlsx, 113.02 KB, 02.09.2021  | /download/9/12216/instalacjeodnawialnegozrodlaenergiiwgstanunadzien31grudnia2017r.xlsx
+xlsx 587715 Thu, 06 Aug 2026 10:51:33 GMT
+['MAPA NA 30-06-2026']
+-- MAPA NA 30-06-2026 (10637, 11)
+     0     1                                     2             3                       4                             5                       6           7   8     9                                                                     10
+0   Lp.  DKN*  Miejscwość \nlokalizacja instalacji*  Województwo*                 Powiat*                        Gmina*  Moc elektryczna** [MW]  Rodzaj OZE NaN   NaN                                                                   NaN
+1     1    40                   Gorzów Wielkopolski      lubuskie  m. Gorzów Wielkopolski        M. Gorzów Wielkopolski                   0.475         PVA NaN    WO                                                     elektrownia wodna
+2     2    40                   Gorzów Wielkopolski      lubuskie  m. Gorzów Wielkopolski        M. Gorzów Wielkopolski                   0.475         PVA NaN   WIL                                                  elektrownia wiatrowa
+3     3    40                   Gorzów Wielkopolski      lubuskie  m. Gorzów Wielkopolski        M. Gorzów Wielkopolski                     0.1         PVA NaN   PVA                                            elektrownia fotowoltaiczna
+4     4    40                   Gorzów Wielkopolski      lubuskie  m. Gorzów Wielkopolski        M. Gorzów Wielkopolski                   0.125         PVA NaN    BG                                                 elektrownia biogazowa
+5     5    40                   Gorzów Wielkopolski      lubuskie  m. Gorzów Wielkopolski        M. Gorzów Wielkopolski                     0.1         PVA NaN    BM                                                 elektrownia biomasowa
+6     6    42                              Niedzica   małopolskie              nowotarski  Łapsze Niżne – gmina wiejska                   0.306          WO NaN  ITPO                        instalacja termicznego przekształcania odpadów
+7     7    42                               Łączany   małopolskie               wadowicki     Brzeźnica – gmina wiejska                    2.35          WO NaN    WS  instalacja współspalająca paliwa konwencjonalne i biomasę lub biogaz
+8     8    42                               Łączany   małopolskie               wadowicki     Brzeźnica – gmina wiejska                    1.35          WO NaN    H2                            instalacja wykorzystująca wodór odnawialny
+9     9    42                              Niedzica   małopolskie              nowotarski  Łapsze Niżne – gmina wiejska                   92.75          WO NaN   NaN                                                                   NaN
+10   10    42                        Sromowce Wyżne   małopolskie              nowotarski     Czorsztyn – gmina wiejska                    2.08          WO NaN   NaN                                                                   NaN
+11   11    42                               Smolice   małopolskie             oświęcimski             Zator – gm. m.-w.                     2.2          WO NaN   NaN   
+== PSE https://www.pse.pl/dane-systemowe/funkcjonowanie-kse https://www.pse.pl/dane-systemowe/funkcjonowanie-kse -> 200 179879
+     Raporty roczne z funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok
+      Raporty za rok 2025 | javascript:void(0)
+     Informacja o&nbsp;dostępności mocy przyłączeniowej | https://www.pse.pl/dane-systemowe/praca-kse/informacje-ogolne/informacja-o-dostepnosci-mocy-przylaczeniowej
+     Zadania remontowe zaplanowane do&nbsp;realizacji w&nbsp;latach 2026-2030 | https://www.pse.pl/documents/20182/51490/Plan_remontow_2026_2030.pdf
+     Raporty za&nbsp;rok 2025 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2025
+     Raporty za&nbsp;rok 2024 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2024
+     Raporty za&nbsp;rok 2023 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2023
+     Raporty za&nbsp;rok 2022 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2022
+     Raporty za&nbsp;rok 2021 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2021
+     Raporty za&nbsp;rok 2020 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2020
+     Raporty za&nbsp;rok 2019 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2019
+     Raporty za&nbsp;rok 2018 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2018
+     Raporty za&nbsp;rok 2017 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2017
+     Raporty za&nbsp;rok 2016 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2016
+     Raporty za&nbsp;rok 2015 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2015
+     Raporty za&nbsp;rok 2014 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2014
+     Raporty za&nbsp;rok 2013 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2013
+     Raporty za&nbsp;rok 2012 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2012
+     Raporty za&nbsp;rok 2011 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2011
+     Raporty za&nbsp;rok 2010 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2010
+     Raporty za&nbsp;rok 2009 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2009
+     Raporty za&nbsp;rok 2008 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2008
+     Raporty za&nbsp;rok 2007 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2007
+     Raporty za&nbsp;rok 2006 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2006
+     Raporty za&nbsp;rok 2005 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2005
+     Raporty miesięczne z&nbsp;funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse
+     Raporty miesięczne | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse/raporty-miesieczne
+     Raporty roczne z&nbsp;funkcjonowania RB | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok
+     Raporty za&nbsp;rok 2025 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2025
+     Raporty za&nbsp;rok 2024 (okres 1.01 - 13.06) | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2024-rb-cz1
+     Raporty za&nbsp;rok 2024 (okres 14.06 - 31.12) | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2024-rb-cz2
+     Raporty za&nbsp;rok 2023 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2023
+     Raporty za&nbsp;rok 2022 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2022
+     Raporty za&nbsp;rok 2021 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2021
+     Raporty za&nbsp;rok 2020 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2020
+     Raporty za&nbsp;rok 2019 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2019
+     Raporty za&nbsp;rok 2018 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2018
+     Raporty za&nbsp;rok 2017 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2017
+     Raporty za&nbsp;rok 2016 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2016
+     Raporty za&nbsp;rok 2015 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2015
+== PSE https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok -> 200 179879
+     Raporty roczne z funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok
+      Raporty za rok 2025 | javascript:void(0)
+     Informacja o&nbsp;dostępności mocy przyłączeniowej | https://www.pse.pl/dane-systemowe/praca-kse/informacje-ogolne/informacja-o-dostepnosci-mocy-przylaczeniowej
+     Zadania remontowe zaplanowane do&nbsp;realizacji w&nbsp;latach 2026-2030 | https://www.pse.pl/documents/20182/51490/Plan_remontow_2026_2030.pdf
+     Raporty za&nbsp;rok 2025 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2025
+     Raporty za&nbsp;rok 2024 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2024
+     Raporty za&nbsp;rok 2023 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2023
+     Raporty za&nbsp;rok 2022 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2022
+     Raporty za&nbsp;rok 2021 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2021
+     Raporty za&nbsp;rok 2020 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2020
+     Raporty za&nbsp;rok 2019 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2019
+     Raporty za&nbsp;rok 2018 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2018
+     Raporty za&nbsp;rok 2017 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2017
+     Raporty za&nbsp;rok 2016 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2016
+     Raporty za&nbsp;rok 2015 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2015
+     Raporty za&nbsp;rok 2014 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2014
+     Raporty za&nbsp;rok 2013 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2013
+     Raporty za&nbsp;rok 2012 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2012
+     Raporty za&nbsp;rok 2011 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2011
+     Raporty za&nbsp;rok 2010 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2010
+     Raporty za&nbsp;rok 2009 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2009
+     Raporty za&nbsp;rok 2008 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2008
+     Raporty za&nbsp;rok 2007 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2007
+     Raporty za&nbsp;rok 2006 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2006
+     Raporty za&nbsp;rok 2005 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2005
+     Raporty miesięczne z&nbsp;funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse
+     Raporty miesięczne | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse/raporty-miesieczne
+     Raporty roczne z&nbsp;funkcjonowania RB | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok
+     Raporty za&nbsp;rok 2025 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2025
+     Raporty za&nbsp;rok 2024 (okres 1.01 - 13.06) | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2024-rb-cz1
+     Raporty za&nbsp;rok 2024 (okres 14.06 - 31.12) | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2024-rb-cz2
+     Raporty za&nbsp;rok 2023 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2023
+     Raporty za&nbsp;rok 2022 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2022
+     Raporty za&nbsp;rok 2021 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2021
+     Raporty za&nbsp;rok 2020 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2020
+     Raporty za&nbsp;rok 2019 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2019
+     Raporty za&nbsp;rok 2018 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2018
+     Raporty za&nbsp;rok 2017 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2017
+     Raporty za&nbsp;rok 2016 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2016
+     Raporty za&nbsp;rok 2015 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2015
+== PSE https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse -> 200 43837
+     Raporty miesięczne z funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse
+      Raporty miesięczne | javascript:void(0)
+     Informacja o&nbsp;dostępności mocy przyłączeniowej | https://www.pse.pl/dane-systemowe/praca-kse/informacje-ogolne/informacja-o-dostepnosci-mocy-przylaczeniowej
+     Zadania remontowe zaplanowane do&nbsp;realizacji w&nbsp;latach 2026-2030 | https://www.pse.pl/documents/20182/51490/Plan_remontow_2026_2030.pdf
+     Raporty roczne z&nbsp;funkcjonowania KSE | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok
+     Raporty za&nbsp;rok 2025 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2025
+     Raporty za&nbsp;rok 2024 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2024
+     Raporty za&nbsp;rok 2023 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2023
+     Raporty za&nbsp;rok 2022 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2022
+     Raporty za&nbsp;rok 2021 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2021
+     Raporty za&nbsp;rok 2020 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2020
+     Raporty za&nbsp;rok 2019 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2019
+     Raporty za&nbsp;rok 2018 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2018
+     Raporty za&nbsp;rok 2017 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2017
+     Raporty za&nbsp;rok 2016 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2016
+     Raporty za&nbsp;rok 2015 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2015
+     Raporty za&nbsp;rok 2014 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2014
+     Raporty za&nbsp;rok 2013 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2013
+     Raporty za&nbsp;rok 2012 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2012
+     Raporty za&nbsp;rok 2011 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2011
+     Raporty za&nbsp;rok 2010 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2010
+     Raporty za&nbsp;rok 2009 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2009
+     Raporty za&nbsp;rok 2008 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2008
+     Raporty za&nbsp;rok 2007 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2007
+     Raporty za&nbsp;rok 2006 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2006
+     Raporty za&nbsp;rok 2005 | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-roczne-z-funkcjonowania-kse-za-rok/raporty-za-rok-2005
+     Raporty miesięczne | https://www.pse.pl/dane-systemowe/funkcjonowanie-kse/raporty-miesieczne-z-funkcjonowania-kse/raporty-miesieczne
+     Raporty roczne z&nbsp;funkcjonowania RB | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok
+     Raporty za&nbsp;rok 2025 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2025
+     Raporty za&nbsp;rok 2024 (okres 1.01 - 13.06) | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2024-rb-cz1
+     Raporty za&nbsp;rok 2024 (okres 14.06 - 31.12) | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2024-rb-cz2
+     Raporty za&nbsp;rok 2023 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2023
+     Raporty za&nbsp;rok 2022 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2022
+     Raporty za&nbsp;rok 2021 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2021
+     Raporty za&nbsp;rok 2020 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2020
+     Raporty za&nbsp;rok 2019 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2019
+     Raporty za&nbsp;rok 2018 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2018
+     Raporty za&nbsp;rok 2017 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2017
+     Raporty za&nbsp;rok 2016 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2016
+     Raporty za&nbsp;rok 2015 | https://www.pse.pl/dane-systemowe/funkcjonowanie-rb/raporty-roczne-z-funkcjonowania-rb-za-rok/raporty-za-rok-2015
+== PSE https://www.pse.pl/web/pse-eng/data/kse-operation https://www.pse.pl/web/pse-eng/data/kse-operation -> 404 1065
+== ARE https://www.are.waw.pl/ -> 200 248021
+      Badania statystyczne  | /badania-statystyczne
+      Wykresy  | /badania-statystyczne/prezentacja-wybranych-danych
+      Elektroenergetyka Rynek hurtowy i detaliczny energii elektrycznej, ceny i grupy taryfowe, | /doradztwo-energetyczne/raporty-i-analizy-dla-decyzji-biznesowych/elektroenergetyka
+      Gazownictwo Perspektywy wzrostu zapotrzebowania na gaz ziemny w różnych regionach Polski. | /doradztwo-energetyczne/raporty-i-analizy-dla-decyzji-biznesowych/gazownictwo
+      Odnawialne Źródła Energii Stan i perspektywy rozwoju OZE, efektywność farm fotowoltaiczny | /doradztwo-energetyczne/raporty-i-analizy-dla-decyzji-biznesowych/odnawialne-zrodla-energii
+      Paliwa Rynek węgla energetycznego w Polsce i na świecie oraz krajowy rynek paliw ciekłych | /doradztwo-energetyczne/raporty-i-analizy-dla-decyzji-biznesowych/paliwa
+      Przemysł Opłacalność przemysłowych magazynów energii, ceny energii elektrycznej dla odbio | /doradztwo-energetyczne/raporty-i-analizy-dla-decyzji-biznesowych/przemysl
+     Wynikowe informacje statystyczne | /badania-statystyczne/wynikowe-informacje-statystyczne
+     Wzory formularzy i objaśnienia 2026 | /badania-statystyczne/formularze/2026
+=== HU
+== MAVIR mix https://mavir.hu/web/mavir-en/energy-mix-power-plants-installed-capacity-data -> 200 133504
+     Data publication  | https://mavir.hu/web/mavir-en/data-publication
+     Hungarian Power System actual data | https://mavir.hu/web/mavir-en/hungarian-power-system-actual-data
+     Hungarian Power System Daily / Weekly / Monthly / Annual Data | https://mavir.hu/web/mavir-en/hungarian-power-system-daily-weekly-monthly-annual-data
+     Hungarian Power System data | https://mavir.hu/web/mavir-en/hungarian-power-system
+     Data publication | http://www.mavir.hu/web/riportok/price-and-fee-of-accepted-reserve-bids
+     Stakeholder consultation on the Action Plan pursuant to Article 15 (1) of Regulation (EU)  | https://mavir.hu/web/mavir-en/stakeholder-consultation-on-the-action-plan-pursuant-to-article-15-1-of-regulation-eu-2019/943-to-achieve-the-cep-70-capacity-threshold
+     Official company data | https://mavir.hu/web/mavir-en/official-company-data
+     Data Protection | https://mavir.hu/web/mavir-en/data-protection
+     Contact | https://mavir.hu/web/mavir-en/contact-data1
+     Contact Data | https://mavir.hu/web/mavir-en/contact-data
+      Power Plant Installed Capacity Data Detailed ANNUAL-MONTHLY Change According to Productio | /documents/10262/352063561/BRUTT%C3%93+NETT%C3%93+BT+%C3%96SSZES%C3%8DT%C5%90_GROSS+NET+INSTALLED+CAPACITY+PER+PRODUCTION+TYPE+MAVIR-2000-2020-2026_HU_EN.pdf/bf07fa8b-3f3
+      IC Data 2015-2026 (274 Kbyte)  | /documents/10262/352063561/BT_2015-20260901_ig_BR_NT_EN_v1.pdf/662a20e7-8f55-a29e-6698-46ea3a328710?t=1789566264381
+      SOLAR POWER PLANTS DATA 2010-2026 (311 Kbyte)  | /documents/10262/352063561/PV+STATISZTIKA_EN_20260901_ig_v1.pdf/d9e3f57f-6231-80fd-b15d-b75e8fd1e582?t=1789566261940
+Energy MIX - Power Plants - Installed Capacity Data - MAVIR EN - Site Navigation Skip to Content About us Environment About US Bird protection Man-made nest protection Great Bustard Protection Program Bird observation Corporate environmental responsibility Corporate social responsibility Environmental involvement Anti-corruption policy Tuition, Training Cooperation with Institutions of Higher Education Dissemination of Knowledge Community Media Employees Sporting Activities Voluntary Programmes SMART Programme The Quality Management System Management Management Board of Directors Supervisory Board Organization Chart International Role of MAVIR Subsidiaries of MAVIR HUPX CEEGEX HUDEX Római Irodaház Kft. TSCNET JAO M-IT Services Kft. home Press Press release Press release archive Details Projects FutureFlow Project Eco-Investments Project Electricity Market Modelling Simulation and Pilot System Development via Research EU Projects of Common Interest to be implemented by MAVIR Press releases Projects and methodologies related to Article 16 (9) of Regulation 943/2019/EU FARCROSS Project Press releases DLR-H Demo Video LIFE Danube Free Sky project To our Partners Metering centre Data publication Hungarian Power System actual data Hungarian Power System Daily / Weekly / Monthly / Annual Data Hungarian Power System data Ancillary Service Transparency 714/2009 EK - Archives Transparency 543/2013 EU Imbalance prices Renewable Energy Sources Publications, Studies, Analyzes Electricity Market Data publication Balance group and schedule management Stakeholder consultation on the Action Plan pursuant to Article 15 (1) of Regulation (EU) 2019/943 to achieve the CEP 70% capacity threshold Renewable and Cogeneration Energy Sources Official Codes Official company data Data Protection Relay Protection (OVRAM) Responsibilities of OVRAM Accredited Laboratory Approval Certificates Device certification process Relay Protection Statistics Contact Professional Monthly Report Imbalance settlement Imbalance prices Auction office Actualities Auction office Registration process Auction rules Archives Contact Data Market integration Day-ahead market coupling Intraday trading Market Design Network access HU EN About us Environment Corporate environmental responsibility Tuition, Training Employees SMART Programme The Quality Management System Management International Role of MAVIR Subsidiaries of MAVIR home Press Press release Press release archive Details Projects FutureFlow Project Ec
+=== CZ
+== ERU zpravy-o-provozu https://www.eru.gov.cz/zpravy-o-provozu -> 200 107246
+      Zprávy o provozu | eru.gov.cz {"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node | https://eru.gov.cz/zpravy-o-provozu
+     CS | /zpravy-o-provozu
+     Zprostředkovatel | /zprostredkovatel
+     Zprávy o kvalitě | /zpravy-o-kvalite
+     Zpřístupněná data | /zpristupnena-data
+     Měsíční spotřeba elektřiny 2026 | /mesicni-spotreba-elektriny-2026
+     Měsíční spotřeba zemního plynu 2026 | /mesicni-spotreba-zemniho-plynu-2026
+     Čtvrtletní zpráva o provozu teplárenských soustav ČR za II. čtvrtletí 2026 | /ctvrtletni-zprava-o-provozu-teplarenskych-soustav-cr-za-ii-ctvrtleti-2026
+     Čtvrtletní zpráva o provozu elektrizační soustavy ČR za II. čtvrtletí 2026 | /ctvrtletni-zprava-o-provozu-elektrizacni-soustavy-cr-za-ii-ctvrtleti-2026
+     Čtvrtletní zpráva o provozu plynárenské soustavy ČR za II. čtvrtletí 2026 | /ctvrtletni-zprava-o-provozu-plynarenske-soustavy-cr-za-ii-ctvrtleti-2026
+     Roční zpráva o provozu elektrizační soustavy ČR pro rok 2025 | /rocni-zprava-o-provozu-elektrizacni-soustavy-cr-pro-rok-2025
+     Roční zpráva o provozu plynárenské soustavy ČR za rok 2025 | /rocni-zprava-o-provozu-plynarenske-soustavy-cr-za-rok-2025
+     Roční zpráva o provozu teplárenských soustav ČR za rok 2025 | /rocni-zprava-o-provozu-teplarenskych-soustav-cr-za-rok-2025
+     Čtvrtletní zpráva o provozu teplárenských soustav ČR za I. čtvrtletí 2026 | /ctvrtletni-zprava-o-provozu-teplarenskych-soustav-cr-za-i-ctvrtleti-2026
+     Čtvrtletní zpráva o provozu plynárenské soustavy ČR za I. čtvrtletí 2026 | /ctvrtletni-zprava-o-provozu-plynarenske-soustavy-cr-za-i-ctvrtleti-2026
+     zpracování osobních údajů | /ochrana-osobnich-udaju
+     Odběr tiskových zpráv | /odber-tiskovych-zprav
+     Registr zprostředkovatelů | /registr-zprostredkovatelu
+== CEPS tsdata https://www.ceps.cz/en/transmission-system-data -> 200 89169
+      const cc_policy_link = "https://www.ceps.cz/en/information-on-personal-data-processing-an | https://fonts.googleapis.com
+      Information on personal data processing and protection  | /en/information-on-personal-data-processing-and-protection
+      Transmission system data  | /en/transmission-system-data
+      Hosting Capacity Map  | /en/hosting-capacity-map
+      All data  | /en/all-data
+      Data for current AnS providers  | /en/data-for-current-ans-providers
+      Capacity mechanism  | /en/capacity-mechanism
+     CZE | /en/transmission-system-data?to=cs&amp;do=switchLocale
+      Visitor rules  | https://vipproddata00st.blob.core.windows.net/admin-assets/footer/Pravidla%20pro%20n%C3%A1v%C5%A1t%C4%9Bvy.pdf
+      Information on personal data processing and protection  | https://www.ceps.cz/en/information-on-personal-data-processing-and-protection
+== CEPS all-data full https://www.ceps.cz/en/all-data -> 200 177257
+      const cc_policy_link = "https://www.ceps.cz/en/information-on-personal-data-processing-an | https://fonts.googleapis.com
+      About Us  | /en/about-us
+      Company Profile  | /en/company-profile
+      Vision and Mission  | /en/vision-and-mission
+      Company´s Values  | /en/companys-values
+      Information on the Concern  | /en/information-on-the-concern
+      ČEPS Code of Ethics  | /en/ceps-code-of-ethics
+      Information on personal data processing and protection  | /en/information-on-personal-data-processing-and-protection
+      Company Management  | /en/company-management
+      Senior Management  | /en/senior-management
+      Board of Directors  | /en/board-of-directors
+      Shareholder  | /en/shareholder
+      Control Entities  | /en/control-entities
+      Supervisory Board  | /en/supervisory-board-2
+      Audit Committee  | /en/audit-committee
+      Business Performance  | /en/business-performance
+      ČEPS Group Annual Reports  | /en/ceps-group-annual-reports
+      ČEPS Annual Reports  | /en/ceps-annual-reports
+      Corporate Social Responsibility  | /en/corporate-social-responsibility
+      Environmental Management and Safety  | /en/environmental-management-and-safety
+      Studies and Analyses  | /en/studies-and-analyses
+      CEPS Invest  | /en/invest/
+      Services  | /en/services
+      Transmission System  | /en/transmission-system
+      Transmission system development  | /en/transmission-system-development
+      Transmission system - technical details  | /en/transmission-system-technical-details
+      Maintenance and construction in practice  | /en/maintenance-and-construction-in-practice
+      Transmission System Timeline  | /en/transmission-system-timeline
+      The Trans-European Networks for Energy TEN-E  | /en/the-trans-european-networks-for-energy-ten-e
+      Operational Programme Enterprise and Innovations for Competitiveness  | /en/operational-programme-enterprise-and-innovations-for-competitiveness
+      Transmission system data  | /en/transmission-system-data
+      Interesting Figures  | /en/interesting-figures
+      PCI - Projects of Common Interest  | /en/pci-projects-of-common-interest
+      Hosting Capacity Map  | /en/hosting-capacity-map
+      Dispatch Control  | /en/dispatch-control-2
+      Emergency situation prevention and management  | /en/emergency-situation-prevention-and-management
+      ČEPS Control Centre  | /en/ceps-control-centre
+      Assessment of power system operation  | /en/assessment-of-power-system-operation
+      Resource Adequacy  | /en/resource-adequacy
+      Consumption Restriction Schedule  | /en/consumption-restriction-schedule
+      Operational situations  | /en/operational-situations
+      Energy Trade  | /en/energy-trade
+      System Services  | /en/system-services
+      Transmission Services  | /en/transmission-services
+      Ancillary Services  | /en/ancillary-services
+      Procurement  | /en/procurement
+      Evaluation  | /en/evaluation
+      Balancing energy  | /en/balancing-energy
+      International Affairs  | /en/international-affairs
+      ENTSO-E  | /en/entso-e-2
+      IGCC  | /en/igcc
+      CEE TSO  | /en/cee-tso-2
+      CIGRE  | /en/cigre-2
+      TSC/TSCNET  | /en/tsc-tscnet-2
+      4M Market Coupling  | /en/4m-market-coupling-2
+      EURELECTRIC  | /en/eurelectric
+      Core CCR  | /en/core-ccr-2
+      JAO, S.A.  | /en/jao-s-a
+      SIDC Project  | /en/sidc-project
+      TERRE  | /en/terre-eng
+      MARI  | /en/mari-eng
+      PICASSO  | /en/picasso-eng
+      International Innovation Projects  | /en/international-innovation-projects
+      Clean energy for all Europeans  | /en/cep-eng
+      Innovations and R&amp;D  | /en/innovations
+      For Partners  | /en/for-partners
+      News  | /en/news-page
+      Public consultations  | /en/public-consultations
+      All data  | /en/all-data
+      Web services  | /en/web-services
+      European network codes / guidelines  | /en/european-network-codes-guidelines
+      NC RfG  | /en/nc-rfg-eng
+      NC DCC  | /en/nc-dcc-eng
+      CACM  | /en/cacm-eng
+      FCA  | /en/fca-eng
+      SOGL  | /en/sogl-eng
+      NC ER  | /en/nc-er-eng
+      EBGL  | /en/ebgl-eng
+      NC HVDC  | /en/nc-hvdc-eng
+      Grid Code  | /en/grid-code
+      How to Supply RE at BM  | /en/how-to-supply-re-at-bm
+      Market transparency  | /en/market-transparency-eng
+      Cross-border transmission  | /en/cross-border-transmission
+      Transmission services documents  | /en/transmission-services-documents
+      Flow-based Market Coupling (FBMC)  | /en/flow-based-market-coupling-fbmc
+      Balancing Service Providers  | /en/balancing-service-providers
+      How to start providing ancillary services  | /en/how-to-start-providing-ancillary-services
+      How to Become a BSP  | /en/how-to-become-a-bsp
+      Certification  | /en/certification
+      Providers in the distribution network  | /en/providers-in-the-distribution-network
+      Data for current AnS providers  | /en/data-for-current-ans-providers
+      AnS Tenders  | /en/ans-tenders
+      Balancing services statistics  | /en/balancing-services-statistics
+      Instructions for AnS providers, FAQ  | /en/instructions-for-ans-providers-faq
+      Frequently asked questions  | /en/frequently-asked-questions
+      Imbalance price  | /en/imbalance-price
+      Useful guides for Balancing service providers  | /en/useful-guides-for-balancing-service-providers
+      Regulation REMIT  | /en/regulation-remit
+      Purchase of Electricity to Cover Transmission Losses  | /en/purchase-of-electricity-to-cover-transmission-losses
+      Public Tenders  | /en/public-tenders
+      How to Obtain an EIC  | /en/how-to-obtain-an-eic
+      MMS  | /en/mms-eng
+      IPDE  | /en/ipde-eng
+      Capacity mechanism  | /en/capacity-mechanism
+      Cross-border participation  | /en/cross-border-participation
+      For Public  | /en/media
+      Statement Portal  | /en/statement-portal
+      Useful Links  | /en/useful-links
+      For Media  | /en/for-media
+      Press Releases  | /en/press-releases
+      ČEPS Publications  | /en/ceps-publications
+      Contact for Media  | /en/contact-for-media
+      Career  | /en/career
+      Why join us?  | /en/why-join-us
+      Our benefits  | /en/our-benefits
+      Our working environment  | /en/our-working-environment
+      Our company culture  | /en/our-company-culture
+      Our training and development  | /en/our-training-and-development
+      Who are we looking for?  | /en/who-are-we-looking-for
+      Power industry experts  | /en/power-industry-experts
+=== SK Power BI
+uuids in page {'0b2a3a65-5020-4f83-940c-e7486633ebb3', 'f6453859-dc93-47cc-baa0-11634f9fb84b', '5a049462-0c4d-4263-8282-f64b0c309b1c', '72709f3d-ee45-4fef-a4fb-5eb88a557131', '6dfa2abc-8bb8-4557-855c-e532cacb5122', 'c4f2ea34-d9d6-4963-bfa1-b1b1bd28a2ad', '0718a888-4e6a-48e6-b710-7adbca79282a', '83d140e5-bcf3-428b-952b-e178f7534726'}
+    ClusterUri https://wabi-west-europe-redirect.analysis.windows.net/
+    ClusterUri https://wabi-west-europe-redirect.analysis.windows.net/
+    clusterUri https://api.powerbi.com
+    ClusterUri ) {
+                    resolvedClusterUri = undefined;
+                    resolveCluster();
+                } else 
+    ClusterUri ) {
+                resolvedClusterUri = undefined;
+                if (tenantId != null && tenantId != 
+ar routingUrl = '/public/routing/cluster/'; var resourceLoaderIncludePackageId = true; var isLoadReportMessagePending = false; var isReportControllerInitialized = false; var isAnonymousEmbed = true; var accessToken; var oDataFilter; var resourceKey; var resolveClusterError; var modelsAndExplorationPromise; var modelsAndExplorationResponse; var frontLoadStatus; var frontLoadError; var conceptualSchemaPromise; var conceptualSchemaResponse; var loadingState = "#Loading#"; var errorState = "#Error#"; var isConceptualSchemaCached; var isModelsAndExplorationCached; var conceptualSchemaDuration; var clusterResolutionFrontLoadStartTime = null; var clusterResolutionFrontLoadEndTime = null; var modelsAn
+=== RO
+iframe <iframe frameborder="0" allowfullscreen="true">
+embed powerbi
+embed powerbi.com/view?r=eyJrIjoiMjYxMzM5ODMtM2QwMS00NTEzLTg5NzMtNmY3NWI3ZDAwNzMzIiwidCI6Ijg0MGFhMmEwLTdiNDUtNGY5Zi1hYmQ0LWM2ZTc5MDg3MDRhYyIsImMiOjl9
+embed powerbiresizescript){window.powerbiresizescript=1;window.onmessage=function(event){var
+embed powerbi
+embed datawrapper.dwcdn.net/lib/embed.min.js
+Puteri Instalate Puteri Instalate sitanre 2025-05-30T08:25:28+03:00 Politica de utilizare a cookie-urilor Politica de confidențialitate Nota de informare privind prelucrarea datelor cu caracter personal Protectia datelor personale Solicită informații de interes public Depune o petitie Contact Informații &#8211; 021.9782 Linie telefonică dedicată informării consumatorilor de energie. Telefon cu tarif normal, apelabil din toate retelele. Luni – Vineri: 09:00 – 17:00 Informații cu privire la schimbarea furnizorului de energie electrică și gaze naturale &#8211; 0374.554.265 Telefon cu tarif normal, apelabil din toate rețelele. Luni – Vineri: 9:00 – 17:00 Link-uri utile: Platforma E-consultare: &nbsp; Newsletter Aboneaza-te pentru a primi cele mai noi informatii din domeniul reglementarilor pentru energie electrica si gaze naturale: Aboneaza-te Vă mulțumim, abonarea la newsletter s-a realizat cu succes! &times; A apărut o eroare, vă rugăm să încercați din nou. Verificați daca ați introdus adresa de e-mail corect și dacă a fost bifată căsuța "Nu sunt robot"! &times; Copyright © 2026 ANRE. Toate drepturile rezervate. Dezvoltat intern de echipa IT ANRE. Politica de utilizare a cookie-urilor Politica de confidențialitate Nota de informare privind prelucrarea datelor cu caracter personal Protectia datelor personale Solicită informații de interes public Depune o petitie Contact 0374 554 265 Linie telefonica dedicata informarii consumatorilor de energie cu privire la liberarizarea pietelor de energie. Luni – Vineri: 08:00 – 18:00 Sambata – Duminica: 10:00 – 15:00 021 9782 Linie telefonica dedicata informarii consumatorilor de energie. Luni – vineri: 9:00 – 17:00 Link-uri utile: Platforma E-consultare: Newsletter Abonează-te pentru a primi cele mai noi informații din domeniul reglem
+== ANRE rapoarte https://anre.ro/despre/rapoarte/ -> 200 336732
+     Raport anual ANRE 2024 | https://anre.ro/wp-content/uploads/2025/12/Raport-anual-ANRE-2024.pdf
+     Raport anual ANRE 2023 | https://anre.ro/wp-content/uploads/2024/11/Raport-anual-ANRE-pentru-anul-2023.pdf
+     Raport anual ANRE 2022 | https://anre.ro/wp-content/uploads/2023/07/Raport-anual-2022.pdf
+     Raport anual ANRE 2021 | https://anre.ro/wp-content/uploads/2023/04/Raport-anual-2021.pdf
+     Raport anual ANRE 2020 | https://anre.ro/wp-content/uploads/2023/02/Raport_anual_ANRE_2020.pdf
+     Raport anual ANRE 2019 | https://anre.ro/wp-content/uploads/2023/02/Raport_anual_2019.pdf
+     Raport anual ANRE 2018 | https://anre.ro/wp-content/uploads/2023/02/RAPORT_ANUAL_ANRE__2018.pdf
+     Raport anual ANRE 2017 | https://anre.ro/wp-content/uploads/2023/02/RAPORT_ANUAL_ANRE_pt_2017.pdf
+     Raport anual ANRE 2016 | https://anre.ro/wp-content/uploads/2023/02/Raport_29_08_ANRE_2016.pdf
+     Raport anual ANRE 2015 | https://anre.ro/wp-content/uploads/2023/02/Raport_ANRE_2015.pdf
+     Raport anual ANRE 2014 | https://anre.ro/wp-content/uploads/2023/02/Raport_anual_ANRE_2014.pdf
+     Raport anual ANRE 2013 | https://anre.ro/wp-content/uploads/2023/02/Raport__ANRE_2013.pdf
+     Raport anual ANRE 2012 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2012.pdf
+     Raport anual ANRE 2011 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2011.pdf
+     Raport anual ANRE 2010 | https://anre.ro/wp-content/uploads/2025/12/RaportAn2010.pdf
+     Raport anual ANRE 2009 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2009.pdf
+     Raport anual ANRE 2008 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2008.pdf
+     Raport anual ANRE 2007 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2007.pdf
+     Raport anual ANRE 2006 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2006.zip
+     Raport anual ANRE 2005 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2005.zip
+     Raport anual ANRE 2004 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2004.zip
+     Raport anual ANRE 2003 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2003.zip
+     Raport anual ANRE 2002 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2002.zip
+     Raport anual ANRE 2001 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2001.zip
+     Raport anual ANRE 2000 | https://anre.ro/wp-content/uploads/2023/02/RaportAn2000.zip
+     Raport anual ANRE 1999 | https://anre.ro/wp-content/uploads/2023/02/RaportAn1999.zip
+     Raport national 2018 | https://anre.ro/wp-content/uploads/2023/02/RA_2018.pdf
+     Raport national 2017 | https://anre.ro/wp-content/uploads/2023/02/RN_RO_ANRE_2016_31iul2017.pdf
+     Raport national 2015 | https://anre.ro/wp-content/uploads/2023/02/RAPORT_National_ANRE_2015.pdf
+     Raport national 2014 | https://anre.ro/wp-content/uploads/2023/02/RAPORT_ANUAL_ANRE_RO_2014.pdf
+=== BG
+== ESO pbook https://www.eso.bg/doc/?pbook -> 200 16696
+     Контакти | /doc/?contacts
+      Статистическа книжка Статистическа книжка  | /doc?search&str=
+      Статистическа книжка  | fileObj.php?oid=5390
+      Статистическа книжка  | fileObj.php?oid=4990
+      Статистическа книжка  | fileObj.php?oid=4528
+      Статистическа книжка  | fileObj.php?oid=3572
+      Статистическа книжка  | fileObj.php?oid=3178
+      Статистическа книжка  | fileObj.php?oid=2679
+      Статистическа книжка  | /doc?391
+      Статистическа книжка  | /doc?390
+      Статистическа книжка  | /doc?389
+      Статистическа книжка  | /doc?388
+       | https://www.facebook.com/profile.php?id=100086400303911
+== DKER proizvodstvo https://www.dker.bg/bg/elektroenergetika/proizvodstvo.html -> 200 35214
+      Производство | KEVR Република България Комисия за енергийно и водно регулиране  | https://www.dker.bg
+      Обща информация  | https://www.dker.bg/uploads/2026/obshta_inf_26.pdf
+      Производство  | https://www.dker.bg/bg/elektroenergetika/proizvodstvo.html
+== DKER EN https://www.dker.bg/en/home -> 200 31929
+      Energy and water regulatory commission | KEVR Republic of Bulgaria Energy and water regul | https://www.dker.bg
+      Organisation Chart  | ../uploads/documents/EWRC_scheme_en_2022.pdf
+      Annual Report  | https://www.dker.bg/en/about-ewrc/annual-report.html
+      Reports to the European Commission  | https://www.dker.bg/en/about-ewrc/reports-to-the-european-commission.html
+       | https://www.dker.bg/news/1292/85/THE-ASSOCIATION-FOR-PRODUCTION-STORAGE-AND-TRADING-OF-ELECTRICITY-AWARDED-EWRC-CHAIRMAN-PLAMEN-MLADENOVSKI/d,news-detail-en.html
+       | https://www.dker.bg/news/1204/85/THE-NATIONAL-ASSEMBLY-ELECTED-PLAMEN-MLADENOVSKI-AS-CHAIRMAN-OF-THE-ENERGY-AND-WATER-REGULATORY-COMMISSION/d,news-detail-en.html
+       | https://www.dker.bg/news/1050/85/SPECIALIZED-SOFTWARE-MODEL-FOR-ANALYSING-THE-ENERGY-MARKET-ENHANCES-EWRC-S-CAPACITY-TO-IDENTIFY-VIOLATIONS-OF-REGULATION-EU-1227-2011-REM
+      Electricity  | /en/electricity
+      Heat Energy  | /en/heat-energy
+     Publications | 20-years-energy-and-water-regulatory-commission/publications
+      Лого КЕВР  | https://www.dker.bg/news/1369/85/Consultation-on-a-report-on-the-amendment-of-the-IGB-Transmission-Tariff-Code-Annex-A-to-the-Network-Code-for-the-Greece-Bulgaria-Interco
