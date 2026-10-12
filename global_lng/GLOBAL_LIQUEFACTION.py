@@ -98,8 +98,8 @@ SRC = {
     "SHELL_LNGC": ("Shell Canada Energy / Shell plc (release text as republished by Hellenic Shipping News)",
                    "Shell takes final investment decision to double LNG Canada capacity (29 Sep 2026)",
                    "https://www.hellenicshippingnews.com/shell-takes-final-investment-decision-to-double-lng-canada-capacity", "2026-09-29"),
-    "MOZ_SITE": ("Mozambique LNG (TotalEnergies-operated project site)", "Project page: development (two liquefaction units, 13.12 MTPA)",
-                 "https://mozambiquelng.co.mz/about-the-mozambique-liquefied-natural-gas-project/development/", "2026-10-12"),
+    "MOZ_SITE": ("Mozambique LNG (TotalEnergies-operated project site)", "Project page (two liquefaction units, 13.12 MTPA)",
+                 "https://www.mozambiquelng.co.mz/about-the-mozambique-liquefied-natural-gas-project/", "2026-10-12"),
     "WOODFIBRE": ("Woodfibre LNG", "Construction page (2.1 million tonnes of LNG per year; substantial completion expected by 2027)",
                   "https://woodfibrelng.ca/construction/", "2026-10-12"),
     "CHEN_SP": ("Cheniere Energy", "Cheniere Reports Second Quarter 2026 Results (Sabine Pass Stage 5 expansion)",
@@ -920,7 +920,8 @@ def check_sources(prev_rel, full):
                     pass
                 if r.status_code >= 400:
                     row["result"] = f"UNREACHABLE (HTTP {r.status_code})"
-                elif p is None:
+                elif p is None or not (isinstance(p.get("etag"), str) and p.get("etag") or isinstance(p.get("last_modified"), str) and p.get("last_modified")
+                                       or isinstance(p.get("sha256"), str) and p.get("sha256") or p.get("size") == p.get("size")):
                     row["result"] = "FIRST SEEN"
                 else:
                     def same(a, b):
@@ -933,12 +934,24 @@ def check_sources(prev_rel, full):
         rows.append(row)
         print("  watch", row["result"][:40], url[:90])
     try:
-        r = _get(s, REQ_LIST, timeout=(15, 60))
-        eds = sorted(set(re.findall(r"resources-and-energy-quarterly-([a-z]+-20\d\d)", r.text)), key=lambda e: (e.split("-")[1], ["march", "june", "september", "december"].index(e.split("-")[0]) if e.split("-")[0] in ("march", "june", "september", "december") else 0))
-        newest = eds[-1] if eds else ""
-        rows.append(dict(document="DISR Resources and Energy Quarterly: newest edition in the listing", url=REQ_LIST, etag="", last_modified="", size=np.nan,
+        order = ["march", "june", "september", "december"]
+        m, y = REQ_EDITION.split("-")
+        i, y = order.index(m), int(y)
+        newest, probe_n = REQ_EDITION, 0
+        while probe_n < 8:
+            i += 1
+            if i == 4:
+                i, y = 0, y + 1
+            probe_n += 1
+            slug = f"{order[i]}-{y}"
+            r = _get(s, f"{REQ_LIST}-{slug}", timeout=(15, 60))
+            if r.status_code == 200 and "Downloads" in r.text:
+                newest = slug
+            elif newest != REQ_EDITION or probe_n >= 2:
+                break
+        rows.append(dict(document="DISR Resources and Energy Quarterly: newest edition (next editions probed by address)", url=REQ_LIST, etag="", last_modified="", size=np.nan,
                          sha256="", checked=str(TODAY),
-                         result=f"newest listed: {newest}; curated rows use {REQ_EDITION}" + ("" if newest == REQ_EDITION else " - NEW EDITION: re-read section 6 LNG and the nameplate map")))
+                         result=f"newest found: {newest}; curated rows use {REQ_EDITION}" + ("" if newest == REQ_EDITION else " - NEW EDITION: re-read section 6 LNG and the nameplate map")))
     except Exception as e:  # noqa: BLE001
         rows.append(dict(document="DISR REQ listing", url=REQ_LIST, etag="", last_modified="", size=np.nan, sha256="", checked=str(TODAY),
                          result=f"UNREACHABLE ({type(e).__name__})"))
