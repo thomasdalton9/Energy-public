@@ -190,21 +190,25 @@ class Viewer:
         return body
 
     def egypt_handle(self):
-        """Country handles follow the viewer's country list order (handle 0 = Albania); checked by label."""
+        return self.country_handle("Egypt")
+
+    def country_handle(self, country):
+        """Country handles follow the viewer's country list order (handle 0 = Albania); checked by label.
+        Shared with the other JODI fallback pulls (e.g. middle_east/JORDAN_GAS.py)."""
         listing = self.download({"Country": None, "Product": [0], "BALANCE": [0], "Unit": [0], "TIME": [0]})
         names = [r[0] for r in csv.reader(io.StringIO(listing)) if len(r) > 2 and r[0] not in ("", "Country")]
-        guess = next((i for i, n in enumerate(names) if n.startswith("Egypt")), None)
+        guess = next((i for i, n in enumerate(names) if n.startswith(country)), None)
         if guess is None:
-            raise RuntimeError("JODI viewer: Egypt not in the country list")
+            raise RuntimeError(f"JODI viewer: {country} not in the country list")
         for h in [guess] + [guess + d for d in (-1, 1, -2, 2, -3, 3)]:
             body = self.download({"Country": [h], "Product": [0], "BALANCE": [0], "Unit": [0], "TIME": [0]})
             rows = [r for r in csv.reader(io.StringIO(body)) if len(r) > 1 and r[0] not in ("", "Country")]
-            if rows and rows[0][0].startswith("Egypt"):
+            if rows and rows[0][0].startswith(country):
                 return h, rows[0][0]
-        raise RuntimeError("JODI viewer: no handle near the list position returns Egypt")
+        raise RuntimeError(f"JODI viewer: no handle near the list position returns {country}")
 
 
-def parse_jodi(body):
+def parse_jodi(body, country="Egypt"):
     """Viewer CSV (BALANCE rows x TIME columns, one unit) -> wide frame of the RAW_COLS, monthly index."""
     rows = list(csv.reader(io.StringIO(body)))
     months = next(r for r in rows if len(r) > 1 and r[1] == "TIME")[2:]
@@ -213,7 +217,7 @@ def parse_jodi(body):
         raise RuntimeError(f"JODI: unexpected unit {set(units)}")
     parent, out = None, {}
     for r in rows:
-        if len(r) < 3 or r[0] in ("", "Country") or not r[0].startswith("Egypt"):
+        if len(r) < 3 or r[0] in ("", "Country") or not r[0].startswith(country):
             continue
         label = r[1].strip()
         if label in ("Imports", "Exports"):
@@ -233,25 +237,25 @@ def parse_jodi(body):
     return df.reindex(columns=RAW_COLS)
 
 
-def fetch_jodi(stored, full=False):
+def fetch_jodi(stored, full=False, country="Egypt", first_month=FIRST_MONTH):
     v = Viewer()
-    handle, label = v.egypt_handle()
-    log(f"JODI: Egypt = country handle {handle} ({label})")
+    handle, label = v.country_handle(country)
+    log(f"JODI: {country} = country handle {handle} ({label})")
     n_time = v.n_time or 0
     last_handle = n_time - 1
-    start = FIRST_MONTH
+    start = first_month
     if not full and stored is not None and len(stored):
         have = stored.dropna(how="all")
         if len(have):
-            all_m = pd.date_range(FIRST_MONTH, have.index.max(), freq="MS")
+            all_m = pd.date_range(first_month, have.index.max(), freq="MS")
             gaps = [m for m in all_m if m not in have.index]
             start = min([have.index.max() - pd.DateOffset(months=REVISION_MONTHS)] + gaps)
     h0 = (start.year - JODI_T0.year) * 12 + start.month - 1
     handles = list(range(h0, last_handle + 1)) if n_time else None
     log(f"JODI: requesting {start:%b %Y} .. handle {last_handle} ({len(handles) if handles else 'all'} months)")
     body = v.download({"Country": [handle], "Product": [0], "BALANCE": None, "Unit": [0], "TIME": handles})
-    new = parse_jodi(body)
-    return new, f"Egypt country handle {handle}, TIME handles {h0}-{last_handle}"
+    new = parse_jodi(body, country)
+    return new, f"{country} country handle {handle}, TIME handles {h0}-{last_handle}"
 
 
 def merge(stored, new):
@@ -270,8 +274,8 @@ def merge(stored, new):
 
 # ------------------------------------------------------------------ balance
 
-def monthly_balance(raw):
-    d = raw[raw.index >= FIRST_MONTH].copy()
+def monthly_balance(raw, first_month=FIRST_MONTH):
+    d = raw[raw.index >= first_month].copy()
     gid, prod = d[col("GID_observed")], d[col("Production")]
     pipe_in, pipe_out = d[col("Imports_pipeline")], d[col("Exports_pipeline")]
     implied = gid + pipe_out - prod - pipe_in
