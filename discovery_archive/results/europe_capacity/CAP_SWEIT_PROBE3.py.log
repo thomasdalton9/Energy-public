@@ -1,0 +1,114 @@
+#### A. REData with Accept header; sanity endpoint
+
+===== https://apidatos.ree.es/en/datos/generacion/estructura-generacion?start_date=2025-01-01T00:00&end_date=2025-01-31T23:59&time_trunc=month | #HTTP 200 application/json 5846
+{"data":{"type":"Generation structure by technology","id":"gen1","attributes":{"title":"Generation structure by technology","last-update":"2026-05-11T21:41:15.000+02:00","description":null},"meta":{"cache-control":{"cache":"MISS"}}},"included":[{"type":"Hydro","id":"10288","groupId":"1","attributes":{"title":"Hydro","description":null,"color":"#0090d1","icon":null,"type":"Renovable","magnitude":null,"composite":false,"last-update":"2026-05-11T21:41:12.000+02:00","values":[{"value":3130570.316000
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 Internal Server Error".</h2>      <p>         Something is broken. Please let us know what you were doing when this error occurred.         We will fix it as soon as possible. Sorry for any inconvenience caused.     </p> </div> <script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=1&cb=2023829125" async></script></body> </html> 
+
+===== https://apidatos.ree.es/en/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=year | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 Internal Server Error".</h2>      <p>         Something is broken. Please let us know what you were doing when this error occurred.         We will fix it as soon as possible. Sorry for any inconvenience caused.     </p> </div> <script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=2&cb=1575641512" async></script></body> </html> 
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2025-01-01T00:00&end_date=2025-12-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741 | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 Internal Server Error".</h2>      <p>         Something is broken. Please let us know what you were doing when this error occurred.         We will fix it as soon as possible. Sorry for any inconvenienc
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2021-01-01T00:00&end_date=2021-12-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; } .container { margin: 30px; max-width: 600px; } h1 { color: #dc3545; font-size: 24px; } h2 { font-size: 18px; }</style> </head> <body> <div class="container">     <h1>Oops! An Error Occurred</h1>     <h2>The server returned a "500 Internal Server Error".</h2>      <p>         Something is broken. Please let us know what you were doing when this error occurred.         We will fix it as soon as possible. Sorry for any inconvenienc
+
+#### B. ODRE register fields and sample
+[('nominstallation', 'text'), ('codeeicresourceobject', 'text'), ('codeiris', 'text'), ('codeinseecommune', 'text'), ('commune', 'text'), ('codeepci', 'text'), ('epci', 'text'), ('codedepartement', 'text'), ('departement', 'text'), ('coderegion', 'text'), ('region', 'text'), ('codeiriscommuneimplantation', 'text'), ('codeinseecommuneimplantation', 'text'), ('codes3renr', 'text'), ('dateraccordement', 'text'), ('datederaccordement', 'text'), ('datemiseenservice', 'text'), ('datedebutversion', 'text'), ('postesource', 'text'), ('tensionraccordement', 'text'), ('moderaccordement', 'text'), ('codefiliere', 'text'), ('filiere', 'text'), ('codecombustible', 'text'), ('combustible', 'text'), ('codescombustiblessecondaires', 'text'), ('combustiblessecondaires', 'text'), ('codetechnologie', 'text'), ('technologie', 'text'), ('typestockage', 'text'), ('puismaxinstallee', 'double'), ('puismaxraccharge', 'double'), ('puismaxcharge', 'double'), ('puismaxrac', 'double'), ('puismaxinstalleedischarge', 'double'), ('nbgroupes', 'int'), ('nbinstallations', 'int'), ('regime', 'text'), ('energiestockable', 'double'), ('capacitereservoir', 'double'), ('hauteurchute', 'double'), ('productible', 'double'), ('debitmaximal', 'double'), ('codegestionnaire', 'text'), ('gestionnaire', 'text'), ('energieannuelleglissanteinjectee', 'int'), ('energieannuelleglissanteproduite', 'int'), ('energieannuelleglissantesoutiree', 'int'), ('energieannuelleglissantestockee', 'int'), ('maxpuis', 'double'), ('datemiseenservice_date', 'date')]
+{"title": "Registre national des installations de production et de stockage d'électricité (au 31/07/2026)", "title_fr": "Registre national des installations de production et de stockage d'électricité (au 31/07/2026)", "title_en": "Registre national des installations de production et de stockage d'électricité (au 31/07/2026)", "description": "<p>\n</p><p><span style=\"font-family: inherit; font-size: 0.875rem;\">Ce registre présente les installations de production et de stockage d'électricité raccordées directement ou indirectement aux réseaux publics d’électricité en France métropolitaine et d
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?limit=2 | #HTTP 200 application/json; charset=utf-8 2953
+{"total_count": 140539, "results": [{"nominstallation": "Agr\u00e9gation des installations de moins de 36KW", "codeeicresourceobject": null, "codeiris": null, "codeinseecommune": "62442", "commune": "Hernicourt", "codeepci": "200069672", "epci": "CC du Ternois", "codedepartement": "62", "departement": "Pas-de-Calais", "coderegion": "32", "region": "Hauts-de-France", "codeiriscommuneimplantation": null, "codeinseecommuneimplantation": null, "codes3renr": null, "dateraccordement": "07/10/2009", "datederaccordement": null, "datemiseenservice": "07/10/2009", "datedebutversion": null, "postesource": null, "tensionraccordement": "BT", "moderaccordement": null, "codefiliere": "SOLAI", "filiere": "Solaire", "codecombustible": null, "combustible": null, "codescombustiblessecondaires": null, "combustiblessecondaires": null, "codetechnologie": "PHOTV", "technologie": "Photovolta\u00efque", "typestockage": null, "puismaxinstallee": 49.46, "puismaxraccharge": null, "puismaxcharge": null, "puismaxrac": 50.23, "puismaxinstalleedischarge": null, "nbgroupes": null, "nbinstallations": 14, "regime": null, "energiestockable": 0.0, "capacitereservoir": 0.0, "hauteurchute": 0.0, "productible": 0.0, "debitmaximal": 0.0, "codegestionnaire": null, "gestionnaire": null, "energieannuelleglissanteinjectee": 22986, "energieannuelleglissanteproduite": null, "energieannuelleglissantesoutiree": null, "energieannuelleglissantestockee": null, "maxpuis": 49.46, "datemiseenservice_date": "2009-10-07"}, {"nominstallation": "Agr\u00e9gation des installations de moins de 36KW", "codeeicresourceobject": null, "codeiris": null, "codeinseecommune": "36126", "commune": "Montchevrier", "codeepci": "200007052", "epci": "CC de la Marche Berrichonne", "codedepartement": "36", "departement": "Indre", "coderegion": "24", "region": "Centre-Val de Loire", "codeiriscommuneimplantation": null, "codeinseecommuneimplantation": null, "codes3renr": null, "dateraccordement": "15/04/2011", "datederaccordement": null, "datemiseenservice": "15/04/2011", "datedebutversion": null, "postesource": null, "tensionraccordement": "BT", "moderaccordement": null, "codefiliere": "SOLAI", "filiere": "Solaire", "codecombustible": null, "combustible": null, "codescombustiblessecondaires": null, "combustiblessecondaires": null, "codetechnologie": "PHOTV", "technologie": "Photovolta\u00efque", "typestockage": null, "puismaxinstallee": 61.5, "puismaxraccharge": 3.75, "puismaxcharge": 3.75, "puismaxrac": 61.5, "puismaxinstalleedischarge": 5.0, "nbgroupes": 1, "nbinstallations": 13, "regime": null, "energiestockable": 7.0, "capacitereservoir": 0.0, "hauteurchute": 0.0, "productible": 0.0, "debitmaximal": 0.0, "codegestionnaire": null, "gestionnaire": null, "energieannuelleglissanteinjectee": 35303, "energieannuelleglissanteproduite": null, "energieannuelleglissantesoutiree": null, "energieannuelleglissantestockee": null, "maxpuis": 61.5, "datemiseenservice_date": "2011-04-15"}]} 
+
+===== https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/exports/csv?limit=3&delimiter=%3B | #HTTP 200 text/csv; charset=utf-8 1647
+﻿nominstallation;codeeicresourceobject;codeiris;codeinseecommune;commune;codeepci;epci;codedepartement;departement;coderegion;region;codeiriscommuneimplantation;codeinseecommuneimplantation;codes3renr;dateraccordement;datederaccordement;datemiseenservice;datedebutversion;postesource;tensionraccordement;moderaccordement;codefiliere;filiere;codecombustible;combustible;codescombustiblessecondaires;combustiblessecondaires;codetechnologie;technologie;typestockage;puismaxinstallee;puismaxraccharge;puismaxcharge;puismaxrac;puismaxinstalleedischarge;nbgroupes;nbinstallations;regime;energiestockable;capacitereservoir;hauteurchute;productible;debitmaximal;codegestionnaire;gestionnaire;energieannuelleglissanteinjectee;energieannuelleglissanteproduite;energieannuelleglissantesoutiree;energieannuelleglissantestockee;maxpuis;datemiseenservice_date Confidentiel;17W000002342376I;2A0010000;2A001;Afa;242010056;CA du Pays Ajaccien;2A;Corse-du-Sud;94;Corse;2A0010000;2A001;;14/12/2021;;14/12/2021;25/07/2026;;BT;Direct;SOLAI;Solaire;;;;;;;;99.84;;;;;;1;En service;;;;;;23X160203-000021;EDF-SEI;0;;0;;99.84;2021-12-14 Confidentiel;17W000002498615X;2A0010000;2A001;Afa;242010056;CA du Pays Ajaccien;2A;Corse-du-Sud;94;Corse;2A0010000;2A001;;18/02/2026;;18/02/2026;18/02/2026;;BT;Direct;SOLAI;Solaire;;;;;;;;99.65;;;;;;1;En service;;;;;;23X160203-000021;EDF-SEI;0;;0;;99.65;2026-02-18 Confidentiel;17W000002341942G;2A0010000;2A001;Afa;242010056;CA du Pays Ajaccien;2A;Corse-du-Sud;94;Corse;2A0010000;2A001;;23
+
+#### C. SDES quarterly pages
+https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-solaire-photovoltaique-deuxieme-trimestre-2026 92441
+    /donnees-regionales-et-locales-0?rubrique=23 | Données régionales et locales
+    /jeux-de-donnees | Données
+    /jeux-de-donnees | Jeux de données
+    /datavisualisations | Datavisualisations
+    /donnees-doccupation-des-sols | Données d'occupation des sols
+    #donnes | Données
+    /media/9714/download?inline | Données départementales et régionales sur les installations solaires photovoltaïques - 2026 trimestr
+    https://opendata.reseaux-energies.fr/explore/dataset/registre-national-installation-production-stockage-electricite-agrege-311220/information/?disjunctive.epci&amp;disjun | Registre national des installations de production et de stockage d'électricité
+    mailto:?subject=Tableau%20de%20bord%20%3A%20solaire%20photovolta%C3%AFque%20-%20Deuxi%C3%A8me%20trimestre%202026&amp;body=Check%20this%20out%20from%20Donn%C3%A9es%20et%20 | 
+    /jeux-de-donnees | Jeux de données
+    /protection-des-donnees-personnelles | Données personnelles
+    /datavisualisations | Datavisualisations
+    https://www.data.gouv.fr | Data.gouv.fr
+https://www.statistiques.developpement-durable.gouv.fr/tableau-de-bord-eolien-deuxieme-trimestre-2026 91509
+    /donnees-regionales-et-locales-0?rubrique=23 | Données régionales et locales
+    /jeux-de-donnees | Données
+    /jeux-de-donnees | Jeux de données
+    /datavisualisations | Datavisualisations
+    /donnees-doccupation-des-sols | Données d'occupation des sols
+    #donnes | Données
+    /media/9715/download?inline | Données départementales et régionales sur les installations éoliennes - 2026 trimestre 2 (xlsx, 161.
+    https://opendata.reseaux-energies.fr/explore/dataset/registre-national-installation-production-stockage-electricite-agrege-311220/information/?disjunctive.epci&amp;disjun | Registre national des installations de production et de stockage d'électricité
+    mailto:?subject=Tableau%20de%20bord%20%3A%20%C3%A9olien%20-%20Deuxi%C3%A8me%20trimestre%202026&amp;body=Check%20this%20out%20from%20Donn%C3%A9es%20et%20%C3%A9tudes%20stat | 
+    /jeux-de-donnees | Jeux de données
+    /protection-des-donnees-personnelles | Données personnelles
+    /datavisualisations | Datavisualisations
+    https://www.data.gouv.fr | Data.gouv.fr
+
+#### D. DGEG
+https://www.dgeg.gov.pt/pt/estatistica/energia/renovaveis/potencia-instalada-fer/ 46525
+    https://www.dgeg.gov.pt/media/axom32dy/dgeg-rpe-1995-2024-v1.xlsx | Potência Instalada nas Centrais Produtoras de Energia Elétrica
+    https://www.dgeg.gov.pt/media/axom32dy/dgeg-rpe-1995-2024-v1.xlsx | (1 995-20 24)
+https://www.dgeg.gov.pt/pt/estatistica/energia/renovaveis/estatisticas-rapidas-das-renovaveis/ 46270
+https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/producao-anual-e-potencia-instalada/ 48982
+    /media/ay0hf44o/dgeg-epa-2005-2022.xlsx | 
+    /media/xx4phqxm/dgeg-epa-2005-2024.xlsx | Produção anual por NUTs I (2005-2024)
+    /media/evpf43aq/i012597.xls | Produção anual por NUTs I (1994-2004)
+    /media/pnweyc4s/dgeg-edc-2000-2024.xlsx | Disponibilidade de energia elétrica para consumo (2000-2024)
+    /media/qonlznw0/dgeg-ept-2008-2024-v1.xlsx | Potência instalada nas centrais produtoras de eletricidade (2008-2024)
+    /media/wfjlks1g/dgeg-epc-2010-2024.xlsx | Potência instalada nas centrais produtoras de eletricidade, por município (2010-2024)
+https://www.dgeg.gov.pt/pt/estatistica/energia/eletricidade/producao-mensal-de-eletricidade/ 49966
+    /media/uejfuum3/dgeg-epm-2026-08.xls | 2026 (xls)
+    /media/psflv3l5/dgeg-epm-2025-12.xls | 2025 (xls)
+    /media/cd2htbkv/dgeg-epm-2024-12.xls | 2024 (xls)
+    /media/xn3hs340/dgeg-epm-2023-12.xls | 2023 (xls)
+    /media/uw5ezbsm/dgeg-epm-2022-12.xls | 2022 (xls)
+    /media/nfbd2sr5/dgeg-epm-2021-12.xls | 2021 (xls)
+    /media/exkdowe0/dgeg-epm-2020-12.xls | 2020 (xls)
+    /media/gipbzx02/mensais-2019.xls | 2019 (xls)
+    /media/vwhfdwjj/i016548.xls | 2018 (xls)
+    /media/qe3byrkk/i015673.xls | 2017 (xls)
+    /media/gbagx41l/i015523.xls | 2016 (xls)
+    /media/qg3lfdte/i015524.xls | 2015 (xls)
+    /media/lu4fkw5a/i015522.xls | 2014 (xls)
+    /media/2top5oan/i015521.xls | 2013 (xls)
+    /media/yoqpbwmb/i015520.xls | 2012 (xls)
+https://www.dgeg.gov.pt/pt/destaques/estatisticas-rapidas-das-renovaveis-agosto-2026/ 786277
+    /media/cnkfg5w5/dgeg-arr-2026-08.pdf | publicação nº 261
+
+#### E. Terna download center and pages
+https://dati.terna.it/en/download-center 248850
+   FILES []
+https://www.terna.it/it/sistema-elettrico/statistiche/rapporto-mensile 246827
+   FILES ['download.terna.it/terna/0000/1100/35.PDF', 'download.terna.it/terna/GSTAT_FAQ_8da424df0665816.pdf', 'download.terna.it/terna/Methodological_note_8da42e00ff80ef2.pdf', 'download.terna.it/terna/Nota_metodologica_8da42531c0ff392.pdf']
+https://www.terna.it/en/electric-system/statistics/statistical-publications 377276
+   FILES []
+
+#### F. REN centro de informacao
+https://www.centrodeinformacao.ren.pt/ 1
+https://www.centrodeinformacao.ren.pt/PT/InformacaoExploracao/Paginas/EstatisticaMensal.aspx 1
+https://datahub.ren.pt/en/homepage/electricity/production/detailed/ 3476
+
+#### G. Energy-Charts yearly
+
+===== https://api.energy-charts.info/installed_power?country=fr&time_step=yearly&installation_decommission=false | #HTTP 200 application/json 1575
+{"time":["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"production_types":[{"name":"Nuclear","data":[63.13,63.13,63.13,63.13,63.13,63.13,61.37,61.37,61.37,61.37,62.99,62.99]},{"name":"Hydro Run-of-River","data":[10.31,10.33,10.33,11.22,10.96,11.48,11.5,11.83,11
+
+===== https://api.energy-charts.info/installed_power?country=es&time_step=yearly&installation_decommission=false | #HTTP 200 application/json 1991
+{"time":["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"production_types":[{"name":"Nuclear","data":[7.57,7.57,7.57,7.12,7.12,7.12,7.12,7.12,7.12,7.12,7.12,7.12]},{"name":"Hydro Run-of-River","data":[1.09,1.16,1.16,1.16,1.16,1.15,1.15,1.15,1.15,1.15,1.15,2.63]}
+
+===== https://api.energy-charts.info/installed_power?country=pt&time_step=yearly&installation_decommission=false | #HTTP 200 application/json 1906
+{"time":["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"production_types":[{"name":"Nuclear","data":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]},{"name":"Hydro Run-of-River","data":[2.98,2.99,2.84,2.83,2.86,2.86,2.86,2.86,2.86,2.86,2.86,2.86]},{"name":"Bi
+
+===== https://api.energy-charts.info/installed_power?country=it&time_step=yearly&installation_decommission=false | #HTTP 200 application/json 1828
+{"time":["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"production_types":[{"name":"Hydro Run-of-River","data":[10.72,10.48,10.39,10.83,10.65,10.44,10.47,10.51,10.55,10.29,10.32,10.49]},{"name":"Biomass","data":[0.93,1.61,1.62,1.35,1.54,1.55,1.59,1.55,1.53,1.54
