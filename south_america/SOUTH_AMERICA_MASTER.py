@@ -424,7 +424,7 @@ def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
             missing.append(f"{country} {short} ({fname})")
             continue
         try:
-            build = cfg.MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
+            build = cfg.MASTER_SPECS.get((fname, raw_sheet)) or cfg.MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)

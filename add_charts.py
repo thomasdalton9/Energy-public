@@ -3670,6 +3670,19 @@ REGISTRY.update({
 })
 
 
+
+# ---- Europe complete monthly capacity (europe/capacity/EUROPE_CAPACITY_COMPLETE.py) ----
+def _europe_capacity_complete(p):
+    import importlib.util
+    here = os.path.dirname(os.path.abspath(__file__))
+    spec = importlib.util.spec_from_file_location("EUROPE_CAPACITY_COMPLETE", os.path.join(here, "europe", "capacity", "EUROPE_CAPACITY_COMPLETE.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.chart_specs(p)
+
+
+REGISTRY["europe_capacity_monthly_complete.xlsx"] = _europe_capacity_complete
+
 # ---- Taiwan (taiwan/taiwan_charts.py) ----
 def _taiwan(fn):
     def f(p):

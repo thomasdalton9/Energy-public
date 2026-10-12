@@ -38,9 +38,10 @@ FUEL_MAX_MONTH = {"Solar": 32.0, "Wind": 65.0}
 FUEL_MAX_YEAR = {"Solar": 28.0, "Wind": 55.0}
 
 
-def monthly_capacity(path):
-    """Capacity workbook -> monthly MW by fuel group (FUELS), carried forward; (frame, annual?, first month)."""
-    d = add_charts.by_date(add_charts.read(path, "Monthly"), "date")
+def monthly_capacity(path, sheet="Monthly"):
+    """Capacity workbook -> monthly MW by fuel group (FUELS), carried forward; (frame, annual?, first month).
+    `sheet` names the data sheet (a multi-country workbook such as europe_capacity_monthly_complete.xlsx has one per country)."""
+    d = add_charts.by_date(add_charts.read(path, sheet), "date")
     d = d.apply(pd.to_numeric, errors="coerce")
     annual = len(d) > 1 and d.index.to_series().diff().median().days > 300
     if annual:
@@ -87,18 +88,21 @@ def trailing(gen, cap, months=12):
 
 def add_capacity_factor_sheets(wb, used, sheet_name_fn, gen_frames, cap_paths, chart_w, chart_h, source_note,
                                region, exclude=None):
-    """gen_frames: {country: monthly GWh frame}; cap_paths: {country: capacity workbook path}. Writes a
+    """gen_frames: {country: monthly GWh frame}; cap_paths: {country: capacity workbook path, or (path, sheet)}. Writes a
     "Capacity factors" summary tab (trailing 12 months, country x fuel) and ONE regional chart: monthly capacity
     factor by generation type over all countries (summed generation / summed capacity x hours; a month sums the
     countries reporting it, shown when they hold >= 90% of the region's capacity). Returns (chart, index_row, missing) for the master's power dashboard."""
     missing, summary, gens, caps, country_charts = [], [], {}, {}, []
     for country, gen in gen_frames.items():
         path = cap_paths.get(country)
+        cap_sheet = "Monthly"
+        if isinstance(path, tuple):   # (workbook, sheet)
+            path, cap_sheet = path
         if not path or not os.path.exists(path):
             missing.append(f"{country}: no capacity workbook (capacity factor not calculated)")
             continue
         try:
-            cap, annual, first = monthly_capacity(path)
+            cap, annual, first = monthly_capacity(path, cap_sheet)
             for (ec, fuel), _ in (exclude or {}).items():
                 if ec == country and fuel in gen:
                     gen = gen.assign(**{fuel: float("nan")})

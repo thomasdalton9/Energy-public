@@ -91,6 +91,43 @@ RAW_POWER_DATASETS = (
 # Cyprus (TSOC) is on the East Med master, not here (owner's choice, Oct 2026)
 CAPACITY_DATASETS = [(code, name, f"{slug}_power_capacity.xlsx", "Monthly", "capacity")
                      for code, (name, slug, _) in COUNTRIES.items()]
+# Complete monthly capacity (europe/capacity/EUROPE_CAPACITY_COMPLETE.py): one gap-free monthly series per country and fuel, national
+# sources where they exist, ENTSO-E annual interpolated elsewhere, every filled cell flagged in that workbook. Used for the capacity
+# charts, the Europe capacity total and the capacity-factor denominators; the ENTSO-E annual workbooks above are the fallback if it
+# is missing.
+CAP_COMPLETE = "europe_capacity_monthly_complete.xlsx"
+CAP_COMPLETE_SHEET = {"Ireland (all-island SEM)": "Ireland", "Great Britain": "United Kingdom"}   # master name -> sheet
+CAP_COMPLETE_SRC = ("National monthly capacity sources where available (MaStR, ODRE, REData, Elia, MAVIR, ERU, DESNZ, NVE, Energinet, "
+                    "EirGrid ...), ENTSO-E annual installed capacity interpolated or held elsewhere; flags and basis per country and fuel "
+                    "in europe_capacity_monthly_complete.xlsx", "https://transparency.entsoe.eu/")
+CAP_CF_NOTE = ("installed capacity: national monthly where available, ENTSO-E annual interpolated elsewhere (see Basis); United Kingdom "
+               "capacity includes Northern Ireland")
+
+
+def _complete_capacity(data_dir):
+    p = os.path.join(data_dir, CAP_COMPLETE)
+    return os.path.exists(p)
+
+
+def _cap_spec(sheet_name, title):
+    def f(p):
+        d = add_charts.by_date(add_charts.read(p, sheet_name), "date")
+        d = d[d.index >= "2021-01-01"]
+        g = add_charts.capacity_groups(pd.DataFrame({fu: d.get(f"{fu}_MW") for fu in add_charts.CAPACITY_FUELS}, index=d.index)) / 1000.0
+        return [add_charts.spec("Capacity", g, title, "GW installed", "stacked_bar", "%Y-%m")]
+    return f
+
+
+def complete_capacity_datasets():
+    """(datasets, MASTER_SPECS entries) for the complete workbook: one chart per Europe-master country + the United Kingdom."""
+    ds, specs = [], {}
+    for code, (name, _slug, _z) in COUNTRIES.items():
+        shown = CAP_COMPLETE_SHEET.get(name, name)
+        ds.append((code, "Ireland" if code == "IE" else name, CAP_COMPLETE, shown, "capacity"))
+        specs[(CAP_COMPLETE, shown)] = _cap_spec(shown, f"{'Ireland' if code == 'IE' else name} installed capacity, monthly (see Basis)")
+    ds.append(("GB", "United Kingdom", CAP_COMPLETE, "United Kingdom", "capacity"))
+    specs[(CAP_COMPLETE, "United Kingdom")] = _cap_spec("United Kingdom", "United Kingdom installed capacity, monthly (see Basis)")
+    return ds, specs
 PRICE_DATASETS = [("EU", "Europe", "europe_power_prices_daily.xlsx", "Daily", "power prices"),
                   ("EU", "Europe", "europe_cross_border_flows_daily.xlsx", "*", "flows")]
 FLOWS_FILE = "europe_cross_border_flows_daily.xlsx"
@@ -122,6 +159,8 @@ def rhine(path):
 
 
 MASTER_SPECS = {"rhine_kaub_level_daily.xlsx": rhine}
+_CAP_DS, _CAP_SPECS = complete_capacity_datasets()
+MASTER_SPECS.update(_CAP_SPECS)
 
 SOURCES = {
     "eu_gas_storage_daily.xlsx": ("Gas Infrastructure Europe, AGSI+ (storage operators' own reports)", "https://agsi.gie.eu/"),
@@ -179,6 +218,8 @@ for _code, (_name, _slug, _zones) in COUNTRIES.items():
     SOURCES[f"{_slug}_power_generation_daily.xlsx"] = ENTSOE
     SOURCES[f"{_slug}_power_capacity.xlsx"] = ("ENTSO-E Transparency Platform: installed capacity per production type",
                                                "https://transparency.entsoe.eu/")
+
+SOURCES[CAP_COMPLETE] = CAP_COMPLETE_SRC
 
 SOURCES["denmark_energinet_load_daily.xlsx"] = ("Energinet, Energi Data Service: ProductionConsumptionSettlement (gross consumption, production, exchanges)",
                                                 "https://www.energidataservice.dk/tso-electricity/ProductionConsumptionSettlement")
@@ -319,6 +360,22 @@ def europe_generation(data_dir, frames_out=None):
     total.index.name = "date"
     notes.insert(0, f"{len(keep)} countries summed (ENTSO-E, {months[0]:%b/%y}-{months[-1]:%b/%y}): " + ", ".join(keep))
     return total, notes
+
+
+def europe_capacity_complete(data_dir):
+    """Monthly installed capacity, GW, from the complete workbook's 'Europe total' sheet (the master's countries + the United
+    Kingdom; every month has every country, so there is no coverage cut-off). (frame, notes) or (empty, notes) if unreadable."""
+    p = os.path.join(data_dir, CAP_COMPLETE)
+    try:
+        d = add_charts.by_date(add_charts.read(p, "Europe total"), "date")
+        d = d[d.index >= START]
+        g = add_charts.capacity_groups(pd.DataFrame({fu: d.get(f"{fu}_MW") for fu in add_charts.CAPACITY_FUELS}, index=d.index)) / 1000.0
+        g.index.name = "date"
+        n = len(_CAP_DS)
+        return g, [f"{n} countries incl. the United Kingdom (national monthly sources where available, ENTSO-E annual interpolated or held "
+                   f"elsewhere, {g.index.min():%b/%y}-{g.index.max():%b/%y}; storage excluded); Turkey not included"]
+    except Exception as e:  # noqa: BLE001
+        return pd.DataFrame(), [f"complete capacity workbook not usable ({type(e).__name__}: {e})"]
 
 
 def europe_capacity(data_dir):
@@ -1532,7 +1589,7 @@ def main():
     gas = sam.collect(wb, DATASETS, args.data_dir, used, sources, cfg=cfg)
     parts = [sam.collect(wb, RAW_POWER_DATASETS, args.data_dir, used, sources, cfg=cfg),
              sam.collect(wb, PRICE_DATASETS, args.data_dir, used, sources, cfg=cfg),
-             sam.collect(wb, CAPACITY_DATASETS, args.data_dir, used, sources, cfg=cfg),
+             sam.collect(wb, _CAP_DS if _complete_capacity(args.data_dir) else CAPACITY_DATASETS, args.data_dir, used, sources, cfg=cfg),
              sam.collect(wb, HYDRO_DATASETS, args.data_dir, used, sources, cfg=cfg)]
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
 
@@ -1547,20 +1604,32 @@ def main():
         print("Europe generation total:", "; ".join(notes))
     else:
         power[2].append("Europe generation total: " + "; ".join(notes))
-    cap, cap_notes = europe_capacity(args.data_dir)
+    if _complete_capacity(args.data_dir):
+        cap, cap_notes = europe_capacity_complete(args.data_dir)
+        cap_complete = not cap.empty
+    else:
+        cap_complete = False
+    if not cap_complete:
+        cap, cap_notes = europe_capacity(args.data_dir)
     if not cap.empty:
         total_chart(wb, used, power, pos, cap, cap_notes, "Europe capacity total data",
-                    "Europe installed generating capacity (ENTSO-E countries)", "GW installed",
+                    "Europe installed generating capacity" + (" (monthly, see Basis)" if cap_complete else " (ENTSO-E countries)"),
+                    "GW installed", CAP_COMPLETE_SRC if cap_complete else
                     ("ENTSO-E Transparency Platform: installed capacity per production type", "https://transparency.entsoe.eu/"),
-                    "Countries summed (annual figures, 1 January; storage excluded):", date_format="%Y")
+                    "Countries summed (monthly, storage excluded):" if cap_complete else "Countries summed (annual figures, 1 January; storage excluded):",
+                    date_format="%Y-%m" if cap_complete else "%Y")
         pos += 1
         print("Europe capacity total:", "; ".join(cap_notes))
 
+    if cap_complete:   # generation frames are named as in the master (Ireland = Republic, Great Britain); one sheet per country
+        cf_cap_paths = {n: (os.path.join(args.data_dir, CAP_COMPLETE), CAP_COMPLETE_SHEET.get(n, n))
+                        for n in [nm for _, (nm, _s, _z) in COUNTRIES.items()] + ["Great Britain", "Ireland"]}
+    else:
+        cf_cap_paths = {name: os.path.join(args.data_dir, f"{slug}_power_capacity.xlsx") for _, (name, slug, _) in COUNTRIES.items()}
     cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
         wb, used, sam.sheet_name, gen_frames,
-        {name: os.path.join(args.data_dir, f"{slug}_power_capacity.xlsx") for _, (name, slug, _) in COUNTRIES.items()},
-        sam.CHART_W, sam.CHART_H,
-        "Generation (ENTSO-E) / installed capacity (ENTSO-E, annual)", "Europe")
+        cf_cap_paths, sam.CHART_W, sam.CHART_H,
+        "Generation (ENTSO-E) / " + (CAP_CF_NOTE if cap_complete else "installed capacity (ENTSO-E, annual)"), "Europe")
     if cf_chart:
         power[0].insert(pos, cf_chart)
         power[1].insert(pos, cf_row)
