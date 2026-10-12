@@ -13,7 +13,10 @@ Owner rules: raw sourced data only; TARGET rows are allowed, labelled and NEVER 
 nothing guessed (no ramp-up assumption is carried over from the LNG workbook).
 """
 import os
+import shutil
+import subprocess
 import sys
+import tempfile
 
 import pandas as pd
 
@@ -163,6 +166,43 @@ def gas_assets(gas, types):
 GROUPS = ["United States", "Qatar", "Australia", "Canada", "Mexico", "Russia", "Africa", "Other"]
 
 
+
+def lng_ramp_columns(path):
+    """The liquefaction workbook's own 'with ramp' columns (live formulas without cached values): its file is opened
+    by LibreOffice in a temp copy so the workbook's formulas are evaluated, nothing is recomputed here.
+    Returns (n_months, DataFrame indexed by month) or (None, None) when LibreOffice is unavailable."""
+    from openpyxl import load_workbook
+    soffice = shutil.which("soffice") or shutil.which("libreoffice")
+    if not soffice:
+        log("ramp columns skipped: LibreOffice not found")
+        return None, None
+    with tempfile.TemporaryDirectory() as d:
+        src = os.path.join(d, "in.xlsx")
+        shutil.copy(path, src)
+        try:
+            subprocess.run([soffice, "--headless", "--convert-to", "xlsx:Calc MS Excel 2007 XML", "--outdir",
+                            os.path.join(d, "out"), src], check=True, capture_output=True, timeout=240)
+            ws = load_workbook(os.path.join(d, "out", "in.xlsx"), data_only=True)["Capacity by month"]
+        except Exception as e:  # noqa: BLE001
+            log("ramp columns skipped:", e)
+            return None, None
+    hdr = {str(c.value): c.column for c in ws[1]}
+    ca = hdr["Operating + UC + FID, with ramp (mtpa, ASSUMPTION)"]
+    cb = hdr["Incl. dated planned, with ramp (mtpa, ASSUMPTION)"]
+    cn = hdr["Ramp months (ASSUMPTION, editable)"]
+    n = ws.cell(2, cn).value
+    rows = {}
+    for r in range(2, ws.max_row + 1):
+        m = ws.cell(r, 1).value
+        if m is not None and pd.Timestamp(m) in set(MONTHS):
+            rows[pd.Timestamp(m)] = (ws.cell(r, ca).value, ws.cell(r, cb).value)
+    df = pd.DataFrame.from_dict(rows, orient="index")
+    if df.isna().all().all() or not isinstance(n, (int, float)):
+        log("ramp columns skipped: no values read")
+        return None, None
+    return int(n), df.astype(float)
+
+
 def lng_supply(lng):
     cm = lng["Capacity by month"].copy()
     cn = lng["Chart - Nameplate"].copy()
@@ -195,6 +235,12 @@ def lng_supply(lng):
     # tie-out with the workbook's own derived column
     ref = cm["Total sourced nameplate (Bcf/d, DERIVED)"]
     log("LNG Bcf/d tie-out max abs diff:", float((out["TOTAL sourced nameplate (Bcf/d, DERIVED)"] - ref).abs().max()))
+    n, rp = lng_ramp_columns(F_LNG)
+    if rp is not None:
+        # separate ASSUMPTION columns at the end; never part of the sourced series or any total above
+        out[f"ASSUMPTION: with {n}-month ramp, operating + UC + FID (mtpa)"] = rp[0]
+        out[f"ASSUMPTION: with {n}-month ramp, incl. dated planned (mtpa)"] = rp[1]
+        log("ramp columns added, months =", n, "Dec 2030:", rp.loc[pd.Timestamp("2030-12-01")].round(1).tolist())
     return out.round(4)
 
 
@@ -498,7 +544,7 @@ def main():
     n.append("Copied from the gas workbook's 'Regas monthly' / 'Regas by month' (2025-2030). Ceiling per terminal = ALSI declared send-out where published, else GIE LNG Map nominal. committed = operating + under construction + FID; incl. planned adds dated PLANNED / PERMITTED. A stated year counts from January. 'Regas by country' sums the gas workbook's terminal rows by country; the tie-out to its Europe totals is logged each run.")
     n.append("")
     sec_("Global LNG supply")
-    n.append("Copied from the liquefaction workbook's 'Capacity by month' / 'Chart - Nameplate' (2025-2030): operating, dated under construction, dated FID, dated planned (cumulative from the placed start month), offline (damaged / shut-in) shown separately. Undated projects are MEMO columns, not in the monthly totals. The workbook's 'with ramp' columns rest on an assumed ramp length and are NOT carried here.")
+    n.append("Copied from the liquefaction workbook's 'Capacity by month' / 'Chart - Nameplate' (2025-2030): operating, dated under construction, dated FID, dated planned (cumulative from the placed start month), offline (damaged / shut-in) shown separately. Undated projects are MEMO columns, not in the monthly totals. The last two columns, headed 'ASSUMPTION: with <n>-month ramp', are the liquefaction workbook's own 'with ramp' columns (each addition after the run month rises linearly over an assumed number of months, owner-approved ASSUMPTION; values read from that workbook, not recomputed); they are never added into the sourced series, totals, charts or headroom.")
     n.append("Nameplate is not output: US plants run above baseload nameplate, Qatar and the UAE export through the Strait of Hormuz, Russian volumes are sanctioned.")
     n.append("")
     sec_("Europe gas headroom")
