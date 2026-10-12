@@ -1,0 +1,31 @@
+200   8355455 https://giignl-documents.s3.fr-par.scw.cloud/public/giignl-2026-annual-report.pdf
+200    897154 https://www.woodside.com/docs/default-source/investor-documents/quarterly-and-half-yearly-pdfs-and-data-tables/2026/half-year-2026-report.pdf?sfvrsn=df6d6ddc_6
+200    123866 https://lngir.cheniere.com/_assets/_75dc2c9a1fb706f14e67cee93b0e9e5a/cheniere/news/2026-08-06_Cheniere_Reports_Second_Quarter_2026_Results_and_343.pdf
+403      5944 https://www.sempra.com/newsroom/press-releases/sempra-reports-strong-second-quarter-2026-results
+403       446 https://investor.sempra.com/static-files/d9cdcb67-8e35-40d1-82e0-269b905b8315
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-and-biofund-partner-to-advance-biodiversity-conservation-and-nature-based-solutions/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-clarification-by-totalenergies-on-financing-of-the-project/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-clarification-by-totalenergies/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-has-already-awarded-105-scholarships-to-young-mozambicans-to-pursue-higher-education-in-france/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-project-presents-business-opportunities-in-maputo/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-project-supports-flood-victims-in-mozambique/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-project-supports-post-flood-recovery/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-publishes-results-of-the-analysis-undertaken-in-response-to-the-allegations-made-in-the-article-published-on-26-september-2024-by-the-news-website-politico/
+MZ https://www.mozambiquelng.co.mz/press-release/mozambique-lng-strengthens-the-capabilities-of-a-further-100small-and-medium-sized-enterprises-in-cabo-delgado/
+MZ https://www.mozambiquelng.co.mz/press-release/projecto-mozambique-lng-apresenta-oportunidades-de-negocios-em-cabo-delgado/
+202       554 https://www.lngcanada.ca/about-lng-canada/
+202       559 https://www.lngcanada.ca/who-we-are/overview/
+202       559 https://www.lngcanada.ca/what-we-do/overview/
+202       570 https://www.lngcanada.ca/what-we-do/facility-operations/
+202       563 https://www.lngcanada.ca/what-we-do/construction/
+shell raw 200 10170
+200     92983 https://www.santos.com/investors/
+     link https://www.santos.com/investors/company-reporting/ | 
+     link https://www.santos.com/investors/company-reporting/ | Company reporting
+404     41176 https://www.santos.com/our-business/papua-lng/
+200     66532 https://www.inpex.com/ir/library/
+     link /assets/documents/company/brochure.pdf | ä¼ç¤¾ãã³ãã¬ãã
+     link /ir/library/presentation.html | ä¼ç¤¾èª¬æä¼ï¼è³æã»åç»ï¼
+404     47408 https://www.petronas.com/lng
+404     59716 https://www.exxonmobil.com/en/lng/papua-new-guinea
+   FAIL https://www.tangguh.com/ SSLError HTTPSConnectionPool(host='www.tangguh.com', port=443): Max retries exceeded with | SSLError Failed to perform, curl: (35) TLS connect error: error:10000458:SSL routines:OPE

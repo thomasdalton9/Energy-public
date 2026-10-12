@@ -1,0 +1,2522 @@
+URL https://www.woodside.com/docs/default-source/investor-documents/quarterly-and-half-yearly-pdfs-and-data-tables/2026/half-year-2026-report.pdf?sfvrsn=df6d6ddc_6
+KIND pdf
+
+=== page 1
+HALF-YEAR REPORT FOR PERIOD ENDED 30 JUNE 2026
+ASX: WDS | NYSE: WDS
+25 August 2026
+Disciplined execution
+Operational excellence and project delivery
+• Recorded operating revenue of $7,446 million, up 13% from H1 2025.
+• Delivered production of 478 Mboe/d (86.5 MMboe) and unit production costs of $8.8/boe.1
+• Progressed major projects with Scarborough 98%, Trion 64%, and Louisiana LNG 28% complete.
+• Maintained high asset reliability, with operated LNG facilities achieving 98.7% reliability, Sangomar 99.5%, and Shenzi 99.1%.
+• Safely executed the Pluto planned turnaround campaign on schedule and within budget, including key integration activities
+supporting the Scarborough Energy Project, with more than 400,000 hours worked and zero lost-time injuries.
+Delivering value
+• Determined a fully franked interim dividend of 57 US cents per share (cps).
+• Achieved net profit after tax (NPAT) of $1,672 million (underlying NPAT $1,334 million).1
+• Delivered EBITDA of $4,647 million from underlying base business.1
+• Delivered operating cash flow of $3,013 million and free cash flow of $352 million.
+• Disciplined capital management resulted in strong liquidity of $8,189 million.1
+• Gearing of 20.6%, marginally outside the target range of 10 - 20%, impacted by $655 million of new lease liabilities, a $419
+million net cash outflow from hedge settlements, and a $101 million increase in trade receivables.1
+Comparative performance
+H1 H1 Change
+2026 2025 %
+Operating revenue $ million 7,446 6,590 13%
+Underlying NPAT1 $ million 1,334 1,247 7%
+Free cash flow1,2 $ million 352 136 159%
+Average realised price1,3 $/boe 74.0 61.7 20%
+2026 full-year guidance
+Prior Current
+Total production volumes4,5 MMboe 86.5 99.2 (13%) 172 - 186 174-185
+Gas hub exposure6 % 38.7% 24.2% 15% ~30 No change
+Capital expenditure1,7,8 $ million 1,637 2,558 (36%) 4,000 - 4,500 No change
+Abandonment expenditure $ million 255 517 (51%) 500 - 800 No change
+Exploration expenditure1 $ million 119 84 42% ~200 No change
+Production costs $ million 749 667 12% 1,500 - 1,800 No change
+Feed gas, services and processing costs $ million 238 92 159% 500 - 600 No change
+Property, plant and equipment depreciation
+$ million 2,209 2,541 (13%) 4,200 - 4,700 No change
+and amortisation
+This page and the following 64 pages comprise the half-year information given to the ASX under Listing Rule 4.2A and should be read in conjunction with Woodside’s
+Annual Report 2025.
+1 These are alternative performance measures which are non-IFRS measures that are unaudited. Refer to Alternative Performance Measures on pages 53-56 and Non-
+IFRS Measures on page 63 for more information.
+2 The 2026 calculation has been updated to adjust for contributions from/(to) NCI and lease repayments. The 2025 comparative has been restated to be presented on the
+same basis.
+3 2025 sales volumes have been restated to include additional volumes of 0.19 MMboe and 6 MMscf/d to reflect pipeline gas volumes sold in MMBtu at a revised boe
+conversion factor, impacting realised price by ($0.1)/boe.
+4 H1 2026 Total production volumes includes production of 85.0 MMboe from Woodside reserves and 1.5 MMboe from processing, comprising 1.0 MMboe from Beaumont
+New Ammonia and 0.5 MMboe from feed gas purchased from Pluto non-operating participants processed through the Pluto-KGP Interconnector.
+5 2026 full-year Total production volumes includes 2-3 MMboe from Beaumont New Ammonia (no change).
+6 Consistent with 2025 Capital Markets Day, presented on a 3 year average for 2026-2028. Includes binding sales and purchases agreements only, Woodside’s equity
+share of Scarborough and Pluto LNG, Corpus Christi offtake volumes and assumes the Chevron asset swap is completed.
+7 Louisiana LNG (90% Louisiana LNG LLC, 60% Louisiana LNG Infrastructure LLC and 20% Driftwood Pipeline LLC) capital expenditure adjusted for the cash contributions
+from Stonepeak Wallaby I Acquiror LP (Stonepeak) and Williams Louisiana LNG LLC (Williams). Scarborough (74.9% participating interest) and Pluto Train 2 (51%
+participating interest). Trion (60% participating interest). Excludes the final acquisition completion payment for Beaumont New Ammonia of $470 million. Completion of
+the asset swap with Chevron assumed to occur in Q4 2026.
+8 Capital expenditure is reported on the basis of Woodside’s net ownership interests for each project as at 30 June 2026. Refer to pages 49-50 for details.
+1 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 2
+Summary
+Woodside delivered strong half-year production of 478 thousand barrels oil equivalent per day (86.5 million barrels of
+oil equivalent total) and reported a half-year net profit after tax (NPAT) of $1,672 million. Underlying NPAT was $1,334
+million, compared to $1,247 million in the corresponding period in 2025. Operating revenue rose 13% year-on-year to
+$7,446 million.
+During the half, the Middle East conflict disrupted the global supply of LNG and oil resulting in strengthening
+commodity prices and an increase in customer demand for products. Woodside’s Marketing and Trading division
+continued to optimise the portfolio to manage risk and maximise value while fulfilling customer commitments.
+The directors have determined a fully franked interim dividend of 57 US cents per share (cps), representing an 80%
+payout ratio of underlying NPAT, and an annualised yield of 5.9%.9
+Woodside CEO Liz Westcott said the company delivered a resilient first half performance, remaining a secure and
+reliable supplier to customers throughout a period of global volatility.
+“We once again delivered strong production, cash flow and shareholder returns, while continuing to execute the next
+phase of growth.
+“Keeping our people safe remains our highest priority. We recorded one high consequence injury during the period
+while undertaking over 11 million work hours. This reinforces the need for ongoing focus on critical risk management,
+strong safety leadership and disciplined execution of safe work practices across our operations.
+“We maintained operational excellence at our assets. Operated LNG reliability was more than 98% and the planned
+turnaround at Pluto LNG was completed on budget and schedule, derisking the Scarborough Energy Project schedule
+in the process. We achieved exceptional performance at Sangomar, which produced at near nameplate capacity with
+99.5% reliability.
+“The Scarborough Energy Project is now 98% complete and remains on track to deliver first LNG cargo in the fourth
+quarter of 2026. During the half, we completed all upstream infrastructure, and subsequent to the period, achieved
+ready for start-up and first gas at the floating production unit. Our focus remains on disciplined commissioning and
+start-up of all facilities to ensure safe and reliable operations from day one.
+“The Trion Project offshore Mexico also made strong progress and is now 64% complete, targeting first oil in 2028. Key
+construction and drilling milestones achieved in the first half included completion of the topsides lift onto the floating
+production unit and drilling of the first three of 24 subsea wells.
+“At Louisiana LNG, key milestones were achieved relating to the LNG tanks and marine infrastructure. The project’s
+foundation development was 28% complete at the end of the half, with first LNG targeted for 2029.
+“In July, Woodside assumed operatorship of the Gippsland Basin assets, creating greater flexibility for future
+development opportunities while reinforcing our commitment to supporting energy security in the eastern Australian
+domestic market.
+“We continued to deliver on our sustainability commitments during the half, taking forward biodiversity initiatives in
+Western Australia and Louisiana, and enhancing methane emissions reporting across the Sangomar and North West
+Shelf operations.
+“As we focus on Woodside’s next phase of disciplined delivery, we have announced a series of actions to lift
+performance and sharpen our focus on value. We have set an annual cost savings target of $350 million from 2028 to
+be delivered through the structured review of our business.”
+9 Calculated based on Woodside’s closing share price on 30 June 2026 of A$28.21 ($19.38) and a USD:AUD exchange rate of 0.6869.
+2 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 3
+Financial summary
+Key metrics
+H1 H1 Change
+2026 2025 %
+Operating revenue $ million 7,446 6,590 13%
+EBITDA excluding impairment10 $ million 4,647 4,600 1%
+EBIT10 $ million 2,157 1,817 19%
+Net profit after tax (NPAT)11,12 $ million 1,672 1,316 27%
+Underlying NPAT10 $ million 1,334 1,247 7%
+Net cash from operating activities $ million 3,013 3,339 (10%)
+Capital expenditure10,13 $ million 1,637 2,558 (36%)
+Exploration expenditure10,14 $ million 119 84 42%
+Free cash flow10,15 $ million 352 136 159%
+Average realised price10,18 US$/boe 74.0 61.7 20%
+Dividends distributed $ million 1,122 1,006 12%
+Interim dividend determined US cps 57 53 8%
+Key ratios
+Earnings per share US cps 88.2 69.4 27%
+Gearing10 % 20.6 19.5 1%
+Production volumes16,17
+Gas MMboe 46.1 58.2 (21%)
+Liquids MMboe 39.4 41.0 (4%)
+Ammonia MMboe 1.0 - N/A
+Total MMboe 86.5 99.2 (13%)
+Production volumes per day17
+Gas MMscf/d 1,451 1,833 (21%)
+Liquids Mbbl/d 217 226 (4%)
+Ammonia kT/d 1.5 - N/A
+Total Mboe/d 478 548 (13%)
+Sales volumes17
+Gas18 MMboe 58.5 63.9 (8%)
+Liquids MMboe 40.3 40.9 (1%)
+Ammonia MMboe 1.0 - N/A
+Total MMboe 99.8 104.8 (5%)
+Sales volumes per day17
+Gas18 MMscf/d 1,843 2,012 (8%)
+Liquids Mbbl/d 223 226 (1%)
+Ammonia kT/d 1.4 - N/A
+Mboe/d 551 579 (5%)
+10 This is an alternative performance measure which is a non-IFRS measure that is unaudited. Refer to Alternative Performance Measures on pages 53-56 for a
+reconciliation for these measures to Woodside’s financial statements and Non-IFRS Measures on page 63 for more information.
+11 Net profit after tax attributable to equity holders of the parent.
+12 The global operations effective income tax rate (EITR) of 28.5% (2025: 21.0%) is calculated as the Group’s income tax expense divided by profit before income tax. The
+underlying EITR is 29.6% when excluding the recognition of additional Pluto PRRT deferred tax asset, income tax deferred tax asset relating to US net operating losses
+and impairment losses.
+13 Capital additions on property, plant and equipment, evaluation capitalised and other corporate spend. Excludes exploration capitalised and is presented net of capital
+contributions from non-controlling interests for the development of Louisiana LNG.
+14 Exploration and evaluation expenditure and exploration capitalised less evaluation expenditure, amortisation of licence acquisition costs and prior year exploration
+expense written off. The 2025 comparative has been restated to be presented on the same basis.
+15 Cash flow from operating activities less cash flow from investing activities, adjusted for the capital contributions from/(to) non-controlling interests and lease
+repayments. The 2025 comparative has been restated to be presented on the same basis.
+16 Includes production of 85.0 MMboe from Woodside reserves and 1.5 MMboe from processing, comprising 1.0 MMboe from Beaumont New Ammonia and 0.5 MMboe
+from feed gas purchased from Pluto non-operating participants processed through the Pluto-KGP Interconnector.
+17 The conversion factors used throughout this report are set out on page 60, unless otherwise stated. Sales volumes differ from production volumes primarily due to the
+timing of liftings and the exclusion of third-party purchased volumes.
+18 2025 sales volumes have been restated to include additional volumes of 0.19 MMboe and 6 MMscf/d to reflect pipeline gas volumes sold in MMBtu at a revised boe
+conversion factor, impacting realised price by ($0.1)/boe.
+3 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 4
+Appendix 4D
+Results for announcement to the market
+More information is available on page 46.
+US$ million
+Revenue from ordinary activities Increased 13%19 to 7,446
+Profit from ordinary activities after tax attributable to members Increased 27%19 to 1,672
+Net profit for the period attributable to members Increased 27%19 to 1,672
+Interim dividend - fully franked 57 US cps H1 2026
+Record date for determining entitlements to the dividend 4 September 2026
+Net profit after tax reconciliation
+The following table summarises the variance between the H1 2025 and H1 2026 results for the contribution of each
+line item to NPAT.
+US$m Primary reasons for variance
+2025 H1 reported NPAT 1,316
+Revenue from sale of products
+Produced - price impact 755 Higher average realised prices.
+Lower production due to cyclone impacts, Pluto planned
+Produced - volume impact (307) turnaround and divestment of the Greater Angostura assets offset
+by first ammonia sales.
+Purchased - price and volume impact 440 Higher third-party LNG trading activity.
+Higher third-party LNG trading activity, first ammonia production
+Cost of sales (559)
+and Pluto planned turnaround.
+A non-cash unrealised loss of $135 million in H1 2026 compared to
+Perdaman embedded derivative (297)
+an unrealised gain of $162 million in H1 2025.
+Pre-tax hedge losses of $64 million in H1 2026 compared to pre-tax
+Hedging (106)
+hedge gains of $42 million in H1 2025.
+Restoration provision updates primarily due to Stybarrow, Griffin
+Restoration movement 450
+and Minerva in 2025.
+Pre-tax impairment for the Calypso Project offset by lower pre-tax
+Impairment losses (35)
+impairment for the H2OK Project compared with H1 2025.
+Recognition of the Pluto PRRT and US income tax DTA in 2026
+Income tax and PRRT expense 62 offset by higher taxable profits and recognition of the Louisiana
+LNG DTA in 2025.
+Other (47)
+2026 H1 reported NPAT 1,672
+Adjusted for the recognition of the Pluto PRRT and US income tax
+Underlying adjustments (338) DTA benefits and the post-tax impairment of the Calypso and H2OK
+Projects.
+2026 H1 underlying NPAT20 1,334
+19 Comparisons are to half-year ended 30 June 2025.
+20 This is an alternative performance measure which is a non-IFRS measure that is unaudited. Refer to Alternative Performance Measures on pages 53-56 for a
+reconciliation for these measures to Woodside’s financial statements and Non-IFRS Measures on page 63 for more information.
+4 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 5
+Capital management
+Woodside’s capital management framework provides us with the flexibility to optimise value and shareholder returns
+delivered from the portfolio of opportunities.
+Interim dividend and dividend reinvestment plan
+A 2026 fully franked interim dividend of 57 US cps has been determined, representing an annualised dividend yield of
+5.9% .21 The total amount of the interim dividend payment is $1,084 million which represents 80% of underlying NPAT
+for the first half of 2026.22
+The dividend reinvestment plan remains suspended.
+Liquidity and balance sheet
+In H1 2026, Woodside generated $3,013 million of cash flow from operating activities and delivered positive free cash
+flow of $352 million, which includes the $1,725 million in capital contributions received from Stonepeak and Williams
+for the development of Louisiana LNG.22,23
+During this period, Woodside repaid a $600 million Syndicated Term Loan approximately 6 months prior to maturity.
+At the end of the period, Woodside had cash and cash equivalents of $4,339 million, liquidity of $8,189 million, and
+drawn debt of $11,450 million, including $800 million of ten-year bonds due in September 2026.22
+Woodside’s gearing as at 30 June 2026 was 20.6%, marginally outside the target range of 10 to 20%.22 Woodside’s
+gearing may at times fall outside the target range as the balance sheet is managed through the investment cycle.
+Net debt and gearing were impacted by:
+• $655 million of lease liabilities recognised in the first half of 2026, for the Woodside Bilangara LNG vessel and
+Trion construction related vessels.24
+• Net cash outflow of $419 million for hedge settlements.
+• Higher pricing driving a $101 million increase in trade receivables that were received in July 2026.
+Woodside’s commitment to an investment-grade credit rating remains unchanged and supports the aim of providing
+sustainable returns to shareholders, both now from the strong existing business and in the future from the growth
+opportunities, in accordance with Woodside’s capital management framework.
+Commodity price risk management
+As at 30 June 2026, approximately 62% of the 30 MMboe of 2026 oil-linked production previously hedged (at an
+average price of $74.23 per barrel) had been cash settled and 10 MMboe of 2027 oil-linked production was hedged at
+an average price of $76.76 per barrel.
+Commodity swaps were used to continue managing risk associated with the Corpus Christi LNG volumes.
+For the period ended 30 June 2026, pre-tax hedge losses of $64 million primarily relating to Corpus Christi LNG
+hedges and foreign exchange hedges were recognised, and hedge settlements resulted in a net cash outflow of $419
+million. The hedge settlement net cash outflow in H1 2026 is primarily due to timing with oil-linked hedge losses cash
+settled ahead of the related revenue recognition, and expected to be offset by higher revenue from Q2 price lag
+realisation in H2 2026.
+Embedded commodity derivative
+In 2023, Woodside entered a revised long-term gas sale and purchase agreement with Perdaman. A component of the
+selling price is linked to the price of urea, creating an embedded commodity derivative in the contract. The fair value of
+the embedded derivative is estimated using a Monte Carlo simulation model.
+As there is no long-term urea forward curve, TTF continues to be used as a proxy to simulate the value of the
+derivative over the life of the contract. For the half-year ended 30 June 2026, an unrealised loss of $135 million has
+been recognised through other expenses.
+21 Calculated based on Woodside’s closing share price on 30 June 2026 of A$28.21 ($19.38) and a USD:AUD exchange rate of 0.6869.
+22 These are alternative performance measures which are non-IFRS measures that are unaudited. Refer to Alternative Performance Measures on pages 53-56 and Non-
+IFRS Measures on page 63 for more information.
+23 Net cash flow from / (used in) operating activities and net cash flow from/(used in) investing activities, adjusted for the capital contribution from/(to) non-controlling
+interests and lease repayments.
+24 No change to the forecasted Trion project capital expenditure. Trion construction related vessel leases are for a term of 3 years.
+5 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 6
+Australian operations
+Pluto LNG
+Pluto LNG is a gas processing facility in the Pilbara region of Western Australia, comprising an offshore platform and
+one onshore LNG processing train.
+Woodside’s share of production in H1 2026 was 20.6 MMboe. This was an 18% decrease compared with 25.0 MMboe in
+H1 2025, primarily due to the impact of a planned turnaround and Severe Tropical Cyclone Mitchell in the reporting
+period. H1 2026 production included 3.9 MMboe of Pluto gas processed at Karratha Gas Plant through the
+Interconnector.
+Pluto LNG achieved reliability of 98.7% in H1 2026, reflecting the asset's strong operating performance.
+In H1 2026, drilling of the XNA-03 infill well was completed and preparations continue for start-up targeted for H2
+2026.
+The planned turnaround in May 2026 was successfully delivered safely, on schedule and within budget, including
+critical integration scopes supporting the Scarborough Energy Project. The turnaround involved over 1,500 personnel
+on site to deliver a safe lost time injury-free campaign with more than 400,000 hours worked.
+Woodside is operator and holds a 90% participating interest.
+North West Shelf Project
+The North West Shelf Project (NWS) consists of three offshore platforms and the onshore Karratha Gas Plant (KGP)
+which includes four onshore LNG processing trains and two domestic gas trains.
+Woodside’s share of production in H1 2026 was 14.0 MMboe. This was a 7% decrease compared with H1 2025 due to
+natural reservoir decline and impacts from Severe Tropical Cyclone Narelle.
+Despite these impacts, the NWS achieved LNG reliability of 98.7% in H1 2026, highlighting the continued dependability
+and efficiency of the integrated facilities.
+In H1 2026, the NWS Joint Venture approved the drilling rig contract for the Greater Western Flank Phase 4
+Project with drilling targeted to commence in 2027, and targeting first production in 2028.
+Preparations are continuing for a planned turnaround for a single LNG Train targeted to commence in September
+2026.
+The NWS is continuing with infrastructure retirement planning at KGP while maintaining the capacity to provide
+processing services for third-party gas.
+During H1 2026, three legal proceedings continued in the Federal Court of Australia, and one in the Western Australian
+Supreme Court, associated with the NWS Project Extension Commonwealth and State environmental approvals.
+Subsequent to the period, hearings on the three Federal Court proceedings took place in July 2026, and the Western
+Australian Supreme Court proceeding is currently scheduled in Q4 2026.
+Woodside is operator and holds a 33.33% participating interest.
+Following completion of the asset swap agreement with Chevron announced in 2024, Woodside’s participating interest
+will increase to 50%. The asset swap remains targeted for completion in Q4 2026.25
+Wheatstone and Julimar-Brunello
+Wheatstone is an LNG processing facility near Onslow, Western Australia, comprising an offshore production platform
+and two onshore LNG production trains. It processes gas from several offshore gas fields, including Julimar and
+Brunello.
+Woodside’s share of Wheatstone production in H1 2026 was 4.4 MMboe. This was a 30% decrease compared with H1
+2025 due to the impacts of Severe Tropical Cyclone Narelle.
+The Julimar Phase 3 Project, a subsea tie-back to the existing Julimar field production system, completed its subsea
+construction and drilling campaign in H1 2026 and remains targeted for start-up in H2 2026.
+In parallel, decommissioning of three Julimar–Brunello exploration wells commenced in H1 2026. Completion of both
+activities are condition precedents to the Chevron asset swap.
+25 Completion of the transaction is subject to conditions precedent. See “Woodside simplifies portfolio and unlocks long-term value” announced 19 December 2024 for
+details concerning the Australian asset swap.
+6 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 7
+Woodside is operator and holds a 65% participating interest in the Julimar-Brunello fields.
+Woodside holds a 13% non-operating participating interest in the Wheatstone Project.
+Following completion of the asset swap agreement with Chevron announced in 2024, Woodside will no longer have an
+interest in Wheatstone and Julimar-Brunello. The asset swap remains targeted for completion in Q4 2026.26
+Bass Strait
+Bass Strait is located in the south east of Australia and produces gas through a network of offshore platforms,
+pipelines and onshore processing facilities. The Bass Strait assets include the Gippsland Basin Joint Venture (GBJV)
+and the Kipper Unit Joint Venture (KUJV).
+Woodside’s share of production from Bass Strait was 8.4 MMboe in H1 2026, an 8% decrease from H1 2025
+predominantly due to reduced available capacity through scheduled maintenance programs and domestic gas
+demand.
+In H1 2026, drilling of the five wells under the Turrum Phase 3 Project was completed. The Turrum Phase 3 Project is
+targeting delivery of gas to the eastern Australian domestic gas market by H1 2027 from the Turrum and North
+Turrum fields with topsides modifications to the Marlin B platform.
+Subsequent to the period, on 1 July 2026, the transfer of operatorship of the Bass Strait assets from ExxonMobil to
+Woodside occurred, following the satisfaction of the conditions precedent to the transaction.27
+Woodside continues to progress technical maturation of four potential development wells that could deliver up to 200
+PJ of sales gas to the market. Technical maturity and the impact of the Federal Government’s new domestic gas
+reservation scheme will influence whether these opportunities are progressed to a final investment decision. Subject
+to a final investment decision, these would be developed solely by Woodside through the Bass Strait infrastructure.
+Woodside became operator on 1 July 2026 and holds a 50% participating interest in the GBJV and a 32.5%
+participating interest in the KUJV.
+Other Australian oil and gas assets
+Woodside operates three floating production storage and offloading (FPSO) facilities off the north west coast of
+Western Australia. These are the Ngujima-Yin FPSO (Woodside participating interest: 60%), Pyrenees FPSO (Woodside
+participating interest: 40% in WA-43-L and 71.4% in WA-42-L) and Okha FPSO (Woodside participating interest: 50%).
+Following completion of the asset swap agreement with Chevron announced in 2024, Woodside’s participating interest
+in the Okha FPSO will increase to 66.67%. The asset swap remains targeted for completion in Q4 2026.26
+Woodside’s share of production from the FPSO assets was 2.2 MMboe in H1 2026. This was a 39% decrease from H1
+2025 primarily due to the planned shipyard maintenance and a subsea mooring system defect for the Okha FPSO and
+Severe Tropical Cyclone Narelle impacting in-field infrastructure at Pyrenees FPSO.
+Woodside also operates Macedon (Woodside participating interest: 71.4%), a gas project located near Onslow, Western
+Australia which produces pipeline gas for the Western Australian domestic gas market.
+Woodside’s share of production from Macedon was 4.0 MMboe, a 5% decrease from H1 2025 primarily reflecting
+natural field decline. The Macedon facility delivered approximately 16% of the Western Australian domestic gas market
+supply in H1 2026.
+Woodside Solar
+Woodside is progressing a potential opportunity to reduce gross Scope 1 greenhouse gas emissions at Pluto LNG by
+utilising solar energy from the proposed Woodside Solar Project.
+Woodside continued activities to progress the proposed Woodside Solar Project, including arrangements to secure
+access to new and existing common-user transmission infrastructure required to transmit renewable energy to Pluto
+LNG. Development of this infrastructure is being led by the Western Australian Government and APA Group.
+26 Completion of the transaction is subject to conditions precedent. See “Woodside simplifies portfolio and unlocks long-term value” announced 19 December 2024 for
+details concerning the Australian asset swap.
+27 See the announcement “Woodside completes Gippsland Basin operatorship transition” released 1 July 2026 for details.
+7 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 8
+International operations
+Sangomar
+The Sangomar Field Development Phase 1 is a deepwater project with a stand-alone FPSO facility moored
+approximately 100 km offshore Senegal.
+Woodside’s share of production was 15.0 MMboe in H1 2026, a 4% increase from H1 2025 due to continued strong
+reservoir performance, high reliability and optimisation of wells, flow lines and system hydraulics.
+In H1 2026, Sangomar continued to deliver strong operational performance, averaging 99 Mbbl/d (100% basis, 83
+Mbbl/d Woodside share) at 99.5% production reliability.28 Reservoir performance continues to exceed expectations,
+particularly in the S500 reservoirs. Greater-than-anticipated aquifer pressure support, combined with well and
+network optimisation has enabled an extended initial production plateau and reduced the impact of reservoir decline.
+Although ongoing optimisation activities continue to moderate decline rates, production is expected to increasingly
+reflect the underlying reservoir decline profile.
+H1 2026 sales of Sangomar crude oil were directed to Europe and South Asia during the Middle East conflict, attracting
+strong premiums.
+Evaluation of future development opportunities is ongoing. A potential Phase 2 development leveraging existing
+installed capacity would include wells targeting the upper S400 reservoirs. Engagements are ongoing with Petrosen
+(18% participating interest) and the Senegalese Government for Phase 2.
+Woodside is operator and has an 82% participating interest.
+Shenzi
+Shenzi is a conventional offshore oil and gas field developed through a tension leg platform located offshore in the
+Gulf of America.
+Woodside’s share of production in H1 2026 was 4.1 MMboe at 99.1% reliability. This was a 12.8% decrease compared
+with H1 2025 due to natural field decline and reduced pressure support from a major water injector.
+Woodside is operator and holds a 72% participating interest.
+Atlantis
+Atlantis is a conventional offshore oil and gas development in the Gulf of America. It includes a semi-submersible
+facility and is one of the largest producing fields in the United States.
+In H1 2026, water injection commenced on a new well, and the Atlantis Major Facility Expansion Project progressed.
+Subsequent to the period, the Major Facility Expansion project achieved start-up. The project added subsea
+infrastructure and upgraded water injection equipment.
+Woodside’s share of production in H1 2026 was 6.3 MMboe. This was a 5% increase compared with H1 2025 due to
+high reliability and production from the Drill Center 1 Expansion which started production in H2 2025.
+Woodside holds a 44% non-operating participating interest.
+Mad Dog
+Mad Dog is an offshore conventional oil and gas field located in the Gulf of America and is currently producing from
+two offshore facilities, A-Spar and Argos. The Argos facility was installed as part of the Mad Dog Phase 2 Project, an
+ongoing development of the southern flank of the Mad Dog field.
+The third and final Mad Dog Southwest Extension well was brought online in Q1 2026, completing the project that
+began with production from the first production well in August 2025.
+Woodside’s share of production in H1 2026 was 5.8 MMboe. This was a 9% increase compared with H1 2025 due to five
+new producing wells starting production over the last 12 months.
+Woodside holds a 23.9% non-operating participating interest.
+Beaumont New Ammonia
+Beaumont New Ammonia (BNA) is a 1.1 Mtpa ammonia synthesis plant located in Beaumont, Texas. First production of
+ammonia commenced in December 2025 and Woodside assumed operational control of BNA in March 2026 following
+successful completion of performance testing and handover from OCI Global.
+28 Higher net production percentage reflects accelerated recovery of 100% Woodside-funded pre-FID costs under the PSC entitlement, driven by high oil price.
+8 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 9
+Woodside's production in H1 2026 was 279 kT with reliability of 87.6% including the start-up and commissioning
+period.29 Production remained below capacity due to feedstock constraints arising from construction delays at third-
+party suppliers, with Q2 production averaging 69% of capacity. These constraints are expected to continue into 2027.
+Lower-carbon ammonia production remains targeted for 2027, subject to commissioning of Linde’s low-carbon
+hydrogen facilities and startup of ExxonMobil’s CCS infrastructure, including approval of the relevant CCS permitting
+process.30
+Woodside is operator and holds a 100% participating interest.
+Marketing and Trading
+Revenue and trading
+Revenue increased 13% to $7,446 million in H1 2026, reflecting higher average realised prices. Stronger commodity
+prices amid global supply disruptions, together with realisation of premiums increased the average realised price to
+$74.0/boe, up 20% compared with H1 2025.
+Portfolio optimisation activities captured higher value opportunities across multiple trades, including redirecting
+Woodside cargoes to higher price markets, and using third-party purchases to meet long-term customer
+commitments. The value from these activities are realised as cargoes are delivered, resulting in fluctuations in
+earnings between reporting periods. Further value from trading activities in H1 2026 is expected to be realised in H2
+2026.
+The marketing segment delivered EBIT of $54 million in H1 2026, representing approximately 3% of total EBIT.31 Pre-
+tax hedge losses of $62 million were recognised in the segment, primarily relating to Corpus Christi LNG hedges,
+reducing EBIT.
+In H1 2026, approximately 39% of LNG sold was linked to gas hub indices impacted by lower volumes available due to
+the Pluto planned turnaround.
+Shipping
+Woodside has signed five long-term time charter parties for LNG vessels all commencing in 2029, and added the
+Woodside Bilangara to Woodside’s fleet of LNG vessels during the period to support the start-up of the Scarborough
+Energy Project, bringing Woodside’s total number of long-term chartered vessels on the water to nine.
+Pipeline gas
+Throughout H1 2026, Western Australia domestic gas spot volume pricing held steady at approximately A$5.50/GJ, not
+impacted by fluctuations in global markets.
+Woodside executed incremental pipeline gas sales agreements for 58.6 PJ to be delivered to the Western Australian
+market from 2026 to 2029, including an agreement for the supply of 31.1 PJ with Alcoa.
+Woodside also executed incremental pipeline gas sales agreements for 47 PJ to be delivered to the east coast of
+Australia across 2026, 2027 and 2028.
+On the east coast of Australia, Woodside commenced an expression of interest for 20 PJ of Bass Strait supply across
+2027 and 2028 and is progressing in line with its obligations under its Ministerial Exemption to the Gas Market Code.
+Interest has been received from a wide variety of gas users including power generators, retailers and manufacturers
+with final offers expected in Q3 2026.
+A total of 1,271 TJ of Trucked LNG, equivalent to approximately 1,200 trailers, was delivered in H1 2026 to customers
+in northern Western Australia. Since the commencement of operations at the Pluto LNG Truck Loading Facility in 2019,
+Woodside has delivered 6,892 trailers of LNG (7,100 TJ), offering a lower-carbon alternative to diesel.
+The Australian Government has released a draft framework for its proposed Domestic Gas Reservation Scheme.
+Woodside is participating in the consultation process and will continue engaging with government and industry on the
+design of the scheme. It is important that the final arrangements support national energy security, economic growth
+and ongoing investment in the new gas supply, helping maintain Australia’s position as a reliable energy supplier to
+domestic and international customers.
+29 Beaumont New Ammonia production volume is 1.0 MMboe in H1 2026.
+30 Lower-carbon ammonia is characterised here by the use of hydrogen with emissions abated by carbon, capture, and storage (CCS), with an expected ammonia lifecycle
+(Scope 1, 2 and 3) carbon emissions intensity of 0.8 tCO2/tNH3 (based on contracted intensity threshold with Linde) relative to unabated ammonia with a lifecycle (Scope
+1, 2 and 3) carbon emissions intensity of 2.3 tCO2/tNH3 (Hydrogen Europe, 2023).
+31 These are alternative performance measures which are non-IFRS measures that are unaudited. Refer to Alternative Performance Measures on pages 53-56 and Non-
+IFRS Measures on page 63 for more information.
+9 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 10
+Projects
+Scarborough Energy Project
+The Scarborough gas field is located in the Carnarvon Basin, approximately 375 km off the coast of Western Australia.
+The development includes installation of a floating production unit (FPU) with eight wells drilled in the initial phase
+and 13 wells drilled over the life of the Scarborough field. Expansion of the Pluto LNG facility includes construction of a
+second LNG train (Pluto Train 2), installation of additional domestic gas processing facilities and supporting
+infrastructure, and modifications to Pluto Train 1 to allow it to process Scarborough gas.
+The project includes the construction of an integrated remote operations centre (IROC) at Woodside’s headquarters.
+The IROC will have the capacity to operate the FPU and the Pluto LNG facility from Perth.
+The project was 98% complete at the end of H1 2026, excluding Pluto Train 1 modifications. First LNG cargo is on-track
+for Q4 2026.
+The FPU achieved significant milestones throughout the first half of 2026. All upstream infrastructure is now in place,
+following completion of FPU mooring and hook up to the subsea production system. Subsequent to the period,
+upstream commissioning and preparations for the introduction of hydrocarbons was completed, and the FPU achieved
+ready for start-up status and first gas.
+Construction and commissioning activities at the Pluto Train 2 site continued, including completion of the gas turbine
+generator synchronisation with the Pluto site power grid and mechanical runs of three of the six liquefaction
+compressors.
+Modifications which will allow processing of Scarborough gas through Pluto Train 1 have been ongoing, including
+successful execution of tie-ins during the Pluto Train 1 planned turnaround in the reporting period. The final module
+for Pluto Train 1 modifications departed the fabrication yard in Thailand and subsequent to the period, arrived at site.
+Civil, structural, piping and electrical works continue.
+Woodside is operator and holds a 74.9% participating interest in Scarborough, a 51% participating interest in Pluto
+Train 2 and a 90% participating interest in Pluto Train 1.
+Trion
+Trion is an offshore oil development located in Mexico, approximately 180 km off the Mexican coastline and 30 km
+south of the United States/Mexico maritime border. The development includes a 24 subsea well development, a
+semi-submersible FPU capable of producing and transferring 100,000 barrels of oil per day, and a floating storage and
+offloading (FSO) facility.
+The project was 64% complete at the end of H1 2026. First oil is targeted for 2028.
+Drilling of 24 subsea wells commenced in March 2026 with three production wells drilled during the period.
+The FPU achieved key H1 2026 milestones, including completion of topsides and living quarters lifts onto the hull, and
+commencement of integration and pre-commissioning. FSO construction with dry mega block assembly in dry dock
+continue to progress in accordance with plan. Fabrication and testing of the disconnectable buoy of the FSO has been
+completed
+Subsea equipment fabrication, including drill centre and central manifolds, three trees, static umbilicals, mooring
+systems and anchor piles, has been completed and delivered to Mexico ahead of installation commencing in Q3 2026.
+Remaining subsea production system components are progressing to plan and are in the final stages of fabrication.
+Woodside is the operator and holds a 60% participating interest.
+10 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 11
+Louisiana LNG
+Louisiana LNG is a fully permitted, under-construction LNG production and export terminal located near Lake Charles,
+Louisiana. The project is structured as a scalable development with a total permitted capacity of 27.6 Mtpa across five
+LNG trains and supporting infrastructure.
+In April 2025, Woodside approved an FID to develop the foundation phase of the project, comprising three LNG trains
+with a capacity of 16.5 Mtpa.
+The foundation development was 28% complete at the end of the period, with Train 1 35% complete, Train 2 25%
+complete, and Train 3 18% complete. The project is targeting first LNG in 2029.
+Key construction progressed during the period included structural steel erection and commencement of above-ground
+piping installation, advancement of LNG tanks, and marine infrastructure works, including commissioning of the
+material offloading facility and commencement of dredging.
+Bechtel sources structural steel for Louisiana LNG from its fabrication facility in the United Arab Emirates. In response
+to ongoing supply chain risks associated with disruptions in the Middle East, the project is proactively assessing and
+implementing mitigation measures, including alternative logistics routes and fabrication sources, to support continuity
+of steel supply and maintain planned construction schedules beyond 2026.
+Woodside completed the transition of Driftwood Pipeline LLC operatorship to Williams, with execution of the Line 200
+lateral pipeline progressing under Williams as operator, including advancing engineering, procurement, and right of
+way activities.
+With foundational transportation and storage capacity secured in 2025, Woodside continued to advance feed gas
+procurement in line with its gas supply strategy.
+Ongoing engagement with high-quality counterparties for equity participation and LNG offtake continues to support
+progress on the Louisiana LNG sell-down process.
+Woodside is operator with a 90% interest in Louisiana LNG LLC. Louisiana LNG LLC owns a 60% interest in Louisiana
+LNG Infrastructure LLC and Woodside is operator. Woodside has a 20% non-operating interest in Driftwood Pipeline
+LLC.
+Hydrogen Refueller @H2Perth
+The Hydrogen Refueller @H2Perth is a self-contained hydrogen production, storage and refuelling station located in
+Perth, Western Australia.32
+Commissioning activities continued on site and the facility has now been handed over to Woodside from the contractor
+following successful leak testing and cold commissioning. Ready for start-up is now targeted for Q3 2026 and first
+hydrogen production is targeted for Q4 2026.
+Woodside is operator and holds a 100% participating interest.
+Decommissioning
+Woodside continued execution of planned decommissioning activities in H1 2026, spending approximately $274 million
+across its portfolio.
+In H1 2026, well decommissioning activities continued across multiple assets, including commencing offshore plug and
+abandonment (P&A) operations for eight subsea wells across the North West Shelf and Julimar-Brunello fields, with
+P&A completed for two wells so far.
+Offshore execution has also progressed at the Stybarrow and Griffin fields in north-west Western Australia. At
+Stybarrow, more than 18 km of flexible flowlines and umbilicals were removed in H1 2026, while approximately 8 km
+of flexible flowlines have been removed from Griffin.
+Following the completion of planned infrastructure recovery from Enfield in 2025, a final seabed survey was
+completed in H1 2026, with results planned to be submitted to the regulator in H2 2026. Consultation with relevant
+persons for the development of the Environment Plan to remove the remaining Minerva infrastructure was also
+completed during H1 2026.
+At Bass Strait, GBJV made strong progress on P&A activities during the period, completing plugging operations on the
+West Kingfish and Cobia platform wells and commencing platform rig operations on the Halibut and Tuna platforms.
+32 The Project has received funding from the Hydrogen Fuelled Transport Project Funding Process as part of the Western Australian Government’s Renewable Hydrogen
+Strategy.
+11 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 12
+This completed all P&A activities for platforms scheduled for removal in Bass Strait Offshore Platform Removal
+Campaign 1, which is set to commence in Q3 2027.
+Preparation for the campaign also advanced, with the National Offshore Petroleum Safety and Environmental
+Management Authority accepting the Environmental Plan and upgrades commencing at the onshore reception centre
+at Barry Beach Marine Terminal.
+Developments and Exploration
+Browse
+The Browse development comprises the Calliance, Brecknock and Torosa gas and condensate fields located
+approximately 425 km north of Broome, Western Australia.
+During H1 2026, work continued to advance regulatory approvals, advance technical definition and progress
+commercial arrangements for processing Browse volumes through the Karratha Gas Plant. Contractors were engaged
+to progress pre-FEED engineering scopes for the FPSO facilities. Invitations to tender for the design and construction
+of the Browse FPSO facilities were issued that will provide market pricing and schedule assumptions to inform a FEED
+entry decision. Engineering studies commenced to assess downstream modifications required for processing Browse
+gas at Karratha Gas Plant with a three-train development concept.
+The gas processing agreement has been progressed, and will establish the commercial framework and terms for
+processing Browse gas at the North West Shelf Project’s Karratha Gas Plant.
+Woodside continued to engage with regulators as it progresses the primary environmental approvals for Browse. In
+June 2026, following a determination by the Federal Environment Minister that the Browse CCS Project can be
+assessed wholly under the amended Environment Protection and Biodiversity Conservation Act 1999 (Cth), Woodside
+submitted a revised environmental referral to the Commonwealth regulator. The resubmission does not involve any
+significant changes to the nature, scope or intent of the project.
+In June 2026, Woodside exercised its pre-emption right to acquire CNPC's 10.67% interest in the Browse Joint Venture
+(BJV). The terms of the transaction include an amount payable on completion of $225 million plus reimbursement of
+CNPC's BJV cash call contributions from 30 June 2025 to completion. A contingent payment of $175 million is payable
+upon a final investment decision for the development of all of the Brecknock, Calliance and Torosa fields on or before
+30 June 2032.33
+Subsequent to the period, the Browse to NWS Project was granted State Significant Project status under the Lead
+Agency Framework by the Western Australian State Government. State Significant Project status provides the highest
+level of support, helping coordinate engagement on approvals and project development.
+Woodside is operator and holds a 30.6% participating interest. Woodside’s equity interest in the BJV after completion
+of the acquisition of CNPC’s interest will increase from 30.6% to 41.27%.
+Sunrise
+The Sunrise development comprises the Sunrise and Troubadour gas and condensate fields, located approximately
+450 km north-west of Darwin and 150 km south of Timor-Leste.
+The Sunrise Joint Venture participants continued to engage with the Governments of Timor-Leste and Australia to
+advance the fiscal and regulatory frameworks supporting the potential development of Sunrise.
+Technical and commercial activities progressed under the Timor-Leste Cooperation Agreement to support maturation
+of a potential Timor‑based LNG concept.
+Woodside is operator and holds a 33.44% participating interest.
+Calypso
+Calypso is a discovered resource located approximately 220 km off the coast of Trinidad in 2,100m water depth.
+Woodside is operator and holds a 70% participating interest. Subsequent to the period, Woodside entered an
+agreement to divest its 70% operated interest in Calypso to joint venture participant bp.34
+33 Completion of the transaction is subject to customary conditions precedent. See “Woodside Exercises Browse pre-emption right” announced on 12 June 2026.
+34 See “Woodside rationalises global portfolio with Calypso divestment” released 6 August 2026 for details
+12 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 13
+Liard
+The Liard field is an unconventional gas field located in British Columbia, Canada.
+Woodside holds a 50% non-operating participating interest.
+Exploration
+Woodside’s exploration activities focused on maturing current opportunities, consistent with its disciplined exploration
+strategy.
+In the US, Woodside was awarded 10 blocks from Gulf of America Lease Sales Big Beautiful Gulf 1 and Big Beautiful
+Gulf 2. Woodside also participated in the Bandit-1 well which reached total depth during H1 2026 and resulted in a
+Miocene discovery.35 Post-well analysis continues in order to inform a potential appraisal decision. Woodside
+continued to actively manage its acreage position across the central and western Gulf of America.
+Woodside continued to pursue disciplined portfolio optimisation, including exiting blocks no longer considered
+prospective. In Australia, the expiry of exploration permit WA-28-P concluded 57 years of exploration activity on the
+permit. Woodside also allowed its Marine XX permit to expire offshore the Republic of Congo following the completion
+of its permit terms.
+H2Perth
+The H2Perth Project is a proposal to develop Australia’s first commercial-scale liquid hydrogen production and export
+facility in Western Australia, located in the Rockingham Industry Zone and Kwinana.
+In May 2026, the Environmental Protection Agency approved Woodside’s application under section 43A of the
+Environmental Protection Act 1986 (WA) to amend the proposal for the Project from its previous concept of a liquified
+hydrogen and ammonia production facility to a liquefied hydrogen only facility.
+Woodside is operator and holds a 100% participating interest.
+NeoSmelt
+The NeoSmelt project aims to demonstrate a potential lower-emissions steelmaking pathway for Pilbara iron ores,
+involving Direct Reduced Iron and Electric Smelting Furnace (DRI-ESF) technology.36
+During the reporting period, work on the pilot plant continued, with the design phase now approximately 90%
+complete.
+Woodside holds a 20% non-operating participating interest. The other participants in the project are BHP, BlueScope,
+Mitsui Iron Ore Development and Rio Tinto.
+Carbon solutions
+Carbon capture and storage (CCS)
+Woodside progressed proposed CCS opportunities in Australia and the Asia-Pacific, including the operated Angel CCS
+(Woodside participating interest: 20%) and non-operated Bonaparte CCS opportunities (Woodside participating
+interest: 21%).37
+In H1 2026, the proposed Angel CCS Project completed engineering studies as part of pre-FEED and commenced
+domestic and international engagement with potential customers for CCS services.
+The Bonaparte CCS Assessment Joint Venture, operated by INPEX with TotalEnergies and Woodside continues to
+progress pre-FEED activities.
+Carbon credits portfolio
+During H1 2026, environmental planting activities under Woodside’s Native Reforestation Project, including site
+preparation and seedling installation, were carried out on Woodside-owned properties in Western Australia and New
+South Wales. Approximately 4,400 hectares are forecast to be planted in 2026 and these activities were 25% complete
+at the end of H1 2026.
+35 See the media release “Bandit-1 Discovery off Louisiana” released 10 April 2026 for details.
+36 Woodside uses the term lower-carbon to describe the characteristic of having lower levels of associated potential GHG emissions when compared to historical and/or
+current conventions or analogues, for example relating to an otherwise similar resource, process, production facility, product or service, or activity. When applied to
+Woodside's strategy, please see the definition of lower-carbon portfolio in the Glossary on pages 57-59.
+37 Following completion of the Chevron asset swap announced in 2024, Woodside’s participating interest in Angel CCS will increase to 40%.
+13 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 14
+Climate and Sustainability
+Health, safety and wellbeing
+There were zero fatalities recorded in H1 2026, and zero Tier 1 or Tier 2 process safety events. One high-consequence
+injury was recorded during the period, across more than 11 million work hours. The year-to-date lost time injury
+frequency rate was 0.17, compared with 0.26 for full-year 2025, and the total recordable injury rate was 2.09,
+compared to 1.64 recorded for full-year 2025.
+Subsequent to the period, a sustainability focus session was held on 22 July 2026 with investors on Woodside’s
+approach to process safety.
+Indigenous Peoples cultural heritage and engagement
+Woodside continued to engage with around 43 Traditional Owner representative bodies in Australia to discuss current
+and potential future activities. This included consultation on the Browse to North West Shelf Geophysical and
+Geotechnical Surveys and Minerva Field Decommissioning Environment Plans. In addition, archaeological and
+ethnographic surveys with some Traditional Custodians were also undertaken.
+Subsequent to the period, the Global Indigenous Peoples Strategy (2025-2030) was launched and is now available on
+Woodside's website.
+Social and economic impact
+Woodside published its 2025 Social Contribution Report in April 2026. The report highlighted the positive impacts of
+Woodside’s A$39.8 million social contribution in 2025, which was directed through strategic partnerships, philanthropy
+initiatives, the value of time employees spent volunteering, and payments required by government regulations or
+contractual agreements with Indigenous Peoples.
+Woodside paid over A$1 billion in Australian taxes, royalties and levies to the Federal and State governments in H1
+2026. Additionally Woodside paid more than US$450 million in international corporate taxes, royalties and production
+entitlements in H1 2026 (excludes Australia).
+Environment and biodiversity
+In H1 2026, there were zero hydrocarbon or hazardous non-hydrocarbon spills that resulted in a moderate
+environmental impact.38
+During the half, Woodside launched the Sam Houston Jones Restoration Project, supporting restoration of threatened
+habitats and key wildlife species in Louisiana.
+In H1 2026, the Watheroo Biodiversity Project in Western Australia was also formally launched, with the establishment
+of a long-term funding agreement with Department of Biodiversity, Conservation and Attractions.
+Climate and the energy transition
+In Q1 2026, Woodside published AASB S2 climate-related disclosures in the 2025 Annual Report.
+Woodside Sustainability Briefing 2026 was held on 16 March 2026, highlighting Woodside’s 2025 sustainability
+performance with regards to its 2025 material topics.39 This included content relevant to its 2025 material
+sustainability topics.
+In H1 2026, Woodside submitted its second annual Oil and Gas Methane Partnership 2.0 (OGMP2.0) implementation
+plan to the United Nations Environment Programme (UNEP), including first-time Level 5 reporting for Léopold Sédar
+Senghor FPSO and Karratha Gas Plant methane emissions. Level 5 is OGMP 2.0’s highest data quality standard,
+requiring reconciliation of granular source-level estimates with independent site-level measurements.
+38 This metric is determined utilising Woodside’s risk matrix. When used to define impact to the environment, moderate impact is an impact on environmental features or
+areas of heightened sensitivity with a limited ability to recover.
+39 For these purposes, “material topic” means a 2026 sustainability topic, determined as part of the 2025 materiality assessment process undertaken by Woodside.
+Classification of any topic as material through our materiality assessment process should not be read as a determination of whether that topic rises to the level of
+materiality of disclosure required by law, including the laws of Australia, and the US. However where applicable laws require the disclosure of risks that meet certain
+thresholds, Woodside has disclosed those risks.
+14 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 15
+Directors’ Report
+The directors of Woodside Energy Group Ltd present their report (including the review of operations of Woodside
+Energy Group Ltd and its controlled entities (Group) set out on pages 1 – 14 which forms part of this report) together
+with the Half-Year Financial Statements of the Group.
+Board of directors
+The names of directors in office during or since the end of the 2026 half-year are as follows:
+Mr Richard Goyder, AO (Chair) Ms Liz Westcott (CEO and Managing Director) 40
+Mr Larry Archibald Mr Ashok Belani
+Mr Arnaud Breuillac Ms Swee Chen Goh
+Mr Ben Wyatt, AO Ms Angela Minas
+Mr Mark Cutifani, CBE41 Ms Ann Pickard
+Mr Ian Macfarlane (retired)42 Mr Tony O’Neill (resigned)43
+Rounding of amounts
+Woodside Energy Group Ltd is an entity to which the Australian Securities and Investments Commission (ASIC)
+Corporations (Rounding in Financial/Directors’ Reports) Instrument 2026/183 (ASIC Instrument 2026/183) applies.
+Amounts in this report have been rounded in accordance with ASIC Instrument 2026/183. This means that amounts
+contained in this report have been rounded to the nearest million dollars, unless otherwise stated.
+Auditor’s Independence Declaration
+The Auditor’s Independence Declaration, as required under section 307C of the Corporations Act 2001, is set out on
+page 16 and forms part of this report.
+Signed in accordance with a resolution of the directors.
+R J Goyder, AO
+Chair
+Melbourne, Victoria
+25 August 2026
+40 Ms Westcott was appointed to the Board on 18 March 2026
+41 Mr Cutifani was appointed to the Board on 19 March 2026.
+42 Mr Macfarlane’s retirement took effect from 23 April 2026.
+43 Mr O’Neill’s resignation took effect on 1 July 2026.
+15 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 16
+Auditor’s Independence Declaration to the Directors of Woodside Energy Group Ltd
+Auditor’s Independence Declaration
+As lead auditor of Woodside Energy Group Ltd's financial report for the half-year ended 30 June
+2026, I declare that, to the best of my knowledge and belief, there have been:
+a. no contraventions of the auditor independence requirements of the Corporations Act 2001 in
+relation to the review of the financial report; and
+b. no contraventions of any applicable code of professional conduct in relation to the review of
+the financial report.
+N M Henry Perth, Western Australia
+Partner 25 August 2026
+PricewaterhouseCoopers
+PricewaterhouseCoopers, ABN 52 780 433 757
+Brookfield Place, Level 15, 125 St Georges Terrace, PERTH WA 6000,
+GPO Box D198, PERTH WA 6840
+T: +61 8 9238 3000, F: +61 8 9238 3999, www.pwc.com.au
+pwc.com.au Liability limited by a scheme approved under Professional Standards Legislation.
+16 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 17
+HALF-YEAR FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+17 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 18
+HALF-YEAR FINANCIAL STATEMENTS
+CONTENTS
+CONDENSED CONSOLIDATED INCOME STATEMENT .......................................................................................................................... 19
+CONDENSED CONSOLIDATED STATEMENT OF COMPREHENSIVE INCOME ..................................................................................... 20
+CONDENSED CONSOLIDATED STATEMENT OF FINANCIAL POSITION.............................................................................................. 21
+CONDENSED CONSOLIDATED STATEMENT OF CASH FLOWS............................................................................................................ 22
+CONDENSED CONSOLIDATED STATEMENT OF CHANGES IN EQUITY ............................................................................................... 23
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS......................................................................................... 24
+A. Earnings for the period...................................................................................................................................................................... 26
+A.1 Segment revenue and expenses ............................................................................................................................................... 26
+A.2 Finance costs.............................................................................................................................................................................. 27
+A.3 Dividends paid and proposed .................................................................................................................................................... 27
+A.4 Earnings per share..................................................................................................................................................................... 27
+A.5 Taxes........................................................................................................................................................................................... 28
+B. Production and growth assets .......................................................................................................................................................... 29
+B.1 Exploration and evaluation assets ............................................................................................................................................ 29
+B.2 Property, plant and equipment.................................................................................................................................................. 30
+B.3 Impairment of exploration and evaluation assets, property, plant and equipment and goodwill ......................................... 31
+B.4 Intangible assets ........................................................................................................................................................................ 32
+B.5 Transactions with equity holders of the Group ........................................................................................................................ 33
+C. Debt and capital.................................................................................................................................................................................. 34
+C.1 Interest-bearing liabilities and financing facilities ................................................................................................................... 34
+C.2 Contributed equity...................................................................................................................................................................... 35
+D. Other assets and liabilities................................................................................................................................................................ 36
+D.1 Segment assets and liabilities................................................................................................................................................... 36
+D.2 Provisions................................................................................................................................................................................... 37
+D.3 Other financial assets and liabilities ......................................................................................................................................... 38
+E. Other items ......................................................................................................................................................................................... 40
+E.1 Contingent liabilities and assets................................................................................................................................................ 40
+E.2 New standards and interpretations........................................................................................................................................... 40
+E.3 Events after the end of the reporting period ............................................................................................................................ 40
+E.4 Subsidiaries ................................................................................................................................................................................ 41
+DIRECTORS’ DECLARATION .................................................................................................................................................................. 43
+INDEPENDENT AUDITOR’S REVIEW REPORT ...................................................................................................................................... 44
+Significant changes in the current reporting period
+The financial performance and position of the Group were affected by the following:
+• Geopolitical developments in the Middle East contributed to increased volatility in oil and LNG prices and broader market uncertainty during
+the period. The full impact of higher LNG prices has not yet been realised due to lagged pricing mechanisms.
+• In July 2025, the Group completed the disposal of the Greater Angostura assets in Trinidad and Tobago to Perenco Energies International
+Limited (Perenco), which impacted revenue for the first half of 2026 relative to the comparative period, when the assets contributed $145m of
+revenue.
+• The Group recognised an additional $596 million in Pluto PRRT deferred tax assets and a $90 million income tax deferred tax asset relating to
+heritage Woodside US net operating loss carryforwards (Refer to Note A.5).
+• As at 30 June 2026, the Group recognised impairment losses of $178 million, comprising $135 million on the Calypso exploration and
+evaluation asset following the decision to divest its 70% operated interest in the Calypso Project, and $43 million on the H2OK Project
+following the decision to retire the assets (Refer to Note B.3).
+• The Group recognised $138 million of other income from the release of deferred income associated with the Pluto Train 2 Global Infrastructure
+Partners (Pluto Train 2 GIP) transaction, reflecting updated expectations that potential construction cost overruns and liquidated damages will
+not crystallise.
+• The Group recognised approximately $655 million of new lease liabilities, primarily relating to the three-year leases for the Trion drilling
+campaign and the Woodside Bilangara vessel.
+18 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 19
+CONDENSED CONSOLIDATED INCOME STATEMENT
+for the half-year ended 30 June 2026
+2026 2025
+Notes US$m US$m
+Operating revenue A.1 7,446 6,590
+Cost of sales A.1 (4,604) (4,045)
+Gross profit 2,842 2,545
+Other income A.1 264 379
+Other expenses A.1 (771) (964)
+Impairment losses A.1 (178) (143)
+Profit before tax and net finance costs 2,157 1,817
+Finance income 123 106
+Finance costs A.2 (245) (169)
+Profit before tax 2,035 1,754
+Petroleum resource rent tax (PRRT) benefit/(expense) A.5 305 (71)
+Income tax expense A.5 (667) (353)
+Profit after tax 1,673 1,330
+Profit attributable to:
+Equity holders of the parent 1,672 1,316
+Non-controlling interest E.4 1 14
+Profit for the period 1,673 1,330
+Basic earnings per share attributable to equity holders of the parent (US cents) A.4 88.2 69.4
+Diluted earnings per share attributable to equity holders of the parent (US cents) A.4 87.3 68.8
+The accompanying notes form part of the half-year financial statements.
+19 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 20
+CONDENSED CONSOLIDATED STATEMENT OF COMPREHENSIVE INCOME
+for the half-year ended 30 June 2026
+2026 2025
+US$m US$m
+Profit for the period 1,673 1,330
+Other comprehensive (loss)/income
+Items that may be reclassified to the income statement in subsequent periods:
+(Losses)/gains on cash flow hedges (526) 289
+Gains on cash flow hedges reclassified to the income statement (72) (16)
+Tax recognised within other comprehensive income 149 (57)
+Items that will not be reclassified to the income statement in subsequent periods:
+Remeasurement gain on defined benefit plan 3 2
+Net loss on financial instruments at fair value through other comprehensive income — (33)
+Other comprehensive (loss)/income for the period, net of tax (446) 185
+Total comprehensive income for the period 1,227 1,515
+Total comprehensive income attributable to:
+Equity holders of the parent 1,226 1,501
+Non-controlling interest 1 14
+Total comprehensive income for the period 1,227 1,515
+The accompanying notes form part of the half-year financial statements.
+20 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 21
+CONDENSED CONSOLIDATED STATEMENT OF FINANCIAL POSITION
+as at 30 June 2026
+30 June 2026 31 December 2025
+Notes US$m US$m
+Current assets
+Cash and cash equivalents 4,339 5,712
+Receivables 1,928 1,751
+Inventories 579 693
+Other financial assets D.3 119 229
+Tax receivable 184 114
+Other assets 47 123
+Total current assets 7,196 8,622
+Non-current assets
+Receivables 771 823
+Inventories 371 288
+Other financial assets D.3 109 64
+Exploration and evaluation assets B.1 710 790
+Property, plant and equipment B.2 47,797 46,555
+Deferred tax assets 3,288 2,658
+Lease assets 1,795 1,428
+Investments accounted for using the equity method 272 260
+Intangible assets B.4 4,856 4,853
+Other assets 516 160
+Total non-current assets 60,485 57,879
+Total assets 67,681 66,501
+Current liabilities
+Payables 1,779 1,841
+Interest-bearing liabilities C.1 983 782
+Other financial liabilities D.3 148 8
+Provisions D.2 1,238 1,212
+Tax payable 500 539
+Lease liabilities 303 159
+Other liabilities 229 876
+Total current liabilities 5,180 5,417
+Non-current liabilities
+Interest-bearing liabilities C.1 10,387 11,181
+Deferred tax liabilities 1,273 1,182
+Other financial liabilities D.3 363 212
+Provisions D.2 6,397 6,655
+Tax payable 10 10
+Lease liabilities 1,995 1,600
+Other liabilities 352 401
+Total non-current liabilities 20,777 21,241
+Total liabilities 25,957 26,658
+Net assets 41,724 39,843
+Equity
+Issued and fully paid shares C.2 29,036 29,036
+Shares reserved for employee share plans C.2 (72) (82)
+Other reserves 6,034 6,382
+Retained earnings 1,053 578
+Equity attributable to equity holders of the parent 36,051 35,914
+Non-controlling interest E.4 5,673 3,929
+Total equity 41,724 39,843
+The accompanying notes form part of the half-year financial statements.
+21 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 22
+CONDENSED CONSOLIDATED STATEMENT OF CASH FLOWS
+for the half-year ended 30 June 2026
+2026 2025
+Notes US$m US$m
+Cash flows from/(used in) operating activities
+Profit after tax for the period 1,673 1,330
+Adjustments for:
+Non-cash items
+Depreciation and amortisation 2,223 2,555
+Depreciation of lease assets 89 85
+Change in fair value of derivative financial instruments 176 (206)
+Net finance costs 122 63
+Tax expense 362 424
+Impairment losses B.3 178 143
+Restoration movement (5) 445
+Other (143) (99)
+Changes in assets and liabilities
+(Increase)/decrease in trade and other receivables (65) 122
+Decrease/(increase) in inventories 31 (65)
+Decrease in provisions (129) (112)
+(Decrease)/increase in other assets and liabilities (363) 103
+Decrease in trade and other payables (62) (186)
+Cash generated from operations 4,087 4,602
+Interest received 109 89
+Borrowing costs relating to operating activities (84) (5)
+Income tax and PRRT paid (825) (782)
+Payments for restoration (274) (565)
+Net cash from operating activities 3,013 3,339
+Cash flows (used in)/from investing activities
+Cash paid relating to business combination1 (470) —
+Payments for capital and exploration expenditure (3,673) (4,881)
+Reimbursements received from external parties for capital expenditure 181 236
+Borrowing costs relating to investing activities (297) (330)
+Deposits received from disposal of non-current assets — 21
+(Contributions to)/dividends from associates (27) 17
+Net cash used in investing activities (4,286) (4,937)
+Cash flows (used in)/from financing activities
+Proceeds from borrowings C.1 — 4,849
+Repayment of borrowings C.1 (602) (2,900)
+Purchases of shares relating to employee share plans — (26)
+Repayment of the principal portion of lease liabilities (111) (108)
+Borrowing costs relating to lease liabilities (1) (1)
+Contributions from/to non-controlling interests2 1,737 1,843
+Dividends paid (1,122) (1,006)
+Net cash (used in)/from financing activities (99) 2,651
+Net (decrease)/increase in cash held (1,372) 1,053
+Less: Cash and cash equivalents classified within assets held for sale — (108)
+Cash and cash equivalents at the beginning of the period 5,712 3,923
+Effects of exchange rate changes (1) 12
+Cash and cash equivalents at the end of the period 4,339 4,880
+1. Relates to the final acquisition completion payment for Beaumont New Ammonia.
+2. Includes capital contribution of $1,668 million (2025: $1,870 million) from Stonepeak and $57 million (2025: nil) from Williams for the development of Louisiana LNG.
+Refer to Note B.5 for the transactions with equity holders of the Group.
+The accompanying notes form part of the half-year financial statements.
+22 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 23
+diap
+ylluf
+dna
+deussI serahs
+serahs
+devreseR
+stifeneb
+eeyolpmE evreser
+gnillortnoc-noN evreser
+tseretni
+ycnerruc
+ngieroF
+evreser
+noitalsnart
+evreser
+gnigdeH
+stiforp
+elbatubirtsiD
+evreser
+evreser
+rehtO
+sgninrae
+deniateR
+eht
+fo
+sredloh
+ytiuqE tnerap
+gnillortnoc-noN
+tseretni
+ytiuqe
+latoT
+CONDENSED CONSOLIDATED STATEMENT OF CHANGES IN EQUITY
+for the half-year ended 30 June 2026
+Notes C.2 C.2 E.4
+US$m US$m US$m US$m US$m US$m US$m US$m US$m US$m US$m US$m
+At 1 January 2026 29,036 (82) 287 (373) 795 188 5,557 (72) 578 35,914 3,929 39,843
+Profit for the period — — — — — — — — 1,672 1,672 1 1,673
+Other comprehensive
+— — — — — (449) — — 3 (446) — (446)
+(loss)/income
+Total comprehensive
+(loss)/income for the — — — — — (449) — — 1,675 1,226 1 1,227
+period
+Transfers — — — — — — 1,200 — (1,200) — — —
+Transactions with non-
+— — — (20) — — — — — (20) 1,754 1,734
+controlling interests1
+Employee share plan
+— 10 (10) — — — — — — — — —
+redemptions
+Share-based payments
+— — 53 — — — — — — 53 — 53
+(net of tax)
+Dividends paid — — — — — — (1,122) — — (1,122) (11) (1,133)
+At 30 June 2026 29,036 (72) 330 (393) 795 (261) 5,635 (72) 1,053 36,051 5,673 41,724
+At 1 January 2025 29,001 (58) 281 — 795 1 3,069 (38) 2,348 35,399 754 36,153
+Profit for the period — — — — — — — — 1,316 1,316 14 1,330
+Other comprehensive
+— — — — — 216 — (33) 2 185 — 185
+income/(loss)
+Total comprehensive
+income/(loss) for the — — — — — 216 — (33) 1,318 1,501 14 1,515
+period
+Transfers — — — — — — 3,000 — (3,000) — — —
+Transactions with non-
+— — — (270) — — — — — (270) 2,140 1,870
+controlling interests1
+Employee share plan
+— (26) — — — — — — — (26) — (26)
+purchases
+Employee share plan
+— 13 (13) — — — — — — — — —
+redemptions
+Share-based payments
+— — 41 — — — — — — 41 — 41
+(net of tax)
+Dividends paid — — — — — — (1,006) — — (1,006) (40) (1,046)
+At 30 June 2025 29,001 (71) 309 (270) 795 217 5,063 (71) 666 35,639 2,868 38,507
+1. Represents the difference between the amount of the adjustment to non-controlling interest and any consideration received. Refer to Note B.5 for the transactions
+with equity holders of the Group.
+The accompanying notes form part of the half-year financial statements.
+23 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 24
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+About these statements
+Woodside Energy Group Ltd (Woodside or the Group) is a for-profit entity limited by shares, incorporated and domiciled in Australia.
+Its shares are publicly traded on the Australian Securities Exchange (ASX) and on the New York Stock Exchange (NYSE) (in the form
+of Woodside American Depositary Shares). The nature of the operations and principal activities of the Group are described in the
+Australia Operations, International Operations, Marketing and Trading, Projects, Decommissioning, Developments and Exploration
+and Carbon Solutions sections.
+The condensed consolidated half-year financial statements were authorised for issue in accordance with a resolution of the
+directors on 25 August 2026.
+Statement of compliance
+The condensed consolidated half-year financial statements are condensed general purpose financial statements, which have been
+prepared in accordance with Australian Accounting Standard (AASB) 134 Interim Financial Reporting as issued by the Australian
+Accounting Standards Board and the Australian Corporations Act 2001. These condensed consolidated half-year financial
+statements also comply with International Accounting Standard (IAS) 34 Interim Financial Reporting as issued by the International
+Accounting Standards Board.
+The condensed consolidated half-year financial statements do not include all notes of the type normally included in annual financial
+statements. Accordingly, these condensed consolidated half-year financial statements are to be read in conjunction with the
+Financial Statements within the Annual Report for the year ended 31 December 2025 (2025 Financial Statements).
+The Group’s accounting policies are materially consistent with those disclosed in the Group’s 2025 Financial Statements. Adoption
+of new or amended standards and interpretations effective 1 January 2026 did not result in any significant changes to the Group’s
+accounting policies. Refer to Note E.2 for more details.
+The significant accounting estimates and judgements are consistent with those disclosed in the 2025 Financial Statements.
+Estimates have been revised, where required, to reflect current market conditions including the impact of climate change.
+Currency
+The functional and presentation currency of Woodside and all its material subsidiaries is US dollars.
+Transactions in foreign currencies are initially recorded in the functional currency of the transacting entity at the exchange rates
+ruling at the date of transaction. Monetary assets and liabilities denominated in foreign currencies at the reporting date are
+translated at the rates of exchange ruling at that date. Exchange differences in the consolidated financial statements are taken to
+the condensed consolidated income statement.
+Rounding of amounts
+The amounts contained in the condensed consolidated half-year financial statements have been rounded to the nearest million
+dollars under the option available to the Group under Australian Securities and Investments Commission (ASIC) Corporations
+(Rounding in Financial/Directors’ Reports) Instrument 2026/183 dated 24 March 2026, unless otherwise stated.
+24 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 25
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+Basis of preparation
+The condensed consolidated half-year financial statements have been prepared on an historical cost basis, except for derivative
+financial instruments and certain other financial assets and financial liabilities, which have been measured at fair value adjusted for
+changes in fair value attributable to the risks that are being hedged in effective hedge relationships. Where not carried at fair value,
+if the carrying value of financial assets and financial liabilities does not approximate their fair value, the fair value has been
+included in the notes to the condensed consolidated half-year financial statements.
+The condensed consolidated half-year financial statements comprise the financial results of the Group for the period ended 30 June
+2026. Subsidiaries are fully consolidated from the date on which control is obtained by the Group and cease to be consolidated from
+the date at which the Group ceases to have control.
+The material subsidiaries of the Group apply the same reporting period and accounting policies as the parent company in
+preparation of the condensed consolidated half-year financial statements. All intercompany balances and transactions, including
+unrealised profits and losses arising from intra-group transactions, have been eliminated in full.
+Non-controlling interests are allocated their share of the net profit after tax in the condensed consolidated income statement; their
+share of other comprehensive income, net of tax, in the condensed consolidated statement of comprehensive income; and are
+presented within equity in the condensed consolidated statement of financial position, separately from parent shareholders’ equity.
+Comparative information
+The condensed consolidated half-year financial statements provide comparative information in respect of the previous period.
+Where required, a reclassification of items in the financial statements of the previous period has been made in accordance with the
+classification of items in the condensed consolidated half-year financial statements of the current period. Refer to Note A.1 for more
+details.
+Reporting segments
+Refer to the 2025 Financial Statements for details of the Group’s operating segment information.
+25 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 26
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+A. Earnings for the period
+A.1 Segment revenue and expenses
+Australia International Marketing Corporate Consolidated
+2026 2025 2026 2025 2026 2025 2026 2025 2026 2025
+US$m US$m US$m US$m US$m US$m US$m US$m US$m US$m
+Liquified natural gas 2,189 2,417 — — 836 522 — — 3,025 2,939
+Pipeline gas 565 564 20 141 — — — — 585 705
+Crude oil and condensate 784 683 2,515 2,011 142 13 — — 3,441 2,707
+Natural gas liquids 115 90 17 18 2 9 — — 134 117
+Ammonia — — 171 — — — — — 171 —
+Revenue from sale of products 3,653 3,754 2,723 2,170 980 544 — — 7,356 6,468
+Intersegment revenue1 (101) (9) — — 101 9 — — — —
+Processing and services revenue 88 109 — — — — — — 88 109
+Shipping and other revenue — — — — 2 13 — — 2 13
+Other revenue (13) 100 — — 103 22 — — 90 122
+Operating revenue2 3,640 3,854 2,723 2,170 1,083 566 — — 7,446 6,590
+Production costs3 (539) (399) (210) (268) — — — — (749) (667)
+Feed gas, services and processing costs3 (92) (92) (146) — — — — — (238) (92)
+Royalties, excise and levies (134) (126) (9) (30) — — — — (143) (156)
+Insurance (16) (19) (11) (8) — — (6) (10) (33) (37)
+Inventory movement (77) (7) 23 6 — — — — (54) (1)
+Costs of production (858) (643) (353) (300) — — (6) (10) (1,217) (953)
+Property, plant and equipment depreciation (1,032) (1,170) (1,150) (1,340) — — (27) (31) (2,209) (2,541)
+Shipping and direct sales costs (70) (36) (53) (41) (54) (43) — — (177) (120)
+Trading costs (101) (88) — — (871) (322) — — (972) (410)
+Other hydrocarbon costs (10) (6) — — — — — — (10) (6)
+Other (14) (15) (5) — — — — — (19) (15)
+Other cost of sales (195) (145) (58) (41) (925) (365) — — (1,178) (551)
+Cost of sales (2,085) (1,958) (1,561) (1,681) (925) (365) (33) (41) (4,604) (4,045)
+Gross profit/(loss) 1,555 1,896 1,162 489 158 201 (33) (41) 2,842 2,545
+Other income4 230 82 8 67 12 (9) 14 239 264 379
+Exploration and evaluation expenditure (26) (10) (73) (71) — — — — (99) (81)
+Amortisation of permit acquisitions — — (4) (3) — — — — (4) (3)
+Write-offs — — (1) — — — — — (1) —
+Exploration and evaluation (26) (10) (78) (74) — — — — (104) (84)
+General, administration and other costs (28) (15) (46) (8) — (1) (168) (237) (242) (261)
+Amortisation of intangible assets — — (1) — — — (9) (11) (10) (11)
+Depreciation of lease assets (12) (18) (3) (1) (44) (39) (30) (27) (89) (85)
+Restoration movement 3 (443) 2 (2) — — — — 5 (445)
+Other5 (58) (19) (26) (2) (72) (8) (175) (49) (331) (78)
+Other costs (95) (495) (74) (13) (116) (48) (382) (324) (667) (880)
+Other expenses (121) (505) (152) (87) (116) (48) (382) (324) (771) (964)
+Impairment losses6 — — (135) — — — (43) (143) (178) (143)
+Profit/(loss) before tax and net finance costs 1,664 1,473 883 469 54 144 (444) (269) 2,157 1,817
+1. Intersegment revenue reflects the margin recognised on products and services transferred between segments.
+2. Operating revenue includes revenue from contracts with customers of $7,444 million (2025: $6,577 million) and sub-lease income of $2 million (2025: $13 million)
+disclosed within shipping and other revenue.
+3. In 2026, feed gas, services and processing-related costs are presented separately to better reflect underlying activities of the Group. In the 2025 Financial
+Statements, these costs were included within production costs.
+4. Includes $138 million of released deferred income associated with the Pluto Train 2 GIP transaction and other income not associated with the ongoing operations of
+the business. The 2025 amount includes a $162 million unrealised fair value gain on the Perdaman-related embedded derivatives, $32 million net gain on hedging
+activities, fees, recoveries and other income not associated with the ongoing operations of the business.
+5. Includes $135 million unrealised fair value loss on the Perdaman-related embedded derivatives, $71 million net loss on hedging activities and other items not
+associated with the ongoing operations of the business.
+6. Includes $135 million (2025: nil) relating to the impairment of the Calypso exploration and evaluation asset and $43 million (2025: $143 million) relating to the
+impairment of the H2OK Project. Refer to Note B.3 for details on impairment.
+26 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 27
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+A.2 Finance costs
+2026 2025
+US$m US$m
+Interest on interest-bearing liabilities 303 281
+Interest on lease liabilities 65 51
+Accretion charge 156 148
+Other finance costs 17 29
+Less: Borrowing costs capitalised against qualifying assets (296) (340)
+Total finance costs 245 169
+A.3 Dividends paid and proposed
+Woodside Energy Group Ltd, the parent entity, paid and proposed dividends as set out below:
+2026 2025
+US$m US$m
+(a) Dividends paid during the financial year
+Prior year fully franked final dividend US$0.59, paid on 27 March 2026 (2025:
+US$0.53, paid on 2 April 2025) 1,122 1,006
+(b) Dividend determined subsequent to the reporting period (not recorded as a
+liability)
+Current year fully franked interim dividend US$0.57 to be paid on 25 September 2026
+(2025: US$0.53 to be paid on 24 September 2025) 1,084 1,006
+A.4 Earnings per share
+2026 2025
+Profit attributable to equity holders of the parent (US$m) 1,672 1,316
+Weighted average number of shares on issue for basic earnings per share 1,896,068,066 1,895,162,804
+Effect of dilution from contingently issuable shares 19,457,286 17,049,593
+Weighted average number of shares on issue adjusted for the effect of dilution 1,915,525,352 1,912,212,397
+Basic earnings per share (US cents) 88.2 69.4
+Diluted earnings per share (US cents) 87.3 68.8
+Earnings per share is calculated by dividing the profit for the period attributable to ordinary equity holders of the parent by the
+weighted average number of shares on issue during the period. The weighted average number of shares makes allowance for
+shares reserved for employee share plans. Diluted earnings per share is calculated by adjusting basic earnings per share by the
+number of ordinary shares that would be issued on conversion of all the dilutive potential ordinary shares into ordinary shares.
+27 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 28
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+A.5 Taxes
+2026 2025
+US$m US$m
+Reconciliation of income tax expense/(benefit)
+Profit before tax 2,035 1,754
+PRRT benefit/(expense) 305 (71)
+Profit before income tax 2,340 1,683
+Income tax expense calculated at 30% 702 505
+Effect of tax rate differentials 41 42
+Effect of deferred tax assets not recognised 50 12
+Effect of tax benefits previously unrecognised (90) (193)
+Foreign exchange impact on tax expense/(benefit) 28 (35)
+Adjustment to prior years (41) 4
+Other (23) 18
+Income tax expense 667 353
+The global operations effective income tax rate (EITR) of 28.5% (2025: 21.0%) is calculated as the Group’s income tax expense
+divided by profit before income tax. The underlying EITR is 29.6% when excluding the recognition of additional Pluto PRRT deferred
+tax asset, income tax deferred tax asset relating to US net operating losses and impairment losses.
+During the period, the Group recognised an additional PRRT deferred tax asset of $596 million ($417 million post tax) for the Pluto
+project, reflecting increased expected utilisation of available PRRT deductions driven by the higher pricing environment. The Group
+also recognised a $90 million income tax deferred tax asset in respect of heritage Woodside US net operating loss carryforwards, as
+utilisation of those losses is now considered probable.
+28 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 29
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+B. Production and growth assets
+B.1 Exploration and evaluation assets
+Asia Pacific Americas Africa Total
+US$m US$m US$m US$m
+Half-year ended 30 June 2026
+Carrying amount at 1 January 2026 582 207 1 790
+Additions 18 47 — 65
+Amortisation of licence acquisition costs — (4) — (4)
+Expensed — (1) — (1)
+Impairment1 — (135) — (135)
+Transferred exploration and evaluation (5) — — (5)
+Carrying amount at 30 June 2026 595 114 1 710
+Year ended 31 December 2025
+Carrying amount at 1 January 2025 571 149 1 721
+Additions 17 67 — 84
+Amortisation of licence acquisition costs — (5) — (5)
+Expensed — (4) — (4)
+Transferred exploration and evaluation (6) — — (6)
+Carrying amount at 31 December 2025 582 207 1 790
+1. Refer to Note B.3 for details of impairment of the Calypso exploration and evaluation asset.
+29 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 30
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+B.2 Property, plant and equipment
+Land and Oil and gas Projects in Other plant and
+buildings properties development1 equipment Total
+US$m US$m US$m US$m US$m
+Half-year ended 30 June 2026
+Carrying amount at 1 January 2026 744 23,091 22,437 283 46,555
+Additions2 — 9 3,492 — 3,501
+Disposals at written down value — — (12) — (12)
+Impairment loss3 — — (43) — (43)
+Completions and transfers4 136 398 (2,010) 1,481 5
+Depreciation (32) (2,135) — (42) (2,209)
+Carrying amount at 30 June 2026 848 21,363 23,864 1,722 47,797
+At 30 June 2026
+Historical cost 2,035 59,227 24,389 2,201 87,852
+Accumulated depreciation and impairment (1,187) (37,864) (525) (479) (40,055)
+Carrying amount 848 21,363 23,864 1,722 47,797
+Year ended 31 December 2025
+Carrying amount at 1 January 2025 734 25,787 15,926 189 42,636
+Adjustment to purchase price allocation (21) — (9) — (30)
+Additions — 657 8,658 10 9,325
+Disposals at written down value (6) (44) (143) (3) (196)
+Impairment loss — — (143) — (143)
+Completions and transfers 98 1,609 (1,852) 151 6
+Depreciation (61) (4,918) — (64) (5,043)
+Carrying amount at 31 December 2025 744 23,091 22,437 283 46,555
+At 31 December 2025
+Historical cost 1,899 58,820 22,919 720 84,358
+Accumulated depreciation and impairment (1,155) (35,729) (482) (437) (37,803)
+Carrying amount 744 23,091 22,437 283 46,555
+1. Projects in development include the fair value ascribed to future phases of certain projects acquired through business combinations.
+2. Includes $3,243 million of capital additions, $296 million of capitalised borrowing costs, and $26 million relating to changes in restoration provision assumptions.
+Included within capital additions is $1,595 million relating to the Louisiana LNG Project.
+3. Refer to Note B.3 for details of impairment of the H2OK Project.
+4. Primarily reflects the transfer of the Beaumont New Ammonia (BNA) Project carrying amount from projects in development to other plant and equipment following
+completion in March 2026.
+The Group has capital commitments contracted for, but not provided for in the financial statements, of $9,699 million (31 December
+2025: $11,957 million). Capital commitments relate predominantly to the Louisiana LNG and Trion Projects (31 December 2025:
+Louisiana LNG, Trion and Scarborough Energy Projects). Capital commitments for Louisiana LNG totalling $8,170 million (31
+December 2025: $9,986 million) are shared between the Group, Stonepeak and Williams based on their respective interests in the
+project. Under the transaction arrangements, Stonepeak has committed up to $5,700 million to fund its share of the capital
+expenditure associated with the foundation development of Louisiana LNG. Refer to Note B.5 for details of the sell-down
+arrangement with Stonepeak and the contributions made by Stonepeak to date.
+30 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 31
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+B.3 Impairment of exploration and evaluation assets, property, plant and equipment and goodwill
+Impairment of Calypso exploration and evaluation asset
+As at 30 June 2026, the Calypso exploration and evaluation asset was assessed as not fully recoverable following the Group's
+decision to pursue a divestment of its 70% operated interest in the Calypso Project. Consequently, an impairment loss of $135
+million (2025: nil) was recognised in the International segment of Note A.1 for the half-year ended 30 June 2026. Refer to Note E.3
+for details of the subsequent agreement to sell the Group's interest in the Calypso Project.
+Impairment of H2OK Project
+As at 30 June 2026, the remaining H2OK Project assets were assessed as not recoverable following the decision to retire the assets.
+Consequently, an impairment loss before tax of $43 million (2025: $143 million) was recognised in the Corporate segment of Note
+A.1 for the half-year ended 30 June 2026 reducing the carrying value of the assets to nil.
+31 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 32
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+B.4 Intangible assets
+Contract
+Goodwill assets Software Total
+US$m US$m US$m US$m
+Half-year ended 30 June 2026
+Carrying amount at 1 January 2026 3,952 714 187 4,853
+Additions – – 18 18
+Amortisation – (2) (8) (10)
+Disposals – (5) – (5)
+Carrying amount at 30 June 2026 3,952 707 197 4,856
+At 30 June 2026
+Cost 4,429 796 238 5,463
+Accumulated amortisation and impairment (477) (89) (41) (607)
+Carrying amount 3,952 707 197 4,856
+Year ended 31 December 2025
+Carrying amount at 1 January 2025 3,866 757 203 4,826
+Adjustment to purchase price allocation 86 30 – 116
+Additions – – 2 2
+Amortisation – (73) (18) (91)
+Carrying amount at 31 December 2025 3,952 714 187 4,853
+At 31 December 2025
+Cost 4,429 814 220 5,463
+Accumulated amortisation and impairment (477) (100) (33) (610)
+Carrying amount 3,952 714 187 4,853
+32 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 33
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+B.5 Transactions with equity holders of the Group
+Sell-down arrangement with Stonepeak
+During 2025, the Group and Stonepeak entered into an agreement for Stonepeak to acquire a 40% interest in Louisiana LNG
+Infrastructure LLC, a subsidiary within the Group. Stonepeak will provide up to $5,700 million towards the expected capital
+expenditure for the foundation development of Louisiana LNG on an accelerated basis, contributing 75% of the expected project
+capital expenditure in both 2025 and 2026. As at 30 June 2026, total payment of $4,262 million was received.
+Under the agreement, the Group still controls Louisiana LNG Infrastructure LLC, while Stonepeak now holds a non-controlling
+interest. Transactions that do not result in the Group's loss of control are treated as equity transactions. When ownership
+percentages change, the carrying amounts of both controlling and non-controlling interests are adjusted based on their relative
+interest in the subsidiary. Any difference between the adjustment to non-controlling interests and consideration received is
+recorded in a separate equity reserve. Stonepeak’s non-controlling interest percentage is based on the proportion of total
+contributions to date and will fluctuate during the construction phase. The non-controlling interest percentage will to revert to 40%
+when the project starts generating revenue. Refer to Note E.4 Subsidiaries.
+33 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 34
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+C. Debt and capital
+C.1 Interest-bearing liabilities and financing facilities
+Bilateral Syndicated Medium
+facilities facilities JBIC facility US bonds term notes Total
+US$m US$m US$m US$m US$m US$m
+Half-year ended 30 June 2026
+At 1 January 2026 (4) 2,232 1,000 8,535 200 11,963
+Repayments1 — (600) — — — (600)
+Transaction costs capitalised and amortised (1) 2 — 6 — 7
+Carrying amount at 30 June 2026 (5) 1,634 1,000 8,541 200 11,370
+Current (2) (4) — 789 200 983
+Non-current (3) 1,638 1,000 7,752 — 10,387
+Carrying amount at 30 June 2026 (5) 1,634 1,000 8,541 200 11,370
+Undrawn balance at 30 June 2026 2,650 1,200 — — — 3,850
+Year ended 31 December 2025
+At 1 January 2025 495 2,233 1,000 6,069 200 9,997
+Drawdowns 1,400 — — 3,500 — 4,900
+Repayments (1,900) — — (1,000) — (2,900)
+Transaction costs capitalised and amortised 1 (1) — (34) — (34)
+Carrying amount at 31 December 2025 (4) 2,232 1,000 8,535 200 11,963
+Current (2) (5) — 789 — 782
+Non-current (2) 2,237 1,000 7,746 200 11,181
+Carrying amount at 31 December 2025 (4) 2,232 1,000 8,535 200 11,963
+Undrawn balance at 31 December 2025 2,350 1,200 — — — 3,550
+1. In June 2026, the Group settled the $600 million syndicated facility that was executed on 17 January 2020.
+There were no new covenants or other material changes to interest-bearing liabilities and financing facilities.
+Fair value
+The carrying amounts of interest-bearing liabilities approximate their fair values, with the exception of the Group’s unsecured bonds
+and the medium-term notes. The unsecured bonds have a carrying amount of $8,541 million (31 December 2025: $8,535 million) and
+a fair value of $8,636 million (31 December 2025: $8,665 million). The medium-term notes have a carrying amount of $200 million
+(31 December 2025: $200 million) and a fair value of $198 million (31 December 2025: $197 million). Fair value is determined by
+reference to quoted market prices for these instruments and is classified as Level 1 within the fair value hierarchy.
+34 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 35
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+C.2 Contributed equity
+Issued and fully paid shares
+Number of shares US$m
+Half-year ended 30 June 2026
+Opening balance 1,901,100,143 29,036
+Amounts as at 30 June 2026 1,901,100,143 29,036
+Year ended 31 December 2025
+Opening balance 1,898,749,771 29,001
+Shares issued 2,350,372 35
+Amounts as at 31 December 2025 1,901,100,143 29,036
+All shares are a single class with equal rights to dividends, capital distributions and voting. The Company does not have authorised
+capital nor par value in respect of its issued shares.
+Reserved shares
+Reserved shares are the Company’s own equity instruments, which are used in employee share-based payment arrangements or
+the Dividend Reinvestment Plan (DRP). The DRP was suspended on 27 February 2023. These shares are deducted from equity.
+Number of shares US$m
+Half-year ended 30 June 2026
+Opening balance 5,283,450 (82)
+Vested/allocated during the half-year (644,610) 10
+Amounts as at 30 June 2026 4,638,840 (72)
+Year ended 31 December 2025
+Opening balance 3,080,842 (58)
+Purchases during the year 5,700,372 (88)
+Vested/allocated during the year (3,497,764) 64
+Amounts as at 31 December 2025 5,283,450 (82)
+35 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 36
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+D. Other assets and liabilities
+D.1 Segment assets and liabilities
+30 June 2026 31 December 2025
+US$m US$m
+(a) Segment assets
+Australia 30,569 30,541
+International 26,885 24,773
+Marketing 1,094 965
+Corporate 9,133 10,222
+67,681 66,501
+30 June 2026 31 December 2025
+US$m US$m
+(b) Segment liabilities
+Australia 6,899 7,252
+International 2,856 2,531
+Marketing 1,297 1,054
+Corporate 14,905 15,821
+25,957 26,658
+Corporate assets mainly comprise cash and cash equivalents, deferred tax assets, new energy assets in development and lease
+assets. Corporate liabilities mainly comprise interest-bearing liabilities, deferred tax liabilities and lease liabilities.
+36 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 37
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+D.2 Provisions
+Employee
+Restoration1 benefits Other Total
+US$m US$m US$m US$m
+Half-year ended 30 June 2026
+At 1 January 2026 6,886 669 312 7,867
+Change in provision (229) (86) (73) (388)
+Unwinding of present value discount 156 — — 156
+Carrying amount at 30 June 2026 6,813 583 239 7,635
+At 30 June 2026
+Current 765 373 100 1,238
+Non-current 6,048 210 139 6,397
+Carrying amount 6,813 583 239 7,635
+Year ended 31 December 2025
+At 1 January 2025 6,526 654 367 7,547
+Adjustment to purchase price allocation — — 100 100
+Change in provision 254 11 (138) 127
+Unwinding of present value discount 283 5 — 288
+Disposals (177) (1) (17) (195)
+Carrying amount at 31 December 2025 6,886 669 312 7,867
+At 31 December 2025
+Current 637 449 126 1,212
+Non-current 6,249 220 186 6,655
+Carrying amount 6,886 669 312 7,867
+1. 2026 change in provision is due to provisions used of $255 million, a revision of discount rates of $90 million offset by changes in foreign exchange rates of $92
+million and changes in estimates of $24 million. 2025 change in provision is due to changes in estimates of $898 million, changes in foreign exchange rates of $233
+million offset by provisions used of $823 million and a revision of discount rates of $54 million.
+37 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 38
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+D.3 Other financial assets and liabilities
+30 June 2026 31 December 2025
+US$m US$m
+Other financial assets
+Financial instruments at fair value through profit and loss
+Derivative financial instruments designated as hedges 152 217
+Other financial assets 18 14
+Financial instruments at fair value through other comprehensive income
+Other financial assets 58 62
+Total other financial assets 228 293
+Current 119 229
+Non-current 109 64
+Net carrying amount 228 293
+Other financial liabilities
+Financial instruments at fair value through profit and loss
+Derivative financial instruments designated as hedges 130 7
+Embedded derivative 347 212
+Other financial liabilities 34 1
+Total other financial liabilities 511 220
+Current 148 8
+Non-current 363 212
+Net carrying amount 511 220
+Hedging activities
+As at 30 June 2026, the Group had the following principal unrealised commodity hedging positions:
+• 36 MMboe of oil production volumes hedged at an average price of $75 per barrel through to 2027.
+• Corpus Christi LNG volumes hedged through Henry Hub (HH) and Title Transfer Facility (TTF) commodity swap contracts.
+The following table presents the Group’s derivative financial instruments designated as hedges, measured and recognised at fair
+value:
+30 June 2026 31 December 2025
+US$m US$m
+Brent commodity swaps (cash flow hedges) 103 114
+HH natural gas commodity swaps (cash flow hedges) (26) (4)
+TTF LNG commodity swaps (cash flow hedges) (63) 66
+Interest rate swaps (cash flow hedges) 1 — 15
+Foreign exchange forwards (cash flow hedges) 8 19
+Total derivative financial instruments asset designated as hedges 22 210
+1. During June 2026, the Group early settled the $600 million syndicated facility, being the underlying hedged item. Accordingly, the associated hedging instrument
+ceased to be designated as a hedge. Refer to Note C.1.
+Embedded commodity derivative
+In 2023, the Group entered into a revised long-term gas sale and purchase contract (GSPA) with Perdaman, where a component of
+the selling price is linked to the price of urea. The contract was assessed to contain an embedded commodity derivative that is
+required to be separated and recognised at fair value through profit and loss. The carrying value of the embedded derivative at
+30 June 2026 amounted to a net liability of $347 million (31 December 2025: net liability of $212 million). The derivative is
+remeasured to fair value at each reporting date. For the half-year ended 30 June 2026, an unrealised loss of $135 million has been
+recognised through other expense (30 June 2025: unrealised gain of $162 million through other income).
+38 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 39
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+D.3 Other financial assets and liabilities (continued)
+Fair value
+Except for the other financial assets and other financial liabilities set out in this note, there are no other material financial assets or
+financial liabilities carried at fair value. Other financial assets and other financial liabilities set out in this note are classified as Level
+2 on the fair value hierarchy with market observable inputs, with the exception of the embedded commodity derivative which has
+been classified as Level 3 on the fair value hierarchy with no market observable inputs. Refer to key estimates and judgements for
+further details. During the period, there were no reclassifications between the fair value hierarchy levels.
+There were no changes to the Group’s valuation processes, valuation techniques and types of inputs used in the fair value
+measurements during the period.
+Financial risk factors
+The Group’s activities expose its financial instruments to a variety of market risks, including foreign exchange, commodity price and
+interest rate risk. The half-year financial statements does not include all financial risk management information and disclosures
+required in the Annual Report and, as such, should be read in conjunction with the Group’s 2025 Financial Statements. There have
+been no significant changes in risk management policies since 31 December 2025. Refer to the embedded commodity derivative key
+estimates and judgements section below for the sensitivity assessment on discount rates and pricing.
+Key estimates and judgements
+(a) Embedded commodity derivative
+The fair value of the Perdaman embedded derivative has been estimated using a Monte Carlo simulation model. The assessment
+requires management to make certain assumptions about the model inputs, including forecast cash flows, discount rate, credit
+risk and volatility. These assumptions require significant judgement and are subject to risk and uncertainty, and hence changes
+in economic conditions can affect the assumptions. The present value of the embedded derivative was estimated using the
+assumptions set out below.
+• Inflation rate – 2.50%.
+• Discount rate – a pre-tax interest rate curve (range: 5.04% to 8.07%).
+• Domestic gas pricing – forecast sales are subject to urea pricing. Price assumptions are based on the best market
+information available at measurement date and derived from short- and long-term views of global supply and demand,
+building upon past experience of the industry and consistent with external sources. The long-term urea price is determined
+with reference to the prevailing gas hub (TTF) prices available in the market.
+The embedded derivative is most sensitive to changes in discount rates and pricing, which may result in unrealised gains or
+losses recognised in other income/expenses. The nominal impacts of the effects of changes to discount rate and long-term price
+assumptions are estimated as follows. The valuation is over a contract period of 20 years and the below change in assumptions
+applies a linear increase or decrease in inputs over the life of the contract. A spot increase is not represented by the sensitivity
+below.
+Change in assumption1 US$m
+TTF sales price: increase of 10% 179
+TTF sales price: decrease of 10% (177)
+Discount rate: increase of 1.5%2 (182)
+Discount rate: decrease of 1.5%2 223
+1. Amounts shown represent the change of the present value of the contract keeping all other variables constant.
+2. A change of 1.5% represents 150 basis points.
+39 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 40
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+E. Other items
+E.1 Contingent liabilities and assets
+2026 2025
+Contingent liabilities at reporting date US$m US$m
+Contingent liabilities 340 322
+Total disclosed contingent liabilities 340 322
+Contingent liabilities relate predominantly to possible obligations whose existence will only be confirmed by the occurrence or non-
+occurrence of uncertain future events, and therefore the Group has not provided for such amounts in these financial statements.
+The Group operates in complex tax and legislative regimes. The amounts disclosed above include estimates made in relation to
+ongoing disputes with various tax and government authorities. Assessing the value of contingent liabilities requires a high degree
+of judgement. The contingent liabilities relating to tax matters are estimated based on notices received from authorities before
+interest and penalties. The possibility of further claims related to the same matters cannot be ruled out and the judicial processes
+may take extended periods to conclude. Additionally, there are a number of other claims and possible claims that have arisen in the
+course of business against entities in the Group, the outcome of which cannot be estimated at present and for which no amounts
+have been included in the table above.
+The Group has contingent assets of $31 million as at 30 June 2026 (31 December 2025: $30 million).
+E.2 New standards and interpretations
+New and amended accounting standards adopted
+A number of amended standards became applicable for the current reporting period, including the amendments to AASB/IFRS 7
+and AASB/IFRS 9 disclosed in Financial Statements within the Annual Report for the year ended 31 December 2025. The Group did
+not make any significant changes to its accounting policies and did not make retrospective adjustments as a result of adopting these
+amended standards. These amendments did not materially impact the accounting policies or amounts disclosed in the condensed
+consolidated half-year financial statements of the Group.
+New standards and interpretations not yet adopted
+Certain new accounting standards, amendments to accounting standards and interpretations have been published that are not
+mandatory for the 30 June 2026 reporting period and have not been early adopted by the Group. Except for AASB 18/IFRS 18
+Presentation and Disclosure in Financial Statements, these pronouncements are not expected to have a material impact on the
+Group’s consolidated financial statements in the current or future reporting periods. AASB/IFRS 18 will replace AASB 101/IAS 1
+Presentation of Financial Statements, introducing new requirements that will help to achieve comparability of the financial
+performance of similar entities and provide more relevant information and transparency to users. Even though AASB/IFRS 18 will
+not impact the recognition or measurement of items in the financial statements, its impacts on presentation and disclosure are
+expected to be pervasive, particularly those related to the consolidated income statement and providing management-defined
+performance measures within the financial statements. Management is currently assessing the detailed implications of applying the
+new standard on the Group’s financial statements. The Group will apply the new standard from its mandatory effective date of 1
+January 2027. Retrospective application is required.
+E.3 Events after the end of the reporting period
+Operatorship of Bass Strait assets
+On 29 July 2025, the Group agreed with ExxonMobil Australia (ExxonMobil) to assume operatorship of the Bass Strait production
+assets, the Longford Gas Plant, the Long Island Point gas liquids processing facility and associated pipeline infrastructure. The
+Group’s and ExxonMobil’s equity interest in the Joint Venture’s assets and current decommissioning plans and provisions remain
+unchanged. The transaction was completed and effective on 1 July 2026, subsequent to the report date.
+As part of the transaction, Woodside acquired ExxonMobil’s employing entity for the Bass Strait employees which includes
+employee-related assets and liabilities for the consideration of $1. The employee expenses will continue to be funded by the Bass
+Strait joint venture partners based on their equity interests. The acquisition of the employing entity will to be treated as a business
+combination and will be accounted for in the 2026 Annual Report.
+40 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 41
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+E.3 Events after the end of the reporting period (continued)
+Browse Joint Venture pre-emption right
+On 12 June 2026, the Group exercised its pre-emption right to acquire a 10.67% participating interest in the Browse Joint Venture.
+The acquisition consideration comprises a payment of $225 million, reimbursement of certain joint venture cash call contributions
+and a contingent payment of $175 million subject to specified future conditions. The transaction is subject to customary conditions
+precedent, including regulatory approvals, and had not completed at the reporting date. Upon completion, the Group's participating
+interest in the Browse Joint Venture will increase to 41.27%.
+Calypso divestment
+Subsequent to the reporting date, the Group entered into an agreement to sell its 70% operated interest in the Calypso Project to
+bp. Completion of the transaction is subject to customary conditions precedent, including government and regulatory approvals, and
+is expected to occur by the end of 2026. The transaction comprises fixed and contingent consideration. As disclosed in Note B.3, an
+impairment loss of $135 million was recognised as at 30 June 2026 following the Group's decision to divest its interest in the
+Calypso Project.
+E.4 Subsidiaries
+Subsidiaries with non-controlling interests
+The Group has two Australian subsidiaries and two International subsidiaries with non-controlling interests (NCI).
+Name of entity Principal place of business % held by NCI NCI parties
+Burrup Facilities Company Pty Ltd Australia 10.00% Kansai Electric Power Australia Pty Ltd and
+MidOcean Pluto Pty Ltd
+Burrup Train 1 Pty Ltd Australia 10.00% Kansai Electric Power Australia Pty Ltd and
+MidOcean Pluto Pty Ltd
+Louisiana LNG Infrastructure LLC1 United States 62.87% Stonepeak
+Louisiana LNG LLC United States 10.00% Williams
+1. The non-controlling interest in Louisiana LNG Infrastructure LLC is measured at its proportionate share of the subsidiary’s net assets. The proportion of net assets
+each member is entitled to upon liquidation varies prior to operations commencement. Prior to this milestone, entitlements are determined in proportion to the
+cumulative capital contributions made by each member. The NCI percentage is expected to revert to 40% when the project commences operations.
+41 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 42
+NOTES TO THE CONDENSED CONSOLIDATED FINANCIAL STATEMENTS
+for the half-year ended 30 June 2026
+E.4 Subsidiaries (continued)
+The summarised financial information (including consolidation adjustments but before intercompany eliminations) of subsidiaries
+with NCI is as follows:
+Burrup Facilities Burrup Train 1 Louisiana LNG Louisiana LNG
+Company Pty Ltd Pty Ltd Infrastructure LLC LLC Total
+US$m US$m US$m US$m US$m
+Half-year ended 30 June 2026
+Current assets 379 314 678 339 1,710
+Non-current assets 4,694 2,551 7,315 2,738 17,298
+Current liabilities (45) (36) (448) (251) (780)
+Non-current liabilities (542) (299) (84) (31) (956)
+Net assets 4,486 2,530 7,461 2,795 17,272
+Accumulated balance of NCI 449 253 4,691 280 5,673
+(Loss)/Profit (21) 19 3 (5) (4)
+(Loss)/Profit allocated to NCI (2) 2 2 (1) 1
+Dividends paid to NCI (1) (10) — — (11)
+Year ended 31 December 2025
+Current assets 288 225 260 118 891
+Non-current assets 4,810 2,729 5,402 2,331 15,272
+Current liabilities (38) (39) (318) (143) (538)
+Non-current liabilities (544) (306) (86) (37) (973)
+Net assets 4,516 2,609 5,258 2,269 14,652
+Accumulated balance of NCI 452 261 2,989 227 3,929
+Profit/(Loss) 76 117 — (2) 191
+Profit allocated to NCI 8 11 — — 19
+Dividends paid to NCI (36) (24) — — (60)
+42 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 43
+DIRECTORS’ DECLARATION
+for the half-year ended 30 June 2026
+In accordance with a resolution of directors of Woodside Energy Group Ltd, we state that:
+In the opinion of the directors:
+a) the financial statements and notes of the Group are in accordance with the Australian Corporations Act 2001, including:
+i. giving a true and fair view of the Group’s financial position as at 30 June 2026 and of its performance for the
+half-year ended on that date; and
+ii. complying with Australian Accounting Standard AASB 134 and International Accounting Standard IAS 34 Interim
+Financial Reporting and the Corporations Regulations 2001;
+b) there are reasonable grounds to believe that Woodside Energy Group Ltd will be able to pay its debts as and when they
+become due and payable.
+On behalf of the Board
+R J Goyder, AO E M Westcott
+Chair of the Board Chief Executive Officer and Managing Director
+Melbourne, Victoria Sydney, New South Wales
+25 August 2026 25 August 2026
+43 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 44
+INDEPENDENT AUDITOR’S REVIEW REPORT
+Independent auditor's review report to the members of
+Woodside Energy Group Ltd
+Report on the half-year financial report
+Conclusion
+We have reviewed the half-year financial report of Woodside Energy Group Ltd (the Company) and
+the entities it controlled during the half-year (together the Group), which comprises the condensed
+consolidated statement of financial position as at 30 June 2026, the condensed consolidated income
+statement, condensed consolidated statement of comprehensive income, condensed consolidated
+statement of changes in equity and condensed consolidated statement of cash flows for the half-year
+ended on that date, selected explanatory notes and the directors’ declaration.
+Based on our review, which is not an audit, we have not become aware of any matter that makes us
+believe that the accompanying half-year financial report of Woodside Energy Group Ltd does not
+comply with the Corporations Act 2001 including:
+1. giving a true and fair view of the Group’s financial position as at 30 June 2026 and of its
+performance for the half-year ended on that date; and
+2. complying with Accounting Standard AASB 134 Interim Financial Reporting and the
+Corporations Regulations 2001.
+Basis for conclusion
+We conducted our review in accordance with ASRE 2410 Review of a Financial Report Performed by
+the Independent Auditor of the Entity (ASRE 2410). Our responsibilities are further described in the
+Auditor’s responsibilities for the review of the half-year financial report section of our report.
+We are independent of the Group in accordance with the auditor independence requirements of the
+Corporations Act 2001 and the ethical requirements of the Accounting Professional & Ethical
+Standards Board’s APES 110 Code of Ethics for Professional Accountants (including Independence
+Standards) (the Code) that are relevant to the audit of the annual financial report in Australia. We
+have also fulfilled our other ethical responsibilities in accordance with the Code.
+PricewaterhouseCoopers, ABN 52 780 433 757
+Brookfield Place, Level 15, 125 St Georges Terrace, PERTH WA 6000,
+GPO Box D198, PERTH WA 6840
+T: +61 8 9238 3000, F: +61 8 9238 3999, www.pwc.com.au
+pwc.com.au Liability limited by a scheme approved under Professional Standards Legislation.
+44 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 45
+Responsibilities of the directors for the half-year financial report
+The directors of the Company are responsible for the preparation of the half-year financial report, in
+accordance with Australian Accounting Standards and the Corporations Act 2001, including giving a
+true and fair view, and for such internal control as the directors determine is necessary to enable the
+preparation of the half-year financial report that is free from material misstatement whether due to
+fraud or error.
+Auditor's responsibilities for the review of the half-year financial report
+Our responsibility is to express a conclusion on the half-year financial report based on our review.
+ASRE 2410 requires us to conclude whether we have become aware of any matter that makes us
+believe that the half-year financial report is not in accordance with the Corporations Act 2001
+including giving a true and fair view of the Group’s financial position as at 30 June 2026 and of its
+performance for the half-year ended on that date, and complying with Accounting Standard AASB 134
+Interim Financial Reporting and the Corporations Regulations 2001.
+A review of a half-year financial report consists of making enquiries, primarily of persons responsible
+for financial and accounting matters, and applying analytical and other review procedures. A review is
+substantially less in scope than an audit conducted in accordance with Australian Auditing Standards
+and consequently does not enable us to obtain assurance that we would become aware of all
+significant matters that might be identified in an audit. Accordingly, we do not express an audit
+opinion.
+PricewaterhouseCoopers
+N M Henry Perth, Western Australia
+Partner 25 August 2026
+45 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 46
+Appendix 4D
+Dividends
+Ex-dividend date 3 September 2026
+Record date for the interim dividend 4 September 2026
+Date the dividend is payable 25 September 2026
+Current period Previous corresponding period44
+Interim dividend - fully franked US cents per share 57 53
+None of these dividends are foreign sourced.
+Woodside dividends are determined in US dollars. However, shareholders will receive their dividend in Australian
+dollars unless their registered address is in the United Kingdom (in which case they will receive their dividend in
+British pounds), in the United States of America (in which case they will receive their dividend in US dollars) or in New
+Zealand (in which case they will receive their dividend in NZ dollars).
+Shareholders who reside outside of the United States can elect to receive their dividend electronically in US dollars,
+payable into a US financial institution account. Shareholders who reside outside of the United States, the United
+Kingdom, New Zealand and Australia may elect to receive their dividend electronically in their local currency using
+Global Wire Payment Service from the Company's share registry, Computershare Investor Services Pty Ltd.
+Shareholders should contact the Company's share registry if they wish to alter their dividend currency for future
+dividend payments. Contact details are available on Woodside's website on the Shareholder Information section of the
+Investors page. Shareholders must make an election to alter their dividend currency on or before 5.00pm AWST on 7
+September 2026.
+Net Tangible Assets per ordinary security
+Current period Previous corresponding period44
+US$ US$
+Net Tangible Assets (US$ per ordinary security)45 16.41 16.19
+Details of Associates and Joint Venture Entities
+Percentage of ownership interest held at end of period or
+date of disposal
+Name of Entity Current period Previous corresponding period44
+North West Shelf Gas Pty Ltd 33.33% 33.33%
+North West Shelf Liaison Company Pty Ltd —% 33.33%
+China Administration Company Pty Ltd 33.33% 33.33%
+International Gas Transportation Company Limited —% 33.33%
+North West Shelf Shipping Service Company Pty Ltd —% 33.33%
+North West Shelf Lifting Coordinator Pty Ltd 33.33% 33.33%
+Blue Ocean Seismic Services Limited 16.17% 16.17%
+Oakbio Inc 25.32% 25.32%
+Iwilei District Participating Parties, LLC 14.96% 14.96%
+Caesar Oil Pipeline Company, LLC 25.00% 25.00%
+Cleopatra Gas Gathering Company LLC 22.00% 22.00%
+Marine Well Containment Company LLC 12.92% 12.05%
+Driftwood Pipeline, LLC 20.00% —%
+44 Comparisons are to half-year ended 30 June 2025.
+45 Includes lease assets and lease liabilities as a result of AASB 16/ IFRS 16 Leases. Net Tangible Assets per ordinary security is a non-IFRS measure. Refer to
+Alternative Performance Measures for a reconciliation for these measures to Woodside’s financial statements on pages 53 - 56.
+46 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 47
+Shareholder information
+Key announcements 2026
+January Fourth quarter 2025 report
+Woodside Releases Annual Reserves Statement
+Woodside Releases Full-Year 2025 Results
+February
+Full-Year 2025 Results Briefing Transcript
+Annual Report 2025 [and US Annual Report 2025 (Form 20-F)]
+Sustainability Briefing 2026
+Liz Westcott Appointed Woodside CEO
+March
+Appointment of Director to Woodside Board
+Woodside assumes control of Beaumont New Ammonia operations
+2026 Annual General Meeting voting results
+April
+First quarter 2026 report
+June Woodside exercises Browse pre-emption right
+July Second quarter 2026 report
+August Half-Year 2026 results
+Events calendar 2026-2027
+Key calendar dates for Woodside shareholders in 2026-2027. Please note dates are subject to review.
+August 25 Half-Year 2026 results
+3 Ex-dividend date for interim dividend (Australian Securities Exchange)
+4 Ex-dividend date for interim dividend (New York Stock Exchange)
+September
+4 Record date for interim dividend
+25 Payment date for interim dividend
+October 21 Third quarter 2026 report
+5 2026 Capital Markets Day (Australia)
+November
+12 2026 Capital Markets Day (United States)
+December 31 Year-end 2026
+January 28 Fourth quarter 2026 report
+February 23 2026 Annual Report
+Business directory
+Registered office: Postal address:
+Woodside Energy Group Ltd GPO Box D188
+Mia Yellagonga Perth WA 6840
+11 Mount Street Australia
+Perth WA 6000
+Australia T: ‘+61 8 9348 4000
+Investor enquiries
+Investors seeking information on the company should contact Investor Relations at:
+Postal address:
+Investor Relations T: ‘+61 8 9348 4000
+GPO Box D188 E: investor@woodside.com
+Perth WA 6840 W: woodside.com
+Australia
+Share registry enquiries
+Investors seeking information about their shareholding should contact the company’s share registry:
+47 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 48
+Registered office: Postal address:
+Computershare Investor Services Pty Limited GPO Box D182
+Level 17 Perth WA 6840
+221 St Georges Terrace
+Perth WA 6000 T: 1300 558 507 (within Australia)
+‘+61 3 9415 4632 (outside Australia)
+E: web.queries@computershare.com.au
+W: investorcentre.com/wds
+The share registry can assist with queries on share transfers, dividend payments, the dividend reinvestment plan,
+notification of tax file numbers and changes of name, address or bank account details.
+Details of shareholdings can be checked by visiting the share registry website at www.investorcentre.com/wds.
+Details of the authorised depositary bank for Woodside’s American Depositary Receipt programme can be found on the
+website.
+48 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 49
+Assets
+Producing facilities
+Australia
+Asset Role Equity Product
+Pluto LNG Operator 90 % LNG, pipeline gas and condensate
+North West Shelf1 Operator 33.33 % LNG, pipeline gas, condensate and NGLs
+Wheatstone1 Non-operator 13 %
+LNG, pipeline gas and condensate
+Julimar-Brunello Operator 65 %
+Okha FPSO1 Operator 50 % Crude oil
+Ngujima-Yin FPSO Operator 60 % Crude oil
+Bass Strait Operator2 32.5—50% Pipeline gas, condensate and NGLs
+Pyrenees FPSO Operator 40—71.4% Crude oil
+Macedon Operator 71.4 % Pipeline gas
+1. In December 2024, Woodside entered into an asset swap with Chevron, refer to “Woodside simplifies portfolio and unlocks long-term value” announced 19 December
+2024 for details.
+2. Subsequent to the period, Woodside assumed operatorship of the Bass Strait assets. Refer to “Woodside completes Gippsland Basin operatorship transition”
+announced on 1 July 2026.
+International
+Asset Role Equity Product
+Sangomar Operator 82 % Crude oil
+Greater Shenzi Operator 72 % Crude oil, pipeline gas, condensate and NGLs
+Atlantis Non-operator 44 % Crude oil, pipeline gas, condensate and NGLs
+Mad Dog Non-operator 23.9 % Crude oil, pipeline gas, condensate and NGLs
+Beaumont New Ammonia Operator 100 % Ammonia
+49 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 50
+Projects
+Post FID
+Asset Role Equity Product
+Scarborough Operator 74.9% LNG and pipeline gas
+Pluto Train 2 Operator 51.0% LNG and pipeline gas
+Trion Operator 60.0% Crude oil
+Louisiana LNG LLC Operator 90.0% LNG
+Louisiana LNG Infrastructure LLC Operator 60.0% LNG
+Hydrogen Refueller@H2Perth Operator 100% Hydrogen
+Developments
+Asset Role Equity Product
+Calypso Operator 70% Gas
+Browse Operator 30.60%1 LNG, pipeline gas and condensate
+Greater Scarborough2 Operator 100% Gas
+Liard Non-operator 50% Gas
+Sunrise Operator 33.44% LNG, pipeline gas and condensate
+1. In June 2026, Woodside pre-empted the sale of CNPC’s stake in Browse. Refer to “Woodside exercises Browse pre-emption right” announced 12 June 2026 for
+details.
+2. “Greater Scarborough” includes the Jupiter and Thebe fields.
+New energy opportunities1
+Asset Role Equity Product
+H2Perth Operator 100% Hydrogen
+NeoSmelt Non-operator 20% Iron
+Woodside Solar2 Proponent 100% Solar energy
+1. Subject to a final investment decision and regulatory approvals. Excludes acquisitions subsequent to the period.
+2. Solar generation, battery services and transmission access and services will be supplied to Woodside under contracts with third parties.
+50 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 51
+Greenhouse gas assessment permits
+Country Permit Role Joint venture Comment
+Located in the Bonaparte Basin off
+Bonaparte CCS
+G-7-AP Non-operator the north-west coast of the
+Assessment Joint Venture
+Northern Territory
+For carbon capture and storage
+G-8-AP Operator Browse Joint Venture
+evaluation for Browse
+Located in the Northern Carnarvon
+G-10-AP Operator Angel CCS Joint Venture1 basin off the north-west coast of
+Australia
+Western Australia
+Greenhouse Gas Located in the Northern Carnarvon
+G-18-AP Non-operator Assessment Permit G-18- Basin off the north-west coast of
+AP Joint Venture Western Australia
+Gippsland Basin Joint Located in the Gippsland Basin off
+G-19-AP Operator2
+Venture the coast of Victoria
+1. In December 2024, Woodside entered into an asset swap with Chevron, refer to “Woodside simplifies portfolio and unlocks long-term value” announced 19 December
+2024 for details.
+2. Subsequent to the period, Woodside assumed operatorship of the Bass Strait assets. Refer to “Woodside completes Gippsland Basin operatorship transition”
+announced on 1 July 2026.
+51 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 52
+Exploration
+Country Permit Role Equity Product
+Asia - Pacific
+WA-404-P Operator 100% Gas prone basin
+Australia WA-550-P Operator 100% Gas prone basin
+WA-554-P Operator 100% Gas prone basin
+Europe
+100% - Exit
+Ireland FEL 5/13 Operator Oil or gas prone basin
+initiated
+Africa
+Tiba Block Non-operator 40% Oil and gas prone basin
+Egypt
+North EI Dabaa Offshore (Block 4) Non-operator 27% Oil or gas prone basin
+Caribbean
+60% - Exit
+Barbados Bimshire Oil or gas prone basin
+initiated
+North America
+EB 550, EB 594, EB 636, EB 637, EB 638,
+GB 721, GB 780, GB 821, GB 824, GB 825,
+GB 866, KC 259, KC 297, KC 301, KC 343,
+Operator 100% Oil prone basin
+KC 431, KC 859, KC 903, KC 904, KC 905,
+KC 948, KC 949, WR 577, WR 751, WR
+795, WR 796
+WR 443, WR 444, WR 488 Operator 80% Oil prone basin
+GC 124 Operator 75% Oil prone basin
+United States
+EB 699, AC 36, AC 80 Operator 70% Oil prone basin
+GC 282, GC 237 Non-operator 50% Oil prone basin
+AC 125, AC 126, AC 81 Operator 45% Oil prone basin
+GC 598 Non-operator 40% Oil prone basin
+AT 453 Non-operator 30% Oil prone basin
+GC 870 Non-operator 24% Oil prone basin
+GC 680, GC 723, GC 724, GC 679, GC 768 Non-operator 18% Oil prone basin
+52 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 53
+Alternative Performance Measures
+Woodside uses various alternative performance measures (APM) which are non-IFRS measures that are unaudited but derived from
+the Half-Year Financial Statements. Although certain non-IFRS data has been extracted or derived from the Half-Year financial
+statements, this data has not been audited or reviewed by Woodside’s independent auditors. These measures are presented to
+provide further insight into Woodside’s performance. See Non-IFRS Measures on page 63 for more information.
+APMs and their nearest respective IFRS measure.
+APMs derived from the condensed consolidated income statement and other notes 30 June 2026 30 June 2025
+US$m US$m
+EBIT/EBITDA excluding impairment
+Net profit after tax 1,673 1,330
+Adjusted for:
+Finance income (123) (106)
+Finance costs 245 169
+PRRT expense/(benefit) (305) 71
+Income tax expense 667 353
+EBIT 2,157 1,817
+Adjusted for:
+Property, plant and equipment depreciation 2,209 2,541
+Amortisation of licence acquisition costs 4 3
+Amortisation of intangible assets 10 11
+Depreciation of lease assets 89 85
+Impairment losses 178 143
+EBITDA excluding impairment 4,647 4,600
+Underlying NPAT
+Net profit after tax attributable to equity holders of the parent 1,672 1,316
+Adjusted for the following exceptional items:
+Less: Pluto DTA recognition (417) —
+Less: USA DTA recognition (90) —
+Add: Impairment loss (post-tax) 169 113
+Less: Louisiana DTA recognition — (182)
+Underlying NPAT 1,334 1,247
+Average realised price1
+Adjusted revenue from sale of products2 7,381 6,468
+Sales volumes (MMboe) 99.8 104.8
+Average realised price (US$ per boe) 74.0 61.7
+Unit production cost3
+Production costs 749 667
+Production (reserves) volumes (MMboe)4 85.0 98.6
+Unit production cost (US$ per boe) 8.8 6.8
+1. 2025 sales volumes have been restated to include additional volumes of 0.19 MMboe to reflect pipeline gas volumes sold in MMBtu at a revised boe conversion factor, impacting realised price by
+($0.1)/boe
+2. Adjusted revenue from sale of products comprises of revenue from sale of products of $7,356 million and provisional price adjustments of $25 million, which is included in other income (refer to
+Note A.1).
+3. The calculation has been updated to exclude feed gas, services and processing costs and processing volumes. The 2025 comparative has been restated to be presented on the same basis.
+4. 2026 Includes production volumes of 86.5 MMboe, adjusted for processing volumes of 1.5 MMboe.
+53 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 54
+APMs derived from the condensed consolidated statement of cash flows and other
+30 June 2026 30 June 2025
+notes
+US$m US$m
+Free cash flow
+Net cash from operating activities 3,013 3,339
+Net cash used in investing activities (4,286) (4,937)
+Adjusted for:
+Contributions from/(to) NCI 1,737 1,843
+Lease repayments (112) (109)
+Free cash flow1 352 136
+Liquidity
+Cash and cash equivalents 4,339 4,880
+Add: Available undrawn facilities 3,850 3,550
+Liquidity 8,189 8,430
+1. The 2026 calculation has been updated to adjust for contributions from/(to) NCI and lease repayments. The 2025 comparative has been restated to be presented on the same basis.
+54 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 55
+APMs derived from the condensed consolidated statement of financial
+30 June 2026 30 June 2025
+position and other notes
+US$m US$m
+Capital expenditure
+Capital additions on evaluation 24 29
+Capital additions on property, plant and equipment 3,243 4,372
+Less: Cash contributions from participants (1,725) (1,870)
+Capital additions on other 95 27
+Capital expenditure 1,637 2,558
+Acquisitions 470 —
+Capital expenditure and acquisitions 2,107 2,558
+Exploration expenditure
+Exploration and evaluation expenditure 104 84
+Adjusted for:
+Evaluation expenditure (22) (2)
+Amortisation expense (4) (3)
+Prior year expense written off (1) —
+Exploration capitalised 42 5
+Exploration expenditure1 119 84
+Capital and exploration expenditure1 1,756 2,642
+Net tangible assets per ordinary security
+Net assets 41,724 38,507
+Adjusted for:
+Goodwill (3,952) (3,952)
+Non-controlling interest (5,673) (2,868)
+Other intangible assets (904) (939)
+Net tangible assets 31,195 30,748
+Number of issued and fully paid shares 1,901,100,143 1,898,749,771
+Net tangible assets per ordinary security (US$ per ordinary security) 16.41 16.19
+Gearing
+Interest-bearing liabilities (Current and non-current) 11,370 11,954
+Lease liabilities (Current and non-current) 2,298 1,583
+Adjusted for:
+Cash and cash equivalents (4,339) (4,880)
+Net debt 9,329 8,657
+Equity attributable to equity holders of the parent 36,051 35,639
+Total net debt and equity attributable to equity holders of the parent 45,380 44,296
+Gearing (%) 20.6% 19.5%
+1. The 2026 calculation has been updated to adjust for evaluation expenditure. The 2025 comparative has been restated to be presented on the same basis.
+55 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 56
+APMs derived from the condensed consolidated income statement and
+30 June 2026 30 June 2025
+statement of financial position
+US$m US$m
+Annualised return on equity
+Annualised net profit after tax attributable to equity holders of the parent 3,344 2,632
+Equity attributable to equity holders of the parent 36,051 35,639
+Annualised return on equity (%) 9.3% 7.4%
+Annualised return on average capital employed
+Annualised profit before tax and net finance costs 4,314 3,634
+Opening non-current liabilities 21,241 19,254
+Closing non-current liabilities 20,777 21,828
+Average non-current liabilities 21,009 20,541
+Opening equity 39,843 36,153
+Closing equity 41,724 38,507
+Average equity1 40,784 37,330
+Total average non-current liabilities and equity 61,793 57,871
+Annualised return on average capital employed (%) 7.0% 6.3%
+APMs derived from other notes 30 June 2026 30 June 2025
+US$m US$m
+Revenue from sale of products (excluding marketing segment) 6,376 5,924
+Cash margin (excluding marketing segment)
+Gross profit 2,684 2,344
+Adjusted for:
+Other 19 15
+Property, plant and equipment depreciation 2,209 2,541
+Other revenue 13 (100)
+Cash margin (excluding marketing segment) 4,925 4,800
+Cash margin % 77.2% 81.0%
+Production costs (excluding marketing segment)2 749 667
+Production cost margin % 11.7% 11.3%
+Other cash costs (excluding marketing segment):
+Feed gas, services and processing costs2 238 92
+Royalties, excise and levies 143 156
+Insurance 33 37
+Inventory movement 54 1
+Shipping and direct sales costs 123 77
+Trading costs 101 88
+Other hydrocarbon costs 10 6
+Total other cash costs (excluding marketing segment) 702 457
+Other cash cost margin % 11.0% 7.7%
+1. The calculation has been updated to use total equity rather than equity attributable to equity holders of the parent. The 2025 comparative has been restated to be presented on the same basis.
+2. Production costs has been updated to exclude and present feed gas, services and processing costs separately. The 2025 comparative has been restated to be presented on the same basis.
+56 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 57
+Notes
+Glossary
+Term Definition
+$, $m US dollars unless otherwise stated, millions of dollars
+1P Proved reserves
+2C Best Estimate of Contingent resources
+2P Proved plus Probable reserves
+Abate/abatement Avoidance, reduction or removal of an amount of carbon dioxide or equivalent
+Aim Woodside uses this term to describe a result that plans or actions are intended to achieve
+Woodside uses this term to describe an aspiration to seek the achievement of an outcome but where achievement of the outcome is
+Aspiration subject to material uncertainties and contingencies such that Woodside considers there is not yet a suitable defined plan or pathway to
+achieve that outcome
+ASX Australian Securities Exchange
+Average realised price Revenue from sale of products and provisional pricing adjustments ($ million) divided by sales volume (MMboe)
+A$, AUD Australian dollars
+Biological diversity means the variability among living organisms from all sources including, inter alia, terrestrial, marine and
+Biodiversity other aquatic ecosystems and the ecological complexes of which they are a part; this includes diversity within species,
+between species and of ecosystems1
+Board The Board of Directors of Woodside Energy Group Ltd
+Brent Intercontinental Exchange (ICE) Brent Crude deliverable futures contract (oil price)
+Capital additions on property, plant and equipment and evaluation capitalised. Excludes exploration capitalised and adjusted for the
+Capital expenditure
+capital contribution from partners for the development of Louisiana LNG
+Capital expenditure and
+Includes capital expenditure and acquisition consideration.
+acquisitions
+A tradeable financial instrument that is issued by a carbon-crediting program. A carbon credit represents a greenhouse gas
+emission reduction to, or removal from, the atmosphere equivalent to 1 tCO2-e, calculated as the difference in emissions from
+Carbon credit
+a baseline scenario to a project scenario. Carbon credits are uniquely serialised, issued, tracked and retired or administratively
+cancelled by means of an electronic registry operated by an administrative body, such as a carbon-crediting program
+Gross profit/loss adjusted for other cost of sales, property, plant and equipment depreciation and amortisation and other revenue.
+Cash margin Excludes the marketing segment. Cash margin % is calculated as cash margin divided by revenue from sale of products (excluding
+marketing segment)
+CCS Carbon capture and storage
+CCUS Carbon capture utilisation and storage
+CO Carbon dioxide
+2
+CO equivalent. The universal unit of measurement to indicate the global warming potential of each of the seven greenhouse
+2
+CO-e gases, expressed in terms of the global warming potential of one unit of carbon dioxide. It is used to evaluate releasing (or
+2
+avoiding releasing) any greenhouse gas against a common basis2
+Condensate Hydrocarbons that are gaseous in a reservoir but that condense to form liquids as they rise to the surface
+cps Cents per share
+DTA Deferred tax asset
+DRP Dividend reinvestment plan
+EBIT Calculated as profit before income tax, PRRT and net finance costs
+EBITDA excluding Calculated as profit before income tax, PRRT, net finance costs, depreciation and amortisation, impairment losses,
+impairment impairment reversals
+Emissions Emissions refers to emissions of greenhouse gases unless otherwise stated
+EPS Earnings per share
+Includes exploration and evaluation expenditure less evaluation expenditure, amortisation of licence acquisition costs, prior year
+Exploration expenditure
+exploration expense written off and exploration capitalised.
+FEED Front-end engineering design
+FID Final investment decision
+FPSO Floating production storage and offloading
+FPU Floating production unit
+Net cash flow from/(used in) operating activities and net cash flow from/(used in) investing activities, adjusted for the capital
+Free cash flow
+contribution from/(to) non-controlling interests and lease repayments.
+Gearing Net debt divided by the total of net debt and equity attributable to equity holders of the parent
+The seven greenhouse gases listed in the Kyoto Protocol are: carbon dioxide (CO2); methane (CH4); nitrous oxide (N2O);
+GHG or greenhouse gas
+hydrofluorocarbons (HFCs); nitrogen trifluoride (NF3); perfluorocarbons (PFCs); and sulphur hexafluoride (SF6)
+Goal Woodside uses this term to broadly encompass its targets and aspirations
+Gross profit divided by operating revenue. Gross profit excludes income tax, PRRT, net finance costs, other income and other
+Gross margin
+expenses
+1 UNEP, 1992. “Convention on Biological Diversity’ https://www.cbd.int/doc/legal/cbd-en.pdf.
+2 See IFRS Foundation 2021: Climate Related Disclosures Prototype. Appendix A. The IFRS published a further consultation document subsequent to the 2021 prototype.
+As it did not contain an updated definition of Paris-Aligned scenarios Woodside has retained use of the previous edition.
+57 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 58
+H1, H2 Halves of the calendar year (H1 is 1 January to 30 June and H2 is 1 July to 31 December)
+A high-consequence injury is a work-related injury that results in a fatality or permanent impairment injury. Woodside’s definition for
+HCI has changed in 2025 to align with the IOGP Fatality and Permanent Impairment definition. This definition was adopted to focus
+High consequence injury attention on the highest risks to people. In the previous reporting period, the HCI definition included long-term disabling injuries (i.e
+where the person will make a full recovery, but recovery exceeds 180 days) in HCI statistics which focused disproportionate effort
+towards injury management, access to treatment and privacy issues3
+IFRS International Financial Reporting Standards. For more information see www.ifrs.org.
+There is diversity within the Indigenous communities in the areas where we are active. When communicating with wide audience.
+Woodside uses the term “Indigenous Peoples” to refer to Traditional Owners and Traditional Custodians. At a local level, Woodside will
+be guided by the community about the appropriate terms of reference. Following internal and external stakeholder feedback, Woodside
+Indigenous Peoples
+has updated our reference from First Nations to Indigenous Peoples because First Nations is not a globally accepted or widely used term
+beyond Australia. Indigenous Peoples aligns with the United Nations Declaration on the Rights of Indigenous Peoples (UNDRIP) language
+and is the recognised collective term in international law
+JV Joint venture
+KGP Karratha Gas Plant
+Liquidity Total cash and cash equivalents and available undrawn debt facilities less restricted cash
+LNG Liquefied natural gas
+Woodside uses this term to describe the characteristic of having lower levels of associated potential GHG emissions when
+Lower-carbon compared to historical and/or current conventions or analogues, for example relating to an otherwise similar resource,
+process, production facility, product or service, or activity
+Lower-carbon ammonia is characterised here by the use of hydrogen with emissions abated by carbon, capture, and storage
+(CCS), with an expected ammonia lifecycle (Scope 1, 2 and 3) carbon emissions intensity of 0.8 tCO2/tNH3 (based on
+Lower-carbon ammonia
+contracted intensity threshold with Linde) relative to unabated ammonia with a lifecycle (Scope 1, 2 and 3) carbon emissions
+intensity of 2.3 tCO2/tNH3 (Hydrogen Europe, 2023)
+For Woodside, a lower-carbon portfolio is one from which the net equity Scope 1 and 2 greenhouse gas emissions, which
+includes the use of offsets, are being reduced towards targets, and into which new energy products and lower-carbon services
+Lower-carbon portfolio
+are planned to be introduced as a complement to existing and new investments in oil and gas. Our Climate Policy sets out the
+principles that we believe will assist us achieve this aim
+Woodside uses this term to describe technologies, such as CCUS or offsets that could be used by customers to reduce their
+Lower-carbon services
+net greenhouse gas emissions
+Major Project Status Major Project Status is the Australian Government’s recognition of a project’s national strategic importance
+For the purposes of Woodside's 2026 sustainability disclosures we determine which topics are material. For these purposes, “material
+topic” means a 2026 sustainability topic, determined as part of the 2025 materiality assessment process undertaken by Woodside.
+Material Topic Classification of any topic as material through our materiality assessment process should not be read as a determination of whether that
+topic rises to the level of materiality of disclosure required by law, including the laws of Australia, and the US. However where applicable
+laws require the disclosure of risks that meet certain thresholds, Woodside has disclosed those risks.
+Net debt Interest-bearing liabilities and lease liabilities less cash and cash equivalents
+Net equity greenhouse
+Woodside’s equity share of net greenhouse gas emissions which includes the utilisation of carbon credits as offsets
+gas emissions
+Woodside has set its Scope 1 and 2 greenhouse gas emissions reduction target on a net basis, allowing for both direct emissions
+Net greenhouse gas reductions from its operations and emissions reduction achieved from the utilisation of carbon credits as offsets (including credits
+emissions relating to avoidance, reduction and/or removal activities). Net greenhouse gas emissions are equal to an entity’s gross greenhouse gas
+emissions reduced by the number of retired carbon credits.4
+Net profit attributable to
+equity holders of the Net profit after tax excluding non-controlling interests from the Group’s operations
+parent
+Net tangible assets The Group’s net assets less goodwill, non-controlling interest and other intangible assets
+Net tangible assets per
+Net tangible assets divided by the number of issued and fully paid shares
+ordinary security
+Woodside uses this term to describe energy technologies, such as hydrogen or ammonia, that are emerging in scale but
+New energy which are expected to grow during the energy transition due to having lower greenhouse gas emissions at the point of use
+than conventional fossil fuels
+NGLs Natural gas liquids
+NH Ammonia
+3
+NPAT Net profit after tax attributable to equity holders of the parent
+NWS North West Shelf
+NYSE New York Stock Exchange
+The compensation for an entity’s greenhouse gas emissions within its scope by achieving an equivalent amount of emission
+Offsets
+reductions or removals outside the boundary or value chain of that entity
+Oil and gas joint venture participants will typically appoint one company as the operator, which will hold the contractual authority to
+Operator, Operated and manage joint venture activities on behalf of the joint venture participants. Where Woodside is the operator of a joint venture in which it
+non-operated holds an equity share, this report refers to that joint venture as being operated. Where another company is the operator of a joint
+venture in which Woodside holds an equity share, this report refers to that joint venture as being non-operated
+Other cash costs include feed gas, services and processing costs; royalties, excise and levies; insurance; inventory movement; shipping
+Other cash cost margin and direct sales costs; trading costs; and other hydrocarbon costs. Excludes the marketing segment. Other cash cost margin % is
+calculated as other cash costs divided by revenue from sale of products (excluding marketing segment)
+Production cost margin Production cost margin % is calculated as production costs divided by revenue from sale of products. Excludes the marketing segment
+3 IOGP Fatality and Permanent Impairment injury definitions | IOGP
+4 Australian Clean Energy Regulator, 2023. “Corporate Emissions Reduction Transparency report 2023” https://cer.gov.au/markets/reports-and-data/corporate-
+emissions-reduction-transparency-report/corporate-emissions-reduction-transparency-report-2023/cert-report-2023-glossary
+58 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 59
+PRRT Petroleum resources rent tax
+PSC Production sharing contract
+Return on average
+Annualised profit before tax and net finance costs divided by total average non-current liabilities and total equity
+capital employed
+Return on equity Annualised net profit after tax attributable to equity holder of the parent divided by equity attributable to equity holders of the parent
+Revenue from ordinary
+Revenue from the sale of products, processing and services revenue and shipping and other revenue
+activities
+Direct greenhouse gas emissions. These occur from sources that are owned or controlled by the company, for example, emissions from
+combustion in owned or controlled boilers, furnaces, vehicles, etc.; emissions from chemical production in owned or controlled
+Scope 1 greenhouse gas process equipment. Woodside estimates greenhouse gas emissions, energy values and global warming potentials are
+emissions estimated in accordance with the relevant reporting regulations in the jurisdiction where the emissions occur (e.g. Australian
+national Greenhouse and Energy Reporting (nGER), US EPA Greenhouse Gas Reporting Program (GHGRP)). Australian
+regulatory reporting principles have been used for emissions in jurisdictions where regulations do not yet exist5
+Electricity indirect greenhouse gas emissions. Scope 2 accounts for GHG emissions from the generation of purchased electricity
+consumed by the company. Purchased electricity is defined as electricity that is purchased or otherwise brought into the
+organisational boundary of the company. Scope 2 emissions physically occur at the facility where electricity is generated.
+Scope 2 greenhouse gas
+Woodside estimates greenhouse gas emissions, energy values and global warming potentials are estimated in accordance
+emissions
+with the relevant reporting regulations in the jurisdiction where the emissions occur (e.g. Australian national Greenhouse and
+Energy Reporting (nGER), US EPA Greenhouse Gas Reporting Program (GHGRP)). Australian regulatory reporting principles
+have been used for emissions in jurisdictions where regulations do not yet exist5
+Other indirect greenhouse gas emissions. Scope 3 is a reporting category that allows for the treatment of all other indirect emissions.
+Scope 3 emissions are a consequence of the activities of the company but occur from sources not owned or controlled by the
+Scope 3 greenhouse gas
+company. Some examples of Scope 3 activities are extraction and production of purchased materials; transportation of
+emissions
+purchased fuels; and use of sold products and services. Please refer to the Climate data table on our website for further information on
+the Scope 3 emissions categories reported by Woodside5
+Woodside uses a starting base of 6.22 Mt CO2-e which is representative of the gross annual average equity Scope 1 and 2 greenhouse
+Starting base gas emissions over 2016-2020 and which may be adjusted (up or down) for potential equity changes in producing or sanctioned assets
+with a final investment decision prior to 2021. Net equity emissions include the utilisation of carbon credits as offsets
+References to sustainability (including sustainable and sustainably) are used with reference to Woodside’s Sustainability
+Committee and sustainability related Board policies, as well as in the context of Woodside’s aim to ensure its business is
+sustainable from a long-term perspective, considering a range of factors including economic (including being able to sustain
+Sustainability (including
+our business in the long term by being low cost and profitable), environmental (including considering our environmental impact
+sustainable and
+and striving for a lower carbon portfolio), social (including supporting our license to operate), and regulatory (including ongoing
+sustainably)
+compliance with relevant legal obligations). Use of the terms ‘sustainability’, ‘sustainable’ and ‘sustainably’ is not intended to
+imply that Woodside will have no adverse impact on the economy, environment, or society, or that Woodside will achieve any
+particular economic, environmental, or social outcomes
+Woodside uses this term to describe an intention to seek the achievement of an outcome, where Woodside considers that it
+Target
+has developed a suitably defined plan or pathway to achieve that outcome
+Tier 1 process safety
+A typical Tier 1 process safety event is loss of containment of hydrocarbons greater than 500 kg (in any one-hour period)
+event
+Tier 2 process safety A typical Tier 2 process safety event is loss of containment of hydrocarbons greater than 50 kg but less than 500 kg (in any
+event one-hour period)
+A person or group responsible for maintaining and passing on cultural knowledge and practices for a culturally defined area of land or
+Traditional Custodian
+sea
+Traditional Owner An Indigenous person or group directly descended from the original inhabitants of a culturally defined area of land or sea
+TTF Title transfer facility
+Underlying NPAT Net profit after tax from the Group’s operations excluding any exceptional items
+Unit production cost or
+Production costs excluding feed gas, services and processing costs ($ million) divided by reserves production volume (MMboe)
+UPC
+US, USA United States of America
+USD US dollars
+WA Western Australia
+5 World Resources Institute and World Business Council for Sustainable Development 2004. “GHG Protocol: a corporate accounting and reporting standard”.
+59 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 60
+Conversion factors
+Product Unit Conversion factor
+Natural gas 5,700 scf 1 boe
+Condensate 1 bbl 1 boe
+Oil 1 bbl 1 boe
+Natural gas liquids 1 bbl 1 boe
+Ammonia 1 metric tonne 3.68 boe
+Facility Unit LNG conversion factor
+Karratha Gas Plant 1 tonne 8.08 boe
+Pluto LNG Gas Plant 1 tonne 8.34 boe
+Wheatstone 1 tonne 8.27 boe
+The LNG conversion factor from tonne to boe is specific to volumes produced at each facility and is based on gas composition which
+may change over time.
+60 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 61
+Units of measure
+Term Definition
+bbl barrel
+bcf billion cubic feet of gas
+boe barrel of oil equivalent
+GJ gigajoule
+kT thousand metric tonnes
+Mbbl thousand barrels
+MMbbl million barrels
+Mbbl/d thousand barrels per day
+Mboe thousand barrels of oil equivalent
+Mboe/d thousand barrels of oil equivalent per day
+MMboe million barrels of oil equivalent
+MMscf million standard cubic feet of gas
+MMscf/d million standard cubic feet of gas per day
+Mtpa million tonnes per annum
+PJ petajoules
+scf standard cubic feet of gas
+TJ terajoule
+61 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 62
+About this report
+This Half-Year Report 2026 is a summary of Woodside’s operations, activities and financial position as at 30 June 2026.
+Woodside Energy Group Ltd (ABN 55 004 898 962) is the parent company of the Woodside group of companies. In this
+report, unless otherwise stated, references to ‘Woodside’, ‘the company’, ‘the Group’, ‘we’, ‘us’ and ‘our’ refer to
+Woodside Energy Group Ltd and its controlled entities as a whole. The text does not distinguish between the activities
+of the parent company and those of its controlled entities, unless otherwise stated.
+References to ‘H1’ refer to the first half of the year, i.e. the period between 1 January 2026 and 30 June 2026. All dollar
+figures are expressed in US currency unless otherwise stated. Production and sales volumes, reserves and resources
+are quoted as Woodside share. A glossary of key terms, units of measure and conversion factors is on pages 57 – 61.
+This report should be read in conjunction with the Annual Report 2025 and, in respect of climate and sustainability
+matters, the 2025 Climate and Sustainability Summary, the Climate Transition Action Plan and 2023 Progress Report
+available at woodside.com.
+Forward looking statements
+This report contains forward-looking statements. These statements may relate to Woodside’s business, goals, targets,
+aspirations, plans, expectations, market conditions, results of operations and financial condition, including, but not
+limited to, statements regarding the timing, completion and outcomes of transactions, construction costs and capital
+expenditures, supply and demand for Woodside’s products, development, completion and execution of Woodside’s
+projects, the expected benefits, cash flows and rates of return or other future results of investments, strategies and
+transactions, the payment of future dividends and the amount thereof, future results of projects, operating activities
+and new energy products, expectations and plans for renewables production capacity and investments in, and
+development of, renewables projects, expectations and guidance with respect to production, production costs and
+other costs, capital expenditure, abandonment expenditure, exploration expenditure and gas hub exposure, trends in
+commodity prices and currency exchange rates, adoption and implementation of new technologies and expectations
+regarding the achievement of Woodside’s Scope 1 and 2 greenhouse gas emissions target (on a net equity or gross
+equity basis as specified) and other climate and sustainability goals.
+All statements, other than statements of historical or present facts, are forward-looking statements and generally may
+be identified by the use of forward-looking words such as “aim”, “anticipate”, “aspire”, “believe”, “enable”, “estimate”,
+“expect”, “forecast”, “foresee”, “guidance”, “intend”, “likely”, “may”, “objective”, “outlook”, “pathway”, “plan”,
+“position”, “potential”, “project”, “schedule”, “seek” “should”, “strategy”, “strive”, “target”, “will” and other similar
+words or expressions.
+Forward-looking statements in this report are not guarantees of future events or performance, but are in the nature of
+future expectations that are based on management’s current expectations and assumptions.
+Those statements and any assumptions on which they are based are subject to change without notice and are subject
+to inherent known and unknown risks, uncertainties, contingencies and other factors, many of which are beyond the
+control of Woodside, its related bodies corporate and their respective officers, directors, employees, advisers or
+representatives.
+Important factors that could cause actual results to differ materially from those in the forward-looking statements and
+the assumptions on which they are based include, but are not limited to, fluctuations in commodity prices, actual
+demand for Woodside products, currency fluctuations, geotechnical factors, drilling and production results, gas
+commercialisation, development progress, operating results, engineering estimates, reserve and resource estimates,
+loss of market, industry competition, pace of technology developments, sustainability and environmental risks, climate
+related transition and physical risks, safety and personnel risks, changes in accounting standards, economic and
+financial markets conditions in various countries and regions, the actions of third parties, project delay or
+advancement, regulatory approvals, political risks and the impact of armed conflict and political instability (such as the
+ongoing conflicts in Ukraine and in the Middle East) on economic activity and oil and gas supply and demand, cost
+estimates, legislative, fiscal and regulatory developments, including those related to the imposition of tariffs and other
+trade restrictions, and the effect of future regulatory or legislative actions on Woodside or the industries in which it
+operates, including potential changes to tax laws, the impact of general economic conditions, inflationary conditions,
+prevailing exchange rates and interest rates and conditions in financial markets, and risks associated with
+acquisitions, mergers, divestitures and joint ventures, including difficulties integrating or separating businesses,
+uncertainty associated with financial projections, restructuring, increased costs and adverse tax consequences, and
+uncertainties and liabilities associated with acquired and divested properties and businesses.
+A more detailed summary of the key risks relating to Woodside and its business can be found in the “Risk factors”
+section of Woodside’s most recent Annual Report released to the Australian Securities Exchange and in Woodside’s
+62 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 63
+most recent Annual Report on Form 20-F filed with the United States Securities and Exchange Commission and
+available on the Woodside website at https://www.woodside.com/investors/reports-investor-briefings. You should
+review and have regard to these risks when considering the information contained in this report.
+If any of the assumptions on which a forward-looking statement is based were to change or be found to be incorrect,
+this would likely cause outcomes to differ from the statements made in this report.
+Investors are strongly cautioned that forward-looking statements are subject to significant uncertainties and may not
+prove to be correct. Actual results or performance may vary materially from those expressed in, or implied by, any
+forward-looking statements. None of Woodside nor any of its related bodies corporate, nor any of their respective
+officers, directors, employees, advisers or representatives, nor any person named in this report or involved in the
+preparation of the information in this report, makes any representation, assurance, guarantee or warranty (either
+express or implied) as to the accuracy or likelihood of fulfilment of any forward-looking statement, or any outcomes,
+events or results expressed or implied in any forward-looking statement in this report.
+All forward-looking statements contained in this report reflect Woodside’s views held as at the date of this report and,
+except as required by applicable law, neither Woodside, its related bodies corporate, nor any of their respective
+officers, directors, employees, advisers or representatives nor any person named in this report or involved in the
+preparation of the information in this report intends to, undertakes to, or assumes, any obligation to, provide any
+additional information or update or revise any of these statements after the date of this report, either to make them
+conform to actual results or as a result of new information, future events or results, changes in Woodside’s
+expectations or otherwise.
+Past performance (including historical financial and operational information) is given for illustrative purposes only. It
+is not necessarily, a reliable indicator of future performance, including future security prices.
+Non-IFRS Measures
+Throughout this report, a range of financial and non-financial measures are used to assess Woodside’s performance,
+including a number of financial measures that are not defined in, and have not been prepared in accordance with,
+International Financial Reporting Standards (IFRS) and are not recognised measures of financial performance or
+liquidity under IFRS (Non-IFRS Financial Measures). These measures include EBIT, EBITDA excluding impairment,
+Gearing, Underlying NPAT, Average realised price, Unit production cost, Net debt, Liquidity, Free cash flow, Capital
+expenditure, Exploration expenditure, Return on Equity, Return on average capital employed, Cash margin, Production
+cost margin, Other cash cost margin, Net tangible assets and Net tangible assets per ordinary security. These Non-
+IFRS Financial Measures are defined in the glossary on pages 57 – 59 of this report. A quantitative reconciliation of
+these measures to the most directly comparable financial measure calculated and presented in accordance with IFRS
+can be found in the Alternative Performance Measures section of this report on pages 53 – 56.
+Woodside’s management uses these measures to monitor Woodside’s financial performance alongside IFRS measures
+to improve the comparability of information between reporting periods and business units and Woodside believes that
+the Non-IFRS Financial Measures it presents provide a useful means through which to examine the underlying
+performance of its business.
+Undue reliance should not be placed on the Non-IFRS Financial Measures contained in this report and these Non-IFRS
+Financial Measures should be considered in addition to, and not as a substitute for, or as superior to, measures of
+financial performance, financial position or cash flows reported in accordance with IFRS. Non-IFRS Financial Measures
+are not uniformly defined by all companies, including those in Woodside’s industry. Accordingly, they may not be
+comparable with similarly titled measures and disclosures by other companies.
+Climate strategy and emissions data
+All greenhouse gas emissions data in this report are estimates, due to the inherent uncertainty and limitations in
+measuring or quantifying greenhouse gas emissions, and our methodologies for measuring or quantifying greenhouse
+gas emissions may evolve as market practices continue to develop and data quality and quantity continue to improve.
+Woodside “greenhouse gas” or “emissions” information reported are Scope 1 GHG emissions, Scope 2 GHG emissions,
+and/or Scope 3 greenhouse emissions, each on a net equity or gross equity basis as specified.
+For more information on Woodside’s climate strategy, including references to ‘lower-carbon’ and ‘lower-carbon
+services’ as part of that strategy, and emissions data, refer to the 2025 Climate and Sustainability Summary, available
+on the Woodside website at https://www.woodside.com/sustainability and section 3.6 of Woodside’s 2025 Annual
+Report.
+63 | Woodside Energy Group Ltd | Half-Year Report 2026
+=== page 64
+No express or implied prices
+This report does not include any express or implied prices at which Woodside will buy or sell financial products.
+Contacts:
+INVESTORS MEDIA REGISTERED ADDRESS
+Woodside Energy Group Ltd
+Vanessa Martin Christine Abbott ACN 004 898 962
+M: ‘+61 477 397 961 M: ‘+61 484 112 469 Mia Yellagonga
+E: investor@woodside.com E: christine.abbott@woodside.com 11 Mount Street
+Perth WA 6000
+Australia
+T +61 8 9348 4000
+www.woodside.com
+This announcement was approved and authorised for release by Woodside’s Disclosure Committee.
+64 | Woodside Energy Group Ltd | Half-Year Report 2026
