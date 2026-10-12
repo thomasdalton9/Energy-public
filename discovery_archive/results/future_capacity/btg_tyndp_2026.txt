@@ -1,0 +1,3044 @@
+         TEN-YEAR
+NETWORK DEVELOPMENT PLAN
+  of BULGARTRANSGAZ EAD
+ FOR THE PERIOD 2026 - 2035
+
+
+
+
+            2026
+TABLE OF CONTENTS:
+DEFINITIONS AND ABBREVIATIONS ................................................................ 3
+INTRODUCTION.................................................................................................. 5
+BULGARTRANSGAZ EAD PROFILE ..................................................................... 6
+DESCRIPTION OF NATURAL GAS TRANSMISSION AND STORAGE
+INFRASTRUCTURE .............................................................................................. 9
+NATURAL GAS MARKET IN THE COUNTRY AND THE REGION....................... 11
+  1. NATURAL GAS MARKET IN BULGARIA ................................................................. 11
+  2. NATURAL GAS MARKET IN THE REGION .............................................................. 19
+NATURAL GAS TRANSPORT AND STORAGE .................................................... 32
+  1. NATURAL GAS TRANSPORT ................................................................................ 32
+  2. CROSS-BORDER NATURAL GAS TRANSPORT........................................................ 33
+  3. NATURAL GAS STORAGE .................................................................................... 35
+SCENARIOS FOR CAPACITY DEMAND AND SOURCES TO COVER THE DEMAND
+IN THE COUNTRY.............................................................................................. 37
+  1. NATURAL GAS DEMAND ..................................................................................... 37
+  2. SOURCES TO MEET THE DOMESTIC DEMAND ...................................................... 38
+  3. FORECAST OF DEMAND FOR NATURAL GAS TRANSPORT SERVICES THROUGH
+     BULGARTRANSGAZ EAD INFRASTRUCTURE ......................................................... 40
+SECURITY OF SUPPLY ...................................................................................... 41
+2026-2035 GAS INFRASTRUCTURE DEVELOPMENT PROJECTS.................... 44
+  1. NATURAL GAS TRANSMISSION AND STORAGE INFRASTRUCTURE DEVELOPMENT
+      PROJECTS IN THE PERIOD 2026 - 2028 FOR WHICH INVESTMENT DECISION HAS
+      BEEN TAKEN ..................................................................................................... 46
+  2. NATURAL GAS TRANSMISSION AND STORAGE DEVELOPMENT INVESTMENTS OVER
+     THE PERIOD 2026 – 2035 UNDER PROJECTS WITH AN INTERNATIONAL DIMENSION
+      …………………………………………………………………………………………………………………….48
+  3    NATURAL GAS TRANSMISSION AND STORAGE INFRASTRUCTURE DEVELOPMENT
+       PROJECTS IN THE PERIOD 2026 - 2035 ON WHICH FINAL INVESTMENT DECISION IS
+       TO BE TAKEN .................................................................................................... 49
+  4. 2026 – 2035 INVESTMENT PROGRAM.................................................................. 50
+  5. DESCRIPTION OF KEY PROJECTS ........................................................................ 51
+DEVELOPMENT OF THE CAPACITY OF BULGARTRANSGAZ EAD GAS
+INFRASTRUCTURE IN THE PERIOD 2026-2030 ............................................. 69
+CONCLUSION .................................................................................................... 70
+SOURCES USED ................................................................................................. 72
+ENCLOSURES:
+  1. DESCRIPTION OF KEY PROJECTS
+  2. MAP
+
+
+
+
+                                                                                                                             2
+                           DEFINITIONS AND ABBREVIATIONS
+
+
+The following definitions and abbreviations are used for the purposes of this document:
+AGRS – Automatic Gas Regulation Station
+BEH – Bulgarian Energy Holding EAD
+GDP – Gross Domestic Product
+VGC– Vertical Gas Corridor
+RES - renewable energy sources
+VTP – Virtual Trading Point
+Gas infrastructure of Bulgartransgaz EAD - gas transmission network infrastructure and
+underground gas storage in Chiren (Chiren UGS), connected to it
+GMS – Gas Metering Station
+GRS – Gas Regulation Station
+GTE - Gas turbine engine
+BGH - Balkan Gas Hub EAD
+Company – Bulgartransgaz EAD is an independent combined gas operator in Bulgaria
+ЕU - European Union
+EA - Energy Act
+EWRC – Energy and Water Regulatory Commission (formerly SEWRC)
+EEC – End Energy Consumption
+CS – Compressor Station
+ME - Ministry of Energy
+m³ or cubic meter – unit of volume which in this document for the purposes of determining
+a natural gas quantity, represents the natural gas quantity in a volume of one cubic meter at
+293.15 K (200C) and absolute pressure of 0.101325 MPa.
+EIA – Environmental Impact Assessment
+PF – Pigging Facility
+PCIs - projects of common interest
+PEC– Primary Energy Consumption
+UGS – Underground Gas Storage
+PCI – Project of Common Interest
+Natural Gas Transmission – transport of natural gas through the gas transmission networks
+owned by Bulgartransgaz EAD
+DSP-PP - Detailed Spatial Plan - Parcelling Plan
+ТАP – Trans-Adriatic Pipeline
+TANAP– Trans-Anatolian Natural Gas Pipeline
+TPP - Thermal Power Plant
+CEF – Connecting Europe Facility
+
+
+                                                                                            3
+CESEC - Central and South Eastern Europe Energy Connectivity - initiative for energy
+connectivity in Central, Eastern and Southeast Europe;
+CINEA - European Climate, Infrastructure and Environment Executive Agency
+ENNOH – European Network of Network Operators for Hydrogen
+ENTSOG – European Network of Transmission System Operators for Gas
+EHB – Еuropean Hydrogen Backbone
+GIE – Gas Infrastructure Europe
+IBS - Interconnection Bulgaria-Serbia
+IEA – International Energy Agency
+IGB - Gas interconnector Greece – Bulgaria
+IP – Interconnection point
+LNG – Liquefied Natural Gas
+MPa – Megapascal (unit of pressure)
+SEEHyC – South-East European Hydrogen Corridor
+STSPs - standardized short-term products
+TBA – To be announced
+W – Watt (unit of power)
+
+
+
+
+                                                                                   4
+                                        INTRODUCTION
+
+Bulgartransgaz EAD Ten-year network development plan has been prepared pursuant to Art.
+81 (d), para. 1 of the Energy Act (EA). The Plan covers the period 2026-2035 and sets out the
+vision for development of the company as an independent transmission operator and storage
+facility operator.
+Тhe vision for development is consistent with the main European, regional and national
+priorities related to ensuring security of natural gas supply, diversification of natural gas supply
+sources and routes and establishing a single free and competitive pan-European gas market,
+as well as supporting the decarbonisation of economy and implementation of European Union
+(EU) policies in the field of climate and environment.
+The priority projects and activities of Bulgartransgaz EAD for the period 2026-2035 aim at
+development, modernization and expansion of the natural gas transmission and storage
+infrastructure. Their implementation will strengthen Bulgaria's strategic role in the region,
+contribute to increase of diversification and security of supplies, and create conditions for
+expansion of gasification, as well as support of decarbonisation processes of the energy sector
+and economy.
+In line with the objectives to reduce carbon emissions, Bulgartransgaz EAD plans projects in
+the field of hydrogen for construction of completely new infrastructure for transport of pure
+hydrogen and retrofitting of the existing gas transmission network for transport of hydrogen-
+gas mixtures.
+The Ten-Year Plan aims to to ensure maximum transparency and awareness of the future
+development prospects and the Company projects. The document analyses the trends and
+factors that justify the need for the planned investments, as well as the indicative periods for
+their implementation. That provides support to market participants and facilitates making long-
+term investment decisions.
+The implementation of the investment strategy set in the Plan will create favourable conditions
+in support of diversification of the sources and routes for natural gas supply and for expansion
+of its use in the country and the region, bringing significant economic, social and environmental
+benefits.
+The envisaged investments will foster the development of a competitive and efficient gas
+market, ensuring greater supply and opportunities for market participants. This in turn will
+promote price efficiency and contribute to development of a liquid and sustainable natural gas
+market.
+In order to ensure transparency and balance between the interests of the TSO and the market
+participants, the Ten-year plan is subject to public consultation enabling synchronization of the
+interrelationships between Bulgartransgaz EAD projects and the development plans of the
+stakeholders.
+The national ten-year plans for network development of transmission operators serve as basis
+for drawing up of the EU Community-wide network development plans, developed by the
+European Network of Transmission System Operators for Gas (ENTSOG).
+
+
+
+
+                                                                                                   5
+                            BULGARTRANSGAZ EAD PROFILE
+
+
+
+
+                             Compressor Station Nova Provadia
+
+Bulgartransgaz EAD is a sole owner joint stock company, registered on 15 January 2007 by
+Decision of Sofia City Court. The sole owner of company's capital is Bulgarian Energy Holding
+EAD with the Ministry of Energy (ME) as principal.
+By virtue of Decision of the Energy and Water Regulatory Commission (EWRC), Bulgartransgaz
+EAD is certified independent transmission operator in the Republic of Bulgaria in line with the
+requirements of Directive 2009/73/ЕC concerning the common rules for the internal market in
+natural gas, Regulation (ЕC) No 715/2009 on the conditions for access to the natural gas
+transmission networks and Chapter Eight, (а) of the Energy Act. The Decision was adopted
+based on a positive opinion of the European Commission of 22 April 2015.
+By its decision, the EWRC certifies fulfilment of the certification criteria and independence
+requirements, namely:
+   o The Management Board of the independent transmission operator is the competent
+     authority responsible for decisions related to TSO current activity, the management of
+     the network and the activities, required for preparing TYNDP;
+   o The independent transmission system operator has the right to make independent
+     decisions regarding the assets necessary for operation, maintenance and development
+     of the transmission network, including the gas regimes control;
+   o The requirements for professional independence of the members of the Management
+     Board and the members of the Supervisory Board of Bulgartransgaz EAD have been
+     met;
+   o Bulgartransgaz EAD has at its disposal all necessary human, technical, physical and
+     financial resources to perform its natural gas transmission and storage obligations;
+
+
+
+                                                                                              6
+   o The company has its own corporate identity, independent IT systems and equipment,
+     separate premises and security access systems thereto, as well as various external
+     contractors and consultants for their maintenance;
+   o When carrying out its activities, the independent transmission operator provides
+     services in a non-discriminatory manner for the different network users and does not
+     allow restriction, distortion or obstruction of competition in natural gas production or
+     supply.
+Bulgartransgaz EAD is a combined gas operator performing natural gas transmission and
+storage activities. The company is the owner and operator of the gas transmission network
+infrastructure and the underground gas storage Chiren (Chiren UGS) connected to it.
+The Company is holder of the following licenses, issued by the Energy and Water Regulatory
+Commission (EWRC):
+   o For natural gas transmission: Licenses No Л-214-06 and No Л-214-09 of 29.11.2006;
+   o For natural gas storage: License No L-214-10 of 29.11.2006
+The basic requirements for these activities are regulated by the Energy Act and the by-laws
+harmonized with the European legislation in that field, as well as in the European regulations
+that are directly applicable.
+Bulgartransgaz EAD plays a key role and is responsible for the uniform management, reliable
+operation and efficient use of the natural gas transmission system, including the gas pipelines,
+compressor stations and Chiren UGS. The activities include natural gas transmission in
+compliance with the requirements for gas quality and metering, networks development in
+accordance with the long-term gas sector forecasts and plans for gas supply and the gas sector
+development, as well as maintenance, operation, management and development of Chiren
+UGS. All services are provided on the basis of equality, transparency and non-discrimination.
+As a nationally responsible combined gas operator, Bulgartransgaz EAD guarantees security of
+supply and gas market sustainable development in Bulgaria and the region, while adhering to
+the principles of a liberalized and competitive market and in accordance with the European
+energy policy and the applicable regulatory framework. Engineering, investment and service
+activities are also carried out within the Company.
+The organisational structure of the Company includes a Head office and four operational
+regions - Northwest operational region Botevgrad, Northeast operational region Valchi dol,
+Southeast operational region Stara Zagora and Southwest operational region Ihtiman. They
+are in charge of the operational management, operation and maintenance of the network on
+the respective territory, as well as of Chiren UGS.
+
+
+
+
+                                                                                               7
+   Northwest operational                                          Northeast operational
+     region Botevgrad                                               region Valchi dol
+
+
+
+
+                                     Head office
+
+
+
+
+  Southwest operational               Chiren UGS                  Southeast operational
+     region Ihtiman                                                region Stara Zagora
+
+
+
+
+Since its establishment, Bulgartransgaz EAD has consistently worked to improve the quality of
+the services provided, while simultaneously supporting and stimulating natural gas market
+development in Bulgaria and the region. The company makes targeted investments to increase
+the reliability, security and sustainable development of natural gas transmission and storage
+infrastructure. In its activities, Bulgartransgaz EAD applies a policy of transparency, non-
+discrimination and operates in full compliance with the requirements of the applicable
+European and Bulgarian legislation.
+
+
+
+
+                                                                                            8
+          DESCRIPTION OF NATURAL GAS TRANSMISSION AND STORAGE
+                            INFRASTRUCTURE
+
+
+
+
+                                 Compressor Station Ihtiman
+Gas infrastructure, owned by Bulgartransgaz EAD on the territory of the Republic of Bulgaria
+consists of gas transmission network and an underground gas storage facility in Chiren (Chiren
+UGS) connected to it.
+Gas transmission network infrastructure provides natural gas transport to users in the
+country, as well as cross-border natural gas transport through interconnections with the
+neighbouring countries Türkiye, Greece, Serbia, Romania and North Macedonia. It comprises
+of 3 484 km gas pipelines and gas pipeline branches, compressor stations – Kardam, Valchi
+Dol, Polski Senovets, Rasovo, Provadia, Nova Provadia, Lozenets, Strandzha, Ihtiman and
+Petrich of 374 МW approximate total installed capacity, electrochemical protection system,
+pigging facilities (PF), communication system, information system and other auxiliary facilities.
+In Underground Gas Storage Chiren there are 24 exploitation wells and a compressor
+station of approximately 31 МW total installed capacity (including the new compressors under
+the gas storage facility expansion project). As of May 1, 2025, the storage capacity of Chiren
+UGS is 650 mcm (7,004,400 MWh at 10.776 MWh/1000 m3). The withdrawal and injection
+capacity, according to the formation pressures and other factors, varies from month to month
+within the range from 25,324 MWh/d to 46,876 MWh/d.
+The main entry and exit points of the Company gas transmission network are the following:
+Interconnection point (IP) Negru Voda 1/Kardam – connection between Bulgartransgaz
+EAD gas transmission system and the gas transmission system operated by Transgaz S.A.
+(Romania) on the Bulgarian-Romanian border in the area of the village of Kardam, General
+Toshevo Municipality;
+
+
+
+
+                                                                                                9
+Interconnection point (IP) Negru Voda 2, 3/Kardam – connection between
+Bulgartransgaz EAD gas transmission system and the gas transmission system operated by
+Transgaz S.A. (Romania) on the Bulgarian-Romanian border in the area of the village of
+Kardam, General Toshevo Municipality;
+Interconnection point (IP) Кulata/Sidirokastro – connection between Bulgartransgaz
+EAD gas transmission network for transit transmission and the gas transmission system
+operated by DESFA S.A. (Greece), located on the Bulgarian-Greek border in the area of Kulata
+village, Petrich Municipality;
+Interconnection point (IP) Strandzha/Malkoclar – connection between Bulgartransgaz
+EAD gas transmission network and the gas transmission system operated by BOTAS (Türkiye),
+located on the Bulgarian-Turkish border in the area of the village of Strandzha, Bolyarovo
+Municipality;
+Interconnection point (IP) Strandzha 2/Malkoclar – connection between
+Bulgartransgaz EAD gas transmission network and the gas transmission system operated by
+TAGTAS (Türkiye), located on the Bulgarian-Turkish border in the area of the village of
+Strandzha, Bolyarovo Municipality;
+Interconnection point (IP) Kireevo/Zaycar – connection between Bulgartransgaz EAD
+gas transmission network and the gas transmission system operated by Gastrans (Serbia),
+located on the Bulgarian-Serbian border in the area of the village of Kireevo, Makresh
+Municipality;
+Interconnection point (IP) Kyustendil/Zhidilovo – connection between Bulgartransgaz
+EAD gas transmission network and the gas transmission system operated by Nomagas AD
+(former GA-MA, Macedonia), located on the Bulgarian-Macedonian border in the area of the
+village of Guyeshevo, Kyustendil Municipality;
+Interconnection point (IP) Ruse/Giurgiu – connection between Bulgartransgaz EAD gas
+transmission network and the gas transmission system operated by TRANSGAZ S.A. (Romania)
+on the Bulgarian-Romanian border in the area of the village of Marten, Ruse Municipality;
+Interconnection point (IP) Stara Zagora – connection between Bulgartransgaz EAD gas
+transmission network and the gas pipeline (IGB) operated by ICGB AD (Bulgaria), located in
+the area of the village of Zagore, Stara Zagora Municipality;
+Interconnection point (IP) Kalotina/Dimitrovgrad – connection between
+Bulgartransgaz EAD gas transmission network and the gas transmission system operated by
+Srbijagas (Serbia), located on the Bulgarian-Serbian border in the area of the village of
+Kalotina, Dragoman Municipality;
+GMS Galata – an entry point from local production of the gas transmission network;
+GMS Dolni Dabnik – an entry point from local production of the national gas transmission
+network;
+Entry-exit point GMS Chiren – connection between the gas transmission network and
+Chiren UGS.
+
+
+
+
+                                                                                          10
+             NATURAL GAS MARKET IN THE COUNTRY AND THE REGION
+
+
+
+
+                                 Compressor Station Lozenets
+
+1.     NATURAL GAS MARKET IN BULGARIA
+
+1.1. General Market Overview
+Bulgartransgaz EAD implements a consistent and targeted policy to improve connectivity with
+neighbouring countries by establishing new interconnection points with significant capacity
+and maximizing capacity at the existing points.
+The existing and planned gas infrastructure provide an opportunity for diversification of natural
+gas supplies both to Bulgaria and to the other countries in the region of Southeast Europe.
+1.1.1. Natural gas consumption
+Natural gas consumption in Bulgaria for 2025 was 27 656 GWh, which shows 1 % decrease
+compared to the consumption in 2024 (27 851 GWh).
+According to data from the overall energy balance of the National Statistical Institute for 2024,
+natural gas had 13.5% share in the primary energy consumption and 12.5% in the final
+consumption of fuels and energy.
+The share of natural gas in the country's energy balance remains under the average level for
+EU countries, but has the potential for sustainable growth, given its significant role as a
+transitional fuel to a low-carbon economy, as well as the developing gasification. In the next
+years, natural gas consumption is expected to continue to grow.
+
+
+
+
+                                                                                               11
+1.1.2. Main natural gas sources
+In 2025 the share of natural gas imports in Bulgaria was over 99%. Consumption in the country
+is mostly ensured by gas imports from Azerbaijan and liquefied natural gas from terminals in
+the region. Local production in the country remains low. In 2025, about 0.1% of natural gas
+consumption was provided by local production from Galata field.
+Bulgartransgaz EAD works consistently to improve interconnectivity by increasing the technical
+transmission capacities at interconnection points and provide opportunities for gas supplies
+from various new sources, including LNG.
+In implementation of the European objectives to discontinue fossil fuel supplies from the
+Russian Federation, Bulgaria and the region increasingly rely on the Southern and the Vertical
+Gas Corridor, as well as on LNG terminals in Southeastern Europe for the provision of natural
+gas supplies.
+In recent years Bulgartransgaz EAD made significant investments in rehabilitation,
+modernization and expansion of the Bulgarian gas transmission network, which improved the
+interconnectivity level, efficiency, reliability and flexibility of the transmission system.
+Significant transmission capacities to and from Bulgartransgaz EAD system have been secured
+at the borders with all neighbouring countries. The transmission capacity is unidirectional only
+on the border with the Republic of North Macedonia where IP Kyustendil/Zhidilovo is the only
+entry point for natural gas supplies.
+The implemented projects contribute to diversification of the supply sources, the provision of
+a secure access to additional gas quantities from the Central and South-Eastern Europe region
+and the establishment of a liquid, integrated and interconnected natural gas market at
+European level.
+Bulgartransgaz EAD manages its gas transmission infrastructure as a single system with one
+balance zone, respectively one Virtual Trading Point (VТТ). The availability of a single balancing
+zone and a single VTP provides opportunity to network users and gas traders to work with a
+single balancing portfolio.
+In 2024 and 2025 natural gas quantities by sources of supply were as follows:
+                                         2024                                2025
+No     Type of supply        Quantity,          Relative         Quantity,          Relative
+                               GWh               share             GWh               share
+    Imported natural
+    gas according to
+ 1. entry                          27,816           99,87 %        27,631           99,91 %
+    interconnection
+    points
+    Natural gas locally
+ 2                                      35               0.13        25              0,09 %
+    produced
+    TOTAL                          27,851           100,0 %        27,656           100,0 %
+Imports from various sources of supply of pipeline gas and LNG for the country and the region
+are emerging as a permanent trend that will continue to grow.
+
+
+
+
+                                                                                                12
+The REPowerEU plan to suspend imports of Russian fossil fuels in the European Union and
+accelerate the clean energy transition necessitates further increase in gas pipeline quantities
+from the Caspian region and LNG from alternative sources such as the USA, Qatar, Egypt,
+Norway, Algeria, Nigeria and other reliable suppliers to to European countries. LNG terminals
+will continue to play a key role in diversifying the sources and enhancing the European energy
+security.
+1.1.3. Main natural gas consumers and market participants
+The main participants on the gas market in Bulgaria are the following:
+   o   Bulgartransgaz EAD – a combined gas operator licensed to perform natural gas
+       transmission and storage activities;
+   o   ICGB AD - an independent natural gas transmission operator, licensed to transport
+       natural gas;
+   o   Bulgargaz EAD – public supplier of natural gas in Bulgaria responsible for ensuring
+       natural gas supply to end suppliers and to persons holders of a license for heat
+       production and transmission, at prices and conditions approved by the EWRC;
+   o   Natural gas traders – make transaction for natural gas supply with the public supplier,
+       end suppliers, customers, other natural gas traders, production companies, natural gas
+       storage companies and the combined operator;
+   o   Balkan Gas Hub EAD and Bulgarian Energy Trading Platform AD - operators of trading
+       platforms, ensuring trading environment for an organized natural gas exchange market
+       on a bilateral principle;
+   o   Gas distribution companies – performing both natural gas supply from end gas supplier
+       and natural gas distribution activities, supply natural gas to customers connected to
+       their networks. It is their obligation to construct and develop the gas distribution
+       networks according to the long-term business plans and conditions approved by
+       SEWRC;
+   o   Non-household natural gas customers connected to the gas transmission networks;
+   o   Household and non-household natural gas customers connected to the gas distribution
+       networks.
+Production companies and two main groups of customers - gas distribution companies and
+non-household users are connected to Bulgartransgaz EAD gas transmission network.
+The main users of natural gas transmission services in the country are the public supplier
+Bulgargaz EAD, trade companies from the Energy and Chemistry sectors, end suppliers, as
+well as other users of the gas transmission network and natural gas traders.
+The "natural gas distribution" and "natural gas supply" activities by end suppliers to customers
+connected to the distribution networks are being carried out by regional and local gas
+distribution companies, operating in licence regime and price regulation conditions. Overgas
+Mrezhi AD, followed by Aresgas AD and Citigas Bulgaria EAD have the largest market share.
+At the end of 2025 on the territory of the Republic of Bulgaria 25 licensed gas distribution
+companies operate in 36 licensed territories, covering 174 municipalities (65% of all
+municipalities in the country).
+The share of household gas supply in the country is still lower compared to the average level
+
+
+
+                                                                                              13
+of EU countries, but there is potential to increase. At the national level, programmes are being
+implemented to promote household gasification; the development of natural gas distribution
+infrastructure continues.
+The total number of customers of the gas distribution companies as of 31.12.2025 is 167,715,
+of which 8,846 non-household and 158,869 household customers. The number of customers
+has grown by 3% in one year - from 162,663 in 2024 to 167,715 in 2025. Household customers
+have increased by 3.1% and non-household - by 3.2%.
+Balkan Gas Hub EAD
+The trading platform of Balkan Gas Hub EAD (BGH) has been operating since the end of 2019.
+As a result of the Company's activities, in the last six years gas liquidity in the country has
+significantly and and sustainably increased, the practices of exchange trading and increasing
+role and share of the spot market (within the day and the day-ahead) have been successfully
+introduced. The products in the short-term segment of BGH are standardized short-term
+products (STSPs) within the meaning of Regulation 312/2014 establishing a Network Code on
+Gas Balancing of Transmission Networks. They have been developed in accordance with the
+requirements of Art. 7 of the Regulation and are intended to meet the needs of transmission
+system operators for balancing actions, as well as the needs of traders for balancing their
+individual portfolio.
+The traded natural gas quantities on the short-term segment of BGH in 2025 amounted to
+16,453,692 MWh (an increase of 2.08% compared to the traded quantities of 16,118,475 MWh
+in 2024). The total number of transactions for 2025 is 52,336 (or 73.47% more than those for
+2024, which were 30,170).
+An important factor for increased liquidity is the number and activity of members - as of
+February 2026, over 125 companies were members of BGH market, including natural gas
+traders, production companies, Bulgartransgaz EAD and other gas transmission network
+operators. Most of market members are leading Bulgarian companies in the field of natural
+gas trade. About 43% of the members on BGH market are foreign companies among which
+are leading European traders operating in the EU single gas market. A considerable number
+of the foreign customers are from Bulgaria's neighbouring EU member states - Greece and
+Romania, as well as from other countries in South-Eastern and Central Europe.
+After July 15, 2025, on the anonymous segments of Balkan Gas Hub market operate clearing
+and settlement services through a central counterparty - KELER CCP. This leads to complete
+elimination of credit risk between trading participants and significantly increases security,
+transparency and trust in exchange trading, as the processes are organized in full compliance
+with the requirements of EMIR. The introduction of central clearing is a key step towards
+harmonizing the activities of BGH with the established European exchange practices and
+further supports Bulgarian gas market integration into the EU single market.
+Balkan Gas Hub EAD operation is fully in line with the European objectives on establishing an
+interconnected and integrated pan-European gas market and is in support of the plans for gas
+infrastructure development in Europe. The establishment of a gas trading exchange is actively
+supported by the European Commission and is in strict compliance with the needs identified
+by the High Level Group for Gas Connectivity of Central and South-east Europe (CESEC).
+
+
+
+
+                                                                                              14
+1.1.4. Bulgartransgaz EAD transport and storage activities
+Bulgartransgaz EAD transport and storage activities are regulated and carried out in line with
+the licenses issued by the EWRC. The basic requirements for these activities are regulated by
+the Energy Act and the by-laws. As a transmission system operator of an EU member state,
+Bulgartransgaz EAD fulfils the requirements of the applicable European legislation and follows
+the policies in the field of natural gas and climate.
+Natural gas transmission
+The company has concluded access and transport contracts with about 120 natural gas trading
+companies, with the trend of constant increase in their share in the transported quantities.
+Data on natural gas quantities transported through the gas transmission infrastructure of
+Bulgartransgaz EAD for 2024 and 2025 is presented in the following table:
+
+                       Quantity 2024         Relative         Quantity 2025          Relative
+No        Type
+                          (MWh)               share              (MWh)                share
+       Natural gas
+       transport to
+1                        27,850,701           13,73 %           27,655,910
+      exit points in                                                                 12,43 %
+       the country
+       Natural gas
+       transport to
+      cross-border
+2                        174,925,007          86,27 %          194,874,041
+        points with                                                                  87,57 %
+      neighbouring
+         countries
+      Total:            202,775,708         100,00 %          222,529,951           100,00 %
+
+In 2025, a growth of over 11% can be observed in the quantities of natural gas transmission
+to cross-border points with neighbouring countries and exit points in the country. The
+increased gas transmission to neighbouring countries is due to the good interconnectivity and
+the ensured access to alternative sources of natural gas through Bulgartransgaz EAD network,
+the policies for diversification of supplies to the countries in the region and the increasing
+market integration with neighbouring countries.
+Natural gas storage
+Chiren UGS plays a major role in compensating for the seasonal fluctuations in natural gas
+consumption and providing an emergency reserve for unforeseen and force majeure situations.
+The total injected natural gas quantities in Chiren UGS in 2025 for customers were 4,103 GWh
+and at the end of the injection period the storage capacity was 5,880 GWh or 84% full, taking
+into account the realized 650 mcm increase in storage capacity as of May 1, 2025. The actually
+withdrawn quantities for the year were 3,597 GWh.
+1.1.5. Local natural gas production
+Natural gas production is carried out by Oil and Gas Exploration and Production Plc. and
+Petroceltic Bulgaria EOOD.
+
+
+
+
+                                                                                            15
+Since 2004 the company Petroceltic Bulgaria EOOD commenced natural gas local production
+firstly from Galata field and then from the newly discovered fields Kaliakra and Kavarna with
+access to the gas transmission network secured by Bulgartransgaz EAD at entry point GMS
+Galata.
+The current exploitation of gas fields in the country is limited. However, future production may
+increase considering the ongoing exploration activities, including in the Black Sea waters.
+1.2. Market potential and development prospects
+The EU energy policy is based on the principles of energy security, competitiveness and
+sustainability. Bulgaria’s strategic geographical location, well-developed gas infrastructure with
+a high level of interconnectivity and significant transmission capacity, determine the
+development of the market potential in the country. The implemented infrastructure projects
+and the ongoing ones strengthen the key role of the country in improving the diversification
+of natural gas supply sources and routes, as well as in increasing energy security in the country
+and the region.
+By Decision No. 15 of the Council of Ministers of 14.01.2026, the participation of BEH EAD with
+a 10% share was approved, together with OMV Offshore Bulgaria and NewMed Energy Balkan
+Limited, in implementation of the oil and natural gas search and exploration project in the area
+"Block 1-21 Khan Asparuh", located in the exclusive economic zone of the Republic of Bulgaria.
+In this context, the potential for development of local natural gas production in the Bulgarian
+Black Sea water area should also be taken into account.
+Despite the relatively low share in final energy consumption, natural gas is important natural
+resource with the potential to increase its share in the country's total energy consumption in
+the coming years. It plays a significant role as a transitional fuel in the process of
+decarbonisation and transition to low-carbon energy and economy. The expansion of natural
+gas use in Bulgaria creates conditions for significant reduction in carbon emissions by replacing
+more carbon-intensive fuels and by implementing modern high-efficiency technologies based
+on natural gas.
+In the following years, natural gas consumption in the country is expected to increase, also as
+a result of development of new gas-fired power generation plants. In the context of
+accelerated energy transition and an increasing share of production from renewable energy
+sources (RES), natural gas is establishing itself as a key transitional fuel, providing the
+necessary flexibility and reliability of the power system.
+The development of new highly efficient natural gas-fired generating capacities creates the
+prerequisites for sustainable growth in domestic demand, while simultaneously helping to
+balance the variable production from renewable energy sources and increasing the resilience
+of the energy system.
+In neighbouring countries in Southeast Europe, a trend towards increase of natural gas
+consumption by power generation capacities is already being established in response to the
+need for reliable and flexible production capacities that support the integration of renewable
+energy sources and guarantee the security of the electricity systems.
+
+
+
+
+                                                                                                16
+Bulgartransgaz policy is aimed at adapting and implementing key activities in the context of
+the energy transition, as well as in fulfilling the European goals to reduce carbon emissions
+and achieve a more sustainable and cleaner energy system. Natural gas will remain a
+strategically important energy source, ensuring reliability and a smooth transition to a low-
+carbon economy.
+By gas infrastructure expansion and implementation of new technologies in natural gas
+transmission and storage activities, Bulgartransgaz EAD will improve the country's energy
+security and facilitate the sector's adaptation to new regulatory requirements and market
+mechanisms.
+The promotion of gasification, the expansion of distribution companies networks and the
+tendency to reduce consumption of solid and liquid fuels at the expense of natural gas are a
+prerequisite for an increase in the use of natural gas in the household sector.
+In order to fulfil the objectives of the Memorandum on the Vertical Gas Corridor, as well as
+considering the European Union policies to ensure security of supply and improve
+diversification, Bulgartransgaz EAD is implementing the following projects to increase natural
+gas transmission capacity:
+   •   Increase of the total technical capacity at IP Kulata/Sidirokastro in direction from
+       Greece to Bulgaria by 35.4 GWh/d up to a total of 102 Gwh/d with estimated duration
+       until commissioning in the second quarter of 2026;
+   •   Increase of the total technical capacity at IP Negru Voda 1/Kardam in direction from
+       Bulgaria to Romania by 137.2 GWh/d up to a total of 295 Gwh/d, with estimated
+       duration until commissioning in the third quarter of 2026;
+In the event of commercial interest, Bulgartransgaz EAD is ready to launch activities on an
+expanded version of the project on increase of natural gas transmission capacity in direction
+from Greece to Bulgaria at IP Kulata/Sidirokastro with additional 69 GWh/d up to a total of
+171 GWh/d.
+The Vertical corridor initiative is supported by the European Commission and the USA partners
+and is key to increase the security of natural gas supplies for the European Union and the
+countries of the Energy Community. Parties to the Memorandum of Understanding are
+Bulgartransgaz EAD, DESFA S.A., Gastrade S.A., ICGB AD, Transgaz S.A., FGSZ Ltd., Eustream
+a.s., Gas TSO of Ukraine LLC and VestMoldTransgaz S.R.L.
+Ensuring the possibility of transporting additional quantities of LNG from the terminals in the
+region and natural gas from the Caspian basin from south to north along the gas transmission
+networks of Greece, Bulgaria, Romania, Hungary, Slovakia, Ukraine and Moldova will
+contribute significantly to improving the security of supplies in the wider region.
+By implementation of the listed projects for new gas transmission infrastructure, a significant
+increase in natural gas quantities from alternative sources is expected, to be transported
+through Bulgartransgaz EAD gas transmission infrastructure both, for Bulgaria and the
+countries of the region.
+Considering the increased demand for capacity in north-south direction, a trend of increasing
+use of the available transmission capacity at IP Negru Voda 1/Kardam is observed. The
+
+
+                                                                                             17
+increased interest of market participants corresponds to the growing cross-border natural gas
+flows and determines the actual need to expand the technical capabilities of the gas
+transmission infrastructure.
+This trend emphasizes the role of the Bulgarian gas transmission system as a key element in
+regional transmission and integration of gas markets and directly corresponds to the
+implementation of the projects along the Vertical Corridor. This creates sustainable conditions
+for ensuring reliable gas flows from secure, diverse sources, both to the markets in Romania,
+Hungary and Central Europe, as well as to Moldova and Ukraine, while simultaneously
+enhances security of supply and improves the levels of diversification and market integration
+in the region.
+As of 2024, Bulgartransgaz EAD is a party to a Memorandum of Understanding on
+harmonization of gas quality requirements within the CESEC framework, together with 9 other
+gas transmission system operators, including participants in the Vertical Corridor initiative. The
+unification of gas quality requirements by all operators in the region will significantly improve
+the conditions for free cross-border transmission of natural gas, market integration and will
+contribute to security of supply for the countries of the CESEC region and improve liquidity
+and competitiveness of European markets.
+Bulgartransgaz EAD also continues implementation of the key project for expansion of Chiren
+UGS. It is aimed at increase in stages of the active gas volume up to 1 bcm and of the daily
+injection and withdrawal capacity up to 8-10 mcm/d. The increased capacity will ensure the
+security of natural gas supply and will contribute to enhancing competition and access to
+natural gas from alternative sources, including liquefied natural gas using the existing and
+planned terminals in the region. In this way, the project will contribute to enhancing the
+liquidity of gas markets in Bulgaria and the region from South-Eastern and Eastern Europe.
+As a result of run into operation of the transmission pipeline and the compressor station
+together with the adjacent technical facilities, as of May 1, 2025, the storage capacity of Chiren
+UGS increased by 100 mcm up to a total of 650 mcm. The storage capacity will be gradually
+expanded in parallel with construction of the new wells. The target parameters of expansion
+will be achieved in stages, taking into account the confirmed interest from the market.
+Bulgartransgaz EAD participates with 20% of the share capital of Gastrade S.A. - an operator
+of Alexandroupolis Independent Natural Gas System (INGS). The Terminal has a regasification
+capacity of up to 5.5 bcm of natural gas per year, with a significant part of it also passing
+through the Bulgarian transmission system. Bulgaria's participation in the project is of strategic
+importantance for diversification and security of energy supply to Bulgaria and the countries
+in the region. The Terminal is of key significance to fulfil European priorities in the field of
+energy security and ensure access to diversified supplies of liquefied natural gas from reliable
+sources for the region of South-Eastern Europe.
+In this context, Bulgartransgaz EAD analyses the opportunities for shareholding in another
+project for a new LNG terminal in Greece, which would contribute to further diversification of
+natural gas sources and strengthen the energy security of both, Bulgaria and the region.
+Natural gas will continue to play a significant role as a transitional fuel to achieve the objectives
+of the European Union to reduce greenhouse emissions by 2030, as well as in terms of
+
+
+
+                                                                                                   18
+decarbonisation and carbon neutrality by 2050. In this regard Bulgartransgaz EAD plans a
+project for a high-pressure gas transmission infrastructure to supply consumers in Maritsa East
+Basin.
+The Company also develops projects in the hydrogen area related to feasibility assessment
+and subsequent retrofitting of the existing infrastructure to ensure suitability for blending
+natural gas with hydrogen (up to 10%) and to build an all-hydrogen infrastructure on the
+territory of Bulgaria. The described perspectives form the basis of Bulgartransgaz EAD
+objectives and investment plans and are reflected in the overall company policy aimed at
+establishing Bulgaria as a significant regional gas distribution hub.
+
+2.     NATURAL GAS MARKET IN THE REGION
+
+The implementation of the large-scale projects in the region for development of gas
+transmission infrastructure, the increase of gas storage capacities, the increase of the gas
+transmission capacities at the interconnection points, the development of new LNG terminals,
+as well as the potential of local production expects to see the increase in natural gas
+consumption in the country and the region in the conditions of high levels of competition and
+liquid markets.
+Improvement of interconnectivity in the region and the provided alternative supply routes
+provide energy consumers with all necessary conditions to benefit from the opportunities of
+Balkan Gas Hub EAD and the significant new infrastructure projects.
+In turn, this contributes to increase of energy security, diversification of supply sources and
+achieve regional market integration.
+The review of natural gas markets in the neighbouring countries outlines the main trends for
+development in the context of enhanced diversification of sources and forecasts of growing
+demand.
+
+
+
+
+                                                                                             19
+   2.1. Greece
+
+
+
+
+                        Gas infrastructure in Greece. Source: ENTSOG
+
+In 2025, natural gas consumption in Greece amounted to 6.5 bcm, recording a significant
+growth of about 5% compared to 2024 (6.2 bcm). Electricity generation accounts for a
+significant share of annual gas consumption. Consumption in the country is ensured mostly by
+imports through Bulgaria, the Trans-Adriatic gas pipeline and by the liquefied natural gas
+terminals.
+The Greek gas transmission operator DESFA S.A. develops projects for increase of the technical
+capacity for transmission of the national gas transmission system of Greece, through
+reinforcement of the pipeline network, expansion of the existing and construction of new
+compressor stations. Regarding the Vertical gas corridor initiative, DESFA S.A. plans to
+increase the capacity on its side of IP Kulata/Sidirokastro by 35.4 GWh/d in direction from
+Greece to Bulgaria, according to the increase planned by Bulgartransgaz EAD. This will increase
+the capacity from Greece to Bulgaria at IP Kulata/Sidirokastro up to a total of 102 GWh/d. The
+prerequisites for transport of additional natural gas quantities from the south to the north will
+be created.
+The construction of new LNG terminals is among the priorities of the country, relying
+increasingly on sources in the region of the US, the Mediterranean, the Middle East and Central
+Asia. Currently there are two operating LNG terminals in Greece – in Revithoussa and in
+Alexandroupolis, in which Bulgartransgaz EAD is a shareholder with 20% of the capital of
+
+
+
+
+                                                                                               20
+Gastrade S.A. The terminal in Revithoussa has an annual regasification capacity up to 7 bcm.
+The capacity of Alexandroupolis terminal is 5.5 bcm per year.
+Within the framework of REPowerEU plan, the EU envisages accelerated expansion of the LNG
+import infrastructure with the aim of completely ceasing the import of Russian gas by 30
+September 2027. In this context, as well as with a view to implementation of the strategic
+projects along the Vertical Gas Corridor, the construction of at least one new terminal in the
+region is envisaged in the short term.
+Planned LNG infrastructure in Greece:
+
+                                                                                  Regasification
+                                         Year of
+              Facility                                    Type      Operator         capacity
+                                      commissioning
+                                                                                   (bcm/year)
+                                                                     Dioriga
+         Dioriga Gas FSRU                  TBA           Floating                       4
+                                                                      Gas
+            Thrace LNG                     TBA           Floating   Gastrade           5.5
+            Argo FSRU                      2027         On-shore     Medgas            5.2
+        Thessaloniki FSRU                  2029          Floating   Elpedison          4.8
+
+By implementation of the planned new LNG terminals in the country, the total regasification
+capacity will reach over 30 bcm/y.
+
+Gas Interconnection Greece-Bulgaria (IGB)
+Interconnection Greece-Bulgaria, run into commercial operation in October 2022, has a
+transmission capacity in direction from Greece to Bulgaria of up to 3 bcm/year. The gas
+transmission operator ICGB AD is planning a project to increase the total technical capacity of
+IGB to 5 bcm/y.
+Trans-Adriatic Pipeline (TAP)
+The 877 km long Trans-Adriatic Pipeline (TAP) is part of the Southern Gas Corridor,
+transporting natural gas to Europe from Shah Deniz II field in Azerbaijan.
+The pipeline is connected to the Trans-Anatolian Gas Pipeline (TANAP) at the Turkish-Greek
+border and passes through Greece, Albania and the Adriatic Sea, reaching its end point in
+Southern Italy.
+The current technical capacity of the gas pipeline is 10 bcm/y, with the possibility to increase
+up to 20 bcm/y. Since its commissioning, over 50 bcm of natural gas have been delivered
+through TAP to European markets, over 3.2 bcm of which to Bulgaria. As of 01.01.2026, as a
+result of implementation of the first expansion stage, the technical transmission capacity of
+TAP has increased by 1.2 bcm/y.
+Bulgaria has connectivity with TAP along two independent routes - via DESFA S.A. Gas
+transmission network and via IGB. This provides access to Caspian natural gas which
+contributes to diversification of sources and security of supply for the region.
+
+
+
+
+                                                                                              21
+EastMed-Poseidon
+The project envisages construction of approximately 2,100 km of pipelines to directly connect
+the energy resources of the Eastern Mediterranean with the European markets via Cyprus,
+Greece and Italy.
+The initial transmission capacity amounts to 12 bcm/y, with the possibility of subsequent
+expansion up to 20 bcm, and the infrastructure will be fully capable of hydrogen transmission.
+The establishment of a corridor for hydrogen supply to the EU from Israel, Cyprus, South-
+Eastern Europe, the Middle East and North Africa is envisaged.
+
+   2.2 Türkiye
+
+
+
+
+                        Gas infrastructure in Türkiye. Source: ENTSOG
+
+Natural gas consumption in Türkiye in 2025 amounted to approximately 58.3 bcm which
+represents an increase of about 9.4% compared to 2024 (53.3 bcm).
+During the winter period, peak consumption in the country reached about 300 mcm/day.
+Natural gas demand is expected to continue to increase in the coming years due to economy
+growth and increase in country's population. Natural gas occupies the largest share in the total
+final energy consumption of households, as well as a significant share in the production of
+electricity.
+Consumption in the country is mainly provided by imports from Russia, Azerbaijan, Iran and
+Algeria under long-term contracts, with efforts aimed at diversification of sources, as a result
+of which the share of supplies from European and American companies is expected to increase
+in the coming years.
+In 2024 and 2025, the Turkish company BOTAS S.A. concluded medium-term and long-term
+contracts for supply of additional LNG quantities with leading international companies such as
+ExxonMobil, Shell, Total Energies, ENI, SEFE, Mercuria, Woodside Energy, BP and others, with
+regard to expiry of some of the long-term natural gas supply contracts with Russia and Iran.
+Currently, natural gas demand in Türkiye is mostly satisfied through imports, with an increasing
+share of local production also being taken into account. In view of the start of exploitation of
+newly discovered offshore gas fields with significant reserves, local production in the country
+
+
+                                                                                              22
+is expected to continue to increase in the coming years.
+In 2025, 39% growth in local natural gas production was recorded, reaching 3.2 bcm, mainly
+as a result of increased production from Sakarya field in the Black Sea, which reserves are
+estimated at 710 bcm. Following the successful completion of Phase 1 of the gas field
+development, daily production has reached approximately 9.5 mcm. Phase 2 is planned to be
+implemented, which will enable doubling of production capacity and the quantities produced
+are expected to satisfy about 30% of the country's natural gas demand.
+Türkiye has significant natural gas reserves in the Black Sea waters, with total proven reserves
+currently estimated at approximately 785 bcm, concentrated in Sakarya and Göktepe-3 fields.
+Deliveries from Shah Deniz II field in Azerbaijan are made through the Trans-Anatolian Gas
+Pipeline (TANAP). The first stage capacity is 16 bcm/y, of which 10 bcm/y are transited to the
+European markets and 6 bcm/y are intended to cover Turkish domestic consumption.
+Subsequent investments are planned to gradually increase the capacity up to 24 bcm and in
+the longer term - up to 32 bcm.
+Türkiye has five liquefied natural gas terminals (three floating and two on-shore) with a total
+regasification capacity of about 56 bcm/y, and expansion is planned for some of them in the
+forthcoming years. New floating LNG storage and regasification facilities are also planned in
+Hatay province and the Mediterranean coast. The country's total capacity is expected to reach
+about 73 bcm in the coming years.
+LNG infrastructure in Türkiye:
+
+                                                                       Regasification
+                 Facility                   Type         Operator        capacity
+                                                                        (bcm/year)
+    Marmara Ereglisi LNG Terminal         On-shore        BOTAS             13.5
+      Aliaga Izmir LNG Terminal           On-shore        EgeGaz            14.6
+  Etki LNG Terminal (TURQUOISE P)         Floating      Etki Liman          7.30
+     FSRU Dörtyol (Ertuğrul Gazi)         Floating        BOTAS             10.2
+          FSRU Gulf of Saros              Floating        BOTAS             10.2
+
+The LNG share in Türkiye's natural gas imports for 2025 was 28.7% and amounted to 16.6
+bcm. The main LNG supplies to the country are from Algeria, the USA, Nigeria, Egypt and other
+countries.
+The gas transmission systems of Bulgatransgaz EAD and the Turkish operator BOTAS S.A. are
+connected at IP Strandzha/Malkoclar, which provides access to various natural gas sources -
+production from local fields, supplies from Azerbaijan and Iran, as well as to the global liquefied
+gas market through regasification terminals in Türkiye.
+
+
+
+
+                                                                                                 23
+   2.3 Romania
+
+
+
+
+                      Gas infrastructure in Romania Source: ENTSOG
+
+The country's natural gas consumption in 2025 amounted to 10 bcm, recording an increase of
+about 10% on an annual basis compared to 2024 (9 bcm). Underground gas storage is
+provided by six underground storage facilities with a total active capacity of 3.2 bcm.
+Romania is actively developing its domestic natural gas production in order to reduce its
+dependence on imports and increase energy security. Local production in the country is
+expected to continue to increase in the coming years, reaching 18-20 bcm in 2027, mainly as
+a result of implementation of Neptun Deep project in the Black Sea. The first production from
+the field is planned for 2027, with its reserves estimated at up to 100 bcm.
+Romania is implementing a project for expansion of Depomures UGS. The first phase of the
+project envisages increase in storage capacity up to 400 mcm, with estimated commissioning
+in 2026. The second phase includes further increase in storage capacity up to 600 mcm.
+Following implementation of Bulgartransgaz EAD project for increase of gas transmission
+capacity by 137.2 GWh/d from Bulgaria to Romania at IP Negru Voda 1/Kardam in Q3 2026,
+Transgaz S.A. has declared technical readiness to increase the entry capacity at the point
+within the same period.
+Within the framework of the Vertical gas corridor initiative, Transgaz S.A. plans projects to
+
+
+
+                                                                                           24
+increase gas transmission capacity from Romania to Hungary at IP Csanádpalota and from
+Romania to Ukraine at IP Isaccea/Orlovka. Their implementation will contribute to improve
+diversification and increase security of supplies to the countries of Central and Eastern Europe.
+Romania and Serbia have signed a Memorandum of Understanding for the construction of
+interconnection for bidirectional natural gas transmission and 1.6 bcm/y capacity.
+
+   2.4 The Republic of North Macedonia
+
+
+
+
+           Gas infrastructure in the Republic of North Macedonia. Source: ENTSOG
+
+In 2025 natural gas consumption in the Republic of North Macedonia amounted to
+approximately 380 mcm, which is 20% increase on an annual basis compared to 2024 (310
+mcm).
+On the territory of the country, Nomagas AD Skopje carries out the activities of transmission
+and management of the transmission system for natural gas. The existing high-pressure gas
+infrastructure supplies mostly the area of the city of Skopje. Natural gas market is in a process
+of development and currently consumption is concentrated mostly in the industrial sector and
+the local heating companies. Due to the lack of gas transmission infrastructure, consumers in
+the south-eastern part of the country are supplied with compressed natural gas imported from
+Bulgaria.
+The Ministry of Economy of the Republic of North Macedonia forecasts a significant increase
+in natural gas consumption in the coming years as a result of construction and run into
+operation of new co-generation combined heat and power plants (CHP), as well as the phased
+
+
+
+                                                                                               25
+implementation of the national project "Gasification of the Republic of North Macedonia".
+The Republic of North Macedonia and Albania have concluded a Memorandum of
+Understanding in the field of energy to strengthen cooperation in planning of new gas
+infrastructure, renewable energy and construction of a new LNG terminal in Vlora.
+An Interconnection agreement for IP Kyustendil/Zhidilovo has been concluded between
+Bulgartransgaz EAD and Nomagas AD. North Macedonia does not have own natural gas fields
+and storage facilities. Kyustendil/Zhidilovo is the only entry point for natural gas supplies in
+the country, through which North Macedonia has access to alternative gas sources, including
+LNG, as well as to natural gas storage services in Chiren underground gas storage, owned by
+Bulgartransgaz EAD. A project for increase of transmission capacity at IP Kulata/Sidirokastro
+in direction from Greece to Bulgaria is underway, which will enable increase by 5.383 Gwh/d
+of transmission capacity at IP Kyustendil/Zhidilovo in direction from Bulgaria to North
+Macedonia.
+The country is working to improve interconnectivity by construction of new interconnections
+with neighbouring countries.
+In July 2025, the construction of an interconnection between Greece and North Macedonia
+began. The project includes construction of a gas pipeline of 123 km total length between Nea
+Messemvria and Negotino, of which 68 km are on the territory of the Republic of North
+Macedonia. The initial gas pipeline capacity will be 1.5 bcm/y with a possibility to rise up to 3
+bcm/y. The project is co-financed through the Western Balkans Investment Framework with
+estimated period for run into commercial operation in 2027.
+Nomagas AD and Srbijagas have signed a Memorandum of Cooperation for the construction
+of an interconnection between the Republic of North Macedonia and the Republic of Serbia.
+The project envisages construction of a gas pipeline of 70 km total length, 47 km of which on
+the territory of Serbia and 23 on the territory of the Republic of North Macedonia. The initial
+technical capacity will be 1.5 bcm/y with the possibility of bidirectional transmission and
+estimated time of commissioning in 2028.
+A project in the conceptual phase is the construction of a second interconnection between the
+gas transmission systems of Bulgaria and North Macedonia with Petrich-Strumica route. Project
+implementation will provide an additional route for natural gas supplies to North Macedonia,
+increase diversification of sources and security of supplies to the country.
+
+
+
+
+                                                                                               26
+2.5. Serbia
+
+
+
+
+                         Gas infrastructure in Serbia Source: ENTSOG
+
+In 2025, natural gas consumption in Serbia was 3.18 bcm, which is an increase of over 11%
+on an annual basis compared to 2024 (2.86 bcm). Natural gas production in Serbia is carried
+out in the region of Vojvodina by the company Naftna Industrija Srbije. Due to limited local
+production, natural gas consumption in Serbia is provided through imports along the gas
+transmission network of Bulgartransgaz EAD.
+Banatski Dvor UGS is the only gas storage facility on the territory of Serbia, which has a storage
+capacity of 450 mcm. A project for expansion of the gas storage facility up to 750 mcm is
+currently being implemented.
+According to Serbia's long-term plans for development of the energy sector, further expansion
+of Banatski Dvor UGS is envisaged, as well as construction of new gas storage facilities,
+including the gas storage in Tilva region of 300 mcm design capacity in order to ensure security
+of supply.
+Serbia and Azerbaijan have concluded an agreement for supply of up to 400 mcm of natural
+
+
+
+                                                                                                27
+gas per year until 2026, with an increase in the agreed quantities up to 1 bcm per year starting
+as of 2027.
+Srbijagas and Transgaz S.A. have signed a Memorandum of Understanding on the construction
+of a gas connection for bidirectional transmission between Serbia and Romania with 1.6 bcm/y
+capacity. Project commissioning estimated deadline is 2028.
+The active cooperation between Serbia and Hungary in the field of energy continues, also with
+regard to natural gas storage in Hungarian gas storage facilities.
+
+   2.6 Current status, market potential and development prospects
+According to data of the International Energy Agency (IEA), the global natural gas
+consumption in 2025 has increased by about 1% compared to 2024, reaching approximately
+4,3 trillion m3. The registered growth is mainly due to increased demand in Europe and North
+America. In 2026, global natural gas consumption is expected to increase by about 2% and
+reach a new record value, mainly as a result of the increasing gas demand in rapidly developing
+Asian markets.
+According to Eurostat data, in 2025 gas consumption in the EU has increased by 1.8%
+compared to 2024 and has reached 340 bcm.
+LNG imports continue to occupy a significant share of the total natural gas imports in the EU.
+According to Eurostat data, in 2025 LNG imports equalled to 43% of the total natural gas
+imports and reached 146.4 bcm. The main LNG suppliers to European markets are the USA
+(55.1 billion m3), Algeria (23.2 billion m3), Russia (12.6 billion m3), Qatar (9.7 billion m3) and
+Nigeria (14.6 billion m3).
+In 2025, the share of Russian gas imports to the EU amounted to about 12% of the total
+imports. Efforts are focused on diversifying the sources and increasing the natural gas supplies
+from reliable suppliers, as well as optimizing the existing gas transmission infrastructure and
+LNG terminals.
+On 02.02.2026, Regulation (EU) 2026/261 came in force on phasing out Russian natural gas
+imports and preparing the phase-out of Russian oil imports, improving monitoring of potential
+energy dependencies. The Regulation introduces a stepwise ban on imports of Russian natural
+gas, aimed at strengthening energy security and increasing the energy independence of the
+EU.
+The EU is increasing its natural gas imports from various sources such as Norway, the USA,
+North Africa, Azerbaijan, Algeria, Qatar, the UK and other alternative suppliers. In 2025, the
+imported quantities from Norway and the USA reached up to 147.2 bcm, which represents
+approximately 43% of the total gas imports into the EU. The total natural gas quantities
+imported from Norway amount to 92.1 bcm and from the USA - to 55.1 bcm.
+The concept of enhancing the EU's energy security envisages increasing the supply of LNG to
+member states by building infrastructure, ensuring access of domestic markets to the global
+LNG market, as well as overcoming infrastructure bottlenecks. The share of LNG in EU imports
+is expected to continue to grow in the short and medium term.
+In the last years, Bulgartransgaz EAD has made important investments in the rehabilitation,
+modernization and capacity increase of the existing gas infrastructure. The company is actively
+
+
+
+                                                                                                28
+working to increase the energy security by improving the interconnectivity with the
+neighbouring countries and creating the conditions to accelerate the process of diversification
+of natural gas supply sources and routes and increasing the energy security.
+The network of Bulgartransgaz EAD for customers in the country and the neighbouring markets
+is used for the transport of significant supplies from various sources, such as Azerbaijan, the
+USA and others, including supplies of liquefied natural gas. The Alexandroupolis LNG terminal
+and other terminals in the region further contribute to increasing the security of supply,
+diversification and competition for the benefit of end-users.
+The development of the interconnectivity between Bulgarian and the countries from the region
+has a significant importance to achieving a market integration against the backdrop of
+increased demand for natural gas in the region.
+The provision of sufficient capacity at the interconnection points along the Vertical corridor will
+enable transport of the increasing natural gas quantities from the region's LNG terminals, in
+synergy with the observed significant growth in gas flows from the south to the north resulting
+from the diversification and security of supplies policy to the countries of South-Eastern,
+Eastern and Central Europe.
+This will enable customers in South-Eastern, Eastern and Central Europe to get additional
+quantities of natural gas from the LNG terminals and the Southern Gas Corridor.
+The Vertical Gas Corridor initiative is fully in line with the REPowerEU plan and the strategic
+objective of ending the EU's dependence on imports of Russian energy sources. The
+implementation of Bulgartransgaz EAD projects with a positive cross-border effect will lead to
+increased gas transmission capacities from Greece to Bulgaria, as well as from Bulgaria to the
+countries of the region. The increase in the technical capacity at IP Negru Voda/Kardam is of
+key importance to secure the growing cross-border flows in south-north direction and to ensure
+access of regional markets to diversified sources of supply.
+Chiren UGS expansion project is also in synergy with the LNG terminal near Alexandroupolis,
+as well as with all other Bulgartransgaz EAD’s projects. Providing additional storage volume
+will promote natural gas trade, increase market competition and contribute to liquid gas market
+functioning. The implementation of the project will enable gas traders and consumers in the
+region to fully benefit from the dynamic development and competitive advantages provided by
+the LNG market.
+As a result of run into operation of the transmission pipeline and the compressor station and
+all of its adjacent technical facilities, as of May 1, 2025, the storage capacity of Chiren UGS
+increased by 100 mcm up to a total of 650 mcm. The storage capacity will be gradually
+expanded in parallel with construction of the new wells. The target parameters of the
+expansion (increase in the active gas volume up to 1 bcm and the daily injection and
+withdrawal capacity up to 8-10 mcm/d) will be achieved in stages, taking into account the
+confirmed interest from the market.
+Bulgartransgaz's projects for capacity increase in stages of Chiren UGS and rise of the technical
+capacity at the interconnection points will contribute to achieving a higher degree of market
+integration and ensuring the natural gas supplies for the country and the region, providing
+
+
+
+
+                                                                                                 29
+access to various natural gas sources including LNG terminals.
+Developing its gas transmission infrastructure and storage capacity and providing new supply
+routes and cross-border transmission of natural gas, Bulgartransgaz EAD responds adequately
+to the tendency for increased flows of gas from south to north and diversification of supply
+sources as well as with regard to the pan-European priorities in the climate and energy sector.
+The implementation of the planned infrastructure projects in the country and the region will
+lead to stable integration of the gas market, ensure connectivity with the gas hubs in Central
+and Eastern Europe, as well as facilitate access to increasing natural gas quantities from
+diverse and independent sources. Favourable conditions will be created for diversification and
+consequent reduction of energy dependence, as well as prerequisites for increase of the traded
+gas volumes on a free principle on gas exchanges.
+Considering EU's trends towards achieving decarbonisation of the energy sector and meeting
+the indicative climate targets by 2030 and 2050, activities are underway at European and
+regional levels to facilitate the introduction of renewable and low-carbon gases, including
+hydrogen. As a responsible company, Bulgartransgaz EAD welcomes the European Union's
+plans for decarbonisation of the energy and industrial sectors and strives to be adequate to
+the adopted pan-European priorities in the areas of climate and energy. In this regard, the
+Bulgarian TSO, since 2021 participates in European Clean Hydrogen Alliance and European
+Hydrogen Backbone, initiatives aimed at widespread implementation of hydrogen technologies
+and establishment of a model of pan-European hydrogen transmission infrastructure.
+Bulgartransgaz EAD is also an active participant in the initiative to create a European Network
+of Network Operators for Hydrogen (ENNOH). Together with other European TSOs,
+Bulgartransgaz EAD participates in the constitution of ENNOH aimed at establishing
+cooperation between operators, implementing the newly introduced regulatory framework,
+synchronizing views and join efforts related to the progress in development of hydrogen
+networks and decarbonisation of the energy sector, in synergy with the EU mid-term and long-
+term objectives.
+In the context of Hydrogen Roadmap Europe and in line with the energy and climate strategic
+goals and priorities of Bulgaria, Bulgartransgaz EAD envisages:
+  •    retrofitting of the existing gas transmission infrastructure and ensure suitability for
+       operation with up to 10% hydrogen;
+  •    new clean hydrogen transport infrastructure in two phases: between Sofia region and
+       the Bulgarian-Greek border in Kulata region, and from Sofia region towards Romania,
+       near Ruse.
+On 01.12.2025, the second list of EU projects of common and mutual interest was published
+on the grounds of Regulation (ЕU) 2022/869 on guidelines for trans-European energy
+infrastructure. The list includes a total of 235 cross-border energy projects that contribute to
+strengthening energy connectivity and achieving the Union's energy and climate objectives by
+2030 and 2050. The following two Bulgartransgaz EAD projects are included in the list:
+  •    The project for construction of hydrogen transmission infrastructure (phase 1) in the
+       list under number 10.3.2 "Internal hydrogen infrastructure in Bulgaria towards the
+
+
+
+                                                                                              30
+    Greece border", which is part of the hydrogen interconnections in Central, Eastern and
+    South-Eastern Europe;
+•   The SmartSwitch project – a joint project of Bulgartransgaz EAD and DESFA in category
+    “smart gas transmission networks”, which aims to upgrade the existing Bulgarian and
+    Greek gas transmission systems to integrate up to 10% hydrogen in the networks. The
+    project is included in the list under number 14.3 SmartSwitch – Smart upgrade of the
+    existing Greek and Bulgarian gas transmission networks to integrate low-carbon and
+    renewable gases.
+
+
+
+
+                                                                                        31
+                      NATURAL GAS TRANSPORT AND STORAGE
+
+
+
+
+                                         Chiren UGS
+
+  1. NATURAL GAS TRANSPORT
+
+In its capacity of a licensed gas transmission operator Bulgartransgaz EAD shall ensure:
+   o Uniform management and reliable operation of the gas transmission networks to secure
+     natural gas transport in compliance with the requirements for service quality and
+     reliability;
+   o Maintenance, rehabilitation and modernization of the sites and facilities of the gas
+     transmission networks according to the national and European technical requirements,
+     occupational safety rules and the conditions for environmental protection, while
+     applying the good practices in these areas;
+   o Development of the gas transmission networks in line with the economic feasibility and
+     the social and economic needs of our country;
+   o Access of clients to the gas transmission services under transparent and non-
+     discriminatory conditions according to the requirements of the national and the
+     Community legislation and the good European practice.
+Natural gas transported to consumers in the country (including the volumes transported for
+injection in Chiren UGS) in 2025 is 31,759 GWh and has increased by 2% compared to the
+previous year.
+The natural gas quantities transported in the last ten years (including the quantities
+transported for injection in Chiren UGS) are shown in the diagram:
+
+
+
+
+                                                                                           32
+ (GWh)        Natural gas quantities transported over the period 2016-2025, including
+                            to customers and for storage in UGS Chiren
+ 45 000
+
+                                              39,914
+                                                       39,360
+ 40 000                              38,180
+                   36,723
+          36,105                                                35,322
+                            35,368
+ 35 000
+                                                                                  31,146   31,759
+
+                                                                         28,645
+ 30 000
+
+
+
+ 25 000
+           2016    2017     2018     2019     2020     2021      2022    2023     2024     2025
+
+The natural gas quantities indicated as delivered in the country from import and local
+production (27,656 GWh) and respectively the actually transported natural gas quantities
+(31,759 GWh) differ due to the fact that the transmission activity also includes:
+1. Quantities transported for injection in Chiren UGS;
+2. Difference between the injected and withdrawn quantities in Chiren UGS;
+3. Technological losses, technological differences due to the accuracy of the metering
+   devices, etc.
+
+   2. CROSS-BORDER NATURAL GAS TRANSPORT
+
+Cross-border transported natural gas quantities in 2025 were 194,874 TWh or 11% more than
+in 2024 (174,925 TWh). The transported quantities meet 100% of the consumption in the
+Republic of North Macedonia and significant part of the consumption in Greece and Serbia.
+It is expected that in the coming years, with implementation of the new interconnection
+projects, increased technical transmission capacity and other priority projects in the region,
+natural gas volumes transported to increase and exceed the previous levels.
+Additional growth in the cross-border transmission in the coming years is also expected in
+connection with the implementation of the strategic projects under the Vertical Corridor
+initiative, as a result of the demand in the EU for supplies from alternative sources of pipeline
+and LNG.
+Cross-border transmission through the territory of Bulgaria for the period 2016-2025 is shown
+in the diagram below:
+
+
+
+
+                                                                                                    33
+                        Cross-border transmission of natural gas for the period 2016-2025
+                (TWh)           250.00
+
+                                200.00
+
+                                150.00
+
+                                100.00
+
+                                 50.00
+
+                                  0.00
+                                           2016    2017    2018     2019    2020     2021   2022    2023    2024    2025
+           Cross-border transmission (total) 155.85 173.37 151.03   74.43   38.14   101.78 135.39 145.57 174.93 194.87
+           Türkiye                        125.04 139.50 113.58      45.99   0.95     0.00   0.00    0.00     0.00   0.00
+           Greece                          28.57   30.97   34.76    23.80   31.88   35.37   29.66   23.56   37.45   35.32
+           North Macedonia                 2.24    2.91    2.69     3.14    3.57     4.50   3.02    3.95     3.78   3.46
+           Serbia                          0.00    0.00    0.00     0.00    0.00    29.42   80.87   89.58   109.52 113.93
+           Romania                         0.00    0.00    0.00     1.50    1.74    32.49   21.84   28.48   24.18   42.17
+
+
+The percentage distribution of cross-border transmission in 2025 by countries is:
+
+
+           Cross-border transmission of natural gas in 2025 by countries
+
+
+
+
+                                                                                    Romania
+                                                                                     22%
+                     Serbia
+                      58%
+
+
+
+                                                                                    Greece
+                                                                                     18%
+                                                              North
+                                                            Macedonia
+                                                               2%
+
+
+
+
+                                                                                                                            34
+     3.     NATURAL GAS STORAGE
+
+     Pursuant to Licence No. Л--214-10/29.11.2006, issued by EWRC, Bulgartransgaz EAD provides
+     natural gas storage services by using its own underground gas storage (UGS) Chiren near the
+     village of Chiren, Vratsa Municipality. The gas storage has 24 exploitation wells, a compressor
+     station with approximately 31 MW total installed capacity (including the new compressors
+     according to the gas storage expansion project) and auxiliary technological facilities necessary
+     for securing the natural gas storage. Currently, when filled in at a maximum, Chiren UGS is
+     able to cover about 25-30% of the daily needs during the cold winter months. The injected
+     and withdrawn natural gas quantities depend on the market conditions and the optimal
+     technical capabilities of Chiren UGS in compliance with the rules for safe operation.
+     Bulgartransgaz EAD and the natural gas companies who have clients with irregular
+     consumption are obliged to maintain a strategic reserve related to the security of supplies and
+     the seasonal fluctuation coverage.
+     Chiren UGS is a major instrument in covering seasonal fluctuation in the natural gas
+     consumption and supply in the country and ensuring the security of supply.
+     The project for the expansion of the gas storage that is underway will increase its strategic
+     role in developing the competition and increasing the benefits for natural gas consumers in
+     the conditions of an integrated and interconnected regional gas market.
+     The projects aimed at increasing the transmission capacities with the neighbouring countries,
+     together with the LNG terminal in Alexandroupolis, will enhance the market integration in the
+     region and represent a prerequisite for Chiren UGS to play an increasingly important role in
+     securing additional flexibility of the gas transmission systems at regional level.
+     In 2024, 3,295 GWh of natural gas were injected and 3,825 GWh were withdrawn, and in
+     2025, 4,103 GWh of natural gas were injected and 3,591 GWh were withdrawn.
+     Information on natural gas injection and withdrawal by months is shown in the table below:
+
+
+                    Natural gas quantities withdrawn and injected in 2024 and 2025
+                                   Withdrawal                                            Injection
+ Month
+                     2024                         2025                      2024                           2025
+                        thousand                     thousand                                                thousand
+                                                                                thousand
+              GWh         cubic           GWh          cubic       GWh                               GWh       cubic
+                                                                              cubic meters
+                         meters                       meters                                                  meters
+ January    853,685      79,533         1,059,481     98,878       0,000             0           0,000           0
+February    687,181         64,283      1,033,730        96,385    0.000             0           0.000             0
+ March      709,431         66,270      218,721          20,365    0,000             0           0,000             0
+  April      2,549           239        226,059          21,068    0.000             0           21,621           2,015
+  May        0,000            0           0,000            0      812,704          76,025       675,849       62,987
+  June       0.000            0           0.000            0      784,134          72,404       510,566       47,144
+  July       0.000            0           0.000            0      681,104          62,833       779,827       72,073
+ August      0.000            0           0.000            0      301,929          27,828       997,160       91,820
+September    0.000            0           0.000            0      353,728          32,874       878,873       81,377
+ October     0.000            0           0.000            0      361,564          33,618       239,219       22,170
+November    644,914         59,742      214,356          19,885     0                0                0            0
+December    927,681         86,256      845,064          78,684     0                0                0            0
+
+
+
+
+                                                                                                                  35
+             Natural gas quantities withdrawn and injected in 2024 and 2025
+                      Withdrawal                                   Injection
+Month
+             2024                   2025                   2024                    2025
+Total:   3,825   356,323    3,597      335,265     3,295      305,581      4,103     379,585
+
+
+
+
+                                                                                          36
+    SCENARIOS FOR CAPACITY DEMAND AND SOURCES TO COVER THE DEMAND IN
+                              THE COUNTRY
+
+
+
+
+                                         Metering lines in GMS
+
+1.        NATURAL GAS DEMAND
+The demand scenario has been developed taking into account the relationship between the
+historical gas consumption in the country and the main macroeconomic indicators, comparative
+analysis of the gas markets in the EU and Bulgaria and the expected increase in the
+consumption resulting from the connection of new users and expansion of the production
+capacities.
+The relationship between the final and primary energy consumption (FEC and PEC) and the
+GDP growth for past periods has been analysed 1 and the following basic assumptions have
+been made:
+      o Sustainable economic growth;
+      o Increasing the natural gas share in PEC and FEC in the countries from the region in
+        connection with increasing the level of gasification and reducing the use of coal;
+      o Increase of the natural gas supply from alternative sources to Bulgaria and the region.
+Forecast on natural gas consumption in Bulgaria and expected peak daily demand levels during
+the winter months are shown in the diagrams:
+
+
+
+
+1
+    National Statistical Institute, www.nsi.bg; Eurostat, www.epp.eurostat.ec.europa.eu
+
+
+
+                                                                                             37
+                 Bulgartransgaz EAD forecast for the natural gas demand in the
+GWh                       Republic of Bulgaria in the period 2026-2035
+
+
+
+55 000                                                                                      51,503
+                                                                                   48,641
+                                                                          45,939
+                                                                 43,387
+                                                        40,976
+                                      36,550   38,700
+40 000
+                             34,400
+                    33,325
+         30,100
+
+
+25 000
+          2026       2027     2028     2029     2030     2031    2032      2033     2034     2035
+
+
+
+           Bulgartransgaz EAD forecast for the peak natural gas demand levels
+ GWh/d
+                    in the Republic of Bulgaria in the period 2026-2035
+ 300
+
+
+
+ 250
+
+
+
+ 200
+
+                                                                                              240.6
+                                                                                    227.3
+                                                                 202.7     214.6
+ 150                                                    191.5
+                                      170.8    180.8
+                    155.7    160.7
+         140.6
+ 100
+         2026       2027     2028     2029     2030     2031     2032      2033     2034      2035
+
+
+
+2.       SOURCES TO MEET THE DOMESTIC DEMAND
+
+In 2025 the need of natural gas for dometic consumption have been ensured, as follows:
+     o Import - 27,631 GWh (99,91%);
+     o Local production – 25 GWh (0,09%).
+The forecast on the sources meeting the natural gas demand in the country for the period
+2026-2030 is shown in the diagram below:
+
+
+
+
+                                                                                                      38
+                 Bulgartransgaz EAD forecast for the sources to meet the natural
+                              gas demand in the period 2026-2030
+         GWh/y                                                                         38 675 38 700
+                                                                       36 525 36 550
+                                       33 300 33 325   34 375 34 400
+                       30 075 30 100
+
+
+
+
+                            25              25              25              25              25
+                           2026            2027            2028            2029            2030
+    Imports               30 075          33 300          34 375          36 525          38 675
+    Local production        25              25              25              25              25
+    Total                 30 100          33 325          34 400          36 550          38 700
+
+
+   2.1        Import
+The import of natural gas is carried out through supplies from diversified sources and along
+various routes, as a result of the implementation of the new infrastructure projects and the
+discovery and development of new gas fields. There is a steady trend towards diversification
+of natural gas supplies for both Bulgaria, and the neighbouring countries in the region.
+Main natural gas sources for the countries in the region within the considered period are:
+   o Increasing natural gas volumes from the Southern Gas Corridor - the Caspian region,
+     the Middle East and the Eastern Mediterranean;
+   o Increasing LNG quantities from various sources through the LNG terminals in Greece
+     and Türkiye, including plans for capacity increase of the existing terminals, as well as
+     the construction of new facilities;
+   o Natural gas supply from hubs in Western and Central Europe;
+   o Natural gas production in the countries from the region
+
+   2.2. Local Production
+
+In 2026, local production is expected to remain insignificant. It must be noted that in view of
+the ongoing natural gas exploration activities in Khan Tervel and Khan Asparuh blocks in the
+Black Sea, a significant increase in local natural gas production can be expected in case of
+positive results from the exploration activities in the coming years.
+
+
+
+
+                                                                                                   39
+3. FORECAST OF DEMAND FOR NATURAL GAS TRANSPORT SERVICES THROUGH
+   BULGARTRANSGAZ EAD INFRASTRUCTURE
+
+Bulgartransgaz EAD expects the demand for natural gas transport services to increase in the
+coming years in connection with:
+   o the development and establishment of a liquid regional gas market;
+   o implementation of projects along the Vertical Corridor to increase the transmission
+     capacities at interconnection points;
+   o utilization of the free capacity of the gas transmission system operated by the company,
+     resulting from increased supply of liquefied natural gas through the terminals in the
+     region;
+   o the accelerated diversification of natural gas sources in the region of South Eastern
+     Europe;
+   o the implementation of new LNG terminals projects in the region and the increase in the
+     share of LNG in the overall energy mix;
+   o the implementation of Regulation (EU) 2026/261 on phasing out Russian natural gas
+     imports and preparing the phase-out of Russian oil imports, improving monitoring of
+     potential energy dependencies;
+   o phased increase in the capacity of Chiren UGS, as a result of the implementation of the
+     gas storage expansion project;
+   o increase in natural gas consumption in the country, including as a result of the
+     development of new gas-fired power generation capacities.
+The forecast for the transportation services of natural gas over the period 2026 - 2030 to exit
+points of the gas transmission system, including interconnection points, is shown in the
+following chart:
+
+                   Bulgartransgaz EAD forecast for the demand of natural gas
+     TWh/y     transmission services in the Republic of Bulgaria in the period 2026-
+    350.0                                     2030
+
+
+    300.0
+
+
+
+    250.0
+                                                               320.0           330.6
+                                                309.5
+                                287.1
+    200.0       262.5
+
+
+
+    150.0
+                 2026           2027            2028            2029           2030
+
+
+
+
+                                                                                             40
+                                  SECURITY OF SUPPLY
+
+
+
+
+                                       GMS Strandzha
+
+The calculation of the N-1 standard was prepared for the period 2026-2030 according to Article
+5 of Regulation (EU) No. 2017/1938 concerning measures to safeguard security of gas supply
+and repealing Regulation (ЕU) No. 994/2010.
+The N–1 formula describes the capability of the technical capacity of the gas infrastructure to
+satisfy the total gas demand in the area under calculation in the event of disruption of the
+single largest gas infrastructure during a day of exceptionally high gas demand occurring with
+a statistical probability of once in 20 years.
+In the event of a disruption of the single largest gas infrastructure, the capacity of the
+remaining infrastructure should be able to supply the necessary gas quantities to satisfy the
+total gas demand in the area under calculation, i.e. N-1>100%.
+The infrastructure standard implementation formula used for this TYNDP is as follows:
+
+
+
+
+where:
+
+
+
+
+                                                                                             41
+    EP1       Technical capacity of IP Strandzha 2/Malkoclar
+
+    EP₂       Technical capacity of GMS Negru Voda 1/Kardam
+
+    ЕP₃       Technical capacity of IP Kalotina/Dimitrovgrad
+
+    ЕP₄       Technical capacity of IP Kulata/Sidirokastro
+
+    ЕP₅       Technical capacity of IP Ruse/Giurgiu
+
+    ЕP₆       Technical capacity of IP Stara Zagora
+
+    ЕP₇       Technical capacity of IP Kireevo/Zaycar
+
+    EP8       Technical capacity of IP Strandzha/Malkoclar
+
+    LNGm      Maximum technical capacity of the LNG facilities
+
+    Smах      Withdrawal from Chiren UGS – the maximum possible
+
+    Pmах      National gas production – the maximal possible production
+
+    Dmax      National consumption – peak daily consumption
+    Imax=
+          The single largest gas infrastructure - IP Strandzha 2/Malkoclar
+    EP1
+
+
+The results of the N-1 formula for the next five years are as follows (capacity data in the formula
+N-1 are expressed in mcm/d in line with the Regulation):
+
+   Година   Pmax   Smax EP2     EP3    EP4    EP5    EP6   EP7     EP8     Dmax LNGmax Ep1=Imax    N-1
+                                               mcm/d                                                %
+    2026    0,01   5,00 20,27   0,72   6,12   4,20 11,26   32,00   11,00   13,02   0,00   54,60   695,59
+    2027    0,01   6,50 20,27   0,72   9,37   4,20 14,60   32,00   11,00   14,42   0,00   54,60   684,38
+    2028    0,01   8,00 20,27   0,72   9,37   4,20 14,60   32,00   11,00   14,88   0,00   54,60   673,08
+    2029    0,01   8,00 20,27   0,72   9,37   4,20 14,60   32,00   11,00   15,81   0,00   54,60   633,48
+    2030    0,01   8,00 20,27   0,72   9,37   4,20 14,60   32,00   11,00   16,74   0,00   54,60   598,29
+
+
+
+
+  The calculations made by the formula N-1 for the infrastructure standard show that in case of
+  disruption of the single largest gas infrastructure, the capacity of the other existing
+  infrastructure will be able to ensure the necessary gas quantities to satisfy the overall gas
+
+
+
+                                                                                                      42
+demand on the territory of the Republic of Bulgaria for one day of exceptionally high natural
+gas demand.
+Over the past years, Bulgartransgaz EAD realised a significant progress in ensuring the
+interconnectivity with the gas transmission systems of neighbouring countries, enhancing the
+transmission capacities and providing the possibility for gas supply to the country through
+various routes. The company relies on alternative natural gas supply routes, enabling,
+independently of each other, to fully satisfy natural gas demand in the country.
+
+
+
+
+                                                                                           43
+            2026-2035 GAS INFRASTRUCTURE DEVELOPMENT PROJECTS
+
+
+
+
+           Construction of a pipeline network part of a high pressure gas pipeline
+
+Bulgartransgaz EAD ensures security, reliability and free and equal access to the gas
+infrastructure. This is a prerequisite for the development and liberalization of the domestic gas
+market and the integration of the gas transmission system with the regional and the European
+one in order to create a single, competitive, pan-European gas market.
+The supply and demand analysis, the risk assessment and the obligations of the combined gas
+operator to the public determine the necessary investments planned to be made in the period
+2026-2035.
+The investments provided for the period 2026-2035 will contribute to achieving the following
+objectives:
+   1. Increase and guarantee of the technical security, safety and reliability of the
+      gas infrastructure and compliance with the requirements for environmental
+      protection to satisfy the expected increased gas demand in the country and the region
+      by:
+   o Investments for reconstruction, rehabilitations and overhauls of the transmission
+     networks including investments in the existing compressor stations, existing pipeline
+     network infrastructure and existing gas regulation and metering stations, and in Chiren
+     UGS;
+   o Investments for construction of new facilities to the existing infrastructure necessary
+     to enhance the efficiency of operation;
+   o Investments in ancillary infrastructure, including the fibre optic network.
+
+
+
+
+                                                                                               44
+   2. Providing opportunity for the development of competitive market and
+      diversification of the gas supply sources and routes, resulting in greater energy
+      independence by means of:
+   o Development of the connectivity allowing the access to the Southern Gas Corridor and
+     liquefied gas terminals in the region to ensure diversification of natural gas supply
+     sources and routes for Bulgaria, the countries of the region and Europe;
+   o Connection of new gas production companies in the country to the gas transmission
+     network;
+   o Management systems digitalisation;
+   3. Ensuring the security of gas supplies to the country by means of:
+   o Investments in the construction of interconnections to connect the gas transmission
+     networks located outside the territory of the country.
+   o Investments for expansion of the underground gas storage, both regarding the
+     withdrawal and the injection facilities, and the capabilities for storage of larger amounts
+     of natural gas.
+   4. Access of new customers to natural gas, which will contribute to improvement of
+      the environmental, quality of life, energy efficiency and savings from cheaper fuel.
+This chapter of the TYNDP constitutes structured information about the basic infrastructure
+planned for construction, expansion, reconstruction and modernization during the next ten
+years (2026-2035).
+Considering the long-term period of investment planning - a ten-year period as well the
+inclusion in the TYNDP of the projects, for which at present no final investment decision is
+made and projects whose development is related to the implementation of other international
+projects in the gas sector, for the purpose of greater clarity the Network Development Plan
+has been structured into 3 main groups, defining the particular sites, timetable for their
+implementation and expected amount of the investments for this period:
+    o Investments for which decision for implementation in the period 2026 - 2028 has
+        already been taken - Projects for the development of the gas transmission and storage
+        infrastructure with investment decision already taken - Table 1;
+    o Investments whose implementation depends on the development of international
+        projects implemented on the territory of the country - investments for the development
+        of the gas transmission and storage infrastructure depending on the development of
+        international projects and third parties projects in the period 2026-2035 – Table 2;
+    o Projects for the development of the gas and hydrogen transport and storage
+        infrastructure in the period 2026 - 2035 for which no investment decision has been
+        taken but there are investment intentions for their implementation during the 10-year
+        period - Table 3;
+Additionally, item 5 of this Section provides a more detailed description of the projects of key
+significance to the process of liberalization, diversification of the natural gas supply sources
+and routes, development of the gas network in the region and contribution to the national
+economy.
+
+
+
+
+                                                                                              45
+ 1. NATURAL GAS TRANSMISSION AND STORAGE INFRASTRUCTURE DEVELOPMENT
+ PROJECTS IN THE PERIOD 2026 - 2028 FOR WHICH INVESTMENT DECISION HAS BEEN
+ TAKEN
+
+ Investments for the more significant projects of the network on which a decision has been
+ taken and which are scheduled for implementation in the period 2026 - 2028, are presented
+ in consolidated form in Table 1. The implementation of some of the projects has commenced
+ before 2026 or is planned to end beyond 2028. For such projects only the estimated value of
+ the investments during that period of the planned funds is indicated in the table. The funds
+ specified represent the funding that shall be ensured by Bulgartransgaz EAD.
+ Table No. 1
+                                                                                Estimated
+                                                                                amount of
+      Natural gas transmission and storage
+                                                              Period of the   investment in
+infrastructure development projects in the period
+                                                             planned funds    thousand EUR
+       2026 - 2028 by consolidated projects
+                                                                                  (VAT
+                                                                                excluded)
+   I.   2026-2028 RECONSTRUCTIONS, REHABILITATIONS AND OVERHAULS
+    1. Investments in compressor stations:
+Reconstruction and rehabilitation at CS Polski Senovets
+and CS Valchi dol - Repairs of the building and
+                                                                 2028             3,380
+construction of new fire fighting ring and water supply
+pipe on-site
+Replacement of the outdoor switchgear 110 kV of CS
+                                                               2026-2028          7,925
+Polski senovets and CS Valchi dol
+
+   2. Investments in existing AGRSs and GRSs
+Reconstruction and modernization of AGRS and GRS:
+AGRS Kubrat - new external power supply, AGRS
+                                                               2026-2028            33
+Septemvri - delivery and installation of hydraulic
+separators,
+
+    3. License No. Л-214-06 of 29 November 2006
+Replacement of a section LV Kalugerovo - LV Vrachesh;
+Replacement of a section LV Gorni Bogrov - PF Novi Iskar;
+replacement of a section PF Lom - Cherkovna to CS Polski
+Senovets and construction of a new PF Polski Senovets;
+replacement of a section of the gas transmission network
+from LV-4 to the old GRS at Conn-2; Displacement of
+sections of TGP 1 and main GP to increase the class of the     2026-2028         112,459
+gas pipelines and construction of a new valve group Dn
+1200; Reconstruction of PF Valchi Dol-South (launch trap
+and connection) DN 700; Reconstruction of PF Valchi Dol-
+North - receive trap DN 1000; Replacement of valve
+assemblies "B1" and "7B" from the connection of CS Valchi
+Dol
+
+
+
+
+                                                                                           46
+                                                                                  Estimated
+                                                                                  amount of
+      Natural gas transmission and storage
+                                                                Period of the   investment in
+infrastructure development projects in the period
+                                                               planned funds    thousand EUR
+       2026 - 2028 by consolidated projects
+                                                                                    (VAT
+                                                                                  excluded)
+     4. License No. Л-214-09 of 29 November 2006
+Reconstruction of protective equipment; restoration of the
+ground cover of gas pipelines for Greece in the lands of
+Dragodan      village,   municipality     of    Boboshevo,
+reconstruction of pigging facilities: PF Odrintsi and PF
+Lozenets of TG-2 Dn 1200; Obligation to work in reverse
+flow mode at CS Ihtiman; HDD drilling of a gas pipeline to
+Greece as it crosses Struma river at firefighting valve (FV)
+1203-1205 (Topolnitsa village) and at FV+812 (Slivnitsa
+village); PF Gyueshevo – new; PF Piperevo – Major
+overhaul of two gas turbine engines (GTEs) type MARS 90          2026-2027         14,209
+at CS Lozenets and CS Petrich; Construction of a concrete
+threshold at the crossing of the Transit gas pipeline to
+Greece and Macedonia and the main gas pipeline across
+Stryama; Construction of a concrete threshold at the
+crossing of the transit gas pipeline to Greece and
+Macedonia and the main gas pipeline crossing Luda Yana;
+Protective equipment at Topolnitsa river close to
+Kalugerovo village, region Pazardjik at crossing over the
+transit and main piplines
+Repair by replacement of a section of the DN 1000 gas
+pipeline to the Hellenic Republic and the Republic of North
+Macedonia from valve "B" at CS Ihtiman to the village of
+Venkovets; Replacement of the DN 700 gas transmission
+                                                                 2026-2027         37,878
+pipeline to Greece in the section crossing the Bulgarian-
+Greek border; Replacement of a section of the DN 1000
+of Transit gas pipeline from CS Lozenets to the border with
+the Republic of Türkiye
+   II. INVESTMENTS IN CONSTRUCTION OF NEW FACILITIES TO THE EXISTING
+       INFRASTRUCTURE NECESSARY TO INCREASE THE EFFICIENCY OF
+       OPERATION
+    1. Gas transmission infrastructure
+Construction of cleaning facilities (launch-receive
+chambers) for gas pipeline branches Dimitrovgrad,               2026 – 2028         2,411
+Razgrad and Plovid, AGRS Pernik
+
+   2. Natural gas storage
+Well for the reinjection of incidentally extracted formation
+                                                                 2026-2027          8,001
+water and reconstruction of a water supply system for the
+
+
+
+
+                                                                                            47
+                                                                                            Estimated
+                                                                                            amount of
+      Natural gas transmission and storage
+                                                                     Period of the        investment in
+infrastructure development projects in the period
+                                                                    planned funds         thousand EUR
+       2026 - 2028 by consolidated projects
+                                                                                              (VAT
+                                                                                            excluded)
+discharge from Chiren UGS
+
+    3. Investments in auxiliary networks
+Fiber optic cable lines from GRS Pernik to PF Novi Iskar,
+including a branch to the Bulgartransgaz EAD main office,
+                                                                       2026-2028                2,646
+from PF Novi Iskar to unserviceable amplifier point
+Kremikovtsi, AGRS Razgrad 1 - Gorotsvet
+New information system for the collection, archive and
+visualization  of   technological   information   from                 2026-2027               11,045
+Bulgartransgaz EAD gas transmission network
+
+   ІІІ. ACCESS OF NEW MUNICIPALITIES AND NEW END USERS TO NATURAL GAS
+   1. Investments for construction of new gas metering and gas regulation
+       stations
+Purchase of existing assets for the gas market
+                                                     2026-2028          153
+development
+
+ 2.       NATURAL GAS TRANSMISSION AND STORAGE DEVELOPMENT INVESTMENTS OVER
+          THE PERIOD 2026 – 2035 UNDER PROJECTS WITH AN INTERNATIONAL DIMENSION
+
+ The investments that depend on the development of projects of international importance,
+ carried out on the territory of Bulgaria, are shown in Table 2.
+ Table No. 2
+                                                              Estimated
+         Natural gas transmission and storage                 amount of
+                                            Period of the
+      infrastructure development projects in the            investment in
+                                           planned funds
+     period 2026 - 2035 by consolidated projects            thousand EUR
+                                                           (VAT excluded)
+       I. PROJECTS PROVIDING THE OPPORTUNITY TO DIVERSIFY THE GAS SUPPLY
+          SOURCES AND ROUTES
+       1. Natural gas storage
+ Expansion of Chiren UGS2 Capacity - Wells                        2026 - 2027               127,196
+
+       2. Natural gas transmission infrastructure
+ Pipeline network infrastructure within the framework
+ of the projects to increase the transmission capacity                                      142,350
+                                                                      2026
+ under the Vertical Corridor initiative, including:
+ 2.1. Looping from Kulata to Kresna;                                                        26,619
+
+
+ 2
+  Project of common interest in the meaning of Regulation (ЕU) 347/2013, included under number 6.20.2 in the
+ fifth list of Projects of Common Interest (PCI).
+
+
+
+
+                                                                                                          48
+                                                                               Estimated
+     Natural gas transmission and storage                                      amount of
+                                                         Period of the
+  infrastructure development projects in the                                 investment in
+                                                        planned funds
+ period 2026 - 2035 by consolidated projects                                 thousand EUR
+                                                                            (VAT excluded)
+2.2. Gas transmission pipeline Piperevo Prnik;                                   40,773
+2.3. Looping Rupcha Vetrino;                                                     70,925
+2.4. Compressor station Kardam - reversal and                                    4,033
+      expansion of the capacity of the control
+      system.
+The funds under item 1 represent the value of the remaining costs under a signed contract for
+archaeological monitoring and estimated values for design and construction works, author's
+supervision, construction supervision, compensation and fees for the wells. The total estimated
+value of the project for the Expansion of Chiren UGS capacity is approximately EUR 308 million;
+roughly EUR 78 million are granted from the Connecting Europe Facility.
+
+3      NATURAL GAS TRANSMISSION AND STORAGE INFRASTRUCTURE DEVELOPMENT
+       PROJECTS IN THE PERIOD 2026 - 2035 ON WHICH FINAL INVESTMENT DECISION IS
+       TO BE TAKEN
+
+In order to determine the subsequent realisation of the projects listed below, preliminary
+studies will be carried out on the appropriateness and method of implementation and funding,
+principle technical solutions, scope, location, etc.
+Table No. 3
+                                                                               Estimated
+     Natural gas transmission infrastructure
+                                                          Period of the        amount of
+    development projects in the period 2026 -
+                                                            planned          investment in
+    2035 for which no investment decision has
+                                                              funds          thousand EUR
+                   been taken
+                                                                            (VAT excluded)
+    1. License No. Л-214-09 of 29 November 2006
+1.1. Construction of a reverse flow connection line at
+                                                               2026                26
+CS Provadia
+    2. License No. Л-214-06 of 29 November 2006
+2.1. Actions on construction of cleaning facilities
+/launch and receive chambers/ of gas pipeline
+                                                       2026-2028                  4,854
+branches for Pleven and Pazardzhik, Shumen, Novi
+pazar, Sevlievo and Isperih
+2.2. Gas transmission pipeline with AGRS to Bansko
+                                                       2027-2030                 22,315
+and Razlog
+2.3. High-pressure gas transmission infrastructure to
+                                                       2026-2027                 107,929
+supply consumers in Maritsa East Basin
+2.4. AGRS Dermantsi – for gas pipeline branch Lukovit,
+gas pipeline branch with AGRS to Hisarya and the town    2026                      46
+of Sopot
+    3. Total for distribution
+3.1. Project on increasing the technical capacity for
+                                                            2027-2030            443,209
+natural gas transmission in direction from Greece to
+
+
+
+                                                                                             49
+                                                                              Estimated
+      Natural gas transmission infrastructure
+                                                          Period of the       amount of
+     development projects in the period 2026 -
+                                                            planned         investment in
+     2035 for which no investment decision has
+                                                              funds         thousand EUR
+                    been taken
+                                                                           (VAT excluded)
+Bulgaria at IP Kulata/Sidirokastro - II stage
+
+    4. Hydrogen projects
+4.1. Retrofitting of the existing gas transmission
+                                                            2026-2029             438,485
+infrastructure for operation with up to 10% hydrogen
+4.2. Hydrogen transmission infrastructure in Bulgaria,
+                                                            2026-2032             860,041
+Phase 1 (250 km pipeline and 2 CSs)
+4.3. Hydrogen transmission infrastructure in Bulgaria,
+                                                            2027-2032          1,152,000
+Phase 2 (330 km pipeline and 3 CSs)
+
+The funds under positions 2.3., 3 and 4 of Table 3 represent an estimate of the investment.
+
+4.      2026 – 2035 INVESTMENT PROGRAM
+
+This section presents Bulgartransgaz EAD Investment Programme for 2026-2035.
+Investments - activities for the expansion, reconstruction, modernisation and repairs,
+grouped into three main sections:
+        o   Construction of new facilities;
+        o   Reconstruction, rehabilitation and overhauls of long-term tangible assets;
+        o   Delivery of machinery and equipment.
+4.1. Three-year Investment Programme (2026 - 2028) including investment
+activities on which final investment decision has been taken
+Table 4                              in EUR thousand, VAT excluded
+
+                                                             Total        Total          Total
+                 Programme/Section
+                                                             2026         2027           2028
+TOTAL Annual Programme for Investments:                     257,602       210,447        38,893
+SECTION I.1 - Construction of new sites                     178,314       110,344         2,307
+Gas transmission network                                    140,290         2,098         1,627
+Pipeline network                                             139,806           473          424
+Compressor stations, administrative and operating
+                                                                     8             0        447
+regions
+Communication and information systems                             373        1,569          705
+AGRS and GMS                                                      104             56         51
+Natural gas storage                                           30,266      104,931                0
+Wells and gas gatherings                                        6,395        1,606               0
+Expansion of Chiren UGS capacity                               23,871      103,325               0
+Total for allocation by types of activities                    7,758        3,315           680
+Compressor stations, administrative and operating
+                                                                     0            23        680
+regions
+Communication and information systems                                0             6             0
+
+
+
+                                                                                             50
+Chief Dispatching Division                                      7,758            3,287           0
+SECTION I.2 - Reconstruction, rehabilitation
+                                                              71,870        92,689          22,884
+and overhauls of long-term tangible assets
+Gas transmission network                                      64,206        91,526          21,866
+Pipeline network                                               53,695         81,172        14,477
+Compressor stations, administrative and operating
+                                                               10,509         10,354         7,359
+regions
+AGRS and GMS                                                         3              0           31
+Natural gas storage                                                  0             51            0
+Main technological installations and systems, operating
+                                                                     0             51            0
+unit
+Total for allocation by types of activities                    7,664          1,112          1,017
+Pipeline network                                                7,664            1,021           0
+Compressor stations, administrative and operating
+                                                                     0             92        1,017
+regions
+SECTION I.3 - Supply of machinery and
+                                                               7,418          7,414         13,703
+equipment
+
+
+4.2. 2029-2035 Investment programme, including mandatory investment
+activities ensuring capacity capabilities of the networks
+
+Table 5                               in EUR thousand, VAT excluded
+                             Total    Total      Total      Total     Total       Total      Total
+ Programme/Section
+                             2029     2030       2031       2032      2033        2034       2035
+TOTAL Annual
+Programme for                16,893 17,278       18,205 18,656 19,397 20,175 21,247
+Investments:
+SECTION I.1 -
+Construction of new           4,564     4,792      5,032     5,283       5,548      5,825      6,116
+sites
+SECTION I.2 -
+Reconstruction,
+rehabilitation and            8,239     8,651      9,083     9,538    10,014       10,515     11,041
+overhauls of long-term
+tangible assets
+SECTION I.3 - Supply
+of machinery and              4,090     3,835      4,090     3,835       3,835      3,835      4,090
+equipment
+
+
+5.     DESCRIPTION OF KEY PROJECTS
+
+The key infrastructure development projects of Bulgartransgaz EAD described below represent
+strategic investments for the country and the region in the context of the decisions at the
+European level to phase out the import of Russian natural gas from 2027. The projects for the
+implementation of the strategic Vertical Gas Corridor for Europe, the participation in projects
+
+
+
+                                                                                                51
+related to the regasification of liquefied natural gas, as well as investments in improving the
+regional connectivity are key to ensuring the long-term energy security. Therefore, the
+company's plans are to implement them in the short term and allow significant quantities of
+natural gas from alternative sources to be transported through the gas transmission
+infrastructure of Bulgartransgaz EAD both to Bulgaria, and the countries from the region.
+The following projects will be key for the energy security, diversification and enabling the
+transport of additional natural gas quantities to and through Bulgaria:
+   o Expansion of Chiren UGS;
+   o The projects for the increase of the transmission capacities from Greece to Bulgaria
+     and from Bulgaria to Romania in the context of the strategic Vertical Gas Corridor;
+   o Projects for modernisation and expansion of the existing gas transmission network with
+     a contribution to ensuring safe and reliable transmission of expected increased
+     quantities of natural gas across the country.
+Detailed information on the main gas infrastructure development projects is presented in point
+5.1.
+Along with the efforts that Bulgartransgaz EAD makes to achieve the pan-European goals for
+improving the security of supply, diversification of natural gas supply sources and routes, the
+Company actively participates in the current processes for adapting the energy sector in
+accordance with the plans to achieve of energy decarbonisation and climate neutrality
+according to the European energy policy.
+The next year will see the natural gas keeping its key role in the process achieving the
+decarbonisation objectives. The available gas transmission infrastructure provides an
+opportunity for the successful and accelerated introduction of hydrogen into the energy mix,
+and the plans for the construction of a new hydrogen transmission infrastructure will guarantee
+the large-scale development of the energy sector in the country. This concept is embedded in
+defining the projects that will contribute to the transition to low carbon energy. Solutions for
+preparation of the existing gas transmission network for compatibility with the inclusion of
+hydrogen and other low-carbon gases in the network, as well as for completely new routes for
+green hydrogen transmission are being considered that may potentially become the future
+hydrogen corridor in the region of South East Europe.
+Bulgartransgaz EAD is developing the following hydrogen projects:
+   o Hydrogen transmission infrastructure in Bulgaria (in 2 phases);
+   o Project for the Smartening of the existing Bulgarian gas transmission system and the
+     associated network assets to effectively integrate low carbon and renewable gases.
+The implementation of the projects accounts for the development of strategies and policies
+regarding the hydrogen infrastructure at regional and pan -European level is taken into
+account. Detailed information is available in 5.2 below.
+5.1. Key projects for the development of the gas infrastructure
+The gas infrastructure development concept is based on several key factors:
+   o   New natural gas sources;
+   o   Optimal use of the existing gas transmission networks and Chiren UGS;
+
+
+                                                                                              52
+   o   - Modernization and expansion of the existing infrastructure;
+   o   Building new, expansion of existing interconnection with neighbouring countries and
+       network development to new exit points in the country;
+   o   Optimal trade environment through a liquid gas exchange.
+The complete ban on the import of Russian natural gas from September 2027 and the need
+to increase the import of liquefied natural gas from reliable sources are the factors leading to
+a change in the natural gas market in the country and the region.
+“In this regard, the consistent work on the implementation of the infrastructure of the Vertical
+Gas Corridor will continue as the main highway for transport of liquefied natural gas to the
+region. An entry point for the expected additional quantities of liquefied natural gas for the
+gas markets in the region from reliable sources, such as the USA, Qatar, Egypt and others, is
+Alexandroupolis Independent Natural Gas System (INGS) and Bulgartransgaz EAD has
+a 20% shareholding there. The terminal includes an entry point for the Vertical Gas Corridor
+initiative as well. The existing and planned gas pipelines in the region will provide access to
+natural gas from the terminal for consumers in Bulgaria, as well as in the Republic of North
+Macedonia, Serbia, Romania, Hungary, Moldova and Ukraine. The terminal provides them with
+the opportunity to take advantage of the dynamically developing LNG market and the benefits
+it offers – flexibility, competitiveness and security of supply, as well as access to new gas
+suppliers.
+All possibilities for Bulgartransgaz EAD's shareholding in a project for a new LNG terminal in
+Greece are also being considered to contribute to further diversification of natural gas sources
+and strengthen the energy security of both, Bulgaria and the region.
+Capacity expansion of Chiren Underground Gas Storage
+Chiren UGS is mainly used to compensate the seasonal fluctuations in natural gas consumption
+in the country caused by the differences between the supplies and consumption by providing
+the necessary flexibility, and ensures emergency reserve.
+Chiren UGS capacity expansion project has been determined to be a project of common
+interest for the EU. The objective is the capacity increase in stages of the only gas storage
+facility on the territory of Bulgaria in order to achieve larger volumes of gas stored - up to 1
+bcm, including increased gas reservoir pressure and higher daily average withdrawal and
+injection rates up to 8-10 mcm/day.
+The expansion of the capacity of the only gas storage in our country is among the priority
+energy projects in the region. Its implementation will contribute to guarantee energy security,
+the security of supply, and increase competition on the gas market in Bulgaria and South East
+Europe. The project is in synergy with the existing and planned new LNG terminals in the
+region and the plans for expansion of the gas transmission infrastructure and will enable gas
+traders and consumers in the region to take full advantage of the dynamic development and
+competitive advantages provided by the liquefied natural gas market.
+The project includes three main aspects: (1) design and construction of new surface equipment
+– a compressor station with its auxiliary facilities, (2) design and construction of underground
+equipment and (3) design and construction of a gas transmission pipeline connecting Chiren
+
+
+
+
+                                                                                              53
+UGS to the existing gas transmission system of Bulgartransgaz EAD in the area of village to
+ensure the required connectivity.
+The transmission gas pipeline was commissioned in November 2024, and the compressor
+station and its auxiliary equipment were commissioned in March 2025. This allowed as of 1
+May 2025 the capacity of Chiren UGS to be increased by 100 mcm up to a total of 650 mcm.
+The storage capacity will be gradually expanded in parallel with construction of the new wells.
+The target parameters of the expansion (increasing the volume of active gas to 1 bcm and the
+daily withdrawal and injection capacities to 8-10 mcm/day) will be achieved in stages, taking
+into account the confirmed interest from the market. The Vertical Gas Corridor Initiative is
+a strategic project to ensure the security of supply and diversification of the natural gas supply
+for Bulgaria and the countries of Southeastern, Eastern and Central Europe.
+The concept of the project is based on the maximum utilization of the possibilities of the
+existing gas transmission networks and gas systems along the corridor, including the
+Alexandroupolis terminal and making optimal investments of the participating parties in an
+additional infrastructure, which will allow the transport of the increasing quantities of LNG from
+the LNG terminals in Greece and Türkiye.
+The increase of gas transmission capacities at the interconnection points of the gas
+transmission networks of Greece, Bulgaria, Romania, Hungary, Slovakia, Ukraine and Moldova
+is of key importance for boosting the energy security and market integration of the countries
+of South East, Eastern and Central Europe.
+The strategic route of the Vertical Gas Corridor Initiative will ensure access to additional
+quantities of LNG for consumers. Concerning the projects that will be implemented on the
+territory of Bulgaria for the increase of the capacities from Greece to Bulgaria and from Bulgaria
+to Romania will ensure the technical possibility for the transport of the additional quantities of
+natural gas, including from the Southern Gas Corridor and liquefied natural gas from terminals
+in neighbouring countries with the maximum use of the possibilities of the existing
+infrastructure.
+The projects that Bulgartransgaz EAD works on to increase the transmission capacities
+from Greece to Bulgaria and from Bulgaria to Romania are a key part of the overall
+vision of the Vertical Corridor, and their implementation and the infrastructure already available
+in the country are the basis for achieving the set objectives for diversification and improving
+the security of supply.
+A project to increase the transmission capacity at Interconnection point
+Kulata/Sidirokastro in Greece-Bulgaria direction
+The project includes the construction of infrastructure to increase the technical capacity for
+gas transmission in IP Kulata/Sidirokastro in the direction from Greece to Bulgaria with 35,4
+GWh/d up to a total of 102 GWh/d.
+Its implementation will provide access to additional quantities of pipeline gas and LNG from
+alternative sources, including the USA, Azerbaijan, Egypt and others for all countries in the
+region. As part of the key infrastructure of the Vertical Gas Corridor, the implementation of
+the project is a priority for Bulgaria and the region of Central, Eastern and South East Europe.
+
+
+
+
+                                                                                                54
+As a result of successful public procurements in June 2024, Bulgartransgaz EAD concluded the
+main contracts for the implementation of the following projects: Looping from Kulata to Kresna
+(48 кm, DN700) and Transmission Gas Pipeline from Piperevo to Pernik (53 кm, DN500).
+Activities related to spatial planning, design and obtaining the permits, delivery of the
+necessary materials and equipment, preceding the construction of the planned infrastructure,
+are being carried out.
+The planned date for commissioning the new infrastructure is in the second quarter of 2026.
+The indicative value of the investment amounts to EUR 122,5 million.
+If there is the relevant commercial interest, Bulgartransgaz EAD is ready to launch activities
+on an expanded version of the project, including an additional 82 km of DN700 loop (Kresna -
+Piperevo), installation of an additional GTCU at Petrich compressor station with a capacity of
+9 MW, replacement of 50 km of DN700 gas pipeline (Ihtiman - Gorni Bogrov) and reversal and
+reconstruction of connections and equipment at Ihtiman compressor station (without the need
+for new compressor capacity).
+The implementation of this additional investment will lead to the increase in the total technical
+capacity in the direction from Greece to Bulgaria at IP Kulata/Sidirokastro by an additional 69
+GWh/d to 171 GWh/d.
+The indicative additional cost of the extended option is estimated at EUR 184.7 million, and
+the planned commissioning date is in 2029.
+Project for increase of the transmission capacity at Interconnection point Negru
+Voda 1/Kardam in Bulgaria-Romania direction
+The project includes the construction of infrastructure to increase the technical capacity for
+gas transmission at IP Negru Voda 1/Kardam by 137.2 GWh/d to a total of 295 GWh/d in the
+Bulgaria-Romania direction.
+Its implementation will contribute to a significant increase in natural gas quantities for
+Romania, as well as for the other countries along the Vertical Corridor route, including Ukraine
+and Moldova.
+The project includes the consdtuction of a looping from Rupcha to Vetrino representing a high
+pressure gas pipeline with a diameter of DN1200 and approximate length of 61 km and CS
+Kardam - reversal and expansion of the capacity of the control system (without the need for
+new compressor capacity) and expansion of the capacity of its control system.
+The planned date for the commissioning of the new infrastructure is in the third quarter of
+2026. The indicative value of the investment amounts to EUR 191,4 million.
+In 2025, activities were undertaken to modernise and replace key sections of the existing gas
+transmission system, as part of the Rehabilitation, modernization and expansion of the
+Bulgarian transmission system – Phase 3. Phase 3 covers the activities of replacing two
+sections of the gas transmission network with a total length of about 40 km and the
+construction of compressor station Bogrov. The implementation of the infrastructure will
+contribute to the strengthening of the energy security in the region by improving the technical
+capacity of the network to transport expected additional quantities of natural gas across the
+country, entering from south to north. After the completion of the entire infrastructure covered
+
+
+
+
+                                                                                               55
+by Phase 3, an increase in the capacity of the Bulgaria - Serbia gas interconnection (IBS) will
+be achieved from 1,8 to 3,2 bcm/y.
+Bulgartransgaz EAD plans the construction of a high-pressure gas transmission
+infrastructure to supply consumers in the Maritsa East Basin.
+The project consists of a complex of activities to provide a new high-pressure gas transmission
+infrastructure with sufficient capacity to transport gas to thermal power plants and other
+potential consumers in the Maritsa East Coal Basin.
+Its realisation will create the conditions for the modernization of the combustion installations
+of thermal power plants and other energy users, for introducing lower-emission fuels in the
+energy mix, and a significant reduction of greenhouse gas emissions from combustion
+processes. The implementation of the project will contribute to meeting the decarbonisation
+objectives of the energy sector, the transition to new low carbon technologies and increasing
+the energy security, namely the development of gas transmission infrastructure in the Maritsa
+East Basin.
+This in turn will have a positive social impact as it will allow jobs to be hold down in the region.
+The project is in line with the EU's climate and green transition goals and is being implemented
+in synergy with the vision set out in the roadmap for climate neutrality and decarbonisation of
+the Bulgarian economy.
+Currently, a confirmation of the connection parameters (initial data) is expected from the main
+potential users to determine the conceptual route and the technological sites and the launch
+of activities for the implementation of the project.
+
+
+
+
+                                                                                                  56
+Expansion of Chiren UGS capacity
+
+
+
+
+Project identification in lists:
+Expansion of Chiren UGS capacity (PCI 6.20.2 in the Fifth list of Projects of Common Interest)
+CESEC priority project
+Chiren UGS was declared a site of national importance, according to Decision No. 755/21.09.2004 and a
+national site, according to Decision No. 709/14.10.2021 of the Council of Ministers.
+Gas pipeline connecting Chiren UGS with the existing gas transmission network of Bulgartransgaz EAD was
+declared a national site and a site of national importance, according to Decision No. 528/02.08.2023 of the
+Council of Ministers.
+Type of project: Underground gas storage
+
+Description of the project: Chren UGS expansion -
+gradual increase in the active gas volume up to 1 bcm and
+increase in the injection and withdrawal capacity up to 8-10
+mcm/d.
+Technical data:
+- Above-ground part: Compressor equipment with the
+  auxiliary equipment, GMS, separation installations,
+  heating and dehydration, etc.
+- Wells: 10 exploitation and 3 observation wells, gatherings,
+  auxiliary activities, etc.
+- Gas pipeline connecting Chiren UGS to the existing gas
+  transmission network of Bulgartransgaz EAD of ~41 km
+  length and DN700.
+
+                                                Funding:
+                                                1. Bulgartransgaz EAD own funds;
+Expected amount of the investment:
+                                                2. Co-financing from the Connecting Europe Facility (CEF) in
+~ EUR 308 million, VAT excluded.
+                                                the amount of about EUR 78 million (Project 101069718 —
+                                                6.20.2-BG-W-M-21-Chiren-UGS-Expansion).
+
+Estimated commissioning date:                   Incrementally by 2027
+
+Project phase:                                  In progress
+ Current status of project implementation:
+ Above-ground facilities:
+- Commissioned (in March 2025).
+ Wells:
+- The gradual drilling and commissioning of the required new wells are pending.
+ Gas pipeline:
+- The gas pipeline has been commissioned (in November 2024).
+As of 1 May 2025 Chiren UGS capacity has been expanded up to 650 mcm thanks to the new above-ground
+equipment and a gas pipeline connecting the storage facility to the gas transmission network.
+Expected benefits:
+Ensuring the security of supply; Increasing market integration;
+Stimulation of market competition; Promotion of gas trade in the region;
+Contribution to the implementation of the energy transition and reduction of emissions;
+Contribution to the introduction of gas from alternative sources, including LNG.
+Project website: https://www.bulgartransgaz.bg/chiren
+
+
+
+
+                                                                                                           57
+Project for the increase of the transmission capacity at Interconnection point Negru Voda/Kardam in
+Bulgaria-Romania direction
+
+
+Project identification in lists:
+Project TRA-N-1124, TYNDP2024 of ENTSOG
+National site and site of national significance in accordance with Decision No. 133 of 23.02.2024 of the Council of
+Ministers
+Type of project: High pressure gas pipeline and auxiliary facilities
+
+Description of the project: Increasing the technical
+capacity for natural gas transmission in direction from
+Bulgaria to Romania at Interconnection point IP Negru
+Voda/Kardam.
+
+Technical data:
+Looping from Rupcha to Vetrino of about 61 km
+approximate length, DN1200
+Activities related to reversing compressor station
+Kardam (without the need for new compressors) and
+expansion of its control system capacity.
+
+Increase in the transmission capacity from Bulgaria to
+Romania: 137.2 GWh/d (up to a total of 295 GWh/d).
+
+
+
+Expected amount of the investment:                        ~ 191.4 million €
+
+Estimated commissioning date:                             In the third quarter of 2026
+
+Project phase:                                            In progress
+
+ Current status of project implementation:
+- A contract is signed and underway with a subject matter Investment design, supply of the necessary materials and
+  equipment, construction and commissioning of a construction site Looping from Rupcha to Vetrino” and contract
+  Investment design, supply of the necessary materials and equipment, construction and commissioning of a site:
+  Compressor station Kardam - reversal and expansion of the capacity and the control system;
+- With Decision 1-1/2025 on the environmental impact assessment of the MOEW, the realisation of the site Looping from
+  Rupcha to Vetrino was approved;
+- A Detailed Spatial Plan - Parcelling Plan and Working Design for the project Looping from Rupcha to Vetrino site have
+  been approved and easement rights have been established. The Detailed Design for the Linear Section stage has been
+  approved and a building permit has been issued, the necessary materials and equipment have been delivered.
+  Construction and installation works are underway on-site, the archaeological research is in its final phase.
+- Detailed design for the site. Compressor station Kardam - reversal and expansion of the capacity of its control system
+  has been approved and a building permit has been issued, the required materials and equipment have been delivered.
+  The construction and installations works are underway.
+
+
+Expected benefits:
+A key part of the Vertical Gas Corridor infrastructure; a strategic route to provide access to additional LNG and gas from
+alternative sources for the region; improving the interconnection between Bulgaria and Romania.
+
+
+
+
+                                                                                                                      58
+A project to increase the transmission capacity at Interconnection point IP Kulata/Sidirokastro in Greece-
+Bulgaria direction
+
+Project identification in lists:
+Project TRA-N-1140, TYNDP2024 of ENTSOG
+National site and site of national significance in accordance with Decision No. 133 of 23.02.2024 of the Council of
+Ministers
+Type of project: High pressure gas pipeline and auxiliary facilities
+Description of the project: Increasing the
+capacity for natural gas transmission in direction
+from Greece to Bulgaria at Interconnection point IP
+Kulata/Sidirokastro.
+Technical data - baseline option:
+Includes: Looping from Kulata to Kresna with an
+approximate length of 48 km , DN700 and a high
+pressure gas pipeline from Piperevo to Pernik with an
+approximate length of 53 km, DN 500.
+Increase of the transmission capacity from Greece
+to Bulgaria: 137.2 GWh/d (up to a total of 102
+GWh/d).
+The project implementation will also enable the
+increase in the transmission capacity at IP
+Kyustendil/Zhidilovo from Bulgaria to North
+Macedonia by 5,383 GWh/d.
+Technical data - extended option:
+In addition to the base variant:
+Looping from Kresna to Piperevo of 84 km
+approximate length, DN 700;
+A high pressure gas pipeline from Ihtiman to G.
+Bogrov of 50 km approximate length, DN 700;
+Installation of additional 9 MW GTCU at CS Petrich
+and reconstruction;
+Reversing of CS Ihtiman
+Increase of the transmission capacity from Greece
+to Bulgaria: 69,0 GWh/d (up to a total of 171
+GWh/d).
+                                                        Baseline option: ~ 122.5 million €
+Expected amount of the investment:
+                                                        Extended option: ~ 307.2 million €
+                                                        Baseline option: In the second quarter of 2026
+Estimated commissioning date:
+                                                        Expanded option: 2029
+
+Project phase:                                          In progress
+
+ Current status of project implementation:
+- Contracts with the following subject matter are in the process of being implemented: Spatial planning, investment
+  design, supply of the necessary materials and equipment, construction and commissioning of sites Looping from Kulata
+  to Kresna and Gas transmission pipeline from Piperevo to Pernik
+- Site Looping from Kulata to Kresna: With Decision 11-ПР/2024 of the MOEW as assessment was made that there is no
+  need of EIA; a Detailed Spatial Plan - Parcelling Plan was approved and easement rights were established. The necessary
+  materials and equipment have been delivered and the archaeological surveys have been completed. The detailed designs
+  have been approved and building permits have been issued for the stage: Pipeline network, stage PF Kulata and stage
+  PF Kresna of the site; construction and installation works are being carried out.
+- Site "Gas Transmission Pipeline from Piperevo to Pernik": With Decision 2-ПР/2025 of the MOEW as assessment was
+  made that there is no need of EIA; a Detailed Spatial Plan - Parcelling Plan was approved and easement rights were
+  established. The detailed design for the stage Pipeline network part has been approved, delivery of materials and
+  equipment and construction and installation works and archaeological studies are underway.
+
+
+Expected benefits:
+A key part of the Vertical Gas Corridor infrastructure; a strategic route to provide access to additional LNG and gas from
+alternative sources for Bulgaria and the region; improving the interconnection between Bulgaria and Greece.
+
+
+
+
+                                                                                                                      59
+Project for High-pressure gas transmission infrastructure to supply consumers in Maritsa East Basin
+
+
+Project identification in lists:
+Project TRA-N-1170, TYNDP2024 of ENTSOG
+National site and site of national significance in accordance with Decision No. 133 of 23.02.2024 of the Council of
+Ministers
+Type of project: High pressure gas pipeline and auxiliary facilities
+
+Description of the project: High-pressure gas
+transmission infrastructure and enogh capacity to
+supply consumers in Maritsa East Basin.
+
+Technical data:
+New high-pressure gas pipelines of about 73 km
+approximate total length, a diameter DN 700 and DN
+500 and their auxiliary technological facilities
+
+
+
+
+Expected amount of the investment:                        ~ 107.9 million €
+
+Estimated commissioning date:                             2028
+
+Project phases:                                           Pre-project activities
+
+Current status of project implementation:
+A conceptual route and technological sites are yet to be determined. For this purpose, confirmation of the connection
+parameters from the main potential users is required.
+
+
+Expected benefits:
+Significant contribution to decarbonisation of the energy sector in Bulgaria;
+Economic and environmental benefits for the region.
+
+
+
+
+                                                                                                                      60
+Rehabilitation, modernization and expansion of the Bulgarian gas transmission system - Phase 3
+
+
+Project identification in lists:
+Project for Rehabilitation, modernization and expansion of the Bulgarian gas transmission system (PCI 6.8.2 in the
+Fifth list of Projects of Common Interest)
+Project TRA-A-298, TYNDP2024 of ENTSOG
+
+Type of project: High pressure gas pipeline and auxiliary facilities
+
+Technical data (Phase 3):
+New gas pipeline Gorni Bogrov - Novi Iskar of 19
+km length, DN 700;
+New gas pipeline Ihtiman – Ventkovets, ~ 17 km,
+DN 1000;
+New Compressor station Bogrov - 20 MW.
+
+
+
+
+Estimated commissioning date:                         Incrementally by 2030.
+
+Expected amount of the investment                     ~ 155.2 million €
+
+Project phase:                                        Pre-project activities
+Current status of project implementation:
+Contracts with the following subject matter are in the process of being implemented: Investment design – Detailed
+Design Phase, procurement of the necessary materials and equipment, construction and commissioning of
+construction site: Replacement of a gas transmission pipeline DN 1000 to Greece and North Macedonia in the section
+from the gas pipeline connection point at CS Ihtiman to the village of Venkovets and contact with subject matter:
+Spatial planning, Investment design – detailed design phase, procurement of the necessary materials and
+equipment, construction and commissioning of the site: Replacement of a gas transmission pipeline DN 700 in the
+section from valve assembly Gorni Bogrov to PF Novi Iskar and construction of an optical cable line to it.
+Expected benefits:
+Strengthening of the energy security in the region by improving the technical capacity of the network to transport
+expected additional quantities of natural gas across the country, entering from south to north;
+The increase of capacity of the Interconnection Bulgaria - Serbia (IBS) from 1,8 to 3,2 bcm/y.
+Project website: https://www.bulgartransgaz.bg/rehabilitaciya
+
+
+
+
+                                                                                                               61
+5.2. Development of the hydrogen infrastructure plans in the light of green
+transition.
+The significant potential of the Eastern Mediterranean region and South East Europe for both
+green hydrogen production and its import from reliable partners will encourage the
+investments in hydrogen infrastructure. Bulgartransgaz EAD and the Greek transmission
+operator DESFA S.A. develop together interconnection projects for entirely new hydrogen
+networks, synchronizing their decisions regarding the concepts of their hydrogen projects.
+With the approval of the European Commission, the project for hydrogen transport
+infrastructure on the territory of Bulgaria was granted the status of a project of pan-European
+interest and was included in the Second list of Projects of Common Interest (PCI) and projects
+of mutual interest (PMI) of the EC under Regulation 2022/869 on guidelines for trans-European
+energy infrastructure (TEN-E), published on 01.12.2025 (described below as a hydrogen
+transmission network in Bulgaria (Phase 1). Its objective is to establish a hydrogen
+transmission network in Bulgaria with a transmission possibility from/to Greece, with
+connectivity to a similar hydrogen infrastructure on Greek territory, with DESFA as operator.
+In 2025, Bulgartransgaz EAD applied for grant funding from Connecting Europe Facility (CEF)
+for preparatory and pre-investment activities under PCI 10.3.2. In early 2026, the European
+Commission announced its approval of funding in the amount of EUR 4.56 million for carrying
+out a feasibility study and spatial planning activities, environmental procedures, archaeological
+surveys and investment design for PCI 10.3.2. A grant agreement between Bulgartransgaz
+EAD and the financing institution CINEA is to be signed.
+The Hydrogen Transmission Infrastructure in Bulgaria (Phase 2) project is in the planning
+stage, which represents a continuation of the hydrogen transmission infrastructure of Phase 1
+crossing the interior of the country to the border with Romania.
+The combination of the two projects constitutes the "backbone" of the Bulgarian hydrogen
+transmission infrastructure, ensuring cross-border connectivity with Greece and Romania as
+well as with the countries of Central Europe.
+They will contribute to implementation of a priority European hydrogen route in Southeastern
+Europe, which will ensure transmission of clean hydrogen from the region to Central Europe -
+both from local production, and imports. The hydrogen transmission infrastructure projects on
+the territory of Bulgaria are part of the scenarios for development of the hydrogen networks
+of the European Hydrogen Backbone (EHB), as well as of the regional initiative SEEHyC for
+construction of a South-East European priority hydrogen corridor from Greece through
+Bulgaria, Romania, Hungary, Slovakia and the Czech Republic to Germany. The joint project
+of Bulgartransgaz EAD and DESFA S.A. for smart upgrade of the existing Bulgarian and Greek
+gas transmission network for integration of low-carbon and renewable gases was also
+recognized as key European infrastructure and was included in the Second List of Projects of
+Common Interest (PCI) and Projects of Mutual Interest (PMI) under number PCI 14.3 Smart
+upgrade of the existing Greek and Bulgarian gas transmission networks for integration of low-
+carbon and renewable gases (SmartSwitch project).
+The project aims at adaptation of the existing natural gas networks of Bulgaria and Greece to
+transport natural gas mixtures with up to 10% hydrogen. Activities are planned for the
+
+
+
+
+                                                                                               62
+digitalization of the gas network and the integration of components and systems that will allow
+for more effective management, interactive and intelligent monitoring, measurement and
+control of the quality of transmission of natural gas mixtures in the gas networks.
+The development of hydrogen projects will contribute to the gradual decarbonisation of the
+gas sector and will provide the possibility to transport and use low-carbon gases on the
+territory of Bulgaria.
+
+
+
+
+                                                                                             63
+Hydrogen transmission infrastructure in Bulgaria (Phase 1)
+
+
+Project identification in lists:
+
+PCI 10.3.2 Internal hydrogen infrastructure in Bulgaria towards the Greece border, part of the Second list of
+PCIs and PMIs of the European Union in accordance with Regulation (ЕС) 2022/869.
+Part of the EHB hydrogen network development scenarios
+Part of the South East Hydrogen Corridor development scenarios under the ECH2A initiative
+Part of the SEEHyC regional initiative
+
+Type of project: Н2 infrastructure and adjacent facilities
+
+Project description: New H2 infrastructure on the
+territory of Bulgaria, suitable for transporting 100%
+hydrogen. The project is being developed in coordination
+with a H2 infrastructure project on the territory of Greece,
+with operator DESFA, and will create conditions for a
+bidirectional cross-border hydrogen transmission between
+Bulgaria and Greece at a new connection point in the
+Kulata/Sidirokastro region.
+
+Technical data:
+New pipeline with a length of approximately 250 km,
+DN1000.
+Two new compressor stations with a total of about 48 MW
+in the area of Petrich and Dupnitsa.
+
+Start point: Sofia Region, Republic of Bulgaria
+ End point: Sidirokastro region, Republic of Greece
+
+
+Expected amount of the investment:                             ~ EUR 860 million, VAT excluded.
+
+Estimated commissioning date:                                  2032
+
+                                                               1. Bulgartransgaz EAD own funds;
+Funding:                                                       2. CEF co-financing in the amount of EUR 4.56
+                                                               million (Project 101287437 — 10.3.2-BG-S-M-25-
+                                                               PCI 10.3.2 - Studies).
+Project phase:                                                 Preparation for a Feasibility Study
+
+Expected benefits:
+Contributes to sustainable economic growth;
+Creates conditions for phasing out fossil fuels;
+Contributes to national and European decarbonisation and carbon neutrality targets by 2050;
+Important part of a future hydrogen corridor from South East to Central Europe.
+
+
+
+
+Project website: https://www.bulgartransgaz.bg/pages/poi-10-3-2-vatreshna-infrastruktura-za-vodorod-v-
+balgariya-v-posoka-kam-granicata-s-garciya-242.html
+
+
+
+
+                                                                                                                64
+Hydrogen transmission infrastructure in Bulgaria (Phase 2)
+
+
+Project identification in lists:
+Applied for inclusion in the third list of EU PCIs/PMIs under Regulation (EU) 2022/869
+Part of the EHB hydrogen network development scenarios
+Part of the South East Hydrogen Corridor development scenarios under the ECH2A initiative
+Part of the SEEHyC regional initiative
+
+Type of project: Н2 infrastructure and adjacent facilities
+
+
+Project description: New H2 infrastructure on the
+territory of Bulgaria, suitable for transporting 100%
+hydrogen. The project is the second phase of the
+hydrogen transport network in Bulgaria.
+The project will create the conditions for bi-directional
+cross-border H2 transport between Bulgaria and Romania
+at a new hydrogen interconnection point in the region of
+Ruse/Giurgiu.
+
+Technical data:
+New pipeline of approximately 330 km length, DN1000
+Three new compressor stations
+
+Start point: Sofia district (Novi Iskar), Republic of Bulgaria
+ End point: the region of Ruse/Giurgiu, Republic of
+Bulgaria/Romania
+
+Expected amount of the investment:                               ~ EUR 1152 million, VAT excluded.
+
+Estimated commissioning date:                                    2032
+
+Project phase:                                                   Planning
+
+Expected benefits:
+Contributes to sustainable economic growth;
+Supports the process of large-scale hydrogen implementation, both in Bulgaria and in the region of South-East
+Europe.
+Contributes to national and European decarbonisation and carbon neutrality targets by 2050;
+Important part of a future hydrogen corridor from South East to Central Europe.
+
+
+
+
+                                                                                                            65
+ Smartening of existing Greek & Bulgarian Gas Transmission System for the integration of
+ hydrogen and renewable gases in the network - SmartSwitch project (SmartSwitch project)3
+ Joint project of Bulgartransgaz EAD and DESFA S.A.
+
+ Project identification in lists:
+ PCI 14.3. Project "SmartSwitch", part of the Second EU List of PCIs/PMIs under Regulation (EU) 2022/869
+ Part of the EHB hydrogen network development scenarios
+
+ Type of project: Project in priority thematic area "Smart Gas Transmission Networks"
+
+
+
+ Project description: Smartening the existing gas
+ transmission infrastructure in Bulgaria and Greece with
+ the necessary facilities, digital elements, installations and
+ solutions to create possibilities to integrate and transport
+ renewable gas mixtures in concentrations up to 10%
+ hydrogen. Introduction of intelligent systems for
+ transmission monitoring, control and management.
+
+ Technical data:
+ The activities on the Bulgarian territory cover the entire
+ existing gas transmission infrastructure and will be
+ determined after the completion of the planned studies.
+
+
+
+ Expected value of the investment on the Bulgarian
+                                                                 ~ EUR 256.9 million, VAT excluded.
+ territory:
+ Estimated commissioning date:                                   2029
+
+ Project phase:                                                  Planning
+ Expected benefits:
+ Reduction of greenhouse gas emissions;
+ Achieving gradual decarbonisation of energy and economy, and providing conditions for increasing industry
+ competitiveness;
+ Improving the flexibility and efficiency of the gas transmission system;
+ Access to sustainable, environmentally friendly energy carrier (H₂) for all market participants.
+
+
+
+
+3 The data specified in the project fiche refers only to the project implemented on Bulgarian territory.
+
+
+
+
+                                                                                                             66
+5.3. Other Bulgartransgaz EAD infrastructure development projects
+5.3.1. Interconnection Bulgaria – North Macedonia
+The project is in a conceptual phase and envisages the construction of a new gas
+interconnection between the Republic of Bulgaria and the Republic of North Macedonia
+following the route Petrich - Strumica.
+The development of interconnectivity between Bulgaria and North Macedonia will boost energy
+security and contribute to further energy market integration.
+In this regard the following documents have been signed:
+   o   Memorandum of Understanding and cooperation in the field of natural gas between
+       the Ministry of Energy of the Republic of Bulgaria and the Ministry of Economy of the
+       Republic of North Macedonia
+   o   Agreement between Bulgartransgaz EAD and Macedonian Energy Resources Joint
+       Stock Company (currently “NOMAGAS AD Skopje”) for carrying out a feasibility study
+       on the construction of a new gas interconnection between the Republic of Bulgaria and
+       North Macedonia.
+Possibilities are studied for a market test for the project to decide on the implementation of
+the interconnector.
+
+5.3.2. Development of the existing network by construction of new gas pipeline
+branches
+The development of the existing network will contribute to the creation of opportunities to
+achieve a sustainable environment favourable to the development of industry and the
+economy. Besides supporting the economy, the gas transmission network expansion in new
+regions is directly related to their development. Providing access to a sustainable and
+environmentally friendly energy source such as the natural gas, creates an opportunity for
+gasification of new settlements, increasing the competitiveness of economic entities and
+subsequently reducing GHG and pollutant emissions by replacing traditionally used solid and
+liquid fuels. In this context, the project for high-pressure gas transmission infrastructure to
+supply consumers in Maritsa East Basin is particularly important, as it has the potential to make
+a significant contribution to the transition to decarbonisation of these regions.
+5.4. Major projects for gas infrastructure reconstructions, rehabilitations and
+overhauls
+5.4.1. Overhauls of sections of the gas transmission network
+The maintenance activities of the gas pipeline network during its operation found out
+amortisation, most of which relates to metal loss. Repairs are carried out in a timely manner
+to restore the gas pipelines' strength characteristics and replace their anti-corrosion coating,
+according to the prescribed repair programmes.
+5.4.2. Overhauls of gas turbine engines and scheduled maintenance and
+inspections of GTCUs
+All gas turbine engines (GTE) have the so-called between overhaul resource in working
+hours (resource until inspection) and general technical resource in working hours which
+
+
+
+                                                                                               67
+are in line with the respective operational documents and the aim is to ensure the operational
+reliability, safety, efficiency and preservation of the operational parameters of the GTE.
+Following expiry of the between overhaul resource or in case of failure of the equipment during
+operation, an overhaul shall be carried out to recover the mechanical, environmental and gas
+dynamic parameters, as well as to ensure its safe and reliable operation in the future (following
+the overhaul) working hours until reaching the general technical resource.
+5.4.3. Construction of pigging facilities (launch and receive chambers) for gas
+pipeline branches Razgrad, Sevlievo, Dimitrovgrad and Plovdiv
+Currently there are no pigging facilities installed on these branches. The construction of launch
+and receiving traps will enable regular cleaning and in-line inspections to track the actual
+operating state of the transmission gas pipelines without any need of gas flow interruption
+and the maintenance of the design pressure as well.
+The spatial planning and investment design activities for the pigging facilities of the gas
+pipeline branches to Plovdiv and Razgrad are being implemented.
+For the site: Launch and receive traps on gas pipeline branch Razgrad DN300, including stage
+1 Launch trap of PF and stage 2 Launch trap of PF, Detailed spatial plans Parcelling Plans have
+been developed and approved. Investment designs - technical design phase have been
+developed for the site (for both stages). Procedures for acquiring property rights are carried
+out with subsequent obtaining of construction permits.
+For the site: DSP-PP for stage 1 has been prepared and approved for Launch and receiving
+traps at gas pipeline branch Plovdiv DN 500 - Launch - Receiving District Heating Company
+Plovdiv North and Launch DN 300 – Receiving DN 300 Heating Station Plovdiv South.
+
+
+
+
+                                                                                               68
+         DEVELOPMENT OF THE CAPACITY OF BULGARTRANSGAZ EAD GAS
+                INFRASTRUCTURE IN THE PERIOD 2026-2030
+
+
+The planned activities for the period 2026-2030 will ensure the adequacy of Bulgartransgaz
+EAD infrastructure in connection with the efforts of Bulgaria and the countries of the region to
+diversify the natural gas supply sources and routes.
+Estimated capacities for the period 2026 -2030*
+As of 1 January, MWh/d               2026          2027          2028           2029          2030
+Entry capacity                   1,601,998 1,479,116 1,530,640 1,530,640 1,530,640
+IP Strandzha 2/Malkoclar           587,005          587,005       587,005       587,005        587,005
+IP Strandzha/Malkoclar             118,250          118,250       118,250       118,250        118,250
+IP Negru voda 1/Kardam             216,528          216,528       216,528       216,528        216,528
+IP Ruse/Giurgiu                     43,373           43,373        43,373         43,373        43,373
+IP Stara Zagora                    122,882          122,882 159,700*** 159,700*** 159,700***
+IP Kalotina/Dimitrovgrad             7,748            7,748          7,748         7,748         7,748
+IP Kulata/Sidirokastro              66,616           66,616       101,976       101,976        101,976
+IP Kireevo/Zaycar                  343,552          343,552       343,552       343,552        343,552
+GMS Chiren                          43,104           53,880        70,044         86,208        86,208
+Local Production                    26,000           26,000        26,000         26,000        26,000
+Exit capacity                    1,889,656 2,047,444 2,063,608 2,063,608 2,063,608
+IP Negru voda 1/Kardam             158,871          294,971       294,971       294,971        294,971
+IP Ruse/Giurgiu                     26,818           26,818        26,818         26,818        26,818
+IP Stara Zagora                     23,428           23,428        23,428         23,428        23,428
+IP Kalotina/Dimitrovgrad            53,053           53,053        53,053         53,053        53,053
+IP Kulata/Sidirokastro             119,990          119,990       119,990       119,990        119,990
+Kyustendil/Zhidilovo                33,209           38,733        38,733         38,733        38,733
+IP Kireevo/Zaycar                  407,968          407,968       407,968       407,968        407,968
+IP Strandzha/Malkoclar             506,593          506,593       506,593       506,593        506,593
+Exit zone Bulgaria                 505,846          505,846       505,846       505,846        505,846
+GMS Chiren                          43,104           53,880        70,044         86,208        86,208
+
+*The indicated capacity values refer to January 1 of the respective year.
+**The included capacity increase is dependent on the implementation of a project by the neighbouring
+operator ICGB AD.
+
+
+
+
+                                                                                                  69
+                                        CONCLUSION
+
+
+Bulgartransgaz EAD is the combined gas operator providing licensed services of natural gas
+transmission and storage on the territory of the Republic of Bulgaria. The Company operates
+sites of national importance and strategic sites for the energy security of the country, including
+Chiren UGS.
+In the conditions of a dynamically changing energy environment, the significance of the
+Bulgarian gas transmission system as part of the regional energy infrastructure is growing.
+Thanks to its geographical location, well-developed infrastructure and high level of
+interconnectivity, Bulgartransgaz EAD gas transmission system creates conditions for natural
+gas transmission from diversified sources.
+The company implements a consistent investment policy aimed at gas infrastructure
+development, rehabilitation and expansion in order to increase its reliability, efficiency and
+capacity. The implementation of the planned infrastructure projects contributes to
+strengthening the energy security of the country and the region, to further diversification of
+supply sources and routes, as well as to development and liberalization of gas markets at the
+national, regional and European levels.
+The main priority infrastructure development activities of Bulgartransgaz EAD for the period
+2026-2035 include:
+   o Maintenance of technically operational, reliable and high-efficiency main and auxiliary
+     gas infrastructure;
+   o Development, rehabilitation and expansion of the gas transmission and storage
+     infrastructure, including implementation of the projects along the Vertical Gas Corridor
+     and Chiren UGS expansion project;
+   o Improvement of interconnectivity with neighbouring countries;
+   o Expansion of the natural gas storage, injection and withdrawal capacity;
+   o Adaptation of the existing gas transmission infrastructure for transportation of natural
+     gas mixtures with up to 10% hydrogen;
+   o Building new infrastructure for transmission of clean hydrogen.
+The implementation of the planned projects and targeted investments to optimise and
+maximise the capacity of the existing networks will create conditions for significant increase of
+natural gas quantities from alternative sources and reliable partners that will be transported
+through Bulgartransgaz EAD gas transmission system, both for the needs of the Bulgarian
+market and the countries of Central and Eastern European region.
+Bulgartransgaz EAD maintains active cooperation with gas transmission operators in the
+region, which contributes to improve connectivity between the national gas systems,
+integration of the markets and increase of security of supply.
+The Company is among the main initiators of the Vertical Gas Corridor which implementation
+will provide the necessary levels of capacity for transmission of the increasing natural gas flows
+from south to north, will increase energy security, improve the conditions for diversification of
+supplies and contribute to the integration, liberalisation and stability of gas markets in the
+region.
+
+
+
+                                                                                                70
+In the context of the energy transition and the European decarbonisation policies, natural gas
+will continue to play an important role as a transition fuel to achieve the EU's 2030 greenhouse
+gas reduction targets and a climate-neutral economy by 2050.
+Bulgartransgaz EAD develops and plans hydrogen-related projects for integration of renewable
+and low-carbon gases into the gas transmission network, as well as construction of new
+infrastructure for transmission of clean hydrogen. The company also participates actively in
+European initiatives regarding hydrogen economy development.
+It will continue to ensure reliable and secure natural gas transmission and storage by
+implementing consistent measures to support national and pan-European objectives related to
+security of supply, diversification of sources and supply routes, as well as decarbonisation of
+the energy system.
+
+
+
+
+                                                                                              71
+                                     SOURCES USED
+
+
+o   2026 - 2030 Business Programme of Bulgartransgaz EAD;
+o   Bulgargaz ЕАД(www.bulgargaz.bg)
+o   Bulgartransgaz EAD (www.bulgartransgaz.bg);
+o   Bulgarian Energy Holding (www.bgenh.com)
+o   National Statistical Institute (www.nsi.bg);
+o   Statistical data from Eurostat (https://ec.europa.eu/eurostat);
+o   Annual implementation reports of the Energy Community Secretariat (https://www.energy-
+    community.org);
+o   Reports of the European Commission on gas market in the EU for 2025 (www.ec.europa.eu);
+o   Integrated plan in the field of energy and climate of the Republic of Bulgaria updated 2024;
+o   Information related to natural gas production in Bulgaria, Petroceltic International Plc webpage
+    (www.petroceltic.com);
+o   Energy and Water Regulatory Commission (https://www.dker.bg/)
+o   Ministry of Energy of the Republic of Bulgaria (www.me.government.bg)
+o   Community Ten-Year Network Development Plans of ENTSOG (www.entsog.eu)
+o   Public information related to the development of the gas market in the region, published on the
+    following web pages:
+       o NOMAGAS АD (https://nomagas.com.mk);
+       o ANRE - National Energy Regulatory Authority (www.anre.ro);
+       o Balkan Gas Hub (www.balkangashub.bg);
+       o BOTAS (www.botas.gov.tr);
+       o CEPA - (www.cepa.org);
+       o Consilium Europa – (www.consilium.europa.eu);
+       o Delek Drilling (www.delekdrilling.co.il);
+       o DEPA S.A. (www.depa.gr);
+       o DESFA S.A. (www.desfa.gr);
+       o EIA – U.S. Energy Information Administration (www.eia.gov);
+       o Еnergean Oil & Gas (www.energean.com);
+       o ENTSOG (www.entsog.eu);
+       o ETKILIMAN – (www.etkiliman.com.tr);
+       o Gastrade (www.gastrade.gr);
+       o GIE – Gas Infrastructure Europe (www.gie.eu);
+       o ICGB AD (www.icgb.еu)
+       o IEA - International Energy Agency (www.iea.org);
+       o IEEFA – Institude for Energy Economics and Financial Analysis (www.ieefa.org);
+       o IENE – Institute of Energy for South–East Europe (www.iene.eu);
+       o IGI Poseidon (www.igi-poseidon.com);
+       o IGU (https://www.igu.org);
+       o ITGI (www.edison.it);
+       o JP Srbijagas (www.srbijagas.com);
+       o LNG Hrvatska (www.lng.hr);
+       o Mediterranean Gas (www.mediterranean-gas.gr);
+       o Ministry of Energy and Natural Resources – Republic of Türkiye (www.enerji.gov.tr);
+       o Ministry of Foreign Affairs - Türkiye's Energy Profile and Strategy (www.mfa.gov.tr);
+       o NER JSC Skopje - Macedonian Energy Resources Skopje (www.mer.com.mk);
+       o Prometheus Gas (www.prometheusgas.gr);
+       o RAAEY (www.raaey.gr);
+       o Romgaz (www.romgaz.ro);
+       o TAP (www.trans-adriatic-pipeline.com);
+       o Transgaz S.A. (www.transgaz.ro);
+       o U.S. Department of Energy (www.energy.gov);
+o   EU Hydrogen Strategy.
+
+
+
+
+                                                                                                 72
+                                                                                                                                ANNEX 1
+
+
+             Key projects for new gas pipelines, reconstruction of existing gas pipelines and compressor stations and for storage capacity increase on the territory of the country and their connection to the existing gas
+                                                                                                         transmission network
+
+                                                                                                                                             Expected value of
+                                                             Final Investment              Deadline for
+No                        Project                                                                                     Contractor              the investment                     Funding                   Infrastructure                                      Capacity
+                                                              Decision (FID)               completion
+                                                                                                                                              (excluding VAT)
+
+                                                                                                                                                                                               Above-ground facilities (CS, GMS, etc.) -
+                                                                                                                                                                                                            completed;                     Increase of the working gas volume up to 1
+                                                                                                                                                                           Own and attracted
+1 Expansion of Chiren UGS capacity                                     yes                       2027            Bulgartransgaz EAD              ~ 308 million €                                 Connecting gas pipeline ~ 45 km -           bcm and increase of the withdrawal and
+                                                                                                                                                                            external funding
+                                                                                                                                                                                                            completed;                        injection capability up to 8-10 mcm/d
+                                                                                                                                                                                                               Wells
+
+
+
+                                                                                                                                                                                                                                          Basic project option: Increase of the
+                                                                                                                                                                                                                                    transmission capacity from Greece to Bulgaria:
+                                                                                                                                                                           Own and attracted      48 km new gas pipeline /looping,    35.4 Gwh/d; The project implementation will
+                                                                       yes                       2026            Bulgartransgaz EAD            ~ 122.5 million €
+                                                                                                                                                                            external funding   DN700; 53 km new gas pipeline, DN500; also enable the increase in the transmission
+                                                                                                                                                                                                                                        capacity at IP Kyustendil/Zhidilovo from
+     A project to increase the transmission
+                                                                                                                                                                                                                                     Bulgaria to North Macedonia by 5,412 GWh/d.
+     capacity at Interconnection point IP
+2
+     Kulata/Sidirokastro from Greece to
+     Bulgaria (in two options)¹
+                                                                                                                                                                                               Looping - 84 km., DN 700; Replacement
+                                                                                                                                                                                                                                         Expanded project option: Increase of the
+                                                                                                                                                                           Own and attracted    of 50 km gas pipeline, DN 700; new 9
+                                                                        no                       2029            Bulgartransgaz EAD            ~ 184.7 million €                                                                      transmission capacity from Greece to Bulgaria:
+                                                                                                                                                                            external funding   MW GTCU at CS Petrich; reversing of CS
+                                                                                                                                                                                                                                                       69 GWh/d.
+                                                                                                                                                                                                              Ihtiman
+
+
+
+                                                                                                                                                                                                 ~ 61 km new gas pipeline/looping,
+  Project for the increase of the transmission
+                                                                                                                                                                           Own and attracted    DN1200, reversing of CS Kardam and          Increase in the transmission capacity from
+3 capacity at Interconnection point Negru                              yes                       2026            Bulgartransgaz EAD            ~ 191.4 million €
+                                                                                                                                                                            external funding   expansion of the capacity of its conttrol       Bulgaria to Romania: 137.2 GWh/d.
+  Voda/Kardam from Bulgaria to Romania
+                                                                                                                                                                                                               system
+
+
+                                                                                                                                                                                                                                           The project contributes to strengthening the
+                                                                                                                                                                                                New gas pipeline ~ 19 km, DN 700;             energy security in the region and, after
+  Rehabilitation, modernization and
+                                                                                                                                                                           Own and attracted    New gas pipeline ~ 17 km, DN 1000;          finalization of all activities, will allow for an
+4 expansion of the Bulgarian gas                                        no                       2030            Bulgartransgaz EAD            ~ 155.2 million €
+                                                                                                                                                                            external funding    New compressor station Bogrov - 20               increase in the capacity of the gas
+  transmission system - Phase 3
+                                                                                                                                                                                                                MW.                        interconnection Bulgaria – Serbia (IBS) from
+                                                                                                                                                                                                                                                          1,8 to 3,2 bcm/y.
+
+
+
+  Project for High-pressure gas transmission
+                                                                                                                                                                           Own and attracted   ~ 73 km new gas pipelines, DN700 and        High pressure gas infrastructure and auxiliary
+5 infrastructure to supply consumers in                                 no                       2028            Bulgartransgaz EAD            ~ 107.9 million €
+                                                                                                                                                                            external funding   DN500; Auxiliary technological facilities    facilities - gas pipeline and auxiliary facilities
+  Maritsa East Basin
+
+
+
+
+     Note:
+     ¹ The expanded project option builds on the basic option and the expected investment value, the new infrastructure and the capacity increase are in addition to the basic option
+

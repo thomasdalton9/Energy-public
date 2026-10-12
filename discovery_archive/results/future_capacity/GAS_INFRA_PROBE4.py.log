@@ -58,14 +58,135 @@
   P https://tyndp2024.entsog.eu/infrastructure-report-introduction/european-energy-policy-on-hydrogen-and-gas-infrastructure/
   P https://tyndp2024.entsog.eu/infrastructure-report-introduction/
 200 6224931 application/pdf https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_NG_FULL_5005_TRA_UGS_LNG.pdf
-Traceback (most recent call last):
-  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/future_capacity/GAS_INFRA_PROBE4.py", line 25, in <module>
-    subprocess.run(["pdftotext", "-layout", "/tmp/tyndp_map.pdf", OUT + "/tyndp2024_a0_map.txt"])
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 548, in run
-    with Popen(*popenargs, **kwargs) as process:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 1026, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/subprocess.py", line 1955, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: 'pdftotext'
+  map text bytes 1543323
+200 204075 text/html; charset=UTF-8 https://tyndp2024.entsog.eu/downloads/
+  X https://www.entsog.eu/sites/default/files/2023-10/TYNDP%202024%20Guidelines%20for%20Project%20Inclusion_for%20Publication_0.pdf
+  X https://www.entsog.eu/sites/default/files/2024-07/TYNDP%202024%20Annex%20A%20-%20List%20of%20projects.xlsx
+  X https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_HYD_FULL_5005wzoom_H2S_H2L_H2E_H2M-only.pdf
+  X https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_HYD_FULL_5005wzoom_H2T-only.pdf
+  X https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_HYD_FULL_5005wzoom_HYD_PCI_Advanced_noH2E.pdf
+  X https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_HYD_FULL_5005wzoom_HYD_PCI_noH2E.pdf
+  X https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_NG_FULL_5005_BIO-RET-OTH-CO2-SYN.pdf
+  X https://www.entsog.eu/sites/default/files/2024-12/ENTSOG_TYNDP_2024_A0_NG_FULL_5005_TRA_UGS_LNG.pdf
+  X https://www.entsog.eu/sites/default/files/2024-12/TYNDP%202024_Annex%20C1_Natural%20Gas%20Infrastructure%20Capacities.xlsx
+  X https://www.entsog.eu/sites/default/files/2024-12/TYNDP%202024_Annex%20C2_Hydrogen%20Infrastructure%20Capacities.xlsx
+  X https://www.entsog.eu/sites/default/files/2025-06/TYNDP%202024%20Annex%20E%20-%20Analysis%20tables.xlsx
+  X https://www.entsog.eu/sites/default/files/2025-10/TYNDP%202024%20Annex%20D1-%20Implementation%20Guidelines%20%28public%20consultation%29.pdf
+  X https://www.entsog.eu/sites/default/files/2025-10/TYNDP%202024%20Annex%20D2%20-%20Infrastructure%20Gaps%20Identification%20methodology.pdf
+  X https://www.entsog.eu/sites/default/files/2025-10/TYNDP%202024%20Annex%20D3%20-%20System%20Assessment%20methodology.pdf
+  X https://www.entsog.eu/sites/default/files/2026-03/ENTSOG%20TYNDP%202024_Executive-Summary.pdf
+  X https://www.entsog.eu/sites/default/files/2026-03/ENTSOG%20TYNDP%202024_Feedback%20Document.pdf
+  X https://www.entsog.eu/sites/default/files/2026-03/ENTSOG%20TYNDP%202024_Hydrogen%20Infrastructure%20Gaps%20Identification%20Report.pdf
+  X https://www.entsog.eu/sites/default/files/2026-03/ENTSOG%20TYNDP%202024_Infrastructure%20Report.pdf
+  X https://www.entsog.eu/sites/default/files/2026-03/ENTSOG%20TYNDP%202024_Natural%20Gas%20System%20Assessment%20Report.pdf
+200 152678 text/html; charset=UTF-8 https://tyndp2024.entsog.eu/infrastructure-report-introduction/annex/
+200 5165116 application/pdf https://bulgartransgaz.bg/public/files/useruploads/%D0%BD%D0%BE%D0%B2%D0%B8%D0%BD%D0%B8_%D1%81%D0%B0%D0%B9%D1%82/27042026/TYNDP%20BTG%202026-2035%20%D
+  saved btg_tyndp_2026.txt 187171
+200 5030815 application/pdf https://www.transgaz.ro/sites/default/files/DEVELOPMENT%20PLAN%20FOR%20THE%20NATIONAL%20GAS%20TRANSMISSION%20SYSTEM%202026-2035.pdf
+  saved transgaz_dp_2026.txt 456418
+200 364359 text/html; charset=UTF-8 https://www.norskpetroleum.no/en/facts/field/
+200 1253631 text/html; charset=UTF-8 https://www.norskpetroleum.no/en/developments-and-operations/recent-activity/
+200 148773 text/html; charset=UTF-8 https://www.norskpetroleum.no/en/production-and-exports/exports-of-oil-and-gas/
+200 105709 text/html; charset=utf-8 https://energy.ec.europa.eu/topics/infrastructure/projects-common-interest-and-projects-mutual-interest/pci-and-pmi-selection-process_en
+  D /document/download/a89ff27c-3d7b-477f-b017-85f5549a2db1_en?filename=3nd%20PCI-PMI%20list%20FAQ_18062026-AA.pdf
+  D https://energy.ec.europa.eu/document/download/944b96b9-4efd-44a3-bbfe-45b752b0b55f_en?filename=Technical_document_1st%20PCI_PMI%20list_15.05.2024_FINAL.pdf
+200 1329215 application/pdf https://energy.ec.europa.eu/document/download/944b96b9-4efd-44a3-bbfe-45b752b0b55f_en?filename=Technical_document_1st%20PCI_PMI%20list_15.05.2024_FINA
+200 12872 application/json; charset=UTF- https://factmaps.sodir.no/api/rest/services/Factmaps/FactMapsWGS84/MapServer/502?f=json
+  502 fields: ['OBJECTID', 'fldName', 'fldCurrentActivitySatus', 'wlbName', 'fldDiscoveryYear', 'fldOwnerKind', 'fldOwnerName', 'fldNpdidOwner', 'cmpLongName', 'cmpNpdidCompany', 'fldMainSupplyBase', 'fldHcType', 'fldMainArea', 'wlbFactPageUrl', 'fldFactMapUrl', 'fldFactPageUrl', 'wlbNpdidWellbore', 'fldNpdidField', 'fldGUID', 'fldDateUpdated', 'fldDateUpdatedMax', 'SHAPE', 'SHAPE.STArea()', 'SHAPE.STLength()']
+200 19334 application/json; charset=UTF- https://factmaps.sodir.no/api/rest/services/Factmaps/FactMapsWGS84/MapServer/502/query?where=1%3D1&outFields=fldName,fldCurrentActivitySatus,cmpLongNa
+  status counts Counter({'Producing': 102, 'Shut down': 29, 'Approved for production': 11})
+   F {'fldName': 'ALBUSKJELL', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'ConocoPhillips Skandinavia AS', 'fldDiscoveryYear': 1972}
+   F {'fldName': 'TOMMELITEN GAMMA', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'ConocoPhillips Skandinavia AS', 'fldDiscoveryYear': 1978}
+   F {'fldName': 'VEST EKOFISK', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'ConocoPhillips Skandinavia AS', 'fldDiscoveryYear': 1970}
+   F {'fldName': 'BERLING', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'OMV (Norge) AS', 'fldDiscoveryYear': 2018}
+   F {'fldName': 'HUGIN', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'Aker BP ASA', 'fldDiscoveryYear': 1986}
+   F {'fldName': 'MUNIN', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'Aker BP ASA', 'fldDiscoveryYear': 2011}
+   F {'fldName': 'FENRIS', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'Aker BP ASA', 'fldDiscoveryYear': 2012}
+   F {'fldName': 'FULLA', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'Aker BP ASA', 'fldDiscoveryYear': 2009}
+   F {'fldName': 'IRPA', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'Equinor Energy AS', 'fldDiscoveryYear': 2009}
+   F {'fldName': 'BESTLA', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'OKEA ASA', 'fldDiscoveryYear': 2016}
+   F {'fldName': 'HUGIN SATELLITTER', 'fldCurrentActivitySatus': 'Approved for production', 'cmpLongName': 'Aker BP ASA', 'fldDiscoveryYear': 1976}
+200 10374 application/json; charset=UTF- https://factmaps.sodir.no/api/rest/services/Factmaps/FactMapsWGS84/MapServer/311?f=json
+  311 fields: ['OBJECTID', 'pplName', 'pplNpdidPipeline', 'pplMapLabel', 'pplBelongsToName', 'cmpLongName', 'pplCurrentPhase', 'pplCurrentPhaseFromDate', 'fclNameFrom', 'fclNameTo', 'pplMainGroupingName', 'pplDimension', 'pplWaterDepth', 'pplMedium', 'pplNpdidBelongsTo', 'fclNpdidFacilityFrom', 'fclNpdidFacilityTo', 'cmpNpdidCompany', 'pplDateUpdated', 'pplFactPageUrl', 'pplFactMapUrl', 'SHAPE', 'SHAPE.STLength()']
+200 5003 application/json; charset=UTF- https://factmaps.sodir.no/api/rest/services/Factmaps/FactMapsWGS84/MapServer/311/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=
+   {"displayFieldName":"pplName","fieldAliases":{"OBJECTID":"OBJECTID","pplName":"Pipeline name","pplNpdidPipeline":"NPDID pipeline","pplMapLabel":"Map label","pplBelongsToName":"Belongs to","cmpLongName":"Current operator","pplCurrentPhase":"Current phase","pplCurrentPhaseFromDate":"Phase valid from","fclNameFrom":"From facility","fclNameTo":"To facility","pplMainGroupingName":"Main grouping","pplDimension":"Dimension [inch]","pplWaterDepth":"Max water depth [m]","pplMedium":"Medium","pplNpdidBelongsTo":"NPDID belongs to","fclNpdidFacilityFrom":"NPDID facility from","fclNpdidFacilityTo":"NPDID facility to","cmpNpdidCompany":"NPDID operator","pplDateUpdated":"Date updated","pplFactPageUrl":"Fact page","pplFactMapUrl":"Factmaps","SHAPE.STLength()":"SHAPE.STLength()"},"fields":[{"name":"OBJECTID","type":"esriFieldTypeOID","alias":"OBJECTID"},{"name":"pplName","type":"esriFieldTypeString","alias":"Pipeline name","length":200},{"name":"pplNpdidPipeline","type":"esriFieldTypeInteger","alias":"NPDID pipeline"},{"name":"pplMapLabel","type":"esriFieldTypeString","alias":"Map label","length":100},{"name":"pplBelongsToName","type":"esriFieldTypeString","alias":"Belongs to","length":50},{"name":"cmpLongName","type":"esriFieldTypeString","alias":"Current operator","length":100},{"name":"pplCurrentPhase","type":"esriFieldTypeString","alias":"Current phase","length":40},{"name":"pplCurrentPhaseFromDate","type":"esriFieldTypeDate","alias":"Phase valid from","length":8},{"name":"fclNameFrom","t
+200 2914273 application/json; charset=utf- https://opendata-nstauthority.hub.arcgis.com/api/v3/datasets?q=NSTA&page%5Bsize%5D=100
+   N  NSTA - TCE Leases &  NSTA Licences | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Designations.pdf
+   N  NSTA JDWL 30th Round | https://datanstauthority.blob.core.windows.net/external/DataReleases/UKCS/UKCS_JDWL_30thRound.zip
+   N NSTA Open Data | https://open-data-ukcs-transition.hub.arcgis.com
+   N  NSTA Offshore Zipped Shapefiles ETRS89 | https://datanstauthority.blob.core.windows.net/external/OpenDataZips/UKCS_OFF_ETRS89_SHP.zip
+   N  NSTA Onshore Zipped Shapefiles BNG | https://datanstauthority.blob.core.windows.net/external/OpenDataZips/ENG_ON_BNG_SHP.zip
+   N  NSTA Offshore Zipped Shapefiles ED50 | https://datanstauthority.blob.core.windows.net/external/OpenDataZips/UKCS_OFF_ED50_SHP.zip
+   N  NSTA Offshore Zipped Shapefiles WGS84 | https://datanstauthority.blob.core.windows.net/external/OpenDataZips/UKCS_OFF_WGS84_SHP.zip
+   N UKCS Licences (NSTA Open Data Hub) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Licences_WGS84/FeatureServer
+   N UKCS Wells (NSTA Open Data Hub) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Wells_WGS84/FeatureServer
+   N Presentation Material from the  NSTA Frontier Basins Research Workshop | https://datanstauthority.blob.core.windows.net/external/DataReleases/FrontierBasinsResearch/FBR_Workshop.zip
+   N UKCS Offshore Infrastructure (NSTA Open Data Hub) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Offshore_Infrastructure_WGS84/FeatureServer
+   N University of Aberdeen –  NSTA Frontier Basins Rockall Project: A new view of the UK Rockall Prospectivity (Final) | https://datanstauthority.blob.core.windows.net/external/DataReleases/FrontierBasinsResearch/UoA_Rockall.zip
+   N University of Aberdeen –  NSTA Frontier Basins Rockall Project: A new view of the UK Rockall Prospectivity (Interim) | https://datanstauthority.blob.core.windows.net/external/DataReleases/FrontierBasinsResearch/UoA_Rockall_Interim.zip
+   N  NSTA - Unsanctioned Discoveries - CNS | https://datanstauthority.blob.core.windows.net/external/SmallPools/SmallPoolsCNS.pdf
+   N  NSTA and Lloyd's Register English Channel Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/EC_ArcGIS.zip
+   N  NSTA - UKCS Designations | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Designations.pdf
+   N  NSTA Northern North Sea and East Shetland Platform Regional Geological Maps (change only update) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/NNS_ESP_ChangeOnly.zip
+   N  NSTA - Unsanctioned Discoveries - MFB | https://datanstauthority.blob.core.windows.net/external/SmallPools/SmallPoolsMFB.pdf
+   N  NSTA and Lloyd's Register English Channel Regional Geological Maps (Open Source version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/EC_OS.zip
+   N  NSTA and Lloyd's Register Mid North Sea High and Forth Approaches Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/MNSH_ArcGIS.zip
+   N  NSTA Northern North Sea and East Shetland Platform Regional Geological Maps (Opensource version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/NNS_ESP_OS.zip
+   N  NSTA and Lloyd's Register SW Approaches Regional Geological Maps (Open Source) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/SWA_OS.zip
+   N  NSTA - UKCS Unsanctioned Discoveries | https://www.nstauthority.co.uk/media/a4mfubt5/420297-oga-small-pools.pdf
+   N  NSTA - Unsanctioned Discoveries - NNS | https://datanstauthority.blob.core.windows.net/external/SmallPools/SmallPoolsNNS.pdf
+   N  NSTA - Unsanctioned Discoveries - SNS | https://datanstauthority.blob.core.windows.net/external/SmallPools/SmallPoolsSNS.pdf
+   N  NSTA - UKCS Current Licences | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/Current_Licence_Position.pdf
+   N  NSTA and Lloyd's Register Mid North Sea High and Forth Approaches Regional Geological Maps (Open Source version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/MNSH_OS.zip
+   N  NSTA Northern North Sea and East Shetland Platform Regional Geological Maps (ArcGIS Version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/NNS_ESP.zip
+   N  NSTA - Oil & Gas Activity - WOS | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Oil_and_Gas_Activity_WOS.pdf
+   N  NSTA - Oil & Gas Activity - NNS | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Oil_and_Gas_Activity_NNS.pdf
+   N  NSTA and Lloyd's Register West of Shetland and Rockall Regional Geological Maps (Open Source version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/WoS_OS.zip
+   N  NSTA and Lloyd's Register West of Shetland and Rockall Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/WoS_ArcGIS.zip
+   N  NSTA - MNSH Government Seismic | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/GovernmentSeismicMaps/MNSH_GovSeismic.pdf
+   N  NSTA - Onshore Licences | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/landfields_lics.pdf
+   N  NSTA - UKCS Geological Basins | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Geological_Basins.pdf
+   N  NSTA - UKCS Offshore Infrastructure | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Offshore_Infrastructure.pdf
+   N  NSTA and Lloyd's Register SW Approaches & Anglo Paris Basin Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/SWA_ArcGIS.zip
+   N  NSTA Central North Sea and Moray Firth Regional Geological Maps (Opensource version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/CNS_and_MF_OpenSource.zip
+   N  NSTA - Oil & Gas Activity - CNS | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Oil_and_Gas_Activity_CNS.pdf
+   N  NSTA - Oil & Gas Activity - SNS | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Oil_and_Gas_Activity_SNS.pdf
+   N  NSTA - Oil & Gas Activity - UK | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Oil_and_Gas_Activity.pdf
+   N  NSTA and Lloyd's Register East Irish Sea and Cardigan Bay Regional Geological Maps (Open Source version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/EIS_CB_OS.zip
+   N  NSTA - Rockall Government Seismic | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/GovernmentSeismicMaps/Rockall_GovSeismic.pdf
+   N NSTA Collated Well Tops | https://datanstauthority.blob.core.windows.net/external/DataReleases/UKCS/UKCS_WellTops.zip
+   N  NSTA and Lloyd's Register East Irish Sea and Cardigan Bay Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/EIS_CB_ArcGIS.zip
+   N  NSTA Central North Sea and Moray Firth Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/CNS_and_MF_ArcGIS.zip
+   N FROGTECH ESP SEEBASE Study | https://datanstauthority.blob.core.windows.net/external/DataReleases/21CXRM/Phase1/FROGTECH.zip
+   N  NSTA - Oil and Gas Activity - Irish Sea | https://datanstauthority.blob.core.windows.net/external/ukcs_maps/UKCS_Oil_and_Gas_Activity_Irish_Sea.pdf
+   N Geodatabase to accompany Weald Shale study (BGS, NSTA) | https://datanstauthority.blob.core.windows.net/external/onshore/BGS_DECC_JurassicWealdShale_study_2014.zip
+   N Geodatabase to accompany Bowland Shale Study (BGS, NSTA) | https://www.ogauthority.co.uk/media/4571/bgs_decc_bowlandshale_study_2013_arc10gdb.zip
+   N Geodatabase to accompany Midland Valley Shale report (BGS, NSTA) | https://datanstauthority.blob.core.windows.net/external/onshore/BGS_DECC_MVS_shale_study_2014.gdb.zip
+   N Ikon Reports for NSTA-selected wells | https://datanstauthority.blob.core.windows.net/external/DataReleases/Ikon/IkonReports.zip
+   N CGG Geothermal Database | https://datanstauthority.blob.core.windows.net/external/DataReleases/CGG/CGG_GeoThermal.zip
+   N Heriot-Watt University Mid North Sea High Project - Controls on the Structure, Stratigraphy and Prospectivity of the Mid North Sea High (Final) | https://datanstauthority.blob.core.windows.net/external/DataReleases/FrontierBasinsResearch/HerriotWatt_MNSH.zip
+   N AFTA UKCS Regional Reports | https://datanstauthority.blob.core.windows.net/external/DataReleases/Geotrack/Geotrack_AFTA_Regional_Reports.zip
+   N OCTek-UK | https://datanstauthority.blob.core.windows.net/external/DataReleases/Bradley_Geoscience/OCTek_UK.zip
+   N NSTA Overview | https://storymaps.arcgis.com/stories/fece2ec995a542ddab3aabe59eafed7c
+   N CGG Additional JDWLs | https://datanstauthority.blob.core.windows.net/external/DataReleases/CGG/CGG_Additional_JDWLs.zip
+   N Hypo-Lias: Hydrocarbon potential of the Lias | https://datanstauthority.blob.core.windows.net/external/DataReleases/TNO/TNO_HypoLias.zip
+   N CGG Digital Well Logs | https://datanstauthority.blob.core.windows.net/external/DataReleases/CGG/CGG_Digital_Well_Logs.zip
+   N UKCS Seeps Database | https://datanstauthority.blob.core.windows.net/external/DataReleases/CGG/CGG_Seeps_Database.zip
+   N UKCS SDC infrastructure | 
+   N Rock Physics and Seismic Amplitude Calibration Study | https://datanstauthority.blob.core.windows.net/external/DataReleases/Ikon/IKON_Rock_Physics.zip
+   N CMS Data Package | https://datanstauthority.blob.core.windows.net/external/DataReleases/UKCS/CMS_Datapack.zip
+   N NSTA Routes | https://services.arcgis.com/pGfbNJoYypmNq86F/arcgis/rest/services/NSTA%20Routes/FeatureServer
+   N NSTA theme | 
+   N APT Geochemical evaluation of oil provenance & quality WoS | https://datanstauthority.blob.core.windows.net/external/DataReleases/APT/APT_WOSI.zip
+   N  NSTA and Lloyd's Register SNS Regional Geological Maps (Open Source) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/SNS_OS.zip
+   N NSTA GeologicalBoundaries WGS84 | https://services8.arcgis.com/BuDSiwZVG3gNaQUz/arcgis/rest/services/NSTA_GeologicalBoundaries_WGS84/FeatureServer/0
+   N  NSTA and Lloyd's Register SNS Regional Geological Maps (ArcGIS version) | https://datanstauthority.blob.core.windows.net/external/DataReleases/GeologicalMaps/SNS_ArcGIS.zip
+   N CNS Pressure Data and Shapefiles | https://datanstauthority.blob.core.windows.net/external/DataReleases/UKCS/CNS_Pressure_Cells_Data.zip
+   N Durham University Post-Doctoral Research Project – New Appraisal of the Western Approaches Basins | https://datanstauthority.blob.core.windows.net/external/DataReleases/FrontierBasinsResearch/Durham_NAWAB.zip
+   N Pipeline Freespans - Removed (WGS84) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Offshore_Infrastructure_WGS84/FeatureServer/9
+   N Surface Points - Removed (WGS84) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Offshore_Infrastructure_WGS84/FeatureServer/6
+   N UKCS Offshore Petroleum Licences ED50 NEW | https://services-eu1.arcgis.com/OZMfUznmLTnWccBc/arcgis/rest/services/UKCS%20offshore%20petroleum%20licences%20ED50/Feat
+   N UKCS Offshore Hydrocarbon Fields ED50 NEW | https://services-eu1.arcgis.com/OZMfUznmLTnWccBc/arcgis/rest/services/UKCS_offshore_hydrocarbon_fields_(ED50)/FeatureSer
+   N Offshore Wells (WGS84) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Wells_WGS84/FeatureServer/0
+   N Pipelines Linear (WGS84) | https://data.nstauthority.co.uk/arcgis/rest/services/Public_WGS84/UKCS_Offshore_Infrastructure_WGS84/FeatureServer/5
+   N NSTA   OTH Requests | https://services.arcgis.com/pGfbNJoYypmNq86F/arcgis/rest/services/NSTA___OTH_Requests/FeatureServer/0
