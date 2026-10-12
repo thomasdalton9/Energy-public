@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install pandas openpyxl requests matplotlib
+        run: pip install pandas openpyxl requests matplotlib curl_cffi
       - name: Run global LNG liquefaction build
         env:
           PYTHONUNBUFFERED: "1"

@@ -123,6 +123,10 @@ XSRC = {
                    "https://boereport.com/2026/10/07/qatarenergys-lng-expansion-project-poised-to-start-operations-in-november-sources-say/amp/", "2026-10-07"),
 }
 
+# HTML documents change on every request (nonces, menus), so change detection there = the key sentence behind the curated number is still on the page.
+PHRASES = {"GOLAR_Q2": "3.5 MTPA", "SHELL_LNGC": "from 14 million tonnes per annum", "PEMBINA_Q2": "late 2028", "WOODFIBRE": "2.1 million tonnes",
+           "ENI_FID": "3.6MTPA", "MOZ_SITE": "13.12 MTPA", "REUTERS_QE": "first half of 2027"}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Curated rows outside the United States EIA table.
 # row = dict(country, project, operator, cap (mtpa, None = not stated in an opened document), status, when, src, notes,
@@ -657,7 +661,10 @@ def build_projects(eia, prev_projects):
                 for fld in ("status", "expected_online", "capacity_value"):
                     new = df.loc[df["_key"] == k, fld].iloc[0]
                     old = p[fld]
-                    if (pd.isna(old) and pd.isna(new)) or str(old) == str(new) or (not pd.isna(old) and not pd.isna(new) and fld == "capacity_value" and abs(float(old) - float(new)) < 1e-9):
+                    if fld == "capacity_value":
+                        if (pd.isna(old) and pd.isna(new)) or (not pd.isna(old) and not pd.isna(new) and abs(float(old) - float(new)) < 1e-9):
+                            continue
+                    elif ("" if pd.isna(old) else str(old)) == ("" if pd.isna(new) else str(new)):
                         continue
                     hist.append(dict(key=k, field=fld, old=old, new=new, date_seen=today))
         gone = [k for k in prev.index if k not in set(key)]
@@ -850,8 +857,17 @@ def by_country(df):
 
 
 # ---------------------------------------------------------------------------------------------------------------------
+def _get(s, url, **kw):
+    try:
+        return s.get(url, **kw)
+    except Exception:  # noqa: BLE001
+        from curl_cffi import requests as cr          # fallback for hosts that stall plain requests
+        return cr.get(url, impersonate="chrome", timeout=kw.get("timeout", 60) if not isinstance(kw.get("timeout"), tuple) else 90)
+
+
 def check_sources(prev_rel, full):
-    """Change detection on the curated documents (HEAD, else a ranged GET) + newest REQ edition."""
+    """Change detection on the curated documents + newest REQ edition.
+    PDF / Excel: ETag, Last-Modified or size from the response headers (SHA-256 if none). HTML: the key phrase is still present."""
     s = sess()
     rows = []
     prev = {}
@@ -863,49 +879,61 @@ def check_sources(prev_rel, full):
             continue
         seen.add(url)
         row = dict(document=f"{pub}: {doc}", url=url, etag="", last_modified="", size=np.nan, sha256="", checked=str(TODAY), result="")
+        p = prev.get(url)
         try:
-            try:
-                r = s.head(url, timeout=(15, 40), allow_redirects=True)
-            except Exception:  # noqa: BLE001
-                r = None
-            if r is None or r.status_code >= 400 or not (r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length")):
-                r = s.get(url, timeout=(15, 120), stream=True)
-                if r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length"):
-                    r.close()          # headers are enough for change detection
+            if k in PHRASES:
+                r = _get(s, url, timeout=(15, 90))
+                text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text)).replace("&nbsp;", " ")
+                ok = r.status_code < 400
+                row["size"] = len(r.content)
+                found = PHRASES[k].lower() in text.lower() or PHRASES[k].lower() in r.text.lower()
+                row["result"] = (f"UNREACHABLE (HTTP {r.status_code})" if not ok else
+                                 ("FIRST SEEN (key phrase present)" if p is None and found else
+                                  "UNCHANGED (key phrase still present)" if found else
+                                  f"CHANGED - key phrase '{PHRASES[k]}' not found: re-read the document and update the curated rows"))
+            else:
+                try:
+                    r = s.head(url, timeout=(15, 40), allow_redirects=True)
+                except Exception:  # noqa: BLE001
+                    r = None
+                if r is None or r.status_code >= 400 or not (r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length")):
+                    r = _get(s, url, timeout=(15, 120), stream=True)
+                    if not (r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length")):
+                        h = hashlib.sha256()
+                        n = 0
+                        for chunk in r.iter_content(1 << 20):
+                            h.update(chunk)
+                            n += len(chunk)
+                            if n > 40 << 20:
+                                break
+                        row["sha256"], row["size"] = h.hexdigest(), n
+                row["etag"] = r.headers.get("ETag", "")
+                row["last_modified"] = r.headers.get("Last-Modified", "")
+                if not row["size"] == row["size"] or np.isnan(row["size"]):
+                    try:
+                        row["size"] = float(r.headers.get("Content-Length", "nan"))
+                    except ValueError:
+                        row["size"] = np.nan
+                try:
+                    r.close()
+                except Exception:  # noqa: BLE001
+                    pass
+                if r.status_code >= 400:
+                    row["result"] = f"UNREACHABLE (HTTP {r.status_code})"
+                elif p is None:
+                    row["result"] = "FIRST SEEN"
                 else:
-                    h = hashlib.sha256()
-                    n = 0
-                    for chunk in r.iter_content(1 << 20):
-                        h.update(chunk)
-                        n += len(chunk)
-                        if n > 40 << 20:
-                            break
-                    row["sha256"] = h.hexdigest()
-                    row["size"] = n
-                row.setdefault("size", np.nan)
-                if not row["sha256"]:
-                    row["size"] = float(r.headers.get("Content-Length", "nan"))
-            else:
-                row["size"] = float(r.headers.get("Content-Length", "nan"))
-            row["etag"] = r.headers.get("ETag", "")
-            row["last_modified"] = r.headers.get("Last-Modified", "")
-            ok = r.status_code < 400
-            p = prev.get(url)
-            if not ok:
-                row["result"] = f"UNREACHABLE (HTTP {r.status_code})"
-            elif p is None:
-                row["result"] = "FIRST SEEN"
-            else:
-                same = ((row["etag"] and row["etag"] == p.get("etag")) or (row["last_modified"] and row["last_modified"] == p.get("last_modified"))
-                        or (row["sha256"] and row["sha256"] == p.get("sha256")) or (not row["etag"] and not row["last_modified"] and not row["sha256"]
-                                                                              and row["size"] == p.get("size")))
-                row["result"] = "UNCHANGED" if same else "CHANGED - re-read the document and update the curated rows"
+                    def same(a, b):
+                        return isinstance(a, str) and a != "" and a == b
+                    ok_ = (same(row["etag"], p.get("etag")) or same(row["last_modified"], p.get("last_modified")) or same(row["sha256"], p.get("sha256"))
+                           or (not row["etag"] and not row["last_modified"] and not row["sha256"] and row["size"] == p.get("size")))
+                    row["result"] = "UNCHANGED" if ok_ else "CHANGED - re-read the document and update the curated rows"
         except Exception as e:  # noqa: BLE001
             row["result"] = f"UNREACHABLE ({type(e).__name__})"
         rows.append(row)
-        print("  watch", row["result"][:34], url[:90])
+        print("  watch", row["result"][:40], url[:90])
     try:
-        r = s.get(REQ_LIST, timeout=40)
+        r = _get(s, REQ_LIST, timeout=(15, 60))
         eds = sorted(set(re.findall(r"resources-and-energy-quarterly-([a-z]+-20\d\d)", r.text)), key=lambda e: (e.split("-")[1], ["march", "june", "september", "december"].index(e.split("-")[0]) if e.split("-")[0] in ("march", "june", "september", "december") else 0))
         newest = eds[-1] if eds else ""
         rows.append(dict(document="DISR Resources and Energy Quarterly: newest edition in the listing", url=REQ_LIST, etag="", last_modified="", size=np.nan,
@@ -917,7 +945,6 @@ def check_sources(prev_rel, full):
     return pd.DataFrame(rows)
 
 
-# ---------------------------------------------------------------------------------------------------------------------
 def read_prev():
     if not os.path.exists(OUT):
         return None, None, None, None
@@ -928,6 +955,7 @@ def read_prev():
         hist = pd.read_excel(OUT, sheet_name="History")
         for d in (proj, eia, rel, hist):
             d.drop(columns=[c for c in d.columns if str(c).startswith("Unnamed")], inplace=True)
+        hist = hist[~(hist["old"].isna() & hist["new"].isna())].reset_index(drop=True)   # drop no-change rows from an earlier version
         for c in ("release_date", "file"):
             if c in eia:
                 eia[c] = eia[c].astype(str)
