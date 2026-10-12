@@ -115,6 +115,11 @@ def ghana(data_dir, force):
     with pdfplumber.open(io.BytesIO(g.content)) as pdf:
         pages = [p.extract_text() or "" for p in pdf.pages]
     rows = ghana_parse(pages)
+    log(f"Ghana: {len(pages)} pages; pages naming Table 3.1: {[i + 1 for i, t in enumerate(pages) if 'Grid Installed and Dependable' in (t or '')]}; rows parsed {len(rows)}")
+    for i, t in enumerate(pages):
+        if 'Grid Installed and Dependable' in (t or '') and '.....' not in t[:400]:
+            log("  sample: " + repr(t[:260]))
+            break
     rows = {y: v for y, v in rows.items() if y >= FIRST_YEAR}
     if not rows:
         log("Ghana: Table 3.1 not found / not parsed")
@@ -147,14 +152,25 @@ MA_LABELS = [   # (regex on the label, item)
 ]
 
 
-def morocco_sheet(df):
+def morocco_sheet(df, yearbook=None):
     """ONEE table 5-4 frame -> {year: {item: MW}} (the three years of the yearbook), first block only (not the autoproducers)."""
     hdr, years = None, None
     for i in range(min(len(df), 15)):
-        vals = [v for v in df.iloc[i].values if isinstance(v, (int, float)) and not pd.isna(v) and 1990 < v < 2100]
+        vals = []
+        for v in df.iloc[i].values:
+            if isinstance(v, (int, float)) and not pd.isna(v) and 1990 < v < 2100:
+                vals.append(int(v))
+            elif isinstance(v, str) and re.fullmatch(r"\s*(?:19|20)\d\d(?:\.0)?\s*\*{0,3}\s*", v):
+                vals.append(int(float(v.strip(" *"))))
         if len(vals) >= 2:
-            hdr, years = i, [int(v) for v in vals]
+            hdr, years = i, vals
             break
+    if hdr is None and yearbook and yearbook >= 2022:
+        # the 2022 and 2023 yearbooks print no year header on this sheet: columns are the three years before the edition,
+        # newest first (checked against the neighbouring yearbooks, whose headers are printed: 2023 = 2022, 2021, 2020 ...)
+        years = [yearbook - 1, yearbook - 2, yearbook - 3]
+        hdr = next((i for i in range(min(len(df), 15)) if re.search(r"(?i)puissances? install",
+                                                                      " ".join(str(v) for v in df.iloc[i].values))), 0) - 1
     if hdr is None:
         return {}
     out = {y: {} for y in years}
@@ -215,7 +231,7 @@ def morocco(data_dir, force):
                     for sname, df in x.items():
                         if "puissance" not in " ".join(str(v) for v in df.head(12).astype(str).values.ravel()).lower():
                             continue
-                        parsed = morocco_sheet(df)
+                        parsed = morocco_sheet(df, yb)
                         for y, v in parsed.items():
                             for k, val in v.items():
                                 recs.append({"Yearbook": yb, "Year": y, "Item": k, "MW": val}); n += 1
