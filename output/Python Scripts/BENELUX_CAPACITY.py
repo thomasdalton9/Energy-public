@@ -213,8 +213,12 @@ def belgium(outdir):
         if r["fuelcode"] in ODS036_MAP and r["s"] is not None and ts.year >= 2015:
             # a 1 January row is the stock at the END of the previous December
             end_month = ts - pd.DateOffset(months=1)
-            rows.setdefault(end_month, {})[ODS036_MAP[r["fuelcode"]]] = r["s"]
-            rows[end_month]["Conventional_source"] = "ods036 (units, 1 Jan)"
+            for k_ in range(12):     # a 1 January snapshot is held for the twelve month-ends up to the next snapshot (flagged), not a monthly value
+                mm = end_month + pd.DateOffset(months=k_)
+                if mm > last_done:
+                    break
+                rows.setdefault(mm, {})[ODS036_MAP[r["fuelcode"]]] = r["s"]
+                rows[mm]["Conventional_source"] = "ods036 (1 Jan snapshot)" if k_ == 0 else "ods036 (1 Jan snapshot, held until the next one)"
     # conventional: ods179 from May 2024, one request per month (sum of technicalpmax on the last day of the month with data)
     cipu_months = pd.date_range("2024-05-01", last_done, freq="MS")
     for ts in cipu_months:
@@ -255,13 +259,14 @@ def belgium(outdir):
             merged[c] = pd.to_numeric(merged[c], errors="coerce").round(1)
     monthly = finish(merged)
     xc = entsoe_crosscheck(monthly, os.path.join(outdir, "belgium_power_capacity.xlsx"), None, annual=False)
+    xc = xc[xc["Fuel"] != "Total"] if len(xc) else xc          # our Total is partial (see COVERAGE), a comparison would mislead
     ec = energy_charts_yearly("be")
     ecrows = [{"Year": y, "Type": k, "Energy-Charts (MW), FALLBACK reference": round(v * 1000)} for y, d in ec.items() for k, v in d.items() if y >= 2021]
-    rel = pd.DataFrame([{"Run (UTC)": pd.Timestamp.utcnow().strftime("%Y-%m-%d %H:%M"), "Months stored": int(monthly.shape[0]), "Last month with wind": str(max(wind_m).date()) if wind_m else "",
+    rel = pd.DataFrame([{"Run (UTC)": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M"), "Months stored": int(monthly.shape[0]), "Last month with wind": str(max(wind_m).date()) if wind_m else "",
                          "Last month with solar": str(max(pv_m).date()) if pv_m else ""}]).set_index("Run (UTC)")
     notes = ["UNITS", "MW installed at the END of each month (row date = 1st of the month it closes). Total_MW = sum of the fuel columns that have a value; it is NOT a full national total (see COVERAGE). PumpedStorage_MW and Storage_MW are outside Total_MW, as in the ENTSO-E annual workbook.",
              "", "SOURCE", "Elia open data (opendata.elia.be): ods031 wind monitored capacity, ods032 photovoltaic monitored capacity, ods036 actual installed power by unit and fuel type (1 January 2015-2023), ods179 individual data of contracted technical units (daily from 21 May 2024). Licence: Elia open data (CC BY 4.0).",
-             "", "COVERAGE", "COMPLETE fleet: Wind_MW (offshore + onshore), Solar_MW, Nuclear_MW. PARTIAL (units Elia contracts, roughly 25 MW and over, CIPU): Gas_MW, Bioenergy_MW, Other_MW, Storage_MW and PumpedStorage_MW ('Water' = mainly Coo-Trois-Ponts). Run-of-river Hydro_MW and Oil_MW have no monthly source (blank). Conventional months Feb 2023 - Apr 2024 are blank: ods036 stops at 1 Jan 2023 and ods179 starts on 21 May 2024. Column 'Conventional_source' says which dataset a month comes from.",
+             "", "COVERAGE", "COMPLETE fleet: Wind_MW (offshore + onshore), Solar_MW, Nuclear_MW. PARTIAL (units Elia contracts, roughly 25 MW and over, CIPU): Gas_MW, Bioenergy_MW, Other_MW, Storage_MW and PumpedStorage_MW ('Water' = mainly Coo-Trois-Ponts). Run-of-river Hydro_MW and Oil_MW have no monthly source (blank). Conventional months Feb 2023 - Apr 2024 are blank: ods036 stops at 1 Jan 2023 and ods179 starts on 21 May 2024. Column 'Conventional_source' says which dataset a month comes from: ods036's 1 January snapshot is held for twelve month-ends (it is an annual list), ods179 is daily. Elia lists a closed unit until its contract ends, so closed nuclear units can stay in ods179 for months (Tihange 1 and Doel 2 closed in autumn 2025 and left the list in Feb 2026). Elia's monitored wind and solar capacities are updated in steps (not every month) and flat stretches are normal.",
              "Elia stamps daily data at 22:00/23:00 UTC the evening before the local day; the last day of the month is taken from the last three stamped days.",
              "", "VALIDATION", "'Cross-check' compares end-December with the 1 January ENTSO-E annual values. ENTSO-E's Belgian solar and wind are the same Elia monitored-capacity series. 'Cross-check Energy-Charts' lists Fraunhofer ISE's yearly figures, reference only."]
     sheets = {"Monthly": monthly, "Cross-check": xc.set_index("1 Jan") if len(xc) else xc,
