@@ -66,6 +66,7 @@ NOW = datetime.now(timezone.utc)
 FUELS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Other"]
 STD = [f"{f}_MW" for f in FUELS] + ["Total_MW", "PumpedStorage_MW", "Storage_MW"]
 FIRST_ROW = pd.Timestamp("2021-01-01")
+FR_RULES = "rules v2"      # bump when the fuel classification changes: forces a rebuild from the unchanged register
 
 
 # ------------------------------------------------------------------------------------------------ helpers
@@ -215,6 +216,7 @@ def fr_prepare(d):
     f[fil == "Solaire"] = "Solar"
     f[(fil == "Solaire") & (tech == "Batterie")] = "Storage"
     f[fil == "Bioénergies"] = "Bioenergy"
+    f[(fil == "Bioénergies") & cc.isin(["D.MEN", "D.IND", "D.PAP"])] = "Other"     # household / industrial / paper waste: ENTSO-E 'Other', not biomass
     f[fil == "Stockage non hydraulique"] = "Storage"
     th = fil.isin(["Thermique non renouvelable", "Autre"])
     f[th & (cc == "GAZ")] = "Gas"
@@ -326,7 +328,7 @@ def run_fr(out_dir):
     if len(editions):
         editions.index = pd.to_datetime(editions.index)
     title, processed, asof = fr_meta(FR_REG)
-    detail = f"{title}; processed {processed}"
+    detail = f"{title}; processed {processed}; {FR_RULES}"
     prev = stored_release(path, "ODRE register (current edition)")
     sd_prev = stored_release(path, "SDES quarterly")
     rel = []
@@ -488,14 +490,10 @@ def run_es(out_dir):
     for y in years:
         end = f"{y}-12-31"
         if y == NOW.year:
-            end = (today + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d")
-        try:
-            d, upd = es_get(f"{y}-01-01", end)
-        except RuntimeError as e:
-            if y != NOW.year:
-                raise
-            print(f"  {e}; retrying up to the previous month")
-            d, upd = es_get(f"{y}-01-01", (today - pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
+            if today.month == 1:
+                continue
+            end = (today - pd.Timedelta(days=1)).strftime("%Y-%m-%d")      # completed months only
+        d, upd = es_get(f"{y}-01-01", end)
         data.update(d)
     if old.empty or FIRST_ROW not in old.index:
         d, upd = es_get("2020-12-01", "2020-12-31")
@@ -503,7 +501,7 @@ def run_es(out_dir):
     df = pd.DataFrame.from_dict(data, orient="index").sort_index()
     df.index = df.index + pd.offsets.MonthBegin(1)      # the month's value is the stock at its end: row = 1st of the next month
     df.index.name = "date"
-    df = df[df["Total_REE_MW"].notna()]
+    df = df[df["Total_REE_MW"].notna() & (df.index <= today)]
     new = pd.DataFrame(index=df.index)
     new["Hydro_MW"] = df["Hydro_MW"]
     new["Gas_MW"] = df[["Combined_cycle_MW", "Gas_turbine_MW"]].sum(axis=1, min_count=1)
@@ -520,7 +518,7 @@ def run_es(out_dir):
     extra = df[["Solar_PV_MW", "Solar_thermal_MW", "Combined_cycle_MW", "Cogeneration_MW", "Total_REE_MW"]].round(1)
     new = pd.concat([new, extra], axis=1)
     monthly = merge_rows(old, new)
-    monthly = monthly[monthly.index >= FIRST_ROW]
+    monthly = monthly[(monthly.index >= FIRST_ROW) & (monthly.index <= today)]
     # year-end semantics check: REData's own yearly value against the December monthly value
     yr = []
     for y in range(2021, NOW.year):
@@ -570,7 +568,7 @@ def pt_pdf_links():
     monthly = {}
     for m in re.finditer(r'href="(/media/[a-z0-9]+/[^"]*?(?:dgeg-arr-|renovaveis-)(\d{4})-?(\d{2})[^"]*?\.pdf)"', h):
         monthly[(int(m.group(2)), int(m.group(3)))] = "https://www.dgeg.gov.pt" + m.group(1)
-    return monthly
+    return {k: v for k, v in monthly.items() if k >= (2024, 1) or k[1] == 12}
 
 
 def pt_parse(content):
@@ -665,6 +663,7 @@ def run_pt(out_dir):
             data[rd] = {**data.get(rd, {}), **rec}
     df = pd.DataFrame.from_dict(data, orient="index").sort_index()
     df.index.name = "date"
+    df = df[(df.index >= "2024-02-01") | (df.index.month == 1)]       # month-end rows from the 2024 reports on, 31 December before
     df["Hydro_MW"] = df["Hydro_incl_pumped_MW"] - df["PumpedStorage_MW"].fillna(0)
     df["Bioenergy_MW"] = df[["Biomass_MW", "Waste_MW", "Biogas_MW"]].sum(axis=1, min_count=1)
     df["Other_MW"] = df["Geothermal_MW"]
