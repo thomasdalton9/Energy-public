@@ -1,0 +1,11 @@
+name: Temporary - delete tmp-nga-pdfs branch
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  del:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git push origin --delete tmp-nga-pdfs || true
