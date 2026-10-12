@@ -3698,12 +3698,27 @@ def cyprus_generation(p):
                  "MW (monthly average)", "stacked_bar")]
 
 
+def jordan_peak_load(p):
+    """NEPCO Max Load Archive (middle_east/JORDAN_NEPCO_PEAK_LOAD.py): daily peak MW as posted (flagged figures blank,
+    unposted days are gaps) and the monthly maximum of the daily peaks for months with >= 20 posted days (the
+    'Charted' column of the 'Monthly' sheet)."""
+    d = by_date(read(p, "Daily"), "date")
+    g = pd.to_numeric(d["Peak_Load_MW"], errors="coerce").rename("Daily peak load").to_frame()
+    m = by_date(read(p, "Monthly"), "month")
+    m = m[m["Charted"].astype(str) == "yes"]
+    mx = pd.to_numeric(m["Max_Peak_MW"], errors="coerce").rename("Monthly maximum of daily peaks").to_frame()
+    return [spec("Daily peak", g, "Jordan daily peak load, days posted by NEPCO (Max Load Archive)", "MW", "line"),
+            spec("Monthly maximum", mx, "Jordan monthly maximum load, months with 20+ days posted (NEPCO)", "MW",
+                 "line")]
+
+
 REGISTRY.update({
     "mexico_power_generation_daily.xlsx": mexico_generation,
     "cyprus_generation_mix_daily.xlsx": cyprus_generation,
     "israel_gas_fields_quarterly.xlsx": israel_gas_fields,
     "israel_gas_annual_nga.xlsx": israel_gas_annual,
     "egypt_grid_load_daily.xlsx": egypt_grid_load,
+    "jordan_peak_load_daily.xlsx": jordan_peak_load,
     "egypt_gas_monthly.xlsx": egypt_gas,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
     "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),
