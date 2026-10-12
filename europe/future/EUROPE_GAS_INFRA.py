@@ -246,7 +246,7 @@ KNOWN_ORDER = sorted(KNOWN_LNG, key=lambda s: -len(s))   # longest first ('Wilhe
 def parse_lng_cards(words):
     """GIE LNG map -> one row per terminal card: name, country, start-up year, vessel/type, status (by map column),
     nominal annual capacity and the expansion lines, all in bcm(N)/y as printed."""
-    anchors = [w for w in words if w[4] == "Start-up"]
+    anchors = [w for w in words if w[4] == "Start-up" and w[0] > 300]   # x<300: legend sample card
     rows, bad = [], []
     for a in anchors:
         ax, ay = a[0], a[1]
@@ -264,10 +264,12 @@ def parse_lng_cards(words):
         txt = " ".join(w[4] for w in box)
         if name == "Gdańsk" and planned_col:
             name = "Gdańsk 2"
-        if name == "Wilhelmshaven" and ax >= 2300 and ay < 1250:
+        if name == "Wilhelmshaven" and not planned_col:
             name = "Wilhelmshaven 1"
         m = re.search(r"Start-up\s*:\s*(\d{4}|-)", txt)
         start = int(m.group(1)) if m and m.group(1).isdigit() else None
+        if name == "Wilhelmshaven 1" and start == 2025:
+            name = "Wilhelmshaven 2"
         if name is None:
             bad.append((round(ax), round(ay), band_txt[:60]))
             continue
@@ -293,7 +295,24 @@ def parse_lng_cards(words):
         rows.append({"name": name, "country": KNOWN_LNG[name], "start_up_year": start, "vessel": vessel, "status": status,
                      "nominal_bcm_n": nominal, "expansions": "; ".join(f"{e['label']}{' ' + str(e['year']) if e.get('year') else ''}: +{e['bcm']}" for e in exp),
                      "exp_list": exp, "x": round(ax), "y": round(ay)})
+    # suspended cards (below the SUSPENDED heading) carry no 'Start-up' line
+    head = [w for w in words if w[4] == "SUSPENDED" and w[0] > 3100 and w[1] > 2150]
+    if head:
+        y0 = min(w[1] for w in head)
+        for nm, first in (("Le Havre", "Le"), ("Teesside Gasport", "Teesside")):
+            cand = [w for w in words if w[4] == first and w[0] > 3100 and w[1] > y0]
+            if not cand:
+                continue
+            c = min(cand, key=lambda w: w[1])
+            box = sorted([w for w in words if c[0] - 12 < w[0] < c[0] + 218 and c[1] - 4 < w[1] < c[1] + 50], key=lambda w: (round(w[1] / 4), w[0]))
+            txt = " ".join(w[4] for w in box)
+            mm = re.search(r"(\d+(?:,\d+)?)\s*billion", txt)
+            rows.append({"name": nm, "country": KNOWN_LNG[nm], "start_up_year": None, "vessel": "FSRU" if "FSRU" in txt else "onshore", "status": "SUSPENDED",
+                         "nominal_bcm_n": float(mm.group(1).replace(",", ".")) if mm else None, "expansions": "", "exp_list": [], "x": round(c[0]), "y": round(c[1])})
     return rows, bad
+
+
+PARSER = "2"
 
 
 def parse_storage_table(words):
@@ -310,15 +329,15 @@ def parse_storage_table(words):
         c0 = (h[0] + h[2]) / 2
         cols = [c0, c0 + 50, c0 + 99, c0 + 148, c0 + 201]
         rows = {}
-        for w in words:
-            if not (115 < w[1] < 800 and c0 - 90 < (w[0] + w[2]) / 2 < c0 + 235):
+        inreg = [w for w in words if 115 < w[1] < 800 and c0 - 90 < (w[0] + w[2]) / 2 < c0 + 235]
+        namew = [w for w in inreg if (w[0] + w[2]) / 2 < c0 - 40 and w[4] in names]
+        seen = set()
+        for nw in sorted(namew, key=lambda w: w[1]):
+            if any(abs(nw[1] - y) < 4 for y in seen):
                 continue
-            rows.setdefault(round(w[1] / 3), []).append(w)
-        for _, ws in sorted(rows.items()):
-            ws.sort(key=lambda w: w[0])
+            seen.add(nw[1])
+            ws = sorted([w for w in inreg if abs(w[1] - nw[1]) < 4], key=lambda w: w[0])
             left = [w[4] for w in ws if (w[0] + w[2]) / 2 < c0 - 40]
-            if not left or left[0] not in names:
-                continue
             country = " ".join(left)
             if country.startswith("Czech"):
                 country = "Czechia"
@@ -560,7 +579,7 @@ def main():
                     tried(f"GIE {tag} map link", page, "no PDF link found on the page")
                     continue
                 have = lng_cards if tag == "lng" else stor_tab
-                if have is not None and len(have) and rel.unchanged(url):
+                if have is not None and len(have) and "parser" in have.columns and str(have["parser"].iloc[0]) == PARSER and rel.unchanged(url):
                     print("GIE", tag, "map unchanged, parsed rows reused")
                     continue
                 sig = head_sig(url)
@@ -575,10 +594,12 @@ def main():
                         tried("GIE LNG card not recognised", url, f"at x,y={b[0]},{b[1]} text '{b[2]}'")
                     lng_cards = pd.DataFrame(cards)
                     lng_cards["map_version"] = map_ver[tag]
+                    lng_cards["parser"] = PARSER
                     lng_cards["url"] = url
                 else:
                     stor_tab = pd.DataFrame(parse_storage_table(w))
                     stor_tab["map_version"] = map_ver[tag]
+                    stor_tab["parser"] = PARSER
                     stor_tab["url"] = url
                 rel.record(url, f"GIE {tag} map", r.content, f"version {map_ver[tag]}", sig)
             except Exception as e:  # noqa: BLE001
@@ -767,6 +788,9 @@ def regas_rows(terms, cards, ver, ok, tyndp):
         for _, c in cards.iterrows():
             nm, ctry, st = c["name"], c["country"], c["status"]
             exps = c["exp_list"] if isinstance(c["exp_list"], list) else []
+            kk = map_key(nm, c["vessel"], st)
+            if st == "SUSPENDED" and tk.get(kk, {}).get("alsi_end"):
+                continue   # covered by the ALSI end-date row below
             if st in ("UNDER_CONSTRUCTION", "PLANNED", "SUSPENDED") and c["nominal_bcm_n"] and not pd.isna(c["nominal_bcm_n"]):
                 yr = c["start_up_year"]
                 nt = ""
