@@ -1,0 +1,6 @@
+#### A. REData potencia-instalada-generacion
+Traceback (most recent call last):
+  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE11.py", line 34, in <module>
+    print("geo:", geo or "(none)", "| last-update", j["data"]["attributes"].get("last-update"), "| meta", json.dumps(j["data"].get("meta"))[:200])
+                                                    ~^^^^^^^^
+KeyError: 'data'
