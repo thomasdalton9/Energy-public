@@ -1,0 +1,94 @@
+#### A. ree.es data pages
+142094 end_date=2025-12-31T23%3A59&start_date=2025-01-01T00%3A00&systemElectric=nacional&time_trunc=month
+TEXT: Installed capacity | Red Eléctrica Skip to main content Search Cerrar A company of Redeia Jobs Press office Contact ES EN Mostrar buscador Abrir menú cabecera About us We are the Spanish TSO since 1985 Volver Who we are Four decades by your side Our History Regulatory framework Volver National and European normative Operating procedures European network codes Contact Who we are Discover what Red Eléctrica is, what we do, and why we are the backbone of the electricity system in Spain and the ecological transition. Go into detail Operation We are the national electricity system operator Volver The Spanish electricity system Volver Non-peninsular systems Voluntary Price for the Small Consumer (PVPC) Demand and production curves in real time Guaranteed supply Volver Control centres Ancillary Services Measurements and Settlements Integration of Renewables Volver Cecre Development of the electricity system Volver Access and Connection to the Grid National Planning European Planning Studies and Forecasts Internal energy market The electrical system Discover the elements and special features that make up the national electricity system For more detailed information Electricity Control Centres Learn how the brain of the electrical system works, 24 hours a day, 365 days a year For more detailed information Transmission We develop and maintain the electricity transmission grid to ensure a high-quality power supply for the entire community Volver Transmission grid Volver Our infrastructu
+apidatos refs: []
+json-ish: ['microsoft.icon" /> <link rel="alternate" hreflang="es" href="https://www.ree.es/es/datos/generacion/potencia-instalada-generacion" /> <link rel="alternate" hreflang="en" href="https://www.ree.es/en/datos/generation/installed-capacity-generation" /> <script>window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};a2a_config.icon_color = "transparent";</script>      <title>Installed capacity | Red Eléctrica</title>     <link rel="stylesheet" me', 'c&quot;:&quot;month&quot;}" data-drupal-link-system-path="node/13650"><a href="/es/datos/generacion/potencia-instalada-generacion?end_date=2025-12-31T23%3A59&amp;start_date=2025-01-01T00%3A00&amp;systemElectric=nacional&amp;time_trunc=month" class="language-link" hreflang="es" data-drupal-link-query="{&quot;end_date&quot;:&quot;2025-12-31T23:59&quot;,&quot;start_date&quot;:&quot;2025-01-01T00:00&quot;,&quot;systemElectric&quot;:&quot;nacional&quot;,&quot;time_trunc&quot;:&quot;month&quot;}" data']
+xls/csv links: []
+tables: 0
+
+#### B. Terna request code
+son")&&(this.selectedMonth="");await this.enqueueFetch(0,!0,!1,!1,!0);r=!0},selectAllMonths(){this.selectedMonths=[];return},getReportTitle(){let f=document.querySelector(i.sideMenu),n=[],t=f.querySelector("strong");n.unshift(t?.textContent);let r=t?.closest(".level-2");n.unshift((r?.querySelector("a.active")??r?.querySelector("strong"))?.textContent);let u=(r??t)?.closest(".level-1");return n.unshift((u?.querySelector("a.active")??u?.querySelector("strong"))?.textContent),n.at(-1)==n.at(-2)&&n.pop(),n.at(-1)},isBeforeToday(n){let t=new Date;return this.lastDate&&this.selectedYear?this.selectedYear=="All"?!0:this.selectedYear<t.getFullYear()?!0:this.selectedYear<this.lastDate.getFullYear()?!0:this.selectedYear==this.lastDate.getFullYear()&&n<=this.lastDate.getMonth()+1:this.selectedYear&&(this.selectedYear=="All"||this.selectedYear<t.getFullYear())?!0:this.selectedYear<t.getFullYear()||n<=t.getMonth()+1},isPageRendered(n){return n>this.previousPage&&n<this.nextPage},async handleScroll(){if(!(Object.keys(this.content.Columns).length<=0)){s=e.querySelector(i.tableResponsive);let n=s.scrollTop<=1,t=s.scrollTop+s.clientHeight>=s.scrollHeight-1;n&&this.scrollEnabled&&this.previousPage>-1&&(this.scrollEnabled=!1,this.previousPage=--this.previousPage,(this.previousPage<=-1&&this.nextPage>this.windowPageCount||this.previousPage>-1&&this.nextPage-this.previousPage>this.windowPageCount)&&(this.nextPage=--this.nextPage),await this.enqueueFetch(this.previousPage+1,!1,!1,!0,!1),this.scrollEnabled=!0);t&&this.scrollEnabled&&(this.pageCap==-1||this.nextPage<this.pageCap)&&(this.scrollEnabled=!1,this.nextPage=++this.nextPage,(this.previousPage<=-1&&this.nextPage>this.windowPageCount||this.previousPage>-1&&this.nextPage-this.previousPage>this.windowPageCount)&&(this.previousPage=++this.previousPage),await this.enqueueFetch(this.nextPage-1,!1,!1,!1,!1),this.scrollEnabled=!0)}},async enqueueFetch(n,t,i,r,u){this.fetchQueue.push([n,t,i,r,u])},addParam(n,t){!t||t=="All"||Array.isArray(t)&&t.length==0||(Array.isArray(t)&&(t=t.join("|")),t=JSON.stringify(t),t=t.replace(/→/g,"->"),t=JSON.parse(t),this.urlSearchParams.append(n,t=="(Empty)"?"null":t))},accessibilityKeydownEnter(n){bootstrap.Dropdown.getOrCreateInstance(n.currentTarget).toggle()},async fetchList(n,f,o,c,l){console.log("Fetching new data "+f);let v=new Date;if(f&&(s.scrollTop=0,this.previousPage=-1,this.nextPage=1,this.pageCap=-1,!o)){if(this.orderByColumn=this.selectedDataset=="IMCEI"||this.selectedDataset=="IMSER"?"Consumi (Gwh)":this.selectedDataset=="DailyDataIndexes"?"Data":this.selectedCluster=="Consumption"?"Consumo (GWh)":this.selectedCluster=="Demand"||this.selectedCluster=="Production"||this.selectedCluster=="Capacity"||this.selectedDataset=="RenewableSources"||this.selectedDataset=="NonRenewableSources"||this.selectedDataset=="Storage"||this.selectedDataset=="SecondaryAdjustmentLevels"?"Anno":this.selectedDataset=="ProjectPicassoConnections"?"Data di riferimento":this.selectedCluster=="Connections"?"Potenza (MW)":this.selectedCluster=="FCRInput"||this.selectedCluster=="FCROutput"?"Data":this.selectedCluster=="LoadInternationalComparisons"||this.selectedCluster=="GenerationInternationalComparisons"?"Nazione":this.selectedCluster=="OpenSeason"?"DataRiferimento":"Date",this.orderByDir=this.selectedCluster=="LoadInternationalComparisons"||this.selectedCluster=="GenerationInternationalComparisons"?"asc":"desc",!this.selectedYear&&this.selectedYear!="All"){r=!1;this.selectedYear=v.getFullYear();this.selectedMonths=this.selectedDataset=="SecondaryAdjustmentLevels"||this.selectedDataset=="ProjectPicassoConnections"?v.getMonth()+1:[v.getMonth()+1];await this.enqueueFetch(0,!0,!1,!1,!0);r=!0;return}this.urlSearchParams=new URLSearchParams;this.addParam("filterDataset",this.selectedDataset);this.addParam("filterBiddingZone",this.selectedTotalLoadZones.length==this.totalLoad_Zones.length?"":this.selectedTotalLoadZones);this.addParam("filterBiddingZone",this.selectedMarketLoadZones.length==this.marketLoad_Zones.length?"":this.selectedMarketLoadZones);this.addParam("filterType",this.selectedActualGenerationTypes.length==this.actualGeneration_Types.length?"":this.selectedActualGenerationTypes);this.addParam("filterType",this.selectedRenewableGenerationTypes.length==this.renewableGeneration_Types.length?"":this.selectedRenewableGenerationTypes);this.addParam("filterType",this.selectedEnergyBalanceTypes.length==this.energyBalance_Types.length?"":this.selectedEnergyBalanceTypes);this.addParam("filterSource",this.selectedGenerationRenewableSources.length==this.renewableSources_Sources.length?"":this.selectedGenerationRenewableSources);this.addParam("filterType",this.selectedGenerationNonRenewableTypes.length==this.nonRenewableSources_Types.length?"":this.selectedGenerationNonRenewableTypes);this.addParam("filterType",this.selectedStorageTypes.length==this.storageTypes.length?"":this.selectedStorageTypes);this.addParam("filterType",this.selectedElectricityType);this.addParam("filterType",this.selectedCapacityThermalCapacityTypes);this.addParam("filterType",this.selectedElectricityBySourceProductionTypes);this.addParam("filterType",this.selectedHydroPowerProductionTypes);this.addParam("filterCountry",this.selectedSchedForeignExchgCountries.length==this.schedForeignExchg_Countries.length?"":this.selectedSchedForeignExchgCountries);this.addParam("filterCountry",this.selectedPhysForeignFlowCountries.length==this.selectedPhysForeignFlowCountries.length?"":this.selectedPhysForeignFlowCountries);this.addParam("filterFlow",this.selectedSchedInternalExchgFlows.length==this.schedInternalExchg_Flows.length?"":this.selectedSchedInternalExchgFlows);this.addParam("filterFlow",this.selectedPhysInternalFlowFlows.length==this.physInternalFlow_Flows.length?"":this.selectedPhysInternalFlowFlows);this.addParam("filterVoltage",this.selectedVoltages.length==this.voltages.length?"":this.selectedVoltages);this.addParam("filterVoltageLevel",this.selectedRenewableSourcesVoltageLevels.length==this.renewableSources_VoltageLevels.length?"":this.selectedRenewableSourcesVoltageLevels);this.addParam("filterVoltageLevel",this.selectedNonRenewableSourcesVoltageLevels.length==this.nonRenewableSources_VoltageLevels.length?"":this.selectedNonRenewableSourcesVoltageLevels);this.addParam("filterVoltageLevel",this.selectedStorageVoltageLevels.length==this.storage_VoltageLevels.length?"":this.selectedStorageVoltageLevels);this.addParam("filterStorageConfiguration",this.selectedStorageConfigurations.length==this.storage_Configs.length?"":this.selectedStorageConfigurations);this.addParam("filterSector",this.selectedSectors.length==this.imcei_Sectors.length?"":this.selectedSectors);this.addParam("filterSector",this.selectedElectricalEnergySectors);this.addParam("filterSubcategory",this.selectedCapacityThermalSubcategories.length==Object.values(this.capacityThermalSubcategories).reduce((n,t)=>n+t.length,0)?"":this.selectedCapacityThermalSubcategories);this.addParam("filterSubcatego
+downloadcenter idx [37436, 37664, 71605, 71634]
+
+#### C. DGEG older PDFs
+
+--- 2024-01 page 8 of 23
+Potência Instalada (MW) | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024
+Total Renovável | 12 273 | 13 416 | 13 762 | 13 994 | 14 423 | 14 606 | 15 370 | 17 450 | 18 735 | 19 022
+Hídrica | 6 031 | 6 812 | 7 086 | 7 098 | 7 129 | 7 129 | 7 126 | 8 141 | 8 140 | 8 219
+da qual em bombagem | 1 687 | 2 467 | 2 737 | 2 737 | 2 737 | 2 737 | 2 737 | 3 659 | 3 659 | 3 659 | > 30 MW | 5 367 | 6 147 | 6 417 | 6 417 | 6 447 | 6 447 | 6 447 | 7 462 | 7 462 | 7 542 | > 10 e  30 MW | 255 | 254 | 258 | 270 | 270 | 270 | 270 | 266 | 266 | 266
+ 10 MW | 409 | 410 | 410 | 410 | 412 | 412 | 409 | 414 | 412 | 411
+Eólica | 5 034 | 5 313 | 5 313 | 5 379 | 5 459 | 5 502 | 5 643 | 5 730 | 5 809 | 5 809
+Biomassa | 552 | 564 | 564 | 629 | 693 | 682 | 679 | 679 | 679 | 679
+c/ cogeração | 428 | 434 | 434 | 484 | 467 | 465 | 452 | 452 | 452 | 452
+s/ cogeração | 123 | 130 | 130 | 144 | 226 | 217 | 227 | 227 | 227 | 227
+Resíduos Sólidos Urbanos | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89
+Biogás | 85 | 89 | 91 | 92 | 93 | 93 | 97 | 94 | 93 | 93
+Geotérmica | 29 | 29 | 34 | 34 | 34 | 34 | 34 | 34 | 34 | 34
+Fotovoltaica | 454 | 520 | 585 | 673 | 925 | 1 076 | 1 701 | 2 682 | 3 890 | 4 098
+Convencional | 274 | 295 | 293 | 332 | 489 | 595 | 1 119 | 1 493 | 1 978 | 2 144
+UPAC | - | 43 | 86 | 124 | 205 | 246 | 342 | 953 | 1 565 | 1 582
+UPP | - | - | 18 | 30 | 44 | 48 | 55 | 56 | 167 | 192
+Micro/Mini | 170 | 174 | 174 | 172 | 171 | 171 | 170 | 165 | 164 | 164
+Concentração | 9 | 9 | 14 | 
+
+--- 2024-02 page 8 of 23
+Potência Instalada (MW) | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024
+Total Renovável | 12 273 | 13 416 | 13 762 | 13 994 | 14 423 | 14 606 | 15 370 | 17 450 | 18 749 | 19 079
+Hídrica | 6 031 | 6 812 | 7 086 | 7 098 | 7 129 | 7 129 | 7 126 | 8 141 | 8 140 | 8 219
+da qual em bombagem | 1 687 | 2 467 | 2 737 | 2 737 | 2 737 | 2 737 | 2 737 | 3 659 | 3 659 | 3 659 | > 30 MW | 5 367 | 6 147 | 6 417 | 6 417 | 6 447 | 6 447 | 6 447 | 7 462 | 7 462 | 7 542 | > 10 e  30 MW | 255 | 254 | 258 | 270 | 270 | 270 | 270 | 266 | 266 | 266
+ 10 MW | 409 | 410 | 410 | 410 | 412 | 412 | 409 | 414 | 412 | 411
+Eólica | 5 034 | 5 313 | 5 313 | 5 379 | 5 459 | 5 502 | 5 643 | 5 730 | 5 809 | 5 809
+Biomassa | 552 | 564 | 564 | 629 | 693 | 682 | 679 | 679 | 679 | 679
+c/ cogeração | 428 | 434 | 434 | 484 | 467 | 465 | 452 | 452 | 452 | 452
+s/ cogeração | 123 | 130 | 130 | 144 | 226 | 217 | 227 | 227 | 227 | 227
+Resíduos Sólidos Urbanos | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89
+Biogás | 85 | 89 | 91 | 92 | 93 | 93 | 97 | 94 | 93 | 93
+Geotérmica | 29 | 29 | 34 | 34 | 34 | 34 | 34 | 34 | 34 | 34
+Fotovoltaica | 454 | 520 | 585 | 673 | 925 | 1 076 | 1 701 | 2 682 | 3 904 | 4 156
+Convencional | 274 | 295 | 293 | 332 | 489 | 595 | 1 119 | 1 493 | 1 975 | 2 144
+UPAC | - | 43 | 86 | 124 | 205 | 246 | 342 | 953 | 1 581 | 1 640
+UPP | - | - | 18 | 30 | 44 | 48 | 55 | 56 | 167 | 192
+Micro/Mini | 170 | 174 | 174 | 172 | 171 | 171 | 170 | 165 | 164 | 164
+Concentração | 9 | 9 | 14 | 
+
+--- 2023-12 page 8 of 23
+Potência Instalada (MW) | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023
+Total Renovável | 11 677 | 12 273 | 13 416 | 13 762 | 13 994 | 14 423 | 14 606 | 15 370 | 17 427 | 18 735
+Hídrica | 5 570 | 6 031 | 6 812 | 7 086 | 7 098 | 7 129 | 7 129 | 7 126 | 8 141 | 8 140
+da qual em bombagem | 1 310 | 1 687 | 2 467 | 2 737 | 2 737 | 2 737 | 2 737 | 2 737 | 3 659 | 3 659 | > 30 MW | 4 916 | 5 367 | 6 147 | 6 417 | 6 417 | 6 447 | 6 447 | 6 447 | 7 462 | 7 462 | > 10 e  30 MW | 254 | 255 | 254 | 258 | 270 | 270 | 270 | 270 | 266 | 266
+ 10 MW | 400 | 409 | 410 | 410 | 410 | 412 | 412 | 409 | 414 | 412
+Eólica | 4 953 | 5 034 | 5 313 | 5 313 | 5 379 | 5 459 | 5 502 | 5 643 | 5 730 | 5 809
+Biomassa | 539 | 552 | 564 | 564 | 629 | 693 | 682 | 679 | 679 | 679
+c/ cogeração | 416 | 428 | 434 | 434 | 484 | 467 | 465 | 452 | 452 | 452
+s/ cogeração | 123 | 123 | 130 | 130 | 144 | 226 | 217 | 227 | 227 | 227
+Resíduos Sólidos Urbanos | 86 | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89 | 89
+Biogás | 81 | 85 | 89 | 91 | 92 | 93 | 93 | 97 | 94 | 93
+Geotérmica | 29 | 29 | 29 | 34 | 34 | 34 | 34 | 34 | 34 | 34
+Fotovoltaica | 419 | 454 | 520 | 585 | 673 | 925 | 1 076 | 1 701 | 2 660 | 3 890
+Convencional | 256 | 274 | 295 | 293 | 332 | 489 | 595 | 1 119 | 1 493 | 1 978
+UPAC | - | - | 43 | 86 | 124 | 205 | 246 | 342 | 930 | 1 565
+UPP | - | - | - | 18 | 30 | 44 | 48 | 55 | 56 | 167
+Micro/Mini | 163 | 170 | 174 | 174 | 172 | 171 | 171 | 170 | 165 | 164
+Concentração | - | 9 | 9 | 14 | 15 | 1
+
+--- 2021-12 page 8 of 23
+Potência Instalada (MW) | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021
+Total Renovável | 11 052 | 11 311 | 11 677 | 12 273 | 13 416 | 13 762 | 13 994 | 14 423 | 14 609 | 15 460
+Hídrica | 5 537 | 5 535 | 5 570 | 6 031 | 6 812 | 7 086 | 7 098 | 7 129 | 7 129 | 7 129
+Grande Hídrica (>30MW) | 4 877 | 4 879 | 4 916 | 5 367 | 6 147 | 6 417 | 6 417 | 6 447 | 6 447 | 6 447
+PCH (>10 e  30 MW) | 257 | 257 | 254 | 255 | 254 | 254 | 266 | 266 | 266 | 266
+PCH ( 10 MW) | 403 | 399 | 400 | 409 | 410 | 414 | 414 | 415 | 415 | 415
+Eólica | 4 529 | 4 731 | 4 953 | 5 034 | 5 313 | 5 313 | 5 379 | 5 459 | 5 502 | 5 628
+Biomassa | 564 | 564 | 539 | 552 | 564 | 564 | 629 | 693 | 685 | 707
+c/ cogeração | 441 | 441 | 416 | 428 | 434 | 434 | 484 | 467 | 456 | 480
+s/ cogeração | 123 | 123 | 123 | 123 | 130 | 130 | 144 | 226 | 230 | 227
+Resíduos Sólidos Urbanos | 86 | 86 | 86 | 89 | 89 | 89 | 89 | 89 | 89 | 89
+Biogás | 62 | 67 | 81 | 85 | 89 | 91 | 92 | 93 | 93 | 97
+Geotérmica | 29 | 29 | 29 | 29 | 29 | 34 | 34 | 34 | 34 | 34
+Fotovoltaica | 244 | 299 | 419 | 454 | 520 | 585 | 673 | 925 | 1 076 | 1 777
+FV de concentração | 0 | 0 | 6 | 9 | 9 | 14 | 15 | 15 | 15 | 15
+Potência Instalada por Região (MW) | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021
+Portugal | 11 052 | 11 311 | 11 677 | 12 273 | 13 416 | 13 762 | 13 994 | 14 423 | 14 609 | 15 460
+Continente | 10 861 | 11 106 | 11 479 | 12 071 | 13 213 | 13 553 | 13 783 | 14 178 | 14 346 | 15 199
+Norte | 5 773 
