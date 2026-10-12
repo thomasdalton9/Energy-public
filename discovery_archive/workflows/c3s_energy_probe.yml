@@ -15,4 +15,4 @@ jobs:
           CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
         run: |
           pip install cdsapi
-          python3 discovery_archive/weather/C3S_ENERGY_PROBE2.py
+          python3 discovery_archive/weather/C3S_ENERGY_PROBE3.py
