@@ -531,6 +531,53 @@ def round7():
     print("outliers", big)
 
 
+def round8():
+    """Slow scan (10 s between form queries) of 2021-2026 samples; NEPCO 2025 Arabic annual report gas tables."""
+    import calendar, collections, datetime as dt
+    s = requests.Session()
+    allrows = {}
+    n = 0
+    t0 = time.time()
+    months = [(y, m) for y in (2021, 2022, 2023, 2024) for m in (1, 7)] + [(2025, m) for m in range(1, 13)] + [(2026, m) for m in range(1, 11)]
+    for y, m in months:
+        nd = calendar.monthrange(y, m)[1]
+        got, note = {}, ""
+        for d1, d2 in [(1, 9), (10, 18), (19, 27), (28, nd)]:
+            time.sleep(10)
+            n += 1
+            try:
+                r = maxload_query(s, d1, m, y, d2, m, y)
+                if "Max Load" not in r.text:
+                    note += f" NOTABLE@q{n}"
+                got.update(dict(rows(r.text)))
+            except Exception as e:
+                note += f" ERR@q{n}:" + type(e).__name__
+        allrows.update(got)
+        vals = [float(v) for v in got.values()]
+        print(f"{y}-{m:02d}: {len(got)}/{nd} days, max {max(vals) if vals else None} min {min(vals) if vals else None}{note} ({time.time()-t0:.0f}s)", flush=True)
+    days = [dt.date(2025, 1, 1) + dt.timedelta(i) for i in range(365)]
+    miss = [d for d in days if d.strftime("%d/%m/%Y") not in allrows]
+    print("2025 missing", len(miss), collections.Counter(d.strftime("%a") for d in miss), [d.isoformat() for d in miss][:60])
+    v25 = {k: float(v) for k, v in allrows.items() if k.endswith("2025")}
+    if v25:
+        k = max(v25, key=v25.get)
+        print("2025 max", k, v25[k], "mean", sum(v25.values()) / len(v25))
+    print("outliers", {k: v for k, v in allrows.items() if float(v) > 5000 or float(v) < 1000})
+    # NEPCO 2025 Arabic annual report
+    f = save("https://www.nepco.com.jo/store/DOCS/web/2025_AR.pdf", "n25ar.pdf")
+    if f:
+        import pdfplumber
+        with pdfplumber.open(f) as pdf:
+            print("pages", len(pdf.pages))
+            shown = 0
+            for i, pg in enumerate(pdf.pages):
+                t = pg.extract_text() or ""
+                # Arabic glyph order is often reversed by pdfplumber: match both orders
+                if re.search(r'غاز|زاغ|GWh|ك.و.س|س.و.ك', t) and len(re.findall(r'\d{3,}', t)) > 15 and shown < 10:
+                    shown += 1
+                    print(f"\n----- p{i+1}\n" + t[:1800])
+
+
 if __name__ == "__main__":
     rnd = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     globals()[f"round{rnd}"]()
