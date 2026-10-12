@@ -50,3 +50,29 @@ for country in ("Jordan", "Morocco"):
     print("\nmonths with a value per year:\n", n.to_string())
     print("\nannual sums mcm:\n", y.to_string())
     print("\nlast 18 months:\n", d.tail(18).to_string())
+
+
+# Pass 2: is Jordan in JODI's static world gas file (GAS_world_NewFormat.zip, stale but complete list of reporters)?
+import requests, zipfile  # noqa: E402
+for url in ("https://www.jodidata.org/_resources/files/downloads/gas-data/jodi_gas_csv_beta.zip",
+            "https://www.jodidata.org/_resources/files/downloads/gas-data/GAS_world_NewFormat.zip"):
+    try:
+        r = requests.get(url, headers=eg.UA, timeout=300)
+        print(f"\n{url}: HTTP {r.status_code} {len(r.content)} bytes")
+        if r.status_code != 200:
+            continue
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        for n in z.namelist():
+            txt = z.read(n).decode("utf-8", "replace")
+            lines = txt.splitlines()
+            print(n, len(lines), "lines; header:", lines[0][:200])
+            areas = sorted({ln.split(",")[0] for ln in lines[1:]})
+            print("REF_AREA codes:", len(areas), areas)
+            jo = [ln for ln in lines if ln.startswith("JO,") or ",JO," in ln[:10]]
+            ma = [ln for ln in lines if ln.startswith("MA,")]
+            print("Jordan (JO) rows:", len(jo), jo[:5])
+            print("Morocco (MA) rows:", len(ma), "months", sorted({ln.split(',')[1] for ln in ma})[:1],
+                  sorted({ln.split(',')[1] for ln in ma})[-1:])
+        break
+    except Exception as e:  # noqa: BLE001
+        print(url, type(e).__name__, e)
