@@ -59,14 +59,24 @@ REGION_NAME = {"EM": "East Med", "AF": "Africa"}
 
 # Official sources tried and not usable (Tried sheet): country, source, result
 TRIED = [
-    ("Nigeria", "NERC quarterly report (2026 Q2), nerc.gov.ng", "reachable; gives AVERAGE AVAILABLE capacity of the 28 grid plants and an installed share in "
-                                                                "percent only, not installed MW by fuel; no installed table"),
-    ("Egypt", "EEHC / MOEE (eehc.gov.eg, moee.gov.eg)", "eehc.gov.eg answers a 600-byte stub page with no document links; moee.gov.eg does not "
-                                                      "resolve from Actions; CAPMAS / MOEE ST_* tables used by EGYPT_GAS.py hold gas and energy balance "
-                                                      "rows, no installed capacity by fuel"),
+    ("Nigeria", "NERC quarterly report (2026 Q2, nerc.gov.ng); TCN / NISO", "NERC downloads but gives AVERAGE AVAILABLE capacity of the 28 grid plants and an installed share in "
+                                                                          "percent only, no installed MW by fuel; NISO has no public feed (see NIGERIA_NERC_POWER.py)"),
+    ("Egypt", "EEHC / MOEE (eehc.gov.eg, moee.gov.eg); CAPMAS / MOEE ST_* tables", "eehc.gov.eg answers a ~600-byte stub page with no document links; moee.gov.eg does not "
+                                                      "resolve from Actions; the CAPMAS / MOEE tables read by EGYPT_GAS.py hold gas and energy balance rows, no installed capacity by fuel"),
     ("Israel", "Electricity Authority 'State of the Electricity Sector' report 2024/25 (gov.il BlobFolder, curl_cffi)", "downloads (124 pages); "
-              "installed capacity by fuel is a chart, one year; earlier-year reports at the same URL pattern return 404"),
-    ("Cyprus", "CERA annual report 2024", "cera.org.cy/.../ektheseis/2024_en.pdf returns 404 (2022 and 2023 exist)"),
+              "installed capacity by fuel (2012-2024) is a stacked-bar chart whose labels come out of the text layer unordered (not safely "
+              "parseable like the NGA reviews' charts); earlier reports at the same URL pattern return 404; the report's own 24.6 GW (2024) is a cross-check only"),
+    ("Cyprus", "CERA annual reports 2022 and 2023 (cera.org.cy), TSOC", "2024 report returns 404; the 2022/2023 reports give capacity as PROSE per category "
+               "(conventional 1,478 -> 1,482.5 MW, wind 157.5 MW, commercial PV 279 -> 358 MW, biomass 9.7 -> 4.2 MW) with net-metered and self-consumption "
+               "PV as separate cumulative figures (about 100-240 MW) and the series as image charts: no like-for-like multi-year table, so Ember is used"),
+    ("Jordan", "NEPCO annual reports (used), MEMR annual reports", "USED: NEPCO 'Available Capacity of Generating Plants' table, 2020-2024 (2025 only in an Arabic report without it)"),
+    ("Lebanon", "EDL / Ministry of Energy and Water", "not probed (no raw Lebanese feed in the repo); Ember"),
+    ("Ghana", "Energy Commission National Energy Statistics (used), GRIDCo, VRA", "USED: 'Grid Installed and Dependable Capacity' table (hydro, thermal, other renewables)"),
+    ("Morocco", "ONEE via HCP Annuaire statistique du Maroc table 5-4 (used); ministry key figures", "USED: installed MW by source, ONEE system (autoproducers listed separately in the table are not included)"),
+    ("South Africa", "Eskom Integrated Report 2025 (used for nuclear and pumped storage); StatsSA, NERSA", "Eskom's report gives one year (31 Mar 2025) of Eskom-owned installed and nominal capacity plus IPP nominal "
+                    "capacity, not a series: only Koeberg and the three pumped-storage schemes (unchanged since commissioning, dates in the same table) are used; "
+                    "StatsSA / NERSA tables not probed"),
+    ("Cameroon", "ARSEL monthly energy balance", "the workbook the repo reads holds plant injections and off-take, no capacity table; Ember"),
 ]
 
 _cache = {}
@@ -146,7 +156,7 @@ def annual_workbook(data_dir, file, src, url, cols, notes=None):
 def ghana(data_dir):
     return annual_workbook(
         data_dir, "ghana_capacity_annual.xlsx",
-        "Energy Commission of Ghana, National Energy Statistics, Table 3.1 grid installed capacity (MW, year-end; ghana_capacity_annual.xlsx)",
+        "Energy Commission of Ghana, National Energy Statistics, grid installed capacity table (MW, year-end; ghana_capacity_annual.xlsx)",
         "https://www.energycom.gov.gh/index.php/planning/energy-statistics",
         {"Hydro": "Hydro_MW", "Gas": "Gas_MW", "Solar": "Solar_MW"},
         {"Gas": "the Commission's 'Thermal' (gas, light crude oil, dual-fuel plants; not split by fuel)",
@@ -339,7 +349,7 @@ def main():
 # ---------------------------------------------------------------- master wiring (East Med and Africa masters)
 OFFICIAL_URL = {"Jordan": JORDAN_URL, "Ghana": "https://www.energycom.gov.gh/index.php/planning/energy-statistics",
                 "Morocco": "https://www.hcp.ma/downloads/Annuaires-statistiques-du-Maroc-Format-Excel_t22392.html", "South Africa": ESKOM_URL}
-OFFICIAL_SHORT = {"Jordan": "NEPCO annual reports", "Ghana": "Energy Commission National Energy Statistics (Table 3.1)",
+OFFICIAL_SHORT = {"Jordan": "NEPCO annual reports", "Ghana": "Energy Commission National Energy Statistics",
                   "Morocco": "ONEE via HCP Annuaire statistique du Maroc (table 5-4)",
                   "South Africa": "Eskom Integrated Report 2025 (Koeberg, pumped storage)"}
 
