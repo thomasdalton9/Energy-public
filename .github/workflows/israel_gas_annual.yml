@@ -1,0 +1,60 @@
+name: Israel gas annual balance (Natural Gas Authority reviews)
+
+# OWNER'S CHOICE: check every 5 months (1 Jan, 1 Jun, 1 Nov, 05:40 UTC). The Natural Gas Authority publishes one review
+# a year in the spring (the 2025 review came out 3 Jun 2026), so the 1 Jun run picks it up. Each run only sends HEAD
+# requests for the reviews already read and tries the next year's file; it exits without rewriting or committing
+# anything when no new or changed review exists. Use workflow_dispatch (reparse=true to parse every review again).
+on:
+  schedule:
+    - cron: "40 5 1 */5 *"
+  workflow_dispatch:
+    inputs:
+      reparse:
+        description: "Parse every review again (true/false)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl curl_cffi pdfplumber matplotlib
+      - name: Run Israel NGA annual review pull
+        id: pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS=""
+          [ "${{ github.event.inputs.reparse }}" = "true" ] && ARGS="--reparse"
+          timeout 1500 python3 middle_east/ISRAEL_NGA_ANNUAL.py $ARGS
+      - name: Add Excel charts, PNGs and copy scripts
+        if: steps.pull.outputs.updated == '1'
+        run: |
+          F="output/Data and Chart Outputs/israel_gas_annual_nga.xlsx"
+          [ -f "$F" ] && python3 add_charts.py "$F" && python3 png_charts.py "$F" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp middle_east/ISRAEL_NGA_ANNUAL.py add_charts.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+      - name: Commit updated workbook
+        if: steps.pull.outputs.updated == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/israel_gas_annual_nga.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Israel gas annual balance (NGA reviews): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
