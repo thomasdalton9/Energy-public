@@ -3,6 +3,11 @@ Probe (Oct 2026) for middle_east/ISRAEL_GAS_FIELDS.py: Karish year-to-date gas f
 9M 2023 and FY 2023 was not parsed. Prints, for every Energean announcement dated Oct 2022 - Apr 2024, the full
 context (no sentence splitting) around every 'bcm' and 'totaled approximately'.
 
+RUN 1 (2026-10-12): FY 2022 = 'Sales gas between 26 October 2022 and 31 December 2022 totaled approximately 0.28 bcm'
+(Energean Israel 2022 accounts; also 'Israel | 5.3 (including 0.28 bcm of sales gas)' in the Jan 2023 update);
+9M 2023 = 'Israel | 82.6 (including 3.1 bcm of gas) | - |' (Nov 2023 update, prior year '-'); FY 2023 = 'Sales gas for
+2023 totaled approximately (4.4 bcm)' (Energean Israel 2023 accounts); H1 2023 1.8 bcm. Parser updated.
+
 Workflow (manual): discovery_archive/workflows/energean_karish_gaps_probe.yml.
 """
 import importlib.util
