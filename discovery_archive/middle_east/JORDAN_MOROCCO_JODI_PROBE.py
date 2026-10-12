@@ -19,6 +19,11 @@ pd.set_option("display.max_columns", 40)
 pd.set_option("display.max_rows", 400)
 
 v = eg.Viewer()
+import csv, io  # noqa: E402
+listing = v.download({"Country": None, "Product": [0], "BALANCE": [0], "Unit": [0], "TIME": [0]})
+names = [r[0] for r in csv.reader(io.StringIO(listing)) if len(r) > 2 and r[0] not in ("", "Country")]
+print(f"JODI gas viewer country list ({len(names)}):", names)
+print("Jordan-like:", [n for n in names if "ord" in n.lower() or "jor" in n.lower()])
 for country in ("Jordan", "Morocco"):
     print(f"\n================ {country}")
     try:
@@ -39,6 +44,7 @@ for country in ("Jordan", "Morocco"):
         nz = (s != 0).sum()
         print(f"{c:55s} {s.index.min():%b %Y} .. {s.index.max():%b %Y}  n={len(s)} nonzero={nz} gaps={len(gaps)} "
               f"{gaps[:30]}")
+    d.columns = [c.replace("_JODI_fallback_mcm", "") for c in d.columns]
     y = d.groupby(d.index.year).sum(min_count=1).round(1)
     n = d.notna().groupby(d.index.year).sum()
     print("\nmonths with a value per year:\n", n.to_string())
