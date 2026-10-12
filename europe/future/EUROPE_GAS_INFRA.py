@@ -1444,7 +1444,7 @@ def add_all_charts(wb, reg_month, proj, stor_sheet, a):
     if ws_src is not None and ws_src.max_row > 1:
         hdr = [c.value for c in ws_src[1]]
         data = pd.DataFrame([[c.value for c in r] for r in ws_src.iter_rows(min_row=2)], columns=hdr)
-        data = data[data["country"] != "EU27"]
+        data = data[~data["country"].isin(["EU27", "Ukraine"])]
         data = data[["country", "operational_twh", "under_construction_twh", "planned_twh", "mothballed_twh"]].fillna(0)
         data = data.sort_values("operational_twh", ascending=False)
         add_category_chart(wb, data.set_index("country"), "Underground gas storage working gas by country and status (GIE storage map)", "TWh", "Chart - Storage", stacked=True,
