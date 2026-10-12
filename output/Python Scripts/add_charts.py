@@ -382,6 +382,26 @@ def no_capacity(p):
                  "MW per month", "stacked_bar")]
 
 
+def cee_capacity(title, quarterly=False, note=""):
+    """Hungary / Czechia / Switzerland month-end capacity and Poland quarterly renewables (europe/capacity/CEE_CAPACITY_MONTHLY.py):
+    stacked capacity by fuel (GW) plus net additions of solar and wind (MW per month, or per release for the quarterly Poland file)."""
+    names = [("Nuclear", "Nuclear_MW"), ("Coal", "Coal_MW"), ("Oil", "Oil_MW"), ("Gas", "Gas_MW"), ("Hydro", "Hydro_MW"),
+             ("Pumped storage", "PumpedStorage_MW"), ("Wind", "Wind_MW"), ("Solar", "Solar_MW"), ("Bioenergy", "Bioenergy_MW"),
+             ("Storage", "Storage_MW"), ("Other", "Other_MW")]
+
+    def f(p):
+        full = by_date(read(p, "Quarterly" if quarterly else "Monthly"), "date")
+        d = full[full.index >= "2021-01-01"]
+        g = pd.DataFrame({n: d[c] for n, c in names if c in d and d[c].notna().any() and d[c].fillna(0).abs().sum() > 0}) / 1000.0
+        adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff()})
+        unit = "per release (quarter)" if quarterly else "per month"
+        return [spec("Capacity", g, title, "GW installed", "stacked_bar"),
+                spec("Net additions", adds[adds.index >= "2021-02-01"].dropna(how="all"),
+                     title.split(",")[0] + " net additions of solar and wind " + unit, "MW " + unit, "stacked_bar")]
+    return f
+
+
+
 def gb_capacity(p):
     """United Kingdom (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): month-end capacity (solar = DESNZ ET 6.3, wind / bioenergy /
     storage = REPD rebuild), net additions, official quarterly renewables (ET 6.1) and DUKES 5.12 on 1 January (all fuels)."""
@@ -3309,6 +3329,10 @@ REGISTRY = {
     "ireland_power_capacity_monthly.xlsx": ie_capacity,
     "denmark_power_capacity_monthly.xlsx": dk_capacity,
     "norway_power_capacity_monthly.xlsx": no_capacity,
+    "hungary_power_capacity_monthly.xlsx": cee_capacity("Hungary installed capacity, month-end (MAVIR, gross incl. rooftop PV)"),
+    "czechia_power_capacity_monthly.xlsx": cee_capacity("Czechia installed capacity, month-end (ERU; coal = all steam plant)"),
+    "switzerland_power_capacity_monthly.xlsx": cee_capacity("Switzerland installed capacity, month-end (BFE / Pronovo register, rebuilt)"),
+    "poland_power_capacity_quarterly.xlsx": cee_capacity("Poland renewable capacity at quarter end (URE register, partial)", quarterly=True),
     "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
     "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
