@@ -36,7 +36,8 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           F=""; [ "${{ github.event.inputs.force }}" = "true" ] && F="--force"
-          python3 europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py $F
+          mkdir -p discovery_archive/results/europe_capacity/de_nl_be_lu
+          python3 europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py $F 2>&1 | tee discovery_archive/results/europe_capacity/de_nl_be_lu/germany_run.log
 
       - name: Add Excel charts, PNGs and copy scripts
         if: always()
@@ -54,6 +55,7 @@ jobs:
           git add -f "output/Data and Chart Outputs/germany_power_capacity_monthly.xlsx" || true
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
+          git add -f discovery_archive/results/europe_capacity/de_nl_be_lu/germany_run.log || true
           git diff --cached --quiet || git commit -m "Europe capacity (Germany, MaStR): automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
@@ -75,7 +77,9 @@ jobs:
       - name: Run pull
         env:
           PYTHONUNBUFFERED: "1"
-        run: python3 europe/capacity/BENELUX_CAPACITY.py
+        run: |
+          mkdir -p discovery_archive/results/europe_capacity/de_nl_be_lu
+          python3 europe/capacity/BENELUX_CAPACITY.py 2>&1 | tee discovery_archive/results/europe_capacity/de_nl_be_lu/benelux_run.log
 
       - name: Add Excel charts, PNGs and copy scripts
         if: always()
@@ -97,6 +101,7 @@ jobs:
           done
           git add -f "output/PNG Charts" || true
           git add -f "output/Python Scripts" || true
+          git add -f discovery_archive/results/europe_capacity/de_nl_be_lu/benelux_run.log || true
           git diff --cached --quiet || git commit -m "Europe capacity (Belgium, Netherlands, Luxembourg): automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
