@@ -1,0 +1,49 @@
+name: Israel Tamar sales history backfill (one-off)
+
+# ONE-OFF: backfills Tamar quarterly sales Q1 2016 - Q4 2023 into israel_gas_fields_quarterly.xlsx from Tamar
+# Petroleum's older reports (its site + TASE MAYA PDFs), then rebuilds the workbook with the regular pull.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests pypdf matplotlib
+      - name: Backfill Tamar history
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1800 python3 middle_east/ISRAEL_TAMAR_HISTORY.py
+      - name: Rebuild with the regular pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: timeout 1500 python3 middle_east/ISRAEL_GAS_FIELDS.py || echo "pull reported failures (see above)"
+      - name: Add Excel charts, PNGs and copy scripts
+        run: |
+          F="output/Data and Chart Outputs/israel_gas_fields_quarterly.xlsx"
+          python3 add_charts.py "$F" && python3 png_charts.py "$F"
+          mkdir -p "output/Python Scripts"
+          cp middle_east/ISRAEL_GAS_FIELDS.py middle_east/ISRAEL_TAMAR_HISTORY.py add_charts.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+      - name: Commit updated workbook
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/israel_gas_fields_quarterly.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Israel gas by field: Tamar sales history backfill Q1 2016 - Q4 2023"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
