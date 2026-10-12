@@ -1,0 +1,77 @@
+p8: Approved maximum total capacity (MW) and total generated electricity (GWh) forecast for 79
+p9: Figure 7 Descriptive presentation and geographical distribution of installed conventional 66
+p9: Figure 12 Capacity (MW) exemptions from a RES construction licence for the period 70
+p9: Figure 13 Capacity (MW) exemptions from RES operation licences for the period 71
+p9: Figure 14 Number of installed photovoltaic systems and installed capacity (kW) 72
+p9: Figure 15 Descriptive presentation and geographical distribution of installed RES 73
+p9: units with capacity of more than 20kWp, until 2022
+p9: Figure 17 Annually installed capacity (MW) of RES 75
+p9: Figure 18 Annually installed capacity (MW) of RES and conventional units 75
+p9: Figure 25 Approved maximum total capacity (MW) forecast 2021 - 2030 79
+p12: of wind systems, and 13 megawatts of biomass systems in operation, namely a total installed RES-E capacity of 577
+p12: megawatts and a total installed capacity of conventional electricity generation plants of 1483 megawatts. In other words,
+p12: 28% of the installed capacity concerns RES-E systems. Regarding the contribution of RES-E, it represented 15% of the final
+p15: • Decision 113/2022 - Long-Term Annual Forecast of Maximum Total Electricity Capacity and Total Generated
+p15: • Decision 246/2022 - Capacity level approval for connection to the transmission system pursuant to the
+p29: kV” substation which was shut down with the installation of the new “Moni GIS 132 kV” transmission
+p29: shut down with the installation of the new “Moni GIS 132 kV” transmission substation.
+p30: Decision 113/2022 - Long-Term Annual Forecast of Maximum Total Electricity Capacity and Total
+p30: capacity of electricity and total generated electricity for the decade 2022 – 2030 which was submitted by the TSOC.
+p34: 132 kV” substation which was shut down with the installation of the temporary settlement equipment
+p34: Decision 246/2022 - Capacity level approval for connection to the transmission system pursuant to the
+p34: regarding the capacity level approval for connection to the transmission system pursuant to provision 7.1.1
+p34: of Regulatory Decision 01/2022 (KDP 105/2022), namely the “capacity level approval for connection to the
+p45: flow submarine cables (HVDV) with a transmission capacity of 2000MW. In addition, the project provides that
+p45: the interconnection will be completed in two phases, with the first phase providing the capacity of 1000MW.
+p47: • Forward capacity allocation task force (FCA TF): ensures effective implementation of Regulation 2016/1719.
+p57: a storage system capacity of 1MW and energy up to 2MWh, in combination with additional facilities related to
+p66: purposes with a generating capacity greater than 1MW.
+p66: • Construction and operation of a power plant using RES with a generating capacity of more than 8MW.
+p66: • Construction and operation of a power plant using RES with a generating capacity of more than 50kW up to
+p66: purposes with a generating capacity of 30kW up to 1MW.
+p66: • Generation of electricity from power plants with a maximum capacity of up to and including 20kW.
+p67: • Generation of electricity for own use from systems with a capacity of up to and including 30kW.
+p67: • Generation of electricity from RES power plants with a capacity of up to and including 50kW.
+p67: plants, for commercial purposes, with a total capacity of 503.54MWe and ten (10) Construction Licences were
+p67: granted for photovoltaic power plants for commercial purposes with a total capacity of 200.6MWe.
+p70: conventional fuels, for self-consumption, with a total installed capacity of 1.12MWe.
+p70: In 2022, one (1) application was submitted for the issuance of an Energy Storage System Installation Licence with a
+p70: maximum output capacity of 10.15MW and a storage capacity of 24MWh.
+p70: to 0.05MWe, total installed capacity of 0.046MWe,
+p70: 0.05MWe with a total installed capacity of 45.998MWe,
+p70: • Autonomous electricity generation stations from RES, photovoltaic systems with a total installed capacity of 2MWe, and
+p70: generation systems with a total installed capacity of 6.78MWe.
+p70: for commercial purposes were issued, photovoltaic systems with an installed capacity of 601.99ΜWe and forty (40)
+p70: systems with an installed capacity of 90.33MWe.
+p71: In 2022, one (1) Exemption from Construction Licence of biogas energy generation plant was granted with an installed
+p71: capacity of 0.7MWe.
+p71: installed capacity of 0.7MWe.
+p71: fuels for reserve purposes and autonomous systems of self-generation, with a total installed capacity of 21.79MWe were
+p71: photovoltaic systems with an installed capacity of 25.96ΜWe and twenty-five (25) Exemptions from Operation Licence of
+p71: electricity generation stations were issued for own use, photovoltaic systems with an installed capacity of 4.91MWe.
+p71: Figures 11 and 12 show the installed capacity of Exemptions from a Construction Licence that were granted for the
+p72: Figure 11 - Capacity (MW) of exemptions from a RES construction licence for the period 2006 – 2022
+p72: Figure 12 - Capacity (MW) of exemptions from RES operation licences that were granted for the period 2006 – 2022
+p73: The total installed capacity of conventional power plants for commercial purposes did not change in the year 2022, it
+p73: Figure 13 - Descriptive presentation and geographical distribution of installed conventional plants for commercial use
+p73: The total installed capacity of wind farms for commercial purposes did not change in the year 2022, it remains at
+p73: The total installed capacity of photovoltaic systems for commercial purposes has increased in 2022 to 279.35MWe.
+p73: The total installed capacity of biomass/biogas plants for commercial purposes did not change in the year 2022 and still
+p73: The total installed capacity of biomass/biogas plants for own use did not change in 2022 and still stands at 3.1MWe.
+p74: Net-metering is addressed to all consumers in whose premises a small photovoltaic system with capacity up to 10kWe
+p74: In 2022, 9,093 photovoltaic systems with a total installed capacity of 43.3MWe were installed.
+p74: In 2022, the total installed capacity of the photovoltaic systems under the net-metering category is 151.33MWe.
+p74: Figure 14 presents the number and capacity of installed photovoltaic systems with the method of net-metering for the
+p74: Figure 14 - Number of installed systems and installed capacity (kW) of net-metering systems for from 2013 – 2022
+p75: Figure 15 depicts the geographical distribution of installed RES units with a capacity higher than 20kWp, until 2022, as well
+p75: Figure 15 - Descriptive presentation and geographical distribution of installed RES units with capacity of more than
+p75: The peak demand for electricity in 2022 was noted on Monday, 1 August 2022. The maximum total generation capacity
+p77: Figures 17 and 18 depict historical data of the installed capacity of RES and conventional plants , which are connected to
+p77: years. In 2022, installed capacity of RES units has reached 27% of the total installed capacity of all electricity generation
+p77: Figure 17 - Annually installed capacity (MW) of RES
+p77: Figure 18 - Annually installed capacity (MW) of RES and conventional plants
+p81: Figures 24 and 25 show the total energy generation (GWh) and maximum total capacity (MW) forecast for
+p81: Figure 25 - Approved forecast of maximum total capacity (MW) 2022 – 2030
+p82: Figure 26 presents the installed operational capacity of existing generation plants at system peak demand. This figure
+p135: Staff costs including Top Management in their executive capacity (Note 11) 1.620.417 1.447.421
+p148: Top Management's remuneration in their executive capacity 265.022 255.577

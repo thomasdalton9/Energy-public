@@ -1,0 +1,68 @@
+p3: Statement by the Minister of Energy and 5 2.9 Installed Capacity by Producer 26 3.11 Number of DNO Responses in 2024 – 46
+p3: 1.1 Electricity Flow in 2024 by Voltage 9 2.14 Daily Production Distribution by Fuel 31 3.14 PV Installation Rate Relative To 49
+p3: 1.3 Capacity in the Sector 11 2.15 Average Hourly Production 32 Chapter 4 - Emissions
+p3: 2.1 Installed Sector Capacity vs. Peak 18 4.5 Production in Units 1-4 at Orot Rabin – 55
+p3: 2.3 Planned Capacity of Natural Gas by the 20 in Transitional Season by Hours of the Chapter 5 - Grid Segments
+p3: Segment – Installed Equivalent 2024
+p3: Capacity 3.7 Producer Connections in the 42
+p3: Segment – Actual Production 3.8 DNO Responses by Year – by Capacity 43
+p3: 2.8 Installed Capacity by Primary Fuel 25 5.6 IEC Investments in the Grid 63
+p4: 5.8 Transformation Systems in the 65 7.6 Weighted production component 85 9.2 Installed Capacity of the IEC Divided 105
+p4: Interruptions – by Subdistrict 7.9 Capacities and Load Shedding 88
+p11: 1.3 Capacity in the Sector (GW)
+p11: In 2024, the sector's capacity was 24.6 GW. By 2030, the installed capacity mix is expected to change significantly: The
+p11: installed capacity of facilities producing renewable energy is expected to continue to grow to approximately 40% of the sector's
+p15: capacity. The Authority is working to promote the establishment of large-scale storage projects. It is expected that by 2030 the
+p15: sector will have over 9,000 MW of storage capacity.
+p15: **In February 2025, a pumped storage facility with a capacity of 344 MW was connected in Kochav HaYarden.
+p18: 2.1 Installed Capacity vs. Peak Demand (GW)
+p18: In 2024, the sector's production capacity was approximately 3.6 GW higher than peak demand of that year.
+p18: 2030 shows an increase in expected capacity relative to peak demand. This increase is mainly due to a significant entry of storage
+p18: capacity multiplied by a 0.3 capacity coefficient up to a total capacity of 3,600 MW, and a 0 capacity coefficient for any additional capacity beyond that
+p18: level. In this report, storage capacity is multiplied by a coefficient of 0.75. The coefficients in this report are different from the capacity credit
+p19: (over 20%) of the capacity of natural gas-fired power plants in the electricity market as planned under the regulations for 2024
+p19: * Within this report, a main holding entity is someone who owns more than 5% of a production facility. The entire capacity of the production facility is
+p19: under the regulations regarding concentration. Moreover, the data refer to existing natural gas-powered capacity as of June 30, 2025 (12,959 MW).
+p20: 2.3 Planned Capacity of Natural Gas by the End of the Decade (MW)
+p20: In the coming years, conventional capacity in the sector will increase significantly and will reach 18.9 GW in 2030. This is due to an
+p20: influx of new capacity and existing capacity being converted from coal to natural gas for a total of approximately 8.4 GW, while also
+p20: taking into account the expiration date of licenses with an approximate capacity of 1 GW.
+p20: Capacity in 2024 Construction in 2025 Construction in License Termination Capacity in 2030
+p20: ** For H-Class CCGTs, capacity is limited to 670 MW until 2035 due to an operational constraint intended to maintain system survivability.
+p21: 2.4 Market Shares in the Production Segment – Installed Equivalent Capacity** (%)
+p21: There is a continuing trend of IPPs increasing production capacity. As of June 2024, most of the equivalent capacity in the sector is
+p21: ** Within this report, non-storage renewable energy capacity is multiplied by a 0.3 capacity coefficient up to a total capacity of 3,600 MW, and a 0
+p21: 0.75. The coefficients in this report are different from the capacity credit coefficients.
+p25: 2.8 Installed Capacity by Primary Fuel (GW)
+p25: The fuel mix in the sector has changed significantly in the last decade. Total capacity is expected to triple in 2030 compared to
+p25: Starting in 2018, there has been a growing trend in renewable energy capacity, and renewable energy capacity is expected to reach
+p26: 2.9 Installed Capacity by Producer (GW)
+p26: In 2024, about 53% of the production capacity in the sector was held by IPPs, compared to only about 3% in 2012.
+p26: In 2030, although the total production capacity of the IEC is not expected to be significantly different than in 2024, the capacity
+p26: Fuel capacity mix used by IPPs is expected to grow significantly, and more than double by 2030. The bulk of the increase is
+p33: ** The forecast includes a pumped storage facility in Kochav HaYarden with a capacity of 344 MW that became commercially operational in February 2025.
+p34: of high-voltage and extra-high voltage storage capacity. The expectation is that by 2030, the sector will have over 9,000 MW of
+p34: Capacity in 2024 Capacity Expected 2030*
+p36: In recent years, the increase in capacity from renewable energies has averaged over 20% per year. Approximately 1 GW of
+p36: renewable energy capacity was connected during 2024. The actual consumption rate from renewable energies for the year was
+p38: In 2025, total renewable energy capacity is expected to reach approximately 7.8 GW.
+p38: In 2030, a capacity of approximately 16 GW is required in order to meet government targets.
+p38: **The capacity in 2030 is at the level required to meet the government's target of 30% renewables.
+p42: *To convert the converter's capacity (AC) to the panel's capacity (DC), multiply by a coefficient of 1.3 for ground-mounted facilities, 1.2 for dual-use
+p43: 3.8 DNO Responses by Capacity
+p45: In 2024, DNO responses were given to facilities with a total capacity of approximately 3,200 MW, of which approximately 36%
+p45: 805 Capacity (MW)
+p45: *To convert the converter’s capacity (ac) to the panel’s capacity (dc), multiply by a coefficient of 1.3 for ground-mounted facilities, 1.2 for dual-use
+p47: In 2025, the average dual-use tariff decreased because the ratio between capacity from competitive processes and capacity
+p49: 3.14 PV Capacity Relative to Population Size
+p62: In 2024, the IEC installed over 2,700 km of underground lines. Approximately half are high voltage lines and half are low voltage
+p67: Transformer capacity in the distribution grid increased by approximately 2% in the past year, similar to the average increase in
+p72: of competitive capacity to suppliers. By June 2025, over 270,000 consumers had switched to a domestic electricity supplier,
+p80: The domestic tariff consists of an energy tariff, a fixed capacity tariff, and a fixed supply tariff. In January 2025, the tariff for a
+p88: 7.9 Capacities and Load Shedding Agreement Costs
+p90: In 2024, the IEC installed over 2,700 km of underground lines. Approximately half are high voltage lines and half are low voltage
+p96: electricity sector. As of September 2025, approximately 1.75 million smart meters have been installed.
+p105: 9.2 Installed Capacity of the IEC Divided into Technology Types (GW)
+p105: In 2024, the Israel Electric Company operated coal-fired power plants with a total capacity of 4.8 GW. Pursuant to the Minister of
+p105: installed production capacity by about 16%. In January 2025, CCGT 70 in Orot Rabin and Unit 1 in Rutenberg (which was converted
+p120: capacities lower than 16 megawatts that are connected

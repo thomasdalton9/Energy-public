@@ -1,0 +1,75 @@
+p3: 2.1.1 Available generation capacity ............................................................................... 15
+p5: Figure 1: Average Available Capacity (MW) in 2026/Q1 vs. 2026/Q2 ...................... 16
+p9: a. Available Generation Capacity: In 2026/Q2, there were twenty-
+p9: available generation capacities in 2026/Q2 relative to 2026/Q1.
+p9: of the total installed capacity across the twenty-eight (28) grid-
+p10: Figure A: Available Generation Capacity (Jan - June 2026)
+p10: point during the quarter, 9.69% of available capacity was not
+p12: 94.07%; the available Partially Contracted Capacity (PCC) during the
+p15: plate capacity of 5MW.
+p15: capacity of 1.25MW.
+p15: • Three (3) captive generation permits with a gross capacity
+p16: b. Metering: A total of 350,270 meters were installed in 2026/Q2,
+p16: were installed in installed in 2026/Q1. During the quarter, 205,486 meters (58.67% of
+p16: 123,833 meters were installed under the MAP framework, 13,028
+p16: meters were installed under the MAF framework, 7,643 meters were
+p16: installed under the DisCo Financed framework, and 280 meters were
+p19: 4,454.17MW Average Available Generation Capacity; 3.80 (-0.09%)
+p20: 350,270 Number of new meters Installed; 76,715 fewer installations
+p20: (-17.97%) compared to the 426,985 meters installed in
+p22: 2.1.1 Available generation capacity
+p22: (28) grid-connected power plants recorded increases in available capacity, while
+p22: generation capacity from 2025/Q2 to 2026/Q1 due to prolonged gas supply
+p22: generation capacity of 23.20MW during the quarter.
+p23: Notable decreases in average available generation capacity in 2026/Q2
+p23: Conversely, increases in average available capacities were recorded at Afam_2
+p23: Figure 1 shows the plants with the highest average available capacities across the
+p23: Figure 1: Average Available Capacity (MW) in 2026/Q1 vs. 2026/Q2
+p23: The available capacity of all the hydropower plants decreased by 7.33% in
+p23: largely by the significant decrease in the available capacity of Kainji_1 (-
+p23: 110.12MW) during the quarter. The decrease in available capacity at Kainji_1 can
+p24: 32.69%, meaning that 67.31% of the total installed capacity across the twenty-eight
+p27: Ave. Available Capacity (MW)×24hrs×period (in days)
+p28: available capacity was not dispatched. The load factor in 2026/Q2 (90.31%)
+p28: generation capacity across the 2 quarters (-0.09%) is negligible (section 2.1.1).
+p29: 9 This reflects a nation’s capacity to meet current and future energy demands reliably, withstand and bounce
+p58: maintenance of mini-grids with a distribution capacity exceeding 100kW and a
+p58: generation capacity of up to 5MW (for isolated) and 10MW (for interconnected).
+p58: distribution capacity below 100kW. In 2026/Q2, the Commission issued one (1)
+p58: permit (gross capacity of 0.05MW) to Skylight Engineering Service Limited for the
+p59: The Commission certified sixteen (16) MSPs – fifteen (15) meter installer companies
+p59: 1 De-Haryor Global Services Limited Installer A1
+p59: 2 Universal Integrated Power & Utility Services Limited Installer C1
+p59: 3 International Consolidated Contractors Offshore SAL Ltd Installer A1
+p59: 4 Peleah Company Limited Installer A1
+p59: 5 Gbajesu & Sons Enterprises Limited Installer A1
+p59: 6 Powerspec Solutions Limited Installer A1
+p59: 7 Crestflow Energy Limited Installer A1
+p59: 8 Mdalifu Ventures Nigeria Limited Installer A1
+p59: 9 Amen Electrical Services Limited Installer A1
+p59: 10 Prime Atlantic Global Engineering Services Installer A1
+p59: 11 Aponex Nigeria Limited Installer A1
+p59: 12 Jofebo Global Resources Limited Installer A1
+p59: 13 Imcomtel Engineering Limited Installer A1
+p59: 14 Afuri Limited Installer A1
+p59: 15 Serenade Engineering Nigeria Limited Installer A1
+p59: Class “A1” Certification authorises a holder to undertake installations of (i) Low Voltage single-phase and three-phase
+p59: Metering systems for installation exceeding 750 metering Systems/Contract, and (ii) Installations at grid voltages exceeding
+p59: 5 Metering Systems. Class “C1” Certification authorises a holder to undertake installations of Low Voltage Distribution single-
+p63: with Ibadan DisCo recording the highest number of meter installations of 102,090
+p63: corresponding to 29.15% of the total installations.
+p63: DisCos recorded improvements in meter installation between 2026/Q1 and
+p63: remaining seven (7) DisCos recorded decrease in meter installations between
+p64: deploying 3.2 million smart meters. Installation of meters under the DISREP
+p64: commenced in May 2025, and 489,950 meters have been installed as at the end
+p64: of June 2026. Under the framework, a total of 205,486 meters were installed in
+p64: installations recorded in 2026/Q1. Ibadan (46,889), Benin (38,465), Port Harcourt
+p64: (23,221) and Abuja (23,202) DisCos recorded the highest number of installations
+p64: 11.29% of the total installations, respectively.
+p65: 13,028 meters were installed in 2026/Q2, bringing the total number of meters
+p65: installed under the MAF framework since inception to 263,073.
+p83: DisCos Meters installed in 2019- Meters installed in Meters installed in Meters installed since
+p84: Appendix X: Meter installation through the MAF Framework as at 30 June 2026
+p85: Appendix XI: Meter installation through the MAP Framework as at 30 June 2026
+p86: Appendix XII: Meter installation through Vendor and DisCo Finance Frameworks as at 30 June 2026
+p87: Appendix XIII: Meter installation through Distribution Sector Recovery Program (DISREP) as at 30 June 2026

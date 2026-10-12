@@ -1,0 +1,16 @@
+p4: 3.1 Electricity Generation Capacity ..................................................................................................... 8
+p6: Table 3.1: Grid Installed and Dependable Capacity (MW) ............................................................. 9
+p6: Table 3.2: Generation Capacities in Ghana as at 2024 (MW) ...................................................... 10
+p6: Table 3.3: Renewable Energy Installed Generation Capacity (KW) ......................................... 11
+p8: Figure 3.1: Installed Generating Capacity (2000-2024) ................................................................. 8
+p20: 3.1 Electricity Generation Capacity
+p20: Electricity generation capacity, excluding distributed generation, has increased by 5.3%
+p20: 133 MW (2%) of total installed capacity, respectively (Table 3.1).
+p20: Similarly, the dependable capacity from these sources also increased by 5.8% to 5,211
+p20: Figure 3.1: Installed Generating Capacity (2000-2024)
+p21: Table 3.1: Grid Installed and Dependable Capacity (MW)
+p22: Table 3.2: Generation Capacities in Ghana as at 2024 (MW)
+p22: Plant Installed Capacity Dependable Capacity4
+p22: 4 Dependable capacity refers to the maximum power output that a power plant can reliably and
+p23: Table 3.3: Renewable Energy Installed Generation Capacity (KW)
+p64: Capacity Charge (GHp/KVA/Month) - - 6,960 6,960 6,960 6,960 - - - - - - - -

@@ -1,0 +1,78 @@
+p5: Figure 8 Capacity (MW) of RES power plants for which an exemption was granted
+p5: Figure 9 Capacity (MW) of RES power plants for which an exemption was granted
+p5: Figure 10 Illustration and geographical distribution of installed conventional
+p5: Figure 11 Number of installed systems and installed capacity (kW) of net metering
+p5: Figure 12 Illustration and geographical distribution of installed RES units with
+p5: capacity of more than 20kWp, by 2023. ......................................... 66
+p5: Figure 14 Annual installed capacity (MW) of RES units .................................... 68
+p5: Figure 15 Annual installed capacity (MW) of RES and conventional units................... 68
+p5: Figure 22 Approved forecast of maximum total capacity (MW) 2024-2033. ................. 73
+p11: (KDP 259/2018) on the application of a binding timetable for the mass installation and operation by
+p22: generation of electricity by photovoltaic systems with a capacity of more than 50kW on the shell of an existing
+p24: 400,000 meters and failure to install at least 171,429 meters by January 2023, as the timetable set for the com-
+p28: 259/2018) on the application of a binding timetable for the mass installation and operation by the Dis-
+p28: to accept 400,000 meters and failure to install at least 171,429 meters by January 2023, as the timetable set
+p29: (Crete) with a total capacity of 1050MW, valid for thirty (30) years.
+p29: total capacity of 1050MW, valid for thirty (30) years.
+p40: 5% of newly installed renewable energy capacity by 2030.
+p42: recast of Article 21 (General principles for capacity mechanisms), Article 50 (Provision of information), Article 57
+p43: mission capacity of 2000MW. In addition, the project provides that the interconnection will be completed in two
+p43: phases, with the first phase providing a capacity of 1000MW.
+p56: reserve purposes with a generating capacity greater than 1MW.
+p57: reserve purposes with a generating capacity of 30kW up to 1MW.
+p57:  Generation of electricity from power plants with a maximum capacity of up to and including 20kW.
+p57:  Generation of electricity for self-consumption by systems with a capacity of up to and including 30kW.
+p57:  Generation of electricity from RES power plants with a capacity of up to and including 50kW.
+p57: than 50kW, installed on the shell of an existing building, was added to the activities for which a general license
+p58: conventional fuel for commercial purposes, with a total capacity of 96Mwe and two (2) applications were re-
+p58: for commercial purposes with a total capacity of 128.5MWe, thirteen (13) licences were granted, with a total
+p58: capacity of 365.4MWe and one (1) application was rejected.
+p59: using conventional fuels intended for self-consumption, with a total installed capacity of 5,68Mwe and two (2)
+p59: licences were granted, with a total installed capacity of 5,68MWe.
+p59: In 2023, thirteen (13) applications were submitted for Energy Storage System Installation Licence with a max-
+p59: imum output of 252MW and a storage capacity of 904MWh and eight (8) licences with a maximum output of
+p59: 135MW and a storage capacity of 554MWh were granted.
+p59: installed capacity of up to 0.05MWe, total installed capacity of 0.046MWe.
+p59: ing, intended for commercial purposes, with an installed capacity of more than 0.05MWe, with a
+p59: total installed capacity of 4.58MWe.
+p60: with an installed capacity of up to 0.05MWe, with a total installed capacity of 0.096MWe.
+p60: ing, intended for commercial purposes, with an installed capacity of more than 0.05MWe, with a
+p60: total installed capacity of 70.25MWe.
+p60: nection notification to the DSO, with an installed capacity of up to 0.05MWe, with a total installed
+p60: capacity of 94.684MWe.
+p60: stalled capacity of 0.07MWe; and
+p60: purposes, and autonomous self-generation systems with a total installed capacity of 11.82MWe.
+p60: plant intended for commercial purposes, i.e. photovoltaic systems with an installed capacity of 702.48ΜWe
+p60: commercial purposes, i.e. photovoltaic systems with an installed capacity of 79.05MWe were granted.
+p60: self-consumption, i.e. photovoltaic systems with an installed capacity of 30.25ΜWe, and twenty-six (26) ex-
+p60: photovoltaic systems with an installed capacity of 7.5MWe, were granted.
+p60: self-consumption, using biomass/biogas, with an installed capacity of 0.77ΜWe, and one (1) exemption from
+p61: biogas, with an installed capacity of 0.3MWe were granted.
+p61: Figures 8 and 9 show the installed capacity of the RES power plants for which an exemption was granted from
+p61: Figure 8 - Capacity (MW) of RES power plants for which an exemption was granted from the obligation to obtain a
+p62: Figure 9 - Capacity (MW) of RES power plants for which an exemption was granted from the obligation to obtain an
+p62: The total installed capacity of conventional units intended for commercial purposes increased in 2023 to
+p63: Figure 10 - Illustration and geographical distribution of installed conventional plants for commercial use until 2023
+p63: The total installed capacity of wind farms intended for commercial purposes did not change in 2023, but re-
+p63: The total installed capacity of photovoltaic systems intended for commercial purposes increased in 2023 to
+p63: The total installed capacity of autonomous photovoltaic self-generation systems increased in 2023 to 2.08MWe.
+p63: The total installed capacity of biomass/biogas plants intended for commercial purposes dropped in 2023 to
+p63: The total installed capacity of biomass/biogas plants intended for self-consumption increased in 2023 to
+p64: of to 10kWe is installed. According to this method, the diff erence is calculated between the electricity that is
+p64: In 2023, 18,155 photovoltaic systems with a total installed capacity of 88.05MWe were installed.
+p64: In 2023, the total installed capacity of the photovoltaic systems using the net metering method is 239.8MWe.
+p64: Figure 11 shows the number and capacity of installed photovoltaic systems using the net metering method in
+p64: Figure 11 - Number of installed systems and installed capacity (kW) of net metering systems in the period
+p64: Figure 12 shows the geographical distribution of installed RES units with a capacity of more than 20kWp by
+p65: Figure 12 - Illustration and geographical distribution of installed RES units with capacity of more than 20kWp, by 2023
+p65: The peak demand for electricity in 2023 was recorded on 24 July 2023. The maximum total generation capacity
+p66: Figures 14 and 15 show historical data of the installed capacity of RES and conventional plants that are con-
+p66: signifi cantly in recent years. In 2023, installed capacity of RES units reached 35% of the total installed capacity
+p67: Figure 14 - Annual installed capacity (MW) of RES units
+p67: Figure 15 - Annual installed capacity (MW) of RES and conventional units
+p71: Figures 21 and 22 show the total energy generation (GWh) and maximum total capacity (MW) forecast for the
+p72: Figure 22 - Approved forecast of maximum total capacity (MW) 2024-2033
+p73: Figure 23 shows the installed operational capacity of existing generation plants at system peak demand. This
+p90: 2Installation and connection of low voltage
+p122: Staff costs including Top Management in their executive capacity (Note 11) 2.140.071 1.620.417
+p132: Top Management’s remuneration in their executive capacity 326,504 265,022
