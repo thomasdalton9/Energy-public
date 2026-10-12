@@ -600,5 +600,175 @@ def run2():
     safe(cbe2, capmas2, egpc_mop, egas2, comtrade2)
 
 
+# ------------------------------------------------------------------ round 3
+def wb3(ts, url):
+    w = f"https://web.archive.org/web/{ts}id_/{url}"
+    for att in range(3):
+        try:
+            r = requests.get(w, headers=H, timeout=(30, 180))
+            if r.status_code in (429, 503):
+                time.sleep(20 * (att + 1))
+                continue
+            return r
+        except Exception as e:  # noqa: BLE001
+            out("  WB ERROR", type(e).__name__, str(e)[:100])
+            time.sleep(10)
+    if creq is not None:
+        try:
+            return creq.get(w, impersonate="chrome", timeout=180)
+        except Exception as e:  # noqa: BLE001
+            out("  WB cffi ERROR", type(e).__name__, str(e)[:100])
+    return None
+
+
+NUM = re.compile(r"(مليار قدم|مليون قدم|مليار متر|مليون متر|قدم مكعب|متر مكعب|bcf|billion cubic|million cubic|mmscf|شحن|شحنة|cargo)", re.I)
+
+
+def show_numbers(t, n=15, w=230):
+    for m in list(NUM.finditer(t))[:n]:
+        out("    txt:", t[max(0, m.start() - w):m.end() + w])
+
+
+def capmas3():
+    out("\n################ CAPMAS pub 77 item fields + data")
+    rr = get("https://www.capmas.gov.eg:8080/api/Subject/SubSubjectWithIndicator/30", quiet=True)
+    pubs = (rr.json().get("data") or {}).get("publicationWithIndicators") or []
+    want = re.compile(r"(الغاز الطبيعي المباعة|المستخرج من الزيت الخام والمكثفات والغاز الطبيعي والغاز السائل$|كمية الصادرات|كمية الواردات|الانتاج الأولى للغاز|الغاز الطبيعى المستورد|صادرات الغاز)")
+    for pb in pubs:
+        for k, v in pb.items():
+            if not isinstance(v, list):
+                continue
+            for it in v:
+                if not isinstance(it, dict):
+                    continue
+                nm = str(it.get("name") or "")
+                if not want.search(nm):
+                    continue
+                flat = {kk: vv for kk, vv in it.items() if not isinstance(vv, (list, dict))}
+                out("  ITEM", json.dumps(flat, ensure_ascii=False)[:500])
+                ids = {vv for kk, vv in flat.items() if isinstance(vv, int) and "id" in kk.lower()}
+                for iid in sorted(ids):
+                    for ss in (30,):
+                        r = get(f"https://www.capmas.gov.eg:8080/api/Indicator/IndicatorFilter?IndicatorId={iid}&SubSubjectId={ss}", quiet=True)
+                        try:
+                            rows = r.json().get("data") or []
+                        except Exception:  # noqa: BLE001
+                            rows = []
+                        if not rows:
+                            continue
+                        out(f"   IndicatorFilter {iid}: {len(rows)} filters")
+                        for f in rows[:25]:
+                            en = next((t.get("name") for t in f.get("filterTranslations", []) if t.get("locale") == "en"), "")
+                            pts = sorted((d.get("year") or 0, d.get("quarter") or 0, d.get("month") or 0, d.get("value")) for d in f.get("data", []))
+                            out(f"     {str(f.get('name'))[:45]} | {str(en)[:45]} | n={len(pts)} first={pts[:1]} last={pts[-3:]}")
+
+
+def mop3():
+    out("\n################ Ministry of Petroleum pages: text dump")
+    for u in ["https://www.petroleum.gov.eg/ar-eg/gas-and-petrol/Pages/info-indicators.aspx",
+              "https://www.petroleum.gov.eg/ar-eg/international-relations/Pages/investment-partners-cooperation.aspx",
+              "https://www.petroleum.gov.eg/ar-eg/gas-and-petrol/discovery-search-production/Pages/gas.aspx",
+              "https://www.petroleum.gov.eg/ar-eg/gas-and-petrol/discovery-search-production/Pages/default.aspx"]:
+        out(f"\n=== {u}")
+        r = get(u)
+        if r is None or r.status_code != 200:
+            out("  ", None if r is None else r.status_code)
+            continue
+        t = text_of(r)
+        i = t.find("المؤشرات")
+        main = t[t.find("الرئيسية", 3000) if "الرئيسية" in t[3000:] else 0:]
+        out("  len", len(t))
+        show_numbers(t)
+        body = re.search(r'(<div[^>]+(?:ms-rtestate-field|ctl00_PlaceHolderMain)[^>]*>.*)', r.text, re.S)
+        if body:
+            bt = " ".join(re.sub(r"<[^>]+>", " ", body.group(1)).split())
+            out("  MAIN:", bt[:2500])
+        imgs = sorted(set(re.findall(r'<img[^>]+src=["\']([^"\']+)["\']', r.text, re.I)))
+        out("  imgs:", [x for x in imgs if not re.search(r"(logo|icon|_layouts|spacer)", x, re.I)][:30])
+        files = sorted(set(re.findall(r'href=["\']([^"\']+\.(?:pdf|xlsx?|docx?|pptx?))["\']', r.text, re.I)))
+        out("  files:", files[:30])
+    out("\n--- MoP news list (first page) and statements with volumes")
+    r = get("https://www.petroleum.gov.eg/ar-eg/media-center/news/Pages/default.aspx")
+    if r is not None and r.status_code == 200:
+        links = sorted(set(re.findall(r'href=["\']([^"\']*media-center/news/Pages/[^"\']+)["\']', r.text)))
+        out("  news links:", len(links), links[:15])
+        for l in links[:12]:
+            u = urljoin("https://www.petroleum.gov.eg/", l)
+            rr = get(u, quiet=True)
+            if rr is None or rr.status_code != 200:
+                continue
+            t = text_of(rr)
+            if NUM.search(t):
+                out("  NEWS", u[:150])
+                show_numbers(t, n=4, w=180)
+
+
+def egas3():
+    out("\n################ EGAS production page text + Wayback annual reports (https)")
+    for u in ["https://www.egas.com.eg/w/production-and-development", "https://www.egas.com.eg/ar/w/production-and-development"]:
+        r = get(u)
+        if r is not None and r.status_code == 200:
+            t = text_of(r)
+            show_numbers(t, n=12)
+            i = t.find("PRODUCTION")
+            out("  body:", t[i:i + 1500] if i > 0 else t[-1500:])
+    for ts, u in [("20191022142621", "https://www.egas.com.eg/annual-reports/2018"),
+                  ("20191115075205", "https://www.egas.com.eg/annual-reports/2019"),
+                  ("20220628211320", "https://www.egas.com.eg/annual-report"),
+                  ("20260912065513", "https://egas.com.eg/ar/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9/-/asset_publisher/fezn/content/annual-report-2022?p_r_p_assetEntryId=96751"),
+                  ("20220628211319", "https://www.egas.com.eg/activities/production")]:
+        out(f"\n=== WB {ts} {u[:120]}")
+        r = wb3(ts, u)
+        if r is None:
+            continue
+        out("  ", r.status_code, len(r.content), r.headers.get("content-type", "")[:30])
+        t = text_of(r)
+        show_numbers(t, n=12)
+        links = sorted(set(re.findall(r'(?:href|src)=["\']([^"\']+(?:\.pdf[^"\']*|/documents/[^"\']+))["\']', r.text, re.I)))
+        out("   file links:", links[:30])
+    for ts, u in [("20160610162620", "http://egas.com.eg/docs/pdf/Egas_EN_2015_Final%20@3-9-2015.pdf"),
+                  ("20191213184725", "http://www.egpc.com.eg/PDF/production/Production%20Activity.pdf"),
+                  ("20200313055839", "http://www.egpc.com.eg/PDF/production/Oil%20%20Gas5-2-2017.pdf")]:
+        r = wb3(ts, u)
+        out(f"\n=== WB PDF {u} -> {None if r is None else r.status_code} {0 if r is None else len(r.content)}")
+        if r is not None and r.status_code == 200 and r.content[:4] == b"%PDF":
+            pdf_scan(u, r.content, maxhits=30)
+    rows = cdx("egas.com.eg/*", limit=500, filt="urlkey:.*(annual|report|statistic|ehsaa|تقرير).*pdf.*")
+    for row in rows[:60]:
+        out("   ", row[1], row[3][:22], row[2][:200])
+
+
+def comtrade3():
+    out("\n################ Comtrade monthly Egypt 271111/271121 by partner, 2015-01..2026-08")
+    import collections
+    ann = collections.defaultdict(lambda: collections.defaultdict(float))
+    missing = []
+    for y in range(2015, 2027):
+        for m in range(1, 13):
+            p = f"{y}{m:02d}"
+            if p > "202608":
+                break
+            rows = comtrade("M", reporterCode=818, period=p, cmdCode="271111,271121", flowCode="M,X", includeDesc="true")
+            if rows is None or not rows:
+                missing.append(p)
+                continue
+            for x in rows:
+                if x.get("partnerCode") == 0:
+                    continue
+                part = x.get("partnerDesc")
+                key = f"{x.get('flowCode')} {x.get('cmdCode')} {'Israel' if part == 'Israel' else ('Jordan' if part == 'Jordan' else 'other')}"
+                ann[y][key] += (x.get("netWgt") or 0) / 1e6
+            if p >= "202501":
+                out(f"   {p}: " + ", ".join(f"{x.get('flowCode')} {x.get('cmdCode')} {x.get('partnerDesc')} {(x.get('netWgt') or 0)/1e6:.3f}Mt"
+                                          for x in rows if x.get("partnerCode") != 0))
+    out("  months with no data:", missing)
+    for y in sorted(ann):
+        out(f"   {y}: " + "; ".join(f"{k}={v:.3f}Mt" for k, v in sorted(ann[y].items())))
+
+
+def run3():
+    safe(capmas3, mop3, egas3, comtrade3)
+
+
 if __name__ == "__main__":
-    {"1": run1, "2": run2}[ROUND]()
+    {"1": run1, "2": run2, "3": run3}[ROUND]()
