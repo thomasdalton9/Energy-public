@@ -271,16 +271,29 @@ def build_country(data_dir, name, code, slug):
         return uk_config(data_dir), []
     cfg, memo = {}, []
     mon = MON.get(name)
-    generic = None
+    md = None
     if mon is None:
         fn = f"{slug}_power_capacity_monthly.xlsx"
         d = sheet(data_dir, fn, "Monthly")
         if d is not None:
-            generic = dict(file=fn, sheet="Monthly", shift=0, res="M", kind="RAW",
-                           fuels=" ".join(f for f in FUELS if f"{f}_MW" in d and d[f"{f}_MW"].notna().any()),
-                           source=f"{name}: national monthly source ({fn})", url="")
-            mon = generic
-    md = sheet(data_dir, mon["file"], mon["sheet"], mon.get("shift", 0)) if mon else None
+            # a national file may split coal and lignite or carry geothermal (Turkey's EPDK): fold them into the standard
+            # Coal / Other columns and keep the parts as memo columns
+            d, colmap = d.copy(), {}
+            if "Lignite_MW" in d and "Coal_MW" in d:
+                d["Coal_incl_lignite_MW"] = d[["Coal_MW", "Lignite_MW"]].apply(pd.to_numeric, errors="coerce").sum(
+                    axis=1, min_count=1)
+                colmap["Coal"] = "Coal_incl_lignite_MW"
+            if "Geothermal_MW" in d:
+                parts = [c for c in ("Other_MW", "Geothermal_MW") if c in d]
+                d["Other_incl_geothermal_MW"] = d[parts].apply(pd.to_numeric, errors="coerce").sum(axis=1, min_count=1)
+                colmap["Other"] = "Other_incl_geothermal_MW"
+            fuels = [f for f in FUELS if colmap.get(f, f"{f}_MW") in d and d[colmap.get(f, f"{f}_MW")].notna().any()]
+            mon = dict(file=fn, sheet="Monthly", shift=0, res="M", kind="RAW", fuels=" ".join(fuels), colmap=colmap,
+                       memo=[c for c in ("Lignite_MW", "Geothermal_MW") if c in d],
+                       source=f"{name}: national monthly source ({fn})", url="")
+            md = d
+    if mon and md is None:
+        md = sheet(data_dir, mon["file"], mon["sheet"], mon.get("shift", 0))
     for fuel in FUELS:
         ref = entsoe(data_dir, slug, fuel)
         prim = []
