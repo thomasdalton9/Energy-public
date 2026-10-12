@@ -29,10 +29,13 @@ URLS = [
  "https://www.gse.it/documenti_site/Documenti%20GSE/Rapporti%20statistici/",
  "https://www.entsoe.eu/",
 ]
+import subprocess
 for u in URLS:
     try:
-        r = requests.get(u, headers=UA, timeout=40)
-        print("\n=====", r.status_code, r.headers.get("content-type"), len(r.content), u)
-        print(r.text[:700].replace("\n", " "))
+        o = subprocess.run(["curl", "-sL", "-m", "30", "-A", UA["User-Agent"], "-w", "\n#HTTP %{http_code} %{content_type} %{size_download}", u],
+                           capture_output=True, text=True, timeout=45)
+        t = o.stdout
+        print("\n=====", u, "| rc", o.returncode, "|", t[t.rfind("#HTTP"):].strip(), flush=True)
+        print(t[:700].replace("\n", " "), flush=True)
     except Exception as e:
-        print("\n=====", "ERR", type(e).__name__, str(e)[:150], u)
+        print("\n=====", "ERR", type(e).__name__, u, flush=True)
