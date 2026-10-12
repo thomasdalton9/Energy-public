@@ -1,0 +1,135 @@
+200 972 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate/tab001.px
+POST 200 21075
+200 46518 https://monstat.org/eng/page.php?id=1758&page_id=1758
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK page.php?id=1985&page_id=1985 :: Census of Agriculture 2024
+  LINK page.php?id=1758&page_id=1758 :: Census 2023
+  LINK page.php?id=57&page_id=57 :: Population census 2011
+  LINK page.php?id=58&page_id=58 :: Agriculture census 2010
+  LINK page.php?id=184&page_id=184 :: Population census 2003
+  LINK page.php?id=105&page_id=105 :: List of municipalities
+  LINK page.php?id=106&page_id=106 :: List of settlements
+  LINK page.php?id=1001 :: Statistical surveys and censuses
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK https://www.monstat.org/eng/page.php?id=1990&amp;pageid=1758 :: Final&nbsp;results of the 2023 Census of Population, Households, and Dwellings
+  LINK https://monstat.org/eng/page.php?id=1915&amp;pageid=1758 :: Preliminary results of the 2023 Census of Population, Households, and Dwellings
+  LINK https://monstat.org/eng/page.php?id=1915&amp;pageid=1758 :: 2023 Census
+  LINK page.php?id=1870&amp;pageid=56 :: Frequently Asked Questions on Census
+  LINK page.php?id=1885&amp;pageid=56 :: Questionnaires of the Census of population, households and dwellings
+  LINK page.php?id=1989&amp;pageid=56 :: Instruction on how to use the application to check ethno-cultural characteristics collected in the 2
+  LINK prikazi_metapodatke.php?id=1001&amp;pageid=1001&amp;name=Population%20census :: Metadata
+  LINK /uploads/files/kvalitet/popis%20stanovnistva%202023/QUALITY%20REPORT%20CENSUS%202023.pdf :: Quality report
+200 46518 https://monstat.org/eng/page.php?id=1758&pageid=1758
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK page.php?id=1985&page_id=1985 :: Census of Agriculture 2024
+  LINK page.php?id=1758&page_id=1758 :: Census 2023
+  LINK page.php?id=57&page_id=57 :: Population census 2011
+  LINK page.php?id=58&page_id=58 :: Agriculture census 2010
+  LINK page.php?id=184&page_id=184 :: Population census 2003
+  LINK page.php?id=105&page_id=105 :: List of municipalities
+  LINK page.php?id=106&page_id=106 :: List of settlements
+  LINK page.php?id=1001 :: Statistical surveys and censuses
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK https://www.monstat.org/eng/page.php?id=1990&amp;pageid=1758 :: Final&nbsp;results of the 2023 Census of Population, Households, and Dwellings
+  LINK https://monstat.org/eng/page.php?id=1915&amp;pageid=1758 :: Preliminary results of the 2023 Census of Population, Households, and Dwellings
+  LINK https://monstat.org/eng/page.php?id=1915&amp;pageid=1758 :: 2023 Census
+  LINK page.php?id=1870&amp;pageid=56 :: Frequently Asked Questions on Census
+  LINK page.php?id=1885&amp;pageid=56 :: Questionnaires of the Census of population, households and dwellings
+  LINK page.php?id=1989&amp;pageid=56 :: Instruction on how to use the application to check ethno-cultural characteristics collected in the 2
+  LINK prikazi_metapodatke.php?id=1001&amp;pageid=1001&amp;name=Population%20census :: Metadata
+  LINK /uploads/files/kvalitet/popis%20stanovnistva%202023/QUALITY%20REPORT%20CENSUS%202023.pdf :: Quality report
+200 44522 https://monstat.org/eng/page.php?id=48&page_id=48
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK page.php?id=1985&page_id=1985 :: Census of Agriculture 2024
+  LINK page.php?id=1758&page_id=1758 :: Census 2023
+  LINK page.php?id=57&page_id=57 :: Population census 2011
+  LINK page.php?id=58&page_id=58 :: Agriculture census 2010
+  LINK page.php?id=184&page_id=184 :: Population census 2003
+  LINK page.php?id=105&page_id=105 :: List of municipalities
+  LINK page.php?id=106&page_id=106 :: List of settlements
+  LINK page.php?id=1001 :: Statistical surveys and censuses
+  LINK /uploads/files/demografija/procjene/metodologija/Population%20Estimates%20Methodology.pdf :: Methodology
+200 68937 https://bhas.gov.ba/Calendar/Category/14
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q2_1_BS.pdf :: Prirodno kretanje stanovništva, II kvartal 2026. &nbsp; 18.09.2026.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q1_1_BS.pdf :: Prirodno kretanje stanovništva, I kvartal 2026. &nbsp; 19.06.2026.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2025_Q4_1_BS.pdf :: Prirodno kretanje stanovništva, IV kvartal 2025. &nbsp; 20.03.2026.
+  LINK /data/Publikacije/VremenskeSerije/DEM_11.xls :: Unutrašnje migracije &nbsp; 27.02.2026.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_02_2025_Y1_1_BS.pdf :: Unutrašnje migracije, 2025. &nbsp; 27.02.2026.
+  LINK /data/Publikacije/ESMS/DEM00_popis_stanovnistva_domacinstava_i_stanova_BS.htm :: ESMS - Popis stanovništva, domaćinstava i stanova &nbsp; 30.12.2025.
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q3_1_BS.pdf :: Prirodno kretanje stanovništva, III kvartal 2025. &nbsp; 19.12.2025.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q2_1_BS.pdf :: Prirodno kretanje stanovništva, II kvartal 2026. &nbsp; 18.09.2026.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q1_1_BS.pdf :: Prirodno kretanje stanovništva, I kvartal 2026. &nbsp; 19.06.2026.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2025_Q4_1_BS.pdf :: Prirodno kretanje stanovništva, IV kvartal 2025. &nbsp; 20.03.2026.
+  LINK /data/Publikacije/Saopstenja/2026/DEM_02_2025_Y1_1_BS.pdf :: Unutrašnje migracije, 2025. &nbsp; 27.02.2026.
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q3_1_BS.pdf :: Prirodno kretanje stanovništva, III kvartal 2025. &nbsp; 19.12.2025.
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q2_1_BS.pdf :: Prirodno kretanje stanovništva, II kvartal 2025. &nbsp; 19.09.2025.
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q1_1_BS.pdf :: Prirodno kretanje stanovništva, I kvartal 2025. &nbsp; 20.06.2025.
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2024_Q4_1_BS.pdf :: Prirodno kretanje stanovništva, IV kvartal 2024. &nbsp; 20.03.2025.
+  LINK /data/Publikacije/Saopstenja/2025/DEM_02_2024_Y1_1_BS.pdf :: Unutrašnje migracije, 2024. &nbsp; 28.02.2025.
+  LINK /data/Publikacije/Saopstenja/2024/DEM_01_2024_Q3_1_BS.pdf :: Prirodno kretanje stanovništva, III kvartal 2024. &nbsp; 20.12.2024.
+  LINK /data/Publikacije/Bilteni/2025/DEM_00_2024_TB_1_BS.pdf :: Demografija, 2024. &nbsp; 06.11.2025.
+  LINK /data/Publikacije/Bilteni/2024/DEM_00_2023_TB_1_BS.pdf :: Demografija, 2023. &nbsp; 31.10.2024.
+  LINK /data/Publikacije/Bilteni/2023/DEM_00_2022_TB_1_BS.pdf :: Demografija, 2022. &nbsp; 31.10.2023.
+  LINK /data/Publikacije/Bilteni/2022/DEM_00_2021_TB_1_BS.pdf :: Demografija, 2021. &nbsp; 31.10.2022.
+  LINK /data/Publikacije/Bilteni/2021/DEM_00_2020_TB_1_BS.pdf :: Demografija, 2020. &nbsp; 29.10.2021.
+  LINK /data/Publikacije/Bilteni/2020/DEM_00_2019_TB_0_BS.pdf :: Demografija, 2019. &nbsp; 19.11.2020.
+  LINK /data/Publikacije/Bilteni/2020/DEM_00_2018_TB_0_BS.pdf :: Demografija, 2018. &nbsp; 09.07.2020.
+  LINK /data/Publikacije/Bilteni/2019/DEM_00_2017_TB_0_BS.pdf :: Demografija, 2017. &nbsp; 17.01.2019.
+  LINK /data/Publikacije/Bilteni/2018/DEM_00_2016_TB_1_BS.pdf :: Demografija, 2016. &nbsp; 31.01.2018.
+  LINK /data/Publikacije/Bilteni/2017/DEM_00_2015_TB_1_BS.pdf :: Demografija, 2015. &nbsp; 28.02.2017.
+  LINK /data/Publikacije/VremenskeSerije/DEM_11.xls :: Unutrašnje migracije &nbsp; 27.02.2026.
+  LINK /data/Publikacije/VremenskeSerije/DEM_01.xlsx :: Rođeni prema spolu &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_02.xlsx :: Živorođeni prema starosti majke &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_03.xlsx :: Živorođeni po redu rođenja &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_04.xlsx :: Umrli prema starosti i spolu &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_05.xlsx :: Prosječna starost umrlih osoba &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_06.xlsx :: Umrli prema mjestu smrti &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_07.xlsx :: Nasilne smrti &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_08.xlsx :: Sklopljeni brakovi prema starosnoj grupi &nbsp; 06.11.2025.
+  LINK /data/Publikacije/VremenskeSerije/DEM_09.xlsx :: Razvedeni brakovi prema starosnoj grupi &nbsp; 06.11.2025.
+  LINK /data/Publikacije/ESMS/DEM00_popis_stanovnistva_domacinstava_i_stanova_BS.htm :: ESMS - Popis stanovništva, domaćinstava i stanova &nbsp; 30.12.2025.
+  LINK /data/Publikacije/Metodologije/DEM_03_2008_MD_0_BS.pdf :: Statistika umrlih, 2008. &nbsp; 31.01.2008.
+  LINK /data/Publikacije/Metodologije/DEM_04_2007_MD_0_BS.pdf :: Metodologija statistike rođenih, 2007. &nbsp; 30.11.2007.
+200 2864 https://popis.gov.ba/
+200 68495 https://bhas.gov.ba/Calendar/Category?id=14&page=1&statGroup=14&tip=1&lang=en
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q2_1_BS.pdf :: Natural population change, 2nd quarter 2026 &nbsp; 9/18/2026
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q1_1_BS.pdf :: Natural population change, 1st quarter 2026 &nbsp; 6/19/2026
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2025_Q4_1_BS.pdf :: Natural population change, 4th quarter 2025 &nbsp; 3/20/2026
+  LINK /data/Publikacije/VremenskeSerije/DEM_11.xls :: Internal migration &nbsp; 2/27/2026
+  LINK /data/Publikacije/Saopstenja/2026/DEM_02_2025_Y1_1_BS.pdf :: Internal migration, 2025 &nbsp; 2/27/2026
+  LINK /data/Publikacije/ESMS/DEM00_popis_stanovnistva_domacinstava_i_stanova_EN.htm :: ESMS - Census of Population, households and dwellings &nbsp; 12/30/2025
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q3_1_BS.pdf :: Natural population change, 3rd quarter 2025 &nbsp; 12/19/2025
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q2_1_BS.pdf :: Natural population change, 2nd quarter 2026 &nbsp; 9/18/2026
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2026_Q1_1_BS.pdf :: Natural population change, 1st quarter 2026 &nbsp; 6/19/2026
+  LINK /data/Publikacije/Saopstenja/2026/DEM_01_2025_Q4_1_BS.pdf :: Natural population change, 4th quarter 2025 &nbsp; 3/20/2026
+  LINK /data/Publikacije/Saopstenja/2026/DEM_02_2025_Y1_1_BS.pdf :: Internal migration, 2025 &nbsp; 2/27/2026
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q3_1_BS.pdf :: Natural population change, 3rd quarter 2025 &nbsp; 12/19/2025
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q2_1_BS.pdf :: Natural population change, 2nd quarter 2025 &nbsp; 9/19/2025
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2025_Q1_1_BS.pdf :: Natural population change, 1st quarter 2025 &nbsp; 6/20/2025
+  LINK /data/Publikacije/Saopstenja/2025/DEM_01_2024_Q4_1_BS.pdf :: Natural population change, 4th quarter 2024 &nbsp; 3/20/2025
+  LINK /data/Publikacije/Saopstenja/2025/DEM_02_2024_Y1_1_BS.pdf :: Internal migration, 2024 &nbsp; 2/28/2025
+  LINK /data/Publikacije/Saopstenja/2024/DEM_01_2024_Q3_1_BS.pdf :: Natural population change, 3rd quarter 2024 &nbsp; 12/20/2024
+  LINK /data/Publikacije/Bilteni/2025/DEM_00_2024_TB_1_BS.pdf :: Demography, 2024 &nbsp; 11/6/2025
+  LINK /data/Publikacije/Bilteni/2024/DEM_00_2023_TB_1_BS.pdf :: Demography, 2023 &nbsp; 10/31/2024
+  LINK /data/Publikacije/Bilteni/2023/DEM_00_2022_TB_1_BS.pdf :: Demography, 2022 &nbsp; 10/31/2023
+  LINK /data/Publikacije/Bilteni/2022/DEM_00_2021_TB_1_BS.pdf :: Demography, 2021 &nbsp; 10/31/2022
+  LINK /data/Publikacije/Bilteni/2021/DEM_00_2020_TB_1_BS.pdf :: Demography, 2020 &nbsp; 10/29/2021
+  LINK /data/Publikacije/Bilteni/2020/DEM_00_2019_TB_0_HR.pdf :: Demography, 2019 &nbsp; 11/19/2020
+  LINK /data/Publikacije/Bilteni/2020/DEM_00_2018_TB_0_BS.pdf :: Demography, 2018 &nbsp; 7/9/2020
+  LINK /data/Publikacije/Bilteni/2019/DEM_00_2017_TB_0_BS.pdf :: Demography, 2017 &nbsp; 1/17/2019
+  LINK /data/Publikacije/Bilteni/2018/DEM_00_2016_TB_1_BS.pdf :: Demography, 2016 &nbsp; 1/31/2018
+  LINK /data/Publikacije/Bilteni/2017/DEM_00_2015_TB_1_BS.pdf :: Demography, 2015 &nbsp; 2/28/2017
+  LINK /data/Publikacije/VremenskeSerije/DEM_11.xls :: Internal migration &nbsp; 2/27/2026
+  LINK /data/Publikacije/VremenskeSerije/DEM_01.xlsx :: Births by sex &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_02.xlsx :: Live births by mother&#39;s age &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_03.xlsx :: Live births by order &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_04.xlsx :: Deaths by age and sex &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_05.xlsx :: Average age of deaths &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_06.xlsx :: Died at the place of death &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_07.xlsx :: Violent deaths &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_08.xlsx :: Marriages by age group &nbsp; 11/6/2025
+  LINK /data/Publikacije/VremenskeSerije/DEM_09.xlsx :: Divorces by age group &nbsp; 11/6/2025
+  LINK /data/Publikacije/ESMS/DEM00_popis_stanovnistva_domacinstava_i_stanova_EN.htm :: ESMS - Census of Population, households and dwellings &nbsp; 12/30/2025
+  LINK /data/Publikacije/Metodologije/DEM_03_2008_MD_0_BS.pdf :: Death statistics, 2008 &nbsp; 1/31/2008
+  LINK /data/Publikacije/Metodologije/DEM_04_2007_MD_0_BS.pdf :: Methodology of statistics of birth, 2007 &nbsp; 11/30/2007
+200 6 https://bhas.gov.ba/data/Publikacije/Bilteni/2016/DEM_00_2016_TB_1_BS.pdf
