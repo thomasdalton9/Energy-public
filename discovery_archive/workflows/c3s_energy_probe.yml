@@ -13,4 +13,6 @@ jobs:
       - run: pip install requests
       - env:
           CDS_API_KEY: ${{ secrets.CDS_API_KEY }}
-        run: python3 discovery_archive/weather/C3S_ENERGY_PROBE.py
+        run: |
+          pip install cdsapi
+          python3 discovery_archive/weather/C3S_ENERGY_PROBE2.py
