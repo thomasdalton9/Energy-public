@@ -3768,6 +3768,60 @@ def jordan_peak_load(p):
                  "stacked_bar")]
 
 
+def jordan_power_annual(p):
+    """NEPCO / MEMR annual reports (middle_east/JORDAN_NEPCO_ANNUAL.py): energy purchased by fuel as average GW
+    (GWh / hours in the year), the older national-production basis separately, fuel burned (ktoe), MEMR gas for power
+    (Bcf/d), imports and exports by counterparty, peak and minimum load."""
+    d = by_date(read(p, "Annual"), "date")
+    d = d.apply(lambda c: pd.to_numeric(c, errors="coerce") if not str(c.name).endswith(("_date", "_prose", "_source"))
+                else c)
+    hours = pd.Series([(366 if y % 4 == 0 and (y % 100 or y % 400 == 0) else 365) * 24.0 for y in d.index.year],
+                      index=d.index)
+    gw = lambda cols_: d[cols(d, *cols_)].sum(axis=1, min_count=1) / hours
+    shale, oil = "Thermal: oil shale (Attarat)", "Oil (heavy fuel oil, diesel)"
+    purch = pd.DataFrame({"Gas": gw(["Purch_Gas_GWh"]), shale: gw(["Purch_Oil_shale_GWh"]),
+                          oil: gw(["Purch_Heavy_fuel_GWh", "Purch_Diesel_GWh"]), "Wind": gw(["Purch_Wind_GWh"]),
+                          "Solar": gw(["Purch_Solar_GWh"]), "Hydro": gw(["Purch_Hydro_GWh"]),
+                          "Imports (Egypt)": gw(["Purch_Imports_GWh"]), "Other": gw(["Purch_Other_GWh"])})
+    purch = purch[d.get("Purch_Total_GWh", pd.Series(dtype=float)).reindex(d.index).notna()]
+    prod = pd.DataFrame({"Gas": gw(["Prod_Gas_GWh"]), oil: gw(["Prod_Heavy_fuel_GWh", "Prod_Diesel_GWh"]),
+                         "Wind, solar, hydro and biogas": gw(["Prod_Renewables_GWh"]), "Other": gw(["Prod_Other_GWh"])})
+    prod = prod[d.get("Prod_Total_GWh", pd.Series(dtype=float)).reindex(d.index).notna()]
+    fuel = d[cols(d, "Fuel_Gas_ktoe", "Fuel_Oil_shale_ktoe")].rename(
+        columns={"Fuel_Gas_ktoe": "Gas", "Fuel_Oil_shale_ktoe": shale})
+    fuel[oil] = d[cols(d, "Fuel_Heavy_fuel_ktoe", "Fuel_Diesel_ktoe")].sum(axis=1, min_count=1)
+    fuel = fuel[d.get("Fuel_Total_ktoe", pd.Series(dtype=float)).reindex(d.index).notna()]
+    gas = d[cols(d, "MEMR_Gas_power_Bcf_d")].rename(columns={"MEMR_Gas_power_Bcf_d": "Gas consumed for power (MEMR)"})
+    gas = gas.dropna(how="all")   # MEMR's Risha figures (only some years) stay on the data sheet
+    imp = d[cols(d, "Import_Egypt_GWh", "Import_Syria_GWh", "Import_Other_GWh")].rename(
+        columns={"Import_Egypt_GWh": "Egypt", "Import_Syria_GWh": "Syria", "Import_Other_GWh": "Other"})
+    imp = imp[imp.sum(axis=1) > 0].loc[:, lambda x: x.sum() > 0]
+    exp = d[cols(d, "Export_Egypt_GWh", "Export_Syria_GWh", "Export_Palestine_Jericho_GWh", "Export_Iraq_Trabeel_GWh",
+                 "Export_Iraq_transmission_GWh", "Export_Other_GWh")].rename(columns={
+        "Export_Egypt_GWh": "Egypt", "Export_Syria_GWh": "Syria",
+        "Export_Palestine_Jericho_GWh": "Palestine (Jerusalem District Electricity, Jericho)",
+        "Export_Iraq_Trabeel_GWh": "Iraq (Trabeel border)",
+        "Export_Iraq_transmission_GWh": "Iraq (General Company for Electricity Transmission)",
+        "Export_Other_GWh": "Other"})
+    exp = exp[exp.sum(axis=1) > 0].loc[:, lambda x: x.sum() > 0]
+    exp = exp[exp.index >= "2005-01-01"]
+    pk = d[cols(d, "Peak_MW", "Min_MW")].rename(columns={"Peak_MW": "Peak load", "Min_MW": "Minimum load"})
+    src = "NEPCO annual reports"
+    return [spec("Purchases by fuel", purch, f"Jordan electricity purchased by NEPCO by fuel ({src}; 2025 Arabic report)",
+                 "GW (annual average)", "stacked_bar", "%Y"),
+            spec("Production by fuel", prod, f"Jordan electricity production by fuel, older national basis ({src} "
+                 "2008-2017)", "GW (annual average)", "stacked_bar", "%Y"),
+            spec("Gas for power", gas, "Jordan natural gas consumed for power (MEMR annual reports; 2016 = LNG only)",
+                 "Bcf/d (annual average)", "stacked_bar", "%Y"),
+            spec("Fuel for power", fuel, f"Jordan fuel burned for power generation ({src})", "thousand toe per year",
+                 "stacked_bar", "%Y"),
+            spec("Imports", imp, f"Jordan electricity imports by counterparty ({src})", "GWh per year",
+                 "stacked_bar", "%Y"),
+            spec("Exports", exp, f"Jordan electricity exports by counterparty ({src})", "GWh per year",
+                 "stacked_bar", "%Y"),
+            spec("Peak load", pk, f"Jordan interconnected-system peak and minimum load ({src})", "MW", "line", "%Y")]
+
+
 REGISTRY.update({
     "mexico_power_generation_daily.xlsx": mexico_generation,
     "cyprus_generation_mix_daily.xlsx": cyprus_generation,
@@ -3775,6 +3829,7 @@ REGISTRY.update({
     "israel_gas_annual_nga.xlsx": israel_gas_annual,
     "egypt_grid_load_daily.xlsx": egypt_grid_load,
     "jordan_peak_load_daily.xlsx": jordan_peak_load,
+    "jordan_power_annual.xlsx": jordan_power_annual,
     "egypt_gas_monthly.xlsx": egypt_gas,
     "ghana_wem_weekly_generation_daily.xlsx": _ghana("wem_specs"),
     "ghana_energy_commission_power.xlsx": _ghana("annual_specs"),

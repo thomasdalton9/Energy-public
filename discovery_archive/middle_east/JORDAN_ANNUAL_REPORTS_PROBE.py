@@ -5,6 +5,32 @@ the real layouts. Output: probe_out/<name>.json = {"url", "last_modified", "byte
 few PDFs kept whole for local testing. Workflow (manual): discovery_archive/workflows/jordan_annual_reports_probe.yml.
 
 NEPCO blocks a runner after ~65 requests (PDFs included), so this sends one GET for the list page and one per PDF.
+The workflow committed the text to discovery_archive/results/jordan_annual/report_text.json.gz (+ the MEMR list pages);
+GitHub artifact downloads are blocked from the sandbox.
+
+RESULTS (12 Oct 2026):
+ * NEPCO English 2003-2024 all download (Last-Modified 2004-2025); 2007, 2009 and 2016 are IMAGE-ONLY (no text layer);
+   2016 needed a retry (connection cut mid-download). The AnnualReports.aspx page links no PDFs (script-built), the URL
+   pattern works. Arabic 2024 (29 May 2025) and 2025 (12 Aug 2026) download; 2025_EN is 404.
+ * Table titles move (table numbers change almost every few years): matched by title text. Purchased by type of Fuel
+   (2018 reports on, 4-5 years), Production by Type of Fuel (2008-2017, transposed: 'Total 2017 a b c d e' rows; the
+   2017 report prints the numbers on the line BEFORE the year), Fuel Consumption (by type of fuel) for Electricity
+   Generation (T.T.O.E), Peak load for Interconnected System (dates from the 2020 reports; the 2019 report labels the
+   columns Summer/Winter, later ones Morning/Evening), older 'System Peak Loads', Purchases / Sales tables (imports,
+   exports by counterparty). The 2019 report's 'by type of Generation' table prints its labels one row out of line
+   (Wind = combined cycle), so wind/solar/hydro are kept only where they add up to renewables. The 2010 sales header
+   is printed in reverse year order, the data are chronological.
+ * Arabic 2025: the text layer is usable - numbers in visual order (newest year first, % column first), labels
+   reversed; every table checked against the English reports on the shared years agrees (fuel 25/25, purchases 40/40,
+   peak 29/30, sales 18/20: the 2024 Jericho / Iraq-transmission export figures are swapped relative to the English
+   2024 report).
+ * MEMR: list page https://www.memr.gov.jo/En/List/Annual_Reports links the English files 2015-2024 (2020 =
+   en_memr_annual_report_2020_-_23.2.2022.pdf, 2021 = annual_report_2021_en.pdf, 2023 = annual_report_2023-4.pdf;
+   unknown paths answer the home page with HTTP 200). Gas for power is in the prose: 2016 LNG 122,676 'Mcf' (= MMcf) /
+   335 per day, 2017 126,785 MMscf / 347, 2019 345 MMcf/d, 2020 337, 2021 340, 2022 340 (and 344 in another
+   section), 2023 115,000 / 315, 2024 119,456 / 327; Risha 2016 11.2, 2017 9.8, 2019 19, 2022 14.7 MMcf/d. 2015 and
+   2018 give no gas-for-power figure (2013-2015 give Egyptian pipeline imports in mcm, 2016-2018 LNG imports).
+Production script: middle_east/JORDAN_NEPCO_ANNUAL.py.
 """
 import io
 import json

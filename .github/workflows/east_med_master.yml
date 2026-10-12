@@ -27,11 +27,17 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: timeout 600 python3 middle_east/EAST_MED_MASTER.py --out "output/Data and Chart Outputs/Master Outputs/east_med_master.xlsx"
 
+      - name: PNG of the Jordan gas supply vs power burn chart
+        if: always()
+        run: |
+          mkdir -p "output/PNG Charts"
+          python3 -c "import sys; sys.path[:0] = ['middle_east', '.']; import EAST_MED_MASTER as m, png_charts; s = m.jordan_gas_supply('output/Data and Chart Outputs/jordan_power_annual.xlsx')[0]; png_charts.series_chart(s, 'output/PNG Charts/east_med_master__Jordan_gas_supply_vs_power_burn.png')" || echo "Jordan gas PNG skipped"
+
       - name: Copy scripts
         if: always()
         run: |
           mkdir -p "output/Python Scripts"
-          cp middle_east/EAST_MED_MASTER.py fundamentals.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+          cp middle_east/EAST_MED_MASTER.py png_charts.py fundamentals.py south_america/SOUTH_AMERICA_MASTER.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
 
       - name: Commit master workbook
         if: always()
@@ -44,6 +50,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f "output/Data and Chart Outputs/Master Outputs/east_med_master.xlsx"
           git add -f "output/Python Scripts" || true
+          git add -f "output/PNG Charts/east_med_master__Jordan_gas_supply_vs_power_burn.png" || true
           git diff --cached --quiet || git commit -m "East Med master: automated update"
           for i in 1 2 3 4 5; do
             { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0

@@ -1,0 +1,62 @@
+name: Jordan power annual statistics (NEPCO and MEMR annual reports)
+
+# OWNER: the data are annual, so this is NOT on the 1st/15th schedule. Manual runs plus a light check on 1 Sep and
+# 1 Dec (06:20 UTC): NEPCO posted its 2025 Arabic report on 12 Aug 2026 and MEMR its 2024 report on 27 Aug 2026.
+# A check sends HEAD requests for the reports of the last three years, tries the reports not yet found and the MEMR
+# list page, and exits without rewriting or committing anything when no new or changed report exists
+# (Last-Modified, then SHA-256 on the 'Releases' sheet). reparse=true downloads and parses every report again
+# (about 25 NEPCO requests; NEPCO cuts a runner off at about 65).
+on:
+  schedule:
+    - cron: "20 6 1 9,12 *"
+  workflow_dispatch:
+    inputs:
+      reparse:
+        description: "Download and parse every report again (true/false)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests pdfplumber matplotlib
+      - name: Run Jordan annual reports pull
+        id: pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS=""
+          [ "${{ github.event.inputs.reparse }}" = "true" ] && ARGS="--reparse"
+          timeout 3000 python3 middle_east/JORDAN_NEPCO_ANNUAL.py $ARGS
+      - name: Add Excel charts, PNGs and copy scripts
+        if: steps.pull.outputs.updated == '1'
+        run: |
+          F="output/Data and Chart Outputs/jordan_power_annual.xlsx"
+          [ -f "$F" ] && python3 add_charts.py "$F" && python3 png_charts.py "$F" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp middle_east/JORDAN_NEPCO_ANNUAL.py add_charts.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+      - name: Commit updated workbook
+        if: steps.pull.outputs.updated == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/jordan_power_annual.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Jordan power annual (NEPCO/MEMR reports): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
