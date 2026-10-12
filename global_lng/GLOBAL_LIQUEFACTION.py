@@ -864,18 +864,27 @@ def check_sources(prev_rel, full):
         seen.add(url)
         row = dict(document=f"{pub}: {doc}", url=url, etag="", last_modified="", size=np.nan, sha256="", checked=str(TODAY), result="")
         try:
-            r = s.head(url, timeout=40, allow_redirects=True)
-            if r.status_code >= 400 or not (r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length")):
-                r = s.get(url, timeout=60, stream=True)
-                h = hashlib.sha256()
-                n = 0
-                for chunk in r.iter_content(1 << 20):
-                    h.update(chunk)
-                    n += len(chunk)
-                    if n > 40 << 20:
-                        break
-                row["sha256"] = h.hexdigest()
-                row["size"] = n
+            try:
+                r = s.head(url, timeout=(15, 40), allow_redirects=True)
+            except Exception:  # noqa: BLE001
+                r = None
+            if r is None or r.status_code >= 400 or not (r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length")):
+                r = s.get(url, timeout=(15, 120), stream=True)
+                if r.headers.get("ETag") or r.headers.get("Last-Modified") or r.headers.get("Content-Length"):
+                    r.close()          # headers are enough for change detection
+                else:
+                    h = hashlib.sha256()
+                    n = 0
+                    for chunk in r.iter_content(1 << 20):
+                        h.update(chunk)
+                        n += len(chunk)
+                        if n > 40 << 20:
+                            break
+                    row["sha256"] = h.hexdigest()
+                    row["size"] = n
+                row.setdefault("size", np.nan)
+                if not row["sha256"]:
+                    row["size"] = float(r.headers.get("Content-Length", "nan"))
             else:
                 row["size"] = float(r.headers.get("Content-Length", "nan"))
             row["etag"] = r.headers.get("ETag", "")
