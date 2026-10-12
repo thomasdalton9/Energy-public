@@ -25,22 +25,26 @@ def get(u, n=800, show=True, hdr=(), out=None, post=None):
 
 print("#### A. REData potencia-instalada-generacion")
 H = ("Accept: application/json",)
-for geo in ["", "&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741"]:
-    b = get("https://apidatos.ree.es/es/datos/generacion/potencia-instalada-generacion?start_date=2020-12-01T00:00&end_date=2026-09-30T23:59&time_trunc=month" + geo, show=False, hdr=H)
+def redata(a, b, geo=""):
+    return get("https://apidatos.ree.es/es/datos/generacion/potencia-instalada-generacion?start_date=%s&end_date=%s&time_trunc=month%s" % (a, b, geo), show=False, hdr=H)
+for (a, b_) in [("2025-01-01T00:00", "2025-12-31T23:59"), ("2020-12-01T00:00", "2026-09-30T23:59"), ("2020-12-01T00:00", "2021-12-31T23:59")]:
+    body = redata(a, b_)
     try:
-        j = json.loads(b)
+        j = json.loads(body)
     except Exception:
-        print("not json", b[:200]); continue
-    print("geo:", geo or "(none)", "| last-update", j["data"]["attributes"].get("last-update"), "| meta", json.dumps(j["data"].get("meta"))[:200])
+        print("not json", a, b_, body[:200]); continue
+    print("RANGE", a, b_, "keys", list(j.keys()), "| body head:", body[:300].replace("\n", " ") if "data" not in j else "")
+    if "data" not in j:
+        continue
+    print("last-update", j["data"]["attributes"].get("last-update"), "| meta", json.dumps(j["data"].get("meta"))[:200])
     for it in j["included"]:
-        a = it["attributes"]
-        v = a.get("values", [])
-        print(f"  {it['type']!r:40} id={it['id']} group={it.get('groupId')} title={a.get('title')!r} magnitude={a.get('magnitude')} n={len(v)} first={v[0] if v else None} last={v[-1] if v else None}")
-    tot = [x for x in j["included"] if "otal" in str(x["attributes"].get("title"))]
-    print("totals:", [(x["attributes"]["title"], x["attributes"]["values"][-1]) for x in tot])
-    print("keys of an item:", list(j["included"][0]["attributes"].keys()), list(j.keys()))
-    if not geo:
-        print("sample dates:", [x["datetime"] for x in j["included"][0]["attributes"]["values"]][:4], "...", [x["datetime"] for x in j["included"][0]["attributes"]["values"]][-3:])
+        at = it["attributes"]
+        v = at.get("values", [])
+        print(f"  {it['type']!r:36} id={it['id']} group={it.get('groupId')} title={at.get('title')!r} magnitude={at.get('magnitude')} n={len(v)} first={v[0] if v else None} last={v[-1] if v else None}")
+    print("keys of an item:", list(j["included"][0]["attributes"].keys()))
+    print("sample dates:", [x["datetime"] for x in j["included"][0]["attributes"]["values"]][:4], "...", [x["datetime"] for x in j["included"][0]["attributes"]["values"]][-3:])
+body = redata("2025-01-01T00:00", "2025-12-31T23:59", "&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741")
+print("peninsular:", body[:300].replace("\n", " "))
 
 print("\n#### B. Terna records")
 API = "https://dati.terna.it/api/sitecore/dati/downloadcenter/records"
