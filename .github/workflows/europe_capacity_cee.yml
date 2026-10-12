@@ -1,0 +1,55 @@
+name: Europe capacity - Hungary, Czechia, Switzerland, Poland (monthly)
+
+# Monthly installed capacity: Hungary (MAVIR PDF), Czechia (ERU quarterly report workbooks), Switzerland (BFE / Pronovo plant register,
+# rebuilt) and Poland (URE renewable register, quarterly, partial). Slovakia, Romania, Bulgaria and Austria have no monthly source
+# (see europe/capacity/CEE_CAPACITY_MONTHLY.py and discovery_archive/europe/capacity/).
+on:
+  schedule:
+    - cron: "49 7 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl xlrd requests matplotlib pymupdf
+      - name: Run pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 europe/capacity/CEE_CAPACITY_MONTHLY.py
+
+      - name: Add Excel charts, PNGs and copy scripts
+        if: always()
+        run: |
+          for f in hungary_power_capacity_monthly czechia_power_capacity_monthly switzerland_power_capacity_monthly poland_power_capacity_quarterly; do
+            w="output/Data and Chart Outputs/${f}.xlsx"
+            [ -f "$w" ] && python3 add_charts.py "$w" && python3 png_charts.py "$w" || echo "chart step skipped/failed for $w"
+          done
+          mkdir -p "output/Python Scripts"
+          cp europe/capacity/CEE_CAPACITY_MONTHLY.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbooks
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for f in hungary_power_capacity_monthly czechia_power_capacity_monthly switzerland_power_capacity_monthly poland_power_capacity_quarterly; do
+            git add -f "output/Data and Chart Outputs/${f}.xlsx" || true
+          done
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe capacity (HU, CZ, CH, PL): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
