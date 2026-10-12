@@ -340,9 +340,10 @@ NOTES = ["Turkey - monthly installed generation capacity (MW) from EPDK monthly 
          "", "Method",
          "Up to 2021 only a LICENSED table and a separate UNLICENSED table exist: the current month is their sum (basis column on Reports). A period takes the value of the latest report that contains it (next year's report revises it). Reports whose parts do not add to EPDK's total within 0.3%, or whose table cannot be read, are left out and listed on Releases. Nothing is interpolated or filled.",
          "Incremental: the Reports sheet is the history store; stored report months are not downloaded again except the last three; parse failures are retried only with --retry (download failures every run).",
+         "Restatements: EPDK's later reports revise earlier months (mostly unlicensed solar, up to +4 GW on a month: see Revisions), and the reports of 2024 restate the year-earlier column with a step of about +2 GW of solar in April 2023 (a registry reconciliation, not new build in that month); month-to-month differences are therefore not clean additions where source_lag_months changes (0 = first release, 12 = revised by the next year's report); the net-additions chart leaves those months blank.",
          "", "Columns",
          "Hydro_MW = dam + river. Coal_MW = imported + hard coal; Lignite_MW = lignite + asphaltite; Gas_MW = natural gas + LNG; Oil_MW = fuel oil + naphtha + diesel; Bioenergy_MW = biomass (incl. biogas); Geothermal_MW; Nuclear_MW (none before Akkuyu). Other_MW = any source EPDK lists that is not mapped. Total_MW = EPDK's TOPLAM.",
-         "Pumped storage and batteries are not listed by EPDK.",
+         "Pumped storage and batteries are not listed by EPDK. source_report = report month the row was taken from; source_lag_months = months between that report and the period.",
          "", "Sheets", "Monthly, Revisions (same period in two reports), Check_ENTSOE, Reports (long, history store), Releases"]
 TITLES = ["Source", "Method", "Columns", "Sheets"]
 
