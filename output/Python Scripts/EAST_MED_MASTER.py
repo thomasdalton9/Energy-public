@@ -4,7 +4,9 @@ dataset this repo pulls for the region from a raw source, with Dashboard front p
 layout as the other masters (south_america/SOUTH_AMERICA_MASTER.py, whose table/chart/dashboard code this reuses).
 
   Dashboard - Gas        Israel gas sales by field (Leviathan, Tamar, Karish; company reports, quarterly), Leviathan
-                         sales by destination, exports to Egypt and Jordan
+                         sales by destination, exports to Egypt and Jordan; annual balance from the Natural Gas
+                         Authority reviews (supply by source, domestic use by sector, exports by country, power by
+                         producer)
   Dashboard - Power      Egypt daily peak / minimum grid load (Ministry of Electricity, from Oct 2026), Cyprus
                          generation mix (TSOC)
   Dashboard - Long-term  annual fundamentals (fundamentals.py region 'East Med': Ember yearly power, Energy Institute
@@ -39,6 +41,7 @@ DATA_DIR = sam.DATA_DIR
 
 GAS_DATASETS = [
     ("IL", "Israel", "israel_gas_fields_quarterly.xlsx", ("Quarterly", "Leviathan", "Tamar", "Karish YTD"), "gas by field"),
+    ("IL", "Israel", "israel_gas_annual_nga.xlsx", ("Annual", "Checks"), "annual gas balance"),
 ]
 POWER_DATASETS = [
     ("EG", "Egypt", "egypt_grid_load_daily.xlsx", "Daily", "grid load"),
@@ -48,6 +51,10 @@ SOURCES = {
     "israel_gas_fields_quarterly.xlsx": (
         "Field owners' reports: NewMed Energy (Leviathan), Tamar Petroleum (Tamar), Energean plc via investegate.co.uk "
         "(Karish) - gas sold, 100% of each field, quarterly", "https://newmedenergy.com/investor-relations/financial-reports/"),
+    "israel_gas_annual_nga.xlsx": (
+        "Israel Natural Gas Authority (Ministry of Energy and Infrastructure): annual 'Natural Gas Sector Review' "
+        "(Hebrew PDF, gov.il BlobFolder) - supply by source, domestic use by sector, exports by country, BCM per year, "
+        "read from the reviews' tables and chart data labels", "https://www.gov.il/BlobFolder/reports/ng-2025/he/ng-2025.pdf"),
     "egypt_grid_load_daily.xlsx": (
         "Ministry of Electricity and Renewable Energy (MOEE), Egypt: home-page 'Grid Loads' panel (no history at source; "
         "series from Oct 2026)", "http://www.moee.gov.eg/english_new/home.aspx"),
@@ -62,7 +69,9 @@ EMBER = set()
 OPERATORS = {}
 CAVEATS = [
     "Israel: quarterly SALES from the field owners' reports (100% of field); the national total is only for quarters "
-    "all three fields report; no monthly Israeli gas source is reachable (gov.il is Cloudflare-blocked)",
+    "all three fields report; no monthly Israeli gas source is reachable (gov.il is Cloudflare-blocked). Annual balance "
+    "from the Natural Gas Authority reviews (2004-latest; segments a review prints no label for are drawn as "
+    "'Not labelled in the review')",
     "Egypt: grid load only (daily peak and minimum); Egypt's generation by type and gas balance are annual "
     "(MOEE, CAPMAS) and not yet built",
 ]
