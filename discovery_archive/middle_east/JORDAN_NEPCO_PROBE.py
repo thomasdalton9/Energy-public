@@ -1,10 +1,96 @@
 """
 Probe (Oct 2026): Jordan power and gas data - NEPCO, EMRC, MEMR, DOS, opendata.gov.jo - reachable from GitHub Actions?
 
-Usage: python3 JORDAN_NEPCO_PROBE.py <round>
-Workflow (manual): discovery_archive/workflows/jordan_nepco_probe.yml (input `round`).
+Usage: python3 JORDAN_NEPCO_PROBE.py <round 1-8>
+Workflow (manual): discovery_archive/workflows/jordan_nepco_probe.yml (input `round`; installs tesseract for round 4).
+Earlier probes JORDAN_DISCOVERY.py (main) and JORDAN_DISCOVERY2/3.py (branch jordan-power) fetched these pages but
+recorded nothing; this probe supersedes them.
 
-(findings below, per RUN)
+RUN 1 (11 Oct 2026, reachability, plain requests unless noted): nepco.com.jo (Arabic) and www.nepco.com.jo/en/ answer
+200 (ASP.NET WebForms; /ar/ paths and DailyLoad.aspx are 404). emrc.gov.jo, memr.gov.jo (EBV4.0 CMS: unknown /En/List/...
+paths redirect to the Arabic home page), dosweb.dos.gov.jo (WordPress), jorinfo.dos.gov.jo PxWeb 2019 and opendata.gov.jo
+(CKAN, package_show works by GET, package_search answers 400) all 200. portal.jordan.gov.jo times out.
+opendata.gov.jo 'nepco-2170-2023' = 9 Arabic PDFs (oil lab, fibre optics, safety, interconnection, tariff, sector
+structure, 'Jordanian electrical system 2023' = 1-page text description, strategic goals): NO data tables.
+
+RUN 2/3 (NEPCO pages):
+ * MaxLoadArchive.aspx (en and ar): DAILY PEAK LOAD (MW, one number per day, no hour, no minimum) as an HTML table,
+   10 rows per page, newest first, ASP.NET DataPager; search form txtDayFrom/fromMonth/txtYearFrom ... txtYearTo +
+   btnSearch (POST with __VIEWSTATE/__EVENTVALIDATION replayed from a GET works with plain requests). GET without a
+   search = the latest 10 days (10/10/2026 3410 MW, 07/10 3300, 06/10 3270, 05/10 3280, 04/10 3330, 03/10 3320, 02/10
+   (Fri) 2880, 01/10 3230, 30/09 3410, 29/09 3400). The home page ticker repeats yesterday's peak ('3410 MW').
+ * Stats.aspx: five PNG infographics only (assets/img/stats/en/stat-1..5.png, Last-Modified 1 Mar 2026), no table.
+ * AnnualReports.aspx (en): English annual-report PDFs 2003-2024 (/store/docs/web/<yyyy>_en.pdf, 2019+ /store/DOCS/web/
+   <yyyy>_EN.pdf). Interconnection.aspx: line capacities only (Egypt 400 kV 550 MW, Syria 300-800, Palestine/Jericho 80,
+   Iraq 150-200, Lebanon via Syria 150-250).
+ * assets/doc/peak.pdf = image-only (peak load periods); elec10-2025-0.pdf = the 2025 electricity law.
+
+RUN 4 (OCR of Stats PNGs with tesseract, history check):
+ * stat-1 'Significant figures' 2025 vs 2024: peak 4,800? / 4,100 MW (OCR; the 2024 AR says 4100), purchased energy
+   23,414 / 22,723 GWh, sold 22,996 / 22,323, IMPORTED 318 / 264 GWh, EXPORTED 379 / 266 GWh, wheeling 218 / 215.
+   stat-3 = available capacity by plant (2024), stat-4 = purchased energy by fuel 2016-2025 chart (2025 shares: gas
+   63.18%, renewables 17.36%?, oil shale 16.69%, imports 1.16%, ...), stat-5 = peak load 1980-2025 bar chart. Images,
+   so values need OCR - use the annual report tables instead.
+ * MaxLoadArchive history: nothing before October 2019 (Jul 1995..2018 queries empty); first row 02/10/2019.
+   DataPager postbacks do NOT keep the search filter (page 2 returns the unfiltered list), so each search must fit the
+   first page: query windows of <= 9 days (1-9, 10-18, 19-27, 28-end) -> 4 POSTs per month.
+ * Annual reports open with pdfplumber (2010: 64 pages, 2015: 72, 2019: 107, 2023: 94, 2024: 96, 17.7 MB). Tables
+   used: (1) Significant figures, (8) Fuel consumption for generation (T.T.O.E) by fuel, (9) peak/minimum load with
+   date, (12)/(13) energy purchased by generation type / by FUEL (GWh, 5 years), (14) sales incl. EXPORTED energy by
+   destination. 2024 report values (GWh): natural gas 14,689.6, oil shale 3,671.9, renewables 4,096.0, imported/Egypt
+   264.0, others 1.5, total purchased 22,723.0 (2020 19,194; 2023 21,473.4). Gas fuel for generation 3,065.9 ktoe 2024
+   (3,202.1 2020, 2,961.7 2023), oil shale 1,063.7 ktoe. Exports 2024 265.8 GWh: Jerusalem Co. (Jericho) 90.5, Iraq
+   Trabeel 7.2, GECOL/Iraq transmission 168.1. Peak 2024 4100 MW on 31/12/2024 (2023 4240 MW on 14/08/2023), minimum
+   1130 MW 05/04/2024. Old layout (2010 report): table 14 generated + imported by company incl. imports from Egypt
+   (446 GWh 2010) and Syria (224), table 15 by generation type, table 16 by fuel (2010 gas 10,517.5 GWh of 14,776.8),
+   table 13 fuel by type (ktoe). Annual only - no monthly tables found in the 2024 report.
+
+RUN 5 (MEMR, EMRC, DOS):
+ * MEMR Studies_and_Statistics (English): static PDFs dated Feb 2020 - jordan_energy_balance.pdf (energy balances
+   2009-2018, ktoe, incl. N. gas imports and 'Electricity' transformation row), electricity_consumption.pdf (GWh by
+   sector 2008-2018: 2018 total 17,532), general_indecators.pdf, import_of_crude_oil_and_petroleum_products.pdf
+   (000 t 1997-2018). Not updated since 2020 ('Energy facts and figures' is not on the site).
+ * MEMR Annual Reports 2015-2024 (en, /ebv4.0/root_storage/en/eb_list_page/annual_report_<yyyy>.pdf; 2024 posted
+   27 Aug 2026): prose only. 2024: generation 25,080.56 GWh by source shares gas 58.08%, renewables 26.92%, oil shale
+   15% (2023 61.1 / 26.28 / 12.62); NATURAL GAS FOR POWER 119,456 MMcf in 2024 = 327 MMcf/d (2019 report: 345 MMcf/d,
+   Risha 19 MMcf/d); four supply sources named (Egyptian pipeline gas, 'Northern gas' = Israel/Leviathan via NEPCO,
+   Aqaba FSRU LNG, Risha) but NO volumes by source.
+ * EMRC: Electricity_Sector / Open_Data pages hold no statistics files (code of ethics etc. only); annual-report list
+   paths redirect to the home page.
+ * DOS: PxWeb API works (jorinfo.dos.gov.jo/Databank/api/v1/en/...) but holds no energy table (economic surveys,
+   trade, prices...); 'Industry and Energy' = annual industry survey (output/value added), not energy volumes.
+   (External trade in PxWeb might give natural-gas import tonnage/value by partner - not checked.)
+
+RUN 6 (fast full MaxLoad scan, no delay): rows Oct 2019 - May 2020 then empty pages and from ~150 requests SSL resets
+   ('connection closed abruptly' to requests and curl_cffi): NEPCO's server/WAF blocks the runner IP for the rest of
+   the run - every NEPCO URL, PDFs included. 2019-20 coverage was 15-20 of 30 days a month (weekends and some
+   weekdays missing); a data-entry outlier 24600 MW on 02/01/2020 (2460).
+RUN 7 (3 s between form queries): blocked again after ~32 window queries (Sep 2020: pages without the table, then SSL
+   resets from Sep 2021). Documents fetched first: NEPCO 2025_AR.pdf (Arabic 2025 annual report, 17.8 MB, 12 Aug 2026)
+   exists, 2025_EN.pdf not yet (404); 2024_AR.pdf 13.8 MB. NEPCO 2024 EN p31 table (9) peak/min load with dates.
+RUN 8 (10 s between form queries): the first 32 window searches worked, then the same block (pages without the
+   table from search 33, SSL resets from search 84, the 2025 Arabic PDF unreachable afterwards). So the limit is a
+   COUNT of about 32 searches (~65 requests) per runner IP, not a rate; a new run (new IP) starts clean. Days present
+   per month: 2021-01 14/31 (max 3280 MW), 2021-07 23 (2930), 2022-01 26 (3900), 2022-07 25 (2980), 2023-01 27 (3730),
+   2023-07 21 (3510), 2024-01 22 (4015), 2024-07 22 (3960); Sep 2026 and early Oct 2026 nearly complete (gaps are days
+   NEPCO did not post - typically Fridays/holidays and odd weekdays - not filled).
+
+CONCLUSIONS
+ * Daily peak load: NEPCO MaxLoadArchive.aspx is the only automatable Jordanian daily power series (daily maximum MW,
+   from 2 Oct 2019, ~70-90% of days, plain requests + VIEWSTATE replay, history kept). Production pull: 1st/15th,
+   incremental - one search per <= 9-day window since the last stored day (2-3 searches a run), sanity filter for
+   typos (24600 on 02/01/2020), stay well under ~30 searches per run; the one-off backfill (~330 windows) needs ~12
+   runs of <= 28 searches (a manual 'backfill' input that resumes from the stored workbook).
+ * Generation by fuel, imports/exports, fuel for power: ANNUAL only - NEPCO annual report PDFs (English 2003-2024,
+   Arabic 2025 already out; tables 1, 8, 9, 13, 14 parse with pdfplumber; layout changes over time) and MEMR annual
+   reports (generation total and shares, gas for power in MMcf, prose). No hourly load, no daily/monthly generation by
+   fuel, no monthly imports/exports anywhere public. Pull: annual PDFs re-read only when a new report appears
+   (Last-Modified), 1st/15th check.
+ * Gas supply by source (Egypt / Leviathan 'Northern gas' / Aqaba FSRU LNG / Risha): no published volumes by source
+   (MEMR names the four sources only). Israel's side (Leviathan sales to Jordan, quarterly BCM from NewMed, see
+   ISRAEL_GAS_COMPANY_REPORTS_PROBE.py) is the only volume series for Jordan's pipeline imports.
+ * EMRC, DOS (PxWeb API reachable but no energy tables), opendata.gov.jo (NEPCO dataset = descriptive PDFs) and the
+   MEMR statistics PDFs (frozen at 2018) add nothing pullable.
 """
 import io, json, re, subprocess, sys, time
 import requests
