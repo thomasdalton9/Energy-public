@@ -124,6 +124,10 @@ def parse_ember(content):
     for bucket in ("Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear"):
         add(cap[cap["Variable"] == bucket], f"Cap_{bucket}_GW")
     add(cap[cap["Variable"].isin(["Other Fossil", "Bioenergy", "Other Renewables"])], "Cap_Other_GW")
+    # separate columns for the capacity-complete builds (East Med / Africa ...): Cap_Other_GW above stays the sum of these three
+    add(cap[cap["Variable"] == "Other Fossil"], "Cap_Oil_GW")
+    add(cap[cap["Variable"] == "Bioenergy"], "Cap_Bio_GW")
+    add(cap[cap["Variable"] == "Other Renewables"], "Cap_OtherRen_GW")
     add(cap, "Cap_Total_GW")
     em = d[(d["Category"] == "Power sector emissions") & (d["Unit"].astype(str).str.lower() == "mtco2")]
     em_tot = em[em["Subcategory"] == "Total"]
@@ -342,7 +346,7 @@ def main():
     power, ember_stamp = saved.get("Power"), saved_line(units, "Ember file: ")
     h = head(EMBER_URL)
     new_stamp = "Ember file: " + (stamp_of(h) if h is not None else "")
-    if power is not None and not args.force and h is not None and stamp_of(h) and new_stamp == ember_stamp:
+    if power is not None and not args.force and "Cap_Oil_GW" in set(power["variable"]) and h is not None and stamp_of(h) and new_stamp == ember_stamp:
         print("Ember file unchanged - keeping the saved Power sheet", flush=True)
     else:
         try:

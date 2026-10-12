@@ -112,6 +112,9 @@ ITEMS = {
     "Export_Total_GWh": "GWh",
     # key figures (table 1)
     "Key_Peak_MW": "MW", "Key_Purchased_GWh": "GWh", "Key_Sold_GWh": "GWh",
+    # 'Available Capacity of Generating Plants' on the transmission network, MW, reports 2020 on (see parse_capacity)
+    "Cap_Steam_MW": "MW", "Cap_GasTurbine_MW": "MW", "Cap_CombinedCycle_MW": "MW", "Cap_Diesel_MW": "MW",
+    "Cap_Hydro_MW": "MW", "Cap_Wind_MW": "MW", "Cap_Solar_MW": "MW",
 }
 
 
@@ -446,6 +449,51 @@ def parse_en(pages, report_year):
                 if key and len(vals) >= 2:
                     for y, t in zip(yrs, vals[:2]):
                         add(y, key, num(t), p)
+    # installed (available) capacity of the generating plants, MW (reports 2020 on)
+    for y, item, v, pg in parse_capacity(pages, report_year):
+        add(y, item, v, pg, "NEPCO 'Available Capacity of Generating Plants' (transmission network)")
+    return out
+
+
+CAP_COLS = ["Cap_Steam_MW", "Cap_GasTurbine_MW", "Cap_CombinedCycle_MW", "Cap_Diesel_MW", "Cap_Hydro_MW", "Cap_Wind_MW",
+            "Cap_Solar_MW"]
+
+
+def parse_capacity(pages, report_year):
+    """NEPCO 'Table (n): Available Capacity of Generating Plants ... Transmission Network (MW)' of the 2020-2024 reports:
+    one row per year 'Y steam [gas-turbine diesel] gas-turbine-gas combined-cycle diesel* hydro wind solar renewable
+    traditional' (9 numbers, or 10 when the gas-turbine column is split into diesel and N.GAS). A row is kept only when
+    traditional = steam + gas turbines + combined cycle + diesel and renewable = hydro + wind + solar (+-1.5 MW)."""
+    out = []
+    for pn, text in enumerate(pages, start=1):
+        if not re.search(r"Available Capacity of Generating Plants", text or "", re.I):
+            continue
+        lines = clean_lines(text)
+        j = next((k for k, l in enumerate(lines) if re.search(r"Available Capacity of Generating Plants", l, re.I)), None)
+        if j is None:
+            continue
+        for l in lines[j:j + 25]:
+            m = re.match(r"^((?:19|20)\d\d)\*{0,3}\s+(.*)$", l)
+            if not m:
+                continue
+            toks = m.group(2).split()
+            if len(toks) not in (9, 10) or not all(is_val(t) for t in toks):
+                continue
+            v = [num(t) for t in toks]
+            if None in v:
+                continue
+            if len(v) == 10:                      # gas-turbine diesel + gas-turbine N.GAS
+                v = [v[0], v[1] + v[2]] + v[3:]
+            steam, gt, cc, dsl, hyd, wnd, sol, ren, trad = v
+            if abs(steam + gt + cc + dsl - trad) > 1.5 or abs(hyd + wnd + sol - ren) > 1.5:
+                continue
+            y = int(m.group(1))
+            if y < 2016 or y > report_year:
+                continue
+            for item, x in zip(CAP_COLS, (steam, gt, cc, dsl, hyd, wnd, sol)):
+                out.append((y, item, x, pn))
+        if out:
+            break
     return out
 
 
