@@ -50,7 +50,6 @@ from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 import pandas as pd
-import requests
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -130,6 +129,7 @@ def save_store(df, path, before):
 
 
 def fetch_nasa(lat, lon, start, end, tries=4):
+    import requests   # only the pull needs it (the master imports this module without it)
     params = {"parameters": "T2M", "community": "RE", "longitude": lon, "latitude": lat,
               "start": start.strftime("%Y%m%d"), "end": end.strftime("%Y%m%d"), "format": "JSON"}
     last = None

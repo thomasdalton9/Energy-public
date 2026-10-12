@@ -120,6 +120,46 @@ CAPACITY_DATASETS = [(code, country, f"{country.lower()}_power_capacity.xlsx", "
                      for code, country in [("AR", "Argentina"), ("BO", "Bolivia"), ("BR", "Brazil"), ("CL", "Chile"),
                                            ("CO", "Colombia"), ("EC", "Ecuador"), ("PE", "Peru"), ("UY", "Uruguay"),
                                            ("PY", "Paraguay")]]
+# Complete monthly capacity (americas/capacity/AMERICAS_CAPACITY_COMPLETE.py): one gap-free monthly series per country and fuel for all
+# 23 countries - national monthly sources (CAMMESA, ANEEL, CNE, XM, ARCONEL), official annual interpolated or held (CNDC, COES, MIEM,
+# Itaipu/EBY), Ember yearly as a labelled fallback for the rest - with every filled cell flagged in that workbook. Used for the capacity
+# charts, the regional capacity total and the capacity-factor denominators; the country workbooks above are the fallback if it is missing.
+CAP_COMPLETE = "south_central_america_capacity_monthly_complete.xlsx"
+CAP_COMPLETE_TOTAL = "South & Central America total"
+CAP_COMPLETE_COUNTRIES = [("AR", "Argentina"), ("BO", "Bolivia"), ("BR", "Brazil"), ("CL", "Chile"), ("CO", "Colombia"),
+                          ("EC", "Ecuador"), ("PY", "Paraguay"), ("PE", "Peru"), ("UY", "Uruguay"), ("VE", "Venezuela"),
+                          ("GY", "Guyana"), ("SR", "Suriname"), ("BZ", "Belize"), ("CR", "Costa Rica"), ("SV", "El Salvador"),
+                          ("GT", "Guatemala"), ("HN", "Honduras"), ("NI", "Nicaragua"), ("PA", "Panama"),
+                          ("DO", "Dominican Republic"), ("JM", "Jamaica"), ("PR", "Puerto Rico"), ("TT", "Trinidad & Tobago")]
+CAP_COMPLETE_SRC = ("National monthly capacity sources where available (CAMMESA, ANEEL, CNE, XM, ARCONEL); official annual (CNDC, COES, MIEM, "
+                    "Itaipu/EBY) interpolated or held; Ember yearly capacity as a labelled fallback elsewhere; flags per cell in "
+                    "south_central_america_capacity_monthly_complete.xlsx", "https://ember-energy.org/data/yearly-electricity-data/")
+CAP_CF_NOTE = ("installed capacity: national monthly where available, official annual interpolated or held, Ember yearly as labelled "
+               "fallback (see Basis and flags)")
+
+
+def _complete_capacity(data_dir):
+    return os.path.exists(os.path.join(data_dir, CAP_COMPLETE))
+
+
+def cap_complete_spec(sheet_name_, title, fallback_share=None):
+    """Chart spec for one sheet of a complete-capacity workbook (GW, stacked); a sheet that is mostly Ember fallback says so."""
+    def f(p):
+        d = add_charts.by_date(add_charts.read(p, sheet_name_), "date")
+        d = d[d.index >= "2021-01-01"]
+        g = add_charts.capacity_groups(pd.DataFrame({fu: d.get(f"{fu}_MW") for fu in add_charts.CAPACITY_FUELS}, index=d.index)) / 1000.0
+        t = title
+        try:
+            cov = add_charts.read(p, "Coverage").set_index("country")
+            if float(cov.loc[sheet_name_, "FALLBACK_EMBER"]) > 50:
+                t += " - Ember yearly, labelled fallback"
+        except Exception:  # noqa: BLE001
+            pass
+        return [add_charts.spec("Capacity", g, t, "GW installed", "stacked_bar", "%Y-%m")]
+    return f
+
+
+CAP_COMPLETE_DS = [(code, name, CAP_COMPLETE, name, "capacity") for code, name in CAP_COMPLETE_COUNTRIES]
 
 # Workbooks with several charts where the dashboard shows only some (by spec name); the rest stay in the
 # country workbook. Honduras: the monthly ODS history (2021 on) rather than the daily feed (June 2026 on).
@@ -136,6 +176,8 @@ def gatun(path):
 
 # Chart specs for workbooks whose add_charts REGISTRY entry is None (they chart themselves)
 MASTER_SPECS = {"gatun_lake_level.xlsx": gatun}
+MASTER_SPECS.update({(CAP_COMPLETE, n): cap_complete_spec(n, f"{n} installed capacity, monthly (see Basis)")
+                     for _, n in CAP_COMPLETE_COUNTRIES})
 
 # Where each workbook's data comes from: (publisher, link). Shown on the dashboards.
 SOURCES = {
@@ -241,6 +283,7 @@ SOURCES = {
                                            "Venezuela: Energy Institute Statistical Review",
                                            "https://www.datos.gov.co/d/r85m-vv6c"),
     **{f: ("Ember monthly electricity data", "https://ember-energy.org/data/monthly-electricity-data/") for f in EMBER},
+    CAP_COMPLETE: CAP_COMPLETE_SRC,
 }
 # The grid operator Ember compiles each country from (named on Ember-fed charts)
 OPERATORS = {"Argentina": "CAMMESA", "Bolivia": "CNDC", "Brazil": "ONS", "Chile": "Coordinador Eléctrico Nacional",
@@ -332,6 +375,17 @@ def south_america_capacity(data_dir, cfg=None):
     last month every monthly-source country has; a country with no workbook is listed, not estimated."""
     import add_charts as ac
     cfg = cfg or sys.modules[__name__]   # the North America master passes itself
+    cc = getattr(cfg, "CAP_COMPLETE", None)
+    if cc and os.path.exists(os.path.join(data_dir, cc)):   # the gap-free monthly workbook: its total sheet is already summed
+        try:
+            d = ac.by_date(ac.read(os.path.join(data_dir, cc), cfg.CAP_COMPLETE_TOTAL), "date")
+            d = d[d.index >= "2021-01-01"]
+            g = ac.capacity_groups(pd.DataFrame({f: d.get(f"{f}_MW") for f in ac.CAPACITY_FUELS}, index=d.index)) / 1000.0
+            g.index.name = "date"
+            return g, [f"{len(cfg.CAP_COMPLETE_COUNTRIES)} countries (national monthly sources where available, official annual "
+                       f"interpolated or held, Ember yearly as labelled fallback; {g.index.min():%b/%y}-{g.index.max():%b/%y}; storage excluded)"]
+        except Exception as e:  # noqa: BLE001
+            print(f"complete capacity workbook not usable ({type(e).__name__}: {e}); using the country workbooks")
     frames, notes, monthly_last = {}, [], []
     for code, country, fname, _, _ in cfg.CAPACITY_DATASETS:
         path = os.path.join(data_dir, fname)
@@ -424,7 +478,7 @@ def collect(wb, datasets, data_dir, used, sources, skip=(), cfg=None):
             missing.append(f"{country} {short} ({fname})")
             continue
         try:
-            build = cfg.MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
+            build = cfg.MASTER_SPECS.get((fname, raw_sheet)) or cfg.MASTER_SPECS.get(fname) or add_charts.REGISTRY.get(fname) or (
                 add_charts.power_daily(f"{country} power generation by type")
                 if fname.endswith("_power_generation_daily.xlsx") else add_charts.generic)
             specs = build(path)
@@ -586,7 +640,8 @@ def main():
         print("South America generation total:", "; ".join(sa_notes))
     # Capacity: combined South America chart (GW) right after the combined generation chart, then each country
     cap_total, cap_notes = south_america_capacity(args.data_dir)
-    cap = collect(wb, [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
+    cap_complete = _complete_capacity(args.data_dir)
+    cap = collect(wb, CAP_COMPLETE_DS if cap_complete else [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
                   args.data_dir, used, sources)
     pos = 1 if not sa_total.empty else 0
     if not cap_total.empty:
@@ -596,12 +651,14 @@ def main():
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed:")
         for i, note in enumerate(cap_notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
-        src = ("Sum of the country capacity workbooks (ANEEL, CAMMESA, CNE, XM, COES, CNDC, ADME/MIEM, ...)", None)
-        power[0].insert(pos, (xlsx_charts.build_chart(ws, df, n_bars, "South America installed generation capacity",
+        cap_title = ("South & Central America and the Caribbean installed generating capacity" if cap_complete
+                     else "South America installed generation capacity")
+        src = CAP_COMPLETE_SRC if cap_complete else ("Sum of the country capacity workbooks (ANEEL, CAMMESA, CNE, XM, COES, CNDC, ADME/MIEM, ...)", None)
+        power[0].insert(pos, (xlsx_charts.build_chart(ws, df, n_bars, cap_title,
                                                       "GW installed", "stacked_bar", width=CHART_W, height=CHART_H,
                                                       gridlines=False, inner=xlsx_charts.DASHBOARD_INNER), src))
         missing = [n.split(":", 1)[1].split("(")[0].strip() for n in cap_notes if n.startswith("NOT INCLUDED")]
-        power[1].insert(pos, ("South America", "South America installed generation capacity" +
+        power[1].insert(pos, ("South America", cap_title + (" (monthly, see Basis)" if cap_complete else "") +
                               (f" (missing: {', '.join(missing)})" if missing else ""),
                               df.index.max().strftime("%b/%y"), ws.title, *src))
         pos += 1
@@ -619,8 +676,9 @@ def main():
             gen_frames[country] = build(path)[0]["df"]
     cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
         wb, used, sheet_name, gen_frames,
-        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, CHART_W, CHART_H,
-        "Country generation (dashboard series) / installed capacity workbooks", "South America")
+        ({n: (os.path.join(args.data_dir, CAP_COMPLETE), n) for _, n in CAP_COMPLETE_COUNTRIES} if cap_complete
+         else {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}), CHART_W, CHART_H,
+        "Country generation (dashboard series) / " + (CAP_CF_NOTE if cap_complete else "installed capacity workbooks"), "South America")
     if cf_chart:   # right after the capacity charts
         power[0].insert(pos + len(cap[0]), cf_chart)
         power[1].insert(pos + len(cap[1]), cf_row)
