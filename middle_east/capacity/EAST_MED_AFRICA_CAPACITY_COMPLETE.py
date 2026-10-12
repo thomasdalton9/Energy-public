@@ -435,13 +435,23 @@ def generation_frames(data_dir, region):
 CHART_GROUPS = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Other"]
 
 
+def _groups(d):
+    """Fuel columns (MW) -> GW frame for a stacked chart: all-zero fuels dropped, and when more than 8 series remain (the chart palette
+    folds the surplus into a column named 'Other', which would overwrite a real 'Other') Bioenergy is added into Other explicitly."""
+    g = pd.DataFrame({f: d.get(f"{f}_MW") for f in CHART_GROUPS}, index=d.index) / 1000.0
+    g = g.loc[:, (g.fillna(0) != 0).any(axis=0)]
+    if g.shape[1] > 8 and "Bioenergy" in g:
+        g["Other"] = g.pop("Bioenergy") + (g["Other"] if "Other" in g else 0.0)
+    return g
+
+
 def chart_specs(path):
     import add_charts
     names = pd.ExcelFile(path).sheet_names
     tot = next(n for n in names if n.endswith(" total"))
     specs = []
     eu = add_charts.by_date(add_charts.read(path, tot), "date")
-    g = pd.DataFrame({f: eu.get(f"{f}_MW") for f in CHART_GROUPS}, index=eu.index) / 1000.0
+    g = _groups(eu)
     specs.append(add_charts.spec(tot, g, f"{tot[:-6]} installed capacity, complete monthly series (official annual where reachable, Ember fallback elsewhere)",
                                  "GW installed", "stacked_bar"))
     cbm = add_charts.by_date(add_charts.read(path, "Coverage by month"), "date")
@@ -451,8 +461,7 @@ def chart_specs(path):
         if n in ("Units", "Basis", "Breaks", "Tried", "Coverage", "Coverage by month", tot) or n.endswith(" flags") or n.startswith("Chart"):
             continue
         d = add_charts.by_date(add_charts.read(path, n), "date")
-        gg = pd.DataFrame({f: d.get(f"{f}_MW") for f in CHART_GROUPS}, index=d.index) / 1000.0
-        gg = gg.dropna(how="all", axis=1)
+        gg = _groups(d)
         if gg.empty:
             continue
         specs.append(add_charts.spec(n, gg, f"{n} installed capacity, complete monthly series", "GW installed", "stacked_bar"))
