@@ -114,9 +114,12 @@ def water_year(spec, path):
     wy = [c for c in table.columns if str(c).startswith("WY ")]
     for c, col, lw in zip(wy, ("#2A78D6", "#0B3A66"), (1.4, 2.2)):
         ax.plot(x, table[c], color=col, linewidth=lw, label=str(c))
+    if "1991-2020 normal" in table.columns:
+        ax.plot(x, table["1991-2020 normal"], color="#C8501E", linestyle=(0, (4, 2)), linewidth=1.5, label="1991-2020 normal")
     ticks = [i for i, d in enumerate(table["Day"]) if str(d).startswith("01-")]
     ax.set_xticks(ticks, [pd.Timestamp(f"2001-{str(table['Day'][i])[3:]}-01").strftime("%b") for i in ticks])
-    _style(ax, spec["title"] + " (water year Oct-Sep)", spec["units"])
+    sm = meta.get("season_start_month", 10)
+    _style(ax, spec["title"] + (" (water year Oct-Sep)" if sm == 10 else f" (season from {pd.Timestamp(2001, sm, 1):%b})"), spec["units"])
     ax.legend(fontsize=8, frameon=False, ncol=4, loc="upper left", bbox_to_anchor=(0, -0.08))
     fig.tight_layout()
     fig.savefig(path, dpi=110)

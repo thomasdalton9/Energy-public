@@ -1,0 +1,15 @@
+{
+  "europe": {
+    "title": "Europe",
+    "cities": "cities_europe.csv",
+    "countries": "countries_europe.csv",
+    "season_start_month": 10,
+    "aggregates": {"EUROPE": "Europe total (EU27 + UK)"},
+    "charts": {
+      "cumulative_hdd": ["EUROPE", "DE", "IT", "GB", "NL", "FR", "ES", "PL", "TR"],
+      "monthly_cdd": ["ES", "IT", "GR", "TR"],
+      "anomaly_hdd": ["EUROPE", "DE", "IT", "GB", "NL", "FR", "ES", "PL", "TR"]
+    },
+    "source_line": "NASA POWER daily T2M (MERRA-2), 4 population-weighted cities per country; populations: Eurostat Urban Audit (urb_cpop1), GISCO LAU and national statistics offices (Cities sheet)"
+  }
+}
