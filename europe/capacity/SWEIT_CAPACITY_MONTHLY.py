@@ -454,8 +454,106 @@ def run_fr(out_dir):
 
 
 # ------------------------------------------------------------------------------------------------ Spain
+ES_URL = "https://apidatos.ree.es/es/datos/generacion/potencia-instalada-generacion"
+ES_MAP = {"Hidráulica": "Hydro_MW", "Nuclear": "Nuclear_MW", "Carbón": "Coal_MW", "Ciclo combinado": "Combined_cycle_MW",
+          "Turbina de gas": "Gas_turbine_MW", "Fuel + Gas": "FuelGas_MW", "Motores diésel": "Diesel_engines_MW", "Turbina de vapor": "Steam_turbine_MW",
+          "Hidroeólica": "Hydrowind_MW", "Eólica": "Wind_MW", "Solar fotovoltaica": "Solar_PV_MW", "Solar térmica": "Solar_thermal_MW",
+          "Otras renovables": "Other_renewables_MW", "Cogeneración": "Cogeneration_MW", "Residuos no renovables": "Waste_nonrenewable_MW",
+          "Residuos renovables": "Waste_renewable_MW", "Potencia instalada total": "Total_REE_MW"}
+
+
+def es_get(a, b, trunc="month"):
+    r = fetch(ES_URL, params={"start_date": f"{a}T00:00", "end_date": f"{b}T23:59", "time_trunc": trunc}, headers={"Accept": "application/json"})
+    j = r.json()
+    if "included" not in j:
+        raise RuntimeError(f"REData {a}..{b}: {str(j)[:200]}")
+    out = {}
+    for it in j["included"]:
+        col = ES_MAP.get(it["attributes"].get("title"))
+        if col is None:
+            print(f"  unmapped REData series {it['attributes'].get('title')!r}")
+            continue
+        for v in it["attributes"].get("values", []):
+            out.setdefault(pd.Timestamp(v["datetime"][:10]), {})[col] = v["value"]
+    return out, j["data"]["attributes"].get("last-update")
+
+
 def run_es(out_dir):
-    print("  Spain: not built yet")
+    path = os.path.join(out_dir, "spain_power_capacity_monthly.xlsx")
+    old = load_monthly(path)
+    last_period = None if old.empty else old.index.max() - pd.offsets.MonthBegin(1)   # last month label stored
+    today = pd.Timestamp(NOW.year, NOW.month, 1)
+    years = list(range(2021, NOW.year + 1)) if last_period is None else list(range(max(2021, last_period.year - 1), NOW.year + 1))
+    data, upd = {}, None
+    for y in years:
+        end = f"{y}-12-31"
+        if y == NOW.year:
+            end = (today + pd.offsets.MonthEnd(0)).strftime("%Y-%m-%d")
+        try:
+            d, upd = es_get(f"{y}-01-01", end)
+        except RuntimeError as e:
+            if y != NOW.year:
+                raise
+            print(f"  {e}; retrying up to the previous month")
+            d, upd = es_get(f"{y}-01-01", (today - pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
+        data.update(d)
+    if old.empty or FIRST_ROW not in old.index:
+        d, upd = es_get("2020-12-01", "2020-12-31")
+        data.update(d)
+    df = pd.DataFrame.from_dict(data, orient="index").sort_index()
+    df.index = df.index + pd.offsets.MonthBegin(1)      # the month's value is the stock at its end: row = 1st of the next month
+    df.index.name = "date"
+    df = df[df["Total_REE_MW"].notna()]
+    new = pd.DataFrame(index=df.index)
+    new["Hydro_MW"] = df["Hydro_MW"]
+    new["Gas_MW"] = df[["Combined_cycle_MW", "Gas_turbine_MW"]].sum(axis=1, min_count=1)
+    new["Wind_MW"] = df["Wind_MW"]
+    new["Solar_MW"] = df[["Solar_PV_MW", "Solar_thermal_MW"]].sum(axis=1, min_count=1)
+    new["Coal_MW"] = df["Coal_MW"]
+    new["Nuclear_MW"] = df["Nuclear_MW"]
+    new["Oil_MW"] = df[["Diesel_engines_MW", "Steam_turbine_MW", "FuelGas_MW"]].sum(axis=1, min_count=1)
+    new["Bioenergy_MW"] = df[["Other_renewables_MW", "Waste_renewable_MW"]].sum(axis=1, min_count=1)
+    new["Other_MW"] = df[["Cogeneration_MW", "Waste_nonrenewable_MW", "Hydrowind_MW"]].sum(axis=1, min_count=1)
+    new["PumpedStorage_MW"] = np.nan
+    new["Storage_MW"] = np.nan
+    new = standardise(new, STD)
+    extra = df[["Solar_PV_MW", "Solar_thermal_MW", "Combined_cycle_MW", "Cogeneration_MW", "Total_REE_MW"]].round(1)
+    new = pd.concat([new, extra], axis=1)
+    monthly = merge_rows(old, new)
+    monthly = monthly[monthly.index >= FIRST_ROW]
+    # year-end semantics check: REData's own yearly value against the December monthly value
+    yr = []
+    for y in range(2021, NOW.year):
+        try:
+            d, _ = es_get(f"{y}-01-01", f"{y}-12-31", "year")
+        except Exception as e:  # noqa: BLE001
+            print(f"  yearly check {y}: {e}")
+            continue
+        for k, v in d.items():
+            r = pd.Timestamp(y + 1, 1, 1)
+            for col in ("Total_REE_MW", "Wind_MW", "Solar_PV_MW", "Hydro_MW"):
+                if col in v and r in monthly.index and col in monthly:
+                    yr.append({"date": r, "series": col, "REData_year_value_MW": round(v[col], 1), "REData_December_month_MW": round(float(monthly.at[r, col]), 1),
+                               "difference_MW": round(v[col] - float(monthly.at[r, col]), 1)})
+    chk_y = pd.DataFrame(yr).set_index("date") if yr else pd.DataFrame()
+    chk = entsoe_check(out_dir, "spain", monthly, {"Hydro_MW": "Hydro_MW", "Gas_MW": "Gas_MW", "Wind_MW": "Wind_MW", "Solar_MW": "Solar_MW", "Coal_MW": "Coal_MW",
+                                                  "Nuclear_MW": "Nuclear_MW", "Oil_MW": "Oil_MW", "Bioenergy_MW": "Bioenergy_MW", "Total_MW": "Total_MW"})
+    notes = ["Spain - monthly installed generation capacity by technology, MW, national electricity system (peninsular + non-peninsular), from Red Electrica's REData API.",
+             "",
+             "Source", "Red Electrica de Espana (the TSO) REData API, widget generacion/potencia-instalada-generacion ('Estructura de potencia instalada'): " + ES_URL + "?start_date=..&end_date=..&time_trunc=month (the earlier name generacion/potencia-instalada answers HTTP 500). Free, no key.",
+             "Row dated 1 Mar = capacity at the end of February (REData labels each value with its month; the sheet Check_REData_year shows that REData's yearly value equals the December monthly value, i.e. the monthly value is the stock at the end of the month).",
+             "", "Mapping and limits",
+             "Hydro_MW = 'Hidraulica' (pumped storage, 3.3 GW, is NOT in this widget: PumpedStorage_MW is blank; REE reports it annually). Gas_MW = combined cycle + gas turbines; Coal_MW = coal; Oil_MW = diesel engines + steam turbines + fuel/gas (the non-peninsular thermal units); Solar_MW = photovoltaic + solar thermal (REE's photovoltaic includes self-consumption, so it exceeds ENTSO-E's A68 solar); Bioenergy_MW = 'otras renovables' (biogas, biomass, marine, geothermal) + renewable waste; Other_MW = cogeneration (mostly gas, kept separate in Cogeneration_MW) + non-renewable waste + hydro-wind. Total_MW = REE's 'Potencia instalada total' (excludes pumped storage).",
+             "A call with a range of more than about 13 months is refused (HTTP 400 'datos no disponibles'): the pull asks one calendar year at a time; the last two years are re-read every run (values are revised), earlier months are kept."]
+    sheets = {"Monthly": monthly}
+    if len(chk):
+        sheets["Check_ENTSOE"] = chk
+    if len(chk_y):
+        sheets["Check_REData_year"] = chk_y
+    sheets["Releases"] = releases_frame([("REData potencia-instalada-generacion", now_s(), f"last-update {upd}", "")])
+    write(path, sheets, notes, ["Source", "Mapping and limits"])
+    print(f"Spain: {len(monthly)} months {monthly.index.min().date()} - {monthly.index.max().date()} (REData last-update {upd})")
+    return monthly
 
 
 # ------------------------------------------------------------------------------------------------ Portugal
