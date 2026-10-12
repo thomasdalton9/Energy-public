@@ -1,0 +1,142 @@
+RANGE0 206 bytes 0-0/3232259365 Mon, 12 Oct 2026 01:31:32 GMT
+### Katalog (id: value [category])
+500:Vorübergehend[Stilllegungsart]; 501:Endgültig[Stilllegungsart]; 517:Organisation (Unternehmen, Personengesellschaft, juristische Person, Behörde, Verband)[Personenart]; 518:Natürliche Person oder Organisation mit Personenbezug (z. B. Eheleute, Erbengemeinschaft, GbR mit Personenbezug)[Personenart]; 520:Gasverbrauchsanlage[Anlagenart]; 521:Gas[BrennstoffTechnologieNetzersatz]; 522:Diesel[BrennstoffTechnologieNetzersatz]; 523:Batterie[BrennstoffTechnologieNetzersatz]; 524:Batterie[StromspeicherOhneWasserkraft]; 525:Druckluft[StromspeicherOhneWasserkraft]; 526:Schwungrad[StromspeicherOhneWasserkraft]; 529:Kondensationsmaschine-Gegendruckmaschine[TechnologieVerbrennungsanlagenMitGas]; 530:Entnahmekondensationsmaschine[TechnologieVerbrennungsanlagenMitGas]; 531:Gasturbinen ohne Abhitzekessel[TechnologieVerbrennungsanlagenMitGas]; 532:Gasturbinen mit Abhitzekessel[TechnologieVerbrennungsanlagenMitGas]; 533:Gasturbinen mit nachgeschalteter Dampfturbine[TechnologieVerbrennungsanlagenMitGas]; 534:Verbrennungsmotor[TechnologieVerbrennungsanlagenMitGas]; 535:Brennstoffzelle[TechnologieVerbrennungsanlagenMitGas]; 536:Stirlingmotor[TechnologieVerbrennungsanlagenMitGas]; 537:Dampfmotor[TechnologieVerbrennungsanlagenMitGas]; 538:ORC-Anlage[TechnologieVerbrennungsanlagenMitGas]; 539:Konsensationsmaschinen[TechnologieVerbrennungsanlagenMitGas]; 542:Verbrennungsmotor[TechnologieVerbrennungsanlagen]; 543:Brennstoffzelle[TechnologieVerbrennungsanlagen]; 544:Stirlingmotor[TechnologieVerbrennungsanlagen]; 545:Dampfmotor[TechnologieVerbrennungsanlagen]; 546:ORC (Organic Rankine Cycle)-Anlage[TechnologieVerbrennungsanlagen]; 548:Nicht biogener Müll[Brennstoff]; 549:Biogener Müll[Brennstoff]; 550:Braunkohle[Brennstoff]; 551:Deponiegas[Brennstoff]; 552:Erdgas[Brennstoff]; 553:Geothermie[Brennstoff]; 554:Grubengas[Brennstoff]; 555:Klärgas[Brennstoff]; 556:Mehrere Energieträger (nicht erneuerbar)[Brennstoff]; 557:Mineralölprodukte[Brennstoff]; 558:Solare Strahlungsenergie[Brennstoff]; 559:Sonstige[Brennstoff]; 685:durch Netzbetreiber[Fernsteuerbarkeit]; 686:durch Direktvermarkter[Fernsteuerbarkeit]; 687:durch Dritte[Fernsteuerbarkeit]; 688:Volleinspeisung[Einspeisungsart]; 689:Teileinspeisung (einschließlich Eigenverbrauch)[Einspeisungsart]; 691:Horizontalläufer[Windanlagentechnologie]; 692:Vertikalläufer[Windanlagentechnologie]; 693:AC gekoppeltes System[Systemkopplung]; 694:DC gekoppeltes System[Systemkopplung]; 695:Nord[Solarausrichtung]; 696:Nord-Ost[Solarausrichtung]; 697:Ost[Solarausrichtung]; 698:Süd-Ost[Solarausrichtung]; 699:Süd[Solarausrichtung]; 700:Süd-West[Solarausrichtung]; 701:West[Solarausrichtung]; 702:Nord-West[Solarausrichtung]; 703:nachgeführt[Solarausrichtung]; 704:Ost-West[Solarausrichtung]; 709:Konversionsfläche[SolarFlächenMerkmale]; 710:Randstreifen längs von Autobahnen oder Schienenwegen[SolarFlächenMerkmale]; 711:Fläche wird landwirtschaftlich genutzt[SolarFlächenMerkmale]; 712:Versiegelte Fläche[SolarFlächenMerkmale]; 713:Haushalt[SolarNutzungsbereich]; 714:Gewerbe, Handel und Dienstleistungen[SolarNutzungsbereich]; 715:Industrie[SolarNutzungsbereich]; 716:Landwirtschaft[SolarNutzungsbereich]; 717:Öffentliches Gebäude[SolarNutzungsbereich]; 718:Sonstige[SolarNutzungsbereich]; 719:Flüssige Biomasse[Biomassart]; 720:Feste Biomasse[Biomassart]; 721:Gasförmige Biomasse[Biomassart]; 722:Vor Ort verstromt[Verstromungsart]; 723:Biomethan[Verstromungsart]; 724:Flusskraftwerk[Zuflussart]; 725:Restwasserkraftwerk[Zuflussart]; 726:Ausleitungskraftwerk[Zuflussart]; 727:Lithium-Batterie[Batterietechnologie]; 728:Blei-Batterie[Batterietechnologie]; 729:Redox-Flow-Batterie[Batterietechnologie]; 730:Hochtemperaturbatterie[Batterietechnologie]; 731:Nickel-Cadmium- / Nickel-Metallhydridbatterie[Batterietechnologie]; 732:Sonstige Batterie[Batterietechnologie]; 733:Flughafen[Einsatzort]; 734:Krankenhaus[Einsatzort]; 2400:Sonstige[Einsatzort]; 2403:Geothermie[Energieträger (GSGK)]; 2404:Solarthermie[Energieträger (GSGK)]; 2405:Klärschlamm[Energieträger (GSGK)]; 2406:Grubengas[Energieträger (GSGK)]; 2407:Steinkohle[Energieträger (Verbrennung)]; 2408:Braunkohle[Energieträger (Verbrennung)]; 2409:Mineralölprodukte[Energieträger (Verbrennung)]; 2410:Erdgas[Energieträger (Verbrennung)]; 2411:andere Gase[Energieträger (Verbrennung)]; 2412:nicht biogener Abfall[Energieträger (Verbrennung)]; 2413:Wärme[Energieträger (Verbrennung)]; 2414:Feste biogene Stoffe und Abfälle (ohne Holz)[Feste Biomasse]; 2415:Altholz, Gebrauchtholz, Holz(sperr)müll[Feste Biomasse]; 2416:Tier- und Blutmehl[Feste Biomasse]; 2417:Brennholz[Feste Biomasse]; 2418:Brennlauge, Schwarzlauge, Sulfitablauge[Feste Biomasse]; 2419:Feste biogene Stoffe[Feste Biomasse]; 2420:Holz[Feste Biomasse]; 2421:Wald-Holzhackschnitzel, Wald-Scheitholz, -Kronenholz[Feste Biomasse]; 2422:Holzreste (z.B. aus Schreinereien, auch Spanholz)[Feste Biomasse]; 2423:Holzspäne, Sägemehl[Feste Biomasse]; 2424:Rinde und Landschaftspflegeholz[Feste Biomasse]; 2425:Holz-Pellets, Holz-Briketts[Feste Biomasse]; 2426:Rauchspan[Feste Biomasse]; 2427:Restholz[Feste Biomasse]; 2428:Rinde[Feste Biomasse]; 2429:Schleifstaub, biogen[Feste Biomasse]; 2430:Schwarzlauge[Feste Biomasse]; 2431:Stroh, Strohpellets[Feste Biomasse]; 2432:Sulfitablauge[Feste Biomasse]; 2433:Tierfett[Feste Biomasse]; 2434:Tiermehl[Feste Biomasse]; 2435:Warmbrennstoffe (biogener Gewerbeabfall)[Feste Biomasse]; 2436:Flüssige biogene Stoffe und Abfälle[Flüssige Biomasse]; 2437:Biodiesel[Flüssige Biomasse]; 2438:Biomethanol[Flüssige Biomasse]; 2439:Flüssige biogene Stoffe[Flüssige Biomasse]; 2440:Harzöl[Flüssige Biomasse]; 2441:Iso-Hexan[Flüssige Biomasse]; 2442:Palmöl u.a. Pflanzenöle[Flüssige Biomasse]; 2443:Pflanzenöl[Flüssige Biomasse]; 2444:Terpentin[Flüssige Biomasse]; 2445:Biogas[Gasförmige Biomasse]; 2446:Biomethan (Bioerdgas)[Gasförmige Biomasse]; 2447:Deponiegas[Gasförmige Biomasse]; 2448:Klärgas[Gasförmige Biomasse]; 2456:Kohlenwertstoffe aus Steinkohle[Verbrennung Steinkohle]; 2457:Steinkohlen[Verbrennung Steinkohle]; 2458:Steinkohlenbriketts[Verbrennung Steinkohle]; 2459:Steinkohlenkoks[Verbrennung Steinkohle]; 2460:Braunkohlenbriketts[Verbrennung Braunkohle]; 2461:Braunkohlenkoks[Verbrennung Braunkohle]; 2462:Hartbraunkohlen[Verbrennung Braunkohle]; 2463:Rohbraunkohlen[Verbrennung Braunkohle]; 2464:Staub- und Trockenkohle[Verbrennung Braunkohle]; 2465:Wirbelschichtkohle[Verbrennung Braunkohle]; 2466:Dieselkraftstoff[Verbrennung Mineralölprodukte]; 2467:Heizöl, leicht[Verbrennung Mineralölprodukte]; 2468:Heizöl, schwer[Verbrennung Mineralölprodukte]; 2469:Flüssiggas[Verbrennung Mineralölprodukte]; 2470:Petrolkoks[Verbrennung Mineralölprodukte]; 2471:Raffineriegas[Verbrennung Mineralölprodukte]; 2472:Andere Mineralölprodukte[Verbrennung Mineralölprodukte]; 2473:Erdgas, Erdölgas[Verbrennung Erdgas]; 2474:Grubengas[Verbrennung andere Gase]; 2475:Hochofengas, Konvertergas[Verbrennung andere Gase]; 2476:Kokereigas[Verbrennung andere Gase]; 2477:Andere Gase[Verbrennung andere Gase]; 2478:Sonstige hergestellte Gase[Verbrennung andere Gase]; 2479:Industrieabfall[Verbrennung nicht biogener Abfall]; 2480:Abfall (Hausmüll, Siedl.abf.)[Verbrennung nicht biogener Abfall]; 2481:Dampf (zum Beispiel Prozesswärme)[Verbrennung Wärme]; 2482:Dampf (fremdbezogen)[Verbrennung Wärme]; 2483:Wärme[Verbrennung Wärme]; 2484:Sonstige Solaranlage[Art der Solaranlage]; 2485:Geothermie[EnergieträgerArt]; 2486:Verbrennung[EnergieträgerArt]; 2487:Biomasse[EnergieträgerArt]; 2488:Kernenergie[EnergieträgerArt]; 2489:Solare Strahlungsenergie[EnergieträgerArt]; 2490:Speicher[EnergieträgerArt]; 2491:Wind[EnergieträgerArt]; 2492:Wasser[EnergieträgerArt]; 2493:Biomasse[Energieträger (Biomasse)]; 2494:Kernenergie[Energieträger (Kernenergie)]; 2495:Solare Strahlungsenergie[Energieträger (Solare Strahlungsenergie)]; 2496:Speicher[Energieträger (Speicher)]; 2497:Wind[Energieträger (Wind)]; 2498:Wasser[Energieträger (Wasser)]; 2511:Aktiv[Tätigkeitsstatus]; 2512:Inaktiv[Tätigkeitsstatus]; 2513:Tätigkeitsende[Grund der Löschung]; 2514:Fehlerhafte Registrierung[Grund der Löschung]
+category names: {'1': 'Energieträger', '4': 'Betriebsstatus', '21': 'Solaranlage Nachgeführt', '22': 'Solaranlaege Anlagentyp', '28': 'BrennstoffTechnologieNetzersatz', '29': 'StromspeicherOhneWasserkraft', '30': 'TechnologieVerbrennungsanlagenMitGas', '31': 'TechnologieVerbrennungsanlagen', '32': 'Brennstoff', '33': 'Solarneigungswinkel', '34': 'Solarausrichtung', '40': 'ErtüchtigungsmaßnahmeWasserkraft', '41': 'FesteBiomasseEinsatzstoffe', '42': 'FluessigeBiomasseEinsatzstoffe', '43': 'GasfoermigeBiomasseEinsatzstoffe', '56': 'SolarFlächenMerkmale', '57': 'SolarNutzungsbereich', '60': 'BrennstoffBiomasse', '76': 'SolarLeistungsbegrenzung', '78': 'NetzersatzTechnologie', '79': 'NetzersatzBetriebsart', '80': 'TechnologieGasErzeugung', '81': 'SonstigeBrennstoff', '82': 'Art der Solaranlage', '83': 'SonstigeTechnologie', '88': 'Art der Wasserkraftanlage', '103': 'TechnologieKernkraft', '104': 'TechnologiePumpspeicher', '106': 'BrennstoffLage', '132': 'Energieträger (GSGK)', '133': 'Energieträger (Verbrennung)', '134': 'Feste Biomasse', '135': 'Flüssige Biomasse', '136': 'Gasförmige Biomasse', '145': 'EnergieträgerArt', '146': 'Energieträger (Biomasse)', '147': 'Energieträger (Kernenergie)', '148': 'Energieträger (Solare Strahlungsenergie)', '149': 'Energieträger (Speicher)', '150': 'Energieträger (Wind)', '151': 'Energieträger (Wasser)', '165': 'SystemStatus Speicher', '187': 'Verbrennung Wasserstoff', '201': 'Technologie (Flugwind)', '203': 'Solaranlagen-Kategorie'}
+### Elia
+ods031 months with data: 56 [(None, 7135), (None, 14400), (None, 14880)] ... [(None, 14880), (None, 14400), (None, 5240)]
+ods031 missing months: ['2020-09', '2020-10', '2020-11', '2020-12', '2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06', '2021-07', '2021-08', '2021-09', '2021-10', '2021-11', '2021-12', '2022-01', '2022-02', '2022-03', '2022-04', '2022-05', '2022-06', '2022-07', '2022-08', '2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12', '2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06', '2024-07', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10']
+ods032 months with data: 74 [(None, 112), (None, 41664), (None, 40320)] ... [(None, 41664), (None, 40320), (None, 14672)]
+ods032 missing months: ['2020-09', '2020-10', '2020-11', '2020-12', '2021-01', '2021-02', '2021-03', '2021-04', '2021-05', '2021-06', '2021-07', '2021-08', '2021-09', '2021-10', '2021-11', '2021-12', '2022-01', '2022-02', '2022-03', '2022-04', '2022-05', '2022-06', '2022-07', '2022-08', '2022-09', '2022-10', '2022-11', '2022-12', '2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06', '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12', '2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06', '2024-07', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10']
+ods179 2024-05-31 [('Biofuels', 1, 205.0), ('Natural Gas', 54, 5683.1), ('Nuclear', 6, 3929.0), ('Other', 19, 697.8), ('Other Fossil Fuels', 10, 167.0), ('Solar', 1, 99.0), ('Water', 15, 1322.1), ('Wind Offshore', 10, 2260.5), ('Wind Onshore', 13, 338.79999999999995)]
+ods179 2024-06-30 [('Biofuels', 1, 205.0), ('Natural Gas', 54, 5683.1), ('Nuclear', 6, 3929.0), ('Other', 19, 697.8), ('Other Fossil Fuels', 10, 167.0), ('Solar', 1, 99.0), ('Water', 15, 1322.1), ('Wind Offshore', 10, 2260.5), ('Wind Onshore', 13, 338.8)]
+ods179 2025-12-31 [('Biofuels', 1, 205.0), ('Energy Storage', 10, 443.6), ('Natural Gas', 52, 7057.82), ('Nuclear', 5, 3463.0), ('Other', 12, 553.6), ('Other Fossil Fuels', 9, 149.0), ('Solar', 4, 141.22), ('Water', 15, 1322.1), ('Wind Offshore', 10, 2262.1), ('Wind Onshore', 15, 352.6)]
+ods179 2026-09-30 [('Biofuels', 1, 205.0), ('Energy Storage', 18, 828.1500000000001), ('Natural Gas', 53, 7053.32), ('Nuclear', 2, 2056.0), ('Other', 12, 555.6), ('Other Fossil Fuels', 9, 149.0), ('Solar', 7, 160.245), ('Water', 15, 1322.1), ('Wind Offshore', 10, 2262.1), ('Wind Onshore', 16, 364.4)]
+ods179 first dates [('2024-05-21T22:00:00+00:00', 126), ('2024-05-22T22:00:00+00:00', 128), ('2024-05-23T22:00:00+00:00', 128), ('2024-05-24T22:00:00+00:00', 128), ('2024-05-25T22:00:00+00:00', 128), ('2024-05-26T22:00:00+00:00', 128), ('2024-05-27T22:00:00+00:00', 128), ('2024-05-28T22:00:00+00:00', 128), ('2024-05-29T22:00:00+00:00', 129), ('2024-05-30T22:00:00+00:00', 129), ('2024-05-31T22:00:00+00:00', 129), ('2024-06-01T22:00:00+00:00', 129)]
+ods036 [('2021-01-01', 'LF', 182), ('2021-01-01', 'NG', 5324), ('2021-01-01', 'NU', 5943), ('2021-01-01', 'Other', 923), ('2021-01-01', 'WA', 1386), ('2021-01-01', 'WI', 2541), ('2022-01-01', 'LF', 182), ('2022-01-01', 'NG', 5333), ('2022-01-01', 'NU', 5943), ('2022-01-01', 'Other', 919), ('2022-01-01', 'WA', 1386), ('2022-01-01', 'WI', 2541), ('2023-01-01', 'LF', 182), ('2023-01-01', 'NG', 5512), ('2023-01-01', 'NU', 4937), ('2023-01-01', 'Other', 1094), ('2023-01-01', 'WA', 1395), ('2023-01-01', 'WI', 2568)]
+### CBS
+86266NED Energiedragers [('T001027', 'Totaal'), ('E006620', 'Totaal niet-hernieuwbare brandstoffen'), ('E006461', 'Steenkool'), ('E006560', 'Aardgas'), ('E007260', 'Overige niet-hernieuwbare brandstoffen'), ('E006565', 'Totaal hernieuwbare energie'), ('E006566', 'Biomassa'), ('E006587', 'Waterkracht'), ('E006589', 'Zonne-energie'), ('E006588', 'Windenergie'), ('E006622', 'Totaal overige energiedragers'), ('E006602', 'Kernenergie'), ('E006607', 'Elektriciteit\xa0(batterijen)'), ('E007262', 'Stoom- en gasexpansie-energie')]
+82610NED BronTechniek [('T001028', 'Totaal hernieuwbare energiebronnen'), ('E006587', 'Waterkracht'), ('E006588', 'Totaal windenergie'), ('E006637', 'Windenergie op land'), ('E006638', 'Windenergie op zee'), ('E006590', 'Zonnestroom'), ('E006566', 'Totaal biomassa'), ('E006661', 'Afvalverbrandingsinstallaties'), ('E006662', 'Bij- en meestoken biomassa in centrales'), ('E006670', 'Biomassaketels bedrijven, WKK'), ('E006583', 'Totaal biogas'), ('E006673', 'Biogas uit stortplaatsen'), ('E006674', 'Biogas rioolwaterzuiveringsinstallaties'), ('E006675', 'Biogas, co-vergisting van mest'), ('E006586', 'Overig biogas')]
+86266NED CentraleDecentraleProductie [('E007022', 'Totaal'), ('E007042', 'Centraal'), ('E007043', 'Decentraal')]
+86266NED rows 84
+    E007022 T001027 2021JJ00 47139.0
+    E007022 T001027 2025JJ00 62719.0
+    E007022 E006620 2021JJ00 None
+    E007022 E006620 2025JJ00 None
+    E007022 E006461 2021JJ00 3431.0
+    E007022 E006461 2025JJ00 3431.0
+    E007022 E006560 2021JJ00 17402.0
+    E007022 E006560 2025JJ00 17394.0
+    E007022 E007260 2021JJ00 None
+    E007022 E007260 2025JJ00 None
+    E007022 E006565 2021JJ00 None
+    E007022 E006565 2025JJ00 None
+    E007022 E006566 2021JJ00 None
+    E007022 E006566 2025JJ00 None
+    E007022 E006587 2021JJ00 38.0
+    E007022 E006587 2025JJ00 38.0
+    E007022 E006589 2021JJ00 14823.0
+    E007022 E006589 2025JJ00 25901.0
+    E007022 E006588 2021JJ00 7646.0
+    E007022 E006588 2025JJ00 11782.0
+    E007022 E006622 2021JJ00 919.0
+    E007022 E006622 2025JJ00 1269.0
+    E007022 E006602 2021JJ00 512.0
+    E007022 E006602 2025JJ00 512.0
+    E007022 E006607 2021JJ00 None
+    E007022 E006607 2025JJ00 350.0
+    E007022 E007262 2021JJ00 407.0
+    E007022 E007262 2025JJ00 407.0
+    E007042 T001027 2021JJ00 17244.0
+    E007042 T001027 2025JJ00 17341.0
+    E007042 E006620 2021JJ00 None
+    E007042 E006620 2025JJ00 None
+    E007042 E006461 2021JJ00 3431.0
+    E007042 E006461 2025JJ00 3431.0
+    E007042 E006560 2021JJ00 11413.0
+    E007042 E006560 2025JJ00 11510.0
+    E007042 E007260 2021JJ00 None
+    E007042 E007260 2025JJ00 None
+    E007042 E006565 2021JJ00 None
+    E007042 E006565 2025JJ00 None
+    E007042 E006566 2021JJ00 None
+    E007042 E006566 2025JJ00 None
+    E007042 E006587 2021JJ00 None
+    E007042 E006587 2025JJ00 None
+    E007042 E006589 2021JJ00 None
+    E007042 E006589 2025JJ00 None
+    E007042 E006588 2021JJ00 None
+    E007042 E006588 2025JJ00 None
+    E007042 E006622 2021JJ00 851.0
+    E007042 E006622 2025JJ00 851.0
+    E007042 E006602 2021JJ00 512.0
+    E007042 E006602 2025JJ00 512.0
+    E007042 E006607 2021JJ00 None
+    E007042 E006607 2025JJ00 None
+    E007042 E007262 2021JJ00 339.0
+    E007042 E007262 2025JJ00 339.0
+    E007043 T001027 2021JJ00 29895.0
+    E007043 T001027 2025JJ00 45378.0
+    E007043 E006620 2021JJ00 None
+    E007043 E006620 2025JJ00 None
+    E007043 E006461 2021JJ00 None
+    E007043 E006461 2025JJ00 None
+    E007043 E006560 2021JJ00 5989.0
+    E007043 E006560 2025JJ00 5884.0
+    E007043 E007260 2021JJ00 None
+    E007043 E007260 2025JJ00 None
+    E007043 E006565 2021JJ00 None
+    E007043 E006565 2025JJ00 None
+    E007043 E006566 2021JJ00 None
+    E007043 E006566 2025JJ00 None
+    E007043 E006587 2021JJ00 38.0
+    E007043 E006587 2025JJ00 38.0
+    E007043 E006589 2021JJ00 14823.0
+    E007043 E006589 2025JJ00 25901.0
+    E007043 E006588 2021JJ00 7646.0
+    E007043 E006588 2025JJ00 11782.0
+    E007043 E006622 2021JJ00 68.0
+    E007043 E006622 2025JJ00 418.0
+    E007043 E006602 2021JJ00 None
+    E007043 E006602 2025JJ00 None
+    E007043 E006607 2021JJ00 None
+    E007043 E006607 2025JJ00 350.0
+    E007043 E007262 2021JJ00 68.0
+    E007043 E007262 2025JJ00 68.0
+   82610 T001028 2021JJ00 None
+   82610 T001028 2025JJ00 None
+   82610 E006587 2021JJ00 38
+   82610 E006587 2025JJ00 38
+   82610 E006588 2021JJ00 7646
+   82610 E006588 2025JJ00 11782
+   82610 E006637 2021JJ00 5186
+   82610 E006637 2025JJ00 7035
+   82610 E006638 2021JJ00 2460
+   82610 E006638 2025JJ00 4748
+   82610 E006590 2021JJ00 14823
+   82610 E006590 2025JJ00 25901
+   82610 E006566 2021JJ00 None
+   82610 E006566 2025JJ00 None
+   82610 E006661 2021JJ00 788
+   82610 E006661 2025JJ00 788
+   82610 E006662 2021JJ00 None
+   82610 E006662 2025JJ00 None
+   82610 E006670 2021JJ00 None
+   82610 E006670 2025JJ00 None
+   82610 E006583 2021JJ00 180
+   82610 E006583 2025JJ00 187
+   82610 E006673 2021JJ00 12
+   82610 E006673 2025JJ00 13
+   82610 E006674 2021JJ00 39
+   82610 E006674 2025JJ00 40
+   82610 E006675 2021JJ00 93
+   82610 E006675 2025JJ00 101
+   82610 E006586 2021JJ00 37
+   82610 E006586 2025JJ00 33
+### Energy-Charts DE monthly
+01.2021 {'Biomass': 8.683, 'Wind offshore': 7.874, 'Wind onshore': 54.492, 'Solar DC': 54.949, 'Solar AC': 51.324, 'Battery storage (power)': 1.62, 'Battery storage (capacity)': 2.424}
+01.2022 {'Biomass': 8.804, 'Wind offshore': 7.874, 'Wind onshore': 56.124, 'Solar DC': 60.772, 'Solar AC': 56.569, 'Battery storage (power)': 2.501, 'Battery storage (capacity)': 3.855}
+01.2023 {'Biomass': 8.85, 'Wind offshore': 8.254, 'Wind onshore': 58.064, 'Solar DC': 68.862, 'Solar AC': 63.882, 'Battery storage (power)': 4.503, 'Battery storage (capacity)': 6.804}
+01.2024 {'Biomass': 8.897, 'Wind offshore': 8.473, 'Wind onshore': 61.131, 'Solar DC': 84.93, 'Solar AC': 78.406, 'Battery storage (power)': 8.762, 'Battery storage (capacity)': 13.025}
+01.2025 {'Biomass': 9.004, 'Wind offshore': 9.215, 'Wind onshore': 63.781, 'Solar DC': 102.373, 'Solar AC': 93.906, 'Battery storage (power)': 12.958, 'Battery storage (capacity)': 19.116}
+01.2026 {'Biomass': 9.047, 'Wind offshore': 9.904, 'Wind onshore': 68.368, 'Solar DC': 119.358, 'Solar AC': 108.938, 'Battery storage (power)': 17.329, 'Battery storage (capacity)': 26.284}
+10.2026 {'Biomass': 9.068, 'Wind offshore': 11.434, 'Wind onshore': 71.274, 'Solar DC': 130.361, 'Solar AC': 118.632, 'Battery storage (power)': 21.45, 'Battery storage (capacity)': 33.563}
