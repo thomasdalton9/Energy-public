@@ -238,7 +238,7 @@ KNOWN_LNG = {
     "Vlorë": "Albania", "Vasiliko": "Cyprus", "Paldiski": "Estonia", "Tallinn (Muuga)": "Estonia", "Argo": "Greece",
     "Dioriga Gas": "Greece", "Thessaloniki": "Greece", "Thrace LNG": "Greece", "Shannon LNG": "Ireland", "Mag Mell": "Ireland",
     "Porto Empedocle": "Italy", "Skulte": "Latvia", "Black Sea LNG": "Romania", "Hamina": "Finland", "Kaliningrad": "Russia",
-    "Milford Haven": "United Kingdom",
+   
 }
 KNOWN_ORDER = sorted(KNOWN_LNG, key=lambda s: -len(s))   # longest first ('Wilhelmshaven 2' before 'Wilhelmshaven')
 
@@ -262,6 +262,10 @@ def parse_lng_cards(words):
             band_txt2 = " ".join(w[4] for w in box)
             name = next((k for k in KNOWN_ORDER if re.search(r"(?<!\w)" + re.escape(k) + r"(?!\w)", band_txt2)), None)
         txt = " ".join(w[4] for w in box)
+        if name == "Gdańsk" and planned_col:
+            name = "Gdańsk 2"
+        if name == "Wilhelmshaven" and ax >= 2300 and ay < 1250:
+            name = "Wilhelmshaven 1"
         m = re.search(r"Start-up\s*:\s*(\d{4}|-)", txt)
         start = int(m.group(1)) if m and m.group(1).isdigit() else None
         if name is None:
@@ -384,9 +388,6 @@ def parse_tyndp(content):
 
 # ------------------------------------------------------------------ curated operator / authority documents
 DOCS = {
-    "det_terminals": ("https://energy-terminal.de/en/terminals", "Deutsche Energy Terminal", "Terminals page",
-                      {"whv1": r"4\.8 billion cubic metres per year \(as of 2026\)", "br": r"4\.0 billion cubic metres per year \(as of 2026\)",
-                       "whv2": r"4\.3 billion cubic meters per year \(as of 2026\)"}),
     "det_stade": ("https://energy-terminal.de/en/terminals/stade", "Deutsche Energy Terminal", "Stade terminal page",
                   {"cap17": r"feed-in capacity of up to 1\.7 billion cubic meters through the end of 2026", "docked": r"Energos Force has docked in Stade"}),
     "det_diary": ("https://energy-terminal.de/en/construction-diary-stade", "Deutsche Energy Terminal", "Construction diary Stade",
@@ -414,10 +415,9 @@ DOCS = {
     "gastrade_cap": ("https://www.gastrade.gr/further-increase-in-maximum-regasification-capacity/", "Gastrade", "Announcement 21 Oct 2025",
                      {"step": r"increased to 136\.2 GWh/day, up from 90\.8 GWh/day"}),
     "gastrade_proj": ("https://www.gastrade.gr/the-project/", "Gastrade", "Alexandroupolis INGS / Thrace INGS", {"cap": r"5\.5 bcm Annual Capacity", "thrace": r"Thrace Independent Natural Gas System"}),
-    "tap_news": ("https://www.tap-ag.com/news", "Trans Adriatic Pipeline", "TAP news list",
-                 {"fullop": r"reconfirm full operability of the first level of capacity expansion, triggered during the 2021 Market Test, with 1\.2 billion cubic meters per year"}),
     "tap_first": ("https://www.tap-ag.com/news/news-stories/tap-triggers-the-first-level-of-capacity-expansion", "Trans Adriatic Pipeline",
-                  "News 30 Jan 2023: first level of capacity expansion", {"dbl": r"doubling the pipeline.s capacity by 2027", "bcm": r"1\.2 billion cubic meters \(bcm\) of incremental capacity per year"}),
+                  "News 30 Jan 2023: first level of capacity expansion", {"fullop": r"reconfirm full operability of the first level of capacity expansion, triggered during the 2021 Market Test, with 1\.2 billion cubic meters per year",
+                   "dbl": r"doubling the pipeline.s capacity by 2027", "bcm": r"1\.2 billion cubic meters \(bcm\) of incremental capacity per year"}),
     "omv_neptun": ("https://www.omvpetrom.com/en/media/latest-news/2026/neptun-deep-advances-towards-first-gas-expected-in-the-first-half-of-2027",
                    "OMV Petrom", "Press release 28 Sep 2026: Neptun Deep", {"h1": r"first gas production to enter the National Transmission System \(NTS\) in the first half of 2027",
                                                                              "bcm": r"around 8 bcm \(100%\)"}),
@@ -614,6 +614,10 @@ def main():
 
     # ---- 5. terminal master table
     terms = build_terminals(alsi_f, alsi_now, lng_cards, lng_ver)
+    if ok("lng_hr", "exp"):   # operator: 6.1 bcm/y since Nov 2025; ALSI dtrs / map lag
+        for t in terms:
+            if t["key"] == "krk":
+                t["ceiling_bcfd"], t["ceiling_basis"] = bcmy_to_bcfd(6.1), "operator (LNG Hrvatska: maximum capacity 6.1 bcm/y since Nov 2025)"
 
     # ---- 6. Projects rows
     rows = []
@@ -678,13 +682,17 @@ def group_of(country):
     return "EU27" if country in EU27 else GROUP.get(country, "other Europe")
 
 
+MAPKEY = {mn: k for rx, k, mn in ALSI_KEY}
+
+
 def map_key(name, vessel, status):
-    k = canon(name)
-    if name in ("Brunsbüttel", "Stade"):
-        return k + (" fsru" if vessel == "FSRU" else " onshore")
+    if name == "Brunsbüttel":
+        return "brunsbuettel fsru" if vessel == "FSRU" else "brunsbuettel onshore"
+    if name == "Stade":
+        return "stade fsru" if vessel == "FSRU" else "stade onshore"
     if name == "Wilhelmshaven":
         return "wilhelmshaven onshore"
-    return k
+    return MAPKEY.get(name) or canon(name)
 
 
 def build_terminals(alsi_f, alsi_now, cards, ver):
@@ -693,7 +701,7 @@ def build_terminals(alsi_f, alsi_now, cards, ver):
     for f in alsi_f:
         if f["end"] and f["end"] < "2025-01-01":
             continue
-        if f["name"].startswith("PRIOR"):
+        if f["name"].startswith("PRIOR") or "virtual" in f["name"].lower():
             continue
         hit = next((k for rx, k, mn in ALSI_KEY if re.search(rx, f["name"], re.I)), None)
         if hit is None:
@@ -702,6 +710,7 @@ def build_terminals(alsi_f, alsi_now, cards, ver):
         d = alsi_now.get(f["fac_eic"] + "|" + f["name"]) or {}
         dtrs = num(d.get("dtrs"))
         start = f["start"] if f["start"] and f["start"] < "2999" else None
+        not_started = bool(f["start"] and f["start"] >= "2999")
         end = f["end"] if f["end"] and f["end"] < "2999" else None
         # Panigaglia has two ALSI entries (old and new reporting entity): keep the open one
         if hit in terms and terms[hit].get("end") is None and end is not None:
@@ -709,7 +718,7 @@ def build_terminals(alsi_f, alsi_now, cards, ver):
         terms[hit] = {"key": hit, "terminal": re.sub(r"\s*\(.*\)$", "", f["name"]).replace(" LNG Terminal", "").replace(" Terminal", ""),
                       "full_name": f["name"], "country": f["country"], "operator": f["company"], "type": {"FSRU": "FSRU", "LAND": "onshore regas"}.get(f["ftype"], f["ftype"]),
                       "alsi_start": start, "alsi_end": end, "alsi_dtrs_gwhd": dtrs, "alsi_sendout_gwhd": num(d.get("sendOut")),
-                      "alsi_gas_day": d.get("gasDayStart"), "has_alsi": True}
+                      "alsi_gas_day": d.get("gasDayStart"), "has_alsi": True, "not_started": not_started}
     if cards is not None and len(cards):
         for _, c in cards.iterrows():
             k = map_key(c["name"], c["vessel"], c["status"])
@@ -779,7 +788,7 @@ def regas_rows(terms, cards, ver, ok, tyndp):
     for t in terms:
         if not t["has_alsi"]:
             continue
-        if t["alsi_start"] and t["alsi_start"] >= "2025-01-01":
+        if t["alsi_start"] and t["alsi_start"] >= "2025-01-01" and t["key"] != "panigaglia":   # Panigaglia: new ALSI reporting entity, not a commissioning
             add(t["country"], f"{t['terminal']} ({t['type']}) - started", t["operator"], t["type"], t["alsi_dtrs_gwhd"], "GWh/d (ALSI dtrs)",
                 t["alsi_bcfd"], "COMMISSIONED_RECENT", t["alsi_start"][:7], "SOURCED_MONTH", "GIE ALSI", "ALSI facility start date and declared total reference send-out",
                 "https://alsi.gie.eu/api/about", TODAY_S, "SOURCED", "Start date from the ALSI facility list; capacity = current dtrs.")
@@ -860,6 +869,13 @@ def regas_rows(terms, cards, ver, ok, tyndp):
             add(m["country"], f"{r['facility']} - {m['name']} [{r['code']}]", m["promoter"], "regas expansion/terminal", float(r["bcm_y"]), "bcm/y", bcmy_to_bcfd(float(r["bcm_y"])), st,
                 str(int(yr)), "SOURCED_YEAR", "ENTSOG", "TYNDP 2024 Annex A - List of projects (LNG sheet; July 2024 edition)", TYNDP_PAGE, "2024-07-03", "SOURCED",
                 f"TYNDP maturity '{r['maturity']}'; phase '{r['phase']}'. Edition is two years old: dates may have moved (compare the GIE map lines above).")
+    # operator documents supersede the map line for the same project
+    if any(r["project"].startswith("Stade LNG Terminal 1") for r in R):
+        R = [r for r in R if not r["project"].startswith("Stade (FSRU)")]
+    if any(r["project"].startswith("Gdansk FSRU Terminal") for r in R):
+        R = [r for r in R if not (r["project"].startswith("Gdańsk (FSRU) - new terminal") and r["status"] == "UNDER_CONSTRUCTION")]
+    if any(r["project"].startswith("Krk LNG") for r in R):
+        R = [r for r in R if not r["project"].startswith("Krk Island: expansion")]
     return R
 
 
@@ -893,8 +909,8 @@ def pipeline_rows(tyndp, ok, path):
                      expected_online=str(int(r["year"])), online_date_basis="SOURCED_YEAR", source_publisher=pub, source_document=doc,
                      source_url=TYNDP_PAGE, as_of_date="2024-07-03", evidence="SOURCED", notes=note))
     # TAP first expansion level: done (operator)
-    if ok("tap_news", "fullop") and ok("tap_first", "bcm"):
-        p1 = mkpub("tap_news")
+    if ok("tap_first", "fullop") and ok("tap_first", "bcm"):
+        p1 = mkpub("tap_first")
         R.append(row(country="Greece", asset_type="gas_pipeline", project="TAP first level of capacity expansion (1.2 bcm/y) - full operability reconfirmed", operator="Trans Adriatic Pipeline",
                      fuel_or_type="pipeline", capacity_value=1.2, capacity_unit="bcm/y", capacity_bcfd=bcmy_to_bcfd(1.2), status="COMMISSIONED_RECENT", expected_online="2026-01",
                      online_date_basis="SOURCED_YEAR", source_publisher=p1[0], source_document=p1[1], source_url=p1[2], as_of_date=TODAY_S, evidence="SOURCED",
@@ -1028,10 +1044,10 @@ def upstream_rows(ok, a):
 
 def raw_data_only(proj):
     """Owner rule (Oct 2026): raw data only - physical projects / facilities with a sourced capacity AND a sourced date.
-    Drops targets (TYNDP 'Less-Advanced' = TARGET), undated or capacity-less rows and scenario figures; every drop is listed on 'Tried'."""
-    ok_ = proj["capacity_value"].notna() & proj["expected_online"].notna() & (proj["status"] != "TARGET")
+    Drops undated or capacity-less rows. TARGET rows (TYNDP 'Less-Advanced') stay, labelled, and are never summed with project rows; every drop is listed on 'Tried'."""
+    ok_ = (proj["capacity_value"].notna() | (proj["asset_type"] == "gas_field")) & proj["expected_online"].notna()
     for _, r in proj[~ok_].iterrows():
-        why = "target / early-stage project (not raw data)" if r["status"] == "TARGET" else ("no sourced date" if pd.isna(r["expected_online"]) else "no sourced capacity")
+        why = ("no sourced date" if pd.isna(r["expected_online"]) else "no sourced capacity")
         tried("row excluded (raw data only)", r["source_url"], f"{r['country']}: {str(r['project'])[:90]} - {why}")
     return proj[ok_].reset_index(drop=True)
 
@@ -1119,7 +1135,7 @@ def regas_timeline(terms, proj):
             end = pd.Timestamp(t["alsi_end"]) if t["alsi_end"] else None
             if end is not None and end < START:
                 continue
-            if s0 is not None and s0 > pd.Timestamp(TODAY_S) and not (status in ("OPERATIONAL",)):
+            if t.get("not_started") or (s0 is not None and s0 > pd.Timestamp(TODAY_S) and not (status in ("OPERATIONAL",))):
                 # ALSI lists it, not started: use the map date
                 yr = t.get("map_start")
                 st = pd.Timestamp(f"{int(yr)}-01-01") if yr and not pd.isna(yr) else None
@@ -1137,8 +1153,7 @@ def regas_timeline(terms, proj):
                     addser(t["terminal"], sc, t["group"], t["country"], START, None, base)
             elif status in ("UNDER_CONSTRUCTION", "PLANNED") and yr and not pd.isna(yr):
                 st = pd.Timestamp(f"{int(yr)}-01-01")
-                override = proj[(proj["project"].str.contains(t["map_name"] if t.get("map_name") else "@@", na=False, regex=False)) & (proj["source_publisher"].isin(["GAZ-SYSTEM"]))]
-                if len(override) and "gdansk" in norm(t["terminal"]):
+                if t.get("map_name") == "Gdańsk" and proj["project"].str.startswith("Gdansk FSRU Terminal").any():
                     st = pd.Timestamp("2028-01-01")
                 addser(t["terminal"], "committed" if status == "UNDER_CONSTRUCTION" else "planned", t["group"], t["country"], st, None, base)
     # expansions / step changes from Projects
@@ -1424,7 +1439,7 @@ def add_all_charts(wb, reg_month, proj, stor_sheet, a):
     pl = proj[(proj["asset_type"] == "gas_pipeline") & proj["capacity_bcfd"].notna() & proj["expected_online"].notna()].copy()
     if len(pl):
         pl["year"] = pl["expected_online"].astype(str).str[:4].astype(int)
-        pl = pl[(pl["year"] >= 2025) & (pl["year"] <= 2035)]
+        pl = pl[(pl["year"] >= 2025) & (pl["year"] <= 2035) & (pl["status"] != "TARGET")]   # TARGET rows are never stacked with projects
         pl["kind"] = np.where(pl["capacity_bcfd"] < 0, "removed (incl. H2 repurposing)", pl["status"].map({"FID": "FID", "PLANNED": "planned", "TARGET": "target", "COMMISSIONED_RECENT": "commissioned"}).fillna("planned"))
         pv = pl.pivot_table(index="year", columns="kind", values="capacity_bcfd", aggfunc="sum").fillna(0)
         order = [c for c in ("commissioned", "FID", "planned", "target", "removed (incl. H2 repurposing)") if c in pv.columns]
