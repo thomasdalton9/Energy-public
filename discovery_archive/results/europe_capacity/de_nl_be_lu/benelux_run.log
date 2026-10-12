@@ -1,16 +1,81 @@
 Belgium: stored 0 months
 wind/solar months with data ...
-Traceback (most recent call last):
-  File "/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py", line 370, in main
-    fn(a.out_dir)
-  File "/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py", line 183, in belgium
-    day, vals = elia_monitored("ods031", ts, ["offshoreonshore", "region", "gridconnectiontype"])
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py", line 150, in elia_monitored
-    day = max(r["d"] for r in res)
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: '>' not supported between instances of 'NoneType' and 'NoneType'
-be FAILED: TypeError("'>' not supported between instances of 'NoneType' and 'NoneType'")
+/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py:260: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  rel = pd.DataFrame([{"Run (UTC)": pd.Timestamp.utcnow().strftime("%Y-%m-%d %H:%M"), "Months stored": int(monthly.shape[0]), "Last month with wind": str(max(wind_m).date()) if wind_m else "",
+Belgium wrote output/Data and Chart Outputs/belgium_power_capacity_monthly.xlsx rows 78 last 2026-09-01
+         1 Jan           Fuel  Ours (MW)  ENTSO-E A68 (MW)  Difference (MW)  Difference (%)
+0   2021-01-01          Hydro        NaN               176              NaN             NaN
+1   2021-01-01            Gas     5324.0              7282          -1958.0           -26.9
+2   2021-01-01           Wind     4671.0              4883           -212.0            -4.3
+3   2021-01-01          Solar     4788.0              4788              0.0            -0.0
+4   2021-01-01           Coal        NaN                 0              NaN             NaN
+5   2021-01-01        Nuclear     5943.0              5943              0.0             0.0
+6   2021-01-01            Oil      182.0               275            -93.0           -34.0
+7   2021-01-01      Bioenergy        NaN               672              NaN             NaN
+8   2021-01-01          Other      923.0               381            542.0           142.4
+9   2021-01-01          Total    21830.0             24399          -2569.0           -10.5
+10  2021-01-01  PumpedStorage     1386.0              1308             78.0             6.0
+11  2021-01-01        Storage        NaN                 0              NaN             NaN
+12  2022-01-01          Hydro        NaN               185              NaN             NaN
+13  2022-01-01            Gas     5333.0              6819          -1486.0           -21.8
+14  2022-01-01           Wind     4883.0              5041           -158.0            -3.1
+15  2022-01-01          Solar     4788.0              4788              0.0            -0.0
+16  2022-01-01           Coal        NaN                 0              NaN             NaN
+17  2022-01-01        Nuclear     5943.0              5943              0.0             0.0
+18  2022-01-01            Oil      182.0               398           -216.0           -54.4
+19  2022-01-01      Bioenergy        NaN               700              NaN             NaN
+20  2022-01-01          Other      919.0               402            517.0           128.7
+21  2022-01-01          Total    22048.0             24276          -2228.0            -9.2
+22  2022-01-01  PumpedStorage     1386.0              1308             78.0             6.0
+23  2022-01-01        Storage        NaN                 0              NaN             NaN
+24  2023-01-01          Hydro        NaN               186              NaN             NaN
+25  2023-01-01            Gas     5512.0              6988          -1476.0           -21.1
+26  2023-01-01           Wind     5212.0              5315           -103.0            -1.9
+27  2023-01-01          Solar     6475.0              6475              0.0             0.0
+28  2023-01-01           Coal        NaN                 0              NaN             NaN
+29  2023-01-01        Nuclear     4937.0              4937              0.0             0.0
+30  2023-01-01            Oil      182.0               450           -268.0           -59.6
+31  2023-01-01      Bioenergy        NaN               730              NaN             NaN
+32  2023-01-01          Other     1094.0               411            682.0           166.1
+33  2023-01-01          Total    23411.0             25491          -2080.0            -8.2
+34  2023-01-01  PumpedStorage     1395.0              1308             87.0             6.6
+35  2023-01-01        Storage        NaN                 0              NaN             NaN
+36  2024-01-01          Hydro        NaN               186              NaN             NaN
+37  2024-01-01            Gas        NaN              6995              NaN             NaN
+38  2024-01-01           Wind     5290.0              5315            -26.0            -0.5
+39  2024-01-01          Solar     8789.0              8789              0.0            -0.0
+40  2024-01-01           Coal        NaN                 0              NaN             NaN
+41  2024-01-01        Nuclear        NaN              3929              NaN             NaN
+42  2024-01-01            Oil        NaN               452              NaN             NaN
+43  2024-01-01      Bioenergy        NaN               731              NaN             NaN
+44  2024-01-01          Other        NaN               411              NaN             NaN
+45  2024-01-01          Total    14078.0             26807         -12729.0           -47.5
+46  2024-01-01  PumpedStorage        NaN              1308              NaN             NaN
+47  2024-01-01        Storage        NaN                 0              NaN             NaN
+48  2025-01-01          Hydro        NaN               144              NaN             NaN
+49  2025-01-01            Gas     5330.0              8033          -2703.0           -33.6
+50  2025-01-01           Wind     5444.0              5439              5.0             0.1
+51  2025-01-01          Solar    10696.0             10696              0.0             0.0
+52  2025-01-01           Coal        NaN                 0              NaN             NaN
+53  2025-01-01        Nuclear     3929.0              3929              0.0             0.0
+54  2025-01-01            Oil        NaN               590              NaN             NaN
+55  2025-01-01      Bioenergy      205.0               731           -526.0           -72.0
+56  2025-01-01          Other      926.0               657            269.0            41.0
+57  2025-01-01          Total    26531.0             30220          -3689.0           -12.2
+58  2025-01-01  PumpedStorage     1322.0              1308             14.0             1.1
+59  2025-01-01        Storage        NaN               394              NaN             NaN
+60  2026-01-01          Hydro        NaN               127              NaN             NaN
+61  2026-01-01            Gas     7058.0              8402          -1344.0           -16.0
+62  2026-01-01           Wind     5838.0              5851            -13.0            -0.2
+63  2026-01-01          Solar    11764.0             11683             81.0             0.7
+64  2026-01-01           Coal        NaN                 0              NaN             NaN
+65  2026-01-01        Nuclear     3463.0              2056           1407.0            68.4
+66  2026-01-01            Oil        NaN               477              NaN             NaN
+67  2026-01-01      Bioenergy      205.0               846           -641.0           -75.8
+68  2026-01-01          Other      703.0              1088           -385.0           -35.4
+69  2026-01-01          Total    29030.0             30530          -1500.0            -4.9
+70  2026-01-01  PumpedStorage     1322.0              1310             12.0             0.9
+71  2026-01-01        Storage      444.0               862           -418.0           -48.5
 Netherlands wrote output/Data and Chart Outputs/netherlands_power_capacity_annual.xlsx 11
          1 Jan           Fuel  Ours (MW)  ENTSO-E A68 (MW)  Difference (MW)  Difference (%)  Ours, end of same year (MW)  Difference same year (%)
 0   2021-01-01          Hydro       37.0                38             -1.0            -2.6                         38.0                       0.0

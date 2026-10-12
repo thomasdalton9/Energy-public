@@ -133,6 +133,18 @@ def elia(ds, **p):
     return r.json()["results"]
 
 
+def with_day(res, known):
+    """Elia returns an aliased date_format() under the expression text, not the alias: rename that key to 'd'."""
+    out = []
+    for r in res:
+        k = next((k for k in r if k not in known and k != "d"), None)
+        r = dict(r)
+        if "d" not in r or r["d"] is None:
+            r["d"] = r.pop(k) if k else None
+        out.append(r)
+    return out
+
+
 def month_end_window(ts):
     last = (ts + pd.offsets.MonthEnd(0)).normalize()
     return last, last + pd.Timedelta(days=1)
@@ -145,6 +157,7 @@ def elia_monitored(ds, month, group):
     sel = "date_format(datetime,'yyyy-MM-dd') as d, " + ", ".join(group) + ", max(monitoredcapacity) as mx"
     res = elia(ds, select=sel, where=f"datetime>='{lo:%Y-%m-%d}T00:00:00Z' and datetime<'{last + pd.Timedelta(days=1):%Y-%m-%d}T00:00:00Z'",
                group_by="date_format(datetime,'yyyy-MM-dd'), " + ", ".join(group), limit=100)
+    res = with_day(res, set(group) | {"mx"})
     if not res:
         return None, None
     day = max(r["d"] for r in res)
@@ -211,6 +224,7 @@ def belgium(outdir):
         res = elia("ods179", select="date_format(date,'yyyy-MM-dd') as d, fueltypepublication, sum(technicalpmax) as s",
                    where=f"date>='{(last - pd.Timedelta(days=2)):%Y-%m-%d}T00:00:00Z' and date<'{last + pd.Timedelta(days=2):%Y-%m-%d}T00:00:00Z'",
                    group_by="date_format(date,'yyyy-MM-dd'), fueltypepublication", limit=100)
+        res = with_day(res, {"fueltypepublication", "s"})
         if not res:
             continue
         # Elia's date stamp is 22:00Z/23:00Z the evening before the local day: the day label shifts by one
