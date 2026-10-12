@@ -1,0 +1,237 @@
+=== EPDK
+items 0 [] []
+no item 2026 Yılı Elektrik Piyasası Temmuz
+no item 2025 Yılı Elektrik Piyasası Ocak
+no item 2023 Yılı Elektrik Piyasası Ocak
+no item 2021 Yılı Elektrik Piyasası Ocak
+no item 2019 Yılı Elektrik Piyasası Ocak
+=== ADMIE file types
+   15minAverageFRCE | 15min Average FRCE | MONTH | Monthly
+   AdhocISPResults | ISP Results | DAY | Daily
+   AwardBalancingCapacity | Activated Energy &amp; Prices | WEEK | 
+   AwardBalancingCapacityProduct | Activated Energy &amp; Prices | WEEK | 
+   BalancingCapacityProduct | Balancing Capacity per Product | WEEK | 
+   DayAheadRESForecast | RES Forecast | DAY | Twice a day and on demand
+   DayAheadSchedulingUnitAvailabilities | Unit Availabilities | DAY | Twice a day and on demand
+   Devnor | North Interconnections Deviation Schedules | MONTH | Monthly
+   DispatchSchedulingResults | Dispatch Schedule | DAY | Daily
+   DryRunISPAOE | Activated Energy other than Balancing | WEEK | 
+   ExPostImbalancePricingResults | Dispatch Schedule | DAY | Three Times Per Month
+   HVCUSTCONS | HV Customer Consumption | MONTH | Monthly
+   IntraDayDispatchSchedulingResults | Intra Day Dispatch Schedule | DAY | Daily (on demand)
+   ISP1DayAheadRESForecast | ISP Forecast | DAY | 
+   ISP1ISPResults | ISP Results | DAY | Daily
+   ISP1UnitAvailabilities | Unit Availabilities | DAY | 
+   ISP2DayAheadRESForecast | ISP Forecast | DAY | 
+   ISP2ISPResults | ISP Results | DAY | Daily
+   ISP2UnitAvailabilities | Unit Availabilities | DAY | 
+   ISP3IntraDayRESForecast | ISP Forecast | DAY | 
+   ISP3ISPResults | ISP Results | DAY | Daily
+   ISP3UnitAvailabilities | Unit Availabilities | DAY | 
+   ISPCapacityOffers | ISP Offers | WEEK | Weekly
+   MonthlyLoadForecast | Load Forecast | 2 MONTHS | Monthly
+   MonthlyNTC | ΝTC | MONTH | Monthly
+   MonthlySIPResults | Monthly SIP Results | MONTH | 
+   RealTimeSCADARES | RES Injections | DAY | Daily
+   recovery_cost | Cost Recovery Transactions | MONTH | Monthly
+   ReservoirFillingRate | Reservoir Filling Rate | DAY | Daily
+   RESMV | Non certified MV RES Injections | DAY | Daily
+   RESMVLVPROD | certified MV, LV RES Injections | MONTH | Monthly
+   SYSBOUNDS | System Bounds Energy | MONTH | Monthly
+   SystemEstimationsCorrections | Meter Data Corrections | MONTH | Monthly
+   SystemRealizationSCADA | Unit Production and System Facts | DAY | Daily
+   UA_ANALYSIS | Detailed UΑ Results | MONTH | Monthly
+   UnitAvailabilities | Unit Availabilities | DAY | 
+   UnitProduction | Unit Production and System Facts | DAY | Three Times Per Month
+   UnitsMaintenanceSchedule | Unit Maintenace | YEAR | Yearly (on demand)
+   YearlyWaterUsageDeclaration | Water Usage Declaration | YEAR | Monthly
+ADMIE energy report pages 39
+=== SODO xlsx
+xlsx sheets ['1. 1. - 30. 9. 2022', '1. 1. - 31. 10. 2022 (objava)', '1. 1. - 30. 11. 2022 ', '1. 1. - 31. 12. 2022', '1. 1. - 28. 2. 2023', '1. 1. - 31. 12. 2022 (popr)', '1. 1. - 28. 2. 2023 (popr)', '1. 1. - 30. 4. 2023', '1. 1. - 31. 5. 2023', '1. 1. - 30. 6. 2023', '1. 1. - 31. 7. 2023', '1. 1. - 31. 8. 2023', '1. 1. - 30. 9. 2023', '1. 1. - 31. 10. 2023', '1. 1. - 30. 11. 2023', '1. 1. - 31. 12. 2023', '1. 1. - 31. 1. 2024', '1. 1. - 29. 2. 2024', '1. 1. - 31. 3. 2024', '1. 1. - 30. 4. 2024', '1. 1. - 30. 4. 2024_novo', '1. 1. - 31. 5. 2024', '1. 1. - 31. 7. 2024', '1. 1. - 31. 8. 2024', '1. 1. - 30. 9. 2024', '1. 1. - 31. 10. 2024', '1. 1. - 30. 11. 2024', '1. 1. - 31. 12. 2024', '1. 1. - 31. 1. 2025', '1. 1. - 28. 2. 2025', '1. 1. - 31. 3. 2025', '1. 1. - 31. 5. 2025', '1. 1. - 30. 6. 2025', '1. 1. - 31. 7. 2025', '1. 1. - 31. 8. 2025', '1. 1. - 30. 9. 2025', '1. 1. - 31. 10. 2025', '1. 1. - 30. 11. 2025', '1. 1. - 31. 12. 2025', '1. 1. - 31. 1. 2026', '1. 1. - 28.2. 2026', '1. 1. - 31. 3. 2026', '1. 1. - 30. 4. 2026', '1. 1. - 31. 5. 2026', '1. 1. - 30. 6. 2026', '1. 1. - 31. 7. 2026', '1. 1. - 31. 8. 2026 '] 189437
+  sheet 1. 1. - 30. 9. 2022 (23, 9)
+                                                                                                                             0                         1                                                                                          2                                                                          3                                                                                                                                                    4                                                                                                                                                                                              5                                                                                                      6                                                                                      7                                                                           8
+0   Stanje vlog izdanih soglasij za priključitev proizvodnih naprav za samooskrbo na distribucijsk sistemu električne energije                       NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN                                                                                                    NaN                                                                                    NaN                                                                         NaN
+1                                                                                                                          NaN                       NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                       
+                    0                         1     2     3                                                                                             4    5    6    7    8
+17  Elektro Ljubljana  1. 1. 2022 - 30. 9. 2022  2435  2215                                                                                           NaN  NaN  NaN  NaN  NaN
+18    Elektro Maribor  1. 1. 2022 - 30. 9. 2022  2802  2346                                                                                           NaN  NaN  NaN  NaN  NaN
+19  Elektro Primorska  1. 1. 2022 - 30. 9. 2022   738   681                                                                                           NaN  NaN  NaN  NaN  NaN
+20             Skupaj  1. 1. 2022 - 30. 9. 2022  9408  8752                                                                                           NaN  NaN  NaN  NaN  NaN
+21                NaN         
+  sheet 1. 1. - 31. 10. 2022 (objava) (24, 7)
+     0                                                                                                       1                          2                                                                                          3                                                                          4                                                                                                                                                    5                                                                                                                                                                                              6
+0  NaN                                                                                                     NaN                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN
+1  NaN  Soglasja za priključitev proizvodnih naprav za samooskrbo na distribucijski sistem električne energije                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN
+2  NaN                                                                                                     NaN                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                    
+     0                  1                          2      3     4                                                                                             5    6
+18 NaN  Elektro Ljubljana  1. 1. 2022 - 31. 10. 2022   2879  2562                                                                                           NaN  NaN
+19 NaN    Elektro Maribor  1. 1. 2022 - 31. 10. 2022   3140  2625                                                                                           NaN  NaN
+20 NaN  Elektro Primorska  1. 1. 2022 - 31. 10. 2022    836   781                                                                                           NaN  NaN
+21 NaN             Skupaj  1. 1. 2022 - 31. 10. 2022  10713  9947                                                                                           NaN  NaN
+22 NaN                NaN                        NaN    NaN   NaN          
+  sheet 1. 1. - 30. 11. 2022  (24, 7)
+     0                                                                                                       1                          2                                                                                          3                                                                          4                                                                                                                                                    5                                                                                                                                                                                              6
+0  NaN                                                                                                     NaN                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN
+1  NaN  Soglasja za priključitev proizvodnih naprav za samooskrbo na distribucijski sistem električne energije                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN
+2  NaN                                                                                                     NaN                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                    
+     0                  1                          2      3      4                                                                                             5    6
+18 NaN  Elektro Ljubljana  1. 1. 2022 - 30. 11. 2022   3731   3322                                                                                           NaN  NaN
+19 NaN    Elektro Maribor  1. 1. 2022 - 30. 11. 2022   3840   3213                                                                                           NaN  NaN
+20 NaN  Elektro Primorska  1. 1. 2022 - 30. 11. 2022   1119    997                                                                                           NaN  NaN
+21 NaN             Skupaj  1. 1. 2022 - 30. 11. 2022  13593  12567                                                                                           NaN  NaN
+22 NaN                NaN                        NaN    NaN    NaN    
+  sheet 1. 1. - 31. 12. 2022 (25, 7)
+     0                                                                                                       1                          2                                                                                          3                                                                          4                                                                                                                                                    5                                                                                                                                                                                              6
+0  NaN                                                                                                     NaN                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN
+1  NaN  Soglasja za priključitev proizvodnih naprav za samooskrbo na distribucijski sistem električne energije                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                                                                                            NaN
+2  NaN                                                                                                     NaN                        NaN                                                                                        NaN                                                                        NaN                                                                                                                                                  NaN                                                                                                                    
+     0                                                                                             1                          2      3      4    5    6
+19 NaN                                                                               Elektro Maribor  1. 1. 2022 - 31. 12. 2022   3840   3213  NaN  NaN
+20 NaN                                                                             Elektro Primorska  1. 1. 2022 - 31. 12. 2022   1119    997  NaN  NaN
+21 NaN                                                                                        Skupaj  1. 1. 2022 - 31. 12. 2022  13592  12567  NaN  NaN
+22 NaN                                                                                           NaN                        NaN    NaN    NaN  NaN  NaN
+23 NaN                                                                                           NaN                        NaN    NaN    Na
+=== Borzen hrefs
+['#ico-file-pdf', '/DesktopModules/EasyDNNAccessibilityModule/Assets/CSS/View/Options/optionsM478.css?cdv=138', '/DesktopModules/EasyDNNAccessibilityModule/Assets/CSS/View/accessibility.css?cdv=138', '/DesktopModules/EasyDNNNews/static/common/common.css?cdv=138', '/DesktopModules/EasyDNNNews/static/rateit/css/rateit.css?cdv=138', '/DesktopModules/EasyDNNnews/Templates/_default/_Borzen/_Borzen.css?cdv=138', '/Portals/0-System/dnn-css-variables.css?cdv=138', '/Portals/0/portal.css?cdv=138', '/Portals/_default/admin.css?cdv=138', '/Portals/_default/skins/borzen//Dist/skin.min.css?cdv=138', '/Portals/_default/skins/borzen/Plugins/EUCookie/eucookie-theme.css', '/Portals/_default/skins/borzen/Plugins/EUCookie/eucookie.min.css', '/en-us/support-for-electricity-production-support-scheme-/data-and-reports/data-and-reports-', '/en-us/support-for-electricity-production-support-scheme/data-and-reports/data-and-reports', 'https://borzen.si/Portals/0/Poročila CP/2026/2026-6M-CP-objava_ANG_Q2.pdf?ver=qJFb5ypJs2lO6dhITm83zg%3d%3d', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2013', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2014', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2015', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2016', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2017', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2018', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2019', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2020', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2021', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2022', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2025', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/11-2024', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2012', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2013', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2014', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2015', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2016', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2017', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2018', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2019', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2020', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2021', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2022', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2024', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2025', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2013', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2014', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2015', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2016', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2017', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2018', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2019', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2020', 'https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2021']
+2026, July 1 2026, May 1 2025 4 2025, December 1 2025, October 1 2025, July 1 2025, May 1 2024 4 2024, December 1 2024, November 1 <a cla
+=== TEIAS YTBS
+ERR https://ytbsbilgi.teias.gov.tr/ytbsbilgi/frm_istatistikler.jsf HTTPSConnectionPool(host='ytbsbilgi.teias.gov.tr', port=443) | Failed to perform, curl: (28) Connection timed out after 120
+ERR https://ytbsbilgi.teias.gov.tr/ytbsbilgi/frm_kurulu_guc_raporlari.jsf HTTPSConnectionPool(host='ytbsbilgi.teias.gov.tr', port=443) | Failed to perform, curl: (28) Connection timed out after 120
+ERR https://ytbsbilgi.teias.gov.tr/ytbsbilgi/ HTTPSConnectionPool(host='ytbsbilgi.teias.gov.tr', port=443) | Failed to perform, curl: (28) Connection timed out after 120
+=== Balkan report pages
+== https://www.ere.gov.al/sq/tregu-i-energjise/raporte-dhe-te-dhena-te-tregut-te-energjise-elektrike 200 41
+    Të dhënat e tregut të energjisë për 6 - mujorin e vitit 2026 -> https://www.ere.gov.al/images/files/2026/09/22/Të_dhënat_e_tregut_të_energjisë_6-_Mujor_2026.pdf
+    Të dhënat e tregut të energjisë për 4 - mujorin e vitit 2026 -> https://www.ere.gov.al/images/files/2026/06/Të_dhënat_e_tregut_të_energjisë_4-_Mujor_2026.pdf
+    Të dhënat e tregut të energjisë për vitin 2025 -> https://www.ere.gov.al/media/files/2026/03/31/Të_dhënat_e_tregut_të_energjisë_12-_Mujor_2025.pdf
+    Të dhënat e tregut të energjisë për 8- mujorin e vitit 2025 -> https://www.ere.gov.al/media/files/2025/10/20/Të_dhënat_e_tregut_të_energjisë_8-_Mujor_2025.pdf
+    Të dhënat e tregut të energjisë për 4- mujorin e vitit 2025 -> https://www.ere.gov.al/media/files/2025/06/05/Të_dhënat_e_tregut_të_energjisë_për_4-_mujorin_e_vitit_2025.pdf
+    Të dhënat e Tregut të energjisë për vitin 2024 -> https://www.ere.gov.al/media/files/2025/03/07/media/files/2025/02/17/PUBLIKIMI_12-_Mujor_2024.pdf
+    Të dhënat e tregut të energjisë për 10-mujorin e vitit 2024 -> https://www.ere.gov.al/media/files/2024/12/10/PUBLIKIMI_10-_Mujori_2024.pdf
+    Të dhënat e tregut të energjisë për 9-mujorin e vitit 2024 -> https://www.ere.gov.al/media/files/2024/10/30/media/files/2024/09/24/Publikimi_9-mujor_2024.pdf
+    Të dhënat e tregut të energjisë për 8-mujorin e vitit 2024 -> https://www.ere.gov.al/media/files/2024/09/30/Publikimi_8-_mujor_2024.pdf
+    Raport periodik mbi monitorimin e tregut të energjisë dhe ak -> https://www.ere.gov.al/media/files/2024/09/12/media/files/2024/09/04/Raport_periodik_mbi_monitorimin_e_tregut_të_energjisë_dhe_aktivitetin_e_të_licenc
+    Të dhënat e tregut të energjisë për 6-mujorin e vitit 2024 -> https://www.ere.gov.al/media/files/2024/07/29/Publikimi_6-mujor_2024.pdf
+    Të dhënat e tregut të energjisë për 4-mujorin e vitit 2024 -> https://www.ere.gov.al/media/files/2024/05/31/Publikimi_4-mujor_2024.pdf
+    Të dhënat e tregut të energjisë për vitin 2023 -> https://www.ere.gov.al/media/files/2024/02/15/PUBLIKIMI_VJETOR_2023pdf.pdf
+    Të dhënat e tregut të energjisë për 10-mujorin e vitit 2023 -> https://www.ere.gov.al/media/files/2023/12/18/PUBLIKIMI_2023_10_mujor.pdf
+    Te dhenat e tregut te energjise per 9-mujorin e vitit 2023 -> https://www.ere.gov.al/media/files/2023/10/31/PUBLIKIMI_2023_9-M.pdf
+    Te dhenat e tregut te energjise per 8-mujorin e vitit 2023 -> https://www.ere.gov.al/media/files/2023/10/11/PUBLIKIMI_8-_mujor_2023.pdf
+    Te dhenat e tregut te energjise per 6-mujorin e vitit 2023 -> https://www.ere.gov.al/media/files/2023/08/28/images/files/2023/08/PUBLIKIMI_6_mujor_2023.pdf
+    Te dhenat e tregut te energjise per 4-mujorin e vitit 2023 -> https://www.ere.gov.al/images/files/2023/06/06/PUBLIKIMI_4_mujor_2023.xlsx
+    Te dhenat e tregut te energjise per vitin 2022 -> https://www.ere.gov.al/images/files/2023/04/06/PUBLIKIMI_VJETOR_2022.xls
+    Te dhenat e tregut te energjise per 8-mujorin e vitit 2022 -> https://www.ere.gov.al/images/files/2022/10/12/PUBLIKIM_8-M_2022_001.pdf
+    Te dhenat e tregut te energjise per 6-mujorin e vitit 2022 -> https://www.ere.gov.al/images/files/2022/08/18/PUBLIKIM_6-M_2022_01.08.2022.pdf
+    Te dhenat e tregut te energjise per 4-mujorin e vitit 2022 -> https://www.ere.gov.al/images/files/2022/08/18/PUBLIKIM_4-M_2022.pdf
+    Te dhenat e tregut te energjise per vitin 2021 -> https://www.ere.gov.al/images/files/2022/02/18/ERE_PUBLIKIM_VITI_2021.pdf
+    Te dhenat e tregut te energjise per 9-mujorin e vitit 2021 -> https://www.ere.gov.al/images/files/2021/11/12/PUBLIKIM_9-M_2021.pdf
+    Te dhenat e tregut te energjise per 8-mujorin e vitit 2021  -> https://www.ere.gov.al/images/files/2021/09/28/PUBLIKIM_8-M_2021.pdf
+== https://www.mepso.com.mk/index.php/mk/doma/regulativa/izveshtai 200 40
+    Конечен извештај за ДЗР за 2016год. (13.03.2018) -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/DZR izvestaj za MEPSO ( 13.03.2018).pdf
+    Консолидиран финансиски извештај на независен ревизор за 201 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Konsolidiran izvestaj za 2016.pdf
+    Финансиски извештај и извештај на независен ревизор за 2016  -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Izvestaj za revizija za 2016 ( poseben).pdf
+    Финансиски извештај и извештај на независен ревизор за 2017  -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/MEPSO poseben_2017.pdf
+    Консолидиран финансиски извештај и извештај на независен рев -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/MEPSO_2018_konsolidiran.pdf
+    Финансиски извештај и извештај на независен ревизор за работ -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Mepso_poseben 2018.pdf
+    Извештај на независен ревизор за работењето на АД МЕПСО во 2 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Извештај на независна ревизија МЕПСО Посебен 2019_ FINAL CRM.pdf
+    Извештај на независен ревизор за работењето на АД МЕПСО во 2 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Извештај на независна ревизија Консолидиран МЕПСО2019.pdf
+    Извештај на независните ревизори за работењето на АД МЕПСО в -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Извештај на независните ревизори за работењето на АД МЕПСО во 2020 г( консолидиран).pdf
+    Извештај на независните ревизори за работењето на АД МЕПСО в -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Извештај на независните ревизори за работењето на АД МЕПСО во 2020 г.  (посебен).pdf
+    Годишен извештај за работата на АД МЕПСО за 2020 година -> https://www.mepso.com.mk/docs\izveshtai\godishen\GDI2020.pdf
+    Консолидиран годишен финансиски извештај за 2020 година -> https://www.mepso.com.mk/docs\izveshtai\godishen\Консолидиран годишен финансиски извештај за 2020 година.pdf
+    Годишен извештај за работа за 2021 година на АД МЕПСО -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Годишен извештај за работа за 2021 година на АД МЕПСО.pdf
+    Годишен извештај за работа за 2022 година на АД МЕПСО -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Годишен извештај за работа за 2022 година на АД МЕПСО).pdf
+    Годишен извештај за работа за 2023 година на АД МЕПСО -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Годишен извештај за работа за 2023 година на АД МЕПСО (Compressed).pdf
+    Годишен извештај за работа за 2024 година на АД МЕПСО -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Годишен извештај за работа за 2024 година на АД МЕПСО.pdf
+    Годишен извештај за работа за 2025 година на АД МЕПСО -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Годишен извештај за работа за 2025 година на АД МЕПСО.pdf
+    Годишен финансиски извештај за работењето на АД МЕПСО во 202 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Годишен финансиски извештај за работењето на АД МЕПСО во 2021 година.pdf
+    Консолидиран финансиски извештај на независни ревизори за 20 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Konsolidiran finansiski izvestaj 2021-revizori.pdf
+    Посебен финансиски извештај на независни ревизори за 2021 го -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Poseben finansiski izvestaj za 2021 -revizori.pdf
+    Одлука - распределба на добивка АД МЕПСО 2021 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Одлука - распределба на добивка АД МЕПСО 2021.pdf
+    Консолидиран финансиски извештај на независни ревизори за 20 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Konsolidiran fin.izv.od nezavisni revizori za 2022.pdf
+    Посебен финансиски извештај на независни ревизори за 2022 го -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/Poseben finansiski izvestaj na nezavisni revizori za 2022.pdf
+    Годишен финансиски извештај за работењето на АД МЕПСО во 202 -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/05-2592.PDF
+    Консолидиран финансиски извештај за 2023 год. -> https://www.mepso.com.mk/docs/regulativa-MEPSO/Izvestai/05-2593.PDF
+== https://www.mepso.com.mk/index.php/mk/podruznici/oeps/informacii-i-izveshtai 200 211
+    Информација за 07.10.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 07.10.2026 .pdf
+    Информација за 06.10.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 06.10.2026 .pdf
+    Информација за 05.10.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 05.10.2026 .pdf
+    Информација за 04.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 04.10.2026.pdf
+    Информација за 03.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 03.10.2026.pdf
+    Информација за 02.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 02.10.2026.pdf
+    Информација за 01.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 01.10.2026.pdf
+    Информација за 30.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 30.09.2026.pdf
+    Информација за 29.09.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 29.09.2026 .pdf
+    Информација за 28.09.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 28.09.2026 .pdf
+    Информација за 27.09.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 27.09.2026 .pdf
+    Информација за 26.09.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 26.09.2026 .pdf
+    Информација за 25.09.2026  -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 25.09.2026 .pdf
+    Информација за 24.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 24.09.2026.pdf
+    Информација за 23.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 23.09.2026.pdf
+    Информација за 22.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 22.09.2026.pdf
+    Информација за 21.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 21.09.2026.pdf
+    Информација за 20.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 20.09.2026.pdf
+    Информација за 19.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 19.09.2026.pdf
+    Информација за 18.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 18.09.2026.pdf
+    Биланс на ЕПС за јули 2026 година -> https://www.mepso.com.mk/docs\beps\Биланс за ЕПС за јули 2026.pdf
+     Биланс на ЕПС за јуни 2026 година -> https://www.mepso.com.mk/docs\beps\Биланс за ЕПС за јуни 2026.pdf
+     Биланс на ЕПС за мај 2026 година -> https://www.mepso.com.mk/docs\beps\Биланс за ЕПС за мај 2026.pdf
+     Биланс на ЕПС за април 2026 година -> https://www.mepso.com.mk/docs\beps\Биланс за ЕПС за април 2026.pdf
+     Биланс на ЕПС за март 2026 година -> https://www.mepso.com.mk/docs\beps\Биланс за ЕПС за март 2026.pdf
+== https://www.ero-ks.org/zrre/raportet-e-monitorimit 200 26
+     Raporti i ZRRE-së, lidhur me HC Lumbardhi 1  -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/Raporti%20i%20ZRRE-se%20lidhur%20me%20HC%20Lumbardhin_1_FINAL.PDF
+    Raport i monitorimit në lidhje me blerjet e energjisë elektr -> https://www.ero-ks.org/zrre/sites/default/files/2023-05/01.%20RAPORT%20I%20MONITORIMIT%20MBI%20PAJTUESHM%C3%8BRIN%C3%8B%20ME%20KUSHTET%20E%20LICENC%C3
+    Përgjigje në komentet e KOSTT ndaj Raportit fillestar -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/03.%20Pergjigje%20ne%20komentet%20e%20KOSTT%20ndaj%20Raportit%20fillestar.pdf
+    Njoftim_KOSTT -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/04.%20Njoftim_KOSTT.PDF
+    Pergjigje në komentet e KOSTT ndaj njoftimit -> https://www.ero-ks.org/zrre/sites/default/files/2023-05/06.%20Pergjigje%20ne%20komentet%20e%20KOSTT%20ndaj%20njoftimit.pdf
+    Raport i monitorimit të shit-blerjes së energjisë elektrike  -> https://www.ero-ks.org/zrre/sites/default/files/2023-05/01%20Raporti%20I%20monitorimit%20KEK.PDF
+    Përgjigje në komentet ndaj raportit fillestar te KEK -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/03%20Pergjigje%20ne%20komentet%20ndaj%20raportit%20fillestar%20te%20KEK_0.PDF
+    Njoftim KEK -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/04%20Njoftim%20KEK_0.PDF
+    Përgjigjet e ZRRE-së në KEK ndaj njoftimit -> https://www.ero-ks.org/zrre/sites/default/files/2023-05/06%20Pergjigjet%20e%20ZRRE%20ndaj%20komenteve%20te%20KEK%20ne%20Njoftim_Final.pdf
+    Raport i monitorimit në lidhje me blerjet e energjisë elektr -> https://www.ero-ks.org/zrre/sites/default/files/Publikimet/Monitorimet/RAPORT%20I%20MONITORIMIT%20MBI%20PAJTUESHM%C3%8BRIN%C3%8B%20ME%20KUSHTET%20E%20
+    Përgjigje ne komentet e KEDS dhe KESCO -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/02-Pergjigje%20ne%20komentet%20e%20KEDS%20dhe%20KESCO.PDF
+    Njoftim për KESCO -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/03-Njoftim%20%20per%20KESCO.PDF
+    Njoftim për KEDS -> https://www.ero-ks.org/zrre/sites/default/files/Monitorimi/04-Njoftim%20per%20KEDS.PDF
+    Raport monitorimi ndaj Operatorit tё Sistemit tё Shpërndarje -> https://www.ero-ks.org/zrre/sites/default/files/Publikimet/Monitorimet/Raporti%20i%20nderprerjeve%20nentor%20dhjetor%202021_OSSH_ZRRE%20(00000003).pdf
+    Raporti i monitorimit të NQ Termokos – Realizimet në sezonin -> https://www.ero-ks.org/zrre/sites/default/files/Publikimet/Vendimet/Monitorimi/Raporti%20i%20Monitorimit%20Termokos_27_08_2020.pdf
+    Raporti i Monitorimit lidhur me ofrimin e shërbimeve për kon -> http://ero-ks.org/2019/Raportet/Raporti_Monitorimi_ZRRE_2018_ofrimi_sh%C3%ABrbimeve_KEDS_KESCO.pdf
+    Monitorimi i Investimeve Kapitale të KOSTT dhe KEDS për viti -> http://ero-ks.org/2019/Raportet/Monitorimi%20i%20investimeve%20kapitale%20KOSTT%20dhe%20KEDS_Qershor%202019.pdf
+    Raport nga monitorimi i ndërprerjeve të Energjisë Elektrike  -> http://ero-ks.org/2019/Raportet/Raport%20nga%20monitorimi%20i%20nderprerjeve%20te%20energjise%20elektrike_Nentor%202018.pdf
+    Raport i monitorimit për ofrimin e shërbimeve për konsumator -> http://ero-ks.org/2016/Raportet/Raporti_Monitorimi_per_ofrim_te_sherbimeve_KEDS_KESCO.pdf
+    Raport monitorues për KEDS dhe KESCO Investimet kapitale-shp -> http://ero-ks.org/2016/Raportet/RAPORT_MONITORIMI_KEDS_dhe_KESCO_Investimet_kapitale_shpenzimet_operative_dhe_performanca_per_periudhen_2013_2015.pdf
+    Raport monitorues për KOSTT Investimet kapitale-shpenzimet o -> http://ero-ks.org/2016/Raportet/RAPORT_MONITORIMI_KOSTT_Investimet_kapitale_shpenzimet_operative_dhe_performanca_per_periudhen_2013_2015.pdf
+    Raport monitorues për KEK për Investimet kapitale-shpenzimet -> http://ero-ks.org/2016/Raportet/RAPORT_MONITORIMI_KEK_Investimet_kapitale_shpenzimet_operative_dhe_performanca_per_periudhen_2013_2015.pdf
+    Raport nga monitorimi i ndërmarrjes “Kelkos Energy” Sh.p.k. -> http://ero-ks.org/2016/Raportet/Raport_i_monitorimit_te_KELKOS.pdf
+    Raporti i Monitorimit 2014 -> http://ero-ks.org/Raporti%20i%20Monitorimit/Raporti_i_Monitorimit_2014.pdf
+    Raporti i Monitorimit 2008 -> http://ero-ks.org/Monitoring%20Reports/RAPORTI_I_MONITORIMIT_KEK_KOSTT_DHE_NQ_19_06_2008.pdf
+== https://ems.rs/dokumenta/ 200 0
+== https://www.derk.ba/ba/godisnji-izvjestaji-derk-a 200 3
+      -> https://www.derk.ba/DocumentsPDFs/EPA-Pojmovnik-Energija-za-sve-b.pdf
+    Izvještaj o radu DERK-a u 2025. godini -> https://www.derk.ba/DocumentsPDFs/DERK-Izvjestaj-o-radu-2025-b.pdf
+    Finansijski izvjestaji i misljenje nezavisnog revizora 2025 -> https://www.derk.ba/DocumentsPDFs/Finansijski-izvjestaji-misljenje-nezavisnog-revizora-2025.pdf
+== https://www.nosbih.ba/en/ 200 0
+== https://www.nosbih.ba/bs/ 200 94
+    Preskoči na sadržaj -> https://www.nosbih.ba/bs/#main-content
+      -> https://www.nosbih.ba/bs/pocetna/
+    O NAMA  -> https://www.nosbih.ba/bs/
+    Šta mi radimo? -> https://www.nosbih.ba/bs/o-nama/sta-mi-radimo/
+    Organizacija -> https://www.nosbih.ba/bs/o-nama/organizacija/
+    Organi upravljanja -> https://www.nosbih.ba/bs/o-nama/organi-upravljanja/
+    Organizacione jedinice -> https://www.nosbih.ba/bs/o-nama/organizacione-jedinice/
+    Pristup informacijama -> https://www.nosbih.ba/bs/o-nama/pristup-informacijama/
+    Zaštita ličnih podataka -> https://www.nosbih.ba/bs/o-nama/zastita-licnih-podataka/
+    Kontakt -> https://www.nosbih.ba/bs/o-nama/kontakt/
+    NOVOSTI -> https://www.nosbih.ba/bs/novosti/
+    DOKUMENTI  -> https://www.nosbih.ba/bs/
+    Legislativa -> https://www.nosbih.ba/bs/dokumenti/legislativa/
+    Javne nabavke -> https://www.nosbih.ba/bs/dokumenti/javne-nabavke/
+    Godišnji izvještaji -> https://www.nosbih.ba/bs/dokumenti/godisnji-izvjestaji/
+    Registri -> https://www.nosbih.ba/bs/dokumenti/registri/
+    Studije i analize -> https://www.nosbih.ba/bs/dokumenti/studije-i-analize/
+    Planovi -> https://www.nosbih.ba/bs/dokumenti/planovi/
+    Pravilnici -> https://www.nosbih.ba/bs/dokumenti/pravilnici/
+    EES  -> https://www.nosbih.ba/bs/
+    Dokumenti -> https://www.nosbih.ba/bs/ees/ees-dokumenti/
+    Dispečerski centar -> https://www.nosbih.ba/bs/ees/dispecerski-centar/
+    Graf potrošnje -> https://www.nosbih.ba/bs/ees/graf-potrosnje/
+    Graf odstupanja -> https://www.nosbih.ba/bs/ees/graf-odstupanja/
+    Prekogranična razmjena -> https://www.nosbih.ba/bs/ees/fizicki-tokovi/
