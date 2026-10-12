@@ -1,0 +1,54 @@
+r0:  Energie  | الطاقة 
+r1: 
+r2:  5 -4 Evolution de la puissance installée, de la production   | 5 - 4 تطور القدرة المنشأة، إنتاج  
+r3:            d'électricité |          الطاقة الكهربائية
+r4: 
+r5: 2024.0 | 2023.0 | 2022.0
+r6:  Office National de l'Electricité et de l'Eau Potable | المكتب الوطني للكهرباء والماء الصالح للشرب    
+r7:  Puissances installées (en Mega Watt) | 12016.8 | 11473.699999999997 | 11055.099999999999 | القدرات المنشأة (بميكا واط )
+r8: 
+r9:     Hydraulique  | 2120.0 | 1770.0 | 1770.0 |     المائية
+r10:     Thermique  | 6578.3 | 6802.099999999999 | 6901.099999999999 |     الحرارية
+r11:         Charbon vapeur | 4116.0 | 4116.0 | 4116.0 |           فحم بخاري
+r12:         Fuel vapeur | 300.0 | 525.0 | 525.0 |           فيول بخاري
+r13:         Turbines à gaz | 1011.0 | 1011.0 | 1110.0 |          عنفات غازية
+r14:         Diesel | 285.7 | 285.7 | 285.7 |           ديزل
+r15:         Cycle combiné | 834.0 | 834.0 | 834.0 |          دورة مزدوجة
+r16:         Gasoil | 31.6 | 30.4 | 30.4 |          غازوال
+r17:      Eolien | 2390.3999999999996 | 2070.8 | 1553.2 |     الريحية
+r18:        Eolien ONEE | 204.5 | 204.5 | 254.9 |            ريحية م و ك م ص
+r19:        Eolien des tiers | 37.3 | 37.3 | 37.3 |            ريحية الغير
+r20:        Eolien IPP | 1286.1 | 966.5 | 598.5 |            ريحية منتج الكهرباء المستقل
+r21:        Eolien loi 13-09 | 862.5 | 862.5 | 662.5 |            ريحية في إطار القانون 13.09 
+r22:       Solaire | 928.0999999999999 | 830.8 | 830.8 |     الشمسية
+r23:          Solaire ONEE | 140.8 | 140.8 | 140.8 |           شمسية م و ك م ص
+r24:          Solaire MASEN | 690.0 | 690.0 | 690.0 |           شمسية مازن
+r25:          Solaire Loi 13-09 et Tiers  | 97.3 | 0.0 | 0.0 |           شمسية الخواص 09- 13 و إمدادات الغير
+r26:  Principaux  autoproducteurs  | المنتجين الذاتيين الرئيسين
+r27:  Puissances installées (en Mega Watt) | القدرات المنشأة (بميكا واط )
+r28: 
+r29:    Maroc Phosphore  | 382.0 | 382.0 | 382.0 |   شركة مغرب فوسفور 
+r30:    SAMIR | 40.0 | 40.0 | 40.0 |  سامير 
+r31:    Cellulose du Maroc | 12.0 | 12.0 | 12.0 |  سيليلوز المغرب
+r32:    Lafarge Tétouan | 32.0 | 32.0 | 32.0 |  لافارج تطوان
+r33:    Indusaha | 5.25 | 5.25 | 5.25 |  ايندوصاحا
+r34: 
+r35: 
+r36:  Production nette (en millions de kwh)  | 43712.740999999995 | 42409.317 | 41420.0 | الإنتاج الصافي  (بمليون كيلواط ساعة)
+r37: 
+r38:      Thermique (1)  | 32047.01 | 33237.175 | 33937.0 |     الحرارية (1)
+r39:      Hydraulique  | 686.051 | 515.793 | 679.0 |     المائية
+r40:      Eolien (2) | 9362.873 | 6545.676 | 5356.0 |     الريحية (2)
+r41:      Solaire | 1616.807 | 2110.673 | 1448.0 |     الشمسية
+r42: 
+r43: 
+r44: 
+r45: 
+r46: 
+r47: 
+r48: 
+r49: 
+r50: 
+r51:  (1) Y compris Jorf Lasfar, ABM y compris la composante solaire, Tahaddart et SAFIEC | (1) بما في ذلك الجرف الأصفر، عين بني مطهر،  تهدارت وسافييك
+r52:   (2) Y compris Eolien Loi 13-09, Eolien Autoproduction  | (2) بما في ذلك الحقول الريحية المنجزة في إطار القانون 13.09، الإنتاج الذاتي من أصل  طاقات متجددة
+r53:  Source :  Office National de l'Electricité et de l'Eau Potable. | المصدر :  المكتب الوطني للكهرباء والماء الصالح للشرب.

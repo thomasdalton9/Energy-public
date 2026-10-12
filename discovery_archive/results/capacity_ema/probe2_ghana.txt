@@ -1,0 +1,147 @@
+
+===== PAGE 20 =====
+SECTION 3: ELECTRICITY
+3.1 Electricity Generation Capacity
+Electricity generation capacity, excluding distributed generation, has increased by 5.3%
+over the period reaching 5,749 MW in 2024, as depicted in Figure 3.1. As of 2024, hydro,
+thermal, and renewable sources accounted for 1,584 MW (28%), 4,032 MW (70%), and
+133 MW (2%) of total installed capacity, respectively (Table 3.1).
+Similarly, the dependable capacity from these sources also increased by 5.8% to 5,211
+MW in 2024.
+5,600
+Hydro Thermal Renewable
+5,100
+4,600
+4,100
+3,600
+3,100
+W
+M
+2,600
+2,100
+1,600
+1,100
+600
+100
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+Figure 3.1: Installed Generating Capacity (2000-2024)
+8
+
+===== PAGE 21 =====
+Table 3.1: Grid Installed and Dependable Capacity (MW)
+Installed Capacity Dependable Capacity
+Year Other Other
+Hydro Thermal Total Hydro Thermal Total
+Renewable1 Renewable1
+2000 1,072 580 - 1,652 928 430 - 1,358
+2001 1,072 580 - 1,652 951 530 - 1,481
+2002 1,072 580 - 1,652 974 530 - 1,504
+2003 1,072 580 - 1,652 982 530 - 1,512
+2004 1,180 550 - 1,730 1,040 500 - 1,540
+2005 1,180 550 - 1,730 1,040 500 - 1,540
+2006 1,180 550 - 1,730 1,040 500 - 1,540
+2007 1,180 755 - 1,935 1,040 670 - 1,710
+2008 1,180 801 - 1,981 1,040 695 - 1,735
+2009 1,180 790 - 1,970 1,040 725 - 1,765
+2010 1,180 1,035 - 2,215 1,040 945 - 1,985
+2011 1,180 990 - 2,170 1,040 895 - 1,935
+2012 1,180 1,100 - 2,280 1,040 995 - 2,035
+2013 1,584 1,232 3 2,818 1,380 1,105 2 2,487
+2014 1,584 1,232 3 2,818 1,380 1,105 2 2,487
+2015 1,584 1,607 23 3,213 1,380 1,475 18 2,873
+2016 1,584 2,189 23 3,795 1,380 2,009 18 3,407
+2017 1,584 2,993 23 4,599 1,380 2,729 18 4,127
+2018 1,584 3,113 43 4,740 1,380 2,884 34 4,298
+2019 1,584 3,473 43 5,100 1,365 3,225 34 4,624
+2020 1,584 3,639 59 5,282 1,400 3,393 47 4,841
+2021 1,584 3,849 112 5,545 1,400 3,583 89 5,073
+2022 1,584 3,914 112 5,610 1,374 3,618 89 5,081
+2023 1,584 3,923 133 5,639 1,411 3,664 106 5,180
+2024 1,584 4,032 133 5,749 1,411 3,695 106 5,211
+1Solar and waste
+9
+
+===== PAGE 22 =====
+The list of power plants, excluding off-grid and distributed generation, in Ghana as at
+December 31, 2024, is presented in Table 3.2.
+Table 3.2: Generation Capacities in Ghana as at 2024 (MW)
+Plant Installed Capacity Dependable Capacity4
+Hydro Power Plants
+Akosombo 1,020 900
+Kpong 160 140
+Bui 404 371
+Tsatsadu Hydro 0.045 0.045
+Sub-total 1,584 1,411
+Thermal Power Plants
+Takoradi Power Company (TAPCO) 330 315
+Takoradi International Company (TICO) 340 330
+Tema Thermal 1 Power Plant (TT1PP) 110 100
+Tema Thermal 2 Power Plant (TT2PP) 80 70
+5Takoradi T3 132 120
+Cenit Energy Ltd 110 100
+Kpone Thermal Power Plant 220 200
+Anwomaso Thermal 250 230
+Sunon Asogli Power (Ghana) Ltd 560 512
+Karpowership 470 450
+Twin City (Amandi) 210 201
+AKSA 370 330
+Cenpower 360 340
+Early Power 200 189
+Genser 290 208
+Sub-total 4,032 3,695
+Other Renewables
+On-grid6
+VRA Solar (Navrongo) 2.5 2.0
+VRA Solar (Lawra) 6.5 5.2
+VRA Solar (Kaleo) 29 22
+BXC Solar 20 16
+Meinergy 20 16
+Bui Solar 55 44
+Safisana Biogas 0.1 0.1
+Sub-total 133 106
+Total 5,749 5,211
+4 Dependable capacity refers to the maximum power output that a power plant can reliably and
+consistently deliver at nominal ambient conditions, as demonstrated in a performance test report
+5 Has not been operational since 2015, but has not been officially decommissioned
+6 In previous editions, the Navrongo, Lawra, and Kaleo solar power plants were listed as VRA Solar
+(Navrongo), VRA Solar (Lawra), and VRA Solar (Kaleo), respectively
+10
+
+===== PAGE 23 =====
+Table 3.3: Renewable Energy Installed Generation Capacity (KW)
+Off-grid On-grid Mini-Grid
+Year Dist. Installed
+Solar Wind Utility Solar W2E Hydro Solar Wind
+SPV
+2013 - - 495 2,500 - - - - 2,995
+2014 1,350 - 443 - - - - - 1,793
+2015 4,003.00 20 700 20,000 100 - 256 11 25,090
+2016 1,238 - 2,626 - - - - - 3,865
+2017 678 - 4,266 - - - 58.3 5,003
+2018 155 - 9,441 20,000 - - - - 29,596
+2019 - - 9,924 - - 45 - - 9,969
+2020 - - 9,626 6,540 - - - - 16,166
+2021 - - 7,367 63,000 - - - - 70,367
+2022 - - 4,820 1,000 - - - - 5,820
+2023* - - 9,483 19,780 - - - - 29,263
+2024* - - 27,375 - - - 257 27,632
+Total 7,424 20 86,565 132,820 100 45 571 11 227,557
+Note: This excludes large hydro (Akosombo, Kpong and Bui); *Provisional
+Source: Ministry of Energy & Energy Commission
+3.2 Electricity Generation
+Total electricity generation7 increased from 7,224 GWh in 2000 to 25,550 GWh in 2024,
+reflecting a CAGR of 5.4%. Hydro, which accounted for 92% of the energy mix in 2000,
+grew at an average annual rate of 1.7%, reaching 9,893 GWh by 2024. However, its share
+of the total generation declined to 39% in 2024, primarily due to an increase in thermal
+generation.
+Thermal generation increased significantly from 614 GWh in 2000 to 15,476 GWh in
+2024. Its share of the energy mix increased from 8% to 61%, making it the dominant
+source of electricity. This growth corresponds to a CAGR of 14.4%.
+Meanwhile, other renewable energy sources such as Solar PV, introduced in 2013, grew
+at an average annual rate of 45.2%, reaching 181 GWh in 2024 (Table 3.4). Despite this
+growth, renewables accounted for only 0.71% of total electricity generation in 2024.
+7 Electricity generation includes embedded generation and import
+11

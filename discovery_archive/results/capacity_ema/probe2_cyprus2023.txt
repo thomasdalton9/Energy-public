@@ -1,0 +1,127 @@
+
+===== PAGE 62 =====
+Figure 9 - Capacity (MW) of RES power plants for which an exemption was granted from the obligation to obtain an
+operating licence in the period 2006-2023
+Installed capacity of electricity generation plants
+Conventional units
+The total installed capacity of conventional units intended for commercial purposes increased in 2023 to
+1482.5MWe. The geographical distribution of the power plants for commercial use is shown in Figure 10.
+CERA | Annual Report 2023 61
+
+===== PAGE 63 =====
+Figure 10 - Illustration and geographical distribution of installed conventional plants for commercial use until 2023
+The total installed capacity of conventional units intended for self-consumption and reserve purposes and of
+autonomous self-generation systems increased in 2023 to 303.1MWe.
+Renewable Energy Sources
+The total installed capacity of wind farms intended for commercial purposes did not change in 2023, but re-
+mained at 157.5MWe, just like in 2022.
+The total installed capacity of photovoltaic systems intended for commercial purposes increased in 2023 to
+358.4MWe.
+The total installed capacity of photovoltaic systems intended for self-consumption, other than systems using
+the net metering method, increased in 2023 to 59.24MWe.
+The total installed capacity of autonomous photovoltaic self-generation systems increased in 2023 to 2.08MWe.
+The total installed capacity of biomass/biogas plants intended for commercial purposes dropped in 2023 to
+4.18MWe.
+The total installed capacity of biomass/biogas plants intended for self-consumption increased in 2023 to
+5.6MWe.
+62 CERA | Annual Report 2023
+
+===== PAGE 64 =====
+Photovoltaic systems using the net-metering method
+Net metering is addressed to all consumers in whose premises a small photovoltaic system with capacity up
+of to 10kWe is installed. According to this method, the diff erence is calculated between the electricity that is
+generated from the photovoltaic system installed in the premises and fed into the grid, and the electricity that
+is obtained from the electricity grid to meet the demands of the premises.
+In 2023, 18,155 photovoltaic systems with a total installed capacity of 88.05MWe were installed.
+In 2023, the total installed capacity of the photovoltaic systems using the net metering method is 239.8MWe.
+Figure 11 shows the number and capacity of installed photovoltaic systems using the net metering method in
+period from 2013 to 2023.
+Figure 11 - Number of installed systems and installed capacity (kW) of net metering systems in the period
+from 2013 to 2023
+Figure 12 shows the geographical distribution of installed RES units with a capacity of more than 20kWp by
+2023, as well as the uniform distribution of RES units in the territory of the Republic of Cyprus.
+CERA | Annual Report 2023 63
+
+===== PAGE 66 =====
+ Energy fed into the distribution system from the transmission system reached 4,068,608MWh.
+ Recorded transmission system losses amounted to 56,050GWh, or 1.32 %, of the energy fed into
+the transmission system.
+ Recorded distribution system losses amounted to 106.728GWh, or 2.77 % of the energy fed into
+the distribution system.
+Load factor
+The annual load factor for 2023 stood at 47.0 %, recording a drop compared to the load factor for 2022, which
+stood at 52.8 %. The load factor is calculated as the ratio of the annual fi nal gross electricity consumption to
+the annual electrical energy that can be generated with the maximum capacity production recorded in the year,
+which includes conventional and RES generation.
+Figure 13 shows the total generation of electricity for 2023.
+Figure 13 - Sankey diagram for the total generation of electricity (GWh) in 2023
+Figures 14 and 15 show historical data of the installed capacity of RES and conventional plants that are con-
+nected to the grid. It is observed from the fi gures that the total installed capacity of RES units has increased
+signifi cantly in recent years. In 2023, installed capacity of RES units reached 35% of the total installed capacity
+of all electricity generation plants in Cyprus.
+CERA | Annual Report 2023 65
+
+===== PAGE 67 =====
+Figure 14 - Annual installed capacity (MW) of RES units
+Figure 15 - Annual installed capacity (MW) of RES and conventional units
+Figures 16 and 17 show historical data of generation from RES and conventional units that are connected to
+the grid. It is observed from the figures that the total generation of electricity from RES units has increased sig-
+nificantly in recent years. In 2023, the annual generation of electricity from RES units reached 22 % of the total
+generation from all the power plants in Cyprus.
+66 CERA | Annual Report 2023
+
+===== PAGE 68 =====
+1150
+1100
+1050
+1000
+950
+900
+850
+800
+750
+700
+650
+600
+550
+500
+450
+400
+350
+300
+250
+200
+150
+100
+50
+0
+2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023
+CERA | Annual Report 2023 67
+)hWG(
+noitcudorP
+launnA
+Wind Systems
+PV Systems
+Biomass Systems
+Year
+Figure 16- Annual generation (GWh) of RES units
+7000
+6000
+5000
+4000
+3000
+2000
+1000
+0
+2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023
+)hWG(
+noitcudorP
+launnA
+Conventional Units
+Wind Systems
+PV Systems
+Biomass Systems
+Year
+Figure 17 - Annual generation (GWh) of RES and conventional units
+Figure 18 shows the RES penetration percentage duration curves in the electricity generation system for the
+last ten years.

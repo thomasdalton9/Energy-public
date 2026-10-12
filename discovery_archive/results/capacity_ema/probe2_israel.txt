@@ -1,0 +1,130 @@
+
+===== PAGE 11 =====
+1.3 Capacity in the Sector (GW)
+Sources: Noga, IEC and the Electricity Authority’s Processing
+In 2024, the sector's capacity was 24.6 GW. By 2030, the installed capacity mix is expected to change significantly: The
+installed capacity of facilities producing renewable energy is expected to continue to grow to approximately 40% of the sector's
+capacity. The capacity produced with coal as the primary fuel is expected to cease operation for routine usage in accordance
+with Government Resolution 4080 regarding the cessation of Production Units 1-4 at the Orot Rabin Power Plants and in
+accordance with the Minister of Energy's decision from 2019 and 2025 regarding the conversion of coal-fired production units to
+operate on natural gas. Moreover, standalone battery storage capacity is expected to be established by the end of the decade.
+18.9
+16.0
+11.5
+6.9
+5.0 4.8
+0.8 1.1 1.0
+0.3
+0
+Pumped Storage Independent Renewable Energies Diesel oil Coal Natural gas
+Battery Storage (PV with storage)
+2024 **2030
+* Based on the primary fuel.
+** Forecast.
+11
+
+===== PAGE 18 =====
+2.1 Installed Capacity vs. Peak Demand (GW)
+Sources: Noga and the Electricity Authority’s Processing
+In 2024, the sector's production capacity was approximately 3.6 GW higher than peak demand of that year.
+2030 shows an increase in expected capacity relative to peak demand. This increase is mainly due to a significant entry of storage
+facilities (standalone and PV-integrated) intended to meet renewable energy goals, as well as from advancing investments to
+increase competition in the sector.
+28.0
+18.2 18.9 18.5 18.9 18.8
+16.7 16.8 16.7 17.0 17.5
+15.6
+14.5
+13.8
+12.8 12.8
+11.3 11.6 11.7
+9.9 9.8 10.0 10.5
+2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2030*
+Peak Annual Demand The Sector's Equivalent Capacity**
+* Demand forecasts and demand peaks are based on “business as usual forecast” by the Forecasting and Information Unit at Noga.
+**The equivalent capacity in this report, pursuant to the methodology published in reports in previous years, includes non-storage renewable energy
+capacity multiplied by a 0.3 capacity coefficient up to a total capacity of 3,600 MW, and a 0 capacity coefficient for any additional capacity beyond that
+level. In this report, storage capacity is multiplied by a coefficient of 0.75. The coefficients in this report are different from the capacity credit
+coefficients.
+18
+
+===== PAGE 25 =====
+2.8 Installed Capacity by Primary Fuel (GW)
+Sources: Noga and the Electricity Authority’s Processing
+The fuel mix in the sector has changed significantly in the last decade. Total capacity is expected to triple in 2030 compared to
+2012. The routine use of coal is expected to cease by 2030 in accordance with Government Resolution 4080 and the Minister's
+policy from 2019 and 2025.
+Starting in 2018, there has been a growing trend in renewable energy capacity, and renewable energy capacity is expected to reach
+approximately 16 GW in 2030.
+41.7
+16.0
+24.6
+23.7 0.8
+22.2
+21.5
+20.1 5.0
+17.3 17.4 17.4 18.0 19.1 3.7 4.8 5.9 6.9
+14.0 14.8 16.1 0.8 0.9 1.0 1.4 2.2 2.7
+0.7
+0.3 0.5
+7.8 8.4 9.5 10.6 10.6 10.5 10.7 11.0 11.2 11.6 11.2 11.6 11.5 18.9
+4.8 4.8 4.8 4.8 4.8 4.8 4.8 4.8 4.8 4.8 4.8 4.8 4.8
+1-.0
+2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2030*
+Coal Diesel oil Gas Battery Storage Pumped Storage Renewable Energy
+*Forecast. This report takes into account the construction of 4 new natural gas CCGTs by the private market, even though the Authority's regulations
+allow the private market to construct 6 new natural gas CCGTs by 2030
+25
+
+===== PAGE 26 =====
+2.9 Installed Capacity by Producer (GW)
+Sources: Noga and the Electricity Authority’s Processing
+In 2024, about 53% of the production capacity in the sector was held by IPPs, compared to only about 3% in 2012.
+In 2030, although the total production capacity of the IEC is not expected to be significantly different than in 2024, the capacity
+in the private market is expected to increase two-fold or more relative to the same time period.
+The IEC's fuel capacity mix is expected to change significantly – from power capacity based on coal to routine use of natural
+gas. This is expected to be made possible by the completion of CCGT 80 at Orot Rabin, the conversion of the coal-fired units at
+Orot Rabin and Rutenberg to natural gas, and the shutdown for routine use and preservation of Units 1-4 at Orot Rabin.
+Fuel capacity mix used by IPPs is expected to grow significantly, and more than double by 2030. The bulk of the increase is
+expected to stem from the construction of renewable energy facilities (including facilities that integrate storage), standalone
+storage facilities, and the construction of 4 CCGTs by the private market.
+IEC in 2024 IPP in 2024
+8.36
+53%
+3.2
+0.2
+36%
+8.8 15.8
+1%0.3
+4.8 2%
+GW GW
+55%
+0.8
+6.9
+9%
+44%
+IEC Gas IEC Diesel IEC Coal Pumped Storage Private Diesel Private Gas
+Renewable Energy (Including Storage Integration)
+26
+
+===== PAGE 105 =====
+9.2 Installed Capacity of the IEC Divided into Technology Types (GW)
+Sources: IEC and The Electricity Authority
+In 2024, the Israel Electric Company operated coal-fired power plants with a total capacity of 4.8 GW. Pursuant to the Minister of
+Energy's decision and Government Resolution No. 4080, the company is required to cease routine coal-fired electricity production.
+As part of implementing the electricity sector reform, the Eshkol Power Plant was sold in June 2024, reducing the company's
+installed production capacity by about 16%. In January 2025, CCGT 70 in Orot Rabin and Unit 1 in Rutenberg (which was converted
+from coal to natural gas) became commercially operational as part of the transition to cleaner electricity production.
+8.8 Orot Rabin (1-4) Orot Rabin (70-80) 8.7
+2.6
+3.4
+0.5
+0.9
+3.9
+4.8
+0.5
+0.9
+2024 End of Routine Use Construction 2030*
+Coal-Fired Industrial Gas Turbines Jet gas turbines Combined Cycle Gas Turbines Steam Converted to Natural Gas
+*Forecast.
+105

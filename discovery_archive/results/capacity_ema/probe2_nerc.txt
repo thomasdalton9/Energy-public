@@ -1,0 +1,171 @@
+
+===== PAGE 22 =====
+SECOND QUARTER 2026 NERC QUARTERLY REPORTS
+2.0 STATE OF THE INDUSTRY
+Pursuant to Section 34(1)(e) of the Electricity Act (EA) 2023 which states that "the
+Commission shall ensure the safety, security, reliability, and quality of service in the
+production and delivery of electricity to consumers”, the Nigerian Electricity
+Regulatory Commission (NERC) continues to monitor the overall state of the
+Nigerian Electricity Supply Industry (NESI) primarily across the three (3) underlisted
+areas –
+• Operational performance: a measure of how effectively available resources
+are utilised to generate electricity
+• Grid performance: a measure of the technical performance of the national
+grid relative to the standards set out in the extant codes
+• Commercial performance: a measure of the flow of funds from customers to
+upstream electricity industry players
+2.1 Operational Performance
+In evaluating the operational performance of the NESI, the following Key
+Performance Indicators (KPIs) are considered:
+• Available generation capacity
+• Plant availability factor
+• Quarterly generation
+• Generation load factor
+• Generation mix
+2.1.1 Available generation capacity
+In 2026/Q2, twenty-eight (28) power plants supplied electricity to the National
+Grid, consisting of five (5) hydro, two (2) steam, nineteen (19) Open Cycle Gas
+Turbines (OCGT) and two (2) Combined Cycle Gas Turbine (CCGT) plants. During
+the quarter, the average available generation capacity of the grid-connected power
+plants decreased marginally by 3.80MW (-0.09%) from 4,457.96MW recorded in
+2026/Q1 to 4,454.17MW. Across the quarters, fifteen (15) out of the twenty-eight
+(28) grid-connected power plants recorded increases in available capacity, while
+twelve (12) recorded decreases. Alaoji_1 power plant, which had zero available
+generation capacity from 2025/Q2 to 2026/Q1 due to prolonged gas supply
+constraints, temporarily resumed operations in 2026/Q2, with an average available
+generation capacity of 23.20MW during the quarter.
+15 [NIGERIAN ELECTRICITY REGULATORY COMMISSION]
+
+===== PAGE 23 =====
+SECOND QUARTER 2026 NERC QUARTERLY REPORTS
+Notable decreases in average available generation capacity in 2026/Q2
+compared to 2026/Q1 occurred at Kainji_1 (-110.12MW), Geregu_1 (-
+78.28MW), Afam_1 (-51.01MW) and Sapele_2 (-35.44MW).
+Conversely, increases in average available capacities were recorded at Afam_2
+(+87.96MW), Omotosho_1 (+59.65MW), Olorunsogo_1 (+53.39MW) and
+Omotosho_2 (+50.65MW) power plants in 2026/Q2 compared to 2026/Q1.
+Figure 1 shows the plants with the highest average available capacities across the
+two quarters.
+Figure 1: Average Available Capacity (MW) in 2026/Q1 vs. 2026/Q2
+The available capacity of all the hydropower plants decreased by 7.33% in
+2026/Q2 (1,469.42MW) compared to 2026/Q1 (1,585.66MW). This was driven
+largely by the significant decrease in the available capacity of Kainji_1 (-
+110.12MW) during the quarter. The decrease in available capacity at Kainji_1 can
+be attributed to the shutdown of some units in the power plant for mechanical repairs
+and annual maintenance at different times throughout the quarter.
+2.1.2 Plant availability factor
+The availability factor of a plant is measured as a ratio of the maximum rated output
+of the plant declared by the operator (available capacity) to the maximum rated
+output specified by the manufacturer (installed capacity). The available capacity of
+a plant may change from time to time due to several factors, including i) atmospheric
+16 [NIGERIAN ELECTRICITY REGULATORY COMMISSION]
+)WM(
+yticapaC
+elbaliavA
+egarevA
+V a ria n c
+1 ,8 0 0
+1 ,6 0 0
+1 ,4 0 0
+1 ,2 0 0
+1 ,0 0 0
+8 0 0
+6 0 0
+4 0 0 2 0 0
+0
+C h a n g e
+(M W )
+e -3 .6 1
+69.045
+E g b in
+-1 9 .5
+%
+44.125
+_ 1
+2
+1 .2 0 %
+0 5 4 9 . . 9 3 5 5 4 4
+Ih o v b o r_
+5 .4 5
+2
+-2 0 .4 2 %
+73.9
+5 3 2 5 .924
+K a in ji_ 1
+-1 1 0 .1 2
+6 .7 5 %
+3 8 0 6 .1 .5 0 7 4 3
+D e lta _ 1
+2 5 .3 6
+-4 .1 4
+87.714
+Je b b a
+-1 7 .2
+%
+05.004
+_ 1
+8
+Z
+4 .4 8 %
+2 0
+2 2 5 4 . . 8 4 2 1 3 3
+u n g e ru _
+1 4 .1 0
+2
+1
+6 /Q 1
+4 2 .6 4 %
+2 0 2 6 /Q
+32. 7 4 2 9 . 2 602
+A fa m _ 2
+8 7 .9 6
+2
+0 .6 4 %
+9 3 7 5 . . 9 9 1 0 6 6 , , 1 1
+O th e rs
+1 0 .2 6
+
+===== PAGE 24 =====
+SECOND QUARTER 2026 NERC QUARTERLY REPORTS
+conditions at the plant; ii) mechanical availability of the plant (planned and
+unplanned outages); iii) feedstock availability, etc. The formula for the plant
+availability factor (PAF) is represented by equation 1:
+average available capacity (MW)
+Plant availability factor × 100 (1)
+installed capacity (MW)
+The plant availability factor (PAF) is a critical parameter for evaluating the
+performance and overall condition of the upstream segment of the NESI. In
+2026/Q2, the average plant availability factor for all grid-connected plants was
+32.69%, meaning that 67.31% of the total installed capacity across the twenty-eight
+(28) grid-connected power plants was unavailable for dispatch at any given time
+during the quarter. Six (6) power plants had availability factors above 50%, with
+Ihovbor_2 and Ikeja_1 recording the highest availability factors of 99.65% and
+99.06%, respectively. At the lower end, Geregu_1 and Sapele Steam_1 recorded
+availability factors of 0.56% and 1.95% respectively.
+The PAFs of all grid-connected plants are listed in Table 1. The gross PAF of 32.69%
+recorded in 2026/Q2 represents a marginal decline of 0.03pp compared to
+32.72% in 2026/Q1. Notable decreases in PAF were recorded in Geregu_1 (-
+18.00pp) and Kainji_1 (-14.49pp) power plants.
+Table 1: Plant Availability Factor (%) in 2026/Q1 vs. 2026/Q2
+Plant Installed Average Available Plant Availability Factor
+capacity Capacity (MW) (%)
+(MW) 2026/Q1 2026/Q2 2026/Q1 2026/Q2
+Ihovbor_2 461 453.95 459.40 98.47 99.65
+Ikeja_1 110 107.48 108.97 97.71 99.06
+Jebba_1 578 417.78 400.50 72.28 69.29
+Kainji_1 760 539.37 429.25 70.97 56.48
+Okpai_1 480 265.10 261.84 55.23 54.55
+Dadin-Kowa_1 40 17.00 20.24 42.50 50.59
+Shiroro_1 600 297.08 290.91 49.51 48.48
+Zungeru_1 700 314.42 328.52 44.92 46.93
+Igbafo_1 45 16.92 21.11 37.61 46.92
+Afam_2 650 206.27 294.23 31.73 45.27
+Delta_1 900 375.68 401.03 41.74 44.56
+Omotosho_1 335 84.11 143.76 25.11 42.91
+Olorunsogo_1 335 83.14 136.53 24.82 40.75
+Egbin_1 1,320 540.96 521.44 40.98 39.50
+Geregu_2 435 115.68 102.64 26.59 23.60
+Odukpani_1 625 141.41 128.25 22.63 20.52
+Omoku_1 150 30.27 30.50 20.18 20.33
+Ihovbor_1 500 65.50 81.68 13.10 16.34
+17 [NIGERIAN ELECTRICITY REGULATORY COMMISSION]

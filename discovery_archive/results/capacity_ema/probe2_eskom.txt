@@ -1,0 +1,639 @@
+
+===== PAGE 8 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Who we are and what we do continued
+OVERVIEW OF THE GROUP Each subsidiary has its own board of directors, Energy breakdown by supplier Energy breakdown by destination
+Eskom Holdings SOC Ltd is the parent company with accountability to the Eskom Board as their 3% 12%
+of the group, headquartered in Johannesburg with shareholder representative. The Board has requested 9%
+administrative or technical offices in most major that the Minister of DEE appoints independent
+7%
+centres. The group includes the holding company, its non-executive directors to the boards of EE, ERI
+subsidiaries and joint ventures. Most of the electricity and Esdef. These subsidiaries have Eskom employees
+business is housed in the holding company, which also serving as directors, and having a mix of employees
+216 573GWh 215 472GWh
+holds investments in subsidiaries. Some subsidiaries and independent external directors will benefit the
+provide strategic services to the group and its subsidiaries through technical, business management
+employees. The holding company remains the primary and corporate governance experience and expertise
+contributor to group performance. provided by the subsidiary boards.
+88% 81%
+AFS S
+an
+e
+d
+gm
+d
+e
+is
+n
+tr
+t
+ib
+d
+u
+is
+t
+c
+i
+l
+o
+o
+n
+s u
+b
+r
+u
+e
+s i
+f
+n
+o
+e
+r
+s
+t
+s
+h
+e
+e
+s ,
+g
+t
+e
+o
+n
+g
+e
+e
+r
+t
+a
+h
+t
+e
+io
+r
+n
+w
+,
+i
+t
+t
+r
+h
+a n
+o
+s
+t
+m
+he
+is
+r
+s ion AFS F
+an
+u
+d
+ll d
+su
+e
+b
+ta
+s
+i
+i
+l
+d
+s
+ia
+o
+r
+f
+ie
+E
+s
+s k
+a
+o
+t
+m
+31
+’s
+M
+eq
+a
+u
+rc
+it
+h
+y -
+2
+a
+0
+c
+2
+co
+5
+u
+a
+n
+r
+t
+e
+e d
+se
+i
+t
+n
+o
+ve
+u
+s
+t
+t e
+in
+e s
+Eskom IPPs Imports Local sales International sales
+Technical and other losses
+segments, is provided in note 7 of the consolidated notes 11 and 12 of the consolidated annual financial
+annual financial statements statements The difference between supply and demand is due to own use and timing differences.
+Eskom’s key subsidiaries include: WHAT WE DO Overall nominal capacity by Eskom and IPPs, by source Total energy supplied by Eskom and IPPs, by source
+• National Transmission Company South Africa SOC We create value by generating, transmitting, (excluding wheeling and net of pumping)
+3.4% 0.6%
+Ltd (NTCSA): started trading from 1 July 2024 distributing, as well as buying and selling electricity. 5.1%
+and currently functions as the country’s interim We serve primarily local and a few international 6.2% 1.3%
+3.0%
+Transmission System Operator while the final customers using energy we generate, together with 0.7%
+3.9%
+structure of the envisaged independent electricity energy purchased from IPPs and power imported 6.3% 3.2%
+market is being determined from neighbouring countries. Mozambique remains 5.1%
+• Eskom Enterprises SOC Ltd (EE): an investment our most significant trading partner for both imports 6.3% 54 361MW
+holding company. Its main subsidiary, Eskom Rotek and exports.
+Industries SOC Ltd (ERI), provides technical 216 573GWh
+support to the electricity business, including plant IR Customer numbers, sales volumes and revenue by
+maintenance segment are shown on page 148 72.1%
+• Escap SOC Ltd: a wholly owned insurance company
+that manages and insures business risks across the Coal Wind Diesel Hydro
+82.8%
+group Solar Nuclear Other
+• Eskom Finance Company SOC Ltd (EFC): provides
+Coal Wind Hydro (net)
+housing and other loans to employees. In
+accordance with the disposal mandated by the Nuclear Solar Diesel Other
+shareholder, the sale of the loan book to African
+Bank is expected to be concluded by the end of
+FY2026, pending regulatory approvals Our System Operator (situated in NTCSA) balances supply and demand in real time to maintain grid stability, keeping the system frequency at 50Hz. We are part of the
+• Eskom Development Foundation NPC (Esdef): Southern African Power Pool (SAPP), which supports regional grid stability – this relies on robust transmission networks across member countries.
+a non-profit company that implements Eskom’s
+Eskom owns and operates most of South Africa’s base-load and peaking generation capacity. We have 30 power stations with a nominal capacity of 46 866MW, which use
+corporate social investment (CSI) initiatives to
+coal, fuel oil, nuclear fuel, water, wind and diesel to generate electricity.
+improve community wellbeing
+The group manages a transmission and distribution network of over 411 000km of power lines, the largest in Africa. Under NTCSA’s Transmission Development Plan, we aim to
+connect 37GW of new generation capacity, mostly from IPPs. The Western Cape, Eastern Cape, Northern Cape and Mpumalanga are targeted for the majority of the investment.
+IR Details on our power stations, power lines and substations are available from page 145
+8 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 9 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Who we are and what we do continued
+IPPs – that sell to the group through NTCSA – have installed capacity of 7 495MW, mainly in the form of wind and
+GENERATE TRANSMIT solar photovoltaic (PV) energy. The highest hourly contribution from these sources during the period amounted to
+2 118MW from solar and 2 960MW from wind. The highest total hourly contribution from renewable sources was
+Power stations 30 Transmission lines 33 367km
+almost 20%, achieved during January 2025.
+Nominal capacity 46 866MW Transformer capacity 161 223MVA
+However, renewable energy production is unpredictable and not dispatchable (the System Operator cannot control
+when or how much is generated), and consequently, it can sometimes strain our own coal-fired stations. When
+Coal-fired stations 39 177MW there is an oversupply of renewable energy, we must reduce the output from these stations, although this is possible
+DISTRIBUTE only to a point, if the units’ boilers are to remain stable. Coal-fired units typically idle at around 60% capacity to
+Nuclear power 1 854MW maintain this stability. If our base-load output cannot be reduced further to match demand and safeguard the system
+Overhead lines 369 342km
+frequency, the System Operator may be forced to curtail renewable generation, although this comes at a financial
+Pumped storage 2 724MW Underground cables 8 472km cost. During FY2025, we had to curtail 155GWh of renewable generation, either by limiting the contribution of solar
+energy and wind to the grid during the day or wind energy during the night minimum.
+Hydro 602MW
+Transformer capacity 147 387MVA
+The supply and demand of electricity is shown below.
+OCGTs 2 409MW
+Source, GWh 2025 2024 2023
+Renewables – Wind 100MW
+Coal-fired stations 179 426 166 606 171 131
+Nuclear power 8 409 8 172 9 803
+Pumped storage stations 4 649 4 386 4 081
+Open-cycle gas turbines (OCGTs) 2 176 3 634 3 018
+Hydro stations 710 1 448 3 060
+46 866MW Wind 332 329 214
+Eskom generation 195 702 184 576 191 307
+Pumping by pumped storage stations (6 064) (5 710) (5 504)
+Net sent out by Eskom 189 638 178 866 185 803
+Independent power producers (IPPs) 19 365 20 183 17 957
+Imports 7 570 9 150 8 654
+Wheeling1 2 028 2 449 2 904
+Energy available for distribution 218 601 210 648 215 318
+Technical and other losses2 (25 339) (23 502) (23 879)
+Internal use (349) (329) (345)
+Wheeling1 (2 028) (2 449) (2 904)
+Unaccounted3 (1 162) (1 057) 211
+Local and international sales 189 723 183 311 188 401
+Additional information
+Estimated loadshedding and load curtailment4 354 13 215 13 476
+Percentage of demand not met4 0.16% 5.92% 5.91%
+1. Wheeling refers to the movement of electricity between international customers through Eskom’s network, without the power
+being available to customers on the South African grid.
+2. Technical losses occur during the transmission and distribution of energy. Non-technical losses primarily relate to electricity theft
+through illegal connections, meter tampering and the use of illegal electricity tokens on prepaid meters. Meter reading and billing
+errors are also included.
+3. The unaccounted value is a balancing figure due to different cut-off dates for recording sales and production volumes.
+4. This is an estimate by the System Operator based on forecast versus actual demand at a given time. It does not account for load
+shifting in response to loadshedding.
+9 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 107 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Strengthening our infrastructure continued
+Group funded capital expenditure (excluding capitalised borrowing costs)
+Target Target Target Target Actual Actual Actual
+Measure and unit 20281 2026 2025 met? 2025 2024 2023
+Target Target Target Actual Actual Actual
+Generation capacity installed and Area, R million 20281 2026 2025 2025 2024 2023
+commissioned (commercial operation), 800 800 800 799 – 799 Generation plant 74 424 27 953 26 525 26 683 26 531 24 517
+MWSC, 2
+Transmission network 60 555 9 800 6 732 6 473 4 269 3 543
+Transmission lines installed, kmSC 2 635.0 423.0 286.0 292.6 74.4 326.1
+Distribution network 36 642 8 980 3 507 4 112 2 879 2 603
+Transmission transformer capacity
+17 750 3 750 2 380 2 620 23 –
+installed and commissioned, MVASC Subtotal: infrastructure investment 171 621 46 733 36 764 37 268 33 679 30 663
+Future coal and nuclear fuel 11 643 3 594 3 851 3 011 2 769 2 861
+1. The 2028 target is the cumulative capacity or lines to be commissioned and/or installed over the next three years. Other support areas 3 185 1 703 1 604 855 573 425
+2. The 2025 generation capacity target is a repeat of the 2024 target, i.e. the delivery of Kusile Unit 5, which was not achieved in FY2024.
+The cumulative target to 2028 refers to the delivery of Kusile Unit 6 in FY2026. Total group funded capital expenditure2 186 449 52 030 42 219 41 134 37 021 33 949
+1. The 2028 target is the cumulative capital expenditure targeted over the next three years. An amount of R52 billion is targeted in
+In September 2022, the gas air heater on Kusile Unit 5 To advance the TDP, aimed at extending transmission 2026, with R65.4 billion in 2027 and R69 billion in 2028.
+caught fire during the third boiler steam blows, lines and transformer capacity to support the grid 2. Capital expenditure includes additions to property, plant and equipment, intangible assets and future fuel, but excludes strategic
+which was the final milestone activity prior to first connection of 37GW in additional generation spares, construction stock and capitalised borrowing costs. Figures noted above are based on internal reporting and do not necessarily
+synchronisation of the unit. This resulted in the capacity over the coming years, emphasis remains align to the movement on property, plant and equipment as disclosed in note 8 in the annual financial statements.
+suspension of all commissioning activities, causing on accelerating project development and execution.
+significant delays. Comprehensive repairs were Notable project risks include contractor performance,
+Capital expenditure for the year was R1.1 billion lower Unit 3 was completed and the unit returned to service
+required before commissioning activities – including community unrest, servitude access and delays in
+than budget, primarily due to delays on the battery on 7 February 2025. The reinstatement of Unit 2 was
+plant optimisation and capability tests – could resume. placing major contracts. The TDP Execution Oversight
+energy storage project and future fuel projects at completed on schedule and the unit was reconnected
+The repairs were completed by the end of August Committee was set up to closely monitor project
+several collieries, as well as commercial delays affecting to the permanent stack on 31 March 2025. Unit 1 was
+2023 and the unit was successfully synchronised progress and delivery.
+transmission network strengthening and refurbishment shut down for a planned outage on 31 March 2025,
+to the grid on 31 December 2023. The unit went
+projects. This was partially offset by increased spend on ensuring compliance with DFFE’s exemption for
+into commercial operation on 30 June 2024, adding Potential manufacturing delays could impact future
+Distribution’s rollout of smart meters. operating the temporary stacks. The unit returned
+799MW of installed capacity to the grid. Despite the transformer capacity delivery. To mitigate this risk,
+from outage connected to the permanent stack on
+final rated capacity of the unit being 1MW lower than 23 international factories have been accredited to MEDUPI AND KUSILE PROJECT
+4 June 2025. Dismantling of the original stack has been
+planned, it is considered to have met the shareholder supply high-voltage transformers and a panel of PERFORMANCE completed, with all construction work expected to be
+compact expectation. 14 owner’s engineers appointed to supplement On Kusile Unit 6, all key commissioning milestones completed by the third quarter of FY2026.
+NTCSA’s internal project development, engineering
+have been successfully achieved, and the unit was
+NTCSA’s focused efforts and ongoing risk and project management capabilities.
+synchronised to the grid on 23 March 2025, followed At Medupi, five units were in full commercial
+management strategies enabled the target for the
+by full load on 23 April 2025. The unit has since been operation during the year under review, with Medupi
+installation of transmission lines installed for the year
+contributing base-load power to the grid. The unit Unit 4 remaining offline following the generator
+being exceeded, with significant progress achieved
+has undergone extensive testing and optimisation explosion in August 2021 until it was returned to
+across four key projects. The target for transformer
+– which includes grid code compliance, a 72-hour service with a used generator stator on 6 July 2025.
+capacity was also exceeded, with 2 040MVA being
+continuous run and 30-day reliability run – ahead
+commissioned at six substations together with an
+additional 580MVA from three IPP self-build projects. of commercial operation, which was achieved on IR For more information on the return to service of
+29 September 2025. The overall Kusile project is Medupi Unit 4 subsequent to the year end, refer to
+on track for completion early in FY2028. “Generation performance – Full load losses due to
+major incidents” earlier in this section
+Kusile Units 1 to 3 – which were taken offline in
+October 2022 following a flue gas duct failure in
+the west chimney stack – have been successfully The focus at Medupi is on completing the remaining
+returned to service using temporary stacks about balance-of-plant scope, resolving outstanding claims
+a year later. The stabilisation of the main stack was and moving towards full project close-out. The FGD
+completed in July 2024. The reinstatement of the flue retrofit project is a longer-term priority to ensure
+gas desulphurisation (FGD) plant and main stack for environmental compliance.
+107 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 111 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Interacting with the environment continued
+SECURING STABILITY WHILE MANAGING Our coal supply strategy continues to prioritise long- All supply contracts are actively managed to align SUSTAINING GENERATION OPERATIONS
+TRANSITION RISK term, cost-effective contracts delivered by conveyor, with stations’ useful lives, avoiding surplus coal stock THROUGH WATER SECURITY
+Coal remains the dominant fuel source in our aligned to station-specific coal quality requirements. and financial penalties. This approach supports both Water remains a critical input for Eskom’s coal-
+generation portfolio, accounting for approximately 85% In FY2025, this strategy was reinforced to support operational continuity and our broader transition fired generation fleet, particularly for cooling and
+of our installed capacity and more than 90% of energy the Generation Recovery Plan, which enabled a objectives by ensuring coal supply remains stable demineralisation water processes. In FY2025, we
+sent out by Eskom in FY2025. With coal procurement sustained period of improved energy availability and while the energy mix evolves. continued to prioritise water security through long-
+representing around 85% of Eskom’s primary energy reduced reliance on emergency generation, enabling term supply agreements, infrastructure resilience and
+costs during the year, securing a reliable and cost- the achievement of 310 consecutive days without Our top 10 coal suppliers are set out below. proactive engagement with the Department of Water
+effective coal supply of acceptable quality is critical to loadshedding until 30 January 2025. and Sanitation (DWS). Our water strategy aligns with
+Supplier Contract type
+both operational stability and financial sustainability. the broader transition to a lower-carbon energy mix,
+Exxaro Coal Mix of cost-plus and while ensuring uninterrupted operations at existing
+fixed-price wet-cooled stations.
+The volumes and value of coal purchased over the past year were made up as follows:
+Seriti Coal Mix of cost-plus and
+Coal volumes, % Value of coal purchased, % The Integrated Vaal River System (IVRS) remained
+fixed-price
+stable at 101.6% storage at 30 March 2025 (2024:
+Universal Coal Fixed-price 90.7%). Although the system yield is expected
+36 33 Salungano Fixed-price to remain in deficit until the Lesotho Highlands
+Water Project Phase 2 is commissioned in 2028, no
+Glencore Fixed-price
+39 restrictions to Eskom’s operations are anticipated
+HCI Coal Fixed-price over the next four years.
+42 Mbuyelo Fixed-price The development of the Mokolo Crocodile Water
+Into Africa Mining and Fixed-price Augmentation Project (MCWAP) Phase 2A is now
+Exploration expected to deliver water by January 2030. This is
+critical to supporting the flue gas desulphurisation
+Mwelase Mining Fixed-price
+25 25 (FGD) retrofit at Medupi and ensuring long-term water
+Namane Resources Fixed-price supply to Matimba and Exxaro’s Grootegeluk mine.
+Cost-plus Fixed-price Short/medium-term contracts The Mokolo River System, which supplies Matimba and
+Managing coal quality to enhance reliability and Medupi, remained at full capacity at year end, at 105.5%
+reduce emissions (2024: 100.2%), but the risk of curtailment remains until
+To mitigate supply risk and stabilise stock levels, we To address these shortfalls, we have implemented robust Coal quality remained a key operational focus in MCWAP Phase 2A becomes operational.
+increased procurement from cost-plus contracts, recovery plans. The under-supply from existing suppliers, FY2025, particularly at high-impact stations such as
+maintaining a disciplined approach to cost. The exacerbated by extended periods of high rainfall, Matla, which accounts for more than 85% of the coal- IR Refer to “Strengthening our infrastructure – Other
+average cost per ton of coal rose by only 2.9% year- contributed significantly. Furthermore, coal supply to related load losses. Despite this, coal-related losses projects” on page 108 for more information
+on-year (2024: 6.6%) due to improved production at Majuba faced disruptions due to rail infrastructure issues were contained at 0.37% OCLF (2024: 0.75%).
+cost-plus mines and favourable pricing negotiated with and locomotive failures. We are actively collaborating
+short- and medium-term suppliers. with Transnet Freight Rail to resolve these challenges and Significant progress was made in improving the quality The Lesotho Highlands Water Project Phase 1
+ensure a stable coal supply. of coal delivered by both conveyor and road. At underwent essential planned maintenance work
+Although we continued to prioritise the recovery of Matla, a blended supply strategy – mixing coal from from October 2024 until April 2025, with some
+coal stock days during the year to enhance operational During the year, we concluded several coal supply the tied colliery with higher-quality sources – was delays experienced. Water supplied from the Vaal
+resilience and reduce the risk of supply disruptions, agreements (CSAs) to address coal requirements implemented as an interim measure, while longer- Dam to Eskom’s power stations, Rand Water and
+five power stations had coal stock levels below their across various power stations. Key agreements include: term beneficiation options are being explored in municipalities was not affected as the Vaal Dam’s level
+individual minimum stockholding requirement by year • Kusile: Approximately 54.4Mt of coal will be collaboration with the mine. Across the system, remained above 100% following a high rainfall period.
+end (2024: none). Despite these shortfalls, all power supplied by conveyor from a nearby mine verification sampling and quality assurance initiatives
+stations maintained stock levels above the Grid code • Duvha and Tutuka requests for proposal: CSAs have yielded measurable improvements in coal quality
+requirement and normalised coal stock days remained have been concluded for both stations from short- and medium-term suppliers.
+above target, thereby ensuring continued compliance
+• Matla: Renewal negotiations are in progress, with
+to support operational stability.
+the existing CSA extended until an agreement can
+be concluded
+111 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 114 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Kendal has significantly improved its emissions and in May 2024, after consultation with the National The decommissioning and/or repowering and Projected annual water use over the medium term
+regularly achieved compliance on the south stack by Environmental Consultative and Advisory Forum repurposing plans for stations which received a
+year end. This was due to the focused implementation she had established. The decision was generally suspension decision in May 2024 were prepared
+of the agreed-upon emission recovery plan as a favourable to the continued operation of our coal- and submitted to the DFFE Minister in May 2025 as Water projection (Mn3/p.a.)
+condition of the AEL compliance directive received in fired power stations. required. DFFE has appointed an expert panel to
+2019, with repairs on all units having been completed. review our submissions.
+In relation to the power stations that are to be
+Air quality offset programmes decommissioned by 2030 – Hendrina, Grootvlei, MANAGING WATER CONSUMPTION
+We are undertaking an air quality offset programme Arnot, Camden and Kriel – our request for Generation utilises high volumes of water to produce
+to align to DFFE’s call to reduce emissions caused suspension of the MES limits was granted; this electricity. Given our status as a strategic water
+by power generation. The programme aims to affects around 10 000MW of installed capacity. The user assured of water supply at the highest level of
+reduce particulate matter emissions in communities decision allows these stations to continue operating assurance over the life of our power stations, we have
+adjacent to and affected by some of our coal-fired at emission levels attainable using already installed a responsibility to reduce our water use in a water
+power stations by improving ambient air quality and emission reduction technologies. We were directed scarce country such as South Africa. Over the next
+indoor thermal comfort, through insulating homes to submit decommissioning plans within 12 months of five years, Generation plans to decrease its water use
+10.7
+with ceilings, switching households from coal to the decision. The decommissioning and/or repowering by 43%.
+2025 2026 2027 2028 2029 2030
+electricity and liquid petroleum gas, and reducing and repurposing plans were prepared and submitted
+the burning of waste. Our goal is to reduce harmful to the DFFE Minister in May 2025 as legally required.
+indoor emissions and create a cleaner, healthier
+environment for communities living near and For power stations operating beyond 2030, namely
+affected by our power stations. Lethabo, Duvha, Matla, Tutuka, Kendal, Majuba,
+Medupi and Matimba (affecting around 30 000MW
+The project in KwaZamokuhle near Hendrina of installed capacity), we were directed to apply for
+concluded in October 2024, with 3 505 houses an exemption from the provisions of NEMAQA in
+completed as planned. At Ezamokuhle near Majuba, respect of each of these facilities within 60 days of the
+the project concluded in September 2024, with issuance of the decision. We requested an extension,
+2 086 out of a planned 2 100 houses completed. which DFFE granted. After public consultation,
+In the Sharpeville area, all six waste clean-ups have the exemption application was submitted in
+been completed. Planning and contracting for further December 2024 as required under the extension.
+phases of the programme is underway.
+On 31 March 2025, the DFFE Minister issued a
+COMPLIANCE WITH MINIMUM EMISSION generally favourable MES exemption decision for
+STANDARDS Lethabo, Duvha, Matla, Tutuka, Kendal, Majuba,
+We are required to reduce gaseous emissions Medupi and Matimba. The decision grants exemption
+of sulphur dioxide and nitrogen oxides as well as until 31 March 2030 for Lethabo, Tutuka, Kendal,
+particulate matter under limits set out in the Minimum Majuba, Medupi and Matimba, thereby allowing
+Emission Standards (MES), first published in 2013 and these stations to continue to operate. Duvha and
+amended in 2018. The objective of the regulations is Matla received an MES exemption until their planned
+to protect people and the environment by requiring decommissioning in 2034. No requirement for
+reasonable measures for the prevention of pollution additional NOx or SOx projects beyond Eskom’s
+and ecological degradation, while ensuring ecologically existing commitments have been stipulated in the
+sustainable development and promoting justifiable MES exemption decision. However, the decision does
+economic and social development. place multiple additional requirements on Eskom,
+ranging from additional ambient air quality monitoring
+After several rounds of exemption applications and to additional health support to communities. Work
+appeals, the then Minister of Forestry, Fisheries and has been initiated to meet these requirements.
+the Environment (DFFE) announced a decision on
+our appeals on our MES postponement applications
+114 ESKOM HOLDINGS SOC LTD Integrated report 2025
+172 452 742 232
+802
+451
+Interacting with the environment continued
+-43%
+
+===== PAGE 117 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Interacting with the environment continued
+INVESTING IN RENEWABLE ENERGY which includes gas-to-power and battery storage Exco plays an essential role in governing, supporting ALIGNING SOUTH AFRICA’S POLICY AND
+Our direct investment in renewable generating projects, and the establishment of Eskom Green as and regularly engaging in discussions surrounding the REGULATORY ENVIRONMENT
+capacity has been modest to date, with one wind a separate subsidiary to spearhead investment and management of JET initiatives and climate change- Domestically, South Africa has made significant
+facility and six small hydroelectric stations. Although innovation in renewable energy. We are committed related matters. Progress on implementation of these strides in formalising its climate response. The
+we operate three pumped storage schemes with total to significantly increasing our renewable capacity to initiatives are regularly assessed through the monthly Climate Change Act, 2024, signed into law in
+installed capacity of 2 732MW, these stations are net reach our long-term objective of attaining net-zero JET Steering Committee, as well as Exco and Board July 2024 and effective from March 2025, provides
+consumers of electricity. emissions by 2050. meetings, to ensure that the organisation remains on a legal framework for mitigation and adaptation
+track towards its climate goals. Priority climate-related planning across sectors. Eskom is well-positioned
+During the year, our Sere Wind Farm contributed RESPONDING TO CLIMATE CHANGE risks are actively tracked and monitored to ensure to comply with the Act’s requirements, having
+332GWh to the national grid (2024: 329GWh). Climate change remains one of the most urgent that they are being effectively addressed. already embedded climate risk management into our
+It maintained an average load factor of 36.33% and complex challenges of our time, with escalating governance and operational frameworks.
+(2024: 35.81%), which aligns to expectations for impacts on ecosystems, economies and communities. To ensure effective management of climate-related
+wind-based renewable plant, and recorded an average The past decade has been the warmest on record, issues, several subcommittees and positions have been The Act introduces mandatory carbon budgets for
+availability factor of 96.70% (2024: 97.40%). and the frequency and intensity of extreme weather established, including the Risk Subcommittee under high-emitting sectors (expected from 2026), building
+events continue to rise. As a major emitter and Exco, the Risk and Resilience Governance Committee, on Eskom’s prior participation in DFFE’s voluntary
+We purchase renewable energy from IPPs, mainly a central player in South Africa’s energy system, the JET Office, together with a senior manager carbon budget programme. In parallel, the Carbon
+from wind and solar projects, alongside smaller we recognise our responsibility to act decisively in responsible for climate change and sustainable Tax Act, 2019 is entering its second phase, with
+contributions from biomass, landfill gas and small support of a just, inclusive and climate-resilient future. development. National Treasury proposing to maintain electricity
+hydro technologies. Renewable IPPs contributed price neutrality between 2026 and 2030, to mitigate
+17 420GWh during the year (2024: 17 851GWh), From a governance perspective, the Board is GLOBAL MOMENTUM: OUTCOMES FROM the socio-economic impacts of electricity affordability.
+constituting 8% of energy available for distribution for responsible for oversight and implementation of COP29 AND THE ROAD TO COP30
+the year (excluding wheeling). Furthermore, most of Eskom’s business strategy, which incorporates the The 29th United Nations Climate Change South Africa’s long-term emissions trajectory will
+our imported power is supplied by Cahora Bassa, a ambition to achieve net-zero emissions by 2050. The Conference (COP29) – held in Baku, Azerbaijan in be shaped by the transformation of the electricity
+hydroelectric station in neighbouring Mozambique. Board is supported by the Audit Committee and November 2024 – marked a pivotal moment in the sector, as outlined in the draft IRP 203 and enabled by
+the Risk Committee as well as the Social, Ethics and global climate agenda. With nearly 200 countries and the Transmission Development Plan. Eskom’s role in
+IR For information on the capacity of our power stations Sustainability Committee, which regularly review and over 56 000 delegates in attendance, the conference this transformation is vital to achieving the country’s
+evaluate the organisation’s progress on climate-related underscored the urgency of accelerating climate nationally determined contribution (NDC) under the
+and a breakdown of capacity supplied by IPPs, refer to
+page 145 issues through regular reports from management and action. Key outcomes included the adoption of a new Paris Agreement.
+discussions with experts in the field. This process collective quantified goal on climate finance, tripling
+ensures that the Board and its committees are kept support to developing countries to US$300 billion We have classified the inability to fully comply
+In aggregate, 11.3% of the power supplied during the informed of the latest developments in this field and annually by 2035, and the operationalisation of the with evolving climate change legislation and meet
+year was sourced from renewable energy sources in that they are equipped to make informed decisions on Loss and Damage Fund to assist vulnerable nations. associated emission reduction targets as a Priority 2
+the form of solar, wind and hydro, with 84.2% being climate-related matters. under our risk management standard. All risks are
+supplied by coal and diesel, and 3.9% by nuclear COP29 also finalised the long-awaited Article 6 tracked through our risk management system, with
+(2024: 13.1%, 82.5% and 3.9% respectively). The The Board and its committees have to consider the Rulebook, establishing a robust framework for controls and treatment actions reviewed regularly.
+balance of 0.6% was derived from other sources impact of climate-related issues when evaluating international carbon trading. This development is
+ESKOM’S CLIMATE STRATEGY: MITIGATION
+(2024: 0.5%). and guiding the organisation’s overall strategy, particularly relevant for South Africa, where emerging
+AND ADAPTATION IN ACTION
+key initiatives, risk management policies, annual carbon markets are expected to play a growing role in
+We are steadfast in our commitment to transition budgets and business plans. This includes ensuring financing the energy transition. Our climate response is anchored in a dual strategy of
+from being a traditional base-load provider to a that performance objectives are aligned with the mitigation and adaptation, aligned with our ambition
+diversified energy leader, with a focus on flexible organisation’s ambition of achieving net-zero emissions Eskom actively participated in COP29, hosting and to achieve net-zero emissions by 2050. In FY2025, we
+and clean energy solutions. We have a pipeline of by 2050 and monitoring the implementation and contributing to seven high-profile events. These continued to move towards decarbonising our energy
+at least 2GW of clean energy projects ready for progress towards meeting these objectives, including engagements showcased our leadership in the Just mix by expanding our renewable energy pipeline,
+execution in the short to medium term. We will those to reduce emissions. The Board and its Energy Transition (JET), highlighted lessons from repowering coal-fired stations and investing in grid
+continue repowering and repurposing our stations committees also play a vital role in monitoring and Komati’s repurposing and explored innovative modernisation and smart technologies.
+independent of the station shutdown plan. Our managing climate-related risks and opportunities. financing models to unlock investment in grid
+strategic initiatives target the development of a infrastructure and renewable energy.
+5.9GW clean energy pipeline in the longer term,
+117 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 145 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Plant information
+POWER STATION CAPACITIES
+at 31 March 2025
+The difference between installed and nominal capacity reflects auxiliary power consumption and reduced capacity caused by the age of the plant.
+Number and
+installed capacity Total installed Total nominal
+Years commissioned, of generator sets capacity capacity
+Name of station Location first to last unit MW MW MW
+Base-load stations
+Coal-fired (15) 45 340 39 177
+Arnot Middelburg Sep 1971 to Aug 1975 6x370 2 220 2 100
+3x200; 1x196; 2x195;
+Camden1, 3 Ermelo Mar 2005 to Jun 2008 1 561 1 481
+1x190; 1x185
+Duvha2 Emalahleni Aug 1980 to Feb 1984 5x600 3 000 2 875
+Grootvlei1, 3 Balfour Apr 2008 to Mar 2011 4x200; 2x190 1 180 570
+3x200; 1x195;
+Hendrina3 Middelburg May 1970 to Dec 1976 1 666 1 041
+1x191; 4x170
+Kendal4 Emalahleni Oct 1988 to Dec 1992 6x686 4 116 3 840
+Komati1, 5 Middelburg Mar 2009 to Oct 2013 4x100; 4x125; 1x90 990 –
+Kriel Bethal May 1976 to Mar 1979 3x430; 3x500 2 790 2 640
+Kusile4 Ogies Aug 2017 to Jun 2024 5x799 3 995 3 600
+Under construction 1x800 – –
+Lethabo Vereeniging Dec 1985 to Dec 1990 6x618 3 708 3 558
+Majuba4 Volksrust Apr 1996 to Apr 2001 3x657; 3x713 4 110 3 807
+Matimba4 Lephalale Dec 1987 to Oct 1991 6x665 3 990 3 690
+Matla6 Bethal Sep 1979 to Jul 1983 6x600 3 600 3 450
+Medupi4, 7 Lephalale Aug 2015 to Jul 2021 5x794; 1x790 4 760 3 600
+Tutuka8 Standerton Jun 1985 to Jun 1990 6x609 3 654 2 925
+Nuclear (1)
+Koeberg Cape Town Jul 1984 to Nov 1985 1x970; 1x964 1 934 1 854
+Peaking stations
+Gas/liquid fuel turbine stations (4) 2 426 2 409
+Acacia Cape Town May 1976 to Jul 1976 3x57 171 171
+Ankerlig Atlantis Mar 2007 to Mar 2009 4x149.2; 5x148.3 1 338 1 327
+Gourikwa Mossel Bay Jul 2007 to Nov 2008 5x149.2 746 740
+Port Rex East London Sep 1976 to Oct 1976 3x57 171 171
+Pumped storage schemes (3)9 2 732 2 724
+Drakensberg Bergville Jun 1981 to Apr 1982 4x250 1 000 1 000
+Ingula Ladysmith Jun 2016 to Feb 2017 4x333 1 332 1 324
+Palmiet Grabouw Apr 1988 to May 1988 2x200 400 400
+Hydroelectric stations (2)10 600 600
+Gariep Norvalspont Sep 1971 to Mar 1976 4x90 360 360
+Vanderkloof Petrusville Jan 1977 to Feb 1977 2x120 240 240
+Total used for capacity management purposes 53 032 46 764
+145 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 146 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Plant information continued
+Number and
+installed capacity Total installed Total nominal
+Years commissioned, of generator sets capacity capacity
+Name of station Location first to last unit MW MW MW
+Renewable energy
+Wind energy (1)11
+Sere Vredendal Mar 2015 46x2.2 100 100
+Total capacity including renewable energy 53 132 46 864
+Other hydroelectric stations (4)11 61 2
+Mbashe12 Mbashe River 3x14 42 –
+First Falls12 Umtata River 2x3 6 –
+Ncora Ncora River 2x0.4; 1x1.6 2 2
+Second Falls12 Umtata River 2x5.5 11 –
+Total Eskom power station capacities (30) 53 193 46 866
+Nominal capacity available to the grid – Eskom-owned 88.11%
+Nominal capacity of Eskom-owned power stations 46 866
+Independent power producers (IPP) capacity 7 495
+Biomass 25
+Concentrating solar power 500
+Fossil fuels (STPPP) 160
+Gas/liquid fuel 1 005
+Hydroelectric 18
+Landfill 8
+Renewable with battery storage (RMIPPPP) 150
+Solar PV energy 2 287
+Wind 3 342
+Total nominal capacity available to the grid – Eskom and IPPs 54 361
+1. Former moth-balled power stations that have been returned to service. The original commissioning dates were:
+• Camden was originally commissioned between August 1967 and September 1969
+• Grootvlei was originally commissioned between June 1969 and November 1977
+• Komati was originally commissioned between November 1961 and March 1966
+Due to technical and/or financial constraints, some units at these stations have been derated.
+2. The Duvha Unit 3 recovery project was cancelled and the unit was removed from the installed base in FY2018.
+3. Certain units are under reserve storage and their capacity removed from the nominal base.
+4. Dry-cooled unit specifications based on design back-pressure and ambient air temperature.
+5. All of Komati’s units have been shut down, with the last unit shut down by 1 November 2022. The station is being repurposed as part of Eskom’s Just Energy Transition initiative.
+6. Matla Unit 6 was placed in extended inoperability and removed from the nominal base for reporting purposes from 1 July 2025 until its expected return to service in September 2026.
+7. Medupi Unit 4 was placed in extended inoperability and removed from the nominal base from 1 October 2022. It was once again included in the nominal base from 1 June 2025 and
+synchronised to the grid on 6 July 2025.
+8. Tutuka Unit 6 was placed in extended inoperability and removed from the nominal base from 1 August 2024 until its expected return to service in October 2026.
+9. Pumped storage facilities are net users of electricity. Water is pumped during off-peak periods so that hydroelectricity can be generated during peak periods.
+10. Use restricted to periods of peak demand, dependent on the availability of water in the Gariep and Vanderkloof Dams.
+11. Installed and operational, but not included when calculating technical performance KPIs.
+12. Small hydro stations were placed in reserve storage from 1 April 2021.
+146 ESKOM HOLDINGS SOC LTD Integrated report 2025
+
+===== PAGE 150 =====
+Transforming energy to create value Thoughts from our leadership Our strategic and risk landscape Leveraging governance for transformation Performance overview Supplementary information ABC
+Sustainability indicators selected for reasonable assurance
+Deloitte & Touche has been engaged to provide reasonable assurance on selected sustainability key performance indicators (KPIs) for the year ended 31 March 2025. These KPIs are reported based on internally developed measure
+specification documents which set out the reporting criteria. These criteria are summarised in the measurement description for each KPI in the table below.
+All but one of the 35 KPIs scoped for reasonable assurance received an unqualified opinion.
+IR Refer to the independent sustainability assurance report from page 153 for further information
+The selected KPIs and corresponding performance for the year ended 31 March 2025 are as follows:
+Unit of Actual
+Key performance indicator measure Measurement description Boundary 2025
+Safety
+Lost-time injury rate (employees only)SC Rate Proportional representation of lost-time injuries over 12 months per 200 000 working hours. The measure includes Group 0.23RA
+occupational diseases but excludes third party at fault incidents and all passengers in commuting incidents
+Generation
+Energy availability factor (EAF)SC % Measures power station availability of official generating units based on nominal capacity. It considers planned and Generation 60.60RA
+unplanned energy losses under the control of plant management, as well as other non-controllable losses
+Planned capability loss factor (PCLF)SC % Energy losses due to planned maintenance on power station units, whether due to full shutdowns or partial load reduction Generation 12.76RA
+Unplanned capability loss factor (UCLF) % Unplanned losses, whether due to full breakdowns or partial unavailability of plant Generation 26.05RA
+Other capability loss factor (OCLF) % Energy losses outside of a station’s control as well as internal non-engineering constraints Generation 0.59RA
+Post-philosophy outage unplanned capability loss factor % Unplanned breakdowns of power station units that occur within sixty days after the unit has returned from a planned Generation 29.69RA
+(PPO UCLF) philosophy outage
+Particulate emissions kt The mass of particulates emitted from Eskom’s coal-fired power stations Generation 122.94RA
+Relative particulate emissionsSC kg/MWh The mass of particulates emitted from Eskom’s coal-fired power stations per unit of energy sent out Generation 0.64RA
+sent out
+Atmospheric emission licence (AEL) complianceSC % Annual average of AEL compliance per coal-fired power station, scored on an internal assessment of each station’s Generation 85.62RA
+compliance with the required AEL conditions. It includes emission limit compliance, number of NEMA section 30 incidents,
+emission monitor status and gaseous monitor reliability, among others
+Carbon dioxide emissions (from fossil fuel generation) MtCO Tonnage of CO emitted through fossil fuel generation Generation 204.6RA
+2 2
+Specific water consumptionSC ℓ/kWh The amount of raw water used for power generation per unit of energy sent out Generation 1.40RA
+sent out
+Coal purchase Rand/ton increaseSC % Determined by comparing the current average fleet purchase price of coal against the previous year’s actual price Generation 2.9RA
+Generation capacity installed and commissioned MW New power station units installed and commissioned on Eskom’s network Generation 799RA
+(commercial operation)SC Note 1
+NTCSA
+System minutes lost <1SC Minutes Measures the sum of system minutes lost for interruptions on the transmission network. It excludes major incidents with a NTCSA 4.37RA
+severity of one minute or more
+Number of interruptions Number The number of interruptions on the transmission network NTCSA 43RA
+Major incidents ≥1 minute Number An interruption on the transmission network with a severity ≥1 system minute NTCSA 4RA
+Transmission lines installedSC km New high-voltage transmission lines installed on the transmission network NTCSA 292.6RA
+Transmission transformer capacity installed and commissionedSC MVA New transformer capacity installed and commissioned at transmission substations NTCSA 2 620RA
+150 ESKOM HOLDINGS SOC LTD Integrated report 2025
