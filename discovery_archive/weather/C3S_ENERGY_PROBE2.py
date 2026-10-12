@@ -16,16 +16,26 @@ for k in ("description", "update_frequency", "temporal_coverage"):
     print(k, str(col.get(k))[:800])
 import cdsapi
 cl = cdsapi.Client(url=B, key=os.environ["CDS_API_KEY"], quiet=False)
-req = {"variable": ["solar_photovoltaic_power_generation", "wind_power_generation_onshore"], "spatial_aggregation": "country_level",
-       "temporal_aggregation": "daily", "energy_product_type": "capacity_factor_ratio", "year": ["2025"], "month": ["06"], "data_format": "netcdf"}
-for variant in (req,):
+base = {"spatial_aggregation": "country_level", "temporal_aggregation": "daily"}
+V = [
+ dict(base, variable=["solar_photovoltaic_power_generation"], energy_product_type="capacity_factor_ratio", year=["2020"], month=["06"]),
+ dict(base, variable=["wind_power_generation_onshore"], energy_product_type="capacity_factor_ratio", year=["2020"], month=["06"], data_format="netcdf"),
+ dict(base, variable=["wind_speed_at_10m"], year=["2020"], month=["06"]),
+ dict(base, variable=["surface_downwelling_shortwave_radiation"], year=["2020"], month=["06"]),
+ dict(base, variable=["2m_air_temperature"], year=["2020"], month=["06"], data_format="csv"),
+ dict(spatial_aggregation="maritime_country_level", temporal_aggregation="daily", variable=["wind_power_generation_offshore"], energy_product_type="capacity_factor_ratio", year=["2020"], month=["06"]),
+]
+ok = None
+for i, variant in enumerate(V):
     try:
-        t = cl.retrieve(ID, variant, "/tmp/c3s_test")
-        print("downloaded", t)
+        t = cl.retrieve(ID, variant, f"/tmp/c3s_test{i}")
+        print("OK", i, variant, t, os.path.getsize(f"/tmp/c3s_test{i}"))
+        ok = ok or f"/tmp/c3s_test{i}"
     except Exception as ex:
-        print("ERR", type(ex).__name__, str(ex)[:3000])
-        sys.exit(0)
-p = "/tmp/c3s_test"
+        print("ERR", i, variant, type(ex).__name__, str(ex)[:600])
+if not ok:
+    sys.exit(0)
+p = ok
 print(os.path.getsize(p), open(p, "rb").read(8))
 if zipfile.is_zipfile(p):
     z = zipfile.ZipFile(p); print(z.namelist())
