@@ -1,0 +1,355 @@
+== https://www.teias.gov.tr/kurulu-guc-raporlari -> 200 90722B
+    (no matching links)
+== https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar -> 200 280240B
+    Aylık Sektör Raporlar -> https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar
+    Yıllık Sektör Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-24-3/elektrikyillik-sektor-raporu
+    Diğer Raporlar -> https://www.epdk.gov.tr/Detay/Icerik/3-0-68-3/elektrikdiger-raporlar
+    Aylık Sektör Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-95-1007/dogal-gazaylik-sektor-raporu
+    Yıllık Sektör Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-94-1007/dogal-gazyillik-sektor-raporu
+    Aylık Sektör Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-104-1008/petrolaylik-sektor-raporu
+    Yıllık Sektör Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-107/yillik-sektor-raporu
+    Fiyatlandırma Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-143/fiyatlandirma-raporu
+    Akaryakıt İzleme Raporu -> https://www.epdk.gov.tr/Detay/Icerik/3-0-97-1008/petrolakaryakit-izleme-raporu
+    Aylık Sektör Raporları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-105-1002/lpgaylik-sektor-raporlari
+    Yıllık Sektör Raporları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-108-1002/lpgyillik-sektor-raporlari
+    Yıllık Sektör Raporları -> https://www.epdk.gov.tr/Detay/Icerik/3-0-218-1040/enerji-donusumuyillik-sektor-raporlari
+     -> https://www.epdk.gov.tr/Detay/Icerik/3-0-23-3/elektrikaylik-sektor-raporlar#cd-primary-nav
+    YAYINLAR / RAPORLAR -> https://www.epdk.gov.tr/Detay/Icerik/1-1059/elektrikyayinlar--raporlar
+    YAYINLAR / RAPORLAR -> https://www.epdk.gov.tr/Detay/Icerik/1-1101/dogal-gazyayinlar--raporlar
+    YAYINLAR / RAPORLAR -> https://www.epdk.gov.tr/Detay/Icerik/1-1122/petrolyayinlar--raporlar
+    YAYINLAR / RAPORLAR -> https://www.epdk.gov.tr/Detay/Icerik/1-1146/lpgyayinlar--raporlar
+    YAYINLAR/RAPORLAR -> https://www.epdk.gov.tr/Detay/Icerik/1-3380/enerji-donusumuyayinlarraporlar
+    Elektrik Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/3-0-23/aylik-sektor-raporu
+    Doğal Gaz Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/3-0-95/aylik-sektor-raporu
+    Petrol Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/3-0-104/aylik-sektor-raporu
+    LPG Piyasası -> https://www.epdk.gov.tr/Detay/Icerik/3-0-105/aylik-sektor-raporu
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=Ntc12/RpCN4=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=hjNB1ZVBPnE=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=0k/x1TLsbeA=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=aOl7ayYHe7Y=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=AHI7ackCfN4=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=wUs2ok4WjqI=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=jZFRo6BgRnk=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=5NlL5ZC3I1Y=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=OPFgg07yizs=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=woTDz+vRobM=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=Pp0Lrqj0aFQ=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=G8skgs0vyYE=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=hIdYeic0Jgg=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=lW7wMEslZyg=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=uYyWGPr2oM0=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=Mvd2CnnvKTE=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=1FS08C1kCGE=
+     -> https://www.epdk.gov.tr/Detay/DownloadDocument?id=p0zanyZrS4E=
+    ... more
+== https://www.epdk.gov.tr/Detay/Icerik/3-0-66-3/elektrikuretim-kapasite-projeksiyonlari -> 200 105367B
+    (no matching links)
+--- EPIAS doc _flow-rate-and-installed-power" : _flow-rate-and-installed-power">5.52. Debi ve Kurulu GÃ¼Ã§ Listeleme Servisi      5.52.1. AÃ§Ä±klama     5.52.2. Parametreler     5.52.3. Cevaplar     5.52.4. KullanÄ±lanlar     5.52.5. Ãretilenler     5.52.6. Etiketler         5.53. Suyun Enerji KarÅÄ±lÄ±ÄÄ± Listeleme Servisi      5.53.1. AÃ§Ä±klama     5.53.2. Parametreler     5.53.3. Cevaplar     5.53.4. KullanÄ±lanlar     5.53.5. Ãretilenler     5.53.6. Etiketler         5.54. Aktif Doluluk DÄ±Åa AktarÄ±m Servisi      5.54.1. AÃ§Ä±klama     5.54.2. Parametreler     5.54.3. Cevaplar     5.54.4. KullanÄ±lanlar     5.54.5. Ãretilenler     5.54.6. Etiketler         5.55. Aktif Hacim DÄ±Åa AktarÄ±m Servisi      5.55.1. AÃ§Ä±klama     5.55.2. Parametreler     5.55.3. Cevaplar     5.55.4. KullanÄ±lanlar    <a h
+--- EPIAS doc _flow-rate-and-installed-power" : _flow-rate-and-installed-power">5.52. Debi ve Kurulu GÃ¼Ã§ Listeleme Servisi       POST /v1/dams/data/flow-rate-and-installed-power         5.52.1. AÃ§Ä±klama     Ä°lgili barajda Ã¼niteden geÃ§en suyun miktarÄ±nÄ± ve barajÄ±n kurulu gÃ¼cÃ¼nÃ¼ gÃ¶sterir.         5.52.2. Parametreler                     Tip   Ä°sim   AÃ§Ä±klama   Åema                Header             TGT    gerekli            Required TGT header for authentication. More on:  https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests            string  
+--- EPIAS doc _new-installed-capacity" : _new-installed-capacity">5.246. Kurulu GÃ¼Ã§ YEKDEM Son Tarih SonrasÄ± Veri Listeleme Servisi      5.246.1. AÃ§Ä±klama     5.246.2. Parametreler     5.246.3. Cevaplar     5.246.4. KullanÄ±lanlar     5.246.5. Ãretilenler     5.246.6. Etiketler         5.247. Kurulu GÃ¼Ã§ YEKDEM Son Tarih ve Ãncesi Veri Listeleme Servisi      5.247.1. AÃ§Ä±klama     5.247.2. Parametreler     5.247.3. Cevaplar     5.247.4. KullanÄ±lanlar     5.247.5. Ãretilenler     5.247.6. Etiketler         5.248. Yekdem PortfÃ¶y Geliri Listeleme Servisi      5.248.1. AÃ§Ä±klama     5.248.2. Parametreler     5.248.3. Cevaplar     5.248.4. KullanÄ±lanlar     5.248.5. Ãretilenler     5.248.6. Etiketler         5.249. UzlaÅtÄ±rma Esas VeriÅ MiktarÄ± (UEVM) Listeleme Servisi      5.249.1. AÃ§Ä±klama     5.249.2. Parametreler    <a hre
+--- EPIAS doc _new-installed-capacity" : _new-installed-capacity">5.246. Kurulu GÃ¼Ã§ YEKDEM Son Tarih SonrasÄ± Veri Listeleme Servisi       POST /v1/renewables/data/new-installed-capacity         5.246.1. AÃ§Ä±klama     YEKDEM kapsamÄ±ndaki Ã¼retim tesislerinin kurulu gÃ¼Ã§ miktarÄ±dÄ±r. LisanslÄ± kurulu gÃ¼Ã§ bilgileri EPÄ°AÅ&#8217;a kayÄ±tlÄ± santraller olup, lisanssÄ±z kurulu gÃ¼Ã§ bilgisi daÄÄ±tÄ±m Åirketlerinden temin edilmektedir.YEKDEM kapsamÄ±ndaki Ã¼retim tesislerinin kurulu gÃ¼Ã§ miktarÄ±dÄ±r.         5.246.2. Parametreler                     Tip   Ä°sim   AÃ§Ä±klama   Åema                Header             TGT    gerekli            Required TGT header for authentication. More on:  https://seffaflik.epias.com.t
+--- EPIAS doc dashboard : dashboard-balancing-power-market">5.62. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) Dengeleme GÃ¼Ã§ PiyasasÄ± Servisi      5.62.1. AÃ§Ä±klama     5.62.2. Parametreler     5.62.3. Cevaplar     5.62.4. Ãretilenler     5.62.5. Etiketler         5.63. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GÃ¼n Ãncesi PiyasasÄ± Servisi      5.63.1. AÃ§Ä±klama     5.63.2. Parametreler     5.63.3. Cevaplar     5.63.4. Ãretilenler     5.63.5. Etiketler         5.64. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GÃ¼n Ä°Ã§i PiyasasÄ± Servisi      5.64.1. AÃ§Ä±klama     5.64.2. Parametreler     5.64.3. Cevaplar     5.64.4. Ãretilenler     5.64.5. Etiketler         5.65. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) Piyasa Mesaj Sistemi Servisi      5.65.1. AÃ§Ä±klama     5.65.2. Parametreler     5.65.3. Cevaplar     5.65.4. Ãretilenler     5.65.5. Etiketler        <a href="#_dashboar
+--- EPIAS doc dashboard : dashboard-day-ahead-market">5.63. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GÃ¼n Ãncesi PiyasasÄ± Servisi      5.63.1. AÃ§Ä±klama     5.63.2. Parametreler     5.63.3. Cevaplar     5.63.4. Ãretilenler     5.63.5. Etiketler         5.64. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GÃ¼n Ä°Ã§i PiyasasÄ± Servisi      5.64.1. AÃ§Ä±klama     5.64.2. Parametreler     5.64.3. Cevaplar     5.64.4. Ãretilenler     5.64.5. Etiketler         5.65. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) Piyasa Mesaj Sistemi Servisi      5.65.1. AÃ§Ä±klama     5.65.2. Parametreler     5.65.3. Cevaplar     5.65.4. Ãretilenler     5.65.5. Etiketler         5.66. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GerÃ§ek ZamanlÄ± TÃ¼ketim Servisi      5.66.1. AÃ§Ä±klama     5.66.2. Parametreler     5.66.3. Cevaplar     5.66.4. Ãretilenler     5.66.5. Etiketler        <a href="#_dashboard-
+--- EPIAS doc dashboard : dashboard-market-message-system">5.65. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) Piyasa Mesaj Sistemi Servisi      5.65.1. AÃ§Ä±klama     5.65.2. Parametreler     5.65.3. Cevaplar     5.65.4. Ãretilenler     5.65.5. Etiketler         5.66. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GerÃ§ek ZamanlÄ± TÃ¼ketim Servisi      5.66.1. AÃ§Ä±klama     5.66.2. Parametreler     5.66.3. Cevaplar     5.66.4. Ãretilenler     5.66.5. Etiketler         5.67. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) GerÃ§ek ZamanlÄ± Ãretim Servisi      5.67.1. AÃ§Ä±klama     5.67.2. Parametreler     5.67.3. Cevaplar     5.67.4. Ãretilenler     5.67.5. Etiketler         5.68. ÅeffaflÄ±k Ana SayfasÄ±(Dashboard) Spot Gaz PiyasasÄ± Servisi      5.68.1. AÃ§Ä±klama     5.68.2. Parametreler     5.68.3. Cevaplar     5.68.4. Ãretilenler     5.68.5. Etiketler        <a href="
+EPIAS 'dashboard' paths: ['/v1/dashboard/balancing-power-market', '/v1/dashboard/day-ahead-market', '/v1/dashboard/intra-day-market', '/v1/dashboard/market-message-system', '/v1/dashboard/realtime-consumption', '/v1/dashboard/realtime-generation', '/v1/dashboard/spot-gas-market', '/v1/dashboard/weighted-average-price']
+EPIAS installed paths: ['/v1/dams/data/flow-rate-and-installed-power', '/v1/dams/export/flow-rate-and-installed-power', '/v1/renewables/data/new-installed-capacity', '/v1/renewables/data/old-installed-capacity', '/v1/renewables/export/new-installed-capacity', '/v1/renewables/export/old-installed-capacity']
+EPIAS auth hint: IBAKBYG9ILkogEAgEAoFAIBAIBHtDclECgUAgEAgEAoFAINgbkosSCAQCgUAgEAgEAsHekFyUQCAQCAQCgUAgEAj2huSiBAKBQMxnOBgAAAAeSURBVCAQCAQCgUCwNyQXJRAIBAKBQCAQCASCvfl/oua41KnJcTQAAAAASUVORK5CYII=" alt="REQUEST_WITHOUT_TGT_EXAMPLE">        DÄ±ÅarÄ±dan eriÅilebilir servisler haricinde, kullanÄ±cÄ±larÄ±n giriÅ yaparak eriÅtikleri sayfa verilerinin servisle alÄ±nabilmesi iÃ§in, gÃ¼venlik(authentication) bilgilerinin yapÄ±lan isteklere eklenmesi gerekir. Bunun iÃ§in, Ã¶ncelikle test ortamÄ± iÃ§in  https://giris-pr
+== https://www.hrote.hr/obnovljivi-izvori-energije-i-viskoucinkovita-kogeneracija -> 200 44917B
+    Izvještaji -> https://www.hrote.hr/izvjestaji
+    Izvještaji -> https://www.hrote.hr/izvjestaji-310
+    Izvještaji -> https://www.hrote.hr/izvjestaji-499
+    Priručnik o postupcima ishođenja dozvola za izgradnju proizvodnog postrojenja iz -> https://mingo.gov.hr/UserDocsImages/UPRAVA ZA ENERGETIKU/Vodi%C4%8Di/Priru%C4%8Dnik OIE-Elektri%C4%8Dna energija.pdf
+    Priručnik o postupcima ishođenja dozvola za izgradnju proizvodnog postrojenja iz -> https://mingo.gov.hr/UserDocsImages//UPRAVA%20ZA%20ENERGETIKU/Vodi%C4%8Di//Priru%C4%8Dnik%20OIE_Toplinska%20energija.pdf
+    ovdje. -> http://files.hrote.hr/files/PDF/Dokumenti/GDPR/PRAVILA%20PRIVATNOSTI.pdf
+== https://www.hrote.hr/izvjestaji -> 200 37986B
+    Preskočite na glavni sadržaj -> https://www.hrote.hr/izvjestaji#main
+    Izvještaji -> https://www.hrote.hr/izvjestaji
+    Izvještaji -> https://www.hrote.hr/izvjestaji-310
+    Izvještaji -> https://www.hrote.hr/izvjestaji-499
+    Izbornik -> https://www.hrote.hr/izvjestaji#mobile-menu
+    Poveznica na dokument -> https://files.hrote.hr/files/PDF/OIEIK/GI OIEIK 2025.pdf
+    Poveznica na dokument - OIE (2022.) -> https://files.hrote.hr/files/PDF/OIEIK/Obračuni poticaja PP-ima za 2022_OIE.pdf
+    Poveznica na dokument - KOG (2022.) -> https://files.hrote.hr/files/PDF/OIEIK/Obračuni poticaja PP-ima za 2022_KOG.pdf
+    Poveznica na dokument - OIE (2021.) -> https://files.hrote.hr/files/PDF/OIEIK/Obračuni poticaja PP-ima za 2021_OIE.pdf
+    Poveznica na dokument - KOG (2021.) -> https://files.hrote.hr/files/PDF/OIEIK/Obračuni poticaja PP-ima za 2021_KOG.pdf
+    Poveznica na dokument - OIE (2020.) -> https://files.hrote.hr/files/PDF/OIEIK/Obračunati poticaji PP-ima za 2020._OIE.pdf
+    Poveznica na dokument - KOG (2020.) -> https://files.hrote.hr/files/PDF/OIEIK/Obračunati poticaji PP-ima za 2020._KOG.pdf
+    Poveznica na dokument - OIE (2019.) -> https://files.hrote.hr/files/PDF/OIEIK/Korištenje sredstava prikupljenih u sustavu poticanja proizvodnje el. energije iz OIE.pdf
+    Poveznica na dokument - KOG (2019.) -> https://files.hrote.hr/files/PDF/OIEIK/Korištenje sredstava prikupljenih u sustavu poticanja proizvodnje el. energije iz KOG.pdf
+    Poveznica na dokument -> https://files.hrote.hr/files/PDF/OIEIK/2023/Izvjestaji/Mjesecni_izvjestaj_prosinac_2023.pdf
+    2023. godina -> https://www.hrote.hr/2023-godina
+    2022. godina -> https://www.hrote.hr/2022-godina
+    2021. godina -> https://www.hrote.hr/2021-godina
+    2020. godina -> https://www.hrote.hr/2020-godina
+    2019. godina -> https://www.hrote.hr/2019-godina
+    2018. godina -> https://www.hrote.hr/2018-godina
+    2017. godina -> https://www.hrote.hr/2017-godina
+    2016. godina -> https://www.hrote.hr/2016-godina-398
+    2015. godina -> https://www.hrote.hr/2015-godina
+    2014. godina -> https://www.hrote.hr/2014-godina
+    2013. godina -> https://www.hrote.hr/2013-godina
+    2011. godina -> https://www.hrote.hr/2011-godina
+    Godišnji izvještaj za sustav poticanja OIEiK za 2013. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_2013_OIEiK_web.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2014. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_2014_HROTE_OIEiK_web.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2015. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_2015_HROTE_OIEiK_2015_za_WEB_v3.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2016. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_2016_HROTE_OIEiK_verzija_za_WEB.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2017. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_2017_HROTE_OIEiK_verzija_za_WEB.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2018. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_2018_HROTE_OIEiK_verzija_za_WEB.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2019. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_ 2019_HROTE_OIEIK 20200224_final.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2020. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_ 2020_HROTE_OIEIK 20210304-potpisano.pdf
+    Dodatak Godišnjem izvještaju za sustav poticanja OIEiK za 2020. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_%202020_HROTE_OIEIK%2020210304-Dodatak%20izvjestaju.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2021. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI_ 2021_HROTE_OIEIK_14032022_final.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2022. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI OIEIK 2022.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2023. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI OIEIK 2023.pdf
+    Godišnji izvještaj za sustav poticanja OIEiK za 2024. godinu -> https://files.hrote.hr/files/PDF/OIEIK/GI OIEIK 2024 _final.pdf
+    ... more
+== https://www.hops.hr/godisnji-izvjestaji -> 200 53051B
+    Godišnje izvješće 2024 -> https://www.hops.hr/page-file/EyEy5qE6S92deApQW2zphJ/godisnji-izvjestaji/HOPS godisnje izvjesce 2024.pdf
+    Godišnje izvješće 2023 -> https://www.hops.hr/page-file/cBOXpm7CEqUMcx7r0Fmfx1/godisnji-izvjestaji/Godisnje_izvjesce_2023.pdf
+    Godišnje izvješće 2022 -> https://www.hops.hr/page-file/14c2Bp7uHqk35x2a0FKFv2/godisnji-izvjestaji/HOPS GI 2022.pdf
+    Godišnje izvješće 2021 -> https://www.hops.hr/page-file/Mf78Q3VNiaQV6wwX0A1K51/godisnji-izvjestaji/HOPS Godisnje_izvjesce_2021.pdf
+    Godišnje izvješće 2020 -> https://www.hops.hr/page-file/WAVZXYJGgaU0agrr0C3XF0/godisnji-izvjestaji/HOPS GI 2020 - 29-7-2020.pdf
+    Godišnje izvješće 2019 -> https://www.hops.hr/page-file/KSuDZkwJrKsNlwmT09mi43/godisnji-izvjestaji/Godišnje izvješće 2019.pdf
+    Godišnje izvješće 2018 -> https://www.hops.hr/page-file/tl9zSuH3BIV5Q5L2W7F0q1/godisnji-izvjestaji/GI 2018 unutarnje - 9-7-19 web.pdf
+    Godišnje izvješće 2017 -> https://www.hops.hr/page-file/ahrGWVcZZaArkAfz0794w6/godisnji-izvjestaji/HOPS_GI_2017_-__za_web.pdf
+    Godišnje izvješće 2016 -> https://www.hops.hr/page-file/qt7Kg2YqAKAvyTKzW3aYT6/godisnji-izvjestaji/HOPS_GI_2016.pdf
+     -> https://www.hops.hr/page-file/xL5vf0ezH21R25KzW3aqS7/godisnji-izvjestaji/HOPS_Godisnje_izvjesce_2015_HR_za_web.pdf
+    Financijski izvještaj 2025 -> https://www.hops.hr/page-file/MzOS6HDLE2RFhDeyW4Alw5/godisnji-izvjestaji/Financijski izvještaj 2025.pdf
+     -> https://www.hops.hr/page-file/H0VQOzd9QwLGOTc9W7eMi3/godisnji-izvjestaji/HOPS-GODISNJI IZVJESTAJ_2024.pdf
+    Financijski izvještaj 2024 -> http://hopsinfo-web/page-file/H0VQOzd9QwLGOTc9W7eMi3/godisnji-izvjestaji/HOPS-GODISNJI%20IZVJESTAJ_2024.pdf
+    Financijski izvještaj 2023 -> https://www.hops.hr/page-file/xRq6VQacB42HKxI00FYiF2/godisnji-izvjestaji/Financijski izvještaj 2023.pdf
+     -> https://www.hops.hr/page-file/qEIET5AdR4UnuB6J0Bkiq0/godisnji-izvjestaji/Financijski%20izvje%C5%A1taj%202023.pdf
+    ... more
+== https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports -> 200 96633B
+    Jump to content -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports#mainContainer
+    English (United States) -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports
+    Market Data -> https://borzen.si/en-us/electricity-market/market-data
+    Data and reports -> https://borzen.si/en-us/support-for-electricity-production-support-scheme-/data-and-reports/data-and-reports-
+    2026   2 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2026
+    2026, July  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/7-2026
+    2026, May  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/5-2026
+    2025   4 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2025
+    2025, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2025
+    2025, October  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2025
+    2025, July  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/7-2025
+    2025, May  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/5-2025
+    2024   4 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2024
+    2024, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2024
+    2024, November  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/11-2024
+    2024, August  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/8-2024
+    2024, May  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/5-2024
+    2023   1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2023
+    2023, April  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2023
+    2022   3 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2022
+    2022, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2022
+    2022, October  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2022
+    2022, July  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/7-2022
+    2021   4 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2021
+    2021, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2021
+    2021, October  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2021
+    2021, July  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/7-2021
+    2021, April  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2021
+    2020   4 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2020
+    2020, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2020
+    2020, October  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2020
+    2020, July  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/7-2020
+    2020, April  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2020
+    2019   4 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2019
+    2019, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2019
+    2019, October  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/10-2019
+    2019, July  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/7-2019
+    2019, April  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/4-2019
+    2018   4 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdateyear/2018
+    2018, December  1 -> https://borzen.si/en-us/electricity-production-support/data-and-reports/data-and-reports/pid/1195/mcat/1193/acat/2/artdatemonth/12-2018
+    ... more
+== https://www.eles.si/ -> 200 307965B
+    Sporočanje napak na omrežju -> https://www.eles.si/sporocanje-napak-na-omrezju
+    Poročila -> https://www.eles.si/porocila-o-obratovanju
+    Podatkovni centri: kje, kdaj in pod kakšnimi pogoji? -> https://www.eles.si/medijsko-sredisce/sporocila-za-javnost-in-obvestila/ArticleID/22987/Podatkovni-centri-kje-kdaj-in-pod-kakšnimi-pogoji
+    Sporočila za javnost -> https://www.eles.si/medijsko-sredisce/sporocila-za-javnost-in-obvestila/CategoryID/172
+    Preberi več -> https://www.eles.si/medijsko-sredisce/sporocila-za-javnost-in-obvestila/ArticleID/22987/Podatkovni-centri-kje-kdaj-in-pod-kak%c5%a1nimi-pogoji
+    Letno poročilo 2025 -> https://www.eles.si/Portals/0/ELES_LP_2025_SLO.pdf?ver=teR2PAyXrL7qaujBRdBrew%3d%3d
+    Sporočila za javnost in obvestila -> https://www.eles.si/medijsko-sredisce/sporocila-za-javnost-in-obvestila/sporocila-za-javnost
+== https://www.sodo.si/ -> 200 44956B
+    Stanje vlog za samooskrbo -> https://www.sodo.si/sl/distibucija-elektricne-energije/stanje-vlog-za-samooskrbo
+    Uredba o samooskrbi z električno energijo iz OVE in navodila -> https://www.sodo.si/sl/za-dobavitelje/uredba-o-samooskrbi-z-elektricno-energijo-iz-ove-in-navodila
+== https://www.raaey.gr/energeia/statistika/ -> 200 396220B
+    Skip to content -> https://www.raaey.gr/energeia/statistika/#content
+    Συχνές ερωτήσεις -> https://www.raaey.gr/energeia/katanalotes/syxnes-erotiseis/
+    Ηλεκτρισμός -> https://www.raaey.gr/energeia/ilektrismos/
+    Θεσμικό Πλαίσιο -> https://www.raaey.gr/energeia/thesmiko-plaisio-ilektrismou/
+    Αγορά -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/
+    Ενεργειακή Χρηματοπιστωτική Αγορά -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/energeiaki-xrimatopistotiki-agora/
+    Αγορά Επόμενης Ημέρας -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/agora-epomenis-imeras/
+    Ενδοημερήσια Αγορά -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/endoimerisia-agora/
+    Αγορά Εξισορρόπησης -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/agora-exisorropisis/
+    Προμήθεια -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/promitheia-2/
+    Προσωρινός Μηχανισμός -> https://www.raaey.gr/energeia/ilektrismos/xondremporiki-agora-diasynd-systima/rithmizomenes-times/
+    Υποδομές -> https://www.raaey.gr/energeia/ilektrismos/diktya/
+    Διεθνείς Διασυνδέσεις -> https://www.raaey.gr/energeia/ilektrismos/diktya/diethneis-diasyndeseis/
+    Δίκτυο Μεταφοράς -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/
+    Κανονιστικό Πλαίσιο -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/kanonistiko-plaisio-systimatos-meta/
+    Ανάπτυξη Συστήματος -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/sm1/
+    Ρυθμιζόμενο Έσοδο & Χρεώσεις Χρήσης -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/sm2/
+    Απόδοση Λειτουργίας Συστήματος Μεταφοράς -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/sm3/
+    Σύνδεση στο Σύστημα -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/sm4/
+    Διαφάνεια -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/sm5/
+    Απώλειες -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/sm6/
+    Δίκτυο Διανομής -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/
+    Κανονιστικό Πλαίσιο -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/dd1/
+    Ανάπτυξη Δικτύου -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/dd2/
+    Ρυθμιζόμενο Έσοδο & Χρεώσεις Χρήσης -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/dd3/
+    Σύνδεση στο Δίκτυο & Λοιπές Υπηρεσίες -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/dd4/
+    Απώλειες Δικτύου – Ρευματοκλοπή -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/dd5/
+    Ποιότητα Υπηρεσιών -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-dianomis-2/dd6/
+    Έργα Κοινού Ενδιαφέροντος -> https://www.raaey.gr/energeia/ilektrismos/diktya/erga-koinou-endiaferontos/
+    Αδειοδότηση -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/
+    Προμήθεια -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/promitheia/
+    Εμπορία -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/emporia/
+    Παραγωγή -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/paragogi/
+    Μητρώο Αδειών Ηλεκτρικής Ενέργειας -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/mitroo-adeion-ilektrikis-energeias/
+    ΦοΣΕ -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/fose/
+    Αξιολόγηση αδειών Θερμικής Ενέργειας -> https://www.raaey.gr/energeia/ilektrismos/adeiodotisi-ilektrismou/axiologisi-adeiwn-thermikis-energeias/
+    Μη Διασυνδ. Νησιά -> https://www.raaey.gr/energeia/ilektrismos/mi-diasynd-nisia/
+    Φυσικό αέριο -> https://www.raaey.gr/energeia/psysiko-aerio/
+    Θεσμικό Πλαίσιο -> https://www.raaey.gr/energeia/psysiko-aerio/thesmiko-plaisio-fysikou-aeriou/
+    Αγορά -> https://www.raaey.gr/energeia/psysiko-aerio/agora/
+    Περιγραφή -> https://www.raaey.gr/energeia/psysiko-aerio/agora/perigrafi/
+    Μεσοσταθμική Τιμή Εισαγωγής -> https://www.raaey.gr/energeia/psysiko-aerio/agora/mesostathmiki-timi-eisagogis/
+    Προμήθεια -> https://www.raaey.gr/energeia/psysiko-aerio/agora/promitheia-3/
+    Υποδομές -> https://www.raaey.gr/energeia/psysiko-aerio/ypodomes/
+    Σύστημα Μεταφοράς -> https://www.raaey.gr/energeia/psysiko-aerio/ypodomes/systima-metaforas/
+    Κανονιστικό Πλαίσιο -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/kanonistiko-plaisio/
+    Ανάπτυξη Συστήματος -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/anaptiksi-sistimatos/
+    Ρυθμιζόμενο Έσοδο & Τιμολόγια ΕΣΦΑ -> https://www.raaey.gr/energeia/psysiko-aerio/ypodomes/systima-metaforas/rithmizomeno-esodo-kai-timologia-esfa/
+    Απώλειες -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/apoleies/
+    Αγορά Εξισορρόπησης -> https://www.raaey.gr/energeia/ilektrismos/diktya/diktyo-metaforas-2/agora-exisorropisis-2/
+    ... more
+== https://deddie.gr/en/services/non-interconnected-islands/ -> 200 113070B
+    Research and Innovation -> https://www.deddie.gr/en/research-and-innovation/
+    Human Resources -> https://www.deddie.gr/en/human-resources/
+    ΕΛ -> https://www.deddie.gr/el/ypiresies/mi-diasyndedemena-nisia/
+    I want my bill -> https://apps.deddie.gr/ApeInvoicesInfo/intro.html
+    Statistical Data on RES Stations receiving / not receiving state aid in NIIs     -> https://deddie.gr/en/services/non-interconnected-islands/statistics-on-res-stations-relating-to-the-w-or-wr-application-on-the-nii/
+    Statistics of Electrical Systems in NIIs         More -> https://deddie.gr/en/services/non-interconnected-islands/statistics-for-nii-electrical-systems/
+    Billing Data in NIIs         More -> https://deddie.gr/en/services/non-interconnected-islands/nii-statistics-reports/
+    Monthly Reports on RES and Thermal Generation in NIIs         More -> https://deddie.gr/en/services/non-interconnected-islands/monthly-reports-of-res-and-thermal-units-in-the-non-interconnected-islands/
+    Monthly Reports of Participants in NIIs         More -> https://deddie.gr/en/services/non-interconnected-islands/nii-stakeholders-monthly-reports/
+    Procedure for NII load meters representation and termination of representation d -> https://deddie.gr/wp-content/uploads/2025/04/διαδικασία-εκπροσώπησης-και-παύσης-εκπροσώπησης-μετρητών-φορτίου-1702_.pdf
+    Load Representatives (LR) on NII Guarantee Letter Template      More -> https://deddie.gr/wp-content/uploads/2025/04/υπόδειγμα-εγγυητικής-επιστολής-εφ-στα-μδν.pdf
+    Load Representatives (LR) in the Small Connected System (SCS) of Crete Guarantee -> https://deddie.gr/wp-content/uploads/2025/04/υπόδειγμα-εγγυητικής-επιστολής-εφ-στο-μσσ-της-κρήτης.pdf
+    Procedure for the conclusion of Contract for the Participation of Load Represent -> https://www.deddie.gr/wp-content/uploads/2026/05/DIADIKASIA-GIA-SIMAPSI-SIMVASIS-SIMMETOXIS-EKPROSOPOU-FORTIOU-STIN-AGORA-MDN.pdf
+    Procedure giving effect to NII Load Representative Participation Contracts       -> https://deddie.gr/wp-content/uploads/2025/04/διαδικασια-ενεργοποιησησ-συμβασησ-συμμετοχησ-εκπροσωπου-φορτιου-στα-μδν.pdf
+    Procedure for the voluntary deactivation and termination of Load Representative  -> https://deddie.gr/wp-content/uploads/2025/04/διαδικασια-οικειοθελουσ-απενεργοποιησησ-και-λυσησ-συμβασησ-συμμετοχησ-εφ.pdf
+    Application for entry in the NII Load Representative registry      More -> https://deddie.gr/wp-content/uploads/2025/04/αιτηση-εγγραφησ-στο-μητρωο-εκπροσωπων-φορτιου-μδν-2023-1.xls
+    Other documentation submitted in support of application for registration      Mo -> https://www.deddie.gr/wp-content/uploads/2026/05/SINIPOBALLOMENA-EGGRAFA-AITISIS-EGGRAFHS.xls
+    Table of Electricity Systems of Non-Interconnected Islands      More -> https://deddie.gr/wp-content/uploads/2025/04/ησ-μδν.xlsx
+    RES Capacity Limits in NIIs         More -> https://deddie.gr/en/services/non-interconnected-islands/res-capacity-margins-in-the-niis/
+    Emergency Response Plan for NIIs (ERP-NII)         More -> https://deddie.gr/en/services/non-interconnected-islands/emergency-response-plan-for-the-niis/
+    Development Program submitted for approval to RAE      More -> https://www.deddie.gr/wp-content/uploads/2026/09/Programma-Anaptyxis-MDN-2026-2032.pdf
+    Information Security -> https://www.deddie.gr/wp-content/uploads/2025/09/information-security.pdf
+== https://www.admie.gr/en/market/market-statistics -> 200 164165B
+    Skip to main content -> https://www.admie.gr/en/market/market-statistics#main-content
+    Market Statistics -> https://www.admie.gr/en/market/market-statistics
+    Main Indicators -> https://www.admie.gr/en/market/market-statistics/key-data/generation-per-fuel
+    Data -> https://www.admie.gr/en/market/market-statistics/detail-data
+    File Download API -> https://www.admie.gr/en/market/market-statistics/file-download-api
+    Monthly Energy Reports -> https://www.admie.gr/en/market/reports/monthly-energy-balance
+     -> https://www.admie.gr/sites/default/files/inline-files/ipto_logos.zip
+     -> http://www.admie.gr/en/anakoinoseis/announcements/capacity-availability-bulgariagreece-interconnection
+    Capacity Availability in Bulgaria<>Greece… -> https://www.admie.gr/en/anakoinoseis/announcements/capacity-availability-bulgariagreece-interconnection
+     -> http://www.admie.gr/en/anakoinoseis/announcements/capacity-availability-north-macedoniagreece-interconnection
+    Capacity Availability in North Macedonia<… -> https://www.admie.gr/en/anakoinoseis/announcements/capacity-availability-north-macedoniagreece-interconnection
+    Main Indicators -> https://www.admie.gr/en/market/market-statistics/key-data
+    RES Production Share -> https://www.admie.gr/en/market/market-statistics/key-data/res-production-share
+    CO2 Emissions -> https://www.admie.gr/en/market/market-statistics/key-data/emissions
+    Weighted Average Market Price -> https://www.admie.gr/en/market/market-statistics/key-data/weighted-average-market-price
+== https://www.admie.gr/ -> 200 235901B
+    Στατιστικά Αγοράς -> https://www.admie.gr/agora/statistika-agoras
+    Κύριοι Δείκτες -> https://www.admie.gr/agora/statistika-agoras/kyrioi-deiktes-dashboard/paragogi-ana-kaysimo-isozygio-diasyndeseon
+    Δεδομένα -> https://www.admie.gr/agora/statistika-agoras/dedomena
+    File Download API -> https://www.admie.gr/agora/statistika-agoras/file-download-api
+     -> http://www.admie.gr/anakoinoseis/enimeroseis/capacity-availability-albaniagreece-interconnection-0
+    Capacity Availability in Albania<>Greece… -> https://www.admie.gr/anakoinoseis/enimeroseis/capacity-availability-albaniagreece-interconnection-0
+     -> http://www.admie.gr/anakoinoseis/enimeroseis/capacity-availability-bulgariagreece-interconnection
+    Capacity Availability in Bulgaria<>Greece… -> https://www.admie.gr/anakoinoseis/enimeroseis/capacity-availability-bulgariagreece-interconnection
+     -> http://www.admie.gr/anakoinoseis/enimeroseis/capacity-availability-north-macedoniagreece-interconnection
+    Capacity Availability in North Macedonia<… -> https://www.admie.gr/anakoinoseis/enimeroseis/capacity-availability-north-macedoniagreece-interconnection
+== https://www.cges.me/ -> 200 459832B
+    Aukcije kapaciteta -> https://cges.me/trziste/aukcije-kapaciteta/
+    Pravila za alokaciju kapaciteta -> https://cges.me/trziste/pravila-za-alokaciju-kapaciteta/
+    CGES na Energy Week 2026 – Od potencijala do novih kapaciteta -> https://cges.me/vijest-i-dogadjaj/cges-na-energy-week-2026-od-potencijala-do-novih-kapaciteta/
+    Izvještaj o sprovedenoj javnoj raspravi o tekstu Nacrta Pravila za funkcionisanj -> https://cges.me/vijest-i-dogadjaj/izvjestaj-o-sprovedenoj-javnoj-raspravi-o-tekstu-nacrta-pravila-za-funkcionisanje-prenosnog-sistema-elektricne-energije/
+== https://www.nosbih.ba/ -> 200 17588B
+    (no matching links)
+== https://www.mepso.com.mk/ -> 200 57376B
+    МЕПСО го прифаќа извештајот на ДЗР и веќе спроведува мерки за отстранување на за -> https://www.mepso.com.mk/index.php/mk/component/content/article/69-mk-kategorii/doma/vesti-i-aktuelnosti/961-mepso-go-prifakja-izveshtajot-na-dzr-i-vekje-sproveduva-merki-za-otstranuvanje-na-zateknati
+     -> https://www.mepso.com.mk/docs/vesnik/vesnik7-mk.pdf
+    Информација за 07.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 07.10.2026 .pdf
+    Информација за 06.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 06.10.2026 .pdf
+    Информација за 05.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 05.10.2026 .pdf
+    Информација за 04.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 04.10.2026.pdf
+    Информација за 03.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 03.10.2026.pdf
+    Информација за 02.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 02.10.2026.pdf
+    Информација за 01.10.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 01.10.2026.pdf
+    Информација за 30.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 30.09.2026.pdf
+    Информација за 29.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 29.09.2026 .pdf
+    Информација за 28.09.2026 -> https://www.mepso.com.mk/files/mk/dnevni/Информација за 28.09.2026 .pdf
+    Извештаи -> https://www.mepso.com.mk/index.php/mk/doma/regulativa/izveshtai
+    Политика на интегритет -> https://www.mepso.com.mk/docs/Politika_na_integritet(02-2893-2-1).pdf
+    Информации и извештаи -> https://www.mepso.com.mk/index.php/mk/podruznici/oeps/informacii-i-izveshtai
+    Годишен план за јавни набавки -> https://www.mepso.com.mk/index.php/mk/tenderi/godishen-plan-za-javni-nabavki
+== https://www.ere.gov.al/ -> 200 204189B
+    Raporte dhe të dhëna të tregut të energjisë elektrike -> https://www.ere.gov.al/sq/tregu-i-energjise/raporte-dhe-te-dhena-te-tregut-te-energjise-elektrike
+    Raporte dhe të Dhëna të Tregu Rajonal të Energjisë Elektrike -> https://www.ere.gov.al/sq/tregu-i-energjise/raporte-dhe-te-dhena-te-tregu-rajonal-te-energjise-elektrike
+    Format e Raportimit ne ERE -> https://www.ere.gov.al/sq/tregu-i-energjise/format-e-raportimit-ne-ere
+    Raporte Vjetore -> https://www.ere.gov.al/sq/publikime/raporte-vjetore
+    Raportim -> https://www.ere.gov.al/sq/publikime/raportim
+    Shiko raportin -> https://www.ere.gov.al/images/files/2026/07/14/RAPORTI_VJETOR_2025.pdf
+== https://www.ero-ks.org/ -> 200 73689B
+    Raportet Vjetore -> https://www.ero-ks.org/zrre/sq/publikimet/raportet-vjetore
+    Furnizuesit e licencuar -> https://www.ero-ks.org/zrre/sites/default/files/Publikimet/Licencat/2026.8.17._Regjistri%20i%20Licencave%20per%20FURNIZIM%20WEB_te%20licencuar_sipas%20dates.pdf
+    Monitorimi -> https://www.ero-ks.org/zrre/raportet-e-monitorimit
+    Kujt i raporton Rregullatori? -> https://www.ero-ks.org/#accordion-lqljp-5
+    Ligji për qasje në dokumente publike -> https://www.ero-ks.org/zrre/sites/default/files/LIGJI_NR._06_L-081_P%C3%8BR_QASJE_N%C3%8B_DOKUMENTE_PUBLIKE-_shtator.pdf
+== https://www.derk.ba/ -> 200 122211B
+    Godišnji izvještaji DERK-a -> https://www.derk.ba/ba/godisnji-izvjestaji-derk-a
+     -> https://www.derk.ba/DocumentsPDFs/EPA-Pojmovnik-Energija-za-sve-b.pdf
+    OVDJE -> https://www.derk.ba/DocumentsPDFs/Javni-oglas-prodaja-Tiguan-2024.pdf
+    Obrazac za ponudu -> https://www.derk.ba/DocumentsPDFs/Obrazac-za-ponudu-Tiguan-2024.pdf
+    Ra [ ... ] -> https://www.derk.ba/DocumentsPDFs/Rang-lista-VW-Tiguan-2019.pdf
+    OVDJE -> https://www.derk.ba/DocumentsPDFs/Javni-oglas-prodaja-RAV4-2023.pdf
+    Obrazac za ponud [ ... ] -> https://www.derk.ba/DocumentsPDFs/Obrazac-za-ponudu-RAV4-2023.pdf
+== https://ems.rs/ -> 200 138039B
+    Опис и капацитети -> https://ems.rs/opis-i-kapaciteti/
+    Прагови максималне снаге за производне модуле типа Б, Ц и Д -> https://ems.rs/pragovi-maksimalne-snage-za-proizvodne-module-tipa-b-c-i-d/
+    Годишњи план рада преносног система -> https://ems.rs/godisnji-plan-rada-prenosnog-sistema/
+    Додела прекограничних капацитета -> https://ems.rs/dodela-prekogranicnih-kapaciteta/
+    Обавештење о обради података о личности -> https://ems.rs/wp-content/uploads/2022/09/OBAVESTENJE-O-OBRADI-PODATAKA-O-.pdf
+    Живот близу далековода - истина и заблуде -> https://ems.rs/wp-content/uploads/2022/09/zivotblizu.pdf
+    Извештаји -> https://ems.rs/dokumenta/
+== https://www.rews.org.mt/ -> 200 88007B
+    Quality Service Charter -> https://www.rews.org.mt/wp-content/uploads/2026/01/25.03.12-QSC-ENG-REWS_A3.pdf
+    Single Contact Point RES -> https://www.rews.org.mt/single-contact-point-renewable-energy-permitting-in-malta/
+    2024 Renewable Energy Sources Scheme   Last updated Mar 13, 2025   Read More -> https://www.rews.org.mt/2024-renewable-energy-sources-scheme/
+    Closing of Grant Scheme 2021 Renewable Energy Sources   Last updated Mar 13, 202 -> https://www.rews.org.mt/closing-of-grant-scheme-2021-renewable-energy-sources/
+== https://nso.gov.mt/ -> 200 412524B
+    Environment, Energy & Transport -> https://nso.gov.mt/environment-energy-and-transport-theme/
+    Statistical Databases from other International Organisations -> https://nso.gov.mt/statistical-databases-from-other-organisations-2/
+    Statistical Portals -> https://nso.gov.mt/statistics-portals/
+    Statistical Reports -> https://nso.gov.mt/statistical-reports/
+    General Information -> https://nso.gov.mt/statistical-system-general-information/
+    European Statistical System -> https://nso.gov.mt/european-statistical-system/
+    Malta's Statistical System -> https://nso.gov.mt/statistical-system-maltas-statistical-system/
+     -> https://nso.gov.mt/electricity-supply-2025/
+     -> https://nso.gov.mt/events/ipa-and-ipat-as-other-national-authorities-for-official-statistics/
+     -> https://nso.gov.mt/events/statistical-article-on-public-perception-and-experiences-of-gender-roles-tolerance-and-discrimination-2025/
+     -> https://www.linkedin.com/company/national-statistics-office---malta/
+    Quality Service Charter -> https://qualityofservice.gov.mt/media/A_QSC/National%20Statistics%20Office/QSC%20National%20Statistics%20Office%20_EN.pdf
+    Request for Statistical Information -> https://workflow.gov.mt/Runtime/Runtime/Form/01+NSO+Request+for+Statistical+Information/?language=en
+SiStat top: [('0156101S.px', 'Average annual and monthly air temperatures [°C] by meteorological stations, Slovenia, 1981 - 2014'), ('0156102S.px', 'Annual and monthly precipitations [mm] by meteorological stations, Slovenia, 1981 - 2014'), ('0156103S.px', 'Humidity, precipitations, cloudiness and winds by meteorological stations, Slovenia, 1981 - 2014'), ('0156104S.px', 'Average annual and monthly precipitations [mm], Slovenia, 1981 - 2014'), ('0214809S.px', 'Territorial units and house numbers by the municipalities, Slovenia, 2004H2 - 2018H2'), ('0214811S.px', 'Territorial units and house numbers by the municipalities, Slovenia, 1996 - 2018'), ('0214819S.px', 'Territorial units and house numbers by the statistical regions, Slovenia, 2004H2 - 2018H2'), ('0214821S.px', 'Territorial units and house numbers by the statistical regions, Slovenia, 1996 - 2018'), ('0214829S.px', 'Territorial units and house numbers by the cohesion regions, Slovenia, 2004H2 - 2018H2'), ('0214830S.px', 'Territorial units and house numbers by the cohesion regions, Slovenia, 2000 - 2018'), ('0300220S.px', 'Value added by activities and GDP (NACE Rev. 2), Slovenia, quarterly'), ('0300230S.px', 'GDP by expenditures, Slovenia, quarterly'), ('0300235S.px', 'Exports and imports of goods and services by groups of countries, Slovenia, quarterly'), ('0300240S.px', 'GDP by income structure (NACE Rev. 2), current prices, mio EUR, Slovenia, quarterly'), ('0300260S.px', 'Employment (NACE Rev. 2), Slovenia, quarterly'), ('0301910S.px', 'Gross domestic product, Slovenia, annually'), ('0301915S.px', 'GDP Production st ructure (output, intermediate consumption and value added by activities, NACE Rev. 2), Slovenia, annually'), ('0301920S.px', 'Production and generation of income account (NACE Rev. 2), current prices, mio EUR, Slovenia, annually'), ('0301925S.px', 'GDP income structure, Slovenia, annually'), ('0301930S.px', 'Compensation of employees (NACE Rev. 2), current prices, mio EUR, Slovenia, annually'), ('0301935S.px', 'GDP expenditure structure, Slovenia, annually'), ('0301940S.px', 'Household final consumption expenditure by type of product and by purpose (COICOP 1999), Slovenia, 1995 - 2023'), ('0301941S.px', 'Household final consumption expenditure by type of product and by purpose (COICOP 2018), Slovenia, annually'), ('0301950S.px', 'Gross capital formation by activity and by type, Slovenia, annually'), ('0301960S.px', 'Exports and imports of goods and services, Slovenia, annually'), ('0301965S.px', 'Exports and imports of goods and services by groups of countries, Slovenia, annually'), ('0301975S.px', 'Employment (NACE Rev. 2), Slovenia, annually'), ('0301977S.px', 'Employment (NACE Rev. 2), sector S.13 general government, Slovenia, annually'), ('0301980S.px', 'Compensation of employees by socio-economic characteristics (NACE Rev.2), Slovenia, annually'), ('0301985S.px', 'Labour costs by socio-economic characteristics of employees and self-employed persons (NACE Rev.2), Slovenia, annually'), ('0301990S.px', 'Theoretical value added tax and VAT gap, Slovenia, annually'), ('0307605S.px', 'Supply table at basic prices, including transformation into purcahsers`prices, current and previous year prices, NACE/CPA Rev. 1, 60 industries/products, [ESA 1995], Slovenia, 1996 - 2007'), ('0307610S.px', 'Supply table at basic prices, including transformation into purchasers`prices, current and previous year prices, NACE/CPA Rev. 1, 30 industries/products, [ESA 1995], Slovenia, 1996 - 2007'), ('0307615S.px', 'Supply table at basic prices, including transformation into purcahsers`prices, current and previous year prices, NACE/CPA Rev. 2, 64 industries/products, [ESA 1995], Slovenia, 2008 - 2010'), ('0307620S.px', 'Use table at purchasers` prices, current and previous year prices, NACE/CPA Rev. 1, 60 industries/products, [ESA 1995], Slovenia, 1996 - 2007'), ('0307625S.px', 'Use table at purchasers` prices, current and previous year prices, NACE/CPA Rev. 1, 30 industries/products, [ESA 1995], Slovenia, 1996 - 2007'), ('0307630S.px', 'Use table at purchasers` prices, current and previous year prices, NACE/CPA Rev. 2, 64 industries/products, [ESA 1995], Slovenia, 2008 - 2010'), ('0307635S.px', 'Symmetric input-output table at basic prices, product by product, current prices, NACE/CPA Rev.1, 60 branches/products, [ESA 1995], Slovenia, 1996 - 2005'), ('0307640S.px', 'Symmetric input-output table at basic prices, product by product, current prices, NACE/CPA Rev.1, 30 branches/products, [ESA 1995], Slovenia, 1996 - 2005'), ('0307645S.px', 'Symmetric input-output table at basic prices, product by product, current prices, NACE/CPA Rev.2, 64 branches/products [ESA 1995], Slovenia, 2009 - 2010'), ('0307650S.px', 'Symmetric use of imports table, cif, product by product, current prices, NACE/CPA Rev.1, 60 branches/products, [ESA 1995], Slovenia, 1996 - 2005'), ('0307655S.px', 'Symmetric use of imports table, cif, product by product, current prices, NACE/CPA Rev.1, 30 branches/products [ESA 1995], Slovenia, 1996 - 2005'), ('0307660S.px', 'Symmetric use of imports table, cif, product by product, current prices, NACE/CPA Rev.2, 64 branches/products, [ESA 1995], Slovenia, 2009 - 2010'), ('0307665S.px', 'Symmetric input-output table for domestic output at basic prices, product by product, current prices, NACE/CPA Rev.1, 60 branches/products, [ESA 1995], Slovenia, 1996 - 2005'), ('0307670S.px', 'Symmetric input-output table for domestic output at basic prices, product by product, current prices, NACE/CPA Rev.1, 30 branches/products, [ESA 1995], Slovenia, 1996 - 2005'), ('0307675S.px', 'Symmetric input-output table for domestic output at basic prices, product by product, current prices, NACE/CPA Rev.2, 64 branches/products, [ESA 1995], Slovenia, 2009 - 2010'), ('0309250S.px', 'Gross domestic product, statistical regions, Slovenia, annually'), ('0309252S.px', 'Gross domestic product, cohesion regions, Slovenia, annually'), ('0309254S.px', 'Gross value added at basic prices by activities, statistical regions, Slovenia, annually'), ('0309256S.px', 'Gross value added at basic prices by activities, cohesion regions, Slovenia, annually'), ('0309258S.px', 'Employment by activities, statistical regions, Slovenia, annually'), ('0309260S.px', 'Employment by activities, cohesion regions, Slovenia, annually'), ('0309262S.px', 'Hours worked (Mio) by activities, cohesion regions, Slovenia, annually'), ('0309264S.px', 'Compensation of employees by activities, current prices, mio EUR, cohesion regions, Slovenia, annually'), ('0309270S.px', 'Household accounts, cohesion and statistical regions, Slovenia, annually'), ('0309275S.px', 'Gross fixed capital formation, cohesion regions, Slovenia, annually'), ('0309276S.px', 'Gross fixed capital formation, statistical regions, Slovenia, annually'), ('0314905S.px', 'Surplus (+) / deficit (-) and debt of general government, Slovenia, annually'), ('0314910S.px', 'Main aggregates of general government, Slovenia, annually'), ('0314950S.px', 'General government expenditure by function and type (ESA 2010), mio EUR, Slovenia, annually')]
+SiStat search: 400 Bad Request
+EPIAS js: ['/static/js/main.c764fee8.js', 'https://eum.epias.com.tr/eum/eum.min.js']
+   js ctx: globalMessages.unitCount",defaultMessage:"\xdcnite Say\u0131s\u0131"},additionalInstalledPower:{id:"globalMessages.additionalInstalledPower",defaultMessage:"\u0130lave Kurulu G\xfc\xe7"},temporaryAcce
+ERR https://eum.epias.com.tr/eum/eum.min.js ('Connection aborted.', RemoteDisconnected('Remote end close | Failed to perform, curl: (56) Connection closed abruptly. Se
+EPIAS paths: ['electricity-service/v1/consumption/data/consumer-quantity', 'electricity-service/v1/consumption/data/consumer-sector-list', 'electricity-service/v1/consumption/data/consumption-quantity', 'electricity-service/v1/consumption/data/demand-forecast', 'electricity-service/v1/consumption/data/distribution-region', 'electricity-service/v1/consumption/data/eligible-consumer-count', 'electricity-service/v1/consumption/data/eligible-consumer-quantity', 'electricity-service/v1/consumption/data/get-distribution-companies', 'electricity-service/v1/consumption/data/load-estimation-plan', 'electricity-service/v1/consumption/data/main-tariff-group-list', 'electricity-service/v1/consumption/data/meter-count', 'electricity-service/v1/consumption/data/monthly-index', 'electricity-service/v1/consumption/data/multiple-factor', 'electricity-service/v1/consumption/data/multiple-factor-distribution', 'electricity-service/v1/consumption/data/multiple-factor-meter-reading-type', 'electricity-service/v1/consumption/data/multiple-factor-profile-group', 'electricity-service/v1/consumption/data/percentage-consumption-info', 'electricity-service/v1/consumption/data/planned-power-outage-info', 'electricity-service/v1/consumption/data/profile-subscription-group-list', 'electricity-service/v1/consumption/data/realtime-consumption', 'electricity-service/v1/consumption/data/st-adedi', 'electricity-service/v1/consumption/data/st-uecm', 'electricity-service/v1/consumption/data/uecm', 'electricity-service/v1/consumption/data/unplanned-power-outage-info', 'electricity-service/v1/consumption/data/withdrawal-quantity-under-supply-liability', 'electricity-service/v1/consumption/export/consumer-quantity', 'electricity-service/v1/consumption/export/consumption-quantity', 'electricity-service/v1/consumption/export/demand-forecast-export', 'electricity-service/v1/consumption/export/eligible-consumer-count', 'electricity-service/v1/consumption/export/eligible-consumer-quantity', 'electricity-service/v1/consumption/export/load-estimation-plan', 'electricity-service/v1/consumption/export/meter-count-export', 'electricity-service/v1/consumption/export/monthly-index', 'electricity-service/v1/consumption/export/multiple-factor', 'electricity-service/v1/consumption/export/percentage-consumption-info', 'electricity-service/v1/consumption/export/planned-power-outage-info', 'electricity-service/v1/consumption/export/realtime-consumption', 'electricity-service/v1/consumption/export/st-adedi', 'electricity-service/v1/consumption/export/st-uecm', 'electricity-service/v1/consumption/export/uecm-export', 'electricity-service/v1/consumption/export/unplanned-power-outage-info', 'electricity-service/v1/consumption/export/withdrawal-quantity-under-supply-liability', 'electricity-service/v1/dams/data/active-fullness', 'electricity-service/v1/dams/data/active-volume', 'electricity-service/v1/dams/data/basin-list', 'electricity-service/v1/dams/data/daily-kot', 'electricity-service/v1/dams/data/daily-volume', 'electricity-service/v1/dams/data/dam-kot', 'electricity-service/v1/dams/data/dam-list', 'electricity-service/v1/dams/data/dam-volume', 'electricity-service/v1/dams/data/flow-rate-and-installed-power', 'electricity-service/v1/dams/data/water-energy-provision', 'electricity-service/v1/dams/export/active-fullness', 'electricity-service/v1/dams/export/active-volume', 'electricity-service/v1/dams/export/daily-kot', 'electricity-service/v1/dams/export/daily-volume', 'electricity-service/v1/dams/export/dam-kot', 'electricity-service/v1/dams/export/dam-volume', 'electricity-service/v1/dams/export/flow-rate-and-installed-power', 'electricity-service/v1/dams/export/water-energy-provision', 'electricity-service/v1/dashboard/balancing-power-market', 'electricity-service/v1/dashboard/day-ahead-market', 'electricity-service/v1/dashboard/intra-day-market', 'electricity-service/v1/dashboard/market-message-system', 'electricity-service/v1/dashboard/realtime-consumption', 'electricity-service/v1/dashboard/realtime-generation', 'electricity-service/v1/dashboard/spot-gas-market', 'electricity-service/v1/dashboard/weighted-average-price', 'electricity-service/v1/generation/data/aic', 'electricity-service/v1/generation/data/dpp', 'electricity-service/v1/generation/data/dpp-first-version', 'electricity-service/v1/generation/data/injection-quantity', 'electricity-service/v1/generation/data/injection-quantity-powerplant-list', 'electricity-service/v1/generation/data/licensed-powerplant-investment-list', 'electricity-service/v1/generation/data/organization-list', 'electricity-service/v1/generation/data/powerplant-list', 'electricity-service/v1/generation/data/powerplant-list-for-date-range', 'electricity-service/v1/generation/data/realtime-generation', 'electricity-service/v1/generation/data/region-list', 'electricity-service/v1/generation/data/sbfgp', 'electricity-service/v1/generation/data/uevcb-list', 'electricity-service/v1/generation/export/aic', 'electricity-service/v1/generation/export/dpp', 'electricity-service/v1/generation/export/dpp-first-version', 'electricity-service/v1/generation/export/injection-quantity', 'electricity-service/v1/generation/export/licensed-powerplant-investment-list', 'electricity-service/v1/generation/export/realtime-generation', 'electricity-service/v1/generation/export/sbfgp', 'electricity-service/v1/main/date-init', 'electricity-service/v1/main/district-list', 'electricity-service/v1/main/province-list', 'electricity-service/v1/markets/ancillary-services/data/primary-frequency-capacity-amount', 'electricity-service/v1/markets/ancillary-services/data/primary-frequency-capacity-price', 'electricity-service/v1/markets/ancillary-services/data/secondary-frequency-capacity-amount', 'electricity-service/v1/markets/ancillary-services/data/secondary-frequency-capacity-price', 'electricity-service/v1/markets/ancillary-services/export/primary-frequency-capacity-amount', 'electricity-service/v1/markets/ancillary-services/export/primary-frequency-capacity-price', 'electricity-service/v1/markets/ancillary-services/export/secondary-frequency-capacity-amount', 'electricity-service/v1/markets/ancillary-services/export/secondary-frequency-capacity-price', 'electricity-service/v1/markets/bilateral-contracts/data/amount-of-bilateral-contracts', 'electricity-service/v1/markets/bilateral-contracts/data/bilateral-contracts-bid-quantity', 'electricity-service/v1/markets/bilateral-contracts/data/bilateral-contracts-offer-quantity', 'electricity-service/v1/markets/bilateral-contracts/export/amount-of-bilateral-contracts', 'electricity-service/v1/markets/bilateral-contracts/export/bilateral-contracts-bid-quantity', 'electricity-service/v1/markets/bilateral-contracts/export/bilateral-contracts-offer-quantity', 'electricity-service/v1/markets/bpm/data/order-summary-down', 'electricity-service/v1/markets/bpm/data/order-summary-up', 'electricity-service/v1/markets/bpm/data/system-direction', 'electricity-service/v1/markets/bpm/data/system-marginal-price', 'electricity-service/v1/markets/bpm/export/order-summary-down', 'electricity-service/v1/markets/bpm/export/order-summary-up', 'electricity-service/v1/markets/bpm/export/system-direction', 'electricity-service/v1/markets/bpm/export/system-marginal-price', 'electricity-service/v1/markets/dam/data/amount-of-block-buying', 'electricity-service/v1/markets/dam/data/amount-of-block-selling', 'electricity-service/v1/markets/dam/data/clearing-quantity', 'electricity-service/v1/markets/dam/data/clearing-quantity-organization-list', 'electricity-service/v1/markets/dam/data/day-ahead-market-trade-volume', 'electricity-service/v1/markets/dam/data/flexible-offer-buying-quantity', 'electricity-service/v1/markets/dam/data/flexible-offer-selling-quantity', 'electricity-service/v1/markets/dam/data/interim-mcp', 'electricity-service/v1/markets/dam/data/interim-mcp-published-status', 'electricity-service/v1/markets/dam/data/matched-flexible-offer-quantity', 'electricity-service/v1/markets/dam/data/mcp', 'electricity-service/v1/markets/dam/data/price-independent-bid', 'electricity-service/v1/markets/dam/data/price-independent-offer', 'electricity-service/v1/markets/dam/data/side-payments', 'electricity-service/v1/markets/dam/data/submitted-bid-order-volume', 'electricity-service/v1/markets/dam/data/submitted-sales-order-volume', 'electricity-service/v1/markets/dam/data/supply-demand', 'electricity-service/v1/markets/dam/data/supply-demand-chart-data', 'electricity-service/v1/markets/dam/data/supply-demand-chart-ptf-data', 'electricity-service/v1/markets/dam/export/amount-of-block-buying', 'electricity-service/v1/markets/dam/export/amount-of-block-selling', 'electricity-service/v1/markets/dam/export/clearing-quantity', 'electricity-service/v1/markets/dam/export/day-ahead-market-trade-volume', 'electricity-service/v1/markets/dam/export/flexible-offer-buying-quantity', 'electricity-service/v1/markets/dam/export/flexible-offer-selling-quantity', 'electricity-service/v1/markets/dam/export/interim-mcp', 'electricity-service/v1/markets/dam/export/matched-flexible-offer-quantity', 'electricity-service/v1/markets/dam/export/mcp', 'electricity-service/v1/markets/dam/export/price-independent-bid', 'electricity-service/v1/markets/dam/export/price-independent-offer', 'electricity-service/v1/markets/dam/export/side-payments', 'electricity-service/v1/markets/dam/export/submitted-bid-order-volume', 'electricity-service/v1/markets/dam/export/submitted-sales-order-volume', 'electricity-service/v1/markets/dam/export/supply-demand', 'electricity-service/v1/markets/data/market-message-system', 'electricity-service/v1/markets/data/maximum-settlement-price', 'electricity-service/v1/markets/data/power-plant-list-by-organization-id', 'electricity-service/v1/markets/data/uevcb-list-by-power-plant-id', 'electricity-service/v1/markets/data/umm-message-type-list', 'electricity-service/v1/markets/export/market-message-system', 'electricity-service/v1/markets/export/maximum-settlement-price', 'electricity-service/v1/markets/general-data/data/market-participants', 'electricity-service/v1/markets/general-data/data/market-participants-organization-filter-list', 'electricity-service/v1/markets/general-data/data/participant-count-based-upon-license-type', 'electricity-service/v1/markets/general-data/export/market-participants', 'electricity-service/v1/markets/general-data/export/participant-count-based-upon-license-type', 'electricity-service/v1/markets/idm/data/bid-offer-quantities', 'electricity-service/v1/markets/idm/data/matching-quantity', 'electricity-service/v1/markets/idm/data/min-max-bid-price', 'electricity-service/v1/markets/idm/data/min-max-matching-price', 'electricity-service/v1/markets/idm/data/min-max-sales-offer-price', 'electricity-service/v1/markets/idm/data/trade-value', 'electricity-service/v1/markets/idm/data/transaction-history', 'electricity-service/v1/markets/idm/data/weighted-average-price', 'electricity-service/v1/markets/idm/export/bid-offer-quantities', 'electricity-service/v1/markets/idm/export/matching-quantity', 'electricity-service/v1/markets/idm/export/min-max-bid-price', 'electricity-service/v1/markets/idm/export/min-max-matching-price', 'electricity-service/v1/markets/idm/export/min-max-sales-offer-price', 'electricity-service/v1/markets/idm/export/trade-value', 'electricity-service/v1/markets/idm/export/transaction-history', 'electricity-service/v1/markets/idm/export/weighted-average-price', 'electricity-service/v1/markets/imbalance/data/dsg-imbalance-quantity', 'electricity-service/v1/markets/imbalance/data/dsg-organization-list', 'electricity-service/v1/markets/imbalance/data/imbalance-amount', 'electricity-service/v1/markets/imbalance/data/imbalance-quantity', 'electricity-service/v1/markets/imbalance/export/dsg-imbalance-quantity', 'electricity-service/v1/markets/imbalance/export/imbalance-amount', 'electricity-service/v1/markets/imbalance/export/imbalance-quantity', 'electricity-service/v1/markets/pfm/data/contract-price-summary', 'electricity-service/v1/markets/pfm/data/delivery-period-list', 'electricity-service/v1/markets/pfm/data/delivery-year-list', 'electricity-service/v1/markets/pfm/data/ggf', 'electricity-service/v1/markets/pfm/data/ggf-delivery-period-list', 'electricity-service/v1/markets/pfm/data/load-type-list', 'electricity-service/v1/markets/pfm/data/offer-price', 'electricity-service/v1/markets/pfm/data/open-position', 'electricity-service/v1/markets/pfm/data/pfm-trade-value', 'electricity-service/v1/markets/pfm/data/pfm-transaction-history', 'electricity-service/v1/markets/pfm/data/th-delivery-period-list', 'electricity-service/v1/markets/pfm/data/vep-matching-quantity', 'electricity-service/v1/markets/pfm/export/contract-price-summary', 'electricity-service/v1/markets/pfm/export/ggf', 'electricity-service/v1/markets/pfm/export/offer-price', 'electricity-service/v1/markets/pfm/export/open-position', 'electricity-service/v1/markets/pfm/export/pfm-trade-value', 'electricity-service/v1/markets/pfm/export/pfm-transaction-history']
