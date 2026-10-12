@@ -1,0 +1,271 @@
+=== EPIAS doc
+--- /v1/generation/data/powerplant-list" : /v1/generation/data/powerplant-list 5.78.1. Açıklama TEİAŞ Sistemlerine Ait Santral Bilgileri Listeleme Servisi.Bu servis sonucunda dönen santral bilgileri(santral id bilgisi gibi) TEIAS sistemlerinden alınan verilerdir. 5.78.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string 5.78.3. Cevaplar HTTP Kodu Açıklama Şema 200 Operation successful PowerPlantResponseDto 400 Bad request. Please check your request İçerik yok 500 Unexpected error. Please contact EXIST İçerik yok 5.78.4. Üretilenler application/json application/xml 5.78.5. Etiketler generation-data-controller 5.79. Tarih Araligina Gore Santral Listeleme Servisi POST /v1/generation/data/powerplant-list-for-date-range 5.79.1. Açıklama TEİAŞ Sistemlerine Ait Santral Bilgilerini Tarih Araligina Gore Listeleme Servisi.Bu servis sonucunda dönen santral bilgileri(santral id bilgisi gibi) TEIAS sistemlerinden alınan verilerdir. 5.79.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. PowerPlantRequestDto 5.79.3. Cevaplar HTTP Kodu Açıkl
+--- /v1/generation/data/powerplant-list-for-date-range : /v1/generation/data/powerplant-list-for-date-range 5.79.1. Açıklama TEİAŞ Sistemlerine Ait Santral Bilgilerini Tarih Araligina Gore Listeleme Servisi.Bu servis sonucunda dönen santral bilgileri(santral id bilgisi gibi) TEIAS sistemlerinden alınan verilerdir. 5.79.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. PowerPlantRequestDto 5.79.3. Cevaplar HTTP Kodu Açıklama Şema 200 Operation successful PowerPlantResponseDto 400 Bad request. Please check your request İçerik yok 500 Unexpected error. Please contact EXIST İçerik yok 5.79.4. Kullanılanlar application/json application/xml 5.79.5. Üretilenler application/json application/xml 5.79.6. Etiketler generation-data-controller 5.80. Gerçek Zamanlı Üretim Listeleme Servisi POST /v1/generation/data/realtime-generation 5.80.1. Açıklama Elektrik üretiminin kaynak bazında saatlik gösterimidir. Santrallere ait üretim verileri için, en son bir önceki günün verileri gelmekte, ilgili güne ait santral verileri çekilmek istendiğinde hatalı istek bilgisi dönmektedir. 5.80.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-s
+--- /v1/generation/data/licensed-powerplant-investment-list : /v1/generation/data/licensed-powerplant-investment-list 5.76.1. Açıklama Enerji İşleri Genel Müdürlüğü tarafından ön kabulü tamamlanmış ve devreye alınmış elektrik üretim tesislerinin aylık listesidir. Elektrik üretim tesislerinin aylık listesidir. 5.76.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. LicensedPowerPlantInvestmentRequestDto 5.76.3. Cevaplar HTTP Kodu Açıklama Şema 200 Operation successful LicensedPowerPlantInvestmentResponseDto 400 Bad request. Please check your request İçerik yok 500 Unexpected error. Please contact EXIST İçerik yok 5.76.4. Üretilenler application/json application/xml 5.76.5. Etiketler generation-data-controller 5.77. Organizasyon Listesi Getirme Servisi POST /v1/generation/data/organization-list 5.77.1. Açıklama İstekte verilen başlangıç ve bitiş tarihleri arasında tanımlı organizasyonların listesini döner. 5.77.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. OrganizationListRequestDto 5.77.3. Cevap
+--- /v1/renewables/data/new-installed-capacity : /v1/renewables/data/new-installed-capacity 5.246.1. Açıklama YEKDEM kapsamındaki üretim tesislerinin kurulu güç miktarıdır. Lisanslı kurulu güç bilgileri EPİAŞ’a kayıtlı santraller olup, lisanssız kurulu güç bilgisi dağıtım şirketlerinden temin edilmektedir.YEKDEM kapsamındaki üretim tesislerinin kurulu güç miktarıdır. 5.246.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. InstalledCapacityRequest 5.246.3. Cevaplar HTTP Kodu Açıklama Şema 200 Operation successful InstalledCapacityResponseInstalledCapacityNewDto 400 Bad request. Please check your request İçerik yok 500 Unexpected error. Please contact EXIST İçerik yok 5.246.4. Kullanılanlar application/json application/xml 5.246.5. Üretilenler application/json application/xml 5.246.6. Etiketler renewables-data-controller 5.247. Kurulu Güç YEKDEM Son Tarih ve Öncesi Veri Listeleme Servisi POST /v1/renewables/data/old-installed-capacity 5.247.1. Açıklama YEKDEM kapsamındaki üretim tesislerinin kurulu güç miktarıdır. Lisanslı kurulu güç bilgileri EPİAŞ’a kayıtlı santraller olup, lisanssız kurulu güç bilgisi dağıtım şirketlerinden temin edilmektedir.YEKDEM kapsamındaki üretim tesislerinin kurulu güç miktarıdır.
+--- /v1/renewables/data/old-installed-capacity : /v1/renewables/data/old-installed-capacity 5.247.1. Açıklama YEKDEM kapsamındaki üretim tesislerinin kurulu güç miktarıdır. Lisanslı kurulu güç bilgileri EPİAŞ’a kayıtlı santraller olup, lisanssız kurulu güç bilgisi dağıtım şirketlerinden temin edilmektedir.YEKDEM kapsamındaki üretim tesislerinin kurulu güç miktarıdır. 5.247.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. InstalledCapacityRequest 5.247.3. Cevaplar HTTP Kodu Açıklama Şema 200 Operation successful InstalledCapacityResponseInstalledCapacityOldDto 400 Bad request. Please check your request İçerik yok 500 Unexpected error. Please contact EXIST İçerik yok 5.247.4. Kullanılanlar application/json application/xml 5.247.5. Üretilenler application/json application/xml 5.247.6. Etiketler renewables-data-controller 5.248. Yekdem Portföy Geliri Listeleme Servisi POST /v1/renewables/data/portfolio-income 5.248.1. Açıklama YEKDEM kapsamındaki portföyün saatlik toplam geliridir.29 Nisan 2016 tarihli ve 29698 sayılı Yenilenebilir Enerji Kaynaklarının Belgelendirilmesi ve Desteklenmesine İlişkin Yönetmelikte Değişiklik Yapılmasına İlişkin yönetmeliğin, Resmi Gazete’de yayımlanmasını takiben Üretim Tahmini r
+--- /v1/generation/data/aic : /v1/generation/data/aic 5.70.1. Açıklama Emre Amade Kapasite: Bir üretim biriminin sisteme sağlayabileceği aktif güç kapasitesidir. 5.70.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. EakRequestDto 5.70.3. Cevaplar HTTP Kodu Açıklama Şema 200 Operation successful EakResponseDto 400 Bad request. Please check your request İçerik yok 500 Unexpected error. Please contact EXIST İçerik yok 5.70.4. Kullanılanlar application/json application/xml 5.70.5. Üretilenler application/json application/xml 5.70.6. Etiketler generation-data-controller 5.71. Kesinleşmiş Günlük Üretim Planı (KGÜP) Listeleme Servisi POST /v1/generation/data/dpp 5.71.1. Açıklama Kesinleşmiş Gün Öncesi Üretim Programı, katılımcının bir sonraki güne ilişkin gerçekleştirmeyi öngördüğü ve sistem işletmecisine dengeleme güç piyasasının başlangıcında bildirdiği üretim değeridir. 5.71.2. Parametreler Tip İsim Açıklama Şema Header TGT gerekli Required TGT header for authentication. More on: https://seffaflik.epias.com.tr/electricity-service/technical/en/index.html#_adding_security_information_to_requests string Body body gerekli Yapılacak isteğin içeriği. KgupRequestDto 5.71.3. Cevaplar HTTP Kodu Açı
+--- TGT note: CokLkjS36wBigh6ZwV96C2LVpD2x6c05ti8Lo5BsZG+bBEp86WkLneAAOmXvPvHDLEs3xEwGAT+r6P/lbZj1pyc951RoEFwqKuhYujb/nlZdT67v6dMBzD4yNDXYy9Zw8O/r0CmV9TG1DcU+9ObWhUWp0CY6N83fGkiN5BSP9RUmfETrKz4kXLUm+68XHElsHDJaR1n7y34dbrkMbhi27faaPg65T6Tnvrnutr1ZX7/25REJVGBVZyFi5e1vF1HuS1rz0j+TqBomO5xMZN8WTp6z4fl8NtmwA07KzPdAW/rp3ceyq+D+8/Ob02ma50TUkNs7P2dRzeNtxOcOneKiMd6bmFtCc3XNiedz8jIc2+9fXdajY3lOizOILJrD+UgZDfkhNnxvP56n1F0M2pF8PQuaGbV+dTH5u7sw/ri3Y8H0t5ZN7DMvqqqyWLp6XdMdLzyR3qkwAAObmg58eaUVUZVHwVcbnjeiZCyI8+ABRc7NidtZWTHyBDdhxbhllsKpHPSvCd9UtqdEK/fC2SX/71lYlQqDtrD8c7nWrf8rTC2VNCo2R4xLm7eHmoC5qFavojEH/4PgsT0vK4iByBgDnxIQEkSV0VXftaVBobWkbQtC379yFuFmh01Niyg9VN2MAQCBtOiAWrRHFPLrIp1GmQc6ekZ6ODvrefQ3y32l8pbZTKKMqaBBnpYmyZ80
+=== EPIAS posts
+POST generation/data/powerplant-list {"startDate": "2026-09-01T00:00:00+03:00", "endDate": "2026-09-01T00:00:00+03:00"} -> 404 93 [920b8173-b80b-4733-8fbb-781ce124463f], [ERR-006], [Method not found or disabled!], [404], []
+POST generation/data/powerplant-list {} -> 404 93 [19defae3-eed2-4b87-b9d7-00df7effe69a], [ERR-006], [Method not found or disabled!], [404], []
+POST generation/data/powerplant-list-for-date-range {"startDate": "2026-09-01T00:00:00+03:00", "endDate": "2026-09-30T00:00:00+03:00"} -> 401 378 {   "status" : "401 UNAUTHORIZED",   "correlationId" : "48edb365-c662-4c9e-a914-59ee26fd14e2",   "spanIds" : "(electricity-service)99788",   "hostName" : "*********243",   "clientIp" : "20.29.223.69",   "userName" : null,   "successMessage" : null,   "errors" : [ {     "errorCode" : "AUTH002",     "errorMessage" : "No authentication information found."   } ],   "body" : { } }
+POST generation/data/licensed-powerplant-investment-list {} -> 401 378 {   "status" : "401 UNAUTHORIZED",   "correlationId" : "6d37d11c-e066-4e94-ae4c-a834b33140df",   "spanIds" : "(electricity-service)66394",   "hostName" : "*********112",   "clientIp" : "20.29.223.69",   "userName" : null,   "successMessage" : null,   "errors" : [ {     "errorCode" : "AUTH002",     "errorMessage" : "No authentication information found."   } ],   "body" : { } }
+POST generation/data/licensed-powerplant-investment-list {"page": {"number": 1, "size": 5}} -> 401 378 {   "status" : "401 UNAUTHORIZED",   "correlationId" : "cf0306a6-74cb-4a21-934a-fefc2c0d657b",   "spanIds" : "(electricity-service)22729",   "hostName" : "*********.95",   "clientIp" : "20.29.223.69",   "userName" : null,   "successMessage" : null,   "errors" : [ {     "errorCode" : "AUTH002",     "errorMessage" : "No authentication information found."   } ],   "body" : { } }
+POST renewables/data/new-installed-capacity {"period": "2026-09-01T00:00:00+03:00"} -> 401 378 {   "status" : "401 UNAUTHORIZED",   "correlationId" : "1aeda074-56cd-4a6e-9a8a-c692bb6d92d8",   "spanIds" : "(electricity-service)73141",   "hostName" : "*********.95",   "clientIp" : "20.29.223.69",   "userName" : null,   "successMessage" : null,   "errors" : [ {     "errorCode" : "AUTH002",     "errorMessage" : "No authentication information found."   } ],   "body" : { } }
+POST renewables/data/old-installed-capacity {"period": "2026-09-01T00:00:00+03:00"} -> 401 378 {   "status" : "401 UNAUTHORIZED",   "correlationId" : "5e37c632-a336-4b8d-bcad-75b00011caeb",   "spanIds" : "(electricity-service)70633",   "hostName" : "*********.95",   "clientIp" : "20.29.223.69",   "userName" : null,   "successMessage" : null,   "errors" : [ {     "errorCode" : "AUTH002",     "errorMessage" : "No authentication information found."   } ],   "body" : { } }
+POST generation/data/aic {"startDate": "2026-10-01T00:00:00+03:00", "endDate": "2026-10-01T00:00:00+03:00"} -> 401 378 {   "status" : "401 UNAUTHORIZED",   "correlationId" : "d8876ee4-ea55-4c88-a59a-6efda23f6337",   "spanIds" : "(electricity-service)25543",   "hostName" : "*********243",   "clientIp" : "20.29.223.69",   "userName" : null,   "successMessage" : null,   "errors" : [ {     "errorCode" : "AUTH002",     "errorMessage" : "No authentication information found."   } ],   "body" : { } }
+POST generation/data/sbfgp ERR ReadTimeout HTTPSConnectionPool(host='seffaflik.epias.com.tr', port=443): Read timed out. (read timeout=60)
+=== EPDK monthly electricity reports
+download links 163
+   /Detay/DownloadDocument?id=Ntc12/RpCN4= | se" data-target="#kesmebedel_35209" data-type="True" data-id="35209" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Ocak Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=hjNB1ZVBPnE= |  <div id="kesmebedel_35209" c
+   /Detay/DownloadDocument?id=0k/x1TLsbeA= | se" data-target="#kesmebedel_35278" data-type="False" data-id="35278" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Şubat Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=aOl7ayYHe7Y= |  <div id="kesmebedel_35278" c
+   /Detay/DownloadDocument?id=AHI7ackCfN4= | e" data-target="#kesmebedel_35364" data-type="False" data-id="35364" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Mart Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=wUs2ok4WjqI= |  <div id="kesmebedel_35364" c
+   /Detay/DownloadDocument?id=jZFRo6BgRnk= | se" data-target="#kesmebedel_35403" data-type="False" data-id="35403" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Nisan Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=5NlL5ZC3I1Y= |  <div id="kesmebedel_35403" c
+   /Detay/DownloadDocument?id=OPFgg07yizs= | se" data-target="#kesmebedel_35481" data-type="False" data-id="35481" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Mayıs Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=woTDz+vRobM= |  <div id="kesmebedel_35481" c
+   /Detay/DownloadDocument?id=Pp0Lrqj0aFQ= |  data-target="#kesmebedel_35534" data-type="False" data-id="35534" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Haziran Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=G8skgs0vyYE= |  <div id="kesmebedel_35534" c
+   /Detay/DownloadDocument?id=hIdYeic0Jgg= | se" data-target="#kesmebedel_35578" data-type="True" data-id="35578" onclick="ShowDetailList(this);"> 2026 Yılı Elektrik Piyasası Temmuz Ayı Sektör Raporu <a style="float: right;" h
+   /Detay/DownloadDocument?id=lW7wMEslZyg= |  <div id="kesmebedel_35578" c
+   /Detay/DownloadDocument?id=uYyWGPr2oM0= | pse" data-target="#kesmebedel_34280" data-type="False" data-id="34280" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Ocak Ayı Sektör Raporu <div id="kesmebedel_34280" c
+   /Detay/DownloadDocument?id=Mvd2CnnvKTE= | se" data-target="#kesmebedel_34334" data-type="False" data-id="34334" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Şubat Ayı Sektör Raporu <div id="kesmebedel_34334" c
+   /Detay/DownloadDocument?id=1FS08C1kCGE= | pse" data-target="#kesmebedel_34376" data-type="False" data-id="34376" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Mart Ayı Sektör Raporu <div id="kesmebedel_34376" c
+   /Detay/DownloadDocument?id=p0zanyZrS4E= | " data-target="#kesmebedel_34411" data-type="False" data-id="34411" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Nisan Ayı Sektör Raporu <div id="kesmebedel_34411" c
+   /Detay/DownloadDocument?id=Krk3/BRps3E= | e" data-target="#kesmebedel_34464" data-type="False" data-id="34464" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Mayıs Ayı Sektör Raporu <div id="kesmebedel_34464" c
+   /Detay/DownloadDocument?id=PFQyscz3Fqc= |  data-target="#kesmebedel_34486" data-type="False" data-id="34486" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Haziran Ayı Sektör Raporu <div id="kesmebedel_34486" c
+   /Detay/DownloadDocument?id=VggwIVBclIk= | e" data-target="#kesmebedel_34525" data-type="False" data-id="34525" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Temmuz Ayı Sektör Raporu <div id="kesmebedel_34525" c
+   /Detay/DownloadDocument?id=MQllHDoHR/Y= | " data-target="#kesmebedel_34600" data-type="False" data-id="34600" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Ağustos Ayı Sektör Raporu <div id="kesmebedel_34600" c
+   /Detay/DownloadDocument?id=rvc+6JcxQkc= | ata-target="#kesmebedel_34640" data-type="False" data-id="34640" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Eylül Ayı Sektör Raporu <div id="kesmebedel_34640" c
+   /Detay/DownloadDocument?id=1O1GpR+fPP4= | pse" data-target="#kesmebedel_34711" data-type="False" data-id="34711" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Ekim Ayı Sektör Raporu <div id="kesmebedel_34711" c
+   /Detay/DownloadDocument?id=71K/E+09s1Y= | " data-target="#kesmebedel_35041" data-type="False" data-id="35041" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Kasım Ayı Sektör Raporu <div id="kesmebedel_35041" c
+   /Detay/DownloadDocument?id=LY9CJWP9+4M= | e" data-target="#kesmebedel_35129" data-type="False" data-id="35129" onclick="ShowDetailList(this);"> 2025 Yılı Elektrik Piyasası Aralık Ayı Sektör Raporu <div id="kesmebedel_35129" c
+   /Detay/DownloadDocument?id=4XyyF1R6lfs= | pse" data-target="#kesmebedel_33535" data-type="False" data-id="33535" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Ocak Ayı Sektör Raporu <div id="kesmebedel_33535" c
+   /Detay/DownloadDocument?id=NJ/rWup7T0g= | se" data-target="#kesmebedel_33569" data-type="False" data-id="33569" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Şubat Ayı Sektör Raporu <div id="kesmebedel_33569" c
+   /Detay/DownloadDocument?id=wW/fPaQFtEw= | pse" data-target="#kesmebedel_33603" data-type="False" data-id="33603" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Mart Ayı Sektör Raporu <div id="kesmebedel_33603" c
+   /Detay/DownloadDocument?id=o0POLJy4RZk= | e" data-target="#kesmebedel_33655" data-type="False" data-id="33655" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Nisan Ayı Sektör Raporu <div id="kesmebedel_33655" c
+   /Detay/DownloadDocument?id=gHib941Soic= | se" data-target="#kesmebedel_33732" data-type="False" data-id="33732" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Mayıs Ayı Sektör Raporu <div id="kesmebedel_33732" c
+   /Detay/DownloadDocument?id=7uSaSZcV9+g= | data-target="#kesmebedel_33786" data-type="False" data-id="33786" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Haziran Ayı Sektör Raporu <div id="kesmebedel_33786" c
+   /Detay/DownloadDocument?id=HMLyTz+PdYo= |  data-target="#kesmebedel_33827" data-type="False" data-id="33827" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Temmuz Ayı Sektör Raporu <div id="kesmebedel_33827" c
+   /Detay/DownloadDocument?id=81YDfiCQjC4= | " data-target="#kesmebedel_33899" data-type="False" data-id="33899" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Ağustos Ayı Sektör Raporu <div id="kesmebedel_33899" c
+   /Detay/DownloadDocument?id=n5T08ZTqub4= | ata-target="#kesmebedel_33961" data-type="False" data-id="33961" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Eylül Ayı Sektör Raporu <div id="kesmebedel_33961" c
+   /Detay/DownloadDocument?id=tgS2l60e3Do= | pse" data-target="#kesmebedel_34049" data-type="False" data-id="34049" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Ekim Ayı Sektör Raporu <div id="kesmebedel_34049" c
+   /Detay/DownloadDocument?id=k1W6F+u3PpA= | se" data-target="#kesmebedel_34129" data-type="False" data-id="34129" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Kasım Ayı Sektör Raporu <div id="kesmebedel_34129" c
+   /Detay/DownloadDocument?id=xx2E3eVumJE= | " data-target="#kesmebedel_34217" data-type="False" data-id="34217" onclick="ShowDetailList(this);"> 2024 Yılı Elektrik Piyasası Aralık Ayı Sektör Raporu <div id="kesmebedel_34217" c
+   /Detay/DownloadDocument?id=2fAfpfFa16I= | pse" data-target="#kesmebedel_32925" data-type="False" data-id="32925" onclick="ShowDetailList(this);"> 2023 Yılı Elektrik Piyasası Ocak Ayı Sektör Raporu <div id="kesmebedel_32925" c
+   /Detay/DownloadDocument?id=unAb64Zr4xY= | " data-target="#kesmebedel_33018" data-type="False" data-id="33018" onclick="ShowDetailList(this);"> 2023 Yılı Elektrik Piyasası Şubat Ayı Sektör Raporu <div id="kesmebedel_33018" c
+first download: 200 application/octet-stream attachment; filename="/PortalAdmin/Uploads/Content/FastAccess/95115e6980761.pdf" 2447309
+   pdf pages 37
+   KURULU: aşlığı altında yer alan Elektrik İstatistikleri (Piyasa Faaliyetleri) kapsamında yayımlanan bu rapordaki Lisanslı Üretim başlığı altındaki Lisanslı Kurulu Güç ve Lisanslı Elektrik Üretim verileri ile Yurtdışı Elektrik Ticareti (İthalat- İhracat) verileri TEİAŞ Genel Müdürlüğünün sürekli güncellenen Yük Tevzi Bilgi Sisteminden (YTBS) alınmaktadır. Söz konusu veriler TEİAŞ tarafından açıklanana kadar geçicidir. Ocak 2026 Elektrik Piyasası Sektör Raporu EPDK |Ocak 2026 i GİRİŞ Bu rapor, elektrik piyasasında faaliyette bulunan lisans sahibi şirketlerin Kurumumuza s
+   head:  Bu rapor, Resmi İstatistik Programı kapsamında yayımlanmaktadır. Bu raporda yer alan tüm bilgi, tablo ve şekillerin her hakkı saklıdır. Kaynak gösterilmeden kullanılamaz. T.C. ENERJİ PİYASASI DÜZENLEME KURUMU Strateji Geliştirme Dairesi Başkanlığı ANKARA 2026 Önemli Hatırlatma: Lisans sahibi firmalar, Enerji Piyasası Bildirim Yönetmeliğinin ilgili hükümleri çerçevesinde bildirim düzeltme talebinde bulunarak daha önce Kuruma sundukları verilerde düzeltme yapabilmektedir. Bu sebeple yayımlanan raporlar arasında veri farklılıkları olabilmektedir. Resmi İstatistik Programında “4. İş İstatistikleri” başlığı altında yer alan Elektrik İstatistikleri (Piyasa Faaliyetleri) kapsamında yayımlanan bu rapordaki Lisanslı Üretim başlığı altındaki Lisanslı Kurulu Güç ve Lisanslı Elektrik Üretim verileri ile Yurtdışı Elektrik Ticareti (İthalat- İhracat) verileri TEİAŞ Genel Müdürlüğünün sürekli güncellenen Yük Tevzi Bilgi Sisteminden (YTBS) alınmaktadır. Söz konusu veriler TEİAŞ tarafından açıklanana kadar geçicidir. Ocak 2026 Elektrik Piyasası Sektör Raporu EPDK |Ocak 2026 i GİRİŞ Bu rapor, elektrik piyasasında faaliyette bulunan lisans sahibi şirketlerin Kurumumuza sunmuş oldukları bildirimler e
+=== TEIAS
+  ctx:  Kurulu Güç Raporları <meta name="keywords" content="" da
+  ctx: class="jss7 jss8"> Santral Kurulu Güç Raporları Kurulu Güç Raporları <span style="font-weight:n
+  ctx: h1> Kurulu Güç Raporları 01.01.2023 tarihinden itibaren Yük Tevzi Bilgi Sistemi (YTBS) <sp
+  ctx: p":0,"style":"","poster":"","target":"_self","children":null,"mega_menu":false,"children_open":false,"children_width":"auto"},{"href":"/uye-oldugumuz-kuruluslar","path":"0.children.1","text":"Üye Olduğumuz Kuruluşlar","group":0,"style":"","poster":"cd0ef302-9b19-4844-90d3-e6e456fed1b3","target":"_self","children":null,"mega_menu":false,"children_open":false,"children_width":"auto"},{"href":"/enteg
+  ctx: null,"mega_menu":false,"children_open":false,"children_width":"auto"},{"href":"/uye-oldugumuz-kuruluslar","path":"0.children.1","text":"Üye Olduğumuz Kuruluşlar","group":0,"style":"","poster":"cd0ef302-9b19-4844-90d3-e6e456fed1b3","target":"_self","children":null,"mega_menu":false,"children_open":false,"children_width":"auto"},{"href":"/entegre-yonetim-sistemi-politikasi","path":"0.children.2","te
+  ctx: ihale-sartnameleri","path":"1","text":"İhale Şartnameleri","group":0,"poster":"","target":"_self","children":null}],"uyelik":[{"href":"/uye-oldugumuz-kuruluslar","path":"0","text":"ULUSAL KURULUŞLAR","group":0,"poster":"","target":"_self","children":null},{"href":"/uluslararasi-kuruluslar","path":"1","text":"ULUSLARARASI KURULUŞLAR","group":0,"poster":"","target":"_self","children":null}],"org":[{
+  ctx: "İhale Şartnameleri","group":0,"poster":"","target":"_self","children":null}],"uyelik":[{"href":"/uye-oldugumuz-kuruluslar","path":"0","text":"ULUSAL KURULUŞLAR","group":0,"poster":"","target":"_self","children":null},{"href":"/uluslararasi-kuruluslar","path":"1","text":"ULUSLARARASI KURULUŞLAR","group":0,"poster":"","target":"_self","children":null}],"org":[{"href":"/organizasyon","path":"0","tex
+  ctx: ref":"/uye-oldugumuz-kuruluslar","path":"0","text":"ULUSAL KURULUŞLAR","group":0,"poster":"","target":"_self","children":null},{"href":"/uluslararasi-kuruluslar","path":"1","text":"ULUSLARARASI KURULUŞLAR","group":0,"poster":"","target":"_self","children":null}],"org":[{"href":"/organizasyon","path":"0","text":"YÖNETİM KURULU","group":0,"poster":"","target":"_self","children":null},{"href":"/organ
+  ctx: "text":"ULUSAL KURULUŞLAR","group":0,"poster":"","target":"_self","children":null},{"href":"/uluslararasi-kuruluslar","path":"1","text":"ULUSLARARASI KURULUŞLAR","group":0,"poster":"","target":"_self","children":null}],"org":[{"href":"/organizasyon","path":"0","text":"YÖNETİM KURULU","group":0,"poster":"","target":"_self","children":null},{"href":"/organizasyon-semasi","path":"1","text":"ORGANİZAS
+  ctx: ","text":"ULUSLARARASI KURULUŞLAR","group":0,"poster":"","target":"_self","children":null}],"org":[{"href":"/organizasyon","path":"0","text":"YÖNETİM KURULU","group":0,"poster":"","target":"_self","children":null},{"href":"/organizasyon-semasi","path":"1","text":"ORGANİZASYON ŞEMASI","group":0,"poster":"","target":"_self","children":null}],"mali-tablolar":[{"href":"/mali-tablolar","path":"0","text
+  ctx: 5286d0017b41","parent_id":null,"created_at":"2019-12-27T12:53:57.504Z","updated_at":"2023-03-01T13:28:42.000Z","language":"tr-TR","name":null,"slug":"kurulu-guc-raporlari","title":"Kurulu Güç Raporları","author_id":"56dfe6ed-8275-47a6-a066-2c1af483adb4","publish_at":"2023-03-01T13:28:42.007Z","expire_at":null,"order":null,"public":true,"active":true,"meta":{"content":[{"id":"c5498280-28a7-11ea-98f
+  ctx: "created_at":"2019-12-27T12:53:57.504Z","updated_at":"2023-03-01T13:28:42.000Z","language":"tr-TR","name":null,"slug":"kurulu-guc-raporlari","title":"Kurulu Güç Raporları","author_id":"56dfe6ed-8275-47a6-a066-2c1af483adb4","publish_at":"2023-03-01T13:28:42.007Z","expire_at":null,"order":null,"public":true,"active":true,"meta":{"content":[{"id":"c5498280-28a7-11ea-98fc-6d0baa02934c","style":{"heigh
+   file refs: []
+   hrefs /: ['/_next/static/css/b07b2a0354bf2fa3.css', '/_next/static/css/fae811aaa712f514.css', '/bilgi-edinme', '/favicon-192x192.png', '/favicon.ico', '/hakkimizda', '/iletisim', '/manifest.json', '/sikca-sorulan-sorular']
+=== HROTE
+   pdf pages 1
+ 
+ 
+HRVATSKI OPERATOR TRŽIŠTA ENERGIJE   d.o.o.     |     Ulica grada Vukovara 284     |     HR -10000 Zagreb    |    OIB: 75801633608    |    www.hrote.hr 
+hrote@hrote.hr         |         T +385 1 6306 700       |       F +385 1 6306 777        |        IBAN   HR4723400091110177478  Privredna banka Zagreb d.d. Zagreb 
+Društvo je upisano u Registar Trgovačkog suda u Zagrebu MBS: 080517130  |  Temeljni kapital: 1 234 320 EUR Uplaćen u cijelosti  |  Uprava: Darjan Budimir 
+PODACI IZ SUSTAVA POTICANJA OIEiK – prosinac  2023. 
+ 
+ 
+ 
+ 
+ 
+ 
+   Tehnologija
+Broj 
+elektrana  
+Instalirana 
+snaga (kW)
+Broj 
+elektrana 
+Instalirana 
+snaga (kW)2
+Vjetroelektrane  
+13
+463.200
+0
+0
+Sunčane elektrane
+1.202
+49.287
+0
+0
+Hidroelektrane  
+14
+5.275
+0
+0
+Elektrane na biomasu  
+38
+89.843
+3
+7.785
+Elektrane na bioplin
+18
+21.273
+0
+0
+Kogeneracijska postrojenja  
+0
+0
+0
+0
+Geotermalne elektrane
+1
+10.000
+0
+0
+Elektrane na plin iz postrojenja 
+za pročišćavanje otpadnih voda 
+1
+2.500
+0
+0
+Ukupno
+1.287
+641.378
+3
+7.785
+Povlašteni proizvođači
+Nositelji projekta
+TS (NN 33/07,63/12,133/13)
+Tehnologija
+Broj elektrana  
+Priključna 
+snaga (kW)
+ Broj 
+elektrana
+Priključna 
+snaga (kW)
+Sunčane elektrane
+7
+3.439
+36
+7.039
+Hidroelektrane  
+0
+0
+5
+1.274
+Elektrane na biomasu  
+0
+0
+3
+1.349
+Elektrane na bioplin
+0
+0
+0
+0
+Geotermalne elektrane
+0
+0
+0
+0
+Ukupno
+7
+3.439
+44
+9.662
+Vjetroelektrane  
+0
+0
+2
+72.000
+Sunčane elektrane
+0
+0
+4
+7.996
+Hidroelektrane  
+0
+0
+2
+2.750
+Elektrane na biomasu  
+0
+0
+4
+5.800
+Elektrane na bioplin
+1
+2.000
+6
+7.740
+Geotermalne elektrane
+0
+0
+1
+10.000
+Ukupno
+1
+2.000
+19
+106.286
+Sveukupno
+8
+5.439
+63
+115.948
+Povlašteni proizvođači
+Nositelji projekta
+UREDBA O POTICANJU
+ZAJAMČENA 
+OTKUPNA CIJENA
+TRŽIŠNA PREMIJA
+Tehnologija
+Proizvodnja 
+Vjetroelektrane  
+90.875.061
+Sunčane elektrane
+2.190.573
+Hidroelektrane  
+2.195.424
+Elektrane na biomasu  
+54.301.348
+Elektrane na bioplin
+12.661.198
+Kogeneracijska postrojenja  
+0
+Geotermalne elektrane
+0
+Elektrane na plin iz postrojenja 
+za pročišćavanje otpadnih voda 
+877
+Ukupno
+162.224.481
+
+2025-godina: 200 ['http://files.hrote.hr/files/PDF/Dokumenti/GDPR/PRAVILA%20PRIVATNOSTI.pdf']
+hrote monthly pdfs: ['https://files.hrote.hr/files/PDF/OIEIK/2023/Izvjestaji/Mjesecni_izvjestaj_prosinac_2023.pdf']
+=== Borzen
+   status 200 docs: []
+   text: mainContainer" aria-label='Link to skip header and jump to content'> Jump to content Trajnostna energija About us Slovenščina (Slovenija) English (United States) Edit accessibility Borzen Electricity Market Balance Scheme Recording of Contracts Imbalance Settlement The Platform for Balancing Energy Market Data Documents Electricity Production Support Data and Reports Green Investments Support Market Transparency RRM REMIT Services Guarantees of Origin Public auctions RES Info Point Search Slovenščina (Slovenija) English (United States) Edit accessibility Borzen Edit accessibility Search Menu Electricity Market Več Balance Scheme Recording of Contracts Imbalance Settlement The Platform for Balancing Energy Market Data Documents Electricity Production Support Več Data and Reports Green Investments Support Market Transparency Več RRM REMIT Services Guarantees of Origin Public auctions RES Info Point Slovenščina (Slovenija) English (United States) Trajnostna energija About us Electricity Production Support / Data and Reports / Data and Reports Data and Reports Periodic reports foe Slovenian feed-in suport system for electricity from RES and Hight-efficiency CHP. Data and Reports Data and Reports Data and reports Filter po letih 2026 2 2026, July 1 2026, May 1 2025 4 2025, December 1 2025, October 1 2025, July 1 2025, May 1 2024 4 2024, December 1 2024, November 1 2024, August 1 2024, May 1 2023 1 2023, April 1 2022 3 2022, December 1 2022, October 1 2022, July 1 2021 4 2021, Dece
+=== ADMIE file download api
+200 main-content" class="visually-hidden focusable skip-link"> Skip to main content Toggle navigation Our Company About us IPTO Group IPTO SA Ariadne Interconnection Grid Telecom Great Sea Interconnector Saudi Greek Interconnection Training Center Shareholders ADMIE Holding DES ADMIE State Grid Financial Results IPTO Group Group Subsidiaries Structure BOD General Divisions Organisational Chart Member of Entso - E See cao Selene CC Jao Sustainability Sustainable Development Management Sustainable Development Reports Ισότητα και Συμπερίληψη Corporate Governance Policies Όμιλος ΑΔΜΗΕ https://gnorisetonadmie.gr/ System Description Grid Map Asset Management Data Development Ten Year Development Plan System Studies Operation Regional Cooperation Description System Control Scheduled Isolations Short Term Adequacy Forecasts Important Events Operation Justification RES Curtailments System Operation Reports Πρόβλεψη Φορτίου Κρήτης System Users Connection General RES Producers Other Categories European Connection Network Codes Asset Management General Performance Reports /en/grid/development/ten-year-development-plan Ten Year Development Plan Projects Projects/Interconnections Projects Map Co-Financed Projects /en/projects/map Projects Map Useful links of the RRF Coordination Agency Filing Fraud Complaints Anti-Fraud Strategy /en/erga/erga-diasyndeseis/diasyndesi-tis-kritis-me-tin-peloponniso Interconnection of Crete with Peloponnese Market General Description Balancing Market Capacity Calculation and Allocation Participation Registration Procedures Registries Issuance of EIC Regulatory Framework Balancing Market Rulebook Grid Code Methodologies and Technical Decisions European Framework Market mechanisms Interruptibility Mechanism Transitory Flexibility Remuneration Mechanism Demand Reduction Service Market Statistics Main Indicators Data File Download API IPTO Metrics Reports Interconnections Capacity Rights Reports Monthly Energy Reports Weighted Average Market Price Weekly Balancing Market Reports Suppliers' Market Shares Balancing Report [(EU) 2017/2195] /en/market/reports/monthly-energy-balance MONTHLY ENERGY REPORTS https://iptometrics.admie.gr/inaglance Press Center Press Releases News Energon Multimedia Follow us Logos and instructions for use New podcast series regarding energy https://open.spotify.com/show/5FoV5IajHRBcsRg60GQnYD?si=f3638bfdf48f4004 /kentro-typoy/energon IPTO's official periodic edition Announcements Updates Procurement Consultations Indefinite
+https://www.admie.gr/getFiletypeInfoEN 200 [{"filetype":"15minAverageFRCE","process":"System Operation","data_type":"15min Average FRCE","period_covered":"MONTH","publication_frequency":"Monthly","code_article":"","description":"","time_gate":""},{"filetype":"AdhocISPResults","process":"ISP","data_type":"ISP Results","period_covered":"DAY","publication_frequency":"Daily","code_article":"","description":"","time_gate":""},{"filetype":"AwardBalancingCapacity","process":"Balancing Market Settlement","data_type":"Activated Energy \u0026amp; Prices","period_covered":"WEEK","publication_frequency":"","code_article":"","description":"","time_gate":""},{"filetype":"AwardBalancingCapacityProduct","process":"Balancing Market Settlement","data_type":"Activated Energy \u0026amp; Prices","period_covered":"WEEK","publication_frequency":"","code_article":"","description":"","time_gate":""},{"filetype":"BalancingCapacityProduct","process":"Balancing Market Settlement","data_type":"Balancing Capacity per Product","period_covered":"WEEK","publication_frequency":"","code_article":"","description":"","time_gate":""},{"filetype":"BalancingEnergyProduct","process":"Balancing Market Settlement","data_type":"Balancing Energy per Product","period_covered":"WEEK","publication_frequency":"","code_article":"","description":"","time_gate":""},{"filetype":"CurrentLineOutages","process":"Maintenance","data_type":"Current Transmission Lines Outage Planning","period_covered":"YEAR","publication_frequency":"Yearly","code_article":"\u0391\u03a1\u0398\u03a1\u039f \u039a\u03a9\u0394\u0399\u039a\u0391","description":"","time_gate":""},{"filetype":"CurrentProtectionOutages","process":"Maintenance","data_type":"Current Protection Outage Planning","period_covered":"YEAR","publication_frequency":"Yearly","code_article":"\u0391\u03a1\u0398\u03a1\u039f \u039a\u03a9\u0394\u0399\u039a\u0391","description":"","time_gate":""},{"filetype":"CurrentSubstationOutages","process":"Maintenance","data_type":"Current Substations  Outage Planning","period_covered":"YEAR","publication_frequency":"Yearly","code_article":"\u0391\u03a1\u0398\u03a1\u039f \u039a\u03a9\u0394\u0399\u039a\u0391","description":"","time_gate":""},{"filetype":"DailyAuctionsSpecificationsATC","process":"DAM","data_type":"ATC","period_covered":"DAY","publication_frequency":"Daily","code_article":"\u0391\u03a1\u0398\u03a1\u039f \u039a\u03a9\u0394\u0399\u039a\u0391","description":"","time_gate":"23:00:00"},{"filetype":"DailyDispatchOfCreteElectricalSystem","process":"Dispatching","data_type":"Dispatch Schedule","period_covered":"DAY","publication_frequency":"Daily","code_article":"","description":"","time_gate":""},{"filetype":"DailyEnergyBalanceAnalysis","process":"System Operation","data_type":"Energy Balance","period_covered":"DAY","publication_frequency":"","code_article":"","description":"","time_gate":""},{"filetype":"DayAheadLoadForecast","process":"DAM","data_type":"Load Forecast","period_covered":"DAY","publication_frequency":"Twice a day and on demand","code_article":
+https://www.admie.gr/getFiletypeInfo 200 [{"filetype":"15minAverageFRCE","GR":[{"process":"\u039b\u03b5\u03b9\u03c4\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03a3\u03c5\u03c3\u03c4\u03ae\u03bc\u03b1\u03c4\u03bf\u03c2","data_type":"15\u03bb\u03b5\u03c0\u03c4\u03bf \u039c\u03ad\u03c3\u03bf FRCE","period_covered":"\u039c\u0397\u039d\u0391\u03a3","publication_frequency":"\u039c\u03b7\u03bd\u03b9\u03b1\u03af\u03b1","code_article":"","description":"","time_gate":""}],"EN":[{"process":"System Operation","data_type":"15min Average FRCE","period_covered":"MONTH","publication_frequency":"Monthly","code_article":"","description":"","time_gate":""}]},{"filetype":"AdhocISPResults","GR":[{"process":"\u0394\u03b9\u03b1\u03b4\u03b9\u03ba\u03b1\u03c3\u03af\u03b1 \u0395\u03bd\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03bf\u03c5 \u03a0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03bf\u03cd (ISP)","data_type":"\u0391\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03b1 \u0394\u0395\u03a0","period_covered":"\u0397\u039c\u0395\u03a1\u0391","publication_frequency":"\u0397\u03bc\u03b5\u03c1\u03ae\u03c3\u03b9\u03b1","code_article":"","description":"","time_gate":""}],"EN":[{"process":"ISP","data_type":"ISP Results","period_covered":"DAY","publication_frequency":"Daily","code_article":"","description":"","time_gate":""}]},{"filetype":"AwardBalancingCapacity","GR":[{"process":"\u0395\u03ba\u03ba\u03b1\u03b8\u03ac\u03c1\u03b9\u03c3\u03b7 \u0391\u03b3\u03bf\u03c1\u03ac\u03c2 \u0395\u03be\u03b9\u03c3\u03bf\u03c1\u03c1\u03cc\u03c0\u03b7\u03c3\u03b7\u03c2","data_type":"\u0395\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03b7 \u0395\u03bd\u03ad\u03c1\u03b3\u03b5\u03b9\u03b1 \u0026amp; \u03a4\u03b9\u03bc\u03ad\u03c2","period_covered":"\u0395\u0392\u0394\u039f\u039c\u0391\u0394\u0391","publication_frequency":"","code_article":"","description":"","time_gate":""}],"EN":[{"process":"Balancing Market Settlement","data_type":"Activated Energy \u0026amp; Prices","period_covered":"WEEK","publication_frequency":"","code_article":"","description":"","time_gate":""}]},{"filetype":"AwardBalancingCapacityProduct","GR":[{"process":"\u0395\u03ba\u03ba\u03b1\u03b8\u03ac\u03c1\u03b9\u03c3\u03b7 \u0391\u03b3\u03bf\u03c1\u03ac\u03c2 \u0395\u03be\u03b9\u03c3\u03bf\u03c1\u03c1\u03cc\u03c0\u03b7\u03c3\u03b7\u03c2","data_type":"\u0395\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03b7 \u0395\u03bd\u03ad\u03c1\u03b3\u03b5\u03b9\u03b1 \u0026amp; \u03a4\u03b9\u03bc\u03ad\u03c2","period_covered":"\u0395\u0392\u0394\u039f\u039c\u0391\u0394\u0391","publication_frequency":"","code_article":"","description":"","time_gate":""}],"EN":[{"process":"Balancing Market Settlement","data_type":"Activated Energy \u0026amp; Prices","period_covered":"WEEK","publication_frequency":"","code_article":"","description":"","time_gate":""}]},{"filetype":"BalancingCapacityProduct","GR":[{"process":"\u0395\u03ba\u03ba\u03b1\u03b8\u03ac\u03c1\u03b9\u03c3\u03b7 \u0391\u03b3\
+monthly-energy-balance 200 ['/sites/default/files/attached-files/type-file/2025/08/Energy_Report_202506_v2_en.pdf', '/sites/default/files/attached-files/type-file/2025/09/Energy_Report_202501_v2_2_en.pdf', '/sites/default/files/attached-files/type-file/2025/09/Energy_Report_202502_v2_2_en.pdf', '/sites/default/files/attached-files/type-file/2025/09/Energy_Report_202503_v2_2_en.pdf', '/sites/default/files/attached-files/type-file/2025/09/Energy_Report_202504_v2_2_en.pdf', '/sites/default/files/attached-files/type-file/2025/09/Energy_Report_202505_v2_en.pdf', '/sites/default/files/attached-files/type-file/2025/09/Energy_Report_202507_v2_en.pdf', '/sites/default/files/attached-files/type-file/2025/10/Energy_Report_202508_v2_en.pdf', '/sites/default/files/attached-files/type-file/2025/11/Energy_Report_202509_v2_en.pdf', '/sites/default/files/attached-files/type-file/2026/01/Energy_Report_202510_v2.1_en.pdf', '/sites/default/files/attached-files/type-file/2026/02/Energy_Report_202511_v2_en.pdf', '/sites/default/files/attached-files/type-file/2026/02/Energy_Report_202512_v2_en.pdf', '/sites/default/files/attached-files/type-file/2026/03/Energy_Report_202601_v2_en.pdf', '/sites/default/files/attached-files/type-file/2026/04/Energy_Report_202602_v2_en.pdf', '/sites/default/files/attached-files/type-file/2026/07/Energy_Report_202603_v2.1_en.pdf']
+=== SODO / DEDDIE
+200 > ['https://www.sodo.si/storage/app/uploads/public/6aa/aa6/96c/6aaaa696c578d728566009.xlsx']
+ly-reports-of-res-and-thermal-units-in-the-non-interconnected-islands/ 200 ['https://www.deddie.gr/wp-content/uploads/2026/05/Pliroforiako-Deltio-2026-Ianouarios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/05/Pliroforiako-Deltio-2026-Fevrouarios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/05/Pliroforiako-Deltio-2026-Martios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/09/Pliroforiako-Deltio-2026-Aprilios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/10/Pliroforiako-Deltio-2026-Maios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/10/Pliroforiako-Deltio-2026-Iounios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/10/Pliroforiako-Deltio-2026-Ioulios.pdf', 'https://www.deddie.gr/wp-content/uploads/2026/10/Pliroforiako-Deltio-2026-Avgoustos.pdf', 'https://www.deddie.gr/wp-content/uploads/2025/10/%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B1%CE%BA%CE%BF-%CE%B4%CE%B5%CE%BB%CF%84%CE%B9%CE%BF-2025-01-%CE%B9%CE%B1%CE%BD%CE%BF%CF%85%CE%B1%CF%81%CE%B9%CE%BF%CF%83.pdf', 'https://www.deddie.gr/wp-content/uploads/2025/10/%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B1%CE%BA%CE%BF-%CE%B4%CE%B5%CE%BB%CF%84%CE%B9%CE%BF-2025-02-%CF%86%CE%B5%CE%B2%CF%81%CE%BF%CF%85%CE%B1%CF%81%CE%B9%CE%BF%CF%83.pdf', 'https://www.deddie.gr/wp-content/uploads/2025/10/%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B1%CE%BA%CE%BF-%CE%B4%CE%B5%CE%BB%CF%84%CE%B9%CE%BF-2025-03-%CE%BC%CE%B1%CF%81%CF%84%CE%B9%CE%BF%CF%83.pdf', 'https://www.deddie.gr/wp-content/uploads/2025/10/%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B1%CE%BA%CE%BF-%CE%B4%CE%B5%CE%BB%CF%84%CE%B9%CE%BF-2025-04-%CE%B1%CF%80%CF%81%CE%B9%CE%BB%CE%B9%CE%BF%CF%83.pdf']  Monthly Reports of RES and Thermal Units in the non-Interconnected Islands Home Services Non-Interconnected Islands Monthly Reports of RES and Thermal Units in the non-Interconnected Islands 2026 January More February More March More April More May More June More July More August More 2025 January More February More March More April More May More June More July More August More September More October More November More December More 2024 January More February More March More April More May More
+istics-on-res-stations-relating-to-the-w-or-wr-application-on-the-nii/ 200 ['/wp-content/uploads/2025/04/Πίνακας-Στατιστικών-Στοιχείων-ΧΕ-ΜΕ_-03-04-2018-1.xlsx', '/wp-content/uploads/2025/04/Πίνακας-Στατιστικών-Στοιχείων-ΧΕ-ΜΕ-16-03-2018-ν.xlsx', 'https://www.deddie.gr/wp-content/uploads/2025/09/information-security.pdf']  Statistics on RES Stations relating to the W/OR-WR application on the NII Home Services Non-Interconnected Islands Statistics on RES Stations relating to the W/OR-WR application on the NII Table of RES Stations on the WR-W/OR application on the NII L. 4254/2014 (March 2018) More Table of P/V Stations on the WR-W/OR application on the NII (March 2018) More Faults and Outages Service requests Services Strategic Transformation and Digitisation Help and Support 800 400 4000 Contact 20 Perraivou & 5
