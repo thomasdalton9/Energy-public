@@ -38,7 +38,8 @@ def text(h):
 B = "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/"
 R = "registre-national-installation-production-stockage-electricite-agrege"
 def q(ds, **kw):
-    qs = "&".join(f"{k}={quote(v, safe='(),*=<>\\'')}" for k, v in kw.items())
+    SAFE = "(),*=<>'"
+    qs = "&".join(k + "=" + quote(v, safe=SAFE) for k, v in kw.items())
     return get(f"{B}{ds}/records?{qs}", 2600)
 
 print("#### A. France register stats")
