@@ -140,4 +140,5 @@ def main():
                     print("   ", t[max(0, m.start()-80):m.start()+160])
                     break
                 print("  ", re.findall(r'href="([^"]+\.pdf)"', r.text)[:15])
-main()
+if __name__ == "__main__":
+    main()
