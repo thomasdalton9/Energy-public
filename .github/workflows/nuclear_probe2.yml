@@ -1,4 +1,4 @@
-name: Nuclear probe 1
+name: Nuclear probe 2
 on:
   workflow_dispatch:
 jobs:
@@ -15,4 +15,4 @@ jobs:
         env:
           ENTSOE_API_KEY: ${{ secrets.ENTSOE_API_KEY }}
           PYTHONUNBUFFERED: "1"
-        run: timeout 600 python3 discovery_archive/europe/nuclear/NUCLEAR_PROBE1.py
+        run: timeout 600 python3 discovery_archive/europe/nuclear/NUCLEAR_PROBE2.py
