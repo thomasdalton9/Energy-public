@@ -1,0 +1,131 @@
+200 597 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population
+200 738 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Qasja%20n%C3%AB%20ICT
+200 6430 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare
+200 5242 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve
+200 658 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/1%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20De%C3%A7anit%20sipas%20ven
+200 653 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/5%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Dragashit%20sipas%20vendba
+200 653 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/25%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ferizajit%20sipas%20vendb
+200 685 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/9%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Fush%C3%AB%20Kosov%C3%ABs%
+200 652 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/2%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjakov%C3%ABs%20sipas%20ve
+200 648 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/4%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjilanit%20sipas%20vendban
+200 629 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/3%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gllogocit%20sipas%20vendba
+200 665 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/34%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gra%C3%A7anic%C3%ABs%20si
+200 681 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/33%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Hanit%20t%C3%AB%20Elezit%
+200 648 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/6%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Istogut%20sipas%20vendbani
+200 649 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/31%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Junikut%20sipas%20vendban
+200 663 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/7%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ka%C3%A7anikut%20sipas%20v
+200 663 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/10%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kamenic%C3%ABs%20sipas%20
+200 647 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/8%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Klin%C3%ABs%20sipas%20vend
+200 669 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/37%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kllokotit%20sipas%20vendb
+200 677 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/12%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Leposaviqit%20sipas%20ven
+200 652 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/13%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Lipjanit%20sipas%20vendba
+200 665 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/30%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Malishev%C3%ABs%20sipas%2
+200 657 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/32%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mamush%C3%ABs%20sipas%20v
+200 667 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/11%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20sipas%2
+200 530 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/38%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20s%C3%AB
+200 642 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/14%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Novob%C3%ABrd%C3%ABs%20si
+200 653 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/15%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Obiliqit%20sipas%20vendba
+200 669 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/36%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Parteshit%20sipas%20vendb
+200 644 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/17%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Pej%C3%ABs%20sipas%20vend
+200 661 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/18%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Podujev%C3%ABs%20sipas%20
+200 664 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/19%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prishtin%C3%ABs%20sipas%2
+200 658 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/20%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prizrenit%20sipas%20vendb
+200 658 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/16%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Rahovecit%20sipas%20vendb
+200 674 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/35%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ranillugut%20sipas%20vend
+200 669 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/23%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sht%C3%ABrp%C3%ABs%20sipa
+200 652 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/22%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Shtimes%20sipas%20vendban
+200 665 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/21%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sk%C3%ABnderajit%20sipas%
+200 661 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/24%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Suharek%C3%ABs%20sipas%20
+200 646 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/26%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vitis%C3%AB%20sipas%20ven
+200 658 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/27%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vushtrris%C3%AB%20sipas%2
+200 675 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/28%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zubin%20Potokut%20sipas%2
+200 658 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/29%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zve%C3%A7anit%20sipas%20v
+200 6146 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics
+200 517 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Disability%20status
+200 2265 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education
+200 3208 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility
+200 4231 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market
+200 1238 https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration
+200 389 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population
+200 245 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths
+200 133 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths/Births
+200 133 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths/Mortality
+200 2162 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve
+200 225 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population
+200 803 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate
+200 191 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20projection
+200 731 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20Structure
+200 98 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces
+200 133 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces/Divorces
+200 133 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces/Marriages
+200 2800 https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration
+200 44150 https://monstat.org/eng/page.php?id=1042&pageid=2
+  LINK page.php?id=48&page_id=48 :: Population estimations
+  LINK page.php?id=54&page_id=54 :: Population projections
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK page.php?id=1985&page_id=1985 :: Census of Agriculture 2024
+  LINK page.php?id=1758&page_id=1758 :: Census 2023
+  LINK page.php?id=57&page_id=57 :: Population census 2011
+  LINK page.php?id=58&page_id=58 :: Agriculture census 2010
+  LINK page.php?id=184&page_id=184 :: Population census 2003
+  LINK page.php?id=1001 :: Statistical surveys and censuses
+200 73539 https://monstat.org/eng/index.php
+  LINK page.php?id=48&page_id=48 :: Population estimations
+  LINK page.php?id=54&page_id=54 :: Population projections
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK page.php?id=1985&page_id=1985 :: Census of Agriculture 2024
+  LINK page.php?id=1758&page_id=1758 :: Census 2023
+  LINK page.php?id=57&page_id=57 :: Population census 2011
+  LINK page.php?id=58&page_id=58 :: Agriculture census 2010
+  LINK page.php?id=184&page_id=184 :: Population census 2003
+  LINK page.php?id=1001 :: Statistical surveys and censuses
+  LINK https://monstat.org/eng/page.php?id=48&pageid=48 :: Population
+
+
+
+
+                    
+
+
+
+
+
+
+
+
+
+                    
+
+
+
+
+                        
+
+
+
+
+                     
+200 45314 https://monstat.org/eng/page.php?id=1801&pageid=1801
+  LINK page.php?id=48&page_id=48 :: Population estimations
+  LINK page.php?id=54&page_id=54 :: Population projections
+  LINK page.php?id=56&page_id=56 :: Census
+  LINK page.php?id=1985&page_id=1985 :: Census of Agriculture 2024
+  LINK page.php?id=1758&page_id=1758 :: Census 2023
+  LINK page.php?id=57&page_id=57 :: Population census 2011
+  LINK page.php?id=58&page_id=58 :: Agriculture census 2010
+  LINK page.php?id=184&page_id=184 :: Population census 2003
+  LINK page.php?id=1001 :: Statistical surveys and censuses
+200 3692 https://veriportali.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2
+200 3692 https://veriportali.tuik.gov.tr/Bulten/Index?p=Address-Based-Population-Registration-System-Results-2024-54019&dil=2
+200 3692 https://veriportali.tuik.gov.tr/Bulten/Index?p=Adrese-Dayali-Nufus-Kayit-Sistemi-Sonuclari-2024-54019
+200 82156 https://biruni.tuik.gov.tr/medas/?locale=en&kn=95
+200 85157 https://biruni.tuik.gov.tr/medas/?kn=95&locale=tr
+200 74629 https://bhas.gov.ba/?lang=en
+  LINK /Calendar/Category/14 :: Population
+  LINK http://popis.gov.ba/ :: Census 2013
+  LINK /News/Read/125 :: Notice on the Implementation of the 2026 Pilot Census of Agriculture
+                                            6/12/2
+ERR https://www.popis2013.ba/ HTTPSConnectionPool(host='www.popis2013.ba', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.popis2013.ba', port=443) at 0x7fe7552006d0>, 'Connection to www.popis2013.ba timed out. (connect timeout=120)'))
+200 52683 https://bhas.gov.ba/Calendar/Category?id=24&page=1&statGroup=24&tip=1&lang=en
+  LINK /Calendar/Category/14 :: Population
+  LINK # :: Population

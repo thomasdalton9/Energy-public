@@ -1,0 +1,3677 @@
+[
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "Qasja në ICT",
+"type": "l",
+"text": "Access to ICT"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Qasja%20n%C3%AB%20ICT",
+{
+"id": "tik01census.px",
+"type": "t",
+"text": "Households by municipality, type of settlement, ownership of a television set, and type of television service, 2024.",
+"updated": "2026-02-27T13:12:20"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Qasja%20n%C3%AB%20ICT",
+{
+"id": "tik02census.px",
+"type": "t",
+"text": "Households by municipality, type of settlement, and access to information and communication technology, 2024",
+"updated": "2026-02-27T13:12:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Qasja%20n%C3%AB%20ICT",
+{
+"id": "tik03census.px",
+"type": "t",
+"text": "Households by municipality, type of settlement, and ownership of durable household appliances, 2024",
+"updated": "2026-02-27T13:12:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Qasja%20n%C3%AB%20ICT",
+{
+"id": "tik04census.px",
+"type": "t",
+"text": "Households by municipality, type of settlement, and ownership of vehicles and housing infrastructure, 2024",
+"updated": "2026-02-27T13:13:05"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "5_Ndërtesat, banesat dhe ekonomitë familjare",
+"type": "l",
+"text": "Buildings, Dwellings, and Households"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_50.px",
+"type": "t",
+"text": "Buildings and Housing at country level for the years 2011 and 2024",
+"updated": "2025-07-11T09:37:24"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_51.px",
+"type": "t",
+"text": "Buildings and dwellings (inhabited and vacant) at the national and municipal level for the years 2011 and 202",
+"updated": "2025-02-03T14:20:21"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_52.px",
+"type": "t",
+"text": "Household economies by number of members and municipality at the national and municipal level for the years 2011 and 2024.",
+"updated": "2025-02-02T21:05:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_53.px",
+"type": "t",
+"text": "Private Households by Household Residency Status at the National and Municipal Level for the Years 2011 and 2024",
+"updated": "2025-02-02T21:22:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_54.px",
+"type": "t",
+"text": "Housing units used according to occupancy status and type of housing unit, 2024",
+"updated": "2025-02-05T14:52:05"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_55.px",
+"type": "t",
+"text": "Number of households and individual per household 1921-2024",
+"updated": "2025-02-20T11:32:16"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_56.px",
+"type": "t",
+"text": "Occupied conventional dwellings by the period of building construction at the national and municipal level for the years 2011 and 2024",
+"updated": "2025-02-20T11:47:54"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_60.px",
+"type": "t",
+"text": "Number of occupied conventional dwellings, Average number of households per dwelling, Average useful floor space per occupant by municipality 2011",
+"updated": "2025-02-06T10:39:54"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_61.px",
+"type": "t",
+"text": "Buildings with at least 1 occupied conventional dwelling by number of occupied conventional dwellings and municipality, 2011",
+"updated": "2025-02-18T15:20:32"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_62.px",
+"type": "t",
+"text": "Institutional households by type of institutional household and municipality, 2011",
+"updated": "2025-02-18T15:21:36"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_63.px",
+"type": "t",
+"text": "Persons usually resident in institutional households by type of institutional household, sex and municipality, 2011",
+"updated": "2025-02-18T15:22:19"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_64.px",
+"type": "t",
+"text": "Persons temporarily present in institutional households by type of institutional household, sex and municipality 2011",
+"updated": "2025-02-05T11:16:55"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_65.px",
+"type": "t",
+"text": "Private households by housing arrangement and municipality 2011",
+"updated": "2025-02-05T11:17:10"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_66.px",
+"type": "t",
+"text": "Private households in conventional dwellings by tenure status of the household and municipality, 2011",
+"updated": "2025-02-18T15:23:20"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_67.px",
+"type": "t",
+"text": "Private households in conventional dwellings by availability of telephone, availability of computer and access to Internet by municipality, 2011",
+"updated": "2025-02-18T15:23:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_68.px",
+"type": "t",
+"text": "Conventional dwellings by availability of basic facilities and municipality, 2011",
+"updated": "2025-02-18T15:24:21"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_69.px",
+"type": "t",
+"text": "Conventional dwellings by occupancy status and type of ownership, and municipality, 2011",
+"updated": "2025-02-18T15:25:22"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_71.px",
+"type": "t",
+"text": "Population by sex, household status and municipality, 2011",
+"updated": "2025-02-18T15:26:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "census2024_72.px",
+"type": "t",
+"text": "Population by household status, sex and municipality, 2011",
+"updated": "2025-02-18T15:26:25"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab01ncensus.px",
+"type": "t",
+"text": "Dwellings by type, use status and type of residence in the municipalities 2024",
+"updated": "2025-07-09T13:07:36"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab02ncensus.px",
+"type": "t",
+"text": "Dwellings by type, households and persons by type of residence by municipality 2024",
+"updated": "2025-07-11T08:54:46"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab03ncensus.px",
+"type": "t",
+"text": "Dwellings by type, households and persons by water supply system 2024",
+"updated": "2025-07-11T08:55:10"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab04ncensus.px",
+"type": "t",
+"text": "Dwellings by type, households and persons by kitchen system and cooking equipment in the housing unit 2024",
+"updated": "2025-07-11T08:55:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab05ncensus.px",
+"type": "t",
+"text": "Dwellings by type, households and persons by wastewater discharge system in municipalities 2024",
+"updated": "2025-07-16T09:26:30"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab06ncensus.px",
+"type": "t",
+"text": "Dwellings by type, households and persons by status of flush toilet in the dwelling unit 2024",
+"updated": "2025-07-15T15:28:50"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab07ncensus.px",
+"type": "t",
+"text": "Dwellings by type, households and persons by status, bathroom facilities in the dwelling unit 2024",
+"updated": "2025-07-16T09:10:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab08ncensus.px",
+"type": "t",
+"text": "Dwellings by type of heating method used for heating in municipalities 2024",
+"updated": "2025-07-11T08:59:28"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab09ncensus.px",
+"type": "t",
+"text": "Dwellings by main type of energy used for heating in municipalities 2024",
+"updated": "2025-07-11T09:05:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab10ncensus.px",
+"type": "t",
+"text": "Dwellings by type of heating method and main type of energy used for heating in municipalities 2024",
+"updated": "2025-07-11T09:47:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab11ncensus.px",
+"type": "t",
+"text": "Ordinary dwellings by number of rooms and average area per person by municipality 2024",
+"updated": "2025-07-15T09:26:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab12ncensus.px",
+"type": "t",
+"text": "Dwellings in which business activity is carried out according to the number of rooms in the residential unit and the number of rooms used for business purposes 2024",
+"updated": "2025-07-15T09:23:12"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab13ncensus.px",
+"type": "t",
+"text": "Dwellings in which business activity is carried out by number of rooms used for business purposes and surface area in m2 2024",
+"updated": "2025-07-15T09:44:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab14ncensus.px",
+"type": "t",
+"text": "Buildings by type of settlement and municipality 2024",
+"updated": "2025-07-15T11:35:34"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab15ncensus.px",
+"type": "t",
+"text": "Buildings with at least one ordinary dwelling used by type, type of residence and number of floors by municipality 2024",
+"updated": "2025-07-15T15:21:36"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab16ncensus.px",
+"type": "t",
+"text": "Buildings by type, year of construction and number of floors in municipalities 2024",
+"updated": "2025-07-15T13:44:27"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "tab17ncensus.px",
+"type": "t",
+"text": "Buildings by year of construction and material of external walls in municipalities 2024",
+"updated": "2025-07-16T09:23:24"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/5_Nd%C3%ABrtesat%2C%20banesat%20dhe%20ekonomit%C3%AB%20familjare",
+{
+"id": "estimationCensus1921_2024.px",
+"type": "t",
+"text": "Kosovo's population according to censuses and estimates, 1921 - 2024",
+"updated": "2025-07-17T15:49:50"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "6_Sipas vendbanimeve",
+"type": "l",
+"text": "By Settlements "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "1 Popullsia e komunës së Deçanit sipas vendbanimit",
+"type": "l",
+"text": "Population of Deçan municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/1%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20De%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopEF01.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Deçan, 1948-2024",
+"updated": "2025-02-21T09:26:46"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/1%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20De%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopEtnicititeti03.px",
+"type": "t",
+"text": "The population of the municipality of Deçan according to settlement, gender and ethnicity 2011",
+"updated": "2025-02-04T16:38:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/1%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20De%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopMosha01.px",
+"type": "t",
+"text": "The population of Deçan Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T09:56:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/1%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20De%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopSex01.px",
+"type": "t",
+"text": "Population of Deçan municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T10:12:45"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "5 Popullsia e komunës së Dragashit sipas vendbanimit",
+"type": "l",
+"text": "Population of Dragash municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/5%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Dragashit%20sipas%20vendbanimit",
+{
+"id": "censusetn05.px",
+"type": "t",
+"text": "The population of the municipality of Dragash according to settlement, sex and ethnicity 2011",
+"updated": "2025-02-11T08:33:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/5%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Dragashit%20sipas%20vendbanimit",
+{
+"id": "PopEF05.px",
+"type": "t",
+"text": "Population and households by settlement in the municipality of Dragash, 1948-2024",
+"updated": "2025-02-11T14:21:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/5%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Dragashit%20sipas%20vendbanimit",
+{
+"id": "PopMosha05.px",
+"type": "t",
+"text": "The population of Dragash Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:04:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/5%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Dragashit%20sipas%20vendbanimit",
+{
+"id": "PopSex05.px",
+"type": "t",
+"text": "Population of Dragash municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:53:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "25 Popullsia e komunës së Ferizajit sipas vendbanimit",
+"type": "l",
+"text": "Population of Ferizaj municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/25%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ferizajit%20sipas%20vendbanimit",
+{
+"id": "censusetn25.px",
+"type": "t",
+"text": "The population of the municipality of Ferizaj according to settlement, sex and ethnicity 2011",
+"updated": "2025-02-11T09:08:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/25%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ferizajit%20sipas%20vendbanimit",
+{
+"id": "PopEF25.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Ferizaj, 1948-2024",
+"updated": "2025-02-14T11:32:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/25%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ferizajit%20sipas%20vendbanimit",
+{
+"id": "PopMosha25.px",
+"type": "t",
+"text": "The population of Ferizaj Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:35:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/25%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ferizajit%20sipas%20vendbanimit",
+{
+"id": "PopSex25.px",
+"type": "t",
+"text": "Population of Ferizaj municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-10T10:18:28"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "9 Popullsia e komunës së Fushë Kosovës sipas vendbanimit",
+"type": "l",
+"text": "Population of Fushë Kosovë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/9%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Fush%C3%AB%20Kosov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn09.px",
+"type": "t",
+"text": "The population of the municipality of Fushë Kosova according to settlement, gender and ethnicity 2011",
+"updated": "2025-02-11T08:44:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/9%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Fush%C3%AB%20Kosov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF09.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Fushë Kosovë, 1948-2024",
+"updated": "2025-02-14T11:25:01"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/9%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Fush%C3%AB%20Kosov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha09.px",
+"type": "t",
+"text": "The population of Fushë Kosova Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:15:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/9%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Fush%C3%AB%20Kosov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex09.px",
+"type": "t",
+"text": "The population of Fushë Kosova municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:55:22"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "2 Popullsia e komunës së Gjakovës sipas vendbanimit",
+"type": "l",
+"text": "Population of Gjakova municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/2%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjakov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn02.px",
+"type": "t",
+"text": "The population of the municipality of Gjakova according to settlement, gender and ethnicity 2011",
+"updated": "2017-06-29T09:04:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/2%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjakov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF02.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Gjakova, 1948-2024",
+"updated": "2025-02-12T14:39:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/2%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjakov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha02.px",
+"type": "t",
+"text": "Population of Gjakova municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-19T11:46:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/2%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjakov%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex02.px",
+"type": "t",
+"text": "Population of Gjakova municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-19T11:45:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "4 Popullsia e komunës së Gjilanit sipas vendbanimit",
+"type": "l",
+"text": "Population of Gjilan municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/4%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjilanit%20sipas%20vendbanimit",
+{
+"id": "censusetn04.px",
+"type": "t",
+"text": "The population of the municipality of Gjilan according to settlement, sex and ethnicity 2011",
+"updated": "2025-02-11T10:29:33"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/4%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjilanit%20sipas%20vendbanimit",
+{
+"id": "PopEF04.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Gjilan, 1948-2024",
+"updated": "2025-02-13T09:39:36"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/4%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjilanit%20sipas%20vendbanimit",
+{
+"id": "PopMosha4.px",
+"type": "t",
+"text": "The population of Gjilan Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:03:41"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/4%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gjilanit%20sipas%20vendbanimit",
+{
+"id": "PopSex04.px",
+"type": "t",
+"text": "Population of Gjilan municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:53:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "3 Popullsia e komunës së Gllogocit sipas vendbanimit",
+"type": "l",
+"text": "Population of Gllogoc municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/3%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gllogocit%20sipas%20vendbanimit",
+{
+"id": "censusetn03.px",
+"type": "t",
+"text": "The population of the municipality of Gllogoc according to settlement, sex and ethnicity 2011",
+"updated": "2025-02-11T10:42:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/3%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gllogocit%20sipas%20vendbanimit",
+{
+"id": "PopEF03.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Gllogoc, 1948-2024",
+"updated": "2025-02-14T11:23:55"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/3%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gllogocit%20sipas%20vendbanimit",
+{
+"id": "PopMosha03.px",
+"type": "t",
+"text": "Population of Gllogoc municipality by settlement and agegroup 2011",
+"updated": "2025-02-11T10:43:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/3%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gllogocit%20sipas%20vendbanimit",
+{
+"id": "PopSex03.px",
+"type": "t",
+"text": "The population of Gllogoc municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-11T10:44:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "34 Popullsia e komunës së Graçanicës sipas vendbanimit",
+"type": "l",
+"text": "Population of Graçanicë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/34%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gra%C3%A7anic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn34.px",
+"type": "t",
+"text": "The population of the municipality of Graçanica according to settlement, sex and ethnicity 2011",
+"updated": "2025-02-11T10:47:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/34%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gra%C3%A7anic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF34.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Graçanica, 1948-2024",
+"updated": "2025-02-14T10:58:44"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/34%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gra%C3%A7anic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha34.px",
+"type": "t",
+"text": "The population of Graçanica Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-12T10:26:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/34%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Gra%C3%A7anic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex34.px",
+"type": "t",
+"text": "Population of Graçanica municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-11T10:50:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "33 Popullsia e komunës së Hanit të Elezit sipas vendbanimit",
+"type": "l",
+"text": "Population of Han i Elezit municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/33%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Hanit%20t%C3%AB%20Elezit%20sipas%20vendbanimit",
+{
+"id": "censusetn33.px",
+"type": "t",
+"text": "The population of the municipality of Hanit të Elezit according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:54:44"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/33%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Hanit%20t%C3%AB%20Elezit%20sipas%20vendbanimit",
+{
+"id": "PopEF33.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Hani i Elezit, 1948-2024",
+"updated": "2025-02-14T11:35:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/33%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Hanit%20t%C3%AB%20Elezit%20sipas%20vendbanimit",
+{
+"id": "PopMosha33.px",
+"type": "t",
+"text": "The population of Hani Elezi  Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:52:55"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/33%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Hanit%20t%C3%AB%20Elezit%20sipas%20vendbanimit",
+{
+"id": "PopSex33.px",
+"type": "t",
+"text": "Population of Hani i Elezit municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:05:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "6 Popullsia e komunës së Istogut sipas vendbanimit",
+"type": "l",
+"text": "Population of Istog municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/6%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Istogut%20sipas%20vendbanimit",
+{
+"id": "censusetn06.px",
+"type": "t",
+"text": "The population of the municipality of Istog according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:17:10"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/6%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Istogut%20sipas%20vendbanimit",
+{
+"id": "PopEF06.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality Istog, 1948-2024",
+"updated": "2025-02-13T09:40:34"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/6%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Istogut%20sipas%20vendbanimit",
+{
+"id": "PopMosha06.px",
+"type": "t",
+"text": "Population of the municipality of Istog by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:05:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/6%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Istogut%20sipas%20vendbanimit",
+{
+"id": "PopSex06.px",
+"type": "t",
+"text": "Population of Istog municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:54:16"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "31 Popullsia e komunës së Junikut sipas vendbanimit",
+"type": "l",
+"text": "Population of Junik municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/31%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Junikut%20sipas%20vendbanimit",
+{
+"id": "censusetn31.px",
+"type": "t",
+"text": "The population of the municipality of Junik according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:46:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/31%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Junikut%20sipas%20vendbanimit",
+{
+"id": "PopEF31.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Junik, 1948-2024",
+"updated": "2025-02-14T10:52:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/31%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Junikut%20sipas%20vendbanimit",
+{
+"id": "PopMosha31.px",
+"type": "t",
+"text": "The population of Junik Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:50:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/31%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Junikut%20sipas%20vendbanimit",
+{
+"id": "PopSex31.px",
+"type": "t",
+"text": "Population of Junik municipality by settlement and sex for the years 2011 and 2024.",
+"updated": "2025-02-06T10:41:02"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "7 Popullsia e komunës së Kaçanikut sipas vendbanimit",
+"type": "l",
+"text": "Population of Kaçanik municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/7%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ka%C3%A7anikut%20sipas%20vendbanimit",
+{
+"id": "censusetn07.px",
+"type": "t",
+"text": "The population of the municipality of Kaçanik according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:25:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/7%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ka%C3%A7anikut%20sipas%20vendbanimit",
+{
+"id": "PopEF07.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Kaçanik, 1948-2024",
+"updated": "2025-02-14T11:24:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/7%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ka%C3%A7anikut%20sipas%20vendbanimit",
+{
+"id": "PopMosha07.px",
+"type": "t",
+"text": "Population of the municipality of Kaçanik by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:09:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/7%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ka%C3%A7anikut%20sipas%20vendbanimit",
+{
+"id": "PopSex07.px",
+"type": "t",
+"text": "Population of Kaçanik municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:54:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "10 Popullsia e komunës së Kamenicës sipas vendbanimit",
+"type": "l",
+"text": "Population of Kamenicë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/10%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kamenic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn10.px",
+"type": "t",
+"text": "The population of the municipality of Kamenica according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:18:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/10%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kamenic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF10.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Kamenica, 1948-2024",
+"updated": "2025-02-14T11:25:20"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/10%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kamenic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha10.px",
+"type": "t",
+"text": "Population of the municipality of Kamenica by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:16:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/10%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kamenic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex10.px",
+"type": "t",
+"text": "Population of Kamenica municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:55:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "8 Popullsia e komunës së Klinës sipas vendbanimit",
+"type": "l",
+"text": "Population of Klinë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/8%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Klin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn08.px",
+"type": "t",
+"text": "The population of the municipality of Klina according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:17:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/8%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Klin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF08.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Klina 1948-2024",
+"updated": "2025-02-13T09:41:08"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/8%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Klin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha08.px",
+"type": "t",
+"text": "The population of Klina Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:10:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/8%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Klin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex08.px",
+"type": "t",
+"text": "Population of Klina municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:55:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "37 Popullsia e komunës së Kllokotit sipas vendbanimit",
+"type": "l",
+"text": "Population of Kllokot municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/37%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kllokotit%20sipas%20vendbanimit",
+{
+"id": "censusetn37.px",
+"type": "t",
+"text": "The population of the municipality of Kllokot according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:06:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/37%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kllokotit%20sipas%20vendbanimit",
+{
+"id": "PopEF37.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Kllokot, 1948-2024",
+"updated": "2025-02-14T11:36:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/37%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kllokotit%20sipas%20vendbanimit",
+{
+"id": "PopMosha37.px",
+"type": "t",
+"text": "Population of the municipality of Kllokot according to settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T13:48:40"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/37%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Kllokotit%20sipas%20vendbanimit",
+{
+"id": "PopSex37.px",
+"type": "t",
+"text": "Population of Kllokot municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:07:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "12 Popullsia e komunës së Leposaviqit sipas vendbanimit",
+"type": "l",
+"text": "Population of Leposaviq municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/12%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Leposaviqit%20sipas%20vendbanimit",
+{
+"id": "censusetn12.px",
+"type": "t",
+"text": "The population of the municipality of Leposaviq according to settlement, gender and ethnicity 2011",
+"updated": "2016-07-12T11:33:19"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/12%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Leposaviqit%20sipas%20vendbanimit",
+{
+"id": "PopEF12.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Leposaviq, 1948-2024",
+"updated": "2025-02-14T11:28:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/12%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Leposaviqit%20sipas%20vendbanimit",
+{
+"id": "PopMosha.px",
+"type": "t",
+"text": "Population of the municipality of Leposaviq according to settlement and age group for the years 2011 and 2024#",
+"updated": "2025-02-12T10:33:46"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/12%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Leposaviqit%20sipas%20vendbanimit",
+{
+"id": "PopSex12.px",
+"type": "t",
+"text": "Population of Leposaviq municipality by settlement and sex for the years 2011 and 2024.",
+"updated": "2025-02-06T12:57:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "13 Popullsia e komunës së Lipjanit sipas vendbanimit",
+"type": "l",
+"text": "Population of Lipjan municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/13%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Lipjanit%20sipas%20vendbanimit",
+{
+"id": "censusetn13.px",
+"type": "t",
+"text": "The population of the municipality of Lipjan according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:39:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/13%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Lipjanit%20sipas%20vendbanimit",
+{
+"id": "PopEF13.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Lipjan, 1948-2024",
+"updated": "2025-02-14T11:28:21"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/13%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Lipjanit%20sipas%20vendbanimit",
+{
+"id": "PopMosha13.px",
+"type": "t",
+"text": "The population of Lipjan Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:20:30"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/13%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Lipjanit%20sipas%20vendbanimit",
+{
+"id": "PopSex13.px",
+"type": "t",
+"text": "Population of Lipjan municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:58:14"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "30 Popullsia e komunës së Malishevës sipas vendbanimit",
+"type": "l",
+"text": "Population of Malishevë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/30%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Malishev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn30.px",
+"type": "t",
+"text": "The population of the municipality of Malisheva according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:41:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/30%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Malishev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF30.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Malisheva, 1948-2024",
+"updated": "2025-02-14T11:34:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/30%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Malishev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha30.px",
+"type": "t",
+"text": "The population of Malisheva Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:50:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/30%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Malishev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex30.px",
+"type": "t",
+"text": "Population of Malishevë municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-12T09:48:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "32 Popullsia e komunës së Mamushës sipas vendbanimit",
+"type": "l",
+"text": "Population of Mamushë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/32%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mamush%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn32.px",
+"type": "t",
+"text": "The population of the municipality of Mamushë according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:49:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/32%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mamush%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF32.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Mamusha, 1948-2024",
+"updated": "2025-02-14T11:34:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/32%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mamush%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha32.px",
+"type": "t",
+"text": "The population of Mamusha Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:51:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/32%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mamush%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex32.px",
+"type": "t",
+"text": "Population of Mamusha municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T10:41:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "11 Popullsia e komunës së Mitrovicës sipas vendbanimit",
+"type": "l",
+"text": "Population of Mitrovicë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/11%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn11.px",
+"type": "t",
+"text": "The population of the municipality of Mitrovica according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:31:28"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/11%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha11.px",
+"type": "t",
+"text": "Population of the municipality of Mitrovica by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:16:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/11%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF11.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Mitrovica, 1948-2024",
+"updated": "2025-02-14T11:25:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/11%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex11.px",
+"type": "t",
+"text": "Population of Mitrovica municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:57:28"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "38 Popullsia e komunës së Mitrovicës së Veriut sipas vendbanimit",
+"type": "l",
+"text": "Population of North Mitrovica municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/38%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20s%C3%AB%20Veriut%20sipas%20vendbanimit",
+{
+"id": "PopEF38.px",
+"type": "t",
+"text": "Population and household economies by settlements in the municipality of North Mitrovica, 1948-2024",
+"updated": "2025-02-14T11:40:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/38%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20s%C3%AB%20Veriut%20sipas%20vendbanimit",
+{
+"id": "PopMosha38.px",
+"type": "t",
+"text": "Population of the municipality of North Mitrovica by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-14T11:41:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/38%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Mitrovic%C3%ABs%20s%C3%AB%20Veriut%20sipas%20vendbanimit",
+{
+"id": "PopSex38.px",
+"type": "t",
+"text": "Population of the municipality of North Mitrovica by settlement and gender for the years 2011 and 2024",
+"updated": "2025-02-14T11:22:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "14 Popullsia e komunës së Novobërdës sipas vendbanimit",
+"type": "l",
+"text": "Population of Novobërdë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/14%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Novob%C3%ABrd%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn14.px",
+"type": "t",
+"text": "The population of the municipality of Novobërda according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:43:05"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/14%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Novob%C3%ABrd%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF14.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Novobërda, 1948-2024",
+"updated": "2025-02-14T11:28:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/14%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Novob%C3%ABrd%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha14.px",
+"type": "t",
+"text": "Population of Novobërda municipality by settlement and agegroup 2011",
+"updated": "2025-02-11T10:20:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/14%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Novob%C3%ABrd%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex14.px",
+"type": "t",
+"text": "Population of Novobërdë municipality by settlement and sex for the years 2011 and 2024.",
+"updated": "2025-02-06T12:58:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "15 Popullsia e komunës së Obiliqit sipas vendbanimit",
+"type": "l",
+"text": "Population of Obiliq municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/15%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Obiliqit%20sipas%20vendbanimit",
+{
+"id": "censusetn15.px",
+"type": "t",
+"text": "The population of the municipality of Obiliq according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:46:06"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/15%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Obiliqit%20sipas%20vendbanimit",
+{
+"id": "PopEF15.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Obiliq, 1948-2024",
+"updated": "2025-02-14T11:29:12"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/15%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Obiliqit%20sipas%20vendbanimit",
+{
+"id": "PopMosha15.px",
+"type": "t",
+"text": "The population of Obiliq Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:21:40"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/15%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Obiliqit%20sipas%20vendbanimit",
+{
+"id": "PopSex15.px",
+"type": "t",
+"text": "Population of Obiliq municipality by settlement and sex for the years 2011 and 2024.",
+"updated": "2025-02-06T12:59:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "36 Popullsia e komunës së Parteshit sipas vendbanimit",
+"type": "l",
+"text": "Population of Partesh municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/36%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Parteshit%20sipas%20vendbanimit",
+{
+"id": "censusetn36.px",
+"type": "t",
+"text": "The population of the municipality of Partesh according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:04:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/36%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Parteshit%20sipas%20vendbanimit",
+{
+"id": "PopEF36.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Partesh, 1948-2024",
+"updated": "2025-02-14T11:35:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/36%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Parteshit%20sipas%20vendbanimit",
+{
+"id": "PopMosha36.px",
+"type": "t",
+"text": "Population of the municipality of Partesh according to settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T13:04:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/36%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Parteshit%20sipas%20vendbanimit",
+{
+"id": "PopSex36.px",
+"type": "t",
+"text": "population of Partesh municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:51:19"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "17 Popullsia e komunës së Pejës sipas vendbanimit",
+"type": "l",
+"text": "Population of Pejë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/17%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Pej%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn17.px",
+"type": "t",
+"text": "The population of the municipality of Peja according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:53:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/17%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Pej%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF17.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Peja, 1948-2024",
+"updated": "2025-02-14T11:29:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/17%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Pej%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha17.px",
+"type": "t",
+"text": "The population of Peja Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:23:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/17%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Pej%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex17.px",
+"type": "t",
+"text": "Population of Peja municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:00:19"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "18 Popullsia e komunës së Podujevës sipas vendbanimit",
+"type": "l",
+"text": "Population of Podujevë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/18%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Podujev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn18.px",
+"type": "t",
+"text": "The population of the municipality of Podujeva according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:59:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/18%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Podujev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF18.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Podujeva, 1948-2024",
+"updated": "2025-02-14T11:30:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/18%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Podujev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha18.px",
+"type": "t",
+"text": "The population of Podujeva Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:24:55"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/18%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Podujev%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex18.px",
+"type": "t",
+"text": "Population of Podujevë municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:00:45"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "19 Popullsia e komunës së Prishtinës sipas vendbanimit",
+"type": "l",
+"text": "Population of Prishtinë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/19%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prishtin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn19.px",
+"type": "t",
+"text": "The population of the municipality of Prishtina according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:58:41"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/19%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prishtin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF19.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Prishtina, 1948-2024",
+"updated": "2025-02-14T11:22:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/19%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prishtin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha19.px",
+"type": "t",
+"text": "The population of Prishtina Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:26:05"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/19%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prishtin%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex19.px",
+"type": "t",
+"text": "Population of Prishtina municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:01:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "20 Popullsia e komunës së Prizrenit sipas vendbanimit",
+"type": "l",
+"text": "Population of Prizren municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/20%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prizrenit%20sipas%20vendbanimit",
+{
+"id": "PopSex20.px",
+"type": "t",
+"text": "Population of Prizren municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:01:28"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/20%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prizrenit%20sipas%20vendbanimit",
+{
+"id": "censusetn20.px",
+"type": "t",
+"text": "The population of the municipality of Prizren according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:02:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/20%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prizrenit%20sipas%20vendbanimit",
+{
+"id": "PopEF20.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Prizren, 1948-2024",
+"updated": "2025-02-14T09:05:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/20%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Prizrenit%20sipas%20vendbanimit",
+{
+"id": "PopMosha20.px",
+"type": "t",
+"text": "The population of Prishtina Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:27:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "16 Popullsia e komunës së Rahovecit sipas vendbanimit",
+"type": "l",
+"text": "Population of Rahovec municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/16%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Rahovecit%20sipas%20vendbanimit",
+{
+"id": "censusetn16.px",
+"type": "t",
+"text": "The population of the municipality of Rahovec according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T09:48:47"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/16%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Rahovecit%20sipas%20vendbanimit",
+{
+"id": "PopEF16.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Rahovec, 1948-2024",
+"updated": "2025-02-14T11:29:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/16%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Rahovecit%20sipas%20vendbanimit",
+{
+"id": "PopMosha16.px",
+"type": "t",
+"text": "The population of Rahoveci Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:22:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/16%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Rahovecit%20sipas%20vendbanimit",
+{
+"id": "PopSex16.px",
+"type": "t",
+"text": "Population of Rahovec municipality by settlement and sex for the years 2011 and 2024.",
+"updated": "2025-02-06T12:59:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "35 Popullsia e komunës së Ranillugut sipas vendbanimit",
+"type": "l",
+"text": "Population of Ranillug municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/35%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ranillugut%20sipas%20vendbanimit",
+{
+"id": "PopSex35.px",
+"type": "t",
+"text": "Population of Ranillug municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T12:52:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/35%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ranillugut%20sipas%20vendbanimit",
+{
+"id": "censusetn35.px",
+"type": "t",
+"text": "The population of the municipality of Ranillug according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T11:02:50"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/35%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ranillugut%20sipas%20vendbanimit",
+{
+"id": "PopEF35.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Ranillug, 1948-2024",
+"updated": "2025-02-14T11:35:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/35%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Ranillugut%20sipas%20vendbanimit",
+{
+"id": "PopMosha35.px",
+"type": "t",
+"text": "Population of the municipality of Ranilluga according to settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T11:37:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "23 Popullsia e komunës së Shtërpës sipas vendbanimit",
+"type": "l",
+"text": "Population of Shtërpcë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/23%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sht%C3%ABrp%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn23.px",
+"type": "t",
+"text": "The population of the municipality of Shtërpcë according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:11:01"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/23%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sht%C3%ABrp%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF23.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Shtërpca, 1948-2024",
+"updated": "2025-02-14T11:31:24"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/23%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sht%C3%ABrp%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha23.px",
+"type": "t",
+"text": "Population of the municipality of Shtërpce by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-14T09:17:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/23%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sht%C3%ABrp%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex23.px",
+"type": "t",
+"text": "Population of Shtërpcë municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:02:32"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "22 Popullsia e komunës së Shtimes sipas vendbanimit",
+"type": "l",
+"text": "Population of Shtime municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/22%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Shtimes%20sipas%20vendbanimit",
+{
+"id": "censusetn22.px",
+"type": "t",
+"text": "The population of the municipality of Shtime according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:08:22"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/22%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Shtimes%20sipas%20vendbanimit",
+{
+"id": "PopEF22.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Shtime, 1948-2024",
+"updated": "2025-02-14T11:31:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/22%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Shtimes%20sipas%20vendbanimit",
+{
+"id": "PopMosha22.px",
+"type": "t",
+"text": "The population of Shtime Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-12T10:25:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/22%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Shtimes%20sipas%20vendbanimit",
+{
+"id": "PopSex22.px",
+"type": "t",
+"text": "Population of Shtime municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:02:12"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "21 Popullsia e komunës së Skënderajit sipas vendbanimit",
+"type": "l",
+"text": "Population of Skënderaj municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/21%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sk%C3%ABnderajit%20sipas%20vendbanimit",
+{
+"id": "censusetn21.px",
+"type": "t",
+"text": "The population of the municipality of Skënderaj according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:04:46"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/21%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sk%C3%ABnderajit%20sipas%20vendbanimit",
+{
+"id": "PopEF21.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Skenderaj, 1948-2024",
+"updated": "2025-02-14T11:30:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/21%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sk%C3%ABnderajit%20sipas%20vendbanimit",
+{
+"id": "PopMosha21.px",
+"type": "t",
+"text": "The population of Skenderaj Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-12T13:41:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/21%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Sk%C3%ABnderajit%20sipas%20vendbanimit",
+{
+"id": "PopSex21.px",
+"type": "t",
+"text": "Population of Skenderaj municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:01:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "24 Popullsia e komunës së Suharekës sipas vendbanimit",
+"type": "l",
+"text": "Population of Suharekë municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/24%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Suharek%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "censusetn24.px",
+"type": "t",
+"text": "The population of the municipality of Suhareka according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:13:54"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/24%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Suharek%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopEF24.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Suhareka, 1948-2024",
+"updated": "2025-02-14T11:31:41"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/24%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Suharek%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopMosha24.px",
+"type": "t",
+"text": "The population of Suhareka Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:34:44"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/24%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Suharek%C3%ABs%20sipas%20vendbanimit",
+{
+"id": "PopSex24.px",
+"type": "t",
+"text": "Population of Suharekë municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:03:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "26 Popullsia e komunës së Vitisë sipas vendbanimit",
+"type": "l",
+"text": "Population of Viti municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/26%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vitis%C3%AB%20sipas%20vendbanimit",
+{
+"id": "censusetn26.px",
+"type": "t",
+"text": "The population of the municipality of Viti according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:27:09"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/26%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vitis%C3%AB%20sipas%20vendbanimit",
+{
+"id": "PopEF26.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Vitia, 1948-2024",
+"updated": "2025-02-14T11:33:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/26%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vitis%C3%AB%20sipas%20vendbanimit",
+{
+"id": "PopMosha26.px",
+"type": "t",
+"text": "The population of Vitia Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:47:43"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/26%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vitis%C3%AB%20sipas%20vendbanimit",
+{
+"id": "PopSex26.px",
+"type": "t",
+"text": "Population of Viti municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:03:47"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "27 Popullsia e komunës së Vushtrrisë sipas vendbanimit",
+"type": "l",
+"text": "Population of Vushtrri municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/27%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vushtrris%C3%AB%20sipas%20vendbanimit",
+{
+"id": "censusetn27.px",
+"type": "t",
+"text": "The population of the municipality of Vushtrri according to settlement, gender and ethnicity 2011",
+"updated": "2016-06-22T10:29:30"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/27%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vushtrris%C3%AB%20sipas%20vendbanimit",
+{
+"id": "PopEF27.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality Vushtrria, 1948-2024",
+"updated": "2025-02-14T11:33:32"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/27%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vushtrris%C3%AB%20sipas%20vendbanimit",
+{
+"id": "PopMosha27.px",
+"type": "t",
+"text": "The population of Vushtrri Municipality by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-11T10:48:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/27%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Vushtrris%C3%AB%20sipas%20vendbanimit",
+{
+"id": "PopSex27.px",
+"type": "t",
+"text": "Population of Vushtrri municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:04:08"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "28 Popullsia e komunës së Zubin Potokut sipas vendbanimit",
+"type": "l",
+"text": "Population of Zubin Potok municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/28%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zubin%20Potokut%20sipas%20vendbanimit",
+{
+"id": "censusetn28.px",
+"type": "t",
+"text": "The population of the municipality of Zubin Potok according to settlement, gender and ethnicity 2011",
+"updated": "2016-07-12T11:38:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/28%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zubin%20Potokut%20sipas%20vendbanimit",
+{
+"id": "PopEF28.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Zubin Potok, 1948-2024",
+"updated": "2025-02-14T11:33:50"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/28%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zubin%20Potokut%20sipas%20vendbanimit",
+{
+"id": "PopMosha28.px",
+"type": "t",
+"text": "Population of the municipality of Zubin Potok by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-14T09:57:25"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/28%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zubin%20Potokut%20sipas%20vendbanimit",
+{
+"id": "PopSex28.px",
+"type": "t",
+"text": "Population of Zubin Potok municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:04:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve",
+{
+"id": "29 Popullsia e komunës së Zveçanit sipas vendbanimit",
+"type": "l",
+"text": "Population of Zveçan municipality by settlement  "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/29%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zve%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "censusetn29.px",
+"type": "t",
+"text": "The population of the municipality of Zveqan according to settlement, gender and ethnicity 2011",
+"updated": "2016-07-12T13:59:43"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/29%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zve%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopEF29.px",
+"type": "t",
+"text": "Population and Households by settlement in the municipality of Zveçan, 1948-2024",
+"updated": "2025-02-14T11:34:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/29%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zve%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopMosha29.px",
+"type": "t",
+"text": "Population of the municipality of Zveçan by settlement and age group for the years 2011 and 2024",
+"updated": "2025-02-14T10:25:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/6_Sipas%20vendbanimeve/29%20Popullsia%20e%20komun%C3%ABs%20s%C3%AB%20Zve%C3%A7anit%20sipas%20vendbanimit",
+{
+"id": "PopSex29.px",
+"type": "t",
+"text": "Population of Zveçan municipality by settlement and sex for the years 2011 and 2024",
+"updated": "2025-02-06T13:04:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "1_Demographic_Characteristics",
+"type": "l",
+"text": "Demographic characteristics"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_00.px",
+"type": "t",
+"text": "Population by age, sex and municipality, 2011 and 2024",
+"updated": "2026-04-16T13:21:10"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_03.px",
+"type": "t",
+"text": "Population by sex and age group and type of residence (urban/rural) for the years 2011 and 2024",
+"updated": "2025-02-28T11:50:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2021_00.px",
+"type": "t",
+"text": "Population by sex in the Republic of Kosovo 1921-2024",
+"updated": "2025-02-19T11:34:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_01.px",
+"type": "t",
+"text": "Data on the population and households in Kosovo for the years 2011 and 2024",
+"updated": "2026-10-01T09:37:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_02.px",
+"type": "t",
+"text": "Population by sex and single age at country level for the years 2011 and 2024",
+"updated": "2025-01-31T15:31:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_11.px",
+"type": "t",
+"text": "Population by age group, 1961-2024",
+"updated": "2025-02-28T11:57:06"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_06.px",
+"type": "t",
+"text": "Indicators of age structure by census years, 1961- 2024",
+"updated": "2025-01-31T15:34:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_07.px",
+"type": "t",
+"text": "Population by marital status and sex at the national level for the years 2011 and 2024",
+"updated": "2025-02-28T11:53:46"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_08.px",
+"type": "t",
+"text": "Population by age group and sex, 1953-2024",
+"updated": "2025-01-31T15:41:47"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_09.px",
+"type": "t",
+"text": "Population by sex and age group and type of residence for the years 2011 and 2024",
+"updated": "2025-02-28T11:55:34"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_10.px",
+"type": "t",
+"text": "Population by religion and sex at country and municipal level for the years 2011 and 2024",
+"updated": "2025-01-31T15:43:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_12.px",
+"type": "t",
+"text": "Kosovo's population by ethnicity and censuses 1948-2024",
+"updated": "2025-02-28T11:57:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_13.px",
+"type": "t",
+"text": "Population by type of settlement (urban/rural), sex, and age group, at country and municipality level, for the years 2011 and 2024",
+"updated": "2026-02-11T14:54:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_21.px",
+"type": "t",
+"text": "Population by place of birth, sex and municipality, 2011 and 2024",
+"updated": "2025-07-09T09:01:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_22.px",
+"type": "t",
+"text": "Population by mother tongue and sex at the national and municipal level for the years 2011 and 2024",
+"updated": "2025-02-28T12:02:46"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_04.px",
+"type": "t",
+"text": "Population by sex and age group at country and municipal level for the years 2011 and 2024",
+"updated": "2025-02-28T11:52:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_50.px",
+"type": "t",
+"text": "Population aged 15 years and over by marital status sex and age 2011 and 2024",
+"updated": "2026-08-04T15:53:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_51.px",
+"type": "t",
+"text": "Languages spoken other than mother tongue by sex and age of population aged 15 years and over 2011",
+"updated": "2025-02-05T11:24:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_52.px",
+"type": "t",
+"text": "Population born in Kosovo by sex, age and municipality of birth 2011",
+"updated": "2025-02-05T11:28:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_53.px",
+"type": "t",
+"text": "Population by sex, size-class of locality and age 2011",
+"updated": "2025-02-05T11:32:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_54.px",
+"type": "t",
+"text": "Number of individuals in 1 km² according tot population censuses 1921-2024",
+"updated": "2025-02-19T08:41:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_55.px",
+"type": "t",
+"text": "Languages spoken other than the mother tongue by sex and age of the population aged 15 years and over, 2011 and 2024",
+"updated": "2026-08-06T11:21:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_56.px",
+"type": "t",
+"text": "Population by Sex, Age Group, and Language, 2011 and 2024",
+"updated": "2026-08-04T11:22:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_59.px",
+"type": "t",
+"text": "Population aged 15 years and over by number of languages spoken other than mother tongue, sex and age 2011",
+"updated": "2025-02-05T11:57:20"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_60.px",
+"type": "t",
+"text": "Population aged 15 years and over by sex, type of area (urban/rural) and marital status 2011",
+"updated": "2025-02-05T11:58:33"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_61.px",
+"type": "t",
+"text": "Population born in kosovo by age, sex and municipality of birth 2011",
+"updated": "2025-02-05T11:59:50"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_62.px",
+"type": "t",
+"text": "Population by place of birth, sex and age 2011",
+"updated": "2025-02-05T12:00:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_63.px",
+"type": "t",
+"text": "Population by ethnicity and sex at country and municipal level for the years 2011 and 2024 (with estimation)",
+"updated": "2025-06-11T10:33:27"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "census2024_05.px",
+"type": "t",
+"text": "Population by ethnicity and sex at country and municipal level for the years 2011 and 2024",
+"updated": "2025-02-01T15:37:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab05census.px",
+"type": "t",
+"text": "Population by municipality, gender and age group, 2011 and 2024",
+"updated": "2026-08-06T14:10:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab01census.px",
+"type": "t",
+"text": "Population of Kosovo according to censuses 1921 - 2024",
+"updated": "2025-07-07T08:48:27"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab02census.px",
+"type": "t",
+"text": "Population by municipalities and gender, 2011 and 2024",
+"updated": "2026-08-06T14:24:45"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab03census.px",
+"type": "t",
+"text": "Population by municipalities, urban-rural residence, gender and age group 2024",
+"updated": "2025-07-07T08:50:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab04census.px",
+"type": "t",
+"text": "Population by municipality, gender and age group 2024 (with estimation)",
+"updated": "2025-07-07T08:51:41"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab06census.px",
+"type": "t",
+"text": "Population aged 15 and over by marital status, gender and age group 2024",
+"updated": "2025-07-07T08:52:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab07census.px",
+"type": "t",
+"text": "Population aged 15 and over by municipality, gender and marital status 2024",
+"updated": "2025-07-07T09:03:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab08census.px",
+"type": "t",
+"text": "Population aged 15 and over by gender and number of languages ​​spoken other than mother tongue 2024",
+"updated": "2025-07-07T09:13:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab09census.px",
+"type": "t",
+"text": "Female population 15 years and over by type of residence and number of children born alive 2024",
+"updated": "2025-07-07T13:50:44"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab11census.px",
+"type": "t",
+"text": "Population by citizenship and gender 2011 and 2024",
+"updated": "2025-07-07T14:54:36"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/1_Demographic_Characteristics",
+{
+"id": "tab12census.px",
+"type": "t",
+"text": "Population of Kosovo by gender and censuses, 1921 - 2024",
+"updated": "2026-01-27T13:24:08"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "Disability status",
+"type": "l",
+"text": "Disability status"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Disability%20status",
+{
+"id": "census2024_100.px",
+"type": "t",
+"text": "Popullsia rezidente me vështirësi afatgjate, 2024",
+"updated": "2025-02-05T12:26:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Disability%20status",
+{
+"id": "census2024_104.px",
+"type": "t",
+"text": "Population with at least one long-lasting difficulty by sex, age and long lasting disability 2011",
+"updated": "2025-02-05T12:23:04"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Disability%20status",
+{
+"id": "census2024_101.px",
+"type": "t",
+"text": "Participation of the population with difficulties (some, a lot, and completely unable) in relation to the total population, 2024",
+"updated": "2025-02-05T14:16:53"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "2_Education",
+"type": "l",
+"text": "Education"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "censusEdu01.px",
+"type": "t",
+"text": "Key Education Indicatorsfor the years 2011 and 2024",
+"updated": "2025-01-30T15:20:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "censusEdu02.px",
+"type": "t",
+"text": "Population aged 5 to 29 currently attending school by level and sex at the national and municipal level for the year 2024",
+"updated": "2025-03-12T11:59:30"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "censusEdu03.px",
+"type": "t",
+"text": "Population aged 6 to 29 years by school attendance, sex and single year of age (from 6 to 29), 2011",
+"updated": "2025-01-30T15:20:25"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "censusEdu04.px",
+"type": "t",
+"text": "Population 6 to 29 years attending school by school currently attended and sexa at country and municipal level for the year 2011",
+"updated": "2025-01-30T15:21:59"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "censusEdu06.px",
+"type": "t",
+"text": "Population aged 10 years and over with a completed education level by highest completed education level, sex and age 2011",
+"updated": "2025-02-02T19:59:59"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "censusEdu10.px",
+"type": "t",
+"text": "Population aged 10 years and over by educational attainment and literacy, sex and municipality 2011",
+"updated": "2025-02-05T11:26:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tab16census.px",
+"type": "t",
+"text": "Women 15+ by age, educational attainment and number of live births (Urban and Rural) 2024",
+"updated": "2026-06-10T10:08:09"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tabcensusedu1.px",
+"type": "t",
+"text": "Population aged 15 and over by educational attainment, gender and age 2024",
+"updated": "2026-06-08T14:39:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tabcensusedu2.px",
+"type": "t",
+"text": "Population aged 15 and over by ethnicity, age, educational attainment and gender 2024",
+"updated": "2026-06-08T14:39:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tabcensusedu3.px",
+"type": "t",
+"text": "Population aged 15 and over by ethnicity, municipality, educational attainment and gender 2024",
+"updated": "2026-06-08T14:39:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tabcensusedu4.px",
+"type": "t",
+"text": "Population aged 6 to 22 by school attendance, age and gender by municipality 2024",
+"updated": "2026-06-08T14:39:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tabcensusedu5.px",
+"type": "t",
+"text": "Population attending school by education level and gender in municipalities 2024",
+"updated": "2026-06-10T09:25:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/2_Education",
+{
+"id": "tabcensusedu6.px",
+"type": "t",
+"text": "Population aged 10 years and over by gender, municipalities and type of residence, and illiterates by age. (Urban and Rural) 2024",
+"updated": "2026-06-10T09:43:23"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "Fertility",
+"type": "l",
+"text": "Fertility"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility01census.px",
+"type": "t",
+"text": "Female population aged 15 years and over by number of live-born children and age 2011",
+"updated": "2026-03-02T09:16:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility02census.px",
+"type": "t",
+"text": "Female population aged 15 years and over (with live-born children after year 2005) by number of live-born children after year 2005 and number of deaths before the age of 1 year",
+"updated": "2026-03-02T09:16:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility03census.px",
+"type": "t",
+"text": "Women aged 15+ by age, marital status and number of children born alive 2024 - (Urban and Rural)",
+"updated": "2026-03-02T09:17:16"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility04census.px",
+"type": "t",
+"text": "Children born alive between January 1, 2011 - April 4, 2024, by gender, and permanent residence in the Municipality.",
+"updated": "2026-03-06T12:45:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility05census.px",
+"type": "t",
+"text": "Children born alive in the period January 1, 2011 -  April 4, 2024, by type of permanent residence (urbanrural), gender, and year of occurrence",
+"updated": "2026-03-06T12:46:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility06census.px",
+"type": "t",
+"text": "'Children born alive in the period January 1, 2011 -  April 4, 2024, by first registered residence (urbanrural), gender, and year of occurrence",
+"updated": "2026-03-06T13:03:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility07census.px",
+"type": "t",
+"text": "Live births occurring in the period 1 January 2011  4 April 2024 by the mother's place of permanent residence, urbanrural, and year of occurrence",
+"updated": "2026-03-06T13:04:44"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility08census.px",
+"type": "t",
+"text": "Children born alive in the period January 1, 2011 - April 4, 2024 but who died later by type of permanent residence of the mother urban-rural and year of occurrence",
+"updated": "2026-03-06T13:12:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility09census.px",
+"type": "t",
+"text": "Number of live births in the period 1 January 2011 – 4 April 2024 by the mother's current age at the time of the Population Census, 2024",
+"updated": "2026-03-06T13:27:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility10census.px",
+"type": "t",
+"text": "Infant deaths in the period January 1, 2011 – April 4, 2024 and the mother's age alone (age of infants = days)",
+"updated": "2026-03-09T14:49:40"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility11census.px",
+"type": "t",
+"text": "Infant deaths in the period January 1, 2011 – April 4, 2024 and the mother's age alone (age of infants = months)",
+"updated": "2026-03-09T14:46:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility12census.px",
+"type": "t",
+"text": "Live births that occurred in the period January 1, 2011 – April 4, 2024, by municipality, type of settlement (urban/rural), and mother’s age group",
+"updated": "2026-03-09T12:16:40"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility13census.px",
+"type": "t",
+"text": "Women aged 15 years and over, by marital status and single year of age, who gave birth in the period January 1, 2011 – April 4, 2024",
+"updated": "2026-03-09T12:41:09"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility14census.px",
+"type": "t",
+"text": "Stillborn infants in Kosovo during the period January 1, 2011 – April 4, 2024, by year of occurrence (age = days).",
+"updated": "2026-03-09T13:23:41"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Fertility",
+{
+"id": "fertility15census.px",
+"type": "t",
+"text": "Stillborn infants in Kosovo during the period January 1, 2011 – April 4, 2024, by year of occurrence (age = months).",
+"updated": "2026-03-09T13:53:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "4_Labour market",
+"type": "l",
+"text": "Labour market"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census18.px",
+"type": "t",
+"text": "Population aged 15 years and over by current activity status, sex 2011",
+"updated": "2015-11-06T16:59:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census21.px",
+"type": "t",
+"text": "Population aged 15 years and over by current activity status, sex and educational attainment 2011",
+"updated": "2017-02-16T14:42:45"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census22.px",
+"type": "t",
+"text": "Employed by age, sex and main occupation 2011",
+"updated": "2015-11-10T11:11:43"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census23.px",
+"type": "t",
+"text": "Employed by main status in employment, sex and age 2011",
+"updated": "2015-11-10T13:40:20"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census24.px",
+"type": "t",
+"text": "Employed by age, sex and main industry 2011",
+"updated": "2015-11-12T08:36:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census25.px",
+"type": "t",
+"text": "Employed by main status in employment, sex and main industry 2011",
+"updated": "2015-12-15T11:22:23"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census26.px",
+"type": "t",
+"text": "Employed by main status in employment, sex and main occupation 2011",
+"updated": "2015-11-13T14:07:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census28.px",
+"type": "t",
+"text": "Employed by number of hours usually worked per week in the main job, sex and age 2011",
+"updated": "2016-02-23T15:25:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "census30.px",
+"type": "t",
+"text": "Employed by main occupation, sex and municipality",
+"updated": "2016-04-01T11:40:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "3_census34.px",
+"type": "t",
+"text": "Labour market 2011-2024",
+"updated": "2026-04-16T15:29:45"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc01ensus.px",
+"type": "t",
+"text": "Population by gender and type of residence and working age population 2024",
+"updated": "2026-04-17T11:31:13"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc02ensus.px",
+"type": "t",
+"text": "Population aged 15 - 64 by gender and activity status in Kosovo 2024",
+"updated": "2026-04-17T11:31:23"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc03ensus.px",
+"type": "t",
+"text": "Kosovo's population aged 15 - 64 by employment and unemployment status 2024",
+"updated": "2026-04-17T11:31:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc05ensus.px",
+"type": "t",
+"text": "Employed by employment status by gender, age group 15-64 years, 2024",
+"updated": "2026-04-20T11:31:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc06ensus.px",
+"type": "t",
+"text": "Employed by gender, education level and age group, 2024",
+"updated": "2026-04-20T13:10:45"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc07ensus.px",
+"type": "t",
+"text": "Employed by highest level of education completed, and age group, 2024",
+"updated": "2026-04-22T13:25:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc08ensus.px",
+"type": "t",
+"text": "Employed by gender and economic activities (15-64), 2024",
+"updated": "2026-04-22T13:12:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc09ensus.px",
+"type": "t",
+"text": "Employed by gender and economic activities broken down by division – 2-digit (15-64), 2024",
+"updated": "2026-04-23T09:15:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc10ensus.px",
+"type": "t",
+"text": "Employed by gender and economic activities broken down by division – 3-digit (15-64), 2024",
+"updated": "2026-04-27T09:21:29"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc12ensus.px",
+"type": "t",
+"text": "Employed by gender, main economic activities broken down by sector and employment status, 2024",
+"updated": "2026-04-29T10:09:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc11ensus.px",
+"type": "t",
+"text": "Employed by gender and economic activities broken down by division – 4-digit (15-64), 2024",
+"updated": "2026-04-28T15:13:21"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "lc13ensus.px",
+"type": "t",
+"text": "Employed persons by gender, economic activities, and employment status by municipalities (ages 15–64), 2024",
+"updated": "2026-05-05T13:49:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.12.px",
+"type": "t",
+"text": "Employed by main industry, sex and municipality 2011",
+"updated": "2016-07-11T16:20:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.10.px",
+"type": "t",
+"text": "Population aged 15 years and over by current activity status, sex and municipality 2011",
+"updated": "2016-07-11T16:28:39"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.11.px",
+"type": "t",
+"text": "Employed by main occupation, sex and municipality 2011",
+"updated": "2016-07-11T16:29:06"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.13.px",
+"type": "t",
+"text": "Employed by type of place of work ,sex and municipality 2011",
+"updated": "2016-07-11T16:29:33"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.14.px",
+"type": "t",
+"text": "Employed travelling between home and place of work by place of work, sex and municipality 2011",
+"updated": "2016-07-11T16:22:03"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.15.px",
+"type": "t",
+"text": "Persons aged 15 years and over currently not economically active by functional category, sex and municipality 2011",
+"updated": "2016-07-11T16:29:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/4_Labour%20market",
+{
+"id": "tab_5.16.px",
+"type": "t",
+"text": "Population by main source of livelihood, sex and municipality 2011",
+"updated": "2016-07-11T16:30:25"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population",
+{
+"id": "Migration",
+"type": "l",
+"text": "Migration"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census03.px",
+"type": "t",
+"text": "Population by first place of residence and current place of residence by sex at the national and municipal level for the years 2011 and 2024",
+"updated": "2025-03-06T13:49:06"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census04.px",
+"type": "t",
+"text": "Population aged 1 year and over having ever resided in a place different from the current one by reason of move to the current place of usual residence, sex and age 2011",
+"updated": "2017-02-21T09:08:23"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census05.px",
+"type": "t",
+"text": "Population aged 1 year and over by place of usual residence 1 year before the census, sex and age 2011",
+"updated": "2015-10-23T13:19:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census07.px",
+"type": "t",
+"text": "Population foreign-born by age, sex and country of birth 2011",
+"updated": "2015-11-10T09:43:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census13.px",
+"type": "t",
+"text": "Population by age, sex and country of citizenship 2011",
+"updated": "2016-06-06T14:14:22"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census27.px",
+"type": "t",
+"text": "Population aged 1 year and over having ever resided abroad by year of arrival in Kosovo and country of previous usual residence (first 10 countries)",
+"updated": "2016-01-15T09:45:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Census%20population/Migration",
+{
+"id": "census29.px",
+"type": "t",
+"text": "Reason to migrate (inside Kosovo) by sex 2011",
+"updated": "2016-04-01T11:39:33"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population",
+{
+"id": "Births and deaths",
+"type": "l",
+"text": "Births and deaths"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths",
+{
+"id": "birthsDeathsHistory.px",
+"type": "t",
+"text": "Births and deaths, Kosovo, 1948 - 2023",
+"updated": "2025-05-14T14:01:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths",
+{
+"id": "Births",
+"type": "l",
+"text": "Births by municipality"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths/Births",
+{
+"id": "Annual indicators",
+"type": "l",
+"text": "Annual indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths/Births",
+{
+"id": "Monthly indicators",
+"type": "l",
+"text": "Monthly indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths",
+{
+"id": "Mortality",
+"type": "l",
+"text": "Deaths by municipality"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths/Mortality",
+{
+"id": "Annual indicators",
+"type": "l",
+"text": "Annual indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Births%20and%20deaths/Mortality",
+{
+"id": "Monthly indicators",
+"type": "l",
+"text": "Monthly indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population",
+{
+"id": "Shkaqet e Vdekjeve",
+"type": "l",
+"text": "Causes of Death Statistics"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab01.px",
+"type": "t",
+"text": "Cases of deaths in Kosovo by gender, 2017 - 2022",
+"updated": "2026-01-19T10:36:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab018.px",
+"type": "t",
+"text": "Fatalities by the time the event occurred, 2018-2019",
+"updated": "2021-03-15T10:06:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab02.px",
+"type": "t",
+"text": "Coded and uncoded deaths, 2018 - 2022",
+"updated": "2026-01-19T10:44:55"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab03.px",
+"type": "t",
+"text": "Deaths in Kosovo by classification of group of diseases and participation in 100.000 inhabitants, 2018 - 2022",
+"updated": "2026-01-19T14:28:33"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab04dhe05.px",
+"type": "t",
+"text": "Male and Female deaths by classification of group of diseases and participation in 100.000 males and females, 2018 - 2021",
+"updated": "2024-01-12T09:52:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab06.px",
+"type": "t",
+"text": "Ranging first 10 groups of causes of death in Kosovo, 2018 - 2021",
+"updated": "2023-12-22T09:24:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab07dhe08.px",
+"type": "t",
+"text": "Ranking of 10 groups of causes of death for males and females, 2018 - 2021",
+"updated": "2023-12-22T13:02:51"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab09.px",
+"type": "t",
+"text": "Deaths by age group and group of diseases, 2018 - 2021",
+"updated": "2024-01-10T09:26:38"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab10.px",
+"type": "t",
+"text": "Deaths in Kosovo by age group and most common group of diseases, 2018 - 2021",
+"updated": "2024-01-10T09:40:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab13.px",
+"type": "t",
+"text": "Infant deaths in Kosovo by disease group, 2018 - 2021",
+"updated": "2024-01-10T11:10:14"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab14.px",
+"type": "t",
+"text": "Infant deaths by most common group of diseases in Kosovo, 2018 - 2021",
+"updated": "2024-01-10T11:04:37"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab15.px",
+"type": "t",
+"text": "Infant deaths by age, 2018-2019",
+"updated": "2021-03-15T10:04:31"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab16.px",
+"type": "t",
+"text": "Violent deaths, 2018-2019",
+"updated": "2021-03-15T10:05:20"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab017.px",
+"type": "t",
+"text": "Fatalities by scene, 2018-2019",
+"updated": "2021-03-15T10:05:58"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab019.px",
+"type": "t",
+"text": "Ranking of 10 groups of causes of death by residence (municipality) in Kosovo, 2018 - 2021",
+"updated": "2023-12-26T09:43:14"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Shkaqet%20e%20Vdekjeve",
+{
+"id": "tab020.px",
+"type": "t",
+"text": "Deaths in Kosovo according to the classification of disease groups, 2014-2019",
+"updated": "2023-12-26T10:14:17"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population",
+{
+"id": "Estimate, projection and structure of population",
+"type": "l",
+"text": "Estimation, forecast and population structure"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population",
+{
+"id": "Population estimate",
+"type": "l",
+"text": "Population estimated"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate",
+{
+"id": "tab000.px",
+"type": "t",
+"text": "Kosovo population by municipality (Estimation) 2011-2012",
+"updated": "2026-08-31T13:33:19"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate",
+{
+"id": "tab01.px",
+"type": "t",
+"text": "Kosovo's population and natural increase for 2017 - 2024 at municipal leve5",
+"updated": "2026-08-31T13:34:11"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate",
+{
+"id": "tab03.px",
+"type": "t",
+"text": "Total Estimated Kosovo Population, 2017 - 2025",
+"updated": "2026-08-31T13:35:34"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate",
+{
+"id": "tab02.px",
+"type": "t",
+"text": "Total Population of Kosovo and Migration for the Year, 2017 - 2025",
+"updated": "2026-08-31T13:34:16"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate",
+{
+"id": "tab001.px",
+"type": "t",
+"text": "Estimated data by municipality, 2012 - 2025",
+"updated": "2026-08-31T13:34:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20estimate",
+{
+"id": "estimationCensus1921_2024.px",
+"type": "t",
+"text": "Kosovo's population according to censuses and estimates, 1921 - 2024",
+"updated": "2026-08-05T14:20:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population",
+{
+"id": "Population projection",
+"type": "l",
+"text": "Population projection"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20projection",
+{
+"id": "Population projection, 2011-2061",
+"type": "l",
+"text": "Population projection, 2011-2061"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20projection",
+{
+"id": "Population projection, 2017-2061",
+"type": "l",
+"text": "Population projection, 2017-2061"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population",
+{
+"id": "Population Structure",
+"type": "l",
+"text": "Population Structure 1948-2011"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20Structure",
+{
+"id": "Number of population and household by censuses 1948-2011.px",
+"type": "t",
+"text": "Number of population and household by censuses 1948-2011",
+"updated": "2018-06-08T13:49:14"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20Structure",
+{
+"id": "Population by census year and age 1961-2011.px",
+"type": "t",
+"text": "Population by age group 1961-2011",
+"updated": "2016-01-19T14:34:42"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20Structure",
+{
+"id": "Vital phenomena in Kosovo according to years.px",
+"type": "t",
+"text": "Vital phenomena in Kosovo 2002-2013",
+"updated": "2016-01-19T14:35:19"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20Structure",
+{
+"id": "ps01.px",
+"type": "t",
+"text": "Births, deaths and natural growth by ethnicity, 1958-2006",
+"updated": "2017-06-16T11:28:35"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Estimate%2C%20projection%20and%20structure%20of%20population/Population%20Structure",
+{
+"id": "ps02.px",
+"type": "t",
+"text": "Number of population by age group, sex and year of census, 1956-2024",
+"updated": "2024-12-20T12:34:48"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population",
+{
+"id": "Marriages and divorces",
+"type": "l",
+"text": "Marriages and divorces"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces",
+{
+"id": "Divorces",
+"type": "l",
+"text": "Divorces"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces/Divorces",
+{
+"id": "Annual indicators",
+"type": "l",
+"text": "Annual indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces/Divorces",
+{
+"id": "Monthly indicators",
+"type": "l",
+"text": "Monthly indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces",
+{
+"id": "Marriages",
+"type": "l",
+"text": "Marriages "
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces/Marriages",
+{
+"id": "Annual indicators",
+"type": "l",
+"text": "Annual indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Marriages%20and%20divorces/Marriages",
+{
+"id": "Monthly indicators",
+"type": "l",
+"text": "Monthly indicators"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population",
+{
+"id": "Migration",
+"type": "l",
+"text": "Migration"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "test01.px",
+"type": "t",
+"text": "Number of Immigrants, 2001-2011",
+"updated": "2023-06-13T14:37:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab01.px",
+"type": "t",
+"text": "Emigration by country (top 10 destination countries) %, 2014",
+"updated": "2023-05-31T11:08:57"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab03.px",
+"type": "t",
+"text": "Population outside Kosovo and resident population by age group in %, 2014",
+"updated": "2023-06-13T14:24:49"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab04.px",
+"type": "t",
+"text": "The main reasons for international emigration expressed in %, 2014",
+"updated": "2023-06-13T14:25:15"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab05.px",
+"type": "t",
+"text": "Balance of international migration by municipality, 2014",
+"updated": "2023-06-13T14:25:41"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab06.px",
+"type": "t",
+"text": "Persons living outside Kosovo by municipality of birth, gender and current place of residence, 2014",
+"updated": "2023-06-12T09:47:26"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab07.px",
+"type": "t",
+"text": "Persons living outside Kosovo by municipality of birth, gender and current place of residence, 2014",
+"updated": "2023-06-12T11:25:07"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab08.px",
+"type": "t",
+"text": "People living outside Kosovo by municipality of birth, gender and years of departure, 2014",
+"updated": "2023-06-12T11:26:52"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab09.px",
+"type": "t",
+"text": "Persons living outside Kosovo by municipality and reasons for leaving, 2014",
+"updated": "2023-06-12T10:45:27"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab10.px",
+"type": "t",
+"text": "International imigration by years, 1989-2011",
+"updated": "2023-06-12T10:01:56"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab11.px",
+"type": "t",
+"text": "International imigration in Kosovo by key countries, 2014",
+"updated": "2023-06-12T09:58:47"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab12.px",
+"type": "t",
+"text": "Persons living outside Kosovo by municipality and reasons for leaving in %, 2014",
+"updated": "2023-06-13T14:28:05"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab13.px",
+"type": "t",
+"text": "Balance of national migration by municipalities, 2014",
+"updated": "2023-06-13T14:28:25"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab14.px",
+"type": "t",
+"text": "Balance of migrations by municipality in %, 2014",
+"updated": "2023-06-13T14:29:43"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab15.px",
+"type": "t",
+"text": "National emigration, participation in ratio to the resident population in the municipality and at the national level, 2014",
+"updated": "2023-06-13T14:33:18"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab16.px",
+"type": "t",
+"text": "National emigration / immigration from / to the municipalities of Kosovo, 2014",
+"updated": "2023-06-13T14:34:00"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab17.px",
+"type": "t",
+"text": "National emigration / immigration from / to the municipalities of Kosovo expressed in %, 2014",
+"updated": "2023-06-13T14:35:27"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab18.px",
+"type": "t",
+"text": "Key reasons for national immigration, 2014",
+"updated": "2023-06-12T15:40:34"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab19.px",
+"type": "t",
+"text": "National immigration by years and gender",
+"updated": "2023-06-12T15:42:10"
+}
+],
+[
+"https://askdata.rks-gov.net/api/v1/en/ASKdata/Population/Migration",
+{
+"id": "tab20.px",
+"type": "t",
+"text": "Population of Kosovo, emigrated and those of Kosovar origin (April 2011)",
+"updated": "2023-06-13T14:36:56"
+}
+]
+]

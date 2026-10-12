@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+
+<script type="text/javascript" src="/medas/zkau/web/4e98a926/js/zk.wpd;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY" charset="UTF-8"></script>
+<script type="text/javascript" src="/medas/zkau/web/4e98a926/js/zul.lang.wpd;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY" charset="UTF-8"></script>
+<script type="text/javascript" src="/medas/zkau/web/4e98a926/js/zkbind.wpd;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY" charset="UTF-8"></script>
+<script type="text/javascript" src="/medas/zkau/web/4e98a926/js/bootstrap.wpd;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY" charset="UTF-8"></script>
+<!-- ZK 8.5.0 EE 2017103111 -->
+
+<link rel="stylesheet" type="text/css" href="/medas/zkau/web/4e98a926/_zkiju-iceblue/zul/css/zk.wcs;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY"/>
+<link rel="stylesheet" type="text/css" href="/medas/zkau/web/4e98a926/js/bootstrap/ext/css/bootstrap.min.css;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY"/>
+<script>NS_CSM_td=347193703;NS_CSM_pd=275116664;NS_CSM_u="/clm10";NS_CSM_col="AAAAAAWyJys3Ry7C9M0BSoCfqy1XJyPwOSpBEGIFGx0nmoaYZKPJUgc5nwEuTQ2k7MLktut3akl3d6fQl0BYhRJxldhr";</script><script type="text/javascript">function sendTimingInfoInit(){setTimeout(sendTimingInfo,0)}function sendTimingInfo(){var wp=window.performance;if(wp){var c1,c2,t;c1=wp.timing;if(c1){var cm={};cm.ns=c1.navigationStart;if((t=c1.unloadEventStart)>0)cm.us=t;if((t=c1.unloadEventEnd)>0)cm.ue=t;if((t=c1.redirectStart)>0)cm.rs=t;if((t=c1.redirectEnd)>0)cm.re=t;cm.fs=c1.fetchStart;cm.dls=c1.domainLookupStart;cm.dle=c1.domainLookupEnd;cm.cs=c1.connectStart;cm.ce=c1.connectEnd;if((t=c1.secureConnectionStart)>0)cm.scs=t;cm.rqs=c1.requestStart;cm.rss=c1.responseStart;cm.rse=c1.responseEnd;cm.dl=c1.domLoading;cm.di=c1.domInteractive;cm.dcls=c1.domContentLoadedEventStart;cm.dcle=c1.domContentLoadedEventEnd;cm.dc=c1.domComplete;if((t=c1.loadEventStart)>0)cm.ls=t;if((t=c1.loadEventEnd)>0)cm.le=t;cm.tid=NS_CSM_td;cm.pid=NS_CSM_pd;cm.ac=NS_CSM_col;var xhttp=new XMLHttpRequest();if(xhttp){var JSON=JSON||{};JSON.stringify=JSON.stringify||function(ob){var t=typeof(ob);if(t!="object"||ob===null){if(t=="string")ob='"'+ob+'"';return String(ob);}else{var n,v,json=[],arr=(ob&&ob.constructor==Array);for(n in ob){v=ob[n];t=typeof(v);if(t=="string")v='"'+v+'"';else if(t=="object"&&v!==null)v=JSON.stringify(v);json.push((arr?"":'"'+n+'":')+String(v));}return(arr?"[":"{")+String(json)+(arr?"]":"}");}};xhttp.open("POST",NS_CSM_u,true);xhttp.send(JSON.stringify(cm));}}}}if(window.addEventListener)window.addEventListener("load",sendTimingInfoInit,false);else if(window.attachEvent)window.attachEvent("onload",sendTimingInfoInit);else window.onload=sendTimingInfoInit;</script></head>
+<body>
+<div id="fACP_" class="z-temp"><div id="zk_proc" class="z-loading"><div class="z-loading-indicator"><span class="z-loading-icon"></span>Processing...</div></div><div id="fACPv2" style="display:none">									
+									Gösterge Sabit sekmesinde
+									tek düzey seçilebilir!	
+			</div>
+<div id="fACPx2" style="display:none">
+									Önce Periyot Seçilmeli!
+								</div>
+<div id="fACP84" style="display:none">
+									Zaman sekmesinde en az bir
+									zaman seçmelisiniz!
+								</div>
+<div id="fACPo5" style="display:none">
+
+
+
+
+										
+										Düzey sekmesinde en az
+										bir düzey seçmelisiniz!
+										
+										
+										
+										
+										
+				</div>
+</div>
+<script class="z-runonce" type="text/javascript">
+zkmx(
+[0,'fACP_',{dt:'z_4nx',cu:'\x2Fmedas\x3Bjsessionid\x3D_Ju4mmvAfwcCG77eaoFFkXuY',uu:'\x2Fmedas\x2Fzkau\x3Bjsessionid\x3D_Ju4mmvAfwcCG77eaoFFkXuY',ru:'\x2Fmenu.zul'},{},[
+['zul.wnd.Window','fACP0',{id:'gostergeW',$$onMinimize:false,$$0onMinimize:true,$$onMove:false,$$0onMove:true,$onOK:true,$$onOpen:false,$$onSize:false,$$0onSize:true,$$onZIndex:false,$$0onZIndex:true,$onClose:true,$$onMaximize:false,$$0onMaximize:true,width:'1100px',style:' margin-left: auto ;margin-right: auto ;',prolog:' ',border:'normal'},{},[
+['zul.wgt.Div','fACP1',{sclass:'navbar navbar-default navbar-fixed-top',style:'background-color:#33B3E6',align:'center'},{},[
+['zul.wgt.Cell','fACP2',{width:'15%',style:'background-color:#33B3E6',prolog:' ',align:null,valign:null},{},[]],
+['zul.wgt.Image','fACP3',{id:'tuikMedasBanner',width:'70%',height:'105px',prolog:' ',src:'/medas/images/medas-tuik-en.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.wgt.Cell','fACP4',{width:'15%',style:'background-color:#33B3E6',prolog:' ',align:null,valign:null},{},[]]]],
+['zul.wgt.Space','fACP5',{height:'102px',orient:'vertical'},{},[]],
+['zul.tab.Tabbox','fACP6',{id:'tabBox1',width:'100%'},{},[
+['zul.tab.Tabs','fACP7',{height:'34px'},{},[
+['zul.tab.Tab','fACP8',{id:'gostergeTab',$$onSelect:false,$onSelect:true,$onClose:true,label:'By Indicator',selected:true},{},[]],
+['zul.tab.Tab','fACP9',{id:'zamanTab',$onSelect:true,$onClose:true,label:'By Time',disabled:true},{},[]],
+['zul.tab.Tab','fACPa',{id:'duzeyTab',$onSelect:true,$onClose:true,label:'By Region',disabled:true},{},[]],
+['zul.tab.Tab','fACPb',{id:'raporTab',$onSelect:true,$onClose:true,label:'Report',disabled:true},{},[]]]],
+['zul.wgt.Toolbar','fACPc',{id:'toolbarYardim'},{},[
+['zul.wgt.Toolbarbutton','fACPd',{id:'btnKayitliSorgularim',visible:false,$$onCheck:false,$onClick:true,height:'60px',style:'font-weight:bold',tooltiptext:'Registered Queries',prolog:' ',label:'Registered Queries',image:'/medas/images/save.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Toolbarbutton','fACPe',{id:'btnYardim',visible:false,$onClick:true,height:'60px',style:'cursor:pointer ; font-weight : bold',tooltiptext:'Help',prolog:' ',label:'Help',image:'/medas/images/signs.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Toolbarbutton','fACPf',{id:'btnHelp',$onClick:true,height:'60px',style:'cursor:pointer ; font-weight : bold',tooltiptext:'Help',prolog:' ',label:'Help',image:'/medas/images/signs.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Toolbarbutton','fACPg',{id:'btnKazancBilgisi',visible:false,height:'60px',tooltiptext:'Kazan\xE7 Bilgisi Sorgulama',prolog:' ',image:'/medas/images/kazancBilgisi.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',href:'/medas/kbs.zul;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',target:'_new',mode:'default'},{},[]],
+['zul.wgt.Toolbarbutton','fACPh',{id:'btnParasalDonusum',visible:false,height:'60px',tooltiptext:'Parasal D\xF6n\xFC\u015F\xFCm',prolog:' ',image:'/medas/images/pdCevirici.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',href:'/medas/donusum_hesap.zul;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',target:'_new',mode:'default'},{},[]]]],
+['zul.tab.Tabpanels','fACPi',{},{},[
+['zul.tab.Tabpanel','fACPj',{id:'gostergeTabPanel'},{},[
+['zul.wgt.Div','fACPk',{id:'gostergeDiv',prolog:' '},{},[
+['zul.wgt.Groupbox','fACPl',{id:'gostergeKonuGroup',$$onOpen:false,style:'background-color:#CEECFC',prolog:' ',closable:false},{},[
+['zul.wgt.Caption','fACPm',{id:'gostergeKonuCaption'},{},[
+['zul.wgt.Div','fACPn',{id:'gostergeKonuCaptionDiv',prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACPo',{id:'gostergeKonuTemizleBtn',$onClick:true,tooltiptext:'Clear Selections',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Space','fACPp',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPq',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Subject'},{},[]],
+['zul.wgt.Space','fACPr',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.sel.Select','fACPs',{id:'konuLb',$$onDataLoading:true,$$0onDataLoading:true,$$onSelect:false,$onSelect:true,$$onAcrossPage:true,$$0onAcrossPage:true,$$onRender:true,$$0onRender:true,$$onAnchorPos:false,$$0onAnchorPos:true,$$onCheckSelectAll:false,$$0onCheckSelectAll:true,$$onInnerWidth:false,$$0onInnerWidth:true,$$onScrollPos:false,$$0onScrollPos:true,$$onPageSize:true,$$0onPageSize:true,style:'width:300px;overflow-y:auto;',prolog:' ',_nativebar:true},{},[
+['zul.sel.Listhead','fACPt',{$$onColSize:false},{},[
+['zul.sel.Listheader','fACPu',{$onSort:true,$$0onSort:true,label:'Choose a Subject'},{},[]]]],
+['zul.sel.Option','fACP37',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACP47',{label:'Address Based Population Registration System Results'},{},[
+['zul.wgt.Label','fACP57',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP5c',{_loaded:true,_index:1},{},[
+['zul.sel.Listcell','fACP6c',{label:'Agricultural Equipment and Machinery Statistics'},{},[
+['zul.wgt.Label','fACP7c',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP8c',{_loaded:true,_index:2},{},[
+['zul.sel.Listcell','fACP9c',{label:'Agricultural Input Price Index'},{},[
+['zul.wgt.Label','fACPac',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPbc',{_loaded:true,_index:3},{},[
+['zul.sel.Listcell','fACPcc',{label:'Annual Industrial Products Statistics'},{},[
+['zul.wgt.Label','fACPdc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPec',{_loaded:true,_index:4},{},[
+['zul.sel.Listcell','fACPfc',{label:'Annual Industry and Service Statistics'},{},[
+['zul.wgt.Label','fACPgc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPhc',{_loaded:true,_index:5},{},[
+['zul.sel.Listcell','fACPic',{label:'Annual National Account Statistics'},{},[
+['zul.wgt.Label','fACPjc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ulusal-hesaplar-113&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPkc',{_loaded:true,_index:6},{},[
+['zul.sel.Listcell','fACPlc',{label:'Birth Statistics'},{},[
+['zul.wgt.Label','fACPmc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPnc',{_loaded:true,_index:7},{},[
+['zul.sel.Listcell','fACPoc',{label:'Building Construction Cost Index'},{},[
+['zul.wgt.Label','fACPpc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=insaat-ve-konut-116&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPqc',{_loaded:true,_index:8},{},[
+['zul.sel.Listcell','fACPrc',{label:'Building Permit Statistics'},{},[
+['zul.wgt.Label','fACPsc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=insaat-ve-konut-116&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPtc',{_loaded:true,_index:9},{},[
+['zul.sel.Listcell','fACPuc',{label:'Child Statistics-Culture and Sports'},{},[
+['zul.wgt.Label','fACPvc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPwc',{_loaded:true,_index:10},{},[
+['zul.sel.Listcell','fACPxc',{label:'Child Statistics-Demographic Characteristics'},{},[
+['zul.wgt.Label','fACPyc',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPzc',{_loaded:true,_index:11},{},[
+['zul.sel.Listcell','fACP_d',{label:'Child Statistics-Education'},{},[
+['zul.wgt.Label','fACP0d',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP1d',{_loaded:true,_index:12},{},[
+['zul.sel.Listcell','fACP2d',{label:'Child Statistics-Health'},{},[
+['zul.wgt.Label','fACP3d',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP4d',{_loaded:true,_index:13},{},[
+['zul.sel.Listcell','fACP5d',{label:'Child Statistics-Housing Characteristics'},{},[
+['zul.wgt.Label','fACP6d',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP7d',{_loaded:true,_index:14},{},[
+['zul.sel.Listcell','fACP8d',{label:'Child Statistics-ICT Usage'},{},[
+['zul.wgt.Label','fACP9d',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPad',{_loaded:true,_index:15},{},[
+['zul.sel.Listcell','fACPbd',{label:'Child Statistics-Labour Force'},{},[
+['zul.wgt.Label','fACPcd',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPdd',{_loaded:true,_index:16},{},[
+['zul.sel.Listcell','fACPed',{label:'Child Statistics-Poverty'},{},[
+['zul.wgt.Label','fACPfd',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPgd',{_loaded:true,_index:17},{},[
+['zul.sel.Listcell','fACPhd',{label:'Child Statistics-Security and Justice'},{},[
+['zul.wgt.Label','fACPid',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPjd',{_loaded:true,_index:18},{},[
+['zul.sel.Listcell','fACPkd',{label:'Cinema Statistics'},{},[
+['zul.wgt.Label','fACPld',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=egitim-kultur-spor-ve-turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPmd',{_loaded:true,_index:19},{},[
+['zul.sel.Listcell','fACPnd',{label:'Construction Cost Index'},{},[
+['zul.wgt.Label','fACPod',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=insaat-ve-konut-116&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPpd',{_loaded:true,_index:20},{},[
+['zul.sel.Listcell','fACPqd',{label:'Construction Sector Indices'},{},[
+['zul.wgt.Label','fACPrd',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=insaat-ve-konut-116&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPsd',{_loaded:true,_index:21},{},[
+['zul.sel.Listcell','fACPtd',{label:'Construction Sector Tendency Statistics'},{},[
+['zul.wgt.Label','fACPud',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ekonomik-guven-117&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPvd',{_loaded:true,_index:22},{},[
+['zul.sel.Listcell','fACPwd',{label:'Consumer Price Index'},{},[
+['zul.wgt.Label','fACPxd',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPyd',{_loaded:true,_index:23},{},[
+['zul.sel.Listcell','fACPzd',{label:'Consumer Tendency Statistics'},{},[
+['zul.wgt.Label','fACP_e',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ekonomik-guven-117&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP0e',{_loaded:true,_index:24},{},[
+['zul.sel.Listcell','fACP1e',{label:'Convicts Received Into Prison Statistics'},{},[
+['zul.wgt.Label','fACP2e',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=adalet-ve-secim-110&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP3e',{_loaded:true,_index:25},{},[
+['zul.sel.Listcell','fACP4e',{label:'Convicts\xA0Discharged\xA0from\xA0Prison Statistics'},{},[
+['zul.wgt.Label','fACP5e',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=adalet-ve-secim-110&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP6e',{_loaded:true,_index:26},{},[
+['zul.sel.Listcell','fACP7e',{label:'Crop Production Statistics'},{},[
+['zul.wgt.Label','fACP8e',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP9e',{_loaded:true,_index:27},{},[
+['zul.sel.Listcell','fACPae',{label:'Death Statistics'},{},[
+['zul.wgt.Label','fACPbe',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPce',{_loaded:true,_index:28},{},[
+['zul.sel.Listcell','fACPde',{label:'Divorce Statistics'},{},[
+['zul.wgt.Label','fACPee',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPfe',{_loaded:true,_index:29},{},[
+['zul.sel.Listcell','fACPge',{label:'Domestic Producer Price Index'},{},[
+['zul.wgt.Label','fACPhe',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPie',{_loaded:true,_index:30},{},[
+['zul.sel.Listcell','fACPje',{label:'Energy Statistics'},{},[
+['zul.wgt.Label','fACPke',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=cevre-ve-enerji-103&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPle',{_loaded:true,_index:31},{},[
+['zul.sel.Listcell','fACPme',{label:'Enterprises Statistics'},{},[
+['zul.wgt.Label','fACPne',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPoe',{_loaded:true,_index:32},{},[
+['zul.sel.Listcell','fACPpe',{label:'Family Structure Statistics'},{},[
+['zul.wgt.Label','fACPqe',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPre',{_loaded:true,_index:33},{},[
+['zul.sel.Listcell','fACPse',{label:'Financial Investment Tools Statistics'},{},[
+['zul.wgt.Label','fACPte',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPue',{_loaded:true,_index:34},{},[
+['zul.sel.Listcell','fACPve',{label:'Fishery Statistics'},{},[
+['zul.wgt.Label','fACPwe',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPxe',{_loaded:true,_index:35},{},[
+['zul.sel.Listcell','fACPye',{label:'Foreign Trade Indices'},{},[
+['zul.wgt.Label','fACPze',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=dis-ticaret-104&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP_f',{_loaded:true,_index:36},{},[
+['zul.sel.Listcell','fACP0f',{label:'Foreign Trade Statistics Imports of Intermediate Goods'},{},[
+['zul.wgt.Label','fACP1f',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=dis-ticaret-104&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP2f',{_loaded:true,_index:37},{},[
+['zul.sel.Listcell','fACP3f',{label:'Formal Education Statistics'},{},[
+['zul.wgt.Label','fACP4f',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=Egitim,-Kultur,-Spor-ve-Turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP5f',{_loaded:true,_index:38},{},[
+['zul.sel.Listcell','fACP6f',{label:'Health Statistics'},{},[
+['zul.wgt.Label','fACP7f',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=saglik-ve-sosyal-koruma-101&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP8f',{_loaded:true,_index:39},{},[
+['zul.sel.Listcell','fACP9f',{label:'House Sale Statistics'},{},[
+['zul.wgt.Label','fACPaf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=insaat-ve-konut-116&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPbf',{_loaded:true,_index:40},{},[
+['zul.sel.Listcell','fACPcf',{label:'Household Consumption Expenditure Statistics'},{},[
+['zul.wgt.Label','fACPdf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=gelir-yasam-tuketim-ve-yoksulluk-107&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPef',{_loaded:true,_index:41},{},[
+['zul.sel.Listcell','fACPff',{label:'Income Distribution and Living Conditions Statistics'},{},[
+['zul.wgt.Label','fACPgf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=gelir-yasam-tuketim-ve-yoksulluk-107&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPhf',{_loaded:true,_index:42},{},[
+['zul.sel.Listcell','fACPif',{label:'Index of Production in Construction'},{},[
+['zul.wgt.Label','fACPjf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=insaat-ve-konut-116&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPkf',{_loaded:true,_index:43},{},[
+['zul.sel.Listcell','fACPlf',{label:'Industrial Labor Input Indices'},{},[
+['zul.wgt.Label','fACPmf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPnf',{_loaded:true,_index:44},{},[
+['zul.sel.Listcell','fACPof',{label:'Industrial Production Indices'},{},[
+['zul.wgt.Label','fACPpf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPqf',{_loaded:true,_index:45},{},[
+['zul.sel.Listcell','fACPrf',{label:'Industrial Production Statistics'},{},[
+['zul.wgt.Label','fACPsf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPtf',{_loaded:true,_index:46},{},[
+['zul.sel.Listcell','fACPuf',{label:'Industrial Turnover and New Orders Indexes'},{},[
+['zul.wgt.Label','fACPvf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPwf',{_loaded:true,_index:47},{},[
+['zul.sel.Listcell','fACPxf',{label:'International Trade in Services Statistics'},{},[
+['zul.wgt.Label','fACPyf',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=dis-ticaret-104&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPzf',{_loaded:true,_index:48},{},[
+['zul.sel.Listcell','fACP_g',{label:'Labour Cost Indices (2010=100)'},{},[
+['zul.wgt.Label','fACP0g',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=istihdam-issizlik-ve-ucret-108&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP1g',{_loaded:true,_index:49},{},[
+['zul.sel.Listcell','fACP2g',{label:'Labour Force Statistics'},{},[
+['zul.wgt.Label','fACP3g',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=istihdam-issizlik-ve-ucret-108&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP4g',{_loaded:true,_index:50},{},[
+['zul.sel.Listcell','fACP5g',{label:'Labour Input Indices'},{},[
+['zul.wgt.Label','fACP6g',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=istihdam-issizlik-ve-ucret-108&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP7g',{_loaded:true,_index:51},{},[
+['zul.sel.Listcell','fACP8g',{label:'Library and Museum Statistics'},{},[
+['zul.wgt.Label','fACP9g',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=egitim-kultur-spor-ve-turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPag',{_loaded:true,_index:52},{},[
+['zul.sel.Listcell','fACPbg',{label:'Life Satisfaction'},{},[
+['zul.wgt.Label','fACPcg',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPdg',{_loaded:true,_index:53},{},[
+['zul.sel.Listcell','fACPeg',{label:'Life Tables'},{},[
+['zul.wgt.Label','fACPfg',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPgg',{_loaded:true,_index:54},{},[
+['zul.sel.Listcell','fACPhg',{label:'Livestock Statistics'},{},[
+['zul.wgt.Label','fACPig',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPjg',{_loaded:true,_index:55},{},[
+['zul.sel.Listcell','fACPkg',{label:'Marriage Statistics'},{},[
+['zul.wgt.Label','fACPlg',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPmg',{_loaded:true,_index:56},{},[
+['zul.sel.Listcell','fACPng',{label:'Milk Products Statistics'},{},[
+['zul.wgt.Label','fACPog',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPpg',{_loaded:true,_index:57},{},[
+['zul.sel.Listcell','fACPqg',{label:'Municipal Waste Statistics'},{},[
+['zul.wgt.Label','fACPrg',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=cevre-ve-enerji-103&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPsg',{_loaded:true,_index:58},{},[
+['zul.sel.Listcell','fACPtg',{label:'Municipal Wastewater Statistics'},{},[
+['zul.wgt.Label','fACPug',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=cevre-ve-enerji-103&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPvg',{_loaded:true,_index:59},{},[
+['zul.sel.Listcell','fACPwg',{label:'Municipal Water Statistics'},{},[
+['zul.wgt.Label','fACPxg',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=cevre-ve-enerji-103&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPyg',{_loaded:true,_index:60},{},[
+['zul.sel.Listcell','fACPzg',{label:'National Education Statistics Database'},{},[
+['zul.wgt.Label','fACP_h',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=egitim-kultur-spor-ve-turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP0h',{_loaded:true,_index:61},{},[
+['zul.sel.Listcell','fACP1h',{label:'Non-Domestic Producer Price Index'},{},[
+['zul.wgt.Label','fACP2h',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP3h',{_loaded:true,_index:62},{},[
+['zul.sel.Listcell','fACP4h',{label:'Paid Employee Statistics'},{},[
+['zul.wgt.Label','fACP5h',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=istihdam-issizlik-ve-ucret-108&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP6h',{_loaded:true,_index:63},{},[
+['zul.sel.Listcell','fACP7h',{label:'Poultry Production'},{},[
+['zul.wgt.Label','fACP8h',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP9h',{_loaded:true,_index:64},{},[
+['zul.sel.Listcell','fACPah',{label:'Poverty Statistics'},{},[
+['zul.wgt.Label','fACPbh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=gelir-yasam-tuketim-ve-yoksulluk-107&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPch',{_loaded:true,_index:65},{},[
+['zul.sel.Listcell','fACPdh',{label:'Prices and Production Values of Agricultural Products'},{},[
+['zul.wgt.Label','fACPeh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPfh',{_loaded:true,_index:66},{},[
+['zul.sel.Listcell','fACPgh',{label:'Print Media Statistics'},{},[
+['zul.wgt.Label','fACPhh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=egitim-kultur-spor-ve-turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPih',{_loaded:true,_index:67},{},[
+['zul.sel.Listcell','fACPjh',{label:'Producer Price Index of Agricultural Products'},{},[
+['zul.wgt.Label','fACPkh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPlh',{_loaded:true,_index:68},{},[
+['zul.sel.Listcell','fACPmh',{label:'Public sector environmental expenditure statistics'},{},[
+['zul.wgt.Label','fACPnh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=cevre-ve-enerji-103&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPoh',{_loaded:true,_index:69},{},[
+['zul.sel.Listcell','fACPph',{label:'Quarterly National Accounts'},{},[
+['zul.wgt.Label','fACPqh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ulusal-hesaplar-113&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPrh',{_loaded:true,_index:70},{},[
+['zul.sel.Listcell','fACPsh',{label:'Red Meat Production'},{},[
+['zul.wgt.Label','fACPth',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPuh',{_loaded:true,_index:71},{},[
+['zul.sel.Listcell','fACPvh',{label:'Regional Accounts'},{},[
+['zul.wgt.Label','fACPwh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ulusal-hesaplar-113&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPxh',{_loaded:true,_index:72},{},[
+['zul.sel.Listcell','fACPyh',{label:'Regional Results of Labour Force Statistics'},{},[
+['zul.wgt.Label','fACPzh',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=istihdam-issizlik-ve-ucret-108&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP_i',{_loaded:true,_index:73},{},[
+['zul.sel.Listcell','fACP0i',{label:'Research and Development Activities Survey in Business Enterprises Sector Statistics'},{},[
+['zul.wgt.Label','fACP1i',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=bilgi-teknolojileri-ve-bilgi-toplumu-102&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP2i',{_loaded:true,_index:74},{},[
+['zul.sel.Listcell','fACP3i',{label:'Retail Sales Indices'},{},[
+['zul.wgt.Label','fACP4i',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ticaret-ve-hizmet-115&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP5i',{_loaded:true,_index:75},{},[
+['zul.sel.Listcell','fACP6i',{label:'Retail Trade Sector Tendency Statistics'},{},[
+['zul.wgt.Label','fACP7i',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ekonomik-guven-117&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP8i',{_loaded:true,_index:76},{},[
+['zul.sel.Listcell','fACP9i',{label:'Road Motor Vehicle Statistics'},{},[
+['zul.wgt.Label','fACPai',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ulastirma-ve-haberlesme-112&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPbi',{_loaded:true,_index:77},{},[
+['zul.sel.Listcell','fACPci',{label:'Road Traffic Accident Statistics'},{},[
+['zul.wgt.Label','fACPdi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ulastirma-ve-haberlesme-112&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPei',{_loaded:true,_index:78},{},[
+['zul.sel.Listcell','fACPfi',{label:'Services Producer Price Index'},{},[
+['zul.wgt.Label','fACPgi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=enflasyon-ve-fiyat-106&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPhi',{_loaded:true,_index:79},{},[
+['zul.sel.Listcell','fACPii',{label:'Services Production Index'},{},[
+['zul.wgt.Label','fACPji',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ticaret-ve-hizmet-115&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPki',{_loaded:true,_index:80},{},[
+['zul.sel.Listcell','fACPli',{label:'Services Sector Tendency Statistics'},{},[
+['zul.wgt.Label','fACPmi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ekonomik-guven-117&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPni',{_loaded:true,_index:81},{},[
+['zul.sel.Listcell','fACPoi',{label:'Statistics on Juveniles Received Into Security Unit'},{},[
+['zul.wgt.Label','fACPpi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=adalet-ve-secim-110&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPqi',{_loaded:true,_index:82},{},[
+['zul.sel.Listcell','fACPri',{label:'Structure of Earnings Statistics'},{},[
+['zul.wgt.Label','fACPsi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=istihdam-issizlik-ve-ucret-108&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPti',{_loaded:true,_index:83},{},[
+['zul.sel.Listcell','fACPui',{label:'Suicide Statistics'},{},[
+['zul.wgt.Label','fACPvi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPwi',{_loaded:true,_index:84},{},[
+['zul.sel.Listcell','fACPxi',{label:'Supply Balance Sheets for Crop Products'},{},[
+['zul.wgt.Label','fACPyi',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=tarim-111&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPzi',{_loaded:true,_index:85},{},[
+['zul.sel.Listcell','fACP_j',{label:'Survey on Building and Dwelling Characteristics'},{},[
+['zul.wgt.Label','fACP0j',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP1j',{_loaded:true,_index:86},{},[
+['zul.sel.Listcell','fACP2j',{label:'Theater Statistics'},{},[
+['zul.wgt.Label','fACP3j',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=egitim-kultur-spor-ve-turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP4j',{_loaded:true,_index:87},{},[
+['zul.sel.Listcell','fACP5j',{label:'Time Use Survey'},{},[
+['zul.wgt.Label','fACP6j',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=gelir-yasam-tuketim-ve-yoksulluk-107&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACP7j',{_loaded:true,_index:88},{},[
+['zul.sel.Listcell','fACP8j',{label:'Tourism Statistics'},{},[
+['zul.wgt.Label','fACP9j',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=egitim-kultur-spor-ve-turizm-105&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPaj',{_loaded:true,_index:89},{},[
+['zul.sel.Listcell','fACPbj',{label:'Trade and Services Indices'},{},[
+['zul.wgt.Label','fACPcj',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ticaret-ve-hizmet-115&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPdj',{_loaded:true,_index:90},{},[
+['zul.sel.Listcell','fACPej',{label:'Trade Sales Volume Index'},{},[
+['zul.wgt.Label','fACPfj',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=ticaret-ve-hizmet-115&dil=2'},{},[]]]]],'select'],
+['zul.sel.Option','fACPgj',{_loaded:true,_index:91},{},[
+['zul.sel.Listcell','fACPhj',{label:'Turnover Indices'},{},[
+['zul.wgt.Label','fACPij',{visible:false,value:'https://data.tuik.gov.tr/Kategori/GetKategori?p=sanayi-114&dil=2'},{},[]]]]],'select']],'select'],
+['zul.wgt.Toolbarbutton','fACPv',{id:'konuMetaveri',visible:false,$onClick:true,prolog:' ',image:'/medas/images/metadata.bmp;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',href:'http://www.tuik.gov.tr',target:'_blank',mode:'default'},{},[]],
+['zul.wgt.Space','fACPw',{width:'3px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.A','fACPx',{id:'anchorMetaveri',prolog:' ',image:'/medas/images/metadata.bmp;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',href:'https://data.tuik.gov.tr/Kategori/GetKategori?p=nufus-ve-demografi-109&dil=2',target:'_new'},{},[]],
+['zul.wgt.Button','fACPy',{id:'favoriSorgularBtn',$onClick:true,width:'160px',sclass:'btn-primary',style:'font-weight:bold',tooltiptext:'Favorite Reports',prolog:' ',label:'Favorite Reports',image:'/medas/images/star.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs']]]]]],'3d'],
+['zul.wgt.Groupbox','fACPz',{id:'konuAdiGB',visible:false,prolog:' '},{},[
+['zul.wgt.Div','fACP_0',{align:'center'},{},[
+['zul.wgt.Label','fACP00',{id:'konulbl',style:'font-size:16pt ;font-family:\'Arial Black\';color:#0026ff',prolog:' '},{},[]]]],
+['zul.wgt.Div','fACP10',{align:'left'},{},[
+['zul.wgt.Label','fACP20',{id:'lblDTBilgi',visible:false,style:'color:red;font-weight:bold',prolog:' ',value:'Deneme'},{},[]]]],
+['zul.wgt.Div','fACP30',{align:'left'},{},[
+['zul.wgt.Label','fACP40',{id:'lblDTAciklama',visible:false,style:'color:red;font-weight:bold',prolog:' ',value:'Deneme'},{},[]]]]]],
+['zul.wgt.Groupbox','fACP50',{id:'olcumGroup',style:'background-color:#CEECFC',prolog:' ',closable:false},{},[
+['zul.wgt.Caption','fACP60',{id:'olcumCaption'},{},[
+['zul.wgt.Div','fACP70',{id:'olcumCaptionDiv',prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACP80',{id:'olcumTemizleBtn',$onClick:true,tooltiptext:'Clear Selections',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Space','fACP90',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPa0',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Measurement'},{},[]],
+['zul.wgt.Space','fACPb0',{height:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Separator','fACPc0',{height:'5px',prolog:' ',orient:'vertical'},{},[]],
+['zul.box.Box','fACPd0',{id:'HboxGrup',prolog:' '},{},[
+['zul.wgt.Label','fACPib',{value:'Indicator'},{},[]],
+['zul.sel.Select','fACPjb',{$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'150px',style:'font-size:9pt',_nativebar:true},{},[
+['zul.sel.Option','fACPkb',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACPlb',{label:'All'},{},[]]],'select'],
+['zul.sel.Option','fACPmb',{_loaded:true,_index:1},{},[
+['zul.sel.Listcell','fACPnb',{label:'Population of localities'},{},[]]],'select'],
+['zul.sel.Option','fACPob',{_loaded:true,_index:2},{},[
+['zul.sel.Listcell','fACPpb',{label:'Marital Status'},{},[]]],'select'],
+['zul.sel.Option','fACPqb',{_loaded:true,_index:3},{},[
+['zul.sel.Listcell','fACPrb',{label:'The localities of Registration'},{},[]]],'select'],
+['zul.sel.Option','fACPsb',{_loaded:true,_index:4},{},[
+['zul.sel.Listcell','fACPtb',{label:'Internal Migration'},{},[]]],'select'],
+['zul.sel.Option','fACPub',{_loaded:true,_index:5},{},[
+['zul.sel.Listcell','fACPvb',{label:'The place of Birth'},{},[]]],'select'],
+['zul.sel.Option','fACPwb',{_loaded:true,_index:6},{},[
+['zul.sel.Listcell','fACPxb',{label:'Sex ratio'},{},[]]],'select'],
+['zul.sel.Option','fACPyb',{_loaded:true,_index:7},{},[
+['zul.sel.Listcell','fACPzb',{label:'Age dependency'},{},[]]],'select'],
+['zul.sel.Option','fACP_c',{_loaded:true,_index:8},{},[
+['zul.sel.Listcell','fACP0c',{label:'Household'},{},[]]],'select'],
+['zul.sel.Option','fACP1c',{_loaded:true,_index:9},{},[
+['zul.sel.Listcell','fACP2c',{label:'International migration'},{},[]]],'select'],
+['zul.sel.Option','fACP3c',{_loaded:true,_index:10},{},[
+['zul.sel.Listcell','fACP4c',{label:'Median age'},{},[]]],'select']],'select']],'horizontal']]]]],
+['zul.wgt.Groupbox','fACPe0',{id:'kriterGroup',visible:false,style:'background-color:#CEECFC'},{},[
+['zul.wgt.Caption','fACPf0',{id:'kriterCaption'},{},[
+['zul.wgt.Div','fACPg0',{prolog:' ',align:'left'},{},[
+['zul.wgt.Label','fACPh0',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Result Type'},{},[]]]]]]],'3d'],
+['zul.box.Box','fACPi0',{},{},[
+['zul.sel.Listbox','fACPj0',{id:'olcumLb',$$onDataLoading:true,$$0onDataLoading:true,$$onSelect:false,$onSelect:true,$$onAcrossPage:true,$$0onAcrossPage:true,$$onRender:true,$$0onRender:true,$$onAnchorPos:false,$$0onAnchorPos:true,$$onCheckSelectAll:false,$$0onCheckSelectAll:true,$$onInnerWidth:false,$$0onInnerWidth:true,$$onScrollPos:false,$$0onScrollPos:true,$$onPageSize:true,$$0onPageSize:true,width:'600px',style:'height:228px;overflow-y:auto;',_nativebar:true,_topPad:0,_totalSize:40,_offset:0},{},[
+['zul.sel.Listhead','fACPk0',{},{},[
+['zul.sel.Listheader','fACPl0',{$onSort:true,$$0onSort:true,width:'60px'},{},[]],
+['zul.sel.Listheader','fACPm0',{$onSort:true,$$0onSort:true,label:'Choose a Measurement'},{},[]]]],
+['zul.sel.Listitem','fACP67',{_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACP77',{},{},[
+['zul.wgt.Toolbarbutton','fACP87',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP97',{label:'Population Of SRE-1, SRE-2, Provinces and Districts'},{},[]]]],
+['zul.sel.Listitem','fACPa7',{_loaded:true,_index:1},{},[
+['zul.sel.Listcell','fACPb7',{},{},[
+['zul.wgt.Toolbarbutton','fACPc7',{$onClick:true,tooltiptext:'Click for metadata!',image:'/medas/images/metaYesil.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPd7',{label:'Population of municipalities, villages and quarters'},{},[]]]],
+['zul.sel.Listitem','fACPe7',{_loaded:true,_index:2},{},[
+['zul.sel.Listcell','fACPf7',{},{},[
+['zul.wgt.Toolbarbutton','fACPg7',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPh7',{label:'Population according to marital status (15+ age)'},{},[]]]],
+['zul.sel.Listitem','fACPi7',{_loaded:true,_index:3},{},[
+['zul.sel.Listcell','fACPj7',{},{},[
+['zul.wgt.Toolbarbutton','fACPk7',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPl7',{label:'The province of registration by the province of usual residence'},{},[]]]],
+['zul.sel.Listitem','fACPm7',{_loaded:true,_index:4},{},[
+['zul.sel.Listcell','fACPn7',{},{},[
+['zul.wgt.Toolbarbutton','fACPo7',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPp7',{label:'The province of registration by the district of usual residence'},{},[]]]],
+['zul.sel.Listitem','fACPq7',{_loaded:true,_index:5},{},[
+['zul.sel.Listcell','fACPr7',{},{},[
+['zul.wgt.Toolbarbutton','fACPs7',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPt7',{label:'The province of usual residence by the province of registration'},{},[]]]],
+['zul.sel.Listitem','fACPu7',{_loaded:true,_index:6},{},[
+['zul.sel.Listcell','fACPv7',{},{},[
+['zul.wgt.Toolbarbutton','fACPw7',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPx7',{label:'The province of usual residence by the district of registration'},{},[]]]],
+['zul.sel.Listitem','fACPy7',{_loaded:true,_index:7},{},[
+['zul.sel.Listcell','fACPz7',{},{},[
+['zul.wgt.Toolbarbutton','fACP_8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP08',{label:'Foreign population'},{},[]]]],
+['zul.sel.Listitem','fACP18',{_loaded:true,_index:8},{},[
+['zul.sel.Listcell','fACP28',{},{},[
+['zul.wgt.Toolbarbutton','fACP38',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP48',{label:'In Migration'},{},[]]]],
+['zul.sel.Listitem','fACP58',{_loaded:true,_index:9},{},[
+['zul.sel.Listcell','fACP68',{},{},[
+['zul.wgt.Toolbarbutton','fACP78',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP88',{label:'Out Migration'},{},[]]]],
+['zul.sel.Listitem','fACP98',{_loaded:true,_index:10},{},[
+['zul.sel.Listcell','fACPa8',{},{},[
+['zul.wgt.Toolbarbutton','fACPb8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPc8',{label:'Net migration\xA0'},{},[]]]],
+['zul.sel.Listitem','fACPd8',{_loaded:true,_index:11},{},[
+['zul.sel.Listcell','fACPe8',{},{},[
+['zul.wgt.Toolbarbutton','fACPf8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPg8',{label:'Migration Rate'},{},[]]]],
+['zul.sel.Listitem','fACPh8',{_loaded:true,_index:12},{},[
+['zul.sel.Listcell','fACPi8',{},{},[
+['zul.wgt.Toolbarbutton','fACPj8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPk8',{label:'In Migration across Nuts-1 Level'},{},[]]]],
+['zul.sel.Listitem','fACPl8',{_loaded:true,_index:13},{},[
+['zul.sel.Listcell','fACPm8',{},{},[
+['zul.wgt.Toolbarbutton','fACPn8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPo8',{label:'Out Migration across Nuts-1 Level'},{},[]]]],
+['zul.sel.Listitem','fACPp8',{_loaded:true,_index:14},{},[
+['zul.sel.Listcell','fACPq8',{},{},[
+['zul.wgt.Toolbarbutton','fACPr8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPs8',{label:'In Migration across Nuts-2 Level'},{},[]]]],
+['zul.sel.Listitem','fACPt8',{_loaded:true,_index:15},{},[
+['zul.sel.Listcell','fACPu8',{},{},[
+['zul.wgt.Toolbarbutton','fACPv8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPw8',{label:'Out Migration across Nuts-2 Level'},{},[]]]],
+['zul.sel.Listitem','fACPx8',{_loaded:true,_index:16},{},[
+['zul.sel.Listcell','fACPy8',{},{},[
+['zul.wgt.Toolbarbutton','fACPz8',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP_9',{label:'In Migration across Provinces'},{},[]]]],
+['zul.sel.Listitem','fACP09',{_loaded:true,_index:17},{},[
+['zul.sel.Listcell','fACP19',{},{},[
+['zul.wgt.Toolbarbutton','fACP29',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP39',{label:'Out Migration across Provinces'},{},[]]]],
+['zul.sel.Listitem','fACP49',{_loaded:true,_index:18},{},[
+['zul.sel.Listcell','fACP59',{},{},[
+['zul.wgt.Toolbarbutton','fACP69',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP79',{label:'Educational status of in migrated population'},{},[]]]],
+['zul.sel.Listitem','fACP89',{_loaded:true,_index:19},{},[
+['zul.sel.Listcell','fACP99',{},{},[
+['zul.wgt.Toolbarbutton','fACPa9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPb9',{label:'Educational status of out migrated population'},{},[]]]],
+['zul.sel.Listitem','fACPc9',{_loaded:true,_index:20},{},[
+['zul.sel.Listcell','fACPd9',{},{},[
+['zul.wgt.Toolbarbutton','fACPe9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPf9',{label:'Young population at higher education age (18-24 age)'},{},[]]]],
+['zul.sel.Listitem','fACPg9',{_loaded:true,_index:21},{},[
+['zul.sel.Listcell','fACPh9',{},{},[
+['zul.wgt.Toolbarbutton','fACPi9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPj9',{label:'Number of young persons who enroll at a university located in a different province from his/her province of residence'},{},[]]]],
+['zul.sel.Listitem','fACPk9',{_loaded:true,_index:22},{},[
+['zul.sel.Listcell','fACPl9',{},{},[
+['zul.wgt.Toolbarbutton','fACPm9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPn9',{label:'Internal migration and reason for migration'},{},[]]]],
+['zul.sel.Listitem','fACPo9',{_loaded:true,_index:23},{},[
+['zul.sel.Listcell','fACPp9',{},{},[
+['zul.wgt.Toolbarbutton','fACPq9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPr9',{label:'Place of birth'},{},[]]]],
+['zul.sel.Listitem','fACPs9',{_loaded:true,_index:24},{},[
+['zul.sel.Listcell','fACPt9',{},{},[
+['zul.wgt.Toolbarbutton','fACPu9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPv9',{label:'Birthplace by province of residence'},{},[]]]],
+['zul.sel.Listitem','fACPw9',{_loaded:true,_index:25},{},[
+['zul.sel.Listcell','fACPx9',{},{},[
+['zul.wgt.Toolbarbutton','fACPy9',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPz9',{label:'Birthplace by district of residence'},{},[]]]],
+['zul.sel.Listitem','fACP_a',{_loaded:true,_index:26},{},[
+['zul.sel.Listcell','fACP0a',{},{},[
+['zul.wgt.Toolbarbutton','fACP1a',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP2a',{label:'Annual growth rate (per thousand)'},{},[]]]],
+['zul.sel.Listitem','fACP3a',{_loaded:true,_index:27},{},[
+['zul.sel.Listcell','fACP4a',{},{},[
+['zul.wgt.Toolbarbutton','fACP5a',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP6a',{label:'Population density'},{},[]]]],
+['zul.sel.Listitem','fACP7a',{_loaded:true,_index:28},{},[
+['zul.sel.Listcell','fACP8a',{},{},[
+['zul.wgt.Toolbarbutton','fACP9a',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPaa',{label:'Median age'},{},[]]]],
+['zul.sel.Listitem','fACPba',{_loaded:true,_index:29},{},[
+['zul.sel.Listcell','fACPca',{},{},[
+['zul.wgt.Toolbarbutton','fACPda',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPea',{label:'Sex ratio'},{},[]]]],
+['zul.sel.Listitem','fACPfa',{_loaded:true,_index:30},{},[
+['zul.sel.Listcell','fACPga',{},{},[
+['zul.wgt.Toolbarbutton','fACPha',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPia',{label:'Young population by sex\xA0(15-24 age)'},{},[]]]],
+['zul.sel.Listitem','fACPja',{_loaded:true,_index:31},{},[
+['zul.sel.Listcell','fACPka',{},{},[
+['zul.wgt.Toolbarbutton','fACPla',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPma',{label:'Child population by age group'},{},[]]]],
+['zul.sel.Listitem','fACPna',{_loaded:true,_index:32},{},[
+['zul.sel.Listcell','fACPoa',{},{},[
+['zul.wgt.Toolbarbutton','fACPpa',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPqa',{label:'Child dependency ratio (%)'},{},[]]]],
+['zul.sel.Listitem','fACPra',{_loaded:true,_index:33},{},[
+['zul.sel.Listcell','fACPsa',{},{},[
+['zul.wgt.Toolbarbutton','fACPta',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPua',{label:'Elderly dependency ratio (%)'},{},[]]]],
+['zul.sel.Listitem','fACPva',{_loaded:true,_index:34},{},[
+['zul.sel.Listcell','fACPwa',{},{},[
+['zul.wgt.Toolbarbutton','fACPxa',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPya',{label:'Total age dependency ratio (%)'},{},[]]]],
+['zul.sel.Listitem','fACPza',{_loaded:true,_index:35},{},[
+['zul.sel.Listcell','fACP_b',{},{},[
+['zul.wgt.Toolbarbutton','fACP0b',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP1b',{label:'Average size of households'},{},[]]]],
+['zul.sel.Listitem','fACP2b',{_loaded:true,_index:36},{},[
+['zul.sel.Listcell','fACP3b',{},{},[
+['zul.wgt.Toolbarbutton','fACP4b',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP5b',{label:'Total number of households'},{},[]]]],
+['zul.sel.Listitem','fACP6b',{_loaded:true,_index:37},{},[
+['zul.sel.Listcell','fACP7b',{},{},[
+['zul.wgt.Toolbarbutton','fACP8b',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACP9b',{label:'Number of households by type'},{},[]]]],
+['zul.sel.Listitem','fACPab',{_loaded:true,_index:38},{},[
+['zul.sel.Listcell','fACPbb',{},{},[
+['zul.wgt.Toolbarbutton','fACPcb',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPdb',{label:'Immigrants'},{},[]]]],
+['zul.sel.Listitem','fACPeb',{_loaded:true,_index:39},{},[
+['zul.sel.Listcell','fACPfb',{},{},[
+['zul.wgt.Toolbarbutton','fACPgb',{tooltiptext:'There is no metadata!',image:'/medas/images/meta.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]],
+['zul.sel.Listcell','fACPhb',{label:'Emigrants'},{},[]]]]]],
+['zul.wgt.Groupbox','fACPn0',{id:'kirilimAdlariGroup',visible:false,style:'background-color:#CEECFC;height:227px;overflow-y:auto;',closable:false},{},[
+['zul.wgt.Caption','fACPo0',{},{},[
+['zul.wgt.Div','fACPp0',{id:'kirilimAdlariCaptionDiv',prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACPq0',{id:'kirilimAdlariTemizleBtn',$onClick:true,tooltiptext:'Choose a Dimension',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Space','fACPr0',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPs0',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Choose a Dimension'},{},[]],
+['zul.wgt.Separator','fACPt0',{height:'5px',prolog:' ',orient:'vertical'},{},[]]]]]],
+['zul.box.Box','fACPu0',{id:'kirilimAdlariVbox'},{},[
+['zul.sel.Listbox','fACPv0',{id:'kirilimAdlariLb',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,style:'height:140px;overflow-y:auto;',_nativebar:true,checkmark:true,multiple:true,_topPad:0,_totalSize:0,_offset:0},{},[]],
+['zul.wgt.Div','fACPw0',{id:'kirilimDiv',align:'right'},{},[
+['zul.box.Box','fACPx0',{prolog:' '},{},[
+['zul.wgt.Div','fACPy0',{},{},[
+['zul.wgt.Label','fACPz0',{id:'kirilimUyariLbl1',style:'font-size:26px; text-align:left; color:#088A08',prolog:' '},{},[]],
+['zul.wgt.Image','fACP_1',{id:'img_zorunlu',prolog:' ',src:'/medas/images/dikkat.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.wgt.Label','fACP01',{id:'kirilimUyariLbl2',style:'font-size:12px; text-align:left; color:red; font-weight:bold',prolog:' ',value:'Red coloured dimensions are required'},{},[]]]],
+['zul.wgt.Space','fACP11',{width:'25px',orient:'vertical'},{},[]],
+['zul.wgt.Div','fACP21',{align:'right'},{},[
+['zul.wgt.Button','fACP31',{id:'kirilimTamam',$onClick:true,sclass:'btn-primary',prolog:' ',label:'Ok',image:'/medas/images/okmark.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true},{},[],'bs'],
+['zul.wgt.Button','fACP41',{id:'kirilimYenile',visible:false,$onClick:true,prolog:' ',label:'Yenile'},{},[],'bs']]]],'horizontal']]]],'vertical']],'3d']],'horizontal']],'3d'],
+['zul.wgt.Groupbox','fACP51',{id:'dimensionGroup',visible:false,style:'background-color:#CEECFC',prolog:' '},{},[
+['zul.wgt.Caption','fACP61',{id:'dimensionCaption'},{},[
+['zul.wgt.Div','fACP71',{prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACP81',{id:'dimensionTemizleBtn',$onClick:true,tooltiptext:'Clear Selections',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Label','fACP91',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Dimensions'},{},[]]]]]],
+['zul.box.Box','fACPa1',{id:'vBoxDimensions',visible:false,width:'100%',style:'background-color:0026ff;',spacing:'5px'},{},[],'vertical'],
+['zul.wgt.Div','fACPb1',{id:'divDimensions',width:'100%',height:'100%',style:'background-color:0026ff;float:left;'},{},[]]],'3d'],
+['zul.wgt.Separator','fACPc1',{id:'separatorGosterge',width:'100%',height:'0px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Groupbox','fACPd1',{id:'ekleGroup',visible:false,style:'background-color:#CEECFC',prolog:' '},{},[
+['zul.wgt.Caption','fACPe1',{id:'gstEkleCaption'},{},[
+['zul.wgt.Div','fACPf1',{prolog:' ',align:'left'},{},[
+['zul.box.Box','fACPg1',{prolog:' ',align:'middle'},{},[
+['zul.wgt.Toolbarbutton','fACPh1',{id:'gstEkleBtn',$onClick:true,height:'30px',style:'font-size:12px;font-weight:bold;color:#3276B1',tooltiptext:'Add Measurement(s)',label:'Add Measurement(s)',image:'/medas/images/add.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Label','fACPi1',{id:'secilenGostergeYoktur',visible:false,value:'No Measurement exists!'},{},[]],
+['zul.wnd.Window','fACPj1',{id:'olcumSeviyesindeGostergeUyariDiv',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,width:'300px',position:'center',mode:'popup'},{},[
+['zul.wgt.Space','fACPk1',{width:'5px',orient:'vertical'},{},[]],
+['zul.wgt.Image','fACPl1',{visible:false,width:'16px',height:'16px',src:'/medas/images/dikkat25.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.wgt.Space','fACPm1',{width:'1px',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPn1',{visible:false,style:'font-weight:bold;font-size:large; color:#0026ff',value:'!'},{},[]],
+['zul.wgt.Space','fACPo1',{width:'1px',orient:'vertical'},{},[]],
+['zul.box.Box','fACPp1',{},{},[
+['zul.wgt.Space','fACPq1',{width:'25px',orient:'vertical'},{},[]],
+['zul.box.Box','fACPr1',{},{},[
+['zul.wgt.Label','fACPs1',{style:'font-weight:bold; font-size:16px; color:#0026ff',multiline:true,value:'Indicator(s) exist in the Measurement level! Press the'},{},[]],
+['zul.wgt.Image','fACPt1',{id:'img_gostereEkle',src:'/medas/images/gosterge_ekle_en.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.wgt.Label','fACPu1',{style:'font-weight:bold; font-size:16px; color:#0026ff',multiline:true,value:'button to add to the list.'},{},[]]],'vertical'],
+['zul.wgt.Space','fACPv1',{width:'25px',orient:'vertical'},{},[]]],'horizontal'],
+['zul.wgt.Space','fACPw1',{width:'25px',orient:'vertical'},{},[]]]]],'horizontal']]]]]],'3d'],
+['zul.wgt.Groupbox','fACPx1',{id:'sonucTipiGroup',visible:false,style:'background-color:#CEECFC',prolog:' '},{},[
+['zul.wgt.Caption','fACPy1',{id:'sonucTipiCaption'},{},[
+['zul.wgt.Div','fACPz1',{prolog:' ',align:'left'},{},[
+['zul.wgt.Label','fACP_2',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Result Type'},{},[]]]]]],
+['zul.wgt.Label','fACP02',{value:'Result Type'},{},[]],
+['zul.wgt.Space','fACP12',{orient:'vertical'},{},[]],
+['zul.sel.Select','fACP22',{id:'sonucTipiLb',$$0onDataLoading:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,_nativebar:true},{},[
+['zul.sel.Option','fACP32',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACP42',{label:'Choose'},{},[]]],'select'],
+['zul.sel.Option','fACP52',{_loaded:true,_index:1},{},[
+['zul.sel.Listcell','fACP62',{label:'Indicator'},{},[]]],'select'],
+['zul.sel.Option','fACP72',{_loaded:true,_index:2},{},[
+['zul.sel.Listcell','fACP82',{label:'Time'},{},[]]],'select'],
+['zul.sel.Option','fACP92',{_loaded:true,_index:3},{},[
+['zul.sel.Listcell','fACPa2',{label:'Region'},{},[]]],'select']],'select']],'3d'],
+['zul.wgt.Groupbox','fACPb2',{id:'gostergeGroup',visible:false,prolog:' ',closable:false},{},[
+['zul.wgt.Caption','fACPc2',{id:'gostergeCaption'},{},[
+['zul.wgt.Div','fACPd2',{id:'gostergeCaptionDiv',prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACPe2',{id:'gostergeTemizleBtn',$onClick:true,tooltiptext:'Clear Selections',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Space','fACPf2',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPg2',{style:'font-weight:bold; color:#0026ff;',prolog:' ',value:'Chosen Indicator(s)'},{},[]],
+['zul.wgt.Space','fACPh2',{width:'25px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Span','fACPi2',{id:'gostergePeriyotSpan',prolog:' '},{},[]],
+['zul.wgt.Space','fACPj2',{width:'10px',prolog:' ',orient:'vertical'},{},[]]]]]],
+['zul.box.Hlayout','fACPk2',{width:'100%',spacing:'5px'},{},[
+['zul.sel.Listbox','fACPl2',{id:'gostergeLb',$$0onDataLoading:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'%100',height:'150px',style:'background-color: #FFFFFF;            Color: #CC0000;',_nativebar:true,_topPad:0,_totalSize:0,_offset:0},{},[
+['zul.sel.Listhead','fACPm2',{id:'gostergeHead'},{},[
+['zul.sel.Listheader','fACPn2',{$onSort:true,$$0onSort:true,width:'35px'},{},[]],
+['zul.sel.Listheader','fACPo2',{$onSort:true,$$0onSort:true},{},[]],
+['zul.sel.Listheader','fACPp2',{$onSort:true,$$0onSort:true,width:'35px'},{},[]]]],
+['zul.sel.Listfoot','fACPq2',{},{},[
+['zul.sel.Listfooter','fACPr2',{id:'gostergeFooter'},{},[
+['zul.wgt.Div','fACPs2',{prolog:' ',align:'right'},{},[
+['zul.wgt.Label','fACPt2',{id:'gostergeFootLbl',prolog:' '},{},[]]]]]]]]]]]],
+['zul.wgt.Popup','fACPu2',{id:'gostergeSabitPopup',visible:false,$$onOpen:false,width:'400px'},{},[
+['zul.wgt.Html','fACPv2',{prolog:' ',content:zk('fACPv2').detachChildren()},{},[]]]],
+['zul.wgt.Popup','fACPw2',{id:'periyotSecPopup',visible:false,width:'400px'},{},[
+['zul.wgt.Html','fACPx2',{prolog:' ',content:zk('fACPx2').detachChildren()},{},[]]]]],'3d'],
+['zul.wgt.Div','fACPy2',{id:'nextDiv',visible:false,prolog:' ',align:'right'},{},[
+['zul.wgt.Button','fACPz2',{$onClick:true,sclass:'btn-primary',prolog:' ',label:'Forward',image:'/medas/images/ileri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs']]]]]]],
+['zul.tab.Tabpanel','fACP_3',{id:'zamanTabPanel'},{},[
+['zul.wgt.Div','fACP03',{id:'zamanDiv',prolog:' '},{},[
+['zul.wgt.Groupbox','fACP13',{id:'zamanGroup',style:'background-color:#CEECFC',prolog:' ',closable:false},{},[
+['zul.wgt.Caption','fACP23',{id:'zamanCaption'},{},[
+['zul.wgt.Div','fACP33',{id:'zamanCaptionDiv',prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACP43',{id:'zamanTemizleBtn',$onClick:true,tooltiptext:'Clear Selections',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Space','fACP53',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACP63',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Time'},{},[]],
+['zul.wgt.Space','fACP73',{width:'40px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Span','fACP83',{id:'zamanPeriyotSpan',prolog:' '},{},[
+['zul.wgt.Span','fACP93',{id:'periyotSpan',prolog:' '},{},[
+['zul.wgt.Label','fACPa3',{id:'periyotLabel',style:'font-size:9pt',prolog:' ',value:'Period'},{},[]],
+['zul.sel.Select','fACPb3',{id:'periyotLb',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,style:'font-size:9pt',prolog:' ',_nativebar:true},{},[
+['zul.sel.Option','fACPc3',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACPd3',{label:'Choose'},{},[]]],'select'],
+['zul.sel.Option','fACPe3',{id:'periyotYillik',visible:false,_loaded:true,_index:1},{},[
+['zul.sel.Listcell','fACPf3',{label:'Annual'},{},[]]],'select'],
+['zul.sel.Option','fACPg3',{id:'periyotDonemlik',visible:false,_loaded:true,_index:2},{},[
+['zul.sel.Listcell','fACPh3',{label:'Quarterly'},{},[]]],'select'],
+['zul.sel.Option','fACPi3',{id:'periyotAylik',visible:false,_loaded:true,_index:3},{},[
+['zul.sel.Listcell','fACPj3',{label:'Monthly'},{},[]]],'select']],'select']]]]],
+['zul.wgt.Space','fACPk3',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPl3',{id:'yilAraLbl',prolog:' ',value:'Year'},{},[]],
+['zul.inp.Textbox','fACPm3',{id:'yilAraMinTxt',$onOK:true,$$onError:false,$$0onError:true,$$onChange:false,$$1onChange:true,width:'40px',prolog:' ',disabled:true,placeholder:'min'},{},[]],
+['zul.wgt.Label','fACPn3',{prolog:' ',value:'-'},{},[]],
+['zul.inp.Textbox','fACPo3',{id:'yilAraMaxTxt',$onOK:true,$$0onError:true,$$1onChange:true,width:'40px',prolog:' ',disabled:true,placeholder:'max'},{},[]],
+['zul.wgt.Space','fACPp3',{prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPq3',{id:'donemAraLbl',prolog:' ',value:'Time Period'},{},[]],
+['zul.inp.Textbox','fACPr3',{id:'donemAraTxt',$onOK:true,$$0onError:true,$$1onChange:true,width:'30px',prolog:' ',disabled:true},{},[]],
+['zul.wgt.Space','fACPs3',{prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPt3',{id:'ayAraLbl',prolog:' ',value:'Month'},{},[]],
+['zul.inp.Textbox','fACPu3',{id:'ayAraTxt',$onOK:true,$$0onError:true,$$1onChange:true,width:'30px',prolog:' ',disabled:true},{},[]],
+['zul.wgt.Toolbarbutton','fACPv3',{id:'zamanAraBtn',$onClick:true,width:'26px',height:'22px',style:'font-size:10pt',prolog:' ',image:'/medas/images/S6.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,mode:'default'},{},[]]]]]],
+['zul.box.Box','fACPw3',{spacing:'10px'},{},[
+['zul.sel.Listbox','fACPx3',{id:'zamanLb',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'550px',height:'200px',_nativebar:true,checkmark:true,multiple:true,_topPad:0,_totalSize:0,_offset:0},{},[
+['zul.sel.Listhead','fACPy3',{id:'zamanHead',visible:false},{},[
+['zul.sel.Listheader','fACPz3',{id:'yilHeader',$onSort:true,$$0onSort:true,label:'Year'},{},[]],
+['zul.sel.Listheader','fACP_4',{id:'donemHeader',$onSort:true,$$0onSort:true,label:'Time Period'},{},[]],
+['zul.sel.Listheader','fACP04',{id:'ayHeader',$onSort:true,$$0onSort:true,label:'Month'},{},[]]]]]],
+['zul.sel.Listbox','fACP14',{id:'zamanSelectedLb',$$0onDataLoading:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'550px',style:'max-height:200px;overflow-y:auto;',droppable:'true',_nativebar:true,_topPad:0,_totalSize:0,_offset:0},{},[
+['zul.sel.Listhead','fACP24',{id:'zamanSelectedHead'},{},[
+['zul.sel.Listheader','fACP34',{$onSort:true,$$0onSort:true,width:'35px'},{},[]],
+['zul.sel.Listheader','fACP44',{id:'yilSelectedHeader',$onSort:true,$$0onSort:true,label:'Year'},{},[]],
+['zul.sel.Listheader','fACP54',{id:'donemSelectedHeader',$onSort:true,$$0onSort:true,label:'Time Period'},{},[]],
+['zul.sel.Listheader','fACP64',{id:'aySelectedHeader',$onSort:true,$$0onSort:true,label:'Month'},{},[]]]]]]],'horizontal'],
+['zul.wgt.Popup','fACP74',{id:'zamanPopup',visible:false,width:'400px'},{},[
+['zul.wgt.Html','fACP84',{prolog:' ',content:zk('fACP84').detachChildren()},{},[]]]]],'3d'],
+['zul.wgt.Div','fACP94',{prolog:' ',align:'right'},{},[
+['zul.wgt.Button','fACPa4',{id:'geriZmnBtn',$onClick:true,sclass:'btn-primary',prolog:' ',label:'Back',image:'/medas/images/geri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs'],
+['zul.wgt.Button','fACPb4',{id:'nextZaman',$onClick:true,sclass:'btn-primary',prolog:' ',label:'Forward',image:'/medas/images/ileri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs'],
+['zul.wnd.Window','fACPc4',{id:'raporHataWindow',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,width:'250px',height:'200px',prolog:' ',title:'Warning!',border:'normal'},{},[
+['zul.wgt.Separator','fACPd4',{height:'20px',orient:'horizontal'},{},[]],
+['zul.box.Box','fACPe4',{width:'100%',align:'center'},{},[
+['zul.wgt.Label','fACPf4',{id:'uyariWindowLabel',style:'font-weight:bold',value:'Please select a Period or Periods!'},{},[]],
+['zul.wgt.Space','fACPg4',{height:'5px',orient:'vertical'},{},[]],
+['zul.wgt.Button','fACPh4',{$onClick:true,sclass:'btn-primary',label:'Ok'},{},[],'bs']],'vertical'],
+['zul.wgt.Space','fACPi4',{height:'5px',orient:'vertical'},{},[]]]]]]]]]],
+['zul.tab.Tabpanel','fACPj4',{id:'duzeyTabPanel'},{},[
+['zul.wgt.Div','fACPk4',{id:'contentDiv',prolog:' '},{},[
+['zul.wgt.Div','fACPl4',{id:'kriterDiv',prolog:' '},{},[
+['zul.wgt.Groupbox','fACPm4',{id:'duzeyGroup',style:'background-color:#CEECFC',prolog:' ',closable:false},{},[
+['zul.wgt.Caption','fACPn4',{id:'duzeyCaption'},{},[
+['zul.wgt.Div','fACPo4',{id:'duzeyCaptionDiv',prolog:' ',align:'left'},{},[
+['zul.wgt.Toolbarbutton','fACPp4',{id:'duzeyTemizleBtn',$onClick:true,tooltiptext:'Clear Selections',prolog:' ',image:'/medas/images/temizle.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Space','fACPq4',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPr4',{style:'font-weight:bold; color:#0026ff',prolog:' ',value:'Region'},{},[]],
+['zul.wgt.Space','fACPs4',{width:'10px',prolog:' ',orient:'vertical'},{},[]],
+['zul.sel.Select','fACPt4',{id:'ustDuzeyLb',visible:false,$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'130px',prolog:' ',_nativebar:true},{},[
+['zul.sel.Option','fACPu4',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACPv4',{label:'Choose'},{},[]]],'select']],'select'],
+['zul.inp.Textbox','fACPw4',{id:'duzeyAraTxt',$onOK:true,$$0onError:true,$$1onChange:true,prolog:' '},{},[]],
+['zul.wgt.Toolbarbutton','fACPx4',{id:'duzeyAraBtn',$onClick:true,width:'26px',height:'22px',style:'font-size:10pt',prolog:' ',image:'/medas/images/S6.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]],
+['zul.wgt.Separator','fACPy4',{height:'5px',prolog:' ',orient:'vertical'},{},[]],
+['zul.box.Box','fACPz4',{id:'HboxDuzey',prolog:' '},{},[],'horizontal'],
+['zul.box.Box','fACP_5',{id:'hboxIlAltiDuzey',visible:false,prolog:' '},{},[
+['zul.wgt.Label','fACP05',{id:'duzeyYilLabel',value:'Year'},{},[]],
+['zul.sel.Select','fACP15',{id:'ilAltiYilListbox',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'100px',style:'font-size:9pt',_nativebar:true},{},[
+['zul.sel.Option','fACP25',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACP35',{label:'Choose'},{},[]]],'select']],'select'],
+['zul.wgt.Separator','fACP45',{width:'5px',orient:'horizontal'},{},[]],
+['zul.wgt.Label','fACP55',{value:' Province'},{},[]],
+['zul.sel.Select','fACP65',{id:'ilAltiIlListbox',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'200px',style:'font-size:9pt',_nativebar:true},{},[
+['zul.sel.Option','fACP75',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACP85',{label:'Choose'},{},[]]],'select']],'select'],
+['zul.wgt.Label','fACP95',{id:'ilAltiIlceLabel',value:' Subprovince'},{},[]],
+['zul.sel.Select','fACPa5',{id:'ilAltiIlceListbox',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'200px',style:'font-size:9pt',_nativebar:true},{},[
+['zul.sel.Option','fACPb5',{selected:true,_loaded:true,_index:0},{},[
+['zul.sel.Listcell','fACPc5',{label:'Choose'},{},[]]],'select']],'select'],
+['zul.inp.Textbox','fACPd5',{id:'ilAltiDuzeyAraTxt',visible:false,$onOK:true,$$0onError:true,$$1onChange:true},{},[]],
+['zul.wgt.Toolbarbutton','fACPe5',{id:'ilAltiDuzeyAraBtn',visible:false,$onClick:true,width:'26px',height:'22px',style:'font-size:10pt',image:'/medas/images/S6.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]]],'horizontal']]]]],
+['zul.box.Box','fACPf5',{spacing:'10px'},{},[
+['zul.sel.Listbox','fACPg5',{id:'duzeyLb',$$0onDataLoading:true,$onSelect:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'550px',height:'200px',_nativebar:true,checkmark:true,multiple:true,_topPad:0,_totalSize:0,_offset:0},{},[
+['zul.sel.Listhead','fACPh5',{id:'duzeyHead'},{},[
+['zul.sel.Listheader','fACPi5',{id:'duzeyHeader',$onSort:true,$$0onSort:true,label:'Region'},{},[]]]]]],
+['zul.sel.Listbox','fACPj5',{id:'duzeySelectedLb',$$0onDataLoading:true,$$0onAcrossPage:true,$$0onRender:true,$$0onAnchorPos:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onScrollPos:true,$$0onPageSize:true,width:'550px',style:'max-height:200px;overflow-y:auto;',_nativebar:true,_topPad:0,_totalSize:0,_offset:0},{},[
+['zul.sel.Listhead','fACPk5',{id:'duzeySelectedHead',visible:false},{},[
+['zul.sel.Listheader','fACPl5',{$onSort:true,$$0onSort:true,width:'35px'},{},[]],
+['zul.sel.Listheader','fACPm5',{$onSort:true,$$0onSort:true,label:'Chosen Region(s)'},{},[]]]]]]],'horizontal'],
+['zul.wgt.Popup','fACPn5',{id:'duzeyPopup',visible:false,width:'400px'},{},[
+['zul.wgt.Html','fACPo5',{prolog:' ',content:zk('fACPo5').detachChildren()},{},[]]]]],'3d']]],
+['zul.wgt.Div','fACPp5',{id:'nextDuzeyDiv',visible:false,prolog:' ',align:'right'},{},[
+['zul.wgt.Space','fACPq5',{height:'2px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Button','fACPr5',{id:'geriDuzeyBtn',$onClick:true,sclass:'btn-primary',prolog:' ',label:'Back',image:'/medas/images/geri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs'],
+['zul.wgt.Button','fACPs5',{id:'raporOlusturBtn',$onClick:true,sclass:'btn-primary',prolog:' ',label:'Create Report',image:'/medas/images/ileri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs'],
+['zul.wgt.Button','fACPt5',{visible:false,$onClick:true,sclass:'btn-primary',prolog:' ',label:'Forward',image:'/medas/images/ileri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs']]],
+['zul.wgt.Separator','fACPu5',{prolog:' ',orient:'horizontal'},{},[]]]]]],
+['zul.tab.Tabpanel','fACPv5',{id:'raporTabPanel'},{},[
+['zul.wgt.Div','fACPw5',{id:'raporDiv',$ZKAUS$:true,prolog:' '},{},[
+['zul.wgt.Include','fACPx5',{id:'includePivot',prolog:' ',enclosingTag:'div'},{},[]],
+['zul.grid.Grid','fACPy5',{id:'gostergeGrid',visible:false,$$onDataLoading:true,$$0onDataLoading:true,$$onRender:true,$$0onRender:true,$$onInnerWidth:false,$$0onInnerWidth:true,$$onScrollPos:false,$$0onScrollPos:true,$$onPageSize:true,$$0onPageSize:true,width:'100%',height:'600px',prolog:' ',sizedByContent:true,_nativebar:true,model:true,_topPad:0,emptyMessage:null,_totalSize:0,_offset:0,paginal:{$u:'fACP_6'}},{},[
+['zul.grid.Rows','fACPz5',{_offset:0,visibleItemCount:0},{},[]],
+['zul.mesh.Paging','fACP_6',{$$onPaging:false,$onPaging:true,pageSize:100,detailed:true,autohide:true},{},[]],
+['zul.mesh.Frozen','fACP06',{style:'background: #DFDED8',columns:2},{},[
+['zul.wgt.Div','fACP16',{style:'padding: 0 10px;',prolog:' '},{},[]]]],
+['zul.grid.Columns','fACP26',{id:'kolonlar',$$onColSize:false},{},[]]],'paging']]],
+['zul.wgt.Div','fACP36',{prolog:' ',align:'end'},{},[
+['zul.wgt.Toolbarbutton','fACP46',{id:'excelButton',visible:false,tooltiptext:'Excel',prolog:' ',image:'/medas/images/MicrosoftExcel_32.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',disabled:true,href:'/medas/excel;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY',mode:'default'},{},[]]]],
+['zul.wgt.Div','fACP56',{prolog:' ',align:'end'},{},[
+['zul.wgt.Checkbox','fACP66',{id:'checkboxSorguKayit',visible:false,$$onCheck:false,$onCheck:true,$$1onCheck:true,style:'font-weight:bold',prolog:' ',label:'Do you want to save the query?'},{},[]],
+['zul.inp.Textbox','fACP76',{id:'textKayitAdi',visible:false,$onOK:true,$$0onError:true,$$1onChange:true,width:'20%',height:'30px',prolog:' ',placeholder:'Enter your registration name!'},{},[]],
+['zul.wgt.Button','fACP86',{id:'btnSorguKaydet',visible:false,$onClick:true,sclass:'btn-primary',prolog:' ',image:'/medas/images/kaydet.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs'],
+['zul.wgt.Button','fACP96',{id:'geriRprBtn',$onClick:true,sclass:'btn-primary',prolog:' ',label:'Back',image:'/medas/images/geri.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[],'bs']]]]]]]]],
+['zul.wgt.Div','fACPa6',{style:'color:#0026ff; padding:0 5px'},{},[
+['zul.wgt.Label','fACPb6',{style:'font-weight:bold',prolog:' ',value:'Number of chosen Indicators:'},{},[]],
+['zul.wgt.Label','fACPc6',{id:'sayacGstLbl',style:'font-weight:bold',prolog:' ',value:'0'},{},[]],
+['zul.wgt.Space','fACPd6',{width:'3px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPe6',{style:'font-weight:bold',prolog:' ',value:'X'},{},[]],
+['zul.wgt.Space','fACPf6',{width:'3px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPg6',{style:'font-weight:bold',prolog:' ',value:'Number of chosen Regions:'},{},[]],
+['zul.wgt.Label','fACPh6',{id:'sayacDzyLbl',style:'font-weight:bold',prolog:' ',value:'0'},{},[]],
+['zul.wgt.Space','fACPi6',{width:'3px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPj6',{style:'font-weight:bold',prolog:' ',value:'X'},{},[]],
+['zul.wgt.Space','fACPk6',{width:'3px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPl6',{style:'font-weight:bold',prolog:' ',value:'Number of chosen Time:'},{},[]],
+['zul.wgt.Label','fACPm6',{id:'sayacZmnLbl',style:'font-weight:bold',prolog:' ',value:'0'},{},[]],
+['zul.wgt.Space','fACPn6',{width:'3px',prolog:' ',orient:'vertical'},{},[]],
+['zul.wgt.Label','fACPo6',{style:'font-weight:bold',prolog:' ',value:'the result of multiplication cannot be greater than 50000!'},{},[]]]],
+['zul.wnd.Window','fACPp6',{id:'maximumGostergeUyariWindow',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,width:'200px',height:'140px'},{},[
+['zul.wgt.Separator','fACPq6',{height:'40px',orient:'horizontal'},{},[]],
+['zul.box.Box','fACPr6',{width:'100%',align:'center'},{},[
+['zul.wgt.Label','fACPs6',{id:'uyariWindowLbl',value:'You can select at most 1000 Indicators!'},{},[]],
+['zul.wgt.Button','fACPt6',{$onClick:true,sclass:'btn-primary',label:'Ok'},{},[],'bs']],'vertical']]],
+['zul.wnd.Window','fACPu6',{id:'gostergeDegerWindow',$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true},{},[]],
+['zul.wgt.Popup','fACPv6',{id:'title',visible:false},{},[
+['zul.wgt.Label','fACPw6',{prolog:' ',value:'Yard\u0131m'},{},[]],
+['zul.menu.Menubar','fACPx6',{prolog:' ',orient:'vertical'},{},[
+['zul.menu.Menuitem','fACPy6',{id:'yardimMenuitem_1',visible:false,$$onCheck:false,$onClick:true,label:'MEDAS Giri\u015F',_preloadImage:true,image:'/medas/img/Centigrade-Widget-Icons/BriefcaseSpark-16x16.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.menu.Menuitem','fACPz6',{visible:false,$onClick:true,label:'\xD6rnek 1 - Basit bir G\xF6sterge verisi nas\u0131l al\u0131n\u0131r?',_preloadImage:true,image:'/medas/img/Centigrade-Widget-Icons/BriefcaseOpen-16x16.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.menu.Menuitem','fACP_7',{visible:false,$onClick:true,label:'\xD6rnek 2 - \xD6l\xE7\xFCm baz\u0131nda g\xF6sterge verisi nas\u0131l al\u0131n\u0131r?',_preloadImage:true,image:'/medas/img/Centigrade-Widget-Icons/DisketteBlack-16x16.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.menu.Menuitem','fACP07',{visible:false,$onClick:true,label:'\xD6rnek 3 - \u0130ki farkl\u0131 konuya ait g\xF6sterge verileri nas\u0131l kar\u015F\u0131la\u015Ft\u0131r\u0131l\u0131r?',_preloadImage:true,image:'/medas/img/Centigrade-Widget-Icons/DoorOpen-16x16.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.menu.Menuitem','fACP17',{id:'miYardim',$onClick:true,label:'MEDAS Kullan\u0131m K\u0131lavuzu',_preloadImage:true,image:'/medas/img/Centigrade-Widget-Icons/DoorOpen-16x16.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]],
+['zul.menu.Menuitem','fACP27',{id:'miYardimSorguKaydetme',visible:false,$onClick:true,label:'Sorgu Kaydetme ve Kay\u0131tl\u0131 Sorgular\u0131 Kullanma',_preloadImage:true,image:'/medas/img/Centigrade-Widget-Icons/DoorOpen-16x16.png;jsessionid=_Ju4mmvAfwcCG77eaoFFkXuY'},{},[]]]]]]]],
+['zul.wnd.Window','fACPjj',{id:'yardim1',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,prolog:' ',title:'MEDAS Giri\u015F',closable:true,border:'normal',mode:'modal'},{},[]],
+['zul.wnd.Window','fACPkj',{id:'yardim2',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,prolog:' ',title:'\xD6rnek 1 - Basit bir G\xF6sterge verisi nas\u0131l al\u0131n\u0131r?',closable:true,border:'normal',mode:'modal'},{},[]],
+['zul.wnd.Window','fACPlj',{id:'yardim3',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,prolog:' ',title:'\xD6rnek 2 - \xD6l\xE7\xFCm baz\u0131nda g\xF6sterge verisi nas\u0131l al\u0131n\u0131r?',closable:true,border:'normal',mode:'modal'},{},[]],
+['zul.wnd.Window','fACPmj',{id:'yardim4',visible:false,$$0onMinimize:true,$$0onMove:true,$$0onSize:true,$$0onZIndex:true,$onClose:true,$$0onMaximize:true,prolog:' ',title:'\xD6rnek 3 - \u0130ki farkl\u0131 konuya ait g\xF6sterge verileri nas\u0131l kar\u015F\u0131la\u015Ft\u0131r\u0131l\u0131r?',closable:true,border:'normal',mode:'modal'},{},[]],
+['zul.utl.Style','fACPnj',{visible:false,content:'\n\t\t.z-loading { top: 30% !important; left: 10% !important; align:\n\t\tcenter; vertical-align: middle;width : 90%; height : 150% ;\n\t\tbackground:transparent;border:none;font-weight:bold;\n\t\tfont-size:14pt ;font-family:\'Arial Black\';text-indent:35%;padding:100px; }\n\t'},{},[]]]]);
+
+</script>
+<noscript>
+<div class="noscript"><p>Sorry, JavaScript must be enabled.<br/>Change your browser options, then <a href="">try again</a>.</p></div>
+</noscript>
+
+</body>
+</html>
