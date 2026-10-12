@@ -828,7 +828,7 @@ def comtrade_derive(new):
     q = pd.to_numeric(new["Net_weight_kg_as_stated"], errors="coerce").fillna(pd.to_numeric(new["Qty_as_stated"], errors="coerce"))
     new["Quantity_kWh_DERIVED"] = q
     new["Quantity_GWh_DERIVED"] = q / 1e6
-    new["MMBtu_DERIVED"] = q * KWH_TO_MMBTU
+    new["MMBtu_DERIVED"] = (q * KWH_TO_MMBTU).where(q > 0)   # a zero quantity (Nov 2025) gives no price
     new["USD_per_MMBtu_DERIVED"] = (pd.to_numeric(new["Value_USD"], errors="coerce") / new["MMBtu_DERIVED"]).round(3)
     new["Conversion"] = "quantity labelled kg = kWh (equals the Enagas Tarifa exit); MMBtu = kWh x 0.00341214"
     return new.reset_index(drop=True)
