@@ -31,8 +31,6 @@ class RangeFile(io.RawIOBase):
     def readinto(self, b):
         d = self.read(len(b)); b[:len(d)] = d; return len(d)
 def dec(b): return b.decode("utf-16", "replace") if b[:2] in (b"\xff\xfe", b"\xfe\xff") else b.decode("utf-8", "replace")
-try:
-    
 def dec(b): return b.decode("utf-16", "replace") if b[:2] in (b"\xff\xfe", b"\xfe\xff") else b.decode("utf-8", "replace")
 def sq(s, n=1500): return re.sub(r"\s+", " ", s)[:n]
 print("### MaStR")
