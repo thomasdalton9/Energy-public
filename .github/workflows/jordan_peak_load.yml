@@ -1,0 +1,66 @@
+name: Jordan peak load (NEPCO)
+
+# NEPCO's Max Load Archive keeps its history (daily maximum MW from 2 Oct 2019), so this follows the 1st/15th rule:
+# one GET plus the <= 9-day window searches since the last stored day minus 10 days. The server cuts a runner off
+# after about 32 searches, so the one-off history backfill is run by hand with backfill=true, one run at a time
+# (each run gets a fresh runner/IP; it resumes from the 'Windows' sheet of the committed workbook).
+on:
+  schedule:
+    - cron: "33 9 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: "Search not-yet-searched windows back to Oct 2019, newest first"
+        type: boolean
+        default: false
+      max_searches:
+        description: "Maximum window searches this run (server cuts off at about 32)"
+        default: "26"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jordan-peak-load
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests matplotlib
+      - name: Run NEPCO peak load pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS="--max-searches ${{ github.event.inputs.max_searches || '26' }}"
+          [ "${{ github.event.inputs.backfill }}" = "true" ] && ARGS="$ARGS --backfill"
+          timeout 900 python3 middle_east/JORDAN_NEPCO_PEAK_LOAD.py $ARGS
+      - name: Add Excel charts, PNGs and copy scripts
+        if: always()
+        run: |
+          F="output/Data and Chart Outputs/jordan_peak_load_daily.xlsx"
+          [ -f "$F" ] && python3 add_charts.py "$F" && python3 png_charts.py "$F" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp middle_east/JORDAN_NEPCO_PEAK_LOAD.py add_charts.py png_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/jordan_peak_load_daily.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet && { echo "Nothing to commit."; exit 0; }
+          git commit -m "Jordan peak load: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

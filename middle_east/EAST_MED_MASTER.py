@@ -8,7 +8,7 @@ layout as the other masters (south_america/SOUTH_AMERICA_MASTER.py, whose table/
                          Authority reviews (supply by source, domestic use by sector, exports by country, power by
                          producer); Egypt monthly balance from JODI (fallback) with implied net LNG, CAPMAS/MOEE annual
   Dashboard - Power      Egypt daily peak / minimum grid load (Ministry of Electricity, from Oct 2026), Cyprus
-                         generation mix (TSOC)
+                         generation mix (TSOC), Jordan daily peak load and monthly maximum (NEPCO, from Oct 2019)
   Dashboard - Long-term  annual fundamentals (fundamentals.py region 'East Med': Ember yearly power, Energy Institute
                          gas, World Bank / IMF, degree days)
   <CC> <chart> data      the table each Dashboard chart plots;  <CC> <dataset> raw: the source workbook's sheets
@@ -48,6 +48,7 @@ GAS_DATASETS = [
 POWER_DATASETS = [
     ("EG", "Egypt", "egypt_grid_load_daily.xlsx", "Daily", "grid load"),
     ("CY", "Cyprus", "cyprus_generation_mix_daily.xlsx", "*", "power"),
+    ("JO", "Jordan", "jordan_peak_load_daily.xlsx", ("Daily", "Monthly"), "peak load"),
 ]
 SOURCES = {
     "israel_gas_fields_quarterly.xlsx": (
@@ -66,6 +67,9 @@ SOURCES = {
         "Ministry of Electricity and Renewable Energy (MOEE), Egypt: home-page 'Grid Loads' panel (no history at source; "
         "series from Oct 2026)", "http://www.moee.gov.eg/english_new/home.aspx"),
     "cyprus_generation_mix_daily.xlsx": ("Transmission System Operator Cyprus (TSOC)", "https://tsoc.org.cy/"),
+    "jordan_peak_load_daily.xlsx": (
+        "National Electric Power Company (NEPCO), Jordan: Max Load Archive (daily maximum load as posted; unposted days "
+        "are gaps)", "https://www.nepco.com.jo/en/MaxLoadArchive.aspx"),
 }
 # settings sam.collect reads from the master module it is given
 MASTER_SPECS = {}
@@ -84,6 +88,9 @@ CAVEATS = [
     "(positive = net imports), not JODI's reported LNG rows; it carries JODI's statistical difference (large in 2011-13). "
     "Official annual layer: CAPMAS (to 2022; units as the API states them) and MOEE gas for power (fiscal years to 2022/23)",
     "Egypt power: grid load only (daily peak and minimum); generation by type is annual (MOEE) and not yet built",
+    "Jordan power: NEPCO daily peak load only, as posted (often 14-27 of 31 days a month in 2021-24; unposted days are "
+    "gaps, implausible figures are blanked and flagged on the raw tab); the monthly maximum is charted only for months "
+    "with at least 20 days posted",
 ]
 
 
@@ -106,7 +113,7 @@ def main():
     gas[2].extend(CAVEATS[:2])
     power[2].extend(CAVEATS[2:])
     sam.draw_dashboard(dash, "East Mediterranean - gas (Israel by field, exports to Egypt and Jordan; Egypt balance, JODI fallback)", *gas)
-    sam.draw_dashboard(dash2, "East Mediterranean - power (Egypt grid load, Cyprus generation)", *power)
+    sam.draw_dashboard(dash2, "East Mediterranean - power (Egypt grid load, Cyprus generation, Jordan peak load)", *power)
 
     notes = fundamentals.add_long_term_dashboard(wb, used, sam.sheet_name, "East Med", args.data_dir, sam.CHART_W,
                                                  sam.CHART_H, rows_per_chart=sam.ROWS_PER_CHART,

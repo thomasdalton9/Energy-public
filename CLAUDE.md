@@ -106,7 +106,8 @@ Standing instructions from the repo owner. Follow these on every change.
   East Mediterranean - Israel, Egypt, Cyprus (+ Jordan and Lebanon on the long-term page). 'Dashboard - Gas' (Israel gas
   sales by field from the owners' quarterly reports, Leviathan by destination, exports), 'Dashboard - Power' (Egypt
   daily grid load - also on the Africa master; Cyprus TSOC generation mix from `europe/cyprus_generation_mix.py`,
-  see Pull scripts - East Med master only, NOT the Europe master: owner's choice) and 'Dashboard -
+  see Pull scripts - East Med master only, NOT the Europe master: owner's choice; Jordan NEPCO daily peak load and
+  monthly maximum, see Pull scripts) and 'Dashboard -
   Long-term' (`fundamentals.py` region 'East Med'; degree-day cities in `MACRO_DRIVERS.py`: Tel Aviv/Jerusalem/Haifa,
   Cairo/Alexandria, Nicosia, Amman, Beirut, populations approximate). Add datasets to its GAS_DATASETS /
   POWER_DATASETS lists plus a SOURCES entry.
@@ -222,6 +223,19 @@ Standing instructions from the repo owner. Follow these on every change.
   request per day; the committed workbook is the history store, each run fetches days after the last saved one minus 3,
   at most 2,500 per run; 5 days empty at source). Biomass/solar are TSOC's 'estimated distributed generation' split by the
   night-time baseline (see the script). On the East Med master only (owner's choice: not on the Europe master, nor its Long-term page - `fundamentals.py` REGIONS). `cyprus_chart_pull.yml` is the old one-off.
+- Jordan daily peak load (`middle_east/JORDAN_NEPCO_PEAK_LOAD.py` -> `jordan_peak_load_daily.xlsx`, 1st/15th 09:33 UTC,
+  `jordan_peak_load.yml`; MW, from 2 Oct 2019; on the East Med master's power dashboard): NEPCO's Max Load Archive
+  (nepco.com.jo/en/MaxLoadArchive.aspx, ASP.NET; GET = latest 10 days, a date search = POST replaying
+  __VIEWSTATE/__EVENTVALIDATION; paging drops the filter, so searches are calendar windows of <= 9 days: 1-9, 10-18,
+  19-27, 28-end). The server cuts a runner off after about 32 searches (~65 requests) for the rest of that run (pages
+  without the table, then connection resets; a count, not a rate; a new run starts clean), so a run stops at the first
+  such page, saves and does not count that window; each search reuses the previous answer's hidden fields (one request
+  per search). 'Windows' sheet = every searched window (date searched, rows, ok/empty) so the manual `backfill=true`
+  input (`--backfill`, newest first, `--max-searches` default 26) resumes and empty windows are not searched again;
+  normal runs search from the last stored day minus 10. Raw_MW is as published; figures outside 1,000-6,000 MW (24600
+  on 2 Jan 2020) are blanked in Peak_Load_MW and flagged, never corrected; unposted days (often 14-27 of 31 a month
+  posted in 2021-24) are gaps. 'Monthly' = maximum of the daily peaks, charted only for ended months with >= 20 days
+  posted (`Charted`). Probe `discovery_archive/middle_east/JORDAN_NEPCO_PROBE.py` (annual-report tables not built).
 - Henry Hub daily (`americas/HENRY_HUB_DAILY.py` -> `henry_hub_daily.xlsx`, 1st/15th) holds EIA spot (`Henry_Hub_USD_per_MMBtu`) and the NYMEX front-month futures close (`Henry_Hub_front_month_USD_per_MMBtu`, Yahoo Finance NG=F from 2000-09, unofficial and unadjusted at contract rolls; EIA's own futures series stops Apr 2024); both are charted together.
 - US petroleum stocks, weekly (`americas/EIA_BIG_FOUR_STORAGE.py` -> `us_petroleum_stocks_weekly.xlsx`, 1st/15th, EIA API v2 petroleum/stoc/wstk with keyless xls fallback, thousand barrels): crude excl. SPR, SPR, motor gasoline, distillate, jet fuel and the Big Four total (crude incl. SPR + the three products), each drawn as week 1-52 (calendar weeks, as in the EIA/trade charts the owner asked for: shaded min-max band of the five years before the current one, their average, last year and current year; no 'we are here' label; native Excel chart + PNG `us_*_storage.png`) and as the repo's Oct-Sep water-year chart (`WY ...` sheets). The charts are drawn by the script itself (registry entry None in add_charts.py).
 - Brent and WTI crude spot prices (`americas/BRENT_WTI_DAILY.py` -> `brent_wti_daily.xlsx`, 1st/15th, EIA API v2 petroleum/pri/spt RBRTE/RWTC with EIA's keyless xls fallback, USD/bbl, Brent-WTI spread and monthly means; negative WTI of Apr 2020 is kept) is standalone, not on a dashboard.
