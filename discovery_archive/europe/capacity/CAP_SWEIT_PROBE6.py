@@ -65,10 +65,10 @@ for y, s in snaps.items():
 s = snaps[2024]
 print("\nsnapshot 2024: rows by agg and filiere (solar)", s[s.filiere == "Solaire"].groupby("isagg").agg(n=("mw", "size"), mw=("mw", "sum"), ni=("nbinstallations", "sum")).to_string())
 print("current: agg solar by date-year (MW):")
-c = cur[(cur.filiere == "Solaire") & cur.agg]
+c = cur[(cur.filiere == "Solaire") & cur.isagg]
 print(c.groupby(c.d_rac.dt.year).mw.sum().round(0).to_string())
 print("current non-agg solar by connection year (MW):")
-c = cur[(cur.filiere == "Solaire") & ~cur.agg]
+c = cur[(cur.filiere == "Solaire") & ~cur.isagg]
 print(c.groupby(c.d_rac.dt.year).mw.sum().round(0).to_string())
 
 print("\n#### A2. ODRE catalogue: trimestre / panorama / raccord")
