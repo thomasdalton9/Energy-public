@@ -19,8 +19,8 @@ Datenlizenz Deutschland - Namensnennung 2.0).
              two months are provisional (flag) and every run rebuilds the whole history - there is no vintage.
            * Solar_MW = net rated (AC / inverter) power, Solar_DC_MW = gross (module) power, both from MaStR.
            * Storage_MW = battery power; PumpedStorage_MW from the storage and hydro files; Gas includes other gases
-             (blast furnace, coke oven, mine gas); Coal = hard coal + lignite (Lignite_MW is the subset); Oil includes
-             emergency-power diesel units registered as generators; Other = non-biogenic waste, geothermal, heat.
+             (blast furnace, coke oven, mine gas); Coal = hard coal + lignite (Lignite_MW is the subset); Oil = all oil-fired units incl.
+             emergency-power and small CHP units (Oil_ge10MW_MW = units of 10 MW and over only, closer to ENTSO-E's reporting); Other = non-biogenic waste, geothermal, heat.
            * Germany only (Land = Germany); ENTSO-E's DE-LU zone also holds Luxembourg (about 1.2 GW).
 
 Output   output/Data and Chart Outputs/germany_power_capacity_monthly.xlsx: 'Monthly' (standard capacity columns + memo columns),
@@ -67,7 +67,7 @@ FIELD_RE = re.compile(r"<(%s)>([^<]*)<" % "|".join(FIELDS))
 VERBRENNUNG = {"2407": "Coal (hard)", "2408": "Lignite", "2409": "Oil", "2410": "Gas (natural)", "2411": "Gas (other gases)",
                "2412": "Other (non-biogenic waste)", "2413": "Other (heat)"}
 DETAIL_TO_STD = {"Solar": "Solar", "Wind onshore": "Wind", "Wind offshore": "Wind", "Hydro": "Hydro", "Bioenergy": "Bioenergy",
-                 "Nuclear": "Nuclear", "Coal (hard)": "Coal", "Lignite": "Coal", "Oil": "Oil", "Gas (natural)": "Gas",
+                 "Nuclear": "Nuclear", "Coal (hard)": "Coal", "Lignite": "Coal", "Oil (>= 10 MW)": "Oil", "Oil (< 10 MW)": "Oil", "Gas (natural)": "Gas",
                  "Gas (other gases)": "Gas", "Other (non-biogenic waste)": "Other", "Other (heat)": "Other",
                  "Other (geothermal)": "Other", "Other (verbrennung, unknown fuel)": "Other"}
 STD = ["Hydro", "Gas", "Wind", "Solar", "Coal", "Nuclear", "Oil", "Bioenergy", "Other"]
@@ -241,7 +241,10 @@ def classify(kind, d, onshore, offshore, pumped_hydro, battery, other_storage):
     if kind == "GeothermieGrubengasDruckentspannung":
         return "Other (geothermal)"
     if kind == "Verbrennung":
-        return VERBRENNUNG.get(d.get("Energietraeger"), "Other (verbrennung, unknown fuel)")
+        k = VERBRENNUNG.get(d.get("Energietraeger"), "Other (verbrennung, unknown fuel)")
+        if k == "Oil":      # ENTSO-E's Oil is about the units of 10 MW and over: keep the split
+            return "Oil (>= 10 MW)" if num(d.get("Nettonennleistung")) >= 10000 else "Oil (< 10 MW)"
+        return k
     if kind == "StromSpeicher":
         t = d.get("Technologie")
         if t in battery:
@@ -285,6 +288,7 @@ def standard(det, detg):
     m["Wind_Onshore_MW"] = det.get("Wind onshore", 0.0)
     m["Wind_Offshore_MW"] = det.get("Wind offshore", 0.0)
     m["Lignite_MW"] = det.get("Lignite", 0.0)
+    m["Oil_ge10MW_MW"] = det.get("Oil (>= 10 MW)", 0.0)
     m["Solar_DC_MW"] = detg.get("Solar", 0.0)
     m["Provisional"] = ""
     m.iloc[-PROVISIONAL_MONTHS:, m.columns.get_loc("Provisional")] = "late registrations"
