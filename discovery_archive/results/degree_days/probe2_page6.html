@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+
+<html lang="sq">
+  <head><meta name="viewport" content="width=device-width,&#32;initial-scale=1" /><title>
+	Zgjidh tabelën
+</title>
+    <link href="/Resources/Styles/reset.css?v=22.1.0.23905" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/Resources/Styles/main-common.css?v=22.1.0.23905" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/Resources/Styles/main-pxweb.css?v=22.1.0.23905" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/Resources/Styles/jQuery/redmond/jquery-ui.css?v=22.1.0.23905" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/Resources/Styles/jQuery/tablesorter/style.css?v=22.1.0.23905" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/Resources/Styles/main-custom.css?v=22.1.0.23905" rel="stylesheet" type="text/css" media="screen" />
+    
+    <script src="/Resources/Scripts/jquery-3.5.1.min.js?v=22.1.0.23905"></script>
+    <script src="/Resources/Scripts/jquery-ui.min.js?v=22.1.0.23905"></script>
+    <script src="/Resources/Scripts/pcaxis.web.client.js?v=22.1.0.23905"></script>
+    <script src="/Resources/Scripts/pcaxis.web.controls.js?v=22.1.0.23905"></script>
+    <script src="/Resources/Scripts/jquery.tablesorter.min.js?v=22.1.0.23905"></script>
+    <script src="/Resources/Scripts/jquery.metadata.js?v=22.1.0.23905"></script>
+    <script src="/Resources/Scripts/format.20110630-1100.min.js?v=22.1.0.23905"></script>
+
+    
+<style type="text/css">
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_0 { text-decoration:none; }
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_1 { border-style:none; }
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_2 {  }
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_3 { border-style:none; }
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_4 {  }
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_5 { border-style:none; }
+	.ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_6 {  }
+
+</style></head>
+<body>
+    <div id="pxwebcontent">
+    <form method="post" action="./" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree__VIEWSTATE" id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree__VIEWSTATE" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTMyMTQ1MzkzMA9kFgJmD2QWBGYPZBYCAgEPZBYCZg8WAh4EVGV4dAUPWmdqaWRoIHRhYmVsw6tuZAIBD2QWEGYPZBYCAgEPFgIfAAUJU2hrbyBsYXJ0ZAIBDw8WAh8ABRRKdW1wIHRvIG1haW4gY29udGVudBYEHgphcmlhLWxhYmVsBSpQcmVzcyBlbnRlciB0byBnbyBkaXJlY3RseSB0byBtYWluIGNvbnRlbnQeBGhyZWYFCiNweGNvbnRlbnRkAgIPDxYCHgtOYXZpZ2F0ZVVybAUKL3B4d2ViL3NxL2RkAgUPZBYCZg9kFgJmD2QWCAIBDw8WAh8ABQVMb2dpbmRkAgUPZBYCAgEPZBYEAgEPDxYCHwAFCFVzZXJuYW1lZGQCBQ8PFgIfAAUIUGFzc3dvcmRkZAIHDxYCHgdWaXNpYmxlaGQCCQ8PFgIfAAUUWW91IHdoZXJlIGxvZ2dlZCBvdXRkZAIGD2QWAmYPZBYGAgEPDxYCHwMFCi9weHdlYi9zcS9kFgJmDw8WBh4ISW1hZ2VVcmwFvwEvV2ViUmVzb3VyY2UuYXhkP2Q9MU1fYmstS3lZLXdtSFpRY1I0R3UzTGVibG13TkhWYnVab1Y0b0tsbFFYcU9vamg0M0tMMFlfOVFmbVBjeUR5WkNfQzNrWjdXRnZxTVJZem1LaFEyaTdxaW83TlNCQVFrQ2MzRFd5Yld5ZFE4dXo0c2dsRVhiRHZ4QkFvamJ5WG1mNWNlcFJQZE4wLVhGMnY4YWhYT19RMiZ0PTYzODAxNjEwMjQ0MDAwMDAwMB4NQWx0ZXJuYXRlVGV4dAUWSWNvbiByZXByZXNlbnRpbmcgaG9tZR4HVG9vbFRpcAUESG9tZWRkAgMPDxYCHwRnZGQCBQ8PFgYeCENzc0NsYXNzBRZicmVhZGNydW1iX3RleHRfbm9saW5rHwAFB0FTS2RhdGEeBF8hU0ICAmRkAgcPDxYCHwAFB0FTS2RhdGFkZAIIDw8WAh8EZ2QWAmYPZBYMZg8PFgIfAAVsVHJlIGhhcGF0IGphbsOrOiBaZ2ppZGggdGFiZWzDq24sIFpnamlkaCB2YXJpYWJsaW4gZGhlIFNoZmFxIHJlenVsdGF0aW4uIEFrdHVhbGlzaHQgamVuaSBuw6suWmdqaWRoIHRhYmVsw6tuFgIeBWNsYXNzBRFzY3JlZW5yZWFkZXItb25seWQCAQ8PFgQfCAVLZmxleC1jb2x1bW4ganVzdGlmeS1zcGFjZS1iZXR3ZWVuIGFsaWduLWNlbnRlciBuYXZpZ2F0aW9uLWxpbmsgZmlyc3QgYWN0aXZlHwkCAhYEHgthcmlhLWhpZGRlbgUEdHJ1ZR8BBTFJa29uYSBxw6sgcMOrcmZhccOrc29uIGZhcWVuIGt1IHpnamlkaG5pIHRhYmVsw6tuFgRmDw8WAh8FBTZ+L1Jlc291cmNlcy9JbWFnZXMvc3ZnL05hdmlnYXRpb25GbG93L1N0ZXAxX2FjdGl2ZS5zdmdkZAIBDw8WBh8IBSdweHdlYi1saW5rIGhlYWRlciBuYXYtc3RlcCBmaXJzdCBhY3RpdmUfAAUPWmdqaWRoIHRhYmVsw6tuHwkCAmRkAgIPFgIfAAUvPGhyIGFyaWEtaGlkZGVuPSJ0cnVlIiBjbGFzcz0ibmF2LWhyLWxlZnQgc3EiLz5kAgMPDxYEHwgFRWZsZXgtY29sdW1uIGp1c3RpZnktc3BhY2UtYmV0d2VlbiBhbGlnbi1jZW50ZXIgbmF2aWdhdGlvbi1saW5rIGZ1dHVyZR8JAgIWBB8LBQR0cnVlHwEFMklrb25hIHHDqyBww6tyZmFxw6tzb24gZmFxZW4ga3UgemdqaWRobmkgdmFyaWFibGluFgRmDw8WAh8FBTZ+L1Jlc291cmNlcy9JbWFnZXMvc3ZnL05hdmlnYXRpb25GbG93L1N0ZXAyX2Z1dHVyZS5zdmdkZAIBDw8WBh8IBShweHdlYi1saW5rIGhlYWRlciBuYXYtc3RlcCBzZWNvbmQgZnV0dXJlHwAFEFpnamlkaCB2YXJpYWJsaW4fCQICZGQCBA8WAh8ABTA8aHIgYXJpYS1oaWRkZW49InRydWUiIGNsYXNzPSJuYXYtaHItcmlnaHQgc3EiLz5kAgUPDxYEHwgFS2ZsZXgtY29sdW1uIGp1c3RpZnktc3BhY2UtYmV0d2VlbiBhbGlnbi1jZW50ZXIgdGhpcmQgbmF2aWdhdGlvbi1saW5rIGZ1dHVyZR8JAgIWAh8LBQR0cnVlFgRmDw8WAh8FBTZ+L1Jlc291cmNlcy9JbWFnZXMvc3ZnL05hdmlnYXRpb25GbG93L1N0ZXAzX2Z1dHVyZS5zdmdkZAIBDw8WBh8IBRVuYXYtc3RlcCB0aGlyZCBmdXR1cmUfAAUOU2hmYXEgdGFiZWzDq24fCQICZGQCCg9kFggCAQ9kFgICAQ9kFgYCAQ8PFgIfAAUTS8OrcmtvIG7DqyBBU0tkYXRhOmRkAgUPDxYCHwAFB0vDq3JrbyBkZAIHDw8WAh8AZWRkAgMPFgIfAAX6ATxzZWN0aW9uIGFyaWEtbGFiZWw9IlVzZXIgbWFudWFsIGZvciB0aGlzIHBhZ2UiPjxzcGFuIGNsYXNzPSJzY3JlZW5yZWFkZXItb25seSI+WW91IGFyZSBub3cgaW4gdGhlIGZpcnN0IG1haW4gcGFnZSBvZiBQeFdlYiwgd2hlcmUgdGhlIGdvYWwgaXMgdG8gc2VsZWN0IGEgdGFibGUuIFlvdSBtYXkgZmluZCB5b3VyIHRhYmxlIGJ5IHNlYWNoIG9yIGJ5IGRyaWxsaW5nIGRvd24gaW4gdGhlIG1lbnUgdGhyZWUuPC9zcGFuPjwvc2VjdGlvbj5kAgUPZBYCZg9kFgJmD2QWBAIBDw8WAh8ABTRKYXZhc2NyaXB0IGlzIGRpc2FibGVkLCBjbGljayB0byBsb2FkIHRoZSB3aG9sZSB0cmVlZGQCAw9kFgICARA8KwAJAgAPFgQeC0V4cGFuZERlcHRoZh4NTmV2ZXJFeHBhbmRlZGRkCBQrABsFdzA6MCwwOjEsMDoyLDA6MywwOjQsMDo1LDA6NiwwOjcsMDo4LDA6OSwwOjEwLDA6MTEsMDoxMiwwOjEzLDA6MTQsMDoxNSwwOjE2LDA6MTcsMDoxOCwwOjE5LDA6MjAsMDoyMSwwOjIyLDA6MjMsMDoyNCwwOjI1FCsAAhYIHwAFL0Fua2V0YSAgbWJpIHTDqyBBcmRodXJhdCBkaGUgS3VzaHRldCBlIEpldGVzw6tzHgVWYWx1ZQU3QVNLZGF0YV9fQW5rZXRhIG1iaSB0w6sgQXJkaHVyYXQgZGhlIEt1c2h0ZXQgZSBKZXRlc8Orcx4QUG9wdWxhdGVPbkRlbWFuZGceDFNlbGVjdEFjdGlvbgsqLlN5c3RlbS5XZWIuVUkuV2ViQ29udHJvbHMuVHJlZU5vZGVTZWxlY3RBY3Rpb24BZBQrAAIWCB8ABR5BbmtldGEgZSBCdXhoZXRpdCB0w6sgZmFtaWxqZXMfDgUgQVNLZGF0YV9fSG91c2Vob2xkIGJ1ZGdldCBzdXJ2ZXkfD2cfEAsrBAFkFCsAAhYIHwAFLEFua2V0YSBlIFRyZWd1ZXN2ZSB0w6sgU2h1bcOrZmlzaHTDqyAtIE1JQ1MgHw4FDUFTS2RhdGFfX01JQ1MfD2cfEAsrBAFkFCsAAhYIHwAFBkFyc2ltaR8OBRJBU0tkYXRhX19FZHVjYXRpb24fD2cfEAsrBAFkFCsAAhYIHwAFCUJ1anHDq3NpYR8OBRRBU0tkYXRhX19BZ3JpY3VsdHVyZR8PZx8QCysEAWQUKwACFggfAAUHw4dtaW1ldB8OBQ9BU0tkYXRhX19QcmljZXMfD2cfEAsrBAFkFCsAAhYIHwAFCkRyZWp0w6tzaWEfDgUQQVNLZGF0YV9fSnVzdGljZR8PZx8QCysEAWQUKwACFggfAAUIRW5lcmdqaWEfDgUPQVNLZGF0YV9fRW5lcmd5Hw9nHxALKwQBZBQrAAIWCB8ABRZIb3RlbGVyaWEgZGhlIFR1cml6bWkgHw4FG0FTS2RhdGFfX1RvdXJpc20gYW5kIGhvdGVscx8PZx8QCysEAWQUKwACFggfAAUbSW52ZXN0aW1ldCBuw6sgTmTDq3JybWFycmplHw4FJEFTS2RhdGFfX0ludmVzdGltZXQgbsOrIE5kw6tycm1hcnJqZR8PZx8QCysEAWQUKwACFggfAAUSS3VsdHVyYSBkaGUgc3BvcnRpHw4FGkFTS2RhdGFfX0N1bHR1cmUgYW5kIHNwb3J0Hw9nHxALKwQBZBQrAAIWCB8ABSRMbG9nYXJpdMOrIGtvbWLDq3RhcmUgZGhlIHFldmVyaXRhcmUfDgUpQVNLZGF0YV9fTmF0aW9uYWwgYW5kIGdvdmVybm1lbnQgYWNjb3VudHMfD2cfEAsrBAFkFCsAAhYIHwAFB01qZWRpc2kfDgUUQVNLZGF0YV9fRW52aXJvbm1lbnQfD2cfEAsrBAFkFCsAAhYIHwAFCVBvcHVsbHNpYR8OBRNBU0tkYXRhX19Qb3B1bGF0aW9uHw9nHxALKwQBZBQrAAIWCB8ABQdQUk9EQ09NHw4FEEFTS2RhdGFfX1BST0RDT00fD2cfEAsrBAFkFCsAAhYIHwAFIVJlZ2ppc3RyaSBzdGF0aXN0aWtvciBpIGJpem5lc2V2ZR8OBSZBU0tkYXRhX19TdGF0aXN0aWNhbCBidXNpbmVzcyByZWdpc3Rlch8PZx8QCysEAWQUKwACFggfAAUXUmVnamlzdHJpbWkgcG9wdWxsc2lzw6sfDgUaQVNLZGF0YV9fQ2Vuc3VzIHBvcHVsYXRpb24fD2cfEAsrBAFkFCsAAhYIHwAFJFNow6tuZGV0w6tzaWEgZGhlIG1pcsOrcWVuaWEgc29jaWFsZR8OBRtBU0tkYXRhX19IZWFsdGggYW5kIFdlbGZhcmUfD2cfEAsrBAFkFCsAAhYIHwAFGlN0YXRpc3Rpa2F0IGFmYXRzaGt1cnTDq3JhHw4FHkFTS2RhdGFfX1Nob3J0LXRlcm0gc3RhdGlzdGljcx8PZx8QCysEAWQUKwACFggfAAUlU3RhdGlzdGlrYXQgc3RydWt0dXJvcmUgdMOrIGJpem5lc2V2ZR8OBSdBU0tkYXRhX19TdHJ1Y3R1cmFsIGJ1c2luZXNzIHN0YXRpc3RpY3MfD2cfEAsrBAFkFCsAAhYIHwAFFlTDqyBkaMOrbmEgZ2plb2dyYWZpa2UfDgUaQVNLZGF0YV9fR2VvZ3JhcGhpY2FsIGRhdGEfD2cfEAsrBAFkFCsAAhYIHwAFJVRJSyBuw6sgRWtvbm9taSBGYW1pbGphcmUgZGhlIEJpem5lc2UfDgUMQVNLZGF0YV9fSUNUHw9nHxALKwQBZBQrAAIWCB8ABQpUcmFuc3BvcnRpHw4FEkFTS2RhdGFfX1RyYW5zcG9ydB8PZx8QCysEAWQUKwACFggfAAURVHJlZ3RpYSBlIGphc2h0bWUfDgUXQVNLZGF0YV9fRXh0ZXJuYWwgdHJhZGUfD2cfEAsrBAFkFCsAAhYIHwAFD1RyZWd1IGkgcHVuw6tzIB8OBRZBU0tkYXRhX19MYWJvdXIgbWFya2V0Hw9nHxALKwQBZBQrAAIWCB8ABQRVTkRQHw4FDUFTS2RhdGFfX1VORFAfD2cfEAsrBAFkBXVjdGwwMF9Db250ZW50UGxhY2VIb2xkZXJNYWluX1RhYmxlT2ZDb250ZW50MV9UYWJsZU9mQ29udGVudDFfTWVudU5hdmlnYXRpb25UcmVlX19WSUVXU1RBVEV8bm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5kAgsPDxYCHwRoZBYCZg8PFgIfAAWdAShDKT1jb3VudHksIChNKT1tdW5pY2lwYWxpdHksIChCVSk9QmFzaWMgc3RhdGlzdGljYWwgdW5pdCwgKFVEKT11cmJhbiBkaXN0cmljdCwgKFVTKT11cmJhbiBzZXR0bGVtZW50LiBDaGFyYWN0ZXIgaW4gYnJhY2tldHMgc2hvd3MgdGhlIGxvd2VzdCByZWdpb25hbCBsZXZlbC5kZBgFBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAQVPY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyTWFpbiRUYWJsZU9mQ29udGVudDEkVGFibGVPZkNvbnRlbnQxJE1lbnVOYXZpZ2F0aW9uVHJlZQUyY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyTWFpbiRUYWJsZUxpc3QxJFRhYmxlTGlzdDEPMt0CAAEAAAD/////AQAAAAAAAAAEAQAAAH9TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5c3RlbS5PYmplY3QsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dAwAAAAZfaXRlbXMFX3NpemUIX3ZlcnNpb24FAAAICAkCAAAAAgAAAAIAAAAQAgAAAAQAAAAJAwAAAA0DDAQAAABGUENBeGlzLldlYi5Db3JlLCBWZXJzaW9uPTEuMS4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUDAAAAIlBDQXhpcy5XZWIuQ29yZS5FbnVtcy5EYXRhYmFzZVR5cGUBAAAAB3ZhbHVlX18ACAQAAAAAAAAAC2QFPGN0bDAwJENvbnRlbnRQbGFjZUhvbGRlck1haW4kVGFibGVPZkNvbnRlbnQxJFRhYmxlT2ZDb250ZW50MQ8ymwUAAQAAAP////8BAAAAAAAAAAQBAAAAf1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLk9iamVjdCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgUAAAgICQIAAAAXAAAAFwAAABACAAAAIAAAAAkDAAAABgQAAAAMRGVmYXVsdC5hc3B4BgUAAAAJTWVudS5hc3B4BgYAAAAOU2VsZWN0aW9uLmFzcHgGBwAAABBmaWxlTW9kaWZpZWQuZ2lmBggAAAAPZmlsZVVwZGF0ZWQuZ2lmBgkAAAALcmVmcmVzaC5wbmcGCgAAAAxmaWxlU2l6ZS5naWYIAQEIAQEIAQEIAQAIAQAIAQEIAQAIAQEIAQEIAQAIAQAIAQEIAQEJCwAAAA0KDAwAAABKUENBeGlzLldlYi5Db250cm9scywgVmVyc2lvbj0xLjEuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAwAAACNQQ0F4aXMuV2ViLkNvbnRyb2xzLlVybExpbmtNb2RlVHlwZQEAAAAHdmFsdWVfXwAIDAAAAAAAAAAMDQAAAEZQQ0F4aXMuV2ViLkNvcmUsIFZlcnNpb249MS4xLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBQsAAAAiUENBeGlzLldlYi5Db3JlLkVudW1zLkRhdGFiYXNlVHlwZQEAAAAHdmFsdWVfXwAIDQAAAAAAAAALZAUxY3RsMDAkbmF2aWdhdGlvbkZsb3dDb250cm9sJG5hdmlnYXRpb25GbG93Q29udHJvbA8yuAMAAQAAAP////8BAAAAAAAAAAQBAAAAf1N5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLk9iamVjdCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgUAAAgICQIAAAALAAAACwAAABACAAAAEAAAAAgBAAYDAAAAB0FTS2RhdGEGBAAAAAdBU0tkYXRhDQIGBQAAAAlNZW51LmFzcHgGBgAAAA5TZWxlY3Rpb24uYXNweAYHAAAAB3B4X3BhdGgGCAAAAAZsYXlvdXQJCQAAAA0GDAoAAABGUENBeGlzLldlYi5Db3JlLCBWZXJzaW9uPTEuMS4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUJAAAAIlBDQXhpcy5XZWIuQ29yZS5FbnVtcy5EYXRhYmFzZVR5cGUBAAAAB3ZhbHVlX18ACAoAAAAAAAAAC2QFHWN0bDAwJGJyZWFkY3J1bWIxJGJyZWFkY3J1bWIxDzLcAwABAAAA/////wEAAAAAAAAABAEAAAB/U3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uT2JqZWN0LCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODldXQMAAAAGX2l0ZW1zBV9zaXplCF92ZXJzaW9uBQAACAgJAgAAAA8AAAAPAAAAEAIAAAAQAAAABgMAAAAHQVNLZGF0YQYEAAAAB0FTS2RhdGENAgYFAAAADn4vRGVmYXVsdC5hc3B4CAEABgYAAAAESG9tZQgBAQYHAAAACU1lbnUuYXNweAYIAAAADlNlbGVjdGlvbi5hc3B4BgkAAAAHcHhfcGF0aAYKAAAABmxheW91dAkLAAAACAEADQIMDAAAAEZQQ0F4aXMuV2ViLkNvcmUsIFZlcnNpb249MS4xLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBQsAAAAiUENBeGlzLldlYi5Db3JlLkVudW1zLkRhdGFiYXNlVHlwZQEAAAAHdmFsdWVfXwAIDAAAAAAAAAALZGkTy6N19VbiFl4XArJ2tUZcRI8NCgx5zQpy+4uXoc5/" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=2qWKmugsESMVHZN7y4qvVcOGpobYjIfJzY90c-v9YeqOmvfGEHEtxQsdbSBL9QKZs4BUD8awkCRGJmFO-ljPa3_GpjVTzaZ2t0S5KcNlfp41&amp;t=639192045026372022" type="text/javascript"></script>
+
+
+<script src="/WebResource.axd?d=9Sf-uNb-GmNksddSqJPmzYzTbagRFoJEDRh1oR68zfYEG2VmcZLTvBd_3dciw8Rd6_Ns7UDBvnPNSg3EXX_v3NqzjQUle3cr71ORLiKpNZ_srAhXeEhamGt63Wf-vVPOMFYZXM24d0-bgzIg8SP7yw2&amp;t=638016102400000000" type="text/javascript"></script>
+<script src="/WebResource.axd?d=tbTB-NfzCtlbkQqK9ljNJKXScufhiaTKqd4MVozOH_2HQGxHdGeP-kVu7qK0r_3qafl2iGU9krTcl0vHsujBfSN1yVqNozNQejnCGnP5Xj4_yf9FepQDAL16eGuXnTxUvFmt2iY3-2f65zvzTYLM_g2&amp;t=638016102400000000" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+document.getElementById('ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree__VIEWSTATE').value = GetViewState__AspNetTreeView('ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_UL');
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="8A99A23D" />
+	<input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" />
+	<input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdACD4jem1N4BEWAOSEaBbkeDmbyRaBr53VB+931b/QR7uAXOJBUXg2AWmxzTR2nwBHfqc3lDPdIXde9d/XGVpJepX0Fla44JPoNqK4IegO37fi9hAo/Fmrs+CoAAuvHBGYy/ooyV6fd5YrWym2/AuLah/l3+CDQRiGCfUcmUd/MftSCrbev2MgBP4o4aAilsb2FF0QweBoiQ2/c/xl4BNZJA6N+lrx6XJU9KfnVS3f0rj/mUzF2SeN40XBuLnlDC/ohyBatRDWhCGWgREMlrApB1BQiJGOPthcn6VMjLdI9wQFWgwrqo4bOdKmit22b5aGJqqeOsZe4bEFQ2LCBImnk9PjYV8guW/iI2SUjobKeJt33+UF9ME94Wk7GF2gO+x83czqI08Ctv7AZHgfrbyvb6unt4i1l4IcSau6sL2OtKRSLdmSuS+0+fG7nkCTPXh+EH7hMBeZYlexghocag52o/BrioEIDpCm/l6LTSZbzRIV8VXGoPJ6is7FruIw0b+9K1DAuA7Yi9XCyLOrWjBCMZba1JYcHcpHW8Y4mt1Gmse7iVw/uWBTpxK/pXcjYwJDBG6r7NJbAfHc1ZOrsbNUR4KLW0Y0yohGchFJBg5pHLf7IklWtOztZVsNGDMFOEwTSa6sZrK2w6FlhLVOoly/hJDC/QVvC6FnD95AqJd++vxHUoAukyQxqusQTwDG/pbJjekL6vAEybugWfwRUhVtFip" />
+</div>
+        <a id="ctl00_ToTheTopButton" class="top-link&#32;pxweb-btn&#32;negative&#32;hide" href="javascript:__doPostBack(&#39;ctl00$ToTheTopButton&#39;,&#39;&#39;)">
+            <svg class="icon-top-link-button" viewBox="0 0 24 24" width="40" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" >
+                <circle cx="12" cy="12" r="10"></circle><polyline points="16 12 12 8 8 12"></polyline><line x1="12" y1="16" x2="12" y2="8"></line>
+            </svg>Shko lart</a>
+        <div id="wrap">
+            <header id="header">
+              <div class="header flex-row flex-wrap justify-space-between">
+                <a id="ctl00_SkipToMain" class="screenreader-only&#32;pxweb-link" aria-label="Press&#32;enter&#32;to&#32;go&#32;directly&#32;to&#32;main&#32;content" href="#pxcontent">Jump to main content</a>
+                <div class="headerleft flex-row">
+                    <a id="ctl00_LogoLink" href="/pxweb/sq/"><img src="../../../Resources/Images/ASK-logo.gif" id="ctl00_imgSiteLogo" alt="PxWebLogoAlt" class="imgSiteLogo" /></a>
+                    <span class="siteLogoText">&#160;</span>
+                </div>
+                <div class="headerright">
+                
+                    <div class="px-change-lang-div flex-column">
+                          <div class="pxweb-link"> <a class="px-change-lang" href="/pxweb/sr/ASKdata/"> <span lang="sr" class="link-text px-change-lang">Srpski</span></a> </div> <div class="pxweb-link"> <a class="px-change-lang" href="/pxweb/en/ASKdata/"> <span lang="en" class="link-text px-change-lang">English</span></a> </div> 
+                    </div>
+                </div>
+              </div>
+            
+           
+            
+            </header>
+            <div id="ctl00_breadcrumb1">
+	
+
+<nav id="breadcrumb" aria-label="breadcrumb">
+    <a id="ctl00_breadcrumb1_breadcrumb1_lnkHome" href="/pxweb/sq/"><img id="ctl00_breadcrumb1_breadcrumb1_imgHome" title="Home" class="breadcrumb_homebutton" src="/WebResource.axd?d=1M_bk-KyY-wmHZQcR4Gu3LeblmwNHVbuZoV4oKllQXqOojh43KL0Y_9QfmPcyDyZC_C3kZ7WFvqMRYzmKhQ2i7qio7NSBAQkCc3DWybWydQ8uz4sglEXbDvxBAojbyXmf5cepRPdN0-XF2v8ahXO_Q2&amp;t=638016102440000000" alt="Icon&#32;representing&#32;home" /></a>
+    <span id="ctl00_breadcrumb1_breadcrumb1_lblSep1" class="breadcrumb_sep">/</span>
+    <a id="ctl00_breadcrumb1_breadcrumb1_lnkDb" class="breadcrumb_text_nolink">ASKdata</a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+      
+</nav>
+
+
+
+
+</div>
+            <main id="place-holder">
+            
+            <h1 id="ctl00_lblH1Title" class="h1title">
+	ASKdata
+</h1>
+             
+            <div id="ctl00_navigationFlowControl">
+	
+ <section aria-label="Përmbledhje e tre hapave në procesin për të marrë të dhënat">
+   <span id="ctl00_navigationFlowControl_navigationFlowControl_ExplainAriaLabel" class="screenreader-only">Tre hapat janë: Zgjidh tabelën, Zgjidh variablin dhe Shfaq rezultatin. Aktualisht jeni në.Zgjidh tabelën</span>
+  
+   <div id="navigationFlow"> 
+    <div class="navigationFlowArea flex-row justify-center align-flex-start">
+      <a id="ctl00_navigationFlowControl_navigationFlowControl_firstStepLink" class="flex-column&#32;justify-space-between&#32;align-center&#32;navigation-link&#32;first&#32;active" aria-hidden="true" aria-label="Ikona&#32;që&#32;përfaqëson&#32;faqen&#32;ku&#32;zgjidhni&#32;tabelën"><img id="ctl00_navigationFlowControl_navigationFlowControl_firstStepImage" class="nav-pic" aria-hidden="true" alt="" src="../../../Resources/Images/svg/NavigationFlow/Step1_active.svg" /><span id="ctl00_navigationFlowControl_navigationFlowControl_firstStepLabel" class="pxweb-link&#32;header&#32;nav-step&#32;first&#32;active">Zgjidh tabelën</span></a> 
+   
+      <hr aria-hidden="true" class="nav-hr-left sq"/>
+
+      <a id="ctl00_navigationFlowControl_navigationFlowControl_secondStepLink" class="flex-column&#32;justify-space-between&#32;align-center&#32;navigation-link&#32;future" aria-hidden="true" aria-label="Ikona&#32;që&#32;përfaqëson&#32;faqen&#32;ku&#32;zgjidhni&#32;variablin"><img id="ctl00_navigationFlowControl_navigationFlowControl_secondStepImage" class="nav-pic" aria-hidden="true" alt="" src="../../../Resources/Images/svg/NavigationFlow/Step2_future.svg" /><span id="ctl00_navigationFlowControl_navigationFlowControl_secondStepLabel" class="pxweb-link&#32;header&#32;nav-step&#32;second&#32;future">Zgjidh variablin</span></a>
+  
+      <hr aria-hidden="true" class="nav-hr-right sq"/>
+
+      <a id="ctl00_navigationFlowControl_navigationFlowControl_thirdStepLink" class="flex-column&#32;justify-space-between&#32;align-center&#32;third&#32;navigation-link&#32;future" aria-hidden="true"><img id="ctl00_navigationFlowControl_navigationFlowControl_thirdStepImage" class="nav-pic" aria-hidden="true" alt="" src="../../../Resources/Images/svg/NavigationFlow/Step3_future.svg" /><span id="ctl00_navigationFlowControl_navigationFlowControl_thirdStepLabel" class="nav-step&#32;third&#32;future">Shfaq tabelën</span></a>
+    </div>
+   </div>      
+ </section>
+
+</div> 
+            <div id="table-title">
+                <div id="place-holder-title">
+                    
+                    
+                </div>
+            </div>
+           
+            
+                
+    <div class="menuTopLeftContent">
+        
+
+<div class="search_container">
+    <div id="ctl00_ContentPlaceHolderMain_pxSearch_pnlSearch" class="search_panel" onkeypress="javascript:return&#32;WebForm_FireDefaultButton(event,&#32;&#39;ctl00_ContentPlaceHolderMain_pxSearch_cmdSearch&#39;)">
+	
+        <label for="ctl00_ContentPlaceHolderMain_pxSearch_txtSearch" id="ctl00_ContentPlaceHolderMain_pxSearch_lblSearch" class="search_label">Kërko në ASKdata:</label>
+        <input name="ctl00$ContentPlaceHolderMain$pxSearch$txtSearch" type="text" id="ctl00_ContentPlaceHolderMain_pxSearch_txtSearch" class="search_textbox" />
+        <input type="submit" name="ctl00$ContentPlaceHolderMain$pxSearch$cmdSearch" value="Kërko&#32;" id="ctl00_ContentPlaceHolderMain_pxSearch_cmdSearch" class="search_button&#32;savequery_create" />
+        <span id="ctl00_ContentPlaceHolderMain_pxSearch_lblError" class="search_error"></span>
+        <input type="hidden" name="ctl00$ContentPlaceHolderMain$pxSearch$hidRedirect" id="ctl00_ContentPlaceHolderMain_pxSearch_hidRedirect" value="True" />
+    
+</div>
+</div>   
+
+    </div>
+    <div class="menuTopRightContent">
+    </div>
+    <div class="break"></div>
+    <div id="pxcontent"> 
+        <section aria-label="User manual for this page"><span class="screenreader-only">You are now in the first main page of PxWeb, where the goal is to select a table. You may find your table by seach or by drilling down in the menu three.</span></section>
+    </div>    
+    <div id="ctl00_ContentPlaceHolderMain_TableOfContent1">
+	<div id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_TableOfContentPanel">
+		
+    <div id="TableOfContent">
+        <input type="submit" name="ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$ActionButton" value="Javascript&#32;is&#32;disabled,&#32;click&#32;to&#32;load&#32;the&#32;whole&#32;tree" id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_ActionButton" class="tableofcontent_action" />
+        <div id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuTreeviewPanel">
+			
+            
+			<div class="AspNet-TreeView" id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree">
+					<ul id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenuNavigationTree_UL">
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Anketa mbi të Ardhurat dhe Kushtet e Jetesës')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Anketa mbi të Ardhurat dhe Kushtet e Jetesës')">
+								Anketa  mbi të Ardhurat dhe Kushtet e Jetesës</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Household budget survey')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Household budget survey')">
+								Anketa e Buxhetit të familjes</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__MICS')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__MICS')">
+								Anketa e Treguesve të Shumëfishtë - MICS </a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Education')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Education')">
+								Arsimi</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Agriculture')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Agriculture')">
+								Bujqësia</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Prices')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Prices')">
+								Çmimet</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Justice')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Justice')">
+								Drejtësia</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Energy')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Energy')">
+								Energjia</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Tourism and hotels')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Tourism and hotels')">
+								Hoteleria dhe Turizmi </a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Investimet në Ndërrmarrje')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Investimet në Ndërrmarrje')">
+								Investimet në Ndërrmarrje</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Culture and sport')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Culture and sport')">
+								Kultura dhe sporti</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__National and government accounts')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__National and government accounts')">
+								Llogaritë kombëtare dhe qeveritare</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Environment')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Environment')">
+								Mjedisi</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Population')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Population')">
+								Popullsia</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__PRODCOM')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__PRODCOM')">
+								PRODCOM</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Statistical business register')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Statistical business register')">
+								Regjistri statistikor i bizneseve</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Census population')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Census population')">
+								Regjistrimi popullsisë</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Health and Welfare')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Health and Welfare')">
+								Shëndetësia dhe mirëqenia sociale</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Short-term statistics')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Short-term statistics')">
+								Statistikat afatshkurtëra</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Structural business statistics')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Structural business statistics')">
+								Statistikat strukturore të bizneseve</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Geographical data')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Geographical data')">
+								Të dhëna gjeografike</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__ICT')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__ICT')">
+								TIK në Ekonomi Familjare dhe Biznese</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Transport')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Transport')">
+								Transporti</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__External trade')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__External trade')">
+								Tregtia e jashtme</a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Labour market')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__Labour market')">
+								Tregu i punës </a>
+						</li>
+						<li class="AspNet-TreeView-Root">
+							<span class="AspNet-TreeView-Expand" aria-expanded="false" onclick="__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__UNDP')" tabindex="0">&nbsp;</span>
+							<a href="javascript:__doPostBack('ctl00$ContentPlaceHolderMain$TableOfContent1$TableOfContent1$MenuNavigationTree','pASKdata__UNDP')">
+								UNDP</a>
+						</li>
+					</ul>
+
+			</div>
+        
+		</div>
+
+        <div id="ctl00_ContentPlaceHolderMain_TableOfContent1_TableOfContent1_MenulistPanel">
+			
+            
+            
+            
+        
+		</div>
+    </div>
+
+	</div>
+
+<script>
+
+    jQuery(document).ready(function () {
+        jQuery('a[rel="_blank"]').each(function () {
+            jQuery(this).attr('target', '_blank');
+        });
+    });
+
+</script>
+
+</div>
+    <div id="ctl00_ContentPlaceHolderMain_TableList1">
+
+</div>
+
+    
+
+    <div>
+        
+    </div>
+
+            </main>
+            
+            <footer id="pxfooter">
+                <div class="footerleft">
+                    <span id="ctl00_lblFooterText"></span>
+                </div>
+                <div class="footerright">
+                    
+  
+                </div>
+                <div style="clear: both;"> </div>               
+            </footer>
+        </div>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+PCAxis_HideElement(".tableofcontent_action");
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</div>
+    <script>
+        "use strict";
+        // Set a variable for our button element.
+        var scrollToTopButton = document.getElementById('ctl00_ToTheTopButton');
+        var lastScrollYPos = 0;
+
+        scrollToTopButton.className = "top-link pxweb-btn negative hidden";
+
+        // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
+        var scrollFunc = function scrollFunc(lastScrollYPos) {
+            // Get the current scroll value
+            var y = window.pageYOffset; // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
+
+            if (y > 300 && y < lastScrollYPos) {
+                scrollToTopButton.className = "top-link pxweb-btn negative show";
+            } else {
+                scrollToTopButton.className = "top-link pxweb-btn negative hidden";
+                scrollToTopButton.blur();
+            }
+        };
+
+        window.addEventListener('scroll', function (e) {
+            scrollFunc(lastScrollYPos);
+            lastScrollYPos = window.scrollY;
+        });
+
+        scrollToTopButton.onclick = function (e) {
+            e.preventDefault();
+            document.documentElement.scrollTop = 0;
+        };
+</script>
+</body>
+</html>
+
+
