@@ -1,0 +1,57 @@
+name: Americas capacity - complete monthly series
+
+# Combines the committed Americas capacity workbooks (national monthly / annual pulls, the EIA-860M US workbook and the Ember yearly
+# capacity workbook) into one gap-free monthly dataset per country and fuel with every filled cell flagged, for South & Central America
+# + the Caribbean and for North America (americas/capacity/AMERICAS_CAPACITY_COMPLETE.py, rules in capacity_fill.py). No downloads.
+# Runs after the last Americas capacity pull (US EIA-860M 14:25 UTC; Ember yearly 04:55) and before the masters (21:20 South & Central
+# America, 21:40 North America).
+on:
+  schedule:
+    - cron: "17 15 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl matplotlib
+
+      - name: Build complete capacity workbooks (with Excel charts)
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 americas/capacity/AMERICAS_CAPACITY_COMPLETE.py
+
+      - name: PNG charts and copy scripts
+        if: always()
+        run: |
+          for f in south_central_america north_america; do
+            w="output/Data and Chart Outputs/${f}_capacity_monthly_complete.xlsx"
+            [ -f "$w" ] && python3 png_charts.py "$w" || echo "PNG step skipped/failed for $f"
+          done
+          mkdir -p "output/Python Scripts"
+          cp americas/capacity/AMERICAS_CAPACITY_COMPLETE.py capacity_fill.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/south_central_america_capacity_monthly_complete.xlsx" || true
+          git add -f "output/Data and Chart Outputs/north_america_capacity_monthly_complete.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Americas capacity (complete monthly series): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

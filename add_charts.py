@@ -3697,10 +3697,22 @@ def _ema_capacity_complete(p):
     return mod.chart_specs(p)
 
 
+# ---- Americas complete monthly capacity (americas/capacity/AMERICAS_CAPACITY_COMPLETE.py) ----
+def _americas_capacity_complete(p):
+    import importlib.util
+    here = os.path.dirname(os.path.abspath(__file__))
+    spec = importlib.util.spec_from_file_location("AMERICAS_CAPACITY_COMPLETE", os.path.join(here, "americas", "capacity", "AMERICAS_CAPACITY_COMPLETE.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.chart_specs(p)
+
+
 REGISTRY["east_med_capacity_monthly_complete.xlsx"] = _ema_capacity_complete
 REGISTRY["africa_capacity_monthly_complete.xlsx"] = _ema_capacity_complete
 REGISTRY["ghana_capacity_annual.xlsx"] = power_capacity("Ghana installed capacity at year end (Energy Commission, grid-connected; thermal shown as Gas, solar and waste as Solar)")
 REGISTRY["morocco_capacity_annual.xlsx"] = power_capacity("Morocco installed capacity at year end (ONEE, via HCP yearbook; gas turbines under Other)")
+REGISTRY["south_central_america_capacity_monthly_complete.xlsx"] = _americas_capacity_complete
+REGISTRY["north_america_capacity_monthly_complete.xlsx"] = _americas_capacity_complete
 
 # ---- Taiwan (taiwan/taiwan_charts.py) ----
 def _taiwan(fn):

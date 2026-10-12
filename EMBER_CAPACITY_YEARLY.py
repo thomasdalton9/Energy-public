@@ -40,6 +40,7 @@ def build(raw):
     d["fuel"] = d["Variable"].map(FUEL)
     d = d.dropna(subset=["fuel"])
     d["MW"] = pd.to_numeric(d["Value"], errors="coerce") * 1000.0
+    d = d.dropna(subset=["MW"])      # Ember lists some fuels with an empty value: that is 'not available', never 0
     w = d.pivot_table(index=["ISO 3 code", "Area", "Year"], columns="fuel", values="MW", aggfunc="sum")
     w = w.reindex(columns=COLS).add_suffix("_MW").reset_index()
     w.columns = ["iso3", "country", "year"] + list(w.columns[3:])

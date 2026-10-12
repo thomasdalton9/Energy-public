@@ -86,6 +86,19 @@ CAPACITY_DATASETS = [
     ("CA", "Canada", "canada_power_capacity.xlsx", "Monthly", "capacity"),
     ("MX", "Mexico", "mexico_power_capacity.xlsx", "Monthly", "capacity"),
 ]
+# Complete monthly capacity (americas/capacity/AMERICAS_CAPACITY_COMPLETE.py): one gap-free monthly series per country and fuel - EIA-860M
+# monthly for the US, StatCan year-end (annual, interpolated or held) for Canada, Ember yearly (labelled fallback) for Mexico - with every
+# filled cell flagged in that workbook. Used for the capacity charts, the North America total and the capacity-factor denominators;
+# the three country workbooks above are the fallback if it is missing.
+CAP_COMPLETE = "north_america_capacity_monthly_complete.xlsx"
+CAP_COMPLETE_TOTAL = "North America total"
+CAP_COMPLETE_COUNTRIES = [("US", "United States"), ("CA", "Canada"), ("MX", "Mexico")]
+CAP_COMPLETE_SRC = ("EIA-860M monthly generator inventory (United States); Statistics Canada year-end capacity (annual, interpolated or held); "
+                    "Ember yearly capacity as a labelled fallback for Mexico; flags per cell in north_america_capacity_monthly_complete.xlsx",
+                    "https://www.eia.gov/electricity/data/eia860m/")
+CAP_CF_NOTE = ("capacity: EIA-860M monthly (US), StatCan year-end interpolated or held (Canada), Ember yearly as labelled fallback (Mexico); "
+               "see Basis and flags")
+CAP_COMPLETE_DS = [(code, name, CAP_COMPLETE, name, "capacity") for code, name in CAP_COMPLETE_COUNTRIES]
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
@@ -284,8 +297,12 @@ MASTER_SPECS = {"canada_power_generation_daily.xlsx": canada_power_specs, "eia93
                 # combined MISO + ERCOT chart (built from the ERCOT workbook's folder) plus the ERCOT-only chart
                 "ercot_gas_burn_daily.xlsx": lambda p: add_charts.miso_ercot_gas_burn(p) + add_charts.ercot_gas_burn(p)}
 
+MASTER_SPECS.update({(CAP_COMPLETE, n): sam.cap_complete_spec(n, f"{n} installed capacity, monthly (see Basis)")
+                     for _, n in CAP_COMPLETE_COUNTRIES})
+
 EIA_GAS = "https://www.eia.gov/naturalgas/data.php"
 SOURCES = {
+    CAP_COMPLETE: CAP_COMPLETE_SRC,
     "us_gas.xlsx": ("EIA (US Energy Information Administration): Natural Gas Monthly (consumption by sector, "
                     "production, trade) and Weekly Natural Gas Storage Report", EIA_GAS),
     "texas_gas_monthly.xlsx": ("EIA Natural Gas Monthly, Texas (state consumption by sector, marketed production, storage; "
@@ -493,18 +510,19 @@ def main():
         print("North America generation total:", "; ".join(notes))
 
     # Capacity: combined North America chart (GW) right after the generation total, then each country
-    cap = sam.collect(wb, [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
+    cap_complete = os.path.exists(os.path.join(args.data_dir, CAP_COMPLETE))
+    cap = sam.collect(wb, CAP_COMPLETE_DS if cap_complete else [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
                       args.data_dir, used, sources, cfg=cfg)
     pos = 1 if not total.empty else 0
     if not cap_total.empty:
         ws = wb.create_sheet(sam.sheet_name("NA capacity total data", used))
         df, n_bars = xlsx_charts.prepare(cap_total)
         xlsx_charts.write_table(ws, df)
-        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (annual figures carried forward; storage "
-                                                      "excluded):")
+        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (monthly, storage excluded):" if cap_complete else
+                "Countries summed (annual figures carried forward; storage excluded):")
         for i, note in enumerate(cap_notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
-        src = ("Sum of the country capacity workbooks (EIA-860M, StatCan; Ember for Mexico)", None)
+        src = CAP_COMPLETE_SRC if cap_complete else ("Sum of the country capacity workbooks (EIA-860M, StatCan; Ember for Mexico)", None)
         power[0].insert(pos, (xlsx_charts.build_chart(ws, df, n_bars, "North America installed generating capacity",
                                                       "GW installed", "stacked_bar", width=sam.CHART_W,
                                                       height=sam.CHART_H, gridlines=False,
@@ -521,8 +539,9 @@ def main():
     # One regional capacity-factor chart (generation by type / capacity x hours), after the capacity charts
     cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
         wb, used, sam.sheet_name, gen_frames,
-        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, sam.CHART_W, sam.CHART_H,
-        f"Country generation (EIA-930 Lower 48, StatCan, {mx}) / capacity (EIA-860M, StatCan, Ember for Mexico)",
+        ({n: (os.path.join(args.data_dir, CAP_COMPLETE), n) for _, n in CAP_COMPLETE_COUNTRIES} if cap_complete
+         else {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}), sam.CHART_W, sam.CHART_H,
+        f"Country generation (EIA-930 Lower 48, StatCan, {mx}) / " + (CAP_CF_NOTE if cap_complete else "capacity (EIA-860M, StatCan, Ember for Mexico)"),
         "North America")
     if cf_chart:
         power[0].insert(pos + len(cap[0]), cf_chart)
