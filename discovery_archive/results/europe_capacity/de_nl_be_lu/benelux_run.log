@@ -1,0 +1,94 @@
+Belgium: stored 0 months
+wind/solar months with data ...
+Traceback (most recent call last):
+  File "/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py", line 370, in main
+    fn(a.out_dir)
+  File "/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py", line 183, in belgium
+    day, vals = elia_monitored("ods031", ts, ["offshoreonshore", "region", "gridconnectiontype"])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Energy-public/Energy-public/europe/capacity/BENELUX_CAPACITY.py", line 150, in elia_monitored
+    day = max(r["d"] for r in res)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'NoneType' and 'NoneType'
+be FAILED: TypeError("'>' not supported between instances of 'NoneType' and 'NoneType'")
+Netherlands wrote output/Data and Chart Outputs/netherlands_power_capacity_annual.xlsx 11
+         1 Jan           Fuel  Ours (MW)  ENTSO-E A68 (MW)  Difference (MW)  Difference (%)  Ours, end of same year (MW)  Difference same year (%)
+0   2021-01-01          Hydro       37.0                38             -1.0            -2.6                         38.0                       0.0
+1   2021-01-01            Gas    17419.0             18500          -1081.0            -5.8                      17402.0                      -5.9
+2   2021-01-01           Wind     6648.0              7674          -1026.0           -13.4                       7646.0                      -0.4
+3   2021-01-01          Solar    11110.0             14823          -3713.0           -25.0                      14823.0                       0.0
+4   2021-01-01           Coal     3431.0              4012           -581.0           -14.5                       3431.0                     -14.5
+5   2021-01-01        Nuclear      512.0               485             27.0             5.6                        512.0                       5.6
+6   2021-01-01            Oil        NaN                 0              NaN             NaN                          NaN                       NaN
+7   2021-01-01      Bioenergy        NaN               560              NaN             NaN                          NaN                       NaN
+8   2021-01-01          Other      407.0               781           -374.0           -47.9                        407.0                     -47.9
+9   2021-01-01          Total    39564.0             46873          -7309.0           -15.6                      44259.0                      -5.6
+10  2021-01-01  PumpedStorage        NaN                 0              NaN             NaN                          NaN                       NaN
+11  2021-01-01        Storage        NaN                 0              NaN             NaN                          NaN                       NaN
+12  2022-01-01          Hydro       38.0                38              0.0             0.0                         38.0                       0.0
+13  2022-01-01            Gas    17402.0             18530          -1128.0            -6.1                      17460.0                      -5.8
+14  2022-01-01           Wind     7646.0              7770           -124.0            -1.6                       8700.0                      12.0
+15  2022-01-01          Solar    14823.0             14911            -88.0            -0.6                      17356.0                      16.4
+16  2022-01-01           Coal     3431.0              4006           -575.0           -14.4                       3431.0                     -14.4
+17  2022-01-01        Nuclear      512.0               486             26.0             5.3                        512.0                       5.3
+18  2022-01-01            Oil        NaN                 0              NaN             NaN                          NaN                       NaN
+19  2022-01-01      Bioenergy        NaN               572              NaN             NaN                          NaN                       NaN
+20  2022-01-01          Other      407.0               764           -357.0           -46.7                        407.0                     -46.7
+21  2022-01-01          Total    44259.0             47077          -2818.0            -6.0                      47904.0                       1.8
+22  2022-01-01  PumpedStorage        NaN                 0              NaN             NaN                          NaN                       NaN
+23  2022-01-01        Storage        NaN                 0              NaN             NaN                          NaN                       NaN
+24  2023-01-01          Hydro       38.0                38              0.0             0.0                         38.0                       0.0
+25  2023-01-01            Gas    17460.0             18661          -1201.0            -6.4                      17500.0                      -6.2
+26  2023-01-01           Wind     8700.0             11496          -2796.0           -24.3                      10802.0                      -6.0
+27  2023-01-01          Solar    17356.0             24302          -6946.0           -28.6                      21957.0                      -9.6
+28  2023-01-01           Coal     3431.0              4012           -581.0           -14.5                       3431.0                     -14.5
+29  2023-01-01        Nuclear      512.0               486             26.0             5.3                        512.0                       5.3
+30  2023-01-01            Oil        NaN                 0              NaN             NaN                          NaN                       NaN
+31  2023-01-01      Bioenergy        NaN               418              NaN             NaN                          NaN                       NaN
+32  2023-01-01          Other      407.0               671           -264.0           -39.3                        407.0                     -39.3
+33  2023-01-01          Total    47904.0             60084         -12180.0           -20.3                      54647.0                      -9.0
+34  2023-01-01  PumpedStorage        NaN                 0              NaN             NaN                          NaN                       NaN
+35  2023-01-01        Storage      132.0                 0            132.0             NaN                        229.0                       NaN
+36  2024-01-01          Hydro       38.0                38              0.0             0.0                         38.0                       0.0
+37  2024-01-01            Gas    17500.0             18476           -976.0            -5.3                      17537.0                      -5.1
+38  2024-01-01           Wind    10802.0             11694           -892.0            -7.6                      11702.0                       0.1
+39  2024-01-01          Solar    21957.0             27980          -6023.0           -21.5                      24772.0                     -11.5
+40  2024-01-01           Coal     3431.0              4012           -581.0           -14.5                       3431.0                     -14.5
+41  2024-01-01        Nuclear      512.0               486             26.0             5.3                        512.0                       5.3
+42  2024-01-01            Oil        NaN                 0              NaN             NaN                          NaN                       NaN
+43  2024-01-01      Bioenergy        NaN               418              NaN             NaN                          NaN                       NaN
+44  2024-01-01          Other      407.0               778           -371.0           -47.7                        407.0                     -47.7
+45  2024-01-01          Total    54647.0             63882          -9235.0           -14.5                      58399.0                      -8.6
+46  2024-01-01  PumpedStorage        NaN                 0              NaN             NaN                          NaN                       NaN
+47  2024-01-01        Storage      229.0                 0            229.0             NaN                        350.0                       NaN
+48  2025-01-01          Hydro       38.0                38              0.0             0.0                         38.0                       0.0
+49  2025-01-01            Gas    17537.0             18412           -875.0            -4.8                      17394.0                      -5.5
+50  2025-01-01           Wind    11702.0             11917           -215.0            -1.8                      11782.0                      -1.1
+51  2025-01-01          Solar    24772.0             29282          -4510.0           -15.4                      25901.0                     -11.5
+52  2025-01-01           Coal     3431.0              4012           -581.0           -14.5                       3431.0                     -14.5
+53  2025-01-01        Nuclear      512.0               486             26.0             5.3                        512.0                       5.3
+54  2025-01-01            Oil        NaN                 0              NaN             NaN                          NaN                       NaN
+55  2025-01-01      Bioenergy        NaN               418              NaN             NaN                          NaN                       NaN
+56  2025-01-01          Other      407.0               778           -371.0           -47.7                        407.0                     -47.7
+57  2025-01-01          Total    58399.0             65343          -6944.0           -10.6                      59465.0                      -9.0
+58  2025-01-01  PumpedStorage        NaN                 0              NaN             NaN                          NaN                       NaN
+59  2025-01-01        Storage      350.0                 0            350.0             NaN                        350.0                       NaN
+60  2026-01-01          Hydro       38.0                38              0.0             0.0                          NaN                       NaN
+61  2026-01-01            Gas    17394.0             18412          -1018.0            -5.5                          NaN                       NaN
+62  2026-01-01           Wind    11782.0             11917           -135.0            -1.1                          NaN                       NaN
+63  2026-01-01          Solar    25901.0             29282          -3381.0           -11.5                          NaN                       NaN
+64  2026-01-01           Coal     3431.0              4012           -581.0           -14.5                          NaN                       NaN
+65  2026-01-01        Nuclear      512.0               486             26.0             5.3                          NaN                       NaN
+66  2026-01-01            Oil        NaN                 0              NaN             NaN                          NaN                       NaN
+67  2026-01-01      Bioenergy        NaN               418              NaN             NaN                          NaN                       NaN
+68  2026-01-01          Other      407.0               778           -371.0           -47.7                          NaN                       NaN
+69  2026-01-01          Total    59465.0             65343          -5878.0            -9.0                          NaN                       NaN
+70  2026-01-01  PumpedStorage        NaN                 0              NaN             NaN                          NaN                       NaN
+71  2026-01-01        Storage      350.0                 0            350.0             NaN                          NaN                       NaN
+Luxembourg wrote output/Data and Chart Outputs/luxembourg_power_capacity_annual.xlsx 4
+            Hydro_MW   Gas_MW    Wind_MW    Solar_MW Coal_MW Nuclear_MW Oil_MW  Bioenergy_MW  Other_MW     Total_MW PumpedStorage_MW Storage_MW Wind_Onshore_MW Wind_Offshore_MW
+date                                                                                                                                                                            
+2022-01-01    34.000  81.0000  166.00000  317.000000    <NA>       <NA>   <NA>        47.000    21.000   666.000000             <NA>       <NA>            <NA>             <NA>
+2023-01-01    34.000  75.0000  208.00000  394.000000    <NA>       <NA>   <NA>        84.000    21.000   816.000000             <NA>       <NA>            <NA>             <NA>
+2024-01-01    33.994  71.2228  213.73577  549.796938    <NA>       <NA>   <NA>        84.845    21.328   974.922508             <NA>       <NA>            <NA>             <NA>
+2025-01-01    34.042  59.6760  230.71577  746.353813    <NA>       <NA>   <NA>        85.205    21.328  1177.320583             <NA>       <NA>            <NA>             <NA>

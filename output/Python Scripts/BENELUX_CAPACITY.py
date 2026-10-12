@@ -103,8 +103,13 @@ def entsoe_crosscheck(monthly, entsoe_path, ours_end_of_prior_period, annual):
             if pd.isna(o):
                 rows.append({"1 Jan": ts.date(), "Fuel": f, "Ours (MW)": None, "ENTSO-E A68 (MW)": round(t), "Difference (MW)": None, "Difference (%)": None})
                 continue
-            rows.append({"1 Jan": ts.date(), "Fuel": f, "Ours (MW)": round(float(o)), "ENTSO-E A68 (MW)": round(t), "Difference (MW)": round(float(o) - t),
-                         "Difference (%)": round((float(o) - t) / t * 100, 1) if t else None})
+            row = {"1 Jan": ts.date(), "Fuel": f, "Ours (MW)": round(float(o)), "ENTSO-E A68 (MW)": round(t), "Difference (MW)": round(float(o) - t),
+                   "Difference (%)": round((float(o) - t) / t * 100, 1) if t else None}
+            if annual:   # ENTSO-E's annual value is not always the 1 January stock: also show our end of the SAME year
+                so = monthly.loc[ts, c] if ts in monthly.index else None
+                row["Ours, end of same year (MW)"] = round(float(so)) if so is not None and pd.notna(so) else None
+                row["Difference same year (%)"] = round((float(so) - t) / t * 100, 1) if so is not None and pd.notna(so) and t else None
+            rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -137,9 +142,9 @@ def elia_monitored(ds, month, group):
     """monitoredcapacity at the last day of `month` with data in the last 3 days: dict {group tuple: MW} for the latest day that has rows."""
     last, _ = month_end_window(month)
     lo = last - pd.Timedelta(days=2)
-    sel = "date_format(datetime,'YYYY-MM-DD') as d, " + ", ".join(group) + ", max(monitoredcapacity) as mx"
+    sel = "date_format(datetime,'yyyy-MM-dd') as d, " + ", ".join(group) + ", max(monitoredcapacity) as mx"
     res = elia(ds, select=sel, where=f"datetime>='{lo:%Y-%m-%d}T00:00:00Z' and datetime<'{last + pd.Timedelta(days=1):%Y-%m-%d}T00:00:00Z'",
-               group_by="date_format(datetime,'YYYY-MM-DD'), " + ", ".join(group), limit=100)
+               group_by="date_format(datetime,'yyyy-MM-dd'), " + ", ".join(group), limit=100)
     if not res:
         return None, None
     day = max(r["d"] for r in res)
@@ -147,7 +152,7 @@ def elia_monitored(ds, month, group):
 
 
 def elia_months_with_data(ds):
-    res = elia(ds, select="date_format(datetime,'YYYY-MM') as m, count(*) as n", group_by="date_format(datetime,'YYYY-MM')", limit=100,
+    res = elia(ds, select="date_format(datetime,'yyyy-MM') as m, count(*) as n", group_by="date_format(datetime,'yyyy-MM')", limit=100,
                where="datetime>='2020-09-01T00:00:00Z'")
     key = [k for k in res[0] if k != "n"][0] if res else None
     return sorted(pd.Timestamp(r[key] + "-01") for r in res) if key else []
@@ -203,9 +208,9 @@ def belgium(outdir):
         if have(ts, "Gas_MW") and ts < keep_until:
             continue
         last, _ = month_end_window(ts)
-        res = elia("ods179", select="date_format(date,'YYYY-MM-DD') as d, fueltypepublication, sum(technicalpmax) as s",
+        res = elia("ods179", select="date_format(date,'yyyy-MM-dd') as d, fueltypepublication, sum(technicalpmax) as s",
                    where=f"date>='{(last - pd.Timedelta(days=2)):%Y-%m-%d}T00:00:00Z' and date<'{last + pd.Timedelta(days=2):%Y-%m-%d}T00:00:00Z'",
-                   group_by="date_format(date,'YYYY-MM-DD'), fueltypepublication", limit=100)
+                   group_by="date_format(date,'yyyy-MM-dd'), fueltypepublication", limit=100)
         if not res:
             continue
         # Elia's date stamp is 22:00Z/23:00Z the evening before the local day: the day label shifts by one
