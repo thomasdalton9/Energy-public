@@ -452,7 +452,7 @@ def chart_specs(path):
     specs = []
     eu = add_charts.by_date(add_charts.read(path, tot), "date")
     g = _groups(eu)
-    specs.append(add_charts.spec(tot, g, f"{tot[:-6]} installed capacity, complete monthly series (official annual where reachable, Ember fallback elsewhere)",
+    specs.append(add_charts.spec(tot, g, f"{tot[:-6]} installed capacity, monthly (official annual, Ember fallback)",
                                  "GW installed", "stacked_bar"))
     cbm = add_charts.by_date(add_charts.read(path, "Coverage by month"), "date")
     specs.append(add_charts.spec("Coverage", cbm, "Share of country-fuel-months observed, interpolated, Ember fallback or without source",
