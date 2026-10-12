@@ -1,0 +1,36 @@
+name: LNG liquefaction probe (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "probe script name in discovery_archive/future_capacity"
+        default: "LNG_PROBE1.py"
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pandas openpyxl pdfplumber curl_cffi lxml
+      - name: Run probe
+        run: timeout 1300 python3 discovery_archive/future_capacity/${{ github.event.inputs.script }} 2>&1 | tee probe.log
+      - name: Commit results
+        if: always()
+        run: |
+          mkdir -p discovery_archive/results/future_capacity
+          cp probe.log "discovery_archive/results/future_capacity/${{ github.event.inputs.script }}.log" || true
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f discovery_archive/results/future_capacity || true
+          git diff --cached --quiet && exit 0
+          git commit -m "LNG probe results: automated"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
