@@ -1,0 +1,5 @@
+pointKey,pointLabel,fromSystemLabel,fromOperatorKey,fromOperatorLabel,fromCountryKey,fromInfrastructureTypeLabel,toSystemLabel,toOperatorKey,toOperatorLabel,toCountryKey,toInfrastructureTypeLabel,fromDirectionKey,toDirectionKey,validFrom
+ITP-00048,Almería,Transmission,ES-TSO-0001,Medgaz,DZ,Transmission,Spain,ES-TSO-0006,Enagas,ES,Transmission,exit,entry,
+ITP-00093,Mazara del Vallo,Transmission,TN-TSO-0001,TMPC,DZ,Transmission,Italy,IT-TSO-0001,SNAM RETE GAS,IT,Transmission,exit,entry,
+ITP-00082,Tarifa,Spain,ES-TSO-0006,Enagas,ES,Transmission,Transmission,MA-TSO-0001,ONHYM,MA,Transmission,exit,entry,
+ITP-00082,Tarifa,Transmission,MA-TSO-0001,ONHYM,MA,Transmission,Spain,ES-TSO-0006,Enagas,ES,Transmission,exit,entry,

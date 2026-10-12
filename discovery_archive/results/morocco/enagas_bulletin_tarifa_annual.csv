@@ -1,0 +1,11 @@
+year,tarifa_net_GWh,direction,how_read
+2016,97920,Morocco->Spain (entry),previous-year total column of the 2017 bulletins
+2017,86497,Morocco->Spain (entry),moving annual total of the December 2017 bulletin
+2018,104808,Morocco->Spain (entry),derived: MAT Jan-2019 (101753) - Jan-2019 (8417) + Jan-2018 (11472); consistent with 2019 = -49%
+2019,53437,Morocco->Spain (entry),year-to-date total of the December 2019 bulletin
+2020,40785,Morocco->Spain (entry),Jan-Nov 2020 (34549) + Dec-2020 (6236 from the Dec-2021 bulletin); Dec-2021 bulletin gives 2021 = +61.5% vs 2020
+2021,65877,Morocco->Spain (entry),year-to-date total of the December 2021 bulletin (flow stopped 31 Oct 2021)
+2022,-1882,Spain->Morocco (exit),year-to-date total of the December 2022 bulletin (reverse flow from 28/29 Jun 2022)
+2023,-9471,Spain->Morocco (exit),year-to-date total of the December 2023 bulletin
+2024,-9703,Spain->Morocco (exit),year-to-date total of the December 2024 bulletin
+2025,-10375,Spain->Morocco (exit),derived: MAT Jan-2026 (-10525) - Jan-2026 (-822) + Jan-2025 (-672); equals Morocco's customs figure in UN Comtrade (10.375e9)
