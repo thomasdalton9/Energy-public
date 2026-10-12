@@ -1,0 +1,20 @@
+5.1Energie  S.A 2020.xlsx/SOMMAIRE ENERGIE ET EAU/r6:  4 - Evolutin de la puissance installée, de la production  d’électricité | 4  - تطور القدرة المنشأة، إنتاج الطاقة  الكهربائية
+5.1Energie  S.A 2020.xlsx/SOMMAIRE ENERGIE ET EAU/r16: 14 Situation hydraulique des barrages hydroélectriques |  14- الوضع الهيدروليكي للسدود الكهرومائية
+5.1Energie  S.A 2020.xlsx/1-2-3/r9:    Electricité Hydraulique | 328 | 440 | 308.0 |   الكهرباء من أصل مائي
+5.1Energie  S.A 2020.xlsx/1-2-3/r15:    Charbon (1) | 7601 | 6050 | 5308.0 |   الفحم  (1) 
+5.1Energie  S.A 2020.xlsx/1-2-3/r16:    Electricité Hydraulique | 328 | 440 | 308.0 |   الكهرباء من أصل مائي
+5.1Energie  S.A 2020.xlsx/1-2-3/r31:    Charbon (1) | 8.8 | 8.4 | 5.8 |   الفحم  (1) 
+5.1Energie  S.A 2020.xlsx/1-2-3/r52:  Charbon                 : 1 tonne        = 0,66 T.E.P | الفحم     : طن واحد                      = 0.66 ط.م.ب
+5.1Energie  S.A 2020.xlsx/4/r2:  5 -4 Evolution de la puissance installée, de la production   | 5 - 4 تطور القدرة المنشأة، إنتاج  
+5.1Energie  S.A 2020.xlsx/4/r7:  Puissances installées (en Mega Watt) | 10677 | 10939 | 8821.039 | القدرات المنشأة (بميكا واط )
+5.1Energie  S.A 2020.xlsx/4/r9:     Hydraulique  | 1770 | 1770 | 1770.039 |     المائية
+5.1Energie  S.A 2020.xlsx/4/r11:         Charbon vapeur | 4116 | 4281 | 2895 |           فحم بخاري
+5.1Energie  S.A 2020.xlsx/4/r27:  Puissances installées (en Mega Watt) | القدرات المنشأة (بميكا واط )
+5.1Energie  S.A 2020.xlsx/4/r39:      Hydraulique  | 1653.781 | 1997.8 | 1564.712 |     المائية
+5.1Energie  S.A 2020.xlsx/5/r8:  Usines hydrauliques  | 1653.7789999999998 | 1997.8 | 1564.712 | المعامل المائية 
+5.1Energie  S.A 2020.xlsx/11-12/r9:    Charbon  | 10068.6 | 7772.8 | 6718.639 |   الفحم
+5.1Energie  S.A 2020.xlsx/11-12/r10:         Charbon importé(1) | 10068.6 | 7772.8 | 6718.639 |     الفحم المستورد (1)
+5.1Energie  S.A 2020.xlsx/11-12/r20:         Charbon (2) | 191.9 | 135.8 | 126.82428999999998 |     الفحم (2)
+5.1Energie  S.A 2020.xlsx/13-14/r17:  5 - 14 Situation hydraulique des barrages hydroélectriques | 5 - 14  الوضع الهيدروليكي للسدود الكهرومائية
+5.1Energie  S.A 2020.xlsx/13-14/r22: réserves hydrauliques totales | réserves hydrauliques utiles
+5.1Energie  S.A 2020.xlsx/Graph/r4: Produits pétroliers et gaz  naturel | Charbon | Electricité

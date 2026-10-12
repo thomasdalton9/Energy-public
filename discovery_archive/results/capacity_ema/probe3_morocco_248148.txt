@@ -1,0 +1,20 @@
+5. Energie et Eau_AS 2022.xlsx/SOMMAIRE ENERGIE ET EAU/r6:  4 - Evolutin de la puissance installée, de la production  d’électricité | 4  - تطور القدرة المنشأة، إنتاج الطاقة  الكهربائية
+5. Energie et Eau_AS 2022.xlsx/SOMMAIRE ENERGIE ET EAU/r16: 14 Situation hydraulique des barrages hydroélectriques |  14- الوضع الهيدروليكي للسدود الكهرومائية
+5. Energie et Eau_AS 2022.xlsx/1-2-3/r9:    Electricité Hydraulique | 213 | 226 | 328 |   الكهرباء من أصل مائي
+5. Energie et Eau_AS 2022.xlsx/1-2-3/r15:    Charbon (1) | 7902 | 7461 | 7599 |   الفحم  (1) 
+5. Energie et Eau_AS 2022.xlsx/1-2-3/r16:    Electricité Hydraulique | 213 | 226 | 328 |   الكهرباء من أصل مائي
+5. Energie et Eau_AS 2022.xlsx/1-2-3/r31:    Charbon (1) | 10.3 | 6.9 | 8.8 |   الفحم  (1) 
+5. Energie et Eau_AS 2022.xlsx/1-2-3/r52:  Charbon                 : 1 tonne        = 0,66 T.E.P | الفحم     : طن واحد                      = 0.66 ط.م.ب
+5. Energie et Eau_AS 2022.xlsx/4/r2:  5 -4 Evolution de la puissance installée, de la production   | 5 - 4 تطور القدرة المنشأة، إنتاج  
+5. Energie et Eau_AS 2022.xlsx/4/r7:  Puissances installées (en Mega Watt) | 10967.899999999998 | 10627.199999999997 | 10677.199999999997 | القدرات المنشأة (بميكا واط )
+5. Energie et Eau_AS 2022.xlsx/4/r9:     Hydraulique  | 1770 | 1770 | 1770.0 |     المائية
+5. Energie et Eau_AS 2022.xlsx/4/r11:         Charbon vapeur | 4116 | 4116 | 4116.0 |           فحم بخاري
+5. Energie et Eau_AS 2022.xlsx/4/r27:  Puissances installées (en Mega Watt) | القدرات المنشأة (بميكا واط )
+5. Energie et Eau_AS 2022.xlsx/4/r39:      Hydraulique  | 1212.652 | 1290.1 | 1654.5 |     المائية
+5. Energie et Eau_AS 2022.xlsx/5/r8:  Usines hydrauliques  | 1212.6 | 1290.089 | 1653.7429999999997 | المعامل المائية 
+5. Energie et Eau_AS 2022.xlsx/11-12/r9:    Charbon  | 10604.3 | 10111.3 | 10065 |   الفحم
+5. Energie et Eau_AS 2022.xlsx/11-12/r10:         Charbon importé(1) | 10604.3 | 10111.3 | 10065 |     الفحم المستورد (1)
+5. Energie et Eau_AS 2022.xlsx/11-12/r20:         Charbon (2) | 193.6 | 275.4 | 191.9 |     الفحم (2)
+5. Energie et Eau_AS 2022.xlsx/13-14/r17:  5 - 14 Situation hydraulique des barrages hydroélectriques | 5 - 14  الوضع الهيدروليكي للسدود الكهرومائية
+5. Energie et Eau_AS 2022.xlsx/13-14/r22: réserves hydrauliques totales | réserves hydrauliques utiles
+5. Energie et Eau_AS 2022.xlsx/Graph/r4: Produits pétroliers et gaz  naturel | Charbon | Electricité
