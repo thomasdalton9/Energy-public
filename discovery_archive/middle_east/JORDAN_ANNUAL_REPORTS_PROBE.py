@@ -71,11 +71,11 @@ def main():
             if r is None:
                 continue
             open(f"{OUT}/memr_list_{k}.html", "w").write(r.text)
-            links += re.findall(r'[^"\'\s<>()]+\.pdf', r.text, re.I)
+            links += [l for l in re.findall(r'[^"\'\s<>()]+\.pdf', r.text, re.I) if "/en/" in l.lower()]
         links = sorted(set(links))
         print("MEMR links", links)
         for y in range(2013, 2026):
-            cand = [l for l in links if str(y) in l]
+            cand = [l for l in links if str(y) in l and "annual" in l.lower()]
             url = cand[0] if cand else f"https://www.memr.gov.jo/ebv4.0/root_storage/en/eb_list_page/annual_report_{y}.pdf"
             if url.startswith("/"):
                 url = "https://www.memr.gov.jo" + url
@@ -96,6 +96,9 @@ def main():
 def pack():
     import gzip
     allt = {}
+    old = "discovery_archive/results/jordan_annual/report_text.json.gz"
+    if os.path.exists(old):
+        allt = json.load(gzip.open(old, "rt"))
     for fn in sorted(os.listdir(OUT)):
         if fn.endswith(".json"):
             allt[fn[:-5]] = json.load(open(f"{OUT}/{fn}"))
