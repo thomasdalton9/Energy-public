@@ -887,7 +887,12 @@ def main():
                 lm = r.headers.get("Last-Modified", "") if r is not None and r.status_code == 200 else None
                 if lm is None or lm == (k.get("Last_Modified") or ""):
                     continue
-                log(f"{y}: Last-Modified changed ({k.get('Last_Modified')} -> {lm})")
+                # gov.il's servers do not all give the same Last-Modified: only a changed FILE counts
+                r = fetch(k["URL"])
+                if r is None or r.status_code != 200 or \
+                        hashlib.sha256(r.content).hexdigest()[:16] == str(k.get("SHA256")):
+                    continue
+                log(f"{y}: file changed (Last-Modified {k.get('Last_Modified')} -> {lm})")
             for pat in URL_PATTERNS:
                 url = pat.format(y=y)
                 r = fetch(url)
