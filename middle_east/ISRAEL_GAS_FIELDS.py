@@ -16,7 +16,8 @@ Israel natural gas sales by field, QUARTERLY, from the field owners' own reports
       figures (Q2 = H1 - Q1 ...); a quarter whose two year-to-date figures are not both published stays blank.
 
 All volumes are SALES (gross field, 100%), which differ slightly from production. The national quarterly total is the sum
-of the three fields and is only given for quarters all three have (Q4 2022 on). Bcf/d = BCM x 35.3147 / days in the quarter.
+of the three fields and is only given for quarters all three have (Q1-Q2 2023 and Q1 2024 on, Oct 2026:
+Karish's FY 2022, 9M 2023 and FY 2023 bcm were not found, so its Q4 2022 and Q3-Q4 2023 are blank). Bcf/d = BCM x 35.3147 / days in the quarter.
 Check (Oct 2026 probe): 2025 Leviathan 10.9 + Tamar 10.05 + Karish 5.6 = 26.6 BCM vs the Natural Gas Authority's 26.8.
 
 SCHEDULE: quarterly (15 Jan/Apr/Jul/Oct): the owners publish 6-10 weeks after each quarter, so each run picks up the
@@ -290,7 +291,7 @@ NOTES_LINES = [
     "Tamar Petroleum's English/Hebrew reports on its site and on TASE MAYA: totals rounded to 0.1 BCM before 2021, "
     "quarters published as such or as differences of year-to-date figures; domestic/export split from Q3 2020, none "
     "published earlier); Karish from Q4 2022 (first gas). The national total is given only for quarters all three "
-    "fields have (Q4 2022 on). Reported 6-10 weeks after each quarter; the pull runs on 15 Jan/Apr/Jul/Oct.",
+    "fields have (Q1-Q2 2023 and Q1 2024 on: Karish lacks Q4 2022 and Q3-Q4 2023). Reported 6-10 weeks after each quarter; the pull runs on 15 Jan/Apr/Jul/Oct.",
     "",
     "CHECK",
     "Natural Gas Authority (gov.il) annual review: 2025 total 26.8 BCM (Leviathan 11, Tamar 10, Karish 5.8), exports "
