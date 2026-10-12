@@ -349,6 +349,59 @@ def power_capacity(title):
     return f
 
 
+def _storage_sum(d):
+    return d.get("Storage_MW", 0).fillna(0) + d.get("PumpedStorage_MW", 0).fillna(0)
+
+
+def gb_capacity(p):
+    """United Kingdom (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): month-end capacity (solar = DESNZ ET 6.3, wind / bioenergy /
+    storage = REPD rebuild), net additions, official quarterly renewables (ET 6.1) and DUKES 5.12 on 1 January (all fuels)."""
+    out = []
+    d = by_date(read(p, "Monthly"), "date")
+    d = d[(d.index >= "2021-01-01") & d["Wind_MW"].notna()]   # months after the REPD cutoff have solar only
+    g = pd.DataFrame({"Wind": d.get("Wind_MW"), "Solar": d.get("Solar_MW"), "Bioenergy": d.get("Bioenergy_MW"),
+                      "Storage (batteries + pumped)": _storage_sum(d).where(d.get("Storage_MW").notna())}) / 1000.0
+    out.append(spec("Capacity", g, "UK installed capacity, month-end: solar (DESNZ ET 6.3), wind, bioenergy, storage (REPD rebuild)",
+                    "GW installed", "stacked_bar"))
+    full = by_date(read(p, "Monthly"), "date")
+    adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff()})
+    out.append(spec("Net additions", adds[adds.index >= "2021-02-01"], "UK net capacity additions per month: solar (DESNZ ET 6.3), wind (REPD)",
+                    "MW per month", "stacked_bar"))
+    try:
+        q = by_date(read(p, "Quarterly_ET61"), "date")
+        q = q[q.index >= "2015-01-01"]
+        out.append(spec("Quarterly", pd.DataFrame({"Hydro": q.get("Hydro_MW"), "Wind": q.get("Wind_MW"), "Solar": q.get("Solar_MW"),
+                                                    "Bioenergy": q.get("Bioenergy_MW")}) / 1000.0,
+                        "UK renewable capacity at quarter end (DESNZ Energy Trends 6.1, quarterly)", "GW installed", "stacked_bar"))
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        a = by_date(read(p, "Annual_DUKES"), "date_1_Jan")
+        a = a[a.index >= "2012-01-01"]
+        ga = pd.DataFrame({"Gas": a.get("Gas_MW"), "Coal": a.get("Coal_MW"), "Nuclear": a.get("Nuclear_MW"), "Oil": a.get("Oil_MW"),
+                           "Hydro": a.get("Hydro_MW"), "Wind": a.get("Wind_MW"), "Solar": a.get("Solar_MW"),
+                           "Bioenergy": a.get("Bioenergy_MW"), "Storage (batteries + pumped)": _storage_sum(a),
+                           "Other": a.get("Other_MW")}) / 1000.0
+        out.append(spec("Annual", ga, "UK installed capacity on 1 January by fuel (DUKES 5.12 / 5.16)", "GW installed", "stacked_bar", "%Y"))
+    except Exception:  # noqa: BLE001
+        pass
+    return out
+
+
+def ie_capacity(p):
+    """Ireland (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): EirGrid monthly wind plus register rebuilds, net additions."""
+    d = by_date(read(p, "Monthly"), "date")
+    full = d
+    d = d[(d.index >= "2021-01-01") & d["Wind_MW"].notna()]   # EirGrid posts the DSO wind part later than the TSO part
+    g = pd.DataFrame({"Wind": d.get("Wind_MW"), "Solar": d.get("Solar_MW"), "Hydro": d.get("Hydro_MW"),
+                      "Bioenergy": d.get("Bioenergy_MW"), "Storage (batteries + pumped)": _storage_sum(d)}) / 1000.0
+    adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff(), "Storage (batteries)": full["Storage_MW"].diff()})
+    return [spec("Capacity", g, "Ireland installed capacity, month-end: wind (EirGrid series), solar / hydro / bioenergy / storage (registers)",
+                 "GW installed", "stacked_bar"),
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Ireland net capacity additions per month: wind (EirGrid), solar and batteries (registers)",
+                 "MW per month", "stacked_bar")]
+
+
 def honduras_power(p):
     """ODS daily mix (from 2026-06) plus ODS's monthly history by technology (thermal not split by fuel)."""
     out = power_daily("Honduras power generation by type (ODS)")(p)
@@ -3223,6 +3276,8 @@ REGISTRY = {
     "nz_gas.xlsx": nz_gas,
     "north_america_power_by_type.xlsx": sa_power,
     "us_power_capacity.xlsx": us_capacity,
+    "united_kingdom_power_capacity_monthly.xlsx": gb_capacity,
+    "ireland_power_capacity_monthly.xlsx": ie_capacity,
     "canada_power_capacity.xlsx": power_capacity("Canada installed generating capacity (StatCan, annual)"),
     "mexico_power_capacity.xlsx": power_capacity("Mexico installed generating capacity (Ember - no raw feed, annual)"),   # Ember fallback for Canada and Mexico (same layout)
     "latin_america_industrial_gas_users.xlsx": industrial_gas_users,   # static plant register, category axis
