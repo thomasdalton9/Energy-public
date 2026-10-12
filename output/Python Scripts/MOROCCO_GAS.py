@@ -242,8 +242,8 @@ def tarifa_daily(raw):
 
 def enagas_listing(rel):
     """Bulletin PDFs on the listing page per (year, month) filter; the listing month is the publication month."""
-    seen = sorted((tuple(int(x) for x in str(k).split("|")[0].split("-")) for k in rel.keys("Enagas")
-                   if re.match(r"^\d{4}-\d{2}\|", str(k))), default=None)
+    seen = sorted(tuple(int(x) for x in str(k).split("|")[0].split("-")) for k in rel.keys("Enagas")
+                  if re.match(r"^\d{4}-\d{2}\|", str(k)))
     today = date.today()
     y, m = ENAGAS_FIRST
     if seen:
