@@ -3637,7 +3637,7 @@ def israel_gas_annual(p):
 def egypt_gas(p):
     """Egypt gas balance (middle_east/EGYPT_GAS.py): JODI (fallback) monthly in Bcf/d with LNG IMPLIED from the balance
     (owner's decision: JODI's reported LNG rows are not charted), plus the official annual layer (CAPMAS, MOEE)."""
-    d = by_date(read(p, "Monthly - JODI (fallback)"), "date").apply(pd.to_numeric, errors="coerce")
+    d = by_date(read(p, "Monthly JODI (fallback)"), "date").apply(pd.to_numeric, errors="coerce")
     j = lambda stem: f"{stem}_JODI_fallback_Bcf_d"
     imp = "Implied net LNG (+ imports / - exports)"
     bal = d[cols(d, j("Production"), j("Pipeline_imports"), "Implied_net_LNG_imports_Bcf_d",

@@ -77,8 +77,8 @@ CAPMAS_IDS = [  # (indicatorId, publication id)
     (9543, 77), (9545, 77), (5937, 77), (5939, 77)]
 MOEE_FUEL = "http://www.moee.gov.eg/english_new/ST_fuel.aspx"
 
-S_MONTHLY = "Monthly - JODI (fallback)"
-S_RAW = "JODI (fallback) raw"
+S_MONTHLY = "Monthly JODI (fallback)"
+S_RAW = "JODI (fallback) all rows"
 S_ANNUAL = "Annual official"
 S_CHECKS = "Checks"
 S_CHECKS_FY = "Checks FY"
@@ -403,7 +403,7 @@ def checks(raw, monthly, annual):
         c[f"CAPMAS_{iid}_{name}_million_m3"] = v
         if jodi:
             c[f"Ratio_JODI_to_CAPMAS_{name}"] = (c[jodi].where(c.index.isin(full)) / c[f"CAPMAS_{iid}_{name}_million_m3"]).round(3)
-    c = c.round(1)
+    c = c.round({k: (3 if k.startswith('Ratio') else 1) for k in c.columns})
     c.index = pd.to_datetime(c.index.astype(int).astype(str) + "-01-01")
     c.index.name = "date"
     # fiscal years (Jul-Jun) for MOEE gas for power
@@ -429,6 +429,7 @@ def read_sheet(path, sheet, index="date"):
         d = pd.read_excel(path, sheet_name=sheet)
     except (FileNotFoundError, ValueError):
         return None
+    d = d.drop(columns=[c for c in d.columns if str(c).startswith("Unnamed")])
     if index and index in d.columns:
         d[index] = pd.to_datetime(d[index])
         d = d.set_index(index)
