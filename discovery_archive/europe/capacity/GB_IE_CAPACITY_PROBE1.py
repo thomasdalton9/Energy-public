@@ -1,5 +1,12 @@
 """Probe 1 (12 Oct 2026): which raw sources give monthly/quarterly installed capacity for GB / NI / Ireland.
-Findings are in discovery_archive/results/europe_capacity/gb_ie_probe1.txt after the run."""
+
+FINDINGS (12 Oct 2026, Actions): gov.uk Energy Trends 6 page lists ET 6.1 (quarterly renewable capacity, UK/NI, Q1 2010 on) and ET 6.3
+(monthly solar PV, GB/NI/UK, Jan 2010 on) via the content API; REPD csv/xlsx on the REPD page (Operational date per project);
+DUKES 5.12 / 5.16 annual. Elexon IGCA / IGCPU return no rows; the BMU registry (reference/bmunits/all) has generationCapacity and
+fuelType but no dates or history (3.3 GW 'COAL' still registered). NESO TEC / embedded registers = live agreements only.
+Energy-Charts monthly installed_power exists for DE only (UK/IE 404/400). EirGrid System-and-Renewable-Data-Summary-Report xlsx
+has monthly wind (IE/NI), connected-generator registers with energisation dates (wind, solar, other, storage) and thermal MEC.
+SEAI and ESB Networks pages block or have no files (ESBN data is copied into the EirGrid workbook). Probes 2-5 dump the layouts."""
 import re, sys, requests
 S = requests.Session()
 S.headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) energy-research"
