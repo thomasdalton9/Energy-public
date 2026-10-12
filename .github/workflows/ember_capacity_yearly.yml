@@ -1,0 +1,42 @@
+name: Ember yearly capacity by fuel (all countries)
+
+# One whole-file download of Ember's yearly electricity data -> ember_capacity_yearly.xlsx (capacity by fuel, every country, MW). The
+# labelled FALLBACK_EMBER source of the complete monthly capacity builds (capacity_fill.py). Runs before them (04:55 UTC, after
+# long_term_energy 04:47).
+on:
+  schedule:
+    - cron: "55 4 1,15 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests
+      - name: Pull Ember yearly capacity
+        run: python3 EMBER_CAPACITY_YEARLY.py
+      - name: Commit
+        if: always()
+        run: |
+          f="output/Data and Chart Outputs/ember_capacity_yearly.xlsx"
+          [ -f "$f" ] || { echo "No workbook to commit."; exit 0; }
+          mkdir -p "output/Python Scripts"
+          cp EMBER_CAPACITY_YEARLY.py xlsx_notes.py "output/Python Scripts/" || true
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "$f" "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Ember yearly capacity by fuel: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
