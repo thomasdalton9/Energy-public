@@ -42,7 +42,7 @@ DATA_DIR = sam.DATA_DIR
 GAS_DATASETS = [
     ("IL", "Israel", "israel_gas_fields_quarterly.xlsx", ("Quarterly", "Leviathan", "Tamar", "Karish YTD"), "gas by field"),
     ("IL", "Israel", "israel_gas_annual_nga.xlsx", ("Annual", "Checks"), "annual gas balance"),
-    ("EG", "Egypt", "egypt_gas_monthly.xlsx", ("Monthly - JODI (fallback)", "JODI (fallback) raw", "Annual official",
+    ("EG", "Egypt", "egypt_gas_monthly.xlsx", ("Monthly JODI (fallback)", "JODI (fallback) all rows", "Annual official",
                                                "Checks", "Checks FY"), "gas balance (JODI fallback)"),
 ]
 POWER_DATASETS = [

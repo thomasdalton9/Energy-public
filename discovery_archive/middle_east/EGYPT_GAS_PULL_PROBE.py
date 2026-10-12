@@ -2,6 +2,18 @@
 Probe for middle_east/EGYPT_GAS.py (Oct 2026): (1) JODI jodidb.org viewer, Egypt only, every balance row, million m3,
 all months, in one download; (2) CAPMAS IndicatorFilter JSON for the gas indicators (full payload, to see unit fields);
 (3) MOEE ST_fuel.aspx tables. Workflow (manual): discovery_archive/workflows/egypt_gas_pull_probe.yml.
+
+RUN 1 (2026-10-12, Actions run 38190691497):
+- MOEE ST_fuel.aspx: one table (42 x 9): Chart | Year ('2023/2022' = FY2022/23 ... '1982/1981') | H.F.O Ktons |
+  N.G. Million m3 (34,142 in FY2022/23) | L.F.O tons | Coke ktons | Nafatia ktons | L.F.O ktons ('17٫3', Arabic decimal
+  sign) | Total ktoe. No Last-Modified header.
+- CAPMAS: IndicatorDetails?indicatorId=&publicationId= gives measureUnit (EN): energy balance 3112/3102/3108/3121/3124
+  'Million cubic meter', 3155 '1000 tons of equivalent oil', petroleum-sector 9543/9544/9545/5937/5939 'Quantity in 1000
+  tons' (indicator-wide); yearTypeId=2, periodic 'Annually'. 3112 production 2014-2022 (2016 = 168, 2018/2020 missing),
+  3102 to 2019, 9543 filters total/Houses/Other/Industry/Governmental/Car service..., 5937/5939 natural gas rows.
+- JODI viewer: one download with Country=[h], BALANCE all, Unit 0, TIME all works (CSV link in OnDownload). Country
+  handles follow the country listing order (handle 28 = Egypt; 29 = Equatorial Guinea). Item counts '95,1,14,3,211'
+  = Country, Product, BALANCE, Unit, TIME.
 """
 import html
 import json
