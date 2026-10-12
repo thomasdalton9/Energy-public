@@ -23,7 +23,7 @@ NORWAY - NVE (Norges vassdrags- og energidirektorat) hydropower database and win
   wind has exact turbine-group dates (commissioning and removal). Offshore wind (Hywind Tampen, 88 MW, supplies oil
   platforms) is not in the wind database. NVE's 'Pumpekraftverk' (pumped-storage plants with a generating turbine) are
   kept in PumpedStorage_MW and also summed with conventional hydro in Hydro_incl_pumped_MW, because ENTSO-E's 'Hydro'
-  matches that sum (34,029 MW on 1 Jan 2026 against 34,084). Plants listed 'under construction' are not counted.
+  matches that sum (34,029 MW on 1 Jan 2026 against 34,091 rebuilt). Plants listed 'under construction' are not counted.
   The registers are whole-file sources: each run downloads them, merges them into the stored 'Register_*' sheets
   (a plant that disappears from the source keeps its stored dates) and rebuilds the months; the hash of each file is
   recorded on 'Releases'.
@@ -172,7 +172,7 @@ def run_dk(out_dir):
         th = (e["Total_MW"] - e["Wind_MW"] - e["Solar_MW"]).dropna()
         rows = []
         for d, v in th.items():
-            if d in monthly.index and pd.notna(monthly.at[d, "Thermal_unsplit_MW"]):
+            if v > 0 and d in monthly.index and pd.notna(monthly.at[d, "Thermal_unsplit_MW"]):
                 a = monthly.at[d, "Thermal_unsplit_MW"]
                 rows.append({"date": d, "series": "Thermal_unsplit_MW (ENTSO-E: total less wind less solar)", "this_file_MW": round(a, 1),
                              "ENTSOE_A68_MW": float(v), "difference_MW": round(a - v, 1), "difference_pct": round((a - v) / v * 100, 1)})
@@ -244,7 +244,7 @@ def no_rebuild(hyd, win):
     w = win[win["commissioned"].notna()].copy()
     w["MW"] = pd.to_numeric(w["turbines"]) * pd.to_numeric(w["kW_each"]) / 1000.0
     out["Wind_MW"] = [float(w.loc[(w["commissioned"] < d) & (w["removed"].isna() | (w["removed"] >= d)), "MW"].sum()) for d in months]
-    out["Total_MW"] = out["Hydro_MW"] + out["Wind_MW"]   # excludes pumped storage, as in the other capacity workbooks
+    out["Total_MW"] = out["Hydro_incl_pumped_MW"] + out["Wind_MW"]   # includes NVE pumped-storage plants: ENTSO-E's Hydro does
     out = out.round(2)
     out.index.name = "date"
     return out[NO_COLS]
@@ -254,7 +254,7 @@ def no_notes():
     lines = ["Norway - monthly installed generation capacity (MW), rebuilt from NVE's registers", "",
              "Source", "NVE (Norwegian Water Resources and Energy Directorate) hydropower database https://api.nve.no/web/Powerplant/GetHydroPowerPlants and wind power database https://api.nve.no/web/WindPowerplant/GetWindPowerplants (keyless).",
              "Raw official registers; month-end capacity is REBUILT from commissioning and removal dates, so it is a reconstruction, not a published monthly series. The row dated 1 May is the capacity at the end of April.",
-             "", "What is covered", "Hydro (conventional plants), pumped-storage plants (NVE 'Pumpekraftverk') and onshore wind. PARTIAL: gas (~0.5 GW), solar, bioenergy and other fuels have no dated register here. Total_MW = hydro + wind (excludes pumped storage).",
+             "", "What is covered", "Hydro (conventional plants), pumped-storage plants (NVE 'Pumpekraftverk') and onshore wind. PARTIAL: gas (~0.5 GW), solar, bioenergy and other fuels have no dated register here. Total_MW = hydro + pumped-storage plants + wind (NVE's pumped-storage plants are in it because ENTSO-E's Hydro includes them; Hydro_MW alone is conventional hydro).",
              "Hydro_incl_pumped_MW = conventional hydro + pumped-storage plants; ENTSO-E's Hydro matches this sum (see Check_ENTSOE).",
              "", "Limits",
              "The hydro database holds only each plant's CURRENT installed power: later upgrades are back-dated to first commissioning, so earlier years can be too high for upgraded plants, while plants removed from the database altogether are missing.",
@@ -277,8 +277,8 @@ def run_no(out_dir):
         rows = []
         for d in e.index:
             if d in monthly.index:
-                a, b = monthly.at[d, "Hydro_incl_pumped_MW"], e.at[d, "Hydro_MW"] + e.at[d, "PumpedStorage_MW"]
-                rows.append({"date": d, "series": "Hydro_incl_pumped_MW (ENTSO-E: Hydro + PumpedStorage)", "this_file_MW": round(a, 1),
+                a, b = monthly.at[d, "Hydro_incl_pumped_MW"], e.at[d, "Hydro_MW"]
+                rows.append({"date": d, "series": "Hydro_incl_pumped_MW (vs ENTSO-E Hydro_MW)", "this_file_MW": round(a, 1),
                              "ENTSOE_A68_MW": float(b), "difference_MW": round(a - b, 1), "difference_pct": round((a - b) / b * 100, 1)})
         if rows:
             chk = pd.concat([chk, pd.DataFrame(rows).set_index("date")]).sort_index() if len(chk) else pd.DataFrame(rows).set_index("date")

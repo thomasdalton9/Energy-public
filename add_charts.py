@@ -362,9 +362,9 @@ def dk_capacity(p):
                       "Thermal (all fuels, not split at source)": d.get("Thermal_unsplit_MW")}) / 1000.0
     full = by_date(read(p, "Monthly"), "date")
     adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff()})
-    return [spec("Capacity", g, "Denmark installed capacity, start of month: wind, solar, thermal (Energinet / Danish Energy Agency)",
+    return [spec("Capacity", g, "Denmark installed capacity, start of month (Energinet)",
                  "GW installed", "stacked_bar"),
-            spec("Net additions", adds[adds.index >= "2021-02-01"], "Denmark net capacity additions per month: solar and wind (Energinet)",
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Denmark net capacity additions per month (Energinet)",
                  "MW per month", "stacked_bar")]
 
 
@@ -376,9 +376,9 @@ def no_capacity(p):
     g = pd.DataFrame({"Hydro": d.get("Hydro_MW"), "Wind": d.get("Wind_MW"),
                       "Pumped storage": d.get("PumpedStorage_MW")}) / 1000.0
     adds = pd.DataFrame({"Hydro": full["Hydro_MW"].diff(), "Wind": full["Wind_MW"].diff()})
-    return [spec("Capacity", g, "Norway installed capacity, start of month: hydro, wind, pumped storage (NVE registers, rebuilt from dates)",
+    return [spec("Capacity", g, "Norway installed capacity, start of month (NVE, rebuilt)",
                  "GW installed", "stacked_bar"),
-            spec("Net additions", adds[adds.index >= "2021-02-01"], "Norway net capacity additions per month: hydro and wind (NVE registers)",
+            spec("Net additions", adds[adds.index >= "2021-02-01"], "Norway net capacity additions per month (NVE, rebuilt)",
                  "MW per month", "stacked_bar")]
 
 
