@@ -96,31 +96,281 @@ isagg
 False  66989  20256.553434   66989
 True   25858   4783.377479  973268
 current: agg solar by date-year (MW):
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 374, in na_logical_op
-    result = op(x, y)
-             ^^^^^^^^
-TypeError: unsupported operand type(s) for &: 'bool' and 'method'
+d_rac
+1900       1.0
+1905       1.0
+1919       8.0
+1999       1.0
+2000       1.0
+2001       4.0
+2002      12.0
+2003      12.0
+2004     130.0
+2005     110.0
+2006     219.0
+2007     737.0
+2008    1500.0
+2009    1762.0
+2010    1247.0
+2011     254.0
+2012      51.0
+2013      32.0
+2014      17.0
+2015      10.0
+2016       7.0
+2017       8.0
+2018       7.0
+2019       6.0
+2020       5.0
+2021       5.0
+2022       2.0
+2023       2.0
+2024       0.0
+2025       1.0
+current non-agg solar by connection year (MW):
+d_rac
+1905.0       1.0
+1919.0       5.0
+1999.0       0.0
+2002.0       0.0
+2004.0       0.0
+2005.0       0.0
+2006.0       1.0
+2007.0      14.0
+2008.0      25.0
+2009.0     105.0
+2010.0     458.0
+2011.0    1452.0
+2012.0     957.0
+2013.0     500.0
+2014.0     810.0
+2015.0     793.0
+2016.0     489.0
+2017.0     792.0
+2018.0     766.0
+2019.0     842.0
+2020.0    1074.0
+2021.0    2548.0
+2022.0    2222.0
+2023.0    2425.0
+2024.0    3967.0
+2025.0    5208.0
+2026.0    3277.0
+2045.0       0.0
 
-During handling of the above exception, another exception occurred:
+#### A2. ODRE catalogue: trimestre / panorama / raccord
+trimestr []
+panorama []
+raccord []
+puissance []
+parc ['parc-national-annuel-prod-eolien-solaire', 'parc-prod-par-filiere', 'parc-regional-annuel-prod-eolien-solaire', 'parc-region-annuel-production-filiere']
 
-Traceback (most recent call last):
-  File "/home/runner/work/Energy-public/Energy-public/discovery_archive/europe/capacity/CAP_SWEIT_PROBE6.py", line 68, in <module>
-    c = cur[(cur.filiere == "Solaire") & cur.agg]
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/common.py", line 85, in new_method
-    return method(self, other)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/arraylike.py", line 72, in __and__
-    return self._logical_method(other, operator.and_)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/series.py", line 6746, in _logical_method
-    res_values = ops.logical_op(lvalues, rvalues, op)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 464, in logical_op
-    res_values = na_logical_op(lvalues, rvalues, op)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/pandas/core/ops/array_ops.py", line 384, in na_logical_op
-    assert lib.is_scalar(y)
-           ^^^^^^^^^^^^^^^^
-AssertionError
+#### B. SDES quarterly xlsx
+9714 ['solaire PV', 'solaire PV inférieur à 3 kW', 'solaire PV entre 3 et 9 kW']
+-- solaire PV (14, 175)
+                                                                                                                             0                   1     2                    3                    4                    5                    6                    7                    8
+0   Installations solaires photovoltaïques raccordées au réseau : résultats trimestriels par département et région depuis 2005                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+1                                                                                                      Unité : puissance en MW                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+2                                                                                                                          NaN                 NaN   NaN  2005-03-31 00:00:00  2005-03-31 00:00:00  2005-06-30 00:00:00  2005-06-30 00:00:00  2005-09-30 00:00:00  2005-09-30 00:00:00
+3                                                                                                                          NaN                 NaN   NaN               nombre            puissance               nombre            puissance               nombre            puissance
+4                                                                                                        
+-- solaire PV inférieur à 3 kW (14, 175)
+                                                                                                                                                                        0                   1     2                    3                    4                    5                    6                    7                    8
+0   Installations solaires photovoltaïques d'une puissance inférieure ou égale à 3 kW raccordées au réseau : résultats trimestriels par département et région depuis 2005                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+1                                                                                                                                                 Unité : puissance en MW                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+2                                                                                                                                                                     NaN                 NaN   NaN  2005-03-31 00:00:00  2005-03-31 00:00:00  2005-06-30 00:00:00  2005-06-30 00:00:00  2005-09-30 00:00:00  2005-09-30 00:00:00
+3                                                                                                                                                                     NaN                 NaN   NaN               no
+-- solaire PV entre 3 et 9 kW (14, 175)
+                                                                                                                                                                          0                   1     2                    3                    4                    5                    6                    7                    8
+0   Installations solaires photovoltaïques d'une puissance comprise entre 3 kW  et 9 kW raccordées au réseau : résultats trimestriels par département et région depuis 2005                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+1                                                                                                                                                   Unité : puissance en MW                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+2                                                                                                                                                                       NaN                 NaN   NaN  2005-03-31 00:00:00  2005-03-31 00:00:00  2005-06-30 00:00:00  2005-06-30 00:00:00  2005-09-30 00:00:00  2005-09-30 00:00:00
+3                                                                                                                                                                       NaN                 NaN   NaN       
+9715 ['éolien_terrestre', 'éolien_offshore']
+-- éolien_terrestre (14, 175)
+                                                                                                              0                   1     2                    3                    4                    5                    6                    7                    8
+0   Installations éoliennes raccordées au réseau : résultats trimestriels par département et région depuis 2005                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+1                                                                                       Unité : puissance en MW                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+2                                                                                                           NaN                 NaN   NaN  2005-03-31 00:00:00  2005-03-31 00:00:00  2005-06-30 00:00:00  2005-06-30 00:00:00  2005-09-30 00:00:00  2005-09-30 00:00:00
+3                                                                                                           NaN                 NaN   NaN               nombre            puissance               nombre            puissance               nombre            puissance
+4                                                                                                     Grand Est                 NaN   NaN                    4                 20.8 
+-- éolien_offshore (14, 175)
+                                                                                                              0                   1     2                    3                    4                    5                    6                    7                    8
+0   Installations éoliennes raccordées au réseau : résultats trimestriels par département et région depuis 2005                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+1                                                                                       Unité : puissance en MW                 NaN   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+2                                                                                                           NaN                 NaN   NaN  2005-03-31 00:00:00  2005-03-31 00:00:00  2005-06-30 00:00:00  2005-06-30 00:00:00  2005-09-30 00:00:00  2005-09-30 00:00:00
+3                                                                                                           NaN                 NaN   NaN               nombre            puissance               nombre            puissance               nombre            puissance
+4                                                                                                     Grand Est                 NaN   NaN                    0                    0 
+
+#### C. Terna JS
+CTX: d35f03ef50e">Province</label>
+                    <multiselect id="province-e0d5e1f1-d252-43c4-8775-7d35f03ef50e" :aria-label-value="'Province'" :dictionary-value="provinces" v-model="selectedConnectionsProvinces" @update:model-value="selectedConnectionsMunicipalities = []"></multiselect>
+                </div>
+
+                <!-- Municipality -->
+                <div class="col-12 col-md-6 col-lg-3 mt-3 mt-lg-0" v-if="selectedConnectionsView == 'Municipality'">
+                    <label for="municipality-e0d5e1f1-d252-43c4-8775-7d35f03ef50e">Municipality</label>
+                    <multiselect id="municipality-e0d5e1f1-d252-43c4-8775-7d35f03ef50e" :aria-label-value="'Municipality'" :dictionary-value="municipalities" v-model="selectedConnectionsMunicipalities"></multiselect>
+                </div>
+
+                <!-- Connection state -->
+                <div class="col-12 col-md-6 col-lg-3 mt-3 mt-lg-0">
+                    <label for="connectionState-e0d5e1f1-d252-43c4-8775-7d35f03ef50e">Connection state</label>
+                    <singleselect id="connectionState-e0d5e1f1-d252-43c4-8775-7d35f03ef50e" :aria-label-value="'Connection state'" :dictionary-value="connectionstates" v-model="selectedConnectionState"></singleselect>
+                </div>
+
+                <!-- CONNECTIONS LOCATION COLUMNS END -->
+
+            </div>
+            <div class="col-12 col-md-auto mt-4 mt-md-0">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-auto text-end">
+                        <div class="btn btn-blue m-0" @click.prevent="fetchList(0, true, false, false, true)" v-if=false>
+                            <a href="" title="Search">Search</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="download-legend" v-if="selectedCluster">
+            <div class="row p-0">
+                <div class="col-6 col-md-auto order-1" v-show="showCount">
+                    <span class="n-results"> {{ this.recordCount }}  Items  {{ this.recordCount > this.maxPageSize ? "(Exceeded limit of " + this.maxPageSize + " records for export)" : "" }} </span>
+                </div>
+                <div class="col-6 col-md text-end wrap-download order-2 order-md-3" v-if="selectedDataset != 'SecondaryAdjustmentLevels' && selectedDataset != 'ProjectPicassoConnections'">
+                    <a v-if="showCount && showDownloadButton"  :href="`/api/sitecore/dati/downloadcenter/records?f=xlsx&${this.urlSearchParamsNoPaging.toString()}&pageSize=${Math.min(this.recordCount, this.maxPageSize)}`" download @click="downloadClicked">
+                        Download Data
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M14 10V12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V10" stroke="#005CA9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M4.66675 6.66669L8.00008 10L11.3334 6.66669" stroke="#005CA9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="ro
+CapacityRenewableSources 9 [' == \'ElectricityBySource\' || selectedDataset == \'ProductionRenewableSources\' || selectedDataset == \'CapacityRenewableSources\' || selectedDataset == \'GenerationPlants\'">                     <label for="source-e0d5e1f1-d252-43c4-8775-7d35f03ef50e">Source</label>', ' :aria-label-value="\'Source\'" :dictionary-value="capacityRenewableSources_Sources" v-model="selectedCapacityRenewableSources"></singleselect>                 </div>                  <!-- Fuel (GrossVsCO2Emissions) -->                 <div class="col-12 col-md-']
+CapacityThermal 11 ['Category, Subcategory</label>                     <multiselect-categories v-if="selectedDataset == \'CapacityThermal\'" id="category-e0d5e1f1-d252-43c4-8775-7d35f03ef50e" :aria-label-value="\'Category, Subcategory\'" :dictionary-value="capacityThermalSubcategories', 'l-value="\'Category, Subcategory\'" :dictionary-value="capacityThermalSubcategories" v-model="selectedCapacityThermalSubcategories"></multiselect-categories>                     <multiselect-categories v-else id="category-e0d5e1f1-d252-43c4-8775-7d35f03ef50e" :a']
+GenerationPlants 8 ['ProductionRenewableSources\' || selectedDataset == \'CapacityRenewableSources\' || selectedDataset == \'GenerationPlants\'">                     <label for="source-e0d5e1f1-d252-43c4-8775-7d35f03ef50e">Source</label>                     <singleselect v-if="selected', 'nRenewableSources"></singleselect>                     <singleselect v-else-if="selectedDataset == \'GenerationPlants\'" id="source-e0d5e1f1-d252-43c4-8775-7d35f03ef50e" :aria-label-value="\'Source\'" :dictionary-value="generationPlants_Sources" v-model="selectedE']
+
+#### D. DGEG archive
+67138
+    /pt/destaques/ | Destaques
+    /pt/estatistica/energia/publicacoes/estatisticas-rapidas-das-renovaveis/ | Estatísticas rápidas das renováveis
+    /pt/estatistica/energia/publicacoes/estatisticas-rapidas-das-renovaveis/ | Estatísticas rápidas das renováveis
+    /pt/estatistica/energia/publicacoes/estatisticas-rapidas-dos-combustiveis-fosseis/ | Estatísticas rápidas dos combustíveis fósseis
+    /pt/estatistica/energia/renovaveis/estatisticas-rapidas-das-renovaveis/ | Estatísticas rápidas das renováveis
+    /media/cnkfg5w5/dgeg-arr-2026-08.pdf | agosto 2026 (pdf)
+    /media/psfil4uv/dgeg-arr-2026-07.pdf | julho 2026 (pdf)
+    /media/wkklkfxm/dgeg-arr-2026-06.pdf | junho 2026
+    /media/inqojgad/dgeg-arr-2026-05.pdf | maio 2026 (pdf)
+    /media/vukgx0vs/dgeg-arr-2026-04.pdf | abril 2026 (pdf)
+    /media/v2llqxp5/dgeg-arr-2026-03.pdf | março 2026 (pdf)
+    /media/ge2hwoxe/dgeg-arr-2026-02.pdf | fevereir o 2026 (pdf)
+    /media/eepfhxw1/dgeg-arr-2026-01.pdf | j
+    /media/eepfhxw1/dgeg-arr-2026-01.pdf | aneiro 2026 (pdf)
+    /media/qybp4lbt/dgeg-arr-2025-12.pdf | dezembro 2025 (pdf)
+    /media/zm3hyme1/dgeg-arr-2025-11.pdf | novembro 2025 (pdf)
+    /media/a5nne0vg/dgeg-arr-2025-10.pdf | outubro 2025 (pdf)
+    /media/v0qnipij/dgeg-arr-2025-09.pdf | setembro 2025 (pdf)
+    /media/1dyj1wo1/dgeg-arr-2025-08.pdf | agosto 2025 (pdf)
+    /media/uqtcinqo/dgeg-arr-2025-05.pdf | 
+    /media/sjiphcim/dgeg-arr-2025-07.pdf | julho 2025 (pdf)
+    /media/uqtcinqo/dgeg-arr-2025-05.pdf | 
+    /media/aqmpm3cf/dgeg-arr-2025-06.pdf | junho 2025 (pdf)
+    /media/uqtcinqo/dgeg-arr-2025-05.pdf | maio 2025 (pdf)
+    /media/kluh33x2/dgeg-arr-2025-04.pdf | abril 2025 (pdf)
+    /media/abmpkzsu/dgeg-arr-2025-03.pdf | março 2025 (pdf)
+    /media/upclbs5j/dgeg-arr-2025-02.pdf | fevereiro 2025 (pdf)
+    /media/lfmhngdq/dgeg-arr-2025-01.pdf | janeiro 2025 (pdf)
+    /media/e14basma/dgeg-arr-2024-12-v1.pdf | dezembro 2024 (pdf)
+    /media/krcns4st/dgeg-arr-2024-10.pdf | outubro 2024 (pdf)
+    /media/e5vpyh3g/dgeg-arr-2024-09.pdf | setembro 2024 (pdf)
+    /media/qdidnmxu/dgeg-arr-2024-08.pdf | agosto 2024 (pdf)
+    /media/ruapg153/dgeg-arr-2024-07.pdf | julho 2024 (pdf)
+    /media/4pdljtkr/dgeg-arr-2024-06.pdf | junho 2024 (pdf)
+    /media/qelpruhg/dgeg-arr-2024-05.pdf | maio 2024 (pdf)
+    /media/um5jqbue/dgeg-arr-2024-04.pdf | abril 2024 (pdf)
+    /media/5w2mx33b/dgeg-arr-2024-03.pdf | março 2024 (pdf)
+    /media/mdmivv3u/dgeg-arr-2024-02.pdf | fevereiro 2024 (pdf)
+    /media/tmfl1tla/renovaveis-202401.pdf | janeiro 2024 (pdf)
+    /media/amioxiec/dgeg-arr-2023-12.pdf | 2023 (pdf)
+    /media/cjnfkck0/dgeg-arr-2022-12-v2.pdf | 2022 (pdf)
+    /media/5fjpfuk1/dgeg-arr-2021-12_v2.pdf | 2021 (pdf)
+    /media/zazjmhkh/dgeg-arr-2020-12.pdf | 2020 (pdf)
+    /media/xxajfmj0/dezembro-2019.pdf | 2019 (pdf)
+    /media/1s2i0vpx/dgeg-arr-2021-08.pdf | 
+    /media/xqoi0gyb/i016640.pdf | 2018 (pdf)
+    /media/0pkheg5g/i015770.pdf | 2017 (pdf)
+    /media/kqtkdhtc/i014873.pdf | 2016 (pdf)
+    /media/maomr3fu/i013845.pdf | 2015 (pdf)
+    /media/qj1onw3l/i012660.pdf | 2014 (pdf)
+    /media/stwjxalm/i011905.pdf | 2013 (pdf)
+    /media/z2gj3itx/i011238.pdf | 2012 (pdf)
+    /media/43lb3mj4/i010344.pdf | 2011 (pdf)
+    /media/t23dhmdi/i009507.pdf | 2010 (pdf)
+    /media/idxd5ni2/i009380.pdf | 2009 (pdf)
+    /media/w3ubrjo5/i009389.pdf | 2008 (pdf)
+    /media/y0jjt1rj/i009381.pdf | 2007 (pdf)
+    /media/vtvhxpi0/i009383.pdf | 2006 (pdf)
+    /media/vzsp44mc/i009384.pdf | 2005 (pdf)
+destaques page 2 630270
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-agosto-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-julho-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-junho-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-maio-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-abril-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-marco-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-fevereiro-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-janeiro-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-dezembro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-novembro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-outubro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-agosto-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-julho-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-junho-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-maio-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-abril-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-marco-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-fevereiro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-janeiro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-dezembro-2024/ | Ler mais
+destaques page 3 630270
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-agosto-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-julho-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-junho-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-maio-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-abril-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-marco-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-fevereiro-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-janeiro-2026/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-dezembro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-novembro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-outubro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-agosto-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-julho-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-junho-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-maio-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-abril-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-marco-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-fevereiro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-janeiro-2025/ | Ler mais
+    /pt/destaques/estatisticas-rapidas-das-renovaveis-dezembro-2024/ | Ler mais
+rpe sheets ['DGEG']
+-- DGEG (8, 11)
+                                                             0                                                                                                1   2   3   4   5   6   7
+0                                                          NaN                                                                                              NaN NaN NaN NaN NaN NaN NaN
+1                         Direcção Geral de Energia e Geologia                                                                                              NaN NaN NaN NaN NaN NaN NaN
+2  Direção de Serviços de Planeamento Energético e Estatística                                                                                              NaN NaN NaN NaN NaN NaN NaN
+3                            Divisão de Estatística e Mercados                                                                                              NaN NaN 
+
+#### E. REData doc examples
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2019-01-01T00:00&end_date=2019-01-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "S
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2024-01-01T00:00&end_date=2024-01-31T23:59&time_trunc=month | #HTTP 500 text/html; charset=UTF-8 974
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "S
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2024-01-01T00:00&end_date=2024-01-31T23:59&time_trunc=day | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "S
+
+===== https://apidatos.ree.es/es/datos/generacion/potencia-instalada?start_date=2024-01-01T00:00&end_date=2024-12-31T23:59&time_trunc=month&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741 | #HTTP 500 text/html; charset=UTF-8 975
+<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8" />     <meta name="robots" content="noindex,nofollow,noarchive" />     <title>An Error Occurred: Internal Server Error</title>     <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "S
+
+===== https://apidatos.ree.es/es/datos/balance/balance-electrico?start_date=2024-01-01T00:00&end_date=2024-01-31T23:59&time_trunc=month | #HTTP 200 application/json 11194
+{"data":{"type":"Balance de energ\u00eda el\u00e9ctrica","id":"bal1","attributes":{"title":"Balance de energ\u00eda el\u00e9ctrica","last-update":"2025-01-28T16:56:22.000+01:00","description":"Balance
