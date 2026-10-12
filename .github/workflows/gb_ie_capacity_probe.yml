@@ -8,4 +8,4 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: pip install requests pandas openpyxl
-      - run: python3 discovery_archive/europe/capacity/GB_IE_CAPACITY_PROBE4.py 2>&1 | tee probe4.txt
+      - run: python3 discovery_archive/europe/capacity/GB_IE_CAPACITY_PROBE5.py 2>&1 | tee probe5.txt
