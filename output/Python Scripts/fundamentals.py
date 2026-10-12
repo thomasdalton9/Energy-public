@@ -88,7 +88,7 @@ REGIONS = {
                "Austria", "Switzerland", "Czechia", "Slovakia", "Hungary", "Romania", "Bulgaria", "Greece", "Portugal",
                "Croatia", "Slovenia", "Denmark", "Sweden", "Norway", "Finland", "Ireland", "Estonia", "Latvia",
                "Lithuania", "Luxembourg", "Serbia", "Bosnia and Herzegovina", "Montenegro", "North Macedonia",
-               "Albania", "Kosovo", "Cyprus", "Malta"],
+               "Albania", "Kosovo", "Malta"],   # Cyprus is on the East Med page (owner's choice)
 }
 
 
