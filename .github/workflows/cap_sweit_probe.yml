@@ -1,0 +1,17 @@
+name: Capacity probe FR ES PT IT
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: probe script name
+        default: CAP_SWEIT_PROBE1.py
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install pandas openpyxl requests beautifulsoup4 lxml curl_cffi
+      - run: python3 "discovery_archive/europe/capacity/${{ inputs.script }}" 2>&1 | tee probe.log
