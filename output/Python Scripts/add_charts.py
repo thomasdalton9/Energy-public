@@ -419,6 +419,23 @@ def tr_capacity(p):
                  "MW per month", "stacked_bar")]
 
 
+def pt_capacity(p):
+    """Portugal (europe/capacity/SWEIT_CAPACITY_MONTHLY.py): DGEG renewables fleet only (no thermal) - 31 December rows to 2023, monthly
+    from January 2024; stacked capacity by renewable fuel and net additions of solar and wind for the monthly rows."""
+    full = by_date(read(p, "Monthly"), "date")
+    d = full[full.index >= "2021-01-01"]
+    names = [("Hydro", "Hydro_MW"), ("Pumped storage", "PumpedStorage_MW"), ("Wind", "Wind_MW"), ("Solar", "Solar_MW"),
+             ("Bioenergy", "Bioenergy_MW"), ("Other (geothermal)", "Other_MW")]
+    g = pd.DataFrame({n: d[c] for n, c in names if c in d and d[c].notna().any()}) / 1000.0
+    m = full[full.index >= "2024-01-01"]
+    adds = pd.DataFrame({"Solar": m["Solar_MW"].diff(), "Wind": m["Wind_MW"].diff()}).dropna(how="all")
+    out = [spec("Capacity", g, "Portugal renewable installed capacity (DGEG; 31 Dec to 2023, month-end from 2024; no thermal)",
+                "GW installed", "stacked_bar")]
+    if len(adds):
+        out.append(spec("Net additions", adds, "Portugal net additions of solar and wind per month (DGEG)", "MW per month", "stacked_bar"))
+    return out
+
+
 def gb_capacity(p):
     """United Kingdom (europe/capacity/GB_IE_CAPACITY_MONTHLY.py): month-end capacity (solar = DESNZ ET 6.3, wind / bioenergy /
     storage = REPD rebuild), net additions, official quarterly renewables (ET 6.1) and DUKES 5.12 on 1 January (all fuels)."""
@@ -3652,6 +3669,19 @@ REGISTRY.update({
     "japan_meti_electric_power_stats.xlsx": _japan("meti_stats"),
 })
 
+
+
+# ---- Europe complete monthly capacity (europe/capacity/EUROPE_CAPACITY_COMPLETE.py) ----
+def _europe_capacity_complete(p):
+    import importlib.util
+    here = os.path.dirname(os.path.abspath(__file__))
+    spec = importlib.util.spec_from_file_location("EUROPE_CAPACITY_COMPLETE", os.path.join(here, "europe", "capacity", "EUROPE_CAPACITY_COMPLETE.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.chart_specs(p)
+
+
+REGISTRY["europe_capacity_monthly_complete.xlsx"] = _europe_capacity_complete
 
 # ---- Taiwan (taiwan/taiwan_charts.py) ----
 def _taiwan(fn):
