@@ -92,6 +92,8 @@ def series_chart(spec, path):
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y" if annual else "%b/%y"))
     if spec["kind"] == "stacked_bar" and not annual and len(df) <= 6:      # a handful of snapshots: one tick per bar, not a weekly grid
         ax.set_xticks([d + pd.Timedelta(days=12.5) for d in x])
+    elif annual and spec["kind"] == "stacked_bar" and len(df) <= 15:      # a few annual bars: one tick per year (no half-year ticks)
+        ax.set_xticks(list(x))
     _style(ax, spec["title"], spec["units"])
     if str(spec["units"]).startswith("Bcf/d") and "MISO" in spec["title"]:
         ax.yaxis.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%.2f"))

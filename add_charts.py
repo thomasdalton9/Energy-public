@@ -3944,7 +3944,7 @@ try:
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "europe", "capacity"))
     import de_nl_be_lu_capacity_charts as _bnl
     for _f, _t, _a in (("germany_power_capacity_monthly.xlsx", "Germany installed generating capacity, month end (MaStR, Bundesnetzagentur)", False),
-                       ("belgium_power_capacity_monthly.xlsx", "Belgium installed generating capacity, month end (Elia; wind, solar and nuclear complete, other fuels = units contracted by Elia)", False),
+                       ("belgium_power_capacity_monthly.xlsx", "Belgium installed capacity, month end (Elia; gas, storage, other = contracted units only)", False),
                        ("netherlands_power_capacity_annual.xlsx", "Netherlands installed generating capacity, year end (CBS, annual only)", True),
                        ("luxembourg_power_capacity_annual.xlsx", "Luxembourg installed generating capacity, year end (ILR, annual only)", True)):
         REGISTRY[_f] = _bnl.specs(sys.modules[__name__], _t, _a)
