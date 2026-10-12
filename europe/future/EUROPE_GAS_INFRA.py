@@ -1028,10 +1028,10 @@ def upstream_rows(ok, a):
 
 def raw_data_only(proj):
     """Owner rule (Oct 2026): raw data only - physical projects / facilities with a sourced capacity AND a sourced date.
-    Drops targets (TYNDP 'Less-Advanced' = TARGET), undated or capacity-less rows and scenario figures; every drop is listed on 'Tried'."""
-    ok_ = proj["capacity_value"].notna() & proj["expected_online"].notna() & (proj["status"] != "TARGET")
+    Drops undated or capacity-less rows. TARGET rows (TYNDP 'Less-Advanced') stay, labelled, and are never summed with project rows; every drop is listed on 'Tried'."""
+    ok_ = proj["capacity_value"].notna() & proj["expected_online"].notna()
     for _, r in proj[~ok_].iterrows():
-        why = "target / early-stage project (not raw data)" if r["status"] == "TARGET" else ("no sourced date" if pd.isna(r["expected_online"]) else "no sourced capacity")
+        why = ("no sourced date" if pd.isna(r["expected_online"]) else "no sourced capacity")
         tried("row excluded (raw data only)", r["source_url"], f"{r['country']}: {str(r['project'])[:90]} - {why}")
     return proj[ok_].reset_index(drop=True)
 
@@ -1424,7 +1424,7 @@ def add_all_charts(wb, reg_month, proj, stor_sheet, a):
     pl = proj[(proj["asset_type"] == "gas_pipeline") & proj["capacity_bcfd"].notna() & proj["expected_online"].notna()].copy()
     if len(pl):
         pl["year"] = pl["expected_online"].astype(str).str[:4].astype(int)
-        pl = pl[(pl["year"] >= 2025) & (pl["year"] <= 2035)]
+        pl = pl[(pl["year"] >= 2025) & (pl["year"] <= 2035) & (pl["status"] != "TARGET")]   # TARGET rows are never stacked with projects
         pl["kind"] = np.where(pl["capacity_bcfd"] < 0, "removed (incl. H2 repurposing)", pl["status"].map({"FID": "FID", "PLANNED": "planned", "TARGET": "target", "COMMISSIONED_RECENT": "commissioned"}).fillna("planned"))
         pv = pl.pivot_table(index="year", columns="kind", values="capacity_bcfd", aggfunc="sum").fillna(0)
         order = [c for c in ("commissioned", "FID", "planned", "target", "removed (incl. H2 repurposing)") if c in pv.columns]
