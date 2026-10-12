@@ -314,6 +314,10 @@ def crosscheck(m):
             o, t = float(m.loc[prev, c]), float(e.loc[ts, c])
             rows.append({"1 Jan": ts.date(), "Fuel": f, "MaStR end of previous month (MW)": round(o), "ENTSO-E A68 (MW)": round(t),
                          "Difference (MW)": round(o - t), "Difference (%)": round((o - t) / t * 100, 1) if t else None})
+        if "Oil_MW" in e.columns:
+            o, t = float(m.loc[prev, "Oil_ge10MW_MW"]), float(e.loc[ts, "Oil_MW"])
+            rows.append({"1 Jan": ts.date(), "Fuel": "Oil (units >= 10 MW only)", "MaStR end of previous month (MW)": round(o), "ENTSO-E A68 (MW)": round(t),
+                         "Difference (MW)": round(o - t), "Difference (%)": round((o - t) / t * 100, 1) if t else None})
     out = pd.DataFrame(rows)
     # Energy-Charts (Fraunhofer ISE) monthly Germany: reference only, not used in the series
     try:
@@ -401,7 +405,12 @@ def main():
     rel_new = pd.DataFrame([{"File": fname, "Export date": export_day.date(), "Units parsed": units, "Seconds": round(time.time() - t0),
                              "Last complete month": last_complete.date()}], index=[pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%d %H:%M")])
     rel_all = pd.concat([rel, rel_new]) if len(rel) else rel_new
-    sheets = {"Monthly": m, "Detail": det.round(1), "Detail units": detn.astype(int), "Cross-check": xc.set_index("1 Jan") if len(xc) else xc,
+    mp = [{"Used for": "Wind offshore (WindAnLandOderAufSee)", "Catalogue id": i, "Catalogue value": vals[i][0]} for i in sorted(maps[1])] + \
+         [{"Used for": "Wind onshore (WindAnLandOderAufSee)", "Catalogue id": i, "Catalogue value": vals[i][0]} for i in sorted(maps[0])] + \
+         [{"Used for": "Pumped storage (hydro Art / storage Technologie)", "Catalogue id": i, "Catalogue value": vals[i][0]} for i in sorted(maps[2])] + \
+         [{"Used for": "Battery (storage Technologie)", "Catalogue id": i, "Catalogue value": vals[i][0]} for i in sorted(maps[3])] + \
+         [{"Used for": "Verbrennung Energietraeger", "Catalogue id": k, "Catalogue value": vals.get(k, ("?",))[0] + " -> " + v} for k, v in VERBRENNUNG.items()]
+    sheets = {"Monthly": m, "Mapping": pd.DataFrame(mp), "Detail": det.round(1), "Detail units": detn.astype(int), "Cross-check": xc.set_index("1 Jan") if len(xc) else xc,
               "Cross-check Energy-Charts": ec.set_index("1 Jan") if len(ec) else ec, "Excluded": excl, "Releases": rel_all.tail(60)}
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     lines = notes(url, last_complete, units, time.time() - t0)
