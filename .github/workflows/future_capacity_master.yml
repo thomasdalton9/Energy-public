@@ -1,0 +1,49 @@
+name: Future capacity master
+
+# Combines the three future-capacity section workbooks (Europe power 09:52, Europe gas 03:17, global LNG 09:19 UTC) into
+# output/Data and Chart Outputs/Master Outputs/future_capacity_master.xlsx. No downloads: it reads committed workbooks.
+on:
+  schedule:
+    - cron: "30 10 1,15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl matplotlib
+      - name: Build the master
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 future/FUTURE_CAPACITY_MASTER.py
+
+      - name: Copy scripts
+        if: always()
+        run: |
+          python3 add_charts.py "output/Data and Chart Outputs/Master Outputs/future_capacity_master.xlsx" || true
+          mkdir -p "output/Python Scripts"
+          cp future/FUTURE_CAPACITY_MASTER.py xlsx_charts.py xlsx_notes.py add_charts.py "output/Python Scripts/" || true
+
+      - name: Commit workbook and PNGs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/Master Outputs/future_capacity_master.xlsx" || true
+          git add -f output/PNG\ Charts/future_capacity_master__*.png || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Future capacity master: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
