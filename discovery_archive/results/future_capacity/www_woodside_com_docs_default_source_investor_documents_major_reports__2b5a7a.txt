@@ -1,0 +1,1412 @@
+URL https://www.woodside.com/docs/default-source/investor-documents/major-reports-(static-pdfs)/2025-annual-report/full-year-2025-results-briefing-pdf.pdf?sfvrsn=5c83be1c_4
+KIND pdf
+
+=== page 1
+Announcement
+Tuesday, 24 February 2026
+Woodside Energy Group Ltd.
+ACN 004 898 962
+Mia Yellagonga
+11 Mount Street
+Perth WA 6000
+Australia
+T +61 8 9348 4000
+www.woodside.com
+ASX: WDS
+NYSE: WDS
+WOODSIDE RELEASES FULL-YEAR 2025 RESULTS
+Woodside today reported record production of 198.8 million barrels of oil equivalent (MMboe), or
+545 Mboe/day, for the full year 2025. The result was underpinned by outstanding production performance at
+Sangomar, producing at nameplate capacity for most of the year, and world-class reliability at our operated
+Pluto LNG and NWS Project assets.
+Record production offset lower realised prices resulting in net profit after tax (NPAT) of $2,718 million (24%
+lower from 2024) and underlying NPAT of $2,649 million (8% lower from 2024).1
+The Directors have determined a final dividend of US 59 cents per share (cps), which brings the full-year
+fully franked dividend to US 112 cps and maintains payout ratio at the top of the range at 80%. The value of
+the full-year dividend is $2.1 billion.
+Woodside Acting CEO Liz Westcott said the record annual production in 2025 exceeded the guidance range
+and unit production cost decreased 4% from 2024 to $7.8 per barrel of oil equivalent, demonstrating cost
+discipline.
+“The outstanding full-year results reflected the disciplined execution of Woodside’s strategy, while
+maintaining safe, reliable and sustainable operations. Our strong underlying NPAT of $2.6 billion and free
+cashflow1 of $1.9 billion is a testament to the performance of the base business during a period of increased
+capital expenditure and softening prices.
+“The strength of our base business has delivered returns for shareholders, with Woodside having returned
+approximately $11 billion in dividends since merger completion in 2022. At the same time, we are re-
+investing in the business and actively refining the portfolio, while maintaining a strong balance sheet and
+gearing within the targeted range.
+“Keeping our people safe is always Woodside’s priority and in a year of increased activity, no high-
+consequence injuries were recorded. We marked significant safety milestones across our global portfolio,
+with Sangomar recording no injuries in its first 18 months of operations, and the Scarborough floating
+production unit marking three years of work without a single lost-time incident.
+“We are delivering on our commitments by leveraging our proven operational excellence, demonstrated
+project execution and delivery and continued financial discipline to reward shareholders today, while
+positioning Woodside for future value and growth.
+“Sangomar produced at nameplate capacity of 100,000 barrels per day for most of 2025 at almost 99%
+reliability. This translated into $2.6 billion of EBITDA (Woodside share) generated since start-up,
+demonstrating the asset’s value.1,2
+1 Non-IFRS financial measure. Refer to the glossary section of the attached presentation for the definition.
+2 Consists of Sangomar FY2024 EBITDA of $849 million and FY2025 EBITDA of $1,702 million.
+Page 1 of 4
+=== page 2
+“A high point of 2025 was the final investment decision taken in April on the $17.5 billion three-train,
+16.5 million tonne per annum foundation Louisiana LNG project, which was 22% complete at year-end and
+on target for first LNG in 2029.
+“Louisiana LNG’s value proposition was reinforced during the year by the entry of two high-quality partners,
+with Stonepeak taking a 40% stake in Louisiana LNG Infrastructure LLC and Williams acquiring 10% of
+Louisiana LNG LLC and 80% of Driftwood Pipeline LLC. These transactions together reduced Woodside’s
+share of capital expenditure for Louisiana LNG to $9.9 billion, with Stonepeak contributing 75% of capital
+expenditure in 2025 and 2026. Discussions are ongoing for the potential sale of up to a further 20% of
+Louisiana LNG LLC.
+“During the year, Woodside’s other major cash-generative growth projects progressed to budget and
+schedule, highlighted by the progress at the Scarborough Energy Project. Scarborough was 94% complete
+at year-end with the floating production unit arriving on location in Australia in January 2026. Scarborough is
+on track for first LNG cargo in the fourth quarter of 2026.
+“Once operational, Scarborough gas and output from Louisiana LNG will help meet long-term energy
+demand, as evidenced by the six sales agreements for portfolio supply that Woodside signed in 2025 with
+buyers in Asia and Europe. These agreements demonstrate the ongoing role of LNG in balancing our
+customers’ energy security and decarbonisation needs.
+“Trion remains on target for first oil in 2028, with the project 50% complete at year end. In 2025 we advanced
+construction of both the floating production unit and floating storage and offloading unit, with major subsea
+work set to start this year.
+“In December 2025 we achieved first production at Beaumont New Ammonia, and we have secured offtake
+agreements at prevailing market prices for traditional ammonia. We expect full handover of the project by
+OCI in the first half of 2026, with production of lower-carbon ammonia targeted for the second half of this
+year.3
+As detailed in the Annual Report released today, we have achieved our 2025 net equity Scope 1 and 2
+greenhouse gas emissions reduction target of 15% below the starting base. This was achieved through a
+combination of underlying emissions performance at our facilities and the use of carbon credits. Importantly,
+our gross equity Scope 1 and 2 greenhouse gas emissions were fewer than 2024, despite higher oil and gas
+production.
+“Woodside’s objectives for 2026 are clear: ramp up Beaumont; deliver first LNG cargo from Scarborough;
+and continue progressing Louisiana LNG and Trion to schedule and budget. We will remain focused on
+creating long-term value through disciplined capital allocation, maintaining strong liquidity and actively
+managing the portfolio.”
+3 Production of lower-carbon ammonia is conditional on supply of carbon abated hydrogen and ExxonMobil’s CCS facility becoming
+operational.
+Page 2 of 4
+=== page 3
+Financial headlines
+Metric Units FY25 FY24 Change
+Operating revenue $ million 12,984 13,179 (1%)
+EBITDA4 $ million 9,277 9,276 -
+NPAT $ million 2,718 3,573 (24%)
+Underlying NPAT4 $ million 2,649 2,880 (8%)
+Operating cashflow $ million 7,192 5,847 23%
+Free cash flow4,5 $ million 1,889 (293) 745%
+Sales volume7 MMboe 212.2 204.0 4%
+Mboe/d 581 557 4%
+Averaged realised price7 $/boe 60.2 63.4 (5%)
+Fully franked final dividend US cps 59 53 11%
+Full-year fully franked dividends US cps 112 122 (8%)
+Business highlights
+Strategic achievements
+• Took a positive FID on Louisiana LNG with a lump-sum turn-key Bechtel EPC contract
+• Added Stonepeak and Williams as strategic partners for Louisiana LNG, with Woodside’s expected total
+capital expenditure now $9.9 billion (< 60% of total capital expenditure)8
+• Refined our portfolio through the Greater Angostura divestment and progressing Chevron asset swap9
+• Commenced first production at Beaumont New Ammonia
+• Continued strong interest from debt capital markets with $3.5 billion US bond issuance oversubscribed
+Operations and projects
+• Record production of 198.8 MMboe, reflecting a high-quality asset base6
+• Achieved world-class reliability of 98.4% at KGP, 96.3% at Pluto LNG and 98.7% at Sangomar,
+supporting consistent revenue delivery and cost efficiency
+• Reduced unit production costs to $7.8/boe reflecting cost discipline
+• Improved safety outcomes with zero high consequence injuries recorded across our global operations
+• Delivered extended plateau production at Sangomar and $1.9 billion of revenue for Woodside in 2025
+• Completed successful tiebacks to existing NWS, Bass Strait, Pluto and Mad Dog facilities, capturing
+incremental volumes at lower capital intensity
+• Continued project execution of Scarborough and Trion, which were 94% and 50% complete respectively
+by the end of 2025, supporting future production and long‑term revenue generation
+• Achieved our 2025 target of a 15% reduction in net equity Scope 1 and 2 greenhouse gas emissions
+below the starting base, and are on track to meet our equivalent 2030 target10,11,12
+4 Non-IFRS financial measure. Refer to the glossary section of the attached presentation for the definition.
+5 The calculation has been updated to adjust for contributions from/(to) NCI and lease repayments. The 2024 comparative has been
+restated to be presented on the same basis.
+6 Includes 1.2 MMboe primarily from feed gas purchased from Pluto non-operating participants processed through the Pluto-KGP
+Interconnector.
+7 Excludes the impact of periodic adjustments reflecting the arrangements governing Wheatstone LNG sales. The 2024 comparative has
+been restated to be presented on the same basis.
+8 Woodside’s total capital expenditure for the Louisiana LNG Project is expected to be $9.9 billion against total project cost announced
+at FID of $17.5 billion.
+9 Completion of the transaction is subject to customary conditions precedent and remains targeted for completion in H2 2026.
+10 This means net equity Scope 1 and 2 emissions for the 12-month period ending 31 December 2025 are targeted to be 15% lower
+than the starting base and that net equity Scope 1 and 2 emissions for the 12-month period ending 31 December 2030 are targeted to
+be 30% lower than the starting base.
+11 Net equity Scope 1 and 2 greenhouse gas (GHG) emissions reduction targets and aspiration are relative to a starting base of 6.27 Mt
+CO-e which is representative of the gross annual average equity Scope 1 and 2 GHG emissions over 2016-2020 and which may be
+2
+adjusted (up or down) for potential equity changes in producing or sanctioned assets with a final investment decision prior to 2021. Net
+equity emissions include the utilisation of carbon credits as offsets, inclusive of those required to meet regulatory obligations.
+12 In relation to our 2025 equity Scope 1 and 2 GHG emissions, 1,283 kt CO‑e carbon credits were retired in order to meet our target of
+2
+5,334 kt CO‑e net equity Scope 1 and 2 GHG emissions. This includes retirement of carbon credits subsequent to the period, after full
+2
+year 2025 gross equity Scope 1 and 2 GHG emissions were calculated and externally assured.
+Page 3 of 4
+=== page 4
+Full-year results teleconference
+A teleconference providing an overview of the full year 2025 results and a question and answer session will
+be hosted by Woodside Acting CEO, Liz Westcott, and Chief Financial Officer, Graham Tiver, on Tuesday, 24
+February 2026 at 10:00 AEDT / 07:00 AWST / 17:00 CST (Monday, 23 February 2026).
+We recommend participants pre-register 5 to 10 minutes prior to the event with one of the following links:
+• https://webcast.openbriefing.com/wds-fyr-2025/ to view the presentation and listen to a live stream of
+the Q&A session
+• https://s1.c-conf.com/diamondpass/10052032-hy76t5.html to participate in the Q&A session.
+Following pre-registration, participants will receive the teleconference details and a unique access
+passcode.
+The full-year results presentation follows this announcement and will be referred to during the
+teleconference. The presentation, Annual Report 2025, 2025 Climate and Sustainability Summary and
+teleconference transcript will also be available on the Woodside website (www.woodside.com).
+Filings
+Woodside is filing its annual report on Form 20-F for the year ended 31 December 2025 (2025 Form 20-F),
+which included Woodside’s audited financial statements for the year ended 31 December 2025, with the US
+Securities and Exchange Commission (the SEC) on 24 February 2026. The 2025 Form 20-F can be
+downloaded through accessing Woodside’s website at www.woodside.com or from the SEC's website
+at www.sec.gov. Shareholders may also request a hard copy of the 2025 Form 20-F free of charge at
+www.woodside.com.
+Annual General Meeting
+Woodside's Annual General Meeting will be held at 10:00am (AWST) on Thursday, 23 April 2026 in Perth,
+Western Australia and online.
+INVESTORS MEDIA
+Vanessa Martin Christine Abbott
+M: +61 477 397 961 M: +61 484 112 469
+E: investor@woodside.com E: christine.forster@woodside.com
+This announcement was approved and authorised for release by Woodside’s Disclosure Committee.
+Page 4 of 4
+=== page 5
+Full-Year 2025 Results Briefing
+24 February 2026
+www.woodside.com
+=== page 6
+Here is the full palette
+of colours you can use
+Disclaimer, important notes and assumptions
+Information and emissions abatement targets (in each case on a net equity or gross equity basis as specified) and other and
+• This presentation has been prepared by Woodside Energy Group Ltd (“Woodside”). sustainability goals. All statements, other than statements of historical or present facts, are forward-looking statements
+and generally may be identified by the use of forward-looking words such as ‘aim’, ‘anticipate’, ‘aspire’, ‘believe’,
+• All information included in this presentation, including any forward-looking statements, reflects Woodside’s views held
+‘estimate’, ‘expect’, ‘forecast’, ‘foresee’, ‘guidance’, ‘intend’, ‘likely’, ‘may’, ‘objective’, ‘outlook’, ‘pathway’, ‘plan’,
+as at the date of this presentation and, except as required by applicable law, neither Woodside, its related bodies
+‘potential’, ‘project’, ‘schedule’, ‘seek’, ‘should’, ‘strategy’, ‘strive’, ‘target’, ‘will’’ and other similar words or expressions.
+corporate, nor any of their respective officers, directors, employees, advisers or representatives (“Beneficiaries”) intends
+Forward-looking statements in this presentation are not guidance, forecasts, guarantees or predictions of future events
+to, undertakes to, or assumes any obligation to, provide any additional information or update or revise any information
+or performance, but are in the nature of future expectations that are based on management’s current expectations and
+or forward-looking statements in this presentation after the date of this presentation, either to make them conform to
+contingencies. Those statements and any assumptions on which they are based are subject to change without notice
+actual results or as a result of new information, future events, changes in Woodside’s expectations or otherwise. Past
+and are subject to inherent known and unknown risks, uncertainties, assumptions and other factors, many of which are
+performance (including historical financial and operational information) is not necessarily a reliable indicator of future
+beyond the control of Woodside, its related bodies corporate and their respective officers, directors, employees, advisers
+performance.
+or representatives.
+• This presentation may contain industry, market and competitive position data that is based on industry publications and
+• Important factors that could cause actual results to differ materially from those in the forward-looking statements and
+studies conducted by third parties as well as Woodside’s internal estimates and research. While Woodside believes that
+assumptions on which they are based include, but are not limited to, fluctuations in commodity prices, actual demand
+each of these publications and third-party studies is reliable and has been prepared by a reputable source, Woodside
+for Woodside’s products, currency fluctuations, geotechnical factors, drilling and production results, gas
+has not independently verified the market and industry data obtained from these third-party sources and cannot
+commercialisation, development progress, operating results, engineering estimates, reserve and resource estimates, loss
+guarantee the accuracy or completeness of such data. Accordingly, undue reliance should not be placed on any of the
+of market, industry competition, sustainability and environmental risks, related transition and physical risks, changes in
+industry, market and competitive position data contained in this presentation.
+accounting standards, political risks, the actions of third parties, project delay or advancement, regulatory approvals, the
+• To the maximum extent permitted by law, neither Woodside, its related bodies corporate, nor any of their respective impact of armed conflict and political instability (such as the ongoing conflicts in Ukraine and in the Middle East) on
+Beneficiaries, assume any liability (including liability for equitable, statutory or other damages) in connection with, any economic activity and oil and gas supply and demand, cost estimates, legislative, fiscal and regulatory developments,
+responsibility for, or make any representation or warranty (express or implied) as to, the fairness, currency, accuracy, including but not limited to those related to the imposition of tariffs and other trade restrictions, the effect of future
+adequacy, reliability or completeness of the information or any opinions expressed in this presentation or the regulatory or legislative actions on Woodside or the industries in which it operates, including potential changes to tax
+reasonableness of any underlying assumptions. laws, the impact of general economic and financial market conditions, inflationary conditions, prevailing exchange rates
+No offer or advice and interest rates and conditions in financial markets, and risks associated with acquisitions, mergers and joint ventures,
+including difficulties integrating or separating businesses, uncertainty associated with financial projections, restructuring,
+• This presentation is not intended to and does not constitute, form part of, or contain an offer or invitation to sell to
+increased costs and adverse tax consequences, and uncertainties and liabilities associated with acquired and divested
+Woodside shareholders (or any other person), or a solicitation of an offer from Woodside shareholders (or any other
+properties and businesses.
+person) or a solicitation of any vote or approval from Woodside shareholders (or any other person) in any jurisdiction.
+• A detailed summary of the key risks relating to Woodside and its business can be found in the “Risk” section of
+• This presentation has been prepared without reference to the investment objectives, financial and taxation situation or
+Woodside’s most recent Annual Report released to the Australian Securities Exchange and in Woodside’s most recent
+particular needs of any Woodside shareholder or any other person. The information contained in this presentation does
+Annual Report on Form 20-F filed with the United States Securities and Exchange Commission and available on the
+not constitute, and should not be taken as, financial product or investment advice. Woodside encourages you to seek
+Woodside website at https://www.woodside.com/investors/reports-investor-briefings. You should review and have
+independent legal, financial, taxation and other professional advice before making any investment decision.
+regard to these risks when considering the information contained in this presentation.
+Forward-looking statements
+• If any of the assumptions on which a forward-looking statement is based were to change or be found to be incorrect,
+• This presentation contains forward-looking statements. These statements may relate to Woodside’s business, goals, this would likely cause outcomes to differ from the statements made in this presentation. Investors are strongly
+targets, aspirations, plans, expectations, market conditions, results of operations and financial condition, including, for cautioned not to place undue reliance on any forward-looking statements. Actual results or performance may vary
+example, but not limited to, outcomes of transactions, statements regarding long-term demand for Woodside’s materially from those expressed in, or implied by, any forward-looking statements.
+products and services, development, completion and execution of Woodside’s projects, expectations regarding future
+• All forward-looking statements contained in this presentation reflect Woodside’s views held as at the date of this
+capital expenditures and cash flow, the payment of future dividends and the amount thereof, future results of projects,
+presentation and, except as required by applicable law, Woodside does not intend to, undertake to, or assume any
+operating activities and new energy products, expectations and plans for new energy products and lower-carbon
+obligation to, provide any additional information or update or revise any of these statements after the date of this
+services and investments in, and development of, new energy products and lower-carbon services, expectations and
+presentation, either to make them conform to actual results or as a result of new information, future events, changes in
+guidance with respect to production, capital and exploration expenditure and gas hub exposure, and expectations
+Woodside’s expectations or otherwise.
+regarding the achievement of Woodside’s Scope 1 and 2 greenhouse gas emissions reduction and Scope 3 investment
+2 Full-Year 2025 Results Briefing
+=== page 7
+Here is the full palette
+of colours you can use
+Disclaimer, important notes and assumptions (continued)
+Disclosure of reserve information and cautionary note to US investors • For more information on Woodside's strategy and performance, including further details regarding Woodside’s targets,
+• Woodside is an Australian company with securities listed on the Australian Securities Exchange and the New York Stock aspirations and goals and the underlying methodology, judgements, assumptions and contingencies, refer to
+Exchange. Woodside reports its Proved (1P) Reserves in accordance with SEC regulations, which are also compliant with Woodside’s 2025 Climate and Sustainability Summary, available on the Woodside website at
+SPE-PRMS guidelines, and prepares and reports its Proved plus Probable (2P) Reserves and Best Estimate (2C) https://www.woodside.com/sustainability and section 3.6 of Woodside’s 2025 Annual Report. The glossary and
+Contingent Resources in accordance with SPE-PRMS guidelines. Woodside reports all of its petroleum resource footnotes to this presentation provide clarification regarding the use of terms such as "lower-carbon“ under Woodside's
+estimates using definitions consistent with SPE-PRMS. strategy. A full glossary of terms used in connection with Woodside's strategy is contained in Woodside’s 2025 Annual
+Report.
+• The SEC prohibits oil and gas companies, in their filings with the SEC, from disclosing estimates of oil or gas resources
+other than ‘reserves’ (as that term is defined by the SEC). In this presentation, Woodside includes estimates of quantities Non-IFRS Financial Measures
+of oil and gas using certain terms, such as ‘proved plus probable (2P) reserves’, ‘best estimate (2C) contingent resources’, • Throughout this presentation, a range of financial and non-financial measures are used to assess Woodside’s
+‘reserves and contingent resources’, ‘proved plus probable’, ‘developed and undeveloped’, ‘probable developed’, performance, including a number of financial measures that are not defined in, and have not been prepared in
+‘probable undeveloped’, ‘contingent resources’ or other descriptions of volumes of reserves, which include quantities of accordance with, International Financial Reporting Standards (IFRS) and are not recognised measures of financial
+oil and gas that may not meet the SEC’s definitions of proved, probable and possible reserves, and which the SEC’s performance or liquidity under IFRS (Non-IFRS Financial Measures). These measures include EBIT, EBITDA, EBITDA
+guidelines strictly prohibit Woodside from including in filings with the SEC. These estimates are by their nature more excluding impairment, EBITDA margin, Gearing, Underlying NPAT, Average realised price, Unit production cost, Net debt,
+speculative than estimates of proved reserves and would require substantial capital spending over a significant number Liquidity, Free cash flow, Capital expenditure, Exploration expenditure, Return on Equity, Cash margin, Production cost
+of years to implement recovery, and accordingly are subject to substantially greater risk of not being recovered by margin, and Other cash cost margin. These Non-IFRS Financial Measures are defined in the glossary section of this
+Woodside. In addition, actual locations drilled and quantities that may be ultimately recovered from Woodside’s presentation. A quantitative reconciliation of these measures to the most directly comparable financial measure
+properties may differ substantially. Woodside has made no commitment to drill, and likely will not drill, all drilling calculated and presented in accordance with IFRS can be found in the Alternative Performance Measures section of
+locations that have been attributable to these quantities. US investors are urged to consider closely the disclosures in Woodside’s 2025 Annual Report.
+Woodside’s filings with the SEC which are available at www.sec.gov. • Woodside’s management uses these measures to monitor Woodside’s financial performance alongside IFRS measures to
+Assumptions improve the comparability of information between reporting periods and business units and Woodside believes that the
+• Unless otherwise indicated, the targets set out in this presentation have been estimated on the basis of a variety of Non-IFRS Financial Measures it presents provide a useful means through which to examine the underlying performance
+economic assumptions including: (1) US$70/bbl Brent long-term oil price, US$10/MMBtu long term JKM price, of its business.
+US$9/MMBtu long-term TTF price, US$3.50 long-term Henry Hub price (2024 real terms) and a long-term inflation rate • Undue reliance should not be placed on the Non-IFRS Financial Measures contained in this presentation and these Non-
+of 2.0%; (2) currently sanctioned projects being delivered in accordance with their current project schedules; and (3) IFRS Financial Measures should be considered in addition to, and not as a substitute for, or as superior to, measures of
+applicable growth opportunities being sanctioned and delivered in accordance with the target schedules provided in financial performance, financial position or cash flows reported in accordance with IFRS. Non-IFRS Financial Measures
+this presentation. These growth opportunities are subject to relevant project participant approvals, commercial are not uniformly defined by all companies, including those in Woodside’s industry. Accordingly, they may not be
+arrangements with third parties and regulatory approvals being obtained in the timeframe contemplated or at all. comparable with similarly titled measures and disclosures by other companies.
+Woodside expresses no view as to whether project participants will agree with and support Woodside’s current position Other important information
+in relation to these opportunities, or such commercial arrangements and regulatory approvals will be obtained.
+• All references to dollars, cents or $ in this presentation are to US currency, unless otherwise stated.
+Additional assumptions relevant to particular targets or other statements in this presentation may be set out in the
+relevant slides. Any such additional assumptions are in addition to the assumptions and qualifications applicable to the • References to “Woodside” may be references to Woodside Energy Group Ltd and/or its applicable subsidiaries (as the
+presentation as a whole. context requires). References and links to Woodside’s or third-party websites are provided for convenience only and are
+not incorporated by reference into this presentation.
+Climate strategy and emissions data
+• This presentation does not include any express or implied prices at which Woodside will buy or sell financial products.
+• All greenhouse gas emissions data in this presentation are estimates, due to the inherent uncertainty and limitations in
+measuring or quantifying greenhouse gas emissions. Methodologies for measuring or quantifying greenhouse gas • A securities rating is not a recommendation to buy, sell or hold securities and may be subject to revision or withdrawal
+emissions may evolve as best practices continue to develop and data quality and quantity continue to improve. at any time.
+• Woodside “greenhouse gas” or “emissions” information reported are Scope 1 greenhouse gas emissions, Scope 2
+greenhouse gas emissions, and/or Scope 3 greenhouse gas emissions, each on a net equity basis, unless otherwise
+stated.
+3 Full-Year 2025 Results Briefing
+=== page 8
+Here is the full palette
+of colours you can use
+Notes to petroleum reserves and resources
+1. Unless otherwise stated, all petroleum resource estimates are quoted as at the effective date of 31 December 2025, net regulations and have been determined in accordance with SEC Rule 4-10(a) of Regulation S-X.
+Woodside share. For details of Woodside’s year end 2025 reserves position, see the Reserves and Resources Statement 10. ‘Undeveloped reserves’ are those reserves for which wells and facilities have not been installed or executed but are
+included in the 2025 Annual Report. US Investors should refer to “Additional information for US investors concerning expected to be recovered through future significant investments.
+reserves and resources estimates” above.
+11. ‘Probable reserves’ are those reserves which analysis of geological and engineering data suggests are more likely than
+2. All numbers are internal estimates produced by Woodside. Estimates of reserves and contingent resources should be not to be recoverable. Proved plus probable reserves represent the best estimate of recoverable quantities. Where
+regarded only as estimates that may change over time as additional information becomes available. probabilistic methods are used, there is at least a 50% probability that the actual quantities recovered will equal or
+3. For offshore oil projects, the reference point is defined as the outlet of the floating production storage and offloading exceed the sum of estimated proved plus probable reserves. Proved plus probable reserves are estimated and reported
+facility (FPSO) or platform, while for the onshore gas projects the reference point is defined as the outlet of the in accordance with SPE-PRMS guidelines and are not compliant with SEC regulations.
+downstream (onshore) gas processing facility. 12. The estimates of petroleum reserves and contingent resources are based on and fairly represent information and
+4. ‘Reserves’ are estimated quantities of petroleum that have been demonstrated to be producible from known supporting documentation prepared by, or under the supervision of, Mr Benjamin Ziker, Woodside’s Vice President
+accumulations in which the company has a material interest from a given date forward, at commercial rates, under Reserves and Subsurface, who is a full-time employee of the company and a member of the Society of Petroleum
+presently anticipated production methods, operating conditions, prices, and costs. Woodside reports reserves inclusive Engineers. The reserves and resources estimates included in this announcement are issued with the prior written consent
+of all fuel consumed in operations. Proved reserves are estimated and reported in accordance with SEC regulations of Mr Ziker. Mr Ziker’s qualifications include a Bachelor of Science (Chemical Engineering) from Rice University
+which are also compliant with the SPE-PRMS guidelines. SEC-compliant proved reserves estimates use a more restrictive, (Houston, Texas, USA) and 27 years of relevant experience.
+rules-based approach and are generally lower than estimates prepared solely in accordance with SPE-PRMS guidelines
+due to, among other things, the requirement to use commodity prices based on the average of first of month prices
+during the 12-month period in the reporting company’s fiscal year. Proved plus probable reserves are estimated and
+reported in accordance with SPE-PRMS guidelines which are not compliant with SEC regulations.
+5. Assessment of the economic value in support of an SPE-PRMS reserves and resources classification, uses Woodside
+Portfolio Economic Assumptions (Woodside PEAs). The Woodside PEAs are reviewed on an annual basis, or more often
+if required. The review is based on historical data and forecast estimates for economic variables such as product prices
+and exchange rates. The Woodside PEAs are approved by the Woodside Board. Specific contractual arrangements for
+individual projects are also taken into account.
+6. Woodside is not aware of any new information or data that materially affects the information included in the Reserves
+and Resources Update. All the material assumptions and technical parameters underpinning the estimates in the
+Reserves and Resources Update continue to apply and have not materially changed.
+7. Woodside uses both deterministic and probabilistic methods for the estimation of reserves and contingent resources at
+the field and project levels. All proved reserves estimates have been estimated using deterministic methods and
+reported on a net interest basis in accordance with the SEC regulations and have been determined in accordance with
+SEC Rule 4-10(a) of Regulation S-X. Unless otherwise stated, all petroleum estimates reported at the company or region
+level are aggregated by arithmetic summation by category. The aggregated proved reserves may be a conservative
+estimate due to the portfolio effects of arithmetic summation.
+8. ‘MMboe’ means millions (106) of barrels of oil equivalent. Natural gas volumes are converted to oil equivalent volumes
+via a constant conversion factor, which for Woodside is 5.7 Bcf of dry gas per 1 MMboe. All volumes are reported at
+standard oilfield conditions of 14.696 psi (101.325 kPa) and 60 degrees Fahrenheit (15.56 degrees Celsius).
+9. ‘Proved reserves’ are those quantities of crude oil, condensate, natural gas and NGLs that, by analysis of geoscience and
+engineering data, can be estimated with reasonable certainty to be economically producible from a given date forward
+from known reservoirs and under existing economic conditions, operating methods, operating contracts, and
+government regulations. Proved reserves are estimated and reported on a net interest basis in accordance with the SEC
+4 Full-Year 2025 Results Briefing
+=== page 9
+Strong results from disciplined execution
+2025 key statistics
+Achieved record production with zero high-consequence injuries $2.7
+billion
+Net profit after tax (NPAT),
+Delivered strong shareholder returns; total full-year dividends of
+$2.6 billion underlying NPAT4
+$2.1 billion, 112 US cps fully franked
+198.8
+MMboe
+Executing major development projects on budget and schedule
+Production (545 Mboe/d)5
+Maintained strong balance sheet through disciplined management
+$9.3
+of liquidity and capital billion
+EBITDA4
+Achieved 2025 net equity Scope 1 and 2 GHG emissions reduction
+target of 15% below starting base1,2,3
+$1.9
+billion
+Free cash flow4
+1. This means net equity Scope 1 and 2 emissions for the 12-month period ending 31 December 2025 are targeted to be 15% lower than 3. In relation to our 2025 equity Scope 1 and 2 GHG emissions, 1,283 kt CO-e carbon credits were
+2
+the starting base. retired in order to meet our target of 5,334 kt CO-e net equity Scope 1 and 2 GHG emissions.
+2
+2. Net equity Scope 1 and 2 GHG emissions reduction targets and aspiration are relative to a starting base of 6.27 Mt CO-e which is This includes retirement of carbon credits subsequent to the period, after full year 2025 gross
+5 Full-Year 2025 Results Briefing representative of the gross annual average equity Scope 1 and 2 greenhouse gas emissions over 2016-2020 and which 2 may be equity Scope 1 and 2 GHG emissions were calculated and externally assured.
+adjusted (up or down) for potential equity changes in producing or sanctioned assets with a final investment decision prior to 2021. 4. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+Net equity emissions include the utilisation of carbon credits as offsets, inclusive of those required to meet regulatory obligations. 5. Includes 1.2 MMboe primarily from feed gas purchased from Pluto non-operating participants
+processed through the Pluto-KGP Interconnector.
+=== page 10
+Generated $2.1 billion of dividends while investing in future growth
+Maximise Deliver Create
+~98%
+First production Achieved FID on Louisiana LNG
+Operated LNG reliability Achieved at Beaumont New Ammonia 22% complete, on budget and targeting first LNG 20291
+$7.8 /boe 94% Scarborough completion Refined portfolio
+4%
+Unit production cost On budget and on track for first LNG cargo Q4 20261,2 Greater Angostura divestment and
+Chevron asset swap4
+$1.9 18.2%
+billion 50% Trion completion 2%
+Sangomar revenue (Woodside share) On budget and targeting first oil 20281 Gearing, within target range of 10-20%1,5
+4.7 $9.3
+Mtpa New strategic partners billion
+38%
+Sale and purchase agreements for Stonepeak and Williams for Louisiana LNG, Liquidity1,5
+LNG signed in 2025 Woodside’s expected exposure <60% of
+total capital expenditure3
+Percentage variance for all operational performance and financial outcomes reference 2025 versus 2024.
+1. As of 31 December 2025.
+2. Percentage completion for Scarborough Energy Project excludes Pluto Train 1 modifications.
+6 Full-Year 2025 Results Briefing
+3. Woodside’s total capital expenditure for the Louisiana LNG Project is expected to be $9.9 billion against total project cost announced at FID of $17.5 billion.
+4. Completion is subject to customary conditions precedent and remains targeted for completion in H2 2026.
+5. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+=== page 11
+Improved safety performance
+High-consequence injuries1 Process safety events
+Tier 1
+Tier 2
+Zero high-consequence injuries
+5
+recorded in 2025
+4
+4
+Tier 1 process safety event in May 2025,
+3
+short term and localised
+3
+2 4 2
+Continued focus on operational
+2
+discipline and learning culture
+1 2
+1 1 1 1 1
+0 0 0
+-
+20212 2022 2023 2024 2025 2021 2022 2023 2024 2025
+1. HCI is defined as Fatality and Permanent Impairment Injury (FPI) which aligns with International Association of Oil and Gas Producers (IOGP) definition for FPI. From 2022 to 2024 HCI was defined as an
+7 Full-Year 2025 Results Briefing injury where the individual does not return to full health within six months. Under the 2025 definition there was one HCI in 2024 and two HCI in 2023.
+2. HCI was not reported in 2021.
+=== page 12
+Driving value from base business
+Record production2
+Production (MMboe) and unit production cost ($/boe)
+Average five-year operated LNG reliability ~98%, supporting
+reliable deliveries to end-customers
+8.3
+8.1 8.1
+7.8
+Unit production
+Reduced unit production cost demonstrates cost discipline cost
+and high-quality asset base 198.8 Production
+193.9
+187.2
+5.3
+Maximising value through infill drilling (e.g. Pluto, Bass Strait, 157.7
+Shenzi) and optimisation (e.g. Atlantis Major Facility Expansion)
+Continuing to pursue brownfield opportunities such as
+91.1
+GWF-4; five-well tieback with expected IRR ~30%1
+Executing turnaround in 2026 at Pluto to install tie-ins for
+Scarborough
+2021 2022 2023 2024 2025
+Pre-merger Post-merger
+1. Figures are Woodside share, 50% interest. Capital expenditure is post final investment decision. Subject to the completion of the Woodside and Chevron asset swap. Refer to the announcement titled
+‘Woodside simplifies portfolio and unlocks long-term value’, dated 19 December 2024. IRR and the payback period are a look forward from January 2025. Payback period is calculated from
+8 Full-Year 2025 Results Briefing
+undiscounted cash flows, RFSU + approximately 2 years.
+2. 2025 includes 1.2 MMboe primarily from feed gas purchased from Pluto non-operating participants processed through the Pluto-KGP Interconnector.
+=== page 13
+Here is the full palette
+of colours you can use
+Sangomar: continued to deliver exceptional performance
+Zero lost time injuries or process safety events since the FPSO
+departed the shipyard in December 2023
+World-class production reliability of 98.7%
+$2.6 billion EBITDA (Woodside share) generated since start-up1
+27.9 MMboe added to proved reserves (1P, Woodside share) with
+production exceeding expectations2
+1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition. Consists of Sangomar FY2024 Sangomar FPSO Léopold Sédar Senghor,
+9 Full-Year 2025 Results Briefing EBITDA of $849 million and FY 2025 EBITDA of $1,702 million. December 2025
+2. Includes -3.1 MMboe change to proved (1P) fuel reserves.
+=== page 14
+Here is the full palette
+of colours you can use
+Beaumont New Ammonia: achieved first ammonia December 2025
+Project and commissioning activities will continue through early 2026
+Handover of project expected in H1 2026 and production of lower-
+carbon ammonia targeted for H2 20261
+Secured offtake agreements at prevailing market prices for traditional
+ammonia market
+Competitive unit cash cost of ~$290-320/tonne2
+1. Production of lower-carbon ammonia is conditional on supply of carbon abated hydrogen and ExxonMobil’s CCS facility
+becoming operational.
+10 Full-Year 2025 Results Briefing 2. Cost of production range is the average cost for Phase 1 over 2028 to 2030 during assumed steady state lower-carbon Beaumont New Ammonia, January 2026
+ammonia production excluding planned turnarounds. Assumes fixed/variable split of 70/30%, a range of Henry Hub pricing,
+and inclusion of 45Q tax credit.
+=== page 15
+Here is the full palette
+of colours you can use
+Scarborough: 94% complete, on budget and on track1
+Completed drilling campaign for all eight development wells with
+reservoir quality in line with pre-drill expectations
+Floating production unit (FPU) arrived at Scarborough field in January
+2026 and connected to the mooring chains
+Commissioned Integrated Remote Operations Centre at Woodside’s
+headquarters to facilitate remote operations
+Continued construction activities at Pluto Train 2, commencing
+commissioning of utility systems
+First LNG cargo targeted for Q4 2026 following completion of Pluto
+Train 2 construction and onshore and offshore commissioning activities
+11 Full-Year 2025 Results Briefing 1. As at 31 December 2025. Excludes Pluto Train 1 modifications. Scarborough floating production unit
+=== page 16
+Here is the full palette
+of colours you can use
+Trion: 50% complete, on budget and targeting first oil in 20281
+Advanced FPU and floating storage and offloading facility (FSO) construction
+with the FPU hull nearing completion and first steel cut for FSO
+Granted regulatory approval of HSE management system, the final
+authorisation required to commence field activities
+Drilling expected to commence in early 2026 with all permits received
+On track for installation of FSO disconnectable turret mooring and facilities
+anchor piles in 2026
+Progressing completion of SURF equipment for installation campaign in
+H2 2026
+Lifting of first Trion module onto hull,
+12 Full-Year 2025 Results Briefing 1. As at 31 December 2025. February 2026
+=== page 17
+Here is the full palette
+of colours you can use
+Louisiana LNG: on budget and targeting first LNG in 2029
+Progressed construction to schedule under Bechtel EPC contract (22%
+complete)1 focusing on tank construction, marine infrastructure and piling
+Secured foundational transportation capacity for gas supply, providing
+access to diverse and abundant gas supply sources
+Completed sell-downs to strategic partners, with Woodside’s expected total
+capital expenditure now $9.9 billion (<60% of total capital expenditure)2
+▪ Stonepeak – divested 40% in InfraCo, funding 75% of capital expenditure in
+2025 and 20263
+▪ Williams – divested 10% in HoldCo and 80% and operatorship of
+PipelineCo3
+Continuing progress on further selldowns and offtake agreements
+1. 22% completion for total foundation project. Train completions as at 31 December 2025: Train 1 (28%), Train 2 (18%), Train 3 (13%).
+13 Full-Year 2025 Results Briefing 2. Woodside’s total capital expenditure for the Louisiana LNG Project is expected to be $9.9 billion against total project cost Woodside Louisiana LNG site
+announced at FID of $17.5 billion.
+3. InfraCo = Louisiana LNG Infrastructure LLC. Hold Co = Louisiana LNG LLC. PipelineCo = Driftwood Pipeline LLC.
+=== page 18
+Achieved 2025 net equity Scope 1
+and 2 GHG emissions reduction
+target of 15% below starting base1
+Net equity Scope 1 and 2 emissions, MtCO -e
+2
+Here is the full palette
+of colours you can use
+Underpinned by our focus and commitment to sustainability
+Zero high consequence injuries and reduction in process safety events
+Supported Indigenous-led nomination of UNESCO World Heritage listing
+of Murujuga
+Secured environmental approvals for NWS Project life extension1
+and Trion
+Achieved 2025 net equity Scope 1 and 2 GHG emissions reduction target
+of 15% below starting base2
+Reporting complies with new AASB S2 Climate-related Disclosures
+1. Federal Government approvals subject to conditions. Three separate legal proceedings have commenced in the Federal Court of Australia We invite you to join our upcoming
+challenging the Federal Government's environmental approval, and one in the Western Australian Supreme Court challenging the State
+Government's environmental approval. Sustainability Investor Briefing on
+14 Full-Year 2025 Results Briefing
+2. Net equity Scope 1 and 2 GHG emissions reduction targets and aspiration are relative to a starting base of 6.27 Mt CO-e which is representative of
+2 16 March 2026
+the gross annual average equity Scope 1 and 2 greenhouse gas emissions over 2016-2020 and which may be adjusted (up or down) for potential
+equity changes in producing or sanctioned assets with a final investment decision prior to 2021. Net equity emissions include the utilisation of
+carbon credits as offsets, inclusive of those required to meet regulatory obligations.
+=== page 19
+Here is the full palette
+of colours you can use
+Oil: continued robust outlook
+Global liquids supply and demand outlook2
+MMbbl/d
+120
+Oil demand is forecast to remain resilient
+as the world’s energy mix evolves1 100 Demand
+Potential
+supply gap
+Demand in hard-to-abate areas such as heavy 80
+transport and petrochemical sectors remains
+Reserves
+strong1 growth
+60
+Under
+development
+~60% of near-term portfolio linked to oil
+40
+supports revenue resilience across commodity
+cycles
+Onstream
+20
+0
+2025 2030 2035 2040 2045
+1. Wood Mackenzie Macro Oils Investment Horizon Outlook (October 2025).
+15 Full-Year 2025 Results Briefing
+2. Wood Mackenzie Macro Oil Investment Horizon Outlook (November 2025) and Wood Mackenzie Oil Supply Tool (Long Term H2 2025). Includes oil and NGLs.
+=== page 20
+LNG: robust outlook and ongoing sales
+Recent contracting with end customers
+Signed in 2025
+2025 2030 2035 2040+
+Forecast long-term structural
+demand growth for LNG supported
+KOREA 0.5 Mtpa to KOGAS for 10.5 years
+by economic expansion in emerging
+Asian markets1 JAPAN 0.4 Mtpa to JERA over 10 years
+JAPAN 0.2 Mtpa to JERA over
+5 years (winter demand)
+Periods of demand/supply imbalance
+Asia TAIWAN 0.6 Mtpa to CPC Taiwan over 10 years Option for +10 years
+are expected to be transitory
+compared to the forecast demand2 CHINA 0.6 Mtpa to China Resources for 15 years
+MALAYSIA 1.0 Mtpa to Petronas for 15 years
+4.7 Mtpa signed in 2025, ~75% of
+KOREA 0.6 Mtpa to SK Gas for 13 years
+Woodside’s LNG volumes contracted
+for 2026-2028
+GERMANY/NETHERLANDS 0.8 Mtpa to UNIPER up to 2039
+GERMANY/NETHERLANDS 1.0 Mtpa to UNIPER
+Resilience provided by diversity of for 10 years
+Europe
+GERMANY/NETHERLANDS (from LALNG)
+start date, market and buyer
+1.0 Mtpa to UNIPER for 13 years
+TÜRKIYE ~0.5 Mtpa to BOTAŞ for 9 years
+1. Wood Mackenzie Global Gas 10-year investment horizon outlook (November 2025).
+16 Full-Year 2025 Results Briefing
+2. Wood Mackenzie LNG Tool (January 2026).
+=== page 21
+A business building resilience across cycles
+2030+
+▪ Staged delivery of major sanctioned projects increasing
+free cash flow
+NEAR TERM
+▪ Growing scale increases ability for value capture
+▪ <$34/bbl 2026-2027 average cash
+▪ Diverse opportunity mix within portfolio
+breakeven2
+▪ Long-term structural demand
+▪ ~75% LNG volumes contracted for
+PRESENT 2026-2028
+▪ ~30% gas hub indexation for 20263
+▪ $9.3 billion liquidity1
+▪ 18 MMboe hedged for 2026 at
+▪ <1x net debt/EBITDA1 >300
+~$70/bbl4
+MMboe
+▪ ~98% five-year average operated
+LNG reliability Sales in 20322
+▪ 82% cash margin average over last
+five years ~$9
+billion
+Net operating cash flow in 20322
+World-class assets | Operational excellence | Project delivery | Trusted supplier | Financial discipline
+Woodside’s competitive advantages
+1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+2. Indicative, not guidance and as outlined on slides 9 and 16 in Woodside’s 2025 Capital Markets Day presentation, released 5 November 2025. Refer to slides 87-88 of the Capital Markets Day
+presentation for further details on the underlying assumptions.
+17 Full-Year 2025 Results Briefing
+3. Consistent with 2025 Capital Markets Day, presented on a 3 year average for 2026-2028. Includes binding sales and purchases agreements only, Woodside’s equity share of Scarborough and Pluto LNG,
+Corpus Christi offtake volumes and assumes the Chevron asset swap is completed.
+4. Includes hedges for 10 MMboe placed during 2025 and 8 MMboe placed subsequent to the period.
+=== page 22
+Capital management
+Maintaining disciplined capital allocation and strong balance sheet
+Graham Tiver
+EVP and Chief Financial Officer
+=== page 23
+Here is the full palette
+of colours you can use
+Creating future value through disciplined capital management
+Consistent cost focus Disciplined investment
+Actively managed
+decisions
+balance sheet
+Disciplined cost management reducing
+unit production cost year-on-year
+Opportunities must meet capital
+Investment grade credit rating of
+Delivered over $200 million in cost allocation framework Moody’s: Baa1 and S&P: BBB+1
+reductions in 2025
+Strategic partnering (e.g. Stonepeak,
+Committed to shareholder returns with
+Williams)
+Delivering maintenance campaigns on a track record of 80% payout ratio since
+schedule and budget 2013
+Portfolio rationalisation (e.g. Greater
+Angostura)
+Driving structural cost reductions Active risk management including
+hedging and liquidity management
+19 Full-Year 2025 Results Briefing 1. Corporate debt credit ratings. Baa1 by Moody’s, BBB+ by S&P Global. A credit rating is not a recommendation to buy, sell or hold securities and may be subject to revision or withdrawal at any time.
+=== page 24
+Here is the full palette
+of colours you can use
+Capital management framework
+Operating $7.2 Investing $7.9 $9.3 Full-year $2.1
+cash flow B cash flow B Liquidity1 B dividends B
+($5.3B when adjusted for NCI (Final dividend of $1.1B)
+and lease repayments) Special dividends
+Dividend
+Safe, reliable Strong
+Investment
+policy Share buy-backs
+and low-cost balance
+expenditure (minimum 50%
+operations sheet
+payout ratio)
+Future investment
+Excess
+cash
+Investment grade Maintain dividend based on NPAT excluding Targeting 10-20%
+credit rating2 non-recurring items, targeting 50-80% gearing through
+payout ratio the cycle
+Moody’s: Baa1 80% payout ratio 2025 full-year: 18.2%
+S&P: BBB+ 59 US cps
+20 Full-Year 2025 Results Briefing 1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+2. Corporate debt credit ratings. Baa1 by Moody’s, BBB+ by S&P Global. A credit rating is not a recommendation to buy, sell or hold securities and may be subject to revision or withdrawal at any time.
+=== page 25
+Here is the full palette
+of colours you can use
+Outstanding EBITDA performance
+EBITDA1
+$ billion
+12.0 71%
+70%
+EBITDA margin
+$9.3 billion EBITDA and >70% EBITDA margin 67% 67% 70%
+underpinned by outstanding Sangomar production
+10.0 59% 11.2
+performance and consistent cost focus1 60%
+9.4 9.3 9.3 EBITDA
+8.0 50%
+Strong EBITDA performance driven by increased
+production and high-quality asset base
+40%
+6.0
+Marketing segment contribution of ~8% to EBIT1 30%
+4.0
+4.1
+20%
+Strong underlying NPAT of $2.6 billion despite lower
+average realised prices1 2.0
+10%
+0.0 0%
+2021 2022 2023 2024 2025
+Pre-merger Post-merger
+21 Full-Year 2025 Results Briefing 1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+=== page 26
+Here is the full palette
+of colours you can use
+Strong balance sheet positioned to navigate volatility
+Liquidity Resilience at $55 Brent, $7 JKM
+$ billion Sources and uses, 2026-2032 ($ billion)2
+60
+Liquidity of $9.3 billion supports capital
+commitments and shareholder returns1
+10.2
+50
+9.3
+Gearing of 18.2% within target range (10 –
+20%) and net debt/EBITDA of 0.9x1 7.8 40
+Undrawn
+6.7
+facilities
+6.1 Available
+$2.3 billion received from Stonepeak and
+30
+cash
+Williams on completion of Louisiana LNG
+Growth3
+sell-downs Dividend
+20
+Cash
+$34/bbl 2026-2027 average breakeven
+providing resilience2 10 Base Capital
+0
+2021 2022 2023 2024 2025
+Sources Uses
+1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+2. Indicative, not guidance and as outlined on slides 9 and 35 in Woodside’s 2025 Capital Markets Day presentation, released 5 November 2025. Refer to slides 87-88 of the Capital Markets Day presentation for
+22 Full-Year 2025 Results Briefing
+further details on the underlying assumptions.
+3. Growth includes Sangomar Phase 1, Beaumont New Ammonia, Scarborough, Trion and Louisiana LNG.
+=== page 27
+Here is the full palette
+of colours you can use
+Delivering consistent, reliable returns
+Strong dividends
+US cents per share
+300
+Declared final dividend of $1.1 billion, 59 US cps fully
+franked 250
+Paying at the top end of dividend target range since 200
+2013
+150
+Returned ~$11 billion (568 US cps) to shareholders
+since merger completion in 2022 while reinvesting in 100
+projects for future cash generation1
+Final dividend
+50
+BHP merger
+Strong underlying business enables continued ability to completion payment
+Interim dividend
+return value to shareholders
+0
+2021 2022 2023 2024 2025
+Pre-merger Post-merger
+23 Full-Year 2025 Results Briefing 1. Dividends returned since merger completion on 1 June 2022 to 2025 half-year. Excludes 2025 final dividend declared of $1.1 billion or 59 US cps.
+=== page 28
+Close
+2026: Continuing to execute strategy
+Liz Westcott
+Acting Chief Executive Officer
+=== page 29
+Disciplined delivery focused on value
+Maximise Deliver Create
+Ramp-up Beaumont New Ammonia
+Continue disciplined capital
+Operate base business safely,
+Deliver first LNG cargo from management
+reliably and efficiently
+Scarborough
+Maintain strong liquidity through
+Safely execute Pluto Train 1 major
+Progress Louisiana LNG (including cost control and capital levers
+turnaround
+sell-downs) and Trion
+Actively refine portfolio for long-
+Layer sales and progress offtake
+Progress strategic partnering term value creation
+opportunities
+Continue focus on sustainability and innovation
+2255 FFuullll--YYeeaarr 22002255 RReessuullttss BBrriieeffiinngg
+=== page 30
+Q&A
+=== page 31
+Annexure
+=== page 32
+Why invest in Woodside
+Woodside supplies energy to meet rising demand,
+1
+enabling global growth, and assisting with customer
+decarbonisation goals
+Woodside has a track record of generating durable,
+2
+long-term cash flows and returning value to
+shareholders through the cycle
+Woodside offers tangible growth catalysts through
+3
+project start-ups and exposure to a high-quality
+cash-generative portfolio
+28 Full-Year 2025 Results Briefing
+=== page 33
+Delivering our strategy
+Maximise Deliver Create
+performance from base business cash-generative assets future opportunities
+Continued strong track record of Major development projects Disciplined capital allocation
+safe and reliable operations focused on cost and schedule and balance sheet management
+Monetising through portfolio Strategic partnering and Actively refining the portfolio
+and marketing optimisation customer relationships for long-term value creation
+Underpinned by a focus on sustainability and innovation
+2299 2Fu0l2l-5Y Ceaarp i2t0a2l 5M Rarekseutlst sD Baryiefing
+=== page 34
+Here is the full palette
+of colours you can use
+Strong financial performance
+FY 2025 FY 2024 Change
+Operating revenue $m 12,984 13,179 1%
+EBITDA1 $m 9,277 9,276 0%
+Strong production supported performance EBIT1 $m 3,889 4,514 14%
+despite lower average realised prices
+NPAT2 $m 2,718 3,573 24%
+$9.3 billion liquidity enabling investments in near- Underlying NPAT1,2 $m 2,649 2,880 8%
+term growth1
+Operating cash flow $m 7,192 5,847 23%
+Delivering strong returns to shareholders and Free cash flow1,3 $m 1,889 (293) 745%
+maintaining balance sheet flexibility
+Liquidity1 $m 9,262 6,723 38%
+Earnings per share US cps 143 189 24%
+Return on equity % 7.6 10.1 25%
+Full-year dividend US cps 112 122 8%
+1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+30 Full-Year 2025 Results Briefing 2. Refer to slide 32 (NPAT reconciliation) of this presentation for the list of specific items for FY25.
+3. The calculation has been updated to adjust for contributions from/(to) NCI and lease repayments. The 2024 comparative has been restated to be presented on the same basis.
+=== page 35
+Net profit after tax reconciliation
+REVENUE FROM THE
+COST OF FINAL DIVIDEND, FULLY
+SALE OF GENERAL, ADMINISTRATIVE, TAX AND OTHER
+SALES FRANKED
+HYDROCARBONS
+Impact of lower
+realised prices offset by
+Fully franked final dividend
+world-class Sangomar One-off transactions and tax impacts
+of 59 US cps
+performance
+3,573 (1,064)
+903 (947)
+267 (141)
+451 (143) (389)
+208 2,718 (69)
+2,649
+Pre-tax net Restoration
+Pre-tax
+hedge gains provision
+updates primarily impairment on Recognition of Pluto Greater
+Lower average Full year of Full year of Pre-tax Adjusted for
+due to Stybarrow, H2OK Project PRRT DTA and Angostura
+realised prices Sangomar Sangomar embedded recognition of
+Griffin and Sangomar DTA in divestment
+n o illim p
+b
+r
+y
+p im r
+lo
+o a
+w
+d ri u
+e
+ly c
+r
+t o
+N
+io f
+W
+f n se
+S
+t depreciation d i e m riv p a a t c iv t e Minerva 2
+re
+0
+c
+2
+o
+4
+g
+o
+n
+f
+i
+f
+t
+s
+io
+e
+n
+t b
+o
+y
+f
+Lo
+i
+u
+m
+a is n
+p
+ia d
+a
+n
+i
+p
+r
+a
+m
+o L s
+e
+N t
+n
+- G t
+t
+a
+o
+D x
+n
+T A
+$ production
+Louisiana LNG DTA
+H2OK Project
+in 2025
+2024 reported Revenue - price Revenue - Cost of sales Perdaman Hedging Restoration Impairment loss Income tax and Other 2025 reported 2025 NPAT 2025 underlying
+NPAT volume embedded movement PRRT NPAT adjustments NPAT1
+derivative
+31 Full-Year 2025 Results Briefing 1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+=== page 36
+Five-year trends: key financial metrics
+Operating revenue EBITDA1 Underlying NPAT1,2
+16.8
+14.0
+13.2 13.0
+11.2
+n n n
+o o o
+illib illib 9.4 9.3 9.3 illib
+$ $ $
+7.0
+5.2
+4.1
+3.3
+2.9 2.6
+1.6
+2021 2022 2023 2024 2025 2021 2022 2023 2024 2025 2021 2022 2023 2024 2025
+Revenue driven by outstanding performance at Sangomar, offset by lower prices and Greater Angostura divestment
+Consistent EBITDA performance, predominantly driven by strong production offsetting lower realised prices
+1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+32 Full-Year 2025 Results Briefing
+2. 2025 NPAT adjustments include the recognition of a Louisiana LNG DTA ($182 million) offset by H2OK Project impairment loss ($113 million).
+=== page 37
+Five-year trends: cash flow
+Operating cash flow Investing cash flow1,2 Free cash flow2,3,4
+2025 includes 100% of capital additions from Louisiana LNG Adjusted for contributions from NCI and lease
+with NCI contributions captured in free cash flow repayments presented within financing cash flow
+8.8
+7.9
+7.2
+6.1 6.2
+5.8 5.6 5.7
+n n n
+o o 0.9 o
+illib
+3.8
+illib illib
+$ $ $
+2.9 0.8
+1.1
+1.9
+4.8
+2.3
+0.5
+0.1
+2021 2022 2023 2024 2025 2021 2022 2023 2024 2025 -0.3
+Benefit of GIP’s additional contribution to Pluto Train 2 2021 2022 2023 2024 2025
+Benefit from proceeds of Scarborough sell-downs
+NCI and
+Net impact of 2024 acquisitions and disposals lease (0.4) (0.3) (0.4) (0.4) 2.6
+repayments
+Operating cash flow increased despite a lower price environment, driven by exceptional operational performance, Sangomar, and lower tax payments on lower prices
+Delivered positive free cash flow driven by strong operating cash flow and proceeds from Greater Angostura divestment, Williams and Stonepeak transactions
+1. 2022 investing cash flow includes GIP’s additional contribution to Pluto Train 2 ($0.8 billion) and cash received on the acquisition of BHP Petroleum ($1.1 billion). Without these items, 2022 investing cash
+flow would be $4.2 billion.
+2. 2024 investing cash flow includes the acquisitions of Beaumont New Ammonia ($1.9 billion) and Tellurian ($1.0 billion), post-acquisition spend on Louisiana LNG in 2024 ($0.2 billion) and proceeds of
+33 Full-Year 2025 Results Briefing Scarborough sell-downs to LNG Japan and JERA Scarborough Pty Ltd ($2.3 billion). Without these items, investing cash flow would be $4.8 billion and free cash flow would be $0.6 billion.
+3. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+4. The calculation has been updated to adjust for contributions from/(to) NCI and lease repayments. The prior year comparatives have been restated to be presented on the same basis.
+=== page 38
+Here is the full palette
+of colours you can use
+Resilient cash margin
+Cash margin1
+Cash margin (%)
+80% cash margin in 2025 amid lower commodity
+prices1
+83% 85% 80% 82% 80% Cash margin
+Sustained cash margin of 80% for more than 5 years
+13% 13% Production costs
+9% 9% 13%
+8% 6% 7% 5% 7% Other cash costs
+2021 2022 2023 2024 2025
+34 Full-Year 2025 Results Briefing 1. Non-IFRS financial measures. Refer to the glossary section of this presentation for the definition.
+=== page 39
+Actively managed debt portfolio
+Net debt1
+$ billion
+8.0
+7.7
+4.7
+3.8
+Continued access to debt markets, receiving strong
+0.6
+support with $3.5 billion US bond issuance
+2021 2022 2023 2024 2025
+Executed a new $1.2 billion multi-tranche syndicated
+Debt maturity profile1,2
+undrawn debt facility
+$ billion
+3
+Portfolio weighted average term-to-maturity of
+5.4 years
+2
+1
+0
+2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 >> 2054
+Drawn Undrawn
+35 Full-Year 2025 Results Briefing 1. Non-IFRS financial measure. Refer to the glossary section of this presentation for the definition.
+2. As at 31 December 2025.
+=== page 40
+Strong contribution to global economies
+Australian tax contribution4,5
+$ billion
+5.0
+~A$2 billion in Australian taxes, royalties and levies
+4.1
+paid in FY 2025
+Largest payer of PRRT in Australia1
+2.7
+~US$600 million of taxes, royalties and levies paid
+2.0
+internationally in FY 20252
+A$1,036m | Corporate income tax
+Global normalised all-in effective tax rate of 45%3
+0.7 A$471m | PRRT
+A$230m | Federal royalties
+A$83m | Federal excise
+A$77m | Offshore petroleum levy
+A$72m Payroll tax and fringe benefits tax
+2021 2022 2023 2024 2025
+1. Based on the Australian Taxation Office’s 2023-2024 report of entity tax information released in October 2025 (data.gov.au/).​
+2. Includes Trinidad and Tobago and Senegal production entitlements, which are paid in-kind. Excludes all Australian taxes.​
+3. For the FY 2025 period. Determined by total tax expense, royalties, excise, levies and other taxes, divided by profit before such taxes, adjusted for one off items.The global all-innormalisedeffective tax
+36 Full-Year 2025 Results Briefing ratedecreases to 39%with one offitemsincluded.
+4. Includes data relevant to the assets acquired through the merger with BHP’s petroleum business from 1 June 2022.​
+5. Figures are reported on a cash basis (net of any refunds received, for example, refunds of tax overpaid in prior periods) and are rounded to the nearest million.​
+=== page 41
+Asset tables
+Depreciation and Capital
+Operating revenue EBITDA1 EBIT1 Production costs
+Asset amortisation2 expenditure1,3
+$ million $ million $ million $ million
+$ million $ million
+Australia
+North West Shelf 1,554 1,287 571 716 214 175
+Pluto 3,419 2,743 810 1,933 238 385
+Wheatstone 748 603 354 249 209 70
+Bass Strait 1,016 795 444 351 86 194
+Macedon 202 162 63 99 8 32
+Pyrenees 149 91 62 29 14 61
+Ngujima-Yin 279 213 102 111 3 63
+Okha 134 81 27 54 12 50
+Scarborough - 23 5 18 1,421 -
+Other Australia - (442) - (442) 16 -
+Total Australia 7,501 5,556 2,438 3,118 2,221 1,030
+1. Non-IFRS financial measures. Refer to the glossary section of this presentation for the definitions.
+2. Includes exploration permit cost amortisation, impairment losses and impairment reversals.
+37 Full-Year 2025 Results Briefing 3. Capital additions on property, plant and equipment, evaluation capitalised and other corporate spend. Excludes exploration capitalised and is presented net of capital contributions from non-controlling
+interests for the development of Louisiana LNG.
+=== page 42
+Asset tables
+Depreciation and Capital
+Operating revenue EBITDA1 EBIT1 Production costs
+Asset amortisation2 expenditure1,4
+$ million $ million $ million $ million
+$ million $ million
+International
+Trinidad & Tobago 150 340 5 335 - 27
+Atlantis 737 607 431 176 234 89
+Shenzi 564 383 460 (77) 21 136
+Mad Dog 660 570 289 281 239 59
+Trion - (4) - (4) 884 -
+Sangomar 1,947 1,702 1,384 318 33 212
+Louisiana LNG - 9 - 9 929 -
+Beaumont New Ammonia - (53) - (53) 22 -
+Other International 11 (127) 22 (149) 20 -
+Total International 4,069 3,427 2,591 836 2,382 523
+Marketing 1,414 386 78 308 - -
+Corporate3 - (92) 281 (373) 100 -
+Total 12,984 9,277 5,388 3,889 4,703 1,553
+1. Non-IFRS financial measures. Refer to the glossary section of this presentation for the definitions.
+2. Includes exploration permit cost amortisation, impairment losses and impairment reversals.
+3. Includes corporate, new energy projects that have not yet reached FID and other.
+38 Full-Year 2025 Results Briefing
+4. Capital additions on property, plant and equipment, evaluation capitalised and other corporate spend. Excludes exploration capitalised and is presented net of capital contributions from non-controlling
+interests for the development of Louisiana LNG.
+=== page 43
+Realised price
+Products Units FY 2025 FY 2024 Variance
+LNG produced $/boe 62 66 (4)
+LNG traded1 $/boe 72 69 3
+Pipeline gas $/boe 37 36 1
+Oil and condensate $/boe 68 77 (9)
+NGLs $/boe 42 46 (4)
+Liquids traded $/boe 58 62 (4)
+Average realised price2 $/boe 60 63 (3)
+Average Dated Brent $/bbl 69 81 (12)
+WTI $/bbl 65 76 (11)
+JCC (lagged three months) $/bbl 76 88 (12)
+JKM $/MMBtu 13 12 1
+TTF3 $/MMBtu 12 11 1
+Henry Hub $/MMBtu 3 2 1
+1. Excludes any additional benefit attributed to produced LNG through third-party trading activities.
+39 Full-Year 2025 Results Briefing 2. Realised prices exclude the impact of periodic adjustments reflecting the arrangements governing Wheatstone LNG sales. The 2024 comparative has been restated to be presented on the same basis.
+3. TTF is converted from EUR/MWh to US$/MMBtu using published exchange rates and conversion factors.
+=== page 44
+2026 full-year guidance
+Item Guidance Comments
+• Includes production volumes from hydrocarbons of 170 – 183 MMboe and Beaumont
+Volumes MMboe 172 – 186 New Ammonia volumes of 2 – 3 MMboe.
+• Pluto LNG train 1 major turnaround in Q2 2026, duration approximately 5 weeks.
+Gas hub exposure1 % ~ 30
+• Consistent with past practice, guidance is at current Woodside equity interest. This
+excludes the impact of any subsequent sell-downs, future acquisitions or other equity
+Capital expenditure2,3 $ million 4,000 – 4,500 changes.
+• Excludes the final acquisition completion payment for Beaumont New Ammonia,
+expected in 2026. This will be separately disclosed in the cash flow statement.
+Abandonment expenditure $ million 500 – 800
+Exploration expenditure $ million ~ 200
+Production costs $ million 1,500 – 1,800
+• Includes Beaumont New Ammonia’s operating costs, in addition to the Group’s tolling
+Feed gas, services and processing costs $ million 500 – 600
+costs, feed gas and processing costs.
+Property, plant and equipment depreciation
+$ million 4,200 – 4,700
+and amortisation
+1. Consistent with 2025 Capital Markets Day, presented on a 3-year average for 2026-2028. Includes binding sales and purchases agreements only, Woodside’s equity share of Scarborough and Pluto LNG,
+Corpus Christ offtake volumes and assumes the Chevron asset swap is complete.
+2. Louisiana LNG (90% Louisiana LNG LLC, 60% Louisiana LNG Infrastructure LLC and 20% Driftwood Pipeline LLC) capital expenditure adjusted for the cash contributions from Stonepeak and WiIliams.
+Scarborough (74.9% participating interest), Pluto Train 2 (51% participating interest) and Trion (60% participating interest).
+40 Full-Year 2025 Results Briefing
+3. Completion of the asset swap with Chevron assumed in H2 2026. Woodside’s equity interests at current participating interest prior to the completion for NWS Project, NWS Oil Project Wheatstone,
+Julimar-Brunello and Angel CCS assets.
+=== page 45
+Here is the full palette
+of colours you can use
+Glossary
+$, $m, $B US dollar unless otherwise stated, millions of dollars, billions of dollars CCUS Carbon capture utilisation and storage
+1P Proved reserves CO Carbon dioxide
+2
+Australian Accounting Standards Board S2 Climate-related Disclosures sets out disclosure requirements CO₂ equivalent. The universal unit of measurement to indicate the global warming potential
+for an entity to provide useful information to primary users of its general purpose financial report about of each of the seven greenhouse gases, expressed in terms of the global warming potential
+AASB S2 climate-related risks and opportunities that could reasonably be expected to affect the entity’s cash flows, CO 2 -e of one unit of carbon dioxide. It is used to evaluate releasing (or avoiding releasing) any
+access to finance or cost of capital over the short, medium or long term. greenhouse gas against a common basis1
+Abate/abatement Avoidance, reduction or removal of an amount ofcarbon dioxide or equivalent Condensate Hydrocarbons that are gaseous in a reservoir but that condense to form liquids as they rise to thesurface
+Woodside uses this term to describe an aspiration to seek the achievement of an outcome but where cps Cents per share
+Aspiration achievement of the outcome is subject to material uncertainties and contingencies such that Woodside
+Woodside uses this term to describe activities or pathways that have the effect of moving towards a state
+considers there is not yet a suitable defined plan or pathway to achieve that outcome Decarbonisation
+that is lower-carbon, as defined in this glossary
+Average realised price Revenue from sale of hydrocarbons ($ million) divided by sales volume (MMboe) DES Delivery ex ship
+A$, AUD Australian dollars DTA Deferred tax asset
+Bbl Barrels EBIT Calculated as a profit before income tax, PRRT and net finance costs
+Bcf Billion cubic feet Calculated as profit before income tax, PRRT, net finance costs, depreciation and amortisation, impairment
+EBITDA
+Board The Board of Directors of Woodside Energy Group Ltd losses, impairment reversals
+Breakeven is calculated on an adjusted free cash flow basis. It excludes capital and selldown proceeds EBITDA margin EBITDA margin % is calculated as EBITDA divided by operating revenue
+Breakeven from major projects (Louisiana LNG, Scarborough, Trion, and Beaumont New Ammonia), marketing, Emissions Emissions refers to emissions of greenhouse gases unless otherwise stated
+exploration and hedging
+EPC Engineering, procurement and construction
+Brent Intercontinental Exchange (ICE) Brent Crude deliverable futures contract (oil price)
+EPS Earnings per share
+Barrel of oil equivalent, thousand barrels of oil equivalent, million barrels of oil equivalent, billion barrels
+boe, kboe, MMboe, Bboe Woodside sets its Scope 1 and 2 greenhouse gas emissions reduction targets on an equity basis.
+of oil equivalent
+Thisensures that the scope of its emissions reduction targets is aligned with its economic interest in its
+CAGR Compound annual growth rate Equity greenhouse gas emissions investments. Equity emissions reflect the greenhouse gas emissions from operations according to
+Woodside’s share of equity in the operation. Its equity share of an operation reflects itseconomic interest
+Capital additions on property, plant and equipment, evaluation capitalised and other corporate spend.
+in the operation, which is the extent of rights it has to the risks and rewards flowing from the operation2
+Capital expenditure Excludes exploration capitalised andadjusted for the capital contribution from its non-controlling
+interests for the development of LouisianaLNG Includes exploration and evaluation expenditure less amortisation of licence acquisition costs and prior
+Exploration expenditure
+year exploration expense written off
+Capital expenditure excluding Capital additions on property, plant and equipment, evaluation capitalised and other corporate spend.
+Louisiana LNG Excludes exploration capitalised andnet capital additions on Louisiana LNG FEED Front-end engineering design
+A tradable financial instrument that is issued by a carbon-crediting program. A carbon credit represents a FID Final investment decision
+greenhouse gas emission reduction to, or removal from, the atmosphere equivalent to 1 tCO2-e,
+FOB Free on board
+Carbon credit calculated as the difference in emissions from a baseline scenario to a project scenario. Carbon credits are
+uniquely serialised, issued, tracked and retired or administratively cancelled by means of an electronic FPSO Floating production storage and offloading
+registry operated by an administrative body, such as a carbon-crediting program
+FPU Floating production unit
+Gross profit/loss adjusted for other cost of sales, trading costs, oil and gas properties depreciation and
+Net cash flow from/(used in) operating activities and net cash flow from/(used in) investing activities,
+Cash margin amortisation and other revenue. Excludes the marketing segment. Cash margin % is calculated as cash Free cash flow
+adjusted for capital contributions from/(to) non-controlling interests and lease repayments
+margin divided by revenue from sale of hydrocarbons (excluding marketing segment)
+FSO Floating storage and offloading facility
+CBAM Carbon border adjustment mechanism
+CCS Carbon capture and storage
+1. See IFRS Foundation 2021: Climate Related Disclosures Prototype. Appendix A.
+41 Full-Year 2025 Results Briefing
+2. World Resources Institute and World Business Council for Sustainable Development, 2004. “GHG Protocol: a corporate accounting and reporting standard” https://www.wbcsd.org/Programs/Climate-and-
+Energy/Climate/Resources/A-corporate-reporting-and-accounting-standard-revised-edition.
+=== page 46
+Here is the full palette
+of colours you can use
+Glossary
+Gearing Net debt divided by net debt and equity attributable to the equity holders of the parent For Woodside, a lower-carbon portfolio is one from which the net equity Scope 1 and 2 greenhouse gas
+emissions, which includes the use of offsets, are being reduced towards targets, and into which new
+The seven greenhouse gases listed in the Kyoto Protocol are: carbon dioxide (CO); methane (CH); nitrous
+2 4 Lower-carbon portfolio energy products and lower-carbon services are planned to be introduced as a complement to existing and
+GHG or greenhouse gas oxide (NO); hydrofluorocarbons (HFCs); nitrogen trifluoride (NF); perfluorocarbons (PFCs); and sulphur
+2 3 new investments in oil and gas. Our Climate Policy sets out the principles that we believe will assist us
+hexafluoride (SF)1
+6 achieve this aim
+Goal Woodside uses this term to broadly encompass its targets and aspirations
+Woodside uses this term to describe technologies, such as CCUS or offsets that could be used by
+Lower-carbon services
+A high-consequence injury is a work-related injury that results in a fatality or permanent customers to reduce their net greenhouse gas emissions
+impairmentinjury2
+MMbbl Million barrels
+High Consequence Injury or HCI Woodside’s definition for HCI has changed in 2025 toalign with the IOGP Fatality and Permanent MMBtu Million British thermal units
+Impairment definition. This definition was adopted tofocus attention on the highest risks to people.
+Inthe previous reporting period, the HCI definition included long-term disabling injuries (i.e where the Mtpa, mmtpa Million tonnes per annum
+person will make a full recovery, but recovery exceeds 180 days) in HCI statistics which focused
+MWh Megawatt hour
+disproportionate effort towards injury management, access to treatment and privacy issues
+HSE Health, safety and environment Net debt Interest-bearing liabilities and lease liabilities less cash and cash equivalents
+IFRS International Financial Reporting Standards Net equity greenhouse gas Woodside’s equity share of net greenhouse gas emissions which includes the utilisation of carbon credits
+emissions as offsets
+Investing cash flow Cash flow from investing activities
+Woodside has set its Scope 1 and 2 greenhouse gas emissions reduction targets on a net basis, allowing
+IRR or Internal rate of return Internal rate of return. IRR is calculated as the rate of return required for Woodside’s share of after-tax for both direct emissions reductions from its operations and emissions reduction achieved from the
+project cashflows that deliver an NPV of zero Net greenhouse gas emissions utilisation of carbon credits as offsets (including credits relating to avoidance, reduction and/or removal
+The Japan customs-cleared crude is the average price of customs-cleared crude oil imports into Japan as activities). Net greenhouse gas emissions are equal to an entity’s gross greenhouse gas emissions reduced
+JCC reported in customs statistics (also known as ‘Japanese crude cocktail’) and is used as a reference price for by the number of retired carboncredits3
+long-term supply LNG contracts Net cash from operating activities adjusted to remove non-controlling interest to present net cash
+Net operating cash flow
+Japan Korea Marker is the North-east Asian spot price index for LNG delivered ex-ship to Japan, South attributable to Woodside (i.e. not on a consolidated basis) and the impact of lease repayments.
+JKM
+Korea, China and Taiwan Net zero emissions are achieved when anthropogenic emissions of greenhouse gases to the atmosphere
+are balanced by anthropogenic removals over a specified period. Where multiple greenhouse gases are
+JV Joint venture
+Net zero involved, the quantification of net zero emissions depends on the climate metric chosen to compare
+KGP Karratha Gas Plant emissions of different gases (such as global warming potential, global temperature change potential,
+andothers, as well as the chosen time horizon)4
+Liquidity Total cash and cash equivalents and available undrawn debt facilities
+Woodside uses this term to describe energy technologies, such as hydrogen or ammonia, that are
+LNG Liquefied natural gas
+New energy emerging in scale but which are expected to grow during the energy transition due to having lower
+Woodside uses this term to describe the characteristic of having lower levels of associated potential GHG greenhouse gas emissions at the point of use than conventional fossil fuels
+emissions when compared to historical and/or current conventions or analogues, for example relating to
+Lower-carbon NGLs Natural gas liquids
+an otherwise similar resource, process, production facility, product or service, or activity. When applied to
+Woodside’s strategy, please see the definition of lower-carbon portfolio NPAT Net profit after tax
+Lower-carbon ammonia is characterized here by the use of hydrogen with emissions abated by carbon
+NWS North West Shelf
+capture and storage (CCS), with an expected ammonia lifecycle (Scope 1, 2 and 3) carbon emissions
+Lower-carbon ammonia intensity of 0.8 tCO/tNH (based on contracted intensity threshold with Linde) relative to unabated OECD Organisation for Economic Cooperation and Development
+2 3
+ammonia with a lifecycle (Scope 1, 2 and 3) carbon emissions intensity of 2.3 tCO2/tNH (Hydrogen
+3 The compensation for an entity’s greenhouse gas emissions within its scope by achieving an equivalent
+Europe, 2023) Offsets
+amount of emission reductions or removals outside the boundary or value chain of that entity
+1. See IFRS Foundation 2021: Climate Related Disclosures Prototype. Appendix A.
+2. IOGP Fatality and Permanent Impairment injury definitions | IOGP.
+3. Australian Clean Energy Regulator, 2023. “Corporate Emissions Reduction Transparency report 2023” https://cer.gov.au/markets/reports-and-data/corporate-emissions-reduction-transparency-
+report/corporate-emissions-reduction-transparency-report-2023/cert-report-2023-glossary.
+4. IPCC, 2018: Annex I: Glossary [Matthews, J.B.R. (ed.)]. In: Global Warming of 1.5°C. An IPCC Special Report on the impacts of global warming of 1.5°C above pre-industrial levels and related global
+42 Full-Year 2025 Results Briefing greenhouse gas emission pathways, in the context of strengthening the global response to the threat of climate change, sustainable development, and efforts to eradicate poverty [Masson-Delmotte,
+V.,P.Zhai, H.-O. Pörtner, D. Roberts, J. Skea, P.R. Shukla, A. Pirani, W. Moufouma-Okia, C. Péan, R. Pidcock, S. Connors, J.B.R. Matthews, Y. Chen, X. Zhou, M.I. Gomis, E. Lonnoy, T. Maycock, M. Tignor,
+andT.Waterfield (eds.)]. Cambridge University Press, Cambridge, UK and New York, NY, USA, pp. 541–562. https://doi.org/10.1017/9781009157940.008.
+=== page 47
+Here is the full palette
+of colours you can use
+Glossary
+Operating cash flow Cash flow from operating activities Thestarting base has been adjusted for the merger between Woodside and BHP Group’s Petroleum
+business (completed on 1 June 2022) which increased the starting base from 3.59Mt CO₂-e to 6.32Mt
+Oil and gas joint venture participants will typically appoint one company as the operator, which will hold Starting base
+CO₂-e and for the divestment of the Greater Angostura assets (completed on 11 July 2025)
+the contractual authority to manage joint venture activities on behalf of the joint venture participants.
+Operator, Operated and whichsubsequently reduced it from 6.32MtCO₂-e to6.27MtCO₂-e
+Where Woodside is the operator of a joint venture in which it holds an equity share, this report refers to
+non-operated
+that joint venture as being operated. Where another company is the operator of a joint venture in which SURF Subsea, umbilicals, risers and flowlines
+Woodside holds an equity share, this report refers to that joint venture as being non-operated
+References to sustainability (including sustainable and sustainably) are used with reference to Woodside’s
+Other cash costs include royalties, excise and levies, insurance, inventory movement, shipping and direct Sustainability Committee and sustainability related Board policies, as well as in the context of Woodside’s
+sales costs and other hydrocarbon costs. Excludes the marketing segment. Other cash cost margin % is aim to ensure its business is sustainable from a long-term perspective, considering a range of factors
+Other cash cost margin calculated as other cash costs divided by revenue from sale of hydrocarbons (excluding marketing Sustainability (including including economic (including being able to sustain our business in the long term by being low cost and
+segment) sustainable and sustainably) profitable), environmental (including considering our environmental impact and striving for a lower-
+carbon portfolio), social (including supporting our license to operate), and regulatory (including ongoing
+A permanent impairment is defined as the outcome of a work-related2 injury from which the worker compliance with relevant legal obligations). Use of the terms ‘sustainability’, ‘sustainable’ and ‘sustainably’
+Permanent Impairment Injury cannot or is not expected to return to their previous (pre-incident) whole person function as a result is not intended to imply that Woodside will have no adverse impact on the economy, environment, or
+ofanacute, single incident, resulting in any of thefollowing:permanent loss of body parts permanent society, or that Woodside will achieve any particular economic, environmental, or social outcomes
+reduction of organ's physiologicalfunction permanent reduction in skin and musculoskeletalfunction1
+Woodside uses this term to describe an intention to seek the achievement of an outcome, where
+PJ Petajoules Target Woodside considers that it has developed a suitably defined plan or pathway to achieve that outcome
+PRRT Petroleum resource rent tax A typical Tier 1 process safety event is loss of containment of hydrocarbons greater than 500 kg (in any
+Tier 1 process safety event
+An unplanned or uncontrolled loss of primary containment (LOPC) of any material including non-toxic one-hour period)
+Process safety event (Tier 1 and and nonflammable materials from a process, or an undesired event or condition. Process safety events are A typical Tier 2 process safety event is loss of containment of hydrocarbons greater than 50 kg but less
+Tier 2) classified as Tier 1 – LOPC of greatest consequence or Tier 2 – LOPC of lesser consequence. As defined by Tier 2 process safety event than 500 kg (in any one-hour period)
+American Petroleum Institute (API) recommended practice 754
+TJ/day Terajoules per day
+The total energy consumption of a country, encompassing the energy used by the energy sector itself,
+Primary energy consumption
+energy transformation and distribution losses, and final consumption by end-users TTF Title transfer facility
+Annualised net profit after tax attributable to equity holder of the parent divided by equity attributable to Underlying NPAT Net profit after tax from the Group’s operations excluding any exceptional items
+Return on equity
+equity holders of the parent
+Unit production cost or UPC Production costs ($ million) divided by production volume (MMboe)
+RFSU Ready for start-up
+US, USA United States of America
+Direct greenhouse gas emissions. These occur from sources that are owned or controlled by the
+USD United States dollar
+company, for example, emissions from combustion in owned or controlled boilers, furnaces, vehicles, etc.,
+emissions from chemical production in owned or controlled process equipment. Woodside estimates Woodside Woodside Energy Group Ltd ACN 004 898 962 or its applicable subsidiaries
+Scope 1 greenhouse gas greenhouse gas emissions, energy values and global warming potentials are estimated in accordance with
+emissions the relevant reporting regulations in the jurisdiction where the emissions occur (e.g. Australian national
+Greenhouse and Energy Reporting (nGER), US EPA Greenhouse Gas Reporting Program (GHGRP)).
+Australian regulatory reporting principles have been used for emissions in jurisdictions where regulations
+do not yet exist2
+Other indirect greenhouse gas emissions. Scope 3 is a reporting category that allows for the treatment of
+all other indirect emissions. Scope 3 emissions are a consequence of the activities of the company but
+Scope 3 greenhouse gas occur from sources not owned or controlled by the company. Some examples of Scope 3 activities are
+emissions extraction and production of purchased materials; transportation of purchased fuels; and use of sold
+products and services. Please refer to the data table on page 72 of the Climate Transition Action Plan and
+2023 Progress Report for further information on the Scope 3 emissions categories reported by Woodside2
+1. See the IOGP Fatality and Permanent Impairment injury definitions. https://www.iogp.org/workstreams/safety/safety/iogp-fatality-and-permanent-impairment/iogp-fatality-and-permanent-impairment-
+43 Full-Year 2025 Results Briefing injury-definitions/.
+2. See IFRS Foundation 2021: Climate Related Disclosures Prototype. Appendix A.
+=== page 48
+Head Office:
+Woodside Energy
+Mia Yellagonga
+11 Mount Street
+Perth WA 6000
+Australia
+Postal Address:
+GPO Box D188
+Perth WA 6840
+Australia
+T: +61 8 9348 4000
+F: +61 8 9214 2777
+E: companyinfo@woodside.com
+Woodside Energy Group Ltd
+ABN 55 004 898 962
+woodside.com
+44 Full-Year 2025 Results Briefing
