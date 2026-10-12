@@ -38,10 +38,13 @@ from openpyxl.styles import Font
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "south_america"))
+sys.path.insert(0, os.path.join(ROOT, "middle_east", "capacity"))
+import capacity_factors  # noqa: E402
 import fundamentals  # noqa: E402
 import pandas as pd  # noqa: E402
 import xlsx_charts  # noqa: E402
 import SOUTH_AMERICA_MASTER as sam  # noqa: E402
+import EAST_MED_AFRICA_CAPACITY_COMPLETE as emac  # noqa: E402
 
 DATA_DIR = sam.DATA_DIR
 
@@ -113,7 +116,11 @@ def jordan_gas_supply(path):
              "units": "Bcf/d", "line_cols": ("Gas consumed for power (MEMR, annual average)",)}]
 
 # settings sam.collect reads from the master module it is given
-MASTER_SPECS = {}
+# Complete monthly installed capacity (middle_east/capacity/EAST_MED_AFRICA_CAPACITY_COMPLETE.py): official annual stocks where reachable
+# (Jordan: NEPCO), Ember yearly capacity (fallback) elsewhere, interpolated/held to monthly, every filled cell flagged in that workbook.
+CAP_FILE = emac.OUT_EM
+CAP_COUNTRIES = [("IL", "Israel"), ("EG", "Egypt"), ("CY", "Cyprus"), ("JO", "Jordan"), ("LB", "Lebanon")]
+MASTER_SPECS = {(CAP_FILE, (n, f"{n} flags")): emac.cap_spec(n, f"{n} installed capacity, monthly (see Basis)") for _c, n in CAP_COUNTRIES}
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 DASHBOARD_ONLY = {}
@@ -133,6 +140,12 @@ CAVEATS = [
     "pipeline gas, Aqaba LNG and Risha have no published annual volumes by source, so the difference is NOT supply "
     "from them and no residual is computed",
     "Egypt power: grid load only (daily peak and minimum); generation by type is annual (MOEE) and not yet built",
+    "Installed capacity (all five countries): a gap-free MONTHLY series built from ANNUAL year-end stocks - official where a pull exists "
+    "(Jordan: NEPCO 'available capacity of generating plants' on the transmission network, 2020-24; its 'Other' is steam units incl. Attarat oil "
+    "shale), otherwise Ember yearly capacity (FALLBACK, IRENA-based). Wind, solar and bioenergy are linear between stocks, other fuels held, "
+    "flat after the last stock; Ember lists no coal/nuclear/storage rows for countries without them (blank, not zero). Israel and Cyprus: "
+    "the official reports (Electricity Authority chart, CERA prose for commercial plants only) were not parseable like-for-like, so Ember is used. "
+    "Capacity factors only where a monthly generation feed exists (Cyprus, TSOC)",
     "Jordan power: NEPCO daily peak load only, as posted (often 14-27 of 31 days a month in 2021-24; unposted days are "
     "gaps, implausible figures are blanked and flagged on the raw tab); the monthly maximum is charted only for months "
     "with at least 20 days posted",
@@ -165,11 +178,34 @@ def main():
     gas_cfg.SOURCES = {**SOURCES, "jordan_power_annual.xlsx": JORDAN_GAS_SOURCE}
     gas = sam.collect(wb, GAS_DATASETS, args.data_dir, used, sources, cfg=gas_cfg)
     power = sam.collect(wb, POWER_DATASETS, args.data_dir, used, sources, cfg=cfg)
+    cap_path = os.path.join(args.data_dir, CAP_FILE)
+    if os.path.exists(cap_path):
+        keys = ("HYDRO_DATASETS", "HYDRO_EXTRA", "DASHBOARD_ONLY", "EMBER", "OPERATORS", "MASTER_SPECS")
+        for code, name in CAP_COUNTRIES:   # one source line per country: which fuels are official annual, which Ember (fallback)
+            ns = types.SimpleNamespace(**{k: getattr(cfg, k) for k in keys})
+            ns.SOURCES = {**SOURCES, CAP_FILE: emac.source_line(cap_path, name, CAP_FILE)}
+            part = sam.collect(wb, [(code, name, CAP_FILE, (name, f"{name} flags"), "capacity")], args.data_dir, used, sources, cfg=ns)
+            for i in range(3):
+                power[i].extend(part[i])
+        gens = emac.generation_frames(args.data_dir, "EM")
+        _chart, _row, cf_missing, cf_charts = capacity_factors.add_capacity_factor_sheets(
+            wb, used, sam.sheet_name, gens, {n: (cap_path, n) for n in gens}, sam.CHART_W, sam.CHART_H,
+            "Generation (TSOC) / installed capacity: Ember yearly (fallback), interpolated to months (see the capacity workbook's Basis)",
+            "East Med")
+        if _chart:   # drop the regional chart's data tab: with one country it would repeat the Cyprus chart
+            wb.remove(wb[_row[3]])
+            used.discard(_row[3])
+        for (ch, row) in cf_charts[1:] if _chart else cf_charts:   # country charts only (the regional chart would repeat Cyprus)
+            power[0].append(ch)
+            power[1].append(row)
+        power[2].extend(cf_missing)
+    else:
+        power[2].append(f"installed capacity: {CAP_FILE} not found")
     gas[2].extend(CAVEATS[:3])
     power[2].extend(CAVEATS[3:])
     sam.draw_dashboard(dash, "East Mediterranean - gas (Israel by field, exports to Egypt and Jordan; Egypt balance, JODI fallback; Jordan supply vs burn)", *gas)
     sam.draw_dashboard(dash2, "East Mediterranean - power (Egypt grid load, Cyprus generation, Jordan peak load and "
-                              "annual statistics)", *power)
+                              "annual statistics, installed capacity and capacity factors)", *power)
 
     notes = fundamentals.add_long_term_dashboard(wb, used, sam.sheet_name, "East Med", args.data_dir, sam.CHART_W,
                                                  sam.CHART_H, rows_per_chart=sam.ROWS_PER_CHART,
