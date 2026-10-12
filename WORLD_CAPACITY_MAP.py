@@ -41,48 +41,58 @@ COLOURS = {"monthly": "#1B8A5A", "monthly_short": "#7FD1A8", "current": "#2A78D6
            "ember": "#F3DDB0"}
 GREY, EDGE, DOT_GAP = "#D9D9D9", "#FFFFFF", "#E34948"
 
-ENTSOE_ANNUAL = ["Germany", "France", "Spain", "Italy", "Netherlands", "Belgium", "Poland", "Austria", "Switzerland",
-                 "Czechia", "Slovakia", "Hungary", "Romania", "Bulgaria", "Greece", "Portugal", "Croatia", "Slovenia",
-                 "Denmark", "Sweden", "Norway", "Finland", "Ireland", "Estonia", "Latvia", "Lithuania", "Serbia",
-                 "Bosnia and Herz.", "Montenegro", "North Macedonia", "Albania", "Kosovo"]
+ENTSOE_ANNUAL = ["Italy", "Netherlands", "Austria", "Slovakia", "Romania", "Bulgaria", "Greece", "Croatia", "Slovenia",
+                 "Sweden", "Finland", "Estonia", "Latvia", "Lithuania", "Serbia", "Bosnia and Herz.", "Montenegro",
+                 "North Macedonia", "Albania", "Kosovo"]
 EMBER_ONLY = ["Venezuela", "Guyana", "Suriname", "Guatemala", "El Salvador", "Honduras", "Nicaragua", "Costa Rica",
               "Panama", "Belize", "Trinidad and Tobago", "Puerto Rico", "Jamaica", "Dominican Rep.", "Mexico",
               "Pakistan", "Thailand", "Vietnam", "Nepal", "Myanmar", "Laos", "Brunei", "Timor-Leste", "Bhutan",
-              "Singapore", "United Kingdom", "Turkey", "Luxembourg", "Malta", "Cyprus", "Israel", "Egypt", "Jordan",
-              "Lebanon"]
+              "Singapore", "Malta", "Cyprus", "Israel", "Egypt", "Lebanon",
+              # Africa master: Ember yearly (South Africa: Eskom nuclear and pumped storage only)
+              "Nigeria", "South Africa", "Cameroon", "Côte d'Ivoire", "Benin", "Togo", "Eq. Guinea", "Mauritania",
+              "Mali", "Burkina Faso", "Guinea", "Sierra Leone", "Liberia", "Gambia", "Guinea-Bissau", "Senegal",
+              "Niger"]
 
-# name (Natural Earth): (class, note)
+# name (Natural Earth): (class, note). Europe, the Americas, East Med and Africa are filled to a gap-free monthly series
+# (capacity_fill.py; *_capacity_monthly_complete.xlsx) - the class is the BASIS behind it. Asia is not filled yet.
 CAPACITY = {
     "United States of America": ("monthly", "EIA-860M, Jan 2021 -, by fuel and ISO region"),
     "India": ("monthly", "CEA/NPP + MNRE, Jan 2019 -"),
-    "Argentina": ("monthly", "CAMMESA, Jan 2021 -"),
-    "Brazil": ("monthly", "ANEEL SIGA + MMGD, Jan 2021 -"),
-    "Chile": ("monthly", "CNE, Jan 2021 -"),
-    "Colombia": ("monthly", "XM, Jan 2021 -"),
+    "Argentina": ("monthly", "CAMMESA"), "Brazil": ("monthly", "ANEEL SIGA + MMGD"), "Chile": ("monthly", "CNE"),
+    "Colombia": ("monthly", "XM"),
     "Australia": ("monthly", "AEMO registration list, Jan 2021 -"),
     "South Korea": ("monthly", "KPX EPSIS, Jan 2018 -"),
     "China": ("monthly", "NEA, Dec 2020 - (January never published; thermal not split)"),
+    "Germany": ("monthly", "MaStR register rebuild, Jan 2015 -"), "France": ("monthly", "ODRE register rebuild"),
+    "Spain": ("monthly", "REE REData"), "Hungary": ("monthly", "MAVIR"), "Czechia": ("monthly", "ERU"),
+    "Switzerland": ("monthly", "BFE/Pronovo register rebuild"), "Turkey": ("monthly", "EPDK sector reports, Feb 2017 -"),
     "Japan": ("monthly_short", "METI table 1-1, Apr 2024 - Mar 2026 only"),
-    "Taiwan": ("monthly_short", "E-STAT 3-03, monthly from Jan 2025 (annual 2007 -)"),
-    "Ecuador": ("monthly_short", "ARCONEL, monthly from Apr 2024 (May 2025 missing)"),
+    "Taiwan": ("monthly_short", "E-STAT 3-03, monthly from Jan 2025"),
+    "Ecuador": ("monthly_short", "ARCONEL, monthly from Apr 2024"),
+    "United Kingdom": ("monthly_short", "solar/wind/storage monthly; thermal DUKES annual"),
+    "Ireland": ("monthly_short", "EirGrid wind + register rebuild; thermal annual"),
+    "Belgium": ("monthly_short", "Elia wind and solar monthly; rest ENTSO-E annual"),
+    "Denmark": ("monthly_short", "Energinet wind and solar monthly; thermal ENTSO-E annual"),
+    "Norway": ("monthly_short", "NVE hydro and wind register rebuild"),
+    "Portugal": ("monthly_short", "DGEG renewables monthly; thermal annual"),
     "Bangladesh": ("current", "BPDB current fleet, history from Oct 2026"),
     "Malaysia": ("current", "GSO current fleet, Peninsular only"),
     "Sri Lanka": ("current", "PUCSL current fleet"),
     "Indonesia": ("current", "ESDM EBTKE, renewables only, one snapshot"),
+    "Poland": ("annual", "ENTSO-E annual; URE wind quarterly"),
     "Canada": ("annual", "StatCan year-end, 2019 - 2024"),
-    "Peru": ("annual", "COES annual statistics"),
-    "Bolivia": ("annual", "CNDC (monthly series repeats the year)"),
-    "Uruguay": ("annual", "MIEM/DNE"),
+    "Peru": ("annual", "COES annual statistics"), "Bolivia": ("annual", "CNDC"), "Uruguay": ("annual", "MIEM/DNE"),
     "Paraguay": ("annual", "Itaipu, EBY, Ember for ANDE plants"),
-    "Philippines": ("annual", "DOE Power Statistics, 2003 - 2025"),
-    "Cambodia": ("annual", "EAC annual reports"),
+    "Philippines": ("annual", "DOE Power Statistics, 2003 - 2025"), "Cambodia": ("annual", "EAC annual reports"),
     "New Zealand": ("annual", "MBIE plant-type table"),
+    "Luxembourg": ("annual", "ILR annual"), "Jordan": ("annual", "NEPCO annual reports"),
+    "Ghana": ("annual", "Energy Commission"), "Morocco": ("annual", "ONEE via HCP yearbooks"),
 }
 CAPACITY.update({c: ("annual", "ENTSO-E installed capacity, 1 January") for c in ENTSOE_ANNUAL})
-CAPACITY.update({c: ("ember", "Ember yearly (long-term page)") for c in EMBER_ONLY if c not in CAPACITY})
+CAPACITY.update({c: ("ember", "Ember yearly") for c in EMBER_ONLY if c not in CAPACITY})
 
-BIG_GAPS = ["Canada", "Mexico", "United Kingdom", "Germany", "France", "Spain", "Italy", "Poland", "Netherlands",
-            "Turkey", "Egypt", "South Africa", "Pakistan", "Vietnam", "Thailand", "Indonesia"]
+BIG_GAPS = ["Canada", "Mexico", "Italy", "Netherlands", "Poland", "Egypt", "South Africa", "Pakistan", "Vietnam",
+            "Thailand", "Indonesia"]
 SMALL = {"Singapore": (103.82, 1.35), "Trinidad and Tobago": (-61.3, 10.45), "Malta": (14.4, 35.9),
          "Luxembourg": (6.13, 49.8)}
 DOT_AT = dict(wcm.DOT_AT)
@@ -142,20 +152,21 @@ def render(out):
     ins.set_title("Europe", fontsize=10, loc="left", color="#333333")
 
     n = {k: sum(1 for v in CAPACITY.values() if v[0] == k) for k in COLOURS}
-    handles = [Patch(facecolor=COLOURS["monthly"], label=f"Monthly by fuel, multi-year ({n['monthly']})"),
-               Patch(facecolor=COLOURS["monthly_short"], label=f"Monthly by fuel, short / stale / holes "
+    handles = [Patch(facecolor=COLOURS["monthly"], label=f"Monthly national source, all main fuels ({n['monthly']})"),
+               Patch(facecolor=COLOURS["monthly_short"], label=f"Monthly for some fuels, or short / with holes "
                                                                 f"({n['monthly_short']})"),
                Patch(facecolor=COLOURS["current"], label=f"Current fleet only, history building from Oct 2026 "
                                                          f"({n['current']})"),
-               Patch(facecolor=COLOURS["annual"], label=f"Annual official only, incl. ENTSO-E Europe ({n['annual']})"),
-               Patch(facecolor=COLOURS["ember"], label=f"Ember yearly only ({n['ember']})"),
+               Patch(facecolor=COLOURS["annual"], label=f"Annual official (ENTSO-E Europe, StatCan, ...) ({n['annual']})"),
+               Patch(facecolor=COLOURS["ember"], label=f"Ember yearly fallback only ({n['ember']})"),
                Patch(facecolor=GREY, label="No capacity data"),
                Line2D([], [], marker="o", linestyle="none", markersize=8, color=DOT_GAP, markeredgecolor="white",
-                      label="Large system (about 45 GW+) with no monthly capacity")]
+                      label="Large system with no monthly national capacity source")]
     fig.legend(handles=handles, loc="lower center", ncol=3, frameon=False, fontsize=10, bbox_to_anchor=(0.5, 0.0),
                columnspacing=2.5, labelspacing=0.9)
     fig.text(0.995, 0.005, "Singapore, Trinidad & Tobago, Malta, Luxembourg shown as markers. Survey of the repo's "
-             "capacity workbooks, 12 Oct 2026. Africa: no installed-capacity series (Eskom availability only).",
+             "capacity workbooks, 12 Oct 2026. Europe, the Americas, East Med and Africa are filled to gap-free monthly series "
+             "(colour = basis behind the fill); Asia and Oceania are not filled yet.",
              ha="right", fontsize=8, color="#6B6B6B")
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     fig.savefig(out, facecolor="white", bbox_inches="tight", pad_inches=0.15)
