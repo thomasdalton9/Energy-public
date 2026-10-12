@@ -1,0 +1,58 @@
+name: Europe capacity - Germany, Netherlands, Belgium, Luxembourg (monthly)
+
+# Germany: month-end capacity by fuel rebuilt from the Bundesnetzagentur Marktstammdatenregister (MaStR) Gesamtdatenexport (3.2 GB zip,
+# members streamed by HTTP range request on many connections; about 15-25 minutes), europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py.
+# Belgium: Elia open data (wind and PV monitored capacity monthly, contracted units); Netherlands: CBS annual only; Luxembourg: ILR annual
+# only (europe/capacity/BENELUX_CAPACITY.py). Neither the Netherlands nor Luxembourg has a monthly source.
+on:
+  schedule:
+    - cron: "27 2 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild Germany even if the export file is the one already processed"
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  germany:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install pandas openpyxl requests matplotlib
+      - name: Run pull
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          F=""; [ "${{ github.event.inputs.force }}" = "true" ] && F="--force"
+          python3 europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py $F
+
+      - name: Add Excel charts, PNGs and copy scripts
+        if: always()
+        run: |
+          w="output/Data and Chart Outputs/germany_power_capacity_monthly.xlsx"
+          [ -f "$w" ] && python3 add_charts.py "$w" && python3 png_charts.py "$w" || echo "chart step skipped/failed"
+          mkdir -p "output/Python Scripts"
+          cp europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py png_charts.py add_charts.py xlsx_charts.py xlsx_notes.py water_year_chart.py "output/Python Scripts/" || true
+
+      - name: Commit updated workbook
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/germany_power_capacity_monthly.xlsx" || true
+          git add -f "output/PNG Charts" || true
+          git add -f "output/Python Scripts" || true
+          git diff --cached --quiet || git commit -m "Europe capacity (Germany, MaStR): automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
