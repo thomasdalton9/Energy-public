@@ -394,6 +394,8 @@ def cee_capacity(title, quarterly=False, note=""):
         d = full[full.index >= "2021-01-01"]
         g = pd.DataFrame({n: d[c] for n, c in names if c in d and d[c].notna().any() and d[c].fillna(0).abs().sum() > 0}) / 1000.0
         adds = pd.DataFrame({"Solar": full["Solar_MW"].diff(), "Wind": full["Wind_MW"].diff()})
+        if "solar_series_break" in full:   # Czech coverage break: not new build
+            adds.loc[full["solar_series_break"].astype(str).str.lower().isin(["true", "1"]), "Solar"] = float("nan")
         unit = "per release (quarter)" if quarterly else "per month"
         return [spec("Capacity", g, title, "GW installed", "stacked_bar"),
                 spec("Net additions", adds[adds.index >= "2021-02-01"].dropna(how="all"),
