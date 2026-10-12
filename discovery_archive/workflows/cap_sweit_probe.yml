@@ -11,6 +11,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            discovery_archive/europe/capacity
+            europe
+          sparse-checkout-cone-mode: false
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: pip install pandas openpyxl requests beautifulsoup4 lxml curl_cffi
