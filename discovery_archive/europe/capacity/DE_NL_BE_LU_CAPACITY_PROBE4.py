@@ -1,37 +1,69 @@
 """Probe 4 (12 Oct 2026): MaStR unit file names + one decoded record per unit type + Katalog values (UTF-16 XML, read by HTTP range),
 Elia monthly aggregates of monitoredcapacity (ods031/ods032) and ods179 units by fuel, CBS OData, Luxembourg ILR dataset resources."""
 import io, re, json, zipfile, requests, collections
-exec(open("discovery_archive/europe/capacity/DE_NL_BE_LU_CAPACITY_PROBE3.py").read().split('print("### MaStR")')[0])
+import time
+S = requests.Session(); S.headers["User-Agent"] = "Mozilla/5.0 (research; energy data)"
+def rget(u, tries=6, **kw):
+    for k in range(tries):
+        try:
+            r = S.get(u, timeout=180, **kw)
+            if r.status_code < 500: return r
+        except Exception as e:
+            print("   retry", k, repr(e)[:100])
+        time.sleep(5 * (k + 1))
+    raise RuntimeError("giving up " + u)
+class RangeFile(io.RawIOBase):
+    def __init__(self, url):
+        r = rget(url, headers={"Range": "bytes=0-0"})
+        print("RANGE0", r.status_code, r.headers.get("content-range"), r.headers.get("last-modified"))
+        self.size = int(r.headers["content-range"].split("/")[1]); self.pos = 0; self.url = url
+    def seekable(self): return True
+    def readable(self): return True
+    def tell(self): return self.pos
+    def seek(self, off, whence=0):
+        self.pos = off if whence == 0 else self.pos + off if whence == 1 else self.size + off
+        return self.pos
+    def read(self, n=-1):
+        if n < 0: n = self.size - self.pos
+        n = min(n, self.size - self.pos)
+        if n <= 0: return b""
+        d = rget(self.url, headers={"Range": f"bytes={self.pos}-{self.pos+n-1}"}).content
+        self.pos += len(d); return d
+    def readinto(self, b):
+        d = self.read(len(b)); b[:len(d)] = d; return len(d)
 def dec(b): return b.decode("utf-16", "replace") if b[:2] in (b"\xff\xfe", b"\xfe\xff") else b.decode("utf-8", "replace")
-print("### MaStR")
-t = S.get("https://www.marktstammdatenregister.de/MaStR/Datendownload", timeout=60).text
-url = re.search(r'href="(https://download\.marktstammdatenregister\.de/Gesamtdatenexport[^"]+\.zip)"', t).group(1)
-z = zipfile.ZipFile(io.BufferedReader(RangeFile(url), buffer_size=1 << 20))
-g = collections.defaultdict(lambda: [0, 0])
-for i in z.infolist():
-    n = re.sub(r"_\d+\.xml$", ".xml", i.filename); g[n][0] += 1; g[n][1] += i.file_size
-for n, v in sorted(g.items()): print("  ", n, v)
-want = ["EinheitenSolar", "EinheitenWind", "EinheitenGasErzeuger", "EinheitenStromSpeicher", "EinheitenBiomasse", "EinheitenVerbrennung", "EinheitenKernkraft", "EinheitenWasser", "EinheitenGeothermieGrubengasDruckentspannung"]
-names = [i for i in z.infolist()]
-for w in want:
+try:
+    print("### MaStR")
+    t = S.get("https://www.marktstammdatenregister.de/MaStR/Datendownload", timeout=60).text
+    url = re.search(r'href="(https://download\.marktstammdatenregister\.de/Gesamtdatenexport[^"]+\.zip)"', t).group(1)
+    z = zipfile.ZipFile(io.BufferedReader(RangeFile(url), buffer_size=1 << 20))
+    g = collections.defaultdict(lambda: [0, 0])
+    for i in z.infolist():
+        n = re.sub(r"_\d+\.xml$", ".xml", i.filename); g[n][0] += 1; g[n][1] += i.file_size
+    for n, v in sorted(g.items()): print("  ", n, v)
+    want = ["EinheitenSolar", "EinheitenWind", "EinheitenGasErzeuger", "EinheitenStromSpeicher", "EinheitenBiomasse", "EinheitenVerbrennung", "EinheitenKernkraft", "EinheitenWasser", "EinheitenGeothermieGrubengasDruckentspannung"]
+    names = [i for i in z.infolist()]
+    for w in want:
+        for i in names:
+            if i.filename.startswith(w) and i.filename.endswith(".xml"):
+                with z.open(i) as f:
+                    s = dec(f.read(6000))
+                m = re.search(r"<Einheit\w+>.*?</Einheit\w+>", s, re.S)
+                print("\n--", i.filename, i.file_size, "\n", (m.group(0) if m else s)[:2600]); break
     for i in names:
-        if i.filename.startswith(w) and i.filename.endswith(".xml"):
-            with z.open(i) as f:
-                s = dec(f.read(6000))
-            m = re.search(r"<Einheit\w+>.*?</Einheit\w+>", s, re.S)
-            print("\n--", i.filename, i.file_size, "\n", (m.group(0) if m else s)[:2600]); break
-for i in names:
-    if "atalog" in i.filename:
-        print("\n--", i.filename, i.file_size)
-        with z.open(i) as f: s = dec(f.read())
-        for k in ["Betriebsstatus", "Energietr", "Einheittyp", "Technologie"]:
-            for m in re.finditer(r"<Katalogwert>(.*?)</Katalogwert>", s, re.S):
-                pass
-        ents = re.findall(r"<Id>(\d+)</Id>\s*<KatalogKategorieId>(\d+)</KatalogKategorieId>\s*<Wert>(.*?)</Wert>", s, re.S)
-        print(len(ents), "entries; sample:", s[:800])
-        wanted = {"35", "31", "37", "38", "2495", "2497", "2498", "2493", "2494", "2496", "2403", "2404", "2405", "2406", "2407", "2408", "2409", "2410"}
-        print([e for e in ents if e[0] in wanted])
-        break
+        if "atalog" in i.filename:
+            print("\n--", i.filename, i.file_size)
+            with z.open(i) as f: s = dec(f.read())
+            for k in ["Betriebsstatus", "Energietr", "Einheittyp", "Technologie"]:
+                for m in re.finditer(r"<Katalogwert>(.*?)</Katalogwert>", s, re.S):
+                    pass
+            ents = re.findall(r"<Id>(\d+)</Id>\s*<KatalogKategorieId>(\d+)</KatalogKategorieId>\s*<Wert>(.*?)</Wert>", s, re.S)
+            print(len(ents), "entries; sample:", s[:800])
+            wanted = {"35", "31", "37", "38", "2495", "2497", "2498", "2493", "2494", "2496", "2403", "2404", "2405", "2406", "2407", "2408", "2409", "2410"}
+            print([e for e in ents if e[0] in wanted])
+            break
+except Exception as e:
+    print('MaStR ERR', repr(e))
 print("### Elia")
 B = "https://opendata.elia.be/api/explore/v2.1/catalog/datasets/"
 def q(ds, **p):
