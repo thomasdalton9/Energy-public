@@ -26,7 +26,8 @@ def get(url, timeout=60):
 
 
 def slug(u):
-    return re.sub(r"[^A-Za-z0-9]+", "_", u.split("://")[-1])[:90]
+    import hashlib
+    return re.sub(r"[^A-Za-z0-9]+", "_", u.split("://")[-1])[:70] + "_" + hashlib.md5(u.encode()).hexdigest()[:6]
 
 
 def to_text(r, url):
@@ -59,6 +60,14 @@ def to_text(r, url):
     t = re.sub(r"(?s)<(script|style).*?</\1>", " ", t)
     t = re.sub(r"<[^>]+>", " ", t)
     return re.sub(r"[ \t\r\f]+", " ", re.sub(r"\n\s*\n+", "\n", t)), "html"
+
+
+def hrefs(url, pat):
+    r = get(url)
+    if r is None or r.status_code != 200:
+        return []
+    from urllib.parse import urljoin
+    return sorted({urljoin(url, h) for h in re.findall(r'href="([^"#]+)"', r.text) if re.search(pat, h, re.I)})
 
 
 def probe(url, kw=None, maxkeep=400000, links=True):
