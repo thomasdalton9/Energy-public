@@ -946,6 +946,7 @@ def make_summary(df):
 
 
 YEARS = list(range(2026, 2031))
+LABN = {"firm": "firm", "incl": "incl_planned"}
 LABEL = {"Wind_Onshore": "Wind onshore", "Wind_Offshore": "Wind offshore", "PumpedStorage": "Pumped storage", "Storage": "Batteries"}
 
 
@@ -1064,7 +1065,7 @@ def png_charts(scopes, made):
         ax.legend(ncol=4, fontsize=8, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.08))
         fig.text(0.01, 0.005, "Sources: MaStR, Bundesnetzagentur, DESNZ REPD + CfD results, NESO TEC, official operator / government documents; sum_flag = Y rows only. Planned dates as published.", fontsize=7, color="#555")
         fig.tight_layout(rect=(0, 0.02, 1, 1))
-        p = os.path.join(PNG_DIR, f"europe_future_power_capacity__Europe_{lab}.png")
+        p = os.path.join(PNG_DIR, f"europe_future_power_capacity__Europe_{LABN[lab]}.png")
         fig.savefig(p, dpi=130)
         plt.close(fig)
         out.append(p)
@@ -1084,7 +1085,7 @@ def png_charts(scopes, made):
             fig.legend(list(h.values()), list(h.keys()), ncol=6, fontsize=8, frameon=False, loc="lower center")
             fig.suptitle(f"Top six countries by pipeline: additions and retirements by year, {nice} (GW)", fontsize=12, fontweight="bold", x=0.01, ha="left")
             fig.tight_layout(rect=(0, 0.05, 1, 0.95))
-            p = os.path.join(PNG_DIR, f"europe_future_power_capacity__Top6_{lab}.png")
+            p = os.path.join(PNG_DIR, f"europe_future_power_capacity__Top6_{LABN[lab]}.png")
             fig.savefig(p, dpi=120)
             plt.close(fig)
             out.append(p)
