@@ -3181,6 +3181,7 @@ REGISTRY = {
     "cameroon_arsel_energy_balance.xlsx": cameroon_arsel,
     "europe_future_power_capacity.xlsx": None,   # additions / retirements charts drawn by europe/future/EUROPE_POWER_PIPELINE.py itself
     "europe_future_gas_infrastructure.xlsx": None,   # native charts drawn by EUROPE_GAS_INFRA.py itself
+    "global_lng_liquefaction_capacity.xlsx": None,   # stacked nameplate-by-month and additions-by-year charts drawn by GLOBAL_LIQUEFACTION.py itself
     "us_petroleum_stocks_weekly.xlsx": None,   # week-1-to-52 and water-year charts drawn by EIA_BIG_FOUR_STORAGE.py itself
     "sarawak_energy_annual.xlsx": sarawak_energy,
     "argentina_gas_monthly.xlsx": argentina,
