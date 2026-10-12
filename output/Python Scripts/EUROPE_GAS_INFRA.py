@@ -1186,7 +1186,7 @@ def regas_timeline(terms, proj):
         if v is None or pd.isna(v) or r["expected_online"] is None or pd.isna(r["expected_online"]):
             continue
         proj_name = str(r["project"])
-        if "new terminal" in proj_name or "started" in proj_name or "ended" in proj_name or "first LNG cargo" in proj_name or "Gdansk FSRU Terminal" in proj_name:
+        if "charters end" in proj_name or "shutdown / relocation" in proj_name or "new terminal" in proj_name or "started" in proj_name or "ended" in proj_name or "first LNG cargo" in proj_name or "Gdansk FSRU Terminal" in proj_name:
             continue
         if "expansion (" in proj_name or "extension" in proj_name.lower() or "regasification module" in proj_name or "[LNG-" in proj_name:
             eo = str(r["expected_online"])
