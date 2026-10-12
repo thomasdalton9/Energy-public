@@ -1,0 +1,19 @@
+name: Delete probe-out Morocco branches (one-off)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Delete probe-out/morocco-* branches
+        run: |
+          for b in $(git ls-remote --heads origin 'probe-out/morocco-*' | awk '{print $2}' | sed 's#refs/heads/##'); do
+            echo "Deleting $b"
+            git push origin --delete "$b"
+          done
+          echo "Left:"; git ls-remote --heads origin 'probe-out/*'
