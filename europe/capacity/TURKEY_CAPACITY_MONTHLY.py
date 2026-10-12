@@ -74,10 +74,10 @@ def num(s):
     return float(s.replace(".", "").replace(",", "."))
 
 
-def get(url, tries=4, **kw):
+def get(url, tries=2, **kw):
     for i in range(tries):
         try:
-            r = requests.get(url, headers=UA, timeout=(20, 180), **kw)
+            r = requests.get(url, headers=UA, timeout=(15, 60), **kw)
             if r.status_code == 200:
                 return r
             print(f"  http {r.status_code} {url[:90]}")
@@ -225,11 +225,32 @@ NOTES = ["Turkey - monthly installed generation capacity (MW) from EPDK monthly 
 TITLES = ["Source", "Method", "Columns", "Sheets"]
 
 
+def save(path, rep, rel, out_dir):
+    if rep.empty:
+        raise RuntimeError("no EPDK report could be read")
+    rep = rep.copy()
+    rep["report_month"] = pd.to_datetime(rep["report_month"])
+    rep["period"] = pd.to_datetime(rep["period"])
+    rep = rep.sort_values(["report_month", "period", "col"]).reset_index(drop=True)
+    monthly = build_monthly(rep)
+    resid = (monthly["Total_MW"] - monthly[FUEL_COLS].sum(axis=1)).abs()
+    print("max |total - sum of fuels| MW:", round(resid.max(), 2))
+    rel = rel.copy()
+    rel["report_month"] = pd.to_datetime(rel["report_month"])
+    rel = rel.sort_values("report_month").set_index("report_month")
+    sheets = {"Monthly": monthly, "Revisions": revisions(rep), "Check_ENTSOE": entsoe_check(out_dir, monthly),
+              "Reports": rep.set_index("report_month"), "Releases": rel}
+    xlsx_notes.write_workbook(path, sheets, NOTES, TITLES)
+    print(f"Turkey: {len(monthly)} months {monthly.index.min().date()} - {monthly.index.max().date()}")
+    print(monthly.tail(3).T)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out-dir", default=OUT_DEFAULT)
     ap.add_argument("--retry", action="store_true")
     ap.add_argument("--max-reports", type=int, default=400)
+    ap.add_argument("--budget-min", type=float, default=35.0)
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
     path = os.path.join(a.out_dir, FILE)
@@ -247,9 +268,13 @@ def main():
     todo = [m for m in months if (m not in done and (m not in failed or a.retry)) or m in last3]
     print(f"to fetch: {len(todo)}")
     n = 0
+    t0 = time.time()
     for m in sorted(todo, reverse=True):
-        if n >= a.max_reports:
+        if n >= a.max_reports or (time.time() - t0) / 60 > a.budget_min:
+            print("budget reached, stopping; the next run continues")
             break
+        if n and n % 8 == 0 and not rep.empty:
+            save(path, rep, rel, a.out_dir)
         n += 1
         content, used = None, None
         for u in listing[m]:
@@ -283,23 +308,9 @@ def main():
         rep = pd.concat([rep, pd.DataFrame(new)], ignore_index=True)
         rel.loc[len(rel)] = [m, "ok", note, len(content), sha, now]
         tot = [r for r in rows if r[1] == "TOTAL"][0]
-        print(f"{m:%Y-%m}: ok total {tot[4]:.0f} MW (prev-year {tot[2]:.0f}) {note}")
+        print(f"{m:%Y-%m}: [{time.time() - t0:.0f}s] ok total {tot[4]:.0f} MW (prev-year {tot[2]:.0f}) {note}")
         time.sleep(1)
-    if rep.empty:
-        raise RuntimeError("no EPDK report could be read")
-    rep["report_month"] = pd.to_datetime(rep["report_month"])
-    rep["period"] = pd.to_datetime(rep["period"])
-    rep = rep.sort_values(["report_month", "period", "col"]).reset_index(drop=True)
-    monthly = build_monthly(rep)
-    # fuel columns: sources absent in a period are 0; unmapped total check
-    resid = (monthly["Total_MW"] - monthly[FUEL_COLS].sum(axis=1)).abs()
-    print("max |total - sum of fuels| MW:", round(resid.max(), 2))
-    rel = rel.sort_values("report_month").set_index("report_month")
-    sheets = {"Monthly": monthly, "Revisions": revisions(rep), "Check_ENTSOE": entsoe_check(a.out_dir, monthly),
-              "Reports": rep.set_index("report_month"), "Releases": rel}
-    xlsx_notes.write_workbook(path, sheets, NOTES, TITLES)
-    print(f"Turkey: {len(monthly)} months {monthly.index.min().date()} - {monthly.index.max().date()}")
-    print(monthly.tail(3).T)
+    save(path, rep, rel, a.out_dir)
 
 
 if __name__ == "__main__":
