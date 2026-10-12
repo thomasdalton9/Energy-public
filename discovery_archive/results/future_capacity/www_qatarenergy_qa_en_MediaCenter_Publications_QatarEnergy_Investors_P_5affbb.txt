@@ -1,0 +1,475 @@
+URL https://www.qatarenergy.qa/en/MediaCenter/Publications/QatarEnergy_Investors_Presentation_November_2025.pdf
+KIND pdf
+
+=== page 1
+QatarEnergy
+Update to Investors
+=== page 2
+Disclaimer
+This presentation has been prepared by QatarEnergy (the “Corporation”) solely for informational purposes. Certain of the information concerning industry trends and performance is/
+may be based upon or derived from information provided by third-party industry sources. The Corporation cannot guarantee the accuracy of such information or has independently
+verified the assumptions upon which such projections of future trends and performance are based.
+This presentation may contain certain forward-looking statements with respect to the Corporation’s financial position, results of operations and business and certain of the Corporation's
+plans, intentions, expectations, assumptions, goals and beliefs regarding such items. These statements include all matters that are not historical fact and generally, but not always,
+may be identified by the use of words such as “believes”, “expects”, “are expected to”, “anticipates”, “intends”, “estimates”, “should”, “will”, “shall”, “may”, “is likely to”, “plans”, “outlook” or
+similar expressions, including variations and the negatives thereof or comparable terminology. These forward-looking statements reflect the Corporation’s current views with respect
+to future events and are not a guarantee of future performance or results. Actual results, performance or achievements of the Corporation may differ materially from any future
+results, performance or achievements expressed or implied by such forward-looking statements. Such forward-looking statements are based on numerous assumptions regarding
+the Corporation's present and future business strategies and the environment in which the Corporation will operate in the future and must be read together with such assumptions.
+Predictions, projections or forecasts of the economy or economic trends of the markets are not necessarily indicative of the future or likely performance of the Corporation, and the
+forecast financial performance of the Corporation is not guaranteed. No reliance should be placed on these forward-looking statements.
+The Corporation undertakes no obligation to update or revise any forward-looking statement, whether as a result of new information, future events or otherwise. All subsequent
+written and oral forward-looking statements attributable to the Corporation or to persons acting on the Corporation's behalf are expressly qualified in their entirety by the cautionary
+statements referred to above and contained elsewhere in this presentation.
+This presentation and the information contained herein do not constitute or form part of any offer for sale or subscription of or solicitation or invitation of any offer to buy or subscribe
+for any securities of the Corporation. This presentation does not constitute or form part of and should not be constructed as an offer to sell or issue, solicitation, or invitation to subscribe
+for, underwrite or otherwise acquire, and should not be construed as an advertisement for, any securities of the Corporation or any of its subsidiaries in any jurisdiction or an inducement
+to enter into investment activity in any jurisdiction. No reliance may be placed for any purposes whatsoever on the information contained in this presentation or on its completeness,
+accuracy or fairness. No representation or warranty, express or implied, is made as to, and no reliance should be placed on, the fairness, accuracy, adequacy, completeness or
+correctness of the information or opinions contained herein or any further information supplied.
+In this presentation, "QatarEnergy", the "Corporation", "our", or "we" may refer to QatarEnergy or to one or more of its subsidiaries or affiliates, used for convenience and not to imply any
+particular legal entity or corporate structure.
+1
+=== page 3
+- FY 2024
+Key financial highlights
+Capex, investment and cashflow
+Financial performance ($'Bn)
+($'Bn)
+Gross income(1) Adjusted EBITDA(2) Net profit Adjusted OCF(4,9) CAPEX + Investment(5) FCF(6,9)
+64.0 35.5 26.3 28.5 (15.1) 25.0
+2.8% 8.7% 9.7% 16.6% 12.4% 23.8%
+(FY'23: 62.2) (FY'23: 38.8) (FY'23: 29.1) (FY'23: 34.2) (FY'23: (13.4)) (FY'23: 32.8)
+1. Includes income from Sales, Other Income, Share of Profit from JVs and Associates, Dividend and Interest Income 4. Net cash from operating activities adjusted for interest payment on loans, bonds and leases
+2. EBITDA adjusted for Impairment losses or reversals, w/of of PPE, Dividend and Interest income and Net result of 5. Capex refers to that of QatarEnergy Standalone and fully consolidated Group companies. Investment refers to
+discontinued operations investments made by QatarEnergy in non-operated business and projects
+3. Average crude price earned by QatarEnergy and its Group companies 6. FCF after capex and investment and dividends received
+Crude price ($/bbl)(3) Revenue & other Op. Inc. Profit from JVs & Asso. EBIT Capex(9) Capex / OCF(4,9) Investment Dividends received Dividend paid
+(7.1) (FY'23: (5.4)) 25% (FY'23: 17%) (8.0) (FY'23: (8.0)) 11.7 (FY'23: 14.3) (29.0) (FY'23: (37.0))
+78.8 (FY'23: 82.2) 48.6 (FY'23: 46.0) 14.0 (FY'23: 14.8) 31.6 (FY'23: 35.7)
+Credit Ratings (as at July 2025)
+S&P Moodys Fitch
+AA / Stable Aa2 / Stable AA / Stable
+Source: All financial amounts and associated analysis are based on QatarEnergy’s Consolidated Financial Statements for 12 months period ended 31 December 2024 (audited) prepared based on Equity method of consolidation and comparative amounts from similarly prepared financial statements (audited) for 12 months period ended 31 December 2023
+(9) Alternative Performance Measures (APM) have been defined in the 2021 QatarEnergy Bond prospectus. Methodology for following APMs has been updated for better measurement and disclosure: OCF, Capex, FCF, Cash and Cash Equivalent, Net Leverage and ROACE. In addition to the definition in the 2021 QatarEnergy Bond prospectus,
+2
+OCF now excludes interest payment; Capex now includes payment for intangible and RoU assets; FCF now is after investments made and dividends received; Cash and Cash Equivalent now excludes restricted cash balance; Net Leverage and ROACE are now calculated based on LTM EBITDA / EBIT. Methodology for other APMs remains the same.
+=== page 4
+- FY 2024
+Key financial highlights
+y QatarEnergy’s financial performance for FY’24
+Debt profile ($'Bn)
+remained resilient, demonstrating strong operational
+and financial discipline despite external price
+pressures. Key financial metrics were lower primarily
+Cash & Eq(9) Gross debt(7) Net debt
+due to softer commodity prices; however, the absence
+of significant operational disruptions or cost overruns
+18.3 17.1 (1.3)
+underscores the group's operational robustness.
+1.3% 9.6% 57.3% y QatarEnergy maintained a negative net leverage
+and net debt position, reflecting its solid liquidity and
+(FY'23: 18.6) (FY'23: 15.6) (FY'23: (3.0))
+financial flexibility. While earnings and dividends
+7. Includes loans and leases declined, the group remained in a net cash position,
+8. Based on adjusted EBITDA
+enabling increased capital expenditure and strategic
+investments that reinforce its commitment to long-term
+OCF/ Gross debt(4,8,9) Net leverage(8,9) Gearing(9) ROACE(8,9)
+value creation.
+1.67 (FY'23: 2.20) (0.04) (FY'23: (0.08)) (1.0%) (FY'23: (2.4%)) 21.42% (FY'23: 23.53%)
+Source: All financial amounts and associated analysis are based on QatarEnergy’s Consolidated Financial Statements for 12 months period ended 31 December 2024 (audited) prepared based on Equity method of consolidation and comparative amounts from similarly prepared financial statements (audited) for 12 months period ended 31 December 2023
+(9) Alternative Performance Measures (APM) have been defined in the 2021 QatarEnergy Bond prospectus. Methodology for following APMs has been updated for better measurement and disclosure: OCF, Capex, FCF, Cash and Cash Equivalent, Net Leverage and ROACE. In addition to the definition in the 2021 QatarEnergy Bond prospectus,
+3
+OCF now excludes interest payment; Capex now includes payment for intangible and RoU assets; FCF now is after investments made and dividends received; Cash and Cash Equivalent now excludes restricted cash balance; Net Leverage and ROACE are now calculated based on LTM EBITDA / EBIT. Methodology for other APMs remains the same.
+=== page 5
+footprint
+Our global
+Production
+onshore
+Exploration
+Belgium
+offshore
+Netherlands
+Production
+offshore
+United Turkey
+China
+Kingdom
+Liquefaction
+The Hague Iraq
+London
+South Korea
+Regasification France
+Istanbul Beijing
+Canada Pakistan Japan
+United States Seoul
+of America
+Tokyo
+Petrochemical
+Guyana
+Houston Shanghai
+New Dehli
+Carbon capture Karachi
+and storage Lebanon
+Dhaka Guangzhou
+Qatar
+Mexico Suriname
+Thailand
+Mumbai
+Solar
+Egypt Bangkok
+Cyprus Ho Chi Minh City Vietnam
+Bangladesh
+Refinery
+Kuala Lumpur Malaysia
+Global offices
+India
+Republic of
+the Congo
+Singapore
+LNG
+GTL
+Rio de Janeiro
+Brazil Namibia
+Fertilizers
+Argentina
+South Africa
+Metals
+Domestic others
+Storage and
+terminals
+Ports
+as at December 2024
+4
+=== page 6
+to grow to 2050
+Global LNG demand
+Sustainability
+LNG imports
+Natural gas is a critical fuel for the energy transition. It is the lowest carbon
+fossil fuel, helping to replace more carbon-intensive fuels and reduce Pipeline imports
+carbon emissions
+Domestic production
+Energy security
+• Abundant natural gas and LNG resources contribute to energy security, helping many
+countries to diversify sources of energy supply and offering a reliable baseload power source
+• Natural gas and LNG provide a flexible source of power that can balance the intermittency of renewables as power systems
+become increasingly decarbonized
+• LNG plays an increasingly important role in global natural gas trade
+Affordability
+Natural gas and LNG offer a competitive source of energy
+5
+=== page 7
+long term LNG supply agreements
+Recent
+China National
+Sinopec
+Petroleum Corporation
+4 MTPA 7 MTPA
+ConocoPhillips
+TotalEnergies
+3.5 MTPA 2 MTPA
+Shell Petronet LNG Limited
+3.5 MTPA 7.5 MTPA
+Bangladesh Oil, Gas and
+Eni
+Mineral Corporation
+1 MTPA 1.8 MTPA
+Kuwait Petroleum
+CPC Corporation
+Corporation
+4 MTPA 3 MTPA
+Gujarat State Petroleum
+Excelerate Energy
+Corporation
+1 MTPA 1 MTPA
+Updated October 2025
+6
+=== page 8
+A global and diversified
+LNG sales portfolio in 2024
+A world-class LNG A diversified sales
+operation portfolio
+y 77 MT LNG sold in 2024 y LNG sales to 18 countries in
+Customer geography
+2024
+y Over 1,000 cargoes
+y Focus on Asia and Europe
+y Short, medium, and
+5.7%
+long-term agreements y A balanced sales strategy
+13.4%
+of term contracts and spot
+y Flawless quality and
+sales
+reliability in delivery
+Asia
+Europe
+Middle East and Africa
+80.9%
+7
+=== page 9
+LNG leadership
+Grow global
+North Field
+Discovered in 1971, the North Field is the world’s largest
+single non-associated gas field, with confirmed gas
+reserves exceeding 2,000 TCF
+North Field current North Field East North Field South North Field West QATAR’S LNG PRODUCTION
+77 14 32 4 16 2 16 2
+Current 2030
+77 142
+MTPA TRAINS MTPA TRAINS – 8 MTPA MTPA TRAINS – 8 MTPA MTPA TRAINS – 8 MTPA
+EACH EACH EACH
+MTPA MTPA
+Partners Partners Partners Announced
+February 2024
+ExxonMobil Mitsui ExxonMobil TotalEnergies TotalEnergies
+ConocoPhillips Itochu Corp. Shell CNPC Shell 85%
+Shell LNG Japan Corp.
+ConocoPhillips Sinopec ConocoPhillips
+TotalEnergies
+ENI CPC Sinopec
+Korea Ras Laffan LNG Limited
+OPIC Middle East Natural Gas Corp.
+8
+=== page 10
+LNG leadership
+Grow global
+Golden Pass LNG export project
+SABINE PASS, TEXAS
+3 ~18
+70% 30%
+liquefication MTPA
+process trains total output
+QatarEnergy ExxonMobil
+y Project is 80% progressed
+y First production expected between
+end of 2025/beginning of 2026
+QatarEnergy and ExxonMobil affiliates will
+independently offtake and market their respective
+proportionate equity shares of LNG
+9
+=== page 11
+expansion program
+Historic LNG fleet
+Existing fleet of 69 LNG ships expanded by a further
+128 ultra-modern vessels – representing the industry’s
+largest single shipbuilding program
+Expansion program to include:
+• 104 conventional LNG vessels, each with a capacity of
+174,000 cubic meters
+• 24 advanced QC-Max class LNG vessels – largest LNG
+vessels ever built, each with capacity of 271,000 cubic meters
+• First new vessel delivered in September 2024 - Rex Tillerson
+QatarEnergy's new vessel program supports North
+Field LNG expansion and the Golden Pass LNG export project
+and meets our long-term fleet replacement requirements
+=== page 12
+from international upstream
+Maximize value
+Canada
+Strategic focus
+y To add incremental production
+and reserves both internationally
+and domestically
+y To grow internationally through
+Lebanon
+entry into non-operated positions Cyprus
+with select international oil
+Iraq
+companies and partners
+Egypt
+Algeria
+Guyana
+Figures
+Suriname
+y 15 countries
+Republic of the Congo
+y 45 exploration ventures
+Mexico
+y 50 exploration licenses
+y 3 producing assets Namibia
+y 8 international operators
+y Production ~ 43 thousand
+Brazil
+barrels of oil equivalent
+per day (KBOEPD)*
+Uruguay
+South Africa
+Argentina
+Updated October 2025
+**EExxcclluuddeess ddoommeessttiicc uuppssttrreeaamm aaccttiivviittiieess 11
+=== page 13
+upstream production
+Optimize domestic
+QatarEnergy-operated fields
+Average oil production A verage gas produ ction
+Field name in 2024 (KBOPD) in 2024 (MMSCFD)
+Dukhan (onshore) 176.4 229.0
+Maydan Mahzam 16.2 28.6
+Bul Hanine 35.1 38.6
+Idd El Shargi 54.4 39.9
+Al Rayyan 3.6 0.3
+Non-operated fields
+Average oil production A verage gas produ ction
+Field name in 2024 (KBOPD) in 2024 (MMSCFD)
+Al Shaheen 280.1 198.7
+Al Khalij 23.4 4.4
+El Bunduq 9.2 -
+Halul Island
+Storage and export terminal
+Discovered in the 1970s, Al Shaheen is Qatar’s
+located 80 km northeast of Doha
+largest producing oil field, accounting for as much
+as 45% of Qatar’s total oil production
+12
+=== page 14
+Expand downstream and capture synergies
+Value-adding downstream growth
+CCuurrrreenntt
+30
+production lines
+ppeettrroocchheemmiiccaallss
+production lines producing fertilizers, plastics, methanol,
+in operation
+fuel enhancer, and detergents
+14.9
+MTPA
+CCuurrrreenntt
+ppeettrroocchheemmiiccaallss
+net production of final products including urea, ammonia, HDPE,
+production
+LDPE, LLDPE, PVC, methanol, sulfur, and MTBE (fuel enhancer)
+EExxppaannssiioonn 9.6
+MTPA
+pprroojjeeccttss
+y Ras Laffan Petrochemical Complex
+and production
+y Ammonia-7 project
+y QAPCO PVC Plant
+y World-class fertilizer production plant
+TToottaall pprroodduuccttiioonn
+24.5
+by 2030 MTPA
+13
+=== page 15
+downstream growth
+Value-adding
+Refining assets
+Mesaieed Refinery
+y Commenced operations in 1954, and further expanded in several phases
+y With total capacity of 127 KBPD, comprises a number of integrated facilities that process
+crude oil and condensate into various finished products to meet domestic demand as well
+as for export
+y 100% QatarEnergy ownership
+Laffan Refinery
+y Laffan Refinery commenced operations in 2009, and expanded in 2016
+y With total capacity of 306 KBPD, two facilities produce a range of refined products from condensate
+to meet domestic demand as well as for export
+y Developed as a strategic joint venture, the project benefits from international collaboration with
+ExxonMobil (10%), TotalEnergies (10%), Cosmo Oil (5.5%), and Mitsui (2.5%)
+Gas-to-Liquids Refineries
+y Pearl GTL, a joint venture with Shell (30%) started production in 2011 and is designed to produce 140,000 BPD of GTL products
+y Oryx GTL, a joint venture with Sasol (49%) has been operating since 2006, with capacity to produce up to 32,400 BPD of GTL products
+14
+=== page 16
+in low-carbon business
+Establish a position
+Reducing our carbon footprint
+We support the global energy transition through the export of LNG, and
+by establishing a position in emerging lower-carbon business sectors
+Solar PV plants
+y Al Kharsaah – 800 MW plant operating since 2022, providing Qatar’s national grid
+with ~10% of its peak electricity demand
+y Mesaieed Industrial City - 417 MW plant operating since 2025
+y Ras Laffan Industrial City - 458 MW plant operating since 2025
+y Dukhan - 2,000 MW plant under construction
+15
+=== page 17
+in low-carbon business
+Establish a position
+Reducing our carbon footprint
+Carbon capture, utilization, and storage (CCUS) is an important
+lever in our strategy to develop a position in low-carbon business
+y Successfully deployed 2.2 MTPA of CCUS capacity in Qatar to date
+y Targeting a total capacity of 7-9 MTPA by 2030 and over 11 MTPA by 2035
+y Current CCUS capacity installed to capture inherent CO in the feed gas
+2
+to the LNG trains and sales gas assets - important in producing lower
+carbon intensity LNG for export
+y The North Field expansion project will integrate new CCUS systems with
+existing capacity
+y Since its inception in 2019 and till the end of 2024, we have captured and
+successfully stored 7.5 million tons of CO
+2
+The CO export pilot project will export captured CO from
+2 2
+North Field gas to Dukhan for enhanced oil recovery purposes
+16
+=== page 18
+mitigation framework
+Climate change
+Climate action is an integral part of our core values and identity. It is embedded within our Foundational Policies, Corporate
+Strategy, and Sustainability Strategy. Our approach to climate change comprises five broad categories of action.
+Our climate action is tackled under our 5Cs framework
+Consolidate Curb Create Compensate Circulate
+Global Reducing our carbon Innovating for a Balancing Embracing
+sustainability footprint sustainable future impact circularity
+=== page 19
+mitigation framework
+Climate change
+By 2025 By 2030 By 2035 Our actions
+160 million metric tons per
+LNG annum (MTPA) of LNG
+Supplying the world with
+production Consolidate
+lower-carbon energy
+1.2 MTPA of lower-carbon
+Blue ammonia
+ammonia
+Create Compensate
+Upstream 15% reduction2,6 25% reduction2,6
+Curb Create Circulate Compensate
+LNG facilities 25% reduction2,6 35% reduction2,6
+Curb Create Circulate Compensate
+Reducing GHG intensity 1 Petrochemicals 15% reduction3,7
+Curb Circulate Create
+Fertilizers 15% reduction4,7
+Curb Create Circulate Compensate
+Metals 10% reduction5,7
+Curb Circulate Create
+0.2% weighted methane
+Methane
+intensity6
+Curb
+Targeting operational
+Zero
+Flaring
+excellence routine flaring8
+Curb Circulate
+150 MMSCFD gas saving due
+Energy efficiency
+to energy efficiency 2,7
+Curb Circulate
+2 - 4 >5
+Lowering carbon footprint
+Renewables
+GW solar capacity GW solar capacity
+Create
+with mitigation
+Carbon capture,
+7 - 9 >11
+technologies
+utilization, and storage MTPA CCS capacity MTPA CCS capacity7
+Compensate Circulate
+1 Scope 1 + 2 emissions 5 Against 2022 baseline
+2 Against 2013 baseline 6 Includes all operated and non-operated assets in Qatar on an equity share basis
+3 Against 2020 baseline 7 Includes all operated and non-operated assets in Qatar on a 100% basis
+18
+4 Against 2021 baseline 8 Includes all operated assets in Qatar on a 100% basis
+=== page 20
+QatarEnergy
+Update to Investors
+December 2024
