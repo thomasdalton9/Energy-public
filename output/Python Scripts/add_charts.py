@@ -3594,41 +3594,6 @@ def israel_gas_fields(p):
                  "Bcf/d (quarterly average)", "stacked_bar")]
 
 
-def israel_gas_annual(p):
-    """Israel annual gas balance from the Natural Gas Authority reviews (middle_east/ISRAEL_NGA_ANNUAL.py), BCM/year.
-    Stacks show the review's published parts; where the review prints no label for a segment, the total less the
-    labelled parts is drawn as 'Not labelled in the review' (chart only, not stored)."""
-    d = by_date(read(p, "Annual"), "date").apply(pd.to_numeric, errors="coerce")
-
-    def stack(names, total, start=None):
-        t = d[cols(d, *names)].rename(columns=names)
-        if total in d.columns:
-            rest = (d[total] - t.sum(axis=1, min_count=1)).round(3)
-            rest = rest.where(rest > 0.105, 0.0)   # rounding of 0.1-BCM labels is not drawn
-            if rest.sum() > 0:
-                t["Not labelled in the review"] = rest
-        t = t[t.drop(columns=["Not labelled in the review"], errors="ignore").notna().any(axis=1)]
-        return t[t.index >= start] if start else t
-
-    supply = stack({"Supply_Tamar_bcm": "Tamar", "Supply_Leviathan_bcm": "Leviathan", "Supply_Karish_bcm": "Karish",
-                    "Supply_Yam_Tethys_bcm": "Yam Tethys", "Supply_EMG_import_bcm": "EMG imports (Egypt)",
-                    "Supply_LNG_buoy_bcm": "LNG buoy"}, "Supply_total_bcm")
-    sectors = stack({"Domestic_Power_bcm": "Power", "Domestic_Cogeneration_bcm": "Cogeneration",
-                     "Domestic_Industry_bcm": "Industry (incl. distribution, CNG)"}, "Domestic_total_bcm")
-    exports = stack({"Export_Egypt_bcm": "Egypt", "Export_Jordan_bcm": "Jordan"}, "Export_total_bcm", "2017-01-01")
-    power = stack({"Power_IEC_bcm": "Israel Electric Corp.", "Power_private_bcm": "Private producers"},
-                  "Domestic_Power_bcm")
-    src = "Natural Gas Authority annual review"
-    return [spec("Supply by source", supply, f"Israel natural gas supply by source ({src})", "BCM per year",
-                 "stacked_bar", "%Y"),
-            spec("Domestic use by sector", sectors, f"Israel domestic gas use by sector ({src}; cogeneration "
-                 "separate)", "BCM per year", "stacked_bar", "%Y"),
-            spec("Exports by country", exports, f"Israel gas exports by destination ({src})", "BCM per year",
-                 "stacked_bar", "%Y"),
-            spec("Power by producer", power, f"Israel gas for power: IEC vs private producers ({src})",
-                 "BCM per year", "stacked_bar", "%Y")]
-
-
 def cyprus_generation(p):
     """TSOC daily mean MW by source (europe/cyprus_generation_mix.py): monthly average MW, stacked."""
     d = by_date(read(p, "Cyprus"), "date").apply(pd.to_numeric, errors="coerce")
