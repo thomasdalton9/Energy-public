@@ -1,0 +1,333 @@
+=== SE tables
+Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px Antal verk, installerad effekt och vindkraftproduktion fördelad på landbaserad och havsbaserad vindkraft, hela landet, 2003-
+    År År 23 ['2003', '2004', '2005'] ... ['2023', '2024', '2025']
+    Vindkraftsslag Vindkraftsslag 3 ['Havsbaserad', 'Landbaserad', 'Kompletterande källa, ej fördelad'] ... ['Havsbaserad', 'Landbaserad', 'Kompletterande källa, ej fördelad']
+    Kategori Kategori 3 ['Antal verk, st', 'Installerad effekt, MW', 'Elproduktion, GWh'] ... ['Antal verk, st', 'Installerad effekt, MW', 'Elproduktion, GWh']
+Officiell_energistatistik/Vindkraftsstatistik/EN0105_1.px Antal verk, installerad effekt och elproduktion, hela landet, 1982-
+    År År 44 ['1982', '1983', '1984'] ... ['2023', '2024', '2025']
+    Kategori Kategori 4 ['Antal verk, st', 'Installerad effekt, MW', 'Elproduktion, GWh'] ... ['Installerad effekt, MW', 'Elproduktion, GWh', 'Elproduktion från kompletterande datakälla, GWh']
+Officiell_energistatistik/Natanslutna_solcellsanlaggningar/EN0123_1.px Nätanslutna solcellsanläggningar, antal och installerad effekt, från år 2016 -
+    År År 10 ['2016', '2017', '2018'] ... ['2023', '2024', '2025']
+    Region Region 312 ['00 Riket', '01 Stockholms län', '03 Uppsala län'] ... ['2582 Boden', '2583 Haparanda', '2584 Kiruna']
+    Effektklass Effektklass 4 ['< 20 kW', '20 kW - 1 000 kW', '> 1 000 kW'] ... ['20 kW - 1 000 kW', '> 1 000 kW', 'Totalt']
+    Kategori Kategori 2 ['Solcellsanläggningar, antal', 'Installerad effekt (MW)'] ... ['Solcellsanläggningar, antal', 'Installerad effekt (MW)']
+Energiindikatorer/4/4.1/EN_IND4-1A_Cont.px Installerad elproduktionskapacitet per kraftslag och maximalt uppmätt timeffektbehov i Sverige, MW, 1996-
+    Mått Mått 13 ['Vattenkraft', 'Kärnkraft', 'Kondenskraft'] ... ['Bedömd tillgänglig elproduktionskapacitet', 'Bedömt maximalt effektbehov vid tioårsvinter', 'Bedömt maximalt effektbehov vid normalvinter']
+    År År 30 ['1996', '1997', '1998'] ... ['2023', '2024', '2025']
+Energiindikatorer/3/3.2/EN_IND3-2A.px Andel installerad kapacitet per elområde 2015-, Procent och MW
+    Elområde Elområde 5 ['SE1', 'SE2', 'SE3'] ... ['SE3', 'SE4', 'Totalt, MW']
+    År År 10 ['2015', '2016', '2017'] ... ['2022', '2023', '2024']
+=== SE data sample
+Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px 200
+"År","Vindkraftsslag","Antal verk, st","Installerad effekt, MW","Elproduktion, GWh"
+"2023","Havsbaserad",75.00,192.60,549.45
+"2023","Landbaserad",5422.00,16031.11,33525.16
+"2023","Kompletterande källa, ej fördelad",.,.,.
+"2024","Havsbaserad",75.00,192.60,549.45
+"2024","Landbaserad",5472.00,16626.75,39866.50
+"2024","Kompletterande källa, ej fördelad",.,.,.
+"2025","Havsbaserad",75.00,192.60,496.72
+"2025","Landbaserad",5645.00,17933.91,37950.28
+"2025","Kompletterande källa, ej fördelad",.,.,524.20
+
+Officiell_energistatistik/Natanslutna_solcellsanlaggningar/EN0123_1.px 200
+"År","Region","Effektklass","Solcellsanläggningar, antal","Installerad effekt (MW)"
+"2023","00 Riket","< 20 kW",228262.00,2400.95
+"2023","00 Riket","20 kW - 1 000 kW",23265.00,1308.82
+"2023","00 Riket","> 1 000 kW",97.00,250.84
+"2023","00 Riket","Totalt",251626.00,3960.62
+"2023","01 Stockholms län","< 20 kW",27241.00,277.15
+"2023","01 Stockholms län","20 kW - 1 000 kW",2619.00,155.54
+"2023","01 Stockholms län","> 1 000 kW",4.00,6.51
+"2023","01 Stockholms län","Totalt",29864.00,439.20
+"2023","03 Uppsala län","< 20 kW",9195.00,94.68
+"2023","03 Uppsala län","20 kW - 1 000 kW",1044.00,54.12
+"2023","03 Uppsala län","> 1 000 kW",6.00,17.90
+"2023","03 Uppsala län","Totalt",10245.00,166.70
+"2023","04 Södermanlands län","< 20 kW",8685.00,88.86
+"2023","04 Södermanlands län","20 kW - 1 000 kW",930.00,53.56
+"2023","04 Södermanlands län","> 1 000 kW",8.00,44.24
+"2023","04 Södermanlands län","Totalt",9623.00,186.66
+"2023","05 Östergötlands län","< 20 kW",12227.00,126.62
+"2023","05 Östergötlands län","20 kW - 1 000 kW",1685.00,88.51
+"2023","05 Östergötlands län","> 1 000 kW",2.00,12.50
+"2023","05 Östergötlands län","Totalt",13914.00,227.63
+"2023","06 Jönköpings län","< 20 kW",10670.00,116.05
+"2023","06 Jönköpings län","20 kW - 1 000 kW",1271.00,81.46
+"2023","06 Jönköpings län","> 1 000 kW",7.00,10.13
+"2023","06 Jönköpings län","Totalt",11948.00,207.64
+"2023","07 Kronobergs län","< 20 kW",6459.00,68.82
+"2023","07 Kronobergs län","20 kW - 1 000 kW",575.00,40.51
+"202
+Energiindikatorer/4/4.1/EN_IND4-1A_Cont.px 200
+"Mått","2023","2024","2025"
+"Vattenkraft",16416,16274,16276
+"Kärnkraft",6937,6944,7012
+"Kondenskraft",662,662,662
+"Kraftvärme",2842,2775,3288
+"Industriellt mottryck",1586,1582,1584
+"Gasturbiner m.m.",1543,1543,1545
+"Vindkraft",16252,17008,18343
+"Solkraft",3973,4845,5406
+"Installerad elproduktionskapacitet",50068,51633,54116
+"Maximalt uppmätt effektbehov under topplasttimmen",25200,22500,24800
+"Bedömd tillgänglig elproduktionskapacitet",25100,25300,25700
+"Bedömt maximalt effektbehov vid tioårsvinter",27800,27800,25900
+"Bedömt maximalt effektbehov vid normalvinter",26500,26600,24700
+
+=== NO wind + hydro
+    /
+    /doc/css/bootstrap-datetimepicker.css
+    /doc/css/bootstrap.min.css
+    /doc/css/prism.css
+    /doc/css/style.css
+    /doc/elsertifikater/
+    /doc/elsertifikater/#introduksjon
+    /doc/elsertifikater/#versjoner
+    /doc/flomvarsling/
+    /doc/flomvarsling/#introduksjon
+    /doc/flomvarsling/#versjoner
+    /doc/gridtimeseries-data-gts/
+    /doc/gridtimeseries-data-gts/#introduksjon
+    /doc/gridtimeseries-data-gts/#versjoner
+    /doc/historiske-vannfoeringsdata/
+    /doc/historiske-vannfoeringsdata/#introduksjon
+    /doc/hydrologiske-data/
+    /doc/hydrologiske-data/#introduksjon
+    /doc/inntektsrammer/
+    /doc/jordskredvarsling/
+    /doc/jordskredvarsling/#introduksjon
+    /doc/jordskredvarsling/#versjoner
+    /doc/kulturminner-i-vassdrags-og-energisektoren/
+    /doc/kulturminner-i-vassdrags-og-energisektoren/#introduksjon
+    /doc/kulturminner-i-vassdrags-og-energisektoren/#versjoner
+    /doc/magasinstatistikk/
+    /doc/nettleiestatistikk/
+    /doc/nettleietariffer/
+    /doc/nve-account-authentication/
+    /doc/nve-account-authentication/#versjoner
+    /doc/regobs/
+    /doc/snoeskredvarsel/
+    /doc/snoeskredvarsel/#introduksjon
+    /doc/snoeskredvarsel/#versjoner
+    /doc/vannkraftdatabase/
+    /doc/vannkraftdatabase/#introduksjon
+    /doc/vannkraftdatabase/#versjoner
+    /doc/vassmagasinstatistikk/
+    /doc/vassmagasinstatistikk/#introduksjon
+    /doc/vassmagasinstatistikk/#versjoner
+    /doc/vindkraftdatabase/
+    /doc/vindkraftdatabase/#introduksjon
+    /doc/vindkraftdatabase/#versjoner
+    /doc/web-map-service-wms/
+    /doc/web-map-service-wms/#introduksjon
+    /favicon.ico
+    assets/plugins/elegant_font/css/style.css
+    assets/plugins/font-awesome/css/font-awesome.css
+    http://creativecommons.org/licenses/by/3.0/no/deed.no
+    http://data.norge.no/nlod/
+    https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css
+    https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui.css
+WindPowerplant GetWindPowerplantsInOperation 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+WindPowerplant GetWindPowerPlantsInOperation 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+WindPowerplant GetWindPowerplants 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+WindPowerplant GetWindPowerPlants 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+Windpowerplant GetWindPowerplantsInOperation 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+Windpowerplant GetWindPowerPlantsInOperation 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+Windpowerplant GetWindPowerplants 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+Windpowerplant GetWindPowerPlants 200 [{"VindkraftAnleggId":20,"Navn":"Bessakerfjellet","IdriftsettelseForsteByggetrinn":"2007-09-10T00:00:00","AnleggsNr":10413,"InstallertEffekt_MW":57.5,"HovedEierNavn":"MIDGARD VIND AS","HovedEierOrgNr"
+2010 Counter({True: 1863, False: 147}) ['BruttoFallhoyde_M', 'DatoForEldsteKraftproduserendeDel', 'Eiere', 'ElspotomraadeNummer', 'EnEkv', 'ErIDrift', 'ForsteUtnyttelseAvFalletDato', 'Fylke', 'FylkesNr', 'HovedEier', 'HovedEier_OrgNr', 'IDriftDato', 'Kommune', 'KommuneNr', 'Konsesjoner', 'Kraftverkstatus', 'MaksYtelse', 'MidProd_91_20', 'NVEOmraadeID', 'NVEOmraadeNavn', 'Navn', 'Nedborsfeltnavn', 'RegineNr', 'SPPunkt', 'SPSone', 'Slukeevne', 'UnderBygging', 'UteAvDrift', 'VannKVType', 'VannKVTypeID', 'VannKraftverkID', 'VassdragsOmraadeID', 'VassdragsOmraadeNavn']
+in operation total MW 34023.54560000003 n 1863
+[('2008', 91), ('2009', 71), ('2007', 68), ('2006', 66), ('2021', 64), ('2004', 58), ('2010', 57), ('2012', 55)]
+0 without IDriftDato
+[('Aurland 3', 270.0, '1979-07-30T00:00:00', 'Pumpekraftverk'), ('Bestul', -0.71, '2015-02-02T00:00:00', 'Pumpe'), ('Brattingfoss', 10.7, '1955-12-05T00:00:00', 'Pumpekraftverk'), ('Breive', -20.0, '1981-01-01T00:00:00', 'Pumpe'), ('Buavatn', -6.0, '1988-07-03T00:00:00', 'Pumpe'), ('Bøaåni', -1.178, '1973-01-01T00:00:00', 'Pumpe')]
+https://www.nve.no/energi/energisystem/vindkraft/ 200
+['/energi/energisystem/vindkraft-paa-land/', '/energi/energisystem/vindkraft-paa-land/data-for-utbygde-vindkraftverk-i-norge/', '/energi/energisystem/vindkraft-paa-land/laer-om-vindkraft/', '/energi/energisystem/vindkraft-paa-land/nasjonal-ramme-for-vindkraft/', '/energi/energisystem/vindkraft-paa-land/produksjonsavgift-for-vindkraftverk-paa-land/', '/konsesjon/konsesjonsbehandling-av-vindkraft-paa-land/', '/media/19307/nasjonalramme-for-vindkraft.pdf', '/vann-og-vassdrag/hydrologiske-data/api/', 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap', 'https://temakart.nve.no/tema/vindkraftverk']
+https://www.nve.no/energi/energisystem/vindkraft/vindkraftverk-i-drift/ 404
+[]
+https://www.nve.no/energi/energisystem/vindkraft/vindkraftverk-i-norge/ 404
+[]
+=== NO ArcGIS
+https://gis3.nve.no/map/rest/services/Mapservices/Vindkraft/MapServer?f=json 404 []
+https://gis3.nve.no/map/rest/services/Mapservices?f=json 200 ['Mapservices/Havvind2025', 'Mapservices/Manregl_Vannkraft', 'Mapservices/VassdragsreguleringVannkraft']
+=== FI
+https://suomenuusiutuvat.fi/media/julkinen-tuulivoima_vuositilastot_6_2025.xlsx 200 204519
+['Tuulipuistot', 'Tuulivoimalat']
+Tuulipuistot (398, 8)
+                                              0                        1               2                     3                           4                                       5                             6                         7
+0  List of constructed wind farms 1999 - 6/2025                      NaN             NaN                   NaN                         NaN                                     NaN                           NaN                       NaN
+1                                           NaN                      NaN             NaN                   NaN                         NaN                                     NaN                           NaN                       NaN
+2                       Tuulipuisto / Wind Farm  Valmistunut / Online in  Voimaloita WTG  Teho / Capacity (MW)  Omistaja / Wind Farm Owner  Voimalavalmistaja Turbine manufacturer  Online (1)  / not in use (0)  Purkuvuosi Demolish year
+3          Valmistuneet / came online 1-6/2025:                      NaN              85                 542.6                         NaN                                     NaN                           NaN                       NaN
+4                               Eurajoki, Luvia                     2025              13                  80.6                   Gigawatti                                  Vestas                             1                       NaN
+5                                Ii, Pahkakoski                     2025              30                   186              Ilmatar Energy                                  Vestas                             1                       NaN
+6             Pieksämäki, Niinimäen tuulipuisto                     2025              22                 145.2        Helen & Ålandsbanken                 
+                                            0                        1               2                    3                           4                                       5                             6                         7
+395                   Tuulipuisto / Wind Farm  Valmistunut / Online in  Voimaloita WTG  Teho  Capacity (MW)  Omistaja / Wind Farm Owner  Voimalavalmistaja Turbine manufacturer  Online (1)  / not in use (0)  Purkuvuosi Demolish year
+396  Valmistuneet / in the operation in 1991:                      NaN               2                  0.4                         NaN 
+Tuulivoimalat (1976, 16)
+   0                      1             2                       3                   4                                          5                                  6                    7                  8                          9                            10                           11                               12      13                             14             15
+0 NaN  List of Wind Turbines           NaN                     NaN                 NaN                                        NaN                                NaN                  NaN                NaN                        NaN                          NaN                          NaN                              NaN     NaN                            NaN            NaN
+1 NaN                    NaN           NaN                     NaN                 NaN                                        NaN                                NaN                  NaN                NaN                        NaN                          NaN                          NaN                              NaN     NaN                            NaN            NaN
+2 NaN                    NaN           NaN                     NaN                 NaN                                        NaN                                NaN                  NaN                NaN                        NaN                          NaN                          NaN                              NaN     NaN                            NaN            NaN
+3 NaN                   Name  Municipality  Owner/owner of the spv                 Spv                  Operator, contact details  Cabel information,contact details  Nominal power\n(kW)  Installation year  Wind turbine Manufacturer  Wind turbine tip height (m)  Wind turbine hub height (m)  W
+      0             1        2               3                   4                                             5              6     7     8               9    10   11   12               13 14    15
+1973 NaN  Ykspihlaja 3  Kokkola  Aquila Capital  Ykspihlaja Wind Oy  OX2 TCM, Topi Marttila topi.marttila@ox2.com  johtotieto.fi  3600  2017  Nordex Acciona  220  NaN  131  Keski-Pohjanmaa  1   NaN
+1974 NaN  Ykspihlaja 4  Kokkola  Aquila Capital  Ykspihlaja Wind Oy  OX2 TCM, Topi Marttila topi.marttila@ox2.com  johtotieto.fi  3600  2017  Nordex Acciona  220  NaN  131  Keski-Pohjanmaa  1   NaN
+1975 N
+https://suomenuusiutuvat.fi/media/tuulivoima-rakenteilla_2025_2027_28.8.2025.xlsx 200 66632
+['28.8.2025', 'Vuosittain', 'Maakunnittain']
+28.8.2025 (180, 12)
+    0                                        1    2    3                                                                                                                        4    5    6    7    8    9    10   11
+0  NaN                                      NaN  NaN  NaN          28.8.2025, tiedot perustuvat julkisiin lähteisiin + valmistuneista hankkeista  omistajilta saatuihin tietoihin   NaN  NaN  NaN  NaN  NaN  NaN  NaN
+1  NaN                                      NaN  NaN  NaN                   / information based on public sources + the info from the owners about projects that have come online   NaN  NaN  NaN  NaN  NaN  NaN  NaN
+2  NaN                                      NaN  NaN  NaN  (2020 - 2024 rakennetut hankkeet listattu alempana / scroll down to see projects that came on-line between 2020 - 2024)  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+3  NaN                                      NaN  NaN  NaN                                                                                                                      NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+4  NaN                                      NaN  NaN  NaN                                                                                                                      NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+5  NaN                                      NaN  NaN  NaN                                                                                                                      NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+6  NaN   rakenteilla olevat tuulivoimahankkeet:  NaN  NaN                                                                                                                      NaN  NaN  NaN  NaN  NaN  NaN  NaN  NaN
+7  NaN  Wind power projects under construction:  NaN  NaN                               
+                      0                        1                  2    3      4        5                  6                           7     8                                            9    10   11
+177  2023-11-30 00:00:00  Säkylä, Korpileivonmäki          Satakunta    6   38.4  Ilmatar  Vestas V162-6.4MW  PPA Mondelez International  2025  https:// ilmatar.fi/projekti/korpilevonmaki  NaN  NaN
+178                  NaN                      NaN                NaN  NaN    NaN      NaN                NaN                         NaN   NaN                                          NaN  NaN  NaN
+179   
+Vuosittain (166, 12)
+                                                                                                                                                                             0                                  1                     2                3                               4   5   6                           7   8   9                      10                    11
+0                                                                                                                                                                           NaN  Päivitetty / Updated on 28.8.2025                   NaN              NaN                             NaN NaN NaN                         NaN NaN NaN                    NaN                   NaN
+1                                                                                                                                                                           NaN                                NaN                   NaN              NaN                             NaN NaN NaN                         NaN NaN NaN                    NaN                   NaN
+2  Markkinaehtoiset ja kilpailutuksesta tulevat hankkeet yhteensä / Total no of WTGs and capacity (including the auction winners and the projects without Governmental subsidy)                                NaN                   NaN              NaN                             NaN NaN NaN                         NaN NaN NaN                    NaN                   NaN
+3                                                                                                                                                                           NaN                                NaN                   NaN              NaN                             NaN NaN NaN                         Na
+                                                                                          0                            1                     2                  3                4   5   6    7   8   9    10   11
+163  Ahvenanmaan tukijärjestelmässä olevat hankkeet / Project under support scheme of Åland:                          NaN                   NaN                NaN              NaN NaN NaN  NaN NaN NaN  NaN  NaN
+164                                                                                      NaN  Voimaloiden lkm / No of WTG  Teho / Capacity (MW)  Valmis /online in              Na
+Maakunnittain (23, 14)
+                                                                                                                                   0                  1                 2                     3             4    5   6   7   8                  9                 10                    11                         12                              13
+0  28.8.2025 tilanne maakunnittain 2025-2028 rakenteilla olevat hankkeet / Capacity by regions, projects coming on-line in 2025 -2028                NaN               NaN                   NaN           NaN  NaN NaN NaN NaN                NaN               NaN                   NaN                        NaN                             NaN
+1                                                                                                                                 NaN                NaN               NaN                   NaN           NaN  NaN NaN NaN NaN                NaN               NaN                   NaN                        NaN                             NaN
+2                                                                                                                                 NaN                NaN               NaN                   NaN           NaN  NaN NaN NaN NaN                NaN               NaN                   NaN                        NaN                             NaN
+3                               Markkinaehtoisesti  rakenteilla olevat hankkeet / projects coming online without Governmental subsidy                NaN               NaN                   NaN           NaN  NaN NaN NaN NaN                NaN               NaN                   NaN                        NaN                             NaN
+4                                                                                         
+     0               1    2       3    4    5   6   7   8    9    10   11   12   13
+20  NaN             NaN  NaN     NaN  NaN  NaN NaN NaN NaN  NaN  NaN  NaN  NaN  NaN
+21  NaN             NaN  NaN     NaN  NaN  NaN NaN NaN NaN  NaN  NaN  NaN  NaN  NaN
+22  NaN  Yhteensä/total  262  1712.2  NaN  NaN NaN NaN NaN  NaN  NaN  NaN  NaN  NaN
+['https://suomenuusiutuvat.fi/en/category/statistics/', 'https://suomenuusiutuvat.fi/en/category/statistics/feed/', 'https://suomenuusiutuvat.fi/en/category/statistics/page/2/', 'https://suomenuusiutuvat.fi/en/category/statistics/page/6/', 'https://suomenuusiutuvat.fi/en/solar-power-statistics-06-2026/', 'https://suomenuusiutuvat.fi/en/wind-power-statistics-06-2026/']
+ Total production capacity used in the wind power forecast html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;box-sizing:border-box;-webkit-text-size-adjust:100%;}*,*::before,*::after{box-sizing:inherit;}strong,b{font-weight:700;}body{margin:0;color:rgba(0, 0, 0, 0.87);font-family:'labGrotesqueFont','labGrotesqueFont Fallback';font-weight:400;font-size:1rem;line-height:1.5;background-color:#fff;}@media print{body{background-color:#fff;}}body::backdrop{background-color:#fff;} .css-k0sogd{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;} Skip to main content .css-1v3lgpo{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;dis
+  fingrid 368 Day-ahead transmission capacity FI-EE - planned
+  fingrid 334 Balancing Capacity (mFRR), up, hourly market, procurement forecast
+  fingrid 45 Intraday transmission capacity FI-SE3
+  fingrid 367 Day-ahead transmission capacity EE-FI - planned
+  fingrid 27 Day-ahead transmission capacity FI-SE3 - official
+  fingrid 144 Day-ahead transmission capacity SE3-FI  - planned
+  fingrid 268 Total production capacity used in the wind power forecast
+  fingrid 39 Intraday transmission capacity SE3-FI
+  fingrid 64 Bilateral trade capacity RUS-FI, unused
+  fingrid 115 Day-ahead transmission capacity FI-EE - official
+  fingrid 24 Day-ahead transmission capacity SE1-FI - official
+  fingrid 2 Automatic Frequency Restoration Reserve, capacity, down
+  fingrid 330 Balancing Capacity (mFRR), down, hourly market, price
+  fingrid 110 Intraday transmission capacity EE-FI
+  fingrid 102 Power exchange capacity FI-RUS
+  fingrid 41 Planned transmission capacity FI-RUS
+  fingrid 25 Day-ahead transmission capacity SE3-FI - official
+  fingrid 329 Balancing Capacity Market (mFRR), up, hourly market, price
+  fingrid 424 Total installed battery energy storage system capacity (MW)
+  fingrid 65 Bilateral trade capacity RUS-FI
+  fingrid 262 Balancing Capacity Market price
+  fingrid 38 Intraday transmission capacity SE1-FI
+  fingrid 103 Transmission capacity FI-RUS
+  fingrid 112 Day-ahead transmission capacity EE-FI - official
+  fingrid 29 Planned weekly capacity from south to north
+  fingrid 328 Balancing Capacity (mFRR), down, hourly market, procured volume
+  fingrid 327 Balancing Capacity (mFRR), up, hourly market, procured volume
+  fingrid 113 Intraday transmission capacity FI-EE
+  fingrid 111 Intraday transmission capacity EE-FI - real time data
+  fingrid 67 Power exchange capacity RUS-FI
+  fingrid 127 Planned transmission capacity RUS-FI
+  fingrid 145 Day-ahead transmission capacity FI-SE3 - planned
+  fingrid 410 FI-EE aFRR Capacity Import
+  fingrid 331 Balancing Capacity (mFRR), down, hourly market, bids
+  fingrid 332 Balancing Capacity (mFRR), up, hourly market, bids
+  fingrid 49 Bilateral trade capacity FI-RUS, unused
+  fingrid 63 Transmission capacity RUS-FI
+  fingrid 66 Intraday transmission capacity RUS-FI
+  fingrid 101 Bilateral trade capacity FI-RUS
+  fingrid 28 Planned weekly capacity from north to south
+  fingrid 142 Day-ahead transmission capacity SE1-FI - planned
+  fingrid 409 FI-EE aFRR Capacity Export
+  fingrid 333 Balancing Capacity (mFRR), hourly market, procurement from Estonia
+  fingrid 44 Intraday transmission capacity FI - SE1
+  fingrid 50 Intraday transmission capacity FI-RUS
+  fingrid 26 Day-ahead transmission capacity FI-SE1 - official
+  fingrid 143 Day-ahead transmission capacity FI-SE1 - planned
+  fingrid 261 Balancing Capacity Market results
+  fingrid 335 Balancing Capacity (mFRR), down, hourly market, procurement forecast
+  fingrid 114 Intraday transmission capacity FI-EE - real time data
+  fingrid 267 Total production capacity used in the solar power forecast
+  fingrid 1 Automatic Frequency Restoration Reserve, capacity, up
+=== LV
+['Information', '1. Electricity balance', '2. Baltic States balance', '4. Price comparison', '5. Load', '7. Statistics of GOs', '9.1. Bid prices 1h', '9.2. Bid prices 15min', '10.1. Activated energy 1h', '10.2. Activated energy SA 15min', '10.3. Activated energy DA 15min', '11.1. Bid size 1h', '11.2. Bid size 15min', 'Sheet1']
+Information (27, 8)
+                                                                                                       0                                                                             1   2   3   4   5   6                                                                      7
+0  The file contains the raw data for 2022, 2023, 2024, 2025 and 2026 for the Electricity Market Review:                                                                           NaN NaN NaN NaN NaN NaN                        
+1. Electricity balance (60, 17)
+                                                              0        1            2             3            4            5            6         7                              8                             9                       10                      11                                                          12                                                          13            14                                 15                                                   16
+0  Electricity prod
+2. Baltic States balance (59, 10)
+                                                                          0      1           2            3           4            5           6            7              8            9
+0  Electricity production and consumption balance in the Baltic States, MWh    NaN         NaN          NaN         NaN          NaN         NaN          NaN            NaN          NaN
+1                                                                       NaN    NaN         NaN          NaN         NaN         
+4. Price comparison (60, 6)
+                                                        0        1               2               3               4              5
+0  Price comparison between neighbouring bidding areas, %      NaN             NaN             NaN             NaN            NaN
+1                                                     NaN      NaN             NaN             NaN             NaN            NaN
+2                                                    Year    Month  NPS EE & FI, %  NPS EE & LV, %  NPS LV & L
+5. Load (60, 12)
+                                              0        1         2         3         4         5         6         7        8         9         10        11
+0  Load of the Baltic States interconnections, %      NaN       NaN       NaN       NaN       NaN       NaN       NaN      NaN       NaN       NaN       NaN
+1                                            NaN      NaN       NaN       NaN       NaN       NaN       NaN       NaN      NaN       NaN       NaN       NaN
+2                            
+7. Statistics of GOs (60, 8)
+                                                              0        1           2              3             4             5                        6            7
+0  Statistics of the activity in the Latvia Domain for GOs, MWh      NaN         NaN            NaN           NaN           NaN                      NaN          NaN
+1                                                           NaN      NaN         NaN            NaN           NaN           NaN                      NaN          NaN
+2 
+9.1. Bid prices 1h (24304, 21)
+                                                                     0    1    2    3    4              5    6         7    8        9    10        11   12      13   14        15   16         17   18        19   20
+0  Highest and lowest bid prices until 12:00 on 9 October 2024, EUR/MWh  NaN  NaN  NaN  NaN            NaN  NaN       NaN  NaN      NaN  NaN       NaN  NaN     NaN  NaN       NaN  NaN        NaN  NaN       NaN  NaN
+1                                                                   Na
+9.2. Bid prices 15min (8025, 17)
+                                                                     0    1    2    3    4        5    6         7    8       9    10        11   12         13   14        15   16
+0  Highest and lowest bid prices after 12:00 on 9 October 2024, EUR/MWh  NaN  NaN  NaN  NaN      NaN  NaN       NaN  NaN     NaN  NaN       NaN  NaN        NaN  NaN       NaN  NaN
+1                                                                   NaN  NaN  NaN  NaN  NaN      NaN  NaN       NaN  NaN     NaN  NaN       
+10.1. Activated energy 1h (24303, 23)
+                                                          0      1     2           3         4              5         6        7         8       9         10         11        12       13        14      15        16      17        18          19        20      21        22
+0  Total activated energy until 12:00 on 9 October 2024, MWh    NaN   NaN         NaN       NaN            NaN       NaN      NaN       NaN     NaN       NaN        NaN       NaN      NaN       NaN     NaN       NaN     NaN   
+10.2. Activated energy SA 15min (8024, 11)
+                                                                         0      1     2           3         4        5         6       7         8          9         10
+0  After 12:00 on 9 October, activated mfrr SA (scheduled activations), MWh    NaN   NaN         NaN       NaN      NaN       NaN     NaN       NaN        NaN       NaN
+1                                                                       NaN    NaN   NaN         NaN       NaN      NaN       NaN     NaN       NaN        NaN    
+10.3. Activated energy DA 15min (8024, 11)
+                                                                      0      1     2           3         4        5         6       7         8          9         10
+0  After 12:00 on 9 October, activated mfrr DA (direct activations), MWh    NaN   NaN         NaN       NaN      NaN       NaN     NaN       NaN        NaN       NaN
+1                                                                    NaN    NaN   NaN         NaN       NaN      NaN       NaN     NaN       NaN        NaN       NaN
+2 
+11.1. Bid size 1h (24303, 13)
+                                                                   0      1     2           3         4              5         6        7         8       9         10         11        12
+0  Average hourly standard bid size until 12:00 on 9 October 2024, MW    NaN   NaN         NaN       NaN            NaN       NaN      NaN       NaN     NaN       NaN        NaN       NaN
+1                                                                 NaN    NaN   NaN         NaN       NaN            NaN     
+https://www.ast.lv/en 200
+['/en/content/access-electricity-metering-data', '/en/projects/dispatcher-control-and-data-centre']
+https://www.ast.lv/en/content/electricity-generation 404
+['/en/content/access-electricity-metering-data', '/en/projects/dispatcher-control-and-data-centre']
+https://www.ast.lv/en/electricity-generation 404
+['/en/content/access-electricity-metering-data', '/en/projects/dispatcher-control-and-data-centre']
+=== LT
+[]
+https://www.litgrid.eu/index.php/sistema/atviri-duomenys/atviru-duomenu-rinkiniai/3041 404
+https://www.litgrid.eu/index.php/sistema/atviri-duomenys/3040 404
+https://www.litgrid.eu/index.php/sistema/elektros-energetikos-sistema/gamyba/3213 404 81886
+https://www.ena.lt/ 200 102606
+https://www.ena.lt/en/ 404 30089
+https://www.eso.lt/en/about-us/statistics 403 5518
+404 []
