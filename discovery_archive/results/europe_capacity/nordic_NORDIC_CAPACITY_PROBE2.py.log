@@ -1,0 +1,413 @@
+=== DK
+Capacity and number of production units per municipality and type. | The dataset is updated during the first two weeks of the following month.
+
+**Please note:** the capacities are calculated at midnight on the first day of the month.
+
+A version, where thermal power plants are divided into main fuels, is under development.
+
+---
+**API Request Frequency** \
+To get the most up-to-date data, calling the API with a dynamic timestamp such as [start=now-P3M](https://api.energidataservice.dk/dataset/CapacityPerMunicipality?start=now-P3M) is a good approach. Making one request daily is sufficient to ensure getting the latest data.
+['None:Year and month based on local Danish time.', 'None:Each of the 98 Danish municipalities has a unique number, ra', 'None:Total amount of capacity calculated at the beginning of a mo', 'None:Total amount of capacity calculated at the beginning of a mo', 'None:Installed capacity of offshore wind generators at the beginn', 'None:Installed capacity of onshore wind generators at the beginni', 'None:Installed capacity of solar power panels at the beginning of', 'None:The total number of thermal Power plants  at the end of a mo', 'None:The total number of thermal Power plants under 100 MW at the', 'None:The total number of offshore wind generators at the end of a', 'None:The total number of onshore wind generators at the end of a ', 'None:The total number of solar panels / installations at the end ']
+{"total":1,"filters":"","sort":"Month asc","limit":1,"dataset":"CapacityPerMunicipality","records":[{"Month":"2016-01-01T00:00:00","MunicipalityNo":"860","CapacityGe100MW":null,"CapacityLt100MW":98.115997,"OffshoreWindCapacity":null,"OnshoreWindCapacity":59.783001,"SolarPowerCapacity":10.042800,"NumberGenerationUnitsGe100MW":0,"NumberGenerationUnitsLt100MW":19,"NumberOffshoreWindGenerators":0,"Num
+{ "statusCode": 429, "message": "Rate limit is exceeded. Try again in 300 seconds." }
+PowerSystemRightNow Production, flow, and balance on interconnectors right now in one-minute resolution.
+ProductionConsumptionSettlement Production and consumption based on settlement data from Datahub. Data from 2005, but please note additional info in comments.
+Forecasts_5Min Forecast of Wind and Solar power with a resolution for 5 minutes. This forecast is base for the one hour resolution edition: [Forecast Wind and Solar power, hour resolution](https://www.energidataservice.dk/tso-electricity/Forecasts_Hour).
+StorageCapacity Storage capacity provides information about total and reserved capacity for:
+* Volume capacity
+* Injection capacity
+* Withdrawal capacity
+['AfrrActivatedAutomatic', 'AfrrBorderAvailableTransferCapacity', 'AfrrEnergyActivation', 'AfrrLfcActivationLimits', 'AfrrPicassoCorrections', 'AfrrReservesDK1', 'AfrrReservesNordic', 'CalorificValues', 'CapacityAuction', 'CapacityauctionDK1', 'CapacityauctionDK2', 'CapacityPerMunicipality', 'CO2Emis', 'CO2EmisProg', 'ConnectionPointsInGrid', 'ConsumptionConsumerCategoryHour', 'ConsumptionConsumerCategoryMonth', 'ConsumptionCoverageLocationBased', 'ConsumptionCoverageNationalDecl', 'ConsumptionCoverageTransmission', 'ConsumptionDK10IndustryYear', 'ConsumptionDK3619IndustryHour', 'ConsumptionGridAreaHour', 'CountertradeIntraday', 'CountertradeIntraday_v2', 'DatahubMeasuringPointStatistics', 'DatahubMeasuringPointStatisticsMunicipality', 'DatahubPricelist', 'DayAheadPrices', 'DeclarationGridEmission', 'DeclarationGridEmissionVer', 'DeclarationGridmix', 'DeclarationGridmixVer', 'DeclarationImport', 'DeclarationProduction', 'DeclarationProductionVersion', 'DeclarationTransmissionEmission', 'DeclarationTransmissionEmissionVer', 'DeclarationTransmissionGridmix', 'DeclarationTransmissionGridmixVer', 'ElectricityBalanceNonv', 'ElectricityProdex5MinRealtime', 'ElectricitySupplierChangePerGridArea', 'ElectricitySuppliersPerGridarea', 'Elspotprices', 'EntryExitGasquality', 'FcrDK1', 'FcrNdDK2', 'FcrReservesDK1', 'FcrReservesDK2', 'FFRdemandDK2', 'FFRDK2', 'FFRpurchasedDK2', 'FixedResidualConsumption', 'Forecasts_5Min', 'Forecasts_Hour', 'ForeignExchange', 'GasAccumulatedSystemBalance', 'GasAllocation', 'GasBookedByProduct', 'GasCapacityUsage', 'GasComposition', 'GasCompositionMonthly', 'GasCompositionYearly', 'GasDailyBalancingPrice', 'Gasflow', 'GasMonthlyNeutralPrice', 'GasSystemBalanceUntil20221001', 'GasSystemCommercialBalance', 'GenerationProdTypeExchange', 'GridCapacityMapDSO', 'GridCapacityMapDSOProductionandConsumption', 'GridCapacityMapTSO', 'GridCapacityMapTSOProductionandConsumption', 'HerfindahlHirschmanIndexHHIPerGridarea', 'ImbalancePrice', 'InertiaNordicSyncharea', 'mFRRCapacityMarket', 'MfrrCapacityMarketExtra', 'MfrrEnergyActivationMarket', 'MfrrReservesDK1', 'MfrrReservesDK2', 'MrStationsGasquality', 'NordpoolMarket', 'PowerSupplierChangePerGridarea', 'PowerSystemRightNow', 'PrivateConsumptionHeatingHour', 'PrivateConsumptionHeatingMonth', 'PrivateConsumptionHeatingNationalHour', 'ProductionConsumptionSettlement', 'ProductionRegionHour', 'ProductionRegionMonth', 'ProductionTypesImport', 'RealtimeMarket', 'ReCoverageMunicipality', 'RegulatingBalancePowerdata', 'StorageAvailablePct', 'StorageCapacity', 'StorageNomination', 'StorageUtilization', 'Transmissionlines']
+=== SE PxWeb tree
+ [ /Energiindikatorer ] Energiindikatorer
+   [ /Energiindikatorer/3 ] 3 Planeringsmål för elsystemet
+ 
+
+
+ 
+
+
+     [ /Energiindikatorer/3/3.1 ] 3.1 Utbyggnadstakt för elproduktion
+
+       T /Energiindikatorer/3/3.1/EN_IND3-1A.px Utbyggnadstakt av elproduktion från kärnkraft, vindkraft och solkraft 1975- , TWh/år
+     [ /Energiindikatorer/3/3.2 ] 3.2 Installerad kapacitet per elområde
+
+       T /Energiindikatorer/3/3.2/EN_IND3-2A.px Andel installerad kapacitet per elområde 2015-, Procent och MW
+     [ /Energiindikatorer/3/3.3 ] 3.3 Anslutningar i transmissionsnätet
+
+     [ /Energiindikatorer/3/3.4 ] 3.4 Elproduktion och elanvändning per elområde
+     [ /Energiindikatorer/3/3.5 ] 3.5 Andel el av slutlig energianvändning
+     [ /Energiindikatorer/3/3.6 ] 3.6 Flexibilitet i elsystemet
+
+       T /Energiindikatorer/3/3.6/EN_IND3-6A.px Total kapacitet av anslutna lager (direkt och övriga) i lokala nät och regionnät i MW för 2023 och 2024
+       T /Energiindikatorer/3/3.6/EN_IND3-6B.px Total avropad effekt i lokala nät, regionnät samt transmissionsnät i MW från bilaterala avtal med användare respektive producenter för 2023 och 2024.
+       T /Energiindikatorer/3/3.6/EN_IND3-6C.px Total avropad effekt från flexibilitetsmarknad  i lokala nät och regionnät samt transmissionsnätet i MW för upp- respektive nedreglering för 2023 och 2024.
+       T /Energiindikatorer/3/3.6/EN_IND3-6D_Cont.px Förkvalificerade effektvolymer i MW per kraftslag registrerade i januari för åren 2024-2026
+       T /Energiindikatorer/3/3.6/EN_IND3-6F.px Månatligt  medelpris för aFRR i de svenska elområdena för ned- respektive uppreglering 2023-2025, angivet i euro per MW, på den Nordiska aFRR kapacitetmarknaden
+       T /Energiindikatorer/3/3.6/EN_IND3-6G.px Månatligt medelpris för mFRR ned respektive upp kapacitetsmarknad per elområde för lokala avrop oktober 2023-2025, angivet i euro per MW
+   [ /Energiindikatorer/4 ] 4 Leveranssäkerhetsmål för elsystemet
+ 
+
+
+ 
+
+
+     [ /Energiindikatorer/4/4.1 ] 4.1 Effektbalans
+       T /Energiindikatorer/4/4.1/EN_IND4-1A_Cont.px Installerad elproduktionskapacitet per kraftslag och maximalt uppmätt timeffektbehov i Sverige, MW, 1996-
+       T /Energiindikatorer/4/4.1/EN_IND4-1B.px Faktiskt maximalt effektbehov och elproduktionskapacitet per kraftslag, 2016-, GW
+     [ /Energiindikatorer/4/4.2 ] 4.2 Effekttillräcklighet
+     [ /Energiindikatorer/4/4.3 ] 4.3 Icke levererad energi och effekt på transmissionsnätet
+
+       T /Energiindikatorer/4/4.3/EN_IND4-3A_Cont.px Icke levererad energi och effekt på stamnätet, MWh respektive MW, 2004-
+     [ /Energiindikatorer/4/4.4 ] 4.4 Avbrott i regional och lokalnäten
+
+     [ /Energiindikatorer/4/4.5 ] 4.5 Överföringskapacitet mellan elområden
+
+   [ /Energiindikatorer/5 ] 5 Mål för effektivare energianvändning
+ 
+
+
+ 
+
+
+     [ /Energiindikatorer/5/5.1 ] 5.1 Energiintensitet
+
+     [ /Energiindikatorer/5/5.2 ] 5.2 Energi och elintensitet i industrin
+
+     [ /Energiindikatorer/5/5.3 ] 5.3 Byggnaders energianvändning
+
+     [ /Energiindikatorer/5/5.4 ] 5.4 Vägfordon och energieffektivitet i transportsektorn
+
+   [ /Energiindikatorer/6 ] 6 Mål om fossilfri elproduktion
+
+
+     [ /Energiindikatorer/6/6.1 ] 6.1 Andel fossilfri elproduktion (samt andel förnybar elproduktion)
+   [ /Energiindikatorer/7 ] 7 Forskning och innovation
+ 
+
+
+ 
+
+
+     [ /Energiindikatorer/7/7.2 ] 7.2 Kompetensförsörjning för energiomställning
+     [ /Energiindikatorer/7/7.3 ] 7.3 Nyttiggörande av energiforskning
+     [ /Energiindikatorer/7/7.4 ] 7.4 Internationellt samarbete inom energiforskningen
+   [ /Energiindikatorer/8 ] 8 Nationella klimatmål 
+
+
+     [ /Energiindikatorer/8/8.1 ] 8.1 Andel fossil och fossilfri energi
+
+     [ /Energiindikatorer/8/8.2 ] 8.2 Andelen förnybar energi i transportsektorn (Enligt RED)
+
+     [ /Energiindikatorer/8/8.3 ] 8.3 Utrullning av laddinfrastruktur
+
+   [ /Energiindikatorer/9 ] 9 Jämställdhet
+
+
+ 
+
+
+     [ /Energiindikatorer/9/9.1 ] 9.1 Könsfördelning av makt och inflytande i energisektorn
+
+     [ /Energiindikatorer/9/9.2 ] 9.2 Könsfördelningen inom STEM-utbildningar
+
+   [ /Energiindikatorer/10 ] 10 EU-Mål som påverkar energiomställningen
+ 
+
+
+ 
+
+
+     [ /Energiindikatorer/10/10.1 ] 10.1 Andel energi från förnybara energikällor (enligt RED)
+
+     [ /Energiindikatorer/10/10.2 ] 10.2 Utsläppsintensitet och förnybar andel för elproduktion per elområde (enligt delegerad akt RED)
+
+     [ /Energiindikatorer/10/10.5 ] 10.5 EU:s utsläppshandel
+
+   [ /Energiindikatorer/11 ] 11 Områden med betydelse för enerrgiomställningen
+
+
+     [ /Energiindikatorer/11/11.1 ] 11.1 Trygg energiförsörjning (exkl trygg el)
+
+     [ /Energiindikatorer/11/11.2 ] 11.2 Hushållens sårbarhet för höga energikostnader
+
+     [ /Energiindikatorer/11/11.3 ] 11.3 Fjärrvärme och kraftvärme 
+
+     [ /Energiindikatorer/11/11.4 ] 11.4 Biouttag och priser för biobränslen
+
+       T /Energiindikatorer/11/11.4/EN_IND11-4C.px Inhemsk produktionskapacitet för biodrivmedel, GWh, 2021-
+   [ /Energiindikatorer/12 ] 12 Faktorer som påverkar efterfrågan och tillgång av energi
+     [ /Energiindikatorer/12/12.1 ] 12.1 Elmarknadens struktur 
+
+     [ /Energiindikatorer/12/12.2 ] 12.2 Energipriser för näringslivet 
+
+     [ /Energiindikatorer/12/12.3 ] 12.3 Energikostnadernas andel i industrin
+ 
+
+
+ 
+
+
+     [ /Energiindikatorer/12/12.4 ] 12.4 Energipriser för hushållen
+
+     [ /Energiindikatorer/12/12.5 ] 12.5 Elpris på dagen före marknaden (spotmarknaden)
+
+     [ /Energiindikatorer/12/12.6 ] 12.6 Elavtal och leverantörsbyten
+     [ /Energiindikatorer/12/12.7 ] 12.7 Drivmedelspriser 
+
+ 
+
+
+     [ /Energiindikatorer/12/12.8 ] 12.8 Världsmarknadspriser för fossila bränslen 
+
+     [ /Energiindikatorer/12/12.9 ] 12.9 Skatt på energi
+
+       T /Energiindikatorer/12/12.9/EN_IND12-9B.px Energi- och koldioxidskatt på eldningsolja för olika konsumenter, 1995-, öre/kWh i 2025 års prisnivå
+     [ /Energiindikatorer/12/12.10 ] 12.10 Elcertifikatsystemet
+
+     [ /Energiindikatorer/12/12.11 ] 12.11 Ursprungsgarantier
+ 
+
+
+ 
+
+
+   [ /Energiindikatorer/Tidigare_Indikatorer ] Tidigare publicerade energiindikatorer
+     [ /Energiindikatorer/Tidigare_Indikatorer/2025 ] 2025
+ [ /Officiell_energistatistik ] Officiell Energistatistik
+   [ /Officiell_energistatistik/Produktion_av_biogas_och_rotrester ] Biogas och rötrester
+     T /Officiell_energistatistik/Produktion_av_biogas_och_rotrester/EN0124_1.px Biogasproduktion per anläggningskategori, år 2005-2025 (GWh) efter År, Anläggningstyp och Enhet
+   [ /Officiell_energistatistik/Bostader_och_lokaler ] Bostäder och lokaler
+     [ /Officiell_energistatistik/Bostader_och_lokaler/Flerbostadshus ] Energistatistik för flerbostadshus
+     [ /Officiell_energistatistik/Bostader_och_lokaler/Lokaler ] Energistatistik för lokaler
+     [ /Officiell_energistatistik/Bostader_och_lokaler/Smahus ] Energistatistik för småhus
+     [ /Officiell_energistatistik/Bostader_och_lokaler/Samlingsrapport ] Energistatistik för småhus, flerbostadshus och lokaler
+     [ /Officiell_energistatistik/Bostader_och_lokaler/Fritidshus ] Energistatistik i fritidshus
+   [ /Officiell_energistatistik/Byggsektorns_energianvandning ] Byggsektorns energianvändning 
+   [ /Officiell_energistatistik/Fiskesektorns_energianvandning ] Fiskesektorns energianvändning
+     T /Officiell_energistatistik/Fiskesektorns_energianvandning/2_EN0115_2.px Energianvändningen i saltvattensfisket 2017 fördelad på bränsletyp och fartygets motoreffekt
+     T /Officiell_energistatistik/Fiskesektorns_energianvandning/3_EN0115_4.px Energianvändningen i saltvattensfisket 2022 fördelad på bränsletyp och fartygets motoreffekt
+   [ /Officiell_energistatistik/Industrins_energianvandning ] Industrins energianvändning
+   [ /Officiell_energistatistik/Jordbrukets_energianvandning ] Jordbrukets energianvändning
+     T /Officiell_energistatistik/Jordbrukets_energianvandning/EN0119_5.px Solelsproduktion och antal jordbruk med solceller, MWh och antal
+   [ /Officiell_energistatistik/Kvartalsvis_energibalans ] Kvartalsvis energibalans
+   [ /Officiell_energistatistik/Natanslutna_solcellsanlaggningar ] Nätanslutna solcellsanläggningar
+     T /Officiell_energistatistik/Natanslutna_solcellsanlaggningar/EN0123_1.px Nätanslutna solcellsanläggningar, antal och installerad effekt, från år 2016 -
+     T /Officiell_energistatistik/Natanslutna_solcellsanlaggningar/EN0123_2.px Nätanslutna solcellsanläggningar, installerad effekt per capita och landareal, fr.o.m. år 2016 -
+   [ /Officiell_energistatistik/Produktion_import_export_av_oforadlade_tradbranslen ] Produktion, import och export av oförädlade trädbränslen
+   [ /Officiell_energistatistik/Skogsbrukets_energianvandning ] Skogsbrukets energianvändning
+   [ /Officiell_energistatistik/Transportsektorns_energianvandning ] Transportsektorns energianvändning
+   [ /Officiell_energistatistik/Tradbransle_och_torvpriser ] Trädbränsle-, torv- avfallspriser 
+   [ /Officiell_energistatistik/Vindkraftsstatistik ] Vindkraftsstatistik
+     T /Officiell_energistatistik/Vindkraftsstatistik/EN0105_1.px Antal verk, installerad effekt och elproduktion, hela landet, 1982-
+     T /Officiell_energistatistik/Vindkraftsstatistik/EN0105_2.px Antal verk, installerad effekt och vindkraftproduktion per elområde, 2003-
+     T /Officiell_energistatistik/Vindkraftsstatistik/EN0105_3.px Antal verk, installerad effekt och vindkraftproduktion per län, 2003-
+     T /Officiell_energistatistik/Vindkraftsstatistik/EN0105_4.px Antal verk och installerad effekt per kommun, 2003-
+     T /Officiell_energistatistik/Vindkraftsstatistik/EN0105_5.px Antal verk, installerad effekt och vindkraftproduktion fördelad på landbaserad och havsbaserad vindkraft, hela landet, 2003-
+   [ /Officiell_energistatistik/Varmevarden_och_densitet ] Värmevärden och densitet
+   [ /Officiell_energistatistik/Arlig_energibalans ] Årlig energibalans
+     [ /Officiell_energistatistik/Arlig_energibalans/Balanser ] Balanser
+     [ /Officiell_energistatistik/Arlig_energibalans/El_och_fjarrvarmeproduktion ] El och fjärrvärmeproduktion
+     [ /Officiell_energistatistik/Arlig_energibalans/Total_anvandning_av_energivaror ] Total användning av energivaror
+     [ /Officiell_energistatistik/Arlig_energibalans/Total_slutlig_energianvandning ] Total slutlig energianvändning
+     [ /Officiell_energistatistik/Arlig_energibalans/Total_tillforsel_och_total_anvandning_av_energi ] Total tillförsel och total användning av energi
+     [ /Officiell_energistatistik/Arlig_energibalans/Utrikeshandel_och_bunkring ] Utrikeshandel och bunkring
+ [ /Prognoser ] Prognoser
+   [ /Prognoser/Aldre_prognoser ] Äldre Prognoser
+     [ /Prognoser/Aldre_prognoser/2024_Sommar ] 2024 Sommar
+     [ /Prognoser/Aldre_prognoser/2025_Vinter ] 2025 Vinter
+     [ /Prognoser/Aldre_prognoser/2025_Sommar ] 2025_Sommar
+     [ /Prognoser/Aldre_prognoser/2026_Vinter ] 2026_Vinter
+=== NO
+1863
+{"VannKraftverkID": 2, "Navn": "Adamselv", "VannKVType": "Kraftverk", "VannKVTypeID": "K", "HovedEier": "STATKRAFT ENERGI AS", "HovedEier_OrgNr": "987059729", "Fylke": "Finnmark", "FylkesNr": "56", "Kommune": "Lebesby", "KommuneNr": "24", "ForsteUtnyttelseAvFalletDato": 1973, "DatoForEldsteKraftproduserendeDel": 1973, "MaksYtelse": 50.0, "MidProd_91_20": 196.366, "BruttoFallhoyde_M": 200.0, "Slukeevne": 30.19, "EnEkv": 0.46, "ElspotomraadeNummer": "4", "RegineNr": "229.3Z", "ErIDrift": true, "IDriftDato": "1973-01-01T00:00:00", "Eiere": [{"AdressatID": 41005, "Driftselskap": true, "Hovedeier": true, "Navn": "STATKRAFT ENERGI AS", "OrgNr": 987059729, "ProsentAndel": 100.0, "ProsentAndelDrift": 100.0}], "Konsesjoner": [{"KdbID": 482, "Tittel": "Overføringer og reg. m.v. i Adamselv og Frierfjordelv i Finnmark"}, {"KdbID": 975, "Tittel": "Erverv av bruksrett til vannfall i Frierfjordelv og Adamselv"}, {"KdbID": 5794, "Tittel": "Reg. Lille Måsevatn, Lille Måsevatn pumpe, overf. bekkeinntak til Adamselv krv"}], "Kraftverkstatus": "Idrift", "NVEOmraadeID": null, "NVEOmraadeNavn": null, "Nedborsfeltnavn": "Friarfjordelva", "SPPunkt": "01", "SPSone": "893", "UnderBygging": false, "UteAvDrift": null, "VassdragsOmraadeID": 12, "VassdragsOmraadeNavn": "NVE - område: 12"}
+Counter({'Kraftverk': 1821, 'Pumpe': 33, 'Pumpekraftverk': 9})
+GetWindPowerPlants 404 {"$type":"System.Web.Http.HttpError, System.Web.Http","Message":"No HTTP resource was found that matches the request URI
+GetWindPowerPlantsInOperation 404 {"$type":"System.Web.Http.HttpError, System.Web.Http","Message":"No HTTP resource was found that matches the request URI
+GetWindPowerplantsInOperation 404 {"$type":"System.Web.Http.HttpError, System.Web.Http","Message":"No HTTP resource was found that matches the request URI
+GetWindpowerPlantsInOperation 404 {"$type":"System.Web.Http.HttpError, System.Web.Http","Message":"No HTTP resource was found that matches the request URI
+GetWindPowerPlantsInOperation/ 404 {"$type":"System.Web.Http.HttpError, System.Web.Http","Message":"No HTTP resource was found that matches the request URI
+GetHydroPowerPlants 200 [{"VannKraftverkID":2,"Navn":"Adamselv","VannKVType":"Kraftverk","VannKVTypeID":"K","HovedEier":"STATKRAFT ENERGI AS","H
+https://api.nve.no/web/Powerplant/ 404 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<title>404 - File or directory not found.</title>
+<style type="text/css">
+<!--
+body{margin:0;font-size:.7em;font-family:Verdana, Arial, Helvetica, sans-serif;background:#EEEEEE;}
+fieldset{padding:0 15px 10px 15px;} 
+h1{font-size:2.4em;margin:0;color:#FFF;}
+h2{font-size:1.7em;margin:0;color:#CC0000;} 
+h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;} 
+#header{width:96%;margin:0 0 0 0;padding:6px 2% 6px 2%;font-family:"trebuchet MS", Verdana, sans-serif;color:#FFF;
+background-color:#555555;}
+#content{margin:0 0 0 2%;position:relative;}
+.content-container{background:#FFF;width:96%;margin-top:8px;padding:10px;position:relative;}
+-->
+</style>
+https://api.nve.no/web/swagger 404 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<title>404 - File or directory not found.</title>
+<style type="text/css">
+<!--
+body{margin:0;font-size:.7em;font-family:Verdana, Arial, Helvetica, sans-serif;background:#EEEEEE;}
+fieldset{padding:0 15px 10px 15px;} 
+h1{font-size:2.4em;margin:0;color:#FFF;}
+h2{font-size:1.7em;margin:0;color:#CC0000;} 
+h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;} 
+#header{width:96%;margin:0 0 0 0;padding:6px 2% 6px 2%;font-family:"trebuchet MS", Verdana, sans-serif;color:#FFF;
+background-color:#555555;}
+#content{margin:0 0 0 2%;position:relative;}
+.content-container{background:#FFF;width:96%;margin-top:8px;padding:10px;position:relative;}
+-->
+</style>
+https://api.nve.no/doc/ 200 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Api.nve.no er et grensesnitt mot et utvalg av data fra Norges vassdrags- og energidirektorat.">   
+    <link rel="shortcut icon" href="/favicon.ico">  
+	<title>Forside | API.NVE.NO</title>
+    
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	<!-- Global CSS -->
+	<!--link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui.css"-->
+    <link rel="stylesheet" type="text/css" href="/doc/css/bootstrap.min.css">
+	
+    <!-- Plugins CSS    
+    <link rel="styleshe
+https://nve.no/umbraco/api/Powerplant/GetWindPowerPlantsInOperation 404 {"$type":"System.Web.Http.HttpError, System.Web.Http","Message":"No HTTP resource was found that matches the request URI 'https://www.nve.no/umbraco/api/Powerplant/GetWindPowerPlantsInOperation'."}
+https://gis3.nve.no/arcgis/rest/services/featureservice?f=json 200 {"currentVersion":11.5,"folders":[],"services":[{"name":"featureservice/AlarmInput","type":"FeatureServer"},{"name":"featureservice/AlarmInput","type":"MapServer"},{"name":"featureservice/NevinaNedbfelt3","type":"FeatureServer"},{"name":"featureservice/NevinaNedbfelt3","type":"MapServer"},{"name":"featureservice/NevinaNedbfelt4","type":"FeatureServer"},{"name":"featureservice/NevinaNedbfelt4","type":"MapServer"},{"name":"featureservice/VARSEL","type":"FeatureServer"},{"name":"featureservice/VARSEL","type":"MapServer"}]}
+https://gis3.nve.no/map/rest/services/Mapservices?f=json 200 {"currentVersion":10.91,"folders":[],"services":[{"name":"Mapservices/Administrasjon2","type":"MapServer"},{"name":"Mapservices/Administrasjon","type":"MapServer"},{"name":"Mapservices/AktsomhetskartKvikkleireskredKildepunkt","type":"MapServer"},{"name":"Mapservices/AndreData","type":"MapServer"},{"name":"Mapservices/AndreVassdragstiltak_ekstern","type":"MapServer"},{"name":"Mapservices/BaneVarsel_Publisert","type":"MapServer"},{"name":"Mapservices/datamottak","type":"MapServer"},{"name":"Mapservices/Fjellskredinstrumenter1","type":"MapServer"},{"name":"Mapservices/FKB","type":"MapServer"},{"name":"Mapservices/Flomhendelser1","type":"MapServer"},{"name":"Mapservices/FlomHendelser","type":"MapServer"},{"name":"Mapservices/Flomrapport","type":"MapServer"},{"name":"Mapservices/FlomSat","type":"MapServer"},{"name":"Mapservices/FlomSatObs","type":"MapServer"},{"name":"Mapservices/FlomsoneKart
+=== FI
+[200] https://tuulivoimayhdistys.fi/en/wind-power-in-finland/wind-power-statistics len=85469
+     https://suomenuusiutuvat.fi/en/wind-power-statistics-06-2025/
+     https://suomenuusiutuvat.fi/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fsuomenuusiutuvat.fi%2Fen%2Fwind-power-statistics-06-2025%2F&#038;lang=en
+     https://suomenuusiutuvat.fi/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fsuomenuusiutuvat.fi%2Fen%2Fwind-power-statistics-06-2025%2F&#038;format=xml&#038;lang=en
+     https://suomenuusiutuvat.fi/en/category/statistics/
+     https://suomenuusiutuvat.fi/media/wind-power-stats-fin-6_2025.pdf
+     https://suomenuusiutuvat.fi/media/tuulivoima-rakenteilla_2025_2027_28.8.2025.xlsx
+     https://suomenuusiutuvat.fi/media/julkinen-tuulivoima_vuositilastot_6_2025.xlsx
+   txt:  Wind power statistics 06/2025 - Suomen uusiutuvat ry {"@context":"https:\/\/schema.org","@graph":[{"@type":"Articl
+   txt: s:\/\/schema.org","@graph":[{"@type":"Article","@id":"https:\/\/suomenuusiutuvat.fi\/en\/wind-power-statistics-06-2025\/#article","isPartOf":{"@id":"https:\/\/suomenuusiutuvat.fi\/en\/wind-power-statistics-06-2025\/"},"author":{"name":"Marianna Ahonen","@id":"https:\/\
+   txt: ower-statistics-06-2025\/#article","isPartOf":{"@id":"https:\/\/suomenuusiutuvat.fi\/en\/wind-power-statistics-06-2025\/"},"author":{"name":"Marianna Ahonen","@id":"https:\/\/suomenuusiutuvat.fi\/en\/#\/schema\/person\/3397913cde286f307773900e4d7357be"},"headline":"Win
+   txt: omenuusiutuvat.fi\/en\/#\/schema\/person\/3397913cde286f307773900e4d7357be"},"headline":"Wind power statistics 06\/2025","datePublished":"2025-07-03T04:00:00+00:00","dateModified":"2025-09-01T12:06:03+00:00","mainEntityOfPage":{"@id":"https:\/\/suomenuusiutuvat.fi\/en\
+   txt: 2025-09-01T12:06:03+00:00","mainEntityOfPage":{"@id":"https:\/\/suomenuusiutuvat.fi\/en\/wind-power-statistics-06-2025\/"},"wordCount":55,"image":{"@id":"https:\/\/suomenuusiutuvat.fi\/en\/wind-power-statistics-06-2025\/#primaryimage"},"thumbnailUrl":"https:\/\/suomenu
+   txt: statistics-06-2025\/"},"wordCount":55,"image":{"@id":"https:\/\/suomenuusiutuvat.fi\/en\/wind-power-statistics-06-2025\/#primaryimage"},"thumbnailUrl":"https:\/\/suomenuusiutuvat.fi\/media\/img_20181215_110535_712-3-scaled.jpg","articleSection":["Statistics"],"inLangua
+https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/ehk/ 200 [{"id":"11t2.px","type":"t","text":"11t2 -- Sales of oil products in Finland, 2017M01-2026M06","updated":"2026-09-22T09:21:31"},{"id":"11t3.px","type":"t","text":"11t3 -- Sales of oil products for international transport, 2017M01-2026M06","updated":"2026-09-22T09:21:31"},{"id":"127t.px","type":"t","text":"127t -- Production and consumption of biogas by plant type, 2017-2024","updated":"2026-07-01T17:44:21"},{"id":"12st.px","type":"t","text":"12st -- Total energy consumption by energy source, 2010Q1-2026Q2*","updated":"2026-09-22T09:21:30"},{"id":"12su.px","type":"t","text":"12su -- Supplies and total consumption of electricity, 1992M01-2026M06*","updated":"2026-09-22T09:21:30"},{"id":"12sv.px","type":"t","text":"12sv -- Supplies and total consumption of electricity, 1960-2024","updated":"2026-07-01T17:44:21"},{"id":"12sz.px","type":"t","text":"12sz -- Energy consumption in transport, 1990-2025*","updated":"2026-07-01T17:44:21"},{"id":"12vk.px","type":"t","text":"12vk -- Final energy consumption by sector, 1970-2024*","updated":"2026-07-01T17:44:22"},{"id":"12vl.px","type":"t","text":"12vl -- District heating consumption by sector, 1970-2024","updated":"2026-07-01T17:44:22"},{"id":"12vm.px","type":"t","text":"12vm -- Electricity consumption by sector, 1960-2024","updated":"2026-07-01T17:44:22"},{"id":"12vp.px","type":"t","text":"12vp -- Supply of electricity by energy source, 1990-2024","updated":"2026-07-01T17:44:22"},{"id":"12vq.px","type":"t","text":"12vq -- Total energy co
+https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/ehk 200 [{"id":"11t2.px","type":"t","text":"11t2 -- Sales of oil products in Finland, 2017M01-2026M06","updated":"2026-09-22T09:21:31"},{"id":"11t3.px","type":"t","text":"11t3 -- Sales of oil products for international transport, 2017M01-2026M06","updated":"2026-09-22T09:21:31"},{"id":"127t.px","type":"t","text":"127t -- Production and consumption of biogas by plant type, 2017-2024","updated":"2026-07-01T17:44:21"},{"id":"12st.px","type":"t","text":"12st -- Total energy consumption by energy source, 2010Q1-2026Q2*","updated":"2026-09-22T09:21:30"},{"id":"12su.px","type":"t","text":"12su -- Supplies and total consumption of electricity, 1992M01-2026M06*","updated":"2026-09-22T09:21:30"},{"id":"12sv.px","type":"t","text":"12sv -- Supplies and total consumption of electricity, 1960-2024","updated":"2026-07-01T17:44:21"},{"id":"12sz.px","type":"t","text":"12sz -- Energy consumption in transport, 1990-2025*","updated":"2026-07-01T17:44:21"},{"id":"12vk.px","type":"t","text":"12vk -- Final energy consumption by sector, 1970-2024*","updated":"2026-07-01T17:44:22"},{"id":"12vl.px","type":"t","text":"12vl -- District heating consumption by sector, 1970-2024","updated":"2026-07-01T17:44:22"},{"id":"12vm.px","type":"t","text":"12vm -- Electricity consumption by sector, 1960-2024","updated":"2026-07-01T17:44:22"},{"id":"12vp.px","type":"t","text":"12vp -- Supply of electricity by energy source, 1990-2024","updated":"2026-07-01T17:44:22"},{"id":"12vq.px","type":"t","text":"12vq -- Total energy co
+https://pxdata.stat.fi/PxWeb/api/v1/en/StatFin/ 200 [{"id":"matk","type":"l","text":"Accommodation statistics"},{"id":"adopt","type":"l","text":"Adoptions"},{"id":"tilma","type":"l","text":"Air emission accounts"},{"id":"ilma","type":"l","text":"Air transport"},{"id":"mata","type":"l","text":"Balance of payments and international investment position"},{"id":"kony","type":"l","text":"Bankruptcies and business restructuring proceedings"},{"id":"synt","type":"l","text":"Births"},{"id":"rki","type":"l","text":"Building cost index"},{"id":"raku","type":"l","text":"Building stock and new production"},{"id":"bdem","type":"l","text":"Business demography"},{"id":"ksyyt","type":"l","text":"Causes of death"},{"id":"ssaaty","type":"l","text":"Changes in marital status"},{"id":"kans","type":"l","text":"Citizenships granted"},{"id":"kbar","type":"l","text":"Consumer confidence"},{"id":"khi","type":"l","text":"Consumer price index"},{"id":"maku","type":"l","text":"Cost index of civil engineering works"},{"id":"alvaa","type":"l","text":"County elections"},{"id":"klt","type":"l","text":"Culture"},{"id":"klts","type":"l","text":"Culture satellite accounts"},{"id":"cvts","type":"l","text":"CVTS, continuing vocational training"},{"id":"kuol","type":"l","text":"Deaths"},{"id":"uloa","type":"l","text":"Debtors in enforcement"},{"id":"kkesk","type":"l","text":"Discontinuation of education"},{"id":"kvliik","type":"l","text":"Domestic waterborne traffic"},{"id":"vaka","type":"l","text":"Early childhood education and care"},{"id":"eaa","type":"l","text
+cffi https://energiavirasto.fi/en/power-plant-register 403 []
+cffi https://energiavirasto.fi/en/web/energiavirasto/voimalaitosrekisteri 403 []
+https://data.fingrid.fi/en/datasets/ 200 721180
+https://data.fingrid.fi/en/datasets/268 200 64116
+=== EE
+   /umm/gas/rss ['RSS feed']
+   /umm/gas/rss/aris ['ARIS RSS feed']
+   /api/umm/single/{id} ['This method gets all gas urgent market messages for selected event']
+   /api/umm/gas ['This method gets all gas urgent market messages for selected filters']
+   /api/umm/gas/messages ['This method gets selected gas urgent market message data']
+   /api/transmission/cross-border ['Cross-border electricity transmission data (5-minute intervals)']
+   /api/transmission/cross-border/latest ['Latest cross-border electricity transmission data']
+   /api/transmission/cross-border/hourly ['Cross-border electricity transmission data (hourly)']
+   /api/transmission/cross-border/hourly/csv ['Cross-border electricity transmission data (hourly) in CSV file']
+   /api/transmission/cross-border/csv ['Cross-border electricity transmission data (5 minute intervals) in CSV file']
+   /api/transmission/cross-border-planned-trade ['Cross-border planned trade']
+   /api/transmission/cross-border-planned-trade/latest ['Latest available cross-border planned trade data']
+   /api/transmission/cross-border-planned-trade/csv ['Cross-border planned trade in CSV file']
+   /api/transmission/cross-border-capacity ['Cross-border electricity transmission capacity data']
+   /api/transmission/cross-border-capacity/{group} ['Cross-border electricity transmission capacity data for selected country']
+   /api/transmission/cross-border-capacity/{group}/csv ['Cross-border electricity transmission capacity data for selected country in CSV file']
+   /api/system ['Power system data']
+   /api/system/with-plan ['Power system data and planned data']
+   /api/system/with-plan/csv ['Power system data and planned data in CSV file']
+   /api/system/latest ['Latest available power system data']
+   /api/system/csv ['Power system data in CSV file']
+   /api/nps/turnover ['NordPool day-ahead buy and sell volumes data']
+   /api/nps/turnover/{group}/latest ['Latest available NordPool day-ahead buy and sell volumes for selected area']
+   /api/nps/turnover/csv ['NordPool day-ahead buy and sell volumes data in csv file']
+   /api/nps/price ['NordPool day-ahead price data']
+   /api/nps/price/{group}/latest ['Latest available NordPool day-ahead price for selected area']
+   /api/nps/price/{group}/current ['Current NordPool day-ahead price for selected area']
+   /api/nps/price/csv ['NordPool day-ahead price data in CSV file']
+   /api/nominations ['Gas system common zone nominations data']
+   /api/nominations/renominations ['Gas system common zone renominations data']
+   /api/nominations/renominations/csv ['Gas system common zone renominations data in CSV file']
+   /api/nominations/csv ['Gas system common zone nominations data in CSV file']
+   /api/green/certificates ['Green certificates data']
+   /api/gas/border-trade/current ['Current gas common balancing zone cross-border trade data']
+   /api/gas-transmission/cross-border ['Gas transmission cross-border data']
+   /api/gas-transmission/cross-border/latest ['Latest gas transmission cross-border data']
+   /api/gas-transmission/cross-border/csv ['Gas transmission cross-border data in CSV file']
+   /api/gas-trade ['GETBaltic price data']
+   /api/gas-trade/{group}/latest ['Latest GETBaltic price data']
+   /api/gas-trade/csv ['GETBaltic price data in CSV file']
+   /api/gas-system ['Total domestic gas flow from transmission network']
+   /api/gas-system/m3 ['Total domestic gas flow from transmission network in m3']
+   /api/gas-system/m3/csv ['Total domestic gas flow from transmission network in m3 in CSV file']
+   /api/gas-system/latest ['Latest hourly domestic gas flow from transmission network']
+   /api/gas-system/daily ['Weighted average gross calorific value of gas entering the Estonian gas system (25/20)']
+   /api/gas-system/daily/csv ['Weighted average gross calorific value of gas entering the Estonian gas system in CSV file']
+   /api/gas-system/daily-average ['Weighted average gross calorific value of gas entering the Estonian gas system (25/0)']
+   /api/gas-system/csv ['Total domestic gas flow from transmission network in CSV file']
+   /api/gas-balance/price ['Gas balance price data ']
+   /api/gas-balance/price/csv ['Gas balance price data in CSV file']
+   /api/capacity/interruptible ['Gas system interruptible capacity data']
+   /api/capacity/interruptible/csv ['Gas system interruptible capacity data in CSV file']
+   /api/capacity/firm ['Gas system firm capacity data']
+   /api/capacity/firm/csv ['Gas system firm capacity data in CSV file']
+   /api/balance ['Power system balancing data']
+   /api/balance/total ['Power system physical balance data']
+   /api/balance/total/latest ['Latest available physical balance data']
+   /api/balance/total/csv ['Power system physical balance data in CSV file']
+   /api/balance/csv ['Power system balancing data in CSV file']
+   /api/balance/commerce ['Power system commercial balance data']
+   /api/balance/commerce/latest ['Latest available power system commercial balance data']
+   /api/balance/commerce/csv ['Power system commercial balance data in CSV file']
+=== LV
+[200] https://www.ast.lv/en/electricity-market-review len=121725
+     //fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin-ext
+     https://www.ast.lv/sites/default/files/editor/tirgus%20apskats/TA%202026/Market%20overview%20-%20for%20download.xlsx
+   txt: true,"trackTel":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(
+   txt: ?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip","trackColorbox":true},"simple_popup_blocks":{"settings":[{"pid":"1","identifier":"block-views-block-notifications-notification
+   txt: dex\u0022:5,\u0022_symbolIndex\u0022:0,\u0022name\u0022:\u0022PL\u0022}],\u0022subtitle\u0022:{}}","csv":"[[\u0022\u0022,\u0022SE4\u0022,\u0022FI\u0022,\u0022EE\u0022,\u0022LV\u0022,\u0022LT\u0022,\u0022PL\u0022],[\u0022October 2025\u0022,\u002264.87\u0022,\u0022
+   txt: 143.33}],\u0022name\u0022:\u0022DK2\u0022,\u0022_colorIndex\u0022:1,\u0022_symbolIndex\u0022:0}]}","csv":"[[\u0022\u0022,\u0022SE4\u0022,\u0022FI\u0022,\u0022Baltija\u0022,\u0022PL\u0022,\u0022AT\u0022,\u0022BE\u0022,\u0022DE-LU\u0022,\u0022FR\u0022,\u0022NL\u002
+   txt: u\/dashboard\/show\u0022,\u0022text\u0022:\u0022Source: The ENTSO-E Transparency Platform\u0022}}","csv":"[[\u0022\u0022,\u00222025\u0022,\u00222026\u0022],[\u0022LV\u0022,\u002220\u0022,\u00220\u0022],[\u0022LT\u0022,\u002224\u0022,\u00227\u0022],[\u0022EE\u0022
+   txt: u0022:\u0022Total from EU countries\u0022,\u0022_colorIndex\u0022:3,\u0022_symbolIndex\u0022:3}]}","csv":"[[\u0022\u0022,\u0022From Poland\u0022,\u0022From Sweden\u0022,\u0022From Finland\u0022,\u0022Total from EU countries\u0022],[\u0022October 2025\u0022,\u0022
+=== LT
+[404] https://www.litgrid.eu/index.php/system-services/power-system/installed-generation-capacities/ len=81869
+     https://www.google.com/recaptcha/api.js?render=6LeoxSUtAAAAAFGjeyVIaVO4n3aJLgWyCcCuM1g1&#038;ver=6.2.15
+   txt: place(/(\/)(ai\.3\.)([^\d]*)$/,function(e,t,n){return t+"ai.2"+n})),!1!==cfg.cr)for(var e=0;e Puslapis nerastas &#8211; Litgrid {"@context":"https:\/\/schema.org","@graph":[{"@type":"WebSite","@id":"https:\/\/litgrid.eu\/#website","url":"https:\/\/litgrid.
+   txt:  negalia EN Sistema Tinklo plėtra Strateginiai projektai Paslaugos Apie „Litgrid“ Paieška... Ieškoti Sistema Sistema Grįžti Elektros energetikos sistema Elektro
+   txt:  Atviri duomenys Atvirų duomenų rinkiniai Perdavimo tinklo generacijos pralaidumų žemėlapis Perdavimo tinklo vartojimo pralaidumų žemėlapis Tinklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėla
+   txt:  Perdavimo tinklo generacijos pralaidumų žemėlapis Perdavimo tinklo vartojimo pralaidumų žemėlapis Tinklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėlapis Baltijos šalių rinkos duomenų platforma 
+   txt: inklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėlapis Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir t
+   txt: rinkos žemėlapis Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir tikslai Veiklos reglamentavimas ir reguliavimas Valdymas Inovacijos Inovaci
+[200] https://www.litgrid.eu/ len=110767
+     https://www.google.com/recaptcha/api.js?render=6LeoxSUtAAAAAFGjeyVIaVO4n3aJLgWyCcCuM1g1&#038;ver=6.2.15
+   txt:  negalia EN Sistema Tinklo plėtra Strateginiai projektai Paslaugos Apie „Litgrid“ Paieška... Ieškoti Sistema Sistema Grįžti Elektros energetikos sistema Elektro
+   txt:  Atviri duomenys Atvirų duomenų rinkiniai Perdavimo tinklo generacijos pralaidumų žemėlapis Perdavimo tinklo vartojimo pralaidumų žemėlapis Tinklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėla
+   txt:  Perdavimo tinklo generacijos pralaidumų žemėlapis Perdavimo tinklo vartojimo pralaidumų žemėlapis Tinklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėlapis Baltijos šalių rinkos duomenų platforma 
+   txt: inklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėlapis Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir t
+   txt: rinkos žemėlapis Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir tikslai Veiklos reglamentavimas ir reguliavimas Valdymas Inovacijos Inovaci
+   txt:  Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir tikslai Veiklos reglamentavimas ir reguliavimas Valdymas Inovacijos Inovacijos Grįžti 
+[404] https://www.litgrid.eu/index.php/system-services/power-system/generation/3078 len=81871
+     https://www.google.com/recaptcha/api.js?render=6LeoxSUtAAAAAFGjeyVIaVO4n3aJLgWyCcCuM1g1&#038;ver=6.2.15
+   txt: place(/(\/)(ai\.3\.)([^\d]*)$/,function(e,t,n){return t+"ai.2"+n})),!1!==cfg.cr)for(var e=0;e Puslapis nerastas &#8211; Litgrid {"@context":"https:\/\/schema.org","@graph":[{"@type":"WebSite","@id":"https:\/\/litgrid.eu\/#website","url":"https:\/\/litgrid.
+   txt:  negalia EN Sistema Tinklo plėtra Strateginiai projektai Paslaugos Apie „Litgrid“ Paieška... Ieškoti Sistema Sistema Grįžti Elektros energetikos sistema Elektro
+   txt:  Atviri duomenys Atvirų duomenų rinkiniai Perdavimo tinklo generacijos pralaidumų žemėlapis Perdavimo tinklo vartojimo pralaidumų žemėlapis Tinklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėla
+   txt:  Perdavimo tinklo generacijos pralaidumų žemėlapis Perdavimo tinklo vartojimo pralaidumų žemėlapis Tinklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėlapis Baltijos šalių rinkos duomenų platforma 
+   txt: inklo pralaidumų rezervacijos duomenys Sistemos duomenys Šiaurės šalių elektros rinkos žemėlapis Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir t
+   txt: rinkos žemėlapis Baltijos šalių rinkos duomenų platforma ENTSO-E skaidrumo platforma Apie „Litgrid“ Apie „Litgrid“ Grįžti Strategija, vertybės ir tikslai Veiklos reglamentavimas ir reguliavimas Valdymas Inovacijos Inovaci
