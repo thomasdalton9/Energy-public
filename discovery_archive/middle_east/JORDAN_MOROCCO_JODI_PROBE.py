@@ -3,7 +3,20 @@ Probe (Oct 2026): which JODI Gas balance rows exist for Jordan and Morocco, and 
 Uses the jodidb.org viewer code of middle_east/EGYPT_GAS.py (Viewer.country_handle, parse_jodi); one download of every
 balance row, every month, per country. Prints per row the first/last month with a value, number of months with a value,
 the months with no value inside that span, and calendar-year sums in mcm. Run from GitHub Actions
-(discovery_archive/workflows/jordan_morocco_jodi_probe.yml); output copied to discovery_archive/results/jordan_gas/.
+(discovery_archive/workflows/jordan_morocco_jodi_probe.yml); summary in discovery_archive/results/jordan_gas/.
+
+RESULT (12 Oct 2026, Actions runs 38192449033 / 38192584260 / 38192702063):
+  JORDAN IS NOT IN JODI GAS. The jodidb.org viewer (ReportId 38673) lists 95 countries, none Jordan; JODI's world gas
+  file jodi_gas_csv_beta.zip has 89 REF_AREA codes and no JO rows. A Jordan 'JODI (fallback)' gas balance cannot be
+  built (Jordan reports to JODI Oil only). Nothing was built for Jordan.
+  MOROCCO (viewer label 'Morocco', handle 60): every balance row Jan 2014 - Dec 2025 (144 months, no gaps in
+  production, imports, GID; exports rows from Jan 2019, all 0; LNG imports reported 0 throughout; stock change missing
+  Apr-Dec 2018 and Jul-Dec 2022, otherwise 0; electricity and heat missing Nov-Dec 2021). Nothing for 2026 yet.
+  Annual mcm: production 96.0 (2014) .. 24.8 (2025); pipeline imports 1083.6 / 1127.4 / 1154.2 / 1144.5 / 1018.2 /
+  950.3 / 719.9 / 708.5 / 157.9 / 860.5 / 885.7 / 949.7 (2014..2025); GID observed 1175.5 (2014) .. 240.2 (2022) ..
+  974.5 (2025); electricity and heat = pipeline imports almost exactly.
+  The EGYPT_GAS.py refactor (Viewer.country_handle / parse_jodi / fetch_jodi / monthly_balance take a country, Egypt
+  default) gives IDENTICAL Egypt sheets to the previous version (checked in the same runs, --full both ways).
 """
 import os
 import sys

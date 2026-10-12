@@ -1,0 +1,21 @@
+Jordan / Morocco JODI Gas coverage, probe discovery_archive/middle_east/JORDAN_MOROCCO_JODI_PROBE.py (12 Oct 2026)
+
+jodidb.org viewer ReportId 38673: 95 countries, Jordan absent (no label containing 'Jor').
+jodi_gas_csv_beta.zip (jodidata.org): 89 REF_AREA codes, 0 rows for JO.
+=> Jordan does not report to JODI Gas; no Jordan JODI gas balance is possible.
+
+Morocco (handle 60): Jan 2014 - Dec 2025, monthly, all core rows complete.
+year  production  pipeline_imports  GID_observed  electricity_heat   (mcm)
+2014   96.0  1083.6  1175.5  1078.3
+2015   96.0  1127.4  1214.3  1120.6
+2016   84.0  1154.2  1236.4  1149.7
+2017   84.8  1144.5  1225.7  1140.1
+2018   87.6  1018.2  1102.7  1015.6
+2019  105.6   950.3  1050.8   945.2
+2020  105.0   719.9   819.8   714.8
+2021  117.5   708.5   825.1   707.6  (elec/heat missing Nov-Dec)
+2022   82.4   157.9   240.2   157.9
+2023   55.1   860.5   915.6   860.5
+2024   42.4   885.7   928.1   885.7
+2025   24.8   949.7   974.5   949.7
+LNG imports reported 0 every month; exports rows from 2019, all 0; stock change 0 or missing (Apr-Dec 2018, Jul-Dec 2022).
