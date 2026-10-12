@@ -15,7 +15,7 @@ Columns  region | country | asset_type | project | operator | fuel_or_type | cap
          as_of_date | evidence | notes   (the shared schema)  + row_id | dedup_key | overlaps_with | sum_flag | source_key.
          overlaps_with = other sources that cover the same country and fuel (aggregates and plants must not be summed together
          blindly); sum_flag = N for a row that duplicates a row of a more official source (kept, with the pointer in notes) and for
-         (nothing else).
+         every TARGET row.
 
 Sources  (all fetched in GitHub Actions; keyless)
   Germany  MaStR Gesamtdatenexport 'In Planung' units with GeplantesInbetriebnahmedatum (plants >= 50 MW individually, the rest as
@@ -26,15 +26,16 @@ Sources  (all fetched in GitHub Actions; keyless)
            (delivery year and target commissioning date, merged into the REPD rows by name and size), NESO TEC register (connection
            dates, status QUEUE).
   France   ODRE 'suivi-projet-raccordement-enr' (renewable projects in development, RTE / Enedis / ELD queue, 31 Dec 2024).
-  Europe   official-document facts (nuclear new build, closures, targets) that are only written when the document
+  Europe   ENTSO-E ERAA 2025 dashboard raw data (GenerationCapacities.csv: national estimates by zone, technology and target year) as
+           TARGET rows; official-document facts (nuclear new build, closures, targets) that are only written when the document
            fetched in this run contains the number and the date (regex check, the matched text is the evidence).
   What was tried and is not usable is listed on 'Tried' (and in discovery_archive/future_capacity/EUROPE_PIPELINE_PROBE1-8.py).
 
-Rules     * statuses: UNDER_CONSTRUCTION | FID | PERMITTED | PLANNED | QUEUE | SUSPENDED | CANCELLED | COMMISSIONED_RECENT;
+Rules     * statuses: UNDER_CONSTRUCTION | FID | PERMITTED | PLANNED | QUEUE | TARGET | SUSPENDED | CANCELLED | COMMISSIONED_RECENT;
             retirements: statutory / notified closures = FID, other announced closures = PLANNED, capacity_mw NEGATIVE.
           * nothing guessed: a date a source does not give is NOT_STATED; MaStR planned dates already in the past are kept on plant
             rows (note) and put in an undated aggregate for the small units.
-          * charts count UNDER_CONSTRUCTION + FID ('firm') and + PERMITTED + PLANNED ('incl. planned'); QUEUE (connection-queue totals) is never
+          * charts count UNDER_CONSTRUCTION + FID ('firm') and + PERMITTED + PLANNED ('incl. planned'); QUEUE and TARGET are never
             added to project rows.
 Usage    python3 europe/future/EUROPE_POWER_PIPELINE.py [--force] [--skip NAME,NAME] [--out PATH]
 """
@@ -72,7 +73,7 @@ SCHEMA = ["region", "country", "asset_type", "project", "operator", "fuel_or_typ
           "source_document", "source_url", "as_of_date", "evidence", "notes"]
 EXTRA = ["row_id", "dedup_key", "overlaps_with", "sum_flag", "source_key"]
 COLS = SCHEMA + EXTRA
-STATUSES = ["UNDER_CONSTRUCTION", "FID", "PERMITTED", "PLANNED", "QUEUE", "SUSPENDED", "CANCELLED", "COMMISSIONED_RECENT"]
+STATUSES = ["UNDER_CONSTRUCTION", "FID", "PERMITTED", "PLANNED", "QUEUE", "TARGET", "SUSPENDED", "CANCELLED", "COMMISSIONED_RECENT"]
 FUELS = ["Hydro", "PumpedStorage", "Gas", "Coal", "Nuclear", "Oil", "Wind_Onshore", "Wind_Offshore", "Solar", "Bioenergy", "Storage", "Other"]
 CHART_FUELS = ["Nuclear", "Gas", "Coal", "Oil", "Wind_Onshore", "Wind_Offshore", "Solar", "Hydro", "Bioenergy", "PumpedStorage", "Storage", "Other"]
 FIRM = ["UNDER_CONSTRUCTION", "FID"]
@@ -685,14 +686,62 @@ def collect_odre(ctx, key):
     return rows, mod + "|" + str(meta.get("metas", {}).get("default", {}).get("records_count", "")), f"{len(rows)} aggregates"
 
 
+# ================================================================================================ ERAA 2025 national estimates (TARGET)
+ERAA_ZIP = "https://eepublicdownloads.blob.core.windows.net/public-cdn-container/clean-documents/sdc-documents/ERAA/ERAA_2025_Dashboard_RawData.zip"
+ISO2 = {"AT": "Austria", "BE": "Belgium", "BG": "Bulgaria", "CH": "Switzerland", "CZ": "Czechia", "DE": "Germany", "DK": "Denmark", "EE": "Estonia", "ES": "Spain",
+        "FI": "Finland", "FR": "France", "GR": "Greece", "HR": "Croatia", "HU": "Hungary", "IE": "Ireland (all-island SEM)", "IT": "Italy", "LT": "Lithuania",
+        "LU": "Luxembourg", "LV": "Latvia", "NL": "Netherlands", "NO": "Norway", "PL": "Poland", "PT": "Portugal", "RO": "Romania", "SE": "Sweden",
+        "SI": "Slovenia", "SK": "Slovakia", "UK": "United Kingdom", "TR": "Turkey", "RS": "Serbia", "BA": "Bosnia and Herzegovina", "ME": "Montenegro",
+        "MK": "North Macedonia", "AL": "Albania", "XK": "Kosovo", "CY": "Cyprus", "MT": "Malta"}
+
+
+def eraa_fuel(tech):
+    t = str(tech).lower()
+    for pat, f in ((r"nuclear", "Nuclear"), (r"offshore", "Wind_Offshore"), (r"wind", "Wind_Onshore"), (r"solar|pv", "Solar"), (r"pump|phs", "PumpedStorage"),
+                   (r"batter", "Storage"), (r"hydro|run.of.river|reservoir|pondage", "Hydro"), (r"lignite|coal", "Coal"), (r"oil", "Oil"),
+                   (r"gas", "Gas"), (r"biomass|bio|waste", "Bioenergy"), (r"dsr|demand", None)):
+        if re.search(pat, t):
+            return f
+    return "Other"
+
+
+def collect_eraa(ctx, key):
+    g = load_germany()
+    ctx.gate(key, head_fp(ERAA_ZIP) or ERAA_ZIP)
+    z = g.open_zip(ERAA_ZIP)
+    name = next(i.filename for i in z.infolist() if i.filename.endswith("GenerationCapacities.csv"))
+    d = pd.read_csv(io.BytesIO(z.read(name)), encoding="utf-8-sig")
+    d["Value"] = pd.to_numeric(d["Value"], errors="coerce")
+    ver = sorted(d["data_version"].astype(str).unique())
+    log("ERAA data_version:", ver, "years:", sorted(d["Target year"].unique())[:20], "status:", d["Operational_Status"].astype(str).unique()[:10])
+    log("ERAA technologies:", sorted(d["Technology"].astype(str).unique())[:60])
+    newest = max(ver)
+    d = d[d["data_version"].astype(str) == newest]
+    d["iso"] = d["Market_Node"].astype(str).str[:2].replace({"GB": "UK"})
+    d["fuel"] = d["Technology"].map(eraa_fuel)
+    d = d[d["iso"].isin(ISO2) & d["fuel"].notna() & d["Value"].notna()]
+    rows = []
+    fp = head_fp(ERAA_ZIP) or ERAA_ZIP
+    for (iso, fuel, yr, stt), gg in d.groupby(["iso", "fuel", "Target year", "Operational_Status"]):
+        rows.append(make_row(country=ISO2[iso], asset_type="power_aggregate", project=f"{newest} national estimate, {fuel}, {yr}" + (f" ({stt})" if str(stt) not in ("NA", "nan") else ""),
+                             operator="ENTSO-E", fuel_or_type=fuel, capacity_mw=round(float(gg["Value"].sum()), 1), status="TARGET", expected_online=str(int(yr)),
+                             online_date_basis="SOURCED_YEAR", source_publisher="ENTSO-E", source_document=f"ERAA 2025 dashboard raw data, GenerationCapacities.csv ({newest})",
+                             source_url="https://www.entsoe.eu/eraa/2025/modelling-data", as_of_date="", evidence="DERIVED" if len(gg) > 1 else "SOURCED",
+                             notes=f"ENTSO-E ERAA {newest} National Estimates, installed capacity in the target year (stock, not an addition); operational status '{stt}'; "
+                                   f"technologies: {', '.join(sorted(gg['Technology'].astype(str).unique()))[:160]}; cross-check / high case only, never add to project rows",
+                             sum_flag="N", source_key=key))
+    return rows, fp, f"{len(rows)} TARGET rows ({newest})"
+
+
 SOURCES_FUNCS = [("DE_MASTR", "Germany MaStR 'In Planung' units", collect_mastr),
                  ("DE_BNETZA", "Germany BNetzA Zu- und Rückbau list", collect_bnetza),
                  ("UK_REPD_CFD", "UK REPD + CfD allocation rounds", collect_uk_repd),
                  ("UK_TEC", "UK NESO TEC register", collect_tec),
-                 ("FR_ODRE", "France ODRE renewable projects in development", collect_odre)]
+                 ("FR_ODRE", "France ODRE renewable projects in development", collect_odre),
+                 ("EU_ERAA", "ENTSO-E ERAA 2025 national estimates", collect_eraa)]
 
 
-# ================================================================================================ official-document facts (nuclear, closures)
+# ================================================================================================ official-document facts (nuclear, closures, targets)
 FACT_TEXT = {}
 
 
@@ -722,6 +771,8 @@ PAA_PEJ = "https://www.gov.pl/web/paa-en/resolution-on-the-construction-of-first
 SNN_C34 = "https://nuclearelectrica.ro/snn/en/investment-projects/reactors-3-and-4/"
 AXPO_PR = "https://www.axpo.com/group/en/news-and-stories/media-releases.detail.html/news-and-stories/media-releases/2024/axpo-will-operate-the-beznau-nuclear-power-plant-until-2033--inv.html"
 AXPO_KKB = "https://www.axpo.com/ch/en/energy/generation-and-distribution/nuclear-power/beznau.html"
+FR_EOLMER = "https://www.ecologie.gouv.fr/politiques-publiques/eolien-mer"
+ES_PGRR = "https://www.miteco.gob.es/content/dam/miteco/es/energia/files-1/nuclear/Residuos/Documents/20231227%20PGRR%207_Version%2027%20diciembre%202023.pdf"
 
 # each fact: fields of the row + checks (url, regex, what it proves); the row is written only if every check matches in the page fetched now
 FACTS = [
@@ -762,6 +813,18 @@ FACTS = [
          doc="Axpo media release 5 Dec 2024: 'Unit 2 ... until 2032 and Unit 1 until 2033'; Beznau plant page: 365 MW each", url=AXPO_PR,
          notes="decision of the operator (4 Dec 2024) after review; expected_online = year of last operation, closure follows",
          checks=[(AXPO_PR, r"Unit 1 until 2033", "date"), (AXPO_KKB, r"365 megawatts \(MW\) each", "capacity")]),
+    dict(country="France", project="PPE 2026-2035 offshore wind target, installed 2035", operator="French State", fuel="Wind_Offshore", status="TARGET", mw=15000, ev="SOURCED", expected="2035",
+         pub="Ministère de la Transition écologique", doc="Éolien en mer page: PPE 2026-2035, '15 GW de puissance installée à horizon 2035 et de 18 GW à horizon 2037'", url=FR_EOLMER,
+         notes="installed offshore wind capacity target (stock), high case only", asset="power_aggregate",
+         checks=[(FR_EOLMER, r"15 GW de puissance installée à horizon 2035", "target")]),
+    dict(country="France", project="PPE 2026-2035 offshore wind target, installed 2037", operator="French State", fuel="Wind_Offshore", status="TARGET", mw=18000, ev="SOURCED", expected="2037",
+         pub="Ministère de la Transition écologique", doc="Éolien en mer page: PPE 2026-2035, '15 GW ... 2035 et de 18 GW à horizon 2037'", url=FR_EOLMER,
+         notes="installed offshore wind capacity target (stock), high case only", asset="power_aggregate",
+         checks=[(FR_EOLMER, r"18 GW à horizon 2037", "target")]),
+    dict(country="Spain", project="Spanish nuclear closure calendar (7th PGRR): Almaraz I 11/2027, Almaraz II 10/2028, Asco I 10/2030, Cofrentes 11/2030, Asco II 9/2032, Vandellos II 2/2035, Trillo 5/2035",
+         operator="Enresa / owners", fuel="Nuclear", status="TARGET", mw=None, ev="SOURCED", expected="", pub="MITECO", doc="7th General Radioactive Waste Plan (27 Dec 2023), table of cessation dates; BOE-A-2026-17756 extends Almaraz to 8 June 2030",
+         url=ES_PGRR, notes="DATES ONLY: no per-unit electrical MW in any opened official document, so no negative-MW closure rows are written (see Tried)", asset="power_aggregate",
+         checks=[(ES_PGRR, r"CN Almaraz I 11/2027 CN Almaraz II 10/2028 CN Ascó I 10/2030 CN Cofrentes 11/2030 CN Ascó II 9/2032 CN Vandellós II 2/2035 CN Trillo 5/2035", "dates")]),
 ]
 
 
@@ -793,7 +856,7 @@ def collect_facts(ctx, key):
         rows.append(make_row(country=f["country"], asset_type=f.get("asset", "power_plant"), project=f["project"], operator=f["operator"], fuel_or_type=f["fuel"], capacity_mw=f["mw"],
                              status=f["status"], expected_online=f["expected"], source_publisher=f["pub"], source_document=f["doc"], source_url=f["url"], as_of_date=TODAY_S,
                              evidence=f["ev"], notes=f["notes"] + " | verified in this run - " + "; ".join(ev),
-                             source_key=key))
+                             sum_flag="N" if f["status"] == "TARGET" else "Y", source_key=key))
     return rows, h.hexdigest()[:16], f"{ok} facts verified, {bad} not verifiable"
 
 
@@ -847,10 +910,10 @@ def finalize(rows, ctx, failed):
     # overlap hints: other sources with pipeline rows for the same country and fuel
     cover = collections.defaultdict(set)
     for r in df.itertuples():
-        if True:
+        if r.status != "TARGET":
             cover[(r.country, r.fuel_or_type)].add(r.source_key)
-    df["overlaps_with"] = [";".join(sorted(cover[(c, f)] - {s}))
-                           for c, f, s in zip(df["country"], df["fuel_or_type"], df["source_key"])]
+    df["overlaps_with"] = [";".join(sorted(cover[(c, f)] - {s})) if s != "EU_ERAA" and st != "TARGET" else ";".join(sorted(cover[(c, f)]))
+                           for c, f, s, st in zip(df["country"], df["fuel_or_type"], df["source_key"], df["status"])]
     df["capacity_value"] = [mw if cv == "" else cv for mw, cv in zip(df["capacity_mw"], df["capacity_value"])]
     df["capacity_unit"] = ["MW" if (u == "" and cv != "") else u for u, cv in zip(df["capacity_unit"], df["capacity_value"])]
     df["as_of_date"] = df["as_of_date"].astype(str)
@@ -893,7 +956,7 @@ def year_of(v):
 
 
 def make_summary(df):
-    d = df[(df["sum_flag"] == "Y") & (df["capacity_mw"] != "")].copy()
+    d = df[((df["sum_flag"] == "Y") | (df["status"] == "TARGET")) & (df["capacity_mw"] != "")].copy()
     d["capacity_mw"] = d["capacity_mw"].astype(float)
     d["year"] = [("Undated" if year_of(e) is None else (str(year_of(e)) if year_of(e) >= 2026 else "2025 or earlier (date passed)")) for e in d["expected_online"]]
     d["kind"] = d["asset_type"].map(lambda a: "plants_MW" if a == "power_plant" else "aggregates_MW")
@@ -964,7 +1027,7 @@ def add_chart_sheets(path, df):
         for lab, sts, title in (("firm", FIRM, "under construction + FID"), ("incl", INCL, "incl. permitted + planned")):
             t = chart_tables(df, sc, sts)
             made[sc][lab] = t
-            ws.cell(row=row0, column=1, value=f"{sc}: net capacity additions by fuel and year, {title} (GW; retirements below zero; QUEUE rows not included)")
+            ws.cell(row=row0, column=1, value=f"{sc}: net capacity additions by fuel and year, {title} (GW; retirements below zero; QUEUE and TARGET rows not included)")
             xlsx_charts.write_table(ws, t, "%Y", start_row=row0 + 1, start_col=1)
             if t.shape[1]:
                 ch = BarChart()
@@ -1059,17 +1122,18 @@ STATIC_TRIED = [
     ("France RTE / Enedis connection queue by project ('file d'attente')", "data.rte-france.com, ODRE catalogue search", "RTE open-data portal needs a login; ODRE's only queue dataset is the regional aggregate 'suivi-projet-raccordement-enr' (used, aggregates only); no project list"),
     ("France PPE decree text, Legifrance", "legifrance.gouv.fr", "HTTP 403 (Cloudflare); the PPE offshore targets are read from ecologie.gouv.fr instead"),
     ("Spain REE access and connection grants (nudos de acceso, capacidad concedida)", "ree.es/es/clientes/generador/acceso-conexion", "'conoce-el-estado-de-tu-solicitud' 404; 'acceso-conexion' reachable but lists no data file; MITECO energy landing has no machine-readable queue"),
-    ("Spain nuclear closure schedule per unit in MW", "MITECO 7th PGRR (27 Dec 2023) and BOE-A-2026-17756 (14 Aug 2026)", "dates verified (Almaraz I 11/2027 -> extended with II to 8 Jun 2030 by the 2026 order; Asco I 10/2030, Cofrentes 11/2030, Asco II 9/2032, Vandellos II 2/2035, Trillo 5/2035) but no per-unit electrical MW in an opened official document, so no negative-MW rows; no row is written"),
+    ("Spain nuclear closure schedule per unit in MW", "MITECO 7th PGRR (27 Dec 2023) and BOE-A-2026-17756 (14 Aug 2026)", "dates verified (Almaraz I 11/2027 -> extended with II to 8 Jun 2030 by the 2026 order; Asco I 10/2030, Cofrentes 11/2030, Asco II 9/2032, Vandellos II 2/2035, Trillo 5/2035) but no per-unit electrical MW in an opened official document, so no negative-MW rows; the dates are in one TARGET-type fact only if verified"),
     ("Italy Terna connection requests", "terna.it connection-requests page", "reachable, only 921 characters of text and no figures; Terna's Econnextion queue is not downloadable as a file"),
     ("Netherlands RVO offshore wind tender results, Denmark Energistyrelsen tenders, Poland offshore (gov.pl)", "english.rvo.nl, rvo.nl, ens.dk, gov.pl", "pages carry no GW / MW figures in the text read (RVO, gov.pl) or answer 404 (ens.dk); not used"),
     ("TenneT, IAEA PRIS, Legifrance, World Nuclear Association country profile", "tennet.eu, iaea.org, world-nuclear.org", "HTTP 403 / 404 from Actions"),
-    ("NECP national targets and ENTSO-E ERAA / TYNDP scenario capacities", "owner's decision 12 Oct 2026", "dropped on purpose: raw project / unit data only, no target rows, no targets code"),
+    ("Commission NECP 2021-2030 national plans (TARGET rows by fuel)", "commission.europa.eu NECP page", "the page links only 3 plan files directly (one answered 404 from Actions); the per-country files sit behind script-rendered lists, so no NECP rows are written. ERAA 2025 national estimates are provided as TARGET rows instead"),
     ("Paks II, Dukovany II, Belgian Doel 4 / Tihange 3 extension, Hungarian / Czech / Polish dates", "paks2.hu, mpo.gov.cz, Engie newsroom", "pages read but carry no MW / year pair in their text (Paks II EN page: news only; MPO: no MW; Engie closing release: no MW and no 2035); not written"),
     ("EDF UK AGR closure dates (Heysham 1, Hartlepool, Heysham 2, Torness)", "edfenergy.com/energy/nuclear-power-stations", "HTTP 404"),
     ("Poland PSE coal plans, Italy coal exit, Spain coal", "pse.pl", "only capacity-market notices; no dated closure list read"),
     ("Poland PEJ site (ppej.pl)", "ppej.pl", "connection reset"),
     ("CfD Allocation Round 5 successful-projects workbook and AR4 results (pdf)", "gov.uk content API attachment", "AR5 .xls URL answered 404; AR4 is a PDF and mostly under construction in REPD; only AR6, AR7 and AR7a workbooks are read"),
     ("NESO TEC register 'Built' rows", "api.neso.energy", "left out on purpose (already connected)"),
+    ("ENTSO-E ERAA 2025 'National Estimates' naming", "ERAA 2025 modelling-data page", "the 2025 edition's raw data carries data_version labels; the newest label in the file is used and named in each row's notes"),
 ]
 
 SOURCES_TABLE = [
@@ -1079,18 +1143,19 @@ SOURCES_TABLE = [
     ("DESNZ", "Contracts for Difference Allocation Round 6, 7, 7a results (successful applicants)", "https://www.gov.uk/government/publications/contracts-for-difference-cfd-allocation-round-7-results", "UK delivery year and target commissioning date, merged into REPD rows"),
     ("NESO", "Transmission Entry Capacity (TEC) register", "https://www.neso.energy/data-portal/transmission-entry-capacity-tec-register", "UK contracted connection dates (QUEUE)"),
     ("ODRE (RTE, Enedis, ELD, SER, Agence ORE)", "Projets en développement en électricité renouvelable", "https://odre.opendatasoft.com/explore/dataset/suivi-projet-raccordement-enr/", "France renewable queue aggregates, 31 Dec 2024"),
-    ("EDF, UK Government, Sizewell C, Slovenské elektrárne, PAA, Nuclearelectrica, Axpo", "nuclear new build and closure documents (see each row)", "see source_url per row", "official-document facts, written only when the number and date are found in the page fetched in the run"),
+    ("ENTSO-E", "ERAA 2025 dashboard raw data (GenerationCapacities.csv)", "https://www.entsoe.eu/eraa/2025/modelling-data", "TARGET rows: national estimates by country, technology, year"),
+    ("EDF, UK Government, Sizewell C, Slovenské elektrárne, PAA, Nuclearelectrica, Axpo, French Ministry of Ecology", "nuclear new build, closures and targets documents (see each row)", "see source_url per row", "official-document facts, written only when the number and date are found in the page fetched in the run"),
 ]
 
 
 def notes_lines():
     return ["UNITS", "capacity_mw in MW (retirements NEGATIVE); capacity_value / capacity_unit as published; expected_online YYYY-MM or YYYY; capacity_bcfd blank (power rows).", "",
             "WHAT THIS IS", "Future capacity pipeline for Europe's power generation: projects and national totals that add (positive) or remove (negative) capacity from 2025 on, in the shared row schema of the master future-capacity table, plus 5 extra columns: row_id, dedup_key, overlaps_with, sum_flag, source_key.", "",
-            "STATUS", "UNDER_CONSTRUCTION | FID | PERMITTED | PLANNED | QUEUE. Closures: statutory or notified (KVBG reduction path, notified shutdowns, operator decisions) = FID, other announced closures = PLANNED. 'firm' on the charts = UNDER_CONSTRUCTION + FID, 'incl. planned' adds PERMITTED + PLANNED. QUEUE (grid-connection queue totals, TEC register) is never added to project rows. No targets (NECP, ERAA) are included: raw data only.", "",
+            "STATUS", "UNDER_CONSTRUCTION | FID | PERMITTED | PLANNED | QUEUE | TARGET. Closures: statutory or notified (KVBG reduction path, notified shutdowns, operator decisions) = FID, other announced closures = PLANNED. 'firm' on the charts = UNDER_CONSTRUCTION + FID, 'incl. planned' adds PERMITTED + PLANNED. QUEUE (grid-connection queue totals, TEC register) and TARGET (ERAA, policy targets) are never added to project rows.", "",
             "DOUBLE COUNTING", "A plant is listed once per project and phase. The same project in two sources: the less official row keeps sum_flag = N and a pointer in notes (MaStR vs Bundesnetzagentur by MaStR unit number; NESO TEC vs REPD / CfD by name, fuel and size). Aggregates (power_aggregate) and plants of the same country and fuel come from different sources: overlaps_with names the other sources; the Summary adds rows with sum_flag = Y only. UK REPD small projects (< 50 MW), TEC small entries and MaStR small units are separate aggregates that exclude the >= 50 MW plants listed individually, but REPD and TEC aggregates overlap each other for the same fuel (TEC aggregates are QUEUE, REPD aggregates are PERMITTED / PLANNED / UNDER_CONSTRUCTION, so they sit in different status rows).", "",
             "DATES", "Dates are as the source gives them (month, quarter-end month or year, online_date_basis says which). Nothing is guessed: REPD gives no expected operation date (CfD target commissioning dates are used where an AR6 / AR7 / AR7a project matches), MaStR planned dates already in the past stay on plant rows with a note and small units with a passed date are grouped as undated. Summary buckets dates before 2026 as '2025 or earlier (date passed)'.", "",
             "UPDATES", "Each source is fingerprinted on 'Releases' (Last-Modified / file name / hash); a source that has not changed keeps its stored rows. 'History' logs changes in expected_online, capacity_mw or status between runs and rows that disappear from a source. first_seen / last_seen are run dates.", "",
-            "CAVEATS", "MaStR 'In Planung' contains speculative and stale registrations; REPD 'Awaiting Construction' is planning permission, not a construction decision; TEC entries are contracted connections, not projects with funding. Spanish nuclear closures: dates verified but no per-unit MW in an official document, see Tried."]
+            "CAVEATS", "MaStR 'In Planung' contains speculative and stale registrations; REPD 'Awaiting Construction' is planning permission, not a construction decision; TEC entries are contracted connections, not projects with funding; ERAA values are installed stock in the target year (not additions). Spanish nuclear closures: dates verified but no per-unit MW in an official document, see Tried."]
 
 
 def build_workbook(df, hist, rel, tried, out):
@@ -1129,7 +1194,7 @@ def main():
         prev_rel = {r["key"]: r for r in pr_.to_dict("records")}
     ctx = Ctx(prev, prev_rel, a.force)
     rows, failed, ok_keys = [], set(), set()
-    funcs = SOURCES_FUNCS + [("FACTS", "Official-document facts (nuclear, closures)", collect_facts)]
+    funcs = SOURCES_FUNCS + [("FACTS", "Official-document facts (nuclear, closures, targets)", collect_facts)]
     for key, label, fn in funcs:
         if key in skip:
             r = ctx.prev_rows(key)
