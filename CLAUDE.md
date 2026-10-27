@@ -210,8 +210,12 @@ Standing instructions from the repo owner. Follow these on every change.
   Ember is a fallback only for countries with no raw feed, labelled as such.
 
 ## Pull scripts
-- Schedules: pulls whose source keeps history run on the 1st and 15th of each month (they backfill every missed
-  day), to save Actions minutes. Only sources with no history run daily or more often: the Argentina AIC snapshot
+- Schedules: daily runs reinstated (owner's request, 2026-10-27) for the pulls that were daily before the
+  2 Oct switch: South/Central America + Caribbean power generation (AR, BO, BR, CL, CO, CR, DO, GT, HN, MX demanda,
+  NI, PA, PY, PE, UY), hydro reservoirs (BR, CL, CO, EC, PE, UY), Gatun Lake, Rhine Kaub, EIA-930, MISO, Henry Hub,
+  Ireland gas (combined, demand, supply, GNI transparency) and SmartGrid, SA power prices; the South America and
+  North America masters rebuild daily in the evening (21:20 / 21:40 UTC). Other pulls whose source keeps history
+  run on the 1st and 15th of each month (they backfill every missed day), to save Actions minutes. Only sources with no history run daily or more often: the Argentina AIC snapshot
   (argentina_aic_snapshot.yml; the full Argentina hydro pull is 1st/15th), Canada IESO (rolling 'today' XML),
   Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS ('today' only), Australia gas hub prices
   (au_sttm_prices.yml: AEMO STTM report INT651 holds about a week, DWGM about 14 days), Philippines dam levels
@@ -220,7 +224,7 @@ Standing instructions from the repo owner. Follow these on every change.
   has no history; the NDOR report PDFs are read only on the 1st/15th), Egypt grid load (egypt_grid_load.yml, twice a
   day: the MOEE home-page 'Grid Loads' panel shows only yesterday's peak/minimum and today's expected peak;
   `africa/EGYPT_MOEE_GRID_LOAD.py` -> `egypt_grid_load_daily.xlsx`, keyed by operating day, on the Africa master's
-  power dashboard; Egypt's gas balance is `middle_east/EGYPT_GAS.py`, below; other MOEE series are annual and not built). Masters rebuild on the
+  power dashboard; Egypt's gas balance is `middle_east/EGYPT_GAS.py`, below; other MOEE series are annual and not built). Other masters rebuild on the
   1st/15th evening, then the private-repo sync (23:50). A new pull follows the 1st/15th schedule unless its
   source has no history.
 - Mexico power generation by technology (`americas/MEXICO_CENACE_GENERATION.py` -> `mexico_power_generation_daily.xlsx`, 1st/15th, MWh/day, from 2016-04-30; hourly detail in `mexico_generacion_hourly/YYYY.csv.gz`): CENACE 'Energía Generada por Tipo de Tecnología' (settled generation, whole SEN), one month per request (multi-month ranges are unreliable), the month taken from the rows' dates (some file names carry the wrong year); each day uses the highest settlement L0-L3 (L0 ~14 days after month end, L3 ~8 months), trailing 10 months re-fetched. Replaces Ember for Mexico on the North America power dashboard; Gas = combined cycle + gas turbines, conventional steam (fuel oil and gas) is in Oil/Other. Lags 6-8 weeks, so it does not hold back the North America total (NA_LAGGING).
