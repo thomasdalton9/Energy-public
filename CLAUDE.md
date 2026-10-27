@@ -214,7 +214,8 @@ Standing instructions from the repo owner. Follow these on every change.
   2 Oct switch: South/Central America + Caribbean power generation (AR, BO, BR, CL, CO, CR, DO, GT, HN, MX demanda,
   NI, PA, PY, PE, UY), hydro reservoirs (BR, CL, CO, EC, PE, UY), Gatun Lake, Rhine Kaub, EIA-930, MISO, Henry Hub,
   Ireland gas (combined, demand, supply, GNI transparency) and SmartGrid, SA power prices; the South America and
-  North America masters rebuild daily in the evening (21:20 / 21:40 UTC). Other pulls whose source keeps history
+  North America masters rebuild daily in the evening (21:20 / 21:40 UTC). The daily pulls are spread
+  about every 30 min from 05:15 to 20:31 UTC (Europe first, then the Americas), off :00/:30, so they never queue together. Other pulls whose source keeps history
   run on the 1st and 15th of each month (they backfill every missed day), to save Actions minutes. Only sources with no history run daily or more often: the Argentina AIC snapshot
   (argentina_aic_snapshot.yml; the full Argentina hydro pull is 1st/15th), Canada IESO (rolling 'today' XML),
   Ecuador CENACE daily, LNG feedgas (TC keeps no history), Turkey EPIAS ('today' only), Australia gas hub prices
