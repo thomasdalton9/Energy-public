@@ -1,0 +1,15 @@
+name: Schedule test (one-off)
+
+# One-off check that scheduled runs fire again (no runs between 12 Oct and 27 Oct 2026).
+# Fires once at 23:23 UTC on 27 Oct; delete after it has run.
+on:
+  schedule:
+    - cron: "23 23 27 10 *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo "Scheduled run fired at $(date -u)"
