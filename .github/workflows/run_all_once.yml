@@ -1,0 +1,33 @@
+name: Run all scheduled workflows once
+
+# Manual only. Starts every scheduled workflow once: the pulls in waves (in their usual time-of-day order),
+# then the master rebuilds once the pulls have finished, then the private-repo sync.
+# Script: .github/scripts/run_all_once.py. Use it when scheduled runs have been missed.
+on:
+  workflow_dispatch:
+    inputs:
+      run_sync:
+        description: "Run sync_to_private at the end"
+        type: boolean
+        default: true
+
+concurrency:
+  group: run-all-once
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pyyaml
+      - name: Dispatch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_SYNC: ${{ inputs.run_sync }}
+        run: python .github/scripts/run_all_once.py
