@@ -157,6 +157,9 @@ def main():
         demand = demand[demand.get("Total", demand.sum(axis=1)) > 0].round(1)
         demand.index.name = "date"
         out(demand.tail(4).to_string())
+    supply, demand = keep_saved(args.out, "Supply", supply), keep_saved(args.out, "Demand", demand)
+    for v in (supply, demand):
+        v.index.name = "date"
     notes = [
         "UNITS",
         "MMSCFD = million standard cubic feet per day, monthly average (EPPO's unit; heat value 1,000 BTU/SCF). "
@@ -177,9 +180,6 @@ def main():
         "EPPO (Energy Policy and Planning Office, Ministry of Energy, Thailand), natural gas statistics, tables 3.1-1 "
         "and 3.2-2 (data from PTT): https://www.eppo.go.th/data-energy-statistic/energy-statistic/gas-energy-stat/",
     ]
-    supply, demand = keep_saved(args.out, "Supply", supply), keep_saved(args.out, "Demand", demand)
-    for v in (supply, demand):
-        v.index.name = "date"
     sheets = {k: v for k, v in (("Supply", supply), ("Demand", demand)) if not v.empty}
     xlsx_notes.write_workbook(args.out, sheets, notes, {"UNITS", "COVERAGE", "SOURCE"})
     out(f"Saved {args.out}")
