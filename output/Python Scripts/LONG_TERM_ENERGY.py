@@ -406,7 +406,8 @@ def main():
         "Power sheet (Ember): Gen_*_TWh = electricity generation in TWh per year; Gen_Oil_TWh = Ember 'Other Fossil' "
         "(oil and other fossil); Gen_Bio_TWh = Bioenergy + Other Renewables; Gen_Other_TWh = Gen_Oil + Gen_Bio. "
         "Demand_TWh, Net_Imports_TWh (imports minus exports) in TWh. Cap_*_GW = installed capacity in GW "
-        "(Cap_Other_GW = other fossil + bioenergy + other renewables). CO2_Mt = power-sector CO2 emissions, Mt.",
+        "(Cap_Other_GW = other fossil + bioenergy + other renewables, also given split as Cap_Oil_GW = Ember 'Other Fossil', "
+        "Cap_Bio_GW and Cap_OtherRen_GW). CO2_Mt = power-sector CO2 emissions, Mt.",
         ("Fuels sheet (Our World in Data fallback): gas converted from TWh to bcm at 10.0 TWh/bcm; coal and primary "
          "energy from TWh to EJ (x 0.0036). OWID gives no oil volumes or LNG/pipeline trade, so those are absent."
          if owid else
