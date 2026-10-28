@@ -284,7 +284,7 @@ def main():
     args = ap.parse_args()
 
     reports = load(args.out, "Reports")
-    done = set(reports.loc[reports["status"].astype(str).str.startswith("ok"), "url"]) if not reports.empty else set()
+    done = set(reports.loc[reports["status"].astype(str).str.startswith(("ok", "skipped")), "url"]) if not reports.empty else set()
     plants = load(args.out, "Plants")
     if not plants.empty:
         plants["date"] = pd.to_datetime(plants["date"])
