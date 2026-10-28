@@ -13,9 +13,9 @@ this reuses).
                        countries) and installed capacity (EIA-860M, StatCan,
                        Ember for Mexico), then US Lower 48 and each ISO/RTO region
                        (EIA-930), Canada (StatCan, provincial grid operators, CER; fossil split
-                       by province on StatCan's fuel mix, no Ember), Mexico (Ember fallback:
-                       no raw CENACE generation feed yet) and Mexico demand
-                       (CENACE)
+                       by province on StatCan's fuel mix, no Ember), Mexico (CENACE settled
+                       generation by technology; Ember only until that workbook has a year
+                       of history) and Mexico demand (CENACE)
   <CC> <chart> data  - the table each Dashboard chart plots
   <CC> <dataset> raw - the full data sheet(s) from each source workbook
   Sources            - where each dataset comes from, units and notes
@@ -69,6 +69,7 @@ EMBER = {f for _, _, f in EMBER_FILES}
 RAW_POWER_DATASETS = [
     ("US", "United States", "eia930_fuel_mix_daily.xlsx", EIA930_SHEETS, "power"),
     ("CA", "Canada", "canada_power_generation_daily.xlsx", ("Daily", "Provinces"), "power"),
+    ("MX", "Mexico", "mexico_power_generation_daily.xlsx", ("Daily", "Daily by technology"), "power"),
 ]
 OTHER_POWER_DATASETS = [
     ("CA", "Canada", "canada_ieso_generation_daily.xlsx", "Data", "Ontario IESO"),
@@ -85,6 +86,19 @@ CAPACITY_DATASETS = [
     ("CA", "Canada", "canada_power_capacity.xlsx", "Monthly", "capacity"),
     ("MX", "Mexico", "mexico_power_capacity.xlsx", "Monthly", "capacity"),
 ]
+# Complete monthly capacity (americas/capacity/AMERICAS_CAPACITY_COMPLETE.py): one gap-free monthly series per country and fuel - EIA-860M
+# monthly for the US, StatCan year-end (annual, interpolated or held) for Canada, Ember yearly (labelled fallback) for Mexico - with every
+# filled cell flagged in that workbook. Used for the capacity charts, the North America total and the capacity-factor denominators;
+# the three country workbooks above are the fallback if it is missing.
+CAP_COMPLETE = "north_america_capacity_monthly_complete.xlsx"
+CAP_COMPLETE_TOTAL = "North America total"
+CAP_COMPLETE_COUNTRIES = [("US", "United States"), ("CA", "Canada"), ("MX", "Mexico")]
+CAP_COMPLETE_SRC = ("EIA-860M monthly generator inventory (United States); Statistics Canada year-end capacity (annual, interpolated or held); "
+                    "Ember yearly capacity as a labelled fallback for Mexico; flags per cell in north_america_capacity_monthly_complete.xlsx",
+                    "https://www.eia.gov/electricity/data/eia860m/")
+CAP_CF_NOTE = ("capacity: EIA-860M monthly (US), StatCan year-end interpolated or held (Canada), Ember yearly as labelled fallback (Mexico); "
+               "see Basis and flags")
+CAP_COMPLETE_DS = [(code, name, CAP_COMPLETE, name, "capacity") for code, name in CAP_COMPLETE_COUNTRIES]
 HYDRO_DATASETS = []
 HYDRO_EXTRA = {}
 # Workbooks whose dashboard shows only some of their charts (by spec name); the rest stay in the workbook
@@ -283,8 +297,12 @@ MASTER_SPECS = {"canada_power_generation_daily.xlsx": canada_power_specs, "eia93
                 # combined MISO + ERCOT chart (built from the ERCOT workbook's folder) plus the ERCOT-only chart
                 "ercot_gas_burn_daily.xlsx": lambda p: add_charts.miso_ercot_gas_burn(p) + add_charts.ercot_gas_burn(p)}
 
+MASTER_SPECS.update({(CAP_COMPLETE, n): sam.cap_complete_spec(n, f"{n} installed capacity, monthly (see Basis)")
+                     for _, n in CAP_COMPLETE_COUNTRIES})
+
 EIA_GAS = "https://www.eia.gov/naturalgas/data.php"
 SOURCES = {
+    CAP_COMPLETE: CAP_COMPLETE_SRC,
     "us_gas.xlsx": ("EIA (US Energy Information Administration): Natural Gas Monthly (consumption by sector, "
                     "production, trade) and Weekly Natural Gas Storage Report", EIA_GAS),
     "texas_gas_monthly.xlsx": ("EIA Natural Gas Monthly, Texas (state consumption by sector, marketed production, storage; "
@@ -341,6 +359,9 @@ SOURCES = {
     "canada_cer_power.xlsx": ("Canada Energy Regulator, electricity exports and imports by month (open data); "
                               "Canada's Energy Future 2026 generation by province (fuel shares)",
                               "https://www.cer-rec.gc.ca/en/data-analysis/energy-commodities/electricity/index.html"),
+    "mexico_power_generation_daily.xlsx": ("CENACE (Centro Nacional de Control de Energía), Energía Generada por Tipo "
+                                           "de Tecnología (settled hourly generation, SEN)",
+                                           "https://www.cenace.gob.mx/Paginas/SIM/Reportes/EnergiaGeneradaTipoTec.aspx"),
     "mexico_demanda_nacional_daily.xlsx": ("CENACE (Centro Nacional de Control de Energía), Demanda Real del Sistema",
                                            "https://www.cenace.gob.mx/Paginas/SIM/Reportes/EstimacionDemandaReal.aspx"),
     "us_power_capacity.xlsx": ("EIA-860M monthly generator inventory (net summer capacity), via EIA API v2",
@@ -356,11 +377,14 @@ SOURCES = {
 OPERATORS = {"Mexico": "CENACE / SENER"}
 
 NA_POWER_COUNTRIES = ["United States", "Canada", "Mexico"]
+# Raw feeds that publish whole months weeks late (CENACE: ~6-8 weeks): the total does not wait for them - like an
+# Ember-fed country, their missing latest months are listed under NOT INCLUDED rather than holding the total back.
+NA_LAGGING = {"Mexico"}
 
 
 def north_america_generation(data_dir, have_raw, frames_out=None):
     """North America generation by source, TWh per month: US Lower 48 (EIA-930) + Canada (StatCan, or Ember) +
-    Mexico (Ember). Runs to the last month every raw-fed country has in full; an Ember-fed country that lags is left
+    Mexico (CENACE, or Ember). Runs to the last month every raw-fed country has in full; an Ember-fed country that lags is left
     out of the months it doesn't have yet, and those gaps are listed rather than estimated."""
     ember = os.path.join(data_dir, EMBER_FILES[0][2])
     frames, notes = {}, []
@@ -370,6 +394,15 @@ def north_america_generation(data_dir, have_raw, frames_out=None):
                 fname = "eia930_fuel_mix_daily.xlsx"
                 m = eia930_monthly(os.path.join(data_dir, fname), "US_Total")
                 src = SOURCES[fname][0] + " (Alaska and Hawaii not included)"
+            elif country == "Mexico" and country in have_raw:
+                fname = "mexico_power_generation_daily.xlsx"
+                d = add_charts.by_date(add_charts.read(os.path.join(data_dir, fname), "Daily"), "date")
+                d = d[[c for c in d.columns if str(c).endswith("_MWh") and c != "Total_MWh"]].apply(pd.to_numeric, errors="coerce")
+                m = add_charts.complete_months(d, d.resample("MS").sum(min_count=1) / 1000)   # GWh, whole months only
+                m = m[m.index >= "2021-01-01"].rename(columns=lambda c: c.replace("_MWh", "_GWh"))
+                m = add_charts.power_mix(m.rename(columns={"Oil_GWh": "Other Fossil_GWh", "Other_GWh": "Other Renewables_GWh"}))
+                src = (SOURCES[fname][0] + " (Gas = combined cycle + gas turbines; conventional steam units, which burn "
+                       "fuel oil and gas, are in Other)")
             elif country in have_raw:
                 fname = "canada_power_generation_daily.xlsx"
                 m = canada_monthly(os.path.join(data_dir, fname), os.path.join(data_dir, "canada_cer_power.xlsx"))
@@ -388,7 +421,8 @@ def north_america_generation(data_dir, have_raw, frames_out=None):
     if not frames:
         return pd.DataFrame(), notes
     have = {c: set(f.dropna(how="all").index) for c, f in frames.items()}
-    raw_have = [h for c, h in have.items() if c == "United States" or c in have_raw] or list(have.values())
+    raw_have = [h for c, h in have.items() if c == "United States" or (c in have_raw and c not in NA_LAGGING)] \
+        or list(have.values())
     end = min(max(h) for h in raw_have)
     months = sorted(m for m in set.intersection(*raw_have) if m <= end)
     total = sum(f.reindex(index=months, columns=FUELS).fillna(0) for f in frames.values()) / 1000.0   # GWh -> TWh
@@ -440,6 +474,7 @@ def main():
     power = tuple(sum((p[i] for p in parts), []) for i in range(3))
     power[2].extend(building)
 
+    mx = "CENACE for Mexico" if "Mexico" in have_raw else "Ember for Mexico"
     gen_frames = {}
     total, notes = north_america_generation(args.data_dir, have_raw, gen_frames)
     cap_total, cap_notes = sam.south_america_capacity(args.data_dir, cfg=cfg)
@@ -463,7 +498,7 @@ def main():
         ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (only months all of them have):")
         for i, note in enumerate(notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
-        src = ("Sum of the country series on this dashboard (EIA-930, StatCan + CER; Ember for Mexico)", None)
+        src = (f"Sum of the country series on this dashboard (EIA-930, StatCan + CER; {mx})", None)
         power[0].insert(0, (xlsx_charts.build_chart(ws, df, n_bars, "North America power generation by source",
                                                     gen_units, "stacked_bar", width=sam.CHART_W,
                                                     height=sam.CHART_H, gridlines=False,
@@ -475,18 +510,19 @@ def main():
         print("North America generation total:", "; ".join(notes))
 
     # Capacity: combined North America chart (GW) right after the generation total, then each country
-    cap = sam.collect(wb, [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
+    cap_complete = os.path.exists(os.path.join(args.data_dir, CAP_COMPLETE))
+    cap = sam.collect(wb, CAP_COMPLETE_DS if cap_complete else [d for d in CAPACITY_DATASETS if os.path.exists(os.path.join(args.data_dir, d[2]))],
                       args.data_dir, used, sources, cfg=cfg)
     pos = 1 if not total.empty else 0
     if not cap_total.empty:
         ws = wb.create_sheet(sam.sheet_name("NA capacity total data", used))
         df, n_bars = xlsx_charts.prepare(cap_total)
         xlsx_charts.write_table(ws, df)
-        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (annual figures carried forward; storage "
-                                                      "excluded):")
+        ws.cell(row=1, column=df.shape[1] + 4, value="Countries summed (monthly, storage excluded):" if cap_complete else
+                "Countries summed (annual figures carried forward; storage excluded):")
         for i, note in enumerate(cap_notes, start=2):
             ws.cell(row=i, column=df.shape[1] + 4, value=note)
-        src = ("Sum of the country capacity workbooks (EIA-860M, StatCan; Ember for Mexico)", None)
+        src = CAP_COMPLETE_SRC if cap_complete else ("Sum of the country capacity workbooks (EIA-860M, StatCan; Ember for Mexico)", None)
         power[0].insert(pos, (xlsx_charts.build_chart(ws, df, n_bars, "North America installed generating capacity",
                                                       "GW installed", "stacked_bar", width=sam.CHART_W,
                                                       height=sam.CHART_H, gridlines=False,
@@ -503,8 +539,9 @@ def main():
     # One regional capacity-factor chart (generation by type / capacity x hours), after the capacity charts
     cf_chart, cf_row, cf_missing, cf_countries = capacity_factors.add_capacity_factor_sheets(
         wb, used, sam.sheet_name, gen_frames,
-        {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}, sam.CHART_W, sam.CHART_H,
-        "Country generation (EIA-930 Lower 48, StatCan, Ember for Mexico) / capacity (EIA-860M, StatCan, Ember)",
+        ({n: (os.path.join(args.data_dir, CAP_COMPLETE), n) for _, n in CAP_COMPLETE_COUNTRIES} if cap_complete
+         else {c: os.path.join(args.data_dir, f) for _, c, f, _, _ in CAPACITY_DATASETS}), sam.CHART_W, sam.CHART_H,
+        f"Country generation (EIA-930 Lower 48, StatCan, {mx}) / " + (CAP_CF_NOTE if cap_complete else "capacity (EIA-860M, StatCan, Ember for Mexico)"),
         "North America")
     if cf_chart:
         power[0].insert(pos + len(cap[0]), cf_chart)
