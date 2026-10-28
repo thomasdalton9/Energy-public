@@ -161,6 +161,11 @@ CITIES = {
     "KOR": [("Seoul", 37.57, 126.98, 9.4), ("Busan", 35.18, 129.08, 3.3), ("Incheon", 37.46, 126.71, 3.0), ("Daegu", 35.87, 128.60, 2.4)],
     # Taiwan (Greater Taipei, Kaohsiung, Taichung; approximate metropolitan populations, million)
     "TWN": [("Taipei", 25.03, 121.57, 7.0), ("Kaohsiung", 22.63, 120.30, 2.7), ("Taichung", 24.15, 120.67, 2.8)],
+    # East Mediterranean (approximate metropolitan populations, million)
+    "ISR": [("Tel Aviv", 32.08, 34.78, 4.4), ("Jerusalem", 31.77, 35.21, 1.3), ("Haifa", 32.79, 34.99, 1.1)],
+    "EGY": [("Cairo", 30.04, 31.24, 22.0), ("Alexandria", 31.20, 29.92, 5.5)],
+    "JOR": [("Amman", 31.95, 35.93, 4.6)],
+    "LBN": [("Beirut", 33.89, 35.50, 2.4)],
 }
 
 
