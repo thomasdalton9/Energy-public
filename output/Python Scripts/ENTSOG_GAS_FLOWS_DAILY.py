@@ -323,7 +323,7 @@ def main():
     if not brd.empty:
         sheets["Border flows"] = brd[sorted(brd.columns)].round(3)
     if not sid.empty:
-        sheets["Border flows by side"] = sid[sorted(sid.columns)].round(3)
+        sheets["Border flows by side"] = drop_spikes(sid[sorted(sid.columns)]).round(3)
     if not org.empty:
         sheets["Imports by origin"] = org
     if not dst.empty:
