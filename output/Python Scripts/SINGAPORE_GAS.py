@@ -8,7 +8,7 @@ What is published (free, no login):
        T1.1 imports of energy products: Pipeline NG and Liquefied NG (ktoe), from 2005
        T2.1 energy inputs into main power producers + autoproducers: natural gas (ktoe),
             from 2005, latest year part-year (SES 2025 has Jan-Jun 2025)
-       T3.7 final natural gas consumption by sector / sub-sector (TJ), from 2009
+       T3.6 (T3.7 before SES 2026) final natural gas consumption by sector / sub-sector (TJ), from 2009
      https://www.ema.gov.sg/resources/singapore-energy-statistics
   2. SingStat M890371 'Piped Gas Sales, Quarterly' (town gas, million kWh = GWh,
      domestic / non-domestic), https://tablebuilder.singstat.gov.sg/table/TS/M890371
@@ -135,8 +135,22 @@ def power_gas(xl):
     return res.round(0), note
 
 
+def ng_consumption_sheet(xl):
+    """The final natural gas consumption table by sector: T3.7 up to SES 2025, T3.6 in SES 2026 (EMA renumbers
+    the tables), so it is found by its columns rather than its number."""
+    want = {"year", "sector", "sub_sector", "ng_consumption_tj"}
+    for sh in xl.sheet_names:
+        if want <= {str(c).strip() for c in pd.read_excel(xl, sheet_name=sh, nrows=0).columns}:
+            return sh
+    raise RuntimeError(f"no sheet with columns {sorted(want)} in the SES workbook")
+
+
 def final_consumption(xl):
-    df, _ = clean_years(pd.read_excel(xl, sheet_name="T3.7"), "year")
+    sh = ng_consumption_sheet(xl)
+    out(f"SES final natural gas consumption: sheet {sh}")
+    df = pd.read_excel(xl, sheet_name=sh)
+    df.columns = [str(c).strip() for c in df.columns]
+    df, _ = clean_years(df, "year")
     sec = df.pivot_table(index="year", columns="sector", values="ng_consumption_tj", aggfunc="sum")
     ren = {"Industrial-related": "Industrial_TJ", "Commerce and Service-related": "Commerce_Services_TJ",
            "Households": "Households_TJ", "Transport-related": "Transport_TJ", "Others": "Others_TJ"}
@@ -252,7 +266,7 @@ def main():
         "*_mcm_per_day_approx / *_est in mcm: million cubic metres per day, APPROXIMATE, converted with the IEA rule "
         f"of thumb 1 bcm ~ 0.9 Mtoe (1 mcm ~ {TJ_PER_MCM:.1f} TJ).",
         "Annual demand by sector: TJ per year. Power_generation_TJ = natural gas input to main power producers + "
-        "autoproducers (SES T2.1); the other sectors are final end-use consumption (SES T3.7).",
+        "autoproducers (SES T2.1); the other sectors are final end-use consumption (SES T3.6; T3.7 before SES 2026).",
         f"Town gas quarterly: piped gas (town gas) sales, {tg_unit} per quarter (million kWh = GWh). Town gas in "
         "Singapore is made from natural gas.",
         "Power burn monthly / daily (estimate): see METHOD. Daily = the same calculation on each day's metered "
@@ -277,7 +291,7 @@ def main():
         "Each run re-reads the (small) source tables; the power-burn estimate is rebuilt from the power workbook.",
         "",
         "SOURCES",
-        f"EMA Singapore Energy Statistics tidy workbook (T1.1, T2.1, T3.7): {ses_url}",
+        f"EMA Singapore Energy Statistics tidy workbook (T1.1, T2.1, T3.6): {ses_url}",
         "SingStat M890371 Piped Gas Sales, Quarterly: https://tablebuilder.singstat.gov.sg/table/TS/M890371",
         "EMC NEMS metered generation by facility type, via asia/SINGAPORE_POWER.py: https://www.nems.emcsg.com/nems-prices",
     ]
