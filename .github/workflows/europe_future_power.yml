@@ -4,9 +4,8 @@ name: Europe future power capacity (pipeline)
 # Germany MaStR 'In Planung' + Bundesnetzagentur Zu- und Rueckbau, UK REPD + CfD results + NESO TEC, France ODRE queue,
 # ENTSO-E ERAA 2025 targets, official-document nuclear / closure facts. Whole files are re-read only when their Last-Modified /
 # file name / hash changes (sheet 'Releases'); the workbook is the history store. Charts (native + PNG) are drawn by the script.
+# Manual only (owner, 29 Oct 2026: Europe future builds are not run on a schedule; was cron "52 9 1,15 * *").
 on:
-  schedule:
-    - cron: "52 9 1,15 * *"
   workflow_dispatch:
     inputs:
       force:

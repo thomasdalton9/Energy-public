@@ -3,9 +3,8 @@ name: Europe future gas infrastructure
 # LNG regas terminals, pipelines / interconnectors, storage and upstream additions to 2030 (europe/future/EUROPE_GAS_INFRA.py).
 # Raw data only: physical projects with a sourced capacity and date. Heavy files (GIE map PDFs, TYNDP workbook) are re-read
 # only when Last-Modified / ETag / length change; the committed workbook is the history store.
+# Manual only (owner, 29 Oct 2026: Europe future builds are not run on a schedule; was cron "17 3 1,15 * *").
 on:
-  schedule:
-    - cron: "17 3 1,15 * *"
   workflow_dispatch: {}
 
 permissions:
