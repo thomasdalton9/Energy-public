@@ -47,6 +47,8 @@ UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 START = pd.Timestamp("2021-01-01")
 REFRESH_MONTHS = 6
 BTU_PER_CF = 1037                       # EIA average heat content of natural gas
+MESES = {m: i for i, m in enumerate(["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO",
+                                      "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"], 1)}
 M3_PER_MMBTU = 1e6 / BTU_PER_CF * 0.0283168466   # ~27.3 m3 per MMBtu
 
 
@@ -69,7 +71,14 @@ def fetch():
     r = requests.get(url, headers=UA, timeout=120)
     r.raise_for_status()
     d = pd.read_excel(io.BytesIO(r.content), header=0)
-    d = d.rename(columns={d.columns[0]: "month"})
+    if str(d.columns[1]).strip().upper() == "MES":
+        # Since Oct 2026 the file has a year column (AÑO) and a Spanish month-name column (MES) instead of one date
+        month = d.iloc[:, 1].astype(str).str.strip().str.upper().map(MESES)
+        year = pd.to_numeric(d.iloc[:, 0], errors="coerce")
+        d = d.iloc[:, 2:].copy()
+        d.insert(0, "month", pd.to_datetime({"year": year, "month": month, "day": 1}, errors="coerce"))
+    else:
+        d = d.rename(columns={d.columns[0]: "month"})
     d["month"] = pd.to_datetime(d["month"], errors="coerce").dt.to_period("M").dt.to_timestamp()
     d = d.dropna(subset=["month"]).drop_duplicates("month", keep="last").set_index("month").sort_index()
     gas = next(c for c in d.columns if "GAS" in str(c).upper())
