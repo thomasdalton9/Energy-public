@@ -6,10 +6,13 @@ maintain a growing daily archive.
 Data source: PEGELONLINE (German federal waterways administration),
 confirmed live via RHINE_HISTORICAL_ARCHIVE_INSPECT.py:
 
-    POST https://www.pegelonline.wsv.de/gast/historische-zeitreihen/prepare-download
-    params: uuid, parameter=W, start/end (ISO-UTC), format=csv
-    -> a 303 redirect (relative Location header - must be resolved
-       against the host) to a ZIP containing one CSV, daily resolution.
+    GET  https://pegelonline.wsv.de/gast/download/modal?uuid=...&parameter=W   (session cookie)
+    POST https://pegelonline.wsv.de/gast/download/prepare
+    form: uuid, parameter=W, start/end (yyyy-MM-dd), progressId (empty), format=csv
+    -> JSON {"downloadUrl": "/gast/download?filename=..."} (relative) pointing at a ZIP
+       containing one CSV (15-minute readings).
+    This is the station page's "Download Rohdaten" form; the old
+    /gast/historische-zeitreihen/prepare-download endpoint answers 404 since Oct 2026.
 
 Kaub's station UUID (1d26e504-7f9e-480a-b52c-5932be6549ab) confirmed
 via RHINE_HISTORY_DEPTH_CHECK.py's station list lookup. This is a
@@ -34,8 +37,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 import water_year_chart
 import xlsx_notes
 
-PREPARE_URL = "https://www.pegelonline.wsv.de/gast/historische-zeitreihen/prepare-download"
-HOST = "https://www.pegelonline.wsv.de"
+HOST = "https://pegelonline.wsv.de"
+MODAL_URL = HOST + "/gast/download/modal"
+PREPARE_URL = HOST + "/gast/download/prepare"
 KAUB_UUID = "1d26e504-7f9e-480a-b52c-5932be6549ab"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 TIMEOUT = (10, 60)
@@ -47,21 +51,26 @@ DEFAULT_OUT = os.path.join(REPO_ROOT, "output", "rhine_kaub_level_daily.xlsx")
 
 
 def fetch_range(start, end):
-    params = {
+    session = requests.Session()
+    session.headers.update(HEADERS)
+    # The download form is served in a modal; opening it first sets the session cookie the form posts with.
+    session.get(MODAL_URL, params={"uuid": KAUB_UUID, "parameter": "W"}, timeout=TIMEOUT).raise_for_status()
+    form = {
         "uuid": KAUB_UUID,
         "parameter": "W",
-        "start": start.strftime("%Y-%m-%dT00:00:00.000Z"),
-        "end": end.strftime("%Y-%m-%dT23:59:59.000Z"),
+        "start": start.isoformat(),
+        "end": end.isoformat(),
+        "progressId": "",
         "format": "csv",
     }
-    r = requests.post(PREPARE_URL, headers=HEADERS, data=params, timeout=TIMEOUT, allow_redirects=False)
+    r = session.post(PREPARE_URL, data=form, timeout=(10, 300))
     r.raise_for_status()
-    if r.status_code not in (301, 302, 303, 307, 308):
-        raise RuntimeError(f"Expected a redirect, got HTTP {r.status_code}")
-    redirect_url = r.headers["Location"]
-    if redirect_url.startswith("/"):
-        redirect_url = HOST + redirect_url
-    r2 = requests.get(redirect_url, headers=HEADERS, timeout=TIMEOUT)
+    if not r.headers.get("Content-Type", "").startswith("application/json"):
+        raise RuntimeError(f"Expected JSON with a downloadUrl, got {r.headers.get('Content-Type')} from {r.url}")
+    download_url = r.json()["downloadUrl"]
+    if download_url.startswith("/"):
+        download_url = HOST + download_url
+    r2 = session.get(download_url, timeout=(10, 300))
     r2.raise_for_status()
 
     with zipfile.ZipFile(io.BytesIO(r2.content)) as zf:
