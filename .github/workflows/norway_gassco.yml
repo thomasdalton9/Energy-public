@@ -4,9 +4,8 @@ name: Norway gas exports by destination (Gassco)
 # europe/NORWAY_GASSCO_DAILY.py. The feed keeps history back to Oct 2020 (realTimeGraphData?year&month&day), so it runs on the 1st
 # and 15th and backfills every missed day; the committed workbook is the history store. Manual runs: the first run backfills from
 # Oct 2020 (about 2,000 requests, an hour or so; progress is saved every 120 days).
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 40 3 1,15 * *).
 on:
-  schedule:
-    - cron: "40 3 1,15 * *"
   workflow_dispatch:
     inputs:
       start:

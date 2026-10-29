@@ -4,9 +4,8 @@ name: Europe capacity - Germany, Netherlands, Belgium, Luxembourg (monthly)
 # members streamed by HTTP range request on many connections; about 15-25 minutes), europe/capacity/GERMANY_MASTR_CAPACITY_MONTHLY.py.
 # Belgium: Elia open data (wind and PV monitored capacity monthly, contracted units); Netherlands: CBS annual only; Luxembourg: ILR annual
 # only (europe/capacity/BENELUX_CAPACITY.py). Neither the Netherlands nor Luxembourg has a monthly source.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 27 2 1,15 * *).
 on:
-  schedule:
-    - cron: "27 2 1,15 * *"
   workflow_dispatch:
     inputs:
       force:

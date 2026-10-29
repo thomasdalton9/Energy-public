@@ -1,9 +1,8 @@
 name: Poland Gaz-System points
 
 # Poland entry/exit points from Gaz-System MIR (Belarus Yamal entries ENTSOG lacks) - europe/GAZSYSTEM_ENTRIES_DAILY.py. History kept by the source: 1st and 15th.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 40 4 1,15 * *).
 on:
-  schedule:
-    - cron: "40 4 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

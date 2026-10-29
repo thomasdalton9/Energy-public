@@ -3,9 +3,8 @@ name: Europe capacity - complete monthly series
 # Combines the committed Europe capacity workbooks (national monthly / quarterly / annual pulls and the ENTSO-E annual files) into one
 # gap-free monthly dataset per country and fuel with every filled cell flagged (europe/capacity/EUROPE_CAPACITY_COMPLETE.py, rules in
 # capacity_fill.py). No downloads. Runs after the last Europe capacity pull (CEE 07:49 UTC) and before the Europe master (23:20 UTC).
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 17 8 1,15 * *).
 on:
-  schedule:
-    - cron: "17 8 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

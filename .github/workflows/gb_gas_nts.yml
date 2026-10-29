@@ -2,9 +2,8 @@ name: Great Britain gas (National Gas NTS)
 
 # Daily GB gas supply by entry point and demand by sector from National Gas Transmission (europe/GB_GAS_NTS_DAILY.py).
 # The portal keeps full history, so it runs on the 1st and 15th; the committed workbook is the history store.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 30 2 1,15 * *).
 on:
-  schedule:
-    - cron: "30 2 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

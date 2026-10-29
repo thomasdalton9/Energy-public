@@ -4,9 +4,8 @@ name: Ireland GNI transparency (entry flows + consumption by sector)
 # morning; 08:30 UTC is after that. The last 45 days are re-pulled each
 # run, so a missed run just catches up. The first run backfills from
 # 2018 month by month (~200 requests) - give it room.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 44 6 * * *).
 on:
-  schedule:
-    - cron: "44 6 * * *"
   workflow_dispatch: {}
 
 permissions:

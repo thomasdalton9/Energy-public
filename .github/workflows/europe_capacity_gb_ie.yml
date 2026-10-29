@@ -3,9 +3,8 @@ name: Europe capacity - United Kingdom and Ireland
 # Installed capacity by fuel from the official registers and statistics (DESNZ ET 6.1 / 6.3, REPD, DUKES 5.12 / 5.16;
 # EirGrid / ESB Networks registers). Whole-file sources: each run only downloads a file whose address / Last-Modified changed
 # (sheet 'Releases'), so most runs are a few HTTP requests.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 37 5 1,15 * *).
 on:
-  schedule:
-    - cron: "37 5 1,15 * *"
   workflow_dispatch:
     inputs:
       force:

@@ -3,9 +3,8 @@ name: Europe capacity - Hungary, Czechia, Switzerland, Poland (monthly)
 # Monthly installed capacity: Hungary (MAVIR PDF), Czechia (ERU quarterly report workbooks), Switzerland (BFE / Pronovo plant register,
 # rebuilt) and Poland (URE renewable register, quarterly, partial). Slovakia, Romania, Bulgaria and Austria have no monthly source
 # (see europe/capacity/CEE_CAPACITY_MONTHLY.py and discovery_archive/europe/capacity/).
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 49 7 1,15 * *).
 on:
-  schedule:
-    - cron: "49 7 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

@@ -2,9 +2,8 @@ name: Europe TSO gas demand (DE, FR, ES, DK, PT)
 
 # National gas consumption from the TSOs' own series - Germany (THE), France (ODRE), Spain (Enagas), Denmark (Energinet), Portugal (REN) - europe/TSO_GAS_DEMAND_DAILY.py.
 # All five keep history, so it runs on the 1st and 15th; the committed workbook is the history store.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 10 3 1,15 * *).
 on:
-  schedule:
-    - cron: "10 3 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

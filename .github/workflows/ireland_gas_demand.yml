@@ -5,9 +5,8 @@ name: Ireland gas demand
 # upsert/checkpoint needed, same pattern as the Rhine/Trinidad pulls.
 # Gas demand updates daily; once a day well after data.gov.ie publishes
 # is plenty.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 13 7 * * *).
 on:
-  schedule:
-    - cron: "13 7 * * *"
   workflow_dispatch: {}
 
 permissions:

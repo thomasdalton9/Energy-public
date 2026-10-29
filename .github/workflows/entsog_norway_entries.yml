@@ -2,9 +2,8 @@ name: ENTSOG Norway entry points
 
 # Daily ENTSOG physical flow at the Norwegian-border entry points - europe/ENTSOG_NORWAY_ENTRIES_DAILY.py. The source keeps history,
 # so it runs on the 1st and 15th; the committed workbook is the history store.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 15 4 1,15 * *).
 on:
-  schedule:
-    - cron: "15 4 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

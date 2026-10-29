@@ -3,9 +3,8 @@ name: Europe gas storage and LNG (GIE AGSI+ / ALSI)
 # Daily gas storage (AGSI+) and LNG terminals (ALSI) (europe/GIE_STORAGE_LNG.py).
 # Incremental: reads the committed workbook(s) and fetches only what is missing plus a short revision window;
 # a first run backfills and stops gracefully at its time budget (the next run continues).
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 0 6 1,15 * *).
 on:
-  schedule:
-    - cron: "0 6 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

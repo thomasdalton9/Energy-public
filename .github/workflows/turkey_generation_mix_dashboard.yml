@@ -10,10 +10,8 @@ name: Turkey generation mix dashboard daily
 # under 18 hourly readings): 19:30 UTC = 22:30 Istanbul (about 22 readings, safe
 # against a delay of about 1.5 h) and 20:45 UTC, which overwrites the day with the
 # fuller set when it runs on time.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 30 19 * * *, 45 20 * * *).
 on:
-  schedule:
-    - cron: "30 19 * * *"
-    - cron: "45 20 * * *"
   workflow_dispatch: {}
 
 permissions:

@@ -1,9 +1,8 @@
 name: Eurostat monthly gas balance
 
 # Monthly gas supply and consumption by country (Eurostat nrg_cb_gasm) - europe/EUROSTAT_GAS_MONTHLY.py. Keeps history; 1st and 15th.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 40 3 1,15 * *).
 on:
-  schedule:
-    - cron: "40 3 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

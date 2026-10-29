@@ -3,9 +3,8 @@ name: Europe biomethane statistics (GB, AT, SE, Eurostat annual)
 # Biomethane injected into gas grids: DESNZ Energy Trends 4.2 (GB, monthly), AGGM (Austria, monthly), Energimyndigheten (Sweden, annual) and
 # Eurostat nrg_bal_c (all EU27 + UK, annual) - europe/BIOMETHANE_STATS.py. All sources keep history, so it runs on the 1st and 15th;
 # the committed workbook is the history store.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 55 3 1,15 * *).
 on:
-  schedule:
-    - cron: "55 3 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

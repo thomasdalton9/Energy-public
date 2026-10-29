@@ -2,9 +2,8 @@ name: Ireland EirGrid system data
 
 # EirGrid's System and Renewable Data Reports (europe/EIRGRID_IRELAND_DAILY.py): quarter-hourly Ireland/NI generation, wind, solar,
 # demand and interconnector flows plus the monthly summary since 2014. Whole files: re-read only when Last-Modified changes.
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 50 2 1,15 * *).
 on:
-  schedule:
-    - cron: "50 2 1,15 * *"
   workflow_dispatch: {}
 
 permissions:

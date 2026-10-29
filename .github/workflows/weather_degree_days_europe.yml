@@ -5,9 +5,8 @@ name: Weather degree days Europe
 # backfills 1991 onward and, if it runs out of time budget, the next run continues), population-weighted degree days per country
 # (base 18 C and the Eurostat definition), 1991-2020 normals, anomalies, native charts. 1st/15th, before the weather master's
 # evening rebuild (21:58 UTC).
+# Manual only (owner, 29 Oct 2026: Europe pulls are not run on a schedule; was cron 47 1 1,15 * *).
 on:
-  schedule:
-    - cron: "47 1 1,15 * *"
   workflow_dispatch:
     inputs:
       budget_min:
