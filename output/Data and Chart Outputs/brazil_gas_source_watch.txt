@@ -4,5 +4,5 @@ MME bulletin page 2026: HTTP 404, monthly PDFs listed: none
 MME bulletin page 2027: HTTP 404, monthly PDFs listed: none
 MME Observatorio boletim do gas: HTTP 200, login-gated=True
 ANP pipeline movement latest month: 2026-09
-ANP Domestic_Available latest month: 2026-08
-ANP Imports_Total latest month: 2026-08
+ANP Domestic_Available latest month: 2026-09
+ANP Imports_Total latest month: 2026-09
