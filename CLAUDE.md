@@ -310,3 +310,6 @@ Standing instructions from the repo owner. Follow these on every change.
 ## Housekeeping
 - One-off discovery/inspect/probe/test scripts go in `discovery_archive/`
   (with their manual-only workflows in `discovery_archive/workflows/`).
+
+## Advisor
+- Consult the advisor before locking a plan, after the same error twice, and before calling a task done.
