@@ -76,6 +76,9 @@ SMAX_DEFAULT = 0.70        # ASSUMPTION: saturation of the heat-equivalent house
 LINEAR_ABOVE = 0.60        # penetration this high already means the metric is not meaningful -> Linear method
 K_BOUNDS = (0.05, 0.35)   # ASSUMPTION: ceiling on the fitted speed (short histories start with fast early growth)
 TECHS = [("ATH", "Air"), ("GTH", "Ground"), ("HTH", "Water")]
+COOL_TECHS = ["ATH_AA", "ATH_RAA", "ATH_RAW"]   # air-source rows that can cool (most air-air split units are reversible)
+COOL_REF_HOURS = 350       # SOURCED: Commission Regulation (EU) No 206/2012, equivalent active-mode hours for cooling
+SEER_DEFAULT = 4.6         # ASSUMPTION: Ecodesign minimum SEER (Reg 206/2012) for small air conditioners
 FIRST_HIST = 2015
 FC_START, FC_END = dt.date(2025, 1, 1), dt.date(2030, 12, 1)
 GROWTH_YEARS = 3
@@ -116,7 +119,7 @@ GW_SCALED = set()   # countries whose capacity Eurostat publishes 1,000 times to
 
 
 def heat_pump_stock():
-    df, upd = eurostat("nrg_inf_hptc", hp_tech=[t for t, _ in TECHS] + ["ATH_ABVTH"], geo=list(COUNTRIES),
+    df, upd = eurostat("nrg_inf_hptc", hp_tech=[t for t, _ in TECHS] + ["ATH_ABVTH"] + COOL_TECHS, geo=list(COUNTRIES),
                        sinceTimePeriod=str(FIRST_HIST))
     df["time"] = df["time"].astype(int)
     piv = df.pivot_table(index=["geo", "hp_tech", "time"], columns="plant_tec", values="value", aggfunc="first")
@@ -256,6 +259,27 @@ def add_penetration(inp, sts, stock, pop, hhsize, hheat):
             sts.loc[geo, "method"] = "Owner's choice (Nov 2026): S-curve of household penetration"
     histdf = pd.DataFrame(hist).T.reindex(columns=range(FIRST_HIST, 2025))
     return histdf
+
+
+def add_cooling(inp, sts, stock, norm):
+    """Cooling-capable share of air-source capacity and cooling full-load hours per country."""
+    eu_cdd = float(norm["EUROPE CDD 18C"].sum())
+    for geo in inp.index:
+        base = int(inp.loc[geo, "base"])
+        air = float(inp.loc[geo, "ATH_cap"])
+        cool = sum(float(stock.loc[(geo, t, base)].get("CAP_HEAT") or 0) for t in COOL_TECHS if (geo, t, base) in stock.index)
+        if air > 0 and cool > 0:
+            inp.loc[geo, "rev"] = min(cool / air, 1.0)
+            sts.loc[geo, "rev"] = (f"DERIVED Eurostat nrg_inf_hptc {base}: (air-air + reversible air-air + reversible "
+                                   "air-water) / all air-source capacity; countries classify these rows differently")
+        else:
+            inp.loc[geo, "rev"] = 0.0
+            sts.loc[geo, "rev"] = f"SOURCED Eurostat nrg_inf_hptc {base}: no air-air or reversible rows reported (0)"
+        cdd = float(norm[f"{inp.loc[geo, 'wc']} CDD 18C"].sum())
+        inp.loc[geo, "cool_hours"] = round(COOL_REF_HOURS * cdd / eu_cdd, 1)
+        sts.loc[geo, "cool_hours"] = (f"DERIVED: {COOL_REF_HOURS} h (Reg (EU) 206/2012 reference cooling hours, average "
+                                      f"climate) x normal CDD {cdd:.0f} / Europe normal CDD {eu_cdd:.0f}; ASSUMPTION that "
+                                      "hours scale with CDD")
 
 
 # ---------------------------------------------------------------- inputs per country
@@ -427,6 +451,10 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
         "Electricity (TWh) = heat / COP. Air source: COP of the month from its mean temperature (18 - (HDD - CDD) / days) with the When2Heat "
         "curve (radiator and underfloor sinks mixed by 'Global'), scaled so the heat-weighted year equals the Eurostat SPF. "
         "Ground and water source: the Eurostat SPF, flat. Shown as average GW (TWh / hours in the month).",
+        "COOLING (estimate): air-source capacity x cooling-capable share (Eurostat air-air + reversible rows) x "
+        "cooling/heating size ratio x cooling full-load hours (350 h, the Reg (EU) 206/2012 reference, scaled by the "
+        "country's normal CDD / Europe's) x CDD of the month / normal annual CDD / SEER. Included in the electricity "
+        "totals and shown separately ('Cooling GW', Annual 'of which cooling'). No gas effect.",
         "Gas avoided = heat x gas share of household space heating / gas boiler efficiency; Bcf/d via GWh per mcm and "
         "0.0353147 Bcf per mcm. It is the gas a gas boiler would have burned for the same heat, NOT a measured change.",
         "",
@@ -476,6 +504,10 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
         ("gwh_per_mcm", "Gas energy per million m3", 10.55, "GWh/mcm", "ASSUMPTION",
          "About 38 MJ/m3 gross; ENTSOG and national TSOs use 10.5-11.2"),
         ("bcf_per_mcm", "Bcf per million m3", 0.0353147, "Bcf/mcm", "SOURCED", "Unit conversion used across the repo"),
+        ("seer", "Cooling efficiency, seasonal (SEER)", SEER_DEFAULT, "-", "ASSUMPTION",
+         "Ecodesign minimum SEER for small air conditioners, Commission Regulation (EU) No 206/2012"),
+        ("cool_ratio", "Cooling capacity / heating capacity of reversible units", 1.0, "-", "ASSUMPTION",
+         "Rated cooling and heating outputs of split units are of similar size"),
     ]
     for i, (nm, label, v, unit, stat, note) in enumerate(glob_rows, 2):
         g.cell(i, 1, label)
@@ -498,13 +530,14 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
         keys += [f"{t}_cap", f"{t}_growth", f"{t}_hours", f"{t}_spf"]
     cols += ["Hot-water share of heat", "Gas share of household space heating",
              "Growth method (S-curve / Linear)", "S-curve saturation (share)", "S-curve speed (per year)",
-             "Household size (persons)", "Heating need per household (MWh/yr)"]
-    keys += ["hw", "gas", "method", "smax", "k", "hhsize", "hhheat"]
+             "Household size (persons)", "Heating need per household (MWh/yr)",
+             "Cooling-capable share of air capacity", "Cooling full-load hours (h/yr)"]
+    keys += ["hw", "gas", "method", "smax", "k", "hhsize", "hhheat", "rev", "cool_hours"]
     calc_cols = ["Air COP scale (calc)", "Penetration, last Eurostat year (calc)", "S-curve midpoint year (calc)"]
     header(c_ws, 1, cols + calc_cols)
     header(s_ws, 1, ["Code", "Country"] + cols[4:])
     COL = {k: 5 + i for i, k in enumerate(keys)}          # column of each input
-    COL["scale"], COL["sbase"], COL["t0"] = COL["hhheat"] + 1, COL["hhheat"] + 2, COL["hhheat"] + 3
+    COL["scale"], COL["sbase"], COL["t0"] = COL["cool_hours"] + 1, COL["cool_hours"] + 2, COL["cool_hours"] + 3
     for r, geo in enumerate(codes, 2):
         rec = inp.loc[geo]
         c_ws.cell(r, 1, geo), c_ws.cell(r, 2, rec["name"]), c_ws.cell(r, 3, rec["wc"]), c_ws.cell(r, 4, int(rec["base"]))
@@ -513,7 +546,7 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
             v = rec[k]
             cell = c_ws.cell(r, COL[k], v if isinstance(v, str) else (round(float(v), 4) if pd.notna(v) else 0))
             stat = sts.loc[geo, k] if pd.notna(sts.loc[geo, k]) else ""
-            if k.endswith("_growth") or stat.startswith("ASSUMPTION") or k in ("hw", "gas", "method", "smax", "k"):
+            if k.endswith("_growth") or stat.startswith("ASSUMPTION") or k in ("hw", "gas", "method", "smax", "k", "rev", "cool_hours"):
                 cell.fill = YELLOW
             s_ws.cell(r, COL[k] - 2, stat)
     last_c = 1 + n
@@ -614,9 +647,10 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
     ch = ["Code", "Month", "Year", "Days", "Months since last Eurostat year-end",
           "Air capacity (MW)", "Ground capacity (MW)", "Water capacity (MW)", "Share of year's heat",
           "Air heat (TWh)", "Ground heat (TWh)", "Water heat (TWh)", "Heat (TWh)", "Air COP",
-          "Electricity (TWh)", "Electricity (average GW)", "Heat (average GW)", "Gas avoided (TWh)",
+          "Heating electricity (TWh)", "Electricity incl. cooling (average GW)", "Heat (average GW)", "Gas avoided (TWh)",
           "Gas avoided (Bcf/d)", "Penetration (S-curve)", "Household heating need (TWh/yr)",
-          "Heat-pump heat, S-curve (TWh/yr)", "HDD", "CDD", "Mean temperature (C)"]
+          "Heat-pump heat, S-curve (TWh/yr)", "HDD", "CDD", "Mean temperature (C)",
+          "Cooling capacity (MW)", "Cooling electricity (TWh)", "Cooling (average GW)", "Electricity incl. cooling (TWh)"]
     header(calc, 1, ch)
     rowmap = {}
     r = 2
@@ -653,7 +687,13 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
             calc.cell(r, 13, f"=SUM(J{r}:L{r})")
             calc.cell(r, 14, f"={C('scale')}*" + cop_formula(f"Y{r}"))
             calc.cell(r, 15, f"=IFERROR(J{r}/N{r},0)+IFERROR(K{r}/{C('GTH_spf')},0)+IFERROR(L{r}/{C('HTH_spf')},0)")
-            calc.cell(r, 16, f"=O{r}*1000/(24*D{r})")
+            calc.cell(r, 16, f"=AC{r}*1000/(24*D{r})")
+            # cooling: reversible air capacity x full-load hours x CDD of the month / normal annual CDD / SEER
+            cn = f"SUM(Weather!{L(j)}${blocks['cdd'] + 2}:{L(j)}${blocks['cdd'] + 13})"
+            calc.cell(r, 26, f"=F{r}*{C('rev')}*cool_ratio")
+            calc.cell(r, 27, f"=IFERROR(Z{r}*{C('cool_hours')}*X{r}/{cn}/1000000/seer,0)")
+            calc.cell(r, 28, f"=AA{r}*1000/(24*D{r})")
+            calc.cell(r, 29, f"=O{r}+AA{r}")
             calc.cell(r, 17, f"=M{r}*1000/(24*D{r})")
             calc.cell(r, 18, f"=M{r}*{C('gas')}/boiler_eff")
             calc.cell(r, 19, f"=R{r}*1000/gwh_per_mcm*bcf_per_mcm/D{r}")
@@ -666,7 +706,8 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
     # ---- wide output sheets (month x country) + total
     wide = {}
     for name, col, unit in (("Electricity GW", 16, "Average GW"), ("Heat TWh", 13, "TWh per month"),
-                            ("Gas avoided Bcf-d", 19, "Bcf/d")):
+                            ("Gas avoided Bcf-d", 19, "Bcf/d"),
+                            ("Cooling GW", 28, "Average GW, cooling only (included in 'Electricity GW')")):
         ws = wb.create_sheet(name)
         header(ws, 1, ["Month"] + [inp.loc[c, "name"] for c in codes] + ["Total (EU27 + UK + Norway)"])
         for i, d in enumerate(mlist, 2):
@@ -683,7 +724,8 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
     a = wb.create_sheet("Annual")
     years = sorted({d.year for d in mlist})
     a.cell(1, 1, "Annual totals by country (forecast; degree days as on 'Degree days') - TWh; gas avoided in bcm").font = BOLD
-    for b, (label, col, scale) in enumerate((("Electricity (TWh)", "O", 1), ("Heat (TWh)", "M", 1),
+    for b, (label, col, scale) in enumerate((("Electricity incl. cooling (TWh)", "AC", 1),
+                                             ("of which cooling (TWh)", "AA", 1), ("Heat (TWh)", "M", 1),
                                              ("Gas avoided (bcm)", "R", None))):
         r0 = 3 + b * (n + 4)
         a.cell(r0, 1, label).font = BOLD
@@ -753,7 +795,7 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
     db.add_data_validation(dv)
     dv.add("B2")
     header(db, 4, ["Month", "Electricity (avg GW) - selected", "Gas avoided (Bcf/d) - selected",
-                   "Electricity (avg GW) - total", "Gas avoided (Bcf/d) - total"])
+                   "Electricity (avg GW) - total", "Gas avoided (Bcf/d) - total", "of which cooling (avg GW) - selected"])
     ne, ng = wide["Electricity GW"], wide["Gas avoided Bcf-d"]
     for i, d in enumerate(mlist, 5):
         src = i - 3
@@ -763,13 +805,15 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
         db.cell(i, 3, f"=INDEX('Gas avoided Bcf-d'!$B{src}:${L(n + 1)}{src},1,{sel})").number_format = "0.000"
         db.cell(i, 4, f"='Electricity GW'!{L(n + 2)}{src}").number_format = "0.00"
         db.cell(i, 5, f"='Gas avoided Bcf-d'!{L(n + 2)}{src}").number_format = "0.000"
+        db.cell(i, 6, f"=INDEX('Cooling GW'!$B{src}:${L(n + 1)}{src},1,{sel})").number_format = "0.00"
     lr = 4 + len(mlist)
-    db.add_chart(line_chart("Heat pump electricity demand - selected country", "Average GW", db, 1, [2], 5, lr, 4), "G2")
-    db.add_chart(line_chart("Gas a boiler would have burned - selected country", "Bcf/d", db, 1, [3], 5, lr, 4), "G21")
-    db.add_chart(line_chart("Heat pump electricity demand - EU27 + UK + Norway", "Average GW", db, 1, [4], 5, lr, 4),
-                 "S2")
+    db.add_chart(line_chart("Heat pump electricity demand incl. cooling - selected country", "Average GW", db, 1, [2, 6],
+                            5, lr, 4), "H2")
+    db.add_chart(line_chart("Gas a boiler would have burned - selected country", "Bcf/d", db, 1, [3], 5, lr, 4), "H21")
+    db.add_chart(line_chart("Heat pump electricity demand incl. cooling - EU27 + UK + Norway", "Average GW", db, 1,
+                            [4], 5, lr, 4), "T2")
     db.add_chart(line_chart("Gas a boiler would have burned - EU27 + UK + Norway", "Bcf/d", db, 1, [5], 5, lr, 4),
-                 "S21")
+                 "T21")
     pr0 = lr + 3
     db.cell(pr0, 1, "Household penetration - selected country (history to the last Eurostat year, then forecast)").font = BOLD
     header(db, pr0 + 1, ["Year", "Penetration"])
@@ -783,8 +827,8 @@ def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
                      pr0 + 2, pr0 + 1 + len(pyears), pr0 + 1)
     pch.x_axis.number_format = "0"
     pch.y_axis.number_format = "0%"
-    db.add_chart(pch, "G40")
-    for col, wdt in zip("ABCDE", (10, 20, 20, 20, 20)):
+    db.add_chart(pch, "H40")
+    for col, wdt in zip("ABCDEF", (10, 20, 20, 20, 20, 20)):
         db.column_dimensions[col].width = wdt
 
     wb.calculation.fullCalcOnLoad = True
@@ -866,6 +910,7 @@ def main():
     norm, act = weather_normals()
     pop = population()
     penhist = add_penetration(inp, sts, stock, pop, household_size(), household_heat())
+    add_cooling(inp, sts, stock, norm)
     build(args.out, inp, sts, hist, cop_parameters(), norm, act, {"hptc": upd_hptc, "hhq": upd_hhq}, pop, penhist)
     make_pngs(args.out)
 
