@@ -68,6 +68,15 @@ COUNTRIES = {
     "SI": ("Slovenia", "SI"), "ES": ("Spain", "ES"), "SE": ("Sweden", "SE"), "UK": ("United Kingdom", "GB"),
     "NO": ("Norway", "NO"),
 }
+ISO3 = {"AT": "AUT", "BE": "BEL", "BG": "BGR", "HR": "HRV", "CY": "CYP", "CZ": "CZE", "DK": "DNK", "EE": "EST",
+        "FI": "FIN", "FR": "FRA", "DE": "DEU", "EL": "GRC", "HU": "HUN", "IE": "IRL", "IT": "ITA", "LV": "LVA",
+        "LT": "LTU", "LU": "LUX", "MT": "MLT", "NL": "NLD", "PL": "POL", "PT": "PRT", "RO": "ROU", "SK": "SVK",
+        "SI": "SVN", "ES": "ESP", "SE": "SWE", "UK": "GBR", "NO": "NOR"}
+MACRO = os.path.join(OUTDIR, "macro_drivers.xlsx")
+POP_YEARS = list(range(2015, 2032))
+SMAX_DEFAULT = 0.70        # ASSUMPTION: saturation of the heat-equivalent household penetration
+LINEAR_ABOVE = 0.60        # penetration this high already means the metric is not meaningful -> Linear method
+K_BOUNDS = (0.05, 0.35)   # ASSUMPTION: ceiling on the fitted speed (short histories start with fast early growth)
 TECHS = [("ATH", "Air"), ("GTH", "Ground"), ("HTH", "Water")]
 FIRST_HIST = 2015
 FC_START, FC_END = dt.date(2025, 1, 1), dt.date(2030, 12, 1)
@@ -165,6 +174,102 @@ def weather_normals():
     temp = pd.DataFrame(temp)
     out(f"Weather normals: HDD from 'Normals month', temperature from {len(frames)} years of the city store")
     return hdd, temp
+
+
+def population():
+    pop = pd.read_excel(MACRO, sheet_name="Population_IMF_m").set_index("year")
+    return pd.DataFrame({geo: pop[iso] for geo, iso in ISO3.items()}).loc[POP_YEARS]
+
+
+def household_size():
+    df, _ = eurostat("ilc_lvph01", geo=list(COUNTRIES), sinceTimePeriod="2015")
+    df["time"] = df["time"].astype(int)
+    res = {}
+    for geo, g in df.dropna(subset=["value"]).groupby("geo"):
+        r = g.sort_values("time").iloc[-1]
+        res[geo] = (float(r["value"]), int(r["time"]))
+    return res
+
+
+def household_heat():
+    """Household space + water heating, all fuels incl. ambient heat and electricity, TWh by country and year."""
+    df, _ = eurostat("nrg_d_hhq", unit="TJ", siec="TOTAL", nrg_bal=["FC_OTH_HH_E_SH", "FC_OTH_HH_E_WH"],
+                     geo=list(COUNTRIES), sinceTimePeriod="2015")
+    df["time"] = df["time"].astype(int)
+    return df.groupby(["geo", "time"])["value"].sum() / 3600.0
+
+
+def fit_scurve(shares, smax):
+    """Speed k of a logistic with fixed saturation, by least squares on logit(s/smax) over the reported years."""
+    import numpy as np
+    s = shares[(shares > 0) & (shares < smax)]
+    if len(s) < 3:
+        return None, len(s)
+    y = np.log(s / (smax - s))
+    k = np.polyfit(np.array(s.index, dtype=float), y.values, 1)[0]
+    return float(min(max(k, K_BOUNDS[0]), K_BOUNDS[1])), len(s)
+
+
+def add_penetration(inp, sts, stock, pop, hhsize, hheat):
+    """Household size, heat per household, base-year penetration, S-curve defaults; returns the history table."""
+    hist = {}
+    fitted = {}
+    for geo in inp.index:
+        size, ysz = hhsize.get(geo, (None, None))
+        inp.loc[geo, "hhsize"] = size
+        sts.loc[geo, "hhsize"] = f"SOURCED Eurostat ilc_lvph01 {ysz} (held flat)" if size else None
+        base = int(inp.loc[geo, "base"])
+        years = sorted(y for (g, y) in hheat.index if g == geo and hheat[(g, y)] > 0)
+        yh = max([y for y in years if y <= base], default=max(years) if years else None)
+        if yh and size:
+            households = pop.loc[yh, geo] * 1e6 / size
+            inp.loc[geo, "hhheat"] = hheat[(geo, yh)] * 1e6 / households
+            sts.loc[geo, "hhheat"] = (f"DERIVED: Eurostat nrg_d_hhq {yh} household space + water heating (all fuels) / "
+                                      "households (IMF population / household size); held flat")
+        # penetration history = heat-pump heat / household heating need (hours filled where not reported)
+        sh = {}
+        for y in range(FIRST_HIST, base + 1):
+            heat = 0.0
+            for t, _ in TECHS:
+                if (geo, t, y) in stock.index:
+                    r = stock.loc[(geo, t, y)]
+                    c = float(r.get("CAP_HEAT") or 0)
+                    h = float(r.get("TIME_USE") or 0)
+                    if not (SANE["TIME_USE"][0] <= h <= SANE["TIME_USE"][1]):
+                        h = float(inp.loc[geo, f"{t}_hours"])
+                    heat += c * h / 1e6
+            need = hheat.get((geo, y))
+            if need and need > 0:
+                sh[y] = heat / need
+        hist[geo] = pd.Series(sh, dtype=float)
+        k, npts = fit_scurve(hist[geo], SMAX_DEFAULT)
+        fitted[geo] = (k, npts)
+    ks = [k for k, _ in fitted.values() if k is not None]
+    k_med = float(pd.Series(ks).median()) if ks else 0.2
+    for geo in inp.index:
+        k, npts = fitted[geo]
+        inp.loc[geo, "smax"] = SMAX_DEFAULT
+        sts.loc[geo, "smax"] = ("ASSUMPTION: saturation of heat-pump heat / household heating need; Norway and Sweden "
+                                "are at about 0.45 and still rising")
+        if k is not None:
+            inp.loc[geo, "k"] = round(k, 3)
+            sts.loc[geo, "k"] = (f"DERIVED: least-squares fit of the logistic (saturation {SMAX_DEFAULT}) to {npts} reported "
+                                 f"years of penetration, bounded {K_BOUNDS[0]}-{K_BOUNDS[1]}")
+        else:
+            inp.loc[geo, "k"] = round(k_med, 3)
+            sts.loc[geo, "k"] = "ASSUMPTION: under 3 reported years to fit; median speed of the fitted countries"
+        last = hist[geo].dropna()
+        lastv = float(last.iloc[-1]) if len(last) else 0.0
+        if lastv >= LINEAR_ABOVE:
+            inp.loc[geo, "method"] = "Linear"
+            sts.loc[geo, "method"] = (f"ASSUMPTION: heat-pump heat is already {lastv:.0%} of household heating need "
+                                      "(Eurostat's heat pumps include services and reversible air conditioners), so the "
+                                      "penetration metric is not meaningful; linear MW growth used")
+        else:
+            inp.loc[geo, "method"] = "S-curve"
+            sts.loc[geo, "method"] = "Owner's choice (Nov 2026): S-curve of household penetration"
+    histdf = pd.DataFrame(hist).T.reindex(columns=range(FIRST_HIST, 2025))
+    return histdf
 
 
 # ---------------------------------------------------------------- inputs per country
@@ -299,7 +404,7 @@ def line_chart(title, y_title, ws_data, cat_col, val_cols, first_row, last_row, 
     return ch
 
 
-def build(path, inp, sts, hist, cop, hdd, temp, upd):
+def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
     wb = Workbook()
     codes = list(inp.index)
     n = len(codes)
@@ -317,7 +422,12 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
         "Forecast: monthly, Jan 2025 - Dec 2030, at NORMAL weather (1991-2020). History (annual, Eurostat) on 'History'.",
         "",
         "METHOD (per country and month)",
-        "Capacity (MW) = last Eurostat year + yearly addition x years since then (mid-month), by air / ground / water source.",
+        "Growth method per country ('Countries', yellow): S-CURVE (default) - household penetration = saturation / "
+        "(1 + e^(-speed x (year - midpoint))), penetration being heat-pump heat / household heating need; heat-pump heat "
+        "= penetration x households (population / household size, 'Population' sheet - paste your own) x heating need "
+        "per household; each source keeps its last-year share of heat and capacity = heat / full-load hours. The midpoint "
+        "is solved so the curve passes through the last Eurostat year. LINEAR - capacity = last Eurostat year + yearly "
+        "addition x years since then (used where penetration is already above 60%: Portugal, Malta).",
         "Heat (TWh) = capacity x full-load hours x monthly share; monthly share = hot-water share / 12 + (1 - hot-water share) "
         "x normal HDD of the month / normal HDD of the year.",
         "Electricity (TWh) = heat / COP. Air source: COP of the month from its normal outdoor temperature with the When2Heat "
@@ -342,6 +452,8 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
         "https://ec.europa.eu/eurostat/databrowser/view/nrg_inf_hptc/default/table",
         f"Eurostat nrg_d_hhq - Disaggregated final energy consumption in households (updated {upd['hhq']}): "
         "https://ec.europa.eu/eurostat/databrowser/view/nrg_d_hhq/default/table",
+        "Eurostat ilc_lvph01 - Average household size: https://ec.europa.eu/eurostat/databrowser/view/ilc_lvph01/default/table",
+        "IMF World Economic Outlook population incl. projections (macro_drivers.xlsx 'Population_IMF_m').",
         "When2Heat COP parameters (Ruhnau, Hirth and Praktiknjo 2019, Scientific Data 6:189): "
         f"{COP_PARAMS_URL}; sink/source temperatures and the 0.85 correction from scripts/cop.py in the same repository.",
         "Weather: europe_degree_days.xlsx (NASA POWER daily T2M at the 4 most populous cities per country, "
@@ -390,25 +502,53 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
         cols += [f"{lab} capacity, last year (MW)", f"{lab} yearly addition (MW/yr)", f"{lab} full-load hours (h)",
                  f"{lab} SPF"]
         keys += [f"{t}_cap", f"{t}_growth", f"{t}_hours", f"{t}_spf"]
-    cols += ["Hot-water share of heat", "Gas share of household space heating", "Air COP scale (calculated)"]
-    keys += ["hw", "gas"]
-    header(c_ws, 1, cols)
-    header(s_ws, 1, ["Code", "Country"] + cols[4:-1])
+    cols += ["Hot-water share of heat", "Gas share of household space heating",
+             "Growth method (S-curve / Linear)", "S-curve saturation (share)", "S-curve speed (per year)",
+             "Household size (persons)", "Heating need per household (MWh/yr)"]
+    keys += ["hw", "gas", "method", "smax", "k", "hhsize", "hhheat"]
+    calc_cols = ["Air COP scale (calc)", "Penetration, last Eurostat year (calc)", "S-curve midpoint year (calc)"]
+    header(c_ws, 1, cols + calc_cols)
+    header(s_ws, 1, ["Code", "Country"] + cols[4:])
     COL = {k: 5 + i for i, k in enumerate(keys)}          # column of each input
-    COL["scale"] = COL["gas"] + 1
+    COL["scale"], COL["sbase"], COL["t0"] = COL["hhheat"] + 1, COL["hhheat"] + 2, COL["hhheat"] + 3
     for r, geo in enumerate(codes, 2):
         rec = inp.loc[geo]
         c_ws.cell(r, 1, geo), c_ws.cell(r, 2, rec["name"]), c_ws.cell(r, 3, rec["wc"]), c_ws.cell(r, 4, int(rec["base"]))
         s_ws.cell(r, 1, geo), s_ws.cell(r, 2, rec["name"])
         for k in keys:
             v = rec[k]
-            cell = c_ws.cell(r, COL[k], round(float(v), 4) if pd.notna(v) else 0)
-            stat = sts.loc[geo, k] or ""
-            if k.endswith("_growth") or stat.startswith("ASSUMPTION") or k in ("hw", "gas"):
+            cell = c_ws.cell(r, COL[k], v if isinstance(v, str) else (round(float(v), 4) if pd.notna(v) else 0))
+            stat = sts.loc[geo, k] if pd.notna(sts.loc[geo, k]) else ""
+            if k.endswith("_growth") or stat.startswith("ASSUMPTION") or k in ("hw", "gas", "method", "smax", "k"):
                 cell.fill = YELLOW
             s_ws.cell(r, COL[k] - 2, stat)
     last_c = 1 + n
-    for col in range(1, COL["scale"] + 1):
+    mdv = DataValidation(type="list", formula1='"S-curve,Linear"', allow_blank=False)
+    c_ws.add_data_validation(mdv)
+    mdv.add(f"{L(COL['method'])}2:{L(COL['method'])}{last_c}")
+    # Population (annual, by country): IMF WEO, million - paste your own over it
+    pws = wb.create_sheet("Population")
+    pws.cell(1, 1, "Population, million (SOURCED: IMF World Economic Outlook via macro_drivers.xlsx 'Population_IMF_m'; "
+                   "forecast years are the IMF's projections). Paste your own figures over the yellow cells - "
+                   "same countries and years.").font = BOLD
+    header(pws, 2, ["Code", "Country"] + POP_YEARS)
+    for r, geo in enumerate(codes, 3):
+        pws.cell(r, 1, geo), pws.cell(r, 2, inp.loc[geo, "name"])
+        for j, y in enumerate(POP_YEARS, 3):
+            v = pop.loc[y, geo]
+            pws.cell(r, j, round(float(v), 4) if pd.notna(v) else None).fill = YELLOW
+    pws.column_dimensions["B"].width = 16
+    pop_first_col = 3
+    POP = lambda cr, year_expr: (f"INDEX(Population!${L(pop_first_col)}${cr + 1}:${L(pop_first_col + len(POP_YEARS) - 1)}"
+                                 f"${cr + 1},1,{year_expr}-{POP_YEARS[0] - 1})")
+    # base-year penetration and S-curve midpoint (live formulas)
+    for r, geo in enumerate(codes, 2):
+        cc = lambda k: f"{L(COL[k])}{r}"
+        hp_heat = "+".join(f"{cc(t + '_cap')}*{cc(t + '_hours')}" for t, _ in TECHS)
+        need = f"({POP(r, f'$D{r}')}*{cc('hhheat')}/{cc('hhsize')})"
+        c_ws.cell(r, COL["sbase"], f"=IFERROR(({hp_heat})/1000000/{need},0)").fill = GREY
+        c_ws.cell(r, COL["t0"], f"=IFERROR($D{r}+LN({cc('smax')}/{cc('sbase')}-1)/{cc('k')},$D{r})").fill = GREY
+    for col in range(1, COL["t0"] + 1):
         c_ws.column_dimensions[L(col)].width = 14
     c_ws.column_dimensions["B"].width = 16
     for col in range(3, s_ws.max_column + 1):
@@ -458,7 +598,8 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
           "Air capacity (MW)", "Ground capacity (MW)", "Water capacity (MW)", "Share of year's heat",
           "Air heat (TWh)", "Ground heat (TWh)", "Water heat (TWh)", "Heat (TWh)", "Air COP",
           "Electricity (TWh)", "Electricity (average GW)", "Heat (average GW)", "Gas avoided (TWh)",
-          "Gas avoided (Bcf/d)"]
+          "Gas avoided (Bcf/d)", "Penetration (S-curve)", "Household heating need (TWh/yr)",
+          "Heat-pump heat, S-curve (TWh/yr)"]
     header(calc, 1, ch)
     rowmap = {}
     r = 2
@@ -473,8 +614,16 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
             calc.cell(r, 3, f"=YEAR(B{r})")
             calc.cell(r, 4, f"=DAY(EOMONTH(B{r},0))")
             calc.cell(r, 5, f"=(C{r}-Countries!$D${cr})*12+MONTH(B{r})-0.5")
+            # S-curve: penetration at mid-month x household heating need = heat-pump heat (annual rate)
+            calc.cell(r, 20, f"=IFERROR({C('smax')}/(1+EXP(-{C('k')}*(C{r}+(MONTH(B{r})-6.5)/12-{C('t0')}))),0)")
+            calc.cell(r, 21, f"=IFERROR({POP(cr, f'C{r}')}*{C('hhheat')}/{C('hhsize')},0)")
+            calc.cell(r, 22, f"=T{r}*U{r}")
+            base_heat = "+".join(f"{C(t + '_cap')}*{C(t + '_hours')}" for t, _ in TECHS)
             for i, (t, _) in enumerate(TECHS):
-                calc.cell(r, 6 + i, f"=MAX(0,{C(t + '_cap')}+{C(t + '_growth')}*E{r}/12)")
+                linear = f"MAX(0,{C(t + '_cap')}+{C(t + '_growth')}*E{r}/12)"
+                # S-curve capacity: tech keeps its last-year share of heat-pump heat; capacity = heat / hours
+                scurve = f"IFERROR(V{r}*1000000*{C(t + '_cap')}/({base_heat}),0)"
+                calc.cell(r, 6 + i, f"=IF({C('method')}=\"Linear\",{linear},{scurve})")
             calc.cell(r, 9, f"=Weather!{L(j)}{blocks['share'] + 1 + m}")
             for i, (t, _) in enumerate(TECHS):
                 calc.cell(r, 10 + i, f"={L(6 + i)}{r}*{C(t + '_hours')}*I{r}/1000000")
@@ -528,6 +677,32 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
             a.cell(rt, k, f"=SUM({L(k)}{r0 + 2}:{L(k)}{rt - 1})").number_format = "0.00"
     a.column_dimensions["A"].width = 18
 
+    # ---- Penetration (history DERIVED values, forecast formulas)
+    pen = wb.create_sheet("Penetration")
+    pen.cell(1, 1, "Household penetration (heat-equivalent) = heat-pump heat / household space + water heating need. "
+                   "History DERIVED from Eurostat (values); forecast = annual heat-pump heat from 'Calc' / need "
+                   "(formulas). Years between the last Eurostat year and 2025 are blank.").font = BOLD
+    pyears = list(range(FIRST_HIST, FC_END.year + 1))
+    header(pen, 2, ["Code", "Country", "Method"] + pyears)
+    for r, geo in enumerate(codes, 3):
+        cr = r - 1
+        pen.cell(r, 1, geo), pen.cell(r, 2, inp.loc[geo, "name"])
+        pen.cell(r, 3, f"=Countries!${L(COL['method'])}${cr}")
+        base = int(inp.loc[geo, "base"])
+        for j, y in enumerate(pyears, 4):
+            if y <= base:
+                v = penhist.loc[geo].get(y) if geo in penhist.index else None
+                c = pen.cell(r, j, round(float(v), 4) if v is not None and pd.notna(v) else None)
+            elif y >= FC_START.year:
+                need = f"({POP(cr, str(y))}*Countries!${L(COL['hhheat'])}${cr}/Countries!${L(COL['hhsize'])}${cr})"
+                c = pen.cell(r, j, f"=IFERROR(SUMIFS(Calc!$M$2:$M${last_calc},Calc!$A$2:$A${last_calc},\"{geo}\","
+                                   f"Calc!$C$2:$C${last_calc},{y})/{need},0)")
+            else:
+                continue
+            c.number_format = "0.0%"
+    pen.column_dimensions["B"].width = 16
+    pen.freeze_panes = "D3"
+
     # ---- History (values)
     h = wb.create_sheet("History")
     h.cell(1, 1, "Eurostat history (annual): capacity, heat = capacity x hours, electricity = heat / SPF "
@@ -572,6 +747,20 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd):
                  "S2")
     db.add_chart(line_chart("Gas a boiler would have burned - EU27 + UK + Norway", "Bcf/d", db, 1, [5], 5, lr, 4),
                  "S21")
+    pr0 = lr + 3
+    db.cell(pr0, 1, "Household penetration - selected country (history to the last Eurostat year, then forecast)").font = BOLD
+    header(db, pr0 + 1, ["Year", "Penetration"])
+    for i, y in enumerate(pyears):
+        rr = pr0 + 2 + i
+        db.cell(rr, 1, y)
+        col = L(4 + i)
+        db.cell(rr, 2, f"=IFERROR(1*INDEX(Penetration!${col}$3:${col}${2 + n},MATCH($B$2,Penetration!$B$3:$B${2 + n},0)),NA())"
+                ).number_format = "0%"
+    pch = line_chart("Heat pump household penetration - selected country", "Share of household heating", db, 1, [2],
+                     pr0 + 2, pr0 + 1 + len(pyears), pr0 + 1)
+    pch.x_axis.number_format = "0"
+    pch.y_axis.number_format = "0%"
+    db.add_chart(pch, "G40")
     for col, wdt in zip("ABCDE", (10, 20, 20, 20, 20)):
         db.column_dimensions[col].width = wdt
 
@@ -652,7 +841,9 @@ def main():
     inp, sts = build_inputs(stock, hh)
     hist = history_table(stock)
     hdd, temp = weather_normals()
-    build(args.out, inp, sts, hist, cop_parameters(), hdd, temp, {"hptc": upd_hptc, "hhq": upd_hhq})
+    pop = population()
+    penhist = add_penetration(inp, sts, stock, pop, household_size(), household_heat())
+    build(args.out, inp, sts, hist, cop_parameters(), hdd, temp, {"hptc": upd_hptc, "hhq": upd_hhq}, pop, penhist)
     make_pngs(args.out)
 
 
