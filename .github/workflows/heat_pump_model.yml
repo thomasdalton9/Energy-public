@@ -1,0 +1,41 @@
+name: Heat pump demand model (Europe)
+
+# Manual only (Europe is not scheduled, owner 29 Oct 2026). Rebuilds the Excel model heat_pump_demand_model.xlsx:
+# Eurostat heat pump capacity/SPF/hours and household split, When2Heat COP curve, repo weather normals; the forecast
+# itself is Excel formulas on yellow input cells. LibreOffice recalculates a copy for the PNG charts.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl requests matplotlib
+          sudo apt-get install -y --no-install-recommends libreoffice-calc
+      - name: Build
+        run: python3 europe/HEAT_PUMP_MODEL.py
+      - name: Copy script
+        run: |
+          mkdir -p "output/Python Scripts"
+          cp europe/HEAT_PUMP_MODEL.py "output/Python Scripts/"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f "output/Data and Chart Outputs/heat_pump_demand_model.xlsx" "output/PNG Charts" "output/Python Scripts"
+          git diff --cached --quiet || git commit -m "Heat pump demand model: automated update"
+          for i in 1 2 3 4 5; do
+            { git pull --rebase --autostash -X theirs || git rebase --abort; } && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
