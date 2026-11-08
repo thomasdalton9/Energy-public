@@ -9,9 +9,9 @@ What the workbook does (all forecast numbers are Excel formulas on the yellow in
   electricity     = heat / COP   (air source: monthly COP from outdoor temperature, scaled so the year averages the
                     country's seasonal performance factor; ground and water source: the SPF, flat)
   gas avoided     = heat x gas share of household space heating / gas boiler efficiency
-  monthly share   = hot-water share / 12 + (1 - hot-water share) x normal HDD of the month / normal HDD of the year
-  forecast        = monthly, Jan 2025 - Dec 2030, at NORMAL weather (1991-2020), capacity growing linearly from the last
-                    Eurostat year by the yellow MW-per-year cells.
+  monthly share   = hot-water share / 12 + (1 - hot-water share) x HDD of the month ('Degree days') / normal HDD of the year
+  forecast        = monthly, Jan 2025 - Dec 2030, at the degree days on 'Degree days' (actual months, then 1991-2020
+                    normals; paste your own), heat pump stock on an S-curve of household penetration (or linear MW/yr).
 
 Inputs (each cell carries a status on 'Input status': SOURCED / DERIVED / ASSUMPTION):
   Eurostat nrg_inf_hptc  installed thermal capacity (MW), seasonal performance factor, time usage (h) by country and
@@ -28,7 +28,6 @@ Run: python3 europe/HEAT_PUMP_MODEL.py [--out PATH]   (manual workflow heat_pump
 
 import argparse
 import datetime as dt
-import gzip
 import io
 import os
 import sys
@@ -51,7 +50,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTDIR = os.path.join(ROOT, "output", "Data and Chart Outputs")
 OUT = os.path.join(OUTDIR, "heat_pump_demand_model.xlsx")
 DEGREE_DAYS = os.path.join(OUTDIR, "europe_degree_days.xlsx")
-T2M_STORE = os.path.join(OUTDIR, "weather_stores", "europe")
 
 EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/"
 COP_PARAMS_URL = "https://raw.githubusercontent.com/oruhnau/when2heat/master/input/cop/cop_parameters.csv"
@@ -155,25 +153,13 @@ def cop_parameters():
 
 
 def weather_normals():
-    hdd = pd.read_excel(DEGREE_DAYS, sheet_name="Normals month").set_index("month")
-    cities = pd.read_excel(DEGREE_DAYS, sheet_name="Cities")
-    cities["city_id"] = cities["country_code"] + "|" + cities["city"]
-    frames = []
-    for y in range(1991, 2021):
-        f = os.path.join(T2M_STORE, f"city_t2m_{y}.csv.gz")
-        with gzip.open(f, "rt", encoding="utf-8") as fh:
-            frames.append(pd.read_csv(fh, index_col=0, parse_dates=True))
-    t = pd.concat(frames)
-    monthly = t.groupby(t.index.month).mean()          # mean daily temperature by calendar month, 1991-2020, per city
-    temp = {}
-    for wc in {v[1] for v in COUNTRIES.values()}:
-        g = cities[cities["country_code"] == wc]
-        cols = [c for c in g["city_id"] if c in monthly.columns]
-        w = g.set_index("city_id")["weight"].reindex(cols)
-        temp[wc] = (monthly[cols] * w).sum(axis=1) / w.sum()
-    temp = pd.DataFrame(temp)
-    out(f"Weather normals: HDD from 'Normals month', temperature from {len(frames)} years of the city store")
-    return hdd, temp
+    """Normal (1991-2020) monthly HDD and CDD 18C and the actual monthly series, from europe_degree_days.xlsx."""
+    norm = pd.read_excel(DEGREE_DAYS, sheet_name="Normals month").set_index("month")
+    act = pd.read_excel(DEGREE_DAYS, sheet_name="Monthly")
+    act["month"] = pd.to_datetime(act["month"]).dt.date
+    act = act.set_index("month")
+    out(f"Weather: normals and actual monthly degree days to {max(act.index):%b %Y}")
+    return norm, act
 
 
 def population():
@@ -387,6 +373,14 @@ def header(ws, row, values, col=1):
         c.alignment = Alignment(wrap_text=True, vertical="top")
 
 
+def cop_formula(t):
+    """Excel expression: air-source COP (When2Heat curve x correction) at temperature cell t, radiator/floor mix."""
+    d_rad, d_flo = f"((40-{t})-{t})", f"((30-0.5*{t})-{t})"
+    cop_rad = f"cop_corr*(cop_a0+cop_a1*{d_rad}+cop_a2*{d_rad}^2)"
+    cop_flo = f"cop_corr*(cop_a0+cop_a1*{d_flo}+cop_a2*{d_flo}^2)"
+    return f"1/(rad_share/{cop_rad}+(1-rad_share)/{cop_flo})"
+
+
 def line_chart(title, y_title, ws_data, cat_col, val_cols, first_row, last_row, header_row):
     ch = LineChart()
     ch.title, ch.y_axis.title = title, y_title
@@ -404,7 +398,7 @@ def line_chart(title, y_title, ws_data, cat_col, val_cols, first_row, last_row, 
     return ch
 
 
-def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
+def build(path, inp, sts, hist, cop, norm, act, upd, pop, penhist):
     wb = Workbook()
     codes = list(inp.index)
     n = len(codes)
@@ -419,7 +413,7 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
         "HOW TO USE",
         "Change any YELLOW cell on 'Global' or 'Countries'; every forecast figure is an Excel formula and updates at once.",
         "Pick a country on 'Dashboard' (cell B2) to see its monthly electricity demand and gas avoided.",
-        "Forecast: monthly, Jan 2025 - Dec 2030, at NORMAL weather (1991-2020). History (annual, Eurostat) on 'History'.",
+        "Forecast: monthly, Jan 2025 - Dec 2030, at the weather on 'Degree days' (actual months to the latest NASA POWER month, then 1991-2020 normals - paste your own HDD/CDD there). History (annual, Eurostat) on 'History'.",
         "",
         "METHOD (per country and month)",
         "Growth method per country ('Countries', yellow): S-CURVE (default) - household penetration = saturation / "
@@ -429,8 +423,8 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
         "is solved so the curve passes through the last Eurostat year. LINEAR - capacity = last Eurostat year + yearly "
         "addition x years since then (used where penetration is already above 60%: Portugal, Malta).",
         "Heat (TWh) = capacity x full-load hours x monthly share; monthly share = hot-water share / 12 + (1 - hot-water share) "
-        "x normal HDD of the month / normal HDD of the year.",
-        "Electricity (TWh) = heat / COP. Air source: COP of the month from its normal outdoor temperature with the When2Heat "
+        "x HDD of the month ('Degree days') / normal HDD of the year, so a cold month gives more heat.",
+        "Electricity (TWh) = heat / COP. Air source: COP of the month from its mean temperature (18 - (HDD - CDD) / days) with the When2Heat "
         "curve (radiator and underfloor sinks mixed by 'Global'), scaled so the heat-weighted year equals the Eurostat SPF. "
         "Ground and water source: the Eurostat SPF, flat. Shown as average GW (TWh / hours in the month).",
         "Gas avoided = heat x gas share of household space heating / gas boiler efficiency; Bcf/d via GWh per mcm and "
@@ -557,11 +551,12 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
 
     # ---- Weather (normals, COP, monthly share) - one column per country, same order as 'Countries'
     w = wb.create_sheet("Weather")
-    blocks = {"hdd": 1, "temp": 16, "copraw": 31, "share": 46}
+    blocks = {"hdd": 1, "cdd": 16, "temp": 31, "copraw": 46, "share": 61}
     titles = {"hdd": "Normal HDD 18C (1991-2020), SOURCED europe_degree_days.xlsx 'Normals month'",
-              "temp": "Normal mean temperature (C, 1991-2020), DERIVED from the NASA POWER city store, population-weighted",
+              "cdd": "Normal CDD 18C (1991-2020), SOURCED europe_degree_days.xlsx 'Normals month'",
+              "temp": "Normal mean temperature (C) = 18 - (HDD - CDD) / days (exact for 18C degree days)",
               "copraw": "Air-source COP from the When2Heat curve at the normal temperature (before scaling to the SPF)",
-              "share": "Share of the year's heat in the month (hot water flat + space heating by HDD)"}
+              "share": "Share of the year's heat in a normal month (hot water flat + space heating by HDD)"}
     for b, r0 in blocks.items():
         w.cell(r0, 1, titles[b]).font = BOLD
         header(w, r0 + 1, ["Month"] + codes)
@@ -571,16 +566,13 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
             for j, geo in enumerate(codes, 2):
                 wc = inp.loc[geo, "wc"]
                 cr = j  # Countries row of this geo is j (row 2 = first country) - same index
-                if b == "hdd":
-                    w.cell(rr, j, round(float(hdd.loc[m, f"{wc} HDD 18C"]), 2))
+                if b in ("hdd", "cdd"):
+                    w.cell(rr, j, round(float(norm.loc[m, f"{wc} {b.upper()} 18C"]), 2))
                 elif b == "temp":
-                    w.cell(rr, j, round(float(temp.loc[m, wc]), 2))
+                    hd, cd = f"{L(j)}{blocks['hdd'] + 1 + m}", f"{L(j)}{blocks['cdd'] + 1 + m}"
+                    w.cell(rr, j, f"=18-({hd}-{cd})/DAY(EOMONTH(DATE(2001,$A{rr},1),0))")
                 elif b == "copraw":
-                    t = f"{L(j)}{blocks['temp'] + 1 + m}"
-                    d_rad, d_flo = f"((40-{t})-{t})", f"((30-0.5*{t})-{t})"
-                    cop_rad = f"cop_corr*(cop_a0+cop_a1*{d_rad}+cop_a2*{d_rad}^2)"
-                    cop_flo = f"cop_corr*(cop_a0+cop_a1*{d_flo}+cop_a2*{d_flo}^2)"
-                    w.cell(rr, j, f"=1/(rad_share/{cop_rad}+(1-rad_share)/{cop_flo})")
+                    w.cell(rr, j, "=" + cop_formula(f"{L(j)}{blocks['temp'] + 1 + m}"))
                 else:
                     h0, h1 = blocks["hdd"] + 2, blocks["hdd"] + 13
                     hw = f"Countries!${L(COL['hw'])}${cr}"
@@ -592,6 +584,31 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
         cp = f"Weather!{L(j)}{blocks['copraw'] + 2}:{L(j)}{blocks['copraw'] + 13}"
         c_ws.cell(j, COL["scale"], f"=IFERROR({L(COL['ATH_spf'])}{j}*SUMPRODUCT({sh}/{cp}),0)").fill = GREY
 
+    # ---- Degree days for the forecast months (yellow; actual where the repo has the month, else normal)
+    dd = wb.create_sheet("Degree days")
+    last_act = max(d for d in act.index if pd.notna(act.loc[d, "DE HDD 18C"]))
+    dd.cell(1, 1, f"Monthly degree days by country, base 18C, population-weighted (NASA POWER, europe_degree_days.xlsx). "
+                  f"Defaults: ACTUAL months to {last_act:%b %Y}, then the 1991-2020 NORMAL. Paste your own over the "
+                  "yellow cells (same countries and months). HDD drives the heat of the month; HDD and CDD together give "
+                  "the month's mean temperature (18 - (HDD - CDD) / days), which sets the air-source COP.").font = BOLD
+    HD0, CD0 = 3, 4 + n                     # first HDD and CDD columns
+    header(dd, 2, ["Month", "Basis"] + [f"{c} HDD" for c in codes] + [""] + [f"{c} CDD" for c in codes])
+    ddrow = {}
+    for i, d in enumerate(mlist, 3):
+        ddrow[d] = i
+        dd.cell(i, 1, d).number_format = "mmm/yy"
+        actual = d <= last_act
+        dd.cell(i, 2, "actual" if actual else "normal 1991-2020")
+        for j, geo in enumerate(codes):
+            wc = inp.loc[geo, "wc"]
+            for c0, kind in ((HD0, "HDD"), (CD0, "CDD")):
+                v = act.loc[d, f"{wc} {kind} 18C"] if actual and d in act.index else None
+                if v is None or pd.isna(v):
+                    v = norm.loc[d.month, f"{wc} {kind} 18C"]
+                dd.cell(i, c0 + j, round(float(v), 1)).fill = YELLOW
+    dd.column_dimensions["B"].width = 16
+    dd.freeze_panes = "C3"
+
     # ---- Calc (long: one row per country and month)
     calc = wb.create_sheet("Calc")
     ch = ["Code", "Month", "Year", "Days", "Months since last Eurostat year-end",
@@ -599,7 +616,7 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
           "Air heat (TWh)", "Ground heat (TWh)", "Water heat (TWh)", "Heat (TWh)", "Air COP",
           "Electricity (TWh)", "Electricity (average GW)", "Heat (average GW)", "Gas avoided (TWh)",
           "Gas avoided (Bcf/d)", "Penetration (S-curve)", "Household heating need (TWh/yr)",
-          "Heat-pump heat, S-curve (TWh/yr)"]
+          "Heat-pump heat, S-curve (TWh/yr)", "HDD", "CDD", "Mean temperature (C)"]
     header(calc, 1, ch)
     rowmap = {}
     r = 2
@@ -624,11 +641,17 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
                 # S-curve capacity: tech keeps its last-year share of heat-pump heat; capacity = heat / hours
                 scurve = f"IFERROR(V{r}*1000000*{C(t + '_cap')}/({base_heat}),0)"
                 calc.cell(r, 6 + i, f"=IF({C('method')}=\"Linear\",{linear},{scurve})")
-            calc.cell(r, 9, f"=Weather!{L(j)}{blocks['share'] + 1 + m}")
+            jj = j - 2                                                  # country index on 'Degree days'
+            calc.cell(r, 23, f"='Degree days'!{L(HD0 + jj)}{ddrow[d]}")
+            calc.cell(r, 24, f"='Degree days'!{L(CD0 + jj)}{ddrow[d]}")
+            calc.cell(r, 25, f"=18-(W{r}-X{r})/D{r}")
+            hw = C("hw")
+            hn = f"SUM(Weather!{L(j)}${blocks['hdd'] + 2}:{L(j)}${blocks['hdd'] + 13})"
+            calc.cell(r, 9, f"={hw}/12+(1-{hw})*W{r}/{hn}")
             for i, (t, _) in enumerate(TECHS):
                 calc.cell(r, 10 + i, f"={L(6 + i)}{r}*{C(t + '_hours')}*I{r}/1000000")
             calc.cell(r, 13, f"=SUM(J{r}:L{r})")
-            calc.cell(r, 14, f"={C('scale')}*Weather!{L(j)}{blocks['copraw'] + 1 + m}")
+            calc.cell(r, 14, f"={C('scale')}*" + cop_formula(f"Y{r}"))
             calc.cell(r, 15, f"=IFERROR(J{r}/N{r},0)+IFERROR(K{r}/{C('GTH_spf')},0)+IFERROR(L{r}/{C('HTH_spf')},0)")
             calc.cell(r, 16, f"=O{r}*1000/(24*D{r})")
             calc.cell(r, 17, f"=M{r}*1000/(24*D{r})")
@@ -659,7 +682,7 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
     # ---- Annual summary (formulas)
     a = wb.create_sheet("Annual")
     years = sorted({d.year for d in mlist})
-    a.cell(1, 1, "Annual totals by country (forecast, normal weather) - TWh; gas avoided in bcm").font = BOLD
+    a.cell(1, 1, "Annual totals by country (forecast; degree days as on 'Degree days') - TWh; gas avoided in bcm").font = BOLD
     for b, (label, col, scale) in enumerate((("Electricity (TWh)", "O", 1), ("Heat (TWh)", "M", 1),
                                              ("Gas avoided (bcm)", "R", None))):
         r0 = 3 + b * (n + 4)
@@ -722,7 +745,7 @@ def build(path, inp, sts, hist, cop, hdd, temp, upd, pop, penhist):
 
     # ---- Dashboard: country picker + charts
     db = wb.create_sheet("Dashboard", 1)
-    db.cell(1, 1, "Heat pump demand - pick a country in B2 (forecast at normal weather)").font = Font(bold=True, size=12)
+    db.cell(1, 1, "Heat pump demand - pick a country in B2 (degree days on 'Degree days': actual, then normal)").font = Font(bold=True, size=12)
     db.cell(2, 1, "Country").font = BOLD
     pick = db.cell(2, 2, "Germany")
     pick.fill = YELLOW
@@ -797,8 +820,8 @@ def make_pngs(path):
     os.makedirs(pngdir, exist_ok=True)
     stem = os.path.splitext(os.path.basename(path))[0]
     for df, col, title, unit, name in (
-            (e, total, "Heat pump electricity demand - EU27 + UK + Norway (normal weather)", "Average GW", "Electricity_total"),
-            (g, total, "Gas a boiler would have burned - EU27 + UK + Norway (normal weather)", "Bcf/d", "Gas_avoided_total")):
+            (e, total, "Heat pump electricity demand - EU27 + UK + Norway (degree days: actual, then normal)", "Average GW", "Electricity_total"),
+            (g, total, "Gas a boiler would have burned - EU27 + UK + Norway (degree days: actual, then normal)", "Bcf/d", "Gas_avoided_total")):
         fig, ax = plt.subplots(figsize=(10, 4.5))
         ax.plot(pd.to_datetime(df["Month"]), df[col].astype(float), color="#1f77b4", lw=2)
         ax.set_title(title, fontsize=12, fontweight="bold")
@@ -820,7 +843,7 @@ def make_pngs(path):
     v2030 = blk.set_index(0)[1 + years.index(2030)].astype(float).sort_values()
     fig, ax = plt.subplots(figsize=(9, 7))
     ax.barh(v2030.index, v2030.values, color="#1f77b4")
-    ax.set_title("Heat pump electricity demand by country, 2030 (normal weather)", fontsize=12, fontweight="bold")
+    ax.set_title("Heat pump electricity demand by country, 2030 (degree days: actual, then normal)", fontsize=12, fontweight="bold")
     ax.set_xlabel("TWh per year")
     for sp in ax.spines.values():
         sp.set_visible(False)
@@ -840,10 +863,10 @@ def main():
     hh, upd_hhq = household_split()
     inp, sts = build_inputs(stock, hh)
     hist = history_table(stock)
-    hdd, temp = weather_normals()
+    norm, act = weather_normals()
     pop = population()
     penhist = add_penetration(inp, sts, stock, pop, household_size(), household_heat())
-    build(args.out, inp, sts, hist, cop_parameters(), hdd, temp, {"hptc": upd_hptc, "hhq": upd_hhq}, pop, penhist)
+    build(args.out, inp, sts, hist, cop_parameters(), norm, act, {"hptc": upd_hptc, "hhq": upd_hhq}, pop, penhist)
     make_pngs(args.out)
 
 
